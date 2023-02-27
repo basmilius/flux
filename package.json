@@ -9,7 +9,7 @@
         "example": "pnpm run -C packages/example dev",
         "link:2": "pnpm link --dir packages/vue2 --global",
         "link:3": "pnpm link --dir packages/vue3 --global",
-        "publish": "publish.sh"
+        "publish": "./publish.sh"
     },
     "engines": {
         "node": ">=18"
