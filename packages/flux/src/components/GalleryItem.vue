@@ -12,6 +12,12 @@
             v-if="isDeletable"
             :is-hidden="!isDeleteVisible"
             @click="$emit('delete')"/>
+
+        <div
+            v-if="isPending"
+            class="flux-pane-overlay">
+            <flux-spinner :size="24"/>
+        </div>
     </div>
 </template>
 
@@ -19,7 +25,7 @@
     lang="ts"
     setup>
     import { ref } from 'vue-demi';
-    import { FluxRemove } from '.';
+    import { FluxRemove, FluxSpinner } from '.';
 
     interface Emits {
         (e: 'delete'): void;
@@ -27,6 +33,7 @@
 
     interface Props {
         readonly isDeletable?: boolean;
+        readonly isPending?: boolean;
         readonly url: string;
     }
 
@@ -51,6 +58,16 @@
             box-shadow: inset 0 0 0 1px rgb(0 0 0 / .05);
             object-fit: cover;
             object-position: center;
+        }
+
+        .flux-pane-overlay {
+            inset: 1px;
+            border-radius: calc(var(--radius) - 1px);
+            z-index: 0;
+        }
+
+        .flux-remove {
+            z-index: 1;
         }
     }
 </style>

@@ -35,6 +35,7 @@
             align-items: center;
             justify-content: center;
             background: var(--surface-overlay);
+            border-radius: inherit;
             z-index: 100;
         }
     }

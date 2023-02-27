@@ -125,6 +125,17 @@
             color: var(--foreground-muted);
         }
 
+        &::-webkit-color-swatch {
+            border: 0;
+            border-radius: calc(var(--radius) / 2);
+        }
+
+        &::-webkit-color-swatch-wrapper {
+            margin: 0 -12px;
+            padding: 3px;
+            width: calc(100% + 24px);
+        }
+
         &.is-disabled {
             background: var(--gray-2);
             cursor: not-allowed;

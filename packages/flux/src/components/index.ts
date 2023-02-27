@@ -24,6 +24,7 @@ export { default as FluxMenuGroup } from './MenuGroup.vue';
 export { default as FluxMenuItem } from './MenuItem.vue';
 export { default as FluxMenuSubHeader } from './MenuSubHeader.vue';
 export { default as FluxNotice } from './Notice.vue';
+export { default as FluxNoticeStack } from './NoticeStack.vue';
 export { default as FluxOverlay } from './Overlay.vue';
 export { default as FluxPane } from './Pane.vue';
 export { default as FluxPaneBody } from './PaneBody.vue';

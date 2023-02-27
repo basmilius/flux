@@ -117,8 +117,4 @@
             margin-bottom: -3px;
         }
     }
-
-    .flux-notice + .flux-notice {
-        margin-top: 15px;
-    }
 </style>

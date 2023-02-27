@@ -20,6 +20,12 @@
                 :url="item"
                 @delete="$emit('delete', index)"/>
 
+            <flux-gallery-item
+                v-for="item of pendingItems"
+                is-pending
+                :key="item"
+                :url="item"/>
+
             <button
                 key="gallery-add"
                 class="flux-placeholder flux-gallery-add"
@@ -46,6 +52,7 @@
     interface Props {
         readonly isEditable?: boolean;
         readonly items: string[];
+        readonly pendingItems?: string[];
     }
 
     const emit = defineEmits<Emits>();
@@ -88,18 +95,7 @@
         }
     }
 
-    .gallery-move,
-    .gallery-enter-active,
-    .gallery-leave-active {
+    .gallery-move {
         transition: 360ms var(--swift-out);
-    }
-
-    .gallery-enter,
-    .gallery-leave-to {
-        opacity: 0;
-    }
-
-    .gallery-leave-active {
-        position: absolute;
     }
 </style>
