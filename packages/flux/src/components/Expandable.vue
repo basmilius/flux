@@ -35,7 +35,7 @@
     lang="ts"
     setup>
     import { getCurrentInstance, inject, onMounted, onUnmounted, ref, unref } from 'vue-demi';
-    import { useComponentId } from "../composables";
+    import { useComponentId } from '../composables';
     import { FluxAutoHeightTransition } from '../transition';
     import { FluxIcon } from '.';
 
@@ -60,12 +60,14 @@
     onUnmounted(() => unregister?.(unref(id)));
 
     function close(): void {
-        emit('toggle', isOpen.value = false);
+        isOpen.value = false;
+        emit('toggle', isOpen.value);
     }
 
     function open(): void {
         closeAll?.();
-        emit('toggle', isOpen.value = true);
+        isOpen.value = true;
+        emit('toggle', isOpen.value);
     }
 
     function toggle(): void {
@@ -128,7 +130,7 @@
 
             &.v-enter-to,
             &.v-leave,
-            &.v-leave-from{
+            &.v-leave-from {
                 opacity: 1;
             }
 
