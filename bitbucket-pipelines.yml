@@ -1,0 +1,90 @@
+image: node:18
+
+clone:
+    depth: 1
+
+options:
+    docker: true
+    size: 2x
+
+definitions:
+    services:
+        docker:
+            memory: 4096
+
+    steps:
+        - step: &build
+              name: Build
+              runs-on:
+                  - 'self.hosted'
+                  - 'linux'
+              caches:
+                  - node
+              script:
+                  - npm i -g pnpm
+                  - pnpm install
+                  - pnpm build
+
+        - step: &sonar-scan-main
+              name: SonarQube scan
+              runs-on:
+                  - 'self.hosted'
+                  - 'linux'
+              script:
+                  - pipe: sonarsource/sonarqube-scan:1.2.0
+                    variables:
+                        SONAR_HOST_URL: ${SONARQUBE_HOST}
+                        SONAR_TOKEN: ${SONAR_TOKEN}
+
+        - step: &sonar-scan
+              name: SonarQube scan
+              runs-on:
+                  - 'self.hosted'
+                  - 'linux'
+              script:
+                  - pipe: sonarsource/sonarqube-scan:1.2.0
+                    variables:
+                        SONAR_HOST_URL: ${SONARQUBE_HOST}
+                        SONAR_TOKEN: ${SONAR_TOKEN}
+                        EXTRA_ARGS: -Dsonar.branch.name=${BITBUCKET_BRANCH}
+                            -Dsonar.projectVersion=${BITBUCKET_COMMIT}
+
+        - step: &sonar-scan-pr
+              name: SonarQube scan
+              runs-on:
+                  - 'self.hosted'
+                  - 'linux'
+              script:
+                  - pipe: sonarsource/sonarqube-scan:1.2.0
+                    variables:
+                        SONAR_HOST_URL: ${SONARQUBE_HOST}
+                        SONAR_TOKEN: ${SONAR_TOKEN}
+                        EXTRA_ARGS: -Dsonar.pullrequest.key=${BITBUCKET_PR_ID}
+                            -Dsonar.pullrequest.branch=${BITBUCKET_BRANCH}
+                            -Dsonar.pullrequest.base=${BITBUCKET_PR_DESTINATION_BRANCH}
+
+pipelines:
+    branches:
+        main:
+            - step: *build
+            - step: *sonar-scan-main
+
+        develop:
+            - step: *build
+            - step: *sonar-scan
+            - step:
+                  name: Publish to registry
+                  runs-on:
+                      - 'self.hosted'
+                      - 'linux'
+                  deployment: staging
+                  trigger: automatic
+                  script:
+                      - npm i -g pnpm
+                      - pnpm install
+                      - npm run publish
+
+    pull-requests:
+        '**':
+            - step: *build
+            - step: *sonar-scan-pr
