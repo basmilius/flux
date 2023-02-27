@@ -73,7 +73,7 @@ pipelines:
             - step: *build
             - step: *sonar-scan
             - step:
-                  name: Deploy to staging
+                  name: Publish to registry
                   runs-on:
                       - 'self.hosted'
                       - 'linux'
@@ -88,15 +88,3 @@ pipelines:
         '**':
             - step: *build
             - step: *sonar-scan-pr
-
-    custom:
-        deploy-to-prod:
-            - step:
-                  name: Deploy to production
-                  runs-on:
-                      - 'self.hosted'
-                      - 'linux'
-                  deployment: production
-                  trigger: manual
-                  script:
-                      - echo "Todo, deploy to production environment"
