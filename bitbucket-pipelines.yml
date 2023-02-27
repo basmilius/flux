@@ -31,7 +31,7 @@ definitions:
                   - 'self.hosted'
                   - 'linux'
               script:
-                  - pipe: sonarsource/sonarqube-scan:1.1.0
+                  - pipe: sonarsource/sonarqube-scan:1.2.0
                     variables:
                         SONAR_HOST_URL: ${SONARQUBE_HOST}
                         SONAR_TOKEN: ${SONAR_TOKEN}
@@ -42,12 +42,12 @@ definitions:
                   - 'self.hosted'
                   - 'linux'
               script:
-                  - pipe: sonarsource/sonarqube-scan:1.1.0
+                  - pipe: sonarsource/sonarqube-scan:1.2.0
                     variables:
                         SONAR_HOST_URL: ${SONARQUBE_HOST}
                         SONAR_TOKEN: ${SONAR_TOKEN}
-                        EXTRA_ARGS: -Dsonar.branch.name=\"${BITBUCKET_BRANCH}\"
-                            -Dsonar.projectVersion=\"${BITBUCKET_COMMIT}\"
+                        EXTRA_ARGS: -Dsonar.branch.name=${BITBUCKET_BRANCH}
+                            -Dsonar.projectVersion=${BITBUCKET_COMMIT}
 
         - step: &sonar-scan-pr
               name: SonarQube scan
@@ -55,13 +55,13 @@ definitions:
                   - 'self.hosted'
                   - 'linux'
               script:
-                  - pipe: sonarsource/sonarqube-scan:1.1.0
+                  - pipe: sonarsource/sonarqube-scan:1.2.0
                     variables:
                         SONAR_HOST_URL: ${SONARQUBE_HOST}
                         SONAR_TOKEN: ${SONAR_TOKEN}
-                        EXTRA_ARGS: -Dsonar.pullrequest.key=\"${BITBUCKET_PR_ID}\"
-                            -Dsonar.pullrequest.branch=\"${BITBUCKET_BRANCH}\"
-                            -Dsonar.pullrequest.base=\"${BITBUCKET_PR_DESTINATION_BRANCH}\"
+                        EXTRA_ARGS: -Dsonar.pullrequest.key=${BITBUCKET_PR_ID}
+                            -Dsonar.pullrequest.branch=${BITBUCKET_BRANCH}
+                            -Dsonar.pullrequest.base=${BITBUCKET_PR_DESTINATION_BRANCH}
 
 pipelines:
     branches:
