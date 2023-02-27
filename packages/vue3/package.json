@@ -1,0 +1,35 @@
+{
+    "name": "@fancee/flux",
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "build": "vue-demi-switch 3 && vite build",
+        "build:watch": "vue-demi-switch 3 && vite build --watch"
+    },
+    "exports": {
+        ".": {
+            "import": "./dist/fancee.flux.js",
+            "require": "./dist/fancee.flux.umd.cjs"
+        },
+        "./style.css": "./dist/style.css"
+    },
+    "types": "./dist/index.d.ts",
+    "dependencies": {
+        "vue-demi": "^0.13.11"
+    },
+    "devDependencies": {
+        "@fortawesome/fontawesome-common-types": "^6.3.0",
+        "@vitejs/plugin-vue": "^4.0.0",
+        "@vue/compiler-sfc": "^3.2.47",
+        "luxon": "^3.2.1",
+        "pinia": "^2.0.32",
+        "vite": "^4.1.4",
+        "vite-plugin-dts": "^2.0.2",
+        "vue": "^3.2.47"
+    },
+    "peerDependencies": {
+        "luxon": "^3.2.1",
+        "pinia": "^2.0.32",
+        "vue": "^3.2.47"
+    }
+}
