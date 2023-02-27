@@ -132,10 +132,6 @@
 
         input.addEventListener('change', onFileSelected, {once: true});
         input.showPicker();
-
-        // note: This is assigned back to undefined so the browser can
-        //  discard the element.
-        input = undefined;
     }
 
     defineExpose({

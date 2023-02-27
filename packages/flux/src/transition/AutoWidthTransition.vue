@@ -28,7 +28,7 @@
         elm.style.width = '0';
 
         // note: force repaint.
-        getComputedStyle(elm).width;
+        getComputedStyle(elm);
 
         requestAnimationFrame(() => elm.style.width = width);
     }
@@ -38,7 +38,7 @@
         elm.style.width = width;
 
         // note: force repaint.
-        getComputedStyle(elm).width;
+        getComputedStyle(elm);
 
         requestAnimationFrame(() => elm.style.width = '0');
     }

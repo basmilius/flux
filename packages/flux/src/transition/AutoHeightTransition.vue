@@ -28,7 +28,7 @@
         elm.style.height = '0';
 
         // note: force repaint.
-        getComputedStyle(elm).height;
+        getComputedStyle(elm);
 
         requestAnimationFrame(() => elm.style.height = height);
     }
@@ -38,7 +38,7 @@
         elm.style.height = height;
 
         // note: force repaint.
-        getComputedStyle(elm).height;
+        getComputedStyle(elm);
 
         requestAnimationFrame(() => elm.style.height = '0');
     }
