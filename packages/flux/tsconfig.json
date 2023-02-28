@@ -14,11 +14,13 @@
             "DOM"
         ],
         "skipLibCheck": true,
-        "noEmit": true
+        "noEmit": true,
+        "declaration": true,
+        "outDir": "dist"
     },
     "include": [
         "./src/**/*.ts",
-        "./src/**/*.vue",
+        "./src/**/*.vue"
     ],
     "exclude": [
         "dist",

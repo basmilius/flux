@@ -1,19 +1,30 @@
 {
     "name": "@fancee/flux",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "type": "module",
     "scripts": {
-        "build": "vue-demi-switch 3 && vite build",
-        "build:watch": "vue-demi-switch 3 && vite build --watch"
+        "build": "vue-demi-switch 3 && vite build && pnpm run gentypes",
+        "build:watch": "vue-demi-switch 3 && vite build --watch",
+        "gentypes": "pnpm gentypes:dts && pnpm gentypes:webtypes && pnpm gentypes:clean",
+        "gentypes:clean": "mv dist/flux/src/* dist && rm -rf dist/flux dist/vue3",
+        "gentypes:dts": "vue-tsc --declaration --lib esnext,dom --outDir dist --emitDeclarationOnly index.ts",
+        "gentypes:webtypes": "vue-docgen-web-types --configFile ../../web-types-gen.config.json"
     },
     "exports": {
         ".": {
             "import": "./dist/fancee.flux.js",
-            "require": "./dist/fancee.flux.umd.cjs"
+            "require": "./dist/fancee.flux.umd.cjs",
+            "types": "./dist/index.d.ts"
         },
         "./style.css": "./dist/style.css"
     },
+    "files": [
+        "dist"
+    ],
+    "main": "./dist/fancee.flux.umd.cjs",
+    "module": "./dist/fancee.flux.js",
     "types": "./dist/index.d.ts",
+    "web-types": "dist/web-types.json",
     "dependencies": {
         "vue-demi": "^0.13.11"
     },
@@ -22,10 +33,13 @@
         "@vitejs/plugin-vue": "^4.0.0",
         "@vue/compiler-sfc": "^3.2.47",
         "luxon": "^3.2.1",
+        "minimist": "^1.2.8",
         "pinia": "^2.0.32",
+        "typescript": "^4.9.5",
         "vite": "^4.1.4",
-        "vite-plugin-dts": "^2.0.2",
-        "vue": "^3.2.47"
+        "vue": "^3.2.47",
+        "vue-docgen-web-types": "^0.1.8",
+        "vue-tsc": "^1.2.0"
     },
     "peerDependencies": {
         "luxon": "^3.2.1",
