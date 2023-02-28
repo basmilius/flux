@@ -12,3 +12,9 @@ as optional, which will render the optional text next to the label.
 | `hint`        | `string`  | The hint that should be shown below the form element.  |
 | `is-optional` | `boolean` | Marks the field as optional.                           |
 | `label`       | `string`  | The label of the form element.                         |
+
+### Slots
+
+| Name    | Context |
+|---------|---------|
+| default | {}      |

@@ -8,3 +8,9 @@ interface. It serves as a way to separate and organize information.
 | Name         | Type      | Description                                  |
 |--------------|-----------|----------------------------------------------|
 | `is-loading` | `boolean` | Wether the pane should show a loading state. |
+
+### Slots
+
+| Name    | Context |
+|---------|---------|
+| default | {}      |

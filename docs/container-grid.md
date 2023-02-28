@@ -12,3 +12,9 @@ creating basic layouts and structuring content.
 | Name     | Type                                                    | Description             |
 |----------|---------------------------------------------------------|-------------------------|
 | `layout` | `'cards' \| 'full' \| 'sidebar-start' \| 'sidebar-end'` | Which grid type to use. |
+
+### Slots
+
+| Name    | Context |
+|---------|---------|
+| default | {}      |

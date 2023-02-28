@@ -17,3 +17,9 @@ customizable, meaning its appearance and behavior cannot be altered by the user.
 | Name    | Type       | Description                           |
 |---------|------------|---------------------------------------|
 | `close` | `(): void` | Triggered when the overlay is closed. |
+
+### Slots
+
+| Name    | Context |
+|---------|---------|
+| default | {}      |

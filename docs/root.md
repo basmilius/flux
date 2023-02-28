@@ -4,3 +4,9 @@ Some functionality of Flux require a root element where other elements can be in
 should be used as the main component of your application.
 
 Alerts and confirms are rendered here for example.
+
+### Slots
+
+| Name    | Context |
+|---------|---------|
+| default | {}      |

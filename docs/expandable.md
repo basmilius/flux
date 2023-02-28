@@ -15,3 +15,11 @@ reveal or hide the content.
 | Name     | Type                | Description                            |
 |----------|---------------------|----------------------------------------|
 | `toggle` | `(opened: boolean)` | The new opened state of the component. |
+
+### Slots
+
+| Name    | Context                                                                                |
+|---------|----------------------------------------------------------------------------------------|
+| default | { label: string; close: Function; }                                                    |
+| header  | { label: string; isOpen: boolean; close: Function; open: Function; toggle: Function; } |
+| body    | { label: string; close: Function; }                                                    |

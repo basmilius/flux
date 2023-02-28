@@ -8,3 +8,9 @@ The header of `<flux-pane/>`. Used to display a header.
 |---------|-------------|-------------------------------|
 | `icon`  | `IconNames` | The icon used for the header. |
 | `title` | `string`    | The title of the header.      |
+
+### Slots
+
+| Name    | Context |
+|---------|---------|
+| default | {}      |

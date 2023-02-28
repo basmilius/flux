@@ -8,3 +8,9 @@ to keep it in that ratio.
 | Name           | Type     | Description                                                   |
 |----------------|----------|---------------------------------------------------------------|
 | `aspect-ratio` | `number` | The aspect ratio. This may contain formulas such as: `16 / 9` |
+
+### Slots
+
+| Name    | Context |
+|---------|---------|
+| default | {}      |
