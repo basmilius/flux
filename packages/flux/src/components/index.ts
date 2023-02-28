@@ -1,6 +1,7 @@
 export { default as FluxAlert } from './FluxAlert.vue';
 export { default as FluxAspectRatio } from './FluxAspectRatio.vue';
 export { default as FluxBadge } from './FluxBadge.vue';
+export { default as FluxBadgeStack } from './FluxBadgeStack.vue';
 export { default as FluxBaseButton } from './FluxBaseButton.vue';
 export { default as FluxConfirm } from './FluxConfirm.vue';
 export { default as FluxContainerGrid } from './FluxContainerGrid.vue';

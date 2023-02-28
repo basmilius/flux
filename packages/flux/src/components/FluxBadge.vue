@@ -1,16 +1,23 @@
 <template>
-    <div
+    <component
+        :is="component"
         class="flux-badge"
         :class="{
             [`flux-badge-${color}`]: true,
             'flux-badge-text-only': !dot && !icon && color
-        }">
+        }"
+        @click="onClick">
+        <flux-spinner
+            v-if="isLoading"
+            class="flux-badge-icon"
+            :size="16"/>
+
         <span
-            v-if="dot"
+            v-else-if="dot"
             class="flux-badge-dot"/>
 
         <flux-icon
-            v-if="icon"
+            v-else-if="icon"
             class="flux-badge-icon"
             :size="16"
             :variant="icon"/>
@@ -18,21 +25,24 @@
         <span>{{ label }}</span>
 
         <button
-            v-if="isDeletable"
+            v-if="!isClickable && isDeletable"
             class="flux-badge-close"
             @click="$emit('delete')">
             <flux-icon variant="xmark"/>
         </button>
-    </div>
+    </component>
 </template>
 
 <script
     lang="ts"
     setup>
+    import { computed, toRefs, unref } from 'vue-demi';
     import { IconNames } from '../data';
-    import { FluxIcon } from '.';
+    import { FluxIcon, FluxSpinner } from '.';
 
     export interface Emits {
+        (e: 'click', evt: MouseEvent): void;
+
         (e: 'delete'): void;
     }
 
@@ -40,12 +50,25 @@
         readonly color?: 'primary' | 'error' | 'info' | 'success' | 'warning';
         readonly dot?: boolean;
         readonly icon?: IconNames;
+        readonly isClickable?: boolean;
         readonly isDeletable?: boolean;
+        readonly isLoading?: boolean;
         readonly label: string;
     }
 
-    defineEmits<Emits>();
-    defineProps<Props>();
+    const emit = defineEmits<Emits>();
+    const props = defineProps<Props>();
+    const {isClickable} = toRefs(props);
+
+    const component = computed(() => unref(isClickable) ? 'button' : 'div');
+
+    function onClick(evt: MouseEvent): void {
+        if (!unref(isClickable)) {
+            return;
+        }
+
+        emit('click', evt);
+    }
 </script>
 
 <style lang="scss">
@@ -116,6 +139,16 @@
 
         &-text-only {
             border-color: var(--color);
+        }
+    }
+
+    button.flux-badge {
+        background: unset;
+        cursor: pointer;
+        transition: background 180ms var(--swift-out);
+
+        &:hover {
+            background: var(--gray-2);
         }
     }
 </style>
