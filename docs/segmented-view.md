@@ -8,3 +8,9 @@ container for multiple views and allows the user to switch between them using `<
 | Name    | Type      | Description                                    |
 |---------|-----------|------------------------------------------------|
 | `index` | `integer` | The index of the child that should be visible. |
+
+### Slots
+
+| Name    | Context |
+|---------|---------|
+| default | {}      |

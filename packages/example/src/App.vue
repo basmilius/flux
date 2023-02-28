@@ -5,7 +5,39 @@
             <flux-pane>
                 <flux-expandable-group>
                     <flux-expandable label="Expandable 1">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda distinctio illum laborum libero provident vel! Aperiam atque, debitis eum magnam modi nulla officiis quae quidem quisquam repellat repellendus repudiandae soluta.
+                        <template #body>
+                            <flux-menu>
+                                <flux-menu-group>
+                                    <flux-menu-item
+                                        icon-before="circle"
+                                        label="Cut"/>
+                                    <flux-menu-item
+                                        command="⌘C"
+                                        icon-before="circle"
+                                        label="Copy"/>
+                                    <flux-menu-item
+                                        command="⌘V"
+                                        icon-before="circle"
+                                        label="Paste"/>
+                                </flux-menu-group>
+                                <flux-separator/>
+                                <flux-menu-group>
+                                    <flux-menu-item
+                                        icon-before="circle"
+                                        label="Download..."/>
+                                    <flux-menu-item
+                                        icon-before="circle"
+                                        label="Modify..."/>
+                                </flux-menu-group>
+                                <flux-separator/>
+                                <flux-menu-group>
+                                    <flux-menu-item
+                                        command="⌘O"
+                                        icon-before="circle"
+                                        label="Preferences"/>
+                                </flux-menu-group>
+                            </flux-menu>
+                        </template>
                     </flux-expandable>
                     <flux-expandable label="Expandable 2">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusantium assumenda beatae commodi cum deleniti eius fugit in incidunt ipsam nisi porro repellat saepe sed similique tenetur, voluptate voluptatem. Alias.
@@ -18,9 +50,48 @@
 
             <flux-pane>
                 <flux-pane-header title="Hallo"/>
+
                 <flux-pane-body>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci amet at beatae dolorem, dolores facilis ipsum itaque iure iusto nemo officia praesentium recusandae reiciendis repudiandae, tenetur vel vero voluptatem.
                 </flux-pane-body>
+
+                <flux-pane-body>
+                    <flux-stack axis="horizontal">
+                        <flux-button-group>
+                            <flux-secondary-button label="Download"/>
+                            <flux-secondary-button icon-before="ellipsis-h"/>
+                        </flux-button-group>
+
+                        <flux-split-button :flyout-width="360">
+                            <template #button>
+                                <flux-secondary-button label="Download"/>
+                            </template>
+                            <template #flyout>
+                                <flux-pane-body>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur dolores minima molestias obcaecati placeat quisquam quos repudiandae sequi voluptate? Accusamus aliquam architecto blanditiis corporis fugit obcaecati pariatur repellat repellendus soluta.
+                                </flux-pane-body>
+                            </template>
+                        </flux-split-button>
+                    </flux-stack>
+                </flux-pane-body>
+
+                <flux-pane-body>
+                    <flux-badge-stack>
+                        <flux-badge
+                            dot
+                            is-clickable
+                            color="primary"
+                            label="Badge"/>
+
+                        <flux-badge
+                            icon="circle"
+                            is-clickable
+                            is-loading
+                            color="primary"
+                            label="Badge"/>
+                    </flux-badge-stack>
+                </flux-pane-body>
+
                 <flux-pane-body>
                     <flux-form-column>
                         <flux-form-field label="Form field">
@@ -31,6 +102,7 @@
                         </flux-form-field>
                     </flux-form-column>
                 </flux-pane-body>
+
                 <flux-pane-footer>
                     <flux-flyout>
                         <template #opener="{toggle}">
@@ -94,5 +166,29 @@
 <script
     lang="ts"
     setup>
-    import { FluxContainerGrid, FluxExpandable, FluxExpandableGroup, FluxFlyout, FluxFormColumn, FluxFormField, FluxFormInput, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxRoot, FluxSecondaryButton, FluxSeparator, FluxSpacer } from '@fancee/flux';
+    import {
+        FluxBadge,
+        FluxBadgeStack,
+        FluxButtonGroup,
+        FluxContainerGrid,
+        FluxExpandable,
+        FluxExpandableGroup,
+        FluxFlyout,
+        FluxFormColumn,
+        FluxFormField,
+        FluxFormInput,
+        FluxMenu,
+        FluxMenuGroup,
+        FluxMenuItem,
+        FluxPane,
+        FluxPaneBody,
+        FluxPaneFooter,
+        FluxPaneHeader,
+        FluxPrimaryButton,
+        FluxSecondaryButton,
+        FluxSeparator,
+        FluxSpacer,
+        FluxSplitButton,
+        FluxStack
+    } from '@fancee/flux';
 </script>

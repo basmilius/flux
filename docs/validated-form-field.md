@@ -11,3 +11,9 @@ The same as `<flux-form-field/>`, but adds validation from `vee-validate`.
 | `is-optional` | `boolean` | Marks the field as optional.                             |
 | `label`       | `string`  | The label of the form element.                           |
 | `rules`       | `string`  | The validation rule. Refer to vee-validate for examples. |
+
+### Slots
+
+| Name    | Context |
+|---------|---------|
+| default | {}      |

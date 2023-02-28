@@ -12,3 +12,9 @@ flexible layouts in web and mobile applications.
 |--------|------------------------------|------------------------------------------------|
 | `axis` | `'horizontal' \| 'vertical'` | The stack direction.                           |
 | `gap`  | `integer`                    | The gap between the elements within the stack. |
+
+### Slots
+
+| Name    | Context |
+|---------|---------|
+| default | {}      |
