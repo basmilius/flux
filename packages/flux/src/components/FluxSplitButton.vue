@@ -14,7 +14,7 @@
             </div>
         </template>
 
-        <slot name="dropdown"/>
+        <slot name="flyout"/>
     </flux-flyout>
 </template>
 

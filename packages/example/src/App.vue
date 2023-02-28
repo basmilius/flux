@@ -66,7 +66,7 @@
                             <template #button>
                                 <flux-secondary-button label="Download"/>
                             </template>
-                            <template #dropdown>
+                            <template #flyout>
                                 <flux-pane-body>
                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur dolores minima molestias obcaecati placeat quisquam quos repudiandae sequi voluptate? Accusamus aliquam architecto blanditiis corporis fugit obcaecati pariatur repellat repellendus soluta.
                                 </flux-pane-body>
