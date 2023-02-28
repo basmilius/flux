@@ -15,7 +15,9 @@
                 @click="showPicker"/>
         </flux-placeholder>
 
-        <slot v-else/>
+        <slot
+            v-else
+            v-bind="{isDragging, isDraggingOver, showPicker}"/>
 
         <flux-fade-transition>
             <div
@@ -133,10 +135,6 @@
         input.addEventListener('change', onFileSelected, {once: true});
         input.showPicker();
     }
-
-    defineExpose({
-        showPicker
-    });
 </script>
 
 <style lang="scss">

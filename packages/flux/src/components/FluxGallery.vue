@@ -1,6 +1,5 @@
 <template>
     <flux-drop-zone
-        ref="dropZoneRef"
         :is-disabled="!isEditable"
         :is-empty="items.length === 0"
         is-multiple
@@ -9,37 +8,38 @@
         :placeholder-message="translate('flux_gallery_placeholder_message')"
         :placeholder-title="translate('flux_gallery_placeholder_title')"
         @select="onFilesSelected">
-        <transition-group
-            class="flux-gallery"
-            name="gallery"
-            tag="div">
-            <flux-gallery-item
-                v-for="(item, index) of items"
-                :is-deletable="isEditable"
-                :key="item"
-                :url="item"
-                @delete="$emit('delete', index)"/>
+        <template #default="{showPicker}">
+            <transition-group
+                class="flux-gallery"
+                name="gallery"
+                tag="div">
+                <flux-gallery-item
+                    v-for="(item, index) of items"
+                    :is-deletable="isEditable"
+                    :key="item"
+                    :url="item"
+                    @delete="$emit('delete', index)"/>
 
-            <flux-gallery-item
-                v-for="item of pendingItems"
-                is-pending
-                :key="item"
-                :url="item"/>
+                <flux-gallery-item
+                    v-for="item of pendingItems"
+                    is-pending
+                    :key="item"
+                    :url="item"/>
 
-            <button
-                key="gallery-add"
-                class="flux-placeholder flux-gallery-add"
-                @click="dropZoneRef?.showPicker()">
-                <flux-icon variant="plus"/>
-            </button>
-        </transition-group>
+                <button
+                    key="gallery-add"
+                    class="flux-placeholder flux-gallery-add"
+                    @click="showPicker()">
+                    <flux-icon variant="plus"/>
+                </button>
+            </transition-group>
+        </template>
     </flux-drop-zone>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { ref } from 'vue-demi';
     import { useTranslate } from '../composables';
     import { FluxDropZone, FluxGalleryItem, FluxIcon } from '.';
 
@@ -59,7 +59,6 @@
     defineProps<Props>();
 
     const translate = useTranslate();
-    const dropZoneRef = ref<typeof FluxDropZone | null>(null);
 
     function onFilesSelected(files: FileList): void {
         const images: File[] = [];
