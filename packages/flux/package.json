@@ -1,0 +1,23 @@
+{
+    "name": "fancee-flux-base",
+    "private": true,
+    "type": "module",
+    "exports": {
+        ".": {
+            "import": "./dist/fancee.flux.js",
+            "require": "./dist/fancee.flux.umd.cjs"
+        },
+        "./style.css": "./dist/style.css"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-common-types": "^6.3.0",
+        "luxon": "^3.2.1",
+        "pinia": "^2.0.32",
+        "vue-demi": "^0.13.11"
+    },
+    "devDependencies": {
+        "@types/luxon": "^3.2.0",
+        "@types/node": "^18.14.2",
+        "vue": "^3.2.47"
+    }
+}

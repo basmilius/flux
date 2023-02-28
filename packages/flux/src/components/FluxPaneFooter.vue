@@ -1,0 +1,28 @@
+<template>
+    <div class="flux-pane-footer">
+        <slot/>
+    </div>
+</template>
+
+<style lang="scss">
+    .flux-pane-footer {
+        display: flex;
+        padding: 21px;
+        gap: 9px;
+        background: var(--surface-footer);
+        border-top: 1px solid var(--surface-stroke);
+    }
+
+    .flux-pane > .flux-pane-footer:first-child {
+        border-radius: var(--radius) var(--radius) 0 0;
+    }
+
+    .flux-pane > .flux-pane-footer:last-child {
+        border-radius: 0 0 var(--radius) var(--radius);
+    }
+
+    .flux-pane > .flux-pane-footer:only-child {
+        border: 0;
+        border-radius: var(--radius);
+    }
+</style>
