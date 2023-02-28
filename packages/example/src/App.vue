@@ -50,11 +50,32 @@
 
             <flux-pane>
                 <flux-pane-header title="Hallo"/>
+
                 <flux-pane-body>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci amet at beatae dolorem, dolores facilis ipsum itaque iure iusto nemo officia praesentium recusandae reiciendis repudiandae, tenetur vel vero voluptatem.
                 </flux-pane-body>
-                <flux-pane-body>
 
+                <flux-pane-body>
+                    <flux-stack axis="horizontal">
+                        <flux-button-group>
+                            <flux-secondary-button label="Download"/>
+                            <flux-secondary-button icon-before="ellipsis-h"/>
+                        </flux-button-group>
+
+                        <flux-split-button :flyout-width="360">
+                            <template #button>
+                                <flux-secondary-button label="Download"/>
+                            </template>
+                            <template #dropdown>
+                                <flux-pane-body>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur dolores minima molestias obcaecati placeat quisquam quos repudiandae sequi voluptate? Accusamus aliquam architecto blanditiis corporis fugit obcaecati pariatur repellat repellendus soluta.
+                                </flux-pane-body>
+                            </template>
+                        </flux-split-button>
+                    </flux-stack>
+                </flux-pane-body>
+
+                <flux-pane-body>
                     <flux-badge-stack>
                         <flux-badge
                             dot
@@ -69,8 +90,8 @@
                             color="primary"
                             label="Badge"/>
                     </flux-badge-stack>
-
                 </flux-pane-body>
+
                 <flux-pane-body>
                     <flux-form-column>
                         <flux-form-field label="Form field">
@@ -81,6 +102,7 @@
                         </flux-form-field>
                     </flux-form-column>
                 </flux-pane-body>
+
                 <flux-pane-footer>
                     <flux-flyout>
                         <template #opener="{toggle}">
@@ -147,6 +169,7 @@
     import {
         FluxBadge,
         FluxBadgeStack,
+        FluxButtonGroup,
         FluxContainerGrid,
         FluxExpandable,
         FluxExpandableGroup,
@@ -164,6 +187,8 @@
         FluxPrimaryButton,
         FluxSecondaryButton,
         FluxSeparator,
-        FluxSpacer
+        FluxSpacer,
+        FluxSplitButton,
+        FluxStack
     } from '@fancee/flux';
 </script>
