@@ -30,6 +30,9 @@
     }
 
     .flux-expandable-body > .flux-menu {
+        margin-left: 9px;
+        margin-right: 9px;
+
         &:last-child {
             margin-bottom: 9px;
         }
