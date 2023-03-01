@@ -112,6 +112,8 @@
 
 <style lang="scss">
     .flux-quantity-selector {
+        align-self: flex-start;
+        justify-self: flex-start;
         border: 1px solid var(--gray-4);
         border-radius: var(--radius);
         box-shadow: 0 1px 1px rgb(0 0 0 / .03);
