@@ -68,10 +68,9 @@
         border: 0;
         box-shadow: none;
         text-align: left;
-        transition: unset;
 
         &:focus-visible {
-            box-shadow: 0 0 0 2px var(--primary-7);
+            box-shadow: 0 0 0 2px var(--gray-0), 0 0 0 4px var(--primary-7);
         }
 
         span {

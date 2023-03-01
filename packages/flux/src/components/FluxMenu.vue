@@ -1,8 +1,18 @@
 <template>
-    <nav class="flux-menu">
+    <nav
+        v-focus-trap
+        class="flux-menu">
         <slot/>
     </nav>
 </template>
+
+<script
+    lang="ts"
+    setup>
+    import { focusTrap } from '../directives';
+
+    const vFocusTrap = focusTrap;
+</script>
 
 <style lang="scss">
     .flux-menu {

@@ -1,13 +1,13 @@
 {
     "name": "@fancee/flux",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "type": "module",
     "scripts": {
         "build": "vue-demi-switch 3 && vite build && pnpm run gentypes",
         "build:watch": "vue-demi-switch 3 && vite build --watch",
         "gentypes": "pnpm gentypes:dts && pnpm gentypes:webtypes && pnpm gentypes:clean",
         "gentypes:clean": "mv dist/flux/src/* dist && rm -rf dist/flux dist/vue3",
-        "gentypes:dts": "vue-tsc --declaration --lib esnext,dom --outDir dist --emitDeclarationOnly index.ts",
+        "gentypes:dts": "vue-tsc --declaration --lib esnext,dom --outDir dist --emitDeclarationOnly --moduleResolution node --target esnext index.ts",
         "gentypes:webtypes": "vue-docgen-web-types --configFile ../../web-types-gen.config.json"
     },
     "exports": {
