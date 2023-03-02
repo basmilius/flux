@@ -65,13 +65,9 @@
 
 <style lang="scss">
     .flux-overlay {
-        position: fixed;
-        display: flex;
-        inset: 0;
-        height: 100dvh;
-        width: 100dvw;
         background: transparent;
         border: 0;
+        overflow: visible;
         pointer-events: none;
         z-index: 10000;
 
@@ -103,7 +99,6 @@
             display: flex;
             max-height: min(720px, calc(100dvh - 180px));
             flex-flow: column;
-            overflow: auto;
 
             &-footer {
                 position: sticky;

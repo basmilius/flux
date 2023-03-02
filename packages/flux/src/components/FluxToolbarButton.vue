@@ -5,10 +5,13 @@
             'flux-toolbar-button-destructive': destructive
         }"
         type="button"
+        :disabled="disabled"
         :icon-before="icon"
         :is-loading="isLoading"
         :label="label"
-        @click="$emit('click', $event)"/>
+        @click="$emit('click', $event)"
+        @mouseenter="$emit('mouseenter', $event)"
+        @mouseleave="$emit('mouseleave', $event)"/>
 </template>
 
 <script
@@ -19,6 +22,10 @@
 
     export interface Emits {
         (e: 'click', evt: MouseEvent): void;
+
+        (e: 'mouseenter', evt: MouseEvent): void;
+
+        (e: 'mouseleave', evt: MouseEvent): void;
     }
 
     export interface Props {

@@ -7,7 +7,9 @@
             'loading': isLoading
         }"
         v-bind="{type, disabled, iconAfter, isLoading, label, to}"
-        @click="$emit('click', $event)">
+        @click="$emit('click', $event)"
+        @mouseenter="$emit('mouseenter', $event)"
+        @mouseleave="$emit('mouseleave', $event)">
         <template #icon-before="{}">
             <div class="flux-publish-button-icon">
                 <flux-icon
@@ -54,6 +56,10 @@
 
     export interface Emits {
         (e: 'click', evt: MouseEvent): void;
+
+        (e: 'mouseenter', evt: MouseEvent): void;
+
+        (e: 'mouseleave', evt: MouseEvent): void;
     }
 
     export interface Props {

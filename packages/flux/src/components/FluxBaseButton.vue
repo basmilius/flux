@@ -8,7 +8,9 @@
         :rel="rel"
         :target="target"
         :to="to"
-        @click="onClick">
+        @click="onClick"
+        @mouseenter="onMouseEnter"
+        @mouseleave="onMouseLeave">
         <slot name="before"/>
 
         <slot name="icon-before">
@@ -52,6 +54,10 @@
 
     export interface Emits {
         (e: 'click', evt: MouseEvent): void;
+
+        (e: 'mouseenter', evt: MouseEvent): void;
+
+        (e: 'mouseleave', evt: MouseEvent): void;
     }
 
     export interface Props {
@@ -93,6 +99,14 @@
         }
 
         emit('click', evt);
+    }
+
+    function onMouseEnter(evt: MouseEvent): void {
+        emit('mouseenter', evt);
+    }
+
+    function onMouseLeave(evt: MouseEvent): void {
+        emit('mouseleave', evt);
     }
 </script>
 
