@@ -65,6 +65,28 @@
 
             <flux-stack>
                 <flux-pane>
+                    <flux-aspect-ratio :aspect-ratio="16/9">
+                        <flux-fader>
+                            <flux-fader-item>
+                                <img
+                                    src="https://staging.fanc.ee/uploads/shops/headers/bh40dmg5.uwr.jpg"
+                                    alt="">
+                            </flux-fader-item>
+                            <flux-fader-item>
+                                <img
+                                    src="https://staging.fanc.ee/uploads/shops/headers/vocrmejv.5mm.jpg"
+                                    alt="">
+                            </flux-fader-item>
+                            <flux-fader-item>
+                                <img
+                                    src="http://staging.fanc.ee/uploads/shops/headers/q5mvww5g.2lu.jpg"
+                                    alt="">
+                            </flux-fader-item>
+                        </flux-fader>
+                    </flux-aspect-ratio>
+                </flux-pane>
+                
+                <flux-pane>
                     <flux-pane-header title="Hallo"/>
 
                     <flux-pane-body>
@@ -226,12 +248,15 @@
     setup>
     import { ref } from 'vue';
     import {
+        FluxAspectRatio,
         FluxBadge,
         FluxBadgeStack,
         FluxButtonGroup,
         FluxContainerGrid,
         FluxExpandable,
         FluxExpandableGroup,
+        FluxFader,
+        FluxFaderItem,
         FluxFlyout,
         FluxFormColumn,
         FluxFormField,
