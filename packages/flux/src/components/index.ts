@@ -19,6 +19,8 @@ export { default as FluxFlyout } from './FluxFlyout.vue';
 export { default as FluxFormColumn } from './FluxFormColumn.vue';
 export { default as FluxFormField } from './FluxFormField.vue';
 export { default as FluxFormInput } from './FluxFormInput.vue';
+export { default as FluxFormInputAddition } from './FluxFormInputAddition.vue';
+export { default as FluxFormInputGroup } from './FluxFormInputGroup.vue';
 export { default as FluxFormRow } from './FluxFormRow.vue';
 export { default as FluxFormSelect } from './FluxFormSelect.vue';
 export { default as FluxFormTextArea } from './FluxFormTextArea.vue';

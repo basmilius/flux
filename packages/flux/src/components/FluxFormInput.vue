@@ -149,6 +149,7 @@
         &:not(.is-disabled):focus-within {
             border-color: var(--primary-7);
             box-shadow: 0 0 0 1px var(--primary-7);
+            z-index: 1;
         }
     }
 </style>

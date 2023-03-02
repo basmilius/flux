@@ -79,7 +79,7 @@
                             </flux-fader-item>
                             <flux-fader-item>
                                 <img
-                                    src="http://staging.fanc.ee/uploads/shops/headers/q5mvww5g.2lu.jpg"
+                                    src="https://staging.fanc.ee/uploads/shops/headers/q5mvww5g.2lu.jpg"
                                     alt="">
                             </flux-fader-item>
                         </flux-fader>
@@ -139,8 +139,13 @@
                             <flux-form-field label="Form field">
                                 <flux-form-input/>
                             </flux-form-field>
+
                             <flux-form-field label="Form field">
-                                <flux-form-input/>
+                                <flux-form-input-group>
+                                    <flux-form-input-addition icon="plus"/>
+                                    <flux-form-input/>
+                                    <flux-secondary-button label="Add"/>
+                                </flux-form-input-group>
                             </flux-form-field>
                         </flux-form-column>
                     </flux-pane-body>
@@ -261,6 +266,8 @@
         FluxFormColumn,
         FluxFormField,
         FluxFormInput,
+        FluxFormInputAddition,
+        FluxFormInputGroup,
         FluxInfo,
         FluxInfoStack,
         FluxMenu,
