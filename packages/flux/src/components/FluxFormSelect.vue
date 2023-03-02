@@ -40,11 +40,10 @@
             variant="angle-down"/>
 
         <flux-fade-transition>
-            <dialog
+            <div
                 v-if="!isDisabled && popupOpen && groupedOptions.length > 0"
                 ref="popupElement"
-                class="flux-surface flux-form-select-popup"
-                open>
+                class="flux-surface flux-form-select-popup">
                 <flux-menu>
                     <template
                         v-for="([item, subItems], index) of groupedOptions"
@@ -79,7 +78,7 @@
                             @click="select(item.id)"/>
                     </template>
                 </flux-menu>
-            </dialog>
+            </div>
         </flux-fade-transition>
     </div>
 </template>
@@ -131,7 +130,6 @@
     const optionRefs = ref<ComponentPublicInstance[]>();
     const searchQuery = ref('');
     const popupOpen = ref(false);
-    const popupX = ref(0);
     const popupY = ref(0);
     const popupWidth = ref(0);
 
@@ -247,8 +245,7 @@
     }
 
     function reposition(): void {
-        const {top, left, height: inputHeight, width} = unref(rootElement)!.getBoundingClientRect();
-        popupX.value = left;
+        const {top, height: inputHeight, width} = unref(rootElement)!.getBoundingClientRect();
         popupWidth.value = width;
 
         requestAnimationFrame(() => {
@@ -260,9 +257,9 @@
             const bottom = top + height + inputHeight + 39;
 
             if (bottom <= innerHeight) {
-                popupY.value = top + inputHeight + 9;
+                popupY.value = inputHeight + 9;
             } else {
-                popupY.value = top - height - 9;
+                popupY.value = height - 9;
             }
         });
     }
@@ -340,10 +337,10 @@
         }
 
         &-popup {
-            position: fixed;
+            position: absolute;
             display: block;
             top: calc(v-bind(popupY) * 1px);
-            left: calc(v-bind(popupX) * 1px);
+            left: 0;
             width: calc(v-bind(popupWidth) * 1px);
             max-height: 330px;
             margin: 0;

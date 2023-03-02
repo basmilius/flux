@@ -4,16 +4,20 @@
         @dragleave.capture="onDragLeave"
         @dragover.capture="onDragEnter"
         @drop="onDrop">
-        <flux-placeholder
+        <slot
             v-if="isEmpty"
-            :icon="placeholderIcon"
-            :message="placeholderMessage"
-            :title="placeholderTitle"
-            variant="extended">
-            <flux-secondary-button
-                :label="placeholderButton"
-                @click="showPicker"/>
-        </flux-placeholder>
+            v-bind="{isDragging, isDraggingOver, showPicker}"
+            name="placeholder">
+            <flux-placeholder
+                :icon="placeholderIcon"
+                :message="placeholderMessage"
+                :title="placeholderTitle"
+                :variant="placeholderVariant">
+                <flux-secondary-button
+                    :label="placeholderButton"
+                    @click="showPicker"/>
+            </flux-placeholder>
+        </slot>
 
         <slot
             v-else
@@ -45,14 +49,17 @@
         readonly isDisabled?: boolean;
         readonly isEmpty?: boolean;
         readonly isMultiple?: boolean;
-        readonly placeholderButton: string;
-        readonly placeholderIcon: IconNames;
-        readonly placeholderMessage: string;
-        readonly placeholderTitle: string;
+        readonly placeholderButton?: string;
+        readonly placeholderIcon?: IconNames;
+        readonly placeholderMessage?: string;
+        readonly placeholderTitle?: string;
+        readonly placeholderVariant?: 'extended' | 'simple' | 'small';
     }
 
     const emit = defineEmits<Emits>();
-    const props = defineProps<Props>();
+    const props = withDefaults(defineProps<Props>(), {
+        placeholderVariant: 'extended'
+    });
     const {accept, isDisabled, isMultiple} = toRefs(props);
 
     const isDragging = ref(false);

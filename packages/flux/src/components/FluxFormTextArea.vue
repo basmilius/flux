@@ -26,7 +26,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, inject, onMounted, ref, toRefs, unref } from 'vue-demi';
+    import { computed, inject, onMounted, ref, toRefs, unref, watch } from 'vue-demi';
 
     export interface Emits {
         (e: 'blur'): void;
@@ -59,9 +59,7 @@
 
     const parsedValue = computed(() => unref(modelValue) ?? '');
 
-    onMounted(() => {
-        sizeToContent();
-    });
+    onMounted(() => requestAnimationFrame(sizeToContent));
 
     function onInput(evt: InputEvent): void {
         emit('update:modelValue', (evt.target as HTMLTextAreaElement).value);
@@ -78,6 +76,8 @@
         input.style.height = 'auto';
         input.style.height = `${input.scrollHeight}px`;
     }
+
+    watch([modelValue], () => requestAnimationFrame(sizeToContent));
 </script>
 
 <style lang="scss">
@@ -85,5 +85,6 @@
         height: unset;
         padding-top: 9px;
         padding-bottom: 9px;
+        flex-shrink: 0;
     }
 </style>

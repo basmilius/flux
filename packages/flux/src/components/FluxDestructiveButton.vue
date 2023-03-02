@@ -2,7 +2,9 @@
     <flux-base-button
         class="flux-destructive-button"
         v-bind="{type, disabled, iconAfter, iconBefore, isLoading, label, href, rel, target, to}"
-        @click="$emit('click', $event)">
+        @click="$emit('click', $event)"
+        @mouseenter="$emit('mouseenter', $event)"
+        @mouseleave="$emit('mouseleave', $event)">
         <template
             v-for="(_, slot) of slots"
             v-slot:[slot]="scope">
@@ -27,6 +29,10 @@
 
     export interface Emits {
         (e: 'click', evt: MouseEvent): void;
+
+        (e: 'mouseenter', evt: MouseEvent): void;
+
+        (e: 'mouseleave', evt: MouseEvent): void;
     }
 
     export interface Props {

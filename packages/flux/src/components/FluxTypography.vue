@@ -50,7 +50,8 @@
             }
         }
 
-        img {
+        img,
+        &-image {
             height: unset;
             max-width: 100%;
             border-radius: calc(var(--radius) / 2);
