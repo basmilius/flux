@@ -1,5 +1,5 @@
 <template>
-    <div style="padding: 30px; max-width: 1200px; margin: 0 auto;">
+    <flux-root style="margin-top: 60px; margin-bottom: 60px;">
         <flux-container-grid layout="sidebar-start">
 
             <flux-stack>
@@ -65,14 +65,82 @@
 
             <flux-stack>
                 <flux-pane>
-                    <flux-pane-header title="Hallo"/>
+                    <flux-aspect-ratio :aspect-ratio="16/9">
+                        <flux-fader>
+                            <flux-fader-item>
+                                <img
+                                    src="https://staging.fanc.ee/uploads/shops/headers/bh40dmg5.uwr.jpg"
+                                    alt="">
+                            </flux-fader-item>
+                            <flux-fader-item>
+                                <img
+                                    src="https://staging.fanc.ee/uploads/shops/headers/vocrmejv.5mm.jpg"
+                                    alt="">
+                            </flux-fader-item>
+                            <flux-fader-item>
+                                <img
+                                    src="https://staging.fanc.ee/uploads/shops/headers/q5mvww5g.2lu.jpg"
+                                    alt="">
+                            </flux-fader-item>
+                        </flux-fader>
+                    </flux-aspect-ratio>
+                </flux-pane>
+
+                <flux-pane>
+                    <flux-action-bar>
+                        <template #primary>
+                            <flux-primary-button
+                                icon-before="circle-plus"
+                                label="Event"/>
+                        </template>
+
+                        <template #filter="{close}">
+                            <flux-secondary-button
+                                icon-before="filter"
+                                label="Filter"
+                                @click="close"/>
+                        </template>
+
+                        <template #filterOpener="{open}">
+                            <flux-secondary-button
+                                icon-before="filter"
+                                label="Filter"
+                                @click="open"/>
+                        </template>
+
+                        <template #search>
+                            <flux-form-input
+                                type="search"
+                                placeholder="Type anything to search..."
+                                style="width: 240px"/>
+                        </template>
+                    </flux-action-bar>
+
+                    <flux-pane-body>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto atque molestias nihil repellat. Atque deserunt earum esse laudantium pariatur quod quos reprehenderit tenetur vitae voluptatum? Fugit illum optio possimus quae.
+                    </flux-pane-body>
+
+                    <flux-pane-footer>
+                        <flux-pagination
+                            arrows
+                            :page="paginationPage"
+                            :per-page="10"
+                            :total="250"
+                            @navigate="paginationPage = $event"/>
+                    </flux-pane-footer>
+                </flux-pane>
+
+                <flux-pane>
+                    <flux-pane-header title="Pane Title"/>
 
                     <flux-pane-body>
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci amet at beatae dolorem, dolores facilis ipsum itaque iure iusto nemo officia praesentium recusandae reiciendis repudiandae, tenetur vel vero voluptatem.
                     </flux-pane-body>
 
                     <flux-pane-body>
-                        <flux-stack axis="horizontal">
+                        <flux-stack
+                            axis="horizontal"
+                            is-wrapping>
                             <flux-button-group>
                                 <flux-secondary-button label="Download"/>
                                 <flux-secondary-button icon-before="ellipsis-h"/>
@@ -82,6 +150,7 @@
                                 <template #button>
                                     <flux-secondary-button label="Download"/>
                                 </template>
+
                                 <template #flyout>
                                     <flux-pane-body>
                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur dolores minima molestias obcaecati placeat quisquam quos repudiandae sequi voluptate? Accusamus aliquam architecto blanditiis corporis fugit obcaecati pariatur repellat repellendus soluta.
@@ -117,8 +186,13 @@
                             <flux-form-field label="Form field">
                                 <flux-form-input/>
                             </flux-form-field>
+
                             <flux-form-field label="Form field">
-                                <flux-form-input/>
+                                <flux-form-input-group>
+                                    <flux-form-input-addition icon="plus"/>
+                                    <flux-form-input/>
+                                    <flux-secondary-button label="Add"/>
+                                </flux-form-input-group>
                             </flux-form-field>
                         </flux-form-column>
                     </flux-pane-body>
@@ -218,7 +292,7 @@
             </flux-stack>
 
         </flux-container-grid>
-    </div>
+    </flux-root>
 </template>
 
 <script
@@ -226,27 +300,35 @@
     setup>
     import { ref } from 'vue';
     import {
+        FluxActionBar,
+        FluxAspectRatio,
         FluxBadge,
         FluxBadgeStack,
         FluxButtonGroup,
         FluxContainerGrid,
         FluxExpandable,
         FluxExpandableGroup,
+        FluxFader,
+        FluxFaderItem,
         FluxFlyout,
         FluxFormColumn,
         FluxFormField,
         FluxFormInput,
+        FluxFormInputAddition,
+        FluxFormInputGroup,
         FluxInfo,
         FluxInfoStack,
         FluxMenu,
         FluxMenuGroup,
         FluxMenuItem,
+        FluxPagination,
         FluxPane,
         FluxPaneBody,
         FluxPaneFooter,
         FluxPaneHeader,
         FluxPrimaryButton,
         FluxQuantitySelector,
+        FluxRoot,
         FluxSecondaryButton,
         FluxSeparator,
         FluxSpacer,
@@ -255,5 +337,6 @@
         FluxTypography
     } from '@fancee/flux';
 
+    const paginationPage = ref(1);
     const quantitySelectorValue = ref(0);
 </script>

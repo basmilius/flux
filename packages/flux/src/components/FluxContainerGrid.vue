@@ -1,14 +1,16 @@
 <template>
-    <div
+    <flux-container
         class="flux-container-grid"
         :class="`flux-container-grid-${layout}`">
         <slot/>
-    </div>
+    </flux-container>
 </template>
 
 <script
     lang="ts"
     setup>
+    import { FluxContainer } from '.';
+
     export interface Props {
         readonly layout?: 'cards' | 'full' | 'sidebar-start' | 'sidebar-end';
     }
@@ -24,21 +26,25 @@
         align-items: start;
         gap: 30px;
 
-        &-cards {
+        > * {
+            max-width: 100%;
+        }
+
+        [lg] &-cards {
             align-items: stretch;
             grid-template-columns: 1fr 1fr 1fr;
         }
 
-        &-full {
+        [lg] &-full {
             grid-template-columns: 1fr;
         }
 
-        &-sidebar-start {
-            grid-template-columns: 360px 2fr;
+        [lg] &-sidebar-start {
+            grid-template-columns: 360px minmax(0, 1fr);
         }
 
-        &-sidebar-end {
-            grid-template-columns: 2fr 360px;
+        [lg] &-sidebar-end {
+            grid-template-columns: minmax(0, 1fr) 360px;
         }
     }
 </style>

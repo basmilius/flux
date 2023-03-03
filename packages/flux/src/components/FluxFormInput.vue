@@ -115,6 +115,7 @@
         background: var(--gray-0);
         border: 1px solid var(--gray-4);
         border-radius: var(--radius);
+        box-shadow: 0 1px 1px rgb(0 0 0 / .03);
         color: var(--foreground);
         font: inherit;
         outline: 0;
@@ -149,6 +150,7 @@
         &:not(.is-disabled):focus-within {
             border-color: var(--primary-7);
             box-shadow: 0 0 0 1px var(--primary-7);
+            z-index: 1;
         }
     }
 </style>

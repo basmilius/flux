@@ -2,6 +2,7 @@
     <component
         :is="component"
         class="flux-button"
+        type="button"
         :aria-disabled="disabled"
         :disabled="disabled"
         :href="href"

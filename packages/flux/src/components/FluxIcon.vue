@@ -34,7 +34,7 @@
                 const variant = iconRegistry[props.variant];
 
                 if (!variant) {
-                    throw new Error(`Icon variant "${props.variant}" is not defined`);
+                    throw new Error(`[Flux] Icon variant "${props.variant}" is not defined`);
                 }
 
                 return variant;

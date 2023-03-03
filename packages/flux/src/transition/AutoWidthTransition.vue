@@ -30,7 +30,7 @@
         // note: force repaint.
         getComputedStyle(elm);
 
-        requestAnimationFrame(() => elm.style.width = width);
+        requestAnimationFrame(() => requestAnimationFrame(() => elm.style.width = width));
     }
 
     function leave(elm: HTMLElement): void {
@@ -40,6 +40,6 @@
         // note: force repaint.
         getComputedStyle(elm);
 
-        requestAnimationFrame(() => elm.style.width = '0');
+        requestAnimationFrame(() => requestAnimationFrame(() => elm.style.width = '0'));
     }
 </script>
