@@ -8,10 +8,12 @@ flexible layouts in web and mobile applications.
 
 ### Props
 
-| Name   | Type                         | Description                                    |
-|--------|------------------------------|------------------------------------------------|
-| `axis` | `'horizontal' \| 'vertical'` | The stack direction.                           |
-| `gap`  | `integer`                    | The gap between the elements within the stack. |
+| Name          | Type                         | Description                                                                   |
+|---------------|------------------------------|-------------------------------------------------------------------------------|
+| `axis`        | `'horizontal' \| 'vertical'` | The stack direction.                                                          |
+| `gap`         | `integer`                    | The gap between the elements within the stack.                                |
+| `is-growing`  | `boolean`                    | If the items within the stack should grow with the stack.                     |
+| `is-wrapping` | `boolean`                    | If the items within the stack should wrap when there isn't enough space left. |
 
 ### Slots
 

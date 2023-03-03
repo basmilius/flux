@@ -1,6 +1,7 @@
 <template>
     <flux-button-group class="flux-pagination">
         <flux-secondary-button
+            v-if="arrows"
             :disabled="isPreviousDisabled"
             icon-before="angle-left"
             @click="previous"/>
@@ -22,6 +23,7 @@
         </template>
 
         <flux-secondary-button
+            v-if="arrows"
             :disabled="isNextDisabled"
             icon-before="angle-right"
             @click="next"/>
