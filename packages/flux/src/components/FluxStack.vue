@@ -4,7 +4,8 @@
         :class="{
             'flux-stack-horizontal': axis === 'horizontal',
             'flux-stack-vertical': axis === 'vertical',
-            'flux-stack-growing': isGrowing
+            'flux-stack-growing': isGrowing,
+            'flux-stack-wrapping': isWrapping
         }"
         :style="{
             '--gap': `${gap}px`
@@ -20,6 +21,7 @@
         readonly axis?: 'horizontal' | 'vertical';
         readonly gap?: number;
         readonly isGrowing?: boolean;
+        readonly isWrapping?: boolean;
     }
 
     withDefaults(defineProps<Props>(), {
@@ -35,6 +37,7 @@
 
         &-horizontal {
             align-items: stretch;
+            flex-flow: row;
         }
 
         &-vertical {
@@ -48,6 +51,10 @@
 
         &-growing > *:not(.flux-separator) {
             flex: 1 1 0;
+        }
+
+        &-wrapping {
+            flex-wrap: wrap;
         }
     }
 </style>

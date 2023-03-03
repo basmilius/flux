@@ -1,5 +1,5 @@
 <template>
-    <div style="padding: 30px; max-width: 1200px; margin: 0 auto;">
+    <flux-root style="margin-top: 60px; margin-bottom: 60px;">
         <flux-container-grid layout="sidebar-start">
 
             <flux-stack>
@@ -85,16 +85,18 @@
                         </flux-fader>
                     </flux-aspect-ratio>
                 </flux-pane>
-                
+
                 <flux-pane>
-                    <flux-pane-header title="Hallo"/>
+                    <flux-pane-header title="Pane Title"/>
 
                     <flux-pane-body>
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci amet at beatae dolorem, dolores facilis ipsum itaque iure iusto nemo officia praesentium recusandae reiciendis repudiandae, tenetur vel vero voluptatem.
                     </flux-pane-body>
 
                     <flux-pane-body>
-                        <flux-stack axis="horizontal">
+                        <flux-stack
+                            axis="horizontal"
+                            is-wrapping>
                             <flux-button-group>
                                 <flux-secondary-button label="Download"/>
                                 <flux-secondary-button icon-before="ellipsis-h"/>
@@ -104,6 +106,7 @@
                                 <template #button>
                                     <flux-secondary-button label="Download"/>
                                 </template>
+
                                 <template #flyout>
                                     <flux-pane-body>
                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur dolores minima molestias obcaecati placeat quisquam quos repudiandae sequi voluptate? Accusamus aliquam architecto blanditiis corporis fugit obcaecati pariatur repellat repellendus soluta.
@@ -245,47 +248,14 @@
             </flux-stack>
 
         </flux-container-grid>
-    </div>
+    </flux-root>
 </template>
 
 <script
     lang="ts"
     setup>
     import { ref } from 'vue';
-    import {
-        FluxAspectRatio,
-        FluxBadge,
-        FluxBadgeStack,
-        FluxButtonGroup,
-        FluxContainerGrid,
-        FluxExpandable,
-        FluxExpandableGroup,
-        FluxFader,
-        FluxFaderItem,
-        FluxFlyout,
-        FluxFormColumn,
-        FluxFormField,
-        FluxFormInput,
-        FluxFormInputAddition,
-        FluxFormInputGroup,
-        FluxInfo,
-        FluxInfoStack,
-        FluxMenu,
-        FluxMenuGroup,
-        FluxMenuItem,
-        FluxPane,
-        FluxPaneBody,
-        FluxPaneFooter,
-        FluxPaneHeader,
-        FluxPrimaryButton,
-        FluxQuantitySelector,
-        FluxSecondaryButton,
-        FluxSeparator,
-        FluxSpacer,
-        FluxSplitButton,
-        FluxStack,
-        FluxTypography
-    } from '@fancee/flux';
+    import { FluxAspectRatio, FluxBadge, FluxBadgeStack, FluxButtonGroup, FluxContainerGrid, FluxExpandable, FluxExpandableGroup, FluxFader, FluxFaderItem, FluxFlyout, FluxFormColumn, FluxFormField, FluxFormInput, FluxFormInputAddition, FluxFormInputGroup, FluxInfo, FluxInfoStack, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxQuantitySelector, FluxRoot, FluxSecondaryButton, FluxSeparator, FluxSpacer, FluxSplitButton, FluxStack, FluxTypography } from '@fancee/flux';
 
     const quantitySelectorValue = ref(0);
 </script>

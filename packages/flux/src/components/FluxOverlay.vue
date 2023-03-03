@@ -42,7 +42,7 @@
 
         if ('default' in slots && typeof slots.default === 'function') {
             const content = slots.default();
-            hasContent = content.length > 0;
+            hasContent = content.length > 0 && typeof content[0].type !== 'symbol';
         }
 
         if (hasContent) {

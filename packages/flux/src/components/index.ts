@@ -6,6 +6,7 @@ export { default as FluxBaseButton } from './FluxBaseButton.vue';
 export { default as FluxButtonGroup } from './FluxButtonGroup.vue';
 export { default as FluxButtonStack } from './FluxButtonStack.vue';
 export { default as FluxConfirm } from './FluxConfirm.vue';
+export { default as FluxContainer } from './FluxContainer.vue';
 export { default as FluxContainerGrid } from './FluxContainerGrid.vue';
 export { default as FluxDestructiveButton } from './FluxDestructiveButton.vue';
 export { default as FluxDivider } from './FluxDivider.vue';
