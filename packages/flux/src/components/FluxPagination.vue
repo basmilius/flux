@@ -14,11 +14,11 @@
 
             <flux-primary-button
                 v-else-if="p === page"
-                :label="p"/>
+                :label="`${p}`"/>
 
             <flux-secondary-button
                 v-else
-                :label="p"
+                :label="`${p}`"
                 @click="navigate(p)"/>
         </template>
 

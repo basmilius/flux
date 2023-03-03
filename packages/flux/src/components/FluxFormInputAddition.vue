@@ -10,7 +10,7 @@
     import { IconNames } from '../data';
     import { FluxIcon } from '.';
 
-    interface Props {
+    export interface Props {
         readonly icon: IconNames;
     }
 
