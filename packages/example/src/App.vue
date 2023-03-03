@@ -87,6 +87,50 @@
                 </flux-pane>
 
                 <flux-pane>
+                    <flux-action-bar>
+                        <template #primary>
+                            <flux-primary-button
+                                icon-before="circle-plus"
+                                label="Event"/>
+                        </template>
+
+                        <template #filter="{close}">
+                            <flux-secondary-button
+                                icon-before="filter"
+                                label="Filter"
+                                @click="close"/>
+                        </template>
+
+                        <template #filterOpener="{open}">
+                            <flux-secondary-button
+                                icon-before="filter"
+                                label="Filter"
+                                @click="open"/>
+                        </template>
+
+                        <template #search>
+                            <flux-form-input
+                                type="search"
+                                placeholder="Type anything to search..."
+                                style="width: 240px"/>
+                        </template>
+                    </flux-action-bar>
+
+                    <flux-pane-body>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto atque molestias nihil repellat. Atque deserunt earum esse laudantium pariatur quod quos reprehenderit tenetur vitae voluptatum? Fugit illum optio possimus quae.
+                    </flux-pane-body>
+
+                    <flux-pane-footer>
+                        <flux-pagination
+                            arrows
+                            :page="paginationPage"
+                            :per-page="10"
+                            :total="250"
+                            @navigate="paginationPage = $event"/>
+                    </flux-pane-footer>
+                </flux-pane>
+
+                <flux-pane>
                     <flux-pane-header title="Pane Title"/>
 
                     <flux-pane-body>
@@ -255,7 +299,44 @@
     lang="ts"
     setup>
     import { ref } from 'vue';
-    import { FluxAspectRatio, FluxBadge, FluxBadgeStack, FluxButtonGroup, FluxContainerGrid, FluxExpandable, FluxExpandableGroup, FluxFader, FluxFaderItem, FluxFlyout, FluxFormColumn, FluxFormField, FluxFormInput, FluxFormInputAddition, FluxFormInputGroup, FluxInfo, FluxInfoStack, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxQuantitySelector, FluxRoot, FluxSecondaryButton, FluxSeparator, FluxSpacer, FluxSplitButton, FluxStack, FluxTypography } from '@fancee/flux';
+    import {
+        FluxActionBar,
+        FluxAspectRatio,
+        FluxBadge,
+        FluxBadgeStack,
+        FluxButtonGroup,
+        FluxContainerGrid,
+        FluxExpandable,
+        FluxExpandableGroup,
+        FluxFader,
+        FluxFaderItem,
+        FluxFlyout,
+        FluxFormColumn,
+        FluxFormField,
+        FluxFormInput,
+        FluxFormInputAddition,
+        FluxFormInputGroup,
+        FluxInfo,
+        FluxInfoStack,
+        FluxMenu,
+        FluxMenuGroup,
+        FluxMenuItem,
+        FluxPagination,
+        FluxPane,
+        FluxPaneBody,
+        FluxPaneFooter,
+        FluxPaneHeader,
+        FluxPrimaryButton,
+        FluxQuantitySelector,
+        FluxRoot,
+        FluxSecondaryButton,
+        FluxSeparator,
+        FluxSpacer,
+        FluxSplitButton,
+        FluxStack,
+        FluxTypography
+    } from '@fancee/flux';
 
+    const paginationPage = ref(1);
     const quantitySelectorValue = ref(0);
 </script>

@@ -42,7 +42,7 @@
 
 <style lang="scss">
     .flux-toolbar-button {
-        --background: var(--secondary-button-background);
+        --background: transparent;
         --background-hover: var(--secondary-button-background-hover);
         --background-active: var(--secondary-button-background-active);
         --foreground: var(--secondary-button-foreground);

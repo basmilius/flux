@@ -1,3 +1,4 @@
+export { default as FluxActionBar } from './FluxActionBar.vue';
 export { default as FluxAlert } from './FluxAlert.vue';
 export { default as FluxAspectRatio } from './FluxAspectRatio.vue';
 export { default as FluxBadge } from './FluxBadge.vue';
@@ -37,6 +38,7 @@ export { default as FluxMenuSubHeader } from './FluxMenuSubHeader.vue';
 export { default as FluxNotice } from './FluxNotice.vue';
 export { default as FluxNoticeStack } from './FluxNoticeStack.vue';
 export { default as FluxOverlay } from './FluxOverlay.vue';
+export { default as FluxPagination } from './FluxPagination.vue';
 export { default as FluxPane } from './FluxPane.vue';
 export { default as FluxPaneBody } from './FluxPaneBody.vue';
 export { default as FluxPaneFooter } from './FluxPaneFooter.vue';
