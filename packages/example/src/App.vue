@@ -1,6 +1,6 @@
 <template>
     <flux-root style="margin-top: 60px; margin-bottom: 60px;">
-        <flux-container-grid layout="sidebar-start">
+        <flux-predefined-grid layout="sidebar-start">
 
             <flux-stack>
                 <flux-pane>
@@ -291,7 +291,7 @@
                 </flux-pane>
             </flux-stack>
 
-        </flux-container-grid>
+        </flux-predefined-grid>
     </flux-root>
 </template>
 
@@ -305,7 +305,6 @@
         FluxBadge,
         FluxBadgeStack,
         FluxButtonGroup,
-        FluxContainerGrid,
         FluxExpandable,
         FluxExpandableGroup,
         FluxFader,
@@ -326,6 +325,7 @@
         FluxPaneBody,
         FluxPaneFooter,
         FluxPaneHeader,
+        FluxPredefinedGrid,
         FluxPrimaryButton,
         FluxQuantitySelector,
         FluxRoot,

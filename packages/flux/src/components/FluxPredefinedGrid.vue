@@ -1,16 +1,14 @@
 <template>
-    <flux-container
-        class="flux-container-grid"
-        :class="`flux-container-grid-${layout}`">
+    <div
+        class="flux-predefined-grid"
+        :class="`flux-predefined-grid-${layout}`">
         <slot/>
-    </flux-container>
+    </div>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxContainer } from '.';
-
     export interface Props {
         readonly layout?: 'cards' | 'full' | 'sidebar-start' | 'sidebar-end';
     }
@@ -21,7 +19,7 @@
 </script>
 
 <style lang="scss">
-    .flux-container-grid {
+    .flux-predefined-grid {
         display: grid;
         align-items: start;
         gap: 30px;
