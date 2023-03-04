@@ -1,5 +1,7 @@
 <template>
-    <flux-surface class="flux-pane">
+    <flux-surface
+        class="flux-pane"
+        :class="{'is-contained': isContained}">
         <slot/>
 
         <div
@@ -22,6 +24,7 @@
     import { FluxSpinner, FluxSurface } from '.';
 
     export interface Props {
+        readonly isContained?: boolean;
         readonly isLoading?: boolean;
         readonly tag?: string;
     }
@@ -32,8 +35,11 @@
 <style lang="scss">
     .flux-pane {
         position: relative;
-        margin: 0;
         box-shadow: var(--shadow);
+
+        &.is-contained {
+            overflow: hidden;
+        }
 
         &-overlay {
             position: absolute;

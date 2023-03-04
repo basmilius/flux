@@ -63,4 +63,3 @@ export { default as FluxToggle } from './FluxToggle.vue';
 export { default as FluxToolbar } from './FluxToolbar.vue';
 export { default as FluxToolbarButton } from './FluxToolbarButton.vue';
 export { default as FluxToolbarGroup } from './FluxToolbarGroup.vue';
-export { default as FluxTypography } from './FluxTypography.vue';

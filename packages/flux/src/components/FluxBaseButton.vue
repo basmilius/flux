@@ -126,6 +126,7 @@
         cursor: pointer;
         font: inherit;
         outline: none;
+        text-decoration: none;
         transition: 180ms var(--swift-out);
         transition-property: background, box-shadow, color;
         user-select: none;

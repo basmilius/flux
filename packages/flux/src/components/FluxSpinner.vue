@@ -52,6 +52,8 @@
         display: inline-block;
         height: 1em;
         width: 1em;
+        flex-grow: 0;
+        flex-shrink: 0;
         font-size: var(--size);
 
         &-track {

@@ -10,6 +10,43 @@ importers:
       concurrently: 7.6.0
       vite: 4.1.4
 
+  packages/docs:
+    specifiers:
+      '@fancee/flux': workspace:*
+      '@fortawesome/free-brands-svg-icons': ^6.3.0
+      '@fortawesome/pro-regular-svg-icons': ^6.3.0
+      '@types/luxon': ^3.2.0
+      '@types/node': ^18.14.4
+      '@vitejs/plugin-vue': ^4.0.0
+      highlight.js: ^11.7.0
+      luxon: ^3.2.1
+      pinia: ^2.0.32
+      sass: ^1.58.3
+      typescript: ^4.9.5
+      vite: ^4.1.4
+      vue: ^3.2.47
+      vue-highlight-code: ^0.1.16
+      vue-router: ^4.1.6
+      vue-tsc: ^1.2.0
+    dependencies:
+      '@fancee/flux': link:../vue3
+      '@fortawesome/free-brands-svg-icons': 6.3.0
+      '@fortawesome/pro-regular-svg-icons': 6.3.0
+      highlight.js: 11.7.0
+      luxon: 3.2.1
+      pinia: 2.0.32_hmuptsblhheur2tugfgucj7gc4
+      vue: 3.2.47
+      vue-highlight-code: 0.1.16
+      vue-router: 4.1.6_vue@3.2.47
+    devDependencies:
+      '@types/luxon': 3.2.0
+      '@types/node': 18.14.4
+      '@vitejs/plugin-vue': 4.0.0_vite@4.1.4+vue@3.2.47
+      sass: 1.58.3
+      typescript: 4.9.5
+      vite: 4.1.4_ljrjoypxov5se64ibfjelu4vsu
+      vue-tsc: 1.2.0_typescript@4.9.5
+
   packages/example:
     specifiers:
       '@fancee/flux': workspace:*
@@ -343,6 +380,14 @@ packages:
     resolution: {integrity: sha512-4BC1NMoacEBzSXRwKjZ/X/gmnbp/HU5Qqat7E8xqorUtBFZS+bwfGH5/wqOC2K6GV0rgEobp3OjGRMa5fK9pFg==, tarball: '@fortawesome/fontawesome-common-types/-/6.3.0/fontawesome-common-types-6.3.0.tgz'}
     engines: {node: '>=6'}
     requiresBuild: true
+
+  /@fortawesome/free-brands-svg-icons/6.3.0:
+    resolution: {integrity: sha512-xI0c+a8xnKItAXCN8rZgCNCJQiVAd2Y7p9e2ND6zN3J3ekneu96qrePieJ7yA7073C1JxxoM3vH1RU7rYsaj8w==, tarball: '@fortawesome/free-brands-svg-icons/-/6.3.0/free-brands-svg-icons-6.3.0.tgz'}
+    engines: {node: '>=6'}
+    requiresBuild: true
+    dependencies:
+      '@fortawesome/fontawesome-common-types': 6.3.0
+    dev: false
 
   /@fortawesome/pro-regular-svg-icons/6.3.0:
     resolution: {integrity: sha512-hECySYDlfHKz+/s9QSJxjFZUIBV3U78x6v5QYhyYWSpIyBbk93i2u+p9J3b8AlvnABL6ENmxF/5Kg3WgLUwShw==, tarball: '@fortawesome/pro-regular-svg-icons/-/6.3.0/pro-regular-svg-icons-6.3.0.tgz'}
@@ -904,6 +949,11 @@ packages:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
     hasBin: true
     dev: true
+
+  /highlight.js/11.7.0:
+    resolution: {integrity: sha512-1rRqesRFhMO/PRF+G86evnyJkCgaZFOI+Z6kdj15TA18funfoqJXvgPCLSf0SWq3SRfg1j3HlDs8o4s3EGq1oQ==}
+    engines: {node: '>=12.0.0'}
+    dev: false
 
   /ignore/5.2.4:
     resolution: {integrity: sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==}
@@ -1621,6 +1671,13 @@ packages:
       vue-docgen-api: 4.56.4_vue@3.2.47
     dev: true
 
+  /vue-highlight-code/0.1.16:
+    resolution: {integrity: sha512-aPVwAOxHxG9wCpbZKEmqdlPc/g9l+FT+uYA6bLrqpbEe72KcxqIPuVjjtDX0Eba4qxG35gyxESyiJWeVtsv/Vg==}
+    dependencies:
+      highlight.js: 11.7.0
+      vue: 3.2.47
+    dev: false
+
   /vue-inbrowser-compiler-independent-utils/4.56.2_vue@2.7.14:
     resolution: {integrity: sha512-szE2vZDSkZlItq+K4MevgvCGKt5IzM6OkIjyCuj/09ty2akixeQGNFRXyDELMdmVVzmN+9nJn02YKnoPkhXHwA==}
     peerDependencies:
@@ -1636,6 +1693,15 @@ packages:
     dependencies:
       vue: 3.2.47
     dev: true
+
+  /vue-router/4.1.6_vue@3.2.47:
+    resolution: {integrity: sha512-DYWYwsG6xNPmLq/FmZn8Ip+qrhFEzA14EI12MsMgVxvHFDYvlr4NXpVF5hrRH1wVcDP8fGi5F4rxuJSl8/r+EQ==}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      '@vue/devtools-api': 6.5.0
+      vue: 3.2.47
+    dev: false
 
   /vue-template-compiler/2.7.14:
     resolution: {integrity: sha512-zyA5Y3ArvVG0NacJDkkzJuPQDF8RFeRlzV2vLeSnhSpieO6LK2OVbdLPi5MPPs09Ii+gMO8nY4S3iKQxBxDmWQ==}

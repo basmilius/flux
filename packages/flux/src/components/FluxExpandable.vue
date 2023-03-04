@@ -100,6 +100,7 @@
             background: unset;
             border: 0;
             color: var(--foreground-prominent);
+            cursor: pointer;
             outline: 0;
             text-align: left;
             z-index: 1;
