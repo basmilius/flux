@@ -13,6 +13,7 @@
 
         &:not(.is-current) {
             opacity: 0;
+            pointer-events: none;
             scale: 1.05;
             transition-delay: 90ms;
         }

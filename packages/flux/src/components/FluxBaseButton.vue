@@ -152,7 +152,7 @@
 
         &-label {
             display: inline-block;
-            font-weight: 600;
+            font-weight: 500;
             text-align: center;
 
             &:only-child {

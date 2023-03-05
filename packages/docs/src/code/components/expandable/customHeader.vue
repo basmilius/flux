@@ -23,5 +23,9 @@
 <script
     lang="ts"
     setup>
-    import { FluxExpandable, FluxSecondaryButton, FluxButtonStack } from '@fancee/flux';
+    import {
+        FluxExpandable,
+        FluxSecondaryButton,
+        FluxButtonStack
+    } from '@fancee/flux';
 </script>

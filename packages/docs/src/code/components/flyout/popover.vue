@@ -27,5 +27,12 @@
 <script
     lang="ts"
     setup>
-    import { FluxButtonStack, FluxFlyout, FluxPaneBody, FluxPaneFooter, FluxSecondaryButton, FluxSpacer } from '@fancee/flux';
+    import {
+        FluxButtonStack,
+        FluxFlyout,
+        FluxPaneBody,
+        FluxPaneFooter,
+        FluxSecondaryButton,
+        FluxSpacer
+    } from '@fancee/flux';
 </script>

@@ -15,5 +15,8 @@
 <script
     lang="ts"
     setup>
-    import { FluxBadge, FluxBadgeStack } from '@fancee/flux';
+    import {
+        FluxBadge,
+        FluxBadgeStack
+    } from '@fancee/flux';
 </script>

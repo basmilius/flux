@@ -41,5 +41,13 @@
 <script
     lang="ts"
     setup>
-    import { FluxButtonStack, FluxFlyout, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSecondaryButton, FluxSeparator } from '@fancee/flux';
+    import {
+        FluxButtonStack,
+        FluxFlyout,
+        FluxMenu,
+        FluxMenuGroup,
+        FluxMenuItem,
+        FluxSecondaryButton,
+        FluxSeparator
+    } from '@fancee/flux';
 </script>

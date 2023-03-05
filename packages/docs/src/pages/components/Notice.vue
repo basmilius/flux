@@ -14,8 +14,10 @@
 
         <section>
             <p>
-                Badges are used as labels for a more specific element in the UI. This, for example, may be used to
-                display the status of an order.
+                A notice component is a UI component that displays a message to the user, typically to provide
+                information or alert them to a particular status or event. A notice may include an icon, message,
+                and an optional title. It is used to communicate important information to the user in a clear
+                and concise manner.
             </p>
 
             <p><br/></p>
@@ -24,45 +26,28 @@
             <api-table title="Props">
                 <template #body>
                     <tr>
-                        <td><code>color</code><code>'primary' | 'danger' | 'info' | 'success' | 'warning'</code></td>
-                        <td>The color used within the badge.</td>
-                    </tr>
-                    <tr>
-                        <td><code>dot</code><code>boolean</code></td>
-                        <td>Adds a colored dot to the badge.</td>
-                    </tr>
-                    <tr>
                         <td><code>icon</code><code>IconNames</code></td>
-                        <td>The icon used within the icon.</td>
-                    </tr>
-                    <tr>
-                        <td><code>is-clickable</code><code>boolean</code></td>
-                        <td>Allows the badge to be clicked.</td>
-                    </tr>
-                    <tr>
-                        <td><code>is-deletable</code><code>boolean</code></td>
-                        <td>Allows the badge to be deleted.</td>
+                        <td>The icon used within the notice.</td>
                     </tr>
                     <tr>
                         <td><code>is-loading</code><code>boolean</code></td>
-                        <td>Enables the loading state of the badge.</td>
+                        <td>Sets if the notice should display a loading spinner.</td>
                     </tr>
                     <tr>
-                        <td><code>label</code><code>string</code></td>
-                        <td>The label displayed within the badge.</td>
-                    </tr>
-                </template>
-            </api-table>
-
-            <api-table title="Emits">
-                <template #body>
-                    <tr>
-                        <td><code>click</code><code>(evt: MouseEvent): void;</code></td>
-                        <td>Triggered when the badge is clicked. This only works when the is-clickable prop is set.</td>
+                        <td><code>is-small</code><code>boolean</code></td>
+                        <td>Sets if the notice should use a smaller variant.</td>
                     </tr>
                     <tr>
-                        <td><code>delete</code><code>(): void;</code></td>
-                        <td>Triggered when the delete button within the badge is clicked. This only works when the is-deletable prop is set.</td>
+                        <td><code>message</code><code>string</code></td>
+                        <td>The message within the notice.</td>
+                    </tr>
+                    <tr>
+                        <td><code>title</code><code>string</code></td>
+                        <td>The title of the notice.</td>
+                    </tr>
+                    <tr>
+                        <td><code>variant</code><code>'gray' | 'primary' | 'danger' | 'info' | 'success' | 'warning'</code></td>
+                        <td>The color variant of the notice.</td>
                     </tr>
                 </template>
             </api-table>
@@ -72,34 +57,24 @@
 
             <h3>Basic</h3>
             <p>
-                A basic badge can be used to show additional information about something else.
+                Notices can display the result of an action that the user performed. The variant of the
+                notice depends on if the result of that action is good or bad.
             </p>
             <code-preview
                 :code="basicCode as string"
                 :component="basic"/>
 
-            <h3>Dot</h3>
+            <h3>Small</h3>
             <p>
-                A badge with a dot can be used to indicate status of something. For example the status
-                of a server or the payment status of an order.
+                A smaller notice can be used within a Pane, for example within sidebars.
             </p>
             <code-preview
-                :code="dotCode as string"
-                :component="dot"/>
-
-            <h3>Icon</h3>
-            <p>
-                Icons within badges can be used to improve the meaning of the badge. This can for example
-                be used to display features of something.
-            </p>
-            <code-preview
-                :code="iconCode as string"
-                :component="icon"/>
+                :code="smallCode as string"
+                :component="small"/>
 
             <h3>Loading</h3>
             <p>
-                Badges with a loading state can be used to indicate that a row within a table is doing
-                something, such as saving a particular row.
+                Notices may also indicate that something is loading.
             </p>
             <code-preview
                 :code="loadingCode as string"
@@ -113,12 +88,10 @@
     setup>
     import { FluxNotice, FluxStack } from '@fancee/flux';
     import { ApiTable, CodePreview, PageTitle, Preview } from '@/components';
-    import basic from '@/code/components/badge/basic.vue';
-    import basicCode from '@/code/components/badge/basic.vue?raw';
-    import dot from '../../code/components/badge/dot.vue';
-    import dotCode from '../../code/components/badge/dot.vue?raw';
-    import icon from '../../code/components/badge/icon.vue';
-    import iconCode from '../../code/components/badge/icon.vue?raw';
-    import loading from '../../code/components/badge/loading.vue';
-    import loadingCode from '../../code/components/badge/loading.vue?raw';
+    import basic from '@/code/components/notice/basic.vue';
+    import basicCode from '@/code/components/notice/basic.vue?raw';
+    import small from '@/code/components/notice/small.vue';
+    import smallCode from '@/code/components/notice/small.vue?raw';
+    import loading from '@/code/components/notice/loading.vue';
+    import loadingCode from '@/code/components/notice/loading.vue?raw';
 </script>

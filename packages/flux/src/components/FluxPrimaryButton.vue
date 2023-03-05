@@ -64,9 +64,15 @@
         --background-active: rgb(var(--primary-9));
         --foreground: rgb(var(--primary-0));
         --icon: rgb(var(--primary-0));
-        --stroke: var(--background);
+        --stroke: transparent;
 
         --spinner-track: rgb(var(--primary-8));
         --spinner-value: rgb(var(--primary-0));
+
+        &,
+        &:hover,
+        &:active {
+            background-clip: border-box;
+        }
     }
 </style>

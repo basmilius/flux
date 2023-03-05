@@ -47,6 +47,7 @@
             inset: 0;
             align-items: center;
             justify-content: center;
+            backdrop-filter: blur(2px);
             background: rgb(var(--gray-0) / .75);
             border-radius: inherit;
             z-index: 100;

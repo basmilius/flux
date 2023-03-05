@@ -4,6 +4,17 @@
     line-height: 1.4;
 }
 
+:where(a:not([class])) {
+    color: rgb(var(--primary-7));
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 2px;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
 :where(p) {
     margin: 0;
     line-height: 1.6;
@@ -55,9 +66,13 @@
 }
 
 :where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, .flux-typography-aware) + :where(h1, h2, h3) {
-    margin-top: 39px;
+    margin-top: 33px;
 }
 
-:where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, .flux-typography-aware) + :where(h4, h5, h6, p, ul, ol, li, blockquote, img, .flux-typography-aware) {
-    margin-top: 15px;
+:where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, .flux-typography-aware) + :where(h4, h5, h6, p, ul, ol, li, blockquote, img) {
+    margin-top: 12px;
+}
+
+:where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, .flux-typography-aware) + :where(.flux-typography-aware) {
+    margin-top: 21px;
 }

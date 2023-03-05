@@ -28,7 +28,7 @@
         getComputedStyle(preview);
 
         const {height} = preview.getBoundingClientRect();
-        minHeight.value = (Math.ceil(height / 45) + 2) * 45;
+        minHeight.value = Math.max(6, Math.ceil(height / 45) + 2) * 45;
     }
 </script>
 
@@ -37,7 +37,7 @@
         position: relative;
         display: flex;
         min-height: calc(v-bind(minHeight) * 1px);
-        padding: 60px;
+        padding: 15px 60px;
         align-items: center;
         justify-content: center;
         background-image:
@@ -47,6 +47,7 @@
         background-size: 45px 45px;
         border: 1px solid rgb(var(--gray-3));
         border-radius: var(--radius);
+        font-size: 15px;
 
         > .flux-pane {
             width: 100%;

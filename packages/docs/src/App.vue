@@ -21,6 +21,7 @@
                         <flux-menu-sub-header label="Content"/>
 
                         <flux-menu-item
+                            disabled
                             label="Icons"
                             to="/content/icons"
                             type="route"/>
@@ -64,6 +65,7 @@
                         <flux-menu-sub-header label="Components"/>
 
                         <flux-menu-item
+                            disabled
                             label="Action bar"
                             to="/components/action-bar"
                             type="route"/>
@@ -79,11 +81,17 @@
                             type="route"/>
 
                         <flux-menu-item
+                            label="Button group"
+                            to="/components/button-group"
+                            type="route"/>
+
+                        <flux-menu-item
                             label="Divider"
                             to="/components/divider"
                             type="route"/>
 
                         <flux-menu-item
+                            disabled
                             label="Drop zone"
                             to="/components/drop-zone"
                             type="route"/>
@@ -99,6 +107,7 @@
                             type="route"/>
 
                         <flux-menu-item
+                            disabled
                             label="Feature card"
                             to="/components/feature-card"
                             type="route"/>
@@ -109,21 +118,54 @@
                             type="route"/>
 
                         <flux-menu-item
+                            disabled
                             label="Form"
                             to="/components/form"
                             type="route"/>
 
                         <flux-menu-item
+                            disabled
+                            label="Form field"
+                            to="/components/form-field"
+                            type="route"/>
+
+                        <flux-menu-item
+                            disabled
+                            label="Form input"
+                            to="/components/form-input"
+                            type="route"/>
+
+                        <flux-menu-item
+                            disabled
+                            label="Form select"
+                            to="/components/form-select"
+                            type="route"/>
+
+                        <flux-menu-item
+                            disabled
+                            label="Form text area"
+                            to="/components/form-text-area"
+                            type="route"/>
+
+                        <flux-menu-item
+                            disabled
                             label="Gallery"
                             to="/components/gallery"
                             type="route"/>
 
                         <flux-menu-item
+                            label="Icon"
+                            to="/components/icon"
+                            type="route"/>
+
+                        <flux-menu-item
+                            disabled
                             label="Info"
                             to="/components/info"
                             type="route"/>
 
                         <flux-menu-item
+                            disabled
                             label="Menu"
                             to="/components/menu"
                             type="route"/>
@@ -134,6 +176,7 @@
                             type="route"/>
 
                         <flux-menu-item
+                            disabled
                             label="Overlay"
                             to="/components/overlay"
                             type="route"/>
@@ -149,21 +192,25 @@
                             type="route"/>
 
                         <flux-menu-item
+                            disabled
                             label="Placeholder"
                             to="/components/placeholder"
                             type="route"/>
 
                         <flux-menu-item
+                            disabled
                             label="Remove"
                             to="/components/remove"
                             type="route"/>
 
                         <flux-menu-item
+                            disabled
                             label="Segmented control"
                             to="/components/segmented-control"
                             type="route"/>
 
                         <flux-menu-item
+                            disabled
                             label="Separator"
                             to="/components/separator"
                             type="route"/>
@@ -174,11 +221,18 @@
                             type="route"/>
 
                         <flux-menu-item
+                            label="Split button"
+                            to="/components/split-button"
+                            type="route"/>
+
+                        <flux-menu-item
+                            disabled
                             label="Toggle"
                             to="/components/toggle"
                             type="route"/>
 
                         <flux-menu-item
+                            disabled
                             label="Toolbar"
                             to="/components/toolbar"
                             type="route"/>

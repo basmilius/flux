@@ -4,17 +4,23 @@
         :is-auto-width="flyoutIsAutoWidth"
         :margin="flyoutMargin"
         :width="flyoutWidth">
-        <template #opener="{open}">
+        <template #opener="bindings">
             <div class="flux-button-group flux-split-button">
-                <slot name="button"/>
+                <slot
+                    name="button"
+                    v-bind="bindings"/>
 
                 <flux-secondary-button
                     :icon-before="buttonIcon ?? 'ellipsis-h'"
-                    @click="open"/>
+                    @click="bindings.open"/>
             </div>
         </template>
 
-        <slot name="flyout"/>
+        <template #default="bindings">
+            <slot
+                name="flyout"
+                v-bind="bindings"/>
+        </template>
     </flux-flyout>
 </template>
 
@@ -37,7 +43,7 @@
 
 <style lang="scss">
     .flux-button-group {
-        display: flex;
+        display: inline-flex;
         flex-flow: row nowrap;
 
         .flux-button {

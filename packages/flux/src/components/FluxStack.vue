@@ -4,6 +4,7 @@
         :class="{
             'flux-stack-horizontal': axis === 'horizontal',
             'flux-stack-vertical': axis === 'vertical',
+            'flux-stack-fill': isFill,
             'flux-stack-growing': isGrowing,
             'flux-stack-wrapping': isWrapping
         }"
@@ -20,6 +21,7 @@
     export interface Props {
         readonly axis?: 'horizontal' | 'vertical';
         readonly gap?: number;
+        readonly isFill?: boolean;
         readonly isGrowing?: boolean;
         readonly isWrapping?: boolean;
     }
@@ -47,6 +49,10 @@
         > .flux-separator {
             margin-top: 21px;
             margin-bottom: 21px;
+        }
+
+        &-fill {
+            width: 100%;
         }
 
         &-growing > *:not(.flux-separator) {

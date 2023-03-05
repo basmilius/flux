@@ -114,6 +114,7 @@
         }
 
         &-prefix {
+            margin-top: 1px;
             flex-shrink: 0;
             color: var(--foreground-prominent);
         }

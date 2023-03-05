@@ -17,5 +17,8 @@
 <script
     lang="ts"
     setup>
-    import { FluxExpandable, FluxExpandableGroup } from '@fancee/flux';
+    import {
+        FluxExpandable,
+        FluxExpandableGroup
+    } from '@fancee/flux';
 </script>

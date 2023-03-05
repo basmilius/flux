@@ -1,5 +1,7 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
+// @ts-ignore
+import autoprefixer from 'autoprefixer';
 import vue from '@vitejs/plugin-vue2';
 
 export default defineConfig({
@@ -20,6 +22,13 @@ export default defineConfig({
                     'vue': 'vue'
                 }
             }
+        }
+    },
+    css: {
+        postcss: {
+            plugins: [
+                autoprefixer({})
+            ],
         }
     },
     optimizeDeps: {
