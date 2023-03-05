@@ -28,7 +28,7 @@
 
 <style lang="scss">
     .flux-docs {
-        background: var(--gray-0);
+        background: rgb(var(--gray-0));
         z-index: 0;
 
         &-container {
@@ -53,7 +53,7 @@
                 display: block;
                 inset: 0 0 0 -50vw;
                 content: '';
-                background: var(--gray-1);
+                background: rgb(var(--gray-1));
             }
 
             &-nav {
@@ -67,8 +67,8 @@
         &-top-bar {
             position: sticky;
             top: 0;
-            background: var(--gray-0);
-            box-shadow: 0 4px 6px -1px var(--gray-3), 0 2px 4px -2px var(--gray-4);
+            background: rgb(var(--gray-0));
+            box-shadow: 0 4px 6px -1px rgb(var(--gray-3)), 0 2px 4px -2px rgb(var(--gray-4));
             z-index: 2;
 
             &-container {

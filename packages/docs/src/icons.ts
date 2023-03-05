@@ -5,6 +5,7 @@ export {
 export {
     faCircleCheck,
     faCircleExclamation,
+    faCloud,
     faCopy,
     faEllipsisH,
     faGear,
@@ -13,5 +14,6 @@ export {
     faPlus,
     faQuestion,
     faScissors,
+    faSparkles,
     faXmark
 } from '@fortawesome/pro-regular-svg-icons';

@@ -106,11 +106,11 @@
             z-index: 1;
 
             &:focus-visible {
-                box-shadow: 0 0 0 2px var(--primary-7);
+                box-shadow: 0 0 0 2px rgb(var(--primary-7));
             }
 
             &:hover {
-                background: var(--secondary-button-background-hover);
+                background: rgb(var(--gray-1));
             }
 
             span {

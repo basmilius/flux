@@ -120,12 +120,13 @@
         gap: 12px;
         justify-content: center;
         background: var(--background);
+        background-clip: padding-box;
         border: 1px solid var(--stroke);
         border-radius: var(--radius);
         box-shadow: 0 1px 1px rgb(0 0 0 / .03);
         cursor: pointer;
         font: inherit;
-        outline: none;
+        outline: 0;
         text-decoration: none;
         transition: 180ms var(--swift-out);
         transition-property: background, box-shadow, color;
@@ -136,7 +137,7 @@
         }
 
         &:focus-visible {
-            box-shadow: 0 0 0 2px var(--gray-0), 0 0 0 4px var(--primary-7);
+            box-shadow: 0 0 0 2px rgb(var(--gray-0)), 0 0 0 4px rgb(var(--primary-7));
             z-index: 1;
         }
 
@@ -161,10 +162,12 @@
 
         &:hover {
             background: var(--background-hover);
+            background-clip: padding-box;
         }
 
         &:active {
             background: var(--background-active);
+            background-clip: padding-box;
             box-shadow: none;
         }
 

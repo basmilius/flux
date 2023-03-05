@@ -31,11 +31,11 @@
     .highlighted-code {
         margin-top: 6px;
         margin-bottom: 6px;
-        border: 1px solid var(--gray-3);
+        border: 1px solid rgb(var(--gray-3));
 
         &,
         & .hljs {
-            background: var(--gray-2) !important;
+            background: rgb(var(--gray-2)) !important;
             font-family: jetbrains-mono, monospace !important;
         }
 

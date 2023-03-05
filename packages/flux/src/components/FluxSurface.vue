@@ -6,10 +6,9 @@
 
 <style lang="scss">
     .flux-surface {
-        background: var(--surface-background);
+        background: rgb(var(--gray-0));
         background-clip: padding-box;
-        border: 1px solid var(--surface-stroke);
+        border: 1px solid rgb(var(--gray-4) / .75);
         border-radius: var(--radius);
-        color: var(--surface-foreground);
     }
 </style>

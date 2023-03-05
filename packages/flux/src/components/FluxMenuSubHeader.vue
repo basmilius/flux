@@ -38,7 +38,7 @@
         margin-bottom: -3px;
         padding-top: 6px;
         gap: 9px;
-        background: linear-gradient(to bottom, var(--gray-0) 75%, transparent);
+        background: linear-gradient(to bottom, rgb(var(--gray-0)) 75%, transparent);
         pointer-events: none;
         z-index: 1;
 

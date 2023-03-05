@@ -2,14 +2,26 @@
     <flux-stack>
         <page-title
             section="Components"
-            title="Notice"/>
+            title="Button"/>
 
         <preview>
-            <flux-notice
-                icon="sparkles"
-                title="New release"
-                message="Version 2023.3 contains new features for colors, badges and stacks."
-                variant="info"/>
+            <flux-button-stack>
+                <flux-primary-button
+                    icon-before="circle-check"
+                    label="Save"/>
+
+                <flux-secondary-button
+                    icon-after="ellipsis-h"
+                    label="More"/>
+
+                <flux-destructive-button
+                    icon-before="circle-exclamation"
+                    label="Delete"/>
+
+                <flux-publish-button
+                    is-loading
+                    label="Publishing"/>
+            </flux-button-stack>
         </preview>
 
         <section>
@@ -23,30 +35,6 @@
 
             <api-table title="Props">
                 <template #body>
-                    <tr>
-                        <td><code>color</code><code>'primary' | 'danger' | 'info' | 'success' | 'warning'</code></td>
-                        <td>The color used within the badge.</td>
-                    </tr>
-                    <tr>
-                        <td><code>dot</code><code>boolean</code></td>
-                        <td>Adds a colored dot to the badge.</td>
-                    </tr>
-                    <tr>
-                        <td><code>icon</code><code>IconNames</code></td>
-                        <td>The icon used within the icon.</td>
-                    </tr>
-                    <tr>
-                        <td><code>is-clickable</code><code>boolean</code></td>
-                        <td>Allows the badge to be clicked.</td>
-                    </tr>
-                    <tr>
-                        <td><code>is-deletable</code><code>boolean</code></td>
-                        <td>Allows the badge to be deleted.</td>
-                    </tr>
-                    <tr>
-                        <td><code>is-loading</code><code>boolean</code></td>
-                        <td>Enables the loading state of the badge.</td>
-                    </tr>
                     <tr>
                         <td><code>label</code><code>string</code></td>
                         <td>The label displayed within the badge.</td>
@@ -111,7 +99,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxNotice, FluxStack } from '@fancee/flux';
+    import { FluxStack, FluxPrimaryButton, FluxSecondaryButton, FluxButtonStack, FluxDestructiveButton, FluxPublishButton } from '@fancee/flux';
     import { ApiTable, CodePreview, PageTitle, Preview } from '@/components';
     import basic from '@/code/components/badge/basic.vue';
     import basicCode from '@/code/components/badge/basic.vue?raw';

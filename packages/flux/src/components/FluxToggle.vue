@@ -46,7 +46,7 @@
         position: relative;
         width: 38px;
         height: 21px;
-        background: var(--toggle-background);
+        background: rgb(var(--gray-3));
         border-radius: 12px;
         cursor: pointer;
         transition: 210ms var(--swift-out);
@@ -60,16 +60,16 @@
             height: 15px;
             width: 15px;
             content: '';
-            background: var(--toggle-thumb);
-            border: 1px solid var(--toggle-thumb-stroke);
+            background: rgb(var(--gray-0));
+            border: 1px solid rgb(var(--gray-5));
             border-radius: 9px;
-            box-shadow: 0 1px 2px rgb(0 0 0 / .09);
+            box-shadow: var(--shadow-small);
             transition: inherit;
             transition-property: border-color, translate;
         }
 
         &:checked {
-            background: var(--toggle-background-on);
+            background: rgb(var(--primary-7));
 
             &::after {
                 border-color: transparent;

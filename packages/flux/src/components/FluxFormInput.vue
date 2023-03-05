@@ -112,8 +112,8 @@
         height: 42px;
         width: 100%;
         padding: 0 12px;
-        background: var(--gray-0);
-        border: 1px solid var(--gray-4);
+        background: rgb(var(--gray-0));
+        border: 1px solid rgb(var(--gray-4));
         border-radius: var(--radius);
         box-shadow: 0 1px 1px rgb(0 0 0 / .03);
         color: var(--foreground);
@@ -138,18 +138,18 @@
         }
 
         &.is-disabled {
-            background: var(--gray-2);
+            background: rgb(var(--gray-2));
             cursor: not-allowed;
         }
 
         &:hover {
-            border-color: var(--gray-5);
+            border-color: rgb(var(--gray-5));
         }
 
         &:not(.is-disabled):focus,
         &:not(.is-disabled):focus-within {
-            border-color: var(--primary-7);
-            box-shadow: 0 0 0 1px var(--primary-7);
+            border-color: rgb(var(--primary-7));
+            box-shadow: 0 0 0 1px rgb(var(--primary-7));
             z-index: 1;
         }
     }

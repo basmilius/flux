@@ -6,7 +6,7 @@
             label="Online"/>
 
         <flux-badge
-            color="error"
+            color="danger"
             dot
             label="Boot failure"/>
 

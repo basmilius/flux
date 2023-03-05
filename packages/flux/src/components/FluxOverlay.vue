@@ -74,7 +74,7 @@
         &::backdrop {
             position: fixed;
             inset: 0;
-            background: rgb(255 255 255 / .75);
+            background: rgb(var(--gray-0) / .75);
             transition: background 420ms var(--deceleration-curve);
         }
 

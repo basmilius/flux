@@ -5,7 +5,6 @@
         focusable="false"
         role="img"
         aria-hidden="true"
-        :style="{'--size': size}"
         @click="onClick">
         <template
             v-for="(path, index) in paths"
@@ -58,11 +57,9 @@
 
 <style lang="scss">
     .flux-icon {
-        --size: 20;
-
         height: 1em;
         width: 1em;
-        font-size: calc(var(--size) * 1px);
+        font-size: calc(v-bind(size) * 1px);
         line-height: 1em;
     }
 </style>

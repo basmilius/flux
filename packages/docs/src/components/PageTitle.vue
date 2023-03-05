@@ -23,7 +23,7 @@
         gap: 3px;
 
         &-section {
-            color: var(--primary-6);
+            color: rgb(var(--primary-6));
             font-size: 16px;
             font-weight: 500;
         }

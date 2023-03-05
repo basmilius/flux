@@ -38,7 +38,9 @@
 
 <style lang="scss">
     .code-preview .flux-pane-body:first-of-type {
-        background-image: linear-gradient(to bottom, transparent calc(100% - 1px), rgb(0 0 0 / .0125) calc(100% - 1px)), linear-gradient(to right, transparent calc(100% - 1px), rgb(0 0 0 / .0125) calc(100% - 1px));
+        background-image:
+            linear-gradient(to bottom, transparent calc(100% - 1px), rgb(0 0 0 / .0125) calc(100% - 1px)),
+            linear-gradient(to right, transparent calc(100% - 1px), rgb(0 0 0 / .0125) calc(100% - 1px));
         background-position: top center;
         background-size: 45px 45px;
         border-radius: var(--radius) var(--radius) 0 0;

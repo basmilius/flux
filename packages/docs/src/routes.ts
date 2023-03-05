@@ -23,6 +23,10 @@ export const router = createRouter({
             component: () => import('./pages/components/Badge.vue')
         },
         {
+            path: '/components/button',
+            component: () => import('./pages/components/Button.vue')
+        },
+        {
             path: '/components/expandable',
             component: () => import('./pages/components/Expandable.vue')
         },

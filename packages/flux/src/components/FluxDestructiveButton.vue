@@ -59,11 +59,11 @@
 
 <style lang="scss">
     .flux-destructive-button {
-        --background: var(--destructive-button-background);
-        --background-hover: var(--destructive-button-background-hover);
-        --background-active: var(--destructive-button-background-active);
-        --foreground: var(--destructive-button-foreground);
-        --icon: var(--destructive-button-icon);
-        --stroke: var(--destructive-button-stroke);
+        --background: rgb(var(--gray-0));
+        --background-hover: rgb(var(--gray-2));
+        --background-active: rgb(var(--gray-3));
+        --foreground: rgb(var(--gray-7));
+        --icon: rgb(var(--danger-7));
+        --stroke: rgb(var(--gray-4) / .75);
     }
 </style>

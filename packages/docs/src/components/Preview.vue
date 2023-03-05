@@ -40,10 +40,12 @@
         padding: 60px;
         align-items: center;
         justify-content: center;
-        background-image: linear-gradient(to bottom, transparent calc(100% - 1px), var(--primary-2) calc(100% - 1px)), linear-gradient(to right, var(--gray-1) calc(100% - 1px), var(--primary-2) calc(100% - 1px));
+        background-image:
+            linear-gradient(to bottom, transparent calc(100% - 1px), rgb(var(--primary-2)) calc(100% - 1px)),
+            linear-gradient(to right, rgb(var(--gray-1)) calc(100% - 1px), rgb(var(--primary-2)) calc(100% - 1px));
         background-position: top center;
         background-size: 45px 45px;
-        border: 1px solid var(--gray-3);
+        border: 1px solid rgb(var(--gray-3));
         border-radius: var(--radius);
 
         > .flux-pane {

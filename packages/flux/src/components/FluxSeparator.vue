@@ -21,7 +21,7 @@
 
 <style lang="scss">
     .flux-separator {
-        background: var(--surface-stroke);
+        background: rgb(var(--gray-3));
 
         &-horizontal {
             height: 1px;

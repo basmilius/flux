@@ -219,7 +219,7 @@
         padding-right: 12px;
         align-items: center;
         justify-content: center;
-        background: var(--primary-7);
+        background: rgb(var(--primary-7));
         border-radius: var(--radius);
         color: white;
         font-family: proxima-soft, sans-serif;

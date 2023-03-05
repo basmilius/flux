@@ -114,15 +114,15 @@
     .flux-quantity-selector {
         align-self: center;
         justify-self: center;
-        border: 1px solid var(--gray-4);
+        border: 1px solid rgb(var(--gray-4) / .75);
         border-radius: var(--radius);
         box-shadow: 0 1px 1px rgb(0 0 0 / .03);
         outline: 0;
         overflow: hidden;
         transition: box-shadow 180ms var(--swift-out);
 
-        &:focus-visible:focus-within {
-            box-shadow: 0 0 0 2px var(--gray-0), 0 0 0 4px var(--primary-7);
+        &:focus-visible {
+            box-shadow: 0 0 0 2px rgb(var(--gray-0)), 0 0 0 4px rgb(var(--primary-7));
         }
 
         &-button {
@@ -148,12 +148,12 @@
             text-align: center;
 
             &:hover {
-                border-color: var(--gray-4);
+                border-color: rgb(var(--gray-4));
             }
 
             &:not(.is-disabled):focus,
             &:not(.is-disabled):focus-within {
-                border-color: var(--gray-4);
+                border-color: rgb(var(--gray-4));
                 box-shadow: none;
             }
 

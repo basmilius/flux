@@ -68,8 +68,8 @@
         flex-flow: column;
         gap: 0;
         justify-content: center;
-        background: var(--gray-2);
-        border: 2px dashed var(--gray-4);
+        background: rgb(var(--gray-2));
+        border: 2px dashed rgb(var(--gray-4));
         border-radius: var(--radius);
         text-align: center;
         user-select: none;
@@ -78,13 +78,13 @@
             cursor: pointer;
 
             &:hover {
-                background: var(--gray-3);
-                border-color: var(--gray-5);
+                background: rgb(var(--gray-3));
+                border-color: rgb(var(--gray-5));
             }
         }
 
         &-icon {
-            color: var(--primary-7);
+            color: rgb(var(--primary-7));
             font-size: 20px;
         }
 

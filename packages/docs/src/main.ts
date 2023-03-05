@@ -9,7 +9,6 @@ import { default as App } from './App.vue';
 import '@fancee/flux/style.css';
 import 'vue-highlight-code/dist/style.css';
 
-import './reset.scss';
 import './defaults.scss';
 
 fluxRegisterIcons(icons);

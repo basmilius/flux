@@ -57,10 +57,10 @@
 <style lang="scss">
     .flux-menu-item {
         --background: transparent;
-        --background-hover: var(--secondary-button-background-hover);
-        --background-active: var(--secondary-button-background-active);
-        --foreground: var(--secondary-button-foreground);
-        --icon: var(--primary-button-background);
+        --background-hover: rgb(var(--gray-2));
+        --background-active: rgb(var(--gray-3));
+        --foreground: rgb(var(--gray-7));
+        --icon: rgb(var(--primary-7));
         --stroke: transparent;
 
         gap: 15px;
@@ -69,10 +69,6 @@
         box-shadow: none;
         text-align: left;
 
-        &:focus-visible {
-            box-shadow: 0 0 0 2px var(--gray-0), 0 0 0 4px var(--primary-7);
-        }
-
         span {
             flex-grow: 1;
             font-weight: 400;
@@ -80,8 +76,8 @@
         }
 
         &.is-highlighted {
-            --background: var(--highlight-background);
-            --foreground: var(--highlight-foreground);
+            --background: rgb(var(--primary-3));
+            --foreground: rgb(var(--primary-7));
         }
 
         &.is-indented {
@@ -92,7 +88,7 @@
             margin-left: auto;
             padding-left: 21px;
             flex-grow: 0;
-            color: var(--gray-5);
+            color: rgb(var(--gray-5));
             font: inherit;
             font-size: 13px;
         }

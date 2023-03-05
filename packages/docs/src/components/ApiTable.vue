@@ -35,19 +35,19 @@
         margin: -1px;
         width: calc(100% + 2px);
         border-collapse: collapse;
-        border-radius: calc(var(--radius) + 1px);
+        border-radius: calc(var(--radius) + 2px);
         font-size: 14px;
         overflow: hidden;
 
         td, th {
             padding: 9px 15px;
-            border: 1px solid var(--gray-3);
+            border: 1px solid rgb(var(--gray-3));
             vertical-align: top;
             text-align: left;
         }
 
         th {
-            background: var(--gray-1);
+            background: rgb(var(--gray-1));
 
             &:first-child {
                 width: 240px;

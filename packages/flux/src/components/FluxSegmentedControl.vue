@@ -74,7 +74,7 @@
         padding: 3px;
         align-items: center;
         gap: 1px;
-        background: var(--segmented-control-background);
+        background: rgb(var(--gray-3));
         border-radius: var(--radius);
 
         &-highlight {
@@ -83,7 +83,7 @@
             left: calc(v-bind(activeItemX) * 1px);
             height: 30px;
             width: calc(v-bind(activeItemWidth) * 1px);
-            background: var(--segmented-control-highlight);
+            background: rgb(var(--gray-0));
             border-radius: calc(var(--radius) - 3px);
             box-shadow: var(--shadow-small);
             pointer-events: none;
@@ -97,18 +97,18 @@
             background: none;
             border: 0;
             border-radius: calc(var(--radius) - 3px);
-            color: var(--segmented-control-foreground);
+            color: rgb(var(--gray-7));
             font-size: 13px;
             font-weight: 600;
             text-align: center;
             transition: color 300ms var(--swift-out);
 
             &:hover {
-                background: var(--segmented-control-hover);
+                background: rgb(var(--gray-4));
             }
 
             &.active {
-                color: var(--segmented-control-foreground-active);
+                color: rgb(var(--gray-9));
             }
 
             span {
@@ -120,7 +120,7 @@
             height: 18px;
             width: 1px;
             flex-shrink: 0;
-            background: var(--segmented-control-separator);
+            background: rgb(var(--gray-5));
             transition: opacity 300ms var(--swift-out);
 
             &.active {
@@ -128,15 +128,15 @@
             }
         }
 
-        //@include media-breakpoint-up(md) {
-        //    &-highlight,
-        //    &-item {
-        //        height: 36px;
-        //    }
-        //
-        //    &-item {
-        //        font-size: 14px;
-        //    }
-        //}
+        [md] & {
+            &-highlight,
+            &-item {
+                height: 36px;
+            }
+
+            &-item {
+                font-size: 14px;
+            }
+        }
     }
 </style>

@@ -1,5 +1,4 @@
-import './scss/flux.scss';
-import './scss/typography.scss';
+import './scss/index.scss';
 
 export * from './components';
 export * from './composables';

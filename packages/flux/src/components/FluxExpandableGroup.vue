@@ -47,7 +47,7 @@
         flex-flow: column;
 
         .flux-expandable + .flux-expandable {
-            border-top: 1px solid var(--surface-stroke);
+            border-top: 1px solid rgb(var(--gray-3));
         }
     }
 

@@ -40,8 +40,8 @@
         width: 27px;
         align-items: center;
         justify-content: center;
-        background: var(--gray-11);
-        border: 3px solid var(--gray-0);
+        background: rgb(var(--gray-11));
+        border: 3px solid rgb(var(--gray-0));
         border-radius: 99px;
         color: var(--gray-0);
         transition: 300ms var(--swift-out);

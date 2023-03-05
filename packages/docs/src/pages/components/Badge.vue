@@ -8,7 +8,7 @@
             <flux-badge-stack>
                 <flux-badge label="Badge"/>
                 <flux-badge
-                    color="error"
+                    color="danger"
                     dot
                     label="Badge"/>
                 <flux-badge
@@ -36,7 +36,7 @@
             <api-table title="Props">
                 <template #body>
                     <tr>
-                        <td><code>color</code><code>'primary' | 'error' | 'info' | 'success' | 'warning'</code></td>
+                        <td><code>color</code><code>'primary' | 'danger' | 'info' | 'success' | 'warning'</code></td>
                         <td>The color used within the badge.</td>
                     </tr>
                     <tr>

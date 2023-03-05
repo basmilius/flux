@@ -43,10 +43,10 @@
 <style lang="scss">
     .flux-toolbar-button {
         --background: transparent;
-        --background-hover: var(--secondary-button-background-hover);
-        --background-active: var(--secondary-button-background-active);
-        --foreground: var(--secondary-button-foreground);
-        --icon: var(--secondary-button-icon);
+        --background-hover: rgb(var(--gray-2));
+        --background-active: rgb(var(--gray-3));
+        --foreground: rgb(var(--gray-7));
+        --icon: rgb(var(--gray-7));
         --stroke: transparent;
 
         height: 30px;
@@ -54,7 +54,7 @@
         box-shadow: none;
 
         &-destructive {
-            --icon: var(--destructive-button-icon);
+            --icon: rgb(var(--danger-7))
         }
     }
 </style>
