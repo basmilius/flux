@@ -6,6 +6,8 @@
 
 <style lang="scss">
     .flux-pane-body {
+        display: flex;
+        flex-flow: column;
         padding: 21px;
     }
 

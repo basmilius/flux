@@ -144,6 +144,7 @@
             padding-left: 0;
             padding-right: 0;
             border-radius: 0;
+            font-variant-numeric: tabular-nums;
             font-weight: 700;
             text-align: center;
 

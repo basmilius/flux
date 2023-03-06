@@ -74,8 +74,8 @@
         &::backdrop {
             position: fixed;
             inset: 0;
-            background: rgb(var(--gray-0) / .75);
-            transition: background 420ms var(--deceleration-curve);
+            background: rgb(255 255 255 / .75);
+            animation: overlay-content 300ms ease both;
         }
 
         &[open] {

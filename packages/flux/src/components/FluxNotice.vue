@@ -26,6 +26,7 @@
                 class="flux-notice-message">
                 {{ message }}
             </p>
+            <slot/>
         </div>
     </div>
 </template>
@@ -122,6 +123,15 @@
         &-message,
         &-title {
             margin: 0;
+        }
+
+        ul {
+            padding-left: 0;
+            list-style-type: none;
+
+            li + li {
+                margin-top: 9px;
+            }
         }
 
         &-title {

@@ -77,3 +77,28 @@
     --warning-10: 147 55 13;
     --warning-11: 122 46 14;
 }
+
+[dark],
+body.dark-layout {
+    --shadow: 0 3px 15px rgb(0 0 0 / .125);
+    --shadow-small: 0 1px 3px rgb(0 0 0 / .25);
+
+    --gray-0: 40 48 70;
+    --gray-1: 44 52 74;
+    --gray-2: 48 56 78;
+    --gray-3: 52 60 82;
+    --gray-4: 56 64 86;
+    --gray-5: 60 68 90;
+    --gray-6: 64 73 93;
+    --gray-7: 68 77 97;
+    --gray-8: 72 81 101;
+    --gray-9: 76 85 105;
+    --gray-10: 80 89 109;
+    --gray-11: 84 93 113;
+
+    --background: #161d31;
+    --foreground: #e3e8ef;
+    --foreground-prominent: #ffffff;
+    --foreground-secondary: #778db9;
+    --foreground-muted: rgb(255 255 255 / .5);
+}
