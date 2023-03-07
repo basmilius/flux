@@ -78,8 +78,11 @@
     }
 
     @keyframes spinner {
+        from {
+            transform: rotate(0deg);
+        }
         to {
-            rotate: 1turn;
+            transform: rotate(1turn);
         }
     }
 </style>

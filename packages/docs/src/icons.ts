@@ -5,6 +5,7 @@ export {
 export {
     faAngleLeft,
     faAngleRight,
+    faCircle,
     faCircleArrowDown,
     faCircleArrowRight,
     faCircleArrowUp,

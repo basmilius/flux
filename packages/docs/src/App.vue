@@ -2,7 +2,7 @@
     <flux-root>
         <flux-docs>
             <template #navigation>
-                <flux-menu>
+                <flux-menu class="docs-menu">
                     <flux-menu-group>
                         <flux-menu-sub-header label="Setup"/>
 
@@ -165,7 +165,6 @@
                             type="route"/>
 
                         <flux-menu-item
-                            disabled
                             label="Menu"
                             to="/components/menu"
                             type="route"/>
@@ -195,6 +194,11 @@
                             disabled
                             label="Placeholder"
                             to="/components/placeholder"
+                            type="route"/>
+
+                        <flux-menu-item
+                            label="Quantity selector"
+                            to="/components/quantity-selector"
                             type="route"/>
 
                         <flux-menu-item
@@ -295,15 +299,11 @@
     }
 
     .flux-menu {
-        & &-group {
-            gap: 0;
-        }
-
-        & &-group + &-group {
+        &.docs-menu &-group + &-group {
             margin-top: 30px;
         }
 
-        & &-item {
+        &.docs-menu &-item {
             height: 36px;
 
             span {
@@ -311,7 +311,7 @@
             }
         }
 
-        & &-sub-header {
+        &.docs-menu &-sub-header {
             position: relative;
             background: none;
 

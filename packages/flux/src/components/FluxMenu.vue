@@ -1,7 +1,8 @@
 <template>
     <nav
         v-focus-trap
-        class="flux-menu">
+        class="flux-menu"
+        :class="{'is-large': isLarge}">
         <slot/>
     </nav>
 </template>
@@ -10,6 +11,12 @@
     lang="ts"
     setup>
     import { focusTrap } from '../directives';
+
+    export interface Props {
+        readonly isLarge?: boolean;
+    }
+
+    defineProps<Props>();
 
     const vFocusTrap = focusTrap;
 </script>

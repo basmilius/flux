@@ -51,6 +51,10 @@ export const router = createRouter({
             component: () => import('./pages/components/Icon.vue')
         },
         {
+            path: '/components/menu',
+            component: () => import('./pages/components/Menu.vue')
+        },
+        {
             path: '/components/notice',
             component: () => import('./pages/components/Notice.vue')
         },
@@ -61,6 +65,10 @@ export const router = createRouter({
         {
             path: '/components/pane',
             component: () => import('./pages/components/Pane.vue')
+        },
+        {
+            path: '/components/quantity-selector',
+            component: () => import('./pages/components/QuantitySelector.vue')
         },
         {
             path: '/components/spinner',

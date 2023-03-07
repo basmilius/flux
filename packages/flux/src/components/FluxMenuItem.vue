@@ -2,6 +2,7 @@
     <flux-base-button
         class="flux-menu-item"
         :class="{
+            'is-active': isActive,
             'is-highlighted': isHighlighted,
             'is-indented': isIndented
         }"
@@ -37,6 +38,7 @@
         readonly disabled?: boolean;
         readonly iconAfter?: IconNames | null;
         readonly iconBefore?: IconNames | null;
+        readonly isActive?: boolean;
         readonly isHighlighted?: boolean;
         readonly isIndented?: boolean;
         readonly isLoading?: boolean;
@@ -75,6 +77,18 @@
             text-align: left;
         }
 
+        &.is-active,
+        &.is-highlighted {
+            --background-hover: var(--background);
+            --background-active: var(--background);
+        }
+
+        &.is-active {
+            --background: rgb(var(--primary-7));
+            --foreground: rgb(var(--primary-1));
+            --icon: rgb(var(--primary-0));
+        }
+
         &.is-highlighted {
             --background: rgb(var(--primary-3));
             --foreground: rgb(var(--primary-7));
@@ -91,6 +105,12 @@
             color: rgb(var(--gray-5));
             font: inherit;
             font-size: 13px;
+        }
+
+        @at-root .flux-menu.is-large & {
+            height: 48px;
+            padding-left: 15px;
+            padding-right: 15px;
         }
     }
 </style>
