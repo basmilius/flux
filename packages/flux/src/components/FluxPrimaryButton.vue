@@ -68,11 +68,5 @@
 
         --spinner-track: rgb(var(--primary-8));
         --spinner-value: rgb(var(--primary-0));
-
-        &,
-        &:hover,
-        &:active {
-            background-clip: border-box;
-        }
     }
 </style>

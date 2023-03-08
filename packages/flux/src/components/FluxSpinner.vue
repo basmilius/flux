@@ -59,6 +59,7 @@
         flex-grow: 0;
         flex-shrink: 0;
         font-size: calc(v-bind(size) * 1px);
+        animation: spinner 5s linear infinite;
 
         &-track {
             stroke: var(--spinner-track);
@@ -67,13 +68,13 @@
         &-effect,
         &-value {
             stroke: var(--spinner-value);
-            animation: spinner 1s var(--swift-out) infinite;
+            animation: spinner 1.2s var(--swift-out) infinite;
             transform-origin: center;
         }
 
         &-effect {
             opacity: .25;
-            animation-delay: -.85s;
+            animation-delay: -1.05s;
         }
     }
 

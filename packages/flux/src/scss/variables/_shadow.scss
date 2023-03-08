@@ -1,4 +1,12 @@
 :root {
-    --shadow: 0 2px 9px rgb(0 0 0 / .025);
+    --shadow: 0 3px 9px rgb(0 0 0 / .025);
+    --shadow-pixel: 0 1px 1px rgb(0 0 0 / .03);
     --shadow-small: 0 1px 3px rgb(0 0 0 / .1);
+}
+
+[dark],
+body.dark-layout {
+    --shadow: 0 3px 9px rgb(0 0 0 / .1);
+    --shadow-pixel: 0 1px 1px rgb(0 0 0 / .12);
+    --shadow-small: 0 1px 3px rgb(0 0 0 / .3);
 }

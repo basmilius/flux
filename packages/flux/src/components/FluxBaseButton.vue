@@ -112,32 +112,34 @@
 </script>
 
 <style lang="scss">
+    @use '../scss/mixin' as flux;
+
     .flux-button {
         display: inline-flex;
         height: 42px;
         padding: 0 12px;
         align-items: center;
+        flex-shrink: 0;
         gap: 12px;
         justify-content: center;
         background: var(--background);
-        background-clip: padding-box;
         border: 1px solid var(--stroke);
         border-radius: var(--radius);
-        box-shadow: 0 1px 1px rgb(0 0 0 / .03);
+        box-shadow: var(--shadow-pixel);
         cursor: pointer;
         font: inherit;
-        outline: 0;
         text-decoration: none;
         transition: 180ms var(--swift-out);
-        transition-property: background, box-shadow, color;
+        transition-property: background, box-shadow, color, flux.focus-ring-transition-properties();
         user-select: none;
+
+        @include flux.focus-ring(2px);
 
         > * {
             color: var(--foreground);
         }
 
         &:focus-visible {
-            box-shadow: 0 0 0 2px rgb(var(--gray-0)), 0 0 0 4px rgb(var(--primary-7));
             z-index: 1;
         }
 
@@ -162,12 +164,10 @@
 
         &:hover {
             background: var(--background-hover);
-            background-clip: padding-box;
         }
 
         &:active {
             background: var(--background-active);
-            background-clip: padding-box;
             box-shadow: none;
         }
 

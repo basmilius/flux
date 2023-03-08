@@ -65,7 +65,6 @@
                         <flux-menu-sub-header label="Components"/>
 
                         <flux-menu-item
-                            disabled
                             label="Action bar"
                             to="/components/action-bar"
                             type="route"/>

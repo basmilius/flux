@@ -41,8 +41,8 @@
         align-items: center;
         justify-content: center;
         background-image:
-            linear-gradient(to bottom, transparent calc(100% - 1px), rgb(var(--primary-2)) calc(100% - 1px)),
-            linear-gradient(to right, rgb(var(--gray-1)) calc(100% - 1px), rgb(var(--primary-2)) calc(100% - 1px));
+            linear-gradient(to bottom, transparent calc(100% - 1px), rgb(var(--gray-3) / .75) calc(100% - 1px)),
+            linear-gradient(to right, rgb(var(--gray-1)) calc(100% - 1px), rgb(var(--gray-3) / .75) calc(100% - 1px));
         background-position: top center;
         background-size: 45px 45px;
         border: 1px solid rgb(var(--gray-3));

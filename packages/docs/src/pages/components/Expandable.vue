@@ -5,7 +5,7 @@
             title="Expandable"/>
 
         <preview>
-            <flux-pane is-contained>
+            <flux-pane>
                 <flux-expandable label="More options...">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad culpa debitis deleniti dignissimos dolorem ducimus earum error facilis, fugit hic modi nulla odit praesentium rerum voluptate. Ipsum neque quasi sint?
                 </flux-expandable>

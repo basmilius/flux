@@ -7,13 +7,19 @@
 
         <flux-spacer/>
 
+        <slot name="search"/>
+
         <flux-flyout>
             <template
                 v-if="$slots.filter"
                 #opener="bindings">
                 <slot
                     name="filterOpener"
-                    v-bind="bindings"/>
+                    v-bind="bindings">
+                    <flux-secondary-button
+                        icon-before="filter"
+                        @click="bindings.open"/>
+                </slot>
             </template>
 
             <template #default="bindings">
@@ -24,15 +30,13 @@
                 </flux-pane-body>
             </template>
         </flux-flyout>
-
-        <slot name="search"/>
     </flux-stack>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxFlyout, FluxPaneBody, FluxSpacer, FluxStack } from '.';
+    import { FluxFlyout, FluxPaneBody, FluxSecondaryButton, FluxSpacer, FluxStack } from '.';
 </script>
 
 <style lang="scss">
@@ -43,9 +47,9 @@
     }
 
     .flux-pane > .flux-action-bar {
-        padding: 21px;
-        background: var(--surface-footer);
-        border: 1px solid var(--surface-stroke);
+        padding: 15px 21px;
+        background: rgb(var(--gray-1));
+        border: 1px solid rgb(var(--gray-3));
         border-left: 0;
         border-right: 0;
 
