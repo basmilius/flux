@@ -1,54 +1,31 @@
-<script lang="ts">
-    import { computed, defineComponent, h, ref, Transition, unref } from 'vue-demi';
+<template>
+    <transition
+        mode="out-in"
+        :name="isBack ? 'flux-window-back' : 'flux-window'">
+        <slot
+            :key="view"
+            :name="view"
+            v-bind="{back, navigate}"/>
+    </transition>
+</template>
 
-    export default defineComponent((props, {slots}) => {
-        const isBack = ref(false);
-        const view = ref<string>('default');
+<script
+    lang="ts"
+    setup>
+    import { ref } from 'vue-demi';
 
-        const slot = computed(() => {
-            const viewName = unref(view);
+    const isBack = ref(false);
+    const view = ref<string>('default');
 
-            if (!(viewName in slots)) {
-                throw new Error(`[Flux] A slot with name ${viewName} could not be found.`);
-            }
+    function back(to: string = 'default'): void {
+        isBack.value = true;
+        view.value = to;
+    }
 
-            return slots[viewName];
-        });
-
-        const content = computed(() => {
-            const elements = unref(slot)?.({
-                back,
-                navigate
-            });
-
-            if (!elements || !elements[0]) {
-                return null;
-            }
-
-            elements[0].key = unref(view);
-
-            return elements[0];
-        });
-
-        function back(to: string = 'default'): void {
-            isBack.value = true;
-            view.value = to;
-        }
-
-        function navigate(to: string): void {
-            isBack.value = false;
-            view.value = to;
-        }
-
-        return () => h(
-            Transition,
-            {
-                mode: 'out-in',
-                name: unref(isBack) ? 'flux-window-back' : 'flux-window'
-            },
-            () => unref(content)
-        );
-    });
+    function navigate(to: string): void {
+        isBack.value = false;
+        view.value = to;
+    }
 </script>
 
 <style lang="scss">
