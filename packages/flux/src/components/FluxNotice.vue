@@ -26,6 +26,7 @@
                 class="flux-notice-message">
                 {{ message }}
             </p>
+            <slot/>
         </div>
     </div>
 </template>
@@ -42,11 +43,11 @@
         readonly isSmall?: boolean;
         readonly message: string;
         readonly title?: string;
-        readonly variant?: 'error' | 'info' | 'success' | 'warning';
+        readonly variant?: 'gray' | 'primary' | 'danger' | 'info' | 'success' | 'warning';
     }
 
     withDefaults(defineProps<Props>(), {
-        variant: 'info'
+        variant: 'gray'
     });
 </script>
 
@@ -59,28 +60,52 @@
         border-radius: var(--radius);
         color: var(--foreground);
 
-        &-error {
-            --background: #fef3f2;
-            --foreground: #7a271a;
-            --foreground-prominent: #f04438;
+        &-gray {
+            --background: rgb(var(--gray-2));
+            --foreground: rgb(var(--gray-9));
+            --foreground-prominent: rgb(var(--gray-11));
+            --spinner-track: rgb(var(--gray-4));
+            --spinner-value: rgb(var(--gray-10));
+        }
+
+        &-primary {
+            --background: rgb(var(--primary-2));
+            --foreground: rgb(var(--primary-11));
+            --foreground-prominent: rgb(var(--primary-7));
+            --spinner-track: rgb(var(--primary-3));
+            --spinner-value: rgb(var(--primary-7));
+        }
+
+        &-danger {
+            --background: rgb(var(--danger-2));
+            --foreground: rgb(var(--danger-11));
+            --foreground-prominent: rgb(var(--danger-7));
+            --spinner-track: rgb(var(--danger-3));
+            --spinner-value: rgb(var(--danger-7));
         }
 
         &-info {
-            --background: #eff4ff;
-            --foreground: #00359e;
-            --foreground-prominent: #2970ff;
+            --background: rgb(var(--info-2));
+            --foreground: rgb(var(--info-11));
+            --foreground-prominent: rgb(var(--info-7));
+            --spinner-track: rgb(var(--info-3));
+            --spinner-value: rgb(var(--info-7));
         }
 
         &-success {
-            --background: #ecfdf3;
-            --foreground: #054f31;
-            --foreground-prominent: #12b76a;
+            --background: rgb(var(--success-2));
+            --foreground: rgb(var(--success-11));
+            --foreground-prominent: rgb(var(--success-7));
+            --spinner-track: rgb(var(--success-3));
+            --spinner-value: rgb(var(--success-7));
         }
 
         &-warning {
-            --background: #fffaeb;
-            --foreground: #7a2e0e;
-            --foreground-prominent: #f79009;
+            --background: rgb(var(--warning-2));
+            --foreground: rgb(var(--warning-11));
+            --foreground-prominent: rgb(var(--warning-7));
+            --spinner-track: rgb(var(--warning-3));
+            --spinner-value: rgb(var(--warning-7));
         }
 
         &-body {
@@ -90,9 +115,7 @@
         }
 
         &-prefix {
-            --spinner-track: rgb(0 0 0 / .0375);
-            --spinner-value: currentColor;
-
+            margin-top: 1px;
             flex-shrink: 0;
             color: var(--foreground-prominent);
         }
@@ -100,6 +123,15 @@
         &-message,
         &-title {
             margin: 0;
+        }
+
+        ul {
+            padding-left: 0;
+            list-style-type: none;
+
+            li + li {
+                margin-top: 9px;
+            }
         }
 
         &-title {

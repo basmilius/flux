@@ -58,11 +58,11 @@
 
 <style lang="scss">
     .flux-secondary-button {
-        --background: var(--secondary-button-background);
-        --background-hover: var(--secondary-button-background-hover);
-        --background-active: var(--secondary-button-background-active);
-        --foreground: var(--secondary-button-foreground);
-        --icon: var(--secondary-button-icon);
-        --stroke: var(--secondary-button-stroke);
+        --background: rgb(var(--gray-0));
+        --background-hover: rgb(var(--gray-2));
+        --background-active: rgb(var(--gray-3));
+        --foreground: rgb(var(--gray-7));
+        --icon: rgb(var(--gray-9));
+        --stroke: rgb(var(--gray-4) / .75);
     }
 </style>

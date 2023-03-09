@@ -10,26 +10,34 @@ importers:
       concurrently: 7.6.0
       vite: 4.1.4
 
-  packages/example:
+  packages/docs:
     specifiers:
       '@fancee/flux': workspace:*
+      '@fortawesome/free-brands-svg-icons': ^6.3.0
       '@fortawesome/pro-regular-svg-icons': ^6.3.0
       '@types/luxon': ^3.2.0
       '@types/node': ^18.14.4
       '@vitejs/plugin-vue': ^4.0.0
+      highlight.js: ^11.7.0
       luxon: ^3.2.1
       pinia: ^2.0.32
       sass: ^1.58.3
       typescript: ^4.9.5
       vite: ^4.1.4
       vue: ^3.2.47
+      vue-highlight-code: ^0.1.16
+      vue-router: ^4.1.6
       vue-tsc: ^1.2.0
     dependencies:
       '@fancee/flux': link:../vue3
+      '@fortawesome/free-brands-svg-icons': 6.3.0
       '@fortawesome/pro-regular-svg-icons': 6.3.0
+      highlight.js: 11.7.0
       luxon: 3.2.1
       pinia: 2.0.32_hmuptsblhheur2tugfgucj7gc4
       vue: 3.2.47
+      vue-highlight-code: 0.1.16
+      vue-router: 4.1.6_vue@3.2.47
     devDependencies:
       '@types/luxon': 3.2.0
       '@types/node': 18.14.4
@@ -61,7 +69,9 @@ importers:
   packages/vue2:
     specifiers:
       '@fortawesome/fontawesome-common-types': ^6.3.0
+      '@types/autoprefixer': ^10.2.0
       '@vitejs/plugin-vue2': ^2.2.0
+      autoprefixer: ^10.4.13
       luxon: ^3.2.1
       minimist: ^1.2.8
       pinia: ^2.0.32
@@ -76,7 +86,9 @@ importers:
       vue-demi: 0.13.11_vue@2.7.14
     devDependencies:
       '@fortawesome/fontawesome-common-types': 6.3.0
+      '@types/autoprefixer': 10.2.0
       '@vitejs/plugin-vue2': 2.2.0_vite@4.1.4+vue@2.7.14
+      autoprefixer: 10.4.13
       luxon: 3.2.1
       minimist: 1.2.8
       pinia: 2.0.32_hwpzsh6pnvsm3pjf2zi526hnzq
@@ -90,8 +102,10 @@ importers:
   packages/vue3:
     specifiers:
       '@fortawesome/fontawesome-common-types': ^6.3.0
+      '@types/autoprefixer': ^10.2.0
       '@vitejs/plugin-vue': ^4.0.0
       '@vue/compiler-sfc': ^3.2.47
+      autoprefixer: ^10.4.13
       luxon: ^3.2.1
       minimist: ^1.2.8
       pinia: ^2.0.32
@@ -105,8 +119,10 @@ importers:
       vue-demi: 0.13.11_vue@3.2.47
     devDependencies:
       '@fortawesome/fontawesome-common-types': 6.3.0
+      '@types/autoprefixer': 10.2.0
       '@vitejs/plugin-vue': 4.0.0_vite@4.1.4+vue@3.2.47
       '@vue/compiler-sfc': 3.2.47
+      autoprefixer: 10.4.13
       luxon: 3.2.1
       minimist: 1.2.8
       pinia: 2.0.32_hmuptsblhheur2tugfgucj7gc4
@@ -344,6 +360,14 @@ packages:
     engines: {node: '>=6'}
     requiresBuild: true
 
+  /@fortawesome/free-brands-svg-icons/6.3.0:
+    resolution: {integrity: sha512-xI0c+a8xnKItAXCN8rZgCNCJQiVAd2Y7p9e2ND6zN3J3ekneu96qrePieJ7yA7073C1JxxoM3vH1RU7rYsaj8w==, tarball: '@fortawesome/free-brands-svg-icons/-/6.3.0/free-brands-svg-icons-6.3.0.tgz'}
+    engines: {node: '>=6'}
+    requiresBuild: true
+    dependencies:
+      '@fortawesome/fontawesome-common-types': 6.3.0
+    dev: false
+
   /@fortawesome/pro-regular-svg-icons/6.3.0:
     resolution: {integrity: sha512-hECySYDlfHKz+/s9QSJxjFZUIBV3U78x6v5QYhyYWSpIyBbk93i2u+p9J3b8AlvnABL6ENmxF/5Kg3WgLUwShw==, tarball: '@fortawesome/pro-regular-svg-icons/-/6.3.0/pro-regular-svg-icons-6.3.0.tgz'}
     engines: {node: '>=6'}
@@ -371,6 +395,15 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
+    dev: true
+
+  /@types/autoprefixer/10.2.0:
+    resolution: {integrity: sha512-ClU0uw3HhUra890K4xcf2IQxD6w0WOjPIaKb8jrRXYPHvvUW1P5dGufPlDtTo5gtWPWH+4L6tSBAoAKVf93uBQ==}
+    deprecated: This is a stub types definition. autoprefixer provides its own type definitions, so you do not need this installed.
+    dependencies:
+      autoprefixer: 10.4.13
+    transitivePeerDependencies:
+      - postcss
     dev: true
 
   /@types/luxon/3.2.0:
@@ -587,6 +620,21 @@ packages:
       tslib: 2.5.0
     dev: true
 
+  /autoprefixer/10.4.13:
+    resolution: {integrity: sha512-49vKpMqcZYsJjwotvt4+h/BCjJVnhGwcLpDt5xkcaOG3eLrG/HUYLagrihYsQ+qrIBgIzX1Rw7a6L8I/ZA1Atg==}
+    engines: {node: ^10 || ^12 || >=14}
+    hasBin: true
+    peerDependencies:
+      postcss: ^8.1.0
+    dependencies:
+      browserslist: 4.21.5
+      caniuse-lite: 1.0.30001460
+      fraction.js: 4.2.0
+      normalize-range: 0.1.2
+      picocolors: 1.0.0
+      postcss-value-parser: 4.2.0
+    dev: true
+
   /available-typed-arrays/1.0.5:
     resolution: {integrity: sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==}
     engines: {node: '>= 0.4'}
@@ -621,11 +669,26 @@ packages:
       fill-range: 7.0.1
     dev: true
 
+  /browserslist/4.21.5:
+    resolution: {integrity: sha512-tUkiguQGW7S3IhB7N+c2MV/HZPSCPAAiYBZXLsBhFB/PCy6ZKKsZrmBayHV9fdGV/ARIfJ14NkxKzRDjvp7L6w==}
+    engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
+    hasBin: true
+    dependencies:
+      caniuse-lite: 1.0.30001460
+      electron-to-chromium: 1.4.320
+      node-releases: 2.0.10
+      update-browserslist-db: 1.0.10_browserslist@4.21.5
+    dev: true
+
   /call-bind/1.0.2:
     resolution: {integrity: sha512-7O+FbCihrB5WGbFYesctwmTKae6rOiIzmz1icreWJ+0aA7LJfuqhEso2T9ncpcFtzMQtzXf2QGGueWJGTYsqrA==}
     dependencies:
       function-bind: 1.1.1
       get-intrinsic: 1.2.0
+    dev: true
+
+  /caniuse-lite/1.0.30001460:
+    resolution: {integrity: sha512-Bud7abqjvEjipUkpLs4D7gR0l8hBYBHoa+tGtKJHvT2AYzLp1z7EmVkUT4ERpVUfca8S2HGIVs883D8pUH1ZzQ==}
     dev: true
 
   /chalk/4.1.2:
@@ -734,6 +797,10 @@ packages:
     resolution: {integrity: sha512-LLBi6pEqS6Do3EKQ3J0NqHWV5hhb78Pi8vvESYwyOy2c31ZEZVdtitdzsQsKb7878PEERhzUk0ftqGhG6Mz+pQ==}
     dev: true
 
+  /electron-to-chromium/1.4.320:
+    resolution: {integrity: sha512-h70iRscrNluMZPVICXYl5SSB+rBKo22XfuIS1ER0OQxQZpKTnFpuS6coj7wY9M/3trv7OR88rRMOlKmRvDty7Q==}
+    dev: true
+
   /emoji-regex/8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
     dev: true
@@ -814,6 +881,10 @@ packages:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
     dependencies:
       is-callable: 1.2.7
+    dev: true
+
+  /fraction.js/4.2.0:
+    resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
     dev: true
 
   /fsevents/2.3.2:
@@ -904,6 +975,11 @@ packages:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
     hasBin: true
     dev: true
+
+  /highlight.js/11.7.0:
+    resolution: {integrity: sha512-1rRqesRFhMO/PRF+G86evnyJkCgaZFOI+Z6kdj15TA18funfoqJXvgPCLSf0SWq3SRfg1j3HlDs8o4s3EGq1oQ==}
+    engines: {node: '>=12.0.0'}
+    dev: false
 
   /ignore/5.2.4:
     resolution: {integrity: sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==}
@@ -1081,8 +1157,17 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+  /node-releases/2.0.10:
+    resolution: {integrity: sha512-5GFldHPXVG/YZmFzJvKK2zDSzPKhEp0+ZR5SVaoSag9fsL5YgHbUHDfnG5494ISANDcK4KwPXAx2xqVEydmd7w==}
+    dev: true
+
   /normalize-path/3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
+    engines: {node: '>=0.10.0'}
+    dev: true
+
+  /normalize-range/0.1.2:
+    resolution: {integrity: sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==}
     engines: {node: '>=0.10.0'}
     dev: true
 
@@ -1172,6 +1257,10 @@ packages:
       vue: 3.2.47
       vue-demi: 0.13.11_vue@3.2.47
     dev: false
+
+  /postcss-value-parser/4.2.0:
+    resolution: {integrity: sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==}
+    dev: true
 
   /postcss/8.4.21:
     resolution: {integrity: sha512-tP7u/Sn/dVxK2NnruI4H9BG+x+Wxz6oeZ1cJ8P6G/PZY0IKk4k/63TDsQf2kQq3+qoJeLm2kIBUNlZe3zgb4Zg==}
@@ -1446,6 +1535,17 @@ packages:
     engines: {node: '>=4.2.0'}
     hasBin: true
 
+  /update-browserslist-db/1.0.10_browserslist@4.21.5:
+    resolution: {integrity: sha512-OztqDenkfFkbSG+tRxBeAnCVPckDBcvibKd35yDONx6OU8N7sqgwc7rCbkJ/WcYtVRZ4ba68d6byhC21GFh7sQ==}
+    hasBin: true
+    peerDependencies:
+      browserslist: '>= 4.21.0'
+    dependencies:
+      browserslist: 4.21.5
+      escalade: 3.1.1
+      picocolors: 1.0.0
+    dev: true
+
   /util/0.12.5:
     resolution: {integrity: sha512-kZf/K6hEIrWHI6XqOFUiiMa+79wE/D8Q+NCNAWclkyg3b4d2k7s0QGepNjiABc+aR3N1PAyHL7p6UcLY6LmrnA==}
     dependencies:
@@ -1621,6 +1721,13 @@ packages:
       vue-docgen-api: 4.56.4_vue@3.2.47
     dev: true
 
+  /vue-highlight-code/0.1.16:
+    resolution: {integrity: sha512-aPVwAOxHxG9wCpbZKEmqdlPc/g9l+FT+uYA6bLrqpbEe72KcxqIPuVjjtDX0Eba4qxG35gyxESyiJWeVtsv/Vg==}
+    dependencies:
+      highlight.js: 11.7.0
+      vue: 3.2.47
+    dev: false
+
   /vue-inbrowser-compiler-independent-utils/4.56.2_vue@2.7.14:
     resolution: {integrity: sha512-szE2vZDSkZlItq+K4MevgvCGKt5IzM6OkIjyCuj/09ty2akixeQGNFRXyDELMdmVVzmN+9nJn02YKnoPkhXHwA==}
     peerDependencies:
@@ -1636,6 +1743,15 @@ packages:
     dependencies:
       vue: 3.2.47
     dev: true
+
+  /vue-router/4.1.6_vue@3.2.47:
+    resolution: {integrity: sha512-DYWYwsG6xNPmLq/FmZn8Ip+qrhFEzA14EI12MsMgVxvHFDYvlr4NXpVF5hrRH1wVcDP8fGi5F4rxuJSl8/r+EQ==}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      '@vue/devtools-api': 6.5.0
+      vue: 3.2.47
+    dev: false
 
   /vue-template-compiler/2.7.14:
     resolution: {integrity: sha512-zyA5Y3ArvVG0NacJDkkzJuPQDF8RFeRlzV2vLeSnhSpieO6LK2OVbdLPi5MPPs09Ii+gMO8nY4S3iKQxBxDmWQ==}

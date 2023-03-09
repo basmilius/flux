@@ -55,9 +55,10 @@
             height: 100%;
             width: 100%;
             border-radius: var(--radius);
-            box-shadow: inset 0 0 0 1px rgb(0 0 0 / .05);
             object-fit: cover;
             object-position: center;
+            outline: 1px solid rgb(0 0 0 / .025);
+            outline-offset: -1px;
         }
 
         .flux-pane-overlay {

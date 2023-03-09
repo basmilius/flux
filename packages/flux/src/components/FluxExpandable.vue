@@ -87,6 +87,8 @@
 </script>
 
 <style lang="scss">
+    @use '../scss/mixin' as flux;
+
     .flux-expandable {
         display: flex;
         flex-flow: column;
@@ -100,16 +102,14 @@
             background: unset;
             border: 0;
             color: var(--foreground-prominent);
-            outline: 0;
+            cursor: pointer;
             text-align: left;
             z-index: 1;
 
-            &:focus-visible {
-                box-shadow: 0 0 0 2px var(--primary-7);
-            }
+            @include flux.focus-ring-transition;
 
             &:hover {
-                background: var(--secondary-button-background-hover);
+                background: rgb(var(--gray-1));
             }
 
             span {
@@ -146,6 +146,19 @@
 
         &-content {
             padding: 0 21px 21px;
+        }
+    }
+
+    .flux-pane > .flux-expandable {
+        border-radius: inherit;
+
+        .flux-expandable-header {
+            border-radius: inherit;
+        }
+
+        &.is-open .flux-expandable-header {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
         }
     }
 </style>

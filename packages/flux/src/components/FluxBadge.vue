@@ -47,7 +47,7 @@
     }
 
     export interface Props {
-        readonly color?: 'primary' | 'error' | 'info' | 'success' | 'warning';
+        readonly color?: 'primary' | 'danger' | 'info' | 'success' | 'warning';
         readonly dot?: boolean;
         readonly icon?: IconNames;
         readonly isClickable?: boolean;
@@ -81,30 +81,31 @@
         padding-right: 9px;
         align-items: center;
         gap: 6px;
-        border: 1px solid var(--gray-4);
+        background: rgb(var(--gray-0));
+        border: 1px solid rgb(var(--gray-4));
         border-radius: 99px;
         color: var(--foreground);
         font-size: 13px;
         font-weight: 500;
 
         &-primary {
-            --color: var(--primary-7);
+            --color: rgb(var(--primary-7));
         }
 
-        &-error {
-            --color: #f04438;
+        &-danger {
+            --color: rgb(var(--danger-7));
         }
 
         &-info {
-            --color: #2970ff;
+            --color: rgb(var(--info-7));
         }
 
         &-success {
-            --color: #12b76a;
+            --color: rgb(var(--success-7));
         }
 
         &-warning {
-            --color: #f79009;
+            --color: rgb(var(--warning-7));
         }
 
         &-close {
@@ -114,13 +115,13 @@
             margin-right: -6px;
             align-items: center;
             justify-content: center;
-            background: var(--gray-4);
+            background: rgb(var(--gray-4));
             border: 0;
             border-radius: 99px;
             color: var(--foreground-secondary);
 
             &:hover {
-                background: var(--gray-5);
+                background: rgb(var(--gray-5));
             }
         }
 
@@ -148,7 +149,7 @@
         transition: background 180ms var(--swift-out);
 
         &:hover {
-            background: var(--gray-2);
+            background: rgb(var(--gray-2));
         }
     }
 </style>

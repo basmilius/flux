@@ -1,0 +1,15 @@
+html {
+    font-size: 15px;
+}
+
+body {
+    background: var(--background);
+    font-family: manrope-variable, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+body,
+dialog {
+    color: var(--foreground);
+}

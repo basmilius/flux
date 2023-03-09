@@ -1,7 +1,8 @@
 <template>
     <nav
         v-focus-trap
-        class="flux-menu">
+        class="flux-menu"
+        :class="{'is-large': isLarge}">
         <slot/>
     </nav>
 </template>
@@ -10,6 +11,12 @@
     lang="ts"
     setup>
     import { focusTrap } from '../directives';
+
+    export interface Props {
+        readonly isLarge?: boolean;
+    }
+
+    defineProps<Props>();
 
     const vFocusTrap = focusTrap;
 </script>
@@ -22,8 +29,8 @@
     }
 
     .flux-menu .flux-separator {
-        margin-left: 15px;
-        margin-right: 15px;
+        margin-left: 0;
+        margin-right: 0;
     }
 
     .flux-pane > .flux-menu {
@@ -36,6 +43,11 @@
 
         &:last-child {
             margin-bottom: 9px;
+        }
+
+        .flux-separator {
+            margin-left: -9px;
+            margin-right: -9px;
         }
     }
 

@@ -2,6 +2,7 @@
     <flux-base-button
         class="flux-menu-item"
         :class="{
+            'is-active': isActive,
             'is-highlighted': isHighlighted,
             'is-indented': isIndented
         }"
@@ -9,9 +10,18 @@
         v-bind="{type, disabled, iconAfter, iconBefore, isLoading, label, href, rel, target, to}"
         @click="$emit('click', $event)">
         <template
-            v-if="command"
+            v-if="command || commandIcon"
             #after>
-            <kbd class="flux-menu-item-command">{{ command }}</kbd>
+            <kbd
+                v-if="command"
+                class="flux-menu-item-command">
+                {{ command }}
+            </kbd>
+
+            <flux-icon
+                v-if="commandIcon"
+                class="flux-button-icon flux-menu-item-command-icon"
+                :variant="commandIcon"/>
         </template>
     </flux-base-button>
 </template>
@@ -20,7 +30,7 @@
     lang="ts"
     setup>
     import { FluxRoutingLocation, IconNames } from '../data';
-    import { FluxBaseButton } from '.';
+    import { FluxBaseButton, FluxIcon } from '.';
 
     // note: It is currently not possible to reuse Emits and Props from
     //  base button, because of a limitation of vite and vue compiler-sfc.
@@ -34,9 +44,11 @@
     export interface Props {
         readonly type?: 'button' | 'link' | 'route';
         readonly command?: string;
+        readonly commandIcon?: IconNames | null;
         readonly disabled?: boolean;
         readonly iconAfter?: IconNames | null;
         readonly iconBefore?: IconNames | null;
+        readonly isActive?: boolean;
         readonly isHighlighted?: boolean;
         readonly isIndented?: boolean;
         readonly isLoading?: boolean;
@@ -57,10 +69,10 @@
 <style lang="scss">
     .flux-menu-item {
         --background: transparent;
-        --background-hover: var(--secondary-button-background-hover);
-        --background-active: var(--secondary-button-background-active);
-        --foreground: var(--secondary-button-foreground);
-        --icon: var(--primary-button-background);
+        --background-hover: rgb(var(--gray-2));
+        --background-active: rgb(var(--gray-3));
+        --foreground: rgb(var(--gray-7));
+        --icon: rgb(var(--gray-9));
         --stroke: transparent;
 
         gap: 15px;
@@ -69,19 +81,28 @@
         box-shadow: none;
         text-align: left;
 
-        &:focus-visible {
-            box-shadow: 0 0 0 2px var(--gray-0), 0 0 0 4px var(--primary-7);
-        }
-
         span {
             flex-grow: 1;
             font-weight: 400;
             text-align: left;
         }
 
+        &.is-active,
         &.is-highlighted {
-            --background: var(--highlight-background);
-            --foreground: var(--highlight-foreground);
+            --background-hover: var(--background);
+            --background-active: var(--background);
+        }
+
+        &.is-active {
+            --background: rgb(var(--primary-7));
+            --foreground: rgb(var(--primary-1));
+            --icon: rgb(var(--primary-0));
+        }
+
+        &.is-highlighted {
+            --background: rgb(var(--primary-3));
+            --foreground: rgb(var(--primary-7));
+            --icon: rgb(var(--primary-8));
         }
 
         &.is-indented {
@@ -92,9 +113,28 @@
             margin-left: auto;
             padding-left: 21px;
             flex-grow: 0;
-            color: var(--gray-5);
+            color: rgb(var(--gray-6));
             font: inherit;
-            font-size: 13px;
+            font-size: 14px;
+
+            &-icon {
+                color: rgb(var(--gray-6));
+                font-size: 16px;
+            }
+
+            + &-icon {
+                margin-left: -9px;
+            }
+        }
+
+        .flux-button-icon {
+            font-size: 18px;
+        }
+
+        @at-root .flux-menu.is-large & {
+            height: 48px;
+            padding-left: 15px;
+            padding-right: 15px;
         }
     }
 </style>

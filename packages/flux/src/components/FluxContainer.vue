@@ -19,5 +19,6 @@
         padding-left: 30px;
         padding-right: 30px;
         max-width: calc(v-bind(maxWidth) * 1px);
+        width: 100%;
     }
 </style>

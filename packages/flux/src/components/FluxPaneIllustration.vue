@@ -26,7 +26,7 @@
     .flux-pane-illustration {
         position: relative;
         aspect-ratio: 16 / 9;
-        background: linear-gradient(to bottom, var(--gray-2), transparent);
+        background: linear-gradient(to bottom, rgb(var(--gray-2)), transparent);
         border-radius: inherit;
         mask: linear-gradient(to bottom, black, transparent);
 
@@ -45,7 +45,7 @@
 
                 path {
                     fill: white;
-                    stroke: var(--gray-5);
+                    stroke: rgb(var(--gray-5));
                     stroke-width: 3px;
                 }
 
@@ -53,8 +53,8 @@
                     filter: drop-shadow(0 3px 6px rgb(0 0 0 / .18));
 
                     path {
-                        fill: var(--gray-0);
-                        stroke: var(--gray-7);
+                        fill: rgb(var(--gray-0));
+                        stroke: rgb(var(--gray-7));
                     }
                 }
             }
@@ -63,7 +63,7 @@
         &-grid {
             position: absolute;
             inset: 0;
-            background-image: linear-gradient(to bottom, transparent calc(100% - 1px), var(--gray-3) calc(100% - 1px)), linear-gradient(to right, transparent calc(100% - 1px), var(--gray-3) calc(100% - 1px));
+            background-image: linear-gradient(to bottom, transparent calc(100% - 1px), rgb(var(--gray-3)) calc(100% - 1px)), linear-gradient(to right, transparent calc(100% - 1px), rgb(var(--gray-3)) calc(100% - 1px));
             background-position: top left;
             background-size: 30px 30px;
         }

@@ -9,8 +9,8 @@
         display: flex;
         padding: 21px;
         gap: 9px;
-        background: var(--surface-footer);
-        border-top: 1px solid var(--surface-stroke);
+        background: rgb(var(--gray-1));
+        border-top: 1px solid rgb(var(--gray-3));
     }
 
     .flux-pane > .flux-pane-footer:first-child {

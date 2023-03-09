@@ -7,8 +7,8 @@
 <style lang="scss">
     .flux-pane-body {
         display: flex;
-        padding: 21px;
         flex-flow: column;
+        padding: 21px;
     }
 
     .flux-pane-body > .flux-stack {

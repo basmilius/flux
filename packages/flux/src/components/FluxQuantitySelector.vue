@@ -111,19 +111,17 @@
 </script>
 
 <style lang="scss">
+    @use '../scss/mixin' as flux;
+
     .flux-quantity-selector {
         align-self: center;
         justify-self: center;
-        border: 1px solid var(--gray-4);
+        border: 1px solid rgb(var(--gray-4) / .75);
         border-radius: var(--radius);
-        box-shadow: 0 1px 1px rgb(0 0 0 / .03);
-        outline: 0;
+        box-shadow: var(--shadow-pixel);
         overflow: hidden;
-        transition: box-shadow 180ms var(--swift-out);
 
-        &:focus-visible:focus-within {
-            box-shadow: 0 0 0 2px var(--gray-0), 0 0 0 4px var(--primary-7);
-        }
+        @include flux.focus-ring-transition(2px, true);
 
         &-button {
             margin: -1px;
@@ -136,6 +134,12 @@
             &:last-child {
                 margin-left: 0;
             }
+
+            &,
+            &:focus-visible,
+            &:focus-within {
+                outline: 0;
+            }
         }
 
         &-input {
@@ -144,17 +148,18 @@
             padding-left: 0;
             padding-right: 0;
             border-radius: 0;
+            font-variant-numeric: tabular-nums;
             font-weight: 700;
             text-align: center;
 
             &:hover {
-                border-color: var(--gray-4);
+                border-color: rgb(var(--gray-4));
             }
 
-            &:not(.is-disabled):focus,
-            &:not(.is-disabled):focus-within {
-                border-color: var(--gray-4);
-                box-shadow: none;
+            &,
+            &:focus-visible,
+            &:focus-within {
+                outline: 0;
             }
 
             & {

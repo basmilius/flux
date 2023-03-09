@@ -98,9 +98,9 @@
             top: 50%;
             left: 50%;
             padding: 9px 12px;
-            background: var(--gray-9);
+            background: rgb(var(--gray-9));
             border-radius: var(--radius);
-            color: var(--gray-0);
+            color: rgb(var(--gray-0));
             font-size: 14px;
             font-weight: 600;
             rotate: -6deg;
@@ -108,7 +108,7 @@
 
             @at-root .dark-layout & {
                 background: white;
-                color: var(--gray-0);
+                color: rgb(var(--gray-0));
             }
         }
 
@@ -119,9 +119,9 @@
             align-items: center;
             flex-shrink: 0;
             justify-content: center;
-            background: var(--primary-7);
+            background: rgb(var(--primary-7));
             border-radius: var(--radius);
-            color: var(--primary-0);
+            color: rgb(var(--primary-0));
         }
 
         &-illustration {

@@ -19,7 +19,9 @@
                     'is-closing': isClosing,
                     'is-opening': isOpening
                 }">
-                <slot v-bind="{close, paneX, paneY, openerWidth, openerHeight}"/>
+                <slot
+                    v-if="isOpen"
+                    v-bind="{close, paneX, paneY, openerWidth, openerHeight}"/>
             </flux-pane>
         </dialog>
     </div>
@@ -28,7 +30,7 @@
 <script
     lang="ts"
     setup>
-    import { ref, toRefs, unref, watch } from 'vue-demi';
+    import { provide, ref, toRefs, unref, watch } from 'vue-demi';
     import { unrefElement } from '../composables';
     import { FluxPane } from '.';
 
@@ -145,6 +147,12 @@
             dialog.close();
         }
     });
+
+    provide('flux-flyout', {
+        isClosing,
+        isOpen,
+        isOpening
+    });
 </script>
 
 <style lang="scss">
@@ -165,10 +173,10 @@
         }
 
         &-pane {
-            max-height: 100%;
+            max-height: calc(100dvh - 120px);
             width: calc(v-bind(width) * 1px);
             overflow: auto;
-            translate: calc(v-bind(paneMarginX) * 1px) calc(v-bind(paneMarginY) * 1px);
+            transform: translate3d(calc(v-bind(paneMarginX) * 1px), calc(v-bind(paneMarginY) * 1px), 0);
 
             &.is-auto-width {
                 width: calc(v-bind(openerWidth) * 1px);
@@ -222,21 +230,21 @@
     @keyframes flux-flyout-open {
         from {
             opacity: 0;
-            translate: 0 0;
+            transform: translate3d(0, 0, 0)
         }
     }
 
     @keyframes flux-flyout-mobile-close {
         to {
             opacity: 0;
-            translate: 0 100%;
+            transform: translate3d(0, 100%, 0)
         }
     }
 
     @keyframes flux-flyout-mobile-open {
         from {
             opacity: 0;
-            translate: 0 100%;
+            transform: translate3d(0, 100%, 0)
         }
     }
 </style>

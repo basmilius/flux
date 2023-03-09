@@ -61,7 +61,7 @@
         }
 
         const sizes = {
-            end: 2,
+            end: 1,
             middle: 1
         } as const;
 

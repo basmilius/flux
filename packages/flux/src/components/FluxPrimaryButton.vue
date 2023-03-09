@@ -59,14 +59,14 @@
 
 <style lang="scss">
     .flux-primary-button {
-        --background: var(--primary-button-background);
-        --background-hover: var(--primary-button-background-hover);
-        --background-active: var(--primary-button-background-active);
-        --foreground: var(--primary-button-foreground);
-        --icon: var(--primary-button-icon);
-        --stroke: var(--primary-button-stroke);
+        --background: rgb(var(--primary-7));
+        --background-hover: rgb(var(--primary-8));
+        --background-active: rgb(var(--primary-9));
+        --foreground: rgb(var(--primary-0));
+        --icon: rgb(var(--primary-0));
+        --stroke: transparent;
 
-        --spinner-track: var(--primary-button-background-hover);
-        --spinner-value: var(--primary-button-foreground);
+        --spinner-track: rgb(var(--primary-8));
+        --spinner-value: rgb(var(--primary-0));
     }
 </style>

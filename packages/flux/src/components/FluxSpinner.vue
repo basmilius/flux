@@ -1,7 +1,6 @@
 <template>
     <svg
         class="flux-spinner"
-        :style="{'--size': `${size}px`}"
         viewBox="0 0 24 24">
         <circle
             class="flux-spinner-track"
@@ -48,11 +47,19 @@
 </script>
 
 <style lang="scss">
+    :root {
+        --spinner-track: rgb(var(--gray-4));
+        --spinner-value: rgb(var(--primary-7));
+    }
+
     .flux-spinner {
         display: inline-block;
         height: 1em;
         width: 1em;
-        font-size: var(--size);
+        flex-grow: 0;
+        flex-shrink: 0;
+        font-size: calc(v-bind(size) * 1px);
+        animation: spinner 5s linear infinite;
 
         &-track {
             stroke: var(--spinner-track);
@@ -61,19 +68,22 @@
         &-effect,
         &-value {
             stroke: var(--spinner-value);
-            animation: spinner 1s var(--swift-out) infinite;
+            animation: spinner 1.2s var(--swift-out) infinite;
             transform-origin: center;
         }
 
         &-effect {
             opacity: .25;
-            animation-delay: -.85s;
+            animation-delay: -1.05s;
         }
     }
 
     @keyframes spinner {
+        from {
+            transform: rotate(0deg);
+        }
         to {
-            rotate: 1turn;
+            transform: rotate(1turn);
         }
     }
 </style>

@@ -75,7 +75,7 @@
             position: fixed;
             inset: 0;
             background: rgb(255 255 255 / .75);
-            transition: background 420ms var(--deceleration-curve);
+            animation: overlay-content 300ms ease both;
         }
 
         &[open] {

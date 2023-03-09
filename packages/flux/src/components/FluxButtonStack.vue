@@ -1,7 +1,8 @@
 <template>
     <flux-stack
         :axis="axis"
-        :gap="gap">
+        :gap="gap"
+        :is-fill="isFill">
         <slot/>
     </flux-stack>
 </template>
@@ -14,6 +15,7 @@
     export interface Props {
         readonly axis?: 'horizontal' | 'vertical';
         readonly gap?: number;
+        readonly isFill?: boolean;
     }
 
     withDefaults(defineProps<Props>(), {

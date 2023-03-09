@@ -1,5 +1,7 @@
 <template>
-    <flux-surface class="flux-pane">
+    <flux-surface
+        class="flux-pane"
+        :class="{'is-contained': isContained}">
         <slot/>
 
         <div
@@ -22,6 +24,7 @@
     import { FluxSpinner, FluxSurface } from '.';
 
     export interface Props {
+        readonly isContained?: boolean;
         readonly isLoading?: boolean;
         readonly tag?: string;
     }
@@ -32,8 +35,11 @@
 <style lang="scss">
     .flux-pane {
         position: relative;
-        margin: 0;
         box-shadow: var(--shadow);
+
+        &.is-contained {
+            overflow: hidden;
+        }
 
         &-overlay {
             position: absolute;
@@ -41,7 +47,8 @@
             inset: 0;
             align-items: center;
             justify-content: center;
-            background: var(--surface-overlay);
+            backdrop-filter: blur(2px);
+            background: rgb(var(--gray-0) / .75);
             border-radius: inherit;
             z-index: 100;
         }
@@ -51,9 +58,9 @@
             top: 0;
             left: 21px;
             padding: 6px 9px;
-            background: var(--gray-10);
+            background: rgb(var(--gray-10));
             border-radius: calc(var(--radius) / 2);
-            color: var(--gray-0);
+            color: rgb(var(--gray-0));
             font-size: 11px;
             font-weight: 700;
             letter-spacing: 1px;
@@ -61,5 +68,12 @@
             text-transform: uppercase;
             translate: 0 -50%;
         }
+    }
+
+    .flux-pane > .flux-pane {
+        background: unset;
+        border: unset;
+        border-radius: unset;
+        box-shadow: unset;
     }
 </style>

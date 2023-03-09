@@ -360,7 +360,7 @@
         }
 
         &.is-disabled &-selected {
-            color: var(--gray-6);
+            color: rgb(var(--gray-6));
         }
 
         .flux-badge {

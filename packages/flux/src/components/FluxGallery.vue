@@ -85,11 +85,11 @@
 
         &-add {
             aspect-ratio: 1 / 1;
-            color: var(--gray-7);
+            color: rgb(var(--gray-7));
 
             &:hover {
-                background: var(--gray-3);
-                border-color: var(--gray-5);
+                background: rgb(var(--gray-3));
+                border-color: rgb(var(--gray-5));
             }
         }
     }

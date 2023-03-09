@@ -107,20 +107,22 @@
 </script>
 
 <style lang="scss">
+    @use '../scss/mixin' as flux;
+
     .flux-form-input {
         display: block;
         height: 42px;
         width: 100%;
         padding: 0 12px;
-        background: var(--gray-0);
-        border: 1px solid var(--gray-4);
+        background: rgb(var(--gray-0));
+        border: 1px solid rgb(var(--gray-4));
         border-radius: var(--radius);
-        box-shadow: 0 1px 1px rgb(0 0 0 / .03);
+        box-shadow: var(--shadow-pixel);
         color: var(--foreground);
         font: inherit;
         outline: 0;
-        transition: 210ms var(--swift-out);
-        transition-property: border-color, box-shadow;
+        transition: 180ms var(--swift-out);
+        transition-property: border-color, flux.focus-ring-transition-properties();
 
         &::placeholder {
             color: var(--foreground-muted);
@@ -138,19 +140,16 @@
         }
 
         &.is-disabled {
-            background: var(--gray-2);
+            background: rgb(var(--gray-2));
             cursor: not-allowed;
         }
 
-        &:hover {
-            border-color: var(--gray-5);
+        &:not(.is-disabled) {
+            @include flux.focus-ring(-1px);
         }
 
-        &:not(.is-disabled):focus,
-        &:not(.is-disabled):focus-within {
-            border-color: var(--primary-7);
-            box-shadow: 0 0 0 1px var(--primary-7);
-            z-index: 1;
+        &:hover {
+            border-color: rgb(var(--gray-5));
         }
     }
 </style>

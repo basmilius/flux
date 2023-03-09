@@ -100,7 +100,7 @@
             }
 
             &-error {
-                color: var(--danger);
+                color: rgb(var(--danger-7));
             }
 
             &-hint {

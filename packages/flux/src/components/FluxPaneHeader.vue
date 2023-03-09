@@ -37,7 +37,7 @@
         gap: 15px;
 
         &-icon {
-            color: var(--primary-7);
+            color: rgb(var(--primary-7));
         }
 
         &-title {

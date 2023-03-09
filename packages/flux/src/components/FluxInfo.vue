@@ -36,7 +36,7 @@
         &-icon {
             margin-top: 1px;
             flex-shrink: 0;
-            color: var(--primary-7);
+            color: rgb(var(--primary-7));
         }
     }
 </style>
