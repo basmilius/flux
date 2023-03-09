@@ -69,4 +69,11 @@
             translate: 0 -50%;
         }
     }
+
+    .flux-pane > .flux-pane {
+        background: unset;
+        border: unset;
+        border-radius: unset;
+        box-shadow: unset;
+    }
 </style>

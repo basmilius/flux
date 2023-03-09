@@ -10,7 +10,7 @@
     lang="ts"
     setup>
     export interface Props {
-        readonly layout?: 'cards' | 'full' | 'sidebar-start' | 'sidebar-end';
+        readonly layout?: 'cards' | 'full' | 'sidebar-start' | 'sidebar-end' | 'two-column';
     }
 
     withDefaults(defineProps<Props>(), {
@@ -43,6 +43,10 @@
 
         [lg] &-sidebar-end {
             grid-template-columns: minmax(0, 1fr) 360px;
+        }
+
+        [lg] &-two-column {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
         }
     }
 </style>

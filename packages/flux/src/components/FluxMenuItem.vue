@@ -10,9 +10,18 @@
         v-bind="{type, disabled, iconAfter, iconBefore, isLoading, label, href, rel, target, to}"
         @click="$emit('click', $event)">
         <template
-            v-if="command"
+            v-if="command || commandIcon"
             #after>
-            <kbd class="flux-menu-item-command">{{ command }}</kbd>
+            <kbd
+                v-if="command"
+                class="flux-menu-item-command">
+                {{ command }}
+            </kbd>
+
+            <flux-icon
+                v-if="commandIcon"
+                class="flux-button-icon flux-menu-item-command-icon"
+                :variant="commandIcon"/>
         </template>
     </flux-base-button>
 </template>
@@ -21,7 +30,7 @@
     lang="ts"
     setup>
     import { FluxRoutingLocation, IconNames } from '../data';
-    import { FluxBaseButton } from '.';
+    import { FluxBaseButton, FluxIcon } from '.';
 
     // note: It is currently not possible to reuse Emits and Props from
     //  base button, because of a limitation of vite and vue compiler-sfc.
@@ -35,6 +44,7 @@
     export interface Props {
         readonly type?: 'button' | 'link' | 'route';
         readonly command?: string;
+        readonly commandIcon?: IconNames | null;
         readonly disabled?: boolean;
         readonly iconAfter?: IconNames | null;
         readonly iconBefore?: IconNames | null;
@@ -62,7 +72,7 @@
         --background-hover: rgb(var(--gray-2));
         --background-active: rgb(var(--gray-3));
         --foreground: rgb(var(--gray-7));
-        --icon: rgb(var(--primary-7));
+        --icon: rgb(var(--gray-9));
         --stroke: transparent;
 
         gap: 15px;
@@ -92,6 +102,7 @@
         &.is-highlighted {
             --background: rgb(var(--primary-3));
             --foreground: rgb(var(--primary-7));
+            --icon: rgb(var(--primary-8));
         }
 
         &.is-indented {
@@ -102,9 +113,22 @@
             margin-left: auto;
             padding-left: 21px;
             flex-grow: 0;
-            color: rgb(var(--gray-5));
+            color: rgb(var(--gray-6));
             font: inherit;
-            font-size: 13px;
+            font-size: 14px;
+
+            &-icon {
+                color: rgb(var(--gray-6));
+                font-size: 16px;
+            }
+
+            + &-icon {
+                margin-left: -9px;
+            }
+        }
+
+        .flux-button-icon {
+            font-size: 18px;
         }
 
         @at-root .flux-menu.is-large & {

@@ -19,7 +19,9 @@
                     'is-closing': isClosing,
                     'is-opening': isOpening
                 }">
-                <slot v-bind="{close, paneX, paneY, openerWidth, openerHeight}"/>
+                <slot
+                    v-if="isOpen"
+                    v-bind="{close, paneX, paneY, openerWidth, openerHeight}"/>
             </flux-pane>
         </dialog>
     </div>
@@ -28,7 +30,7 @@
 <script
     lang="ts"
     setup>
-    import { ref, toRefs, unref, watch } from 'vue-demi';
+    import { provide, ref, toRefs, unref, watch } from 'vue-demi';
     import { unrefElement } from '../composables';
     import { FluxPane } from '.';
 
@@ -144,6 +146,12 @@
         } else if (!isOpen && dialog.open) {
             dialog.close();
         }
+    });
+
+    provide('flux-flyout', {
+        isClosing,
+        isOpen,
+        isOpening
     });
 </script>
 

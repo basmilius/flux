@@ -46,6 +46,11 @@
                             type="route"/>
 
                         <flux-menu-item
+                            label="Grid"
+                            to="/layout/grid"
+                            type="route"/>
+
+                        <flux-menu-item
                             label="Predefined grid"
                             to="/layout/predefined-grid"
                             type="route"/>
@@ -238,6 +243,11 @@
                             disabled
                             label="Toolbar"
                             to="/components/toolbar"
+                            type="route"/>
+
+                        <flux-menu-item
+                            label="Window"
+                            to="/components/window"
                             type="route"/>
                     </flux-menu-group>
                 </flux-menu>

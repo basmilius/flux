@@ -5,6 +5,9 @@ export {
 export {
     faAngleLeft,
     faAngleRight,
+    faArrowDownToLine,
+    faArrowUpArrowDown,
+    faCalendar,
     faCircle,
     faCircleArrowDown,
     faCircleArrowRight,
@@ -13,6 +16,7 @@ export {
     faCircleExclamation,
     faCircleInfo,
     faCirclePlus,
+    faClone,
     faCloud,
     faCopy,
     faEllipsisH,
@@ -26,5 +30,7 @@ export {
     faQuestion,
     faScissors,
     faSparkles,
+    faStar,
+    faTrash,
     faXmark
 } from '@fortawesome/pro-regular-svg-icons';

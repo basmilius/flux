@@ -32,8 +32,8 @@
 
         <section>
             <p>
-                Badges are used as labels for a more specific element in the UI. This, for example, may be used to
-                display the status of an order.
+                Action bars are toolbars that can be used along data tables. They can show a primary action, a search bar
+                and a filter button. Filters are commonly shown within a flyout that contains a window.
             </p>
 
             <p><br/></p>

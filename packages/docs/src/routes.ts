@@ -83,12 +83,20 @@ export const router = createRouter({
             component: () => import('./pages/components/SplitButton.vue')
         },
         {
+            path: '/components/window',
+            component: () => import('./pages/components/Window.vue')
+        },
+        {
             path: '/layout/aspect-ratio',
             component: () => import('./pages/layout/AspectRatio.vue')
         },
         {
             path: '/layout/container',
             component: () => import('./pages/layout/Container.vue')
+        },
+        {
+            path: '/layout/grid',
+            component: () => import('./pages/layout/Grid.vue')
         },
         {
             path: '/layout/predefined-grid',

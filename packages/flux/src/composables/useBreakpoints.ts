@@ -1,5 +1,15 @@
 import { computed, inject, onMounted, onUnmounted, provide, Ref, ref, unref, watch } from 'vue-demi';
-import { BREAKPOINTS } from '../constants';
+
+const BREAKPOINTS = {
+    'xs': 0,
+    'sm': 640,
+    'md': 768,
+    'lg': 1024,
+    'xl': 1280
+
+    // todo(Bas): figure out if we should use the 2xl breakpoint in a dashboard setting.
+    // 'xl2': 1536
+} as const;
 
 export function useBreakpoints(): UseBreakpoints {
     const breakpoints = inject<UseBreakpoints | null>('flux-breakpoints', null);
@@ -69,7 +79,10 @@ export function useBreakpointsProvider(): void {
     }, {immediate: true});
 }
 
-interface UseBreakpoints {
+export type Breakpoint = keyof typeof BREAKPOINTS;
+export type Breakpoints = { [K in Breakpoint]: boolean; };
+
+export interface UseBreakpoints {
     readonly breakpoint: Ref<Breakpoint>;
     readonly breakpoints: Ref<Breakpoints>;
     readonly isDesktop: Ref<boolean>;
@@ -78,6 +91,3 @@ interface UseBreakpoints {
     readonly width: Ref<number>;
     readonly widths: typeof BREAKPOINTS;
 }
-
-type Breakpoint = keyof typeof BREAKPOINTS;
-type Breakpoints = { [K in Breakpoint]: boolean; };

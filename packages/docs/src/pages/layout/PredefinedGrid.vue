@@ -31,7 +31,7 @@
             <api-table title="Props">
                 <template #body>
                     <tr>
-                        <td><code>layout</code><code>'cards' | 'full' | 'sidebar-start' | 'sidebar-end'</code></td>
+                        <td><code>layout</code><code>'cards' | 'full' | 'sidebar-start' | 'sidebar-end' | 'two-column'</code></td>
                         <td>Which grid layout to use for its content.</td>
                     </tr>
                 </template>
