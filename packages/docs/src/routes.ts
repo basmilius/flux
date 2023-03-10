@@ -15,6 +15,10 @@ export const router = createRouter({
             component: () => import('./pages/GettingStarted.vue')
         },
         {
+            path: '/playground',
+            component: () => import('./pages/Playground.vue')
+        },
+        {
             path: '/content/typography',
             component: () => import('./pages/content/Typography.vue')
         },
