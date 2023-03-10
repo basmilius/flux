@@ -63,7 +63,7 @@
         --button-background-hover: rgb(var(--gray-2));
         --button-background-active: rgb(var(--gray-3));
         --button-foreground: var(--foreground);
-        --button-icon: rgb(var(--gray-9));
+        --button-icon: var(--foreground-prominent);
         --button-stroke: rgb(var(--gray-4) / .75);
     }
 </style>

@@ -59,8 +59,6 @@
 </script>
 
 <style lang="scss">
-    @use '../scss/mixin' as flux;
-
     .flux-primary-button {
         --button-background: rgb(var(--primary-7));
         --button-background-hover: rgb(var(--primary-8));
@@ -71,15 +69,5 @@
 
         --spinner-track: rgb(var(--primary-8));
         --spinner-value: rgb(var(--primary-0));
-    }
-
-    @include flux.dark-mode {
-        .flux-primary-button {
-            --button-background: rgb(var(--primary-6));
-            --button-background-hover: rgb(var(--primary-7));
-            --button-background-active: rgb(var(--primary-8));
-
-            --spinner-track: rgb(var(--primary-7));
-        }
     }
 </style>

@@ -5,19 +5,6 @@
 }
 
 :root {
-    --gray-0: #{to-rgb(#ffffff)};
-    --gray-1: #{to-rgb(#fcfcfd)};
-    --gray-2: #{to-rgb(#f8fafc)};
-    --gray-3: #{to-rgb(#eef2f6)};
-    --gray-4: #{to-rgb(#e3e8ef)};
-    --gray-5: #{to-rgb(#cdd5df)};
-    --gray-6: #{to-rgb(#9aa4b2)};
-    --gray-7: #{to-rgb(#697586)};
-    --gray-8: #{to-rgb(#4b5565)};
-    --gray-9: #{to-rgb(#364152)};
-    --gray-10: #{to-rgb(#202939)};
-    --gray-11: #{to-rgb(#121926)};
-
     --primary-0: #{to-rgb(#ffffff)};
     --primary-1: #{to-rgb(#f5f8ff)};
     --primary-2: #{to-rgb(#eff4ff)};
@@ -82,20 +69,33 @@
     --warning-9: #{to-rgb(#b54708)};
     --warning-10: #{to-rgb(#93370d)};
     --warning-11: #{to-rgb(#7a2e0e)};
+
+    --gray-0: #{to-rgb(#ffffff)};
+    --gray-1: #{to-rgb(#fcfcfd)};
+    --gray-2: #{to-rgb(#f8fafc)};
+    --gray-3: #{to-rgb(#eef2f6)};
+    --gray-4: #{to-rgb(#e3e8ef)};
+    --gray-5: #{to-rgb(#cdd5df)};
+    --gray-6: #{to-rgb(#9aa4b2)};
+    --gray-7: #{to-rgb(#697586)};
+    --gray-8: #{to-rgb(#4b5565)};
+    --gray-9: #{to-rgb(#364152)};
+    --gray-10: #{to-rgb(#202939)};
+    --gray-11: #{to-rgb(#121926)};
 }
 
 [dark],
 body.dark-layout {
-    --gray-0: #{to-rgb(#202939)};
-    --gray-1: #{to-rgb(#2b3444)};
-    --gray-2: #{to-rgb(#363f4f)};
-    --gray-3: #{to-rgb(#414b5a)};
-    --gray-4: #{to-rgb(#4c5665)};
-    --gray-5: #{to-rgb(#576170)};
-    --gray-6: #{to-rgb(#636c7b)};
-    --gray-7: #{to-rgb(#6e7786)};
-    --gray-8: #{to-rgb(#798291)};
-    --gray-9: #{to-rgb(#848e9c)};
-    --gray-10: #{to-rgb(#8f99a7)};
-    --gray-11: #{to-rgb(#9aa4b2)};
+    --gray-0: #{to-rgb(#1e1f22)};
+    --gray-1: #{to-rgb(#242527)};
+    --gray-2: #{to-rgb(#292c2e)};
+    --gray-3: #{to-rgb(#2f3334)};
+    --gray-4: #{to-rgb(#34393a)};
+    --gray-5: #{to-rgb(#3a3f40)};
+    --gray-6: #{to-rgb(#404547)};
+    --gray-7: #{to-rgb(#46504f)};
+    --gray-8: #{to-rgb(#4c5756)};
+    --gray-9: #{to-rgb(#525d5c)};
+    --gray-10: #{to-rgb(#586463)};
+    --gray-11: #{to-rgb(#5e6a6a)};
 }

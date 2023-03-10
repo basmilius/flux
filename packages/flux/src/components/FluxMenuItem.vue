@@ -67,14 +67,12 @@
 </script>
 
 <style lang="scss">
-    @use '../scss/mixin' as flux;
-
     .flux-menu-item {
         --button-background: transparent;
         --button-background-hover: rgb(var(--gray-2));
         --button-background-active: rgb(var(--gray-3));
         --button-foreground: var(--foreground);
-        --button-icon: rgb(var(--gray-9));
+        --button-icon: rgb(var(--foreground-prominent));
         --button-stroke: transparent;
 
         gap: 15px;
@@ -115,12 +113,12 @@
             margin-left: auto;
             padding-left: 21px;
             flex-grow: 0;
-            color: rgb(var(--gray-6));
+            color: var(--foreground-secondary);
             font: inherit;
             font-size: 14px;
 
             &-icon {
-                color: rgb(var(--gray-6));
+                color: var(--foreground-secondary);
                 font-size: 16px;
             }
 
@@ -137,14 +135,6 @@
             height: 48px;
             padding-left: 15px;
             padding-right: 15px;
-        }
-    }
-
-    @include flux.dark-mode {
-        .flux-menu-item.is-active {
-            --button-background: rgb(var(--primary-6));
-            --button-foreground: rgb(var(--primary-1));
-            --button-icon: rgb(var(--primary-0));
         }
     }
 </style>
