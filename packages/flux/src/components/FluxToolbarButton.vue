@@ -5,10 +5,8 @@
             'flux-toolbar-button-destructive': destructive
         }"
         type="button"
-        :disabled="disabled"
         :icon-before="icon"
-        :is-loading="isLoading"
-        :label="label"
+        v-bind="{disabled, isLoading, isSubmit, label}"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)"/>
@@ -33,6 +31,7 @@
         readonly disabled?: boolean;
         readonly icon?: IconNames;
         readonly isLoading?: boolean;
+        readonly isSubmit?: boolean;
         readonly label?: string;
     }
 
@@ -42,19 +41,19 @@
 
 <style lang="scss">
     .flux-toolbar-button {
-        --background: transparent;
-        --background-hover: rgb(var(--gray-2));
-        --background-active: rgb(var(--gray-3));
-        --foreground: rgb(var(--gray-7));
-        --icon: rgb(var(--gray-7));
-        --stroke: transparent;
+        --button-background: transparent;
+        --button-background-hover: rgb(var(--gray-2));
+        --button-background-active: rgb(var(--gray-3));
+        --button-foreground: rgb(var(--gray-7));
+        --button-icon: rgb(var(--gray-7));
+        --button-stroke: transparent;
 
         height: 30px;
         padding: 0 6px;
         box-shadow: none;
 
         &-destructive {
-            --icon: rgb(var(--danger-7))
+            --button-icon: rgb(var(--danger-7))
         }
     }
 </style>

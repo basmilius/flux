@@ -98,5 +98,37 @@
                 color: #830091;
             }
         }
+
+        @at-root [dark] .hljs {
+            color: var(--foreground-secondary);
+
+            &-attr,
+            &-attribute,
+            &-number {
+                color: #51c0cf;
+            }
+
+            &-built_in,
+            &-keyword {
+                color: #d69a6b;
+            }
+
+            &-meta,
+            &-name,
+            &-selector-class,
+            &-selector-tag {
+                color: #2fbaa3;
+            }
+
+            &-string {
+                color: #6cab74;
+            }
+
+            &-template-variable,
+            &-title,
+            &-variable {
+                color: #cf84cf;
+            }
+        }
     }
 </style>

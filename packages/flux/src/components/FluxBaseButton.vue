@@ -2,7 +2,7 @@
     <component
         :is="component"
         class="flux-button"
-        type="button"
+        :type="isSubmit ? 'submit' : 'button'"
         :aria-disabled="disabled"
         :disabled="disabled"
         :href="href"
@@ -67,6 +67,7 @@
         readonly iconAfter?: IconNames | null;
         readonly iconBefore?: IconNames | null;
         readonly isLoading?: boolean;
+        readonly isSubmit?: boolean;
         readonly label?: string;
         readonly href?: string;
         readonly rel?: string;
@@ -122,8 +123,8 @@
         flex-shrink: 0;
         gap: 12px;
         justify-content: center;
-        background: var(--background);
-        border: 1px solid var(--stroke);
+        background: var(--button-background);
+        border: 1px solid var(--button-stroke);
         border-radius: var(--radius);
         box-shadow: var(--shadow-pixel);
         cursor: pointer;
@@ -136,7 +137,7 @@
         @include flux.focus-ring(2px);
 
         > * {
-            color: var(--foreground);
+            color: var(--button-foreground);
         }
 
         &:focus-visible {
@@ -144,7 +145,7 @@
         }
 
         &-icon {
-            color: var(--icon);
+            color: var(--button-icon);
 
             &:only-child {
                 margin-left: -2px;
@@ -163,11 +164,11 @@
         }
 
         &:hover {
-            background: var(--background-hover);
+            background: var(--button-background-hover);
         }
 
         &:active {
-            background: var(--background-active);
+            background: var(--button-background-active);
             box-shadow: none;
         }
 

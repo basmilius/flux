@@ -67,13 +67,15 @@
 </script>
 
 <style lang="scss">
+    @use '../scss/mixin' as flux;
+
     .flux-menu-item {
-        --background: transparent;
-        --background-hover: rgb(var(--gray-2));
-        --background-active: rgb(var(--gray-3));
-        --foreground: rgb(var(--gray-7));
-        --icon: rgb(var(--gray-9));
-        --stroke: transparent;
+        --button-background: transparent;
+        --button-background-hover: rgb(var(--gray-2));
+        --button-background-active: rgb(var(--gray-3));
+        --button-foreground: var(--foreground);
+        --button-icon: rgb(var(--gray-9));
+        --button-stroke: transparent;
 
         gap: 15px;
         justify-content: start;
@@ -89,20 +91,20 @@
 
         &.is-active,
         &.is-highlighted {
-            --background-hover: var(--background);
-            --background-active: var(--background);
+            --button-background-hover: var(--button-background);
+            --button-background-active: var(--button-background);
         }
 
         &.is-active {
-            --background: rgb(var(--primary-7));
-            --foreground: rgb(var(--primary-1));
-            --icon: rgb(var(--primary-0));
+            --button-background: rgb(var(--primary-7));
+            --button-foreground: rgb(var(--primary-1));
+            --button-icon: rgb(var(--primary-0));
         }
 
         &.is-highlighted {
-            --background: rgb(var(--primary-3));
-            --foreground: rgb(var(--primary-7));
-            --icon: rgb(var(--primary-8));
+            --button-background: rgb(var(--primary-3));
+            --button-foreground: rgb(var(--primary-7));
+            --button-icon: rgb(var(--primary-8));
         }
 
         &.is-indented {
@@ -135,6 +137,14 @@
             height: 48px;
             padding-left: 15px;
             padding-right: 15px;
+        }
+    }
+
+    @include flux.dark-mode {
+        .flux-menu-item.is-active {
+            --button-background: rgb(var(--primary-6));
+            --button-foreground: rgb(var(--primary-1));
+            --button-icon: rgb(var(--primary-0));
         }
     }
 </style>

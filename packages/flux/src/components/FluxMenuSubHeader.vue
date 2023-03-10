@@ -44,7 +44,7 @@
 
         span,
         &-icon {
-            color: var(--foreground-muted);
+            color: var(--foreground-secondary);
         }
     }
 
