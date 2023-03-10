@@ -1,7 +1,7 @@
 <template>
     <flux-base-button
         class="flux-secondary-button"
-        v-bind="{type, disabled, iconAfter, iconBefore, isLoading, label, href, rel, target, to}"
+        v-bind="{type, disabled, iconAfter, iconBefore, isLoading, isSubmit, label, href, rel, target, to}"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)">
@@ -41,6 +41,7 @@
         readonly iconAfter?: IconNames | null;
         readonly iconBefore?: IconNames | null;
         readonly isLoading?: boolean;
+        readonly isSubmit?: boolean;
         readonly label?: string;
         readonly href?: string;
         readonly rel?: string;
@@ -58,11 +59,11 @@
 
 <style lang="scss">
     .flux-secondary-button {
-        --background: rgb(var(--gray-0));
-        --background-hover: rgb(var(--gray-2));
-        --background-active: rgb(var(--gray-3));
-        --foreground: rgb(var(--gray-7));
-        --icon: rgb(var(--gray-9));
-        --stroke: rgb(var(--gray-4) / .75);
+        --button-background: rgb(var(--gray-0));
+        --button-background-hover: rgb(var(--gray-2));
+        --button-background-active: rgb(var(--gray-3));
+        --button-foreground: var(--foreground);
+        --button-icon: rgb(var(--gray-9));
+        --button-stroke: rgb(var(--gray-4) / .75);
     }
 </style>

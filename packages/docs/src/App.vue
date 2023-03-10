@@ -90,6 +90,12 @@
                             type="route"/>
 
                         <flux-menu-item
+                            disabled
+                            label="Comment"
+                            to="/components/comment"
+                            type="route"/>
+
+                        <flux-menu-item
                             label="Divider"
                             to="/components/divider"
                             type="route"/>
@@ -129,6 +135,12 @@
 
                         <flux-menu-item
                             disabled
+                            label="Form date picker"
+                            to="/components/form-date-picker"
+                            type="route"/>
+
+                        <flux-menu-item
+                            disabled
                             label="Form field"
                             to="/components/form-field"
                             type="route"/>
@@ -153,6 +165,18 @@
 
                         <flux-menu-item
                             disabled
+                            label="Form time picker"
+                            to="/components/form-time-picker"
+                            type="route"/>
+
+                        <flux-menu-item
+                            disabled
+                            label="Form week picker"
+                            to="/components/form-week-picker"
+                            type="route"/>
+
+                        <flux-menu-item
+                            disabled
                             label="Gallery"
                             to="/components/gallery"
                             type="route"/>
@@ -169,6 +193,12 @@
                             type="route"/>
 
                         <flux-menu-item
+                            disabled
+                            label="Link"
+                            to="/components/link"
+                            type="route"/>
+
+                        <flux-menu-item
                             label="Menu"
                             to="/components/menu"
                             type="route"/>
@@ -176,6 +206,12 @@
                         <flux-menu-item
                             label="Notice"
                             to="/components/notice"
+                            type="route"/>
+
+                        <flux-menu-item
+                            disabled
+                            label="Notification"
+                            to="/components/notification"
                             type="route"/>
 
                         <flux-menu-item
@@ -192,6 +228,12 @@
                         <flux-menu-item
                             label="Pane"
                             to="/components/pane"
+                            type="route"/>
+
+                        <flux-menu-item
+                            disabled
+                            label="Pane deck"
+                            to="/components/pane-deck"
                             type="route"/>
 
                         <flux-menu-item
@@ -231,6 +273,24 @@
                         <flux-menu-item
                             label="Split button"
                             to="/components/split-button"
+                            type="route"/>
+
+                        <flux-menu-item
+                            disabled
+                            label="Statistic"
+                            to="/components/statistic"
+                            type="route"/>
+
+                        <flux-menu-item
+                            disabled
+                            label="Tabs"
+                            to="/components/tabs"
+                            type="route"/>
+
+                        <flux-menu-item
+                            disabled
+                            label="Timeline"
+                            to="/components/timeline"
                             type="route"/>
 
                         <flux-menu-item

@@ -1,7 +1,7 @@
 <template>
     <flux-base-button
         class="flux-primary-button"
-        v-bind="{type, disabled, iconAfter, iconBefore, isLoading, label, href, rel, target, to}"
+        v-bind="{type, disabled, iconAfter, iconBefore, isLoading, isSubmit, label, href, rel, target, to}"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)">
@@ -41,6 +41,7 @@
         readonly iconAfter?: IconNames;
         readonly iconBefore?: IconNames;
         readonly isLoading?: boolean;
+        readonly isSubmit?: boolean;
         readonly label?: string;
         readonly href?: string;
         readonly rel?: string;
@@ -58,15 +59,27 @@
 </script>
 
 <style lang="scss">
+    @use '../scss/mixin' as flux;
+
     .flux-primary-button {
-        --background: rgb(var(--primary-7));
-        --background-hover: rgb(var(--primary-8));
-        --background-active: rgb(var(--primary-9));
-        --foreground: rgb(var(--primary-0));
-        --icon: rgb(var(--primary-0));
-        --stroke: transparent;
+        --button-background: rgb(var(--primary-7));
+        --button-background-hover: rgb(var(--primary-8));
+        --button-background-active: rgb(var(--primary-9));
+        --button-foreground: rgb(var(--primary-0));
+        --button-icon: rgb(var(--primary-0));
+        --button-stroke: transparent;
 
         --spinner-track: rgb(var(--primary-8));
         --spinner-value: rgb(var(--primary-0));
+    }
+
+    @include flux.dark-mode {
+        .flux-primary-button {
+            --button-background: rgb(var(--primary-6));
+            --button-background-hover: rgb(var(--primary-7));
+            --button-background-active: rgb(var(--primary-8));
+
+            --spinner-track: rgb(var(--primary-7));
+        }
     }
 </style>

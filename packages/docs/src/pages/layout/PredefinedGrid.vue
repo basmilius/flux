@@ -46,26 +46,3 @@
     import { FluxPane, FluxPaneBody, FluxPredefinedGrid, FluxStack } from '@fancee/flux';
     import { ApiTable, PageTitle, Preview } from '@/components';
 </script>
-
-<style
-    lang="scss"
-    scoped>
-    .column-example {
-        display: flex;
-        height: 90px;
-        align-items: center;
-        justify-content: center;
-        background: rgb(var(--gray-2));
-        border: 1px dashed rgb(var(--gray-4));
-        border-radius: var(--radius);
-
-        &::before {
-            content: 'Column';
-            color: rgb(var(--gray-6));
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-    }
-</style>

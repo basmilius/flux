@@ -125,7 +125,7 @@
         transition-property: border-color, flux.focus-ring-transition-properties();
 
         &::placeholder {
-            color: var(--foreground-muted);
+            color: var(--foreground-secondary);
         }
 
         &::-webkit-color-swatch {
