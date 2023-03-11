@@ -78,5 +78,9 @@
                 gap: 15px;
             }
         }
+
+        [dark] &-top-bar {
+            background: rgb(var(--gray-2));
+        }
     }
 </style>

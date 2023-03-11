@@ -153,8 +153,20 @@
 
                         <flux-menu-item
                             disabled
+                            label="Form range slider"
+                            to="/components/form-range-slider"
+                            type="route"/>
+
+                        <flux-menu-item
+                            disabled
                             label="Form select"
                             to="/components/form-select"
+                            type="route"/>
+
+                        <flux-menu-item
+                            disabled
+                            label="Form slider"
+                            to="/components/form-slider"
                             type="route"/>
 
                         <flux-menu-item

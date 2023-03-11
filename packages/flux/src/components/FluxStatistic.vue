@@ -55,7 +55,12 @@
 </script>
 
 <style lang="scss">
+    @use '../scss/mixin' as flux;
+
     .flux-statistic {
+        --statistic-icon-background: rgb(var(--gray-3));
+        --statistic-icon-foreground: rgb(var(--gray-7));
+
         display: flex;
         padding: 21px;
         gap: 21px;
@@ -114,34 +119,34 @@
             width: 48px;
             align-items: center;
             justify-content: center;
-            background: rgb(var(--gray-3));
+            background: var(--statistic-icon-background);
             border-radius: var(--radius);
-            color: rgb(var(--gray-7));
+            color: var(--statistic-icon-foreground);
         }
 
-        &-primary &-icon {
-            background: rgb(var(--primary-1));
-            color: rgb(var(--primary-7));
+        &-primary {
+            --statistic-icon-background: rgb(var(--primary-1));
+            --statistic-icon-foreground: rgb(var(--primary-7));
         }
 
-        &-danger &-icon {
-            background: rgb(var(--danger-1));
-            color: rgb(var(--danger-7));
+        &-danger {
+            --statistic-icon-background: rgb(var(--danger-1));
+            --statistic-icon-foreground: rgb(var(--danger-7));
         }
 
-        &-info &-icon {
-            background: rgb(var(--info-1));
-            color: rgb(var(--info-7));
+        &-info {
+            --statistic-icon-background: rgb(var(--info-1));
+            --statistic-icon-foreground: rgb(var(--info-7));
         }
 
-        &-success &-icon {
-            background: rgb(var(--success-1));
-            color: rgb(var(--success-7));
+        &-success {
+            --statistic-icon-background: rgb(var(--success-1));
+            --statistic-icon-foreground: rgb(var(--success-7));
         }
 
-        &-warning &-icon {
-            background: rgb(var(--warning-1));
-            color: rgb(var(--warning-7));
+        &-warning {
+            --statistic-icon-background: rgb(var(--warning-1));
+            --statistic-icon-foreground: rgb(var(--warning-7));
         }
 
         &-vertical {
@@ -151,6 +156,12 @@
 
         &-vertical &-icon {
             grid-column: 1 / span 2;
+        }
+    }
+
+    @include flux.dark-mode {
+        .flux-statistic {
+            --statistic-icon-background: rgb(var(--gray-2));
         }
     }
 </style>
