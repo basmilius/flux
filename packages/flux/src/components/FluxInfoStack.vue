@@ -1,7 +1,7 @@
 <template>
     <flux-stack
         axis="vertical"
-        :gap="18">
+        :gap="21">
         <slot/>
     </flux-stack>
 </template>

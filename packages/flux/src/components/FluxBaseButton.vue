@@ -15,14 +15,14 @@
         <slot name="before"/>
 
         <slot name="icon-before">
-            <flux-icon
-                v-if="iconBefore && !isLoading"
-                class="flux-button-icon"
-                :variant="iconBefore"/>
-
             <flux-spinner
                 v-if="isLoading && (iconBefore || !iconAfter)"
                 :size="20"/>
+
+            <flux-icon
+                v-else-if="iconBefore"
+                class="flux-button-icon"
+                :variant="iconBefore"/>
         </slot>
 
         <span

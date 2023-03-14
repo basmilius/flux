@@ -6,7 +6,7 @@
         }"
         type="button"
         :icon-before="icon"
-        v-bind="{disabled, isLoading, isSubmit, label}"
+        v-bind="{disabled, isLoading, label}"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)"/>
@@ -31,7 +31,6 @@
         readonly disabled?: boolean;
         readonly icon?: IconNames;
         readonly isLoading?: boolean;
-        readonly isSubmit?: boolean;
         readonly label?: string;
     }
 

@@ -10,7 +10,6 @@
 }
 
 @include flux.dark-mode {
-    --background: #192130;
     --foreground: #cdd5df;
     --foreground-prominent: #ffffff;
     --foreground-secondary: rgb(var(--gray-10));

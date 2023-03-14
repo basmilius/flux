@@ -98,14 +98,15 @@
             &-icon {
                 position: absolute;
                 display: flex;
-                right: -6px;
-                bottom: -6px;
-                height: 24px;
-                width: 24px;
+                right: -9px;
+                bottom: -9px;
+                height: 30px;
+                width: 30px;
                 align-items: center;
                 justify-content: center;
                 background: rgb(var(--gray-0));
                 border-radius: 99px;
+                color: var(--timeline-item-icon-foreground);
             }
 
             &-image {

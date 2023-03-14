@@ -85,6 +85,10 @@
                         <td>Sets a loading state to the button. This also disables it. The spinner will replace the icon used in the button.</td>
                     </tr>
                     <tr>
+                        <td><code>is-submit</code><code>boolean</code></td>
+                        <td>Indicates that the button is used as a submit button for a form.</td>
+                    </tr>
+                    <tr>
                         <td><code>label</code><code>string</code></td>
                         <td>The label displayed within the button.</td>
                     </tr>
@@ -169,7 +173,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxStack, FluxPrimaryButton, FluxSecondaryButton, FluxButtonStack, FluxDestructiveButton, FluxPublishButton } from '@fancee/flux';
+    import { FluxButtonStack, FluxDestructiveButton, FluxPrimaryButton, FluxPublishButton, FluxSecondaryButton, FluxStack } from '@fancee/flux';
     import { ApiTable, CodePreview, PageTitle, Preview } from '@/components';
     import primary from '@/code/components/button/primary.vue';
     import primaryCode from '@/code/components/button/primary.vue?raw';

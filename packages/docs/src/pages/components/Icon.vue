@@ -18,7 +18,10 @@
 
         <section>
             <p>
-                A component to display a single <a href="https://fontawesome.com" rel="noopener" target="_blank">Font Awesome</a>
+                A component to display a single <a
+                href="https://fontawesome.com"
+                rel="noopener"
+                target="_blank">Font Awesome</a>
                 icon. The icon can be customized through css and is used in multiple Flux components, such as Buttons.
             </p>
 
@@ -45,7 +48,5 @@
     lang="ts"
     setup>
     import { FluxIcon, FluxStack } from '@fancee/flux';
-    import { ApiTable, CodePreview, PageTitle, Preview } from '@/components';
-    import basic from '@/code/components/fader/basic.vue';
-    import basicCode from '@/code/components/fader/basic.vue?raw';
+    import { ApiTable, PageTitle, Preview } from '@/components';
 </script>

@@ -4,11 +4,11 @@
     line-height: 1.4;
 }
 
-:where(a:not([class])) {
+a:not([class]) {
     color: rgb(var(--primary-7));
     text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 2px;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
 
     &:hover {
         text-decoration: none;
