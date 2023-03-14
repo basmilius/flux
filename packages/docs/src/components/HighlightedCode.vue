@@ -100,7 +100,7 @@
         }
 
         @at-root [dark] & .hljs {
-            color: var(--foreground-secondary);
+            color: var(--foreground);
 
             &-attr,
             &-attribute,

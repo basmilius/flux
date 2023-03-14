@@ -22,20 +22,48 @@
     lang="ts"
     setup>
     import { FluxIcon, FluxToggle } from '@fancee/flux';
-    import { ref, watch } from 'vue';
+    import { onMounted, ref, watch } from 'vue';
 
-    const darkMode = ref(localStorage.getItem('flux_darkMode') === '1');
+    const darkMode = ref(localStorage.getItem('flux_dark_mode') === '1');
 
-    watch(darkMode, darkMode => {
-        localStorage.setItem('flux_darkMode', darkMode ? '1' : '0');
+    onMounted(() => updateAttribute());
 
-        if (darkMode) {
+    function addTransitions(): void {
+        document.documentElement.classList.add('flux-docs-switching-theme');
+
+        document.documentElement.addEventListener('transitionend', () => {
+            document.documentElement.classList.remove('flux-docs-switching-theme');
+        }, {once: true, passive: true});
+    }
+
+    function updateAttribute(): void {
+        if (darkMode.value) {
             document.documentElement.setAttribute('dark', 'dark');
         } else {
             document.documentElement.removeAttribute('dark');
         }
-    }, {immediate: true});
+    }
+
+    watch(darkMode, darkMode => {
+        localStorage.setItem('flux_darkMode', darkMode ? '1' : '0');
+
+        addTransitions();
+        updateAttribute();
+    });
 </script>
+
+<style lang="scss">
+    .flux-docs-switching-theme {
+        &,
+        *,
+        *::before,
+        *::after {
+            transition: 420ms var(--swift-out) !important;
+            transition-delay: 0ms !important;
+            transition-property: all !important;
+        }
+    }
+</style>
 
 <style
     lang="scss"
@@ -49,7 +77,7 @@
             top: 50%;
             pointer-events: none;
             transition: 210ms var(--swift-out);
-            transition-property: opacity, scale;
+            transition-property: opacity, scale, translate;
             translate: -50% -50%;
 
             &-dark {
@@ -89,7 +117,15 @@
         &.is-dark &-icon-dark,
         &:not(.is-dark) &-icon-light {
             opacity: 0;
-            scale: .5
+            scale: .75
+        }
+
+        &.is-dark &-icon-dark {
+            translate: calc(-50% - 6px) -50%;
+        }
+
+        &:not(.is-dark) &-icon-light {
+            translate: calc(-50% + 6px) -50%;
         }
     }
 </style>
