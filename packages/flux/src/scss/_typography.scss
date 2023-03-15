@@ -1,41 +1,57 @@
-:where(h1, h2, h3, h4, h5, h6) {
-    margin: 0;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-weight: 700;
     line-height: 1.4;
 }
 
-:where(a:not([class])) {
+h1 {
+    color: var(--foreground-prominent);
+    font-size: 30px;
+}
+
+h2 {
+    color: var(--foreground-prominent);
+    font-size: 21px;
+}
+
+h3 {
+    color: var(--foreground);
+    font-size: 18px;
+}
+
+h4 {
+    font-size: 16px;
+}
+
+h5 {
+    font-size: 15px;
+}
+
+h6 {
+    font-size: 14px;
+}
+
+a:not([class]) {
     color: rgb(var(--primary-7));
     text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 2px;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
 
     &:hover {
         text-decoration: none;
     }
 }
 
-:where(p) {
+p {
     margin: 0;
     line-height: 1.6;
 }
 
-:where(h1) {
-    color: var(--foreground-prominent);
-    font-size: 30px;
-}
-
-:where(h2) {
-    color: var(--foreground-prominent);
-    font-size: 21px;
-}
-
-:where(h3) {
-    color: var(--foreground);
-    font-size: 18px;
-}
-
-:where(blockquote) {
+blockquote {
     position: relative;
     margin: 0 0 0 30px;
     padding: 15px 21px;
@@ -53,7 +69,7 @@
     }
 }
 
-:where(img:not([class])) {
+img:not([class]) {
     height: unset;
     max-width: 100%;
     border-radius: calc(var(--radius) / 2);
@@ -61,18 +77,19 @@
     outline-offset: -1px;
 }
 
-:where(ul, ol) {
+ul,
+ol {
     margin: 0;
 }
 
-:where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, .flux-typography-aware) + :where(h1, h2, h3) {
+:where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, .flux-typography-aware) + :is(h1, h2, h3) {
     margin-top: 33px;
 }
 
-:where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, .flux-typography-aware) + :where(h4, h5, h6, p, ul, ol, li, blockquote, img) {
+:where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, .flux-typography-aware) + :is(h4, h5, h6, p, ul, ol, li, blockquote, img) {
     margin-top: 12px;
 }
 
-:where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, .flux-typography-aware) + :where(.flux-typography-aware) {
+:where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, .flux-typography-aware) + :is(.flux-typography-aware) {
     margin-top: 21px;
 }

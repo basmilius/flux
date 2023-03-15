@@ -6,7 +6,7 @@
         }"
         type="button"
         :icon-before="icon"
-        v-bind="{disabled, isLoading, isSubmit, label}"
+        v-bind="{disabled, isLoading, label}"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)"/>
@@ -31,7 +31,6 @@
         readonly disabled?: boolean;
         readonly icon?: IconNames;
         readonly isLoading?: boolean;
-        readonly isSubmit?: boolean;
         readonly label?: string;
     }
 
@@ -44,8 +43,8 @@
         --button-background: transparent;
         --button-background-hover: rgb(var(--gray-2));
         --button-background-active: rgb(var(--gray-3));
-        --button-foreground: rgb(var(--gray-7));
-        --button-icon: rgb(var(--gray-7));
+        --button-foreground: var(--foreground);
+        --button-icon: var(--foreground);
         --button-stroke: transparent;
 
         height: 30px;

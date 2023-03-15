@@ -62,7 +62,12 @@
 </script>
 
 <style lang="scss">
+    @use '../scss/mixin' as flux;
+
     .flux-timeline-item {
+        --timeline-item-icon-background: rgb(var(--gray-3));
+        --timeline-item-icon-foreground: var(--foreground-secondary);
+
         position: relative;
         display: grid;
         gap: 21px;
@@ -82,8 +87,8 @@
             margin: 3px;
             height: 36px;
             width: 36px;
-            background: rgb(var(--gray-3));
-            color: rgb(var(--gray-7));
+            background: var(--timeline-item-icon-background);
+            color: var(--timeline-item-icon-foreground);
         }
 
         &-photo {
@@ -93,14 +98,15 @@
             &-icon {
                 position: absolute;
                 display: flex;
-                right: -6px;
-                bottom: -6px;
-                height: 24px;
-                width: 24px;
+                right: -9px;
+                bottom: -9px;
+                height: 30px;
+                width: 30px;
                 align-items: center;
                 justify-content: center;
                 background: rgb(var(--gray-0));
                 border-radius: 99px;
+                color: var(--timeline-item-icon-foreground);
             }
 
             &-image {
@@ -145,53 +151,39 @@
             background: rgb(var(--gray-3));
         }
 
-        &-primary &-icon {
-            background: rgb(var(--primary-2));
+        &-primary {
+            --timeline-item-icon-background: rgb(var(--primary-2));
+            --timeline-item-icon-foreground: rgb(var(--primary-7));
         }
 
-        &-danger &-icon {
-            background: rgb(var(--danger-2));
+        &-danger {
+            --timeline-item-icon-background: rgb(var(--danger-2));
+            --timeline-item-icon-foreground: rgb(var(--danger-7));
         }
 
-        &-info &-icon {
-            background: rgb(var(--info-2));
+        &-info {
+            --timeline-item-icon-background: rgb(var(--info-2));
+            --timeline-item-icon-foreground: rgb(var(--info-7));
         }
 
-        &-success &-icon {
-            background: rgb(var(--success-2));
+        &-success {
+            --timeline-item-icon-background: rgb(var(--success-2));
+            --timeline-item-icon-foreground: rgb(var(--success-7));
         }
 
-        &-warning &-icon {
-            background: rgb(var(--warning-2));
-        }
-
-        &-primary &-icon,
-        &-primary &-photo-icon {
-            color: rgb(var(--primary-7));
-        }
-
-        &-danger &-icon,
-        &-danger &-photo-icon {
-            color: rgb(var(--danger-7));
-        }
-
-        &-info &-icon,
-        &-info &-photo-icon {
-            color: rgb(var(--info-7));
-        }
-
-        &-success &-icon,
-        &-success &-photo-icon {
-            color: rgb(var(--success-7));
-        }
-
-        &-warning &-icon,
-        &-warning &-photo-icon {
-            color: rgb(var(--warning-7));
+        &-warning {
+            --timeline-item-icon-background: rgb(var(--warning-2));
+            --timeline-item-icon-foreground: rgb(var(--warning-7));
         }
 
         @at-root .flux-timeline &:last-of-type &-line {
             display: none;
+        }
+    }
+
+    @include flux.dark-mode {
+        .flux-timeline-item {
+            --timeline-item-icon-background: rgb(var(--gray-2));
         }
     }
 </style>

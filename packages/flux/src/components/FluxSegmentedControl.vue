@@ -97,7 +97,7 @@
             background: none;
             border: 0;
             border-radius: calc(var(--radius) - 3px);
-            color: rgb(var(--gray-7));
+            color: var(--foreground);
             font-size: 13px;
             font-weight: 600;
             text-align: center;
@@ -108,7 +108,7 @@
             }
 
             &.active {
-                color: rgb(var(--gray-9));
+                color: var(--foreground-prominent);
             }
 
             span {
@@ -129,6 +129,13 @@
         }
 
         [md] & {
+            padding: 6px;
+            gap: 3px;
+
+            &-highlight {
+                top: 6px;
+            }
+
             &-highlight,
             &-item {
                 height: 36px;

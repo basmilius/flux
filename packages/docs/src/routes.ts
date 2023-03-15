@@ -1,4 +1,7 @@
+import { ref } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
+
+export const routerIsLoading = ref(false);
 
 export const router = createRouter({
     history: createWebHistory(),
@@ -39,6 +42,10 @@ export const router = createRouter({
             component: () => import('./pages/components/ButtonGroup.vue')
         },
         {
+            path: '/components/chip',
+            component: () => import('./pages/components/Chip.vue')
+        },
+        {
             path: '/components/divider',
             component: () => import('./pages/components/Divider.vue')
         },
@@ -57,6 +64,14 @@ export const router = createRouter({
         {
             path: '/components/icon',
             component: () => import('./pages/components/Icon.vue')
+        },
+        {
+            path: '/components/info',
+            component: () => import('./pages/components/Info.vue')
+        },
+        {
+            path: '/components/link',
+            component: () => import('./pages/components/Link.vue')
         },
         {
             path: '/components/menu',
@@ -79,12 +94,40 @@ export const router = createRouter({
             component: () => import('./pages/components/QuantitySelector.vue')
         },
         {
+            path: '/components/root',
+            component: () => import('./pages/components/Root.vue')
+        },
+        {
+            path: '/components/segmented-control',
+            component: () => import('./pages/components/SegmentedControl.vue')
+        },
+        {
+            path: '/components/separator',
+            component: () => import('./pages/components/Separator.vue')
+        },
+        {
             path: '/components/spinner',
             component: () => import('./pages/components/Spinner.vue')
         },
         {
             path: '/components/split-button',
             component: () => import('./pages/components/SplitButton.vue')
+        },
+        {
+            path: '/components/statistic',
+            component: () => import('./pages/components/Statistic.vue')
+        },
+        {
+            path: '/components/timeline',
+            component: () => import('./pages/components/Timeline.vue')
+        },
+        {
+            path: '/components/toggle',
+            component: () => import('./pages/components/Toggle.vue')
+        },
+        {
+            path: '/components/toolbar',
+            component: () => import('./pages/components/Toolbar.vue')
         },
         {
             path: '/components/window',
@@ -119,4 +162,13 @@ export const router = createRouter({
             component: () => import('./pages/NotFound.vue')
         }
     ]
+});
+
+router.afterEach(() => {
+    routerIsLoading.value = false;
+});
+
+router.beforeEach((from, to, next) => {
+    routerIsLoading.value = true;
+    next();
 });

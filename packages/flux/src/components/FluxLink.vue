@@ -1,7 +1,7 @@
 <template>
     <flux-base-button
-        class="flux-primary-button"
-        v-bind="{type, disabled, iconAfter, iconBefore, isLoading, isSubmit, label, href, rel, target, to}"
+        class="flux-link"
+        v-bind="{type, disabled, iconBefore: icon, iconAfter: 'arrow-right-long', label, href, rel, target, to}"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)">
@@ -38,10 +38,7 @@
     export interface Props {
         readonly type?: 'button' | 'link' | 'route';
         readonly disabled?: boolean;
-        readonly iconAfter?: IconNames;
-        readonly iconBefore?: IconNames;
-        readonly isLoading?: boolean;
-        readonly isSubmit?: boolean;
+        readonly icon?: IconNames;
         readonly label?: string;
         readonly href?: string;
         readonly rel?: string;
@@ -59,15 +56,36 @@
 </script>
 
 <style lang="scss">
-    .flux-primary-button {
-        --button-background: rgb(var(--primary-7));
-        --button-background-hover: rgb(var(--primary-8));
-        --button-background-active: rgb(var(--primary-9));
-        --button-foreground: rgb(var(--primary-0));
-        --button-icon: rgb(var(--primary-0));
-        --button-stroke: transparent;
+    @use '../scss/mixin' as flux;
 
-        --spinner-track: rgb(var(--primary-8));
-        --spinner-value: rgb(var(--primary-0));
+    .flux-link {
+        --button-icon: rgb(var(--primary-7));
+        --button-stroke: unset;
+
+        display: inline-flex;
+        height: unset;
+        padding: 0;
+        background: unset;
+        border: unset;
+        box-shadow: unset;
+        color: rgb(var(--primary-7));
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 4px;
+
+        @include flux.focus-ring(6px);
+
+        .flux-icon {
+            transition: inherit;
+            transition-property: transform;
+        }
+
+        &:hover {
+            color: rgb(var(--primary-10));
+
+            .flux-icon {
+                transform: translate3d(6px, 0, 0);
+            }
+        }
     }
 </style>

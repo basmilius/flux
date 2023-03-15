@@ -90,9 +90,26 @@
                             type="route"/>
 
                         <flux-menu-item
+                            label="Chip"
+                            to="/components/chip"
+                            type="route"/>
+
+                        <flux-menu-item
                             disabled
                             label="Comment"
                             to="/components/comment"
+                            type="route"/>
+
+                        <flux-menu-item
+                            disabled
+                            label="Data list"
+                            to="/components/data-list"
+                            type="route"/>
+
+                        <flux-menu-item
+                            disabled
+                            label="Data table"
+                            to="/components/data-table"
                             type="route"/>
 
                         <flux-menu-item
@@ -153,8 +170,20 @@
 
                         <flux-menu-item
                             disabled
+                            label="Form range slider"
+                            to="/components/form-range-slider"
+                            type="route"/>
+
+                        <flux-menu-item
+                            disabled
                             label="Form select"
                             to="/components/form-select"
+                            type="route"/>
+
+                        <flux-menu-item
+                            disabled
+                            label="Form slider"
+                            to="/components/form-slider"
                             type="route"/>
 
                         <flux-menu-item
@@ -187,13 +216,11 @@
                             type="route"/>
 
                         <flux-menu-item
-                            disabled
                             label="Info"
                             to="/components/info"
                             type="route"/>
 
                         <flux-menu-item
-                            disabled
                             label="Link"
                             to="/components/link"
                             type="route"/>
@@ -238,6 +265,12 @@
 
                         <flux-menu-item
                             disabled
+                            label="Pips pager"
+                            to="/components/pips-pager"
+                            type="route"/>
+
+                        <flux-menu-item
+                            disabled
                             label="Placeholder"
                             to="/components/placeholder"
                             type="route"/>
@@ -254,13 +287,16 @@
                             type="route"/>
 
                         <flux-menu-item
-                            disabled
+                            label="Root"
+                            to="/components/root"
+                            type="route"/>
+
+                        <flux-menu-item
                             label="Segmented control"
                             to="/components/segmented-control"
                             type="route"/>
 
                         <flux-menu-item
-                            disabled
                             label="Separator"
                             to="/components/separator"
                             type="route"/>
@@ -276,7 +312,6 @@
                             type="route"/>
 
                         <flux-menu-item
-                            disabled
                             label="Statistic"
                             to="/components/statistic"
                             type="route"/>
@@ -288,19 +323,16 @@
                             type="route"/>
 
                         <flux-menu-item
-                            disabled
                             label="Timeline"
                             to="/components/timeline"
                             type="route"/>
 
                         <flux-menu-item
-                            disabled
                             label="Toggle"
                             to="/components/toggle"
                             type="route"/>
 
                         <flux-menu-item
-                            disabled
                             label="Toolbar"
                             to="/components/toolbar"
                             type="route"/>
@@ -319,6 +351,8 @@
 
                 <flux-spacer/>
 
+                <theme-toggle/>
+
                 <flux-secondary-button
                     type="link"
                     icon-before="bitbucket"
@@ -327,7 +361,8 @@
                     target="_blank"/>
             </template>
 
-            <router-view/>
+            <flux-spinner v-if="routerIsLoading"/>
+            <router-view v-else/>
         </flux-docs>
     </flux-root>
 </template>
@@ -335,7 +370,9 @@
 <script
     lang="ts"
     setup>
-    import { FluxDocs, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxRoot, FluxSecondaryButton, FluxSpacer } from '@fancee/flux';
+    import { FluxDocs, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxRoot, FluxSecondaryButton, FluxSpacer, FluxSpinner } from '@fancee/flux';
+    import { ThemeToggle } from './components';
+    import { routerIsLoading } from './routes';
 </script>
 
 <style lang="scss">

@@ -5,20 +5,90 @@
 }
 
 html {
+    line-height: 1.6;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgb(0 0 0 / 0);
+    -moz-tab-size: 4;
+    tab-size: 4;
 }
 
 body {
     margin: 0;
     padding: 0;
+    line-height: inherit;
 }
 
-button, input, textarea {
+blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
+    margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+code,
+kbd,
+samp,
+pre {
+    font-family: monospace;
+    font-size: 1em;
+}
+
+small {
+    font-size: 80%;
+}
+
+sub,
+sup {
+    position: relative;
+    font-size: 75%;
+    line-height: 0;
+    vertical-align: baseline;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+sup {
+    top: -0.5em;
+}
+
+button,
+select {
+    text-transform: none;
+}
+
+button,
+input,
+textarea {
     font: inherit;
 }
 
 a {
     color: inherit;
     text-decoration: none;
+}
+
+b,
+strong {
+    font-weight: bolder;
 }

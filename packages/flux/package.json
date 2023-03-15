@@ -11,13 +11,13 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-common-types": "^6.3.0",
-        "luxon": "^3.2.1",
-        "pinia": "^2.0.32",
+        "luxon": "^3.3.0",
+        "pinia": "^2.0.33",
         "vue-demi": "^0.13.11"
     },
     "devDependencies": {
         "@types/luxon": "^3.2.0",
-        "@types/node": "^18.14.4",
+        "@types/node": "^18.15.2",
         "vue": "^3.2.47"
     }
 }

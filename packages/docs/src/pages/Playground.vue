@@ -6,78 +6,91 @@
 
         <section>
             <preview>
-                <flux-stack style="width: 360px">
-                    <flux-statistic
-                        color="primary"
-                        icon="circle"
-                        label="Label"
-                        value="Value"/>
+                <flux-pane style="width: 60%">
+                    <flux-pane-header
+                        icon="clone"
+                        title="Form"/>
 
-                    <flux-statistic
-                        color="danger"
-                        change-color="danger"
-                        change-icon="arrow-down"
-                        change-value="10%"
-                        icon="user"
-                        label="Users this month"
-                        value="750"/>
+                    <flux-pane-body>
+                        <flux-form-column>
+                            <flux-form-row>
+                                <flux-form-field label="First name">
+                                    <flux-form-input
+                                        auto-complete="given_name"
+                                        placeholder="E.g. Bas"/>
+                                </flux-form-field>
 
-                    <flux-statistic
-                        color="primary"
-                        change-color="success"
-                        change-icon="arrow-trend-up"
-                        change-value="1.250"
-                        icon="star"
-                        label="Leads"
-                        value="16.500"/>
-                </flux-stack>
+                                <flux-form-field label="Last name">
+                                    <flux-form-input
+                                        auto-complete="family_name"
+                                        placeholder="E.g. Milius"/>
+                                </flux-form-field>
+                            </flux-form-row>
+
+                            <flux-form-field label="Email">
+                                <flux-form-input
+                                    auto-complete="email"
+                                    placeholder="E.g. bas@tibbaa.com"
+                                    type="email"/>
+                            </flux-form-field>
+
+                            <flux-form-field label="Question">
+                                <flux-form-text-area
+                                    auto-complete="email"
+                                    placeholder="E.g. What does API mean in the Medium ticketing package?"/>
+                            </flux-form-field>
+
+                            <flux-form-field label="High priority">
+                                <flux-toggle
+                                    v-model="toggle"
+                                    icon-off="sun-alt"
+                                    icon-on="moon"
+                                    is-switch/>
+                            </flux-form-field>
+
+                            <flux-form-field label="Toggle">
+                                <flux-toggle
+                                    v-model="toggle"
+                                    icon-off="circle"
+                                    icon-on="circle"/>
+                            </flux-form-field>
+                        </flux-form-column>
+                    </flux-pane-body>
+
+                    <flux-pane-footer>
+                        <flux-secondary-button label="Back"/>
+
+                        <flux-spacer/>
+
+                        <flux-primary-button
+                            icon-before="circle-check"
+                            label="Send"/>
+                    </flux-pane-footer>
+                </flux-pane>
             </preview>
 
-            <p><br/></p>
-
             <preview>
-                <flux-pane style="width: 480px">
+                <flux-pane style="width: 75%">
                     <flux-pane-body>
-                        <flux-timeline>
-                            <flux-timeline-item
-                                icon="star"
-                                title="Timeline component"
-                                when="9 maart 2023 22:00">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci commodi debitis dolor dolores, ducimus facere, fugit id impedit ipsam mollitia nam nobis reiciendis temporibus vero. Accusamus in repellat voluptatibus.</p>
-                            </flux-timeline-item>
+                        <flux-pips-pager
+                            v-model="pipsPagerPage1"
+                            arrows
+                            :pages="10"
+                            :visible="7"/>
+                    </flux-pane-body>
 
-                            <flux-timeline-item
-                                color="primary"
-                                icon="star"
-                                photo="https://staging.fanc.ee/uploads/shops/headers/bh40dmg5.uwr.jpg">
-                                <p>Timeline items can also contain an image instead of an icon. An icon is still supported though!</p>
-                            </flux-timeline-item>
+                    <flux-pane-body>
+                        <flux-pips-pager
+                            v-model="pipsPagerPage2"
+                            arrows
+                            :pages="5"/>
+                    </flux-pane-body>
 
-                            <flux-timeline-item
-                                color="danger"
-                                icon="circle-exclamation">
-                                <p>This is a smaller timeline item.</p>
-                            </flux-timeline-item>
-
-                            <flux-timeline-item
-                                color="info"
-                                icon="star"
-                                title="Without a datetime">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam amet asperiores consectetur eligendi, eum in itaque mollitia nihil, praesentium quasi quod sint temporibus voluptatem. Beatae consequuntur doloremque reprehenderit tempora? Accusamus.
-                            </flux-timeline-item>
-
-                            <flux-timeline-item
-                                color="success"
-                                icon="star">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid debitis eius eligendi esse illo in laudantium molestiae! Accusantium aliquid dignissimos eligendi natus nemo quis repellat unde ut vero! Cum?
-                            </flux-timeline-item>
-
-                            <flux-timeline-item
-                                color="warning"
-                                icon="star">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus animi aspernatur corporis cupiditate dolorem error est expedita ipsa ipsam, iste magni maxime, odit pariatur quaerat quisquam rerum veniam, vero voluptatibus!
-                            </flux-timeline-item>
-                        </flux-timeline>
+                    <flux-pane-body>
+                        <flux-pips-pager
+                            v-model="pipsPagerPage3"
+                            arrows
+                            :pages="10"/>
                     </flux-pane-body>
                 </flux-pane>
             </preview>
@@ -88,6 +101,12 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneBody, FluxStack, FluxStatistic, FluxTimeline, FluxTimelineItem } from '@fancee/flux';
+    import { FluxFormColumn, FluxFormField, FluxFormInput, FluxFormRow, FluxFormTextArea, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPipsPager, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStack, FluxToggle } from '@fancee/flux';
+    import { ref } from 'vue';
     import { PageTitle, Preview } from '@/components';
+
+    const pipsPagerPage1 = ref(3);
+    const pipsPagerPage2 = ref(3);
+    const pipsPagerPage3 = ref(3);
+    const toggle = ref(false);
 </script>

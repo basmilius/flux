@@ -59,8 +59,6 @@
 </script>
 
 <style lang="scss">
-    @use '../scss/mixin' as flux;
-
     .flux-destructive-button {
         --button-background: rgb(var(--gray-0));
         --button-background-hover: rgb(var(--gray-2));
@@ -71,12 +69,6 @@
 
         span:only-child {
             color: var(--button-icon);
-        }
-    }
-
-    @include flux.dark-mode {
-        .flux-destructive-button {
-            --button-icon: rgb(var(--danger-6));
         }
     }
 </style>

@@ -28,7 +28,7 @@
         font-family: jetbrains-mono, monospace;
     }
 
-    .highlighted-code {
+    .code.highlighted-code {
         margin-top: 6px;
         margin-bottom: 6px;
         border: 1px solid rgb(var(--gray-3));
@@ -99,8 +99,8 @@
             }
         }
 
-        @at-root [dark] .hljs {
-            color: var(--foreground-secondary);
+        @at-root [dark] & .hljs {
+            color: var(--foreground);
 
             &-attr,
             &-attribute,

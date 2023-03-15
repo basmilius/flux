@@ -4,6 +4,7 @@
         :class="{
             'flux-stack-horizontal': axis === 'horizontal',
             'flux-stack-vertical': axis === 'vertical',
+            'flux-stack-centered': isCentered,
             'flux-stack-fill': isFill,
             'flux-stack-growing': isGrowing,
             'flux-stack-wrapping': isWrapping
@@ -21,6 +22,7 @@
     export interface Props {
         readonly axis?: 'horizontal' | 'vertical';
         readonly gap?: number;
+        readonly isCentered?: boolean;
         readonly isFill?: boolean;
         readonly isGrowing?: boolean;
         readonly isWrapping?: boolean;
@@ -49,6 +51,11 @@
         > .flux-separator {
             margin-top: 21px;
             margin-bottom: 21px;
+        }
+
+        &-centered {
+            place-items: center;
+            place-content: center;
         }
 
         &-fill {
