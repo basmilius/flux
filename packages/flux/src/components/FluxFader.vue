@@ -27,7 +27,7 @@
     const {interval} = toRefs(props);
 
     const faderRef = ref<HTMLDivElement>();
-    const current = ref(0);
+    const current = ref(-1);
 
     useInterval(interval, () => next());
 
