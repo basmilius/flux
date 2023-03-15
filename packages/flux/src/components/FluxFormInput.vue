@@ -152,4 +152,10 @@
             border-color: rgb(var(--gray-5));
         }
     }
+
+    @include flux.dark-mode {
+        .flux-form-input::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+        }
+    }
 </style>
