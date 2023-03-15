@@ -287,13 +287,16 @@
                             type="route"/>
 
                         <flux-menu-item
-                            disabled
+                            label="Root"
+                            to="/components/root"
+                            type="route"/>
+
+                        <flux-menu-item
                             label="Segmented control"
                             to="/components/segmented-control"
                             type="route"/>
 
                         <flux-menu-item
-                            disabled
                             label="Separator"
                             to="/components/separator"
                             type="route"/>
@@ -325,7 +328,6 @@
                             type="route"/>
 
                         <flux-menu-item
-                            disabled
                             label="Toggle"
                             to="/components/toggle"
                             type="route"/>
@@ -359,7 +361,8 @@
                     target="_blank"/>
             </template>
 
-            <router-view/>
+            <flux-spinner v-if="routerIsLoading"/>
+            <router-view v-else/>
         </flux-docs>
     </flux-root>
 </template>
@@ -367,8 +370,9 @@
 <script
     lang="ts"
     setup>
-    import { FluxDocs, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxRoot, FluxSecondaryButton, FluxSpacer } from '@fancee/flux';
+    import { FluxDocs, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxRoot, FluxSecondaryButton, FluxSpacer, FluxSpinner } from '@fancee/flux';
     import { ThemeToggle } from './components';
+    import { routerIsLoading } from './routes';
 </script>
 
 <style lang="scss">

@@ -1,8 +1,12 @@
 <template>
     <div
         ref="previewRef"
-        class="preview">
-        <slot/>
+        class="preview flux-typography-aware">
+        <slot name="body">
+            <div class="preview-body">
+                <slot/>
+            </div>
+        </slot>
     </div>
 </template>
 
@@ -35,11 +39,6 @@
 <style lang="scss">
     .preview {
         position: relative;
-        display: flex;
-        min-height: calc(v-bind(minHeight) * 1px);
-        padding: 15px 60px;
-        align-items: center;
-        justify-content: center;
         background: rgb(var(--gray-1));
         border: 1px solid rgb(var(--gray-3));
         border-radius: var(--radius);
@@ -51,6 +50,7 @@
             inset: 0;
             content: '';
             background: rgb(var(--gray-3) / .75);
+            border-radius: var(--radius);
             -webkit-mask-image: linear-gradient(to bottom, transparent calc(100% - 1px), black calc(100% - 1px)), linear-gradient(to right, transparent calc(100% - 1px), black calc(100% - 1px));
             -webkit-mask-position: top center;
             -webkit-mask-size: 45px 45px;
@@ -59,7 +59,16 @@
             mask-size: 45px 45px;
         }
 
-        > .flux-pane {
+        &-body {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(v-bind(minHeight) * 1px - 1px);
+            padding: 15px 60px;
+        }
+
+        &-body > .flux-pane {
             width: 100%;
         }
     }

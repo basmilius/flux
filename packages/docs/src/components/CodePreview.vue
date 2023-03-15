@@ -1,16 +1,18 @@
 <template>
     <flux-pane class="code-preview flux-typography-aware">
-        <flux-pane-body
-            v-if="html"
-            v-html="code"/>
+        <preview v-if="html">
+            <template #body>
+                <div class="preview-body" v-html="code"/>
+            </template>
+        </preview>
 
-        <flux-pane-body v-else-if="component">
+        <preview v-else-if="component">
             <component :is="component"/>
-        </flux-pane-body>
+        </preview>
 
-        <flux-pane-body v-else>
+        <preview v-else>
             <slot/>
-        </flux-pane-body>
+        </preview>
 
         <flux-pane-footer>
             <highlighted-code
@@ -23,8 +25,8 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneBody, FluxPaneFooter } from '@fancee/flux';
-    import { HighlightedCode } from '.';
+    import { FluxPane, FluxPaneFooter } from '@fancee/flux';
+    import { HighlightedCode, Preview } from '.';
 
     export interface Props {
         readonly code: string;
@@ -41,12 +43,19 @@
         font-size: 15px;
     }
 
-    .code-preview > .flux-pane-body:first-of-type {
-        background-image:
-            linear-gradient(to bottom, transparent calc(100% - 1px), rgb(0 0 0 / .0125) calc(100% - 1px)),
-            linear-gradient(to right, transparent calc(100% - 1px), rgb(0 0 0 / .0125) calc(100% - 1px));
-        background-position: top center;
-        background-size: 45px 45px;
-        border-radius: var(--radius) var(--radius) 0 0;
+    .code-preview .preview {
+        background: rgb(var(--gray-0));
+        border: 0;
+
+        &-body {
+            min-height: unset;
+            padding: 21px;
+            align-items: stretch;
+            flex-flow: column;
+        }
+
+        &::before {
+            background: rgb(var(--gray-3) / .25);
+        }
     }
 </style>

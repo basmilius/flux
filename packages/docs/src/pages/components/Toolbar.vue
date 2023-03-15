@@ -28,7 +28,9 @@
 
         <section>
             <p>
-                <em>Todo</em>
+                The toolbar component is used for actions within a certain context. For example: when you have a
+                stack of products, toolbars can be used to display actions for each product. A toolbar can have
+                groups, buttons and separators within them.
             </p>
 
             <p><br/></p>

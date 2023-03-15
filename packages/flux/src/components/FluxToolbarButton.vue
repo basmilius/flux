@@ -43,8 +43,8 @@
         --button-background: transparent;
         --button-background-hover: rgb(var(--gray-2));
         --button-background-active: rgb(var(--gray-3));
-        --button-foreground: rgb(var(--gray-7));
-        --button-icon: rgb(var(--gray-7));
+        --button-foreground: var(--foreground);
+        --button-icon: var(--foreground);
         --button-stroke: transparent;
 
         height: 30px;
