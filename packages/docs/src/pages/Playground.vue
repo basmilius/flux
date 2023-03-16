@@ -30,27 +30,6 @@
             </preview>
 
             <preview>
-                <flux-pane style="width: 100%">
-                    <flux-pane-body>
-                        <table class="upcoming-events">
-                            <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Event</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="i of [1, 2, 3]">
-                                <td>13 Oct</td>
-                                <td>An amazing event that is happening soon {{ i }}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </flux-pane-body>
-                </flux-pane>
-            </preview>
-
-            <preview>
                 <flux-pane style="width: 60%">
                     <flux-pane-header
                         icon="clone"
@@ -156,28 +135,3 @@
     const selectValue = ref<number[]>([]);
     const toggle = ref(false);
 </script>
-
-<style lang="scss">
-    .upcoming-events {
-        border-collapse: collapse;
-        border-spacing: 0;
-
-        th, td {
-            padding: 9px 9px;
-            text-align: left;
-        }
-
-        th {
-            background: rgb(var(--primary-7));
-            color: white;
-        }
-
-        tr:nth-child(even) td {
-            background: rgb(var(--primary-1));
-        }
-
-        tr:nth-child(odd) td {
-            background: rgb(var(--primary-2));
-        }
-    }
-</style>
