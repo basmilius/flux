@@ -202,7 +202,7 @@
     function onFocus(): void {
         hasFocus.value = true;
         popupOpen.value = true;
-        requestAnimationFrame(reposition);
+        reposition();
     }
 
     function onKeyDown(evt: KeyboardEvent): void {
@@ -257,7 +257,7 @@
             if (bottom <= innerHeight) {
                 popupY.value = inputHeight + 9;
             } else {
-                popupY.value = height - 9;
+                popupY.value = -height - 9;
             }
         });
     }
