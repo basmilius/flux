@@ -8,6 +8,30 @@
             <preview>
                 <flux-pane style="width: 60%">
                     <flux-pane-header
+                        icon="angle-down"
+                        title="Select"/>
+
+                    <flux-pane-body>
+                        <flux-form-column>
+                            <flux-form-select
+                                v-model="selectValue"
+                                is-editable
+                                is-multiple
+                                :options="[
+                                    {id: 1, label: 'Option 1'},
+                                    {id: 2, label: 'Option 2'},
+                                    {id: 3, label: 'Option 3'},
+                                    {id: 4, label: 'Option 4'},
+                                    {id: 5, label: 'Option 5'}
+                                ]"/>
+                        </flux-form-column>
+                    </flux-pane-body>
+                </flux-pane>
+            </preview>
+
+            <preview>
+                <flux-pane style="width: 60%">
+                    <flux-pane-header
                         icon="clone"
                         title="Form"/>
 
@@ -101,12 +125,13 @@
 <script
     lang="ts"
     setup>
-    import { FluxFormColumn, FluxFormField, FluxFormInput, FluxFormRow, FluxFormTextArea, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPipsPager, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStack, FluxToggle } from '@fancee/flux';
+    import { FluxFormColumn, FluxFormField, FluxFormInput, FluxFormRow, FluxFormSelect, FluxFormTextArea, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPipsPager, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStack, FluxToggle } from '@fancee/flux';
     import { ref } from 'vue';
     import { PageTitle, Preview } from '@/components';
 
     const pipsPagerPage1 = ref(3);
     const pipsPagerPage2 = ref(3);
     const pipsPagerPage3 = ref(3);
+    const selectValue = ref<number[]>([]);
     const toggle = ref(false);
 </script>
