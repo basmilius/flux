@@ -149,6 +149,10 @@
             search = null;
         }
 
+        if (availableOptions.length === 0) {
+            return [];
+        }
+
         if (!availableOptions.find(isFluxFormSelectGroup)) {
             return [[null, availableOptions]];
         }
@@ -182,12 +186,6 @@
         return groups;
     });
 
-    watch(highlightIndex, index => {
-        optionRefs.value![index]?.$el.scrollIntoView({
-            block: 'center'
-        });
-    });
-
     function onBlur(): void {
         hasFocus.value = false;
         highlightIndex.value = -1;
@@ -204,7 +202,7 @@
     function onFocus(): void {
         hasFocus.value = true;
         popupOpen.value = true;
-        reposition();
+        requestAnimationFrame(reposition);
     }
 
     function onKeyDown(evt: KeyboardEvent): void {
@@ -269,6 +267,7 @@
 
         if (Array.isArray(val)) {
             emit('update:modelValue', val.filter(v => v !== id));
+            unref(inputElement)?.focus();
         }
 
         requestAnimationFrame(reposition);
@@ -293,9 +292,17 @@
 
         requestAnimationFrame(reposition);
     }
+
+    watch(highlightIndex, index => {
+        optionRefs.value![index]?.$el.scrollIntoView({
+            block: 'center'
+        });
+    });
 </script>
 
 <style lang="scss">
+    @use '../scss/mixin' as flux;
+
     .flux-form-select {
         position: relative;
         display: flex;
@@ -307,6 +314,8 @@
         gap: 0 6px;
         cursor: pointer;
 
+        @include flux.focus-ring(-1px, true);
+
         &-icon {
             position: absolute;
             top: 50%;
@@ -317,22 +326,19 @@
         &-input {
             position: relative;
             margin: 0 -1px;
+            min-width: 35%;
             padding: 0 6px;
             flex: 1 1 0;
             background: unset;
             border-width: 0;
             box-shadow: none;
-            outline: 0;
+            outline: 0 !important;
 
             &::-webkit-search-decoration,
             &::-webkit-search-cancel-button,
             &::-webkit-search-results-button,
             &::-webkit-search-results-decoration {
                 -webkit-appearance: none;
-            }
-
-            &:focus {
-                box-shadow: none !important;
             }
         }
 
