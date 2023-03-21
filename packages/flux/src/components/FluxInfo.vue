@@ -13,7 +13,7 @@
 <script
     setup
     lang="ts">
-    import { IconNames } from '../data';
+    import type { IconNames } from '../data';
     import { FluxIcon } from '.';
 
     export interface Props {

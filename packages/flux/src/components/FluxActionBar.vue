@@ -34,7 +34,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxFlyout, FluxPaneBody, FluxSecondaryButton, FluxSpacer, FluxStack } from '.';
+    import { FluxFlyout, FluxSecondaryButton, FluxSpacer, FluxStack } from '.';
 </script>
 
 <style lang="scss">

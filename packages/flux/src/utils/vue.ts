@@ -1,4 +1,5 @@
-import { Component, h, VNode } from 'vue-demi';
+import type { Component, VNode } from 'vue-demi';
+import { h } from 'vue-demi';
 import { hyphenateTag } from './dom';
 
 export function flattenVNodeTree(vnodes: VNode[]): VNode[] {

@@ -1,4 +1,5 @@
-import { computed, inject, onMounted, onUnmounted, provide, Ref, ref, unref, watch } from 'vue-demi';
+import type { Ref } from 'vue-demi';
+import { computed, inject, onMounted, onUnmounted, provide, ref, unref, watch } from 'vue-demi';
 
 const BREAKPOINTS = {
     'xs': 0,

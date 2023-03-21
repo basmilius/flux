@@ -42,9 +42,9 @@
 <script
     lang="ts"
     setup>
+    import type { IconNames } from '../data';
     import { computed, ref, unref, watch } from 'vue-demi';
     import { useSlotVNodes } from '../composables';
-    import { IconNames } from '../data';
     import { heightTransition } from '../directives';
     import { VNodeRenderer } from './primitive';
     import { FluxWindowTransition } from '../transition';

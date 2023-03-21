@@ -1,4 +1,5 @@
-import { ComponentInternalInstance, set } from 'vue-demi';
+import type { ComponentInternalInstance } from 'vue-demi';
+import { set } from 'vue-demi';
 
 export function setInstanceProperty(instance: ComponentInternalInstance | Omit<ComponentInternalInstance, 'exposed'>, key: string, value: unknown): void {
     if ('exposed' in instance) {

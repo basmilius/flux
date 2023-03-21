@@ -9,6 +9,7 @@
         }"
         @click="onClick">
         <flux-icon
+            v-if="icon"
             class="flux-placeholder-icon"
             :variant="icon"/>
 
@@ -33,7 +34,7 @@
 <script
     lang="ts"
     setup>
-    import { IconNames } from '../data';
+    import type { IconNames } from '../data';
     import { FluxIcon } from '.';
 
     export interface Emits {
@@ -41,10 +42,10 @@
     }
 
     export interface Props {
-        readonly icon: IconNames;
+        readonly icon?: IconNames;
         readonly isButton?: boolean;
         readonly message?: string;
-        readonly title: string;
+        readonly title?: string;
         readonly variant?: 'extended' | 'simple' | 'small';
     }
 

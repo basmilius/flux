@@ -7,7 +7,8 @@
 <script
     lang="ts"
     setup>
-    import { ComponentInternalInstance, onMounted, provide } from 'vue-demi';
+    import type { ComponentInternalInstance } from 'vue-demi';
+    import { onMounted, provide } from 'vue-demi';
     import { setInstanceProperty } from '../utils';
 
     const expandables: { [key: number]: ComponentInternalInstance; } = {};

@@ -11,9 +11,9 @@
 <script
     lang="ts"
     setup>
+    import type { IconNames } from '../data';
     import { DateTime } from 'luxon';
     import { computed, inject, unref } from 'vue-demi';
-    import { IconNames } from '../data';
     import { FluxDatePicker } from '.';
 
     export interface Props {

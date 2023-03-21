@@ -39,7 +39,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxRoutingLocation, IconNames } from '../data';
+    import type { FluxRoutingLocation, IconNames } from '../data';
     import { useTranslate } from '../composables';
     import { FluxIcon, FluxPane, FluxPaneBody, FluxSecondaryButton, FluxStack } from '.';
 

@@ -102,7 +102,7 @@
     lang="ts"
     setup>
     import { DateTime } from 'luxon';
-    import { computed, onMounted, ref, toRefs, unref } from 'vue-demi';
+    import { computed, ref, toRefs, unref } from 'vue-demi';
     import { FluxFadeTransition, FluxVerticalWindowTransition, FluxWindowTransition } from '../transition';
     import { FluxSecondaryButton } from '.';
 

@@ -89,14 +89,16 @@
             prop: 'modelValue',
             event: 'update:modelValue'
         }
-    }
+    };
 </script>
 
 <script
     lang="ts"
     setup>
-    import { ComponentPublicInstance, computed, ComputedRef, inject, ref, toRefs, unref, watch } from 'vue-demi';
-    import { FluxFormSelectGroup, FluxFormSelectOption, isFluxFormSelectGroup, isFluxFormSelectOption } from '../data';
+    import type { ComponentPublicInstance, ComputedRef } from 'vue-demi';
+    import type { FluxFormSelectGroup, FluxFormSelectOption } from '../data';
+    import { computed, inject, ref, toRefs, unref, watch } from 'vue-demi';
+    import { isFluxFormSelectGroup, isFluxFormSelectOption } from '../data';
     import { FluxFadeTransition } from '../transition';
     import { FluxBadge, FluxIcon, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader } from '.';
 

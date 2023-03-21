@@ -15,7 +15,7 @@
 <script
     lang="ts"
     setup>
-    import { IconNames } from '../data';
+    import type { IconNames } from '../data';
     import { FluxBaseButton } from '.';
 
     export interface Emits {

@@ -1,7 +1,7 @@
+import type { FluxFilterBase, FluxFilterDate, FluxFilterDateRange, FluxFilterItem, FluxFilterOption, FluxFilterOptionItem, FluxFilterOptions, FluxFilterValue } from '../../data';
 import { DateTime } from 'luxon';
 import { camelize, defineComponent, VNode } from 'vue-demi';
 import { useTranslate } from '../../composables';
-import { FluxFilterBase, FluxFilterDate, FluxFilterDateRange, FluxFilterItem, FluxFilterOption, FluxFilterOptionItem, FluxFilterOptions, FluxFilterValue } from '../../data';
 import { flattenVNodeTree, getNormalizedComponentName, getNormalizedComponentProps, isVNode, render } from '../../utils';
 import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSeparator } from '..';
 
@@ -196,7 +196,7 @@ function renderFilterItem(item: FluxFilterItem | VNode, translate: Function, nav
             commandIcon: 'angle-right',
             iconBefore: item.icon,
             label: item.label
-        }
+        } as object
     });
 }
 

@@ -18,7 +18,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxAlertSpec } from '../data';
+    import type { FluxAlertSpec } from '../data';
     import { useTranslate } from '../composables';
     import { FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSpacer } from '.';
 

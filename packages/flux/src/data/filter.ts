@@ -1,5 +1,5 @@
+import type { DateTime } from 'luxon';
 import type { IconNames } from '.';
-import { DateTime } from 'luxon';
 
 export interface FluxFilterBase {
     readonly icon?: IconNames;

@@ -50,13 +50,14 @@
 <script
     lang="ts"
     setup>
-    import { computed, provide, ref, toRefs, unref, VNode } from 'vue-demi';
+    import type { VNode } from 'vue-demi';
+    import { computed, provide, ref, toRefs, unref } from 'vue-demi';
     import { useSlotVNodes, useTranslate } from '../composables';
     import { FluxFilterItem, FluxFilterOptionItem } from '../data';
     import { heightTransition } from '../directives';
     import { getNormalizedComponentName, getNormalizedComponentProps } from '../utils';
     import { FilterMenuRenderer, VNodeRenderer } from './primitive';
-    import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxSeparator, FluxWindow } from '.';
+    import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSeparator, FluxWindow } from '.';
 
     export interface Emits {
         (e: 'update:modelValue', state: Record<string, unknown>): void;
@@ -129,12 +130,12 @@
         unref(window)?.back('default');
     }
 
-    function reset(name: string): void {
+    function reset(name: string | number): void {
         setValue(name, undefined);
         back();
     }
 
-    function getValue(name: string): FluxFilterOptionItem['value'] | undefined {
+    function getValue(name: string | number): FluxFilterOptionItem['value'] | undefined {
         if (!hasValue(name)) {
             return undefined;
         }
@@ -142,11 +143,11 @@
         return unref(modelValue)[name] as FluxFilterOptionItem['value'];
     }
 
-    function hasValue(name: string): boolean {
+    function hasValue(name: string | number): boolean {
         return name in unref(modelValue);
     }
 
-    function setValue(name: string, value?: FluxFilterOptionItem['value']): void {
+    function setValue(name: string | number, value?: FluxFilterOptionItem['value']): void {
         emit('update:modelValue', Object.assign(unref(modelValue), {
             [name]: value
         }));

@@ -21,7 +21,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxConfirmSpec } from '../data';
+    import type { FluxConfirmSpec } from '../data';
     import { useTranslate } from '../composables';
     import { FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer } from '.';
 

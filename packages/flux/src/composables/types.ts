@@ -1,4 +1,4 @@
-import { ComponentPublicInstance, ComputedRef, Ref } from 'vue-demi';
+import type { ComponentPublicInstance, ComputedRef, Ref } from 'vue-demi';
 
 export type MaybeRef<T> = T | Ref<T>;
 

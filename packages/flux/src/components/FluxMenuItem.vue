@@ -38,7 +38,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxRoutingLocation, IconNames } from '../data';
+    import type { FluxRoutingLocation, IconNames } from '../data';
     import { FluxBaseButton, FluxIcon } from '.';
 
     // note: It is currently not possible to reuse Emits and Props from

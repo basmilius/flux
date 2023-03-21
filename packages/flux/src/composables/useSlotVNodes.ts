@@ -1,4 +1,5 @@
-import { onBeforeUpdate, Ref, ref, useSlots, VNode } from 'vue-demi';
+import type { Ref, VNode } from 'vue-demi';
+import { onBeforeUpdate, ref, useSlots } from 'vue-demi';
 import { flattenVNodeTree } from '../utils';
 
 export function useSlotVNodes(slotName: string = 'default'): Ref<VNode[]> {
