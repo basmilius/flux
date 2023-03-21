@@ -16,6 +16,26 @@
     }
 }
 
+@mixin focus-ring-pseudo($selector, $offset: 0, $within: false) {
+    &::#{$selector} {
+        outline: 2px solid rgb(var(--primary-7) / 0);
+        outline-offset: 0;
+    }
+
+    @if $within == true {
+        &:focus-visible::#{$selector},
+        &:focus-within::#{$selector} {
+            outline-color: rgb(var(--primary-7));
+            outline-offset: $offset;
+        }
+    } @else {
+        &:focus-visible::#{$selector} {
+            outline-color: rgb(var(--primary-7));
+            outline-offset: $offset;
+        }
+    }
+}
+
 @mixin focus-ring-transition($offset: 0, $within: false) {
     @include focus-ring($offset, $within);
 

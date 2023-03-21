@@ -12,7 +12,7 @@
                             icon-before="scissors"
                             label="Cut"/>
                         <flux-menu-item
-                            icon-before="copy"
+                            icon-before="clone"
                             label="Copy"/>
                         <flux-menu-item
                             icon-before="paste"
@@ -71,6 +71,15 @@
                     <tr>
                         <td><code>is-large</code><code>boolean</code></td>
                         <td>Use a larger variant of the menu.</td>
+                    </tr>
+                </template>
+            </api-table>
+
+            <api-table title="Props: FluxMenuGroup">
+                <template #body>
+                    <tr>
+                        <td><code>is-horizontal</code><code>boolean</code></td>
+                        <td>Render items in a row.</td>
                     </tr>
                 </template>
             </api-table>

@@ -9,10 +9,10 @@
         <flux-pane-footer>
             <flux-spacer/>
             <flux-secondary-button
-                :label="translate('cancel')"
+                :label="translate('flux_cancel')"
                 @click="confirm.onCancel"/>
             <flux-primary-button
-                :label="translate('ok')"
+                :label="translate('flux_ok')"
                 @click="confirm.onConfirm"/>
         </flux-pane-footer>
     </flux-pane>

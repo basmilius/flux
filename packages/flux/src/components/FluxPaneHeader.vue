@@ -45,5 +45,9 @@
             color: var(--foreground-prominent);
             font-weight: 700;
         }
+
+        &:first-child {
+            border-radius: var(--radius) var(--radius) 0 0;
+        }
     }
 </style>

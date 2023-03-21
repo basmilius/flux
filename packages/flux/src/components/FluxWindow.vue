@@ -1,18 +1,17 @@
 <template>
-    <transition
-        mode="out-in"
-        :name="isBack ? 'flux-window-back' : 'flux-window'">
+    <flux-window-transition :is-back="isBack">
         <slot
             :key="view"
             :name="view"
             v-bind="{back, navigate}"/>
-    </transition>
+    </flux-window-transition>
 </template>
 
 <script
     lang="ts"
     setup>
     import { ref } from 'vue-demi';
+    import { FluxWindowTransition } from '../transition';
 
     const isBack = ref(false);
     const view = ref<string>('default');
@@ -26,35 +25,9 @@
         isBack.value = false;
         view.value = to;
     }
+
+    defineExpose({
+        back,
+        navigate
+    });
 </script>
-
-<style lang="scss">
-    .flux-window {
-        overflow: auto;
-        transition: height 150ms var(--deceleration-curve);
-
-        &-enter-active,
-        &-back-enter-active {
-            transition: 150ms var(--deceleration-curve);
-            transition-property: opacity, transform;
-        }
-
-        &-leave-active,
-        &-back-leave-active {
-            transition: 150ms var(--acceleration-curve);
-            transition-property: opacity, transform;
-        }
-
-        &-enter-from,
-        &-back-leave-to {
-            opacity: 0;
-            transform: translate3d(15px, 0, 0);
-        }
-
-        &-leave-to,
-        &-back-enter-from {
-            opacity: 0;
-            transform: translate3d(-15px, 0, 0);
-        }
-    }
-</style>

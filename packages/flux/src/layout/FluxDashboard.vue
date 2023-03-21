@@ -1,7 +1,5 @@
 <template>
     <div class="flux-dashboard">
-        <div class="flux-dashboard-scroll-fade"/>
-
         <flux-container class="flux-dashboard-container">
             <div class="flux-dashboard-top-bar">
                 <slot name="top-bar"/>
@@ -13,7 +11,6 @@
         </flux-container>
 
         <aside
-            v-if="isSidebarOpen"
             class="flux-dashboard-sidebar">
             <slot name="sidebar"/>
         </aside>
@@ -26,12 +23,16 @@
     import { ref } from 'vue-demi';
     import { FluxContainer } from '../components';
 
-    const isSidebarOpen = ref(true);
+    const isSidebarOpen = ref(false);
 </script>
 
 <style lang="scss">
     .flux-dashboard {
+        --background: rgb(var(--gray-2));
+
         position: relative;
+        min-height: 100dvh;
+        background: var(--background);
         z-index: 0;
 
         &-container {
@@ -46,19 +47,9 @@
             z-index: 0;
         }
 
-        &-scroll-fade {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 120px;
-            background: linear-gradient(to bottom, var(--background) 75%, transparent);
-            z-index: 1;
-        }
-
         &-sidebar,
         &-top-bar {
-            background: var(--surface-background);
+            background: rgb(var(--gray-0));
             box-shadow: var(--shadow);
             z-index: 1;
         }
@@ -67,17 +58,19 @@
             position: fixed;
             top: 0;
             left: 0;
+            padding: 21px;
             height: 100dvh;
             width: 300px;
-            border-right: 1px solid var(--surface-stroke);
+            border-right: 1px solid rgb(var(--gray-4) / .75);
         }
 
         &-top-bar {
             position: sticky;
+            display: flex;
             top: 30px;
             height: 60px;
             margin-bottom: 30px;
-            border: 1px solid var(--surface-stroke);
+            border: 1px solid rgb(var(--gray-4) / .75);
             border-radius: var(--radius);
         }
 
@@ -85,7 +78,11 @@
             padding: 15px;
         }
 
-        &-sidebar .flux-menu-item {
+        &-sidebar .flux-menu-item.is-indented {
+            margin-left: 36px;
+        }
+
+        &-sidebar .flux-menu-item:not(.is-indented) {
             padding-left: 15px;
             padding-right: 15px;
             height: 48px;

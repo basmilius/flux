@@ -62,5 +62,6 @@
         background: black;
         border-radius: var(--radius);
         overflow: hidden;
+        z-index: 0;
     }
 </style>

@@ -1,8 +1,9 @@
-import type { IconDefinition, IconName as IconNames, IconPathData } from '@fortawesome/fontawesome-common-types';
+import type { IconDefinition, IconName, IconPathData } from '@fortawesome/fontawesome-common-types';
+
+export type IconNames = IconName | 'flux-empty';
 
 export type {
     IconDefinition,
-    IconNames,
     IconPathData
 };
 

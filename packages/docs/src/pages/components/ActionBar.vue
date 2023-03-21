@@ -15,7 +15,39 @@
                     </template>
 
                     <template #filter>
-                        Filter
+                        <flux-filter v-model="filterState">
+                            <flux-filter-option
+                                icon="clone"
+                                label="Option"
+                                name="option1"
+                                :options="[
+                                    {label: 'Option A', value: 'a'},
+                                    {label: 'Option B', value: 'b'},
+                                    {label: 'Option C', value: 'c'}
+                                ]"/>
+
+                            <flux-filter-options
+                                icon="circle-check"
+                                label="Choices"
+                                name="option2"
+                                :options="[
+                                    {label: 'Option A', value: 'a'},
+                                    {label: 'Option B', value: 'b'},
+                                    {label: 'Option C', value: 'c'}
+                                ]"/>
+
+                            <flux-separator/>
+
+                            <flux-filter-date
+                                icon="calendar"
+                                label="Date"
+                                name="option3"/>
+
+                            <flux-filter-date-range
+                                icon="calendar-range"
+                                label="Period"
+                                name="option4"/>
+                        </flux-filter>
                     </template>
 
                     <template #search>
@@ -66,6 +98,9 @@
 <script
     lang="ts"
     setup>
-    import { FluxActionBar, FluxFormInput, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPrimaryButton, FluxStack } from '@fancee/flux';
+    import { ref } from 'vue';
+    import { FluxActionBar, FluxFilter, FluxFilterDate, FluxFilterDateRange, FluxFilterOption, FluxFilterOptions, FluxFormInput, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPrimaryButton, FluxSeparator, FluxStack } from '@fancee/flux';
     import { ApiTable, PageTitle, Preview } from '@/components';
+
+    const filterState = ref({});
 </script>

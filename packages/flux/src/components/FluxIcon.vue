@@ -40,6 +40,10 @@
     const definition = computed(() => {
         const variant = iconRegistry[props.variant];
 
+        if (!variant && props.variant === 'flux-empty') {
+            return [512, 512, null, []];
+        }
+
         if (!variant) {
             throw new Error(`[Flux] Icon variant "${props.variant}" is not defined`);
         }

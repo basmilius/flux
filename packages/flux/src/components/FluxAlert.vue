@@ -9,7 +9,7 @@
         <flux-pane-footer>
             <flux-spacer/>
             <flux-primary-button
-                :label="translate('ok')"
+                :label="translate('flux_ok')"
                 @click="alert.onClose"/>
         </flux-pane-footer>
     </flux-pane>

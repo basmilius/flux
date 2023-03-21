@@ -23,11 +23,9 @@
             </template>
 
             <template #default="bindings">
-                <flux-pane-body>
-                    <slot
-                        name="filter"
-                        v-bind="bindings"/>
-                </flux-pane-body>
+                <slot
+                    name="filter"
+                    v-bind="bindings"/>
             </template>
         </flux-flyout>
     </flux-stack>

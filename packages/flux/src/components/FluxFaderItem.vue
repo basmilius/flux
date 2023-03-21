@@ -16,6 +16,7 @@
             pointer-events: none;
             scale: 1.05;
             transition-delay: 90ms;
+            z-index: 1;
         }
     }
 

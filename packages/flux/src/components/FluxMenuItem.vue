@@ -4,11 +4,20 @@
         :class="{
             'is-active': isActive,
             'is-highlighted': isHighlighted,
-            'is-indented': isIndented
+            'is-indented': isIndented,
+            'is-selected': isSelectable && isSelected
         }"
         tabindex="0"
         v-bind="{type, disabled, iconAfter, iconBefore, isLoading, label, href, rel, target, to}"
         @click="$emit('click', $event)">
+        <template
+            v-if="isSelectable"
+            #icon-before>
+            <flux-icon
+                class="flux-button-icon flux-menu-item-selectable-icon"
+                :variant="isSelected ? 'circle-check' : 'flux-empty'"/>
+        </template>
+
         <template
             v-if="command || commandIcon"
             #after>
@@ -52,7 +61,9 @@
         readonly isHighlighted?: boolean;
         readonly isIndented?: boolean;
         readonly isLoading?: boolean;
-        readonly label: string;
+        readonly isSelectable?: boolean;
+        readonly isSelected?: boolean;
+        readonly label?: string;
         readonly href?: string;
         readonly rel?: string;
         readonly target?: string;
@@ -108,7 +119,15 @@
         }
 
         &.is-indented {
-            margin-left: 35px;
+            margin-left: 33px;
+        }
+
+        &.is-selected &-selectable-icon {
+            color: rgb(var(--primary-7));
+        }
+
+        .flux-button-icon:not(&-command-icon) {
+            font-size: 18px;
         }
 
         &-command {
@@ -118,8 +137,10 @@
             color: var(--foreground-secondary);
             font: inherit;
             font-size: 14px;
+            white-space: nowrap;
 
             &-icon {
+                margin-right: -6px;
                 color: var(--foreground-secondary);
                 font-size: 16px;
             }
@@ -127,10 +148,6 @@
             + &-icon {
                 margin-left: -9px;
             }
-        }
-
-        .flux-button-icon {
-            font-size: 18px;
         }
 
         @at-root .flux-menu.is-large & {

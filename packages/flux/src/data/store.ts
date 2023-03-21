@@ -1,5 +1,5 @@
+import type { FluxAlertSpec, FluxConfirmSpec } from '.';
 import { defineStore } from 'pinia';
-import { FluxAlertSpec, FluxConfirmSpec } from '.';
 
 let alertId: number = 0;
 
