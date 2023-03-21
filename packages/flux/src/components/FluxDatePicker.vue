@@ -465,11 +465,13 @@
                     font-weight: 700;
                 }
 
+                &-entry:nth-child(7n + 8),
                 &-start {
                     border-top-left-radius: var(--radius);
                     border-bottom-left-radius: var(--radius);
                 }
 
+                &-entry:nth-child(7n),
                 &-end {
                     border-top-right-radius: var(--radius);
                     border-bottom-right-radius: var(--radius);
@@ -490,11 +492,13 @@
                     font-weight: 700;
                 }
 
+                &-entry:nth-child(7n + 8),
                 &-start {
                     border-top-left-radius: var(--radius);
                     border-bottom-left-radius: var(--radius);
                 }
 
+                &-entry:nth-child(7n),
                 &-end {
                     border-top-right-radius: var(--radius);
                     border-bottom-right-radius: var(--radius);
