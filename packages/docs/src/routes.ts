@@ -54,6 +54,10 @@ export const router = createRouter({
                     component: () => import('./pages/components/Chip.vue')
                 },
                 {
+                    path: '/components/date-picker',
+                    component: () => import('./pages/components/DatePicker.vue')
+                },
+                {
                     path: '/components/divider',
                     component: () => import('./pages/components/Divider.vue')
                 },
@@ -64,6 +68,10 @@ export const router = createRouter({
                 {
                     path: '/components/fader',
                     component: () => import('./pages/components/Fader.vue')
+                },
+                {
+                    path: '/components/filter',
+                    component: () => import('./pages/components/Filter.vue')
                 },
                 {
                     path: '/components/flyout',

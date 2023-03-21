@@ -26,6 +26,12 @@
                         type="route"/>
 
                     <flux-menu-item
+                        disabled
+                        label="Translations"
+                        to="/content/translations"
+                        type="route"/>
+
+                    <flux-menu-item
                         label="Typography"
                         to="/content/typography"
                         type="route"/>
@@ -117,7 +123,6 @@
                         type="route"/>
 
                     <flux-menu-item
-                        disabled
                         label="Date picker"
                         to="/components/date-picker"
                         type="route"/>
@@ -150,7 +155,6 @@
                         type="route"/>
 
                     <flux-menu-item
-                        disabled
                         label="Filter"
                         to="/components/filter"
                         type="route"/>

@@ -195,10 +195,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneBody, FluxPaneHeader, FluxStack, FluxTab, FluxTabBar, FluxTabBarItem, FluxTabs, FluxToggle } from '@fancee/flux';
-    import { ref } from 'vue';
+    import { FluxPane, FluxPaneBody, FluxPaneHeader, FluxStack, FluxTab, FluxTabBar, FluxTabBarItem, FluxTabs } from '@fancee/flux';
     import { ApiTable, PageTitle, Preview } from '@/components';
-
-    const toggle1 = ref(true);
-    const toggle2 = ref(false);
 </script>
