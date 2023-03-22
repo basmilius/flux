@@ -9,8 +9,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxGrid } from '.';
-
     export interface Props {
         readonly layout?: 'cards' | 'full' | 'sidebar-start' | 'sidebar-end' | 'two-column';
     }

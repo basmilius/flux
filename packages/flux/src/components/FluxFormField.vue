@@ -10,7 +10,7 @@
             <span
                 v-if="isOptional"
                 class="flux-form-field-optional">
-                ({{ translate('optional') }})
+                ({{ translate('flux_optional') }})
             </span>
         </label>
 

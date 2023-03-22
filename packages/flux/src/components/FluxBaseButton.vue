@@ -49,8 +49,8 @@
 <script
     lang="ts"
     setup>
+    import type { FluxRoutingLocation, IconNames } from '../data';
     import { computed, toRefs, unref } from 'vue-demi';
-    import { FluxRoutingLocation, IconNames } from '../data';
     import { FluxIcon, FluxSpinner } from '.';
 
     export interface Emits {

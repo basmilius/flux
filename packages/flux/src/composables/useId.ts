@@ -1,4 +1,5 @@
-import { Ref, ref } from 'vue-demi';
+import type { Ref } from 'vue-demi';
+import { ref } from 'vue-demi';
 
 let _id: number = 0;
 

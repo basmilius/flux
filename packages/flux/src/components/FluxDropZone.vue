@@ -35,8 +35,8 @@
 <script
     lang="ts"
     setup>
+    import type { IconNames } from '../data';
     import { onMounted, onUnmounted, ref, toRefs, unref } from 'vue-demi';
-    import { IconNames } from '../data';
     import { FluxFadeTransition } from '../transition';
     import { FluxPlaceholder, FluxSecondaryButton } from '.';
 

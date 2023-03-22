@@ -25,7 +25,7 @@
             prop: 'modelValue',
             event: 'update:modelValue'
         }
-    }
+    };
 </script>
 
 <script

@@ -18,7 +18,7 @@
 <script
     lang="ts"
     setup>
-    import { IconNames } from '../data';
+    import type { IconNames } from '../data';
     import { FluxIcon } from '.';
 
     export interface Props {
@@ -44,6 +44,10 @@
             flex-grow: 1;
             color: var(--foreground-prominent);
             font-weight: 700;
+        }
+
+        &:first-child {
+            border-radius: var(--radius) var(--radius) 0 0;
         }
     }
 </style>

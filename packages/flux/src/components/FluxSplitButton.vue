@@ -27,7 +27,7 @@
 <script
     setup
     lang="ts">
-    import { IconNames } from '../data';
+    import type { IconNames } from '../data';
     import { FluxFlyout, FluxSecondaryButton } from '.';
 
     export interface Props {

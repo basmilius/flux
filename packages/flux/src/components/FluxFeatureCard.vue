@@ -23,7 +23,7 @@
                 axis="horizontal">
                 <flux-secondary-button
                     :icon-after="buttonIcon"
-                    :label="buttonLabel ?? translate('continue')"
+                    :label="buttonLabel ?? translate('flux_continue')"
                     :to="buttonTo"
                     type="route"/>
             </flux-stack>
@@ -31,7 +31,7 @@
         <div
             v-if="isComingSoon"
             class="flux-feature-card-coming-soon">
-            {{ translate('coming_soon') }}
+            {{ translate('flux_coming_soon') }}
         </div>
     </flux-pane>
 </template>
@@ -39,7 +39,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxRoutingLocation, IconNames } from '../data';
+    import type { FluxRoutingLocation, IconNames } from '../data';
     import { useTranslate } from '../composables';
     import { FluxIcon, FluxPane, FluxPaneBody, FluxSecondaryButton, FluxStack } from '.';
 

@@ -23,11 +23,9 @@
             </template>
 
             <template #default="bindings">
-                <flux-pane-body>
-                    <slot
-                        name="filter"
-                        v-bind="bindings"/>
-                </flux-pane-body>
+                <slot
+                    name="filter"
+                    v-bind="bindings"/>
             </template>
         </flux-flyout>
     </flux-stack>
@@ -36,7 +34,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxFlyout, FluxPaneBody, FluxSecondaryButton, FluxSpacer, FluxStack } from '.';
+    import { FluxFlyout, FluxSecondaryButton, FluxSpacer, FluxStack } from '.';
 </script>
 
 <style lang="scss">

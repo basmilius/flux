@@ -15,7 +15,9 @@
                     </template>
 
                     <template #filter>
-                        Filter
+                        <flux-pane-body>
+                            Filter contents.
+                        </flux-pane-body>
                     </template>
 
                     <template #search>

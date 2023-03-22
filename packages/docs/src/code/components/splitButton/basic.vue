@@ -12,7 +12,7 @@
                         label="Cut"
                         @click="close"/>
                     <flux-menu-item
-                        icon-before="copy"
+                        icon-before="clone"
                         label="Copy"
                         @click="close"/>
                     <flux-menu-item

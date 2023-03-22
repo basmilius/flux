@@ -44,7 +44,7 @@
                 overflow: visible;
 
                 path {
-                    fill: white;
+                    fill: rgb(var(--gray-0));
                     stroke: rgb(var(--gray-5));
                     stroke-width: 3px;
                 }

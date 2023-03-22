@@ -35,7 +35,7 @@
 <script
     lang="ts"
     setup>
-    import { IconNames } from '../data';
+    import type { IconNames } from '../data';
     import { FluxIcon, FluxPane } from '.';
 
     export interface Props {

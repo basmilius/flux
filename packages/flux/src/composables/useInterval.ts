@@ -1,4 +1,5 @@
-import { onMounted, onUnmounted, ref, Ref, unref } from 'vue-demi';
+import type { Ref } from 'vue-demi';
+import { onMounted, onUnmounted, ref, unref } from 'vue-demi';
 
 export function useInterval(interval: Ref<number> | number, fn: Function): void {
     const intervalRef = ref<any>();

@@ -4,6 +4,7 @@
         :class="{'is-hidden': isHidden}"
         @click="$emit('click', $event)">
         <flux-icon
+            v-if="icon"
             :size="16"
             :variant="icon"/>
     </button>
@@ -12,7 +13,7 @@
 <script
     lang="ts"
     setup>
-    import { IconNames } from '../data';
+    import type { IconNames } from '../data';
     import { FluxIcon } from '.';
 
     export interface Emits {

@@ -44,7 +44,11 @@
                     </tr>
                     <tr>
                         <td><code>FluxPaneBody</code></td>
-                        <td>Padded body of a Pane, can contain user interface elements such as forms or just text. With other words... "Kijk maar ff".</td>
+                        <td>Padded body of a Pane, can contain user interface elements such as forms or just text.</td>
+                    </tr>
+                    <tr>
+                        <td><code>FluxPaneDeck</code></td>
+                        <td>This component groups multiple FluxPane's together.</td>
                     </tr>
                     <tr>
                         <td><code>FluxPaneFooter</code></td>
@@ -118,6 +122,15 @@
                 </template>
             </api-table>
 
+            <api-table title="Slots: FluxPaneDeck">
+                <template #body>
+                    <tr>
+                        <td><code>default</code><code>{}</code></td>
+                        <td>Contains the FluxPane's that should be grouped together.</td>
+                    </tr>
+                </template>
+            </api-table>
+
             <api-table title="Slots: FluxPaneFooter">
                 <template #body>
                     <tr>
@@ -180,6 +193,13 @@
                 :code="featureDiscoveryCode as string"
                 :component="featureDiscovery"/>
 
+            <h3>Deck</h3>
+            <p>
+                A group of Panes in a Deck.
+            </p>
+            <code-preview
+                :code="deckCode as string"
+                :component="deck"/>
         </section>
     </flux-stack>
 </template>
@@ -191,6 +211,8 @@
     import { ApiTable, CodePreview, PageTitle, Preview } from '@/components';
     import basic from '../../code/components/pane/basic.vue';
     import basicCode from '../../code/components/pane/basic.vue?raw';
+    import deck from '../../code/components/pane/deck.vue';
+    import deckCode from '../../code/components/pane/deck.vue?raw';
     import featureDiscovery from '../../code/components/pane/featureDiscovery.vue';
     import featureDiscoveryCode from '../../code/components/pane/featureDiscovery.vue?raw';
     import form from '../../code/components/pane/form.vue';

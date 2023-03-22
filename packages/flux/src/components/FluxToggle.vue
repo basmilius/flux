@@ -39,9 +39,9 @@
 <script
     lang="ts"
     setup>
+    import type { IconNames } from '../data';
     import { inject, toRefs } from 'vue-demi';
     import { useId } from '../composables';
-    import { IconNames } from '../data';
     import { FluxIcon } from '.';
 
     export interface Emits {
