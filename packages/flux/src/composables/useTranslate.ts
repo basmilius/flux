@@ -9,6 +9,7 @@ const english: Record<string, string> = {
     flux_n_selected: '{n} selected',
     flux_ok: 'Ok',
     flux_optional: 'Optional',
+    flux_preview: 'Preview',
     flux_gallery_placeholder_button: 'Pick image',
     flux_gallery_placeholder_message: 'Drop an image here or click the button to upload...',
     flux_gallery_placeholder_title: 'Gallery'

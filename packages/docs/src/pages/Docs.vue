@@ -165,6 +165,11 @@
                         type="route"/>
 
                     <flux-menu-item
+                        label="Focal point editor"
+                        to="/components/focal-point-editor"
+                        type="route"/>
+
+                    <flux-menu-item
                         label="Form"
                         to="/components/form"
                         type="route"/>

@@ -1,0 +1,223 @@
+<template>
+    <flux-pane>
+        <flux-fade-transition mode="out-in">
+            <flux-pane-body
+                v-if="isPreviewing"
+                key="preview">
+                <div class="flux-focal-point-preview">
+                    <div
+                        class="flux-focal-point-preview-image"
+                        :style="{
+                        'background-image': `url(${url})`
+                    }"/>
+                </div>
+            </flux-pane-body>
+
+            <flux-pane-body
+                v-else
+                key="editor">
+                <div
+                    class="flux-focal-point-editor"
+                    @pointerdown="onPointerDown"
+                    @pointermove="onPointerMove">
+                    <img
+                        ref="imageRef"
+                        class="flux-focal-point-editor-image"
+                        :src="url"
+                        alt=""
+                        @load="onImageLoaded"/>
+
+                    <div class="flux-focal-point-editor-area"/>
+                </div>
+            </flux-pane-body>
+        </flux-fade-transition>
+
+        <flux-pane-footer>
+            <slot name="footer-before"/>
+
+            <flux-secondary-button
+                :label="translate('flux_preview')"
+                @click="onShowPreviewClicked"/>
+
+            <flux-spacer/>
+
+            <slot name="footer"/>
+        </flux-pane-footer>
+    </flux-pane>
+</template>
+
+<script lang="ts">
+    export default {
+        model: {
+            prop: 'modelValue',
+            event: 'update:modelValue'
+        }
+    };
+</script>
+
+<script
+    lang="ts"
+    setup>
+    import { computed, onMounted, onUnmounted, ref, toRefs, unref } from 'vue-demi';
+    import { useTranslate } from '../composables';
+    import { FluxFadeTransition } from '../transition';
+    import { FluxPane, FluxPaneBody, FluxPaneFooter, FluxSecondaryButton, FluxSpacer } from '.';
+
+    export interface Emits {
+        (e: 'update:modelValue', focalPoint: [number, number]): void;
+    }
+
+    export interface Props {
+        readonly modelValue: [number, number];
+        readonly url: string;
+    }
+
+    const emit = defineEmits<Emits>();
+    const props = defineProps<Props>();
+    const {modelValue} = toRefs(props);
+
+    const translate = useTranslate();
+
+    const imageRef = ref<HTMLImageElement>();
+    const aspectRatio = ref(1);
+    const dragging = ref<[number, number] | null>(null);
+    const isPreviewing = ref(false);
+
+    const focalPointX = computed(() => unref(dragging) ? unref(dragging)![0] : unref(modelValue)[0]);
+    const focalPointY = computed(() => unref(dragging) ? unref(dragging)![1] : unref(modelValue)[1]);
+
+    onMounted(() => window.addEventListener('pointerup', onPointerUp, {passive: true}));
+
+    onUnmounted(() => window.removeEventListener('pointerup', onPointerUp));
+
+    function onImageLoaded(): void {
+        const image = unref(imageRef);
+
+        if (!image) {
+            return;
+        }
+
+        aspectRatio.value = image.width / image.height;
+    }
+
+    function onPointerDown(evt: PointerEvent): void {
+        dragging.value = [0, 0];
+        onPointerMove(evt);
+    }
+
+    function onPointerMove(evt: PointerEvent): void {
+        const image = unref(imageRef);
+
+        if (!image || !dragging.value) {
+            return;
+        }
+
+        const {top, left, width, height} = image.getBoundingClientRect();
+        const {pageX, pageY} = evt;
+
+        dragging.value = [
+            Math.max(0, Math.min(1, (pageX - left) / width)) * 100,
+            Math.max(0, Math.min(1, (pageY - top) / height)) * 100
+        ];
+    }
+
+    function onPointerUp(): void {
+        if (!dragging.value) {
+            return;
+        }
+
+        emit('update:modelValue', dragging.value);
+        dragging.value = null;
+    }
+
+    function onShowPreviewClicked(): void {
+        isPreviewing.value = !isPreviewing.value;
+    }
+</script>
+
+<style lang="scss">
+    .flux-focal-point {
+        &-editor {
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            max-height: 210px;
+            max-width: 100%;
+            aspect-ratio: v-bind(aspectRatio);
+            user-select: none;
+
+            &-area {
+                position: absolute;
+                height: 42px;
+                width: 42px;
+                top: calc(v-bind(focalPointY) * 1%);
+                left: calc(v-bind(focalPointX) * 1%);
+                background: rgb(0 0 0 / .1);
+                border: 4px solid white;
+                border-radius: 99px;
+                box-shadow: 0 3px 9px rgb(0 0 0 / .125);
+                cursor: move;
+                transform: translate3d(-50%, -50%, 0);
+            }
+
+            &-image {
+                position: relative;
+                display: block;
+                height: 100%;
+                width: 100%;
+                border-radius: var(--radius);
+                pointer-events: none;
+            }
+        }
+
+        &-preview {
+            position: relative;
+            height: 210px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+
+            &-image {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                right: -50%;
+                bottom: -50%;
+                max-height: 210px;
+                max-width: 100%;
+                background-position: calc(v-bind(focalPointX) * 1%) calc(v-bind(focalPointY) * 1%);
+                background-size: cover;
+                border-radius: var(--radius);
+                box-shadow: var(--shadow);
+                transform: translate3d(-50%, -50%, 0);
+                animation: flux-focal-point-preview 6s var(--swift-out) infinite;
+            }
+        }
+    }
+
+    @keyframes flux-focal-point-preview {
+        0% {
+            aspect-ratio: v-bind(aspectRatio);
+        }
+
+        20% {
+            aspect-ratio: 1;
+        }
+
+        40% {
+            aspect-ratio: 16 / 9;
+        }
+
+        60% {
+            aspect-ratio: 3 / 4;
+        }
+
+        80% {
+            aspect-ratio: 3 / 1;
+        }
+
+        100% {
+            aspect-ratio: v-bind(aspectRatio);
+        }
+    }
+</style>
