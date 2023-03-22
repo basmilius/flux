@@ -1,8 +1,8 @@
 import type { FluxFilterBase, FluxFilterDate, FluxFilterDateRange, FluxFilterItem, FluxFilterOption, FluxFilterOptionItem, FluxFilterOptions, FluxFilterValue } from '../../data';
 import { DateTime } from 'luxon';
-import { camelize, defineComponent, VNode } from 'vue-demi';
+import { defineComponent, VNode } from 'vue-demi';
 import { useTranslate } from '../../composables';
-import { flattenVNodeTree, getNormalizedComponentName, getNormalizedComponentProps, isVNode, render } from '../../utils';
+import { camelizeTag, flattenVNodeTree, getNormalizedComponentName, getNormalizedComponentProps, isVNode, render } from '../../utils';
 import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSeparator } from '..';
 
 export const FilterMenuRenderer = defineComponent({
@@ -29,7 +29,7 @@ export const FilterMenuRenderer = defineComponent({
 
                 if (name.startsWith('flux-filter-')) {
                     const props = getNormalizedComponentProps<Omit<FluxFilterItem, 'type'>>(child);
-                    const type = camelize(name.substring(12)) as FluxFilterItem['type'];
+                    const type = camelizeTag(name.substring(12)) as FluxFilterItem['type'];
 
                     content[content.length - 1].push(parsers[type](props));
                     continue;

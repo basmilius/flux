@@ -9,6 +9,10 @@ export function getKeyboardFocusableElements(root: HTMLElement): HTMLElement[] {
         .filter(elm => !elm.hasAttribute('aria-disabled') || elm.getAttribute('aria-disabled') !== 'true');
 }
 
+export function camelizeTag(tag: string): string {
+    return tag.replace(/-(\w)/g, (_, c) => c ? c.toUpperCase() : '');
+}
+
 export function hyphenateTag(tag: string): string {
     return tag.substring(0, 1).toLowerCase() + tag
         .substring(1)
