@@ -18,8 +18,7 @@ export const FilterMenuRenderer = defineComponent({
             const children = flattenVNodeTree(slots.default?.() ?? []);
             const content: (FluxFilterItem | VNode)[][] = [[]];
 
-            for (let i = 0; i < children.length; ++i) {
-                const child = children[i];
+            for (const child of children) {
                 const name = getNormalizedComponentName(child);
 
                 if (name === 'flux-separator') {

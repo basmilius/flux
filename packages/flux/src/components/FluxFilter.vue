@@ -106,8 +106,7 @@
         const filters: { [key: string]: VNode; } = {};
         const items = unref(defaultSlotContent);
 
-        for (let index = 0; index < items.length; ++index) {
-            const item = items[index];
+        for (const item of items) {
             const name = getNormalizedComponentName(item);
 
             if (!name.startsWith('flux-filter-')) {
@@ -131,7 +130,7 @@
     }
 
     function reset(name: string | number): void {
-        setValue(name, undefined);
+        setValue(name);
         back();
     }
 
@@ -166,6 +165,13 @@
 <style lang="scss">
     .flux-filter {
         min-width: 300px;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+            height: 0;
+            width: 0;
+        }
 
         &-back {
             flex-grow: 1;
