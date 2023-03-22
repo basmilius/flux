@@ -83,7 +83,24 @@
                 v-else-if="viewMode === 'year'"
                 key="year"
                 class="flux-date-picker-years">
-                Years
+                <flux-secondary-button
+                    icon-before="angle-left"
+                    tabindex="-1"
+                    @click="yearIndex--"/>
+
+                <template
+                    v-for="year of years"
+                    :key="year">
+                    <flux-secondary-button
+                        :label="year.toString()"
+                        tabindex="-1"
+                        @click="setViewYear(year)"/>
+                </template>
+
+                <flux-secondary-button
+                    icon-before="angle-right"
+                    tabindex="-1"
+                    @click="yearIndex++"/>
             </div>
         </flux-vertical-window-transition>
     </div>
@@ -127,6 +144,7 @@
     const selection = ref<[DateTime | null, DateTime | null]>([null, null]);
     const viewDate = ref<DateTime>(getInitialDate());
     const viewMode = ref<'date' | 'month' | 'year'>('date');
+    const yearIndex = ref(0);
 
     const dates = computed<DateTime[]>(() => {
         const dates: DateTime[] = [];
@@ -164,7 +182,7 @@
 
     const months = computed(() => {
         const months: DateTime[] = [];
-        let now = DateTime.now();
+        const now = DateTime.now();
         let current = now.startOf('year');
 
         while (current.month <= 12 && current.year === now.year) {
@@ -175,7 +193,19 @@
         return months;
     });
 
-    const maxDate = computed(() => (unref(max) ?? DateTime.now().startOf('year').plus({year: 100})).startOf('day'));
+    const years = computed(() => {
+        const years: number[] = [];
+        const now = DateTime.now();
+        const start = now.year - (now.year % 10) + unref(yearIndex) * 10;
+
+        for (let i = 0; i < 10; ++i) {
+            years.push(start + i);
+        }
+
+        return years;
+    });
+
+    const maxDate = computed(() => (unref(max) ?? DateTime.now().endOf('year').plus({year: 100})).startOf('day'));
     const minDate = computed(() => (unref(min) ?? DateTime.now().startOf('year').minus({year: 100})).startOf('day'));
     const normalizedSelection = computed(() => {
         const [start, end] = unref(selection);
@@ -313,7 +343,6 @@
     }
 
     function setViewDate(date: DateTime): void {
-        // todo(Bas): min max.
         isTransitioningToPast.value = viewDate.value > date;
         viewDate.value = date;
     }
@@ -321,6 +350,11 @@
     function setViewMonth(month: DateTime): void {
         setView('date');
         setViewDate(month);
+    }
+
+    function setViewYear(year: number): void {
+        setView('date');
+        setViewDate(unref(viewDate).set({year}));
     }
 
     function onDateMouseOver(date: DateTime): void {
@@ -367,10 +401,12 @@
 <style lang="scss">
     .flux-date-picker {
         display: flex;
+        max-height: 420px;
         flex-flow: column;
         border-radius: inherit;
-        overflow: hidden;
+        overflow: auto;
         user-select: none;
+        z-index: 0;
 
         &-dates,
         &-months,
@@ -380,10 +416,13 @@
         }
 
         &-header {
+            position: sticky;
             display: flex;
+            top: 0;
             align-items: center;
             background: rgb(var(--gray-1));
             border-bottom: 1px solid rgb(var(--gray-3));
+            z-index: 1;
 
             &-view {
                 display: flex;
@@ -536,6 +575,9 @@
             grid-template-columns: repeat(3, 1fr);
 
             .flux-secondary-button {
+                contain: size layout;
+                contain-intrinsic-size: 0 42px;
+                content-visibility: auto;
                 text-transform: capitalize;
             }
         }
