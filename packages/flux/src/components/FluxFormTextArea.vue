@@ -2,6 +2,10 @@
     <textarea
         ref="inputRef"
         class="flux-form-input flux-form-text-area"
+        :class="{
+            'is-disabled': isDisabled,
+            'is-readonly': isReadonly
+        }"
         :id="id"
         :autocomplete="autoComplete"
         :autofocus="autoFocus"
@@ -39,6 +43,8 @@
     export interface Props {
         readonly autoComplete?: string;
         readonly autoFocus?: boolean;
+        readonly isDisabled?: boolean;
+        readonly isReadonly?: boolean;
         readonly maxLength?: number;
         readonly modelValue?: string;
         readonly placeholder?: string;
@@ -53,7 +59,7 @@
 
     const {modelValue, rows} = toRefs(props);
 
-    const id = inject<string>('flux-form-field-id') ?? '';
+    const id = inject<string>('flux-form-field-id', '');
 
     const inputRef = ref<HTMLTextAreaElement>();
 

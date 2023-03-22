@@ -78,6 +78,22 @@ export const router = createRouter({
                     component: () => import('./pages/components/Flyout.vue')
                 },
                 {
+                    path: '/components/form',
+                    component: () => import('./pages/components/Form.vue')
+                },
+                {
+                    path: '/components/form-field',
+                    component: () => import('./pages/components/FormField.vue')
+                },
+                {
+                    path: '/components/form-input',
+                    component: () => import('./pages/components/FormInput.vue')
+                },
+                {
+                    path: '/components/form-text-area',
+                    component: () => import('./pages/components/FormTextArea.vue')
+                },
+                {
                     path: '/components/icon',
                     component: () => import('./pages/components/Icon.vue')
                 },

@@ -165,7 +165,6 @@
                         type="route"/>
 
                     <flux-menu-item
-                        disabled
                         label="Form"
                         to="/components/form"
                         type="route"/>
@@ -177,13 +176,11 @@
                         type="route"/>
 
                     <flux-menu-item
-                        disabled
                         label="Form field"
                         to="/components/form-field"
                         type="route"/>
 
                     <flux-menu-item
-                        disabled
                         label="Form input"
                         to="/components/form-input"
                         type="route"/>
@@ -207,7 +204,6 @@
                         type="route"/>
 
                     <flux-menu-item
-                        disabled
                         label="Form text area"
                         to="/components/form-text-area"
                         type="route"/>

@@ -452,16 +452,17 @@
                 font-weight: 700;
             }
 
-            &.is-selection {
+            &.is-range {
                 &-entry {
-                    background: rgb(var(--gray-3));
+                    background: rgb(var(--primary-3));
                     border-radius: 0;
-                    color: var(--foreground-prominent);
+                    color: rgb(var(--primary-11));
                 }
 
                 &-start,
                 &-end {
-                    background: rgb(var(--gray-4));
+                    background: rgb(var(--primary-7));
+                    color: rgb(var(--primary-1));
                     font-weight: 700;
                 }
 
@@ -478,17 +479,16 @@
                 }
             }
 
-            &.is-range {
+            &.is-selection {
                 &-entry {
-                    background: rgb(var(--primary-3));
+                    background: rgb(var(--gray-3));
                     border-radius: 0;
-                    color: rgb(var(--primary-11));
+                    color: var(--foreground-prominent);
                 }
 
                 &-start,
                 &-end {
-                    background: rgb(var(--primary-7));
-                    color: rgb(var(--primary-1));
+                    background: rgb(var(--gray-4));
                     font-weight: 700;
                 }
 
