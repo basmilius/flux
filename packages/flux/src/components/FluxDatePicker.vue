@@ -182,7 +182,7 @@
 
     const months = computed(() => {
         const months: DateTime[] = [];
-        const now = DateTime.now();
+        const now = unref(viewDate);
         let current = now.startOf('year');
 
         while (current.month <= 12 && current.year === now.year) {
