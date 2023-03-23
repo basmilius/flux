@@ -8,8 +8,8 @@
                     <div
                         class="flux-focal-point-preview-image"
                         :style="{
-                        'background-image': `url(${url})`
-                    }"/>
+                            'background-image': `url(${url})`
+                        }"/>
                 </div>
             </flux-pane-body>
 
