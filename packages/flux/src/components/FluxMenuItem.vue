@@ -19,6 +19,15 @@
         </template>
 
         <template
+            v-else-if="imageUrl"
+            #icon-before>
+            <img
+                class="flux-menu-item-image"
+                :src="imageUrl"
+                alt=""/>
+        </template>
+
+        <template
             v-if="command || commandIcon"
             #after>
             <kbd
@@ -57,6 +66,7 @@
         readonly disabled?: boolean;
         readonly iconAfter?: IconNames | null;
         readonly iconBefore?: IconNames | null;
+        readonly imageUrl?: string;
         readonly isActive?: boolean;
         readonly isHighlighted?: boolean;
         readonly isIndented?: boolean;
@@ -148,6 +158,12 @@
             + &-icon {
                 margin-left: -9px;
             }
+        }
+
+        &-image {
+            margin-left: -3px;
+            height: 30px;
+            width: 30px;
         }
 
         @at-root .flux-menu.is-large & {

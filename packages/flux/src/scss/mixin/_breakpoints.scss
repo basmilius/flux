@@ -1,0 +1,76 @@
+@use 'sass:list';
+@use 'sass:map';
+
+$-breakpoints: (
+    xs: 0,
+    sm: 640px,
+    md: 768px,
+    lg: 1024px,
+    xl: 1280px
+);
+
+@function -next($breakpoint) {
+    $names: map.keys($-breakpoints);
+    $n: list.index($names, $breakpoint);
+
+    @if not $n {
+        @error 'Breakpoint "#{$breakpoint}" not found in "#{$names}".';
+    }
+
+    @return if($n < list.length($names), list.nth($names, $n + 1), null);
+}
+
+@function -maxWidth($breakpoint) {
+    $next: -next($breakpoint);
+
+    @return if($next, -minWidth($next) - .02, null);
+}
+
+@function -minWidth($breakpoint) {
+    $min: map.get($-breakpoints, $breakpoint);
+
+    @return if($min != 0, $min, null);
+}
+
+@mixin breakpoint-between($lower, $upper) {
+    $max: -maxWidth($upper);
+    $min: -minWidth($lower);
+
+    @if $max != null and $min != null {
+        @media (max-width: #{$max}) and (min-width: #{$min}) {
+            @content;
+        }
+    } @else if $max == null {
+        @include breakpoint-up($lower);
+    } @else if $min == null {
+        @include breakpoint-down($upper);
+    }
+}
+
+@mixin breakpoint-down($breakpoint) {
+    $max: -maxWidth($breakpoint);
+
+    @if $max {
+        @media (max-width: #{$max}) {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}
+
+@mixin breakpoint-only($breakpoint) {
+    @include breakpoint-between($breakpoint, $breakpoint);
+}
+
+@mixin breakpoint-up($breakpoint) {
+    $min: -minWidth($breakpoint);
+
+    @if $min {
+        @media (min-width: #{$min}) {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}

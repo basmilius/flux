@@ -1,99 +1,112 @@
 <template>
-    <div class="flux-dashboard">
-        <flux-container class="flux-dashboard-container">
-            <div class="flux-dashboard-top-bar">
-                <slot name="top-bar"/>
-            </div>
+    <div
+        class="flux-dashboard"
+        :class="{
+            'is-navigation-open': isNavigationOpen
+        }">
+        <div
+            class="flux-dashboard-content"
+            :inert="isNavigationOpen">
+            <slot/>
+        </div>
 
-            <div class="flux-dashboard-content">
-                <slot/>
-            </div>
-        </flux-container>
-
-        <aside
-            class="flux-dashboard-sidebar">
-            <slot name="sidebar"/>
-        </aside>
+        <slot name="header"/>
+        <slot name="navigation"/>
     </div>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { ref } from 'vue-demi';
-    import { FluxContainer } from '../components';
+    import { computed, provide, ref, unref } from 'vue-demi';
+    import { FluxDashboardApi, useBreakpoints } from '../composables';
 
-    const isSidebarOpen = ref(false);
+    const {breakpoints} = useBreakpoints();
+
+    const isNavigationOpen = ref(false);
+
+    const isNavigationCollapsible = computed(() => !unref(breakpoints).xl);
+
+    provide<FluxDashboardApi>('flux-dashboard', {
+        isNavigationCollapsible,
+        isNavigationOpen
+    });
 </script>
 
 <style lang="scss">
+    @use '../scss/mixin' as flux;
+
     .flux-dashboard {
-        --background: rgb(var(--gray-2));
+        --header-height: 84px;
+        --navigation-width: 300px;
 
         position: relative;
-        min-height: 100dvh;
-        background: var(--background);
-        z-index: 0;
-
-        &-container {
-            margin-left: auto;
-            margin-right: auto;
-            padding: 30px;
-            z-index: 0;
-        }
+        height: 100dvh;
+        width: 100dvw;
+        font-size: 15px;
+        overflow-x: hidden;
 
         &-content {
             position: relative;
+            margin-top: var(--header-height);
+            margin-left: var(--navigation-width);
+            padding: 42px;
             z-index: 0;
         }
 
-        &-sidebar,
-        &-top-bar {
-            background: rgb(var(--gray-0));
-            box-shadow: var(--shadow);
-            z-index: 1;
-        }
-
-        &-sidebar {
+        &-header,
+        &-navigation {
             position: fixed;
             top: 0;
+        }
+
+        &-header {
+            left: var(--navigation-width);
+            right: 0;
+            height: var(--header-height);
+        }
+
+        &-navigation {
             left: 0;
-            padding: 21px;
             height: 100dvh;
-            width: 300px;
-            border-right: 1px solid rgb(var(--gray-4) / .75);
+            width: var(--navigation-width);
         }
 
-        &-top-bar {
-            position: sticky;
-            display: flex;
-            top: 30px;
-            height: 60px;
-            margin-bottom: 30px;
-            border: 1px solid rgb(var(--gray-4) / .75);
-            border-radius: var(--radius);
-        }
-
-        &-sidebar > .flux-menu {
-            padding: 15px;
-        }
-
-        &-sidebar .flux-menu-item.is-indented {
-            margin-left: 36px;
-        }
-
-        &-sidebar .flux-menu-item:not(.is-indented) {
-            padding-left: 15px;
-            padding-right: 15px;
-            height: 48px;
-
-            span {
-                font-weight: 500;
+        @include flux.breakpoint-down(lg) {
+            &-content,
+            &-header,
+            &-navigation {
+                transition: 360ms var(--swift-out);
+                transition-property: opacity, transform;
             }
-        }
 
-        @media (min-width: 1580px) {
-            margin-left: 300px;
+            &-content {
+                margin-left: 0;
+                padding: 21px;
+            }
+
+            &-header {
+                left: 0;
+            }
+
+            &.is-navigation-open {
+                overflow: hidden;
+            }
+
+            &.is-navigation-open &-content,
+            &.is-navigation-open &-header {
+                transform: translate3d(var(--navigation-width), 0, 0);
+            }
+
+            &.is-navigation-open &-content {
+                opacity: .5;
+            }
+
+            &:not(.is-navigation-open) &-navigation {
+                opacity: 0;
+                pointer-events: none;
+                transform: translate3d(-100%, 0, 0);
+            }
         }
     }
 </style>
