@@ -4,6 +4,18 @@
     </div>
 </template>
 
+<script
+    lang="ts"
+    setup>
+    export interface Props {
+        readonly span?: number;
+    }
+
+    withDefaults(defineProps<Props>(), {
+        span: 1
+    });
+</script>
+
 <style lang="scss">
     .flux-pane-body {
         display: flex;
@@ -15,7 +27,11 @@
         flex-grow: 1;
     }
 
-    .flux-pane > .flux-pane-body + .flux-pane-body {
+    .flux-pane:not(.is-grid) > .flux-pane-body + .flux-pane-body {
         padding-top: 0;
+    }
+
+    .flux-pane.is-grid > .flux-pane-body {
+        grid-column: span v-bind(span);
     }
 </style>
