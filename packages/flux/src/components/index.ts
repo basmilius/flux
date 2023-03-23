@@ -56,6 +56,7 @@ export { default as FluxPaneDeck } from './FluxPaneDeck.vue';
 export { default as FluxPaneFooter } from './FluxPaneFooter.vue';
 export { default as FluxPaneHeader } from './FluxPaneHeader.vue';
 export { default as FluxPaneIllustration } from './FluxPaneIllustration.vue';
+export { default as FluxPaneMedia } from './FluxPaneMedia.vue';
 export { default as FluxPipsPager } from './FluxPipsPager.vue';
 export { default as FluxPlaceholder } from './FluxPlaceholder.vue';
 export { default as FluxPredefinedGrid } from './FluxPredefinedGrid.vue';
