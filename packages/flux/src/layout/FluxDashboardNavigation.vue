@@ -12,7 +12,7 @@
 
             <flux-secondary-button
                 v-if="$slots.apps"
-                icon-before="grid-3"
+                icon-before="grid3"
                 @click="toggleAppSwitcher"/>
         </header>
 
