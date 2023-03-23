@@ -1,6 +1,8 @@
 import type { Ref } from 'vue-demi';
 import { computed, inject, onMounted, onUnmounted, provide, ref, unref, watch } from 'vue-demi';
 
+// note(Bas): These breakpoints are also defined in ../scss/mixin/_breakpoints.scss, please
+//  keep them synced.
 const BREAKPOINTS = {
     'xs': 0,
     'sm': 640,

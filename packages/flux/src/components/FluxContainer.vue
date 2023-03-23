@@ -9,6 +9,14 @@
     setup>
     import { useBreakpoints } from '../composables';
 
+    export interface Props {
+        readonly gutter?: number;
+    }
+
+    withDefaults(defineProps<Props>(), {
+        gutter: 30
+    });
+
     const {maxWidth} = useBreakpoints();
 </script>
 
@@ -16,8 +24,8 @@
     .flux-container {
         margin-left: auto;
         margin-right: auto;
-        padding-left: 30px;
-        padding-right: 30px;
+        padding-left: calc(v-bind(gutter) * 1px);
+        padding-right: calc(v-bind(gutter) * 1px);
         max-width: calc(v-bind(maxWidth) * 1px);
         width: 100%;
     }

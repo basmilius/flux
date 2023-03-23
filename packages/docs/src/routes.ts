@@ -78,6 +78,10 @@ export const router = createRouter({
                     component: () => import('./pages/components/Flyout.vue')
                 },
                 {
+                    path: '/components/focal-point-editor',
+                    component: () => import('./pages/components/FocalPointEditor.vue')
+                },
+                {
                     path: '/components/form',
                     component: () => import('./pages/components/Form.vue')
                 },
