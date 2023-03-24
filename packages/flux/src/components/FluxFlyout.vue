@@ -31,7 +31,7 @@
     lang="ts"
     setup>
     import { provide, ref, toRefs, unref, watch } from 'vue-demi';
-    import { unrefElement } from '../composables';
+    import { unrefElement } from '../helpers';
     import { FluxPane } from '.';
 
     export interface Props {

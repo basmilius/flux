@@ -8,4 +8,6 @@ export type MaybeComputedRef<T> = MaybeReadonlyRef<T> | MaybeRef<T>;
 
 export type MaybeElement = HTMLElement | SVGElement | ComponentPublicInstance | undefined | null;
 
+export type MaybeElementRef<T extends MaybeElement = MaybeElement> = MaybeRef<T>;
+
 export type MaybeComputedElementRef<T extends MaybeElement = MaybeElement> = MaybeComputedRef<T>;
