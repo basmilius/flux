@@ -43,13 +43,15 @@
         position: relative;
         height: 100dvh;
         width: 100dvw;
+        padding-top: var(--header-height);
+        padding-left: var(--navigation-width);
         font-size: 15px;
-        overflow-x: hidden;
 
         &-content {
             position: relative;
-            margin-top: var(--header-height);
-            margin-left: var(--navigation-width);
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 2100px;
             padding: 42px;
             z-index: 0;
         }
@@ -73,6 +75,8 @@
         }
 
         @include flux.breakpoint-down(lg) {
+            padding-left: 0;
+
             &-content,
             &-header,
             &-navigation {
@@ -81,7 +85,6 @@
             }
 
             &-content {
-                margin-left: 0;
                 padding: 21px;
             }
 

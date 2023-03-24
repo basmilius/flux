@@ -34,7 +34,7 @@
 <script
     lang="ts"
     setup>
-    import { getCurrentInstance, inject, onMounted, onUnmounted, ref, unref } from 'vue-demi';
+    import { getCurrentInstance, inject, onBeforeMount, onUnmounted, ref, unref } from 'vue-demi';
     import { useComponentId } from '../composables';
     import { FluxAutoHeightTransition } from '../transition';
     import { FluxIcon } from '.';
@@ -56,7 +56,7 @@
 
     const {closeAll, register, unregister} = inject<any>('flux-expandable-group', {});
 
-    onMounted(() => register?.(unref(id), instance));
+    onBeforeMount(() => register?.(unref(id), instance));
     onUnmounted(() => unregister?.(unref(id)));
 
     function close(): void {

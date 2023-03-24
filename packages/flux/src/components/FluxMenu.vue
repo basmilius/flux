@@ -2,7 +2,9 @@
     <nav
         v-focus-trap
         class="flux-menu"
-        :class="{'is-large': isLarge}">
+        :class="{
+            'is-large': isLarge
+        }">
         <slot/>
     </nav>
 </template>

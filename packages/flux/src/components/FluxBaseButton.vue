@@ -145,6 +145,7 @@
         }
 
         &-icon {
+            flex-shrink: 0;
             color: var(--button-icon);
 
             &:only-child {

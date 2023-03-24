@@ -12,7 +12,7 @@
 
             <flux-secondary-button
                 v-if="$slots.apps"
-                icon-before="grid3"
+                icon-before="grid-2"
                 @click="toggleAppSwitcher"/>
         </header>
 
@@ -47,7 +47,7 @@
 <script
     lang="ts"
     setup>
-    import { inject, ref } from 'vue-demi';
+    import { ref } from 'vue-demi';
     import { FluxSecondaryButton } from '../components';
     import { FluxVerticalWindowTransition } from '../transition';
 
@@ -57,10 +57,6 @@
     }
 
     defineProps<Props>();
-
-    const {isNavigationOpen} = inject('flux-dashboard', {
-        isNavigationOpen: ref(false)
-    });
 
     const isAppSwitcherVisible = ref(false);
 
@@ -134,38 +130,9 @@
             flex-grow: 1;
         }
 
-        .flux-menu-item:not(.is-indented) {
-            position: relative;
-            height: 48px;
-
-            span {
-                color: var(--foreground-prominent);
-                font-weight: 600;
-            }
-
-            &::after {
-                position: absolute;
-                display: block;
-                top: 12px;
-                right: 12px;
-                bottom: 12px;
-                width: 4px;
-                content: '';
-                background: rgb(var(--primary-0));
-                border-radius: 99px;
-                opacity: 0;
-                transition: opacity 180ms var(--swift-out);
-            }
-
-            &.is-active {
-                &::after {
-                    opacity: 1;
-                }
-
-                span {
-                    color: rgb(var(--primary-0));
-                }
-            }
+        &-app-switcher .flux-menu-item-image {
+            height: 30px;
+            width: 30px;
         }
     }
 </style>

@@ -1,6 +1,7 @@
 export { default as FluxActionBar } from './FluxActionBar.vue';
 export { default as FluxAlert } from './FluxAlert.vue';
 export { default as FluxAspectRatio } from './FluxAspectRatio.vue';
+export { default as FluxAutoGrid } from './FluxAutoGrid.vue';
 export { default as FluxAvatar } from './FluxAvatar.vue';
 export { default as FluxBadge } from './FluxBadge.vue';
 export { default as FluxBadgeStack } from './FluxBadgeStack.vue';
