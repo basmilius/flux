@@ -174,26 +174,44 @@
         }
 
         @at-root .flux-menu.is-large & {
+            position: relative;
             padding-left: 15px;
             padding-right: 15px;
             color: var(--foreground-prominent);
 
+            &::after {
+                position: absolute;
+                display: block;
+                top: 12px;
+                right: 12px;
+                bottom: 12px;
+                width: 4px;
+                content: '';
+                background: rgb(var(--primary-7));
+                border-radius: 99px;
+                opacity: 0;
+                transition: opacity 180ms var(--swift-out);
+            }
+
+            &.is-active {
+                &.is-indented {
+                    background: rgb(var(--gray-3));
+
+                    span {
+                        color: var(--foreground-prominent);
+                    }
+                }
+
+                &::after {
+                    opacity: 1;
+                }
+            }
+
             &:not(.is-indented) {
-                position: relative;
                 height: 48px;
 
                 &::after {
-                    position: absolute;
-                    display: block;
-                    top: 12px;
-                    right: 12px;
-                    bottom: 12px;
-                    width: 4px;
-                    content: '';
                     background: rgb(var(--primary-0));
-                    border-radius: 99px;
-                    opacity: 0;
-                    transition: opacity 180ms var(--swift-out);
                 }
 
                 &.is-active {

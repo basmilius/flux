@@ -3,6 +3,8 @@
         class="flux-notice"
         :class="{
             [`flux-notice-${variant}`]: !!variant,
+            'is-center': isCenter,
+            'is-fluid': isFluid,
             'is-small': isSmall
         }">
         <flux-spinner
@@ -39,9 +41,11 @@
 
     export interface Props {
         readonly icon?: IconNames;
+        readonly isCenter?: boolean;
+        readonly isFluid?: boolean;
         readonly isLoading?: boolean;
         readonly isSmall?: boolean;
-        readonly message: string;
+        readonly message?: string;
         readonly title?: string;
         readonly variant?: 'gray' | 'primary' | 'danger' | 'info' | 'success' | 'warning';
     }
@@ -136,6 +140,10 @@
             }
         }
 
+        a {
+            color: var(--notice-foreground);
+        }
+
         &-title {
             color: var(--notice-foreground-prominent);
             font-weight: 700;
@@ -144,6 +152,26 @@
         &.is-small {
             padding: 15px;
             gap: 12px;
+        }
+
+        &.is-center {
+            justify-content: center;
+            text-align: center;
+        }
+
+        &.is-fluid {
+            border: 1px solid var(--spinner-track);
+            border-left: 0;
+            border-right: 0;
+            border-radius: 0;
+
+            &:first-child {
+                border-top: 0;
+            }
+
+            &:last-child {
+                border-bottom: 0;
+            }
         }
 
         &.is-small &-body {

@@ -11,6 +11,12 @@
     import { provide } from 'vue-demi';
     import { setInstanceProperty } from '../utils';
 
+    export interface Props {
+        readonly isControlled?: boolean;
+    }
+
+    const props = defineProps<Props>();
+
     const expandables: { [key: number]: ComponentInternalInstance; } = {};
 
     function closeAll(): void {
@@ -20,7 +26,7 @@
     function register(uid: number, expandable: ComponentInternalInstance): void {
         expandables[uid] = expandable;
 
-        if (Object.values(expandables).length === 1) {
+        if (!props.isControlled && Object.values(expandables).length === 1) {
             setInstanceProperty(expandable, 'isOpen', true);
         }
     }

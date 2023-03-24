@@ -7,11 +7,12 @@
 
                     <flux-flyout :width="270">
                         <template #opener="{open}">
-                            <flux-avatar
-                                is-clickable
-                                alt="Bas"
-                                :size="42"
-                                url="https://imgproxy.glybe.nl/120,q75,jpg/1-b38d42e52f851f0ec94d118fad965277e3915b89da1012cef7e58674e3cf219a-img1386.jpeg"
+                            <flux-persona
+                                avatar-alt="Bas"
+                                :avatar-size="42"
+                                avatar-url="https://imgproxy.glybe.nl/120,q75,jpg/1-b38d42e52f851f0ec94d118fad965277e3915b89da1012cef7e58674e3cf219a-img1386.jpeg"
+                                name="Bas Milius"
+                                title="Flux Engineer"
                                 @click="open"/>
                         </template>
 
@@ -161,77 +162,50 @@
 
                 <flux-expandable-group>
                     <flux-menu is-large>
-                        <flux-menu-item
-                            icon-before="objects-column"
-                            is-active
-                            label="Home"/>
-
                         <flux-menu-group>
-                            <flux-expandable>
-                                <template #header="{open}">
-                                    <flux-menu-item
-                                        icon-before="circle"
-                                        label="Events"
-                                        @click="open"/>
-                                </template>
+                            <flux-menu-item
+                                icon-before="objects-column"
+                                is-active
+                                label="Home"/>
 
-                                <template #body>
-                                    <flux-menu-group>
+                            <flux-menu-group>
+                                <flux-expandable>
+                                    <template #header="{open}">
                                         <flux-menu-item
-                                            is-indented
-                                            label="Overview"/>
+                                            icon-before="circle"
+                                            label="Events"
+                                            @click="open"/>
+                                    </template>
 
-                                        <flux-menu-item
-                                            is-indented
-                                            label="Tickets"/>
+                                    <template #body>
+                                        <flux-menu-group>
+                                            <flux-menu-item
+                                                is-indented
+                                                label="Overview"/>
 
-                                        <flux-menu-item
-                                            is-indented
-                                            label="New event"/>
-                                    </flux-menu-group>
-                                </template>
-                            </flux-expandable>
-                        </flux-menu-group>
+                                            <flux-menu-item
+                                                is-indented
+                                                label="Tickets"/>
 
-                        <flux-menu-item
-                            icon-before="circle"
-                            label="App-teams"/>
+                                            <flux-menu-item
+                                                is-indented
+                                                label="New event"/>
+                                        </flux-menu-group>
+                                    </template>
+                                </flux-expandable>
+                            </flux-menu-group>
 
-                        <flux-menu-item
-                            icon-before="circle"
-                            label="Finance"/>
+                            <flux-menu-item
+                                icon-before="circle"
+                                label="App-teams"/>
 
-                        <flux-menu-item
-                            icon-before="circle"
-                            label="Marketing"/>
+                            <flux-menu-item
+                                icon-before="circle"
+                                label="Finance"/>
 
-                        <flux-menu-group
-                            v-if="false"
-                            v-for="i of [1, 2, 3]">
-                            <flux-expandable :key="i">
-                                <template #header="{open}">
-                                    <flux-menu-item
-                                        icon-before="circle"
-                                        :label="`Group ${i}`"
-                                        @click="open"/>
-                                </template>
-
-                                <template #body>
-                                    <flux-menu-group>
-                                        <flux-menu-item
-                                            is-indented
-                                            label="Overview"/>
-
-                                        <flux-menu-item
-                                            is-indented
-                                            label="Tickets"/>
-
-                                        <flux-menu-item
-                                            is-indented
-                                            label="New event"/>
-                                    </flux-menu-group>
-                                </template>
-                            </flux-expandable>
+                            <flux-menu-item
+                                icon-before="circle"
+                                label="Marketing"/>
                         </flux-menu-group>
                     </flux-menu>
                 </flux-expandable-group>
@@ -284,7 +258,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxAutoGrid, FluxAvatar, FluxDashboard, FluxDashboardHeader, FluxDashboardNavigation, FluxExpandable, FluxExpandableGroup, FluxFlyout, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxPaneBody, FluxPaneDeck, FluxSeparator, FluxStack, FluxStatistic, FluxWindow } from '@fancee/flux';
+    import { FluxAutoGrid, FluxAvatar, FluxDashboard, FluxDashboardHeader, FluxDashboardNavigation, FluxExpandable, FluxExpandableGroup, FluxFlyout, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxPaneBody, FluxPaneDeck, FluxPersona, FluxSeparator, FluxStack, FluxStatistic, FluxWindow } from '@fancee/flux';
     import { ThemeToggle } from '../components';
     import insightsLogo from '../images/logo-insights.svg?url';
     import publishingLogo from '../images/logo-publishing.svg?url';

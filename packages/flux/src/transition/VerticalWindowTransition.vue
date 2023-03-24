@@ -36,6 +36,7 @@
             transition-property: opacity, transform;
         }
 
+        &-enter,
         &-enter-from,
         &-back-leave-to {
             opacity: 0;
@@ -43,6 +44,7 @@
         }
 
         &-leave-to,
+        &-back-enter,
         &-back-enter-from {
             opacity: 0;
             transform: translate3d(0, -15px, 0);

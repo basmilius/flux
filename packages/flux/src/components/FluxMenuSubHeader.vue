@@ -51,4 +51,8 @@
     .flux-menu-item + .flux-menu-sub-header {
         margin-top: 9px;
     }
+
+    .flux-menu.is-large .flux-menu-sub-header {
+        margin-bottom: -15px;
+    }
 </style>

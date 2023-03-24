@@ -1,10 +1,14 @@
 <template>
-    <transition :mode="mode" name="flux-fade">
+    <transition
+        :mode="mode"
+        name="flux-fade">
         <slot/>
     </transition>
 </template>
 
-<script lang="ts" setup>
+<script
+    lang="ts"
+    setup>
     export interface Props {
         readonly mode: 'out-in' | 'in-out';
     }
@@ -15,13 +19,16 @@
 </script>
 
 <style lang="scss">
-    .flux-fade-enter-active,
-    .flux-fade-leave-active {
-        transition: opacity 150ms var(--swift-out);
-    }
+    .flux-fade {
+        &-enter-active,
+        &-leave-active {
+            transition: opacity 150ms var(--swift-out);
+        }
 
-    .flux-fade-enter-from,
-    .flux-fade-leave-to {
-        opacity: 0;
+        &-enter,
+        &-enter-from,
+        &-leave-to {
+            opacity: 0;
+        }
     }
 </style>
