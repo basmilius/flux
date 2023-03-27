@@ -49,6 +49,7 @@
     import { VNodeRenderer } from './primitive';
     import { FluxWindowTransition } from '../transition';
     import { FluxTabBar, FluxTabBarItem } from '.';
+    import { getNormalizedComponentProps } from '../utils';
 
     export interface Emits {
         (e: 'update:modelValue', index: number): void;
@@ -69,8 +70,8 @@
     const isTransitioningBack = ref(false);
 
     const tabs = computed<{ icon?: IconNames; label?: string; }[]>(() => unref(children).map(child => ({
-        icon: child.props?.icon,
-        label: child.props?.label
+        icon: getNormalizedComponentProps<any>(child).icon,
+        label: getNormalizedComponentProps<any>(child).label
     })));
 
     function activate(index: number): void {

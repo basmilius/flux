@@ -62,7 +62,7 @@
         const tabBar = unrefElement(tabBarRef)!;
         tabBar.scrollBy({
             behavior: 'smooth',
-            left: tabBar.offsetWidth / 2
+            left: tabBar.offsetWidth / 1.5
         });
     }
 
@@ -70,7 +70,7 @@
         const tabBar = unrefElement(tabBarRef)!;
         tabBar.scrollBy({
             behavior: 'smooth',
-            left: tabBar.offsetWidth / -2
+            left: tabBar.offsetWidth / -1.5
         });
     }
 </script>

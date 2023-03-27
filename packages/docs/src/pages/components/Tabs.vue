@@ -13,22 +13,6 @@
 
                     <flux-pane-body>
                         <flux-tabs>
-                            <flux-tab
-                                v-for="n in 15"
-                                :label="`Tab ${n}`">
-                                Content {{ n }}
-                            </flux-tab>
-                        </flux-tabs>
-                    </flux-pane-body>
-                </flux-pane>
-
-                <flux-pane>
-                    <flux-pane-header
-                        icon="folder"
-                        title="Tabs"/>
-
-                    <flux-pane-body>
-                        <flux-tabs>
                             <flux-tab label="Common">
                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aliquid aperiam earum facilis fugiat in, itaque laboriosam, libero molestias nulla, pariatur qui quod sequi sint totam? Fuga ipsum placeat unde.
                             </flux-tab>
