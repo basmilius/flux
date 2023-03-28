@@ -46,10 +46,10 @@
     import { computed, ref, unref, watch } from 'vue-demi';
     import { useSlotVNodes } from '../composables';
     import { heightTransition } from '../directives';
-    import { VNodeRenderer } from './primitive';
     import { FluxWindowTransition } from '../transition';
-    import { FluxTabBar, FluxTabBarItem } from '.';
     import { getNormalizedComponentProps } from '../utils';
+    import { VNodeRenderer } from './primitive';
+    import { FluxTabBar, FluxTabBarItem } from '.';
 
     export interface Emits {
         (e: 'update:modelValue', index: number): void;
