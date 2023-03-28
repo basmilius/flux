@@ -43,7 +43,7 @@
             align-items: center;
             justify-content: center;
             background: rgb(var(--danger-7));
-            border: 3px solid rgb(var(--danger-0));
+            border: 3px solid rgb(var(--gray-0));
             border-radius: 99px;
             color: rgb(var(--danger-0));
             cursor: pointer;
