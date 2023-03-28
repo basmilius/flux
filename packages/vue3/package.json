@@ -30,11 +30,10 @@
     },
     "devDependencies": {
         "@fortawesome/fontawesome-common-types": "^6.3.0",
-        "@types/autoprefixer": "^10.2.0",
         "@vitejs/plugin-vue": "^4.1.0",
         "@vue/compiler-sfc": "^3.2.47",
         "autoprefixer": "^10.4.14",
-        "caniuse-lite": "^1.0.30001469",
+        "caniuse-lite": "^1.0.30001472",
         "luxon": "^3.3.0",
         "minimist": "^1.2.8",
         "pinia": "^2.0.33",

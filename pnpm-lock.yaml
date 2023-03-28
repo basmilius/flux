@@ -9,7 +9,10 @@ importers:
         version: 7.6.0
       vite:
         specifier: ^4.2.1
-        version: 4.2.1(@types/node@18.15.5)(sass@1.59.3)
+        version: 4.2.1(@types/node@18.15.10)(sass@1.60.0)
+      vue:
+        specifier: ^3.2.47
+        version: 3.2.47
 
   packages/docs:
     dependencies:
@@ -18,10 +21,10 @@ importers:
         version: link:../vue3
       '@fortawesome/free-brands-svg-icons':
         specifier: ^6.3.0
-        version: 6.3.0
+        version: 6.4.0
       '@fortawesome/pro-regular-svg-icons':
         specifier: ^6.3.0
-        version: 6.3.0
+        version: 6.4.0
       highlight.js:
         specifier: ^11.7.0
         version: 11.7.0
@@ -45,20 +48,20 @@ importers:
         specifier: ^3.2.0
         version: 3.2.0
       '@types/node':
-        specifier: ^18.15.5
-        version: 18.15.5
+        specifier: ^18.15.10
+        version: 18.15.10
       '@vitejs/plugin-vue':
         specifier: ^4.1.0
         version: 4.1.0(vite@4.2.1)(vue@3.2.47)
       sass:
-        specifier: ^1.59.3
-        version: 1.59.3
+        specifier: ^1.60.0
+        version: 1.60.0
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
       vite:
         specifier: ^4.2.1
-        version: 4.2.1(@types/node@18.15.5)(sass@1.59.3)
+        version: 4.2.1(@types/node@18.15.10)(sass@1.60.0)
       vue-tsc:
         specifier: ^1.2.0
         version: 1.2.0(typescript@4.9.5)
@@ -67,13 +70,13 @@ importers:
     dependencies:
       '@fortawesome/fontawesome-common-types':
         specifier: ^6.3.0
-        version: 6.3.0
+        version: 6.4.0
       luxon:
         specifier: ^3.3.0
         version: 3.3.0
       pinia:
         specifier: ^2.0.33
-        version: 2.0.33(typescript@4.9.5)(vue@2.7.14)
+        version: 2.0.33(typescript@4.9.5)(vue@3.2.47)
       vue-demi:
         specifier: ^0.13.11
         version: 0.13.11(vue@3.2.47)
@@ -82,8 +85,8 @@ importers:
         specifier: ^3.2.0
         version: 3.2.0
       '@types/node':
-        specifier: ^18.15.5
-        version: 18.15.5
+        specifier: ^18.15.10
+        version: 18.15.10
       vue:
         specifier: ^3.2.47
         version: 3.2.47
@@ -96,10 +99,7 @@ importers:
     devDependencies:
       '@fortawesome/fontawesome-common-types':
         specifier: ^6.3.0
-        version: 6.3.0
-      '@types/autoprefixer':
-        specifier: ^10.2.0
-        version: 10.2.0(postcss@8.4.21)
+        version: 6.4.0
       '@vitejs/plugin-vue2':
         specifier: ^2.2.0
         version: 2.2.0(vite@4.2.1)(vue@2.7.14)
@@ -107,8 +107,8 @@ importers:
         specifier: ^10.4.14
         version: 10.4.14(postcss@8.4.21)
       caniuse-lite:
-        specifier: ^1.0.30001469
-        version: 1.0.30001469
+        specifier: ^1.0.30001472
+        version: 1.0.30001472
       luxon:
         specifier: ^3.3.0
         version: 3.3.0
@@ -123,7 +123,7 @@ importers:
         version: 4.9.5
       vite:
         specifier: ^4.2.1
-        version: 4.2.1(@types/node@18.15.5)(sass@1.59.3)
+        version: 4.2.1(@types/node@18.15.10)(sass@1.60.0)
       vue:
         specifier: ^2.7.14
         version: 2.7.14
@@ -145,10 +145,7 @@ importers:
     devDependencies:
       '@fortawesome/fontawesome-common-types':
         specifier: ^6.3.0
-        version: 6.3.0
-      '@types/autoprefixer':
-        specifier: ^10.2.0
-        version: 10.2.0(postcss@8.4.21)
+        version: 6.4.0
       '@vitejs/plugin-vue':
         specifier: ^4.1.0
         version: 4.1.0(vite@4.2.1)(vue@3.2.47)
@@ -159,8 +156,8 @@ importers:
         specifier: ^10.4.14
         version: 10.4.14(postcss@8.4.21)
       caniuse-lite:
-        specifier: ^1.0.30001469
-        version: 1.0.30001469
+        specifier: ^1.0.30001472
+        version: 1.0.30001472
       luxon:
         specifier: ^3.3.0
         version: 3.3.0
@@ -175,7 +172,7 @@ importers:
         version: 4.9.5
       vite:
         specifier: ^4.2.1
-        version: 4.2.1(@types/node@18.15.5)(sass@1.59.3)
+        version: 4.2.1(@types/node@18.15.10)(sass@1.60.0)
       vue:
         specifier: ^3.2.47
         version: 3.2.47
@@ -409,25 +406,25 @@ packages:
     dev: true
     optional: true
 
-  /@fortawesome/fontawesome-common-types@6.3.0:
-    resolution: {integrity: sha512-4BC1NMoacEBzSXRwKjZ/X/gmnbp/HU5Qqat7E8xqorUtBFZS+bwfGH5/wqOC2K6GV0rgEobp3OjGRMa5fK9pFg==, tarball: https://npm.fontawesome.com/@fortawesome/fontawesome-common-types/-/6.3.0/fontawesome-common-types-6.3.0.tgz}
+  /@fortawesome/fontawesome-common-types@6.4.0:
+    resolution: {integrity: sha512-HNii132xfomg5QVZw0HwXXpN22s7VBHQBv9CeOu9tfJnhsWQNd2lmTNi8CSrnw5B+5YOmzu1UoPAyxaXsJ6RgQ==, tarball: https://npm.fontawesome.com/@fortawesome/fontawesome-common-types/-/6.4.0/fontawesome-common-types-6.4.0.tgz}
     engines: {node: '>=6'}
     requiresBuild: true
 
-  /@fortawesome/free-brands-svg-icons@6.3.0:
-    resolution: {integrity: sha512-xI0c+a8xnKItAXCN8rZgCNCJQiVAd2Y7p9e2ND6zN3J3ekneu96qrePieJ7yA7073C1JxxoM3vH1RU7rYsaj8w==, tarball: https://npm.fontawesome.com/@fortawesome/free-brands-svg-icons/-/6.3.0/free-brands-svg-icons-6.3.0.tgz}
+  /@fortawesome/free-brands-svg-icons@6.4.0:
+    resolution: {integrity: sha512-qvxTCo0FQ5k2N+VCXb/PZQ+QMhqRVM4OORiO6MXdG6bKolIojGU/srQ1ptvKk0JTbRgaJOfL2qMqGvBEZG7Z6g==, tarball: https://npm.fontawesome.com/@fortawesome/free-brands-svg-icons/-/6.4.0/free-brands-svg-icons-6.4.0.tgz}
     engines: {node: '>=6'}
     requiresBuild: true
     dependencies:
-      '@fortawesome/fontawesome-common-types': 6.3.0
+      '@fortawesome/fontawesome-common-types': 6.4.0
     dev: false
 
-  /@fortawesome/pro-regular-svg-icons@6.3.0:
-    resolution: {integrity: sha512-hECySYDlfHKz+/s9QSJxjFZUIBV3U78x6v5QYhyYWSpIyBbk93i2u+p9J3b8AlvnABL6ENmxF/5Kg3WgLUwShw==, tarball: https://npm.fontawesome.com/@fortawesome/pro-regular-svg-icons/-/6.3.0/pro-regular-svg-icons-6.3.0.tgz}
+  /@fortawesome/pro-regular-svg-icons@6.4.0:
+    resolution: {integrity: sha512-yEJgoA/31qfIsD27kAg31BODCD+bvgievPp4R39F3kUp/+mu05qX6xgW366RUfs4CnTWSw0fFpc4AhFwC7xbJw==, tarball: https://npm.fontawesome.com/@fortawesome/pro-regular-svg-icons/-/6.4.0/pro-regular-svg-icons-6.4.0.tgz}
     engines: {node: '>=6'}
     requiresBuild: true
     dependencies:
-      '@fortawesome/fontawesome-common-types': 6.3.0
+      '@fortawesome/fontawesome-common-types': 6.4.0
     dev: false
 
   /@nodelib/fs.scandir@2.1.5:
@@ -451,21 +448,12 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@types/autoprefixer@10.2.0(postcss@8.4.21):
-    resolution: {integrity: sha512-ClU0uw3HhUra890K4xcf2IQxD6w0WOjPIaKb8jrRXYPHvvUW1P5dGufPlDtTo5gtWPWH+4L6tSBAoAKVf93uBQ==}
-    deprecated: This is a stub types definition. autoprefixer provides its own type definitions, so you do not need this installed.
-    dependencies:
-      autoprefixer: 10.4.14(postcss@8.4.21)
-    transitivePeerDependencies:
-      - postcss
-    dev: true
-
   /@types/luxon@3.2.0:
     resolution: {integrity: sha512-lGmaGFoaXHuOLXFvuju2bfvZRqxAqkHPx9Y9IQdQABrinJJshJwfNCKV+u7rR3kJbiqfTF/NhOkcxxAFrObyaA==}
     dev: true
 
-  /@types/node@18.15.5:
-    resolution: {integrity: sha512-Ark2WDjjZO7GmvsyFFf81MXuGTA/d6oP38anyxWOL6EREyBKAxKoFHwBhaZxCfLRLpO8JgVXwqOwSwa7jRcjew==}
+  /@types/node@18.15.10:
+    resolution: {integrity: sha512-9avDaQJczATcXgfmMAW3MIWArOO7A+m90vuCFLr8AotWf8igO/mRoYukrk2cqZVtv38tHs33retzHEilM7FpeQ==}
     dev: true
 
   /@vitejs/plugin-vue2@2.2.0(vite@4.2.1)(vue@2.7.14):
@@ -475,7 +463,7 @@ packages:
       vite: ^3.0.0 || ^4.0.0
       vue: ^2.7.0-0
     dependencies:
-      vite: 4.2.1(@types/node@18.15.5)(sass@1.59.3)
+      vite: 4.2.1(@types/node@18.15.10)(sass@1.60.0)
       vue: 2.7.14
     dev: true
 
@@ -486,7 +474,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.2.1(@types/node@18.15.5)(sass@1.59.3)
+      vite: 4.2.1(@types/node@18.15.10)(sass@1.60.0)
       vue: 3.2.47
     dev: true
 
@@ -682,7 +670,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.21.5
-      caniuse-lite: 1.0.30001469
+      caniuse-lite: 1.0.30001472
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -729,7 +717,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001469
+      caniuse-lite: 1.0.30001472
       electron-to-chromium: 1.4.320
       node-releases: 2.0.10
       update-browserslist-db: 1.0.10(browserslist@4.21.5)
@@ -742,8 +730,8 @@ packages:
       get-intrinsic: 1.2.0
     dev: true
 
-  /caniuse-lite@1.0.30001469:
-    resolution: {integrity: sha512-Rcp7221ScNqQPP3W+lVOYDyjdR6dC+neEQCttoNr5bAyz54AboB4iwpnWgyi8P4YUsPybVzT4LgWiBbI3drL4g==}
+  /caniuse-lite@1.0.30001472:
+    resolution: {integrity: sha512-xWC/0+hHHQgj3/vrKYY0AAzeIUgr7L9wlELIcAvZdDUHlhL/kNxMdnQLOSOQfP8R51ZzPhmHdyMkI0MMpmxCfg==}
     dev: true
 
   /chalk@4.1.2:
@@ -1277,6 +1265,7 @@ packages:
       typescript: 4.9.5
       vue: 2.7.14
       vue-demi: 0.13.11(vue@2.7.14)
+    dev: true
 
   /pinia@2.0.33(typescript@4.9.5)(vue@3.2.47):
     resolution: {integrity: sha512-HOj1yVV2itw6rNIrR2f7+MirGNxhORjrULL8GWgRwXsGSvEqIQ+SE0MYt6cwtpegzCda3i+rVTZM+AM7CG+kRg==}
@@ -1469,8 +1458,8 @@ packages:
       tslib: 2.5.0
     dev: true
 
-  /sass@1.59.3:
-    resolution: {integrity: sha512-QCq98N3hX1jfTCoUAsF3eyGuXLsY7BCnCEg9qAact94Yc21npG2/mVOqoDvE0fCbWDqiM4WlcJQla0gWG2YlxQ==}
+  /sass@1.60.0:
+    resolution: {integrity: sha512-updbwW6fNb5gGm8qMXzVO7V4sWf7LMXnMly/JEyfbfERbVH46Fn6q02BX7/eHTdKpE7d+oTkMMQpFWNUMfFbgQ==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
@@ -1593,7 +1582,7 @@ packages:
       which-typed-array: 1.1.9
     dev: true
 
-  /vite@4.2.1(@types/node@18.15.5)(sass@1.59.3):
+  /vite@4.2.1(@types/node@18.15.10)(sass@1.60.0):
     resolution: {integrity: sha512-7MKhqdy0ISo4wnvwtqZkjke6XN4taqQ2TBaTccLIpOKv7Vp2h4Y+NpmWCnGDeSvvn45KxvWgGyb0MkHvY1vgbg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -1618,12 +1607,12 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 18.15.5
+      '@types/node': 18.15.10
       esbuild: 0.17.11
       postcss: 8.4.21
       resolve: 1.22.1
       rollup: 3.19.1
-      sass: 1.59.3
+      sass: 1.60.0
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
