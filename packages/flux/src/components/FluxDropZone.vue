@@ -25,7 +25,7 @@
 
         <flux-fade-transition>
             <div
-                v-if="isDragging"
+                v-if="isDragging && !isDisabled"
                 class="flux-drop-zone-hint"
                 :class="{'is-over': isDraggingOver}"/>
         </flux-fade-transition>

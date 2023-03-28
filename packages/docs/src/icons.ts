@@ -49,6 +49,7 @@ export {
     faPlus,
     faPowerOff,
     faQuestion,
+    faRectangleHistory,
     faScissors,
     faSparkles,
     faStar,

@@ -46,6 +46,11 @@
                         type="route"/>
 
                     <flux-menu-item
+                        label="Auto grid"
+                        to="/layout/auto-grid"
+                        type="route"/>
+
+                    <flux-menu-item
                         label="Container"
                         to="/layout/container"
                         type="route"/>
@@ -226,7 +231,6 @@
                         type="route"/>
 
                     <flux-menu-item
-                        disabled
                         label="Gallery"
                         to="/components/gallery"
                         type="route"/>
@@ -279,7 +283,11 @@
                         type="route"/>
 
                     <flux-menu-item
-                        disabled
+                        label="Persona"
+                        to="/components/persona"
+                        type="route"/>
+
+                    <flux-menu-item
                         label="Placeholder"
                         to="/components/placeholder"
                         type="route"/>
@@ -290,7 +298,6 @@
                         type="route"/>
 
                     <flux-menu-item
-                        disabled
                         label="Remove"
                         to="/components/remove"
                         type="route"/>

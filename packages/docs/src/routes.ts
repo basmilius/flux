@@ -98,6 +98,10 @@ export const router = createRouter({
                     component: () => import('./pages/components/FormTextArea.vue')
                 },
                 {
+                    path: '/components/gallery',
+                    component: () => import('./pages/components/Gallery.vue')
+                },
+                {
                     path: '/components/icon',
                     component: () => import('./pages/components/Icon.vue')
                 },
@@ -126,8 +130,20 @@ export const router = createRouter({
                     component: () => import('./pages/components/Pane.vue')
                 },
                 {
+                    path: '/components/persona',
+                    component: () => import('./pages/components/Persona.vue')
+                },
+                {
+                    path: '/components/placeholder',
+                    component: () => import('./pages/components/Placeholder.vue')
+                },
+                {
                     path: '/components/quantity-selector',
                     component: () => import('./pages/components/QuantitySelector.vue')
+                },
+                {
+                    path: '/components/remove',
+                    component: () => import('./pages/components/Remove.vue')
                 },
                 {
                     path: '/components/root',
@@ -176,6 +192,10 @@ export const router = createRouter({
                 {
                     path: '/layout/aspect-ratio',
                     component: () => import('./pages/layout/AspectRatio.vue')
+                },
+                {
+                    path: '/layout/auto-grid',
+                    component: () => import('./pages/layout/AutoGrid.vue')
                 },
                 {
                     path: '/layout/container',
