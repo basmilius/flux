@@ -335,7 +335,6 @@
                 background: unset;
                 border-width: 0;
                 box-shadow: none;
-                outline: 0 !important;
 
                 &::-webkit-search-decoration,
                 &::-webkit-search-cancel-button,
@@ -375,10 +374,16 @@
     }
 
     @layer cosy {
-        .flux-form-select .flux-badge {
-            margin-top: 8px;
-            margin-bottom: 7px;
-            flex: 0 0 auto;
+        .flux-form-select {
+            .flux-badge {
+                margin-top: 8px;
+                margin-bottom: 7px;
+                flex: 0 0 auto;
+            }
+
+            &-input {
+                outline: 0;
+            }
         }
     }
 </style>
