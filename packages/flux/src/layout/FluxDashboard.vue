@@ -4,13 +4,25 @@
         :class="{
             'is-navigation-open': isNavigationOpen
         }">
-        <div
-            class="flux-dashboard-content"
-            :inert="isNavigationOpen">
-            <slot/>
-        </div>
-
         <slot name="header"/>
+
+        <main class="flux-dashboard-body">
+            <div
+                v-if="slots.notice"
+                class="flux-dashboard-notice"
+                :inert="isNavigationOpen">
+                <div/>
+                <slot name="notice"/>
+                <div/>
+            </div>
+
+            <div
+                class="flux-dashboard-content"
+                :inert="isNavigationOpen">
+                <slot/>
+            </div>
+        </main>
+
         <slot name="navigation"/>
     </div>
 </template>
@@ -18,9 +30,10 @@
 <script
     lang="ts"
     setup>
-    import { computed, provide, ref, unref } from 'vue-demi';
+    import { computed, provide, ref, unref, useSlots } from 'vue-demi';
     import { FluxDashboardApi, useBreakpoints } from '../composables';
 
+    const slots = useSlots();
     const {breakpoints} = useBreakpoints();
 
     const isNavigationOpen = ref(false);
@@ -43,13 +56,19 @@
         position: relative;
         height: 100dvh;
         width: 100dvw;
+        padding-top: var(--header-height);
+        padding-left: var(--navigation-width);
         font-size: 15px;
-        overflow-x: hidden;
+
+        &-body {
+            position: relative;
+        }
 
         &-content {
             position: relative;
-            margin-top: var(--header-height);
-            margin-left: var(--navigation-width);
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 2100px;
             padding: 42px;
             z-index: 0;
         }
@@ -58,6 +77,7 @@
         &-navigation {
             position: fixed;
             top: 0;
+            z-index: 100;
         }
 
         &-header {
@@ -72,8 +92,22 @@
             width: var(--navigation-width);
         }
 
+        &-notice {
+            position: sticky;
+            top: calc(var(--header-height) - 1px);
+            margin-top: -1px;
+            z-index: 100;
+        }
+
+        &-notice .flux-notice {
+            padding-left: 42px;
+            padding-right: 42px;
+        }
+
         @include flux.breakpoint-down(lg) {
-            &-content,
+            padding-left: 0;
+
+            &-body,
             &-header,
             &-navigation {
                 transition: 360ms var(--swift-out);
@@ -81,7 +115,6 @@
             }
 
             &-content {
-                margin-left: 0;
                 padding: 21px;
             }
 
@@ -89,17 +122,19 @@
                 left: 0;
             }
 
-            &.is-navigation-open {
-                overflow: hidden;
+            &-notice .flux-notice {
+                padding-left: 21px;
+                padding-right: 21px;
             }
 
-            &.is-navigation-open &-content,
+            &.is-navigation-open &-body,
             &.is-navigation-open &-header {
                 transform: translate3d(var(--navigation-width), 0, 0);
             }
 
-            &.is-navigation-open &-content {
+            &.is-navigation-open &-body {
                 opacity: .5;
+                pointer-events: none;
             }
 
             &:not(.is-navigation-open) &-navigation {

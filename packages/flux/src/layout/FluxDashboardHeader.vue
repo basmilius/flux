@@ -47,7 +47,11 @@
         box-shadow: var(--shadow);
 
         h1 {
-            font-size: 21px;
+            font-size: 18px;
+        }
+
+        .flux-persona {
+            margin-right: -15px;
         }
     }
 

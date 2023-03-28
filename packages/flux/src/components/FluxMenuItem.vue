@@ -3,6 +3,7 @@
         class="flux-menu-item"
         :class="{
             'is-active': isActive,
+            'is-destructive': isDestructive,
             'is-highlighted': isHighlighted,
             'is-indented': isIndented,
             'is-selected': isSelectable && isSelected
@@ -68,6 +69,7 @@
         readonly iconBefore?: IconNames | null;
         readonly imageUrl?: string;
         readonly isActive?: boolean;
+        readonly isDestructive?: boolean;
         readonly isHighlighted?: boolean;
         readonly isIndented?: boolean;
         readonly isLoading?: boolean;
@@ -122,6 +124,11 @@
             --button-icon: rgb(var(--primary-0));
         }
 
+        &.is-destructive {
+            --button-foreground: rgb(var(--danger-8));
+            --button-icon: rgb(var(--danger-7));
+        }
+
         &.is-highlighted {
             --button-background: rgb(var(--primary-2));
             --button-foreground: rgb(var(--primary-7));
@@ -162,14 +169,61 @@
 
         &-image {
             margin-left: -3px;
-            height: 30px;
-            width: 30px;
+            height: 20px;
+            width: 20px;
         }
 
         @at-root .flux-menu.is-large & {
-            height: 48px;
+            position: relative;
             padding-left: 15px;
             padding-right: 15px;
+            color: var(--foreground-prominent);
+
+            &::after {
+                position: absolute;
+                display: block;
+                top: 12px;
+                right: 12px;
+                bottom: 12px;
+                width: 4px;
+                content: '';
+                background: rgb(var(--primary-7));
+                border-radius: 99px;
+                opacity: 0;
+                transition: opacity 180ms var(--swift-out);
+            }
+
+            &.is-active {
+                &.is-indented {
+                    background: rgb(var(--gray-3));
+
+                    span {
+                        color: var(--foreground-prominent);
+                    }
+                }
+
+                &::after {
+                    opacity: 1;
+                }
+            }
+
+            &:not(.is-indented) {
+                height: 48px;
+
+                &::after {
+                    background: rgb(var(--primary-0));
+                }
+
+                &.is-active {
+                    &::after {
+                        opacity: 1;
+                    }
+
+                    span {
+                        color: rgb(var(--primary-0));
+                    }
+                }
+            }
         }
     }
 

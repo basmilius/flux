@@ -1,6 +1,6 @@
 <template>
-    <component
-        :is="component"
+    <button-component
+        :component-type="type"
         class="flux-button"
         :type="isSubmit ? 'submit' : 'button'"
         :aria-disabled="disabled"
@@ -43,14 +43,15 @@
         </slot>
 
         <slot name="after"/>
-    </component>
+    </button-component>
 </template>
 
 <script
     lang="ts"
     setup>
     import type { FluxRoutingLocation, IconNames } from '../data';
-    import { computed, toRefs, unref } from 'vue-demi';
+    import { toRefs, unref } from 'vue-demi';
+    import { ButtonComponent } from './primitive';
     import { FluxIcon, FluxSpinner } from '.';
 
     export interface Emits {
@@ -81,18 +82,6 @@
     });
 
     const {disabled, isLoading, type} = toRefs(props);
-
-    const component = computed(() => {
-        if (type.value === 'link') {
-            return 'a';
-        }
-
-        if (type.value === 'route') {
-            return 'router-link';
-        }
-
-        return 'button';
-    });
 
     function onClick(evt: MouseEvent): void {
         if (unref(disabled) || unref(isLoading)) {
@@ -145,6 +134,7 @@
         }
 
         &-icon {
+            flex-shrink: 0;
             color: var(--button-icon);
 
             &:only-child {

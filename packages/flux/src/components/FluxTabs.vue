@@ -46,8 +46,9 @@
     import { computed, ref, unref, watch } from 'vue-demi';
     import { useSlotVNodes } from '../composables';
     import { heightTransition } from '../directives';
-    import { VNodeRenderer } from './primitive';
     import { FluxWindowTransition } from '../transition';
+    import { getNormalizedComponentProps } from '../utils';
+    import { VNodeRenderer } from './primitive';
     import { FluxTabBar, FluxTabBarItem } from '.';
 
     export interface Emits {
@@ -69,8 +70,8 @@
     const isTransitioningBack = ref(false);
 
     const tabs = computed<{ icon?: IconNames; label?: string; }[]>(() => unref(children).map(child => ({
-        icon: child.props?.icon,
-        label: child.props?.label
+        icon: getNormalizedComponentProps<any>(child).icon,
+        label: getNormalizedComponentProps<any>(child).label
     })));
 
     function activate(index: number): void {

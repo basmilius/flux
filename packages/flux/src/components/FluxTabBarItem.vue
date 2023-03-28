@@ -1,5 +1,6 @@
 <template>
     <button
+        ref="tabRef"
         class="flux-tab-bar-item"
         :class="{'is-active': isActive}"
         @click="$emit('click', $event)">
@@ -16,6 +17,7 @@
     lang="ts"
     setup>
     import type { IconNames } from '../data';
+    import { ref, toRefs, unref, watch } from 'vue-demi';
     import { FluxIcon } from '.';
 
     export interface Emits {
@@ -29,7 +31,22 @@
     }
 
     defineEmits<Emits>();
-    defineProps<Props>();
+    const props = defineProps<Props>();
+    const {isActive} = toRefs(props);
+
+    const tabRef = ref<HTMLButtonElement>();
+
+    watch(isActive, isActive => {
+        if (!isActive) {
+            return;
+        }
+
+        unref(tabRef)?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+            inline: 'center'
+        });
+    }, {immediate: true});
 </script>
 
 <style lang="scss">
@@ -38,7 +55,6 @@
     .flux-tab-bar-item {
         position: relative;
         display: inline-flex;
-        margin-bottom: -2px;
         padding: var(--tab-padding) 0;
         align-items: center;
         gap: 9px;
@@ -51,6 +67,7 @@
         outline: 0;
         transition: 180ms var(--swift-out);
         transition-property: border-color, color;
+        white-space: nowrap;
 
         &::before {
             position: absolute;

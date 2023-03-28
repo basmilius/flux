@@ -6,7 +6,7 @@ export function useSlotVNodes(slotName: string = 'default'): Ref<VNode[]> {
     const children = ref<VNode[]>([]);
     const slots = useSlots();
 
-    onBeforeUpdate(() => checkChildren());
+    onBeforeUpdate(() => requestAnimationFrame(() => checkChildren()));
 
     function checkChildren(): void {
         children.value = flattenVNodeTree(slots[slotName]?.() ?? []);

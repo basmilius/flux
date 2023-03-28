@@ -34,7 +34,7 @@
 <script
     lang="ts"
     setup>
-    import { getCurrentInstance, inject, onMounted, onUnmounted, ref, unref } from 'vue-demi';
+    import { getCurrentInstance, inject, onBeforeMount, onUnmounted, ref, toRefs, unref, watch } from 'vue-demi';
     import { useComponentId } from '../composables';
     import { FluxAutoHeightTransition } from '../transition';
     import { FluxIcon } from '.';
@@ -44,11 +44,13 @@
     }
 
     export interface Props {
+        readonly isOpened?: boolean;
         readonly label?: string;
     }
 
     const emit = defineEmits<Emits>();
-    defineProps<Props>();
+    const props = defineProps<Props>();
+    const {isOpened} = toRefs(props);
 
     const id = useComponentId();
     const instance = getCurrentInstance();
@@ -56,7 +58,7 @@
 
     const {closeAll, register, unregister} = inject<any>('flux-expandable-group', {});
 
-    onMounted(() => register?.(unref(id), instance));
+    onBeforeMount(() => register?.(unref(id), instance));
     onUnmounted(() => unregister?.(unref(id)));
 
     function close(): void {
@@ -77,6 +79,14 @@
             open();
         }
     }
+
+    watch(isOpened, isOpened => {
+        if (isOpened) {
+            open();
+        } else {
+            close();
+        }
+    }, {immediate: true});
 
     defineExpose({
         isOpen,

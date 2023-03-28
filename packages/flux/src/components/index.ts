@@ -1,6 +1,7 @@
 export { default as FluxActionBar } from './FluxActionBar.vue';
 export { default as FluxAlert } from './FluxAlert.vue';
 export { default as FluxAspectRatio } from './FluxAspectRatio.vue';
+export { default as FluxAutoGrid } from './FluxAutoGrid.vue';
 export { default as FluxAvatar } from './FluxAvatar.vue';
 export { default as FluxBadge } from './FluxBadge.vue';
 export { default as FluxBadgeStack } from './FluxBadgeStack.vue';
@@ -57,6 +58,7 @@ export { default as FluxPaneFooter } from './FluxPaneFooter.vue';
 export { default as FluxPaneHeader } from './FluxPaneHeader.vue';
 export { default as FluxPaneIllustration } from './FluxPaneIllustration.vue';
 export { default as FluxPaneMedia } from './FluxPaneMedia.vue';
+export { default as FluxPersona } from './FluxPersona.vue';
 export { default as FluxPipsPager } from './FluxPipsPager.vue';
 export { default as FluxPlaceholder } from './FluxPlaceholder.vue';
 export { default as FluxPredefinedGrid } from './FluxPredefinedGrid.vue';

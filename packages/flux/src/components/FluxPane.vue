@@ -67,6 +67,8 @@
     .flux-pane {
         position: relative;
         box-shadow: var(--shadow);
+        color: unset;
+        text-decoration: unset;
 
         &.is-contained {
             overflow: hidden;
@@ -107,7 +109,6 @@
     }
 
     .flux-pane > .flux-pane {
-        background: unset;
         border: unset;
         border-radius: unset;
         box-shadow: unset;

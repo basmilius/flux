@@ -1,14 +1,17 @@
 <template>
     <div
         class="flux-avatar"
+        :class="{
+            'is-clickable': isClickable
+        }"
         :aria-label="alt"
-        role="img">
+        role="img"
+        @click="isClickable && $emit('click', $event)">
         <img
             v-if="url"
             class="flux-avatar-image"
             :alt="alt"
-            :src="url"
-            @click="$emit('click', $event)"/>
+            :src="url"/>
 
         <div
             v-else
@@ -29,7 +32,7 @@
     lang="ts"
     setup>
     import type { IconNames } from '../data';
-    import { computed, toRefs, unref } from 'vue-demi';
+    import { computed, getCurrentInstance, toRefs, unref } from 'vue-demi';
     import { FluxIcon } from '.';
 
     export interface Emits {
@@ -41,6 +44,7 @@
         readonly fallback: 'colorized' | 'neutral';
         readonly fallbackIcon: IconNames;
         readonly fallbackInitials?: string;
+        readonly isClickable?: boolean;
         readonly size?: number;
         readonly url?: string;
     }
@@ -77,6 +81,8 @@
     });
     const {fallbackIcon, fallbackInitials, size} = toRefs(props);
 
+    const instance = getCurrentInstance()!;
+
     const colorSeed = computed(() => {
         const icon = unref(fallbackIcon);
         const initials = unref(fallbackInitials);
@@ -96,7 +102,6 @@
     });
 
     const color = computed(() => colors[unref(colorSeed) % colors.length]);
-
     const sizePixels = computed(() => unref(size) + 'px');
 </script>
 
@@ -111,6 +116,15 @@
         border-radius: .5em;
         font-size: v-bind(sizePixels);
         user-select: none;
+
+        &.is-clickable {
+            cursor: pointer;
+            transition: filter 150ms var(--swift-out);
+
+            &:hover {
+                filter: brightness(110%);
+            }
+        }
 
         &-image {
             height: inherit;
