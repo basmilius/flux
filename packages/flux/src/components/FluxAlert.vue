@@ -32,8 +32,10 @@
 </script>
 
 <style lang="scss">
-    .flux-alert {
-        max-width: 540px;
-        width: calc(100dvw - 90px);
+    @layer component {
+        .flux-alert {
+            max-width: 540px;
+            width: calc(100dvw - 90px);
+        }
     }
 </style>

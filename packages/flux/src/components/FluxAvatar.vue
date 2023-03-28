@@ -106,60 +106,62 @@
 </script>
 
 <style lang="scss">
-    .flux-avatar {
-        --color: v-bind(color);
+    @layer component {
+        .flux-avatar {
+            --color: v-bind(color);
 
-        position: relative;
-        display: inline-flex;
-        height: 1em;
-        width: 1em;
-        border-radius: .5em;
-        font-size: v-bind(sizePixels);
-        user-select: none;
+            position: relative;
+            display: inline-flex;
+            height: 1em;
+            width: 1em;
+            border-radius: .5em;
+            font-size: v-bind(sizePixels);
+            user-select: none;
 
-        &.is-clickable {
-            cursor: pointer;
-            transition: filter 150ms var(--swift-out);
+            &.is-clickable {
+                cursor: pointer;
+                transition: filter 150ms var(--swift-out);
 
-            &:hover {
-                filter: brightness(110%);
-            }
-        }
-
-        &-image {
-            height: inherit;
-            width: inherit;
-            background: black;
-            border-radius: inherit;
-        }
-
-        &-fallback {
-            position: absolute;
-            display: flex;
-            inset: 0;
-            align-items: center;
-            justify-content: center;
-            border-radius: inherit;
-
-            .flux-icon {
-                font-size: .5em;
+                &:hover {
+                    filter: brightness(110%);
+                }
             }
 
-            span {
-                font-size: .4em;
-                font-weight: 500;
-                line-height: 1;
+            &-image {
+                height: inherit;
+                width: inherit;
+                background: black;
+                border-radius: inherit;
             }
-        }
 
-        &-colorized {
-            background: rgb(var(--color) / .2);
-            color: rgb(var(--color));
-        }
+            &-fallback {
+                position: absolute;
+                display: flex;
+                inset: 0;
+                align-items: center;
+                justify-content: center;
+                border-radius: inherit;
 
-        &-neutral {
-            background: rgb(var(--gray-4));
-            color: var(--foreground-secondary);
+                .flux-icon {
+                    font-size: .5em;
+                }
+
+                span {
+                    font-size: .4em;
+                    font-weight: 500;
+                    line-height: 1;
+                }
+            }
+
+            &-colorized {
+                background: rgb(var(--color) / .2);
+                color: rgb(var(--color));
+            }
+
+            &-neutral {
+                background: rgb(var(--gray-4));
+                color: var(--foreground-secondary);
+            }
         }
     }
 </style>

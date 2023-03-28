@@ -64,46 +64,48 @@
 </script>
 
 <style lang="scss">
-    .flux-overlay {
-        background: transparent;
-        border: 0;
-        overflow: visible;
-        pointer-events: none;
-        z-index: 10000;
+    @layer component {
+        .flux-overlay {
+            background: transparent;
+            border: 0;
+            overflow: visible;
+            pointer-events: none;
+            z-index: 10000;
 
-        &::backdrop {
-            position: fixed;
-            inset: 0;
-            background: rgb(255 255 255 / .75);
-            animation: overlay-content 300ms ease both;
-        }
+            &::backdrop {
+                position: fixed;
+                inset: 0;
+                background: rgb(255 255 255 / .75);
+                animation: overlay-content 300ms ease both;
+            }
 
-        &[open] {
-            pointer-events: all;
-        }
+            &[open] {
+                pointer-events: all;
+            }
 
-        > .flux-pane {
-            margin: auto;
-            animation: overlay-content 420ms var(--deceleration-curve) both;
-        }
+            > .flux-pane {
+                margin: auto;
+                animation: overlay-content 420ms var(--deceleration-curve) both;
+            }
 
-        &-close {
-            position: absolute;
-            top: 0;
-            right: 0;
-            box-shadow: var(--shadow);
-            animation: overlay-content 420ms var(--deceleration-curve) 270ms both;
-        }
+            &-close {
+                position: absolute;
+                top: 0;
+                right: 0;
+                box-shadow: var(--shadow);
+                animation: overlay-content 420ms var(--deceleration-curve) 270ms both;
+            }
 
-        .flux-pane {
-            display: flex;
-            max-height: min(720px, calc(100dvh - 180px));
-            flex-flow: column;
+            .flux-pane {
+                display: flex;
+                max-height: min(720px, calc(100dvh - 180px));
+                flex-flow: column;
 
-            &-footer {
-                position: sticky;
-                bottom: 0;
-                margin-top: auto;
+                &-footer {
+                    position: sticky;
+                    bottom: 0;
+                    margin-top: auto;
+                }
             }
         }
     }

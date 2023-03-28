@@ -104,17 +104,21 @@
 </script>
 
 <style lang="scss">
-    .flux-pagination {
-        z-index: 0;
+    @layer component {
+        .flux-pagination {
+            z-index: 0;
+        }
+    }
 
-        .flux-button {
-            span {
+    @layer cosy {
+        .flux-pagination {
+            .flux-button span {
                 min-width: 18px;
             }
-        }
 
-        .flux-primary-button {
-            z-index: 1;
+            .flux-primary-button {
+                z-index: 1;
+            }
         }
     }
 </style>

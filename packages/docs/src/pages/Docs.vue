@@ -280,12 +280,6 @@
 
                     <flux-menu-item
                         disabled
-                        label="Pips pager"
-                        to="/components/pips-pager"
-                        type="route"/>
-
-                    <flux-menu-item
-                        disabled
                         label="Placeholder"
                         to="/components/placeholder"
                         type="route"/>

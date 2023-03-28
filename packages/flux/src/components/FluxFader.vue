@@ -57,11 +57,13 @@
 </script>
 
 <style lang="scss">
-    .flux-fader {
-        position: relative;
-        background: black;
-        border-radius: var(--radius);
-        overflow: hidden;
-        z-index: 0;
+    @layer component {
+        .flux-fader {
+            position: relative;
+            background: black;
+            border-radius: var(--radius);
+            overflow: hidden;
+            z-index: 0;
+        }
     }
 </style>

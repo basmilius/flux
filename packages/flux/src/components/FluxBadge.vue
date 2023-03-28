@@ -72,84 +72,87 @@
 </script>
 
 <style lang="scss">
-    .flux-badge {
-        --color: currentColor;
+    @layer component {
+        .flux-badge {
+            --color: currentColor;
 
-        display: inline-flex;
-        height: 27px;
-        padding-left: 9px;
-        padding-right: 9px;
-        align-items: center;
-        gap: 6px;
-        background: rgb(var(--gray-0));
-        border: 1px solid rgb(var(--gray-4));
-        border-radius: 99px;
-        color: var(--foreground);
-        font-size: 13px;
-        font-weight: 500;
-
-        &-primary {
-            --color: rgb(var(--primary-7));
-        }
-
-        &-danger {
-            --color: rgb(var(--danger-7));
-        }
-
-        &-info {
-            --color: rgb(var(--info-7));
-        }
-
-        &-success {
-            --color: rgb(var(--success-7));
-        }
-
-        &-warning {
-            --color: rgb(var(--warning-7));
-        }
-
-        &-close {
-            display: flex;
-            height: 19px;
-            width: 19px;
-            margin-right: -6px;
+            display: inline-flex;
+            height: 27px;
+            padding-left: 9px;
+            padding-right: 9px;
             align-items: center;
-            justify-content: center;
-            background: rgb(var(--gray-4));
-            border: 0;
+            gap: 6px;
+            background: rgb(var(--gray-0));
+            border: 1px solid rgb(var(--gray-4));
             border-radius: 99px;
-            color: var(--foreground-secondary);
+            color: var(--foreground);
+            font-size: 13px;
+            font-weight: 500;
 
-            &:hover {
-                background: rgb(var(--gray-5));
+            &-primary {
+                --color: rgb(var(--primary-7));
+            }
+
+            &-danger {
+                --color: rgb(var(--danger-7));
+            }
+
+            &-info {
+                --color: rgb(var(--info-7));
+            }
+
+            &-success {
+                --color: rgb(var(--success-7));
+            }
+
+            &-warning {
+                --color: rgb(var(--warning-7));
+            }
+
+            &-close {
+                display: flex;
+                height: 19px;
+                width: 19px;
+                margin-right: -6px;
+                padding: 5px;
+                align-items: center;
+                justify-content: center;
+                background: rgb(var(--gray-4));
+                border: 0;
+                border-radius: 99px;
+                color: var(--foreground-secondary);
+
+                &:hover {
+                    background: rgb(var(--gray-5));
+                }
+            }
+
+            &-dot {
+                display: inline-block;
+                height: 9px;
+                width: 9px;
+                background: var(--color);
+                border-radius: 99px;
+            }
+
+            &-icon {
+                margin-left: -3px;
+                color: var(--color);
+            }
+
+            &-text-only {
+                border-color: var(--color);
             }
         }
 
-        &-dot {
-            display: inline-block;
-            height: 9px;
-            width: 9px;
-            background: var(--color);
-            border-radius: 99px;
-        }
+        button.flux-badge {
+            background: unset;
+            cursor: pointer;
+            transition: background 180ms var(--swift-out);
 
-        &-icon {
-            margin-left: -3px;
-            color: var(--color);
-        }
-
-        &-text-only {
-            border-color: var(--color);
-        }
-    }
-
-    button.flux-badge {
-        background: unset;
-        cursor: pointer;
-        transition: background 180ms var(--swift-out);
-
-        &:hover {
-            background: rgb(var(--gray-2));
+            &:hover {
+                background: rgb(var(--gray-2));
+            }
         }
     }
 </style>

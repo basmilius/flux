@@ -87,17 +87,24 @@
 </script>
 
 <style lang="scss">
-    .flux-tabs {
-        display: flex;
-        flex-flow: column;
-        overflow: visible !important;
+    @layer component {
+        .flux-tabs {
+            display: flex;
+            flex-flow: column;
 
-        &-bar {
-            margin-bottom: 18px;
+            &-bar {
+                margin-bottom: 18px;
+            }
         }
     }
 
-    .flux-pane > .flux-tabs > .flux-tabs-bar {
-        margin-bottom: 0;
+    @layer cosy {
+        .flux-tabs {
+            overflow: visible;
+        }
+
+        .flux-pane > .flux-tabs > .flux-tabs-bar {
+            margin-bottom: 0;
+        }
     }
 </style>

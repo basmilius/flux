@@ -52,9 +52,3 @@
         back();
     }
 </script>
-
-<style lang="scss">
-    .flux-pane > .flux-menu .flux-filter-date {
-        margin: -9px;
-    }
-</style>

@@ -109,53 +109,55 @@
 <style lang="scss">
     @use '../scss/mixin' as flux;
 
-    .flux-form-input {
-        display: block;
-        height: 42px;
-        width: 100%;
-        padding: 0 12px;
-        background: rgb(var(--gray-0));
-        border: 1px solid rgb(var(--gray-4));
-        border-radius: var(--radius);
-        box-shadow: var(--shadow-pixel);
-        color: var(--foreground);
-        font: inherit;
-        outline: 0;
-        transition: 180ms var(--swift-out);
-        transition-property: border-color, flux.focus-ring-transition-properties();
+    @layer component {
+        .flux-form-input {
+            display: block;
+            height: 42px;
+            width: 100%;
+            padding: 0 12px;
+            background: rgb(var(--gray-0));
+            border: 1px solid rgb(var(--gray-4));
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-pixel);
+            color: var(--foreground);
+            font: inherit;
+            outline: 0;
+            transition: 180ms var(--swift-out);
+            transition-property: border-color, flux.focus-ring-transition-properties();
 
-        &::placeholder {
-            color: var(--foreground-secondary);
+            &::placeholder {
+                color: var(--foreground-secondary);
+            }
+
+            &::-webkit-color-swatch {
+                border: 0;
+                border-radius: calc(var(--radius) / 2);
+            }
+
+            &::-webkit-color-swatch-wrapper {
+                margin: 0 -12px;
+                padding: 3px;
+                width: calc(100% + 24px);
+            }
+
+            &.is-disabled {
+                background: rgb(var(--gray-2));
+                cursor: not-allowed;
+            }
+
+            &:not(.is-disabled) {
+                @include flux.focus-ring(-1px);
+            }
+
+            &:hover {
+                border-color: rgb(var(--gray-5));
+            }
         }
 
-        &::-webkit-color-swatch {
-            border: 0;
-            border-radius: calc(var(--radius) / 2);
-        }
-
-        &::-webkit-color-swatch-wrapper {
-            margin: 0 -12px;
-            padding: 3px;
-            width: calc(100% + 24px);
-        }
-
-        &.is-disabled {
-            background: rgb(var(--gray-2));
-            cursor: not-allowed;
-        }
-
-        &:not(.is-disabled) {
-            @include flux.focus-ring(-1px);
-        }
-
-        &:hover {
-            border-color: rgb(var(--gray-5));
-        }
-    }
-
-    @include flux.dark-mode {
-        .flux-form-input::-webkit-calendar-picker-indicator {
-            filter: invert(1);
+        @include flux.dark-mode {
+            .flux-form-input::-webkit-calendar-picker-indicator {
+                filter: invert(1);
+            }
         }
     }
 </style>

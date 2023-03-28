@@ -5,7 +5,9 @@
 </template>
 
 <style lang="scss">
-    .flux-toolbar-group {
-        display: flex;
+    @layer component {
+        .flux-toolbar-group {
+            display: flex;
+        }
     }
 </style>

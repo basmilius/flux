@@ -58,33 +58,41 @@
 <style lang="scss">
     @use '../scss/mixin' as flux;
 
-    .flux-link {
-        --button-icon: rgb(var(--primary-7));
-        --button-stroke: unset;
+    @layer component {
+        .flux-link {
+            --button-icon: rgb(var(--primary-7));
+            --button-stroke: unset;
 
-        display: inline-flex;
-        height: unset;
-        padding: 0;
-        background: unset;
-        border: unset;
-        box-shadow: unset;
-        color: rgb(var(--primary-7));
-        text-decoration: underline;
-        text-decoration-thickness: 1px;
-        text-underline-offset: 4px;
+            display: inline-flex;
+            height: unset;
+            padding: 0;
+            background: unset;
+            border: unset;
+            box-shadow: unset;
+            color: rgb(var(--primary-7));
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 4px;
 
-        @include flux.focus-ring(6px);
+            @include flux.focus-ring(6px);
 
-        .flux-icon {
-            transition: inherit;
-            transition-property: transform;
+            &:hover {
+                color: rgb(var(--primary-10));
+            }
         }
+    }
 
-        &:hover {
-            color: rgb(var(--primary-10));
-
+    @layer cosy {
+        .flux-link {
             .flux-icon {
-                transform: translate3d(6px, 0, 0);
+                transition: inherit;
+                transition-property: transform;
+            }
+
+            &:hover {
+                .flux-icon {
+                    transform: translate3d(6px, 0, 0);
+                }
             }
         }
     }

@@ -5,9 +5,11 @@
 </template>
 
 <style lang="scss">
-    .flux-timeline {
-        display: flex;
-        flex-flow: column;
-        gap: 15px;
+    @layer component {
+        .flux-timeline {
+            display: flex;
+            flex-flow: column;
+            gap: 15px;
+        }
     }
 </style>

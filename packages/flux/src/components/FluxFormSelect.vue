@@ -305,73 +305,77 @@
 <style lang="scss">
     @use '../scss/mixin' as flux;
 
-    .flux-form-select {
-        position: relative;
-        display: flex;
-        height: unset;
-        min-height: 42px;
-        padding: 0 6px;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 0 6px;
-        cursor: pointer;
-
-        @include flux.focus-ring(-1px, true);
-
-        &-icon {
-            position: absolute;
-            top: 50%;
-            right: 12px;
-            translate: 0 -50%;
-        }
-
-        &-input {
+    @layer component {
+        .flux-form-select {
             position: relative;
-            margin: 0 -1px;
-            min-width: 35%;
+            display: flex;
+            height: unset;
+            min-height: 42px;
             padding: 0 6px;
-            flex: 1 1 0;
-            background: unset;
-            border-width: 0;
-            box-shadow: none;
-            outline: 0 !important;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0 6px;
+            cursor: pointer;
 
-            &::-webkit-search-decoration,
-            &::-webkit-search-cancel-button,
-            &::-webkit-search-results-button,
-            &::-webkit-search-results-decoration {
-                -webkit-appearance: none;
+            @include flux.focus-ring(-1px, true);
+
+            &-icon {
+                position: absolute;
+                top: 50%;
+                right: 12px;
+                translate: 0 -50%;
+            }
+
+            &-input {
+                position: relative;
+                margin: 0 -1px;
+                min-width: 35%;
+                padding: 0 6px;
+                flex: 1 1 0;
+                background: unset;
+                border-width: 0;
+                box-shadow: none;
+                outline: 0 !important;
+
+                &::-webkit-search-decoration,
+                &::-webkit-search-cancel-button,
+                &::-webkit-search-results-button,
+                &::-webkit-search-results-decoration {
+                    -webkit-appearance: none;
+                }
+            }
+
+            &-popup {
+                position: absolute;
+                display: block;
+                top: calc(v-bind(popupY) * 1px);
+                left: 0;
+                width: calc(v-bind(popupWidth) * 1px);
+                max-height: 330px;
+                margin: 0;
+                padding: 9px;
+                box-shadow: var(--shadow);
+                overflow: auto;
+                z-index: 10000;
+            }
+
+            &-selected {
+                position: absolute;
+                height: 42px;
+                padding-left: 12px;
+                padding-right: 12px;
+                inset: -1px;
+                pointer-events: none;
+            }
+
+            &.is-disabled &-selected {
+                color: rgb(var(--gray-6));
             }
         }
+    }
 
-        &-popup {
-            position: absolute;
-            display: block;
-            top: calc(v-bind(popupY) * 1px);
-            left: 0;
-            width: calc(v-bind(popupWidth) * 1px);
-            max-height: 330px;
-            margin: 0;
-            padding: 9px;
-            box-shadow: var(--shadow);
-            overflow: auto;
-            z-index: 10000;
-        }
-
-        &-selected {
-            position: absolute;
-            height: 42px;
-            padding-left: 12px;
-            padding-right: 12px;
-            inset: -1px;
-            pointer-events: none;
-        }
-
-        &.is-disabled &-selected {
-            color: rgb(var(--gray-6));
-        }
-
-        .flux-badge {
+    @layer cosy {
+        .flux-form-select .flux-badge {
             margin-top: 8px;
             margin-bottom: 7px;
             flex: 0 0 auto;

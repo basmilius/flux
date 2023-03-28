@@ -136,61 +136,63 @@
 </script>
 
 <style lang="scss">
-    .flux-focal-point {
-        &-editor {
-            position: relative;
-            margin-left: auto;
-            margin-right: auto;
-            max-height: 210px;
-            max-width: 100%;
-            aspect-ratio: v-bind(aspectRatio);
-            user-select: none;
-
-            &-area {
-                position: absolute;
-                height: 42px;
-                width: 42px;
-                top: calc(v-bind(focalPointY) * 1%);
-                left: calc(v-bind(focalPointX) * 1%);
-                background: rgb(0 0 0 / .1);
-                border: 4px solid white;
-                border-radius: 99px;
-                box-shadow: 0 3px 9px rgb(0 0 0 / .125);
-                cursor: move;
-                transform: translate3d(-50%, -50%, 0);
-            }
-
-            &-image {
+    @layer component {
+        .flux-focal-point {
+            &-editor {
                 position: relative;
-                display: block;
-                height: 100%;
-                width: 100%;
-                border-radius: var(--radius);
-                pointer-events: none;
-            }
-        }
-
-        &-preview {
-            position: relative;
-            height: 210px;
-            width: 100%;
-            margin-left: auto;
-            margin-right: auto;
-
-            &-image {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                right: -50%;
-                bottom: -50%;
+                margin-left: auto;
+                margin-right: auto;
                 max-height: 210px;
                 max-width: 100%;
-                background-position: calc(v-bind(focalPointX) * 1%) calc(v-bind(focalPointY) * 1%);
-                background-size: cover;
-                border-radius: var(--radius);
-                box-shadow: var(--shadow);
-                transform: translate3d(-50%, -50%, 0);
-                animation: flux-focal-point-preview 6s var(--swift-out) infinite;
+                aspect-ratio: v-bind(aspectRatio);
+                user-select: none;
+
+                &-area {
+                    position: absolute;
+                    height: 42px;
+                    width: 42px;
+                    top: calc(v-bind(focalPointY) * 1%);
+                    left: calc(v-bind(focalPointX) * 1%);
+                    background: rgb(0 0 0 / .1);
+                    border: 4px solid white;
+                    border-radius: 99px;
+                    box-shadow: 0 3px 9px rgb(0 0 0 / .125);
+                    cursor: move;
+                    transform: translate3d(-50%, -50%, 0);
+                }
+
+                &-image {
+                    position: relative;
+                    display: block;
+                    height: 100%;
+                    width: 100%;
+                    border-radius: var(--radius);
+                    pointer-events: none;
+                }
+            }
+
+            &-preview {
+                position: relative;
+                height: 210px;
+                width: 100%;
+                margin-left: auto;
+                margin-right: auto;
+
+                &-image {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    right: -50%;
+                    bottom: -50%;
+                    max-height: 210px;
+                    max-width: 100%;
+                    background-position: calc(v-bind(focalPointX) * 1%) calc(v-bind(focalPointY) * 1%);
+                    background-size: cover;
+                    border-radius: var(--radius);
+                    box-shadow: var(--shadow);
+                    transform: translate3d(-50%, -50%, 0);
+                    animation: flux-focal-point-preview 6s var(--swift-out) infinite;
+                }
             }
         }
     }

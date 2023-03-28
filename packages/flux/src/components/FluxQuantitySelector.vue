@@ -113,63 +113,65 @@
 <style lang="scss">
     @use '../scss/mixin' as flux;
 
-    .flux-quantity-selector {
-        align-self: center;
-        justify-self: center;
-        border: 1px solid rgb(var(--gray-4) / .75);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow-pixel);
-        overflow: hidden;
+    @layer component {
+        .flux-quantity-selector {
+            align-self: center;
+            justify-self: center;
+            border: 1px solid rgb(var(--gray-4) / .75);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-pixel);
+            overflow: hidden;
 
-        @include flux.focus-ring-transition(2px, true);
+            @include flux.focus-ring-transition(2px, true);
 
-        &-button {
-            margin: -1px;
-            border: 0;
+            &-button {
+                margin: -1px;
+                border: 0;
 
-            &:first-child {
-                margin-right: 0;
+                &:first-child {
+                    margin-right: 0;
+                }
+
+                &:last-child {
+                    margin-left: 0;
+                }
+
+                &,
+                &:focus-visible,
+                &:focus-within {
+                    outline: 0;
+                }
             }
 
-            &:last-child {
-                margin-left: 0;
-            }
+            &-input {
+                margin: -1px 0;
+                width: calc(v-bind(width) * 1px);
+                padding-left: 0;
+                padding-right: 0;
+                border-radius: 0;
+                font-variant-numeric: tabular-nums;
+                font-weight: 700;
+                text-align: center;
 
-            &,
-            &:focus-visible,
-            &:focus-within {
-                outline: 0;
-            }
-        }
+                &:hover {
+                    border-color: rgb(var(--gray-4));
+                }
 
-        &-input {
-            margin: -1px 0;
-            width: calc(v-bind(width) * 1px);
-            padding-left: 0;
-            padding-right: 0;
-            border-radius: 0;
-            font-variant-numeric: tabular-nums;
-            font-weight: 700;
-            text-align: center;
+                &,
+                &:focus-visible,
+                &:focus-within {
+                    outline: 0;
+                }
 
-            &:hover {
-                border-color: rgb(var(--gray-4));
-            }
+                & {
+                    -moz-appearance: textfield;
+                }
 
-            &,
-            &:focus-visible,
-            &:focus-within {
-                outline: 0;
-            }
-
-            & {
-                -moz-appearance: textfield;
-            }
-
-            &::-webkit-outer-spin-button,
-            &::-webkit-inner-spin-button {
-                -webkit-appearance: none;
-                margin: 0;
+                &::-webkit-outer-spin-button,
+                &::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
             }
         }
     }

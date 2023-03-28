@@ -26,6 +26,7 @@
                             v-if="hasValue(name)"
                             class="flux-filter-reset"
                             icon-before="trash"
+                            is-destructive
                             @click="reset(name)"/>
                     </flux-menu-group>
 
@@ -163,23 +164,29 @@
 </script>
 
 <style lang="scss">
-    .flux-filter {
-        min-width: 300px;
-        scrollbar-width: none;
+    @layer component {
+        .flux-filter {
+            min-width: 300px;
+            scrollbar-width: none;
 
-        &::-webkit-scrollbar {
-            display: none;
-            height: 0;
-            width: 0;
+            &::-webkit-scrollbar {
+                display: none;
+                height: 0;
+                width: 0;
+            }
         }
+    }
 
-        &-back {
-            flex-grow: 1;
-        }
+    @layer cosy {
+        .flux-filter {
+            &-back {
+                flex-grow: 1;
+            }
 
-        &-reset.flux-menu-item {
-            width: 42px;
-            justify-content: center;
+            &-reset {
+                width: 42px;
+                justify-content: center;
+            }
         }
     }
 </style>

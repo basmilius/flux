@@ -44,31 +44,37 @@
 </script>
 
 <style lang="scss">
-    .flux-gallery-item {
-        position: relative;
-        aspect-ratio: 1 / 1;
+    @layer component {
+        .flux-gallery-item {
+            position: relative;
+            aspect-ratio: 1 / 1;
 
-        &-image {
-            position: absolute;
-            display: block;
-            inset: 0;
-            height: 100%;
-            width: 100%;
-            border-radius: var(--radius);
-            object-fit: cover;
-            object-position: center;
-            outline: 1px solid rgb(0 0 0 / .025);
-            outline-offset: -1px;
+            &-image {
+                position: absolute;
+                display: block;
+                inset: 0;
+                height: 100%;
+                width: 100%;
+                border-radius: var(--radius);
+                object-fit: cover;
+                object-position: center;
+                outline: 1px solid rgb(0 0 0 / .025);
+                outline-offset: -1px;
+            }
         }
+    }
 
-        .flux-pane-overlay {
-            inset: 1px;
-            border-radius: calc(var(--radius) - 1px);
-            z-index: 0;
-        }
+    @layer cosy {
+        .flux-gallery-item {
+            .flux-pane-overlay {
+                inset: 1px;
+                border-radius: calc(var(--radius) - 1px);
+                z-index: 0;
+            }
 
-        .flux-remove {
-            z-index: 1;
+            .flux-remove {
+                z-index: 1;
+            }
         }
     }
 </style>

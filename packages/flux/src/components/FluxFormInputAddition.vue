@@ -18,11 +18,13 @@
 </script>
 
 <style lang="scss">
-    .flux-form-input-addition {
-        display: flex;
-        width: unset;
-        align-items: center;
-        flex-grow: 0;
-        justify-content: center;
+    @layer component {
+        .flux-form-input-addition {
+            display: flex;
+            width: unset;
+            align-items: center;
+            flex-grow: 0;
+            justify-content: center;
+        }
     }
 </style>

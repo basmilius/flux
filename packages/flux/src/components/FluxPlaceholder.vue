@@ -61,72 +61,74 @@
 </script>
 
 <style lang="scss">
-    .flux-placeholder {
-        position: relative;
-        display: flex;
-        align-items: center;
-        flex: 1 1 0;
-        flex-flow: column;
-        gap: 0;
-        justify-content: center;
-        background: rgb(var(--gray-2));
-        border: 2px dashed rgb(var(--gray-4));
-        border-radius: var(--radius);
-        text-align: center;
-        user-select: none;
-
-        &.is-button {
-            cursor: pointer;
-
-            &:hover {
-                background: rgb(var(--gray-3));
-                border-color: rgb(var(--gray-5));
-            }
-        }
-
-        &-icon {
-            color: rgb(var(--primary-7));
-            font-size: 20px;
-        }
-
-        &-caption {
+    @layer component {
+        .flux-placeholder {
+            position: relative;
             display: flex;
-            align-items: stretch;
+            align-items: center;
+            flex: 1 1 0;
             flex-flow: column;
-        }
+            gap: 0;
+            justify-content: center;
+            background: rgb(var(--gray-2));
+            border: 2px dashed rgb(var(--gray-4));
+            border-radius: var(--radius);
+            text-align: center;
+            user-select: none;
 
-        &-message {
-            margin: 0;
-            max-width: 510px;
-            color: var(--foreground-secondary);
-            font-size: 14px;
-        }
+            &.is-button {
+                cursor: pointer;
 
-        &-extended {
-            padding: 27px;
-            gap: 9px;
-        }
+                &:hover {
+                    background: rgb(var(--gray-3));
+                    border-color: rgb(var(--gray-5));
+                }
+            }
 
-        &-extended &-icon {
-            font-size: 24px;
-        }
+            &-icon {
+                color: rgb(var(--primary-7));
+                font-size: 20px;
+            }
 
-        &-simple {
-            padding: 18px;
-        }
+            &-caption {
+                display: flex;
+                align-items: stretch;
+                flex-flow: column;
+            }
 
-        &-small {
-            padding: 12px;
-            font-size: 12px;
-        }
+            &-message {
+                margin: 0;
+                max-width: 510px;
+                color: var(--foreground-secondary);
+                font-size: 14px;
+            }
 
-        &-small &-icon {
-            color: var(--foreground-secondary);
-        }
+            &-extended {
+                padding: 27px;
+                gap: 9px;
+            }
 
-        &-small &-title {
-            color: var(--foreground-secondary);
-            font-weight: 400;
+            &-extended &-icon {
+                font-size: 24px;
+            }
+
+            &-simple {
+                padding: 18px;
+            }
+
+            &-small {
+                padding: 12px;
+                font-size: 12px;
+            }
+
+            &-small &-icon {
+                color: var(--foreground-secondary);
+            }
+
+            &-small &-title {
+                color: var(--foreground-secondary);
+                font-weight: 400;
+            }
         }
     }
 </style>

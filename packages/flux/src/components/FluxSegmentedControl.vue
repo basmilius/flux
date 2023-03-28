@@ -68,81 +68,83 @@
 </script>
 
 <style lang="scss">
-    .flux-segmented-control {
-        position: relative;
-        display: flex;
-        padding: 3px;
-        align-items: center;
-        gap: 1px;
-        background: rgb(var(--gray-3));
-        border-radius: var(--radius);
-
-        &-highlight {
-            position: absolute;
-            top: 3px;
-            left: calc(v-bind(activeItemX) * 1px);
-            height: 30px;
-            width: calc(v-bind(activeItemWidth) * 1px);
-            background: rgb(var(--gray-0));
-            border-radius: calc(var(--radius) - 3px);
-            box-shadow: var(--shadow-small);
-            pointer-events: none;
-            transition: 300ms var(--swift-out);
-            transition-property: left, width;
-        }
-
-        &-item {
-            height: 30px;
-            flex: 1 1 0;
-            background: none;
-            border: 0;
-            border-radius: calc(var(--radius) - 3px);
-            color: var(--foreground);
-            font-size: 13px;
-            font-weight: 600;
-            text-align: center;
-            transition: color 300ms var(--swift-out);
-
-            &:hover {
-                background: rgb(var(--gray-4));
-            }
-
-            &.active {
-                color: var(--foreground-prominent);
-            }
-
-            span {
-                position: relative;
-            }
-        }
-
-        &-separator {
-            height: 18px;
-            width: 1px;
-            flex-shrink: 0;
-            background: rgb(var(--gray-5));
-            transition: opacity 300ms var(--swift-out);
-
-            &.active {
-                opacity: 0;
-            }
-        }
-
-        [md] & {
-            padding: 6px;
-            gap: 3px;
+    @layer component {
+        .flux-segmented-control {
+            position: relative;
+            display: flex;
+            padding: 3px;
+            align-items: center;
+            gap: 1px;
+            background: rgb(var(--gray-3));
+            border-radius: var(--radius);
 
             &-highlight {
-                top: 6px;
+                position: absolute;
+                top: 3px;
+                left: calc(v-bind(activeItemX) * 1px);
+                height: 30px;
+                width: calc(v-bind(activeItemWidth) * 1px);
+                background: rgb(var(--gray-0));
+                border-radius: calc(var(--radius) - 3px);
+                box-shadow: var(--shadow-small);
+                pointer-events: none;
+                transition: 300ms var(--swift-out);
+                transition-property: left, width;
             }
 
-            &-highlight,
             &-item {
-                height: 36px;
+                height: 30px;
+                flex: 1 1 0;
+                background: none;
+                border: 0;
+                border-radius: calc(var(--radius) - 3px);
+                color: var(--foreground);
+                font-size: 13px;
+                font-weight: 600;
+                text-align: center;
+                transition: color 300ms var(--swift-out);
+
+                &:hover {
+                    background: rgb(var(--gray-4));
+                }
+
+                &.active {
+                    color: var(--foreground-prominent);
+                }
+
+                span {
+                    position: relative;
+                }
             }
 
-            &-item {
-                font-size: 14px;
+            &-separator {
+                height: 18px;
+                width: 1px;
+                flex-shrink: 0;
+                background: rgb(var(--gray-5));
+                transition: opacity 300ms var(--swift-out);
+
+                &.active {
+                    opacity: 0;
+                }
+            }
+
+            [md] & {
+                padding: 6px;
+                gap: 3px;
+
+                &-highlight {
+                    top: 6px;
+                }
+
+                &-highlight,
+                &-item {
+                    height: 36px;
+                }
+
+                &-item {
+                    font-size: 14px;
+                }
             }
         }
     }

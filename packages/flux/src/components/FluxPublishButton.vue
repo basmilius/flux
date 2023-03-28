@@ -80,74 +80,76 @@
 </script>
 
 <style lang="scss">
-    .flux-publish-button {
-        overflow: hidden;
+    @layer component {
+        .flux-publish-button {
+            overflow: hidden;
 
-        &-cloud {
-            position: absolute;
-            top: 50%;
-            opacity: 0;
-            animation: publish .6s linear infinite;
-            transition: 360ms var(--swift-out) 210ms;
-
-            &:nth-child(2) {
-                left: -12px;
-                animation-delay: -.3s;
-            }
-
-            &:nth-child(3) {
-                right: -12px;
-            }
-        }
-
-        &-icon {
-            position: relative;
-            display: block;
-            height: 20px;
-            width: 20px;
-            align-items: center;
-            justify-content: center;
-            overflow: visible;
-
-            path {
-                fill: currentColor;
-                transition: 270ms var(--swift-out);
-            }
-        }
-
-        &.idle {
-            .check {
+            &-cloud {
+                position: absolute;
+                top: 50%;
                 opacity: 0;
-            }
-        }
+                animation: publish .6s linear infinite;
+                transition: 360ms var(--swift-out) 210ms;
 
-        &.done {
-            .arrow {
-                animation: arrow-out .4s var(--acceleration-curve) both;
-            }
+                &:nth-child(2) {
+                    left: -12px;
+                    animation-delay: -.3s;
+                }
 
-            .check,
-            .circle {
-                transition-delay: .5s;
-            }
-        }
-
-        &.loading {
-            .arrow {
-                animation: arrow-in 1s var(--deceleration-curve) both;
+                &:nth-child(3) {
+                    right: -12px;
+                }
             }
 
-            .check {
-                opacity: 0;
+            &-icon {
+                position: relative;
+                display: block;
+                height: 20px;
+                width: 20px;
+                align-items: center;
+                justify-content: center;
+                overflow: visible;
+
+                path {
+                    fill: currentColor;
+                    transition: 270ms var(--swift-out);
+                }
             }
 
-            .circle {
-                opacity: 0;
+            &.idle {
+                .check {
+                    opacity: 0;
+                }
             }
-        }
 
-        &.loading &-cloud {
-            opacity: .5;
+            &.done {
+                .arrow {
+                    animation: arrow-out .4s var(--acceleration-curve) both;
+                }
+
+                .check,
+                .circle {
+                    transition-delay: .5s;
+                }
+            }
+
+            &.loading {
+                .arrow {
+                    animation: arrow-in 1s var(--deceleration-curve) both;
+                }
+
+                .check {
+                    opacity: 0;
+                }
+
+                .circle {
+                    opacity: 0;
+                }
+            }
+
+            &.loading &-cloud {
+                opacity: .5;
+            }
         }
     }
 

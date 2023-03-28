@@ -52,41 +52,43 @@
 <style lang="scss">
     @use '../scss/mixin' as flux;
 
-    .flux-tab-bar-item {
-        position: relative;
-        display: inline-flex;
-        padding: var(--tab-padding) 0;
-        align-items: center;
-        gap: 9px;
-        background: unset;
-        border: 0;
-        border-bottom: 2px solid transparent;
-        color: var(--foreground);
-        cursor: pointer;
-        font-weight: 500;
-        outline: 0;
-        transition: 180ms var(--swift-out);
-        transition-property: border-color, color;
-        white-space: nowrap;
+    @layer component {
+        .flux-tab-bar-item {
+            position: relative;
+            display: inline-flex;
+            padding: var(--tab-padding) 0;
+            align-items: center;
+            gap: 9px;
+            background: unset;
+            border: 0;
+            border-bottom: 2px solid transparent;
+            color: var(--foreground);
+            cursor: pointer;
+            font-weight: 500;
+            outline: 0;
+            transition: 180ms var(--swift-out);
+            transition-property: border-color, color;
+            white-space: nowrap;
 
-        &::before {
-            position: absolute;
-            inset: 0 -9px;
-            content: '';
-            border-radius: var(--radius);
-            pointer-events: none;
-            transition: 180ms var(--swift-out) flux.focus-ring-transition-properties();
-        }
+            &::before {
+                position: absolute;
+                inset: 0 -9px;
+                content: '';
+                border-radius: var(--radius);
+                pointer-events: none;
+                transition: 180ms var(--swift-out) flux.focus-ring-transition-properties();
+            }
 
-        @include flux.focus-ring-pseudo(before);
+            @include flux.focus-ring-pseudo(before);
 
-        &:hover {
-            border-color: var(--foreground);
-        }
+            &:hover {
+                border-color: var(--foreground);
+            }
 
-        &.is-active {
-            border-color: rgb(var(--primary-7));
-            color: var(--foreground-prominent);
+            &.is-active {
+                border-color: rgb(var(--primary-7));
+                color: var(--foreground-prominent);
+            }
         }
     }
 </style>

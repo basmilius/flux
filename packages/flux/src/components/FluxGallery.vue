@@ -11,7 +11,7 @@
         <template #default="{showPicker}">
             <transition-group
                 class="flux-gallery"
-                name="gallery"
+                name="flux-gallery"
                 tag="div">
                 <flux-gallery-item
                     v-for="(item, index) of items"
@@ -78,23 +78,25 @@
 </script>
 
 <style lang="scss">
-    .flux-gallery {
-        display: grid;
-        gap: 9px;
-        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    @layer component {
+        .flux-gallery {
+            display: grid;
+            gap: 9px;
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
 
-        &-add {
-            aspect-ratio: 1 / 1;
-            color: rgb(var(--gray-7));
+            &-add {
+                aspect-ratio: 1 / 1;
+                color: rgb(var(--gray-7));
 
-            &:hover {
-                background: rgb(var(--gray-3));
-                border-color: rgb(var(--gray-5));
+                &:hover {
+                    background: rgb(var(--gray-3));
+                    border-color: rgb(var(--gray-5));
+                }
+            }
+
+            &-move {
+                transition: 360ms var(--swift-out);
             }
         }
-    }
-
-    .gallery-move {
-        transition: 360ms var(--swift-out);
     }
 </style>

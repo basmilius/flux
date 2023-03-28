@@ -51,54 +51,56 @@
 <style lang="scss">
     @use '../scss/mixin' as flux;
 
-    .flux-chip {
-        display: inline-flex;
-        height: 36px;
-        padding: 0 12px;
-        align-items: center;
-        gap: 9px;
-        background: rgb(var(--gray-1));
-        border: 1px solid rgb(var(--gray-4));
-        border-radius: 99px;
-        color: var(--foreground);
-        transition: 180ms var(--swift-out);
-        transition-property: background, border, color, flux.focus-ring-transition-properties();
+    @layer component {
+        .flux-chip {
+            display: inline-flex;
+            height: 36px;
+            padding: 0 12px;
+            align-items: center;
+            gap: 9px;
+            background: rgb(var(--gray-1));
+            border: 1px solid rgb(var(--gray-4));
+            border-radius: 99px;
+            color: var(--foreground);
+            transition: 180ms var(--swift-out);
+            transition-property: background, border, color, flux.focus-ring-transition-properties();
 
-        &.is-selectable {
-            @include flux.focus-ring(2px);
+            &.is-selectable {
+                @include flux.focus-ring(2px);
 
-            cursor: pointer;
-        }
+                cursor: pointer;
+            }
 
-        &.is-selectable:hover {
-            background: rgb(var(--gray-3) / .75);
-        }
+            &.is-selectable:hover {
+                background: rgb(var(--gray-3) / .75);
+            }
 
-        &.is-selected {
-            background: rgb(var(--primary-2));
-            border-color: rgb(var(--primary-6));
-            color: rgb(var(--primary-7));
+            &.is-selected {
+                background: rgb(var(--primary-2));
+                border-color: rgb(var(--primary-6));
+                color: rgb(var(--primary-7));
 
-            &:hover {
-                background: rgb(var(--primary-3) / .75);
+                &:hover {
+                    background: rgb(var(--primary-3) / .75);
+                }
+            }
+
+            span {
+                font-size: 14px;
+                font-weight: 500;
+                white-space: nowrap;
             }
         }
 
-        span {
-            font-size: 14px;
-            font-weight: 500;
-            white-space: nowrap;
-        }
-    }
+        @include flux.dark-mode {
+            .flux-chip.is-selected {
+                background: rgb(var(--primary-11) / .5);
+                border-color: rgb(var(--primary-11));
+                color: rgb(var(--primary-5));
 
-    @include flux.dark-mode {
-        .flux-chip.is-selected {
-            background: rgb(var(--primary-11) / .5);
-            border-color: rgb(var(--primary-11));
-            color: rgb(var(--primary-5));
-
-            &:hover {
-                background: rgb(var(--primary-10) / .5);
+                &:hover {
+                    background: rgb(var(--primary-10) / .5);
+                }
             }
         }
     }

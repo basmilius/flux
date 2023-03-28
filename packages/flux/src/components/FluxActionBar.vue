@@ -38,27 +38,27 @@
 </script>
 
 <style lang="scss">
-    .flux-action-bar {
-        .flux-form-input {
+    @layer cosy {
+        .flux-action-bar .flux-form-input {
             width: unset;
         }
-    }
 
-    .flux-pane > .flux-action-bar {
-        padding: 15px 21px;
-        background: rgb(var(--gray-1));
-        border: 1px solid rgb(var(--gray-3));
-        border-left: 0;
-        border-right: 0;
+        .flux-pane > .flux-action-bar {
+            padding: 15px 21px;
+            background: rgb(var(--gray-1));
+            border: 1px solid rgb(var(--gray-3));
+            border-left: 0;
+            border-right: 0;
 
-        &:first-child {
-            border-top: 0;
-            border-top-left-radius: var(--radius);
-            border-top-right-radius: var(--radius);
+            &:first-child {
+                border-top: 0;
+                border-top-left-radius: var(--radius);
+                border-top-right-radius: var(--radius);
+            }
         }
-    }
 
-    .flux-pane-header + .flux-action-bar {
-        margin-top: 21px;
+        .flux-pane-header + .flux-action-bar {
+            margin-top: 21px;
+        }
     }
 </style>
