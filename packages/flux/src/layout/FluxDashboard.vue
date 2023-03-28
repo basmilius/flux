@@ -19,13 +19,7 @@
             <div
                 class="flux-dashboard-content"
                 :inert="isNavigationOpen">
-                <flux-container v-if="isContained">
-                    <slot/>
-                </flux-container>
-
-                <template v-else>
-                    <slot/>
-                </template>
+                <slot/>
             </div>
         </main>
 
@@ -37,14 +31,7 @@
     lang="ts"
     setup>
     import { computed, provide, ref, unref, useSlots } from 'vue-demi';
-    import { FluxContainer } from '../components';
     import { FluxDashboardApi, useBreakpoints } from '../composables';
-
-    export interface Props {
-        readonly isContained?: boolean;
-    }
-
-    defineProps<Props>();
 
     const slots = useSlots();
     const {breakpoints} = useBreakpoints();
