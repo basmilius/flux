@@ -47,10 +47,8 @@
 
                                         <flux-menu-group>
                                             <flux-menu-item
-                                                command-icon="angle-right"
                                                 icon-before="circle-question"
-                                                label="Need help?"
-                                                @click="navigate('help')"/>
+                                                label="Need help?"/>
 
                                             <flux-menu-item
                                                 icon-before="sparkles"
