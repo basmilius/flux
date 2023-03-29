@@ -336,7 +336,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxActionBar, FluxAutoGrid, FluxAvatar, FluxBadge, FluxBadgeStack, FluxDashboard, FluxDashboardHeader, FluxDashboardNavigation, FluxDataTable, FluxExpandable, FluxExpandableGroup, FluxFlyout, FluxFormInput, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPaginationBar, FluxPane, FluxPaneBody, FluxPaneDeck, FluxPaneFooter, FluxPersona, FluxPrimaryButton, FluxSeparator, FluxStack, FluxStatistic, FluxTableAction, FluxTableActions, FluxTableCell, FluxTableHeader, FluxWindow } from '@fancee/flux';
+    import { FluxActionBar, FluxAutoGrid, FluxBadge, FluxBadgeStack, FluxDashboard, FluxDashboardHeader, FluxDashboardNavigation, FluxDataTable, FluxExpandable, FluxExpandableGroup, FluxFlyout, FluxFormInput, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPaginationBar, FluxPane, FluxPaneBody, FluxPaneDeck, FluxPaneFooter, FluxPersona, FluxPrimaryButton, FluxSeparator, FluxStack, FluxStatistic, FluxTableAction, FluxTableActions, FluxTableCell, FluxTableHeader, FluxWindow } from '@fancee/flux';
     import { ThemeToggle } from '../components';
     import { computed, ref } from 'vue';
     import insightsLogo from '../images/logo-insights.svg?url';
