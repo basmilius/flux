@@ -12,7 +12,7 @@
     }
 
     @layer cosy {
-        .flux-form-input-group :where(.flux-button, .flux-form-input, .flux-form-input-addition) {
+        .flux-form-input-group > :where(.flux-button, .flux-form-input, .flux-form-input-addition) {
             &:not(:first-child) {
                 border-top-left-radius: 0;
                 border-bottom-left-radius: 0;

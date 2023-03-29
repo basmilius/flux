@@ -360,7 +360,7 @@
 
             &-selected {
                 position: absolute;
-                height: 42px;
+                height: 100%;
                 padding-left: 12px;
                 padding-right: 12px;
                 inset: -1px;

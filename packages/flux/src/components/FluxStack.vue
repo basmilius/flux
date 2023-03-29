@@ -41,7 +41,6 @@
             gap: var(--gap);
 
             &-horizontal {
-                align-items: stretch;
                 flex-flow: row;
             }
 

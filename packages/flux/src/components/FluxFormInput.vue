@@ -116,7 +116,7 @@
             width: 100%;
             padding: 0 12px;
             background: rgb(var(--gray-0));
-            border: 1px solid rgb(var(--gray-4));
+            border: 1px solid rgb(var(--gray-4) / .75);
             border-radius: var(--radius);
             box-shadow: var(--shadow-pixel);
             color: var(--foreground);

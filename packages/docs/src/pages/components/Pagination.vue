@@ -28,6 +28,10 @@
                         <td>Enables the navigation arrows.</td>
                     </tr>
                     <tr>
+                        <td><code>is-compact</code><code>boolean</code></td>
+                        <td>Enables a compact version of the pagination component.</td>
+                    </tr>
+                    <tr>
                         <td><code>page</code><code>number</code></td>
                         <td>The current active page.</td>
                     </tr>

@@ -77,9 +77,11 @@
             --color: currentColor;
 
             display: inline-flex;
-            height: 27px;
-            padding-left: 9px;
-            padding-right: 9px;
+            height: 28px;
+            margin-top: -2px;
+            margin-bottom: -2px;
+            padding-left: 8px;
+            padding-right: 8px;
             align-items: center;
             gap: 6px;
             background: rgb(var(--gray-0));
@@ -113,7 +115,7 @@
                 display: flex;
                 height: 19px;
                 width: 19px;
-                margin-right: -6px;
+                margin-right: -4px;
                 padding: 5px;
                 align-items: center;
                 justify-content: center;
