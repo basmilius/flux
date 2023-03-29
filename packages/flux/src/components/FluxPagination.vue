@@ -1,12 +1,14 @@
 <template>
     <flux-button-group class="flux-pagination">
         <flux-secondary-button
-            v-if="arrows"
+            v-if="arrows || isCompact"
             :disabled="isPreviousDisabled"
             icon-before="angle-left"
             @click="previous"/>
 
-        <template v-for="p of visiblePages">
+        <template
+            v-if="!isCompact"
+            v-for="p of visiblePages">
             <flux-secondary-button
                 v-if="p === 'dots'"
                 disabled
@@ -22,8 +24,16 @@
                 @click="navigate(p)"/>
         </template>
 
+        <template v-else>
+            <div class="flux-pagination-current">
+                <strong>{{ page }}</strong>
+                <span>/</span>
+                <span>{{ pages }}</span>
+            </div>
+        </template>
+
         <flux-secondary-button
-            v-if="arrows"
+            v-if="arrows || isCompact"
             :disabled="isNextDisabled"
             icon-before="angle-right"
             @click="next"/>
@@ -42,6 +52,7 @@
 
     export interface Props {
         readonly arrows?: boolean;
+        readonly isCompact?: boolean;
         readonly page: number;
         readonly perPage: number;
         readonly total: number;
@@ -104,17 +115,35 @@
 </script>
 
 <style lang="scss">
-    .flux-pagination {
-        z-index: 0;
+    @layer component {
+        .flux-pagination {
+            z-index: 0;
 
-        .flux-button {
-            span {
-                min-width: 18px;
+            &-current {
+                display: flex;
+                padding-left: 12px;
+                padding-right: 12px;
+                align-items: center;
+                gap: 3px;
+                background: rgb(var(--gray-0));
+                border: 1px solid rgb(var(--gray-4) / .75);
+                border-left: 0;
+                border-right: 0;
+                color: var(--foreground-prominent);
+                font-variant-numeric: tabular-nums;
             }
         }
+    }
 
-        .flux-primary-button {
-            z-index: 1;
+    @layer cosy {
+        .flux-pagination {
+            .flux-button span {
+                min-width: 18px;
+            }
+
+            .flux-primary-button {
+                z-index: 1;
+            }
         }
     }
 </style>

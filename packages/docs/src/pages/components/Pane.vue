@@ -62,11 +62,19 @@
                         <td><code>FluxPaneIllustration</code></td>
                         <td>Pane illustrations are opiniated designed illutrations used in "feature discovery cards". Illustrations should be designed outside of Flux.</td>
                     </tr>
+                    <tr>
+                        <td><code>FluxPaneMedia</code></td>
+                        <td>Can hold an image that is used as the media within a pane.</td>
+                    </tr>
                 </template>
             </api-table>
 
             <api-table title="Props: FluxPane">
                 <template #body>
+                    <tr>
+                        <td><code>columns</code><code>number</code></td>
+                        <td>How much grid columns the pane should have.</td>
+                    </tr>
                     <tr>
                         <td><code>is-contained</code><code>boolean</code></td>
                         <td>If the contents of the pane should be contained within it. When applied, content cannot break-out of the pane.</td>
@@ -79,6 +87,31 @@
                         <td><code>tag</code><code>string</code></td>
                         <td>The tag of the panel.</td>
                     </tr>
+                    <tr>
+                        <td><code>href</code><code>string</code></td>
+                        <td>HTMLAnchorElement.href</td>
+                    </tr>
+                    <tr>
+                        <td><code>rel</code><code>string</code></td>
+                        <td>HTMLAnchorElement.rel</td>
+                    </tr>
+                    <tr>
+                        <td><code>target</code><code>string</code></td>
+                        <td>HTMLAnchorElement.target</td>
+                    </tr>
+                    <tr>
+                        <td><code>to</code><code>FluxRoutingLocation</code></td>
+                        <td>A routing location, same as vue-router.</td>
+                    </tr>
+                </template>
+            </api-table>
+
+            <api-table title="Props: FluxPaneBody">
+                <template #body>
+                    <tr>
+                        <td><code>span</code><code>number</code></td>
+                        <td>Within a Pane that has a grid, this controls how much columns it should take.</td>
+                    </tr>
                 </template>
             </api-table>
 
@@ -87,6 +120,10 @@
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
                         <td>The icon showed in the header.</td>
+                    </tr>
+                    <tr>
+                        <td><code>span</code><code>number</code></td>
+                        <td>Within a Pane that has a grid, this controls how much columns it should take.</td>
                     </tr>
                     <tr>
                         <td><code>title</code><code>string</code></td>
@@ -100,6 +137,35 @@
                     <tr>
                         <td><code>is-controlled</code><code>boolean</code></td>
                         <td>When given, the opiniated styling is not applied to the contents of the illustaration.</td>
+                    </tr>
+                </template>
+            </api-table>
+
+            <api-table title="Props: FluxPaneMedia">
+                <template #body>
+                    <tr>
+                        <td><code>image-alt</code><code>string</code></td>
+                        <td>Alt tag for the image.</td>
+                    </tr>
+                    <tr>
+                        <td><code>image-focal-point</code><code>[number, number]</code></td>
+                        <td>Focal point of the image.</td>
+                    </tr>
+                    <tr>
+                        <td><code>image-url</code><code>string</code></td>
+                        <td>Source url of the image.</td>
+                    </tr>
+                    <tr>
+                        <td><code>is-inset</code><code>boolean</code></td>
+                        <td>When applied, the media has some whitespace around it..</td>
+                    </tr>
+                    <tr>
+                        <td><code>span</code><code>number</code></td>
+                        <td>Within a Pane that has a grid, this controls how much columns it should take.</td>
+                    </tr>
+                    <tr>
+                        <td><code>span</code><code>number</code></td>
+                        <td>Within a Pane that has a grid, this controls how much columns it should take.</td>
                     </tr>
                 </template>
             </api-table>
@@ -200,6 +266,14 @@
             <code-preview
                 :code="deckCode as string"
                 :component="deck"/>
+
+            <h3>Media</h3>
+            <p>
+                A Pane that contains a PaneMedia component.
+            </p>
+            <code-preview
+                :code="mediaCode as string"
+                :component="media"/>
         </section>
     </flux-stack>
 </template>
@@ -219,4 +293,6 @@
     import formCode from '../../code/components/pane/form.vue?raw';
     import loading from '../../code/components/pane/loading.vue';
     import loadingCode from '../../code/components/pane/loading.vue?raw';
+    import media from '../../code/components/pane/media.vue';
+    import mediaCode from '../../code/components/pane/media.vue?raw';
 </script>

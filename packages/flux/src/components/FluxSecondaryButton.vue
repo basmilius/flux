@@ -58,12 +58,14 @@
 </script>
 
 <style lang="scss">
-    .flux-secondary-button {
-        --button-background: rgb(var(--gray-0));
-        --button-background-hover: rgb(var(--gray-2));
-        --button-background-active: rgb(var(--gray-3));
-        --button-foreground: var(--foreground);
-        --button-icon: var(--foreground-prominent);
-        --button-stroke: rgb(var(--gray-4) / .75);
+    @layer component {
+        .flux-secondary-button {
+            --button-background: rgb(var(--gray-0));
+            --button-background-hover: rgb(var(--gray-2));
+            --button-background-active: rgb(var(--gray-3));
+            --button-foreground: var(--foreground);
+            --button-icon: var(--foreground-prominent);
+            --button-stroke: rgb(var(--gray-4) / .75);
+        }
     }
 </style>

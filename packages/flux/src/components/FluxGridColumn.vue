@@ -45,7 +45,9 @@
 </script>
 
 <style lang="scss">
-    .flux-grid-column {
-        grid-column: span v-bind(span);
+    @layer component {
+        .flux-grid-column {
+            grid-column: span v-bind(span);
+        }
     }
 </style>

@@ -6,70 +6,85 @@
 
         <section>
             <preview>
-                <flux-stack :gap="15">
-                    <flux-pane
-                        href="/"
-                        :columns="3"
-                        style="max-width: 540px">
-                        <flux-pane-media image-url="https://staging.fanc.ee/uploads/shops/headers/vocrmejv.5mm.jpg" :image-focal-point="[80, 90]"/>
-                        <flux-pane-body :span="2">
-                            <h2>My Pane</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A dolores ducimus eligendi fuga, fugit impedit odit perferendis repellendus. Corporis distinctio doloremque earum enim fuga hic molestias perspiciatis quaerat quidem repellendus.</p>
-                        </flux-pane-body>
-                    </flux-pane>
+                <flux-pane>
+                    <flux-action-bar>
+                        <template #primary>
+                            <flux-primary-button
+                                icon-before="circle-plus"
+                                label="Event"/>
+                        </template>
 
-                    <flux-pane
-                        :columns="3"
-                        style="max-width: 540px">
-                        <flux-pane-media
-                            image-url="https://staging.fanc.ee/uploads/shops/headers/vocrmejv.5mm.jpg"
-                            is-inset/>
-                        <flux-pane-body :span="2">
-                            <h2>My Pane</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A dolores ducimus eligendi fuga, fugit impedit odit perferendis repellendus. Corporis distinctio doloremque earum enim fuga hic molestias perspiciatis quaerat quidem repellendus.</p>
-                        </flux-pane-body>
-                    </flux-pane>
+                        <template #filter>
+                            <flux-pane-body>
+                                Filter contents.
+                            </flux-pane-body>
+                        </template>
 
-                    <flux-pane
-                        :columns="3"
-                        style="max-width: 540px">
-                        <flux-pane-body :span="2">
-                            <h2>My Pane</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A dolores ducimus eligendi fuga, fugit impedit odit perferendis repellendus. Corporis distinctio doloremque earum enim fuga hic molestias perspiciatis quaerat quidem repellendus.</p>
-                        </flux-pane-body>
-                        <flux-pane-media image-url="https://staging.fanc.ee/uploads/shops/headers/vocrmejv.5mm.jpg"/>
-                    </flux-pane>
+                        <template #search>
+                            <flux-form-input
+                                type="search"
+                                placeholder="Search anything..."/>
+                        </template>
+                    </flux-action-bar>
 
-                    <flux-pane
-                        :columns="3"
-                        style="max-width: 540px">
-                        <flux-pane-body :span="2">
-                            <h2>My Pane</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A dolores ducimus eligendi fuga, fugit impedit odit perferendis repellendus. Corporis distinctio doloremque earum enim fuga hic molestias perspiciatis quaerat quidem repellendus.</p>
-                        </flux-pane-body>
-                        <flux-pane-media
-                            image-url="https://staging.fanc.ee/uploads/shops/headers/vocrmejv.5mm.jpg"
-                            is-inset/>
-                    </flux-pane>
+                    <flux-data-table
+                        :data-set="dataSet.slice((page - 1) * perPage, (page * perPage))"
+                        :page="page"
+                        :per-page="perPage"
+                        :total="dataSet.length"
+                        is-hoverable>
+                        <template #header>
+                            <flux-table-header>Name</flux-table-header>
+                            <flux-table-header>Email</flux-table-header>
+                            <flux-table-header is-shrinking>Status</flux-table-header>
+                            <flux-table-header is-shrinking/>
+                        </template>
 
-                    <flux-pane style="max-width: 540px">
-                        <flux-pane-media image-url="https://staging.fanc.ee/uploads/shops/headers/vocrmejv.5mm.jpg"/>
-                        <flux-pane-body>
-                            <h2>My Pane</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A dolores ducimus eligendi fuga, fugit impedit odit perferendis repellendus. Corporis distinctio doloremque earum enim fuga hic molestias perspiciatis quaerat quidem repellendus.</p>
-                        </flux-pane-body>
-                    </flux-pane>
+                        <template #name="{name}">
+                            <flux-table-cell>{{ name }}</flux-table-cell>
+                        </template>
 
-                    <flux-pane style="max-width: 540px">
-                        <flux-pane-media
-                            image-url="https://staging.fanc.ee/uploads/shops/headers/vocrmejv.5mm.jpg"
-                            is-inset/>
-                        <flux-pane-body>
-                            <h2>My Pane</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A dolores ducimus eligendi fuga, fugit impedit odit perferendis repellendus. Corporis distinctio doloremque earum enim fuga hic molestias perspiciatis quaerat quidem repellendus.</p>
-                        </flux-pane-body>
-                    </flux-pane>
-                </flux-stack>
+                        <template #email="{email}">
+                            <flux-table-cell>{{ email }}</flux-table-cell>
+                        </template>
+
+                        <template #isActive="{isActive}">
+                            <flux-table-cell>
+                                <flux-badge-stack>
+                                    <flux-badge
+                                        v-if="isActive"
+                                        color="success"
+                                        icon="circle-check"
+                                        label="Active"/>
+
+
+                                    <flux-badge
+                                        v-else
+                                        color="danger"
+                                        icon="circle-xmark"
+                                        label="Inactive"/>
+                                </flux-badge-stack>
+                            </flux-table-cell>
+                        </template>
+
+                        <template #actions="{}">
+                            <flux-table-cell>
+                                <flux-table-actions>
+                                    <flux-table-action icon="pen"/>
+                                    <flux-table-action icon="ellipsis-h"/>
+                                </flux-table-actions>
+                            </flux-table-cell>
+                        </template>
+                    </flux-data-table>
+                    <flux-pane-footer>
+                        <flux-pagination-bar
+                            :page="page"
+                            :per-page="perPage"
+                            :total="dataSet.length"
+                            @limit="setPerPage"
+                            @navigate="setPage"/>
+                    </flux-pane-footer>
+                </flux-pane>
             </preview>
 
             <preview>
@@ -82,6 +97,25 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneBody, FluxPaneMedia, FluxStack } from '@fancee/flux';
+    import { FluxActionBar, FluxBadge, FluxBadgeStack, FluxDataTable, FluxFormInput, FluxPaginationBar, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPrimaryButton, FluxStack, FluxTableAction, FluxTableActions, FluxTableCell, FluxTableHeader } from '@fancee/flux';
     import { PageTitle, Preview } from '@/components';
+    import { computed, ref } from 'vue';
+
+    const dataSet = computed(() => Array(95).fill(null).map((_, index) => ({
+        id: index,
+        name: `Name ${index + 1}`,
+        email: `entry-${index + 1}@fanc.ee`,
+        isActive: index % 2 === 0
+    })));
+
+    const page = ref(1);
+    const perPage = ref(5);
+
+    function setPage(p: number): void {
+        page.value = p;
+    }
+
+    function setPerPage(limit: number): void {
+        perPage.value = limit;
+    }
 </script>

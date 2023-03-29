@@ -63,48 +63,50 @@
 </script>
 
 <style lang="scss">
-    .flux-form-field {
-        display: flex;
-        flex-flow: column;
-        flex: 1 1 0;
-        gap: 6px;
-
-        &-header {
+    @layer component {
+        .flux-form-field {
             display: flex;
-            margin-bottom: 0;
-            align-items: center;
+            flex-flow: column;
+            flex: 1 1 0;
             gap: 6px;
-            font-size: unset;
-        }
 
-        &-label {
-            min-height: 1.6em;
-            color: var(--foreground-prominent);
-            font-size: 15px;
-            font-weight: 600;
-        }
-
-        &-optional {
-            color: var(--foreground-secondary);
-            font-size: .85em;
-        }
-
-        &-addition {
-            display: flex;
-            gap: 9px;
-            font-size: 14px;
-
-            &-icon {
-                margin-top: 2px;
-                flex-shrink: 0;
+            &-header {
+                display: flex;
+                margin-bottom: 0;
+                align-items: center;
+                gap: 6px;
+                font-size: unset;
             }
 
-            &-error {
-                color: rgb(var(--danger-7));
+            &-label {
+                min-height: 1.6em;
+                color: var(--foreground-prominent);
+                font-size: 15px;
+                font-weight: 600;
             }
 
-            &-hint {
+            &-optional {
                 color: var(--foreground-secondary);
+                font-size: .85em;
+            }
+
+            &-addition {
+                display: flex;
+                gap: 9px;
+                font-size: 14px;
+
+                &-icon {
+                    margin-top: 2px;
+                    flex-shrink: 0;
+                }
+
+                &-error {
+                    color: rgb(var(--danger-7));
+                }
+
+                &-hint {
+                    color: var(--foreground-secondary);
+                }
             }
         }
     }

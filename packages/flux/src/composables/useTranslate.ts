@@ -10,6 +10,8 @@ const english: Record<string, string> = {
     flux_ok: 'Ok',
     flux_optional: 'Optional',
     flux_preview: 'Preview',
+    flux_displaying_of: '{from}–{to} of {total}',
+    flux_rows_per_page: 'Rows per page',
     flux_gallery_placeholder_button: 'Pick image',
     flux_gallery_placeholder_message: 'Drop an image here or click the button to upload...',
     flux_gallery_placeholder_title: 'Gallery'
@@ -30,11 +32,11 @@ export function useTranslate(): Translator {
         let translation = english[key];
 
         for (let paramName in params) {
-            translation = translation.replaceAll(`{${paramName}}`, params[paramName]);
+            translation = translation.replaceAll(`{${paramName}}`, params[paramName].toString());
         }
 
         return translation;
     };
 }
 
-type Translator = (key: string, params?: Record<string, string>) => string;
+type Translator = (key: string, params?: Record<string, string | number>) => string;

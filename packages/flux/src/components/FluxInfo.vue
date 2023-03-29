@@ -24,16 +24,20 @@
 </script>
 
 <style lang="scss">
-    .flux-info {
-        display: flex;
-        gap: 15px;
+    @layer component {
+        .flux-info {
+            display: flex;
+            gap: 15px;
 
-        &-body {
-            align-items: center;
-            line-height: 1.5;
+            &-body {
+                align-items: center;
+                line-height: 1.5;
+            }
         }
+    }
 
-        &-icon {
+    @layer cosy {
+        .flux-info > .flux-icon {
             margin-top: 1px;
             flex-shrink: 0;
             color: rgb(var(--primary-7));

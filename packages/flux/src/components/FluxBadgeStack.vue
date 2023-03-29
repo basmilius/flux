@@ -5,9 +5,11 @@
 </template>
 
 <style lang="scss">
-    .flux-badge-stack {
-        display: flex;
-        flex-flow: row wrap;
-        gap: 6px;
+    @layer component {
+        .flux-badge-stack {
+            display: flex;
+            flex-flow: row wrap;
+            gap: 6px;
+        }
     }
 </style>

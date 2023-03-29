@@ -30,24 +30,26 @@
 </script>
 
 <style lang="scss">
-    .flux-pane-header {
-        display: flex;
-        padding: 21px 21px 0;
-        align-items: center;
-        gap: 15px;
+    @layer component {
+        .flux-pane-header {
+            display: flex;
+            padding: 21px 21px 0;
+            align-items: center;
+            gap: 15px;
 
-        &-icon {
-            color: rgb(var(--primary-7));
-        }
+            &-icon {
+                color: rgb(var(--primary-7));
+            }
 
-        &-title {
-            flex-grow: 1;
-            color: var(--foreground-prominent);
-            font-weight: 700;
-        }
+            &-title {
+                flex-grow: 1;
+                color: var(--foreground-prominent);
+                font-weight: 700;
+            }
 
-        &:first-child {
-            border-radius: var(--radius) var(--radius) 0 0;
+            &:first-child {
+                border-radius: var(--radius) var(--radius) 0 0;
+            }
         }
     }
 </style>

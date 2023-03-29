@@ -1,0 +1,71 @@
+<template>
+    <div
+        class="flux-table"
+        :class="{
+            'is-hoverable': isHoverable
+        }">
+        <table class="flux-table-base">
+            <thead v-if="slots.header">
+            <slot name="header"/>
+            </thead>
+
+            <tbody>
+            <slot name="rows"/>
+            </tbody>
+
+            <tfoot v-if="slots.footer">
+            <slot name="footer"/>
+            </tfoot>
+
+            <caption v-if="slots.caption">
+                <slot name="caption"/>
+            </caption>
+        </table>
+    </div>
+</template>
+
+<script
+    lang="ts"
+    setup>
+    import { useSlots } from 'vue-demi';
+
+    export interface Props {
+        readonly captionSide?: 'top' | 'bottom';
+        readonly isHoverable?: boolean;
+    }
+
+    withDefaults(defineProps<Props>(), {
+        captionSide: 'bottom'
+    });
+
+    const slots = useSlots();
+</script>
+
+<style lang="scss">
+    @layer component {
+        .flux-table {
+            overflow: auto;
+
+            &-base {
+                min-width: 100%;
+                border: 0;
+                border-spacing: 0;
+                text-align: left;
+            }
+
+            caption {
+                caption-side: v-bind(captionSide);
+                color: var(--foreground-secondary);
+                font-size: 14px;
+            }
+        }
+    }
+
+    @layer cosy {
+        .flux-pane > .flux-table-scroll > .flux-table caption {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            border-top: 1px solid rgb(var(--gray-3));
+        }
+    }
+</style>

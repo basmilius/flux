@@ -25,7 +25,7 @@
 
         <flux-fade-transition>
             <div
-                v-if="isDragging"
+                v-if="isDragging && !isDisabled"
                 class="flux-drop-zone-hint"
                 :class="{'is-over': isDraggingOver}"/>
         </flux-fade-transition>
@@ -145,21 +145,23 @@
 </script>
 
 <style lang="scss">
-    .flux-drop-zone {
-        position: relative;
+    @layer component {
+        .flux-drop-zone {
+            position: relative;
 
-        &-hint {
-            position: absolute;
-            inset: 0;
-            border-radius: var(--radius);
-            outline: 3px dotted rgb(var(--primary-7));
-            outline-offset: -2px;
-            animation: flux-drop-zone-hint 540ms infinite var(--deceleration-curve) alternate;
-            transition: background 300ms var(--swift-out);
+            &-hint {
+                position: absolute;
+                inset: 0;
+                border-radius: var(--radius);
+                outline: 3px dotted rgb(var(--primary-7));
+                outline-offset: -2px;
+                animation: flux-drop-zone-hint 540ms infinite var(--deceleration-curve) alternate;
+                transition: background 300ms var(--swift-out);
 
-            &.is-over {
-                outline-style: solid;
-                animation: none;
+                &.is-over {
+                    outline-style: solid;
+                    animation: none;
+                }
             }
         }
     }

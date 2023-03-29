@@ -35,39 +35,40 @@
 </script>
 
 <style lang="scss">
-    .flux-stack {
-        display: flex;
-        gap: var(--gap);
+    @layer component {
+        .flux-stack {
+            display: flex;
+            gap: var(--gap);
 
-        &-horizontal {
-            align-items: stretch;
-            flex-flow: row;
-        }
+            &-horizontal {
+                flex-flow: row;
+            }
 
-        &-vertical {
-            flex-flow: column;
-        }
+            &-vertical {
+                flex-flow: column;
+            }
 
-        > .flux-separator {
-            margin-top: 21px;
-            margin-bottom: 21px;
-        }
+            > .flux-separator {
+                margin-top: 21px;
+                margin-bottom: 21px;
+            }
 
-        &-centered {
-            place-items: center;
-            place-content: center;
-        }
+            &-centered {
+                place-items: center;
+                place-content: center;
+            }
 
-        &-fill {
-            width: 100%;
-        }
+            &-fill {
+                width: 100%;
+            }
 
-        &-growing > *:not(.flux-separator) {
-            flex: 1 1 0;
-        }
+            &-growing > *:not(.flux-separator) {
+                flex: 1 1 0;
+            }
 
-        &-wrapping {
-            flex-wrap: wrap;
+            &-wrapping {
+                flex-wrap: wrap;
+            }
         }
     }
 </style>

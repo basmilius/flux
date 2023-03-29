@@ -70,97 +70,99 @@
 <style lang="scss">
     @use '../scss/mixin' as flux;
 
-    .flux-toggle {
-        position: relative;
-        width: 54px;
-        height: 30px;
-        background: rgb(var(--gray-3));
-        border-radius: 99px;
-
-        &-icon {
-            position: absolute;
-            top: 50%;
-            color: var(--foreground-secondary);
-            pointer-events: none;
-            translate: -50% -50%;
-
-            &-off {
-                left: 15px;
-            }
-
-            &-on {
-                left: 39px;
-            }
-        }
-
-        &-input {
-            -webkit-appearance: none;
-            appearance: none;
-
+    @layer component {
+        .flux-toggle {
             position: relative;
-            display: block;
-            margin: 0;
-            height: inherit;
-            width: inherit;
-            background: unset;
-            border: 0;
-            border-radius: inherit;
-            cursor: pointer;
-            outline: 0;
+            width: 54px;
+            height: 30px;
+            background: rgb(var(--gray-3));
+            border-radius: 99px;
 
-            @include flux.focus-ring(2px);
-
-            &::after {
+            &-icon {
                 position: absolute;
-                display: block;
-                top: 3px;
-                left: 3px;
-                height: 24px;
-                width: 24px;
-                content: '';
-                background: rgb(var(--gray-0));
-                border: 1px solid rgb(var(--gray-5));
-                border-radius: 99px;
-                box-shadow: var(--shadow-small);
+                top: 50%;
+                color: var(--foreground-secondary);
+                pointer-events: none;
+                translate: -50% -50%;
+
+                &-off {
+                    left: 15px;
+                }
+
+                &-on {
+                    left: 39px;
+                }
             }
-        }
 
-        &,
-        &-icon,
-        &-input,
-        &-input::after {
-            transition: 210ms var(--swift-out);
-            transition-property: background, border-color, color, opacity, scale, translate, flux.focus-ring-transition-properties();
-        }
+            &-input {
+                -webkit-appearance: none;
+                appearance: none;
 
-        &-checked:not(&-switch) &-icon {
-            color: rgb(var(--primary-0));
-        }
+                position: relative;
+                display: block;
+                margin: 0;
+                height: inherit;
+                width: inherit;
+                background: unset;
+                border: 0;
+                border-radius: inherit;
+                cursor: pointer;
+                outline: 0;
 
-        &-checked:not(&-switch) {
-            background: rgb(var(--primary-7));
-        }
+                @include flux.focus-ring(2px);
 
-        &-checked:not(&-switch) &-input::after {
-            border-color: transparent;
-        }
+                &::after {
+                    position: absolute;
+                    display: block;
+                    top: 3px;
+                    left: 3px;
+                    height: 24px;
+                    width: 24px;
+                    content: '';
+                    background: rgb(var(--gray-0));
+                    border: 1px solid rgb(var(--gray-5));
+                    border-radius: 99px;
+                    box-shadow: var(--shadow-small);
+                }
+            }
 
-        &-checked &-input::after {
-            translate: 24px 0;
-        }
+            &,
+            &-icon,
+            &-input,
+            &-input::after {
+                transition: 210ms var(--swift-out);
+                transition-property: background, border-color, color, opacity, scale, translate, flux.focus-ring-transition-properties();
+            }
 
-        &:not(&-checked) &-icon-off,
-        &-checked &-icon-on {
-            opacity: 0;
-            scale: .5;
-        }
+            &-checked:not(&-switch) &-icon {
+                color: rgb(var(--primary-0));
+            }
 
-        &-checked &-icon-on {
-            translate: calc(-50% - 6px) -50%;
-        }
+            &-checked:not(&-switch) {
+                background: rgb(var(--primary-7));
+            }
 
-        &:not(&-checked) &-icon-off {
-            translate: calc(-50% + 6px) -50%;
+            &-checked:not(&-switch) &-input::after {
+                border-color: transparent;
+            }
+
+            &-checked &-input::after {
+                translate: 24px 0;
+            }
+
+            &:not(&-checked) &-icon-off,
+            &-checked &-icon-on {
+                opacity: 0;
+                scale: .5;
+            }
+
+            &-checked &-icon-on {
+                translate: calc(-50% - 6px) -50%;
+            }
+
+            &:not(&-checked) &-icon-off {
+                translate: calc(-50% + 6px) -50%;
+            }
         }
     }
 </style>

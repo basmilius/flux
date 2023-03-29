@@ -71,6 +71,10 @@
                         <td>The initials to use within the fallback.</td>
                     </tr>
                     <tr>
+                        <td><code>is-clickable</code><code>boolean</code></td>
+                        <td>Controls if the avatar is clickable.</td>
+                    </tr>
+                    <tr>
                         <td><code>size</code><code>number</code></td>
                         <td>The size of the avatar.</td>
                     </tr>
@@ -96,10 +100,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxAvatar, FluxPane, FluxPaneBody, FluxPaneHeader, FluxStack, FluxTab, FluxTabBar, FluxTabBarItem, FluxTabs, FluxToggle } from '@fancee/flux';
-    import { ref } from 'vue';
+    import { FluxAvatar, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
     import { ApiTable, PageTitle, Preview } from '@/components';
-
-    const toggle1 = ref(true);
-    const toggle2 = ref(false);
 </script>

@@ -1,5 +1,7 @@
 <template>
-    <flux-pane-deck style="width: 90%; margin: 0 auto;">
+    <flux-pane-deck
+        :min-column-width="150"
+        style="width: 90%; margin: 0 auto;">
         <flux-pane>
             <flux-pane-body>
                 Pane 1
@@ -21,9 +23,5 @@
 <script
     lang="ts"
     setup>
-    import {
-        FluxPane,
-        FluxPaneBody,
-        FluxPaneDeck
-    } from '@fancee/flux';
+    import { FluxPane, FluxPaneBody, FluxPaneDeck } from '@fancee/flux';
 </script>

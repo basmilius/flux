@@ -1,17 +1,17 @@
 <template>
-    <div class="flux-surface flux-pane flux-pane-deck">
+    <flux-pane class="flux-pane-deck">
         <flux-auto-grid
             :gap="0"
             :min-column-width="minColumnWidth">
             <slot/>
         </flux-auto-grid>
-    </div>
+    </flux-pane>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxAutoGrid } from '.';
+    import { FluxAutoGrid, FluxPane } from '.';
 
     export interface Props {
         readonly minColumnWidth: number;
@@ -21,20 +21,26 @@
 </script>
 
 <style lang="scss">
-    .flux-pane.flux-pane-deck {
-        overflow: hidden;
-
-        > .flux-auto-grid {
-            margin-right: -1px;
-            margin-bottom: -1px;
+    @layer component {
+        .flux-pane-deck {
+            overflow: hidden;
         }
+    }
 
-        > .flux-auto-grid > .flux-pane {
-            border: 1px solid rgb(var(--gray-3));
-            border-top: 0;
-            border-left: 0;
-            border-radius: 0;
-            box-shadow: none;
+    @layer cosy {
+        .flux-pane-deck {
+            > .flux-auto-grid {
+                margin-right: -1px;
+                margin-bottom: -1px;
+            }
+
+            > .flux-auto-grid > .flux-pane {
+                border: 1px solid rgb(var(--gray-3));
+                border-top: 0;
+                border-left: 0;
+                border-radius: 0;
+                box-shadow: none;
+            }
         }
     }
 </style>
