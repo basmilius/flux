@@ -37,6 +37,16 @@
             }
         }
 
+        .flux-pane > .flux-table .flux-table-cell {
+            &:first-child {
+                padding-left: 21px;
+            }
+
+            &:last-child {
+                padding-right: 21px;
+            }
+        }
+
         :not(.flux-pane) > .flux-table .flux-table-cell {
             &:first-child {
                 padding-left: 0;
