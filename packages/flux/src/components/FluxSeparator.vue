@@ -2,8 +2,8 @@
     <div
         class="flux-separator"
         :class="{
-            'flux-separator-horizontal': axis === 'horizontal',
-            'flux-separator-vertical': axis === 'vertical'
+            'is-horizontal': axis === 'horizontal',
+            'is-vertical': axis === 'vertical'
         }"/>
 </template>
 
@@ -24,11 +24,11 @@
         .flux-separator {
             background: rgb(var(--gray-3));
 
-            &-horizontal {
+            &.is-horizontal {
                 height: 1px;
             }
 
-            &-vertical {
+            &.is-vertical {
                 width: 1px;
             }
         }

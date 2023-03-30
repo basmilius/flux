@@ -62,6 +62,7 @@
 <style lang="scss">
     @layer component {
         .flux-icon {
+            display: inline-block;
             height: 1em;
             width: 1em;
             font-size: calc(v-bind(size) * 1px);
