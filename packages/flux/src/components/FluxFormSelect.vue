@@ -35,6 +35,12 @@
             type="search"
             @keydown="onKeyDown"/>
 
+        <template v-else-if="placeholder && !selectedOptions[0]">
+            <span class="flux-form-select-placeholder">
+                {{ placeholder }}
+            </span>
+        </template>
+
         <flux-icon
             class="flux-form-select-icon"
             variant="angle-down"/>
@@ -257,9 +263,9 @@
             const bottom = top + height + inputHeight + 39;
 
             if (bottom <= innerHeight) {
-                popupY.value = inputHeight + 9;
+                popupY.value = inputHeight + 6;
             } else {
-                popupY.value = -height - 9;
+                popupY.value = -height - 6;
             }
         });
     }
@@ -342,6 +348,12 @@
             &::-webkit-search-results-decoration {
                 -webkit-appearance: none;
             }
+        }
+
+        &-placeholder {
+            margin-left: 6px;
+            margin-right: 6px;
+            color: var(--foreground-secondary);
         }
 
         &-popup {
