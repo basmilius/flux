@@ -122,7 +122,6 @@
                         type="route"/>
 
                     <flux-menu-item
-                        disabled
                         label="Data table"
                         to="/components/data-table"
                         type="route"/>
@@ -330,6 +329,11 @@
                     <flux-menu-item
                         label="Statistic"
                         to="/components/statistic"
+                        type="route"/>
+
+                    <flux-menu-item
+                        label="Table"
+                        to="/components/table"
                         type="route"/>
 
                     <flux-menu-item
