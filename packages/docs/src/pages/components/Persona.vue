@@ -15,6 +15,8 @@
                             name="Bas Milius"
                             title="Flux Engineer"/>
 
+                        <flux-spacer/>
+
                         <flux-persona
                             avatar-alt="Bas"
                             :avatar-size="42"
@@ -95,6 +97,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneBody, FluxPersona, FluxStack } from '@fancee/flux';
+    import { FluxPane, FluxPaneBody, FluxPersona, FluxSpacer, FluxStack } from '@fancee/flux';
     import { ApiTable, PageTitle, Preview } from '@/components';
 </script>
