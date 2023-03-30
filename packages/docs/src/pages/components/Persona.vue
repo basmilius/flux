@@ -7,12 +7,22 @@
         <preview>
             <flux-pane style="width: 60%">
                 <flux-pane-body>
-                    <flux-persona
-                        avatar-alt="Bas"
-                        :avatar-size="42"
-                        avatar-url="https://imgproxy.glybe.nl/120,q75,jpg/1-b38d42e52f851f0ec94d118fad965277e3915b89da1012cef7e58674e3cf219a-img1386.jpeg"
-                        name="Bas Milius"
-                        title="Flux Engineer"/>
+                    <flux-stack axis="horizontal">
+                        <flux-persona
+                            avatar-alt="Bas"
+                            :avatar-size="42"
+                            avatar-url="https://imgproxy.glybe.nl/120,q75,jpg/1-b38d42e52f851f0ec94d118fad965277e3915b89da1012cef7e58674e3cf219a-img1386.jpeg"
+                            name="Bas Milius"
+                            title="Flux Engineer"/>
+
+                        <flux-persona
+                            avatar-alt="Bas"
+                            :avatar-size="42"
+                            avatar-url="https://imgproxy.glybe.nl/120,q75,jpg/1-b38d42e52f851f0ec94d118fad965277e3915b89da1012cef7e58674e3cf219a-img1386.jpeg"
+                            is-compact
+                            name="Bas Milius"
+                            title="Flux Engineer"/>
+                    </flux-stack>
                 </flux-pane-body>
             </flux-pane>
         </preview>
@@ -54,6 +64,10 @@
                     <tr>
                         <td><code>avatar-url</code><code>string</code></td>
                         <td>URL to the image displayed within the avatar.</td>
+                    </tr>
+                    <tr>
+                        <td><code>is-compact</code><code>boolean</code></td>
+                        <td>Use the compact version of the persona.</td>
                     </tr>
                     <tr>
                         <td><code>name</code><code>string</code></td>
