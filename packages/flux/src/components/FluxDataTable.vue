@@ -12,7 +12,7 @@
 
         <template #rows>
             <flux-table-row
-                v-for="(row, index) of dataSet"
+                v-for="(row, index) of dataSet.slice(0, perPage)"
                 :key="uniqueKey ? row[uniqueKey] : index">
                 <template v-for="(_, name) of slots">
                     <template v-if="name !== 'header'">

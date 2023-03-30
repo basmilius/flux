@@ -10,10 +10,12 @@
             :size="avatarSize"
             :url="avatarUrl"/>
 
-        <div class="flux-persona-details">
-            <strong>{{ name }}</strong>
-            <span>{{ title }}</span>
-        </div>
+        <template v-if="!isCompact">
+            <div class="flux-persona-details">
+                <strong>{{ name }}</strong>
+                <span>{{ title }}</span>
+            </div>
+        </template>
     </button>
 </template>
 
@@ -34,6 +36,7 @@
         readonly avatarFallbackInitials?: string;
         readonly avatarSize?: number;
         readonly avatarUrl?: string;
+        readonly isCompact?: boolean;
         readonly name: string;
         readonly title: string;
     }
@@ -51,7 +54,7 @@
     @layer component {
         .flux-persona {
             display: flex;
-            padding: 6px 15px 6px 6px;
+            padding: 6px;
             align-items: center;
             gap: 12px;
             background: unset;
@@ -70,6 +73,7 @@
 
             &-details {
                 display: flex;
+                margin-right: 9px;
                 flex-flow: column;
                 gap: 3px;
                 line-height: 1.2;

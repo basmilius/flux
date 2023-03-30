@@ -54,6 +54,10 @@ export const router = createRouter({
                     component: () => import('./pages/components/Chip.vue')
                 },
                 {
+                    path: '/components/data-table',
+                    component: () => import('./pages/components/DataTable.vue')
+                },
+                {
                     path: '/components/date-picker',
                     component: () => import('./pages/components/DatePicker.vue')
                 },
@@ -168,6 +172,10 @@ export const router = createRouter({
                 {
                     path: '/components/statistic',
                     component: () => import('./pages/components/Statistic.vue')
+                },
+                {
+                    path: '/components/table',
+                    component: () => import('./pages/components/Table.vue')
                 },
                 {
                     path: '/components/tabs',

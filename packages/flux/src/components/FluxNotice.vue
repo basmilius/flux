@@ -226,4 +226,12 @@
             }
         }
     }
+
+    @layer cosy {
+        .flux-notice ul {
+            margin-top: 3px;
+            padding-left: 1em;
+            list-style-type: disc;
+        }
+    }
 </style>
