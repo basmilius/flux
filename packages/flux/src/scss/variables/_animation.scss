@@ -1,8 +1,6 @@
-@layer base {
-    :root {
-        --acceleration-curve: cubic-bezier(0.4, 0, 1, 1);
-        --deceleration-curve: cubic-bezier(0, 0, 0.2, 1);
-        --standard-curve: cubic-bezier(0.4, 0, 0.2, 1);
-        --swift-out: cubic-bezier(0.55, 0, 0.1, 1);
-    }
+:root {
+    --acceleration-curve: cubic-bezier(0.4, 0, 1, 1);
+    --deceleration-curve: cubic-bezier(0, 0, 0.2, 1);
+    --standard-curve: cubic-bezier(0.4, 0, 0.2, 1);
+    --swift-out: cubic-bezier(0.55, 0, 0.1, 1);
 }

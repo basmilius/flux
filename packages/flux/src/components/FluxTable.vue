@@ -42,30 +42,26 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-table {
-            overflow: auto;
+    .flux-table {
+        overflow: auto;
 
-            &-base {
-                min-width: 100%;
-                border: 0;
-                border-spacing: 0;
-                text-align: left;
-            }
+        &-base {
+            min-width: 100%;
+            border: 0;
+            border-spacing: 0;
+            text-align: left;
+        }
 
-            caption {
-                caption-side: v-bind(captionSide);
-                color: var(--foreground-secondary);
-                font-size: 14px;
-            }
+        caption {
+            caption-side: v-bind(captionSide);
+            color: var(--foreground-secondary);
+            font-size: 14px;
         }
     }
 
-    @layer cosy {
-        .flux-pane > .flux-table-scroll > .flux-table caption {
-            padding-top: 12px;
-            padding-bottom: 12px;
-            border-top: 1px solid rgb(var(--gray-3));
-        }
+    .flux-pane > .flux-table-scroll > .flux-table caption {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        border-top: 1px solid rgb(var(--gray-3));
     }
 </style>

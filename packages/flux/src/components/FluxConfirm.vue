@@ -35,10 +35,8 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-confirm {
-            max-width: 540px;
-            width: calc(100dvw - 90px);
-        }
+    .flux-confirm {
+        max-width: 540px;
+        width: calc(100dvw - 90px);
     }
 </style>

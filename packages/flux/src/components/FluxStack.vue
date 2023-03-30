@@ -2,15 +2,12 @@
     <div
         class="flux-stack"
         :class="{
-            'flux-stack-horizontal': axis === 'horizontal',
-            'flux-stack-vertical': axis === 'vertical',
-            'flux-stack-centered': isCentered,
-            'flux-stack-fill': isFill,
-            'flux-stack-growing': isGrowing,
-            'flux-stack-wrapping': isWrapping
-        }"
-        :style="{
-            '--gap': `${gap}px`
+            'is-horizontal': axis === 'horizontal',
+            'is-vertical': axis === 'vertical',
+            'is-centered': isCentered,
+            'is-fill': isFill,
+            'is-growing': isGrowing,
+            'is-wrapping': isWrapping
         }">
         <slot/>
     </div>
@@ -35,40 +32,38 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-stack {
-            display: flex;
-            gap: var(--gap);
+    .flux-stack {
+        display: flex;
+        gap: calc(v-bind(gap) * 1px);
 
-            &-horizontal {
-                flex-flow: row;
-            }
+        &.is-horizontal {
+            flex-flow: row;
+        }
 
-            &-vertical {
-                flex-flow: column;
-            }
+        &.is-vertical {
+            flex-flow: column;
+        }
 
-            > .flux-separator {
-                margin-top: 21px;
-                margin-bottom: 21px;
-            }
+        &.is-centered {
+            place-items: center;
+            place-content: center;
+        }
 
-            &-centered {
-                place-items: center;
-                place-content: center;
-            }
+        &.is-fill {
+            width: 100%;
+        }
 
-            &-fill {
-                width: 100%;
-            }
+        &.is-wrapping {
+            flex-wrap: wrap;
+        }
 
-            &-growing > *:not(.flux-separator) {
-                flex: 1 1 0;
-            }
+        > .flux-separator {
+            margin-top: 21px;
+            margin-bottom: 21px;
+        }
 
-            &-wrapping {
-                flex-wrap: wrap;
-            }
+        &.is-growing > *:not(.flux-separator) {
+            flex: 1 1 0;
         }
     }
 </style>

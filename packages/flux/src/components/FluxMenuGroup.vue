@@ -17,16 +17,14 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-menu-group {
-            display: flex;
-            flex-flow: column;
-            gap: 1px;
+    .flux-menu-group {
+        display: flex;
+        flex-flow: column;
+        gap: 1px;
 
-            &.is-horizontal {
-                flex-flow: row;
-                gap: 3px;
-            }
+        &.is-horizontal {
+            flex-flow: row;
+            gap: 3px;
         }
     }
 </style>

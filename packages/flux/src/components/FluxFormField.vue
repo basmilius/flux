@@ -63,50 +63,49 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-form-field {
+    .flux-form-field {
+        display: flex;
+        flex-flow: column;
+        flex: 1 1 0;
+        gap: 6px;
+
+        &-header {
             display: flex;
-            flex-flow: column;
-            flex: 1 1 0;
+            margin-bottom: 0;
+            align-items: center;
+            align-self: start;
             gap: 6px;
+            font-size: unset;
+        }
 
-            &-header {
-                display: flex;
-                margin-bottom: 0;
-                align-items: center;
-                gap: 6px;
-                font-size: unset;
+        &-label {
+            min-height: 1.6em;
+            color: var(--foreground-prominent);
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        &-optional {
+            color: var(--foreground-secondary);
+            font-size: .85em;
+        }
+
+        &-addition {
+            display: flex;
+            gap: 9px;
+            font-size: 14px;
+
+            &-icon {
+                margin-top: 2px;
+                flex-shrink: 0;
             }
 
-            &-label {
-                min-height: 1.6em;
-                color: var(--foreground-prominent);
-                font-size: 15px;
-                font-weight: 600;
+            &-error {
+                color: rgb(var(--danger-7));
             }
 
-            &-optional {
+            &-hint {
                 color: var(--foreground-secondary);
-                font-size: .85em;
-            }
-
-            &-addition {
-                display: flex;
-                gap: 9px;
-                font-size: 14px;
-
-                &-icon {
-                    margin-top: 2px;
-                    flex-shrink: 0;
-                }
-
-                &-error {
-                    color: rgb(var(--danger-7));
-                }
-
-                &-hint {
-                    color: var(--foreground-secondary);
-                }
             }
         }
     }

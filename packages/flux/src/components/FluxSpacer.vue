@@ -3,9 +3,7 @@
 </template>
 
 <style lang="scss">
-    @layer component {
-        .flux-spacer {
-            flex-grow: 1;
-        }
+    .flux-spacer {
+        flex-grow: 1;
     }
 </style>

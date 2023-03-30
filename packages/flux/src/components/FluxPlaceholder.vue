@@ -61,74 +61,72 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-placeholder {
-            position: relative;
+    .flux-placeholder {
+        position: relative;
+        display: flex;
+        align-items: center;
+        flex: 1 1 0;
+        flex-flow: column;
+        gap: 0;
+        justify-content: center;
+        background: rgb(var(--gray-2));
+        border: 2px dashed rgb(var(--gray-4));
+        border-radius: var(--radius);
+        text-align: center;
+        user-select: none;
+
+        &.is-button {
+            cursor: pointer;
+
+            &:hover {
+                background: rgb(var(--gray-3));
+                border-color: rgb(var(--gray-5));
+            }
+        }
+
+        &-icon {
+            color: rgb(var(--primary-7));
+            font-size: 20px;
+        }
+
+        &-caption {
             display: flex;
-            align-items: center;
-            flex: 1 1 0;
+            align-items: stretch;
             flex-flow: column;
-            gap: 0;
-            justify-content: center;
-            background: rgb(var(--gray-2));
-            border: 2px dashed rgb(var(--gray-4));
-            border-radius: var(--radius);
-            text-align: center;
-            user-select: none;
+        }
 
-            &.is-button {
-                cursor: pointer;
+        &-message {
+            margin: 0;
+            max-width: 510px;
+            color: var(--foreground-secondary);
+            font-size: 14px;
+        }
 
-                &:hover {
-                    background: rgb(var(--gray-3));
-                    border-color: rgb(var(--gray-5));
-                }
-            }
+        &-extended {
+            padding: 27px;
+            gap: 9px;
+        }
 
-            &-icon {
-                color: rgb(var(--primary-7));
-                font-size: 20px;
-            }
+        &-extended &-icon {
+            font-size: 24px;
+        }
 
-            &-caption {
-                display: flex;
-                align-items: stretch;
-                flex-flow: column;
-            }
+        &-simple {
+            padding: 18px;
+        }
 
-            &-message {
-                margin: 0;
-                max-width: 510px;
-                color: var(--foreground-secondary);
-                font-size: 14px;
-            }
+        &-small {
+            padding: 12px;
+            font-size: 12px;
+        }
 
-            &-extended {
-                padding: 27px;
-                gap: 9px;
-            }
+        &-small &-icon {
+            color: var(--foreground-secondary);
+        }
 
-            &-extended &-icon {
-                font-size: 24px;
-            }
-
-            &-simple {
-                padding: 18px;
-            }
-
-            &-small {
-                padding: 12px;
-                font-size: 12px;
-            }
-
-            &-small &-icon {
-                color: var(--foreground-secondary);
-            }
-
-            &-small &-title {
-                color: var(--foreground-secondary);
-                font-weight: 400;
-            }
+        &-small &-title {
+            color: var(--foreground-secondary);
+            font-weight: 400;
         }
     }
 </style>

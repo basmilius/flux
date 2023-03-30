@@ -164,29 +164,23 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-filter {
-            min-width: 300px;
-            scrollbar-width: none;
+    .flux-filter {
+        min-width: 300px;
+        scrollbar-width: none;
 
-            &::-webkit-scrollbar {
-                display: none;
-                height: 0;
-                width: 0;
-            }
+        &::-webkit-scrollbar {
+            display: none;
+            height: 0;
+            width: 0;
         }
-    }
 
-    @layer cosy {
-        .flux-filter {
-            &-back {
-                flex-grow: 1;
-            }
+        &-back {
+            flex-grow: 1;
+        }
 
-            &-reset {
-                width: 42px;
-                justify-content: center;
-            }
+        &-reset {
+            width: 42px;
+            justify-content: center;
         }
     }
 </style>

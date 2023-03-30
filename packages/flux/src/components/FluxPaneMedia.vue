@@ -34,72 +34,68 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-pane-media {
-            position: relative;
-            overflow: hidden;
+    .flux-pane-media {
+        position: relative;
+        overflow: hidden;
 
-            &.is-inset {
-                margin: 21px;
-                border-radius: var(--radius);
-            }
+        &.is-inset {
+            margin: 21px;
+            border-radius: var(--radius);
+        }
 
-            &-image {
-                display: block;
-                height: 100%;
-                width: 100%;
-                margin: 0;
-                object-fit: cover;
-                object-position: calc(v-bind(focalPointX) * 1%) calc(v-bind(focalPointY) * 1%);
-            }
+        &-image {
+            display: block;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            object-fit: cover;
+            object-position: calc(v-bind(focalPointX) * 1%) calc(v-bind(focalPointY) * 1%);
         }
     }
 
-    @layer cosy {
-        .flux-pane:not(.is-grid) > .flux-pane-media:not(.is-inset) {
-            &:first-child {
-                border-top-left-radius: var(--radius);
-                border-top-right-radius: var(--radius);
-            }
-
-            &:last-child {
-                border-bottom-left-radius: var(--radius);
-                border-bottom-right-radius: var(--radius);
-            }
+    .flux-pane:not(.is-grid) > .flux-pane-media:not(.is-inset) {
+        &:first-child {
+            border-top-left-radius: var(--radius);
+            border-top-right-radius: var(--radius);
         }
 
-        .flux-pane:not(.is-grid) > .flux-pane-media.is-inset {
-            &:not(:first-child) {
-                margin-top: 0;
-            }
+        &:last-child {
+            border-bottom-left-radius: var(--radius);
+            border-bottom-right-radius: var(--radius);
+        }
+    }
 
-            &:not(:last-child) {
-                margin-bottom: 0;
-            }
+    .flux-pane:not(.is-grid) > .flux-pane-media.is-inset {
+        &:not(:first-child) {
+            margin-top: 0;
         }
 
-        .flux-pane.is-grid > .flux-pane-media:not(.is-inset) {
-            grid-column: span v-bind(span);
+        &:not(:last-child) {
+            margin-bottom: 0;
+        }
+    }
 
-            &:first-child {
-                border-top-left-radius: var(--radius);
-                border-bottom-left-radius: var(--radius);
-            }
+    .flux-pane.is-grid > .flux-pane-media:not(.is-inset) {
+        grid-column: span v-bind(span);
 
-            &:last-child {
-                border-top-right-radius: var(--radius);
-                border-bottom-right-radius: var(--radius);
-            }
+        &:first-child {
+            border-top-left-radius: var(--radius);
+            border-bottom-left-radius: var(--radius);
         }
 
-        .flux-pane.is-grid > .flux-pane-media.is-inset {
-            &:not(:first-child) {
-                margin-left: 0;
-            }
+        &:last-child {
+            border-top-right-radius: var(--radius);
+            border-bottom-right-radius: var(--radius);
+        }
+    }
 
-            &:not(:last-child) {
-                margin-right: 0;
-            }
+    .flux-pane.is-grid > .flux-pane-media.is-inset {
+        &:not(:first-child) {
+            margin-left: 0;
+        }
+
+        &:not(:last-child) {
+            margin-right: 0;
         }
     }
 </style>

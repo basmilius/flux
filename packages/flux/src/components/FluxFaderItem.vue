@@ -5,23 +5,21 @@
 </template>
 
 <style lang="scss">
-    @layer component {
-        .flux-fader-item {
-            position: absolute;
-            display: block;
-            inset: 0;
-            transition: 660ms var(--deceleration-curve);
+    .flux-fader-item {
+        position: absolute;
+        display: block;
+        inset: 0;
+        transition: 660ms var(--deceleration-curve);
 
-            &:not(.is-current) {
-                opacity: 0;
-                pointer-events: none;
-                scale: 1.05;
-                transition-delay: 90ms;
-                z-index: 1;
-            }
+        &:not(.is-current) {
+            opacity: 0;
+            pointer-events: none;
+            scale: 1.05;
+            transition-delay: 90ms;
+            z-index: 1;
         }
 
-        .flux-fader .flux-fader-item img {
+        img {
             position: absolute;
             display: block;
             inset: 0;

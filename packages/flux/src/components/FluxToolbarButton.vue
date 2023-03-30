@@ -39,22 +39,20 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-toolbar-button {
-            --button-background: transparent;
-            --button-background-hover: rgb(var(--gray-2));
-            --button-background-active: rgb(var(--gray-3));
-            --button-foreground: var(--foreground);
-            --button-icon: var(--foreground);
-            --button-stroke: transparent;
+    .flux-toolbar-button {
+        --button-background: transparent;
+        --button-background-hover: rgb(var(--gray-2));
+        --button-background-active: rgb(var(--gray-3));
+        --button-foreground: var(--foreground);
+        --button-icon: var(--foreground);
+        --button-stroke: transparent;
 
-            height: 30px;
-            padding: 0 6px;
-            box-shadow: none;
+        height: 30px;
+        padding: 0 6px;
+        box-shadow: none;
 
-            &-destructive {
-                --button-icon: rgb(var(--danger-7))
-            }
+        &-destructive {
+            --button-icon: rgb(var(--danger-7))
         }
     }
 </style>

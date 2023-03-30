@@ -99,80 +99,76 @@
 <style lang="scss">
     @use '../scss/mixin' as flux;
 
-    @layer component {
-        .flux-expandable {
+    .flux-expandable {
+        display: flex;
+        flex-flow: column;
+
+        &-header {
             display: flex;
-            flex-flow: column;
+            height: 60px;
+            padding-left: 21px;
+            padding-right: 21px;
+            align-items: center;
+            background: unset;
+            border: 0;
+            color: var(--foreground-prominent);
+            cursor: pointer;
+            text-align: left;
+            z-index: 1;
 
-            &-header {
-                display: flex;
-                height: 60px;
-                padding-left: 21px;
-                padding-right: 21px;
-                align-items: center;
-                background: unset;
-                border: 0;
-                color: var(--foreground-prominent);
-                cursor: pointer;
-                text-align: left;
-                z-index: 1;
+            @include flux.focus-ring-transition;
 
-                @include flux.focus-ring-transition;
-
-                &:hover {
-                    background: rgb(var(--gray-1));
-                }
-
-                span {
-                    flex-grow: 1;
-                    font-weight: 600;
-                }
+            &:hover {
+                background: rgb(var(--gray-1));
             }
 
-            &-body {
-                transition: height 390ms var(--swift-out), translate 300ms var(--swift-out) 120ms, opacity 300ms var(--swift-out) 120ms;
+            span {
+                flex-grow: 1;
+                font-weight: 600;
+            }
+        }
 
-                &.v-enter,
-                &.v-enter-from,
-                &.v-leave-to {
-                    opacity: 0;
-                    translate: 0 -15px;
-                }
+        &-body {
+            transition: height 390ms var(--swift-out), translate 300ms var(--swift-out) 120ms, opacity 300ms var(--swift-out) 120ms;
 
-                &.v-enter-to,
-                &.v-leave,
-                &.v-leave-from {
-                    opacity: 1;
-                }
-
-                &.v-leave-active {
-                    transition-delay: 0s;
-                }
-
-                &.v-enter-active,
-                &.v-leave-active {
-                    overflow: hidden;
-                }
+            &.v-enter,
+            &.v-enter-from,
+            &.v-leave-to {
+                opacity: 0;
+                translate: 0 -15px;
             }
 
-            &-content {
-                padding: 0 21px 21px;
+            &.v-enter-to,
+            &.v-leave,
+            &.v-leave-from {
+                opacity: 1;
             }
+
+            &.v-leave-active {
+                transition-delay: 0s;
+            }
+
+            &.v-enter-active,
+            &.v-leave-active {
+                overflow: hidden;
+            }
+        }
+
+        &-content {
+            padding: 0 21px 21px;
         }
     }
 
-    @layer cosy {
-        .flux-pane > .flux-expandable {
+    .flux-pane > .flux-expandable {
+        border-radius: inherit;
+
+        .flux-expandable-header {
             border-radius: inherit;
+        }
 
-            .flux-expandable-header {
-                border-radius: inherit;
-            }
-
-            &.is-open .flux-expandable-header {
-                border-bottom-left-radius: 0;
-                border-bottom-right-radius: 0;
-            }
+        &.is-open .flux-expandable-header {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
         }
     }
 </style>

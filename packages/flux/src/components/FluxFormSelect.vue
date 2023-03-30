@@ -35,6 +35,12 @@
             type="search"
             @keydown="onKeyDown"/>
 
+        <template v-else-if="placeholder && !selectedOptions[0]">
+            <span class="flux-form-select-placeholder">
+                {{ placeholder }}
+            </span>
+        </template>
+
         <flux-icon
             class="flux-form-select-icon"
             variant="angle-down"/>
@@ -257,9 +263,9 @@
             const bottom = top + height + inputHeight + 39;
 
             if (bottom <= innerHeight) {
-                popupY.value = inputHeight + 9;
+                popupY.value = inputHeight + 6;
             } else {
-                popupY.value = -height - 9;
+                popupY.value = -height - 6;
             }
         });
     }
@@ -305,85 +311,86 @@
 <style lang="scss">
     @use '../scss/mixin' as flux;
 
-    @layer component {
-        .flux-form-select {
+    .flux-form-select {
+        position: relative;
+        display: flex;
+        height: unset;
+        min-height: 42px;
+        padding: 0 6px;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0 6px;
+        cursor: pointer;
+
+        @include flux.focus-ring(-1px, true);
+
+        &-icon {
+            position: absolute;
+            top: 50%;
+            right: 12px;
+            translate: 0 -50%;
+        }
+
+        & &-input {
             position: relative;
-            display: flex;
-            height: unset;
-            min-height: 42px;
+            margin: 0 30px 0 -1px;
+            min-width: 35%;
             padding: 0 6px;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0 6px;
-            cursor: pointer;
+            flex: 1 1 0;
+            background: unset;
+            border-width: 0;
+            box-shadow: none;
+            outline: 0;
 
-            @include flux.focus-ring(-1px, true);
-
-            &-icon {
-                position: absolute;
-                top: 50%;
-                right: 12px;
-                translate: 0 -50%;
-            }
-
-            &-input {
-                position: relative;
-                margin: 0 -1px;
-                min-width: 35%;
-                padding: 0 6px;
-                flex: 1 1 0;
-                background: unset;
-                border-width: 0;
-                box-shadow: none;
-
-                &::-webkit-search-decoration,
-                &::-webkit-search-cancel-button,
-                &::-webkit-search-results-button,
-                &::-webkit-search-results-decoration {
-                    -webkit-appearance: none;
-                }
-            }
-
-            &-popup {
-                position: absolute;
-                display: block;
-                top: calc(v-bind(popupY) * 1px);
-                left: 0;
-                width: calc(v-bind(popupWidth) * 1px);
-                max-height: 330px;
-                margin: 0;
-                padding: 9px;
-                box-shadow: var(--shadow);
-                overflow: auto;
-                z-index: 10000;
-            }
-
-            &-selected {
-                position: absolute;
-                height: 100%;
-                padding-left: 12px;
-                padding-right: 12px;
-                inset: -1px;
-                pointer-events: none;
-            }
-
-            &.is-disabled &-selected {
-                color: rgb(var(--gray-6));
+            &::-webkit-search-decoration,
+            &::-webkit-search-cancel-button,
+            &::-webkit-search-results-button,
+            &::-webkit-search-results-decoration {
+                -webkit-appearance: none;
             }
         }
-    }
 
-    @layer cosy {
-        .flux-form-select {
-            .flux-badge {
-                margin-top: 8px;
-                margin-bottom: 7px;
-                flex: 0 0 auto;
-            }
+        &-placeholder {
+            margin-left: 6px;
+            margin-right: 6px;
+            color: var(--foreground-secondary);
+        }
 
-            &-input {
-                outline: 0;
-            }
+        &-popup {
+            position: absolute;
+            display: block;
+            top: calc(v-bind(popupY) * 1px);
+            left: 0;
+            width: calc(v-bind(popupWidth) * 1px);
+            max-height: 330px;
+            margin: 0;
+            padding: 9px;
+            box-shadow: var(--shadow);
+            overflow: auto;
+            z-index: 10000;
+        }
+
+        &-selected {
+            position: absolute;
+            height: 100%;
+            padding-left: 12px;
+            padding-right: 12px;
+            inset: -1px;
+            pointer-events: none;
+        }
+
+        &.is-disabled &-selected {
+            color: rgb(var(--gray-6));
+        }
+
+        .flux-badge {
+            margin-top: 8px;
+            margin-bottom: 7px;
+            flex: 0 0 auto;
+        }
+
+        &-input {
+            outline: 0;
         }
     }
 </style>

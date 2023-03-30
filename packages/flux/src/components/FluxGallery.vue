@@ -82,25 +82,23 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-gallery {
-            display: grid;
-            gap: 9px;
-            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    .flux-gallery {
+        display: grid;
+        gap: 9px;
+        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
 
-            &-add {
-                aspect-ratio: 1 / 1;
-                color: rgb(var(--gray-7));
+        &-add {
+            aspect-ratio: 1 / 1;
+            color: rgb(var(--gray-7));
 
-                &:hover {
-                    background: rgb(var(--gray-3));
-                    border-color: rgb(var(--gray-5));
-                }
+            &:hover {
+                background: rgb(var(--gray-3));
+                border-color: rgb(var(--gray-5));
             }
+        }
 
-            &-move {
-                transition: 360ms var(--swift-out);
-            }
+        &-move {
+            transition: 360ms var(--swift-out);
         }
     }
 </style>

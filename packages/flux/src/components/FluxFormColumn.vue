@@ -5,11 +5,9 @@
 </template>
 
 <style lang="scss">
-    @layer component {
-        .flux-form-column {
-            display: flex;
-            flex-flow: column;
-            gap: 18px;
-        }
+    .flux-form-column {
+        display: flex;
+        flex-flow: column;
+        gap: 18px;
     }
 </style>

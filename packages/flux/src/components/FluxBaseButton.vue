@@ -104,73 +104,71 @@
 <style lang="scss">
     @use '../scss/mixin' as flux;
 
-    @layer component {
-        .flux-button {
-            display: inline-flex;
-            height: 42px;
-            padding: 0 12px;
-            align-items: center;
-            flex-shrink: 0;
-            gap: 12px;
-            justify-content: center;
-            background: var(--button-background);
-            border: 1px solid var(--button-stroke);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-pixel);
-            cursor: pointer;
-            font: inherit;
-            text-decoration: none;
-            transition: 180ms var(--swift-out);
-            transition-property: background, box-shadow, color, flux.focus-ring-transition-properties();
-            user-select: none;
+    .flux-button {
+        display: inline-flex;
+        height: 42px;
+        padding: 0 12px;
+        align-items: center;
+        flex-shrink: 0;
+        gap: 12px;
+        justify-content: center;
+        background: var(--button-background);
+        border: 1px solid var(--button-stroke);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-pixel);
+        cursor: pointer;
+        font: inherit;
+        text-decoration: none;
+        transition: 180ms var(--swift-out);
+        transition-property: background, box-shadow, color, flux.focus-ring-transition-properties();
+        user-select: none;
 
-            @include flux.focus-ring(2px);
+        @include flux.focus-ring(2px);
+
+        > * {
+            color: var(--button-foreground);
+        }
+
+        &:focus-visible {
+            z-index: 1;
+        }
+
+        &-icon {
+            flex-shrink: 0;
+            color: var(--button-icon);
+
+            &:only-child {
+                margin-left: -1px;
+                margin-right: -1px;
+            }
+        }
+
+        &-label {
+            display: inline-block;
+            font-weight: 500;
+            text-align: center;
+
+            &:only-child {
+                min-width: 42px;
+            }
+        }
+
+        &:hover {
+            background: var(--button-background-hover);
+        }
+
+        &:active {
+            background: var(--button-background-active);
+            box-shadow: none;
+        }
+
+        &:disabled,
+        &[aria-disabled="true"] {
+            box-shadow: none;
+            pointer-events: none;
 
             > * {
-                color: var(--button-foreground);
-            }
-
-            &:focus-visible {
-                z-index: 1;
-            }
-
-            &-icon {
-                flex-shrink: 0;
-                color: var(--button-icon);
-
-                &:only-child {
-                    margin-left: -1px;
-                    margin-right: -1px;
-                }
-            }
-
-            &-label {
-                display: inline-block;
-                font-weight: 500;
-                text-align: center;
-
-                &:only-child {
-                    min-width: 42px;
-                }
-            }
-
-            &:hover {
-                background: var(--button-background-hover);
-            }
-
-            &:active {
-                background: var(--button-background-active);
-                box-shadow: none;
-            }
-
-            &:disabled,
-            &[aria-disabled="true"] {
-                box-shadow: none;
-                pointer-events: none;
-
-                > * {
-                    opacity: .5;
-                }
+                opacity: .5;
             }
         }
     }

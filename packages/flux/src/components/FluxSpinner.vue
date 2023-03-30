@@ -47,38 +47,34 @@
 </script>
 
 <style lang="scss">
-    @layer base {
-        :root {
-            --spinner-track: rgb(var(--gray-4));
-            --spinner-value: rgb(var(--primary-7));
-        }
+    :root {
+        --spinner-track: rgb(var(--gray-4));
+        --spinner-value: rgb(var(--primary-7));
     }
 
-    @layer component {
-        .flux-spinner {
-            display: inline-block;
-            height: 1em;
-            width: 1em;
-            flex-grow: 0;
-            flex-shrink: 0;
-            font-size: calc(v-bind(size) * 1px);
-            animation: spinner 5s linear infinite;
+    .flux-spinner {
+        display: inline-block;
+        height: 1em;
+        width: 1em;
+        flex-grow: 0;
+        flex-shrink: 0;
+        font-size: calc(v-bind(size) * 1px);
+        animation: spinner 5s linear infinite;
 
-            &-track {
-                stroke: var(--spinner-track);
-            }
+        &-track {
+            stroke: var(--spinner-track);
+        }
 
-            &-effect,
-            &-value {
-                stroke: var(--spinner-value);
-                animation: spinner 1.2s var(--swift-out) infinite;
-                transform-origin: center;
-            }
+        &-effect,
+        &-value {
+            stroke: var(--spinner-value);
+            animation: spinner 1.2s var(--swift-out) infinite;
+            transform-origin: center;
+        }
 
-            &-effect {
-                opacity: .25;
-                animation-delay: -1.05s;
-            }
+        &-effect {
+            opacity: .25;
+            animation-delay: -1.05s;
         }
     }
 

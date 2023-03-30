@@ -19,11 +19,9 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-grid {
-            display: grid;
-            gap: calc(v-bind(gap) * 1px);
-            grid-template-columns: repeat(v-bind(columns), 1fr);
-        }
+    .flux-grid {
+        display: grid;
+        gap: calc(v-bind(gap) * 1px);
+        grid-template-columns: repeat(v-bind(columns), 1fr);
     }
 </style>

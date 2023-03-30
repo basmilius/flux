@@ -25,15 +25,13 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-form-input-addition {
-            display: flex;
-            width: unset;
-            align-items: center;
-            flex-grow: 0;
-            justify-content: center;
-            color: var(--foreground-secondary);
-            pointer-events: none;
-        }
+    .flux-form-input-addition {
+        display: flex;
+        width: unset;
+        align-items: center;
+        flex-grow: 0;
+        justify-content: center;
+        color: var(--foreground-secondary);
+        pointer-events: none;
     }
 </style>

@@ -24,31 +24,24 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-table-header {
-            min-width: calc(v-bind(minWidth) * 1px);
-            padding: 15px;
-            background: rgb(var(--gray-0));
-            color: var(--foreground-prominent);
-            font-size: 14px;
-            vertical-align: middle;
+    .flux-table-header {
+        min-width: calc(v-bind(minWidth) * 1px);
+        padding: 15px;
+        background: rgb(var(--gray-0));
+        border-bottom: 2px solid rgb(var(--gray-4) / .75);
+        color: var(--foreground-prominent);
+        font-size: 14px;
+        vertical-align: middle;
 
-            &.is-shrinking {
-                width: 0;
-                white-space: nowrap;
-            }
-
-            &.is-sticky {
-                position: sticky;
-                top: 0;
-                background: rgb(var(--gray-1));
-            }
+        &.is-shrinking {
+            width: 0;
+            white-space: nowrap;
         }
-    }
 
-    @layer cosy {
-        .flux-table-header {
-            border-bottom: 2px solid rgb(var(--gray-4) / .75);
+        &.is-sticky {
+            position: sticky;
+            top: 0;
+            background: rgb(var(--gray-1));
         }
     }
 </style>

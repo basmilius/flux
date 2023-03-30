@@ -21,14 +21,12 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-container {
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: calc(v-bind(gutter) * 1px);
-            padding-right: calc(v-bind(gutter) * 1px);
-            max-width: calc(v-bind(maxWidth) * 1px);
-            width: 100%;
-        }
+    .flux-container {
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: calc(v-bind(gutter) * 1px);
+        padding-right: calc(v-bind(gutter) * 1px);
+        max-width: calc(v-bind(maxWidth) * 1px);
+        width: 100%;
     }
 </style>

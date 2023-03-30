@@ -115,35 +115,29 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-pagination {
-            z-index: 0;
+    .flux-pagination {
+        z-index: 0;
 
-            &-current {
-                display: flex;
-                padding-left: 12px;
-                padding-right: 12px;
-                align-items: center;
-                gap: 3px;
-                background: rgb(var(--gray-0));
-                border: 1px solid rgb(var(--gray-4) / .75);
-                border-left: 0;
-                border-right: 0;
-                color: var(--foreground-prominent);
-                font-variant-numeric: tabular-nums;
-            }
+        &-current {
+            display: flex;
+            padding-left: 12px;
+            padding-right: 12px;
+            align-items: center;
+            gap: 3px;
+            background: rgb(var(--gray-0));
+            border: 1px solid rgb(var(--gray-4) / .75);
+            border-left: 0;
+            border-right: 0;
+            color: var(--foreground-prominent);
+            font-variant-numeric: tabular-nums;
         }
-    }
 
-    @layer cosy {
-        .flux-pagination {
-            .flux-button span {
-                min-width: 18px;
-            }
+        .flux-button span {
+            min-width: 18px;
+        }
 
-            .flux-primary-button {
-                z-index: 1;
-            }
+        .flux-primary-button {
+            z-index: 1;
         }
     }
 </style>
