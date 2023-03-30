@@ -51,41 +51,39 @@
 <style lang="scss">
     @use '../scss/mixin' as flux;
 
-    @layer component {
-        .flux-persona {
+    .flux-persona {
+        display: flex;
+        padding: 6px;
+        align-items: center;
+        gap: 12px;
+        background: unset;
+        border: 0;
+        border-radius: var(--radius);
+        cursor: pointer;
+        text-align: left;
+        transition: 180ms var(--swift-out);
+        transition-property: background, flux.focus-ring-transition-properties();
+
+        @include flux.focus-ring(2px);
+
+        &:hover {
+            background: rgb(var(--gray-3));
+        }
+
+        &-details {
             display: flex;
-            padding: 6px;
-            align-items: center;
-            gap: 12px;
-            background: unset;
-            border: 0;
-            border-radius: var(--radius);
-            cursor: pointer;
-            text-align: left;
-            transition: 180ms var(--swift-out);
-            transition-property: background, flux.focus-ring-transition-properties();
+            margin-right: 9px;
+            flex-flow: column;
+            gap: 3px;
+            line-height: 1.2;
 
-            @include flux.focus-ring(2px);
-
-            &:hover {
-                background: rgb(var(--gray-3));
+            strong {
+                color: var(--foreground-prominent);
             }
 
-            &-details {
-                display: flex;
-                margin-right: 9px;
-                flex-flow: column;
-                gap: 3px;
-                line-height: 1.2;
-
-                strong {
-                    color: var(--foreground-prominent);
-                }
-
-                span {
-                    color: var(--foreground);
-                    font-size: 14px;
-                }
+            span {
+                color: var(--foreground);
+                font-size: 14px;
             }
         }
     }

@@ -75,29 +75,23 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-pagination-bar {
-            align-items: center;
+    .flux-pagination-bar {
+        align-items: center;
+
+        .flux-form-select {
+            width: 78px;
+        }
+
+        .flux-pagination {
+            margin-left: -1px;
+        }
+
+        .flux-pagination .flux-button:first-child {
+            border-radius: 0;
         }
     }
 
-    @layer cosy {
-        .flux-pagination-bar {
-            .flux-form-select {
-                width: 78px;
-            }
-
-            .flux-pagination {
-                margin-left: -1px;
-            }
-
-            .flux-pagination .flux-button:first-child {
-                border-radius: 0;
-            }
-        }
-
-        .flux-pane-footer > .flux-pagination-bar {
-            flex-grow: 1;
-        }
+    .flux-pane-footer > .flux-pagination-bar {
+        flex-grow: 1;
     }
 </style>

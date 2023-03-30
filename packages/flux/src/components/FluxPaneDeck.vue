@@ -21,20 +21,14 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-pane-deck {
-            overflow: hidden;
-        }
-    }
+    .flux-pane-deck {
+        overflow: hidden;
 
-    @layer cosy {
-        .flux-pane-deck {
-            > .flux-auto-grid {
-                margin-right: -1px;
-                margin-bottom: -1px;
-            }
+        > .flux-auto-grid {
+            margin-right: -1px;
+            margin-bottom: -1px;
 
-            > .flux-auto-grid > .flux-pane {
+            > .flux-pane {
                 border: 1px solid rgb(var(--gray-3));
                 border-top: 0;
                 border-left: 0;

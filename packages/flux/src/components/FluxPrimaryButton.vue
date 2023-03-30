@@ -59,17 +59,15 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-primary-button {
-            --button-background: rgb(var(--primary-7));
-            --button-background-hover: rgb(var(--primary-8));
-            --button-background-active: rgb(var(--primary-9));
-            --button-foreground: rgb(var(--primary-0));
-            --button-icon: rgb(var(--primary-0));
-            --button-stroke: transparent;
+    .flux-primary-button {
+        --button-background: rgb(var(--primary-7));
+        --button-background-hover: rgb(var(--primary-8));
+        --button-background-active: rgb(var(--primary-9));
+        --button-foreground: rgb(var(--primary-0));
+        --button-icon: rgb(var(--primary-0));
+        --button-stroke: transparent;
 
-            --spinner-track: rgb(var(--primary-8));
-            --spinner-value: rgb(var(--primary-0));
-        }
+        --spinner-track: rgb(var(--primary-8));
+        --spinner-value: rgb(var(--primary-0));
     }
 </style>

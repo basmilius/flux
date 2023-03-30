@@ -48,9 +48,7 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-filter-date {
-            margin: -9px;
-        }
+    .flux-filter-date {
+        margin: -9px;
     }
 </style>

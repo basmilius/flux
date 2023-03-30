@@ -18,9 +18,7 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-tab {
-            position: relative;
-        }
+    .flux-tab {
+        position: relative;
     }
 </style>

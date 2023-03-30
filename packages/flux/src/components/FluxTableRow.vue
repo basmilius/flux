@@ -10,10 +10,8 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-table-row {
-            margin: 0;
-            padding: 0;
-        }
+    .flux-table-row {
+        margin: 0;
+        padding: 0;
     }
 </style>

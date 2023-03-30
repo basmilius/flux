@@ -399,188 +399,186 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-date-picker {
+    .flux-date-picker {
+        display: flex;
+        max-height: 420px;
+        flex-flow: column;
+        border-radius: inherit;
+        overflow: auto;
+        user-select: none;
+        z-index: 0;
+
+        &-dates,
+        &-months,
+        &-years,
+        &-header {
+            padding: 15px;
+        }
+
+        &-header {
+            position: sticky;
             display: flex;
-            max-height: 420px;
-            flex-flow: column;
-            border-radius: inherit;
-            overflow: auto;
-            user-select: none;
-            z-index: 0;
+            top: 0;
+            align-items: center;
+            background: rgb(var(--gray-1));
+            border-bottom: 1px solid rgb(var(--gray-3));
+            z-index: 1;
 
-            &-dates,
-            &-months,
-            &-years,
-            &-header {
-                padding: 15px;
-            }
-
-            &-header {
-                position: sticky;
+            &-view {
                 display: flex;
-                top: 0;
+                height: 42px;
+                margin-left: auto;
+                margin-right: auto;
                 align-items: center;
-                background: rgb(var(--gray-1));
-                border-bottom: 1px solid rgb(var(--gray-3));
-                z-index: 1;
+                gap: 9px;
+                font-size: 16px;
+                font-weight: 600;
 
-                &-view {
-                    display: flex;
-                    height: 42px;
-                    margin-left: auto;
-                    margin-right: auto;
-                    align-items: center;
-                    gap: 9px;
-                    font-size: 16px;
-                    font-weight: 600;
+                button {
+                    padding: 0;
+                    background: unset;
+                    border: 0;
+                    cursor: pointer;
+                    text-transform: capitalize;
+                }
 
-                    button {
-                        padding: 0;
-                        background: unset;
-                        border: 0;
-                        cursor: pointer;
-                        text-transform: capitalize;
-                    }
+                button:first-child {
+                    color: var(--foreground-prominent);
+                }
 
-                    button:first-child {
-                        color: var(--foreground-prominent);
-                    }
+                button:last-child {
+                    color: var(--foreground-secondary);
+                }
 
-                    button:last-child {
-                        color: var(--foreground-secondary);
-                    }
-
-                    button:hover {
-                        color: rgb(var(--primary-7));
-                    }
+                button:hover {
+                    color: rgb(var(--primary-7));
                 }
             }
+        }
 
-            &-date {
-                display: flex;
-                padding: 0;
-                align-items: center;
-                justify-content: center;
-                aspect-ratio: 1;
-                background: unset;
-                border: 0;
-                border-radius: var(--radius);
-                color: var(--foreground-prominent);
-                cursor: pointer;
-                font-size: 14px;
-                outline: 0;
-                transition: 180ms var(--swift-out);
-                transition-property: background, border-radius, color, opacity;
+        &-date {
+            display: flex;
+            padding: 0;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 1;
+            background: unset;
+            border: 0;
+            border-radius: var(--radius);
+            color: var(--foreground-prominent);
+            cursor: pointer;
+            font-size: 14px;
+            outline: 0;
+            transition: 180ms var(--swift-out);
+            transition-property: background, border-radius, color, opacity;
 
-                &:hover {
-                    background: rgb(var(--gray-3));
+            &:hover {
+                background: rgb(var(--gray-3));
+            }
+
+            &:not(.is-range-entry, .is-range-end, .is-range-start, .is-selection-entry, .is-selection-start, .is-selection-end).is-disabled {
+                opacity: .25;
+                pointer-events: none;
+            }
+
+            &:not(.is-disabled) {
+                font-weight: 500;
+            }
+
+            &.is-selected {
+                background: rgb(var(--primary-7));
+                color: rgb(var(--primary-1));
+                font-weight: 700;
+            }
+
+            &.is-range {
+                &-entry {
+                    background: rgb(var(--primary-3));
+                    border-radius: 0;
+                    color: rgb(var(--primary-11));
                 }
 
-                &:not(.is-range-entry, .is-range-end, .is-range-start, .is-selection-entry, .is-selection-start, .is-selection-end).is-disabled {
-                    opacity: .25;
-                    pointer-events: none;
-                }
-
-                &:not(.is-disabled) {
-                    font-weight: 500;
-                }
-
-                &.is-selected {
+                &-start,
+                &-end {
                     background: rgb(var(--primary-7));
                     color: rgb(var(--primary-1));
                     font-weight: 700;
                 }
 
-                &.is-range {
-                    &-entry {
-                        background: rgb(var(--primary-3));
-                        border-radius: 0;
-                        color: rgb(var(--primary-11));
-                    }
-
-                    &-start,
-                    &-end {
-                        background: rgb(var(--primary-7));
-                        color: rgb(var(--primary-1));
-                        font-weight: 700;
-                    }
-
-                    &-entry:nth-child(7n + 8),
-                    &-start {
-                        border-top-left-radius: var(--radius);
-                        border-bottom-left-radius: var(--radius);
-                    }
-
-                    &-entry:nth-child(7n),
-                    &-end {
-                        border-top-right-radius: var(--radius);
-                        border-bottom-right-radius: var(--radius);
-                    }
+                &-entry:nth-child(7n + 8),
+                &-start {
+                    border-top-left-radius: var(--radius);
+                    border-bottom-left-radius: var(--radius);
                 }
 
-                &.is-selection {
-                    &-entry {
-                        background: rgb(var(--gray-3));
-                        border-radius: 0;
-                        color: var(--foreground-prominent);
-                    }
-
-                    &-start,
-                    &-end {
-                        background: rgb(var(--gray-4));
-                        font-weight: 700;
-                    }
-
-                    &-entry:nth-child(7n + 8),
-                    &-start {
-                        border-top-left-radius: var(--radius);
-                        border-bottom-left-radius: var(--radius);
-                    }
-
-                    &-entry:nth-child(7n),
-                    &-end {
-                        border-top-right-radius: var(--radius);
-                        border-bottom-right-radius: var(--radius);
-                    }
+                &-entry:nth-child(7n),
+                &-end {
+                    border-top-right-radius: var(--radius);
+                    border-bottom-right-radius: var(--radius);
                 }
             }
 
-            &-dates {
-                position: relative;
+            &.is-selection {
+                &-entry {
+                    background: rgb(var(--gray-3));
+                    border-radius: 0;
+                    color: var(--foreground-prominent);
+                }
 
-                &-grid {
-                    display: grid;
-                    gap: 3px 0;
-                    grid-template-columns: repeat(7, 1fr);
+                &-start,
+                &-end {
+                    background: rgb(var(--gray-4));
+                    font-weight: 700;
+                }
+
+                &-entry:nth-child(7n + 8),
+                &-start {
+                    border-top-left-radius: var(--radius);
+                    border-bottom-left-radius: var(--radius);
+                }
+
+                &-entry:nth-child(7n),
+                &-end {
+                    border-top-right-radius: var(--radius);
+                    border-bottom-right-radius: var(--radius);
                 }
             }
+        }
 
-            &-day {
-                margin-bottom: 6px;
-                color: var(--foreground-secondary);
-                font-size: 11px;
-                font-weight: 500;
-                text-align: center;
-                text-transform: uppercase;
-            }
+        &-dates {
+            position: relative;
 
-            &-months,
-            &-years {
+            &-grid {
                 display: grid;
-                margin-left: auto;
-                margin-right: auto;
-                max-width: 300px;
-                width: 100%;
-                gap: 9px;
-                grid-template-columns: repeat(3, 1fr);
+                gap: 3px 0;
+                grid-template-columns: repeat(7, 1fr);
+            }
+        }
 
-                .flux-secondary-button {
-                    contain: size layout;
-                    contain-intrinsic-size: 0 42px;
-                    content-visibility: auto;
-                    text-transform: capitalize;
-                }
+        &-day {
+            margin-bottom: 6px;
+            color: var(--foreground-secondary);
+            font-size: 11px;
+            font-weight: 500;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        &-months,
+        &-years {
+            display: grid;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 300px;
+            width: 100%;
+            gap: 9px;
+            grid-template-columns: repeat(3, 1fr);
+
+            .flux-secondary-button {
+                contain: size layout;
+                contain-intrinsic-size: 0 42px;
+                content-visibility: auto;
+                text-transform: capitalize;
             }
         }
     }

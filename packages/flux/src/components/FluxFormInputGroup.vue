@@ -5,14 +5,10 @@
 </template>
 
 <style lang="scss">
-    @layer component {
-        .flux-form-input-group {
-            display: flex;
-        }
-    }
+    .flux-form-input-group {
+        display: flex;
 
-    @layer cosy {
-        .flux-form-input-group > :where(.flux-button, .flux-form-input, .flux-form-input-addition) {
+        > :where(.flux-button, .flux-form-input, .flux-form-input-addition) {
             &:not(:first-child) {
                 border-top-left-radius: 0;
                 border-bottom-left-radius: 0;

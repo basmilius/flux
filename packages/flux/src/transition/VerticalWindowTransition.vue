@@ -20,36 +20,34 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-vertical-window {
-            overflow: auto;
-            transition: height 150ms var(--deceleration-curve);
+    .flux-vertical-window {
+        overflow: auto;
+        transition: height 150ms var(--deceleration-curve);
 
-            &-enter-active,
-            &-back-enter-active {
-                transition: 150ms var(--deceleration-curve);
-                transition-property: opacity, transform;
-            }
+        &-enter-active,
+        &-back-enter-active {
+            transition: 150ms var(--deceleration-curve);
+            transition-property: opacity, transform;
+        }
 
-            &-leave-active,
-            &-back-leave-active {
-                transition: 150ms var(--acceleration-curve);
-                transition-property: opacity, transform;
-            }
+        &-leave-active,
+        &-back-leave-active {
+            transition: 150ms var(--acceleration-curve);
+            transition-property: opacity, transform;
+        }
 
-            &-enter,
-            &-enter-from,
-            &-back-leave-to {
-                opacity: 0;
-                transform: translate3d(0, 15px, 0);
-            }
+        &-enter,
+        &-enter-from,
+        &-back-leave-to {
+            opacity: 0;
+            transform: translate3d(0, 15px, 0);
+        }
 
-            &-leave-to,
-            &-back-enter,
-            &-back-enter-from {
-                opacity: 0;
-                transform: translate3d(0, -15px, 0);
-            }
+        &-leave-to,
+        &-back-enter,
+        &-back-enter-from {
+            opacity: 0;
+            transform: translate3d(0, -15px, 0);
         }
     }
 </style>

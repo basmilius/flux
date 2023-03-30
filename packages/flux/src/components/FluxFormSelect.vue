@@ -305,85 +305,79 @@
 <style lang="scss">
     @use '../scss/mixin' as flux;
 
-    @layer component {
-        .flux-form-select {
+    .flux-form-select {
+        position: relative;
+        display: flex;
+        height: unset;
+        min-height: 42px;
+        padding: 0 6px;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0 6px;
+        cursor: pointer;
+
+        @include flux.focus-ring(-1px, true);
+
+        &-icon {
+            position: absolute;
+            top: 50%;
+            right: 12px;
+            translate: 0 -50%;
+        }
+
+        &-input {
             position: relative;
-            display: flex;
-            height: unset;
-            min-height: 42px;
+            margin: 0 -1px;
+            min-width: 35%;
             padding: 0 6px;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0 6px;
-            cursor: pointer;
+            flex: 1 1 0;
+            background: unset;
+            border-width: 0;
+            box-shadow: none;
 
-            @include flux.focus-ring(-1px, true);
-
-            &-icon {
-                position: absolute;
-                top: 50%;
-                right: 12px;
-                translate: 0 -50%;
-            }
-
-            &-input {
-                position: relative;
-                margin: 0 -1px;
-                min-width: 35%;
-                padding: 0 6px;
-                flex: 1 1 0;
-                background: unset;
-                border-width: 0;
-                box-shadow: none;
-
-                &::-webkit-search-decoration,
-                &::-webkit-search-cancel-button,
-                &::-webkit-search-results-button,
-                &::-webkit-search-results-decoration {
-                    -webkit-appearance: none;
-                }
-            }
-
-            &-popup {
-                position: absolute;
-                display: block;
-                top: calc(v-bind(popupY) * 1px);
-                left: 0;
-                width: calc(v-bind(popupWidth) * 1px);
-                max-height: 330px;
-                margin: 0;
-                padding: 9px;
-                box-shadow: var(--shadow);
-                overflow: auto;
-                z-index: 10000;
-            }
-
-            &-selected {
-                position: absolute;
-                height: 100%;
-                padding-left: 12px;
-                padding-right: 12px;
-                inset: -1px;
-                pointer-events: none;
-            }
-
-            &.is-disabled &-selected {
-                color: rgb(var(--gray-6));
+            &::-webkit-search-decoration,
+            &::-webkit-search-cancel-button,
+            &::-webkit-search-results-button,
+            &::-webkit-search-results-decoration {
+                -webkit-appearance: none;
             }
         }
-    }
 
-    @layer cosy {
-        .flux-form-select {
-            .flux-badge {
-                margin-top: 8px;
-                margin-bottom: 7px;
-                flex: 0 0 auto;
-            }
+        &-popup {
+            position: absolute;
+            display: block;
+            top: calc(v-bind(popupY) * 1px);
+            left: 0;
+            width: calc(v-bind(popupWidth) * 1px);
+            max-height: 330px;
+            margin: 0;
+            padding: 9px;
+            box-shadow: var(--shadow);
+            overflow: auto;
+            z-index: 10000;
+        }
 
-            &-input {
-                outline: 0;
-            }
+        &-selected {
+            position: absolute;
+            height: 100%;
+            padding-left: 12px;
+            padding-right: 12px;
+            inset: -1px;
+            pointer-events: none;
+        }
+
+        &.is-disabled &-selected {
+            color: rgb(var(--gray-6));
+        }
+
+        .flux-badge {
+            margin-top: 8px;
+            margin-bottom: 7px;
+            flex: 0 0 auto;
+        }
+
+        &-input {
+            outline: 0;
         }
     }
 </style>

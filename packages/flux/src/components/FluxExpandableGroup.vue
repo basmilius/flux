@@ -43,26 +43,22 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-expandable-group {
-            display: flex;
-            flex-flow: column;
+    .flux-expandable-group {
+        display: flex;
+        flex-flow: column;
 
-            .flux-expandable + .flux-expandable {
-                border-top: 1px solid rgb(var(--gray-3));
-            }
+        .flux-expandable + .flux-expandable {
+            border-top: 1px solid rgb(var(--gray-3));
         }
     }
 
-    @layer cosy {
-        .flux-pane > .flux-expandable-group:first-child .flux-expandable:first-child .flux-expandable-header {
-            border-top-left-radius: var(--radius);
-            border-top-right-radius: var(--radius);
-        }
+    .flux-pane > .flux-expandable-group:first-child .flux-expandable:first-child .flux-expandable-header {
+        border-top-left-radius: var(--radius);
+        border-top-right-radius: var(--radius);
+    }
 
-        .flux-pane > .flux-expandable-group:last-child .flux-expandable:not(.is-open):last-child .flux-expandable-header {
-            border-bottom-left-radius: var(--radius);
-            border-bottom-right-radius: var(--radius);
-        }
+    .flux-pane > .flux-expandable-group:last-child .flux-expandable:not(.is-open):last-child .flux-expandable-header {
+        border-bottom-left-radius: var(--radius);
+        border-bottom-right-radius: var(--radius);
     }
 </style>

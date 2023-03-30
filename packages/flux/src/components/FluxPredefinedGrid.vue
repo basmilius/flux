@@ -19,36 +19,34 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-predefined-grid {
-            display: grid;
-            align-items: start;
-            gap: 30px;
+    .flux-predefined-grid {
+        display: grid;
+        align-items: start;
+        gap: 30px;
 
-            > * {
-                max-width: 100%;
-            }
+        > * {
+            max-width: 100%;
+        }
 
-            [lg] &-cards {
-                align-items: stretch;
-                grid-template-columns: 1fr 1fr 1fr;
-            }
+        [lg] &-cards {
+            align-items: stretch;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
 
-            [lg] &-full {
-                grid-template-columns: 1fr;
-            }
+        [lg] &-full {
+            grid-template-columns: 1fr;
+        }
 
-            [lg] &-sidebar-start {
-                grid-template-columns: 360px minmax(0, 1fr);
-            }
+        [lg] &-sidebar-start {
+            grid-template-columns: 360px minmax(0, 1fr);
+        }
 
-            [lg] &-sidebar-end {
-                grid-template-columns: minmax(0, 1fr) 360px;
-            }
+        [lg] &-sidebar-end {
+            grid-template-columns: minmax(0, 1fr) 360px;
+        }
 
-            [lg] &-two-column {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
+        [lg] &-two-column {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
         }
     }
 </style>

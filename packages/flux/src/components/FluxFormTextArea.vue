@@ -87,12 +87,10 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-form-text-area {
-            height: unset;
-            padding-top: 9px;
-            padding-bottom: 9px;
-            flex-shrink: 0;
-        }
+    .flux-form-text-area {
+        height: unset;
+        padding-top: 9px;
+        padding-bottom: 9px;
+        flex-shrink: 0;
     }
 </style>

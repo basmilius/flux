@@ -10,12 +10,10 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-table-actions {
-            display: flex;
-            margin: -3px;
-            flex-flow: row nowrap;
-            gap: 1px;
-        }
+    .flux-table-actions {
+        display: flex;
+        margin: -3px;
+        flex-flow: row nowrap;
+        gap: 1px;
     }
 </style>

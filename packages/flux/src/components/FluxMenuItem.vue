@@ -92,146 +92,144 @@
 <style lang="scss">
     @use '../scss/mixin' as flux;
 
-    @layer component {
-        .flux-menu-item {
-            --button-background: transparent;
-            --button-background-hover: rgb(var(--gray-2));
-            --button-background-active: rgb(var(--gray-3));
-            --button-foreground: var(--foreground);
-            --button-icon: rgb(var(--foreground-prominent));
-            --button-stroke: transparent;
+    .flux-menu-item {
+        --button-background: transparent;
+        --button-background-hover: rgb(var(--gray-2));
+        --button-background-active: rgb(var(--gray-3));
+        --button-foreground: var(--foreground);
+        --button-icon: rgb(var(--foreground-prominent));
+        --button-stroke: transparent;
 
-            gap: 15px;
-            justify-content: start;
-            border: 0;
-            box-shadow: none;
+        gap: 15px;
+        justify-content: start;
+        border: 0;
+        box-shadow: none;
+        text-align: left;
+
+        span {
+            flex-grow: 1;
+            font-weight: 400;
             text-align: left;
+        }
 
-            span {
-                flex-grow: 1;
-                font-weight: 400;
-                text-align: left;
+        &.is-active,
+        &.is-highlighted {
+            --button-background-hover: var(--button-background);
+            --button-background-active: var(--button-background);
+        }
+
+        &.is-active {
+            --button-background: rgb(var(--primary-7));
+            --button-foreground: rgb(var(--primary-1));
+            --button-icon: rgb(var(--primary-0));
+        }
+
+        &.is-destructive {
+            --button-foreground: rgb(var(--danger-8));
+            --button-icon: rgb(var(--danger-7));
+        }
+
+        &.is-highlighted {
+            --button-background: rgb(var(--primary-2));
+            --button-foreground: rgb(var(--primary-7));
+            --button-icon: rgb(var(--primary-8));
+        }
+
+        &.is-indented {
+            margin-left: 33px;
+        }
+
+        &.is-selected &-selectable-icon {
+            color: rgb(var(--primary-7));
+        }
+
+        .flux-button-icon:not(&-command-icon) {
+            font-size: 18px;
+        }
+
+        &-command {
+            margin-left: auto;
+            padding-left: 21px;
+            flex-grow: 0;
+            color: var(--foreground-secondary);
+            font: inherit;
+            font-size: 14px;
+            white-space: nowrap;
+
+            &-icon {
+                margin-right: -6px;
+                color: var(--foreground-secondary);
+                font-size: 16px;
             }
 
-            &.is-active,
-            &.is-highlighted {
-                --button-background-hover: var(--button-background);
-                --button-background-active: var(--button-background);
+            + &-icon {
+                margin-left: -9px;
+            }
+        }
+
+        &-image {
+            margin-left: -3px;
+            height: 20px;
+            width: 20px;
+        }
+
+        @at-root .flux-menu.is-large & {
+            position: relative;
+            padding-left: 15px;
+            padding-right: 15px;
+            color: var(--foreground-prominent);
+
+            &::after {
+                position: absolute;
+                display: block;
+                top: 12px;
+                right: 12px;
+                bottom: 12px;
+                width: 4px;
+                content: '';
+                background: rgb(var(--primary-7));
+                border-radius: 99px;
+                opacity: 0;
+                transition: opacity 180ms var(--swift-out);
             }
 
             &.is-active {
-                --button-background: rgb(var(--primary-7));
-                --button-foreground: rgb(var(--primary-1));
-                --button-icon: rgb(var(--primary-0));
-            }
+                &.is-indented {
+                    background: rgb(var(--gray-3));
 
-            &.is-destructive {
-                --button-foreground: rgb(var(--danger-8));
-                --button-icon: rgb(var(--danger-7));
-            }
-
-            &.is-highlighted {
-                --button-background: rgb(var(--primary-2));
-                --button-foreground: rgb(var(--primary-7));
-                --button-icon: rgb(var(--primary-8));
-            }
-
-            &.is-indented {
-                margin-left: 33px;
-            }
-
-            &.is-selected &-selectable-icon {
-                color: rgb(var(--primary-7));
-            }
-
-            .flux-button-icon:not(&-command-icon) {
-                font-size: 18px;
-            }
-
-            &-command {
-                margin-left: auto;
-                padding-left: 21px;
-                flex-grow: 0;
-                color: var(--foreground-secondary);
-                font: inherit;
-                font-size: 14px;
-                white-space: nowrap;
-
-                &-icon {
-                    margin-right: -6px;
-                    color: var(--foreground-secondary);
-                    font-size: 16px;
+                    span {
+                        color: var(--foreground-prominent);
+                    }
                 }
-
-                + &-icon {
-                    margin-left: -9px;
-                }
-            }
-
-            &-image {
-                margin-left: -3px;
-                height: 20px;
-                width: 20px;
-            }
-
-            @at-root .flux-menu.is-large & {
-                position: relative;
-                padding-left: 15px;
-                padding-right: 15px;
-                color: var(--foreground-prominent);
 
                 &::after {
-                    position: absolute;
-                    display: block;
-                    top: 12px;
-                    right: 12px;
-                    bottom: 12px;
-                    width: 4px;
-                    content: '';
-                    background: rgb(var(--primary-7));
-                    border-radius: 99px;
-                    opacity: 0;
-                    transition: opacity 180ms var(--swift-out);
+                    opacity: 1;
+                }
+            }
+
+            &:not(.is-indented) {
+                height: 48px;
+
+                &::after {
+                    background: rgb(var(--primary-0));
                 }
 
                 &.is-active {
-                    &.is-indented {
-                        background: rgb(var(--gray-3));
-
-                        span {
-                            color: var(--foreground-prominent);
-                        }
-                    }
-
                     &::after {
                         opacity: 1;
                     }
-                }
 
-                &:not(.is-indented) {
-                    height: 48px;
-
-                    &::after {
-                        background: rgb(var(--primary-0));
-                    }
-
-                    &.is-active {
-                        &::after {
-                            opacity: 1;
-                        }
-
-                        span {
-                            color: rgb(var(--primary-0));
-                        }
+                    span {
+                        color: rgb(var(--primary-0));
                     }
                 }
             }
         }
+    }
 
-        @include flux.dark-mode {
-            .flux-menu-item.is-highlighted {
-                --button-background: rgb(var(--primary-11) / .5);
-            }
+    @include flux.dark-mode {
+        .flux-menu-item.is-highlighted {
+            --button-background: rgb(var(--primary-11) / .5);
         }
     }
 </style>

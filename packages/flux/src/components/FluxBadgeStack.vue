@@ -1,15 +1,13 @@
 <template>
-    <div class="flux-badge-stack">
+    <flux-stack
+        axis="horizontal"
+        :gap="6">
         <slot/>
-    </div>
+    </flux-stack>
 </template>
 
-<style lang="scss">
-    @layer component {
-        .flux-badge-stack {
-            display: flex;
-            flex-flow: row wrap;
-            gap: 6px;
-        }
-    }
-</style>
+<script
+    lang="ts"
+    setup>
+    import { FluxStack } from '.';
+</script>

@@ -17,25 +17,21 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-pane-body {
-            display: flex;
-            flex-flow: column;
-            padding: 21px;
+    .flux-pane-body {
+        display: flex;
+        flex-flow: column;
+        padding: 21px;
+
+        > .flux-stack {
+            flex-grow: 1;
         }
     }
 
-    @layer cosy {
-        .flux-pane-body > .flux-stack {
-            flex-grow: 1;
-        }
+    .flux-pane:not(.is-grid) > .flux-pane-body + .flux-pane-body {
+        padding-top: 0;
+    }
 
-        .flux-pane:not(.is-grid) > .flux-pane-body + .flux-pane-body {
-            padding-top: 0;
-        }
-
-        .flux-pane.is-grid > .flux-pane-body {
-            grid-column: span v-bind(span);
-        }
+    .flux-pane.is-grid > .flux-pane-body {
+        grid-column: span v-bind(span);
     }
 </style>

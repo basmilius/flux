@@ -72,89 +72,87 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-badge {
-            --color: currentColor;
+    .flux-badge {
+        --color: currentColor;
 
-            display: inline-flex;
-            height: 28px;
-            margin-top: -2px;
-            margin-bottom: -2px;
-            padding-left: 8px;
-            padding-right: 8px;
+        display: inline-flex;
+        height: 28px;
+        margin-top: -2px;
+        margin-bottom: -2px;
+        padding-left: 8px;
+        padding-right: 8px;
+        align-items: center;
+        gap: 6px;
+        background: rgb(var(--gray-0));
+        border: 1px solid rgb(var(--gray-4));
+        border-radius: 99px;
+        color: var(--foreground);
+        font-size: 13px;
+        font-weight: 500;
+
+        &-primary {
+            --color: rgb(var(--primary-7));
+        }
+
+        &-danger {
+            --color: rgb(var(--danger-7));
+        }
+
+        &-info {
+            --color: rgb(var(--info-7));
+        }
+
+        &-success {
+            --color: rgb(var(--success-7));
+        }
+
+        &-warning {
+            --color: rgb(var(--warning-7));
+        }
+
+        &-close {
+            display: flex;
+            height: 19px;
+            width: 19px;
+            margin-right: -4px;
+            padding: 5px;
             align-items: center;
-            gap: 6px;
-            background: rgb(var(--gray-0));
-            border: 1px solid rgb(var(--gray-4));
+            justify-content: center;
+            background: rgb(var(--gray-4));
+            border: 0;
             border-radius: 99px;
-            color: var(--foreground);
-            font-size: 13px;
-            font-weight: 500;
+            color: var(--foreground-secondary);
 
-            &-primary {
-                --color: rgb(var(--primary-7));
-            }
-
-            &-danger {
-                --color: rgb(var(--danger-7));
-            }
-
-            &-info {
-                --color: rgb(var(--info-7));
-            }
-
-            &-success {
-                --color: rgb(var(--success-7));
-            }
-
-            &-warning {
-                --color: rgb(var(--warning-7));
-            }
-
-            &-close {
-                display: flex;
-                height: 19px;
-                width: 19px;
-                margin-right: -4px;
-                padding: 5px;
-                align-items: center;
-                justify-content: center;
-                background: rgb(var(--gray-4));
-                border: 0;
-                border-radius: 99px;
-                color: var(--foreground-secondary);
-
-                &:hover {
-                    background: rgb(var(--gray-5));
-                }
-            }
-
-            &-dot {
-                display: inline-block;
-                height: 9px;
-                width: 9px;
-                background: var(--color);
-                border-radius: 99px;
-            }
-
-            &-icon {
-                margin-left: -3px;
-                color: var(--color);
-            }
-
-            &-text-only {
-                border-color: var(--color);
+            &:hover {
+                background: rgb(var(--gray-5));
             }
         }
 
-        button.flux-badge {
-            background: unset;
-            cursor: pointer;
-            transition: background 180ms var(--swift-out);
+        &-dot {
+            display: inline-block;
+            height: 9px;
+            width: 9px;
+            background: var(--color);
+            border-radius: 99px;
+        }
 
-            &:hover {
-                background: rgb(var(--gray-2));
-            }
+        &-icon {
+            margin-left: -3px;
+            color: var(--color);
+        }
+
+        &-text-only {
+            border-color: var(--color);
+        }
+    }
+
+    button.flux-badge {
+        background: unset;
+        cursor: pointer;
+        transition: background 180ms var(--swift-out);
+
+        &:hover {
+            background: rgb(var(--gray-2));
         }
     }
 </style>

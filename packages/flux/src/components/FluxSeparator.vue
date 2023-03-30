@@ -20,17 +20,15 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-separator {
-            background: rgb(var(--gray-3));
+    .flux-separator {
+        background: rgb(var(--gray-3));
 
-            &.is-horizontal {
-                height: 1px;
-            }
+        &.is-horizontal {
+            height: 1px;
+        }
 
-            &.is-vertical {
-                width: 1px;
-            }
+        &.is-vertical {
+            width: 1px;
         }
     }
 </style>

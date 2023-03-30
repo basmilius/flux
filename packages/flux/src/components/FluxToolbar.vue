@@ -25,49 +25,45 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-toolbar {
-            display: flex;
-            padding: 6px;
-            gap: 6px;
+    .flux-toolbar {
+        display: flex;
+        padding: 6px;
+        gap: 6px;
 
-            &-floating {
-                position: absolute;
-                box-shadow: var(--shadow);
+        &-floating {
+            position: absolute;
+            box-shadow: var(--shadow);
 
-                &-free {
-                    translate: -50% -50%;
-                }
+            &-free {
+                translate: -50% -50%;
+            }
 
-                &-top-start {
-                    top: 0;
-                    left: 21px;
-                    translate: 0 -50%;
-                }
+            &-top-start {
+                top: 0;
+                left: 21px;
+                translate: 0 -50%;
+            }
 
-                &-top-end {
-                    top: 0;
-                    right: 21px;
-                    translate: 0 -50%;
-                }
+            &-top-end {
+                top: 0;
+                right: 21px;
+                translate: 0 -50%;
+            }
 
-                &-bottom-start {
-                    left: 21px;
-                    bottom: 0;
-                    translate: 0 50%;
-                }
+            &-bottom-start {
+                left: 21px;
+                bottom: 0;
+                translate: 0 50%;
+            }
 
-                &-bottom-end {
-                    right: 21px;
-                    bottom: 0;
-                    translate: 0 50%;
-                }
+            &-bottom-end {
+                right: 21px;
+                bottom: 0;
+                translate: 0 50%;
             }
         }
-    }
 
-    @layer cosy {
-        .flux-toolbar > .flux-separator {
+        > .flux-separator {
             margin-top: 9px;
             margin-bottom: 9px;
         }

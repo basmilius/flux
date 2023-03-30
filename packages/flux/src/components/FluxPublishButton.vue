@@ -80,76 +80,74 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-publish-button {
-            overflow: hidden;
+    .flux-publish-button {
+        overflow: hidden;
 
-            &-cloud {
-                position: absolute;
-                top: 50%;
+        &-cloud {
+            position: absolute;
+            top: 50%;
+            opacity: 0;
+            animation: publish .6s linear infinite;
+            transition: 360ms var(--swift-out) 210ms;
+
+            &:nth-child(2) {
+                left: -12px;
+                animation-delay: -.3s;
+            }
+
+            &:nth-child(3) {
+                right: -12px;
+            }
+        }
+
+        &-icon {
+            position: relative;
+            display: block;
+            height: 20px;
+            width: 20px;
+            align-items: center;
+            justify-content: center;
+            overflow: visible;
+
+            path {
+                fill: currentColor;
+                transition: 270ms var(--swift-out);
+            }
+        }
+
+        &.idle {
+            .check {
                 opacity: 0;
-                animation: publish .6s linear infinite;
-                transition: 360ms var(--swift-out) 210ms;
+            }
+        }
 
-                &:nth-child(2) {
-                    left: -12px;
-                    animation-delay: -.3s;
-                }
-
-                &:nth-child(3) {
-                    right: -12px;
-                }
+        &.done {
+            .arrow {
+                animation: arrow-out .4s var(--acceleration-curve) both;
             }
 
-            &-icon {
-                position: relative;
-                display: block;
-                height: 20px;
-                width: 20px;
-                align-items: center;
-                justify-content: center;
-                overflow: visible;
+            .check,
+            .circle {
+                transition-delay: .5s;
+            }
+        }
 
-                path {
-                    fill: currentColor;
-                    transition: 270ms var(--swift-out);
-                }
+        &.loading {
+            .arrow {
+                animation: arrow-in 1s var(--deceleration-curve) both;
             }
 
-            &.idle {
-                .check {
-                    opacity: 0;
-                }
+            .check {
+                opacity: 0;
             }
 
-            &.done {
-                .arrow {
-                    animation: arrow-out .4s var(--acceleration-curve) both;
-                }
-
-                .check,
-                .circle {
-                    transition-delay: .5s;
-                }
+            .circle {
+                opacity: 0;
             }
+        }
 
-            &.loading {
-                .arrow {
-                    animation: arrow-in 1s var(--deceleration-curve) both;
-                }
-
-                .check {
-                    opacity: 0;
-                }
-
-                .circle {
-                    opacity: 0;
-                }
-            }
-
-            &.loading &-cloud {
-                opacity: .5;
-            }
+        &.loading &-cloud {
+            opacity: .5;
         }
     }
 

@@ -59,18 +59,16 @@
 </script>
 
 <style lang="scss">
-    @layer component {
-        .flux-destructive-button {
-            --button-background: rgb(var(--gray-0));
-            --button-background-hover: rgb(var(--gray-2));
-            --button-background-active: rgb(var(--gray-3));
-            --button-foreground: var(--foreground);
-            --button-icon: rgb(var(--danger-7));
-            --button-stroke: rgb(var(--gray-4) / .75);
+    .flux-destructive-button {
+        --button-background: rgb(var(--gray-0));
+        --button-background-hover: rgb(var(--gray-2));
+        --button-background-active: rgb(var(--gray-3));
+        --button-foreground: var(--foreground);
+        --button-icon: rgb(var(--danger-7));
+        --button-stroke: rgb(var(--gray-4) / .75);
 
-            span:only-child {
-                color: var(--button-icon);
-            }
+        span:only-child {
+            color: var(--button-icon);
         }
     }
 </style>
