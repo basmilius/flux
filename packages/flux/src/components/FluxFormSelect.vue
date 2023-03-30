@@ -325,15 +325,16 @@
             translate: 0 -50%;
         }
 
-        &-input {
+        & &-input {
             position: relative;
-            margin: 0 -1px;
+            margin: 0 30px 0 -1px;
             min-width: 35%;
             padding: 0 6px;
             flex: 1 1 0;
             background: unset;
             border-width: 0;
             box-shadow: none;
+            outline: 0;
 
             &::-webkit-search-decoration,
             &::-webkit-search-cancel-button,
