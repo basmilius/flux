@@ -54,7 +54,7 @@
     }
 
     export interface Props {
-        readonly limits: number[];
+        readonly limits?: number[];
         readonly page: number;
         readonly perPage: number;
         readonly total: number;

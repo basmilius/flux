@@ -5,11 +5,17 @@
 </template>
 
 <style lang="scss">
+    @use '../scss/mixin' as flux;
+
     .flux-form-input-group {
         display: flex;
-        z-index: 0;
+        border-radius: var(--radius);
 
-        > :where(.flux-button, .flux-form-input, .flux-form-input-addition) {
+        @include flux.focus-ring(-1px, true);
+
+        :where(.flux-button, .flux-form-input, .flux-form-input-addition) {
+            outline: 0 !important;
+
             &:not(:first-child) {
                 border-top-left-radius: 0;
                 border-bottom-left-radius: 0;
@@ -22,11 +28,6 @@
 
             + & {
                 margin-left: -1px;
-            }
-
-            &:focus,
-            &:focus-within {
-                z-index: 1;
             }
         }
     }
