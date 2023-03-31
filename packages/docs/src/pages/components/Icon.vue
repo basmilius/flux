@@ -16,20 +16,16 @@
             </flux-stack>
         </preview>
 
-        <section>
+        <api-section>
             <p>
-                A component to display a single <a
-                href="https://fontawesome.com"
-                rel="noopener"
-                target="_blank">Font Awesome</a>
-                icon. The icon can be customized through css and is used in multiple Flux components, such as Buttons.
+                A component to display a single <a href="https://fontawesome.com" rel="noopener" target="_blank">Font Awesome</a> icon. The
+                icon can be customized through css and is used in multiple Flux components, such as Buttons.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
-            <api-table title="Props">
-                <template #body>
+        <api-section title="API">
+            <api-component name="Icon">
+                <template #props>
                     <tr>
                         <td><code>size</code><code>number</code></td>
                         <td>Size of the icon in pixels.</td>
@@ -39,8 +35,8 @@
                         <td>The icon to use.</td>
                     </tr>
                 </template>
-            </api-table>
-        </section>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -48,5 +44,5 @@
     lang="ts"
     setup>
     import { FluxIcon, FluxStack } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, ApiTable, PageTitle, Preview } from '@/components';
 </script>

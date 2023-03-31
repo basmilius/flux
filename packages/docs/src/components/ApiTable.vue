@@ -1,53 +1,41 @@
 <template>
-    <h3>{{ title }}</h3>
-
-    <flux-pane class="flux-typography-aware">
-        <table class="api-table">
-            <thead>
-            <slot name="head">
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                </tr>
-            </slot>
-            </thead>
-            <tbody>
-            <slot name="body"/>
-            </tbody>
-        </table>
-    </flux-pane>
+    <table class="api-table">
+        <thead>
+        <slot name="head">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+        </slot>
+        </thead>
+        <tbody>
+        <slot name="body"/>
+        </tbody>
+    </table>
 </template>
-
-<script
-    lang="ts"
-    setup>
-    import { FluxPane } from '@fancee/flux';
-
-    export interface Props {
-        readonly title: string;
-    }
-
-    defineProps<Props>();
-</script>
 
 <style lang="scss">
     .api-table {
         margin: -1px;
         width: calc(100% + 2px);
         border-collapse: collapse;
-        border-radius: calc(var(--radius) + 2px);
         font-size: 14px;
         overflow: hidden;
 
         td, th {
-            padding: 9px 15px;
+            padding: 15px 21px;
             border: 1px solid rgb(var(--gray-3));
             vertical-align: top;
             text-align: left;
         }
 
         th {
-            background: rgb(var(--gray-1));
+            padding: 9px 21px;
+            background: rgb(var(--gray-1) / .5);
+            color: var(--foreground-secondary);
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
 
             &:first-child {
                 width: 240px;

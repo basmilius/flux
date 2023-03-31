@@ -61,18 +61,17 @@
             </flux-button-stack>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 A flyout is a hidden element that can be opened by another element. This can be used for hidden menu's
                 for example. A flyout can be positioned horizontally or vertically. You may use other elements within
                 the flyout, for example pane's with more information about a feature.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
-            <api-table title="Props">
-                <template #body>
+        <api-section title="API">
+            <api-component name="Flyout">
+                <template #props>
                     <tr>
                         <td><code>axis</code><code>'horizontal' | 'vertical'</code></td>
                         <td>Controls where the flyout is opened.</td>
@@ -90,10 +89,8 @@
                         <td>Width of the flyout.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Slots">
-                <template #body>
+                <template #slots>
                     <tr>
                         <td><code>default</code><code>{close, paneX, paneY, openerWidth, openerHeight}</code></td>
                         <td>Content within the flyout.</td>
@@ -103,28 +100,22 @@
                         <td>Opener of the flyout. Can be a button for example.</td>
                     </tr>
                 </template>
-            </api-table>
+            </api-component>
+        </api-section>
 
-            <p><br/></p>
-            <h2>Examples</h2>
+        <api-section title="Examples">
+            <api-example
+                :code="menuCode"
+                :component="menu"
+                title="Menu"
+                description="A menu that is hidden under a three-dot menu. When opened, the flyout reveals more options."/>
 
-            <h3>Menu</h3>
-            <p>
-                A menu that is hidden under a three-dot menu. When opened, the flyout reveals more options.
-            </p>
-            <code-preview
-                :code="menuCode as string"
-                :component="menu"/>
-
-            <h3>Popover</h3>
-            <p>
-                Popovers can display more information for a context. This can for example be a question mark
-                icon next to a graph, that explains the graph.
-            </p>
-            <code-preview
-                :code="popoverCode as string"
-                :component="popover"/>
-        </section>
+            <api-example
+                :code="popoverCode"
+                :component="popover"
+                title="Popover"
+                description="Popovers can display more information for a context. This can for example be a question mark icon next to a graph, that explains the graph."/>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -132,7 +123,7 @@
     lang="ts"
     setup>
     import { FluxButtonStack, FluxFlyout, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPaneBody, FluxSecondaryButton, FluxSeparator, FluxStack } from '@fancee/flux';
-    import { ApiTable, CodePreview, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
     import menu from '@/code/components/flyout/menu.vue';
     import menuCode from '@/code/components/flyout/menu.vue?raw';
     import popover from '@/code/components/flyout/popover.vue';

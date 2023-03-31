@@ -21,51 +21,40 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 <em>Todo</em>
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
+        <api-section title="API">
+            <api-components>
+                <tr>
+                    <td><code>FluxInfo</code></td>
+                    <td>The info component itself. Provides an icon and default slot for content.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxInfoStack</code></td>
+                    <td>A stack for FluxInfo components.</td>
+                </tr>
+            </api-components>
 
-            <api-table title="Components">
-                <template #head>
-                    <tr>
-                        <th>Name</th>
-                        <th>When to use</th>
-                    </tr>
-                </template>
-                <template #body>
-                    <tr>
-                        <td><code>FluxInfo</code></td>
-                        <td>The info component itself. Provides an icon and default slot for content.</td>
-                    </tr>
-                    <tr>
-                        <td><code>FluxInfoStack</code></td>
-                        <td>A stack for FluxInfo components.</td>
-                    </tr>
-                </template>
-            </api-table>
-
-            <api-table title="Props: FluxInfo">
-                <template #body>
+            <api-component name="Info">
+                <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
                         <td>The prefix icon to use.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Slots: FluxTimelineItem">
-                <template #body>
+                <template #slots>
                     <tr>
                         <td><code>default</code><code>{}</code></td>
                         <td>Contents of the info item.</td>
                     </tr>
                 </template>
-            </api-table>
-        </section>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -73,5 +62,5 @@
     lang="ts"
     setup>
     import { FluxInfo, FluxInfoStack, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@/components';
 </script>

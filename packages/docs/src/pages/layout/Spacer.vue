@@ -19,12 +19,12 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 A component that fills remaining space in its parent container, helpful in creating evenly divided
                 button rows in responsive layouts. Spacers are invisible elements and are made visible for demo purposes.
             </p>
-        </section>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -32,7 +32,7 @@
     lang="ts"
     setup>
     import { FluxButtonStack, FluxPane, FluxPaneBody, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStack } from '@fancee/flux';
-    import { PageTitle, Preview } from '@/components';
+    import { ApiSection, PageTitle, Preview } from '@/components';
 </script>
 
 <style

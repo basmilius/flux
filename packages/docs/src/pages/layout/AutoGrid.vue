@@ -19,18 +19,17 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 The AutoGrid component is a Vue component that automatically adjusts the width of its children to ensure
                 they have a minimum width. It intelligently determines the number of columns that fit best within the
                 parent container, making it easy to create responsive layouts that adapt to various screen sizes.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
-            <api-table title="Props">
-                <template #body>
+        <api-section title="API">
+            <api-component name="AutoGrid">
+                <template #props>
                     <tr>
                         <td><code>gap</code><code>number</code></td>
                         <td>The gap in pixels between each element.</td>
@@ -40,8 +39,8 @@
                         <td>The minimum width of each child.</td>
                     </tr>
                 </template>
-            </api-table>
-        </section>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -49,5 +48,5 @@
     lang="ts"
     setup>
     import { FluxAutoGrid, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
 </script>

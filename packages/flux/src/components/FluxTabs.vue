@@ -1,7 +1,5 @@
 <template>
-    <div
-        v-height-transition
-        class="flux-tabs">
+    <div class="flux-tabs">
         <slot
             name="tabs"
             v-bind="{activeIndex, children, tabs, activate}">
@@ -45,7 +43,6 @@
     import type { IconNames } from '../data';
     import { computed, ref, unref, watch } from 'vue-demi';
     import { useSlotVNodes } from '../composables';
-    import { heightTransition } from '../directives';
     import { FluxWindowTransition } from '../transition';
     import { getNormalizedComponentProps } from '../utils';
     import { VNodeRenderer } from './primitive';
@@ -58,8 +55,6 @@
     export interface Props {
         readonly modelValue?: number;
     }
-
-    const vHeightTransition = heightTransition;
 
     const emit = defineEmits<Emits>();
     const props = defineProps<Props>();
@@ -83,7 +78,7 @@
         emit('update:modelValue', newIndex);
     });
 
-    watch(() => props.modelValue, modelValue => activeIndex.value = modelValue ?? 0);
+    watch(() => props.modelValue, modelValue => activeIndex.value = modelValue ?? 0, {immediate: true});
 </script>
 
 <style lang="scss">

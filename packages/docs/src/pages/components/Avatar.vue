@@ -51,8 +51,8 @@
         </api-section>
 
         <api-section title="API">
-            <api-table title="Props">
-                <template #body>
+            <api-component name="Avatar">
+                <template #props>
                     <tr>
                         <td><code>alt</code><code>string</code></td>
                         <td>A brief description of the avatar.</td>
@@ -82,16 +82,14 @@
                         <td>URL to the image displayed within the avatar.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Emits">
-                <template #body>
+                <template #emits>
                     <tr>
                         <td><code>click</code><code>(evt: MouseEvent): void;</code></td>
                         <td>Triggered when the avatar is clicked.</td>
                     </tr>
                 </template>
-            </api-table>
+            </api-component>
         </api-section>
     </flux-stack>
 </template>
@@ -100,5 +98,5 @@
     lang="ts"
     setup>
     import { FluxAvatar, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { ApiSection, ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
 </script>

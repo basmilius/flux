@@ -18,24 +18,23 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 The separator component is a visual divider used to separate content on a page. It has the ability to be
                 oriented along the x-axis or y-axis, depending on the value of its axis property.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
-            <api-table title="Props">
-                <template #body>
+        <api-section title="API">
+            <api-component name="Separator">
+                <template #props>
                     <tr>
                         <td><code>axis</code><code>'horizontal' | 'vertical'</code></td>
                         <td>The direction of the separator.</td>
                     </tr>
                 </template>
-            </api-table>
-        </section>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -43,5 +42,5 @@
     lang="ts"
     setup>
     import { FluxPane, FluxPaneBody, FluxSeparator, FluxStack } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
 </script>

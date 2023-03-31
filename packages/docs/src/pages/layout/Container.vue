@@ -8,23 +8,22 @@
             <flux-pane style="height: 108px; width: 75%;"/>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 The primary container which dynamically changes widths based on the viewport.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
-            <api-table title="Props">
-                <template #body>
+        <api-section title="API">
+            <api-component name="Container">
+                <template #props>
                     <tr>
                         <td><code>gutter</code><code>number</code></td>
                         <td>The gutter on each side of the container.</td>
                     </tr>
                 </template>
-            </api-table>
-        </section>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -32,5 +31,5 @@
     lang="ts"
     setup>
     import { FluxPane, FluxStack } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
 </script>

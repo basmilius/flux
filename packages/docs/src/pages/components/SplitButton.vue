@@ -40,17 +40,16 @@
             </flux-split-button>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 Split buttons are buttons that have one primary action and multiple secondary actions. A common
                 usecase for this component is a download button with more options for that download.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
-            <api-table title="Props">
-                <template #body>
+        <api-section title="API">
+            <api-component name="SplitButton">
+                <template #props>
                     <tr>
                         <td><code>button-icon</code><code>IconNames</code></td>
                         <td>The icon used for the more button.</td>
@@ -72,19 +71,16 @@
                         <td>Width of the flyout.</td>
                     </tr>
                 </template>
-            </api-table>
+            </api-component>
+        </api-section>
 
-            <p><br/></p>
-            <h2>Examples</h2>
-
-            <h3>Basic</h3>
-            <p>
-                A basic example of a split button.
-            </p>
-            <code-preview
-                :code="basicCode as string"
-                :component="basic"/>
-        </section>
+        <api-section title="Examples">
+            <api-example
+                :code="basicCode"
+                :component="basic"
+                title="Basic"
+                description="A basic example of a split button."/>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -92,7 +88,7 @@
     lang="ts"
     setup>
     import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSecondaryButton, FluxSeparator, FluxSplitButton, FluxStack } from '@fancee/flux';
-    import { ApiTable, CodePreview, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
     import basic from '../../code/components/splitButton/basic.vue';
     import basicCode from '../../code/components/splitButton/basic.vue?raw';
 </script>

@@ -18,37 +18,28 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 Our grid component is a powerful tool for creating responsive layouts that adapt to any screen size. With
                 12 equal-width columns, it provides maximum flexibility for building complex page designs. You can easily
                 combine and rearrange the columns to create custom layouts that suit your specific needs.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
+        <api-section title="API">
+            <api-components>
+                <tr>
+                    <td><code>FluxGrid</code></td>
+                    <td>The grid itself.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxGridColumn</code></td>
+                    <td>A single column within the grid.</td>
+                </tr>
+            </api-components>
 
-            <api-table title="Components">
-                <template #head>
-                    <tr>
-                        <th>Name</th>
-                        <th>When to use</th>
-                    </tr>
-                </template>
-                <template #body>
-                    <tr>
-                        <td><code>FluxGrid</code></td>
-                        <td>The grid itself.</td>
-                    </tr>
-                    <tr>
-                        <td><code>FluxGridColumn</code></td>
-                        <td>A single column within the grid.</td>
-                    </tr>
-                </template>
-            </api-table>
-
-            <api-table title="Props: FluxGrid">
-                <template #body>
+            <api-component name="Grid">
+                <template #props>
                     <tr>
                         <td><code>columns</code><code>number</code></td>
                         <td>The amount of columns the grid has.</td>
@@ -58,10 +49,10 @@
                         <td>The gap in pixels between each element.</td>
                     </tr>
                 </template>
-            </api-table>
+            </api-component>
 
-            <api-table title="Props: FluxGridColumn">
-                <template #body>
+            <api-component name="GridColumn">
+                <template #props>
                     <tr>
                         <td><code>xs</code><code>number</code></td>
                         <td>The column span on the xs breakpoint.</td>
@@ -83,8 +74,8 @@
                         <td>The column span on the xl breakpoint.</td>
                     </tr>
                 </template>
-            </api-table>
-        </section>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -92,5 +83,5 @@
     lang="ts"
     setup>
     import { FluxGrid, FluxGridColumn, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@/components';
 </script>

@@ -16,6 +16,7 @@ export {
     faArrowUp,
     faArrowUpArrowDown,
     faBars,
+    faBolt,
     faCalendar,
     faCalendarRange,
     faCheck,
@@ -32,6 +33,7 @@ export {
     faClone,
     faCloud,
     faCopy,
+    faDrawSquare,
     faEclipse,
     faEllipsisH,
     faFilter,
@@ -48,6 +50,7 @@ export {
     faObjectsColumn,
     faPaste,
     faPen,
+    faPhone,
     faPlus,
     faPowerOff,
     faQuestion,
@@ -58,5 +61,6 @@ export {
     faSunAlt,
     faTrash,
     faUser,
+    faWrench,
     faXmark
 } from '@fortawesome/pro-regular-svg-icons';

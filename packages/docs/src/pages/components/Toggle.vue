@@ -16,7 +16,7 @@
             </flux-stack>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 A toggle component is a type of user interface element that allows the user to switch between two
                 states, such as "on" and "off." It is often represented as a switch or button that can be flipped
@@ -24,12 +24,11 @@
                 to enable or disable specific features or settings. They provide a simple and intuitive way for
                 users to interact with the interface and control the behavior of the application.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
-            <api-table title="Props">
-                <template #body>
+        <api-section title="API">
+            <api-component name="Toggle">
+                <template #props>
                     <tr>
                         <td><code>icon-off</code><code>IconNames</code></td>
                         <td>An icon for the off-state of the toggle.</td>
@@ -47,17 +46,15 @@
                         <td>The value of the toggle.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Emits">
-                <template #body>
+                <template #emits>
                     <tr>
                         <td><code>update:model-value</code><code>(value: boolean): void;</code></td>
                         <td>Triggered when the toggle is updated.</td>
                     </tr>
                 </template>
-            </api-table>
-        </section>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -66,7 +63,7 @@
     setup>
     import { FluxStack, FluxToggle } from '@fancee/flux';
     import { ref } from 'vue';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
 
     const toggle1 = ref(true);
     const toggle2 = ref(false);

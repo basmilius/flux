@@ -19,7 +19,7 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 A stack component is a layout component that arranges child elements in a stack along a specified axis, with
                 a configurable gap between elements. The axis property defines the direction in which the elements are stacked
@@ -27,43 +27,34 @@
                 can be used to organize content in a compact and organized manner, and are commonly used to create simple and
                 flexible layouts in web and mobile applications.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
+        <api-section title="API">
+            <api-components>
+                <tr>
+                    <td><code>FluxStack</code></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><code>FluxBadgeStack</code></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><code>FluxButtonStack</code></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><code>FluxInfoStack</code></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><code>FluxNoticeStack</code></td>
+                    <td></td>
+                </tr>
+            </api-components>
 
-            <api-table title="Components">
-                <template #head>
-                    <tr>
-                        <th>Name</th>
-                        <th>When to use</th>
-                    </tr>
-                </template>
-                <template #body>
-                    <tr>
-                        <td><code>FluxStack</code></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><code>FluxBadgeStack</code></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><code>FluxButtonStack</code></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><code>FluxInfoStack</code></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><code>FluxNoticeStack</code></td>
-                        <td></td>
-                    </tr>
-                </template>
-            </api-table>
-
-            <api-table title="Props">
-                <template #body>
+            <api-component name="Stack">
+                <template #props>
                     <tr>
                         <td><code>axis</code><code>'horizontal' | 'vertical'</code></td>
                         <td>The stack direction.</td>
@@ -85,8 +76,8 @@
                         <td>When provided, the elements within the stack wrap when there isn't enough space left.</td>
                     </tr>
                 </template>
-            </api-table>
-        </section>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -94,7 +85,7 @@
     lang="ts"
     setup>
     import { FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@/components';
 </script>
 
 <style

@@ -8,14 +8,13 @@
             </flux-form-input-addition>
 
             <flux-form-select
-                :model-value="perPage"
-                :options="limitOptions"
-                @update:model-value="$emit('limit', $event)"/>
+                v-model="limit"
+                :options="limitOptions"/>
         </flux-form-input-group>
 
         <flux-spacer v-if="breakpoints.lg"/>
 
-        <flux-form-input-group v-if="total > perPage">
+        <flux-form-input-group>
             <flux-form-input-addition>
                 <span>
                     {{
@@ -29,6 +28,7 @@
             </flux-form-input-addition>
 
             <flux-pagination
+                v-if="total > perPage"
                 arrows
                 is-compact
                 :page="page"
@@ -42,36 +42,43 @@
 <script
     lang="ts"
     setup>
-    import { computed, toRefs, unref } from 'vue-demi';
+    import { computed, ref, toRefs, unref, watch } from 'vue-demi';
     import { useBreakpoints, useTranslate } from '../composables';
     import { FluxFormSelectOption } from '../data';
     import { FluxFormInputAddition, FluxFormInputGroup, FluxFormSelect, FluxPagination, FluxSpacer, FluxStack } from '.';
 
     export interface Emits {
         (e: 'limit', limit: number): void;
+
         (e: 'navigate', page: number): void;
     }
 
     export interface Props {
-        readonly limits: number[];
+        readonly limits?: number[];
         readonly page: number;
         readonly perPage: number;
         readonly total: number;
     }
 
-    defineEmits<Emits>();
+    const emit = defineEmits<Emits>();
     const props = withDefaults(defineProps<Props>(), {
         limits: () => [5, 10, 25, 50, 100]
     });
-    const {limits} = toRefs(props);
+    const {limits, perPage} = toRefs(props);
 
     const translate = useTranslate();
     const {breakpoints} = useBreakpoints();
+
+    const limit = ref(unref(perPage));
 
     const limitOptions = computed(() => unref(limits).map<FluxFormSelectOption>(limit => ({
         id: limit,
         label: `${limit}`
     })));
+
+    watch(limit, limit => emit('limit', limit));
+
+    watch(perPage, perPage => limit.value = perPage, {immediate: true});
 </script>
 
 <style lang="scss">

@@ -34,35 +34,27 @@
         </api-section>
 
         <api-section title="API">
-            <api-table title="Components">
-                <template #head>
-                    <tr>
-                        <th>Name</th>
-                        <th>When to use</th>
-                    </tr>
-                </template>
-                <template #body>
-                    <tr>
-                        <td><code>FluxDestructiveButton</code></td>
-                        <td>Destructive actions, such as deleting or disabling something. For example: A trash button that removes a single row from a table.</td>
-                    </tr>
-                    <tr>
-                        <td><code>FluxPrimaryButton</code></td>
-                        <td>Primary actions on the page, such as saving something or starting a new flow. For example: Saving a profile.</td>
-                    </tr>
-                    <tr>
-                        <td><code>FluxPublishButton</code></td>
-                        <td>When the content that is edited can be published. For example: A user wants to publish a new blog post, the button can be used here.</td>
-                    </tr>
-                    <tr>
-                        <td><code>FluxSecondaryButton</code></td>
-                        <td>Generally speaking, for all other types of buttons. Keep in mind that not everything needs to be a button, liks will also do sometimes.</td>
-                    </tr>
-                </template>
-            </api-table>
+            <api-components>
+                <tr>
+                    <td><code>FluxDestructiveButton</code></td>
+                    <td>Destructive actions, such as deleting or disabling something. For example: A trash button that removes a single row from a table.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxPrimaryButton</code></td>
+                    <td>Primary actions on the page, such as saving something or starting a new flow. For example: Saving a profile.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxPublishButton</code></td>
+                    <td>When the content that is edited can be published. For example: A user wants to publish a new blog post, the button can be used here.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxSecondaryButton</code></td>
+                    <td>Generally speaking, for all other types of buttons. Keep in mind that not everything needs to be a button, liks will also do sometimes.</td>
+                </tr>
+            </api-components>
 
-            <api-table title="Props">
-                <template #body>
+            <api-component name="Button">
+                <template #props>
                     <tr>
                         <td><code>disabled</code><code>boolean</code></td>
                         <td>Indicates that the button should be disabled.</td>
@@ -112,10 +104,8 @@
                         <td>The type of button changes how the button handles a click.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Emits">
-                <template #body>
+                <template #emits>
                     <tr>
                         <td><code>click</code><code>(evt: MouseEvent): void;</code></td>
                         <td>Triggered when the button is clicked.</td>
@@ -129,7 +119,7 @@
                         <td>Triggered when the cursor leaves the button.</td>
                     </tr>
                 </template>
-            </api-table>
+            </api-component>
         </api-section>
 
         <api-section title="Examples">
@@ -164,7 +154,7 @@
     lang="ts"
     setup>
     import { FluxButtonStack, FluxDestructiveButton, FluxPrimaryButton, FluxPublishButton, FluxSecondaryButton, FluxStack } from '@fancee/flux';
-    import { ApiExample, ApiSection, ApiTable, CodePreview, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
     import primary from '@/code/components/button/primary.vue';
     import primaryCode from '@/code/components/button/primary.vue?raw';
     import secondary from '@/code/components/button/secondary.vue';

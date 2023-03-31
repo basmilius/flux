@@ -42,57 +42,62 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 A Filter is used to filter a large dataset. It consists of multiple filter options of various types, for
                 example an option or a date. The user can navigate through the filter and alter options.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
+        <api-section title="API">
+            <api-components>
+                <tr>
+                    <td><code>FluxFilter</code></td>
+                    <td>The filter component itself, can render the other filter components.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxFilterDate</code></td>
+                    <td>Filter option that can select a single date.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxFilterDateRange</code></td>
+                    <td>Filter option that can select a date range.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxFilterOption</code></td>
+                    <td>Filter option that can select a single item from a list of options.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxFilterOptions</code></td>
+                    <td>Filter option that can select multiple items from a list of options.</td>
+                </tr>
+            </api-components>
 
-            <api-table title="Components">
-                <template #head>
-                    <tr>
-                        <th>Name</th>
-                        <th>When to use</th>
-                    </tr>
-                </template>
-                <template #body>
-                    <tr>
-                        <td><code>FluxFilter</code></td>
-                        <td>The filter component itself, can render the other filter components.</td>
-                    </tr>
-                    <tr>
-                        <td><code>FluxFilterDate</code></td>
-                        <td>Filter option that can select a single date.</td>
-                    </tr>
-                    <tr>
-                        <td><code>FluxFilterDateRange</code></td>
-                        <td>Filter option that can select a date range.</td>
-                    </tr>
-                    <tr>
-                        <td><code>FluxFilterOption</code></td>
-                        <td>Filter option that can select a single item from a list of options.</td>
-                    </tr>
-                    <tr>
-                        <td><code>FluxFilterOptions</code></td>
-                        <td>Filter option that can select multiple items from a list of options.</td>
-                    </tr>
-                </template>
-            </api-table>
-
-            <api-table title="Props: FluxFilter">
-                <template #body>
+            <api-component name="FluxFilter">
+                <template #props>
                     <tr>
                         <td><code>model-value</code><code>object</code></td>
                         <td>The state of the filter.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Props: FluxFilterDate">
-                <template #body>
+                <template #emits>
+                    <tr>
+                        <td><code>update:model-value</code><code>(state: object): void;</code></td>
+                        <td>Triggered when the filter state has changed.</td>
+                    </tr>
+                </template>
+
+                <template #slots>
+                    <tr>
+                        <td><code>default</code><code>{}</code></td>
+                        <td>Filter options and other components. A FluxSeparator has a special case that groups the other options.</td>
+                    </tr>
+                </template>
+            </api-component>
+
+            <api-component name="FluxFilterDate">
+                <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
                         <td>The icon for the filter option.</td>
@@ -114,10 +119,10 @@
                         <td>The name of the entry in the filter state.</td>
                     </tr>
                 </template>
-            </api-table>
+            </api-component>
 
-            <api-table title="Props: FluxFilterDateRange">
-                <template #body>
+            <api-component name="FluxFilterDateRange">
+                <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
                         <td>The icon for the filter option.</td>
@@ -143,10 +148,10 @@
                         <td>Type of range that can be selected in the date picker.</td>
                     </tr>
                 </template>
-            </api-table>
+            </api-component>
 
-            <api-table title="Props: FluxFilterOption">
-                <template #body>
+            <api-component name="FluxFilterOption">
+                <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
                         <td>The icon for the filter option.</td>
@@ -164,10 +169,10 @@
                         <td>The available options.</td>
                     </tr>
                 </template>
-            </api-table>
+            </api-component>
 
-            <api-table title="Props: FluxFilterOptions">
-                <template #body>
+            <api-component name="FluxFilterOptions">
+                <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
                         <td>The icon for the filter option.</td>
@@ -185,26 +190,8 @@
                         <td>The available options.</td>
                     </tr>
                 </template>
-            </api-table>
-
-            <api-table title="Emits: FluxFilter">
-                <template #body>
-                    <tr>
-                        <td><code>update:model-value</code><code>(state: object): void;</code></td>
-                        <td>Triggered when the filter state has changed.</td>
-                    </tr>
-                </template>
-            </api-table>
-
-            <api-table title="Slots: FluxFilter">
-                <template #body>
-                    <tr>
-                        <td><code>default</code><code>{}</code></td>
-                        <td>Filter options and other components. A FluxSeparator has a special case that groups the other options.</td>
-                    </tr>
-                </template>
-            </api-table>
-        </section>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -212,9 +199,9 @@
     lang="ts"
     setup>
     import { FluxFilter, FluxFilterDate, FluxFilterDateRange, FluxFilterOption, FluxFilterOptions, FluxPane, FluxSeparator, FluxStack } from '@fancee/flux';
-    import { ref } from 'vue';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@/components';
     import { DateTime } from 'luxon';
+    import { ref } from 'vue';
 
     const filterState = ref({
         option1: 'b',

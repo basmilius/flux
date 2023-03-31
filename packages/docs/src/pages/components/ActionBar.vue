@@ -40,8 +40,8 @@
         </api-section>
 
         <api-section title="API">
-            <api-table title="Slots">
-                <template #body>
+            <api-component name="ActionBar">
+                <template #props>
                     <tr>
                         <td><code>primary</code><code>{}</code></td>
                         <td>One primary action for the action bar. Yes, more is allowed, but strongly discouraged.</td>
@@ -59,7 +59,7 @@
                         <td>The filter flyout. The same slot api of the opener slot from Flyout is used.</td>
                     </tr>
                 </template>
-            </api-table>
+            </api-component>
         </api-section>
     </flux-stack>
 </template>
@@ -68,5 +68,5 @@
     lang="ts"
     setup>
     import { FluxActionBar, FluxFormInput, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPrimaryButton, FluxStack } from '@fancee/flux';
-    import { ApiSection, ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
 </script>

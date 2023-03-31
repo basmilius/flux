@@ -12,17 +12,27 @@
                 :total="200"/>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 A component that displays the pages for paginated content. The component automatically decides
                 which pages to show or not.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
+        <api-section title="API">
+            <api-components>
+                <tr>
+                    <td><code>FluxPagination</code></td>
+                    <td>Simple pagination element.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxPaginationBar</code></td>
+                    <td>A pagination bar that contains a pagination element and limit options.</td>
+                </tr>
+            </api-components>
 
-            <api-table title="Props">
-                <template #body>
+            <api-component name="Pagination">
+                <template #props>
                     <tr>
                         <td><code>arrows</code><code>boolean</code></td>
                         <td>Enables the navigation arrows.</td>
@@ -44,28 +54,55 @@
                         <td>The total amount of entities.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Emits">
-                <template #body>
+                <template #emits>
                     <tr>
                         <td><code>navigate</code><code>(page: number): void;</code></td>
                         <td>Triggered when a navigation occurred.</td>
                     </tr>
                 </template>
-            </api-table>
+            </api-component>
 
-            <p><br/></p>
-            <h2>Examples</h2>
+            <api-component name="PaginationBar">
+                <template #props>
+                    <tr>
+                        <td><code>limits</code><code>number[]</code></td>
+                        <td>The different limits that are available in the pagination bar.</td>
+                    </tr>
+                    <tr>
+                        <td><code>page</code><code>number</code></td>
+                        <td>The current active page.</td>
+                    </tr>
+                    <tr>
+                        <td><code>per-page</code><code>number</code></td>
+                        <td>The amount of entities that is displayed per page.</td>
+                    </tr>
+                    <tr>
+                        <td><code>total</code><code>number</code></td>
+                        <td>The total amount of entities.</td>
+                    </tr>
+                </template>
 
-            <h3>Basic</h3>
-            <p>
-                Pagination can for example be visible in the footer of a Pane.
-            </p>
-            <code-preview
-                :code="basicCode as string"
-                :component="basic"/>
-        </section>
+                <template #emits>
+                    <tr>
+                        <td><code>limit</code><code>(limit: number): void;</code></td>
+                        <td>Triggered when the user changes the limit.</td>
+                    </tr>
+                    <tr>
+                        <td><code>navigate</code><code>(page: number): void;</code></td>
+                        <td>Triggered when a navigation occurred.</td>
+                    </tr>
+                </template>
+            </api-component>
+        </api-section>
+
+        <api-section title="Example">
+            <api-example
+                :code="basicCode"
+                :component="basic"
+                title="Basic"
+                description="Pagination can for example be visible in the footer of a Pane."/>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -73,7 +110,7 @@
     lang="ts"
     setup>
     import { FluxPagination, FluxStack } from '@fancee/flux';
-    import { ApiTable, CodePreview, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
     import basic from '../../code/components/pagination/basic.vue';
     import basicCode from '../../code/components/pagination/basic.vue?raw';
 </script>

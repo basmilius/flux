@@ -11,17 +11,16 @@
                 :model-value="5"/>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 A quantity selector can be used when users need to select a amount of something. For example: Within
                 a shop, a user is able to select how many of a certain product they want to buy.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
-            <api-table title="Props">
-                <template #body>
+        <api-section title="API">
+            <api-component name="QuantitySelector">
+                <template #props>
                     <tr>
                         <td><code>max</code><code>number</code></td>
                         <td>Maximum selectable value.</td>
@@ -39,37 +38,29 @@
                         <td>The step that is used when going up or down in the quantity selector.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Emits">
-                <template #body>
+                <template #emits>
                     <tr>
                         <td><code>update:model-value</code><code>(value: number): void;</code></td>
                         <td>Triggered when a new value is selected.</td>
                     </tr>
                 </template>
-            </api-table>
+            </api-component>
+        </api-section>
 
-            <p><br/></p>
-            <h2>Examples</h2>
+        <api-section title="Examples">
+            <api-example
+                :code="basicCode"
+                :component="basic"
+                title="Basic"
+                description="Quantity selectors have a minimum and maximum value."/>
 
-            <h3>Basic</h3>
-            <p>
-                Quantity selectors have a minimum and maximum value.
-            </p>
-            <code-preview
-                :code="basicCode as string"
-                :component="basic"/>
-
-            <h3>Step</h3>
-            <p>
-                The quantity selector also has support for a step prop that controls by how much
-                the value is increased or decreased at once.
-            </p>
-            <code-preview
-                :code="stepCode as string"
-                :component="step"/>
-        </section>
+            <api-example
+                :code="stepCode"
+                :component="step"
+                title="Step"
+                description="The quantity selector also has support for a step prop that controls by how much the value is increased or decreased at once."/>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -77,7 +68,7 @@
     lang="ts"
     setup>
     import { FluxQuantitySelector, FluxStack } from '@fancee/flux';
-    import { ApiTable, CodePreview, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
     import basic from '@/code/components/quantitySelector/basic.vue';
     import basicCode from '@/code/components/quantitySelector/basic.vue?raw';
     import step from '@/code/components/quantitySelector/step.vue';

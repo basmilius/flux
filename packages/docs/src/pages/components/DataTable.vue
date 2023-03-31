@@ -71,8 +71,8 @@
         </api-section>
 
         <api-section title="API">
-            <api-table title="Props">
-                <template #body>
+            <api-component name="DataTable">
+                <template #props>
                     <tr>
                         <td><code>data-set</code><code>object[]</code></td>
                         <td>The visible data set for the table.</td>
@@ -98,7 +98,18 @@
                         <td>When given, this value of the object will be used as the key for each row.</td>
                     </tr>
                 </template>
-            </api-table>
+
+                <template #slots>
+                    <tr>
+                        <td><code>header</code><code>{dataSet, page, perPage, total}</code></td>
+                        <td>The header of the data table.</td>
+                    </tr>
+                    <tr>
+                        <td><code>[custom]</code><code>{dataSet, page, perPage, row, total}</code></td>
+                        <td>A single cell within the data table.</td>
+                    </tr>
+                </template>
+            </api-component>
         </api-section>
 
         <api-section title="Examples">
@@ -121,8 +132,8 @@
     lang="ts"
     setup>
     import { FluxBadge, FluxBadgeStack, FluxDataTable, FluxPane, FluxStack, FluxTableAction, FluxTableActions, FluxTableCell, FluxTableHeader } from '@fancee/flux';
-    import { ApiExample, ApiSection, ApiTable, PageTitle, Preview } from '@/components';
-    import { computed, ref } from 'vue';
+    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
+    import { computed } from 'vue';
     import basic from '../../code/components/data-table/basic.vue';
     import basicCode from '../../code/components/data-table/basic.vue?raw';
     import pagination from '../../code/components/data-table/pagination.vue';

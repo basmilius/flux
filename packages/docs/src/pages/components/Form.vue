@@ -38,6 +38,17 @@
                                 auto-complete="email"
                                 placeholder="E.g. What does API mean in the Medium ticketing package?"/>
                         </flux-form-field>
+
+                        <flux-form-field label="Phone number">
+                            <flux-form-input-group>
+                                <flux-form-input-addition icon="phone"/>
+
+                                <flux-form-input
+                                    auto-complete="phone_number"
+                                    placeholder="E.g. +31 6 12345678"
+                                    type="phone"/>
+                            </flux-form-input-group>
+                        </flux-form-field>
                     </flux-form-column>
                 </flux-pane-body>
 
@@ -53,42 +64,81 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 When it comes to designing forms on a website, the layout is just as important as the individual form
                 components themselves. The way that input fields, dropdown menus, checkboxes, and other form elements
                 are arranged can impact how easily users can navigate and complete the form. That's why it's important
                 to have a set of components specifically designed for form layout.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
+        <api-section title="API">
+            <api-components>
+                <tr>
+                    <td><code>FluxFormColumn</code></td>
+                    <td>Displays form components in a column.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxFormRow</code></td>
+                    <td>Displays form components in a row.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxFormInputAddition</code></td>
+                    <td>An addition for an input.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxFormInputGroup</code></td>
+                    <td>A group that can combine buttons and other additions with inputs.</td>
+                </tr>
+            </api-components>
 
-            <api-table title="Components">
-                <template #head>
+            <api-component name="FormColumn">
+                <template #slots>
                     <tr>
-                        <th>Name</th>
-                        <th>When to use</th>
+                        <td><code>default</code><code>{}</code></td>
+                        <td>Form elements within the column.</td>
                     </tr>
                 </template>
-                <template #body>
+            </api-component>
+
+            <api-component name="FormRow">
+                <template #slots>
                     <tr>
-                        <td><code>FluxFormColumn</code></td>
-                        <td>Displays form components in a column.</td>
-                    </tr>
-                    <tr>
-                        <td><code>FluxFormRow</code></td>
-                        <td>Displays form components in a row.</td>
+                        <td><code>default</code><code>{}</code></td>
+                        <td>Form elements within the row.</td>
                     </tr>
                 </template>
-            </api-table>
-        </section>
+            </api-component>
+
+            <api-component name="FormInputAddition">
+                <template #props>
+                    <tr>
+                        <td><code>icon</code><code>IconNames</code></td>
+                        <td>Icon to use within the addition.</td>
+                    </tr>
+                    <tr>
+                        <td><code>text</code><code>string</code></td>
+                        <td>Text to use within the addition.</td>
+                    </tr>
+                </template>
+            </api-component>
+
+            <api-component name="FormInputGroup">
+                <template #slots>
+                    <tr>
+                        <td><code>default</code><code>{}</code></td>
+                        <td>Inputs, additions and buttons to group together.</td>
+                    </tr>
+                </template>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxFormColumn, FluxFormField, FluxFormInput, FluxFormRow, FluxFormTextArea, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStack } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { FluxFormColumn, FluxFormField, FluxFormInput, FluxFormInputAddition, FluxFormInputGroup, FluxFormRow, FluxFormTextArea, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStack } from '@fancee/flux';
+    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@/components';
 </script>
