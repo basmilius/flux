@@ -41,17 +41,16 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 The Avatar component is a reusable UI element that can display an image, initials, or an icon. It accepts
                 props for each of these options and dynamically displays the appropriate content based on what is passed
                 in. This component can be used to represent a user or any other entity in a system that requires a
                 visual representation.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
+        <api-section title="API">
             <api-table title="Props">
                 <template #body>
                     <tr>
@@ -93,7 +92,7 @@
                     </tr>
                 </template>
             </api-table>
-        </section>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -101,5 +100,5 @@
     lang="ts"
     setup>
     import { FluxAvatar, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiSection, ApiTable, PageTitle, Preview } from '@/components';
 </script>

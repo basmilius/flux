@@ -18,7 +18,7 @@
                     <template v-if="name !== 'header'">
                         <slot
                             :name="name"
-                            v-bind="row"/>
+                            v-bind="{dataSet, page, perPage, row, total}"/>
                     </template>
                 </template>
             </flux-table-row>
@@ -41,7 +41,10 @@
         readonly uniqueKey?: string;
     }
 
-    defineProps<Props>();
+    withDefaults(defineProps<Props>(), {
+        page: 1,
+        perPage: 1000
+    });
 
     const slots = useSlots();
 </script>

@@ -24,15 +24,14 @@
             </flux-badge-stack>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 Badges are used as labels for a more specific element in the UI. This, for example, may be used to
                 display the status of an order.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
+        <api-section title="API">
             <api-table title="Props">
                 <template #body>
                     <tr>
@@ -78,45 +77,33 @@
                     </tr>
                 </template>
             </api-table>
+        </api-section>
 
-            <p><br/></p>
-            <h2>Examples</h2>
+        <api-section title="Examples">
+            <api-example
+                :code="basicCode"
+                :component="basic"
+                title="Basic"
+                description="A basic badge can be used to show additional information about something else."/>
 
-            <h3>Basic</h3>
-            <p>
-                A basic badge can be used to show additional information about something else.
-            </p>
-            <code-preview
-                :code="basicCode as string"
-                :component="basic"/>
+            <api-example
+                :code="dotCode"
+                :component="dot"
+                title="Dot"
+                description="A badge with a dot can be used to indicate status of something. For example the status of a server or the payment status of an order."/>
 
-            <h3>Dot</h3>
-            <p>
-                A badge with a dot can be used to indicate status of something. For example the status
-                of a server or the payment status of an order.
-            </p>
-            <code-preview
-                :code="dotCode as string"
-                :component="dot"/>
+            <api-example
+                :code="iconCode"
+                :component="icon"
+                title="Icon"
+                description="Icons within badges can be used to improve the meaning of the badge. This can for example be used to display features of something."/>
 
-            <h3>Icon</h3>
-            <p>
-                Icons within badges can be used to improve the meaning of the badge. This can for example
-                be used to display features of something.
-            </p>
-            <code-preview
-                :code="iconCode as string"
-                :component="icon"/>
-
-            <h3>Loading</h3>
-            <p>
-                Badges with a loading state can be used to indicate that a row within a table is doing
-                something, such as saving a particular row.
-            </p>
-            <code-preview
-                :code="loadingCode as string"
-                :component="loading"/>
-        </section>
+            <api-example
+                :code="loadingCode"
+                :component="loading"
+                title="Loading"
+                description="Badges with a loading state can be used to indicate that a row within a table is doing something, such as saving a particular row."/>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -124,7 +111,7 @@
     lang="ts"
     setup>
     import { FluxBadge, FluxBadgeStack, FluxStack } from '@fancee/flux';
-    import { ApiTable, CodePreview, PageTitle, Preview } from '@/components';
+    import { ApiExample, ApiSection, ApiTable, CodePreview, PageTitle, Preview } from '@/components';
     import basic from '@/code/components/badge/basic.vue';
     import basicCode from '@/code/components/badge/basic.vue?raw';
     import dot from '../../code/components/badge/dot.vue';

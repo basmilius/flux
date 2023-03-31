@@ -6,30 +6,8 @@
 
         <preview>
             <flux-pane>
-                <flux-action-bar>
-                    <template #primary>
-                        <flux-primary-button
-                            icon-before="circle-plus"
-                            label="Event"/>
-                    </template>
-
-                    <template #filter>
-                        <flux-pane-body>
-                            Filter contents.
-                        </flux-pane-body>
-                    </template>
-
-                    <template #search>
-                        <flux-form-input
-                            type="search"
-                            placeholder="Search anything..."/>
-                    </template>
-                </flux-action-bar>
-
                 <flux-data-table
-                    :data-set="dataSet.slice((page - 1) * perPage, (page * perPage))"
-                    :page="page"
-                    :per-page="perPage"
+                    :data-set="dataSet"
                     :total="dataSet.length"
                     is-hoverable>
                     <template #header>
@@ -39,15 +17,15 @@
                         <flux-table-header is-shrinking/>
                     </template>
 
-                    <template #name="{name}">
+                    <template #name="{row: {name}}">
                         <flux-table-cell>{{ name }}</flux-table-cell>
                     </template>
 
-                    <template #email="{email}">
+                    <template #email="{row: {email}}">
                         <flux-table-cell>{{ email }}</flux-table-cell>
                     </template>
 
-                    <template #isActive="{isActive}">
+                    <template #isActive="{row: {isActive}}">
                         <flux-table-cell>
                             <flux-badge-stack>
                                 <flux-badge
@@ -55,7 +33,6 @@
                                     color="success"
                                     icon="circle-check"
                                     label="Active"/>
-
 
                                 <flux-badge
                                     v-else
@@ -75,18 +52,10 @@
                         </flux-table-cell>
                     </template>
                 </flux-data-table>
-                <flux-pane-footer>
-                    <flux-pagination-bar
-                        :page="page"
-                        :per-page="perPage"
-                        :total="dataSet.length"
-                        @limit="setPerPage"
-                        @navigate="setPage"/>
-                </flux-pane-footer>
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 Data tables are a powerful tool for organizing and presenting large sets of data in a structured
                 and easy-to-read format. Like traditional tables, data tables use rows and columns to organize data,
@@ -99,10 +68,9 @@
                 include advanced sorting and filtering capabilities, allowing users to quickly search and analyze data
                 based on specific criteria.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
+        <api-section title="API">
             <api-table title="Props">
                 <template #body>
                     <tr>
@@ -131,32 +99,39 @@
                     </tr>
                 </template>
             </api-table>
-        </section>
+        </api-section>
+
+        <api-section title="Examples">
+            <api-example
+                :code="basicCode"
+                :component="basic"
+                title="Basic"
+                description="A plain data table that displays a few rows."/>
+
+            <api-example
+                :code="paginationCode"
+                :component="pagination"
+                title="Paginated"
+                description="For displaying large amounts of data, a pagination bar can be used."/>
+        </api-section>
     </flux-stack>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxActionBar, FluxBadge, FluxBadgeStack, FluxDataTable, FluxFormInput, FluxPaginationBar, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPrimaryButton, FluxStack, FluxTableAction, FluxTableActions, FluxTableCell, FluxTableHeader } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { FluxBadge, FluxBadgeStack, FluxDataTable, FluxPane, FluxStack, FluxTableAction, FluxTableActions, FluxTableCell, FluxTableHeader } from '@fancee/flux';
+    import { ApiExample, ApiSection, ApiTable, PageTitle, Preview } from '@/components';
     import { computed, ref } from 'vue';
+    import basic from '../../code/components/data-table/basic.vue';
+    import basicCode from '../../code/components/data-table/basic.vue?raw';
+    import pagination from '../../code/components/data-table/pagination.vue';
+    import paginationCode from '../../code/components/data-table/pagination.vue?raw';
 
-    const dataSet = computed(() => Array(95).fill(null).map((_, index) => ({
+    const dataSet = computed(() => Array(5).fill(null).map((_, index) => ({
         id: index,
         name: `Name ${index + 1}`,
         email: `entry-${index + 1}@fanc.ee`,
         isActive: index % 2 === 0
     })));
-
-    const page = ref(1);
-    const perPage = ref(5);
-
-    function setPage(p: number): void {
-        page.value = p;
-    }
-
-    function setPerPage(limit: number): void {
-        perPage.value = limit;
-    }
 </script>

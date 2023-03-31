@@ -56,12 +56,12 @@
             caption-side: v-bind(captionSide);
             color: var(--foreground-secondary);
             font-size: 14px;
+            text-align: left;
         }
     }
 
-    .flux-pane > .flux-table-scroll > .flux-table caption {
-        padding-top: 12px;
-        padding-bottom: 12px;
+    .flux-pane > .flux-table caption {
+        padding: 12px 21px;
         border-top: 1px solid rgb(var(--gray-3));
     }
 </style>

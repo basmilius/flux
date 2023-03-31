@@ -18,7 +18,8 @@
         "node": ">=18"
     },
     "devDependencies": {
-        "concurrently": "^7.6.0",
+        "@types/node": "^18.15.11",
+        "concurrently": "^8.0.1",
         "vite": "^4.2.1",
         "vue": "^3.2.47"
     }

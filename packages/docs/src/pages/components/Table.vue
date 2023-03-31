@@ -41,17 +41,16 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 Tables are a popular and effective way to display information in a clear and concise manner. They
                 offer a structured way to present data, making it easy for users to scan through and locate the
                 information they need. By using rows and columns to organize information, tables provide a
                 systematic approach to displaying data that can help users identify patterns and insights.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
+        <api-section title="API">
             <api-table title="Components">
                 <template #head>
                     <tr>
@@ -215,7 +214,39 @@
                     </tr>
                 </template>
             </api-table>
-        </section>
+        </api-section>
+
+        <api-section title="Examples">
+            <api-example
+                :code="basicCode"
+                :component="basic"
+                title="Basic"
+                description="Basic table containing three rows and 3 columns."/>
+
+            <api-example
+                :code="paneCode"
+                :component="pane"
+                title="Pane"
+                description="A table within a pane has a different style."/>
+
+            <api-example
+                :code="captionCode"
+                :component="caption"
+                title="Caption"
+                description="Tables can have a caption with an explanation about the table."/>
+
+            <api-example
+                :code="stickyCode"
+                :component="sticky"
+                title="Sticky header"
+                description="Headers can be sticky, when the user scrolls the header remains visible."/>
+
+            <api-example
+                :code="hoverableCode"
+                :component="hoverable"
+                title="Hoverable"
+                description="Rows can have a hover state."/>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -223,5 +254,15 @@
     lang="ts"
     setup>
     import { FluxPane, FluxStack, FluxTable, FluxTableAction, FluxTableActions, FluxTableCell, FluxTableHeader, FluxTableRow } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiExample, ApiSection, ApiTable, PageTitle, Preview } from '@/components';
+    import basic from '../../code/components/table/basic.vue';
+    import basicCode from '../../code/components/table/basic.vue?raw';
+    import caption from '../../code/components/table/caption.vue';
+    import captionCode from '../../code/components/table/caption.vue?raw';
+    import hoverable from '../../code/components/table/hoverable.vue';
+    import hoverableCode from '../../code/components/table/hoverable.vue?raw';
+    import pane from '../../code/components/table/pane.vue';
+    import paneCode from '../../code/components/table/pane.vue?raw';
+    import sticky from '../../code/components/table/sticky.vue';
+    import stickyCode from '../../code/components/table/sticky.vue?raw';
 </script>
