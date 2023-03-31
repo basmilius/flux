@@ -28,7 +28,6 @@
                             icon="circle-check"
                             label="Active"/>
 
-
                         <flux-badge
                             v-else
                             color="danger"
