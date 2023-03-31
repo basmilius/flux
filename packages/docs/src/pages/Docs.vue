@@ -137,7 +137,6 @@
                         type="route"/>
 
                     <flux-menu-item
-                        disabled
                         label="Drop zone"
                         to="/components/drop-zone"
                         type="route"/>
@@ -153,7 +152,6 @@
                         type="route"/>
 
                     <flux-menu-item
-                        disabled
                         label="Feature card"
                         to="/components/feature-card"
                         type="route"/>
@@ -201,7 +199,6 @@
                         type="route"/>
 
                     <flux-menu-item
-                        disabled
                         label="Form select"
                         to="/components/form-select"
                         type="route"/>
