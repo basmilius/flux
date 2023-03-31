@@ -49,6 +49,7 @@
 
     export interface Emits {
         (e: 'limit', limit: number): void;
+
         (e: 'navigate', page: number): void;
     }
 
@@ -74,11 +75,6 @@
         id: limit,
         label: `${limit}`
     })));
-
-    function onLimitChanged(limit: number): void {
-        console.log(limit);
-        emit('limit', limit);
-    }
 
     watch(limit, limit => emit('limit', limit));
 
