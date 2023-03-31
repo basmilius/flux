@@ -15,7 +15,7 @@
 
         <flux-spacer v-if="breakpoints.lg"/>
 
-        <flux-form-input-group v-if="total > perPage">
+        <flux-form-input-group>
             <flux-form-input-addition>
                 <span>
                     {{
@@ -29,6 +29,7 @@
             </flux-form-input-addition>
 
             <flux-pagination
+                v-if="total > perPage"
                 arrows
                 is-compact
                 :page="page"
