@@ -18,7 +18,7 @@
                     <template v-if="name !== 'header'">
                         <slot
                             :name="name"
-                            v-bind="row"/>
+                            v-bind="{dataSet, page, perPage, row, total}"/>
                     </template>
                 </template>
             </flux-table-row>

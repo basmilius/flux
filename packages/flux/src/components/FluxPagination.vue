@@ -6,22 +6,22 @@
             icon-before="angle-left"
             @click="previous"/>
 
-        <template
-            v-if="!isCompact"
-            v-for="p of visiblePages">
-            <flux-secondary-button
-                v-if="p === 'dots'"
-                disabled
-                label="..."/>
+        <template v-if="!isCompact">
+            <template v-for="p of visiblePages">
+                <flux-secondary-button
+                    v-if="p === 'dots'"
+                    disabled
+                    label="..."/>
 
-            <flux-primary-button
-                v-else-if="p === page"
-                :label="`${p}`"/>
+                <flux-primary-button
+                    v-else-if="p === page"
+                    :label="`${p}`"/>
 
-            <flux-secondary-button
-                v-else
-                :label="`${p}`"
-                @click="navigate(p)"/>
+                <flux-secondary-button
+                    v-else
+                    :label="`${p}`"
+                    @click="navigate(p)"/>
+            </template>
         </template>
 
         <template v-else>

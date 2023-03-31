@@ -39,15 +39,15 @@
                         <flux-table-header is-shrinking/>
                     </template>
 
-                    <template #name="{name}">
+                    <template #name="{row: {name}}">
                         <flux-table-cell>{{ name }}</flux-table-cell>
                     </template>
 
-                    <template #email="{email}">
+                    <template #email="{row: {email}}">
                         <flux-table-cell>{{ email }}</flux-table-cell>
                     </template>
 
-                    <template #isActive="{isActive}">
+                    <template #isActive="{row: {isActive}}">
                         <flux-table-cell>
                             <flux-badge-stack>
                                 <flux-badge
