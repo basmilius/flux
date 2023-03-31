@@ -14,11 +14,11 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 A horizontal line.
             </p>
-        </section>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -26,5 +26,5 @@
     lang="ts"
     setup>
     import { FluxDivider, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { PageTitle, Preview } from '@/components';
+    import { ApiSection, PageTitle, Preview } from '@/components';
 </script>

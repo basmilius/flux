@@ -30,16 +30,15 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
-                <em>Todo</em>
+                A chip can display the status of an entity or toggle a status of an entity.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
-            <api-table title="Props">
-                <template #body>
+        <api-section title="API">
+            <api-component name="Chip">
+                <template #props>
                     <tr>
                         <td><code>iconAfter</code><code>IconNames</code></td>
                         <td>The icon that is used as a prefix.</td>
@@ -61,17 +60,15 @@
                         <td>The label displayed within the chip.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Emits">
-                <template #body>
+                <template #emits>
                     <tr>
                         <td><code>click</code><code>(evt: MouseEvent): void;</code></td>
                         <td>Triggered when the chip is clicked.</td>
                     </tr>
                 </template>
-            </api-table>
-        </section>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -79,5 +76,5 @@
     lang="ts"
     setup>
     import { FluxChip, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
 </script>

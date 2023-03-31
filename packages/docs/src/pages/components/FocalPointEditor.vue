@@ -22,11 +22,11 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 <em>Todo</em>
             </p>
-        </section>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -34,8 +34,8 @@
     lang="ts"
     setup>
     import { FluxFocalPointEditor, FluxPane, FluxPrimaryButton, FluxSecondaryButton, FluxStack } from '@fancee/flux';
+    import { ApiSection, PageTitle, Preview } from '@/components';
     import { ref } from 'vue';
-    import { PageTitle, Preview } from '@/components';
 
     const focalPoint = ref([65, 75]);
 </script>

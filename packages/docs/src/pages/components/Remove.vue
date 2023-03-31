@@ -14,18 +14,17 @@
             </flux-aspect-ratio>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 Our Remove component is a simple and intuitive Vue component that allows users to easily remove other
                 components within a larger system. With a single button and a clear "X" icon, users can quickly and
                 easily remove components with a single click.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
-            <api-table title="Props">
-                <template #body>
+        <api-section title="API">
+            <api-component name="Remove">
+                <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
                         <td>A custom icon for the remove button.</td>
@@ -35,17 +34,15 @@
                         <td>Controls that the remove button is hidden or not.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Emits">
-                <template #body>
+                <template #emits>
                     <tr>
                         <td><code>click</code><code>(evt: MouseEvent): void;</code></td>
                         <td>Triggered when the button is clicked.</td>
                     </tr>
                 </template>
-            </api-table>
-        </section>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -53,5 +50,5 @@
     lang="ts"
     setup>
     import { FluxAspectRatio, FluxPane, FluxPaneBody, FluxRemove, FluxStack } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
 </script>

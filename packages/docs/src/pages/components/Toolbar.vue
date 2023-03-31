@@ -26,50 +26,48 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 The toolbar component is used for actions within a certain context. For example: when you have a
                 stack of products, toolbars can be used to display actions for each product. A toolbar can have
                 groups, buttons and separators within them.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
+        <api-section title="API">
+            <api-components>
+                <tr>
+                    <td><code>FluxToolbar</code></td>
+                    <td>The toolbar itself.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxToolbarButton</code></td>
+                    <td>A single action within the toolbar.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxToolbarGroup</code></td>
+                    <td>Groups one or more FluxToolbarButton components together.</td>
+                </tr>
+            </api-components>
 
-            <api-table title="Components">
-                <template #head>
-                    <tr>
-                        <th>Name</th>
-                        <th>When to use</th>
-                    </tr>
-                </template>
-                <template #body>
-                    <tr>
-                        <td><code>FluxToolbar</code></td>
-                        <td>The toolbar itself.</td>
-                    </tr>
-                    <tr>
-                        <td><code>FluxToolbarButton</code></td>
-                        <td>A single action within the toolbar.</td>
-                    </tr>
-                    <tr>
-                        <td><code>FluxToolbarGroup</code></td>
-                        <td>Groups one or more FluxToolbarButton components together.</td>
-                    </tr>
-                </template>
-            </api-table>
-
-            <api-table title="Props: FluxToolbar">
-                <template #body>
+            <api-component name="Toolbar">
+                <template #props>
                     <tr>
                         <td><code>floating-mode</code><code>'free' | 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end'</code></td>
                         <td>The color of the timeline item. Gray is used when this prop is omitted.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Props: FluxToolbarButton">
-                <template #body>
+                <template #slots>
+                    <tr>
+                        <td><code>default</code><code>{}</code></td>
+                        <td>Contents of the toolbar.</td>
+                    </tr>
+                </template>
+            </api-component>
+
+            <api-component name="ToolbarButton">
+                <template #props>
                     <tr>
                         <td><code>destructive</code><code>boolean</code></td>
                         <td>Indicates that the button should be a destructive action.</td>
@@ -91,10 +89,8 @@
                         <td>The label displayed within the button.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Emits: FluxToolbarButton">
-                <template #body>
+                <template #emits>
                     <tr>
                         <td><code>click</code><code>(evt: MouseEvent): void;</code></td>
                         <td>Triggered when the button is clicked.</td>
@@ -108,26 +104,17 @@
                         <td>Triggered when the cursor leaves the button.</td>
                     </tr>
                 </template>
-            </api-table>
+            </api-component>
 
-            <api-table title="Slots: FluxToolbar">
-                <template #body>
-                    <tr>
-                        <td><code>default</code><code>{}</code></td>
-                        <td>Contents of the toolbar.</td>
-                    </tr>
-                </template>
-            </api-table>
-
-            <api-table title="Slots: FluxToolbarGroup">
-                <template #body>
+            <api-component name="ToolbarGroup">
+                <template #slots>
                     <tr>
                         <td><code>default</code><code>{}</code></td>
                         <td>Contents of the toolbar group.</td>
                     </tr>
                 </template>
-            </api-table>
-        </section>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -135,5 +122,5 @@
     lang="ts"
     setup>
     import { FluxPane, FluxPaneBody, FluxSeparator, FluxStack, FluxToolbar, FluxToolbarButton, FluxToolbarGroup } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiComponents, ApiSection, ApiTable, PageTitle, Preview } from '@/components';
 </script>

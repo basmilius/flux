@@ -12,23 +12,31 @@
             </flux-button-group>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 Groups multiple button. The button group component will adjust the border radius of its underlying
                 buttons and remove gaps between them.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>Examples</h2>
+        <api-section title="API">
+            <api-component name="ButtonGroup">
+                <template #slots>
+                    <tr>
+                        <td><code>default</code><code>{}</code></td>
+                        <td>The buttons that should be part of the group.</td>
+                    </tr>
+                </template>
+            </api-component>
+        </api-section>
 
-            <h3>Basic</h3>
-            <p>
-                A basic example of a button group.
-            </p>
-            <code-preview
-                :code="basicCode as string"
-                :component="basic"/>
-        </section>
+        <api-section title="Examples">
+            <api-example
+                :code="basicCode"
+                :component="basic"
+                title="Basic"
+                description="A basic example of a button group."/>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -36,7 +44,7 @@
     lang="ts"
     setup>
     import { FluxButtonGroup, FluxSecondaryButton, FluxStack } from '@fancee/flux';
-    import { CodePreview, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
     import basic from '../../code/components/buttonGroup/basic.vue';
     import basicCode from '../../code/components/buttonGroup/basic.vue?raw';
 </script>

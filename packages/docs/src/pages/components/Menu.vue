@@ -30,62 +30,67 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 The menu component is used for side navigation and in flyouts. It displays the children vertically and
                 gives them a gap. Menus provide more options for a set context.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
+        <api-section title="API">
+            <api-components>
+                <tr>
+                    <td><code>FluxMenu</code></td>
+                    <td>The base of the menu. When the menu retrieves focus, it traps it.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxMenuGroup</code></td>
+                    <td>Groups multiple menu items together. Reduces the gap between its items.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxMenuItem</code></td>
+                    <td>A single menu item that can perform an action.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxMenuSubHeader</code></td>
+                    <td>A title that can be used within a group.</td>
+                </tr>
+            </api-components>
 
-            <api-table title="Components">
-                <template #head>
-                    <tr>
-                        <th>Name</th>
-                        <th>When to use</th>
-                    </tr>
-                </template>
-                <template #body>
-                    <tr>
-                        <td><code>FluxMenu</code></td>
-                        <td>The base of the menu. When the menu retrieves focus, it traps it.</td>
-                    </tr>
-                    <tr>
-                        <td><code>FluxMenuGroup</code></td>
-                        <td>Groups multiple menu items together. Reduces the gap between its items.</td>
-                    </tr>
-                    <tr>
-                        <td><code>FluxMenuItem</code></td>
-                        <td>A single menu item that can perform an action.</td>
-                    </tr>
-                    <tr>
-                        <td><code>FluxMenuSubHeader</code></td>
-                        <td>A title that can be used within a group.</td>
-                    </tr>
-                </template>
-            </api-table>
-
-            <api-table title="Props: FluxMenu">
-                <template #body>
+            <api-component name="Menu">
+                <template #props>
                     <tr>
                         <td><code>is-large</code><code>boolean</code></td>
                         <td>Use a larger variant of the menu.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Props: FluxMenuGroup">
-                <template #body>
+                <template #slots>
+                    <tr>
+                        <td><code>default</code><code>{}</code></td>
+                        <td>The contents of the menu.</td>
+                    </tr>
+                </template>
+            </api-component>
+
+            <api-component name="MenuGroup">
+                <template #props>
                     <tr>
                         <td><code>is-horizontal</code><code>boolean</code></td>
                         <td>Render items in a row.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Props: FluxMenuItem">
-                <template #body>
+                <template #slots>
+                    <tr>
+                        <td><code>default</code><code>{}</code></td>
+                        <td>The contents of the menu group.</td>
+                    </tr>
+                </template>
+            </api-component>
+
+            <api-component name="MenuItem">
+                <template #props>
                     <tr>
                         <td><code>command</code><code>string</code></td>
                         <td>Adds a keyboard shortcut.</td>
@@ -143,10 +148,17 @@
                         <td>The type of button changes how the button handles a click.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Props: FluxMenuSubHeader">
-                <template #body>
+                <template #emits>
+                    <tr>
+                        <td><code>click</code><code>(evt: MouseEvent): void;</code></td>
+                        <td>Triggered when the menu item is clicked.</td>
+                    </tr>
+                </template>
+            </api-component>
+
+            <api-component name="MenuSubHeader">
+                <template #props>
                     <tr>
                         <td><code>icon-after</code><code>IconNames</code></td>
                         <td>The icon that is used as a suffix.</td>
@@ -160,63 +172,40 @@
                         <td>The label displayed within the menu item.</td>
                     </tr>
                 </template>
-            </api-table>
+            </api-component>
+        </api-section>
 
-            <api-table title="Emits: FluxMenuItem">
-                <template #body>
-                    <tr>
-                        <td><code>click</code><code>(evt: MouseEvent): void;</code></td>
-                        <td>Triggered when the menu item is clicked.</td>
-                    </tr>
-                </template>
-            </api-table>
+        <api-section title="Examples">
+            <api-example
+                :code="basicCode"
+                :component="basic"
+                title="Basic"
+                description="A basic menu that consists of a few items."/>
 
-            <p><br/></p>
-            <h2>Examples</h2>
+            <api-example
+                :code="groupCode"
+                :component="group"
+                title="Group"
+                description="Menus can have groups, to group similar items together."/>
 
-            <h3>Basic</h3>
-            <p>
-                A basic menu that consists of a few items.
-            </p>
-            <code-preview
-                :code="basicCode as string"
-                :component="basic"/>
+            <api-example
+                :code="paneCode"
+                :component="pane"
+                title="Pane"
+                description="Panes have first class support for menus inside them. Place a menu directly inside a Pane to create a nice side menu for example."/>
 
-            <h3>Group</h3>
-            <p>
-                Menus can have groups, to group similar items together.
-            </p>
-            <code-preview
-                :code="groupCode as string"
-                :component="group"/>
+            <api-example
+                :code="subHeaderCode"
+                :component="subHeader"
+                title="Sub header"
+                description="Menu groups can have a sub header. A sub header can be used to categorize the underlying menu items and improve readability."/>
 
-            <h3>Pane</h3>
-            <p>
-                Panes have first class support for menus inside them. Place a menu directly inside a Pane
-                to create a nice side menu for example.
-            </p>
-            <code-preview
-                :code="paneCode as string"
-                :component="pane"/>
-
-            <h3>Sub header</h3>
-            <p>
-                Menu groups can have a sub header. A sub header can be used to categorize the underlying
-                menu items and improve readability.
-            </p>
-            <code-preview
-                :code="subHeaderCode as string"
-                :component="subHeader"/>
-
-            <h3>Larger menus</h3>
-            <p>
-                These types of menus can be used within dashboard sidebars. They're a bit larger than other
-                menus and may contain indented sub items.
-            </p>
-            <code-preview
-                :code="largeCode as string"
-                :component="large"/>
-        </section>
+            <api-example
+                :code="largeCode"
+                :component="large"
+                title="Larger menus"
+                description="These types of menus can be used within dashboard sidebars. They're a bit larger than other menus and may contain indented sub items."/>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -224,7 +213,7 @@
     lang="ts"
     setup>
     import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxSeparator, FluxStack } from '@fancee/flux';
-    import { ApiTable, CodePreview, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
     import basic from '@/code/components/menu/basic.vue';
     import basicCode from '@/code/components/menu/basic.vue?raw';
     import group from '@/code/components/menu/group.vue';

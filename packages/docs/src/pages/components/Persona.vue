@@ -29,7 +29,7 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 The Persona component is a versatile Vue component that combines an avatar, name, and title to provide
                 a complete representation of a user or other entity. With the ability to display an image, initials, or
@@ -37,12 +37,11 @@
                 specific needs. The name and title fields are also customizable and can be used to display any relevant
                 information about the entity being represented.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
-            <api-table title="Props">
-                <template #body>
+        <api-section title="API">
+            <api-component name="Persona">
+                <template #props>
                     <tr>
                         <td><code>avatar-alt</code><code>string</code></td>
                         <td>A brief description of the avatar.</td>
@@ -80,17 +79,15 @@
                         <td>Title of the entity in the persona.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Emits">
-                <template #body>
+                <template #emits>
                     <tr>
                         <td><code>click</code><code>(evt: MouseEvent): void;</code></td>
                         <td>Triggered when the persona is clicked.</td>
                     </tr>
                 </template>
-            </api-table>
-        </section>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -98,5 +95,5 @@
     lang="ts"
     setup>
     import { FluxPane, FluxPaneBody, FluxPersona, FluxSpacer, FluxStack } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
 </script>

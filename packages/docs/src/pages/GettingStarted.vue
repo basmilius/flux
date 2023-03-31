@@ -4,7 +4,7 @@
             section="Setup"
             title="Getting started"/>
 
-        <section>
+        <api-section>
             <p>
                 Flux is a Vue component library that can be used with both Vue 2 and Vue 3. Its flexibility makes it an ideal
                 solution for developers looking to streamline the process of building consistent and intuitive user interfaces.
@@ -12,8 +12,9 @@
                 you time and effort. Whether you're starting a new project or migrating an existing one, Flux can help you
                 achieve a high-quality user interface with ease.
             </p>
+        </api-section>
 
-            <h2>Vue 3.0</h2>
+        <api-section title="Vue 3.0">
             <ol>
                 <li>
                     <p>Open your project's root directory in your terminal.</p>
@@ -37,8 +38,9 @@
                         language="vue"/>
                 </li>
             </ol>
+        </api-section>
 
-            <h2>Vue 2.7</h2>
+        <api-section title="Vue 2.7">
             <ol>
                 <li>
                     <p>Open your project's root directory in your terminal.</p>
@@ -62,7 +64,7 @@
                         language="vue"/>
                 </li>
             </ol>
-        </section>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -70,6 +72,6 @@
     lang="ts"
     setup>
     import { FluxStack } from '@fancee/flux';
-    import { HighlightedCode, PageTitle } from '@/components';
-    import usageCode from '@/code/getting-started/component-usage.vue?raw'
+    import { ApiSection, HighlightedCode, PageTitle } from '@/components';
+    import usageCode from '@/code/getting-started/component-usage.vue?raw';
 </script>

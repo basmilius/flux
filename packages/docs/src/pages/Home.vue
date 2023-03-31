@@ -4,7 +4,7 @@
             section="Setup"
             title="Introduction"/>
 
-        <section>
+        <api-section>
             <p>
                 Introducing Flux, a Vue component library that can simplify the process of building beautiful and functional
                 interfaces for your Vue applications. Flux provides developers with a set of pre-built components that can be
@@ -30,7 +30,7 @@
                 user interface remains consistent and intuitive, while its user-friendly development process can help
                 streamline development efforts.
             </p>
-        </section>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -38,5 +38,5 @@
     lang="ts"
     setup>
     import { FluxStack } from '@fancee/flux';
-    import { PageTitle } from '@/components';
+    import { ApiSection, PageTitle } from '@/components';
 </script>

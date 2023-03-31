@@ -12,19 +12,18 @@
                 variant="info"/>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 A notice component is a UI component that displays a message to the user, typically to provide
                 information or alert them to a particular status or event. A notice may include an icon, message,
                 and an optional title. It is used to communicate important information to the user in a clear
                 and concise manner.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
-            <api-table title="Props">
-                <template #body>
+        <api-section title="API">
+            <api-component name="Notice">
+                <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
                         <td>The icon used within the notice.</td>
@@ -50,36 +49,28 @@
                         <td>The color variant of the notice.</td>
                     </tr>
                 </template>
-            </api-table>
+            </api-component>
+        </api-section>
 
-            <p><br/></p>
-            <h2>Examples</h2>
+        <api-section title="Examples">
+            <api-example
+                :code="basicCode"
+                :component="basic"
+                title="Basic"
+                description="Notices can display the result of an action that the user performed. The variant of the notice depends on if the result of that action is good or bad."/>
 
-            <h3>Basic</h3>
-            <p>
-                Notices can display the result of an action that the user performed. The variant of the
-                notice depends on if the result of that action is good or bad.
-            </p>
-            <code-preview
-                :code="basicCode as string"
-                :component="basic"/>
+            <api-example
+                :code="smallCode"
+                :component="small"
+                title="Small"
+                description="A smaller notice can be used within a Pane, for example within sidebars."/>
 
-            <h3>Small</h3>
-            <p>
-                A smaller notice can be used within a Pane, for example within sidebars.
-            </p>
-            <code-preview
-                :code="smallCode as string"
-                :component="small"/>
-
-            <h3>Loading</h3>
-            <p>
-                Notices may also indicate that something is loading.
-            </p>
-            <code-preview
-                :code="loadingCode as string"
-                :component="loading"/>
-        </section>
+            <api-example
+                :code="loadingCode"
+                :component="loading"
+                title="Loading"
+                description="Notices may also indicate that something is loading."/>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -87,7 +78,7 @@
     lang="ts"
     setup>
     import { FluxNotice, FluxStack } from '@fancee/flux';
-    import { ApiTable, CodePreview, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
     import basic from '@/code/components/notice/basic.vue';
     import basicCode from '@/code/components/notice/basic.vue?raw';
     import small from '@/code/components/notice/small.vue';

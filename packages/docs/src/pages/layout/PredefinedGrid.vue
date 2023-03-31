@@ -16,7 +16,7 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 The predefined grid component is a basic layout tool for organizing content on your page into columns. It
                 provides a straightforward solution for breaking up content into sections, allowing you to present
@@ -24,19 +24,18 @@
                 structure and is not adjustable. The number of columns, their width, and the distribution of content within
                 each column are predetermined and cannot be altered.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
-            <api-table title="Props">
-                <template #body>
+        <api-section title="API">
+            <api-component name="PredefinedGrid">
+                <template #props>
                     <tr>
                         <td><code>layout</code><code>'cards' | 'full' | 'sidebar-start' | 'sidebar-end' | 'two-column'</code></td>
                         <td>Which grid layout to use for its content.</td>
                     </tr>
                 </template>
-            </api-table>
-        </section>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -44,5 +43,5 @@
     lang="ts"
     setup>
     import { FluxPane, FluxPaneBody, FluxPredefinedGrid, FluxStack } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
 </script>

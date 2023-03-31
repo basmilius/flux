@@ -8,16 +8,15 @@
             <flux-link label="Link button"/>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 <em>Todo</em>
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
-            <api-table title="Props">
-                <template #body>
+        <api-section title="API">
+            <api-component name="Link">
+                <template #props>
                     <tr>
                         <td><code>disabled</code><code>boolean</code></td>
                         <td>Indicates that the link should be disabled.</td>
@@ -51,10 +50,8 @@
                         <td>The type of link changes how the link handles a click.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Emits">
-                <template #body>
+                <template #emits>
                     <tr>
                         <td><code>click</code><code>(evt: MouseEvent): void;</code></td>
                         <td>Triggered when the link is clicked.</td>
@@ -68,8 +65,8 @@
                         <td>Triggered when the cursor leaves the link.</td>
                     </tr>
                 </template>
-            </api-table>
-        </section>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -77,5 +74,5 @@
     lang="ts"
     setup>
     import { FluxLink, FluxStack } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
 </script>

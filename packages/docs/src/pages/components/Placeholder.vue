@@ -17,17 +17,16 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 A Placeholder is used for situations where the user should provide content, but it hasn't already. This
                 component will display the steps the user has to take.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
-            <api-table title="Props">
-                <template #body>
+        <api-section title="API">
+            <api-component name="Placeholder">
+                <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
                         <td>The icon used within th eplaceholder..</td>
@@ -49,17 +48,15 @@
                         <td>Placeholder variant. Only the extended placeholder may contain buttons.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Emits">
-                <template #body>
+                <template #emits>
                     <tr>
                         <td><code>click</code><code>(evt: MouseEvent): void;</code></td>
                         <td>Triggered when the placeholder is clicked.</td>
                     </tr>
                 </template>
-            </api-table>
-        </section>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -67,5 +64,5 @@
     lang="ts"
     setup>
     import { FluxPane, FluxPaneBody, FluxPlaceholder, FluxSecondaryButton, FluxStack } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
 </script>

@@ -14,17 +14,16 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 A form input is a text field that consist of a single line. It accepts various data types
                 that can be specified using the type prop.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
-            <api-table title="Props">
-                <template #body>
+        <api-section title="API">
+            <api-component name="FormInput">
+                <template #props>
                     <tr>
                         <td><code>model-value</code><code>object | string | number</code></td>
                         <td>The value of the input.</td>
@@ -66,10 +65,8 @@
                         <td>Value type.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Emits">
-                <template #body>
+                <template #emits>
                     <tr>
                         <td><code>update:model-value</code><code>(value: object | string | number): void</code></td>
                         <td>Triggered when the value changes.</td>
@@ -83,8 +80,8 @@
                         <td>Triggered when the input gains focus.</td>
                     </tr>
                 </template>
-            </api-table>
-        </section>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -92,5 +89,5 @@
     lang="ts"
     setup>
     import { FluxFormInput, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
 </script>

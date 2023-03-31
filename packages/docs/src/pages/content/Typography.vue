@@ -4,7 +4,7 @@
             section="Content"
             title="Typography"/>
 
-        <section>
+        <api-section>
             <p>
                 Typography is a critical element of any user interface, and in Flux, we understand the importance of creating
                 clear, consistent, and visually appealing typography in our components. This documentation provides you with
@@ -12,32 +12,34 @@
                 By the end of this documentation, you'll have a solid understanding of typography in Flux and be able to
                 create beautiful and readable text throughout your Vue application. So let's dive in!
             </p>
+        </api-section>
 
-            <h2>Headings</h2>
-            <code-preview
-                html
-                :code="headingsCode"/>
+        <api-section>
+            <api-example
+                :code="headingsCode"
+                title="Headings"
+                title-tag="h2"/>
 
-            <h2>Paragraph</h2>
-            <code-preview
-                html
-                :code="paragraphsCode"/>
+            <api-example
+                :code="paragraphsCode"
+                title="Paragraph"
+                title-tag="h2"/>
 
-            <h2>Lists</h2>
-            <code-preview
-                html
-                :code="listsCode"/>
+            <api-example
+                :code="listsCode"
+                title="Lists"
+                title-tag="h2"/>
 
-            <h2>Image</h2>
-            <code-preview
-                html
-                :code="imageCode"/>
+            <api-example
+                :code="imageCode"
+                title="Image"
+                title-tag="h2"/>
 
-            <h2>Blockquote</h2>
-            <code-preview
-                html
-                :code="blockquoteCode"/>
-        </section>
+            <api-example
+                :code="blockquoteCode"
+                title="Blockquote"
+                title-tag="h2"/>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -45,7 +47,7 @@
     lang="ts"
     setup>
     import { FluxStack } from '@fancee/flux';
-    import { CodePreview, PageTitle } from '@/components';
+    import { ApiExample, ApiSection, PageTitle } from '@/components';
     import blockquoteCode from '@/code/content/typography/blockquote.html?raw';
     import headingsCode from '@/code/content/typography/headings.html?raw';
     import imageCode from '@/code/content/typography/image.html?raw';

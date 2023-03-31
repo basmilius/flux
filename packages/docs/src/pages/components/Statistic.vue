@@ -32,16 +32,15 @@
             </flux-stack>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 <em>Todo</em>
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
-            <api-table title="Props">
-                <template #body>
+        <api-section title="API">
+            <api-component name="Statistic">
+                <template #props>
                     <tr>
                         <td><code>axis</code><code>'horizontal' | 'vertical'</code></td>
                         <td>Controls the grid of the statistic. The default is horizontal, which sets the icon at the start.</td>
@@ -75,8 +74,8 @@
                         <td>The statistic value.</td>
                     </tr>
                 </template>
-            </api-table>
-        </section>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -84,5 +83,5 @@
     lang="ts"
     setup>
     import { FluxStack, FluxStatistic } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
 </script>

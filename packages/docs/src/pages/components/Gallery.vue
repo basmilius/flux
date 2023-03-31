@@ -19,36 +19,27 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 The Gallery component is used to display multiple media entities in a grid. It also allows the user
                 to upload new media to it and control them further.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
+        <api-section title="API">
+            <api-components>
+                <tr>
+                    <td><code>FluxGallery</code></td>
+                    <td>The gallery itself.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxGalleryItem</code></td>
+                    <td>A single item within the gallery.</td>
+                </tr>
+            </api-components>
 
-            <api-table title="Components">
-                <template #head>
-                    <tr>
-                        <th>Name</th>
-                        <th>When to use</th>
-                    </tr>
-                </template>
-                <template #body>
-                    <tr>
-                        <td><code>FluxGallery</code></td>
-                        <td>The gallery itself.</td>
-                    </tr>
-                    <tr>
-                        <td><code>FluxGalleryItem</code></td>
-                        <td>A single item within the gallery.</td>
-                    </tr>
-                </template>
-            </api-table>
-
-            <api-table title="Props: FluxGallery">
-                <template #body>
+            <api-component name="Gallery">
+                <template #props>
                     <tr>
                         <td><code>is-editable</code><code>boolean</code></td>
                         <td>Allows the gallery to be edited, this also includes uploading new images.</td>
@@ -62,10 +53,28 @@
                         <td>Urls of pending images within the gallery.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Props: FluxGalleryItem">
-                <template #body>
+                <template #emits>
+                    <tr>
+                        <td><code>delete</code><code>(index: number): void;</code></td>
+                        <td>Triggered when an item within the gallery is being removed.</td>
+                    </tr>
+                    <tr>
+                        <td><code>upload</code><code>(files: File[]): void;</code></td>
+                        <td>Triggered when new images have been uploads by the user.</td>
+                    </tr>
+                </template>
+
+                <template #slots>
+                    <tr>
+                        <td><code>default</code><code>{}</code></td>
+                        <td>Allows custom gallery items to be placed without items and pending-items.</td>
+                    </tr>
+                </template>
+            </api-component>
+
+            <api-component name="GalleryItem">
+                <template #props>
                     <tr>
                         <td><code>is-deletable</code><code>boolean</code></td>
                         <td>Allows the gallery item to be deleted by the user.</td>
@@ -79,39 +88,15 @@
                         <td>The source of the image in the gallery item.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Emits: FluxGallery">
-                <template #body>
-                    <tr>
-                        <td><code>delete</code><code>(index: number): void;</code></td>
-                        <td>Triggered when an item within the gallery is being removed.</td>
-                    </tr>
-                    <tr>
-                        <td><code>upload</code><code>(files: File[]): void;</code></td>
-                        <td>Triggered when new images have been uploads by the user.</td>
-                    </tr>
-                </template>
-            </api-table>
-
-            <api-table title="Emits: FluxGalleryItem">
-                <template #body>
+                <template #emits>
                     <tr>
                         <td><code>delete</code><code>(): void;</code></td>
                         <td>Triggered when the remove button within the gallery item is clicked.</td>
                     </tr>
                 </template>
-            </api-table>
-
-            <api-table title="Slots: FluxGallery">
-                <template #body>
-                    <tr>
-                        <td><code>default</code><code>{}</code></td>
-                        <td>Allows custom gallery items to be placed without items and pending-items.</td>
-                    </tr>
-                </template>
-            </api-table>
-        </section>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -119,5 +104,5 @@
     lang="ts"
     setup>
     import { FluxGallery, FluxGalleryItem, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@/components';
 </script>

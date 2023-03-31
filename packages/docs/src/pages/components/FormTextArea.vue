@@ -12,17 +12,16 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 A form text area is a text field that may have multiple lines of text. It is used for longer
                 text and can be used within a contact form to ask for a question.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
-            <api-table title="Props">
-                <template #body>
+        <api-section title="API">
+            <api-component name="FormTextArea">
+                <template #props>
                     <tr>
                         <td><code>model-value</code><code>object | string | number</code></td>
                         <td>The value of the text area.</td>
@@ -56,10 +55,8 @@
                         <td>The initial amount of rows the text area should reserve.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Emits">
-                <template #body>
+                <template #emits>
                     <tr>
                         <td><code>update:model-value</code><code>(value: object | string | number): void</code></td>
                         <td>Triggered when the value changes.</td>
@@ -73,8 +70,8 @@
                         <td>Triggered when the text area gains focus.</td>
                     </tr>
                 </template>
-            </api-table>
-        </section>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -82,5 +79,5 @@
     lang="ts"
     setup>
     import { FluxFormTextArea, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
 </script>

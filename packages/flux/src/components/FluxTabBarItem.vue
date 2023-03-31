@@ -41,7 +41,17 @@
             return;
         }
 
-        unref(tabRef)?.scrollIntoView({
+        const tab = unref(tabRef);
+
+        if (!tab) {
+            return;
+        }
+
+        if (tab.parentElement?.offsetWidth === tab.parentElement?.scrollWidth) {
+            return;
+        }
+
+        tab.scrollIntoView({
             behavior: 'smooth',
             block: 'nearest',
             inline: 'center'
@@ -62,6 +72,7 @@
         border: 0;
         border-bottom: 2px solid transparent;
         color: var(--foreground);
+        contain: layout;
         cursor: pointer;
         font-weight: 500;
         outline: 0;

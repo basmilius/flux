@@ -18,17 +18,16 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 The form field component is a base component that wraps a single form control, such as FluxFormInput. It
                 provides a label, error and hint. Fields can also be marked optional.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
-            <api-table title="Props">
-                <template #body>
+        <api-section title="API">
+            <api-component name="FormField">
+                <template #props>
                     <tr>
                         <td><code>error</code><code>string</code></td>
                         <td>Error message showed under the field.</td>
@@ -46,8 +45,8 @@
                         <td>Label of the field.</td>
                     </tr>
                 </template>
-            </api-table>
-        </section>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -55,5 +54,5 @@
     lang="ts"
     setup>
     import { FluxFormField, FluxFormInput, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
 </script>

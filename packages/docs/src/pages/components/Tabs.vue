@@ -60,102 +60,50 @@
             </flux-stack>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 Tabs are a user interface element used for organizing and navigating content within an application. It
                 consists of clickable tabs that correspond to different content areas, and a content area that displays
                 relevant content based on the selected tab.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
+        <api-section title="API">
+            <api-components>
+                <tr>
+                    <td><code>FluxTabs</code></td>
+                    <td>This component does all the "tab"-work for you. It may contain multiple FluxTab components. The component will render a FluxTabBar for you.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxTab</code></td>
+                    <td>A single tab within a FluxTabs component.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxTabBar</code></td>
+                    <td>A navigation stack that displays multiple FluxTabBarItems.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxTabBarItem</code></td>
+                    <td>A single tab within a FluxTabBar.</td>
+                </tr>
+            </api-components>
 
-            <api-table title="Components">
-                <template #head>
-                    <tr>
-                        <th>Name</th>
-                        <th>When to use</th>
-                    </tr>
-                </template>
-                <template #body>
-                    <tr>
-                        <td><code>FluxTabs</code></td>
-                        <td>This component does all the "tab"-work for you. It may contain multiple FluxTab components. The component will render a FluxTabBar for you.</td>
-                    </tr>
-                    <tr>
-                        <td><code>FluxTab</code></td>
-                        <td>A single tab within a FluxTabs component.</td>
-                    </tr>
-                    <tr>
-                        <td><code>FluxTabBar</code></td>
-                        <td>A navigation stack that displays multiple FluxTabBarItems.</td>
-                    </tr>
-                    <tr>
-                        <td><code>FluxTabBarItem</code></td>
-                        <td>A single tab within a FluxTabBar.</td>
-                    </tr>
-                </template>
-            </api-table>
-
-            <api-table title="Props: FluxTabs">
-                <template #body>
+            <api-component name="FluxTabs">
+                <template #props>
                     <tr>
                         <td><code>model-value</code><code>number</code></td>
                         <td>The current active tab index.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Props: FluxTab">
-                <template #body>
-                    <tr>
-                        <td><code>icon</code><code>IconNames</code></td>
-                        <td>An icon for the tab.</td>
-                    </tr>
-                    <tr>
-                        <td><code>label</code><code>string</code></td>
-                        <td>The label for the tab.</td>
-                    </tr>
-                </template>
-            </api-table>
-
-            <api-table title="Props: FluxTabBarItem">
-                <template #body>
-                    <tr>
-                        <td><code>icon</code><code>IconNames</code></td>
-                        <td>An icon for the tab.</td>
-                    </tr>
-                    <tr>
-                        <td><code>is-active</code><code>boolean</code></td>
-                        <td>Determines if the tab is active.</td>
-                    </tr>
-                    <tr>
-                        <td><code>label</code><code>string</code></td>
-                        <td>The label for the tab.</td>
-                    </tr>
-                </template>
-            </api-table>
-
-            <api-table title="Emits: FluxTabs">
-                <template #body>
+                <template #emits>
                     <tr>
                         <td><code>update:model-value</code><code>(index: number): void;</code></td>
                         <td>Triggered when a new tab is activated.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Emits: FluxTabBarItem">
-                <template #body>
-                    <tr>
-                        <td><code>click</code><code>(evt: MouseEvent): void;</code></td>
-                        <td>Triggered when the tab is clicked.</td>
-                    </tr>
-                </template>
-            </api-table>
-
-            <api-table title="Slots: FluxTabs">
-                <template #body>
+                <template #slots>
                     <tr>
                         <td><code>default</code><code>{}</code></td>
                         <td>Contains all the tabs that are visible within.</td>
@@ -169,26 +117,61 @@
                         <td>Where the tabbar is rendered.</td>
                     </tr>
                 </template>
-            </api-table>
+            </api-component>
 
-            <api-table title="Slots: FluxTab">
-                <template #body>
+            <api-component name="FluxTab">
+                <template #props>
+                    <tr>
+                        <td><code>icon</code><code>IconNames</code></td>
+                        <td>An icon for the tab.</td>
+                    </tr>
+                    <tr>
+                        <td><code>label</code><code>string</code></td>
+                        <td>The label for the tab.</td>
+                    </tr>
+                </template>
+
+                <template #slots>
                     <tr>
                         <td><code>default</code><code>{}</code></td>
                         <td>The contents of the tab.</td>
                     </tr>
                 </template>
-            </api-table>
+            </api-component>
 
-            <api-table title="Slots: FluxTabBar">
-                <template #body>
+            <api-component name="FluxTabBar">
+                <template #slots>
                     <tr>
                         <td><code>default</code><code>{}</code></td>
                         <td>The contents of the tabbar.</td>
                     </tr>
                 </template>
-            </api-table>
-        </section>
+            </api-component>
+
+            <api-component name="FluxTabBarItem">
+                <template #props>
+                    <tr>
+                        <td><code>icon</code><code>IconNames</code></td>
+                        <td>An icon for the tab.</td>
+                    </tr>
+                    <tr>
+                        <td><code>is-active</code><code>boolean</code></td>
+                        <td>Determines if the tab is active.</td>
+                    </tr>
+                    <tr>
+                        <td><code>label</code><code>string</code></td>
+                        <td>The label for the tab.</td>
+                    </tr>
+                </template>
+
+                <template #emits>
+                    <tr>
+                        <td><code>click</code><code>(evt: MouseEvent): void;</code></td>
+                        <td>Triggered when the tab is clicked.</td>
+                    </tr>
+                </template>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -196,5 +179,5 @@
     lang="ts"
     setup>
     import { FluxPane, FluxPaneBody, FluxPaneHeader, FluxStack, FluxTab, FluxTabBar, FluxTabBarItem, FluxTabs } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@/components';
 </script>

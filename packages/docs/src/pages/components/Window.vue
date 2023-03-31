@@ -166,19 +166,18 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 Windows are user interface components that allow users to navigate through multiple slots, displaying
                 one slot at a time. They are commonly used for presenting filters and submenus that may not need to be
                 visible immediately. With windows, users can interact with various options without cluttering the
                 primary interface, creating a seamless user experience.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
-            <api-table title="Slots">
-                <template #body>
+        <api-section title="API">
+            <api-component name="Window">
+                <template #slots>
                     <tr>
                         <td><code>default</code><code>{navigate}</code></td>
                         <td>The primary view for the Window. Use navigate('[name]') to navigate to a new view.</td>
@@ -188,19 +187,16 @@
                         <td>You may add your own slots that have their own names. Use the back function to navigate back to a view. The back function should always be called with parenthesis.</td>
                     </tr>
                 </template>
-            </api-table>
+            </api-component>
+        </api-section>
 
-            <p><br/></p>
-            <h2>Examples</h2>
-
-            <h3>Filter</h3>
-            <p>
-                Windows can be used to provide filters for for example data tables.
-            </p>
-            <code-preview
-                :code="filterCode as string"
-                :component="filter"/>
-        </section>
+        <api-section title="Examples">
+            <api-example
+                :code="filterCode"
+                :component="filter"
+                title="Filter"
+                description="Windows can be used to provide filters for for example data tables."/>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -208,7 +204,7 @@
     lang="ts"
     setup>
     import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxSeparator, FluxStack, FluxWindow, heightTransition } from '@fancee/flux';
-    import { ApiTable, CodePreview, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
     import filter from '../../code/components/window/filter.vue';
     import filterCode from '../../code/components/window/filter.vue?raw';
 

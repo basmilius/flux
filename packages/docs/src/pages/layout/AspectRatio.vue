@@ -28,24 +28,23 @@
             </flux-stack>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 The aspect ratio component makes sure that the element has a certain aspect ratio and tries to keep
                 it in that ratio. One of height and width should be available for this component to work.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
-            <api-table title="Props">
-                <template #body>
+        <api-section title="API">
+            <api-component name="AspectRatio">
+                <template #props>
                     <tr>
                         <td><code>aspect-ratio</code><code>number</code></td>
                         <td>The aspect ratio, can be a formula such as "16 / 9".</td>
                     </tr>
                 </template>
-            </api-table>
-        </section>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -53,5 +52,5 @@
     lang="ts"
     setup>
     import { FluxAspectRatio, FluxPane, FluxStack } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
 </script>

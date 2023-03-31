@@ -53,36 +53,45 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 When it comes to designing forms on a website, the layout is just as important as the individual form
                 components themselves. The way that input fields, dropdown menus, checkboxes, and other form elements
                 are arranged can impact how easily users can navigate and complete the form. That's why it's important
                 to have a set of components specifically designed for form layout.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
+        <api-section title="API">
+            <api-components>
+                <tr>
+                    <td><code>FluxFormColumn</code></td>
+                    <td>Displays form components in a column.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxFormRow</code></td>
+                    <td>Displays form components in a row.</td>
+                </tr>
+            </api-components>
 
-            <api-table title="Components">
-                <template #head>
+            <api-component name="FormColumn">
+                <template #slots>
                     <tr>
-                        <th>Name</th>
-                        <th>When to use</th>
+                        <td><code>default</code><code>{}</code></td>
+                        <td>Form elements within the column.</td>
                     </tr>
                 </template>
-                <template #body>
+            </api-component>
+
+            <api-component name="FormRow">
+                <template #slots>
                     <tr>
-                        <td><code>FluxFormColumn</code></td>
-                        <td>Displays form components in a column.</td>
-                    </tr>
-                    <tr>
-                        <td><code>FluxFormRow</code></td>
-                        <td>Displays form components in a row.</td>
+                        <td><code>default</code><code>{}</code></td>
+                        <td>Form elements within the row.</td>
                     </tr>
                 </template>
-            </api-table>
-        </section>
+            </api-component>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -90,5 +99,5 @@
     lang="ts"
     setup>
     import { FluxFormColumn, FluxFormField, FluxFormInput, FluxFormRow, FluxFormTextArea, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStack } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@/components';
 </script>

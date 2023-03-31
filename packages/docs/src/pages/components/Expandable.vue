@@ -12,36 +12,42 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 A component that provides a toggleable container for additional content. It consists of a header with
                 a label, and a body that holds the expandable content. When the header button is clicked, the body
                 opens or closes to reveal or hide the content.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
+        <api-section title="API">
+            <api-components>
+                <tr>
+                    <td><code>FluxExpandable</code></td>
+                    <td>Can reveal more content when opened.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxExpandableGroup</code></td>
+                    <td>Ensures that only one expandable is opened at times.</td>
+                </tr>
+            </api-components>
 
-            <api-table title="Props">
-                <template #body>
+            <api-component name="Expandable">
+                <template #props>
                     <tr>
                         <td><code>label</code><code>string</code></td>
                         <td>Header label of the expandable.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Emits">
-                <template #body>
+                <template #emits>
                     <tr>
                         <td><code>toggle</code><code>(isOpen: boolean): void;</code></td>
                         <td>Triggered when the expandable is toggled.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Slots">
-                <template #body>
+                <template #slots>
                     <tr>
                         <td><code>default</code><code>{label, close}</code></td>
                         <td>Contents of the expandable.</td>
@@ -55,45 +61,50 @@
                         <td>Header of the expandable.</td>
                     </tr>
                 </template>
-            </api-table>
+            </api-component>
 
-            <p><br/></p>
-            <h2>Examples</h2>
+            <api-component name="ExpandableGroup">
+                <template #props>
+                    <tr>
+                        <td><code>is-controlled</code><code>boolean</code></td>
+                        <td>Allows the expandable to be controlled through the is-opened prop of a FluxExpandable.</td>
+                    </tr>
+                </template>
 
-            <h3>Basic</h3>
-            <p>
-                The most basic form of an expandable.
-            </p>
-            <code-preview
-                :code="basicCode as string"
-                :component="basic"/>
+                <template #slots>
+                    <tr>
+                        <td><code>default</code><code>{label, close}</code></td>
+                        <td>The expandables that should be part of the group.</td>
+                    </tr>
+                </template>
+            </api-component>
+        </api-section>
 
-            <h3>Group</h3>
-            <p>
-                An expandable group makes sure that only one expandable is open at ant moment. It closes other
-                expandables when one is opened.
-            </p>
-            <code-preview
-                :code="groupCode as string"
-                :component="group"/>
+        <api-section title="Examples">
+            <api-example
+                :code="basicCode"
+                :component="basic"
+                title="Basic"
+                description="The most basic form of an expandable."/>
 
-            <h3>Group in Pane</h3>
-            <p>
-                Grouped expandables are especially nice within a Pane.
-            </p>
-            <code-preview
-                :code="groupPaneCode as string"
-                :component="groupPane"/>
+            <api-example
+                :code="groupCode"
+                :component="group"
+                title="Group"
+                description="An expandable group makes sure that only one expandable is open at ant moment. It closes other expandables when one is opened."/>
 
-            <h3>Custom header</h3>
-            <p>
-                The header of an expandable can be overwritten with a slot called <code>header</code>. That slot
-                is provided with an <code>isOpen</code> boolean and three functions to control the expandable.
-            </p>
-            <code-preview
-                :code="customHeaderCode as string"
-                :component="customHeader"/>
-        </section>
+            <api-example
+                :code="groupPaneCode"
+                :component="groupPane"
+                title="Group in Pane"
+                description="Grouped expandables are especially nice within a Pane."/>
+
+            <api-example
+                :code="customHeaderCode"
+                :component="customHeader"
+                title="Custom header"
+                description="The header of an expandable can be overwritten with a slot called header. That slot is provided with an isOpen boolean and three functions to control the expandable."/>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -101,7 +112,7 @@
     lang="ts"
     setup>
     import { FluxExpandable, FluxPane, FluxStack } from '@fancee/flux';
-    import { ApiTable, CodePreview, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
     import basic from '@/code/components/expandable/basic.vue';
     import basicCode from '@/code/components/expandable/basic.vue?raw';
     import group from '@/code/components/expandable/group.vue';

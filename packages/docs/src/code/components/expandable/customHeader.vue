@@ -16,7 +16,11 @@
             </flux-button-stack>
         </template>
 
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab at autem blanditiis corporis deleniti, facilis ipsum maxime necessitatibus nesciunt nulla quidem quod saepe suscipit tempora totam vel veritatis. Ipsam, nesciunt!
+        <template #body>
+            <flux-notice>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab at autem blanditiis corporis deleniti, facilis ipsum maxime necessitatibus nesciunt nulla quidem quod saepe suscipit tempora totam vel veritatis. Ipsam, nesciunt!
+            </flux-notice>
+        </template>
     </flux-expandable>
 </template>
 
@@ -24,8 +28,9 @@
     lang="ts"
     setup>
     import {
+        FluxButtonStack,
         FluxExpandable,
-        FluxSecondaryButton,
-        FluxButtonStack
+        FluxNotice,
+        FluxSecondaryButton
     } from '@fancee/flux';
 </script>

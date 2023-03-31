@@ -32,8 +32,8 @@
         </api-section>
 
         <api-section title="API">
-            <api-table title="Props">
-                <template #body>
+            <api-component name="Badge">
+                <template #props>
                     <tr>
                         <td><code>color</code><code>'primary' | 'danger' | 'info' | 'success' | 'warning'</code></td>
                         <td>The color used within the badge.</td>
@@ -63,10 +63,8 @@
                         <td>The label displayed within the badge.</td>
                     </tr>
                 </template>
-            </api-table>
 
-            <api-table title="Emits">
-                <template #body>
+                <template #emits>
                     <tr>
                         <td><code>click</code><code>(evt: MouseEvent): void;</code></td>
                         <td>Triggered when the badge is clicked. This only works when the is-clickable prop is set.</td>
@@ -76,7 +74,7 @@
                         <td>Triggered when the delete button within the badge is clicked. This only works when the is-deletable prop is set.</td>
                     </tr>
                 </template>
-            </api-table>
+            </api-component>
         </api-section>
 
         <api-section title="Examples">
@@ -111,7 +109,7 @@
     lang="ts"
     setup>
     import { FluxBadge, FluxBadgeStack, FluxStack } from '@fancee/flux';
-    import { ApiExample, ApiSection, ApiTable, CodePreview, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
     import basic from '@/code/components/badge/basic.vue';
     import basicCode from '@/code/components/badge/basic.vue?raw';
     import dot from '../../code/components/badge/dot.vue';
