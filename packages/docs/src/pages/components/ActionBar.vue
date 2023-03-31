@@ -32,15 +32,14 @@
             </flux-pane>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 Action bars are toolbars that can be used along data tables. They can show a primary action, a search bar
                 and a filter button. Filters are commonly shown within a flyout that contains a window.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
+        <api-section title="API">
             <api-table title="Slots">
                 <template #body>
                     <tr>
@@ -61,7 +60,7 @@
                     </tr>
                 </template>
             </api-table>
-        </section>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -69,5 +68,5 @@
     lang="ts"
     setup>
     import { FluxActionBar, FluxFormInput, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPrimaryButton, FluxStack } from '@fancee/flux';
-    import { ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiSection, ApiTable, PageTitle, Preview } from '@/components';
 </script>

@@ -27,7 +27,6 @@
     .flux-table-header {
         min-width: calc(v-bind(minWidth) * 1px);
         padding: 15px;
-        background: rgb(var(--gray-0));
         border-bottom: 2px solid rgb(var(--gray-4) / .75);
         color: var(--foreground-prominent);
         font-size: 14px;

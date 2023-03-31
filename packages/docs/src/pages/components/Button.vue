@@ -24,17 +24,16 @@
             </flux-button-stack>
         </preview>
 
-        <section>
+        <api-section>
             <p>
                 Buttons are clickable elements that have an action behind it. They can be used to start a new flow,
                 alter an existing one or perform actions. When designing your interface, prioritize the placement and
                 design of primary buttons to ensure that they are easy to find and use, and that they clearly
                 communicate the purpose of the action.
             </p>
+        </api-section>
 
-            <p><br/></p>
-            <h2>API</h2>
-
+        <api-section title="API">
             <api-table title="Components">
                 <template #head>
                     <tr>
@@ -131,42 +130,33 @@
                     </tr>
                 </template>
             </api-table>
+        </api-section>
 
-            <p><br/></p>
-            <h2>Examples</h2>
+        <api-section title="Examples">
+            <api-example
+                :code="primaryCode"
+                :component="primary"
+                title="Primary"
+                description="Primary buttons can be used for tasks such as saving."/>
 
-            <h3>Primary</h3>
-            <p>
-                Primary buttons can be used for tasks such as saving.
-            </p>
-            <code-preview
-                :code="primaryCode as string"
-                :component="primary"/>
+            <api-example
+                :code="secondaryCode"
+                :component="secondary"
+                title="Secondary"
+                description="Secondary buttons can be used in situations that are not covered by other buttons."/>
 
-            <h3>Secondary</h3>
-            <p>
-                Secondary buttons can be used in situations that are not covered by other buttons.
-            </p>
-            <code-preview
-                :code="secondaryCode as string"
-                :component="secondary"/>
+            <api-example
+                :code="destructiveCode"
+                :component="destructive"
+                title="Destructive"
+                description="Destructive buttons can be used for destructive actions such as deleting something."/>
 
-            <h3>Destructive</h3>
-            <p>
-                Destructive buttons can be used for destructive actions such as deleting something.
-            </p>
-            <code-preview
-                :code="destructiveCode as string"
-                :component="destructive"/>
-
-            <h3>Publish</h3>
-            <p>
-                Publish buttons can be used in situations where the user can publish something.
-            </p>
-            <code-preview
-                :code="publishCode as string"
-                :component="publish"/>
-        </section>
+            <api-example
+                :code="publishCode"
+                :component="publish"
+                title="Publish"
+                description="Publish buttons can be used in situations where the user can publish something."/>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -174,7 +164,7 @@
     lang="ts"
     setup>
     import { FluxButtonStack, FluxDestructiveButton, FluxPrimaryButton, FluxPublishButton, FluxSecondaryButton, FluxStack } from '@fancee/flux';
-    import { ApiTable, CodePreview, PageTitle, Preview } from '@/components';
+    import { ApiExample, ApiSection, ApiTable, CodePreview, PageTitle, Preview } from '@/components';
     import primary from '@/code/components/button/primary.vue';
     import primaryCode from '@/code/components/button/primary.vue?raw';
     import secondary from '@/code/components/button/secondary.vue';

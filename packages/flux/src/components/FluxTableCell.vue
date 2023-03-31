@@ -12,7 +12,6 @@
 <style lang="scss">
     .flux-table-cell {
         padding: 12px 15px;
-        background: rgb(var(--gray-0));
         vertical-align: top;
     }
 

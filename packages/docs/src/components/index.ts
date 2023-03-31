@@ -1,3 +1,5 @@
+export { default as ApiExample } from './ApiExample.vue';
+export { default as ApiSection } from './ApiSection.vue';
 export { default as ApiTable } from './ApiTable.vue';
 export { default as CodePreview } from './CodePreview.vue';
 export { default as HighlightedCode } from './HighlightedCode.vue';

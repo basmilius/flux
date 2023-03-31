@@ -41,7 +41,10 @@
         readonly uniqueKey?: string;
     }
 
-    defineProps<Props>();
+    withDefaults(defineProps<Props>(), {
+        page: 1,
+        perPage: 1000
+    });
 
     const slots = useSlots();
 </script>
