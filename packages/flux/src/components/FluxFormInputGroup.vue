@@ -13,7 +13,7 @@
 
         @include flux.focus-ring(-1px, true);
 
-        :where(.flux-button, .flux-form-input, .flux-form-input-addition) {
+        > :where(.flux-button, .flux-form-input, .flux-form-input-addition) {
             outline: 0 !important;
 
             &:not(:first-child) {
