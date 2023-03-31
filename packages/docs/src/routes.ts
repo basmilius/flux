@@ -66,12 +66,20 @@ export const router = createRouter({
                     component: () => import('./pages/components/Divider.vue')
                 },
                 {
+                    path: '/components/drop-zone',
+                    component: () => import('./pages/components/DropZone.vue')
+                },
+                {
                     path: '/components/expandable',
                     component: () => import('./pages/components/Expandable.vue')
                 },
                 {
                     path: '/components/fader',
                     component: () => import('./pages/components/Fader.vue')
+                },
+                {
+                    path: '/components/feature-card',
+                    component: () => import('./pages/components/FeatureCard.vue')
                 },
                 {
                     path: '/components/filter',
@@ -96,6 +104,10 @@ export const router = createRouter({
                 {
                     path: '/components/form-input',
                     component: () => import('./pages/components/FormInput.vue')
+                },
+                {
+                    path: '/components/form-select',
+                    component: () => import('./pages/components/FormSelect.vue')
                 },
                 {
                     path: '/components/form-text-area',
