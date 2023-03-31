@@ -7,6 +7,7 @@
 <style lang="scss">
     .flux-form-input-group {
         display: flex;
+        z-index: 0;
 
         > :where(.flux-button, .flux-form-input, .flux-form-input-addition) {
             &:not(:first-child) {
@@ -21,6 +22,11 @@
 
             + & {
                 margin-left: -1px;
+            }
+
+            &:focus,
+            &:focus-within {
+                z-index: 1;
             }
         }
     }

@@ -50,6 +50,7 @@ export {
     faObjectsColumn,
     faPaste,
     faPen,
+    faPhone,
     faPlus,
     faPowerOff,
     faQuestion,

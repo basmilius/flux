@@ -38,6 +38,17 @@
                                 auto-complete="email"
                                 placeholder="E.g. What does API mean in the Medium ticketing package?"/>
                         </flux-form-field>
+
+                        <flux-form-field label="Phone number">
+                            <flux-form-input-group>
+                                <flux-form-input-addition icon="phone"/>
+
+                                <flux-form-input
+                                    auto-complete="phone_number"
+                                    placeholder="E.g. +31 6 12345678"
+                                    type="phone"/>
+                            </flux-form-input-group>
+                        </flux-form-field>
                     </flux-form-column>
                 </flux-pane-body>
 
@@ -72,6 +83,14 @@
                     <td><code>FluxFormRow</code></td>
                     <td>Displays form components in a row.</td>
                 </tr>
+                <tr>
+                    <td><code>FluxFormInputAddition</code></td>
+                    <td>An addition for an input.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxFormInputGroup</code></td>
+                    <td>A group that can combine buttons and other additions with inputs.</td>
+                </tr>
             </api-components>
 
             <api-component name="FormColumn">
@@ -91,6 +110,28 @@
                     </tr>
                 </template>
             </api-component>
+
+            <api-component name="FormInputAddition">
+                <template #props>
+                    <tr>
+                        <td><code>icon</code><code>IconNames</code></td>
+                        <td>Icon to use within the addition.</td>
+                    </tr>
+                    <tr>
+                        <td><code>text</code><code>string</code></td>
+                        <td>Text to use within the addition.</td>
+                    </tr>
+                </template>
+            </api-component>
+
+            <api-component name="FormInputGroup">
+                <template #slots>
+                    <tr>
+                        <td><code>default</code><code>{}</code></td>
+                        <td>Inputs, additions and buttons to group together.</td>
+                    </tr>
+                </template>
+            </api-component>
         </api-section>
     </flux-stack>
 </template>
@@ -98,6 +139,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxFormColumn, FluxFormField, FluxFormInput, FluxFormRow, FluxFormTextArea, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStack } from '@fancee/flux';
+    import { FluxFormColumn, FluxFormField, FluxFormInput, FluxFormInputAddition, FluxFormInputGroup, FluxFormRow, FluxFormTextArea, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStack } from '@fancee/flux';
     import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@/components';
 </script>
