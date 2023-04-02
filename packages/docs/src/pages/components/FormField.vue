@@ -25,6 +25,10 @@
             </p>
         </api-section>
 
+        <api-section title="Required icons">
+            <api-required-icons :icons="['circle-exclamation', 'circle-info']"/>
+        </api-section>
+
         <api-section title="API">
             <api-component name="FormField">
                 <template #props>
@@ -54,5 +58,5 @@
     lang="ts"
     setup>
     import { FluxFormField, FluxFormInput, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
 </script>

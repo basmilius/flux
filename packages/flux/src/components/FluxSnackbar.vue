@@ -61,7 +61,7 @@
         display: flex;
         padding: 18px;
         gap: 15px;
-        box-shadow: var(--shadow-large);
+        box-shadow: var(--shadow-lg);
         background: var(--snackbar-background);
         background-clip: padding-box;
         border: 1px solid var(--snackbar-border);

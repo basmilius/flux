@@ -39,9 +39,13 @@
             </p>
         </api-section>
 
+        <api-section title="Required icons">
+            <api-required-icons :icons="['filter']"/>
+        </api-section>
+
         <api-section title="API">
             <api-component name="ActionBar">
-                <template #props>
+                <template #slots>
                     <tr>
                         <td><code>primary</code><code>{}</code></td>
                         <td>One primary action for the action bar. Yes, more is allowed, but strongly discouraged.</td>
@@ -68,5 +72,5 @@
     lang="ts"
     setup>
     import { FluxActionBar, FluxFormInput, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPrimaryButton, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
 </script>

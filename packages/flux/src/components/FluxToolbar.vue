@@ -32,7 +32,7 @@
 
         &-floating {
             position: absolute;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-lg);
 
             &-free {
                 translate: -50% -50%;

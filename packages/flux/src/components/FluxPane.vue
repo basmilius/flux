@@ -66,7 +66,7 @@
 <style lang="scss">
     .flux-pane {
         position: relative;
-        box-shadow: var(--shadow);
+        box-shadow: var(--shadow-sm);
         color: unset;
         text-decoration: unset;
 
@@ -110,7 +110,6 @@
 
     .flux-pane > .flux-pane {
         border: unset;
-        border-radius: unset;
         box-shadow: unset;
     }
 
@@ -119,7 +118,7 @@
         transition: box-shadow 180ms var(--swift-out);
 
         &:hover {
-            box-shadow: var(--shadow-large);
+            box-shadow: var(--shadow-lg);
         }
     }
 </style>

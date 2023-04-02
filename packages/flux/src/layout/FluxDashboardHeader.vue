@@ -44,7 +44,7 @@
         gap: 18px;
         background: rgb(var(--gray-0));
         border-bottom: 1px solid rgb(var(--gray-4) / .75);
-        box-shadow: var(--shadow);
+        box-shadow: var(--shadow-sm);
 
         h1 {
             font-size: 18px;

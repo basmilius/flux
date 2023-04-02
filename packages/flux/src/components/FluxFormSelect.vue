@@ -363,9 +363,10 @@
             left: 0;
             width: calc(v-bind(popupWidth) * 1px);
             max-height: 330px;
+            min-width: 120px;
             margin: 0;
             padding: 9px;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-md);
             overflow: auto;
             z-index: 10000;
         }

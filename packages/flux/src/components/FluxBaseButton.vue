@@ -115,7 +115,7 @@
         background: var(--button-background);
         border: 1px solid var(--button-stroke);
         border-radius: var(--radius);
-        box-shadow: var(--shadow-pixel);
+        box-shadow: var(--shadow-px);
         cursor: pointer;
         font: inherit;
         text-decoration: none;

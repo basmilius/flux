@@ -175,6 +175,7 @@
         &-pane {
             max-height: calc(100dvh - 120px);
             width: calc(v-bind(width) * 1px);
+            box-shadow: var(--shadow-md);
             overflow: auto;
             transform: translate3d(calc(v-bind(paneMarginX) * 1px), calc(v-bind(paneMarginY) * 1px), 0);
 

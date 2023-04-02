@@ -119,9 +119,9 @@
                 width: 24px;
                 content: '';
                 background: rgb(var(--gray-0));
-                border: 1px solid rgb(var(--gray-5));
+                border: 1px solid rgb(var(--gray-5) / .75);
                 border-radius: 99px;
-                box-shadow: var(--shadow-small);
+                box-shadow: var(--shadow-sm);
             }
         }
 

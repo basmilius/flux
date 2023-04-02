@@ -68,7 +68,7 @@
             position: sticky;
             top: 0;
             background: rgb(var(--gray-0));
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-md);
             z-index: 2;
 
             &-container {

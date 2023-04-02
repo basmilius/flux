@@ -20,7 +20,9 @@ export default defineConfig({
                     'luxon': 'luxon',
                     'pinia': 'pinia',
                     'vue': 'vue'
-                }
+                },
+                sourcemap: true,
+                sourcemapIgnoreList: relativeSourcePath => relativeSourcePath.includes('node_modules')
             }
         }
     },
@@ -28,7 +30,7 @@ export default defineConfig({
         postcss: {
             plugins: [
                 autoprefixer({})
-            ],
+            ]
         }
     },
     optimizeDeps: {

@@ -14,6 +14,10 @@
             </p>
         </api-section>
 
+        <api-section title="Required icons">
+            <api-required-icons :icons="['arrow-right-long']"/>
+        </api-section>
+
         <api-section title="API">
             <api-component name="Link">
                 <template #props>
@@ -74,5 +78,5 @@
     lang="ts"
     setup>
     import { FluxLink, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
 </script>

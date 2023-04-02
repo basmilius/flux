@@ -117,7 +117,7 @@
         background: rgb(var(--gray-0));
         border: 1px solid rgb(var(--gray-4) / .75);
         border-radius: var(--radius);
-        box-shadow: var(--shadow-pixel);
+        box-shadow: var(--shadow-px);
         color: var(--foreground);
         font: inherit;
         outline: 0;

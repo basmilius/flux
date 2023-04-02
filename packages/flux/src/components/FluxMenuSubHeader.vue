@@ -39,6 +39,7 @@
         padding-top: 6px;
         gap: 9px;
         background: linear-gradient(to bottom, rgb(var(--gray-0)) 75%, transparent);
+        font-size: 14px;
         pointer-events: none;
         z-index: 1;
 

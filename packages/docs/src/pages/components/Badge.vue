@@ -7,17 +7,21 @@
         <preview>
             <flux-badge-stack>
                 <flux-badge label="Badge"/>
+
                 <flux-badge
                     color="danger"
                     dot
                     label="Badge"/>
+
                 <flux-badge
                     color="success"
                     icon="circle-check"
                     label="Badge"/>
+
                 <flux-badge
                     is-loading
                     label="Badge"/>
+
                 <flux-badge
                     is-deletable
                     label="Badge"/>
@@ -29,6 +33,10 @@
                 Badges are used as labels for a more specific element in the UI. This, for example, may be used to
                 display the status of an order.
             </p>
+        </api-section>
+
+        <api-section title="Required icons">
+            <api-required-icons :icons="['xmark']"/>
         </api-section>
 
         <api-section title="API">
@@ -109,7 +117,7 @@
     lang="ts"
     setup>
     import { FluxBadge, FluxBadgeStack, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
     import basic from '@/code/components/badge/basic.vue';
     import basicCode from '@/code/components/badge/basic.vue?raw';
     import dot from '../../code/components/badge/dot.vue';
