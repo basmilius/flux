@@ -47,6 +47,10 @@
             </p>
         </api-section>
 
+        <api-section title="Required icons">
+            <api-required-icons :icons="['ellipsis-h']"/>
+        </api-section>
+
         <api-section title="API">
             <api-component name="SplitButton">
                 <template #props>
@@ -88,7 +92,7 @@
     lang="ts"
     setup>
     import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSecondaryButton, FluxSeparator, FluxSplitButton, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
     import basic from '../../code/components/splitButton/basic.vue';
     import basicCode from '../../code/components/splitButton/basic.vue?raw';
 </script>

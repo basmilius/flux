@@ -91,7 +91,7 @@
             position: absolute;
             top: 0;
             right: 0;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-md);
             animation: overlay-content 420ms var(--deceleration-curve) 270ms both;
         }
 

@@ -118,7 +118,7 @@
         justify-self: center;
         border: 1px solid rgb(var(--gray-4) / .75);
         border-radius: var(--radius);
-        box-shadow: var(--shadow-pixel);
+        box-shadow: var(--shadow-px);
         overflow: hidden;
 
         @include flux.focus-ring-transition(2px, true);

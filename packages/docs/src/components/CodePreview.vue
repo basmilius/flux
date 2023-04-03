@@ -56,6 +56,8 @@
 
         &::before {
             background: rgb(var(--gray-3) / .25);
+            -webkit-mask-position: center center;
+            mask-position: center center;
         }
     }
 </style>

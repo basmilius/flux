@@ -155,7 +155,7 @@
                 background: rgb(0 0 0 / .1);
                 border: 4px solid white;
                 border-radius: 99px;
-                box-shadow: 0 3px 9px rgb(0 0 0 / .125);
+                box-shadow: var(--shadow-md);
                 cursor: move;
                 transform: translate3d(-50%, -50%, 0);
             }
@@ -166,6 +166,7 @@
                 height: 100%;
                 width: 100%;
                 border-radius: var(--radius);
+                box-shadow: var(--shadow-lg);
                 pointer-events: none;
             }
         }
@@ -188,7 +189,7 @@
                 background-position: calc(v-bind(focalPointX) * 1%) calc(v-bind(focalPointY) * 1%);
                 background-size: cover;
                 border-radius: var(--radius);
-                box-shadow: var(--shadow);
+                box-shadow: var(--shadow-lg);
                 transform: translate3d(-50%, -50%, 0);
                 animation: flux-focal-point-preview 6s var(--swift-out) infinite;
             }

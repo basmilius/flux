@@ -11,7 +11,7 @@
                 <flux-secondary-button
                     v-if="p === 'dots'"
                     disabled
-                    label="..."/>
+                    icon-before="ellipsis-h"/>
 
                 <flux-primary-button
                     v-else-if="p === page"

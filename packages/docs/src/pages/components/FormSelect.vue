@@ -12,7 +12,10 @@
                         :options="[
                             {id: 1, label: 'Option 1'},
                             {id: 2, label: 'Option 2'},
-                            {id: 3, label: 'Option 3'}
+                            {id: 3, label: 'Option 3'},
+                            {id: 4, label: 'Option 4'},
+                            {id: 5, label: 'Option 5'},
+                            {id: 6, label: 'Option 6'}
                         ]"
                         placeholder="Pick an option..."/>
                 </flux-pane-body>
@@ -27,6 +30,10 @@
                 It's a great option for forms that require multiple selections, such as when a user needs to choose
                 multiple interests, hobbies, or preferences.
             </p>
+        </api-section>
+
+        <api-section title="Required icons">
+            <api-required-icons :icons="['angle-down']"/>
         </api-section>
 
         <api-section title="API">
@@ -73,7 +80,7 @@
     lang="ts"
     setup>
     import { FluxFormSelect, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
     import { ref } from 'vue';
 
     const selectValue = ref(0);

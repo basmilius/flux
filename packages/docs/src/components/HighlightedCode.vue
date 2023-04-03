@@ -37,6 +37,7 @@
         & .hljs {
             background: rgb(var(--gray-2)) !important;
             font-family: jetbrains-mono, monospace !important;
+            font-variant-ligatures: none;
         }
 
         .code_area {

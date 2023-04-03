@@ -19,6 +19,10 @@
             </p>
         </api-section>
 
+        <api-section title="Required icons">
+            <api-required-icons :icons="['angle-left', 'angle-right', 'ellipsis-h']"/>
+        </api-section>
+
         <api-section title="API">
             <api-components>
                 <tr>
@@ -110,7 +114,7 @@
     lang="ts"
     setup>
     import { FluxPagination, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
     import basic from '../../code/components/pagination/basic.vue';
     import basicCode from '../../code/components/pagination/basic.vue?raw';
 </script>

@@ -1,6 +1,7 @@
 export { default as ApiComponent } from './ApiComponent.vue';
 export { default as ApiComponents } from './ApiComponents.vue';
 export { default as ApiExample } from './ApiExample.vue';
+export { default as ApiRequiredIcons } from './ApiRequiredIcons.vue';
 export { default as ApiSection } from './ApiSection.vue';
 export { default as ApiTable } from './ApiTable.vue';
 export { default as CodePreview } from './CodePreview.vue';

@@ -49,6 +49,10 @@
             </p>
         </api-section>
 
+        <api-section title="Required icons">
+            <api-required-icons :icons="['angle-left', 'angle-right', 'circle-check', 'trash']"/>
+        </api-section>
+
         <api-section title="API">
             <api-components>
                 <tr>
@@ -199,7 +203,7 @@
     lang="ts"
     setup>
     import { FluxFilter, FluxFilterDate, FluxFilterDateRange, FluxFilterOption, FluxFilterOptions, FluxPane, FluxSeparator, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiComponents, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
     import { DateTime } from 'luxon';
     import { ref } from 'vue';
 

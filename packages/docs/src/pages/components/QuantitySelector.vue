@@ -18,6 +18,10 @@
             </p>
         </api-section>
 
+        <api-section title="Required icons">
+            <api-required-icons :icons="['minus', 'plus']"/>
+        </api-section>
+
         <api-section title="API">
             <api-component name="QuantitySelector">
                 <template #props>
@@ -68,7 +72,7 @@
     lang="ts"
     setup>
     import { FluxQuantitySelector, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
     import basic from '@/code/components/quantitySelector/basic.vue';
     import basicCode from '@/code/components/quantitySelector/basic.vue?raw';
     import step from '@/code/components/quantitySelector/step.vue';

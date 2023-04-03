@@ -20,6 +20,10 @@
             </p>
         </api-section>
 
+        <api-section title="Required icons">
+            <api-required-icons :icons="['minus', 'plus']"/>
+        </api-section>
+
         <api-section title="API">
             <api-components>
                 <tr>
@@ -112,7 +116,7 @@
     lang="ts"
     setup>
     import { FluxExpandable, FluxPane, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
     import basic from '@/code/components/expandable/basic.vue';
     import basicCode from '@/code/components/expandable/basic.vue?raw';
     import group from '@/code/components/expandable/group.vue';

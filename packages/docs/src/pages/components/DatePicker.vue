@@ -28,6 +28,10 @@
             </p>
         </api-section>
 
+        <api-section title="Required icons">
+            <api-required-icons :icons="['angle-left', 'angle-right']"/>
+        </api-section>
+
         <api-section title="API">
             <api-component name="DatePicker">
                 <template #props>
@@ -64,7 +68,7 @@
     lang="ts"
     setup>
     import { FluxDatePicker, FluxPane, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
     import { DateTime } from 'luxon';
     import { ref } from 'vue';
 

@@ -17,5 +17,8 @@ export default defineConfig({
         alias: {
             '@': resolve(__dirname, 'src/')
         }
+    },
+    server: {
+        sourcemapIgnoreList: relativeSourcePath => relativeSourcePath.includes('node_modules')
     }
 });

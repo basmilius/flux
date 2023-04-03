@@ -15,12 +15,15 @@
                         <flux-chip
                             icon-before="lock"
                             label="Chip"/>
+
                         <flux-chip
                             icon-after="gear"
                             label="Chip"/>
+
                         <flux-chip
                             is-selectable
                             label="Addable Chip"/>
+
                         <flux-chip
                             is-selectable
                             is-selected
@@ -34,6 +37,10 @@
             <p>
                 A chip can display the status of an entity or toggle a status of an entity.
             </p>
+        </api-section>
+
+        <api-section title="Required icons">
+            <api-required-icons :icons="['check', 'plus']"/>
         </api-section>
 
         <api-section title="API">
@@ -76,5 +83,5 @@
     lang="ts"
     setup>
     import { FluxChip, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
 </script>

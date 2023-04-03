@@ -85,7 +85,7 @@
             width: calc(v-bind(activeItemWidth) * 1px);
             background: rgb(var(--gray-0));
             border-radius: calc(var(--radius) - 3px);
-            box-shadow: var(--shadow-small);
+            box-shadow: var(--shadow-md);
             pointer-events: none;
             transition: 300ms var(--swift-out);
             transition-property: left, width;
