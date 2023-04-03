@@ -314,6 +314,11 @@
                         type="route"/>
 
                     <flux-menu-item
+                        label="Snackbar"
+                        to="/components/snackbar"
+                        type="route"/>
+
+                    <flux-menu-item
                         label="Spinner"
                         to="/components/spinner"
                         type="route"/>

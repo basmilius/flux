@@ -20,6 +20,7 @@
         display: flex;
         flex-flow: column;
         gap: 15px;
+        font-size: 17px;
 
         &-content {
             display: flex;

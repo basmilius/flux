@@ -24,6 +24,23 @@ export interface FluxConfirmSpec extends FluxAlertSpec {
     onConfirm(): void;
 }
 
+export interface FluxSnackbarSpec {
+    readonly id: number;
+    readonly actions?: Record<string, string>;
+    readonly color?: 'primary' | 'danger' | 'info' | 'success' | 'warning';
+    readonly icon?: IconNames;
+    readonly isCloseable?: boolean;
+    readonly isLoading?: boolean;
+    readonly isRendered?: boolean;
+    readonly message?: string;
+    readonly subMessage?: string;
+    readonly title?: string;
+
+    onAction?(actionKey: string): void;
+
+    onClose?(): void;
+}
+
 export interface FluxFormSelectOption {
     readonly badge?: string;
     readonly icon?: IconNames | null;

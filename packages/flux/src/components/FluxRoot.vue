@@ -15,6 +15,8 @@
                 :key="confirm.id"
                 :confirm="confirm"/>
         </flux-overlay>
+
+        <flux-snackbar-provider/>
     </main>
 </template>
 
@@ -24,7 +26,7 @@
     import { storeToRefs } from 'pinia';
     import { useBreakpointsProvider } from '../composables';
     import { useFluxStore } from '../data';
-    import { FluxAlert, FluxConfirm, FluxOverlay } from '.';
+    import { FluxAlert, FluxConfirm, FluxOverlay, FluxSnackbarProvider } from '.';
 
     useBreakpointsProvider();
 

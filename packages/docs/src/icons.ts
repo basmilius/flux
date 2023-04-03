@@ -17,6 +17,7 @@ export {
     faArrowUpArrowDown,
     faBars,
     faBolt,
+    faBullhorn,
     faCalendar,
     faCalendarRange,
     faCheck,

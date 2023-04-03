@@ -174,6 +174,10 @@ export const router = createRouter({
                     component: () => import('./pages/components/Separator.vue')
                 },
                 {
+                    path: '/components/snackbar',
+                    component: () => import('./pages/components/Snackbar.vue')
+                },
+                {
                     path: '/components/spinner',
                     component: () => import('./pages/components/Spinner.vue')
                 },

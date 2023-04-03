@@ -1,5 +1,5 @@
-import type { Component, VNode } from 'vue-demi';
-import { h } from 'vue-demi';
+import type { Component, Ref, UnwrapRef, VNode } from 'vue-demi';
+import { h, unref } from 'vue-demi';
 import { hyphenateTag } from './dom';
 
 export function flattenVNodeTree(vnodes: VNode[]): VNode[] {
@@ -102,6 +102,15 @@ export function render<P>(component: Component<P>, spec?: RenderSpec<P>): VNode 
     return h(component, options, content);
 }
 
+export function unrefObject<T>(obj: RefObject<T>): UnrefObject<T> {
+    return Object.fromEntries(
+        Object.entries(obj).map(([key, value]) => [
+            key,
+            unref(value)
+        ])
+    ) as UnrefObject<T>;
+}
+
 interface RenderSpec<P> {
     readonly attrs?: Record<string, unknown>;
     readonly children?: RawChildren;
@@ -110,5 +119,13 @@ interface RenderSpec<P> {
     readonly slots?: RawSlots;
 }
 
-declare type RawChildren = string | number | boolean | VNode | VNode[] | (() => any);
-declare type RawSlots = { [name: string]: unknown; };
+type RefObject<T = Record<string, Ref<unknown>>> = {
+    [K in keyof T]: T[K];
+};
+
+type UnrefObject<T> = {
+    [K in keyof T]: UnwrapRef<T[K]>;
+};
+
+type RawChildren = string | number | boolean | VNode | VNode[] | (() => any);
+type RawSlots = { [name: string]: unknown; };

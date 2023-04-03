@@ -18,7 +18,10 @@
 
         <api-section>
             <p>
-                A component to display a single <a href="https://fontawesome.com" rel="noopener" target="_blank">Font Awesome</a> icon. The
+                A component to display a single <a
+                href="https://fontawesome.com"
+                rel="noopener"
+                target="_blank">Font Awesome</a> icon. The
                 icon can be customized through css and is used in multiple Flux components, such as Buttons.
             </p>
         </api-section>
@@ -44,5 +47,5 @@
     lang="ts"
     setup>
     import { FluxIcon, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiSection, ApiTable, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
 </script>
