@@ -4,22 +4,20 @@
         tag="div"
         class="flux-snackbars"
         id="flux-snackbars">
-        <template
+        <flux-snackbar
             v-for="snackbar of snackbars"
-            :key="snackbar.id">
-            <flux-snackbar
-                :actions="snackbar.actions"
-                :color="snackbar.color"
-                :icon="snackbar.icon"
-                :is-closeable="snackbar.isCloseable"
-                :is-loading="snackbar.isLoading"
-                :message="snackbar.message"
-                :sub-message="snackbar.subMessage"
-                :title="snackbar.title"
-                is-rendered
-                @action="actionKey => snackbar.onAction?.(actionKey)"
-                @close="() => snackbar.onClose?.()"/>
-        </template>
+            :key="snackbar.id"
+            :actions="snackbar.actions"
+            :color="snackbar.color"
+            :icon="snackbar.icon"
+            :is-closeable="snackbar.isCloseable"
+            :is-loading="snackbar.isLoading"
+            :message="snackbar.message"
+            :sub-message="snackbar.subMessage"
+            :title="snackbar.title"
+            is-rendered
+            @action="actionKey => snackbar.onAction?.(actionKey)"
+            @close="() => snackbar.onClose?.()"/>
     </transition-group>
 </template>
 
