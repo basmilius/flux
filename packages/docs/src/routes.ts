@@ -138,6 +138,10 @@ export const router = createRouter({
                     component: () => import('./pages/components/Notice.vue')
                 },
                 {
+                    path: '/components/overlay',
+                    component: () => import('./pages/components/Overlay.vue')
+                },
+                {
                     path: '/components/pagination',
                     component: () => import('./pages/components/Pagination.vue')
                 },
