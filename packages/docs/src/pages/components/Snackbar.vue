@@ -5,11 +5,31 @@
             title="Snackbar"/>
 
         <preview>
-            <flux-snackbar
-                color="success"
-                icon="circle-check"
-                message="Your profile details have been saved."
-                is-rendered/>
+            <flux-stack
+                :gap="15"
+                style="width: 420px">
+                <flux-snackbar
+                    color="success"
+                    icon="circle-check"
+                    message="Your profile details are saved."
+                    title="Saved"
+                    is-rendered/>
+
+                <flux-snackbar
+                    :actions="{view: 'Review'}"
+                    color="warning"
+                    icon="circle-exclamation"
+                    message="Our terms of service have been updated. Review to continue."
+                    title="Updated Terms of Service"
+                    is-rendered/>
+
+                <flux-snackbar
+                    :actions="{update: 'Update', close: 'Close'}"
+                    icon="circle-arrow-up"
+                    message="A new version of WeAreFancee is available. Would you like to update?"
+                    title="Update available"
+                    is-rendered/>
+            </flux-stack>
         </preview>
 
         <api-section>

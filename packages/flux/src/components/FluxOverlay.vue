@@ -4,33 +4,35 @@
     import { flattenVNodeTree, render } from '../utils';
     import { FluxTeleport } from '.';
 
-    export default defineComponent(() => {
-        const slots = useSlots();
+    export default defineComponent({
+        setup() {
+            const slots = useSlots();
 
-        return () => {
-            const children = flattenVNodeTree(slots.default?.() ?? []);
-            const isVisible = children.length > 0 && children.some(child => typeof child.type !== 'symbol');
-            const content: VNode[] = [];
+            return () => {
+                const children = flattenVNodeTree(slots.default?.() ?? []);
+                const isVisible = children.length > 0 && children.some(child => typeof child.type !== 'symbol');
+                const content: VNode[] = [];
 
-            if (isVisible) {
-                content.push(h('div', {
-                    class: 'flux-overlay'
-                }, children));
-            }
-
-            return render(FluxTeleport, {
-                props: {
-                    to: '#flux-root'
-                },
-                slots: {
-                    default: () => render(FluxOverlayTransition, {
-                        slots: {
-                            default: () => content
-                        }
-                    })
+                if (isVisible) {
+                    content.push(h('div', {
+                        class: 'flux-overlay'
+                    }, children));
                 }
-            });
-        };
+
+                return render(FluxTeleport, {
+                    props: {
+                        to: '[data-flux-root]'
+                    },
+                    slots: {
+                        default: () => render(FluxOverlayTransition, {
+                            slots: {
+                                default: () => content
+                            }
+                        })
+                    }
+                });
+            };
+        }
     });
 </script>
 
@@ -69,10 +71,10 @@
 
     @include flux.dark-mode {
         .flux-overlay {
-            background: rgb(0 0 0 / .25);
+            background: rgb(0 0 0 / .5);
 
             > .flux-pane {
-                border-color: rgb(var(--gray-11) / .15);
+                border-color: rgb(var(--gray-11) / .3);
             }
         }
     }

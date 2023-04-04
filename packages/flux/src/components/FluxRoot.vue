@@ -1,5 +1,5 @@
 <template>
-    <main id="flux-root">
+    <main data-flux-root>
         <slot/>
 
         <flux-overlay>

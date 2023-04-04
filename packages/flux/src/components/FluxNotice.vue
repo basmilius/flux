@@ -230,4 +230,16 @@
             }
         }
     }
+
+    .flux-pane-header + .flux-notice,
+    .flux-pane-header + .flux-stack > .flux-notice {
+        margin-top: 21px;
+    }
+
+    .flux-pane > .flux-notice,
+    .flux-pane > .flux-stack > .flux-notice {
+        padding-left: 21px;
+        padding-right: 21px;
+        border-radius: 0;
+    }
 </style>

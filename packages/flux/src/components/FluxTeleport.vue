@@ -10,15 +10,12 @@
     import { getCurrentInstance, onBeforeUnmount, onMounted, ref, toRefs, unref, watch } from 'vue-demi';
 
     export interface Props {
-        readonly disabled: boolean;
-        readonly placement: 'before' | 'after';
+        readonly disabled?: boolean;
+        readonly placement?: 'before' | 'after';
         readonly to: string;
     }
 
-    const props = withDefaults(defineProps<Props>(), {
-        disabled: false,
-        placement: 'after'
-    });
+    const props = defineProps<Props>();
     const {disabled, placement, to} = toRefs(props);
 
     const instance = getCurrentInstance()!;
@@ -32,7 +29,7 @@
         nodes.value = Array.from(instance.proxy!.$el.childNodes);
 
         if (!disabled.value) {
-            startObserver();
+            setTimeout(startObserver, 1000);
         }
 
         maybeMove();
@@ -55,7 +52,9 @@
     }
 
     function maybeMove(): void {
-        !disabled.value && move();
+        if (!unref(disabled)) {
+            move();
+        }
     }
 
     function move(): void {
@@ -108,7 +107,9 @@
             }
         }
 
-        shouldMove && move();
+        if (shouldMove) {
+            move();
+        }
     }
 
     watch(disabled, disabled => {
@@ -121,5 +122,5 @@
         }
     });
 
-    watch([placement, to], () => maybeMove());
+    watch([placement, to], maybeMove);
 </script>
