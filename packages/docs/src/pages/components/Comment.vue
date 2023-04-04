@@ -7,8 +7,21 @@
         <preview>
             <flux-pane>
                 <flux-pane-body :gap="30">
-                    <flux-comment is-flipped/>
-                    <flux-comment is-received/>
+                    <flux-comment
+                        avatar-url="https://imgproxy.glybe.nl/120,q75,jpg/1-b38d42e52f851f0ec94d118fad965277e3915b89da1012cef7e58674e3cf219a-img1386.jpeg"
+                        is-flipped
+                        name="Bas Milius"
+                        period="13:04">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet aut blanditiis consectetur doloribus earum, eos expedita magnam necessitatibus officia perferendis possimus praesentium quisquam repellendus rerum sequi totam vel voluptas voluptatem.</p>
+                    </flux-comment>
+
+                    <flux-comment
+                        avatar-fallback-initials="BM"
+                        is-received
+                        name="Bas Milius"
+                        period="13:37">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consectetur consequuntur dolores facilis, incidunt qui quia voluptatum. Ea facilis harum hic, laborum quo reiciendis voluptates! Ex excepturi nemo suscipit totam.</p>
+                    </flux-comment>
                 </flux-pane-body>
             </flux-pane>
         </preview>
@@ -24,12 +37,47 @@
             <api-component name="Comment">
                 <template #props>
                     <tr>
+                        <td><code>avatar-alt</code><code>string</code></td>
+                        <td>A brief description of the avatar.</td>
+                    </tr>
+                    <tr>
+                        <td><code>avatar-fallback</code><code>'colorized' | 'neutral'</code></td>
+                        <td>Which fallback type to use. A colorized fallback displays a random color based on the content.</td>
+                    </tr>
+                    <tr>
+                        <td><code>avatar-fallback-icon</code><code>IconNames</code></td>
+                        <td>Fallback icon, when no url or initials are given.</td>
+                    </tr>
+                    <tr>
+                        <td><code>avatar-fallback-initials</code><code>string</code></td>
+                        <td>The initials to use within the fallback.</td>
+                    </tr>
+                    <tr>
+                        <td><code>avatar-url</code><code>string</code></td>
+                        <td>URL to the image displayed within the avatar.</td>
+                    </tr>
+                    <tr>
                         <td><code>is-flipped</code><code>boolean</code></td>
                         <td>Flips the contents of the comment.</td>
                     </tr>
                     <tr>
                         <td><code>is-received</code><code>boolean</code></td>
                         <td>Indicates that the comment is received.</td>
+                    </tr>
+                    <tr>
+                        <td><code>name</code><code>string</code></td>
+                        <td>Name of the author of the comment.</td>
+                    </tr>
+                    <tr>
+                        <td><code>period</code><code>string</code></td>
+                        <td>Period the comment was placed.</td>
+                    </tr>
+                </template>
+
+                <template #slots>
+                    <tr>
+                        <td><code>default</code><code>{}</code></td>
+                        <td>Contents of the comment.</td>
                     </tr>
                 </template>
             </api-component>

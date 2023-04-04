@@ -7,17 +7,21 @@
         }">
         <flux-avatar
             class="flux-comment-avatar"
-            fallback-initials="BM"
-            :size="42"/>
+            :alt="avatarAlt"
+            :fallback="avatarFallback"
+            :fallback-icon="avatarFallbackIcon"
+            :fallback-initials="avatarFallbackInitials"
+            :size="42"
+            :url="avatarUrl"/>
 
         <div class="flux-comment-body">
             <div class="flux-comment-header">
-                <strong>Bas Milius</strong>
-                <time>13:03</time>
+                <strong>{{ name }}</strong>
+                <time v-if="period">{{ period }}</time>
             </div>
 
             <div class="flux-comment-message">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic ipsum nihil quia vero? Et eveniet ex hic id impedit ipsa necessitatibus perferendis quibusdam totam ut? Assumenda deleniti dolorum recusandae tenetur?
+                <slot/>
             </div>
         </div>
     </div>
@@ -26,17 +30,30 @@
 <script
     lang="ts"
     setup>
+    import type { IconNames } from '../data';
     import { FluxAvatar } from '.';
 
     export interface Props {
+        readonly avatarAlt?: string;
+        readonly avatarFallback: 'colorized' | 'neutral';
+        readonly avatarFallbackIcon: IconNames;
+        readonly avatarFallbackInitials?: string;
+        readonly avatarUrl?: string;
         readonly isFlipped?: boolean;
         readonly isReceived?: boolean;
+        readonly name: string;
+        readonly period?: string;
     }
 
-    defineProps<Props>();
+    withDefaults(defineProps<Props>(), {
+        avatarFallback: 'colorized',
+        avatarFallbackIcon: 'user'
+    });
 </script>
 
 <style lang="scss">
+    @use '../scss/mixin' as flux;
+
     .flux-comment {
         display: flex;
         gap: 21px;
@@ -107,6 +124,19 @@
         &.is-flipped &-body {
             margin-left: auto;
             align-items: flex-end;
+        }
+    }
+
+    @include flux.dark-mode {
+        .flux-comment-message {
+            padding: 12px 15px;
+            background: linear-gradient(to bottom, rgb(var(--gray-1)), rgb(var(--gray-0)));
+            border: 1px solid rgb(var(--gray-3));
+        }
+
+        .flux-comment.is-received .flux-comment-message {
+            background: linear-gradient(to bottom, rgb(var(--primary-9)), rgb(var(--primary-11)));
+            border-color: rgb(var(--primary-9));
         }
     }
 </style>
