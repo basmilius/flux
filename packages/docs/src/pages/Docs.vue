@@ -110,7 +110,6 @@
                         type="route"/>
 
                     <flux-menu-item
-                        disabled
                         label="Comment"
                         to="/components/comment"
                         type="route"/>

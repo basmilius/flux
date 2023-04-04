@@ -2,7 +2,7 @@
     <flux-stack>
         <page-title
             section="Layout"
-            title="Container"/>
+            title="Grid"/>
 
         <preview>
             <flux-pane>
