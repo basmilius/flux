@@ -86,16 +86,16 @@
 }
 
 @include flux.dark-mode {
-    --gray-0: #{to-rgb(#1e1f22)};
-    --gray-1: #{to-rgb(#242527)};
-    --gray-2: #{to-rgb(#292c2e)};
-    --gray-3: #{to-rgb(#313435)};
-    --gray-4: #{to-rgb(#3a3f40)};
-    --gray-5: #{to-rgb(#454b4f)};
-    --gray-6: #{to-rgb(#515960)};
-    --gray-7: #{to-rgb(#5c666b)};
-    --gray-8: #{to-rgb(#687175)};
-    --gray-9: #{to-rgb(#747d80)};
-    --gray-10: #{to-rgb(#80898b)};
-    --gray-11: #{to-rgb(#8c9597)};
+    --gray-0: #{to-rgb(#14161a)};
+    --gray-1: #{to-rgb(#1b1d21)};
+    --gray-2: #{to-rgb(#22252b)};
+    --gray-3: #{to-rgb(#2a2d33)};
+    --gray-4: #{to-rgb(#333b3d)};
+    --gray-5: #{to-rgb(#3d464a)};
+    --gray-6: #{to-rgb(#475055)};
+    --gray-7: #{to-rgb(#515d60)};
+    --gray-8: #{to-rgb(#5c696b)};
+    --gray-9: #{to-rgb(#677577)};
+    --gray-10: #{to-rgb(#738180)};
+    --gray-11: #{to-rgb(#7f8c8c)};
 }

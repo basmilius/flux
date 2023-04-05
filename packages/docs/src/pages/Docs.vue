@@ -110,7 +110,6 @@
                         type="route"/>
 
                     <flux-menu-item
-                        disabled
                         label="Comment"
                         to="/components/comment"
                         type="route"/>
@@ -257,13 +256,6 @@
                         type="route"/>
 
                     <flux-menu-item
-                        disabled
-                        label="Notification"
-                        to="/components/notification"
-                        type="route"/>
-
-                    <flux-menu-item
-                        disabled
                         label="Overlay"
                         to="/components/overlay"
                         type="route"/>

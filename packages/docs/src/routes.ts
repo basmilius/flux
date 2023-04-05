@@ -54,6 +54,10 @@ export const router = createRouter({
                     component: () => import('./pages/components/Chip.vue')
                 },
                 {
+                    path: '/components/comment',
+                    component: () => import('./pages/components/Comment.vue')
+                },
+                {
                     path: '/components/data-table',
                     component: () => import('./pages/components/DataTable.vue')
                 },
@@ -136,6 +140,10 @@ export const router = createRouter({
                 {
                     path: '/components/notice',
                     component: () => import('./pages/components/Notice.vue')
+                },
+                {
+                    path: '/components/overlay',
+                    component: () => import('./pages/components/Overlay.vue')
                 },
                 {
                     path: '/components/pagination',

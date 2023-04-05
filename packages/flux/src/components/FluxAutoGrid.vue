@@ -4,7 +4,9 @@
     </div>
 </template>
 
-<script lang="ts" setup>
+<script
+    lang="ts"
+    setup>
     export interface Props {
         readonly gap?: number;
         readonly minColumnWidth: number;

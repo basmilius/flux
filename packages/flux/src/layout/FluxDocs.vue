@@ -59,7 +59,8 @@
             &-nav {
                 position: relative;
                 height: 100%;
-                padding: 90px 60px 90px 0;
+                margin-left: -50vw;
+                padding: 90px 60px 90px 50vw;
                 overflow: auto;
             }
         }
