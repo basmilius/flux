@@ -6,7 +6,7 @@
         }"
         type="button"
         :icon-before="icon"
-        v-bind="{disabled, isLoading, label, href, rel, target, to}"
+        v-bind="{disabled, isLoading, label, href, rel, target, to, type}"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)"/>
