@@ -30,6 +30,10 @@ export const router = createRouter({
                     component: () => import('./pages/content/Typography.vue')
                 },
                 {
+                    path: '/components/action',
+                    component: () => import('./pages/components/Action.vue')
+                },
+                {
                     path: '/components/action-bar',
                     component: () => import('./pages/components/ActionBar.vue')
                 },

@@ -80,6 +80,11 @@
                     <flux-menu-sub-header label="Components"/>
 
                     <flux-menu-item
+                        label="Action"
+                        to="/components/action"
+                        type="route"/>
+
+                    <flux-menu-item
                         label="Action bar"
                         to="/components/action-bar"
                         type="route"/>

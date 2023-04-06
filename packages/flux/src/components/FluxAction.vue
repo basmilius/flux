@@ -1,12 +1,12 @@
 <template>
     <flux-base-button
-        class="flux-toolbar-button"
+        class="flux-action"
         :class="{
-            'flux-toolbar-button-destructive': destructive
+            'is-destructive': destructive
         }"
         type="button"
         :icon-before="icon"
-        v-bind="{disabled, isLoading, label}"
+        v-bind="{disabled, isLoading, label, href, rel, target, to}"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)"/>
@@ -15,7 +15,7 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '../data';
+    import type { FluxRoutingLocation, IconNames } from '../data';
     import { FluxBaseButton } from '.';
 
     export interface Emits {
@@ -32,6 +32,11 @@
         readonly icon?: IconNames;
         readonly isLoading?: boolean;
         readonly label?: string;
+        readonly href?: string;
+        readonly rel?: string;
+        readonly target?: string;
+        readonly to?: FluxRoutingLocation;
+        readonly type?: 'button' | 'link' | 'route';
     }
 
     defineEmits<Emits>();
@@ -39,7 +44,7 @@
 </script>
 
 <style lang="scss">
-    .flux-toolbar-button {
+    .flux-button.flux-action {
         --button-background: transparent;
         --button-background-hover: rgb(var(--gray-2));
         --button-background-active: rgb(var(--gray-3));
@@ -48,10 +53,11 @@
         --button-stroke: transparent;
 
         height: 30px;
-        padding: 0 6px;
+        padding-left: 6px;
+        padding-right: 6px;
         box-shadow: none;
 
-        &-destructive {
+        &.is-destructive {
             --button-icon: rgb(var(--danger-7))
         }
     }

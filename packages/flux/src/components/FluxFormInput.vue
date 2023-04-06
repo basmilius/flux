@@ -77,7 +77,7 @@
         }
 
         if (DateTime.isDateTime(v)) {
-            return v.toISO().substring(0, 16);
+            return v.toISO()!.substring(0, 16);
         }
 
         return v.toString();
