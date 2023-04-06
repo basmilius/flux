@@ -42,8 +42,8 @@
             <template #actions="{}">
                 <flux-table-cell>
                     <flux-table-actions>
-                        <flux-table-action icon="pen"/>
-                        <flux-table-action icon="ellipsis-h"/>
+                        <flux-action icon="pen"/>
+                        <flux-action icon="ellipsis-h"/>
                     </flux-table-actions>
                 </flux-table-cell>
             </template>
@@ -65,13 +65,13 @@
     lang="ts"
     setup>
     import {
+        FluxAction,
         FluxBadge,
         FluxBadgeStack,
         FluxDataTable,
         FluxPaginationBar,
         FluxPane,
         FluxPaneFooter,
-        FluxTableAction,
         FluxTableActions,
         FluxTableCell,
         FluxTableHeader

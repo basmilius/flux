@@ -46,8 +46,8 @@
                     <template #actions="{}">
                         <flux-table-cell>
                             <flux-table-actions>
-                                <flux-table-action icon="pen"/>
-                                <flux-table-action icon="ellipsis-h"/>
+                                <flux-action icon="pen"/>
+                                <flux-action icon="ellipsis-h"/>
                             </flux-table-actions>
                         </flux-table-cell>
                     </template>
@@ -131,7 +131,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxBadge, FluxBadgeStack, FluxDataTable, FluxPane, FluxStack, FluxTableAction, FluxTableActions, FluxTableCell, FluxTableHeader } from '@fancee/flux';
+    import { FluxAction, FluxBadge, FluxBadgeStack, FluxDataTable, FluxPane, FluxStack, FluxTableActions, FluxTableCell, FluxTableHeader } from '@fancee/flux';
     import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
     import { computed } from 'vue';
     import basic from '../../code/components/data-table/basic.vue';
