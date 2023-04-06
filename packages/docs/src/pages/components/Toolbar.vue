@@ -12,15 +12,17 @@
 
                 <flux-toolbar floating-mode="top-end">
                     <flux-toolbar-group>
-                        <flux-toolbar-button icon="grip-dots"/>
-                        <flux-toolbar-button icon="angle-up"/>
-                        <flux-toolbar-button icon="angle-down"/>
+                        <flux-action icon="grip-dots"/>
+                        <flux-action icon="angle-up"/>
+                        <flux-action icon="angle-down"/>
                     </flux-toolbar-group>
 
                     <flux-separator axis="vertical"/>
 
                     <flux-toolbar-group>
-                        <flux-toolbar-button destructive icon="xmark"/>
+                        <flux-action
+                            destructive
+                            icon="xmark"/>
                     </flux-toolbar-group>
                 </flux-toolbar>
             </flux-pane>
@@ -39,10 +41,6 @@
                 <tr>
                     <td><code>FluxToolbar</code></td>
                     <td>The toolbar itself.</td>
-                </tr>
-                <tr>
-                    <td><code>FluxToolbarButton</code></td>
-                    <td>A single action within the toolbar.</td>
                 </tr>
                 <tr>
                     <td><code>FluxToolbarGroup</code></td>
@@ -66,46 +64,6 @@
                 </template>
             </api-component>
 
-            <api-component name="ToolbarButton">
-                <template #props>
-                    <tr>
-                        <td><code>destructive</code><code>boolean</code></td>
-                        <td>Indicates that the button should be a destructive action.</td>
-                    </tr>
-                    <tr>
-                        <td><code>disabled</code><code>boolean</code></td>
-                        <td>Indicates that the button should be disabled.</td>
-                    </tr>
-                    <tr>
-                        <td><code>icon</code><code>IconNames</code></td>
-                        <td>The icon that is used.</td>
-                    </tr>
-                    <tr>
-                        <td><code>is-loading</code><code>boolean</code></td>
-                        <td>Sets a loading state to the button. This also disables it. The spinner will replace the icon used in the button.</td>
-                    </tr>
-                    <tr>
-                        <td><code>label</code><code>string</code></td>
-                        <td>The label displayed within the button.</td>
-                    </tr>
-                </template>
-
-                <template #emits>
-                    <tr>
-                        <td><code>click</code><code>(evt: MouseEvent): void;</code></td>
-                        <td>Triggered when the button is clicked.</td>
-                    </tr>
-                    <tr>
-                        <td><code>mouseenter</code><code>(evt: MouseEvent): void;</code></td>
-                        <td>Triggered when the cursor enters the button.</td>
-                    </tr>
-                    <tr>
-                        <td><code>mouseleave</code><code>(evt: MouseEvent): void;</code></td>
-                        <td>Triggered when the cursor leaves the button.</td>
-                    </tr>
-                </template>
-            </api-component>
-
             <api-component name="ToolbarGroup">
                 <template #slots>
                     <tr>
@@ -121,6 +79,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneBody, FluxSeparator, FluxStack, FluxToolbar, FluxToolbarButton, FluxToolbarGroup } from '@fancee/flux';
-    import { ApiComponent, ApiComponents, ApiSection, ApiTable, PageTitle, Preview } from '@/components';
+    import { FluxAction, FluxPane, FluxPaneBody, FluxSeparator, FluxStack, FluxToolbar, FluxToolbarGroup } from '@fancee/flux';
+    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@/components';
 </script>

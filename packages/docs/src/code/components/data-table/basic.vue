@@ -40,8 +40,8 @@
             <template #actions="{}">
                 <flux-table-cell>
                     <flux-table-actions>
-                        <flux-table-action icon="pen"/>
-                        <flux-table-action icon="ellipsis-h"/>
+                        <flux-action icon="pen"/>
+                        <flux-action icon="ellipsis-h"/>
                     </flux-table-actions>
                 </flux-table-cell>
             </template>
@@ -53,16 +53,16 @@
     lang="ts"
     setup>
     import {
+        FluxAction,
         FluxBadge,
         FluxBadgeStack,
         FluxDataTable,
         FluxPane,
-        FluxTableAction,
         FluxTableActions,
         FluxTableCell,
         FluxTableHeader
     } from '@fancee/flux';
-    import { computed, ref } from 'vue';
+    import { computed } from 'vue';
 
     const dataSet = computed(() => Array(5).fill(null).map((_, index) => ({
         id: index,
