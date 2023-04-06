@@ -5,27 +5,25 @@
             title="Tooltip"/>
 
         <preview>
-            <preview>
-                <flux-button-stack>
-                    <flux-tooltip
-                        axis="horizontal"
-                        content="Dit is een tooltip">
-                        <flux-secondary-button
-                            icon-before="clone"
-                            label="Hover me"/>
-                    </flux-tooltip>
+            <flux-button-stack>
+                <flux-tooltip
+                    axis="horizontal"
+                    content="Dit is een tooltip">
+                    <flux-secondary-button
+                        icon-before="clone"
+                        label="Hover me"/>
+                </flux-tooltip>
 
-                    <flux-tooltip>
-                        <template #content>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab consequatur dolor doloremque ipsa ipsum nulla, placeat qui, saepe sapiente tempora tenetur, unde? Aliquam commodi eaque explicabo ipsum iusto possimus reiciendis.</p>
-                        </template>
+                <flux-tooltip>
+                    <template #content>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab consequatur dolor doloremque ipsa ipsum nulla, placeat qui, saepe sapiente tempora tenetur, unde? Aliquam commodi eaque explicabo ipsum iusto possimus reiciendis.</p>
+                    </template>
 
-                        <flux-secondary-button
-                            icon-before="clone"
-                            label="Hover me"/>
-                    </flux-tooltip>
-                </flux-button-stack>
-            </preview>
+                    <flux-secondary-button
+                        icon-before="clone"
+                        label="Hover me"/>
+                </flux-tooltip>
+            </flux-button-stack>
         </preview>
 
         <api-section>
