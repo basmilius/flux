@@ -44,64 +44,43 @@
 
                 const {width, height} = element.getBoundingClientRect();
                 const {top, left, width: originWidth, height: originHeight} = origin.getBoundingClientRect();
-                let x = 0, y = 0, arrowAngle = '0deg', arrowX = '0%', arrowY = '0%';
 
                 switch (axis) {
                     case 'horizontal':
-                        if (left > innerWidth / 2) {
-                            x = left - width - margin;
-                            y = top + originHeight / 2 - height / 2;
-                            arrowAngle = '315deg';
-                            arrowX = '100%';
-                            arrowY = '50%';
-                        } else {
-                            x = left + originWidth + margin;
-                            y = top + originHeight / 2 - height / 2;
-                            arrowAngle = '135deg';
-                            arrowX = '0';
-                            arrowY = '50%';
-                        }
-
-                        if (y + height > innerHeight - safeZone) {
-                            const diff = Math.min(y, innerHeight - height - safeZone) - y;
-                            arrowY = `calc(50% - ${diff}px)`;
-                            y += diff;
-                        }
-
-                        if (y < safeZone) {
-                            const diff = Math.max(y, safeZone) - y;
-                            arrowY = `calc(50% - ${diff}px)`;
-                            y += diff;
-                        }
-                        break;
+                        return calculateHorizontalPosition(top, left, width, height, originWidth, originHeight, margin, safeZone);
 
                     case 'vertical':
-                        if (top > innerHeight / 2) {
-                            x = left + originWidth / 2 - width / 2;
-                            y = top - height - margin;
-                            arrowAngle = '45deg';
-                            arrowX = '50%';
-                            arrowY = '100%';
-                        } else {
-                            x = left + originWidth / 2 - width / 2;
-                            y = top + originHeight + margin;
-                            arrowAngle = '225deg';
-                            arrowX = '50%';
-                            arrowY = '0';
-                        }
+                        return calculateVerticalPosition(top, left, width, height, originWidth, originHeight, margin, safeZone);
+                }
+            });
 
-                        if (x + width > innerWidth - safeZone) {
-                            const diff = Math.min(x, innerWidth - width - safeZone) - x;
-                            arrowX = `calc(50% - ${diff}px)`;
-                            x += diff;
-                        }
+            function calculateHorizontalPosition(top: number, left: number, width: number, height: number, originWidth: number, originHeight: number, margin: number, safeZone: number): TooltipPositionData {
+                let x, y, arrowAngle, arrowX, arrowY;
 
-                        if (x < safeZone) {
-                            const diff = Math.max(x, safeZone) - x;
-                            arrowX = `calc(50% - ${diff}px)`;
-                            x += diff;
-                        }
-                        break;
+                if (left > innerWidth / 2) {
+                    x = left - width - margin;
+                    y = top + originHeight / 2 - height / 2;
+                    arrowAngle = '315deg';
+                    arrowX = '100%';
+                    arrowY = '50%';
+                } else {
+                    x = left + originWidth + margin;
+                    y = top + originHeight / 2 - height / 2;
+                    arrowAngle = '135deg';
+                    arrowX = '0';
+                    arrowY = '50%';
+                }
+
+                if (y + height > innerHeight - safeZone) {
+                    const diff = Math.min(y, innerHeight - height - safeZone) - y;
+                    arrowY = `calc(50% - ${diff}px)`;
+                    y += diff;
+                }
+
+                if (y < safeZone) {
+                    const diff = Math.max(y, safeZone) - y;
+                    arrowY = `calc(50% - ${diff}px)`;
+                    y += diff;
                 }
 
                 return {
@@ -111,7 +90,45 @@
                     arrowX,
                     arrowY
                 };
-            });
+            }
+
+            function calculateVerticalPosition(top: number, left: number, width: number, height: number, originWidth: number, originHeight: number, margin: number, safeZone: number): TooltipPositionData {
+                let x, y, arrowAngle, arrowX, arrowY;
+
+                if (top > innerHeight / 2) {
+                    x = left + originWidth / 2 - width / 2;
+                    y = top - height - margin;
+                    arrowAngle = '45deg';
+                    arrowX = '50%';
+                    arrowY = '100%';
+                } else {
+                    x = left + originWidth / 2 - width / 2;
+                    y = top + originHeight + margin;
+                    arrowAngle = '225deg';
+                    arrowX = '50%';
+                    arrowY = '0';
+                }
+
+                if (x + width > innerWidth - safeZone) {
+                    const diff = Math.min(x, innerWidth - width - safeZone) - x;
+                    arrowX = `calc(50% - ${diff}px)`;
+                    x += diff;
+                }
+
+                if (x < safeZone) {
+                    const diff = Math.max(x, safeZone) - x;
+                    arrowX = `calc(50% - ${diff}px)`;
+                    x += diff;
+                }
+
+                return {
+                    x: Math.round(x),
+                    y: Math.round(y),
+                    arrowAngle,
+                    arrowX,
+                    arrowY
+                };
+            }
 
             return () => render(FluxFadeTransition, {
                 slots: {
