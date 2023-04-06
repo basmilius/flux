@@ -1,4 +1,4 @@
-import type { ConcreteComponent, Ref, UnwrapRef, VNode } from 'vue-demi';
+import type { Component, Ref, UnwrapRef, VNode } from 'vue-demi';
 import { h, unref } from 'vue-demi';
 import { hyphenateTag } from './dom';
 
@@ -48,7 +48,7 @@ export function isVNode(vnode: unknown): vnode is VNode {
     return typeof vnode === 'object' && !!vnode && (vnode.hasOwnProperty('__v_isVNode') || vnode.hasOwnProperty('componentOptions'));
 }
 
-export function render<P>(component: ConcreteComponent<P>, spec?: RenderSpec<P>): VNode {
+export function render<P>(component: Component<P>, spec?: RenderSpec<P>): VNode {
     if (!spec) {
         return h(component);
     }
