@@ -17,6 +17,7 @@
         </flux-overlay>
 
         <flux-snackbar-provider/>
+        <flux-tooltip-provider/>
     </main>
 </template>
 
@@ -26,7 +27,7 @@
     import { storeToRefs } from 'pinia';
     import { useBreakpointsProvider } from '../composables';
     import { useFluxStore } from '../data';
-    import { FluxAlert, FluxConfirm, FluxOverlay, FluxSnackbarProvider } from '.';
+    import { FluxAlert, FluxConfirm, FluxOverlay, FluxSnackbarProvider, FluxTooltipProvider } from '.';
 
     useBreakpointsProvider();
 

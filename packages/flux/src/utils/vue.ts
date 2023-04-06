@@ -18,7 +18,6 @@ export function flattenVNodeTree(vnodes: VNode[]): VNode[] {
     return flattened;
 }
 
-// note(Bas): any needed because vue 2 and 3 have different api's.
 export function getNormalizedComponentName(component: any): string {
     let name = 'flux-unknown';
 
@@ -33,7 +32,6 @@ export function getNormalizedComponentName(component: any): string {
     return hyphenateTag(name);
 }
 
-// note(Bas): any needed because vue 2 and 3 have different api's.
 export function getNormalizedComponentProps<T extends object>(component: any): T {
     if (component.props) {
         return component.props;

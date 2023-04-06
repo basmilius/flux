@@ -218,6 +218,10 @@ export const router = createRouter({
                     component: () => import('./pages/components/Toolbar.vue')
                 },
                 {
+                    path: '/components/tooltip',
+                    component: () => import('./pages/components/Tooltip.vue')
+                },
+                {
                     path: '/components/window',
                     component: () => import('./pages/components/Window.vue')
                 },

@@ -1,17 +1,22 @@
-import type { FluxAlertSpec, FluxConfirmSpec, FluxSnackbarSpec } from '.';
+import type { FluxAlertSpec, FluxConfirmSpec, FluxSnackbarSpec, FluxTooltipSpec } from '.';
 import { defineStore } from 'pinia';
 
 let alertId: number = 0;
+let tooltipId: number = 0;
 
 export const useFluxStore = defineStore('flux', {
     state: (): FluxStore => ({
         alerts: [],
         confirms: [],
-        snackbars: []
+        snackbars: [],
+        tooltips: []
     }),
+    getters: {
+        tooltip: (state): FluxTooltipSpec | null => state.tooltips[state.tooltips.length - 1] || null
+    },
     actions: {
         addAlert(spec: Omit<FluxAlertSpec, 'id'>): number {
-            const id: number = ++alertId;
+            const id = ++alertId;
 
             this.alerts.push({
                 id,
@@ -22,7 +27,7 @@ export const useFluxStore = defineStore('flux', {
         },
 
         addConfirm(spec: Omit<FluxConfirmSpec, 'id'>): number {
-            const id: number = ++alertId;
+            const id = ++alertId;
 
             this.confirms.push({
                 id,
@@ -33,9 +38,20 @@ export const useFluxStore = defineStore('flux', {
         },
 
         addSnackbar(spec: Omit<FluxSnackbarSpec, 'id'>): number {
-            const id: number = ++alertId;
+            const id = ++alertId;
 
             this.snackbars.unshift({
+                id,
+                ...spec
+            });
+
+            return id;
+        },
+
+        addTooltip(spec: Omit<FluxTooltipSpec, 'id'>): number {
+            const id = ++tooltipId;
+
+            this.tooltips.push({
                 id,
                 ...spec
             });
@@ -55,6 +71,10 @@ export const useFluxStore = defineStore('flux', {
             this.snackbars = this.snackbars.filter(s => s.id !== id);
         },
 
+        removeTooltip(id: number): void {
+            this.tooltips = this.tooltips.filter(s => s.id !== id);
+        },
+
         async showSnackbar(duration: number, spec: Omit<FluxSnackbarSpec, 'id'>): Promise<void> {
             const id = this.addSnackbar(spec);
             await new Promise(resolve => setTimeout(() => requestAnimationFrame(resolve), duration));
@@ -72,4 +92,5 @@ interface FluxStore {
     alerts: FluxAlertSpec[];
     confirms: FluxConfirmSpec[];
     snackbars: FluxSnackbarSpec[];
+    tooltips: FluxTooltipSpec[];
 }
