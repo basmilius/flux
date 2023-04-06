@@ -31,8 +31,8 @@
 
                             <flux-table-cell>
                                 <flux-table-actions>
-                                    <flux-table-action icon="pen"/>
-                                    <flux-table-action icon="ellipsis-h"/>
+                                    <flux-action icon="pen"/>
+                                    <flux-action icon="ellipsis-h"/>
                                 </flux-table-actions>
                             </flux-table-cell>
                         </flux-table-row>
@@ -106,46 +106,6 @@
                     <tr>
                         <td><code>rows</code><code>{}</code></td>
                         <td>Rows of the table.</td>
-                    </tr>
-                </template>
-            </api-component>
-
-            <api-component name="TableAction">
-                <template #props>
-                    <tr>
-                        <td><code>destructive</code><code>boolean</code></td>
-                        <td>Indicates that the action should be a destructive action.</td>
-                    </tr>
-                    <tr>
-                        <td><code>disabled</code><code>boolean</code></td>
-                        <td>Indicates that the action should be disabled.</td>
-                    </tr>
-                    <tr>
-                        <td><code>icon</code><code>IconNames</code></td>
-                        <td>The icon that is used.</td>
-                    </tr>
-                    <tr>
-                        <td><code>is-loading</code><code>boolean</code></td>
-                        <td>Sets a loading state to the action. This also disables it. The spinner will replace the icon used in the action.</td>
-                    </tr>
-                    <tr>
-                        <td><code>label</code><code>string</code></td>
-                        <td>The label displayed within the action.</td>
-                    </tr>
-                </template>
-
-                <template #emits>
-                    <tr>
-                        <td><code>click</code><code>(evt: MouseEvent): void;</code></td>
-                        <td>Triggered when the action is clicked.</td>
-                    </tr>
-                    <tr>
-                        <td><code>mouseenter</code><code>(evt: MouseEvent): void;</code></td>
-                        <td>Triggered when the cursor enters the action.</td>
-                    </tr>
-                    <tr>
-                        <td><code>mouseleave</code><code>(evt: MouseEvent): void;</code></td>
-                        <td>Triggered when the cursor leaves the action.</td>
                     </tr>
                 </template>
             </api-component>
@@ -239,7 +199,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxStack, FluxTable, FluxTableAction, FluxTableActions, FluxTableCell, FluxTableHeader, FluxTableRow } from '@fancee/flux';
+    import { FluxAction, FluxPane, FluxStack, FluxTable, FluxTableActions, FluxTableCell, FluxTableHeader, FluxTableRow } from '@fancee/flux';
     import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
     import basic from '../../code/components/table/basic.vue';
     import basicCode from '../../code/components/table/basic.vue?raw';

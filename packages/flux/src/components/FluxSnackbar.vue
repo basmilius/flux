@@ -51,7 +51,7 @@
             </button>
         </div>
 
-        <flux-table-action
+        <flux-action
             v-if="isCloseable"
             icon="xmark"
             @click="onClose()"/>
@@ -65,7 +65,7 @@
     import { useFluxStore } from '../data';
     import { unrefObject } from '../utils';
     import { computed, getCurrentInstance, onBeforeUnmount, ref, toRefs, watch } from 'vue-demi';
-    import { FluxIcon, FluxSpinner, FluxTableAction } from '.';
+    import { FluxAction, FluxIcon, FluxSpinner } from '.';
 
     export interface Emits {
         (e: 'action', actionKey: string): void;
