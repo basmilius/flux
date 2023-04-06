@@ -8,7 +8,7 @@
             <flux-button-stack>
                 <flux-tooltip
                     axis="horizontal"
-                    content="Dit is een tooltip">
+                    content="Lorem ipsum dolor sit amet, consectetur adipisicing elit.">
                     <flux-secondary-button
                         icon-before="clone"
                         label="Hover me"/>
