@@ -351,6 +351,11 @@
                         type="route"/>
 
                     <flux-menu-item
+                        label="Tooltip"
+                        to="/components/tooltip"
+                        type="route"/>
+
+                    <flux-menu-item
                         label="Window"
                         to="/components/window"
                         type="route"/>

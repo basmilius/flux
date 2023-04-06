@@ -41,6 +41,14 @@ export interface FluxSnackbarSpec {
     onClose?(): void;
 }
 
+export interface FluxTooltipSpec {
+    readonly id: number;
+    readonly axis: 'horizontal' | 'vertical';
+    readonly content?: string;
+    readonly contentSlot?: Function;
+    readonly origin?: HTMLElement;
+}
+
 export interface FluxFormSelectOption {
     readonly badge?: string;
     readonly icon?: IconNames | null;

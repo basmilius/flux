@@ -1,4 +1,4 @@
-import type { Component, Ref, UnwrapRef, VNode } from 'vue-demi';
+import type { ConcreteComponent, Ref, UnwrapRef, VNode } from 'vue-demi';
 import { h, unref } from 'vue-demi';
 import { hyphenateTag } from './dom';
 
@@ -18,7 +18,6 @@ export function flattenVNodeTree(vnodes: VNode[]): VNode[] {
     return flattened;
 }
 
-// note(Bas): any needed because vue 2 and 3 have different api's.
 export function getNormalizedComponentName(component: any): string {
     let name = 'flux-unknown';
 
@@ -33,7 +32,6 @@ export function getNormalizedComponentName(component: any): string {
     return hyphenateTag(name);
 }
 
-// note(Bas): any needed because vue 2 and 3 have different api's.
 export function getNormalizedComponentProps<T extends object>(component: any): T {
     if (component.props) {
         return component.props;
@@ -50,7 +48,7 @@ export function isVNode(vnode: unknown): vnode is VNode {
     return typeof vnode === 'object' && !!vnode && (vnode.hasOwnProperty('__v_isVNode') || vnode.hasOwnProperty('componentOptions'));
 }
 
-export function render<P>(component: Component<P>, spec?: RenderSpec<P>): VNode {
+export function render<P>(component: ConcreteComponent<P>, spec?: RenderSpec<P>): VNode {
     if (!spec) {
         return h(component);
     }

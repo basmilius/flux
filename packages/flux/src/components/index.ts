@@ -98,4 +98,6 @@ export { default as FluxToggle } from './FluxToggle.vue';
 export { default as FluxToolbar } from './FluxToolbar.vue';
 export { default as FluxToolbarButton } from './FluxToolbarButton.vue';
 export { default as FluxToolbarGroup } from './FluxToolbarGroup.vue';
+export { default as FluxTooltip } from './FluxTooltip.vue';
+export { default as FluxTooltipProvider } from './FluxTooltipProvider.vue';
 export { default as FluxWindow } from './FluxWindow.vue';

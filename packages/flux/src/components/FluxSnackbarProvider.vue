@@ -65,6 +65,7 @@
             width: 100%;
         }
 
+        &-enter,
         &-enter-from {
             opacity: 0;
             transform: translate3d(100%, 0, 0);

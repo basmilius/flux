@@ -46,7 +46,7 @@
         height: 100dvh;
         width: 100svw;
         background: rgb(var(--gray-7) / .25);
-        backdrop-filter: saturate(180%);
+        backdrop-filter: blur(5px) saturate(180%);
         overflow: auto;
         z-index: 10000;
 
