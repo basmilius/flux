@@ -311,6 +311,11 @@
                         type="route"/>
 
                     <flux-menu-item
+                        label="Slide over"
+                        to="/components/slide-over"
+                        type="route"/>
+
+                    <flux-menu-item
                         label="Snackbar"
                         to="/components/snackbar"
                         type="route"/>

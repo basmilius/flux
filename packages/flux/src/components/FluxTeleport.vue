@@ -124,3 +124,9 @@
 
     watch([placement, to], maybeMove);
 </script>
+
+<style lang="scss">
+    .flux-teleport {
+        display: contents;
+    }
+</style>

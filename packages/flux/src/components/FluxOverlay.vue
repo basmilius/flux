@@ -1,37 +1,12 @@
 <script lang="ts">
-    import { defineComponent, h, useSlots, VNode } from 'vue-demi';
+    import { defineComponent, useSlots } from 'vue-demi';
+    import { createDialogRenderer } from '../helpers';
     import { FluxOverlayTransition } from '../transition';
-    import { flattenVNodeTree, render } from '../utils';
-    import { FluxTeleport } from '.';
 
     export default defineComponent({
         setup() {
             const slots = useSlots();
-
-            return () => {
-                const children = flattenVNodeTree(slots.default?.() ?? []);
-                const isVisible = children.length > 0 && children.some(child => typeof child.type !== 'symbol');
-                const content: VNode[] = [];
-
-                if (isVisible) {
-                    content.push(h('div', {
-                        class: 'flux-overlay'
-                    }, children));
-                }
-
-                return render(FluxTeleport, {
-                    props: {
-                        to: '[data-flux-root]'
-                    },
-                    slots: {
-                        default: () => render(FluxOverlayTransition, {
-                            slots: {
-                                default: () => content
-                            }
-                        })
-                    }
-                });
-            };
+            return createDialogRenderer(slots, 'flux-overlay', FluxOverlayTransition);
         }
     });
 </script>
