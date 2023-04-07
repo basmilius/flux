@@ -6,12 +6,14 @@ let tooltipId: number = 0;
 
 export const useFluxStore = defineStore('flux', {
     state: (): FluxStore => ({
+        dialogCount: 0,
         alerts: [],
         confirms: [],
         snackbars: [],
         tooltips: []
     }),
     getters: {
+        inertMain: (state): boolean => state.dialogCount > 0,
         tooltip: (state): FluxTooltipSpec | null => state.tooltips[state.tooltips.length - 1] || null
     },
     actions: {
@@ -59,6 +61,11 @@ export const useFluxStore = defineStore('flux', {
             return id;
         },
 
+        registerDialog(): VoidFunction {
+            ++this.dialogCount;
+            return () => --this.dialogCount;
+        },
+
         removeAlert(id: number): void {
             this.alerts = this.alerts.filter(a => a.id !== id);
         },
@@ -89,6 +96,7 @@ export const useFluxStore = defineStore('flux', {
 });
 
 interface FluxStore {
+    dialogCount: number;
     alerts: FluxAlertSpec[];
     confirms: FluxConfirmSpec[];
     snackbars: FluxSnackbarSpec[];

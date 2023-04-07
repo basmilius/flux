@@ -1,7 +1,7 @@
 <template>
     <div
         v-if="isRendered"
-        class="flux-snackbar"
+        class="flux-surface flux-snackbar"
         :class="{
             [`flux-snackbar-${color}`]: !!color
         }">
@@ -143,10 +143,6 @@
 
         display: flex;
         box-shadow: var(--shadow-lg);
-        background: rgb(var(--gray-0));
-        background-clip: padding-box;
-        border: 1px solid rgb(var(--gray-4) / .75);
-        border-radius: var(--radius);
         overflow: hidden;
 
         &-content {
