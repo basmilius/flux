@@ -24,6 +24,7 @@
                 const elm = instance.proxy!.$el;
                 elm.removeEventListener('mouseenter', onHover);
                 elm.removeEventListener('mouseleave', onLeave);
+                onLeave();
             });
 
             function onHover(): void {

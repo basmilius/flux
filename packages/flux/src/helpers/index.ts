@@ -7,5 +7,6 @@ export type {
     MaybeRef
 } from './types';
 
+export { createDialogRenderer } from './dialog';
 export { resolveUnref } from './resolveUnref';
 export { unrefElement } from './unrefElement';

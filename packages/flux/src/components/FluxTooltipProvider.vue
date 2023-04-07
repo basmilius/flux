@@ -95,7 +95,7 @@
             function calculateVerticalPosition(top: number, left: number, width: number, height: number, originWidth: number, originHeight: number, margin: number, safeZone: number): TooltipPositionData {
                 let x, y, arrowAngle, arrowX, arrowY;
 
-                if (top > innerHeight / 2) {
+                if (top > 300) {
                     x = left + originWidth / 2 - width / 2;
                     y = top - height - margin;
                     arrowAngle = '45deg';

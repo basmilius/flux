@@ -186,6 +186,10 @@ export const router = createRouter({
                     component: () => import('./pages/components/Separator.vue')
                 },
                 {
+                    path: '/components/slide-over',
+                    component: () => import('./pages/components/SlideOver.vue')
+                },
+                {
                     path: '/components/snackbar',
                     component: () => import('./pages/components/Snackbar.vue')
                 },

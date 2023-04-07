@@ -50,6 +50,14 @@
         .flux-expandable + .flux-expandable {
             border-top: 1px solid rgb(var(--gray-3));
         }
+
+        &:not(:first-child) {
+            border-top: 1px solid rgb(var(--gray-3));
+        }
+
+        &:not(:last-child) {
+            border-bottom: 1px solid rgb(var(--gray-3));
+        }
     }
 
     .flux-pane > .flux-expandable-group:first-child .flux-expandable:first-child .flux-expandable-header {

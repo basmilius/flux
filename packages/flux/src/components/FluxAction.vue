@@ -4,7 +4,6 @@
         :class="{
             'is-destructive': destructive
         }"
-        type="button"
         :icon-before="icon"
         v-bind="{disabled, isLoading, label, href, rel, target, to, type}"
         @click="$emit('click', $event)"
