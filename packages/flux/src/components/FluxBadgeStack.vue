@@ -1,7 +1,8 @@
 <template>
     <flux-stack
         axis="horizontal"
-        :gap="6">
+        :gap="6"
+        is-wrapping>
         <slot/>
     </flux-stack>
 </template>
