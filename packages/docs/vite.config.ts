@@ -15,7 +15,9 @@ export default defineConfig({
     plugins: [vue()],
     resolve: {
         alias: {
-            '@': resolve(__dirname, 'src/')
+            '@': resolve(__dirname, 'src/'),
+            '@fancee/flux/style.css': resolve(__dirname, '../flux/src/scss/index.scss'),
+            '@fancee/flux': resolve(__dirname, '../flux/src/index.ts')
         }
     },
     server: {

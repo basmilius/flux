@@ -10,7 +10,7 @@
     lang="ts"
     setup>
     export interface Props {
-        readonly mode: 'out-in' | 'in-out';
+        readonly mode?: 'out-in' | 'in-out';
     }
 
     withDefaults(defineProps<Props>(), {
