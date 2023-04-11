@@ -33,5 +33,11 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneBody, FluxPaneHeader, FluxPaneIllustration, FluxSecondaryButton } from '@fancee/flux';
+    import {
+        FluxPane,
+        FluxPaneBody,
+        FluxPaneHeader,
+        FluxPaneIllustration,
+        FluxSecondaryButton
+    } from '@fancee/flux';
 </script>
