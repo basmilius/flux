@@ -32,15 +32,15 @@
     import { hexToRGB, mulberry32 } from '../utils';
     import { ref } from 'vue';
 
-    type Polygon = [number, number, string, PolygonPoint[]];
-    type PolygonPoint = [number, number, number];
-
     export interface Props {
         readonly animatedColors: string[] | null;
         readonly animatedSeed: number | null;
         readonly aspectRatio?: number;
         readonly isMasked?: boolean;
     }
+
+    type Polygon = [number, number, string, PolygonPoint[]];
+    type PolygonPoint = [number, number, number];
 
     const props = withDefaults(defineProps<Props>(), {
         animatedColors: null,

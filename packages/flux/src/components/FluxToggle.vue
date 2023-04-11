@@ -2,8 +2,9 @@
     <label
         class="flux-toggle"
         :class="{
-            'flux-toggle-checked': modelValue,
-            'flux-toggle-switch': isSwitch
+            'is-checked': modelValue,
+            'is-disabled': isDisabled,
+            'is-switch': isSwitch
         }"
         :for="id">
         <flux-icon
@@ -21,6 +22,7 @@
         <input
             class="flux-toggle-input"
             :id="id"
+            :disabled="isDisabled"
             type="checkbox"
             :checked="modelValue"
             @input="toggle"/>
@@ -51,6 +53,7 @@
     export interface Props {
         readonly iconOff?: IconNames;
         readonly iconOn?: IconNames;
+        readonly isDisabled?: boolean;
         readonly isSwitch?: boolean;
         readonly modelValue?: boolean;
     }
@@ -133,34 +136,39 @@
             transition-property: background, border-color, color, opacity, scale, translate, flux.focus-ring-transition-properties();
         }
 
-        &-checked:not(&-switch) &-icon {
-            color: rgb(var(--primary-0));
-        }
-
-        &-checked:not(&-switch) {
-            background: rgb(var(--primary-7));
-        }
-
-        &-checked:not(&-switch) &-input::after {
-            border-color: transparent;
-        }
-
-        &-checked &-input::after {
+        &.is-checked &-input::after {
             translate: 24px 0;
         }
 
-        &:not(&-checked) &-icon-off,
-        &-checked &-icon-on {
+        &.is-checked:not(.is-switch) {
+            background: rgb(var(--primary-7));
+        }
+
+        &.is-checked:not(.is-switch) &-icon {
+            color: rgb(var(--primary-0));
+        }
+
+        &.is-checked:not(.is-switch) &-input::after {
+            border-color: transparent;
+        }
+
+        &:not(&.is-checked) &-icon-off,
+        &.is-checked &-icon-on {
             opacity: 0;
             scale: .5;
         }
 
-        &-checked &-icon-on {
+        &.is-checked &-icon-on {
             translate: calc(-50% - 6px) -50%;
         }
 
-        &:not(&-checked) &-icon-off {
+        &:not(&.is-checked) &-icon-off {
             translate: calc(-50% + 6px) -50%;
+        }
+
+        &.is-disabled {
+            cursor: not-allowed;
+            opacity: .6;
         }
     }
 </style>

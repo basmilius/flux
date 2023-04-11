@@ -1,6 +1,8 @@
 import type { FluxAlertSpec, FluxConfirmSpec, FluxSnackbarSpec, FluxTooltipSpec } from '.';
 import { defineStore } from 'pinia';
 
+const DEFAULT_SNACKBAR_DURATION = 3000;
+
 let alertId: number = 0;
 let tooltipId: number = 0;
 
@@ -82,9 +84,9 @@ export const useFluxStore = defineStore('flux', {
             this.tooltips = this.tooltips.filter(s => s.id !== id);
         },
 
-        async showSnackbar(duration: number, spec: Omit<FluxSnackbarSpec, 'id'>): Promise<void> {
+        async showSnackbar({duration, ...spec}: Omit<FluxSnackbarSpec, 'id'> & { readonly duration?: number; }): Promise<void> {
             const id = this.addSnackbar(spec);
-            await new Promise(resolve => setTimeout(() => requestAnimationFrame(resolve), duration));
+            await new Promise(resolve => setTimeout(() => requestAnimationFrame(resolve), duration ?? DEFAULT_SNACKBAR_DURATION));
             this.removeSnackbar(id);
         },
 

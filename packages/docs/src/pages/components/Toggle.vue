@@ -38,6 +38,10 @@
                         <td>An icon for the on-state of the toggle.</td>
                     </tr>
                     <tr>
+                        <td><code>is-disabled</code><code>boolean</code></td>
+                        <td>Indicates that the toggle is disabled.</td>
+                    </tr>
+                    <tr>
                         <td><code>is-switch</code><code>boolean</code></td>
                         <td>Applies a switch style to the toggle. This means that the toggle won't change color when it's activated.</td>
                     </tr>
