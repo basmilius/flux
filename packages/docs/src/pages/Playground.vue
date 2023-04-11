@@ -6,6 +6,20 @@
 
         <section>
             <preview>
+                <flux-pane style="width: 420px">
+                    <flux-pane-body>
+                        <flux-stack :gap="15">
+                            <flux-progress-bar
+                                :min="0"
+                                :max="100"
+                                :value="50"/>
+                            <flux-progress-bar is-indeterminate/>
+                        </flux-stack>
+                    </flux-pane-body>
+                </flux-pane>
+            </preview>
+
+            <preview>
                 <flux-pane style="width: 360px">
                     <flux-pane-illustration
                         :animated-colors="['#6071b5', '#f07db7', '#ffa600']"
@@ -38,6 +52,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneBody, FluxPaneHeader, FluxPaneIllustration, FluxStack } from '@fancee/flux';
+    import { FluxPane, FluxPaneBody, FluxPaneHeader, FluxPaneIllustration, FluxProgressBar, FluxStack } from '@fancee/flux';
     import { PageTitle, Preview } from '@/components';
 </script>
