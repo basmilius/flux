@@ -34,7 +34,7 @@
 
     export interface Props {
         readonly animatedColors: string[] | null;
-        readonly animatedSeed: number | null;
+        readonly animatedSeed?: number | null;
         readonly aspectRatio?: number;
         readonly isMasked?: boolean;
     }

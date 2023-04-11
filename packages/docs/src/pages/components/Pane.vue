@@ -165,8 +165,20 @@
             <api-component name="PaneIllustration">
                 <template #props>
                     <tr>
-                        <td><code>is-controlled</code><code>boolean</code></td>
-                        <td>When given, the opiniated styling is not applied to the contents of the illustaration.</td>
+                        <td><code>animated-colors</code><code>string[]</code></td>
+                        <td>And array of hex values to use in the color glowing effect.</td>
+                    </tr>
+                    <tr>
+                        <td><code>animated-seed</code><code>number</code></td>
+                        <td>The randomizer seed to user for the animation.</td>
+                    </tr>
+                    <tr>
+                        <td><code>aspect-ratio</code><code>number</code></td>
+                        <td>Aspect ratio to use for the illustration.</td>
+                    </tr>
+                    <tr>
+                        <td><code>is-masked</code><code>number</code></td>
+                        <td>When applied, the illustration fades away in the background.</td>
                     </tr>
                 </template>
 
@@ -174,6 +186,10 @@
                     <tr>
                         <td><code>default</code><code>{}</code></td>
                         <td>Contents of the pane illustration.</td>
+                    </tr>
+                    <tr>
+                        <td><code>controlled</code><code>{}</code></td>
+                        <td>Contents of the pane illustration, but controlled by the pane illustration.</td>
                     </tr>
                 </template>
             </api-component>
