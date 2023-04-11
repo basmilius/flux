@@ -9,9 +9,18 @@
 
     .flux-form-input-group {
         display: flex;
+        gap: 1px;
+        padding: 1px;
+        background: rgb(var(--gray-4) / .75);
         border-radius: var(--radius);
+        box-shadow: var(--shadow-px);
 
-        @include flux.focus-ring(-1px, true);
+        @include flux.focus-ring-transition(-1px, true);
+
+        .flux-form-input {
+            border: 0;
+            border-radius: calc(var(--radius) - 1px);
+        }
 
         > :where(.flux-button, .flux-form-input, .flux-form-input-addition) {
             outline: 0 !important;
@@ -24,10 +33,6 @@
             &:not(:last-child) {
                 border-top-right-radius: 0;
                 border-bottom-right-radius: 0;
-            }
-
-            + & {
-                margin-left: -1px;
             }
         }
     }
