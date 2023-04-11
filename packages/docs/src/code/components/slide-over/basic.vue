@@ -1,7 +1,7 @@
 <template>
     <flux-button-stack>
         <flux-secondary-button
-            icon-before="clone"
+            icon-before="arrow-left-to-line"
             label="Open"
             @click="isSlideOverOpened = true"/>
     </flux-button-stack>

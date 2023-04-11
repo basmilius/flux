@@ -35,7 +35,7 @@
 
         <preview>
             <flux-secondary-button
-                icon-before="clone"
+                icon-before="arrow-left-to-line"
                 label="Slide over"
                 @click="isSlideOverOpened = true"/>
         </preview>

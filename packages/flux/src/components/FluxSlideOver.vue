@@ -22,6 +22,9 @@
             margin: unset;
             max-height: 100%;
             width: min(100dvw, 720px);
+            border-top: 0;
+            border-right: 0;
+            border-bottom: 0;
             border-radius: 0;
             overflow: auto;
 

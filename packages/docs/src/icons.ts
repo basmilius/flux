@@ -9,6 +9,7 @@ export {
     faAngleUp,
     faArrowDown,
     faArrowDownToLine,
+    faArrowLeftToLine,
     faArrowRightFromLine,
     faArrowRightLong,
     faArrowTrendDown,

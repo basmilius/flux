@@ -11,7 +11,7 @@
     setup>
     export interface Props {
         readonly isBack?: boolean;
-        readonly mode: 'in-out' | 'out-in';
+        readonly mode?: 'in-out' | 'out-in';
     }
 
     withDefaults(defineProps<Props>(), {

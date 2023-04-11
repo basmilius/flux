@@ -1,6 +1,8 @@
 <template>
     <main data-flux-root>
-        <slot/>
+        <div :inert="inertMain">
+            <slot/>
+        </div>
 
         <flux-overlay>
             <flux-alert
@@ -32,5 +34,5 @@
     useBreakpointsProvider();
 
     const fluxStore = useFluxStore();
-    const {alerts, confirms} = storeToRefs(fluxStore);
+    const {alerts, confirms, dialogCount, inertMain} = storeToRefs(fluxStore);
 </script>

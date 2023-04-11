@@ -1,17 +1,21 @@
 import type { FluxAlertSpec, FluxConfirmSpec, FluxSnackbarSpec, FluxTooltipSpec } from '.';
 import { defineStore } from 'pinia';
 
+const DEFAULT_SNACKBAR_DURATION = 3000;
+
 let alertId: number = 0;
 let tooltipId: number = 0;
 
 export const useFluxStore = defineStore('flux', {
     state: (): FluxStore => ({
+        dialogCount: 0,
         alerts: [],
         confirms: [],
         snackbars: [],
         tooltips: []
     }),
     getters: {
+        inertMain: (state): boolean => state.dialogCount > 0,
         tooltip: (state): FluxTooltipSpec | null => state.tooltips[state.tooltips.length - 1] || null
     },
     actions: {
@@ -59,6 +63,11 @@ export const useFluxStore = defineStore('flux', {
             return id;
         },
 
+        registerDialog(): VoidFunction {
+            ++this.dialogCount;
+            return () => --this.dialogCount;
+        },
+
         removeAlert(id: number): void {
             this.alerts = this.alerts.filter(a => a.id !== id);
         },
@@ -75,9 +84,9 @@ export const useFluxStore = defineStore('flux', {
             this.tooltips = this.tooltips.filter(s => s.id !== id);
         },
 
-        async showSnackbar(duration: number, spec: Omit<FluxSnackbarSpec, 'id'>): Promise<void> {
+        async showSnackbar({duration, ...spec}: Omit<FluxSnackbarSpec, 'id'> & { readonly duration?: number; }): Promise<void> {
             const id = this.addSnackbar(spec);
-            await new Promise(resolve => setTimeout(() => requestAnimationFrame(resolve), duration));
+            await new Promise(resolve => setTimeout(() => requestAnimationFrame(resolve), duration ?? DEFAULT_SNACKBAR_DURATION));
             this.removeSnackbar(id);
         },
 
@@ -89,6 +98,7 @@ export const useFluxStore = defineStore('flux', {
 });
 
 interface FluxStore {
+    dialogCount: number;
     alerts: FluxAlertSpec[];
     confirms: FluxConfirmSpec[];
     snackbars: FluxSnackbarSpec[];

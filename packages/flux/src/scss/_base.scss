@@ -13,4 +13,8 @@
     dialog {
         color: var(--foreground);
     }
+
+    [inert] *::-webkit-scrollbar {
+        display: none;
+    }
 }
