@@ -2,7 +2,7 @@ import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 
-export default defineConfig({
+export default defineConfig(({mode}) => ({
     build: {
         rollupOptions: {
             output: {
@@ -16,11 +16,15 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': resolve(__dirname, 'src/'),
-            '@fancee/flux/style.css': resolve(__dirname, '../flux/src/scss/index.scss'),
-            '@fancee/flux': resolve(__dirname, '../flux/src/index.ts')
+            ...(mode === 'development'
+                ? {
+                    '@fancee/flux/style.css': resolve(__dirname, '../flux/src/scss/index.scss'),
+                    '@fancee/flux': resolve(__dirname, '../flux/src/index.ts')
+                }
+                : {})
         }
     },
     server: {
         sourcemapIgnoreList: relativeSourcePath => relativeSourcePath.includes('node_modules')
     }
-});
+}));

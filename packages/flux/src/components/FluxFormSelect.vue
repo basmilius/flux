@@ -2,12 +2,15 @@
     <div
         ref="rootElement"
         class="flux-form-input flux-form-select"
-        :class="{'is-disabled': isDisabled}"
+        :class="{
+            'is-disabled': isDisabled,
+            'is-searchable': isSearchable
+        }"
         tabindex="0"
         @focusin="onFocus"
         @focusout="onBlur">
         <flux-menu-item
-            v-if="!isMultiple && selectedOptions[0] && searchQuery.length === 0"
+            v-if="!isMultiple && selectedOptions[0]"
             class="flux-form-select-selected"
             :icon-before="selectedOptions[0].icon"
             :label="selectedOptions[0].label"
@@ -23,13 +26,12 @@
         </template>
 
         <input
-            v-if="isEditable"
+            v-if="isSearchable && (isMultiple || !selectedOptions[0])"
             v-model="searchQuery"
             ref="inputElement"
             :disabled="isDisabled"
             :id="id"
-            :placeholder="!isMultiple && selectedOptions[0] ? '' : placeholder"
-            :readonly="isEditable !== true"
+            :placeholder="placeholder"
             class="flux-form-input flux-form-select-input"
             tabindex="-1"
             type="search"
@@ -46,11 +48,14 @@
             variant="angle-down"/>
 
         <flux-fade-transition>
-            <div
-                v-if="!isDisabled && popupOpen && groupedOptions.length > 0"
+            <flux-pane
+                v-if="!isDisabled && popupOpen"
                 ref="popupElement"
-                class="flux-surface flux-form-select-popup">
-                <flux-menu>
+                class="flux-form-select-popup">
+                <flux-pane-body v-if="groupedOptions.length === 0">
+                    <em>{{ translate('flux_no_items') }}</em>
+                </flux-pane-body>
+                <flux-menu v-else>
                     <template
                         v-for="([item, subItems], index) of groupedOptions"
                         :key="`group-${index}`">
@@ -84,7 +89,7 @@
                             @click="select(item.id)"/>
                     </template>
                 </flux-menu>
-            </div>
+            </flux-pane>
         </flux-fade-transition>
     </div>
 </template>
@@ -106,28 +111,34 @@
     import { computed, inject, ref, toRefs, unref, watch } from 'vue-demi';
     import { isFluxFormSelectGroup, isFluxFormSelectOption } from '../data';
     import { FluxFadeTransition } from '../transition';
-    import { FluxBadge, FluxIcon, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader } from '.';
+    import { FluxBadge, FluxIcon, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxPane, FluxPaneBody } from '.';
+    import { unrefElement } from '../helpers';
+    import { useTranslate } from '../composables';
 
     export interface Emits {
         (e: 'update:modelValue', value: string | number | (string | number)[]): void;
+
+        (e: 'update:search', value: string): void;
     }
 
     export interface Props {
         readonly isDisabled?: boolean;
-        readonly isEditable?: boolean;
         readonly isMultiple?: boolean;
+        readonly isSearchable?: boolean;
         readonly modelValue: string | number | (string | number)[];
         readonly options: (FluxFormSelectOption | FluxFormSelectGroup)[];
         readonly placeholder?: string;
+        readonly search?: string;
     }
 
     type GroupEntry = [FluxFormSelectGroup | FluxFormSelectOption | null, FluxFormSelectOption[]];
 
     const emit = defineEmits<Emits>();
     const props = defineProps<Props>();
-    const {isMultiple, modelValue, options} = toRefs(props);
+    const {isMultiple, modelValue, options, search} = toRefs(props);
 
     const id = inject<string>('flux-form-field-id', '');
+    const translate = useTranslate();
 
     const rootElement = ref<HTMLDivElement>();
     const inputElement = ref<HTMLInputElement>();
@@ -141,6 +152,7 @@
     const popupY = ref(0);
     const popupWidth = ref(0);
 
+    const focusableElement = computed(() => unref(inputElement) ?? unref(rootElement));
     const values = computed(() => Array.isArray(modelValue.value) ? modelValue.value : [modelValue.value]);
     const selectedOptions = computed(() => unref(values).map(v => unref(options).find(o => isFluxFormSelectOption(o) && o.id === v))) as ComputedRef<FluxFormSelectOption[]>;
     const optionsWithoutGroups = computed(() => unref(groupedOptions).map(group => group[1]).flat() as FluxFormSelectOption[]);
@@ -259,7 +271,7 @@
                 return;
             }
 
-            const {height} = unref(popupElement)!.getBoundingClientRect();
+            const {height} = unrefElement(popupElement)!.getBoundingClientRect();
             const bottom = top + height + inputHeight + 39;
 
             if (bottom <= innerHeight) {
@@ -275,7 +287,7 @@
 
         if (Array.isArray(val)) {
             emit('update:modelValue', val.filter(v => v !== id));
-            unref(inputElement)?.focus();
+            unref(focusableElement)?.focus();
         }
 
         requestAnimationFrame(reposition);
@@ -287,12 +299,12 @@
         if (Array.isArray(val)) {
             emit('update:modelValue', [...val, id]);
 
-            unref(inputElement)?.focus();
+            unref(focusableElement)?.focus();
         } else {
             emit('update:modelValue', id);
 
             popupOpen.value = false;
-            unref(inputElement)?.blur();
+            unref(focusableElement)?.blur();
         }
 
         highlightIndex.value = -1;
@@ -303,9 +315,15 @@
 
     watch(highlightIndex, index => {
         optionRefs.value![index]?.$el.scrollIntoView({
-            block: 'center'
+            block: 'nearest'
         });
     });
+
+    watch(options, () => requestAnimationFrame(reposition));
+
+    watch(() => search, () => searchQuery.value = search?.value ?? '', {immediate: true});
+
+    watch(searchQuery, searchQuery => emit('update:search', searchQuery));
 </script>
 
 <style lang="scss">
@@ -320,7 +338,10 @@
         align-items: center;
         flex-wrap: wrap;
         gap: 0 6px;
-        cursor: pointer;
+
+        &:not(.is-searchable) {
+            cursor: pointer;
+        }
 
         @include flux.focus-ring(-1px, true);
 
@@ -333,7 +354,7 @@
 
         & &-input {
             position: relative;
-            margin: 0 30px 0 -1px;
+            margin: -1px 30px -1px -1px;
             min-width: 35%;
             padding: 0 6px;
             flex: 1 1 0;
@@ -356,7 +377,7 @@
             color: var(--foreground-secondary);
         }
 
-        &-popup {
+        & &-popup {
             position: absolute;
             display: block;
             top: calc(v-bind(popupY) * 1px);
@@ -364,8 +385,6 @@
             width: calc(v-bind(popupWidth) * 1px);
             max-height: 330px;
             min-width: 120px;
-            margin: 0;
-            padding: 9px;
             box-shadow: var(--shadow-md);
             overflow: auto;
             z-index: 10000;
@@ -385,8 +404,8 @@
         }
 
         .flux-badge {
-            margin-top: 8px;
-            margin-bottom: 7px;
+            margin-top: 6px;
+            margin-bottom: 6px;
             flex: 0 0 auto;
         }
 
