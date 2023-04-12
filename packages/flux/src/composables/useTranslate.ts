@@ -1,6 +1,6 @@
 import { getCurrentInstance } from 'vue-demi';
 
-const english = {
+const english: Record<string, string> = {
     flux_back: 'Back',
     flux_cancel: 'Cancel',
     flux_coming_soon: 'Coming soon',
@@ -30,7 +30,7 @@ export function useTranslate(): Translator {
             return key;
         }
 
-        let translation: string = english[key];
+        let translation = english[key];
 
         for (let paramName in params) {
             translation = translation.replaceAll(`{${paramName}}`, params[paramName].toString());
@@ -40,4 +40,4 @@ export function useTranslate(): Translator {
     };
 }
 
-type Translator = (key: keyof typeof english, params?: Record<string, string | number>) => string;
+type Translator = (key: string, params?: Record<string, string | number>) => string;

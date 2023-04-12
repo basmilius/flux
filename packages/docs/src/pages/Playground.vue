@@ -5,7 +5,7 @@
             title="Bas' speelparadijs"/>
 
         <section>
-            <preview>
+            <preview v-if="false">
                 <flux-pane style="width: 420px">
                     <flux-pane-body>
                         <flux-stack :gap="15">
@@ -21,8 +21,28 @@
 
             <preview>
                 <flux-pane style="width: 360px">
+                    <flux-aspect-ratio :aspect-ratio="16 / 9">
+                        <flux-animated-colors
+                            :colors="['#6071b5', '#f07db7', '#0284c7']"
+                            :incrementor=".5"
+                            :opacity="1"
+                            :seed="130496"/>
+                    </flux-aspect-ratio>
+                </flux-pane>
+            </preview>
+
+            <preview>
+                <flux-pane style="width: 360px">
+                    <flux-gridlines :size="30">
+                        <flux-aspect-ratio :aspect-ratio="21 / 9"/>
+                    </flux-gridlines>
+                </flux-pane>
+            </preview>
+
+            <preview>
+                <flux-pane style="width: 360px">
                     <flux-pane-illustration
-                        :animated-colors="['#6071b5', '#f07db7', '#ffa600']"
+                        :animated-colors="['#6071b5', '#f07db7', '#0284c7']"
                         :animated-seed="130496"
                         is-masked/>
 
@@ -37,7 +57,7 @@
             <preview>
                 <flux-pane style="width: 510px">
                     <flux-pane-illustration
-                        :animated-colors="['#6071b5', '#f07db7', '#ffa600']"
+                        :animated-colors="['#6071b5', '#f07db7', '#0284c7']"
                         :animated-seed="130496"/>
                 </flux-pane>
             </preview>
@@ -52,6 +72,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneBody, FluxPaneHeader, FluxPaneIllustration, FluxProgressBar, FluxStack } from '@fancee/flux';
+    import { FluxAnimatedColors, FluxAspectRatio, FluxGridlines, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPaneIllustration, FluxProgressBar, FluxStack } from '@fancee/flux';
     import { PageTitle, Preview } from '@/components';
 </script>

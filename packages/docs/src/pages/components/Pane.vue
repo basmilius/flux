@@ -169,6 +169,10 @@
                         <td>An array of hex values to use in the color glowing effect.</td>
                     </tr>
                     <tr>
+                        <td><code>animated-opacity</code><code>number</code></td>
+                        <td>The global opacity level of the animation.</td>
+                    </tr>
+                    <tr>
                         <td><code>animated-seed</code><code>number</code></td>
                         <td>The randomizer seed to user for the animation.</td>
                     </tr>
