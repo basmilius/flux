@@ -22,6 +22,13 @@
                         <td>The gutter on each side of the container.</td>
                     </tr>
                 </template>
+
+                <template #slots>
+                    <tr>
+                        <td><code>default</code><code>{}</code></td>
+                        <td>The contents of the container.</td>
+                    </tr>
+                </template>
             </api-component>
         </api-section>
     </flux-stack>

@@ -34,6 +34,13 @@
                         <td>Which grid layout to use for its content.</td>
                     </tr>
                 </template>
+
+                <template #slots>
+                    <tr>
+                        <td><code>default</code><code>{}</code></td>
+                        <td>The elements within the predefined grid.</td>
+                    </tr>
+                </template>
             </api-component>
         </api-section>
     </flux-stack>

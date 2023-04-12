@@ -49,6 +49,13 @@
                         <td>The gap in pixels between each element.</td>
                     </tr>
                 </template>
+
+                <template #slots>
+                    <tr>
+                        <td><code>default</code><code>{}</code></td>
+                        <td>The grid columns within the grid.</td>
+                    </tr>
+                </template>
             </api-component>
 
             <api-component name="GridColumn">
@@ -72,6 +79,13 @@
                     <tr>
                         <td><code>xl</code><code>number</code></td>
                         <td>The column span on the xl breakpoint.</td>
+                    </tr>
+                </template>
+
+                <template #slots>
+                    <tr>
+                        <td><code>default</code><code>{}</code></td>
+                        <td>The contents of the grid column.</td>
                     </tr>
                 </template>
             </api-component>

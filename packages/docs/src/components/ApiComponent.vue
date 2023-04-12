@@ -1,5 +1,5 @@
 <template>
-    <flux-pane class="api-component flux-typography-aware">
+    <flux-pane v-height-transition class="api-component flux-typography-aware">
         <flux-tabs :model-value="slots.props ? 0 : (slots.emits ? 1 : 2)">
             <template #tabs="{activeIndex, children, tabs, activate}">
                 <flux-pane-header
@@ -14,6 +14,7 @@
                                 :icon="tab.icon"
                                 :is-active="activeIndex === index"
                                 :label="tab.label"
+                                tabindex="-1"
                                 @click="activate(index)"/>
                         </template>
                     </flux-tab-bar>
@@ -86,12 +87,14 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneHeader, FluxTab, FluxTabBar, FluxTabBarItem, FluxTabs } from '@fancee/flux';
+    import { FluxPane, FluxPaneHeader, FluxTab, FluxTabBar, FluxTabBarItem, FluxTabs, heightTransition } from '@fancee/flux';
     import { useSlots } from 'vue';
 
     export interface Props {
         readonly name: string;
     }
+
+    const vHeightTransition = heightTransition;
 
     defineProps<Props>();
 

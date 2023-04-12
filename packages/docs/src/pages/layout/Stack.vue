@@ -76,6 +76,13 @@
                         <td>When provided, the elements within the stack wrap when there isn't enough space left.</td>
                     </tr>
                 </template>
+
+                <template #slots>
+                    <tr>
+                        <td><code>default</code><code>{}</code></td>
+                        <td>The contents of the stack.</td>
+                    </tr>
+                </template>
             </api-component>
         </api-section>
     </flux-stack>
