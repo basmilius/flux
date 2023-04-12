@@ -39,6 +39,13 @@
                         <td>The minimum width of each child.</td>
                     </tr>
                 </template>
+
+                <template #slots>
+                    <tr>
+                        <td><code>default</code><code>{}</code></td>
+                        <td>The elements that should be placed within the auto grid.</td>
+                    </tr>
+                </template>
             </api-component>
         </api-section>
     </flux-stack>

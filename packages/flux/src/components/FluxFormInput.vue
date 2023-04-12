@@ -116,7 +116,9 @@
         height: 42px;
         width: 100%;
         padding: 0 12px;
+        align-self: start;
         background: rgb(var(--gray-0));
+        background-clip: padding-box;
         border: 1px solid rgb(var(--gray-4) / .75);
         border-radius: var(--radius);
         box-shadow: var(--shadow-px);

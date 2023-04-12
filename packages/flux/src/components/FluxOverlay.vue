@@ -1,12 +1,14 @@
 <script lang="ts">
-    import { defineComponent, useSlots } from 'vue-demi';
+    import { defineComponent } from 'vue-demi';
     import { createDialogRenderer } from '../helpers';
     import { FluxOverlayTransition } from '../transition';
 
     export default defineComponent({
-        setup() {
-            const slots = useSlots();
-            return createDialogRenderer(slots, 'flux-overlay', FluxOverlayTransition);
+        props: {
+            isCloseable: {default: false, type: Boolean}
+        },
+        setup(props, {emit, slots}) {
+            return createDialogRenderer(props, emit, slots, 'flux-overlay', FluxOverlayTransition);
         }
     });
 </script>

@@ -46,6 +46,8 @@
 
 <style lang="scss">
     .flux-grid-column {
+        display: grid;
         grid-column: span v-bind(span);
+        grid-template-columns: 1fr;
     }
 </style>

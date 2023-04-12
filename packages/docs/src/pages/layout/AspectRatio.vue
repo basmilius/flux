@@ -43,6 +43,13 @@
                         <td>The aspect ratio, can be a formula such as "16 / 9".</td>
                     </tr>
                 </template>
+
+                <template #slots>
+                    <tr>
+                        <td><code>default</code><code>{}</code></td>
+                        <td>The contents of the aspect ratio.</td>
+                    </tr>
+                </template>
             </api-component>
         </api-section>
     </flux-stack>

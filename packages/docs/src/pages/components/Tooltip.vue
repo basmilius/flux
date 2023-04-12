@@ -59,6 +59,20 @@
                 </template>
             </api-component>
         </api-section>
+
+        <api-section title="Examples">
+            <api-example
+                :code="basicCode"
+                :component="basic"
+                title="Basic"
+                description="A tooltip that uses its content prop to determine its content."/>
+
+            <api-example
+                :code="slotCode"
+                :component="slot"
+                title="Slot"
+                description="A tooltip that uses the content slot to determine its content. This can be useful to display more dynamic tooltips."/>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -66,5 +80,9 @@
     lang="ts"
     setup>
     import { FluxButtonStack, FluxSecondaryButton, FluxStack, FluxTooltip } from '@fancee/flux';
-    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
+    import basic from '@/code/components/tooltip/basic.vue';
+    import basicCode from '@/code/components/tooltip/basic.vue?raw';
+    import slot from '@/code/components/tooltip/slot.vue';
+    import slotCode from '@/code/components/tooltip/slot.vue?raw';
 </script>

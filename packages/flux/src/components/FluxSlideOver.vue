@@ -4,9 +4,11 @@
     import { FluxSlideOverTransition } from '../transition';
 
     export default defineComponent({
-        setup() {
-            const slots = useSlots();
-            return createDialogRenderer(slots, 'flux-overlay flux-slide-over', FluxSlideOverTransition);
+        props: {
+            isCloseable: {default: false, type: Boolean}
+        },
+        setup(props, {emit, slots}) {
+            return createDialogRenderer(props, emit, slots, 'flux-overlay flux-slide-over', FluxSlideOverTransition);
         }
     });
 </script>

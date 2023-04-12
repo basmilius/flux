@@ -122,6 +122,7 @@
             border: 0;
             border-radius: 99px;
             color: var(--foreground-secondary);
+            cursor: pointer;
 
             &:hover {
                 background: rgb(var(--gray-5));

@@ -12,12 +12,9 @@
                         :options="[
                             {id: 1, label: 'Option 1'},
                             {id: 2, label: 'Option 2'},
-                            {id: 3, label: 'Option 3'},
-                            {id: 4, label: 'Option 4'},
-                            {id: 5, label: 'Option 5'},
-                            {id: 6, label: 'Option 6'}
+                            {id: 3, label: 'Option 3'}
                         ]"
-                        placeholder="Pick an option..."/>
+                        placeholder="Select an option..."/>
                 </flux-pane-body>
             </flux-pane>
         </preview>
@@ -48,12 +45,12 @@
                         <td>Indicates that the field is disabled.</td>
                     </tr>
                     <tr>
-                        <td><code>is-editable</code><code>boolean</code></td>
-                        <td>Indicates that the select is editable.</td>
-                    </tr>
-                    <tr>
                         <td><code>is-multiple</code><code>boolean</code></td>
                         <td>Indicates that the select may accept multiple values.</td>
+                    </tr>
+                    <tr>
+                        <td><code>is-searchable</code><code>boolean</code></td>
+                        <td>Indicates that the select is searchable.</td>
                     </tr>
                     <tr>
                         <td><code>options</code><code>(FluxFormSelectOption | FluxFormSelectGroup)[]</code></td>
@@ -73,6 +70,26 @@
                 </template>
             </api-component>
         </api-section>
+
+        <api-section title="Examples">
+            <api-example
+                :code="basicCode"
+                :component="basic"
+                title="Basic"
+                description="A basic select that is used to select one value."/>
+
+            <api-example
+                :code="multipleCode"
+                :component="multiple"
+                title="Multiple"
+                description="A select that is used to select multiple values."/>
+
+            <api-example
+                :code="multipleSearchableCode"
+                :component="multipleSearchable"
+                title="Multiple searchable"
+                description="Searchable multi select that is used to select multiple values within a larger dataset."/>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -80,8 +97,14 @@
     lang="ts"
     setup>
     import { FluxFormSelect, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
     import { ref } from 'vue';
+    import basic from '@/code/components/form-select/basic.vue';
+    import basicCode from '@/code/components/form-select/basic.vue?raw';
+    import multiple from '@/code/components/form-select/multiple.vue';
+    import multipleCode from '@/code/components/form-select/multiple.vue?raw';
+    import multipleSearchable from '@/code/components/form-select/multiple-searchable.vue';
+    import multipleSearchableCode from '@/code/components/form-select/multiple-searchable.vue?raw';
 
     const selectValue = ref(0);
 </script>
