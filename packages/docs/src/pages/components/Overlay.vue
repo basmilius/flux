@@ -4,7 +4,9 @@
             section="Components"
             title="Overlay"/>
 
-        <flux-overlay>
+        <flux-overlay
+            is-closeable
+            @close="isOverlayVisible = false">
             <flux-pane
                 v-if="isOverlayVisible"
                 style="width: 540px;">
@@ -25,7 +27,7 @@
             </flux-pane>
         </flux-overlay>
 
-        <flux-overlay>
+        <flux-overlay is-closeable>
             <flux-pane
                 v-if="isReAuthenticateVisible"
                 style="width: 420px">
@@ -101,6 +103,20 @@
 
         <api-section title="API">
             <api-component name="Overlay">
+                <template #props>
+                    <tr>
+                        <td><code>is-closeable</code><code>boolean</code></td>
+                        <td>Enables the escape key and the close event for the overlay.</td>
+                    </tr>
+                </template>
+
+                <template #emits>
+                    <tr>
+                        <td><code>close</code><code>(): void;</code></td>
+                        <td>Triggered when the escape key is pressed.</td>
+                    </tr>
+                </template>
+
                 <template #slots>
                     <tr>
                         <td><code>default</code><code>{}</code></td>
