@@ -27,7 +27,7 @@
             </flux-pane>
         </flux-overlay>
 
-        <flux-overlay is-closeable>
+        <flux-overlay>
             <flux-pane
                 v-if="isReAuthenticateVisible"
                 style="width: 420px">
