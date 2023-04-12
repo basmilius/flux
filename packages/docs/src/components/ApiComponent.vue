@@ -1,5 +1,7 @@
 <template>
-    <flux-pane v-height-transition class="api-component flux-typography-aware">
+    <flux-pane
+        v-height-transition
+        class="api-component flux-typography-aware">
         <flux-tabs :model-value="slots.props ? 0 : (slots.emits ? 1 : 2)">
             <template #tabs="{activeIndex, children, tabs, activate}">
                 <flux-pane-header
