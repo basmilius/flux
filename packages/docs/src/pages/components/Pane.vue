@@ -166,7 +166,7 @@
                 <template #props>
                     <tr>
                         <td><code>animated-colors</code><code>string[]</code></td>
-                        <td>And array of hex values to use in the color glowing effect.</td>
+                        <td>An array of hex values to use in the color glowing effect.</td>
                     </tr>
                     <tr>
                         <td><code>animated-seed</code><code>number</code></td>
