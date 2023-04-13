@@ -17,7 +17,9 @@
 
         @include flux.focus-ring-transition(-1px, true);
 
-        .flux-form-input {
+        > :where(.flux-button, .flux-form-input) {
+            height: unset;
+            min-height: 40px;
             border: 0;
             border-radius: calc(var(--radius) - 1px);
         }

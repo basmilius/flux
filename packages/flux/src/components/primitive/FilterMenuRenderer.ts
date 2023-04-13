@@ -1,8 +1,8 @@
 import type { FluxFilterBase, FluxFilterDate, FluxFilterDateRange, FluxFilterItem, FluxFilterOption, FluxFilterOptionItem, FluxFilterOptions, FluxFilterValue } from '../../data';
 import { DateTime } from 'luxon';
 import { defineComponent, VNode } from 'vue-demi';
-import { useTranslate } from '../../composables';
-import { camelizeTag, flattenVNodeTree, getNormalizedComponentName, getNormalizedComponentProps, isVNode, render } from '../../utils';
+import { FluxTranslator, useTranslate } from '../../composables';
+import { camelizeTag, createLabelForDateRange, flattenVNodeTree, getNormalizedComponentName, getNormalizedComponentProps, isVNode, render } from '../../utils';
 import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSeparator } from '..';
 
 export const FilterMenuRenderer = defineComponent({
@@ -81,44 +81,7 @@ function parseDateRange(base: FluxFilterBase): FluxFilterDateRange {
                 return null;
             }
 
-            if (start.day === end.day && start.month === end.month && start.year === end.year) {
-                return start.toLocaleString({
-                    day: 'numeric',
-                    month: 'short',
-                    year: 'numeric'
-                });
-            }
-
-            if (start.month === end.month && start.year === end.year) {
-                const startStr = start.toLocaleString({
-                    day: 'numeric'
-                });
-
-                const endStr = end.toLocaleString({
-                    day: 'numeric',
-                    month: 'short',
-                    year: 'numeric'
-                });
-
-                return `${startStr} – ${endStr}`;
-            }
-
-            if (start.year === end.year) {
-                const startStr = start.toLocaleString({
-                    day: 'numeric',
-                    month: 'short'
-                });
-
-                const endStr = end.toLocaleString({
-                    day: 'numeric',
-                    month: 'short',
-                    year: 'numeric'
-                });
-
-                return `${startStr} – ${endStr}`;
-            }
-
-            return translate('flux_custom_period');
+            return createLabelForDateRange(translate, start, end);
         }
     };
 }
@@ -165,7 +128,7 @@ function parseOptions(base: FluxFilterBase): FluxFilterOptions {
     };
 }
 
-function renderFilterGroup(group: (FluxFilterItem | VNode)[], index: number, translate: Function, navigate: Function, state: Record<string, FluxFilterValue>): VNode[] {
+function renderFilterGroup(group: (FluxFilterItem | VNode)[], index: number, translate: FluxTranslator, navigate: Function, state: Record<string, FluxFilterValue>): VNode[] {
     const slot: VNode[] = [];
 
     if (index > 0) {
@@ -181,7 +144,7 @@ function renderFilterGroup(group: (FluxFilterItem | VNode)[], index: number, tra
     return slot;
 }
 
-function renderFilterItem(item: FluxFilterItem | VNode, translate: Function, navigate: Function, state: Record<string, FluxFilterValue>): VNode {
+function renderFilterItem(item: FluxFilterItem | VNode, translate: FluxTranslator, navigate: Function, state: Record<string, FluxFilterValue>): VNode {
     if (isVNode(item)) {
         return item;
     }

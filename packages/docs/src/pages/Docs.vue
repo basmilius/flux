@@ -274,20 +274,6 @@
                         type="route"/>
 
                     <flux-menu-item
-                        :is-active="path === '/components/form-time-picker'"
-                        disabled
-                        label="Form time picker"
-                        to="/components/form-time-picker"
-                        type="route"/>
-
-                    <flux-menu-item
-                        :is-active="path === '/components/form-week-picker'"
-                        disabled
-                        label="Form week picker"
-                        to="/components/form-week-picker"
-                        type="route"/>
-
-                    <flux-menu-item
                         :is-active="path === '/components/gallery'"
                         label="Gallery"
                         to="/components/gallery"

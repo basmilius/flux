@@ -1,4 +1,5 @@
 import type { DateTime } from 'luxon';
+import type { FluxTranslator } from '../composables';
 import type { IconNames } from '.';
 
 export interface FluxFilterBase {
@@ -6,7 +7,7 @@ export interface FluxFilterBase {
     readonly label: string;
     readonly name: string;
 
-    getValueLabel(value: FluxFilterValue, translate: Function): string | null;
+    getValueLabel(value: FluxFilterValue, translate: FluxTranslator): string | null;
 }
 
 export interface FluxFilterDate extends FluxFilterBase {

@@ -130,7 +130,7 @@
     export interface Props {
         readonly max?: DateTime;
         readonly min?: DateTime;
-        readonly modelValue: DateTime | DateTime[] | null;
+        readonly modelValue: (DateTime | object) | (DateTime | object)[] | null;
         readonly rangeMode?: 'range' | 'week' | 'month';
     }
 
@@ -234,7 +234,7 @@
         } else if (Array.isArray(value)) {
             date = value[1];
         } else {
-            date = value;
+            date = value as DateTime;
         }
 
         return date.startOf('day');
@@ -253,7 +253,7 @@
             return false;
         }
 
-        const value = unref(modelValue);
+        const value = unref(modelValue) as (DateTime | DateTime[]);
 
         if (!value || Array.isArray(value)) {
             return false;
