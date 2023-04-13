@@ -49,19 +49,6 @@
                                     type="phone"/>
                             </flux-form-input-group>
                         </flux-form-field>
-
-                        <flux-form-field label="Job">
-                            <flux-form-input-group>
-                                <flux-form-input-addition icon="user"/>
-
-                                <flux-form-select
-                                    :options="[
-                                        {id: 1, label: 'Developer'},
-                                        {id: 2, label: 'Other'}
-                                    ]"
-                                    placeholder="Select an option..."/>
-                            </flux-form-input-group>
-                        </flux-form-field>
                     </flux-form-column>
                 </flux-pane-body>
 
@@ -152,6 +139,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxFormColumn, FluxFormField, FluxFormInput, FluxFormInputAddition, FluxFormInputGroup, FluxFormRow, FluxFormSelect, FluxFormTextArea, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStack } from '@fancee/flux';
+    import { FluxFormColumn, FluxFormField, FluxFormInput, FluxFormInputAddition, FluxFormInputGroup, FluxFormRow, FluxFormTextArea, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStack } from '@fancee/flux';
     import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@/components';
 </script>

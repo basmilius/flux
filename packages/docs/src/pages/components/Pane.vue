@@ -8,7 +8,8 @@
             <flux-pane>
                 <flux-pane-header
                     icon="key"
-                    title="Sessions"/>
+                    title="Sessions"
+                    sub-title="List with your active sessions."/>
 
                 <flux-pane-body>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, blanditiis distinctio dolore eaque, eveniet fuga laborum maxime molestiae nemo nostrum, quis quo totam ullam. Accusantium animi aperiam cupiditate esse nisi.</p>
@@ -149,6 +150,10 @@
                         <td>Within a Pane that has a grid, this controls how much columns it should take.</td>
                     </tr>
                     <tr>
+                        <td><code>sub-title</code><code>string</code></td>
+                        <td>The sub-title showed in the header.</td>
+                    </tr>
+                    <tr>
                         <td><code>title</code><code>string</code></td>
                         <td>The title showed in the header.</td>
                     </tr>
@@ -167,6 +172,10 @@
                     <tr>
                         <td><code>animated-colors</code><code>string[]</code></td>
                         <td>An array of hex values to use in the color glowing effect.</td>
+                    </tr>
+                    <tr>
+                        <td><code>animated-opacity</code><code>number</code></td>
+                        <td>The global opacity level of the animation.</td>
                     </tr>
                     <tr>
                         <td><code>animated-seed</code><code>number</code></td>

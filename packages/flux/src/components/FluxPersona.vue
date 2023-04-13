@@ -31,8 +31,8 @@
 
     export interface Props {
         readonly avatarAlt?: string;
-        readonly avatarFallback: 'colorized' | 'neutral';
-        readonly avatarFallbackIcon: IconNames;
+        readonly avatarFallback?: 'colorized' | 'neutral';
+        readonly avatarFallbackIcon?: IconNames;
         readonly avatarFallbackInitials?: string;
         readonly avatarSize?: number;
         readonly avatarUrl?: string;

@@ -262,6 +262,14 @@ export const router = createRouter({
                     component: () => import('./pages/layout/Stack.vue')
                 },
                 {
+                    path: '/visuals/animated-colors',
+                    component: () => import('./pages/visuals/AnimatedColors.vue')
+                },
+                {
+                    path: '/visuals/gridlines',
+                    component: () => import('./pages/visuals/Gridlines.vue')
+                },
+                {
                     path: '/:pathMatch(.*)*',
                     component: () => import('./pages/NotFound.vue')
                 }
