@@ -41,8 +41,8 @@
 
     export interface Props {
         readonly alt?: string;
-        readonly fallback: 'colorized' | 'neutral';
-        readonly fallbackIcon: IconNames;
+        readonly fallback?: 'colorized' | 'neutral';
+        readonly fallbackIcon?: IconNames;
         readonly fallbackInitials?: string;
         readonly isClickable?: boolean;
         readonly size?: number;

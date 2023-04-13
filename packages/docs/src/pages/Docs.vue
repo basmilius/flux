@@ -474,15 +474,25 @@
                 target="_blank"/>
         </template>
 
-        <flux-spinner v-if="routerIsLoading"/>
-        <router-view v-else/>
+        <router-view v-slot="{Component}">
+            <flux-vertical-window-transition>
+                <flux-spinner
+                    v-if="routerIsLoading"
+                    key="spinner"/>
+
+                <component
+                    v-else
+                    key="view"
+                    :is="Component"/>
+            </flux-vertical-window-transition>
+        </router-view>
     </flux-docs>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxDocs, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxSecondaryButton, FluxSpacer, FluxSpinner } from '@fancee/flux';
+    import { FluxDocs, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxSecondaryButton, FluxSpacer, FluxSpinner, FluxVerticalWindowTransition } from '@fancee/flux';
     import { computed } from 'vue';
     import { useRoute } from 'vue-router';
     import { ThemeToggle } from '../components';
