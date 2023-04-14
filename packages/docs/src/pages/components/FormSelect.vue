@@ -103,8 +103,8 @@
     import basicCode from '../../code/components/formSelect/basic.vue?raw';
     import multiple from '../../code/components/formSelect/multiple.vue';
     import multipleCode from '../../code/components/formSelect/multiple.vue?raw';
-    import multipleSearchable from '../../code/components/formSelect/multiple-searchable.vue';
-    import multipleSearchableCode from '../../code/components/formSelect/multiple-searchable.vue?raw';
+    import multipleSearchable from '../../code/components/formSelect/multipleSearchable.vue';
+    import multipleSearchableCode from '../../code/components/formSelect/multipleSearchable.vue?raw';
 
     const selectValue = ref(0);
 </script>
