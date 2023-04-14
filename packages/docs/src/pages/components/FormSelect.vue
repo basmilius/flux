@@ -99,12 +99,12 @@
     import { FluxFormSelect, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
     import { ApiComponent, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
     import { ref } from 'vue';
-    import basic from '../../code/components/formSelect/basic.vue';
-    import basicCode from '../../code/components/formSelect/basic.vue?raw';
-    import multiple from '../../code/components/formSelect/multiple.vue';
-    import multipleCode from '../../code/components/formSelect/multiple.vue?raw';
-    import multipleSearchable from '../../code/components/formSelect/multipleSearchable.vue';
-    import multipleSearchableCode from '../../code/components/formSelect/multipleSearchable.vue?raw';
+    import basic from '@/code/components/formSelect/basic.vue';
+    import basicCode from '@/code/components/formSelect/basic.vue?raw';
+    import multiple from '@/code/components/formSelect/multiple.vue';
+    import multipleCode from '@/code/components/formSelect/multiple.vue?raw';
+    import multipleSearchable from '@/code/components/formSelect/multipleSearchable.vue';
+    import multipleSearchableCode from '@/code/components/formSelect/multipleSearchable.vue?raw';
 
     const selectValue = ref(0);
 </script>

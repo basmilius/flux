@@ -96,10 +96,10 @@
     import { FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSlideOver, FluxSpacer, FluxStack } from '@fancee/flux';
     import { ref } from 'vue';
     import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
-    import basic from '../../code/components/slideOver/basic.vue';
-    import basicCode from '../../code/components/slideOver/basic.vue?raw';
-    import tabs from '../../code/components/slideOver/tabs.vue';
-    import tabsCode from '../../code/components/slideOver/tabs.vue?raw';
+    import basic from '@/code/components/slideOver/basic.vue';
+    import basicCode from '@/code/components/slideOver/basic.vue?raw';
+    import tabs from '@/code/components/slideOver/tabs.vue';
+    import tabsCode from '@/code/components/slideOver/tabs.vue?raw';
 
     const isSlideOverOpened = ref(false);
 </script>
