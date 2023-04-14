@@ -93,6 +93,6 @@
     setup>
     import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSecondaryButton, FluxSeparator, FluxSplitButton, FluxStack } from '@fancee/flux';
     import { ApiComponent, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
-    import basic from '../../code/components/splitButton/basic.vue';
-    import basicCode from '../../code/components/splitButton/basic.vue?raw';
+    import basic from '@/code/components/splitButton/basic.vue';
+    import basicCode from '@/code/components/splitButton/basic.vue?raw';
 </script>

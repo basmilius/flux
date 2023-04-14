@@ -21,44 +21,27 @@
 
             <preview>
                 <flux-pane style="width: 360px">
-                    <flux-aspect-ratio :aspect-ratio="16 / 9">
-                        <flux-animated-colors
-                            :colors="['#6071b5', '#f07db7', '#0284c7']"
-                            :incrementor=".5"
-                            :opacity="1"
-                            :seed="130496"/>
-                    </flux-aspect-ratio>
-                </flux-pane>
-            </preview>
-
-            <preview>
-                <flux-pane style="width: 360px">
-                    <flux-gridlines :size="30">
-                        <flux-aspect-ratio :aspect-ratio="21 / 9"/>
-                    </flux-gridlines>
-                </flux-pane>
-            </preview>
-
-            <preview>
-                <flux-pane style="width: 360px">
-                    <flux-pane-illustration
-                        :animated-colors="['#6071b5', '#f07db7', '#0284c7']"
-                        :animated-seed="130496"
-                        is-masked/>
-
-                    <flux-pane-header title="Pane"/>
-
                     <flux-pane-body>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cumque dignissimos esse ex illo ipsam ipsum minima molestias nesciunt perferendis. Commodi debitis deserunt dicta laudantium reiciendis saepe ut vel voluptatum.
-                    </flux-pane-body>
-                </flux-pane>
-            </preview>
+                        <flux-form-column>
+                            <flux-form-field
+                                label="Date"
+                                :hint="date.toLocaleString({day: 'numeric', month: 'short', year: 'numeric'})">
+                                <flux-form-date-input v-model="date"/>
+                            </flux-form-field>
 
-            <preview>
-                <flux-pane style="width: 510px">
-                    <flux-pane-illustration
-                        :animated-colors="['#6071b5', '#f07db7', '#0284c7']"
-                        :animated-seed="130496"/>
+                            <flux-form-field
+                                label="Date time"
+                                :hint="dateWithTime.toLocaleString({day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: 'numeric'})">
+                                <flux-form-date-time-input v-model="dateWithTime"/>
+                            </flux-form-field>
+
+                            <flux-form-field
+                                label="Range"
+                                :hint="range.map(d => d.toLocaleString({day: 'numeric', month: 'short', year: 'numeric'})).join(' – ')">
+                                <flux-form-date-range-input v-model="range"/>
+                            </flux-form-field>
+                        </flux-form-column>
+                    </flux-pane-body>
                 </flux-pane>
             </preview>
 
@@ -72,6 +55,15 @@
 <script
     lang="ts"
     setup>
-    import { FluxAnimatedColors, FluxAspectRatio, FluxGridlines, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPaneIllustration, FluxProgressBar, FluxStack } from '@fancee/flux';
+    import { FluxFormColumn, FluxFormDateInput, FluxFormDateRangeInput, FluxFormDateTimeInput, FluxFormField, FluxPane, FluxPaneBody, FluxProgressBar, FluxStack } from '@fancee/flux';
     import { PageTitle, Preview } from '@/components';
+    import { DateTime } from 'luxon';
+    import { ref } from 'vue';
+
+    const date = ref(DateTime.now());
+    const dateWithTime = ref(DateTime.now());
+    const range = ref([
+        DateTime.now(),
+        DateTime.now().plus({day: 60})
+    ]);
 </script>

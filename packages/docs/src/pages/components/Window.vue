@@ -205,8 +205,8 @@
     setup>
     import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxSeparator, FluxStack, FluxWindow, heightTransition } from '@fancee/flux';
     import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
-    import filter from '../../code/components/window/filter.vue';
-    import filterCode from '../../code/components/window/filter.vue?raw';
+    import filter from '@/code/components/window/filter.vue';
+    import filterCode from '@/code/components/window/filter.vue?raw';
 
     const vHeightTransition = heightTransition;
 </script>

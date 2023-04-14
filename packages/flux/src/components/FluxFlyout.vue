@@ -153,6 +153,12 @@
         isOpen,
         isOpening
     });
+
+    defineExpose({
+        close,
+        open,
+        toggle
+    })
 </script>
 
 <style lang="scss">

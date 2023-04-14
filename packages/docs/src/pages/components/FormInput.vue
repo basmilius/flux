@@ -57,8 +57,16 @@
                         <td>Minimum value of the input.</td>
                     </tr>
                     <tr>
+                        <td><code>pattern</code><code>string</code></td>
+                        <td>The pattern attribute specifies a regular expression the form control's value should match. If a non-null value doesn't conform to the constraints set by the pattern value, the ValidityState object's read-only patternMismatch property will be true.</td>
+                    </tr>
+                    <tr>
                         <td><code>placeholder</code><code>string</code></td>
                         <td>A placeholder is no value is entered.</td>
+                    </tr>
+                    <tr>
+                        <td><code>step</code><code>number</code></td>
+                        <td>The step attribute is a number that specifies the granularity that the value must adhere to or the keyword any. It is valid for the numeric input types, including the date, month, week, time, datetime-local, number and range types.</td>
                     </tr>
                     <tr>
                         <td><code>type</code><code>'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'month' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'time' | 'url' | 'week'</code></td>

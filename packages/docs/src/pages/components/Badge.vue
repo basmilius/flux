@@ -120,10 +120,10 @@
     import { ApiComponent, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
     import basic from '@/code/components/badge/basic.vue';
     import basicCode from '@/code/components/badge/basic.vue?raw';
-    import dot from '../../code/components/badge/dot.vue';
-    import dotCode from '../../code/components/badge/dot.vue?raw';
-    import icon from '../../code/components/badge/icon.vue';
-    import iconCode from '../../code/components/badge/icon.vue?raw';
-    import loading from '../../code/components/badge/loading.vue';
-    import loadingCode from '../../code/components/badge/loading.vue?raw';
+    import dot from '@/code/components/badge/dot.vue';
+    import dotCode from '@/code/components/badge/dot.vue?raw';
+    import icon from '@/code/components/badge/icon.vue';
+    import iconCode from '@/code/components/badge/icon.vue?raw';
+    import loading from '@/code/components/badge/loading.vue';
+    import loadingCode from '@/code/components/badge/loading.vue?raw';
 </script>

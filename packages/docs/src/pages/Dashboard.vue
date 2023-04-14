@@ -257,8 +257,8 @@
     lang="ts"
     setup>
     import { FluxAutoGrid, FluxDashboard, FluxDashboardHeader, FluxDashboardNavigation, FluxExpandable, FluxExpandableGroup, FluxFlyout, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxPaneBody, FluxPaneDeck, FluxPersona, FluxSeparator, FluxStack, FluxStatistic, FluxWindow } from '@fancee/flux';
-    import { ThemeToggle } from '../components';
-    import insightsLogo from '../images/logo-insights.svg?url';
-    import publishingLogo from '../images/logo-publishing.svg?url';
-    import ticketingLogo from '../images/logo-ticketing.svg?url';
+    import { ThemeToggle } from '@/components';
+    import insightsLogo from '@/images/logo-insights.svg?url';
+    import publishingLogo from '@/images/logo-publishing.svg?url';
+    import ticketingLogo from '@/images/logo-ticketing.svg?url';
 </script>

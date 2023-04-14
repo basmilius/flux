@@ -230,7 +230,6 @@
 
                     <flux-menu-item
                         :is-active="path === '/components/form-date-picker'"
-                        disabled
                         label="Form date picker"
                         to="/components/form-date-picker"
                         type="route"/>
@@ -271,20 +270,6 @@
                         :is-active="path === '/components/form-text-area'"
                         label="Form text area"
                         to="/components/form-text-area"
-                        type="route"/>
-
-                    <flux-menu-item
-                        :is-active="path === '/components/form-time-picker'"
-                        disabled
-                        label="Form time picker"
-                        to="/components/form-time-picker"
-                        type="route"/>
-
-                    <flux-menu-item
-                        :is-active="path === '/components/form-week-picker'"
-                        disabled
-                        label="Form week picker"
-                        to="/components/form-week-picker"
                         type="route"/>
 
                     <flux-menu-item
@@ -495,8 +480,8 @@
     import { FluxDocs, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxSecondaryButton, FluxSpacer, FluxSpinner, FluxVerticalWindowTransition } from '@fancee/flux';
     import { computed } from 'vue';
     import { useRoute } from 'vue-router';
-    import { ThemeToggle } from '../components';
-    import { routerIsLoading } from '../routes';
+    import { ThemeToggle } from '@/components';
+    import { routerIsLoading } from '@/routes';
 
     const route = useRoute();
     const path = computed(() => route.path);

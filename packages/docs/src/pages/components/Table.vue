@@ -201,14 +201,14 @@
     setup>
     import { FluxAction, FluxPane, FluxStack, FluxTable, FluxTableActions, FluxTableCell, FluxTableHeader, FluxTableRow } from '@fancee/flux';
     import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
-    import basic from '../../code/components/table/basic.vue';
-    import basicCode from '../../code/components/table/basic.vue?raw';
-    import caption from '../../code/components/table/caption.vue';
-    import captionCode from '../../code/components/table/caption.vue?raw';
-    import hoverable from '../../code/components/table/hoverable.vue';
-    import hoverableCode from '../../code/components/table/hoverable.vue?raw';
-    import pane from '../../code/components/table/pane.vue';
-    import paneCode from '../../code/components/table/pane.vue?raw';
-    import sticky from '../../code/components/table/sticky.vue';
-    import stickyCode from '../../code/components/table/sticky.vue?raw';
+    import basic from '@/code/components/table/basic.vue';
+    import basicCode from '@/code/components/table/basic.vue?raw';
+    import caption from '@/code/components/table/caption.vue';
+    import captionCode from '@/code/components/table/caption.vue?raw';
+    import hoverable from '@/code/components/table/hoverable.vue';
+    import hoverableCode from '@/code/components/table/hoverable.vue?raw';
+    import pane from '@/code/components/table/pane.vue';
+    import paneCode from '@/code/components/table/pane.vue?raw';
+    import sticky from '@/code/components/table/sticky.vue';
+    import stickyCode from '@/code/components/table/sticky.vue?raw';
 </script>

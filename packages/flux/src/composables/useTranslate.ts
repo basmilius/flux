@@ -18,7 +18,7 @@ const english: Record<string, string> = {
     flux_gallery_placeholder_title: 'Gallery'
 } as const;
 
-export function useTranslate(): Translator {
+export function useTranslate(): FluxTranslator {
     const instance = getCurrentInstance()!;
 
     if ((instance.proxy as any).$t) {
@@ -40,4 +40,4 @@ export function useTranslate(): Translator {
     };
 }
 
-type Translator = (key: string, params?: Record<string, string | number>) => string;
+export type FluxTranslator = (key: string, params?: Record<string, string | number>) => string;

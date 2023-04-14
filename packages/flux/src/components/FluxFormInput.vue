@@ -12,8 +12,10 @@
         :max="max"
         :maxlength="maxLength"
         :min="min"
+        :pattern="pattern"
         :placeholder="placeholder"
         :readonly="isReadonly"
+        :step="step"
         :type="type"
         :value="parsedValue"
         @blur="$emit('blur')"
@@ -52,8 +54,10 @@
         readonly max?: number;
         readonly maxLength?: number;
         readonly min?: number;
-        readonly modelValue?: object | string | number;
+        readonly modelValue?: object | string | number | null;
+        readonly pattern?: string;
         readonly placeholder?: string;
+        readonly step?: number;
         readonly type?: 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'month' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'time' | 'url' | 'week';
     }
 
@@ -79,7 +83,21 @@
         }
 
         if (DateTime.isDateTime(v)) {
-            return v.toISO()!.substring(0, 16);
+            const iso = v.toISO()!;
+
+            switch (type.value) {
+                case 'date':
+                    return iso.substring(0, 10);
+
+                case 'datetime-local':
+                    return iso.substring(0, 16);
+
+                case 'time':
+                    return iso.substring(11, 16);
+
+                default:
+                    return iso;
+            }
         }
 
         return v.toString();
@@ -94,7 +112,13 @@
             case 'month':
             case 'time':
             case 'week':
-                emit('update:modelValue', DateTime.fromISO(value));
+                const dateTime = DateTime.fromISO(value);
+
+                if (!dateTime.isValid) {
+                    return;
+                }
+
+                emit('update:modelValue', dateTime);
                 break;
 
             case 'number':

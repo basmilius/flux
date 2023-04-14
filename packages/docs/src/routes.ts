@@ -106,6 +106,10 @@ export const router = createRouter({
                     component: () => import('./pages/components/Form.vue')
                 },
                 {
+                    path: '/components/form-date-picker',
+                    component: () => import('./pages/components/FormDatePicker.vue')
+                },
+                {
                     path: '/components/form-field',
                     component: () => import('./pages/components/FormField.vue')
                 },

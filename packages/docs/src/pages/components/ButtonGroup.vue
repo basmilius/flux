@@ -45,6 +45,6 @@
     setup>
     import { FluxButtonGroup, FluxSecondaryButton, FluxStack } from '@fancee/flux';
     import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
-    import basic from '../../code/components/buttonGroup/basic.vue';
-    import basicCode from '../../code/components/buttonGroup/basic.vue?raw';
+    import basic from '@/code/components/buttonGroup/basic.vue';
+    import basicCode from '@/code/components/buttonGroup/basic.vue?raw';
 </script>

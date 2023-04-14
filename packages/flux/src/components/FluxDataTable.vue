@@ -35,8 +35,8 @@
     export interface Props {
         readonly dataSet: unknown[];
         readonly isHoverable?: boolean;
-        readonly page: number;
-        readonly perPage: number;
+        readonly page?: number;
+        readonly perPage?: number;
         readonly total: number;
         readonly uniqueKey?: string;
     }
