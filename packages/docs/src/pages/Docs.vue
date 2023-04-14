@@ -23,6 +23,20 @@
 
                     <flux-menu-item
                         disabled
+                        :is-active="path === '/content/colors'"
+                        label="Colors"
+                        to="/content/colors"
+                        type="route"/>
+
+                    <flux-menu-item
+                        disabled
+                        :is-active="path === '/content/shadows'"
+                        label="Shadows"
+                        to="/content/shadows"
+                        type="route"/>
+
+                    <flux-menu-item
+                        disabled
                         :is-active="path === '/content/icons'"
                         label="Icons"
                         to="/content/icons"
