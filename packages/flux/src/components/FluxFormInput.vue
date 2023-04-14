@@ -12,8 +12,10 @@
         :max="max"
         :maxlength="maxLength"
         :min="min"
+        :pattern="pattern"
         :placeholder="placeholder"
         :readonly="isReadonly"
+        :step="step"
         :type="type"
         :value="parsedValue"
         @blur="$emit('blur')"
@@ -53,7 +55,9 @@
         readonly maxLength?: number;
         readonly min?: number;
         readonly modelValue?: object | string | number | null;
+        readonly pattern?: string;
         readonly placeholder?: string;
+        readonly step?: number;
         readonly type?: 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'month' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'time' | 'url' | 'week';
     }
 
