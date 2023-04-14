@@ -22,7 +22,10 @@
                 </flux-form-input-group>
             </template>
 
-            <flux-date-picker v-model="localValue"/>
+            <flux-date-picker
+                v-model="localValue"
+                :max="max"
+                :min="min"/>
         </flux-flyout>
 
         <flux-form-input
@@ -59,6 +62,8 @@
         readonly autoFocus?: boolean;
         readonly isDisabled?: boolean;
         readonly isReadonly?: boolean;
+        readonly max?: DateTime;
+        readonly min?: DateTime;
         readonly modelValue: DateTime | null;
         readonly placeholder?: string;
     }

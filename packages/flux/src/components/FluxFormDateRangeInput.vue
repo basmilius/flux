@@ -22,6 +22,8 @@
 
         <flux-date-picker
             v-model="localValue"
+            :max="max"
+            :min="min"
             :range-mode="rangeMode"/>
     </flux-flyout>
 </template>
@@ -53,6 +55,8 @@
         readonly autoFocus?: boolean;
         readonly isDisabled?: boolean;
         readonly isReadonly?: boolean;
+        readonly max?: DateTime;
+        readonly min?: DateTime;
         readonly modelValue: [DateTime, DateTime] | null;
         readonly placeholder?: string;
         readonly rangeMode?: 'range' | 'week' | 'month';

@@ -1,12 +1,16 @@
 <template>
-    <flux-flyout ref="flyoutRef" :width="300">
+    <flux-flyout
+        ref="flyoutRef"
+        :width="300">
         <template #opener="{open}">
             <flux-form-input-group>
                 <flux-form-input
                     v-bind="{autoComplete, autoFocus, isDisabled, isReadonly, modelValue, placeholder}"
                     v-model="localValue"
                     class="flux-form-date-input"
-                    type="date"/>
+                    type="date"
+                    @blur="$emit('blur')"
+                    @focus="$emit('focus')"/>
 
                 <flux-secondary-button
                     :disabled="isDisabled"
@@ -15,7 +19,10 @@
             </flux-form-input-group>
         </template>
 
-        <flux-date-picker v-model="localValue"/>
+        <flux-date-picker
+            v-model="localValue"
+            :max="max"
+            :min="min"/>
     </flux-flyout>
 </template>
 
@@ -37,6 +44,10 @@
 
     export interface Emits {
         (e: 'update:modelValue', value: DateTime | null): void;
+
+        (e: 'blur'): void;
+
+        (e: 'focus'): void;
     }
 
     export interface Props {
@@ -44,6 +55,8 @@
         readonly autoFocus?: boolean;
         readonly isDisabled?: boolean;
         readonly isReadonly?: boolean;
+        readonly max?: DateTime;
+        readonly min?: DateTime;
         readonly modelValue: DateTime | null;
         readonly placeholder?: string;
     }
