@@ -115,6 +115,6 @@
     setup>
     import { FluxPagination, FluxStack } from '@fancee/flux';
     import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
-    import basic from '../../code/components/pagination/basic.vue';
-    import basicCode from '../../code/components/pagination/basic.vue?raw';
+    import basic from '@/code/components/pagination/basic.vue';
+    import basicCode from '@/code/components/pagination/basic.vue?raw';
 </script>
