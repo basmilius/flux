@@ -1,32 +1,37 @@
 <template>
-    <flux-flyout
-        ref="flyoutRef"
-        :width="300">
-        <template #opener="{open}">
-            <flux-form-input-group>
-                <flux-form-input
-                    v-bind="{autoFocus, isDisabled, isReadonly, modelValue, placeholder}"
-                    class="flux-form-date-input"
-                    type="date"
-                    :model-value="localValue"
-                    @update:modelValue="setDate"/>
+    <flux-stack
+        class="flux-form-date-time-input"
+        axis="horizontal"
+        :gap="15">
+        <flux-flyout
+            ref="flyoutRef"
+            :width="300">
+            <template #opener="{open}">
+                <flux-form-input-group>
+                    <flux-form-input
+                        v-bind="{autoFocus, isDisabled, isReadonly, modelValue, placeholder}"
+                        class="flux-form-date-input"
+                        type="date"
+                        :model-value="localValue"
+                        @update:modelValue="setDate"/>
 
-                <flux-form-input
-                    v-bind="{isDisabled, isReadonly, modelValue, placeholder}"
-                    class="flux-form-date-input flux-form-time-input"
-                    type="time"
-                    :model-value="localValue"
-                    @update:modelValue="setTime"/>
+                    <flux-secondary-button
+                        :disabled="isDisabled"
+                        icon-before="calendar"
+                        @click="open"/>
+                </flux-form-input-group>
+            </template>
 
-                <flux-secondary-button
-                    :disabled="isDisabled"
-                    icon-before="calendar"
-                    @click="open"/>
-            </flux-form-input-group>
-        </template>
+            <flux-date-picker v-model="localValue"/>
+        </flux-flyout>
 
-        <flux-date-picker v-model="localValue"/>
-    </flux-flyout>
+        <flux-form-input
+            v-bind="{isDisabled, isReadonly, modelValue, placeholder}"
+            class="flux-form-date-input flux-form-time-input"
+            type="time"
+            :model-value="localValue"
+            @update:modelValue="setTime"/>
+    </flux-stack>
 </template>
 
 <script lang="ts">
@@ -43,7 +48,7 @@
     setup>
     import { DateTime } from 'luxon';
     import { ComponentPublicInstance, ref, toRefs, unref, watch } from 'vue-demi';
-    import { FluxDatePicker, FluxFlyout, FluxFormInput, FluxFormInputGroup, FluxSecondaryButton } from '.';
+    import { FluxDatePicker, FluxFlyout, FluxFormInput, FluxFormInputGroup, FluxSecondaryButton, FluxStack } from '.';
 
     export interface Emits {
         (e: 'update:modelValue', value: DateTime | null): void;
@@ -90,7 +95,17 @@
 </script>
 
 <style lang="scss">
-    .flux-form-time-input {
-        max-width: 99px;
+    .flux-form-date-time-input {
+        .flux-form-input::-webkit-calendar-picker-indicator {
+            display: none;
+        }
+
+        .flux-form-input-group {
+            flex-grow: 1;
+        }
+
+        .flux-form-input:last-child {
+            max-width: 99px;
+        }
     }
 </style>
