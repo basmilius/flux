@@ -134,10 +134,10 @@
     import { FluxAction, FluxBadge, FluxBadgeStack, FluxDataTable, FluxPane, FluxStack, FluxTableActions, FluxTableCell, FluxTableHeader } from '@fancee/flux';
     import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
     import { computed } from 'vue';
-    import basic from '../../code/components/data-table/basic.vue';
-    import basicCode from '../../code/components/data-table/basic.vue?raw';
-    import pagination from '../../code/components/data-table/pagination.vue';
-    import paginationCode from '../../code/components/data-table/pagination.vue?raw';
+    import basic from '../../code/components/dataTable/basic.vue';
+    import basicCode from '../../code/components/dataTable/basic.vue?raw';
+    import pagination from '../../code/components/dataTable/pagination.vue';
+    import paginationCode from '../../code/components/dataTable/pagination.vue?raw';
 
     const dataSet = computed(() => Array(5).fill(null).map((_, index) => ({
         id: index,

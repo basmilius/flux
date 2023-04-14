@@ -230,7 +230,6 @@
 
                     <flux-menu-item
                         :is-active="path === '/components/form-date-picker'"
-                        disabled
                         label="Form date picker"
                         to="/components/form-date-picker"
                         type="route"/>
