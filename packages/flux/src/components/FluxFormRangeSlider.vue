@@ -46,15 +46,16 @@
     setup>
     import { ComponentPublicInstance, computed, ref, toRefs, unref, watch } from 'vue-demi';
     import { useFluxStore } from '../data';
-    import { clampWithStepPrecision, countDecimals } from '../utils';
-    import { SliderBase, SliderThumb, SliderTrack } from './primitive';
     import { unrefElement } from '../helpers';
+    import { clampWithStepPrecision, countDecimals, formatNumber } from '../utils';
+    import { SliderBase, SliderThumb, SliderTrack } from './primitive';
 
     export interface Emits {
         (e: 'update:modelValue', value: [number, number]): void;
     }
 
     export interface Props {
+        readonly formatter?: (value: number, decimals?: number) => string;
         readonly isDisabled?: boolean;
         readonly isTicksVisible?: boolean;
         readonly max?: number;
@@ -65,11 +66,12 @@
 
     const emit = defineEmits<Emits>();
     const props = withDefaults(defineProps<Props>(), {
+        formatter: formatNumber,
         max: 1,
         min: 0,
         step: .1
     });
-    const {isDisabled, max, min, modelValue, step} = toRefs(props);
+    const {formatter, isDisabled, max, min, modelValue, step} = toRefs(props);
 
     const {addTooltip, removeTooltip, updateTooltip} = useFluxStore();
 
@@ -83,7 +85,7 @@
     const upperValue = ref(0);
     const tooltipId = ref<number | null>(null);
 
-    const tooltipContent = computed(() => modelValue.value[isDraggingLower.value ? 0 : 1].toFixed(countDecimals(step.value)));
+    const tooltipContent = computed(() => formatter.value(modelValue.value[isDraggingLower.value ? 0 : 1], countDecimals(step.value)));
 
     function onDragging(is: boolean): void {
         if (is) {
