@@ -25,7 +25,7 @@
         </template>
 
         <template v-else>
-            <div class="flux-pagination-current">
+            <div class="flux-button flux-secondary-button flux-pagination-current">
                 <strong>{{ page }}</strong>
                 <span>/</span>
                 <span>{{ pages }}</span>
@@ -119,17 +119,9 @@
         z-index: 0;
 
         &-current {
-            display: flex;
-            padding-left: 12px;
-            padding-right: 12px;
-            align-items: center;
             gap: 3px;
-            background: rgb(var(--gray-0));
-            border: 1px solid rgb(var(--gray-4) / .75);
-            border-left: 0;
-            border-right: 0;
-            color: var(--foreground-prominent);
             font-variant-numeric: tabular-nums;
+            pointer-events: none;
         }
 
         .flux-button span {
