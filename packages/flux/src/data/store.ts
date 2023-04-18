@@ -1,6 +1,5 @@
 import type { FluxAlertSpec, FluxConfirmSpec, FluxSnackbarSpec, FluxTooltipSpec } from '.';
 import { defineStore } from 'pinia';
-import { reactive } from 'vue-demi';
 
 const DEFAULT_SNACKBAR_DURATION = 3000;
 
