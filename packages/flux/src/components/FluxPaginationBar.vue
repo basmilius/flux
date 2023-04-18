@@ -89,10 +89,6 @@
             width: 78px;
         }
 
-        .flux-pagination {
-            margin-left: -1px;
-        }
-
         .flux-pagination .flux-button:first-child {
             border-radius: 0;
         }

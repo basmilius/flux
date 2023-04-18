@@ -1,5 +1,5 @@
 <template>
-    <div class="flux-form-input-group">
+    <div class="flux-form-input flux-form-input-group">
         <slot/>
     </div>
 </template>
@@ -7,34 +7,48 @@
 <style lang="scss">
     @use '../scss/mixin' as flux;
 
+    %-inner-styles {
+        height: 100%;
+        min-height: unset;
+        border: 0;
+        border-radius: 0;
+
+        @include flux.focus-ring-remove;
+
+        &:first-child {
+            border-top-left-radius: calc(var(--radius) - 1px);
+            border-bottom-left-radius: calc(var(--radius) - 1px);
+        }
+
+        &:last-child {
+            border-top-right-radius: calc(var(--radius) - 1px);
+            border-bottom-right-radius: calc(var(--radius) - 1px);
+        }
+    }
+
     .flux-form-input-group {
         display: flex;
+        padding: 0;
         gap: 1px;
-        padding: 1px;
+        max-width: max-content;
         background: rgb(var(--gray-4) / .75);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow-px);
 
         @include flux.focus-ring-transition(-1px, true);
 
-        > :where(.flux-button, .flux-form-input) {
-            height: unset;
-            min-height: 40px;
-            border: 0;
-            border-radius: calc(var(--radius) - 1px);
+        &,
+        &:hover {
+            border: 1px solid rgb(var(--gray-4) / .75);
         }
 
-        > :where(.flux-button, .flux-form-input, .flux-form-input-addition) {
-            outline: 0 !important;
+        > :is(.flux-form-input, .flux-form-select, .flux-button) {
+            @extend %-inner-styles;
+        }
 
-            &:not(:first-child) {
-                border-top-left-radius: 0;
-                border-bottom-left-radius: 0;
-            }
+        > .flux-button-group > .flux-button {
+            @extend %-inner-styles;
 
-            &:not(:last-child) {
-                border-top-right-radius: 0;
-                border-bottom-right-radius: 0;
+            + .flux-button {
+                margin-left: 1px;
             }
         }
     }

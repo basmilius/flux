@@ -108,5 +108,10 @@
                 color: var(--foreground-secondary);
             }
         }
+
+        .flux-form-input-group {
+            max-width: unset;
+            width: 100%;
+        }
     }
 </style>

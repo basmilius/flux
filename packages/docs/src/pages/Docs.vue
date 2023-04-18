@@ -471,16 +471,15 @@
                 target="_blank"/>
         </template>
 
+        <div
+            v-if="routerIsLoading"
+            class="loading">
+            <flux-spinner/>
+        </div>
+
         <router-view v-slot="{Component}">
             <flux-vertical-window-transition>
-                <flux-spinner
-                    v-if="routerIsLoading"
-                    key="spinner"/>
-
-                <component
-                    v-else
-                    key="view"
-                    :is="Component"/>
+                <component :is="Component"/>
             </flux-vertical-window-transition>
         </router-view>
     </flux-docs>
@@ -500,6 +499,19 @@
 </script>
 
 <style lang="scss">
+    .loading {
+        position: absolute;
+        display: flex;
+        top: 0;
+        left: 0;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        align-items: center;
+        justify-content: center;
+        background: rgb(var(--gray-0) / .75);
+        backdrop-filter: blur(5px) saturate(180%);
+    }
+
     .logo {
         display: flex;
         height: 42px;
