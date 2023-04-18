@@ -5,6 +5,10 @@ export function clampWithStepPrecision(value: number, min: number, max: number, 
     return Math.max(min, Math.min(max, +roundStep(value * (max - min) + min, step).toPrecision(4)));
 }
 
+export function countDecimals(value: number): number {
+    return value.toString().split('.')[1]?.length ?? 0;
+}
+
 export function roundStep(value: number, step: number): number {
     return Math.round(value / step) * step;
 }

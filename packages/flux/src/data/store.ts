@@ -1,5 +1,6 @@
 import type { FluxAlertSpec, FluxConfirmSpec, FluxSnackbarSpec, FluxTooltipSpec } from '.';
 import { defineStore } from 'pinia';
+import { reactive } from 'vue-demi';
 
 const DEFAULT_SNACKBAR_DURATION = 3000;
 
@@ -93,6 +94,11 @@ export const useFluxStore = defineStore('flux', {
         updateSnackbar(id: number, spec: Partial<Omit<FluxSnackbarSpec, 'id'>>): void {
             const index = this.snackbars.findIndex(s => s.id === id);
             Object.assign(this.snackbars[index], spec);
+        },
+
+        updateTooltip(id: number, spec: Partial<Omit<FluxTooltipSpec, 'id'>>): void {
+            const index = this.tooltips.findIndex(s => s.id === id);
+            Object.assign(this.tooltips[index], spec);
         }
     }
 });

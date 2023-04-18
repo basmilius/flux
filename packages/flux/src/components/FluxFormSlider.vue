@@ -11,6 +11,7 @@
             :percentage-lower="0"
             :percentage-upper="percentage">
             <slider-thumb
+                ref="thumbRef"
                 :is-dragging="isDragging"
                 :position="percentage"
                 @decrement="onDecrement"
@@ -31,8 +32,10 @@
 <script
     lang="ts"
     setup>
-    import { ref, toRefs, watch } from 'vue-demi';
-    import { clampWithStepPrecision } from '../utils';
+    import { ComponentPublicInstance, computed, ref, toRefs, unref, watch } from 'vue-demi';
+    import { useFluxStore } from '../data';
+    import { unrefElement } from '../helpers';
+    import { clampWithStepPrecision, countDecimals } from '../utils';
     import { SliderBase, SliderThumb, SliderTrack } from './primitive';
 
     export interface Emits {
@@ -55,16 +58,40 @@
     });
     const {max, min, modelValue, step} = toRefs(props);
 
+    const {addTooltip, removeTooltip, updateTooltip} = useFluxStore();
+
+    const thumbRef = ref<ComponentPublicInstance>();
     const isDragging = ref(false);
     const localValue = ref(0);
     const percentage = ref(0);
+    const tooltipId = ref<number | null>(null);
+
+    const tooltipContent = computed(() => modelValue.value.toFixed(countDecimals(step.value)));
 
     function onDragging(is: boolean): void {
         isDragging.value = is;
+
+        if (is && !tooltipId.value) {
+            tooltipId.value = addTooltip({
+                axis: 'vertical',
+                content: unref(tooltipContent),
+                origin: unrefElement(thumbRef) as HTMLElement
+            });
+        } else if (!is && tooltipId.value) {
+            removeTooltip(tooltipId.value);
+            tooltipId.value = null;
+        }
     }
 
     function onUpdate(value: number): void {
         localValue.value = value;
+
+        if (tooltipId.value) {
+            updateTooltip(tooltipId.value, {
+                content: unref(tooltipContent),
+                origin: unrefElement(thumbRef) as HTMLElement
+            });
+        }
     }
 
     function onDecrement(): void {

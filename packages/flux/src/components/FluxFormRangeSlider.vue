@@ -11,6 +11,7 @@
             :percentage-lower="percentageLower"
             :percentage-upper="percentageUpper">
             <slider-thumb
+                ref="lowerThumbRef"
                 :is-dragging="isDraggingLower"
                 :position="percentageLower"
                 @grab="isDraggingLower = true"
@@ -18,6 +19,7 @@
                 @increment="onIncrement('lower')"/>
 
             <slider-thumb
+                ref="upperThumbRef"
                 :is-dragging="isDraggingUpper"
                 :position="percentageUpper"
                 @grab="isDraggingUpper = true"
@@ -39,9 +41,11 @@
 <script
     lang="ts"
     setup>
-    import { ref, toRefs, watch } from 'vue-demi';
-    import { clampWithStepPrecision } from '../utils';
+    import { ComponentPublicInstance, computed, ref, toRefs, unref, watch } from 'vue-demi';
+    import { useFluxStore } from '../data';
+    import { clampWithStepPrecision, countDecimals } from '../utils';
     import { SliderBase, SliderThumb, SliderTrack } from './primitive';
+    import { unrefElement } from '../helpers';
 
     export interface Emits {
         (e: 'update:modelValue', value: [number, number]): void;
@@ -63,12 +67,19 @@
     });
     const {max, min, modelValue, step} = toRefs(props);
 
+    const {addTooltip, removeTooltip, updateTooltip} = useFluxStore();
+
+    const lowerThumbRef = ref<ComponentPublicInstance>();
+    const upperThumbRef = ref<ComponentPublicInstance>();
     const isDraggingLower = ref(false);
     const isDraggingUpper = ref(false);
     const percentageLower = ref(0);
     const percentageUpper = ref(0);
     const lowerValue = ref(0);
     const upperValue = ref(0);
+    const tooltipId = ref<number | null>(null);
+
+    const tooltipContent = computed(() => modelValue.value[isDraggingLower.value ? 0 : 1].toFixed(countDecimals(step.value)));
 
     function onDragging(is: boolean): void {
         if (is) {
@@ -93,6 +104,13 @@
 
         if (lower >= upper) {
             return;
+        }
+
+        if (tooltipId.value) {
+            updateTooltip(tooltipId.value, {
+                content: unref(tooltipContent),
+                origin: unrefElement(isDraggingLower.value ? lowerThumbRef : upperThumbRef) as HTMLElement
+            });
         }
 
         lowerValue.value = (lower - min.value) / (max.value - min.value);
@@ -147,4 +165,19 @@
 
         emit('update:modelValue', [lower, upper]);
     }, {immediate: true});
+
+    watch(([isDraggingLower, isDraggingUpper]), ([isDraggingLower, isDraggingUpper]) => {
+        const is = isDraggingLower || isDraggingUpper;
+
+        if (is && !tooltipId.value) {
+            tooltipId.value = addTooltip({
+                axis: 'vertical',
+                content: unref(tooltipContent),
+                origin: unrefElement(isDraggingLower ? lowerThumbRef : upperThumbRef) as HTMLElement
+            });
+        } else if (!is && tooltipId.value) {
+            removeTooltip(tooltipId.value);
+            tooltipId.value = null;
+        }
+    });
 </script>
