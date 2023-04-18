@@ -93,6 +93,11 @@ export const useFluxStore = defineStore('flux', {
         updateSnackbar(id: number, spec: Partial<Omit<FluxSnackbarSpec, 'id'>>): void {
             const index = this.snackbars.findIndex(s => s.id === id);
             Object.assign(this.snackbars[index], spec);
+        },
+
+        updateTooltip(id: number, spec: Partial<Omit<FluxTooltipSpec, 'id'>>): void {
+            const index = this.tooltips.findIndex(s => s.id === id);
+            Object.assign(this.tooltips[index], spec);
         }
     }
 });

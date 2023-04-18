@@ -118,8 +118,16 @@ export const router = createRouter({
                     component: () => import('./pages/components/FormInput.vue')
                 },
                 {
+                    path: '/components/form-range-slider',
+                    component: () => import('./pages/components/FormRangeSlider.vue')
+                },
+                {
                     path: '/components/form-select',
                     component: () => import('./pages/components/FormSelect.vue')
+                },
+                {
+                    path: '/components/form-slider',
+                    component: () => import('./pages/components/FormSlider.vue')
                 },
                 {
                     path: '/components/form-text-area',

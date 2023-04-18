@@ -21,6 +21,10 @@
             </p>
         </api-section>
 
+        <api-section title="Required icons">
+            <api-required-icons :icons="['angle-left', 'angle-right', 'calendar']"/>
+        </api-section>
+
         <api-section title="API">
             <api-components>
                 <tr>
@@ -224,7 +228,7 @@
     lang="ts"
     setup>
     import { FluxFormDateInput, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
     import { DateTime } from 'luxon';
     import { ref } from 'vue';
     import dateRange from '@/code/components/formDatePicker/dateRange.vue';

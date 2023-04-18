@@ -18,14 +18,15 @@
         "allowSyntheticDefaultImports": true,
         "baseUrl": ".",
         "paths": {
-            "@/*": ["src/*"]
+            "@/*": ["src/*"],
+            "@fancee/flux": ["../flux/src/index.ts"]
         }
     },
     "include": [
-        "packages/flux/src/**/*.ts",
-        "packages/flux/src/**/*.d.ts",
-        "packages/flux/src/**/*.tsx",
-        "packages/flux/src/**/*.vue"
+        "../flux/src/**/*.ts",
+        "../flux/src/**/*.d.ts",
+        "../flux/src/**/*.tsx",
+        "../flux/src/**/*.vue"
     ],
     "references": [
         {

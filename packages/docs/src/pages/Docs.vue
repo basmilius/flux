@@ -23,6 +23,20 @@
 
                     <flux-menu-item
                         disabled
+                        :is-active="path === '/content/colors'"
+                        label="Colors"
+                        to="/content/colors"
+                        type="route"/>
+
+                    <flux-menu-item
+                        disabled
+                        :is-active="path === '/content/shadows'"
+                        label="Shadows"
+                        to="/content/shadows"
+                        type="route"/>
+
+                    <flux-menu-item
+                        disabled
                         :is-active="path === '/content/icons'"
                         label="Icons"
                         to="/content/icons"
@@ -248,7 +262,6 @@
 
                     <flux-menu-item
                         :is-active="path === '/components/form-range-slider'"
-                        disabled
                         label="Form range slider"
                         to="/components/form-range-slider"
                         type="route"/>
@@ -261,7 +274,6 @@
 
                     <flux-menu-item
                         :is-active="path === '/components/form-slider'"
-                        disabled
                         label="Form slider"
                         to="/components/form-slider"
                         type="route"/>
