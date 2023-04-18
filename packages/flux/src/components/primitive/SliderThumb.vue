@@ -93,4 +93,11 @@
             pointer-events: none;
         }
     }
+
+    @include flux.dark-mode {
+        .flux-slider-thumb {
+            background-color: rgb(var(--gray-1));
+            border-color: rgb(var(--gray-11) / .4);
+        }
+    }
 </style>
