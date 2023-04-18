@@ -3,6 +3,7 @@
         ref="rootRef"
         class="flux-slider"
         :class="{
+            'is-disabled': isDisabled,
             'is-dragging': isDragging
         }"
         @pointerdown="onPointerDown">
@@ -17,7 +18,7 @@
 <script
     lang="ts"
     setup>
-    import { nextTick, onMounted, onUnmounted, ref, toRefs, watch } from 'vue-demi';
+    import { nextTick, onMounted, onUnmounted, ref, toRefs, unref, watch } from 'vue-demi';
     import { unrefElement } from '../../helpers';
     import { FluxTicks } from '..';
 
@@ -28,6 +29,7 @@
     }
 
     export interface Props {
+        readonly isDisabled?: boolean;
         readonly isDragging?: boolean;
         readonly isTicksVisible?: boolean;
         readonly max: number;
@@ -37,7 +39,7 @@
 
     const emit = defineEmits<Emits>();
     const props = defineProps<Props>();
-    const {isDragging} = toRefs(props);
+    const {isDisabled, isDragging} = toRefs(props);
 
     const rootRef = ref<HTMLDivElement>();
 
@@ -52,6 +54,10 @@
     });
 
     function onPointerDown(evt: PointerEvent): void {
+        if (unref(isDisabled)) {
+            return;
+        }
+
         emit('dragging', true);
         nextTick(() => onPointerMove(evt));
     }
@@ -86,6 +92,10 @@
         flex-flow: column;
         gap: 9px;
         touch-action: pan-y;
+
+        &.is-disabled {
+            cursor: not-allowed;
+        }
 
         &.is-dragging {
             cursor: grabbing;

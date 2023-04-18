@@ -1,5 +1,6 @@
 <template>
     <slider-base
+        :is-disabled="isDisabled"
         :is-dragging="isDraggingLower || isDraggingUpper"
         :is-ticks-visible="isTicksVisible"
         :max="max"
@@ -12,17 +13,19 @@
             :percentage-upper="percentageUpper">
             <slider-thumb
                 ref="lowerThumbRef"
+                :is-disabled="isDisabled"
                 :is-dragging="isDraggingLower"
                 :position="percentageLower"
-                @grab="isDraggingLower = true"
+                @grab="!isDisabled && (isDraggingLower = true)"
                 @decrement="onDecrement('lower')"
                 @increment="onIncrement('lower')"/>
 
             <slider-thumb
                 ref="upperThumbRef"
+                :is-disabled="isDisabled"
                 :is-dragging="isDraggingUpper"
                 :position="percentageUpper"
-                @grab="isDraggingUpper = true"
+                @grab="!isDisabled && (isDraggingUpper = true)"
                 @decrement="onDecrement('upper')"
                 @increment="onIncrement('upper')"/>
         </slider-track>
@@ -52,6 +55,7 @@
     }
 
     export interface Props {
+        readonly isDisabled?: boolean;
         readonly isTicksVisible?: boolean;
         readonly max?: number;
         readonly min?: number;
@@ -65,7 +69,7 @@
         min: 0,
         step: .1
     });
-    const {max, min, modelValue, step} = toRefs(props);
+    const {isDisabled, max, min, modelValue, step} = toRefs(props);
 
     const {addTooltip, removeTooltip, updateTooltip} = useFluxStore();
 

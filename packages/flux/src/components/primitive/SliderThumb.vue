@@ -2,8 +2,10 @@
     <button
         class="flux-slider-thumb"
         :class="{
+            'is-disabled': isDisabled,
             'is-dragging': isDragging
         }"
+        :tabindex="isDisabled ? -1 : 0"
         @keydown="onKeyDown"
         @pointerdown="$emit('grab', $event)"/>
 </template>
@@ -11,6 +13,8 @@
 <script
     lang="ts"
     setup>
+    import { toRefs, unref } from 'vue-demi';
+
     export interface Emits {
         (e: 'decrement'): void;
 
@@ -20,14 +24,20 @@
     }
 
     export interface Props {
+        readonly isDisabled?: boolean;
         readonly isDragging?: boolean;
         readonly position: number;
     }
 
     const emit = defineEmits<Emits>();
-    defineProps<Props>();
+    const props = defineProps<Props>();
+    const {isDisabled} = toRefs(props);
 
     function onKeyDown(evt: KeyboardEvent): void {
+        if (unref(isDisabled)) {
+            return;
+        }
+
         switch (evt.key) {
             case 'ArrowDown':
             case 'ArrowLeft':
@@ -74,6 +84,12 @@
         &.is-dragging {
             box-shadow: var(--shadow-md);
             cursor: grabbing;
+        }
+
+        &.is-disabled {
+            background-color: rgb(var(--gray-2));
+            box-shadow: none;
+            pointer-events: none;
         }
     }
 </style>

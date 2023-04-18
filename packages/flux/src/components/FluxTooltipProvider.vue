@@ -40,8 +40,6 @@
                     return null;
                 }
 
-                getComputedStyle(element);
-
                 const {width, height} = element.getBoundingClientRect();
                 const {top, left, width: originWidth, height: originHeight} = origin.getBoundingClientRect();
 

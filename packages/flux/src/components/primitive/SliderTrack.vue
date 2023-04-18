@@ -34,4 +34,8 @@
             border-radius: inherit;
         }
     }
+
+    .flux-slider.is-disabled .flux-slider-track-value {
+        background: rgb(var(--gray-5));
+    }
 </style>

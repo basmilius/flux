@@ -61,7 +61,7 @@
                                         is-ticks-visible
                                         :min="0"
                                         :max="1"
-                                        :step=".1"/>
+                                        :step=".01"/>
                                 </flux-form-field>
                             </flux-form-column>
                         </flux-pane-body>

@@ -1,5 +1,6 @@
 <template>
     <slider-base
+        :is-disabled="isDisabled"
         :is-dragging="isDragging"
         :is-ticks-visible="isTicksVisible"
         :max="max"
@@ -12,6 +13,7 @@
             :percentage-upper="percentage">
             <slider-thumb
                 ref="thumbRef"
+                :is-disabled="isDisabled"
                 :is-dragging="isDragging"
                 :position="percentage"
                 @decrement="onDecrement"
@@ -43,6 +45,7 @@
     }
 
     export interface Props {
+        readonly isDisabled?: boolean;
         readonly isTicksVisible?: boolean;
         readonly max?: number;
         readonly min?: number;
@@ -52,11 +55,12 @@
 
     const emit = defineEmits<Emits>();
     const props = withDefaults(defineProps<Props>(), {
+        isDisabled: false,
         max: 1,
         min: 0,
         step: .1
     });
-    const {max, min, modelValue, step} = toRefs(props);
+    const {isDisabled, max, min, modelValue, step} = toRefs(props);
 
     const {addTooltip, removeTooltip, updateTooltip} = useFluxStore();
 
@@ -95,11 +99,19 @@
     }
 
     function onDecrement(): void {
+        if (unref(isDisabled)) {
+            return;
+        }
+
         const value = clampWithStepPrecision(localValue.value, min.value, max.value, step.value);
         emit('update:modelValue', Math.max(min.value, value - step.value));
     }
 
     function onIncrement(): void {
+        if (unref(isDisabled)) {
+            return;
+        }
+
         const value = clampWithStepPrecision(localValue.value, min.value, max.value, step.value);
         emit('update:modelValue', Math.min(max.value, value + step.value));
     }
