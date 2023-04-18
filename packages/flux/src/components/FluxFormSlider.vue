@@ -58,9 +58,9 @@
     const props = withDefaults(defineProps<Props>(), {
         formatter: formatNumber,
         isDisabled: false,
-        max: 1,
+        max: 100,
         min: 0,
-        step: .1
+        step: 1
     });
     const {formatter, isDisabled, max, min, modelValue, step} = toRefs(props);
 

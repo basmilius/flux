@@ -66,6 +66,7 @@
         left: calc(v-bind(position) * 100%);
         height: 24px;
         width: 24px;
+        padding: 0;
         background: rgb(var(--gray-0));
         background-clip: padding-box;
         border: 1px solid rgb(var(--gray-11) / .05);
