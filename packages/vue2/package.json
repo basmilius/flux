@@ -1,6 +1,6 @@
 {
     "name": "@fancee/flux-vue2",
-    "version": "1.0.33",
+    "version": "1.0.34",
     "type": "module",
     "scripts": {
         "build": "vue-demi-switch 2.7 && vite build && pnpm run gentypes",
