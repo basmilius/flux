@@ -12,7 +12,8 @@
     setup>
     import type { IconNames } from '../data';
     import { DateTime } from 'luxon';
-    import { computed, inject, unref } from 'vue-demi';
+    import { computed, unref } from 'vue-demi';
+    import { useFilterInjection } from '../composables';
     import { FluxDatePicker } from '.';
 
     export interface Props {
@@ -25,7 +26,7 @@
 
     const props = defineProps<Props>();
 
-    const {back, state, setValue} = inject<any>('flux-filter');
+    const {back, state, setValue} = useFilterInjection();
 
     const currentValue = computed(() => {
         const value = unref(state)[props.name];
@@ -35,7 +36,11 @@
         }
 
         if (!DateTime.isDateTime(value)) {
-            return DateTime.fromISO(value);
+            if (typeof value === 'string') {
+                return DateTime.fromISO(value);
+            }
+
+            return null;
         }
 
         return value;

@@ -472,7 +472,7 @@
         </template>
 
         <div
-            v-if="routerIsLoading"
+            v-if="showLoader"
             class="loading">
             <flux-spinner/>
         </div>
@@ -488,28 +488,32 @@
 <script
     lang="ts"
     setup>
-    import { FluxDocs, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxSecondaryButton, FluxSpacer, FluxSpinner, FluxVerticalWindowTransition } from '@fancee/flux';
-    import { computed } from 'vue';
+    import { FluxDocs, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxSecondaryButton, FluxSpacer, FluxSpinner, FluxVerticalWindowTransition, useDebouncedRef } from '@fancee/flux';
+    import { computed, watch } from 'vue';
     import { useRoute } from 'vue-router';
     import { ThemeToggle } from '@/components';
     import { routerIsLoading } from '@/routes';
 
     const route = useRoute();
     const path = computed(() => route.path);
+
+    const showLoader = useDebouncedRef(false, 300);
+
+    watch(routerIsLoading, routerIsLoading => showLoader.value = routerIsLoading);
 </script>
 
 <style lang="scss">
     .loading {
-        position: absolute;
+        position: sticky;
         display: flex;
-        top: 0;
-        left: 0;
-        width: 100%;
-        aspect-ratio: 16 / 9;
+        top: 90px;
+        height: calc(100dvh - 90px);
+        margin: -90px -60px calc(-100dvh + 180px) -60px;
         align-items: center;
         justify-content: center;
         background: rgb(var(--gray-0) / .75);
         backdrop-filter: blur(5px) saturate(180%);
+        z-index: 1000;
     }
 
     .logo {

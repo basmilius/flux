@@ -42,8 +42,8 @@
     lang="ts"
     setup>
     import type { IconNames } from '../data';
-    import { inject, toRefs } from 'vue-demi';
-    import { useId } from '../composables';
+    import { toRefs } from 'vue-demi';
+    import { useFormFieldInjection } from '../composables';
     import { FluxIcon } from '.';
 
     export interface Emits {
@@ -63,7 +63,7 @@
 
     const {modelValue} = toRefs(props);
 
-    const id = inject('flux-form-field-id', useId());
+    const {id} = useFormFieldInjection();
 
     function toggle(evt: Event): void {
         emit('update:modelValue', (evt.target as HTMLInputElement).checked);

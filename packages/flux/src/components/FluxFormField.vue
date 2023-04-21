@@ -45,6 +45,7 @@
     setup>
     import { provide } from 'vue-demi';
     import { useId, useTranslate } from '../composables';
+    import { FluxFormFieldInjectionKey } from '../data';
     import { FluxIcon } from '.';
 
     export interface Props {
@@ -59,7 +60,9 @@
     const id = useId();
     const translate = useTranslate();
 
-    provide('flux-form-field-id', id);
+    provide(FluxFormFieldInjectionKey, {
+        id
+    });
 </script>
 
 <style lang="scss">
@@ -107,11 +110,6 @@
             &-hint {
                 color: var(--foreground-secondary);
             }
-        }
-
-        .flux-form-input-group {
-            max-width: unset;
-            width: 100%;
         }
     }
 </style>

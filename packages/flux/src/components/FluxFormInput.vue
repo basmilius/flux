@@ -36,7 +36,8 @@
     lang="ts"
     setup>
     import { DateTime } from 'luxon';
-    import { computed, inject, toRefs, unref } from 'vue-demi';
+    import { computed, toRefs, unref } from 'vue-demi';
+    import { useFormFieldInjection } from '../composables';
 
     export interface Emits {
         (e: 'blur'): void;
@@ -69,7 +70,7 @@
 
     const {modelValue, type} = toRefs(props);
 
-    const id = inject<string>('flux-form-field-id', '');
+    const {id} = useFormFieldInjection();
 
     const parsedValue = computed(() => {
         if (!modelValue) {

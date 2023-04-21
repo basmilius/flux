@@ -42,9 +42,6 @@
         readonly isMasked?: boolean;
     }
 
-    type Polygon = [number, number, string, PolygonPoint[]];
-    type PolygonPoint = [number, number, number];
-
     const props = withDefaults(defineProps<Props>(), {
         animatedColors: null,
         animatedOpacity: .5,

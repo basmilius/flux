@@ -2,9 +2,9 @@
     <flux-base-button
         class="flux-primary-button flux-publish-button"
         :class="{
-            'idle': !isDone && !isLoading,
-            'done': isDone,
-            'loading': isLoading
+            'is-idle': !isDone && !isLoading,
+            'is-done': isDone,
+            'is-loading': isLoading
         }"
         v-bind="{type, disabled, iconAfter, isLoading, label, to}"
         @click="$emit('click', $event)"
@@ -115,13 +115,13 @@
             }
         }
 
-        &.idle {
+        &.is-idle {
             .check {
                 opacity: 0;
             }
         }
 
-        &.done {
+        &.is-done {
             .arrow {
                 animation: arrow-out .4s var(--acceleration-curve) both;
             }
@@ -132,7 +132,7 @@
             }
         }
 
-        &.loading {
+        &.is-loading {
             .arrow {
                 animation: arrow-in 1s var(--deceleration-curve) both;
             }
@@ -146,7 +146,7 @@
             }
         }
 
-        &.loading &-cloud {
+        &.is-loading &-cloud {
             opacity: .5;
         }
     }

@@ -3,13 +3,13 @@
         <router-link
             custom
             :to="to"
-            v-slot="{href, route, navigate}">
+            v-slot="ctx">
             <a
                 v-bind="$attrs"
-                :href="href"
+                :href="ensureRouterLinkProps(ctx).href"
                 :rel="rel"
                 :target="target"
-                @click="onClick($event, navigate)"
+                @click="onClick($event, ensureRouterLinkProps(ctx).navigate)"
                 @mouseenter="$emit('mouseenter', $event)"
                 @mouseleave="$emit('mouseleave', $event)">
                 <slot/>
@@ -62,8 +62,25 @@
         readonly to?: FluxRoutingLocation;
     }
 
+    interface RouterLinkProps {
+        href: string;
+        navigate: Function;
+    }
+
     const emit = defineEmits<Emits>();
     defineProps<Props>();
+
+    function ensureRouterLinkProps(props: Partial<RouterLinkProps>): RouterLinkProps {
+        if (!('href' in props)) {
+            props.href = '/';
+        }
+
+        if (!('navigate' in props)) {
+            props.navigate = () => void 0;
+        }
+
+        return props as RouterLinkProps;
+    }
 
     function onClick(evt: MouseEvent, navigate?: Function): void {
         emit('click', evt);

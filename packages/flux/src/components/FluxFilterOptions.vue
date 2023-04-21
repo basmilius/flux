@@ -15,8 +15,9 @@
 <script
     lang="ts"
     setup>
-    import type { FluxFilterOptionItem, IconNames } from '../data';
-    import { computed, inject, unref } from 'vue-demi';
+    import type { FluxFilterOptionItem, FluxFilterValue, IconNames } from '../data';
+    import { computed, unref } from 'vue-demi';
+    import { useFilterInjection } from '../composables';
     import { FluxMenuGroup, FluxMenuItem } from '.';
 
     export interface Props {
@@ -28,16 +29,24 @@
 
     const props = defineProps<Props>();
 
-    const {state, setValue} = inject<any>('flux-filter');
+    const {state, setValue} = useFilterInjection();
 
-    const currentValue = computed(() => unref(state)[props.name]);
+    const currentValue = computed(() => {
+        const value = unref(state)[props.name];
+
+        if (Array.isArray(value)) {
+            return value;
+        }
+
+        return [];
+    });
 
     function isSelected(option: FluxFilterOptionItem): boolean {
         return unref(currentValue)?.includes(option.value);
     }
 
     function select(option: FluxFilterOptionItem): void {
-        let value: FluxFilterOptionItem['value'][] = unref(currentValue);
+        let value: FluxFilterValue[] = unref(currentValue);
 
         if (!Array.isArray(value)) {
             value = [];

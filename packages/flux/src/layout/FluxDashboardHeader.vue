@@ -21,7 +21,7 @@
     lang="ts"
     setup>
     import { FluxSecondaryButton, FluxSpacer } from '../components';
-    import { useDashboard } from '../composables';
+    import { useDashboardInjection } from '../composables';
 
     export interface Props {
         readonly title: string;
@@ -32,7 +32,7 @@
     const {
         isNavigationCollapsible,
         isNavigationOpen
-    } = useDashboard();
+    } = useDashboardInjection();
 </script>
 
 <style lang="scss">

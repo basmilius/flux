@@ -33,6 +33,7 @@
     import { provide, ref, toRefs, unref, watch } from 'vue-demi';
     import { unrefElement } from '../helpers';
     import { FluxPane } from '.';
+    import { FluxFlyoutInjectionKey } from '../data';
 
     export interface Props {
         readonly axis?: 'horizontal' | 'vertical';
@@ -148,7 +149,7 @@
         }
     });
 
-    provide('flux-flyout', {
+    provide(FluxFlyoutInjectionKey, {
         isClosing,
         isOpen,
         isOpening

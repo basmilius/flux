@@ -85,6 +85,10 @@
     .flux-pagination-bar {
         align-items: center;
 
+        .flux-form-input-group {
+            max-width: max-content;
+        }
+
         .flux-form-select {
             width: 78px;
         }

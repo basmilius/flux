@@ -108,12 +108,12 @@
     setup>
     import type { ComponentPublicInstance, ComputedRef } from 'vue-demi';
     import type { FluxFormSelectGroup, FluxFormSelectOption } from '../data';
-    import { computed, inject, ref, toRefs, unref, watch } from 'vue-demi';
+    import { computed, ref, toRefs, unref, watch } from 'vue-demi';
     import { isFluxFormSelectGroup, isFluxFormSelectOption } from '../data';
+    import { useFormFieldInjection, useTranslate } from '../composables';
+    import { unrefElement } from '../helpers';
     import { FluxFadeTransition } from '../transition';
     import { FluxBadge, FluxIcon, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxPane, FluxPaneBody } from '.';
-    import { unrefElement } from '../helpers';
-    import { useTranslate } from '../composables';
 
     export interface Emits {
         (e: 'update:modelValue', value: string | number | (string | number)[]): void;
@@ -137,7 +137,7 @@
     const props = defineProps<Props>();
     const {isMultiple, modelValue, options, search} = toRefs(props);
 
-    const id = inject<string>('flux-form-field-id', '');
+    const {id} = useFormFieldInjection();
     const translate = useTranslate();
 
     const rootElement = ref<HTMLDivElement>();

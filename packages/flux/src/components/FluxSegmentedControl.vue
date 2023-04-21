@@ -68,6 +68,8 @@
 </script>
 
 <style lang="scss">
+    @use '../scss/mixin' as flux;
+
     .flux-segmented-control {
         position: relative;
         display: flex;
@@ -143,6 +145,16 @@
 
             &-item {
                 font-size: 14px;
+            }
+        }
+    }
+
+    @include flux.dark-mode {
+        .flux-segmented-control {
+            background: rgb(var(--gray-2));
+
+            &-highlight {
+                background: rgb(var(--gray-3));
             }
         }
     }

@@ -16,7 +16,8 @@
     lang="ts"
     setup>
     import type { FluxFilterOptionItem, IconNames } from '../data';
-    import { computed, inject, unref } from 'vue-demi';
+    import { computed, unref } from 'vue-demi';
+    import { useFilterInjection } from '../composables';
     import { FluxMenuGroup, FluxMenuItem } from '.';
 
     export interface Props {
@@ -28,7 +29,7 @@
 
     const props = defineProps<Props>();
 
-    const {back, state, setValue} = inject<any>('flux-filter');
+    const {back, state, setValue} = useFilterInjection();
 
     const currentValue = computed(() => unref(state)[props.name]);
 
