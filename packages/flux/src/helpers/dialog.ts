@@ -49,7 +49,7 @@ export function createDialogRenderer(props: _Props, emit: _Emit, slots: Slots, c
             unregister = null;
         }
 
-        return render(FluxTeleport, {
+        return render(FluxTeleport as unknown as Component, {
             props: {
                 to: teleportTo
             },

@@ -2,8 +2,8 @@
     <flux-pane
         class="flux-statistic"
         :class="{
-            [`flux-statistic-${color}`]: !!color,
-            'flux-statistic-vertical': axis === 'vertical'
+            [`is-${color}`]: !!color,
+            'is-vertical': axis === 'vertical'
         }">
         <div class="flux-statistic-icon">
             <flux-icon
@@ -124,38 +124,60 @@
             color: var(--statistic-icon-foreground);
         }
 
-        &-primary {
-            --statistic-icon-background: rgb(var(--primary-1));
+        &.is-primary {
+            --statistic-icon-background: rgb(var(--primary-2));
             --statistic-icon-foreground: rgb(var(--primary-7));
         }
 
-        &-danger {
-            --statistic-icon-background: rgb(var(--danger-1));
+        &.is-danger {
+            --statistic-icon-background: rgb(var(--danger-2));
             --statistic-icon-foreground: rgb(var(--danger-7));
         }
 
-        &-info {
-            --statistic-icon-background: rgb(var(--info-1));
+        &.is-info {
+            --statistic-icon-background: rgb(var(--info-2));
             --statistic-icon-foreground: rgb(var(--info-7));
         }
 
-        &-success {
-            --statistic-icon-background: rgb(var(--success-1));
+        &.is-success {
+            --statistic-icon-background: rgb(var(--success-2));
             --statistic-icon-foreground: rgb(var(--success-7));
         }
 
-        &-warning {
-            --statistic-icon-background: rgb(var(--warning-1));
+        &.is-warning {
+            --statistic-icon-background: rgb(var(--warning-2));
             --statistic-icon-foreground: rgb(var(--warning-7));
         }
 
-        &-vertical {
-            display: grid;
-            grid-template-columns: 1fr auto;
+        &.is-vertical {
+            align-items: center;
+            flex-flow: column;
+            text-align: center;
         }
 
-        &-vertical &-icon {
-            grid-column: 1 / span 2;
+        &.is-vertical &-change {
+            align-self: center;
+        }
+
+        &.is-vertical &-data {
+            align-items: center;
+        }
+
+        &.is-skeleton &-data {
+            user-select: none;
+
+            span,
+            strong {
+                @extend .flux-skeleton;
+            }
+
+            span {
+                width: 35%;
+            }
+        }
+
+        &.is-skeleton &-change {
+            display: none;
         }
     }
 

@@ -30,7 +30,6 @@
         display: flex;
         padding: 0;
         gap: 1px;
-        max-width: max-content;
         background: rgb(var(--gray-4) / .75);
 
         @include flux.focus-ring-transition(-1px, true);

@@ -1,5 +1,5 @@
-import type { Ref } from 'vue-demi';
 import { computed, inject, onMounted, onUnmounted, provide, ref, unref, watch } from 'vue-demi';
+import { FluxBreakpointsInjection, FluxBreakpointsInjectionKey } from '../data';
 
 // note(Bas): These breakpoints are also defined in ../scss/mixin/_breakpoints.scss, please
 //  keep them synced.
@@ -14,8 +14,8 @@ const BREAKPOINTS = {
     // 'xl2': 1536
 } as const;
 
-export function useBreakpoints(): UseBreakpoints {
-    const breakpoints = inject<UseBreakpoints | null>('flux-breakpoints', null);
+export function useBreakpoints(): FluxBreakpointsInjection {
+    const breakpoints = inject(FluxBreakpointsInjectionKey, null);
 
     if (!breakpoints) {
         throw new Error('[Flux] No breakpoints provider was found.');
@@ -61,14 +61,13 @@ export function useBreakpointsProvider(): void {
         width.value = innerWidth;
     }
 
-    provide<UseBreakpoints>('flux-breakpoints', {
+    provide(FluxBreakpointsInjectionKey, {
         breakpoint,
         breakpoints,
         isDesktop,
         isMobile,
         maxWidth,
-        width,
-        widths: BREAKPOINTS
+        width
     });
 
     watch(breakpoints, breakpoints => {
@@ -84,13 +83,3 @@ export function useBreakpointsProvider(): void {
 
 export type Breakpoint = keyof typeof BREAKPOINTS;
 export type Breakpoints = { [K in Breakpoint]: boolean; };
-
-export interface UseBreakpoints {
-    readonly breakpoint: Ref<Breakpoint>;
-    readonly breakpoints: Ref<Breakpoints>;
-    readonly isDesktop: Ref<boolean>;
-    readonly isMobile: Ref<boolean>;
-    readonly maxWidth: Ref<number | null>;
-    readonly width: Ref<number>;
-    readonly widths: typeof BREAKPOINTS;
-}

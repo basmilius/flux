@@ -34,5 +34,5 @@
     useBreakpointsProvider();
 
     const fluxStore = useFluxStore();
-    const {alerts, confirms, dialogCount, inertMain} = storeToRefs(fluxStore);
+    const {alerts, confirms, inertMain} = storeToRefs(fluxStore);
 </script>

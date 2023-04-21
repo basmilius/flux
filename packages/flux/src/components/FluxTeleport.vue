@@ -99,7 +99,7 @@
         for (const mutation of mutations) {
             const addedNodes = Array.from(mutation.addedNodes).filter(node => !nodes.value.includes(node));
 
-            if (parent.value && Array.from(mutation.removedNodes).includes(parent.value)) {
+            if (parent.value && Array.from(mutation.removedNodes).includes(parent.value!)) {
                 disable();
                 waiting.value = !disabled.value;
             } else if (waiting.value && addedNodes.length > 0) {

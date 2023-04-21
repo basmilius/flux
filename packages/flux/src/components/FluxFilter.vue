@@ -54,7 +54,7 @@
     import type { VNode } from 'vue-demi';
     import { computed, provide, ref, toRefs, unref } from 'vue-demi';
     import { useSlotVNodes, useTranslate } from '../composables';
-    import { FluxFilterItem, FluxFilterOptionItem } from '../data';
+    import { FluxFilterInjectionKey, FluxFilterOptionItem } from '../data';
     import { heightTransition } from '../directives';
     import { getNormalizedComponentName, getNormalizedComponentProps } from '../utils';
     import { FilterMenuRenderer, VNodeRenderer } from './primitive';
@@ -78,30 +78,6 @@
     const translate = useTranslate();
 
     const window = ref<{ back: Function; }>();
-
-    const entries = computed(() => {
-        const groups: (FluxFilterItem | number)[][] = [[]];
-        const items = unref(defaultSlotContent);
-
-        for (let index = 0; index < items.length; ++index) {
-            const item = items[index];
-            const name = getNormalizedComponentName(item);
-
-            if (name === 'flux-separator') {
-                groups.push([]);
-                continue;
-            }
-
-            if (name.startsWith('flux-filter-')) {
-                groups[groups.length - 1].push(getNormalizedComponentProps<FluxFilterItem>(item));
-                continue;
-            }
-
-            groups[groups.length - 1].push(index);
-        }
-
-        return groups;
-    });
 
     const filters = computed(() => {
         const filters: { [key: string]: VNode; } = {};
@@ -153,7 +129,7 @@
         }));
     }
 
-    provide('flux-filter', {
+    provide(FluxFilterInjectionKey, {
         state: modelValue,
         back,
         reset,

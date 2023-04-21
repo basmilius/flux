@@ -31,7 +31,8 @@
     lang="ts"
     setup>
     import { computed, provide, ref, unref, useSlots } from 'vue-demi';
-    import { FluxDashboardApi, useBreakpoints } from '../composables';
+    import { useBreakpoints } from '../composables';
+    import { FluxDashboardInjectionKey } from '../data';
 
     const slots = useSlots();
     const {breakpoints} = useBreakpoints();
@@ -40,7 +41,7 @@
 
     const isNavigationCollapsible = computed(() => !unref(breakpoints).xl);
 
-    provide<FluxDashboardApi>('flux-dashboard', {
+    provide(FluxDashboardInjectionKey, {
         isNavigationCollapsible,
         isNavigationOpen
     });

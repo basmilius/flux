@@ -30,7 +30,8 @@
 <script
     lang="ts"
     setup>
-    import { computed, inject, onMounted, ref, toRefs, unref, watch } from 'vue-demi';
+    import { computed, onMounted, ref, toRefs, unref, watch } from 'vue-demi';
+    import { useFormFieldInjection } from '../composables';
 
     export interface Emits {
         (e: 'blur'): void;
@@ -59,7 +60,7 @@
 
     const {modelValue, rows} = toRefs(props);
 
-    const id = inject<string>('flux-form-field-id', '');
+    const {id} = useFormFieldInjection();
 
     const inputRef = ref<HTMLTextAreaElement>();
 

@@ -126,7 +126,7 @@
             return;
         }
 
-        emit('update:modelValue', dragging.value);
+        emit('update:modelValue', dragging.value!);
         dragging.value = null;
     }
 
