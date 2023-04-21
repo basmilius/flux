@@ -1,12 +1,44 @@
 import './scss/index.scss';
 
-export type { FluxAlertSpec, FluxConfirmSpec, FluxFormSelectOption, FluxFormSelectGroup, FluxRoutingLocation, IconNames } from './data';
-export type { MaybeElementRef, MaybeElement, MaybeComputedElementRef, MaybeComputedRef, MaybeReadonlyRef, MaybeRef } from './helpers';
+export type {
+    FluxAlertSpec,
+    FluxBreakpointsInjection,
+    FluxConfirmSpec,
+    FluxDashboardInjection,
+    FluxExpandableGroupInjection,
+    FluxFilterInjection,
+    FluxFilterBase,
+    FluxFilterDate,
+    FluxFilterDateRange,
+    FluxFilterItem,
+    FluxFilterOption,
+    FluxFilterOptionItem,
+    FluxFilterOptions,
+    FluxFilterValue,
+    FluxFlyoutInjection,
+    FluxFormFieldInjection,
+    FluxFormSelectOption,
+    FluxFormSelectGroup,
+    FluxRoutingLocation,
+    FluxSkeletonsInjection,
+    FluxSnackbarSpec,
+    FluxTooltipSpec,
+    IconNames
+} from './data';
+
+export type {
+    MaybeElementRef,
+    MaybeElement,
+    MaybeComputedElementRef,
+    MaybeComputedRef,
+    MaybeReadonlyRef,
+    MaybeRef
+} from './helpers';
 
 export * from './components';
 export * from './composables';
 export { fluxAlert, fluxConfirm, fluxRegisterIcons, iconRegistry, isFluxFormSelectGroup, isFluxFormSelectOption, useFluxStore } from './data';
 export * from './directives';
-export { resolveUnref, unrefElement } from './helpers';
+export { createDialogRenderer, resolveUnref, unrefElement } from './helpers';
 export * from './layout';
 export * from './transition';
