@@ -32,7 +32,7 @@
     lang="ts"
     setup>
     import type { IconNames } from '../data';
-    import { computed, getCurrentInstance, toRefs, unref } from 'vue-demi';
+    import { computed, toRefs, unref } from 'vue-demi';
     import { FluxIcon } from '.';
 
     export interface Emits {
@@ -80,8 +80,6 @@
         size: 30
     });
     const {fallbackIcon, fallbackInitials, size} = toRefs(props);
-
-    const instance = getCurrentInstance()!;
 
     const colorSeed = computed(() => {
         const icon = unref(fallbackIcon);

@@ -18,7 +18,7 @@ export function generateStepTicks(lower: number, upper: number, target: number =
     const sizes = isSmall ? STEP_TICK_SMALL_SIZES : STEP_TICK_SIZES;
 
     for (const size of sizes) {
-        const count = delta / size;
+        const count = Math.floor(delta / size);
         const steps: number[] = [];
 
         if (count > target + 1) {
