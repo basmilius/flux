@@ -1,7 +1,7 @@
 <template>
     <flux-drop-zone
         :is-disabled="!isEditable"
-        :is-empty="items.length === 0"
+        :is-empty="items && items.length === 0"
         is-multiple
         placeholder-icon="image"
         :placeholder-button="translate('flux_gallery_placeholder_button')"
@@ -11,14 +11,17 @@
         <template #default="{showPicker}">
             <transition-group
                 class="flux-gallery"
-                name="gallery"
+                name="flux-gallery"
                 tag="div">
                 <flux-gallery-item
+                    v-if="items"
                     v-for="(item, index) of items"
                     :is-deletable="isEditable"
                     :key="item"
                     :url="item"
                     @delete="$emit('delete', index)"/>
+
+                <slot/>
 
                 <flux-gallery-item
                     v-for="item of pendingItems"
@@ -27,6 +30,7 @@
                     :url="item"/>
 
                 <button
+                    v-if="isEditable"
                     key="gallery-add"
                     class="flux-placeholder flux-gallery-add"
                     @click="showPicker()">
@@ -51,7 +55,7 @@
 
     export interface Props {
         readonly isEditable?: boolean;
-        readonly items: string[];
+        readonly items?: string[];
         readonly pendingItems?: string[];
     }
 
@@ -85,16 +89,16 @@
 
         &-add {
             aspect-ratio: 1 / 1;
-            color: var(--gray-7);
+            color: rgb(var(--gray-7));
 
             &:hover {
-                background: var(--gray-3);
-                border-color: var(--gray-5);
+                background: rgb(var(--gray-3));
+                border-color: rgb(var(--gray-5));
             }
         }
-    }
 
-    .gallery-move {
-        transition: 360ms var(--swift-out);
+        &-move {
+            transition: 360ms var(--swift-out);
+        }
     }
 </style>

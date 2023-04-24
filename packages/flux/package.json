@@ -10,14 +10,13 @@
         "./style.css": "./dist/style.css"
     },
     "dependencies": {
-        "@fortawesome/fontawesome-common-types": "^6.3.0",
-        "luxon": "^3.2.1",
-        "pinia": "^2.0.32",
-        "vue-demi": "^0.13.11"
+        "@fortawesome/fontawesome-common-types": "^6.4.0",
+        "luxon": "^3.3.0",
+        "pinia": "^2.0.35",
+        "vue-demi": "^0.14.0"
     },
     "devDependencies": {
-        "@types/luxon": "^3.2.0",
-        "@types/node": "^18.14.2",
+        "@types/luxon": "^3.3.0",
         "vue": "^3.2.47"
     }
 }

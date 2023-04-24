@@ -14,24 +14,27 @@
                     :variant="icon"/>
             </div>
         </flux-pane-body>
+
         <flux-pane-body>
             <slot/>
         </flux-pane-body>
+
         <flux-pane-body>
             <flux-stack
                 v-if="buttonTo"
                 axis="horizontal">
                 <flux-secondary-button
                     :icon-after="buttonIcon"
-                    :label="buttonLabel ?? translate('continue')"
+                    :label="buttonLabel ?? translate('flux_continue')"
                     :to="buttonTo"
                     type="route"/>
             </flux-stack>
         </flux-pane-body>
+
         <div
             v-if="isComingSoon"
             class="flux-feature-card-coming-soon">
-            {{ translate('coming_soon') }}
+            {{ translate('flux_coming_soon') }}
         </div>
     </flux-pane>
 </template>
@@ -39,7 +42,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxRoutingLocation, IconNames } from '../data';
+    import type { FluxRoutingLocation, IconNames } from '../data';
     import { useTranslate } from '../composables';
     import { FluxIcon, FluxPane, FluxPaneBody, FluxSecondaryButton, FluxStack } from '.';
 
@@ -98,9 +101,9 @@
             top: 50%;
             left: 50%;
             padding: 9px 12px;
-            background: var(--gray-9);
+            background: rgb(var(--gray-9));
             border-radius: var(--radius);
-            color: var(--gray-0);
+            color: rgb(var(--gray-0));
             font-size: 14px;
             font-weight: 600;
             rotate: -6deg;
@@ -108,7 +111,7 @@
 
             @at-root .dark-layout & {
                 background: white;
-                color: var(--gray-0);
+                color: rgb(var(--gray-0));
             }
         }
 
@@ -119,9 +122,9 @@
             align-items: center;
             flex-shrink: 0;
             justify-content: center;
-            background: var(--primary-7);
+            background: rgb(var(--primary-7));
             border-radius: var(--radius);
-            color: var(--primary-0);
+            color: rgb(var(--primary-0));
         }
 
         &-illustration {

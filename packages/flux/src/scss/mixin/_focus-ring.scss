@@ -1,0 +1,52 @@
+@mixin focus-ring($offset: 0, $within: false) {
+    outline: 2px solid rgb(var(--primary-7) / 0);
+    outline-offset: 0;
+
+    @if $within == true {
+        &:focus-visible,
+        &:focus-within {
+            outline-color: rgb(var(--primary-7));
+            outline-offset: $offset;
+        }
+    } @else {
+        &:focus-visible {
+            outline-color: rgb(var(--primary-7));
+            outline-offset: $offset;
+        }
+    }
+}
+
+@mixin focus-ring-pseudo($selector, $offset: 0, $within: false) {
+    &::#{$selector} {
+        outline: 2px solid rgb(var(--primary-7) / 0);
+        outline-offset: 0;
+    }
+
+    @if $within == true {
+        &:focus-visible::#{$selector},
+        &:focus-within::#{$selector} {
+            outline-color: rgb(var(--primary-7));
+            outline-offset: $offset;
+        }
+    } @else {
+        &:focus-visible::#{$selector} {
+            outline-color: rgb(var(--primary-7));
+            outline-offset: $offset;
+        }
+    }
+}
+
+@mixin focus-ring-remove() {
+    outline: 0 !important;
+}
+
+@mixin focus-ring-transition($offset: 0, $within: false) {
+    @include focus-ring($offset, $within);
+
+    transition: 180ms var(--swift-out);
+    transition-property: focus-ring-transition-properties();
+}
+
+@function focus-ring-transition-properties() {
+    @return outline-color, outline-offset;
+}

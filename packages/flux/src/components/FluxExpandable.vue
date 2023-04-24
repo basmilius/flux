@@ -34,8 +34,8 @@
 <script
     lang="ts"
     setup>
-    import { getCurrentInstance, inject, onMounted, onUnmounted, ref, unref } from 'vue-demi';
-    import { useComponentId } from '../composables';
+    import { getCurrentInstance, onBeforeMount, onUnmounted, ref, toRefs, unref, watch } from 'vue-demi';
+    import { useComponentId, useExpandableGroupInjection } from '../composables';
     import { FluxAutoHeightTransition } from '../transition';
     import { FluxIcon } from '.';
 
@@ -44,19 +44,21 @@
     }
 
     export interface Props {
+        readonly isOpened?: boolean;
         readonly label?: string;
     }
 
     const emit = defineEmits<Emits>();
-    defineProps<Props>();
+    const props = defineProps<Props>();
+    const {isOpened} = toRefs(props);
 
     const id = useComponentId();
     const instance = getCurrentInstance();
     const isOpen = ref(false);
 
-    const {closeAll, register, unregister} = inject<any>('flux-expandable-group', {});
+    const {closeAll, register, unregister} = useExpandableGroupInjection();
 
-    onMounted(() => register?.(unref(id), instance));
+    onBeforeMount(() => register?.(unref(id), instance));
     onUnmounted(() => unregister?.(unref(id)));
 
     function close(): void {
@@ -78,6 +80,14 @@
         }
     }
 
+    watch(isOpened, isOpened => {
+        if (isOpened) {
+            open();
+        } else {
+            close();
+        }
+    }, {immediate: true});
+
     defineExpose({
         isOpen,
         close,
@@ -87,6 +97,8 @@
 </script>
 
 <style lang="scss">
+    @use '../scss/mixin' as flux;
+
     .flux-expandable {
         display: flex;
         flex-flow: column;
@@ -100,16 +112,14 @@
             background: unset;
             border: 0;
             color: var(--foreground-prominent);
-            outline: 0;
+            cursor: pointer;
             text-align: left;
             z-index: 1;
 
-            &:focus-visible {
-                box-shadow: 0 0 0 2px var(--primary-7);
-            }
+            @include flux.focus-ring-transition;
 
             &:hover {
-                background: var(--secondary-button-background-hover);
+                background: rgb(var(--gray-1));
             }
 
             span {
@@ -146,6 +156,19 @@
 
         &-content {
             padding: 0 21px 21px;
+        }
+    }
+
+    .flux-pane > .flux-expandable {
+        border-radius: inherit;
+
+        .flux-expandable-header {
+            border-radius: inherit;
+        }
+
+        &.is-open .flux-expandable-header {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
         }
     }
 </style>

@@ -10,7 +10,7 @@
             <span
                 v-if="isOptional"
                 class="flux-form-field-optional">
-                ({{ translate('optional') }})
+                ({{ translate('flux_optional') }})
             </span>
         </label>
 
@@ -45,6 +45,7 @@
     setup>
     import { provide } from 'vue-demi';
     import { useId, useTranslate } from '../composables';
+    import { FluxFormFieldInjectionKey } from '../data';
     import { FluxIcon } from '.';
 
     export interface Props {
@@ -59,7 +60,9 @@
     const id = useId();
     const translate = useTranslate();
 
-    provide('flux-form-field-id', id);
+    provide(FluxFormFieldInjectionKey, {
+        id
+    });
 </script>
 
 <style lang="scss">
@@ -73,6 +76,7 @@
             display: flex;
             margin-bottom: 0;
             align-items: center;
+            align-self: start;
             gap: 6px;
             font-size: unset;
         }
@@ -100,7 +104,7 @@
             }
 
             &-error {
-                color: var(--danger);
+                color: rgb(var(--danger-7));
             }
 
             &-hint {

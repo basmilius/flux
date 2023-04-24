@@ -1,0 +1,20 @@
+@layer base {
+    html {
+        font-size: 15px;
+    }
+
+    body {
+        background: var(--background);
+        font-family: manrope-variable, sans-serif;
+        font-size: 1rem;
+    }
+
+    body,
+    dialog {
+        color: var(--foreground);
+    }
+
+    [inert] *::-webkit-scrollbar {
+        display: none;
+    }
+}

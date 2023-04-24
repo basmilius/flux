@@ -5,7 +5,6 @@
         focusable="false"
         role="img"
         aria-hidden="true"
-        :style="{'--size': size}"
         @click="onClick">
         <template
             v-for="(path, index) in paths"
@@ -17,52 +16,55 @@
     </svg>
 </template>
 
-<script lang="ts">
-    import { computed, defineComponent, PropType } from 'vue-demi';
-    import { IconNames, iconRegistry } from '../data';
+<script
+    lang="ts"
+    setup>
+    import type { IconNames } from '../data';
+    import { iconRegistry } from '../data';
+    import { computed, toRefs } from 'vue-demi';
 
-    export default defineComponent({
-        emits: ['click'],
+    export interface Emits {
+        (e: 'click', evt: MouseEvent): void;
+    }
 
-        props: {
-            size: {default: 20, type: [Number, String]},
-            variant: {required: true, type: String as PropType<IconNames>}
-        },
+    export interface Props {
+        readonly size?: number | string;
+        readonly variant: IconNames;
+    }
 
-        setup(props, {emit}) {
-            const definition = computed(() => {
-                const variant = iconRegistry[props.variant];
-
-                if (!variant) {
-                    throw new Error(`Icon variant "${props.variant}" is not defined`);
-                }
-
-                return variant;
-            });
-
-            const width = computed(() => definition.value[0]);
-            const height = computed(() => definition.value[1]);
-            const paths = computed(() => Array.isArray(definition.value[4]) ? definition.value[4] : [definition.value[4]]);
-
-            const onClick = (evt: MouseEvent) => emit('click', evt);
-
-            return {
-                width,
-                height,
-                paths,
-                onClick
-            };
-        }
+    const emit = defineEmits<Emits>();
+    const props = withDefaults(defineProps<Props>(), {
+        size: 20
     });
+    const {size, variant} = toRefs(props);
+
+    const definition = computed(() => {
+        const variant = iconRegistry[props.variant];
+
+        if (!variant && props.variant === 'flux-empty') {
+            return [512, 512, null, []];
+        }
+
+        if (!variant) {
+            throw new Error(`[Flux] Icon variant "${props.variant}" is not defined`);
+        }
+
+        return variant;
+    });
+
+    const width = computed(() => definition.value[0]);
+    const height = computed(() => definition.value[1]);
+    const paths = computed(() => Array.isArray(definition.value[4]) ? definition.value[4] : [definition.value[4]]);
+
+    const onClick = (evt: MouseEvent) => emit('click', evt);
 </script>
 
 <style lang="scss">
     .flux-icon {
-        --size: 20;
-
+        display: inline-block;
         height: 1em;
         width: 1em;
-        font-size: calc(var(--size) * 1px);
+        font-size: calc(v-bind(size) * 1px);
         line-height: 1em;
     }
 </style>

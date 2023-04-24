@@ -1,8 +1,10 @@
 <template>
     <flux-base-button
         class="flux-primary-button"
-        v-bind="{type, disabled, iconAfter, iconBefore, isLoading, label, href, rel, target, to}"
-        @click="$emit('click', $event)">
+        v-bind="{type, disabled, iconAfter, iconBefore, isLoading, isSubmit, label, href, rel, target, to}"
+        @click="$emit('click', $event)"
+        @mouseenter="$emit('mouseenter', $event)"
+        @mouseleave="$emit('mouseleave', $event)">
         <template
             v-for="(_, slot) of slots"
             v-slot:[slot]="scope">
@@ -16,8 +18,8 @@
 <script
     lang="ts"
     setup>
+    import type { FluxRoutingLocation, IconNames } from '../data';
     import { useSlots } from 'vue-demi';
-    import { FluxRoutingLocation, IconNames } from '../data';
     import { FluxBaseButton } from '.';
 
     // note: It is currently not possible to reuse Emits and Props from
@@ -27,6 +29,10 @@
 
     export interface Emits {
         (e: 'click', evt: MouseEvent): void;
+
+        (e: 'mouseenter', evt: MouseEvent): void;
+
+        (e: 'mouseleave', evt: MouseEvent): void;
     }
 
     export interface Props {
@@ -35,6 +41,7 @@
         readonly iconAfter?: IconNames;
         readonly iconBefore?: IconNames;
         readonly isLoading?: boolean;
+        readonly isSubmit?: boolean;
         readonly label?: string;
         readonly href?: string;
         readonly rel?: string;
@@ -53,14 +60,14 @@
 
 <style lang="scss">
     .flux-primary-button {
-        --background: var(--primary-button-background);
-        --background-hover: var(--primary-button-background-hover);
-        --background-active: var(--primary-button-background-active);
-        --foreground: var(--primary-button-foreground);
-        --icon: var(--primary-button-icon);
-        --stroke: var(--primary-button-stroke);
+        --button-background: rgb(var(--primary-7));
+        --button-background-hover: rgb(var(--primary-8));
+        --button-background-active: rgb(var(--primary-9));
+        --button-foreground: rgb(var(--primary-0));
+        --button-icon: rgb(var(--primary-0));
+        --button-stroke: transparent;
 
-        --spinner-track: var(--primary-button-background-hover);
-        --spinner-value: var(--primary-button-foreground);
+        --spinner-track: rgb(var(--primary-8));
+        --spinner-value: rgb(var(--primary-0));
     }
 </style>

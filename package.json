@@ -5,8 +5,11 @@
         "build": "pnpm build:2 && pnpm build:3",
         "build:2": "pnpm run -C packages/vue2 build",
         "build:3": "pnpm run -C packages/vue3 build",
-        "dev": "concurrently -k -c magenta,cyan -n vue2,vue3 'pnpm run -C packages/vue2 build:watch' 'pnpm run -C packages/vue3 build:watch'",
-        "example": "pnpm run -C packages/example dev",
+        "dev": "concurrently -k -c magenta,cyan -n vue2,vue3 'pnpm dev:2' 'pnpm dev:3'",
+        "dev:2": "pnpm run -C packages/vue2 build:watch",
+        "dev:3": "pnpm run -C packages/vue3 build:watch",
+        "docs:build": "pnpm run -C packages/docs build",
+        "docs:dev": "pnpm run -C packages/docs dev",
         "link:2": "pnpm link --dir packages/vue2 --global",
         "link:3": "pnpm link --dir packages/vue3 --global",
         "publish": "./publish.sh"
@@ -15,7 +18,9 @@
         "node": ">=18"
     },
     "devDependencies": {
-        "concurrently": "^7.6.0",
-        "vite": "^4.1.4"
+        "@types/node": "^18.15.13",
+        "concurrently": "^8.0.1",
+        "vite": "^4.3.1",
+        "vue": "^3.2.47"
     }
 }

@@ -4,16 +4,20 @@
         @dragleave.capture="onDragLeave"
         @dragover.capture="onDragEnter"
         @drop="onDrop">
-        <flux-placeholder
+        <slot
             v-if="isEmpty"
-            :icon="placeholderIcon"
-            :message="placeholderMessage"
-            :title="placeholderTitle"
-            variant="extended">
-            <flux-secondary-button
-                :label="placeholderButton"
-                @click="showPicker"/>
-        </flux-placeholder>
+            v-bind="{isDragging, isDraggingOver, showPicker}"
+            name="placeholder">
+            <flux-placeholder
+                :icon="placeholderIcon"
+                :message="placeholderMessage"
+                :title="placeholderTitle"
+                :variant="placeholderVariant">
+                <flux-secondary-button
+                    :label="placeholderButton"
+                    @click="showPicker"/>
+            </flux-placeholder>
+        </slot>
 
         <slot
             v-else
@@ -21,7 +25,7 @@
 
         <flux-fade-transition>
             <div
-                v-if="isDragging"
+                v-if="isDragging && !isDisabled"
                 class="flux-drop-zone-hint"
                 :class="{'is-over': isDraggingOver}"/>
         </flux-fade-transition>
@@ -31,8 +35,8 @@
 <script
     lang="ts"
     setup>
+    import type { IconNames } from '../data';
     import { onMounted, onUnmounted, ref, toRefs, unref } from 'vue-demi';
-    import { IconNames } from '../data';
     import { FluxFadeTransition } from '../transition';
     import { FluxPlaceholder, FluxSecondaryButton } from '.';
 
@@ -45,14 +49,17 @@
         readonly isDisabled?: boolean;
         readonly isEmpty?: boolean;
         readonly isMultiple?: boolean;
-        readonly placeholderButton: string;
-        readonly placeholderIcon: IconNames;
-        readonly placeholderMessage: string;
-        readonly placeholderTitle: string;
+        readonly placeholderButton?: string;
+        readonly placeholderIcon?: IconNames;
+        readonly placeholderMessage?: string;
+        readonly placeholderTitle?: string;
+        readonly placeholderVariant?: 'extended' | 'simple' | 'small';
     }
 
     const emit = defineEmits<Emits>();
-    const props = defineProps<Props>();
+    const props = withDefaults(defineProps<Props>(), {
+        placeholderVariant: 'extended'
+    });
     const {accept, isDisabled, isMultiple} = toRefs(props);
 
     const isDragging = ref(false);
@@ -145,7 +152,7 @@
             position: absolute;
             inset: 0;
             border-radius: var(--radius);
-            outline: 3px dotted var(--primary-7);
+            outline: 3px dotted rgb(var(--primary-7));
             outline-offset: -2px;
             animation: flux-drop-zone-hint 540ms infinite var(--deceleration-curve) alternate;
             transition: background 300ms var(--swift-out);

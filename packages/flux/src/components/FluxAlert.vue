@@ -9,7 +9,7 @@
         <flux-pane-footer>
             <flux-spacer/>
             <flux-primary-button
-                :label="translate('ok')"
+                :label="translate('flux_ok')"
                 @click="alert.onClose"/>
         </flux-pane-footer>
     </flux-pane>
@@ -18,7 +18,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxAlertSpec } from '../data';
+    import type { FluxAlertSpec } from '../data';
     import { useTranslate } from '../composables';
     import { FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSpacer } from '.';
 

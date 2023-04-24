@@ -1,0 +1,96 @@
+@layer base {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-weight: 700;
+        line-height: 1.4;
+    }
+
+    h1 {
+        color: var(--foreground-prominent);
+        font-size: 30px;
+    }
+
+    h2 {
+        color: var(--foreground-prominent);
+        font-size: 21px;
+    }
+
+    h3 {
+        color: var(--foreground);
+        font-size: 18px;
+    }
+
+    h4 {
+        font-size: 16px;
+    }
+
+    h5 {
+        font-size: 15px;
+    }
+
+    h6 {
+        font-size: 14px;
+    }
+
+    a:not([class]) {
+        color: rgb(var(--primary-7));
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 4px;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    p {
+        line-height: 1.6;
+    }
+
+    blockquote {
+        position: relative;
+        margin: 0 0 0 30px;
+        padding: 15px 21px;
+        background: rgb(var(--gray-2));
+        border-radius: var(--radius);
+
+        &::before {
+            position: absolute;
+            top: 5px;
+            left: -27px;
+            content: '”';
+            color: rgb(var(--primary-6));
+            font-size: 39px;
+            font-weight: 700;
+        }
+    }
+
+    img:not([class]) {
+        height: unset;
+        max-width: 100%;
+        border-radius: calc(var(--radius) / 2);
+        outline: 1px solid rgb(0 0 0 / .025);
+        outline-offset: -1px;
+    }
+
+    ul,
+    ol {
+        margin: 0;
+    }
+
+    :where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, .flux-typography-aware) + :where(h1, h2, h3) {
+        margin-top: 33px;
+    }
+
+    :where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, .flux-typography-aware) + :where(h4, h5, h6, p, ul, ol, li, blockquote, img) {
+        margin-top: 12px;
+    }
+
+    :where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, .flux-typography-aware) + :where(.flux-typography-aware) {
+        margin-top: 21px;
+    }
+}

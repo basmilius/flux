@@ -1,8 +1,10 @@
 <template>
     <flux-base-button
         class="flux-secondary-button"
-        v-bind="{type, disabled, iconAfter, iconBefore, isLoading, label, href, rel, target, to}"
-        @click="$emit('click', $event)">
+        v-bind="{type, disabled, iconAfter, iconBefore, isLoading, isSubmit, label, href, rel, target, to}"
+        @click="$emit('click', $event)"
+        @mouseenter="$emit('mouseenter', $event)"
+        @mouseleave="$emit('mouseleave', $event)">
         <template
             v-for="(_, slot) of slots"
             v-slot:[slot]="scope">
@@ -16,8 +18,8 @@
 <script
     lang="ts"
     setup>
+    import type { FluxRoutingLocation, IconNames } from '../data';
     import { useSlots } from 'vue-demi';
-    import { FluxRoutingLocation, IconNames } from '../data';
     import { FluxBaseButton } from '.';
 
     // note: It is currently not possible to reuse Emits and Props from
@@ -27,6 +29,10 @@
 
     export interface Emits {
         (e: 'click', evt: MouseEvent): void;
+
+        (e: 'mouseenter', evt: MouseEvent): void;
+
+        (e: 'mouseleave', evt: MouseEvent): void;
     }
 
     export interface Props {
@@ -35,6 +41,7 @@
         readonly iconAfter?: IconNames | null;
         readonly iconBefore?: IconNames | null;
         readonly isLoading?: boolean;
+        readonly isSubmit?: boolean;
         readonly label?: string;
         readonly href?: string;
         readonly rel?: string;
@@ -52,11 +59,11 @@
 
 <style lang="scss">
     .flux-secondary-button {
-        --background: var(--secondary-button-background);
-        --background-hover: var(--secondary-button-background-hover);
-        --background-active: var(--secondary-button-background-active);
-        --foreground: var(--secondary-button-foreground);
-        --icon: var(--secondary-button-icon);
-        --stroke: var(--secondary-button-stroke);
+        --button-background: rgb(var(--gray-0));
+        --button-background-hover: rgb(var(--gray-2));
+        --button-background-active: rgb(var(--gray-3));
+        --button-foreground: var(--foreground);
+        --button-icon: var(--foreground-prominent);
+        --button-stroke: rgb(var(--gray-4) / .75);
     }
 </style>

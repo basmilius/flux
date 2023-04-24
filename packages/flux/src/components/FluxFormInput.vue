@@ -8,10 +8,14 @@
         :id="id"
         :autocomplete="autoComplete"
         :autofocus="autoFocus"
+        :disabled="isDisabled"
         :max="max"
         :maxlength="maxLength"
         :min="min"
+        :pattern="pattern"
         :placeholder="placeholder"
+        :readonly="isReadonly"
+        :step="step"
         :type="type"
         :value="parsedValue"
         @blur="$emit('blur')"
@@ -25,14 +29,15 @@
             prop: 'modelValue',
             event: 'update:modelValue'
         }
-    }
+    };
 </script>
 
 <script
     lang="ts"
     setup>
     import { DateTime } from 'luxon';
-    import { computed, inject, toRefs, unref } from 'vue-demi';
+    import { computed, toRefs, unref } from 'vue-demi';
+    import { useFormFieldInjection } from '../composables';
 
     export interface Emits {
         (e: 'blur'): void;
@@ -50,8 +55,10 @@
         readonly max?: number;
         readonly maxLength?: number;
         readonly min?: number;
-        readonly modelValue?: object | string | number;
+        readonly modelValue?: object | string | number | null;
+        readonly pattern?: string;
         readonly placeholder?: string;
+        readonly step?: number;
         readonly type?: 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'month' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'time' | 'url' | 'week';
     }
 
@@ -63,7 +70,7 @@
 
     const {modelValue, type} = toRefs(props);
 
-    const id = inject<string>('flux-form-field-id', '');
+    const {id} = useFormFieldInjection();
 
     const parsedValue = computed(() => {
         if (!modelValue) {
@@ -77,7 +84,21 @@
         }
 
         if (DateTime.isDateTime(v)) {
-            return v.toISO().substring(0, 16);
+            const iso = v.toISO()!;
+
+            switch (type.value) {
+                case 'date':
+                    return iso.substring(0, 10);
+
+                case 'datetime-local':
+                    return iso.substring(0, 16);
+
+                case 'time':
+                    return iso.substring(11, 16);
+
+                default:
+                    return iso;
+            }
         }
 
         return v.toString();
@@ -92,7 +113,13 @@
             case 'month':
             case 'time':
             case 'week':
-                emit('update:modelValue', DateTime.fromISO(value));
+                const dateTime = DateTime.fromISO(value);
+
+                if (!dateTime.isValid) {
+                    return;
+                }
+
+                emit('update:modelValue', dateTime);
                 break;
 
             case 'number':
@@ -107,22 +134,27 @@
 </script>
 
 <style lang="scss">
+    @use '../scss/mixin' as flux;
+
     .flux-form-input {
         display: block;
         height: 42px;
         width: 100%;
         padding: 0 12px;
-        background: var(--gray-0);
-        border: 1px solid var(--gray-4);
+        align-self: start;
+        background: rgb(var(--gray-0));
+        background-clip: padding-box;
+        border: 1px solid rgb(var(--gray-4) / .75);
         border-radius: var(--radius);
+        box-shadow: var(--shadow-px);
         color: var(--foreground);
         font: inherit;
         outline: 0;
-        transition: 210ms var(--swift-out);
-        transition-property: border-color, box-shadow;
+        transition: 180ms var(--swift-out);
+        transition-property: border-color, flux.focus-ring-transition-properties();
 
         &::placeholder {
-            color: var(--foreground-muted);
+            color: var(--foreground-secondary);
         }
 
         &::-webkit-color-swatch {
@@ -137,18 +169,22 @@
         }
 
         &.is-disabled {
-            background: var(--gray-2);
+            background: rgb(var(--gray-2));
             cursor: not-allowed;
         }
 
-        &:hover {
-            border-color: var(--gray-5);
+        &:not(.is-disabled) {
+            @include flux.focus-ring(-1px);
         }
 
-        &:not(.is-disabled):focus,
-        &:not(.is-disabled):focus-within {
-            border-color: var(--primary-7);
-            box-shadow: 0 0 0 1px var(--primary-7);
+        &:hover {
+            border-color: rgb(var(--gray-5));
+        }
+    }
+
+    @include flux.dark-mode {
+        .flux-form-input::-webkit-calendar-picker-indicator {
+            filter: invert(1);
         }
     }
 </style>

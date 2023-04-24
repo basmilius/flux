@@ -1,25 +1,28 @@
 <template>
-    <component
-        :is="component"
+    <button-component
+        :component-type="type"
         class="flux-button"
+        :type="isSubmit ? 'submit' : 'button'"
         :aria-disabled="disabled"
         :disabled="disabled"
         :href="href"
         :rel="rel"
         :target="target"
         :to="to"
-        @click="onClick">
+        @click="onClick"
+        @mouseenter="onMouseEnter"
+        @mouseleave="onMouseLeave">
         <slot name="before"/>
 
         <slot name="icon-before">
-            <flux-icon
-                v-if="iconBefore && !isLoading"
-                class="flux-button-icon"
-                :variant="iconBefore"/>
-
             <flux-spinner
                 v-if="isLoading && (iconBefore || !iconAfter)"
                 :size="20"/>
+
+            <flux-icon
+                v-else-if="iconBefore"
+                class="flux-button-icon"
+                :variant="iconBefore"/>
         </slot>
 
         <span
@@ -40,18 +43,23 @@
         </slot>
 
         <slot name="after"/>
-    </component>
+    </button-component>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { computed, toRefs, unref } from 'vue-demi';
-    import { FluxRoutingLocation, IconNames } from '../data';
+    import type { FluxRoutingLocation, IconNames } from '../data';
+    import { toRefs, unref } from 'vue-demi';
+    import { ButtonComponent } from './primitive';
     import { FluxIcon, FluxSpinner } from '.';
 
     export interface Emits {
         (e: 'click', evt: MouseEvent): void;
+
+        (e: 'mouseenter', evt: MouseEvent): void;
+
+        (e: 'mouseleave', evt: MouseEvent): void;
     }
 
     export interface Props {
@@ -60,6 +68,7 @@
         readonly iconAfter?: IconNames | null;
         readonly iconBefore?: IconNames | null;
         readonly isLoading?: boolean;
+        readonly isSubmit?: boolean;
         readonly label?: string;
         readonly href?: string;
         readonly rel?: string;
@@ -74,18 +83,6 @@
 
     const {disabled, isLoading, type} = toRefs(props);
 
-    const component = computed(() => {
-        if (type.value === 'link') {
-            return 'a';
-        }
-
-        if (type.value === 'route') {
-            return 'router-link';
-        }
-
-        return 'button';
-    });
-
     function onClick(evt: MouseEvent): void {
         if (unref(disabled) || unref(isLoading)) {
             evt.preventDefault();
@@ -94,48 +91,61 @@
 
         emit('click', evt);
     }
+
+    function onMouseEnter(evt: MouseEvent): void {
+        emit('mouseenter', evt);
+    }
+
+    function onMouseLeave(evt: MouseEvent): void {
+        emit('mouseleave', evt);
+    }
 </script>
 
 <style lang="scss">
+    @use '../scss/mixin' as flux;
+
     .flux-button {
         display: inline-flex;
         height: 42px;
         padding: 0 12px;
         align-items: center;
+        flex-shrink: 0;
         gap: 12px;
         justify-content: center;
-        background: var(--background);
-        border: 1px solid var(--stroke);
+        background: var(--button-background);
+        border: 1px solid var(--button-stroke);
         border-radius: var(--radius);
-        box-shadow: 0 1px 1px rgb(0 0 0 / .03);
+        box-shadow: var(--shadow-px);
         cursor: pointer;
         font: inherit;
-        outline: none;
+        text-decoration: none;
         transition: 180ms var(--swift-out);
-        transition-property: background, box-shadow, color;
+        transition-property: background, box-shadow, color, flux.focus-ring-transition-properties();
         user-select: none;
 
+        @include flux.focus-ring(2px);
+
         > * {
-            color: var(--foreground);
+            color: var(--button-foreground);
         }
 
         &:focus-visible {
-            box-shadow: 0 0 0 2px var(--gray-0), 0 0 0 4px var(--primary-7);
             z-index: 1;
         }
 
         &-icon {
-            color: var(--icon);
+            flex-shrink: 0;
+            color: var(--button-icon);
 
             &:only-child {
-                margin-left: -2px;
-                margin-right: -2px;
+                margin-left: -1px;
+                margin-right: -1px;
             }
         }
 
         &-label {
             display: inline-block;
-            font-weight: 600;
+            font-weight: 500;
             text-align: center;
 
             &:only-child {
@@ -144,18 +154,22 @@
         }
 
         &:hover {
-            background: var(--background-hover);
+            background: var(--button-background-hover);
         }
 
         &:active {
-            background: var(--background-active);
+            background: var(--button-background-active);
             box-shadow: none;
         }
 
         &:disabled,
         &[aria-disabled="true"] {
-            opacity: .5;
+            box-shadow: none;
             pointer-events: none;
+
+            > * {
+                opacity: .5;
+            }
         }
     }
 </style>

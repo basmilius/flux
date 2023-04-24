@@ -1,8 +1,9 @@
-import type { IconDefinition, IconName as IconNames, IconPathData } from '@fortawesome/fontawesome-common-types';
+import type { IconDefinition, IconName, IconPathData } from '@fortawesome/fontawesome-common-types';
+
+export type IconNames = IconName | 'flux-empty';
 
 export type {
     IconDefinition,
-    IconNames,
     IconPathData
 };
 
@@ -21,6 +22,31 @@ export interface FluxConfirmSpec extends FluxAlertSpec {
     onCancel(): void;
 
     onConfirm(): void;
+}
+
+export interface FluxSnackbarSpec {
+    readonly id: number;
+    readonly actions?: Record<string, string>;
+    readonly color?: 'primary' | 'danger' | 'info' | 'success' | 'warning';
+    readonly icon?: IconNames;
+    readonly isCloseable?: boolean;
+    readonly isLoading?: boolean;
+    readonly isRendered?: boolean;
+    readonly message?: string;
+    readonly subMessage?: string;
+    readonly title?: string;
+
+    onAction?(actionKey: string): void;
+
+    onClose?(): void;
+}
+
+export interface FluxTooltipSpec {
+    readonly id: number;
+    readonly axis: 'horizontal' | 'vertical';
+    readonly content?: string;
+    readonly contentSlot?: Function;
+    readonly origin?: HTMLElement;
 }
 
 export interface FluxFormSelectOption {

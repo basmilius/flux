@@ -18,7 +18,7 @@
 <script
     lang="ts"
     setup>
-    import { IconNames } from '../data';
+    import type { IconNames } from '../data';
     import { FluxIcon } from '.';
 
     export interface Props {
@@ -38,17 +38,22 @@
         margin-bottom: -3px;
         padding-top: 6px;
         gap: 9px;
-        background: linear-gradient(to bottom, var(--gray-0) 75%, transparent);
+        background: linear-gradient(to bottom, rgb(var(--gray-0)) 75%, transparent);
+        font-size: 14px;
         pointer-events: none;
         z-index: 1;
 
         span,
         &-icon {
-            color: var(--foreground-muted);
+            color: var(--foreground-secondary);
         }
     }
 
     .flux-menu-item + .flux-menu-sub-header {
         margin-top: 9px;
+    }
+
+    .flux-menu.is-large .flux-menu-sub-header {
+        margin-bottom: -15px;
     }
 </style>

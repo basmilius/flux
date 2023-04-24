@@ -1,0 +1,56 @@
+<template>
+    <flux-stack>
+        <page-title
+            section="Content"
+            title="Typography"/>
+
+        <api-section>
+            <p>
+                Typography is a critical element of any user interface, and in Flux, we understand the importance of creating
+                clear, consistent, and visually appealing typography in our components. This documentation provides you with
+                everything you need to know about typography in Flux, including font families, sizes, weights, and spacing.
+                By the end of this documentation, you'll have a solid understanding of typography in Flux and be able to
+                create beautiful and readable text throughout your Vue application. So let's dive in!
+            </p>
+        </api-section>
+
+        <api-section>
+            <api-example
+                :code="headingsCode"
+                title="Headings"
+                title-tag="h2"/>
+
+            <api-example
+                :code="paragraphsCode"
+                title="Paragraph"
+                title-tag="h2"/>
+
+            <api-example
+                :code="listsCode"
+                title="Lists"
+                title-tag="h2"/>
+
+            <api-example
+                :code="imageCode"
+                title="Image"
+                title-tag="h2"/>
+
+            <api-example
+                :code="blockquoteCode"
+                title="Blockquote"
+                title-tag="h2"/>
+        </api-section>
+    </flux-stack>
+</template>
+
+<script
+    lang="ts"
+    setup>
+    import { FluxStack } from '@fancee/flux';
+    import { ApiExample, ApiSection, PageTitle } from '@/components';
+    import blockquoteCode from '@/code/content/typography/blockquote.html?raw';
+    import headingsCode from '@/code/content/typography/headings.html?raw';
+    import imageCode from '@/code/content/typography/image.html?raw';
+    import listsCode from '@/code/content/typography/lists.html?raw';
+    import paragraphsCode from '@/code/content/typography/paragraphs.html?raw';
+</script>

@@ -1,6 +1,8 @@
 <template>
-    <main>
-        <slot/>
+    <main data-flux-root>
+        <div :inert="inertMain">
+            <slot/>
+        </div>
 
         <flux-overlay>
             <flux-alert
@@ -15,6 +17,9 @@
                 :key="confirm.id"
                 :confirm="confirm"/>
         </flux-overlay>
+
+        <flux-snackbar-provider/>
+        <flux-tooltip-provider/>
     </main>
 </template>
 
@@ -22,9 +27,12 @@
     lang="ts"
     setup>
     import { storeToRefs } from 'pinia';
+    import { useBreakpointsProvider } from '../composables';
     import { useFluxStore } from '../data';
-    import { FluxAlert, FluxConfirm, FluxOverlay } from '.';
+    import { FluxAlert, FluxConfirm, FluxOverlay, FluxSnackbarProvider, FluxTooltipProvider } from '.';
+
+    useBreakpointsProvider();
 
     const fluxStore = useFluxStore();
-    const {alerts, confirms} = storeToRefs(fluxStore);
+    const {alerts, confirms, inertMain} = storeToRefs(fluxStore);
 </script>

@@ -9,20 +9,22 @@
         display: flex;
         padding: 21px;
         gap: 9px;
-        background: var(--surface-footer);
-        border-top: 1px solid var(--surface-stroke);
+        background: rgb(var(--gray-1));
+        border-top: 1px solid rgb(var(--gray-3));
     }
 
-    .flux-pane > .flux-pane-footer:first-child {
-        border-radius: var(--radius) var(--radius) 0 0;
-    }
+    .flux-pane > .flux-pane-footer {
+        &:first-child {
+            border-radius: var(--radius) var(--radius) 0 0;
+        }
 
-    .flux-pane > .flux-pane-footer:last-child {
-        border-radius: 0 0 var(--radius) var(--radius);
-    }
+        &:last-child {
+            border-radius: 0 0 var(--radius) var(--radius);
+        }
 
-    .flux-pane > .flux-pane-footer:only-child {
-        border: 0;
-        border-radius: var(--radius);
+        &:only-child {
+            border: 0;
+            border-radius: var(--radius);
+        }
     }
 </style>

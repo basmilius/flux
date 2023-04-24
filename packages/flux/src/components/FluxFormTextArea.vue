@@ -2,6 +2,10 @@
     <textarea
         ref="inputRef"
         class="flux-form-input flux-form-text-area"
+        :class="{
+            'is-disabled': isDisabled,
+            'is-readonly': isReadonly
+        }"
         :id="id"
         :autocomplete="autoComplete"
         :autofocus="autoFocus"
@@ -20,13 +24,14 @@
             prop: 'modelValue',
             event: 'update:modelValue'
         }
-    }
+    };
 </script>
 
 <script
     lang="ts"
     setup>
-    import { computed, inject, onMounted, ref, toRefs, unref } from 'vue-demi';
+    import { computed, onMounted, ref, toRefs, unref, watch } from 'vue-demi';
+    import { useFormFieldInjection } from '../composables';
 
     export interface Emits {
         (e: 'blur'): void;
@@ -39,6 +44,8 @@
     export interface Props {
         readonly autoComplete?: string;
         readonly autoFocus?: boolean;
+        readonly isDisabled?: boolean;
+        readonly isReadonly?: boolean;
         readonly maxLength?: number;
         readonly modelValue?: string;
         readonly placeholder?: string;
@@ -53,15 +60,13 @@
 
     const {modelValue, rows} = toRefs(props);
 
-    const id = inject<string>('flux-form-field-id') ?? '';
+    const {id} = useFormFieldInjection();
 
     const inputRef = ref<HTMLTextAreaElement>();
 
     const parsedValue = computed(() => unref(modelValue) ?? '');
 
-    onMounted(() => {
-        sizeToContent();
-    });
+    onMounted(() => requestAnimationFrame(sizeToContent));
 
     function onInput(evt: InputEvent): void {
         emit('update:modelValue', (evt.target as HTMLTextAreaElement).value);
@@ -78,6 +83,8 @@
         input.style.height = 'auto';
         input.style.height = `${input.scrollHeight}px`;
     }
+
+    watch([modelValue], () => requestAnimationFrame(sizeToContent));
 </script>
 
 <style lang="scss">
@@ -85,5 +92,6 @@
         height: unset;
         padding-top: 9px;
         padding-bottom: 9px;
+        flex-shrink: 0;
     }
 </style>

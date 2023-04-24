@@ -9,6 +9,7 @@
         }"
         @click="onClick">
         <flux-icon
+            v-if="icon"
             class="flux-placeholder-icon"
             :variant="icon"/>
 
@@ -33,7 +34,7 @@
 <script
     lang="ts"
     setup>
-    import { IconNames } from '../data';
+    import type { IconNames } from '../data';
     import { FluxIcon } from '.';
 
     export interface Emits {
@@ -41,10 +42,10 @@
     }
 
     export interface Props {
-        readonly icon: IconNames;
+        readonly icon?: IconNames;
         readonly isButton?: boolean;
         readonly message?: string;
-        readonly title: string;
+        readonly title?: string;
         readonly variant?: 'extended' | 'simple' | 'small';
     }
 
@@ -68,8 +69,8 @@
         flex-flow: column;
         gap: 0;
         justify-content: center;
-        background: var(--gray-2);
-        border: 2px dashed var(--gray-4);
+        background: rgb(var(--gray-2));
+        border: 2px dashed rgb(var(--gray-4));
         border-radius: var(--radius);
         text-align: center;
         user-select: none;
@@ -78,13 +79,13 @@
             cursor: pointer;
 
             &:hover {
-                background: var(--gray-3);
-                border-color: var(--gray-5);
+                background: rgb(var(--gray-3));
+                border-color: rgb(var(--gray-5));
             }
         }
 
         &-icon {
-            color: var(--primary-7);
+            color: rgb(var(--primary-7));
             font-size: 20px;
         }
 

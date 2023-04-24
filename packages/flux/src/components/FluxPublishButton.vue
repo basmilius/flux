@@ -2,12 +2,14 @@
     <flux-base-button
         class="flux-primary-button flux-publish-button"
         :class="{
-            'idle': !isDone && !isLoading,
-            'done': isDone,
-            'loading': isLoading
+            'is-idle': !isDone && !isLoading,
+            'is-done': isDone,
+            'is-loading': isLoading
         }"
         v-bind="{type, disabled, iconAfter, isLoading, label, to}"
-        @click="$emit('click', $event)">
+        @click="$emit('click', $event)"
+        @mouseenter="$emit('mouseenter', $event)"
+        @mouseleave="$emit('mouseleave', $event)">
         <template #icon-before="{}">
             <div class="flux-publish-button-icon">
                 <flux-icon
@@ -44,7 +46,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxRoutingLocation, IconNames } from '../data';
+    import type { FluxRoutingLocation, IconNames } from '../data';
     import { FluxBaseButton, FluxIcon } from '.';
 
     // note: It is currently not possible to reuse Emits and Props from
@@ -54,6 +56,10 @@
 
     export interface Emits {
         (e: 'click', evt: MouseEvent): void;
+
+        (e: 'mouseenter', evt: MouseEvent): void;
+
+        (e: 'mouseleave', evt: MouseEvent): void;
     }
 
     export interface Props {
@@ -109,13 +115,13 @@
             }
         }
 
-        &.idle {
+        &.is-idle {
             .check {
                 opacity: 0;
             }
         }
 
-        &.done {
+        &.is-done {
             .arrow {
                 animation: arrow-out .4s var(--acceleration-curve) both;
             }
@@ -126,7 +132,7 @@
             }
         }
 
-        &.loading {
+        &.is-loading {
             .arrow {
                 animation: arrow-in 1s var(--deceleration-curve) both;
             }
@@ -140,7 +146,7 @@
             }
         }
 
-        &.loading &-cloud {
+        &.is-loading &-cloud {
             opacity: .5;
         }
     }

@@ -1,0 +1,101 @@
+@use 'sass:color';
+@use '../mixin' as flux;
+
+@function to-rgb($hex) {
+    @return color.red($hex) color.green($hex) color.blue($hex);
+}
+
+:root {
+    --primary-0: #{to-rgb(#ffffff)};
+    --primary-1: #{to-rgb(#f5f8ff)};
+    --primary-2: #{to-rgb(#eff4ff)};
+    --primary-3: #{to-rgb(#d1e0ff)};
+    --primary-4: #{to-rgb(#b2ccff)};
+    --primary-5: #{to-rgb(#84adff)};
+    --primary-6: #{to-rgb(#528bff)};
+    --primary-7: #{to-rgb(#2970ff)};
+    --primary-8: #{to-rgb(#155eef)};
+    --primary-9: #{to-rgb(#004eeb)};
+    --primary-10: #{to-rgb(#0040c1)};
+    --primary-11: #{to-rgb(#00359e)};
+
+    --danger-0: #{to-rgb(#ffffff)};
+    --danger-1: #{to-rgb(#fff6f6)};
+    --danger-2: #{to-rgb(#ffe9e9)};
+    --danger-3: #{to-rgb(#ffc9c9)};
+    --danger-4: #{to-rgb(#ffa2a2)};
+    --danger-5: #{to-rgb(#ff7575)};
+    --danger-6: #{to-rgb(#ab0065)};
+    --danger-7: #{to-rgb(#d40074)};
+    --danger-8: #{to-rgb(#ad005f)};
+    --danger-9: #{to-rgb(#89004c)};
+    --danger-10: #{to-rgb(#67003b)};
+    --danger-11: #{to-rgb(#440029)};
+
+    --info-0: #{to-rgb(#ffffff)};
+    --info-1: #{to-rgb(#f5f8ff)};
+    --info-2: #{to-rgb(#eff4ff)};
+    --info-3: #{to-rgb(#d1e0ff)};
+    --info-4: #{to-rgb(#b2ccff)};
+    --info-5: #{to-rgb(#84adff)};
+    --info-6: #{to-rgb(#528bff)};
+    --info-7: #{to-rgb(#2970ff)};
+    --info-8: #{to-rgb(#155eef)};
+    --info-9: #{to-rgb(#004eeb)};
+    --info-10: #{to-rgb(#0040c1)};
+    --info-11: #{to-rgb(#00359e)};
+
+    --success-0: #{to-rgb(#ffffff)};
+    --success-1: #{to-rgb(#f6fef9)};
+    --success-2: #{to-rgb(#ecfdf3)};
+    --success-3: #{to-rgb(#d1fadf)};
+    --success-4: #{to-rgb(#a6f4c5)};
+    --success-5: #{to-rgb(#6ce9a6)};
+    --success-6: #{to-rgb(#32d583)};
+    --success-7: #{to-rgb(#12b76a)};
+    --success-8: #{to-rgb(#039855)};
+    --success-9: #{to-rgb(#027a48)};
+    --success-10: #{to-rgb(#05603a)};
+    --success-11: #{to-rgb(#054f31)};
+
+    --warning-0: #{to-rgb(#ffffff)};
+    --warning-1: #{to-rgb(#fffcf5)};
+    --warning-2: #{to-rgb(#fffaeb)};
+    --warning-3: #{to-rgb(#fef0c7)};
+    --warning-4: #{to-rgb(#fedf89)};
+    --warning-5: #{to-rgb(#fec84b)};
+    --warning-6: #{to-rgb(#fdb022)};
+    --warning-7: #{to-rgb(#f79009)};
+    --warning-8: #{to-rgb(#dc6803)};
+    --warning-9: #{to-rgb(#b54708)};
+    --warning-10: #{to-rgb(#93370d)};
+    --warning-11: #{to-rgb(#7a2e0e)};
+
+    --gray-0: #{to-rgb(#ffffff)};
+    --gray-1: #{to-rgb(#fcfcfd)};
+    --gray-2: #{to-rgb(#f8fafc)};
+    --gray-3: #{to-rgb(#eef2f6)};
+    --gray-4: #{to-rgb(#e3e8ef)};
+    --gray-5: #{to-rgb(#cdd5df)};
+    --gray-6: #{to-rgb(#9aa4b2)};
+    --gray-7: #{to-rgb(#697586)};
+    --gray-8: #{to-rgb(#4b5565)};
+    --gray-9: #{to-rgb(#364152)};
+    --gray-10: #{to-rgb(#202939)};
+    --gray-11: #{to-rgb(#121926)};
+}
+
+@include flux.dark-mode {
+    --gray-0: #{to-rgb(#14161a)};
+    --gray-1: #{to-rgb(#1b1d21)};
+    --gray-2: #{to-rgb(#22252b)};
+    --gray-3: #{to-rgb(#2a2d33)};
+    --gray-4: #{to-rgb(#333b3d)};
+    --gray-5: #{to-rgb(#3d464a)};
+    --gray-6: #{to-rgb(#475055)};
+    --gray-7: #{to-rgb(#515d60)};
+    --gray-8: #{to-rgb(#5c696b)};
+    --gray-9: #{to-rgb(#677577)};
+    --gray-10: #{to-rgb(#738180)};
+    --gray-11: #{to-rgb(#7f8c8c)};
+}

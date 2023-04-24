@@ -32,7 +32,7 @@
 
         &-floating {
             position: absolute;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-lg);
 
             &-free {
                 translate: -50% -50%;
@@ -62,10 +62,10 @@
                 translate: 0 50%;
             }
         }
-    }
 
-    .flux-toolbar > .flux-separator {
-        margin-top: 9px;
-        margin-bottom: 9px;
+        > .flux-separator {
+            margin-top: 9px;
+            margin-bottom: 9px;
+        }
     }
 </style>

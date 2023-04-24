@@ -1,0 +1,36 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "useDefineForClassFields": true,
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "strict": true,
+        "jsx": "preserve",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "esModuleInterop": true,
+        "lib": [
+            "ESNext",
+            "DOM"
+        ],
+        "skipLibCheck": true,
+        "noEmit": true,
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"],
+            "@fancee/flux": ["../flux/src/index.ts"]
+        }
+    },
+    "include": [
+        "../flux/src/**/*.ts",
+        "../flux/src/**/*.d.ts",
+        "../flux/src/**/*.tsx",
+        "../flux/src/**/*.vue"
+    ],
+    "references": [
+        {
+            "path": "./tsconfig.node.json"
+        }
+    ]
+}

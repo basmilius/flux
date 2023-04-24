@@ -5,11 +5,18 @@
 </template>
 
 <style lang="scss">
+    @use '../scss/mixin' as flux;
+
     .flux-surface {
-        background: var(--surface-background);
+        background: rgb(var(--gray-0));
         background-clip: padding-box;
-        border: 1px solid var(--surface-stroke);
+        border: 1px solid rgb(var(--gray-11) / .05);
         border-radius: var(--radius);
-        color: var(--surface-foreground);
+    }
+
+    @include flux.dark-mode {
+        .flux-surface {
+            border-color: rgb(var(--gray-11) / .2);
+        }
     }
 </style>
