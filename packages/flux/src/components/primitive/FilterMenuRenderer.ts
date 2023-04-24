@@ -1,4 +1,4 @@
-import type { FluxFilterBase, FluxFilterDate, FluxFilterDateRange, FluxFilterItem, FluxFilterOption, FluxFilterOptionItem, FluxFilterOptions, FluxFilterValue } from '../../data';
+import type { FluxFilterBase, FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterItem, FluxFilterOptionEntry, FluxFilterOptionItem, FluxFilterOptionsEntry, FluxFilterValue } from '../../data';
 import { DateTime } from 'luxon';
 import { Component, defineComponent, VNode } from 'vue-demi';
 import { FluxTranslator, useTranslate } from '../../composables';
@@ -46,7 +46,7 @@ export const FilterMenuRenderer = defineComponent({
     }
 });
 
-function parseDate(base: FluxFilterBase): FluxFilterDate {
+function parseDate(base: FluxFilterBase): FluxFilterDateEntry {
     return {
         ...base,
         type: 'date',
@@ -65,7 +65,7 @@ function parseDate(base: FluxFilterBase): FluxFilterDate {
     };
 }
 
-function parseDateRange(base: FluxFilterBase): FluxFilterDateRange {
+function parseDateRange(base: FluxFilterBase): FluxFilterDateRangeEntry {
     return {
         ...base,
         type: 'dateRange',
@@ -86,7 +86,7 @@ function parseDateRange(base: FluxFilterBase): FluxFilterDateRange {
     };
 }
 
-function parseOption(base: FluxFilterBase): FluxFilterOption {
+function parseOption(base: FluxFilterBase): FluxFilterOptionEntry {
     const options = (base as any).options as FluxFilterOptionItem[];
 
     return {
@@ -99,7 +99,7 @@ function parseOption(base: FluxFilterBase): FluxFilterOption {
     };
 }
 
-function parseOptions(base: FluxFilterBase): FluxFilterOptions {
+function parseOptions(base: FluxFilterBase): FluxFilterOptionsEntry {
     const options = (base as any).options as FluxFilterOptionItem[];
 
     return {

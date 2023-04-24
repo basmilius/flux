@@ -10,25 +10,26 @@ export interface FluxFilterBase {
     getValueLabel(value: FluxFilterValue, translate: FluxTranslator): string | null;
 }
 
-export interface FluxFilterDate extends FluxFilterBase {
+export interface FluxFilterDateEntry extends FluxFilterBase {
     readonly type: 'date';
 }
 
-export interface FluxFilterDateRange extends FluxFilterBase {
+export interface FluxFilterDateRangeEntry extends FluxFilterBase {
     readonly type: 'dateRange';
 }
 
-export interface FluxFilterOption extends FluxFilterBase {
+export interface FluxFilterOptionEntry extends FluxFilterBase {
     readonly type: 'option';
 }
 
-export interface FluxFilterOptions extends FluxFilterBase {
+export interface FluxFilterOptionsEntry extends FluxFilterBase {
     readonly type: 'options';
 }
 
-export type FluxFilterItem = FluxFilterDate
-    | FluxFilterOption
-    | FluxFilterOptions;
+export type FluxFilterItem = FluxFilterDateEntry
+    | FluxFilterDateRangeEntry
+    | FluxFilterOptionEntry
+    | FluxFilterOptionsEntry;
 
 export interface FluxFilterOptionItem {
     readonly label: string;
