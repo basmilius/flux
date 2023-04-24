@@ -40,7 +40,7 @@
         "vue": "^2.7.14",
         "vue-docgen-web-types": "^0.1.8",
         "vue-template-compiler": "^2.7.14",
-        "vue-tsc": "^1.4.2"
+        "vue-tsc": "^1.4.4"
     },
     "peerDependencies": {
         "luxon": "^3.3.0",
