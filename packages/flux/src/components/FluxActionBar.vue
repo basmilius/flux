@@ -5,17 +5,23 @@
         :gap="9">
         <slot name="primary"/>
 
+        <slot name="actions-start"/>
+
         <flux-spacer/>
+
+        <slot name="actions-before-search"/>
 
         <slot name="search"/>
 
-        <flux-flyout>
+        <slot name="actions-after-search"/>
+
+        <flux-flyout v-if="slots.filter">
             <template
                 v-if="$slots.filter"
                 #opener="bindings">
                 <slot
-                    name="filterOpener"
-                    v-bind="bindings">
+                    v-bind="bindings"
+                    name="filter-opener">
                     <flux-secondary-button
                         icon-before="filter"
                         @click="bindings.open"/>
@@ -24,22 +30,32 @@
 
             <template #default="bindings">
                 <slot
-                    name="filter"
-                    v-bind="bindings"/>
+                    v-bind="bindings"
+                    name="filter"/>
             </template>
         </flux-flyout>
+
+        <slot name="actions-end"/>
     </flux-stack>
 </template>
 
 <script
     lang="ts"
     setup>
+    import { useSlots } from 'vue-demi';
     import { FluxFlyout, FluxSecondaryButton, FluxSpacer, FluxStack } from '.';
+
+    const slots = useSlots();
 </script>
 
 <style lang="scss">
     .flux-action-bar .flux-form-input {
-        width: unset;
+        max-width: 240px;
+    }
+
+    .flux-action-bar > .flux-separator {
+        margin-top: 9px;
+        margin-bottom: 9px;
     }
 
     .flux-pane > .flux-action-bar {

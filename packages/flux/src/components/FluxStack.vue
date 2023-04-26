@@ -57,11 +57,6 @@
             flex-wrap: wrap;
         }
 
-        > .flux-separator {
-            margin-top: 21px;
-            margin-bottom: 21px;
-        }
-
         &.is-growing > *:not(.flux-separator) {
             flex: 1 1 0;
         }

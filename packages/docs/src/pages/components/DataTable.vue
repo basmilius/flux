@@ -11,8 +11,8 @@
                     :total="dataSet.length"
                     is-hoverable>
                     <template #header>
-                        <flux-table-header>Name</flux-table-header>
-                        <flux-table-header>Email</flux-table-header>
+                        <flux-table-header is-sortable sort="ascending">Name</flux-table-header>
+                        <flux-table-header is-sortable>Email</flux-table-header>
                         <flux-table-header is-shrinking>Status</flux-table-header>
                         <flux-table-header is-shrinking/>
                     </template>
@@ -68,6 +68,10 @@
                 include advanced sorting and filtering capabilities, allowing users to quickly search and analyze data
                 based on specific criteria.
             </p>
+        </api-section>
+
+        <api-section title="Required icons">
+            <api-required-icons :icons="['arrow-down-a-z', 'arrow-up-a-z', 'arrow-up-arrow-down', 'circle-xmark']"/>
         </api-section>
 
         <api-section title="API">
@@ -132,7 +136,7 @@
     lang="ts"
     setup>
     import { FluxAction, FluxBadge, FluxBadgeStack, FluxDataTable, FluxPane, FluxStack, FluxTableActions, FluxTableCell, FluxTableHeader } from '@fancee/flux';
-    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
     import { computed } from 'vue';
     import basic from '@/code/components/dataTable/basic.vue';
     import basicCode from '@/code/components/dataTable/basic.vue?raw';

@@ -1,5 +1,14 @@
 <template>
     <flux-menu-group>
+        <flux-form-input
+            v-if="isSearchable"
+            v-model="searchQuery"
+            auto-complete="off"
+            is-secondary
+            icon-before="magnifying-glass"
+            :placeholder="searchPlaceholder"
+            type="search"/>
+
         <template
             v-for="option of options"
             :key="option.value">
@@ -16,20 +25,31 @@
     lang="ts"
     setup>
     import type { FluxFilterOptionItem, FluxFilterValue, IconNames } from '../data';
-    import { computed, unref } from 'vue-demi';
+    import { computed, ref, toRefs, unref, watch } from 'vue-demi';
     import { useFilterInjection } from '../composables';
-    import { FluxMenuGroup, FluxMenuItem } from '.';
+    import { FluxFormInput, FluxMenuGroup, FluxMenuItem } from '.';
+
+    export interface Emits {
+        (e: 'update:search', searchQuery: string): void;
+    }
 
     export interface Props {
         readonly icon?: IconNames;
+        readonly isSearchable?: boolean;
         readonly label: string;
         readonly name: string;
         readonly options: FluxFilterOptionItem[];
+        readonly search?: string;
+        readonly searchPlaceholder?: string;
     }
 
+    const emit = defineEmits<Emits>();
     const props = defineProps<Props>();
+    const {search} = toRefs(props);
 
     const {state, setValue} = useFilterInjection();
+
+    const searchQuery = ref('');
 
     const currentValue = computed(() => {
         const value = unref(state)[props.name];
@@ -60,4 +80,8 @@
 
         setValue(props.name, value);
     }
+
+    watch(() => search, () => searchQuery.value = search?.value ?? '', {immediate: true});
+
+    watch(searchQuery, searchQuery => emit('update:search', searchQuery));
 </script>

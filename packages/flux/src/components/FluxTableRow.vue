@@ -11,6 +11,7 @@
 
 <style lang="scss">
     .flux-table-row {
+        height: 0;
         margin: 0;
         padding: 0;
     }

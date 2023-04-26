@@ -135,6 +135,10 @@
                         <td>When provided, cell group will shrink to its contents.</td>
                     </tr>
                     <tr>
+                        <td><code>is-sortable</code><code>boolean</code></td>
+                        <td>When provided, the table header cell will render a sorting flyout.</td>
+                    </tr>
+                    <tr>
                         <td><code>is-sticky</code><code>boolean</code></td>
                         <td>When provided, the table header cell will be sticky to the top when scrolled.</td>
                     </tr>
@@ -142,12 +146,23 @@
                         <td><code>min-width</code><code>number</code></td>
                         <td>Minimal width of the cell group.</td>
                     </tr>
+                    <tr>
+                        <td><code>sort</code><code>'ascending' | 'descending' | null</code></td>
+                        <td>The current sorting that is applied on the table header cell.</td>
+                    </tr>
                 </template>
 
                 <template #slots>
                     <tr>
                         <td><code>default</code><code>{}</code></td>
                         <td>Contents of the header cell.</td>
+                    </tr>
+                </template>
+
+                <template #emits>
+                    <tr>
+                        <td><code>sort</code><code>(sort: 'ascending' | 'descending' | null): void</code></td>
+                        <td>Triggered when the sorting changes.</td>
                     </tr>
                 </template>
             </api-component>

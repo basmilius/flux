@@ -1,6 +1,8 @@
 <template>
     <td class="flux-table-cell">
-        <slot/>
+        <div class="flux-table-cell-content">
+            <slot/>
+        </div>
     </td>
 </template>
 
@@ -11,8 +13,14 @@
 
 <style lang="scss">
     .flux-table-cell {
-        padding: 12px 15px;
-        vertical-align: top;
+        height: 0;
+
+        &-content {
+            display: flex;
+            height: 100%;
+            padding: 12px 15px;
+            align-items: flex-start;
+        }
     }
 
     .flux-table {
@@ -33,7 +41,7 @@
         }
     }
 
-    .flux-pane > .flux-table .flux-table-cell {
+    .flux-pane > .flux-table .flux-table-cel-contentl {
         &:first-child {
             padding-left: 21px;
         }
@@ -43,7 +51,7 @@
         }
     }
 
-    :not(.flux-pane) > .flux-table .flux-table-cell {
+    :not(.flux-pane) > .flux-table .flux-table-cell-content {
         &:first-child {
             padding-left: 0;
         }

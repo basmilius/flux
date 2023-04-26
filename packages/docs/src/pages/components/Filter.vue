@@ -8,9 +8,11 @@
             <flux-pane style="align-self: start; translate: 0 54px; width: 330px">
                 <flux-filter v-model="filterState">
                     <flux-filter-option
+                        is-searchable
                         icon="clone"
                         label="Option"
                         name="option1"
+                        search-placeholder="Search options..."
                         :options="[
                             {label: 'Option A', value: 'a'},
                             {label: 'Option B', value: 'b'},
@@ -18,9 +20,11 @@
                         ]"/>
 
                     <flux-filter-options
+                        is-searchable
                         icon="circle-check"
                         label="Choices"
                         name="option2"
+                        search-placeholder="Search options..."
                         :options="[
                             {label: 'Option A', value: 'a'},
                             {label: 'Option B', value: 'b'},
@@ -50,7 +54,7 @@
         </api-section>
 
         <api-section title="Required icons">
-            <api-required-icons :icons="['angle-left', 'angle-right', 'circle-check', 'trash']"/>
+            <api-required-icons :icons="['angle-left', 'angle-right', 'circle-check', 'magnifying-glass', 'trash']"/>
         </api-section>
 
         <api-section title="API">
@@ -161,6 +165,10 @@
                         <td>The icon for the filter option.</td>
                     </tr>
                     <tr>
+                        <td><code>is-searchable</code><code>boolean</code></td>
+                        <td>Enables a search bar within the list with options.</td>
+                    </tr>
+                    <tr>
                         <td><code>label</code><code>string</code></td>
                         <td>The label for the filter option.</td>
                     </tr>
@@ -171,6 +179,21 @@
                     <tr>
                         <td><code>options</code><code>FluxFilterOptionItem[]</code></td>
                         <td>The available options.</td>
+                    </tr>
+                    <tr>
+                        <td><code>search</code><code>string</code></td>
+                        <td>Search query that is visible in the search bar.</td>
+                    </tr>
+                    <tr>
+                        <td><code>search-placeholder</code><code>string</code></td>
+                        <td>Placeholder that is visible in the search bar.</td>
+                    </tr>
+                </template>
+
+                <template #emits>
+                    <tr>
+                        <td><code>update:search</code><code>(searchQuery: string): void</code></td>
+                        <td>Triggered when the search query changes.</td>
                     </tr>
                 </template>
             </api-component>
@@ -182,6 +205,10 @@
                         <td>The icon for the filter option.</td>
                     </tr>
                     <tr>
+                        <td><code>is-searchable</code><code>boolean</code></td>
+                        <td>Enables a search bar within the list with options.</td>
+                    </tr>
+                    <tr>
                         <td><code>label</code><code>string</code></td>
                         <td>The label for the filter option.</td>
                     </tr>
@@ -192,6 +219,21 @@
                     <tr>
                         <td><code>options</code><code>FluxFilterOptionItem[]</code></td>
                         <td>The available options.</td>
+                    </tr>
+                    <tr>
+                        <td><code>search</code><code>string</code></td>
+                        <td>Search query that is visible in the search bar.</td>
+                    </tr>
+                    <tr>
+                        <td><code>search-placeholder</code><code>string</code></td>
+                        <td>Placeholder that is visible in the search bar.</td>
+                    </tr>
+                </template>
+
+                <template #emits>
+                    <tr>
+                        <td><code>update:search</code><code>(searchQuery: string): void</code></td>
+                        <td>Triggered when the search query changes.</td>
                     </tr>
                 </template>
             </api-component>
