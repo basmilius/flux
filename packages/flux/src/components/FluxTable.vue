@@ -1,9 +1,5 @@
 <template>
-    <div
-        class="flux-table"
-        :class="{
-            'is-hoverable': isHoverable
-        }">
+    <div class="flux-table">
         <table class="flux-table-base">
             <thead v-if="slots.header">
             <slot name="header"/>
@@ -27,18 +23,28 @@
 <script
     lang="ts"
     setup>
-    import { useSlots } from 'vue-demi';
+    import { provide, toRefs, useSlots } from 'vue-demi';
+    import { FluxTableInjectionKey } from '../data';
 
     export interface Props {
         readonly captionSide?: 'top' | 'bottom';
+        readonly isBordered?: boolean;
         readonly isHoverable?: boolean;
+        readonly isSeparated?: boolean;
+        readonly isStriped?: boolean;
     }
 
-    withDefaults(defineProps<Props>(), {
-        captionSide: 'bottom'
+    const props = withDefaults(defineProps<Props>(), {
+        captionSide: 'bottom',
+        isBordered: true,
+        isHoverable: false,
+        isSeparated: true,
+        isStriped: false
     });
 
     const slots = useSlots();
+
+    provide(FluxTableInjectionKey, toRefs(props));
 </script>
 
 <style lang="scss">

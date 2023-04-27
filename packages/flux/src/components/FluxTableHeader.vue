@@ -2,6 +2,7 @@
     <th
         class="flux-table-cell flux-table-header"
         :class="{
+            'is-bordered': isBordered,
             'is-shrinking': isShrinking,
             'is-sticky': isSticky
         }">
@@ -58,7 +59,7 @@
     setup>
     import type { IconNames } from '../data';
     import { computed } from 'vue-demi';
-    import { useTranslate } from '../composables';
+    import { useTableInjection, useTranslate } from '../composables';
     import { FluxFlyout, FluxIcon, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSeparator } from '.';
 
     export interface Emits {
@@ -79,6 +80,7 @@
         sort: null
     });
 
+    const {isBordered} = useTableInjection();
     const translate = useTranslate();
 
     const sortingIcon = computed((): IconNames => {

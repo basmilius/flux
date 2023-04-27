@@ -4,11 +4,6 @@
     </tr>
 </template>
 
-<script
-    lang="ts"
-    setup>
-</script>
-
 <style lang="scss">
     .flux-table-row {
         height: 0;

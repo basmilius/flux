@@ -18,3 +18,4 @@ export { useFilterInjection } from './useFilterInjection';
 export { useFlyoutInjection } from './useFlyoutInjection';
 export { useFormFieldInjection } from './useFormFieldInjection';
 export { useSkeletonsInjection } from './useSkeletonsInjection';
+export { useTableInjection } from './useTableInjection';
