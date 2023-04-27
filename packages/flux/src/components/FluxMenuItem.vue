@@ -164,7 +164,7 @@
                 font-size: 16px;
             }
 
-            + &-icon {
+            & + &-icon {
                 margin-left: -9px;
             }
         }
