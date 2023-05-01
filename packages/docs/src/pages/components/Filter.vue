@@ -5,7 +5,7 @@
             title="Filter"/>
 
         <preview style="min-height: 420px">
-            <flux-pane style="align-self: start; translate: 0 54px; width: 330px">
+            <flux-pane style="align-self: start; translate: 0 54px; width: max-content">
                 <flux-filter v-model="filterState">
                     <flux-filter-option
                         is-searchable
