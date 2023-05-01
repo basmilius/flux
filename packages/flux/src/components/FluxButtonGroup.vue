@@ -13,11 +13,13 @@
             border-radius: 0;
 
             &:first-child {
-                border-radius: var(--radius) 0 0 var(--radius);
+                border-top-left-radius: var(--radius);
+                border-bottom-left-radius: var(--radius);
             }
 
             &:last-child {
-                border-radius: 0 var(--radius) var(--radius) 0;
+                border-top-right-radius: var(--radius);
+                border-bottom-right-radius: var(--radius);
             }
         }
 

@@ -2,12 +2,8 @@
     "name": "fancee-flux-workspace",
     "private": true,
     "scripts": {
-        "build": "pnpm build:2 && pnpm build:3",
-        "build:2": "pnpm run -C packages/vue2 build",
-        "build:3": "pnpm run -C packages/vue3 build",
-        "dev": "concurrently -k -c magenta,cyan -n vue2,vue3 'pnpm dev:2' 'pnpm dev:3'",
-        "dev:2": "pnpm run -C packages/vue2 build:watch",
-        "dev:3": "pnpm run -C packages/vue3 build:watch",
+        "build": "pnpm --filter '@fancee/*' -r build",
+        "dev": "pnpm --filter '@fancee/*' -r dev",
         "docs:build": "pnpm run -C packages/docs build",
         "docs:dev": "pnpm run -C packages/docs dev",
         "link:2": "pnpm link --dir packages/vue2 --global",
@@ -18,9 +14,9 @@
         "node": ">=18"
     },
     "devDependencies": {
-        "@types/node": "^18.15.13",
+        "@types/node": "^18.16.1",
         "concurrently": "^8.0.1",
-        "vite": "^4.3.1",
+        "vite": "^4.3.3",
         "vue": "^3.2.47"
     }
 }

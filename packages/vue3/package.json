@@ -1,10 +1,10 @@
 {
     "name": "@fancee/flux",
-    "version": "1.0.36",
+    "version": "1.0.37",
     "type": "module",
     "scripts": {
         "build": "vue-demi-switch 3 && vite build && pnpm run gentypes",
-        "build:watch": "vue-demi-switch 3 && vite build --watch",
+        "dev": "vue-demi-switch 3 && vite build --watch",
         "gentypes": "pnpm gentypes:dts && pnpm gentypes:webtypes && pnpm gentypes:clean",
         "gentypes:clean": "mv dist/flux/src/* dist && rm -rf dist/flux dist/vue3",
         "gentypes:dts": "vue-tsc --declaration --lib esnext,dom --outDir dist --emitDeclarationOnly --moduleResolution node --target esnext index.ts",
@@ -30,17 +30,17 @@
     },
     "devDependencies": {
         "@fortawesome/fontawesome-common-types": "^6.4.0",
-        "@vitejs/plugin-vue": "^4.1.0",
+        "@vitejs/plugin-vue": "^4.2.1",
         "@vue/compiler-sfc": "^3.2.47",
         "autoprefixer": "^10.4.14",
         "luxon": "^3.3.0",
         "minimist": "^1.2.8",
         "pinia": "^2.0.35",
         "typescript": "^4.9.5",
-        "vite": "^4.3.1",
+        "vite": "^4.3.3",
         "vue": "^3.2.47",
         "vue-docgen-web-types": "^0.1.8",
-        "vue-tsc": "^1.4.2"
+        "vue-tsc": "^1.6.1"
     },
     "peerDependencies": {
         "luxon": "^3.3.0",

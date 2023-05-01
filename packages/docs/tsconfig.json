@@ -23,6 +23,10 @@
         }
     },
     "include": [
+        "./src/**/*.ts",
+        "./src/**/*.d.ts",
+        "./src/**/*.tsx",
+        "./src/**/*.vue",
         "../flux/src/**/*.ts",
         "../flux/src/**/*.d.ts",
         "../flux/src/**/*.tsx",

@@ -1,5 +1,10 @@
 <template>
-    <flux-table :is-hoverable="isHoverable">
+    <flux-table
+        :is-bordered="isBordered"
+        :is-hoverable="isHoverable"
+        :is-loading="isLoading"
+        :is-separated="isSeparated"
+        :is-striped="isStriped">
         <template
             v-if="slots.header"
             #header>
@@ -34,7 +39,11 @@
 
     export interface Props {
         readonly dataSet: unknown[];
+        readonly isBordered?: boolean;
         readonly isHoverable?: boolean;
+        readonly isLoading?: boolean;
+        readonly isSeparated?: boolean;
+        readonly isStriped?: boolean;
         readonly page?: number;
         readonly perPage?: number;
         readonly total: number;
@@ -42,6 +51,11 @@
     }
 
     withDefaults(defineProps<Props>(), {
+        isBordered: true,
+        isHoverable: false,
+        isLoading: false,
+        isSeparated: true,
+        isStriped: false,
         page: 1,
         perPage: 1000
     });

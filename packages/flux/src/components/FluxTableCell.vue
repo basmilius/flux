@@ -1,54 +1,79 @@
 <template>
-    <td class="flux-table-cell">
-        <slot/>
+    <td
+        class="flux-table-cell"
+        :class="{
+            'is-bordered': isBordered,
+            'is-hoverable': isHoverable,
+            'is-separated': isSeparated,
+            'is-striped': isStriped
+        }">
+        <div class="flux-table-cell-content">
+            <slot/>
+        </div>
     </td>
 </template>
 
 <script
     lang="ts"
     setup>
+    import { useTableInjection } from '../composables';
+
+    const {
+        isBordered,
+        isHoverable,
+        isSeparated,
+        isStriped
+    } = useTableInjection();
 </script>
 
 <style lang="scss">
-    .flux-table-cell {
-        padding: 12px 15px;
-        vertical-align: top;
-    }
-
     .flux-table {
-        &.is-hoverable tbody &-row:hover &-cell {
-            background: rgb(var(--gray-1));
+        &-cell {
+            height: 0;
+            padding: 0;
+            border: 0 solid rgb(var(--gray-3));
+
+            &-content {
+                display: flex;
+                height: 100%;
+                padding: 12px 15px;
+                align-items: flex-start;
+            }
+        }
+
+        tbody &-row:nth-child(even) &-cell.is-striped {
+            background: rgb(var(--gray-2));
+        }
+
+        tbody &-row:hover &-cell.is-hoverable {
+            background: rgb(var(--gray-2));
         }
 
         tfoot &-cell {
             border-top: 2px solid rgb(var(--gray-3));
         }
 
-        &-cell + &-cell {
-            border-left: 1px solid rgb(var(--gray-3));
+        &-cell + &-cell.is-bordered {
+            border-left-width: 1px;
         }
 
-        &-row + &-row &-cell {
-            border-top: 1px solid rgb(var(--gray-3));
+        &-row + &-row &-cell.is-separated {
+            border-top-width: 1px;
         }
-    }
 
-    .flux-pane > .flux-table .flux-table-cell {
-        &:first-child {
+        @at-root .flux-pane > & &-cell:first-child &-cell-content {
             padding-left: 21px;
         }
 
-        &:last-child {
+        @at-root .flux-pane > & &-cell:last-child &-cell-content {
             padding-right: 21px;
         }
-    }
 
-    :not(.flux-pane) > .flux-table .flux-table-cell {
-        &:first-child {
+        @at-root :not(.flux-pane) > & &-cell:not(.is-bordered):first-child &-cell-content {
             padding-left: 0;
         }
 
-        &:last-child {
+        @at-root :not(.flux-pane) > & &-cell:not(.is-bordered):last-child &-cell-content {
             padding-right: 0;
         }
     }

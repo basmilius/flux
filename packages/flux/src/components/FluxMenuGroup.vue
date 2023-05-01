@@ -26,5 +26,9 @@
             flex-flow: row;
             gap: 3px;
         }
+
+        > .flux-form-input {
+            margin-bottom: 6px;
+        }
     }
 </style>

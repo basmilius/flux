@@ -5,7 +5,7 @@
             title="Table"/>
 
         <preview>
-            <flux-pane is-contained>
+            <flux-pane>
                 <flux-table is-hoverable>
                     <template #header>
                         <flux-table-row>
@@ -85,8 +85,24 @@
                         <td>Where the caption of the table should be placed.</td>
                     </tr>
                     <tr>
+                        <td><code>is-bordered</code><code>boolean</code></td>
+                        <td>Applies borders to all sides of the table cells.</td>
+                    </tr>
+                    <tr>
                         <td><code>is-hoverable</code><code>boolean</code></td>
-                        <td>When provided, the table rows will have a hover state when hovered.</td>
+                        <td>Adds a hover to each rows within the table body.</td>
+                    </tr>
+                    <tr>
+                        <td><code>is-loading</code><code>boolean</code></td>
+                        <td>Indicates that the table is loading.</td>
+                    </tr>
+                    <tr>
+                        <td><code>is-separated</code><code>boolean</code></td>
+                        <td>Adds a border between each row in the table body.</td>
+                    </tr>
+                    <tr>
+                        <td><code>is-striped</code><code>boolean</code></td>
+                        <td>Adds alternating colors to each row in the table body.</td>
                     </tr>
                 </template>
 
@@ -135,6 +151,10 @@
                         <td>When provided, cell group will shrink to its contents.</td>
                     </tr>
                     <tr>
+                        <td><code>is-sortable</code><code>boolean</code></td>
+                        <td>When provided, the table header cell will render a sorting flyout.</td>
+                    </tr>
+                    <tr>
                         <td><code>is-sticky</code><code>boolean</code></td>
                         <td>When provided, the table header cell will be sticky to the top when scrolled.</td>
                     </tr>
@@ -142,12 +162,23 @@
                         <td><code>min-width</code><code>number</code></td>
                         <td>Minimal width of the cell group.</td>
                     </tr>
+                    <tr>
+                        <td><code>sort</code><code>'ascending' | 'descending' | null</code></td>
+                        <td>The current sorting that is applied on the table header cell.</td>
+                    </tr>
                 </template>
 
                 <template #slots>
                     <tr>
                         <td><code>default</code><code>{}</code></td>
                         <td>Contents of the header cell.</td>
+                    </tr>
+                </template>
+
+                <template #emits>
+                    <tr>
+                        <td><code>sort</code><code>(sort: 'ascending' | 'descending' | null): void</code></td>
+                        <td>Triggered when the sorting changes.</td>
                     </tr>
                 </template>
             </api-component>

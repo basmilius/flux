@@ -16,8 +16,9 @@
 
         <flux-pane-footer>
             <highlighted-code
+                v-if="!!component || !!html || !!language"
                 :code="code"
-                :language="html ? 'html' : (component ? 'vue' : language)"/>
+                :language="html ? 'html' : (component ? 'vue' : language!)"/>
         </flux-pane-footer>
     </flux-pane>
 </template>

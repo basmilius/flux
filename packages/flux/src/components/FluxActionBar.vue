@@ -5,41 +5,81 @@
         :gap="9">
         <slot name="primary"/>
 
+        <slot name="actions-start"/>
+
         <flux-spacer/>
+
+        <slot name="actions-before-search"/>
 
         <slot name="search"/>
 
-        <flux-flyout>
+        <slot name="actions-after-search"/>
+
+        <flux-flyout v-if="slots.filter">
             <template
                 v-if="$slots.filter"
                 #opener="bindings">
                 <slot
-                    name="filterOpener"
-                    v-bind="bindings">
-                    <flux-secondary-button
-                        icon-before="filter"
-                        @click="bindings.open"/>
+                    v-bind="bindings"
+                    name="filter-opener">
+                    <flux-button-group>
+                        <flux-secondary-button
+                            icon-before="filter"
+                            :label="translate('flux_filter')"
+                            @click="bindings.open"/>
+
+                        <flux-tooltip
+                            v-if="isResettable"
+                            :content="translate('flux_filter_reset')">
+                            <flux-destructive-button
+                                icon-before="xmark"
+                                @click="$emit('reset')"/>
+                        </flux-tooltip>
+                    </flux-button-group>
                 </slot>
             </template>
 
             <template #default="bindings">
                 <slot
-                    name="filter"
-                    v-bind="bindings"/>
+                    v-bind="bindings"
+                    name="filter"/>
             </template>
         </flux-flyout>
+
+        <slot name="actions-end"/>
     </flux-stack>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxFlyout, FluxSecondaryButton, FluxSpacer, FluxStack } from '.';
+    import { useSlots } from 'vue-demi';
+    import { useTranslate } from '../composables';
+    import { FluxButtonGroup, FluxDestructiveButton, FluxFlyout, FluxSecondaryButton, FluxSpacer, FluxStack, FluxTooltip } from '.';
+
+    export interface Emits {
+        (e: 'reset'): void;
+    }
+
+    export interface Props {
+        readonly isResettable?: boolean;
+    }
+
+    defineEmits<Emits>();
+    defineProps<Props>();
+
+    const slots = useSlots();
+    const translate = useTranslate();
 </script>
 
 <style lang="scss">
     .flux-action-bar .flux-form-input {
-        width: unset;
+        max-width: 240px;
+    }
+
+    .flux-action-bar > .flux-separator {
+        margin-top: 9px;
+        margin-bottom: 9px;
     }
 
     .flux-pane > .flux-action-bar {

@@ -88,7 +88,7 @@
                 </tr>
             </api-components>
 
-            <api-component name="FluxTabs">
+            <api-component name="Tabs">
                 <template #props>
                     <tr>
                         <td><code>model-value</code><code>number</code></td>
@@ -119,7 +119,7 @@
                 </template>
             </api-component>
 
-            <api-component name="FluxTab">
+            <api-component name="Tab">
                 <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
@@ -139,7 +139,7 @@
                 </template>
             </api-component>
 
-            <api-component name="FluxTabBar">
+            <api-component name="TabBar">
                 <template #slots>
                     <tr>
                         <td><code>default</code><code>{}</code></td>
@@ -148,7 +148,7 @@
                 </template>
             </api-component>
 
-            <api-component name="FluxTabBarItem">
+            <api-component name="TabBarItem">
                 <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>

@@ -53,7 +53,7 @@
     const {isOpened} = toRefs(props);
 
     const id = useComponentId();
-    const instance = getCurrentInstance();
+    const instance = getCurrentInstance()!;
     const isOpen = ref(false);
 
     const {closeAll, register, unregister} = useExpandableGroupInjection();

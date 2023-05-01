@@ -1,6 +1,6 @@
 <template>
     <div class="api-example">
-        <component :is="titleTag">{{ title }}</component>
+        <component :is="titleTag!">{{ title }}</component>
         <p v-if="description">{{ description }}</p>
 
         <code-preview
