@@ -200,6 +200,7 @@
             padding: 0 12px;
             background: unset;
             border: 0;
+            border-radius: inherit;
             color: inherit;
             font: inherit;
             outline: 0;
