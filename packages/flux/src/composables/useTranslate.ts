@@ -6,6 +6,8 @@ const english: Record<string, string> = {
     flux_coming_soon: 'Coming soon',
     flux_continue: 'Continue',
     flux_custom_period: 'Custom period',
+    flux_filter: 'Filter',
+    flux_filter_reset: 'Reset filters',
     flux_n_selected: '{n} selected',
     flux_ok: 'Ok',
     flux_optional: 'Optional',

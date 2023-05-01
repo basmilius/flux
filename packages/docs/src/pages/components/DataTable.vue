@@ -82,8 +82,24 @@
                         <td>The visible data set for the table.</td>
                     </tr>
                     <tr>
+                        <td><code>is-bordered</code><code>boolean</code></td>
+                        <td>Applies borders to all sides of the table cells.</td>
+                    </tr>
+                    <tr>
                         <td><code>is-hoverable</code><code>boolean</code></td>
-                        <td>When provided, the table rows will have a hover state when hovered.</td>
+                        <td>Adds a hover to each rows within the table body.</td>
+                    </tr>
+                    <tr>
+                        <td><code>is-loading</code><code>boolean</code></td>
+                        <td>Indicates that the table is loading.</td>
+                    </tr>
+                    <tr>
+                        <td><code>is-separated</code><code>boolean</code></td>
+                        <td>Adds a border between each row in the table body.</td>
+                    </tr>
+                    <tr>
+                        <td><code>is-striped</code><code>boolean</code></td>
+                        <td>Adds alternating colors to each row in the table body.</td>
                     </tr>
                     <tr>
                         <td><code>page</code><code>number</code></td>

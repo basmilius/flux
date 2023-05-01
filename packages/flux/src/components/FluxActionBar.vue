@@ -22,9 +22,20 @@
                 <slot
                     v-bind="bindings"
                     name="filter-opener">
-                    <flux-secondary-button
-                        icon-before="filter"
-                        @click="bindings.open"/>
+                    <flux-button-group>
+                        <flux-secondary-button
+                            icon-before="filter"
+                            :label="translate('flux_filter')"
+                            @click="bindings.open"/>
+
+                        <flux-tooltip
+                            v-if="isResettable"
+                            :content="translate('flux_filter_reset')">
+                            <flux-destructive-button
+                                icon-before="xmark"
+                                @click="$emit('reset')"/>
+                        </flux-tooltip>
+                    </flux-button-group>
                 </slot>
             </template>
 
@@ -43,9 +54,22 @@
     lang="ts"
     setup>
     import { useSlots } from 'vue-demi';
-    import { FluxFlyout, FluxSecondaryButton, FluxSpacer, FluxStack } from '.';
+    import { useTranslate } from '../composables';
+    import { FluxButtonGroup, FluxDestructiveButton, FluxFlyout, FluxSecondaryButton, FluxSpacer, FluxStack, FluxTooltip } from '.';
+
+    export interface Emits {
+        (e: 'reset'): void;
+    }
+
+    export interface Props {
+        readonly isResettable?: boolean;
+    }
+
+    defineEmits<Emits>();
+    defineProps<Props>();
 
     const slots = useSlots();
+    const translate = useTranslate();
 </script>
 
 <style lang="scss">

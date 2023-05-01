@@ -93,6 +93,10 @@
                         <td>Adds a hover to each rows within the table body.</td>
                     </tr>
                     <tr>
+                        <td><code>is-loading</code><code>boolean</code></td>
+                        <td>Indicates that the table is loading.</td>
+                    </tr>
+                    <tr>
                         <td><code>is-separated</code><code>boolean</code></td>
                         <td>Adds a border between each row in the table body.</td>
                     </tr>

@@ -81,7 +81,7 @@
                 </tr>
             </api-components>
 
-            <api-component name="FluxFilter">
+            <api-component name="Filter">
                 <template #props>
                     <tr>
                         <td><code>model-value</code><code>object</code></td>
@@ -104,7 +104,7 @@
                 </template>
             </api-component>
 
-            <api-component name="FluxFilterDate">
+            <api-component name="FilterDate">
                 <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
@@ -129,7 +129,7 @@
                 </template>
             </api-component>
 
-            <api-component name="FluxFilterDateRange">
+            <api-component name="FilterDateRange">
                 <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
@@ -158,7 +158,7 @@
                 </template>
             </api-component>
 
-            <api-component name="FluxFilterOption">
+            <api-component name="FilterOption">
                 <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
@@ -198,7 +198,7 @@
                 </template>
             </api-component>
 
-            <api-component name="FluxFilterOptions">
+            <api-component name="FilterOptions">
                 <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
@@ -238,6 +238,32 @@
                 </template>
             </api-component>
         </api-section>
+
+        <api-section title="Examples">
+            <api-example
+                :code="optionCode"
+                :component="option"
+                title="Single option"
+                description="A filter where the user can select a single value."/>
+
+            <api-example
+                :code="optionsCode"
+                :component="options"
+                title="Multiple options"
+                description="A filter where the user can select multiple values."/>
+
+            <api-example
+                :code="dateCode"
+                :component="date"
+                title="Date"
+                description="A filter where the user can select a date."/>
+
+            <api-example
+                :code="dateRangeCode"
+                :component="dateRange"
+                title="Date"
+                description="A filter where the user can select a date range."/>
+        </api-section>
     </flux-stack>
 </template>
 
@@ -245,9 +271,17 @@
     lang="ts"
     setup>
     import { FluxFilter, FluxFilterDate, FluxFilterDateRange, FluxFilterOption, FluxFilterOptions, FluxPane, FluxSeparator, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiComponents, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
     import { DateTime } from 'luxon';
     import { ref } from 'vue';
+    import date from '@/code/components/filter/date.vue';
+    import dateCode from '@/code/components/filter/date.vue?raw';
+    import dateRange from '@/code/components/filter/dateRange.vue';
+    import dateRangeCode from '@/code/components/filter/dateRange.vue?raw';
+    import option from '@/code/components/filter/option.vue';
+    import optionCode from '@/code/components/filter/option.vue?raw';
+    import options from '@/code/components/filter/options.vue';
+    import optionsCode from '@/code/components/filter/options.vue?raw';
 
     const filterState = ref({
         option1: 'b',

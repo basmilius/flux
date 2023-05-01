@@ -20,19 +20,6 @@
                         </flux-pane-body>
                     </template>
 
-                    <template #filter-opener="{open}">
-                        <flux-button-group>
-                            <flux-secondary-button
-                                icon-before="filter"
-                                label="Filter"
-                                @click="open"/>
-
-                            <flux-tooltip content="Remove applied filters">
-                                <flux-destructive-button icon-before="xmark"/>
-                            </flux-tooltip>
-                        </flux-button-group>
-                    </template>
-
                     <template #search>
                         <flux-form-input
                             type="search"
@@ -67,6 +54,20 @@
 
         <api-section title="API">
             <api-component name="ActionBar">
+                <template #props>
+                    <tr>
+                        <td><code>is-resettable</code><code>boolean</code></td>
+                        <td>Enables the default reset button. Only works if the filter-opener slot isn't overridden.</td>
+                    </tr>
+                </template>
+
+                <template #emits>
+                    <tr>
+                        <td><code>reset</code><code>(): void</code></td>
+                        <td>Triggered when the default reset button is clicked. Only works if the filter-opener slot isn't overridden.</td>
+                    </tr>
+                </template>
+
                 <template #slots>
                     <tr>
                         <td><code>primary</code><code>{}</code></td>

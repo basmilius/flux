@@ -17,6 +17,12 @@
                 <slot name="caption"/>
             </caption>
         </table>
+
+        <div
+            v-if="isLoading"
+            class="flux-pane-overlay">
+            <flux-spinner/>
+        </div>
     </div>
 </template>
 
@@ -25,11 +31,13 @@
     setup>
     import { provide, toRefs, useSlots } from 'vue-demi';
     import { FluxTableInjectionKey } from '../data';
+    import { FluxSpinner } from './index';
 
     export interface Props {
         readonly captionSide?: 'top' | 'bottom';
         readonly isBordered?: boolean;
         readonly isHoverable?: boolean;
+        readonly isLoading?: boolean;
         readonly isSeparated?: boolean;
         readonly isStriped?: boolean;
     }
@@ -38,6 +46,7 @@
         captionSide: 'bottom',
         isBordered: true,
         isHoverable: false,
+        isLoading: false,
         isSeparated: true,
         isStriped: false
     });
@@ -49,6 +58,7 @@
 
 <style lang="scss">
     .flux-table {
+        position: relative;
         overflow: auto;
 
         &-base {
@@ -69,5 +79,9 @@
     .flux-pane > .flux-table caption {
         padding: 12px 21px;
         border-top: 1px solid rgb(var(--gray-3));
+    }
+
+    .flux-pane > .flux-table .flux-pane-overlay {
+        border-radius: var(--radius);
     }
 </style>
