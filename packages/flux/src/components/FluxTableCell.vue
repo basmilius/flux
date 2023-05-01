@@ -39,6 +39,10 @@
                 padding: 12px 15px;
                 align-items: flex-start;
             }
+
+            @-moz-document url-prefix() {
+                height: 100%;
+            }
         }
 
         tbody &-row:nth-child(even) &-cell.is-striped {
