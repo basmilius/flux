@@ -1,13 +1,16 @@
-image: node:18
+image: node:20
 
 clone:
   depth: 1
 
 options:
-  docker: true
   size: 2x
 
 definitions:
+  caches:
+    dist: packages/*/dist
+    modules: packages/*/node_modules
+
   services:
     docker:
       memory: 4096
@@ -19,11 +22,28 @@ definitions:
           - 'self.hosted'
           - 'linux'
         caches:
+          - dist
+          - modules
           - node
         script:
           - npm i -g pnpm
           - pnpm install
           - pnpm build
+
+    - step: &publish
+        name: Publish
+        runs-on:
+          - 'self.hosted'
+          - 'linux'
+        caches:
+          - dist
+          - modules
+          - node
+        deployment: production
+        trigger: automatic
+        script:
+          - npm i -g pnpm
+          - pnpm run publish
 
     - step: &sonar-scan-main
         name: SonarQube scan
@@ -67,30 +87,17 @@ pipelines:
   branches:
     main:
       - parallel:
-          steps:
-            - step: *build
-            - step: *sonar-scan-main
+          - step: *build
+          - step: *sonar-scan-main
 
     develop:
       - parallel:
-          steps:
-            - step: *build
-            - step: *sonar-scan
-      - step:
-          name: Publish to registry
-          runs-on:
-            - 'self.hosted'
-            - 'linux'
-          deployment: staging
-          trigger: automatic
-          script:
-            - npm i -g pnpm
-            - pnpm install
-            - npm run publish
+          - step: *build
+          - step: *sonar-scan
+      - step: *publish
 
   pull-requests:
     '**':
       - parallel:
-          steps:
-            - step: *build
-            - step: *sonar-scan-pr
+          - step: *build
+          - step: *sonar-scan-pr
