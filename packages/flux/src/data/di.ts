@@ -9,6 +9,7 @@ export const FluxFlyoutInjectionKey: InjectionKey<FluxFlyoutInjection> = Symbol(
 export const FluxFilterInjectionKey: InjectionKey<FluxFilterInjection> = Symbol();
 export const FluxFormFieldInjectionKey: InjectionKey<FluxFormFieldInjection> = Symbol();
 export const FluxSkeletonsInjectionKey: InjectionKey<FluxSkeletonsInjection> = Symbol();
+export const FluxTableInjectionKey: InjectionKey<FluxTableInjection> = Symbol();
 
 export interface FluxBreakpointsInjection {
     readonly breakpoint: Ref<Breakpoint>;
@@ -58,4 +59,11 @@ export interface FluxFormFieldInjection {
 
 export interface FluxSkeletonsInjection {
     readonly isEnabled: Ref<boolean>;
+}
+
+export interface FluxTableInjection {
+    readonly isBordered: Ref<boolean>;
+    readonly isHoverable: Ref<boolean>;
+    readonly isSeparated: Ref<boolean>;
+    readonly isStriped: Ref<boolean>;
 }

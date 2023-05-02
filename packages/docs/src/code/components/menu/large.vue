@@ -25,7 +25,6 @@
         FluxMenu,
         FluxMenuGroup,
         FluxMenuItem,
-        FluxPane,
-        FluxSeparator
+        FluxPane
     } from '@fancee/flux';
 </script>

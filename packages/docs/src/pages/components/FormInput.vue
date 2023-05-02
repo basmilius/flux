@@ -37,12 +37,24 @@
                         <td>Give the input focus when it is mounted.</td>
                     </tr>
                     <tr>
+                        <td><code>icon-after</code><code>IconNames</code></td>
+                        <td>An icon that is rendered at the end of the input.</td>
+                    </tr>
+                    <tr>
+                        <td><code>icon-before</code><code>IconNames</code></td>
+                        <td>An icon that is rendered at the start of the input.</td>
+                    </tr>
+                    <tr>
                         <td><code>is-disabled</code><code>boolean</code></td>
                         <td>Indicates that the field is disabled.</td>
                     </tr>
                     <tr>
                         <td><code>is-readonly</code><code>boolean</code></td>
                         <td>Indicates that the field is readonly.</td>
+                    </tr>
+                    <tr>
+                        <td><code>is-secondary</code><code>boolean</code></td>
+                        <td>Indicates that the field is secondary and is rendered in an alternative style.</td>
                     </tr>
                     <tr>
                         <td><code>max</code><code>number</code></td>

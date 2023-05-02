@@ -93,7 +93,11 @@
                 <template #props>
                     <tr>
                         <td><code>command</code><code>string</code></td>
-                        <td>Adds a keyboard shortcut.</td>
+                        <td>Adds a command.</td>
+                    </tr>
+                    <tr>
+                        <td><code>command-icon</code><code>IconNames</code></td>
+                        <td>Adds an icon for the command.</td>
                     </tr>
                     <tr>
                         <td><code>disabled</code><code>boolean</code></td>
@@ -112,6 +116,10 @@
                         <td>Indicates that the menu item is active.</td>
                     </tr>
                     <tr>
+                        <td><code>is-destructive</code><code>boolean</code></td>
+                        <td>Indicates that the menu item activates a destructive action.</td>
+                    </tr>
+                    <tr>
                         <td><code>is-highlighted</code><code>boolean</code></td>
                         <td>Adds a highlight to the menu item. This is used in the FluxFormSelect component for example.</td>
                     </tr>
@@ -122,6 +130,14 @@
                     <tr>
                         <td><code>is-loading</code><code>boolean</code></td>
                         <td>Sets a loading state to the menu item. This also disables it. The spinner will replace the icon used in the menu item.</td>
+                    </tr>
+                    <tr>
+                        <td><code>is-selectable</code><code>boolean</code></td>
+                        <td>Allows the menu item to be selected, this removes the icon before.</td>
+                    </tr>
+                    <tr>
+                        <td><code>is-selected</code><code>boolean</code></td>
+                        <td>Indicates that the menu item is currently selected. Requires is-selectable.</td>
                     </tr>
                     <tr>
                         <td><code>label</code><code>string</code></td>
