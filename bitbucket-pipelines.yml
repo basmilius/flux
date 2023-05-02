@@ -23,7 +23,6 @@ definitions:
           - node
           - npm
         script:
-          - echo "Global node_modules dir $(npm root -g)"
           - npm i -g pnpm
           - pnpm install
           - pnpm build
@@ -36,6 +35,7 @@ definitions:
         deployment: production
         trigger: automatic
         script:
+          - npm i -g pnpm
           - pnpm run publish
 
     - step: &sonar-scan-main
