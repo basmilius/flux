@@ -6,7 +6,6 @@ clone:
 definitions:
   caches:
     dist: packages/*/dist
-    npm: /usr/local/node_modules
 
   services:
     docker:
