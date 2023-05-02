@@ -31,10 +31,14 @@ definitions:
           - pnpm build
 
     - step: &publish
-        name: Publish to registry
+        name: Publish
         runs-on:
           - 'self.hosted'
           - 'linux'
+        caches:
+          - dist
+          - modules
+          - node
         deployment: production
         trigger: automatic
         script:
