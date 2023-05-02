@@ -3,6 +3,9 @@ image: node:20
 clone:
   depth: 1
 
+options:
+  size: 2x
+
 definitions:
   caches:
     dist: packages/*/dist
