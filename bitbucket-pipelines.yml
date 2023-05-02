@@ -20,7 +20,6 @@ definitions:
         caches:
           - dist
           - node
-          - npm
         script:
           - npm i -g pnpm
           - pnpm install
