@@ -10,7 +10,7 @@ definitions:
   caches:
     dist: packages/*/dist
     modules: packages/*/node_modules
-    sonar: /opt/sonar-scanner/.sonar
+    sonar: ~/.sonar
 
   services:
     docker:
@@ -52,7 +52,10 @@ definitions:
           - 'self.hosted'
           - 'linux'
         caches:
+          - docker
           - sonar
+        services:
+          - docker
         script:
           - pipe: sonarsource/sonarqube-scan:1.2.0
             variables:
@@ -65,7 +68,10 @@ definitions:
           - 'self.hosted'
           - 'linux'
         caches:
+          - docker
           - sonar
+        services:
+          - docker
         script:
           - pipe: sonarsource/sonarqube-scan:1.2.0
             variables:
@@ -80,7 +86,10 @@ definitions:
           - 'self.hosted'
           - 'linux'
         caches:
+          - docker
           - sonar
+        services:
+          - docker
         script:
           - pipe: sonarsource/sonarqube-scan:1.2.0
             variables:
