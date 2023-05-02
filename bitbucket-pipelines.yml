@@ -23,6 +23,7 @@ definitions:
           - node
           - npm
         script:
+          - echo "Global node_modules dir $(npm root -g)"
           - npm i -g pnpm
           - pnpm install
           - pnpm build
