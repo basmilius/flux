@@ -6,6 +6,7 @@ clone:
 definitions:
   caches:
     dist: packages/*/dist
+    modules: packages/*/node_modules
 
   services:
     docker:
@@ -19,6 +20,7 @@ definitions:
           - 'linux'
         caches:
           - dist
+          - modules
           - node
         script:
           - npm i -g pnpm
