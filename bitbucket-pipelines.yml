@@ -10,7 +10,7 @@ definitions:
 
   services:
     docker:
-      memory: 2048
+      memory: 4096
 
   steps:
     - step: &build
