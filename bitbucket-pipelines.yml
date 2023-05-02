@@ -10,7 +10,7 @@ definitions:
   caches:
     dist: packages/*/dist
     modules: packages/*/node_modules
-    sonar: ~/.sonar
+    sonar: /opt/sonar-scanner/.sonar
 
   services:
     docker:
