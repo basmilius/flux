@@ -18,15 +18,15 @@
         <flux-flyout v-if="slots.filter">
             <template
                 v-if="$slots.filter"
-                #opener="bindings">
+                #opener="{close, open, toggle}">
                 <slot
-                    v-bind="bindings"
+                    v-bind="{close, open, toggle}"
                     name="filter-opener">
                     <flux-button-group>
                         <flux-secondary-button
                             icon-before="filter"
                             :label="translate('flux_filter')"
-                            @click="bindings.open"/>
+                            @click="open"/>
 
                         <flux-tooltip
                             v-if="isResettable"

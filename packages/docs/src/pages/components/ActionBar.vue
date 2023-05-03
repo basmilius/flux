@@ -110,6 +110,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxActionBar, FluxButtonGroup, FluxDestructiveButton, FluxFormInput, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSeparator, FluxStack, FluxTooltip } from '@fancee/flux';
+    import { FluxActionBar, FluxFormInput, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSeparator, FluxStack } from '@fancee/flux';
     import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
 </script>
