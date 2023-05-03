@@ -1,14 +1,21 @@
 <script lang="ts">
-    import { defineComponent } from 'vue-demi';
+    import { defineComponent, PropType } from 'vue-demi';
     import { createDialogRenderer } from '../helpers';
     import { FluxOverlayTransition } from '../transition';
 
     export default defineComponent({
         props: {
-            isCloseable: {default: false, type: Boolean}
+            isCloseable: {default: false, type: Boolean},
+            size: {default: 'small', type: String as PropType<'small' | 'medium' | 'large'>}
         },
         setup(props, {emit, slots}) {
-            return createDialogRenderer(props, emit, slots, 'flux-overlay', FluxOverlayTransition);
+            return createDialogRenderer(
+                props,
+                emit,
+                slots,
+                () => `flux-overlay is-${props.size}`,
+                FluxOverlayTransition
+            );
         }
     });
 </script>
@@ -36,6 +43,7 @@
         .flux-pane {
             display: flex;
             max-height: min(720px, calc(100dvh - 180px));
+            width: calc(100dvw - 90px);
             flex-flow: column;
 
             &-footer {
@@ -44,10 +52,20 @@
                 margin-top: auto;
             }
         }
-    }
 
-    @include flux.dark-mode {
-        .flux-overlay {
+        &.is-small .flux-pane {
+            max-width: 420px;
+        }
+
+        &.is-medium .flux-pane {
+            max-width: 540px;
+        }
+
+        &.is-large .flux-pane {
+            max-width: 720px;
+        }
+
+        @include flux.dark {
             background: rgb(0 0 0 / .5);
 
             > .flux-pane {

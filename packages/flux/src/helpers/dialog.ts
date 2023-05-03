@@ -9,7 +9,7 @@ type _Props = {
     readonly isCloseable?: boolean;
 };
 
-export function createDialogRenderer(props: _Props, emit: _Emit, slots: Slots, className: string, transitionComponent: Component, teleportTo: string = '[data-flux-root]'): RenderFunction {
+export function createDialogRenderer(props: _Props, emit: _Emit, slots: Slots, className: string | (() => string), transition: Component, teleportTo: string = '[data-flux-root]'): RenderFunction {
     const {registerDialog} = useFluxStore();
     let unregister: Function | null = null;
 
@@ -38,7 +38,7 @@ export function createDialogRenderer(props: _Props, emit: _Emit, slots: Slots, c
 
         if (isVisible) {
             content.push(h('div', {
-                class: className
+                class: typeof className === 'function' ? className() : className
             }, children));
 
             if (!unregister) {
@@ -49,12 +49,12 @@ export function createDialogRenderer(props: _Props, emit: _Emit, slots: Slots, c
             unregister = null;
         }
 
-        return render(FluxTeleport as unknown as Component, {
+        return render(FluxTeleport, {
             props: {
                 to: teleportTo
             },
             slots: {
-                default: () => render(transitionComponent, {
+                default: () => render(transition, {
                     slots: {
                         default: () => content
                     }
