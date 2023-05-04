@@ -64,8 +64,10 @@
         &.is-large .flux-pane {
             max-width: 720px;
         }
+    }
 
-        @include flux.dark {
+    @include flux.dark-mode {
+        .flux-overlay {
             background: rgb(0 0 0 / .5);
 
             > .flux-pane {

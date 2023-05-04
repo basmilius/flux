@@ -11,6 +11,7 @@ export { default as FluxBadgeStack } from './FluxBadgeStack.vue';
 export { default as FluxBaseButton } from './FluxBaseButton.vue';
 export { default as FluxButtonGroup } from './FluxButtonGroup.vue';
 export { default as FluxButtonStack } from './FluxButtonStack.vue';
+export { default as FluxCheckbox } from './FluxCheckbox.vue';
 export { default as FluxChip } from './FluxChip.vue';
 export { default as FluxComment } from './FluxComment.vue';
 export { default as FluxConfirm } from './FluxConfirm.vue';

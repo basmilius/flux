@@ -54,6 +54,10 @@ export const router = createRouter({
                     component: () => import('./pages/components/ButtonGroup.vue')
                 },
                 {
+                    path: '/components/checkbox',
+                    component: () => import('./pages/components/Checkbox.vue')
+                },
+                {
                     path: '/components/chip',
                     component: () => import('./pages/components/Chip.vue')
                 },

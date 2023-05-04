@@ -1,37 +1,41 @@
-@mixin focus-ring($offset: 0, $within: false) {
+@mixin focus-outline {
     outline: 2px solid rgb(var(--primary-7) / 0);
     outline-offset: 0;
+}
+
+@mixin focus-outline-visible($offset: 0) {
+    outline-color: rgb(var(--primary-7));
+    outline-offset: $offset;
+}
+
+@mixin focus-ring($offset: 0, $within: false) {
+    @include focus-outline;
 
     @if $within == true {
         &:focus-visible,
         &:focus-within {
-            outline-color: rgb(var(--primary-7));
-            outline-offset: $offset;
+            @include focus-outline-visible($offset);
         }
     } @else {
         &:focus-visible {
-            outline-color: rgb(var(--primary-7));
-            outline-offset: $offset;
+            @include focus-outline-visible($offset);
         }
     }
 }
 
 @mixin focus-ring-pseudo($selector, $offset: 0, $within: false) {
     &::#{$selector} {
-        outline: 2px solid rgb(var(--primary-7) / 0);
-        outline-offset: 0;
+        @include focus-outline;
     }
 
     @if $within == true {
         &:focus-visible::#{$selector},
         &:focus-within::#{$selector} {
-            outline-color: rgb(var(--primary-7));
-            outline-offset: $offset;
+            @include focus-outline-visible($offset);
         }
     } @else {
         &:focus-visible::#{$selector} {
-            outline-color: rgb(var(--primary-7));
-            outline-offset: $offset;
+            @include focus-outline-visible($offset);
         }
     }
 }

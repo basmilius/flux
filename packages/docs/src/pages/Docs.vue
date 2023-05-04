@@ -158,6 +158,12 @@
                         type="route"/>
 
                     <flux-menu-item
+                        :is-active="path === '/components/checkbox'"
+                        label="Checkbox"
+                        to="/components/checkbox"
+                        type="route"/>
+
+                    <flux-menu-item
                         :is-active="path === '/components/chip'"
                         label="Chip"
                         to="/components/chip"

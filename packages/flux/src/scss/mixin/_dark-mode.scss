@@ -1,9 +1,3 @@
-@mixin dark {
-    @at-root [dark] & {
-        @content;
-    }
-}
-
 @mixin dark-mode {
     [dark] {
         @content;
