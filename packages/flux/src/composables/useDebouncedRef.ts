@@ -26,5 +26,5 @@ export function useDebouncedRef<T>(initialValue: T, delay: number, immediate: bo
             state.value = value;
             trigger();
         }, delay, immediate)
-    }));
+    })) as Ref<T>;
 }
