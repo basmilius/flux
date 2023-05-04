@@ -9,7 +9,7 @@
                 <flux-pane-body>
                     <flux-form-field label="Newsletter">
                         <flux-checkbox
-                            v-model="isChecked1"
+                            v-model="isChecked"
                             label="Send me a weekly update newsletter."/>
                     </flux-form-field>
                 </flux-pane-body>
@@ -61,6 +61,5 @@
     import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
     import { ref } from 'vue';
 
-    const isChecked1 = ref(true);
-    const isChecked2 = ref(null);
+    const isChecked = ref(true);
 </script>
