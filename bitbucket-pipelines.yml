@@ -44,6 +44,8 @@ definitions:
         trigger: automatic
         script:
           - npm i -g pnpm
+          - pnpm install
+          - pnpm build
           - pnpm run publish
 
     - step: &sonar-scan-main

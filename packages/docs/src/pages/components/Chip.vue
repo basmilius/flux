@@ -47,11 +47,11 @@
             <api-component name="Chip">
                 <template #props>
                     <tr>
-                        <td><code>iconAfter</code><code>IconNames</code></td>
+                        <td><code>icon-after</code><code>IconNames</code></td>
                         <td>The icon that is used as a prefix.</td>
                     </tr>
                     <tr>
-                        <td><code>iconBefore</code><code>IconNames</code></td>
+                        <td><code>icon-before</code><code>IconNames</code></td>
                         <td>The icon that is used as a suffix.</td>
                     </tr>
                     <tr>

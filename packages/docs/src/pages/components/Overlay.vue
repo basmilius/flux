@@ -6,10 +6,9 @@
 
         <flux-overlay
             is-closeable
+            size="medium"
             @close="isOverlayVisible = false">
-            <flux-pane
-                v-if="isOverlayVisible"
-                style="width: 540px;">
+            <flux-pane v-if="isOverlayVisible">
                 <flux-pane-body>
                     <h2>Overlay</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aspernatur, consequuntur debitis eligendi eum magnam necessitatibus nulla perferendis sequi voluptate. Aut consequatur ducimus, quaerat quos ratione sequi veniam? Quis, rem.</p>
@@ -28,9 +27,7 @@
         </flux-overlay>
 
         <flux-overlay>
-            <flux-pane
-                v-if="isReAuthenticateVisible"
-                style="width: 420px">
+            <flux-pane v-if="isReAuthenticateVisible">
                 <flux-pane-body
                     :gap="27"
                     is-content-centered
@@ -107,6 +104,10 @@
                     <tr>
                         <td><code>is-closeable</code><code>boolean</code></td>
                         <td>Enables the escape key and the close event for the overlay.</td>
+                    </tr>
+                    <tr>
+                        <td><code>size</code><code>'small' | 'medium' | 'large'</code></td>
+                        <td>Sets the size of the overlay window. Requires that the child of the Overlay is a Pane.</td>
                     </tr>
                 </template>
 

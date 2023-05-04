@@ -4,15 +4,15 @@
         :is-auto-width="flyoutIsAutoWidth"
         :margin="flyoutMargin"
         :width="flyoutWidth">
-        <template #opener="bindings">
+        <template #opener="{close, open, toggle}">
             <div class="flux-button-group">
                 <slot
                     name="button"
-                    v-bind="bindings"/>
+                    v-bind="{close, open, toggle}"/>
 
                 <flux-secondary-button
                     :icon-before="buttonIcon ?? 'ellipsis-h'"
-                    @click="bindings.open"/>
+                    @click="open"/>
             </div>
         </template>
 

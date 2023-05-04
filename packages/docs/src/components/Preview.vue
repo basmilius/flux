@@ -51,16 +51,18 @@
         font-size: 15px;
 
         &::before {
+            --mask: linear-gradient(to bottom, transparent calc(100% - 1px), black calc(100% - 1px)), linear-gradient(to right, transparent calc(100% - 1px), black calc(100% - 1px));
+
             position: absolute;
             display: block;
             inset: 0;
             content: '';
             background: rgb(var(--gray-3) / .75);
             border-radius: var(--radius);
-            -webkit-mask-image: linear-gradient(to bottom, transparent calc(100% - 1px), black calc(100% - 1px)), linear-gradient(to right, transparent calc(100% - 1px), black calc(100% - 1px));
+            -webkit-mask-image: var(--mask);
             -webkit-mask-position: top center;
             -webkit-mask-size: 45px 45px;
-            mask-image: linear-gradient(to bottom, transparent calc(100% - 1px), black calc(100% - 1px)), linear-gradient(to right, transparent calc(100% - 1px), black calc(100% - 1px));
+            mask-image: var(--mask);
             mask-position: top center;
             mask-size: 45px 45px;
         }

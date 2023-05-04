@@ -40,7 +40,7 @@
         display: flex;
         flex-flow: column;
         gap: 15px;
-        z-index: 10000;
+        z-index: 100000;
 
         @include flux.breakpoint-down(md) {
             left: 15px;

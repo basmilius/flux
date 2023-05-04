@@ -82,7 +82,7 @@
 
         &::before {
             position: absolute;
-            inset: 0 -9px;
+            inset: 0;
             content: '';
             border-radius: var(--radius);
             pointer-events: none;
