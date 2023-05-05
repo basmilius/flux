@@ -11,7 +11,7 @@
             class="flux-flyout-dialog"
             @cancel.prevent="close"
             @click="onDialogBackdropClick">
-            <flux-pane
+            <FluxPane
                 ref="paneRef"
                 class="flux-flyout-pane"
                 :class="{
@@ -22,7 +22,7 @@
                 <slot
                     v-if="isOpen"
                     v-bind="{close, paneX, paneY, openerWidth, openerHeight}"/>
-            </flux-pane>
+            </FluxPane>
         </dialog>
     </div>
 </template>
@@ -159,7 +159,7 @@
         close,
         open,
         toggle
-    })
+    });
 </script>
 
 <style lang="scss">

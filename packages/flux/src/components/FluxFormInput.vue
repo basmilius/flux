@@ -29,13 +29,13 @@
             @focus="$emit('focus')"
             @input="onInput"/>
 
-        <flux-icon
+        <FluxIcon
             v-if="iconBefore"
             class="flux-form-input-icon is-before"
             :size="16"
             :variant="iconBefore"/>
 
-        <flux-icon
+        <FluxIcon
             v-if="iconAfter"
             class="flux-form-input-icon is-after"
             :size="16"

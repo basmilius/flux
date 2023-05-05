@@ -8,7 +8,7 @@
             alt=""
             :src="url">
 
-        <flux-remove
+        <FluxRemove
             v-if="isDeletable"
             :is-hidden="!isDeleteVisible"
             @click="$emit('delete')"/>
@@ -16,7 +16,7 @@
         <div
             v-if="isPending"
             class="flux-pane-overlay">
-            <flux-spinner :size="24"/>
+            <FluxSpinner :size="24"/>
         </div>
     </div>
 </template>

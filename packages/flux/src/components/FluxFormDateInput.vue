@@ -1,10 +1,10 @@
 <template>
-    <flux-flyout
+    <FluxFlyout
         ref="flyoutRef"
         :width="300">
         <template #opener="{open}">
-            <flux-form-input-group>
-                <flux-form-input
+            <FluxFormInputGroup>
+                <FluxFormInput
                     v-bind="{autoComplete, autoFocus, isDisabled, isReadonly, modelValue, placeholder}"
                     v-model="localValue"
                     class="flux-form-date-input"
@@ -12,18 +12,18 @@
                     @blur="$emit('blur')"
                     @focus="$emit('focus')"/>
 
-                <flux-secondary-button
+                <FluxSecondaryButton
                     :disabled="isDisabled"
                     icon-before="calendar"
                     @click="open"/>
-            </flux-form-input-group>
+            </FluxFormInputGroup>
         </template>
 
-        <flux-date-picker
+        <FluxDatePicker
             v-model="localValue"
             :max="max"
             :min="min"/>
-    </flux-flyout>
+    </FluxFlyout>
 </template>
 
 <script lang="ts">
@@ -84,7 +84,7 @@
     .flux-form-date-input {
         cursor: default;
 
-        &::-webkit-calendar-picker-indicator {
+        input::-webkit-calendar-picker-indicator {
             display: none;
         }
     }

@@ -21,7 +21,7 @@
         <div
             v-if="isLoading"
             class="flux-pane-overlay">
-            <flux-spinner/>
+            <FluxSpinner/>
         </div>
     </div>
 </template>

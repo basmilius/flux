@@ -7,7 +7,7 @@
             'flux-badge-text-only': !dot && !icon && color
         }"
         @click="onClick">
-        <flux-spinner
+        <FluxSpinner
             v-if="isLoading"
             class="flux-badge-icon"
             :size="16"/>
@@ -16,7 +16,7 @@
             v-else-if="dot"
             class="flux-badge-dot"/>
 
-        <flux-icon
+        <FluxIcon
             v-else-if="icon"
             class="flux-badge-icon"
             :size="16"
@@ -28,7 +28,7 @@
             v-if="!isClickable && isDeletable"
             class="flux-badge-close"
             @click="$emit('delete')">
-            <flux-icon variant="xmark"/>
+            <FluxIcon variant="xmark"/>
         </button>
     </component>
 </template>

@@ -1,7 +1,7 @@
 <template>
-    <flux-actions class="flux-table-actions">
+    <FluxActions class="flux-table-actions">
         <slot/>
-    </flux-actions>
+    </FluxActions>
 </template>
 
 <script

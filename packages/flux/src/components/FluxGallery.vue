@@ -1,5 +1,5 @@
 <template>
-    <flux-drop-zone
+    <FluxDropZone
         :is-disabled="!isEditable"
         :is-empty="items && items.length === 0"
         is-multiple
@@ -9,11 +9,11 @@
         :placeholder-title="translate('flux_gallery_placeholder_title')"
         @select="onFilesSelected">
         <template #default="{showPicker}">
-            <transition-group
+            <TransitionGroup
                 class="flux-gallery"
                 name="flux-gallery"
                 tag="div">
-                <flux-gallery-item
+                <FluxGalleryItem
                     v-if="items"
                     v-for="(item, index) of items"
                     :is-deletable="isEditable"
@@ -23,7 +23,7 @@
 
                 <slot/>
 
-                <flux-gallery-item
+                <FluxGalleryItem
                     v-for="item of pendingItems"
                     is-pending
                     :key="item"
@@ -34,11 +34,11 @@
                     key="gallery-add"
                     class="flux-placeholder flux-gallery-add"
                     @click="showPicker()">
-                    <flux-icon variant="plus"/>
+                    <FluxIcon variant="plus"/>
                 </button>
-            </transition-group>
+            </TransitionGroup>
         </template>
-    </flux-drop-zone>
+    </FluxDropZone>
 </template>
 
 <script

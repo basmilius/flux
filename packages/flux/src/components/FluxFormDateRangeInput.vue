@@ -1,9 +1,9 @@
 <template>
-    <flux-flyout
+    <FluxFlyout
         ref="flyoutRef"
         :width="300">
         <template #opener="{open}">
-            <flux-form-input-group>
+            <FluxFormInputGroup>
                 <div
                     class="flux-form-input flux-form-date-range-input"
                     :class="{
@@ -13,19 +13,19 @@
                     <span>{{ label }}</span>
                 </div>
 
-                <flux-secondary-button
+                <FluxSecondaryButton
                     :disabled="isDisabled"
                     icon-before="calendar"
                     @click="open"/>
-            </flux-form-input-group>
+            </FluxFormInputGroup>
         </template>
 
-        <flux-date-picker
+        <FluxDatePicker
             v-model="localValue"
             :max="max"
             :min="min"
             :range-mode="rangeMode"/>
-    </flux-flyout>
+    </FluxFlyout>
 </template>
 
 <script lang="ts">

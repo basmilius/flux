@@ -1,11 +1,11 @@
 <template>
-    <flux-pane class="flux-pane-deck">
-        <flux-auto-grid
+    <FluxPane class="flux-pane-deck">
+        <FluxAutoGrid
             :gap="0"
             :min-column-width="minColumnWidth">
             <slot/>
-        </flux-auto-grid>
-    </flux-pane>
+        </FluxAutoGrid>
+    </FluxPane>
 </template>
 
 <script

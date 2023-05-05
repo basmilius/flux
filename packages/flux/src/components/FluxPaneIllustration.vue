@@ -5,7 +5,7 @@
             'is-masked': isMasked
         }">
         <div class="flux-pane-illustration-magic">
-            <flux-animated-colors
+            <FluxAnimatedColors
                 class="flux-gridlines flux-pane-illustration-canvas"
                 :colors="animatedColors"
                 :opacity="props.animatedOpacity"

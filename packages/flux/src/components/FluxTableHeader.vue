@@ -9,47 +9,47 @@
         <div class="flux-table-cell-content flux-table-header-content">
             <slot/>
 
-            <flux-flyout v-if="isSortable">
+            <FluxFlyout v-if="isSortable">
                 <template #opener="{open}">
                     <button
                         class="flux-table-header-sort"
                         :aria-label="translate('flux_sort')"
                         tabindex="-1"
                         @click="open">
-                        <flux-icon
+                        <FluxIcon
                             :size="16"
                             :variant="sortingIcon"/>
                     </button>
                 </template>
 
-                <flux-menu>
-                    <flux-menu-group>
-                        <flux-menu-item
+                <FluxMenu>
+                    <FluxMenuGroup>
+                        <FluxMenuItem
                             :is-highlighted="sort === 'ascending'"
                             icon-before="arrow-down-a-z"
                             :label="translate('flux_sort_ascending')"
                             @click="$emit('sort', 'ascending')"/>
 
-                        <flux-menu-item
+                        <FluxMenuItem
                             :is-highlighted="sort === 'descending'"
                             icon-before="arrow-up-a-z"
                             :label="translate('flux_sort_descending')"
                             @click="$emit('sort', 'descending')"/>
-                    </flux-menu-group>
+                    </FluxMenuGroup>
 
                     <template v-if="sort">
-                        <flux-separator/>
+                        <FluxSeparator/>
 
-                        <flux-menu-group>
-                            <flux-menu-item
+                        <FluxMenuGroup>
+                            <FluxMenuItem
                                 icon-before="circle-xmark"
                                 is-destructive
                                 :label="translate('flux_sort_remove')"
                                 @click="$emit('sort', null)"/>
-                        </flux-menu-group>
+                        </FluxMenuGroup>
                     </template>
-                </flux-menu>
-            </flux-flyout>
+                </FluxMenu>
+            </FluxFlyout>
         </div>
     </th>
 </template>

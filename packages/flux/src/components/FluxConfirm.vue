@@ -1,23 +1,23 @@
 <template>
-    <flux-pane class="flux-confirm">
-        <flux-pane-header
+    <FluxPane class="flux-confirm">
+        <FluxPaneHeader
             :icon="confirm.icon"
             :title="confirm.title"/>
 
-        <flux-pane-body v-html="confirm.message"/>
+        <FluxPaneBody v-html="confirm.message"/>
 
-        <flux-pane-footer>
-            <flux-spacer/>
+        <FluxPaneFooter>
+            <FluxSpacer/>
 
-            <flux-secondary-button
+            <FluxSecondaryButton
                 :label="translate('flux_cancel')"
                 @click="confirm.onCancel"/>
 
-            <flux-primary-button
+            <FluxPrimaryButton
                 :label="translate('flux_ok')"
                 @click="confirm.onConfirm"/>
-        </flux-pane-footer>
-    </flux-pane>
+        </FluxPaneFooter>
+    </FluxPane>
 </template>
 
 <script

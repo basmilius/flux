@@ -1,5 +1,5 @@
 <template>
-    <button-component
+    <ButtonComponent
         :component-type="type"
         class="flux-button"
         :type="isSubmit ? 'submit' : 'button'"
@@ -15,11 +15,11 @@
         <slot name="before"/>
 
         <slot name="icon-before">
-            <flux-spinner
+            <FluxSpinner
                 v-if="isLoading && (iconBefore || !iconAfter)"
                 :size="20"/>
 
-            <flux-icon
+            <FluxIcon
                 v-else-if="iconBefore"
                 class="flux-button-icon"
                 :variant="iconBefore"/>
@@ -32,18 +32,18 @@
         </span>
 
         <slot name="icon-after">
-            <flux-spinner
+            <FluxSpinner
                 v-if="isLoading && (!iconBefore && iconAfter)"
                 :size="20"/>
 
-            <flux-icon
+            <FluxIcon
                 v-else-if="iconAfter"
                 class="flux-button-icon"
                 :variant="iconAfter"/>
         </slot>
 
         <slot name="after"/>
-    </button-component>
+    </ButtonComponent>
 </template>
 
 <script

@@ -9,13 +9,13 @@
                 class="flux-expandable-header"
                 @click="toggle">
                 <span>{{ label }}</span>
-                <flux-icon
+                <FluxIcon
                     :size="16"
                     :variant="isOpen ? 'minus' : 'plus'"/>
             </button>
         </slot>
 
-        <flux-auto-height-transition>
+        <FluxAutoHeightTransition>
             <div
                 v-if="isOpen"
                 class="flux-expandable-body">
@@ -27,7 +27,7 @@
                     </div>
                 </slot>
             </div>
-        </flux-auto-height-transition>
+        </FluxAutoHeightTransition>
     </div>
 </template>
 

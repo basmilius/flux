@@ -8,7 +8,7 @@
             'flux-placeholder-small': variant === 'small'
         }"
         @click="onClick">
-        <flux-icon
+        <FluxIcon
             v-if="icon"
             class="flux-placeholder-icon"
             :variant="icon"/>

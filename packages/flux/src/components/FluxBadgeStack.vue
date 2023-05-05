@@ -1,10 +1,10 @@
 <template>
-    <flux-stack
+    <FluxStack
         axis="horizontal"
         :gap="6"
         is-wrapping>
         <slot/>
-    </flux-stack>
+    </FluxStack>
 </template>
 
 <script

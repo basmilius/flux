@@ -3,7 +3,7 @@
         class="flux-remove"
         :class="{'is-hidden': isHidden}"
         @click="$emit('click', $event)">
-        <flux-icon
+        <FluxIcon
             v-if="icon"
             :size="16"
             :variant="icon"/>

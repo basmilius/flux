@@ -1,5 +1,5 @@
 <template>
-    <base-button
+    <BaseButton
         class="flux-primary-button"
         v-bind="{type, disabled, iconAfter, iconBefore, isLoading, isSubmit, label, href, rel, target, to}"
         @click="$emit('click', $event)"
@@ -12,7 +12,7 @@
                 :name="slot"
                 v-bind="scope"/>
         </template>
-    </base-button>
+    </BaseButton>
 </template>
 
 <script

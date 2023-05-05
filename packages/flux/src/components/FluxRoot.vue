@@ -4,22 +4,22 @@
             <slot/>
         </div>
 
-        <flux-overlay>
-            <flux-alert
+        <FluxOverlay>
+            <FluxAlert
                 v-for="alert of alerts"
                 :key="alert.id"
                 :alert="alert"/>
-        </flux-overlay>
+        </FluxOverlay>
 
-        <flux-overlay>
-            <flux-confirm
+        <FluxOverlay>
+            <FluxConfirm
                 v-for="confirm of confirms"
                 :key="confirm.id"
                 :confirm="confirm"/>
-        </flux-overlay>
+        </FluxOverlay>
 
-        <flux-snackbar-provider/>
-        <flux-tooltip-provider/>
+        <FluxSnackbarProvider/>
+        <FluxTooltipProvider/>
     </main>
 </template>
 

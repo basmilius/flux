@@ -1,42 +1,42 @@
 <template>
-    <flux-pane
+    <FluxPane
         class="flux-feature-card"
         :class="{'coming-soon': isComingSoon}">
-        <flux-pane-body class="flux-feature-card-header">
-            <flux-stack class="flux-feature-card-caption">
+        <FluxPaneBody class="flux-feature-card-header">
+            <FluxStack class="flux-feature-card-caption">
                 <h3 class="flux-feature-card-title">{{ title }}</h3>
                 <p class="flux-feature-card-description">{{ description }}</p>
-            </flux-stack>
+            </FluxStack>
 
             <div class="flux-feature-card-icon">
-                <flux-icon
+                <FluxIcon
                     :size="24"
                     :variant="icon"/>
             </div>
-        </flux-pane-body>
+        </FluxPaneBody>
 
-        <flux-pane-body>
+        <FluxPaneBody>
             <slot/>
-        </flux-pane-body>
+        </FluxPaneBody>
 
-        <flux-pane-body>
-            <flux-stack
+        <FluxPaneBody>
+            <FluxStack
                 v-if="buttonTo"
                 axis="horizontal">
-                <flux-secondary-button
+                <FluxSecondaryButton
                     :icon-after="buttonIcon"
                     :label="buttonLabel ?? translate('flux_continue')"
                     :to="buttonTo"
                     type="route"/>
-            </flux-stack>
-        </flux-pane-body>
+            </FluxStack>
+        </FluxPaneBody>
 
         <div
             v-if="isComingSoon"
             class="flux-feature-card-coming-soon">
             {{ translate('flux_coming_soon') }}
         </div>
-    </flux-pane>
+    </FluxPane>
 </template>
 
 <script
@@ -115,7 +115,7 @@
             rotate: -6deg;
             translate: -50% -50%;
 
-            @include flux.dark-mode{
+            @include flux.dark-mode {
                 background: white;
                 color: rgb(var(--gray-0));
             }

@@ -10,12 +10,12 @@
             :id="id"/>
 
         <span class="form-checkbox-element">
-            <flux-icon
+            <FluxIcon
                 v-if="isIndeterminate"
                 :size="16"
                 variant="minus"/>
 
-            <flux-icon
+            <FluxIcon
                 v-else
                 :size="16"
                 variant="check"/>

@@ -1,5 +1,5 @@
 <template>
-    <flux-stack
+    <FluxStack
         class="flux-action-bar"
         axis="horizontal"
         :gap="9">
@@ -7,7 +7,7 @@
 
         <slot name="actions-start"/>
 
-        <flux-spacer/>
+        <FluxSpacer/>
 
         <slot name="actions-before-search"/>
 
@@ -15,27 +15,27 @@
 
         <slot name="actions-after-search"/>
 
-        <flux-flyout v-if="slots.filter">
+        <FluxFlyout v-if="slots.filter">
             <template
                 v-if="$slots.filter"
                 #opener="{close, open, toggle}">
                 <slot
                     v-bind="{close, open, toggle}"
                     name="filter-opener">
-                    <flux-button-group>
-                        <flux-secondary-button
+                    <FluxButtonGroup>
+                        <FluxSecondaryButton
                             icon-before="filter"
                             :label="translate('flux_filter')"
                             @click="open"/>
 
-                        <flux-tooltip
+                        <FluxTooltip
                             v-if="isResettable"
                             :content="translate('flux_filter_reset')">
-                            <flux-destructive-button
+                            <FluxDestructiveButton
                                 icon-before="xmark"
                                 @click="$emit('reset')"/>
-                        </flux-tooltip>
-                    </flux-button-group>
+                        </FluxTooltip>
+                    </FluxButtonGroup>
                 </slot>
             </template>
 
@@ -44,10 +44,10 @@
                     v-bind="bindings"
                     name="filter"/>
             </template>
-        </flux-flyout>
+        </FluxFlyout>
 
         <slot name="actions-end"/>
-    </flux-stack>
+    </FluxStack>
 </template>
 
 <script

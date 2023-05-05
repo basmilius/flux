@@ -8,27 +8,27 @@
             v-if="isEmpty"
             v-bind="{isDragging, isDraggingOver, showPicker}"
             name="placeholder">
-            <flux-placeholder
+            <FluxPlaceholder
                 :icon="placeholderIcon"
                 :message="placeholderMessage"
                 :title="placeholderTitle"
                 :variant="placeholderVariant">
-                <flux-secondary-button
+                <FluxSecondaryButton
                     :label="placeholderButton"
                     @click="showPicker"/>
-            </flux-placeholder>
+            </FluxPlaceholder>
         </slot>
 
         <slot
             v-else
             v-bind="{isDragging, isDraggingOver, showPicker}"/>
 
-        <flux-fade-transition>
+        <FluxFadeTransition>
             <div
                 v-if="isDragging && !isDisabled"
                 class="flux-drop-zone-hint"
                 :class="{'is-over': isDraggingOver}"/>
-        </flux-fade-transition>
+        </FluxFadeTransition>
     </div>
 </template>
 

@@ -17,7 +17,7 @@
             <div
                 v-if="icon"
                 class="flux-timeline-item-photo-icon">
-                <flux-icon
+                <FluxIcon
                     :size="16"
                     :variant="icon"/>
             </div>
@@ -26,7 +26,7 @@
         <div
             v-else-if="icon"
             class="flux-timeline-item-icon">
-            <flux-icon
+            <FluxIcon
                 :size="20"
                 :variant="icon"/>
         </div>

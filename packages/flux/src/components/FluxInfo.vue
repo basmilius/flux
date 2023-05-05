@@ -1,6 +1,6 @@
 <template>
     <div class="flux-info">
-        <flux-icon
+        <FluxIcon
             v-if="icon"
             class="flux-info-icon"
             :variant="icon"/>

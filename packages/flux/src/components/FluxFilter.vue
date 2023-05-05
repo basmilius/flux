@@ -2,40 +2,40 @@
     <div
         v-height-transition
         class="flux-pane flux-filter">
-        <flux-window ref="window">
+        <FluxWindow ref="window">
             <template #default="{navigate}">
-                <filter-menu-renderer
+                <FilterMenuRenderer
                     :navigate="navigate"
                     :state="modelValue">
                     <slot/>
-                </filter-menu-renderer>
+                </FilterMenuRenderer>
             </template>
 
             <template
                 v-for="(filter, name) of filters"
                 #[name]="{back}">
-                <flux-menu>
-                    <flux-menu-group is-horizontal>
-                        <flux-menu-item
+                <FluxMenu>
+                    <FluxMenuGroup is-horizontal>
+                        <FluxMenuItem
                             class="flux-filter-back"
                             :label="translate('flux_back')"
                             icon-before="angle-left"
                             @click="back('default')"/>
 
-                        <flux-menu-item
+                        <FluxMenuItem
                             v-if="hasValue(name)"
                             class="flux-filter-reset"
                             icon-before="trash"
                             is-destructive
                             @click="reset(name)"/>
-                    </flux-menu-group>
+                    </FluxMenuGroup>
 
-                    <flux-separator/>
+                    <FluxSeparator/>
 
-                    <v-node-renderer :vnode="filter"/>
-                </flux-menu>
+                    <VNodeRenderer :vnode="filter"/>
+                </FluxMenu>
             </template>
-        </flux-window>
+        </FluxWindow>
     </div>
 </template>
 

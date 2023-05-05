@@ -7,11 +7,12 @@
             'is-fluid': isFluid,
             'is-small': isSmall
         }">
-        <flux-spinner
+        <FluxSpinner
             v-if="isLoading"
             class="flux-notice-prefix"
             :size="isSmall ? 16 : 20"/>
-        <flux-icon
+
+        <FluxIcon
             v-else-if="icon"
             class="flux-notice-prefix"
             :size="isSmall ? 16 : 20"

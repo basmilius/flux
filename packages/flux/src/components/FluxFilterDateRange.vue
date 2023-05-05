@@ -1,5 +1,5 @@
 <template>
-    <flux-date-picker
+    <FluxDatePicker
         class="flux-filter-date"
         :max="max"
         :min="min"

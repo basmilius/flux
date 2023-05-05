@@ -1,7 +1,7 @@
 <template>
-    <flux-pane>
-        <flux-fade-transition mode="out-in">
-            <flux-pane-body
+    <FluxPane>
+        <FluxFadeTransition mode="out-in">
+            <FluxPaneBody
                 v-if="isPreviewing"
                 key="preview">
                 <div class="flux-focal-point-preview">
@@ -11,9 +11,9 @@
                             'background-image': `url(${url})`
                         }"/>
                 </div>
-            </flux-pane-body>
+            </FluxPaneBody>
 
-            <flux-pane-body
+            <FluxPaneBody
                 v-else
                 key="editor">
                 <div
@@ -29,21 +29,21 @@
 
                     <div class="flux-focal-point-editor-area"/>
                 </div>
-            </flux-pane-body>
-        </flux-fade-transition>
+            </FluxPaneBody>
+        </FluxFadeTransition>
 
-        <flux-pane-footer>
+        <FluxPaneFooter>
             <slot name="footer-before"/>
 
-            <flux-secondary-button
+            <FluxSecondaryButton
                 :label="translate('flux_preview')"
                 @click="onShowPreviewClicked"/>
 
-            <flux-spacer/>
+            <FluxSpacer/>
 
             <slot name="footer"/>
-        </flux-pane-footer>
-    </flux-pane>
+        </FluxPaneFooter>
+    </FluxPane>
 </template>
 
 <script lang="ts">

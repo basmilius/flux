@@ -1,10 +1,10 @@
 <template>
-    <flux-stack
+    <FluxStack
         :axis="axis"
         :gap="gap"
         :is-fill="isFill">
         <slot/>
-    </flux-stack>
+    </FluxStack>
 </template>
 
 <script

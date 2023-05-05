@@ -7,7 +7,7 @@
             'is-dragging': isDragging
         }"
         @pointerdown="onPointerDown">
-        <flux-ticks
+        <FluxTicks
             v-if="isTicksVisible"
             :lower="min"
             :upper="max"/>

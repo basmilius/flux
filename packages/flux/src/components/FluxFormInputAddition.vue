@@ -1,10 +1,12 @@
 <template>
     <div class="flux-form-input flux-form-input-addition">
-        <flux-icon
+        <FluxIcon
             v-if="icon"
             :variant="icon"/>
 
-        <span v-if="text">{{ text }}</span>
+        <span v-if="text">
+            {{ text }}
+        </span>
 
         <slot/>
     </div>

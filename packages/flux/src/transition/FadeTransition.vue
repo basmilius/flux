@@ -1,9 +1,9 @@
 <template>
-    <transition
+    <Transition
         :mode="mode"
         name="flux-fade">
         <slot/>
-    </transition>
+    </Transition>
 </template>
 
 <script

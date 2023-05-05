@@ -1,10 +1,10 @@
 <template>
-    <transition
+    <Transition
         @after-enter="afterEnter"
         @enter="enter"
         @leave="leave">
         <slot/>
-    </transition>
+    </Transition>
 </template>
 
 <script

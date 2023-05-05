@@ -21,7 +21,7 @@
                 {{ fallbackInitials }}
             </span>
 
-            <flux-icon
+            <FluxIcon
                 v-else-if="fallbackIcon"
                 :variant="fallbackIcon"/>
         </div>

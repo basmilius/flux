@@ -1,9 +1,9 @@
 <template>
-    <transition
+    <Transition
         :mode="mode"
         :name="isBack ? 'flux-vertical-window-back' : 'flux-vertical-window'">
         <slot/>
-    </transition>
+    </Transition>
 </template>
 
 <script

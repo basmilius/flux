@@ -7,13 +7,13 @@
             'is-switch': isSwitch
         }"
         :for="id">
-        <flux-icon
+        <FluxIcon
             v-if="iconOff"
             class="flux-toggle-icon flux-toggle-icon-off"
             :size="16"
             :variant="iconOff"/>
 
-        <flux-icon
+        <FluxIcon
             v-if="iconOn"
             class="flux-toggle-icon flux-toggle-icon-on"
             :size="16"

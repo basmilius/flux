@@ -1,5 +1,5 @@
 <template>
-    <base-button
+    <BaseButton
         class="flux-primary-button flux-publish-button"
         :class="{
             'is-idle': !isDone && !isLoading,
@@ -10,13 +10,13 @@
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)">
-        <template #icon-before="{}">
+        <template #icon-before>
             <div class="flux-publish-button-icon">
-                <flux-icon
+                <FluxIcon
                     class="flux-publish-button-cloud"
                     variant="cloud"/>
 
-                <flux-icon
+                <FluxIcon
                     class="flux-publish-button-cloud"
                     variant="cloud"/>
 
@@ -40,7 +40,7 @@
                 </svg>
             </div>
         </template>
-    </base-button>
+    </BaseButton>
 </template>
 
 <script

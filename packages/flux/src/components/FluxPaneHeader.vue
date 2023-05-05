@@ -6,7 +6,7 @@
             :class="{
                 'is-extended': title && subTitle
             }">
-            <flux-icon
+            <FluxIcon
                 :size="20"
                 :variant="icon"/>
         </div>

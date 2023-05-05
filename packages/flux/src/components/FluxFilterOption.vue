@@ -1,6 +1,6 @@
 <template>
-    <flux-menu-group>
-        <flux-form-input
+    <FluxMenuGroup>
+        <FluxFormInput
             v-if="isSearchable"
             v-model="searchQuery"
             auto-complete="off"
@@ -12,13 +12,13 @@
         <template
             v-for="option of options"
             :key="option.value">
-            <flux-menu-item
+            <FluxMenuItem
                 is-selectable
                 :is-selected="isSelected(option)"
                 :label="option.label"
                 @click="select(option)"/>
         </template>
-    </flux-menu-group>
+    </FluxMenuGroup>
 </template>
 
 <script

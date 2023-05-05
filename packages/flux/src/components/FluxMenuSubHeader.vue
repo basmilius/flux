@@ -1,6 +1,6 @@
 <template>
     <div class="flux-button flux-menu-item flux-menu-sub-header">
-        <flux-icon
+        <FluxIcon
             v-if="iconBefore"
             class="flux-button-icon flux-menu-sub-header-icon"
             :size="16"
@@ -8,7 +8,7 @@
 
         <span>{{ label }}</span>
 
-        <flux-icon
+        <FluxIcon
             v-if="iconAfter"
             class="flux-button-icon"
             :variant="iconAfter"/>

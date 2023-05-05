@@ -6,12 +6,12 @@
             [`flux-snackbar-${color}`]: !!color
         }">
         <div class="flux-snackbar-content">
-            <flux-spinner
+            <FluxSpinner
                 v-if="isLoading"
                 class="flux-snackbar-spinner"
                 :size="18"/>
 
-            <flux-icon
+            <FluxIcon
                 v-else-if="icon"
                 class="flux-snackbar-icon"
                 :size="18"
@@ -51,7 +51,7 @@
             </button>
         </div>
 
-        <flux-action
+        <FluxAction
             v-if="isCloseable"
             icon="xmark"
             @click="onClose()"/>

@@ -2,7 +2,7 @@
     <button
         class="flux-persona"
         @click="$emit('click', $event)">
-        <flux-avatar
+        <FluxAvatar
             :alt="avatarAlt"
             :fallback="avatarFallback"
             :fallback-icon="avatarFallbackIcon"

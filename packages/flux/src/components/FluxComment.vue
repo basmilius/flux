@@ -5,7 +5,7 @@
             'is-flipped': isFlipped,
             'is-received': isReceived
         }">
-        <flux-avatar
+        <FluxAvatar
             class="flux-comment-avatar"
             :alt="avatarAlt"
             :fallback="avatarFallback"

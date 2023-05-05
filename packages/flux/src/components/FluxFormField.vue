@@ -19,7 +19,7 @@
         <div
             v-if="error"
             class="flux-form-field-addition flux-form-field-addition-error">
-            <flux-icon
+            <FluxIcon
                 :size="16"
                 class="flux-form-field-addition-icon"
                 variant="circle-exclamation"/>
@@ -30,7 +30,7 @@
         <div
             v-if="hint"
             class="flux-form-field-addition flux-form-field-addition-hint">
-            <flux-icon
+            <FluxIcon
                 :size="16"
                 class="flux-form-field-addition-icon"
                 variant="circle-info"/>

@@ -6,8 +6,8 @@
             <div
                 class="flux-tick"
                 :style="{
-                        '--position': (tick - lower) / (upper - lower)
-                    }">
+                    '--position': (tick - lower) / (upper - lower)
+                }">
                 <span>{{ tick }}</span>
             </div>
         </template>
@@ -18,8 +18,8 @@
             <div
                 class="flux-tick is-small"
                 :style="{
-                        '--position': (tick - lower) / (upper - lower)
-                    }"/>
+                    '--position': (tick - lower) / (upper - lower)
+                }"/>
         </template>
     </div>
 </template>

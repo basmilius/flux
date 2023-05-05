@@ -1,5 +1,5 @@
 <template>
-    <base-button
+    <BaseButton
         class="flux-menu-item"
         :class="{
             'is-active': isActive,
@@ -14,7 +14,7 @@
         <template
             v-if="isSelectable"
             #icon-before>
-            <flux-icon
+            <FluxIcon
                 class="flux-button-icon flux-menu-item-selectable-icon"
                 :variant="isSelected ? 'circle-check' : 'flux-empty'"/>
         </template>
@@ -37,12 +37,12 @@
                 {{ command }}
             </kbd>
 
-            <flux-icon
+            <FluxIcon
                 v-if="commandIcon"
                 class="flux-button-icon flux-menu-item-command-icon"
                 :variant="commandIcon"/>
         </template>
-    </base-button>
+    </BaseButton>
 </template>
 
 <script

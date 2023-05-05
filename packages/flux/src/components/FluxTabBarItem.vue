@@ -4,7 +4,7 @@
         class="flux-tab-bar-item"
         :class="{'is-active': isActive}"
         @click="$emit('click', $event)">
-        <flux-icon
+        <FluxIcon
             v-if="icon"
             :size="16"
             :variant="icon"/>

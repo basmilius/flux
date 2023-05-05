@@ -1,5 +1,5 @@
 <template>
-    <flux-table
+    <FluxTable
         :is-bordered="isBordered"
         :is-hoverable="isHoverable"
         :is-loading="isLoading"
@@ -8,15 +8,15 @@
         <template
             v-if="slots.header"
             #header>
-            <flux-table-row>
+            <FluxTableRow>
                 <slot
                     name="header"
                     v-bind="{dataSet, page, perPage, total}"/>
-            </flux-table-row>
+            </FluxTableRow>
         </template>
 
         <template #rows>
-            <flux-table-row
+            <FluxTableRow
                 v-for="(row, index) of dataSet.slice(0, perPage)"
                 :key="uniqueKey ? row[uniqueKey] : index">
                 <template v-for="(_, name) of slots">
@@ -26,9 +26,9 @@
                             v-bind="{dataSet, page, perPage, row, total}"/>
                     </template>
                 </template>
-            </flux-table-row>
+            </FluxTableRow>
         </template>
-    </flux-table>
+    </FluxTable>
 </template>
 
 <script
