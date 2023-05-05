@@ -1,5 +1,5 @@
 <template>
-    <slider-base
+    <SliderBase
         :is-disabled="isDisabled"
         :is-dragging="isDragging"
         :is-ticks-visible="isTicksVisible"
@@ -8,18 +8,18 @@
         :step="step"
         @dragging="onDragging"
         @update="onUpdate">
-        <slider-track
+        <SliderTrack
             :percentage-lower="0"
             :percentage-upper="percentage">
-            <slider-thumb
+            <SliderThumb
                 ref="thumbRef"
                 :is-disabled="isDisabled"
                 :is-dragging="isDragging"
                 :position="percentage"
                 @decrement="onDecrement"
                 @increment="onIncrement"/>
-        </slider-track>
-    </slider-base>
+        </SliderTrack>
+    </SliderBase>
 </template>
 
 <script lang="ts">
@@ -34,7 +34,8 @@
 <script
     lang="ts"
     setup>
-    import { ComponentPublicInstance, computed, ref, toRefs, unref, watch } from 'vue-demi';
+    import type { ComponentPublicInstance } from 'vue-demi';
+    import { computed, ref, toRefs, unref, watch } from 'vue-demi';
     import { useFluxStore } from '../data';
     import { unrefElement } from '../helpers';
     import { clampWithStepPrecision, countDecimals, formatNumber } from '../utils';

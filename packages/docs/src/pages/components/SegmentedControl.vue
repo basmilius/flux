@@ -1,30 +1,30 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Segmented control"/>
 
-        <preview>
-            <flux-pane>
-                <flux-pane-body>
-                    <flux-segmented-control
+        <Preview>
+            <FluxPane>
+                <FluxPaneBody>
+                    <FluxSegmentedControl
                         v-model="viewIndex"
                         :items="['Options', 'Statistics']"/>
-                </flux-pane-body>
+                </FluxPaneBody>
 
-                <flux-segmented-view :index="viewIndex">
-                    <flux-pane-body>
+                <FluxSegmentedView :index="viewIndex">
+                    <FluxPaneBody>
                         <p>Options</p>
-                    </flux-pane-body>
+                    </FluxPaneBody>
 
-                    <flux-pane-body>
+                    <FluxPaneBody>
                         <p>Statistics</p>
-                    </flux-pane-body>
-                </flux-segmented-view>
-            </flux-pane>
-        </preview>
+                    </FluxPaneBody>
+                </FluxSegmentedView>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 The segmented control component is a UI element that allows users to choose between multiple options, by
                 selecting one of the multiple segments. Each segment is represented as a button, with a distinct label,
@@ -32,10 +32,10 @@
                 component is commonly used in navigation, forms, or settings, and provides a compact and intuitive way for
                 users to make a choice.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-components>
+        <ApiSection title="API">
+            <ApiComponents>
                 <tr>
                     <td><code>FluxSegmentedControl</code></td>
                     <td>The segment switcher.</td>
@@ -44,9 +44,9 @@
                     <td><code>FluxSegmentedView</code></td>
                     <td>The view.</td>
                 </tr>
-            </api-components>
+            </ApiComponents>
 
-            <api-component name="SegmentedControl">
+            <ApiComponent name="SegmentedControl">
                 <template #props>
                     <tr>
                         <td><code>items</code><code>string[]</code></td>
@@ -64,9 +64,9 @@
                         <td>Triggered when the view is changed.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="SegmentedView">
+            <ApiComponent name="SegmentedView">
                 <template #props>
                     <tr>
                         <td><code>index</code><code>number</code></td>
@@ -80,9 +80,9 @@
                         <td>The individual segment views.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

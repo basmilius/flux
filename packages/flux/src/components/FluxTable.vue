@@ -21,7 +21,7 @@
         <div
             v-if="isLoading"
             class="flux-pane-overlay">
-            <flux-spinner/>
+            <FluxSpinner/>
         </div>
     </div>
 </template>
@@ -31,7 +31,7 @@
     setup>
     import { provide, toRefs, useSlots } from 'vue-demi';
     import { FluxTableInjectionKey } from '../data';
-    import { FluxSpinner } from './index';
+    import FluxSpinner from './FluxSpinner.vue';
 
     export interface Props {
         readonly captionSide?: 'top' | 'bottom';

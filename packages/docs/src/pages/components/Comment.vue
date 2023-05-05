@@ -1,40 +1,40 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Comment"/>
 
-        <preview>
-            <flux-pane>
-                <flux-pane-body :gap="30">
-                    <flux-comment
+        <Preview>
+            <FluxPane>
+                <FluxPaneBody :gap="30">
+                    <FluxComment
                         avatar-url="https://imgproxy.glybe.nl/120,q75,jpg/1-b38d42e52f851f0ec94d118fad965277e3915b89da1012cef7e58674e3cf219a-img1386.jpeg"
                         is-flipped
                         name="Bas Milius"
                         period="13:04">
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet aut blanditiis consectetur doloribus earum, eos expedita magnam necessitatibus officia perferendis possimus praesentium quisquam repellendus rerum sequi totam vel voluptas voluptatem.</p>
-                    </flux-comment>
+                    </FluxComment>
 
-                    <flux-comment
+                    <FluxComment
                         avatar-fallback-initials="BM"
                         is-received
                         name="Bas Milius"
                         period="13:37">
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consectetur consequuntur dolores facilis, incidunt qui quia voluptatum. Ea facilis harum hic, laborum quo reiciendis voluptates! Ex excepturi nemo suscipit totam.</p>
-                    </flux-comment>
-                </flux-pane-body>
-            </flux-pane>
-        </preview>
+                    </FluxComment>
+                </FluxPaneBody>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 A FluxComment can be used to display an user generated message. It displays an avatar, period and
                 the message itself. The component can also be used within chat interfaces and have a received state.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="Comment">
+        <ApiSection title="API">
+            <ApiComponent name="Comment">
                 <template #props>
                     <tr>
                         <td><code>avatar-alt</code><code>string</code></td>
@@ -80,9 +80,9 @@
                         <td>Contents of the comment.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

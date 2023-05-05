@@ -7,12 +7,13 @@
             'is-fluid': isFluid,
             'is-small': isSmall
         }">
-        <flux-spinner
+        <FluxSpinner
             v-if="isLoading"
             class="flux-notice-prefix"
             :size="isSmall ? 16 : 20"/>
-        <flux-icon
-            v-else-if="icon"
+
+        <FluxIcon
+            v-if="icon && !isLoading"
             class="flux-notice-prefix"
             :size="isSmall ? 16 : 20"
             :variant="icon"/>
@@ -37,7 +38,8 @@
     lang="ts"
     setup>
     import type { IconNames } from '../data';
-    import { FluxIcon, FluxSpinner } from '.';
+    import FluxIcon from './FluxIcon.vue';
+    import FluxSpinner from './FluxSpinner.vue';
 
     export interface Props {
         readonly icon?: IconNames;

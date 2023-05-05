@@ -1,76 +1,76 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Flyout"/>
 
-        <preview>
-            <flux-button-stack>
-                <flux-flyout>
+        <Preview>
+            <FluxButtonStack>
+                <FluxFlyout>
                     <template #opener="{open}">
-                        <flux-secondary-button
+                        <FluxSecondaryButton
                             icon-after="ellipsis-h"
                             label="More"
                             @click="open"/>
                     </template>
 
                     <template #default="{close}">
-                        <flux-menu>
-                            <flux-menu-group>
-                                <flux-menu-item
+                        <FluxMenu>
+                            <FluxMenuGroup>
+                                <FluxMenuItem
                                     icon-before="scissors"
                                     label="Cut"
                                     @click="close"/>
-                                <flux-menu-item
+                                <FluxMenuItem
                                     icon-before="clone"
                                     label="Copy"
                                     @click="close"/>
-                                <flux-menu-item
+                                <FluxMenuItem
                                     icon-before="paste"
                                     label="Paste"
                                     @click="close"/>
-                            </flux-menu-group>
+                            </FluxMenuGroup>
 
-                            <flux-separator/>
+                            <FluxSeparator/>
 
-                            <flux-menu-group>
-                                <flux-menu-item
+                            <FluxMenuGroup>
+                                <FluxMenuItem
                                     icon-before="gear"
                                     label="Preferences"
                                     @click="close"/>
-                            </flux-menu-group>
-                        </flux-menu>
+                            </FluxMenuGroup>
+                        </FluxMenu>
                     </template>
-                </flux-flyout>
+                </FluxFlyout>
 
-                <flux-flyout
+                <FluxFlyout
                     axis="horizontal"
                     :width="360">
                     <template #opener="{open}">
-                        <flux-secondary-button
+                        <FluxSecondaryButton
                             label="Info"
                             @click="open"/>
                     </template>
 
                     <template #default="{close}">
-                        <flux-pane-body>
+                        <FluxPaneBody>
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, aperiam aspernatur autem debitis dignissimos enim esse, ex incidunt libero nulla odit optio porro quae quisquam similique tempora vero voluptas voluptate.
-                        </flux-pane-body>
+                        </FluxPaneBody>
                     </template>
-                </flux-flyout>
-            </flux-button-stack>
-        </preview>
+                </FluxFlyout>
+            </FluxButtonStack>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 A flyout is a hidden element that can be opened by another element. This can be used for hidden menu's
                 for example. A flyout can be positioned horizontally or vertically. You may use other elements within
                 the flyout, for example pane's with more information about a feature.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="Flyout">
+        <ApiSection title="API">
+            <ApiComponent name="Flyout">
                 <template #props>
                     <tr>
                         <td><code>axis</code><code>'horizontal' | 'vertical'</code></td>
@@ -100,23 +100,23 @@
                         <td>Opener of the flyout. Can be a button for example.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
+            </ApiComponent>
+        </ApiSection>
 
-        <api-section title="Examples">
-            <api-example
+        <ApiSection title="Examples">
+            <ApiExample
                 :code="menuCode"
                 :component="menu"
                 title="Menu"
                 description="A menu that is hidden under a three-dot menu. When opened, the flyout reveals more options."/>
 
-            <api-example
+            <ApiExample
                 :code="popoverCode"
                 :component="popover"
                 title="Popover"
                 description="Popovers can display more information for a context. This can for example be a question mark icon next to a graph, that explains the graph."/>
-        </api-section>
-    </flux-stack>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

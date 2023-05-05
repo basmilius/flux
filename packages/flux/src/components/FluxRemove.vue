@@ -3,7 +3,7 @@
         class="flux-remove"
         :class="{'is-hidden': isHidden}"
         @click="$emit('click', $event)">
-        <flux-icon
+        <FluxIcon
             v-if="icon"
             :size="16"
             :variant="icon"/>
@@ -14,7 +14,7 @@
     lang="ts"
     setup>
     import type { IconNames } from '../data';
-    import { FluxIcon } from '.';
+    import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {
         (e: 'click', evt: MouseEvent): void;

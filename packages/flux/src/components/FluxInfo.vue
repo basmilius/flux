@@ -1,6 +1,6 @@
 <template>
     <div class="flux-info">
-        <flux-icon
+        <FluxIcon
             v-if="icon"
             class="flux-info-icon"
             :variant="icon"/>
@@ -14,7 +14,7 @@
     setup
     lang="ts">
     import type { IconNames } from '../data';
-    import { FluxIcon } from '.';
+    import FluxIcon from './FluxIcon.vue';
 
     export interface Props {
         readonly icon?: IconNames;

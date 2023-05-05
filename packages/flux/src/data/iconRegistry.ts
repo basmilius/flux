@@ -1,4 +1,4 @@
-import type { IconDefinition, IconNames, IconPathData } from '.';
+import type { IconDefinition, IconNames, IconPathData } from './types';
 
 type Icon = [number, number, string[], string, IconPathData];
 type IconRegistry = Partial<{ [key in IconNames]: Icon; }>;

@@ -7,13 +7,13 @@
             'is-switch': isSwitch
         }"
         :for="id">
-        <flux-icon
+        <FluxIcon
             v-if="iconOff"
             class="flux-toggle-icon flux-toggle-icon-off"
             :size="16"
             :variant="iconOff"/>
 
-        <flux-icon
+        <FluxIcon
             v-if="iconOn"
             class="flux-toggle-icon flux-toggle-icon-on"
             :size="16"
@@ -44,7 +44,7 @@
     import type { IconNames } from '../data';
     import { toRefs } from 'vue-demi';
     import { useFormFieldInjection } from '../composables';
-    import { FluxIcon } from '.';
+    import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {
         (e: 'update:modelValue', on: boolean): void;

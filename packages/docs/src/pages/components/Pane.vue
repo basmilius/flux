@@ -1,36 +1,36 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Pane"/>
 
-        <preview>
-            <flux-pane>
-                <flux-pane-header
+        <Preview>
+            <FluxPane>
+                <FluxPaneHeader
                     icon="key"
                     title="Sessions"
                     sub-title="List with your active sessions."/>
 
-                <flux-pane-body>
+                <FluxPaneBody>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, blanditiis distinctio dolore eaque, eveniet fuga laborum maxime molestiae nemo nostrum, quis quo totam ullam. Accusantium animi aperiam cupiditate esse nisi.</p>
-                </flux-pane-body>
+                </FluxPaneBody>
 
-                <flux-pane-footer>
-                    <flux-destructive-button label="Logout everywhere"/>
-                </flux-pane-footer>
-            </flux-pane>
-        </preview>
+                <FluxPaneFooter>
+                    <FluxDestructiveButton label="Logout everywhere"/>
+                </FluxPaneFooter>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 A pane component is a container used to display content in a visually distinct section of a user
                 interface. It serves as a way to separate and organize information. A pane is built with other Pane
                 elements that each have their own purpose.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-components>
+        <ApiSection title="API">
+            <ApiComponents>
                 <tr>
                     <td><code>FluxPane</code></td>
                     <td>The Pane itself. Provides a background, border and little shadow.</td>
@@ -59,9 +59,9 @@
                     <td><code>FluxPaneMedia</code></td>
                     <td>Can hold an image that is used as the media within a pane.</td>
                 </tr>
-            </api-components>
+            </ApiComponents>
 
-            <api-component name="Pane">
+            <ApiComponent name="Pane">
                 <template #props>
                     <tr>
                         <td><code>columns</code><code>number</code></td>
@@ -103,9 +103,9 @@
                         <td>Contents of the pane.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="PaneBody">
+            <ApiComponent name="PaneBody">
                 <template #props>
                     <tr>
                         <td><code>span</code><code>number</code></td>
@@ -119,27 +119,27 @@
                         <td>Contents of the pane body.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="PaneDeck">
+            <ApiComponent name="PaneDeck">
                 <template #slots>
                     <tr>
                         <td><code>default</code><code>{}</code></td>
                         <td>Contains the FluxPane's that should be grouped together.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="PaneFooter">
+            <ApiComponent name="PaneFooter">
                 <template #slots>
                     <tr>
                         <td><code>default</code><code>{}</code></td>
                         <td>Contents of the pane footer.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="PaneHeader">
+            <ApiComponent name="PaneHeader">
                 <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
@@ -165,9 +165,9 @@
                         <td>Contents of the pane header.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="PaneIllustration">
+            <ApiComponent name="PaneIllustration">
                 <template #props>
                     <tr>
                         <td><code>animated-colors</code><code>string[]</code></td>
@@ -201,9 +201,9 @@
                         <td>Contents of the pane illustration, but controlled by the pane illustration.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="PaneMedia">
+            <ApiComponent name="PaneMedia">
                 <template #props>
                     <tr>
                         <td><code>image-alt</code><code>string</code></td>
@@ -230,47 +230,47 @@
                         <td>Within a Pane that has a grid, this controls how much columns it should take.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
+            </ApiComponent>
+        </ApiSection>
 
-        <api-section title="Examples">
-            <api-example
+        <ApiSection title="Examples">
+            <ApiExample
                 :code="basicCode"
                 :component="basic"
                 title="Basic"
                 description="A basic pane with text."/>
 
-            <api-example
+            <ApiExample
                 :code="formCode"
                 :component="form"
                 title="Form"
                 description="Form within a pane."/>
 
-            <api-example
+            <ApiExample
                 :code="loadingCode"
                 :component="loading"
                 title="Loading"
                 description="A pane that is in a loading state."/>
 
-            <api-example
+            <ApiExample
                 :code="featureDiscoveryCode"
                 :component="featureDiscovery"
                 title="Feature discovery"
                 description="Pane that uses an illustration for feature discovery."/>
 
-            <api-example
+            <ApiExample
                 :code="deckCode"
                 :component="deck"
                 title="Deck"
                 description="A group of Panes in a Deck."/>
 
-            <api-example
+            <ApiExample
                 :code="mediaCode"
                 :component="media"
                 title="Media"
                 description="A Pane that contains a PaneMedia component."/>
-        </api-section>
-    </flux-stack>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

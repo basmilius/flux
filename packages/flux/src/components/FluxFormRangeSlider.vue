@@ -1,5 +1,5 @@
 <template>
-    <slider-base
+    <SliderBase
         :is-disabled="isDisabled"
         :is-dragging="isDraggingLower || isDraggingUpper"
         :is-ticks-visible="isTicksVisible"
@@ -8,10 +8,10 @@
         :step="step"
         @dragging="onDragging"
         @update="onUpdate">
-        <slider-track
+        <SliderTrack
             :percentage-lower="percentageLower"
             :percentage-upper="percentageUpper">
-            <slider-thumb
+            <SliderThumb
                 ref="lowerThumbRef"
                 :is-disabled="isDisabled"
                 :is-dragging="isDraggingLower"
@@ -20,7 +20,7 @@
                 @decrement="onDecrement('lower')"
                 @increment="onIncrement('lower')"/>
 
-            <slider-thumb
+            <SliderThumb
                 ref="upperThumbRef"
                 :is-disabled="isDisabled"
                 :is-dragging="isDraggingUpper"
@@ -28,8 +28,8 @@
                 @grab="!isDisabled && (isDraggingUpper = true)"
                 @decrement="onDecrement('upper')"
                 @increment="onIncrement('upper')"/>
-        </slider-track>
-    </slider-base>
+        </SliderTrack>
+    </SliderBase>
 </template>
 
 <script lang="ts">

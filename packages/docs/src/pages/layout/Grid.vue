@@ -1,33 +1,33 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Layout"
             title="Grid"/>
 
-        <preview>
-            <flux-pane>
-                <flux-pane-body>
-                    <flux-grid :gap="21">
-                        <flux-grid-column
+        <Preview>
+            <FluxPane>
+                <FluxPaneBody>
+                    <FluxGrid :gap="21">
+                        <FluxGridColumn
                             v-for="i in [1, 2, 3]"
                             :md="i === 2 ? 6 : 3">
                             <div class="column-example"/>
-                        </flux-grid-column>
-                    </flux-grid>
-                </flux-pane-body>
-            </flux-pane>
-        </preview>
+                        </FluxGridColumn>
+                    </FluxGrid>
+                </FluxPaneBody>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 Our grid component is a powerful tool for creating responsive layouts that adapt to any screen size. With
                 12 equal-width columns, it provides maximum flexibility for building complex page designs. You can easily
                 combine and rearrange the columns to create custom layouts that suit your specific needs.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-components>
+        <ApiSection title="API">
+            <ApiComponents>
                 <tr>
                     <td><code>FluxGrid</code></td>
                     <td>The grid itself.</td>
@@ -36,9 +36,9 @@
                     <td><code>FluxGridColumn</code></td>
                     <td>A single column within the grid.</td>
                 </tr>
-            </api-components>
+            </ApiComponents>
 
-            <api-component name="Grid">
+            <ApiComponent name="Grid">
                 <template #props>
                     <tr>
                         <td><code>columns</code><code>number</code></td>
@@ -56,9 +56,9 @@
                         <td>The grid columns within the grid.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="GridColumn">
+            <ApiComponent name="GridColumn">
                 <template #props>
                     <tr>
                         <td><code>xs</code><code>number</code></td>
@@ -88,9 +88,9 @@
                         <td>The contents of the grid column.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

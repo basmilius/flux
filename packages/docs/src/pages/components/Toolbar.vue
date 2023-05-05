@@ -1,43 +1,43 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Toolbar"/>
 
-        <preview>
-            <flux-pane style="width: 480px">
-                <flux-pane-body>
+        <Preview>
+            <FluxPane style="width: 480px">
+                <FluxPaneBody>
                     &nbsp;
-                </flux-pane-body>
+                </FluxPaneBody>
 
-                <flux-toolbar floating-mode="top-end">
-                    <flux-toolbar-group>
-                        <flux-action icon="grip-dots"/>
-                        <flux-action icon="angle-up"/>
-                        <flux-action icon="angle-down"/>
-                    </flux-toolbar-group>
+                <FluxToolbar floating-mode="top-end">
+                    <FluxToolbarGroup>
+                        <FluxAction icon="grip-dots"/>
+                        <FluxAction icon="angle-up"/>
+                        <FluxAction icon="angle-down"/>
+                    </FluxToolbarGroup>
 
-                    <flux-separator axis="vertical"/>
+                    <FluxSeparator axis="vertical"/>
 
-                    <flux-toolbar-group>
-                        <flux-action
+                    <FluxToolbarGroup>
+                        <FluxAction
                             destructive
                             icon="xmark"/>
-                    </flux-toolbar-group>
-                </flux-toolbar>
-            </flux-pane>
-        </preview>
+                    </FluxToolbarGroup>
+                </FluxToolbar>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 The toolbar component is used for actions within a certain context. For example: when you have a
                 stack of products, toolbars can be used to display actions for each product. A toolbar can have
                 groups, buttons and separators within them.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-components>
+        <ApiSection title="API">
+            <ApiComponents>
                 <tr>
                     <td><code>FluxToolbar</code></td>
                     <td>The toolbar itself.</td>
@@ -46,9 +46,9 @@
                     <td><code>FluxToolbarGroup</code></td>
                     <td>Groups one or more FluxToolbarButton components together.</td>
                 </tr>
-            </api-components>
+            </ApiComponents>
 
-            <api-component name="Toolbar">
+            <ApiComponent name="Toolbar">
                 <template #props>
                     <tr>
                         <td><code>floating-mode</code><code>'free' | 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end'</code></td>
@@ -62,18 +62,18 @@
                         <td>Contents of the toolbar.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="ToolbarGroup">
+            <ApiComponent name="ToolbarGroup">
                 <template #slots>
                     <tr>
                         <td><code>default</code><code>{}</code></td>
                         <td>Contents of the toolbar group.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

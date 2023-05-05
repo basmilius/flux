@@ -1,10 +1,10 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Oops"
             title="Not found"/>
 
-        <flux-notice
+        <FluxNotice
             icon="circle-exclamation"
             message="Please keep in mind that the documentation website is still in progress."
             variant="warning"/>
@@ -20,7 +20,7 @@
                 the menu.
             </p>
         </section>
-    </flux-stack>
+    </FluxStack>
 </template>
 
 <script

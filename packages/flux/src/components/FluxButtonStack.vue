@@ -1,16 +1,16 @@
 <template>
-    <flux-stack
+    <FluxStack
         :axis="axis"
         :gap="gap"
         :is-fill="isFill">
         <slot/>
-    </flux-stack>
+    </FluxStack>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxStack } from '.';
+    import FluxStack from './FluxStack.vue';
 
     export interface Props {
         readonly axis?: 'horizontal' | 'vertical';

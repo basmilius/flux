@@ -1,25 +1,25 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Layout"
             title="Stack"/>
 
-        <preview>
-            <flux-pane>
-                <flux-pane-body>
-                    <flux-stack
+        <Preview>
+            <FluxPane>
+                <FluxPaneBody>
+                    <FluxStack
                         axis="horizontal"
                         :gap="15">
                         <div class="column-example"/>
                         <div class="column-example"/>
                         <div class="column-example"/>
                         <div class="column-example"/>
-                    </flux-stack>
-                </flux-pane-body>
-            </flux-pane>
-        </preview>
+                    </FluxStack>
+                </FluxPaneBody>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 A stack component is a layout component that arranges child elements in a stack along a specified axis, with
                 a configurable gap between elements. The axis property defines the direction in which the elements are stacked
@@ -27,10 +27,10 @@
                 can be used to organize content in a compact and organized manner, and are commonly used to create simple and
                 flexible layouts in web and mobile applications.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-components>
+        <ApiSection title="API">
+            <ApiComponents>
                 <tr>
                     <td><code>FluxStack</code></td>
                     <td></td>
@@ -51,9 +51,9 @@
                     <td><code>FluxNoticeStack</code></td>
                     <td></td>
                 </tr>
-            </api-components>
+            </ApiComponents>
 
-            <api-component name="Stack">
+            <ApiComponent name="Stack">
                 <template #props>
                     <tr>
                         <td><code>axis</code><code>'horizontal' | 'vertical'</code></td>
@@ -83,9 +83,9 @@
                         <td>The contents of the stack.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

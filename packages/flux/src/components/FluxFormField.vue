@@ -19,7 +19,7 @@
         <div
             v-if="error"
             class="flux-form-field-addition flux-form-field-addition-error">
-            <flux-icon
+            <FluxIcon
                 :size="16"
                 class="flux-form-field-addition-icon"
                 variant="circle-exclamation"/>
@@ -30,7 +30,7 @@
         <div
             v-if="hint"
             class="flux-form-field-addition flux-form-field-addition-hint">
-            <flux-icon
+            <FluxIcon
                 :size="16"
                 class="flux-form-field-addition-icon"
                 variant="circle-info"/>
@@ -46,7 +46,7 @@
     import { provide } from 'vue-demi';
     import { useId, useTranslate } from '../composables';
     import { FluxFormFieldInjectionKey } from '../data';
-    import { FluxIcon } from '.';
+    import FluxIcon from './FluxIcon.vue';
 
     export interface Props {
         readonly error?: string;

@@ -1,46 +1,46 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Badge"/>
 
-        <preview>
-            <flux-badge-stack>
-                <flux-badge label="Badge"/>
+        <Preview>
+            <FluxBadgeStack>
+                <FluxBadge label="Badge"/>
 
-                <flux-badge
+                <FluxBadge
                     color="danger"
                     dot
                     label="Badge"/>
 
-                <flux-badge
+                <FluxBadge
                     color="success"
                     icon="circle-check"
                     label="Badge"/>
 
-                <flux-badge
+                <FluxBadge
                     is-loading
                     label="Badge"/>
 
-                <flux-badge
+                <FluxBadge
                     is-deletable
                     label="Badge"/>
-            </flux-badge-stack>
-        </preview>
+            </FluxBadgeStack>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 Badges are used as labels for a more specific element in the UI. This, for example, may be used to
                 display the status of an order.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="Required icons">
-            <api-required-icons :icons="['xmark']"/>
-        </api-section>
+        <ApiSection title="Required icons">
+            <ApiRequiredIcons :icons="['xmark']"/>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="Badge">
+        <ApiSection title="API">
+            <ApiComponent name="Badge">
                 <template #props>
                     <tr>
                         <td><code>color</code><code>'primary' | 'danger' | 'info' | 'success' | 'warning'</code></td>
@@ -82,35 +82,35 @@
                         <td>Triggered when the delete button within the badge is clicked. This only works when the is-deletable prop is set.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
+            </ApiComponent>
+        </ApiSection>
 
-        <api-section title="Examples">
-            <api-example
+        <ApiSection title="Examples">
+            <ApiExample
                 :code="basicCode"
                 :component="basic"
                 title="Basic"
                 description="A basic badge can be used to show additional information about something else."/>
 
-            <api-example
+            <ApiExample
                 :code="dotCode"
                 :component="dot"
                 title="Dot"
                 description="A badge with a dot can be used to indicate status of something. For example the status of a server or the payment status of an order."/>
 
-            <api-example
+            <ApiExample
                 :code="iconCode"
                 :component="icon"
                 title="Icon"
                 description="Icons within badges can be used to improve the meaning of the badge. This can for example be used to display features of something."/>
 
-            <api-example
+            <ApiExample
                 :code="loadingCode"
                 :component="loading"
                 title="Loading"
                 description="Badges with a loading state can be used to indicate that a row within a table is doing something, such as saving a particular row."/>
-        </api-section>
-    </flux-stack>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

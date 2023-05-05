@@ -1,5 +1,5 @@
 <template>
-    <component
+    <Component
         :is="isSelectable ? 'button' : 'div'"
         class="flux-chip"
         :class="{
@@ -7,19 +7,19 @@
             'is-selected': isSelected
         }"
         @click="$emit('click', $event)">
-        <flux-icon
+        <FluxIcon
             v-if="isSelectable"
             :size="16"
             :variant="isSelected ? 'check' : (iconBefore ?? 'plus')"/>
 
-        <flux-icon
+        <FluxIcon
             v-else-if="iconBefore"
             :size="16"
             :variant="iconBefore"/>
 
         <span>{{ label }}</span>
 
-        <flux-icon
+        <FluxIcon
             v-if="iconAfter"
             :size="16"
             :variant="iconAfter"/>
@@ -30,7 +30,7 @@
     lang="ts"
     setup>
     import type { IconNames } from '../data';
-    import { FluxIcon } from '.';
+    import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {
         (e: 'click', evt: MouseEvent): void;

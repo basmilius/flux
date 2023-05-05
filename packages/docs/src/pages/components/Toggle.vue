@@ -1,22 +1,22 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Toggle"/>
 
-        <preview>
-            <flux-stack axis="horizontal">
-                <flux-toggle v-model="toggle1"/>
+        <Preview>
+            <FluxStack axis="horizontal">
+                <FluxToggle v-model="toggle1"/>
 
-                <flux-toggle
+                <FluxToggle
                     v-model="toggle2"
                     is-switch
                     icon-off="sun-alt"
                     icon-on="moon"/>
-            </flux-stack>
-        </preview>
+            </FluxStack>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 A toggle component is a type of user interface element that allows the user to switch between two
                 states, such as "on" and "off." It is often represented as a switch or button that can be flipped
@@ -24,10 +24,10 @@
                 to enable or disable specific features or settings. They provide a simple and intuitive way for
                 users to interact with the interface and control the behavior of the application.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="Toggle">
+        <ApiSection title="API">
+            <ApiComponent name="Toggle">
                 <template #props>
                     <tr>
                         <td><code>icon-off</code><code>IconNames</code></td>
@@ -57,9 +57,9 @@
                         <td>Triggered when the toggle is updated.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

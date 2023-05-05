@@ -1,22 +1,22 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Checkbox"/>
 
-        <preview>
-            <flux-pane style="width: 420px">
-                <flux-pane-body>
-                    <flux-form-field label="Newsletter">
-                        <flux-checkbox
+        <Preview>
+            <FluxPane style="width: 420px">
+                <FluxPaneBody>
+                    <FluxFormField label="Newsletter">
+                        <FluxCheckbox
                             v-model="isChecked"
                             label="Send me a weekly update newsletter."/>
-                    </flux-form-field>
-                </flux-pane-body>
-            </flux-pane>
-        </preview>
+                    </FluxFormField>
+                </FluxPaneBody>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 The Checkbox Component is an interactive UI element that allows users to select one or
                 more options from a list. This component is commonly used in forms, surveys, and other
@@ -24,14 +24,14 @@
                 Component consists of a small box that can be selected or deselected by the user, and
                 a label that describes the option being selected.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="Required icons">
-            <api-required-icons :icons="['check', 'minus']"/>
-        </api-section>
+        <ApiSection title="Required icons">
+            <ApiRequiredIcons :icons="['check', 'minus']"/>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="Checkbox">
+        <ApiSection title="API">
+            <ApiComponent name="Checkbox">
                 <template #props>
                     <tr>
                         <td><code>model-value</code><code>boolean | null</code></td>
@@ -49,9 +49,9 @@
                         <td>Triggered when the checkbox state changes.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

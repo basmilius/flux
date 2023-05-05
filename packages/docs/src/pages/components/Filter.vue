@@ -1,13 +1,13 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Filter"/>
 
-        <preview style="min-height: 420px">
-            <flux-pane style="align-self: start; translate: 0 54px; width: max-content">
-                <flux-filter v-model="filterState">
-                    <flux-filter-option
+        <Preview style="min-height: 420px">
+            <FluxPane style="align-self: start; translate: 0 54px; width: max-content">
+                <FluxFilter v-model="filterState">
+                    <FluxFilterOption
                         is-searchable
                         icon="clone"
                         label="Option"
@@ -19,7 +19,7 @@
                             {label: 'Option C', value: 'c'}
                         ]"/>
 
-                    <flux-filter-options
+                    <FluxFilterOptions
                         is-searchable
                         icon="circle-check"
                         label="Choices"
@@ -31,34 +31,34 @@
                             {label: 'Option C', value: 'c'}
                         ]"/>
 
-                    <flux-separator/>
+                    <FluxSeparator/>
 
-                    <flux-filter-date
+                    <FluxFilterDate
                         icon="calendar"
                         label="Date"
                         name="option3"/>
 
-                    <flux-filter-date-range
+                    <FluxFilterDateRange
                         icon="calendar-range"
                         label="Period"
                         name="option4"/>
-                </flux-filter>
-            </flux-pane>
-        </preview>
+                </FluxFilter>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 A Filter is used to filter a large dataset. It consists of multiple filter options of various types, for
                 example an option or a date. The user can navigate through the filter and alter options.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="Required icons">
-            <api-required-icons :icons="['angle-left', 'angle-right', 'circle-check', 'magnifying-glass', 'trash']"/>
-        </api-section>
+        <ApiSection title="Required icons">
+            <ApiRequiredIcons :icons="['angle-left', 'angle-right', 'circle-check', 'magnifying-glass', 'trash']"/>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-components>
+        <ApiSection title="API">
+            <ApiComponents>
                 <tr>
                     <td><code>FluxFilter</code></td>
                     <td>The filter component itself, can render the other filter components.</td>
@@ -79,9 +79,9 @@
                     <td><code>FluxFilterOptions</code></td>
                     <td>Filter option that can select multiple items from a list of options.</td>
                 </tr>
-            </api-components>
+            </ApiComponents>
 
-            <api-component name="Filter">
+            <ApiComponent name="Filter">
                 <template #props>
                     <tr>
                         <td><code>model-value</code><code>object</code></td>
@@ -102,9 +102,9 @@
                         <td>Filter options and other components. A FluxSeparator has a special case that groups the other options.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="FilterDate">
+            <ApiComponent name="FilterDate">
                 <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
@@ -127,9 +127,9 @@
                         <td>The name of the entry in the filter state.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="FilterDateRange">
+            <ApiComponent name="FilterDateRange">
                 <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
@@ -156,9 +156,9 @@
                         <td>Type of range that can be selected in the date picker.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="FilterOption">
+            <ApiComponent name="FilterOption">
                 <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
@@ -196,9 +196,9 @@
                         <td>Triggered when the search query changes.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="FilterOptions">
+            <ApiComponent name="FilterOptions">
                 <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
@@ -236,35 +236,35 @@
                         <td>Triggered when the search query changes.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
+            </ApiComponent>
+        </ApiSection>
 
-        <api-section title="Examples">
-            <api-example
+        <ApiSection title="Examples">
+            <ApiExample
                 :code="optionCode"
                 :component="option"
                 title="Single option"
                 description="A filter where the user can select a single value."/>
 
-            <api-example
+            <ApiExample
                 :code="optionsCode"
                 :component="options"
                 title="Multiple options"
                 description="A filter where the user can select multiple values."/>
 
-            <api-example
+            <ApiExample
                 :code="dateCode"
                 :component="date"
                 title="Date"
                 description="A filter where the user can select a date."/>
 
-            <api-example
+            <ApiExample
                 :code="dateRangeCode"
                 :component="dateRange"
                 title="Date"
                 description="A filter where the user can select a date range."/>
-        </api-section>
-    </flux-stack>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

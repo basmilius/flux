@@ -1,33 +1,36 @@
 <template>
-    <flux-pane class="code-preview flux-typography-aware">
-        <preview v-if="html">
+    <FluxPane class="code-preview flux-typography-aware">
+        <Preview v-if="html">
             <template #body>
-                <div class="preview-body" v-html="code"/>
+                <div
+                    class="preview-body"
+                    v-html="code"/>
             </template>
-        </preview>
+        </Preview>
 
-        <preview v-else-if="component">
-            <component :is="component"/>
-        </preview>
+        <Preview v-else-if="component">
+            <Component :is="component"/>
+        </Preview>
 
-        <preview v-else>
+        <Preview v-else>
             <slot/>
-        </preview>
+        </Preview>
 
-        <flux-pane-footer>
-            <highlighted-code
+        <FluxPaneFooter>
+            <HighlightedCode
                 v-if="!!component || !!html || !!language"
                 :code="code"
                 :language="html ? 'html' : (component ? 'vue' : language!)"/>
-        </flux-pane-footer>
-    </flux-pane>
+        </FluxPaneFooter>
+    </FluxPane>
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxPane, FluxPaneFooter } from '@fancee/flux';
-    import { HighlightedCode, Preview } from '.';
+    import HighlightedCode from './HighlightedCode.vue';
+    import Preview from './Preview.vue';
 
     export interface Props {
         readonly code: string;

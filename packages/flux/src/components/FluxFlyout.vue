@@ -11,7 +11,7 @@
             class="flux-flyout-dialog"
             @cancel.prevent="close"
             @click="onDialogBackdropClick">
-            <flux-pane
+            <FluxPane
                 ref="paneRef"
                 class="flux-flyout-pane"
                 :class="{
@@ -22,7 +22,7 @@
                 <slot
                     v-if="isOpen"
                     v-bind="{close, paneX, paneY, openerWidth, openerHeight}"/>
-            </flux-pane>
+            </FluxPane>
         </dialog>
     </div>
 </template>
@@ -32,8 +32,8 @@
     setup>
     import { provide, ref, toRefs, unref, watch } from 'vue-demi';
     import { unrefElement } from '../helpers';
-    import { FluxPane } from '.';
     import { FluxFlyoutInjectionKey } from '../data';
+    import FluxPane from './FluxPane.vue';
 
     export interface Props {
         readonly axis?: 'horizontal' | 'vertical';
@@ -159,7 +159,7 @@
         close,
         open,
         toggle
-    })
+    });
 </script>
 
 <style lang="scss">

@@ -1,29 +1,29 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Quantity selector"/>
 
-        <preview>
-            <flux-quantity-selector
+        <Preview>
+            <FluxQuantitySelector
                 :max="1000000000"
                 :min="0"
                 :model-value="5"/>
-        </preview>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 A quantity selector can be used when users need to select a amount of something. For example: Within
                 a shop, a user is able to select how many of a certain product they want to buy.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="Required icons">
-            <api-required-icons :icons="['minus', 'plus']"/>
-        </api-section>
+        <ApiSection title="Required icons">
+            <ApiRequiredIcons :icons="['minus', 'plus']"/>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="QuantitySelector">
+        <ApiSection title="API">
+            <ApiComponent name="QuantitySelector">
                 <template #props>
                     <tr>
                         <td><code>max</code><code>number</code></td>
@@ -49,23 +49,23 @@
                         <td>Triggered when a new value is selected.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
+            </ApiComponent>
+        </ApiSection>
 
-        <api-section title="Examples">
-            <api-example
+        <ApiSection title="Examples">
+            <ApiExample
                 :code="basicCode"
                 :component="basic"
                 title="Basic"
                 description="Quantity selectors have a minimum and maximum value."/>
 
-            <api-example
+            <ApiExample
                 :code="stepCode"
                 :component="step"
                 title="Step"
                 description="The quantity selector also has support for a step prop that controls by how much the value is increased or decreased at once."/>
-        </api-section>
-    </flux-stack>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

@@ -1,10 +1,10 @@
 <template>
-    <transition-group
+    <TransitionGroup
         name="flux-snackbars"
         tag="div"
         class="flux-snackbars"
         id="flux-snackbars">
-        <flux-snackbar
+        <FluxSnackbar
             v-for="snackbar of snackbars"
             :key="snackbar.id"
             :actions="snackbar.actions"
@@ -18,7 +18,7 @@
             is-rendered
             @action="actionKey => snackbar.onAction?.(actionKey)"
             @close="() => snackbar.onClose?.()"/>
-    </transition-group>
+    </TransitionGroup>
 </template>
 
 <script
@@ -26,7 +26,7 @@
     setup>
     import { storeToRefs } from 'pinia';
     import { useFluxStore } from '../data';
-    import { FluxSnackbar } from '.';
+    import FluxSnackbar from './FluxSnackbar.vue';
 
     const fluxStore = useFluxStore();
     const {snackbars} = storeToRefs(fluxStore);

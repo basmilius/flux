@@ -1,42 +1,44 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Fader"/>
 
-        <preview>
-            <flux-pane>
-                <flux-aspect-ratio :aspect-ratio="16/9">
-                    <flux-fader :interval="2000">
-                        <flux-fader-item>
+        <Preview>
+            <FluxPane>
+                <FluxAspectRatio :aspect-ratio="16/9">
+                    <FluxFader :interval="2000">
+                        <FluxFaderItem>
                             <img
                                 src="https://staging.fanc.ee/uploads/shops/headers/bh40dmg5.uwr.jpg"
                                 alt="">
-                        </flux-fader-item>
-                        <flux-fader-item>
+                        </FluxFaderItem>
+
+                        <FluxFaderItem>
                             <img
                                 src="https://staging.fanc.ee/uploads/shops/headers/vocrmejv.5mm.jpg"
                                 alt="">
-                        </flux-fader-item>
-                        <flux-fader-item>
+                        </FluxFaderItem>
+
+                        <FluxFaderItem>
                             <img
                                 src="https://staging.fanc.ee/uploads/shops/headers/q5mvww5g.2lu.jpg"
                                 alt="">
-                        </flux-fader-item>
-                    </flux-fader>
-                </flux-aspect-ratio>
-            </flux-pane>
-        </preview>
+                        </FluxFaderItem>
+                    </FluxFader>
+                </FluxAspectRatio>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 Faders are used to fade between multiple items using a particular interval. They can be used in
                 headers to fade between multiple image slides.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-components>
+        <ApiSection title="API">
+            <ApiComponents>
                 <tr>
                     <td><code>FluxFader</code></td>
                     <td>The fader itself.</td>
@@ -45,9 +47,9 @@
                     <td><code>FluxFaderItem</code></td>
                     <td>A single slide within the fader.</td>
                 </tr>
-            </api-components>
+            </ApiComponents>
 
-            <api-component name="Fader">
+            <ApiComponent name="Fader">
                 <template #props>
                     <tr>
                         <td><code>interval</code><code>number</code></td>
@@ -68,26 +70,26 @@
                         <td>The items within the FluxFader.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="FaderItem">
+            <ApiComponent name="FaderItem">
                 <template #slots>
                     <tr>
                         <td><code>default</code><code>{}</code></td>
                         <td>The contents of the FluxFaderItem.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
+            </ApiComponent>
+        </ApiSection>
 
-        <api-section title="Examples">
-            <api-example
+        <ApiSection title="Examples">
+            <ApiExample
                 :code="basicCode"
                 :component="basic"
                 title="Basic"
                 description="Simple fader that fades between three images each 9 seconds."/>
-        </api-section>
-    </flux-stack>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

@@ -1,10 +1,10 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Content"
             title="Typography"/>
 
-        <api-section>
+        <ApiSection>
             <p>
                 Typography is a critical element of any user interface, and in Flux, we understand the importance of creating
                 clear, consistent, and visually appealing typography in our components. This documentation provides you with
@@ -12,35 +12,35 @@
                 By the end of this documentation, you'll have a solid understanding of typography in Flux and be able to
                 create beautiful and readable text throughout your Vue application. So let's dive in!
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section>
-            <api-example
+        <ApiSection>
+            <ApiExample
                 :code="headingsCode"
                 title="Headings"
                 title-tag="h2"/>
 
-            <api-example
+            <ApiExample
                 :code="paragraphsCode"
                 title="Paragraph"
                 title-tag="h2"/>
 
-            <api-example
+            <ApiExample
                 :code="listsCode"
                 title="Lists"
                 title-tag="h2"/>
 
-            <api-example
+            <ApiExample
                 :code="imageCode"
                 title="Image"
                 title-tag="h2"/>
 
-            <api-example
+            <ApiExample
                 :code="blockquoteCode"
                 title="Blockquote"
                 title-tag="h2"/>
-        </api-section>
-    </flux-stack>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

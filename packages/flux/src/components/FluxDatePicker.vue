@@ -1,34 +1,34 @@
 <template>
     <div class="flux-date-picker">
         <div class="flux-date-picker-header">
-            <flux-fade-transition>
-                <flux-secondary-button
+            <FluxFadeTransition>
+                <FluxSecondaryButton
                     v-if="viewMode === 'date'"
                     :disabled="!isWithinBoundary(viewDatePrevious, 'month')"
                     icon-before="angle-left"
                     @click="onPreviousMonthClicked"/>
-            </flux-fade-transition>
+            </FluxFadeTransition>
 
             <div class="flux-date-picker-header-view">
                 <button @click="setView('month')">{{ viewMonth }}</button>
                 <button @click="setView('year')">{{ viewYear }}</button>
             </div>
 
-            <flux-fade-transition>
-                <flux-secondary-button
+            <FluxFadeTransition>
+                <FluxSecondaryButton
                     v-if="viewMode === 'date'"
                     :disabled="!isWithinBoundary(viewDateNext, 'month')"
                     icon-before="angle-right"
                     @click="onNextMonthClicked"/>
-            </flux-fade-transition>
+            </FluxFadeTransition>
         </div>
 
-        <flux-vertical-window-transition :is-back="viewMode === 'date'">
+        <FluxVerticalWindowTransition :is-back="viewMode === 'date'">
             <div
                 v-if="viewMode === 'date'"
                 key="date"
                 class="flux-date-picker-dates">
-                <flux-window-transition :is-back="isTransitioningToPast">
+                <FluxWindowTransition :is-back="isTransitioningToPast">
                     <div
                         :key="viewDate.month"
                         class="flux-date-picker-dates-grid">
@@ -61,7 +61,7 @@
                             </button>
                         </template>
                     </div>
-                </flux-window-transition>
+                </FluxWindowTransition>
             </div>
 
             <div
@@ -71,7 +71,7 @@
                 <template
                     v-for="month of months"
                     :key="month">
-                    <flux-secondary-button
+                    <FluxSecondaryButton
                         :disabled="!isWithinBoundary(month, 'month')"
                         :label="month.toLocaleString({month: 'short'})"
                         tabindex="-1"
@@ -83,7 +83,7 @@
                 v-else-if="viewMode === 'year'"
                 key="year"
                 class="flux-date-picker-years">
-                <flux-secondary-button
+                <FluxSecondaryButton
                     icon-before="angle-left"
                     tabindex="-1"
                     @click="yearIndex--"/>
@@ -91,18 +91,18 @@
                 <template
                     v-for="year of years"
                     :key="year">
-                    <flux-secondary-button
+                    <FluxSecondaryButton
                         :label="year.toString()"
                         tabindex="-1"
                         @click="setViewYear(year)"/>
                 </template>
 
-                <flux-secondary-button
+                <FluxSecondaryButton
                     icon-before="angle-right"
                     tabindex="-1"
                     @click="yearIndex++"/>
             </div>
-        </flux-vertical-window-transition>
+        </FluxVerticalWindowTransition>
     </div>
 </template>
 
@@ -121,7 +121,7 @@
     import { DateTime } from 'luxon';
     import { computed, ref, toRefs, unref } from 'vue-demi';
     import { FluxFadeTransition, FluxVerticalWindowTransition, FluxWindowTransition } from '../transition';
-    import { FluxSecondaryButton } from '.';
+    import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
     export interface Emits {
         (e: 'update:modelValue', date: DateTime | DateTime[] | null): void;

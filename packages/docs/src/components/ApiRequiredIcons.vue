@@ -3,7 +3,7 @@
         <div
             v-for="icon of icons"
             class="flux-surface flux-pane api-required-icon">
-            <flux-icon :variant="icon"/>
+            <FluxIcon :variant="icon"/>
             <span>{{ icon }}</span>
         </div>
     </div>

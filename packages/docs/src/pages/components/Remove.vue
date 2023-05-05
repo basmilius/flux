@@ -1,33 +1,33 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Remove"/>
 
-        <preview>
-            <flux-aspect-ratio :aspect-ratio="1">
-                <flux-pane style="width: 72px">
-                    <flux-pane-body>
-                        <flux-remove/>
-                    </flux-pane-body>
-                </flux-pane>
-            </flux-aspect-ratio>
-        </preview>
+        <Preview>
+            <FluxAspectRatio :aspect-ratio="1">
+                <FluxPane style="width: 72px">
+                    <FluxPaneBody>
+                        <FluxRemove/>
+                    </FluxPaneBody>
+                </FluxPane>
+            </FluxAspectRatio>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 Our Remove component is a simple and intuitive Vue component that allows users to easily remove other
                 components within a larger system. With a single button and a clear "X" icon, users can quickly and
                 easily remove components with a single click.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="Required icons">
-            <api-required-icons :icons="['xmark']"/>
-        </api-section>
+        <ApiSection title="Required icons">
+            <ApiRequiredIcons :icons="['xmark']"/>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="Remove">
+        <ApiSection title="API">
+            <ApiComponent name="Remove">
                 <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
@@ -45,9 +45,9 @@
                         <td>Triggered when the button is clicked.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

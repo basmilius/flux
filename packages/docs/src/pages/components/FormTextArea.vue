@@ -1,26 +1,26 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Form text area"/>
 
-        <preview>
-            <flux-pane style="width: 60%">
-                <flux-pane-body>
-                    <flux-form-text-area placeholder="E.g. What does API mean in the Medium ticketing package?"/>
-                </flux-pane-body>
-            </flux-pane>
-        </preview>
+        <Preview>
+            <FluxPane style="width: 60%">
+                <FluxPaneBody>
+                    <FluxFormTextArea placeholder="E.g. What does API mean in the Medium ticketing package?"/>
+                </FluxPaneBody>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 A form text area is a text field that may have multiple lines of text. It is used for longer
                 text and can be used within a contact form to ask for a question.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="FormTextArea">
+        <ApiSection title="API">
+            <ApiComponent name="FormTextArea">
                 <template #props>
                     <tr>
                         <td><code>model-value</code><code>object | string | number</code></td>
@@ -70,9 +70,9 @@
                         <td>Triggered when the text area gains focus.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

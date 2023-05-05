@@ -1,40 +1,40 @@
 <template>
-    <flux-stack
+    <FluxStack
         class="flux-form-date-time-input"
         axis="horizontal"
         :gap="15">
-        <flux-flyout
+        <FluxFlyout
             ref="flyoutRef"
             :width="300">
             <template #opener="{open}">
-                <flux-form-input-group>
-                    <flux-form-input
+                <FluxFormInputGroup>
+                    <FluxFormInput
                         v-bind="{autoFocus, isDisabled, isReadonly, modelValue, placeholder}"
                         class="flux-form-date-input"
                         type="date"
                         :model-value="localValue"
                         @update:modelValue="setDate"/>
 
-                    <flux-secondary-button
+                    <FluxSecondaryButton
                         :disabled="isDisabled"
                         icon-before="calendar"
                         @click="open"/>
-                </flux-form-input-group>
+                </FluxFormInputGroup>
             </template>
 
-            <flux-date-picker
+            <FluxDatePicker
                 v-model="localValue"
                 :max="max"
                 :min="min"/>
-        </flux-flyout>
+        </FluxFlyout>
 
-        <flux-form-input
+        <FluxFormInput
             v-bind="{isDisabled, isReadonly, modelValue, placeholder}"
             class="flux-form-date-input flux-form-time-input"
             type="time"
             :model-value="localValue"
             @update:modelValue="setTime"/>
-    </flux-stack>
+    </FluxStack>
 </template>
 
 <script lang="ts">
@@ -51,7 +51,12 @@
     setup>
     import { DateTime } from 'luxon';
     import { ComponentPublicInstance, ref, toRefs, unref, watch } from 'vue-demi';
-    import { FluxDatePicker, FluxFlyout, FluxFormInput, FluxFormInputGroup, FluxSecondaryButton, FluxStack } from '.';
+    import FluxDatePicker from './FluxDatePicker.vue';
+    import FluxFlyout from './FluxFlyout.vue';
+    import FluxFormInput from './FluxFormInput.vue';
+    import FluxFormInputGroup from './FluxFormInputGroup.vue';
+    import FluxSecondaryButton from './FluxSecondaryButton.vue';
+    import FluxStack from './FluxStack.vue';
 
     export interface Emits {
         (e: 'update:modelValue', value: DateTime | null): void;

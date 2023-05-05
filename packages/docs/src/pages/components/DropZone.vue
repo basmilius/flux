@@ -1,13 +1,13 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Drop zone"/>
 
-        <preview>
-            <flux-pane>
-                <flux-pane-body>
-                    <flux-drop-zone
+        <Preview>
+            <FluxPane>
+                <FluxPaneBody>
+                    <FluxDropZone
                         accept="image/*"
                         is-empty
                         is-multiple
@@ -15,20 +15,20 @@
                         placeholder-button="Upload"
                         placeholder-message="Place a file here to upload..."
                         placeholder-title="Header"/>
-                </flux-pane-body>
-            </flux-pane>
-        </preview>
+                </FluxPaneBody>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 Allows files to be dropped on the contents of the drop zone. This is mainly used in ui
                 elements that allow users to upload files. It can be used in combination with FluxGallery
                 for example.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="DropZone">
+        <ApiSection title="API">
+            <ApiComponent name="DropZone">
                 <template #props>
                     <tr>
                         <td><code>accept</code><code>string</code></td>
@@ -77,9 +77,9 @@
                         <td>Contents of the drop zone.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

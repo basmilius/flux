@@ -44,7 +44,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxRoutingLocation } from '../../data';
+    import type { FluxRoutingLocation } from '../../data';
 
     export interface Emits {
         (e: 'click', evt: MouseEvent): void;

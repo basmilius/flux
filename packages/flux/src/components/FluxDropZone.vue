@@ -8,27 +8,27 @@
             v-if="isEmpty"
             v-bind="{isDragging, isDraggingOver, showPicker}"
             name="placeholder">
-            <flux-placeholder
+            <FluxPlaceholder
                 :icon="placeholderIcon"
                 :message="placeholderMessage"
                 :title="placeholderTitle"
                 :variant="placeholderVariant">
-                <flux-secondary-button
+                <FluxSecondaryButton
                     :label="placeholderButton"
                     @click="showPicker"/>
-            </flux-placeholder>
+            </FluxPlaceholder>
         </slot>
 
         <slot
             v-else
             v-bind="{isDragging, isDraggingOver, showPicker}"/>
 
-        <flux-fade-transition>
+        <FluxFadeTransition>
             <div
                 v-if="isDragging && !isDisabled"
                 class="flux-drop-zone-hint"
                 :class="{'is-over': isDraggingOver}"/>
-        </flux-fade-transition>
+        </FluxFadeTransition>
     </div>
 </template>
 
@@ -38,7 +38,8 @@
     import type { IconNames } from '../data';
     import { onMounted, onUnmounted, ref, toRefs, unref } from 'vue-demi';
     import { FluxFadeTransition } from '../transition';
-    import { FluxPlaceholder, FluxSecondaryButton } from '.';
+    import FluxPlaceholder from './FluxPlaceholder.vue';
+    import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
     export interface Emits {
         (e: 'select', files: FileList): void;

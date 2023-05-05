@@ -9,7 +9,7 @@
         tabindex="0"
         @focusin="onFocus"
         @focusout="onBlur">
-        <flux-menu-item
+        <FluxMenuItem
             v-if="!isMultiple && selectedOptions[0]"
             class="flux-form-select-selected"
             :icon-before="selectedOptions[0].icon"
@@ -17,7 +17,7 @@
             tabindex="-1"/>
 
         <template v-if="isMultiple">
-            <flux-badge
+            <FluxBadge
                 v-for="option of selectedOptions"
                 :key="option.id"
                 :label="option.label"
@@ -43,30 +43,31 @@
             </span>
         </template>
 
-        <flux-icon
+        <FluxIcon
             class="flux-form-select-icon"
             variant="angle-down"/>
 
-        <flux-fade-transition>
-            <flux-pane
+        <FluxFadeTransition>
+            <FluxPane
                 v-if="!isDisabled && popupOpen"
                 ref="popupElement"
                 class="flux-form-select-popup">
-                <flux-pane-body v-if="groupedOptions.length === 0">
+                <FluxPaneBody v-if="groupedOptions.length === 0">
                     <em>{{ translate('flux_no_items') }}</em>
-                </flux-pane-body>
-                <flux-menu v-else>
+                </FluxPaneBody>
+
+                <FluxMenu v-else>
                     <template
                         v-for="([item, subItems], index) of groupedOptions"
                         :key="`group-${index}`">
-                        <flux-menu-group>
-                            <flux-menu-sub-header
+                        <FluxMenuGroup>
+                            <FluxMenuSubHeader
                                 v-if="isFluxFormSelectGroup(item)"
                                 :icon-before="item.icon"
                                 :label="item.label"/>
 
                             <template v-for="(subItem, index) of subItems">
-                                <flux-menu-item
+                                <FluxMenuItem
                                     ref="optionRefs"
                                     v-if="isFluxFormSelectOption(subItem)"
                                     :key="index"
@@ -76,9 +77,9 @@
                                     type="button"
                                     @click="select(subItem.id)"/>
                             </template>
-                        </flux-menu-group>
+                        </FluxMenuGroup>
 
-                        <flux-menu-item
+                        <FluxMenuItem
                             v-if="isFluxFormSelectOption(item)"
                             ref="optionRefs"
                             :key="`item-${index}`"
@@ -88,9 +89,9 @@
                             type="button"
                             @click="select(item.id)"/>
                     </template>
-                </flux-menu>
-            </flux-pane>
-        </flux-fade-transition>
+                </FluxMenu>
+            </FluxPane>
+        </FluxFadeTransition>
     </div>
 </template>
 
@@ -113,7 +114,14 @@
     import { useFormFieldInjection, useTranslate } from '../composables';
     import { unrefElement } from '../helpers';
     import { FluxFadeTransition } from '../transition';
-    import { FluxBadge, FluxIcon, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxPane, FluxPaneBody } from '.';
+    import FluxBadge from './FluxBadge.vue';
+    import FluxIcon from './FluxIcon.vue';
+    import FluxMenu from './FluxMenu.vue';
+    import FluxMenuGroup from './FluxMenuGroup.vue';
+    import FluxMenuItem from './FluxMenuItem.vue';
+    import FluxMenuSubHeader from './FluxMenuSubHeader.vue';
+    import FluxPane from './FluxPane.vue';
+    import FluxPaneBody from './FluxPaneBody.vue';
 
     export interface Emits {
         (e: 'update:modelValue', value: string | number | (string | number)[]): void;

@@ -1,10 +1,10 @@
 <template>
-    <flux-window-transition :is-back="isBack">
+    <FluxWindowTransition :is-back="isBack">
         <slot
             :key="view"
             :name="view"
             v-bind="{back, navigate}"/>
-    </flux-window-transition>
+    </FluxWindowTransition>
 </template>
 
 <script

@@ -1,28 +1,28 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Notice"/>
 
-        <preview>
-            <flux-notice
+        <Preview>
+            <FluxNotice
                 icon="sparkles"
                 title="New release"
                 message="Version 2023.3 contains new features for colors, badges and stacks."
                 variant="info"/>
-        </preview>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 A notice component is a UI component that displays a message to the user, typically to provide
                 information or alert them to a particular status or event. A notice may include an icon, message,
                 and an optional title. It is used to communicate important information to the user in a clear
                 and concise manner.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="Notice">
+        <ApiSection title="API">
+            <ApiComponent name="Notice">
                 <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
@@ -49,29 +49,29 @@
                         <td>The color variant of the notice.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
+            </ApiComponent>
+        </ApiSection>
 
-        <api-section title="Examples">
-            <api-example
+        <ApiSection title="Examples">
+            <ApiExample
                 :code="basicCode"
                 :component="basic"
                 title="Basic"
                 description="Notices can display the result of an action that the user performed. The variant of the notice depends on if the result of that action is good or bad."/>
 
-            <api-example
+            <ApiExample
                 :code="smallCode"
                 :component="small"
                 title="Small"
                 description="A smaller notice can be used within a Pane, for example within sidebars."/>
 
-            <api-example
+            <ApiExample
                 :code="loadingCode"
                 :component="loading"
                 title="Loading"
                 description="Notices may also indicate that something is loading."/>
-        </api-section>
-    </flux-stack>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

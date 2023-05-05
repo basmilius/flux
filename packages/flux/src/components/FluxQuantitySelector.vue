@@ -1,8 +1,8 @@
 <template>
-    <flux-button-group
+    <FluxButtonGroup
         class="flux-quantity-selector"
         tabindex="0">
-        <flux-secondary-button
+        <FluxSecondaryButton
             class="flux-quantity-selector-button"
             :disabled="internalValue <= min"
             icon-before="minus"
@@ -19,13 +19,13 @@
             :min="min"
             :step="step"/>
 
-        <flux-secondary-button
+        <FluxSecondaryButton
             class="flux-quantity-selector-button"
             :disabled="internalValue >= max"
             icon-before="plus"
             tabindex="-1"
             @click="increment"/>
-    </flux-button-group>
+    </FluxButtonGroup>
 </template>
 
 <script lang="ts">
@@ -41,7 +41,8 @@
     lang="ts"
     setup>
     import { onMounted, ref, toRefs, unref, watch } from 'vue-demi';
-    import { FluxButtonGroup, FluxSecondaryButton } from '.';
+    import FluxButtonGroup from './FluxButtonGroup.vue';
+    import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
     export interface Emits {
         (e: 'update:modelValue', value: number): void;

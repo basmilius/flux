@@ -6,12 +6,12 @@
             [`flux-snackbar-${color}`]: !!color
         }">
         <div class="flux-snackbar-content">
-            <flux-spinner
+            <FluxSpinner
                 v-if="isLoading"
                 class="flux-snackbar-spinner"
                 :size="18"/>
 
-            <flux-icon
+            <FluxIcon
                 v-else-if="icon"
                 class="flux-snackbar-icon"
                 :size="18"
@@ -51,7 +51,7 @@
             </button>
         </div>
 
-        <flux-action
+        <FluxAction
             v-if="isCloseable"
             icon="xmark"
             @click="onClose()"/>
@@ -63,9 +63,11 @@
     setup>
     import type { FluxSnackbarSpec, IconNames } from '../data';
     import { useFluxStore } from '../data';
-    import { unrefObject } from '../utils';
     import { computed, onBeforeUnmount, ref, toRefs, watch } from 'vue-demi';
-    import { FluxAction, FluxIcon, FluxSpinner } from '.';
+    import { unrefObject } from '../utils';
+    import FluxAction from './FluxAction.vue';
+    import FluxIcon from './FluxIcon.vue';
+    import FluxSpinner from './FluxSpinner.vue';
 
     export interface Emits {
         (e: 'action', actionKey: string): void;

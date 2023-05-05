@@ -2,7 +2,7 @@
     <button
         class="flux-persona"
         @click="$emit('click', $event)">
-        <flux-avatar
+        <FluxAvatar
             :alt="avatarAlt"
             :fallback="avatarFallback"
             :fallback-icon="avatarFallbackIcon"
@@ -23,7 +23,7 @@
     lang="ts"
     setup>
     import type { IconNames } from '../data';
-    import { FluxAvatar } from '.';
+    import FluxAvatar from './FluxAvatar.vue';
 
     export interface Emits {
         (e: 'click', evt: MouseEvent): void;

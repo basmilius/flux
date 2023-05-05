@@ -1,182 +1,182 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Window"/>
 
-        <preview>
-            <flux-pane
+        <Preview>
+            <FluxPane
                 v-height-transition
                 style="align-self: start; translate: 0 54px; width: 300px">
-                <flux-window>
+                <FluxWindow>
                     <template #default="{navigate}">
-                        <flux-menu>
-                            <flux-menu-group>
-                                <flux-menu-item
+                        <FluxMenu>
+                            <FluxMenuGroup>
+                                <FluxMenuItem
                                     icon-before="arrow-up-arrow-down"
                                     command="Leads"
                                     command-icon="angle-right"
                                     label="Sort by"
                                     @click="navigate('sorting')"/>
 
-                                <flux-menu-item
+                                <FluxMenuItem
                                     icon-before="calendar"
                                     command="Last year"
                                     command-icon="angle-right"
                                     label="Period"
                                     @click="navigate('period')"/>
 
-                                <flux-menu-item
+                                <FluxMenuItem
                                     icon-before="star"
                                     command="2 selected"
                                     command-icon="angle-right"
                                     label="Status"
                                     @click="navigate('status')"/>
-                            </flux-menu-group>
+                            </FluxMenuGroup>
 
-                            <flux-separator/>
+                            <FluxSeparator/>
 
-                            <flux-menu-group>
-                                <flux-menu-item
+                            <FluxMenuGroup>
+                                <FluxMenuItem
                                     icon-before="clone"
                                     label="Duplicate"/>
 
-                                <flux-menu-item
+                                <FluxMenuItem
                                     icon-before="trash"
                                     label="Delete"/>
 
-                                <flux-menu-item
+                                <FluxMenuItem
                                     icon-before="arrow-down-to-line"
                                     label="Download CSV"/>
 
-                                <flux-menu-item
+                                <FluxMenuItem
                                     icon-before="arrow-down-to-line"
                                     label="Download PDF"/>
-                            </flux-menu-group>
+                            </FluxMenuGroup>
 
-                            <flux-separator/>
+                            <FluxSeparator/>
 
-                            <flux-menu-group>
-                                <flux-menu-item
+                            <FluxMenuGroup>
+                                <FluxMenuItem
                                     icon-before="gear"
                                     label="Preferences"/>
-                            </flux-menu-group>
-                        </flux-menu>
+                            </FluxMenuGroup>
+                        </FluxMenu>
                     </template>
 
                     <template #sorting="{back}">
-                        <flux-menu>
-                            <flux-menu-group>
-                                <flux-menu-item
+                        <FluxMenu>
+                            <FluxMenuGroup>
+                                <FluxMenuItem
                                     icon-before="angle-left"
                                     label="Back"
                                     @click="back()"/>
-                            </flux-menu-group>
+                            </FluxMenuGroup>
 
-                            <flux-separator/>
+                            <FluxSeparator/>
 
-                            <flux-menu-group>
-                                <flux-menu-item
+                            <FluxMenuGroup>
+                                <FluxMenuItem
                                     is-active
                                     label="Leads"
                                     @click="back()"/>
 
-                                <flux-menu-item
+                                <FluxMenuItem
                                     label="Most traffic"
                                     @click="back()"/>
 
-                                <flux-menu-item
+                                <FluxMenuItem
                                     label="Recent"
                                     @click="back()"/>
-                            </flux-menu-group>
-                        </flux-menu>
+                            </FluxMenuGroup>
+                        </FluxMenu>
                     </template>
 
                     <template #period="{back}">
-                        <flux-menu>
-                            <flux-menu-group>
-                                <flux-menu-item
+                        <FluxMenu>
+                            <FluxMenuGroup>
+                                <FluxMenuItem
                                     icon-before="angle-left"
                                     label="Back"
                                     @click="back()"/>
-                            </flux-menu-group>
+                            </FluxMenuGroup>
 
-                            <flux-separator/>
+                            <FluxSeparator/>
 
-                            <flux-menu-group>
-                                <flux-menu-item
+                            <FluxMenuGroup>
+                                <FluxMenuItem
                                     label="Today"
                                     @click="back()"/>
 
-                                <flux-menu-item
+                                <FluxMenuItem
                                     label="Last week"
                                     @click="back()"/>
 
-                                <flux-menu-item
+                                <FluxMenuItem
                                     label="Last month"
                                     @click="back()"/>
 
-                                <flux-menu-item
+                                <FluxMenuItem
                                     is-active
                                     label="Last year"
                                     @click="back()"/>
 
-                                <flux-menu-item
+                                <FluxMenuItem
                                     label="Last 5 years"
                                     @click="back()"/>
-                            </flux-menu-group>
-                        </flux-menu>
+                            </FluxMenuGroup>
+                        </FluxMenu>
                     </template>
 
                     <template #status="{back}">
-                        <flux-menu>
-                            <flux-menu-group>
-                                <flux-menu-item
+                        <FluxMenu>
+                            <FluxMenuGroup>
+                                <FluxMenuItem
                                     icon-before="angle-left"
                                     label="Back"
                                     @click="back()"/>
-                            </flux-menu-group>
+                            </FluxMenuGroup>
 
-                            <flux-separator/>
+                            <FluxSeparator/>
 
-                            <flux-menu-group>
-                                <flux-menu-item
+                            <FluxMenuGroup>
+                                <FluxMenuItem
                                     icon-before="circle-check"
                                     label="Active"
                                     @click="back()"/>
 
-                                <flux-menu-item
+                                <FluxMenuItem
                                     icon-before="circle-check"
                                     label="Concept"
                                     @click="back()"/>
 
-                                <flux-menu-item
+                                <FluxMenuItem
                                     icon-before="circle"
                                     label="Concluded"
                                     @click="back()"/>
 
-                                <flux-menu-item
+                                <FluxMenuItem
                                     icon-before="circle"
                                     label="Removed"
                                     @click="back()"/>
-                            </flux-menu-group>
-                        </flux-menu>
+                            </FluxMenuGroup>
+                        </FluxMenu>
                     </template>
-                </flux-window>
-            </flux-pane>
-        </preview>
+                </FluxWindow>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 Windows are user interface components that allow users to navigate through multiple slots, displaying
                 one slot at a time. They are commonly used for presenting filters and submenus that may not need to be
                 visible immediately. With windows, users can interact with various options without cluttering the
                 primary interface, creating a seamless user experience.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="Window">
+        <ApiSection title="API">
+            <ApiComponent name="Window">
                 <template #slots>
                     <tr>
                         <td><code>default</code><code>{navigate}</code></td>
@@ -187,17 +187,17 @@
                         <td>You may add your own slots that have their own names. Use the back function to navigate back to a view. The back function should always be called with parenthesis.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
+            </ApiComponent>
+        </ApiSection>
 
-        <api-section title="Examples">
-            <api-example
+        <ApiSection title="Examples">
+            <ApiExample
                 :code="filterCode"
                 :component="filter"
                 title="Filter"
                 description="Windows can be used to provide filters for for example data tables."/>
-        </api-section>
-    </flux-stack>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

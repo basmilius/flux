@@ -1,6 +1,6 @@
 <template>
-    <flux-button-group class="flux-pagination">
-        <flux-secondary-button
+    <FluxButtonGroup class="flux-pagination">
+        <FluxSecondaryButton
             v-if="arrows || isCompact"
             :disabled="isPreviousDisabled"
             icon-before="angle-left"
@@ -8,16 +8,16 @@
 
         <template v-if="!isCompact">
             <template v-for="p of visiblePages">
-                <flux-secondary-button
+                <FluxSecondaryButton
                     v-if="p === 'dots'"
                     disabled
                     icon-before="ellipsis-h"/>
 
-                <flux-primary-button
+                <FluxPrimaryButton
                     v-else-if="p === page"
                     :label="`${p}`"/>
 
-                <flux-secondary-button
+                <FluxSecondaryButton
                     v-else
                     :label="`${p}`"
                     @click="navigate(p)"/>
@@ -32,19 +32,21 @@
             </div>
         </template>
 
-        <flux-secondary-button
+        <FluxSecondaryButton
             v-if="arrows || isCompact"
             :disabled="isNextDisabled"
             icon-before="angle-right"
             @click="next"/>
-    </flux-button-group>
+    </FluxButtonGroup>
 </template>
 
 <script
     lang="ts"
     setup>
     import { computed, toRefs, unref } from 'vue-demi';
-    import { FluxButtonGroup, FluxPrimaryButton, FluxSecondaryButton } from '.';
+    import FluxButtonGroup from './FluxButtonGroup.vue';
+    import FluxPrimaryButton from './FluxPrimaryButton.vue';
+    import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
     export interface Emits {
         (e: 'navigate', page: number): void;
@@ -126,6 +128,10 @@
 
         .flux-button span {
             min-width: 18px;
+
+            &:nth-child(2) {
+                min-width: unset;
+            }
         }
 
         .flux-primary-button {

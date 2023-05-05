@@ -1,5 +1,5 @@
 <template>
-    <flux-toggle
+    <FluxToggle
         v-model="darkMode"
         class="theme-toggle"
         :class="{

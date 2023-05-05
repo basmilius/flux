@@ -10,12 +10,12 @@
             :id="id"/>
 
         <span class="form-checkbox-element">
-            <flux-icon
+            <FluxIcon
                 v-if="isIndeterminate"
                 :size="16"
                 variant="minus"/>
 
-            <flux-icon
+            <FluxIcon
                 v-else
                 :size="16"
                 variant="check"/>
@@ -43,7 +43,7 @@
     setup>
     import { computed, onMounted, Ref, ref, toRefs, unref, watch } from 'vue-demi';
     import { useFormFieldInjection } from '../composables';
-    import { FluxIcon } from '.';
+    import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {
         (e: 'update:modelValue', value: boolean): void;

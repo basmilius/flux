@@ -1,12 +1,12 @@
 <template>
-    <flux-pane
+    <FluxPane
         class="flux-statistic"
         :class="{
             [`is-${color}`]: !!color,
             'is-vertical': axis === 'vertical'
         }">
         <div class="flux-statistic-icon">
-            <flux-icon
+            <FluxIcon
                 :size="24"
                 :variant="icon"/>
         </div>
@@ -24,19 +24,20 @@
             }">
             <span v-if="changeValue">{{ changeValue }}</span>
 
-            <flux-icon
+            <FluxIcon
                 v-if="changeIcon"
                 :size="14"
                 :variant="changeIcon"/>
         </div>
-    </flux-pane>
+    </FluxPane>
 </template>
 
 <script
     lang="ts"
     setup>
     import type { IconNames } from '../data';
-    import { FluxIcon, FluxPane } from '.';
+    import FluxIcon from './FluxIcon.vue';
+    import FluxPane from './FluxPane.vue';
 
     export interface Props {
         readonly axis?: 'horizontal' | 'vertical';

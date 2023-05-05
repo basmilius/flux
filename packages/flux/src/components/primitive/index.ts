@@ -1,3 +1,4 @@
+export { default as BaseButton } from './BaseButton.vue';
 export { default as ButtonComponent } from './ButtonComponent.vue';
 export { default as SliderBase } from './SliderBase.vue';
 export { default as SliderThumb } from './SliderThumb.vue';

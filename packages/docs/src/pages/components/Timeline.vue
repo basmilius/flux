@@ -1,38 +1,39 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Timeline"/>
 
-        <preview>
-            <flux-pane style="width: 480px">
-                <flux-pane-body>
-                    <flux-timeline>
-                        <flux-timeline-item
+        <Preview>
+            <FluxPane style="width: 480px">
+                <FluxPaneBody>
+                    <FluxTimeline>
+                        <FluxTimelineItem
                             icon="star"
                             title="Timeline component"
                             when="13 maart 2023 13:00">
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci commodi debitis dolor dolores, ducimus facere, fugit id impedit ipsam mollitia nam nobis reiciendis temporibus vero. Accusamus in repellat voluptatibus.</p>
-                        </flux-timeline-item>
-                        <flux-timeline-item
+                        </FluxTimelineItem>
+
+                        <FluxTimelineItem
                             color="danger"
                             icon="trash"
                             photo="https://staging.fanc.ee/uploads/shops/headers/bh40dmg5.uwr.jpg">
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquid illum quaerat ratione voluptates? Atque consequatur cupiditate ducimus enim nam necessitatibus quibusdam quos! Amet cupiditate dicta maiores natus quae sint?</p>
-                        </flux-timeline-item>
-                    </flux-timeline>
-                </flux-pane-body>
-            </flux-pane>
-        </preview>
+                        </FluxTimelineItem>
+                    </FluxTimeline>
+                </FluxPaneBody>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 <em>Todo</em>
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-components>
+        <ApiSection title="API">
+            <ApiComponents>
                 <tr>
                     <td><code>FluxTimeline</code></td>
                     <td>The timeline itself. Should always be used as a parent of FluxTimelineItem.</td>
@@ -41,18 +42,18 @@
                     <td><code>FluxTimelineItem</code></td>
                     <td>A single item of the FluxTimeline.</td>
                 </tr>
-            </api-components>
+            </ApiComponents>
 
-            <api-component name="Timeline">
+            <ApiComponent name="Timeline">
                 <template #slots>
                     <tr>
                         <td><code>default</code><code>{}</code></td>
                         <td>Contents of the timeline.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="TimelineItem">
+            <ApiComponent name="TimelineItem">
                 <template #props>
                     <tr>
                         <td><code>color</code><code>'primary' | 'danger' | 'info' | 'success' | 'warning'</code></td>
@@ -82,9 +83,9 @@
                         <td>Contents of the timeline item.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

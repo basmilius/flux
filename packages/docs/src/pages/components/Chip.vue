@@ -1,50 +1,50 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Chip"/>
 
-        <preview>
-            <flux-pane>
-                <flux-pane-body>
-                    <flux-stack
+        <Preview>
+            <FluxPane>
+                <FluxPaneBody>
+                    <FluxStack
                         axis="horizontal"
                         :gap="9"
                         is-centered
                         is-wrapping>
-                        <flux-chip
+                        <FluxChip
                             icon-before="lock"
                             label="Chip"/>
 
-                        <flux-chip
+                        <FluxChip
                             icon-after="gear"
                             label="Chip"/>
 
-                        <flux-chip
+                        <FluxChip
                             is-selectable
                             label="Addable Chip"/>
 
-                        <flux-chip
+                        <FluxChip
                             is-selectable
                             is-selected
                             label="Selected Chip"/>
-                    </flux-stack>
-                </flux-pane-body>
-            </flux-pane>
-        </preview>
+                    </FluxStack>
+                </FluxPaneBody>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 A chip can display the status of an entity or toggle a status of an entity.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="Required icons">
-            <api-required-icons :icons="['check', 'plus']"/>
-        </api-section>
+        <ApiSection title="Required icons">
+            <ApiRequiredIcons :icons="['check', 'plus']"/>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="Chip">
+        <ApiSection title="API">
+            <ApiComponent name="Chip">
                 <template #props>
                     <tr>
                         <td><code>icon-after</code><code>IconNames</code></td>
@@ -74,9 +74,9 @@
                         <td>Triggered when the chip is clicked.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

@@ -4,7 +4,7 @@
         class="flux-tab-bar-item"
         :class="{'is-active': isActive}"
         @click="$emit('click', $event)">
-        <flux-icon
+        <FluxIcon
             v-if="icon"
             :size="16"
             :variant="icon"/>
@@ -18,7 +18,7 @@
     setup>
     import type { IconNames } from '../data';
     import { ref, toRefs, unref, watch } from 'vue-demi';
-    import { FluxIcon } from '.';
+    import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {
         (e: 'click', evt: MouseEvent): void;

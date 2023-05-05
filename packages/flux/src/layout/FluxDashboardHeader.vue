@@ -1,6 +1,6 @@
 <template>
     <header class="flux-dashboard-header">
-        <flux-secondary-button
+        <FluxSecondaryButton
             v-if="isNavigationCollapsible"
             :icon-before="isNavigationOpen ? 'xmark' : 'bars'"
             @click="isNavigationOpen = !isNavigationOpen"/>
@@ -11,7 +11,7 @@
 
         <slot name="start"/>
 
-        <flux-spacer/>
+        <FluxSpacer/>
 
         <slot name="end"/>
     </header>

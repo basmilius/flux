@@ -1,21 +1,23 @@
 <template>
-    <flux-pane class="flux-confirm">
-        <flux-pane-header
+    <FluxPane class="flux-confirm">
+        <FluxPaneHeader
             :icon="confirm.icon"
             :title="confirm.title"/>
 
-        <flux-pane-body v-html="confirm.message"/>
+        <FluxPaneBody v-html="confirm.message"/>
 
-        <flux-pane-footer>
-            <flux-spacer/>
-            <flux-secondary-button
+        <FluxPaneFooter>
+            <FluxSpacer/>
+
+            <FluxSecondaryButton
                 :label="translate('flux_cancel')"
                 @click="confirm.onCancel"/>
-            <flux-primary-button
+
+            <FluxPrimaryButton
                 :label="translate('flux_ok')"
                 @click="confirm.onConfirm"/>
-        </flux-pane-footer>
-    </flux-pane>
+        </FluxPaneFooter>
+    </FluxPane>
 </template>
 
 <script
@@ -23,7 +25,13 @@
     setup>
     import type { FluxConfirmSpec } from '../data';
     import { useTranslate } from '../composables';
-    import { FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer } from '.';
+    import FluxPane from './FluxPane.vue';
+    import FluxPaneBody from './FluxPaneBody.vue';
+    import FluxPaneFooter from './FluxPaneFooter.vue';
+    import FluxPaneHeader from './FluxPaneHeader.vue';
+    import FluxPrimaryButton from './FluxPrimaryButton.vue';
+    import FluxSecondaryButton from './FluxSecondaryButton.vue';
+    import FluxSpacer from './FluxSpacer.vue';
 
     export interface Props {
         readonly confirm: FluxConfirmSpec;

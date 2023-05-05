@@ -1,38 +1,38 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Overlay"/>
 
-        <flux-overlay
+        <FluxOverlay
             is-closeable
             size="medium"
             @close="isOverlayVisible = false">
-            <flux-pane v-if="isOverlayVisible">
-                <flux-pane-body>
+            <FluxPane v-if="isOverlayVisible">
+                <FluxPaneBody>
                     <h2>Overlay</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aspernatur, consequuntur debitis eligendi eum magnam necessitatibus nulla perferendis sequi voluptate. Aut consequatur ducimus, quaerat quos ratione sequi veniam? Quis, rem.</p>
                     <p>Alias dolorum laboriosam pariatur qui ut. Debitis distinctio expedita impedit ipsam voluptatem? Asperiores assumenda dolorem ducimus earum nam placeat ut velit. Ab debitis dicta in itaque quos ut veritatis voluptatum.</p>
                     <p>Ducimus nemo officiis, quas saepe sequi tempora unde! Debitis dolores eos exercitationem itaque laboriosam magni nam, neque officiis, pariatur quis ratione recusandae reiciendis repudiandae tempore temporibus veritatis vero, voluptates? Earum?</p>
-                </flux-pane-body>
+                </FluxPaneBody>
 
-                <flux-pane-footer>
-                    <flux-spacer/>
+                <FluxPaneFooter>
+                    <FluxSpacer/>
 
-                    <flux-secondary-button
+                    <FluxSecondaryButton
                         label="Close"
                         @click="isOverlayVisible = false"/>
-                </flux-pane-footer>
-            </flux-pane>
-        </flux-overlay>
+                </FluxPaneFooter>
+            </FluxPane>
+        </FluxOverlay>
 
-        <flux-overlay>
-            <flux-pane v-if="isReAuthenticateVisible">
-                <flux-pane-body
+        <FluxOverlay>
+            <FluxPane v-if="isReAuthenticateVisible">
+                <FluxPaneBody
                     :gap="27"
                     is-content-centered
                     is-larger-padded>
-                    <flux-icon
+                    <FluxIcon
                         :size="30"
                         variant="lock"
                         style="color: rgb(var(--danger-7))"/>
@@ -41,65 +41,65 @@
                         <h2>You've been signed out.</h2>
                         <p>To continue using your account, please sign in again using your password.</p>
                     </div>
-                </flux-pane-body>
+                </FluxPaneBody>
 
-                <flux-pane-body>
-                    <flux-form-column>
-                        <flux-form-field label="E-mail">
-                            <flux-form-input
+                <FluxPaneBody>
+                    <FluxFormColumn>
+                        <FluxFormField label="E-mail">
+                            <FluxFormInput
                                 is-disabled
                                 is-readonly
                                 model-value="bas@tibbaa.com"
                                 type="email"/>
-                        </flux-form-field>
+                        </FluxFormField>
 
-                        <flux-form-field label="Password">
-                            <flux-form-input type="password"/>
-                        </flux-form-field>
-                    </flux-form-column>
-                </flux-pane-body>
+                        <FluxFormField label="Password">
+                            <FluxFormInput type="password"/>
+                        </FluxFormField>
+                    </FluxFormColumn>
+                </FluxPaneBody>
 
-                <flux-pane-footer>
-                    <flux-button-stack
+                <FluxPaneFooter>
+                    <FluxButtonStack
                         axis="vertical"
                         is-fill>
-                        <flux-primary-button
+                        <FluxPrimaryButton
                             icon-after="circle-arrow-right"
                             label="Sign in"
                             @click="isReAuthenticateVisible = false"/>
 
-                        <flux-secondary-button
+                        <FluxSecondaryButton
                             label="Cancel"
                             @click="isReAuthenticateVisible = false"/>
-                    </flux-button-stack>
-                </flux-pane-footer>
-            </flux-pane>
-        </flux-overlay>
+                    </FluxButtonStack>
+                </FluxPaneFooter>
+            </FluxPane>
+        </FluxOverlay>
 
-        <preview>
-            <flux-button-stack>
-                <flux-secondary-button
+        <Preview>
+            <FluxButtonStack>
+                <FluxSecondaryButton
                     icon-before="clone"
                     label="Overlay"
                     @click="isOverlayVisible = !isOverlayVisible"/>
 
-                <flux-secondary-button
+                <FluxSecondaryButton
                     icon-before="lock"
                     label="Re-authenticate"
                     @click="isReAuthenticateVisible = !isReAuthenticateVisible"/>
-            </flux-button-stack>
-        </preview>
+            </FluxButtonStack>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 Overlays can be used to reveal larger contents or options that are hidden behind a button or a
                 similar component. The content is animated on top of the document and the rest of the interface
                 is blocked.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="Overlay">
+        <ApiSection title="API">
+            <ApiComponent name="Overlay">
                 <template #props>
                     <tr>
                         <td><code>is-closeable</code><code>boolean</code></td>
@@ -124,9 +124,9 @@
                         <td>The contents of the overlay. For the best result, use a FluxPane with a v-if to control its visibility.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

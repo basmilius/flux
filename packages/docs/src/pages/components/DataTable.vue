@@ -1,61 +1,65 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Data table"/>
 
-        <preview>
-            <flux-pane>
-                <flux-data-table
+        <Preview>
+            <FluxPane>
+                <FluxDataTable
                     :data-set="dataSet"
                     :total="dataSet.length"
                     is-hoverable>
                     <template #header>
-                        <flux-table-header is-sortable sort="ascending">Name</flux-table-header>
-                        <flux-table-header is-sortable>Email</flux-table-header>
-                        <flux-table-header is-shrinking>Status</flux-table-header>
-                        <flux-table-header is-shrinking/>
+                        <FluxTableHeader
+                            is-sortable
+                            sort="ascending">
+                            Name
+                        </FluxTableHeader>
+                        <FluxTableHeader is-sortable>Email</FluxTableHeader>
+                        <FluxTableHeader is-shrinking>Status</FluxTableHeader>
+                        <FluxTableHeader is-shrinking/>
                     </template>
 
                     <template #name="{row: {name}}">
-                        <flux-table-cell>{{ name }}</flux-table-cell>
+                        <FluxTableCell>{{ name }}</FluxTableCell>
                     </template>
 
                     <template #email="{row: {email}}">
-                        <flux-table-cell>{{ email }}</flux-table-cell>
+                        <FluxTableCell>{{ email }}</FluxTableCell>
                     </template>
 
                     <template #isActive="{row: {isActive}}">
-                        <flux-table-cell>
-                            <flux-badge-stack>
-                                <flux-badge
+                        <FluxTableCell>
+                            <FluxBadgeStack>
+                                <FluxBadge
                                     v-if="isActive"
                                     color="success"
                                     icon="circle-check"
                                     label="Active"/>
 
-                                <flux-badge
+                                <FluxBadge
                                     v-else
                                     color="danger"
                                     icon="circle-xmark"
                                     label="Inactive"/>
-                            </flux-badge-stack>
-                        </flux-table-cell>
+                            </FluxBadgeStack>
+                        </FluxTableCell>
                     </template>
 
                     <template #actions="{}">
-                        <flux-table-cell>
-                            <flux-table-actions>
-                                <flux-action icon="pen"/>
-                                <flux-action icon="ellipsis-h"/>
-                            </flux-table-actions>
-                        </flux-table-cell>
+                        <FluxTableCell>
+                            <FluxTableActions>
+                                <FluxAction icon="pen"/>
+                                <FluxAction icon="ellipsis-h"/>
+                            </FluxTableActions>
+                        </FluxTableCell>
                     </template>
-                </flux-data-table>
-            </flux-pane>
-        </preview>
+                </FluxDataTable>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 Data tables are a powerful tool for organizing and presenting large sets of data in a structured
                 and easy-to-read format. Like traditional tables, data tables use rows and columns to organize data,
@@ -68,14 +72,14 @@
                 include advanced sorting and filtering capabilities, allowing users to quickly search and analyze data
                 based on specific criteria.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="Required icons">
-            <api-required-icons :icons="['arrow-down-a-z', 'arrow-up-a-z', 'arrow-up-arrow-down', 'circle-xmark']"/>
-        </api-section>
+        <ApiSection title="Required icons">
+            <ApiRequiredIcons :icons="['arrow-down-a-z', 'arrow-up-a-z', 'arrow-up-arrow-down', 'circle-xmark']"/>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="DataTable">
+        <ApiSection title="API">
+            <ApiComponent name="DataTable">
                 <template #props>
                     <tr>
                         <td><code>data-set</code><code>object[]</code></td>
@@ -129,23 +133,23 @@
                         <td>A single cell within the data table.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
+            </ApiComponent>
+        </ApiSection>
 
-        <api-section title="Examples">
-            <api-example
+        <ApiSection title="Examples">
+            <ApiExample
                 :code="basicCode"
                 :component="basic"
                 title="Basic"
                 description="A plain data table that displays a few rows."/>
 
-            <api-example
+            <ApiExample
                 :code="paginationCode"
                 :component="pagination"
                 title="Paginated"
                 description="For displaying large amounts of data, a pagination bar can be used."/>
-        </api-section>
-    </flux-stack>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

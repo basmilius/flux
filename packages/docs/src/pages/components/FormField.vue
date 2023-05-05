@@ -1,36 +1,36 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Form field"/>
 
-        <preview>
-            <flux-pane style="width: 60%">
-                <flux-pane-body>
-                    <flux-form-field
+        <Preview>
+            <FluxPane style="width: 60%">
+                <FluxPaneBody>
+                    <FluxFormField
                         hint="This is your email address"
                         label="Username">
-                        <flux-form-input
+                        <FluxFormInput
                             type="email"
                             placeholder="E.g. bas@fanc.ee"/>
-                    </flux-form-field>
-                </flux-pane-body>
-            </flux-pane>
-        </preview>
+                    </FluxFormField>
+                </FluxPaneBody>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 The form field component is a base component that wraps a single form control, such as FluxFormInput. It
                 provides a label, error and hint. Fields can also be marked optional.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="Required icons">
-            <api-required-icons :icons="['circle-exclamation', 'circle-info']"/>
-        </api-section>
+        <ApiSection title="Required icons">
+            <ApiRequiredIcons :icons="['circle-exclamation', 'circle-info']"/>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="FormField">
+        <ApiSection title="API">
+            <ApiComponent name="FormField">
                 <template #props>
                     <tr>
                         <td><code>error</code><code>string</code></td>
@@ -49,9 +49,9 @@
                         <td>Label of the field.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

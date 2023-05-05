@@ -1,5 +1,5 @@
 <template>
-    <flux-flyout
+    <FluxFlyout
         :axis="flyoutAxis"
         :is-auto-width="flyoutIsAutoWidth"
         :margin="flyoutMargin"
@@ -10,7 +10,7 @@
                     name="button"
                     v-bind="{close, open, toggle}"/>
 
-                <flux-secondary-button
+                <FluxSecondaryButton
                     :icon-before="buttonIcon ?? 'ellipsis-h'"
                     @click="open"/>
             </div>
@@ -21,14 +21,15 @@
                 name="flyout"
                 v-bind="bindings"/>
         </template>
-    </flux-flyout>
+    </FluxFlyout>
 </template>
 
 <script
     setup
     lang="ts">
     import type { IconNames } from '../data';
-    import { FluxFlyout, FluxSecondaryButton } from '.';
+    import FluxFlyout from './FluxFlyout.vue';
+    import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
     export interface Props {
         readonly buttonIcon?: IconNames;

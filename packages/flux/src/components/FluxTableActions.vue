@@ -1,13 +1,13 @@
 <template>
-    <flux-actions class="flux-table-actions">
+    <FluxActions class="flux-table-actions">
         <slot/>
-    </flux-actions>
+    </FluxActions>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxActions } from '.';
+    import FluxActions from './FluxActions.vue';
 </script>
 
 <style lang="scss">

@@ -1,18 +1,18 @@
 <template>
-    <flux-pane class="flux-alert">
-        <flux-pane-header
+    <FluxPane class="flux-alert">
+        <FluxPaneHeader
             :icon="alert.icon"
             :title="alert.title"/>
 
-        <flux-pane-body v-html="alert.message"/>
+        <FluxPaneBody v-html="alert.message"/>
 
-        <flux-pane-footer>
-            <flux-spacer/>
-            <flux-primary-button
+        <FluxPaneFooter>
+            <FluxSpacer/>
+            <FluxPrimaryButton
                 :label="translate('flux_ok')"
                 @click="alert.onClose"/>
-        </flux-pane-footer>
-    </flux-pane>
+        </FluxPaneFooter>
+    </FluxPane>
 </template>
 
 <script
@@ -20,7 +20,12 @@
     setup>
     import type { FluxAlertSpec } from '../data';
     import { useTranslate } from '../composables';
-    import { FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSpacer } from '.';
+    import FluxPane from './FluxPane.vue';
+    import FluxPaneBody from './FluxPaneBody.vue';
+    import FluxPaneFooter from './FluxPaneFooter.vue';
+    import FluxPaneHeader from './FluxPaneHeader.vue';
+    import FluxPrimaryButton from './FluxPrimaryButton.vue';
+    import FluxSpacer from './FluxSpacer.vue';
 
     export interface Props {
         readonly alert: FluxAlertSpec;
