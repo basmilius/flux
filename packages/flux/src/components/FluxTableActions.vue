@@ -7,7 +7,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxActions } from '.';
+    import FluxActions from './FluxActions.vue';
 </script>
 
 <style lang="scss">

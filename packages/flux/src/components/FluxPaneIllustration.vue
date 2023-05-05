@@ -32,7 +32,7 @@
     import { computed, toRefs, unref, useSlots } from 'vue-demi';
     import { useComponentId } from '../composables';
     import { hexToRGB } from '../utils';
-    import { FluxAnimatedColors } from '.';
+    import FluxAnimatedColors from './FluxAnimatedColors.vue';
 
     export interface Props {
         readonly animatedColors: string[] | null;

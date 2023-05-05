@@ -55,7 +55,13 @@
     setup>
     import { useSlots } from 'vue-demi';
     import { useTranslate } from '../composables';
-    import { FluxButtonGroup, FluxDestructiveButton, FluxFlyout, FluxSecondaryButton, FluxSpacer, FluxStack, FluxTooltip } from '.';
+    import FluxButtonGroup from './FluxButtonGroup.vue';
+    import FluxDestructiveButton from './FluxDestructiveButton.vue';
+    import FluxFlyout from './FluxFlyout.vue';
+    import FluxSecondaryButton from './FluxSecondaryButton.vue';
+    import FluxSpacer from './FluxSpacer.vue';
+    import FluxStack from './FluxStack.vue';
+    import FluxTooltip from './FluxTooltip.vue';
 
     export interface Emits {
         (e: 'reset'): void;

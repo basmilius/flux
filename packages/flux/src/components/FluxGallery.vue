@@ -45,7 +45,9 @@
     lang="ts"
     setup>
     import { useTranslate } from '../composables';
-    import { FluxDropZone, FluxGalleryItem, FluxIcon } from '.';
+    import FluxDropZone from './FluxDropZone.vue';
+    import FluxGalleryItem from './FluxGalleryItem.vue';
+    import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {
         (e: 'delete', index: number): void;

@@ -31,7 +31,7 @@
     lang="ts"
     setup>
     import type { IconNames } from '../data';
-    import { FluxAvatar } from '.';
+    import FluxAvatar from './FluxAvatar.vue';
 
     export interface Props {
         readonly avatarAlt?: string;

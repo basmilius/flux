@@ -38,7 +38,8 @@
     import type { IconNames } from '../data';
     import { onMounted, onUnmounted, ref, toRefs, unref } from 'vue-demi';
     import { FluxFadeTransition } from '../transition';
-    import { FluxPlaceholder, FluxSecondaryButton } from '.';
+    import FluxPlaceholder from './FluxPlaceholder.vue';
+    import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
     export interface Emits {
         (e: 'select', files: FileList): void;

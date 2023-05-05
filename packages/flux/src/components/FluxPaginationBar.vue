@@ -45,7 +45,12 @@
     import { computed, ref, toRefs, unref, watch } from 'vue-demi';
     import { useBreakpoints, useTranslate } from '../composables';
     import { FluxFormSelectOption } from '../data';
-    import { FluxFormInputAddition, FluxFormInputGroup, FluxFormSelect, FluxPagination, FluxSpacer, FluxStack } from '.';
+    import FluxFormInputAddition from './FluxFormInputAddition.vue';
+    import FluxFormInputGroup from './FluxFormInputGroup.vue';
+    import FluxFormSelect from './FluxFormSelect.vue';
+    import FluxPagination from './FluxPagination.vue';
+    import FluxSpacer from './FluxSpacer.vue';
+    import FluxStack from './FluxStack.vue';
 
     export interface Emits {
         (e: 'limit', limit: number): void;

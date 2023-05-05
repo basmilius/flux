@@ -15,7 +15,7 @@
     import { DateTime } from 'luxon';
     import { computed, unref } from 'vue-demi';
     import { useFilterInjection } from '../composables';
-    import { FluxDatePicker } from '.';
+    import FluxDatePicker from './FluxDatePicker.vue';
 
     export interface Props {
         readonly icon?: IconNames;

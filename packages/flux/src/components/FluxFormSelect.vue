@@ -113,7 +113,14 @@
     import { useFormFieldInjection, useTranslate } from '../composables';
     import { unrefElement } from '../helpers';
     import { FluxFadeTransition } from '../transition';
-    import { FluxBadge, FluxIcon, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxPane, FluxPaneBody } from '.';
+    import FluxBadge from './FluxBadge.vue';
+    import FluxIcon from './FluxIcon.vue';
+    import FluxMenu from './FluxMenu.vue';
+    import FluxMenuGroup from './FluxMenuGroup.vue';
+    import FluxMenuItem from './FluxMenuItem.vue';
+    import FluxMenuSubHeader from './FluxMenuSubHeader.vue';
+    import FluxPane from './FluxPane.vue';
+    import FluxPaneBody from './FluxPaneBody.vue';
 
     export interface Emits {
         (e: 'update:modelValue', value: string | number | (string | number)[]): void;

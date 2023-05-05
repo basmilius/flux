@@ -37,7 +37,7 @@
     import { getCurrentInstance, onBeforeMount, onUnmounted, ref, toRefs, unref, watch } from 'vue-demi';
     import { useComponentId, useExpandableGroupInjection } from '../composables';
     import { FluxAutoHeightTransition } from '../transition';
-    import { FluxIcon } from '.';
+    import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {
         (e: 'toggle', isOpen: boolean): void;

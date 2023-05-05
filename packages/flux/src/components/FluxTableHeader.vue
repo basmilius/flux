@@ -60,7 +60,12 @@
     import type { IconNames } from '../data';
     import { computed } from 'vue-demi';
     import { useTableInjection, useTranslate } from '../composables';
-    import { FluxFlyout, FluxIcon, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSeparator } from '.';
+    import FluxFlyout from './FluxFlyout.vue';
+    import FluxIcon from './FluxIcon.vue';
+    import FluxMenu from './FluxMenu.vue';
+    import FluxMenuGroup from './FluxMenuGroup.vue';
+    import FluxMenuItem from './FluxMenuItem.vue';
+    import FluxSeparator from './FluxSeparator.vue';
 
     export interface Emits {
         (e: 'sort', sort: 'ascending' | 'descending' | null): void;

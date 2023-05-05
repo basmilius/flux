@@ -58,7 +58,11 @@
     import { heightTransition } from '../directives';
     import { getNormalizedComponentName, getNormalizedComponentProps } from '../utils';
     import { FilterMenuRenderer, VNodeRenderer } from './primitive';
-    import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSeparator, FluxWindow } from '.';
+    import FluxMenu from './FluxMenu.vue';
+    import FluxMenuGroup from './FluxMenuGroup.vue';
+    import FluxMenuItem from './FluxMenuItem.vue';
+    import FluxSeparator from './FluxSeparator.vue';
+    import FluxWindow from './FluxWindow.vue';
 
     export interface Emits {
         (e: 'update:modelValue', state: Record<string, unknown>): void;

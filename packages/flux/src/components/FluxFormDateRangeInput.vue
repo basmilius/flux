@@ -44,7 +44,10 @@
     import { ComponentPublicInstance, computed, ref, toRefs, unref, watch } from 'vue-demi';
     import { useTranslate } from '../composables';
     import { createLabelForDateRange } from '../utils';
-    import { FluxDatePicker, FluxFlyout, FluxFormInputGroup, FluxSecondaryButton } from '.';
+    import FluxDatePicker from './FluxDatePicker.vue';
+    import FluxFlyout from './FluxFlyout.vue';
+    import FluxFormInputGroup from './FluxFormInputGroup.vue';
+    import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
     export interface Emits {
         (e: 'update:modelValue', value: [DateTime, DateTime] | null): void;

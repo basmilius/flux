@@ -32,8 +32,8 @@
     setup>
     import { provide, ref, toRefs, unref, watch } from 'vue-demi';
     import { unrefElement } from '../helpers';
-    import { FluxPane } from '.';
     import { FluxFlyoutInjectionKey } from '../data';
+    import FluxPane from './FluxPane.vue';
 
     export interface Props {
         readonly axis?: 'horizontal' | 'vertical';

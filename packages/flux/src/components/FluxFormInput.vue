@@ -59,7 +59,7 @@
     import { DateTime } from 'luxon';
     import { computed, toRefs, unref } from 'vue-demi';
     import { useFormFieldInjection } from '../composables';
-    import { FluxIcon } from '.';
+    import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {
         (e: 'blur'): void;

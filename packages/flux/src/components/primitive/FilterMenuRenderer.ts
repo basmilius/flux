@@ -3,7 +3,10 @@ import { DateTime } from 'luxon';
 import { Component, defineComponent, VNode } from 'vue-demi';
 import { FluxTranslator, useTranslate } from '../../composables';
 import { camelizeTag, createLabelForDateRange, flattenVNodeTree, getNormalizedComponentName, getNormalizedComponentProps, isVNode, render } from '../../utils';
-import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSeparator } from '..';
+import FluxMenu from '../FluxMenu.vue';
+import FluxMenuGroup from '../FluxMenuGroup.vue';
+import FluxMenuItem from '../FluxMenuItem.vue';
+import FluxSeparator from '../FluxSeparator.vue';
 
 export const FilterMenuRenderer = defineComponent({
     props: {

@@ -40,7 +40,11 @@
     setup>
     import { DateTime } from 'luxon';
     import { ComponentPublicInstance, ref, toRefs, unref, watch } from 'vue-demi';
-    import { FluxDatePicker, FluxFlyout, FluxFormInput, FluxFormInputGroup, FluxSecondaryButton } from '.';
+    import FluxDatePicker from './FluxDatePicker.vue';
+    import FluxFlyout from './FluxFlyout.vue';
+    import FluxFormInput from './FluxFormInput.vue';
+    import FluxFormInputGroup from './FluxFormInputGroup.vue';
+    import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
     export interface Emits {
         (e: 'update:modelValue', value: DateTime | null): void;

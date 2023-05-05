@@ -11,7 +11,8 @@
 <script
     lang="ts"
     setup>
-    import { FluxAutoGrid, FluxPane } from '.';
+    import FluxAutoGrid from './FluxAutoGrid.vue';
+    import FluxPane from './FluxPane.vue';
 
     export interface Props {
         readonly minColumnWidth: number;

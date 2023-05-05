@@ -1,5 +1,5 @@
 <template>
-    <flux-base-button
+    <BaseButton
         class="flux-action"
         :class="{
             'is-destructive': destructive
@@ -15,7 +15,7 @@
     lang="ts"
     setup>
     import type { FluxRoutingLocation, IconNames } from '../data';
-    import { FluxBaseButton } from '.';
+    import { BaseButton } from './primitive';
 
     export interface Emits {
         (e: 'click', evt: MouseEvent): void;

@@ -44,7 +44,7 @@
     import type { IconNames } from '../data';
     import { toRefs } from 'vue-demi';
     import { useFormFieldInjection } from '../composables';
-    import { FluxIcon } from '.';
+    import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {
         (e: 'update:modelValue', on: boolean): void;

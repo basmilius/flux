@@ -27,7 +27,9 @@
     import type { FluxFilterOptionItem, IconNames } from '../data';
     import { computed, ref, toRefs, unref, watch } from 'vue-demi';
     import { useFilterInjection } from '../composables';
-    import { FluxFormInput, FluxMenuGroup, FluxMenuItem } from '.';
+    import FluxFormInput from './FluxFormInput.vue';
+    import FluxMenuGroup from './FluxMenuGroup.vue';
+    import FluxMenuItem from './FluxMenuItem.vue';
 
     export interface Emits {
         (e: 'update:search', searchQuery: string): void;

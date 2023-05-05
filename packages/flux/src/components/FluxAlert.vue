@@ -20,7 +20,12 @@
     setup>
     import type { FluxAlertSpec } from '../data';
     import { useTranslate } from '../composables';
-    import { FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSpacer } from '.';
+    import FluxPane from './FluxPane.vue';
+    import FluxPaneBody from './FluxPaneBody.vue';
+    import FluxPaneFooter from './FluxPaneFooter.vue';
+    import FluxPaneHeader from './FluxPaneHeader.vue';
+    import FluxPrimaryButton from './FluxPrimaryButton.vue';
+    import FluxSpacer from './FluxSpacer.vue';
 
     export interface Props {
         readonly alert: FluxAlertSpec;

@@ -28,7 +28,8 @@
     setup
     lang="ts">
     import type { IconNames } from '../data';
-    import { FluxFlyout, FluxSecondaryButton } from '.';
+    import FluxFlyout from './FluxFlyout.vue';
+    import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
     export interface Props {
         readonly buttonIcon?: IconNames;

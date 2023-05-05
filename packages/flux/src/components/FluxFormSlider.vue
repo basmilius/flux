@@ -34,7 +34,8 @@
 <script
     lang="ts"
     setup>
-    import { ComponentPublicInstance, computed, ref, toRefs, unref, watch } from 'vue-demi';
+    import type { ComponentPublicInstance } from 'vue-demi';
+    import { computed, ref, toRefs, unref, watch } from 'vue-demi';
     import { useFluxStore } from '../data';
     import { unrefElement } from '../helpers';
     import { clampWithStepPrecision, countDecimals, formatNumber } from '../utils';

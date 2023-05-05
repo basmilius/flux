@@ -121,7 +121,7 @@
     import { DateTime } from 'luxon';
     import { computed, ref, toRefs, unref } from 'vue-demi';
     import { FluxFadeTransition, FluxVerticalWindowTransition, FluxWindowTransition } from '../transition';
-    import { FluxSecondaryButton } from '.';
+    import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
     export interface Emits {
         (e: 'update:modelValue', date: DateTime | DateTime[] | null): void;

@@ -35,7 +35,7 @@
     lang="ts"
     setup>
     import type { IconNames } from '../data';
-    import { FluxIcon } from '.';
+    import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {
         (e: 'click', evt: MouseEvent): void;

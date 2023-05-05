@@ -44,7 +44,9 @@
     lang="ts"
     setup>
     import { computed, toRefs, unref } from 'vue-demi';
-    import { FluxButtonGroup, FluxPrimaryButton, FluxSecondaryButton } from '.';
+    import FluxButtonGroup from './FluxButtonGroup.vue';
+    import FluxPrimaryButton from './FluxPrimaryButton.vue';
+    import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
     export interface Emits {
         (e: 'navigate', page: number): void;
@@ -126,6 +128,10 @@
 
         .flux-button span {
             min-width: 18px;
+
+            &:nth-child(2) {
+                min-width: unset;
+            }
         }
 
         .flux-primary-button {

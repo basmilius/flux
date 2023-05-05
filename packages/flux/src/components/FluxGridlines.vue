@@ -7,7 +7,6 @@
 <script
     lang="ts"
     setup>
-
     export interface Props {
         readonly size: number;
     }

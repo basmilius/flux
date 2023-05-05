@@ -32,7 +32,7 @@
     import { computed, toRefs } from 'vue-demi';
     import { useBreakpoints } from '../composables';
     import { FluxRoutingLocation } from '../data';
-    import { FluxSpinner } from '.';
+    import FluxSpinner from './FluxSpinner.vue';
 
     export interface Props {
         readonly columns?: number;

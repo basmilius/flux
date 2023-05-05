@@ -46,7 +46,8 @@
     import { FluxWindowTransition } from '../transition';
     import { getNormalizedComponentProps } from '../utils';
     import { VNodeRenderer } from './primitive';
-    import { FluxTabBar, FluxTabBarItem } from '.';
+    import FluxTabBar from './FluxTabBar.vue';
+    import FluxTabBarItem from './FluxTabBarItem.vue';
 
     export interface Emits {
         (e: 'update:modelValue', index: number): void;

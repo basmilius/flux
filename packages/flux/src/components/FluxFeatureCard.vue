@@ -44,7 +44,11 @@
     setup>
     import type { FluxRoutingLocation, IconNames } from '../data';
     import { useTranslate } from '../composables';
-    import { FluxIcon, FluxPane, FluxPaneBody, FluxSecondaryButton, FluxStack } from '.';
+    import FluxIcon from './FluxIcon.vue';
+    import FluxPane from './FluxPane.vue';
+    import FluxPaneBody from './FluxPaneBody.vue';
+    import FluxSecondaryButton from './FluxSecondaryButton.vue';
+    import FluxStack from './FluxStack.vue';
 
     export interface Props {
         readonly buttonIcon?: IconNames;

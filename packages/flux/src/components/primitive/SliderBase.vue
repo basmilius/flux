@@ -20,7 +20,7 @@
     setup>
     import { nextTick, onMounted, onUnmounted, ref, toRefs, unref, watch } from 'vue-demi';
     import { unrefElement } from '../../helpers';
-    import { FluxTicks } from '..';
+    import FluxTicks from '../FluxTicks.vue';
 
     export interface Emits {
         (e: 'dragging', is: boolean): void;

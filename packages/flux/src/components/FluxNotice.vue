@@ -37,7 +37,8 @@
     lang="ts"
     setup>
     import type { IconNames } from '../data';
-    import { FluxIcon, FluxSpinner } from '.';
+    import FluxIcon from './FluxIcon.vue';
+    import FluxSpinner from './FluxSpinner.vue';
 
     export interface Props {
         readonly icon?: IconNames;

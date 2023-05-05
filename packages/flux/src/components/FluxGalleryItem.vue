@@ -25,7 +25,8 @@
     lang="ts"
     setup>
     import { ref } from 'vue-demi';
-    import { FluxRemove, FluxSpinner } from '.';
+    import FluxRemove from './FluxRemove.vue';
+    import FluxSpinner from './FluxSpinner.vue';
 
     export interface Emits {
         (e: 'delete'): void;

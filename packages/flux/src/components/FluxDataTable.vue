@@ -35,7 +35,8 @@
     lang="ts"
     setup>
     import { useSlots } from 'vue-demi';
-    import { FluxTable, FluxTableRow } from '.';
+    import FluxTable from './FluxTable.vue';
+    import FluxTableRow from './FluxTableRow.vue';
 
     export interface Props {
         readonly dataSet: unknown[];

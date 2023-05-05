@@ -1,5 +1,5 @@
 <template>
-    <flux-base-button
+    <base-button
         class="flux-menu-item"
         :class="{
             'is-active': isActive,
@@ -42,14 +42,15 @@
                 class="flux-button-icon flux-menu-item-command-icon"
                 :variant="commandIcon"/>
         </template>
-    </flux-base-button>
+    </base-button>
 </template>
 
 <script
     lang="ts"
     setup>
     import type { FluxRoutingLocation, IconNames } from '../data';
-    import { FluxBaseButton, FluxIcon } from '.';
+    import { BaseButton } from './primitive';
+    import FluxIcon from './FluxIcon.vue';
 
     // note: It is currently not possible to reuse Emits and Props from
     //  base button, because of a limitation of vite and vue compiler-sfc.

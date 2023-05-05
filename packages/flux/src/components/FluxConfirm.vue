@@ -8,9 +8,11 @@
 
         <flux-pane-footer>
             <flux-spacer/>
+
             <flux-secondary-button
                 :label="translate('flux_cancel')"
                 @click="confirm.onCancel"/>
+
             <flux-primary-button
                 :label="translate('flux_ok')"
                 @click="confirm.onConfirm"/>
@@ -23,7 +25,13 @@
     setup>
     import type { FluxConfirmSpec } from '../data';
     import { useTranslate } from '../composables';
-    import { FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer } from '.';
+    import FluxPane from './FluxPane.vue';
+    import FluxPaneBody from './FluxPaneBody.vue';
+    import FluxPaneFooter from './FluxPaneFooter.vue';
+    import FluxPaneHeader from './FluxPaneHeader.vue';
+    import FluxPrimaryButton from './FluxPrimaryButton.vue';
+    import FluxSecondaryButton from './FluxSecondaryButton.vue';
+    import FluxSpacer from './FluxSpacer.vue';
 
     export interface Props {
         readonly confirm: FluxConfirmSpec;

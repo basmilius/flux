@@ -18,7 +18,7 @@
     setup>
     import type { IconNames } from '../data';
     import { ref, toRefs, unref, watch } from 'vue-demi';
-    import { FluxIcon } from '.';
+    import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {
         (e: 'click', evt: MouseEvent): void;

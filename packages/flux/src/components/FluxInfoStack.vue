@@ -9,5 +9,5 @@
 <script
     setup
     lang="ts">
-    import { FluxStack } from '.';
+    import FluxStack from './FluxStack.vue';
 </script>

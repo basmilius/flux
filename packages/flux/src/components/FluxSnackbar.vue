@@ -63,9 +63,11 @@
     setup>
     import type { FluxSnackbarSpec, IconNames } from '../data';
     import { useFluxStore } from '../data';
-    import { unrefObject } from '../utils';
     import { computed, onBeforeUnmount, ref, toRefs, watch } from 'vue-demi';
-    import { FluxAction, FluxIcon, FluxSpinner } from '.';
+    import { unrefObject } from '../utils';
+    import FluxAction from './FluxAction.vue';
+    import FluxIcon from './FluxIcon.vue';
+    import FluxSpinner from './FluxSpinner.vue';
 
     export interface Emits {
         (e: 'action', actionKey: string): void;

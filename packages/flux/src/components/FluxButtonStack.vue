@@ -10,7 +10,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxStack } from '.';
+    import FluxStack from './FluxStack.vue';
 
     export interface Props {
         readonly axis?: 'horizontal' | 'vertical';

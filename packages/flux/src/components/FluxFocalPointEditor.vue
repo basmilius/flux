@@ -61,7 +61,11 @@
     import { computed, onMounted, onUnmounted, ref, toRefs, unref } from 'vue-demi';
     import { useTranslate } from '../composables';
     import { FluxFadeTransition } from '../transition';
-    import { FluxPane, FluxPaneBody, FluxPaneFooter, FluxSecondaryButton, FluxSpacer } from '.';
+    import FluxPane from './FluxPane.vue';
+    import FluxPaneBody from './FluxPaneBody.vue';
+    import FluxPaneFooter from './FluxPaneFooter.vue';
+    import FluxSecondaryButton from './FluxSecondaryButton.vue';
+    import FluxSpacer from './FluxSpacer.vue';
 
     export interface Emits {
         (e: 'update:modelValue', focalPoint: [number, number]): void;

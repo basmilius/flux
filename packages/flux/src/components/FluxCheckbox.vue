@@ -43,7 +43,7 @@
     setup>
     import { computed, onMounted, Ref, ref, toRefs, unref, watch } from 'vue-demi';
     import { useFormFieldInjection } from '../composables';
-    import { FluxIcon } from '.';
+    import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {
         (e: 'update:modelValue', value: boolean): void;

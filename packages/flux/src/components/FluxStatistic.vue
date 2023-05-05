@@ -36,7 +36,8 @@
     lang="ts"
     setup>
     import type { IconNames } from '../data';
-    import { FluxIcon, FluxPane } from '.';
+    import FluxIcon from './FluxIcon.vue';
+    import FluxPane from './FluxPane.vue';
 
     export interface Props {
         readonly axis?: 'horizontal' | 'vertical';

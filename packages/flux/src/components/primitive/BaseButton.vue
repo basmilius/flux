@@ -49,10 +49,11 @@
 <script
     lang="ts"
     setup>
-    import type { FluxRoutingLocation, IconNames } from '../data';
+    import type { FluxRoutingLocation, IconNames } from '../../data';
     import { toRefs, unref } from 'vue-demi';
-    import { ButtonComponent } from './primitive';
-    import { FluxIcon, FluxSpinner } from '.';
+    import FluxIcon from '../FluxIcon.vue';
+    import FluxSpinner from '../FluxSpinner.vue';
+    import ButtonComponent from './ButtonComponent.vue';
 
     export interface Emits {
         (e: 'click', evt: MouseEvent): void;
@@ -102,7 +103,7 @@
 </script>
 
 <style lang="scss">
-    @use '../scss/mixin' as flux;
+    @use '../../scss/mixin' as flux;
 
     .flux-button {
         display: inline-flex;
