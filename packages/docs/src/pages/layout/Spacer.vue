@@ -1,31 +1,31 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Layout"
             title="Spacer"/>
 
-        <preview>
-            <flux-pane>
-                <flux-pane-body>
-                    <flux-button-stack>
-                        <flux-secondary-button label="More info"/>
-                        <flux-spacer class="spacer-example"/>
-                        <flux-secondary-button label="Cancel"/>
-                        <flux-primary-button
+        <Preview>
+            <FluxPane>
+                <FluxPaneBody>
+                    <FluxButtonStack>
+                        <FluxSecondaryButton label="More info"/>
+                        <FluxSpacer class="spacer-example"/>
+                        <FluxSecondaryButton label="Cancel"/>
+                        <FluxPrimaryButton
                             icon-before="circle-check"
                             label="Save"/>
-                    </flux-button-stack>
-                </flux-pane-body>
-            </flux-pane>
-        </preview>
+                    </FluxButtonStack>
+                </FluxPaneBody>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 A component that fills remaining space in its parent container, helpful in creating evenly divided
                 button rows in responsive layouts. Spacers are invisible elements and are made visible for demo purposes.
             </p>
-        </api-section>
-    </flux-stack>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

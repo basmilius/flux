@@ -1,13 +1,13 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Form select"/>
 
-        <preview>
-            <flux-pane style="width: 60%">
-                <flux-pane-body>
-                    <flux-form-select
+        <Preview>
+            <FluxPane style="width: 60%">
+                <FluxPaneBody>
+                    <FluxFormSelect
                         v-model="selectValue"
                         :options="[
                             {id: 1, label: 'Option 1'},
@@ -15,11 +15,11 @@
                             {id: 3, label: 'Option 3'}
                         ]"
                         placeholder="Select an option..."/>
-                </flux-pane-body>
-            </flux-pane>
-        </preview>
+                </FluxPaneBody>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 This is a form select element that allows the user to choose from a list of options. It is similar to a
                 drop-down menu, but with more advanced functionality. The select element can be configured to allow for
@@ -27,14 +27,14 @@
                 It's a great option for forms that require multiple selections, such as when a user needs to choose
                 multiple interests, hobbies, or preferences.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="Required icons">
-            <api-required-icons :icons="['angle-down']"/>
-        </api-section>
+        <ApiSection title="Required icons">
+            <ApiRequiredIcons :icons="['angle-down']"/>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="FormSelect">
+        <ApiSection title="API">
+            <ApiComponent name="FormSelect">
                 <template #props>
                     <tr>
                         <td><code>model-value</code><code>string | number | (string | number)[]</code></td>
@@ -68,29 +68,29 @@
                         <td>Triggered when the value changes.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
+            </ApiComponent>
+        </ApiSection>
 
-        <api-section title="Examples">
-            <api-example
+        <ApiSection title="Examples">
+            <ApiExample
                 :code="basicCode"
                 :component="basic"
                 title="Basic"
                 description="A basic select that is used to select one value."/>
 
-            <api-example
+            <ApiExample
                 :code="multipleCode"
                 :component="multiple"
                 title="Multiple"
                 description="A select that is used to select multiple values."/>
 
-            <api-example
+            <ApiExample
                 :code="multipleSearchableCode"
                 :component="multipleSearchable"
                 title="Multiple searchable"
                 description="Searchable multi select that is used to select multiple values within a larger dataset."/>
-        </api-section>
-    </flux-stack>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

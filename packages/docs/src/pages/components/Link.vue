@@ -1,25 +1,25 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Link"/>
 
-        <preview>
-            <flux-link label="Link button"/>
-        </preview>
+        <Preview>
+            <FluxLink label="Link button"/>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 <em>Todo</em>
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="Required icons">
-            <api-required-icons :icons="['arrow-right-long']"/>
-        </api-section>
+        <ApiSection title="Required icons">
+            <ApiRequiredIcons :icons="['arrow-right-long']"/>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="Link">
+        <ApiSection title="API">
+            <ApiComponent name="Link">
                 <template #props>
                     <tr>
                         <td><code>disabled</code><code>boolean</code></td>
@@ -69,9 +69,9 @@
                         <td>Triggered when the cursor leaves the link.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

@@ -1,31 +1,31 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Expandable"/>
 
-        <preview>
-            <flux-pane>
-                <flux-expandable label="More options...">
+        <Preview>
+            <FluxPane>
+                <FluxExpandable label="More options...">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad culpa debitis deleniti dignissimos dolorem ducimus earum error facilis, fugit hic modi nulla odit praesentium rerum voluptate. Ipsum neque quasi sint?
-                </flux-expandable>
-            </flux-pane>
-        </preview>
+                </FluxExpandable>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 A component that provides a toggleable container for additional content. It consists of a header with
                 a label, and a body that holds the expandable content. When the header button is clicked, the body
                 opens or closes to reveal or hide the content.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="Required icons">
-            <api-required-icons :icons="['minus', 'plus']"/>
-        </api-section>
+        <ApiSection title="Required icons">
+            <ApiRequiredIcons :icons="['minus', 'plus']"/>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-components>
+        <ApiSection title="API">
+            <ApiComponents>
                 <tr>
                     <td><code>FluxExpandable</code></td>
                     <td>Can reveal more content when opened.</td>
@@ -34,9 +34,9 @@
                     <td><code>FluxExpandableGroup</code></td>
                     <td>Ensures that only one expandable is opened at times.</td>
                 </tr>
-            </api-components>
+            </ApiComponents>
 
-            <api-component name="Expandable">
+            <ApiComponent name="Expandable">
                 <template #props>
                     <tr>
                         <td><code>label</code><code>string</code></td>
@@ -65,9 +65,9 @@
                         <td>Header of the expandable.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="ExpandableGroup">
+            <ApiComponent name="ExpandableGroup">
                 <template #props>
                     <tr>
                         <td><code>is-controlled</code><code>boolean</code></td>
@@ -81,35 +81,35 @@
                         <td>The expandables that should be part of the group.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
+            </ApiComponent>
+        </ApiSection>
 
-        <api-section title="Examples">
-            <api-example
+        <ApiSection title="Examples">
+            <ApiExample
                 :code="basicCode"
                 :component="basic"
                 title="Basic"
                 description="The most basic form of an expandable."/>
 
-            <api-example
+            <ApiExample
                 :code="groupCode"
                 :component="group"
                 title="Group"
                 description="An expandable group makes sure that only one expandable is open at ant moment. It closes other expandables when one is opened."/>
 
-            <api-example
+            <ApiExample
                 :code="groupPaneCode"
                 :component="groupPane"
                 title="Group in Pane"
                 description="Grouped expandables are especially nice within a Pane."/>
 
-            <api-example
+            <ApiExample
                 :code="customHeaderCode"
                 :component="customHeader"
                 title="Custom header"
                 description="The header of an expandable can be overwritten with a slot called header. That slot is provided with an isOpen boolean and three functions to control the expandable."/>
-        </api-section>
-    </flux-stack>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

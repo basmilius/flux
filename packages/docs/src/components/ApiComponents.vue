@@ -1,10 +1,10 @@
 <template>
-    <flux-pane class="api-component flux-typography-aware">
-        <flux-pane-header
+    <FluxPane class="api-component flux-typography-aware">
+        <FluxPaneHeader
             class="api-component-header api-components-header"
             title="Components"/>
 
-        <api-table title="Components">
+        <ApiTable title="Components">
             <template #head>
                 <tr>
                     <th>Name</th>
@@ -14,8 +14,8 @@
             <template #body>
                 <slot/>
             </template>
-        </api-table>
-    </flux-pane>
+        </ApiTable>
+    </FluxPane>
 </template>
 
 <script

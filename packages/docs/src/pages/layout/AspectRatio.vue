@@ -1,42 +1,42 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Layout"
             title="Aspect ratio"/>
 
-        <preview>
-            <flux-stack
+        <Preview>
+            <FluxStack
                 axis="horizontal"
                 :gap="15">
-                <flux-pane>
-                    <flux-aspect-ratio
+                <FluxPane>
+                    <FluxAspectRatio
                         :aspect-ratio="1"
                         style="height: 108px"/>
-                </flux-pane>
+                </FluxPane>
 
-                <flux-pane>
-                    <flux-aspect-ratio
+                <FluxPane>
+                    <FluxAspectRatio
                         :aspect-ratio="16 / 9"
                         style="height: 108px"/>
-                </flux-pane>
+                </FluxPane>
 
-                <flux-pane>
-                    <flux-aspect-ratio
+                <FluxPane>
+                    <FluxAspectRatio
                         :aspect-ratio="9 / 16"
                         style="height: 108px"/>
-                </flux-pane>
-            </flux-stack>
-        </preview>
+                </FluxPane>
+            </FluxStack>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 The aspect ratio component makes sure that the element has a certain aspect ratio and tries to keep
                 it in that ratio. One of height and width should be available for this component to work.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="AspectRatio">
+        <ApiSection title="API">
+            <ApiComponent name="AspectRatio">
                 <template #props>
                     <tr>
                         <td><code>aspect-ratio</code><code>number</code></td>
@@ -50,9 +50,9 @@
                         <td>The contents of the aspect ratio.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

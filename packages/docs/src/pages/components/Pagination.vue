@@ -1,30 +1,30 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Pagination"/>
 
-        <preview>
-            <flux-pagination
+        <Preview>
+            <FluxPagination
                 arrows
                 :page="13"
                 :per-page="10"
                 :total="200"/>
-        </preview>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 A component that displays the pages for paginated content. The component automatically decides
                 which pages to show or not.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="Required icons">
-            <api-required-icons :icons="['angle-left', 'angle-right', 'ellipsis-h']"/>
-        </api-section>
+        <ApiSection title="Required icons">
+            <ApiRequiredIcons :icons="['angle-left', 'angle-right', 'ellipsis-h']"/>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-components>
+        <ApiSection title="API">
+            <ApiComponents>
                 <tr>
                     <td><code>FluxPagination</code></td>
                     <td>Simple pagination element.</td>
@@ -33,9 +33,9 @@
                     <td><code>FluxPaginationBar</code></td>
                     <td>A pagination bar that contains a pagination element and limit options.</td>
                 </tr>
-            </api-components>
+            </ApiComponents>
 
-            <api-component name="Pagination">
+            <ApiComponent name="Pagination">
                 <template #props>
                     <tr>
                         <td><code>arrows</code><code>boolean</code></td>
@@ -65,9 +65,9 @@
                         <td>Triggered when a navigation occurred.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="PaginationBar">
+            <ApiComponent name="PaginationBar">
                 <template #props>
                     <tr>
                         <td><code>limits</code><code>number[]</code></td>
@@ -97,17 +97,17 @@
                         <td>Triggered when a navigation occurred.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
+            </ApiComponent>
+        </ApiSection>
 
-        <api-section title="Example">
-            <api-example
+        <ApiSection title="Example">
+            <ApiExample
                 :code="basicCode"
                 :component="basic"
                 title="Basic"
                 description="Pagination can for example be visible in the footer of a Pane."/>
-        </api-section>
-    </flux-stack>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

@@ -1,22 +1,22 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Layout"
             title="Predefined grid"/>
 
-        <preview>
-            <flux-pane>
-                <flux-pane-body>
-                    <flux-predefined-grid layout="cards">
+        <Preview>
+            <FluxPane>
+                <FluxPaneBody>
+                    <FluxPredefinedGrid layout="cards">
                         <div class="column-example"/>
                         <div class="column-example"/>
                         <div class="column-example"/>
-                    </flux-predefined-grid>
-                </flux-pane-body>
-            </flux-pane>
-        </preview>
+                    </FluxPredefinedGrid>
+                </FluxPaneBody>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 The predefined grid component is a basic layout tool for organizing content on your page into columns. It
                 provides a straightforward solution for breaking up content into sections, allowing you to present
@@ -24,10 +24,10 @@
                 structure and is not adjustable. The number of columns, their width, and the distribution of content within
                 each column are predetermined and cannot be altered.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="PredefinedGrid">
+        <ApiSection title="API">
+            <ApiComponent name="PredefinedGrid">
                 <template #props>
                     <tr>
                         <td><code>layout</code><code>'cards' | 'full' | 'sidebar-start' | 'sidebar-end' | 'two-column'</code></td>
@@ -41,9 +41,9 @@
                         <td>The elements within the predefined grid.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

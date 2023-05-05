@@ -1,41 +1,41 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Tooltip"/>
 
-        <preview>
-            <flux-button-stack>
-                <flux-tooltip
+        <Preview>
+            <FluxButtonStack>
+                <FluxTooltip
                     axis="horizontal"
                     content="Lorem ipsum dolor sit amet, consectetur adipisicing elit.">
-                    <flux-secondary-button
+                    <FluxSecondaryButton
                         icon-before="clone"
                         label="Hover me"/>
-                </flux-tooltip>
+                </FluxTooltip>
 
-                <flux-tooltip>
+                <FluxTooltip>
                     <template #content>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab consequatur dolor doloremque ipsa ipsum nulla, placeat qui, saepe sapiente tempora tenetur, unde? Aliquam commodi eaque explicabo ipsum iusto possimus reiciendis.</p>
                     </template>
 
-                    <flux-secondary-button
+                    <FluxSecondaryButton
                         icon-before="clone"
                         label="Hover me"/>
-                </flux-tooltip>
-            </flux-button-stack>
-        </preview>
+                </FluxTooltip>
+            </FluxButtonStack>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 Tooltips can be used to display additional information when the user hovers an element. It tries
                 to position the tooltip within the viewport. When the content needs to be complex, a slot can
                 be used.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="Tooltip">
+        <ApiSection title="API">
+            <ApiComponent name="Tooltip">
                 <template #props>
                     <tr>
                         <td><code>axis</code><code>'horizontal' | 'vertical'</code></td>
@@ -57,23 +57,23 @@
                         <td>The contents of the tooltip.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
+            </ApiComponent>
+        </ApiSection>
 
-        <api-section title="Examples">
-            <api-example
+        <ApiSection title="Examples">
+            <ApiExample
                 :code="basicCode"
                 :component="basic"
                 title="Basic"
                 description="A tooltip that uses its content prop to determine its content."/>
 
-            <api-example
+            <ApiExample
                 :code="slotCode"
                 :component="slot"
                 title="Slot"
                 description="A tooltip that uses the content slot to determine its content. This can be useful to display more dynamic tooltips."/>
-        </api-section>
-    </flux-stack>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

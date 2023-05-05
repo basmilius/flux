@@ -1,6 +1,6 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Playground"
             title="Bas' speelparadijs"/>
 
@@ -8,16 +8,16 @@
             <template
                 v-if="previews.length > 0"
                 v-for="preview of previews">
-                <preview>
-                    <component :is="preview"/>
-                </preview>
+                <Preview>
+                    <Component :is="preview"/>
+                </Preview>
             </template>
 
-            <preview v-else>
+            <Preview v-else>
                 <span style="font-size: 60px">🙂</span>
-            </preview>
+            </Preview>
         </section>
-    </flux-stack>
+    </FluxStack>
 </template>
 
 <script

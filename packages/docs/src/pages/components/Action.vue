@@ -1,34 +1,34 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Action"/>
 
-        <preview>
-            <flux-pane>
-                <flux-pane-body>
-                    <flux-actions>
-                        <flux-action
+        <Preview>
+            <FluxPane>
+                <FluxPaneBody>
+                    <FluxActions>
+                        <FluxAction
                             destructive
                             icon="circle-xmark"/>
 
-                        <flux-action icon="circle-sort"/>
+                        <FluxAction icon="circle-sort"/>
 
-                        <flux-action icon="circle-minus"/>
-                    </flux-actions>
-                </flux-pane-body>
-            </flux-pane>
-        </preview>
+                        <FluxAction icon="circle-minus"/>
+                    </FluxActions>
+                </FluxPaneBody>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 Actions can be used to add functionality to for example data tables. They can navigate to another view
                 or perform an in-page action, like a share overlay.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="Action">
+        <ApiSection title="API">
+            <ApiComponent name="Action">
                 <template #props>
                     <tr>
                         <td><code>destructive</code><code>boolean</code></td>
@@ -86,18 +86,18 @@
                         <td>Triggered when the cursor leaves the action.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="Actions">
+            <ApiComponent name="Actions">
                 <template #slots>
                     <tr>
                         <td><code>default</code><code>{}</code></td>
                         <td>The actions within the action group.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

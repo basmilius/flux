@@ -1,34 +1,34 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Layout"
             title="Auto grid"/>
 
-        <preview>
-            <flux-pane>
-                <flux-pane-body>
-                    <flux-auto-grid
+        <Preview>
+            <FluxPane>
+                <FluxPaneBody>
+                    <FluxAutoGrid
                         :gap="21"
                         :min-column-width="210">
                         <div
                             v-for="i in 3"
                             :key="i"
                             class="column-example"/>
-                    </flux-auto-grid>
-                </flux-pane-body>
-            </flux-pane>
-        </preview>
+                    </FluxAutoGrid>
+                </FluxPaneBody>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 The AutoGrid component is a Vue component that automatically adjusts the width of its children to ensure
                 they have a minimum width. It intelligently determines the number of columns that fit best within the
                 parent container, making it easy to create responsive layouts that adapt to various screen sizes.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="AutoGrid">
+        <ApiSection title="API">
+            <ApiComponent name="AutoGrid">
                 <template #props>
                     <tr>
                         <td><code>gap</code><code>number</code></td>
@@ -46,9 +46,9 @@
                         <td>The elements that should be placed within the auto grid.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

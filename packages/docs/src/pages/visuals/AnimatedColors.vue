@@ -1,30 +1,30 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Visuals"
             title="Animated colors"/>
 
-        <preview>
-            <flux-aspect-ratio
+        <Preview>
+            <FluxAspectRatio
                 :aspect-ratio="16 / 9"
                 style="width: 420px">
-                <flux-animated-colors
+                <FluxAnimatedColors
                     :colors="['#6071b5', '#f07db7', '#0284c7']"
                     :incrementor=".5"
                     :opacity="1"
                     :seed="130496"/>
-            </flux-aspect-ratio>
-        </preview>
+            </FluxAspectRatio>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 The animated colors component displays an array of colors in an animated blurred way. This visual
                 is used for example in the PaneIllustration component.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="AnimatedColors">
+        <ApiSection title="API">
+            <ApiComponent name="AnimatedColors">
                 <template #props>
                     <tr>
                         <td><code>colors</code><code>string[]</code></td>
@@ -43,9 +43,9 @@
                         <td>The randomizer seed to user for the animation.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

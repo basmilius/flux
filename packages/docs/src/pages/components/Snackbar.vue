@@ -1,21 +1,21 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Snackbar"/>
 
-        <preview>
-            <flux-stack
+        <Preview>
+            <FluxStack
                 :gap="15"
                 style="width: 420px">
-                <flux-snackbar
+                <FluxSnackbar
                     color="success"
                     icon="circle-check"
                     message="Your profile details are saved."
                     title="Saved"
                     is-rendered/>
 
-                <flux-snackbar
+                <FluxSnackbar
                     :actions="{view: 'Review'}"
                     color="warning"
                     icon="circle-exclamation"
@@ -23,28 +23,28 @@
                     title="Updated Terms of Service"
                     is-rendered/>
 
-                <flux-snackbar
+                <FluxSnackbar
                     :actions="{update: 'Update', close: 'Close'}"
                     icon="circle-arrow-up"
                     message="A new version of WeAreFancee is available. Would you like to update?"
                     title="Update available"
                     is-rendered/>
-            </flux-stack>
-        </preview>
+            </FluxStack>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 A snackbar can be used to inform the user about a task that the system performed or will perform in the
                 future. Snackbars can contain actions that the user may choose.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="Required icons">
-            <api-required-icons :icons="['xmark']"/>
-        </api-section>
+        <ApiSection title="Required icons">
+            <ApiRequiredIcons :icons="['xmark']"/>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-components>
+        <ApiSection title="API">
+            <ApiComponents>
                 <tr>
                     <td><code>FluxSnackbar</code></td>
                     <td>A single snackbar.</td>
@@ -53,9 +53,9 @@
                     <td><code>FluxSnackbarProvider</code></td>
                     <td>Component that renders global snackbars.</td>
                 </tr>
-            </api-components>
+            </ApiComponents>
 
-            <api-component name="Snackbar">
+            <ApiComponent name="Snackbar">
                 <template #props>
                     <tr>
                         <td><code>actions</code><code>Record&lt;string, string&gt;</code></td>
@@ -94,35 +94,35 @@
                         <td>Title within the snackbar.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
+            </ApiComponent>
+        </ApiSection>
 
-        <api-section title="Examples">
-            <api-example
+        <ApiSection title="Examples">
+            <ApiExample
                 :code="globalCode"
                 :component="global"
                 title="Global"
                 description="Snackbars are rendered globally by default."/>
 
-            <api-example
+            <ApiExample
                 :code="apiCode"
                 :component="api"
                 title="API"
                 description="Snackbars can also be shown from code, with a duration."/>
 
-            <api-example
+            <ApiExample
                 :code="actionsCode"
                 :component="actions"
                 title="Actions"
                 description="Snackbars can also display actions that the user can perform."/>
 
-            <api-example
+            <ApiExample
                 :code="localCode"
                 :component="local"
                 title="Local"
                 description="Instead of rendering snackbars globally, they can also render inline."/>
-        </api-section>
-    </flux-stack>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

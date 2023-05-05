@@ -1,28 +1,28 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Form input"/>
 
-        <preview>
-            <flux-pane style="width: 60%">
-                <flux-pane-body>
-                    <flux-form-input
+        <Preview>
+            <FluxPane style="width: 60%">
+                <FluxPaneBody>
+                    <FluxFormInput
                         type="email"
                         placeholder="E.g. bas@fanc.ee"/>
-                </flux-pane-body>
-            </flux-pane>
-        </preview>
+                </FluxPaneBody>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 A form input is a text field that consist of a single line. It accepts various data types
                 that can be specified using the type prop.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="FormInput">
+        <ApiSection title="API">
+            <ApiComponent name="FormInput">
                 <template #props>
                     <tr>
                         <td><code>model-value</code><code>object | string | number</code></td>
@@ -100,9 +100,9 @@
                         <td>Triggered when the input gains focus.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script

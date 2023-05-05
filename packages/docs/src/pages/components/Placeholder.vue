@@ -1,31 +1,31 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Placeholder"/>
 
-        <preview>
-            <flux-pane style="width: 75%">
-                <flux-pane-body>
-                    <flux-placeholder
+        <Preview>
+            <FluxPane style="width: 75%">
+                <FluxPaneBody>
+                    <FluxPlaceholder
                         icon="rectangle-history"
                         title="Header"
                         message="Upload a few images to use as the shop header.">
-                        <flux-secondary-button label="Upload"/>
-                    </flux-placeholder>
-                </flux-pane-body>
-            </flux-pane>
-        </preview>
+                        <FluxSecondaryButton label="Upload"/>
+                    </FluxPlaceholder>
+                </FluxPaneBody>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 A Placeholder is used for situations where the user should provide content, but it hasn't already. This
                 component will display the steps the user has to take.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="Placeholder">
+        <ApiSection title="API">
+            <ApiComponent name="Placeholder">
                 <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
@@ -55,9 +55,9 @@
                         <td>Triggered when the placeholder is clicked.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script
