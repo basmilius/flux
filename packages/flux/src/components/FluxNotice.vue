@@ -13,7 +13,7 @@
             :size="isSmall ? 16 : 20"/>
 
         <FluxIcon
-            v-else-if="icon"
+            v-if="icon && !isLoading"
             class="flux-notice-prefix"
             :size="isSmall ? 16 : 20"
             :variant="icon"/>

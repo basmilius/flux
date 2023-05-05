@@ -11,19 +11,19 @@
             <FluxTableRow>
                 <slot
                     name="header"
-                    v-bind="{dataSet, page, perPage, total}"/>
+                    v-bind="{page, perPage, rows, total}"/>
             </FluxTableRow>
         </template>
 
         <template #rows>
             <FluxTableRow
-                v-for="(row, index) of dataSet.slice(0, perPage)"
+                v-for="(row, index) of rows"
                 :key="uniqueKey ? row[uniqueKey] : index">
                 <template v-for="(_, name) of slots">
                     <template v-if="name !== 'header'">
                         <slot
                             :name="name"
-                            v-bind="{dataSet, page, perPage, row, total}"/>
+                            v-bind="{index, page, perPage, row, rows, total}"/>
                     </template>
                 </template>
             </FluxTableRow>
@@ -34,7 +34,7 @@
 <script
     lang="ts"
     setup>
-    import { useSlots } from 'vue-demi';
+    import { computed, toRefs, unref, useSlots } from 'vue-demi';
     import FluxTable from './FluxTable.vue';
     import FluxTableRow from './FluxTableRow.vue';
 
@@ -51,7 +51,7 @@
         readonly uniqueKey?: string;
     }
 
-    withDefaults(defineProps<Props>(), {
+    const props = withDefaults(defineProps<Props>(), {
         isBordered: true,
         isHoverable: false,
         isLoading: false,
@@ -60,6 +60,9 @@
         page: 1,
         perPage: 1000
     });
+    const {dataSet, perPage} = toRefs(props);
 
     const slots = useSlots();
+
+    const rows = computed(() => unref(dataSet).slice(0, unref(perPage)));
 </script>

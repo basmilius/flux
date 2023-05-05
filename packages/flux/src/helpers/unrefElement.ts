@@ -1,6 +1,6 @@
 import type { ComponentPublicInstance } from 'vue-demi';
 import type { MaybeComputedElementRef, MaybeElement } from './types';
-import { resolveUnref } from '.';
+import { resolveUnref } from './resolveUnref';
 
 type UnRefElementReturn<T extends MaybeElement = MaybeElement> = T extends ComponentPublicInstance ? Exclude<MaybeElement, ComponentPublicInstance> : T | undefined;
 

@@ -1,5 +1,5 @@
-import type { FluxAlertSpec, FluxConfirmSpec } from '.';
-import { useFluxStore } from '.';
+import type { FluxAlertSpec, FluxConfirmSpec } from './types';
+import { useFluxStore } from './store';
 
 export async function fluxAlert(spec: Omit<FluxAlertSpec, 'id' | 'onClose'>): Promise<void> {
     const fluxStore = useFluxStore();

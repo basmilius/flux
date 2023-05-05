@@ -1,4 +1,4 @@
-import type { FluxAlertSpec, FluxConfirmSpec, FluxSnackbarSpec, FluxTooltipSpec } from '.';
+import type { FluxAlertSpec, FluxConfirmSpec, FluxSnackbarSpec, FluxTooltipSpec } from './types';
 import { defineStore } from 'pinia';
 
 const DEFAULT_SNACKBAR_DURATION = 3000;
