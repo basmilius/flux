@@ -1,5 +1,5 @@
 <template>
-    <component
+    <Component
         :is="component"
         class="flux-badge"
         :class="{

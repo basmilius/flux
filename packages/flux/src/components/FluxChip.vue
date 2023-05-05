@@ -1,5 +1,5 @@
 <template>
-    <component
+    <Component
         :is="isSelectable ? 'button' : 'div'"
         class="flux-chip"
         :class="{

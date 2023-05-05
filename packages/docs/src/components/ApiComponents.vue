@@ -11,6 +11,7 @@
                     <th>When to use</th>
                 </tr>
             </template>
+
             <template #body>
                 <slot/>
             </template>
@@ -23,7 +24,7 @@
     setup>
     import { FluxPane, FluxPaneHeader } from '@fancee/flux';
     import { useSlots } from 'vue';
-    import { ApiTable } from '.';
+    import ApiTable from './ApiTable.vue';
 
     const slots = useSlots();
 </script>

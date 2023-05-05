@@ -1,5 +1,5 @@
 <template>
-    <component
+    <Component
         :is="component"
         class="flux-surface flux-pane"
         :class="{
@@ -23,7 +23,7 @@
             class="flux-pane-tag">
             {{ tag }}
         </div>
-    </component>
+    </Component>
 </template>
 
 <script

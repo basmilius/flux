@@ -29,7 +29,8 @@
     lang="ts"
     setup>
     import { FluxPane, FluxPaneFooter } from '@fancee/flux';
-    import { HighlightedCode, Preview } from '.';
+    import HighlightedCode from './HighlightedCode.vue';
+    import Preview from './Preview.vue';
 
     export interface Props {
         readonly code: string;

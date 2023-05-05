@@ -1,5 +1,5 @@
 <template>
-    <high-code
+    <HighCode
         class="highlighted-code flux-typography-aware"
         height="auto"
         width="100%"
