@@ -75,6 +75,10 @@
                         <td><code>is-wrapping</code><code>boolean</code></td>
                         <td>When provided, the elements within the stack wrap when there isn't enough space left.</td>
                     </tr>
+                    <tr>
+                        <td><code>tag</code><code>keyof HTMLElementTagNameMap</code></td>
+                        <td>The html element that the stack should render.</td>
+                    </tr>
                 </template>
 
                 <template #slots>

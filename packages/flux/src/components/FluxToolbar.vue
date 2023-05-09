@@ -1,22 +1,27 @@
 <template>
-    <nav
+    <FluxStack
         class="flux-toolbar"
         :class="{
             'flux-surface': floatingMode,
-            'flux-toolbar-floating': floatingMode,
-            'flux-toolbar-floating-free': floatingMode === 'free',
-            'flux-toolbar-floating-top-start': floatingMode === 'top-start',
-            'flux-toolbar-floating-top-end': floatingMode === 'top-end',
-            'flux-toolbar-floating-bottom-start': floatingMode === 'bottom-start',
-            'flux-toolbar-floating-bottom-end': floatingMode === 'bottom-end'
-        }">
+            'is-floating': floatingMode,
+            'is-floating-free': floatingMode === 'free',
+            'is-floating-top-start': floatingMode === 'top-start',
+            'is-floating-top-end': floatingMode === 'top-end',
+            'is-floating-bottom-start': floatingMode === 'bottom-start',
+            'is-floating-bottom-end': floatingMode === 'bottom-end'
+        }"
+        axis="horizontal"
+        :gap="6"
+        tag="nav">
         <slot/>
-    </nav>
+    </FluxStack>
 </template>
 
 <script
     lang="ts"
     setup>
+    import FluxStack from './FluxStack.vue';
+
     export interface Props {
         readonly floatingMode?: 'free' | 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end';
     }
@@ -26,11 +31,9 @@
 
 <style lang="scss">
     .flux-toolbar {
-        display: flex;
         padding: 6px;
-        gap: 6px;
 
-        &-floating {
+        &.is-floating {
             position: absolute;
             box-shadow: var(--shadow-lg);
 

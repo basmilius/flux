@@ -131,7 +131,7 @@
         }
 
         &-dot {
-            display: inline-block;
+            display: block;
             height: 9px;
             width: 9px;
             background: var(--color);

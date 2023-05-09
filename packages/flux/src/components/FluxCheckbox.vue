@@ -32,8 +32,8 @@
 <script lang="ts">
     export default {
         model: {
-            prop: 'modelValue',
-            event: 'update:modelValue'
+            prop: 'model-value',
+            event: 'update:model-value'
         }
     };
 </script>
@@ -46,7 +46,7 @@
     import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {
-        (e: 'update:modelValue', value: boolean): void;
+        (e: 'update:model-value', value: boolean): void;
     }
 
     export interface Props {
@@ -78,7 +78,7 @@
             return;
         }
 
-        emit('update:modelValue', localValue);
+        emit('update:model-value', localValue);
     });
 
     watch(modelValue, modelValue => {

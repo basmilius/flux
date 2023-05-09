@@ -25,8 +25,8 @@
 <script lang="ts">
     export default {
         model: {
-            prop: 'modelValue',
-            event: 'update:modelValue'
+            prop: 'model-value',
+            event: 'update:model-value'
         }
     };
 </script>
@@ -42,7 +42,7 @@
     import { SliderBase, SliderThumb, SliderTrack } from './primitive';
 
     export interface Emits {
-        (e: 'update:modelValue', value: number): void;
+        (e: 'update:model-value', value: number): void;
     }
 
     export interface Props {
@@ -107,7 +107,7 @@
         }
 
         const value = clampWithStepPrecision(localValue.value, min.value, max.value, step.value);
-        emit('update:modelValue', Math.max(min.value, value - step.value));
+        emit('update:model-value', Math.max(min.value, value - step.value));
     }
 
     function onIncrement(): void {
@@ -116,7 +116,7 @@
         }
 
         const value = clampWithStepPrecision(localValue.value, min.value, max.value, step.value);
-        emit('update:modelValue', Math.min(max.value, value + step.value));
+        emit('update:model-value', Math.min(max.value, value + step.value));
     }
 
     watch(modelValue, modelValue => {
@@ -127,6 +127,6 @@
         const value = clampWithStepPrecision(localValue, min, max, step);
         percentage.value = (value - min) / (max - min);
 
-        emit('update:modelValue', value);
+        emit('update:model-value', value);
     }, {immediate: true});
 </script>

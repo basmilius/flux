@@ -98,8 +98,8 @@
 <script lang="ts">
     export default {
         model: {
-            prop: 'modelValue',
-            event: 'update:modelValue'
+            prop: 'model-value',
+            event: 'update:model-value'
         }
     };
 </script>
@@ -124,7 +124,7 @@
     import FluxPaneBody from './FluxPaneBody.vue';
 
     export interface Emits {
-        (e: 'update:modelValue', value: string | number | (string | number)[]): void;
+        (e: 'update:model-value', value: string | number | (string | number)[]): void;
 
         (e: 'update:search', value: string): void;
     }
@@ -294,7 +294,7 @@
         const val = unref(modelValue);
 
         if (Array.isArray(val)) {
-            emit('update:modelValue', val.filter(v => v !== id));
+            emit('update:model-value', val.filter(v => v !== id));
             unref(focusableElement)?.focus();
         }
 
@@ -305,11 +305,11 @@
         const val = unref(modelValue);
 
         if (Array.isArray(val)) {
-            emit('update:modelValue', [...val, id]);
+            emit('update:model-value', [...val, id]);
 
             unref(focusableElement)?.focus();
         } else {
-            emit('update:modelValue', id);
+            emit('update:model-value', id);
 
             popupOpen.value = false;
             unref(focusableElement)?.blur();

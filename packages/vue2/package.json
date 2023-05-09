@@ -1,6 +1,6 @@
 {
     "name": "@fancee/flux-vue2",
-    "version": "1.0.43",
+    "version": "1.0.44",
     "type": "module",
     "scripts": {
         "build": "vue-demi-switch 2.7 && vite build && pnpm run gentypes",
@@ -36,7 +36,7 @@
         "minimist": "^1.2.8",
         "pinia": "^2.0.35",
         "typescript": "^4.9.5",
-        "vite": "^4.3.4",
+        "vite": "^4.3.5",
         "vue": "^2.7.14",
         "vue-docgen-web-types": "^0.1.8",
         "vue-template-compiler": "^2.7.14",

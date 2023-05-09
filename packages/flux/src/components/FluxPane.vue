@@ -45,7 +45,9 @@
         readonly to?: FluxRoutingLocation;
     }
 
-    const props = defineProps<Props>();
+    const props = withDefaults(defineProps<Props>(), {
+        columns: 0
+    });
     const {href, to} = toRefs(props);
 
     const {breakpoints} = useBreakpoints();

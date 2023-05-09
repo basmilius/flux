@@ -31,8 +31,8 @@
 <script lang="ts">
     export default {
         model: {
-            prop: 'modelValue',
-            event: 'update:modelValue'
+            prop: 'model-value',
+            event: 'update:model-value'
         }
     };
 </script>
@@ -50,7 +50,7 @@
     import FluxTabBarItem from './FluxTabBarItem.vue';
 
     export interface Emits {
-        (e: 'update:modelValue', index: number): void;
+        (e: 'update:model-value', index: number): void;
     }
 
     export interface Props {
@@ -76,7 +76,7 @@
 
     watch(activeIndex, (newIndex, oldIndex) => {
         isTransitioningBack.value = newIndex < oldIndex;
-        emit('update:modelValue', newIndex);
+        emit('update:model-value', newIndex);
     });
 
     watch(() => props.modelValue, modelValue => activeIndex.value = modelValue ?? 0, {immediate: true});

@@ -1,5 +1,6 @@
 <template>
-    <div
+    <Component
+        :is="tag ?? 'div'"
         class="flux-stack"
         :class="{
             'is-horizontal': axis === 'horizontal',
@@ -10,7 +11,7 @@
             'is-wrapping': isWrapping
         }">
         <slot/>
-    </div>
+    </Component>
 </template>
 
 <script
@@ -23,6 +24,7 @@
         readonly isFill?: boolean;
         readonly isGrowing?: boolean;
         readonly isWrapping?: boolean;
+        readonly tag?: keyof HTMLElementTagNameMap;
     }
 
     withDefaults(defineProps<Props>(), {

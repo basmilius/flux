@@ -109,8 +109,8 @@
 <script lang="ts">
     export default {
         model: {
-            prop: 'modelValue',
-            event: 'update:modelValue'
+            prop: 'model-value',
+            event: 'update:model-value'
         }
     };
 </script>
@@ -124,7 +124,7 @@
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
     export interface Emits {
-        (e: 'update:modelValue', date: DateTime | DateTime[] | null): void;
+        (e: 'update:model-value', date: DateTime | DateTime[] | null): void;
     }
 
     export interface Props {
@@ -315,9 +315,9 @@
                     selection.value = [date, date];
                 } else {
                     if (date >= start) {
-                        emit('update:modelValue', [start, date]);
+                        emit('update:model-value', [start, date]);
                     } else {
-                        emit('update:modelValue', [date, start]);
+                        emit('update:model-value', [date, start]);
                     }
 
                     selection.value = [null, null];
@@ -325,15 +325,15 @@
                 break;
 
             case 'month':
-                emit('update:modelValue', [date.startOf('month'), date.endOf('month')]);
+                emit('update:model-value', [date.startOf('month'), date.endOf('month')]);
                 break;
 
             case 'week':
-                emit('update:modelValue', [date.startOf('week'), date.endOf('week')]);
+                emit('update:model-value', [date.startOf('week'), date.endOf('week')]);
                 break;
 
             default:
-                emit('update:modelValue', date);
+                emit('update:model-value', date);
                 break;
         }
     }

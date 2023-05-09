@@ -1,13 +1,14 @@
 <template>
-    <nav class="flux-actions">
+    <FluxStack
+        axis="horizontal"
+        :gap="1"
+        tag="nav">
         <slot/>
-    </nav>
+    </FluxStack>
 </template>
 
-<style lang="scss">
-    .flux-actions {
-        display: flex;
-        flex-flow: row;
-        gap: 1px;
-    }
-</style>
+<script
+    lang="ts"
+    setup>
+    import FluxStack from './FluxStack.vue';
+</script>

@@ -145,7 +145,6 @@
 <style lang="scss">
     .flux-animated-colors {
         position: absolute;
-        display: block;
         inset: 0;
         height: 100%;
         width: 100%;

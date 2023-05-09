@@ -21,8 +21,8 @@
 <script lang="ts">
     export default {
         model: {
-            prop: 'modelValue',
-            event: 'update:modelValue'
+            prop: 'model-value',
+            event: 'update:model-value'
         }
     };
 </script>
@@ -38,7 +38,7 @@
 
         (e: 'focus'): void;
 
-        (e: 'update:modelValue', value: object | string | number): void;
+        (e: 'update:model-value', value: object | string | number): void;
     }
 
     export interface Props {
@@ -69,7 +69,7 @@
     onMounted(() => requestAnimationFrame(sizeToContent));
 
     function onInput(evt: InputEvent): void {
-        emit('update:modelValue', (evt.target as HTMLTextAreaElement).value);
+        emit('update:model-value', (evt.target as HTMLTextAreaElement).value);
         sizeToContent();
     }
 

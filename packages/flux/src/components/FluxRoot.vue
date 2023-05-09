@@ -4,14 +4,14 @@
             <slot/>
         </div>
 
-        <FluxOverlay>
+        <FluxOverlay size="medium">
             <FluxAlert
                 v-for="alert of alerts"
                 :key="alert.id"
                 :alert="alert"/>
         </FluxOverlay>
 
-        <FluxOverlay>
+        <FluxOverlay size="medium">
             <FluxConfirm
                 v-for="confirm of confirms"
                 :key="confirm.id"

@@ -170,7 +170,6 @@
         backdrop-filter: blur(5px) saturate(180%);
         border-radius: var(--radius);
         color: rgb(var(--gray-0));
-        font-size: 14px;
         font-variant-numeric: tabular-nums;
         pointer-events: none;
         transform: translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), 0);

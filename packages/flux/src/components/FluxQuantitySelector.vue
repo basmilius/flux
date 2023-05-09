@@ -31,8 +31,8 @@
 <script lang="ts">
     export default {
         model: {
-            prop: 'modelValue',
-            event: 'update:modelValue'
+            prop: 'model-value',
+            event: 'update:model-value'
         }
     };
 </script>
@@ -45,7 +45,7 @@
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
     export interface Emits {
-        (e: 'update:modelValue', value: number): void;
+        (e: 'update:model-value', value: number): void;
     }
 
     export interface Props {
@@ -97,7 +97,7 @@
             return;
         }
 
-        emit('update:modelValue', internalValue);
+        emit('update:model-value', internalValue);
         sizeToContent();
     });
 
