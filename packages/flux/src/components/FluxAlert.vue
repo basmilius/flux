@@ -1,5 +1,5 @@
 <template>
-    <FluxPane class="flux-alert">
+    <FluxPane>
         <FluxPaneHeader
             :icon="alert.icon"
             :title="alert.title"/>
@@ -8,6 +8,7 @@
 
         <FluxPaneFooter>
             <FluxSpacer/>
+
             <FluxPrimaryButton
                 :label="translate('flux_ok')"
                 @click="alert.onClose"/>
@@ -35,10 +36,3 @@
 
     const translate = useTranslate();
 </script>
-
-<style lang="scss">
-    .flux-alert {
-        max-width: 540px;
-        width: calc(100dvw - 90px);
-    }
-</style>

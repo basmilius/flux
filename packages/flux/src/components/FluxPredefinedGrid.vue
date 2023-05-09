@@ -1,7 +1,7 @@
 <template>
     <div
         class="flux-predefined-grid"
-        :class="`flux-predefined-grid-${layout}`">
+        :class="`is-${layout}`">
         <slot/>
     </div>
 </template>
@@ -19,6 +19,8 @@
 </script>
 
 <style lang="scss">
+    @use '../scss/mixin' as flux;
+
     .flux-predefined-grid {
         display: grid;
         align-items: start;
@@ -28,25 +30,27 @@
             max-width: 100%;
         }
 
-        [lg] &-cards {
-            align-items: stretch;
-            grid-template-columns: 1fr 1fr 1fr;
-        }
+        @include flux.breakpoint-up(lg) {
+            &.is-cards {
+                align-items: stretch;
+                grid-template-columns: 1fr 1fr 1fr;
+            }
 
-        [lg] &-full {
-            grid-template-columns: 1fr;
-        }
+            &.is-full {
+                grid-template-columns: 1fr;
+            }
 
-        [lg] &-sidebar-start {
-            grid-template-columns: 360px minmax(0, 1fr);
-        }
+            &.is-sidebar-start {
+                grid-template-columns: 360px minmax(0, 1fr);
+            }
 
-        [lg] &-sidebar-end {
-            grid-template-columns: minmax(0, 1fr) 360px;
-        }
+            &.is-sidebar-end {
+                grid-template-columns: minmax(0, 1fr) 360px;
+            }
 
-        [lg] &-two-column {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            &.is-two-column {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
         }
     }
 </style>

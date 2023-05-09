@@ -31,8 +31,8 @@
 <script lang="ts">
     export default {
         model: {
-            prop: 'modelValue',
-            event: 'update:modelValue'
+            prop: 'model-value',
+            event: 'update:model-value'
         }
     };
 </script>
@@ -50,7 +50,7 @@
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
     export interface Emits {
-        (e: 'update:modelValue', value: [DateTime, DateTime] | null): void;
+        (e: 'update:model-value', value: [DateTime, DateTime] | null): void;
     }
 
     export interface Props {
@@ -90,7 +90,7 @@
 
     watch(localValue, localValue => {
         unref(flyoutRef)?.close();
-        emit('update:modelValue', localValue);
+        emit('update:model-value', localValue);
     });
 
     watch(modelValue, modelValue => localValue.value = modelValue, {immediate: true});

@@ -49,6 +49,17 @@
                         <td>The color variant of the notice.</td>
                     </tr>
                 </template>
+
+                <template #slots>
+                    <tr>
+                        <td><code>default</code><code>{}</code></td>
+                        <td>Extra content that should be rendered inside the notice.</td>
+                    </tr>
+                    <tr>
+                        <td><code>end</code><code>{}</code></td>
+                        <td>Content that should render at the horizontal end of the notice.</td>
+                    </tr>
+                </template>
             </ApiComponent>
         </ApiSection>
 

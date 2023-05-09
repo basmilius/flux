@@ -46,8 +46,8 @@
 <script lang="ts">
     export default {
         model: {
-            prop: 'modelValue',
-            event: 'update:modelValue'
+            prop: 'model-value',
+            event: 'update:model-value'
         }
     };
 </script>
@@ -66,7 +66,7 @@
 
         (e: 'focus'): void;
 
-        (e: 'update:modelValue', value: object | string | number): void;
+        (e: 'update:model-value', value: object | string | number): void;
     }
 
     export interface Props {
@@ -144,15 +144,15 @@
                     return;
                 }
 
-                emit('update:modelValue', dateTime);
+                emit('update:model-value', dateTime);
                 break;
 
             case 'number':
-                emit('update:modelValue', Number(value));
+                emit('update:model-value', Number(value));
                 break;
 
             default:
-                emit('update:modelValue', value);
+                emit('update:model-value', value);
                 break;
         }
     }

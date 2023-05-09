@@ -1,5 +1,5 @@
 <template>
-    <div class="flux-button flux-menu-item flux-menu-sub-header">
+    <div class="flux-menu-sub-header">
         <FluxIcon
             v-if="iconBefore"
             class="flux-button-icon flux-menu-sub-header-icon"
@@ -33,10 +33,10 @@
 <style lang="scss">
     .flux-menu-sub-header {
         position: sticky;
-        top: -9px;
+        top: 0;
         margin-top: -9px;
         margin-bottom: -3px;
-        padding-top: 6px;
+        padding: 12px 12px 6px;
         gap: 9px;
         background: linear-gradient(to bottom, rgb(var(--gray-0)) 75%, transparent);
         font-size: 14px;

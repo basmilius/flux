@@ -1,11 +1,14 @@
 <template>
-    <nav class="flux-toolbar-group">
+    <FluxStack
+        axis="horizontal"
+        :gap="0"
+        tag="nav">
         <slot/>
-    </nav>
+    </FluxStack>
 </template>
 
-<style lang="scss">
-    .flux-toolbar-group {
-        display: flex;
-    }
-</style>
+<script
+    lang="ts"
+    setup>
+    import FluxStack from './FluxStack.vue';
+</script>

@@ -49,8 +49,8 @@
 <script lang="ts">
     export default {
         model: {
-            prop: 'modelValue',
-            event: 'update:modelValue'
+            prop: 'model-value',
+            event: 'update:model-value'
         }
     };
 </script>
@@ -68,7 +68,7 @@
     import FluxSpacer from './FluxSpacer.vue';
 
     export interface Emits {
-        (e: 'update:modelValue', focalPoint: [number, number]): void;
+        (e: 'update:model-value', focalPoint: [number, number]): void;
     }
 
     export interface Props {
@@ -130,7 +130,7 @@
             return;
         }
 
-        emit('update:modelValue', dragging.value!);
+        emit('update:model-value', dragging.value!);
         dragging.value = null;
     }
 

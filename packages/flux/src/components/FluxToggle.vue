@@ -9,13 +9,13 @@
         :for="id">
         <FluxIcon
             v-if="iconOff"
-            class="flux-toggle-icon flux-toggle-icon-off"
+            class="flux-toggle-icon is-off"
             :size="16"
             :variant="iconOff"/>
 
         <FluxIcon
             v-if="iconOn"
-            class="flux-toggle-icon flux-toggle-icon-on"
+            class="flux-toggle-icon is-on"
             :size="16"
             :variant="iconOn"/>
 
@@ -32,8 +32,8 @@
 <script lang="ts">
     export default {
         model: {
-            prop: 'modelValue',
-            event: 'update:modelValue'
+            prop: 'model-value',
+            event: 'update:model-value'
         }
     };
 </script>
@@ -47,7 +47,7 @@
     import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {
-        (e: 'update:modelValue', on: boolean): void;
+        (e: 'update:model-value', on: boolean): void;
     }
 
     export interface Props {
@@ -66,7 +66,7 @@
     const {id} = useFormFieldInjection();
 
     function toggle(evt: Event): void {
-        emit('update:modelValue', (evt.target as HTMLInputElement).checked);
+        emit('update:model-value', (evt.target as HTMLInputElement).checked);
     }
 </script>
 
@@ -87,11 +87,11 @@
             pointer-events: none;
             translate: -50% -50%;
 
-            &-off {
+            &.is-off {
                 left: 15px;
             }
 
-            &-on {
+            &.is-on {
                 left: 39px;
             }
         }
@@ -152,17 +152,17 @@
             border-color: transparent;
         }
 
-        &:not(&.is-checked) &-icon-off,
-        &.is-checked &-icon-on {
+        &:not(&.is-checked) &-icon.is-off,
+        &.is-checked &-icon.is-on {
             opacity: 0;
             scale: .5;
         }
 
-        &.is-checked &-icon-on {
+        &.is-checked &-icon.is-on {
             translate: calc(-50% - 6px) -50%;
         }
 
-        &:not(&.is-checked) &-icon-off {
+        &:not(&.is-checked) &-icon.is-off {
             translate: calc(-50% + 6px) -50%;
         }
 

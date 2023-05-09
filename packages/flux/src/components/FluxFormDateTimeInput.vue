@@ -13,7 +13,7 @@
                         class="flux-form-date-input"
                         type="date"
                         :model-value="localValue"
-                        @update:modelValue="setDate"/>
+                        @update:model-value="setDate"/>
 
                     <FluxSecondaryButton
                         :disabled="isDisabled"
@@ -33,15 +33,15 @@
             class="flux-form-date-input flux-form-time-input"
             type="time"
             :model-value="localValue"
-            @update:modelValue="setTime"/>
+            @update:model-value="setTime"/>
     </FluxStack>
 </template>
 
 <script lang="ts">
     export default {
         model: {
-            prop: 'modelValue',
-            event: 'update:modelValue'
+            prop: 'model-value',
+            event: 'update:model-value'
         }
     };
 </script>
@@ -59,7 +59,7 @@
     import FluxStack from './FluxStack.vue';
 
     export interface Emits {
-        (e: 'update:modelValue', value: DateTime | null): void;
+        (e: 'update:model-value', value: DateTime | null): void;
     }
 
     export interface Props {
@@ -98,7 +98,7 @@
 
     watch(localValue, localValue => {
         unref(flyoutRef)?.close();
-        emit('update:modelValue', localValue);
+        emit('update:model-value', localValue);
     });
 
     watch(modelValue, modelValue => localValue.value = modelValue, {immediate: true});

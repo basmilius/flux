@@ -35,8 +35,8 @@
 <script lang="ts">
     export default {
         model: {
-            prop: 'modelValue',
-            event: 'update:modelValue'
+            prop: 'model-value',
+            event: 'update:model-value'
         }
     };
 </script>
@@ -51,7 +51,7 @@
     import { SliderBase, SliderThumb, SliderTrack } from './primitive';
 
     export interface Emits {
-        (e: 'update:modelValue', value: [number, number]): void;
+        (e: 'update:model-value', value: [number, number]): void;
     }
 
     export interface Props {
@@ -137,7 +137,7 @@
             return;
         }
 
-        emit('update:modelValue', [lower, upper]);
+        emit('update:model-value', [lower, upper]);
     }
 
     function onIncrement(which: 'lower' | 'upper'): void {
@@ -154,7 +154,7 @@
             return;
         }
 
-        emit('update:modelValue', [lower, upper]);
+        emit('update:model-value', [lower, upper]);
     }
 
     watch(modelValue, modelValue => {
@@ -169,7 +169,7 @@
         percentageLower.value = (lower - min) / (max - min);
         percentageUpper.value = (upper - min) / (max - min);
 
-        emit('update:modelValue', [lower, upper]);
+        emit('update:model-value', [lower, upper]);
     }, {immediate: true});
 
     watch(([isDraggingLower, isDraggingUpper]), ([isDraggingLower, isDraggingUpper]) => {

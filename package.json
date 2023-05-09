@@ -11,10 +11,12 @@
         "publish": "pnpm --filter '@fancee/*' -r publish --access restricted --no-git-checks"
     },
     "engines": {
-        "node": ">=18"
+        "node": ">=20"
     },
     "devDependencies": {
-        "vite": "^4.3.4",
+        "@types/luxon": "^3.3.0",
+        "@types/node": "^20.1.0",
+        "vite": "^4.3.5",
         "vue": "^3.2.47"
     }
 }

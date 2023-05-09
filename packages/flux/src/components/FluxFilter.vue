@@ -42,8 +42,8 @@
 <script lang="ts">
     export default {
         model: {
-            prop: 'modelValue',
-            event: 'update:modelValue'
+            prop: 'model-value',
+            event: 'update:model-value'
         }
     };
 </script>
@@ -65,7 +65,7 @@
     import FluxWindow from './FluxWindow.vue';
 
     export interface Emits {
-        (e: 'update:modelValue', state: Record<string, unknown>): void;
+        (e: 'update:model-value', state: Record<string, unknown>): void;
     }
 
     export interface Props {
@@ -128,7 +128,7 @@
     }
 
     function setValue(name: string | number, value?: FluxFilterOptionItem['value']): void {
-        emit('update:modelValue', Object.assign(unref(modelValue), {
+        emit('update:model-value', Object.assign(unref(modelValue), {
             [name]: value
         }));
     }

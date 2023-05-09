@@ -3,9 +3,9 @@
         class="flux-placeholder"
         :class="{
             'is-button': isButton,
-            'flux-placeholder-extended': variant === 'extended',
-            'flux-placeholder-simple': variant === 'simple',
-            'flux-placeholder-small': variant === 'small'
+            'is-extended': variant === 'extended',
+            'is-simple': variant === 'simple',
+            'is-small': variant === 'small'
         }"
         @click="onClick">
         <FluxIcon
@@ -67,7 +67,6 @@
         align-items: center;
         flex: 1 1 0;
         flex-flow: column;
-        gap: 0;
         justify-content: center;
         background: rgb(var(--gray-2));
         border: 2px dashed rgb(var(--gray-4));
@@ -102,29 +101,29 @@
             font-size: 14px;
         }
 
-        &-extended {
+        &.is-extended {
             padding: 27px;
             gap: 9px;
         }
 
-        &-extended &-icon {
+        &.is-extended &-icon {
             font-size: 24px;
         }
 
-        &-simple {
+        &.is-simple {
             padding: 18px;
         }
 
-        &-small {
+        &.is-small {
             padding: 12px;
             font-size: 12px;
         }
 
-        &-small &-icon {
+        &.is-small &-icon {
             color: var(--foreground-secondary);
         }
 
-        &-small &-title {
+        &.is-small &-title {
             color: var(--foreground-secondary);
             font-weight: 400;
         }

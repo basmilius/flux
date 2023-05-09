@@ -2,7 +2,7 @@
     <div
         class="flux-timeline-item"
         :class="{
-            [`flux-timeline-item-${color}`]: !!color
+            [`is-${color}`]: !!color
         }">
         <div class="flux-timeline-item-line"/>
 
@@ -151,27 +151,27 @@
             background: rgb(var(--gray-3));
         }
 
-        &-primary {
+        &.is-primary {
             --timeline-item-icon-background: rgb(var(--primary-2));
             --timeline-item-icon-foreground: rgb(var(--primary-7));
         }
 
-        &-danger {
+        &.is-danger {
             --timeline-item-icon-background: rgb(var(--danger-2));
             --timeline-item-icon-foreground: rgb(var(--danger-7));
         }
 
-        &-info {
+        &.is-info {
             --timeline-item-icon-background: rgb(var(--info-2));
             --timeline-item-icon-foreground: rgb(var(--info-7));
         }
 
-        &-success {
+        &.is-success {
             --timeline-item-icon-background: rgb(var(--success-2));
             --timeline-item-icon-foreground: rgb(var(--success-7));
         }
 
-        &-warning {
+        &.is-warning {
             --timeline-item-icon-background: rgb(var(--warning-2));
             --timeline-item-icon-foreground: rgb(var(--warning-7));
         }

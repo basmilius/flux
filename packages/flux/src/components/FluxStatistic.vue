@@ -20,7 +20,7 @@
             v-if="changeIcon || changeValue"
             class="flux-statistic-change"
             :class="{
-                [`flux-statistic-change-${changeColor}`]: !!changeColor
+                [`is-${changeColor}`]: !!changeColor
             }">
             <span v-if="changeValue">{{ changeValue }}</span>
 
@@ -75,23 +75,23 @@
             font-weight: 600;
             line-height: 1;
 
-            &-primary {
+            &.is-primary {
                 color: rgb(var(--primary-7));
             }
 
-            &-danger {
+            &.is-danger {
                 color: rgb(var(--danger-7));
             }
 
-            &-info {
+            &.is-info {
                 color: rgb(var(--info-7));
             }
 
-            &-success {
+            &.is-success {
                 color: rgb(var(--success-7));
             }
 
-            &-warning {
+            &.is-warning {
                 color: rgb(var(--warning-7));
             }
         }

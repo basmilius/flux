@@ -9,16 +9,18 @@ export type {
 
 type Dictionary<T> = { [key: string]: T }
 
-export interface FluxAlertSpec {
+export interface FluxBaseAlertSpec {
     readonly id: number;
     readonly icon?: IconNames;
     readonly message: string;
     readonly title: string;
+}
 
+export interface FluxAlertSpec extends FluxBaseAlertSpec {
     onClose(): void;
 }
 
-export interface FluxConfirmSpec extends FluxAlertSpec {
+export interface FluxConfirmSpec extends FluxBaseAlertSpec {
     onCancel(): void;
 
     onConfirm(): void;

@@ -16,7 +16,6 @@
         "vue-demi": "^0.14.0"
     },
     "devDependencies": {
-        "@types/luxon": "^3.3.0",
         "vue": "^3.2.47"
     }
 }

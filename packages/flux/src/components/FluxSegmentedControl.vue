@@ -8,12 +8,16 @@
             <div
                 v-if="index > 0"
                 class="flux-segmented-control-separator"
-                :class="{'active': index === modelValue || index === modelValue + 1}"/>
+                :class="{
+                    'active': index === modelValue || index === modelValue + 1
+                }"/>
 
             <button
                 ref="itemRefs"
                 class="flux-segmented-control-item"
-                :class="{'active': index === modelValue}"
+                :class="{
+                    'active': index === modelValue
+                }"
                 @click="activate(index)">
                 <span>{{ item }}</span>
             </button>
@@ -24,8 +28,8 @@
 <script lang="ts">
     export default {
         model: {
-            prop: 'modelValue',
-            event: 'update:modelValue'
+            prop: 'model-value',
+            event: 'update:model-value'
         }
     };
 </script>
@@ -36,7 +40,7 @@
     import { onMounted, onUpdated, ref } from 'vue-demi';
 
     export interface Emits {
-        (e: 'update:modelValue', index: number): void;
+        (e: 'update:model-value', index: number): void;
     }
 
     export interface Props {
@@ -56,7 +60,7 @@
     const itemRefs = ref<HTMLButtonElement[]>([]);
 
     function activate(index: number): void {
-        emit('update:modelValue', index);
+        emit('update:model-value', index);
 
         const itemRef = itemRefs.value[index];
         const {left: controlX} = controlRef.value!.getBoundingClientRect();
@@ -127,24 +131,6 @@
 
             &.active {
                 opacity: 0;
-            }
-        }
-
-        [md] & {
-            padding: 6px;
-            gap: 3px;
-
-            &-highlight {
-                top: 6px;
-            }
-
-            &-highlight,
-            &-item {
-                height: 36px;
-            }
-
-            &-item {
-                font-size: 14px;
             }
         }
     }

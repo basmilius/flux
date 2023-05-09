@@ -50,6 +50,7 @@
 
     function onDatePicked(date: DateTime): void {
         setValue(props.name, date);
+        console.log(props.name, date);
         back();
     }
 </script>

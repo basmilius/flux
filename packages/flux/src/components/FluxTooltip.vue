@@ -9,7 +9,6 @@
         },
         setup(props, {slots}) {
             const instance = getCurrentInstance()!;
-
             const {addTooltip, removeTooltip} = useFluxStore();
 
             const tooltipId = ref<number | null>(null);

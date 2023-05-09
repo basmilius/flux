@@ -1,5 +1,5 @@
 <template>
-    <FluxPane class="flux-confirm">
+    <FluxPane>
         <FluxPaneHeader
             :icon="confirm.icon"
             :title="confirm.title"/>
@@ -41,10 +41,3 @@
 
     const translate = useTranslate();
 </script>
-
-<style lang="scss">
-    .flux-confirm {
-        max-width: 540px;
-        width: calc(100dvw - 90px);
-    }
-</style>
