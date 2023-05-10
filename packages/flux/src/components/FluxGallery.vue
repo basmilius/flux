@@ -1,5 +1,6 @@
 <template>
     <FluxDropZone
+        accept="image/*"
         :is-disabled="!isEditable"
         :is-empty="items && items.length === 0"
         is-multiple
