@@ -23,9 +23,10 @@
             </template>
 
             <FluxDatePicker
-                v-model="localValue"
                 :max="max"
-                :min="min"/>
+                :min="min"
+                :model-value="localValue"
+                @update:model-value="setDate"/>
         </FluxFlyout>
 
         <FluxFormInput

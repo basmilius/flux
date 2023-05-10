@@ -33,6 +33,7 @@
 <style lang="scss">
     .flux-menu-sub-header {
         position: sticky;
+        display: flex;
         top: 0;
         margin-top: -9px;
         margin-bottom: -3px;
