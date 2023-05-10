@@ -15,7 +15,7 @@
                 <FluxSecondaryButton
                     :disabled="isDisabled"
                     icon-before="calendar"
-                    @click="open"/>
+                    @click.prevent="open"/>
             </FluxFormInputGroup>
         </template>
 
