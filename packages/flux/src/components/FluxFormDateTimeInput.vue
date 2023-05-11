@@ -97,12 +97,12 @@
         });
     }
 
+    watch(modelValue, modelValue => localValue.value = modelValue, {immediate: true});
+
     watch(localValue, localValue => {
         unref(flyoutRef)?.close();
         emit('update:model-value', localValue);
     });
-
-    watch(modelValue, modelValue => localValue.value = modelValue, {immediate: true});
 </script>
 
 <style lang="scss">
