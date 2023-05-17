@@ -177,7 +177,7 @@
                         <td>The name of the entry in the filter state.</td>
                     </tr>
                     <tr>
-                        <td><code>options</code><code>FluxFilterOptionItem[]</code></td>
+                        <td><code>options</code><code>(FluxFilterOptionHeader | FluxFilterOptionItem)[]</code></td>
                         <td>The available options.</td>
                     </tr>
                     <tr>
@@ -217,7 +217,7 @@
                         <td>The name of the entry in the filter state.</td>
                     </tr>
                     <tr>
-                        <td><code>options</code><code>FluxFilterOptionItem[]</code></td>
+                        <td><code>options</code><code>(FluxFilterOptionHeader | FluxFilterOptionItem)[]</code></td>
                         <td>The available options.</td>
                     </tr>
                     <tr>

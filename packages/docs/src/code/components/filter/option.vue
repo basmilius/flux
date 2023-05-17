@@ -7,9 +7,14 @@
                     label="Option"
                     name="selected"
                     :options="[
+                        {title: 'Primary'},
                         {label: 'First option', value: 'first'},
                         {label: 'Second option', value: 'second'},
-                        {label: 'Third option', value: 'third'}
+                        {label: 'Third option', value: 'third'},
+                        {title: 'Secondary'},
+                        {label: 'Fourth option', value: 'fourth'},
+                        {label: 'Fifth option', value: 'fifth'},
+                        {label: 'Sixth option', value: 'sixth'}
                     ]"/>
             </flux-filter>
         </flux-pane>

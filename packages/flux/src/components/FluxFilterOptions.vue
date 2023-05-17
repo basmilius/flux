@@ -10,9 +10,14 @@
             type="search"/>
 
         <template
-            v-for="option of options"
-            :key="option.value">
+            v-for="(option, index) of options"
+            :key="index">
+            <FluxMenuSubHeader
+                v-if="isFluxFilterOptionHeader(option)"
+                :label="option.title"/>
+
             <FluxMenuItem
+                v-if="isFluxFilterOptionItem(option)"
                 is-selectable
                 :is-selected="isSelected(option)"
                 :label="option.label"
@@ -24,12 +29,14 @@
 <script
     lang="ts"
     setup>
-    import type { FluxFilterOptionItem, FluxFilterValue, IconNames } from '../data';
+    import type { FluxFilterOptionHeader, FluxFilterOptionItem, FluxFilterValue, IconNames } from '../data';
+    import { isFluxFilterOptionHeader, isFluxFilterOptionItem } from '../data';
     import { computed, ref, toRefs, unref, watch } from 'vue-demi';
     import { useFilterInjection } from '../composables';
     import FluxFormInput from './FluxFormInput.vue';
     import FluxMenuGroup from './FluxMenuGroup.vue';
     import FluxMenuItem from './FluxMenuItem.vue';
+    import FluxMenuSubHeader from './FluxMenuSubHeader.vue';
 
     export interface Emits {
         (e: 'update:search', searchQuery: string): void;
@@ -40,7 +47,7 @@
         readonly isSearchable?: boolean;
         readonly label: string;
         readonly name: string;
-        readonly options: FluxFilterOptionItem[];
+        readonly options: (FluxFilterOptionHeader | FluxFilterOptionItem)[];
         readonly search?: string;
         readonly searchPlaceholder?: string;
     }
