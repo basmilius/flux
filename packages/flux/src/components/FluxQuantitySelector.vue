@@ -82,7 +82,12 @@
 
         requestAnimationFrame(() => {
             const input = unref(inputRef);
-            width.value = Math.max(51, input!.scrollWidth + 30);
+
+            if (!input) {
+                return;
+            }
+
+            width.value = Math.max(51, input.scrollWidth + 30);
         });
     }
 
