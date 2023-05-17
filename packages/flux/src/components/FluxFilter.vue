@@ -54,7 +54,7 @@
     import type { VNode } from 'vue-demi';
     import { computed, provide, ref, toRefs, unref } from 'vue-demi';
     import { useSlotVNodes, useTranslate } from '../composables';
-    import { FluxFilterInjectionKey, FluxFilterOptionItem } from '../data';
+    import { FluxFilterInjectionKey, FluxFilterOptionItem, FluxFilterValue } from '../data';
     import { heightTransition } from '../directives';
     import { getNormalizedComponentName, getNormalizedComponentProps } from '../utils';
     import { FilterMenuRenderer, VNodeRenderer } from './primitive';
@@ -69,7 +69,7 @@
     }
 
     export interface Props {
-        readonly modelValue: Record<string, unknown>;
+        readonly modelValue: Record<string, FluxFilterValue>;
     }
 
     const vHeightTransition = heightTransition;

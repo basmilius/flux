@@ -24,8 +24,7 @@
 <script
     lang="ts"
     setup>
-    import { storeToRefs } from 'pinia';
-    import { useFluxStore } from '../data';
+    import { storeToRefs, useFluxStore } from '../data';
     import FluxSnackbar from './FluxSnackbar.vue';
 
     const fluxStore = useFluxStore();

@@ -1,5 +1,5 @@
 import type { FluxAlertSpec, FluxConfirmSpec, FluxSnackbarSpec, FluxTooltipSpec } from './types';
-import { defineStore } from 'pinia';
+import { defineStore } from './pinia';
 
 const DEFAULT_SNACKBAR_DURATION = 3000;
 
@@ -15,8 +15,8 @@ export const useFluxStore = defineStore('flux', {
         tooltips: []
     }),
     getters: {
-        inertMain: (state): boolean => state.dialogCount > 0,
-        tooltip: (state): FluxTooltipSpec | null => state.tooltips[state.tooltips.length - 1] || null
+        inertMain: state => state.dialogCount > 0,
+        tooltip: state => state.tooltips[state.tooltips.length - 1] || null
     },
     actions: {
         addAlert(spec: Omit<FluxAlertSpec, 'id'>): number {
