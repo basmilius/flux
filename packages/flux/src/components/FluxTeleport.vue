@@ -47,7 +47,7 @@
 
     function getFragment(): DocumentFragment {
         const fragment = document.createDocumentFragment();
-        nodes.value.forEach(node => fragment.appendChild(node));
+        nodes.value.forEach((node: Node) => fragment.appendChild(node));
         return fragment;
     }
 
@@ -59,7 +59,7 @@
 
     function move(): void {
         waiting.value = false;
-        parent.value = document.querySelector(unref(to));
+        parent.value = document.querySelector(unref(to)) as HTMLElement | null;
 
         if (!parent.value) {
             disable();
@@ -97,9 +97,9 @@
         let shouldMove = false;
 
         for (const mutation of mutations) {
-            const addedNodes = Array.from(mutation.addedNodes).filter(node => !nodes.value.includes(node));
+            const addedNodes = Array.from(mutation.addedNodes).filter((node: Node) => !nodes.value.includes(node));
 
-            if (parent.value && Array.from(mutation.removedNodes).includes(parent.value!)) {
+            if (parent.value && Array.from(mutation.removedNodes).includes(parent.value! as Node)) {
                 disable();
                 waiting.value = !disabled.value;
             } else if (waiting.value && addedNodes.length > 0) {

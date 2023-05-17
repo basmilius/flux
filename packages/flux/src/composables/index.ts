@@ -10,7 +10,6 @@ export { useInterval } from './useInterval';
 export { useMutationObserver } from './useMutationObserver';
 export { useSlotVNodes } from './useSlotVNodes';
 export { useTranslate } from './useTranslate';
-export { withSkeleton } from './withSkeleton';
 
 export { useDashboardInjection } from './useDashboardInjection';
 export { useExpandableGroupInjection } from './useExpandableGroupInjection';

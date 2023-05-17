@@ -26,9 +26,8 @@
 <script
     lang="ts"
     setup>
-    import { storeToRefs } from 'pinia';
     import { useBreakpointsProvider } from '../composables';
-    import { useFluxStore } from '../data';
+    import { storeToRefs, useFluxStore } from '../data';
     import FluxAlert from './FluxAlert.vue';
     import FluxConfirm from './FluxConfirm.vue';
     import FluxOverlay from './FluxOverlay.vue';

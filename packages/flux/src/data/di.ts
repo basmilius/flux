@@ -38,7 +38,7 @@ export interface FluxFilterInjection {
 
     back(): void;
 
-    reset(): void;
+    reset(name: string | number): void;
 
     getValue(name: string | number): FluxFilterValue | undefined;
 
