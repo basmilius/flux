@@ -17,7 +17,7 @@
                 :label="option.title"/>
 
             <FluxMenuItem
-                v-if="isFluxFilterOptionItem(option)"
+                v-else-if="isFluxFilterOptionItem(option)"
                 is-selectable
                 :is-selected="isSelected(option)"
                 :label="option.label"
