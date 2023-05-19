@@ -48,6 +48,14 @@
                         <td><code>label</code><code>string</code></td>
                         <td>Label of the field.</td>
                     </tr>
+                    <tr>
+                        <td><code>current-length</code><code>number</code></td>
+                        <td>The current length of the value within the field.</td>
+                    </tr>
+                    <tr>
+                        <td><code>max-length</code><code>number</code></td>
+                        <td>Max length of the value within the field.</td>
+                    </tr>
                 </template>
             </ApiComponent>
         </ApiSection>
