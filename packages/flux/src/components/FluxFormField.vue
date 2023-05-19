@@ -16,6 +16,12 @@
 
         <slot v-bind="{id}"/>
 
+        <span
+            v-if="currentLength && maxLength && maxLength > 0"
+            class="flux-form-field-counter">
+            {{ currentLength }} / {{ maxLength }}
+        </span>
+
         <div
             v-if="error"
             class="flux-form-field-addition flux-form-field-addition-error">
@@ -49,10 +55,12 @@
     import FluxIcon from './FluxIcon.vue';
 
     export interface Props {
+        readonly currentLength?: number;
         readonly error?: string;
         readonly hint?: string;
         readonly isOptional?: boolean;
         readonly label: string;
+        readonly maxLength?: number;
     }
 
     defineProps<Props>();
@@ -86,6 +94,13 @@
             color: var(--foreground-prominent);
             font-size: 15px;
             font-weight: 600;
+        }
+
+        &-counter {
+            margin-left: auto;
+            color: var(--foreground-secondary);
+            font-size: .85em;
+            white-space: nowrap;
         }
 
         &-optional {
