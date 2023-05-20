@@ -5,9 +5,8 @@
     "scripts": {
         "build": "vue-demi-switch 2.7 && vite build && pnpm run gentypes",
         "dev": "vue-demi-switch 2.7 && vite build --watch",
-        "gentypes": "pnpm gentypes:dts && pnpm gentypes:webtypes && pnpm gentypes:clean",
-        "gentypes:clean": "mv dist/flux/src/* dist && rm -rf dist/flux dist/vue2",
-        "gentypes:dts": "vue-tsc --declaration --lib esnext,dom --outDir dist --emitDeclarationOnly --moduleResolution node --target esnext index.ts",
+        "gentypes": "pnpm gentypes:dts && pnpm gentypes:webtypes",
+        "gentypes:dts": "vue-tsc --project ../flux/tsconfig.json --outDir dist",
         "gentypes:webtypes": "vue-docgen-web-types --configFile ../../web-types-gen.config.json"
     },
     "exports": {

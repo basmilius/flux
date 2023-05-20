@@ -31,7 +31,7 @@
     lang="ts"
     setup>
     import { computed, onMounted, ref, toRefs, unref, watch } from 'vue-demi';
-    import { useFormFieldInjection } from '../composables';
+    import { useFormFieldInjection } from '@/composables';
 
     export interface Emits {
         (e: 'blur'): void;
@@ -68,7 +68,7 @@
 
     onMounted(() => requestAnimationFrame(sizeToContent));
 
-    function onInput(evt: InputEvent): void {
+    function onInput(evt: Event): void {
         emit('update:model-value', (evt.target as HTMLTextAreaElement).value);
         sizeToContent();
     }

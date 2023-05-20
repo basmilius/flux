@@ -55,10 +55,10 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '../data';
+    import type { IconNames } from '@/data';
     import { DateTime } from 'luxon';
     import { computed, toRefs, unref } from 'vue-demi';
-    import { useFormFieldInjection } from '../composables';
+    import { useFormFieldInjection } from '@/composables';
     import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {
@@ -129,7 +129,7 @@
         return v.toString();
     });
 
-    function onInput(evt: InputEvent): void {
+    function onInput(evt: Event): void {
         const value = (evt.target as HTMLInputElement).value;
 
         switch (type.value) {

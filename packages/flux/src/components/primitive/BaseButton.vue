@@ -49,10 +49,9 @@
 <script
     lang="ts"
     setup>
-    import type { FluxRoutingLocation, IconNames } from '../../data';
+    import type { FluxRoutingLocation, IconNames } from '@/data';
     import { toRefs, unref } from 'vue-demi';
-    import FluxIcon from '../FluxIcon.vue';
-    import FluxSpinner from '../FluxSpinner.vue';
+    import { FluxIcon, FluxSpinner } from '@/components';
     import ButtonComponent from './ButtonComponent.vue';
 
     export interface Emits {

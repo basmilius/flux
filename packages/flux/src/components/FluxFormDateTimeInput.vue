@@ -81,16 +81,26 @@
     const flyoutRef = ref<ComponentPublicInstance<{}, {}, {}, {}, { close: Function; }>>();
     const localValue = ref<DateTime | null>(null);
 
-    function setDate(dateTime: DateTime): void {
-        localValue.value = (localValue.value ?? DateTime.now()).set({
+    function setDate(dateTime: DateTime | object | string | number | null): void {
+        if (!DateTime.isDateTime(dateTime)) {
+            return;
+        }
+
+        const value: DateTime = (localValue.value ?? DateTime.now());
+        localValue.value = value.set({
             day: dateTime.day,
             month: dateTime.month,
             year: dateTime.year
         });
     }
 
-    function setTime(dateTime: DateTime): void {
-        localValue.value = (localValue.value ?? DateTime.now()).set({
+    function setTime(dateTime: DateTime | string | number | object | null): void {
+        if (!DateTime.isDateTime(dateTime)) {
+            return;
+        }
+
+        const value: DateTime = (localValue.value ?? DateTime.now());
+        localValue.value = value.set({
             hour: dateTime.hour,
             minute: dateTime.minute,
             second: dateTime.second

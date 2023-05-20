@@ -32,8 +32,8 @@
     lang="ts"
     setup>
     import { onMounted, ref } from 'vue-demi';
-    import { useEventListener, useMutationObserver } from '../composables';
-    import { unrefElement } from '../helpers';
+    import { useEventListener, useMutationObserver } from '@/composables';
+    import { unrefElement } from '@/helpers';
     import FluxIcon from './FluxIcon.vue';
 
     const isEndArrowVisible = ref(false);

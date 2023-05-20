@@ -1,4 +1,4 @@
-import type { FluxTranslator } from '../composables';
+import type { FluxTranslator } from '@/composables';
 import { DateTime } from 'luxon';
 
 export function createLabelForDateRange(translate: FluxTranslator, start: DateTime, end: DateTime, preventCustom: boolean = false): string {

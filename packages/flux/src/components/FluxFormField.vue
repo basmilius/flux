@@ -50,8 +50,8 @@
     lang="ts"
     setup>
     import { provide } from 'vue-demi';
-    import { useId, useTranslate } from '../composables';
-    import { FluxFormFieldInjectionKey } from '../data';
+    import { useId, useTranslate } from '@/composables';
+    import { FluxFormFieldInjectionKey } from '@/data';
     import FluxIcon from './FluxIcon.vue';
 
     export interface Props {

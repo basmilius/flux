@@ -11,7 +11,7 @@
     lang="ts"
     setup>
     import { ref } from 'vue-demi';
-    import { FluxWindowTransition } from '../transition';
+    import { FluxWindowTransition } from '@/transition';
 
     const isBack = ref(false);
     const view = ref<string>('default');

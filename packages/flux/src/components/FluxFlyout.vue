@@ -31,8 +31,8 @@
     lang="ts"
     setup>
     import { provide, ref, toRefs, unref, watch } from 'vue-demi';
-    import { unrefElement } from '../helpers';
-    import { FluxFlyoutInjectionKey } from '../data';
+    import { FluxFlyoutInjectionKey } from '@/data';
+    import { unrefElement } from '@/helpers';
     import FluxPane from './FluxPane.vue';
 
     export interface Props {

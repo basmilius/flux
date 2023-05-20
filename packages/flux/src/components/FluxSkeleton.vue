@@ -1,10 +1,10 @@
 <script lang="ts">
     import { defineComponent, provide, toRefs } from 'vue-demi';
-    import { FluxSkeletonsInjectionKey } from '../data';
+    import { FluxSkeletonsInjectionKey } from '@/data';
 
     export default defineComponent({
         props: {
-            isEnabled: Boolean
+            isEnabled: {required: true, type: Boolean}
         },
         setup(props, {slots}) {
             const {isEnabled} = toRefs(props);

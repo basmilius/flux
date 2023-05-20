@@ -16,7 +16,7 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '../data';
+    import type { IconNames } from '@/data';
     import { ref, toRefs, unref, watch } from 'vue-demi';
     import FluxIcon from './FluxIcon.vue';
 

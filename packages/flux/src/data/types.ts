@@ -74,10 +74,10 @@ export interface FluxRoutingLocation {
     replace?: boolean;
 }
 
-export function isFluxFormSelectGroup(item: object): item is FluxFormSelectGroup {
-    return item && !('id' in item);
+export function isFluxFormSelectGroup(item: unknown): item is FluxFormSelectGroup {
+    return item !== null && typeof item === 'object' && !('id' in item);
 }
 
-export function isFluxFormSelectOption(item: object): item is FluxFormSelectOption {
-    return item && 'id' in item;
+export function isFluxFormSelectOption(item: unknown): item is FluxFormSelectOption {
+    return item !== null && typeof item === 'object' && 'id' in item;
 }

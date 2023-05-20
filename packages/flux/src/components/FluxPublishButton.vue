@@ -46,7 +46,7 @@
 <script
     lang="ts"
     setup>
-    import type { FluxRoutingLocation, IconNames } from '../data';
+    import type { FluxRoutingLocation, IconNames } from '@/data';
     import { BaseButton } from './primitive';
     import FluxIcon from './FluxIcon.vue';
 

@@ -39,7 +39,7 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '../data';
+    import type { IconNames } from '@/data';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
 

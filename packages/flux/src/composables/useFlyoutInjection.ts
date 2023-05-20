@@ -1,5 +1,5 @@
 import { inject, ref } from 'vue-demi';
-import { FluxFlyoutInjection, FluxFlyoutInjectionKey } from '../data';
+import { FluxFlyoutInjection, FluxFlyoutInjectionKey } from '@/data';
 
 export function useFlyoutInjection(): FluxFlyoutInjection {
     return inject(FluxFlyoutInjectionKey, {

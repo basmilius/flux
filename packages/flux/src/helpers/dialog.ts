@@ -1,8 +1,8 @@
 import type { Component, RenderFunction, Slots } from 'vue-demi';
 import { h, onMounted, onUnmounted, SetupContext, VNode } from 'vue-demi';
-import { FluxTeleport } from '../components';
-import { useFluxStore } from '../data';
-import { flattenVNodeTree, render } from '../utils';
+import { FluxTeleport } from '@/components';
+import { useFluxStore } from '@/data';
+import { flattenVNodeTree, render } from '@/utils';
 
 type _Emit = SetupContext<['close']>['emit'];
 type _Props = {

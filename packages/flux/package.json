@@ -16,6 +16,8 @@
         "vue-demi": "^0.14.1"
     },
     "devDependencies": {
+        "@volar/vue-language-server": "^1.6.5",
+        "typescript": "^5.0.4",
         "vue": "^3.3.2"
     }
 }

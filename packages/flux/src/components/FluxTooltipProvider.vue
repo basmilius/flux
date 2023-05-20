@@ -1,10 +1,10 @@
 <script lang="ts">
     import { storeToRefs } from 'pinia';
     import { computed, defineComponent, h, ref, unref } from 'vue-demi';
-    import { useBreakpoints } from '../composables';
-    import { useFluxStore } from '../data';
-    import { FluxFadeTransition } from '../transition';
-    import { render } from '../utils';
+    import { useBreakpoints } from '@/composables';
+    import { useFluxStore } from '@/data';
+    import { FluxFadeTransition } from '@/transition';
+    import { render } from '@/utils';
 
     interface TooltipPositionData {
         readonly x: number;
@@ -26,7 +26,7 @@
             const has = computed(() => !!tooltip.value);
             const position = computed<TooltipPositionData | null>(() => {
                 const spec = unref(tooltip);
-                const element = unref(elementRef);
+                const element = unref<HTMLElement | null>(elementRef);
 
                 if (!spec || !element || !content.value) {
                     return null;

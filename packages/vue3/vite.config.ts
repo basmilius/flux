@@ -38,5 +38,10 @@ export default defineConfig({
     },
     plugins: [
         vue()
-    ]
+    ],
+    resolve: {
+        alias: {
+            '@': resolve(__dirname, '../flux/src/')
+        }
+    }
 });

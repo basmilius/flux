@@ -59,8 +59,8 @@
     lang="ts"
     setup>
     import { computed, onMounted, onUnmounted, ref, toRefs, unref } from 'vue-demi';
-    import { useTranslate } from '../composables';
-    import { FluxFadeTransition } from '../transition';
+    import { useTranslate } from '@/composables';
+    import { FluxFadeTransition } from '@/transition';
     import FluxPane from './FluxPane.vue';
     import FluxPaneBody from './FluxPaneBody.vue';
     import FluxPaneFooter from './FluxPaneFooter.vue';

@@ -22,7 +22,7 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '../data';
+    import type { IconNames } from '@/data';
     import FluxAvatar from './FluxAvatar.vue';
 
     export interface Emits {

@@ -30,7 +30,7 @@
     lang="ts"
     setup>
     import { provide, toRefs, useSlots } from 'vue-demi';
-    import { FluxTableInjectionKey } from '../data';
+    import { FluxTableInjectionKey } from '@/data';
     import FluxSpinner from './FluxSpinner.vue';
 
     export interface Props {

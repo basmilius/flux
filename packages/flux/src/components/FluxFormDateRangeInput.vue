@@ -42,8 +42,8 @@
     setup>
     import { DateTime } from 'luxon';
     import { ComponentPublicInstance, computed, ref, toRefs, unref, watch } from 'vue-demi';
-    import { useTranslate } from '../composables';
-    import { createLabelForDateRange } from '../utils';
+    import { useTranslate } from '@/composables';
+    import { createLabelForDateRange } from '@/utils';
     import FluxDatePicker from './FluxDatePicker.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxFormInputGroup from './FluxFormInputGroup.vue';

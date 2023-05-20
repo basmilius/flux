@@ -57,9 +57,9 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '../data';
+    import type { IconNames } from '@/data';
     import { computed } from 'vue-demi';
-    import { useTableInjection, useTranslate } from '../composables';
+    import { useTableInjection, useTranslate } from '@/composables';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxMenu from './FluxMenu.vue';

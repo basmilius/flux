@@ -1,5 +1,5 @@
 import { inject } from 'vue-demi';
-import { FluxDashboardInjection, FluxDashboardInjectionKey } from '../data';
+import { FluxDashboardInjection, FluxDashboardInjectionKey } from '@/data';
 
 export function useDashboardInjection(): FluxDashboardInjection {
     const injection = inject(FluxDashboardInjectionKey);

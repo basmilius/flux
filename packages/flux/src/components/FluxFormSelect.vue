@@ -108,12 +108,12 @@
     lang="ts"
     setup>
     import type { ComponentPublicInstance, ComputedRef } from 'vue-demi';
-    import type { FluxFormSelectGroup, FluxFormSelectOption } from '../data';
+    import type { FluxFormSelectGroup, FluxFormSelectOption } from '@/data';
     import { computed, ref, toRefs, unref, watch } from 'vue-demi';
-    import { isFluxFormSelectGroup, isFluxFormSelectOption } from '../data';
-    import { useFormFieldInjection, useTranslate } from '../composables';
-    import { unrefElement } from '../helpers';
-    import { FluxFadeTransition } from '../transition';
+    import { isFluxFormSelectGroup, isFluxFormSelectOption } from '@/data';
+    import { useFormFieldInjection, useTranslate } from '@/composables';
+    import { unrefElement } from '@/helpers';
+    import { FluxFadeTransition } from '@/transition';
     import FluxBadge from './FluxBadge.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxMenu from './FluxMenu.vue';

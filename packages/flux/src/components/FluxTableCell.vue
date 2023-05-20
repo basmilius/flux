@@ -16,7 +16,7 @@
 <script
     lang="ts"
     setup>
-    import { useTableInjection } from '../composables';
+    import { useTableInjection } from '@/composables';
 
     const {
         isBordered,
