@@ -133,7 +133,7 @@
     lang="ts"
     setup>
     import { FluxButtonStack, FluxFormColumn, FluxFormField, FluxFormInput, FluxIcon, FluxOverlay, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@docs/components';
     import { ref } from 'vue';
 
     const isOverlayVisible = ref(false);

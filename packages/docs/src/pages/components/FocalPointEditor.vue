@@ -34,7 +34,7 @@
     lang="ts"
     setup>
     import { FluxFocalPointEditor, FluxPane, FluxPrimaryButton, FluxSecondaryButton, FluxStack } from '@fancee/flux';
-    import { ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiSection, PageTitle, Preview } from '@docs/components';
     import { ref } from 'vue';
 
     const focalPoint = ref([65, 75]);

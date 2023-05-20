@@ -117,13 +117,13 @@
     lang="ts"
     setup>
     import { FluxBadge, FluxBadgeStack, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
-    import basic from '@/code/components/badge/basic.vue';
-    import basicCode from '@/code/components/badge/basic.vue?raw';
-    import dot from '@/code/components/badge/dot.vue';
-    import dotCode from '@/code/components/badge/dot.vue?raw';
-    import icon from '@/code/components/badge/icon.vue';
-    import iconCode from '@/code/components/badge/icon.vue?raw';
-    import loading from '@/code/components/badge/loading.vue';
-    import loadingCode from '@/code/components/badge/loading.vue?raw';
+    import { ApiComponent, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
+    import basic from '@docs/code/components/badge/basic.vue';
+    import basicCode from '@docs/code/components/badge/basic.vue?raw';
+    import dot from '@docs/code/components/badge/dot.vue';
+    import dotCode from '@docs/code/components/badge/dot.vue?raw';
+    import icon from '@docs/code/components/badge/icon.vue';
+    import iconCode from '@docs/code/components/badge/icon.vue?raw';
+    import loading from '@docs/code/components/badge/loading.vue';
+    import loadingCode from '@docs/code/components/badge/loading.vue?raw';
 </script>

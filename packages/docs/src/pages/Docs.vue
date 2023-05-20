@@ -497,8 +497,8 @@
     import { FluxDocs, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxSecondaryButton, FluxSpacer, FluxSpinner, FluxVerticalWindowTransition, useDebouncedRef } from '@fancee/flux';
     import { computed, watch } from 'vue';
     import { useRoute } from 'vue-router';
-    import { ThemeToggle } from '@/components';
-    import { routerIsLoading } from '@/routes';
+    import { ThemeToggle } from '@docs/components';
+    import { routerIsLoading } from '@docs/routes';
 
     const route = useRoute();
     const path = computed(() => route.path);

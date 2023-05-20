@@ -123,9 +123,9 @@
     lang="ts"
     setup>
     import { FluxButtonStack, FluxFlyout, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPaneBody, FluxSecondaryButton, FluxSeparator, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
-    import menu from '@/code/components/flyout/menu.vue';
-    import menuCode from '@/code/components/flyout/menu.vue?raw';
-    import popover from '@/code/components/flyout/popover.vue';
-    import popoverCode from '@/code/components/flyout/popover.vue?raw';
+    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
+    import menu from '@docs/code/components/flyout/menu.vue';
+    import menuCode from '@docs/code/components/flyout/menu.vue?raw';
+    import popover from '@docs/code/components/flyout/popover.vue';
+    import popoverCode from '@docs/code/components/flyout/popover.vue?raw';
 </script>

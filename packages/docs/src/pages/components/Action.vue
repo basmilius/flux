@@ -104,5 +104,5 @@
     lang="ts"
     setup>
     import { FluxAction, FluxActions, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

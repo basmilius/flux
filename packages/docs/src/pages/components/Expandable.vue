@@ -116,13 +116,13 @@
     lang="ts"
     setup>
     import { FluxExpandable, FluxPane, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
-    import basic from '@/code/components/expandable/basic.vue';
-    import basicCode from '@/code/components/expandable/basic.vue?raw';
-    import customHeader from '@/code/components/expandable/customHeader.vue';
-    import customHeaderCode from '@/code/components/expandable/customHeader.vue?raw';
-    import group from '@/code/components/expandable/group.vue';
-    import groupCode from '@/code/components/expandable/group.vue?raw';
-    import groupPane from '@/code/components/expandable/groupPane.vue';
-    import groupPaneCode from '@/code/components/expandable/groupPane.vue?raw';
+    import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
+    import basic from '@docs/code/components/expandable/basic.vue';
+    import basicCode from '@docs/code/components/expandable/basic.vue?raw';
+    import customHeader from '@docs/code/components/expandable/customHeader.vue';
+    import customHeaderCode from '@docs/code/components/expandable/customHeader.vue?raw';
+    import group from '@docs/code/components/expandable/group.vue';
+    import groupCode from '@docs/code/components/expandable/group.vue?raw';
+    import groupPane from '@docs/code/components/expandable/groupPane.vue';
+    import groupPaneCode from '@docs/code/components/expandable/groupPane.vue?raw';
 </script>

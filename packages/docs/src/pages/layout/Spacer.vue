@@ -32,7 +32,7 @@
     lang="ts"
     setup>
     import { FluxButtonStack, FluxPane, FluxPaneBody, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStack } from '@fancee/flux';
-    import { ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiSection, PageTitle, Preview } from '@docs/components';
 </script>
 
 <style

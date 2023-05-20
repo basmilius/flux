@@ -229,15 +229,15 @@
     lang="ts"
     setup>
     import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxSeparator, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
-    import basic from '@/code/components/menu/basic.vue';
-    import basicCode from '@/code/components/menu/basic.vue?raw';
-    import group from '@/code/components/menu/group.vue';
-    import groupCode from '@/code/components/menu/group.vue?raw';
-    import large from '@/code/components/menu/large.vue';
-    import largeCode from '@/code/components/menu/large.vue?raw';
-    import pane from '@/code/components/menu/pane.vue';
-    import paneCode from '@/code/components/menu/pane.vue?raw';
-    import subHeader from '@/code/components/menu/subHeader.vue';
-    import subHeaderCode from '@/code/components/menu/subHeader.vue?raw';
+    import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
+    import basic from '@docs/code/components/menu/basic.vue';
+    import basicCode from '@docs/code/components/menu/basic.vue?raw';
+    import group from '@docs/code/components/menu/group.vue';
+    import groupCode from '@docs/code/components/menu/group.vue?raw';
+    import large from '@docs/code/components/menu/large.vue';
+    import largeCode from '@docs/code/components/menu/large.vue?raw';
+    import pane from '@docs/code/components/menu/pane.vue';
+    import paneCode from '@docs/code/components/menu/pane.vue?raw';
+    import subHeader from '@docs/code/components/menu/subHeader.vue';
+    import subHeaderCode from '@docs/code/components/menu/subHeader.vue?raw';
 </script>

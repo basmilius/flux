@@ -27,5 +27,5 @@
     lang="ts"
     setup>
     import { FluxNotice, FluxStack } from '@fancee/flux';
-    import { PageTitle } from '@/components';
+    import { PageTitle } from '@docs/components';
 </script>

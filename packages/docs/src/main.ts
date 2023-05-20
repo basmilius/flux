@@ -4,7 +4,7 @@ import { createApp } from 'vue';
 import { router } from './routes';
 
 import * as icons from './icons';
-import { default as App } from './App.vue';
+import App from './App.vue';
 
 import '@fancee/flux/style.css';
 import 'vue-highlight-code/dist/style.css';

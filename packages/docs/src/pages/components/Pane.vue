@@ -277,17 +277,17 @@
     lang="ts"
     setup>
     import { FluxDestructiveButton, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
-    import basic from '@/code/components/pane/basic.vue';
-    import basicCode from '@/code/components/pane/basic.vue?raw';
-    import deck from '@/code/components/pane/deck.vue';
-    import deckCode from '@/code/components/pane/deck.vue?raw';
-    import featureDiscovery from '@/code/components/pane/featureDiscovery.vue';
-    import featureDiscoveryCode from '@/code/components/pane/featureDiscovery.vue?raw';
-    import form from '@/code/components/pane/form.vue';
-    import formCode from '@/code/components/pane/form.vue?raw';
-    import loading from '@/code/components/pane/loading.vue';
-    import loadingCode from '@/code/components/pane/loading.vue?raw';
-    import media from '@/code/components/pane/media.vue';
-    import mediaCode from '@/code/components/pane/media.vue?raw';
+    import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
+    import basic from '@docs/code/components/pane/basic.vue';
+    import basicCode from '@docs/code/components/pane/basic.vue?raw';
+    import deck from '@docs/code/components/pane/deck.vue';
+    import deckCode from '@docs/code/components/pane/deck.vue?raw';
+    import featureDiscovery from '@docs/code/components/pane/featureDiscovery.vue';
+    import featureDiscoveryCode from '@docs/code/components/pane/featureDiscovery.vue?raw';
+    import form from '@docs/code/components/pane/form.vue';
+    import formCode from '@docs/code/components/pane/form.vue?raw';
+    import loading from '@docs/code/components/pane/loading.vue';
+    import loadingCode from '@docs/code/components/pane/loading.vue?raw';
+    import media from '@docs/code/components/pane/media.vue';
+    import mediaCode from '@docs/code/components/pane/media.vue?raw';
 </script>

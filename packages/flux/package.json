@@ -17,8 +17,10 @@
     },
     "devDependencies": {
         "@types/luxon": "^3.3.0",
+        "@vitejs/plugin-vue": "^4.2.3",
         "@volar/vue-language-server": "^1.6.5",
         "typescript": "^5.0.4",
+        "vite": "^4.3.8",
         "vue": "^3.3.4"
     }
 }

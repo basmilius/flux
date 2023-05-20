@@ -271,17 +271,17 @@
     lang="ts"
     setup>
     import { FluxFilter, FluxFilterDate, FluxFilterDateRange, FluxFilterOption, FluxFilterOptions, FluxPane, FluxSeparator, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
     import { DateTime } from 'luxon';
     import { ref } from 'vue';
-    import date from '@/code/components/filter/date.vue';
-    import dateCode from '@/code/components/filter/date.vue?raw';
-    import dateRange from '@/code/components/filter/dateRange.vue';
-    import dateRangeCode from '@/code/components/filter/dateRange.vue?raw';
-    import option from '@/code/components/filter/option.vue';
-    import optionCode from '@/code/components/filter/option.vue?raw';
-    import options from '@/code/components/filter/options.vue';
-    import optionsCode from '@/code/components/filter/options.vue?raw';
+    import date from '@docs/code/components/filter/date.vue';
+    import dateCode from '@docs/code/components/filter/date.vue?raw';
+    import dateRange from '@docs/code/components/filter/dateRange.vue';
+    import dateRangeCode from '@docs/code/components/filter/dateRange.vue?raw';
+    import option from '@docs/code/components/filter/option.vue';
+    import optionCode from '@docs/code/components/filter/option.vue?raw';
+    import options from '@docs/code/components/filter/options.vue';
+    import optionsCode from '@docs/code/components/filter/options.vue?raw';
 
     const filterState = ref({
         option1: 'b',
