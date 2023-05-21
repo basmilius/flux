@@ -22,6 +22,7 @@
                 :key="option.id"
                 :label="option.label"
                 is-deletable
+                is-tag
                 @delete="deselect(option.id)"/>
         </template>
 
@@ -29,6 +30,7 @@
             v-if="isSearchable && (isMultiple || !selectedOptions[0])"
             v-model="searchQuery"
             ref="inputElement"
+            autocomplete="off"
             :disabled="isDisabled"
             :id="id"
             :placeholder="placeholder"
@@ -376,6 +378,10 @@
             &::-webkit-search-results-button,
             &::-webkit-search-results-decoration {
                 -webkit-appearance: none;
+            }
+
+            &::placeholder {
+                color: var(--foreground-secondary);
             }
         }
 
