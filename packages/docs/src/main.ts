@@ -1,5 +1,4 @@
 import { fluxRegisterIcons } from '@fancee/flux';
-import { createPinia } from 'pinia';
 import { createApp } from 'vue';
 import { router } from './routes';
 
@@ -14,6 +13,5 @@ import './defaults.scss';
 fluxRegisterIcons(icons);
 
 createApp(App)
-    .use(createPinia())
     .use(router)
     .mount('#app');
