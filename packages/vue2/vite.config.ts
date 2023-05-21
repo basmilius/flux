@@ -7,7 +7,7 @@ import vue from '@vitejs/plugin-vue2';
 export default defineConfig({
     build: {
         lib: {
-            entry: resolve(__dirname, './index.ts'),
+            entry: resolve(__dirname, '../flux/src/index.ts'),
             name: 'FanceeFlux',
             fileName: 'fancee.flux'
         },
