@@ -84,6 +84,10 @@
                         <td>The label displayed within the button.</td>
                     </tr>
                     <tr>
+                        <td><code>size</code><code>'small' | 'medium' | 'large'</code></td>
+                        <td>The size of the button.</td>
+                    </tr>
+                    <tr>
                         <td><code>href</code><code>string</code></td>
                         <td>HTMLAnchorElement.href</td>
                     </tr>
@@ -146,6 +150,12 @@
                 :component="publish"
                 title="Publish"
                 description="Publish buttons can be used in situations where the user can publish something."/>
+
+            <ApiExample
+                :code="sizesCode"
+                :component="sizes"
+                title="Sizes"
+                description="Buttons can have three different sizes."/>
         </ApiSection>
     </FluxStack>
 </template>
@@ -163,4 +173,6 @@
     import destructiveCode from '@docs/code/components/button/destructive.vue?raw';
     import publish from '@docs/code/components/button/publish.vue';
     import publishCode from '@docs/code/components/button/publish.vue?raw';
+    import sizes from '@docs/code/components/button/sizes.vue';
+    import sizesCode from '@docs/code/components/button/sizes.vue?raw';
 </script>
