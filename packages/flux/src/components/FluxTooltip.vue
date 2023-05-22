@@ -1,6 +1,6 @@
 <script lang="ts">
     import { defineComponent, getCurrentInstance, onMounted, onUnmounted, PropType, ref } from 'vue-demi';
-    import { useFluxStore } from '../data';
+    import { useFluxStore } from '@/data';
 
     export default defineComponent({
         props: {

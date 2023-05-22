@@ -1,5 +1,5 @@
-import type { MaybeElementRef } from '../helpers';
-import { unrefElement } from '../helpers';
+import type { MaybeElementRef } from '@/helpers';
+import { unrefElement } from '@/helpers';
 import { onScopeDispose, watch } from 'vue-demi';
 
 export function useMutationObserver(elementRef: MaybeElementRef<HTMLElement | undefined>, callback: MutationCallback, options?: MutationObserverInit): void {

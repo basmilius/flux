@@ -14,9 +14,14 @@
             "DOM"
         ],
         "skipLibCheck": true,
-        "noEmit": true,
+        "allowSyntheticDefaultImports": true,
         "declaration": true,
-        "outDir": "dist"
+        "emitDeclarationOnly": true,
+        "outDir": "dist",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"]
+        }
     },
     "include": [
         "./src/**/*.ts",

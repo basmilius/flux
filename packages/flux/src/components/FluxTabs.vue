@@ -40,11 +40,11 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '../data';
+    import type { IconNames } from '@/data';
     import { computed, ref, unref, watch } from 'vue-demi';
-    import { useSlotVNodes } from '../composables';
-    import { FluxWindowTransition } from '../transition';
-    import { getNormalizedComponentProps } from '../utils';
+    import { useSlotVNodes } from '@/composables';
+    import { FluxWindowTransition } from '@/transition';
+    import { getNormalizedComponentProps } from '@/utils';
     import { VNodeRenderer } from './primitive';
     import FluxTabBar from './FluxTabBar.vue';
     import FluxTabBarItem from './FluxTabBarItem.vue';

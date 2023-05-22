@@ -48,8 +48,8 @@
     lang="ts"
     setup>
     import { ref, useSlots } from 'vue-demi';
-    import { FluxSecondaryButton } from '../components';
-    import { FluxVerticalWindowTransition } from '../transition';
+    import { FluxSecondaryButton } from '@/components';
+    import { FluxVerticalWindowTransition } from '@/transition';
 
     export interface Props {
         readonly applicationName: string;

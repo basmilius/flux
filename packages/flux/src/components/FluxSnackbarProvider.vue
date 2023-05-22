@@ -24,11 +24,10 @@
 <script
     lang="ts"
     setup>
-    import { storeToRefs, useFluxStore } from '../data';
+    import { useFluxStore } from '@/data';
     import FluxSnackbar from './FluxSnackbar.vue';
 
-    const fluxStore = useFluxStore();
-    const {snackbars} = storeToRefs(fluxStore);
+    const {snackbars} = useFluxStore();
 </script>
 
 <style lang="scss">

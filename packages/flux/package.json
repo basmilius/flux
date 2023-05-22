@@ -12,10 +12,13 @@
     "dependencies": {
         "@fortawesome/fontawesome-common-types": "^6.4.0",
         "luxon": "^3.3.0",
-        "pinia": "^2.0.36",
-        "vue-demi": "^0.14.1"
+        "vue-demi": "^0.14.5"
     },
     "devDependencies": {
-        "vue": "^3.3.2"
+        "@types/luxon": "^3.3.0",
+        "@vitejs/plugin-vue": "^4.2.3",
+        "typescript": "^5.0.4",
+        "vite": "^4.3.8",
+        "vue": "^3.3.4"
     }
 }

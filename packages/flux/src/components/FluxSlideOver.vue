@@ -1,7 +1,7 @@
 <script lang="ts">
     import { defineComponent } from 'vue-demi';
-    import { createDialogRenderer } from '../helpers';
-    import { FluxSlideOverTransition } from '../transition';
+    import { createDialogRenderer } from '@/helpers';
+    import { FluxSlideOverTransition } from '@/transition';
 
     export default defineComponent({
         props: {

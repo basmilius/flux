@@ -1,5 +1,5 @@
 import type { ComponentInternalInstance, ComputedRef, InjectionKey, Ref } from 'vue-demi';
-import type { Breakpoint, Breakpoints } from '../composables';
+import type { Breakpoint, Breakpoints } from '@/composables';
 import type { FluxFilterValue } from './filter';
 
 export const FluxBreakpointsInjectionKey: InjectionKey<FluxBreakpointsInjection> = Symbol();

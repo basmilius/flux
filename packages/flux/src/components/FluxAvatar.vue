@@ -31,7 +31,7 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '../data';
+    import type { IconNames } from '@/data';
     import { computed, toRefs, unref } from 'vue-demi';
     import FluxIcon from './FluxIcon.vue';
 

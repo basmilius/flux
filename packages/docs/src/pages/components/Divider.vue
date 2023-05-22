@@ -26,5 +26,5 @@
     lang="ts"
     setup>
     import { FluxDivider, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

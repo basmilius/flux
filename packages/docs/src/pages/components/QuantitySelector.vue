@@ -72,9 +72,9 @@
     lang="ts"
     setup>
     import { FluxQuantitySelector, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
-    import basic from '@/code/components/quantitySelector/basic.vue';
-    import basicCode from '@/code/components/quantitySelector/basic.vue?raw';
-    import step from '@/code/components/quantitySelector/step.vue';
-    import stepCode from '@/code/components/quantitySelector/step.vue?raw';
+    import { ApiComponent, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
+    import basic from '@docs/code/components/quantitySelector/basic.vue';
+    import basicCode from '@docs/code/components/quantitySelector/basic.vue?raw';
+    import step from '@docs/code/components/quantitySelector/step.vue';
+    import stepCode from '@docs/code/components/quantitySelector/step.vue?raw';
 </script>

@@ -28,7 +28,7 @@
     lang="ts"
     setup>
     import { computed, toRefs } from 'vue-demi';
-    import { generateStepTicks } from '../utils';
+    import { generateStepTicks } from '@/utils';
 
     export interface Props {
         readonly lower: number;

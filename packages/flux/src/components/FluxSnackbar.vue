@@ -61,10 +61,10 @@
 <script
     lang="ts"
     setup>
-    import type { FluxSnackbarSpec, IconNames } from '../data';
-    import { useFluxStore } from '../data';
+    import type { FluxSnackbarSpec, IconNames } from '@/data';
+    import { useFluxStore } from '@/data';
     import { computed, onBeforeUnmount, ref, toRefs, watch } from 'vue-demi';
-    import { unrefObject } from '../utils';
+    import { unrefObject } from '@/utils';
     import FluxAction from './FluxAction.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';

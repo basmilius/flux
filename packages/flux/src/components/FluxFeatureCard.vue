@@ -42,8 +42,8 @@
 <script
     lang="ts"
     setup>
-    import type { FluxRoutingLocation, IconNames } from '../data';
-    import { useTranslate } from '../composables';
+    import type { FluxRoutingLocation, IconNames } from '@/data';
+    import { useTranslate } from '@/composables';
     import FluxIcon from './FluxIcon.vue';
     import FluxPane from './FluxPane.vue';
     import FluxPaneBody from './FluxPaneBody.vue';

@@ -64,7 +64,7 @@ export interface FluxFormSelectGroup {
     readonly label: string;
 }
 
-export interface FluxRoutingLocation {
+export interface FluxRoutingLocationObject {
     name?: string;
     path?: string;
     hash?: string;
@@ -74,10 +74,12 @@ export interface FluxRoutingLocation {
     replace?: boolean;
 }
 
-export function isFluxFormSelectGroup(item: object): item is FluxFormSelectGroup {
-    return item && !('id' in item);
+export type FluxRoutingLocation = FluxRoutingLocationObject | string;
+
+export function isFluxFormSelectGroup(item: unknown): item is FluxFormSelectGroup {
+    return item !== null && typeof item === 'object' && !('id' in item);
 }
 
-export function isFluxFormSelectOption(item: object): item is FluxFormSelectOption {
-    return item && 'id' in item;
+export function isFluxFormSelectOption(item: unknown): item is FluxFormSelectOption {
+    return item !== null && typeof item === 'object' && 'id' in item;
 }

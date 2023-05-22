@@ -1,12 +1,9 @@
-import type { FluxFilterBase, FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterItem, FluxFilterOptionEntry, FluxFilterOptionItem, FluxFilterOptionsEntry, FluxFilterValue } from '../../data';
+import type { FluxFilterBase, FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterItem, FluxFilterOptionEntry, FluxFilterOptionItem, FluxFilterOptionsEntry, FluxFilterValue } from '@/data';
 import { DateTime } from 'luxon';
-import { Component, defineComponent, VNode } from 'vue-demi';
-import { FluxTranslator, useTranslate } from '../../composables';
-import { camelizeTag, createLabelForDateRange, flattenVNodeTree, getNormalizedComponentName, getNormalizedComponentProps, isVNode, render } from '../../utils';
-import FluxMenu from '../FluxMenu.vue';
-import FluxMenuGroup from '../FluxMenuGroup.vue';
-import FluxMenuItem from '../FluxMenuItem.vue';
-import FluxSeparator from '../FluxSeparator.vue';
+import { defineComponent, VNode } from 'vue-demi';
+import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSeparator } from '@/components';
+import { FluxTranslator, useTranslate } from '@/composables';
+import { camelizeTag, createLabelForDateRange, flattenVNodeTree, getNormalizedComponentName, getNormalizedComponentProps, isVNode, render } from '@/utils';
 
 export const FilterMenuRenderer = defineComponent({
     props: {
@@ -40,7 +37,7 @@ export const FilterMenuRenderer = defineComponent({
                 content[content.length - 1].push(child);
             }
 
-            return render(FluxMenu as unknown as Component, {
+            return render(FluxMenu, {
                 slots: {
                     default: () => content.map((group, index) => renderFilterGroup(group, index, translate, props.navigate!, props.state!))
                 }
@@ -135,10 +132,10 @@ function renderFilterGroup(group: (FluxFilterItem | VNode)[], index: number, tra
     const slot: VNode[] = [];
 
     if (index > 0) {
-        slot.push(render(FluxSeparator as unknown as Component));
+        slot.push(render(FluxSeparator));
     }
 
-    slot.push(render(FluxMenuGroup as unknown as Component, {
+    slot.push(render(FluxMenuGroup, {
         slots: {
             default: () => group.map(item => renderFilterItem(item, translate, navigate, state))
         }
@@ -152,16 +149,17 @@ function renderFilterItem(item: FluxFilterItem | VNode, translate: FluxTranslato
         return item;
     }
 
-    return render(FluxMenuItem as unknown as Component, {
+    return render(FluxMenuItem, {
         on: {
             click: () => navigate(item.name)
         },
         props: {
-            command: item.getValueLabel(state[item.name] ?? null, translate),
+            command: item.getValueLabel(state[item.name] ?? null, translate) ?? undefined,
             commandIcon: 'angle-right',
             iconBefore: item.icon,
-            label: item.label
-        } as object
+            label: item.label,
+            type: 'button'
+        }
     });
 }
 

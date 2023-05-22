@@ -39,7 +39,7 @@
     import FluxTableRow from './FluxTableRow.vue';
 
     export interface Props {
-        readonly dataSet: unknown[];
+        readonly dataSet: Record<string, any>[];
         readonly isBordered?: boolean;
         readonly isHoverable?: boolean;
         readonly isLoading?: boolean;

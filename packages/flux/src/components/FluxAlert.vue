@@ -19,8 +19,8 @@
 <script
     lang="ts"
     setup>
-    import type { FluxAlertSpec } from '../data';
-    import { useTranslate } from '../composables';
+    import type { FluxAlertSpec } from '@/data';
+    import { useTranslate } from '@/composables';
     import FluxPane from './FluxPane.vue';
     import FluxPaneBody from './FluxPaneBody.vue';
     import FluxPaneFooter from './FluxPaneFooter.vue';

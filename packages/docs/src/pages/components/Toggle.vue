@@ -67,7 +67,7 @@
     setup>
     import { FluxStack, FluxToggle } from '@fancee/flux';
     import { ref } from 'vue';
-    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@docs/components';
 
     const toggle1 = ref(true);
     const toggle2 = ref(false);

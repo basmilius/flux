@@ -8,8 +8,8 @@
     lang="ts"
     setup>
     import { computed, onBeforeUnmount, onMounted, ref, toRefs, unref, watch } from 'vue-demi';
-    import { useComponentId } from '../composables';
-    import { mulberry32 } from '../utils';
+    import { useComponentId } from '@/composables';
+    import { mulberry32 } from '@/utils';
 
     export interface Props {
         readonly colors: string[] | null;

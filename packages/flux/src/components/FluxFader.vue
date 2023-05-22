@@ -10,7 +10,7 @@
     lang="ts"
     setup>
     import { computed, ref, toRefs, unref, watch } from 'vue-demi';
-    import { useInterval } from '../composables';
+    import { useInterval } from '@/composables';
 
     export interface Emits {
         (e: 'update', index: number): void;

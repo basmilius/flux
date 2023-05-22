@@ -27,7 +27,7 @@
 <script
     setup
     lang="ts">
-    import type { IconNames } from '../data';
+    import type { IconNames } from '@/data';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
 

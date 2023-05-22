@@ -90,7 +90,7 @@
     setup>
     import { FluxPane, FluxPaneBody, FluxSegmentedControl, FluxSegmentedView, FluxStack } from '@fancee/flux';
     import { ref } from 'vue';
-    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@docs/components';
 
     const viewIndex = ref(0);
 </script>

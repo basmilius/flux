@@ -12,7 +12,7 @@
 <script
     lang="ts"
     setup>
-    import { focusTrap } from '../directives';
+    import { focusTrap } from '@/directives';
 
     export interface Props {
         readonly isLarge?: boolean;

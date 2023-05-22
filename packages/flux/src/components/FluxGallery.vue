@@ -45,7 +45,7 @@
 <script
     lang="ts"
     setup>
-    import { useTranslate } from '../composables';
+    import { useTranslate } from '@/composables';
     import FluxDropZone from './FluxDropZone.vue';
     import FluxGalleryItem from './FluxGalleryItem.vue';
     import FluxIcon from './FluxIcon.vue';

@@ -10,11 +10,19 @@
 <script
     lang="ts"
     setup>
-    function afterEnter(elm: HTMLElement): void {
+    function afterEnter(elm: Element): void {
+        if (!(elm instanceof HTMLElement)) {
+            return;
+        }
+
         elm.style.width = 'auto';
     }
 
-    function enter(elm: HTMLElement): void {
+    function enter(elm: Element): void {
+        if (!(elm instanceof HTMLElement)) {
+            return;
+        }
+
         const {height} = getComputedStyle(elm);
         elm.style.position = 'absolute';
         elm.style.height = height;
@@ -33,7 +41,11 @@
         requestAnimationFrame(() => requestAnimationFrame(() => elm.style.width = width));
     }
 
-    function leave(elm: HTMLElement): void {
+    function leave(elm: Element): void {
+        if (!(elm instanceof HTMLElement)) {
+            return;
+        }
+
         const {width} = getComputedStyle(elm);
         elm.style.width = width;
 

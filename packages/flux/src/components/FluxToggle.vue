@@ -41,9 +41,9 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '../data';
+    import type { IconNames } from '@/data';
     import { toRefs } from 'vue-demi';
-    import { useFormFieldInjection } from '../composables';
+    import { useFormFieldInjection } from '@/composables';
     import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {

@@ -19,6 +19,6 @@
     import { ref } from 'vue';
     import dataset from './dataset.json';
 
-    const searchValue = ref('5');
+    const searchValue = ref('');
     const selectValue = ref([]);
 </script>

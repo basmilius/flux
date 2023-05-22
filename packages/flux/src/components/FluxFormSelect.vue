@@ -22,6 +22,7 @@
                 :key="option.id"
                 :label="option.label"
                 is-deletable
+                is-tag
                 @delete="deselect(option.id)"/>
         </template>
 
@@ -29,6 +30,7 @@
             v-if="isSearchable && (isMultiple || !selectedOptions[0])"
             v-model="searchQuery"
             ref="inputElement"
+            autocomplete="off"
             :disabled="isDisabled"
             :id="id"
             :placeholder="placeholder"
@@ -108,12 +110,12 @@
     lang="ts"
     setup>
     import type { ComponentPublicInstance, ComputedRef } from 'vue-demi';
-    import type { FluxFormSelectGroup, FluxFormSelectOption } from '../data';
+    import type { FluxFormSelectGroup, FluxFormSelectOption } from '@/data';
     import { computed, ref, toRefs, unref, watch } from 'vue-demi';
-    import { isFluxFormSelectGroup, isFluxFormSelectOption } from '../data';
-    import { useFormFieldInjection, useTranslate } from '../composables';
-    import { unrefElement } from '../helpers';
-    import { FluxFadeTransition } from '../transition';
+    import { isFluxFormSelectGroup, isFluxFormSelectOption } from '@/data';
+    import { useFormFieldInjection, useTranslate } from '@/composables';
+    import { unrefElement } from '@/helpers';
+    import { FluxFadeTransition } from '@/transition';
     import FluxBadge from './FluxBadge.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxMenu from './FluxMenu.vue';
@@ -376,6 +378,10 @@
             &::-webkit-search-results-button,
             &::-webkit-search-results-decoration {
                 -webkit-appearance: none;
+            }
+
+            &::placeholder {
+                color: var(--foreground-secondary);
             }
         }
 

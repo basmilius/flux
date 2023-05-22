@@ -26,8 +26,8 @@
 <script
     lang="ts"
     setup>
-    import { useBreakpointsProvider } from '../composables';
-    import { storeToRefs, useFluxStore } from '../data';
+    import { useBreakpointsProvider } from '@/composables';
+    import { useFluxStore } from '@/data';
     import FluxAlert from './FluxAlert.vue';
     import FluxConfirm from './FluxConfirm.vue';
     import FluxOverlay from './FluxOverlay.vue';
@@ -36,6 +36,5 @@
 
     useBreakpointsProvider();
 
-    const fluxStore = useFluxStore();
-    const {alerts, confirms, inertMain} = storeToRefs(fluxStore);
+    const {alerts, confirms, inertMain} = useFluxStore();
 </script>

@@ -54,7 +54,7 @@
     lang="ts"
     setup>
     import { useSlots } from 'vue-demi';
-    import { useTranslate } from '../composables';
+    import { useTranslate } from '@/composables';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxDestructiveButton from './FluxDestructiveButton.vue';
     import FluxFlyout from './FluxFlyout.vue';

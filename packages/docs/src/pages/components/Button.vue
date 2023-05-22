@@ -154,13 +154,13 @@
     lang="ts"
     setup>
     import { FluxButtonStack, FluxDestructiveButton, FluxPrimaryButton, FluxPublishButton, FluxSecondaryButton, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
-    import primary from '@/code/components/button/primary.vue';
-    import primaryCode from '@/code/components/button/primary.vue?raw';
-    import secondary from '@/code/components/button/secondary.vue';
-    import secondaryCode from '@/code/components/button/secondary.vue?raw';
-    import destructive from '@/code/components/button/destructive.vue';
-    import destructiveCode from '@/code/components/button/destructive.vue?raw';
-    import publish from '@/code/components/button/publish.vue';
-    import publishCode from '@/code/components/button/publish.vue?raw';
+    import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
+    import primary from '@docs/code/components/button/primary.vue';
+    import primaryCode from '@docs/code/components/button/primary.vue?raw';
+    import secondary from '@docs/code/components/button/secondary.vue';
+    import secondaryCode from '@docs/code/components/button/secondary.vue?raw';
+    import destructive from '@docs/code/components/button/destructive.vue';
+    import destructiveCode from '@docs/code/components/button/destructive.vue?raw';
+    import publish from '@docs/code/components/button/publish.vue';
+    import publishCode from '@docs/code/components/button/publish.vue?raw';
 </script>

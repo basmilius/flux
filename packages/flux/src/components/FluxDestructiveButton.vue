@@ -18,7 +18,7 @@
 <script
     lang="ts"
     setup>
-    import type { FluxRoutingLocation, IconNames } from '../data';
+    import type { FluxRoutingLocation, IconNames } from '@/data';
     import { useSlots } from 'vue-demi';
     import { BaseButton } from './primitive';
 

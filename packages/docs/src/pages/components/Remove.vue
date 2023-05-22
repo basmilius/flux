@@ -54,5 +54,5 @@
     lang="ts"
     setup>
     import { FluxAspectRatio, FluxPane, FluxPaneBody, FluxRemove, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

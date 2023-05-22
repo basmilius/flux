@@ -11,10 +11,10 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '../data';
+    import type { IconNames } from '@/data';
     import { DateTime } from 'luxon';
     import { computed, unref } from 'vue-demi';
-    import { useFilterInjection } from '../composables';
+    import { useFilterInjection } from '@/composables';
     import FluxDatePicker from './FluxDatePicker.vue';
 
     export interface Props {
@@ -48,7 +48,11 @@
         return [start, end];
     });
 
-    function onDatePicked(date: DateTime): void {
+    function onDatePicked(date: DateTime | DateTime[] | null): void {
+        if (date === null || !Array.isArray(date)) {
+            return;
+        }
+
         setValue(props.name, date);
         back();
     }

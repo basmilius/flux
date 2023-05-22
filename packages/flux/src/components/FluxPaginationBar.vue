@@ -42,9 +42,9 @@
 <script
     lang="ts"
     setup>
+    import type { FluxFormSelectOption } from '@/data';
     import { computed, ref, toRefs, unref, watch } from 'vue-demi';
-    import { useBreakpoints, useTranslate } from '../composables';
-    import { FluxFormSelectOption } from '../data';
+    import { useBreakpoints, useTranslate } from '@/composables';
     import FluxFormInputAddition from './FluxFormInputAddition.vue';
     import FluxFormInputGroup from './FluxFormInputGroup.vue';
     import FluxFormSelect from './FluxFormSelect.vue';

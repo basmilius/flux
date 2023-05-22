@@ -3,8 +3,10 @@
         :is="component"
         class="flux-badge"
         :class="{
-            [`flux-badge-${color}`]: true,
-            'flux-badge-text-only': !dot && !icon && color
+            [`is-${color}`]: true,
+            'is-tag': isTag,
+            'is-text-only': !dot && !icon && !isLoading && !isDeletable,
+            'is-border-colored': !dot && !icon && !isLoading && !isDeletable && color
         }"
         @click="onClick">
         <FluxSpinner
@@ -36,7 +38,7 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '../data';
+    import type { IconNames } from '@/data';
     import { computed, toRefs, unref } from 'vue-demi';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
@@ -54,6 +56,7 @@
         readonly isClickable?: boolean;
         readonly isDeletable?: boolean;
         readonly isLoading?: boolean;
+        readonly isTag?: boolean;
         readonly label: string;
     }
 
@@ -80,46 +83,26 @@
         height: 28px;
         margin-top: -2px;
         margin-bottom: -2px;
-        padding-left: 8px;
-        padding-right: 8px;
+        padding-left: 9px;
+        padding-right: 9px;
         align-items: center;
         gap: 6px;
         background: rgb(var(--gray-0));
         border: 1px solid rgb(var(--gray-4));
         border-radius: 99px;
-        color: var(--foreground);
+        color: var(--foreground-prominent);
         font-size: 13px;
         font-weight: 500;
 
-        &-primary {
-            --color: rgb(var(--primary-7));
-        }
-
-        &-danger {
-            --color: rgb(var(--danger-7));
-        }
-
-        &-info {
-            --color: rgb(var(--info-7));
-        }
-
-        &-success {
-            --color: rgb(var(--success-7));
-        }
-
-        &-warning {
-            --color: rgb(var(--warning-7));
-        }
-
         &-close {
             display: flex;
-            height: 19px;
-            width: 19px;
-            margin-right: -4px;
+            height: 20px;
+            width: 20px;
+            margin-right: -6px;
             padding: 5px;
             align-items: center;
             justify-content: center;
-            background: rgb(var(--gray-4));
+            background: rgb(var(--gray-4) / .75);
             border: 0;
             border-radius: 99px;
             color: var(--foreground-secondary);
@@ -143,8 +126,51 @@
             color: var(--color);
         }
 
-        &-text-only {
-            border-color: var(--color);
+        &.is-tag {
+            background: rgb(var(--gray-3));
+            border-color: rgb(var(--gray-4));
+            border-radius: calc(var(--radius) / 2);
+            font-weight: 400;
+        }
+
+        &.is-tag &-close {
+            margin-left: 3px;
+            background: rgb(var(--gray-5) / .6);
+            border-radius: calc(var(--radius) / 3);
+            color: rgb(var(--gray-7));
+
+            &:hover {
+                background: rgb(var(--gray-5));
+            }
+        }
+
+        &.is-text-only {
+            padding-left: 12px;
+            padding-right: 12px;
+
+            &.is-border-colored {
+                border-color: var(--color);
+            }
+        }
+
+        &.is-primary {
+            --color: rgb(var(--primary-7));
+        }
+
+        &.is-danger {
+            --color: rgb(var(--danger-7));
+        }
+
+        &.is-info {
+            --color: rgb(var(--info-7));
+        }
+
+        &.is-success {
+            --color: rgb(var(--success-7));
+        }
+
+        &.is-warning {
+            --color: rgb(var(--warning-7));
         }
     }
 

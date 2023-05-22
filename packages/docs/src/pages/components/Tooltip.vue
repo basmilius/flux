@@ -80,9 +80,9 @@
     lang="ts"
     setup>
     import { FluxButtonStack, FluxSecondaryButton, FluxStack, FluxTooltip } from '@fancee/flux';
-    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
-    import basic from '@/code/components/tooltip/basic.vue';
-    import basicCode from '@/code/components/tooltip/basic.vue?raw';
-    import slot from '@/code/components/tooltip/slot.vue';
-    import slotCode from '@/code/components/tooltip/slot.vue?raw';
+    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
+    import basic from '@docs/code/components/tooltip/basic.vue';
+    import basicCode from '@docs/code/components/tooltip/basic.vue?raw';
+    import slot from '@docs/code/components/tooltip/slot.vue';
+    import slotCode from '@docs/code/components/tooltip/slot.vue?raw';
 </script>

@@ -23,7 +23,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxContainer } from '../components';
+    import { FluxContainer } from '@/components';
 </script>
 
 <style lang="scss">
