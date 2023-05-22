@@ -2,12 +2,12 @@
     <flux-badge-stack>
         <flux-badge
             is-tag
-            label="Online"/>
+            label="Tag"/>
 
         <flux-badge
             is-deletable
             is-tag
-            label="Boot failure"/>
+            label="Removable tag"/>
     </flux-badge-stack>
 </template>
 
