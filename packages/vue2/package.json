@@ -3,8 +3,8 @@
     "version": "1.0.53",
     "type": "module",
     "scripts": {
-        "build": "vue-demi-switch 2.7 && vite build && pnpm run gentypes",
-        "dev": "vue-demi-switch 2.7 && vite build --watch",
+        "build": "vite build && pnpm run gentypes",
+        "dev": "vite build --watch",
         "gentypes": "pnpm gentypes:dts && pnpm gentypes:webtypes",
         "gentypes:dts": "vue-tsc --project ../flux/tsconfig.json --outDir dist && tsc-alias -p ../flux/tsconfig.json --dir ../vue2/dist",
         "gentypes:webtypes": "vue-docgen-web-types --configFile ../../web-types-gen.config.json"
@@ -39,7 +39,7 @@
         "vue": "^2.7.14",
         "vue-docgen-web-types": "^0.1.8",
         "vue-template-compiler": "^2.7.14",
-        "vue-tsc": "^1.7.6"
+        "vue-tsc": "^1.7.8"
     },
     "peerDependencies": {
         "luxon": "^3.3.0",

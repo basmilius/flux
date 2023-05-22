@@ -11,9 +11,10 @@ export default defineConfig({
             name: 'FanceeFlux',
             fileName: 'fancee.flux'
         },
+        minify: false,
         outDir: resolve(__dirname, './dist'),
         rollupOptions: {
-            external: ['luxon', 'pinia', 'vue'],
+            external: ['luxon', 'vue'],
             output: {
                 exports: 'named',
                 globals: {

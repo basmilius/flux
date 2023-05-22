@@ -13,7 +13,7 @@ export default defineConfig({
         },
         outDir: resolve(__dirname, './dist'),
         rollupOptions: {
-            external: ['luxon', 'pinia', 'vue'],
+            external: ['luxon', 'vue'],
             output: {
                 exports: 'named',
                 globals: {
