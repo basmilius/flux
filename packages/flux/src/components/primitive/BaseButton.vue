@@ -2,6 +2,7 @@
     <ButtonComponent
         :component-type="type"
         class="flux-button"
+        :class="[`is-${size}`]"
         :type="isSubmit ? 'submit' : 'button'"
         :aria-disabled="disabled"
         :disabled="disabled"
@@ -70,6 +71,7 @@
         readonly isLoading?: boolean;
         readonly isSubmit?: boolean;
         readonly label?: string;
+        readonly size?: 'small' | 'medium' | 'large';
         readonly href?: string;
         readonly rel?: string;
         readonly target?: string;
@@ -78,10 +80,11 @@
 
     const emit = defineEmits<Emits>();
     const props = withDefaults(defineProps<Props>(), {
+        size: 'medium',
         type: 'button'
     });
 
-    const {disabled, isLoading, type} = toRefs(props);
+    const {disabled, isLoading} = toRefs(props);
 
     function onClick(evt: MouseEvent): void {
         if (unref(disabled) || unref(isLoading)) {
@@ -127,6 +130,16 @@
 
         > * {
             color: var(--button-foreground);
+        }
+
+        &.is-small {
+            height: 36px;
+            padding: 0 9px;
+        }
+
+        &.is-large {
+            height: 48px;
+            padding: 0 15px;
         }
 
         &:focus-visible {

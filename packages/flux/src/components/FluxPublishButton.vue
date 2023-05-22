@@ -6,7 +6,7 @@
             'is-done': isDone,
             'is-loading': isLoading
         }"
-        v-bind="{type, disabled, iconAfter, isLoading, label, to}"
+        v-bind="{type, disabled, iconAfter, isLoading, label, size, to}"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)">
@@ -70,6 +70,7 @@
         readonly isDone?: boolean;
         readonly isLoading?: boolean;
         readonly label?: string;
+        readonly size?: 'small' | 'medium' | 'large';
         readonly to?: FluxRoutingLocation;
     }
 

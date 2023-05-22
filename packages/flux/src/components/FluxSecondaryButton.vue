@@ -1,7 +1,7 @@
 <template>
     <BaseButton
         class="flux-secondary-button"
-        v-bind="{type, disabled, iconAfter, iconBefore, isLoading, isSubmit, label, href, rel, target, to}"
+        v-bind="{type, disabled, iconAfter, iconBefore, isLoading, isSubmit, label, size, href, rel, target, to}"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)">
@@ -43,6 +43,7 @@
         readonly isLoading?: boolean;
         readonly isSubmit?: boolean;
         readonly label?: string;
+        readonly size?: 'small' | 'medium' | 'large';
         readonly href?: string;
         readonly rel?: string;
         readonly target?: string;
@@ -51,6 +52,7 @@
 
     defineEmits<Emits>();
     withDefaults(defineProps<Props>(), {
+        size: 'medium',
         type: 'button'
     });
 
