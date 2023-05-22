@@ -127,20 +127,19 @@
         }
 
         &.is-tag {
-            background: rgb(var(--gray-3));
+            background: rgb(var(--gray-2));
             border-color: rgb(var(--gray-4));
             border-radius: calc(var(--radius) / 2);
             font-weight: 400;
         }
 
         &.is-tag &-close {
-            margin-left: 3px;
-            background: rgb(var(--gray-5) / .6);
+            background: rgb(var(--gray-2));
             border-radius: calc(var(--radius) / 3);
             color: rgb(var(--gray-7));
 
             &:hover {
-                background: rgb(var(--gray-5));
+                background: rgb(var(--gray-3));
             }
         }
 
