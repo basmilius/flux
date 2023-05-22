@@ -104,6 +104,7 @@
             border: 0;
             border-radius: calc(var(--radius) - 3px);
             color: var(--foreground);
+            cursor: pointer;
             font-size: 13px;
             font-weight: 600;
             text-align: center;
@@ -115,6 +116,7 @@
 
             &.active {
                 color: var(--foreground-prominent);
+                cursor: default;
             }
 
             span {
