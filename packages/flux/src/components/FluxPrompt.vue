@@ -9,6 +9,7 @@
         <FluxPaneBody>
             <FluxFormField :label="prompt.fieldLabel">
                 <FluxFormInput
+                    ref="inputRef"
                     v-model="value"
                     :placeholder="prompt.fieldPlaceholder"
                     :type="prompt.fieldType ?? 'text'"/>
@@ -33,9 +34,11 @@
 <script
     lang="ts"
     setup>
+    import type { ComponentPublicInstance } from 'vue-demi';
     import type { FluxPromptSpec } from '@/data';
-    import { computed, ref, unref } from 'vue-demi';
+    import { computed, onMounted, ref, unref } from 'vue-demi';
     import { useTranslate } from '@/composables';
+    import { unrefElement } from '@/helpers';
     import FluxFormField from './FluxFormField.vue';
     import FluxFormInput from './FluxFormInput.vue';
     import FluxPane from './FluxPane.vue';
@@ -54,6 +57,13 @@
 
     const translate = useTranslate();
 
-    const hasValue = computed(() => unref(value).trim().length > 0);
+    const inputRef = ref<ComponentPublicInstance>();
     const value = ref('');
+
+    const hasValue = computed(() => unref(value).trim().length > 0);
+
+    onMounted(() => {
+        const input = unrefElement(inputRef);
+        requestAnimationFrame(() => input?.querySelector('input')?.focus());
+    });
 </script>
