@@ -1,4 +1,4 @@
-import type { FluxAlertSpec, FluxConfirmSpec } from './types';
+import type { FluxAlertSpec, FluxConfirmSpec, FluxPromptSpec } from './types';
 import { useFluxStore } from './store';
 
 export async function fluxAlert(spec: Omit<FluxAlertSpec, 'id' | 'onClose'>): Promise<void> {
@@ -28,6 +28,24 @@ export async function fluxConfirm(spec: Omit<FluxConfirmSpec, 'id' | 'onCancel' 
             onConfirm(): void {
                 resolve(true);
                 removeConfirm(id);
+            }
+        });
+    });
+}
+
+export async function fluxPrompt(spec: Omit<FluxPromptSpec, 'id' | 'onCancel' | 'onConfirm'>): Promise<string | false> {
+    const {addPrompt, removePrompt} = useFluxStore();
+
+    return new Promise(resolve => {
+        const id = addPrompt({
+            ...spec,
+            onCancel() {
+                resolve(false);
+                removePrompt(id);
+            },
+            onConfirm(text: string) {
+                resolve(text);
+                removePrompt(id);
             }
         });
     });

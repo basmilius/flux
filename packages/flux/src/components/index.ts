@@ -1,7 +1,6 @@
 export { default as FluxAction } from './FluxAction.vue';
 export { default as FluxActionBar } from './FluxActionBar.vue';
 export { default as FluxActions } from './FluxActions.vue';
-export { default as FluxAlert } from './FluxAlert.vue';
 export { default as FluxAnimatedColors } from './FluxAnimatedColors.vue';
 export { default as FluxAspectRatio } from './FluxAspectRatio.vue';
 export { default as FluxAutoGrid } from './FluxAutoGrid.vue';
@@ -13,7 +12,6 @@ export { default as FluxButtonStack } from './FluxButtonStack.vue';
 export { default as FluxCheckbox } from './FluxCheckbox.vue';
 export { default as FluxChip } from './FluxChip.vue';
 export { default as FluxComment } from './FluxComment.vue';
-export { default as FluxConfirm } from './FluxConfirm.vue';
 export { default as FluxContainer } from './FluxContainer.vue';
 export { default as FluxDataTable } from './FluxDataTable.vue';
 export { default as FluxDatePicker } from './FluxDatePicker.vue';

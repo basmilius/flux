@@ -9,6 +9,11 @@
             icon-before="circle-check"
             label="Confirm"
             @click="showConfirm"/>
+
+        <flux-secondary-button
+            icon-before="pen"
+            label="Prompt"
+            @click="showPrompt"/>
     </flux-button-stack>
 </template>
 
@@ -19,32 +24,39 @@
 <script
     lang="ts"
     setup>
-    import { FluxButtonStack, FluxSecondaryButton, useFluxStore } from '@fancee/flux';
+    import { fluxAlert, FluxButtonStack, fluxConfirm, fluxPrompt, FluxSecondaryButton, useFluxStore } from '@fancee/flux';
 
-    const {addAlert, addConfirm, removeAlert, removeConfirm} = useFluxStore();
-
-    function showAlert(): void {
-        const id = addAlert({
+    async function showAlert(): Promise<void> {
+        await fluxAlert({
             icon: 'circle-exclamation',
             title: 'Title',
-            message: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, ea labore. Architecto autem earum magni mollitia porro quidem quo sed voluptatum. Consequuntur deserunt est, fugit minima quod ratione repudiandae unde.',
-            onClose(): void {
-                removeAlert(id);
-            }
+            message: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, ea labore. Architecto autem earum magni mollitia porro quidem quo sed voluptatum. Consequuntur deserunt est, fugit minima quod ratione repudiandae unde.'
         });
     }
 
-    function showConfirm(): void {
-        const id = addConfirm({
+    async function showConfirm(): Promise<void> {
+        await fluxConfirm({
             icon: 'circle-exclamation',
             title: 'Title',
+            message: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, ea labore. Architecto autem earum magni mollitia porro quidem quo sed voluptatum. Consequuntur deserunt est, fugit minima quod ratione repudiandae unde.'
+        });
+    }
+
+    async function showPrompt(): Promise<void> {
+        const result = await fluxPrompt({
+            icon: 'pen',
+            title: 'Title',
             message: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, ea labore. Architecto autem earum magni mollitia porro quidem quo sed voluptatum. Consequuntur deserunt est, fugit minima quod ratione repudiandae unde.',
-            onCancel(): void {
-                removeConfirm(id);
-            },
-            onConfirm(): void {
-                removeConfirm(id);
-            }
+            fieldLabel: 'Message'
+        });
+
+        if (!result) {
+            return;
+        }
+
+        await fluxAlert({
+            title: 'Result',
+            message: result
         });
     }
 </script>

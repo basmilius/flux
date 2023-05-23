@@ -18,6 +18,13 @@
                 :confirm="confirm"/>
         </FluxOverlay>
 
+        <FluxOverlay size="medium">
+            <FluxPrompt
+                v-for="prompt of prompts"
+                :key="prompt.id"
+                :prompt="prompt"/>
+        </FluxOverlay>
+
         <FluxSnackbarProvider/>
         <FluxTooltipProvider/>
     </main>
@@ -30,11 +37,12 @@
     import { useFluxStore } from '@/data';
     import FluxAlert from './FluxAlert.vue';
     import FluxConfirm from './FluxConfirm.vue';
+    import FluxPrompt from './FluxPrompt.vue';
     import FluxOverlay from './FluxOverlay.vue';
     import FluxSnackbarProvider from './FluxSnackbarProvider.vue';
     import FluxTooltipProvider from './FluxTooltipProvider.vue';
 
     useBreakpointsProvider();
 
-    const {alerts, confirms, inertMain} = useFluxStore();
+    const {alerts, confirms, inertMain, prompts} = useFluxStore();
 </script>
