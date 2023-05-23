@@ -178,11 +178,8 @@
         &:disabled,
         &[aria-disabled="true"] {
             box-shadow: none;
+            opacity: .5;
             pointer-events: none;
-
-            > * {
-                opacity: .5;
-            }
         }
     }
 </style>

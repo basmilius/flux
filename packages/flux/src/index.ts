@@ -2,6 +2,7 @@ import './scss/index.scss';
 
 export type {
     FluxAlertSpec,
+    FluxBaseAlertSpec,
     FluxBreakpointsInjection,
     FluxConfirmSpec,
     FluxDashboardInjection,
@@ -12,6 +13,7 @@ export type {
     FluxFilterDateRangeEntry,
     FluxFilterItem,
     FluxFilterOptionEntry,
+    FluxFilterOptionHeader,
     FluxFilterOptionItem,
     FluxFilterOptionsEntry,
     FluxFilterValue,
@@ -19,11 +21,14 @@ export type {
     FluxFormFieldInjection,
     FluxFormSelectOption,
     FluxFormSelectGroup,
+    FluxPromptSpec,
     FluxRoutingLocation,
     FluxSkeletonsInjection,
     FluxSnackbarSpec,
     FluxTooltipSpec,
-    IconNames
+    IconNames,
+    FluxState,
+    FluxStore
 } from './data';
 
 export type {
@@ -37,7 +42,7 @@ export type {
 
 export * from './components';
 export * from './composables';
-export { fluxAlert, fluxConfirm, fluxRegisterIcons, iconRegistry, isFluxFormSelectGroup, isFluxFormSelectOption, useFluxStore } from './data';
+export { fluxAlert, fluxConfirm, fluxPrompt, fluxRegisterIcons, iconRegistry, isFluxFormSelectGroup, isFluxFormSelectOption, useFluxStore } from './data';
 export * from './directives';
 export { createDialogRenderer, resolveUnref, unrefElement } from './helpers';
 export * from './layout';

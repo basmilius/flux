@@ -1,4 +1,4 @@
-import type { FluxAlertSpec, FluxConfirmSpec, FluxSnackbarSpec, FluxTooltipSpec } from './types';
+import type { FluxAlertSpec, FluxConfirmSpec, FluxPromptSpec, FluxSnackbarSpec, FluxTooltipSpec } from './types';
 import { computed, ComputedRef } from 'vue-demi';
 import { reactive } from 'vue';
 
@@ -6,6 +6,7 @@ export interface FluxState {
     dialogCount: number;
     readonly alerts: FluxAlertSpec[];
     readonly confirms: FluxConfirmSpec[];
+    readonly prompts: FluxPromptSpec[];
     readonly snackbars: FluxSnackbarSpec[];
     readonly tooltips: FluxTooltipSpec[];
 }
@@ -18,6 +19,8 @@ export interface FluxStore extends FluxState {
 
     addConfirm(spec: Omit<FluxConfirmSpec, 'id'>): number;
 
+    addPrompt(spec: Omit<FluxPromptSpec, 'id'>): number;
+
     addSnackbar(spec: Omit<FluxSnackbarSpec, 'id'>): number;
 
     addTooltip(spec: Omit<FluxTooltipSpec, 'id'>): number;
@@ -27,6 +30,8 @@ export interface FluxStore extends FluxState {
     removeAlert(id: number): void;
 
     removeConfirm(id: number): void;
+
+    removePrompt(id: number): void;
 
     removeSnackbar(id: number): void;
 
@@ -45,6 +50,7 @@ const state = reactive<FluxState>({
     dialogCount: 0,
     alerts: [],
     confirms: [],
+    prompts: [],
     snackbars: [],
     tooltips: []
 });
@@ -67,6 +73,17 @@ export function addConfirm(spec: Omit<FluxConfirmSpec, 'id'>): number {
     const id = ++alertId;
 
     state.confirms.push({
+        id,
+        ...spec
+    });
+
+    return id;
+}
+
+export function addPrompt(spec: Omit<FluxPromptSpec, 'id'>): number {
+    const id = ++alertId;
+
+    state.prompts.push({
         id,
         ...spec
     });
@@ -111,6 +128,11 @@ export function removeConfirm(id: number): void {
     state.confirms.splice(index, 1);
 }
 
+export function removePrompt(id: number): void {
+    const index = state.prompts.findIndex(c => c.id === id);
+    state.prompts.splice(index, 1);
+}
+
 export function removeSnackbar(id: number): void {
     const index = state.snackbars.findIndex(s => s.id === id);
     state.snackbars.splice(index, 1);
@@ -147,11 +169,13 @@ export function useFluxStore(): FluxStore {
         tooltip,
         addAlert,
         addConfirm,
+        addPrompt,
         addSnackbar,
         addTooltip,
         registerDialog,
         removeAlert,
         removeConfirm,
+        removePrompt,
         removeSnackbar,
         removeTooltip,
         showSnackbar,

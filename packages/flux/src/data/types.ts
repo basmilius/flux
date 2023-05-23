@@ -26,6 +26,16 @@ export interface FluxConfirmSpec extends FluxBaseAlertSpec {
     onConfirm(): void;
 }
 
+export interface FluxPromptSpec extends FluxBaseAlertSpec {
+    readonly fieldLabel: string;
+    readonly fieldPlaceholder?: string;
+    readonly fieldType?: 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'month' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'time' | 'url' | 'week';
+
+    onCancel(): void;
+
+    onConfirm(text: string): void;
+}
+
 export interface FluxSnackbarSpec {
     readonly id: number;
     readonly actions?: Record<string, string>;
