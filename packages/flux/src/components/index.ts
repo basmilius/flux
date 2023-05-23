@@ -89,6 +89,7 @@ export { default as FluxSlideOver } from './FluxSlideOver.vue';
 export { default as FluxSnackbar } from './FluxSnackbar.vue';
 export { default as FluxSnackbarProvider } from './FluxSnackbarProvider.vue';
 export { default as FluxSpacer } from './FluxSpacer.vue';
+export { default as FluxSpacing } from './FluxSpacing.vue';
 export { default as FluxSpinner } from './FluxSpinner.vue';
 export { default as FluxSplitButton } from './FluxSplitButton.vue';
 export { default as FluxStack } from './FluxStack.vue';

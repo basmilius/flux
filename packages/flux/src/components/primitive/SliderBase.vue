@@ -18,7 +18,7 @@
 <script
     lang="ts"
     setup>
-    import { nextTick, onMounted, onUnmounted, ref, toRefs, unref, watch } from 'vue-demi';
+    import { onMounted, onUnmounted, ref, toRefs, unref, watch } from 'vue-demi';
     import { unrefElement } from '@/helpers';
     import FluxTicks from '../FluxTicks.vue';
 
@@ -59,7 +59,7 @@
         }
 
         emit('dragging', true);
-        nextTick(() => onPointerMove(evt));
+        requestAnimationFrame(() => onPointerMove(evt));
     }
 
     function onPointerMove(evt: PointerEvent): void {

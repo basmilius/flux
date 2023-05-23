@@ -274,6 +274,10 @@ export const router = createRouter({
                     component: () => import('@docs/pages/layout/Spacer.vue')
                 },
                 {
+                    path: '/layout/spacing',
+                    component: () => import('@docs/pages/layout/Spacing.vue')
+                },
+                {
                     path: '/layout/stack',
                     component: () => import('@docs/pages/layout/Stack.vue')
                 },

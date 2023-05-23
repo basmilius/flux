@@ -96,6 +96,12 @@
                         type="route"/>
 
                     <FluxMenuItem
+                        :is-active="path === '/layout/spacing'"
+                        label="Spacing"
+                        to="/layout/spacing"
+                        type="route"/>
+
+                    <FluxMenuItem
                         :is-active="path === '/layout/stack'"
                         label="Stack"
                         to="/layout/stack"

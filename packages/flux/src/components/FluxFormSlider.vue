@@ -93,12 +93,16 @@
     function onUpdate(value: number): void {
         localValue.value = value;
 
-        if (tooltipId.value) {
+        requestAnimationFrame(() => {
+            if (!tooltipId.value) {
+                return;
+            }
+
             updateTooltip(tooltipId.value, {
-                content: unref(tooltipContent),
+                content: formatter.value(modelValue.value, countDecimals(step.value)),
                 origin: unrefElement(thumbRef) as HTMLElement
             });
-        }
+        });
     }
 
     function onDecrement(): void {
