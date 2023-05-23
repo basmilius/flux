@@ -12,7 +12,8 @@
                     ref="inputRef"
                     v-model="value"
                     :placeholder="prompt.fieldPlaceholder"
-                    :type="prompt.fieldType ?? 'text'"/>
+                    :type="prompt.fieldType ?? 'text'"
+                    @keydown="onKeyDown"/>
             </FluxFormField>
         </FluxPaneBody>
 
@@ -53,7 +54,7 @@
         readonly prompt: FluxPromptSpec;
     }
 
-    defineProps<Props>();
+    const props = defineProps<Props>();
 
     const translate = useTranslate();
 
@@ -66,4 +67,12 @@
         const input = unrefElement(inputRef);
         requestAnimationFrame(() => input?.querySelector('input')?.focus());
     });
+
+    function onKeyDown(evt: KeyboardEvent): void {
+        if (!unref(hasValue) || evt.key !== 'Enter') {
+            return;
+        }
+
+        props.prompt.onConfirm(unref(value));
+    }
 </script>
