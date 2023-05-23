@@ -25,11 +25,14 @@
         </template>
 
         <template v-else>
-            <div class="flux-button flux-secondary-button flux-pagination-current">
+            <FluxSecondaryButton
+                v-slot:before
+                class="flux-pagination-current"
+                @click="prompt">
                 <strong>{{ page }}</strong>
                 <span>/</span>
                 <span>{{ pages }}</span>
-            </div>
+            </FluxSecondaryButton>
         </template>
 
         <FluxSecondaryButton
@@ -44,6 +47,8 @@
     lang="ts"
     setup>
     import { computed, toRefs, unref } from 'vue-demi';
+    import { useTranslate } from '@/composables';
+    import { fluxPrompt } from '@/data';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxPrimaryButton from './FluxPrimaryButton.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
@@ -63,6 +68,8 @@
     const emit = defineEmits<Emits>();
     const props = defineProps<Props>();
     const {page, perPage, total} = toRefs(props);
+
+    const translate = useTranslate();
 
     const pages = computed(() => Math.ceil(unref(total) / unref(perPage)));
     const isNextDisabled = computed(() => unref(page) >= unref(pages));
@@ -114,6 +121,23 @@
     function previous(): void {
         navigate(unref(page) - 1);
     }
+
+    async function prompt(): Promise<void> {
+        const pageStr = await fluxPrompt({
+            icon: 'ellipsis',
+            title: translate('flux_pagination_navigate_title'),
+            message: translate('flux_pagination_navigate_message'),
+            fieldLabel: translate('flux_pagination_navigate_page')
+        });
+
+        const page = Number(pageStr);
+
+        if (isNaN(page) || page > unref(pages) || page <= 0) {
+            return;
+        }
+
+        navigate(page);
+    }
 </script>
 
 <style lang="scss">
@@ -123,7 +147,6 @@
         &-current {
             gap: 3px;
             font-variant-numeric: tabular-nums;
-            pointer-events: none;
         }
 
         .flux-button span {

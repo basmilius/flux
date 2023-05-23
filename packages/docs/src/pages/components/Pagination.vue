@@ -106,6 +106,12 @@
                 :component="basic"
                 title="Basic"
                 description="Pagination can for example be visible in the footer of a Pane."/>
+
+            <ApiExample
+                :code="compactCode"
+                :component="compact"
+                title="Compact"
+                description="There is also a compact mode for the pagination component."/>
         </ApiSection>
     </FluxStack>
 </template>
@@ -117,4 +123,6 @@
     import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
     import basic from '@docs/code/components/pagination/basic.vue';
     import basicCode from '@docs/code/components/pagination/basic.vue?raw';
+    import compact from '@docs/code/components/pagination/compact.vue';
+    import compactCode from '@docs/code/components/pagination/compact.vue?raw';
 </script>

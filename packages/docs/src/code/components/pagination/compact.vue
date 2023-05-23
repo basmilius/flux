@@ -8,6 +8,7 @@
 
             <flux-pagination
                 arrows
+                is-compact
                 :page="page"
                 :per-page="10"
                 :total="200"
