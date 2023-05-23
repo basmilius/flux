@@ -24,7 +24,7 @@
 <script
     lang="ts"
     setup>
-    import { fluxAlert, FluxButtonStack, fluxConfirm, fluxPrompt, FluxSecondaryButton, useFluxStore } from '@fancee/flux';
+    import { fluxAlert, FluxButtonStack, fluxConfirm, fluxPrompt, FluxSecondaryButton } from '@fancee/flux';
 
     async function showAlert(): Promise<void> {
         await fluxAlert({
