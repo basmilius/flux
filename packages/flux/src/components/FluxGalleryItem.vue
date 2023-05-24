@@ -3,10 +3,10 @@
         class="flux-gallery-item"
         @mouseenter.capture="isDeleteVisible = true"
         @mouseout.capture="isDeleteVisible = false">
-        <img
+        <FluxFocalPointImage
             class="flux-gallery-item-image"
-            alt=""
-            :src="url">
+            :focal-point="focalPoint"
+            :src="url"/>
 
         <FluxRemove
             v-if="isDeletable"
@@ -24,7 +24,9 @@
 <script
     lang="ts"
     setup>
+    import type { FluxFocalPoint } from '@/data';
     import { ref } from 'vue-demi';
+    import FluxFocalPointImage from './FluxFocalPointImage.vue';
     import FluxRemove from './FluxRemove.vue';
     import FluxSpinner from './FluxSpinner.vue';
 
@@ -33,13 +35,16 @@
     }
 
     export interface Props {
+        readonly focalPoint: FluxFocalPoint | null;
         readonly isDeletable?: boolean;
         readonly isPending?: boolean;
         readonly url: string;
     }
 
     defineEmits<Emits>();
-    defineProps<Props>();
+    withDefaults(defineProps<Props>(), {
+        focalPoint: null
+    });
 
     const isDeleteVisible = ref(false);
 </script>
