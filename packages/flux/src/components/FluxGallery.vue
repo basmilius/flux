@@ -54,8 +54,8 @@
 <script
     lang="ts"
     setup>
+    import type { FluxFocalPoint } from '@/data';
     import { useTranslate } from '@/composables';
-    import { FluxFocalPoint } from '@/data';
     import FluxDropZone from './FluxDropZone.vue';
     import FluxGalleryItem from './FluxGalleryItem.vue';
     import FluxIcon from './FluxIcon.vue';
