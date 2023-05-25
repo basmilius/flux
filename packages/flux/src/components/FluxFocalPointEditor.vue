@@ -36,7 +36,7 @@
             <slot name="footer-before"/>
 
             <FluxSecondaryButton
-                :label="translate('flux_preview')"
+                :label="translate(isPreviewing ? 'flux_preview_close' : 'flux_preview')"
                 @click="onShowPreviewClicked"/>
 
             <FluxSpacer/>
@@ -58,7 +58,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, onMounted, onUnmounted, ref, toRefs, unref } from 'vue-demi';
+    import { computed, onMounted, onUnmounted, ref, toRefs, unref, watch } from 'vue-demi';
     import { useTranslate } from '@/composables';
     import { FluxFadeTransition } from '@/transition';
     import FluxPane from './FluxPane.vue';
@@ -137,6 +137,8 @@
     function onShowPreviewClicked(): void {
         isPreviewing.value = !isPreviewing.value;
     }
+
+    watch(() => props.url, () => isPreviewing.value = false);
 </script>
 
 <style lang="scss">

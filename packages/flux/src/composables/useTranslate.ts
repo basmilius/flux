@@ -12,6 +12,7 @@ const english: Record<string, string> = {
     flux_ok: 'Ok',
     flux_optional: 'Optional',
     flux_preview: 'Preview',
+    flux_preview_close: 'Close preview',
     flux_displaying_of: '{from}–{to} of {total}',
     flux_rows_per_page: 'Rows per page',
     flux_no_items: 'There are no items (left).',
