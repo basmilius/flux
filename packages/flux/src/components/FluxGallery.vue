@@ -14,13 +14,22 @@
                 class="flux-gallery"
                 name="flux-gallery"
                 tag="div">
-                <FluxGalleryItem
-                    v-if="items"
-                    v-for="(item, index) of items"
-                    :is-deletable="isEditable"
-                    :key="item"
-                    :url="item"
-                    @delete="$emit('delete', index)"/>
+                <template v-if="items" v-for="(item, index) of items">
+                    <FluxGalleryItem
+                        v-if="typeof item === 'string'"
+                        :is-deletable="isEditable"
+                        :key="item"
+                        :url="item"
+                        @delete="$emit('delete', index)"/>
+
+                    <FluxGalleryItem
+                        v-else
+                        :is-deletable="isEditable"
+                        :key="item.url"
+                        :focal-point="item"
+                        :url="item.url"
+                        @delete="$emit('delete', index)"/>
+                </template>
 
                 <slot/>
 
@@ -45,6 +54,7 @@
 <script
     lang="ts"
     setup>
+    import type { FluxFocalPoint } from '@/data';
     import { useTranslate } from '@/composables';
     import FluxDropZone from './FluxDropZone.vue';
     import FluxGalleryItem from './FluxGalleryItem.vue';
@@ -58,7 +68,7 @@
 
     export interface Props {
         readonly isEditable?: boolean;
-        readonly items?: string[];
+        readonly items?: (string | (FluxFocalPoint & { readonly url: string; }))[];
         readonly pendingItems?: string[];
     }
 

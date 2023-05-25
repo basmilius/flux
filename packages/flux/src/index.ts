@@ -18,6 +18,7 @@ export type {
     FluxFilterOptionsEntry,
     FluxFilterValue,
     FluxFlyoutInjection,
+    FluxFocalPoint,
     FluxFormFieldInjection,
     FluxFormSelectOption,
     FluxFormSelectGroup,

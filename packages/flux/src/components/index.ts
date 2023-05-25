@@ -30,6 +30,7 @@ export { default as FluxFilterOption } from './FluxFilterOption.vue';
 export { default as FluxFilterOptions } from './FluxFilterOptions.vue';
 export { default as FluxFlyout } from './FluxFlyout.vue';
 export { default as FluxFocalPointEditor } from './FluxFocalPointEditor.vue';
+export { default as FluxFocalPointImage } from './FluxFocalPointImage.vue';
 export { default as FluxFormColumn } from './FluxFormColumn.vue';
 export { default as FluxFormDateInput } from './FluxFormDateInput.vue';
 export { default as FluxFormDateRangeInput } from './FluxFormDateRangeInput.vue';
