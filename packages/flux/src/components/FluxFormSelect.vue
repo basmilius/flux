@@ -132,6 +132,7 @@
     }
 
     export interface Props {
+        readonly forcedPosition?: 'top' | 'bottom';
         readonly isDisabled?: boolean;
         readonly isMultiple?: boolean;
         readonly isSearchable?: boolean;
@@ -145,7 +146,7 @@
 
     const emit = defineEmits<Emits>();
     const props = defineProps<Props>();
-    const {isMultiple, modelValue, options, search} = toRefs(props);
+    const {forcedPosition, isMultiple, modelValue, options, search} = toRefs(props);
 
     const {id} = useFormFieldInjection();
     const translate = useTranslate();
@@ -284,10 +285,22 @@
             const {height} = unrefElement(popupElement)!.getBoundingClientRect();
             const bottom = top + height + inputHeight + 39;
 
-            if (bottom <= innerHeight) {
-                popupY.value = inputHeight + 6;
-            } else {
-                popupY.value = -height - 6;
+            switch (forcedPosition?.value) {
+                case 'top':
+                    popupY.value = -height - 6;
+                    break;
+
+                case 'bottom':
+                    popupY.value = inputHeight + 6;
+                    break;
+
+                default:
+                    if (bottom <= innerHeight) {
+                        popupY.value = inputHeight + 6;
+                    } else {
+                        popupY.value = -height - 6;
+                    }
+                    break;
             }
         });
     }
