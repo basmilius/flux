@@ -41,6 +41,10 @@
                         <td>The value of the select.</td>
                     </tr>
                     <tr>
+                        <td><code>forced-position</code><code>'top' | 'bottom'</code></td>
+                        <td>Force the dropdown to a certain position.</td>
+                    </tr>
+                    <tr>
                         <td><code>is-disabled</code><code>boolean</code></td>
                         <td>Indicates that the field is disabled.</td>
                     </tr>
