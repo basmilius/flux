@@ -198,7 +198,7 @@
 
             const subItems: FluxFormSelectOption[] = [];
 
-            for (++i; i < availableOptions.length; ++i) {
+            for (++i; i <= availableOptions.length; ++i) {
                 const subItem = availableOptions[i];
 
                 if (isFluxFormSelectGroup(subItem) || i === availableOptions.length) {
