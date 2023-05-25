@@ -36,21 +36,16 @@
 
         > .flux-pane {
             margin: auto;
+            max-height: min(720px, calc(100dvh - 180px));
+            width: calc(100dvw - 90px);
             border-color: rgb(var(--gray-11) / .075);
             box-shadow: var(--shadow-2xl);
         }
 
-        .flux-pane {
-            display: flex;
-            max-height: min(720px, calc(100dvh - 180px));
-            width: calc(100dvw - 90px);
-            flex-flow: column;
-
-            &-footer {
-                position: sticky;
-                bottom: 0;
-                margin-top: auto;
-            }
+        .flux-pane-footer {
+            position: sticky;
+            bottom: 0;
+            margin-top: auto;
         }
 
         &.is-small .flux-pane {
