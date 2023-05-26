@@ -80,41 +80,46 @@
         padding: 3px;
         align-items: center;
         gap: 1px;
-        background: rgb(var(--gray-3));
+        background: rgb(var(--gray-2));
+        border: 1px solid rgb(var(--gray-4) / .75);
         border-radius: var(--radius);
+
+        &-highlight,
+        &-item {
+            height: 33px;
+            border-radius: calc(var(--radius) - 3px);
+            transition: 300ms var(--swift-out);
+        }
 
         &-highlight {
             position: absolute;
             top: 3px;
             left: calc(v-bind(activeItemX) * 1px);
-            height: 30px;
             width: calc(v-bind(activeItemWidth) * 1px);
             background: rgb(var(--gray-0));
-            border-radius: calc(var(--radius) - 3px);
-            box-shadow: var(--shadow-md);
+            border: 1px solid rgb(var(--gray-4) / .75);
+            box-shadow: var(--shadow-sm);
             pointer-events: none;
-            transition: 300ms var(--swift-out);
             transition-property: left, width;
         }
 
         &-item {
-            height: 30px;
             flex: 1 1 0;
             background: none;
             border: 0;
-            border-radius: calc(var(--radius) - 3px);
             color: var(--foreground);
             cursor: pointer;
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 500;
             text-align: center;
-            transition: color 300ms var(--swift-out);
+            transition-property: background, color;
 
             &:hover {
                 background: rgb(var(--gray-4));
             }
 
             &.active {
+                background: none;
                 color: var(--foreground-prominent);
                 cursor: default;
             }
