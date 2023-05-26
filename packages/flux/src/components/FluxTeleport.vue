@@ -96,8 +96,6 @@
     function onMutations(mutations: MutationRecord[]): void {
         let shouldMove = false;
 
-        console.log('onMutations()', mutations);
-
         for (const mutation of mutations) {
             const addedNodes = Array.from(mutation.addedNodes).filter((node: Node) => !nodes.value.includes(node));
 
