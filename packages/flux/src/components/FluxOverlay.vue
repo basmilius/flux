@@ -35,9 +35,11 @@
         z-index: 10000;
 
         > .flux-pane {
+            display: flex;
             margin: auto;
             max-height: min(720px, calc(100dvh - 180px));
             width: calc(100dvw - 90px);
+            flex-flow: column;
             border-color: rgb(var(--gray-11) / .075);
             box-shadow: var(--shadow-2xl);
         }

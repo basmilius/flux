@@ -7,7 +7,7 @@
 <script
     lang="ts"
     setup>
-    import { getCurrentInstance, onBeforeUnmount, onMounted, ref, toRefs, unref, watch } from 'vue-demi';
+    import { getCurrentInstance, nextTick, onBeforeUnmount, onMounted, ref, toRefs, unref, watch } from 'vue-demi';
 
     export interface Props {
         readonly disabled?: boolean;
@@ -29,15 +29,15 @@
         nodes.value = Array.from(instance.proxy!.$el.childNodes);
 
         if (!disabled.value) {
-            setTimeout(startObserver, 1000);
+            nextTick(startObserver);
         }
 
         maybeMove();
     });
 
     onBeforeUnmount(() => {
-        disable();
         stopObserver();
+        disable();
     });
 
     function disable(): void {

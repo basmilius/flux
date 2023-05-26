@@ -1,6 +1,6 @@
 {
     "name": "@fancee/flux",
-    "version": "1.0.63",
+    "version": "1.0.64",
     "type": "module",
     "scripts": {
         "build": "vite build && pnpm run gentypes",
