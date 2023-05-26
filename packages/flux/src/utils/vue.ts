@@ -113,7 +113,7 @@ interface RenderSpec<P> {
     readonly attrs?: Record<string, unknown>;
     readonly children?: RawChildren;
     readonly on?: Record<string, Function>;
-    readonly props?: P;
+    readonly props?: Partial<P>;
     readonly slots?: RawSlots;
 }
 
