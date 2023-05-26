@@ -13,7 +13,7 @@
         <template v-if="!isCompact">
             <div class="flux-persona-details">
                 <strong>{{ name }}</strong>
-                <span>{{ title }}</span>
+                <span v-if="title">{{ title }}</span>
             </div>
         </template>
     </button>
@@ -38,7 +38,7 @@
         readonly avatarUrl?: string;
         readonly isCompact?: boolean;
         readonly name: string;
-        readonly title: string;
+        readonly title?: string;
     }
 
     defineEmits<Emits>();
@@ -78,6 +78,7 @@
             line-height: 1.2;
 
             strong {
+                width: max-content;
                 color: var(--foreground-prominent);
             }
 

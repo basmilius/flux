@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-    export const enabled = true;
+    export const enabled = false;
 </script>
 
 <script

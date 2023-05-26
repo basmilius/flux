@@ -27,7 +27,8 @@
             :value="parsedValue"
             @blur="$emit('blur')"
             @focus="$emit('focus')"
-            @input="onInput"/>
+            @input="onInput"
+            @keydown="onKeyDown"/>
 
         <FluxIcon
             v-if="iconBefore"
@@ -65,6 +66,8 @@
         (e: 'blur'): void;
 
         (e: 'focus'): void;
+
+        (e: 'show-picker'): void;
 
         (e: 'update:model-value', value: object | string | number): void;
     }
@@ -154,6 +157,17 @@
             default:
                 emit('update:model-value', value);
                 break;
+        }
+    }
+
+    function onKeyDown(evt: KeyboardEvent): void {
+        if (!['date', 'datetime-local', 'month', 'week'].includes(type.value)) {
+            return;
+        }
+
+        if (evt.key === ' ') {
+            emit('show-picker');
+            evt.preventDefault();
         }
     }
 </script>

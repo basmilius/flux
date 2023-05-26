@@ -13,7 +13,8 @@
                         class="flux-form-date-input"
                         type="date"
                         :model-value="localValue"
-                        @update:model-value="setDate"/>
+                        @update:model-value="setDate"
+                        @show-picker="open"/>
 
                     <FluxSecondaryButton
                         :disabled="isDisabled"
