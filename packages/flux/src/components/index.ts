@@ -9,6 +9,8 @@ export { default as FluxBadge } from './FluxBadge.vue';
 export { default as FluxBadgeStack } from './FluxBadgeStack.vue';
 export { default as FluxButtonGroup } from './FluxButtonGroup.vue';
 export { default as FluxButtonStack } from './FluxButtonStack.vue';
+export { default as FluxCalendar } from './FluxCalendar.vue';
+export { default as FluxCalendarEvent } from './FluxCalendarEvent.vue';
 export { default as FluxCheckbox } from './FluxCheckbox.vue';
 export { default as FluxChip } from './FluxChip.vue';
 export { default as FluxComment } from './FluxComment.vue';

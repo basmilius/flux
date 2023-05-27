@@ -23,6 +23,7 @@ const english: Record<string, string> = {
     flux_sort_ascending: 'Ascending',
     flux_sort_descending: 'Descending',
     flux_sort_remove: 'Remove sorting',
+    flux_today: 'Today',
     flux_gallery_placeholder_button: 'Pick image',
     flux_gallery_placeholder_message: 'Drop an image here or click the button to upload...',
     flux_gallery_placeholder_title: 'Gallery'
