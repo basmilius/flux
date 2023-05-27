@@ -1,5 +1,7 @@
 <template>
-    <FluxPane class="flux-calendar">
+    <FluxPane
+        class="flux-calendar"
+        :is-loading="isLoading">
         <FluxActionBar class="flux-calendar-actions">
             <template #primary>
                 <div class="flux-calendar-current">
@@ -128,6 +130,7 @@
 
     export interface Props {
         readonly initialDate?: DateTime;
+        readonly isLoading?: boolean;
     }
 
     const emit = defineEmits<Emits>();
