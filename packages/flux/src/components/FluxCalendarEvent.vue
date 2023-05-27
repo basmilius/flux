@@ -1,5 +1,11 @@
 <template>
-    <FluxTooltip :content="label">
+    <FluxTooltip>
+        <template #content>
+            <slot name="tooltip">
+                {{ label }}
+            </slot>
+        </template>
+
         <button
             class="flux-calendar-event"
             @click="onClick">

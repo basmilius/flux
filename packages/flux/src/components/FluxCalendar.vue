@@ -273,8 +273,10 @@
         }
 
         &-day {
+            padding-left: 0;
+            padding-right: 0;
             color: var(--foreground-secondary);
-            font-size: 12px;
+            font-size: 10px;
             line-height: 1em;
             text-align: center;
             text-transform: uppercase;

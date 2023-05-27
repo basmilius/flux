@@ -4,7 +4,10 @@
             <template v-for="event of events">
                 <flux-calendar-event
                     :date="event.date"
-                    :label="event.label"/>
+                    :label="event.label"
+                    v-slot:tooltip>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci autem blanditiis consequatur cum, hic labore maiores molestiae, omnis optio, pariatur placeat quae quaerat quam quas recusandae totam ut voluptas voluptatem.
+                </flux-calendar-event>
             </template>
         </flux-calendar>
     </flux-pane>
