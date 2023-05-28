@@ -52,6 +52,7 @@ export function createDialogRenderer(props: _Props, emit: _Emit, slots: Slots, c
 
         return render(FluxTeleport, {
             props: {
+                placement: 'before',
                 to: teleportTo
             },
             slots: {
