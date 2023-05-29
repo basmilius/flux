@@ -18,7 +18,7 @@ export function flattenVNodeTree(vnodes: VNode[]): VNode[] {
     return flattened;
 }
 
-export function getNormalizedComponentName(component: any): string {
+export function getNormalizedComponentName(component: any | Vue2Component): string {
     let name = 'flux-unknown';
 
     if (component.type && component.type.__name) {
@@ -127,3 +127,10 @@ type UnrefObject<T> = {
 
 type RawChildren = string | number | boolean | VNode | VNode[] | (() => any);
 type RawSlots = { [name: string]: unknown; };
+
+interface Vue2Component {
+    readonly componentOptions: {
+        readonly propsData?: object;
+        readonly tag?: string;
+    }
+}

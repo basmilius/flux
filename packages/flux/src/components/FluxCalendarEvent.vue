@@ -18,8 +18,6 @@
     lang="ts"
     setup>
     import { DateTime } from 'luxon';
-    import { computed } from 'vue-demi';
-    import { hyphenateTag } from '@/utils';
     import FluxTooltip from './FluxTooltip.vue';
 
     export interface Emits {
@@ -33,8 +31,6 @@
 
     const emit = defineEmits<Emits>();
     const props = defineProps<Props>();
-
-    const transitionName = computed(() => hyphenateTag(props.label));
 
     function onClick(evt: MouseEvent): void {
         emit('click', evt);
@@ -59,8 +55,6 @@
         overflow: hidden;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
-
-        view-transition-name: v-bind(transitionName);
 
         &:hover {
             background: rgb(var(--primary-7));

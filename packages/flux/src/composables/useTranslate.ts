@@ -30,10 +30,10 @@ const english: Record<string, string> = {
 } as const;
 
 export function useTranslate(): FluxTranslator {
-    const instance = getCurrentInstance()!;
+    const instance = getCurrentInstance()!.proxy;
 
-    if ((instance.proxy as any).$t) {
-        return (key, params) => (instance.proxy as any).$t(key, params);
+    if (isVueI18n(instance)) {
+        return (key, params) => instance.$t(key, params);
     }
 
     return (key, params) => {
@@ -52,3 +52,11 @@ export function useTranslate(): FluxTranslator {
 }
 
 export type FluxTranslator = (key: string, params?: Record<string, string | number>) => string;
+
+interface VueI18n {
+    $t: FluxTranslator;
+}
+
+function isVueI18n(obj: object | null): obj is VueI18n {
+    return !!obj && '$t' in obj;
+}
