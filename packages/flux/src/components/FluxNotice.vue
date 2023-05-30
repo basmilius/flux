@@ -123,6 +123,10 @@
             flex-flow: column;
             flex-grow: 1;
             gap: 3px;
+
+            &:last-child {
+                flex-grow: 0;
+            }
         }
 
         &-prefix {

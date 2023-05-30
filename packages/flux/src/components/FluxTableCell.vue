@@ -7,9 +7,11 @@
             'is-separated': isSeparated,
             'is-striped': isStriped
         }">
-        <div class="flux-table-cell-content">
-            <slot/>
-        </div>
+        <slot name="content">
+            <div class="flux-table-cell-content">
+                <slot/>
+            </div>
+        </slot>
     </td>
 </template>
 
@@ -17,6 +19,14 @@
     lang="ts"
     setup>
     import { useTableInjection } from '@/composables';
+
+    export interface Props {
+        readonly contentDirection?: 'column' | 'row';
+    }
+
+    withDefaults(defineProps<Props>(), {
+        contentDirection: 'row'
+    });
 
     const {
         isBordered,
@@ -38,6 +48,7 @@
                 height: 100%;
                 padding: 12px 15px;
                 align-items: flex-start;
+                flex-flow: v-bind(contentDirection);
             }
 
             @-moz-document url-prefix() {

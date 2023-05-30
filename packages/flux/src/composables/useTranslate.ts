@@ -23,16 +23,17 @@ const english: Record<string, string> = {
     flux_sort_ascending: 'Ascending',
     flux_sort_descending: 'Descending',
     flux_sort_remove: 'Remove sorting',
+    flux_today: 'Today',
     flux_gallery_placeholder_button: 'Pick image',
     flux_gallery_placeholder_message: 'Drop an image here or click the button to upload...',
     flux_gallery_placeholder_title: 'Gallery'
 } as const;
 
 export function useTranslate(): FluxTranslator {
-    const instance = getCurrentInstance()!;
+    const instance = getCurrentInstance()!.proxy;
 
-    if ((instance.proxy as any).$t) {
-        return (key, params) => (instance.proxy as any).$t(key, params);
+    if (isVueI18n(instance)) {
+        return (key, params) => instance.$t(key, params);
     }
 
     return (key, params) => {
@@ -51,3 +52,11 @@ export function useTranslate(): FluxTranslator {
 }
 
 export type FluxTranslator = (key: string, params?: Record<string, string | number>) => string;
+
+interface VueI18n {
+    $t: FluxTranslator;
+}
+
+function isVueI18n(obj: object | null): obj is VueI18n {
+    return !!obj && '$t' in obj;
+}

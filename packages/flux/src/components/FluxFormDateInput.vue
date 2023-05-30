@@ -10,7 +10,8 @@
                     class="flux-form-date-input"
                     type="date"
                     @blur="$emit('blur')"
-                    @focus="$emit('focus')"/>
+                    @focus="$emit('focus')"
+                    @show-picker="open"/>
 
                 <FluxSecondaryButton
                     :disabled="isDisabled"

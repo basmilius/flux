@@ -111,6 +111,7 @@
         display: inline-flex;
         height: 1em;
         width: 1em;
+        flex: 0 0 auto;
         border-radius: .5em;
         font-size: v-bind(sizePixels);
         user-select: none;

@@ -106,12 +106,12 @@
         sizeToContent();
     });
 
-    watch(modelValue, modelValue => {
-        if (internalValue.value === modelValue) {
+    watch(modelValue, () => {
+        if (internalValue.value === modelValue.value) {
             return;
         }
 
-        internalValue.value = modelValue;
+        internalValue.value = modelValue.value;
         sizeToContent();
     }, {immediate: true});
 </script>

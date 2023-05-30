@@ -75,8 +75,10 @@
 
     .flux-toggle {
         position: relative;
+        display: block;
         width: 54px;
         height: 30px;
+        flex: 0 0 auto;
         background: rgb(var(--gray-3));
         border-radius: 99px;
 
