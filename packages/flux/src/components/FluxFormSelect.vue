@@ -165,7 +165,9 @@
 
     const focusableElement = computed(() => unref(inputElement) ?? unref(rootElement));
     const values = computed(() => Array.isArray(modelValue.value) ? modelValue.value : [modelValue.value]);
-    const selectedOptions = computed(() => unref(values).map(v => unref(options).find(o => isFluxFormSelectOption(o) && o.id === v))) as ComputedRef<FluxFormSelectOption[]>;
+    const selectedOptions = computed(() => unref(values)
+        .map(v => unref(options).find(o => isFluxFormSelectOption(o) && o.id === v))
+        .filter(o => !!o)) as ComputedRef<FluxFormSelectOption[]>;
     const optionsWithoutGroups = computed(() => unref(groupedOptions).map(group => group[1]).flat() as FluxFormSelectOption[]);
     const highlightId = computed(() => unref(optionsWithoutGroups)[unref(highlightIndex)]?.id);
 
