@@ -8,6 +8,8 @@ export { useCalendarYearSwitcher } from './useCalendarYearSwitcher';
 export { useComponentId } from './useComponentId';
 export { useDebouncedRef } from './useDebouncedRef';
 export { useEventListener } from './useEventListener';
+export { useFocusTrap } from './useFocusTrap';
+export { useFocusZone } from './useFocusZone';
 export { useId } from './useId';
 export { useInterval } from './useInterval';
 export { useMutationObserver } from './useMutationObserver';
