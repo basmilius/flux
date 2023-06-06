@@ -1,6 +1,6 @@
 import type { FluxAlertSpec, FluxConfirmSpec, FluxPromptSpec, FluxSnackbarSpec, FluxTooltipSpec } from './types';
-import { computed, ComputedRef } from 'vue-demi';
-import { reactive } from 'vue';
+import type { ComputedRef } from 'vue-demi';
+import { computed, reactive } from 'vue-demi';
 
 export interface FluxState {
     dialogCount: number;
@@ -37,11 +37,19 @@ export interface FluxStore extends FluxState {
 
     removeTooltip(id: number): void;
 
+    showAlert(spec: Omit<FluxAlertSpec, 'id' | 'onClose'>): Promise<void>;
+
+    showConfirm(spec: Omit<FluxConfirmSpec, 'id' | 'onCancel' | 'onConfirm'>): Promise<boolean>;
+
+    showPrompt(spec: Omit<FluxConfirmSpec, 'id' | 'onCancel' | 'onConfirm'>): Promise<string | false>;
+
     showSnackbar({duration, ...spec}: Omit<FluxSnackbarSpec, 'id'> & { readonly duration?: number; }): Promise<void>;
 
     updateSnackbar(id: number, spec: Partial<Omit<FluxSnackbarSpec, 'id'>>): void;
 
     updateTooltip(id: number, spec: Partial<Omit<FluxTooltipSpec, 'id'>>): void;
+
+    showSnackbarSync({duration, ...spec}: Omit<FluxSnackbarSpec, 'id'> & { readonly duration?: number; }): void;
 }
 
 const DEFAULT_SNACKBAR_DURATION = 3000;
@@ -143,12 +151,6 @@ export function removeTooltip(id: number): void {
     state.tooltips.splice(index, 1);
 }
 
-export async function showSnackbar({duration, ...spec}: Omit<FluxSnackbarSpec, 'id'> & { readonly duration?: number; }): Promise<void> {
-    const id = addSnackbar(spec);
-    await new Promise(resolve => setTimeout(() => requestAnimationFrame(resolve), duration ?? DEFAULT_SNACKBAR_DURATION));
-    removeSnackbar(id);
-}
-
 export function updateSnackbar(id: number, spec: Partial<Omit<FluxSnackbarSpec, 'id'>>): void {
     const index = state.snackbars.findIndex(s => s.id === id);
     Object.assign(state.snackbars[index], spec);
@@ -157,6 +159,56 @@ export function updateSnackbar(id: number, spec: Partial<Omit<FluxSnackbarSpec, 
 export function updateTooltip(id: number, spec: Partial<Omit<FluxTooltipSpec, 'id'>>): void {
     const index = state.tooltips.findIndex(s => s.id === id);
     Object.assign(state.tooltips[index], spec);
+}
+
+export async function showAlert(spec: Omit<FluxAlertSpec, 'id' | 'onClose'>): Promise<void> {
+    return new Promise(resolve => {
+        const id = addAlert({
+            ...spec,
+            onClose(): void {
+                resolve();
+                removeAlert(id);
+            }
+        });
+    });
+}
+
+export async function showConfirm(spec: Omit<FluxConfirmSpec, 'id' | 'onCancel' | 'onConfirm'>): Promise<boolean> {
+    return new Promise(resolve => {
+        const id = addConfirm({
+            ...spec,
+            onCancel(): void {
+                resolve(false);
+                removeConfirm(id);
+            },
+            onConfirm(): void {
+                resolve(true);
+                removeConfirm(id);
+            }
+        });
+    });
+}
+
+export async function showPrompt(spec: Omit<FluxPromptSpec, 'id' | 'onCancel' | 'onConfirm'>): Promise<string | false> {
+    return new Promise(resolve => {
+        const id = addPrompt({
+            ...spec,
+            onCancel(): void {
+                resolve(false);
+                removePrompt(id);
+            },
+            onConfirm(text: string): void {
+                resolve(text);
+                removePrompt(id);
+            }
+        });
+    });
+}
+
+export async function showSnackbar({duration, ...spec}: Omit<FluxSnackbarSpec, 'id'> & { readonly duration?: number; }): Promise<void> {
+    const id = addSnackbar(spec);
+    await new Promise(resolve => setTimeout(() => requestAnimationFrame(resolve), duration ?? DEFAULT_SNACKBAR_DURATION));
+    removeSnackbar(id);
 }
 
 export function useFluxStore(): FluxStore {
@@ -178,8 +230,19 @@ export function useFluxStore(): FluxStore {
         removePrompt,
         removeSnackbar,
         removeTooltip,
+        showAlert,
+        showConfirm,
+        showPrompt,
         showSnackbar,
         updateSnackbar,
-        updateTooltip
+        updateTooltip,
+        showSnackbarSync: promiseToVoidFunction(showSnackbar)
     };
+}
+
+type Fn = (...args: any[]) => any;
+type FnSync<T extends Fn> = (...args: Parameters<T>) => void;
+
+function promiseToVoidFunction<T extends Fn>(fn: T): FnSync<T> {
+    return (...args: any[]) => fn(...args);
 }

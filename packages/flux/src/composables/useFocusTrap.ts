@@ -1,14 +1,18 @@
 import type { Ref } from 'vue-demi';
 import { onMounted, onUnmounted, ref, unref, watch } from 'vue-demi';
 import { FOCUS_TRAP_LOCKS, FocusTrapListener, getFocusableElements, wrapFocus } from '@/utils';
+import { unrefElement } from '@/helpers';
 
 let lockId = 0;
 
-export function useFocusTrap(container: Ref<HTMLElement | undefined>, options: UseFocusTrapOptions = {}) {
-    const {disable = false, disableReturn = false, attachTo = null} = options;
+export function useFocusTrap(containerRef: Ref<HTMLElement | undefined>, options: UseFocusTrapOptions = {}) {
+    const {disable = ref(false), disableReturn = ref(false), attachTo = null} = options;
     const enabled = useFocusTrapLock(!disable);
 
-    watch(container, (container, _, onCleanup) => {
+    useFocusTrapReturn(disableReturn);
+
+    watch(containerRef, (_, __, onCleanup) => {
+        const container = unrefElement(containerRef);
         const attach = attachTo || document;
 
         if (enabled.value && container && document.activeElement && !container.contains(document.activeElement) && !container.querySelector('[autofocus]')) {
@@ -54,6 +58,25 @@ export function useFocusTrap(container: Ref<HTMLElement | undefined>, options: U
         attach.addEventListener('focusin', onFocusIn as EventListener, {capture: true});
         attach.addEventListener('focusout', onFocusOut as EventListener, {capture: true});
 
+        if (container) {
+            const elements = getFocusableElements(container);
+            const isActiveIndex = elements.findIndex(e => e.classList.contains('is-active'));
+            const notDisabledIndex = elements.findIndex(e => !e.classList.contains('is-disabled'));
+            let element = elements[0];
+
+            if (isActiveIndex > -1) {
+                element = elements[isActiveIndex];
+            }
+
+            if (notDisabledIndex > -1) {
+                element = elements[notDisabledIndex];
+            }
+
+            if (element) {
+                element.focus();
+            }
+        }
+
         onCleanup(() => {
             attach.removeEventListener('focusin', onFocusIn as EventListener);
             attach.removeEventListener('focusout', onFocusOut as EventListener);
@@ -61,13 +84,14 @@ export function useFocusTrap(container: Ref<HTMLElement | undefined>, options: U
     }, {immediate: true});
 
     watch(() => disable, () => {
+        const container = unrefElement(containerRef);
         enabled.value = !disable;
 
-        if (disable || !container.value) {
+        if (disable || !container) {
             return;
         }
 
-        const elements = getFocusableElements(container.value);
+        const elements = getFocusableElements(container);
 
         if (elements.includes(document.activeElement as HTMLElement)) {
             return;
@@ -77,7 +101,7 @@ export function useFocusTrap(container: Ref<HTMLElement | undefined>, options: U
     }, {immediate: true});
 }
 
-function useFocusTrapLock(autoFocus: boolean = false): Ref<boolean> {
+export function useFocusTrapLock(autoFocus: boolean = false): Ref<boolean> {
     const id = ref(`focus-trap-${++lockId}`);
     const enabled = ref(false);
 
@@ -87,7 +111,7 @@ function useFocusTrapLock(autoFocus: boolean = false): Ref<boolean> {
     return enabled;
 }
 
-function useFocusTrapReturn(disabled: Ref<boolean>): void {
+export function useFocusTrapReturn(disabled: Ref<boolean>): void {
     const target = ref<HTMLElement | null>(document.activeElement as HTMLElement | null);
 
     onUnmounted(() => {
@@ -99,7 +123,7 @@ function useFocusTrapReturn(disabled: Ref<boolean>): void {
     });
 }
 
-function useFocusTrapSubscription(listener: FocusTrapListener): void {
+export function useFocusTrapSubscription(listener: FocusTrapListener): void {
     const unsubscribe = ref<Function | null>(null);
 
     onMounted(() => unsubscribe.value = FOCUS_TRAP_LOCKS.subscribe(listener));
@@ -108,6 +132,6 @@ function useFocusTrapSubscription(listener: FocusTrapListener): void {
 
 interface UseFocusTrapOptions {
     attachTo?: HTMLElement | Document;
-    disable?: boolean;
-    disableReturn?: boolean;
+    disable?: Ref<boolean>;
+    disableReturn?: Ref<boolean>;
 }

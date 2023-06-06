@@ -16,7 +16,7 @@
     },
     "devDependencies": {
         "vue": "^3.3.4",
-        "@types/node": "20.2.0",
-        "@volar/vue-language-server": "1.4.0"
+        "@types/node": "^20.2.5",
+        "@volar/vue-language-server": "^1.6.5"
     }
 }

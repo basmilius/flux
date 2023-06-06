@@ -73,7 +73,7 @@
         readonly isSubmit?: boolean;
         readonly label?: string;
         readonly size?: 'small' | 'medium' | 'large';
-        readonly tabindex?: number;
+        readonly tabindex?: string | number;
         readonly href?: string;
         readonly rel?: string;
         readonly target?: string;

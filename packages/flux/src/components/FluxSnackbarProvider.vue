@@ -16,7 +16,7 @@
             :sub-message="snackbar.subMessage"
             :title="snackbar.title"
             is-rendered
-            @action="actionKey => snackbar.onAction?.(actionKey)"
+            @action="onAction(snackbar)"
             @close="() => snackbar.onClose?.()"/>
     </TransitionGroup>
 </template>
@@ -24,10 +24,14 @@
 <script
     lang="ts"
     setup>
-    import { useFluxStore } from '@/data';
+    import { FluxSnackbarSpec, useFluxStore } from '@/data';
     import FluxSnackbar from './FluxSnackbar.vue';
 
     const {snackbars} = useFluxStore();
+
+    function onAction(snackbar: FluxSnackbarSpec): (actionKey: string) => void {
+        return actionKey => snackbar.onAction?.(actionKey);
+    }
 </script>
 
 <style lang="scss">
