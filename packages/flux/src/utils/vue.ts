@@ -4,7 +4,7 @@ import { hyphenateTag } from './dom';
 
 export function assertRefNotNull<T>(ref: Ref<T>): asserts ref is Ref<NonNullable<T>> {
     if (!ref.value) {
-        throw new Error('[Flux] Ref value is null or undefined.');
+        throw new Error('[Flux] Ref value is null.');
     }
 }
 

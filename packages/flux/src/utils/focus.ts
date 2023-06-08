@@ -7,83 +7,19 @@ const FOCUSABLE_ELEMENTS = [
     '[tabindex]:not([disabled]):not([tabindex="-1"])'
 ].join(',');
 
-export function getBidirectionalFocusElement(container: HTMLElement, currentElement: HTMLElement, direction: BidirectionalDirection): HTMLElement | undefined {
+export function getBidirectionalFocusElement(container: HTMLElement, currentElement: HTMLElement, direction: BidirectionalDirection): HTMLElement | null {
     const elements = getFocusableElements(container);
     const currentIndex = elements.indexOf(currentElement);
 
     if (currentIndex === -1) {
-        return undefined;
+        return null;
     }
 
-    const rectsWithCenterPoints: BidirectionalInfo[] = elements
-        .map(elm => elm.getBoundingClientRect())
-        .map(rect => ({
-            height: rect.height,
-            width: rect.width,
-            top: rect.top,
-            left: rect.left,
-            right: rect.right,
-            bottom: rect.bottom,
-            center: {
-                x: rect.left + rect.width / 2,
-                y: rect.top + rect.height / 2
-            },
-            distance: 0
-        }));
+    const elementInfos = getBidirectionalInfoForElements(elements);
 
-    const current = rectsWithCenterPoints[currentIndex];
+    calculateBidirectionalDistances(elementInfos, currentIndex, direction);
 
-    rectsWithCenterPoints.forEach(r => {
-        let point = r.center;
-
-        switch (direction) {
-            case 'up':
-                point = {x: point.x, y: r.top + r.height};
-                break;
-
-            case 'down':
-                point = {x: point.x, y: r.top};
-                break;
-
-            case 'left':
-                point = {x: r.left + r.width, y: point.y};
-                break;
-
-            case 'right':
-                point = {x: r.left, y: point.y};
-                break;
-        }
-
-        r.distance = Math.sqrt(Math.pow(current.center.x - point.x, 2) + Math.pow(current.center.y - point.y, 2));
-    });
-
-    let distances: number[] = [];
-
-    switch (direction) {
-        case 'up':
-            distances = rectsWithCenterPoints.map((r, index) => index === currentIndex || r.top + r.height > current.top ? Number.MAX_SAFE_INTEGER : r.distance);
-            break;
-
-        case 'down':
-            distances = rectsWithCenterPoints.map((r, index) => index === currentIndex || r.top < current.top + current.height ? Number.MAX_SAFE_INTEGER : r.distance);
-            break;
-
-        case 'left':
-            distances = rectsWithCenterPoints.map((r, index) => index === currentIndex || r.left + r.width > current.left ? Number.MAX_SAFE_INTEGER : r.distance);
-            break;
-
-        case 'right':
-            distances = rectsWithCenterPoints.map((r, index) => index === currentIndex || r.left < current.left + current.width ? Number.MAX_SAFE_INTEGER : r.distance);
-            break;
-    }
-
-    const candidateIndex = distances.indexOf(Math.min(...distances));
-
-    let candidate;
-
-    if (distances[candidateIndex] !== Number.MAX_SAFE_INTEGER) {
-        candidate = elements[candidateIndex];
-    }
+    let candidate = determineBidirectionalCandidate(currentIndex, direction, elementInfos, elements);
 
     if (!candidate) {
         if (direction === 'up' || direction === 'left') {
@@ -135,6 +71,83 @@ function createFocusWalker(elm: HTMLElement): TreeWalker {
     return document.createTreeWalker(elm, NodeFilter.SHOW_ELEMENT, {
         acceptNode: (node: HTMLButtonElement) => node.tabIndex >= 0 && !node.disabled ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP
     });
+}
+
+function calculateBidirectionalDistances(elementInfos: BidirectionalInfo[], currentIndex: number, direction: BidirectionalDirection): void {
+    const current = elementInfos[currentIndex];
+
+    elementInfos.forEach(r => {
+        let point = r.center;
+
+        switch (direction) {
+            case 'up':
+                point = {x: point.x, y: r.top + r.height};
+                break;
+
+            case 'down':
+                point = {x: point.x, y: r.top};
+                break;
+
+            case 'left':
+                point = {x: r.left + r.width, y: point.y};
+                break;
+
+            case 'right':
+                point = {x: r.left, y: point.y};
+                break;
+        }
+
+        r.distance = Math.sqrt(Math.pow(current.center.x - point.x, 2) + Math.pow(current.center.y - point.y, 2));
+    })
+}
+
+function determineBidirectionalCandidate(currentIndex: number, direction: BidirectionalDirection, elementInfos: BidirectionalInfo[], elements: HTMLElement[]): HTMLElement | null {
+    const current = elementInfos[currentIndex];
+    let distances: number[] = [];
+
+    switch (direction) {
+        case 'up':
+            distances = elementInfos.map((r, index) => index === currentIndex || r.top + r.height > current.top ? Number.MAX_SAFE_INTEGER : r.distance);
+            break;
+
+        case 'down':
+            distances = elementInfos.map((r, index) => index === currentIndex || r.top < current.top + current.height ? Number.MAX_SAFE_INTEGER : r.distance);
+            break;
+
+        case 'left':
+            distances = elementInfos.map((r, index) => index === currentIndex || r.left + r.width > current.left ? Number.MAX_SAFE_INTEGER : r.distance);
+            break;
+
+        case 'right':
+            distances = elementInfos.map((r, index) => index === currentIndex || r.left < current.left + current.width ? Number.MAX_SAFE_INTEGER : r.distance);
+            break;
+    }
+
+    const candidateIndex = distances.indexOf(Math.min(...distances));
+
+    if (distances[candidateIndex] !== Number.MAX_SAFE_INTEGER) {
+        return elements[candidateIndex];
+    }
+
+    return null;
+}
+
+function getBidirectionalInfoForElements(elements: HTMLElement[]): BidirectionalInfo[] {
+    return elements
+        .map(elm => elm.getBoundingClientRect())
+        .map(rect => ({
+            height: rect.height,
+            width: rect.width,
+            top: rect.top,
+            left: rect.left,
+            right: rect.right,
+            bottom: rect.bottom,
+            center: {
+                x: rect.left + rect.width / 2,
+                y: rect.top + rect.height / 2
+            },
+            distance: 0
+        }));
 }
 
 function isHTMLElement(elm: Element): elm is HTMLElement {
