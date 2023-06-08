@@ -4,8 +4,9 @@
         class="flux-button"
         :class="[`is-${size}`]"
         :type="isSubmit ? 'submit' : 'button'"
-        :aria-disabled="disabled"
-        :disabled="disabled"
+        :aria-disabled="disabled ? true : undefined"
+        :disabled="disabled ? true : undefined"
+        :tabindex="disabled ? -1 : tabindex"
         :href="href"
         :rel="rel"
         :target="target"
@@ -72,6 +73,7 @@
         readonly isSubmit?: boolean;
         readonly label?: string;
         readonly size?: 'small' | 'medium' | 'large';
+        readonly tabindex?: string | number;
         readonly href?: string;
         readonly rel?: string;
         readonly target?: string;

@@ -45,7 +45,7 @@
     lang="ts"
     setup>
     import { ComponentPublicInstance, computed, ref, toRefs, unref, watch } from 'vue-demi';
-    import { useFluxStore } from '@/data';
+    import { addTooltip, removeTooltip, updateTooltip } from '@/data';
     import { unrefElement } from '@/helpers';
     import { clampWithStepPrecision, countDecimals, formatNumber } from '@/utils';
     import { SliderBase, SliderThumb, SliderTrack } from './primitive';
@@ -72,8 +72,6 @@
         step: 1
     });
     const {formatter, isDisabled, max, min, modelValue, step} = toRefs(props);
-
-    const {addTooltip, removeTooltip, updateTooltip} = useFluxStore();
 
     const lowerThumbRef = ref<ComponentPublicInstance>();
     const upperThumbRef = ref<ComponentPublicInstance>();

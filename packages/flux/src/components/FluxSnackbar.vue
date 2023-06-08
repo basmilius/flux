@@ -62,7 +62,7 @@
     lang="ts"
     setup>
     import type { FluxSnackbarSpec, IconNames } from '@/data';
-    import { useFluxStore } from '@/data';
+    import { addSnackbar, removeSnackbar, updateSnackbar } from '@/data';
     import { computed, onBeforeUnmount, ref, toRefs, watch } from 'vue-demi';
     import { unrefObject } from '@/utils';
     import FluxAction from './FluxAction.vue';
@@ -90,8 +90,6 @@
     const emit = defineEmits<Emits>();
     const props = defineProps<Props>();
     const propRefs = toRefs(props);
-
-    const {addSnackbar, removeSnackbar, updateSnackbar} = useFluxStore();
 
     const id = ref<number | null>(null);
 

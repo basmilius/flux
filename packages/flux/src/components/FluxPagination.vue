@@ -48,7 +48,7 @@
     setup>
     import { computed, toRefs, unref } from 'vue-demi';
     import { useTranslate } from '@/composables';
-    import { fluxPrompt } from '@/data';
+    import { showPrompt } from '@/data';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxPrimaryButton from './FluxPrimaryButton.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
@@ -123,7 +123,7 @@
     }
 
     async function prompt(): Promise<void> {
-        const pageStr = await fluxPrompt({
+        const pageStr = await showPrompt({
             icon: 'ellipsis',
             title: translate('flux_pagination_navigate_title'),
             message: translate('flux_pagination_navigate_message'),

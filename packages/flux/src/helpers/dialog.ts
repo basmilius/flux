@@ -1,7 +1,7 @@
 import type { Component, RenderFunction, Slots } from 'vue-demi';
 import { h, onMounted, onUnmounted, SetupContext, VNode } from 'vue-demi';
 import { FluxTeleport } from '@/components';
-import { useFluxStore } from '@/data';
+import { registerDialog } from '@/data';
 import { flattenVNodeTree, render } from '@/utils';
 
 type _Emit = SetupContext<['close']>['emit'];
@@ -10,7 +10,6 @@ type _Props = {
 };
 
 export function createDialogRenderer(props: _Props, emit: _Emit, slots: Slots, className: string | (() => string), transition: Component, teleportTo: string = '[data-flux-root]'): RenderFunction {
-    const {registerDialog} = useFluxStore();
     let unregister: Function | null = null;
 
     onMounted(() => {

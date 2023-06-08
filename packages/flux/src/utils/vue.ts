@@ -2,6 +2,12 @@ import type { Component, Ref, UnwrapRef, VNode } from 'vue-demi';
 import { h, unref } from 'vue-demi';
 import { hyphenateTag } from './dom';
 
+export function assertRefNotNull<T>(ref: Ref<T>): asserts ref is Ref<NonNullable<T>> {
+    if (!ref.value) {
+        throw new Error('[Flux] Ref value is null.');
+    }
+}
+
 export function flattenVNodeTree(vnodes: VNode[]): VNode[] {
     const flattened: VNode[] = [];
 

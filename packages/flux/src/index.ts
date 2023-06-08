@@ -41,10 +41,25 @@ export type {
     MaybeRef
 } from './helpers';
 
+export {
+    fluxRegisterIcons,
+    isFluxFormSelectGroup,
+    isFluxFormSelectOption,
+    showAlert,
+    showConfirm,
+    showPrompt,
+    showSnackbar,
+    useFluxStore
+} from './data';
+
+export {
+    createDialogRenderer,
+    resolveUnref,
+    unrefElement
+} from './helpers';
+
 export * from './components';
 export * from './composables';
-export { fluxAlert, fluxConfirm, fluxPrompt, fluxRegisterIcons, iconRegistry, isFluxFormSelectGroup, isFluxFormSelectOption, useFluxStore } from './data';
 export * from './directives';
-export { createDialogRenderer, resolveUnref, unrefElement } from './helpers';
 export * from './layout';
 export * from './transition';

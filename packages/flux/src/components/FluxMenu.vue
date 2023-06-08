@@ -1,6 +1,6 @@
 <template>
     <nav
-        v-focus-trap
+        ref="container"
         class="flux-menu"
         :class="{
             'is-large': isLarge
@@ -12,7 +12,8 @@
 <script
     lang="ts"
     setup>
-    import { focusTrap } from '@/directives';
+    import { ref } from 'vue-demi';
+    import { useFocusZone } from '@/composables';
 
     export interface Props {
         readonly isLarge?: boolean;
@@ -20,7 +21,11 @@
 
     defineProps<Props>();
 
-    const vFocusTrap = focusTrap;
+    const container = ref<HTMLDivElement>();
+
+    useFocusZone(container, {
+        direction: 'vertical'
+    });
 </script>
 
 <style lang="scss">
