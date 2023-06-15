@@ -1,5 +1,5 @@
 import { computed, inject, onMounted, onUnmounted, provide, ref, unref, watch } from 'vue-demi';
-import { FluxBreakpointsInjection, FluxBreakpointsInjectionKey } from '@/data';
+import { FluxBreakpointsInjection, FluxBreakpointsInjectionKey, isSSR } from '@/data';
 
 // note(Bas): These breakpoints are also defined in ../scss/mixin/_breakpoints.scss, please
 //  keep them synced.
@@ -77,7 +77,7 @@ export function useBreakpointsProvider(): void {
     });
 
     watch(breakpoints, breakpoints => {
-        if (typeof document === 'undefined') {
+        if (isSSR) {
             return;
         }
 
