@@ -12,6 +12,10 @@ export function useFocusTrap(containerRef: Ref<HTMLElement | undefined>, options
     useFocusTrapReturn(disableReturn);
 
     watch(containerRef, (_, __, onCleanup) => {
+        if (typeof document === 'undefined') {
+            return;
+        }
+
         const container = unrefElement(containerRef);
         const attach = attachTo || document;
 
