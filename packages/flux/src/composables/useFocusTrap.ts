@@ -1,11 +1,16 @@
 import type { Ref } from 'vue-demi';
 import { onMounted, onUnmounted, ref, unref, watch } from 'vue-demi';
-import { FOCUS_TRAP_LOCKS, FocusTrapListener, getFocusableElements, wrapFocus } from '@/utils';
+import { isSSR } from '@/data';
 import { unrefElement } from '@/helpers';
+import { FOCUS_TRAP_LOCKS, FocusTrapListener, getFocusableElements, wrapFocus } from '@/utils';
 
 let lockId = 0;
 
 export function useFocusTrap(containerRef: Ref<HTMLElement | undefined>, options: UseFocusTrapOptions = {}) {
+    if (isSSR) {
+        return;
+    }
+
     const {disable = ref(false), disableReturn = ref(false), attachTo = null} = options;
     const enabled = useFocusTrapLock(!disable);
 
