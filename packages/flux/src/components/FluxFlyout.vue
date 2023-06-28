@@ -66,7 +66,11 @@
     useFocusTrap(paneRef);
 
     function close(): void {
-        const pane = unrefElement(paneRef)!;
+        const pane = unrefElement(paneRef);
+
+        if (!pane) {
+            return;
+        }
 
         pane.addEventListener('animationend', () => {
             isClosing.value = false;
