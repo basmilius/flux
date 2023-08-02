@@ -111,7 +111,7 @@
     setup>
     import type { ComponentPublicInstance, ComputedRef } from 'vue-demi';
     import type { FluxFormSelectGroup, FluxFormSelectOption } from '@/data';
-    import { computed, ref, toRefs, unref, watch } from 'vue-demi';
+    import { computed, nextTick, ref, toRefs, unref, watch } from 'vue-demi';
     import { isFluxFormSelectGroup, isFluxFormSelectOption } from '@/data';
     import { useFormFieldInjection, useTranslate } from '@/composables';
     import { unrefElement } from '@/helpers';
@@ -136,7 +136,7 @@
         readonly isDisabled?: boolean;
         readonly isMultiple?: boolean;
         readonly isSearchable?: boolean;
-        readonly modelValue: string | number | (string | number)[];
+        readonly modelValue: string | number | (string | number)[] | null;
         readonly options: (FluxFormSelectOption | FluxFormSelectGroup)[];
         readonly placeholder?: string;
         readonly search?: string;
@@ -276,7 +276,13 @@
     }
 
     function reposition(): void {
-        const {top, height: inputHeight, width} = unref(rootElement)!.getBoundingClientRect();
+        const root = unref(rootElement);
+
+        if (!root) {
+            return;
+        }
+
+        const {top, height: inputHeight, width} = root.getBoundingClientRect();
         popupWidth.value = width;
 
         requestAnimationFrame(() => {
@@ -348,7 +354,10 @@
 
     watch(() => search, () => searchQuery.value = search?.value ?? '', {immediate: true});
 
-    watch(searchQuery, searchQuery => emit('update:search', searchQuery));
+    watch(searchQuery, searchQuery => {
+        emit('update:search', searchQuery);
+        requestAnimationFrame(reposition);
+    });
 </script>
 
 <style lang="scss">
