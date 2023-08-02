@@ -368,7 +368,7 @@
         display: flex;
         height: unset;
         min-height: 42px;
-        padding: 0 6px;
+        padding: 0 39px 0 6px;
         align-items: center;
         flex-wrap: wrap;
         gap: 0 6px;
@@ -388,7 +388,7 @@
 
         & &-input {
             position: relative;
-            margin: -1px 30px -1px -1px;
+            margin: -1px;
             min-width: 35%;
             padding: 0 6px;
             flex: 1 1 0;
