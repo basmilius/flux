@@ -1,40 +1,40 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Focal point editor"/>
 
-        <preview>
-            <flux-pane style="width: 420px">
-                <flux-focal-point-editor
+        <Preview>
+            <FluxPane style="width: 420px">
+                <FluxFocalPointEditor
                     v-model="focalPoint"
                     url="https://staging.fanc.ee/uploads/shops/headers/vocrmejv.5mm.jpg">
                     <template #footer-before>
-                        <flux-secondary-button icon-before="question"/>
+                        <FluxSecondaryButton icon-before="question"/>
                     </template>
 
                     <template #footer>
-                        <flux-primary-button
+                        <FluxPrimaryButton
                             icon-before="circle-check"
                             label="Save"/>
                     </template>
-                </flux-focal-point-editor>
-            </flux-pane>
-        </preview>
+                </FluxFocalPointEditor>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 <em>Todo</em>
             </p>
-        </api-section>
-    </flux-stack>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxFocalPointEditor, FluxPane, FluxPrimaryButton, FluxSecondaryButton, FluxStack } from '@fancee/flux';
-    import { ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiSection, PageTitle, Preview } from '@docs/components';
     import { ref } from 'vue';
 
     const focalPoint = ref([65, 75]);

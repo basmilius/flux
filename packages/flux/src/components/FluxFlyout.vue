@@ -11,7 +11,8 @@
             class="flux-flyout-dialog"
             @cancel.prevent="close"
             @click="onDialogBackdropClick">
-            <flux-pane
+            <FluxPane
+                v-if="isOpen"
                 ref="paneRef"
                 class="flux-flyout-pane"
                 :class="{
@@ -19,10 +20,8 @@
                     'is-closing': isClosing,
                     'is-opening': isOpening
                 }">
-                <slot
-                    v-if="isOpen"
-                    v-bind="{close, paneX, paneY, openerWidth, openerHeight}"/>
-            </flux-pane>
+                <slot v-bind="{close, paneX, paneY, openerWidth, openerHeight}"/>
+            </FluxPane>
         </dialog>
     </div>
 </template>
@@ -31,9 +30,10 @@
     lang="ts"
     setup>
     import { provide, ref, toRefs, unref, watch } from 'vue-demi';
-    import { unrefElement } from '../helpers';
-    import { FluxPane } from '.';
-    import { FluxFlyoutInjectionKey } from '../data';
+    import { useFocusTrap } from '@/composables';
+    import { FluxFlyoutInjectionKey } from '@/data';
+    import { unrefElement } from '@/helpers';
+    import FluxPane from './FluxPane.vue';
 
     export interface Props {
         readonly axis?: 'horizontal' | 'vertical';
@@ -63,8 +63,14 @@
     const paneMarginX = ref(0);
     const paneMarginY = ref(0);
 
+    useFocusTrap(paneRef);
+
     function close(): void {
-        const pane = unrefElement(paneRef)!;
+        const pane = unrefElement(paneRef);
+
+        if (!pane) {
+            return;
+        }
 
         pane.addEventListener('animationend', () => {
             isClosing.value = false;
@@ -76,20 +82,24 @@
 
     function open(): void {
         const mount = unref(mountRef)!;
-        const pane = unrefElement(paneRef)!;
         const {top, left, width, height} = mount.children[0].getBoundingClientRect();
 
         isOpen.value = true;
         openerWidth.value = width;
         openerHeight.value = height;
 
-        pane.addEventListener('animationend', () => {
-            isOpening.value = false;
-        }, {once: true});
+        requestAnimationFrame(() => {
+            const pane = unrefElement(paneRef)!;
 
-        isOpening.value = true;
+            pane.addEventListener('animationend', () => {
+                isOpening.value = false;
+            }, {once: true});
+
+            isOpening.value = true;
+        });
 
         requestAnimationFrame(() => {
+            const pane = unrefElement(paneRef)!;
             const {width: paneWidth, height: paneHeight} = pane.getBoundingClientRect();
 
             let x, y, mx = 0, my = 0;
@@ -159,7 +169,7 @@
         close,
         open,
         toggle
-    })
+    });
 </script>
 
 <style lang="scss">

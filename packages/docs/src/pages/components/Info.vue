@@ -1,34 +1,35 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Info"/>
 
-        <preview>
-            <flux-pane style="width: 360px">
-                <flux-pane-body>
-                    <flux-info-stack>
-                        <flux-info icon="location-dot">
+        <Preview>
+            <FluxPane style="width: 360px">
+                <FluxPaneBody>
+                    <FluxInfoStack>
+                        <FluxInfo icon="location-dot">
                             Voltastraat 20<br/>
                             7006 RV Doetinchem<br/>
                             Nederland
-                        </flux-info>
-                        <flux-info icon="circle-exclamation">
-                            Accessible for people with the age of 16 or higher. We don't provide refunds when you're not allowed to enter.
-                        </flux-info>
-                    </flux-info-stack>
-                </flux-pane-body>
-            </flux-pane>
-        </preview>
+                        </FluxInfo>
 
-        <api-section>
+                        <FluxInfo icon="circle-exclamation">
+                            Accessible for people with the age of 16 or higher. We don't provide refunds when you're not allowed to enter.
+                        </FluxInfo>
+                    </FluxInfoStack>
+                </FluxPaneBody>
+            </FluxPane>
+        </Preview>
+
+        <ApiSection>
             <p>
                 <em>Todo</em>
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-components>
+        <ApiSection title="API">
+            <ApiComponents>
                 <tr>
                     <td><code>FluxInfo</code></td>
                     <td>The info component itself. Provides an icon and default slot for content.</td>
@@ -37,9 +38,9 @@
                     <td><code>FluxInfoStack</code></td>
                     <td>A stack for FluxInfo components.</td>
                 </tr>
-            </api-components>
+            </ApiComponents>
 
-            <api-component name="Info">
+            <ApiComponent name="Info">
                 <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
@@ -53,14 +54,14 @@
                         <td>Contents of the info item.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxInfo, FluxInfoStack, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

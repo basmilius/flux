@@ -1,33 +1,33 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Gallery"/>
 
-        <preview>
-            <flux-pane style="width: 50%">
-                <flux-pane-body>
-                    <flux-gallery>
-                        <flux-gallery-item url="https://staging.fanc.ee/uploads/shops/headers/bh40dmg5.uwr.jpg"/>
-                        <flux-gallery-item url="https://staging.fanc.ee/uploads/shops/headers/vocrmejv.5mm.jpg"/>
-                        <flux-gallery-item url="https://staging.fanc.ee/uploads/shops/headers/q5mvww5g.2lu.jpg"/>
-                        <flux-gallery-item url="https://staging.fanc.ee/uploads/shops/headers/bh40dmg5.uwr.jpg"/>
-                        <flux-gallery-item url="https://staging.fanc.ee/uploads/shops/headers/vocrmejv.5mm.jpg"/>
-                        <flux-gallery-item url="https://staging.fanc.ee/uploads/shops/headers/q5mvww5g.2lu.jpg"/>
-                    </flux-gallery>
-                </flux-pane-body>
-            </flux-pane>
-        </preview>
+        <Preview>
+            <FluxPane style="width: 50%">
+                <FluxPaneBody>
+                    <FluxGallery>
+                        <FluxGalleryItem url="https://staging.fanc.ee/uploads/shops/headers/bh40dmg5.uwr.jpg"/>
+                        <FluxGalleryItem url="https://staging.fanc.ee/uploads/shops/headers/vocrmejv.5mm.jpg"/>
+                        <FluxGalleryItem url="https://staging.fanc.ee/uploads/shops/headers/q5mvww5g.2lu.jpg"/>
+                        <FluxGalleryItem url="https://staging.fanc.ee/uploads/shops/headers/bh40dmg5.uwr.jpg"/>
+                        <FluxGalleryItem url="https://staging.fanc.ee/uploads/shops/headers/vocrmejv.5mm.jpg"/>
+                        <FluxGalleryItem url="https://staging.fanc.ee/uploads/shops/headers/q5mvww5g.2lu.jpg"/>
+                    </FluxGallery>
+                </FluxPaneBody>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 The Gallery component is used to display multiple media entities in a grid. It also allows the user
                 to upload new media to it and control them further.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-components>
+        <ApiSection title="API">
+            <ApiComponents>
                 <tr>
                     <td><code>FluxGallery</code></td>
                     <td>The gallery itself.</td>
@@ -36,9 +36,9 @@
                     <td><code>FluxGalleryItem</code></td>
                     <td>A single item within the gallery.</td>
                 </tr>
-            </api-components>
+            </ApiComponents>
 
-            <api-component name="Gallery">
+            <ApiComponent name="Gallery">
                 <template #props>
                     <tr>
                         <td><code>is-editable</code><code>boolean</code></td>
@@ -71,9 +71,9 @@
                         <td>Allows custom gallery items to be placed without items and pending-items.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="GalleryItem">
+            <ApiComponent name="GalleryItem">
                 <template #props>
                     <tr>
                         <td><code>is-deletable</code><code>boolean</code></td>
@@ -95,14 +95,14 @@
                         <td>Triggered when the remove button within the gallery item is clicked.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxGallery, FluxGalleryItem, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

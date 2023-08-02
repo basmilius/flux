@@ -2,17 +2,18 @@
     <div
         class="flux-notice"
         :class="{
-            [`flux-notice-${variant}`]: !!variant,
+            [`is-${variant}`]: !!variant,
             'is-center': isCenter,
             'is-fluid': isFluid,
             'is-small': isSmall
         }">
-        <flux-spinner
+        <FluxSpinner
             v-if="isLoading"
             class="flux-notice-prefix"
             :size="isSmall ? 16 : 20"/>
-        <flux-icon
-            v-else-if="icon"
+
+        <FluxIcon
+            v-if="icon && !isLoading"
             class="flux-notice-prefix"
             :size="isSmall ? 16 : 20"
             :variant="icon"/>
@@ -30,14 +31,17 @@
             </p>
             <slot/>
         </div>
+
+        <slot name="end"/>
     </div>
 </template>
 
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '../data';
-    import { FluxIcon, FluxSpinner } from '.';
+    import type { IconNames } from '@/data';
+    import FluxIcon from './FluxIcon.vue';
+    import FluxSpinner from './FluxSpinner.vue';
 
     export interface Props {
         readonly icon?: IconNames;
@@ -66,7 +70,7 @@
         border-radius: var(--radius);
         color: var(--notice-foreground);
 
-        &-gray {
+        &.is-gray {
             --notice-background: rgb(var(--gray-2));
             --notice-foreground: var(--foreground);
             --notice-foreground-prominent: var(--foreground-prominent);
@@ -74,7 +78,7 @@
             --spinner-value: rgb(var(--gray-10));
         }
 
-        &-primary {
+        &.is-primary {
             --notice-background: rgb(var(--primary-2));
             --notice-foreground: rgb(var(--primary-11));
             --notice-foreground-prominent: rgb(var(--primary-7));
@@ -82,7 +86,7 @@
             --spinner-value: rgb(var(--primary-7));
         }
 
-        &-danger {
+        &.is-danger {
             --notice-background: rgb(var(--danger-2));
             --notice-foreground: rgb(var(--danger-11));
             --notice-foreground-prominent: rgb(var(--danger-7));
@@ -90,7 +94,7 @@
             --spinner-value: rgb(var(--danger-7));
         }
 
-        &-info {
+        &.is-info {
             --notice-background: rgb(var(--info-2));
             --notice-foreground: rgb(var(--info-11));
             --notice-foreground-prominent: rgb(var(--info-7));
@@ -98,7 +102,7 @@
             --spinner-value: rgb(var(--info-7));
         }
 
-        &-success {
+        &.is-success {
             --notice-background: rgb(var(--success-2));
             --notice-foreground: rgb(var(--success-11));
             --notice-foreground-prominent: rgb(var(--success-7));
@@ -106,7 +110,7 @@
             --spinner-value: rgb(var(--success-7));
         }
 
-        &-warning {
+        &.is-warning {
             --notice-background: rgb(var(--warning-2));
             --notice-foreground: rgb(var(--warning-11));
             --notice-foreground-prominent: rgb(var(--warning-7));
@@ -117,7 +121,12 @@
         &-body {
             display: flex;
             flex-flow: column;
+            flex-grow: 1;
             gap: 3px;
+
+            &:last-child {
+                flex-grow: 0;
+            }
         }
 
         &-prefix {
@@ -184,45 +193,55 @@
             padding-left: 1em;
             list-style-type: disc;
         }
+
+        .flux-button {
+            margin-top: -9px;
+            margin-right: -9px;
+            margin-bottom: -9px;
+        }
+
+        &.is-small .flux-button {
+            height: 36px;
+        }
     }
 
     @include flux.dark-mode {
         .flux-notice {
-            &-gray {
+            &.is-gray {
                 --notice-background: rgb(var(--gray-2));
                 --notice-foreground: var(--foreground);
                 --notice-foreground-prominent: var(--foreground-prominent);
             }
 
-            &-primary {
+            &.is-primary {
                 --notice-background: rgb(var(--primary-11) / .5);
                 --notice-foreground: rgb(var(--primary-4));
                 --notice-foreground-prominent: rgb(var(--primary-6));
                 --spinner-track: rgb(var(--primary-11));
             }
 
-            &-danger {
+            &.is-danger {
                 --notice-background: rgb(var(--danger-11) / .5);
                 --notice-foreground: rgb(var(--danger-4));
                 --notice-foreground-prominent: rgb(var(--danger-6));
                 --spinner-track: rgb(var(--danger-11));
             }
 
-            &-info {
+            &.is-info {
                 --notice-background: rgb(var(--info-11) / .5);
                 --notice-foreground: rgb(var(--info-4));
                 --notice-foreground-prominent: rgb(var(--info-6));
                 --spinner-track: rgb(var(--info-11));
             }
 
-            &-success {
+            &.is-success {
                 --notice-background: rgb(var(--success-11) / .5);
                 --notice-foreground: rgb(var(--success-4));
                 --notice-foreground-prominent: rgb(var(--success-6));
                 --spinner-track: rgb(var(--success-11));
             }
 
-            &-warning {
+            &.is-warning {
                 --notice-background: rgb(var(--warning-11) / .5);
                 --notice-foreground: rgb(var(--warning-4));
                 --notice-foreground-prominent: rgb(var(--warning-6));

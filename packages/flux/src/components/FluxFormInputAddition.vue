@@ -1,10 +1,12 @@
 <template>
     <div class="flux-form-input flux-form-input-addition">
-        <flux-icon
+        <FluxIcon
             v-if="icon"
             :variant="icon"/>
 
-        <span v-if="text">{{ text }}</span>
+        <span v-if="text">
+            {{ text }}
+        </span>
 
         <slot/>
     </div>
@@ -13,8 +15,8 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '../data';
-    import { FluxIcon } from '.';
+    import type { IconNames } from '@/data';
+    import FluxIcon from './FluxIcon.vue';
 
     export interface Props {
         readonly icon?: IconNames;

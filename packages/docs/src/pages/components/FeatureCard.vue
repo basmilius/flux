@@ -1,11 +1,11 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Feature card"/>
 
-        <preview>
-            <flux-feature-card
+        <Preview>
+            <FluxFeatureCard
                 style="width: 360px"
                 button-icon="circle-arrow-right"
                 button-label="Let's go"
@@ -16,17 +16,17 @@
                 <img
                     src="https://staging.fanc.ee/uploads/shops/headers/vocrmejv.5mm.jpg"
                     alt="">
-            </flux-feature-card>
-        </preview>
+            </FluxFeatureCard>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 A pane that displays a caption and an illustration of a feature.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="FeatureCard">
+        <ApiSection title="API">
+            <ApiComponent name="FeatureCard">
                 <template #props>
                     <tr>
                         <td><code>button-icon</code><code>IconNames</code></td>
@@ -64,14 +64,14 @@
                         <td>Slot used for an illustration.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxFeatureCard, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

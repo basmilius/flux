@@ -9,19 +9,31 @@ export type {
 
 type Dictionary<T> = { [key: string]: T }
 
-export interface FluxAlertSpec {
+export interface FluxBaseAlertSpec {
     readonly id: number;
     readonly icon?: IconNames;
     readonly message: string;
     readonly title: string;
+}
 
+export interface FluxAlertSpec extends FluxBaseAlertSpec {
     onClose(): void;
 }
 
-export interface FluxConfirmSpec extends FluxAlertSpec {
+export interface FluxConfirmSpec extends FluxBaseAlertSpec {
     onCancel(): void;
 
     onConfirm(): void;
+}
+
+export interface FluxPromptSpec extends FluxBaseAlertSpec {
+    readonly fieldLabel: string;
+    readonly fieldPlaceholder?: string;
+    readonly fieldType?: 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'month' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'time' | 'url' | 'week';
+
+    onCancel(): void;
+
+    onConfirm(text: string): void;
 }
 
 export interface FluxSnackbarSpec {
@@ -62,7 +74,12 @@ export interface FluxFormSelectGroup {
     readonly label: string;
 }
 
-export interface FluxRoutingLocation {
+export interface FluxFocalPoint {
+    readonly x: number;
+    readonly y: number;
+}
+
+export interface FluxRoutingLocationObject {
     name?: string;
     path?: string;
     hash?: string;
@@ -72,10 +89,4 @@ export interface FluxRoutingLocation {
     replace?: boolean;
 }
 
-export function isFluxFormSelectGroup(item: object): item is FluxFormSelectGroup {
-    return item && !('id' in item);
-}
-
-export function isFluxFormSelectOption(item: object): item is FluxFormSelectOption {
-    return item && 'id' in item;
-}
+export type FluxRoutingLocation = FluxRoutingLocationObject | string;

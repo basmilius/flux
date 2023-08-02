@@ -1,7 +1,7 @@
 <template>
     <flux-pane>
         <flux-pane-body>
-            Currently displaying page <strong>{{ page }}</strong>.
+            <p>Currently displaying page <strong>{{ page }}</strong>.</p>
         </flux-pane-body>
         <flux-pane-footer>
             <flux-spacer/>

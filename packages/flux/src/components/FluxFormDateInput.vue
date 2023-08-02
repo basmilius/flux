@@ -1,36 +1,37 @@
 <template>
-    <flux-flyout
+    <FluxFlyout
         ref="flyoutRef"
         :width="300">
         <template #opener="{open}">
-            <flux-form-input-group>
-                <flux-form-input
+            <FluxFormInputGroup>
+                <FluxFormInput
                     v-bind="{autoComplete, autoFocus, isDisabled, isReadonly, modelValue, placeholder}"
                     v-model="localValue"
                     class="flux-form-date-input"
                     type="date"
                     @blur="$emit('blur')"
-                    @focus="$emit('focus')"/>
+                    @focus="$emit('focus')"
+                    @show-picker="open"/>
 
-                <flux-secondary-button
+                <FluxSecondaryButton
                     :disabled="isDisabled"
                     icon-before="calendar"
-                    @click="open"/>
-            </flux-form-input-group>
+                    @click.prevent="open"/>
+            </FluxFormInputGroup>
         </template>
 
-        <flux-date-picker
+        <FluxDatePicker
             v-model="localValue"
             :max="max"
             :min="min"/>
-    </flux-flyout>
+    </FluxFlyout>
 </template>
 
 <script lang="ts">
     export default {
         model: {
-            prop: 'modelValue',
-            event: 'update:modelValue'
+            prop: 'model-value',
+            event: 'update:model-value'
         }
     };
 </script>
@@ -40,10 +41,14 @@
     setup>
     import { DateTime } from 'luxon';
     import { ComponentPublicInstance, ref, toRefs, unref, watch } from 'vue-demi';
-    import { FluxDatePicker, FluxFlyout, FluxFormInput, FluxFormInputGroup, FluxSecondaryButton } from '.';
+    import FluxDatePicker from './FluxDatePicker.vue';
+    import FluxFlyout from './FluxFlyout.vue';
+    import FluxFormInput from './FluxFormInput.vue';
+    import FluxFormInputGroup from './FluxFormInputGroup.vue';
+    import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
     export interface Emits {
-        (e: 'update:modelValue', value: DateTime | null): void;
+        (e: 'update:model-value', value: DateTime | null): void;
 
         (e: 'blur'): void;
 
@@ -70,7 +75,7 @@
 
     watch(localValue, localValue => {
         unref(flyoutRef)?.close();
-        emit('update:modelValue', localValue);
+        emit('update:model-value', localValue);
     });
 
     watch(modelValue, modelValue => localValue.value = modelValue, {immediate: true});
@@ -80,7 +85,7 @@
     .flux-form-date-input {
         cursor: default;
 
-        &::-webkit-calendar-picker-indicator {
+        input::-webkit-calendar-picker-indicator {
             display: none;
         }
     }

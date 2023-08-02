@@ -1,39 +1,39 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Date picker"/>
 
-        <preview>
-            <flux-stack
+        <Preview>
+            <FluxStack
                 axis="horizontal"
                 is-wrapping>
-                <flux-pane style="align-self: start; width: 330px">
-                    <flux-date-picker v-model="date"/>
-                </flux-pane>
+                <FluxPane style="align-self: start; width: 330px">
+                    <FluxDatePicker v-model="date"/>
+                </FluxPane>
 
-                <flux-pane style="align-self: start; width: 330px">
-                    <flux-date-picker
+                <FluxPane style="align-self: start; width: 330px">
+                    <FluxDatePicker
                         v-model="dateRange"
                         range-mode="range"/>
-                </flux-pane>
-            </flux-stack>
-        </preview>
+                </FluxPane>
+            </FluxStack>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 Date pickers allow the user to select a date within a calendar-like experience. The date picker is used in
                 the FluxFormDatePicker and in FluxFilter components such as FluxFilterDate and FluxFilterDateRange. The
                 date picker has various range modes like week and month.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="Required icons">
-            <api-required-icons :icons="['angle-left', 'angle-right']"/>
-        </api-section>
+        <ApiSection title="Required icons">
+            <ApiRequiredIcons :icons="['angle-left', 'angle-right']"/>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="DatePicker">
+        <ApiSection title="API">
+            <ApiComponent name="DatePicker">
                 <template #props>
                     <tr>
                         <td><code>model-value</code><code>DateTime | DateTime[]</code></td>
@@ -59,16 +59,16 @@
                         <td>Triggered when a date or date range is selected.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxDatePicker, FluxPane, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
     import { DateTime } from 'luxon';
     import { ref } from 'vue';
 

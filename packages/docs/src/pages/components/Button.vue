@@ -1,40 +1,40 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Button"/>
 
-        <preview>
-            <flux-button-stack>
-                <flux-primary-button
+        <Preview>
+            <FluxButtonStack>
+                <FluxPrimaryButton
                     icon-before="circle-check"
                     label="Save"/>
 
-                <flux-secondary-button
+                <FluxSecondaryButton
                     icon-after="ellipsis-h"
                     label="More"/>
 
-                <flux-destructive-button
+                <FluxDestructiveButton
                     icon-before="circle-exclamation"
                     label="Delete"/>
 
-                <flux-publish-button
+                <FluxPublishButton
                     is-loading
                     label="Publishing"/>
-            </flux-button-stack>
-        </preview>
+            </FluxButtonStack>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 Buttons are clickable elements that have an action behind it. They can be used to start a new flow,
                 alter an existing one or perform actions. When designing your interface, prioritize the placement and
                 design of primary buttons to ensure that they are easy to find and use, and that they clearly
                 communicate the purpose of the action.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-components>
+        <ApiSection title="API">
+            <ApiComponents>
                 <tr>
                     <td><code>FluxDestructiveButton</code></td>
                     <td>Destructive actions, such as deleting or disabling something. For example: A trash button that removes a single row from a table.</td>
@@ -51,9 +51,9 @@
                     <td><code>FluxSecondaryButton</code></td>
                     <td>Generally speaking, for all other types of buttons. Keep in mind that not everything needs to be a button, liks will also do sometimes.</td>
                 </tr>
-            </api-components>
+            </ApiComponents>
 
-            <api-component name="Button">
+            <ApiComponent name="Button">
                 <template #props>
                     <tr>
                         <td><code>disabled</code><code>boolean</code></td>
@@ -82,6 +82,10 @@
                     <tr>
                         <td><code>label</code><code>string</code></td>
                         <td>The label displayed within the button.</td>
+                    </tr>
+                    <tr>
+                        <td><code>size</code><code>'small' | 'medium' | 'large'</code></td>
+                        <td>The size of the button.</td>
                     </tr>
                     <tr>
                         <td><code>href</code><code>string</code></td>
@@ -119,48 +123,56 @@
                         <td>Triggered when the cursor leaves the button.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
+            </ApiComponent>
+        </ApiSection>
 
-        <api-section title="Examples">
-            <api-example
+        <ApiSection title="Examples">
+            <ApiExample
                 :code="primaryCode"
                 :component="primary"
                 title="Primary"
                 description="Primary buttons can be used for tasks such as saving."/>
 
-            <api-example
+            <ApiExample
                 :code="secondaryCode"
                 :component="secondary"
                 title="Secondary"
                 description="Secondary buttons can be used in situations that are not covered by other buttons."/>
 
-            <api-example
+            <ApiExample
                 :code="destructiveCode"
                 :component="destructive"
                 title="Destructive"
                 description="Destructive buttons can be used for destructive actions such as deleting something."/>
 
-            <api-example
+            <ApiExample
                 :code="publishCode"
                 :component="publish"
                 title="Publish"
                 description="Publish buttons can be used in situations where the user can publish something."/>
-        </api-section>
-    </flux-stack>
+
+            <ApiExample
+                :code="sizesCode"
+                :component="sizes"
+                title="Sizes"
+                description="Buttons can have three different sizes."/>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxButtonStack, FluxDestructiveButton, FluxPrimaryButton, FluxPublishButton, FluxSecondaryButton, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
-    import primary from '@/code/components/button/primary.vue';
-    import primaryCode from '@/code/components/button/primary.vue?raw';
-    import secondary from '@/code/components/button/secondary.vue';
-    import secondaryCode from '@/code/components/button/secondary.vue?raw';
-    import destructive from '@/code/components/button/destructive.vue';
-    import destructiveCode from '@/code/components/button/destructive.vue?raw';
-    import publish from '@/code/components/button/publish.vue';
-    import publishCode from '@/code/components/button/publish.vue?raw';
+    import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
+    import primary from '@docs/code/components/button/primary.vue';
+    import primaryCode from '@docs/code/components/button/primary.vue?raw';
+    import secondary from '@docs/code/components/button/secondary.vue';
+    import secondaryCode from '@docs/code/components/button/secondary.vue?raw';
+    import destructive from '@docs/code/components/button/destructive.vue';
+    import destructiveCode from '@docs/code/components/button/destructive.vue?raw';
+    import publish from '@docs/code/components/button/publish.vue';
+    import publishCode from '@docs/code/components/button/publish.vue?raw';
+    import sizes from '@docs/code/components/button/sizes.vue';
+    import sizesCode from '@docs/code/components/button/sizes.vue?raw';
 </script>

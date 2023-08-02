@@ -18,7 +18,8 @@
         "allowSyntheticDefaultImports": true,
         "baseUrl": ".",
         "paths": {
-            "@/*": ["src/*"],
+            "@docs/*": ["src/*"],
+            "@/*": ["../flux/src/*"],
             "@fancee/flux": ["../flux/src/index.ts"]
         }
     },

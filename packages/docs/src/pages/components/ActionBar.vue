@@ -1,59 +1,61 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Action bar"/>
 
-        <preview>
-            <flux-pane>
-                <flux-pane-header title="Filter"/>
-                <flux-action-bar is-resettable>
+        <Preview>
+            <FluxPane>
+                <FluxPaneHeader title="Filter"/>
+
+                <FluxActionBar is-resettable>
                     <template #primary>
-                        <flux-primary-button
+                        <FluxPrimaryButton
                             icon-before="circle-plus"
                             label="Event"/>
                     </template>
 
                     <template #filter>
-                        <flux-pane-body>
+                        <FluxPaneBody>
                             Filter contents.
-                        </flux-pane-body>
+                        </FluxPaneBody>
                     </template>
 
                     <template #search>
-                        <flux-form-input
+                        <FluxFormInput
                             type="search"
                             icon-before="magnifying-glass"
                             placeholder="Search anything..."/>
                     </template>
 
                     <template #actions-before-search>
-                        <flux-secondary-button
+                        <FluxSecondaryButton
                             icon-before="arrow-down-to-line"
                             label="Download"/>
 
-                        <flux-separator axis="vertical"/>
+                        <FluxSeparator axis="vertical"/>
                     </template>
-                </flux-action-bar>
-                <flux-pane-body>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque neque nobis quasi recusandae reprehenderit. Ad amet, blanditiis, delectus dolorem dolorum error, esse expedita explicabo mollitia quam quia quisquam reiciendis temporibus?
-                </flux-pane-body>
-            </flux-pane>
-        </preview>
+                </FluxActionBar>
 
-        <api-section>
+                <FluxPaneBody>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque neque nobis quasi recusandae reprehenderit. Ad amet, blanditiis, delectus dolorem dolorum error, esse expedita explicabo mollitia quam quia quisquam reiciendis temporibus?
+                </FluxPaneBody>
+            </FluxPane>
+        </Preview>
+
+        <ApiSection>
             <p>
                 Action bars are toolbars that can be used along data tables. They can show a primary action, a search bar
                 and a filter button. Filters are commonly shown within a flyout that contains a window.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="Required icons">
-            <api-required-icons :icons="['filter']"/>
-        </api-section>
+        <ApiSection title="Required icons">
+            <ApiRequiredIcons :icons="['filter']"/>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="ActionBar">
+        <ApiSection title="API">
+            <ApiComponent name="ActionBar">
                 <template #props>
                     <tr>
                         <td><code>is-resettable</code><code>boolean</code></td>
@@ -102,14 +104,14 @@
                         <td>The filter flyout. The same slot api of the opener slot from Flyout is used.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxActionBar, FluxButtonGroup, FluxDestructiveButton, FluxFormInput, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSeparator, FluxStack, FluxTooltip } from '@fancee/flux';
-    import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
+    import { FluxActionBar, FluxFormInput, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSeparator, FluxStack } from '@fancee/flux';
+    import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

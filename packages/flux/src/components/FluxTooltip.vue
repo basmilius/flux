@@ -1,6 +1,6 @@
 <script lang="ts">
     import { defineComponent, getCurrentInstance, onMounted, onUnmounted, PropType, ref } from 'vue-demi';
-    import { useFluxStore } from '../data';
+    import { addTooltip, removeTooltip } from '@/data';
 
     export default defineComponent({
         props: {
@@ -9,8 +9,6 @@
         },
         setup(props, {slots}) {
             const instance = getCurrentInstance()!;
-
-            const {addTooltip, removeTooltip} = useFluxStore();
 
             const tooltipId = ref<number | null>(null);
 

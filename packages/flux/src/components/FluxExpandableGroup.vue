@@ -9,8 +9,8 @@
     setup>
     import type { ComponentInternalInstance } from 'vue-demi';
     import { provide } from 'vue-demi';
-    import { FluxExpandableGroupInjectionKey } from '../data';
-    import { setInstanceProperty } from '../utils';
+    import { FluxExpandableGroupInjectionKey } from '@/data';
+    import { setInstanceProperty } from '@/utils';
 
     export interface Props {
         readonly isControlled?: boolean;

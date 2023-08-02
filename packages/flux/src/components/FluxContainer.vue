@@ -7,7 +7,7 @@
 <script
     lang="ts"
     setup>
-    import { useBreakpoints } from '../composables';
+    import { useBreakpoints } from '@/composables';
 
     export interface Props {
         readonly gutter?: number;

@@ -1,13 +1,13 @@
 <template>
-    <flux-dashboard>
+    <FluxDashboard>
         <template #header>
-            <flux-dashboard-header title="Home">
+            <FluxDashboardHeader title="Home">
                 <template #end>
-                    <theme-toggle/>
+                    <ThemeToggle/>
 
-                    <flux-flyout :width="270">
+                    <FluxFlyout :width="270">
                         <template #opener="{open}">
-                            <flux-persona
+                            <FluxPersona
                                 avatar-alt="Bas"
                                 :avatar-size="42"
                                 avatar-url="https://imgproxy.glybe.nl/120,q75,jpg/1-b38d42e52f851f0ec94d118fad965277e3915b89da1012cef7e58674e3cf219a-img1386.jpeg"
@@ -17,202 +17,202 @@
                         </template>
 
                         <template #default="{close}">
-                            <flux-window>
+                            <FluxWindow>
                                 <template #default="{navigate}">
-                                    <flux-menu>
-                                        <flux-menu-group>
-                                            <flux-menu-item
+                                    <FluxMenu>
+                                        <FluxMenuGroup>
+                                            <FluxMenuItem
                                                 icon-before="user"
                                                 label="Profile"/>
-                                        </flux-menu-group>
+                                        </FluxMenuGroup>
 
-                                        <flux-separator/>
+                                        <FluxSeparator/>
 
-                                        <flux-menu-group>
-                                            <flux-menu-item
+                                        <FluxMenuGroup>
+                                            <FluxMenuItem
                                                 command-icon="angle-right"
                                                 icon-before="language"
                                                 label="Language"
                                                 @click="navigate('language')"/>
 
-                                            <flux-menu-item
+                                            <FluxMenuItem
                                                 command="Light"
                                                 command-icon="angle-right"
                                                 icon-before="eclipse"
                                                 label="Theme"
                                                 @click="navigate('theme')"/>
-                                        </flux-menu-group>
+                                        </FluxMenuGroup>
 
-                                        <flux-separator/>
+                                        <FluxSeparator/>
 
-                                        <flux-menu-group>
-                                            <flux-menu-item
+                                        <FluxMenuGroup>
+                                            <FluxMenuItem
                                                 icon-before="circle-question"
                                                 label="Need help?"/>
 
-                                            <flux-menu-item
+                                            <FluxMenuItem
                                                 icon-before="sparkles"
                                                 label="What's new"/>
-                                        </flux-menu-group>
+                                        </FluxMenuGroup>
 
-                                        <flux-separator/>
+                                        <FluxSeparator/>
 
-                                        <flux-menu-group>
-                                            <flux-menu-item
+                                        <FluxMenuGroup>
+                                            <FluxMenuItem
                                                 icon-before="arrow-right-from-line"
                                                 is-destructive
                                                 label="Sign off"/>
-                                        </flux-menu-group>
-                                    </flux-menu>
+                                        </FluxMenuGroup>
+                                    </FluxMenu>
                                 </template>
 
                                 <template #language="{back}">
-                                    <flux-menu>
-                                        <flux-menu-group>
-                                            <flux-menu-item
+                                    <FluxMenu>
+                                        <FluxMenuGroup>
+                                            <FluxMenuItem
                                                 icon-before="angle-left"
                                                 label="Back"
                                                 @click="back()"/>
-                                        </flux-menu-group>
+                                        </FluxMenuGroup>
 
-                                        <flux-separator/>
+                                        <FluxSeparator/>
 
-                                        <flux-menu-group>
-                                            <flux-menu-item
+                                        <FluxMenuGroup>
+                                            <FluxMenuItem
                                                 is-active
                                                 image-url="https://bmcdn.nl/assets/joypixels/v7.0/svg/1f1ec-1f1e7.svg"
                                                 label="English"
                                                 @click="back()"/>
 
-                                            <flux-menu-item
+                                            <FluxMenuItem
                                                 image-url="https://bmcdn.nl/assets/joypixels/v7.0/svg/1f1f3-1f1f1.svg"
                                                 label="Nederlands"
                                                 @click="back()"/>
 
-                                            <flux-menu-item
+                                            <FluxMenuItem
                                                 image-url="https://bmcdn.nl/assets/joypixels/v7.0/svg/1f1e9-1f1ea.svg"
                                                 label="Deutsch"
                                                 @click="back()"/>
-                                        </flux-menu-group>
-                                    </flux-menu>
+                                        </FluxMenuGroup>
+                                    </FluxMenu>
                                 </template>
 
                                 <template #theme="{back}">
-                                    <flux-menu>
-                                        <flux-menu-group>
-                                            <flux-menu-item
+                                    <FluxMenu>
+                                        <FluxMenuGroup>
+                                            <FluxMenuItem
                                                 icon-before="angle-left"
                                                 label="Back"
                                                 @click="back()"/>
-                                        </flux-menu-group>
+                                        </FluxMenuGroup>
 
-                                        <flux-separator/>
+                                        <FluxSeparator/>
 
-                                        <flux-menu-group>
-                                            <flux-menu-item
+                                        <FluxMenuGroup>
+                                            <FluxMenuItem
                                                 is-active
                                                 icon-before="sun-alt"
                                                 label="Light"
                                                 @click="back()"/>
 
-                                            <flux-menu-item
+                                            <FluxMenuItem
                                                 icon-before="moon"
                                                 label="Dark"
                                                 @click="back()"/>
-                                        </flux-menu-group>
-                                    </flux-menu>
+                                        </FluxMenuGroup>
+                                    </FluxMenu>
                                 </template>
-                            </flux-window>
+                            </FluxWindow>
                         </template>
-                    </flux-flyout>
+                    </FluxFlyout>
                 </template>
-            </flux-dashboard-header>
+            </FluxDashboardHeader>
         </template>
 
         <template #navigation>
-            <flux-dashboard-navigation
+            <FluxDashboardNavigation
                 application-name="Ticketing"
                 :logo-url="ticketingLogo">
                 <template #apps="{closeAppSwitcher}">
-                    <flux-menu is-large>
-                        <flux-menu-group>
-                            <flux-menu-item
+                    <FluxMenu is-large>
+                        <FluxMenuGroup>
+                            <FluxMenuItem
                                 :image-url="ticketingLogo"
                                 label="Ticketing"
                                 @click="closeAppSwitcher"/>
 
-                            <flux-menu-item
+                            <FluxMenuItem
                                 :image-url="insightsLogo"
                                 label="Insights"
                                 @click="closeAppSwitcher"/>
 
-                            <flux-menu-item
+                            <FluxMenuItem
                                 :image-url="publishingLogo"
                                 label="Publishing"
                                 @click="closeAppSwitcher"/>
-                        </flux-menu-group>
-                    </flux-menu>
+                        </FluxMenuGroup>
+                    </FluxMenu>
                 </template>
 
                 <template #footer>
                     &copy; <a href="#">WeAreFancee</a>
                 </template>
 
-                <flux-expandable-group>
-                    <flux-menu is-large>
-                        <flux-menu-group>
-                            <flux-menu-item
+                <FluxExpandableGroup>
+                    <FluxMenu is-large>
+                        <FluxMenuGroup>
+                            <FluxMenuItem
                                 icon-before="objects-column"
                                 is-active
                                 label="Home"/>
 
-                            <flux-menu-group>
-                                <flux-expandable>
+                            <FluxMenuGroup>
+                                <FluxExpandable>
                                     <template #header="{open}">
-                                        <flux-menu-item
+                                        <FluxMenuItem
                                             icon-before="circle"
                                             label="Events"
                                             @click="open"/>
                                     </template>
 
                                     <template #body>
-                                        <flux-menu-group>
-                                            <flux-menu-item
+                                        <FluxMenuGroup>
+                                            <FluxMenuItem
                                                 is-indented
                                                 label="Overview"/>
 
-                                            <flux-menu-item
+                                            <FluxMenuItem
                                                 is-indented
                                                 label="Tickets"/>
 
-                                            <flux-menu-item
+                                            <FluxMenuItem
                                                 is-indented
                                                 label="New event"/>
-                                        </flux-menu-group>
+                                        </FluxMenuGroup>
                                     </template>
-                                </flux-expandable>
-                            </flux-menu-group>
+                                </FluxExpandable>
+                            </FluxMenuGroup>
 
-                            <flux-menu-item
+                            <FluxMenuItem
                                 icon-before="circle"
                                 label="App-teams"/>
 
-                            <flux-menu-item
+                            <FluxMenuItem
                                 icon-before="circle"
                                 label="Finance"/>
 
-                            <flux-menu-item
+                            <FluxMenuItem
                                 icon-before="circle"
                                 label="Marketing"/>
-                        </flux-menu-group>
-                    </flux-menu>
-                </flux-expandable-group>
-            </flux-dashboard-navigation>
+                        </FluxMenuGroup>
+                    </FluxMenu>
+                </FluxExpandableGroup>
+            </FluxDashboardNavigation>
         </template>
 
-        <flux-stack :gap="21">
-            <flux-pane-deck :min-column-width="300">
-                <flux-statistic
+        <FluxStack :gap="21">
+            <FluxPaneDeck :min-column-width="300">
+                <FluxStatistic
                     change-color="success"
                     change-icon="arrow-trend-up"
                     change-value="75%"
@@ -221,44 +221,44 @@
                     label="Users"
                     value="1.000"/>
 
-                <flux-statistic
+                <FluxStatistic
                     color="primary"
                     icon="arrow-trend-up"
                     label="Users"
                     value="1.000"/>
 
-                <flux-statistic
+                <FluxStatistic
                     color="primary"
                     icon="arrow-trend-up"
                     label="Users"
                     value="1.000"/>
 
-                <flux-statistic
+                <FluxStatistic
                     color="primary"
                     icon="arrow-trend-up"
                     label="Users"
                     value="1.000"/>
-            </flux-pane-deck>
+            </FluxPaneDeck>
 
-            <flux-auto-grid
+            <FluxAutoGrid
                 :gap="21"
                 :min-column-width="360">
-                <flux-pane v-for="_ in 8">
-                    <flux-pane-body>
+                <FluxPane v-for="_ in 8">
+                    <FluxPaneBody>
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid cum delectus earum eum hic minus repudiandae. Cum est id laborum maxime, nemo numquam quis! Debitis omnis ratione velit voluptas?
-                    </flux-pane-body>
-                </flux-pane>
-            </flux-auto-grid>
-        </flux-stack>
-    </flux-dashboard>
+                    </FluxPaneBody>
+                </FluxPane>
+            </FluxAutoGrid>
+        </FluxStack>
+    </FluxDashboard>
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxAutoGrid, FluxDashboard, FluxDashboardHeader, FluxDashboardNavigation, FluxExpandable, FluxExpandableGroup, FluxFlyout, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxPaneBody, FluxPaneDeck, FluxPersona, FluxSeparator, FluxStack, FluxStatistic, FluxWindow } from '@fancee/flux';
-    import { ThemeToggle } from '@/components';
-    import insightsLogo from '@/images/logo-insights.svg?url';
-    import publishingLogo from '@/images/logo-publishing.svg?url';
-    import ticketingLogo from '@/images/logo-ticketing.svg?url';
+    import { ThemeToggle } from '@docs/components';
+    import insightsLogo from '@docs/images/logo-insights.svg?url';
+    import publishingLogo from '@docs/images/logo-publishing.svg?url';
+    import ticketingLogo from '@docs/images/logo-ticketing.svg?url';
 </script>

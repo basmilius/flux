@@ -1,10 +1,10 @@
 <template>
-    <transition-group
+    <TransitionGroup
         name="flux-snackbars"
         tag="div"
         class="flux-snackbars"
         id="flux-snackbars">
-        <flux-snackbar
+        <FluxSnackbar
             v-for="snackbar of snackbars"
             :key="snackbar.id"
             :actions="snackbar.actions"
@@ -16,20 +16,22 @@
             :sub-message="snackbar.subMessage"
             :title="snackbar.title"
             is-rendered
-            @action="actionKey => snackbar.onAction?.(actionKey)"
+            @action="onAction(snackbar)"
             @close="() => snackbar.onClose?.()"/>
-    </transition-group>
+    </TransitionGroup>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { storeToRefs } from 'pinia';
-    import { useFluxStore } from '../data';
-    import { FluxSnackbar } from '.';
+    import { FluxSnackbarSpec, useFluxStore } from '@/data';
+    import FluxSnackbar from './FluxSnackbar.vue';
 
-    const fluxStore = useFluxStore();
-    const {snackbars} = storeToRefs(fluxStore);
+    const {snackbars} = useFluxStore();
+
+    function onAction(snackbar: FluxSnackbarSpec): (actionKey: string) => void {
+        return actionKey => snackbar.onAction?.(actionKey);
+    }
 </script>
 
 <style lang="scss">
@@ -40,7 +42,7 @@
         display: flex;
         flex-flow: column;
         gap: 15px;
-        z-index: 10000;
+        z-index: 100000;
 
         @include flux.breakpoint-down(md) {
             left: 15px;

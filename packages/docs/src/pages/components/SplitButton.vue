@@ -1,58 +1,58 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Split button"/>
 
-        <preview>
-            <flux-split-button>
+        <Preview>
+            <FluxSplitButton>
                 <template #button>
-                    <flux-secondary-button label="Download"/>
+                    <FluxSecondaryButton label="Download"/>
                 </template>
 
                 <template #flyout="{close}">
-                    <flux-menu>
-                        <flux-menu-group>
-                            <flux-menu-item
+                    <FluxMenu>
+                        <FluxMenuGroup>
+                            <FluxMenuItem
                                 icon-before="scissors"
                                 label="Cut"
                                 @click="close"/>
-                            <flux-menu-item
+                            <FluxMenuItem
                                 icon-before="clone"
                                 label="Copy"
                                 @click="close"/>
-                            <flux-menu-item
+                            <FluxMenuItem
                                 icon-before="paste"
                                 label="Paste"
                                 @click="close"/>
-                        </flux-menu-group>
+                        </FluxMenuGroup>
 
-                        <flux-separator/>
+                        <FluxSeparator/>
 
-                        <flux-menu-group>
-                            <flux-menu-item
+                        <FluxMenuGroup>
+                            <FluxMenuItem
                                 icon-before="gear"
                                 label="Preferences"
                                 @click="close"/>
-                        </flux-menu-group>
-                    </flux-menu>
+                        </FluxMenuGroup>
+                    </FluxMenu>
                 </template>
-            </flux-split-button>
-        </preview>
+            </FluxSplitButton>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 Split buttons are buttons that have one primary action and multiple secondary actions. A common
                 usecase for this component is a download button with more options for that download.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="Required icons">
-            <api-required-icons :icons="['ellipsis-h']"/>
-        </api-section>
+        <ApiSection title="Required icons">
+            <ApiRequiredIcons :icons="['ellipsis-h']"/>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="SplitButton">
+        <ApiSection title="API">
+            <ApiComponent name="SplitButton">
                 <template #props>
                     <tr>
                         <td><code>button-icon</code><code>IconNames</code></td>
@@ -75,24 +75,24 @@
                         <td>Width of the flyout.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
+            </ApiComponent>
+        </ApiSection>
 
-        <api-section title="Examples">
-            <api-example
+        <ApiSection title="Examples">
+            <ApiExample
                 :code="basicCode"
                 :component="basic"
                 title="Basic"
                 description="A basic example of a split button."/>
-        </api-section>
-    </flux-stack>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSecondaryButton, FluxSeparator, FluxSplitButton, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
-    import basic from '@/code/components/splitButton/basic.vue';
-    import basicCode from '@/code/components/splitButton/basic.vue?raw';
+    import { ApiComponent, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
+    import basic from '@docs/code/components/splitButton/basic.vue';
+    import basicCode from '@docs/code/components/splitButton/basic.vue?raw';
 </script>

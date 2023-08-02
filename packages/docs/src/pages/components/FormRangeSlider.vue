@@ -1,22 +1,22 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Form range slider"/>
 
-        <preview>
-            <flux-pane style="width: 60%">
-                <flux-pane-body>
-                    <flux-form-range-slider
+        <Preview>
+            <FluxPane style="width: 60%">
+                <FluxPaneBody>
+                    <FluxFormRangeSlider
                         v-model="sliderValue"
                         is-ticks-visible
                         :min="0"
                         :max="100"/>
-                </flux-pane-body>
-            </flux-pane>
-        </preview>
+                </FluxPaneBody>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 A range slider is a user interface component that allows users to select two values within a
                 predefined range. It is similar to a single-value slider, but instead of selecting a single
@@ -24,10 +24,10 @@
                 two endpoints of the slider represent the minimum and maximum values of the range, and the user
                 can adjust the position of each endpoint to select the desired range.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="FormRangeSlider">
+        <ApiSection title="API">
+            <ApiComponent name="FormRangeSlider">
                 <template #props>
                     <tr>
                         <td><code>model-value</code><code>[number, number]</code></td>
@@ -65,29 +65,29 @@
                         <td>Triggered when the value changes.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
+            </ApiComponent>
+        </ApiSection>
 
-        <api-section title="Examples">
-            <api-example
+        <ApiSection title="Examples">
+            <ApiExample
                 :code="basicCode"
                 :component="basic"
                 title="Basic"
                 description="A simple slider where the user can select a value between 0 and 100."/>
 
-            <api-example
+            <ApiExample
                 :code="ticksCode"
                 :component="ticks"
                 title="Ticks"
                 description="Sliders can show their ticks, the slider chooses this automatically."/>
 
-            <api-example
+            <ApiExample
                 :code="formatterCode"
                 :component="formatter"
                 title="Custom formatter"
                 description="The value that is shown in the tooltip is formatted according to the user's browser preferences. You may override this behavior."/>
-        </api-section>
-    </flux-stack>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script
@@ -95,13 +95,13 @@
     setup>
     import { FluxFormRangeSlider, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
     import { ref } from 'vue';
-    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
-    import basic from '@/code/components/formRangeSlider/basic.vue';
-    import basicCode from '@/code/components/formRangeSlider/basic.vue?raw';
-    import formatter from '@/code/components/formRangeSlider/formatter.vue';
-    import formatterCode from '@/code/components/formRangeSlider/formatter.vue?raw';
-    import ticks from '@/code/components/formRangeSlider/ticks.vue';
-    import ticksCode from '@/code/components/formRangeSlider/ticks.vue?raw';
+    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
+    import basic from '@docs/code/components/formRangeSlider/basic.vue';
+    import basicCode from '@docs/code/components/formRangeSlider/basic.vue?raw';
+    import formatter from '@docs/code/components/formRangeSlider/formatter.vue';
+    import formatterCode from '@docs/code/components/formRangeSlider/formatter.vue?raw';
+    import ticks from '@docs/code/components/formRangeSlider/ticks.vue';
+    import ticksCode from '@docs/code/components/formRangeSlider/ticks.vue?raw';
 
     const sliderValue = ref([25, 75]);
 </script>

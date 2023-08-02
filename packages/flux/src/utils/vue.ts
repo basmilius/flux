@@ -2,6 +2,12 @@ import type { Component, Ref, UnwrapRef, VNode } from 'vue-demi';
 import { h, unref } from 'vue-demi';
 import { hyphenateTag } from './dom';
 
+export function assertRefNotNull<T>(ref: Ref<T>): asserts ref is Ref<NonNullable<T>> {
+    if (!ref.value) {
+        throw new Error('[Flux] Ref value is null.');
+    }
+}
+
 export function flattenVNodeTree(vnodes: VNode[]): VNode[] {
     const flattened: VNode[] = [];
 
@@ -18,7 +24,7 @@ export function flattenVNodeTree(vnodes: VNode[]): VNode[] {
     return flattened;
 }
 
-export function getNormalizedComponentName(component: any): string {
+export function getNormalizedComponentName(component: any | Vue2Component): string {
     let name = 'flux-unknown';
 
     if (component.type && component.type.__name) {
@@ -113,7 +119,7 @@ interface RenderSpec<P> {
     readonly attrs?: Record<string, unknown>;
     readonly children?: RawChildren;
     readonly on?: Record<string, Function>;
-    readonly props?: P;
+    readonly props?: Partial<P>;
     readonly slots?: RawSlots;
 }
 
@@ -127,3 +133,10 @@ type UnrefObject<T> = {
 
 type RawChildren = string | number | boolean | VNode | VNode[] | (() => any);
 type RawSlots = { [name: string]: unknown; };
+
+interface Vue2Component {
+    readonly componentOptions: {
+        readonly propsData?: object;
+        readonly tag?: string;
+    }
+}

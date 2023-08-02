@@ -3,15 +3,15 @@
         v-if="isRendered"
         class="flux-surface flux-snackbar"
         :class="{
-            [`flux-snackbar-${color}`]: !!color
+            [`is-${color}`]: !!color
         }">
         <div class="flux-snackbar-content">
-            <flux-spinner
+            <FluxSpinner
                 v-if="isLoading"
                 class="flux-snackbar-spinner"
                 :size="18"/>
 
-            <flux-icon
+            <FluxIcon
                 v-else-if="icon"
                 class="flux-snackbar-icon"
                 :size="18"
@@ -51,7 +51,7 @@
             </button>
         </div>
 
-        <flux-action
+        <FluxAction
             v-if="isCloseable"
             icon="xmark"
             @click="onClose()"/>
@@ -61,11 +61,13 @@
 <script
     lang="ts"
     setup>
-    import type { FluxSnackbarSpec, IconNames } from '../data';
-    import { useFluxStore } from '../data';
-    import { unrefObject } from '../utils';
+    import type { FluxSnackbarSpec, IconNames } from '@/data';
+    import { addSnackbar, removeSnackbar, updateSnackbar } from '@/data';
     import { computed, onBeforeUnmount, ref, toRefs, watch } from 'vue-demi';
-    import { FluxAction, FluxIcon, FluxSpinner } from '.';
+    import { unrefObject } from '@/utils';
+    import FluxAction from './FluxAction.vue';
+    import FluxIcon from './FluxIcon.vue';
+    import FluxSpinner from './FluxSpinner.vue';
 
     export interface Emits {
         (e: 'action', actionKey: string): void;
@@ -88,8 +90,6 @@
     const emit = defineEmits<Emits>();
     const props = defineProps<Props>();
     const propRefs = toRefs(props);
-
-    const {addSnackbar, removeSnackbar, updateSnackbar} = useFluxStore();
 
     const id = ref<number | null>(null);
 
@@ -225,39 +225,39 @@
             color: var(--snackbar-title);
         }
 
-        &-danger {
+        &.is-danger {
             --snackbar-title: rgb(var(--danger-7));
             --spinner-value: rgb(var(--danger-8));
         }
 
-        &-info {
+        &.is-info {
             --snackbar-title: rgb(var(--info-7));
             --spinner-value: rgb(var(--info-8));
         }
 
-        &-primary {
+        &.is-primary {
             --snackbar-title: rgb(var(--primary-7));
             --spinner-value: rgb(var(--primary-8));
         }
 
-        &-success {
+        &.is-success {
             --snackbar-title: rgb(var(--success-7));
             --spinner-value: rgb(var(--success-8));
         }
 
-        &-warning {
+        &.is-warning {
             --snackbar-title: rgb(var(--warning-7));
             --spinner-value: rgb(var(--warning-8));
         }
 
-        .flux-table-action {
+        .flux-action {
             --button-background-active: rgb(0 0 0 / .1);
             --button-background-hover: rgb(0 0 0 / .1);
             --button-icon: var(--foreground-secondary);
 
-            margin-top: -3px;
-            margin-right: -6px;
-            margin-bottom: -3px;
+            margin-top: 12px;
+            margin-right: 12px;
+            margin-bottom: 12px;
         }
     }
 </style>

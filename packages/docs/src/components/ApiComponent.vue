@@ -1,17 +1,17 @@
 <template>
-    <flux-pane
+    <FluxPane
         v-height-transition
         class="api-component flux-typography-aware">
-        <flux-tabs :model-value="slots.props ? 0 : (slots.emits ? 1 : 2)">
+        <FluxTabs :model-value="slots.props ? 0 : (slots.emits ? 1 : 2)">
             <template #tabs="{activeIndex, children, tabs, activate}">
-                <flux-pane-header
+                <FluxPaneHeader
                     class="api-component-header"
                     :title="name">
-                    <flux-tab-bar class="api-component-tabs">
+                    <FluxTabBar class="api-component-tabs">
                         <template
                             v-for="(tab, index) of tabs"
                             :key="index">
-                            <flux-tab-bar-item
+                            <FluxTabBarItem
                                 v-if="tab.label"
                                 :icon="tab.icon"
                                 :is-active="activeIndex === index"
@@ -19,12 +19,12 @@
                                 tabindex="-1"
                                 @click="activate(index)"/>
                         </template>
-                    </flux-tab-bar>
-                </flux-pane-header>
+                    </FluxTabBar>
+                </FluxPaneHeader>
             </template>
 
             <template v-if="slots.props">
-                <flux-tab
+                <FluxTab
                     icon="wrench"
                     label="Props">
                     <table class="api-table">
@@ -40,11 +40,11 @@
                         <slot name="props"/>
                         </tbody>
                     </table>
-                </flux-tab>
+                </FluxTab>
             </template>
 
             <template v-if="slots.emits">
-                <flux-tab
+                <FluxTab
                     icon="bolt"
                     label="Emits">
                     <table class="api-table">
@@ -60,11 +60,11 @@
                         <slot name="emits"/>
                         </tbody>
                     </table>
-                </flux-tab>
+                </FluxTab>
             </template>
 
             <template v-if="slots.slots">
-                <flux-tab
+                <FluxTab
                     icon="draw-square"
                     label="Slots">
                     <table class="api-table">
@@ -80,10 +80,10 @@
                         <slot name="slots"/>
                         </tbody>
                     </table>
-                </flux-tab>
+                </FluxTab>
             </template>
-        </flux-tabs>
-    </flux-pane>
+        </FluxTabs>
+    </FluxPane>
 </template>
 
 <script

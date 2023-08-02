@@ -17,9 +17,8 @@ h3 {
     }
 }
 
-.column-example {
+%-space {
     display: flex;
-    height: 78px;
     align-items: center;
     justify-content: center;
     background: rgb(var(--gray-2));
@@ -27,11 +26,25 @@ h3 {
     border-radius: var(--radius);
 
     &::before {
-        content: 'Column';
+        content: '';
         color: rgb(var(--gray-6));
         font-size: 12px;
         font-weight: 600;
         letter-spacing: 2px;
         text-transform: uppercase;
     }
+}
+
+.column-example {
+    @extend %-space;
+
+    height: 78px;
+
+    &::before {
+        content: 'Column';
+    }
+}
+
+.spacing-example {
+    @extend %-space;
 }

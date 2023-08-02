@@ -1,32 +1,32 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Form date picker"/>
 
-        <preview>
-            <flux-pane style="width: 360px">
-                <flux-pane-body>
-                    <flux-form-date-input v-model="date"/>
-                </flux-pane-body>
-            </flux-pane>
-        </preview>
+        <Preview>
+            <FluxPane style="width: 360px">
+                <FluxPaneBody>
+                    <FluxFormDateInput v-model="date"/>
+                </FluxPaneBody>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 A date picker input is a common feature in forms that allows users to select a specific date,
                 and optionally a time, from a calendar. By using this component, users can conveniently and
                 accurately choose the desired date and time without leaving the form, enhancing their
                 overall experience.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="Required icons">
-            <api-required-icons :icons="['angle-left', 'angle-right', 'calendar']"/>
-        </api-section>
+        <ApiSection title="Required icons">
+            <ApiRequiredIcons :icons="['angle-left', 'angle-right', 'calendar']"/>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-components>
+        <ApiSection title="API">
+            <ApiComponents>
                 <tr>
                     <td><code>FluxFormDateInput</code></td>
                     <td>Allows the user to select a single date.</td>
@@ -39,9 +39,9 @@
                     <td><code>FluxFormDateTimeInput</code></td>
                     <td>Allows the user to select a date and time.</td>
                 </tr>
-            </api-components>
+            </ApiComponents>
 
-            <api-component name="FormDateInput">
+            <ApiComponent name="FormDateInput">
                 <template #props>
                     <tr>
                         <td><code>model-value</code><code>DateTime | null</code></td>
@@ -91,9 +91,9 @@
                         <td>Triggered when the input gains focus.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="FormDateRangeInput">
+            <ApiComponent name="FormDateRangeInput">
                 <template #props>
                     <tr>
                         <td><code>model-value</code><code>DateTime | null</code></td>
@@ -147,9 +147,9 @@
                         <td>Triggered when the input gains focus.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="FormDateTimeInput">
+            <ApiComponent name="FormDateTimeInput">
                 <template #props>
                     <tr>
                         <td><code>model-value</code><code>DateTime | null</code></td>
@@ -199,44 +199,44 @@
                         <td>Triggered when the input gains focus.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
+            </ApiComponent>
+        </ApiSection>
 
-        <api-section title="Examples">
-            <api-example
+        <ApiSection title="Examples">
+            <ApiExample
                 :code="singleCode"
                 :component="single"
                 title="Single date"
                 description="Used to allow the user to select a single date."/>
 
-            <api-example
+            <ApiExample
                 :code="dateRangeCode"
                 :component="dateRange"
                 title="Date range"
                 description="Used to allow the user to select a date range."/>
 
-            <api-example
+            <ApiExample
                 :code="dateTimeCode"
                 :component="dateTime"
                 title="Date time"
                 description="Used to allow the user to select a date and time."/>
-        </api-section>
-    </flux-stack>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxFormDateInput, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
     import { DateTime } from 'luxon';
     import { ref } from 'vue';
-    import dateRange from '@/code/components/formDatePicker/dateRange.vue';
-    import dateRangeCode from '@/code/components/formDatePicker/dateRange.vue?raw';
-    import dateTime from '@/code/components/formDatePicker/dateTime.vue';
-    import dateTimeCode from '@/code/components/formDatePicker/dateTime.vue?raw';
-    import single from '@/code/components/formDatePicker/singleDate.vue';
-    import singleCode from '@/code/components/formDatePicker/singleDate.vue?raw';
+    import dateRange from '@docs/code/components/formDatePicker/dateRange.vue';
+    import dateRangeCode from '@docs/code/components/formDatePicker/dateRange.vue?raw';
+    import dateTime from '@docs/code/components/formDatePicker/dateTime.vue';
+    import dateTimeCode from '@docs/code/components/formDatePicker/dateTime.vue?raw';
+    import single from '@docs/code/components/formDatePicker/singleDate.vue';
+    import singleCode from '@docs/code/components/formDatePicker/singleDate.vue?raw';
 
     const date = ref(DateTime.now());
 </script>

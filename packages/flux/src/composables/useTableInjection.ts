@@ -1,5 +1,5 @@
 import { inject, ref } from 'vue-demi';
-import { FluxTableInjection, FluxTableInjectionKey } from '../data';
+import { FluxTableInjection, FluxTableInjectionKey } from '@/data';
 
 export function useTableInjection(): FluxTableInjection {
     return inject(FluxTableInjectionKey, {

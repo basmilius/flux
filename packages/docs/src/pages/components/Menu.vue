@@ -1,44 +1,44 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Menu"/>
 
-        <preview>
-            <flux-pane style="width: 210px">
-                <flux-menu>
-                    <flux-menu-group>
-                        <flux-menu-item
+        <Preview>
+            <FluxPane style="width: 210px">
+                <FluxMenu>
+                    <FluxMenuGroup>
+                        <FluxMenuItem
                             icon-before="scissors"
                             label="Cut"/>
-                        <flux-menu-item
+                        <FluxMenuItem
                             icon-before="clone"
                             label="Copy"/>
-                        <flux-menu-item
+                        <FluxMenuItem
                             icon-before="paste"
                             label="Paste"/>
-                    </flux-menu-group>
+                    </FluxMenuGroup>
 
-                    <flux-separator/>
+                    <FluxSeparator/>
 
-                    <flux-menu-group>
-                        <flux-menu-item
+                    <FluxMenuGroup>
+                        <FluxMenuItem
                             icon-before="gear"
                             label="Preferences"/>
-                    </flux-menu-group>
-                </flux-menu>
-            </flux-pane>
-        </preview>
+                    </FluxMenuGroup>
+                </FluxMenu>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 The menu component is used for side navigation and in flyouts. It displays the children vertically and
                 gives them a gap. Menus provide more options for a set context.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-components>
+        <ApiSection title="API">
+            <ApiComponents>
                 <tr>
                     <td><code>FluxMenu</code></td>
                     <td>The base of the menu. When the menu retrieves focus, it traps it.</td>
@@ -55,9 +55,9 @@
                     <td><code>FluxMenuSubHeader</code></td>
                     <td>A title that can be used within a group.</td>
                 </tr>
-            </api-components>
+            </ApiComponents>
 
-            <api-component name="Menu">
+            <ApiComponent name="Menu">
                 <template #props>
                     <tr>
                         <td><code>is-large</code><code>boolean</code></td>
@@ -71,9 +71,9 @@
                         <td>The contents of the menu.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="MenuGroup">
+            <ApiComponent name="MenuGroup">
                 <template #props>
                     <tr>
                         <td><code>is-horizontal</code><code>boolean</code></td>
@@ -87,9 +87,9 @@
                         <td>The contents of the menu group.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="MenuItem">
+            <ApiComponent name="MenuItem">
                 <template #props>
                     <tr>
                         <td><code>command</code><code>string</code></td>
@@ -171,9 +171,9 @@
                         <td>Triggered when the menu item is clicked.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="MenuSubHeader">
+            <ApiComponent name="MenuSubHeader">
                 <template #props>
                     <tr>
                         <td><code>icon-after</code><code>IconNames</code></td>
@@ -188,56 +188,56 @@
                         <td>The label displayed within the menu item.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
+            </ApiComponent>
+        </ApiSection>
 
-        <api-section title="Examples">
-            <api-example
+        <ApiSection title="Examples">
+            <ApiExample
                 :code="basicCode"
                 :component="basic"
                 title="Basic"
                 description="A basic menu that consists of a few items."/>
 
-            <api-example
+            <ApiExample
                 :code="groupCode"
                 :component="group"
                 title="Group"
                 description="Menus can have groups, to group similar items together."/>
 
-            <api-example
+            <ApiExample
                 :code="paneCode"
                 :component="pane"
                 title="Pane"
                 description="Panes have first class support for menus inside them. Place a menu directly inside a Pane to create a nice side menu for example."/>
 
-            <api-example
+            <ApiExample
                 :code="subHeaderCode"
                 :component="subHeader"
                 title="Sub header"
                 description="Menu groups can have a sub header. A sub header can be used to categorize the underlying menu items and improve readability."/>
 
-            <api-example
+            <ApiExample
                 :code="largeCode"
                 :component="large"
                 title="Larger menus"
                 description="These types of menus can be used within dashboard sidebars. They're a bit larger than other menus and may contain indented sub items."/>
-        </api-section>
-    </flux-stack>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxSeparator, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
-    import basic from '@/code/components/menu/basic.vue';
-    import basicCode from '@/code/components/menu/basic.vue?raw';
-    import group from '@/code/components/menu/group.vue';
-    import groupCode from '@/code/components/menu/group.vue?raw';
-    import large from '@/code/components/menu/large.vue';
-    import largeCode from '@/code/components/menu/large.vue?raw';
-    import pane from '@/code/components/menu/pane.vue';
-    import paneCode from '@/code/components/menu/pane.vue?raw';
-    import subHeader from '@/code/components/menu/subHeader.vue';
-    import subHeaderCode from '@/code/components/menu/subHeader.vue?raw';
+    import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
+    import basic from '@docs/code/components/menu/basic.vue';
+    import basicCode from '@docs/code/components/menu/basic.vue?raw';
+    import group from '@docs/code/components/menu/group.vue';
+    import groupCode from '@docs/code/components/menu/group.vue?raw';
+    import large from '@docs/code/components/menu/large.vue';
+    import largeCode from '@docs/code/components/menu/large.vue?raw';
+    import pane from '@docs/code/components/menu/pane.vue';
+    import paneCode from '@docs/code/components/menu/pane.vue?raw';
+    import subHeader from '@docs/code/components/menu/subHeader.vue';
+    import subHeaderCode from '@docs/code/components/menu/subHeader.vue?raw';
 </script>

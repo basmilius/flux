@@ -1,21 +1,21 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Layout"
             title="Container"/>
 
-        <preview>
-            <flux-pane style="height: 108px; width: 75%;"/>
-        </preview>
+        <Preview>
+            <FluxPane style="height: 108px; width: 75%;"/>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 The primary container which dynamically changes widths based on the viewport.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="Container">
+        <ApiSection title="API">
+            <ApiComponent name="Container">
                 <template #props>
                     <tr>
                         <td><code>gutter</code><code>number</code></td>
@@ -29,14 +29,14 @@
                         <td>The contents of the container.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxPane, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

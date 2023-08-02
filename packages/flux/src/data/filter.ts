@@ -1,6 +1,6 @@
 import type { DateTime } from 'luxon';
-import type { FluxTranslator } from '../composables';
-import type { IconNames } from '.';
+import type { FluxTranslator } from '@/composables';
+import type { IconNames } from './types';
 
 export interface FluxFilterBase {
     readonly icon?: IconNames;
@@ -31,9 +31,21 @@ export type FluxFilterItem = FluxFilterDateEntry
     | FluxFilterOptionEntry
     | FluxFilterOptionsEntry;
 
+export interface FluxFilterOptionHeader {
+    readonly title: string;
+}
+
 export interface FluxFilterOptionItem {
     readonly label: string;
     readonly value: FluxFilterValue;
 }
 
 export type FluxFilterValue = DateTime | string | boolean | number | FluxFilterValue[];
+
+export function isFluxFilterOptionHeader(obj: object): obj is FluxFilterOptionHeader {
+    return 'title' in obj;
+}
+
+export function isFluxFilterOptionItem(obj: object): obj is FluxFilterOptionItem {
+    return 'label' in obj && 'value' in obj;
+}

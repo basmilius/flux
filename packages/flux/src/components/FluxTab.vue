@@ -7,7 +7,7 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '../data';
+    import type { IconNames } from '@/data';
 
     export interface Props {
         readonly icon?: IconNames;

@@ -1,10 +1,10 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Root"/>
 
-        <api-section>
+        <ApiSection>
             <p>
                 Some functionality of Flux require a root element where other elements can be injected into. This component
                 should be used as the main component of your application.
@@ -13,24 +13,24 @@
             <p>
                 Alerts and confirms are rendered here for example.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="Root">
+        <ApiSection title="API">
+            <ApiComponent name="Root">
                 <template #slots>
                     <tr>
                         <td><code>default</code><code>{}</code></td>
                         <td>The contents of the application.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiSection, PageTitle } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle } from '@docs/components';
 </script>

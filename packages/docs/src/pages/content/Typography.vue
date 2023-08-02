@@ -1,10 +1,10 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Content"
             title="Typography"/>
 
-        <api-section>
+        <ApiSection>
             <p>
                 Typography is a critical element of any user interface, and in Flux, we understand the importance of creating
                 clear, consistent, and visually appealing typography in our components. This documentation provides you with
@@ -12,45 +12,45 @@
                 By the end of this documentation, you'll have a solid understanding of typography in Flux and be able to
                 create beautiful and readable text throughout your Vue application. So let's dive in!
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section>
-            <api-example
+        <ApiSection>
+            <ApiExample
                 :code="headingsCode"
                 title="Headings"
                 title-tag="h2"/>
 
-            <api-example
+            <ApiExample
                 :code="paragraphsCode"
                 title="Paragraph"
                 title-tag="h2"/>
 
-            <api-example
+            <ApiExample
                 :code="listsCode"
                 title="Lists"
                 title-tag="h2"/>
 
-            <api-example
+            <ApiExample
                 :code="imageCode"
                 title="Image"
                 title-tag="h2"/>
 
-            <api-example
+            <ApiExample
                 :code="blockquoteCode"
                 title="Blockquote"
                 title-tag="h2"/>
-        </api-section>
-    </flux-stack>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxStack } from '@fancee/flux';
-    import { ApiExample, ApiSection, PageTitle } from '@/components';
-    import blockquoteCode from '@/code/content/typography/blockquote.html?raw';
-    import headingsCode from '@/code/content/typography/headings.html?raw';
-    import imageCode from '@/code/content/typography/image.html?raw';
-    import listsCode from '@/code/content/typography/lists.html?raw';
-    import paragraphsCode from '@/code/content/typography/paragraphs.html?raw';
+    import { ApiExample, ApiSection, PageTitle } from '@docs/components';
+    import blockquoteCode from '@docs/code/content/typography/blockquote.html?raw';
+    import headingsCode from '@docs/code/content/typography/headings.html?raw';
+    import imageCode from '@docs/code/content/typography/image.html?raw';
+    import listsCode from '@docs/code/content/typography/lists.html?raw';
+    import paragraphsCode from '@docs/code/content/typography/paragraphs.html?raw';
 </script>

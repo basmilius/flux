@@ -1,75 +1,75 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Tabs"/>
 
-        <preview>
-            <flux-stack style="width: 60%">
-                <flux-pane>
-                    <flux-pane-header
+        <Preview>
+            <FluxStack style="width: 60%">
+                <FluxPane>
+                    <FluxPaneHeader
                         icon="folder"
                         title="Tabs"/>
 
-                    <flux-pane-body>
-                        <flux-tabs>
-                            <flux-tab label="Common">
+                    <FluxPaneBody>
+                        <FluxTabs>
+                            <FluxTab label="Common">
                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aliquid aperiam earum facilis fugiat in, itaque laboriosam, libero molestias nulla, pariatur qui quod sequi sint totam? Fuga ipsum placeat unde.
-                            </flux-tab>
+                            </FluxTab>
 
-                            <flux-tab label="Advanced">
+                            <FluxTab label="Advanced">
                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consequatur dolorem dolorum ducimus enim, fuga, hic illo labore libero, magnam minima odio pariatur porro quasi quidem quis repellat reprehenderit vero?
-                            </flux-tab>
-                        </flux-tabs>
-                    </flux-pane-body>
-                </flux-pane>
+                            </FluxTab>
+                        </FluxTabs>
+                    </FluxPaneBody>
+                </FluxPane>
 
-                <flux-pane>
-                    <flux-pane-header
+                <FluxPane>
+                    <FluxPaneHeader
                         icon="folder"
                         title="Tabs"/>
 
-                    <flux-tabs>
+                    <FluxTabs>
                         <template #tabs="{activeIndex, tabs, activate}">
-                            <flux-tab-bar>
+                            <FluxTabBar>
                                 <template
                                     v-for="(tab, index) of tabs"
                                     :key="index">
-                                    <flux-tab-bar-item
+                                    <FluxTabBarItem
                                         :icon="tab.icon"
                                         :is-active="activeIndex === index"
                                         :label="tab.label"
                                         @click="activate(index)"/>
                                 </template>
-                            </flux-tab-bar>
+                            </FluxTabBar>
                         </template>
 
-                        <flux-tab label="Common">
-                            <flux-pane-body>
+                        <FluxTab label="Common">
+                            <FluxPaneBody>
                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aliquid aperiam earum facilis fugiat in, itaque laboriosam, libero molestias nulla, pariatur qui quod sequi sint totam? Fuga ipsum placeat unde.
-                            </flux-pane-body>
-                        </flux-tab>
+                            </FluxPaneBody>
+                        </FluxTab>
 
-                        <flux-tab label="Advanced">
-                            <flux-pane-body>
+                        <FluxTab label="Advanced">
+                            <FluxPaneBody>
                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consequatur dolorem dolorum ducimus enim, fuga, hic illo labore libero, magnam minima odio pariatur porro quasi quidem quis repellat reprehenderit vero?
-                            </flux-pane-body>
-                        </flux-tab>
-                    </flux-tabs>
-                </flux-pane>
-            </flux-stack>
-        </preview>
+                            </FluxPaneBody>
+                        </FluxTab>
+                    </FluxTabs>
+                </FluxPane>
+            </FluxStack>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 Tabs are a user interface element used for organizing and navigating content within an application. It
                 consists of clickable tabs that correspond to different content areas, and a content area that displays
                 relevant content based on the selected tab.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-components>
+        <ApiSection title="API">
+            <ApiComponents>
                 <tr>
                     <td><code>FluxTabs</code></td>
                     <td>This component does all the "tab"-work for you. It may contain multiple FluxTab components. The component will render a FluxTabBar for you.</td>
@@ -86,9 +86,9 @@
                     <td><code>FluxTabBarItem</code></td>
                     <td>A single tab within a FluxTabBar.</td>
                 </tr>
-            </api-components>
+            </ApiComponents>
 
-            <api-component name="Tabs">
+            <ApiComponent name="Tabs">
                 <template #props>
                     <tr>
                         <td><code>model-value</code><code>number</code></td>
@@ -117,9 +117,9 @@
                         <td>Where the tabbar is rendered.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="Tab">
+            <ApiComponent name="Tab">
                 <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
@@ -137,18 +137,18 @@
                         <td>The contents of the tab.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="TabBar">
+            <ApiComponent name="TabBar">
                 <template #slots>
                     <tr>
                         <td><code>default</code><code>{}</code></td>
                         <td>The contents of the tabbar.</td>
                     </tr>
                 </template>
-            </api-component>
+            </ApiComponent>
 
-            <api-component name="TabBarItem">
+            <ApiComponent name="TabBarItem">
                 <template #props>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
@@ -170,14 +170,14 @@
                         <td>Triggered when the tab is clicked.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxPane, FluxPaneBody, FluxPaneHeader, FluxStack, FluxTab, FluxTabBar, FluxTabBarItem, FluxTabs } from '@fancee/flux';
-    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

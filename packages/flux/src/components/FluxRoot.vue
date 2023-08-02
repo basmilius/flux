@@ -4,35 +4,45 @@
             <slot/>
         </div>
 
-        <flux-overlay>
-            <flux-alert
+        <FluxOverlay size="medium">
+            <FluxAlert
                 v-for="alert of alerts"
                 :key="alert.id"
                 :alert="alert"/>
-        </flux-overlay>
+        </FluxOverlay>
 
-        <flux-overlay>
-            <flux-confirm
+        <FluxOverlay size="medium">
+            <FluxConfirm
                 v-for="confirm of confirms"
                 :key="confirm.id"
                 :confirm="confirm"/>
-        </flux-overlay>
+        </FluxOverlay>
 
-        <flux-snackbar-provider/>
-        <flux-tooltip-provider/>
+        <FluxOverlay size="medium">
+            <FluxPrompt
+                v-for="prompt of prompts"
+                :key="prompt.id"
+                :prompt="prompt"/>
+        </FluxOverlay>
+
+        <FluxSnackbarProvider/>
+        <FluxTooltipProvider/>
     </main>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { storeToRefs } from 'pinia';
-    import { useBreakpointsProvider } from '../composables';
-    import { useFluxStore } from '../data';
-    import { FluxAlert, FluxConfirm, FluxOverlay, FluxSnackbarProvider, FluxTooltipProvider } from '.';
+    import { useBreakpointsProvider } from '@/composables';
+    import { useFluxStore } from '@/data';
+    import FluxAlert from './FluxAlert.vue';
+    import FluxConfirm from './FluxConfirm.vue';
+    import FluxPrompt from './FluxPrompt.vue';
+    import FluxOverlay from './FluxOverlay.vue';
+    import FluxSnackbarProvider from './FluxSnackbarProvider.vue';
+    import FluxTooltipProvider from './FluxTooltipProvider.vue';
 
     useBreakpointsProvider();
 
-    const fluxStore = useFluxStore();
-    const {alerts, confirms, inertMain} = storeToRefs(fluxStore);
+    const {alerts, confirms, inertMain, prompts} = useFluxStore();
 </script>

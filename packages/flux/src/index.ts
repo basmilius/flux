@@ -2,6 +2,7 @@ import './scss/index.scss';
 
 export type {
     FluxAlertSpec,
+    FluxBaseAlertSpec,
     FluxBreakpointsInjection,
     FluxConfirmSpec,
     FluxDashboardInjection,
@@ -12,18 +13,23 @@ export type {
     FluxFilterDateRangeEntry,
     FluxFilterItem,
     FluxFilterOptionEntry,
+    FluxFilterOptionHeader,
     FluxFilterOptionItem,
     FluxFilterOptionsEntry,
     FluxFilterValue,
     FluxFlyoutInjection,
+    FluxFocalPoint,
     FluxFormFieldInjection,
     FluxFormSelectOption,
     FluxFormSelectGroup,
+    FluxPromptSpec,
     FluxRoutingLocation,
     FluxSkeletonsInjection,
     FluxSnackbarSpec,
     FluxTooltipSpec,
-    IconNames
+    IconNames,
+    FluxState,
+    FluxStore
 } from './data';
 
 export type {
@@ -35,10 +41,25 @@ export type {
     MaybeRef
 } from './helpers';
 
+export {
+    fluxRegisterIcons,
+    isFluxFormSelectGroup,
+    isFluxFormSelectOption,
+    showAlert,
+    showConfirm,
+    showPrompt,
+    showSnackbar,
+    useFluxStore
+} from './data';
+
+export {
+    createDialogRenderer,
+    resolveUnref,
+    unrefElement
+} from './helpers';
+
 export * from './components';
 export * from './composables';
-export { fluxAlert, fluxConfirm, fluxRegisterIcons, iconRegistry, isFluxFormSelectGroup, isFluxFormSelectOption, useFluxStore } from './data';
 export * from './directives';
-export { createDialogRenderer, resolveUnref, unrefElement } from './helpers';
 export * from './layout';
 export * from './transition';

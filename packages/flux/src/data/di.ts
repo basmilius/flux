@@ -1,5 +1,5 @@
 import type { ComponentInternalInstance, ComputedRef, InjectionKey, Ref } from 'vue-demi';
-import type { Breakpoint, Breakpoints } from '../composables';
+import type { Breakpoint, Breakpoints } from '@/composables';
 import type { FluxFilterValue } from './filter';
 
 export const FluxBreakpointsInjectionKey: InjectionKey<FluxBreakpointsInjection> = Symbol();
@@ -38,7 +38,7 @@ export interface FluxFilterInjection {
 
     back(): void;
 
-    reset(): void;
+    reset(name: string | number): void;
 
     getValue(name: string | number): FluxFilterValue | undefined;
 

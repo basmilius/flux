@@ -9,13 +9,13 @@
                 class="flux-expandable-header"
                 @click="toggle">
                 <span>{{ label }}</span>
-                <flux-icon
+                <FluxIcon
                     :size="16"
                     :variant="isOpen ? 'minus' : 'plus'"/>
             </button>
         </slot>
 
-        <flux-auto-height-transition>
+        <FluxAutoHeightTransition>
             <div
                 v-if="isOpen"
                 class="flux-expandable-body">
@@ -27,7 +27,7 @@
                     </div>
                 </slot>
             </div>
-        </flux-auto-height-transition>
+        </FluxAutoHeightTransition>
     </div>
 </template>
 
@@ -35,9 +35,9 @@
     lang="ts"
     setup>
     import { getCurrentInstance, onBeforeMount, onUnmounted, ref, toRefs, unref, watch } from 'vue-demi';
-    import { useComponentId, useExpandableGroupInjection } from '../composables';
-    import { FluxAutoHeightTransition } from '../transition';
-    import { FluxIcon } from '.';
+    import { useComponentId, useExpandableGroupInjection } from '@/composables';
+    import { FluxAutoHeightTransition } from '@/transition';
+    import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {
         (e: 'toggle', isOpen: boolean): void;

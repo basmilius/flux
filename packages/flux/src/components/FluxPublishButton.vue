@@ -1,22 +1,22 @@
 <template>
-    <flux-base-button
+    <BaseButton
         class="flux-primary-button flux-publish-button"
         :class="{
             'is-idle': !isDone && !isLoading,
             'is-done': isDone,
             'is-loading': isLoading
         }"
-        v-bind="{type, disabled, iconAfter, isLoading, label, to}"
+        v-bind="{type, disabled, iconAfter, isLoading, label, size, to}"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)">
-        <template #icon-before="{}">
+        <template #icon-before>
             <div class="flux-publish-button-icon">
-                <flux-icon
+                <FluxIcon
                     class="flux-publish-button-cloud"
                     variant="cloud"/>
 
-                <flux-icon
+                <FluxIcon
                     class="flux-publish-button-cloud"
                     variant="cloud"/>
 
@@ -40,14 +40,15 @@
                 </svg>
             </div>
         </template>
-    </flux-base-button>
+    </BaseButton>
 </template>
 
 <script
     lang="ts"
     setup>
-    import type { FluxRoutingLocation, IconNames } from '../data';
-    import { FluxBaseButton, FluxIcon } from '.';
+    import type { FluxRoutingLocation, IconNames } from '@/data';
+    import { BaseButton } from './primitive';
+    import FluxIcon from './FluxIcon.vue';
 
     // note: It is currently not possible to reuse Emits and Props from
     //  base button, because of a limitation of vite and vue compiler-sfc.
@@ -69,6 +70,7 @@
         readonly isDone?: boolean;
         readonly isLoading?: boolean;
         readonly label?: string;
+        readonly size?: 'small' | 'medium' | 'large';
         readonly to?: FluxRoutingLocation;
     }
 

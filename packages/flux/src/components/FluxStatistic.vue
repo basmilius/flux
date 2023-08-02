@@ -1,12 +1,12 @@
 <template>
-    <flux-pane
+    <FluxPane
         class="flux-statistic"
         :class="{
             [`is-${color}`]: !!color,
             'is-vertical': axis === 'vertical'
         }">
         <div class="flux-statistic-icon">
-            <flux-icon
+            <FluxIcon
                 :size="24"
                 :variant="icon"/>
         </div>
@@ -20,23 +20,24 @@
             v-if="changeIcon || changeValue"
             class="flux-statistic-change"
             :class="{
-                [`flux-statistic-change-${changeColor}`]: !!changeColor
+                [`is-${changeColor}`]: !!changeColor
             }">
             <span v-if="changeValue">{{ changeValue }}</span>
 
-            <flux-icon
+            <FluxIcon
                 v-if="changeIcon"
                 :size="14"
                 :variant="changeIcon"/>
         </div>
-    </flux-pane>
+    </FluxPane>
 </template>
 
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '../data';
-    import { FluxIcon, FluxPane } from '.';
+    import type { IconNames } from '@/data';
+    import FluxIcon from './FluxIcon.vue';
+    import FluxPane from './FluxPane.vue';
 
     export interface Props {
         readonly axis?: 'horizontal' | 'vertical';
@@ -74,23 +75,23 @@
             font-weight: 600;
             line-height: 1;
 
-            &-primary {
+            &.is-primary {
                 color: rgb(var(--primary-7));
             }
 
-            &-danger {
+            &.is-danger {
                 color: rgb(var(--danger-7));
             }
 
-            &-info {
+            &.is-info {
                 color: rgb(var(--info-7));
             }
 
-            &-success {
+            &.is-success {
                 color: rgb(var(--success-7));
             }
 
-            &-warning {
+            &.is-warning {
                 color: rgb(var(--warning-7));
             }
         }

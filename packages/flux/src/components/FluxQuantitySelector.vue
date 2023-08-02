@@ -1,8 +1,8 @@
 <template>
-    <flux-button-group
+    <FluxButtonGroup
         class="flux-quantity-selector"
         tabindex="0">
-        <flux-secondary-button
+        <FluxSecondaryButton
             class="flux-quantity-selector-button"
             :disabled="internalValue <= min"
             icon-before="minus"
@@ -19,20 +19,20 @@
             :min="min"
             :step="step"/>
 
-        <flux-secondary-button
+        <FluxSecondaryButton
             class="flux-quantity-selector-button"
             :disabled="internalValue >= max"
             icon-before="plus"
             tabindex="-1"
             @click="increment"/>
-    </flux-button-group>
+    </FluxButtonGroup>
 </template>
 
 <script lang="ts">
     export default {
         model: {
-            prop: 'modelValue',
-            event: 'update:modelValue'
+            prop: 'model-value',
+            event: 'update:model-value'
         }
     };
 </script>
@@ -41,10 +41,11 @@
     lang="ts"
     setup>
     import { onMounted, ref, toRefs, unref, watch } from 'vue-demi';
-    import { FluxButtonGroup, FluxSecondaryButton } from '.';
+    import FluxButtonGroup from './FluxButtonGroup.vue';
+    import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
     export interface Emits {
-        (e: 'update:modelValue', value: number): void;
+        (e: 'update:model-value', value: number): void;
     }
 
     export interface Props {
@@ -81,7 +82,12 @@
 
         requestAnimationFrame(() => {
             const input = unref(inputRef);
-            width.value = Math.max(51, input!.scrollWidth + 30);
+
+            if (!input) {
+                return;
+            }
+
+            width.value = Math.max(51, input.scrollWidth + 30);
         });
     }
 
@@ -96,16 +102,16 @@
             return;
         }
 
-        emit('update:modelValue', internalValue);
+        emit('update:model-value', internalValue);
         sizeToContent();
     });
 
-    watch(modelValue, modelValue => {
-        if (internalValue.value === modelValue) {
+    watch(modelValue, () => {
+        if (internalValue.value === modelValue.value) {
             return;
         }
 
-        internalValue.value = modelValue;
+        internalValue.value = modelValue.value;
         sizeToContent();
     }, {immediate: true});
 </script>

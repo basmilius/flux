@@ -21,8 +21,8 @@
 <script lang="ts">
     export default {
         model: {
-            prop: 'modelValue',
-            event: 'update:modelValue'
+            prop: 'model-value',
+            event: 'update:model-value'
         }
     };
 </script>
@@ -31,14 +31,14 @@
     lang="ts"
     setup>
     import { computed, onMounted, ref, toRefs, unref, watch } from 'vue-demi';
-    import { useFormFieldInjection } from '../composables';
+    import { useFormFieldInjection } from '@/composables';
 
     export interface Emits {
         (e: 'blur'): void;
 
         (e: 'focus'): void;
 
-        (e: 'update:modelValue', value: object | string | number): void;
+        (e: 'update:model-value', value: object | string | number): void;
     }
 
     export interface Props {
@@ -68,8 +68,8 @@
 
     onMounted(() => requestAnimationFrame(sizeToContent));
 
-    function onInput(evt: InputEvent): void {
-        emit('update:modelValue', (evt.target as HTMLTextAreaElement).value);
+    function onInput(evt: Event): void {
+        emit('update:model-value', (evt.target as HTMLTextAreaElement).value);
         sizeToContent();
     }
 

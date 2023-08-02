@@ -1,34 +1,34 @@
 <template>
     <div class="flux-date-picker">
         <div class="flux-date-picker-header">
-            <flux-fade-transition>
-                <flux-secondary-button
+            <FluxFadeTransition>
+                <FluxSecondaryButton
                     v-if="viewMode === 'date'"
                     :disabled="!isWithinBoundary(viewDatePrevious, 'month')"
                     icon-before="angle-left"
-                    @click="onPreviousMonthClicked"/>
-            </flux-fade-transition>
+                    @click="previousMonth"/>
+            </FluxFadeTransition>
 
             <div class="flux-date-picker-header-view">
                 <button @click="setView('month')">{{ viewMonth }}</button>
                 <button @click="setView('year')">{{ viewYear }}</button>
             </div>
 
-            <flux-fade-transition>
-                <flux-secondary-button
+            <FluxFadeTransition>
+                <FluxSecondaryButton
                     v-if="viewMode === 'date'"
                     :disabled="!isWithinBoundary(viewDateNext, 'month')"
                     icon-before="angle-right"
-                    @click="onNextMonthClicked"/>
-            </flux-fade-transition>
+                    @click="nextMonth"/>
+            </FluxFadeTransition>
         </div>
 
-        <flux-vertical-window-transition :is-back="viewMode === 'date'">
+        <FluxVerticalWindowTransition :is-back="viewMode === 'date'">
             <div
                 v-if="viewMode === 'date'"
                 key="date"
                 class="flux-date-picker-dates">
-                <flux-window-transition :is-back="isTransitioningToPast">
+                <FluxWindowTransition :is-back="isTransitioningToPast">
                     <div
                         :key="viewDate.month"
                         class="flux-date-picker-dates-grid">
@@ -61,7 +61,7 @@
                             </button>
                         </template>
                     </div>
-                </flux-window-transition>
+                </FluxWindowTransition>
             </div>
 
             <div
@@ -71,11 +71,11 @@
                 <template
                     v-for="month of months"
                     :key="month">
-                    <flux-secondary-button
-                        :disabled="!isWithinBoundary(month, 'month')"
-                        :label="month.toLocaleString({month: 'short'})"
+                    <FluxSecondaryButton
+                        :disabled="!isWithinBoundary(month.date, 'month')"
+                        :label="month.label"
                         tabindex="-1"
-                        @click="setViewMonth(month)"/>
+                        @click="setViewMonth(month.date)"/>
                 </template>
             </div>
 
@@ -83,34 +83,34 @@
                 v-else-if="viewMode === 'year'"
                 key="year"
                 class="flux-date-picker-years">
-                <flux-secondary-button
+                <FluxSecondaryButton
                     icon-before="angle-left"
                     tabindex="-1"
-                    @click="yearIndex--"/>
+                    @click="previousYears"/>
 
                 <template
                     v-for="year of years"
                     :key="year">
-                    <flux-secondary-button
+                    <FluxSecondaryButton
                         :label="year.toString()"
                         tabindex="-1"
                         @click="setViewYear(year)"/>
                 </template>
 
-                <flux-secondary-button
+                <FluxSecondaryButton
                     icon-before="angle-right"
                     tabindex="-1"
-                    @click="yearIndex++"/>
+                    @click="nextYears"/>
             </div>
-        </flux-vertical-window-transition>
+        </FluxVerticalWindowTransition>
     </div>
 </template>
 
 <script lang="ts">
     export default {
         model: {
-            prop: 'modelValue',
-            event: 'update:modelValue'
+            prop: 'model-value',
+            event: 'update:model-value'
         }
     };
 </script>
@@ -120,11 +120,12 @@
     setup>
     import { DateTime } from 'luxon';
     import { computed, ref, toRefs, unref } from 'vue-demi';
-    import { FluxFadeTransition, FluxVerticalWindowTransition, FluxWindowTransition } from '../transition';
-    import { FluxSecondaryButton } from '.';
+    import { useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher } from '@/composables';
+    import { FluxFadeTransition, FluxVerticalWindowTransition, FluxWindowTransition } from '@/transition';
+    import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
     export interface Emits {
-        (e: 'update:modelValue', date: DateTime | DateTime[] | null): void;
+        (e: 'update:model-value', date: DateTime | DateTime[] | null): void;
     }
 
     export interface Props {
@@ -140,70 +141,32 @@
     });
     const {max, min, modelValue, rangeMode} = toRefs(props);
 
-    const isTransitioningToPast = ref(false);
+    const {
+        isTransitioningToPast,
+        viewDate,
+        viewDateNext,
+        viewDatePrevious,
+        viewMonth,
+        viewYear,
+        dates,
+        days,
+        setViewDate,
+        nextMonth,
+        previousMonth
+    } = useCalendar(getInitialDate());
+
+    const {
+        months
+    } = useCalendarMonthSwitcher(viewDate, 'short');
+
+    const {
+        years,
+        next: nextYears,
+        previous: previousYears
+    } = useCalendarYearSwitcher(viewDate);
+
     const selection = ref<[DateTime | null, DateTime | null]>([null, null]);
-    const viewDate = ref<DateTime>(getInitialDate());
     const viewMode = ref<'date' | 'month' | 'year'>('date');
-    const yearIndex = ref(0);
-
-    const dates = computed<DateTime[]>(() => {
-        const dates: DateTime[] = [];
-        const month = unref(viewDate).month;
-        let current = unref(viewDate).startOf('month');
-
-        do {
-            dates.push(current);
-            current = current.plus({day: 1});
-        } while (current.month === month);
-
-        const first = dates[0];
-        const last = dates[dates.length - 1];
-
-        for (let i = 1; i < first.weekday; ++i) {
-            dates.unshift(first.minus({day: i}));
-        }
-
-        for (let i = last.weekday + 1; i <= 7; ++i) {
-            dates.push(last.plus({day: i - last.weekday}));
-        }
-
-        while (dates.length / 7 < 6) {
-            const last = dates[dates.length - 1];
-
-            for (let i = 1; i <= 7; ++i) {
-                dates.push(last.plus({day: i}));
-            }
-        }
-
-        return dates;
-    });
-
-    const days = computed(() => unref(dates).slice(0, 7).map(d => d.toLocaleString({weekday: 'short'})));
-
-    const months = computed(() => {
-        const months: DateTime[] = [];
-        const now = unref(viewDate);
-        let current = now.startOf('year');
-
-        while (current.month <= 12 && current.year === now.year) {
-            months.push(current);
-            current = current.plus({months: 1});
-        }
-
-        return months;
-    });
-
-    const years = computed(() => {
-        const years: number[] = [];
-        const now = DateTime.now();
-        const start = now.year - (now.year % 10) + unref(yearIndex) * 10;
-
-        for (let i = 0; i < 10; ++i) {
-            years.push(start + i);
-        }
-
-        return years;
-    });
 
     const maxDate = computed(() => (unref(max) ?? DateTime.now().endOf('year').plus({year: 100})).startOf('day'));
     const minDate = computed(() => (unref(min) ?? DateTime.now().startOf('year').minus({year: 100})).startOf('day'));
@@ -220,10 +183,6 @@
             return [start, end];
         }
     });
-    const viewDateNext = computed(() => unref(viewDate).plus({month: 1}));
-    const viewDatePrevious = computed(() => unref(viewDate).minus({month: 1}));
-    const viewMonth = computed(() => unref(viewDate).toLocaleString({month: 'long'}));
-    const viewYear = computed(() => unref(viewDate).year);
 
     function getInitialDate(): DateTime {
         const value = unref(modelValue);
@@ -315,9 +274,9 @@
                     selection.value = [date, date];
                 } else {
                     if (date >= start) {
-                        emit('update:modelValue', [start, date]);
+                        emit('update:model-value', [start, date]);
                     } else {
-                        emit('update:modelValue', [date, start]);
+                        emit('update:model-value', [date, start]);
                     }
 
                     selection.value = [null, null];
@@ -325,26 +284,21 @@
                 break;
 
             case 'month':
-                emit('update:modelValue', [date.startOf('month'), date.endOf('month')]);
+                emit('update:model-value', [date.startOf('month'), date.endOf('month')]);
                 break;
 
             case 'week':
-                emit('update:modelValue', [date.startOf('week'), date.endOf('week')]);
+                emit('update:model-value', [date.startOf('week'), date.endOf('week')]);
                 break;
 
             default:
-                emit('update:modelValue', date);
+                emit('update:model-value', date);
                 break;
         }
     }
 
     function setView(view: 'date' | 'month' | 'year'): void {
         viewMode.value = unref(viewMode) === view ? 'date' : view;
-    }
-
-    function setViewDate(date: DateTime): void {
-        isTransitioningToPast.value = viewDate.value > date;
-        viewDate.value = date;
     }
 
     function setViewMonth(month: DateTime): void {
@@ -387,14 +341,6 @@
         }
 
         selection.value = [null, null];
-    }
-
-    function onNextMonthClicked(): void {
-        setViewDate(unref(viewDate).plus({month: 1}));
-    }
-
-    function onPreviousMonthClicked(): void {
-        setViewDate(unref(viewDate).minus({month: 1}));
     }
 </script>
 

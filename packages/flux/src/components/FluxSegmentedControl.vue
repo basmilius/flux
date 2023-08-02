@@ -8,12 +8,16 @@
             <div
                 v-if="index > 0"
                 class="flux-segmented-control-separator"
-                :class="{'active': index === modelValue || index === modelValue + 1}"/>
+                :class="{
+                    'active': index === modelValue || index === modelValue + 1
+                }"/>
 
             <button
                 ref="itemRefs"
                 class="flux-segmented-control-item"
-                :class="{'active': index === modelValue}"
+                :class="{
+                    'active': index === modelValue
+                }"
                 @click="activate(index)">
                 <span>{{ item }}</span>
             </button>
@@ -24,8 +28,8 @@
 <script lang="ts">
     export default {
         model: {
-            prop: 'modelValue',
-            event: 'update:modelValue'
+            prop: 'model-value',
+            event: 'update:model-value'
         }
     };
 </script>
@@ -36,7 +40,7 @@
     import { onMounted, onUpdated, ref } from 'vue-demi';
 
     export interface Emits {
-        (e: 'update:modelValue', index: number): void;
+        (e: 'update:model-value', index: number): void;
     }
 
     export interface Props {
@@ -56,7 +60,7 @@
     const itemRefs = ref<HTMLButtonElement[]>([]);
 
     function activate(index: number): void {
-        emit('update:modelValue', index);
+        emit('update:model-value', index);
 
         const itemRef = itemRefs.value[index];
         const {left: controlX} = controlRef.value!.getBoundingClientRect();
@@ -76,41 +80,48 @@
         padding: 3px;
         align-items: center;
         gap: 1px;
-        background: rgb(var(--gray-3));
+        background: rgb(var(--gray-2));
+        border: 1px solid rgb(var(--gray-4) / .75);
         border-radius: var(--radius);
+
+        &-highlight,
+        &-item {
+            height: 33px;
+            border-radius: calc(var(--radius) - 3px);
+            transition: 300ms var(--swift-out);
+        }
 
         &-highlight {
             position: absolute;
             top: 3px;
             left: calc(v-bind(activeItemX) * 1px);
-            height: 30px;
             width: calc(v-bind(activeItemWidth) * 1px);
             background: rgb(var(--gray-0));
-            border-radius: calc(var(--radius) - 3px);
-            box-shadow: var(--shadow-md);
+            border: 1px solid rgb(var(--gray-4) / .75);
+            box-shadow: var(--shadow-sm);
             pointer-events: none;
-            transition: 300ms var(--swift-out);
             transition-property: left, width;
         }
 
         &-item {
-            height: 30px;
             flex: 1 1 0;
             background: none;
             border: 0;
-            border-radius: calc(var(--radius) - 3px);
             color: var(--foreground);
+            cursor: pointer;
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 500;
             text-align: center;
-            transition: color 300ms var(--swift-out);
+            transition-property: background, color;
 
             &:hover {
                 background: rgb(var(--gray-4));
             }
 
             &.active {
+                background: none;
                 color: var(--foreground-prominent);
+                cursor: default;
             }
 
             span {
@@ -127,24 +138,6 @@
 
             &.active {
                 opacity: 0;
-            }
-        }
-
-        [md] & {
-            padding: 6px;
-            gap: 3px;
-
-            &-highlight {
-                top: 6px;
-            }
-
-            &-highlight,
-            &-item {
-                height: 36px;
-            }
-
-            &-item {
-                font-size: 14px;
             }
         }
     }

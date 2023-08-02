@@ -1,35 +1,35 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Persona"/>
 
-        <preview>
-            <flux-pane style="width: 60%">
-                <flux-pane-body>
-                    <flux-stack axis="horizontal">
-                        <flux-persona
+        <Preview>
+            <FluxPane style="width: 60%">
+                <FluxPaneBody>
+                    <FluxStack axis="horizontal">
+                        <FluxPersona
                             avatar-alt="Bas"
                             :avatar-size="42"
                             avatar-url="https://imgproxy.glybe.nl/120,q75,jpg/1-b38d42e52f851f0ec94d118fad965277e3915b89da1012cef7e58674e3cf219a-img1386.jpeg"
                             name="Bas Milius"
                             title="Flux Engineer"/>
 
-                        <flux-spacer/>
+                        <FluxSpacer/>
 
-                        <flux-persona
+                        <FluxPersona
                             avatar-alt="Bas"
                             :avatar-size="42"
                             avatar-url="https://imgproxy.glybe.nl/120,q75,jpg/1-b38d42e52f851f0ec94d118fad965277e3915b89da1012cef7e58674e3cf219a-img1386.jpeg"
                             is-compact
                             name="Bas Milius"
                             title="Flux Engineer"/>
-                    </flux-stack>
-                </flux-pane-body>
-            </flux-pane>
-        </preview>
+                    </FluxStack>
+                </FluxPaneBody>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 The Persona component is a versatile Vue component that combines an avatar, name, and title to provide
                 a complete representation of a user or other entity. With the ability to display an image, initials, or
@@ -37,10 +37,10 @@
                 specific needs. The name and title fields are also customizable and can be used to display any relevant
                 information about the entity being represented.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="Persona">
+        <ApiSection title="API">
+            <ApiComponent name="Persona">
                 <template #props>
                     <tr>
                         <td><code>avatar-alt</code><code>string</code></td>
@@ -86,14 +86,14 @@
                         <td>Triggered when the persona is clicked.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxPane, FluxPaneBody, FluxPersona, FluxSpacer, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

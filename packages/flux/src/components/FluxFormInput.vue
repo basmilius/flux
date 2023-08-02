@@ -27,15 +27,16 @@
             :value="parsedValue"
             @blur="$emit('blur')"
             @focus="$emit('focus')"
-            @input="onInput"/>
+            @input="onInput"
+            @keydown="onKeyDown"/>
 
-        <flux-icon
+        <FluxIcon
             v-if="iconBefore"
             class="flux-form-input-icon is-before"
             :size="16"
             :variant="iconBefore"/>
 
-        <flux-icon
+        <FluxIcon
             v-if="iconAfter"
             class="flux-form-input-icon is-after"
             :size="16"
@@ -46,8 +47,8 @@
 <script lang="ts">
     export default {
         model: {
-            prop: 'modelValue',
-            event: 'update:modelValue'
+            prop: 'model-value',
+            event: 'update:model-value'
         }
     };
 </script>
@@ -55,18 +56,20 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '../data';
+    import type { IconNames } from '@/data';
     import { DateTime } from 'luxon';
     import { computed, toRefs, unref } from 'vue-demi';
-    import { useFormFieldInjection } from '../composables';
-    import { FluxIcon } from '.';
+    import { useFormFieldInjection } from '@/composables';
+    import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {
         (e: 'blur'): void;
 
         (e: 'focus'): void;
 
-        (e: 'update:modelValue', value: object | string | number): void;
+        (e: 'show-picker'): void;
+
+        (e: 'update:model-value', value: object | string | number): void;
     }
 
     export interface Props {
@@ -129,7 +132,7 @@
         return v.toString();
     });
 
-    function onInput(evt: InputEvent): void {
+    function onInput(evt: Event): void {
         const value = (evt.target as HTMLInputElement).value;
 
         switch (type.value) {
@@ -144,16 +147,27 @@
                     return;
                 }
 
-                emit('update:modelValue', dateTime);
+                emit('update:model-value', dateTime);
                 break;
 
             case 'number':
-                emit('update:modelValue', Number(value));
+                emit('update:model-value', Number(value));
                 break;
 
             default:
-                emit('update:modelValue', value);
+                emit('update:model-value', value);
                 break;
+        }
+    }
+
+    function onKeyDown(evt: KeyboardEvent): void {
+        if (!['date', 'datetime-local', 'month', 'week'].includes(type.value)) {
+            return;
+        }
+
+        if (evt.key === ' ') {
+            emit('show-picker');
+            evt.preventDefault();
         }
     }
 </script>

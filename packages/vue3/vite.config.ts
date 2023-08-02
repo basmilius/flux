@@ -13,12 +13,11 @@ export default defineConfig({
         },
         outDir: resolve(__dirname, './dist'),
         rollupOptions: {
-            external: ['luxon', 'pinia', 'vue'],
+            external: ['luxon', 'vue'],
             output: {
                 exports: 'named',
                 globals: {
                     'luxon': 'luxon',
-                    'pinia': 'pinia',
                     'vue': 'vue'
                 },
                 sourcemap: true,
@@ -38,5 +37,10 @@ export default defineConfig({
     },
     plugins: [
         vue()
-    ]
+    ],
+    resolve: {
+        alias: {
+            '@': resolve(__dirname, '../flux/src/')
+        }
+    }
 });

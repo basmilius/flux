@@ -1,21 +1,21 @@
 <template>
-    <flux-stack
+    <FluxStack
         class="flux-pagination-bar"
         :axis="breakpoints.lg ? 'horizontal' : 'vertical'">
-        <flux-form-input-group>
-            <flux-form-input-addition>
+        <FluxFormInputGroup>
+            <FluxFormInputAddition>
                 <span>{{ translate('flux_rows_per_page') }}</span>
-            </flux-form-input-addition>
+            </FluxFormInputAddition>
 
-            <flux-form-select
+            <FluxFormSelect
                 v-model="limit"
                 :options="limitOptions"/>
-        </flux-form-input-group>
+        </FluxFormInputGroup>
 
-        <flux-spacer v-if="breakpoints.lg"/>
+        <FluxSpacer v-if="breakpoints.lg"/>
 
-        <flux-form-input-group>
-            <flux-form-input-addition>
+        <FluxFormInputGroup>
+            <FluxFormInputAddition>
                 <span>
                     {{
                         translate('flux_displaying_of', {
@@ -25,9 +25,9 @@
                         })
                     }}
                 </span>
-            </flux-form-input-addition>
+            </FluxFormInputAddition>
 
-            <flux-pagination
+            <FluxPagination
                 v-if="total > perPage"
                 arrows
                 is-compact
@@ -35,17 +35,22 @@
                 :per-page="perPage"
                 :total="total"
                 @navigate="$emit('navigate', $event)"/>
-        </flux-form-input-group>
-    </flux-stack>
+        </FluxFormInputGroup>
+    </FluxStack>
 </template>
 
 <script
     lang="ts"
     setup>
+    import type { FluxFormSelectOption } from '@/data';
     import { computed, ref, toRefs, unref, watch } from 'vue-demi';
-    import { useBreakpoints, useTranslate } from '../composables';
-    import { FluxFormSelectOption } from '../data';
-    import { FluxFormInputAddition, FluxFormInputGroup, FluxFormSelect, FluxPagination, FluxSpacer, FluxStack } from '.';
+    import { useBreakpoints, useTranslate } from '@/composables';
+    import FluxFormInputAddition from './FluxFormInputAddition.vue';
+    import FluxFormInputGroup from './FluxFormInputGroup.vue';
+    import FluxFormSelect from './FluxFormSelect.vue';
+    import FluxPagination from './FluxPagination.vue';
+    import FluxSpacer from './FluxSpacer.vue';
+    import FluxStack from './FluxStack.vue';
 
     export interface Emits {
         (e: 'limit', limit: number): void;

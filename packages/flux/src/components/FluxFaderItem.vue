@@ -25,8 +25,11 @@
             inset: 0;
             height: 100%;
             width: 100%;
-            object-fit: cover;
-            object-position: center;
+
+            &:not(.flux-focal-point-image) {
+                object-fit: cover;
+                object-position: center;
+            }
         }
     }
 </style>

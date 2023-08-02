@@ -1,9 +1,9 @@
 <template>
-    <flux-flyout
+    <FluxFlyout
         ref="flyoutRef"
         :width="300">
         <template #opener="{open}">
-            <flux-form-input-group>
+            <FluxFormInputGroup>
                 <div
                     class="flux-form-input flux-form-date-range-input"
                     :class="{
@@ -13,26 +13,26 @@
                     <span>{{ label }}</span>
                 </div>
 
-                <flux-secondary-button
+                <FluxSecondaryButton
                     :disabled="isDisabled"
                     icon-before="calendar"
-                    @click="open"/>
-            </flux-form-input-group>
+                    @click.prevent="open"/>
+            </FluxFormInputGroup>
         </template>
 
-        <flux-date-picker
+        <FluxDatePicker
             v-model="localValue"
             :max="max"
             :min="min"
             :range-mode="rangeMode"/>
-    </flux-flyout>
+    </FluxFlyout>
 </template>
 
 <script lang="ts">
     export default {
         model: {
-            prop: 'modelValue',
-            event: 'update:modelValue'
+            prop: 'model-value',
+            event: 'update:model-value'
         }
     };
 </script>
@@ -42,12 +42,15 @@
     setup>
     import { DateTime } from 'luxon';
     import { ComponentPublicInstance, computed, ref, toRefs, unref, watch } from 'vue-demi';
-    import { useTranslate } from '../composables';
-    import { createLabelForDateRange } from '../utils';
-    import { FluxDatePicker, FluxFlyout, FluxFormInputGroup, FluxSecondaryButton } from '.';
+    import { useTranslate } from '@/composables';
+    import { createLabelForDateRange } from '@/utils';
+    import FluxDatePicker from './FluxDatePicker.vue';
+    import FluxFlyout from './FluxFlyout.vue';
+    import FluxFormInputGroup from './FluxFormInputGroup.vue';
+    import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
     export interface Emits {
-        (e: 'update:modelValue', value: [DateTime, DateTime] | null): void;
+        (e: 'update:model-value', value: [DateTime, DateTime] | null): void;
     }
 
     export interface Props {
@@ -87,7 +90,7 @@
 
     watch(localValue, localValue => {
         unref(flyoutRef)?.close();
-        emit('update:modelValue', localValue);
+        emit('update:model-value', localValue);
     });
 
     watch(modelValue, modelValue => localValue.value = modelValue, {immediate: true});

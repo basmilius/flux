@@ -1,13 +1,13 @@
 <template>
-    <flux-stack
+    <FluxStack
         axis="vertical"
         :gap="21">
         <slot/>
-    </flux-stack>
+    </FluxStack>
 </template>
 
 <script
     setup
     lang="ts">
-    import { FluxStack } from '.';
+    import FluxStack from './FluxStack.vue';
 </script>

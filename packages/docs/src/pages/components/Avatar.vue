@@ -1,61 +1,61 @@
 <template>
-    <flux-stack>
+    <FluxStack>
         <page-title
             section="Components"
             title="Avatar"/>
 
-        <preview>
-            <flux-pane style="width: 60%">
-                <flux-pane-body>
-                    <flux-stack
+        <Preview>
+            <FluxPane style="width: 60%">
+                <FluxPaneBody>
+                    <FluxStack
                         axis="horizontal"
                         :gap="18"
                         is-centered
                         is-wrapping>
-                        <flux-avatar
+                        <FluxAvatar
                             alt="Bas"
                             :size="42"
                             url="https://imgproxy.glybe.nl/120,q75,jpg/1-b38d42e52f851f0ec94d118fad965277e3915b89da1012cef7e58674e3cf219a-img1386.jpeg"/>
 
-                        <flux-avatar
+                        <FluxAvatar
                             alt="Bas"
                             fallback-initials="BM"
                             :size="42"/>
 
-                        <flux-avatar
+                        <FluxAvatar
                             alt="Bas"
                             fallback="neutral"
                             fallback-initials="BM"
                             :size="42"/>
 
-                        <flux-avatar
+                        <FluxAvatar
                             alt="Bas"
                             :size="42"/>
 
-                        <flux-avatar
+                        <FluxAvatar
                             alt="Bas"
                             fallback="neutral"
                             :size="42"/>
-                    </flux-stack>
-                </flux-pane-body>
-            </flux-pane>
-        </preview>
+                    </FluxStack>
+                </FluxPaneBody>
+            </FluxPane>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 The Avatar component is a reusable UI element that can display an image, initials, or an icon. It accepts
                 props for each of these options and dynamically displays the appropriate content based on what is passed
                 in. This component can be used to represent a user or any other entity in a system that requires a
                 visual representation.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="Required icons">
-            <api-required-icons :icons="['user']"/>
-        </api-section>
+        <ApiSection title="Required icons">
+            <ApiRequiredIcons :icons="['user']"/>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="Avatar">
+        <ApiSection title="API">
+            <ApiComponent name="Avatar">
                 <template #props>
                     <tr>
                         <td><code>alt</code><code>string</code></td>
@@ -93,14 +93,14 @@
                         <td>Triggered when the avatar is clicked.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxAvatar, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

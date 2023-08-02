@@ -1,5 +1,5 @@
 <template>
-    <component
+    <Component
         :is="component"
         class="flux-surface flux-pane"
         :class="{
@@ -15,7 +15,7 @@
         <div
             v-if="isLoading"
             class="flux-pane-overlay">
-            <flux-spinner/>
+            <FluxSpinner/>
         </div>
 
         <div
@@ -23,16 +23,16 @@
             class="flux-pane-tag">
             {{ tag }}
         </div>
-    </component>
+    </Component>
 </template>
 
 <script
     lang="ts"
     setup>
+    import type { FluxRoutingLocation } from '@/data';
     import { computed, toRefs } from 'vue-demi';
-    import { useBreakpoints } from '../composables';
-    import { FluxRoutingLocation } from '../data';
-    import { FluxSpinner } from '.';
+    import { useBreakpoints } from '@/composables';
+    import FluxSpinner from './FluxSpinner.vue';
 
     export interface Props {
         readonly columns?: number;
@@ -45,7 +45,9 @@
         readonly to?: FluxRoutingLocation;
     }
 
-    const props = defineProps<Props>();
+    const props = withDefaults(defineProps<Props>(), {
+        columns: 0
+    });
     const {href, to} = toRefs(props);
 
     const {breakpoints} = useBreakpoints();

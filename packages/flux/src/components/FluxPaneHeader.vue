@@ -6,7 +6,7 @@
             :class="{
                 'is-extended': title && subTitle
             }">
-            <flux-icon
+            <FluxIcon
                 :size="20"
                 :variant="icon"/>
         </div>
@@ -34,8 +34,8 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '../data';
-    import { FluxIcon } from '.';
+    import type { IconNames } from '@/data';
+    import FluxIcon from './FluxIcon.vue';
 
     export interface Props {
         readonly icon?: IconNames;

@@ -1,14 +1,14 @@
 <template>
     <div class="api-example">
-        <component :is="titleTag!">{{ title }}</component>
+        <Component :is="titleTag!">{{ title }}</Component>
         <p v-if="description">{{ description }}</p>
 
-        <code-preview
+        <CodePreview
             v-if="!!component"
             :code="code.toString()"
             :component="component"/>
 
-        <code-preview
+        <CodePreview
             v-else
             html
             :code="code.toString()"/>
@@ -18,7 +18,7 @@
 <script
     lang="ts"
     setup>
-    import { CodePreview } from '.';
+    import CodePreview from './CodePreview.vue';
 
     export interface Props {
         readonly code: any;

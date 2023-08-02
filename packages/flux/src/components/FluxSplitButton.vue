@@ -1,18 +1,18 @@
 <template>
-    <flux-flyout
+    <FluxFlyout
         :axis="flyoutAxis"
         :is-auto-width="flyoutIsAutoWidth"
         :margin="flyoutMargin"
         :width="flyoutWidth">
-        <template #opener="bindings">
+        <template #opener="{close, open, toggle}">
             <div class="flux-button-group">
                 <slot
                     name="button"
-                    v-bind="bindings"/>
+                    v-bind="{close, open, toggle}"/>
 
-                <flux-secondary-button
+                <FluxSecondaryButton
                     :icon-before="buttonIcon ?? 'ellipsis-h'"
-                    @click="bindings.open"/>
+                    @click="open"/>
             </div>
         </template>
 
@@ -21,14 +21,15 @@
                 name="flyout"
                 v-bind="bindings"/>
         </template>
-    </flux-flyout>
+    </FluxFlyout>
 </template>
 
 <script
     setup
     lang="ts">
-    import type { IconNames } from '../data';
-    import { FluxFlyout, FluxSecondaryButton } from '.';
+    import type { IconNames } from '@/data';
+    import FluxFlyout from './FluxFlyout.vue';
+    import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
     export interface Props {
         readonly buttonIcon?: IconNames;

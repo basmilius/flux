@@ -10,14 +10,14 @@
                 {{ applicationName }}
             </span>
 
-            <flux-secondary-button
+            <FluxSecondaryButton
                 v-if="slots.apps"
                 icon-before="grid-2"
                 @click="toggleAppSwitcher"/>
         </header>
 
         <main class="flux-dashboard-navigation-body">
-            <flux-vertical-window-transition :is-back="isAppSwitcherVisible">
+            <FluxVerticalWindowTransition :is-back="isAppSwitcherVisible">
                 <nav
                     v-if="isAppSwitcherVisible"
                     key="apps"
@@ -33,7 +33,7 @@
                     class="flux-dashboard-navigation-nav">
                     <slot/>
                 </nav>
-            </flux-vertical-window-transition>
+            </FluxVerticalWindowTransition>
         </main>
 
         <footer
@@ -48,8 +48,8 @@
     lang="ts"
     setup>
     import { ref, useSlots } from 'vue-demi';
-    import { FluxSecondaryButton } from '../components';
-    import { FluxVerticalWindowTransition } from '../transition';
+    import { FluxSecondaryButton } from '@/components';
+    import { FluxVerticalWindowTransition } from '@/transition';
 
     export interface Props {
         readonly applicationName: string;

@@ -11,285 +11,293 @@ export const router = createRouter({
     routes: [
         {
             path: '/',
-            component: () => import('./pages/Docs.vue'),
+            component: () => import('@docs/pages/Docs.vue'),
             children: [
                 {
                     path: '/',
-                    component: () => import('./pages/Home.vue')
+                    component: () => import('@docs/pages/Home.vue')
                 },
                 {
                     path: '/getting-started',
-                    component: () => import('./pages/GettingStarted.vue')
+                    component: () => import('@docs/pages/GettingStarted.vue')
                 },
                 {
                     path: '/playground',
-                    component: () => import('./pages/Playground.vue')
+                    component: () => import('@docs/pages/Playground.vue')
                 },
                 {
                     path: '/content/typography',
-                    component: () => import('./pages/content/Typography.vue')
+                    component: () => import('@docs/pages/content/Typography.vue')
                 },
                 {
                     path: '/components/action',
-                    component: () => import('./pages/components/Action.vue')
+                    component: () => import('@docs/pages/components/Action.vue')
                 },
                 {
                     path: '/components/action-bar',
-                    component: () => import('./pages/components/ActionBar.vue')
+                    component: () => import('@docs/pages/components/ActionBar.vue')
                 },
                 {
                     path: '/components/avatar',
-                    component: () => import('./pages/components/Avatar.vue')
+                    component: () => import('@docs/pages/components/Avatar.vue')
                 },
                 {
                     path: '/components/badge',
-                    component: () => import('./pages/components/Badge.vue')
+                    component: () => import('@docs/pages/components/Badge.vue')
                 },
                 {
                     path: '/components/button',
-                    component: () => import('./pages/components/Button.vue')
+                    component: () => import('@docs/pages/components/Button.vue')
                 },
                 {
                     path: '/components/button-group',
-                    component: () => import('./pages/components/ButtonGroup.vue')
+                    component: () => import('@docs/pages/components/ButtonGroup.vue')
+                },
+                {
+                    path: '/components/checkbox',
+                    component: () => import('@docs/pages/components/Checkbox.vue')
                 },
                 {
                     path: '/components/chip',
-                    component: () => import('./pages/components/Chip.vue')
+                    component: () => import('@docs/pages/components/Chip.vue')
                 },
                 {
                     path: '/components/comment',
-                    component: () => import('./pages/components/Comment.vue')
+                    component: () => import('@docs/pages/components/Comment.vue')
                 },
                 {
                     path: '/components/data-table',
-                    component: () => import('./pages/components/DataTable.vue')
+                    component: () => import('@docs/pages/components/DataTable.vue')
                 },
                 {
                     path: '/components/date-picker',
-                    component: () => import('./pages/components/DatePicker.vue')
+                    component: () => import('@docs/pages/components/DatePicker.vue')
                 },
                 {
                     path: '/components/divider',
-                    component: () => import('./pages/components/Divider.vue')
+                    component: () => import('@docs/pages/components/Divider.vue')
                 },
                 {
                     path: '/components/drop-zone',
-                    component: () => import('./pages/components/DropZone.vue')
+                    component: () => import('@docs/pages/components/DropZone.vue')
                 },
                 {
                     path: '/components/expandable',
-                    component: () => import('./pages/components/Expandable.vue')
+                    component: () => import('@docs/pages/components/Expandable.vue')
                 },
                 {
                     path: '/components/fader',
-                    component: () => import('./pages/components/Fader.vue')
+                    component: () => import('@docs/pages/components/Fader.vue')
                 },
                 {
                     path: '/components/feature-card',
-                    component: () => import('./pages/components/FeatureCard.vue')
+                    component: () => import('@docs/pages/components/FeatureCard.vue')
                 },
                 {
                     path: '/components/filter',
-                    component: () => import('./pages/components/Filter.vue')
+                    component: () => import('@docs/pages/components/Filter.vue')
                 },
                 {
                     path: '/components/flyout',
-                    component: () => import('./pages/components/Flyout.vue')
+                    component: () => import('@docs/pages/components/Flyout.vue')
                 },
                 {
                     path: '/components/focal-point-editor',
-                    component: () => import('./pages/components/FocalPointEditor.vue')
+                    component: () => import('@docs/pages/components/FocalPointEditor.vue')
                 },
                 {
                     path: '/components/form',
-                    component: () => import('./pages/components/Form.vue')
+                    component: () => import('@docs/pages/components/Form.vue')
                 },
                 {
                     path: '/components/form-date-picker',
-                    component: () => import('./pages/components/FormDatePicker.vue')
+                    component: () => import('@docs/pages/components/FormDatePicker.vue')
                 },
                 {
                     path: '/components/form-field',
-                    component: () => import('./pages/components/FormField.vue')
+                    component: () => import('@docs/pages/components/FormField.vue')
                 },
                 {
                     path: '/components/form-input',
-                    component: () => import('./pages/components/FormInput.vue')
+                    component: () => import('@docs/pages/components/FormInput.vue')
                 },
                 {
                     path: '/components/form-range-slider',
-                    component: () => import('./pages/components/FormRangeSlider.vue')
+                    component: () => import('@docs/pages/components/FormRangeSlider.vue')
                 },
                 {
                     path: '/components/form-select',
-                    component: () => import('./pages/components/FormSelect.vue')
+                    component: () => import('@docs/pages/components/FormSelect.vue')
                 },
                 {
                     path: '/components/form-slider',
-                    component: () => import('./pages/components/FormSlider.vue')
+                    component: () => import('@docs/pages/components/FormSlider.vue')
                 },
                 {
                     path: '/components/form-text-area',
-                    component: () => import('./pages/components/FormTextArea.vue')
+                    component: () => import('@docs/pages/components/FormTextArea.vue')
                 },
                 {
                     path: '/components/gallery',
-                    component: () => import('./pages/components/Gallery.vue')
+                    component: () => import('@docs/pages/components/Gallery.vue')
                 },
                 {
                     path: '/components/icon',
-                    component: () => import('./pages/components/Icon.vue')
+                    component: () => import('@docs/pages/components/Icon.vue')
                 },
                 {
                     path: '/components/info',
-                    component: () => import('./pages/components/Info.vue')
+                    component: () => import('@docs/pages/components/Info.vue')
                 },
                 {
                     path: '/components/link',
-                    component: () => import('./pages/components/Link.vue')
+                    component: () => import('@docs/pages/components/Link.vue')
                 },
                 {
                     path: '/components/menu',
-                    component: () => import('./pages/components/Menu.vue')
+                    component: () => import('@docs/pages/components/Menu.vue')
                 },
                 {
                     path: '/components/notice',
-                    component: () => import('./pages/components/Notice.vue')
+                    component: () => import('@docs/pages/components/Notice.vue')
                 },
                 {
                     path: '/components/overlay',
-                    component: () => import('./pages/components/Overlay.vue')
+                    component: () => import('@docs/pages/components/Overlay.vue')
                 },
                 {
                     path: '/components/pagination',
-                    component: () => import('./pages/components/Pagination.vue')
+                    component: () => import('@docs/pages/components/Pagination.vue')
                 },
                 {
                     path: '/components/pane',
-                    component: () => import('./pages/components/Pane.vue')
+                    component: () => import('@docs/pages/components/Pane.vue')
                 },
                 {
                     path: '/components/persona',
-                    component: () => import('./pages/components/Persona.vue')
+                    component: () => import('@docs/pages/components/Persona.vue')
                 },
                 {
                     path: '/components/placeholder',
-                    component: () => import('./pages/components/Placeholder.vue')
+                    component: () => import('@docs/pages/components/Placeholder.vue')
                 },
                 {
                     path: '/components/quantity-selector',
-                    component: () => import('./pages/components/QuantitySelector.vue')
+                    component: () => import('@docs/pages/components/QuantitySelector.vue')
                 },
                 {
                     path: '/components/remove',
-                    component: () => import('./pages/components/Remove.vue')
+                    component: () => import('@docs/pages/components/Remove.vue')
                 },
                 {
                     path: '/components/root',
-                    component: () => import('./pages/components/Root.vue')
+                    component: () => import('@docs/pages/components/Root.vue')
                 },
                 {
                     path: '/components/segmented-control',
-                    component: () => import('./pages/components/SegmentedControl.vue')
+                    component: () => import('@docs/pages/components/SegmentedControl.vue')
                 },
                 {
                     path: '/components/separator',
-                    component: () => import('./pages/components/Separator.vue')
+                    component: () => import('@docs/pages/components/Separator.vue')
                 },
                 {
                     path: '/components/slide-over',
-                    component: () => import('./pages/components/SlideOver.vue')
+                    component: () => import('@docs/pages/components/SlideOver.vue')
                 },
                 {
                     path: '/components/snackbar',
-                    component: () => import('./pages/components/Snackbar.vue')
+                    component: () => import('@docs/pages/components/Snackbar.vue')
                 },
                 {
                     path: '/components/spinner',
-                    component: () => import('./pages/components/Spinner.vue')
+                    component: () => import('@docs/pages/components/Spinner.vue')
                 },
                 {
                     path: '/components/split-button',
-                    component: () => import('./pages/components/SplitButton.vue')
+                    component: () => import('@docs/pages/components/SplitButton.vue')
                 },
                 {
                     path: '/components/statistic',
-                    component: () => import('./pages/components/Statistic.vue')
+                    component: () => import('@docs/pages/components/Statistic.vue')
                 },
                 {
                     path: '/components/table',
-                    component: () => import('./pages/components/Table.vue')
+                    component: () => import('@docs/pages/components/Table.vue')
                 },
                 {
                     path: '/components/tabs',
-                    component: () => import('./pages/components/Tabs.vue')
+                    component: () => import('@docs/pages/components/Tabs.vue')
                 },
                 {
                     path: '/components/timeline',
-                    component: () => import('./pages/components/Timeline.vue')
+                    component: () => import('@docs/pages/components/Timeline.vue')
                 },
                 {
                     path: '/components/toggle',
-                    component: () => import('./pages/components/Toggle.vue')
+                    component: () => import('@docs/pages/components/Toggle.vue')
                 },
                 {
                     path: '/components/toolbar',
-                    component: () => import('./pages/components/Toolbar.vue')
+                    component: () => import('@docs/pages/components/Toolbar.vue')
                 },
                 {
                     path: '/components/tooltip',
-                    component: () => import('./pages/components/Tooltip.vue')
+                    component: () => import('@docs/pages/components/Tooltip.vue')
                 },
                 {
                     path: '/components/window',
-                    component: () => import('./pages/components/Window.vue')
+                    component: () => import('@docs/pages/components/Window.vue')
                 },
                 {
                     path: '/layout/aspect-ratio',
-                    component: () => import('./pages/layout/AspectRatio.vue')
+                    component: () => import('@docs/pages/layout/AspectRatio.vue')
                 },
                 {
                     path: '/layout/auto-grid',
-                    component: () => import('./pages/layout/AutoGrid.vue')
+                    component: () => import('@docs/pages/layout/AutoGrid.vue')
                 },
                 {
                     path: '/layout/container',
-                    component: () => import('./pages/layout/Container.vue')
+                    component: () => import('@docs/pages/layout/Container.vue')
                 },
                 {
                     path: '/layout/grid',
-                    component: () => import('./pages/layout/Grid.vue')
+                    component: () => import('@docs/pages/layout/Grid.vue')
                 },
                 {
                     path: '/layout/predefined-grid',
-                    component: () => import('./pages/layout/PredefinedGrid.vue')
+                    component: () => import('@docs/pages/layout/PredefinedGrid.vue')
                 },
                 {
                     path: '/layout/spacer',
-                    component: () => import('./pages/layout/Spacer.vue')
+                    component: () => import('@docs/pages/layout/Spacer.vue')
+                },
+                {
+                    path: '/layout/spacing',
+                    component: () => import('@docs/pages/layout/Spacing.vue')
                 },
                 {
                     path: '/layout/stack',
-                    component: () => import('./pages/layout/Stack.vue')
+                    component: () => import('@docs/pages/layout/Stack.vue')
                 },
                 {
                     path: '/visuals/animated-colors',
-                    component: () => import('./pages/visuals/AnimatedColors.vue')
+                    component: () => import('@docs/pages/visuals/AnimatedColors.vue')
                 },
                 {
                     path: '/visuals/gridlines',
-                    component: () => import('./pages/visuals/Gridlines.vue')
+                    component: () => import('@docs/pages/visuals/Gridlines.vue')
                 },
                 {
                     path: '/:pathMatch(.*)*',
-                    component: () => import('./pages/NotFound.vue')
+                    component: () => import('@docs/pages/NotFound.vue')
                 }
             ]
         },
         {
             path: '/dashboard',
-            component: () => import('./pages/Dashboard.vue')
+            component: () => import('@docs/pages/Dashboard.vue')
         }
     ]
 });

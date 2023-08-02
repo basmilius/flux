@@ -1,22 +1,22 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Icon"/>
 
-        <preview>
-            <flux-stack
+        <Preview>
+            <FluxStack
                 axis="horizontal"
                 :gap="15">
-                <flux-icon variant="check-circle"/>
-                <flux-icon variant="lock"/>
-                <flux-icon variant="circle-exclamation"/>
-                <flux-icon variant="plus"/>
-                <flux-icon variant="xmark"/>
-            </flux-stack>
-        </preview>
+                <FluxIcon variant="check-circle"/>
+                <FluxIcon variant="lock"/>
+                <FluxIcon variant="circle-exclamation"/>
+                <FluxIcon variant="plus"/>
+                <FluxIcon variant="xmark"/>
+            </FluxStack>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 A component to display a single <a
                 href="https://fontawesome.com"
@@ -24,10 +24,10 @@
                 target="_blank">Font Awesome</a> icon. The
                 icon can be customized through css and is used in multiple Flux components, such as Buttons.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="Icon">
+        <ApiSection title="API">
+            <ApiComponent name="Icon">
                 <template #props>
                     <tr>
                         <td><code>size</code><code>number</code></td>
@@ -38,14 +38,14 @@
                         <td>The icon to use.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
-    </flux-stack>
+            </ApiComponent>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxIcon, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <flux-table
+    <FluxTable
         :is-bordered="isBordered"
         :is-hoverable="isHoverable"
         :is-loading="isLoading"
@@ -8,37 +8,38 @@
         <template
             v-if="slots.header"
             #header>
-            <flux-table-row>
+            <FluxTableRow>
                 <slot
                     name="header"
-                    v-bind="{dataSet, page, perPage, total}"/>
-            </flux-table-row>
+                    v-bind="{page, perPage, rows, total}"/>
+            </FluxTableRow>
         </template>
 
         <template #rows>
-            <flux-table-row
-                v-for="(row, index) of dataSet.slice(0, perPage)"
+            <FluxTableRow
+                v-for="(row, index) of rows"
                 :key="uniqueKey ? row[uniqueKey] : index">
                 <template v-for="(_, name) of slots">
                     <template v-if="name !== 'header'">
                         <slot
                             :name="name"
-                            v-bind="{dataSet, page, perPage, row, total}"/>
+                            v-bind="{index, page, perPage, row, rows, total}"/>
                     </template>
                 </template>
-            </flux-table-row>
+            </FluxTableRow>
         </template>
-    </flux-table>
+    </FluxTable>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { useSlots } from 'vue-demi';
-    import { FluxTable, FluxTableRow } from '.';
+    import { computed, toRefs, unref, useSlots } from 'vue-demi';
+    import FluxTable from './FluxTable.vue';
+    import FluxTableRow from './FluxTableRow.vue';
 
     export interface Props {
-        readonly dataSet: unknown[];
+        readonly dataSet: Record<string, any>[];
         readonly isBordered?: boolean;
         readonly isHoverable?: boolean;
         readonly isLoading?: boolean;
@@ -50,7 +51,7 @@
         readonly uniqueKey?: string;
     }
 
-    withDefaults(defineProps<Props>(), {
+    const props = withDefaults(defineProps<Props>(), {
         isBordered: true,
         isHoverable: false,
         isLoading: false,
@@ -59,6 +60,9 @@
         page: 1,
         perPage: 1000
     });
+    const {dataSet, perPage} = toRefs(props);
 
     const slots = useSlots();
+
+    const rows = computed(() => unref(dataSet).slice(0, unref(perPage)));
 </script>

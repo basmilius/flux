@@ -6,8 +6,8 @@
             <div
                 class="flux-tick"
                 :style="{
-                        '--position': (tick - lower) / (upper - lower)
-                    }">
+                    '--position': (tick - lower) / (upper - lower)
+                }">
                 <span>{{ tick }}</span>
             </div>
         </template>
@@ -18,8 +18,8 @@
             <div
                 class="flux-tick is-small"
                 :style="{
-                        '--position': (tick - lower) / (upper - lower)
-                    }"/>
+                    '--position': (tick - lower) / (upper - lower)
+                }"/>
         </template>
     </div>
 </template>
@@ -28,7 +28,7 @@
     lang="ts"
     setup>
     import { computed, toRefs } from 'vue-demi';
-    import { generateStepTicks } from '../utils';
+    import { generateStepTicks } from '@/utils';
 
     export interface Props {
         readonly lower: number;

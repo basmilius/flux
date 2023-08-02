@@ -1,5 +1,5 @@
 <template>
-    <flux-stack
+    <FluxStack
         class="flux-action-bar"
         axis="horizontal"
         :gap="9">
@@ -7,7 +7,7 @@
 
         <slot name="actions-start"/>
 
-        <flux-spacer/>
+        <FluxSpacer/>
 
         <slot name="actions-before-search"/>
 
@@ -15,27 +15,27 @@
 
         <slot name="actions-after-search"/>
 
-        <flux-flyout v-if="slots.filter">
+        <FluxFlyout v-if="slots.filter">
             <template
                 v-if="$slots.filter"
-                #opener="bindings">
+                #opener="{close, open, toggle}">
                 <slot
-                    v-bind="bindings"
+                    v-bind="{close, open, toggle}"
                     name="filter-opener">
-                    <flux-button-group>
-                        <flux-secondary-button
+                    <FluxButtonGroup>
+                        <FluxSecondaryButton
                             icon-before="filter"
                             :label="translate('flux_filter')"
-                            @click="bindings.open"/>
+                            @click="open"/>
 
-                        <flux-tooltip
+                        <FluxTooltip
                             v-if="isResettable"
                             :content="translate('flux_filter_reset')">
-                            <flux-destructive-button
+                            <FluxDestructiveButton
                                 icon-before="xmark"
                                 @click="$emit('reset')"/>
-                        </flux-tooltip>
-                    </flux-button-group>
+                        </FluxTooltip>
+                    </FluxButtonGroup>
                 </slot>
             </template>
 
@@ -44,18 +44,24 @@
                     v-bind="bindings"
                     name="filter"/>
             </template>
-        </flux-flyout>
+        </FluxFlyout>
 
         <slot name="actions-end"/>
-    </flux-stack>
+    </FluxStack>
 </template>
 
 <script
     lang="ts"
     setup>
     import { useSlots } from 'vue-demi';
-    import { useTranslate } from '../composables';
-    import { FluxButtonGroup, FluxDestructiveButton, FluxFlyout, FluxSecondaryButton, FluxSpacer, FluxStack, FluxTooltip } from '.';
+    import { useTranslate } from '@/composables';
+    import FluxButtonGroup from './FluxButtonGroup.vue';
+    import FluxDestructiveButton from './FluxDestructiveButton.vue';
+    import FluxFlyout from './FluxFlyout.vue';
+    import FluxSecondaryButton from './FluxSecondaryButton.vue';
+    import FluxSpacer from './FluxSpacer.vue';
+    import FluxStack from './FluxStack.vue';
+    import FluxTooltip from './FluxTooltip.vue';
 
     export interface Emits {
         (e: 'reset'): void;

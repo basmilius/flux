@@ -19,8 +19,8 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '../data';
-    import { iconRegistry } from '../data';
+    import type { IconNames } from '@/data';
+    import { iconRegistry } from '@/data';
     import { computed, toRefs } from 'vue-demi';
 
     export interface Emits {
@@ -54,7 +54,7 @@
 
     const width = computed(() => definition.value[0]);
     const height = computed(() => definition.value[1]);
-    const paths = computed(() => Array.isArray(definition.value[4]) ? definition.value[4] : [definition.value[4]]);
+    const paths = computed(() => (Array.isArray(definition.value[4]) ? definition.value[4] : [definition.value[4]]) as string[]);
 
     const onClick = (evt: MouseEvent) => emit('click', evt);
 </script>

@@ -3,27 +3,27 @@
         <slot
             name="tabs"
             v-bind="{activeIndex, children, tabs, activate}">
-            <flux-tab-bar class="flux-tabs-bar">
+            <FluxTabBar class="flux-tabs-bar">
                 <template
                     v-for="(tab, index) of tabs"
                     :key="index">
-                    <flux-tab-bar-item
+                    <FluxTabBarItem
                         :icon="tab.icon"
                         :is-active="activeIndex === index"
                         :label="tab.label"
                         @click="activate(index)"/>
                 </template>
-            </flux-tab-bar>
+            </FluxTabBar>
         </slot>
 
         <slot
             name="content"
             v-bind="{activeIndex, children, tabs, activate}">
-            <flux-window-transition :is-back="isTransitioningBack">
-                <v-node-renderer
+            <FluxWindowTransition :is-back="isTransitioningBack">
+                <VNodeRenderer
                     :key="activeIndex"
                     :vnode="children[activeIndex]"/>
-            </flux-window-transition>
+            </FluxWindowTransition>
         </slot>
     </div>
 </template>
@@ -31,8 +31,8 @@
 <script lang="ts">
     export default {
         model: {
-            prop: 'modelValue',
-            event: 'update:modelValue'
+            prop: 'model-value',
+            event: 'update:model-value'
         }
     };
 </script>
@@ -40,16 +40,17 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '../data';
+    import type { IconNames } from '@/data';
     import { computed, ref, unref, watch } from 'vue-demi';
-    import { useSlotVNodes } from '../composables';
-    import { FluxWindowTransition } from '../transition';
-    import { getNormalizedComponentProps } from '../utils';
+    import { useSlotVNodes } from '@/composables';
+    import { FluxWindowTransition } from '@/transition';
+    import { getNormalizedComponentProps } from '@/utils';
     import { VNodeRenderer } from './primitive';
-    import { FluxTabBar, FluxTabBarItem } from '.';
+    import FluxTabBar from './FluxTabBar.vue';
+    import FluxTabBarItem from './FluxTabBarItem.vue';
 
     export interface Emits {
-        (e: 'update:modelValue', index: number): void;
+        (e: 'update:model-value', index: number): void;
     }
 
     export interface Props {
@@ -75,7 +76,7 @@
 
     watch(activeIndex, (newIndex, oldIndex) => {
         isTransitioningBack.value = newIndex < oldIndex;
-        emit('update:modelValue', newIndex);
+        emit('update:model-value', newIndex);
     });
 
     watch(() => props.modelValue, modelValue => activeIndex.value = modelValue ?? 0, {immediate: true});

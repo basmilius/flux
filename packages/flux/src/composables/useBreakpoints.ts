@@ -1,5 +1,5 @@
 import { computed, inject, onMounted, onUnmounted, provide, ref, unref, watch } from 'vue-demi';
-import { FluxBreakpointsInjection, FluxBreakpointsInjectionKey } from '../data';
+import { FluxBreakpointsInjection, FluxBreakpointsInjectionKey, isSSR } from '@/data';
 
 // note(Bas): These breakpoints are also defined in ../scss/mixin/_breakpoints.scss, please
 //  keep them synced.
@@ -25,7 +25,7 @@ export function useBreakpoints(): FluxBreakpointsInjection {
 }
 
 export function useBreakpointsProvider(): void {
-    const width = ref(innerWidth);
+    const width = ref(0);
 
     const breakpoints = computed(() => Object.fromEntries(
         Object.entries(BREAKPOINTS)
@@ -54,8 +54,14 @@ export function useBreakpointsProvider(): void {
 
     const maxWidth = computed(() => BREAKPOINTS[unref(breakpoint)] || null);
 
-    onMounted(() => window.addEventListener('resize', onResize, {passive: false}));
-    onUnmounted(() => window.removeEventListener('resize', onResize));
+    onMounted(() => {
+        window.addEventListener('resize', onResize, {passive: false});
+        onResize();
+    });
+
+    onUnmounted(() => {
+        window.removeEventListener('resize', onResize);
+    });
 
     function onResize(): void {
         width.value = innerWidth;
@@ -71,6 +77,10 @@ export function useBreakpointsProvider(): void {
     });
 
     watch(breakpoints, breakpoints => {
+        if (isSSR) {
+            return;
+        }
+
         Object.entries(breakpoints).forEach(([breakpoint, active]) => {
             if (active) {
                 document.documentElement.setAttribute(breakpoint, '');

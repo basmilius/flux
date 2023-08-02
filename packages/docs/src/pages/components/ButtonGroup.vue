@@ -1,50 +1,50 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Components"
             title="Button group"/>
 
-        <preview>
-            <flux-button-group>
-                <flux-secondary-button label="Left"/>
-                <flux-secondary-button label="Center"/>
-                <flux-secondary-button label="Right"/>
-            </flux-button-group>
-        </preview>
+        <Preview>
+            <FluxButtonGroup>
+                <FluxSecondaryButton label="Left"/>
+                <FluxSecondaryButton label="Center"/>
+                <FluxSecondaryButton label="Right"/>
+            </FluxButtonGroup>
+        </Preview>
 
-        <api-section>
+        <ApiSection>
             <p>
                 Groups multiple button. The button group component will adjust the border radius of its underlying
                 buttons and remove gaps between them.
             </p>
-        </api-section>
+        </ApiSection>
 
-        <api-section title="API">
-            <api-component name="ButtonGroup">
+        <ApiSection title="API">
+            <ApiComponent name="ButtonGroup">
                 <template #slots>
                     <tr>
                         <td><code>default</code><code>{}</code></td>
                         <td>The buttons that should be part of the group.</td>
                     </tr>
                 </template>
-            </api-component>
-        </api-section>
+            </ApiComponent>
+        </ApiSection>
 
-        <api-section title="Examples">
-            <api-example
+        <ApiSection title="Examples">
+            <ApiExample
                 :code="basicCode"
                 :component="basic"
                 title="Basic"
                 description="A basic example of a button group."/>
-        </api-section>
-    </flux-stack>
+        </ApiSection>
+    </FluxStack>
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxButtonGroup, FluxSecondaryButton, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
-    import basic from '@/code/components/buttonGroup/basic.vue';
-    import basicCode from '@/code/components/buttonGroup/basic.vue?raw';
+    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
+    import basic from '@docs/code/components/buttonGroup/basic.vue';
+    import basicCode from '@docs/code/components/buttonGroup/basic.vue?raw';
 </script>

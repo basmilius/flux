@@ -1,10 +1,12 @@
 <template>
-    <button-component
+    <ButtonComponent
         :component-type="type"
         class="flux-button"
+        :class="[`is-${size}`]"
         :type="isSubmit ? 'submit' : 'button'"
-        :aria-disabled="disabled"
-        :disabled="disabled"
+        :aria-disabled="disabled ? true : undefined"
+        :disabled="disabled ? true : undefined"
+        :tabindex="disabled ? -1 : tabindex"
         :href="href"
         :rel="rel"
         :target="target"
@@ -15,11 +17,11 @@
         <slot name="before"/>
 
         <slot name="icon-before">
-            <flux-spinner
+            <FluxSpinner
                 v-if="isLoading && (iconBefore || !iconAfter)"
                 :size="20"/>
 
-            <flux-icon
+            <FluxIcon
                 v-else-if="iconBefore"
                 class="flux-button-icon"
                 :variant="iconBefore"/>
@@ -32,27 +34,27 @@
         </span>
 
         <slot name="icon-after">
-            <flux-spinner
+            <FluxSpinner
                 v-if="isLoading && (!iconBefore && iconAfter)"
                 :size="20"/>
 
-            <flux-icon
+            <FluxIcon
                 v-else-if="iconAfter"
                 class="flux-button-icon"
                 :variant="iconAfter"/>
         </slot>
 
         <slot name="after"/>
-    </button-component>
+    </ButtonComponent>
 </template>
 
 <script
     lang="ts"
     setup>
-    import type { FluxRoutingLocation, IconNames } from '../data';
+    import type { FluxRoutingLocation, IconNames } from '@/data';
     import { toRefs, unref } from 'vue-demi';
-    import { ButtonComponent } from './primitive';
-    import { FluxIcon, FluxSpinner } from '.';
+    import { FluxIcon, FluxSpinner } from '@/components';
+    import ButtonComponent from './ButtonComponent.vue';
 
     export interface Emits {
         (e: 'click', evt: MouseEvent): void;
@@ -70,6 +72,8 @@
         readonly isLoading?: boolean;
         readonly isSubmit?: boolean;
         readonly label?: string;
+        readonly size?: 'small' | 'medium' | 'large';
+        readonly tabindex?: string | number;
         readonly href?: string;
         readonly rel?: string;
         readonly target?: string;
@@ -78,10 +82,11 @@
 
     const emit = defineEmits<Emits>();
     const props = withDefaults(defineProps<Props>(), {
+        size: 'medium',
         type: 'button'
     });
 
-    const {disabled, isLoading, type} = toRefs(props);
+    const {disabled, isLoading} = toRefs(props);
 
     function onClick(evt: MouseEvent): void {
         if (unref(disabled) || unref(isLoading)) {
@@ -102,7 +107,7 @@
 </script>
 
 <style lang="scss">
-    @use '../scss/mixin' as flux;
+    @use '../../scss/mixin' as flux;
 
     .flux-button {
         display: inline-flex;
@@ -127,6 +132,16 @@
 
         > * {
             color: var(--button-foreground);
+        }
+
+        &.is-small {
+            height: 36px;
+            padding: 0 9px;
+        }
+
+        &.is-large {
+            height: 48px;
+            padding: 0 15px;
         }
 
         &:focus-visible {
@@ -165,11 +180,8 @@
         &:disabled,
         &[aria-disabled="true"] {
             box-shadow: none;
+            opacity: .5;
             pointer-events: none;
-
-            > * {
-                opacity: .5;
-            }
         }
     }
 </style>

@@ -8,7 +8,7 @@
     lang="ts"
     setup>
     import { computed, toRefs, unref } from 'vue-demi';
-    import { useBreakpoints } from '../composables';
+    import { useBreakpoints } from '@/composables';
 
     export interface Props {
         readonly xs?: number;

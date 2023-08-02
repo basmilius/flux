@@ -1,7 +1,7 @@
 <template>
-    <flux-root>
-        <router-view/>
-    </flux-root>
+    <FluxRoot>
+        <RouterView/>
+    </FluxRoot>
 </template>
 
 <script

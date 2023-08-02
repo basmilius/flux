@@ -44,7 +44,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxRoutingLocation } from '../../data';
+    import type { FluxRoutingLocation } from '@/data';
 
     export interface Emits {
         (e: 'click', evt: MouseEvent): void;
@@ -64,7 +64,7 @@
 
     interface RouterLinkProps {
         href: string;
-        navigate: Function;
+        navigate: (evt: MouseEvent) => void;
     }
 
     const emit = defineEmits<Emits>();
@@ -82,7 +82,7 @@
         return props as RouterLinkProps;
     }
 
-    function onClick(evt: MouseEvent, navigate?: Function): void {
+    function onClick(evt: MouseEvent, navigate?: (evt: MouseEvent) => void): void {
         emit('click', evt);
 
         if (evt.defaultPrevented) {

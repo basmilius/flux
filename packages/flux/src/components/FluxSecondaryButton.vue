@@ -1,7 +1,7 @@
 <template>
-    <flux-base-button
+    <BaseButton
         class="flux-secondary-button"
-        v-bind="{type, disabled, iconAfter, iconBefore, isLoading, isSubmit, label, href, rel, target, to}"
+        v-bind="{type, disabled, iconAfter, iconBefore, isLoading, isSubmit, label, size, href, rel, target, to}"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)">
@@ -12,15 +12,15 @@
                 :name="slot"
                 v-bind="scope"/>
         </template>
-    </flux-base-button>
+    </BaseButton>
 </template>
 
 <script
     lang="ts"
     setup>
-    import type { FluxRoutingLocation, IconNames } from '../data';
+    import type { FluxRoutingLocation, IconNames } from '@/data';
     import { useSlots } from 'vue-demi';
-    import { FluxBaseButton } from '.';
+    import { BaseButton } from './primitive';
 
     // note: It is currently not possible to reuse Emits and Props from
     //  base button, because of a limitation of vite and vue compiler-sfc.
@@ -43,6 +43,7 @@
         readonly isLoading?: boolean;
         readonly isSubmit?: boolean;
         readonly label?: string;
+        readonly size?: 'small' | 'medium' | 'large';
         readonly href?: string;
         readonly rel?: string;
         readonly target?: string;
@@ -51,6 +52,7 @@
 
     defineEmits<Emits>();
     withDefaults(defineProps<Props>(), {
+        size: 'medium',
         type: 'button'
     });
 

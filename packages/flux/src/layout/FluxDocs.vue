@@ -1,12 +1,12 @@
 <template>
     <div class="flux-docs">
         <div class="flux-docs-top-bar">
-            <flux-container class="flux-docs-top-bar-container">
+            <FluxContainer class="flux-docs-top-bar-container">
                 <slot name="top-bar"/>
-            </flux-container>
+            </FluxContainer>
         </div>
 
-        <flux-container class="flux-docs-container">
+        <FluxContainer class="flux-docs-container">
             <div class="flux-docs-navigation">
                 <nav class="flux-docs-navigation-nav">
                     <slot name="navigation"/>
@@ -16,14 +16,14 @@
             <main class="flux-docs-content">
                 <slot/>
             </main>
-        </flux-container>
+        </FluxContainer>
     </div>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxContainer } from '../components';
+    import { FluxContainer } from '@/components';
 </script>
 
 <style lang="scss">

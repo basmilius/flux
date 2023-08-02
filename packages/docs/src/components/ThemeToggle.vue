@@ -1,5 +1,5 @@
 <template>
-    <flux-toggle
+    <FluxToggle
         v-model="darkMode"
         class="theme-toggle"
         :class="{
@@ -61,11 +61,11 @@
     lang="scss"
     scoped>
     .theme-toggle {
-        ::v-deep(.flux-toggle-icon-off) {
+        ::v-deep(.is-off) {
             color: #eaaa08;
         }
 
-        ::v-deep(.flux-toggle-icon-on) {
+        ::v-deep(.is-on) {
             color: #06aed4;
         }
 

@@ -31,8 +31,8 @@
     lang="ts"
     setup>
     import { computed, provide, ref, unref, useSlots } from 'vue-demi';
-    import { useBreakpoints } from '../composables';
-    import { FluxDashboardInjectionKey } from '../data';
+    import { useBreakpoints } from '@/composables';
+    import { FluxDashboardInjectionKey } from '@/data';
 
     const slots = useSlots();
     const {breakpoints} = useBreakpoints();

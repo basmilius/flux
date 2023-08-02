@@ -1,16 +1,15 @@
 import type { Component, RenderFunction, Slots } from 'vue-demi';
 import { h, onMounted, onUnmounted, SetupContext, VNode } from 'vue-demi';
-import { FluxTeleport } from '../components';
-import { useFluxStore } from '../data';
-import { flattenVNodeTree, render } from '../utils';
+import { FluxTeleport } from '@/components';
+import { registerDialog } from '@/data';
+import { flattenVNodeTree, render } from '@/utils';
 
 type _Emit = SetupContext<['close']>['emit'];
 type _Props = {
     readonly isCloseable?: boolean;
 };
 
-export function createDialogRenderer(props: _Props, emit: _Emit, slots: Slots, className: string, transitionComponent: Component, teleportTo: string = '[data-flux-root]'): RenderFunction {
-    const {registerDialog} = useFluxStore();
+export function createDialogRenderer(props: _Props, emit: _Emit, slots: Slots, className: string | (() => string), transition: Component, teleportTo: string = '[data-flux-root]'): RenderFunction {
     let unregister: Function | null = null;
 
     onMounted(() => {
@@ -19,6 +18,7 @@ export function createDialogRenderer(props: _Props, emit: _Emit, slots: Slots, c
 
     onUnmounted(() => {
         window.removeEventListener('keydown', onKeyDown);
+        unregister?.();
     });
 
     function onKeyDown(evt: KeyboardEvent): void {
@@ -38,7 +38,7 @@ export function createDialogRenderer(props: _Props, emit: _Emit, slots: Slots, c
 
         if (isVisible) {
             content.push(h('div', {
-                class: className
+                class: typeof className === 'function' ? className() : className
             }, children));
 
             if (!unregister) {
@@ -49,12 +49,13 @@ export function createDialogRenderer(props: _Props, emit: _Emit, slots: Slots, c
             unregister = null;
         }
 
-        return render(FluxTeleport as unknown as Component, {
+        return render(FluxTeleport, {
             props: {
+                placement: 'before',
                 to: teleportTo
             },
             slots: {
-                default: () => render(transitionComponent, {
+                default: () => render(transition, {
                     slots: {
                         default: () => content
                     }

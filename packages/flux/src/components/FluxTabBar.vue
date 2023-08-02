@@ -5,7 +5,7 @@
             class="flux-tab-bar-arrow flux-tab-bar-arrow-start"
             tabindex="-1"
             @click="scrollToStart">
-            <flux-icon variant="angle-left"/>
+            <FluxIcon variant="angle-left"/>
         </button>
 
         <div
@@ -23,7 +23,7 @@
             class="flux-tab-bar-arrow flux-tab-bar-arrow-end"
             tabindex="-1"
             @click="scrollToEnd">
-            <flux-icon variant="angle-right"/>
+            <FluxIcon variant="angle-right"/>
         </button>
     </nav>
 </template>
@@ -32,9 +32,9 @@
     lang="ts"
     setup>
     import { onMounted, ref } from 'vue-demi';
-    import { useEventListener, useMutationObserver } from '../composables';
-    import { unrefElement } from '../helpers';
-    import { FluxIcon } from '.';
+    import { useEventListener, useMutationObserver } from '@/composables';
+    import { unrefElement } from '@/helpers';
+    import FluxIcon from './FluxIcon.vue';
 
     const isEndArrowVisible = ref(false);
     const isStartArrowVisible = ref(false);

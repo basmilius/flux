@@ -1,5 +1,5 @@
 <template>
-    <slider-base
+    <SliderBase
         :is-disabled="isDisabled"
         :is-dragging="isDraggingLower || isDraggingUpper"
         :is-ticks-visible="isTicksVisible"
@@ -8,10 +8,10 @@
         :step="step"
         @dragging="onDragging"
         @update="onUpdate">
-        <slider-track
+        <SliderTrack
             :percentage-lower="percentageLower"
             :percentage-upper="percentageUpper">
-            <slider-thumb
+            <SliderThumb
                 ref="lowerThumbRef"
                 :is-disabled="isDisabled"
                 :is-dragging="isDraggingLower"
@@ -20,7 +20,7 @@
                 @decrement="onDecrement('lower')"
                 @increment="onIncrement('lower')"/>
 
-            <slider-thumb
+            <SliderThumb
                 ref="upperThumbRef"
                 :is-disabled="isDisabled"
                 :is-dragging="isDraggingUpper"
@@ -28,15 +28,15 @@
                 @grab="!isDisabled && (isDraggingUpper = true)"
                 @decrement="onDecrement('upper')"
                 @increment="onIncrement('upper')"/>
-        </slider-track>
-    </slider-base>
+        </SliderTrack>
+    </SliderBase>
 </template>
 
 <script lang="ts">
     export default {
         model: {
-            prop: 'modelValue',
-            event: 'update:modelValue'
+            prop: 'model-value',
+            event: 'update:model-value'
         }
     };
 </script>
@@ -45,13 +45,13 @@
     lang="ts"
     setup>
     import { ComponentPublicInstance, computed, ref, toRefs, unref, watch } from 'vue-demi';
-    import { useFluxStore } from '../data';
-    import { unrefElement } from '../helpers';
-    import { clampWithStepPrecision, countDecimals, formatNumber } from '../utils';
+    import { addTooltip, removeTooltip, updateTooltip } from '@/data';
+    import { unrefElement } from '@/helpers';
+    import { clampWithStepPrecision, countDecimals, formatNumber } from '@/utils';
     import { SliderBase, SliderThumb, SliderTrack } from './primitive';
 
     export interface Emits {
-        (e: 'update:modelValue', value: [number, number]): void;
+        (e: 'update:model-value', value: [number, number]): void;
     }
 
     export interface Props {
@@ -72,8 +72,6 @@
         step: 1
     });
     const {formatter, isDisabled, max, min, modelValue, step} = toRefs(props);
-
-    const {addTooltip, removeTooltip, updateTooltip} = useFluxStore();
 
     const lowerThumbRef = ref<ComponentPublicInstance>();
     const upperThumbRef = ref<ComponentPublicInstance>();
@@ -137,7 +135,7 @@
             return;
         }
 
-        emit('update:modelValue', [lower, upper]);
+        emit('update:model-value', [lower, upper]);
     }
 
     function onIncrement(which: 'lower' | 'upper'): void {
@@ -154,7 +152,7 @@
             return;
         }
 
-        emit('update:modelValue', [lower, upper]);
+        emit('update:model-value', [lower, upper]);
     }
 
     watch(modelValue, modelValue => {
@@ -169,7 +167,7 @@
         percentageLower.value = (lower - min) / (max - min);
         percentageUpper.value = (upper - min) / (max - min);
 
-        emit('update:modelValue', [lower, upper]);
+        emit('update:model-value', [lower, upper]);
     }, {immediate: true});
 
     watch(([isDraggingLower, isDraggingUpper]), ([isDraggingLower, isDraggingUpper]) => {

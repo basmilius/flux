@@ -1,6 +1,6 @@
 <template>
-    <div class="flux-button flux-menu-item flux-menu-sub-header">
-        <flux-icon
+    <div class="flux-menu-sub-header">
+        <FluxIcon
             v-if="iconBefore"
             class="flux-button-icon flux-menu-sub-header-icon"
             :size="16"
@@ -8,7 +8,7 @@
 
         <span>{{ label }}</span>
 
-        <flux-icon
+        <FluxIcon
             v-if="iconAfter"
             class="flux-button-icon"
             :variant="iconAfter"/>
@@ -18,8 +18,8 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '../data';
-    import { FluxIcon } from '.';
+    import type { IconNames } from '@/data';
+    import FluxIcon from './FluxIcon.vue';
 
     export interface Props {
         readonly iconAfter?: IconNames | null;
@@ -33,10 +33,11 @@
 <style lang="scss">
     .flux-menu-sub-header {
         position: sticky;
-        top: -9px;
+        display: flex;
+        top: 0;
         margin-top: -9px;
         margin-bottom: -3px;
-        padding-top: 6px;
+        padding: 12px 12px 6px;
         gap: 9px;
         background: linear-gradient(to bottom, rgb(var(--gray-0)) 75%, transparent);
         font-size: 14px;

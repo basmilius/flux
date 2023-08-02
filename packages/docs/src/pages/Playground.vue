@@ -1,68 +1,43 @@
 <template>
-    <flux-stack>
-        <page-title
+    <FluxStack>
+        <PageTitle
             section="Playground"
             title="Bas' speelparadijs"/>
 
         <section>
-            <preview v-if="false">
-                <flux-pane style="width: 420px">
-                    <flux-pane-body>
-                        <flux-stack :gap="15">
-                            <flux-progress-bar
-                                :min="0"
-                                :max="100"
-                                :value="50"/>
-                            <flux-progress-bar is-indeterminate/>
-                        </flux-stack>
-                    </flux-pane-body>
-                </flux-pane>
-            </preview>
+            <template
+                v-if="previews.length > 0"
+                v-for="preview of previews">
+                <Preview>
+                    <Component :is="preview"/>
+                </Preview>
+            </template>
 
-            <preview>
-                <flux-skeleton :is-enabled="isSkeletonEnabled">
-                    <flux-stack is-centered>
-                        <flux-statistic
-                            style="width: 360px"
-                            color="primary"
-                            change-color="success"
-                            change-icon="arrow-trend-up"
-                            change-value="1.250"
-                            icon="star"
-                            label="Leads"
-                            value="16.500"/>
-
-                        <flux-statistic
-                            style="width: 360px"
-                            color="danger"
-                            change-color="success"
-                            change-icon="arrow-trend-down"
-                            change-value="13%"
-                            icon="bolt"
-                            label="Exceptions"
-                            value="13"/>
-
-                        <flux-secondary-button
-                            icon-before="clone"
-                            label="Toggle skeletons"
-                            @click="isSkeletonEnabled = !isSkeletonEnabled"/>
-                    </flux-stack>
-                </flux-skeleton>
-            </preview>
-
-            <preview>
+            <Preview v-else>
                 <span style="font-size: 60px">🙂</span>
-            </preview>
+            </Preview>
         </section>
-    </flux-stack>
+    </FluxStack>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneBody, FluxProgressBar, FluxSecondaryButton, FluxSkeleton, FluxStack, FluxStatistic } from '@fancee/flux';
-    import { PageTitle, Preview } from '@/components';
-    import { ref } from 'vue';
+    import { FluxStack } from '@fancee/flux';
+    import { PageTitle, Preview } from '@docs/components';
+    import { computed } from 'vue';
 
-    const isSkeletonEnabled = ref(true);
+    type Module = {
+        // note: String is not actually the correct type here, Vue does not export
+        //  the type that is really needed here, which is ComponentDefinition. As
+        //  we're on a playground page, the type error is suppressed by this.
+        readonly default: string;
+        readonly enabled: boolean;
+    };
+
+    const availablePreviews: Record<string, Module> = import.meta.glob('@docs/code/playground/*.vue', {eager: true});
+    const previews = computed(() => Object
+        .values(availablePreviews)
+        .filter(module => module.enabled)
+        .map(module => module.default));
 </script>

@@ -21,7 +21,7 @@
                 {{ fallbackInitials }}
             </span>
 
-            <flux-icon
+            <FluxIcon
                 v-else-if="fallbackIcon"
                 :variant="fallbackIcon"/>
         </div>
@@ -31,9 +31,9 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '../data';
+    import type { IconNames } from '@/data';
     import { computed, toRefs, unref } from 'vue-demi';
-    import { FluxIcon } from '.';
+    import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {
         (e: 'click', evt: MouseEvent): void;
@@ -111,6 +111,7 @@
         display: inline-flex;
         height: 1em;
         width: 1em;
+        flex: 0 0 auto;
         border-radius: .5em;
         font-size: v-bind(sizePixels);
         user-select: none;

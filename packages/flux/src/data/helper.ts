@@ -1,38 +1,11 @@
-import type { FluxAlertSpec, FluxConfirmSpec } from '.';
-import { useFluxStore } from '.';
+import type { FluxFormSelectGroup, FluxFormSelectOption } from './types';
 
-export async function fluxAlert(spec: Omit<FluxAlertSpec, 'id' | 'onClose'>): Promise<void> {
-    const fluxStore = useFluxStore();
+export const isSSR = typeof document === 'undefined';
 
-    return new Promise(resolve => {
-        const id = fluxStore.addAlert({
-            ...spec,
-            onClose(): void {
-                resolve();
-                fluxStore.removeAlert(id);
-            }
-        });
-    });
+export function isFluxFormSelectGroup(item: unknown): item is FluxFormSelectGroup {
+    return item !== null && typeof item === 'object' && !('id' in item);
 }
 
-export async function fluxConfirm(spec: Omit<FluxConfirmSpec, 'id' | 'onCancel' | 'onClose' | 'onConfirm'>): Promise<boolean> {
-    const fluxStore = useFluxStore();
-
-    return new Promise((resolve, reject) => {
-        const id = fluxStore.addConfirm({
-            ...spec,
-            onClose(): void {
-                reject();
-                fluxStore.removeConfirm(id);
-            },
-            onCancel(): void {
-                resolve(false);
-                fluxStore.removeConfirm(id);
-            },
-            onConfirm(): void {
-                resolve(true);
-                fluxStore.removeConfirm(id);
-            }
-        });
-    });
+export function isFluxFormSelectOption(item: unknown): item is FluxFormSelectOption {
+    return item !== null && typeof item === 'object' && 'id' in item;
 }

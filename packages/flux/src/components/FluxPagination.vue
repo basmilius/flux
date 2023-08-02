@@ -1,6 +1,6 @@
 <template>
-    <flux-button-group class="flux-pagination">
-        <flux-secondary-button
+    <FluxButtonGroup class="flux-pagination">
+        <FluxSecondaryButton
             v-if="arrows || isCompact"
             :disabled="isPreviousDisabled"
             icon-before="angle-left"
@@ -8,16 +8,16 @@
 
         <template v-if="!isCompact">
             <template v-for="p of visiblePages">
-                <flux-secondary-button
+                <FluxSecondaryButton
                     v-if="p === 'dots'"
                     disabled
                     icon-before="ellipsis-h"/>
 
-                <flux-primary-button
+                <FluxPrimaryButton
                     v-else-if="p === page"
                     :label="`${p}`"/>
 
-                <flux-secondary-button
+                <FluxSecondaryButton
                     v-else
                     :label="`${p}`"
                     @click="navigate(p)"/>
@@ -25,26 +25,33 @@
         </template>
 
         <template v-else>
-            <div class="flux-button flux-secondary-button flux-pagination-current">
+            <FluxSecondaryButton
+                v-slot:before
+                class="flux-pagination-current"
+                @click="prompt">
                 <strong>{{ page }}</strong>
                 <span>/</span>
                 <span>{{ pages }}</span>
-            </div>
+            </FluxSecondaryButton>
         </template>
 
-        <flux-secondary-button
+        <FluxSecondaryButton
             v-if="arrows || isCompact"
             :disabled="isNextDisabled"
             icon-before="angle-right"
             @click="next"/>
-    </flux-button-group>
+    </FluxButtonGroup>
 </template>
 
 <script
     lang="ts"
     setup>
     import { computed, toRefs, unref } from 'vue-demi';
-    import { FluxButtonGroup, FluxPrimaryButton, FluxSecondaryButton } from '.';
+    import { useTranslate } from '@/composables';
+    import { showPrompt } from '@/data';
+    import FluxButtonGroup from './FluxButtonGroup.vue';
+    import FluxPrimaryButton from './FluxPrimaryButton.vue';
+    import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
     export interface Emits {
         (e: 'navigate', page: number): void;
@@ -61,6 +68,8 @@
     const emit = defineEmits<Emits>();
     const props = defineProps<Props>();
     const {page, perPage, total} = toRefs(props);
+
+    const translate = useTranslate();
 
     const pages = computed(() => Math.ceil(unref(total) / unref(perPage)));
     const isNextDisabled = computed(() => unref(page) >= unref(pages));
@@ -112,6 +121,23 @@
     function previous(): void {
         navigate(unref(page) - 1);
     }
+
+    async function prompt(): Promise<void> {
+        const pageStr = await showPrompt({
+            icon: 'ellipsis',
+            title: translate('flux_pagination_navigate_title'),
+            message: translate('flux_pagination_navigate_message'),
+            fieldLabel: translate('flux_pagination_navigate_page')
+        });
+
+        const page = Number(pageStr);
+
+        if (isNaN(page) || page > unref(pages) || page <= 0) {
+            return;
+        }
+
+        navigate(page);
+    }
 </script>
 
 <style lang="scss">
@@ -121,11 +147,14 @@
         &-current {
             gap: 3px;
             font-variant-numeric: tabular-nums;
-            pointer-events: none;
         }
 
         .flux-button span {
             min-width: 18px;
+
+            &:nth-child(2) {
+                min-width: unset;
+            }
         }
 
         .flux-primary-button {

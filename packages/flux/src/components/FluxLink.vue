@@ -1,5 +1,5 @@
 <template>
-    <flux-base-button
+    <BaseButton
         class="flux-link"
         v-bind="{type, disabled, iconBefore: icon, iconAfter: 'arrow-right-long', label, href, rel, target, to}"
         @click="$emit('click', $event)"
@@ -12,15 +12,15 @@
                 :name="slot"
                 v-bind="scope"/>
         </template>
-    </flux-base-button>
+    </BaseButton>
 </template>
 
 <script
     lang="ts"
     setup>
-    import type { FluxRoutingLocation, IconNames } from '../data';
+    import type { FluxRoutingLocation, IconNames } from '@/data';
     import { useSlots } from 'vue-demi';
-    import { FluxBaseButton } from '.';
+    import { BaseButton } from './primitive';
 
     // note: It is currently not possible to reuse Emits and Props from
     //  base button, because of a limitation of vite and vue compiler-sfc.

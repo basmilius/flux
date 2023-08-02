@@ -1,5 +1,6 @@
 <template>
-    <flux-drop-zone
+    <FluxDropZone
+        accept="image/*"
         :is-disabled="!isEditable"
         :is-empty="items && items.length === 0"
         is-multiple
@@ -9,21 +10,30 @@
         :placeholder-title="translate('flux_gallery_placeholder_title')"
         @select="onFilesSelected">
         <template #default="{showPicker}">
-            <transition-group
+            <TransitionGroup
                 class="flux-gallery"
                 name="flux-gallery"
                 tag="div">
-                <flux-gallery-item
-                    v-if="items"
-                    v-for="(item, index) of items"
-                    :is-deletable="isEditable"
-                    :key="item"
-                    :url="item"
-                    @delete="$emit('delete', index)"/>
+                <template v-if="items" v-for="(item, index) of items">
+                    <FluxGalleryItem
+                        v-if="typeof item === 'string'"
+                        :is-deletable="isEditable"
+                        :key="item"
+                        :url="item"
+                        @delete="$emit('delete', index)"/>
+
+                    <FluxGalleryItem
+                        v-else
+                        :is-deletable="isEditable"
+                        :key="item.url"
+                        :focal-point="item"
+                        :url="item.url"
+                        @delete="$emit('delete', index)"/>
+                </template>
 
                 <slot/>
 
-                <flux-gallery-item
+                <FluxGalleryItem
                     v-for="item of pendingItems"
                     is-pending
                     :key="item"
@@ -34,18 +44,21 @@
                     key="gallery-add"
                     class="flux-placeholder flux-gallery-add"
                     @click="showPicker()">
-                    <flux-icon variant="plus"/>
+                    <FluxIcon variant="plus"/>
                 </button>
-            </transition-group>
+            </TransitionGroup>
         </template>
-    </flux-drop-zone>
+    </FluxDropZone>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { useTranslate } from '../composables';
-    import { FluxDropZone, FluxGalleryItem, FluxIcon } from '.';
+    import type { FluxFocalPoint } from '@/data';
+    import { useTranslate } from '@/composables';
+    import FluxDropZone from './FluxDropZone.vue';
+    import FluxGalleryItem from './FluxGalleryItem.vue';
+    import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {
         (e: 'delete', index: number): void;
@@ -55,7 +68,7 @@
 
     export interface Props {
         readonly isEditable?: boolean;
-        readonly items?: string[];
+        readonly items?: (string | (FluxFocalPoint & { readonly url: string; }))[];
         readonly pendingItems?: string[];
     }
 
