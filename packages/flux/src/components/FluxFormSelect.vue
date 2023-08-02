@@ -111,7 +111,7 @@
     setup>
     import type { ComponentPublicInstance, ComputedRef } from 'vue-demi';
     import type { FluxFormSelectGroup, FluxFormSelectOption } from '@/data';
-    import { computed, nextTick, ref, toRefs, unref, watch } from 'vue-demi';
+    import { computed, ref, toRefs, unref, watch } from 'vue-demi';
     import { isFluxFormSelectGroup, isFluxFormSelectOption } from '@/data';
     import { useFormFieldInjection, useTranslate } from '@/composables';
     import { unrefElement } from '@/helpers';
