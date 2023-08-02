@@ -14,7 +14,7 @@
         "node": ">=20"
     },
     "devDependencies": {
-        "@types/luxon": "^3.3.0",
-        "@types/node": "^20.2.5"
+        "@types/luxon": "^3.3.1",
+        "@types/node": "^20.4.5"
     }
 }

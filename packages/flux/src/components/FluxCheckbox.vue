@@ -92,6 +92,7 @@
 
     .form-checkbox {
         display: inline-flex;
+        flex-shrink: 0;
         gap: 12px;
         outline: 0;
 

@@ -43,7 +43,7 @@ export interface FluxStore extends FluxState {
 
     showPrompt(spec: Omit<FluxConfirmSpec, 'id' | 'onCancel' | 'onConfirm'>): Promise<string | false>;
 
-    showSnackbar({duration, ...spec}: Omit<FluxSnackbarSpec, 'id'> & { readonly duration?: number; }): Promise<void>;
+    showSnackbar({duration, ...spec}: Omit<FluxSnackbarSpec, 'id'> & { readonly duration?: number; }): Promise<void> | void;
 
     updateSnackbar(id: number, spec: Partial<Omit<FluxSnackbarSpec, 'id'>>): void;
 
@@ -204,6 +204,8 @@ export async function showPrompt(spec: Omit<FluxPromptSpec, 'id' | 'onCancel' | 
         });
     });
 }
+
+export function showSnackbar({duration, ...spec}: Omit<FluxSnackbarSpec, 'id'> & { readonly duration?: number; }): void;
 
 export async function showSnackbar({duration, ...spec}: Omit<FluxSnackbarSpec, 'id'> & { readonly duration?: number; }): Promise<void> {
     const id = addSnackbar(spec);

@@ -3,17 +3,17 @@
         <flux-secondary-button
             icon-before="circle-check"
             label="Alert"
-            @click="showAlert"/>
+            @click="onShowAlertClicked"/>
 
         <flux-secondary-button
             icon-before="circle-check"
             label="Confirm"
-            @click="showConfirm"/>
+            @click="onShowConfirmClicked"/>
 
         <flux-secondary-button
             icon-before="pen"
             label="Prompt"
-            @click="showPrompt"/>
+            @click="onShowPromptClicked"/>
     </flux-button-stack>
 </template>
 
@@ -24,26 +24,26 @@
 <script
     lang="ts"
     setup>
-    import { fluxAlert, FluxButtonStack, fluxConfirm, fluxPrompt, FluxSecondaryButton } from '@fancee/flux';
+    import { FluxButtonStack, FluxSecondaryButton, showAlert, showConfirm, showPrompt } from '@fancee/flux';
 
-    async function showAlert(): Promise<void> {
-        await fluxAlert({
+    async function onShowAlertClicked(): Promise<void> {
+        await showAlert({
             icon: 'circle-exclamation',
             title: 'Title',
             message: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, ea labore. Architecto autem earum magni mollitia porro quidem quo sed voluptatum. Consequuntur deserunt est, fugit minima quod ratione repudiandae unde.'
         });
     }
 
-    async function showConfirm(): Promise<void> {
-        await fluxConfirm({
+    async function onShowConfirmClicked(): Promise<void> {
+        await showConfirm({
             icon: 'circle-exclamation',
             title: 'Title',
             message: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, ea labore. Architecto autem earum magni mollitia porro quidem quo sed voluptatum. Consequuntur deserunt est, fugit minima quod ratione repudiandae unde.'
         });
     }
 
-    async function showPrompt(): Promise<void> {
-        const result = await fluxPrompt({
+    async function onShowPromptClicked(): Promise<void> {
+        const result = await showPrompt({
             icon: 'pen',
             title: 'Title',
             message: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, ea labore. Architecto autem earum magni mollitia porro quidem quo sed voluptatum. Consequuntur deserunt est, fugit minima quod ratione repudiandae unde.',

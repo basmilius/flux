@@ -136,7 +136,7 @@
         readonly isDisabled?: boolean;
         readonly isMultiple?: boolean;
         readonly isSearchable?: boolean;
-        readonly modelValue: string | number | (string | number)[];
+        readonly modelValue: string | number | (string | number)[] | null;
         readonly options: (FluxFormSelectOption | FluxFormSelectGroup)[];
         readonly placeholder?: string;
         readonly search?: string;
@@ -276,7 +276,13 @@
     }
 
     function reposition(): void {
-        const {top, height: inputHeight, width} = unref(rootElement)!.getBoundingClientRect();
+        const root = unref(rootElement);
+
+        if (!root) {
+            return;
+        }
+
+        const {top, height: inputHeight, width} = root.getBoundingClientRect();
         popupWidth.value = width;
 
         requestAnimationFrame(() => {
@@ -348,7 +354,10 @@
 
     watch(() => search, () => searchQuery.value = search?.value ?? '', {immediate: true});
 
-    watch(searchQuery, searchQuery => emit('update:search', searchQuery));
+    watch(searchQuery, searchQuery => {
+        emit('update:search', searchQuery);
+        requestAnimationFrame(reposition);
+    });
 </script>
 
 <style lang="scss">
@@ -359,7 +368,7 @@
         display: flex;
         height: unset;
         min-height: 42px;
-        padding: 0 6px;
+        padding: 0 39px 0 6px;
         align-items: center;
         flex-wrap: wrap;
         gap: 0 6px;
@@ -379,7 +388,7 @@
 
         & &-input {
             position: relative;
-            margin: -1px 30px -1px -1px;
+            margin: -1px;
             min-width: 35%;
             padding: 0 6px;
             flex: 1 1 0;
@@ -435,6 +444,7 @@
         .flux-badge {
             margin-top: 6px;
             margin-bottom: 6px;
+            max-width: 100%;
             flex: 0 0 auto;
         }
 
