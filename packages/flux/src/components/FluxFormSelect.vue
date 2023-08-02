@@ -444,6 +444,7 @@
         .flux-badge {
             margin-top: 6px;
             margin-bottom: 6px;
+            max-width: 100%;
             flex: 0 0 auto;
         }
 

@@ -24,7 +24,7 @@
             :size="16"
             :variant="icon"/>
 
-        <span>{{ label }}</span>
+        <span class="flux-badge-label">{{ label }}</span>
 
         <button
             v-if="!isClickable && isDeletable"
@@ -124,6 +124,12 @@
         &-icon {
             margin-left: -3px;
             color: var(--color);
+        }
+
+        &-label {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         &.is-tag {
