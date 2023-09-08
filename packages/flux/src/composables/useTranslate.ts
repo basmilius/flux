@@ -1,6 +1,6 @@
 import { getCurrentInstance } from 'vue-demi';
 
-const english: Record<string, string> = {
+const english = {
     flux_back: 'Back',
     flux_cancel: 'Cancel',
     flux_coming_soon: 'Coming soon',
@@ -29,6 +29,8 @@ const english: Record<string, string> = {
     flux_gallery_placeholder_title: 'Gallery'
 } as const;
 
+type TranslationKey = keyof typeof english;
+
 export function useTranslate(): FluxTranslator {
     const instance = getCurrentInstance()!.proxy;
 
@@ -41,7 +43,7 @@ export function useTranslate(): FluxTranslator {
             return key;
         }
 
-        let translation = english[key];
+        let translation: string = english[key as TranslationKey];
 
         for (let paramName in params) {
             translation = translation.replaceAll(`{${paramName}}`, params[paramName].toString());
@@ -51,7 +53,7 @@ export function useTranslate(): FluxTranslator {
     };
 }
 
-export type FluxTranslator = (key: string, params?: Record<string, string | number>) => string;
+export type FluxTranslator = (key: TranslationKey | ({} & string), params?: Record<string, string | number>) => string;
 
 interface VueI18n {
     $t: FluxTranslator;

@@ -110,9 +110,8 @@ pipelines:
 
     develop:
       - parallel:
-          - step: *build
           - step: *sonar-scan
-      - step: *publish
+          - step: *publish
 
   pull-requests:
     '**':

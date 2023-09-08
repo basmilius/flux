@@ -1,6 +1,6 @@
 {
     "name": "@fancee/flux",
-    "version": "1.0.71",
+    "version": "1.1.0",
     "type": "module",
     "scripts": {
         "build": "vite build && pnpm run gentypes",
@@ -25,24 +25,24 @@
     "types": "./dist/index.d.ts",
     "web-types": "./dist/web-types.json",
     "dependencies": {
-        "vue-demi": "^0.14.5"
+        "vue-demi": "^0.14.6"
     },
     "devDependencies": {
-        "@fortawesome/fontawesome-common-types": "^6.4.0",
-        "@vitejs/plugin-vue": "^4.2.3",
+        "@fortawesome/fontawesome-common-types": "^6.4.2",
+        "@vitejs/plugin-vue": "^4.3.3",
         "@vue/compiler-sfc": "^3.3.4",
-        "autoprefixer": "^10.4.14",
-        "luxon": "^3.3.0",
+        "autoprefixer": "^10.4.15",
+        "luxon": "^3.4.2",
         "minimist": "^1.2.8",
         "tsc-alias": "^1.8.7",
-        "typescript": "^5.1.6",
-        "vite": "^4.4.8",
+        "typescript": "^5.2.2",
+        "vite": "^4.4.9",
         "vue": "^3.3.4",
         "vue-docgen-web-types": "^0.1.8",
         "vue-tsc": "^1.8.8"
     },
     "peerDependencies": {
-        "luxon": "^3.3.0",
+        "luxon": "^3.4.2",
         "vue": "^3.3.4"
     }
 }

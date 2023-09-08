@@ -10,13 +10,12 @@
         "./style.css": "./dist/style.css"
     },
     "dependencies": {
-        "@fortawesome/fontawesome-common-types": "^6.4.0",
-        "luxon": "^3.3.0",
-        "vue-demi": "^0.14.5"
+        "@fortawesome/fontawesome-common-types": "^6.4.2",
+        "luxon": "^3.4.2",
+        "vue-demi": "^0.14.6"
     },
     "devDependencies": {
         "vue": "^3.3.4",
-        "@types/node": "^20.4.5",
         "@vue/language-server": "^1.8.8"
     }
 }
