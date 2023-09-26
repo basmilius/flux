@@ -68,6 +68,7 @@
         readonly autoComplete?: string;
         readonly autoFocus?: boolean;
         readonly isDisabled?: boolean;
+        readonly isHourOnly?: boolean;
         readonly isReadonly?: boolean;
         readonly max?: DateTime;
         readonly min?: DateTime;
@@ -77,7 +78,7 @@
 
     const emit = defineEmits<Emits>();
     const props = defineProps<Props>();
-    const {modelValue} = toRefs(props);
+    const {isHourOnly, modelValue} = toRefs(props);
 
     const flyoutRef = ref<ComponentPublicInstance<{}, {}, {}, {}, { close: Function; }>>();
     const localValue = ref<DateTime | null>(null);
@@ -103,12 +104,12 @@
         const value: DateTime = (localValue.value ?? DateTime.now());
         localValue.value = value.set({
             hour: dateTime.hour,
-            minute: dateTime.minute,
-            second: dateTime.second
+            minute: unref(isHourOnly) ? 0 : dateTime.minute,
+            second: unref(isHourOnly) ? 0 : dateTime.second
         });
     }
 
-    watch(modelValue, modelValue => localValue.value = modelValue, {immediate: true});
+    watch([isHourOnly, modelValue], ([isHourOnly, modelValue]) => localValue.value = isHourOnly ? modelValue?.startOf('hour') ?? null : modelValue, {immediate: true});
 
     watch(localValue, localValue => {
         unref(flyoutRef)?.close();
