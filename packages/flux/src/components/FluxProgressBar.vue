@@ -55,26 +55,19 @@
             transition: width 300ms var(--swift-out);
         }
 
-        &.is-indeterminate {
-        }
-
         &.is-indeterminate &-value {
             width: 250%;
-            background: linear-gradient(to right, rgb(var(--primary-8)) 40%, rgb(var(--primary-4)), rgb(var(--primary-8)) 60%);
-            animation: flux-progress-bar 1s var(--swift-out) infinite;
+            background: linear-gradient(to right, rgb(var(--primary-8)) 40%, rgb(var(--primary-6)), rgb(var(--primary-8)) 60%);
+            animation: flux-progress-bar 1s ease-out infinite;
         }
     }
 
     @keyframes flux-progress-bar {
-        0% {
-            left: -150%;
-        }
-
-        50% {
+        from {
             left: 0;
         }
 
-        100% {
+        to {
             left: -150%;
         }
     }

@@ -28,7 +28,7 @@
         }
 
         > .flux-form-input {
-            margin-bottom: 6px;
+            margin-bottom: 9px;
         }
     }
 </style>
