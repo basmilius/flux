@@ -82,7 +82,7 @@
 
     function open(): void {
         const mount = unref(mountRef)!;
-        const {top, left, width, height} = mount.children[0].getBoundingClientRect();
+        const {width, height} = mount.children[0].getBoundingClientRect();
 
         isOpen.value = true;
         openerWidth.value = width;
@@ -98,37 +98,41 @@
             isOpening.value = true;
         });
 
-        requestAnimationFrame(() => {
-            const pane = unrefElement(paneRef)!;
-            const {width: paneWidth, height: paneHeight} = pane.getBoundingClientRect();
+        requestAnimationFrame(reposition);
+    }
 
-            let x, y, mx = 0, my = 0;
+    function reposition(): void {
+        const mount = unref(mountRef)!;
+        const pane = unrefElement(paneRef)!;
+        const {top, left, width, height} = mount.children[0].getBoundingClientRect();
+        const {width: paneWidth, height: paneHeight} = pane.getBoundingClientRect();
 
-            if (unref(axis) === 'horizontal') {
-                x = left + width;
-                y = top + height / 2 - paneHeight / 2;
-                mx = unref(margin);
+        let x, y, mx = 0, my = 0;
 
-                if (x + paneWidth > innerWidth - 30) {
-                    x = left - paneWidth;
-                    mx = -mx;
-                }
-            } else {
-                x = left + width / 2 - paneWidth / 2;
-                y = top + height;
-                my = unref(margin);
+        if (unref(axis) === 'horizontal') {
+            x = left + width;
+            y = top + height / 2 - paneHeight / 2;
+            mx = unref(margin);
 
-                if (y + paneHeight > innerHeight - 30) {
-                    y = top - paneHeight;
-                    my = -my;
-                }
+            if (x + paneWidth > innerWidth - 30) {
+                x = left - paneWidth;
+                mx = -mx;
             }
+        } else {
+            x = left + width / 2 - paneWidth / 2;
+            y = top + height;
+            my = unref(margin);
 
-            paneX.value = Math.max(30, Math.min(innerWidth - paneWidth - 30, x));
-            paneY.value = Math.max(30, Math.min(innerHeight - paneHeight - 30, y));
-            paneMarginX.value = mx;
-            paneMarginY.value = my;
-        });
+            if (y + paneHeight > innerHeight - 30) {
+                y = top - paneHeight;
+                my = -my;
+            }
+        }
+
+        paneX.value = Math.max(30, Math.min(innerWidth - paneWidth - 30, x));
+        paneY.value = Math.max(30, Math.min(innerHeight - paneHeight - 30, y));
+        paneMarginX.value = mx;
+        paneMarginY.value = my;
     }
 
     function toggle(): void {
@@ -149,11 +153,14 @@
         close();
     }
 
-    watch(isOpen, isOpen => {
+    watch(isOpen, (isOpen, _, onCleanup) => {
         const dialog = unref(dialogRef)!;
 
         if (isOpen && !dialog.open) {
             dialog.showModal();
+
+            window.addEventListener('scroll', reposition, {passive: true});
+            onCleanup(() => window.removeEventListener('scroll', reposition));
         } else if (!isOpen && dialog.open) {
             dialog.close();
         }

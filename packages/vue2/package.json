@@ -1,6 +1,6 @@
 {
     "name": "@fancee/flux-vue2",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "type": "module",
     "scripts": {
         "build": "vite build && pnpm run gentypes",
@@ -30,19 +30,19 @@
     "devDependencies": {
         "@fortawesome/fontawesome-common-types": "^6.4.2",
         "@vitejs/plugin-vue2": "^2.2.0",
-        "autoprefixer": "^10.4.15",
-        "luxon": "^3.4.2",
+        "autoprefixer": "^10.4.16",
+        "luxon": "^3.4.3",
         "minimist": "^1.2.8",
-        "tsc-alias": "^1.8.7",
+        "tsc-alias": "^1.8.8",
         "typescript": "^5.2.2",
         "vite": "^4.4.9",
         "vue": "^2.7.14",
         "vue-docgen-web-types": "^0.1.8",
         "vue-template-compiler": "^2.7.14",
-        "vue-tsc": "^1.8.8"
+        "vue-tsc": "^1.8.15"
     },
     "peerDependencies": {
-        "luxon": "^3.4.2",
+        "luxon": "^3.4.3",
         "vue": "^2.7.14"
     }
 }

@@ -60,6 +60,10 @@
                         <td>Indicates that the field is disabled.</td>
                     </tr>
                     <tr>
+                        <td><code>is-hour-only</code><code>boolean</code></td>
+                        <td>Forces the user to only update the hour.</td>
+                    </tr>
+                    <tr>
                         <td><code>is-readonly</code><code>boolean</code></td>
                         <td>Indicates that the field is readonly.</td>
                     </tr>
