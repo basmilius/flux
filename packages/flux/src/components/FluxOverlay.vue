@@ -31,17 +31,17 @@
         width: 100svw;
         background: rgb(var(--gray-7) / .25);
         backdrop-filter: blur(5px) saturate(180%);
-        overflow: auto;
         z-index: 10000;
 
         > .flux-pane {
             display: flex;
             margin: auto;
-            max-height: min(720px, calc(100dvh - 180px));
+            max-height: min(840px, calc(100dvh - 180px));
             width: calc(100dvw - 90px);
             flex-flow: column;
             border-color: rgb(var(--gray-11) / .075);
             box-shadow: var(--shadow-2xl);
+            overflow: auto;
         }
 
         .flux-pane-footer {
