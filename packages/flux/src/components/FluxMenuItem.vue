@@ -101,6 +101,9 @@
         --button-icon: rgb(var(--foreground-prominent));
         --button-stroke: transparent;
 
+        height: unset;
+        min-height: 42px;
+        padding: 6px 12px;
         gap: 15px;
         justify-content: start;
         border: 0;
