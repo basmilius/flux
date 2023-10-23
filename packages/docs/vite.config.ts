@@ -16,7 +16,7 @@ export default defineConfig(({mode}) => ({
     resolve: {
         alias: {
             '@docs': resolve(__dirname, 'src/'),
-            '@': resolve(__dirname, '../flux/src/'),
+            '@': [resolve(__dirname, '../flux/src/')],
             ...(mode === 'development'
                 ? {
                     '@fancee/flux/style.css': resolve(__dirname, '../flux/src/scss/index.scss'),

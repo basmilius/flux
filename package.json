@@ -2,7 +2,7 @@
     "name": "fancee-flux-workspace",
     "private": true,
     "scripts": {
-        "build": "pnpm --filter '@fancee/*' -r build",
+        "build": "pnpm --filter '@fancee/*' --parallel -r build",
         "dev": "pnpm --filter '@fancee/*' -r dev",
         "docs:build": "pnpm run -C packages/docs build",
         "docs:dev": "pnpm run -C packages/docs dev",
@@ -14,7 +14,7 @@
         "node": ">=20"
     },
     "devDependencies": {
-        "@types/luxon": "^3.3.2",
-        "@types/node": "^20.7.0"
+        "@types/luxon": "^3.3.3",
+        "@types/node": "^20.8.7"
     }
 }

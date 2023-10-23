@@ -11,17 +11,17 @@
         "@fancee/flux": "workspace:*",
         "@fortawesome/free-brands-svg-icons": "^6.4.2",
         "@fortawesome/pro-regular-svg-icons": "^6.4.2",
-        "highlight.js": "^11.8.0",
+        "highlight.js": "^11.9.0",
         "luxon": "^3.4.3",
-        "vue": "^3.3.4",
+        "vue": "^3.3.6",
         "vue-highlight-code": "^0.1.16",
         "vue-router": "^4.2.5"
     },
     "devDependencies": {
-        "@vitejs/plugin-vue": "^4.3.4",
-        "sass": "^1.68.0",
+        "@vitejs/plugin-vue": "^4.4.0",
+        "sass": "^1.69.4",
         "typescript": "^5.2.2",
-        "vite": "^4.4.9",
-        "vue-tsc": "^1.8.15"
+        "vite": "^4.5.0",
+        "vue-tsc": "^1.8.19"
     }
 }
