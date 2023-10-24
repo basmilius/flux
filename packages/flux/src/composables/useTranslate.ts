@@ -26,7 +26,24 @@ const english = {
     flux_today: 'Today',
     flux_gallery_placeholder_button: 'Pick image',
     flux_gallery_placeholder_message: 'Drop an image here or click the button to upload...',
-    flux_gallery_placeholder_title: 'Gallery'
+    flux_gallery_placeholder_title: 'Gallery',
+    flux_timezone_europe: 'Europe',
+    flux_timezone_america: 'America',
+    flux_timezone_us: 'United States',
+    flux_timezone_australia: 'Australia',
+    flux_timezone_canada: 'Canada',
+    flux_timezone_mexico: 'Mexico',
+    flux_timezone_africa: 'Africa',
+    flux_timezone_antarctica: 'Antarctica',
+    flux_timezone_arctic: 'Arctic',
+    flux_timezone_asia: 'Asia',
+    flux_timezone_atlantic: 'Atlantic',
+    flux_timezone_brazil: 'Brazil',
+    flux_timezone_chile: 'Chile',
+    flux_timezone_etc: 'ETC',
+    flux_timezone_other: 'Other',
+    flux_timezone_indian: 'Indian',
+    flux_timezone_pacific: 'Pacific'
 } as const;
 
 type TranslationKey = keyof typeof english;

@@ -179,6 +179,10 @@
             width: 20px;
         }
 
+        &.is-active &-command {
+            color: rgb(var(--primary-4));
+        }
+
         @at-root .flux-menu.is-large & {
             position: relative;
             padding-left: 15px;

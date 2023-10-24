@@ -138,6 +138,10 @@ export const router = createRouter({
                     component: () => import('@docs/pages/components/FormTextArea.vue')
                 },
                 {
+                    path: '/components/form-time-zone-picker',
+                    component: () => import('@docs/pages/components/FormTimeZonePicker.vue')
+                },
+                {
                     path: '/components/gallery',
                     component: () => import('@docs/pages/components/Gallery.vue')
                 },
@@ -306,7 +310,7 @@ router.afterEach(() => {
     routerIsLoading.value = false;
 });
 
-router.beforeEach((from, to, next) => {
+router.beforeEach((_, __, next) => {
     routerIsLoading.value = true;
     next();
 });
