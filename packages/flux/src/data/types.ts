@@ -63,6 +63,8 @@ export interface FluxTooltipSpec {
 
 export interface FluxFormSelectOption {
     readonly badge?: string;
+    readonly command?: string;
+    readonly commandIcon?: IconNames | null;
     readonly icon?: IconNames | null;
     readonly id: string | number;
     readonly label: string;
@@ -89,4 +91,5 @@ export interface FluxRoutingLocationObject {
     replace?: boolean;
 }
 
+export type FluxFormSelectEntry = FluxFormSelectGroup | FluxFormSelectOption;
 export type FluxRoutingLocation = FluxRoutingLocationObject | string;

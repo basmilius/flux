@@ -12,6 +12,8 @@
         <FluxMenuItem
             v-if="!isMultiple && selectedOptions[0]"
             class="flux-form-select-selected"
+            :command="selectedOptions[0].command"
+            :command-icon="selectedOptions[0].commandIcon"
             :icon-before="selectedOptions[0].icon"
             :label="selectedOptions[0].label"
             tabindex="-1"/>
@@ -73,7 +75,10 @@
                                     ref="optionRefs"
                                     v-if="isFluxFormSelectOption(subItem)"
                                     :key="index"
+                                    :command="subItem.command"
+                                    :command-icon="subItem.commandIcon"
                                     :icon-before="subItem.icon"
+                                    :is-active="!!selectedOptions.find(so => so.id === subItem.id)"
                                     :is-highlighted="highlightId === subItem.id"
                                     :label="subItem.label"
                                     type="button"
@@ -85,7 +90,10 @@
                             v-if="isFluxFormSelectOption(item)"
                             ref="optionRefs"
                             :key="`item-${index}`"
+                            :command="item.command"
+                            :command-icon="item.commandIcon"
                             :icon-before="item.icon"
+                            :is-active="!!selectedOptions.find(so => so.id === item.id)"
                             :is-highlighted="highlightId === item.id"
                             :label="item.label"
                             type="button"
@@ -109,7 +117,7 @@
 <script
     lang="ts"
     setup>
-    import type { ComponentPublicInstance, ComputedRef } from 'vue-demi';
+    import { ComponentPublicInstance, ComputedRef, nextTick } from 'vue-demi';
     import type { FluxFormSelectGroup, FluxFormSelectOption } from '@/data';
     import { computed, ref, toRefs, unref, watch } from 'vue-demi';
     import { isFluxFormSelectGroup, isFluxFormSelectOption } from '@/data';
@@ -358,6 +366,25 @@
         emit('update:search', searchQuery);
         requestAnimationFrame(reposition);
     });
+
+    watch(popupOpen, popupOpen => {
+        if (!popupOpen) {
+            return;
+        }
+
+        nextTick(() => {
+            const options = unref(optionRefs) ?? [];
+
+            if (unref(isMultiple)) {
+                return;
+            }
+
+            const option = options.find(o => 'isActive' in o.$props && o.$props.isActive);
+            option?.$el.scrollIntoView({
+                block: 'center'
+            });
+        });
+    });
 </script>
 
 <style lang="scss">
@@ -432,7 +459,7 @@
             position: absolute;
             height: 100%;
             padding-left: 12px;
-            padding-right: 12px;
+            padding-right: 42px;
             inset: -1px;
             pointer-events: none;
         }

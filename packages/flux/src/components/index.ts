@@ -46,6 +46,7 @@ export { default as FluxFormRow } from './FluxFormRow.vue';
 export { default as FluxFormSlider } from './FluxFormSlider.vue';
 export { default as FluxFormSelect } from './FluxFormSelect.vue';
 export { default as FluxFormTextArea } from './FluxFormTextArea.vue';
+export { default as FluxFormTimeZonePicker } from './FluxFormTimeZonePicker.vue';
 export { default as FluxGallery } from './FluxGallery.vue';
 export { default as FluxGalleryItem } from './FluxGalleryItem.vue';
 export { default as FluxGrid } from './FluxGrid.vue';

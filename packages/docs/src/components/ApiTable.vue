@@ -33,7 +33,8 @@
             padding: 9px 21px;
             background: rgb(var(--gray-1) / .5);
             color: var(--foreground-secondary);
-            font-size: 12px;
+            font-size: 11px;
+            font-weight: 500;
             letter-spacing: 1px;
             text-transform: uppercase;
 

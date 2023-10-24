@@ -297,6 +297,12 @@
                         type="route"/>
 
                     <FluxMenuItem
+                        :is-active="path === '/components/form-time-zone-picker'"
+                        label="Form time zone picker"
+                        to="/components/form-time-zone-picker"
+                        type="route"/>
+
+                    <FluxMenuItem
                         :is-active="path === '/components/gallery'"
                         label="Gallery"
                         to="/components/gallery"
@@ -490,9 +496,9 @@
         </div>
 
         <RouterView v-slot="{Component}">
-            <FluxVerticalWindowTransition>
+            <FluxBreakthroughTransition>
                 <Component :is="Component"/>
-            </FluxVerticalWindowTransition>
+            </FluxBreakthroughTransition>
         </RouterView>
     </FluxDocs>
 </template>
@@ -500,7 +506,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxDocs, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxSecondaryButton, FluxSpacer, FluxSpinner, FluxVerticalWindowTransition, useDebouncedRef } from '@fancee/flux';
+    import { FluxDocs, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxSecondaryButton, FluxSpacer, FluxSpinner, FluxBreakthroughTransition, useDebouncedRef } from '@fancee/flux';
     import { computed, watch } from 'vue';
     import { useRoute } from 'vue-router';
     import { ThemeToggle } from '@docs/components';
@@ -562,7 +568,7 @@
         }
 
         &.docs-menu &-item {
-            height: 33px;
+            min-height: 36px;
             transition-property: all;
 
             span {

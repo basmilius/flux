@@ -27,11 +27,13 @@
                 :variant="iconBefore"/>
         </slot>
 
-        <span
-            v-if="label"
-            class="flux-button-label">
-            {{ label }}
-        </span>
+        <slot name="label">
+            <span
+                v-if="label"
+                class="flux-button-label">
+                {{ label }}
+            </span>
+        </slot>
 
         <slot name="icon-after">
             <FluxSpinner
