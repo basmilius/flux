@@ -19,10 +19,10 @@
 <script
     lang="ts"
     setup>
-    import { FluxFormSelect } from '.';
     import { computed, ref, toRefs, unref, watchEffect } from 'vue-demi';
     import { useTranslate } from '@/composables';
     import { FluxFormSelectEntry } from '@/data';
+    import FluxFormSelect from './FluxFormSelect.vue';
 
     export interface Emits {
         (e: 'update:model-value', value: string): void;
