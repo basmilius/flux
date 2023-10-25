@@ -1,5 +1,10 @@
 <template>
-    <div class="flux-form-field-addition flux-form-field-addition-hint">
+    <div
+        class="flux-form-field-addition"
+        :class="{
+            'flux-form-field-addition-error': mode === 'error',
+            'flux-form-field-addition-hint': mode === 'hint'
+        }">
         <FluxIcon
             v-if="icon"
             :size="16"
