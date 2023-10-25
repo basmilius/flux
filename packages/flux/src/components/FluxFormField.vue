@@ -22,27 +22,20 @@
             {{ currentLength }} / {{ maxLength }}
         </span>
 
-        <div
+        <FluxFormFieldAddition
             v-if="error"
-            class="flux-form-field-addition flux-form-field-addition-error">
-            <FluxIcon
-                :size="16"
-                class="flux-form-field-addition-icon"
-                variant="circle-exclamation"/>
+            icon="circle-exclamation"
+            mode="error"
+            :message="error"/>
 
-            <span>{{ error }}</span>
-        </div>
-
-        <div
+        <FluxFormFieldAddition
             v-if="hint"
-            class="flux-form-field-addition flux-form-field-addition-hint">
-            <FluxIcon
-                :size="16"
-                class="flux-form-field-addition-icon"
-                variant="circle-info"/>
+            icon="circle-exclamation"
+            :message="hint"/>
 
-            <span>{{ hint }}</span>
-        </div>
+        <slot
+            v-bind="{currentLength, error, hint, isOptional, label, maxLength}"
+            name="addition"/>
     </div>
 </template>
 
@@ -52,7 +45,7 @@
     import { provide } from 'vue-demi';
     import { useId, useTranslate } from '@/composables';
     import { FluxFormFieldInjectionKey } from '@/data';
-    import FluxIcon from './FluxIcon.vue';
+    import FluxFormFieldAddition from './FluxFormFieldAddition.vue';
 
     export interface Props {
         readonly currentLength?: number;
@@ -106,25 +99,6 @@
         &-optional {
             color: var(--foreground-secondary);
             font-size: .85em;
-        }
-
-        &-addition {
-            display: flex;
-            gap: 9px;
-            font-size: 14px;
-
-            &-icon {
-                margin-top: 2px;
-                flex-shrink: 0;
-            }
-
-            &-error {
-                color: rgb(var(--danger-7));
-            }
-
-            &-hint {
-                color: var(--foreground-secondary);
-            }
         }
     }
 </style>

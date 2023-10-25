@@ -38,6 +38,7 @@ export { default as FluxFormDateInput } from './FluxFormDateInput.vue';
 export { default as FluxFormDateRangeInput } from './FluxFormDateRangeInput.vue';
 export { default as FluxFormDateTimeInput } from './FluxFormDateTimeInput.vue';
 export { default as FluxFormField } from './FluxFormField.vue';
+export { default as FluxFormFieldAddition } from './FluxFormFieldAddition.vue';
 export { default as FluxFormInput } from './FluxFormInput.vue';
 export { default as FluxFormInputAddition } from './FluxFormInputAddition.vue';
 export { default as FluxFormInputGroup } from './FluxFormInputGroup.vue';
