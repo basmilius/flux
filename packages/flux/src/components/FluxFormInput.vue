@@ -145,11 +145,11 @@
     });
 
     function blur(): void {
-        unrefElement(inputRef).blur();
+        unrefElement(inputRef)?.blur();
     }
 
     function focus(): void {
-        unrefElement(inputRef).focus();
+        unrefElement(inputRef)?.focus();
     }
 
     function passwordTypeToggle(): void {
