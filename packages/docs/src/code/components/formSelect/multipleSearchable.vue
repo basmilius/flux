@@ -1,5 +1,7 @@
 <template>
-    <flux-stack axis="horizontal">
+    <flux-stack axis="vertical">
+        <strong style="white-space: nowrap">Search: {{ searchValue }}</strong>
+
         <flux-form-select
             v-model="selectValue"
             v-model:search="searchValue"
@@ -7,8 +9,6 @@
             is-searchable
             :options="dataset"
             placeholder="Search multiple options..."/>
-
-        <strong style="white-space: nowrap">Search: {{ searchValue }}</strong>
     </flux-stack>
 </template>
 

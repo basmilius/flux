@@ -7,6 +7,7 @@
             'is-secondary': isSecondary
         }">
         <input
+            ref="inputRef"
             class="flux-form-input-native"
             :class="{
                 'has-icon-after': !!iconAfter,
@@ -58,8 +59,9 @@
     setup>
     import type { IconNames } from '@/data';
     import { DateTime } from 'luxon';
-    import { computed, toRefs, unref } from 'vue-demi';
+    import { computed, ref, toRefs, unref } from 'vue-demi';
     import { useFormFieldInjection } from '@/composables';
+    import { unrefElement } from '@/helpers';
     import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {
@@ -100,6 +102,8 @@
 
     const {id} = useFormFieldInjection();
 
+    const inputRef = ref<HTMLInputElement>();
+
     const parsedValue = computed(() => {
         if (!modelValue) {
             return null;
@@ -131,6 +135,14 @@
 
         return v.toString();
     });
+
+    function blur(): void {
+        unrefElement(inputRef).blur();
+    }
+
+    function focus(): void {
+        unrefElement(inputRef).focus();
+    }
 
     function onInput(evt: Event): void {
         const value = (evt.target as HTMLInputElement).value;
@@ -170,6 +182,11 @@
             evt.preventDefault();
         }
     }
+
+    defineExpose({
+        blur,
+        focus
+    });
 </script>
 
 <style lang="scss">

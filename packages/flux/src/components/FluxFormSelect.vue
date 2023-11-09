@@ -18,7 +18,7 @@
             :label="selectedOptions[0].label"
             tabindex="-1"/>
 
-        <template v-if="isMultiple">
+        <template v-else-if="isMultiple && selectedOptions[0]">
             <FluxBadge
                 v-for="option of selectedOptions"
                 :key="option.id"
@@ -28,20 +28,7 @@
                 @delete="deselect(option.id)"/>
         </template>
 
-        <input
-            v-if="isSearchable && (isMultiple || !selectedOptions[0])"
-            v-model="searchQuery"
-            ref="inputElement"
-            autocomplete="off"
-            :disabled="isDisabled"
-            :id="id"
-            :placeholder="placeholder"
-            class="flux-form-input flux-form-select-input"
-            tabindex="-1"
-            type="search"
-            @keydown="onKeyDown"/>
-
-        <template v-else-if="placeholder && !selectedOptions[0]">
+        <template v-else-if="placeholder">
             <span class="flux-form-select-placeholder">
                 {{ placeholder }}
             </span>
@@ -56,6 +43,16 @@
                 v-if="!isDisabled && popupOpen"
                 ref="popupElement"
                 class="flux-form-select-popup">
+                <FluxFormInput
+                    v-if="isSearchable"
+                    v-model="searchQuery"
+                    ref="inputElement"
+                    class="flux-form-select-input"
+                    type="search"
+                    icon-after="magnifying-glass"
+                    :placeholder="translate('flux_search')"
+                    @keydown="onKeyDown"/>
+
                 <FluxPaneBody v-if="groupedOptions.length === 0">
                     <em>{{ translate('flux_no_items') }}</em>
                 </FluxPaneBody>
@@ -125,6 +122,7 @@
     import { unrefElement } from '@/helpers';
     import { FluxFadeTransition } from '@/transition';
     import FluxBadge from './FluxBadge.vue';
+    import FluxFormInput from './FluxFormInput.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxMenu from './FluxMenu.vue';
     import FluxMenuGroup from './FluxMenuGroup.vue';
@@ -277,6 +275,10 @@
 
                 break;
 
+            case 'Escape':
+                popupOpen.value = false;
+                break;
+
             default:
                 highlightIndex.value = -1;
                 break;
@@ -373,6 +375,11 @@
         }
 
         nextTick(() => {
+            const input = unref(inputElement);
+            input?.focus();
+        });
+
+        nextTick(() => {
             const options = unref(optionRefs) ?? [];
 
             if (unref(isMultiple)) {
@@ -381,7 +388,7 @@
 
             const option = options.find(o => 'isActive' in o.$props && o.$props.isActive);
             option?.$el.scrollIntoView({
-                block: 'center'
+                block: 'nearest'
             });
         });
     });
@@ -399,10 +406,7 @@
         align-items: center;
         flex-wrap: wrap;
         gap: 0 6px;
-
-        &:not(.is-searchable) {
-            cursor: pointer;
-        }
+        cursor: pointer;
 
         @include flux.focus-ring(-1px, true);
 
@@ -414,25 +418,27 @@
         }
 
         & &-input {
-            position: relative;
-            margin: -1px;
-            min-width: 35%;
-            padding: 0 6px;
-            flex: 1 1 0;
-            background: unset;
-            border-width: 0;
-            box-shadow: none;
+            position: sticky;
+            top: 0;
+            height: 48px;
+            margin-bottom: 9px;
+            background: rgb(var(--gray-0));
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-radius: 0;
             outline: 0;
 
-            &::-webkit-search-decoration,
-            &::-webkit-search-cancel-button,
-            &::-webkit-search-results-button,
-            &::-webkit-search-results-decoration {
-                -webkit-appearance: none;
-            }
+            .flux-form-input {
+                &-icon {
+                    margin: 15px;
+                    font-size: 18px;
+                }
 
-            &::placeholder {
-                color: var(--foreground-secondary);
+                &-native {
+                    padding-left: 21px;
+                    padding-right: 21px;
+                }
             }
         }
 
