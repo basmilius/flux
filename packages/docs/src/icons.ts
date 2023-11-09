@@ -43,6 +43,8 @@ export {
     faDrawSquare,
     faEclipse,
     faEllipsisH,
+    faEye,
+    faEyeSlash,
     faFilter,
     faFilterSlash,
     faFolder,

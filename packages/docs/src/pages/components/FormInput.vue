@@ -21,6 +21,10 @@
             </p>
         </ApiSection>
 
+        <ApiSection title="Required icons">
+            <ApiRequiredIcons :icons="['eye', 'eye-slash']"/>
+        </ApiSection>
+
         <ApiSection title="API">
             <ApiComponent name="FormInput">
                 <template #props>
@@ -109,5 +113,5 @@
     lang="ts"
     setup>
     import { FluxFormInput, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiSection, PageTitle, Preview } from '@docs/components';
+    import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

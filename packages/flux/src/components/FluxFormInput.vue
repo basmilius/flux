@@ -24,7 +24,7 @@
             :placeholder="placeholder"
             :readonly="isReadonly"
             :step="step"
-            :type="type"
+            :type="nativeType"
             :value="parsedValue"
             @blur="$emit('blur')"
             @focus="$emit('focus')"
@@ -34,13 +34,20 @@
         <FluxIcon
             v-if="iconBefore"
             class="flux-form-input-icon is-before"
-            :size="16"
+            :size="18"
             :variant="iconBefore"/>
 
         <FluxIcon
-            v-if="iconAfter"
+            v-if="type === 'password'"
+            class="flux-form-input-icon is-password-toggle"
+            :size="18"
+            :variant="nativeType === 'password' ? 'eye' : 'eye-slash'"
+            @click="passwordTypeToggle"/>
+
+        <FluxIcon
+            v-else-if="iconAfter"
             class="flux-form-input-icon is-after"
-            :size="16"
+            :size="18"
             :variant="iconAfter"/>
     </div>
 </template>
@@ -59,7 +66,7 @@
     setup>
     import type { IconNames } from '@/data';
     import { DateTime } from 'luxon';
-    import { computed, ref, toRefs, unref } from 'vue-demi';
+    import { computed, ref, toRefs, unref, watch } from 'vue-demi';
     import { useFormFieldInjection } from '@/composables';
     import { unrefElement } from '@/helpers';
     import FluxIcon from './FluxIcon.vue';
@@ -103,6 +110,7 @@
     const {id} = useFormFieldInjection();
 
     const inputRef = ref<HTMLInputElement>();
+    const nativeType = ref(unref(type));
 
     const parsedValue = computed(() => {
         if (!modelValue) {
@@ -144,6 +152,14 @@
         unrefElement(inputRef).focus();
     }
 
+    function passwordTypeToggle(): void {
+        if (unref(type) !== 'password') {
+            return;
+        }
+
+        nativeType.value = unref(nativeType) === 'password' ? 'text' : 'password';
+    }
+
     function onInput(evt: Event): void {
         const value = (evt.target as HTMLInputElement).value;
 
@@ -183,6 +199,8 @@
         }
     }
 
+    watch(type, type => nativeType.value = type);
+
     defineExpose({
         blur,
         focus
@@ -210,7 +228,7 @@
 
         &-icon {
             position: absolute;
-            margin: 12px;
+            margin: 11px;
             color: var(--foreground-secondary);
             pointer-events: none;
 
@@ -220,6 +238,16 @@
 
             &.is-after {
                 right: 0;
+            }
+
+            &.is-password-toggle {
+                right: 0;
+                pointer-events: unset;
+                cursor: pointer;
+
+                &:hover {
+                    color: var(--foreground);
+                }
             }
         }
 
