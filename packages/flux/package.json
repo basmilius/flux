@@ -15,7 +15,7 @@
         "vue-demi": "^0.14.6"
     },
     "devDependencies": {
-        "vue": "^3.3.6",
-        "@vue/language-server": "^1.8.19"
+        "vue": "^3.3.8",
+        "@vue/language-server": "^1.9.0-alpha.3"
     }
 }

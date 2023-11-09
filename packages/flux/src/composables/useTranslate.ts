@@ -19,6 +19,7 @@ const english = {
     flux_pagination_navigate_title: 'Navigate',
     flux_pagination_navigate_message: 'Please provide the desired page number you wish to navigate to.',
     flux_pagination_navigate_page: 'Page',
+    flux_search: 'Search...',
     flux_sort: 'Sort',
     flux_sort_ascending: 'Ascending',
     flux_sort_descending: 'Descending',

@@ -7,6 +7,7 @@ export { default as FluxAutoGrid } from './FluxAutoGrid.vue';
 export { default as FluxAvatar } from './FluxAvatar.vue';
 export { default as FluxBadge } from './FluxBadge.vue';
 export { default as FluxBadgeStack } from './FluxBadgeStack.vue';
+export { default as FluxBoxedIcon } from './FluxBoxedIcon.vue';
 export { default as FluxButtonGroup } from './FluxButtonGroup.vue';
 export { default as FluxButtonStack } from './FluxButtonStack.vue';
 export { default as FluxCalendar } from './FluxCalendar.vue';

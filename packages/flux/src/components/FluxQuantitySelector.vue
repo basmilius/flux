@@ -1,7 +1,5 @@
 <template>
-    <FluxButtonGroup
-        class="flux-quantity-selector"
-        tabindex="0">
+    <FluxButtonGroup class="flux-quantity-selector">
         <FluxSecondaryButton
             class="flux-quantity-selector-button"
             :disabled="internalValue <= min"
@@ -13,7 +11,7 @@
             ref="inputRef"
             v-model="internalValue"
             class="flux-form-input flux-quantity-selector-input"
-            tabindex="-1"
+            tabindex="0"
             type="number"
             :max="max"
             :min="min"
@@ -165,7 +163,7 @@
             &,
             &:focus-visible,
             &:focus-within {
-                outline: 0;
+                outline: 0 !important;
             }
 
             & {
