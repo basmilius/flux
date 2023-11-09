@@ -70,5 +70,7 @@
 
         --spinner-track: rgb(var(--primary-8));
         --spinner-value: rgb(var(--primary-0));
+
+        box-shadow: 0 1px 1px rgb(var(--primary-7) / .25);
     }
 </style>
