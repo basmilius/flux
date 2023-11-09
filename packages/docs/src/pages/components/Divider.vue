@@ -73,7 +73,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxDivider, FluxIcon, FluxPane, FluxPaneBody, FluxSecondaryButton, FluxStack } from '@fancee/flux';
+    import { FluxDivider, FluxPane, FluxPaneBody, FluxSecondaryButton, FluxStack } from '@fancee/flux';
     import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
     import basic from '@docs/code/components/divider/basic.vue';
     import basicCode from '@docs/code/components/divider/basic.vue?raw';
