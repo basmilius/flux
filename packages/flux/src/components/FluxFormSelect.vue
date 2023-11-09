@@ -6,6 +6,7 @@
             'is-disabled': isDisabled,
             'is-searchable': isSearchable
         }"
+        :id="id"
         tabindex="0"
         @focusin="onFocus"
         @focusout="onBlur">
@@ -428,6 +429,7 @@
             border-right: 0;
             border-radius: 0;
             outline: 0;
+            z-index: 2;
 
             .flux-form-input {
                 &-icon {
@@ -472,6 +474,10 @@
 
         &.is-disabled &-selected {
             color: rgb(var(--gray-6));
+        }
+
+        &.is-searchable .flux-menu-sub-header {
+            top: 48px;
         }
 
         .flux-badge {
