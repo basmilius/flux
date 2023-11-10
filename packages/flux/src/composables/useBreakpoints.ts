@@ -1,5 +1,5 @@
-import { computed, inject, onMounted, onUnmounted, provide, ref, unref, watch } from 'vue-demi';
-import { FluxBreakpointsInjection, FluxBreakpointsInjectionKey, isSSR } from '@/data';
+import { computed, inject, onMounted, onUnmounted, provide, ref, unref } from 'vue-demi';
+import { FluxBreakpointsInjection, FluxBreakpointsInjectionKey } from '@/data';
 
 // note(Bas): These breakpoints are also defined in ../scss/mixin/_breakpoints.scss, please
 //  keep them synced.
@@ -9,9 +9,6 @@ const BREAKPOINTS = {
     'md': 768,
     'lg': 1024,
     'xl': 1280
-
-    // todo(Bas): figure out if we should use the 2xl breakpoint in a dashboard setting.
-    // 'xl2': 1536
 } as const;
 
 export function useBreakpoints(): FluxBreakpointsInjection {
@@ -75,20 +72,6 @@ export function useBreakpointsProvider(): void {
         maxWidth,
         width
     });
-
-    watch(breakpoints, breakpoints => {
-        if (isSSR) {
-            return;
-        }
-
-        Object.entries(breakpoints).forEach(([breakpoint, active]) => {
-            if (active) {
-                document.documentElement.setAttribute(breakpoint, '');
-            } else {
-                document.documentElement.removeAttribute(breakpoint);
-            }
-        });
-    }, {immediate: true});
 }
 
 export type Breakpoint = keyof typeof BREAKPOINTS;
