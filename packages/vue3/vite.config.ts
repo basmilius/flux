@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 // @ts-ignore
 import autoprefixer from 'autoprefixer';
 import vue from '@vitejs/plugin-vue';
+import { createHash } from 'crypto';
 
 export default defineConfig({
     build: {
@@ -26,10 +27,23 @@ export default defineConfig({
         }
     },
     css: {
+        modules: {
+            localsConvention: 'camelCaseOnly',
+            generateScopedName(name, filename) {
+                filename = filename.split('?')[0];
+
+                const hash = createHash('sha1')
+                    .update(name + filename)
+                    .digest('base64url')
+                    .substring(0, 4);
+
+                return `_${hash}`;
+            }
+        },
         postcss: {
             plugins: [
                 autoprefixer({})
-            ],
+            ]
         }
     },
     optimizeDeps: {

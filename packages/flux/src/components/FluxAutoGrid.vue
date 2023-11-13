@@ -1,5 +1,10 @@
 <template>
-    <div class="flux-auto-grid">
+    <div
+        :class="styles.autoGrid"
+        :style="{
+            '--gap': `${gap}px`,
+            '--min-column-width': `${minColumnWidth}px`
+        }">
         <slot/>
     </div>
 </template>
@@ -7,6 +12,8 @@
 <script
     lang="ts"
     setup>
+    import styles from '@/css/components/Layout.module.scss';
+
     export interface Props {
         readonly gap?: number;
         readonly minColumnWidth: number;
@@ -16,11 +23,3 @@
         gap: 30
     });
 </script>
-
-<style lang="scss">
-    .flux-auto-grid {
-        display: grid;
-        gap: calc(v-bind(gap) * 1px);
-        grid-template-columns: repeat(auto-fit, minmax(calc(v-bind(minColumnWidth) * 1px), 1fr));
-    }
-</style>

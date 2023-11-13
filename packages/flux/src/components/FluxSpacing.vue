@@ -1,11 +1,16 @@
 <template>
-    <div class="flux-spacing"/>
+    <div
+        :class="styles.spacing"
+        :style="{
+            '--size': `${spacingSize}px`
+        }"/>
 </template>
 
 <script
     lang="ts"
     setup>
     import { computed } from 'vue-demi';
+    import styles from '@/css/components/Layout.module.scss';
 
     const spacings = [
         0,
@@ -34,11 +39,5 @@
 
     const props = defineProps<Props>();
 
-    const size = computed(() => spacings[props.size]);
+    const spacingSize = computed(() => spacings[props.size]);
 </script>
-
-<style lang="scss">
-    .flux-spacing {
-        flex: 0 0 calc(v-bind(size) * 1px);
-    }
-</style>

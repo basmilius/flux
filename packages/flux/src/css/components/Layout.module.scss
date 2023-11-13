@@ -1,0 +1,151 @@
+@use '../mixin';
+
+@property --columns {
+    syntax: '<number>';
+    inherits: false;
+    initial-value: 12;
+}
+@property --gap {
+    syntax: '<number>';
+    inherits: false;
+    initial-value: 30px;
+}
+
+@property --gutter {
+    syntax: '<number>';
+    inherits: false;
+    initial-value: 30px;
+}
+
+@property --max-width {
+    syntax: '<number>';
+    inherits: false;
+    initial-value: 100%;
+}
+
+@property --min-column-width {
+    syntax: '<number>';
+    inherits: false;
+    initial-value: 0px;
+}
+
+@property --size {
+    syntax: '<number>';
+    inherits: false;
+    initial-value: 9px;
+}
+
+@property --span {
+    syntax: '<number>';
+    inherits: false;
+    initial-value: 1;
+}
+
+.aspectRatio {
+    position: relative;
+    aspect-ratio: var(--aspect-ratio);
+    flex-shrink: 0;
+
+    > * {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.autoGrid {
+    display: grid;
+    gap: var(--gap);
+    grid-template-columns: repeat(auto-fit, minmax(var(--min-column-width), 1fr));
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+    max-width: var(--max-width);
+    width: 100%;
+}
+
+.grid {
+    display: grid;
+    gap: var(--gap);
+    grid-template-columns: repeat(var(--columns), 1fr);
+}
+
+.gridColumn {
+    display: grid;
+    grid-column: span var(--span);
+    grid-template-columns: 1fr;
+}
+
+.predefinedGrid {
+    display: grid;
+    align-items: start;
+    gap: 30px;
+
+    > :is(*) {
+        max-width: 100%;
+    }
+}
+
+.spacer {
+    flex-grow: 1;
+}
+
+.spacing {
+    flex: 0 0 var(--size);
+}
+
+.stack {
+    display: flex;
+    gap: var(--gap);
+}
+
+.stackHorizontal {
+    composes: stack;
+
+    flex-flow: row;
+}
+
+.stackVertical {
+    composes: stack;
+
+    flex-flow: column;
+}
+
+.stackCentered {
+    place-content: center;
+    place-items: center;
+}
+
+.stackFill {
+    width: 100%;
+}
+
+.stackWrapping {
+    flex-wrap: wrap;
+}
+
+@include mixin.breakpoint-up(lg) {
+    .predefinedGridCards {
+        align-items: stretch;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .predefinedGridFull {
+        grid-template-columns: 1fr;
+    }
+
+    .predefinedGridSidebarStart {
+        grid-template-columns: 360px minmax(0, 1fr);
+    }
+
+    .predefinedGridSidebarEnd {
+        grid-template-columns: minmax(0, 1fr) 360px;
+    }
+
+    .predefinedGridTwoColumn {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
