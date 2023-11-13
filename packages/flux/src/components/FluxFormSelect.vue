@@ -470,6 +470,12 @@
             padding-right: 42px;
             inset: -1px;
             pointer-events: none;
+
+            .flux-button-label {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
         }
 
         &.is-disabled &-selected {
