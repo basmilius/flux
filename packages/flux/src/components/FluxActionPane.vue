@@ -34,7 +34,7 @@
 </script>
 
 <style lang="scss">
-    @use '../scss/mixin' as flux;
+    @use '../css/mixin' as flux;
 
     @include flux.breakpoint-down(md) {
         .flux-pane.flux-action-pane {

@@ -1,4 +1,4 @@
-import './scss/index.scss';
+import '@/css/index.scss';
 
 export type {
     FluxAlertSpec,

@@ -5,7 +5,7 @@
 </template>
 
 <style lang="scss">
-    @use '../scss/mixin' as flux;
+    @use '../css/mixin' as flux;
 
     %-inner-styles {
         height: 100%;

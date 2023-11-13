@@ -67,7 +67,7 @@
 </script>
 
 <style lang="scss">
-    @use '../scss/mixin' as flux;
+    @use '../css/mixin' as flux;
 
     .flux-pane-illustration {
         --mask: linear-gradient(to bottom, black, transparent);
