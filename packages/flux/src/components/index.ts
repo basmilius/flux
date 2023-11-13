@@ -1,5 +1,6 @@
 export { default as FluxAction } from './FluxAction.vue';
 export { default as FluxActionBar } from './FluxActionBar.vue';
+export { default as FluxActionPane } from './FluxActionPane.vue';
 export { default as FluxActions } from './FluxActions.vue';
 export { default as FluxAnimatedColors } from './FluxAnimatedColors.vue';
 export { default as FluxAspectRatio } from './FluxAspectRatio.vue';
