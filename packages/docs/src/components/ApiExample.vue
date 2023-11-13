@@ -1,5 +1,5 @@
 <template>
-    <div class="api-example">
+    <div :class="$style.apiExample">
         <Component :is="titleTag!">{{ title }}</Component>
         <p v-if="description">{{ description }}</p>
 
@@ -33,13 +33,15 @@
     });
 </script>
 
-<style lang="scss">
-    .api-example {
+<style
+    lang="scss"
+    module>
+    .apiExample {
         display: flex;
         flex-flow: column;
     }
 
-    .api-example + .api-example {
+    .apiExample + .apiExample {
         margin-top: 45px;
     }
 </style>
