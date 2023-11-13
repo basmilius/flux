@@ -66,7 +66,7 @@ export interface FluxFormSelectOption {
     readonly command?: string;
     readonly commandIcon?: IconNames | null;
     readonly icon?: IconNames | null;
-    readonly id: string | number;
+    readonly id: string | number | null;
     readonly label: string;
     readonly selectable?: boolean;
 }
