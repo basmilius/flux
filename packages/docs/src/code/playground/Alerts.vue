@@ -54,7 +54,7 @@
             return;
         }
 
-        await fluxAlert({
+        await showAlert({
             title: 'Result',
             message: result
         });

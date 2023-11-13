@@ -126,8 +126,14 @@
 
             .flux-icon {
                 opacity: 0;
+                scale: .9;
                 transition: inherit;
                 transition-property: opacity;
+
+                path {
+                    stroke: white;
+                    stroke-width: 54px;
+                }
             }
         }
 

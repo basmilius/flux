@@ -140,6 +140,12 @@
                         type="route"/>
 
                     <FluxMenuItem
+                        :is-active="path === '/components/action-pane'"
+                        label="Action pane"
+                        to="/components/action-pane"
+                        type="route"/>
+
+                    <FluxMenuItem
                         :is-active="path === '/components/avatar'"
                         label="Avatar"
                         to="/components/avatar"

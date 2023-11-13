@@ -166,6 +166,8 @@
             text-align: center;
 
             &:only-child {
+                margin-left: 6px;
+                margin-right: 6px;
                 min-width: 42px;
             }
         }

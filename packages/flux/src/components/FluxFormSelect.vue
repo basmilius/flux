@@ -22,7 +22,7 @@
         <template v-else-if="isMultiple && selectedOptions[0]">
             <FluxBadge
                 v-for="option of selectedOptions"
-                :key="option.id"
+                :key="option.id ?? 'null option'"
                 :label="option.label"
                 is-deletable
                 is-tag
@@ -133,7 +133,7 @@
     import FluxPaneBody from './FluxPaneBody.vue';
 
     export interface Emits {
-        (e: 'update:model-value', value: string | number | (string | number)[]): void;
+        (e: 'update:model-value', value: string | number | (string | number | null)[] | null): void;
 
         (e: 'update:search', value: string): void;
     }
@@ -324,7 +324,7 @@
         });
     }
 
-    function deselect(id: string | number): void {
+    function deselect(id: string | number | null): void {
         const val = unref(modelValue);
 
         if (Array.isArray(val)) {
@@ -335,7 +335,7 @@
         requestAnimationFrame(reposition);
     }
 
-    function select(id: string | number): void {
+    function select(id: string | number | null): void {
         const val = unref(modelValue);
 
         if (Array.isArray(val)) {

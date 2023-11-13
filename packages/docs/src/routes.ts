@@ -38,6 +38,10 @@ export const router = createRouter({
                     component: () => import('@docs/pages/components/ActionBar.vue')
                 },
                 {
+                    path: '/components/action-pane',
+                    component: () => import('@docs/pages/components/ActionPane.vue')
+                },
+                {
                     path: '/components/avatar',
                     component: () => import('@docs/pages/components/Avatar.vue')
                 },
