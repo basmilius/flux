@@ -24,13 +24,13 @@
     import FluxPane from './FluxPane.vue';
     import FluxPaneBody from './FluxPaneBody.vue';
 
-    export interface Slots {
-        default(): any;
+    // export interface Slots {
+    //     default(): any;
+    //
+    //     buttons(): any;
+    // }
 
-        buttons(): any;
-    }
-
-    defineSlots<Slots>();
+    // defineSlots<Slots>();
 </script>
 
 <style lang="scss">
