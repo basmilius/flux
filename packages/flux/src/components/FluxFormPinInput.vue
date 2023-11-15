@@ -14,7 +14,7 @@
             :id="id"
             :autofocus="autoFocus"
             :disabled="isDisabled"
-            :tabindex="(field - 1) === localValue?.length ? 1 : -1"
+            :tabindex="(field - 1) === localValue?.length ? 0 : -1"
             :type="isPrivate ? 'password' : 'text'"
             :value="localValue[field - 1]"
             @focus="onFocus"
