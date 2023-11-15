@@ -66,7 +66,7 @@
         --button-background-active: rgb(var(--primary-9));
         --button-foreground: rgb(var(--primary-0));
         --button-icon: rgb(var(--primary-0));
-        --button-stroke: rgb(var(--primary-9));
+        --button-stroke: rgb(var(--primary-8));
 
         --spinner-track: rgb(var(--primary-8));
         --spinner-value: rgb(var(--primary-0));

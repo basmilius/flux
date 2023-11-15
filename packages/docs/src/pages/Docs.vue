@@ -279,6 +279,12 @@
                         type="route"/>
 
                     <FluxMenuItem
+                        :is-active="path === '/components/form-pin-input'"
+                        label="Form pin input"
+                        to="/components/form-pin-input"
+                        type="route"/>
+
+                    <FluxMenuItem
                         :is-active="path === '/components/form-range-slider'"
                         label="Form range slider"
                         to="/components/form-range-slider"

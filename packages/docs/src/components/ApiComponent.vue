@@ -159,7 +159,7 @@
             .flux-tab-bar-item {
                 color: var(--foreground-prominent);
                 font-size: 12px;
-                font-weight: 500;
+                font-weight: 600;
                 letter-spacing: 1px;
                 text-transform: uppercase;
 
