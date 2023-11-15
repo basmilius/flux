@@ -126,6 +126,10 @@ export const router = createRouter({
                     component: () => import('@docs/pages/components/FormInput.vue')
                 },
                 {
+                    path: '/components/form-pin-input',
+                    component: () => import('@docs/pages/components/FormPinInput.vue')
+                },
+                {
                     path: '/components/form-range-slider',
                     component: () => import('@docs/pages/components/FormRangeSlider.vue')
                 },

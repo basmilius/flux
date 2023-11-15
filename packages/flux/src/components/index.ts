@@ -44,6 +44,7 @@ export { default as FluxFormFieldAddition } from './FluxFormFieldAddition.vue';
 export { default as FluxFormInput } from './FluxFormInput.vue';
 export { default as FluxFormInputAddition } from './FluxFormInputAddition.vue';
 export { default as FluxFormInputGroup } from './FluxFormInputGroup.vue';
+export { default as FluxFormPinInput } from './FluxFormPinInput.vue';
 export { default as FluxFormRangeSlider } from './FluxFormRangeSlider.vue';
 export { default as FluxFormRow } from './FluxFormRow.vue';
 export { default as FluxFormSlider } from './FluxFormSlider.vue';
