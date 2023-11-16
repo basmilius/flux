@@ -234,6 +234,10 @@ export const router = createRouter({
                     component: () => import('@docs/pages/components/Statistic.vue')
                 },
                 {
+                    path: '/components/stepper',
+                    component: () => import('@docs/pages/components/Stepper.vue')
+                },
+                {
                     path: '/components/table',
                     component: () => import('@docs/pages/components/Table.vue')
                 },

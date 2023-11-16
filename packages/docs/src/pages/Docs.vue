@@ -441,6 +441,12 @@
                         type="route"/>
 
                     <FluxMenuItem
+                        :is-active="path === '/components/stepper'"
+                        label="Stepper"
+                        to="/components/stepper"
+                        type="route"/>
+
+                    <FluxMenuItem
                         :is-active="path === '/components/table'"
                         label="Table"
                         to="/components/table"
