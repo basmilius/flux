@@ -21,6 +21,7 @@ export {
     faArrowUpAZ,
     faBars,
     faBolt,
+    faBookOpen,
     faBullhorn,
     faCalendar,
     faCalendarRange,

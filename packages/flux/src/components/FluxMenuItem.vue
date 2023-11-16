@@ -116,6 +116,12 @@
             text-align: left;
             transition: inherit;
             transition-property: color, font-weight;
+
+            &:only-child {
+                margin-left: 0;
+                margin-right: 0;
+                min-width: unset;
+            }
         }
 
         &.is-active,
