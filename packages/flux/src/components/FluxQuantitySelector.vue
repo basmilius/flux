@@ -81,7 +81,7 @@
         requestAnimationFrame(() => {
             const input = unref(inputRef);
 
-            if (!input) {
+            if (!input || isNaN(input.valueAsNumber)) {
                 return;
             }
 
