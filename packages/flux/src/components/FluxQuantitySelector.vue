@@ -76,15 +76,15 @@
     }
 
     function sizeToContent(): void {
+        const input = unref(inputRef);
+
+        if (!input || isNaN(input.valueAsNumber)) {
+            return;
+        }
+
         width.value = 0;
 
         requestAnimationFrame(() => {
-            const input = unref(inputRef);
-
-            if (!input || isNaN(input.valueAsNumber)) {
-                return;
-            }
-
             width.value = Math.max(51, input.scrollWidth + 30);
         });
     }
