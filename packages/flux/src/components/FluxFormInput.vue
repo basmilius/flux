@@ -64,10 +64,10 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '@/data';
     import { DateTime } from 'luxon';
     import { computed, ref, toRefs, unref, watch } from 'vue-demi';
     import { useFormFieldInjection } from '@/composables';
+    import { IconNames, Masks, masks } from '@/data';
     import { unrefElement } from '@/helpers';
     import FluxIcon from './FluxIcon.vue';
 
@@ -89,11 +89,11 @@
         readonly isDisabled?: boolean;
         readonly isReadonly?: boolean;
         readonly isSecondary?: boolean;
-        readonly max?: number;
+        readonly max?: string|number;
         readonly maxLength?: number;
-        readonly min?: number;
+        readonly min?: string|number;
         readonly modelValue?: object | string | number | null;
-        readonly pattern?: string;
+        readonly pattern?: Masks;
         readonly placeholder?: string;
         readonly step?: number;
         readonly type?: 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'month' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'time' | 'url' | 'week';
@@ -198,6 +198,15 @@
             evt.preventDefault();
         }
     }
+
+    watch([inputRef, () => props.pattern], ([input, pattern], _, onCleanup) => {
+        if (!input || !pattern) {
+            return;
+        }
+
+        const mask = masks[pattern](input);
+        onCleanup(() => mask.destroy());
+    }, {immediate: true});
 
     watch(type, type => nativeType.value = type);
 
