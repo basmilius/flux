@@ -2,7 +2,6 @@ import type { InputMask } from 'imask';
 import imask from 'imask/holder';
 
 import 'imask/masked/pattern';
-import 'imask/masked/regexp';
 
 function bic(element: HTMLInputElement): InputMask<{}> {
     return imask(element, {
