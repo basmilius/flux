@@ -9,6 +9,8 @@
                     v-model="localValue"
                     class="flux-form-date-input"
                     type="date"
+                    :max="max?.toISO()?.substring(0, 10)"
+                    :min="min?.toISO()?.substring(0, 10)"
                     @blur="$emit('blur')"
                     @focus="$emit('focus')"
                     @show-picker="open"/>
