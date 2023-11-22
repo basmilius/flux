@@ -20,10 +20,10 @@ export default defineConfig({
                     'luxon': 'luxon',
                     'vue': 'vue'
                 },
-                sourcemap: true,
                 sourcemapIgnoreList: relativeSourcePath => relativeSourcePath.includes('node_modules')
             }
-        }
+        },
+        sourcemap: true
     },
     css: {
         postcss: {
