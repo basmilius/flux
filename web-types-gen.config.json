@@ -1,3 +1,4 @@
 {
-    "componentsRoot": "../flux"
+    "componentsRoot": "../flux",
+    "components": "src/(components|layout|transition)/**/[a-zA-Z]*.vue"
 }

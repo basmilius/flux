@@ -1,6 +1,6 @@
 {
     "name": "@fancee/flux-vue2",
-    "version": "1.1.14",
+    "version": "1.1.15",
     "type": "module",
     "scripts": {
         "build": "vite build && pnpm run gentypes",
@@ -35,8 +35,8 @@
         "luxon": "^3.4.4",
         "minimist": "^1.2.8",
         "tsc-alias": "^1.8.8",
-        "typescript": "^5.2.2",
-        "vite": "^5.0.0",
+        "typescript": "^5.3.2",
+        "vite": "^5.0.2",
         "vue": "^2.7.15",
         "vue-docgen-web-types": "^0.1.8",
         "vue-template-compiler": "^2.7.15",
