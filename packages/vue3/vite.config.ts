@@ -42,5 +42,8 @@ export default defineConfig({
         alias: {
             '@': resolve(__dirname, '../flux/src/')
         }
+    },
+    test: {
+        environment: 'happy-dom'
     }
 });
