@@ -10,13 +10,13 @@
         <FluxIcon
             v-if="iconOff"
             class="flux-toggle-icon is-off"
-            :size="16"
+            :size="14"
             :variant="iconOff"/>
 
         <FluxIcon
             v-if="iconOn"
             class="flux-toggle-icon is-on"
-            :size="16"
+            :size="14"
             :variant="iconOn"/>
 
         <input
@@ -81,6 +81,7 @@
         flex: 0 0 auto;
         background: rgb(var(--gray-3));
         border-radius: 99px;
+        contain: paint;
 
         &-icon {
             position: absolute;
@@ -124,7 +125,8 @@
                 width: 24px;
                 content: '';
                 background: rgb(var(--gray-0));
-                border: 1px solid rgb(var(--gray-5) / .75);
+                background-clip: padding-box;
+                border: 1px solid rgb(var(--gray-4) / .75);
                 border-radius: 99px;
                 box-shadow: var(--shadow-sm);
             }
@@ -154,18 +156,12 @@
             border-color: transparent;
         }
 
-        &:not(&.is-checked) &-icon.is-off,
         &.is-checked &-icon.is-on {
-            opacity: 0;
-            scale: .5;
-        }
-
-        &.is-checked &-icon.is-on {
-            translate: calc(-50% - 6px) -50%;
+            translate: calc(-50% + 24px) -50%;
         }
 
         &:not(&.is-checked) &-icon.is-off {
-            translate: calc(-50% + 6px) -50%;
+            translate: calc(-50% - 24px) -50%;
         }
 
         &.is-disabled {
