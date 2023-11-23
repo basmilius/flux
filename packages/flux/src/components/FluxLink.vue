@@ -56,7 +56,7 @@
 </script>
 
 <style lang="scss">
-    @use '../scss/mixin' as flux;
+    @use '../css/mixin' as flux;
 
     .flux-link {
         --button-icon: rgb(var(--primary-7));

@@ -56,7 +56,7 @@
 </script>
 
 <style lang="scss">
-    @use '../scss/mixin' as flux;
+    @use '../css/mixin' as flux;
 
     .flux-statistic {
         --statistic-icon-background: rgb(var(--gray-3));
