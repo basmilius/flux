@@ -93,5 +93,9 @@
         padding-top: 9px;
         padding-bottom: 9px;
         flex-shrink: 0;
+
+        &::placeholder {
+            color: var(--foreground-secondary);
+        }
     }
 </style>
