@@ -78,6 +78,12 @@
                 :component="complete"
                 title="Complete"
                 description="Complete example of what the progress bar can do."/>
+
+            <ApiExample
+                :code="snackbarCode"
+                :component="snackbar"
+                title="Snackbar"
+                description="Progress bars can also be used within snackbars."/>
         </ApiSection>
     </FluxStack>
 </template>
@@ -93,6 +99,8 @@
     import completeCode from '@docs/code/components/progressBar/complete.vue?raw';
     import indeterminate from '@docs/code/components/progressBar/indeterminate.vue';
     import indeterminateCode from '@docs/code/components/progressBar/indeterminate.vue?raw';
+    import snackbar from '@docs/code/components/progressBar/snackbar.vue';
+    import snackbarCode from '@docs/code/components/progressBar/snackbar.vue?raw';
     import status from '@docs/code/components/progressBar/status.vue';
     import statusCode from '@docs/code/components/progressBar/status.vue?raw';
 </script>
