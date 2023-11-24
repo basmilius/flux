@@ -11,8 +11,8 @@
                         <FluxProgressBar
                             :min="0"
                             :max="100"
-                            :value="75.5"
-                            status="The Blacklist S05E10 - The Stewmaker.atmos"/>
+                            :value="75"
+                            status="The Blacklist S01E03 - The Stewmaker"/>
                     </FluxFormField>
                 </FluxPaneBody>
             </FluxPane>

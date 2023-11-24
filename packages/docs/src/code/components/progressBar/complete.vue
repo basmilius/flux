@@ -46,9 +46,9 @@
     }
 
     async function tween(percentage: number): Promise<void> {
-        for (let p = unref(value); p <= percentage; p += 0.025) {
+        for (let p = unref(value); p <= percentage; p += 0.001) {
             value.value = p;
-            await wait(30);
+            await wait(Math.random() * 6 + 3);
         }
 
         value.value = percentage;
