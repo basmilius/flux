@@ -194,6 +194,10 @@ export const router = createRouter({
                     component: () => import('@docs/pages/components/Placeholder.vue')
                 },
                 {
+                    path: '/components/progress-bar',
+                    component: () => import('@docs/pages/components/ProgressBar.vue')
+                },
+                {
                     path: '/components/quantity-selector',
                     component: () => import('@docs/pages/components/QuantitySelector.vue')
                 },
