@@ -72,6 +72,7 @@
 
 <style lang="scss">
     .flux-progress-bar {
+        position: relative;
         gap: 6px;
 
         &-info {
@@ -120,6 +121,14 @@
             background-size: 90px 100%;
             animation: flux-progress-bar-indeterminate 1s linear infinite;
         }
+    }
+
+    .flux-pane > .flux-progress-bar:first-child {
+        margin: 9px 9px 0;
+    }
+
+    .flux-pane > .flux-progress-bar:last-child {
+        margin: 0 9px 9px;
     }
 
     @keyframes flux-progress-bar-indeterminate {
