@@ -381,6 +381,12 @@
                         type="route"/>
 
                     <FluxMenuItem
+                        :is-active="path === '/components/progress-bar'"
+                        label="Progress bar"
+                        to="/components/progress-bar"
+                        type="route"/>
+
+                    <FluxMenuItem
                         :is-active="path === '/components/quantity-selector'"
                         label="Quantity selector"
                         to="/components/quantity-selector"

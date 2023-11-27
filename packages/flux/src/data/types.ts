@@ -45,6 +45,11 @@ export interface FluxSnackbarSpec {
     readonly isLoading?: boolean;
     readonly isRendered?: boolean;
     readonly message?: string;
+    readonly progressIndeterminate?: boolean;
+    readonly progressMax?: number;
+    readonly progressMin?: number;
+    readonly progressStatus?: string;
+    readonly progressValue?: number;
     readonly subMessage?: string;
     readonly title?: string;
 

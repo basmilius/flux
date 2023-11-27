@@ -109,7 +109,7 @@
 </script>
 
 <style lang="scss">
-    @use '../../scss/mixin' as flux;
+    @use '../../css/mixin' as flux;
 
     .flux-button {
         display: inline-flex;
@@ -168,7 +168,6 @@
             &:only-child {
                 margin-left: 6px;
                 margin-right: 6px;
-                min-width: 42px;
             }
         }
 

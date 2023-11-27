@@ -5,8 +5,8 @@
         :class="{
             'is-dark': darkMode
         }"
-        icon-off="sun-alt"
-        icon-on="moon"
+        icon-off="moon"
+        icon-on="sun-alt"
         is-switch/>
 </template>
 
@@ -50,7 +50,7 @@
         *,
         *::before,
         *::after {
-            transition: 420ms var(--swift-out) !important;
+            transition: 300ms var(--swift-out) !important;
             transition-delay: 0ms !important;
             transition-property: all !important;
         }
@@ -62,15 +62,11 @@
     scoped>
     .theme-toggle {
         ::v-deep(.is-off) {
-            color: #eaaa08;
-        }
-
-        ::v-deep(.is-on) {
             color: #06aed4;
         }
 
-        &.is-dark {
-            background: rgb(var(--gray-5));
+        ::v-deep(.is-on) {
+            color: #eaaa08;
         }
     }
 </style>

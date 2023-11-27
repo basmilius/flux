@@ -13,6 +13,11 @@
             :is-closeable="snackbar.isCloseable"
             :is-loading="snackbar.isLoading"
             :message="snackbar.message"
+            :progress-indeterminate="snackbar.progressIndeterminate"
+            :progress-max="snackbar.progressMax"
+            :progress-min="snackbar.progressMin"
+            :progress-status="snackbar.progressStatus"
+            :progress-value="snackbar.progressValue"
             :sub-message="snackbar.subMessage"
             :title="snackbar.title"
             is-rendered
@@ -35,7 +40,7 @@
 </script>
 
 <style lang="scss">
-    @use '../scss/mixin' as flux;
+    @use '../css/mixin' as flux;
 
     .flux-snackbars {
         position: fixed;

@@ -21,6 +21,10 @@
             </p>
         </ApiSection>
 
+        <ApiSection title="Required icons">
+            <ApiRequiredIcons :icons="['check']"/>
+        </ApiSection>
+
         <ApiSection title="API">
             <ApiComponents>
                 <tr>
@@ -118,13 +122,26 @@
     lang="ts"
     setup>
     import { FluxPane, FluxPaneBody, FluxStack, FluxStepper, FluxStepperStep } from '@fancee/flux';
-    import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
-    import { ref } from 'vue';
+    import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
+    import { onMounted, ref } from 'vue';
     import basic from '@docs/code/components/stepper/basic.vue';
     import basicCode from '@docs/code/components/stepper/basic.vue?raw';
     import custom from '@docs/code/components/stepper/custom.vue';
     import customCode from '@docs/code/components/stepper/custom.vue?raw';
 
     const max = ref(3);
-    const step = ref(2);
+    const step = ref(1);
+
+    onMounted(async () => {
+        await delay(420);
+        step.value = 2;
+        await delay(420);
+        step.value = 3;
+        await delay(420);
+        step.value = 4;
+    });
+
+    async function delay(ms: number): Promise<void> {
+        await new Promise(resolve => setTimeout(resolve, ms));
+    }
 </script>

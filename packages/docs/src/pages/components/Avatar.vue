@@ -15,12 +15,14 @@
                         <FluxAvatar
                             alt="Bas"
                             :size="42"
+                            status="success"
                             url="https://imgproxy.glybe.nl/120,q75,jpg/1-b38d42e52f851f0ec94d118fad965277e3915b89da1012cef7e58674e3cf219a-img1386.jpeg"/>
 
                         <FluxAvatar
                             alt="Bas"
                             fallback-initials="BM"
-                            :size="42"/>
+                            :size="42"
+                            status="danger"/>
 
                         <FluxAvatar
                             alt="Bas"
@@ -80,6 +82,10 @@
                     <tr>
                         <td><code>size</code><code>number</code></td>
                         <td>The size of the avatar.</td>
+                    </tr>
+                    <tr>
+                        <td><code>status</code><code>'gray' | 'primary' | 'danger' | 'info' | 'success' | 'warning'</code></td>
+                        <td>The color of the status indicator of the avatar.</td>
                     </tr>
                     <tr>
                         <td><code>url</code><code>string</code></td>

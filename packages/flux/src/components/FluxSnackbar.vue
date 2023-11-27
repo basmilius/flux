@@ -30,6 +30,15 @@
                     {{ message }}
                 </div>
 
+                <FluxProgressBar
+                    v-if="progressIndeterminate || progressValue"
+                    class="flux-snackbar-progress-bar"
+                    :is-indeterminate="progressIndeterminate"
+                    :max="progressMax"
+                    :min="progressMin"
+                    :status="progressStatus"
+                    :value="progressValue"/>
+
                 <div
                     v-if="subMessage"
                     class="flux-snackbar-sub-message">
@@ -67,6 +76,7 @@
     import { unrefObject } from '@/utils';
     import FluxAction from './FluxAction.vue';
     import FluxIcon from './FluxIcon.vue';
+    import FluxProgressBar from './FluxProgressBar.vue';
     import FluxSpinner from './FluxSpinner.vue';
 
     export interface Emits {
@@ -83,6 +93,11 @@
         readonly isLoading?: boolean;
         readonly isRendered?: boolean;
         readonly message?: string;
+        readonly progressIndeterminate?: boolean;
+        readonly progressMax?: number;
+        readonly progressMin?: number;
+        readonly progressStatus?: string;
+        readonly progressValue?: number;
         readonly subMessage?: string;
         readonly title?: string;
     }
@@ -135,7 +150,7 @@
 </script>
 
 <style lang="scss">
-    @use '../scss/mixin' as flux;
+    @use '../css/mixin' as flux;
 
     .flux-snackbar {
         --snackbar-title: var(--foreground-prominent);
@@ -203,6 +218,18 @@
 
         &-message {
             color: var(--foreground);
+        }
+
+        &-progress-bar {
+            margin-top: 9px;
+
+            &:not(:last-child) {
+                margin-bottom: 6px;
+            }
+
+            .flux-progress-bar-track {
+                height: 6px;
+            }
         }
 
         &-sub-message {

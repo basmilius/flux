@@ -60,7 +60,7 @@
 </script>
 
 <style lang="scss">
-    @use '../scss/mixin' as flux;
+    @use '../css/mixin' as flux;
 
     .flux-stepper-steps {
         --progress: v-bind(progress);
@@ -95,7 +95,7 @@
         }
 
         &::after {
-            width: calc(var(--progress) * var(--max));
+            width: calc(min(1, var(--progress)) * var(--max));
             background: rgb(var(--primary-7));
             transition: width 300ms var(--swift-out);
         }
