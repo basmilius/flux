@@ -30,7 +30,7 @@
 
         <FluxFormFieldAddition
             v-if="hint"
-            icon="circle-exclamation"
+            icon="circle-info"
             :message="hint"/>
 
         <slot

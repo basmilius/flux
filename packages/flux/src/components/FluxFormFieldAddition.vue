@@ -9,7 +9,7 @@
             v-if="icon"
             :size="16"
             class="flux-form-field-addition-icon"
-            variant="circle-info"/>
+            :variant="icon"/>
 
         <span v-if="message">
             {{ message }}
