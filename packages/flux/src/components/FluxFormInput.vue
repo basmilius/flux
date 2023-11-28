@@ -132,7 +132,7 @@
     function onInput(evt: Event): void {
         const value = (evt.target as HTMLInputElement).value;
 
-        switch (type.value) {
+        switch (unref(type)) {
             case 'date':
             case 'datetime-local':
             case 'month':
@@ -158,7 +158,7 @@
     }
 
     function onKeyDown(evt: KeyboardEvent): void {
-        if (!['date', 'datetime-local', 'month', 'week'].includes(type.value)) {
+        if (!['date', 'datetime-local', 'month', 'week'].includes(unref(type))) {
             return;
         }
 
@@ -168,7 +168,7 @@
         }
     }
 
-    watch(modelValue, modelValue => {
+    watch([modelValue, type], ([modelValue, type]) => {
         if (!modelValue) {
             localValue.value = null;
             return;
@@ -177,7 +177,7 @@
         if (DateTime.isDateTime(modelValue)) {
             const iso = modelValue.toISO()!;
 
-            switch (type.value) {
+            switch (type) {
                 case 'date':
                     localValue.value = iso.substring(0, 10);
                     break;
@@ -194,6 +194,8 @@
                     localValue.value = iso;
                     break;
             }
+
+            return;
         }
 
         localValue.value = modelValue.toString();
