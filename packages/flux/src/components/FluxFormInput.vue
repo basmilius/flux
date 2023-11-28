@@ -25,7 +25,7 @@
             :readonly="isReadonly"
             :step="step"
             :type="nativeType"
-            :value="parsedValue"
+            :value="localValue"
             @blur="$emit('blur')"
             @focus="$emit('focus')"
             @input="onInput"
@@ -110,39 +110,8 @@
     const {id} = useFormFieldInjection();
 
     const inputRef = ref<HTMLInputElement>();
+    const localValue = ref<string | null>(null);
     const nativeType = ref(unref(type));
-
-    const parsedValue = computed(() => {
-        if (!modelValue) {
-            return null;
-        }
-
-        const v = unref(modelValue);
-
-        if (!v) {
-            return null;
-        }
-
-        if (DateTime.isDateTime(v)) {
-            const iso = v.toISO()!;
-
-            switch (type.value) {
-                case 'date':
-                    return iso.substring(0, 10);
-
-                case 'datetime-local':
-                    return iso.substring(0, 16);
-
-                case 'time':
-                    return iso.substring(11, 16);
-
-                default:
-                    return iso;
-            }
-        }
-
-        return v.toString();
-    });
 
     function blur(): void {
         unrefElement(inputRef)?.blur();
@@ -199,12 +168,49 @@
         }
     }
 
-    watch([inputRef, () => props.pattern], ([input, pattern], _, onCleanup) => {
+    watch(modelValue, modelValue => {
+        if (!modelValue) {
+            localValue.value = null;
+            return;
+        }
+
+        if (DateTime.isDateTime(modelValue)) {
+            const iso = modelValue.toISO()!;
+
+            switch (type.value) {
+                case 'date':
+                    localValue.value = iso.substring(0, 10);
+                    break;
+
+                case 'datetime-local':
+                    localValue.value = iso.substring(0, 16);
+                    break;
+
+                case 'time':
+                    localValue.value = iso.substring(11, 16);
+                    break;
+
+                default:
+                    localValue.value = iso;
+                    break;
+            }
+        }
+
+        localValue.value = modelValue.toString();
+    }, {immediate: true});
+
+    watch([inputRef, () => props.pattern, localValue], ([input, pattern, value], __, onCleanup) => {
         if (!input || !pattern) {
             return;
         }
 
         const mask = masks[pattern](input);
+
+        if (value) {
+            mask.value = value;
+            localValue.value = mask.value;
+        }
+
         onCleanup(() => mask.destroy());
     }, {immediate: true});
 

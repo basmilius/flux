@@ -409,7 +409,9 @@
         gap: 0 6px;
         cursor: pointer;
 
-        @include flux.focus-ring(-1px, true);
+        &:not(.is-disabled) {
+            @include flux.focus-ring(-1px, true);
+        }
 
         &-icon {
             position: absolute;
