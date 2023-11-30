@@ -56,7 +56,6 @@
 
         position: relative;
         height: 100dvh;
-        width: 100dvw;
         padding-top: var(--header-height);
         padding-left: var(--navigation-width);
         font-size: 15px;
