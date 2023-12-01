@@ -17,23 +17,23 @@
         </header>
 
         <main class="flux-dashboard-navigation-body">
-            <FluxVerticalWindowTransition :is-back="isAppSwitcherVisible">
+            <FluxBreakthroughTransition :is-back="isAppSwitcherVisible">
                 <nav
                     v-if="isAppSwitcherVisible"
                     key="apps"
                     class="flux-dashboard-navigation-app-switcher">
                     <slot
-                        name="apps"
-                        v-bind="{closeAppSwitcher, openAppSwitcher, toggleAppSwitcher}"/>
+                        v-bind="{closeAppSwitcher, openAppSwitcher, toggleAppSwitcher}"
+                        name="apps"/>
                 </nav>
 
                 <nav
                     v-else
-                    key="navigation"
+                    :key="navigationKey"
                     class="flux-dashboard-navigation-nav">
                     <slot/>
                 </nav>
-            </FluxVerticalWindowTransition>
+            </FluxBreakthroughTransition>
         </main>
 
         <footer
@@ -49,14 +49,17 @@
     setup>
     import { ref, useSlots } from 'vue-demi';
     import { FluxSecondaryButton } from '@/components';
-    import { FluxVerticalWindowTransition } from '@/transition';
+    import { FluxBreakthroughTransition } from '@/transition';
 
     export interface Props {
         readonly applicationName: string;
         readonly logoUrl: string;
+        readonly navigationKey?: string;
     }
 
-    defineProps<Props>();
+    withDefaults(defineProps<Props>(), {
+        navigationKey: 'navigation'
+    });
 
     const slots = useSlots();
 

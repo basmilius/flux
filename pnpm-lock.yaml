@@ -12,8 +12,8 @@ importers:
         specifier: ^3.3.5
         version: 3.3.5
       '@types/node':
-        specifier: ^20.10.0
-        version: 20.10.0
+        specifier: ^20.10.1
+        version: 20.10.1
 
   packages/docs:
     dependencies:
@@ -21,11 +21,11 @@ importers:
         specifier: workspace:*
         version: link:../vue3
       '@fortawesome/free-brands-svg-icons':
-        specifier: ^6.4.2
-        version: 6.4.2
+        specifier: ^6.5.0
+        version: 6.5.1
       '@fortawesome/pro-regular-svg-icons':
-        specifier: ^6.4.2
-        version: 6.4.2
+        specifier: ^6.5.0
+        version: 6.5.1
       highlight.js:
         specifier: ^11.9.0
         version: 11.9.0
@@ -44,7 +44,7 @@ importers:
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^4.5.0
-        version: 4.5.0(vite@5.0.2)(vue@3.3.9)
+        version: 4.5.0(vite@5.0.4)(vue@3.3.9)
       sass:
         specifier: ^1.69.5
         version: 1.69.5
@@ -52,8 +52,8 @@ importers:
         specifier: ^5.3.2
         version: 5.3.2
       vite:
-        specifier: ^5.0.2
-        version: 5.0.2(@types/node@20.10.0)(sass@1.69.5)
+        specifier: ^5.0.4
+        version: 5.0.4(@types/node@20.10.1)(sass@1.69.5)
       vue-tsc:
         specifier: ^1.9.0-alpha.3
         version: 1.9.0-alpha.3(typescript@5.3.2)
@@ -61,8 +61,8 @@ importers:
   packages/flux:
     dependencies:
       '@fortawesome/fontawesome-common-types':
-        specifier: ^6.4.2
-        version: 6.4.2
+        specifier: ^6.5.0
+        version: 6.5.1
       imask:
         specifier: ^7.1.3
         version: 7.1.3
@@ -87,11 +87,11 @@ importers:
         version: 0.14.6(vue@2.7.15)
     devDependencies:
       '@fortawesome/fontawesome-common-types':
-        specifier: ^6.4.2
-        version: 6.4.2
+        specifier: ^6.5.0
+        version: 6.5.1
       '@vitejs/plugin-vue2':
         specifier: ^2.3.1
-        version: 2.3.1(vite@5.0.2)(vue@2.7.15)
+        version: 2.3.1(vite@5.0.4)(vue@2.7.15)
       autoprefixer:
         specifier: ^10.4.16
         version: 10.4.16(postcss@8.4.31)
@@ -111,8 +111,8 @@ importers:
         specifier: ^5.3.2
         version: 5.3.2
       vite:
-        specifier: ^5.0.2
-        version: 5.0.2(@types/node@20.10.0)
+        specifier: ^5.0.4
+        version: 5.0.4(@types/node@20.10.1)
       vue:
         specifier: ^2.7.15
         version: 2.7.15
@@ -133,11 +133,11 @@ importers:
         version: 0.14.6(vue@3.3.9)
     devDependencies:
       '@fortawesome/fontawesome-common-types':
-        specifier: ^6.4.2
-        version: 6.4.2
+        specifier: ^6.5.0
+        version: 6.5.1
       '@vitejs/plugin-vue':
         specifier: ^4.5.0
-        version: 4.5.0(vite@5.0.2)(vue@3.3.9)
+        version: 4.5.0(vite@5.0.4)(vue@3.3.9)
       '@vue/compiler-sfc':
         specifier: ^3.3.9
         version: 3.3.9
@@ -160,8 +160,8 @@ importers:
         specifier: ^5.3.2
         version: 5.3.2
       vite:
-        specifier: ^5.0.2
-        version: 5.0.2(@types/node@20.10.0)
+        specifier: ^5.0.4
+        version: 5.0.4(@types/node@20.10.1)
       vue:
         specifier: ^3.3.9
         version: 3.3.9(typescript@5.3.2)
@@ -433,25 +433,25 @@ packages:
     dev: true
     optional: true
 
-  /@fortawesome/fontawesome-common-types@6.4.2:
-    resolution: {integrity: sha512-1DgP7f+XQIJbLFCTX1V2QnxVmpLdKdzzo2k8EmvDOePfchaIGQ9eCHj2up3/jNEbZuBqel5OxiaOJf37TWauRA==, tarball: https://npm.fontawesome.com/@fortawesome/fontawesome-common-types/-/6.4.2/fontawesome-common-types-6.4.2.tgz}
+  /@fortawesome/fontawesome-common-types@6.5.1:
+    resolution: {integrity: sha512-GkWzv+L6d2bI5f/Vk6ikJ9xtl7dfXtoRu3YGE6nq0p/FFqA1ebMOAWg3XgRyb0I6LYyYkiAo+3/KrwuBp8xG7A==, tarball: https://npm.fontawesome.com/@fortawesome/fontawesome-common-types/-/6.5.1/fontawesome-common-types-6.5.1.tgz}
     engines: {node: '>=6'}
     requiresBuild: true
 
-  /@fortawesome/free-brands-svg-icons@6.4.2:
-    resolution: {integrity: sha512-LKOwJX0I7+mR/cvvf6qIiqcERbdnY+24zgpUSouySml+5w8B4BJOx8EhDR/FTKAu06W12fmUIcv6lzPSwYKGGg==, tarball: https://npm.fontawesome.com/@fortawesome/free-brands-svg-icons/-/6.4.2/free-brands-svg-icons-6.4.2.tgz}
+  /@fortawesome/free-brands-svg-icons@6.5.1:
+    resolution: {integrity: sha512-093l7DAkx0aEtBq66Sf19MgoZewv1zeY9/4C7vSKPO4qMwEsW/2VYTUTpBtLwfb9T2R73tXaRDPmE4UqLCYHfg==, tarball: https://npm.fontawesome.com/@fortawesome/free-brands-svg-icons/-/6.5.1/free-brands-svg-icons-6.5.1.tgz}
     engines: {node: '>=6'}
     requiresBuild: true
     dependencies:
-      '@fortawesome/fontawesome-common-types': 6.4.2
+      '@fortawesome/fontawesome-common-types': 6.5.1
     dev: false
 
-  /@fortawesome/pro-regular-svg-icons@6.4.2:
-    resolution: {integrity: sha512-e6LJbjPuthsDfskXvsy3kSpz/NFD2FQ0utZHelMwOyjkalPSbM3kyedZ4Vgq3XVTKo6NQd9FtIoHxxmEQHQKRA==, tarball: https://npm.fontawesome.com/@fortawesome/pro-regular-svg-icons/-/6.4.2/pro-regular-svg-icons-6.4.2.tgz}
+  /@fortawesome/pro-regular-svg-icons@6.5.1:
+    resolution: {integrity: sha512-Rd7Q7Vff68l/YtFKB4EJW/YJ5eXYk7TqejyDTapOI1sn3/AFMEc8CVCOsPfi4+6qGrJy16hlNvgpigIy5gkW7A==, tarball: https://npm.fontawesome.com/@fortawesome/pro-regular-svg-icons/-/6.5.1/pro-regular-svg-icons-6.5.1.tgz}
     engines: {node: '>=6'}
     requiresBuild: true
     dependencies:
-      '@fortawesome/fontawesome-common-types': 6.4.2
+      '@fortawesome/fontawesome-common-types': 6.5.1
     dev: false
 
   /@johnsoncodehk/pug-beautify@0.2.2:
@@ -582,31 +582,31 @@ packages:
     resolution: {integrity: sha512-1cyf6Ge/94zlaWIZA2ei1pE6SZ8xpad2hXaYa5JEFiaUH0YS494CZwyi4MXNpXD9oEuv6ZH0Bmh0e7F9sPhmZA==}
     dev: true
 
-  /@types/node@20.10.0:
-    resolution: {integrity: sha512-D0WfRmU9TQ8I9PFx9Yc+EBHw+vSpIub4IDvQivcp26PtPrdMGAq5SDcpXEo/epqa/DXotVpekHiLNTg3iaKXBQ==}
+  /@types/node@20.10.1:
+    resolution: {integrity: sha512-T2qwhjWwGH81vUEx4EXmBKsTJRXFXNZTL4v0gi01+zyBmCwzE6TyHszqX01m+QHTEq+EZNo13NeJIdEqf+Myrg==}
     dependencies:
       undici-types: 5.26.5
     dev: true
 
-  /@vitejs/plugin-vue2@2.3.1(vite@5.0.2)(vue@2.7.15):
+  /@vitejs/plugin-vue2@2.3.1(vite@5.0.4)(vue@2.7.15):
     resolution: {integrity: sha512-/ksaaz2SRLN11JQhLdEUhDzOn909WEk99q9t9w+N12GjQCljzv7GyvAbD/p20aBUjHkvpGOoQ+FCOkG+mjDF4A==}
     engines: {node: ^14.18.0 || >= 16.0.0}
     peerDependencies:
       vite: ^3.0.0 || ^4.0.0 || ^5.0.0
       vue: ^2.7.0-0
     dependencies:
-      vite: 5.0.2(@types/node@20.10.0)
+      vite: 5.0.4(@types/node@20.10.1)
       vue: 2.7.15
     dev: true
 
-  /@vitejs/plugin-vue@4.5.0(vite@5.0.2)(vue@3.3.9):
+  /@vitejs/plugin-vue@4.5.0(vite@5.0.4)(vue@3.3.9):
     resolution: {integrity: sha512-a2WSpP8X8HTEww/U00bU4mX1QpLINNuz/2KMNpLsdu3BzOpak3AGI1CJYBTXcc4SPhaD0eNRUp7IyQK405L5dQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       vite: ^4.0.0 || ^5.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 5.0.2(@types/node@20.10.0)(sass@1.69.5)
+      vite: 5.0.4(@types/node@20.10.1)(sass@1.69.5)
       vue: 3.3.9(typescript@5.3.2)
     dev: true
 
@@ -1761,8 +1761,8 @@ packages:
       which-typed-array: 1.1.9
     dev: true
 
-  /vite@5.0.2(@types/node@20.10.0):
-    resolution: {integrity: sha512-6CCq1CAJCNM1ya2ZZA7+jS2KgnhbzvxakmlIjN24cF/PXhRMzpM/z8QgsVJA/Dm5fWUWnVEsmtBoMhmerPxT0g==}
+  /vite@5.0.4(@types/node@20.10.1):
+    resolution: {integrity: sha512-RzAr8LSvM8lmhB4tQ5OPcBhpjOZRZjuxv9zO5UcxeoY2bd3kP3Ticd40Qma9/BqZ8JS96Ll/jeBX9u+LJZrhVg==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -1789,7 +1789,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.10.0
+      '@types/node': 20.10.1
       esbuild: 0.19.5
       postcss: 8.4.31
       rollup: 4.4.1
@@ -1797,8 +1797,8 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vite@5.0.2(@types/node@20.10.0)(sass@1.69.5):
-    resolution: {integrity: sha512-6CCq1CAJCNM1ya2ZZA7+jS2KgnhbzvxakmlIjN24cF/PXhRMzpM/z8QgsVJA/Dm5fWUWnVEsmtBoMhmerPxT0g==}
+  /vite@5.0.4(@types/node@20.10.1)(sass@1.69.5):
+    resolution: {integrity: sha512-RzAr8LSvM8lmhB4tQ5OPcBhpjOZRZjuxv9zO5UcxeoY2bd3kP3Ticd40Qma9/BqZ8JS96Ll/jeBX9u+LJZrhVg==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -1825,7 +1825,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.10.0
+      '@types/node': 20.10.1
       esbuild: 0.19.5
       postcss: 8.4.31
       rollup: 4.4.1
