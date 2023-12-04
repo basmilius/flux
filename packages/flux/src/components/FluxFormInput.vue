@@ -20,7 +20,6 @@
             :max="max"
             :maxlength="maxLength"
             :min="min"
-            :pattern="pattern"
             :placeholder="placeholder"
             :readonly="isReadonly"
             :step="step"
