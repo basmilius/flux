@@ -64,24 +64,6 @@ definitions:
               SONAR_HOST_URL: ${SONARQUBE_HOST}
               SONAR_TOKEN: ${SONAR_TOKEN}
 
-    - step: &sonar-scan
-        name: SonarQube scan
-        runs-on:
-          - 'self.hosted'
-          - 'linux'
-        caches:
-          - docker
-          - sonar
-        services:
-          - docker
-        script:
-          - pipe: sonarsource/sonarqube-scan:2.0.1
-            variables:
-              SONAR_HOST_URL: ${SONARQUBE_HOST}
-              SONAR_TOKEN: ${SONAR_TOKEN}
-              EXTRA_ARGS: -Dsonar.branch.name=${BITBUCKET_BRANCH}
-                -Dsonar.projectVersion=${BITBUCKET_COMMIT}
-
     - step: &sonar-scan-pr
         name: SonarQube scan
         runs-on:
@@ -105,12 +87,7 @@ pipelines:
   branches:
     main:
       - parallel:
-          - step: *build
           - step: *sonar-scan-main
-
-    develop:
-      - parallel:
-          - step: *sonar-scan
           - step: *publish
 
   pull-requests:
