@@ -246,8 +246,8 @@
             &s {
                 display: grid;
                 gap: 1px;
-                grid-template-columns: repeat(7, 1fr);
-                grid-template-rows: auto repeat(6, 1fr);
+                grid-template-columns: repeat(7, auto);
+                grid-template-rows: auto repeat(6, auto);
                 background: rgb(var(--gray-3));
             }
 
