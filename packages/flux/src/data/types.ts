@@ -45,6 +45,11 @@ export interface FluxSnackbarSpec {
     readonly isLoading?: boolean;
     readonly isRendered?: boolean;
     readonly message?: string;
+    readonly progressIndeterminate?: boolean;
+    readonly progressMax?: number;
+    readonly progressMin?: number;
+    readonly progressStatus?: string;
+    readonly progressValue?: number;
     readonly subMessage?: string;
     readonly title?: string;
 
@@ -63,8 +68,10 @@ export interface FluxTooltipSpec {
 
 export interface FluxFormSelectOption {
     readonly badge?: string;
+    readonly command?: string;
+    readonly commandIcon?: IconNames | null;
     readonly icon?: IconNames | null;
-    readonly id: string | number;
+    readonly id: string | number | null;
     readonly label: string;
     readonly selectable?: boolean;
 }
@@ -89,4 +96,5 @@ export interface FluxRoutingLocationObject {
     replace?: boolean;
 }
 
+export type FluxFormSelectEntry = FluxFormSelectGroup | FluxFormSelectOption;
 export type FluxRoutingLocation = FluxRoutingLocationObject | string;

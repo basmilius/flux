@@ -1,7 +1,9 @@
-export { default as FluxAutoHeightTransition } from './AutoHeightTransition.vue';
-export { default as FluxAutoWidthTransition } from './AutoWidthTransition.vue';
-export { default as FluxFadeTransition } from './FadeTransition.vue';
-export { default as FluxOverlayTransition } from './OverlayTransition.vue';
-export { default as FluxSlideOverTransition } from './SlideOverTransition.vue';
-export { default as FluxVerticalWindowTransition } from './VerticalWindowTransition.vue';
-export { default as FluxWindowTransition } from './WindowTransition.vue';
+export { default as FluxAutoHeightTransition } from './FluxAutoHeightTransition.vue';
+export { default as FluxAutoWidthTransition } from './FluxAutoWidthTransition.vue';
+export { default as FluxBreakthroughTransition } from './FluxBreakthroughTransition.vue';
+export { default as FluxFadeTransition } from './FluxFadeTransition.vue';
+export { default as FluxOverlayTransition } from './FluxOverlayTransition.vue';
+export { default as FluxSlideOverTransition } from './FluxSlideOverTransition.vue';
+export { default as FluxTooltipTransition } from './FluxTooltipTransition.vue';
+export { default as FluxVerticalWindowTransition } from './FluxVerticalWindowTransition.vue';
+export { default as FluxWindowTransition } from './FluxWindowTransition.vue';

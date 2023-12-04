@@ -88,7 +88,7 @@
 </script>
 
 <style lang="scss">
-    @use '../scss/mixin' as flux;
+    @use '../css/mixin' as flux;
 
     .form-checkbox {
         display: inline-flex;
@@ -126,8 +126,14 @@
 
             .flux-icon {
                 opacity: 0;
+                scale: .9;
                 transition: inherit;
                 transition-property: opacity;
+
+                path {
+                    stroke: white;
+                    stroke-width: 54px;
+                }
             }
         }
 

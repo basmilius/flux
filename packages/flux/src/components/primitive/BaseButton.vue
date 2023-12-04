@@ -27,11 +27,13 @@
                 :variant="iconBefore"/>
         </slot>
 
-        <span
-            v-if="label"
-            class="flux-button-label">
-            {{ label }}
-        </span>
+        <slot name="label">
+            <span
+                v-if="label"
+                class="flux-button-label">
+                {{ label }}
+            </span>
+        </slot>
 
         <slot name="icon-after">
             <FluxSpinner
@@ -107,7 +109,7 @@
 </script>
 
 <style lang="scss">
-    @use '../../scss/mixin' as flux;
+    @use '../../css/mixin' as flux;
 
     .flux-button {
         display: inline-flex;
@@ -164,7 +166,8 @@
             text-align: center;
 
             &:only-child {
-                min-width: 42px;
+                margin-left: 6px;
+                margin-right: 6px;
             }
         }
 

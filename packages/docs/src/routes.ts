@@ -38,6 +38,10 @@ export const router = createRouter({
                     component: () => import('@docs/pages/components/ActionBar.vue')
                 },
                 {
+                    path: '/components/action-pane',
+                    component: () => import('@docs/pages/components/ActionPane.vue')
+                },
+                {
                     path: '/components/avatar',
                     component: () => import('@docs/pages/components/Avatar.vue')
                 },
@@ -122,6 +126,10 @@ export const router = createRouter({
                     component: () => import('@docs/pages/components/FormInput.vue')
                 },
                 {
+                    path: '/components/form-pin-input',
+                    component: () => import('@docs/pages/components/FormPinInput.vue')
+                },
+                {
                     path: '/components/form-range-slider',
                     component: () => import('@docs/pages/components/FormRangeSlider.vue')
                 },
@@ -136,6 +144,10 @@ export const router = createRouter({
                 {
                     path: '/components/form-text-area',
                     component: () => import('@docs/pages/components/FormTextArea.vue')
+                },
+                {
+                    path: '/components/form-time-zone-picker',
+                    component: () => import('@docs/pages/components/FormTimeZonePicker.vue')
                 },
                 {
                     path: '/components/gallery',
@@ -182,6 +194,10 @@ export const router = createRouter({
                     component: () => import('@docs/pages/components/Placeholder.vue')
                 },
                 {
+                    path: '/components/progress-bar',
+                    component: () => import('@docs/pages/components/ProgressBar.vue')
+                },
+                {
                     path: '/components/quantity-selector',
                     component: () => import('@docs/pages/components/QuantitySelector.vue')
                 },
@@ -220,6 +236,10 @@ export const router = createRouter({
                 {
                     path: '/components/statistic',
                     component: () => import('@docs/pages/components/Statistic.vue')
+                },
+                {
+                    path: '/components/stepper',
+                    component: () => import('@docs/pages/components/Stepper.vue')
                 },
                 {
                     path: '/components/table',
@@ -298,6 +318,10 @@ export const router = createRouter({
         {
             path: '/dashboard',
             component: () => import('@docs/pages/Dashboard.vue')
+        },
+        {
+            path: '/prose',
+            component: () => import('@docs/pages/Prose.vue')
         }
     ]
 });
@@ -306,7 +330,7 @@ router.afterEach(() => {
     routerIsLoading.value = false;
 });
 
-router.beforeEach((from, to, next) => {
+router.beforeEach((_, __, next) => {
     routerIsLoading.value = true;
     next();
 });

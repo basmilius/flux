@@ -1,6 +1,7 @@
 <template>
     <button
         class="flux-persona"
+        type="button"
         @click="$emit('click', $event)">
         <FluxAvatar
             :alt="avatarAlt"
@@ -49,7 +50,7 @@
 </script>
 
 <style lang="scss">
-    @use '../scss/mixin' as flux;
+    @use '../css/mixin' as flux;
 
     .flux-persona {
         display: flex;

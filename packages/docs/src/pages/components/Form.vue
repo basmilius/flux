@@ -46,7 +46,7 @@
                                 <FluxFormInput
                                     auto-complete="phone_number"
                                     placeholder="E.g. +31 6 12345678"
-                                    type="phone"/>
+                                    type="tel"/>
                             </FluxFormInputGroup>
                         </FluxFormField>
                     </FluxFormColumn>

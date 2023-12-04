@@ -15,6 +15,7 @@
                         class="flux-table-header-sort"
                         :aria-label="translate('flux_sort')"
                         tabindex="-1"
+                        type="button"
                         @click="open">
                         <FluxIcon
                             :size="16"

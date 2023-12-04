@@ -2,7 +2,8 @@
     <div
         class="flux-avatar"
         :class="{
-            'is-clickable': isClickable
+            'is-clickable': isClickable,
+            'has-status': !!status
         }"
         :aria-label="alt"
         role="img"
@@ -25,6 +26,11 @@
                 v-else-if="fallbackIcon"
                 :variant="fallbackIcon"/>
         </div>
+
+        <div
+            v-if="status"
+            class="flux-avatar-status"
+            :class="`is-${status}`"/>
     </div>
 </template>
 
@@ -46,6 +52,7 @@
         readonly fallbackInitials?: string;
         readonly isClickable?: boolean;
         readonly size?: number;
+        readonly status?: 'gray' | 'primary' | 'danger' | 'info' | 'success' | 'warning';
         readonly url?: string;
     }
 
@@ -116,15 +123,6 @@
         font-size: v-bind(sizePixels);
         user-select: none;
 
-        &.is-clickable {
-            cursor: pointer;
-            transition: filter 150ms var(--swift-out);
-
-            &:hover {
-                filter: brightness(110%);
-            }
-        }
-
         &-image {
             height: inherit;
             width: inherit;
@@ -151,6 +149,41 @@
             }
         }
 
+        &-status {
+            position: absolute;
+            display: block;
+            right: 0.0238095238em;
+            bottom: 0.0238095238em;
+            height: 0.285714286em;
+            width: 0.285714286em;
+            background: black;
+            border-radius: 99px;
+
+            &.is-gray {
+                background: rgb(var(--gray-6));
+            }
+
+            &.is-primary {
+                background: rgb(var(--primary-7));
+            }
+
+            &.is-danger {
+                background: rgb(var(--danger-7));
+            }
+
+            &.is-info {
+                background: rgb(var(--info-7));
+            }
+
+            &.is-success {
+                background: rgb(var(--success-7));
+            }
+
+            &.is-warning {
+                background: rgb(var(--warning-7));
+            }
+        }
+
         &-colorized {
             background: rgb(var(--color) / .2);
             color: rgb(var(--color));
@@ -159,6 +192,21 @@
         &-neutral {
             background: rgb(var(--gray-4));
             color: var(--foreground-secondary);
+        }
+
+        &.is-clickable {
+            cursor: pointer;
+            transition: filter 150ms var(--swift-out);
+
+            &:hover {
+                filter: brightness(110%);
+            }
+        }
+
+        &.has-status &-fallback,
+        &.has-status &-image {
+            mask: url(@/image/avatar-mask.svg) no-repeat center center / cover;
+            -webkit-mask: url(@/image/avatar-mask.svg) no-repeat center center / cover;
         }
     }
 </style>

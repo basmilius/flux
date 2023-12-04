@@ -18,6 +18,7 @@
                 :class="{
                     'active': index === modelValue
                 }"
+                type="button"
                 @click="activate(index)">
                 <span>{{ item }}</span>
             </button>
@@ -72,7 +73,7 @@
 </script>
 
 <style lang="scss">
-    @use '../scss/mixin' as flux;
+    @use '../css/mixin' as flux;
 
     .flux-segmented-control {
         position: relative;

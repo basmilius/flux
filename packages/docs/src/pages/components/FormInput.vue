@@ -21,6 +21,10 @@
             </p>
         </ApiSection>
 
+        <ApiSection title="Required icons">
+            <ApiRequiredIcons :icons="['eye', 'eye-slash']"/>
+        </ApiSection>
+
         <ApiSection title="API">
             <ApiComponent name="FormInput">
                 <template #props>
@@ -57,7 +61,7 @@
                         <td>Indicates that the field is secondary and is rendered in an alternative style.</td>
                     </tr>
                     <tr>
-                        <td><code>max</code><code>number</code></td>
+                        <td><code>max</code><code>string | number</code></td>
                         <td>Maximum value of the input.</td>
                     </tr>
                     <tr>
@@ -65,11 +69,11 @@
                         <td>Maximum value length of the input.</td>
                     </tr>
                     <tr>
-                        <td><code>min</code><code>number</code></td>
+                        <td><code>min</code><code>string | number</code></td>
                         <td>Minimum value of the input.</td>
                     </tr>
                     <tr>
-                        <td><code>pattern</code><code>string</code></td>
+                        <td><code>pattern</code><code>'bic' | 'iban' | 'vat'</code></td>
                         <td>The pattern attribute specifies a regular expression the form control's value should match. If a non-null value doesn't conform to the constraints set by the pattern value, the ValidityState object's read-only patternMismatch property will be true.</td>
                     </tr>
                     <tr>
@@ -109,5 +113,5 @@
     lang="ts"
     setup>
     import { FluxFormInput, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
-    import { ApiComponent, ApiSection, PageTitle, Preview } from '@docs/components';
+    import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

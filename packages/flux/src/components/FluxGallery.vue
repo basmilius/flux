@@ -43,6 +43,7 @@
                     v-if="isEditable"
                     key="gallery-add"
                     class="flux-placeholder flux-gallery-add"
+                    type="button"
                     @click="showPicker()">
                     <FluxIcon variant="plus"/>
                 </button>

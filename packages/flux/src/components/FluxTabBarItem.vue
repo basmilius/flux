@@ -3,6 +3,7 @@
         ref="tabRef"
         class="flux-tab-bar-item"
         :class="{'is-active': isActive}"
+        type="button"
         @click="$emit('click', $event)">
         <FluxIcon
             v-if="icon"
@@ -60,7 +61,7 @@
 </script>
 
 <style lang="scss">
-    @use '../scss/mixin' as flux;
+    @use '../css/mixin' as flux;
 
     .flux-tab-bar-item {
         position: relative;

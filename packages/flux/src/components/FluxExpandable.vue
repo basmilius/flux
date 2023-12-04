@@ -7,6 +7,7 @@
             v-bind="{label, isOpen, close, open, toggle}">
             <button
                 class="flux-expandable-header"
+                type="button"
                 @click="toggle">
                 <span>{{ label }}</span>
                 <FluxIcon
@@ -97,7 +98,7 @@
 </script>
 
 <style lang="scss">
-    @use '../scss/mixin' as flux;
+    @use '../css/mixin' as flux;
 
     .flux-expandable {
         display: flex;

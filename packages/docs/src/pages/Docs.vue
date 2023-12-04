@@ -140,6 +140,12 @@
                         type="route"/>
 
                     <FluxMenuItem
+                        :is-active="path === '/components/action-pane'"
+                        label="Action pane"
+                        to="/components/action-pane"
+                        type="route"/>
+
+                    <FluxMenuItem
                         :is-active="path === '/components/avatar'"
                         label="Avatar"
                         to="/components/avatar"
@@ -273,6 +279,12 @@
                         type="route"/>
 
                     <FluxMenuItem
+                        :is-active="path === '/components/form-pin-input'"
+                        label="Form pin input"
+                        to="/components/form-pin-input"
+                        type="route"/>
+
+                    <FluxMenuItem
                         :is-active="path === '/components/form-range-slider'"
                         label="Form range slider"
                         to="/components/form-range-slider"
@@ -294,6 +306,12 @@
                         :is-active="path === '/components/form-text-area'"
                         label="Form text area"
                         to="/components/form-text-area"
+                        type="route"/>
+
+                    <FluxMenuItem
+                        :is-active="path === '/components/form-time-zone-picker'"
+                        label="Form time zone picker"
+                        to="/components/form-time-zone-picker"
                         type="route"/>
 
                     <FluxMenuItem
@@ -363,6 +381,12 @@
                         type="route"/>
 
                     <FluxMenuItem
+                        :is-active="path === '/components/progress-bar'"
+                        label="Progress bar"
+                        to="/components/progress-bar"
+                        type="route"/>
+
+                    <FluxMenuItem
                         :is-active="path === '/components/quantity-selector'"
                         label="Quantity selector"
                         to="/components/quantity-selector"
@@ -420,6 +444,12 @@
                         :is-active="path === '/components/statistic'"
                         label="Statistic"
                         to="/components/statistic"
+                        type="route"/>
+
+                    <FluxMenuItem
+                        :is-active="path === '/components/stepper'"
+                        label="Stepper"
+                        to="/components/stepper"
                         type="route"/>
 
                     <FluxMenuItem
@@ -490,9 +520,9 @@
         </div>
 
         <RouterView v-slot="{Component}">
-            <FluxVerticalWindowTransition>
+            <FluxBreakthroughTransition>
                 <Component :is="Component"/>
-            </FluxVerticalWindowTransition>
+            </FluxBreakthroughTransition>
         </RouterView>
     </FluxDocs>
 </template>
@@ -500,7 +530,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxDocs, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxSecondaryButton, FluxSpacer, FluxSpinner, FluxVerticalWindowTransition, useDebouncedRef } from '@fancee/flux';
+    import { FluxDocs, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxSecondaryButton, FluxSpacer, FluxSpinner, FluxBreakthroughTransition, useDebouncedRef } from '@fancee/flux';
     import { computed, watch } from 'vue';
     import { useRoute } from 'vue-router';
     import { ThemeToggle } from '@docs/components';
@@ -562,7 +592,7 @@
         }
 
         &.docs-menu &-item {
-            height: 33px;
+            min-height: 36px;
             transition-property: all;
 
             span {

@@ -33,6 +33,7 @@
 <script
     lang="ts"
     setup>
+    import { watch } from 'vue-demi';
     import { useBreakpointsProvider } from '@/composables';
     import { useFluxStore } from '@/data';
     import FluxAlert from './FluxAlert.vue';
@@ -45,4 +46,13 @@
     useBreakpointsProvider();
 
     const {alerts, confirms, inertMain, prompts} = useFluxStore();
+
+    watch(inertMain, (inert, _, onCleanup): void => {
+        if (!inert) {
+            return;
+        }
+
+        document.body.classList.add('is-locked');
+        onCleanup(() => document.body.classList.remove('is-locked'));
+    }, {immediate: true});
 </script>

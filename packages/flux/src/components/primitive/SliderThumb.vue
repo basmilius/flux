@@ -6,6 +6,7 @@
             'is-dragging': isDragging
         }"
         :tabindex="isDisabled ? -1 : 0"
+        type="button"
         @keydown="onKeyDown"
         @pointerdown="$emit('grab', $event)"/>
 </template>
@@ -58,7 +59,7 @@
 </script>
 
 <style lang="scss">
-    @use '../../scss/mixin' as flux;
+    @use '../../css/mixin' as flux;
 
     .flux-slider-thumb {
         position: absolute;

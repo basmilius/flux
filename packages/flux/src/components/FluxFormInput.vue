@@ -7,6 +7,7 @@
             'is-secondary': isSecondary
         }">
         <input
+            ref="inputRef"
             class="flux-form-input-native"
             :class="{
                 'has-icon-after': !!iconAfter,
@@ -19,12 +20,11 @@
             :max="max"
             :maxlength="maxLength"
             :min="min"
-            :pattern="pattern"
             :placeholder="placeholder"
             :readonly="isReadonly"
             :step="step"
-            :type="type"
-            :value="parsedValue"
+            :type="nativeType"
+            :value="localValue"
             @blur="$emit('blur')"
             @focus="$emit('focus')"
             @input="onInput"
@@ -33,13 +33,20 @@
         <FluxIcon
             v-if="iconBefore"
             class="flux-form-input-icon is-before"
-            :size="16"
+            :size="18"
             :variant="iconBefore"/>
 
         <FluxIcon
-            v-if="iconAfter"
+            v-if="type === 'password'"
+            class="flux-form-input-icon is-password-toggle"
+            :size="18"
+            :variant="nativeType === 'password' ? 'eye' : 'eye-slash'"
+            @click="passwordTypeToggle"/>
+
+        <FluxIcon
+            v-else-if="iconAfter"
             class="flux-form-input-icon is-after"
-            :size="16"
+            :size="18"
             :variant="iconAfter"/>
     </div>
 </template>
@@ -56,10 +63,11 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '@/data';
     import { DateTime } from 'luxon';
-    import { computed, toRefs, unref } from 'vue-demi';
+    import { computed, ref, toRefs, unref, watch } from 'vue-demi';
     import { useFormFieldInjection } from '@/composables';
+    import { IconNames, Masks, masks } from '@/data';
+    import { unrefElement } from '@/helpers';
     import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {
@@ -80,11 +88,11 @@
         readonly isDisabled?: boolean;
         readonly isReadonly?: boolean;
         readonly isSecondary?: boolean;
-        readonly max?: number;
+        readonly max?: string|number;
         readonly maxLength?: number;
-        readonly min?: number;
+        readonly min?: string|number;
         readonly modelValue?: object | string | number | null;
-        readonly pattern?: string;
+        readonly pattern?: Masks;
         readonly placeholder?: string;
         readonly step?: number;
         readonly type?: 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'month' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'time' | 'url' | 'week';
@@ -100,42 +108,30 @@
 
     const {id} = useFormFieldInjection();
 
-    const parsedValue = computed(() => {
-        if (!modelValue) {
-            return null;
+    const inputRef = ref<HTMLInputElement>();
+    const localValue = ref<string | null>(null);
+    const nativeType = ref(unref(type));
+
+    function blur(): void {
+        unrefElement(inputRef)?.blur();
+    }
+
+    function focus(): void {
+        unrefElement(inputRef)?.focus();
+    }
+
+    function passwordTypeToggle(): void {
+        if (unref(type) !== 'password') {
+            return;
         }
 
-        const v = unref(modelValue);
-
-        if (!v) {
-            return null;
-        }
-
-        if (DateTime.isDateTime(v)) {
-            const iso = v.toISO()!;
-
-            switch (type.value) {
-                case 'date':
-                    return iso.substring(0, 10);
-
-                case 'datetime-local':
-                    return iso.substring(0, 16);
-
-                case 'time':
-                    return iso.substring(11, 16);
-
-                default:
-                    return iso;
-            }
-        }
-
-        return v.toString();
-    });
+        nativeType.value = unref(nativeType) === 'password' ? 'text' : 'password';
+    }
 
     function onInput(evt: Event): void {
         const value = (evt.target as HTMLInputElement).value;
 
-        switch (type.value) {
+        switch (unref(type)) {
             case 'date':
             case 'datetime-local':
             case 'month':
@@ -161,7 +157,7 @@
     }
 
     function onKeyDown(evt: KeyboardEvent): void {
-        if (!['date', 'datetime-local', 'month', 'week'].includes(type.value)) {
+        if (!['date', 'datetime-local', 'month', 'week'].includes(unref(type))) {
             return;
         }
 
@@ -170,10 +166,65 @@
             evt.preventDefault();
         }
     }
+
+    watch([modelValue, type], ([modelValue, type]) => {
+        if (!modelValue) {
+            localValue.value = null;
+            return;
+        }
+
+        if (DateTime.isDateTime(modelValue)) {
+            const iso = modelValue.toISO()!;
+
+            switch (type) {
+                case 'date':
+                    localValue.value = iso.substring(0, 10);
+                    break;
+
+                case 'datetime-local':
+                    localValue.value = iso.substring(0, 16);
+                    break;
+
+                case 'time':
+                    localValue.value = iso.substring(11, 16);
+                    break;
+
+                default:
+                    localValue.value = iso;
+                    break;
+            }
+
+            return;
+        }
+
+        localValue.value = modelValue.toString();
+    }, {immediate: true});
+
+    watch([inputRef, () => props.pattern, localValue], ([input, pattern, value], __, onCleanup) => {
+        if (!input || !pattern) {
+            return;
+        }
+
+        const mask = masks[pattern](input);
+
+        if (value) {
+            mask.value = value;
+            localValue.value = mask.value;
+        }
+
+        onCleanup(() => mask.destroy());
+    }, {immediate: true});
+
+    watch(type, type => nativeType.value = type);
+
+    defineExpose({
+        blur,
+        focus
+    });
 </script>
 
 <style lang="scss">
-    @use '../scss/mixin' as flux;
+    @use '../css/mixin' as flux;
 
     .flux-form-input {
         position: relative;
@@ -193,7 +244,7 @@
 
         &-icon {
             position: absolute;
-            margin: 12px;
+            margin: 11px;
             color: var(--foreground-secondary);
             pointer-events: none;
 
@@ -203,6 +254,16 @@
 
             &.is-after {
                 right: 0;
+            }
+
+            &.is-password-toggle {
+                right: 0;
+                pointer-events: unset;
+                cursor: pointer;
+
+                &:hover {
+                    color: var(--foreground);
+                }
             }
         }
 

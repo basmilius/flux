@@ -59,7 +59,7 @@ definitions:
         services:
           - docker
         script:
-          - pipe: sonarsource/sonarqube-scan:1.2.0
+          - pipe: sonarsource/sonarqube-scan:2.0.1
             variables:
               SONAR_HOST_URL: ${SONARQUBE_HOST}
               SONAR_TOKEN: ${SONAR_TOKEN}
@@ -75,7 +75,7 @@ definitions:
         services:
           - docker
         script:
-          - pipe: sonarsource/sonarqube-scan:1.2.0
+          - pipe: sonarsource/sonarqube-scan:2.0.1
             variables:
               SONAR_HOST_URL: ${SONARQUBE_HOST}
               SONAR_TOKEN: ${SONAR_TOKEN}
@@ -93,7 +93,7 @@ definitions:
         services:
           - docker
         script:
-          - pipe: sonarsource/sonarqube-scan:1.2.0
+          - pipe: sonarsource/sonarqube-scan:2.0.1
             variables:
               SONAR_HOST_URL: ${SONARQUBE_HOST}
               SONAR_TOKEN: ${SONAR_TOKEN}
@@ -110,9 +110,8 @@ pipelines:
 
     develop:
       - parallel:
-          - step: *build
           - step: *sonar-scan
-      - step: *publish
+          - step: *publish
 
   pull-requests:
     '**':

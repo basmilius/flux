@@ -36,6 +36,8 @@
 </script>
 
 <style lang="scss">
+    @use '../css/mixin' as flux;
+
     .flux-dashboard-header {
         display: flex;
         padding-left: 21px;
@@ -53,10 +55,10 @@
         .flux-persona {
             margin-right: -15px;
         }
-    }
 
-    [xl] .flux-dashboard-header {
-        padding-left: 42px;
-        padding-right: 42px;
+        @include flux.breakpoint-up(xl) {
+            padding-left: 42px;
+            padding-right: 42px;
+        }
     }
 </style>
