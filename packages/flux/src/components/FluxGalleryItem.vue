@@ -11,6 +11,7 @@
         <FluxRemove
             v-if="isDeletable"
             :is-hidden="!isDeleteVisible"
+            tabindex="-1"
             @click="$emit('delete')"/>
 
         <div

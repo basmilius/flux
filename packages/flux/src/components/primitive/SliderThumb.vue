@@ -6,6 +6,7 @@
             'is-dragging': isDragging
         }"
         :tabindex="isDisabled ? -1 : 0"
+        type="button"
         @keydown="onKeyDown"
         @pointerdown="$emit('grab', $event)"/>
 </template>
