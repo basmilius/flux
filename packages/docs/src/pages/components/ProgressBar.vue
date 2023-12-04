@@ -28,7 +28,7 @@
         </ApiSection>
 
         <ApiSection title="API">
-            <ApiComponent name="Placeholder">
+            <ApiComponent name="ProgressBar">
                 <template #props>
                     <tr>
                         <td><code>is-indeterminate</code><code>boolean</code></td>

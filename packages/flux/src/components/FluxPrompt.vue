@@ -26,6 +26,7 @@
 
             <FluxPrimaryButton
                 :disabled="!hasValue"
+                icon-before="circle-check"
                 :label="translate('flux_ok')"
                 @click="prompt.onConfirm(value)"/>
         </FluxPaneFooter>

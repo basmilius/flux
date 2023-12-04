@@ -10,6 +10,7 @@
             <FluxSpacer/>
 
             <FluxPrimaryButton
+                icon-before="circle-check"
                 :label="translate('flux_ok')"
                 @click="alert.onClose"/>
         </FluxPaneFooter>
