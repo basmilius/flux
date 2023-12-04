@@ -55,6 +55,7 @@
                 :key="actionKey"
                 class="flux-snackbar-action"
                 tabindex="-1"
+                type="button"
                 @click="onAction(actionKey)">
                 <span>{{ actionLabel }}</span>
             </button>

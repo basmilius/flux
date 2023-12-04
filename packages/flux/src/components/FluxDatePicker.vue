@@ -10,8 +10,17 @@
             </FluxFadeTransition>
 
             <div class="flux-date-picker-header-view">
-                <button @click="setView('month')">{{ viewMonth }}</button>
-                <button @click="setView('year')">{{ viewYear }}</button>
+                <button
+                    type="button"
+                    @click="setView('month')">
+                    {{ viewMonth }}
+                </button>
+
+                <button
+                    type="button"
+                    @click="setView('year')">
+                    {{ viewYear }}
+                </button>
             </div>
 
             <FluxFadeTransition>
@@ -54,6 +63,7 @@
                                     'is-selected': isSelected(date)
                                 }"
                                 tabindex="-1"
+                                type="button"
                                 @click="setDate(date)"
                                 @mouseover="onDateMouseOver(date)"
                                 @mouseout="onDateMouseOut">

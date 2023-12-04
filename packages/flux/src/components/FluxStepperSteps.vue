@@ -13,6 +13,7 @@
                     'is-current': current === step
                 }"
                 tabindex="-1"
+                type="button"
                 @click="activate(step)">
                 <span class="flux-stepper-steps-step-particles"/>
 

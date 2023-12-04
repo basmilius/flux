@@ -18,6 +18,7 @@
                 :class="{
                     'active': index === modelValue
                 }"
+                type="button"
                 @click="activate(index)">
                 <span>{{ item }}</span>
             </button>

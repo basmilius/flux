@@ -8,6 +8,7 @@
 
         <button
             class="flux-calendar-event"
+            type="button"
             @click="onClick">
             <span>{{ label }}</span>
         </button>

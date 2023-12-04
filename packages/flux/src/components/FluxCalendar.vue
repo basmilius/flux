@@ -9,6 +9,7 @@
                         <template #opener="{open}">
                             <button
                                 class="flux-calendar-current-month"
+                                type="button"
                                 @click="open">
                                 {{ viewMonth }}
                             </button>
@@ -32,6 +33,7 @@
                         <template #opener="{open}">
                             <button
                                 class="flux-calendar-current-year"
+                                type="button"
                                 @click="open">
                                 {{ viewYear }}
                             </button>
@@ -101,8 +103,8 @@
                         </div>
 
                         <span class="flux-calendar-cell-date">
-                        {{ date.toLocaleString({day: 'numeric'}) }}
-                    </span>
+                            {{ date.toLocaleString({day: 'numeric'}) }}
+                        </span>
                     </div>
                 </template>
             </div>

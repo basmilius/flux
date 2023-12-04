@@ -3,6 +3,7 @@
         ref="tabRef"
         class="flux-tab-bar-item"
         :class="{'is-active': isActive}"
+        type="button"
         @click="$emit('click', $event)">
         <FluxIcon
             v-if="icon"

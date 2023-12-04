@@ -7,6 +7,7 @@
             v-bind="{label, isOpen, close, open, toggle}">
             <button
                 class="flux-expandable-header"
+                type="button"
                 @click="toggle">
                 <span>{{ label }}</span>
                 <FluxIcon

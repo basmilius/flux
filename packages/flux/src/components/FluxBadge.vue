@@ -29,6 +29,7 @@
         <button
             v-if="!isClickable && isDeletable"
             class="flux-badge-close"
+            type="button"
             @click="$emit('delete')">
             <FluxIcon variant="xmark"/>
         </button>
