@@ -4,6 +4,7 @@
     import { FluxSlideOverTransition } from '@/transition';
 
     export default defineComponent({
+        emits: ['close'],
         props: {
             isCloseable: {default: false, type: Boolean}
         },

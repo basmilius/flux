@@ -4,6 +4,7 @@
     import { FluxOverlayTransition } from '@/transition';
 
     export default defineComponent({
+        emits: ['close'],
         props: {
             isCloseable: {default: false, type: Boolean},
             size: {default: 'small', type: String as PropType<'small' | 'medium' | 'large'>}
