@@ -31,7 +31,7 @@
     }
 
     const emit = defineEmits<Emits>();
-    const props = defineProps<Props>();
+    defineProps<Props>();
 
     function onClick(evt: MouseEvent): void {
         emit('click', evt);

@@ -1,9 +1,9 @@
 <template>
-    <div
+    <main
         :inert="inertMain"
         style="display: contents;">
         <slot/>
-    </div>
+    </main>
 
     <FluxOverlay size="medium">
         <FluxAlert
