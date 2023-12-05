@@ -5,12 +5,14 @@
 
     export default defineComponent({
         emits: ['close'],
+        inheritAttrs: false,
         props: {
             isCloseable: {default: false, type: Boolean},
             size: {default: 'small', type: String as PropType<'small' | 'medium' | 'large'>}
         },
-        setup(props, {emit, slots}) {
+        setup(props, {attrs, emit, slots}) {
             return createDialogRenderer(
+                attrs,
                 props,
                 emit,
                 slots,
