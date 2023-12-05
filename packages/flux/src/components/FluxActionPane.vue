@@ -23,14 +23,6 @@
     import FluxButtonStack from './FluxButtonStack.vue';
     import FluxPane from './FluxPane.vue';
     import FluxPaneBody from './FluxPaneBody.vue';
-
-    // export interface Slots {
-    //     default(): any;
-    //
-    //     buttons(): any;
-    // }
-
-    // defineSlots<Slots>();
 </script>
 
 <style lang="scss">

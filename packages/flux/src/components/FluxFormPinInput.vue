@@ -35,7 +35,7 @@
 <script
     lang="ts"
     setup>
-    import { ref, toRefs, unref, watchEffect } from 'vue-demi';
+    import { ref, toRefs, unref, watchEffect } from 'vue';
     import { useFormFieldInjection } from '@/composables';
 
     export interface Emits {

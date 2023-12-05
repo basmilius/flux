@@ -1,4 +1,4 @@
-import { getCurrentInstance } from 'vue-demi';
+import { getCurrentInstance } from 'vue';
 
 const english = {
     flux_back: 'Back',

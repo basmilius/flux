@@ -1,15 +1,14 @@
-import type { Component, RenderFunction, Slots } from 'vue-demi';
-import { h, onMounted, onUnmounted, SetupContext, VNode } from 'vue-demi';
-import { FluxTeleport } from '@/components';
+import type { Component, RenderFunction, Slots } from 'vue';
+import { Comment, h, onMounted, onUnmounted, SetupContext, Teleport, VNode } from 'vue';
 import { registerDialog } from '@/data';
-import { flattenVNodeTree, render } from '@/utils';
+import { flattenVNodeTree } from '@/utils';
 
 type _Emit = SetupContext<['close']>['emit'];
 type _Props = {
     readonly isCloseable?: boolean;
 };
 
-export function createDialogRenderer(props: _Props, emit: _Emit, slots: Slots, className: string | (() => string), transition: Component, teleportTo: string = '[data-flux-root]'): RenderFunction {
+export function createDialogRenderer(props: _Props, emit: _Emit, slots: Slots, className: string | (() => string), transition: Component, to: string = 'body'): RenderFunction {
     let unregister: Function | null = null;
 
     onMounted(() => {
@@ -33,7 +32,7 @@ export function createDialogRenderer(props: _Props, emit: _Emit, slots: Slots, c
 
     return () => {
         const children = flattenVNodeTree(slots.default?.() ?? []);
-        const isVisible = children.length > 0 && children.some(child => typeof child.type !== 'symbol');
+        const isVisible = children.length > 0 && children.some(child => child.type !== Comment);
         const content: VNode[] = [];
 
         if (isVisible) {
@@ -49,18 +48,10 @@ export function createDialogRenderer(props: _Props, emit: _Emit, slots: Slots, c
             unregister = null;
         }
 
-        return render(FluxTeleport, {
-            props: {
-                placement: 'before',
-                to: teleportTo
-            },
-            slots: {
-                default: () => render(transition, {
-                    slots: {
-                        default: () => content
-                    }
-                })
-            }
-        });
+        return h(Teleport, {disabled: content.length === 0, to}, [
+            h(transition, {}, {
+                default: () => content
+            })
+        ]);
     };
 }

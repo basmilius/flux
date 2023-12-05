@@ -27,7 +27,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, toRefs } from 'vue-demi';
+    import { computed, toRefs } from 'vue';
     import { generateStepTicks } from '@/utils';
 
     export interface Props {

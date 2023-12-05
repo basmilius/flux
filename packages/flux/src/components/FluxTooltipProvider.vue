@@ -1,9 +1,8 @@
 <script lang="ts">
-    import { computed, defineComponent, h, MaybeRef, ref, unref } from 'vue-demi';
+    import { computed, defineComponent, h, MaybeRef, ref, unref } from 'vue';
     import { useBreakpoints } from '@/composables';
     import { useFluxStore } from '@/data';
     import { FluxTooltipTransition } from '@/transition';
-    import { render } from '@/utils';
 
     interface TooltipPositionData {
         readonly x: number;
@@ -138,27 +137,25 @@
                 };
             }
 
-            return () => render(FluxTooltipTransition, {
-                slots: {
-                    default: () => {
-                        if (unref(breakpoints.isMobile) || !unref(has)) {
-                            return null;
-                        }
-
-                        const pos = unref(position);
-
-                        return h('div', {
-                            ref: elementRef,
-                            class: `flux-tooltip ${pos?.transition ?? ''}`.trim(),
-                            style: {
-                                '--x': pos?.x ?? null,
-                                '--y': pos?.y ?? null,
-                                '--arrowAngle': pos?.arrowAngle ?? null,
-                                '--arrowX': pos?.arrowX ?? null,
-                                '--arrowY': pos?.arrowY ?? null
-                            }
-                        }, unref(content));
+            return () => h(FluxTooltipTransition, {}, {
+                default: () => {
+                    if (unref(breakpoints.isMobile) || !unref(has)) {
+                        return null;
                     }
+
+                    const pos = unref(position);
+
+                    return h('div', {
+                        ref: elementRef,
+                        class: `flux-tooltip ${pos?.transition ?? ''}`.trim(),
+                        style: {
+                            '--x': pos?.x ?? null,
+                            '--y': pos?.y ?? null,
+                            '--arrowAngle': pos?.arrowAngle ?? null,
+                            '--arrowX': pos?.arrowX ?? null,
+                            '--arrowY': pos?.arrowY ?? null
+                        }
+                    }, unref(content));
                 }
             });
         }

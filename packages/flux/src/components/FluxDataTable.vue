@@ -34,7 +34,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, toRefs, unref, useSlots } from 'vue-demi';
+    import { computed, toRefs, unref, useSlots } from 'vue';
     import FluxTable from './FluxTable.vue';
     import FluxTableRow from './FluxTableRow.vue';
 
@@ -51,11 +51,11 @@
         readonly uniqueKey?: string;
     }
 
-    // export interface Slots {
-    //     [key: string]: (props: { index: number; page: number; perPage: number; row: any; rows: any[]; total: number; }) => any;
-    //
-    //     header(props: { page: number; perPage: number; rows: any[]; total: number; }): any;
-    // }
+    export interface Slots {
+        [key: string]: (props: { index: number; page: number; perPage: number; row: any; rows: any[]; total: number; }) => any;
+
+        header(props: { page: number; perPage: number; rows: any[]; total: number; }): any;
+    }
 
     const props = withDefaults(defineProps<Props>(), {
         isBordered: true,
@@ -68,7 +68,7 @@
     });
     const {dataSet, perPage} = toRefs(props);
 
-    // defineSlots<Slots>();
+    defineSlots<Slots>();
 
     const slots = useSlots();
 

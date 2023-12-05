@@ -1,5 +1,5 @@
-import type { PropType, VNode } from 'vue-demi';
-import { defineComponent } from 'vue-demi';
+import type { PropType, VNode } from 'vue';
+import { defineComponent } from 'vue';
 
 export const VNodeRenderer = defineComponent({
     props: {

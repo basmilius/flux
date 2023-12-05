@@ -30,7 +30,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, onMounted, ref, toRefs, unref, watch } from 'vue-demi';
+    import { computed, onMounted, ref, toRefs, unref, watch } from 'vue';
     import { useFormFieldInjection } from '@/composables';
 
     export interface Emits {

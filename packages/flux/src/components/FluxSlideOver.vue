@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { defineComponent } from 'vue-demi';
+    import { defineComponent } from 'vue';
     import { createDialogRenderer } from '@/helpers';
     import { FluxSlideOverTransition } from '@/transition';
 

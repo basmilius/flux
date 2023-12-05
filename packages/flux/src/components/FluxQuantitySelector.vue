@@ -38,7 +38,7 @@
 <script
     lang="ts"
     setup>
-    import { onMounted, ref, toRefs, unref, watch } from 'vue-demi';
+    import { onMounted, ref, toRefs, unref, watch } from 'vue';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
 

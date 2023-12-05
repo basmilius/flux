@@ -29,10 +29,10 @@
 <script
     lang="ts"
     setup>
+    import { computed, ref, toRefs, unref, watch } from 'vue';
+    import { useFilterInjection } from '@/composables';
     import type { FluxFilterOptionHeader, FluxFilterOptionItem, FluxFilterValue, IconNames } from '@/data';
     import { isFluxFilterOptionHeader, isFluxFilterOptionItem } from '@/data';
-    import { computed, ref, toRefs, unref, watch } from 'vue-demi';
-    import { useFilterInjection } from '@/composables';
     import FluxFormInput from './FluxFormInput.vue';
     import FluxMenuGroup from './FluxMenuGroup.vue';
     import FluxMenuItem from './FluxMenuItem.vue';

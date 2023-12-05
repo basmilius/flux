@@ -25,8 +25,8 @@
 <script
     lang="ts"
     setup>
+    import { ref } from 'vue';
     import type { FluxFocalPoint } from '@/data';
-    import { ref } from 'vue-demi';
     import FluxFocalPointImage from './FluxFocalPointImage.vue';
     import FluxRemove from './FluxRemove.vue';
     import FluxSpinner from './FluxSpinner.vue';

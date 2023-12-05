@@ -42,7 +42,7 @@
     lang="ts"
     setup>
     import { DateTime } from 'luxon';
-    import { ComponentPublicInstance, ref, toRefs, unref, watch } from 'vue-demi';
+    import { ComponentPublicInstance, ref, toRefs, unref, watch } from 'vue';
     import FluxDatePicker from './FluxDatePicker.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxFormInput from './FluxFormInput.vue';

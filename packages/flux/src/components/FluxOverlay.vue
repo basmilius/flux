@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { defineComponent, PropType } from 'vue-demi';
+    import { defineComponent, PropType } from 'vue';
     import { createDialogRenderer } from '@/helpers';
     import { FluxOverlayTransition } from '@/transition';
 

@@ -98,7 +98,7 @@
         --button-background-hover: rgb(var(--gray-2));
         --button-background-active: rgb(var(--gray-3));
         --button-foreground: var(--foreground);
-        --button-icon: rgb(var(--foreground-prominent));
+        --button-icon: var(--foreground-prominent);
         --button-stroke: transparent;
 
         height: unset;

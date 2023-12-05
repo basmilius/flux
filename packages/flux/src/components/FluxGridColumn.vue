@@ -7,7 +7,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, toRefs, unref } from 'vue-demi';
+    import { computed, toRefs, unref } from 'vue';
     import { useBreakpoints } from '@/composables';
 
     export interface Props {

@@ -1,4 +1,4 @@
-import type { ComponentInternalInstance, ComputedRef, InjectionKey, Ref } from 'vue-demi';
+import type { ComponentInternalInstance, ComputedRef, InjectionKey, Ref } from 'vue';
 import type { Breakpoint, Breakpoints } from '@/composables';
 import type { FluxFilterValue } from './filter';
 

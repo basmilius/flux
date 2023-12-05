@@ -37,8 +37,8 @@
 <script
     lang="ts"
     setup>
+    import { computed, toRefs, unref } from 'vue';
     import type { IconNames } from '@/data';
-    import { computed, toRefs, unref } from 'vue-demi';
     import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {

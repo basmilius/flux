@@ -33,7 +33,7 @@
 <script
     lang="ts"
     setup>
-    import { onMounted, ref } from 'vue-demi';
+    import { onMounted, ref } from 'vue';
     import { useEventListener, useMutationObserver } from '@/composables';
     import { unrefElement } from '@/helpers';
     import FluxIcon from './FluxIcon.vue';

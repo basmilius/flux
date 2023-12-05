@@ -29,9 +29,9 @@
 <script
     lang="ts"
     setup>
-    import type { FluxRoutingLocation } from '@/data';
-    import { computed, toRefs } from 'vue-demi';
+    import { computed, toRefs } from 'vue';
     import { useBreakpoints } from '@/composables';
+    import type { FluxRoutingLocation } from '@/data';
     import FluxSpinner from './FluxSpinner.vue';
 
     export interface Props {

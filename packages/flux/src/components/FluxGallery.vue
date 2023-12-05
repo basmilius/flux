@@ -14,7 +14,9 @@
                 class="flux-gallery"
                 name="flux-gallery"
                 tag="div">
-                <template v-if="items" v-for="(item, index) of items">
+                <template
+                    v-if="items"
+                    v-for="(item, index) of items">
                     <FluxGalleryItem
                         v-if="typeof item === 'string'"
                         :is-deletable="isEditable"

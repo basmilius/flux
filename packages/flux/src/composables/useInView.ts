@@ -1,5 +1,5 @@
-import type { Ref } from 'vue-demi';
-import { ref, watch } from 'vue-demi';
+import type { Ref } from 'vue';
+import { ref, watch } from 'vue';
 
 export function useInView(containerRef: Ref<HTMLElement | null>, options: IntersectionObserverInit & { readonly initial?: boolean; }): Ref<boolean> {
     const inView = ref(options.initial ?? false);

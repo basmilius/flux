@@ -1,39 +1,39 @@
 <template>
-    <main data-flux-root>
-        <div :inert="inertMain">
-            <slot/>
-        </div>
-
-        <FluxOverlay size="medium">
-            <FluxAlert
-                v-for="alert of alerts"
-                :key="alert.id"
-                :alert="alert"/>
-        </FluxOverlay>
-
-        <FluxOverlay size="medium">
-            <FluxConfirm
-                v-for="confirm of confirms"
-                :key="confirm.id"
-                :confirm="confirm"/>
-        </FluxOverlay>
-
-        <FluxOverlay size="medium">
-            <FluxPrompt
-                v-for="prompt of prompts"
-                :key="prompt.id"
-                :prompt="prompt"/>
-        </FluxOverlay>
-
-        <FluxSnackbarProvider/>
-        <FluxTooltipProvider/>
+    <main
+        :inert="inertMain"
+        style="display: contents;">
+        <slot/>
     </main>
+
+    <FluxOverlay size="medium">
+        <FluxAlert
+            v-for="alert of alerts"
+            :key="alert.id"
+            :alert="alert"/>
+    </FluxOverlay>
+
+    <FluxOverlay size="medium">
+        <FluxConfirm
+            v-for="confirm of confirms"
+            :key="confirm.id"
+            :confirm="confirm"/>
+    </FluxOverlay>
+
+    <FluxOverlay size="medium">
+        <FluxPrompt
+            v-for="prompt of prompts"
+            :key="prompt.id"
+            :prompt="prompt"/>
+    </FluxOverlay>
+
+    <FluxSnackbarProvider/>
+    <FluxTooltipProvider/>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { watch } from 'vue-demi';
+    import { watch } from 'vue';
     import { useBreakpointsProvider } from '@/composables';
     import { useFluxStore } from '@/data';
     import FluxAlert from './FluxAlert.vue';
