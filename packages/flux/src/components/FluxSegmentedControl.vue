@@ -38,7 +38,7 @@
 <script
     lang="ts"
     setup>
-    import { onMounted, onUpdated, ref } from 'vue-demi';
+    import { onMounted, onUpdated, ref } from 'vue';
 
     export interface Emits {
         (e: 'update:model-value', index: number): void;

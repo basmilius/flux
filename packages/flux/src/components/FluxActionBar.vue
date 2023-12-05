@@ -53,7 +53,7 @@
 <script
     lang="ts"
     setup>
-    import { useSlots } from 'vue-demi';
+    import { useSlots } from 'vue';
     import { useTranslate } from '@/composables';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxDestructiveButton from './FluxDestructiveButton.vue';

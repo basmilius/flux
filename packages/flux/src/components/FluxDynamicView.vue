@@ -7,7 +7,7 @@
 <script
     setup
     lang="ts">
-    import { VNode } from 'vue-demi';
+    import { VNode } from 'vue';
     import { VNodeRenderer } from '@/components/primitive';
 
     export interface Props {

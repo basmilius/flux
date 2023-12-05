@@ -14,7 +14,7 @@
 <script
     lang="ts"
     setup>
-    import { toRefs, unref } from 'vue-demi';
+    import { toRefs, unref } from 'vue';
 
     export interface Emits {
         (e: 'decrement'): void;

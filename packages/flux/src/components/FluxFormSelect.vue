@@ -116,9 +116,8 @@
 <script
     lang="ts"
     setup>
-    import { ComponentPublicInstance, ComputedRef, nextTick } from 'vue-demi';
+    import { ComponentPublicInstance, ComputedRef, nextTick, computed, ref, toRefs, unref, watch } from 'vue';
     import type { FluxFormSelectGroup, FluxFormSelectOption } from '@/data';
-    import { computed, ref, toRefs, unref, watch } from 'vue-demi';
     import { isFluxFormSelectGroup, isFluxFormSelectOption } from '@/data';
     import { useFormFieldInjection, useTranslate } from '@/composables';
     import { unrefElement } from '@/helpers';

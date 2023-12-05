@@ -7,7 +7,7 @@
 <script
     lang="ts"
     setup>
-    import { getCurrentInstance, nextTick, onBeforeUnmount, onMounted, ref, toRefs, unref, watch } from 'vue-demi';
+    import { getCurrentInstance, nextTick, onBeforeUnmount, onMounted, ref, toRefs, unref, watch } from 'vue';
 
     export interface Props {
         readonly disabled?: boolean;

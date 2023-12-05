@@ -33,7 +33,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, ref, toRefs, unref, watch } from 'vue-demi';
+    import { computed, ref, toRefs, unref, watch } from 'vue';
     import { useSlotVNodes } from '@/composables';
     import { FluxWindowTransition } from '@/transition';
     import FluxDynamicView from './FluxDynamicView.vue';

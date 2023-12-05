@@ -34,7 +34,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, toRefs, unref, useSlots } from 'vue-demi';
+    import { computed, toRefs, unref, useSlots } from 'vue';
     import FluxTable from './FluxTable.vue';
     import FluxTableRow from './FluxTableRow.vue';
 

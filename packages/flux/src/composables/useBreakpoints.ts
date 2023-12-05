@@ -1,4 +1,4 @@
-import { computed, inject, onMounted, onUnmounted, provide, ref, unref } from 'vue-demi';
+import { computed, inject, onMounted, onUnmounted, provide, ref, unref } from 'vue';
 import { FluxBreakpointsInjection, FluxBreakpointsInjectionKey } from '@/data';
 
 // note(Bas): These breakpoints are also defined in ../scss/mixin/_breakpoints.scss, please

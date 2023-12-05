@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { defineComponent, provide, toRefs } from 'vue-demi';
+    import { defineComponent, provide, toRefs } from 'vue';
     import { FluxSkeletonsInjectionKey } from '@/data';
 
     export default defineComponent({

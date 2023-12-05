@@ -1,4 +1,4 @@
-import { inject, ref } from 'vue-demi';
+import { inject, ref } from 'vue';
 import { FluxSkeletonsInjection, FluxSkeletonsInjectionKey } from '@/data';
 
 export function useSkeletonsInjection(): FluxSkeletonsInjection {

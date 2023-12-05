@@ -9,7 +9,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, ref, toRefs, unref, watch } from 'vue-demi';
+    import { computed, ref, toRefs, unref, watch } from 'vue';
     import { useInterval } from '@/composables';
 
     export interface Emits {

@@ -98,7 +98,7 @@ function calculateBidirectionalDistances(elementInfos: BidirectionalInfo[], curr
         }
 
         r.distance = Math.sqrt(Math.pow(current.center.x - point.x, 2) + Math.pow(current.center.y - point.y, 2));
-    })
+    });
 }
 
 function determineBidirectionalCandidate(currentIndex: number, direction: BidirectionalDirection, elementInfos: BidirectionalInfo[], elements: HTMLElement[]): HTMLElement | null {

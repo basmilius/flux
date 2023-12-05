@@ -34,7 +34,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, onMounted, ref, toRefs, unref } from 'vue-demi';
+    import { computed, ref, toRefs, unref } from 'vue';
     import { FluxFadeTransition } from '@/transition';
     import FluxIcon from './FluxIcon.vue';
 

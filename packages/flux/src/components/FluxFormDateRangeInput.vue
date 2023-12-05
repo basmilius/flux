@@ -41,7 +41,7 @@
     lang="ts"
     setup>
     import { DateTime } from 'luxon';
-    import { ComponentPublicInstance, computed, ref, toRefs, unref, watch } from 'vue-demi';
+    import { ComponentPublicInstance, computed, ref, toRefs, unref, watch } from 'vue';
     import { useTranslate } from '@/composables';
     import { createLabelForDateRange } from '@/utils';
     import FluxDatePicker from './FluxDatePicker.vue';

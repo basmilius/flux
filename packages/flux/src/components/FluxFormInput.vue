@@ -64,7 +64,7 @@
     lang="ts"
     setup>
     import { DateTime } from 'luxon';
-    import { computed, ref, toRefs, unref, watch } from 'vue-demi';
+    import { ref, toRefs, unref, watch } from 'vue';
     import { useFormFieldInjection } from '@/composables';
     import { IconNames, Masks, masks } from '@/data';
     import { unrefElement } from '@/helpers';
@@ -88,9 +88,9 @@
         readonly isDisabled?: boolean;
         readonly isReadonly?: boolean;
         readonly isSecondary?: boolean;
-        readonly max?: string|number;
+        readonly max?: string | number;
         readonly maxLength?: number;
-        readonly min?: string|number;
+        readonly min?: string | number;
         readonly modelValue?: object | string | number | null;
         readonly pattern?: Masks;
         readonly placeholder?: string;

@@ -40,9 +40,10 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '@/data';
-    import { computed, ref, unref, watch } from 'vue-demi';
+    import type { VNode } from 'vue';
+    import { computed, ref, unref, watch } from 'vue';
     import { useSlotVNodes } from '@/composables';
+    import type { IconNames } from '@/data';
     import { FluxWindowTransition } from '@/transition';
     import { getNormalizedComponentProps } from '@/utils';
     import { VNodeRenderer } from './primitive';
@@ -65,7 +66,7 @@
     const activeIndex = ref(0);
     const isTransitioningBack = ref(false);
 
-    const tabs = computed<{ icon?: IconNames; label?: string; }[]>(() => unref(children).map(child => ({
+    const tabs = computed<{ icon?: IconNames; label?: string; }[]>(() => unref(children).map((child: VNode) => ({
         icon: getNormalizedComponentProps<any>(child).icon,
         label: getNormalizedComponentProps<any>(child).label
     })));

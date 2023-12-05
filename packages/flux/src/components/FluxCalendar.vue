@@ -116,7 +116,7 @@
     lang="ts"
     setup>
     import { DateTime } from 'luxon';
-    import { computed, unref, VNode, watch } from 'vue-demi';
+    import { computed, unref, VNode, watch } from 'vue';
     import { useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher, useSlotVNodes, useTranslate } from '@/composables';
     import { FluxWindowTransition } from '@/transition';
     import { getNormalizedComponentName, getNormalizedComponentProps } from '@/utils';

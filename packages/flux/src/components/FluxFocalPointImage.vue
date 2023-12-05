@@ -8,8 +8,8 @@
 <script
     lang="ts"
     setup>
+    import { computed } from 'vue';
     import type { FluxFocalPoint } from '@/data';
-    import { computed } from 'vue-demi';
 
     export interface Props {
         readonly focalPoint: FluxFocalPoint | null;

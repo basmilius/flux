@@ -18,8 +18,8 @@
 <script
     lang="ts"
     setup>
+    import { useSlots } from 'vue';
     import type { FluxRoutingLocation, IconNames } from '@/data';
-    import { useSlots } from 'vue-demi';
     import { BaseButton } from './primitive';
 
     // note: It is currently not possible to reuse Emits and Props from

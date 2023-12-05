@@ -1,4 +1,4 @@
-import { inject, ref } from 'vue-demi';
+import { inject, ref } from 'vue';
 import { FluxTableInjection, FluxTableInjectionKey } from '@/data';
 
 export function useTableInjection(): FluxTableInjection {

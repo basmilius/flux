@@ -7,8 +7,8 @@
 <script
     lang="ts"
     setup>
-    import type { ComponentInternalInstance } from 'vue-demi';
-    import { provide } from 'vue-demi';
+    import type { ComponentInternalInstance } from 'vue';
+    import { provide } from 'vue';
     import { FluxExpandableGroupInjectionKey } from '@/data';
     import { setInstanceProperty } from '@/utils';
 

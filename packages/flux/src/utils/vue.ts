@@ -1,5 +1,4 @@
-import type { Component, Ref, UnwrapRef, VNode } from 'vue-demi';
-import { h, unref } from 'vue-demi';
+import { Component, Fragment, h, Ref, unref, UnwrapRef, VNode } from 'vue';
 import { hyphenateTag } from './dom';
 
 export function assertRefNotNull<T>(ref: Ref<T>): asserts ref is Ref<NonNullable<T>> {
@@ -12,8 +11,7 @@ export function flattenVNodeTree(vnodes: VNode[]): VNode[] {
     const flattened: VNode[] = [];
 
     for (const vnode of vnodes) {
-        // note: This is a Vue 3 Fragment (could be a v-for for example) and needs to be flattened.
-        if (typeof vnode.type === 'symbol' && Array.isArray(vnode.children)) {
+        if (vnode.type === Fragment && Array.isArray(vnode.children)) {
             flattened.push(...(vnode.children as VNode[]));
             continue;
         }
@@ -138,5 +136,5 @@ interface Vue2Component {
     readonly componentOptions: {
         readonly propsData?: object;
         readonly tag?: string;
-    }
+    };
 }

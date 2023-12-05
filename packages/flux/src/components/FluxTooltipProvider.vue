@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { computed, defineComponent, h, MaybeRef, ref, unref } from 'vue-demi';
+    import { computed, defineComponent, h, MaybeRef, ref, unref } from 'vue';
     import { useBreakpoints } from '@/composables';
     import { useFluxStore } from '@/data';
     import { FluxTooltipTransition } from '@/transition';

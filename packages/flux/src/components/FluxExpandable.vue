@@ -35,7 +35,7 @@
 <script
     lang="ts"
     setup>
-    import { getCurrentInstance, onBeforeMount, onUnmounted, ref, toRefs, unref, watch } from 'vue-demi';
+    import { getCurrentInstance, onBeforeMount, onUnmounted, ref, toRefs, unref, watch } from 'vue';
     import { useComponentId, useExpandableGroupInjection } from '@/composables';
     import { FluxAutoHeightTransition } from '@/transition';
     import FluxIcon from './FluxIcon.vue';

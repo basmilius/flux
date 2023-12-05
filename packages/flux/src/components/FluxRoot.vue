@@ -33,7 +33,7 @@
 <script
     lang="ts"
     setup>
-    import { watch } from 'vue-demi';
+    import { watch } from 'vue';
     import { useBreakpointsProvider } from '@/composables';
     import { useFluxStore } from '@/data';
     import FluxAlert from './FluxAlert.vue';

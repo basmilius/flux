@@ -11,10 +11,10 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '@/data';
     import { DateTime } from 'luxon';
-    import { computed, unref } from 'vue-demi';
+    import { computed, unref } from 'vue';
     import { useFilterInjection } from '@/composables';
+    import type { IconNames } from '@/data';
     import FluxDatePicker from './FluxDatePicker.vue';
 
     export interface Props {

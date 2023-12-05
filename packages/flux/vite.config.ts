@@ -1,13 +1,12 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
-// @ts-ignore
 import autoprefixer from 'autoprefixer';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
     build: {
         lib: {
-            entry: resolve(__dirname, './index.ts'),
+            entry: resolve(__dirname, './src/index.ts'),
             name: 'FanceeFlux',
             fileName: 'fancee.flux'
         },
@@ -29,18 +28,15 @@ export default defineConfig({
         postcss: {
             plugins: [
                 autoprefixer({})
-            ],
+            ]
         }
-    },
-    optimizeDeps: {
-        exclude: ['vue-demi']
     },
     plugins: [
         vue()
     ],
     resolve: {
         alias: {
-            '@': resolve(__dirname, '../flux/src/')
+            '@': resolve(__dirname, 'src')
         }
     }
 });

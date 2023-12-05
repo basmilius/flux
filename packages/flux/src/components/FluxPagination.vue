@@ -46,7 +46,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, toRefs, unref } from 'vue-demi';
+    import { computed, toRefs, unref } from 'vue';
     import { useTranslate } from '@/composables';
     import { showPrompt } from '@/data';
     import FluxButtonGroup from './FluxButtonGroup.vue';

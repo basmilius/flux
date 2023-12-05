@@ -1,8 +1,8 @@
-import type { FluxFilterBase, FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterItem, FluxFilterOptionEntry, FluxFilterOptionItem, FluxFilterOptionsEntry, FluxFilterValue } from '@/data';
 import { DateTime } from 'luxon';
-import { defineComponent, VNode } from 'vue-demi';
+import { defineComponent, VNode } from 'vue';
 import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSeparator } from '@/components';
 import { FluxTranslator, useTranslate } from '@/composables';
+import type { FluxFilterBase, FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterItem, FluxFilterOptionEntry, FluxFilterOptionItem, FluxFilterOptionsEntry, FluxFilterValue } from '@/data';
 import { camelizeTag, createLabelForDateRange, flattenVNodeTree, getNormalizedComponentName, getNormalizedComponentProps, isVNode, render } from '@/utils';
 
 export const FilterMenuRenderer = defineComponent({

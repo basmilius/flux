@@ -7,7 +7,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, onBeforeUnmount, onMounted, ref, toRefs, unref, watch } from 'vue-demi';
+    import { computed, onBeforeUnmount, onMounted, ref, toRefs, unref, watch } from 'vue';
     import { useComponentId } from '@/composables';
     import { mulberry32 } from '@/utils';
 

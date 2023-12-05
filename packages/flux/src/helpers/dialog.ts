@@ -1,5 +1,5 @@
-import type { Component, RenderFunction, Slots } from 'vue-demi';
-import { h, onMounted, onUnmounted, SetupContext, VNode } from 'vue-demi';
+import type { Component, RenderFunction, Slots } from 'vue';
+import { Comment, h, onMounted, onUnmounted, SetupContext, VNode } from 'vue';
 import { FluxTeleport } from '@/components';
 import { registerDialog } from '@/data';
 import { flattenVNodeTree, render } from '@/utils';
@@ -33,7 +33,7 @@ export function createDialogRenderer(props: _Props, emit: _Emit, slots: Slots, c
 
     return () => {
         const children = flattenVNodeTree(slots.default?.() ?? []);
-        const isVisible = children.length > 0 && children.some(child => typeof child.type !== 'symbol');
+        const isVisible = children.length > 0 && children.some(child => child.type !== Comment);
         const content: VNode[] = [];
 
         if (isVisible) {

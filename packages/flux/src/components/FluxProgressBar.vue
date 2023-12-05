@@ -33,7 +33,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, toRefs, unref } from 'vue-demi';
+    import { computed, toRefs, unref } from 'vue';
     import { FluxFadeTransition } from '@/transition';
     import FluxStack from './FluxStack.vue';
 

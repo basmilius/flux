@@ -47,7 +47,7 @@
 <script
     lang="ts"
     setup>
-    import { ref, useSlots } from 'vue-demi';
+    import { ref, useSlots } from 'vue';
     import { FluxSecondaryButton } from '@/components';
     import { FluxBreakthroughTransition } from '@/transition';
 

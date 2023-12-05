@@ -41,7 +41,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, onMounted, Ref, ref, toRefs, unref, watch } from 'vue-demi';
+    import { computed, onMounted, Ref, ref, toRefs, unref, watch } from 'vue';
     import { useFormFieldInjection } from '@/composables';
     import FluxIcon from './FluxIcon.vue';
 

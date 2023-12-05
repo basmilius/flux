@@ -71,9 +71,9 @@
 <script
     lang="ts"
     setup>
+    import { computed, onBeforeUnmount, ref, toRefs, watch } from 'vue';
     import type { FluxSnackbarSpec, IconNames } from '@/data';
     import { addSnackbar, removeSnackbar, updateSnackbar } from '@/data';
-    import { computed, onBeforeUnmount, ref, toRefs, watch } from 'vue-demi';
     import { unrefObject } from '@/utils';
     import FluxAction from './FluxAction.vue';
     import FluxIcon from './FluxIcon.vue';

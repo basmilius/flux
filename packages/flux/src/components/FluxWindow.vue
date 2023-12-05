@@ -1,16 +1,16 @@
 <template>
     <FluxWindowTransition :is-back="isBack">
         <slot
+            v-bind="{back, navigate}"
             :key="view"
-            :name="view"
-            v-bind="{back, navigate}"/>
+            :name="view"/>
     </FluxWindowTransition>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { ref } from 'vue-demi';
+    import { ref } from 'vue';
     import { FluxWindowTransition } from '@/transition';
 
     const isBack = ref(false);
