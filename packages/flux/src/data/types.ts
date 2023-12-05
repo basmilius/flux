@@ -96,5 +96,12 @@ export interface FluxRoutingLocationObject {
     replace?: boolean;
 }
 
+export interface FluxPercentageBarItemSpec {
+    readonly color?: string;
+    readonly icon?: IconNames;
+    readonly label: string;
+    readonly value: number;
+}
+
 export type FluxFormSelectEntry = FluxFormSelectGroup | FluxFormSelectOption;
 export type FluxRoutingLocation = FluxRoutingLocationObject | string;

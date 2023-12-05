@@ -48,6 +48,7 @@
                     v-if="isSearchable"
                     v-model="searchQuery"
                     ref="inputElement"
+                    auto-complete="off"
                     class="flux-form-select-input"
                     type="search"
                     icon-after="magnifying-glass"

@@ -369,6 +369,12 @@
                         type="route"/>
 
                     <FluxMenuItem
+                        :is-active="path === '/components/percentage-bar'"
+                        label="Percentage bar"
+                        to="/components/percentage-bar"
+                        type="route"/>
+
+                    <FluxMenuItem
                         :is-active="path === '/components/persona'"
                         label="Persona"
                         to="/components/persona"

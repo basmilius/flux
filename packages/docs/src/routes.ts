@@ -186,6 +186,10 @@ export const router = createRouter({
                     component: () => import('@docs/pages/components/Pane.vue')
                 },
                 {
+                    path: '/components/percentage-bar',
+                    component: () => import('@docs/pages/components/PercentageBar.vue')
+                },
+                {
                     path: '/components/persona',
                     component: () => import('@docs/pages/components/Persona.vue')
                 },

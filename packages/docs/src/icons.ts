@@ -50,6 +50,7 @@ export {
     faFilterSlash,
     faFolder,
     faGear,
+    faGenderless,
     faGrid2,
     faGripDots,
     faKey,
@@ -57,6 +58,7 @@ export {
     faLocationDot,
     faLock,
     faMagnifyingGlass,
+    faMars,
     faMinus,
     faMoon,
     faObjectsColumn,
@@ -77,6 +79,7 @@ export {
     faSunAlt,
     faTrash,
     faUser,
+    faVenus,
     faWrench,
     faXmark
 } from '@fortawesome/pro-regular-svg-icons';
