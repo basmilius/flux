@@ -1,33 +1,33 @@
 <template>
-    <main data-flux-root>
-        <div :inert="inertMain">
-            <slot/>
-        </div>
+    <div
+        :inert="inertMain"
+        style="display: contents;">
+        <slot/>
+    </div>
 
-        <FluxOverlay size="medium">
-            <FluxAlert
-                v-for="alert of alerts"
-                :key="alert.id"
-                :alert="alert"/>
-        </FluxOverlay>
+    <FluxOverlay size="medium">
+        <FluxAlert
+            v-for="alert of alerts"
+            :key="alert.id"
+            :alert="alert"/>
+    </FluxOverlay>
 
-        <FluxOverlay size="medium">
-            <FluxConfirm
-                v-for="confirm of confirms"
-                :key="confirm.id"
-                :confirm="confirm"/>
-        </FluxOverlay>
+    <FluxOverlay size="medium">
+        <FluxConfirm
+            v-for="confirm of confirms"
+            :key="confirm.id"
+            :confirm="confirm"/>
+    </FluxOverlay>
 
-        <FluxOverlay size="medium">
-            <FluxPrompt
-                v-for="prompt of prompts"
-                :key="prompt.id"
-                :prompt="prompt"/>
-        </FluxOverlay>
+    <FluxOverlay size="medium">
+        <FluxPrompt
+            v-for="prompt of prompts"
+            :key="prompt.id"
+            :prompt="prompt"/>
+    </FluxOverlay>
 
-        <FluxSnackbarProvider/>
-        <FluxTooltipProvider/>
-    </main>
+    <FluxSnackbarProvider/>
+    <FluxTooltipProvider/>
 </template>
 
 <script

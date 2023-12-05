@@ -1,24 +1,22 @@
 <template>
-    <div class="flux-stepper">
-        <slot
-            name="steps"
-            v-bind="{activate, activeIndex, steps}">
-            <FluxStepperSteps
-                :amount="steps"
-                :current="activeIndex + 1"
-                @activate="activate"/>
-        </slot>
+    <slot
+        name="steps"
+        v-bind="{activate, activeIndex, steps}">
+        <FluxStepperSteps
+            :amount="steps"
+            :current="activeIndex + 1"
+            @activate="activate"/>
+    </slot>
 
-        <slot
-            name="content"
-            v-bind="{activate, activeIndex, children, isTransitioningBack, steps, view}">
-            <FluxWindowTransition :is-back="isTransitioningBack">
-                <FluxDynamicView
-                    :key="activeIndex"
-                    :vnode="view"/>
-            </FluxWindowTransition>
-        </slot>
-    </div>
+    <slot
+        name="content"
+        v-bind="{activate, activeIndex, children, isTransitioningBack, steps, view}">
+        <FluxWindowTransition :is-back="isTransitioningBack">
+            <FluxDynamicView
+                :key="activeIndex"
+                :vnode="view"/>
+        </FluxWindowTransition>
+    </slot>
 </template>
 
 <script lang="ts">
@@ -72,9 +70,3 @@
 
     watch(modelValue, modelValue => activeIndex.value = modelValue, {immediate: true});
 </script>
-
-<style lang="scss">
-    .flux-stepper {
-        display: contents;
-    }
-</style>

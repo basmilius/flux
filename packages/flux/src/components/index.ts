@@ -116,7 +116,6 @@ export { default as FluxTableActions } from './FluxTableActions.vue';
 export { default as FluxTableCell } from './FluxTableCell.vue';
 export { default as FluxTableHeader } from './FluxTableHeader.vue';
 export { default as FluxTableRow } from './FluxTableRow.vue';
-export { default as FluxTeleport } from './FluxTeleport.vue';
 export { default as FluxTicks } from './FluxTicks.vue';
 export { default as FluxTimeline } from './FluxTimeline.vue';
 export { default as FluxTimelineItem } from './FluxTimelineItem.vue';
