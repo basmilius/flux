@@ -5,11 +5,19 @@
 
     export default defineComponent({
         emits: ['close'],
+        inheritAttrs: false,
         props: {
             isCloseable: {default: false, type: Boolean}
         },
-        setup(props, {emit, slots}) {
-            return createDialogRenderer(props, emit, slots, 'flux-overlay flux-slide-over', FluxSlideOverTransition);
+        setup(props, {attrs, emit, slots}) {
+            return createDialogRenderer(
+                attrs,
+                props,
+                emit,
+                slots,
+                'flux-overlay flux-slide-over',
+                FluxSlideOverTransition
+            );
         }
     });
 </script>

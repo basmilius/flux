@@ -8,7 +8,7 @@ type _Props = {
     readonly isCloseable?: boolean;
 };
 
-export function createDialogRenderer(props: _Props, emit: _Emit, slots: Slots, className: string | (() => string), transition: Component, to: string = 'body'): RenderFunction {
+export function createDialogRenderer(attrs: object, props: _Props, emit: _Emit, slots: Slots, className: string | (() => string), transition: Component, to: string = 'body'): RenderFunction {
     let unregister: Function | null = null;
 
     onMounted(() => {
@@ -49,7 +49,7 @@ export function createDialogRenderer(props: _Props, emit: _Emit, slots: Slots, c
         }
 
         return h(Teleport, {disabled: content.length === 0, to}, [
-            h(transition, {}, {
+            h(transition, attrs, {
                 default: () => content
             })
         ]);
