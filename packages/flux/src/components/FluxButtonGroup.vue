@@ -6,8 +6,10 @@
 
 <style lang="scss">
     .flux-button-group {
-        display: flex;
+        display: inline-flex;
+        width: min-content;
         flex-flow: row nowrap;
+        flex-grow: 0;
 
         .flux-button {
             border-radius: 0;
