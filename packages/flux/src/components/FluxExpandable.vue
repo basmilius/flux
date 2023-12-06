@@ -3,16 +3,19 @@
         class="flux-expandable"
         :class="{'is-open': isOpen}">
         <slot
-            name="header"
-            v-bind="{label, isOpen, close, open, toggle}">
+            v-bind="{label, isOpen, close, open, toggle}"
+            name="header">
             <button
                 class="flux-expandable-header"
                 type="button"
                 @click="toggle">
                 <span>{{ label }}</span>
-                <FluxIcon
-                    :size="16"
-                    :variant="isOpen ? 'minus' : 'plus'"/>
+                <FluxFadeTransition>
+                    <FluxIcon
+                        :key="isOpen ? 'minus' : 'plus'"
+                        :size="16"
+                        :variant="isOpen ? 'minus' : 'plus'"/>
+                </FluxFadeTransition>
             </button>
         </slot>
 
@@ -21,8 +24,8 @@
                 v-if="isOpen"
                 class="flux-expandable-body">
                 <slot
-                    name="body"
-                    v-bind="{label, close}">
+                    v-bind="{label, close}"
+                    name="body">
                     <div class="flux-expandable-content">
                         <slot v-bind="{label, close}"/>
                     </div>
@@ -37,7 +40,7 @@
     setup>
     import { getCurrentInstance, onBeforeMount, onUnmounted, ref, toRefs, unref, watch } from 'vue';
     import { useComponentId, useExpandableGroupInjection } from '@/composables';
-    import { FluxAutoHeightTransition } from '@/transition';
+    import { FluxAutoHeightTransition, FluxFadeTransition } from '@/transition';
     import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {
