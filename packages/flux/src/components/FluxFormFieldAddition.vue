@@ -28,7 +28,7 @@
     export interface Props {
         readonly icon?: IconNames;
         readonly message?: string;
-        readonly mode: 'error' | 'hint';
+        readonly mode?: 'error' | 'hint';
     }
 
     withDefaults(defineProps<Props>(), {
