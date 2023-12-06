@@ -35,8 +35,8 @@
         "luxon": "^3.4.4",
         "minimist": "^1.2.8",
         "tsc-alias": "^1.8.8",
-        "typescript": "^5.3.2",
-        "vite": "^5.0.5",
+        "typescript": "^5.3.3",
+        "vite": "^5.0.6",
         "vue": "^3.3.10",
         "vue-docgen-web-types": "^0.1.8",
         "vue-tsc": "^1.9.0-alpha.3"

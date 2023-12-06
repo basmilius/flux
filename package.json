@@ -13,8 +13,8 @@
         "node": ">=20"
     },
     "devDependencies": {
-        "@types/luxon": "^3.3.5",
-        "@types/node": "^20.10.1",
+        "@types/luxon": "^3.3.7",
+        "@types/node": "^20.10.3",
         "@vue/language-server": "^1.9.0-alpha.3"
     }
 }
