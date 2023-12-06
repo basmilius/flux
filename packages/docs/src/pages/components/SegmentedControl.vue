@@ -9,16 +9,20 @@
                 <FluxPaneBody>
                     <FluxSegmentedControl
                         v-model="viewIndex"
-                        :items="['Options', 'Statistics']"/>
+                        is-fill
+                        :items="[
+                            {icon: 'list', label: 'List'},
+                            {icon: 'grid-2', label: 'Grid'}
+                        ]"/>
                 </FluxPaneBody>
 
                 <FluxSegmentedView :index="viewIndex">
                     <FluxPaneBody>
-                        <p>Options</p>
+                        <p>List</p>
                     </FluxPaneBody>
 
                     <FluxPaneBody>
-                        <p>Statistics</p>
+                        <p>Grid</p>
                     </FluxPaneBody>
                 </FluxSegmentedView>
             </FluxPane>
@@ -49,8 +53,12 @@
             <ApiComponent name="SegmentedControl">
                 <template #props>
                     <tr>
-                        <td><code>items</code><code>string[]</code></td>
-                        <td>A string array of segments.</td>
+                        <td><code>is-fill</code><code>boolean</code></td>
+                        <td>Indicates that the segmented control should take the entire width of its parent.</td>
+                    </tr>
+                    <tr>
+                        <td><code>items</code><code>FluxSegmentedControlItemSpec[]</code></td>
+                        <td>An array containing the items in the segmented control.</td>
                     </tr>
                     <tr>
                         <td><code>model-value</code><code>number</code></td>

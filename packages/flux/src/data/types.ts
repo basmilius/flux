@@ -103,5 +103,10 @@ export interface FluxPercentageBarItemSpec {
     readonly value: number;
 }
 
+export interface FluxSegmentedControlItemSpec {
+    readonly icon?: IconNames;
+    readonly label?: string;
+}
+
 export type FluxFormSelectEntry = FluxFormSelectGroup | FluxFormSelectOption;
 export type FluxRoutingLocation = FluxRoutingLocationObject | string;
