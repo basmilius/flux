@@ -36,7 +36,7 @@
     }
 
     export interface Props {
-        readonly focalPoint: FluxFocalPoint | null;
+        readonly focalPoint?: FluxFocalPoint | null;
         readonly isDeletable?: boolean;
         readonly isPending?: boolean;
         readonly url: string;
