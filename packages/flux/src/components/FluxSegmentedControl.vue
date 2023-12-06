@@ -91,8 +91,7 @@
         width: min-content;
         align-items: center;
         gap: 1px;
-        background: rgb(var(--gray-2));
-        border: 1px solid rgb(var(--gray-4) / .75);
+        background: rgb(var(--gray-3));
         border-radius: var(--radius);
 
         &.is-fill {
@@ -110,10 +109,10 @@
         &-highlight {
             position: absolute;
             top: 3px;
-            left: calc(v-bind(activeItemX) * 1px - 1px);
+            left: calc(v-bind(activeItemX) * 1px);
             width: calc(v-bind(activeItemWidth) * 1px);
             background: rgb(var(--gray-0));
-            border: 1px solid rgb(var(--gray-4) / .75);
+            border: 1px solid rgb(var(--gray-5) / .5);
             box-shadow: var(--shadow-sm);
             pointer-events: none;
             transition-property: left, width;
