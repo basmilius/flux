@@ -335,9 +335,7 @@
         }
     }
 
-    @include flux.dark-mode {
-        .flux-form-input-native::-webkit-calendar-picker-indicator {
-            filter: invert(1);
-        }
+    [dark] .flux-form-input-native::-webkit-calendar-picker-indicator {
+        filter: invert(1);
     }
 </style>

@@ -68,8 +68,6 @@
 </script>
 
 <style lang="scss">
-    @use '../css/mixin' as flux;
-
     .flux-feature-card {
         display: flex;
         flex-flow: column;
@@ -115,7 +113,7 @@
             rotate: -6deg;
             translate: -50% -50%;
 
-            @include flux.dark-mode {
+            @at-root [dark] & {
                 background: white;
                 color: rgb(var(--gray-0));
             }

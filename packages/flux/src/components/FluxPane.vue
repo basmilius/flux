@@ -68,8 +68,8 @@
 <style lang="scss">
     .flux-pane {
         position: relative;
-        box-shadow: var(--shadow-sm);
-        color: unset;
+        box-shadow: var(--shadow-xs);
+        color: var(--foreground);
         text-decoration: unset;
 
         &.is-contained {

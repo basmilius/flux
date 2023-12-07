@@ -93,7 +93,6 @@ export { default as FluxSecondaryButton } from './FluxSecondaryButton.vue';
 export { default as FluxSegmentedControl } from './FluxSegmentedControl.vue';
 export { default as FluxSegmentedView } from './FluxSegmentedView.vue';
 export { default as FluxSeparator } from './FluxSeparator.vue';
-export { default as FluxSkeleton } from './FluxSkeleton.vue';
 export { default as FluxSlideOver } from './FluxSlideOver.vue';
 export { default as FluxSnackbar } from './FluxSnackbar.vue';
 export { default as FluxSnackbarProvider } from './FluxSnackbarProvider.vue';
