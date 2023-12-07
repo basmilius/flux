@@ -2,6 +2,7 @@
     <button
         class="flux-remove"
         :class="{'is-hidden': isHidden}"
+        type="button"
         @click="$emit('click', $event)">
         <FluxIcon
             v-if="icon"

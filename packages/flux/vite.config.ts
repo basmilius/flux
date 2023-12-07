@@ -1,18 +1,15 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
-// @ts-ignore
 import autoprefixer from 'autoprefixer';
-import vue from '@vitejs/plugin-vue2';
-import { createHash } from 'crypto';
+import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
     build: {
         lib: {
-            entry: resolve(__dirname, './index.ts'),
+            entry: resolve(__dirname, './src/index.ts'),
             name: 'FanceeFlux',
             fileName: 'fancee.flux'
         },
-        minify: false,
         outDir: resolve(__dirname, './dist'),
         rollupOptions: {
             external: ['luxon', 'vue'],
@@ -22,40 +19,24 @@ export default defineConfig({
                     'luxon': 'luxon',
                     'vue': 'vue'
                 },
-                sourcemap: true,
                 sourcemapIgnoreList: relativeSourcePath => relativeSourcePath.includes('node_modules')
             }
-        }
+        },
+        sourcemap: true
     },
     css: {
-        modules: {
-            localsConvention: 'camelCaseOnly',
-            generateScopedName(name, filename) {
-                filename = filename.split('?')[0];
-
-                const hash = createHash('sha1')
-                    .update(name + filename)
-                    .digest('base64url')
-                    .substring(0, 4);
-
-                return `_${hash}`;
-            }
-        },
         postcss: {
             plugins: [
-                autoprefixer({}) as any
+                autoprefixer({})
             ]
         }
-    },
-    optimizeDeps: {
-        exclude: ['vue-demi']
     },
     plugins: [
         vue()
     ],
     resolve: {
         alias: {
-            '@': resolve(__dirname, '../flux/src/')
+            '@': resolve(__dirname, 'src')
         }
     }
 });

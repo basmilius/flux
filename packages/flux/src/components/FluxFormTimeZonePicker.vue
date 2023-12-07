@@ -19,7 +19,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, ref, toRefs, unref, watchEffect } from 'vue-demi';
+    import { computed, ref, toRefs, unref, watchEffect } from 'vue';
     import { useTranslate } from '@/composables';
     import { FluxFormSelectEntry } from '@/data';
     import FluxFormSelect from './FluxFormSelect.vue';

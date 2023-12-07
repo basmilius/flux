@@ -29,6 +29,7 @@
         <button
             v-if="!isClickable && isDeletable"
             class="flux-badge-close"
+            type="button"
             @click="$emit('delete')">
             <FluxIcon variant="xmark"/>
         </button>
@@ -38,8 +39,8 @@
 <script
     lang="ts"
     setup>
+    import { computed, toRefs, unref } from 'vue';
     import type { IconNames } from '@/data';
-    import { computed, toRefs, unref } from 'vue-demi';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
 

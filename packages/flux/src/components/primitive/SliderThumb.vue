@@ -6,6 +6,7 @@
             'is-dragging': isDragging
         }"
         :tabindex="isDisabled ? -1 : 0"
+        type="button"
         @keydown="onKeyDown"
         @pointerdown="$emit('grab', $event)"/>
 </template>
@@ -13,7 +14,7 @@
 <script
     lang="ts"
     setup>
-    import { toRefs, unref } from 'vue-demi';
+    import { toRefs, unref } from 'vue';
 
     export interface Emits {
         (e: 'decrement'): void;
@@ -94,10 +95,8 @@
         }
     }
 
-    @include flux.dark-mode {
-        .flux-slider-thumb {
-            background-color: rgb(var(--gray-1));
-            border-color: rgb(var(--gray-11) / .4);
-        }
+    [dark] .flux-slider-thumb {
+        background-color: rgb(var(--gray-1));
+        border-color: rgb(var(--gray-11) / .4);
     }
 </style>

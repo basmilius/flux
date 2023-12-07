@@ -44,7 +44,7 @@
 <script
     lang="ts"
     setup>
-    import { ComponentPublicInstance, computed, ref, toRefs, unref, watch } from 'vue-demi';
+    import { ComponentPublicInstance, computed, ref, toRefs, unref, watch } from 'vue';
     import { addTooltip, removeTooltip, updateTooltip } from '@/data';
     import { unrefElement } from '@/helpers';
     import { clampWithStepPrecision, countDecimals, formatNumber } from '@/utils';

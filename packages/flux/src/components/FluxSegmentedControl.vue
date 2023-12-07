@@ -1,7 +1,8 @@
 <template>
     <nav
         ref="controlRef"
-        class="flux-segmented-control">
+        class="flux-segmented-control"
+        :class="{'is-fill': isFill}">
         <div class="flux-segmented-control-highlight"/>
 
         <template v-for="(item, index) of items">
@@ -18,8 +19,14 @@
                 :class="{
                     'active': index === modelValue
                 }"
+                type="button"
                 @click="activate(index)">
-                <span>{{ item }}</span>
+                <FluxIcon
+                    v-if="item.icon"
+                    :size="15"
+                    :variant="item.icon"/>
+
+                <span>{{ item.label }}</span>
             </button>
         </template>
     </nav>
@@ -37,14 +44,17 @@
 <script
     lang="ts"
     setup>
-    import { onMounted, onUpdated, ref } from 'vue-demi';
+    import { onMounted, onUpdated, ref } from 'vue';
+    import type { FluxSegmentedControlItemSpec } from '@/data';
+    import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {
         (e: 'update:model-value', index: number): void;
     }
 
     export interface Props {
-        readonly items: string[];
+        readonly isFill?: boolean;
+        readonly items: FluxSegmentedControlItemSpec[];
         readonly modelValue: number;
     }
 
@@ -72,17 +82,20 @@
 </script>
 
 <style lang="scss">
-    @use '../css/mixin' as flux;
-
     .flux-segmented-control {
         position: relative;
-        display: flex;
+        display: inline-flex;
         padding: 3px;
+        width: min-content;
         align-items: center;
         gap: 1px;
-        background: rgb(var(--gray-2));
-        border: 1px solid rgb(var(--gray-4) / .75);
+        background: rgb(var(--gray-3));
         border-radius: var(--radius);
+
+        &.is-fill {
+            display: flex;
+            width: unset;
+        }
 
         &-highlight,
         &-item {
@@ -97,21 +110,28 @@
             left: calc(v-bind(activeItemX) * 1px);
             width: calc(v-bind(activeItemWidth) * 1px);
             background: rgb(var(--gray-0));
-            border: 1px solid rgb(var(--gray-4) / .75);
+            border: 1px solid rgb(var(--gray-5) / .5);
             box-shadow: var(--shadow-sm);
             pointer-events: none;
             transition-property: left, width;
         }
 
         &-item {
+            display: flex;
+            padding-left: 12px;
+            padding-right: 12px;
+            align-items: center;
             flex: 1 1 0;
+            gap: 9px;
+            justify-content: center;
             background: none;
             border: 0;
             color: var(--foreground);
             cursor: pointer;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 500;
             text-align: center;
+            text-transform: uppercase;
             transition-property: background, color;
 
             &:hover {
@@ -124,7 +144,7 @@
                 cursor: default;
             }
 
-            span {
+            > * {
                 position: relative;
             }
         }
@@ -142,13 +162,11 @@
         }
     }
 
-    @include flux.dark-mode {
-        .flux-segmented-control {
-            background: rgb(var(--gray-2));
+    [dark] .flux-segmented-control {
+        background: rgb(var(--gray-2));
 
-            &-highlight {
-                background: rgb(var(--gray-3));
-            }
+        &-highlight {
+            background: rgb(var(--gray-3));
         }
     }
 </style>

@@ -1,25 +1,22 @@
 # Flux
 
 This repository contains the source code for the basic components that are used throughout our front-end projects. It
-targets both Vue 2.7+ and Vue 3+. Please read the following instructions and checks in order to proceed.
+targets Vue 3+. Please read the following instructions and checks in order to proceed.
 
 ## 📦 Registry
 
-- The Vue 2.7 package is available under `@fancee/flux-vue2`.
 - The Vue 3 package is available under `@fancee/flux`.
 
 ## ⚠️ Requirements
 
-- Install Node.js ^19
+- Install Node.js ^20
 - Install pnpm using `npm i -g pnpm`.
 - Configure a new environment variable `FANCEE_NPM_AUTH_TOKEN`. The value can be found in Lastpass.
 - Configure a new environment variable `FONTAWESOME_NPM_AUTH_TOKEN`. The value can be found in Lastpass.
 - Use `pnpm install` to install the required packages.
 - Use `pnpm dev` to start a build watcher for both targets.
-- Use `pnpm build` to build a production bundle for both targets.
-- Use `pnpm build:2` to build a production bundle for the vue 2 target.
-- Use `pnpm build:3` to build a production bundle for the vue 3 target.
-- Use `pnpm example` to launch development example that targets vue 3.
+- Use `pnpm build` to build a production bundle.
+- Use `pnpm link` to link the dist folder of flux to your global node_modules.
 
 ## 🪵 Git
 
@@ -44,7 +41,7 @@ Commit messages are bound to the following templates:
 
 - `feat(expandable): adds header slot to expandable.`
 - `feat(expandable): adds header slot to expandable. [FAN-123]`
-- `chore: adds vue 2 build target.`
+- `chore: adds vue 3 build target.`
 
 #### Allowed types
 
@@ -64,7 +61,6 @@ All code should be written in American English. This includes css classes and tr
 
 ### Vue
 
-- **!!!** All imports from Vue should be imported from `vue-demi` instead of `vue`. This allows targetting multiple Vue versions.
 - Components should be written using `<script lang="ts" setup>` where possible.
 - Try to extract business logic from the components.
 - Always use `:key` attribute with `v-for` directives.

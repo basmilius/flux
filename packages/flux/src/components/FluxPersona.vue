@@ -1,6 +1,7 @@
 <template>
     <button
         class="flux-persona"
+        type="button"
         @click="$emit('click', $event)">
         <FluxAvatar
             :alt="avatarAlt"

@@ -29,7 +29,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, toRefs, unref, useSlots } from 'vue-demi';
+    import { computed, toRefs, unref, useSlots } from 'vue';
     import { useComponentId } from '@/composables';
     import { hexToRGB } from '@/utils';
     import FluxAnimatedColors from './FluxAnimatedColors.vue';

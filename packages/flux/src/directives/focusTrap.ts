@@ -1,14 +1,12 @@
-import type { Directive } from 'vue-demi';
+import type { Directive } from 'vue';
 import { getKeyboardFocusableElements } from '@/utils';
 
 class FocusTrap {
     readonly #root: HTMLElement;
     #elements: HTMLElement[];
-    #focused: boolean;
 
     constructor(root: HTMLElement) {
         this.#elements = [];
-        this.#focused = false;
         this.#root = root;
 
         this.onKeyDown = this.onKeyDown.bind(this);

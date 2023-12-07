@@ -38,7 +38,7 @@
 <script
     lang="ts"
     setup>
-    import { onMounted, ref, toRefs, unref, watch } from 'vue-demi';
+    import { onMounted, ref, toRefs, unref, watch } from 'vue';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
@@ -76,15 +76,15 @@
     }
 
     function sizeToContent(): void {
+        const input = unref(inputRef);
+
+        if (!input || isNaN(input.valueAsNumber)) {
+            return;
+        }
+
         width.value = 0;
 
         requestAnimationFrame(() => {
-            const input = unref(inputRef);
-
-            if (!input) {
-                return;
-            }
-
             width.value = Math.max(51, input.scrollWidth + 30);
         });
     }

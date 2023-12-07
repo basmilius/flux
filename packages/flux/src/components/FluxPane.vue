@@ -29,9 +29,9 @@
 <script
     lang="ts"
     setup>
-    import type { FluxRoutingLocation } from '@/data';
-    import { computed, toRefs } from 'vue-demi';
+    import { computed, toRefs } from 'vue';
     import { useBreakpoints } from '@/composables';
+    import type { FluxRoutingLocation } from '@/data';
     import FluxSpinner from './FluxSpinner.vue';
 
     export interface Props {
@@ -68,8 +68,8 @@
 <style lang="scss">
     .flux-pane {
         position: relative;
-        box-shadow: var(--shadow-sm);
-        color: unset;
+        box-shadow: var(--shadow-xs);
+        color: var(--foreground);
         text-decoration: unset;
 
         &.is-contained {

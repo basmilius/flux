@@ -10,8 +10,17 @@
             </FluxFadeTransition>
 
             <div class="flux-date-picker-header-view">
-                <button @click="setView('month')">{{ viewMonth }}</button>
-                <button @click="setView('year')">{{ viewYear }}</button>
+                <button
+                    type="button"
+                    @click="setView('month')">
+                    {{ viewMonth }}
+                </button>
+
+                <button
+                    type="button"
+                    @click="setView('year')">
+                    {{ viewYear }}
+                </button>
             </div>
 
             <FluxFadeTransition>
@@ -54,6 +63,7 @@
                                     'is-selected': isSelected(date)
                                 }"
                                 tabindex="-1"
+                                type="button"
                                 @click="setDate(date)"
                                 @mouseover="onDateMouseOver(date)"
                                 @mouseout="onDateMouseOut">
@@ -119,7 +129,7 @@
     lang="ts"
     setup>
     import { DateTime } from 'luxon';
-    import { computed, ref, toRefs, unref } from 'vue-demi';
+    import { computed, ref, toRefs, unref } from 'vue';
     import { useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher } from '@/composables';
     import { FluxFadeTransition, FluxVerticalWindowTransition, FluxWindowTransition } from '@/transition';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';

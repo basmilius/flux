@@ -2,6 +2,7 @@
     <div class="flux-form-input flux-form-input-addition">
         <FluxIcon
             v-if="icon"
+            :size="18"
             :variant="icon"/>
 
         <span v-if="text">
@@ -33,6 +34,7 @@
         align-items: center;
         flex-grow: 0;
         justify-content: center;
+        background: rgb(var(--gray-1));
         color: var(--foreground-secondary);
         pointer-events: none;
     }

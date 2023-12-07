@@ -11,7 +11,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, toRefs, unref } from 'vue-demi';
+    import { computed, toRefs, unref } from 'vue';
     import { useBreakpoints } from '@/composables';
     import styles from '@/css/components/Layout.module.scss';
 

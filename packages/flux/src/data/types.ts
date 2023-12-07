@@ -45,6 +45,11 @@ export interface FluxSnackbarSpec {
     readonly isLoading?: boolean;
     readonly isRendered?: boolean;
     readonly message?: string;
+    readonly progressIndeterminate?: boolean;
+    readonly progressMax?: number;
+    readonly progressMin?: number;
+    readonly progressStatus?: string;
+    readonly progressValue?: number;
     readonly subMessage?: string;
     readonly title?: string;
 
@@ -89,6 +94,18 @@ export interface FluxRoutingLocationObject {
     params?: Dictionary<string>;
     append?: boolean;
     replace?: boolean;
+}
+
+export interface FluxPercentageBarItemSpec {
+    readonly color?: string;
+    readonly icon?: IconNames;
+    readonly label: string;
+    readonly value: number;
+}
+
+export interface FluxSegmentedControlItemSpec {
+    readonly icon?: IconNames;
+    readonly label?: string;
 }
 
 export type FluxFormSelectEntry = FluxFormSelectGroup | FluxFormSelectOption;

@@ -70,7 +70,10 @@
     --warning-9: #{to-rgb(#b54708)};
     --warning-10: #{to-rgb(#93370d)};
     --warning-11: #{to-rgb(#7a2e0e)};
+}
 
+:root,
+[light] {
     --gray-0: #{to-rgb(#ffffff)};
     --gray-1: #{to-rgb(#fcfcfd)};
     --gray-2: #{to-rgb(#f8fafc)};
@@ -85,7 +88,7 @@
     --gray-11: #{to-rgb(#121926)};
 }
 
-@include flux.dark-mode {
+[dark] {
     --gray-0: #{to-rgb(#14161a)};
     --gray-1: #{to-rgb(#1b1d21)};
     --gray-2: #{to-rgb(#22252b)};

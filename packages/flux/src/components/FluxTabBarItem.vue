@@ -3,6 +3,7 @@
         ref="tabRef"
         class="flux-tab-bar-item"
         :class="{'is-active': isActive}"
+        type="button"
         @click="$emit('click', $event)">
         <FluxIcon
             v-if="icon"
@@ -16,8 +17,8 @@
 <script
     lang="ts"
     setup>
+    import { ref, toRefs, unref, watch } from 'vue';
     import type { IconNames } from '@/data';
-    import { ref, toRefs, unref, watch } from 'vue-demi';
     import FluxIcon from './FluxIcon.vue';
 
     export interface Emits {

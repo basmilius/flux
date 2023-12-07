@@ -1,4 +1,4 @@
-import type { Directive } from 'vue-demi';
+import type { Directive } from 'vue';
 
 class HeightTransition {
     readonly #root: HTMLElement;

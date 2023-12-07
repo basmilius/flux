@@ -1,9 +1,9 @@
-import type { FluxFilterBase, FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterItem, FluxFilterOptionEntry, FluxFilterOptionItem, FluxFilterOptionsEntry, FluxFilterValue } from '@/data';
 import { DateTime } from 'luxon';
-import { defineComponent, VNode } from 'vue-demi';
+import { defineComponent, h, isVNode, VNode } from 'vue';
 import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSeparator } from '@/components';
 import { FluxTranslator, useTranslate } from '@/composables';
-import { camelizeTag, createLabelForDateRange, flattenVNodeTree, getNormalizedComponentName, getNormalizedComponentProps, isVNode, render } from '@/utils';
+import type { FluxFilterBase, FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterItem, FluxFilterOptionEntry, FluxFilterOptionItem, FluxFilterOptionsEntry, FluxFilterValue } from '@/data';
+import { camelizeTag, createLabelForDateRange, flattenVNodeTree, getNormalizedComponentName, getNormalizedComponentProps } from '@/utils';
 
 export const FilterMenuRenderer = defineComponent({
     props: {
@@ -37,10 +37,8 @@ export const FilterMenuRenderer = defineComponent({
                 content[content.length - 1].push(child);
             }
 
-            return render(FluxMenu, {
-                slots: {
-                    default: () => content.map((group, index) => renderFilterGroup(group, index, translate, props.navigate!, props.state!))
-                }
+            return h(FluxMenu, {}, {
+                default: () => content.map((group, index) => renderFilterGroup(group, index, translate, props.navigate!, props.state!))
             });
         };
     }
@@ -132,13 +130,11 @@ function renderFilterGroup(group: (FluxFilterItem | VNode)[], index: number, tra
     const slot: VNode[] = [];
 
     if (index > 0) {
-        slot.push(render(FluxSeparator));
+        slot.push(h(FluxSeparator));
     }
 
-    slot.push(render(FluxMenuGroup, {
-        slots: {
-            default: () => group.map(item => renderFilterItem(item, translate, navigate, state))
-        }
+    slot.push(h(FluxMenuGroup, {}, {
+        default: () => group.map(item => renderFilterItem(item, translate, navigate, state))
     }));
 
     return slot;
@@ -149,17 +145,13 @@ function renderFilterItem(item: FluxFilterItem | VNode, translate: FluxTranslato
         return item;
     }
 
-    return render(FluxMenuItem, {
-        on: {
-            click: () => navigate(item.name)
-        },
-        props: {
-            command: item.getValueLabel(state[item.name] ?? null, translate) ?? undefined,
-            commandIcon: 'angle-right',
-            iconBefore: item.icon,
-            label: item.label,
-            type: 'button'
-        }
+    return h(FluxMenuItem, {
+        command: item.getValueLabel(state[item.name] ?? null, translate) ?? undefined,
+        commandIcon: 'angle-right',
+        iconBefore: item.icon,
+        label: item.label,
+        type: 'button',
+        onClick: () => navigate(item.name)
     });
 }
 

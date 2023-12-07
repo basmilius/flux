@@ -9,6 +9,8 @@
                     v-model="localValue"
                     class="flux-form-date-input"
                     type="date"
+                    :max="max?.toISO()?.substring(0, 10)"
+                    :min="min?.toISO()?.substring(0, 10)"
                     @blur="$emit('blur')"
                     @focus="$emit('focus')"
                     @show-picker="open"/>
@@ -40,7 +42,7 @@
     lang="ts"
     setup>
     import { DateTime } from 'luxon';
-    import { ComponentPublicInstance, ref, toRefs, unref, watch } from 'vue-demi';
+    import { ComponentPublicInstance, ref, toRefs, unref, watch } from 'vue';
     import FluxDatePicker from './FluxDatePicker.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxFormInput from './FluxFormInput.vue';
@@ -87,6 +89,7 @@
 
         input::-webkit-calendar-picker-indicator {
             display: none;
+            -webkit-appearance: none;
         }
     }
 </style>

@@ -29,6 +29,14 @@
                     message="A new version of WeAreFancee is available. Would you like to update?"
                     title="Update available"
                     is-rendered/>
+
+                <FluxSnackbar
+                    icon="circle-arrow-down"
+                    message="We're currently downloading a new and improved experience of WeAreFancee."
+                    title="Downloading"
+                    progress-status="Unpacking..."
+                    :progress-value="0.75"
+                    is-rendered/>
             </FluxStack>
         </Preview>
 
@@ -84,6 +92,26 @@
                     <tr>
                         <td><code>message</code><code>string</code></td>
                         <td>Message within the snackbar.</td>
+                    </tr>
+                    <tr>
+                        <td><code>progress-is-indeterminate</code><code>boolean</code></td>
+                        <td>Indicates that the progress bar is in an indetermined state.</td>
+                    </tr>
+                    <tr>
+                        <td><code>progress-max</code><code>number</code></td>
+                        <td>The maximum value of the progress bar.</td>
+                    </tr>
+                    <tr>
+                        <td><code>progress-min</code><code>number</code></td>
+                        <td>The minimum value of the progress bar.</td>
+                    </tr>
+                    <tr>
+                        <td><code>progress-status</code><code>string</code></td>
+                        <td>The status message that is shown below the progress bar.</td>
+                    </tr>
+                    <tr>
+                        <td><code>progress-value</code><code>number</code></td>
+                        <td>The current value of the progress bar.</td>
                     </tr>
                     <tr>
                         <td><code>sub-message</code><code>string</code></td>

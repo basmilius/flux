@@ -2,19 +2,19 @@
     "name": "fancee-flux-workspace",
     "private": true,
     "scripts": {
-        "build": "pnpm --filter '@fancee/*' --parallel -r build",
-        "dev": "pnpm --filter '@fancee/*' -r dev",
+        "build": "pnpm run -C packages/flux build",
+        "dev": "pnpm run -C packages/flux dev",
         "docs:build": "pnpm run -C packages/docs build",
         "docs:dev": "pnpm run -C packages/docs dev",
-        "link:2": "pnpm link --dir packages/vue2 --global",
-        "link:3": "pnpm link --dir packages/vue3 --global",
+        "link": "pnpm link --dir packages/flux --global",
         "publish": "pnpm --filter '@fancee/*' -r publish --access restricted --no-git-checks"
     },
     "engines": {
         "node": ">=20"
     },
     "devDependencies": {
-        "@types/luxon": "^3.3.4",
-        "@types/node": "^20.9.0"
+        "@types/luxon": "^3.3.7",
+        "@types/node": "^20.10.3",
+        "@vue/language-server": "^1.9.0-alpha.3"
     }
 }

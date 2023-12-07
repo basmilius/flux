@@ -19,9 +19,9 @@
 <script
     lang="ts"
     setup>
+    import { computed, toRefs } from 'vue';
     import type { IconNames } from '@/data';
     import { iconRegistry } from '@/data';
-    import { computed, toRefs } from 'vue-demi';
 
     export interface Emits {
         (e: 'click', evt: MouseEvent): void;

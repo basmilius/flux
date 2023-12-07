@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { computed, ComputedRef, ref, Ref, unref, watch } from 'vue-demi';
+import { computed, ComputedRef, ref, Ref, unref, watch } from 'vue';
 
 export function useCalendarYearSwitcher(currentDate: Ref<DateTime>, limit: number = 10): UseCalendarYearSwitcher {
     const index = ref(0);

@@ -1,13 +1,7 @@
 <template>
     <div
-        :class="{
-            [styles.predefinedGrid]: true,
-            [styles.predefinedGridCards]: layout === 'cards',
-            [styles.predefinedGridFull]: layout === 'full',
-            [styles.predefinedGridSidebarStart]: layout === 'sidebar-start',
-            [styles.predefinedGridSidebarEnd]: layout === 'sidebar-end',
-            [styles.predefinedGridTwoColumn]: layout === 'two-column'
-        }">
+        class="flux-predefined-grid"
+        :class="`is-${layout}`">
         <slot/>
     </div>
 </template>
@@ -15,8 +9,6 @@
 <script
     lang="ts"
     setup>
-    import styles from '@/css/components/Layout.module.scss';
-
     export interface Props {
         readonly layout?: 'cards' | 'full' | 'sidebar-start' | 'sidebar-end' | 'two-column';
     }
@@ -25,3 +17,40 @@
         layout: 'full'
     });
 </script>
+
+<style lang="scss">
+    @use '../css/mixin' as flux;
+
+    .flux-predefined-grid {
+        display: grid;
+        align-items: start;
+        gap: 30px;
+
+        > * {
+            max-width: 100%;
+        }
+
+        @include flux.breakpoint-up(lg) {
+            &.is-cards {
+                align-items: stretch;
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+
+            &.is-full {
+                grid-template-columns: 1fr;
+            }
+
+            &.is-sidebar-start {
+                grid-template-columns: 360px minmax(0, 1fr);
+            }
+
+            &.is-sidebar-end {
+                grid-template-columns: minmax(0, 1fr) 360px;
+            }
+
+            &.is-two-column {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+    }
+</style>

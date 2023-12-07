@@ -5,8 +5,8 @@
         @dragover.capture="onDragEnter"
         @drop="onDrop">
         <slot
-            v-if="isEmpty"
             v-bind="{isDragging, isDraggingOver, showPicker}"
+            v-if="isEmpty"
             name="placeholder">
             <FluxPlaceholder
                 :icon="placeholderIcon"
@@ -20,8 +20,8 @@
         </slot>
 
         <slot
-            v-else
-            v-bind="{isDragging, isDraggingOver, showPicker}"/>
+            v-bind="{isDragging, isDraggingOver, showPicker}"
+            v-else/>
 
         <FluxFadeTransition>
             <div
@@ -35,8 +35,8 @@
 <script
     lang="ts"
     setup>
+    import { onMounted, onUnmounted, ref, toRefs, unref } from 'vue';
     import type { IconNames } from '@/data';
-    import { onMounted, onUnmounted, ref, toRefs, unref } from 'vue-demi';
     import { FluxFadeTransition } from '@/transition';
     import FluxPlaceholder from './FluxPlaceholder.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';

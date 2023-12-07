@@ -30,7 +30,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, onMounted, ref, toRefs, unref, watch } from 'vue-demi';
+    import { computed, onMounted, ref, toRefs, unref, watch } from 'vue';
     import { useFormFieldInjection } from '@/composables';
 
     export interface Emits {
@@ -93,5 +93,10 @@
         padding-top: 9px;
         padding-bottom: 9px;
         flex-shrink: 0;
+        resize: vertical;
+
+        &::placeholder {
+            color: var(--foreground-secondary);
+        }
     }
 </style>

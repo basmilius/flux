@@ -51,8 +51,8 @@
 <script
     lang="ts"
     setup>
-    import type { VNode } from 'vue-demi';
-    import { computed, provide, ref, toRefs, unref } from 'vue-demi';
+    import type { VNode } from 'vue';
+    import { computed, provide, ref, toRefs, unref } from 'vue';
     import { useSlotVNodes, useTranslate } from '@/composables';
     import { FluxFilterInjectionKey, FluxFilterOptionItem, FluxFilterValue } from '@/data';
     import { heightTransition } from '@/directives';

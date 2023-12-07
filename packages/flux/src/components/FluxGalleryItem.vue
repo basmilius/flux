@@ -11,6 +11,7 @@
         <FluxRemove
             v-if="isDeletable"
             :is-hidden="!isDeleteVisible"
+            tabindex="-1"
             @click="$emit('delete')"/>
 
         <div
@@ -24,8 +25,8 @@
 <script
     lang="ts"
     setup>
+    import { ref } from 'vue';
     import type { FluxFocalPoint } from '@/data';
-    import { ref } from 'vue-demi';
     import FluxFocalPointImage from './FluxFocalPointImage.vue';
     import FluxRemove from './FluxRemove.vue';
     import FluxSpinner from './FluxSpinner.vue';
@@ -35,7 +36,7 @@
     }
 
     export interface Props {
-        readonly focalPoint: FluxFocalPoint | null;
+        readonly focalPoint?: FluxFocalPoint | null;
         readonly isDeletable?: boolean;
         readonly isPending?: boolean;
         readonly url: string;

@@ -52,8 +52,6 @@
 </script>
 
 <style lang="scss">
-    @use '../css/mixin' as flux;
-
     .flux-comment {
         display: flex;
         gap: 21px;
@@ -127,16 +125,14 @@
         }
     }
 
-    @include flux.dark-mode {
-        .flux-comment-message {
-            padding: 12px 15px;
-            background: linear-gradient(to bottom, rgb(var(--gray-1)), rgb(var(--gray-0)));
-            border: 1px solid rgb(var(--gray-3));
-        }
+    [dark] .flux-comment-message {
+        padding: 12px 15px;
+        background: linear-gradient(to bottom, rgb(var(--gray-1)), rgb(var(--gray-0)));
+        border: 1px solid rgb(var(--gray-3));
+    }
 
-        .flux-comment.is-received .flux-comment-message {
-            background: linear-gradient(to bottom, rgb(var(--primary-9)), rgb(var(--primary-11)));
-            border-color: rgb(var(--primary-9));
-        }
+    [dark] .flux-comment.is-received .flux-comment-message {
+        background: linear-gradient(to bottom, rgb(var(--primary-9)), rgb(var(--primary-11)));
+        border-color: rgb(var(--primary-9));
     }
 </style>

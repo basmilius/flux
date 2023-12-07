@@ -24,7 +24,6 @@ export type {
     FluxFormSelectGroup,
     FluxPromptSpec,
     FluxRoutingLocation,
-    FluxSkeletonsInjection,
     FluxSnackbarSpec,
     FluxTooltipSpec,
     IconNames,

@@ -56,8 +56,6 @@
 </script>
 
 <style lang="scss">
-    @use '../css/mixin' as flux;
-
     .flux-statistic {
         --statistic-icon-background: rgb(var(--gray-3));
         --statistic-icon-foreground: rgb(var(--gray-7));
@@ -163,28 +161,9 @@
         &.is-vertical &-data {
             align-items: center;
         }
-
-        &.is-skeleton &-data {
-            user-select: none;
-
-            span,
-            strong {
-                @extend .flux-skeleton;
-            }
-
-            span {
-                width: 35%;
-            }
-        }
-
-        &.is-skeleton &-change {
-            display: none;
-        }
     }
 
-    @include flux.dark-mode {
-        .flux-statistic {
-            --statistic-icon-background: rgb(var(--gray-2));
-        }
+    [dark] .flux-statistic {
+        --statistic-icon-background: rgb(var(--gray-2));
     }
 </style>

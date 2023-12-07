@@ -279,6 +279,12 @@
                         type="route"/>
 
                     <FluxMenuItem
+                        :is-active="path === '/components/form-pin-input'"
+                        label="Form pin input"
+                        to="/components/form-pin-input"
+                        type="route"/>
+
+                    <FluxMenuItem
                         :is-active="path === '/components/form-range-slider'"
                         label="Form range slider"
                         to="/components/form-range-slider"
@@ -363,6 +369,12 @@
                         type="route"/>
 
                     <FluxMenuItem
+                        :is-active="path === '/components/percentage-bar'"
+                        label="Percentage bar"
+                        to="/components/percentage-bar"
+                        type="route"/>
+
+                    <FluxMenuItem
                         :is-active="path === '/components/persona'"
                         label="Persona"
                         to="/components/persona"
@@ -372,6 +384,12 @@
                         :is-active="path === '/components/placeholder'"
                         label="Placeholder"
                         to="/components/placeholder"
+                        type="route"/>
+
+                    <FluxMenuItem
+                        :is-active="path === '/components/progress-bar'"
+                        label="Progress bar"
+                        to="/components/progress-bar"
                         type="route"/>
 
                     <FluxMenuItem
@@ -432,6 +450,12 @@
                         :is-active="path === '/components/statistic'"
                         label="Statistic"
                         to="/components/statistic"
+                        type="route"/>
+
+                    <FluxMenuItem
+                        :is-active="path === '/components/stepper'"
+                        label="Stepper"
+                        to="/components/stepper"
                         type="route"/>
 
                     <FluxMenuItem

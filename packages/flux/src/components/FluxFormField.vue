@@ -30,7 +30,7 @@
 
         <FluxFormFieldAddition
             v-if="hint"
-            icon="circle-exclamation"
+            icon="circle-info"
             :message="hint"/>
 
         <slot
@@ -42,7 +42,7 @@
 <script
     lang="ts"
     setup>
-    import { provide } from 'vue-demi';
+    import { provide } from 'vue';
     import { useId, useTranslate } from '@/composables';
     import { FluxFormFieldInjectionKey } from '@/data';
     import FluxFormFieldAddition from './FluxFormFieldAddition.vue';

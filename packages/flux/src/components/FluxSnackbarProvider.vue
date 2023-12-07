@@ -6,15 +6,8 @@
         id="flux-snackbars">
         <FluxSnackbar
             v-for="snackbar of snackbars"
+            v-bind="snackbar"
             :key="snackbar.id"
-            :actions="snackbar.actions"
-            :color="snackbar.color"
-            :icon="snackbar.icon"
-            :is-closeable="snackbar.isCloseable"
-            :is-loading="snackbar.isLoading"
-            :message="snackbar.message"
-            :sub-message="snackbar.subMessage"
-            :title="snackbar.title"
             is-rendered
             @action="onAction(snackbar)"
             @close="() => snackbar.onClose?.()"/>

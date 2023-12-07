@@ -91,14 +91,12 @@
 </script>
 
 <style lang="scss">
-    @use '../css/mixin' as flux;
-
     .flux-menu-item {
         --button-background: transparent;
         --button-background-hover: rgb(var(--gray-2));
         --button-background-active: rgb(var(--gray-3));
         --button-foreground: var(--foreground);
-        --button-icon: rgb(var(--foreground-prominent));
+        --button-icon: var(--foreground-prominent);
         --button-stroke: transparent;
 
         height: unset;
@@ -116,6 +114,12 @@
             text-align: left;
             transition: inherit;
             transition-property: color, font-weight;
+
+            &:only-child {
+                margin-left: 0;
+                margin-right: 0;
+                min-width: unset;
+            }
         }
 
         &.is-active,
@@ -237,9 +241,7 @@
         }
     }
 
-    @include flux.dark-mode {
-        .flux-menu-item.is-highlighted {
-            --button-background: rgb(var(--primary-11) / .5);
-        }
+    [dark] .flux-menu-item.is-highlighted {
+        --button-background: rgb(var(--primary-11) / .5);
     }
 </style>

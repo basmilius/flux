@@ -48,6 +48,7 @@
                     v-if="isSearchable"
                     v-model="searchQuery"
                     ref="inputElement"
+                    auto-complete="off"
                     class="flux-form-select-input"
                     type="search"
                     icon-after="magnifying-glass"
@@ -115,9 +116,8 @@
 <script
     lang="ts"
     setup>
-    import { ComponentPublicInstance, ComputedRef, nextTick } from 'vue-demi';
+    import { ComponentPublicInstance, ComputedRef, nextTick, computed, ref, toRefs, unref, watch } from 'vue';
     import type { FluxFormSelectGroup, FluxFormSelectOption } from '@/data';
-    import { computed, ref, toRefs, unref, watch } from 'vue-demi';
     import { isFluxFormSelectGroup, isFluxFormSelectOption } from '@/data';
     import { useFormFieldInjection, useTranslate } from '@/composables';
     import { unrefElement } from '@/helpers';
@@ -409,7 +409,9 @@
         gap: 0 6px;
         cursor: pointer;
 
-        @include flux.focus-ring(-1px, true);
+        &:not(.is-disabled) {
+            @include flux.focus-ring(-1px, true);
+        }
 
         &-icon {
             position: absolute;

@@ -29,7 +29,7 @@
 <script
     lang="ts"
     setup>
-    import { provide, ref, toRefs, unref, watch } from 'vue-demi';
+    import { provide, ref, toRefs, unref, watch } from 'vue';
     import { useFocusTrap } from '@/composables';
     import { FluxFlyoutInjectionKey } from '@/data';
     import { unrefElement } from '@/helpers';

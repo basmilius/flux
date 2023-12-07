@@ -1,4 +1,4 @@
-import { inject, ref } from 'vue-demi';
+import { inject, ref } from 'vue';
 import { FluxFilterInjection, FluxFilterInjectionKey } from '@/data';
 
 export function useFilterInjection(): FluxFilterInjection {

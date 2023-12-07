@@ -1,5 +1,5 @@
-import type { Ref } from 'vue-demi';
-import { onMounted, onUnmounted, ref, unref, watch } from 'vue-demi';
+import type { Ref } from 'vue';
+import { onMounted, onUnmounted, ref, unref, watch } from 'vue';
 import { isSSR } from '@/data';
 import { unrefElement } from '@/helpers';
 import { FOCUS_TRAP_LOCKS, FocusTrapListener, getFocusableElements, wrapFocus } from '@/utils';

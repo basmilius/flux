@@ -1,4 +1,4 @@
-import { inject } from 'vue-demi';
+import { inject } from 'vue';
 import { FluxDashboardInjection, FluxDashboardInjectionKey } from '@/data';
 
 export function useDashboardInjection(): FluxDashboardInjection {

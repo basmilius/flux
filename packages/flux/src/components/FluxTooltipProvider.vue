@@ -1,9 +1,8 @@
 <script lang="ts">
-    import { computed, defineComponent, h, MaybeRef, ref, unref } from 'vue-demi';
+    import { computed, defineComponent, h, MaybeRef, ref, unref } from 'vue';
     import { useBreakpoints } from '@/composables';
     import { useFluxStore } from '@/data';
-    import { FluxFadeTransition } from '@/transition';
-    import { render } from '@/utils';
+    import { FluxTooltipTransition } from '@/transition';
 
     interface TooltipPositionData {
         readonly x: number;
@@ -11,6 +10,7 @@
         readonly arrowAngle: string;
         readonly arrowX: string;
         readonly arrowY: string;
+        readonly transition: 'above' | 'below' | 'end' | 'start';
     }
 
     export default defineComponent({
@@ -38,8 +38,14 @@
                     return null;
                 }
 
-                const {width, height} = element.getBoundingClientRect();
+                let {width, height} = element.getBoundingClientRect();
+                const {scale} = getComputedStyle(element);
                 const {top, left, width: originWidth, height: originHeight} = origin.getBoundingClientRect();
+
+                let s = Number(scale ?? 1);
+                s = isNaN(s) ? 1 : s;
+                height = height / s;
+                width = width / s;
 
                 switch (axis) {
                     case 'horizontal':
@@ -51,7 +57,7 @@
             });
 
             function calculateHorizontalPosition(top: number, left: number, width: number, height: number, originWidth: number, originHeight: number, margin: number, safeZone: number): TooltipPositionData {
-                let x, y, arrowAngle, arrowX, arrowY;
+                let x, y, arrowAngle, arrowX, arrowY, transition: TooltipPositionData['transition'];
 
                 if (left > innerWidth / 2) {
                     x = left - width - margin;
@@ -59,12 +65,14 @@
                     arrowAngle = '315deg';
                     arrowX = '100%';
                     arrowY = '50%';
+                    transition = 'start';
                 } else {
                     x = left + originWidth + margin;
                     y = top + originHeight / 2 - height / 2;
                     arrowAngle = '135deg';
                     arrowX = '0';
                     arrowY = '50%';
+                    transition = 'end';
                 }
 
                 if (y + height > innerHeight - safeZone) {
@@ -84,12 +92,13 @@
                     y: Math.round(y),
                     arrowAngle,
                     arrowX,
-                    arrowY
+                    arrowY,
+                    transition
                 };
             }
 
             function calculateVerticalPosition(top: number, left: number, width: number, height: number, originWidth: number, originHeight: number, margin: number, safeZone: number): TooltipPositionData {
-                let x, y, arrowAngle, arrowX, arrowY;
+                let x, y, arrowAngle, arrowX, arrowY, transition: TooltipPositionData['transition'];
 
                 if (top > 300) {
                     x = left + originWidth / 2 - width / 2;
@@ -97,12 +106,14 @@
                     arrowAngle = '45deg';
                     arrowX = '50%';
                     arrowY = '100%';
+                    transition = 'above';
                 } else {
                     x = left + originWidth / 2 - width / 2;
                     y = top + originHeight + margin;
                     arrowAngle = '225deg';
                     arrowX = '50%';
                     arrowY = '0';
+                    transition = 'below';
                 }
 
                 if (x + width > innerWidth - safeZone) {
@@ -122,31 +133,30 @@
                     y: Math.round(y),
                     arrowAngle,
                     arrowX,
-                    arrowY
+                    arrowY,
+                    transition
                 };
             }
 
-            return () => render(FluxFadeTransition, {
-                slots: {
-                    default: () => {
-                        if (unref(breakpoints.isMobile) || !unref(has)) {
-                            return null;
-                        }
-
-                        const pos = unref(position);
-
-                        return h('div', {
-                            ref: elementRef,
-                            class: 'flux-tooltip',
-                            style: {
-                                '--x': pos?.x ?? null,
-                                '--y': pos?.y ?? null,
-                                '--arrowAngle': pos?.arrowAngle ?? null,
-                                '--arrowX': pos?.arrowX ?? null,
-                                '--arrowY': pos?.arrowY ?? null
-                            }
-                        }, unref(content));
+            return () => h(FluxTooltipTransition, {}, {
+                default: () => {
+                    if (unref(breakpoints.isMobile) || !unref(has)) {
+                        return null;
                     }
+
+                    const pos = unref(position);
+
+                    return h('div', {
+                        ref: elementRef,
+                        class: `flux-tooltip ${pos?.transition ?? ''}`.trim(),
+                        style: {
+                            '--x': pos?.x ?? null,
+                            '--y': pos?.y ?? null,
+                            '--arrowAngle': pos?.arrowAngle ?? null,
+                            '--arrowX': pos?.arrowX ?? null,
+                            '--arrowY': pos?.arrowY ?? null
+                        }
+                    }, unref(content));
                 }
             });
         }
@@ -154,8 +164,6 @@
 </script>
 
 <style lang="scss">
-    @use '../css/mixin' as flux;
-
     .flux-tooltip {
         position: fixed;
         display: flex;
@@ -170,8 +178,24 @@
         color: rgb(var(--gray-0));
         font-variant-numeric: tabular-nums;
         pointer-events: none;
-        transform: translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), 0);
+        translate: calc(var(--x) * 1px) calc(var(--y) * 1px);
         z-index: 100000;
+
+        &.above {
+            transform-origin: bottom center;
+        }
+
+        &.below {
+            transform-origin: top center;
+        }
+
+        &.end {
+            transform-origin: center left;
+        }
+
+        &.start {
+            transform-origin: center right;
+        }
 
         &::after {
             position: absolute;
@@ -183,7 +207,7 @@
             content: '';
             background: inherit;
             backdrop-filter: inherit;
-            border-radius: 0 0 4px 0;
+            border-radius: 0 0 3px 0;
             clip-path: polygon(100% 100%, 99% 0%, 0% 99%);
             rotate: var(--arrowAngle);
             transform-origin: center;
@@ -192,10 +216,8 @@
         }
     }
 
-    @include flux.dark-mode {
-        .flux-tooltip {
-            background: rgb(0 0 0 / .9);
-            color: var(--foreground-prominent);
-        }
+    [dark] .flux-tooltip {
+        background: rgb(0 0 0 / .9);
+        color: var(--foreground-prominent);
     }
 </style>

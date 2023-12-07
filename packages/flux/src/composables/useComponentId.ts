@@ -1,5 +1,5 @@
-import type { ComputedRef } from 'vue-demi';
-import { computed, getCurrentInstance } from 'vue-demi';
+import type { ComputedRef } from 'vue';
+import { computed, getCurrentInstance } from 'vue';
 
 export function useComponentId(): ComputedRef<number> {
     const instance = getCurrentInstance();

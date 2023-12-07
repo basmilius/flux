@@ -30,7 +30,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, provide, ref, unref, useSlots } from 'vue-demi';
+    import { computed, provide, ref, unref, useSlots } from 'vue';
     import { useBreakpoints } from '@/composables';
     import { FluxDashboardInjectionKey } from '@/data';
 
@@ -56,7 +56,6 @@
 
         position: relative;
         height: 100dvh;
-        width: 100dvw;
         padding-top: var(--header-height);
         padding-left: var(--navigation-width);
         font-size: 15px;

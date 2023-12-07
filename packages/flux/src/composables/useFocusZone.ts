@@ -1,5 +1,5 @@
-import type { Ref } from 'vue-demi';
-import { watch } from 'vue-demi';
+import type { Ref } from 'vue';
+import { watch } from 'vue';
 import { useMutationObserver } from '@/composables';
 import type { BidirectionalDirection } from '@/utils';
 import { assertRefNotNull, getBidirectionalFocusElement, getFocusableElement, getFocusableElements } from '@/utils';

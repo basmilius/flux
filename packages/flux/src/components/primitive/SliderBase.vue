@@ -18,7 +18,7 @@
 <script
     lang="ts"
     setup>
-    import { onMounted, onUnmounted, ref, toRefs, unref, watch } from 'vue-demi';
+    import { onMounted, onUnmounted, ref, toRefs, unref, watch } from 'vue';
     import { unrefElement } from '@/helpers';
     import FluxTicks from '../FluxTicks.vue';
 

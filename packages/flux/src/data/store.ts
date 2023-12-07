@@ -1,6 +1,6 @@
+import type { ComputedRef } from 'vue';
+import { computed, reactive } from 'vue';
 import type { FluxAlertSpec, FluxConfirmSpec, FluxPromptSpec, FluxSnackbarSpec, FluxTooltipSpec } from './types';
-import type { ComputedRef } from 'vue-demi';
-import { computed, reactive } from 'vue-demi';
 
 export interface FluxState {
     dialogCount: number;

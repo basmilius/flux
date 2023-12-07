@@ -26,6 +26,7 @@
 
             <FluxPrimaryButton
                 :disabled="!hasValue"
+                icon-before="circle-check"
                 :label="translate('flux_ok')"
                 @click="prompt.onConfirm(value)"/>
         </FluxPaneFooter>
@@ -35,10 +36,10 @@
 <script
     lang="ts"
     setup>
-    import type { ComponentPublicInstance } from 'vue-demi';
-    import type { FluxPromptSpec } from '@/data';
-    import { computed, onMounted, ref, unref } from 'vue-demi';
+    import type { ComponentPublicInstance } from 'vue';
+    import { computed, onMounted, ref, unref } from 'vue';
     import { useTranslate } from '@/composables';
+    import type { FluxPromptSpec } from '@/data';
     import { unrefElement } from '@/helpers';
     import FluxFormField from './FluxFormField.vue';
     import FluxFormInput from './FluxFormInput.vue';

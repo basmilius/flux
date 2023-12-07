@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { defineComponent, getCurrentInstance, onMounted, onUnmounted, PropType, ref } from 'vue-demi';
+    import { defineComponent, getCurrentInstance, onMounted, onUnmounted, PropType, ref } from 'vue';
     import { addTooltip, removeTooltip } from '@/data';
 
     export default defineComponent({

@@ -14,9 +14,7 @@
         border-radius: var(--radius);
     }
 
-    @include flux.dark-mode {
-        .flux-surface {
-            border-color: rgb(var(--gray-11) / .2);
-        }
+    [dark] .flux-surface {
+        border-color: rgb(var(--gray-11) / .2);
     }
 </style>

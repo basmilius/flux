@@ -9,6 +9,7 @@
                         <template #opener="{open}">
                             <button
                                 class="flux-calendar-current-month"
+                                type="button"
                                 @click="open">
                                 {{ viewMonth }}
                             </button>
@@ -32,6 +33,7 @@
                         <template #opener="{open}">
                             <button
                                 class="flux-calendar-current-year"
+                                type="button"
                                 @click="open">
                                 {{ viewYear }}
                             </button>
@@ -101,8 +103,8 @@
                         </div>
 
                         <span class="flux-calendar-cell-date">
-                        {{ date.toLocaleString({day: 'numeric'}) }}
-                    </span>
+                            {{ date.toLocaleString({day: 'numeric'}) }}
+                        </span>
                     </div>
                 </template>
             </div>
@@ -114,7 +116,7 @@
     lang="ts"
     setup>
     import { DateTime } from 'luxon';
-    import { computed, unref, VNode, watch } from 'vue-demi';
+    import { computed, unref, VNode, watch } from 'vue';
     import { useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher, useSlotVNodes, useTranslate } from '@/composables';
     import { FluxWindowTransition } from '@/transition';
     import { getNormalizedComponentName, getNormalizedComponentProps } from '@/utils';
@@ -245,7 +247,7 @@
                 display: grid;
                 gap: 1px;
                 grid-template-columns: repeat(7, 1fr);
-                grid-template-rows: auto repeat(6, 1fr);
+                grid-template-rows: auto repeat(6, auto);
                 background: rgb(var(--gray-3));
             }
 

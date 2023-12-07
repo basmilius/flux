@@ -1,4 +1,4 @@
-import { inject } from 'vue-demi';
+import { inject } from 'vue';
 import { FluxExpandableGroupInjection, FluxExpandableGroupInjectionKey } from '@/data';
 
 export function useExpandableGroupInjection(): FluxExpandableGroupInjection {

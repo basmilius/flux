@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { computed, Ref, unref } from 'vue-demi';
+import { computed, Ref, unref } from 'vue';
 
 export function useCalendarMonthSwitcher(currentDate: Ref<DateTime>, displayLength: 'short' | 'long'): UseCalendarMonthSwitcher {
     const months = computed(() => {

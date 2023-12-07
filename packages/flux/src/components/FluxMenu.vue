@@ -12,8 +12,8 @@
 <script
     lang="ts"
     setup>
-    import { ref } from 'vue-demi';
-    import { useFocusZone } from '@/composables';
+    import { ref } from 'vue';
+    import { useFocusZone } from '@/composables'
 
     export interface Props {
         readonly isLarge?: boolean;

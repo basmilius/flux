@@ -29,7 +29,7 @@
 <script
     lang="ts"
     setup>
-    import { provide, toRefs, useSlots } from 'vue-demi';
+    import { provide, toRefs, useSlots } from 'vue';
     import { FluxTableInjectionKey } from '@/data';
     import FluxSpinner from './FluxSpinner.vue';
 

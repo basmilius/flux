@@ -8,6 +8,7 @@
 
         <button
             class="flux-calendar-event"
+            type="button"
             @click="onClick">
             <span>{{ label }}</span>
         </button>
@@ -30,7 +31,7 @@
     }
 
     const emit = defineEmits<Emits>();
-    const props = defineProps<Props>();
+    defineProps<Props>();
 
     function onClick(evt: MouseEvent): void {
         emit('click', evt);

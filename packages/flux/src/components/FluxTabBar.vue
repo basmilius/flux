@@ -4,6 +4,7 @@
             v-if="isStartArrowVisible"
             class="flux-tab-bar-arrow flux-tab-bar-arrow-start"
             tabindex="-1"
+            type="button"
             @click="scrollToStart">
             <FluxIcon variant="angle-left"/>
         </button>
@@ -22,6 +23,7 @@
             v-if="isEndArrowVisible"
             class="flux-tab-bar-arrow flux-tab-bar-arrow-end"
             tabindex="-1"
+            type="button"
             @click="scrollToEnd">
             <FluxIcon variant="angle-right"/>
         </button>
@@ -31,7 +33,7 @@
 <script
     lang="ts"
     setup>
-    import { onMounted, ref } from 'vue-demi';
+    import { onMounted, ref } from 'vue';
     import { useEventListener, useMutationObserver } from '@/composables';
     import { unrefElement } from '@/helpers';
     import FluxIcon from './FluxIcon.vue';

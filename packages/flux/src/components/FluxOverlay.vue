@@ -1,15 +1,18 @@
 <script lang="ts">
-    import { defineComponent, PropType } from 'vue-demi';
+    import { defineComponent, PropType } from 'vue';
     import { createDialogRenderer } from '@/helpers';
     import { FluxOverlayTransition } from '@/transition';
 
     export default defineComponent({
+        emits: ['close'],
+        inheritAttrs: false,
         props: {
             isCloseable: {default: false, type: Boolean},
             size: {default: 'small', type: String as PropType<'small' | 'medium' | 'large'>}
         },
-        setup(props, {emit, slots}) {
+        setup(props, {attrs, emit, slots}) {
             return createDialogRenderer(
+                attrs,
                 props,
                 emit,
                 slots,
@@ -21,8 +24,6 @@
 </script>
 
 <style lang="scss">
-    @use '../css/mixin' as flux;
-
     .flux-overlay {
         position: fixed;
         display: flex;
@@ -63,13 +64,11 @@
         }
     }
 
-    @include flux.dark-mode {
-        .flux-overlay {
-            background: rgb(0 0 0 / .5);
+    [dark] .flux-overlay {
+        background: rgb(0 0 0 / .5);
 
-            > .flux-pane {
-                border-color: rgb(var(--gray-11) / .3);
-            }
+        > .flux-pane {
+            border-color: rgb(var(--gray-11) / .3);
         }
     }
 </style>
