@@ -43,6 +43,7 @@
                 const {top, left, width: originWidth, height: originHeight} = origin.getBoundingClientRect();
 
                 let s = Number(scale ?? 1);
+                s = isNaN(s) ? 1 : s;
                 height = height / s;
                 width = width / s;
 

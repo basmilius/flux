@@ -93,6 +93,7 @@
         padding-top: 9px;
         padding-bottom: 9px;
         flex-shrink: 0;
+        resize: vertical;
 
         &::placeholder {
             color: var(--foreground-secondary);

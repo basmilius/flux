@@ -279,6 +279,7 @@
             color: inherit;
             font: inherit;
             outline: 0;
+            text-align: left;
 
             &.has-icon-after {
                 padding-right: 42px;

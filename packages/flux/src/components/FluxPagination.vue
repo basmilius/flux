@@ -6,29 +6,29 @@
             icon-before="angle-left"
             @click="previous"/>
 
-        <template v-if="!isCompact">
-            <template v-for="p of visiblePages">
-                <FluxSecondaryButton
-                    v-if="p === 'dots'"
-                    disabled
-                    icon-before="ellipsis-h"/>
+        <template
+            v-if="!isCompact"
+            v-for="p of visiblePages">
+            <FluxSecondaryButton
+                v-if="p === 'dots'"
+                disabled
+                icon-before="ellipsis-h"/>
 
-                <FluxPrimaryButton
-                    v-else-if="p === page"
-                    :label="`${p}`"/>
+            <FluxPrimaryButton
+                v-else-if="p === page"
+                :label="`${p}`"/>
 
-                <FluxSecondaryButton
-                    v-else
-                    :label="`${p}`"
-                    @click="navigate(p)"/>
-            </template>
+            <FluxSecondaryButton
+                v-else
+                :label="`${p}`"
+                @click="navigate(p)"/>
         </template>
 
         <template v-else>
             <FluxSecondaryButton
-                v-slot:before
                 class="flux-pagination-current"
-                @click="prompt">
+                @click="prompt"
+                #before>
                 <strong>{{ page }}</strong>
                 <span>/</span>
                 <span>{{ pages }}</span>
@@ -150,6 +150,8 @@
         }
 
         .flux-button span {
+            margin-left: 0;
+            margin-right: 0;
             min-width: 18px;
 
             &:nth-child(2) {

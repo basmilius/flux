@@ -55,6 +55,7 @@ export {
     faGripDots,
     faKey,
     faLanguage,
+    faList,
     faLocationDot,
     faLock,
     faMagnifyingGlass,

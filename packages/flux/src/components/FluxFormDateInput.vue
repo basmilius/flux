@@ -89,6 +89,7 @@
 
         input::-webkit-calendar-picker-indicator {
             display: none;
+            -webkit-appearance: none;
         }
     }
 </style>
