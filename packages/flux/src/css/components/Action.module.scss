@@ -1,0 +1,42 @@
+@value button, buttonIcon, buttonLabel from 'Button.module.scss';
+
+.action {
+    composes: button;
+
+    background: transparent;
+    border-color: transparent;
+    color: var(--foreground);
+
+    @media (hover: hover) {
+        &:hover {
+            background: rgb(var(--gray-2));
+        }
+    }
+
+    &:active {
+        background: rgb(var(--gray-3));
+    }
+
+    &.button {
+        height: 30px;
+        padding-left: 6px;
+        padding-right: 6px;
+        box-shadow: none;
+    }
+}
+
+.actionIcon {
+    composes: buttonIcon;
+}
+
+.actionLabel {
+    composes: buttonLabel;
+}
+
+.actionDestructive {
+    composes: action;
+
+    .actionIcon {
+        color: rgb(var(--danger-7));
+    }
+}

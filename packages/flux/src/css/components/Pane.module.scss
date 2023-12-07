@@ -1,0 +1,311 @@
+@value surface from 'base/Surface.module.scss';
+@value autoGrid, stack from 'Layout.module.scss';
+@value gridlines from 'Visuals.module.scss';
+
+.pane {
+    composes: surface;
+
+    position: relative;
+    box-shadow: var(--shadow-sm);
+
+    &:is(a) {
+        cursor: pointer;
+        transition: box-shadow 180ms var(--swift-out);
+
+        &:hover {
+            box-shadow: var(--shadow-lg);
+        }
+    }
+}
+
+.paneContained {
+    contain: paint;
+}
+
+.paneGrid {
+    display: grid;
+    grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+}
+
+.pane > .pane {
+    border: unset;
+    box-shadow: unset;
+}
+
+.paneLoader {
+    position: absolute;
+    display: flex;
+    inset: 0;
+    align-items: center;
+    justify-content: center;
+    background: rgb(var(--gray-0) / .6);
+    backdrop-filter: blur(5px) saturate(180%);
+    border-radius: inherit;
+    z-index: 10000;
+}
+
+.paneTag {
+    position: absolute;
+    top: 0;
+    left: 21px;
+    padding: 6px 9px;
+    background: rgb(var(--gray-10));
+    border-radius: calc(var(--radius) / 2);
+    color: rgb(var(--gray-0));
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 1;
+    text-transform: uppercase;
+    translate: 0 -50%;
+}
+
+.paneBody {
+    display: flex;
+    flex-flow: column;
+    padding: 21px;
+}
+
+.paneBodyContentCentered {
+    align-items: center;
+    text-align: center;
+}
+
+.paneBodyLargerPadded {
+    padding: 36px;
+}
+
+.paneBody > .stack {
+    flex-grow: 1;
+}
+
+.pane:not(.paneGrid) > .paneBody + .paneBody {
+    padding-top: 0;
+}
+
+.paneGrid > .paneBody {
+    grid-column: span var(--span);
+}
+
+.paneDeck {
+    overflow: hidden;
+
+    > .autoGrid {
+        margin-right: -1px;
+        margin-bottom: -1px;
+
+        > .pane {
+            border: 1px solid rgb(var(--gray-3));
+            border-top: 0;
+            border-left: 0;
+            border-radius: 0;
+            box-shadow: none;
+        }
+    }
+}
+
+.paneGroup {
+    position: relative;
+
+    + .paneGroup {
+        border-top: 1px solid rgb(var(--gray-3));
+    }
+}
+
+.paneFooter {
+    display: flex;
+    padding: 21px;
+    gap: 9px;
+    background: rgb(var(--gray-1));
+    border-top: 1px solid rgb(var(--gray-3));
+}
+
+.pane > .paneFooter {
+    &:first-child {
+        border-radius: var(--radius) var(--radius) 0 0;
+    }
+
+    &:last-child {
+        border-radius: 0 0 var(--radius) var(--radius);
+    }
+
+    &:only-child {
+        border: 0;
+        border-radius: var(--radius);
+    }
+}
+
+.paneHeader {
+    display: flex;
+    padding: 21px 21px 0;
+    align-items: center;
+    gap: 15px;
+
+    &:first-child {
+        border-radius: var(--radius) var(--radius) 0 0;
+    }
+}
+
+.paneHeaderCaption {
+    display: flex;
+    flex-flow: column;
+    flex-grow: 1;
+    line-height: 24px;
+
+    :is(strong) {
+        color: var(--foreground-prominent);
+        font-weight: 700;
+    }
+
+    :is(span) {
+        color: var(--foreground);
+        font-size: 14px;
+    }
+}
+
+.paneHeaderIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(var(--primary-7));
+}
+
+.paneHeaderIconExtended {
+    composes: paneHeaderIcon;
+
+    height: 45px;
+    width: 45px;
+    background: rgb(var(--primary-2));
+    border-radius: var(--radius);
+}
+
+[dark] .paneHeaderIconExtended {
+    background: rgb(var(--gray-2));
+}
+
+.paneMedia {
+    position: relative;
+    overflow: hidden;
+}
+
+.paneMediaInset {
+    composes: paneMedia;
+
+    margin: 21px;
+    border-radius: var(--radius);
+}
+
+.paneMediaImage {
+    display: block;
+    height: auto;
+    width: 100%;
+    margin: 0;
+    object-fit: cover;
+    object-position: var(--focal-point-x) var(--focal-point-y);
+}
+
+.pane:not(.paneGrid) > .paneMedia:not(.paneMediaInset) {
+    &:first-child {
+        border-top-left-radius: var(--radius);
+        border-top-right-radius: var(--radius);
+    }
+
+    &:last-child {
+        border-bottom-left-radius: var(--radius);
+        border-bottom-right-radius: var(--radius);
+    }
+}
+
+.pane:not(.paneGrid) > .paneMediaInset {
+    &:not(:first-child) {
+        margin-top: 0;
+    }
+
+    &:not(:last-child) {
+        margin-bottom: 0;
+    }
+}
+
+.paneGrid > .paneMedia:not(.paneMediaInset) {
+    grid-column: span v-bind(span);
+
+    &:first-child {
+        border-top-left-radius: var(--radius);
+        border-bottom-left-radius: var(--radius);
+    }
+
+    &:last-child {
+        border-top-right-radius: var(--radius);
+        border-bottom-right-radius: var(--radius);
+    }
+}
+
+.paneGrid > .paneMediaInset {
+    &:not(:first-child) {
+        margin-left: 0;
+    }
+
+    &:not(:last-child) {
+        margin-right: 0;
+    }
+}
+
+.paneIllustration {
+    --mask: linear-gradient(to bottom, black, transparent);
+    --mask-content: linear-gradient(to bottom, black, rgb(0 0 0 / .75), transparent);
+
+    position: relative;
+    border-radius: calc(var(--radius) - 1px);
+
+    &:not(:first-child) {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    &:not(:last-child) {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    + :where(.paneBody, .paneHeader) {
+        position: relative;
+        margin-top: -60px;
+    }
+}
+
+.paneIllustrationCanvas {
+    composes: gridlines;
+
+    &.gridlines {
+        --grid: linear-gradient(to bottom, rgb(0 0 0 / .48) calc(100% - 1px), black calc(100% - 1px)), linear-gradient(to right, rgb(0 0 0 / .48) calc(100% - 1px), black calc(100% - 1px));
+        --size: 30px;
+    }
+}
+
+.paneIllustrationContent {
+    position: relative;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.paneIllustrationContentControlled {
+    composes: paneIllustrationContent;
+
+    overflow: hidden;
+    -webkit-mask-image: var(--mask-content);
+    mask-image: var(--mask-content);
+}
+
+.paneIllustrationMagic {
+    position: absolute;
+    inset: -1px;
+    border: 1px solid;
+    border-radius: inherit;
+}
+
+.paneIllustrationMasked .paneIllustrationMagic {
+    -webkit-mask-image: var(--mask);
+    mask-image: var(--mask);
+}

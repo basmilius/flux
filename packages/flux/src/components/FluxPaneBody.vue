@@ -1,9 +1,13 @@
 <template>
     <div
-        class="flux-pane-body"
         :class="{
-            'is-content-centered': isContentCentered,
-            'is-larger-padded': isLargerPadded
+            [styles.paneBody]: true,
+            [styles.paneBodyContentCentered]: isContentCentered,
+            [styles.paneBodyLargerPadded]: isLargerPadded
+        }"
+        :style="{
+            '--span': span,
+            gap: `${gap}px`
         }">
         <slot/>
     </div>
@@ -12,6 +16,8 @@
 <script
     lang="ts"
     setup>
+    import styles from '@/css/components/Pane.module.scss';
+
     export interface Props {
         readonly gap?: number;
         readonly isContentCentered?: boolean;
@@ -24,33 +30,3 @@
         span: 1
     });
 </script>
-
-<style lang="scss">
-    .flux-pane-body {
-        display: flex;
-        flex-flow: column;
-        gap: calc(v-bind(gap) * 1px);
-        padding: 21px;
-
-        &.is-content-centered {
-            align-items: center;
-            text-align: center;
-        }
-
-        &.is-larger-padded {
-            padding: 36px;
-        }
-
-        > .flux-stack {
-            flex-grow: 1;
-        }
-    }
-
-    .flux-pane:not(.is-grid) > .flux-pane-body + .flux-pane-body {
-        padding-top: 0;
-    }
-
-    .flux-pane.is-grid > .flux-pane-body {
-        grid-column: span v-bind(span);
-    }
-</style>

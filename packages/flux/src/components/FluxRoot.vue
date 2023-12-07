@@ -10,16 +10,12 @@
             v-for="alert of alerts"
             :key="alert.id"
             :alert="alert"/>
-    </FluxOverlay>
 
-    <FluxOverlay size="medium">
         <FluxConfirm
             v-for="confirm of confirms"
             :key="confirm.id"
             :confirm="confirm"/>
-    </FluxOverlay>
 
-    <FluxOverlay size="medium">
         <FluxPrompt
             v-for="prompt of prompts"
             :key="prompt.id"

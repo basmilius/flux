@@ -1,10 +1,7 @@
 <template>
     <nav
         ref="container"
-        class="flux-menu"
-        :class="{
-            'is-large': isLarge
-        }">
+        :class="isLarge ? styles.menuLarge : styles.menu">
         <slot/>
     </nav>
 </template>
@@ -14,6 +11,7 @@
     setup>
     import { ref } from 'vue';
     import { useFocusZone } from '@/composables'
+    import styles from '@/css/components/Menu.module.scss';
 
     export interface Props {
         readonly isLarge?: boolean;

@@ -8,8 +8,11 @@
             'is-indented': isIndented,
             'is-selected': isSelectable && isSelected
         }"
-        tabindex="0"
         v-bind="{type, disabled, iconAfter, iconBefore, isLoading, label, href, rel, target, to}"
+        :css-class="styles.destructiveButton"
+        :css-class-icon="styles.destructiveButtonIcon"
+        :css-class-label="styles.destructiveButtonLabel"
+        tabindex="0"
         @click="$emit('click', $event)">
         <template
             v-if="isSelectable"
@@ -51,6 +54,7 @@
     import type { FluxRoutingLocation, IconNames } from '@/data';
     import { BaseButton } from './primitive';
     import FluxIcon from './FluxIcon.vue';
+    import styles from '@/css/components/Button.module.scss';
 
     // note: It is currently not possible to reuse Emits and Props from
     //  base button, because of a limitation of vite and vue compiler-sfc.

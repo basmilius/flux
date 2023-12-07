@@ -1,12 +1,15 @@
 <template>
     <div
-        class="flux-pane-illustration"
         :class="{
-            'is-masked': isMasked
-        }">
-        <div class="flux-pane-illustration-magic">
+            [styles.paneIllustration]: true,
+            [styles.paneIllustrationMasked]: isMasked
+        }"
+        :style="{aspectRatio}">
+        <div
+            :class="styles.paneIllustrationMagic"
+            :style="{borderColor}">
             <FluxAnimatedColors
-                class="flux-gridlines flux-pane-illustration-canvas"
+                :class="styles.paneIllustrationCanvas"
                 :colors="animatedColors"
                 :opacity="props.animatedOpacity"
                 :seed="animatedSeed"/>
@@ -14,13 +17,13 @@
 
         <div
             v-if="slots.controlled"
-            class="flux-pane-illustration-content is-controlled">
+            :class="styles.paneIllustrationContentControlled">
             <slot name="controlled"/>
         </div>
 
         <div
             v-if="slots.default"
-            class="flux-pane-illustration-content">
+            :class="styles.paneIllustrationContent">
             <slot/>
         </div>
     </div>
@@ -30,8 +33,8 @@
     lang="ts"
     setup>
     import { computed, toRefs, unref, useSlots } from 'vue';
-    import { useComponentId } from '@/composables';
     import { hexToRGB } from '@/utils';
+    import styles from '@/css/components/Pane.module.scss';
     import FluxAnimatedColors from './FluxAnimatedColors.vue';
 
     export interface Props {
@@ -50,7 +53,6 @@
     });
     const {animatedColors} = toRefs(props);
 
-    const id = useComponentId();
     const slots = useSlots();
 
     const borderColor = computed(() => {

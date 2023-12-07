@@ -1,7 +1,9 @@
 <template>
     <BaseButton
-        class="flux-secondary-button"
         v-bind="{type, disabled, iconAfter, iconBefore, isLoading, isSubmit, label, size, href, rel, target, to}"
+        :css-class="styles.secondaryButton"
+        :css-class-icon="styles.secondaryButtonIcon"
+        :css-class-label="styles.secondaryButtonLabel"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)">
@@ -21,6 +23,7 @@
     import { useSlots } from 'vue';
     import type { FluxRoutingLocation, IconNames } from '@/data';
     import { BaseButton } from './primitive';
+    import styles from '@/css/components/Button.module.scss';
 
     // note: It is currently not possible to reuse Emits and Props from
     //  base button, because of a limitation of vite and vue compiler-sfc.
@@ -58,14 +61,3 @@
 
     const slots = useSlots();
 </script>
-
-<style lang="scss">
-    .flux-secondary-button {
-        --button-background: rgb(var(--gray-0));
-        --button-background-hover: rgb(var(--gray-2));
-        --button-background-active: rgb(var(--gray-3));
-        --button-foreground: var(--foreground);
-        --button-icon: var(--foreground-prominent);
-        --button-stroke: rgb(var(--gray-4) / .75);
-    }
-</style>

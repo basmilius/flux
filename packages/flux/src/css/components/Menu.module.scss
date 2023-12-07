@@ -1,0 +1,260 @@
+@value surface from 'base/Surface.module.scss';
+@value button, buttonIcon, buttonLabel from 'Button.module.scss';
+@value divider from 'Divider.module.scss';
+
+.menu {
+    display: flex;
+    flex-flow: column;
+}
+
+.menuDefault {
+    composes: menu;
+
+    gap: 6px;
+}
+
+.menuLarge {
+    composes: menu;
+
+    gap: 9px;
+}
+
+.menuGroup {
+    display: flex;
+}
+
+.menuGroupHorizontal {
+    composes: menuGroup;
+
+    flex-flow: row;
+    gap: 3px;
+}
+
+.menuGroupVertical {
+    composes: menuGroup;
+
+    flex-flow: column;
+    gap: 1px;
+}
+
+.menuItem {
+    composes: button;
+
+    height: unset;
+    min-height: 42px;
+    padding: 6px 12px;
+    gap: 15px;
+    justify-content: start;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    color: var(--foreground);
+    text-align: left;
+
+    @media (hover: hover) {
+        &:hover {
+            background: rgb(var(--gray-2));
+        }
+    }
+
+    &:active {
+        background: rgb(var(--gray-3));
+    }
+}
+
+.menuItemIcon {
+    composes: buttonIcon;
+
+    color: rgb(var(--foreground-prominent));
+    font-size: 18px;
+}
+
+.menuItemLabel {
+    composes: buttonLabel;
+
+    &.buttonLabel {
+        flex-grow: 1;
+        font-weight: 400;
+        text-align: left;
+    }
+
+    &:only-child {
+        margin-left: 0;
+        margin-right: 0;
+        min-width: unset;
+    }
+}
+
+.menuItemActive,
+.menuItemHighlighted {
+    @media (hover: hover) {
+        &:hover {
+            background: transparent;
+        }
+    }
+
+    &:active {
+        background: transparent;
+    }
+}
+
+.menuItemActive {
+    background: rgb(var(--primary-7));
+    color: rgb(var(--primary-1));
+
+    .menuItemIcon {
+        color: rgb(var(--primary-0));
+    }
+}
+
+.menuItemDestructive {
+    color: rgb(var(--danger-8));
+
+    .menuItemIcon {
+        color: rgb(var(--danger-7));
+    }
+}
+
+.menuItemHighlighted {
+    background: rgb(var(--primary-2));
+    color: rgb(var(--primary-7));
+
+    .menuItemIcon {
+        color: rgb(var(--primary-8));
+    }
+}
+
+.menuItemIndented {
+    margin-left: 33px;
+}
+
+.menuItemSelected .menuItemSelectableIcon {
+    color: rgb(var(--primary-7));
+}
+
+.menuItemCommand {
+    margin-top: 2px;
+    margin-left: auto;
+    padding-left: 21px;
+    color: var(--foreground-secondary);
+    font: inherit;
+    font-size: 14px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.menuItemCommandIcon {
+    margin-right: -6px;
+    color: var(--foreground-secondary);
+    font-size: 16px;
+}
+
+.menuItemCommand + .menuItemCommandIcon {
+    margin-left: -9px;
+}
+
+.menuItemActive .menuItemCommand {
+    color: rgb(var(--primary-4));
+}
+
+.menuItemImage {
+    margin-left: -3px;
+    height: 20px;
+    width: 20px;
+}
+
+.menuItemSelectableIcon {
+    composes: buttonIcon;
+}
+
+.menuSubHeader {
+    position: sticky;
+    display: flex;
+    top: 0;
+    margin-top: -9px;
+    margin-bottom: -3px;
+    padding: 12px 12px 6px;
+    gap: 9px;
+    background: linear-gradient(to bottom, rgb(var(--gray-0)) 75%, transparent);
+    font-size: 14px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.menuSubHeaderIcon,
+.menuSubHeaderLabel {
+    color: var(--foreground-secondary);
+}
+
+.menu .divider {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.menuLarge .menuItem {
+    position: relative;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    &::after {
+        position: absolute;
+        display: block;
+        top: 12px;
+        right: 12px;
+        bottom: 12px;
+        width: 4px;
+        content: '';
+        background: rgb(var(--primary-7));
+        border-radius: 99px;
+        opacity: 0;
+        transition: opacity 180ms var(--swift-out);
+    }
+}
+
+.menuLarge .menuItemActive {
+    &::after {
+        opacity: 1;
+    }
+
+    &.menuItemIndented {
+        background: rgb(var(--gray-3));
+
+        .menuItemIcon,
+        .menuItemLabel {
+            color: var(--foreground-prominent);
+        }
+    }
+}
+
+.menuLarge .menuItem:not(.menuItemIndented) {
+    min-height: 48px;
+
+    &::after {
+        background: rgb(var(--primary-0));
+    }
+}
+
+.menuItem + .menuSubHeader {
+    margin-top: 9px;
+}
+
+.menuLarge .menuSubHeader {
+    margin-bottom: -9px;
+}
+
+.basePane > .menu {
+    margin-left: 12px;
+    margin-right: 12px;
+
+    &:first-child {
+        margin-top: 12px;
+    }
+
+    &:last-child {
+        margin-bottom: 12px;
+    }
+
+    .divider {
+        margin: 3px -12px;
+    }
+}

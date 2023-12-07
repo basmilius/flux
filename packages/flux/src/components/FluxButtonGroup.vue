@@ -1,8 +1,14 @@
 <template>
-    <div class="flux-button-group">
+    <div :class="styles.buttonGroup">
         <slot/>
     </div>
 </template>
+
+<script
+    lang="ts"
+    setup>
+    import styles from '@/css/components/Button.module.scss';
+</script>
 
 <style lang="scss">
     .flux-button-group {

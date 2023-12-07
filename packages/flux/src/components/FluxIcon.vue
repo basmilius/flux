@@ -1,7 +1,8 @@
 <template>
     <svg
         :viewBox="`0 0 ${width} ${height}`"
-        class="flux-icon"
+        :class="styles.icon"
+        :style="{fontSize: `${size}px`}"
         focusable="false"
         role="img"
         aria-hidden="true"
@@ -19,9 +20,10 @@
 <script
     lang="ts"
     setup>
-    import { computed, toRefs } from 'vue';
+    import { computed } from 'vue';
     import type { IconNames } from '@/data';
     import { iconRegistry } from '@/data';
+    import styles from '@/css/components/Icon.module.scss';
 
     export interface Emits {
         (e: 'click', evt: MouseEvent): void;
@@ -36,7 +38,6 @@
     const props = withDefaults(defineProps<Props>(), {
         size: 20
     });
-    const {size, variant} = toRefs(props);
 
     const definition = computed(() => {
         const variant = iconRegistry[props.variant];
@@ -58,13 +59,3 @@
 
     const onClick = (evt: MouseEvent) => emit('click', evt);
 </script>
-
-<style lang="scss">
-    .flux-icon {
-        display: inline-block;
-        height: 1em;
-        width: 1em;
-        font-size: calc(v-bind(size) * 1px);
-        line-height: 1em;
-    }
-</style>

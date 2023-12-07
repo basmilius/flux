@@ -1,7 +1,9 @@
 <template>
     <BaseButton
-        class="flux-primary-button"
         v-bind="{type, disabled, iconAfter, iconBefore, isLoading, isSubmit, label, size, href, rel, target, to}"
+        :css-class="styles.primaryButton"
+        :css-class-icon="styles.primaryButtonIcon"
+        :css-class-label="styles.primaryButtonLabel"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)">
@@ -21,6 +23,7 @@
     import { useSlots } from 'vue';
     import type { FluxRoutingLocation, IconNames } from '@/data';
     import { BaseButton } from './primitive';
+    import styles from '@/css/components/Button.module.scss';
 
     // note: It is currently not possible to reuse Emits and Props from
     //  base button, because of a limitation of vite and vue compiler-sfc.
@@ -58,23 +61,3 @@
 
     const slots = useSlots();
 </script>
-
-<style lang="scss">
-    .flux-primary-button {
-        --button-background: rgb(var(--primary-7));
-        --button-background-hover: rgb(var(--primary-8));
-        --button-background-active: rgb(var(--primary-9));
-        --button-foreground: rgb(var(--primary-0));
-        --button-icon: rgb(var(--primary-0));
-        --button-stroke: rgb(var(--primary-8));
-
-        --spinner-track: rgb(var(--primary-8));
-        --spinner-value: rgb(var(--primary-0));
-
-        box-shadow: 0 1px 1px rgb(var(--primary-7) / .25);
-    }
-
-    [dark] .flux-primary-button {
-        --button-stroke: rgb(var(--primary-6) / .5);
-    }
-</style>

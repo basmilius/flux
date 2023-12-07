@@ -1,3 +1,4 @@
+import { createHash } from 'crypto';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import autoprefixer from 'autoprefixer';
@@ -25,6 +26,19 @@ export default defineConfig({
         sourcemap: true
     },
     css: {
+        modules: {
+            localsConvention: 'camelCaseOnly',
+            generateScopedName(name, filename) {
+                filename = filename.split('?')[0];
+
+                const hash = createHash('sha1')
+                    .update(name + filename)
+                    .digest('base64url')
+                    .substring(0, 4);
+
+                return `_${hash}`;
+            }
+        },
         postcss: {
             plugins: [
                 autoprefixer({})
