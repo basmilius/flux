@@ -1,7 +1,5 @@
 <template>
-    <nav
-        class="flux-menu-group"
-        :class="{'is-horizontal': isHorizontal}">
+    <nav :class="isHorizontal ? styles.menuGroupHorizontal : styles.menuGroupVertical">
         <slot/>
     </nav>
 </template>
@@ -9,26 +7,11 @@
 <script
     lang="ts"
     setup>
+    import styles from '@/css/components/Menu.module.scss';
+
     export interface Props {
         readonly isHorizontal?: boolean;
     }
 
     defineProps<Props>();
 </script>
-
-<style lang="scss">
-    .flux-menu-group {
-        display: flex;
-        flex-flow: column;
-        gap: 1px;
-
-        &.is-horizontal {
-            flex-flow: row;
-            gap: 3px;
-        }
-
-        > .flux-form-input {
-            margin-bottom: 9px;
-        }
-    }
-</style>

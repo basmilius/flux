@@ -14,7 +14,7 @@
                 label="Menu item 3"/>
         </flux-menu-group>
 
-        <flux-separator/>
+        <flux-divider/>
 
         <flux-menu-group>
             <flux-menu-item
@@ -32,9 +32,9 @@
     lang="ts"
     setup>
     import {
+        FluxDivider,
         FluxMenu,
         FluxMenuGroup,
-        FluxMenuItem,
-        FluxSeparator
+        FluxMenuItem
     } from '@fancee/flux';
 </script>

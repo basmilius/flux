@@ -85,10 +85,8 @@
     box-shadow: 0 1px 1px rgb(var(--primary-7) / .25);
     color: rgb(var(--primary-0));
 
-    @media (hover: hover) {
-        &:hover {
-            background: rgb(var(--primary-8));
-        }
+    &:hover {
+        background: rgb(var(--primary-8));
     }
 
     &:active {
@@ -125,10 +123,8 @@
     border-color: rgb(var(--gray-4) / .75);
     color: var(--foreground);
 
-    @media (hover: hover) {
-        &:hover {
-            background: rgb(var(--gray-2));
-        }
+    &:hover {
+        background: rgb(var(--gray-2));
     }
 
     &:active {
@@ -153,10 +149,8 @@
     border-color: rgb(var(--gray-4) / .75);
     color: var(--foreground);
 
-    @media (hover: hover) {
-        &:hover {
-            background: rgb(var(--gray-2));
-        }
+    &:hover {
+        background: rgb(var(--gray-2));
     }
 
     &:active {
@@ -194,13 +188,11 @@
 
     @include mixin.focus-ring(6px);
 
-    @media (hover: hover) {
-        &:hover {
-            color: rgb(var(--primary-10));
+    &:hover {
+        color: rgb(var(--primary-10));
 
-            .linkIcon {
-                transform: translate3d(6px, 0, 0);
-            }
+        .linkIcon {
+            transform: translate3d(6px, 0, 0);
         }
     }
 }

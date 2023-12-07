@@ -18,9 +18,7 @@
     defineProps<Props>();
 </script>
 
-<style
-    lang="scss"
-    module>
+<style module>
     .apiSection {
         display: flex;
         flex-flow: column;

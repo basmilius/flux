@@ -1,24 +1,23 @@
 <template>
     <BaseButton
-        class="flux-menu-item"
-        :class="{
-            'is-active': isActive,
-            'is-destructive': isDestructive,
-            'is-highlighted': isHighlighted,
-            'is-indented': isIndented,
-            'is-selected': isSelectable && isSelected
-        }"
         v-bind="{type, disabled, iconAfter, iconBefore, isLoading, label, href, rel, target, to}"
-        :css-class="styles.destructiveButton"
-        :css-class-icon="styles.destructiveButtonIcon"
-        :css-class-label="styles.destructiveButtonLabel"
+        :class="{
+            [styles.menuItemActive]: isActive,
+            [styles.menuItemDestructive]: isDestructive,
+            [styles.menuItemHighlighted]: isHighlighted,
+            [styles.menuItemIndented]: isIndented,
+            [styles.menuItemSelected]: isSelectable && isSelected
+        }"
+        :css-class="styles.menuItem"
+        :css-class-icon="styles.menuItemIcon"
+        :css-class-label="styles.menuItemLabel"
         tabindex="0"
         @click="$emit('click', $event)">
         <template
             v-if="isSelectable"
             #icon-before>
             <FluxIcon
-                class="flux-button-icon flux-menu-item-selectable-icon"
+                :class="styles.menuItemSelectableIcon"
                 :variant="isSelected ? 'circle-check' : 'flux-empty'"/>
         </template>
 
@@ -26,7 +25,7 @@
             v-else-if="imageUrl"
             #icon-before>
             <img
-                class="flux-menu-item-image"
+                :class="styles.menuItemImage"
                 :src="imageUrl"
                 alt=""/>
         </template>
@@ -36,13 +35,13 @@
             #after>
             <kbd
                 v-if="command"
-                class="flux-menu-item-command">
+                :class="styles.menuItemCommand">
                 {{ command }}
             </kbd>
 
             <FluxIcon
                 v-if="commandIcon"
-                class="flux-button-icon flux-menu-item-command-icon"
+                :class="styles.menuItemCommandIcon"
                 :variant="commandIcon"/>
         </template>
     </BaseButton>
@@ -54,7 +53,7 @@
     import type { FluxRoutingLocation, IconNames } from '@/data';
     import { BaseButton } from './primitive';
     import FluxIcon from './FluxIcon.vue';
-    import styles from '@/css/components/Button.module.scss';
+    import styles from '@/css/components/Menu.module.scss';
 
     // note: It is currently not possible to reuse Emits and Props from
     //  base button, because of a limitation of vite and vue compiler-sfc.
@@ -93,159 +92,3 @@
         type: 'link'
     });
 </script>
-
-<style lang="scss">
-    .flux-menu-item {
-        --button-background: transparent;
-        --button-background-hover: rgb(var(--gray-2));
-        --button-background-active: rgb(var(--gray-3));
-        --button-foreground: var(--foreground);
-        --button-icon: var(--foreground-prominent);
-        --button-stroke: transparent;
-
-        height: unset;
-        min-height: 42px;
-        padding: 6px 12px;
-        gap: 15px;
-        justify-content: start;
-        border: 0;
-        box-shadow: none;
-        text-align: left;
-
-        span {
-            flex-grow: 1;
-            font-weight: 400;
-            text-align: left;
-            transition: inherit;
-            transition-property: color, font-weight;
-
-            &:only-child {
-                margin-left: 0;
-                margin-right: 0;
-                min-width: unset;
-            }
-        }
-
-        &.is-active,
-        &.is-highlighted {
-            --button-background-hover: var(--button-background);
-            --button-background-active: var(--button-background);
-        }
-
-        &.is-active {
-            --button-background: rgb(var(--primary-7));
-            --button-foreground: rgb(var(--primary-1));
-            --button-icon: rgb(var(--primary-0));
-        }
-
-        &.is-destructive {
-            --button-foreground: rgb(var(--danger-8));
-            --button-icon: rgb(var(--danger-7));
-        }
-
-        &.is-highlighted {
-            --button-background: rgb(var(--primary-2));
-            --button-foreground: rgb(var(--primary-7));
-            --button-icon: rgb(var(--primary-8));
-        }
-
-        &.is-indented {
-            margin-left: 33px;
-        }
-
-        &.is-selected &-selectable-icon {
-            color: rgb(var(--primary-7));
-        }
-
-        .flux-button-icon:not(&-command-icon) {
-            font-size: 18px;
-        }
-
-        &-command {
-            margin-left: auto;
-            padding-left: 21px;
-            flex-grow: 0;
-            color: var(--foreground-secondary);
-            font: inherit;
-            font-size: 14px;
-            white-space: nowrap;
-
-            &-icon {
-                margin-right: -6px;
-                color: var(--foreground-secondary);
-                font-size: 16px;
-            }
-
-            & + &-icon {
-                margin-left: -9px;
-            }
-        }
-
-        &-image {
-            margin-left: -3px;
-            height: 20px;
-            width: 20px;
-        }
-
-        &.is-active &-command {
-            color: rgb(var(--primary-4));
-        }
-
-        @at-root .flux-menu.is-large & {
-            position: relative;
-            padding-left: 15px;
-            padding-right: 15px;
-            color: var(--foreground-prominent);
-
-            &::after {
-                position: absolute;
-                display: block;
-                top: 12px;
-                right: 12px;
-                bottom: 12px;
-                width: 4px;
-                content: '';
-                background: rgb(var(--primary-7));
-                border-radius: 99px;
-                opacity: 0;
-                transition: opacity 180ms var(--swift-out);
-            }
-
-            &.is-active {
-                &.is-indented {
-                    background: rgb(var(--gray-3));
-
-                    span {
-                        color: var(--foreground-prominent);
-                    }
-                }
-
-                &::after {
-                    opacity: 1;
-                }
-            }
-
-            &:not(.is-indented) {
-                height: 48px;
-
-                &::after {
-                    background: rgb(var(--primary-0));
-                }
-
-                &.is-active {
-                    &::after {
-                        opacity: 1;
-                    }
-
-                    span {
-                        color: rgb(var(--primary-0));
-                    }
-                }
-            }
-        }
-    }
-
-    [dark] .flux-menu-item.is-highlighted {
-        --button-background: rgb(var(--primary-11) / .5);
-    }
-</style>

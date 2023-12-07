@@ -7,10 +7,8 @@
     border-color: transparent;
     color: var(--foreground);
 
-    @media (hover: hover) {
-        &:hover {
-            background: rgb(var(--gray-2));
-        }
+    &:hover {
+        background: rgb(var(--gray-2));
     }
 
     &:active {

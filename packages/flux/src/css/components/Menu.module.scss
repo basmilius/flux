@@ -1,6 +1,7 @@
 @value surface from 'base/Surface.module.scss';
 @value button, buttonIcon, buttonLabel from 'Button.module.scss';
 @value divider from 'Divider.module.scss';
+@value expandableBody from 'Expandable.module.scss';
 
 .menu {
     display: flex;
@@ -51,10 +52,8 @@
     color: var(--foreground);
     text-align: left;
 
-    @media (hover: hover) {
-        &:hover {
-            background: rgb(var(--gray-2));
-        }
+    &:hover {
+        background: rgb(var(--gray-2));
     }
 
     &:active {
@@ -87,10 +86,8 @@
 
 .menuItemActive,
 .menuItemHighlighted {
-    @media (hover: hover) {
-        &:hover {
-            background: transparent;
-        }
+    &:hover {
+        background: transparent;
     }
 
     &:active {
@@ -122,6 +119,10 @@
     .menuItemIcon {
         color: rgb(var(--primary-8));
     }
+}
+
+[dark] .menuItemHighlighted {
+    background: rgb(var(--primary-11) / .5);
 }
 
 .menuItemIndented {
@@ -242,19 +243,34 @@
     margin-bottom: -9px;
 }
 
-.basePane > .menu {
-    margin-left: 12px;
-    margin-right: 12px;
+.surface > .menu {
+    margin-left: 9px;
+    margin-right: 9px;
 
     &:first-child {
-        margin-top: 12px;
+        margin-top: 9px;
     }
 
     &:last-child {
-        margin-bottom: 12px;
+        margin-bottom: 9px;
     }
 
     .divider {
-        margin: 3px -12px;
+        margin-left: -9px;
+        margin-right: -9px;
+    }
+}
+
+.expandableBody > .menu {
+    margin-left: 9px;
+    margin-right: 9px;
+
+    &:last-child {
+        margin-bottom: 9px;
+    }
+
+    > .divider {
+        margin-left: 21px;
+        margin-right: 21px;
     }
 }

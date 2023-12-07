@@ -16,16 +16,16 @@ export default defineConfig(({mode}) => ({
     css: {
         modules: {
             localsConvention: 'camelCaseOnly',
-            generateScopedName(name, filename) {
-                filename = filename.split('?')[0];
-
-                const hash = createHash('sha1')
-                    .update(name + filename)
-                    .digest('base64url')
-                    .substring(0, 4);
-
-                return `_${hash}`;
-            }
+            // generateScopedName(name, filename) {
+            //     filename = filename.split('?')[0];
+            //
+            //     const hash = createHash('sha1')
+            //         .update(name + filename)
+            //         .digest('base64url')
+            //         .substring(0, 4);
+            //
+            //     return `_${hash}`;
+            // }
         }
     },
     plugins: [vue()],
