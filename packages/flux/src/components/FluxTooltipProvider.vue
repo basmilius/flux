@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { computed, defineComponent, h, MaybeRef, ref, unref } from 'vue';
+    import { Comment, computed, defineComponent, h, MaybeRef, ref, unref, VNode } from 'vue';
     import { useBreakpoints } from '@/composables';
     import { useFluxStore } from '@/data';
     import { FluxTooltipTransition } from '@/transition';
@@ -20,7 +20,7 @@
 
             const elementRef = ref<HTMLElement | null>(null);
 
-            const content = computed(() => tooltip.value ? tooltip.value!.contentSlot!?.() ?? [tooltip.value!.content] : null);
+            const content = computed<VNode[]>(() => tooltip.value ? tooltip.value!.contentSlot!?.() ?? [tooltip.value!.content] : null);
             const has = computed(() => !!tooltip.value);
             const position = computed<TooltipPositionData | null>(() => {
                 const spec = unref(tooltip);
@@ -56,91 +56,15 @@
                 }
             });
 
-            function calculateHorizontalPosition(top: number, left: number, width: number, height: number, originWidth: number, originHeight: number, margin: number, safeZone: number): TooltipPositionData {
-                let x, y, arrowAngle, arrowX, arrowY, transition: TooltipPositionData['transition'];
-
-                if (left > innerWidth / 2) {
-                    x = left - width - margin;
-                    y = top + originHeight / 2 - height / 2;
-                    arrowAngle = '315deg';
-                    arrowX = '100%';
-                    arrowY = '50%';
-                    transition = 'start';
-                } else {
-                    x = left + originWidth + margin;
-                    y = top + originHeight / 2 - height / 2;
-                    arrowAngle = '135deg';
-                    arrowX = '0';
-                    arrowY = '50%';
-                    transition = 'end';
-                }
-
-                if (y + height > innerHeight - safeZone) {
-                    const diff = Math.min(y, innerHeight - height - safeZone) - y;
-                    arrowY = `calc(50% - ${diff}px)`;
-                    y += diff;
-                }
-
-                if (y < safeZone) {
-                    const diff = Math.max(y, safeZone) - y;
-                    arrowY = `calc(50% - ${diff}px)`;
-                    y += diff;
-                }
-
-                return {
-                    x: Math.round(x),
-                    y: Math.round(y),
-                    arrowAngle,
-                    arrowX,
-                    arrowY,
-                    transition
-                };
-            }
-
-            function calculateVerticalPosition(top: number, left: number, width: number, height: number, originWidth: number, originHeight: number, margin: number, safeZone: number): TooltipPositionData {
-                let x, y, arrowAngle, arrowX, arrowY, transition: TooltipPositionData['transition'];
-
-                if (top > 300) {
-                    x = left + originWidth / 2 - width / 2;
-                    y = top - height - margin;
-                    arrowAngle = '45deg';
-                    arrowX = '50%';
-                    arrowY = '100%';
-                    transition = 'above';
-                } else {
-                    x = left + originWidth / 2 - width / 2;
-                    y = top + originHeight + margin;
-                    arrowAngle = '225deg';
-                    arrowX = '50%';
-                    arrowY = '0';
-                    transition = 'below';
-                }
-
-                if (x + width > innerWidth - safeZone) {
-                    const diff = Math.min(x, innerWidth - width - safeZone) - x;
-                    arrowX = `calc(50% - ${diff}px)`;
-                    x += diff;
-                }
-
-                if (x < safeZone) {
-                    const diff = Math.max(x, safeZone) - x;
-                    arrowX = `calc(50% - ${diff}px)`;
-                    x += diff;
-                }
-
-                return {
-                    x: Math.round(x),
-                    y: Math.round(y),
-                    arrowAngle,
-                    arrowX,
-                    arrowY,
-                    transition
-                };
-            }
-
             return () => h(FluxTooltipTransition, {}, {
                 default: () => {
                     if (unref(breakpoints.isMobile) || !unref(has)) {
+                        return null;
+                    }
+
+                    const children = unref(content).filter(v => v.type !== Comment);
+
+                    if (children.length === 0) {
                         return null;
                     }
 
@@ -156,11 +80,95 @@
                             '--arrowX': pos?.arrowX ?? null,
                             '--arrowY': pos?.arrowY ?? null
                         }
-                    }, unref(content));
+                    }, children);
                 }
             });
         }
     });
+
+
+    function calculateHorizontalPosition(top: number, left: number, width: number, height: number, originWidth: number, originHeight: number, margin: number, safeZone: number): TooltipPositionData {
+        let x, y, arrowAngle, arrowX, arrowY, transition: TooltipPositionData['transition'];
+
+        if (left > innerWidth / 2) {
+            x = left - width - margin;
+            y = top + originHeight / 2 - height / 2;
+            arrowAngle = '315deg';
+            arrowX = '100%';
+            arrowY = '50%';
+            transition = 'start';
+        } else {
+            x = left + originWidth + margin;
+            y = top + originHeight / 2 - height / 2;
+            arrowAngle = '135deg';
+            arrowX = '0';
+            arrowY = '50%';
+            transition = 'end';
+        }
+
+        if (y + height > innerHeight - safeZone) {
+            const diff = Math.min(y, innerHeight - height - safeZone) - y;
+            arrowY = `calc(50% - ${diff}px)`;
+            y += diff;
+        }
+
+        if (y < safeZone) {
+            const diff = Math.max(y, safeZone) - y;
+            arrowY = `calc(50% - ${diff}px)`;
+            y += diff;
+        }
+
+        return {
+            x: Math.round(x),
+            y: Math.round(y),
+            arrowAngle,
+            arrowX,
+            arrowY,
+            transition
+        };
+    }
+
+    function calculateVerticalPosition(top: number, left: number, width: number, height: number, originWidth: number, originHeight: number, margin: number, safeZone: number): TooltipPositionData {
+        let x, y, arrowAngle, arrowX, arrowY, transition: TooltipPositionData['transition'];
+
+        if (top > 300) {
+            x = left + originWidth / 2 - width / 2;
+            y = top - height - margin;
+            arrowAngle = '45deg';
+            arrowX = '50%';
+            arrowY = '100%';
+            transition = 'above';
+        } else {
+            x = left + originWidth / 2 - width / 2;
+            y = top + originHeight + margin;
+            arrowAngle = '225deg';
+            arrowX = '50%';
+            arrowY = '0';
+            transition = 'below';
+        }
+
+        if (x + width > innerWidth - safeZone) {
+            const diff = Math.min(x, innerWidth - width - safeZone) - x;
+            arrowX = `calc(50% - ${diff}px)`;
+            x += diff;
+        }
+
+        if (x < safeZone) {
+            const diff = Math.max(x, safeZone) - x;
+            arrowX = `calc(50% - ${diff}px)`;
+            x += diff;
+        }
+
+        return {
+            x: Math.round(x),
+            y: Math.round(y),
+            arrowAngle,
+            arrowX,
+            arrowY,
+            transition
+        };
+    }
+
 </script>
 
 <style lang="scss">
