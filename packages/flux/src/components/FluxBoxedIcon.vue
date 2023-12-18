@@ -1,5 +1,9 @@
 <template>
-    <FluxSurface class="flux-icon-boxed">
+    <FluxSurface
+        class="flux-icon-boxed"
+        :style="{
+            '--size': `${size * 3}px`
+        }">
         <FluxIcon
             :size="size"
             :variant="variant"/>
@@ -18,7 +22,7 @@
     }
 
     export interface Props {
-        readonly size?: number | string;
+        readonly size?: number;
         readonly variant: IconNames;
     }
 
@@ -33,8 +37,8 @@
     scoped>
     .flux-icon-boxed {
         display: flex;
-        height: calc(v-bind(size) * 3px);
-        width: calc(v-bind(size) * 3px);
+        height: var(--size);
+        width: var(--size);
         align-items: center;
         justify-content: center;
         box-shadow: var(--shadow-sm);

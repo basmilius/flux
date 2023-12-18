@@ -6,7 +6,7 @@
             'is-done': isDone,
             'is-loading': isLoading
         }"
-        v-bind="{type, disabled, iconAfter, isLoading, label, size, to}"
+        :="{type, disabled, iconAfter, isLoading, label, size, to}"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)">

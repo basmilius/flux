@@ -1,5 +1,9 @@
 <template>
-    <div class="flux-aspect-ratio">
+    <div
+        class="flux-aspect-ratio"
+        :style="{
+            aspectRatio
+        }">
         <slot/>
     </div>
 </template>
@@ -17,7 +21,6 @@
 <style lang="scss">
     .flux-aspect-ratio {
         position: relative;
-        aspect-ratio: v-bind(aspectRatio);
         flex-shrink: 0;
 
         > * {

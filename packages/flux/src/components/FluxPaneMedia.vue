@@ -3,10 +3,16 @@
         class="flux-pane-media"
         :class="{
             'is-inset': isInset
+        }"
+        :style="{
+            '--span': span
         }">
         <img
             v-if="imageUrl"
             class="flux-pane-media-image"
+            :style="{
+                objectPosition: `${focalPointX}% ${focalPointY}%`
+            }"
             :src="imageUrl"
             :alt="imageAlt">
     </div>
@@ -49,7 +55,6 @@
             width: 100%;
             margin: 0;
             object-fit: cover;
-            object-position: calc(v-bind(focalPointX) * 1%) calc(v-bind(focalPointY) * 1%);
         }
     }
 
@@ -76,7 +81,7 @@
     }
 
     .flux-pane.is-grid > .flux-pane-media:not(.is-inset) {
-        grid-column: span v-bind(span);
+        grid-column: span var(--span);
 
         &:first-child {
             border-top-left-radius: var(--radius);

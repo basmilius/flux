@@ -3,7 +3,7 @@
         <router-link
             custom
             :to="to"
-            v-slot="ctx">
+            #default="ctx">
             <a
                 v-bind="$attrs"
                 :href="ensureRouterLinkProps(ctx).href"

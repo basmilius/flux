@@ -4,8 +4,8 @@
         :class="{
             'is-destructive': destructive
         }"
+        :="{disabled, isLoading, label, href, rel, target, to, type}"
         :icon-before="icon"
-        v-bind="{disabled, isLoading, label, href, rel, target, to, type}"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)"/>

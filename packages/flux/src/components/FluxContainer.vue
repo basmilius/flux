@@ -1,5 +1,10 @@
 <template>
-    <div class="flux-container">
+    <div
+        class="flux-container"
+        :style="{
+            '--gutter': `${gutter}px`,
+            maxWidth: `${maxWidth}px`
+        }">
         <slot/>
     </div>
 </template>
@@ -24,9 +29,8 @@
     .flux-container {
         margin-left: auto;
         margin-right: auto;
-        padding-left: calc(v-bind(gutter) * 1px);
-        padding-right: calc(v-bind(gutter) * 1px);
-        max-width: calc(v-bind(maxWidth) * 1px);
+        padding-left: var(--gutter);
+        padding-right: var(--gutter);
         width: 100%;
     }
 </style>

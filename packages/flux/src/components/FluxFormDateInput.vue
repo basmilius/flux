@@ -5,7 +5,7 @@
         <template #opener="{open}">
             <FluxFormInputGroup>
                 <FluxFormInput
-                    v-bind="{autoComplete, autoFocus, isDisabled, isReadonly, modelValue, placeholder}"
+                    :="{autoComplete, autoFocus, isDisabled, isReadonly, modelValue, placeholder}"
                     v-model="localValue"
                     class="flux-form-date-input"
                     type="date"

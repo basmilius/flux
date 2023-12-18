@@ -1,5 +1,9 @@
 <template>
-    <div class="flux-gridlines">
+    <div
+        class="flux-gridlines"
+        :style="{
+            '--size': `${size}px`
+        }">
         <slot/>
     </div>
 </template>
@@ -19,7 +23,6 @@
 <style lang="scss">
     .flux-gridlines {
         --grid: linear-gradient(to bottom, transparent calc(100% - 1px), black calc(100% - 1px)), linear-gradient(to right, transparent calc(100% - 1px), black calc(100% - 1px));
-        --size: calc(v-bind(size) * 1px);
 
         background: rgb(var(--gray-3));
 

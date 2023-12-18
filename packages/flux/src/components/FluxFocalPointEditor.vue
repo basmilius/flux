@@ -1,5 +1,5 @@
 <template>
-    <FluxPane>
+    <FluxPane :style="{'--aspect-ratio': aspectRatio}">
         <FluxFadeTransition mode="out-in">
             <FluxPaneBody
                 v-if="isPreviewing"
@@ -8,7 +8,8 @@
                     <div
                         class="flux-focal-point-preview-image"
                         :style="{
-                            'background-image': `url(${url})`
+                            backgroundImage: `url(${url})`,
+                            backgroundPosition: `${focalPointX}% ${focalPointY}%`
                         }"/>
                 </div>
             </FluxPaneBody>
@@ -27,7 +28,12 @@
                         alt=""
                         @load="onImageLoaded"/>
 
-                    <div class="flux-focal-point-editor-area"/>
+                    <div
+                        class="flux-focal-point-editor-area"
+                        :style="{
+                            top: `${focalPointY}%`,
+                            left: `${focalPointX}%`
+                        }"/>
                 </div>
             </FluxPaneBody>
         </FluxFadeTransition>
@@ -149,15 +155,13 @@
             margin-right: auto;
             max-height: 210px;
             max-width: 100%;
-            aspect-ratio: v-bind(aspectRatio);
+            aspect-ratio: var(--aspect-ratio);
             user-select: none;
 
             &-area {
                 position: absolute;
                 height: 42px;
                 width: 42px;
-                top: calc(v-bind(focalPointY) * 1%);
-                left: calc(v-bind(focalPointX) * 1%);
                 background: rgb(0 0 0 / .1);
                 border: 4px solid white;
                 border-radius: 99px;
@@ -192,7 +196,6 @@
                 bottom: -50%;
                 max-height: 210px;
                 max-width: 100%;
-                background-position: calc(v-bind(focalPointX) * 1%) calc(v-bind(focalPointY) * 1%);
                 background-size: cover;
                 border-radius: var(--radius);
                 box-shadow: var(--shadow-lg);
@@ -204,7 +207,7 @@
 
     @keyframes flux-focal-point-preview {
         0% {
-            aspect-ratio: v-bind(aspectRatio);
+            aspect-ratio: var(--aspect-ratio);
         }
 
         20% {
@@ -224,7 +227,7 @@
         }
 
         100% {
-            aspect-ratio: v-bind(aspectRatio);
+            aspect-ratio: var(--aspect-ratio);
         }
     }
 </style>

@@ -1,13 +1,13 @@
 <template>
     <BaseButton
         class="flux-secondary-button"
-        v-bind="{type, disabled, iconAfter, iconBefore, isLoading, isSubmit, label, size, href, rel, target, to}"
+        :="{type, disabled, iconAfter, iconBefore, isLoading, isSubmit, label, size, href, rel, target, to}"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)">
         <template
             v-for="(_, slot) of slots"
-            v-slot:[slot]="scope">
+            #[slot]="scope">
             <slot
                 :name="slot"
                 v-bind="scope"/>

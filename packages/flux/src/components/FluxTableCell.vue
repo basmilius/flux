@@ -8,7 +8,11 @@
             'is-striped': isStriped
         }">
         <slot name="content">
-            <div class="flux-table-cell-content">
+            <div
+                class="flux-table-cell-content"
+                :style="{
+                    flexFlow: contentDirection
+                }">
                 <slot/>
             </div>
         </slot>
@@ -48,7 +52,6 @@
                 height: 100%;
                 padding: 12px 15px;
                 align-items: flex-start;
-                flex-flow: v-bind(contentDirection);
             }
 
             @-moz-document url-prefix() {

@@ -1,6 +1,11 @@
 <template>
     <div class="flux-slider-track">
-        <div class="flux-slider-track-value"/>
+        <div
+            class="flux-slider-track-value"
+            :style="{
+                left: `${percentageLower * 100}%`,
+                width: `${(percentageUpper - percentageLower) * 100}%`
+            }"/>
         <slot/>
     </div>
 </template>
@@ -27,9 +32,7 @@
             position: absolute;
             display: block;
             top: 0;
-            left: calc(v-bind(percentageLower) * 100%);
             height: inherit;
-            width: calc(v-bind(percentageUpper) * 100% - v-bind(percentageLower) * 100%);
             background: rgb(var(--primary-7));
             border-radius: inherit;
         }

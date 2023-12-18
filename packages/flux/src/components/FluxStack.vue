@@ -9,6 +9,9 @@
             'is-fill': isFill,
             'is-growing': isGrowing,
             'is-wrapping': isWrapping
+        }"
+        :style="{
+            gap: `${gap}px`
         }">
         <slot/>
     </Component>
@@ -36,7 +39,6 @@
 <style lang="scss">
     .flux-stack {
         display: flex;
-        gap: calc(v-bind(gap) * 1px);
 
         &.is-horizontal {
             flex-flow: row;

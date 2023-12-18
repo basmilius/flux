@@ -1,5 +1,9 @@
 <template>
-    <div class="flux-grid-column">
+    <div
+        class="flux-grid-column"
+        :style="{
+            gridColumn: `span ${span}`
+        }">
         <slot/>
     </div>
 </template>
@@ -47,7 +51,6 @@
 <style lang="scss">
     .flux-grid-column {
         display: grid;
-        grid-column: span v-bind(span);
         grid-template-columns: 1fr;
     }
 </style>

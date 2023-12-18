@@ -5,6 +5,9 @@
             'is-bordered': isBordered,
             'is-shrinking': isShrinking,
             'is-sticky': isSticky
+        }"
+        :style="{
+            minWidth: `${minWidth}px`
         }">
         <div class="flux-table-cell-content flux-table-header-content">
             <slot/>
@@ -104,7 +107,6 @@
 
 <style lang="scss">
     .flux-table-header {
-        min-width: calc(v-bind(minWidth) * 1px);
         border-bottom: 2px solid rgb(var(--gray-4) / .75);
         color: var(--foreground-prominent);
         font-size: 14px;

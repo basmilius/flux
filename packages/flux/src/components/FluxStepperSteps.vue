@@ -1,7 +1,10 @@
 <template>
     <div
         ref="elementRef"
-        class="flux-stepper-steps">
+        class="flux-stepper-steps"
+        :style="{
+            '--progress': progress
+        }">
         <template
             v-for="step of amount"
             :key="step">
@@ -64,8 +67,6 @@
     @use '../css/mixin' as flux;
 
     .flux-stepper-steps {
-        --progress: v-bind(progress);
-
         position: relative;
         display: flex;
         align-items: center;
