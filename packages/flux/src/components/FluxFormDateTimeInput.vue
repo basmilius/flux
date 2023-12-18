@@ -39,15 +39,6 @@
     </FluxStack>
 </template>
 
-<script lang="ts">
-    export default {
-        model: {
-            prop: 'model-value',
-            event: 'update:model-value'
-        }
-    };
-</script>
-
 <script
     lang="ts"
     setup>
