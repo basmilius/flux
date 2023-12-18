@@ -6,8 +6,8 @@
         id="flux-snackbars">
         <FluxSnackbar
             v-for="snackbar of snackbars"
-            v-bind="snackbar"
             :key="snackbar.id"
+            :="snackbar"
             is-rendered
             @action="onAction(snackbar)"
             @close="() => snackbar.onClose?.()"/>

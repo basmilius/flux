@@ -9,7 +9,7 @@
             'is-selected': isSelectable && isSelected
         }"
         tabindex="0"
-        v-bind="{type, disabled, iconAfter, iconBefore, isLoading, label, href, rel, target, to}"
+        :="{type, disabled, iconAfter, iconBefore, isLoading, label, href, rel, target, to}"
         @click="$emit('click', $event)">
         <template
             v-if="isSelectable"

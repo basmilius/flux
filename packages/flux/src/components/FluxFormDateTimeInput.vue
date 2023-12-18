@@ -9,7 +9,7 @@
             <template #opener="{open}">
                 <FluxFormInputGroup>
                     <FluxFormInput
-                        v-bind="{autoFocus, isDisabled, isReadonly, modelValue, placeholder}"
+                        :="{autoFocus, isDisabled, isReadonly, modelValue, placeholder}"
                         class="flux-form-date-input"
                         type="date"
                         :model-value="localValue"
@@ -31,7 +31,7 @@
         </FluxFlyout>
 
         <FluxFormInput
-            v-bind="{isDisabled, isReadonly, modelValue, placeholder}"
+            :="{isDisabled, isReadonly, modelValue, placeholder}"
             class="flux-form-date-input flux-form-time-input"
             type="time"
             :model-value="localValue"
