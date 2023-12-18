@@ -13,7 +13,9 @@
             <slot name="footer"/>
             </tfoot>
 
-            <caption v-if="slots.caption">
+            <caption
+                v-if="slots.caption"
+                :style="{captionSide}">
                 <slot name="caption"/>
             </caption>
         </table>
@@ -69,7 +71,6 @@
         }
 
         caption {
-            caption-side: v-bind(captionSide);
             color: var(--foreground-secondary);
             font-size: 14px;
             text-align: left;

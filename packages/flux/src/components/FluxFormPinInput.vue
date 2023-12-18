@@ -3,6 +3,9 @@
         class="flux-form-pin-input"
         :class="{
             'is-disabled': isDisabled
+        }"
+        :style="{
+            '--max-length': maxLength
         }">
         <input
             v-for="field of maxLength"
@@ -128,7 +131,7 @@
         display: grid;
         width: min-content;
         gap: .4ch;
-        grid-template-columns: repeat(v-bind(maxLength), 1fr);
+        grid-template-columns: repeat(var(--max-length), 1fr);
         font-size: 24px;
         font-weight: 700;
 

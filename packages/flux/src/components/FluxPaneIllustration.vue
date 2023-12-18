@@ -3,8 +3,15 @@
         class="flux-pane-illustration"
         :class="{
             'is-masked': isMasked
+        }"
+        :style="{
+            aspectRatio
         }">
-        <div class="flux-pane-illustration-magic">
+        <div
+            class="flux-pane-illustration-magic"
+            :style="{
+                border: `1px solid ${borderColor}`
+            }">
             <FluxAnimatedColors
                 class="flux-gridlines flux-pane-illustration-canvas"
                 :colors="animatedColors"
@@ -30,7 +37,6 @@
     lang="ts"
     setup>
     import { computed, toRefs, unref, useSlots } from 'vue';
-    import { useComponentId } from '@/composables';
     import { hexToRGB } from '@/utils';
     import FluxAnimatedColors from './FluxAnimatedColors.vue';
 
@@ -50,7 +56,6 @@
     });
     const {animatedColors} = toRefs(props);
 
-    const id = useComponentId();
     const slots = useSlots();
 
     const borderColor = computed(() => {
@@ -74,7 +79,6 @@
         --mask-content: linear-gradient(to bottom, black, rgb(0 0 0 / .75), transparent);
 
         position: relative;
-        aspect-ratio: v-bind(aspectRatio);
         border-radius: calc(var(--radius) - 1px);
 
         &:not(:first-child) {
@@ -105,7 +109,6 @@
         &-magic {
             position: absolute;
             inset: -1px;
-            border: 1px solid v-bind(borderColor);
             border-radius: inherit;
         }
 

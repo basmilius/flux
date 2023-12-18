@@ -5,6 +5,9 @@
             'is-disabled': isDisabled,
             'is-dragging': isDragging
         }"
+        :style="{
+            left: `${position * 100}%`
+        }"
         :tabindex="isDisabled ? -1 : 0"
         type="button"
         @keydown="onKeyDown"
@@ -64,7 +67,6 @@
     .flux-slider-thumb {
         position: absolute;
         top: 50%;
-        left: calc(v-bind(position) * 100%);
         height: 24px;
         width: 24px;
         padding: 0;

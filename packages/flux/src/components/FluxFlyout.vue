@@ -1,7 +1,14 @@
 <template>
     <div
         ref="mountRef"
-        class="flux-flyout">
+        class="flux-flyout"
+        :style="{
+            '--opener-width': `${openerWidth}px`,
+            '--pane-mx': `${paneMarginX}px`,
+            '--pane-my': `${paneMarginY}px`,
+            '--pane-x': `${paneX - 12}px`,
+            '--pane-y': `${paneY - 12}px`
+        }">
         <slot
             name="opener"
             v-bind="{close, open, toggle}"/>
@@ -19,6 +26,9 @@
                     'is-auto-width': isAutoWidth,
                     'is-closing': isClosing,
                     'is-opening': isOpening
+                }"
+                :style="{
+                    width: `${width}px`
                 }">
                 <slot v-bind="{close, paneX, paneY, openerWidth, openerHeight}"/>
             </FluxPane>
@@ -184,8 +194,8 @@
         display: contents;
 
         &-dialog {
-            top: calc(v-bind(paneY) * 1px - 12px);
-            left: calc(v-bind(paneX) * 1px - 12px);
+            top: var(--pane-y);
+            left: var(--pane-x);
             margin: 0;
             padding: 12px;
             background: unset;
@@ -198,13 +208,12 @@
 
         &-pane {
             max-height: calc(100dvh - 120px);
-            width: calc(v-bind(width) * 1px);
             box-shadow: var(--shadow-md);
             overflow: auto;
-            transform: translate3d(calc(v-bind(paneMarginX) * 1px), calc(v-bind(paneMarginY) * 1px), 0);
+            transform: translate3d(var(--pane-mx), var(--pane-my), 0);
 
             &.is-auto-width {
-                width: calc(v-bind(openerWidth) * 1px);
+                width: var(--opener-width);
             }
 
             &.is-closing {
@@ -215,35 +224,6 @@
                 animation: flux-flyout-open 210ms var(--deceleration-curve) both;
             }
         }
-
-        //@include media-breakpoint-down(md) {
-        //    &-dialog {
-        //        top: unset;
-        //        left: 0;
-        //        right: 0;
-        //        bottom: 0;
-        //        padding: 0;
-        //        max-width: unset;
-        //        width: 100%;
-        //    }
-        //
-        //    &-pane.flux-pane {
-        //        width: unset;
-        //        border-left: 0;
-        //        border-right: 0;
-        //        border-bottom: 0;
-        //        border-radius: 0;
-        //        translate: 0 0;
-        //
-        //        &.is-closing {
-        //            animation: flux-flyout-mobile-close 300ms var(--swift-out) both;
-        //        }
-        //
-        //        &.is-opening {
-        //            animation: flux-flyout-mobile-open 300ms var(--deceleration-curve) both;
-        //        }
-        //    }
-        //}
     }
 
     @keyframes flux-flyout-close {

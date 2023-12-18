@@ -1,11 +1,17 @@
 <template>
-    <FluxStack class="flux-progress-bar">
+    <FluxStack
+        class="flux-progress-bar"
+        :gap="6">
         <div
             class="flux-progress-bar-track"
             :class="{
                 'is-indeterminate': isIndeterminate
             }">
-            <div class="flux-progress-bar-value"/>
+            <div
+                class="flux-progress-bar-value"
+                :style="{
+                    width: `${isIndeterminate ? 100 : position * 100}%`
+                }"/>
         </div>
 
         <div
@@ -73,7 +79,6 @@
 <style lang="scss">
     .flux-progress-bar {
         position: relative;
-        gap: 6px;
 
         &-info {
             display: flex;
@@ -109,14 +114,13 @@
             top: 0;
             left: 0;
             height: inherit;
-            width: calc(v-bind(position) * 100%);
             background: linear-gradient(to right, rgb(var(--primary-8)) 20%, rgb(var(--primary-6)), rgb(var(--primary-8)) 80%);
             background-size: 150px 100%;
+            border-radius: inherit;
             animation: flux-progress-bar-value 1s linear infinite;
         }
 
         &-track.is-indeterminate &-value {
-            width: 100%;
             background: linear-gradient(to right, rgb(var(--primary-8)) 20%, rgb(var(--primary-6)), rgb(var(--primary-8)) 80%);
             background-size: 90px 100%;
             animation: flux-progress-bar-indeterminate 1s linear infinite;

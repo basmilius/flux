@@ -1,7 +1,10 @@
 <template>
     <svg
         class="flux-spinner"
-        viewBox="0 0 24 24">
+        viewBox="0 0 24 24"
+        :style="{
+            fontSize: `${size}px`
+        }">
         <circle
             class="flux-spinner-track"
             cx="12"
@@ -58,7 +61,6 @@
         width: 1em;
         flex-grow: 0;
         flex-shrink: 0;
-        font-size: calc(v-bind(size) * 1px);
         animation: spinner 5s linear infinite;
 
         &-track {

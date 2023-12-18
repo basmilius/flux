@@ -2,17 +2,17 @@
     <svg
         :viewBox="`0 0 ${width} ${height}`"
         class="flux-icon"
+        :style="{
+            fontSize: `${size}px`
+        }"
         focusable="false"
         role="img"
         aria-hidden="true"
         @click="onClick">
-        <template
-            v-for="(path, index) in paths"
-            :key="index">
-            <path
-                :d="path"
-                fill="currentColor"/>
-        </template>
+        <path
+            v-for="path in paths"
+            :d="path"
+            fill="currentColor"/>
     </svg>
 </template>
 
@@ -64,7 +64,6 @@
         display: inline-block;
         height: 1em;
         width: 1em;
-        font-size: calc(v-bind(size) * 1px);
         line-height: 1em;
     }
 </style>

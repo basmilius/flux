@@ -1,5 +1,9 @@
 <template>
-    <div class="flux-divider">
+    <div
+        class="flux-divider"
+        :style="{
+            justifyItems: contentPlacement
+        }">
         <div
             v-if="$slots.default"
             class="flux-divider-content">
@@ -30,7 +34,6 @@
         display: grid;
         margin: 18px 0;
         align-items: center;
-        justify-items: v-bind(contentPlacement);
         contain: paint;
 
         &-content {

@@ -43,7 +43,11 @@
             <FluxPane
                 v-if="!isDisabled && popupOpen"
                 ref="popupElement"
-                class="flux-form-select-popup">
+                class="flux-form-select-popup"
+                :style="{
+                    top: `${popupY}px`,
+                    width: `${popupWidth}px`
+                }">
                 <FluxFormInput
                     v-if="isSearchable"
                     v-model="searchQuery"
@@ -455,9 +459,7 @@
         & &-popup {
             position: absolute;
             display: block;
-            top: calc(v-bind(popupY) * 1px);
             left: 0;
-            width: calc(v-bind(popupWidth) * 1px);
             max-height: 330px;
             min-width: 120px;
             box-shadow: var(--shadow-md);

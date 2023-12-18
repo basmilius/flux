@@ -6,6 +6,9 @@
             'is-contained': isContained,
             'is-grid': !!columns && breakpoints.lg
         }"
+        :style="{
+            '--columns': columns
+        }"
         :href="href"
         :rel="rel"
         :target="target"
@@ -78,7 +81,7 @@
 
         &.is-grid {
             display: grid;
-            grid-template-columns: repeat(v-bind(columns), minmax(0, 1fr));
+            grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
         }
 
         &-overlay {

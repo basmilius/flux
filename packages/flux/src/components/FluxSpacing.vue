@@ -1,5 +1,9 @@
 <template>
-    <div class="flux-spacing"/>
+    <div
+        class="flux-spacing"
+        :style="{
+            flex: `0 0 ${size}px`
+        }"/>
 </template>
 
 <script
@@ -36,9 +40,3 @@
 
     const size = computed(() => spacings[props.size]);
 </script>
-
-<style lang="scss">
-    .flux-spacing {
-        flex: 0 0 calc(v-bind(size) * 1px);
-    }
-</style>

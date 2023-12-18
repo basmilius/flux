@@ -11,6 +11,9 @@
             ref="inputRef"
             v-model="internalValue"
             class="flux-form-input flux-quantity-selector-input"
+            :style="{
+                width: `${width}px`
+            }"
             tabindex="0"
             type="number"
             :max="max"
@@ -148,7 +151,6 @@
 
         &-input {
             margin: -1px 0;
-            width: calc(v-bind(width) * 1px);
             padding-left: 0;
             padding-right: 0;
             border-radius: 0;

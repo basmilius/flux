@@ -3,7 +3,12 @@
         ref="controlRef"
         class="flux-segmented-control"
         :class="{'is-fill': isFill}">
-        <div class="flux-segmented-control-highlight"/>
+        <div
+            class="flux-segmented-control-highlight"
+            :style="{
+                left: `${activeItemX}px`,
+                width: `${activeItemWidth}px`
+            }"/>
 
         <template v-for="(item, index) of items">
             <div
@@ -109,8 +114,6 @@
         &-highlight {
             position: absolute;
             top: 3px;
-            left: calc(v-bind(activeItemX) * 1px);
-            width: calc(v-bind(activeItemWidth) * 1px);
             background: rgb(var(--gray-0));
             border: 1px solid rgb(var(--gray-5) / .5);
             box-shadow: var(--shadow-sm);

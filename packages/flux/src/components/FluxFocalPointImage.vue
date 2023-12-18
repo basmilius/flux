@@ -1,6 +1,9 @@
 <template>
     <img
         class="flux-focal-point-image"
+        :style="{
+            objectPosition: `${x}% ${y}%`
+        }"
         :src="src"
         :alt="alt"/>
 </template>
@@ -29,6 +32,5 @@
 <style lang="scss">
     .flux-focal-point-image {
         object-fit: cover;
-        object-position: calc(v-bind(x) * 1%) calc(v-bind(y) * 1%);
     }
 </style>

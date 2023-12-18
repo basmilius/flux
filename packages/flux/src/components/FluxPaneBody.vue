@@ -4,6 +4,10 @@
         :class="{
             'is-content-centered': isContentCentered,
             'is-larger-padded': isLargerPadded
+        }"
+        :style="{
+            '--span': span,
+            gap: `${gap}px`
         }">
         <slot/>
     </div>
@@ -29,7 +33,6 @@
     .flux-pane-body {
         display: flex;
         flex-flow: column;
-        gap: calc(v-bind(gap) * 1px);
         padding: 21px;
 
         &.is-content-centered {
@@ -51,6 +54,6 @@
     }
 
     .flux-pane.is-grid > .flux-pane-body {
-        grid-column: span v-bind(span);
+        grid-column: span var(--span);
     }
 </style>

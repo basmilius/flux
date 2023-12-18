@@ -5,6 +5,10 @@
             'is-clickable': isClickable,
             'has-status': !!status
         }"
+        :style="{
+            '--color': color,
+            fontSize: `${size}px`
+        }"
         :aria-label="alt"
         role="img"
         @click="isClickable && $emit('click', $event)">
@@ -107,20 +111,16 @@
     });
 
     const color = computed(() => colors[unref(colorSeed) % colors.length]);
-    const sizePixels = computed(() => unref(size) + 'px');
 </script>
 
 <style lang="scss">
     .flux-avatar {
-        --color: v-bind(color);
-
         position: relative;
         display: inline-flex;
         height: 1em;
         width: 1em;
         flex: 0 0 auto;
         border-radius: .5em;
-        font-size: v-bind(sizePixels);
         user-select: none;
 
         &-image {
