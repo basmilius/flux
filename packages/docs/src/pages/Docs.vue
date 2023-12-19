@@ -43,7 +43,6 @@
                         type="route"/>
 
                     <FluxMenuItem
-                        disabled
                         :is-active="path === '/content/translations'"
                         label="Translations"
                         to="/content/translations"
@@ -185,13 +184,6 @@
                         :is-active="path === '/components/comment'"
                         label="Comment"
                         to="/components/comment"
-                        type="route"/>
-
-                    <FluxMenuItem
-                        :is-active="path === '/components/data-list'"
-                        disabled
-                        label="Data list"
-                        to="/components/data-list"
                         type="route"/>
 
                     <FluxMenuItem

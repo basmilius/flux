@@ -1,5 +1,3 @@
-@use '../mixin' as flux;
-
 :root {
     --radius: 9px;
 
@@ -9,7 +7,7 @@
     --foreground-secondary: rgb(var(--gray-6));
 }
 
-@include flux.dark-mode {
+[dark] {
     --background: rgb(var(--gray-2));
     --foreground: #cdd5df;
     --foreground-prominent: #ffffff;
