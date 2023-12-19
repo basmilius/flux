@@ -79,8 +79,16 @@
 </script>
 
 <style lang="scss">
-    .flux-action-bar .flux-form-input {
-        max-width: 240px;
+    @use '../css/mixin' as flux;
+
+    .flux-action-bar {
+        flex-wrap: wrap;
+    }
+
+    @include flux.breakpoint-up(sm) {
+        .flux-action-bar .flux-form-input {
+            max-width: 240px;
+        }
     }
 
     .flux-action-bar > .flux-separator {
