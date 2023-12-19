@@ -122,7 +122,7 @@
     import { getComponentName, getComponentProps } from '@/util';
     import { VNodeRenderer } from './primitive';
     import FluxActionBar from './FluxActionBar.vue';
-    import FluxFlyout from '@/component/FluxFlyout.vue';
+    import FluxFlyout from './FluxFlyout.vue';
     import FluxPane from './FluxPane.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
 

@@ -8,7 +8,7 @@
     setup
     lang="ts">
     import { VNode } from 'vue';
-    import { VNodeRenderer } from '@/component/primitive';
+    import { VNodeRenderer } from './primitive';
 
     export interface Props {
         readonly vnode?: VNode;
