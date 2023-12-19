@@ -60,8 +60,6 @@
 </script>
 
 <style lang="scss">
-    @use '../css/mixin' as flux;
-
     .flux-notice {
         display: flex;
         padding: 21px;
@@ -205,48 +203,46 @@
         }
     }
 
-    @include flux.dark-mode {
-        .flux-notice {
-            &.is-gray {
-                --notice-background: rgb(var(--gray-2));
-                --notice-foreground: var(--foreground);
-                --notice-foreground-prominent: var(--foreground-prominent);
-            }
+    [dark] .flux-notice {
+        &.is-gray {
+            --notice-background: rgb(var(--gray-2));
+            --notice-foreground: var(--foreground);
+            --notice-foreground-prominent: var(--foreground-prominent);
+        }
 
-            &.is-primary {
-                --notice-background: rgb(var(--primary-11) / .25);
-                --notice-foreground: rgb(var(--primary-4));
-                --notice-foreground-prominent: rgb(var(--primary-6));
-                --spinner-track: rgb(var(--primary-11));
-            }
+        &.is-primary {
+            --notice-background: rgb(var(--primary-11) / .25);
+            --notice-foreground: rgb(var(--primary-4));
+            --notice-foreground-prominent: rgb(var(--primary-6));
+            --spinner-track: rgb(var(--primary-11));
+        }
 
-            &.is-danger {
-                --notice-background: rgb(var(--danger-11) / .25);
-                --notice-foreground: rgb(var(--danger-4));
-                --notice-foreground-prominent: rgb(var(--danger-6));
-                --spinner-track: rgb(var(--danger-11));
-            }
+        &.is-danger {
+            --notice-background: rgb(var(--danger-11) / .25);
+            --notice-foreground: rgb(var(--danger-4));
+            --notice-foreground-prominent: rgb(var(--danger-6));
+            --spinner-track: rgb(var(--danger-11));
+        }
 
-            &.is-info {
-                --notice-background: rgb(var(--info-11) / .25);
-                --notice-foreground: rgb(var(--info-4));
-                --notice-foreground-prominent: rgb(var(--info-6));
-                --spinner-track: rgb(var(--info-11));
-            }
+        &.is-info {
+            --notice-background: rgb(var(--info-11) / .25);
+            --notice-foreground: rgb(var(--info-4));
+            --notice-foreground-prominent: rgb(var(--info-6));
+            --spinner-track: rgb(var(--info-11));
+        }
 
-            &.is-success {
-                --notice-background: rgb(var(--success-11) / .25);
-                --notice-foreground: rgb(var(--success-4));
-                --notice-foreground-prominent: rgb(var(--success-6));
-                --spinner-track: rgb(var(--success-11));
-            }
+        &.is-success {
+            --notice-background: rgb(var(--success-11) / .25);
+            --notice-foreground: rgb(var(--success-4));
+            --notice-foreground-prominent: rgb(var(--success-6));
+            --spinner-track: rgb(var(--success-11));
+        }
 
-            &.is-warning {
-                --notice-background: rgb(var(--warning-11) / .25);
-                --notice-foreground: rgb(var(--warning-4));
-                --notice-foreground-prominent: rgb(var(--warning-6));
-                --spinner-track: rgb(var(--warning-11));
-            }
+        &.is-warning {
+            --notice-background: rgb(var(--warning-11) / .25);
+            --notice-foreground: rgb(var(--warning-4));
+            --notice-foreground-prominent: rgb(var(--warning-6));
+            --spinner-track: rgb(var(--warning-11));
         }
     }
 

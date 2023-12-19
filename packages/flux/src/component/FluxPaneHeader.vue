@@ -47,8 +47,6 @@
 </script>
 
 <style lang="scss">
-    @use '../css/mixin' as flux;
-
     .flux-pane-header {
         display: flex;
         padding: 21px 21px 0;
@@ -90,9 +88,7 @@
         }
     }
 
-    @include flux.dark-mode {
-        .flux-pane-header-icon.is-extended {
-            background: rgb(var(--gray-2));
-        }
+    [dark] .flux-pane-header-icon.is-extended {
+        background: rgb(var(--gray-2));
     }
 </style>

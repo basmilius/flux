@@ -1,5 +1,3 @@
-@use '../mixin' as flux;
-
 :root {
     --shadow-px: 0 1px 1px rgb(var(--gray-9) / .025);
     --shadow-xs: 0 1px 2px 0 rgb(var(--gray-9) / .025);
@@ -10,7 +8,7 @@
     --shadow-2xl: 0 25px 50px -12px rgb(var(--gray-9) / .125);
 }
 
-@include flux.dark-mode {
+[dark] {
     --shadow-px: 0 1px 1px rgb(0 0 0 / .05);
     --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / .05);
     --shadow-sm: 0 1px 3px rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1);

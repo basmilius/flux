@@ -91,15 +91,13 @@
         }
     }
 
-    @include flux.dark-mode {
-        .flux-chip.is-selected {
-            background: rgb(var(--primary-11) / .5);
-            border-color: rgb(var(--primary-11));
-            color: rgb(var(--primary-5));
+    [dark] .flux-chip.is-selected {
+        background: rgb(var(--primary-11) / .5);
+        border-color: rgb(var(--primary-11));
+        color: rgb(var(--primary-5));
 
-            &:hover {
-                background: rgb(var(--primary-10) / .5);
-            }
+        &:hover {
+            background: rgb(var(--primary-10) / .5);
         }
     }
 </style>

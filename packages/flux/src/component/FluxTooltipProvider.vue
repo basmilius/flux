@@ -172,8 +172,6 @@
 </script>
 
 <style lang="scss">
-    @use '../css/mixin' as flux;
-
     .flux-tooltip {
         position: fixed;
         display: flex;
@@ -226,10 +224,8 @@
         }
     }
 
-    @include flux.dark-mode {
-        .flux-tooltip {
-            background: rgb(0 0 0 / .9);
-            color: var(--foreground-prominent);
-        }
+    [dark] .flux-tooltip {
+        background: rgb(0 0 0 / .9);
+        color: var(--foreground-prominent);
     }
 </style>

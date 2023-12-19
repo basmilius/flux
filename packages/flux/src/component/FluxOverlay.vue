@@ -66,13 +66,11 @@
         }
     }
 
-    @include flux.dark-mode {
-        .flux-overlay {
-            background: rgb(0 0 0 / .5);
+    [dark] .flux-overlay {
+        background: rgb(0 0 0 / .5);
 
-            > .flux-pane {
-                border-color: rgb(var(--gray-11) / .3);
-            }
+        > .flux-pane {
+            border-color: rgb(var(--gray-11) / .3);
         }
     }
 </style>

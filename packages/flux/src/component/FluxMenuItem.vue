@@ -91,8 +91,6 @@
 </script>
 
 <style lang="scss">
-    @use '../css/mixin' as flux;
-
     .flux-menu-item {
         --button-background: transparent;
         --button-background-hover: rgb(var(--gray-2));
@@ -243,9 +241,7 @@
         }
     }
 
-    @include flux.dark-mode {
-        .flux-menu-item.is-highlighted {
-            --button-background: rgb(var(--primary-11) / .5);
-        }
+    [dark] .flux-menu-item.is-highlighted {
+        --button-background: rgb(var(--primary-11) / .5);
     }
 </style>

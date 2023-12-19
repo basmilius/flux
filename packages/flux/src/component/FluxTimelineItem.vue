@@ -62,8 +62,6 @@
 </script>
 
 <style lang="scss">
-    @use '../css/mixin' as flux;
-
     .flux-timeline-item {
         --timeline-item-icon-background: rgb(var(--gray-3));
         --timeline-item-icon-foreground: var(--foreground-secondary);
@@ -181,9 +179,7 @@
         }
     }
 
-    @include flux.dark-mode {
-        .flux-timeline-item {
-            --timeline-item-icon-background: rgb(var(--gray-2));
-        }
+    [dark] .flux-timeline-item {
+        --timeline-item-icon-background: rgb(var(--gray-2));
     }
 </style>
