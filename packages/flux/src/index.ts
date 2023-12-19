@@ -20,16 +20,20 @@ export type {
     FluxFlyoutInjection,
     FluxFocalPoint,
     FluxFormFieldInjection,
+    FluxFormSelectEntry,
     FluxFormSelectOption,
     FluxFormSelectGroup,
+    FluxPercentageBarItemSpec,
     FluxPromptSpec,
     FluxRoutingLocation,
+    FluxSegmentedControlItemSpec,
     FluxSkeletonsInjection,
     FluxSnackbarSpec,
+    FluxState,
+    FluxStore,
     FluxTooltipSpec,
     IconNames,
-    FluxState,
-    FluxStore
+    Masks
 } from './data';
 
 export {
