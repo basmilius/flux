@@ -48,7 +48,7 @@
     lang="ts"
     setup>
     import { ref, useSlots } from 'vue';
-    import { FluxSecondaryButton } from '@/components';
+    import { FluxSecondaryButton } from '@/component';
     import { FluxBreakthroughTransition } from '@/transition';
 
     export interface Props {

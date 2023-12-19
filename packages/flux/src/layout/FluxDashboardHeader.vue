@@ -20,8 +20,8 @@
 <script
     lang="ts"
     setup>
-    import { FluxSecondaryButton, FluxSpacer } from '@/components';
-    import { useDashboardInjection } from '@/composables';
+    import { FluxSecondaryButton, FluxSpacer } from '@/component';
+    import { useDashboardInjection } from '@/composable';
 
     export interface Props {
         readonly title: string;

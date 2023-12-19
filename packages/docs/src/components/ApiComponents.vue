@@ -23,10 +23,7 @@
     lang="ts"
     setup>
     import { FluxPane, FluxPaneHeader } from '@fancee/flux';
-    import { useSlots } from 'vue';
     import ApiTable from './ApiTable.vue';
-
-    const slots = useSlots();
 </script>
 
 <style lang="scss">

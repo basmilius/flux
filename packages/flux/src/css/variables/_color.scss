@@ -5,6 +5,7 @@
     @return color.red($hex) color.green($hex) color.blue($hex);
 }
 
+[light],
 :root {
     --primary-0: #{to-rgb(#ffffff)};
     --primary-1: #{to-rgb(#f5f8ff)};
@@ -85,7 +86,20 @@
     --gray-11: #{to-rgb(#121926)};
 }
 
-@include flux.dark-mode {
+[dark] {
+    --primary-0: #{to-rgb(#ffffff)};
+    --primary-1: #{to-rgb(#f5f8ff)};
+    --primary-2: #{to-rgb(#dde7fd)};
+    --primary-3: #{to-rgb(#c4d6fb)};
+    --primary-4: #{to-rgb(#acc5f9)};
+    --primary-5: #{to-rgb(#93b4f7)};
+    --primary-6: #{to-rgb(#7ba3f5)};
+    --primary-7: #{to-rgb(#6292f3)};
+    --primary-8: #{to-rgb(#4a81f1)};
+    --primary-9: #{to-rgb(#3170ef)};
+    --primary-10: #{to-rgb(#195fed)};
+    --primary-11: #{to-rgb(#004eeb)};
+
     --gray-0: #{to-rgb(#14161a)};
     --gray-1: #{to-rgb(#1b1d21)};
     --gray-2: #{to-rgb(#22252b)};

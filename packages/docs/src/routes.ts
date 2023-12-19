@@ -26,6 +26,10 @@ export const router = createRouter({
                     component: () => import('@docs/pages/Playground.vue')
                 },
                 {
+                    path: '/content/translations',
+                    component: () => import('@docs/pages/content/Translations.vue')
+                },
+                {
                     path: '/content/typography',
                     component: () => import('@docs/pages/content/Typography.vue')
                 },
