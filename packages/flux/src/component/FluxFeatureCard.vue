@@ -3,26 +3,24 @@
         class="flux-feature-card"
         :class="{'coming-soon': isComingSoon}">
         <FluxPaneBody class="flux-feature-card-header">
-            <FluxStack class="flux-feature-card-caption">
+            <FluxStack
+                class="flux-feature-card-caption"
+                :gap="6">
                 <h3 class="flux-feature-card-title">{{ title }}</h3>
                 <p class="flux-feature-card-description">{{ description }}</p>
             </FluxStack>
 
-            <div class="flux-feature-card-icon">
-                <FluxIcon
-                    :size="24"
-                    :variant="icon"/>
-            </div>
+            <FluxBoxedIcon
+                :size="18"
+                :variant="icon"/>
         </FluxPaneBody>
 
-        <FluxPaneBody>
+        <FluxPaneBody v-if="$slots.default">
             <slot/>
         </FluxPaneBody>
 
-        <FluxPaneBody>
-            <FluxStack
-                v-if="buttonTo"
-                axis="horizontal">
+        <FluxPaneBody v-if="buttonTo">
+            <FluxStack axis="horizontal">
                 <FluxSecondaryButton
                     :icon-after="buttonIcon"
                     :label="buttonLabel ?? translate('flux_continue')"
@@ -44,7 +42,7 @@
     setup>
     import type { FluxRoutingLocation, IconNames } from '@/data';
     import { useTranslate } from '@/composable';
-    import FluxIcon from './FluxIcon.vue';
+    import FluxBoxedIcon from './FluxBoxedIcon.vue';
     import FluxPane from './FluxPane.vue';
     import FluxPaneBody from './FluxPaneBody.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
@@ -71,7 +69,6 @@
     .flux-feature-card {
         display: flex;
         flex-flow: column;
-        gap: 21px;
 
         &-header.flux-pane-body {
             display: flex;
@@ -80,9 +77,8 @@
             gap: 30px;
         }
 
-        &-caption.flux-stack {
+        &-caption {
             flex-grow: 1;
-            gap: 6px;
         }
 
         &-title,
@@ -97,6 +93,7 @@
         }
 
         &-description {
+            color: var(--foreground-secondary);
             font-size: 15px;
         }
 
@@ -117,18 +114,6 @@
                 background: white;
                 color: rgb(var(--gray-0));
             }
-        }
-
-        &-icon {
-            display: flex;
-            height: 54px;
-            width: 54px;
-            align-items: center;
-            flex-shrink: 0;
-            justify-content: center;
-            background: rgb(var(--primary-7));
-            border-radius: var(--radius);
-            color: rgb(var(--primary-0));
         }
 
         &-illustration {

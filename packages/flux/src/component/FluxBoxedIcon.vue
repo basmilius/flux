@@ -40,6 +40,7 @@
         height: var(--size);
         width: var(--size);
         align-items: center;
+        flex-shrink: 0;
         justify-content: center;
         box-shadow: var(--shadow-sm);
     }
