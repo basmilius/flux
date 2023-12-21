@@ -70,11 +70,10 @@
         display: flex;
         flex-flow: column;
 
-        &-header.flux-pane-body {
-            display: flex;
+        &-header {
             align-items: flex-start;
             flex-flow: row;
-            gap: 30px;
+            gap: 15px;
         }
 
         &-caption {
