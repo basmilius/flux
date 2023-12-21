@@ -1,8 +1,8 @@
 <template>
     <div
-        class="flux-grid-column"
+        :class="styles.gridColumn"
         :style="{
-            gridColumn: `span ${span}`
+            '--span': `${span}`
         }">
         <slot/>
     </div>
@@ -13,6 +13,7 @@
     setup>
     import { computed, toRefs, unref } from 'vue';
     import { useBreakpoints } from '@/composable';
+    import styles from '@/css/components/Layout.module.scss';
 
     export interface Props {
         readonly xs?: number;
@@ -47,10 +48,3 @@
 
     const span = computed(() => unref(spans)[unref(breakpoint)]);
 </script>
-
-<style lang="scss">
-    .flux-grid-column {
-        display: grid;
-        grid-template-columns: 1fr;
-    }
-</style>

@@ -1,9 +1,9 @@
 <template>
     <div
-        class="flux-grid"
+        :class="styles.grid"
         :style="{
-            '--gap': `${gap}px`,
-            '--columns': columns
+            '--columns': `${columns}`,
+            '--gap': `${gap}px`
         }">
         <slot/>
     </div>
@@ -12,6 +12,8 @@
 <script
     lang="ts"
     setup>
+    import styles from '@/css/components/Layout.module.scss';
+
     export interface Props {
         readonly columns?: number;
         readonly gap?: number;
@@ -22,11 +24,3 @@
         gap: 30
     });
 </script>
-
-<style lang="scss">
-    .flux-grid {
-        display: grid;
-        gap: var(--gap);
-        grid-template-columns: repeat(var(--columns), 1fr);
-    }
-</style>

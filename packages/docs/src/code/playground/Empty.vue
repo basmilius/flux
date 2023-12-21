@@ -1,5 +1,5 @@
 <template>
-    <div/>
+    <p>Empty</p>
 </template>
 
 <script lang="ts">
@@ -9,4 +9,7 @@
 <script
     lang="ts"
     setup>
+    import { ref } from 'vue';
+
+    const _ = ref();
 </script>

@@ -24,8 +24,6 @@
 </script>
 
 <style lang="scss">
-    @use '../css/mixin' as flux;
-
     .flux-overlay {
         position: fixed;
         display: flex;

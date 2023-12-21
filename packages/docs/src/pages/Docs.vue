@@ -1,7 +1,7 @@
 <template>
     <FluxDocs>
         <template #navigation>
-            <FluxMenu class="docs-menu">
+            <FluxMenu>
                 <FluxMenuGroup>
                     <FluxMenuSubHeader label="Setup"/>
 
@@ -528,7 +528,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxDocs, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxSecondaryButton, FluxSpacer, FluxSpinner, FluxBreakthroughTransition, useDebouncedRef } from '@fancee/flux';
+    import { FluxBreakthroughTransition, FluxDocs, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxSecondaryButton, FluxSpacer, FluxSpinner, useDebouncedRef } from '@fancee/flux';
     import { computed, watch } from 'vue';
     import { useRoute } from 'vue-router';
     import { ThemeToggle } from '@docs/components';
@@ -582,39 +582,5 @@
         font-family: proxima-soft, sans-serif;
         font-size: 17px;
         font-weight: 700;
-    }
-
-    .flux-menu {
-        &.docs-menu &-group + &-group {
-            margin-top: 30px;
-        }
-
-        &.docs-menu &-item {
-            min-height: 36px;
-            transition-property: all;
-
-            span {
-                font-size: 15px;
-            }
-
-            &.is-active {
-                background: transparent;
-                transform: translate3d(3px, 0, 0);
-
-                span {
-                    color: rgb(var(--primary-7));
-                }
-            }
-        }
-
-        &.docs-menu &-sub-header {
-            position: relative;
-            background: none;
-
-            span {
-                color: var(--foreground-prominent);
-                font-weight: 700;
-            }
-        }
     }
 </style>

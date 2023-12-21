@@ -1,10 +1,10 @@
 <template>
     <Component
         :is="component"
-        class="flux-surface flux-pane"
         :class="{
-            'is-contained': isContained,
-            'is-grid': !!columns && breakpoints.lg
+            [styles.pane]: true,
+            [styles.paneContained]: isContained,
+            [styles.paneGrid]: !!columns && breakpoints.lg
         }"
         :style="{
             '--columns': columns
@@ -17,13 +17,13 @@
 
         <div
             v-if="isLoading"
-            class="flux-pane-overlay">
+            :class="styles.paneLoader">
             <FluxSpinner/>
         </div>
 
         <div
             v-if="tag"
-            class="flux-pane-tag">
+            :class="styles.paneTag">
             {{ tag }}
         </div>
     </Component>
@@ -35,6 +35,7 @@
     import { computed, toRefs } from 'vue';
     import { useBreakpoints } from '@/composable';
     import type { FluxRoutingLocation } from '@/data';
+    import styles from '@/css/components/Pane.module.scss';
     import FluxSpinner from './FluxSpinner.vue';
 
     export interface Props {
@@ -67,63 +68,3 @@
         return 'div';
     });
 </script>
-
-<style lang="scss">
-    .flux-pane {
-        position: relative;
-        box-shadow: var(--shadow-sm);
-        color: unset;
-        text-decoration: unset;
-
-        &.is-contained {
-            overflow: hidden;
-        }
-
-        &.is-grid {
-            display: grid;
-            grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
-        }
-
-        &-overlay {
-            position: absolute;
-            display: flex;
-            inset: 0;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(2px);
-            background: rgb(var(--gray-0) / .75);
-            border-radius: inherit;
-            z-index: 100;
-        }
-
-        &-tag {
-            position: absolute;
-            top: 0;
-            left: 21px;
-            padding: 6px 9px;
-            background: rgb(var(--gray-10));
-            border-radius: calc(var(--radius) / 2);
-            color: rgb(var(--gray-0));
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            line-height: 1;
-            text-transform: uppercase;
-            translate: 0 -50%;
-        }
-    }
-
-    .flux-pane > .flux-pane {
-        border: unset;
-        box-shadow: unset;
-    }
-
-    a.flux-pane {
-        cursor: pointer;
-        transition: box-shadow 180ms var(--swift-out);
-
-        &:hover {
-            box-shadow: var(--shadow-lg);
-        }
-    }
-</style>

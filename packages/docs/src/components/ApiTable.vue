@@ -1,5 +1,5 @@
 <template>
-    <table class="api-table">
+    <table :class="$style.apiTable">
         <thead>
         <slot name="head">
             <tr>
@@ -14,22 +14,24 @@
     </table>
 </template>
 
-<style lang="scss">
-    .api-table {
+<style
+    lang="scss"
+    module>
+    .apiTable {
         margin: -1px;
         width: calc(100% + 2px);
         border-collapse: collapse;
         font-size: 14px;
         overflow: hidden;
 
-        td, th {
+        :is(td), :is(th) {
             padding: 15px 21px;
             border: 1px solid rgb(var(--gray-3));
             vertical-align: top;
             text-align: left;
         }
 
-        th {
+        :is(th) {
             padding: 9px 21px;
             background: rgb(var(--gray-1) / .5);
             color: var(--foreground-secondary);
@@ -43,7 +45,7 @@
             }
         }
 
-        td code {
+        :is(td code) {
             display: block;
 
             &:first-child {

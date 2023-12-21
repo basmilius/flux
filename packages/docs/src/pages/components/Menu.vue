@@ -19,7 +19,7 @@
                             label="Paste"/>
                     </FluxMenuGroup>
 
-                    <FluxSeparator/>
+                    <FluxDivider/>
 
                     <FluxMenuGroup>
                         <FluxMenuItem
@@ -228,7 +228,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxSeparator, FluxStack } from '@fancee/flux';
+    import { FluxDivider, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxStack } from '@fancee/flux';
     import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
     import basic from '@docs/code/components/menu/basic.vue';
     import basicCode from '@docs/code/components/menu/basic.vue?raw';

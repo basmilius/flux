@@ -5,7 +5,7 @@
         :margin="flyoutMargin"
         :width="flyoutWidth">
         <template #opener="{close, open, toggle}">
-            <div class="flux-button-group">
+            <div :class="styles.buttonGroup">
                 <slot
                     name="button"
                     v-bind="{close, open, toggle}"/>
@@ -25,9 +25,10 @@
 </template>
 
 <script
-    setup
-    lang="ts">
+    lang="ts"
+    setup>
     import type { IconNames } from '@/data';
+    import styles from '@/css/components/Button.module.scss';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
 

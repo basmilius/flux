@@ -6,6 +6,7 @@
         "dev": "pnpm run -C packages/flux dev",
         "docs:build": "pnpm run -C packages/docs build",
         "docs:dev": "pnpm run -C packages/docs dev",
+        "docs:preview": "pnpm run -C packages/docs preview",
         "link": "pnpm link --dir packages/flux --global",
         "publish": "pnpm --filter '@fancee/*' -r publish --access restricted --no-git-checks"
     },

@@ -1,41 +1,43 @@
 <template>
     <BaseButton
-        class="flux-primary-button flux-publish-button"
-        :class="{
-            'is-idle': !isDone && !isLoading,
-            'is-done': isDone,
-            'is-loading': isLoading
-        }"
         :="{type, disabled, iconAfter, isLoading, label, size, to}"
+        :class="{
+            [styles.publishButtonIdle]: !isDone && !isLoading,
+            [styles.publishButtonDone]: isDone,
+            [styles.publishButtonLoading]: isLoading
+        }"
+        :css-class="styles.publishButton"
+        :css-class-icon="styles.primaryButtonIcon"
+        :css-class-label="styles.primaryButtonLabel"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)">
         <template #icon-before>
-            <div class="flux-publish-button-icon">
+            <div :class="styles.publishButtonIcon">
                 <FluxIcon
-                    class="flux-publish-button-cloud"
+                    :class="styles.publishButtonCloud"
                     variant="cloud"/>
 
                 <FluxIcon
-                    class="flux-publish-button-cloud"
+                    :class="styles.publishButtonCloud"
                     variant="cloud"/>
 
                 <svg
-                    class="flux-publish-button-icon"
+                    :class="styles.publishButtonIcon"
                     viewBox="0 0 512 512">
                     <!-- circle -->
                     <path
-                        class="circle"
+                        :class="styles.publishButtonIconCircle"
                         d="M512 256c0 141.4-114.6 256-256 256S0 397.4 0 256 114.6 0 256 0s256 114.6 256 256ZM256 48C141.1 48 48 141.1 48 256s93.1 208 208 208 208-93.1 208-208S370.9 48 256 48Z"/>
 
                     <!-- arrow -->
                     <path
-                        class="arrow"
+                        :class="styles.publishButtonIconArrow"
                         d="M272.9 135.7c-4.6-4.9-11-7.7-17.7-7.7-7.7.3-14.1 2.9-17.7 7.8l-87.25 96a23.86 23.86 0 0 0-4.15 25.9c3.8 8.7 12.4 14.3 21 14.3h56l.9 88a24 24 0 0 0 24 24h16c13.25 0 23.1-10.75 23.1-24v-88h56c9.53 0 18.16-5.66 22-14.38a24.03 24.03 0 0 0-4.38-25.91L272.9 135.7Z"/>
 
                     <!-- check -->
                     <path
-                        class="check"
+                        :class="styles.publishButtonIconCheck"
                         d="M243.8 339.8a28.07 28.07 0 0 1-39.6 0l-64-64a28.07 28.07 0 0 1 0-39.6 28.07 28.07 0 0 1 39.6 0l44.2 44.2 108.2-108.2a28.07 28.07 0 0 1 39.6 0 28.07 28.07 0 0 1 0 39.6l-128 128Z"/>
                 </svg>
             </div>
@@ -48,6 +50,7 @@
     setup>
     import type { FluxRoutingLocation, IconNames } from '@/data';
     import { BaseButton } from './primitive';
+    import styles from '@/css/components/Button.module.scss';
     import FluxIcon from './FluxIcon.vue';
 
     // note: It is currently not possible to reuse Emits and Props from
@@ -76,105 +79,7 @@
 
     defineEmits<Emits>();
 
-    const props = withDefaults(defineProps<Props>(), {
+    withDefaults(defineProps<Props>(), {
         type: 'button'
     });
 </script>
-
-<style lang="scss">
-    .flux-publish-button {
-        overflow: hidden;
-
-        &-cloud {
-            position: absolute;
-            top: 50%;
-            opacity: 0;
-            animation: publish .6s linear infinite;
-            transition: 360ms var(--swift-out) 210ms;
-
-            &:nth-child(2) {
-                left: -12px;
-                animation-delay: -.3s;
-            }
-
-            &:nth-child(3) {
-                right: -12px;
-            }
-        }
-
-        &-icon {
-            position: relative;
-            display: block;
-            height: 20px;
-            width: 20px;
-            align-items: center;
-            justify-content: center;
-            overflow: visible;
-
-            path {
-                fill: currentColor;
-                transition: 270ms var(--swift-out);
-            }
-        }
-
-        &.is-idle {
-            .check {
-                opacity: 0;
-            }
-        }
-
-        &.is-done {
-            .arrow {
-                animation: arrow-out .4s var(--acceleration-curve) both;
-            }
-
-            .check,
-            .circle {
-                transition-delay: .5s;
-            }
-        }
-
-        &.is-loading {
-            .arrow {
-                animation: arrow-in 1s var(--deceleration-curve) both;
-            }
-
-            .check {
-                opacity: 0;
-            }
-
-            .circle {
-                opacity: 0;
-            }
-        }
-
-        &.is-loading &-cloud {
-            opacity: .5;
-        }
-    }
-
-    @keyframes arrow-in {
-        25% {
-            translate: 0 128px;
-        }
-        100% {
-            translate: 0 0;
-        }
-    }
-
-    @keyframes arrow-out {
-        to {
-            opacity: 0;
-            translate: 0 -512px;
-        }
-    }
-
-    @keyframes publish {
-        from {
-            translate: 0 calc(-30px - 50%);
-        }
-        to {
-            translate: 0 calc(30px - 50%);
-        }
-    }
-</style>

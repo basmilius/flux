@@ -1,7 +1,9 @@
 <template>
     <BaseButton
-        class="flux-link"
         :="{type, disabled, iconBefore: icon, iconAfter: 'arrow-right-long', label, href, rel, target, to}"
+        :css-class="styles.link"
+        :css-class-icon="styles.linkIcon"
+        :css-class-label="styles.linkLabel"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)">
@@ -21,6 +23,7 @@
     import { useSlots } from 'vue';
     import type { FluxRoutingLocation, IconNames } from '@/data';
     import { BaseButton } from './primitive';
+    import styles from '@/css/components/Button.module.scss';
 
     // note: It is currently not possible to reuse Emits and Props from
     //  base button, because of a limitation of vite and vue compiler-sfc.
@@ -54,38 +57,3 @@
 
     const slots = useSlots();
 </script>
-
-<style lang="scss">
-    @use '../css/mixin' as flux;
-
-    .flux-link {
-        --button-icon: rgb(var(--primary-7));
-        --button-stroke: unset;
-
-        display: inline-flex;
-        height: unset;
-        padding: 0;
-        background: unset;
-        border: unset;
-        box-shadow: unset;
-        color: rgb(var(--primary-7));
-        text-decoration: underline;
-        text-decoration-thickness: 1px;
-        text-underline-offset: 4px;
-
-        @include flux.focus-ring(6px);
-
-        &:hover {
-            color: rgb(var(--primary-10));
-        }
-
-        .flux-icon {
-            transition: inherit;
-            transition-property: transform;
-        }
-
-        &:hover .flux-icon {
-            transform: translate3d(6px, 0, 0);
-        }
-    }
-</style>

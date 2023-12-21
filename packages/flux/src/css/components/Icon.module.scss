@@ -1,0 +1,20 @@
+@value surface from 'base/Surface.module.scss';
+
+.icon {
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    line-height: 1em;
+    shape-rendering: geometricPrecision;
+}
+
+.boxedIcon {
+    composes: surface;
+
+    display: flex;
+    height: 3em;
+    width: 3em;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-sm);
+}

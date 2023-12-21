@@ -3,7 +3,7 @@
         v-height-transition
         class="api-component flux-typography-aware">
         <FluxTabs :model-value="slots.props ? 0 : (slots.emits ? 1 : 2)">
-            <template #tabs="{activeIndex, children, tabs, activate}">
+            <template #tabs="{activeIndex, tabs, activate}">
                 <FluxPaneHeader
                     class="api-component-header"
                     :title="name">
@@ -27,19 +27,9 @@
                 <FluxTab
                     icon="wrench"
                     label="Props">
-                    <table class="api-table">
-                        <thead>
-                        <slot name="head">
-                            <tr>
-                                <th>Name</th>
-                                <th>Description</th>
-                            </tr>
-                        </slot>
-                        </thead>
-                        <tbody>
+                    <ApiTable #body>
                         <slot name="props"/>
-                        </tbody>
-                    </table>
+                    </ApiTable>
                 </FluxTab>
             </template>
 
@@ -47,19 +37,9 @@
                 <FluxTab
                     icon="bolt"
                     label="Emits">
-                    <table class="api-table">
-                        <thead>
-                        <slot name="head">
-                            <tr>
-                                <th>Name</th>
-                                <th>Description</th>
-                            </tr>
-                        </slot>
-                        </thead>
-                        <tbody>
+                    <ApiTable #body>
                         <slot name="emits"/>
-                        </tbody>
-                    </table>
+                    </ApiTable>
                 </FluxTab>
             </template>
 
@@ -67,19 +47,9 @@
                 <FluxTab
                     icon="draw-square"
                     label="Slots">
-                    <table class="api-table">
-                        <thead>
-                        <slot name="head">
-                            <tr>
-                                <th>Name</th>
-                                <th>Description</th>
-                            </tr>
-                        </slot>
-                        </thead>
-                        <tbody>
+                    <ApiTable #body>
                         <slot name="slots"/>
-                        </tbody>
-                    </table>
+                    </ApiTable>
                 </FluxTab>
             </template>
         </FluxTabs>
@@ -91,6 +61,7 @@
     setup>
     import { FluxPane, FluxPaneHeader, FluxTab, FluxTabBar, FluxTabBarItem, FluxTabs, heightTransition } from '@fancee/flux';
     import { useSlots } from 'vue';
+    import ApiTable from './ApiTable.vue';
 
     export interface Props {
         readonly name: string;

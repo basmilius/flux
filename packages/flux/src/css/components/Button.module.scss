@@ -1,0 +1,331 @@
+@use '../mixin';
+
+@value spinnerTrack, spinnerValue from 'Spinner.module.scss';
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 12px;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-px);
+    cursor: pointer;
+    font: inherit;
+    text-decoration: none;
+    transition: 180ms var(--swift-out);
+    transition-property: background, box-shadow, color, mixin.focus-ring-transition-properties();
+    user-select: none;
+
+    @include mixin.focus-ring(2px);
+
+    &:focus-visible {
+        z-index: 1;
+    }
+
+    &:active {
+        box-shadow: none;
+    }
+
+    &:disabled,
+    &[aria-disabled='true'] {
+        box-shadow: none;
+        opacity: .5;
+        pointer-events: none;
+    }
+}
+
+.buttonIcon {
+    flex-shrink: 0;
+    font-size: 20px;
+
+    &:only-child {
+        margin-left: -2px;
+        margin-right: -2px;
+    }
+}
+
+.buttonLabel {
+    display: inline-block;
+    font-weight: 500;
+    text-align: center;
+
+    &:only-child {
+        min-width: 42px;
+    }
+}
+
+.buttonSmall {
+    height: 36px;
+    padding: 0 9px;
+}
+
+.buttonMedium {
+    height: 42px;
+    padding: 0 12px;
+}
+
+.buttonLarge {
+    height: 48px;
+    padding: 0 15px;
+}
+
+.buttonXl {
+    height: 54px;
+    padding: 0 18px;
+}
+
+.primaryButton {
+    composes: button;
+
+    background: rgb(var(--primary-7));
+    border-color: rgb(var(--primary-9));
+    box-shadow: 0 1px 1px rgb(var(--primary-7) / .25);
+    color: rgb(var(--primary-0));
+
+    &:hover {
+        background: rgb(var(--primary-8));
+    }
+
+    &:active {
+        background: rgb(var(--primary-9));
+    }
+
+    .spinnerTrack {
+        stroke: rgb(var(--primary-8));
+    }
+
+    .spinnerValue {
+        stroke: rgb(var(--primary-0));
+    }
+}
+
+.primaryButtonIcon {
+    composes: buttonIcon;
+
+    color: rgb(var(--primary-0));
+}
+
+.primaryButtonLabel {
+    composes: buttonLabel;
+}
+
+[dark] .primaryButton {
+    border-color: rgb(var(--primary-6) / .5);
+}
+
+[dark] .primaryButtonIcon,
+[dark] .primaryButtonLabel {
+    color: rgb(0 0 0 / .975);
+}
+
+.secondaryButton {
+    composes: button;
+
+    background: rgb(var(--gray-0));
+    border-color: rgb(var(--gray-4) / .75);
+    color: var(--foreground);
+
+    &:hover {
+        background: rgb(var(--gray-2));
+    }
+
+    &:active {
+        background: rgb(var(--gray-3));
+    }
+}
+
+.secondaryButtonIcon {
+    composes: buttonIcon;
+
+    color: var(--foreground-prominent);
+}
+
+.secondaryButtonLabel {
+    composes: buttonLabel;
+}
+
+.destructiveButton {
+    composes: button;
+
+    background: rgb(var(--gray-0));
+    border-color: rgb(var(--gray-4) / .75);
+    color: var(--foreground);
+
+    &:hover {
+        background: rgb(var(--gray-2));
+    }
+
+    &:active {
+        background: rgb(var(--gray-3));
+    }
+}
+
+.destructiveButtonIcon {
+    composes: buttonIcon;
+
+    color: rgb(var(--danger-7));
+}
+
+.destructiveButtonLabel {
+    composes: buttonLabel;
+
+    &:only-child {
+        color: rgb(var(--danger-7));
+    }
+}
+
+.link {
+    composes: button;
+
+    display: inline-flex;
+    height: unset;
+    padding: 0;
+    background: unset;
+    border: unset;
+    box-shadow: unset;
+    color: rgb(var(--primary-7));
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+
+    @include mixin.focus-ring(6px);
+
+    &:hover {
+        color: rgb(var(--primary-10));
+
+        .linkIcon {
+            transform: translate3d(6px, 0, 0);
+        }
+    }
+}
+
+.linkIcon {
+    composes: buttonIcon;
+
+    color: rgb(var(--primary-7));
+    transition: inherit;
+    transition-property: transform;
+}
+
+.linkLabel {
+    composes: buttonLabel;
+}
+
+.buttonGroup {
+    display: flex;
+    flex-flow: row nowrap;
+
+    .button {
+        border-radius: 0;
+
+        &:first-child {
+            border-top-left-radius: var(--radius);
+            border-bottom-left-radius: var(--radius);
+        }
+
+        &:last-child {
+            border-top-right-radius: var(--radius);
+            border-bottom-right-radius: var(--radius);
+        }
+    }
+
+    .button + .button {
+        margin-left: -1px;
+    }
+}
+
+.publishButton {
+    composes: primaryButton;
+
+    overflow: hidden;
+}
+
+.publishButtonCloud {
+    position: absolute;
+    top: 50%;
+    opacity: 0;
+    animation: publish-button-publish .6s linear infinite;
+    transition: 360ms var(--swift-out) 210ms;
+
+    &:nth-child(2) {
+        left: -12px;
+        animation-delay: -.3s;
+    }
+
+    &:nth-child(3) {
+        right: -12px;
+    }
+}
+
+.publishButtonIcon {
+    position: relative;
+    display: block;
+    height: 20px;
+    width: 20px;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+
+    path {
+        fill: currentColor;
+        transition: 270ms var(--swift-out);
+    }
+}
+
+.publishButtonDone {
+    .publishButtonIconArrow {
+        animation: publish-button-arrow-out .4s var(--acceleration-curve) both;
+    }
+
+    .publishButtonIconCheck,
+    .publishButtonIconCircle {
+        transition-delay: .5s;
+    }
+}
+
+.publishButtonIdle .publishButtonIconCheck {
+    opacity: 0;
+}
+
+.publishButtonLoading {
+    .publishButtonIconArrow {
+        animation: publish-button-arrow-in 1s var(--deceleration-curve) both;
+    }
+
+    .publishButtonIconCheck,
+    .publishButtonIconCircle {
+        opacity: 0;
+    }
+
+    .publishButtonCloud {
+        opacity: .5;
+    }
+}
+
+@keyframes publish-button-arrow-in {
+    25% {
+        translate: 0 128px;
+    }
+    100% {
+        translate: 0 0;
+    }
+}
+
+@keyframes publish-button-arrow-out {
+    to {
+        opacity: 0;
+        translate: 0 -512px;
+    }
+}
+
+@keyframes publish-button-publish {
+    from {
+        translate: 0 calc(-30px - 50%);
+    }
+    to {
+        translate: 0 calc(30px - 50%);
+    }
+}

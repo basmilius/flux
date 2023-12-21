@@ -1,7 +1,7 @@
 <template>
     <canvas
         ref="canvasRef"
-        class="flux-animated-colors"/>
+        :class="styles.animatedColors"/>
 </template>
 
 <script
@@ -10,6 +10,7 @@
     import { computed, onBeforeUnmount, onMounted, ref, toRefs, unref, watch } from 'vue';
     import { useComponentId } from '@/composable';
     import { mulberry32 } from '@/util';
+    import styles from '@/css/components/Visuals.module.scss';
 
     export interface Props {
         readonly colors: string[] | null;
@@ -141,13 +142,3 @@
         schedule();
     });
 </script>
-
-<style lang="scss">
-    .flux-animated-colors {
-        position: absolute;
-        inset: 0;
-        height: 100%;
-        width: 100%;
-        filter: blur(60px) saturate(180%);
-    }
-</style>

@@ -1,10 +1,9 @@
 <template>
     <BaseButton
-        class="flux-action"
-        :class="{
-            'is-destructive': destructive
-        }"
         :="{disabled, isLoading, label, href, rel, target, to, type}"
+        :css-class="destructive ? styles.actionDestructive : styles.action"
+        :css-class-icon="styles.actionIcon"
+        :css-class-label="styles.actionLabel"
         :icon-before="icon"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
@@ -16,6 +15,7 @@
     setup>
     import type { FluxRoutingLocation, IconNames } from '@/data';
     import { BaseButton } from './primitive';
+    import styles from '@/css/components/Action.module.scss';
 
     export interface Emits {
         (e: 'click', evt: MouseEvent): void;
@@ -41,23 +41,3 @@
     defineEmits<Emits>();
     defineProps<Props>();
 </script>
-
-<style lang="scss">
-    .flux-button.flux-action {
-        --button-background: transparent;
-        --button-background-hover: rgb(var(--gray-2));
-        --button-background-active: rgb(var(--gray-3));
-        --button-foreground: var(--foreground);
-        --button-icon: var(--foreground);
-        --button-stroke: transparent;
-
-        height: 30px;
-        padding-left: 6px;
-        padding-right: 6px;
-        box-shadow: none;
-
-        &.is-destructive {
-            --button-icon: rgb(var(--danger-7))
-        }
-    }
-</style>

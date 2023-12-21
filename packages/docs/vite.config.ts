@@ -1,3 +1,4 @@
+import { createHash } from 'crypto';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
@@ -10,6 +11,21 @@ export default defineConfig(({mode}) => ({
                 chunkFileNames: 'assets/[hash].js',
                 entryFileNames: 'assets/[hash].js'
             }
+        }
+    },
+    css: {
+        modules: {
+            localsConvention: 'camelCaseOnly',
+            // generateScopedName(name, filename) {
+            //     filename = filename.split('?')[0];
+            //
+            //     const hash = createHash('sha1')
+            //         .update(name + filename)
+            //         .digest('base64url')
+            //         .substring(0, 4);
+            //
+            //     return `_${hash}`;
+            // }
         }
     },
     plugins: [vue()],

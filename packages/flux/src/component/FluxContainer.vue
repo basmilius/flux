@@ -1,9 +1,9 @@
 <template>
     <div
-        class="flux-container"
+        :class="styles.container"
         :style="{
             '--gutter': `${gutter}px`,
-            maxWidth: `${maxWidth}px`
+            '--max-width': `${maxWidth}px`
         }">
         <slot/>
     </div>
@@ -13,6 +13,7 @@
     lang="ts"
     setup>
     import { useBreakpoints } from '@/composable';
+    import styles from '@/css/components/Layout.module.scss';
 
     export interface Props {
         readonly gutter?: number;
@@ -24,13 +25,3 @@
 
     const {maxWidth} = useBreakpoints();
 </script>
-
-<style lang="scss">
-    .flux-container {
-        margin-left: auto;
-        margin-right: auto;
-        padding-left: var(--gutter);
-        padding-right: var(--gutter);
-        width: 100%;
-    }
-</style>

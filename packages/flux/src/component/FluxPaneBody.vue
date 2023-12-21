@@ -1,9 +1,9 @@
 <template>
     <div
-        class="flux-pane-body"
         :class="{
-            'is-content-centered': isContentCentered,
-            'is-larger-padded': isLargerPadded
+            [styles.paneBody]: true,
+            [styles.paneBodyContentCentered]: isContentCentered,
+            [styles.paneBodyLargerPadded]: isLargerPadded
         }"
         :style="{
             '--gap': `${gap}px`,
@@ -16,6 +16,8 @@
 <script
     lang="ts"
     setup>
+    import styles from '@/css/components/Pane.module.scss';
+
     export interface Props {
         readonly gap?: number;
         readonly isContentCentered?: boolean;
@@ -28,33 +30,3 @@
         span: 1
     });
 </script>
-
-<style lang="scss">
-    .flux-pane-body {
-        display: flex;
-        padding: 21px;
-        flex-flow: column;
-        gap: var(--gap);
-
-        &.is-content-centered {
-            align-items: center;
-            text-align: center;
-        }
-
-        &.is-larger-padded {
-            padding: 36px;
-        }
-
-        > .flux-stack {
-            flex-grow: 1;
-        }
-    }
-
-    .flux-pane:not(.is-grid) > .flux-pane-body + .flux-pane-body {
-        padding-top: 0;
-    }
-
-    .flux-pane.is-grid > .flux-pane-body {
-        grid-column: span var(--span);
-    }
-</style>
