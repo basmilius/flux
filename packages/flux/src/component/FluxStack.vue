@@ -41,7 +41,7 @@
         display: flex;
 
         &.is-horizontal {
-            flex-flow: row;
+            flex-direction: row;
         }
 
         &.is-vertical {
