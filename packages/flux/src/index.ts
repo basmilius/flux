@@ -28,7 +28,6 @@ export type {
     FluxPromptSpec,
     FluxRoutingLocation,
     FluxSegmentedControlItemSpec,
-    FluxSkeletonsInjection,
     FluxSnackbarSpec,
     FluxState,
     FluxStore,

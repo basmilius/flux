@@ -8,23 +8,23 @@ export type FluxFilterBase = {
     readonly name: string;
 
     getValueLabel(value: FluxFilterValue, translate: FluxTranslator): string | null;
-}
+};
 
 export type FluxFilterDateEntry = FluxFilterBase & {
     readonly type: 'date';
-}
+};
 
 export type FluxFilterDateRangeEntry = FluxFilterBase & {
     readonly type: 'dateRange';
-}
+};
 
 export type FluxFilterOptionEntry = FluxFilterBase & {
     readonly type: 'option';
-}
+};
 
 export type FluxFilterOptionsEntry = FluxFilterBase & {
     readonly type: 'options';
-}
+};
 
 export type FluxFilterItem =
     | FluxFilterDateEntry
@@ -34,12 +34,12 @@ export type FluxFilterItem =
 
 export type FluxFilterOptionHeader = {
     readonly title: string;
-}
+};
 
 export type FluxFilterOptionItem = {
     readonly label: string;
     readonly value: FluxFilterValue;
-}
+};
 
 export type FluxFilterValue = DateTime | string | boolean | null | number | FluxFilterValue[];
 
