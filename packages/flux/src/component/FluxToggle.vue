@@ -25,6 +25,8 @@
             :disabled="isDisabled"
             type="checkbox"
             :checked="modelValue"
+            role="switch"
+            :aria-checked="modelValue"
             @input="toggle"/>
     </label>
 </template>
