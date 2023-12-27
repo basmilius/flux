@@ -6,8 +6,8 @@
             'is-larger-padded': isLargerPadded
         }"
         :style="{
-            '--span': span,
-            gap: `${gap}px`
+            '--gap': `${gap}px`,
+            '--span': span
         }">
         <slot/>
     </div>
@@ -32,8 +32,9 @@
 <style lang="scss">
     .flux-pane-body {
         display: flex;
-        flex-flow: column;
         padding: 21px;
+        flex-flow: column;
+        gap: var(--gap);
 
         &.is-content-centered {
             align-items: center;
