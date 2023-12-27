@@ -6,10 +6,15 @@
                     v-if="viewMode === 'date'"
                     :disabled="!isWithinBoundary(viewDatePrevious, 'month')"
                     icon-before="angle-left"
+                    :aria-label="translate('flux_previous')"
                     @click="previousMonth"/>
             </FluxFadeTransition>
 
-            <div class="flux-date-picker-header-view">
+            <div
+                class="flux-date-picker-header-view"
+                :id="id"
+                aria-live="polite"
+                role="presentation">
                 <button
                     type="button"
                     @click="setView('month')">
@@ -28,6 +33,7 @@
                     v-if="viewMode === 'date'"
                     :disabled="!isWithinBoundary(viewDateNext, 'month')"
                     icon-before="angle-right"
+                    :aria-label="translate('flux_next')"
                     @click="nextMonth"/>
             </FluxFadeTransition>
         </div>
@@ -36,7 +42,8 @@
             <div
                 v-if="viewMode === 'date'"
                 key="date"
-                class="flux-date-picker-dates">
+                class="flux-date-picker-dates"
+                :aria-labelledby="id">
                 <FluxWindowTransition :is-back="isTransitioningToPast">
                     <div
                         :key="viewDate.month"
@@ -121,7 +128,7 @@
     setup>
     import { DateTime } from 'luxon';
     import { computed, ref, toRefs, unref } from 'vue';
-    import { useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher } from '@/composable';
+    import { useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher, useId, useTranslate } from '@/composable';
     import { FluxFadeTransition, FluxVerticalWindowTransition, FluxWindowTransition } from '@/transition';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
@@ -141,6 +148,9 @@
         modelValue: null
     });
     const {max, min, modelValue, rangeMode} = toRefs(props);
+
+    const id = useId();
+    const translate = useTranslate();
 
     const {
         isTransitioningToPast,

@@ -1,5 +1,8 @@
 <template>
-    <nav class="flux-tab-bar">
+    <nav
+        class="flux-tab-bar"
+        role="tablist"
+        aria-orientation="horizontal">
         <button
             v-if="isStartArrowVisible"
             class="flux-tab-bar-arrow flux-tab-bar-arrow-start"

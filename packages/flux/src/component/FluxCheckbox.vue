@@ -9,7 +9,10 @@
             class="form-checkbox-native"
             :id="id"/>
 
-        <span class="form-checkbox-element">
+        <button
+            class="form-checkbox-element"
+            role="checkbox"
+            :aria-checked="localValue ?? false">
             <FluxIcon
                 v-if="isIndeterminate"
                 :size="16"
@@ -19,7 +22,7 @@
                 v-else
                 :size="16"
                 variant="check"/>
-        </span>
+        </button>
 
         <span
             v-if="label"
@@ -104,9 +107,11 @@
             display: inline-flex;
             height: 22px;
             width: 22px;
+            padding: 0;
             align-items: center;
             justify-content: center;
             background: rgb(var(--gray-5) / .75);
+            border: 0;
             border-radius: calc(var(--radius) / 2);
             color: rgb(var(--primary-0));
             pointer-events: none;
@@ -117,7 +122,7 @@
 
             .flux-icon {
                 opacity: 0;
-                scale: .9;
+                scale: .85;
                 transition: inherit;
                 transition-property: opacity;
 

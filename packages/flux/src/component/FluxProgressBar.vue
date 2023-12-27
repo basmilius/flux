@@ -1,7 +1,11 @@
 <template>
     <FluxStack
         class="flux-progress-bar"
-        :gap="6">
+        :gap="6"
+        role="progressbar"
+        :aria-valuenow="value"
+        :aria-valuemax="max"
+        :aria-valuemin="min">
         <div
             class="flux-progress-bar-track"
             :class="{
@@ -21,16 +25,16 @@
                 <span
                     :key="status"
                     class="flux-progress-bar-status">
-                        {{ status }}
-                    </span>
+                    {{ status }}
+                </span>
             </FluxFadeTransition>
 
             <FluxFadeTransition>
                 <span
                     v-if="!isIndeterminate"
                     class="flux-progress-bar-progress">
-                        {{ progress }}
-                    </span>
+                    {{ progress }}
+                </span>
             </FluxFadeTransition>
         </div>
     </FluxStack>
