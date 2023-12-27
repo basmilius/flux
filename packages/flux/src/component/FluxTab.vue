@@ -1,5 +1,7 @@
 <template>
-    <div class="flux-tab">
+    <div
+        class="flux-tab"
+        role="tabpanel">
         <slot/>
     </div>
 </template>
