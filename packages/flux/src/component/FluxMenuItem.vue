@@ -166,6 +166,8 @@
             color: var(--foreground-secondary);
             font: inherit;
             font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
             white-space: nowrap;
 
             &-icon {
