@@ -8,8 +8,10 @@
             'is-indented': isIndented,
             'is-selected': isSelectable && isSelected
         }"
-        tabindex="0"
         :="{type, disabled, iconAfter, iconBefore, isLoading, label, href, rel, target, to}"
+        :role="isSelectable ? 'menuitemradio' : 'menuitem'"
+        tabindex="0"
+        :aria-checked="isSelectable ? isSelected : undefined"
         @click="$emit('click', $event)">
         <template
             v-if="isSelectable"
