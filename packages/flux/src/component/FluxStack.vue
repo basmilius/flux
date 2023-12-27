@@ -42,7 +42,7 @@
         gap: var(--gap);
 
         &.is-horizontal {
-            flex-flow: row;
+            flex-direction: row;
         }
 
         &.is-vertical {
