@@ -40,7 +40,20 @@ export interface FluxFilterOptionItem {
     readonly value: FluxFilterValue;
 }
 
-export type FluxFilterValue = DateTime | string | boolean | number | FluxFilterValue[];
+export type FluxFilterValue = DateTime | string | boolean | null | number | FluxFilterValue[];
+
+export type FluxFilterState = {
+    readonly [key: string]: FluxFilterValue | Function;
+    readonly resettable: string[];
+    reset(field?: string): void;
+};
+
+type NewOmit<T, K extends PropertyKey> =
+    { [P in keyof T as Exclude<P, K>]: T[P] };
+
+export type KnownKeys<T> = keyof {
+    [K in keyof T as string extends K ? never : number extends K ? never : K]: never
+};
 
 export function isFluxFilterOptionHeader(obj: object): obj is FluxFilterOptionHeader {
     return 'title' in obj;

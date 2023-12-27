@@ -21,6 +21,13 @@
     import { ref } from 'vue';
 
     const filterState = ref({
-        selected: DateTime.now()
+        selected: DateTime.now(),
+
+        get resettable() {
+            return [];
+        },
+
+        reset(): void {
+        }
     });
 </script>

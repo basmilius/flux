@@ -16,6 +16,7 @@ export type {
     FluxFilterOptionHeader,
     FluxFilterOptionItem,
     FluxFilterOptionsEntry,
+    FluxFilterState,
     FluxFilterValue,
     FluxFlyoutInjection,
     FluxFocalPoint,

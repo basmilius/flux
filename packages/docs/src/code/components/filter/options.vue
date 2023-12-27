@@ -30,6 +30,13 @@
     import { ref } from 'vue';
 
     const filterState = ref({
-        selected: ['first']
+        selected: ['first'],
+
+        get resettable() {
+            return [];
+        },
+
+        reset(): void {
+        }
     });
 </script>
