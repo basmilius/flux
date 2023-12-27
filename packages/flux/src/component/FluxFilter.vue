@@ -56,6 +56,8 @@
     import FluxWindow from './FluxWindow.vue';
 
     export interface Emits {
+        (e: 'reset', name?: string): void;
+
         (e: 'update:model-value', state: Record<string, unknown>): void;
     }
 
@@ -74,7 +76,7 @@
 
     const window = ref<{ back: Function; }>();
 
-    const filters = computed(() => {
+    const filters = computed<Record<string, VNode>>(() => {
         const filters: { [key: string]: VNode; } = {};
         const items = unref(defaultSlotContent);
 
@@ -101,12 +103,12 @@
         unref(window)?.back('default');
     }
 
-    function reset(name: string | number): void {
-        setValue(name);
+    function reset(name: string): void {
         back();
+        emit('reset', name);
     }
 
-    function getValue(name: string | number): FluxFilterOptionItem['value'] | undefined {
+    function getValue(name: string): FluxFilterOptionItem['value'] | undefined {
         if (!hasValue(name)) {
             return undefined;
         }
@@ -114,11 +116,11 @@
         return unref(modelValue)[name] as FluxFilterOptionItem['value'];
     }
 
-    function hasValue(name: string | number): boolean {
+    function hasValue(name: string): boolean {
         return name in unref(modelValue);
     }
 
-    function setValue(name: string | number, value?: FluxFilterOptionItem['value']): void {
+    function setValue(name: string, value: FluxFilterOptionItem['value']): void {
         emit('update:model-value', Object.assign(unref(modelValue), {
             [name]: value
         }));
