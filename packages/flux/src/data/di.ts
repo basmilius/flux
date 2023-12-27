@@ -1,6 +1,6 @@
 import type { ComponentInternalInstance, ComputedRef, InjectionKey, Ref } from 'vue';
 import type { Breakpoint, Breakpoints } from '@/composable';
-import type { FluxFilterValue } from './filter';
+import type { FluxFilterState, FluxFilterValue } from './filter';
 
 export const FluxBreakpointsInjectionKey: InjectionKey<FluxBreakpointsInjection> = Symbol();
 export const FluxDashboardInjectionKey: InjectionKey<FluxDashboardInjection> = Symbol();
@@ -34,7 +34,7 @@ export interface FluxExpandableGroupInjection {
 }
 
 export interface FluxFilterInjection {
-    readonly state: Ref<Record<string, FluxFilterValue>>;
+    readonly state: Ref<FluxFilterState>;
 
     back(): void;
 
