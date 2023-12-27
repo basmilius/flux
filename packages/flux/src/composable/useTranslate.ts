@@ -17,6 +17,7 @@ export const english = {
     flux_rows_per_page: 'Rows per page',
     flux_next: 'Next',
     flux_no_items: 'There are no items (left).',
+    flux_pagination: 'Pagination',
     flux_pagination_navigate_title: 'Navigate',
     flux_pagination_navigate_message: 'Please provide the desired page number you wish to navigate to.',
     flux_pagination_navigate_page: 'Page',
