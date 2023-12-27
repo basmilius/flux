@@ -30,7 +30,7 @@
         </ApiSection>
 
         <ApiSection title="Required icons">
-            <ApiRequiredIcons :icons="['angle-down']"/>
+            <ApiRequiredIcons :icons="['angle-down', 'magnifying-glass']"/>
         </ApiSection>
 
         <ApiSection title="API">
@@ -39,10 +39,6 @@
                     <tr>
                         <td><code>model-value</code><code>string | number | (string | number)[]</code></td>
                         <td>The value of the select.</td>
-                    </tr>
-                    <tr>
-                        <td><code>forced-position</code><code>'top' | 'bottom'</code></td>
-                        <td>Force the dropdown to a certain position.</td>
                     </tr>
                     <tr>
                         <td><code>is-disabled</code><code>boolean</code></td>
