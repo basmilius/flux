@@ -24,6 +24,13 @@
         selected: [
             DateTime.now(),
             DateTime.now().plus({day: 1})
-        ]
+        ],
+
+        get resettable() {
+            return [];
+        },
+
+        reset(): void {
+        }
     });
 </script>

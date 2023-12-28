@@ -1,6 +1,6 @@
 import type { ComponentInternalInstance, ComputedRef, InjectionKey, Ref } from 'vue';
 import type { Breakpoint, Breakpoints } from '@/composable';
-import type { FluxFilterValue } from './filter';
+import type { FluxFilterState, FluxFilterValue } from './filter';
 
 export const FluxBreakpointsInjectionKey: InjectionKey<FluxBreakpointsInjection> = Symbol();
 export const FluxDashboardInjectionKey: InjectionKey<FluxDashboardInjection> = Symbol();
@@ -8,62 +8,51 @@ export const FluxExpandableGroupInjectionKey: InjectionKey<FluxExpandableGroupIn
 export const FluxFlyoutInjectionKey: InjectionKey<FluxFlyoutInjection> = Symbol();
 export const FluxFilterInjectionKey: InjectionKey<FluxFilterInjection> = Symbol();
 export const FluxFormFieldInjectionKey: InjectionKey<FluxFormFieldInjection> = Symbol();
-export const FluxSkeletonsInjectionKey: InjectionKey<FluxSkeletonsInjection> = Symbol();
 export const FluxTableInjectionKey: InjectionKey<FluxTableInjection> = Symbol();
 
-export interface FluxBreakpointsInjection {
+export type FluxBreakpointsInjection = {
     readonly breakpoint: Ref<Breakpoint>;
     readonly breakpoints: Ref<Breakpoints>;
     readonly isDesktop: Ref<boolean>;
     readonly isMobile: Ref<boolean>;
     readonly maxWidth: Ref<number | null>;
     readonly width: Ref<number>;
-}
+};
 
-export interface FluxDashboardInjection {
+export type FluxDashboardInjection = {
     readonly isNavigationCollapsible: ComputedRef<boolean>;
     readonly isNavigationOpen: Ref<boolean>;
-}
+};
 
-export interface FluxExpandableGroupInjection {
+export type FluxExpandableGroupInjection = {
     closeAll(): void;
-
     register(uid: number, expandable: ComponentInternalInstance): void;
-
     unregister(uid: number): void;
-}
+};
 
-export interface FluxFilterInjection {
-    readonly state: Ref<Record<string, FluxFilterValue>>;
+export type FluxFilterInjection = {
+    readonly state: Ref<FluxFilterState>;
 
     back(): void;
-
     reset(name: string | number): void;
-
     getValue(name: string | number): FluxFilterValue | undefined;
-
     hasValue(name: string | number): boolean;
-
     setValue(name: string | number, value?: FluxFilterValue): void;
-}
+};
 
-export interface FluxFlyoutInjection {
+export type FluxFlyoutInjection = {
     readonly isClosing: Ref<boolean>;
     readonly isOpen: Ref<boolean>;
     readonly isOpening: Ref<boolean>;
-}
+};
 
-export interface FluxFormFieldInjection {
+export type FluxFormFieldInjection = {
     readonly id: Ref<string>;
-}
+};
 
-export interface FluxSkeletonsInjection {
-    readonly isEnabled: Ref<boolean>;
-}
-
-export interface FluxTableInjection {
+export type FluxTableInjection = {
     readonly isBordered: Ref<boolean>;
     readonly isHoverable: Ref<boolean>;
     readonly isSeparated: Ref<boolean>;
     readonly isStriped: Ref<boolean>;
-}
+};

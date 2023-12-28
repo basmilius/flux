@@ -23,7 +23,7 @@
                             @click="back('default')"/>
 
                         <FluxMenuItem
-                            v-if="hasValue(name)"
+                            v-if="modelValue.resettable && modelValue.resettable.includes(name)"
                             class="flux-filter-reset"
                             icon-before="trash"
                             is-destructive
@@ -45,7 +45,7 @@
     import type { VNode } from 'vue';
     import { computed, provide, ref, toRefs, unref } from 'vue';
     import { useSlotVNodes, useTranslate } from '@/composable';
-    import { FluxFilterInjectionKey, FluxFilterOptionItem, FluxFilterValue } from '@/data';
+    import { FluxFilterInjectionKey, FluxFilterOptionItem, FluxFilterState } from '@/data';
     import { heightTransition } from '@/directive';
     import { getComponentName, getComponentProps } from '@/util';
     import { FilterMenuRenderer, VNodeRenderer } from './primitive';
@@ -58,11 +58,11 @@
     export interface Emits {
         (e: 'reset', name?: string): void;
 
-        (e: 'update:model-value', state: Record<string, unknown>): void;
+        (e: 'update:model-value', state: FluxFilterState): void;
     }
 
     export interface Props {
-        readonly modelValue: Record<string, FluxFilterValue>;
+        readonly modelValue: FluxFilterState;
     }
 
     const vHeightTransition = heightTransition;

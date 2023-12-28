@@ -91,6 +91,10 @@
 
                 <template #emits>
                     <tr>
+                        <td><code>reset</code><code>(field: string): void;</code></td>
+                        <td>Triggered when a single filter field needs to be reset.</td>
+                    </tr>
+                    <tr>
                         <td><code>update:model-value</code><code>(state: object): void;</code></td>
                         <td>Triggered when the filter state has changed.</td>
                     </tr>
@@ -270,7 +274,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxFilter, FluxFilterDate, FluxFilterDateRange, FluxFilterOption, FluxFilterOptions, FluxPane, FluxSeparator, FluxStack } from '@fancee/flux';
+    import { FluxFilter, FluxFilterDate, FluxFilterDateRange, FluxFilterOption, FluxFilterOptions, FluxFilterState, FluxPane, FluxSeparator, FluxStack } from '@fancee/flux';
     import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
     import { DateTime } from 'luxon';
     import { ref } from 'vue';
@@ -283,10 +287,17 @@
     import options from '@docs/code/components/filter/options.vue';
     import optionsCode from '@docs/code/components/filter/options.vue?raw';
 
-    const filterState = ref({
+    const filterState = ref<FluxFilterState>({
         option1: 'b',
         option2: ['a', 'c'],
         option3: DateTime.now(),
-        option4: [DateTime.now(), DateTime.now().plus({day: 14})]
+        option4: [DateTime.now(), DateTime.now().plus({day: 14})],
+
+        get resettable(): string[] {
+            return ['option2'];
+        },
+
+        reset(): void {
+        }
     });
 </script>
