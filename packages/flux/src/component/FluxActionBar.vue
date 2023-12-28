@@ -86,7 +86,7 @@
     }
 
     @include flux.breakpoint-up(sm) {
-        .flux-action-bar .flux-form-input {
+        .flux-action-bar > .flux-form-input {
             max-width: 240px;
         }
     }
