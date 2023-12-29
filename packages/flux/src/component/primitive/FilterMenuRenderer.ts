@@ -162,4 +162,4 @@ const parsers = {
     dateRange: parseDateRange,
     option: parseOption,
     options: parseOptions
-};
+} as const;
