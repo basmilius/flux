@@ -103,5 +103,5 @@
     import ticks from '@docs/code/components/formRangeSlider/ticks.vue';
     import ticksCode from '@docs/code/components/formRangeSlider/ticks.vue?raw';
 
-    const sliderValue = ref([25, 75]);
+    const sliderValue = ref<[number, number]>([25, 75]);
 </script>

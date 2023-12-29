@@ -10,6 +10,7 @@ export default defineConfig({
             name: 'FanceeFlux',
             fileName: 'fancee.flux'
         },
+        minify: 'esbuild',
         outDir: resolve(__dirname, './dist'),
         rollupOptions: {
             external: ['luxon', 'vue'],

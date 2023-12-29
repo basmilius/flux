@@ -9,9 +9,7 @@
             :placeholder="searchPlaceholder"
             type="search"/>
 
-        <template
-            v-for="(option, index) of options"
-            :key="index">
+        <template v-for="option of options">
             <FluxMenuSubHeader
                 v-if="isFluxFilterOptionHeader(option)"
                 :label="option.title"/>
@@ -75,11 +73,7 @@
     }
 
     function select(option: FluxFilterOptionItem): void {
-        let value: FluxFilterValue[] = unref(currentValue);
-
-        if (!Array.isArray(value)) {
-            value = [];
-        }
+        let value: FluxFilterValue[] = Array.from(unref(currentValue));
 
         if (value.includes(option.value)) {
             value = value.filter(v => v !== option.value);

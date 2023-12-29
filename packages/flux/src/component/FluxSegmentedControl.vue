@@ -40,25 +40,20 @@
 <script
     lang="ts"
     setup>
-    import { onMounted, onUpdated, ref } from 'vue';
+    import { onMounted, onUpdated, ref, unref } from 'vue';
     import type { FluxSegmentedControlItemSpec } from '@/data';
     import FluxIcon from './FluxIcon.vue';
 
-    export interface Emits {
-        (e: 'update:model-value', index: number): void;
-    }
-
-    export interface Props {
+    export type Props = {
         readonly isFill?: boolean;
         readonly items: FluxSegmentedControlItemSpec[];
-        readonly modelValue: number;
-    }
+    };
 
-    const emit = defineEmits<Emits>();
+    const modelValue = defineModel<number>({default: 0});
     const props = defineProps<Props>();
 
-    onMounted(() => activate(props.modelValue));
-    onUpdated(() => activate(props.modelValue));
+    onMounted(() => activate(unref(modelValue)));
+    onUpdated(() => activate(unref(modelValue)));
 
     const activeItemX = ref(0);
     const activeItemWidth = ref(0);
@@ -66,14 +61,13 @@
     const itemRefs = ref<HTMLButtonElement[]>([]);
 
     function activate(index: number): void {
-        emit('update:model-value', index);
-
         const itemRef = itemRefs.value[index];
         const {left: controlX} = controlRef.value!.getBoundingClientRect();
         const {width, left: x} = itemRef.getBoundingClientRect();
 
         activeItemX.value = x - controlX;
         activeItemWidth.value = width;
+        modelValue.value = index;
     }
 </script>
 

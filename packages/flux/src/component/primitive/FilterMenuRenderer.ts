@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { defineComponent, h, isVNode, VNode } from 'vue';
+import { computed, defineComponent, h, isVNode, unref, VNode } from 'vue';
 import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSeparator } from '@/component';
 import { FluxTranslator, useTranslate } from '@/composable';
 import type { FluxFilterBase, FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterItem, FluxFilterOptionEntry, FluxFilterOptionItem, FluxFilterOptionsEntry, FluxFilterValue } from '@/data';
@@ -14,7 +14,7 @@ export const FilterMenuRenderer = defineComponent({
     setup(props, {slots}) {
         const translate = useTranslate();
 
-        return () => {
+        const content = computed<(FluxFilterItem | VNode)[][]>(() => {
             const children = flattenVNodeTree(slots.default?.() ?? []);
             const content: (FluxFilterItem | VNode)[][] = [[]];
 
@@ -37,10 +37,12 @@ export const FilterMenuRenderer = defineComponent({
                 content[content.length - 1].push(child);
             }
 
-            return h(FluxMenu, {}, {
-                default: () => content.map((group, index) => renderFilterGroup(group, index, translate, props.navigate!, props.state!))
-            });
-        };
+            return content;
+        });
+
+        return () => h(FluxMenu, {}, {
+            default: () => unref(content).map((group, index) => renderFilterGroup(group, index, translate, props.navigate!, props.state!))
+        });
     }
 });
 

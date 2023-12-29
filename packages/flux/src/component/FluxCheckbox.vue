@@ -3,7 +3,7 @@
         class="form-checkbox"
         :for="id">
         <input
-            v-model="localValue"
+            v-model="modelValue"
             ref="inputRef"
             type="checkbox"
             class="form-checkbox-native"
@@ -12,7 +12,7 @@
         <button
             class="form-checkbox-element"
             role="checkbox"
-            :aria-checked="localValue ?? false">
+            :aria-checked="modelValue ?? false">
             <FluxIcon
                 v-if="isIndeterminate"
                 :size="16"
@@ -35,49 +35,26 @@
 <script
     lang="ts"
     setup>
-    import { computed, onMounted, Ref, ref, toRefs, unref, watch } from 'vue';
+    import { computed, ref, unref, watchEffect } from 'vue';
     import { useFormFieldInjection } from '@/composable';
     import FluxIcon from './FluxIcon.vue';
 
-    export interface Emits {
-        (e: 'update:model-value', value: boolean): void;
-    }
-
     export interface Props {
         readonly label?: string;
-        readonly modelValue: boolean | null;
     }
 
-    const emit = defineEmits<Emits>();
-    const props = defineProps<Props>();
-    const {modelValue} = toRefs(props);
+    const modelValue = defineModel<boolean | null>({default: false});
+    defineProps<Props>();
 
     const {id} = useFormFieldInjection();
 
     const inputRef = ref<HTMLInputElement>();
-    const localValue: Ref<boolean | null> = ref(unref(modelValue));
 
-    const isIndeterminate = computed(() => unref(localValue) === null);
+    const isIndeterminate = computed(() => unref(modelValue) === null);
 
-    onMounted(() => {
-        checkIndeterminateState();
-    });
-
-    function checkIndeterminateState(): void {
-        inputRef.value!.indeterminate = unref(isIndeterminate);
-    }
-
-    watch(localValue, localValue => {
-        if (localValue === null) {
-            return;
-        }
-
-        emit('update:model-value', localValue);
-    });
-
-    watch(modelValue, modelValue => {
-        checkIndeterminateState();
-        localValue.value = modelValue;
+    watchEffect(() => {
+        const input = unref(inputRef);
+        input && (input.indeterminate = unref(isIndeterminate));
     });
 </script>
 

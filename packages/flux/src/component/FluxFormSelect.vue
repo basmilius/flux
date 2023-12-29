@@ -50,7 +50,7 @@
                 }">
                 <FluxFormInput
                     v-if="isSearchable"
-                    v-model="searchQuery"
+                    v-model="modelSearch"
                     ref="inputElement"
                     auto-complete="off"
                     class="flux-form-select-input"
@@ -127,28 +127,21 @@
     import FluxPane from './FluxPane.vue';
     import FluxPaneBody from './FluxPaneBody.vue';
 
-    export interface Emits {
-        (e: 'update:model-value', value: string | number | (string | number | null)[] | null): void;
-
-        (e: 'update:search', value: string): void;
-    }
-
-    export interface Props {
+    export type Props = {
         readonly forcedPosition?: 'top' | 'bottom';
         readonly isDisabled?: boolean;
         readonly isMultiple?: boolean;
         readonly isSearchable?: boolean;
-        readonly modelValue: string | number | (string | number)[] | null;
         readonly options: (FluxFormSelectOption | FluxFormSelectGroup)[];
         readonly placeholder?: string;
-        readonly search?: string;
-    }
+    };
 
     type GroupEntry = [FluxFormSelectGroup | FluxFormSelectOption | null, FluxFormSelectOption[]];
 
-    const emit = defineEmits<Emits>();
+    const modelSearch = defineModel<string>('search');
+    const modelValue = defineModel<string | number | (string | number | null)[] | null>({required: true});
     const props = defineProps<Props>();
-    const {forcedPosition, isMultiple, modelValue, options, search} = toRefs(props);
+    const {forcedPosition, isMultiple, options} = toRefs(props);
 
     const {id} = useFormFieldInjection();
     const translate = useTranslate();
@@ -160,7 +153,6 @@
     const hasFocus = ref(false);
     const highlightIndex = ref(-1);
     const optionRefs = ref<ComponentPublicInstance[]>();
-    const searchQuery = ref('');
     const popupOpen = ref(false);
     const popupY = ref(0);
     const popupWidth = ref(0);
@@ -175,13 +167,13 @@
 
     const groupedOptions = computed(() => {
         const groups: GroupEntry[] = [];
-        let search: string | null = unref(searchQuery).trim().toLowerCase();
+        let search = unref(modelSearch)?.trim().toLowerCase();
         const availableOptions = unref(options)
             .filter(o => isFluxFormSelectGroup(o) || (!search || o.label.toLowerCase().includes(search)))
             .filter(o => isFluxFormSelectGroup(o) || !unref(isMultiple) || !unref(selectedOptions).find(s => s.id === o.id));
 
-        if (search.length === 0) {
-            search = null;
+        if (search?.length === 0) {
+            search = undefined;
         }
 
         if (availableOptions.length === 0) {
@@ -251,7 +243,7 @@
                 break;
 
             case 'Backspace':
-                if (searchQuery.value.length > 0) {
+                if (unref(modelSearch) && unref(modelSearch)!.length > 0) {
                     break;
                 }
 
@@ -323,7 +315,7 @@
         const val = unref(modelValue);
 
         if (Array.isArray(val)) {
-            emit('update:model-value', val.filter(v => v !== id));
+            modelValue.value = val.filter(v => v !== id);
             unref(focusableElement)?.focus();
         }
 
@@ -334,18 +326,18 @@
         const val = unref(modelValue);
 
         if (Array.isArray(val)) {
-            emit('update:model-value', [...val, id]);
+            modelValue.value = [...val, id];
 
             unref(focusableElement)?.focus();
         } else {
-            emit('update:model-value', id);
+            modelValue.value = id;
 
             popupOpen.value = false;
             unref(focusableElement)?.blur();
         }
 
         highlightIndex.value = -1;
-        searchQuery.value = '';
+        modelSearch.value = '';
 
         requestAnimationFrame(reposition);
     }
@@ -356,14 +348,7 @@
         });
     });
 
-    watch(options, () => requestAnimationFrame(reposition));
-
-    watch(() => search, () => searchQuery.value = search?.value ?? '', {immediate: true});
-
-    watch(searchQuery, searchQuery => {
-        emit('update:search', searchQuery);
-        requestAnimationFrame(reposition);
-    });
+    watch([modelSearch, options], () => requestAnimationFrame(reposition));
 
     watch(popupOpen, popupOpen => {
         if (!popupOpen) {
