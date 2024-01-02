@@ -44,9 +44,7 @@ export type FluxFilterOptionItem = {
 export type FluxFilterValue = DateTime | string | boolean | null | number | FluxFilterValue[];
 
 export type FluxFilterState = {
-    readonly [key: string]: FluxFilterValue | Function;
-    readonly resettable: string[];
-    reset(field?: string): void;
+    [key: string]: FluxFilterValue | Function;
 };
 
 export function isFluxFilterOptionHeader(obj: object): obj is FluxFilterOptionHeader {

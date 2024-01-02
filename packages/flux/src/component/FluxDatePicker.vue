@@ -132,22 +132,15 @@
     import { FluxFadeTransition, FluxVerticalWindowTransition, FluxWindowTransition } from '@/transition';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
-    export interface Emits {
-        (e: 'update:model-value', date: DateTime | DateTime[] | null): void;
-    }
-
-    export interface Props {
+    export type Props = {
         readonly max?: DateTime;
         readonly min?: DateTime;
-        readonly modelValue: (DateTime | object) | (DateTime | object)[] | null;
         readonly rangeMode?: 'range' | 'week' | 'month';
-    }
+    };
 
-    const emit = defineEmits<Emits>();
-    const props = withDefaults(defineProps<Props>(), {
-        modelValue: null
-    });
-    const {max, min, modelValue, rangeMode} = toRefs(props);
+    const modelValue = defineModel<DateTime | DateTime[] | null>({default: null});
+    const props = defineProps<Props>();
+    const {max, min, rangeMode} = toRefs(props);
 
     const id = useId();
     const translate = useTranslate();
@@ -285,9 +278,9 @@
                     selection.value = [date, date];
                 } else {
                     if (date >= start) {
-                        emit('update:model-value', [start, date]);
+                        modelValue.value = [start, date];
                     } else {
-                        emit('update:model-value', [date, start]);
+                        modelValue.value = [date, start];
                     }
 
                     selection.value = [null, null];
@@ -295,15 +288,15 @@
                 break;
 
             case 'month':
-                emit('update:model-value', [date.startOf('month'), date.endOf('month')]);
+                modelValue.value = [date.startOf('month'), date.endOf('month')];
                 break;
 
             case 'week':
-                emit('update:model-value', [date.startOf('week'), date.endOf('week')]);
+                modelValue.value = [date.startOf('week'), date.endOf('week')];
                 break;
 
             default:
-                emit('update:model-value', date);
+                modelValue.value = date;
                 break;
         }
     }

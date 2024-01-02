@@ -51,10 +51,6 @@
 
                 <template #emits>
                     <tr>
-                        <td><code>activate</code><code>(index: number): void</code></td>
-                        <td>Triggered when a step is clicked.</td>
-                    </tr>
-                    <tr>
                         <td><code>update:model-value</code><code>(index: number): void</code></td>
                         <td>Triggered when a step has actually changed.</td>
                     </tr>
@@ -62,11 +58,11 @@
 
                 <template #slots>
                     <tr>
-                        <td><code>content</code><code>{activate, activeIndex, children, isTransitioningBack, steps, view}</code></td>
+                        <td><code>content</code><code>{activate, children, isTransitioningBack, modelValue, steps, view}</code></td>
                         <td>The content of the current step.</td>
                     </tr>
                     <tr>
-                        <td><code>steps</code><code>{activate, activeIndex, steps}</code></td>
+                        <td><code>steps</code><code>{activate, modelValue, steps}</code></td>
                         <td>The steps that are visible in the stepper.</td>
                     </tr>
                 </template>

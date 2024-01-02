@@ -35,33 +35,28 @@
 <script
     lang="ts"
     setup>
-    import { ComponentPublicInstance, computed, ref, toRefs, unref, watch } from 'vue';
+    import { ComponentPublicInstance, computed, Ref, ref, toRefs, unref, watch } from 'vue';
     import { addTooltip, removeTooltip, updateTooltip } from '@/data';
     import { clampWithStepPrecision, countDecimals, formatNumber, unrefElement } from '@/util';
     import { SliderBase, SliderThumb, SliderTrack } from './primitive';
 
-    export interface Emits {
-        (e: 'update:model-value', value: [number, number]): void;
-    }
-
-    export interface Props {
+    export type Props = {
         readonly formatter?: (value: number, decimals?: number) => string;
         readonly isDisabled?: boolean;
         readonly isTicksVisible?: boolean;
         readonly max?: number;
         readonly min?: number;
-        readonly modelValue: [number, number];
         readonly step?: number;
-    }
+    };
 
-    const emit = defineEmits<Emits>();
+    const modelValue = defineModel<[number, number]>({required: true}) as Ref<[number, number]>;
     const props = withDefaults(defineProps<Props>(), {
         formatter: formatNumber,
         max: 100,
         min: 0,
         step: 1
     });
-    const {formatter, isDisabled, max, min, modelValue, step} = toRefs(props);
+    const {formatter, isDisabled, max, min, step} = toRefs(props);
 
     const lowerThumbRef = ref<ComponentPublicInstance>();
     const upperThumbRef = ref<ComponentPublicInstance>();
@@ -125,7 +120,7 @@
             return;
         }
 
-        emit('update:model-value', [lower, upper]);
+        modelValue.value = [lower, upper];
     }
 
     function onIncrement(which: 'lower' | 'upper'): void {
@@ -142,7 +137,7 @@
             return;
         }
 
-        emit('update:model-value', [lower, upper]);
+        modelValue.value = [lower, upper];
     }
 
     watch(modelValue, modelValue => {
@@ -157,7 +152,7 @@
         percentageLower.value = (lower - min) / (max - min);
         percentageUpper.value = (upper - min) / (max - min);
 
-        emit('update:model-value', [lower, upper]);
+        modelValue.value = [lower, upper];
     }, {immediate: true});
 
     watch(([isDraggingLower, isDraggingUpper]), ([isDraggingLower, isDraggingUpper]) => {

@@ -116,10 +116,10 @@
     lang="ts"
     setup>
     import { DateTime } from 'luxon';
-    import { computed, unref, VNode, watch } from 'vue';
-    import { useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher, useSlotVNodes, useTranslate } from '@/composable';
+    import { computed, unref, useSlots, VNode, watch } from 'vue';
+    import { useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher, useTranslate } from '@/composable';
     import { FluxWindowTransition } from '@/transition';
-    import { getComponentName, getComponentProps } from '@/util';
+    import { flattenVNodeTree, getComponentName, getComponentProps } from '@/util';
     import { VNodeRenderer } from './primitive';
     import FluxActionBar from './FluxActionBar.vue';
     import FluxFlyout from './FluxFlyout.vue';
@@ -164,9 +164,10 @@
         previous: previousYears
     } = useCalendarYearSwitcher(viewDate);
 
-    const eventNodes = useSlotVNodes();
+    const slots = useSlots();
     const translate = useTranslate();
 
+    const eventNodes = computed(() => flattenVNodeTree(slots.default?.() ?? []));
     const events = computed(() => unref(eventNodes)
         .filter(en => getComponentName(en) === 'FluxCalendarEvent'));
 

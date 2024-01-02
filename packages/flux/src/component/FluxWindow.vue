@@ -1,17 +1,21 @@
 <template>
     <FluxWindowTransition :is-back="isBack">
-        <slot
-            v-bind="{back, navigate}"
-            :key="view"
-            :name="view"/>
+        <template v-for="(_, slot) of slots">
+            <slot
+                v-bind="{back, navigate}"
+                v-if="slot === view"
+                :name="slot"/>
+        </template>
     </FluxWindowTransition>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { ref } from 'vue';
+    import { ref, useSlots } from 'vue';
     import { FluxWindowTransition } from '@/transition';
+
+    const slots = useSlots();
 
     const isBack = ref(false);
     const view = ref<string>('default');

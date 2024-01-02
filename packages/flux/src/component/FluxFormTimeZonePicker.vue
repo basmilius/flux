@@ -1,6 +1,6 @@
 <template>
     <FluxFormSelect
-        v-model="localValue"
+        v-model="modelValue"
         is-searchable
         :is-disabled="isDisabled"
         :options="options"
@@ -10,20 +10,15 @@
 <script
     lang="ts"
     setup>
-    import { computed, ref, toRefs, unref, watchEffect } from 'vue';
+    import { computed, Ref } from 'vue';
     import { useTranslate } from '@/composable';
     import { FluxFormSelectEntry } from '@/data';
     import FluxFormSelect from './FluxFormSelect.vue';
 
-    export interface Emits {
-        (e: 'update:model-value', value: string): void;
-    }
-
-    export interface Props {
-        readonly modelValue: string | null;
+    export type Props = {
         readonly isDisabled?: boolean;
         readonly placeholder?: string;
-    }
+    };
 
     const timeZones = [
         'Africa/Abidjan',
@@ -643,13 +638,10 @@
         'flux_timezone_pacific'
     ];
 
-    const emit = defineEmits<Emits>();
-    const props = defineProps<Props>();
-    const {modelValue} = toRefs(props);
+    const modelValue = defineModel<string | null>({default: null}) as Ref<string | null>;
+    defineProps<Props>();
 
     const translate = useTranslate();
-
-    const localValue = ref<string | null>(null);
 
     const options = computed<FluxFormSelectEntry[]>(() => {
         const groups: Record<string, FluxFormSelectEntry[]> = {};
@@ -711,19 +703,5 @@
         }
 
         return options;
-    });
-
-    watchEffect(() => {
-        localValue.value = unref(modelValue);
-    });
-
-    watchEffect(() => {
-        const value = unref(localValue);
-
-        if (!value) {
-            return;
-        }
-
-        emit('update:model-value', value);
     });
 </script>
