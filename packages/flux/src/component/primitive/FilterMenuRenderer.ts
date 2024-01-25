@@ -2,8 +2,8 @@ import { DateTime } from 'luxon';
 import { computed, defineComponent, h, isVNode, unref, VNode } from 'vue';
 import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSeparator } from '@/component';
 import { FluxTranslator, useTranslate } from '@/composable';
-import type { FluxFilterBase, FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterItem, FluxFilterOptionEntry, FluxFilterOptionItem, FluxFilterOptionsEntry, FluxFilterValue } from '@/data';
-import { camelizeTag, createLabelForDateRange, flattenVNodeTree, getComponentName, getComponentProps } from '@/util';
+import type { FluxFilterBase, FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterItem, FluxFilterOptionEntry, FluxFilterOptionItem, FluxFilterOptionsEntry, FluxFilterRangeEntry, FluxFilterValue } from '@/data';
+import { camelizeTag, createLabelForDateRange, flattenVNodeTree, formatNumber, getComponentName, getComponentProps } from '@/util';
 
 export const FilterMenuRenderer = defineComponent({
     props: {
@@ -128,6 +128,29 @@ function parseOptions(base: FluxFilterBase): FluxFilterOptionsEntry {
     };
 }
 
+function parseRange(base: FluxFilterBase): FluxFilterRangeEntry {
+    return {
+        ...base,
+        type: 'range',
+
+        getValueLabel(value) {
+            if (!value || !Array.isArray(value) || value.length !== 2) {
+                return null;
+            }
+
+            const [lower, upper] = value as number[];
+
+            if ('formatter' in base) {
+                const formatter = base.formatter as (value: number) => string;
+
+                return `${formatter(lower)} – ${formatter(upper)}`;
+            }
+
+            return `${formatNumber(lower)} – ${formatNumber(upper)}`;
+        }
+    };
+}
+
 function renderFilterGroup(group: (FluxFilterItem | VNode)[], index: number, translate: FluxTranslator, navigate: Function, state: Record<string, FluxFilterValue>): VNode[] {
     const slot: VNode[] = [];
 
@@ -161,5 +184,6 @@ const parsers = {
     date: parseDate,
     dateRange: parseDateRange,
     option: parseOption,
-    options: parseOptions
+    options: parseOptions,
+    range: parseRange
 } as const;

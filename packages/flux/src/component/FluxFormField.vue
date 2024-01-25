@@ -12,6 +12,12 @@
                 class="flux-form-field-optional">
                 ({{ translate('flux_optional') }})
             </span>
+
+            <span
+                v-if="$slots.value"
+                class="flux-form-field-value">
+                <slot name="value"/>
+            </span>
         </label>
 
         <slot v-bind="{id}"/>
@@ -76,6 +82,7 @@
         &-header {
             display: flex;
             margin-bottom: 0;
+            width: 100%;
             align-items: center;
             align-self: start;
             gap: 6px;
@@ -97,6 +104,12 @@
         }
 
         &-optional {
+            color: var(--foreground-secondary);
+            font-size: .85em;
+        }
+
+        &-value {
+            margin-left: auto;
             color: var(--foreground-secondary);
             font-size: .85em;
         }

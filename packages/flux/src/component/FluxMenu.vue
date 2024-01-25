@@ -54,6 +54,10 @@
             margin-bottom: 9px;
         }
 
+        .flux-pane-body {
+            margin: -9px;
+        }
+
         .flux-separator {
             margin-left: -9px;
             margin-right: -9px;
