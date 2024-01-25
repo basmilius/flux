@@ -26,11 +26,16 @@ export type FluxFilterOptionsEntry = FluxFilterBase & {
     readonly type: 'options';
 };
 
+export type FluxFilterRangeEntry = FluxFilterBase & {
+    readonly type: 'range';
+};
+
 export type FluxFilterItem =
     | FluxFilterDateEntry
     | FluxFilterDateRangeEntry
     | FluxFilterOptionEntry
-    | FluxFilterOptionsEntry;
+    | FluxFilterOptionsEntry
+    | FluxFilterRangeEntry;
 
 export type FluxFilterOptionHeader = {
     readonly title: string;

@@ -40,6 +40,7 @@ export {
     faCircleXmark,
     faClone,
     faCloud,
+    faCoin,
     faCopy,
     faDrawSquare,
     faEclipse,

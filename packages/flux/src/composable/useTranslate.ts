@@ -8,6 +8,8 @@ export const english = {
     flux_custom_period: 'Custom period',
     flux_filter: 'Filter',
     flux_filter_reset: 'Reset filters',
+    flux_max: 'Max',
+    flux_min: 'Min',
     flux_n_selected: '{n} selected',
     flux_ok: 'Ok',
     flux_optional: 'Optional',
