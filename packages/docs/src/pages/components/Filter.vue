@@ -42,6 +42,17 @@
                         icon="calendar-range"
                         label="Period"
                         name="option4"/>
+
+                    <FluxSeparator/>
+
+                    <FluxFilterRange
+                        icon="coin"
+                        label="Cost"
+                        name="option5"
+                        :formatter="rangeFormatter"
+                        :max="1000"
+                        :min="0"
+                        :step="10"/>
                 </FluxFilter>
             </FluxPane>
         </Preview>
@@ -90,6 +101,10 @@
                 </template>
 
                 <template #emits>
+                    <tr>
+                        <td><code>reset</code><code>(field: string): void;</code></td>
+                        <td>Triggered when a single filter field needs to be reset.</td>
+                    </tr>
                     <tr>
                         <td><code>update:model-value</code><code>(state: object): void;</code></td>
                         <td>Triggered when the filter state has changed.</td>
@@ -237,6 +252,50 @@
                     </tr>
                 </template>
             </ApiComponent>
+
+            <ApiComponent name="FilterRange">
+                <template #props>
+                    <tr>
+                        <td><code>icon</code><code>IconNames</code></td>
+                        <td>The icon for the filter option.</td>
+                    </tr>
+                    <tr>
+                        <td><code>label</code><code>string</code></td>
+                        <td>The label for the filter option.</td>
+                    </tr>
+                    <tr>
+                        <td><code>name</code><code>string</code></td>
+                        <td>The name of the entry in the filter state.</td>
+                    </tr>
+                    <tr>
+                        <td><code>formatter</code><code>(value: number) => string</code></td>
+                        <td>Formats the number.</td>
+                    </tr>
+                    <tr>
+                        <td><code>is-ticks-visible</code><code>boolean</code></td>
+                        <td>Shows slider ticks.</td>
+                    </tr>
+                    <tr>
+                        <td><code>max</code><code>number</code></td>
+                        <td>The maximum value.</td>
+                    </tr>
+                    <tr>
+                        <td><code>min</code><code>number</code></td>
+                        <td>The minimum value.</td>
+                    </tr>
+                    <tr>
+                        <td><code>step</code><code>number</code></td>
+                        <td>The step between the min and max range.</td>
+                    </tr>
+                </template>
+
+                <template #emits>
+                    <tr>
+                        <td><code>update:search</code><code>(searchQuery: string): void</code></td>
+                        <td>Triggered when the search query changes.</td>
+                    </tr>
+                </template>
+            </ApiComponent>
         </ApiSection>
 
         <ApiSection title="Examples">
@@ -270,7 +329,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxFilter, FluxFilterDate, FluxFilterDateRange, FluxFilterOption, FluxFilterOptions, FluxPane, FluxSeparator, FluxStack } from '@fancee/flux';
+    import { FluxFilter, FluxFilterDate, FluxFilterDateRange, FluxFilterOption, FluxFilterOptions, FluxFilterRange, FluxFilterState, FluxPane, FluxSeparator, FluxStack } from '@fancee/flux';
     import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
     import { DateTime } from 'luxon';
     import { ref } from 'vue';
@@ -283,10 +342,29 @@
     import options from '@docs/code/components/filter/options.vue';
     import optionsCode from '@docs/code/components/filter/options.vue?raw';
 
-    const filterState = ref({
+    const filterState = ref<FluxFilterState>({
         option1: 'b',
         option2: ['a', 'c'],
         option3: DateTime.now(),
-        option4: [DateTime.now(), DateTime.now().plus({day: 14})]
+        option4: [DateTime.now(), DateTime.now().plus({day: 14})],
+        option5: [250, 500],
+
+        get resettable(): string[] {
+            return ['option2'];
+        },
+
+        reset(): void {
+        }
     });
+
+    function rangeFormatter(value: number): string {
+        const formatter = new Intl.NumberFormat(navigator.language, {
+            currency: 'EUR',
+            maximumFractionDigits: 2,
+            minimumFractionDigits: 2,
+            style: 'currency'
+        });
+
+        return formatter.format(value / 100);
+    }
 </script>

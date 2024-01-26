@@ -1,8 +1,12 @@
 import type { Ref } from 'vue';
 import { ref } from 'vue';
 
-let _id: number = 0;
+let id: number = 0;
 
 export function useId(): Ref<string> {
-    return ref(`flux${++_id}`);
+    return useId.generate();
 }
+
+useId.generate = function (): Ref<string> {
+    return ref(`flux:${++id}`);
+};

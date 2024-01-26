@@ -1,5 +1,7 @@
 <template>
-    <div class="flux-menu-sub-header">
+    <div
+        class="flux-menu-sub-header"
+        role="presentation">
         <FluxIcon
             v-if="iconBefore"
             class="flux-button-icon flux-menu-sub-header-icon"

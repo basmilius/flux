@@ -25,27 +25,21 @@
 <script
     lang="ts"
     setup>
-    import type { ComponentPublicInstance } from 'vue';
-    import { computed, ref, toRefs, unref, watch } from 'vue';
+    import { ComponentPublicInstance, computed, ref, toRefs, unref, watch, watchEffect } from 'vue';
     import { addTooltip, removeTooltip, updateTooltip } from '@/data';
     import { clampWithStepPrecision, countDecimals, formatNumber, unrefElement } from '@/util';
     import { SliderBase, SliderThumb, SliderTrack } from './primitive';
 
-    export interface Emits {
-        (e: 'update:model-value', value: number): void;
-    }
-
-    export interface Props {
+    export type Props = {
         readonly formatter?: (value: number, decimals?: number) => string;
         readonly isDisabled?: boolean;
         readonly isTicksVisible?: boolean;
         readonly max?: number;
         readonly min?: number;
-        readonly modelValue: number;
         readonly step?: number;
-    }
+    };
 
-    const emit = defineEmits<Emits>();
+    const modelValue = defineModel<number>({required: true});
     const props = withDefaults(defineProps<Props>(), {
         formatter: formatNumber,
         isDisabled: false,
@@ -53,7 +47,7 @@
         min: 0,
         step: 1
     });
-    const {formatter, isDisabled, max, min, modelValue, step} = toRefs(props);
+    const {formatter, isDisabled, max, min, step} = toRefs(props);
 
     const thumbRef = ref<ComponentPublicInstance>();
     const isDragging = ref(false);
@@ -99,7 +93,7 @@
         }
 
         const value = clampWithStepPrecision(localValue.value, min.value, max.value, step.value);
-        emit('update:model-value', Math.max(min.value, value - step.value));
+        modelValue.value = Math.max(min.value, value - step.value);
     }
 
     function onIncrement(): void {
@@ -108,17 +102,16 @@
         }
 
         const value = clampWithStepPrecision(localValue.value, min.value, max.value, step.value);
-        emit('update:model-value', Math.min(max.value, value + step.value));
+        modelValue.value = Math.min(max.value, value + step.value);
     }
 
-    watch(modelValue, modelValue => {
-        localValue.value = (modelValue - min.value) / (max.value - min.value);
-    }, {immediate: true});
+    watchEffect(() => {
+        localValue.value = (unref(modelValue) - unref(min)) / (unref(max) - unref(min));
+    });
 
     watch(([max, min, localValue, step]), ([max, min, localValue, step]) => {
         const value = clampWithStepPrecision(localValue, min, max, step);
+        modelValue.value = value;
         percentage.value = (value - min) / (max - min);
-
-        emit('update:model-value', value);
     }, {immediate: true});
 </script>

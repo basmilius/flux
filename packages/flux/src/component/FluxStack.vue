@@ -11,7 +11,7 @@
             'is-wrapping': isWrapping
         }"
         :style="{
-            gap: `${gap}px`
+            '--gap': `${gap}px`
         }">
         <slot/>
     </Component>
@@ -39,9 +39,10 @@
 <style lang="scss">
     .flux-stack {
         display: flex;
+        gap: var(--gap);
 
         &.is-horizontal {
-            flex-flow: row;
+            flex-direction: row;
         }
 
         &.is-vertical {

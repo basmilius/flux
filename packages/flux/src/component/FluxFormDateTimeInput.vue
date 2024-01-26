@@ -43,7 +43,7 @@
     lang="ts"
     setup>
     import { DateTime } from 'luxon';
-    import { ComponentPublicInstance, ref, toRefs, unref, watch } from 'vue';
+    import { ComponentPublicInstance, Ref, ref, toRefs, unref, watch } from 'vue';
     import FluxDatePicker from './FluxDatePicker.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxFormInput from './FluxFormInput.vue';
@@ -51,11 +51,7 @@
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import FluxStack from './FluxStack.vue';
 
-    export interface Emits {
-        (e: 'update:model-value', value: DateTime | null): void;
-    }
-
-    export interface Props {
+    export type Props = {
         readonly autoComplete?: string;
         readonly autoFocus?: boolean;
         readonly isDisabled?: boolean;
@@ -63,13 +59,12 @@
         readonly isReadonly?: boolean;
         readonly max?: DateTime;
         readonly min?: DateTime;
-        readonly modelValue: DateTime | null;
         readonly placeholder?: string;
-    }
+    };
 
-    const emit = defineEmits<Emits>();
+    const modelValue = defineModel<DateTime | null>({required: true}) as Ref<DateTime | null>;
     const props = defineProps<Props>();
-    const {isHourOnly, modelValue} = toRefs(props);
+    const {isHourOnly} = toRefs(props);
 
     const flyoutRef = ref<ComponentPublicInstance<{}, {}, {}, {}, { close: Function; }>>();
     const localValue = ref<DateTime | null>(null);
@@ -104,7 +99,7 @@
 
     watch(localValue, localValue => {
         unref(flyoutRef)?.close();
-        emit('update:model-value', localValue);
+        modelValue.value = localValue;
     });
 </script>
 

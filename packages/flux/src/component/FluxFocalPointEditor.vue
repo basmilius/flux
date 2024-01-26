@@ -55,7 +55,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, onMounted, onUnmounted, ref, toRefs, unref, watch } from 'vue';
+    import { computed, onMounted, onUnmounted, ref, unref, watch } from 'vue';
     import { useTranslate } from '@/composable';
     import { FluxFadeTransition } from '@/transition';
     import FluxPane from './FluxPane.vue';
@@ -64,18 +64,12 @@
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import FluxSpacer from './FluxSpacer.vue';
 
-    export interface Emits {
-        (e: 'update:model-value', focalPoint: [number, number]): void;
-    }
-
     export interface Props {
-        readonly modelValue: [number, number];
         readonly url: string;
     }
 
-    const emit = defineEmits<Emits>();
+    const modelValue = defineModel<[number, number]>({required: true});
     const props = defineProps<Props>();
-    const {modelValue} = toRefs(props);
 
     const translate = useTranslate();
 
@@ -127,7 +121,7 @@
             return;
         }
 
-        emit('update:model-value', dragging.value!);
+        modelValue.value = dragging.value!;
         dragging.value = null;
     }
 

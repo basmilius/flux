@@ -4,6 +4,8 @@
         class="flux-tab-bar-item"
         :class="{'is-active': isActive}"
         type="button"
+        role="tab"
+        :aria-selected="isActive"
         @click="$emit('click', $event)">
         <FluxIcon
             v-if="icon"

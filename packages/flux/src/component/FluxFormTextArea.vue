@@ -13,8 +13,8 @@
         :placeholder="placeholder"
         :rows="rows"
         :value="parsedValue"
-        @blur="$emit('blur')"
-        @focus="$emit('focus')"
+        @blur="emit('blur')"
+        @focus="emit('focus')"
         @input="onInput"/>
 </template>
 
@@ -24,32 +24,28 @@
     import { computed, onMounted, ref, toRefs, unref, watch } from 'vue';
     import { useFormFieldInjection } from '@/composable';
 
-    export interface Emits {
+    export type Emits = {
         (e: 'blur'): void;
-
         (e: 'focus'): void;
+    };
 
-        (e: 'update:model-value', value: object | string | number): void;
-    }
-
-    export interface Props {
+    export type Props = {
         readonly autoComplete?: string;
         readonly autoFocus?: boolean;
         readonly isDisabled?: boolean;
         readonly isReadonly?: boolean;
         readonly maxLength?: number;
-        readonly modelValue?: string;
         readonly placeholder?: string;
         readonly rows?: number;
-    }
+    };
 
     const emit = defineEmits<Emits>();
+    const modelValue = defineModel<string>({default: ''});
     const props = withDefaults(defineProps<Props>(), {
         autoFocus: false,
         rows: 3
     });
-
-    const {modelValue, rows} = toRefs(props);
+    const {rows} = toRefs(props);
 
     const {id} = useFormFieldInjection();
 
@@ -60,7 +56,7 @@
     onMounted(() => requestAnimationFrame(sizeToContent));
 
     function onInput(evt: Event): void {
-        emit('update:model-value', (evt.target as HTMLTextAreaElement).value);
+        modelValue.value = (evt.target as HTMLTextAreaElement).value;
         sizeToContent();
     }
 

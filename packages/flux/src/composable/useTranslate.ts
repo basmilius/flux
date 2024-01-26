@@ -8,6 +8,8 @@ export const english = {
     flux_custom_period: 'Custom period',
     flux_filter: 'Filter',
     flux_filter_reset: 'Reset filters',
+    flux_max: 'Max',
+    flux_min: 'Min',
     flux_n_selected: '{n} selected',
     flux_ok: 'Ok',
     flux_optional: 'Optional',
@@ -15,10 +17,13 @@ export const english = {
     flux_preview_close: 'Close preview',
     flux_displaying_of: '{from}–{to} of {total}',
     flux_rows_per_page: 'Rows per page',
+    flux_next: 'Next',
     flux_no_items: 'There are no items (left).',
+    flux_pagination: 'Pagination',
     flux_pagination_navigate_title: 'Navigate',
     flux_pagination_navigate_message: 'Please provide the desired page number you wish to navigate to.',
     flux_pagination_navigate_page: 'Page',
+    flux_previous: 'Previous',
     flux_search: 'Search...',
     flux_sort: 'Sort',
     flux_sort_ascending: 'Ascending',
@@ -73,7 +78,7 @@ export function useTranslate(): FluxTranslator {
 
 export type FluxTranslator = (key: TranslationKey | ({} & string), params?: Record<string, string | number>) => string;
 
-interface VueI18n {
+type VueI18n = {
     $t: FluxTranslator;
 }
 

@@ -2,8 +2,8 @@
     <div
         class="flux-grid"
         :style="{
-            '--columns': columns,
-            gap: `${gap}px`
+            '--gap': `${gap}px`,
+            '--columns': columns
         }">
         <slot/>
     </div>
@@ -26,6 +26,7 @@
 <style lang="scss">
     .flux-grid {
         display: grid;
+        gap: var(--gap);
         grid-template-columns: repeat(var(--columns), 1fr);
     }
 </style>

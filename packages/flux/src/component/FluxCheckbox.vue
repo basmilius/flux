@@ -3,13 +3,16 @@
         class="form-checkbox"
         :for="id">
         <input
-            v-model="localValue"
+            v-model="modelValue"
             ref="inputRef"
             type="checkbox"
             class="form-checkbox-native"
             :id="id"/>
 
-        <span class="form-checkbox-element">
+        <button
+            class="form-checkbox-element"
+            role="checkbox"
+            :aria-checked="modelValue ?? false">
             <FluxIcon
                 v-if="isIndeterminate"
                 :size="16"
@@ -19,7 +22,7 @@
                 v-else
                 :size="16"
                 variant="check"/>
-        </span>
+        </button>
 
         <span
             v-if="label"
@@ -32,49 +35,26 @@
 <script
     lang="ts"
     setup>
-    import { computed, onMounted, Ref, ref, toRefs, unref, watch } from 'vue';
+    import { computed, ref, unref, watchEffect } from 'vue';
     import { useFormFieldInjection } from '@/composable';
     import FluxIcon from './FluxIcon.vue';
 
-    export interface Emits {
-        (e: 'update:model-value', value: boolean): void;
-    }
-
     export interface Props {
         readonly label?: string;
-        readonly modelValue: boolean | null;
     }
 
-    const emit = defineEmits<Emits>();
-    const props = defineProps<Props>();
-    const {modelValue} = toRefs(props);
+    const modelValue = defineModel<boolean | null>({default: false});
+    defineProps<Props>();
 
     const {id} = useFormFieldInjection();
 
     const inputRef = ref<HTMLInputElement>();
-    const localValue: Ref<boolean | null> = ref(unref(modelValue));
 
-    const isIndeterminate = computed(() => unref(localValue) === null);
+    const isIndeterminate = computed(() => unref(modelValue) === null);
 
-    onMounted(() => {
-        checkIndeterminateState();
-    });
-
-    function checkIndeterminateState(): void {
-        inputRef.value!.indeterminate = unref(isIndeterminate);
-    }
-
-    watch(localValue, localValue => {
-        if (localValue === null) {
-            return;
-        }
-
-        emit('update:model-value', localValue);
-    });
-
-    watch(modelValue, modelValue => {
-        checkIndeterminateState();
-        localValue.value = modelValue;
+    watchEffect(() => {
+        const input = unref(inputRef);
+        input && (input.indeterminate = unref(isIndeterminate));
     });
 </script>
 
@@ -104,9 +84,11 @@
             display: inline-flex;
             height: 22px;
             width: 22px;
+            padding: 0;
             align-items: center;
             justify-content: center;
             background: rgb(var(--gray-5) / .75);
+            border: 0;
             border-radius: calc(var(--radius) / 2);
             color: rgb(var(--primary-0));
             pointer-events: none;
@@ -117,7 +99,7 @@
 
             .flux-icon {
                 opacity: 0;
-                scale: .9;
+                scale: .85;
                 transition: inherit;
                 transition-property: opacity;
 

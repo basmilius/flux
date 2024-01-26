@@ -4,7 +4,8 @@
         :class="{
             'is-horizontal': axis === 'horizontal',
             'is-vertical': axis === 'vertical'
-        }"/>
+        }"
+        role="separator"/>
 </template>
 
 <script

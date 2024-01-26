@@ -61,17 +61,13 @@
     import { unrefElement } from '@/util';
     import FluxIcon from './FluxIcon.vue';
 
-    export interface Emits {
+    export type Emits = {
         (e: 'blur'): void;
-
         (e: 'focus'): void;
-
         (e: 'show-picker'): void;
+    };
 
-        (e: 'update:model-value', value: object | string | number): void;
-    }
-
-    export interface Props {
+    export type Props = {
         readonly autoComplete?: string;
         readonly autoFocus?: boolean;
         readonly iconAfter?: IconNames;
@@ -82,20 +78,20 @@
         readonly max?: string | number;
         readonly maxLength?: number;
         readonly min?: string | number;
-        readonly modelValue?: object | string | number | null;
         readonly pattern?: Masks;
         readonly placeholder?: string;
         readonly step?: number;
         readonly type?: 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'month' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'time' | 'url' | 'week';
-    }
+    };
 
     const emit = defineEmits<Emits>();
+    const modelValue = defineModel<object | string | number | null>({default: ''});
     const props = withDefaults(defineProps<Props>(), {
         autoFocus: false,
         type: 'text'
     });
 
-    const {modelValue, type} = toRefs(props);
+    const {type} = toRefs(props);
 
     const {id} = useFormFieldInjection();
 
@@ -134,15 +130,15 @@
                     return;
                 }
 
-                emit('update:model-value', dateTime);
+                modelValue.value = dateTime;
                 break;
 
             case 'number':
-                emit('update:model-value', Number(value));
+                modelValue.value = Number(value);
                 break;
 
             default:
-                emit('update:model-value', value);
+                modelValue.value = value;
                 break;
         }
     }

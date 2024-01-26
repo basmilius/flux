@@ -1,9 +1,9 @@
 import { DateTime } from 'luxon';
-import { defineComponent, h, isVNode, VNode } from 'vue';
+import { computed, defineComponent, h, isVNode, unref, VNode } from 'vue';
 import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSeparator } from '@/component';
 import { FluxTranslator, useTranslate } from '@/composable';
-import type { FluxFilterBase, FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterItem, FluxFilterOptionEntry, FluxFilterOptionItem, FluxFilterOptionsEntry, FluxFilterValue } from '@/data';
-import { camelizeTag, createLabelForDateRange, flattenVNodeTree, getComponentName, getComponentProps } from '@/util';
+import type { FluxFilterBase, FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterItem, FluxFilterOptionEntry, FluxFilterOptionItem, FluxFilterOptionsEntry, FluxFilterRangeEntry, FluxFilterValue } from '@/data';
+import { camelizeTag, createLabelForDateRange, flattenVNodeTree, formatNumber, getComponentName, getComponentProps } from '@/util';
 
 export const FilterMenuRenderer = defineComponent({
     props: {
@@ -14,7 +14,7 @@ export const FilterMenuRenderer = defineComponent({
     setup(props, {slots}) {
         const translate = useTranslate();
 
-        return () => {
+        const content = computed<(FluxFilterItem | VNode)[][]>(() => {
             const children = flattenVNodeTree(slots.default?.() ?? []);
             const content: (FluxFilterItem | VNode)[][] = [[]];
 
@@ -37,10 +37,12 @@ export const FilterMenuRenderer = defineComponent({
                 content[content.length - 1].push(child);
             }
 
-            return h(FluxMenu, {}, {
-                default: () => content.map((group, index) => renderFilterGroup(group, index, translate, props.navigate!, props.state!))
-            });
-        };
+            return content;
+        });
+
+        return () => h(FluxMenu, {}, {
+            default: () => unref(content).map((group, index) => renderFilterGroup(group, index, translate, props.navigate!, props.state!))
+        });
     }
 });
 
@@ -126,6 +128,29 @@ function parseOptions(base: FluxFilterBase): FluxFilterOptionsEntry {
     };
 }
 
+function parseRange(base: FluxFilterBase): FluxFilterRangeEntry {
+    return {
+        ...base,
+        type: 'range',
+
+        getValueLabel(value) {
+            if (!value || !Array.isArray(value) || value.length !== 2) {
+                return null;
+            }
+
+            const [lower, upper] = value as number[];
+
+            if ('formatter' in base) {
+                const formatter = base.formatter as (value: number) => string;
+
+                return `${formatter(lower)} – ${formatter(upper)}`;
+            }
+
+            return `${formatNumber(lower)} – ${formatNumber(upper)}`;
+        }
+    };
+}
+
 function renderFilterGroup(group: (FluxFilterItem | VNode)[], index: number, translate: FluxTranslator, navigate: Function, state: Record<string, FluxFilterValue>): VNode[] {
     const slot: VNode[] = [];
 
@@ -159,5 +184,6 @@ const parsers = {
     date: parseDate,
     dateRange: parseDateRange,
     option: parseOption,
-    options: parseOptions
-};
+    options: parseOptions,
+    range: parseRange
+} as const;

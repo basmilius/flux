@@ -2,55 +2,38 @@ import type { ComputedRef } from 'vue';
 import { computed, reactive } from 'vue';
 import type { FluxAlertSpec, FluxConfirmSpec, FluxPromptSpec, FluxSnackbarSpec, FluxTooltipSpec } from './types';
 
-export interface FluxState {
+export type FluxState = {
     dialogCount: number;
     readonly alerts: FluxAlertSpec[];
     readonly confirms: FluxConfirmSpec[];
     readonly prompts: FluxPromptSpec[];
     readonly snackbars: FluxSnackbarSpec[];
     readonly tooltips: FluxTooltipSpec[];
-}
+};
 
-export interface FluxStore extends FluxState {
+export type FluxStore = FluxState & {
     readonly inertMain: ComputedRef<boolean>;
     readonly tooltip: ComputedRef<FluxTooltipSpec | null>;
 
     addAlert(spec: Omit<FluxAlertSpec, 'id'>): number;
-
     addConfirm(spec: Omit<FluxConfirmSpec, 'id'>): number;
-
     addPrompt(spec: Omit<FluxPromptSpec, 'id'>): number;
-
     addSnackbar(spec: Omit<FluxSnackbarSpec, 'id'>): number;
-
     addTooltip(spec: Omit<FluxTooltipSpec, 'id'>): number;
-
     registerDialog(): VoidFunction;
-
     removeAlert(id: number): void;
-
     removeConfirm(id: number): void;
-
     removePrompt(id: number): void;
-
     removeSnackbar(id: number): void;
-
     removeTooltip(id: number): void;
-
     showAlert(spec: Omit<FluxAlertSpec, 'id' | 'onClose'>): Promise<void>;
-
     showConfirm(spec: Omit<FluxConfirmSpec, 'id' | 'onCancel' | 'onConfirm'>): Promise<boolean>;
-
     showPrompt(spec: Omit<FluxConfirmSpec, 'id' | 'onCancel' | 'onConfirm'>): Promise<string | false>;
-
     showSnackbar({duration, ...spec}: Omit<FluxSnackbarSpec, 'id'> & { readonly duration?: number; }): Promise<void> | void;
-
     updateSnackbar(id: number, spec: Partial<Omit<FluxSnackbarSpec, 'id'>>): void;
-
     updateTooltip(id: number, spec: Partial<Omit<FluxTooltipSpec, 'id'>>): void;
-
     showSnackbarSync({duration, ...spec}: Omit<FluxSnackbarSpec, 'id'> & { readonly duration?: number; }): void;
-}
+};
 
 const DEFAULT_SNACKBAR_DURATION = 3000;
 

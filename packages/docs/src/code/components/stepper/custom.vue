@@ -5,19 +5,19 @@
             title="Stories"/>
 
         <flux-stepper :model-value="step">
-            <template #steps="{activeIndex, steps}">
+            <template #steps="{modelValue, steps}">
                 <flux-pane-header>
                     <flux-stepper-steps
                         :amount="steps"
-                        :current="activeIndex + 1"/>
+                        :current="modelValue + 1"/>
                 </flux-pane-header>
             </template>
 
-            <template #content="{activeIndex, view}">
+            <template #content="{modelValue, view}">
                 <flux-pane-body>
                     <flux-breakthrough-transition>
                         <flux-dynamic-view
-                            :key="activeIndex"
+                            :key="modelValue"
                             :vnode="view"/>
                     </flux-breakthrough-transition>
                 </flux-pane-body>

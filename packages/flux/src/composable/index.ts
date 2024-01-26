@@ -15,7 +15,6 @@ export { useId } from './useId';
 export { useInterval } from './useInterval';
 export { useInView } from './useInView';
 export { useMutationObserver } from './useMutationObserver';
-export { useSlotVNodes } from './useSlotVNodes';
 export { useTranslate } from './useTranslate';
 
 export { useDashboardInjection } from './useDashboardInjection';
@@ -23,5 +22,4 @@ export { useExpandableGroupInjection } from './useExpandableGroupInjection';
 export { useFilterInjection } from './useFilterInjection';
 export { useFlyoutInjection } from './useFlyoutInjection';
 export { useFormFieldInjection } from './useFormFieldInjection';
-export { useSkeletonsInjection } from './useSkeletonsInjection';
 export { useTableInjection } from './useTableInjection';

@@ -4,7 +4,9 @@
         class="flux-menu"
         :class="{
             'is-large': isLarge
-        }">
+        }"
+        role="menu"
+        aria-orientation="vertical">
         <slot/>
     </nav>
 </template>
@@ -13,7 +15,7 @@
     lang="ts"
     setup>
     import { ref } from 'vue';
-    import { useFocusZone } from '@/composable'
+    import { useFocusZone } from '@/composable';
 
     export interface Props {
         readonly isLarge?: boolean;
@@ -50,6 +52,10 @@
 
         &:last-child {
             margin-bottom: 9px;
+        }
+
+        .flux-pane-body {
+            margin: -9px;
         }
 
         .flux-separator {

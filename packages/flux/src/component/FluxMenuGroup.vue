@@ -1,9 +1,10 @@
 <template>
-    <nav
+    <div
         class="flux-menu-group"
-        :class="{'is-horizontal': isHorizontal}">
+        :class="{'is-horizontal': isHorizontal}"
+        role="group">
         <slot/>
-    </nav>
+    </div>
 </template>
 
 <script

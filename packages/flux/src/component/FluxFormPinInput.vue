@@ -17,9 +17,9 @@
             :id="id"
             :autofocus="autoFocus"
             :disabled="isDisabled"
-            :tabindex="(field - 1) === localValue?.length ? 0 : -1"
+            :tabindex="(field - 1) === modelValue?.length ? 0 : -1"
             :type="isPrivate ? 'password' : 'text'"
-            :value="localValue[field - 1]"
+            :value="modelValue[field - 1]"
             @focus="onFocus"
             @input="onInput"
             @keydown="onKeyDown"/>
@@ -29,36 +29,32 @@
 <script
     lang="ts"
     setup>
-    import { ref, toRefs, unref, watchEffect } from 'vue';
+    import { ref, toRefs, unref } from 'vue';
     import { useFormFieldInjection } from '@/composable';
 
-    export interface Emits {
+    export type Emits = {
         (e: 'blur'): void;
-
         (e: 'focus'): void;
+    };
 
-        (e: 'update:model-value', value: string): void;
-    }
-
-    export interface Props {
+    export type Props = {
         readonly autoFocus?: boolean;
         readonly isDisabled?: boolean;
         readonly isPrivate?: boolean;
         readonly maxLength?: number;
-        readonly modelValue?: string | null;
-    }
+    };
 
     const emit = defineEmits<Emits>();
+    const modelValue = defineModel<string>({default: ''});
     const props = withDefaults(defineProps<Props>(), {
         autoFocus: false,
         maxLength: 6
     });
 
-    const {maxLength, modelValue} = toRefs(props);
+    const {maxLength} = toRefs(props);
     const {id} = useFormFieldInjection();
 
     const fieldRefs = ref<HTMLInputElement[]>();
-    const localValue = ref('');
 
     function onFocus(evt: FocusEvent): void {
         const input = evt.target as HTMLInputElement;
@@ -71,7 +67,7 @@
             .map(f => f.value.trim() === '' ? NaN : Number(f.value))
             .filter(v => !isNaN(v));
 
-        emit('update:model-value', values.join(''));
+        modelValue.value = values.join('');
     }
 
     function onKeyDown(evt: KeyboardEvent): void {
@@ -109,10 +105,6 @@
                 break;
         }
     }
-
-    watchEffect(() => {
-        localValue.value = unref(modelValue) ?? '';
-    });
 </script>
 
 <style lang="scss">

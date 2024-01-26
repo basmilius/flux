@@ -25,6 +25,8 @@
             :disabled="isDisabled"
             type="checkbox"
             :checked="modelValue"
+            role="switch"
+            :aria-checked="modelValue"
             @input="toggle"/>
     </label>
 </template>
@@ -32,32 +34,24 @@
 <script
     lang="ts"
     setup>
-    import { toRefs } from 'vue';
     import { useFormFieldInjection } from '@/composable';
     import type { IconNames } from '@/data';
     import FluxIcon from './FluxIcon.vue';
 
-    export interface Emits {
-        (e: 'update:model-value', on: boolean): void;
-    }
-
-    export interface Props {
+    export type Props = {
         readonly iconOff?: IconNames;
         readonly iconOn?: IconNames;
         readonly isDisabled?: boolean;
         readonly isSwitch?: boolean;
-        readonly modelValue?: boolean;
-    }
+    };
 
-    const emit = defineEmits<Emits>();
-    const props = defineProps<Props>();
-
-    const {modelValue} = toRefs(props);
+    const modelValue = defineModel<boolean>({default: false});
+    defineProps<Props>();
 
     const {id} = useFormFieldInjection();
 
     function toggle(evt: Event): void {
-        emit('update:model-value', (evt.target as HTMLInputElement).checked);
+        modelValue.value = (evt.target as HTMLInputElement).checked;
     }
 </script>
 

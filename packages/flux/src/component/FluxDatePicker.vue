@@ -6,10 +6,15 @@
                     v-if="viewMode === 'date'"
                     :disabled="!isWithinBoundary(viewDatePrevious, 'month')"
                     icon-before="angle-left"
+                    :aria-label="translate('flux_previous')"
                     @click="previousMonth"/>
             </FluxFadeTransition>
 
-            <div class="flux-date-picker-header-view">
+            <div
+                class="flux-date-picker-header-view"
+                :id="id"
+                aria-live="polite"
+                role="presentation">
                 <button
                     type="button"
                     @click="setView('month')">
@@ -28,6 +33,7 @@
                     v-if="viewMode === 'date'"
                     :disabled="!isWithinBoundary(viewDateNext, 'month')"
                     icon-before="angle-right"
+                    :aria-label="translate('flux_next')"
                     @click="nextMonth"/>
             </FluxFadeTransition>
         </div>
@@ -36,7 +42,8 @@
             <div
                 v-if="viewMode === 'date'"
                 key="date"
-                class="flux-date-picker-dates">
+                class="flux-date-picker-dates"
+                :aria-labelledby="id">
                 <FluxWindowTransition :is-back="isTransitioningToPast">
                     <div
                         :key="viewDate.month"
@@ -121,26 +128,22 @@
     setup>
     import { DateTime } from 'luxon';
     import { computed, ref, toRefs, unref } from 'vue';
-    import { useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher } from '@/composable';
+    import { useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher, useId, useTranslate } from '@/composable';
     import { FluxFadeTransition, FluxVerticalWindowTransition, FluxWindowTransition } from '@/transition';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
-    export interface Emits {
-        (e: 'update:model-value', date: DateTime | DateTime[] | null): void;
-    }
-
-    export interface Props {
+    export type Props = {
         readonly max?: DateTime;
         readonly min?: DateTime;
-        readonly modelValue: (DateTime | object) | (DateTime | object)[] | null;
         readonly rangeMode?: 'range' | 'week' | 'month';
-    }
+    };
 
-    const emit = defineEmits<Emits>();
-    const props = withDefaults(defineProps<Props>(), {
-        modelValue: null
-    });
-    const {max, min, modelValue, rangeMode} = toRefs(props);
+    const modelValue = defineModel<DateTime | DateTime[] | null>({default: null});
+    const props = defineProps<Props>();
+    const {max, min, rangeMode} = toRefs(props);
+
+    const id = useId();
+    const translate = useTranslate();
 
     const {
         isTransitioningToPast,
@@ -275,9 +278,9 @@
                     selection.value = [date, date];
                 } else {
                     if (date >= start) {
-                        emit('update:model-value', [start, date]);
+                        modelValue.value = [start, date];
                     } else {
-                        emit('update:model-value', [date, start]);
+                        modelValue.value = [date, start];
                     }
 
                     selection.value = [null, null];
@@ -285,15 +288,15 @@
                 break;
 
             case 'month':
-                emit('update:model-value', [date.startOf('month'), date.endOf('month')]);
+                modelValue.value = [date.startOf('month'), date.endOf('month')];
                 break;
 
             case 'week':
-                emit('update:model-value', [date.startOf('week'), date.endOf('week')]);
+                modelValue.value = [date.startOf('week'), date.endOf('week')];
                 break;
 
             default:
-                emit('update:model-value', date);
+                modelValue.value = date;
                 break;
         }
     }

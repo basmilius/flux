@@ -1,7 +1,10 @@
 <template>
     <div
         class="flux-expandable"
-        :class="{'is-open': isOpen}">
+        :class="{'is-open': isOpen}"
+        :id="headerId"
+        :aria-controls="contentId"
+        :aria-expanded="isOpen">
         <slot
             v-bind="{label, isOpen, close, open, toggle}"
             name="header">
@@ -22,7 +25,9 @@
         <FluxAutoHeightTransition>
             <div
                 v-if="isOpen"
-                class="flux-expandable-body">
+                class="flux-expandable-body"
+                :id="contentId"
+                :aria-labelledby="headerId">
                 <slot
                     v-bind="{label, close}"
                     name="body">
@@ -39,7 +44,7 @@
     lang="ts"
     setup>
     import { getCurrentInstance, onBeforeMount, onUnmounted, ref, toRefs, unref, watch } from 'vue';
-    import { useComponentId, useExpandableGroupInjection } from '@/composable';
+    import { useComponentId, useExpandableGroupInjection, useId } from '@/composable';
     import { FluxAutoHeightTransition, FluxFadeTransition } from '@/transition';
     import FluxIcon from './FluxIcon.vue';
 
@@ -56,14 +61,16 @@
     const props = defineProps<Props>();
     const {isOpened} = toRefs(props);
 
-    const id = useComponentId();
+    const componentId = useComponentId();
+    const contentId = useId();
+    const headerId = useId();
     const instance = getCurrentInstance()!;
     const isOpen = ref(false);
 
     const {closeAll, register, unregister} = useExpandableGroupInjection();
 
-    onBeforeMount(() => register?.(unref(id), instance));
-    onUnmounted(() => unregister?.(unref(id)));
+    onBeforeMount(() => register?.(unref(componentId), instance));
+    onUnmounted(() => unregister?.(unref(componentId)));
 
     function close(): void {
         isOpen.value = false;

@@ -3,7 +3,8 @@
         class="flux-divider"
         :style="{
             justifyItems: contentPlacement
-        }">
+        }"
+        role="separator">
         <div
             v-if="$slots.default"
             class="flux-divider-content">

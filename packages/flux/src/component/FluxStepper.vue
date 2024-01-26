@@ -1,19 +1,19 @@
 <template>
     <slot
         name="steps"
-        v-bind="{activate, activeIndex, steps}">
+        v-bind="{activate, activeIndex: modelValue, modelValue, steps}">
         <FluxStepperSteps
             :amount="steps"
-            :current="activeIndex + 1"
+            :current="modelValue + 1"
             @activate="activate"/>
     </slot>
 
     <slot
         name="content"
-        v-bind="{activate, activeIndex, children, isTransitioningBack, steps, view}">
+        v-bind="{activate, activeIndex: modelValue, children, isTransitioningBack, modelValue, steps, view}">
         <FluxWindowTransition :is-back="isTransitioningBack">
             <FluxDynamicView
-                :key="activeIndex"
+                :key="modelValue"
                 :vnode="view"/>
         </FluxWindowTransition>
     </slot>
@@ -22,42 +22,27 @@
 <script
     lang="ts"
     setup>
-    import { computed, ref, toRefs, unref, watch } from 'vue';
-    import { useSlotVNodes } from '@/composable';
+    import { computed, ref, unref, useSlots, watch } from 'vue';
     import { FluxWindowTransition } from '@/transition';
+    import { flattenVNodeTree } from '@/util';
     import FluxDynamicView from './FluxDynamicView.vue';
     import FluxStepperSteps from './FluxStepperSteps.vue';
 
-    export interface Emits {
-        (e: 'activate', index: number): void;
+    const modelValue = defineModel<number>({default: 0});
 
-        (e: 'update:model-value', index: number): void;
-    }
+    const slots = useSlots();
 
-    export interface Props {
-        readonly modelValue: number;
-    }
-
-    const emit = defineEmits<Emits>();
-    const props = defineProps<Props>();
-    const {modelValue} = toRefs(props);
-
-    const children = useSlotVNodes('default');
-
-    const activeIndex = ref(0);
     const isTransitioningBack = ref(false);
 
+    const children = computed(() => flattenVNodeTree(slots.default?.() ?? []));
     const steps = computed(() => unref(children).length);
-    const view = computed(() => unref(children)[unref(activeIndex)] ?? null);
+    const view = computed(() => unref(children)[unref(modelValue)] ?? null);
 
     function activate(index: number): void {
-        emit('activate', index);
+        modelValue.value = index;
     }
 
-    watch(activeIndex, (newIndex, oldIndex) => {
+    watch(modelValue, (newIndex, oldIndex) => {
         isTransitioningBack.value = newIndex < oldIndex;
-        emit('update:model-value', newIndex);
     });
-
-    watch(modelValue, modelValue => activeIndex.value = modelValue, {immediate: true});
 </script>

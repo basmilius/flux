@@ -2,14 +2,14 @@
     <FluxButtonGroup class="flux-quantity-selector">
         <FluxSecondaryButton
             class="flux-quantity-selector-button"
-            :disabled="internalValue <= min"
+            :disabled="modelValue <= min"
             icon-before="minus"
             tabindex="-1"
             @click="decrement"/>
 
         <input
             ref="inputRef"
-            v-model="internalValue"
+            v-model="modelValue"
             class="flux-form-input flux-quantity-selector-input"
             :style="{
                 width: `${width}px`
@@ -22,7 +22,7 @@
 
         <FluxSecondaryButton
             class="flux-quantity-selector-button"
-            :disabled="internalValue >= max"
+            :disabled="modelValue >= max"
             icon-before="plus"
             tabindex="-1"
             @click="increment"/>
@@ -32,41 +32,33 @@
 <script
     lang="ts"
     setup>
-    import { onMounted, ref, toRefs, unref, watch } from 'vue';
+    import { ref, toRefs, unref, watchEffect } from 'vue';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
-    export interface Emits {
-        (e: 'update:model-value', value: number): void;
-    }
-
-    export interface Props {
+    export type Props = {
         readonly max?: number;
         readonly min?: number;
-        readonly modelValue: number;
         readonly step?: number;
-    }
+    };
 
-    const emit = defineEmits<Emits>();
+    const modelValue = defineModel<number>({default: 0});
     const props = withDefaults(defineProps<Props>(), {
         max: 100,
         min: 0,
         step: 1
     });
-    const {max, min, modelValue, step} = toRefs(props);
+    const {max, min, step} = toRefs(props);
 
     const inputRef = ref<HTMLInputElement>();
-    const internalValue = ref(0);
     const width = ref(0);
 
-    onMounted(() => requestAnimationFrame(sizeToContent));
-
     function decrement(): void {
-        internalValue.value = Math.max(unref(min), unref(internalValue) - unref(step));
+        modelValue.value = Math.max(unref(min), unref(modelValue) - unref(step));
     }
 
     function increment(): void {
-        internalValue.value = Math.min(unref(max), unref(internalValue) + unref(step));
+        modelValue.value = Math.min(unref(max), unref(modelValue) + unref(step));
     }
 
     function sizeToContent(): void {
@@ -83,29 +75,19 @@
         });
     }
 
-    watch(internalValue, internalValue => {
-        if (internalValue > unref(max)) {
+    watchEffect(() => {
+        if (unref(modelValue) > unref(max)) {
             increment();
             return;
         }
 
-        if (internalValue < unref(min)) {
+        if (unref(modelValue) < unref(min)) {
             decrement();
             return;
         }
 
-        emit('update:model-value', internalValue);
         sizeToContent();
     });
-
-    watch(modelValue, () => {
-        if (internalValue.value === modelValue.value) {
-            return;
-        }
-
-        internalValue.value = modelValue.value;
-        sizeToContent();
-    }, {immediate: true});
 </script>
 
 <style lang="scss">

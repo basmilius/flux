@@ -1,9 +1,13 @@
 <template>
-    <FluxButtonGroup class="flux-pagination">
+    <FluxButtonGroup
+        class="flux-pagination"
+        role="navigation"
+        :aria-label="translate('flux_pagination')">
         <FluxSecondaryButton
             v-if="arrows || isCompact"
             :disabled="isPreviousDisabled"
             icon-before="angle-left"
+            :aria-label="translate('flux_previous')"
             @click="previous"/>
 
         <template
@@ -16,7 +20,8 @@
 
             <FluxPrimaryButton
                 v-else-if="p === page"
-                :label="`${p}`"/>
+                :label="`${p}`"
+                aria-current="page"/>
 
             <FluxSecondaryButton
                 v-else
@@ -39,6 +44,7 @@
             v-if="arrows || isCompact"
             :disabled="isNextDisabled"
             icon-before="angle-right"
+            :aria-label="translate('flux_next')"
             @click="next"/>
     </FluxButtonGroup>
 </template>
