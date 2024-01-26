@@ -241,11 +241,14 @@
                 break;
 
             case 'Backspace':
-                if (unref(modelSearch) && unref(modelSearch)!.length > 0) {
-                    break;
+                const selectedValues = unref(values);
+                const search = unref(modelSearch);
+
+                if ((search && search.length > 0) || selectedValues.length === 0) {
+                    return;
                 }
 
-                const value = values.value[values.value.length - 1];
+                const value = selectedValues[selectedValues.length - 1];
 
                 if (value) {
                     deselect(value);
