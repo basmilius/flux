@@ -1,15 +1,17 @@
 <template>
-    <div
-        ref="rootElement"
+    <Anchor
+        ref="anchorRef"
         class="flux-form-input flux-form-select"
         :class="{
             'is-disabled': isDisabled,
+            'is-focused': popupOpen,
             'is-searchable': isSearchable
         }"
         :id="id"
         tabindex="0"
-        @focusin="onFocus"
-        @focusout="onBlur">
+        tag-name="div"
+        @click="popupOpen = !popupOpen"
+        @keydown="onKeyDown">
         <FluxMenuItem
             v-if="!isMultiple && selectedOptions[0]"
             class="flux-form-select-selected"
@@ -38,16 +40,17 @@
         <FluxIcon
             class="flux-form-select-icon"
             variant="angle-down"/>
+    </Anchor>
 
+    <Teleport to="body">
         <FluxFadeTransition>
-            <FluxPane
-                v-if="!isDisabled && popupOpen"
-                ref="popupElement"
-                class="flux-form-select-popup"
-                :style="{
-                    top: `${popupY}px`,
-                    width: `${popupWidth}px`
-                }">
+            <AnchorPopup
+                v-if="popupOpen"
+                ref="popupRef"
+                class="flux-surface flux-pane flux-form-select-popup"
+                :anchor="anchorRef"
+                axis="vertical"
+                use-anchor-width>
                 <FluxFormInput
                     v-if="isSearchable"
                     v-model="modelSearch"
@@ -75,8 +78,8 @@
 
                             <template v-for="(subItem, index) of subItems">
                                 <FluxMenuItem
-                                    ref="optionRefs"
                                     v-if="isFluxFormSelectOption(subItem)"
+                                    ref="optionRefs"
                                     :key="index"
                                     :command="subItem.command"
                                     :command-icon="subItem.commandIcon"
@@ -103,20 +106,21 @@
                             @click="select(item.id)"/>
                     </template>
                 </FluxMenu>
-            </FluxPane>
+            </AnchorPopup>
         </FluxFadeTransition>
-    </div>
+    </Teleport>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { ComponentPublicInstance, computed, ComputedRef, nextTick, ref, toRefs, unref, watch } from 'vue';
+    import { ComponentPublicInstance, computed, ComputedRef, nextTick, ref, Teleport, toRefs, unref, watch } from 'vue';
+    import { useClickOutside, useFormFieldInjection, useTranslate } from '@/composable';
+    import { Anchor, AnchorPopup } from '@/component/primitive';
     import type { FluxFormSelectGroup, FluxFormSelectOption } from '@/data';
     import { isFluxFormSelectGroup, isFluxFormSelectOption } from '@/data';
-    import { useFormFieldInjection, useTranslate } from '@/composable';
     import { FluxFadeTransition } from '@/transition';
-    import { unrefElement } from '@/util';
+    import { ensureElement } from '@/util';
     import FluxBadge from './FluxBadge.vue';
     import FluxFormInput from './FluxFormInput.vue';
     import FluxIcon from './FluxIcon.vue';
@@ -124,7 +128,6 @@
     import FluxMenuGroup from './FluxMenuGroup.vue';
     import FluxMenuItem from './FluxMenuItem.vue';
     import FluxMenuSubHeader from './FluxMenuSubHeader.vue';
-    import FluxPane from './FluxPane.vue';
     import FluxPaneBody from './FluxPaneBody.vue';
 
     export type Props = {
@@ -141,23 +144,20 @@
     const modelSearch = defineModel<string>('search');
     const modelValue = defineModel<string | number | (string | number | null)[] | null>({required: true});
     const props = defineProps<Props>();
-    const {forcedPosition, isMultiple, options} = toRefs(props);
+    const {isMultiple, options} = toRefs(props);
 
     const {id} = useFormFieldInjection();
     const translate = useTranslate();
 
-    const rootElement = ref<HTMLDivElement>();
+    const anchorRef = ref<ComponentPublicInstance>();
+    const popupRef = ref<ComponentPublicInstance>();
     const inputElement = ref<HTMLInputElement>();
-    const popupElement = ref<HTMLDialogElement>();
 
-    const hasFocus = ref(false);
     const highlightIndex = ref(-1);
     const optionRefs = ref<ComponentPublicInstance[]>();
     const popupOpen = ref(false);
-    const popupY = ref(0);
-    const popupWidth = ref(0);
 
-    const focusableElement = computed(() => unref(inputElement) ?? unref(rootElement));
+    const focusableElement = computed(() => ensureElement(unref(inputElement) ?? unref(anchorRef)));
     const values = computed(() => Array.isArray(modelValue.value) ? modelValue.value : [modelValue.value]);
     const selectedOptions = computed(() => unref(values)
         .map(v => unref(options).find(o => isFluxFormSelectOption(o) && o.id === v))
@@ -213,26 +213,23 @@
         return groups;
     });
 
-    function onBlur(): void {
-        hasFocus.value = false;
-        highlightIndex.value = -1;
+    useClickOutside([anchorRef, popupRef], popupOpen, () => {
+        popupOpen.value = false;
+    });
 
-        requestAnimationFrame(() => {
-            if (hasFocus.value) {
-                return;
-            }
-
-            popupOpen.value = false;
-        });
-    }
-
-    function onFocus(): void {
-        hasFocus.value = true;
-        popupOpen.value = true;
-        reposition();
-    }
+    useClickOutside(anchorRef, popupOpen, () => {
+        unref(focusableElement)?.focus();
+    });
 
     function onKeyDown(evt: KeyboardEvent): void {
+        if (!unref(popupOpen)) {
+            if (evt.key === 'Enter') {
+                popupOpen.value = true;
+            }
+
+            return;
+        }
+
         switch (evt.key) {
             case 'ArrowUp':
                 highlightIndex.value = Math.max(0, unref(highlightIndex) - 1);
@@ -243,11 +240,14 @@
                 break;
 
             case 'Backspace':
-                if (unref(modelSearch) && unref(modelSearch)!.length > 0) {
-                    break;
+                const selectedValues = unref(values);
+                const search = unref(modelSearch);
+
+                if ((search && search.length > 0) || selectedValues.length === 0) {
+                    return;
                 }
 
-                const value = values.value[values.value.length - 1];
+                const value = selectedValues[selectedValues.length - 1];
 
                 if (value) {
                     deselect(value);
@@ -260,55 +260,22 @@
                 if (id) {
                     select(id);
                 }
-
                 break;
 
             case 'Escape':
                 popupOpen.value = false;
                 break;
 
+            case 'Tab':
+                popupOpen.value = false;
+                return;
+
             default:
                 highlightIndex.value = -1;
-                break;
-        }
-    }
-
-    function reposition(): void {
-        const root = unref(rootElement);
-
-        if (!root) {
-            return;
-        }
-
-        const {top, height: inputHeight, width} = root.getBoundingClientRect();
-        popupWidth.value = width;
-
-        requestAnimationFrame(() => {
-            if (!popupElement.value) {
                 return;
-            }
+        }
 
-            const {height} = unrefElement(popupElement)!.getBoundingClientRect();
-            const bottom = top + height + inputHeight + 39;
-
-            switch (forcedPosition?.value) {
-                case 'top':
-                    popupY.value = -height - 6;
-                    break;
-
-                case 'bottom':
-                    popupY.value = inputHeight + 6;
-                    break;
-
-                default:
-                    if (bottom <= innerHeight) {
-                        popupY.value = inputHeight + 6;
-                    } else {
-                        popupY.value = -height - 6;
-                    }
-                    break;
-            }
-        });
+        evt.preventDefault();
     }
 
     function deselect(id: string | number | null): void {
@@ -318,8 +285,6 @@
             modelValue.value = val.filter(v => v !== id);
             unref(focusableElement)?.focus();
         }
-
-        requestAnimationFrame(reposition);
     }
 
     function select(id: string | number | null): void {
@@ -327,19 +292,16 @@
 
         if (Array.isArray(val)) {
             modelValue.value = [...val, id];
-
-            unref(focusableElement)?.focus();
         } else {
             modelValue.value = id;
 
             popupOpen.value = false;
-            unref(focusableElement)?.blur();
         }
 
         highlightIndex.value = -1;
         modelSearch.value = '';
 
-        requestAnimationFrame(reposition);
+        unref(focusableElement)?.focus();
     }
 
     watch(highlightIndex, index => {
@@ -347,8 +309,6 @@
             block: 'nearest'
         });
     });
-
-    watch([modelSearch, options], () => requestAnimationFrame(reposition));
 
     watch(popupOpen, popupOpen => {
         if (!popupOpen) {
@@ -393,6 +353,10 @@
             @include flux.focus-ring(-1px, true);
         }
 
+        &.is-focused {
+            @include flux.focus-outline-visible(-1px)
+        }
+
         &-icon {
             position: absolute;
             top: 50%;
@@ -400,7 +364,7 @@
             translate: 0 -50%;
         }
 
-        & &-input {
+        &-input {
             position: sticky;
             top: 0;
             height: 48px;
@@ -430,16 +394,20 @@
             margin-left: 6px;
             margin-right: 6px;
             color: var(--foreground-secondary);
+            user-select: none;
         }
 
-        & &-popup {
-            position: absolute;
+        &-popup {
+            position: fixed;
             display: block;
+            top: 0;
             left: 0;
+            width: var(--width, auto);
             max-height: 330px;
             min-width: 120px;
             box-shadow: var(--shadow-md);
             overflow: auto;
+            translate: var(--x) var(--y);
             z-index: 10000;
         }
 
@@ -474,7 +442,7 @@
         }
 
         &-input {
-            outline: 0;
+            @include flux.focus-ring-remove();
         }
     }
 </style>

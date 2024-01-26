@@ -5,6 +5,7 @@ export { useBreakpoints, useBreakpointsProvider } from './useBreakpoints';
 export { useCalendar } from './useCalendar';
 export { useCalendarMonthSwitcher } from './useCalendarMonthSwitcher';
 export { useCalendarYearSwitcher } from './useCalendarYearSwitcher';
+export { useClickOutside } from './useClickOutside';
 export { useComponentId } from './useComponentId';
 export { useDebouncedRef } from './useDebouncedRef';
 export { useEventListener } from './useEventListener';

@@ -78,11 +78,6 @@
         outline-offset: -1px;
     }
 
-    ul,
-    ol {
-        margin: 0;
-    }
-
     :where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, .flux-typography-aware) + :where(h1, h2, h3) {
         margin-top: 33px;
     }

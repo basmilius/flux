@@ -4,6 +4,7 @@ export { default as clampWithStepPrecision } from './clampWithStepPrecision';
 export { default as countDecimals } from './countDecimals';
 export { default as createDialogRenderer } from './createDialogRenderer';
 export { default as createLabelForDateRange } from './createLabelForDateRange';
+export { default as ensureElement } from './ensureElement';
 export { default as flattenVNodeTree } from './flattenVNodeTree';
 export { default as formatNumber } from './formatNumber';
 export { default as formatPercentage } from './formatPercentage';

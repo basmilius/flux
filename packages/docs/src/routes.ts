@@ -5,9 +5,13 @@ export const routerIsLoading = ref(false);
 
 export const router = createRouter({
     history: createWebHistory(),
-    scrollBehavior: () => ({
-        top: 0
-    }),
+    scrollBehavior: async () => {
+        await new Promise(resolve => setTimeout(resolve, 150));
+
+        return {
+            top: 0
+        };
+    },
     routes: [
         {
             path: '/',
