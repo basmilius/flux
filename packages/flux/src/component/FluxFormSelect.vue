@@ -308,12 +308,6 @@
         });
     });
 
-    watch(searchQuery, searchQuery => {
-        emit('update:search', searchQuery);
-    });
-
-    watch([modelSearch, options], () => requestAnimationFrame(reposition));
-
     watch(popupOpen, popupOpen => {
         if (!popupOpen) {
             return;
