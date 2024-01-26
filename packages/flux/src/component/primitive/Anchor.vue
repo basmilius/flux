@@ -11,6 +11,3 @@
         readonly tagName: keyof HTMLElementTagNameMap;
     }>();
 </script>
-
-<style lang="scss">
-</style>

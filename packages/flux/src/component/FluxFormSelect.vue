@@ -144,7 +144,7 @@
     const modelSearch = defineModel<string>('search');
     const modelValue = defineModel<string | number | (string | number | null)[] | null>({required: true});
     const props = defineProps<Props>();
-    const {forcedPosition, isMultiple, options} = toRefs(props);
+    const {isMultiple, options} = toRefs(props);
 
     const {id} = useFormFieldInjection();
     const translate = useTranslate();
@@ -214,7 +214,6 @@
     });
 
     useClickOutside([anchorRef, popupRef], popupOpen, () => {
-        console.log('outside click!');
         popupOpen.value = false;
     });
 
