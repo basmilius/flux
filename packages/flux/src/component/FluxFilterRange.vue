@@ -38,7 +38,7 @@
     lang="ts"
     setup>
     import { computed, unref } from 'vue';
-    import { useFilterInjection, useTranslate } from '@/composable';
+    import { useFilterInjection, useTranslate } from '@/composable/private';
     import type { IconNames } from '@/data';
     import FluxFormColumn from './FluxFormColumn.vue';
     import FluxFormField from './FluxFormField.vue';

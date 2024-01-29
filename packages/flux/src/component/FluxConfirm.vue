@@ -11,12 +11,12 @@
 
             <FluxSecondaryButton
                 :label="translate('flux_cancel')"
-                @click="confirm.onCancel"/>
+                @click="confirm.onCancel()"/>
 
             <FluxPrimaryButton
                 icon-before="circle-check"
                 :label="translate('flux_ok')"
-                @click="confirm.onConfirm"/>
+                @click="confirm.onConfirm()"/>
         </FluxPaneFooter>
     </FluxPane>
 </template>
@@ -24,8 +24,8 @@
 <script
     lang="ts"
     setup>
+    import { useTranslate } from '@/composable/private';
     import type { FluxConfirmSpec } from '@/data';
-    import { useTranslate } from '@/composable';
     import FluxPane from './FluxPane.vue';
     import FluxPaneBody from './FluxPaneBody.vue';
     import FluxPaneFooter from './FluxPaneFooter.vue';

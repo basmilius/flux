@@ -62,7 +62,7 @@
     lang="ts"
     setup>
     import { computed } from 'vue';
-    import { useTableInjection, useTranslate } from '@/composable';
+    import { useTableInjection, useTranslate } from '@/composable/private';
     import type { IconNames } from '@/data';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxIcon from './FluxIcon.vue';

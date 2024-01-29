@@ -76,7 +76,7 @@ export function useTranslate(): FluxTranslator {
     };
 }
 
-export type FluxTranslator = (key: TranslationKey | ({} & string), params?: Record<string, string | number>) => string;
+export type FluxTranslator = (key: TranslationKey, params?: Record<string, string | number>) => string;
 
 type VueI18n = {
     $t: FluxTranslator;

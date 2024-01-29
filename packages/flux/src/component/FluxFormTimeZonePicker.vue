@@ -11,7 +11,7 @@
     lang="ts"
     setup>
     import { computed, Ref } from 'vue';
-    import { useTranslate } from '@/composable';
+    import { useTranslate } from '@/composable/private';
     import { FluxFormSelectEntry } from '@/data';
     import FluxFormSelect from './FluxFormSelect.vue';
 

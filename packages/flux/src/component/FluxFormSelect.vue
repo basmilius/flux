@@ -115,7 +115,8 @@
     lang="ts"
     setup>
     import { ComponentPublicInstance, computed, ComputedRef, nextTick, ref, Teleport, toRefs, unref, watch } from 'vue';
-    import { useClickOutside, useFormFieldInjection, useTranslate } from '@/composable';
+    import { useClickOutside } from '@/composable';
+    import { useFormFieldInjection, useTranslate } from '@/composable/private';
     import { Anchor, AnchorPopup } from '@/component/primitive';
     import type { FluxFormSelectGroup, FluxFormSelectOption } from '@/data';
     import { isFluxFormSelectGroup, isFluxFormSelectOption } from '@/data';

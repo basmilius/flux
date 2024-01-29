@@ -41,7 +41,7 @@
     lang="ts"
     setup>
     import type { FluxRoutingLocation, IconNames } from '@/data';
-    import { useTranslate } from '@/composable';
+    import { useTranslate } from '@/composable/private';
     import FluxBoxedIcon from './FluxBoxedIcon.vue';
     import FluxPane from './FluxPane.vue';
     import FluxPaneBody from './FluxPaneBody.vue';

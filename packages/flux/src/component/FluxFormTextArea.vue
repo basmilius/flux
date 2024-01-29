@@ -22,7 +22,7 @@
     lang="ts"
     setup>
     import { computed, onMounted, ref, toRefs, unref, watch } from 'vue';
-    import { useFormFieldInjection } from '@/composable';
+    import { useFormFieldInjection } from '@/composable/private';
 
     export type Emits = {
         (e: 'blur'): void;

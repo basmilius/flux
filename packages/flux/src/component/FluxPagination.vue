@@ -53,7 +53,7 @@
     lang="ts"
     setup>
     import { computed, toRefs, unref } from 'vue';
-    import { useTranslate } from '@/composable';
+    import { useTranslate } from '@/composable/private';
     import { showPrompt } from '@/data';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxPrimaryButton from './FluxPrimaryButton.vue';

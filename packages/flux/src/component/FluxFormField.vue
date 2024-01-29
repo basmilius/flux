@@ -49,7 +49,8 @@
     lang="ts"
     setup>
     import { provide } from 'vue';
-    import { useId, useTranslate } from '@/composable';
+    import { useId } from '@/composable';
+    import { useTranslate } from '@/composable/private';
     import { FluxFormFieldInjectionKey } from '@/data';
     import FluxFormFieldAddition from './FluxFormFieldAddition.vue';
 

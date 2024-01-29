@@ -128,7 +128,8 @@
     setup>
     import { DateTime } from 'luxon';
     import { computed, ref, toRefs, unref } from 'vue';
-    import { useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher, useId, useTranslate } from '@/composable';
+    import { useId } from '@/composable';
+    import { useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher, useTranslate } from '@/composable/private';
     import { FluxFadeTransition, FluxVerticalWindowTransition, FluxWindowTransition } from '@/transition';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
 

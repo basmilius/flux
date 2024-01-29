@@ -28,7 +28,7 @@
     lang="ts"
     setup>
     import { computed, ref, toRefs, unref, watch } from 'vue';
-    import { useFilterInjection } from '@/composable';
+    import { useFilterInjection } from '@/composable/private';
     import type { FluxFilterOptionHeader, FluxFilterOptionItem, FluxFilterValue, IconNames } from '@/data';
     import { isFluxFilterOptionHeader, isFluxFilterOptionItem } from '@/data';
     import FluxFormInput from './FluxFormInput.vue';

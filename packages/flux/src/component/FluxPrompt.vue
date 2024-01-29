@@ -22,7 +22,7 @@
 
             <FluxSecondaryButton
                 :label="translate('flux_cancel')"
-                @click="prompt.onCancel"/>
+                @click="prompt.onCancel()"/>
 
             <FluxPrimaryButton
                 :disabled="!hasValue"
@@ -38,7 +38,7 @@
     setup>
     import type { ComponentPublicInstance } from 'vue';
     import { computed, onMounted, ref, unref } from 'vue';
-    import { useTranslate } from '@/composable';
+    import { useTranslate } from '@/composable/private';
     import type { FluxPromptSpec } from '@/data';
     import { unrefElement } from '@/util';
     import FluxFormField from './FluxFormField.vue';

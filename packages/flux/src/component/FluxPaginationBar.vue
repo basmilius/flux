@@ -43,7 +43,8 @@
     lang="ts"
     setup>
     import { computed, ref, toRefs, unref, watch } from 'vue';
-    import { useBreakpoints, useTranslate } from '@/composable';
+    import { useBreakpoints } from '@/composable';
+    import { useTranslate } from '@/composable/private';
     import type { FluxFormSelectOption } from '@/data';
     import FluxFormInputAddition from './FluxFormInputAddition.vue';
     import FluxFormInputGroup from './FluxFormInputGroup.vue';
