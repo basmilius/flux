@@ -48,6 +48,7 @@
                 v-if="popupOpen"
                 ref="popupRef"
                 class="flux-surface flux-pane flux-form-select-popup"
+                :class="{'is-searchable': isSearchable}"
                 :anchor="anchorRef"
                 axis="vertical"
                 use-anchor-width>
@@ -410,6 +411,15 @@
             overflow: auto;
             translate: var(--x) var(--y);
             z-index: 10000;
+
+            &.is-searchable .flux-menu-sub-header {
+                top: 48px;
+            }
+
+            .flux-menu-item {
+                content-visibility: auto;
+                contain-intrinsic-size: auto 42px;
+            }
         }
 
         &-selected {
@@ -429,10 +439,6 @@
 
         &.is-disabled &-selected {
             color: rgb(var(--gray-6));
-        }
-
-        &.is-searchable .flux-menu-sub-header {
-            top: 48px;
         }
 
         .flux-badge {

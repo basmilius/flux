@@ -74,6 +74,14 @@
     .flux-form-date-input {
         cursor: default;
 
+        input {
+            text-align: left;
+        }
+
+        input::-webkit-input-placeholder {
+            visibility: hidden;
+        }
+
         input::-webkit-calendar-picker-indicator {
             display: none;
             -webkit-appearance: none;
