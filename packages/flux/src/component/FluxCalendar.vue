@@ -67,7 +67,7 @@
 
             <template #actions-end>
                 <FluxSecondaryButton
-                    :label="translate('flux_today')"
+                    :label="translate('flux.today')"
                     @click="setToday"/>
 
                 <FluxSecondaryButton

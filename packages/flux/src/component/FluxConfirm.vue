@@ -10,12 +10,12 @@
             <FluxSpacer/>
 
             <FluxSecondaryButton
-                :label="translate('flux_cancel')"
+                :label="translate('flux.cancel')"
                 @click="confirm.onCancel()"/>
 
             <FluxPrimaryButton
                 icon-before="circle-check"
-                :label="translate('flux_ok')"
+                :label="translate('flux.ok')"
                 @click="confirm.onConfirm()"/>
         </FluxPaneFooter>
     </FluxPane>

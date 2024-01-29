@@ -21,13 +21,13 @@
             <FluxSpacer/>
 
             <FluxSecondaryButton
-                :label="translate('flux_cancel')"
+                :label="translate('flux.cancel')"
                 @click="prompt.onCancel()"/>
 
             <FluxPrimaryButton
                 :disabled="!hasValue"
                 icon-before="circle-check"
-                :label="translate('flux_ok')"
+                :label="translate('flux.ok')"
                 @click="prompt.onConfirm(value)"/>
         </FluxPaneFooter>
     </FluxPane>

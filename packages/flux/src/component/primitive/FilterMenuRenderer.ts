@@ -121,7 +121,7 @@ function parseOptions(base: FluxFilterBase): FluxFilterOptionsEntry {
                 return options.find(o => value?.includes(o.value))!.label;
             }
 
-            return translate('flux_n_selected', {
+            return translate('flux.nSelected', {
                 n: selected
             });
         }

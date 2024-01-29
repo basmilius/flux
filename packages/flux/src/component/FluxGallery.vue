@@ -5,9 +5,9 @@
         :is-empty="items && items.length === 0"
         is-multiple
         placeholder-icon="image"
-        :placeholder-button="translate('flux_gallery_placeholder_button')"
-        :placeholder-message="translate('flux_gallery_placeholder_message')"
-        :placeholder-title="translate('flux_gallery_placeholder_title')"
+        :placeholder-button="translate('flux.galleryPlaceholderButton')"
+        :placeholder-message="translate('flux.galleryPlaceholderMessage')"
+        :placeholder-title="translate('flux.galleryPlaceholderTitle')"
         @select="onFilesSelected">
         <template #default="{showPicker}">
             <TransitionGroup

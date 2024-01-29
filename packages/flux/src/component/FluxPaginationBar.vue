@@ -4,7 +4,7 @@
         :axis="breakpoints.lg ? 'horizontal' : 'vertical'">
         <FluxFormInputGroup>
             <FluxFormInputAddition>
-                <span>{{ translate('flux_rows_per_page') }}</span>
+                <span>{{ translate('flux.rowsPerPage') }}</span>
             </FluxFormInputAddition>
 
             <FluxFormSelect
@@ -18,7 +18,7 @@
             <FluxFormInputAddition>
                 <span>
                     {{
-                        translate('flux_displaying_of', {
+                        translate('flux.displayingOf', {
                             from: (page - 1) * perPage + 1,
                             to: Math.min(total, page * perPage),
                             total: total

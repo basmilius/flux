@@ -18,7 +18,7 @@
                     <FluxMenuGroup is-horizontal>
                         <FluxMenuItem
                             class="flux-filter-back"
-                            :label="translate('flux_back')"
+                            :label="translate('flux.back')"
                             icon-before="angle-left"
                             @click="back('default')"/>
 

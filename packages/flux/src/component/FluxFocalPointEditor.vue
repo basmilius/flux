@@ -42,7 +42,7 @@
             <slot name="footer-before"/>
 
             <FluxSecondaryButton
-                :label="translate(isPreviewing ? 'flux_preview_close' : 'flux_preview')"
+                :label="translate(isPreviewing ? 'flux.previewClose' : 'flux.preview')"
                 @click="onShowPreviewClicked"/>
 
             <FluxSpacer/>

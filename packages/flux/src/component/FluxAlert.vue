@@ -11,7 +11,7 @@
 
             <FluxPrimaryButton
                 icon-before="circle-check"
-                :label="translate('flux_ok')"
+                :label="translate('flux.ok')"
                 @click="alert.onClose()"/>
         </FluxPaneFooter>
     </FluxPane>

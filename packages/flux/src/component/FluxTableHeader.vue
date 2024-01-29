@@ -16,7 +16,7 @@
                 <template #opener="{open}">
                     <button
                         class="flux-table-header-sort"
-                        :aria-label="translate('flux_sort')"
+                        :aria-label="translate('flux.sort')"
                         tabindex="-1"
                         type="button"
                         @click="open">
@@ -31,13 +31,13 @@
                         <FluxMenuItem
                             :is-highlighted="sort === 'ascending'"
                             icon-before="arrow-down-a-z"
-                            :label="translate('flux_sort_ascending')"
+                            :label="translate('flux.sortAscending')"
                             @click="$emit('sort', 'ascending')"/>
 
                         <FluxMenuItem
                             :is-highlighted="sort === 'descending'"
                             icon-before="arrow-up-a-z"
-                            :label="translate('flux_sort_descending')"
+                            :label="translate('flux.sortDescending')"
                             @click="$emit('sort', 'descending')"/>
                     </FluxMenuGroup>
 
@@ -48,7 +48,7 @@
                             <FluxMenuItem
                                 icon-before="circle-xmark"
                                 is-destructive
-                                :label="translate('flux_sort_remove')"
+                                :label="translate('flux.sortRemove')"
                                 @click="$emit('sort', null)"/>
                         </FluxMenuGroup>
                     </template>

@@ -1,4 +1,4 @@
-export type { FluxTranslator } from './useTranslate';
+export type { FluxTranslator, FluxTranslationKey } from './useTranslate';
 
 export { useCalendar } from './useCalendar';
 export { useCalendarMonthSwitcher } from './useCalendarMonthSwitcher';

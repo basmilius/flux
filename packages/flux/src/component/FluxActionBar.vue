@@ -25,12 +25,12 @@
                     <FluxButtonGroup>
                         <FluxSecondaryButton
                             icon-before="filter"
-                            :label="translate('flux_filter')"
+                            :label="translate('flux.filter')"
                             @click="open"/>
 
                         <FluxTooltip
                             v-if="isResettable"
-                            :content="translate('flux_filter_reset')">
+                            :content="translate('flux.filterReset')">
                             <FluxDestructiveButton
                                 icon-before="xmark"
                                 @click="$emit('reset')"/>

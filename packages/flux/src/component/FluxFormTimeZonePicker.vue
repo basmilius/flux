@@ -11,8 +11,9 @@
     lang="ts"
     setup>
     import { computed, Ref } from 'vue';
-    import { useTranslate } from '@/composable/private';
+    import { useTranslate, FluxTranslationKey } from '@/composable/private';
     import { FluxFormSelectEntry } from '@/data';
+    import upperFirst from 'lodash/upperFirst';
     import FluxFormSelect from './FluxFormSelect.vue';
 
     export type Props = {
@@ -618,24 +619,24 @@
         'Zulu'
     ];
 
-    const timeZoneGroupOrder = [
-        'flux_timezone_europe',
-        'flux_timezone_america',
-        'flux_timezone_us',
-        'flux_timezone_australia',
-        'flux_timezone_canada',
-        'flux_timezone_mexico',
-        'flux_timezone_africa',
-        'flux_timezone_antarctica',
-        'flux_timezone_arctic',
-        'flux_timezone_asia',
-        'flux_timezone_atlantic',
-        'flux_timezone_brazil',
-        'flux_timezone_chile',
-        'flux_timezone_etc',
-        'flux_timezone_other',
-        'flux_timezone_indian',
-        'flux_timezone_pacific'
+    const timeZoneGroupOrder: FluxTranslationKey[] = [
+        'flux.timezoneEurope',
+        'flux.timezoneAmerica',
+        'flux.timezoneUs',
+        'flux.timezoneAustralia',
+        'flux.timezoneCanada',
+        'flux.timezoneMexico',
+        'flux.timezoneAfrica',
+        'flux.timezoneAntarctica',
+        'flux.timezoneArctic',
+        'flux.timezoneAsia',
+        'flux.timezoneAtlantic',
+        'flux.timezoneBrazil',
+        'flux.timezoneChile',
+        'flux.timezoneEtc',
+        'flux.timezoneOther',
+        'flux.timezoneIndian',
+        'flux.timezonePacific'
     ];
 
     const modelValue = defineModel<string | null>({default: null}) as Ref<string | null>;
@@ -654,10 +655,10 @@
                 .replaceAll('_', ' ')
                 .replaceAll('/', ' / ');
 
-            let group = 'flux_timezone_other';
+            let group = 'flux.timezoneOther';
 
             if (label.includes('/')) {
-                group = `flux_timezone_${label.split('/')[0].trim().toLowerCase()}`;
+                group = `flux.timezone${upperFirst(label.split('/')[0].trim().toLowerCase())}`;
             }
 
             groups[group] ??= [];
@@ -676,8 +677,8 @@
         const sortedGroups = Object.fromEntries(
             Object.entries(groups)
                 .sort(([a], [b]) => {
-                    const ai = timeZoneGroupOrder.indexOf(a);
-                    const bi = timeZoneGroupOrder.indexOf(b);
+                    const ai = timeZoneGroupOrder.indexOf(a as FluxTranslationKey);
+                    const bi = timeZoneGroupOrder.indexOf(b as FluxTranslationKey);
 
                     if (ai > bi) {
                         return 1;
@@ -696,7 +697,7 @@
 
             options.push({
                 icon: null,
-                label: translate(group)
+                label: translate(group as FluxTranslationKey)
             });
 
             groupOptions.forEach(go => options.push(go));

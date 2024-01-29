@@ -1,7 +1,7 @@
 <template>
     <FluxPaneBody>
         <FluxFormColumn>
-            <FluxFormField :label="translate('flux_min')">
+            <FluxFormField :label="translate('flux.min')">
                 <FluxFormSlider
                     :formatter="formatter"
                     :is-ticks-visible="isTicksVisible"
@@ -16,7 +16,7 @@
                 </template>
             </FluxFormField>
 
-            <FluxFormField :label="translate('flux_max')">
+            <FluxFormField :label="translate('flux.max')">
                 <FluxFormSlider
                     :formatter="formatter"
                     :is-ticks-visible="isTicksVisible"

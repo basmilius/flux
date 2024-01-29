@@ -59,11 +59,11 @@
                     class="flux-form-select-input"
                     type="search"
                     icon-after="magnifying-glass"
-                    :placeholder="translate('flux_search')"
+                    :placeholder="translate('flux.search')"
                     @keydown="onKeyDown"/>
 
                 <FluxPaneBody v-if="groupedOptions.length === 0">
-                    <em>{{ translate('flux_no_items') }}</em>
+                    <em>{{ translate('flux.noItems') }}</em>
                 </FluxPaneBody>
 
                 <FluxMenu v-else>

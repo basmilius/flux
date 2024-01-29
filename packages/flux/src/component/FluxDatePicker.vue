@@ -6,7 +6,7 @@
                     v-if="viewMode === 'date'"
                     :disabled="!isWithinBoundary(viewDatePrevious, 'month')"
                     icon-before="angle-left"
-                    :aria-label="translate('flux_previous')"
+                    :aria-label="translate('flux.previous')"
                     @click="previousMonth"/>
             </FluxFadeTransition>
 
@@ -33,7 +33,7 @@
                     v-if="viewMode === 'date'"
                     :disabled="!isWithinBoundary(viewDateNext, 'month')"
                     icon-before="angle-right"
-                    :aria-label="translate('flux_next')"
+                    :aria-label="translate('flux.next')"
                     @click="nextMonth"/>
             </FluxFadeTransition>
         </div>
