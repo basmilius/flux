@@ -163,6 +163,7 @@
             margin-left: auto;
             padding-left: 21px;
             flex-grow: 0;
+            flex-shrink: 0;
             color: var(--foreground-secondary);
             font: inherit;
             font-size: 14px;

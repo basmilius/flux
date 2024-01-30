@@ -1,6 +1,6 @@
 {
     "name": "@fancee/flux",
-    "version": "1.2.18",
+    "version": "1.2.19",
     "type": "module",
     "scripts": {
         "build": "vite build && pnpm run gentypes",
@@ -25,10 +25,12 @@
     "types": "./dist/index.d.ts",
     "web-types": "./dist/web-types.json",
     "dependencies": {
-        "imask": "^7.3.0"
+        "imask": "^7.3.0",
+        "lodash": "^4.17.21"
     },
     "devDependencies": {
         "@fortawesome/fontawesome-common-types": "^6.5.1",
+        "@types/lodash": "^4.14.202",
         "@vitejs/plugin-vue": "^5.0.3",
         "@vue/compiler-sfc": "^3.4.15",
         "autoprefixer": "^10.4.17",

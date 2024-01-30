@@ -36,7 +36,7 @@
     lang="ts"
     setup>
     import { computed, ref, unref, watchEffect } from 'vue';
-    import { useFormFieldInjection } from '@/composable';
+    import { useFormFieldInjection } from '@/composable/private';
     import FluxIcon from './FluxIcon.vue';
 
     export interface Props {

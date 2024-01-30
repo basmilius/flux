@@ -18,7 +18,7 @@
                     <FluxMenuGroup is-horizontal>
                         <FluxMenuItem
                             class="flux-filter-back"
-                            :label="translate('flux_back')"
+                            :label="translate('flux.back')"
                             icon-before="angle-left"
                             @click="back('default')"/>
 
@@ -43,7 +43,7 @@
     lang="ts"
     setup>
     import { computed, provide, ref, unref, useSlots, VNode } from 'vue';
-    import { useTranslate } from '@/composable';
+    import { useTranslate } from '@/composable/private';
     import { FluxFilterInjectionKey, FluxFilterOptionItem, FluxFilterState } from '@/data';
     import { heightTransition } from '@/directive';
     import { flattenVNodeTree, getComponentName, getComponentProps } from '@/util';

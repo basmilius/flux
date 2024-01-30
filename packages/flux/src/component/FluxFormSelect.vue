@@ -48,6 +48,7 @@
                 v-if="popupOpen"
                 ref="popupRef"
                 class="flux-surface flux-pane flux-form-select-popup"
+                :class="{'is-searchable': isSearchable}"
                 :anchor="anchorRef"
                 axis="vertical"
                 use-anchor-width>
@@ -59,11 +60,11 @@
                     class="flux-form-select-input"
                     type="search"
                     icon-after="magnifying-glass"
-                    :placeholder="translate('flux_search')"
+                    :placeholder="translate('flux.search')"
                     @keydown="onKeyDown"/>
 
                 <FluxPaneBody v-if="groupedOptions.length === 0">
-                    <em>{{ translate('flux_no_items') }}</em>
+                    <em>{{ translate('flux.noItems') }}</em>
                 </FluxPaneBody>
 
                 <FluxMenu v-else>
@@ -115,7 +116,8 @@
     lang="ts"
     setup>
     import { ComponentPublicInstance, computed, ComputedRef, nextTick, ref, Teleport, toRefs, unref, watch } from 'vue';
-    import { useClickOutside, useFormFieldInjection, useTranslate } from '@/composable';
+    import { useClickOutside } from '@/composable';
+    import { useFormFieldInjection, useTranslate } from '@/composable/private';
     import { Anchor, AnchorPopup } from '@/component/primitive';
     import type { FluxFormSelectGroup, FluxFormSelectOption } from '@/data';
     import { isFluxFormSelectGroup, isFluxFormSelectOption } from '@/data';
@@ -409,6 +411,15 @@
             overflow: auto;
             translate: var(--x) var(--y);
             z-index: 10000;
+
+            &.is-searchable .flux-menu-sub-header {
+                top: 48px;
+            }
+
+            .flux-menu-item {
+                content-visibility: auto;
+                contain-intrinsic-size: auto 42px;
+            }
         }
 
         &-selected {
@@ -428,10 +439,6 @@
 
         &.is-disabled &-selected {
             color: rgb(var(--gray-6));
-        }
-
-        &.is-searchable .flux-menu-sub-header {
-            top: 48px;
         }
 
         .flux-badge {

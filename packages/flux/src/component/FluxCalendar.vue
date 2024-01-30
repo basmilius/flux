@@ -67,7 +67,7 @@
 
             <template #actions-end>
                 <FluxSecondaryButton
-                    :label="translate('flux_today')"
+                    :label="translate('flux.today')"
                     @click="setToday"/>
 
                 <FluxSecondaryButton
@@ -117,7 +117,7 @@
     setup>
     import { DateTime } from 'luxon';
     import { computed, unref, useSlots, VNode, watch } from 'vue';
-    import { useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher, useTranslate } from '@/composable';
+    import { useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher, useTranslate } from '@/composable/private';
     import { FluxWindowTransition } from '@/transition';
     import { flattenVNodeTree, getComponentName, getComponentProps } from '@/util';
     import { VNodeRenderer } from './primitive';

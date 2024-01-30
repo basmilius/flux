@@ -1,5 +1,5 @@
 import type { DateTime } from 'luxon';
-import type { FluxTranslator } from '@/composable';
+import type { FluxTranslator } from '@/composable/private';
 
 export default function (translate: FluxTranslator, start: DateTime, end: DateTime, preventCustom: boolean = false): string {
     if (start.day === end.day && start.month === end.month && start.year === end.year) {
@@ -55,5 +55,5 @@ export default function (translate: FluxTranslator, start: DateTime, end: DateTi
         return `${startStr} – ${endStr}`;
     }
 
-    return translate('flux_custom_period');
+    return translate('flux.customPeriod');
 }

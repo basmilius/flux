@@ -4,7 +4,7 @@
         :axis="breakpoints.lg ? 'horizontal' : 'vertical'">
         <FluxFormInputGroup>
             <FluxFormInputAddition>
-                <span>{{ translate('flux_rows_per_page') }}</span>
+                <span>{{ translate('flux.rowsPerPage') }}</span>
             </FluxFormInputAddition>
 
             <FluxFormSelect
@@ -18,7 +18,7 @@
             <FluxFormInputAddition>
                 <span>
                     {{
-                        translate('flux_displaying_of', {
+                        translate('flux.displayingOf', {
                             from: (page - 1) * perPage + 1,
                             to: Math.min(total, page * perPage),
                             total: total
@@ -43,7 +43,8 @@
     lang="ts"
     setup>
     import { computed, ref, toRefs, unref, watch } from 'vue';
-    import { useBreakpoints, useTranslate } from '@/composable';
+    import { useBreakpoints } from '@/composable';
+    import { useTranslate } from '@/composable/private';
     import type { FluxFormSelectOption } from '@/data';
     import FluxFormInputAddition from './FluxFormInputAddition.vue';
     import FluxFormInputGroup from './FluxFormInputGroup.vue';

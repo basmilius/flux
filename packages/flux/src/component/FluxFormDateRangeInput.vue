@@ -33,7 +33,7 @@
     setup>
     import { DateTime } from 'luxon';
     import { ComponentPublicInstance, computed, Ref, ref, unref, watch } from 'vue';
-    import { useTranslate } from '@/composable';
+    import { useTranslate } from '@/composable/private';
     import { createLabelForDateRange } from '@/util';
     import FluxDatePicker from './FluxDatePicker.vue';
     import FluxFlyout from './FluxFlyout.vue';

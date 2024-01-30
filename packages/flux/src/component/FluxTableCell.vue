@@ -22,7 +22,7 @@
 <script
     lang="ts"
     setup>
-    import { useTableInjection } from '@/composable';
+    import { useTableInjection } from '@/composable/private';
 
     export interface Props {
         readonly contentDirection?: 'column' | 'row';

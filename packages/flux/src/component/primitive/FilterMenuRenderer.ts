@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { computed, defineComponent, h, isVNode, unref, VNode } from 'vue';
 import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSeparator } from '@/component';
-import { FluxTranslator, useTranslate } from '@/composable';
+import { FluxTranslator, useTranslate } from '@/composable/private';
 import type { FluxFilterBase, FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterItem, FluxFilterOptionEntry, FluxFilterOptionItem, FluxFilterOptionsEntry, FluxFilterRangeEntry, FluxFilterValue } from '@/data';
 import { camelizeTag, createLabelForDateRange, flattenVNodeTree, formatNumber, getComponentName, getComponentProps } from '@/util';
 
@@ -121,7 +121,7 @@ function parseOptions(base: FluxFilterBase): FluxFilterOptionsEntry {
                 return options.find(o => value?.includes(o.value))!.label;
             }
 
-            return translate('flux_n_selected', {
+            return translate('flux.nSelected', {
                 n: selected
             });
         }

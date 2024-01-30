@@ -2,12 +2,12 @@
     <FluxButtonGroup
         class="flux-pagination"
         role="navigation"
-        :aria-label="translate('flux_pagination')">
+        :aria-label="translate('flux.pagination')">
         <FluxSecondaryButton
             v-if="arrows || isCompact"
             :disabled="isPreviousDisabled"
             icon-before="angle-left"
-            :aria-label="translate('flux_previous')"
+            :aria-label="translate('flux.previous')"
             @click="previous"/>
 
         <template
@@ -44,7 +44,7 @@
             v-if="arrows || isCompact"
             :disabled="isNextDisabled"
             icon-before="angle-right"
-            :aria-label="translate('flux_next')"
+            :aria-label="translate('flux.next')"
             @click="next"/>
     </FluxButtonGroup>
 </template>
@@ -53,7 +53,7 @@
     lang="ts"
     setup>
     import { computed, toRefs, unref } from 'vue';
-    import { useTranslate } from '@/composable';
+    import { useTranslate } from '@/composable/private';
     import { showPrompt } from '@/data';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxPrimaryButton from './FluxPrimaryButton.vue';
@@ -131,9 +131,9 @@
     async function prompt(): Promise<void> {
         const pageStr = await showPrompt({
             icon: 'ellipsis',
-            title: translate('flux_pagination_navigate_title'),
-            message: translate('flux_pagination_navigate_message'),
-            fieldLabel: translate('flux_pagination_navigate_page')
+            title: translate('flux.paginationNavigateTitle'),
+            message: translate('flux.paginationNavigateMessage'),
+            fieldLabel: translate('flux.paginationNavigatePage')
         });
 
         const page = Number(pageStr);

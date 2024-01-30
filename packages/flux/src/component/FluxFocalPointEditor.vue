@@ -42,7 +42,7 @@
             <slot name="footer-before"/>
 
             <FluxSecondaryButton
-                :label="translate(isPreviewing ? 'flux_preview_close' : 'flux_preview')"
+                :label="translate(isPreviewing ? 'flux.previewClose' : 'flux.preview')"
                 @click="onShowPreviewClicked"/>
 
             <FluxSpacer/>
@@ -56,7 +56,7 @@
     lang="ts"
     setup>
     import { computed, onMounted, onUnmounted, ref, unref, watch } from 'vue';
-    import { useTranslate } from '@/composable';
+    import { useTranslate } from '@/composable/private';
     import { FluxFadeTransition } from '@/transition';
     import FluxPane from './FluxPane.vue';
     import FluxPaneBody from './FluxPaneBody.vue';

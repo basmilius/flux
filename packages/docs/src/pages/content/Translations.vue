@@ -48,7 +48,7 @@
     setup>
     import { FluxPane, FluxPaneHeader, FluxStack } from '@fancee/flux';
     import { ApiSection, ApiTable, HighlightedCode, PageTitle } from '@docs/components';
-    import { english } from '@/composable/useTranslate';
+    import { english } from '@/composable/private/useTranslate';
 
-    const useTranslateCode = `import { useTranslate } from '@fancee/flux';\n\nconst {t} = useTranslate();\n\nconsole.log(t('flux_back')); // "Back"`;
+    const useTranslateCode = `import { useTranslate } from '@fancee/flux';\n\nconst {t} = useTranslate();\n\nconsole.log(t('flux.back')); // "Back"`;
 </script>
