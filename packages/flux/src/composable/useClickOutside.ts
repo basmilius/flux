@@ -2,7 +2,7 @@ import { ComponentPublicInstance, onMounted, onUnmounted, ref, Ref, unref, watch
 import { isHtmlElement } from '@/util';
 
 type ElementRef = Ref<ComponentPublicInstance | HTMLElement | undefined>;
-type Handler = (evt: PointerEvent) => void | Promise<void>;
+type Handler = ((evt: PointerEvent) => void) | ((evt: PointerEvent) => Promise<void>);
 
 export function useClickOutside(elementRefs: ElementRef | ElementRef[], enabled: boolean | Ref<boolean>, onOutsideClick: Handler): void {
     const elements = ref<HTMLElement[]>([]);
