@@ -1,5 +1,5 @@
 <template>
-    <flux-notice
+    <FluxNotice
         icon="circle-exclamation"
         is-loading
         is-small

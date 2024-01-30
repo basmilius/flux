@@ -1,20 +1,17 @@
 <template>
-    <flux-badge-stack>
-        <flux-badge
+    <FluxBadgeStack>
+        <FluxBadge
             is-loading
             label="Pending"/>
 
-        <flux-badge
+        <FluxBadge
             is-loading
             label="Saving"/>
-    </flux-badge-stack>
+    </FluxBadgeStack>
 </template>
 
 <script
     lang="ts"
     setup>
-    import {
-        FluxBadge,
-        FluxBadgeStack
-    } from '@fancee/flux';
+    import { FluxBadge, FluxBadgeStack } from '@fancee/flux';
 </script>

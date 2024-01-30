@@ -1,26 +1,23 @@
 <template>
-    <flux-button-stack>
-        <flux-secondary-button label="Cancel"/>
+    <FluxButtonStack>
+        <FluxSecondaryButton label="Cancel"/>
 
-        <flux-secondary-button
+        <FluxSecondaryButton
             icon-before="circle-arrow-up"
             label="Upgrade subscription"/>
 
-        <flux-secondary-button
+        <FluxSecondaryButton
             icon-after="circle-arrow-right"
             label="Takeover"/>
 
-        <flux-secondary-button
+        <FluxSecondaryButton
             is-loading
             label="Restore"/>
-    </flux-button-stack>
+    </FluxButtonStack>
 </template>
 
 <script
     lang="ts"
     setup>
-    import {
-        FluxButtonStack,
-        FluxSecondaryButton
-    } from '@fancee/flux';
+    import { FluxButtonStack, FluxSecondaryButton } from '@fancee/flux';
 </script>

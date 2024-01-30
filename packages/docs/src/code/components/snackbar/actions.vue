@@ -1,5 +1,5 @@
 <template>
-    <flux-snackbar
+    <FluxSnackbar
         v-if="isVisible"
         :actions="{yes: 'Yes', no: 'No'}"
         color="danger"
@@ -8,14 +8,14 @@
         title="Really?"
         @action="onAction"/>
 
-    <flux-button-stack>
-        <flux-primary-button
+    <FluxButtonStack>
+        <FluxPrimaryButton
             icon-before="bullhorn"
             label="Toggle Snackbar"
             @click="isVisible = !isVisible"/>
 
         <span>{{ result }}</span>
-    </flux-button-stack>
+    </FluxButtonStack>
 </template>
 
 <script

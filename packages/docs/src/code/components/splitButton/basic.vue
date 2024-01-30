@@ -1,48 +1,43 @@
 <template>
-    <flux-split-button>
+    <FluxSplitButton>
         <template #button>
-            <flux-secondary-button label="Download"/>
+            <FluxSecondaryButton label="Download"/>
         </template>
 
         <template #flyout="{close}">
-            <flux-menu>
-                <flux-menu-group>
-                    <flux-menu-item
+            <FluxMenu>
+                <FluxMenuGroup>
+                    <FluxMenuItem
                         icon-before="scissors"
                         label="Cut"
                         @click="close"/>
-                    <flux-menu-item
+
+                    <FluxMenuItem
                         icon-before="clone"
                         label="Copy"
                         @click="close"/>
-                    <flux-menu-item
+
+                    <FluxMenuItem
                         icon-before="paste"
                         label="Paste"
                         @click="close"/>
-                </flux-menu-group>
+                </FluxMenuGroup>
 
-                <flux-separator/>
+                <FluxSeparator/>
 
-                <flux-menu-group>
-                    <flux-menu-item
+                <FluxMenuGroup>
+                    <FluxMenuItem
                         icon-before="gear"
                         label="Preferences"
                         @click="close"/>
-                </flux-menu-group>
-            </flux-menu>
+                </FluxMenuGroup>
+            </FluxMenu>
         </template>
-    </flux-split-button>
+    </FluxSplitButton>
 </template>
 
 <script
     lang="ts"
     setup>
-    import {
-        FluxMenu,
-        FluxMenuGroup,
-        FluxMenuItem,
-        FluxSecondaryButton,
-        FluxSeparator,
-        FluxSplitButton
-    } from '@fancee/flux';
+    import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSecondaryButton, FluxSeparator, FluxSplitButton } from '@fancee/flux';
 </script>

@@ -1,8 +1,8 @@
 <template>
-    <flux-pane
+    <FluxPane
         tag="New"
         style="max-width: 360px">
-        <flux-pane-illustration
+        <FluxPaneIllustration
             :animated-colors="['#6071b5', '#f07db7']"
             :animated-seed="130496"
             is-masked
@@ -17,27 +17,24 @@
                     stroke="rgb(0 0 0 / .15)"
                     stroke-width="3"/>
             </svg>
-        </flux-pane-illustration>
-        <flux-pane-header title="Manage even more"/>
-        <flux-pane-body>
+        </FluxPaneIllustration>
+
+        <FluxPaneHeader title="Manage even more"/>
+
+        <FluxPaneBody>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet assumenda beatae commodi culpa fugit laboriosam nihil quasi quibusdam veniam! Cumque et fuga iste maxime officiis quas ratione repudiandae suscipit!
-        </flux-pane-body>
-        <flux-pane-body>
-            <flux-secondary-button
+        </FluxPaneBody>
+
+        <FluxPaneBody>
+            <FluxSecondaryButton
                 icon-before="gear"
                 label="Manage"/>
-        </flux-pane-body>
-    </flux-pane>
+        </FluxPaneBody>
+    </FluxPane>
 </template>
 
 <script
     lang="ts"
     setup>
-    import {
-        FluxPane,
-        FluxPaneBody,
-        FluxPaneHeader,
-        FluxPaneIllustration,
-        FluxSecondaryButton
-    } from '@fancee/flux';
+    import { FluxPane, FluxPaneBody, FluxPaneHeader, FluxPaneIllustration, FluxSecondaryButton } from '@fancee/flux';
 </script>

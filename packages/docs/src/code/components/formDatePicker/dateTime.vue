@@ -1,5 +1,5 @@
 <template>
-    <flux-form-date-time-input v-model="dateWithTime"/>
+    <FluxFormDateTimeInput v-model="dateWithTime"/>
 </template>
 
 <script

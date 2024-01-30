@@ -1,175 +1,175 @@
 <template>
-    <flux-button-stack>
-        <flux-flyout>
+    <FluxButtonStack>
+        <FluxFlyout>
             <template #opener="{open}">
-                <flux-secondary-button
+                <FluxSecondaryButton
                     icon-before="ellipsis-h"
                     @click="open"/>
             </template>
 
             <template #default="{close}">
-                <flux-pane
+                <FluxPane
                     v-height-transition
                     style="width: 300px">
-                    <flux-window>
+                    <FluxWindow>
                         <template #default="{navigate}">
-                            <flux-menu>
-                                <flux-menu-group>
-                                    <flux-menu-item
+                            <FluxMenu>
+                                <FluxMenuGroup>
+                                    <FluxMenuItem
                                         icon-before="arrow-up-arrow-down"
                                         command="Leads"
                                         command-icon="angle-right"
                                         label="Sort by"
                                         @click="navigate('sorting')"/>
 
-                                    <flux-menu-item
+                                    <FluxMenuItem
                                         icon-before="calendar"
                                         command="Last year"
                                         command-icon="angle-right"
                                         label="Period"
                                         @click="navigate('period')"/>
 
-                                    <flux-menu-item
+                                    <FluxMenuItem
                                         icon-before="star"
                                         command="2 selected"
                                         command-icon="angle-right"
                                         label="Status"
                                         @click="navigate('status')"/>
-                                </flux-menu-group>
+                                </FluxMenuGroup>
 
-                                <flux-separator/>
+                                <FluxSeparator/>
 
-                                <flux-menu-group>
-                                    <flux-menu-item
+                                <FluxMenuGroup>
+                                    <FluxMenuItem
                                         icon-before="clone"
                                         label="Duplicate"/>
 
-                                    <flux-menu-item
+                                    <FluxMenuItem
                                         icon-before="trash"
                                         label="Delete"/>
 
-                                    <flux-menu-item
+                                    <FluxMenuItem
                                         icon-before="arrow-down-to-line"
                                         label="Download CSV"/>
 
-                                    <flux-menu-item
+                                    <FluxMenuItem
                                         icon-before="arrow-down-to-line"
                                         label="Download PDF"/>
-                                </flux-menu-group>
+                                </FluxMenuGroup>
 
-                                <flux-separator/>
+                                <FluxSeparator/>
 
-                                <flux-menu-group>
-                                    <flux-menu-item
+                                <FluxMenuGroup>
+                                    <FluxMenuItem
                                         icon-before="gear"
                                         label="Preferences"/>
-                                </flux-menu-group>
-                            </flux-menu>
+                                </FluxMenuGroup>
+                            </FluxMenu>
                         </template>
 
                         <template #sorting="{back}">
-                            <flux-menu>
-                                <flux-menu-group>
-                                    <flux-menu-item
+                            <FluxMenu>
+                                <FluxMenuGroup>
+                                    <FluxMenuItem
                                         icon-before="angle-left"
                                         label="Back"
                                         @click="back()"/>
-                                </flux-menu-group>
+                                </FluxMenuGroup>
 
-                                <flux-separator/>
+                                <FluxSeparator/>
 
-                                <flux-menu-group>
-                                    <flux-menu-item
+                                <FluxMenuGroup>
+                                    <FluxMenuItem
                                         is-active
                                         label="Leads"
                                         @click="back()"/>
 
-                                    <flux-menu-item
+                                    <FluxMenuItem
                                         label="Most traffic"
                                         @click="back()"/>
 
-                                    <flux-menu-item
+                                    <FluxMenuItem
                                         label="Recent"
                                         @click="back()"/>
-                                </flux-menu-group>
-                            </flux-menu>
+                                </FluxMenuGroup>
+                            </FluxMenu>
                         </template>
 
                         <template #period="{back}">
-                            <flux-menu>
-                                <flux-menu-group>
-                                    <flux-menu-item
+                            <FluxMenu>
+                                <FluxMenuGroup>
+                                    <FluxMenuItem
                                         icon-before="angle-left"
                                         label="Back"
                                         @click="back()"/>
-                                </flux-menu-group>
+                                </FluxMenuGroup>
 
-                                <flux-separator/>
+                                <FluxSeparator/>
 
-                                <flux-menu-group>
-                                    <flux-menu-item
+                                <FluxMenuGroup>
+                                    <FluxMenuItem
                                         label="Today"
                                         @click="back()"/>
 
-                                    <flux-menu-item
+                                    <FluxMenuItem
                                         label="Last week"
                                         @click="back()"/>
 
-                                    <flux-menu-item
+                                    <FluxMenuItem
                                         label="Last month"
                                         @click="back()"/>
 
-                                    <flux-menu-item
+                                    <FluxMenuItem
                                         is-active
                                         label="Last year"
                                         @click="back()"/>
 
-                                    <flux-menu-item
+                                    <FluxMenuItem
                                         label="Last 5 years"
                                         @click="back()"/>
-                                </flux-menu-group>
-                            </flux-menu>
+                                </FluxMenuGroup>
+                            </FluxMenu>
                         </template>
 
                         <template #status="{back}">
-                            <flux-menu>
-                                <flux-menu-group>
-                                    <flux-menu-item
+                            <FluxMenu>
+                                <FluxMenuGroup>
+                                    <FluxMenuItem
                                         icon-before="angle-left"
                                         label="Back"
                                         @click="back()"/>
-                                </flux-menu-group>
+                                </FluxMenuGroup>
 
-                                <flux-separator/>
+                                <FluxSeparator/>
 
-                                <flux-menu-group>
-                                    <flux-menu-item
+                                <FluxMenuGroup>
+                                    <FluxMenuItem
                                         icon-before="circle-check"
                                         label="Active"
                                         @click="back()"/>
 
-                                    <flux-menu-item
+                                    <FluxMenuItem
                                         icon-before="circle-check"
                                         label="Concept"
                                         @click="back()"/>
 
-                                    <flux-menu-item
+                                    <FluxMenuItem
                                         icon-before="circle"
                                         label="Concluded"
                                         @click="back()"/>
 
-                                    <flux-menu-item
+                                    <FluxMenuItem
                                         icon-before="circle"
                                         label="Removed"
                                         @click="back()"/>
-                                </flux-menu-group>
-                            </flux-menu>
+                                </FluxMenuGroup>
+                            </FluxMenu>
                         </template>
-                    </flux-window>
-                </flux-pane>
+                    </FluxWindow>
+                </FluxPane>
             </template>
-        </flux-flyout>
-    </flux-button-stack>
+        </FluxFlyout>
+    </FluxButtonStack>
 </template>
 
 <script

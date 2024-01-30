@@ -1,48 +1,41 @@
 <template>
-    <flux-pane style="max-width: 300px">
-        <flux-menu>
-            <flux-menu-group>
-                <flux-menu-sub-header label="Group 1"/>
+    <FluxPane style="max-width: 300px">
+        <FluxMenu>
+            <FluxMenuGroup>
+                <FluxMenuSubHeader label="Group 1"/>
 
-                <flux-menu-item
+                <FluxMenuItem
                     icon-before="circle"
                     label="Menu item 1"/>
 
-                <flux-menu-item
+                <FluxMenuItem
                     icon-before="circle"
                     label="Menu item 2"/>
 
-                <flux-menu-item
+                <FluxMenuItem
                     icon-before="circle"
                     label="Menu item 3"/>
-            </flux-menu-group>
+            </FluxMenuGroup>
 
-            <flux-separator/>
+            <FluxSeparator/>
 
-            <flux-menu-group>
-                <flux-menu-sub-header label="Group 2"/>
+            <FluxMenuGroup>
+                <FluxMenuSubHeader label="Group 2"/>
 
-                <flux-menu-item
+                <FluxMenuItem
                     icon-before="circle"
                     label="Menu item 4"/>
 
-                <flux-menu-item
+                <FluxMenuItem
                     icon-before="circle"
                     label="Menu item 5"/>
-            </flux-menu-group>
-        </flux-menu>
-    </flux-pane>
+            </FluxMenuGroup>
+        </FluxMenu>
+    </FluxPane>
 </template>
 
 <script
     lang="ts"
     setup>
-    import {
-        FluxMenu,
-        FluxMenuGroup,
-        FluxMenuItem,
-        FluxMenuSubHeader,
-        FluxPane,
-        FluxSeparator
-    } from '@fancee/flux';
+    import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxPane, FluxSeparator } from '@fancee/flux';
 </script>

@@ -1,16 +1,13 @@
 <template>
-    <flux-button-group>
-        <flux-secondary-button label="Left"/>
-        <flux-secondary-button label="Center"/>
-        <flux-secondary-button label="Right"/>
-    </flux-button-group>
+    <FluxButtonGroup>
+        <FluxSecondaryButton label="Left"/>
+        <FluxSecondaryButton label="Center"/>
+        <FluxSecondaryButton label="Right"/>
+    </FluxButtonGroup>
 </template>
 
 <script
     lang="ts"
     setup>
-    import {
-        FluxButtonGroup,
-        FluxSecondaryButton
-    } from '@fancee/flux';
+    import { FluxButtonGroup, FluxSecondaryButton } from '@fancee/flux';
 </script>

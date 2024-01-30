@@ -1,39 +1,33 @@
 <template>
-    <flux-pane>
-        <flux-table is-hoverable>
+    <FluxPane>
+        <FluxTable is-hoverable>
             <template #header>
-                <flux-table-row>
-                    <flux-table-header
+                <FluxTableRow>
+                    <FluxTableHeader
                         v-for="header in 3"
                         :key="header">
                         Header {{ header }}
-                    </flux-table-header>
-                </flux-table-row>
+                    </FluxTableHeader>
+                </FluxTableRow>
             </template>
 
             <template #rows>
-                <flux-table-row
+                <FluxTableRow
                     v-for="row in 3"
                     :key="row">
-                    <flux-table-cell
+                    <FluxTableCell
                         v-for="cell in 3"
                         :key="cell">
                         Cell {{ cell }}&times;{{ row }}
-                    </flux-table-cell>
-                </flux-table-row>
+                    </FluxTableCell>
+                </FluxTableRow>
             </template>
-        </flux-table>
-    </flux-pane>
+        </FluxTable>
+    </FluxPane>
 </template>
 
 <script
     lang="ts"
     setup>
-    import {
-        FluxPane,
-        FluxTable,
-        FluxTableCell,
-        FluxTableHeader,
-        FluxTableRow
-    } from '@fancee/flux';
+    import { FluxPane, FluxTable, FluxTableCell, FluxTableHeader, FluxTableRow } from '@fancee/flux';
 </script>

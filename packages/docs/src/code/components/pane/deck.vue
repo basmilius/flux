@@ -1,23 +1,25 @@
 <template>
-    <flux-pane-deck
+    <FluxPaneDeck
         :min-column-width="150"
         style="width: 90%; margin: 0 auto;">
-        <flux-pane>
-            <flux-pane-body>
+        <FluxPane>
+            <FluxPaneBody>
                 Pane 1
-            </flux-pane-body>
-        </flux-pane>
-        <flux-pane>
-            <flux-pane-body>
+            </FluxPaneBody>
+        </FluxPane>
+
+        <FluxPane>
+            <FluxPaneBody>
                 Pane 2
-            </flux-pane-body>
-        </flux-pane>
-        <flux-pane>
-            <flux-pane-body>
+            </FluxPaneBody>
+        </FluxPane>
+
+        <FluxPane>
+            <FluxPaneBody>
                 Pane 3
-            </flux-pane-body>
-        </flux-pane>
-    </flux-pane-deck>
+            </FluxPaneBody>
+        </FluxPane>
+    </FluxPaneDeck>
 </template>
 
 <script

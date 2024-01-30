@@ -1,15 +1,15 @@
 <template>
-    <flux-badge-stack>
-        <flux-badge
+    <FluxBadgeStack>
+        <FluxBadge
             color="success"
             icon="circle-check"
             label="Complete"/>
 
-        <flux-badge
+        <FluxBadge
             color="warning"
             icon="circle-exclamation"
             label="Missing payment details"/>
-    </flux-badge-stack>
+    </FluxBadgeStack>
 </template>
 
 <script

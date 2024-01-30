@@ -1,14 +1,14 @@
 <template>
-    <flux-badge-stack>
-        <flux-badge
+    <FluxBadgeStack>
+        <FluxBadge
             is-tag
             label="Tag"/>
 
-        <flux-badge
+        <FluxBadge
             is-deletable
             is-tag
             label="Removable tag"/>
-    </flux-badge-stack>
+    </FluxBadgeStack>
 </template>
 
 <script

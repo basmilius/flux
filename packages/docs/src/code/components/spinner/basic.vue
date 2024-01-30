@@ -1,5 +1,5 @@
 <template>
-    <flux-spinner/>
+    <FluxSpinner/>
 </template>
 
 <script

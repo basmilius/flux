@@ -1,5 +1,5 @@
 <template>
-    <flux-form-date-range-input v-model="range"/>
+    <FluxFormDateRangeInput v-model="range"/>
 </template>
 
 <script

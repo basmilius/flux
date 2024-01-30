@@ -1,22 +1,19 @@
 <template>
-    <flux-button-stack>
-        <flux-destructive-button label="Disable"/>
+    <FluxButtonStack>
+        <FluxDestructiveButton label="Disable"/>
 
-        <flux-destructive-button
+        <FluxDestructiveButton
             icon-before="lock"
             label="Lock account"/>
 
-        <flux-destructive-button
+        <FluxDestructiveButton
             icon-after="circle-arrow-down"
             label="Downgrade"/>
-    </flux-button-stack>
+    </FluxButtonStack>
 </template>
 
 <script
     lang="ts"
     setup>
-    import {
-        FluxButtonStack,
-        FluxDestructiveButton
-    } from '@fancee/flux';
+    import { FluxButtonStack, FluxDestructiveButton } from '@fancee/flux';
 </script>

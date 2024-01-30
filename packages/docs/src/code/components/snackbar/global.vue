@@ -1,16 +1,16 @@
 <template>
-    <flux-snackbar
+    <FluxSnackbar
         v-if="isVisible"
         icon="circle-check"
         message="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate est exercitationem fuga impedit iusto nam nesciunt pariatur porro praesentium quidem! A, accusamus blanditiis dicta esse in itaque neque rerum. Enim!"
         title="Snackbar"/>
 
-    <flux-button-stack>
-        <flux-primary-button
+    <FluxButtonStack>
+        <FluxPrimaryButton
             icon-before="bullhorn"
             label="Toggle Snackbar"
             @click="isVisible = !isVisible"/>
-    </flux-button-stack>
+    </FluxButtonStack>
 </template>
 
 <script

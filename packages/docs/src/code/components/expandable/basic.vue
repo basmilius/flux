@@ -1,7 +1,7 @@
 <template>
-    <flux-expandable label="Expandable">
+    <FluxExpandable label="Expandable">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab at autem blanditiis corporis deleniti, facilis ipsum maxime necessitatibus nesciunt nulla quidem quod saepe suscipit tempora totam vel veritatis. Ipsam, nesciunt!
-    </flux-expandable>
+    </FluxExpandable>
 </template>
 
 <script

@@ -1,16 +1,16 @@
 <template>
-    <flux-stack>
-        <flux-pane style="width: 330px">
-            <flux-filter v-model="filterState">
-                <flux-filter-date-range
+    <FluxStack>
+        <FluxPane style="width: 330px">
+            <FluxFilter v-model="filterState">
+                <FluxFilterDateRange
                     icon="calendar"
                     label="Range"
                     name="selected"/>
-            </flux-filter>
-        </flux-pane>
+            </FluxFilter>
+        </FluxPane>
 
         <pre>{{ filterState }}</pre>
-    </flux-stack>
+    </FluxStack>
 </template>
 
 <script

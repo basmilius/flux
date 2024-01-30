@@ -1,53 +1,45 @@
 <template>
-    <flux-button-stack>
-        <flux-flyout>
+    <FluxButtonStack>
+        <FluxFlyout>
             <template #opener="{open}">
-                <flux-secondary-button
+                <FluxSecondaryButton
                     icon-after="ellipsis-h"
                     @click="open"/>
             </template>
 
             <template #default="{close}">
-                <flux-menu>
-                    <flux-menu-group>
-                        <flux-menu-item
+                <FluxMenu>
+                    <FluxMenuGroup>
+                        <FluxMenuItem
                             icon-before="scissors"
                             label="Cut"
                             @click="close"/>
-                        <flux-menu-item
+                        <FluxMenuItem
                             icon-before="clone"
                             label="Copy"
                             @click="close"/>
-                        <flux-menu-item
+                        <FluxMenuItem
                             icon-before="paste"
                             label="Paste"
                             @click="close"/>
-                    </flux-menu-group>
+                    </FluxMenuGroup>
 
-                    <flux-separator/>
+                    <FluxSeparator/>
 
-                    <flux-menu-group>
-                        <flux-menu-item
+                    <FluxMenuGroup>
+                        <FluxMenuItem
                             icon-before="gear"
                             label="Preferences"
                             @click="close"/>
-                    </flux-menu-group>
-                </flux-menu>
+                    </FluxMenuGroup>
+                </FluxMenu>
             </template>
-        </flux-flyout>
-    </flux-button-stack>
+        </FluxFlyout>
+    </FluxButtonStack>
 </template>
 
 <script
     lang="ts"
     setup>
-    import {
-        FluxButtonStack,
-        FluxFlyout,
-        FluxMenu,
-        FluxMenuGroup,
-        FluxMenuItem,
-        FluxSecondaryButton,
-        FluxSeparator
-    } from '@fancee/flux';
+    import { FluxButtonStack, FluxFlyout, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSecondaryButton, FluxSeparator } from '@fancee/flux';
 </script>

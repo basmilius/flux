@@ -1,5 +1,5 @@
 <template>
-    <flux-notice
+    <FluxNotice
         icon="circle-exclamation"
         is-small
         message="The Birthdate field is required because your event has a minimum age."
