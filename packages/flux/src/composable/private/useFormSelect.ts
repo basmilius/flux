@@ -59,13 +59,15 @@ export function useFormSelect(modelValue: Ref<FormSelectValue>, isMultiple: Ref<
 
     return {
         groups,
-        selected
+        selected,
+        values
     };
 }
 
 type UseFormSelect = {
     readonly groups: ComputedRef<FormSelectGroup[]>;
     readonly selected: ComputedRef<FluxFormSelectOption[]>;
+    readonly values: ComputedRef<FormSelectValueSingle[]>;
 };
 
 type UseFormSelectProps = {
@@ -75,9 +77,9 @@ type UseFormSelectProps = {
 };
 
 export type UseFormSelectAsyncProps = UseFormSelectProps & {
-    readonly fetchOptions: (ids: string[]) => FormSelectOption[];
-    readonly fetchRelevant: () => FormSelectOption[];
-    readonly fetchSearch: (searchQuery: string) => FormSelectOption[];
+    readonly fetchOptions: (ids: FormSelectValueSingle[]) => Promise<FormSelectOption[]>;
+    readonly fetchRelevant: () => Promise<FormSelectOption[]>;
+    readonly fetchSearch: (searchQuery: string) => Promise<FormSelectOption[]>;
 };
 
 export type UseFormSelectStaticProps = UseFormSelectProps & {
@@ -87,4 +89,5 @@ export type UseFormSelectStaticProps = UseFormSelectProps & {
 
 export type FormSelectGroup = [FormSelectOption | null, FluxFormSelectOption[]];
 export type FormSelectOption = FluxFormSelectGroup | FluxFormSelectOption;
-export type FormSelectValue = string | number | (string | number | null)[] | null;
+export type FormSelectValue = FormSelectValueSingle | FormSelectValueSingle[];
+export type FormSelectValueSingle = string | number | null;

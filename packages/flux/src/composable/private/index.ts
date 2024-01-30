@@ -5,6 +5,7 @@ export { useCalendar } from './useCalendar';
 export { useCalendarMonthSwitcher } from './useCalendarMonthSwitcher';
 export { useCalendarYearSwitcher } from './useCalendarYearSwitcher';
 export { useFormSelect } from './useFormSelect';
+export { useLoaded } from './useLoaded';
 export { useTranslate } from './useTranslate';
 
 export { useDashboardInjection } from './useDashboardInjection';

@@ -38,7 +38,13 @@
             </span>
         </template>
 
+        <FluxSpinner
+            v-if="isLoading"
+            class="flux-form-select-icon"
+            :size="16"/>
+
         <FluxIcon
+            v-else
             class="flux-form-select-icon"
             variant="angle-down"/>
     </Anchor>
@@ -66,7 +72,7 @@
                     :placeholder="translate('flux.search')"
                     @keydown="onKeyDown"/>
 
-                <FluxPaneBody v-if="options.length === 0">
+                <FluxPaneBody v-if="!isLoading && options.length === 0">
                     <em>{{ translate('flux.noItems') }}</em>
                 </FluxPaneBody>
 
@@ -132,6 +138,7 @@
     import FluxMenuItem from '../FluxMenuItem.vue';
     import FluxMenuSubHeader from '../FluxMenuSubHeader.vue';
     import FluxPaneBody from '../FluxPaneBody.vue';
+    import FluxSpinner from '../FluxSpinner.vue';
     import Anchor from './Anchor.vue';
     import AnchorPopup from './AnchorPopup.vue';
 
@@ -142,10 +149,13 @@
         (e: 'deselect', id: string | number | null): void;
         (e: 'select', id: string | number | null): void;
         (e: 'search', searchQuery: string): void;
+        (e: 'close'): void;
+        (e: 'open'): void;
     };
 
     export type Props = {
         readonly isDisabled?: boolean;
+        readonly isLoading?: boolean;
         readonly isMultiple?: boolean;
         readonly isSearchable?: boolean;
         readonly options: FormSelectGroup[];
@@ -179,7 +189,7 @@
     function deselect(id: string | number | null): void {
         emit('deselect', id);
 
-        unref(focusElement)?.focus();
+        nextTick(() => unref(focusElement)?.focus());
     }
 
     function select(id: string | number | null): void {
@@ -190,7 +200,7 @@
         highlightedIndex.value = INITIAL_HIGHLIGHTED_INDEX;
         modelSearch.value = '';
 
-        unref(focusElement)?.focus();
+        nextTick(() => unref(focusElement)?.focus());
     }
 
     function toggle(): void {
@@ -257,6 +267,7 @@
 
     watch(isPopupOpen, isPopupOpen => {
         if (!isPopupOpen) {
+            emit('close');
             return;
         }
 
@@ -277,6 +288,8 @@
                 block: 'nearest'
             });
         });
+
+        emit('open');
     });
 
     watch(modelSearch, searchQuery => emit('search', searchQuery));

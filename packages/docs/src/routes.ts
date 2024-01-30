@@ -146,6 +146,10 @@ export const router = createRouter({
                     component: () => import('@docs/pages/components/FormSelect.vue')
                 },
                 {
+                    path: '/components/form-select-async',
+                    component: () => import('@docs/pages/components/FormSelectAsync.vue')
+                },
+                {
                     path: '/components/form-slider',
                     component: () => import('@docs/pages/components/FormSlider.vue')
                 },

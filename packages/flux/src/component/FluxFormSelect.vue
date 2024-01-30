@@ -7,8 +7,8 @@
         :options="groups"
         :placeholder="placeholder"
         :selected="selected"
-        @deselect="deselect"
-        @select="select"/>
+        @deselect="onDeselect"
+        @select="onSelect"/>
 </template>
 
 <script
@@ -25,21 +25,17 @@
     const props = defineProps<Props>();
     const {isMultiple, options} = toRefs(props);
 
-    const {groups, selected} = useFormSelect(modelValue, isMultiple, options, searchQueryModel);
+    const {groups, selected, values} = useFormSelect(modelValue, isMultiple, options, searchQueryModel);
 
-    function deselect(id: string | number | null): void {
-        const val = unref(modelValue);
-
-        if (Array.isArray(val)) {
-            modelValue.value = val.filter(v => v !== id);
+    function onDeselect(id: string | number | null): void {
+        if (unref(isMultiple)) {
+            modelValue.value = unref(values).filter(v => v !== id);
         }
     }
 
-    function select(id: string | number | null): void {
-        const val = unref(modelValue);
-
-        if (Array.isArray(val)) {
-            modelValue.value = [...val, id];
+    function onSelect(id: string | number | null): void {
+        if (unref(isMultiple)) {
+            modelValue.value = [...unref(values), id];
         } else {
             modelValue.value = id;
         }
