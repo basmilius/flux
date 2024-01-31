@@ -1,6 +1,7 @@
 <template>
     <Anchor
         ref="anchorRef"
+        :="$attrs"
         class="flux-form-input flux-form-select"
         :class="{
             'is-disabled': isDisabled,
@@ -162,6 +163,10 @@
         readonly placeholder?: string;
         readonly selected: FluxFormSelectOption[];
     };
+
+    defineOptions({
+        inheritAttrs: false
+    });
 
     const emit = defineEmits<Emits>();
     const modelSearch = defineModel<string>('searchQuery', {default: ''});
