@@ -2,7 +2,7 @@ import type { FluxFormSelectGroup, FluxFormSelectOption } from '@/data';
 import { isFluxFormSelectGroup, isFluxFormSelectOption } from '@/data';
 import { computed, ComputedRef, Ref, unref } from 'vue';
 
-export function useFormSelect(modelValue: Ref<FormSelectValue>, isMultiple: Ref<boolean>, options: Ref<FormSelectOption[]>, searchQuery?: Ref<string>): UseFormSelect {
+export default function (modelValue: Ref<FormSelectValue>, isMultiple: Ref<boolean>, options: Ref<FormSelectOption[]>, searchQuery?: Ref<string>): UseFormSelect {
     const values = computed(() => {
         const model = unref(modelValue);
         return Array.isArray(model) ? model : [model];

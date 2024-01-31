@@ -12,7 +12,7 @@
     lang="ts"
     setup>
     import { computed, unref } from 'vue';
-    import { useFilterInjection } from '@/composable/private';
+    import { useFilterInjection } from '@/composable';
     import { FluxFilterOptionRow, FluxFilterValue, IconNames, isFluxFilterOptionHeader } from '@/data';
     import { FilterOptionBase } from './primitive';
 

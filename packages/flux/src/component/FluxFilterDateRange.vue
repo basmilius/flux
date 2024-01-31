@@ -13,7 +13,7 @@
     setup>
     import { DateTime } from 'luxon';
     import { computed, unref } from 'vue';
-    import { useFilterInjection } from '@/composable/private';
+    import { useFilterInjection } from '@/composable';
     import type { IconNames } from '@/data';
     import FluxDatePicker from './FluxDatePicker.vue';
 

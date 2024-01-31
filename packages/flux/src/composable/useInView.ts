@@ -1,7 +1,7 @@
 import type { Ref } from 'vue';
 import { ref, watch } from 'vue';
 
-export function useInView(containerRef: Ref<HTMLElement | null>, options: IntersectionObserverInit & { readonly initial?: boolean; }): Ref<boolean> {
+export default function (containerRef: Ref<HTMLElement | null>, options: IntersectionObserverInit & { readonly initial?: boolean; }): Ref<boolean> {
     const inView = ref(options.initial ?? false);
 
     watch(containerRef, (container, _, onCleanup) => {

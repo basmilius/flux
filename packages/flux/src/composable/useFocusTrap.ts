@@ -1,11 +1,11 @@
 import type { Ref } from 'vue';
-import { onMounted, onUnmounted, ref, unref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { isSSR } from '@/data';
-import { FOCUS_TRAP_LOCKS, FocusTrapListener, getFocusableElements, unrefElement, wrapFocus } from '@/util';
+import { getFocusableElements, unrefElement, wrapFocus } from '@/util';
+import useFocusTrapLock from './useFocusTrapLock';
+import useFocusTrapReturn from './useFocusTrapReturn';
 
-let lockId = 0;
-
-export function useFocusTrap(containerRef: Ref<HTMLElement | undefined>, options: UseFocusTrapOptions = {}) {
+export default function (containerRef: Ref<HTMLElement | undefined>, options: UseFocusTrapOptions = {}) {
     if (isSSR) {
         return;
     }
@@ -103,35 +103,6 @@ export function useFocusTrap(containerRef: Ref<HTMLElement | undefined>, options
 
         elements[0]?.focus();
     }, {immediate: true});
-}
-
-export function useFocusTrapLock(autoFocus: boolean = false): Ref<boolean> {
-    const id = ref(`focus-trap-${++lockId}`);
-    const enabled = ref(false);
-
-    onMounted(() => FOCUS_TRAP_LOCKS.add(unref(id), isEnabled => enabled.value = isEnabled, autoFocus));
-    onUnmounted(() => FOCUS_TRAP_LOCKS.remove(unref(id)));
-
-    return enabled;
-}
-
-export function useFocusTrapReturn(disabled: Ref<boolean>): void {
-    const target = ref<HTMLElement | null>(document.activeElement as HTMLElement | null);
-
-    onUnmounted(() => {
-        if (disabled.value) {
-            return;
-        }
-
-        requestAnimationFrame(() => unref(target)?.focus());
-    });
-}
-
-export function useFocusTrapSubscription(listener: FocusTrapListener): void {
-    const unsubscribe = ref<Function | null>(null);
-
-    onMounted(() => unsubscribe.value = FOCUS_TRAP_LOCKS.subscribe(listener));
-    onUnmounted(() => unsubscribe.value?.());
 }
 
 interface UseFocusTrapOptions {

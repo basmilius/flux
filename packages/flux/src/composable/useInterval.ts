@@ -1,7 +1,7 @@
 import type { Ref } from 'vue';
 import { onMounted, onUnmounted, ref, unref } from 'vue';
 
-export function useInterval(interval: Ref<number> | number, fn: Function): void {
+export default function (interval: Ref<number> | number, fn: Function): void {
     const intervalRef = ref<any>();
 
     onMounted(() => {

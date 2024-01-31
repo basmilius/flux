@@ -44,8 +44,7 @@
     lang="ts"
     setup>
     import { getCurrentInstance, onBeforeMount, onUnmounted, ref, toRefs, unref, watch } from 'vue';
-    import { useComponentId, useId } from '@/composable';
-    import { useExpandableGroupInjection } from '@/composable/private';
+    import { useComponentId, useExpandableGroupInjection, useId } from '@/composable';
     import { FluxAutoHeightTransition, FluxFadeTransition } from '@/transition';
     import FluxIcon from './FluxIcon.vue';
 

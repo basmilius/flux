@@ -21,7 +21,7 @@
     lang="ts"
     setup>
     import { FluxSecondaryButton, FluxSpacer } from '@/component';
-    import { useDashboardInjection } from '@/composable/private';
+    import { useDashboardInjection } from '@/composable';
 
     export interface Props {
         readonly title: string;

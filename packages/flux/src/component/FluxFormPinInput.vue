@@ -30,7 +30,7 @@
     lang="ts"
     setup>
     import { ref, toRefs, unref } from 'vue';
-    import { useFormFieldInjection } from '@/composable/private';
+    import { useFormFieldInjection } from '@/composable';
 
     export type Emits = {
         (e: 'blur'): void;

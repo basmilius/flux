@@ -13,7 +13,8 @@
     lang="ts"
     setup>
     import { computed, ref, unref, watch } from 'vue';
-    import { useFilterInjection, useLoaded } from '@/composable/private';
+    import { useFilterInjection } from '@/composable';
+    import { useLoaded } from '@/composable/private';
     import { FluxFilterOptionRow, FluxFilterValue, IconNames, isFluxFilterOptionItem } from '@/data';
     import { FilterOptionBase } from './primitive';
 

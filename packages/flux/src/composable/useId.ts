@@ -3,7 +3,7 @@ import { ref } from 'vue';
 
 let id: number = 0;
 
-export function useId(): Ref<string> {
+export default function useId(): Ref<string> {
     return useId.generate();
 }
 

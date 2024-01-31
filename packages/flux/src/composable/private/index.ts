@@ -1,16 +1,9 @@
 export type { FormSelectGroup, FormSelectOption, FormSelectValue, UseFormSelectAsyncProps, UseFormSelectStaticProps } from './useFormSelect';
 export type { FluxTranslator, FluxTranslationKey } from './useTranslate';
 
-export { useCalendar } from './useCalendar';
-export { useCalendarMonthSwitcher } from './useCalendarMonthSwitcher';
-export { useCalendarYearSwitcher } from './useCalendarYearSwitcher';
-export { useFormSelect } from './useFormSelect';
-export { useLoaded } from './useLoaded';
-export { useTranslate } from './useTranslate';
-
-export { useDashboardInjection } from './useDashboardInjection';
-export { useExpandableGroupInjection } from './useExpandableGroupInjection';
-export { useFilterInjection } from './useFilterInjection';
-export { useFlyoutInjection } from './useFlyoutInjection';
-export { useFormFieldInjection } from './useFormFieldInjection';
-export { useTableInjection } from './useTableInjection';
+export { default as useCalendar } from './useCalendar';
+export { default as useCalendarMonthSwitcher } from './useCalendarMonthSwitcher';
+export { default as useCalendarYearSwitcher } from './useCalendarYearSwitcher';
+export { default as useFormSelect } from './useFormSelect';
+export { default as useLoaded } from './useLoaded';
+export { default as useTranslate } from './useTranslate';

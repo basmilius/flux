@@ -34,7 +34,7 @@
 <script
     lang="ts"
     setup>
-    import { useFormFieldInjection } from '@/composable/private';
+    import { useFormFieldInjection } from '@/composable';
     import type { IconNames } from '@/data';
     import FluxIcon from './FluxIcon.vue';
 

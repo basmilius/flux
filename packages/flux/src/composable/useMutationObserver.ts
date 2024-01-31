@@ -2,7 +2,7 @@ import { onScopeDispose, watch } from 'vue';
 import type { MaybeElementRef } from '@/util';
 import { unrefElement } from '@/util';
 
-export function useMutationObserver(elementRef: MaybeElementRef<HTMLElement | undefined>, callback: MutationCallback, options?: MutationObserverInit): void {
+export default function (elementRef: MaybeElementRef<HTMLElement | undefined>, callback: MutationCallback, options?: MutationObserverInit): void {
     options ??= {
         attributes: true
     };

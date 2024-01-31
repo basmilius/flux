@@ -56,7 +56,7 @@
     setup>
     import { DateTime } from 'luxon';
     import { ref, toRefs, unref, watch } from 'vue';
-    import { useFormFieldInjection } from '@/composable/private';
+    import { useFormFieldInjection } from '@/composable';
     import { IconNames, Masks, masks } from '@/data';
     import { unrefElement } from '@/util';
     import FluxIcon from './FluxIcon.vue';

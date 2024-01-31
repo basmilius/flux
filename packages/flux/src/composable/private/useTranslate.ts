@@ -52,7 +52,7 @@ export const english = {
     'flux.timezonePacific': 'Pacific'
 } as const;
 
-export function useTranslate(): FluxTranslator {
+export default function (): FluxTranslator {
     const instance = getCurrentInstance()!.proxy;
 
     if (isVueI18n(instance)) {
