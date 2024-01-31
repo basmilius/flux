@@ -1,36 +1,31 @@
 <template>
-    <flux-table>
+    <FluxTable>
         <template #header>
-            <flux-table-row>
-                <flux-table-header
+            <FluxTableRow>
+                <FluxTableHeader
                     v-for="header in 3"
                     :key="header">
                     Header {{ header }}
-                </flux-table-header>
-            </flux-table-row>
+                </FluxTableHeader>
+            </FluxTableRow>
         </template>
 
         <template #rows>
-            <flux-table-row
+            <FluxTableRow
                 v-for="row in 3"
                 :key="row">
-                <flux-table-cell
+                <FluxTableCell
                     v-for="cell in 3"
                     :key="cell">
                     Cell {{ cell }}&times;{{ row }}
-                </flux-table-cell>
-            </flux-table-row>
+                </FluxTableCell>
+            </FluxTableRow>
         </template>
-    </flux-table>
+    </FluxTable>
 </template>
 
 <script
     lang="ts"
     setup>
-    import {
-        FluxTable,
-        FluxTableCell,
-        FluxTableHeader,
-        FluxTableRow
-    } from '@fancee/flux';
+    import { FluxTable, FluxTableCell, FluxTableHeader, FluxTableRow } from '@fancee/flux';
 </script>

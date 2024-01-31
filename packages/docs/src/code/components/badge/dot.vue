@@ -1,20 +1,20 @@
 <template>
-    <flux-badge-stack>
-        <flux-badge
+    <FluxBadgeStack>
+        <FluxBadge
             color="success"
             dot
             label="Online"/>
 
-        <flux-badge
+        <FluxBadge
             color="danger"
             dot
             label="Boot failure"/>
 
-        <flux-badge
+        <FluxBadge
             color="warning"
             dot
             label="Payment in progress"/>
-    </flux-badge-stack>
+    </FluxBadgeStack>
 </template>
 
 <script

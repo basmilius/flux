@@ -1,38 +1,33 @@
 <template>
-    <flux-button-stack>
-        <flux-flyout
+    <FluxButtonStack>
+        <FluxFlyout
             axis="horizontal"
             :width="360">
             <template #opener="{open}">
-                <flux-secondary-button
+                <FluxSecondaryButton
                     icon-after="question"
                     @click="open"/>
             </template>
 
             <template #default="{close}">
-                <flux-pane-body>
+                <FluxPaneBody>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquam cum deleniti dicta distinctio ea error eum excepturi facilis illo laudantium, maxime modi molestiae neque quisquam unde velit veritatis voluptatibus.
-                </flux-pane-body>
-                <flux-pane-footer>
-                    <flux-spacer/>
-                    <flux-secondary-button
+                </FluxPaneBody>
+
+                <FluxPaneFooter>
+                    <FluxSpacer/>
+
+                    <FluxSecondaryButton
                         label="Close"
                         @click="close"/>
-                </flux-pane-footer>
+                </FluxPaneFooter>
             </template>
-        </flux-flyout>
-    </flux-button-stack>
+        </FluxFlyout>
+    </FluxButtonStack>
 </template>
 
 <script
     lang="ts"
     setup>
-    import {
-        FluxButtonStack,
-        FluxFlyout,
-        FluxPaneBody,
-        FluxPaneFooter,
-        FluxSecondaryButton,
-        FluxSpacer
-    } from '@fancee/flux';
+    import { FluxButtonStack, FluxFlyout, FluxPaneBody, FluxPaneFooter, FluxSecondaryButton, FluxSpacer } from '@fancee/flux';
 </script>

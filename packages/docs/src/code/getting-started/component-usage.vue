@@ -1,9 +1,9 @@
 <template>
-    <flux-pane>
-        <flux-secondary-button
+    <FluxPane>
+        <FluxSecondaryButton
             href="https://flux.fanc.ee"
             label="Button"/>
-    </flux-pane>
+    </FluxPane>
 </template>
 
 <script

@@ -1,43 +1,37 @@
 <template>
-    <flux-pane style="max-width: 300px">
-        <flux-menu>
-            <flux-menu-group>
-                <flux-menu-item
+    <FluxPane style="max-width: 300px">
+        <FluxMenu>
+            <FluxMenuGroup>
+                <FluxMenuItem
                     icon-before="circle"
                     label="Menu item 1"/>
 
-                <flux-menu-item
+                <FluxMenuItem
                     icon-before="circle"
                     label="Menu item 2"/>
 
-                <flux-menu-item
+                <FluxMenuItem
                     icon-before="circle"
                     label="Menu item 3"/>
-            </flux-menu-group>
+            </FluxMenuGroup>
 
-            <flux-separator/>
+            <FluxSeparator/>
 
-            <flux-menu-group>
-                <flux-menu-item
+            <FluxMenuGroup>
+                <FluxMenuItem
                     icon-before="circle"
                     label="Menu item 4"/>
 
-                <flux-menu-item
+                <FluxMenuItem
                     icon-before="circle"
                     label="Menu item 5"/>
-            </flux-menu-group>
-        </flux-menu>
-    </flux-pane>
+            </FluxMenuGroup>
+        </FluxMenu>
+    </FluxPane>
 </template>
 
 <script
     lang="ts"
     setup>
-    import {
-        FluxMenu,
-        FluxMenuGroup,
-        FluxMenuItem,
-        FluxPane,
-        FluxSeparator
-    } from '@fancee/flux';
+    import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxSeparator } from '@fancee/flux';
 </script>

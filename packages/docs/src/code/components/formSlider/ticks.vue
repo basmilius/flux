@@ -1,5 +1,5 @@
 <template>
-    <flux-form-slider
+    <FluxFormSlider
         style="max-width: 420px"
         v-model="sliderValue"
         is-ticks-visible

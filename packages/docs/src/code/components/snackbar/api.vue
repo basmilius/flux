@@ -1,10 +1,10 @@
 <template>
-    <flux-button-stack>
-        <flux-primary-button
+    <FluxButtonStack>
+        <FluxPrimaryButton
             icon-before="bullhorn"
             label="Show Snackbar"
             @click="show"/>
-    </flux-button-stack>
+    </FluxButtonStack>
 </template>
 
 <script

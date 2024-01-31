@@ -1,6 +1,6 @@
 <template>
-    <flux-stack axis="vertical">
-        <flux-form-select
+    <FluxStack axis="vertical">
+        <FluxFormSelect
             v-model="selectValue"
             v-model:search="searchValue"
             is-multiple
@@ -9,7 +9,7 @@
             placeholder="Search multiple options..."/>
 
         <pre>{{ {searchValue, selectValue} }}</pre>
-    </flux-stack>
+    </FluxStack>
 </template>
 
 <script

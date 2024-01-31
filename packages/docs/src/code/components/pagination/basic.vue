@@ -1,33 +1,28 @@
 <template>
-    <flux-pane>
-        <flux-pane-body>
+    <FluxPane>
+        <FluxPaneBody>
             <p>Currently displaying page <strong>{{ page }}</strong>.</p>
-        </flux-pane-body>
-        <flux-pane-footer>
-            <flux-spacer/>
+        </FluxPaneBody>
 
-            <flux-pagination
+        <FluxPaneFooter>
+            <FluxSpacer/>
+
+            <FluxPagination
                 arrows
                 :page="page"
                 :per-page="10"
                 :total="200"
                 @navigate="page = $event"/>
 
-            <flux-spacer/>
-        </flux-pane-footer>
-    </flux-pane>
+            <FluxSpacer/>
+        </FluxPaneFooter>
+    </FluxPane>
 </template>
 
 <script
     lang="ts"
     setup>
-    import {
-        FluxPagination,
-        FluxPane,
-        FluxPaneBody,
-        FluxPaneFooter,
-        FluxSpacer
-    } from '@fancee/flux';
+    import { FluxPagination, FluxPane, FluxPaneBody, FluxPaneFooter, FluxSpacer } from '@fancee/flux';
     import { ref } from 'vue';
 
     const page = ref(1);

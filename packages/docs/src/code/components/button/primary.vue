@@ -1,26 +1,23 @@
 <template>
-    <flux-button-stack>
-        <flux-primary-button label="Buy"/>
+    <FluxButtonStack>
+        <FluxPrimaryButton label="Buy"/>
 
-        <flux-primary-button
+        <FluxPrimaryButton
             icon-before="check-circle"
             label="Save"/>
 
-        <flux-primary-button
+        <FluxPrimaryButton
             icon-after="circle-arrow-right"
             label="Enter"/>
 
-        <flux-primary-button
+        <FluxPrimaryButton
             is-loading
             label="Update"/>
-    </flux-button-stack>
+    </FluxButtonStack>
 </template>
 
 <script
     lang="ts"
     setup>
-    import {
-        FluxButtonStack,
-        FluxPrimaryButton
-    } from '@fancee/flux';
+    import { FluxButtonStack, FluxPrimaryButton } from '@fancee/flux';
 </script>

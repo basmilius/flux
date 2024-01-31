@@ -1,30 +1,26 @@
 <template>
-    <flux-button-stack>
-        <flux-publish-button label="Publish"/>
+    <FluxButtonStack>
+        <FluxPublishButton label="Publish"/>
 
-        <flux-publish-button
+        <FluxPublishButton
             is-loading
             label="Publishing"/>
 
-        <flux-publish-button
+        <FluxPublishButton
             is-done
             label="Published"/>
 
-        <flux-publish-button
+        <FluxPublishButton
             :is-done="state % 3 === 2"
             :is-loading="state % 3 === 1"
             :label="state % 3 === 0 ? 'Publish' : (state % 3 === 1 ? 'Publishing' : 'Published')"/>
-    </flux-button-stack>
+    </FluxButtonStack>
 </template>
 
 <script
     lang="ts"
     setup>
-    import {
-        FluxButtonStack,
-        FluxPublishButton,
-        useInterval
-    } from '@fancee/flux';
+    import { FluxButtonStack, FluxPublishButton, useInterval } from '@fancee/flux';
     import { ref } from 'vue';
 
     const state = ref(0);

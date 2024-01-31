@@ -1,40 +1,34 @@
 <template>
-    <flux-pane is-contained>
-        <flux-table style="max-height: 330px">
+    <FluxPane is-contained>
+        <FluxTable style="max-height: 330px">
             <template #header>
-                <flux-table-row>
-                    <flux-table-header
+                <FluxTableRow>
+                    <FluxTableHeader
                         v-for="header in 3"
                         :key="header"
                         is-sticky>
                         Header {{ header }}
-                    </flux-table-header>
-                </flux-table-row>
+                    </FluxTableHeader>
+                </FluxTableRow>
             </template>
 
             <template #rows>
-                <flux-table-row
+                <FluxTableRow
                     v-for="row in 30"
                     :key="row">
-                    <flux-table-cell
+                    <FluxTableCell
                         v-for="cell in 3"
                         :key="cell">
                         Cell {{ cell }}&times;{{ row }}
-                    </flux-table-cell>
-                </flux-table-row>
+                    </FluxTableCell>
+                </FluxTableRow>
             </template>
-        </flux-table>
-    </flux-pane>
+        </FluxTable>
+    </FluxPane>
 </template>
 
 <script
     lang="ts"
     setup>
-    import {
-        FluxPane,
-        FluxTable,
-        FluxTableCell,
-        FluxTableHeader,
-        FluxTableRow
-    } from '@fancee/flux';
+    import { FluxPane, FluxTable, FluxTableCell, FluxTableHeader, FluxTableRow } from '@fancee/flux';
 </script>

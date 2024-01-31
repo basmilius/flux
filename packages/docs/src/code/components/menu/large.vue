@@ -1,30 +1,25 @@
 <template>
-    <flux-pane style="max-width: 300px">
-        <flux-menu is-large>
-            <flux-menu-group>
-                <flux-menu-item
+    <FluxPane style="max-width: 300px">
+        <FluxMenu is-large>
+            <FluxMenuGroup>
+                <FluxMenuItem
                     icon-before="circle"
                     label="Menu item 1"/>
 
-                <flux-menu-item
+                <FluxMenuItem
                     icon-before="circle"
                     label="Menu item 2"/>
 
-                <flux-menu-item
+                <FluxMenuItem
                     icon-before="circle"
                     label="Menu item 3"/>
-            </flux-menu-group>
-        </flux-menu>
-    </flux-pane>
+            </FluxMenuGroup>
+        </FluxMenu>
+    </FluxPane>
 </template>
 
 <script
     lang="ts"
     setup>
-    import {
-        FluxMenu,
-        FluxMenuGroup,
-        FluxMenuItem,
-        FluxPane
-    } from '@fancee/flux';
+    import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane } from '@fancee/flux';
 </script>

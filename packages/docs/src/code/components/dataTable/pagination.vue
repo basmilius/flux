@@ -1,81 +1,70 @@
 <template>
-    <flux-pane>
-        <flux-data-table
+    <FluxPane>
+        <FluxDataTable
             :data-set="dataSet.slice((page - 1) * perPage, (page * perPage))"
             :page="page"
             :per-page="perPage"
             :total="dataSet.length"
             is-hoverable>
             <template #header>
-                <flux-table-header>Name</flux-table-header>
-                <flux-table-header>Email</flux-table-header>
-                <flux-table-header is-shrinking>Status</flux-table-header>
-                <flux-table-header is-shrinking/>
+                <FluxTableHeader>Name</FluxTableHeader>
+                <FluxTableHeader>Email</FluxTableHeader>
+                <FluxTableHeader is-shrinking>Status</FluxTableHeader>
+                <FluxTableHeader is-shrinking/>
             </template>
 
             <template #name="{row: {name}}">
-                <flux-table-cell>{{ name }}</flux-table-cell>
+                <FluxTableCell>{{ name }}</FluxTableCell>
             </template>
 
             <template #email="{row: {email}}">
-                <flux-table-cell>{{ email }}</flux-table-cell>
+                <FluxTableCell>{{ email }}</FluxTableCell>
             </template>
 
             <template #isActive="{row: {isActive}}">
-                <flux-table-cell>
-                    <flux-badge-stack>
-                        <flux-badge
+                <FluxTableCell>
+                    <FluxBadgeStack>
+                        <FluxBadge
                             v-if="isActive"
                             color="success"
                             icon="circle-check"
                             label="Active"/>
 
-                        <flux-badge
+                        <FluxBadge
                             v-else
                             color="danger"
                             icon="circle-xmark"
                             label="Inactive"/>
-                    </flux-badge-stack>
-                </flux-table-cell>
+                    </FluxBadgeStack>
+                </FluxTableCell>
             </template>
 
             <template #actions="{}">
-                <flux-table-cell>
-                    <flux-table-actions>
-                        <flux-action icon="pen"/>
-                        <flux-action icon="ellipsis-h"/>
-                    </flux-table-actions>
-                </flux-table-cell>
+                <FluxTableCell>
+                    <FluxTableActions>
+                        <FluxAction icon="pen"/>
+                        <FluxAction icon="ellipsis-h"/>
+                    </FluxTableActions>
+                </FluxTableCell>
             </template>
-        </flux-data-table>
+        </FluxDataTable>
 
-        <flux-pane-footer>
-            <flux-pagination-bar
+        <FluxPaneFooter>
+            <FluxPaginationBar
                 :limits="[5, 10, 25, 50, 100]"
                 :page="page"
                 :per-page="perPage"
                 :total="dataSet.length"
                 @limit="limit => perPage = limit"
                 @navigate="p => page = p"/>
-        </flux-pane-footer>
-    </flux-pane>
+        </FluxPaneFooter>
+    </FluxPane>
 </template>
 
 <script
     lang="ts"
     setup>
-    import {
-        FluxAction,
-        FluxBadge,
-        FluxBadgeStack,
-        FluxDataTable,
-        FluxPaginationBar,
-        FluxPane,
-        FluxPaneFooter,
-        FluxTableActions,
-        FluxTableCell,
-        FluxTableHeader
-    } from '@fancee/flux';
+    import { FluxAction, FluxBadge, FluxBadgeStack, FluxDataTable, FluxPaginationBar, FluxPane, FluxPaneFooter, FluxTableActions, FluxTableCell, FluxTableHeader } from '@fancee/flux';
     import { computed, ref } from 'vue';
 
     const dataSet = computed(() => Array(500).fill(null).map((_, index) => ({

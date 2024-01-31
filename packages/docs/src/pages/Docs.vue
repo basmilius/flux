@@ -289,6 +289,12 @@
                         type="route"/>
 
                     <FluxMenuItem
+                        :is-active="path === '/components/form-select-async'"
+                        label="Form select (Async)"
+                        to="/components/form-select-async"
+                        type="route"/>
+
+                    <FluxMenuItem
                         :is-active="path === '/components/form-slider'"
                         label="Form slider"
                         to="/components/form-slider"

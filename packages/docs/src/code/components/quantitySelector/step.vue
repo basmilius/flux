@@ -1,5 +1,5 @@
 <template>
-    <flux-quantity-selector
+    <FluxQuantitySelector
         v-model="value"
         :max="1000"
         :min="0"

@@ -1,8 +1,8 @@
 <template>
-    <flux-stack>
-        <flux-pane style="width: 330px">
-            <flux-filter v-model="filterState">
-                <flux-filter-option
+    <FluxStack>
+        <FluxPane style="width: 330px">
+            <FluxFilter v-model="filterState">
+                <FluxFilterOption
                     icon="clone"
                     label="Option"
                     name="selected"
@@ -16,11 +16,11 @@
                         {label: 'Fifth option', value: 'fifth'},
                         {label: 'Sixth option', value: 'sixth'}
                     ]"/>
-            </flux-filter>
-        </flux-pane>
+            </FluxFilter>
+        </FluxPane>
 
         <pre>{{ filterState }}</pre>
-    </flux-stack>
+    </FluxStack>
 </template>
 
 <script

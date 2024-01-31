@@ -1,24 +1,21 @@
 <template>
-    <flux-menu>
-        <flux-menu-item
+    <FluxMenu>
+        <FluxMenuItem
             icon-before="circle"
             label="Menu item 1"/>
 
-        <flux-menu-item
+        <FluxMenuItem
             icon-before="circle"
             label="Menu item 2"/>
 
-        <flux-menu-item
+        <FluxMenuItem
             icon-before="circle"
             label="Menu item 3"/>
-    </flux-menu>
+    </FluxMenu>
 </template>
 
 <script
     lang="ts"
     setup>
-    import {
-        FluxMenu,
-        FluxMenuItem
-    } from '@fancee/flux';
+    import { FluxMenu, FluxMenuItem } from '@fancee/flux';
 </script>

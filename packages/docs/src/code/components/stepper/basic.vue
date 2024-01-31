@@ -1,54 +1,45 @@
 <template>
-    <flux-pane>
-        <flux-pane-body>
-            <flux-stepper :model-value="step">
-                <flux-stepper-step class="mt">
+    <FluxPane>
+        <FluxPaneBody>
+            <FluxStepper :model-value="step">
+                <FluxStepperStep class="mt">
                     <h2>1. Your details</h2>
                     <p>[[ form ]]</p>
-                </flux-stepper-step>
+                </FluxStepperStep>
 
-                <flux-stepper-step class="mt">
+                <FluxStepperStep class="mt">
                     <h2>2. Company details</h2>
                     <p>[[ form ]]</p>
-                </flux-stepper-step>
+                </FluxStepperStep>
 
-                <flux-stepper-step class="mt">
+                <FluxStepperStep class="mt">
                     <h2>3. Validation</h2>
                     <p>[[ form ]]</p>
-                </flux-stepper-step>
-            </flux-stepper>
-        </flux-pane-body>
+                </FluxStepperStep>
+            </FluxStepper>
+        </FluxPaneBody>
 
-        <flux-pane-footer>
-            <flux-spacer/>
+        <FluxPaneFooter>
+            <FluxSpacer/>
 
-            <flux-secondary-button
+            <FluxSecondaryButton
                 :disabled="step === 0"
                 label="Back"
                 @click="step--"/>
 
-            <flux-primary-button
+            <FluxPrimaryButton
                 :disabled="step === 2"
                 icon-before="circle-check"
                 label="Next"
                 @click="step++"/>
-        </flux-pane-footer>
-    </flux-pane>
+        </FluxPaneFooter>
+    </FluxPane>
 </template>
 
 <script
     lang="ts"
     setup>
-    import {
-        FluxPane,
-        FluxPaneBody,
-        FluxPaneFooter,
-        FluxPrimaryButton,
-        FluxSecondaryButton,
-        FluxSpacer,
-        FluxStepper,
-        FluxStepperStep
-    } from '@fancee/flux';
+    import { FluxPane, FluxPaneBody, FluxPaneFooter, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStepper, FluxStepperStep } from '@fancee/flux';
     import { ref } from 'vue';
 
     const step = ref(0);

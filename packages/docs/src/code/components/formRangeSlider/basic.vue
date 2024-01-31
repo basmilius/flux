@@ -1,5 +1,5 @@
 <template>
-    <flux-form-range-slider
+    <FluxFormRangeSlider
         style="max-width: 420px"
         v-model="sliderValue"
         :min="0"

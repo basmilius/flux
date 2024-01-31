@@ -1,5 +1,5 @@
 <template>
-    <flux-form-select
+    <FluxFormSelect
         v-model="selectValue"
         :options="[
             {id: 1, label: 'Option 1'},

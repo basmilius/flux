@@ -106,5 +106,5 @@
     import multipleSearchable from '@docs/code/components/formSelect/multipleSearchable.vue';
     import multipleSearchableCode from '@docs/code/components/formSelect/multipleSearchable.vue?raw';
 
-    const selectValue = ref(0);
+    const selectValue = ref(null);
 </script>

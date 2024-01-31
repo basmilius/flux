@@ -1,9 +1,9 @@
 <template>
-    <flux-badge-stack>
-        <flux-badge label="Pending"/>
+    <FluxBadgeStack>
+        <FluxBadge label="Pending"/>
 
-        <flux-badge label="Potential customer"/>
-    </flux-badge-stack>
+        <FluxBadge label="Potential customer"/>
+    </FluxBadgeStack>
 </template>
 
 <script

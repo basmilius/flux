@@ -1,24 +1,21 @@
 <template>
-    <flux-button-stack>
-        <flux-secondary-button
+    <FluxButtonStack>
+        <FluxSecondaryButton
             label="Button"
             size="small"/>
 
-        <flux-secondary-button
+        <FluxSecondaryButton
             label="Button"
             size="medium"/>
 
-        <flux-secondary-button
+        <FluxSecondaryButton
             label="Button"
             size="large"/>
-    </flux-button-stack>
+    </FluxButtonStack>
 </template>
 
 <script
     lang="ts"
     setup>
-    import {
-        FluxButtonStack,
-        FluxSecondaryButton
-    } from '@fancee/flux';
+    import { FluxButtonStack, FluxSecondaryButton } from '@fancee/flux';
 </script>

@@ -1,20 +1,20 @@
 <template>
-    <flux-pane class="flux-action-pane is-grid">
-        <flux-pane-body
+    <FluxPane class="flux-action-pane is-grid">
+        <FluxPaneBody
             class="flux-action-pane-body"
             is-larger-padded>
             <slot/>
-        </flux-pane-body>
+        </FluxPaneBody>
 
-        <flux-pane-body
+        <FluxPaneBody
             v-if="$slots.buttons"
             class="flux-action-pane-body"
             is-larger-padded>
-            <flux-button-stack axis="vertical">
+            <FluxButtonStack axis="vertical">
                 <slot name="buttons"/>
-            </flux-button-stack>
-        </flux-pane-body>
-    </flux-pane>
+            </FluxButtonStack>
+        </FluxPaneBody>
+    </FluxPane>
 </template>
 
 <script

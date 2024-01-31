@@ -1,0 +1,31 @@
+<template>
+    <FluxFormSelectAsync
+        v-model="selectValue"
+        :fetch-options="fetchOptions"
+        :fetch-relevant="fetchRelevant"
+        :fetch-search="fetchSearch"
+        placeholder="Pick an option..."/>
+</template>
+
+<script
+    lang="ts"
+    setup>
+    import { FluxFormSelectAsync, FluxFormSelectEntry } from '@fancee/flux';
+    import { ref } from 'vue';
+    import dataset from '../formSelect/dataset.json';
+
+    const selectValue = ref(null);
+
+    async function fetchOptions(ids: string[]): Promise<FluxFormSelectEntry[]> {
+        return dataset.filter(o => ids.includes(o.id));
+    }
+
+    async function fetchRelevant(): Promise<FluxFormSelectEntry[]> {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        return dataset.toSorted();
+    }
+
+    async function fetchSearch(searchQuery: string): Promise<FluxFormSelectEntry[]> {
+        return dataset.filter(o => o.label.toLowerCase().includes(searchQuery.toLowerCase()));
+    }
+</script>
