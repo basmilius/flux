@@ -54,6 +54,7 @@ export {
     faGenderless,
     faGrid2,
     faGripDots,
+    faHourglassClock,
     faKey,
     faLanguage,
     faList,

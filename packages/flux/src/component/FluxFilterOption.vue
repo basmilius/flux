@@ -1,82 +1,46 @@
 <template>
-    <FluxMenuGroup>
-        <FluxFormInput
-            v-if="isSearchable"
-            v-model="searchQuery"
-            auto-complete="off"
-            is-secondary
-            icon-before="magnifying-glass"
-            :placeholder="searchPlaceholder"
-            type="search"/>
-
-        <template
-            v-for="(option, index) of options"
-            :key="index">
-            <FluxMenuSubHeader
-                v-if="isFluxFilterOptionHeader(option)"
-                :label="option.title"/>
-
-            <FluxMenuItem
-                v-else-if="isFluxFilterOptionItem(option)"
-                is-selectable
-                :is-selected="isSelected(option)"
-                :label="option.label"
-                @click="select(option)"/>
-        </template>
-    </FluxMenuGroup>
+    <FilterOptionBase
+        v-model:search-query="modelSearch"
+        :is-searchable="isSearchable"
+        :options="options"
+        :selected="[currentValue]"
+        :search-placeholder="searchPlaceholder"
+        @select="onSelect"/>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { computed, ref, toRefs, unref, watch } from 'vue';
+    import { computed, unref } from 'vue';
     import { useFilterInjection } from '@/composable/private';
-    import type { FluxFilterOptionHeader, FluxFilterOptionItem, IconNames } from '@/data';
-    import { isFluxFilterOptionHeader, isFluxFilterOptionItem } from '@/data';
-    import FluxFormInput from './FluxFormInput.vue';
-    import FluxMenuGroup from './FluxMenuGroup.vue';
-    import FluxMenuItem from './FluxMenuItem.vue';
-    import FluxMenuSubHeader from './FluxMenuSubHeader.vue';
+    import { FluxFilterOptionRow, FluxFilterValue, IconNames, isFluxFilterOptionHeader } from '@/data';
+    import { FilterOptionBase } from './primitive';
 
-    export interface Emits {
-        (e: 'update:search', searchQuery: string): void;
-    }
-
-    export interface Props {
+    export type Props = {
         readonly icon?: IconNames;
         readonly isSearchable?: boolean;
         readonly label: string;
         readonly name: string;
-        readonly options: (FluxFilterOptionHeader | FluxFilterOptionItem)[];
-        readonly search?: string;
+        readonly options: FluxFilterOptionRow[];
         readonly searchPlaceholder?: string;
-    }
+    };
 
-    const emit = defineEmits<Emits>();
+    const modelSearch = defineModel<string>('searchQuery', {default: ''});
     const props = defineProps<Props>();
-    const {search} = toRefs(props);
 
     const {back, state, setValue} = useFilterInjection();
 
-    const searchQuery = ref('');
-
     const currentValue = computed(() => unref(state)[props.name]);
+    const options = computed(() => props.options
+        .filter(o => isFluxFilterOptionHeader(o) || unref(modelSearch).length === 0 || o.label.toLowerCase().includes(unref(modelSearch).toLowerCase())));
 
-    function isSelected(option: FluxFilterOptionItem): boolean {
-        return unref(currentValue) === option.value;
-    }
-
-    function select(option: FluxFilterOptionItem): void {
-        if (unref(currentValue) === option.value) {
-            setValue(props.name, undefined);
+    function onSelect(value: FluxFilterValue): void {
+        if (unref(currentValue) === value) {
+            setValue(props.name, null);
         } else {
-            setValue(props.name, option.value);
+            setValue(props.name, value);
         }
 
         back();
     }
-
-    watch(() => search, () => searchQuery.value = search?.value ?? '', {immediate: true});
-
-    watch(searchQuery, searchQuery => emit('update:search', searchQuery));
 </script>

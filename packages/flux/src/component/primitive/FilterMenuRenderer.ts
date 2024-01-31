@@ -1,9 +1,11 @@
 import { DateTime } from 'luxon';
 import { computed, defineComponent, h, isVNode, unref, VNode } from 'vue';
-import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSeparator } from '@/component';
-import { FluxTranslator, useTranslate } from '@/composable/private';
-import type { FluxFilterBase, FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterItem, FluxFilterOptionEntry, FluxFilterOptionItem, FluxFilterOptionsEntry, FluxFilterRangeEntry, FluxFilterValue } from '@/data';
+import { FluxMenu, FluxMenuGroup, FluxSeparator } from '@/component';
+import type { FluxFilterBase, FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterItem, FluxFilterOptionEntry, FluxFilterOptionItem, FluxFilterOptionRow, FluxFilterOptionsEntry, FluxFilterRangeEntry, FluxFilterValue, FluxFilterValueSingle } from '@/data';
+import { isFluxFilterOptionItem } from '@/data';
 import { camelizeTag, createLabelForDateRange, flattenVNodeTree, formatNumber, getComponentName, getComponentProps } from '@/util';
+import FilterItem from './FilterItem.vue';
+import { FluxTranslator } from '@/composable/private';
 
 export const FilterMenuRenderer = defineComponent({
     props: {
@@ -12,8 +14,6 @@ export const FilterMenuRenderer = defineComponent({
     },
 
     setup(props, {slots}) {
-        const translate = useTranslate();
-
         const content = computed<(FluxFilterItem | VNode)[][]>(() => {
             const children = flattenVNodeTree(slots.default?.() ?? []);
             const content: (FluxFilterItem | VNode)[][] = [[]];
@@ -41,7 +41,7 @@ export const FilterMenuRenderer = defineComponent({
         });
 
         return () => h(FluxMenu, {}, {
-            default: () => unref(content).map((group, index) => renderFilterGroup(group, index, translate, props.navigate!, props.state!))
+            default: () => unref(content).map((group, index) => renderFilterGroup(group, index, props.navigate!, props.state!))
         });
     }
 });
@@ -51,7 +51,7 @@ function parseDate(base: FluxFilterBase): FluxFilterDateEntry {
         ...base,
         type: 'date',
 
-        getValueLabel(value) {
+        async getValueLabel(value): Promise<string | null> {
             if (!DateTime.isDateTime(value)) {
                 return null;
             }
@@ -70,7 +70,7 @@ function parseDateRange(base: FluxFilterBase): FluxFilterDateRangeEntry {
         ...base,
         type: 'dateRange',
 
-        getValueLabel(value, translate) {
+        async getValueLabel(value, translate): Promise<string | null> {
             if (!Array.isArray(value) || value.length !== 2) {
                 return null;
             }
@@ -93,7 +93,22 @@ function parseOption(base: FluxFilterBase): FluxFilterOptionEntry {
         ...base,
         type: 'option',
 
-        getValueLabel(value) {
+        async getValueLabel(value): Promise<string | null> {
+            return options.find(o => o.value === value)?.label ?? null;
+        }
+    };
+}
+
+function parseOptionAsync(base: FluxFilterBase): FluxFilterOptionEntry {
+    const fetchOptions = (base as any).fetchOptions as (ids: FluxFilterValue[]) => Promise<FluxFilterOptionRow[]>;
+
+    return {
+        ...base,
+        type: 'option',
+
+        async getValueLabel(value): Promise<string | null> {
+            const options = (await fetchOptions([value])).filter(isFluxFilterOptionItem);
+
             return options.find(o => o.value === value)?.label ?? null;
         }
     };
@@ -106,24 +121,31 @@ function parseOptions(base: FluxFilterBase): FluxFilterOptionsEntry {
         ...base,
         type: 'options',
 
-        getValueLabel(value, translate) {
+        async getValueLabel(value, translate): Promise<string | null> {
             if (!Array.isArray(value)) {
                 return null;
             }
 
-            const selected = options.filter(o => value?.includes(o.value)).length;
+            return generateMultiOptionsLabel(options, value, translate);
+        }
+    };
+}
 
-            if (selected <= 0) {
+function parseOptionsAsync(base: FluxFilterBase): FluxFilterOptionsEntry {
+    const fetchOptions = (base as any).fetchOptions as (ids: FluxFilterValue[]) => Promise<FluxFilterOptionRow[]>;
+
+    return {
+        ...base,
+        type: 'options',
+
+        async getValueLabel(value, translate): Promise<string | null> {
+            if (!Array.isArray(value)) {
                 return null;
             }
 
-            if (selected === 1) {
-                return options.find(o => value?.includes(o.value))!.label;
-            }
+            const options = (await fetchOptions(value)).filter(isFluxFilterOptionItem);
 
-            return translate('flux.nSelected', {
-                n: selected
-            });
+            return generateMultiOptionsLabel(options, value, translate);
         }
     };
 }
@@ -133,7 +155,7 @@ function parseRange(base: FluxFilterBase): FluxFilterRangeEntry {
         ...base,
         type: 'range',
 
-        getValueLabel(value) {
+        async getValueLabel(value): Promise<string | null> {
             if (!value || !Array.isArray(value) || value.length !== 2) {
                 return null;
             }
@@ -151,7 +173,7 @@ function parseRange(base: FluxFilterBase): FluxFilterRangeEntry {
     };
 }
 
-function renderFilterGroup(group: (FluxFilterItem | VNode)[], index: number, translate: FluxTranslator, navigate: Function, state: Record<string, FluxFilterValue>): VNode[] {
+function renderFilterGroup(group: (FluxFilterItem | VNode)[], index: number, navigate: Function, state: Record<string, FluxFilterValue>): VNode[] {
     const slot: VNode[] = [];
 
     if (index > 0) {
@@ -159,24 +181,37 @@ function renderFilterGroup(group: (FluxFilterItem | VNode)[], index: number, tra
     }
 
     slot.push(h(FluxMenuGroup, {}, {
-        default: () => group.map(item => renderFilterItem(item, translate, navigate, state))
+        default: () => group.map(item => renderFilterItem(item, navigate, state))
     }));
 
     return slot;
 }
 
-function renderFilterItem(item: FluxFilterItem | VNode, translate: FluxTranslator, navigate: Function, state: Record<string, FluxFilterValue>): VNode {
+function renderFilterItem(item: FluxFilterItem | VNode, navigate: Function, state: Record<string, FluxFilterValue>): VNode {
     if (isVNode(item)) {
         return item;
     }
 
-    return h(FluxMenuItem, {
-        command: item.getValueLabel(state[item.name] ?? null, translate) ?? undefined,
-        commandIcon: 'angle-right',
-        iconBefore: item.icon,
-        label: item.label,
-        type: 'button',
+    return h(FilterItem, {
+        item,
+        value: state[item.name] ?? null,
         onClick: () => navigate(item.name)
+    });
+}
+
+function generateMultiOptionsLabel(options: FluxFilterOptionItem[], values: FluxFilterValueSingle[], translate: FluxTranslator): string | null {
+    const selected = options.filter(o => values.includes(o.value)).length;
+
+    if (selected <= 0) {
+        return null;
+    }
+
+    if (selected === 1) {
+        return options.find(o => values.includes(o.value))!.label;
+    }
+
+    return translate('flux.nSelected', {
+        n: selected
     });
 }
 
@@ -184,6 +219,8 @@ const parsers = {
     date: parseDate,
     dateRange: parseDateRange,
     option: parseOption,
+    optionAsync: parseOptionAsync,
     options: parseOptions,
+    optionsAsync: parseOptionsAsync,
     range: parseRange
 } as const;
