@@ -17,11 +17,18 @@
     lang="ts"
     setup>
     import { computed, ref, toRefs, unref, watch } from 'vue';
-    import { FormSelectOption, FormSelectValue, useFormSelect, UseFormSelectAsyncProps, useLoaded } from '@/composable/private';
+    import { FormSelectOption, FormSelectValue, FormSelectValueSingle, useFormSelect, useLoaded } from '@/composable/private';
     import { SelectBase } from '@/component/primitive';
     import { isFluxFormSelectOption } from '@/data';
 
-    export type Props = UseFormSelectAsyncProps;
+    export type Props = {
+        readonly isDisabled?: boolean;
+        readonly isMultiple?: boolean;
+        readonly placeholder?: string;
+        readonly fetchOptions: (ids: FormSelectValueSingle[]) => Promise<FormSelectOption[]>;
+        readonly fetchRelevant: () => Promise<FormSelectOption[]>;
+        readonly fetchSearch: (searchQuery: string) => Promise<FormSelectOption[]>;
+    };
 
     const searchQueryModel = defineModel<string>('search', {default: ''});
     const modelValue = defineModel<FormSelectValue>({required: true});

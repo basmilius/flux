@@ -15,10 +15,16 @@
     lang="ts"
     setup>
     import { toRefs, unref } from 'vue';
-    import { FormSelectValue, useFormSelect, UseFormSelectStaticProps } from '@/composable/private';
+    import { FormSelectOption, FormSelectValue, useFormSelect } from '@/composable/private';
     import { SelectBase } from '@/component/primitive';
 
-    export type Props = UseFormSelectStaticProps;
+    export type Props = {
+        readonly isDisabled?: boolean;
+        readonly isMultiple?: boolean;
+        readonly placeholder?: string;
+        readonly isSearchable?: boolean;
+        readonly options: FormSelectOption[];
+    };
 
     const searchQueryModel = defineModel<string>('search', {default: ''});
     const modelValue = defineModel<FormSelectValue>({required: true});

@@ -1,4 +1,4 @@
-export type { FormSelectGroup, FormSelectOption, FormSelectValue, UseFormSelectAsyncProps, UseFormSelectStaticProps } from './useFormSelect';
+export type { FormSelectGroup, FormSelectOption, FormSelectValue, FormSelectValueSingle, UseFormSelectAsyncProps, UseFormSelectStaticProps } from './useFormSelect';
 export type { FluxTranslator, FluxTranslationKey } from './useTranslate';
 
 export { default as useCalendar } from './useCalendar';

@@ -70,23 +70,6 @@ type UseFormSelect = {
     readonly values: ComputedRef<FormSelectValueSingle[]>;
 };
 
-type UseFormSelectProps = {
-    readonly isDisabled?: boolean;
-    readonly isMultiple?: boolean;
-    readonly placeholder?: string;
-};
-
-export type UseFormSelectAsyncProps = UseFormSelectProps & {
-    readonly fetchOptions: (ids: FormSelectValueSingle[]) => Promise<FormSelectOption[]>;
-    readonly fetchRelevant: () => Promise<FormSelectOption[]>;
-    readonly fetchSearch: (searchQuery: string) => Promise<FormSelectOption[]>;
-};
-
-export type UseFormSelectStaticProps = UseFormSelectProps & {
-    readonly isSearchable?: boolean;
-    readonly options: FormSelectOption[];
-};
-
 export type FormSelectGroup = [FormSelectOption | null, FluxFormSelectOption[]];
 export type FormSelectOption = FluxFormSelectGroup | FluxFormSelectOption;
 export type FormSelectValue = FormSelectValueSingle | FormSelectValueSingle[];
