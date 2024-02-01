@@ -30,19 +30,31 @@
                 alt=""/>
         </template>
 
-        <template
-            v-if="command || commandIcon"
-            #after>
-            <kbd
-                v-if="command"
-                class="flux-menu-item-command">
-                {{ command }}
-            </kbd>
+        <FluxSpinner
+            v-if="commandLoading"
+            class="flux-button-icon flux-menu-item-command-icon"
+            :size="16"/>
 
-            <FluxIcon
-                v-if="commandIcon"
+        <template
+            v-if="command || commandIcon || commandLoading"
+            #after>
+            <FluxSpinner
+                v-if="commandLoading"
                 class="flux-button-icon flux-menu-item-command-icon"
-                :variant="commandIcon"/>
+                :size="16"/>
+
+            <template v-else>
+                <kbd
+                    v-if="command"
+                    class="flux-menu-item-command">
+                    {{ command }}
+                </kbd>
+
+                <FluxIcon
+                    v-if="commandIcon"
+                    class="flux-button-icon flux-menu-item-command-icon"
+                    :variant="commandIcon"/>
+            </template>
         </template>
     </BaseButton>
 </template>
@@ -53,6 +65,7 @@
     import type { FluxRoutingLocation, IconNames } from '@/data';
     import { BaseButton } from './primitive';
     import FluxIcon from './FluxIcon.vue';
+    import FluxSpinner from './FluxSpinner.vue';
 
     // note: It is currently not possible to reuse Emits and Props from
     //  base button, because of a limitation of vite and vue compiler-sfc.
@@ -67,6 +80,7 @@
         readonly type?: 'button' | 'link' | 'route';
         readonly command?: string;
         readonly commandIcon?: IconNames | null;
+        readonly commandLoading?: boolean;
         readonly disabled?: boolean;
         readonly iconAfter?: IconNames | null;
         readonly iconBefore?: IconNames | null;
@@ -163,7 +177,6 @@
             margin-left: auto;
             padding-left: 21px;
             flex-grow: 0;
-            flex-shrink: 0;
             color: var(--foreground-secondary);
             font: inherit;
             font-size: 14px;
@@ -173,8 +186,11 @@
 
             &-icon {
                 margin-right: -6px;
+                flex-shrink: 0;
                 color: var(--foreground-secondary);
                 font-size: 16px;
+
+                --spinner-value: var(--foreground-secondary);
             }
 
             & + &-icon {

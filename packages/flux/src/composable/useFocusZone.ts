@@ -1,9 +1,9 @@
 import type { Ref } from 'vue';
 import { watch } from 'vue';
-import { useMutationObserver } from '@/composable';
 import { assertRefNotNull, getBidirectionalFocusElement, getFocusableElement, getFocusableElements } from '@/util';
+import useMutationObserver from './useMutationObserver';
 
-export function useFocusZone(container: Ref<HTMLElement | undefined>, {cycle = true, direction = 'bidirectional'}: UseFocusZoneOptions = {}) {
+export default function (container: Ref<HTMLElement | undefined>, {cycle = true, direction = 'bidirectional'}: UseFocusZoneOptions = {}) {
     useMutationObserver(container, () => updateFocus(findInitialIndex(), false));
 
     function findInitialIndex(): number {

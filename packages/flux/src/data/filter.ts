@@ -7,7 +7,7 @@ export type FluxFilterBase = {
     readonly label: string;
     readonly name: string;
 
-    getValueLabel(value: FluxFilterValue, translate: FluxTranslator): string | null;
+    getValueLabel(value: FluxFilterValue, translate: FluxTranslator): Promise<string | null>;
 };
 
 export type FluxFilterDateEntry = FluxFilterBase & {
@@ -43,10 +43,13 @@ export type FluxFilterOptionHeader = {
 
 export type FluxFilterOptionItem = {
     readonly label: string;
-    readonly value: FluxFilterValue;
+    readonly value: FluxFilterValueSingle;
 };
 
-export type FluxFilterValue = DateTime | string | boolean | null | number | FluxFilterValue[];
+export type FluxFilterOptionRow = FluxFilterOptionHeader | FluxFilterOptionItem;
+
+export type FluxFilterValueSingle = DateTime | string | boolean | number | null;
+export type FluxFilterValue = FluxFilterValueSingle | FluxFilterValueSingle[];
 
 export type FluxFilterState = {
     [key: string]: FluxFilterValue | Function;

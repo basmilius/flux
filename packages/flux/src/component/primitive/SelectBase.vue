@@ -1,6 +1,7 @@
 <template>
     <Anchor
         ref="anchorRef"
+        :="$attrs"
         class="flux-form-input flux-form-select"
         :class="{
             'is-disabled': isDisabled,
@@ -125,8 +126,8 @@
     lang="ts"
     setup>
     import { type ComponentPublicInstance, computed, nextTick, ref, Teleport, toRefs, unref, watch } from 'vue';
-    import { useClickOutside } from '@/composable';
-    import { FormSelectGroup, useFormFieldInjection, useTranslate } from '@/composable/private';
+    import { useClickOutside, useFormFieldInjection } from '@/composable';
+    import { type FormSelectGroup, useTranslate } from '@/composable/private';
     import { type FluxFormSelectOption, isFluxFormSelectGroup, isFluxFormSelectOption } from '@/data';
     import { FluxFadeTransition } from '@/transition';
     import { ensureElement } from '@/util';
@@ -162,6 +163,10 @@
         readonly placeholder?: string;
         readonly selected: FluxFormSelectOption[];
     };
+
+    defineOptions({
+        inheritAttrs: false
+    });
 
     const emit = defineEmits<Emits>();
     const modelSearch = defineModel<string>('searchQuery', {default: ''});

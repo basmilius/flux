@@ -1,7 +1,7 @@
 import type { ComputedRef } from 'vue';
 import { computed, ref, unref } from 'vue';
 
-export function useLoaded(): UseLoaded {
+export default function (): UseLoaded {
     const tasks = ref(0);
 
     const isLoading = computed(() => unref(tasks) > 0);

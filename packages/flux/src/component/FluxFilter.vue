@@ -135,6 +135,7 @@
     .flux-filter {
         min-width: 300px;
         max-width: 330px;
+        max-height: 50dvh;
         scrollbar-width: none;
 
         &::-webkit-scrollbar {

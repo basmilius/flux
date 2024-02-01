@@ -1,13 +1,25 @@
-export type { Breakpoint, Breakpoints } from './useBreakpoints';
+export type { Breakpoint, Breakpoints } from './useBreakpointsProvider';
 
-export { useBreakpoints, useBreakpointsProvider } from './useBreakpoints';
-export { useClickOutside } from './useClickOutside';
-export { useComponentId } from './useComponentId';
-export { useDebouncedRef } from './useDebouncedRef';
-export { useEventListener } from './useEventListener';
-export { useFocusTrap, useFocusTrapLock, useFocusTrapReturn, useFocusTrapSubscription } from './useFocusTrap';
-export { useFocusZone } from './useFocusZone';
-export { useId } from './useId';
-export { useInterval } from './useInterval';
-export { useInView } from './useInView';
-export { useMutationObserver } from './useMutationObserver';
+export { default as useBreakpoints } from './useBreakpoints';
+export { default as useBreakpointsProvider } from './useBreakpointsProvider';
+export { default as useClickOutside } from './useClickOutside';
+export { default as useComponentId } from './useComponentId';
+export { default as useDebouncedRef } from './useDebouncedRef';
+export { default as useEventListener } from './useEventListener';
+export { default as useId } from './useId';
+export { default as useInterval } from './useInterval';
+export { default as useInView } from './useInView';
+export { default as useMutationObserver } from './useMutationObserver';
+
+export { default as useFocusTrap } from './useFocusTrap';
+export { default as useFocusTrapLock } from './useFocusTrapLock';
+export { default as useFocusTrapReturn } from './useFocusTrapReturn';
+export { default as useFocusTrapSubscription } from './useFocusTrapSubscription';
+export { default as useFocusZone } from './useFocusZone';
+
+export { default as useDashboardInjection } from './useDashboardInjection';
+export { default as useExpandableGroupInjection } from './useExpandableGroupInjection';
+export { default as useFilterInjection } from './useFilterInjection';
+export { default as useFlyoutInjection } from './useFlyoutInjection';
+export { default as useFormFieldInjection } from './useFormFieldInjection';
+export { default as useTableInjection } from './useTableInjection';

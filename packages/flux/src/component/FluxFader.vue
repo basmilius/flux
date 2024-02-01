@@ -37,11 +37,11 @@
     });
 
     function next(): void {
-        current.value = unref(current) + 1 === unref(count) ? 0 : unref(current) + 1;
+        current.value = unref(current) + 1 >= unref(count) ? 0 : unref(current) + 1;
     }
 
     function previous(): void {
-        current.value = unref(current) - 1 === -1 ? unref(count) - 1 : unref(current) + 1;
+        current.value = unref(current) - 1 <= -1 ? unref(count) - 1 : unref(current) + 1;
     }
 
     watch(current, current => {

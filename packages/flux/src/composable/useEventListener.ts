@@ -2,7 +2,7 @@ import { onScopeDispose, watch } from 'vue';
 import type { MaybeElementRef } from '@/util';
 import { unrefElement } from '@/util';
 
-export function useEventListener<K extends keyof HTMLElementEventMap>(elementRef: MaybeElementRef<HTMLElement | undefined>, eventName: K, listener: (evt: HTMLElementEventMap[K]) => any, options: AddEventListenerOptions = {passive: true}): void {
+export default function <K extends keyof HTMLElementEventMap>(elementRef: MaybeElementRef<HTMLElement | undefined>, eventName: K, listener: (evt: HTMLElementEventMap[K]) => any, options: AddEventListenerOptions = {passive: true}): void {
     let cleanup: Function | undefined;
 
     const stop = watch(() => unrefElement(elementRef), element => {

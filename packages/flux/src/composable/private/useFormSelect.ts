@@ -2,7 +2,7 @@ import type { FluxFormSelectGroup, FluxFormSelectOption } from '@/data';
 import { isFluxFormSelectGroup, isFluxFormSelectOption } from '@/data';
 import { computed, ComputedRef, Ref, unref } from 'vue';
 
-export function useFormSelect(modelValue: Ref<FormSelectValue>, isMultiple: Ref<boolean>, options: Ref<FormSelectOption[]>, searchQuery?: Ref<string>): UseFormSelect {
+export default function (modelValue: Ref<FormSelectValue>, isMultiple: Ref<boolean>, options: Ref<FormSelectOption[]>, searchQuery?: Ref<string>): UseFormSelect {
     const values = computed(() => {
         const model = unref(modelValue);
         return Array.isArray(model) ? model : [model];
@@ -68,23 +68,6 @@ type UseFormSelect = {
     readonly groups: ComputedRef<FormSelectGroup[]>;
     readonly selected: ComputedRef<FluxFormSelectOption[]>;
     readonly values: ComputedRef<FormSelectValueSingle[]>;
-};
-
-type UseFormSelectProps = {
-    readonly isDisabled?: boolean;
-    readonly isMultiple?: boolean;
-    readonly placeholder?: string;
-};
-
-export type UseFormSelectAsyncProps = UseFormSelectProps & {
-    readonly fetchOptions: (ids: FormSelectValueSingle[]) => Promise<FormSelectOption[]>;
-    readonly fetchRelevant: () => Promise<FormSelectOption[]>;
-    readonly fetchSearch: (searchQuery: string) => Promise<FormSelectOption[]>;
-};
-
-export type UseFormSelectStaticProps = UseFormSelectProps & {
-    readonly isSearchable?: boolean;
-    readonly options: FormSelectOption[];
 };
 
 export type FormSelectGroup = [FormSelectOption | null, FluxFormSelectOption[]];
