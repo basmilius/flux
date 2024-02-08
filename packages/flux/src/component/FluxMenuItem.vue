@@ -78,7 +78,7 @@
 
     export interface Props {
         readonly type?: 'button' | 'link' | 'route';
-        readonly command?: string;
+        readonly command?: string | null;
         readonly commandIcon?: IconNames | null;
         readonly commandLoading?: boolean;
         readonly disabled?: boolean;

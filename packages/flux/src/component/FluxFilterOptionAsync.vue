@@ -15,7 +15,7 @@
     import { computed, ref, unref, watch } from 'vue';
     import { useFilterInjection } from '@/composable';
     import { useLoaded } from '@/composable/private';
-    import { FluxFilterOptionRow, FluxFilterValue, IconNames, isFluxFilterOptionItem } from '@/data';
+    import { FluxFilterOptionRow, FluxFilterValue, FluxFilterValueSingle, IconNames, isFluxFilterOptionItem } from '@/data';
     import { FilterOptionBase } from './primitive';
 
     export type Props = {
@@ -40,7 +40,7 @@
     const selectedOptions = ref<FluxFilterOptionRow[]>([]);
     const visibleOptions = ref<FluxFilterOptionRow[]>([]);
 
-    const currentValue = computed(() => unref(state)[props.name] as FluxFilterValue);
+    const currentValue = computed(() => unref(state)[props.name] as FluxFilterValueSingle);
 
     const options = computed(() => {
         const options: FluxFilterOptionRow[] = [];

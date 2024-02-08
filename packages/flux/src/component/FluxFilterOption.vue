@@ -13,7 +13,7 @@
     setup>
     import { computed, unref } from 'vue';
     import { useFilterInjection } from '@/composable';
-    import { FluxFilterOptionRow, FluxFilterValue, IconNames, isFluxFilterOptionHeader } from '@/data';
+    import { FluxFilterOptionRow, FluxFilterValue, FluxFilterValueSingle, IconNames, isFluxFilterOptionHeader } from '@/data';
     import { FilterOptionBase } from './primitive';
 
     export type Props = {
@@ -30,7 +30,7 @@
 
     const {back, state, setValue} = useFilterInjection();
 
-    const currentValue = computed(() => unref(state)[props.name]);
+    const currentValue = computed(() => unref(state)[props.name] as FluxFilterValueSingle);
     const options = computed(() => props.options
         .filter(o => isFluxFilterOptionHeader(o) || unref(modelSearch).length === 0 || o.label.toLowerCase().includes(unref(modelSearch).toLowerCase())));
 
