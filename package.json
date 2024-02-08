@@ -14,7 +14,7 @@
     },
     "devDependencies": {
         "@types/luxon": "^3.4.2",
-        "@types/node": "^20.11.6",
-        "@vue/language-server": "^1.9.0-alpha.3"
+        "@types/node": "^20.11.16",
+        "@vue/language-server": "^1.8.27"
     }
 }
