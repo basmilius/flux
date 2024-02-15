@@ -1,13 +1,15 @@
 <template>
     <FluxMenuGroup>
-        <FluxFormInput
-            v-if="isSearchable"
-            v-model="modelSearch"
-            auto-complete="off"
-            is-secondary
-            icon-before="magnifying-glass"
-            :placeholder="searchPlaceholder"
-            type="search"/>
+        <div class="flux-filter-search">
+            <FluxFormInput
+                v-if="isSearchable"
+                v-model="modelSearch"
+                auto-complete="off"
+                is-secondary
+                icon-before="magnifying-glass"
+                :placeholder="searchPlaceholder"
+                type="search"/>
+        </div>
 
         <FluxMenuItem
             v-if="isLoading && options.length === 0"

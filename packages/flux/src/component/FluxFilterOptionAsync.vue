@@ -13,7 +13,7 @@
     lang="ts"
     setup>
     import { computed, ref, unref, watch } from 'vue';
-    import { useFilterInjection } from '@/composable';
+    import { useDebouncedRef, useFilterInjection } from '@/composable';
     import { useLoaded } from '@/composable/private';
     import { FluxFilterOptionRow, FluxFilterValue, FluxFilterValueSingle, IconNames, isFluxFilterOptionItem } from '@/data';
     import { FilterOptionBase } from './primitive';
@@ -33,6 +33,7 @@
 
     const {back, state, setValue} = useFilterInjection();
     const {isLoading, loaded} = useLoaded();
+    const debouncedModelSearch = useDebouncedRef(modelSearch, 300);
     const fetchOptions = computed(() => loaded(props.fetchOptions));
     const fetchRelevant = computed(() => loaded(props.fetchRelevant));
     const fetchSearch = computed(() => loaded(props.fetchSearch));
@@ -44,6 +45,7 @@
 
     const options = computed(() => {
         const options: FluxFilterOptionRow[] = [];
+        const search = unref(modelSearch);
         const selected = unref(selectedOptions);
         const visible = unref(visibleOptions);
 
@@ -51,6 +53,10 @@
 
         selected.forEach(so => {
             if (isFluxFilterOptionItem(so) && visible.find(vo => isFluxFilterOptionItem(vo) && vo.value === so.value)) {
+                return;
+            }
+
+            if (isFluxFilterOptionItem(so) && !so.label.toLowerCase().includes(search.toLowerCase())) {
                 return;
             }
 
@@ -78,7 +84,7 @@
         selectedOptions.value = await unref(fetchOptions)([value]);
     }, {immediate: true});
 
-    watch(modelSearch, async searchQuery => {
+    watch(debouncedModelSearch, async searchQuery => {
         if (searchQuery.length > 0) {
             visibleOptions.value = await unref(fetchSearch)(searchQuery);
         } else {
