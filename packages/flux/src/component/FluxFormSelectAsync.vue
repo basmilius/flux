@@ -1,6 +1,6 @@
 <template>
     <SelectBase
-        v-model:search-query="searchQueryModel"
+        v-model:search-query="modelSearch"
         :is-disabled="isDisabled"
         :is-loading="isLoading"
         :is-multiple="isMultiple"
@@ -20,6 +20,7 @@
     import { FormSelectOption, FormSelectValue, FormSelectValueSingle, useFormSelect, useLoaded } from '@/composable/private';
     import { SelectBase } from '@/component/primitive';
     import { isFluxFormSelectOption } from '@/data';
+    import { useDebouncedRef } from '@/composable';
 
     export type Props = {
         readonly isDisabled?: boolean;
@@ -30,7 +31,7 @@
         readonly fetchSearch: (searchQuery: string) => Promise<FormSelectOption[]>;
     };
 
-    const searchQueryModel = defineModel<string>('search', {default: ''});
+    const modelSearch = defineModel<string>('search', {default: ''});
     const modelValue = defineModel<FormSelectValue>({required: true});
     const props = defineProps<Props>();
     const {isMultiple} = toRefs(props);
@@ -40,6 +41,7 @@
 
     const options = computed(() => {
         const options: FormSelectOption[] = [];
+        const search = unref(modelSearch);
         const selected = unref(selectedOptions);
         const visible = unref(visibleOptions);
 
@@ -47,6 +49,10 @@
 
         selected.forEach(so => {
             if (isFluxFormSelectOption(so) && visible.find(vo => isFluxFormSelectOption(vo) && vo.id === so.id)) {
+                return;
+            }
+
+            if (isFluxFormSelectOption(so) && !so.label.toLowerCase().includes(search.toLowerCase())) {
                 return;
             }
 
@@ -58,6 +64,7 @@
 
     const {groups, selected, values} = useFormSelect(modelValue, isMultiple, options);
     const {isLoading, loaded} = useLoaded();
+    const debouncedModelSearch = useDebouncedRef(modelSearch, 300);
     const fetchOptions = computed(() => loaded(props.fetchOptions));
     const fetchRelevant = computed(() => loaded(props.fetchRelevant));
     const fetchSearch = computed(() => loaded(props.fetchSearch));
@@ -88,7 +95,7 @@
         selectedOptions.value = await unref(fetchOptions)(values);
     }, {immediate: true});
 
-    watch(searchQueryModel, async searchQuery => {
+    watch(debouncedModelSearch, async searchQuery => {
         if (searchQuery.length > 0) {
             visibleOptions.value = await unref(fetchSearch)(searchQuery);
         } else {
