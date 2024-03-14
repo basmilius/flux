@@ -26,6 +26,10 @@
             });
 
             function onHover(): void {
+                if ((props.content?.trim().length ?? 0) === 0 && !slots.content) {
+                    return;
+                }
+
                 tooltipId.value = addTooltip({
                     axis: props.axis || 'vertical',
                     content: props.content,
