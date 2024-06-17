@@ -22,6 +22,8 @@ jobs:
 
       - name: 📦️ Install dependencies
         run: pnpm install --frozen-lockfile
+        env:
+          FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
 
       - name: 🔨 Build
         run: pnpm build
