@@ -34,10 +34,10 @@ Commit messages are bound to the following templates:
 
 - `<type>: <message> `
 - `<type>(<feature>): <message>`
-- `<type>(<feature>): <message> [<jira-issue>]`
+- `<type>(<feature>): <message> [<issue-number>]`
 
 #### Examples
 
 - `feat(expandable): adds header slot to expandable.`
-- `feat(expandable): adds header slot to expandable. [FAN-123]`
+- `feat(expandable): adds header slot to expandable. [FLUX-123]`
 - `chore: adds vue 3 build target.`
