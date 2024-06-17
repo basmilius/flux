@@ -7,7 +7,7 @@
         "docs:build": "pnpm run -C packages/docs build",
         "docs:dev": "pnpm run -C packages/docs dev",
         "link": "pnpm link --dir packages/flux --global",
-        "publish": "pnpm --filter '@basmilius/*' -r publish --access restricted --no-git-checks"
+        "publish": "pnpm --filter '@basmilius/*' -r publish --access public --no-git-checks"
     },
     "engines": {
         "node": ">=20"
