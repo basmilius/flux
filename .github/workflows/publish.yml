@@ -1,0 +1,31 @@
+name: Publish Flux
+
+on:
+  release:
+    types: [ published ]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 👀 Checkout latest source
+        uses: actions/checkout@v3
+
+      - uses: pnpm/action-setup@v2
+
+      - name: ✨ Setup node 21.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: '21.x'
+          registry-url: https://registry.npmjs.org
+          cache: pnpm
+
+      - name: 📦️ Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🔨 Build
+        run: pnpm build
+
+      - uses: simenandre/publish-with-pnpm@v1
+        with:
+          npm-auth-token: ${{ secrets.NPM_TOKEN }}
