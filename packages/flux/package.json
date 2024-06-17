@@ -1,6 +1,6 @@
 {
     "name": "@basmilius/flux",
-    "version": "1.3.0",
+    "version": "1.3.2",
     "type": "module",
     "scripts": {
         "build": "vite build && pnpm run gentypes",
