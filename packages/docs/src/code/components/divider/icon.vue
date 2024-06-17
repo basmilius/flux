@@ -11,5 +11,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxDivider, FluxIcon } from '@fancee/flux';
+    import { FluxDivider, FluxIcon } from '@basmilius/flux';
 </script>

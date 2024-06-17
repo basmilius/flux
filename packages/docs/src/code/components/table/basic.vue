@@ -27,5 +27,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxTable, FluxTableCell, FluxTableHeader, FluxTableRow } from '@fancee/flux';
+    import { FluxTable, FluxTableCell, FluxTableHeader, FluxTableRow } from '@basmilius/flux';
 </script>

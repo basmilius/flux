@@ -94,7 +94,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxFormSlider, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
+    import { FluxFormSlider, FluxPane, FluxPaneBody, FluxStack } from '@basmilius/flux';
     import { ref } from 'vue';
     import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
     import basic from '@docs/code/components/formSlider/basic.vue';

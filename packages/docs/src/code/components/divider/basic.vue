@@ -9,5 +9,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxDivider } from '@fancee/flux';
+    import { FluxDivider } from '@basmilius/flux';
 </script>

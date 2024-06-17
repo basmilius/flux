@@ -22,13 +22,13 @@
                 <li>
                     <p>Run the following command to install Flux.</p>
                     <HighlightedCode
-                        code="pnpm install @fancee/flux"
+                        code="pnpm install @basmilius/flux"
                         language="shell"/>
                 </li>
                 <li>
                     <p>Once the installation is complete add the following to your <code>main.ts</code> file.</p>
                     <HighlightedCode
-                        code="import '@fancee/flux/style.css';"
+                        code="import '@basmilius/flux/style.css';"
                         language="typescript"/>
                 </li>
                 <li>
@@ -45,7 +45,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxStack } from '@fancee/flux';
+    import { FluxStack } from '@basmilius/flux';
     import { ApiSection, HighlightedCode, PageTitle } from '@docs/components';
     import usageCode from '@docs/code/getting-started/component-usage.vue?raw';
 </script>

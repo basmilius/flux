@@ -41,5 +41,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxButtonStack, FluxFormColumn, FluxFormField, FluxFormInput, FluxNotice, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPrimaryButton, FluxSecondaryButton } from '@fancee/flux';
+    import { FluxButtonStack, FluxFormColumn, FluxFormField, FluxFormInput, FluxNotice, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPrimaryButton, FluxSecondaryButton } from '@basmilius/flux';
 </script>

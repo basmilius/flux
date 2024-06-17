@@ -9,5 +9,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxSecondaryButton } from '@fancee/flux';
+    import { FluxPane, FluxSecondaryButton } from '@basmilius/flux';
 </script>

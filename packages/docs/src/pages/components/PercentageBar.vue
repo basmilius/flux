@@ -49,6 +49,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxFormField, FluxPane, FluxPaneBody, FluxPercentageBar, FluxStack } from '@fancee/flux';
+    import { FluxFormField, FluxPane, FluxPaneBody, FluxPercentageBar, FluxStack } from '@basmilius/flux';
     import { ApiComponent, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

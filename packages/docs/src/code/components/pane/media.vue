@@ -14,5 +14,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneBody, FluxPaneMedia } from '@fancee/flux';
+    import { FluxPane, FluxPaneBody, FluxPaneMedia } from '@basmilius/flux';
 </script>

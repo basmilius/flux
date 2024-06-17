@@ -43,7 +43,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxButtonGroup, FluxSecondaryButton, FluxStack } from '@fancee/flux';
+    import { FluxButtonGroup, FluxSecondaryButton, FluxStack } from '@basmilius/flux';
     import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
     import basic from '@docs/code/components/buttonGroup/basic.vue';
     import basicCode from '@docs/code/components/buttonGroup/basic.vue?raw';

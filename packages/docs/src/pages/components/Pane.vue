@@ -276,7 +276,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxDestructiveButton, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxStack } from '@fancee/flux';
+    import { FluxDestructiveButton, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxStack } from '@basmilius/flux';
     import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
     import basic from '@docs/code/components/pane/basic.vue';
     import basicCode from '@docs/code/components/pane/basic.vue?raw';

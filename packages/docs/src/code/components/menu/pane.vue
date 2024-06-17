@@ -33,5 +33,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxSeparator } from '@fancee/flux';
+    import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxSeparator } from '@basmilius/flux';
 </script>

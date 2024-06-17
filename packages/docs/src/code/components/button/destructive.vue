@@ -15,5 +15,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxButtonStack, FluxDestructiveButton } from '@fancee/flux';
+    import { FluxButtonStack, FluxDestructiveButton } from '@basmilius/flux';
 </script>

@@ -230,7 +230,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxAction, FluxPane, FluxStack, FluxTable, FluxTableActions, FluxTableCell, FluxTableHeader, FluxTableRow } from '@fancee/flux';
+    import { FluxAction, FluxPane, FluxStack, FluxTable, FluxTableActions, FluxTableCell, FluxTableHeader, FluxTableRow } from '@basmilius/flux';
     import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
     import basic from '@docs/code/components/table/basic.vue';
     import basicCode from '@docs/code/components/table/basic.vue?raw';

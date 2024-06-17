@@ -37,6 +37,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxStack } from '@fancee/flux';
+    import { FluxPane, FluxStack } from '@basmilius/flux';
     import { ApiComponent, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

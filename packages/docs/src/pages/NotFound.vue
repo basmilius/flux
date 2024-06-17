@@ -26,6 +26,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxNotice, FluxStack } from '@fancee/flux';
+    import { FluxNotice, FluxStack } from '@basmilius/flux';
     import { PageTitle } from '@docs/components';
 </script>

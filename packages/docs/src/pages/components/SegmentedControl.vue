@@ -96,7 +96,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneBody, FluxSegmentedControl, FluxSegmentedView, FluxStack } from '@fancee/flux';
+    import { FluxPane, FluxPaneBody, FluxSegmentedControl, FluxSegmentedView, FluxStack } from '@basmilius/flux';
     import { ref } from 'vue';
     import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@docs/components';
 

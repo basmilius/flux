@@ -19,5 +19,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxExpandable, FluxExpandableGroup, FluxPane } from '@fancee/flux';
+    import { FluxExpandable, FluxExpandableGroup, FluxPane } from '@basmilius/flux';
 </script>

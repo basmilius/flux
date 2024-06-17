@@ -46,7 +46,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxStack } from '@fancee/flux';
+    import { FluxStack } from '@basmilius/flux';
     import { ApiExample, ApiSection, PageTitle } from '@docs/components';
     import blockquoteCode from '@docs/code/content/typography/blockquote.html?raw';
     import headingsCode from '@docs/code/content/typography/headings.html?raw';

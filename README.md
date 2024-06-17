@@ -5,14 +5,13 @@ targets Vue 3+. Please read the following instructions and checks in order to pr
 
 ## 📦 Registry
 
-- The Vue 3 package is available under `@fancee/flux`.
+- The Vue 3 package is available under `@basmilius/flux`.
 
 ## ⚠️ Requirements
 
 - Install Node.js ^20
 - Install pnpm using `npm i -g pnpm`.
-- Configure a new environment variable `FANCEE_NPM_AUTH_TOKEN`. The value can be found in Lastpass.
-- Configure a new environment variable `FONTAWESOME_NPM_AUTH_TOKEN`. The value can be found in Lastpass.
+- Configure a new environment variable `FONTAWESOME_NPM_AUTH_TOKEN`. This should be a valid Font Awesome private npm auth token.
 - Use `pnpm install` to install the required packages.
 - Use `pnpm dev` to start a build watcher for both targets.
 - Use `pnpm build` to build a production bundle.

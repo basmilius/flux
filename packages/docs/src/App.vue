@@ -7,5 +7,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxRoot } from '@fancee/flux';
+    import { FluxRoot } from '@basmilius/flux';
 </script>

@@ -91,7 +91,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxFormField, FluxPane, FluxPaneBody, FluxProgressBar, FluxStack } from '@fancee/flux';
+    import { FluxFormField, FluxPane, FluxPaneBody, FluxProgressBar, FluxStack } from '@basmilius/flux';
     import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
     import basic from '@docs/code/components/progressBar/basic.vue';
     import basicCode from '@docs/code/components/progressBar/basic.vue?raw';

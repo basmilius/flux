@@ -5,5 +5,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxSpinner } from '@fancee/flux';
+    import { FluxSpinner } from '@basmilius/flux';
 </script>

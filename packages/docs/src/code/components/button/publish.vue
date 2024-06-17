@@ -20,7 +20,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxButtonStack, FluxPublishButton, useInterval } from '@fancee/flux';
+    import { FluxButtonStack, FluxPublishButton, useInterval } from '@basmilius/flux';
     import { ref } from 'vue';
 
     const state = ref(0);

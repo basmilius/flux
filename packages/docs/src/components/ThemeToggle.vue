@@ -13,7 +13,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxToggle } from '@fancee/flux';
+    import { FluxToggle } from '@basmilius/flux';
     import { onMounted, ref, watch } from 'vue';
 
     const darkMode = ref(localStorage.getItem('flux_dark_mode') === '1');

@@ -15,7 +15,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxFormSelect } from '@fancee/flux';
+    import { FluxFormSelect } from '@basmilius/flux';
     import { ref } from 'vue';
 
     const selectValue = ref(0);

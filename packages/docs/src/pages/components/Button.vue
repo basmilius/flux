@@ -163,7 +163,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxButtonStack, FluxDestructiveButton, FluxPrimaryButton, FluxPublishButton, FluxSecondaryButton, FluxStack } from '@fancee/flux';
+    import { FluxButtonStack, FluxDestructiveButton, FluxPrimaryButton, FluxPublishButton, FluxSecondaryButton, FluxStack } from '@basmilius/flux';
     import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
     import primary from '@docs/code/components/button/primary.vue';
     import primaryCode from '@docs/code/components/button/primary.vue?raw';

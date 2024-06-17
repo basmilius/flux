@@ -10,5 +10,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxNotice } from '@fancee/flux';
+    import { FluxNotice } from '@basmilius/flux';
 </script>

@@ -95,7 +95,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxAspectRatio, FluxFader, FluxFaderItem, FluxPane, FluxStack } from '@fancee/flux';
+    import { FluxAspectRatio, FluxFader, FluxFaderItem, FluxPane, FluxStack } from '@basmilius/flux';
     import { ApiComponent, ApiComponents, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
     import basic from '@docs/code/components/fader/basic.vue';
     import basicCode from '@docs/code/components/fader/basic.vue?raw';

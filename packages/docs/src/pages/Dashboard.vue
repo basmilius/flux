@@ -155,7 +155,7 @@
                 </template>
 
                 <template #footer>
-                    &copy; <a href="#">WeAreFancee</a>
+                    &copy; <a href="#">Bas Milius</a>
                 </template>
 
                 <FluxExpandableGroup>
@@ -256,7 +256,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxAutoGrid, FluxDashboard, FluxDashboardHeader, FluxDashboardNavigation, FluxExpandable, FluxExpandableGroup, FluxFlyout, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxPaneBody, FluxPaneDeck, FluxPersona, FluxSeparator, FluxStack, FluxStatistic, FluxWindow } from '@fancee/flux';
+    import { FluxAutoGrid, FluxDashboard, FluxDashboardHeader, FluxDashboardNavigation, FluxExpandable, FluxExpandableGroup, FluxFlyout, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxPaneBody, FluxPaneDeck, FluxPersona, FluxSeparator, FluxStack, FluxStatistic, FluxWindow } from '@basmilius/flux';
     import { ThemeToggle } from '@docs/components';
     import insightsLogo from '@docs/images/logo-insights.svg?url';
     import publishingLogo from '@docs/images/logo-publishing.svg?url';

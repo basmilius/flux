@@ -28,5 +28,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxProse } from '@fancee/flux';
+    import { FluxProse } from '@basmilius/flux';
 </script>

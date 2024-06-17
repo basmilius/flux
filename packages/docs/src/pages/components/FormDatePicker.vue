@@ -231,7 +231,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxFormDateInput, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
+    import { FluxFormDateInput, FluxPane, FluxPaneBody, FluxStack } from '@basmilius/flux';
     import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
     import { DateTime } from 'luxon';
     import { ref } from 'vue';

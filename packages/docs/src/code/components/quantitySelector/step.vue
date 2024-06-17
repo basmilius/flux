@@ -9,7 +9,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxQuantitySelector } from '@fancee/flux';
+    import { FluxQuantitySelector } from '@basmilius/flux';
     import { ref } from 'vue';
 
     const value = ref(10);

@@ -86,6 +86,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxStack, FluxStatistic } from '@fancee/flux';
+    import { FluxStack, FluxStatistic } from '@basmilius/flux';
     import { ApiComponent, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

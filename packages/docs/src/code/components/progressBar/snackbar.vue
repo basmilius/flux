@@ -11,5 +11,5 @@
 <script
     setup
     lang="ts">
-    import { FluxSnackbar } from '@fancee/flux';
+    import { FluxSnackbar } from '@basmilius/flux';
 </script>

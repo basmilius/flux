@@ -91,6 +91,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneBody, FluxStack, FluxTimeline, FluxTimelineItem } from '@fancee/flux';
+    import { FluxPane, FluxPaneBody, FluxStack, FluxTimeline, FluxTimelineItem } from '@basmilius/flux';
     import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

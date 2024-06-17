@@ -71,7 +71,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxQuantitySelector, FluxStack } from '@fancee/flux';
+    import { FluxQuantitySelector, FluxStack } from '@basmilius/flux';
     import { ApiComponent, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
     import basic from '@docs/code/components/quantitySelector/basic.vue';
     import basicCode from '@docs/code/components/quantitySelector/basic.vue?raw';

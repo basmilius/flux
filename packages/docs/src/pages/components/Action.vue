@@ -103,6 +103,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxAction, FluxActions, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
+    import { FluxAction, FluxActions, FluxPane, FluxPaneBody, FluxStack } from '@basmilius/flux';
     import { ApiComponent, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

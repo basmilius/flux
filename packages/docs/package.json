@@ -1,5 +1,5 @@
 {
-    "name": "fancee-flux-docs",
+    "name": "flux-docs",
     "private": true,
     "type": "module",
     "scripts": {
@@ -8,20 +8,20 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@fancee/flux": "workspace:*",
-        "@fortawesome/free-brands-svg-icons": "^6.5.1",
-        "@fortawesome/pro-regular-svg-icons": "^6.5.1",
+        "@basmilius/flux": "workspace:*",
+        "@fortawesome/free-brands-svg-icons": "^6.5.2",
+        "@fortawesome/pro-regular-svg-icons": "^6.5.2",
         "highlight.js": "^11.9.0",
         "luxon": "^3.4.4",
-        "vue": "^3.4.19",
-        "vue-highlight-code": "^0.1.16",
-        "vue-router": "^4.2.5"
+        "vue": "^3.4.29",
+        "vue-highlight-code": "^0.2.0",
+        "vue-router": "^4.3.3"
     },
     "devDependencies": {
-        "@vitejs/plugin-vue": "^5.0.4",
-        "sass": "^1.70.0",
-        "typescript": "^5.3.3",
-        "vite": "^5.1.2",
-        "vue-tsc": "^1.8.27"
+        "@vitejs/plugin-vue": "^5.0.5",
+        "sass": "^1.77.5",
+        "typescript": "^5.4.5",
+        "vite": "^5.3.1",
+        "vue-tsc": "^2.0.21"
     }
 }

@@ -126,7 +126,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxBadge, FluxBadgeStack, FluxStack } from '@fancee/flux';
+    import { FluxBadge, FluxBadgeStack, FluxStack } from '@basmilius/flux';
     import { ApiComponent, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
     import basic from '@docs/code/components/badge/basic.vue';
     import basicCode from '@docs/code/components/badge/basic.vue?raw';

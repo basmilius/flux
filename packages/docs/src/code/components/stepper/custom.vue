@@ -59,7 +59,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxBreakthroughTransition, FluxDynamicView, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStepper, FluxStepperStep, FluxStepperSteps } from '@fancee/flux';
+    import { FluxBreakthroughTransition, FluxDynamicView, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStepper, FluxStepperStep, FluxStepperSteps } from '@basmilius/flux';
     import { ref } from 'vue';
 
     const step = ref(0);

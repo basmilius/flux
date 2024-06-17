@@ -115,7 +115,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxExpandable, FluxPane, FluxStack } from '@fancee/flux';
+    import { FluxExpandable, FluxPane, FluxStack } from '@basmilius/flux';
     import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
     import basic from '@docs/code/components/expandable/basic.vue';
     import basicCode from '@docs/code/components/expandable/basic.vue?raw';

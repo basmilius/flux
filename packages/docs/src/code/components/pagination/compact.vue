@@ -23,7 +23,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxPagination, FluxPane, FluxPaneBody, FluxPaneFooter, FluxSpacer } from '@fancee/flux';
+    import { FluxPagination, FluxPane, FluxPaneBody, FluxPaneFooter, FluxSpacer } from '@basmilius/flux';
     import { ref } from 'vue';
 
     const page = ref(1);

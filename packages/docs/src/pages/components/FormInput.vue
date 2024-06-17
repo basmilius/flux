@@ -112,6 +112,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxFormInput, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
+    import { FluxFormInput, FluxPane, FluxPaneBody, FluxStack } from '@basmilius/flux';
     import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

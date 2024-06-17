@@ -17,8 +17,8 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '@fancee/flux';
-    import { FluxIcon } from '@fancee/flux';
+    import type { IconNames } from '@basmilius/flux';
+    import { FluxIcon } from '@basmilius/flux';
 
     export interface Props {
         readonly icons: IconNames[];

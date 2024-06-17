@@ -20,7 +20,7 @@
         "paths": {
             "@docs/*": ["src/*"],
             "@/*": ["../flux/src/*"],
-            "@fancee/flux": ["../flux/src/index.ts"]
+            "@basmilius/flux": ["../flux/src/index.ts"]
         }
     },
     "include": [

@@ -9,5 +9,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxButtonGroup, FluxSecondaryButton } from '@fancee/flux';
+    import { FluxButtonGroup, FluxSecondaryButton } from '@basmilius/flux';
 </script>

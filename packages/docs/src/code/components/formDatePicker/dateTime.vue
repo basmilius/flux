@@ -5,7 +5,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxFormDateTimeInput } from '@fancee/flux';
+    import { FluxFormDateTimeInput } from '@basmilius/flux';
     import { DateTime } from 'luxon';
     import { ref } from 'vue';
 

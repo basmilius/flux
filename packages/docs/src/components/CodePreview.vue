@@ -28,7 +28,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneFooter } from '@fancee/flux';
+    import { FluxPane, FluxPaneFooter } from '@basmilius/flux';
     import HighlightedCode from './HighlightedCode.vue';
     import Preview from './Preview.vue';
 

@@ -48,6 +48,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxActionPane, FluxPrimaryButton, FluxSecondaryButton, FluxStack } from '@fancee/flux';
+    import { FluxActionPane, FluxPrimaryButton, FluxSecondaryButton, FluxStack } from '@basmilius/flux';
     import { ApiComponent, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

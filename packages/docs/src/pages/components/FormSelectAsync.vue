@@ -101,7 +101,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxFormSelectAsync, FluxFormSelectGroup, FluxFormSelectOption, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
+    import { FluxFormSelectAsync, FluxFormSelectGroup, FluxFormSelectOption, FluxPane, FluxPaneBody, FluxStack } from '@basmilius/flux';
     import { ApiComponent, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
     import { ref } from 'vue';
     import basic from '@docs/code/components/formSelectAsync/basic.vue';

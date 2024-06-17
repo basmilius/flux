@@ -46,9 +46,9 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneHeader, FluxStack } from '@fancee/flux';
+    import { FluxPane, FluxPaneHeader, FluxStack } from '@basmilius/flux';
     import { ApiSection, ApiTable, HighlightedCode, PageTitle } from '@docs/components';
     import { english } from '@/composable/private/useTranslate';
 
-    const useTranslateCode = `import { useTranslate } from '@fancee/flux';\n\nconst {t} = useTranslate();\n\nconsole.log(t('flux.back')); // "Back"`;
+    const useTranslateCode = `import { useTranslate } from '@basmilius/flux';\n\nconst {t} = useTranslate();\n\nconsole.log(t('flux.back')); // "Back"`;
 </script>

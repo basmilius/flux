@@ -79,6 +79,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxAction, FluxPane, FluxPaneBody, FluxSeparator, FluxStack, FluxToolbar, FluxToolbarGroup } from '@fancee/flux';
+    import { FluxAction, FluxPane, FluxPaneBody, FluxSeparator, FluxStack, FluxToolbar, FluxToolbarGroup } from '@basmilius/flux';
     import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

@@ -19,8 +19,8 @@ export default defineConfig(({mode}) => ({
             '@': resolve(__dirname, '../flux/src/'),
             ...(mode === 'development'
                 ? {
-                    '@fancee/flux/style.css': resolve(__dirname, '../flux/src/css/index.scss'),
-                    '@fancee/flux': resolve(__dirname, '../flux/src/index.ts')
+                    '@basmilius/flux/style.css': resolve(__dirname, '../flux/src/css/index.scss'),
+                    '@basmilius/flux': resolve(__dirname, '../flux/src/index.ts')
                 }
                 : {})
         }

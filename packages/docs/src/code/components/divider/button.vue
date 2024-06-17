@@ -11,5 +11,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxDivider, FluxSecondaryButton } from '@fancee/flux';
+    import { FluxDivider, FluxSecondaryButton } from '@basmilius/flux';
 </script>

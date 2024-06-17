@@ -11,5 +11,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxSecondaryButton, FluxTooltip } from '@fancee/flux';
+    import { FluxSecondaryButton, FluxTooltip } from '@basmilius/flux';
 </script>

@@ -79,7 +79,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxButtonStack, FluxSecondaryButton, FluxStack, FluxTooltip } from '@fancee/flux';
+    import { FluxButtonStack, FluxSecondaryButton, FluxStack, FluxTooltip } from '@basmilius/flux';
     import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
     import basic from '@docs/code/components/tooltip/basic.vue';
     import basicCode from '@docs/code/components/tooltip/basic.vue?raw';

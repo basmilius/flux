@@ -119,7 +119,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxPagination, FluxStack } from '@fancee/flux';
+    import { FluxPagination, FluxStack } from '@basmilius/flux';
     import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
     import basic from '@docs/code/components/pagination/basic.vue';
     import basicCode from '@docs/code/components/pagination/basic.vue?raw';

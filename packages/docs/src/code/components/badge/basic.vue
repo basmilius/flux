@@ -12,5 +12,5 @@
     import {
         FluxBadge,
         FluxBadgeStack
-    } from '@fancee/flux';
+    } from '@basmilius/flux';
 </script>

@@ -9,7 +9,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxFormSlider } from '@fancee/flux';
+    import { FluxFormSlider } from '@basmilius/flux';
     import { ref } from 'vue';
 
     const sliderValue = ref(75);

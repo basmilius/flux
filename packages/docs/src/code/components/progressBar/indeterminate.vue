@@ -7,5 +7,5 @@
 <script
     setup
     lang="ts">
-    import { FluxProgressBar } from '@fancee/flux';
+    import { FluxProgressBar } from '@basmilius/flux';
 </script>

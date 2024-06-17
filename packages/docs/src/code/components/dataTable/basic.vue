@@ -52,7 +52,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxAction, FluxBadge, FluxBadgeStack, FluxDataTable, FluxPane, FluxTableActions, FluxTableCell, FluxTableHeader } from '@fancee/flux';
+    import { FluxAction, FluxBadge, FluxBadgeStack, FluxDataTable, FluxPane, FluxTableActions, FluxTableCell, FluxTableHeader } from '@basmilius/flux';
     import { computed } from 'vue';
 
     const dataSet = computed(() => Array(5).fill(null).map((_, index) => ({

@@ -10,7 +10,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxButtonStack, FluxPrimaryButton, useFluxStore } from '@fancee/flux';
+    import { FluxButtonStack, FluxPrimaryButton, useFluxStore } from '@basmilius/flux';
 
     const {showSnackbar} = useFluxStore();
 

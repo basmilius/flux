@@ -9,5 +9,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxSnackbar } from '@fancee/flux';
+    import { FluxSnackbar } from '@basmilius/flux';
 </script>

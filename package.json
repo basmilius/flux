@@ -1,5 +1,5 @@
 {
-    "name": "fancee-flux-workspace",
+    "name": "flux-workspace",
     "private": true,
     "scripts": {
         "build": "pnpm run -C packages/flux build",
@@ -7,14 +7,14 @@
         "docs:build": "pnpm run -C packages/docs build",
         "docs:dev": "pnpm run -C packages/docs dev",
         "link": "pnpm link --dir packages/flux --global",
-        "publish": "pnpm --filter '@fancee/*' -r publish --access restricted --no-git-checks"
+        "publish": "pnpm --filter '@basmilius/*' -r publish --access restricted --no-git-checks"
     },
     "engines": {
         "node": ">=20"
     },
     "devDependencies": {
         "@types/luxon": "^3.4.2",
-        "@types/node": "^20.11.17",
-        "@vue/language-server": "^1.8.27"
+        "@types/node": "^20.14.2",
+        "@vue/language-server": "^2.0.21"
     }
 }

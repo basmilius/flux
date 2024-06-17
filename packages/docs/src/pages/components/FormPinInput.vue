@@ -72,7 +72,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxFormColumn, FluxFormField, FluxFormPinInput, FluxStack, FluxToggle } from '@fancee/flux';
+    import { FluxFormColumn, FluxFormField, FluxFormPinInput, FluxStack, FluxToggle } from '@basmilius/flux';
     import { ref } from 'vue';
     import { ApiComponent, ApiSection, PageTitle, Preview } from '@docs/components';
 

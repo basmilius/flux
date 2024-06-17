@@ -39,7 +39,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxButtonStack, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSlideOver, FluxSpacer } from '@fancee/flux';
+    import { FluxButtonStack, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSlideOver, FluxSpacer } from '@basmilius/flux';
     import { ref } from 'vue';
 
     const isSlideOverOpened = ref(false);

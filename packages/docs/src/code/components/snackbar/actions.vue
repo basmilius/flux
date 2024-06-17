@@ -21,7 +21,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxButtonStack, FluxPrimaryButton, FluxSnackbar } from '@fancee/flux';
+    import { FluxButtonStack, FluxPrimaryButton, FluxSnackbar } from '@basmilius/flux';
     import { ref } from 'vue';
 
     const isVisible = ref(false);

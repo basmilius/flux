@@ -57,7 +57,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxCheckbox, FluxFormField, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
+    import { FluxCheckbox, FluxFormField, FluxPane, FluxPaneBody, FluxStack } from '@basmilius/flux';
     import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
     import { ref } from 'vue';
 

@@ -23,7 +23,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxStack } from '@fancee/flux';
+    import { FluxStack } from '@basmilius/flux';
     import { PageTitle, Preview } from '@docs/components';
     import { computed } from 'vue';
 

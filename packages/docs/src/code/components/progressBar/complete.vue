@@ -9,7 +9,7 @@
 <script
     setup
     lang="ts">
-    import { FluxFormField, FluxProgressBar } from '@fancee/flux';
+    import { FluxFormField, FluxProgressBar } from '@basmilius/flux';
     import { onMounted, onUnmounted, ref, unref } from 'vue';
 
     const timer = ref<NodeJS.Timeout>();

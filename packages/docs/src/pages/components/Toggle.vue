@@ -65,7 +65,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxStack, FluxToggle } from '@fancee/flux';
+    import { FluxStack, FluxToggle } from '@basmilius/flux';
     import { ref } from 'vue';
     import { ApiComponent, ApiSection, PageTitle, Preview } from '@docs/components';
 

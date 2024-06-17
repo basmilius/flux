@@ -19,7 +19,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxFilter, FluxFilterOptionAsync, FluxFilterOptionRow, FluxPane, FluxStack } from '@fancee/flux';
+    import { FluxFilter, FluxFilterOptionAsync, FluxFilterOptionRow, FluxPane, FluxStack } from '@basmilius/flux';
     import { ref } from 'vue';
     import dataset from '../formSelect/dataset.json';
 

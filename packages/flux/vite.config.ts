@@ -7,8 +7,8 @@ export default defineConfig({
     build: {
         lib: {
             entry: resolve(__dirname, './src/index.ts'),
-            name: 'FanceeFlux',
-            fileName: 'fancee.flux'
+            name: 'BMFlux',
+            fileName: 'basmilius.flux'
         },
         minify: 'esbuild',
         outDir: resolve(__dirname, './dist'),

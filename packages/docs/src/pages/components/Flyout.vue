@@ -122,7 +122,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxButtonStack, FluxFlyout, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPaneBody, FluxSecondaryButton, FluxSeparator, FluxStack } from '@fancee/flux';
+    import { FluxButtonStack, FluxFlyout, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPaneBody, FluxSecondaryButton, FluxSeparator, FluxStack } from '@basmilius/flux';
     import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
     import menu from '@docs/code/components/flyout/menu.vue';
     import menuCode from '@docs/code/components/flyout/menu.vue?raw';

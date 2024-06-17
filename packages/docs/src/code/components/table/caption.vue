@@ -33,5 +33,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxTable, FluxTableCell, FluxTableHeader, FluxTableRow } from '@fancee/flux';
+    import { FluxPane, FluxTable, FluxTableCell, FluxTableHeader, FluxTableRow } from '@basmilius/flux';
 </script>

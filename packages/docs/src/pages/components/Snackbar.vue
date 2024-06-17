@@ -26,13 +26,13 @@
                 <FluxSnackbar
                     :actions="{update: 'Update', close: 'Close'}"
                     icon="circle-arrow-up"
-                    message="A new version of WeAreFancee is available. Would you like to update?"
+                    message="A new version of Glybe is available. Would you like to update?"
                     title="Update available"
                     is-rendered/>
 
                 <FluxSnackbar
                     icon="circle-arrow-down"
-                    message="We're currently downloading a new and improved experience of WeAreFancee."
+                    message="We're currently downloading a new and improved experience of Glybe."
                     title="Downloading"
                     progress-status="Unpacking..."
                     :progress-value="0.75"
@@ -156,7 +156,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxSnackbar, FluxStack } from '@fancee/flux';
+    import { FluxSnackbar, FluxStack } from '@basmilius/flux';
     import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
     import actions from '@docs/code/components/snackbar/actions.vue';
     import actionsCode from '@docs/code/components/snackbar/actions.vue?raw';

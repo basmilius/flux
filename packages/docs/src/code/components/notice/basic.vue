@@ -41,5 +41,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxNotice, FluxNoticeStack } from '@fancee/flux';
+    import { FluxNotice, FluxNoticeStack } from '@basmilius/flux';
 </script>

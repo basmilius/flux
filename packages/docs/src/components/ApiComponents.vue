@@ -22,7 +22,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneHeader } from '@fancee/flux';
+    import { FluxPane, FluxPaneHeader } from '@basmilius/flux';
     import ApiTable from './ApiTable.vue';
 </script>
 

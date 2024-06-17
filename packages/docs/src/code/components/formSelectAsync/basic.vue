@@ -10,7 +10,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxFormSelectAsync, FluxFormSelectEntry } from '@fancee/flux';
+    import { FluxFormSelectAsync, FluxFormSelectEntry } from '@basmilius/flux';
     import { ref } from 'vue';
     import dataset from '../formSelect/dataset.json';
 

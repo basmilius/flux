@@ -67,7 +67,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxDatePicker, FluxPane, FluxStack } from '@fancee/flux';
+    import { FluxDatePicker, FluxPane, FluxStack } from '@basmilius/flux';
     import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
     import { DateTime } from 'luxon';
     import { ref } from 'vue';

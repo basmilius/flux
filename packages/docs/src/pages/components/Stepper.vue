@@ -117,7 +117,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneBody, FluxStack, FluxStepper, FluxStepperStep } from '@fancee/flux';
+    import { FluxPane, FluxPaneBody, FluxStack, FluxStepper, FluxStepperStep } from '@basmilius/flux';
     import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
     import { onMounted, ref } from 'vue';
     import basic from '@docs/code/components/stepper/basic.vue';

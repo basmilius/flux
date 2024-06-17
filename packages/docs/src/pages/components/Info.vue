@@ -62,6 +62,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxInfo, FluxInfoStack, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
+    import { FluxInfo, FluxInfoStack, FluxPane, FluxPaneBody, FluxStack } from '@basmilius/flux';
     import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

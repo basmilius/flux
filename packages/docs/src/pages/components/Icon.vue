@@ -98,6 +98,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxBoxedIcon, FluxIcon, FluxStack } from '@fancee/flux';
+    import { FluxBoxedIcon, FluxIcon, FluxStack } from '@basmilius/flux';
     import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

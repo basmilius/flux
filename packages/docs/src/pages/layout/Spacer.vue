@@ -31,7 +31,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxButtonStack, FluxPane, FluxPaneBody, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStack } from '@fancee/flux';
+    import { FluxButtonStack, FluxPane, FluxPaneBody, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStack } from '@basmilius/flux';
     import { ApiSection, PageTitle, Preview } from '@docs/components';
 </script>
 

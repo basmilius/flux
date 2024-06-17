@@ -64,7 +64,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxAction, FluxBadge, FluxBadgeStack, FluxDataTable, FluxPaginationBar, FluxPane, FluxPaneFooter, FluxTableActions, FluxTableCell, FluxTableHeader } from '@fancee/flux';
+    import { FluxAction, FluxBadge, FluxBadgeStack, FluxDataTable, FluxPaginationBar, FluxPane, FluxPaneFooter, FluxTableActions, FluxTableCell, FluxTableHeader } from '@basmilius/flux';
     import { computed, ref } from 'vue';
 
     const dataSet = computed(() => Array(500).fill(null).map((_, index) => ({

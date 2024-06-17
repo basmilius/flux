@@ -511,9 +511,9 @@
 
             <FluxSecondaryButton
                 type="link"
-                icon-before="bitbucket"
-                label="BitBucket"
-                href="https://bitbucket.org/FanceeDev/Flux"
+                icon-before="github"
+                label="GitHub"
+                href="https://github.com/basmilius/Flux"
                 target="_blank"/>
         </template>
 
@@ -534,7 +534,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxDocs, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxSecondaryButton, FluxSpacer, FluxSpinner, FluxBreakthroughTransition, useDebouncedRef } from '@fancee/flux';
+    import { FluxDocs, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxSecondaryButton, FluxSpacer, FluxSpinner, FluxBreakthroughTransition, useDebouncedRef } from '@basmilius/flux';
     import { computed, watch } from 'vue';
     import { useRoute } from 'vue-router';
     import { ThemeToggle } from '@docs/components';

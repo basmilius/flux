@@ -107,6 +107,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxAvatar, FluxPane, FluxPaneBody, FluxStack } from '@fancee/flux';
+    import { FluxAvatar, FluxPane, FluxPaneBody, FluxStack } from '@basmilius/flux';
     import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

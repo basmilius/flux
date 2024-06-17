@@ -51,6 +51,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxAnimatedColors, FluxAspectRatio, FluxStack } from '@fancee/flux';
+    import { FluxAnimatedColors, FluxAspectRatio, FluxStack } from '@basmilius/flux';
     import { ApiComponent, ApiSection, PageTitle, Preview } from '@docs/components';
 </script>

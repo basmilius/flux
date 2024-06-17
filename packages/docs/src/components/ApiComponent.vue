@@ -89,7 +89,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneHeader, FluxTab, FluxTabBar, FluxTabBarItem, FluxTabs, heightTransition } from '@fancee/flux';
+    import { FluxPane, FluxPaneHeader, FluxTab, FluxTabBar, FluxTabBarItem, FluxTabs, heightTransition } from '@basmilius/flux';
     import { useSlots } from 'vue';
 
     export interface Props {

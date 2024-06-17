@@ -15,7 +15,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxFormSelect, FluxStack } from '@fancee/flux';
+    import { FluxFormSelect, FluxStack } from '@basmilius/flux';
     import { ref } from 'vue';
     import dataset from './dataset.json';
 

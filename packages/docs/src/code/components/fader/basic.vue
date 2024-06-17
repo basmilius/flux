@@ -27,5 +27,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxAspectRatio, FluxFader, FluxFaderItem, FluxPane } from '@fancee/flux';
+    import { FluxAspectRatio, FluxFader, FluxFaderItem, FluxPane } from '@basmilius/flux';
 </script>

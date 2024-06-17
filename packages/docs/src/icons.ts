@@ -1,5 +1,5 @@
 export {
-    faBitbucket
+    faGithub
 } from '@fortawesome/free-brands-svg-icons';
 
 export {
