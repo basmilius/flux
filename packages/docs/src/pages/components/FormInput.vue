@@ -9,7 +9,7 @@
                 <FluxPaneBody>
                     <FluxFormInput
                         type="email"
-                        placeholder="E.g. bas@fanc.ee"/>
+                        placeholder="E.g. user@example.com"/>
                 </FluxPaneBody>
             </FluxPane>
         </Preview>

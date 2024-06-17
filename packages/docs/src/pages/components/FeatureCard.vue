@@ -14,7 +14,7 @@
                 icon="circle"
                 title="Feature">
                 <img
-                    src="https://staging.fanc.ee/uploads/shops/headers/vocrmejv.5mm.jpg"
+                    src="/images/6.jpg"
                     alt="">
             </FluxFeatureCard>
         </Preview>

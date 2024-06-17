@@ -16,7 +16,7 @@
                             alt="Bas"
                             :size="42"
                             status="success"
-                            url="https://imgproxy.glybe.nl/120,q75,jpg/1-b38d42e52f851f0ec94d118fad965277e3915b89da1012cef7e58674e3cf219a-img1386.jpeg"/>
+                            url="/images/bas.jpg"/>
 
                         <FluxAvatar
                             alt="Bas"

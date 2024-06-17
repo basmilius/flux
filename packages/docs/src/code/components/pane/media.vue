@@ -1,7 +1,7 @@
 <template>
     <FluxPane style="max-width: 360px">
         <FluxPaneMedia
-            image-url="https://staging.fanc.ee/uploads/shops/headers/vocrmejv.5mm.jpg"
+            image-url="/images/4.jpg"
             is-inset/>
 
         <FluxPaneBody>

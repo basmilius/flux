@@ -8,7 +8,7 @@
             <FluxPane>
                 <FluxPaneBody :gap="30">
                     <FluxComment
-                        avatar-url="https://imgproxy.glybe.nl/120,q75,jpg/1-b38d42e52f851f0ec94d118fad965277e3915b89da1012cef7e58674e3cf219a-img1386.jpeg"
+                        avatar-url="/images/bas.jpg"
                         is-flipped
                         name="Bas Milius"
                         period="13:04">

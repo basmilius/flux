@@ -10,19 +10,19 @@
                     <FluxFader :interval="2000">
                         <FluxFaderItem>
                             <img
-                                src="https://staging.fanc.ee/uploads/shops/headers/bh40dmg5.uwr.jpg"
+                                src="/images/1.jpg"
                                 alt="">
                         </FluxFaderItem>
 
                         <FluxFaderItem>
                             <img
-                                src="https://staging.fanc.ee/uploads/shops/headers/vocrmejv.5mm.jpg"
+                                src="/images/3.jpg"
                                 alt="">
                         </FluxFaderItem>
 
                         <FluxFaderItem>
                             <img
-                                src="https://staging.fanc.ee/uploads/shops/headers/q5mvww5g.2lu.jpg"
+                                src="/images/5.jpg"
                                 alt="">
                         </FluxFaderItem>
                     </FluxFader>

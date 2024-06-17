@@ -1,7 +1,7 @@
 <template>
     <FluxPane>
         <FluxSecondaryButton
-            href="https://flux.fanc.ee"
+            href="https://flux.bas.dev"
             label="Button"/>
     </FluxPane>
 </template>

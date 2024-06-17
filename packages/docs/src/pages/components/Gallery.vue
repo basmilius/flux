@@ -8,12 +8,12 @@
             <FluxPane style="width: 50%">
                 <FluxPaneBody>
                     <FluxGallery>
-                        <FluxGalleryItem url="https://staging.fanc.ee/uploads/shops/headers/bh40dmg5.uwr.jpg"/>
-                        <FluxGalleryItem url="https://staging.fanc.ee/uploads/shops/headers/vocrmejv.5mm.jpg"/>
-                        <FluxGalleryItem url="https://staging.fanc.ee/uploads/shops/headers/q5mvww5g.2lu.jpg"/>
-                        <FluxGalleryItem url="https://staging.fanc.ee/uploads/shops/headers/bh40dmg5.uwr.jpg"/>
-                        <FluxGalleryItem url="https://staging.fanc.ee/uploads/shops/headers/vocrmejv.5mm.jpg"/>
-                        <FluxGalleryItem url="https://staging.fanc.ee/uploads/shops/headers/q5mvww5g.2lu.jpg"/>
+                        <FluxGalleryItem url="/images/1.jpg"/>
+                        <FluxGalleryItem url="/images/2.jpg"/>
+                        <FluxGalleryItem url="/images/3.jpg"/>
+                        <FluxGalleryItem url="/images/4.jpg"/>
+                        <FluxGalleryItem url="/images/5.jpg"/>
+                        <FluxGalleryItem url="/images/6.jpg"/>
                     </FluxGallery>
                 </FluxPaneBody>
             </FluxPane>

@@ -18,7 +18,7 @@
                         <FluxTimelineItem
                             color="danger"
                             icon="trash"
-                            photo="https://staging.fanc.ee/uploads/shops/headers/bh40dmg5.uwr.jpg">
+                            photo="/images/bas.jpg">
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquid illum quaerat ratione voluptates? Atque consequatur cupiditate ducimus enim nam necessitatibus quibusdam quos! Amet cupiditate dicta maiores natus quae sint?</p>
                         </FluxTimelineItem>
                     </FluxTimeline>

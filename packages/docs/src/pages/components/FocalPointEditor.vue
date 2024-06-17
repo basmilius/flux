@@ -8,7 +8,7 @@
             <FluxPane style="width: 420px">
                 <FluxFocalPointEditor
                     v-model="focalPoint"
-                    url="https://staging.fanc.ee/uploads/shops/headers/vocrmejv.5mm.jpg">
+                    url="/images/4.jpg">
                     <template #footer-before>
                         <FluxSecondaryButton icon-before="question"/>
                     </template>
@@ -37,5 +37,5 @@
     import { ApiSection, PageTitle, Preview } from '@docs/components';
     import { ref } from 'vue';
 
-    const focalPoint = ref([65, 75]);
+    const focalPoint = ref<[number, number]>([65, 75]);
 </script>

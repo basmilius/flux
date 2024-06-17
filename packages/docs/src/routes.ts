@@ -332,10 +332,6 @@ export const router = createRouter({
             ]
         },
         {
-            path: '/dashboard',
-            component: () => import('@docs/pages/Dashboard.vue')
-        },
-        {
             path: '/prose',
             component: () => import('@docs/pages/Prose.vue')
         }

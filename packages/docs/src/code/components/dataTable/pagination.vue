@@ -70,7 +70,7 @@
     const dataSet = computed(() => Array(500).fill(null).map((_, index) => ({
         id: index,
         name: `Name ${index + 1}`,
-        email: `entry-${index + 1}@fanc.ee`,
+        email: `entry-${index + 1}@flux.bas.dev`,
         isActive: index % 2 === 0
     })));
 

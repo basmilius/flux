@@ -12,7 +12,7 @@
                         label="Username">
                         <FluxFormInput
                             type="email"
-                            placeholder="E.g. bas@fanc.ee"/>
+                            placeholder="E.g. user@example.com"/>
                     </FluxFormField>
                 </FluxPaneBody>
             </FluxPane>
