@@ -43,7 +43,7 @@
     }
 
     defineEmits<Emits>();
-    const props = withDefaults(defineProps<Props>(), {
+    withDefaults(defineProps<Props>(), {
         avatarFallback: 'colorized',
         avatarFallbackIcon: 'user'
     });

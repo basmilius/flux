@@ -121,14 +121,15 @@
         &-tabs {
             --mask-start: 0%;
             --mask-end: 100%;
+            --mask: linear-gradient(to right, transparent, black var(--mask-start), black, black var(--mask-end), transparent);
 
             display: flex;
             align-items: flex-end;
             gap: 21px;
             overflow: hidden;
 
-            -webkit-mask-image: linear-gradient(to right, transparent, black var(--mask-start), black, black var(--mask-end), transparent);
-            mask-image: linear-gradient(to right, transparent, black var(--mask-start), black, black var(--mask-end), transparent);
+            -webkit-mask-image: var(--mask);
+            mask-image: var(--mask);
 
             &.mask-end {
                 --mask-end: calc(100% - 60px);

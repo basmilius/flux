@@ -1,12 +1,16 @@
 <script lang="ts">
-    import { defineComponent, getCurrentInstance, onMounted, onUnmounted, PropType, ref } from 'vue';
+    import { defineComponent, getCurrentInstance, onMounted, onUnmounted, PropType, ref, SlotsType, VNode } from 'vue';
     import { addTooltip, removeTooltip } from '@/data';
 
     export default defineComponent({
         props: {
             axis: String as PropType<'horizontal' | 'vertical'>,
-            content: String
+            content: String as PropType<string | undefined>
         },
+        slots: Object as SlotsType<{
+            content: () => VNode[],
+            default: () => VNode[],
+        }>,
         setup(props, {slots}) {
             const instance = getCurrentInstance()!;
 

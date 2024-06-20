@@ -50,7 +50,7 @@
     };
 
     const modelValue = defineModel<number>({default: 0});
-    const props = defineProps<Props>();
+    defineProps<Props>();
 
     onMounted(() => activate(unref(modelValue)));
     onUpdated(() => activate(unref(modelValue)));

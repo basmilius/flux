@@ -19,7 +19,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, toRefs } from 'vue';
+    import { computed } from 'vue';
     import type { IconNames } from '@/data';
     import { iconRegistry } from '@/data';
 
@@ -36,7 +36,6 @@
     const props = withDefaults(defineProps<Props>(), {
         size: 20
     });
-    const {size, variant} = toRefs(props);
 
     const definition = computed(() => {
         const variant = iconRegistry[props.variant];
