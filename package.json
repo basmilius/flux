@@ -13,8 +13,9 @@
         "node": ">=20"
     },
     "devDependencies": {
+        "@types/lodash": "^4.17.6",
         "@types/luxon": "^3.4.2",
-        "@types/node": "^20.14.6",
-        "@vue/language-server": "^2.0.21"
+        "@types/node": "^20.14.10",
+        "@vue/language-server": "^2.0.26"
     }
 }

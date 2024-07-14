@@ -1,2 +1,11 @@
+catalog:
+  '@vitejs/plugin-vue': ^5.0.5
+  '@vue/compiler-sfc': ^3.4.31
+  'luxon': ^3.4.4
+  'typescript': ^5.5.3
+  'vite': ^5.3.3
+  'vue': ^3.4.31
+  'vue-tsc': ^2.0.26
+
 packages:
     - 'packages/*'
