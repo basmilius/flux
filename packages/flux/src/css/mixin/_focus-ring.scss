@@ -45,10 +45,10 @@
 }
 
 @mixin focus-ring-transition($offset: 0, $within: false) {
-    @include focus-ring($offset, $within);
-
     transition: 180ms var(--swift-out);
     transition-property: focus-ring-transition-properties();
+
+    @include focus-ring($offset, $within);
 }
 
 @function focus-ring-transition-properties() {

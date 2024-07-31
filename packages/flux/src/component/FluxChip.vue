@@ -65,9 +65,9 @@
         transition-property: background, border, color, flux.focus-ring-transition-properties();
 
         &.is-selectable {
-            @include flux.focus-ring(2px);
-
             cursor: pointer;
+
+            @include flux.focus-ring(2px);
         }
 
         &.is-selectable:hover {
