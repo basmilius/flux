@@ -29,7 +29,7 @@
         "lodash": "^4.17.21"
     },
     "devDependencies": {
-        "@fortawesome/fontawesome-common-types": "^6.5.2",
+        "@fortawesome/fontawesome-common-types": "^6.6.0",
         "@vitejs/plugin-vue": "catalog:",
         "@vue/compiler-sfc": "catalog:",
         "autoprefixer": "^10.4.19",
@@ -44,6 +44,6 @@
     },
     "peerDependencies": {
         "luxon": "^3.4.4",
-        "vue": "^3.4.29"
+        "vue": "catalog:"
     }
 }

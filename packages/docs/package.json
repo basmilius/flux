@@ -9,17 +9,17 @@
     },
     "dependencies": {
         "@basmilius/flux": "workspace:*",
-        "@fortawesome/free-brands-svg-icons": "^6.5.2",
-        "@fortawesome/pro-regular-svg-icons": "^6.5.2",
-        "highlight.js": "^11.9.0",
+        "@fortawesome/free-brands-svg-icons": "^6.6.0",
+        "@fortawesome/pro-regular-svg-icons": "^6.6.0",
+        "highlight.js": "^11.10.0",
         "luxon": "catalog:",
         "vue": "catalog:",
         "vue-highlight-code": "^0.2.0",
-        "vue-router": "^4.3.3"
+        "vue-router": "^4.4.0"
     },
     "devDependencies": {
         "@vitejs/plugin-vue": "catalog:",
-        "sass": "^1.77.6",
+        "sass": "^1.77.8",
         "typescript": "catalog:",
         "vite": "catalog:",
         "vue-tsc": "catalog:"

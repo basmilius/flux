@@ -10,12 +10,12 @@
         "publish": "pnpm --filter '@basmilius/*' -r publish --access public --no-git-checks"
     },
     "engines": {
-        "node": ">=20"
+        "node": ">=21"
     },
     "devDependencies": {
-        "@types/lodash": "^4.17.6",
+        "@types/lodash": "^4.17.7",
         "@types/luxon": "^3.4.2",
-        "@types/node": "^20.14.10",
-        "@vue/language-server": "^2.0.26"
+        "@types/node": "^22.0.0",
+        "@vue/language-server": "^2.0.29"
     }
 }
