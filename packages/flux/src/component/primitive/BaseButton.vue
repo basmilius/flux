@@ -155,8 +155,8 @@
             color: var(--button-icon);
 
             &:only-child {
-                margin-left: -1px;
-                margin-right: -1px;
+                margin-left: -2px;
+                margin-right: -2px;
             }
         }
 

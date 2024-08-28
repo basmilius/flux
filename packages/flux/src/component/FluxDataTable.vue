@@ -20,12 +20,22 @@
                 v-for="(row, index) of rows"
                 :key="uniqueKey ? row[uniqueKey] : index">
                 <template v-for="(_, name) of slots">
-                    <template v-if="name !== 'header'">
+                    <template v-if="name !== 'footer' && name !== 'header'">
                         <slot
                             :name="name"
                             v-bind="{index, page, perPage, row, rows, total}"/>
                     </template>
                 </template>
+            </FluxTableRow>
+        </template>
+
+        <template
+            v-if="slots.footer"
+            #footer>
+            <FluxTableRow>
+                <slot
+                    name="footer"
+                    v-bind="{page, perPage, rows, total}"/>
             </FluxTableRow>
         </template>
     </FluxTable>
@@ -54,6 +64,7 @@
     export interface Slots {
         [key: string]: (props: { index: number; page: number; perPage: number; row: any; rows: any[]; total: number; }) => any;
 
+        footer(props: { page: number; perPage: number; rows: any[]; total: number; }): any;
         header(props: { page: number; perPage: number; rows: any[]; total: number; }): any;
     }
 

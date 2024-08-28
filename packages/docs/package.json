@@ -15,11 +15,11 @@
         "luxon": "catalog:",
         "vue": "catalog:",
         "vue-highlight-code": "^0.2.0",
-        "vue-router": "^4.4.0"
+        "vue-router": "^4.4.3"
     },
     "devDependencies": {
         "@vitejs/plugin-vue": "catalog:",
-        "sass": "^1.77.8",
+        "sass-embedded": "catalog:",
         "typescript": "catalog:",
         "vite": "catalog:",
         "vue-tsc": "catalog:"

@@ -1,4 +1,4 @@
-import type { ComponentInternalInstance, ComputedRef, InjectionKey, Ref } from 'vue';
+import type { ComponentInternalInstance, InjectionKey, Ref } from 'vue';
 import type { Breakpoint, Breakpoints } from '@/composable';
 import type { FluxFilterState, FluxFilterValue } from './filter';
 
@@ -20,8 +20,7 @@ export type FluxBreakpointsInjection = {
 };
 
 export type FluxDashboardInjection = {
-    readonly isNavigationCollapsible: ComputedRef<boolean>;
-    readonly isNavigationOpen: Ref<boolean>;
+    readonly isNavigationCollapsed: Ref<boolean>;
 };
 
 export type FluxExpandableGroupInjection = {

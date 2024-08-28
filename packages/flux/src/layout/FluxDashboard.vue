@@ -1,49 +1,28 @@
 <template>
-    <div
-        class="flux-dashboard"
-        :class="{
-            'is-navigation-open': isNavigationOpen
-        }">
-        <slot name="header"/>
-
-        <main class="flux-dashboard-body">
-            <div
-                v-if="slots.notice"
-                class="flux-dashboard-notice"
-                :inert="isNavigationOpen">
-                <div/>
-                <slot name="notice"/>
-                <div/>
-            </div>
-
-            <div
-                class="flux-dashboard-content"
-                :inert="isNavigationOpen">
-                <slot/>
-            </div>
-        </main>
-
+    <div class="flux-dashboard">
         <slot name="navigation"/>
+
+        <slot name="menu"/>
+
+        <div class="flux-dashboard-body">
+            <slot name="header"/>
+            <slot/>
+        </div>
+
+        <slot name="side"/>
     </div>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { computed, provide, ref, unref, useSlots } from 'vue';
-    import { useBreakpoints } from '@/composable';
+    import { provide, ref } from 'vue';
     import { FluxDashboardInjectionKey } from '@/data';
 
-    const slots = useSlots();
-    const {breakpoints} = useBreakpoints();
-
-    const isNavigationOpen = ref(false);
-
-    const isNavigationCollapsible = computed(() => !unref(breakpoints).xl);
+    const isNavigationCollapsed = ref(true);
 
     provide(FluxDashboardInjectionKey, {
-        isNavigationCollapsible,
-        isNavigationOpen
+        isNavigationCollapsed
     });
 </script>
 
@@ -51,97 +30,34 @@
     @use '../css/mixin' as flux;
 
     .flux-dashboard {
-        --header-height: 84px;
-        --navigation-width: 300px;
-
-        position: relative;
-        height: 100dvh;
-        padding-top: var(--header-height);
-        padding-left: var(--navigation-width);
-        font-size: 15px;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        background: rgb(var(--gray-0));
 
         &-body {
-            position: relative;
+            display: flex;
+            flex-flow: column;
         }
 
         &-content {
-            position: relative;
-            margin-left: auto;
-            margin-right: auto;
-            max-width: 2100px;
-            padding: 42px;
-            z-index: 0;
+            padding: 0 30px 30px;
+            flex-grow: 1;
         }
 
-        &-header,
-        &-navigation {
-            position: fixed;
-            top: 0;
-            z-index: 100;
+        .flux-notice.is-fluid + &-content {
+            padding-top: 30px;
         }
 
-        &-header {
-            left: var(--navigation-width);
-            right: 0;
-            height: var(--header-height);
+        :has(> &-menu) {
+            grid-template-columns: auto 300px 1fr;
         }
 
-        &-navigation {
-            left: 0;
-            height: 100dvh;
-            width: var(--navigation-width);
+        :has(> &-side) {
+            grid-template-columns: auto 1fr 300px;
         }
 
-        &-notice {
-            position: sticky;
-            top: calc(var(--header-height) - 1px);
-            margin-top: -1px;
-            z-index: 100;
-        }
-
-        &-notice .flux-notice {
-            padding-left: 42px;
-            padding-right: 42px;
-        }
-
-        @include flux.breakpoint-down(lg) {
-            padding-left: 0;
-
-            &-body,
-            &-header,
-            &-navigation {
-                transition: 360ms var(--swift-out);
-                transition-property: opacity, transform;
-            }
-
-            &-content {
-                padding: 21px;
-            }
-
-            &-header {
-                left: 0;
-            }
-
-            &-notice .flux-notice {
-                padding-left: 21px;
-                padding-right: 21px;
-            }
-
-            &.is-navigation-open &-body,
-            &.is-navigation-open &-header {
-                transform: translate3d(var(--navigation-width), 0, 0);
-            }
-
-            &.is-navigation-open &-body {
-                opacity: .5;
-                pointer-events: none;
-            }
-
-            &:not(.is-navigation-open) &-navigation {
-                opacity: 0;
-                pointer-events: none;
-                transform: translate3d(-100%, 0, 0);
-            }
+        :has(> &-menu):has(> &-side) {
+            grid-template-columns: auto 300px 1fr 300px;
         }
     }
 </style>

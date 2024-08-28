@@ -1,6 +1,6 @@
 {
     "name": "@basmilius/flux",
-    "version": "1.3.5",
+    "version": "1.3.6",
     "type": "module",
     "scripts": {
         "build": "vite build && pnpm run gentypes",
@@ -32,9 +32,10 @@
         "@fortawesome/fontawesome-common-types": "^6.6.0",
         "@vitejs/plugin-vue": "catalog:",
         "@vue/compiler-sfc": "catalog:",
-        "autoprefixer": "^10.4.19",
+        "autoprefixer": "^10.4.20",
         "luxon": "catalog:",
         "minimist": "^1.2.8",
+        "sass-embedded": "catalog:",
         "tsc-alias": "^1.8.10",
         "typescript": "catalog:",
         "vite": "catalog:",
@@ -43,7 +44,7 @@
         "vue-tsc": "catalog:"
     },
     "peerDependencies": {
-        "luxon": "^3.4.4",
+        "luxon": "catalog:",
         "vue": "catalog:"
     }
 }
