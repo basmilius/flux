@@ -12,6 +12,7 @@
     "engines": {
         "node": ">=21"
     },
+    "packageManager": "pnpm@9.9.0",
     "devDependencies": {
         "@types/lodash": "^4.17.7",
         "@types/luxon": "^3.4.2",
