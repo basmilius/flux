@@ -1,0 +1,151 @@
+.overlay {
+    position: fixed;
+    display: flex;
+    inset: 0;
+    height: 100dvh;
+    width: 100dvw;
+    background: rgb(var(--gray-7) / .25);
+    backdrop-filter: blur(5px) saturate(180%);
+    z-index: 10000;
+
+    > .basePaneStructure {
+        display: flex;
+        margin: auto;
+        max-height: min(840px, 100dvh - 180px);
+        width: calc(100dvw - 90px);
+        flex-flow: column nowrap;
+        border-color: rgb(var(--gray-11) / .075);
+        box-shadow: var(--shadow-2xl);
+        overflow: auto;
+
+        .paneFooter {
+            position: sticky;
+            bottom: 0;
+            margin-top: auto;
+        }
+    }
+}
+
+.overlaySmall {
+    composes: overlay;
+
+    > .basePaneStructure {
+        max-width: 420px;
+    }
+}
+
+.overlayMedium {
+    composes: overlay;
+
+    > .basePaneStructure {
+        max-width: 540px;
+    }
+}
+
+.overlayLarge {
+    composes: overlay;
+
+    > .basePaneStructure {
+        max-width: 720px;
+    }
+}
+
+[dark] .overlay {
+    background: rgb(0 0 0 / .5);
+
+    > .basePaneStructure {
+        border-color: rgb(var(--gray-11) / .3);
+    }
+}
+
+.slideOver {
+    composes: overlay;
+
+    justify-content: flex-end;
+
+    > .basePaneStructure {
+        margin: unset;
+        max-height: 100%;
+        width: min(100dvw, 720px);
+        border-top: 0;
+        border-right: 0;
+        border-bottom: 0;
+        border-radius: 0;
+        overflow: auto;
+
+        > .paneHeader,
+        > .paneFooter {
+            position: sticky;
+            z-index: 100;
+        }
+
+        > .paneHeader {
+            top: 0;
+            padding-bottom: 21px;
+            border-bottom: 1px solid rgb(var(--gray-3));
+            box-shadow: var(--shadow-sm);
+
+            &:has(+ :where(.tabs, .tabBar)) {
+                padding-bottom: 0;
+                border-bottom: 0;
+                box-shadow: none;
+            }
+
+            &:not(:has(+ :where(.tabs, .tabBar))) {
+                background: inherit;
+            }
+        }
+
+        > .paneFooter {
+            bottom: 0;
+        }
+    }
+}
+
+.overlayTransitionEnterActive,
+.overlayTransitionLeaveActive {
+    transition: opacity 420ms var(--swift-out);
+
+    > .basePaneStructure {
+        transition: 420ms var(--swift-out);
+        transition-property: opacity, scale;
+    }
+}
+
+.overlayTransitionEnterFrom {
+    opacity: 0;
+
+    > .basePaneStructure {
+        opacity: 0;
+        scale: 1.1;
+    }
+}
+
+.overlayTransitionLeaveTo {
+    opacity: 0;
+
+    > .basePaneStructure {
+        opacity: 0;
+        scale: .9;
+    }
+}
+
+.slideOverTransitionEnterActive,
+.slideOverTransitionLeaveActive {
+    transition: opacity 600ms var(--swift-out);
+
+    > .basePaneStructure {
+        transition: 600ms var(--swift-out);
+        transition-property: opacity, transform;
+    }
+}
+
+.slideOverTransitionEnterFrom,
+.slideOverTransitionLeaveTo {
+    opacity: 0;
+    transition-delay: 210ms;
+
+    > .basePaneStructure {
+        transform: translate3d(100%, 0, 0);
+    }
+}

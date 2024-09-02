@@ -1,0 +1,3 @@
+{
+    "components": "src/(component|layout|transition)/**/[a-zA-Z]*.vue"
+}

@@ -1,21 +1,21 @@
 <template>
-    <div class="flux-form-field">
+    <div :class="styles.formField">
         <label
             :for="id"
-            class="flux-form-field-header">
-            <span class="flux-form-field-label">
+            :class="styles.formFieldHeader">
+            <span :class="styles.formFieldLabel">
                 {{ label }}
             </span>
 
             <span
                 v-if="isOptional"
-                class="flux-form-field-optional">
+                :class="styles.formFieldOptional">
                 ({{ translate('flux.optional') }})
             </span>
 
             <span
                 v-if="$slots.value"
-                class="flux-form-field-value">
+                :class="styles.formFieldValue">
                 <slot name="value"/>
             </span>
         </label>
@@ -24,7 +24,7 @@
 
         <span
             v-if="currentLength && maxLength && maxLength > 0"
-            class="flux-form-field-counter">
+            :class="styles.formFieldCounter">
             {{ currentLength }} / {{ maxLength }}
         </span>
 
@@ -53,15 +53,16 @@
     import { useTranslate } from '@/composable/private';
     import { FluxFormFieldInjectionKey } from '@/data';
     import FluxFormFieldAddition from './FluxFormFieldAddition.vue';
+    import styles from '@/css/component/Form.module.scss';
 
-    export interface Props {
+    export type Props = {
         readonly currentLength?: number;
         readonly error?: string;
         readonly hint?: string;
         readonly isOptional?: boolean;
         readonly label: string;
         readonly maxLength?: number;
-    }
+    };
 
     defineProps<Props>();
 
@@ -72,47 +73,3 @@
         id
     });
 </script>
-
-<style lang="scss">
-    .flux-form-field {
-        display: flex;
-        flex-flow: column;
-        flex: 1 1 0;
-        gap: 6px;
-
-        &-header {
-            display: flex;
-            margin-bottom: 0;
-            width: 100%;
-            align-items: center;
-            align-self: start;
-            gap: 6px;
-            font-size: unset;
-        }
-
-        &-label {
-            min-height: 1.6em;
-            color: var(--foreground-prominent);
-            font-size: 15px;
-            font-weight: 600;
-        }
-
-        &-counter {
-            margin-left: auto;
-            color: var(--foreground-secondary);
-            font-size: .85em;
-            white-space: nowrap;
-        }
-
-        &-optional {
-            color: var(--foreground-secondary);
-            font-size: .85em;
-        }
-
-        &-value {
-            margin-left: auto;
-            color: var(--foreground-secondary);
-            font-size: .85em;
-        }
-    }
-</style>

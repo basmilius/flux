@@ -1,7 +1,6 @@
 <template>
     <div
-        class="flux-expandable"
-        :class="{'is-open': isOpen}"
+        :class="isOpen ? styles.expandableOpened : styles.expandable"
         :id="headerId"
         :aria-controls="contentId"
         :aria-expanded="isOpen">
@@ -9,7 +8,7 @@
             v-bind="{label, isOpen, close, open, toggle}"
             name="header">
             <button
-                class="flux-expandable-header"
+                :class="styles.expandableHeader"
                 type="button"
                 @click="toggle">
                 <span>{{ label }}</span>
@@ -25,13 +24,13 @@
         <FluxAutoHeightTransition>
             <div
                 v-if="isOpen"
-                class="flux-expandable-body"
+                :class="styles.expandableBody"
                 :id="contentId"
                 :aria-labelledby="headerId">
                 <slot
                     v-bind="{label, close}"
                     name="body">
-                    <div class="flux-expandable-content">
+                    <div :class="styles.expandableContent">
                         <slot v-bind="{label, close}"/>
                     </div>
                 </slot>
@@ -47,15 +46,16 @@
     import { useComponentId, useExpandableGroupInjection, useId } from '@/composable';
     import { FluxAutoHeightTransition, FluxFadeTransition } from '@/transition';
     import FluxIcon from './FluxIcon.vue';
+    import styles from '@/css/component/Expandable.module.scss';
 
-    export interface Emits {
-        (e: 'toggle', isOpen: boolean): void;
-    }
+    export type Emits = {
+        toggle: [boolean];
+    };
 
-    export interface Props {
+    export type Props = {
         readonly isOpened?: boolean;
         readonly label?: string;
-    }
+    };
 
     const emit = defineEmits<Emits>();
     const props = defineProps<Props>();
@@ -106,80 +106,3 @@
         toggle
     });
 </script>
-
-<style lang="scss">
-    @use '../css/mixin' as flux;
-
-    .flux-expandable {
-        display: flex;
-        flex-flow: column;
-
-        &-header {
-            display: flex;
-            height: 60px;
-            padding-left: 21px;
-            padding-right: 21px;
-            align-items: center;
-            background: unset;
-            border: 0;
-            color: var(--foreground-prominent);
-            cursor: pointer;
-            text-align: left;
-            z-index: 1;
-
-            @include flux.focus-ring-transition;
-
-            &:hover {
-                background: rgb(var(--gray-1));
-            }
-
-            span {
-                flex-grow: 1;
-                font-weight: 600;
-            }
-        }
-
-        &-body {
-            transition: height 390ms var(--swift-out), translate 300ms var(--swift-out) 120ms, opacity 300ms var(--swift-out) 120ms;
-
-            &.v-enter,
-            &.v-enter-from,
-            &.v-leave-to {
-                opacity: 0;
-                translate: 0 -15px;
-            }
-
-            &.v-enter-to,
-            &.v-leave,
-            &.v-leave-from {
-                opacity: 1;
-            }
-
-            &.v-leave-active {
-                transition-delay: 0s;
-            }
-
-            &.v-enter-active,
-            &.v-leave-active {
-                overflow: hidden;
-            }
-        }
-
-        &-content {
-            padding: 0 21px 21px;
-        }
-    }
-
-    .flux-pane > .flux-expandable {
-        border-radius: inherit;
-
-        .flux-expandable-header {
-            border-radius: inherit;
-        }
-
-        &.is-open .flux-expandable-header {
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-        }
-    }
-</style>

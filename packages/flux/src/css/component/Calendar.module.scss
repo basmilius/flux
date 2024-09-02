@@ -1,0 +1,143 @@
+@value basePaneStructure, basePaneLoader from '@/css/component/base/Pane.module.scss';
+
+.calendar {
+    composes: basePaneStructure;
+
+    display: flex;
+    flex-flow: column;
+    box-shadow: var(--shadow-sm);
+    contain: paint;
+}
+
+.calendarActions {
+    align-items: center;
+}
+
+.calendarLoader {
+    composes: basePaneLoader;
+}
+
+.calendarCurrent {
+    display: flex;
+    gap: 9px;
+}
+
+.calendarCurrentValue {
+    padding: 0;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    font-size: 30px;
+    letter-spacing: -.05em;
+    line-height: 1.5em;
+    text-transform: capitalize;
+
+    @media (hover: hover) {
+        &:hover {
+            color: rgb(var(--primary-7));
+        }
+    }
+}
+
+.calendarCurrentMonth {
+    composes: calendarCurrentValue;
+
+    color: var(--foreground-prominent);
+    font-weight: 700;
+}
+
+.calendarCurrentYear {
+    composes: calendarCurrentValue;
+
+    color: var(--foreground);
+}
+
+.calendarCells {
+    display: grid;
+    flex-grow: 1;
+    gap: 1px;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: min-content repeat(6, auto);
+    background: rgb(var(--gray-3));
+}
+
+.calendarCell {
+    padding: 12px 21px;
+    background: rgb(var(--gray-0));
+}
+
+.calendarDay {
+    composes: calendarCell;
+
+    padding-left: 0;
+    padding-right: 0;
+    color: var(--foreground-secondary);
+    font-size: 10px;
+    line-height: 1em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.calendarEntry {
+    composes: calendarCell;
+
+    position: relative;
+    min-height: 105px;
+    padding-bottom: 39px;
+
+    &.isDisabled {
+        background: rgb(var(--gray-1));
+        color: var(--foreground-secondary);
+        pointer-events: none;
+
+        .calendarEntryDate {
+            opacity: .5;
+        }
+
+        .calendarEvents {
+            opacity: .75;
+            pointer-events: none;
+        }
+    }
+}
+
+.calendarEntryDate {
+    position: absolute;
+    right: 21px;
+    bottom: 15px;
+    color: var(--foreground);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1em;
+}
+
+.calendarEvents {
+    display: flex;
+    flex-flow: column;
+    gap: 3px;
+}
+
+.calendarEvent {
+    margin-left: -9px;
+    margin-right: -9px;
+    padding: 3px 9px;
+    background: rgb(var(--primary-6));
+    border: 0;
+    border-radius: calc(var(--radius) / 2);
+    color: rgb(var(--primary-0));
+    cursor: pointer;
+    font-size: 12px;
+    text-align: left;
+
+    /** note: This works in all browsers. */
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+    @media (hover: hover) {
+        &:hover {
+            background: rgb(var(--primary-7));
+        }
+    }
+}

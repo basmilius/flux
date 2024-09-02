@@ -1,18 +1,16 @@
 <template>
     <div
-        class="flux-form-input"
-        :class="{
-            'is-disabled': isDisabled,
-            'is-readonly': isReadonly,
-            'is-secondary': isSecondary
-        }">
+        :class="clsx(
+            isDisabled ? styles.formInputDisabled : styles.formInputEnabled,
+            isSecondary && styles.isSecondary
+        )">
         <input
             ref="inputRef"
-            class="flux-form-input-native"
-            :class="{
-                'has-icon-after': !!iconAfter,
-                'has-icon-before': !!iconBefore
-            }"
+            :class="clsx(
+                styles.formInputNative,
+                (!!iconAfter || type === 'password') && styles.formInputNativeHasIconAfter,
+                !!iconBefore && styles.formInputNativeHasIconBefore
+            )"
             :id="id"
             :autocomplete="autoComplete"
             :autofocus="autoFocus"
@@ -25,27 +23,27 @@
             :step="step"
             :type="nativeType"
             :value="localValue"
-            @blur="$emit('blur')"
-            @focus="$emit('focus')"
+            @blur="onBlur()"
+            @focus="onFocus()"
             @input="onInput"
-            @keydown="onKeyDown"/>
+            @keydown="onKeyDown">
 
-        <FluxIcon
+        <Icon
             v-if="iconBefore"
-            class="flux-form-input-icon is-before"
+            :class="styles.formInputIconBefore"
             :size="18"
             :variant="iconBefore"/>
 
-        <FluxIcon
+        <Icon
             v-if="type === 'password'"
-            class="flux-form-input-icon is-password-toggle"
+            :class="styles.formInputIconPasswordToggle"
             :size="18"
             :variant="nativeType === 'password' ? 'eye' : 'eye-slash'"
-            @click="passwordTypeToggle"/>
+            @click="passwordTypeToggle()"/>
 
-        <FluxIcon
+        <Icon
             v-else-if="iconAfter"
-            class="flux-form-input-icon is-after"
+            :class="styles.formInputIconAfter"
             :size="18"
             :variant="iconAfter"/>
     </div>
@@ -54,17 +52,19 @@
 <script
     lang="ts"
     setup>
+    import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
     import { ref, toRefs, unref, watch } from 'vue';
     import { useFormFieldInjection } from '@/composable';
-    import { IconNames, Masks, masks } from '@/data';
+    import { type IconNames, type Masks, masks } from '@/data';
     import { unrefElement } from '@/util';
-    import FluxIcon from './FluxIcon.vue';
+    import Icon from './FluxIcon.vue';
+    import styles from '@/css/component/Form.module.scss';
 
     export type Emits = {
-        (e: 'blur'): void;
-        (e: 'focus'): void;
-        (e: 'show-picker'): void;
+        blur: [];
+        focus: [];
+        showPicker: [];
     };
 
     export type Props = {
@@ -90,7 +90,6 @@
         autoFocus: false,
         type: 'text'
     });
-
     const {type} = toRefs(props);
 
     const {id} = useFormFieldInjection();
@@ -113,6 +112,14 @@
         }
 
         nativeType.value = unref(nativeType) === 'password' ? 'text' : 'password';
+    }
+
+    function onBlur(): void {
+        emit('blur');
+    }
+
+    function onFocus(): void {
+        emit('focus');
     }
 
     function onInput(evt: Event): void {
@@ -149,7 +156,7 @@
         }
 
         if (evt.key === ' ') {
-            emit('show-picker');
+            emit('showPicker');
             evt.preventDefault();
         }
     }
@@ -209,120 +216,3 @@
         focus
     });
 </script>
-
-<style lang="scss">
-    @use '../css/mixin' as flux;
-
-    .flux-form-input {
-        position: relative;
-        display: block;
-        height: 42px;
-        width: 100%;
-        padding: 0 12px;
-        align-self: start;
-        background: rgb(var(--gray-0));
-        background-clip: padding-box;
-        border: 1px solid rgb(var(--gray-4) / .75);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow-px);
-        color: var(--foreground);
-        transition: 180ms var(--swift-out);
-        transition-property: border-color, flux.focus-ring-transition-properties();
-
-        &-icon {
-            position: absolute;
-            margin: 11px;
-            color: var(--foreground-secondary);
-            pointer-events: none;
-
-            &.is-before {
-                left: 0;
-            }
-
-            &.is-after {
-                right: 0;
-            }
-
-            &.is-password-toggle {
-                right: 0;
-                pointer-events: unset;
-                cursor: pointer;
-
-                &:hover {
-                    color: var(--foreground);
-                }
-            }
-        }
-
-        &-native {
-            position: absolute;
-            inset: 0;
-            height: 100%;
-            width: 100%;
-            padding: 0 12px;
-            background: unset;
-            border: 0;
-            border-radius: inherit;
-            color: inherit;
-            font: inherit;
-            outline: 0;
-            text-align: left;
-
-            &.has-icon-after {
-                padding-right: 42px;
-            }
-
-            &.has-icon-before {
-                padding-left: 42px;
-            }
-
-            &::placeholder {
-                color: var(--foreground-secondary);
-            }
-
-            &::-webkit-search-decoration,
-            &::-webkit-search-cancel-button,
-            &::-webkit-search-results-button,
-            &::-webkit-search-results-decoration {
-                -webkit-appearance: none;
-            }
-
-            &::-webkit-color-swatch {
-                border: 0;
-                border-radius: calc(var(--radius) / 2);
-            }
-
-            &::-webkit-color-swatch-wrapper {
-                margin: 0 -12px;
-                padding: 3px;
-                width: calc(100% + 24px);
-            }
-        }
-
-        &.is-disabled {
-            background: rgb(var(--gray-2));
-            cursor: not-allowed;
-        }
-
-        &:not(.is-disabled) {
-            @include flux.focus-ring(-1px, true);
-        }
-
-        &:hover {
-            border-color: rgb(var(--gray-5));
-        }
-
-        &.is-secondary {
-            background: rgb(var(--gray-3) / .8);
-            border-color: transparent;
-
-            &:hover {
-                background: rgb(var(--gray-3));
-            }
-        }
-    }
-
-    [dark] .flux-form-input-native::-webkit-calendar-picker-indicator {
-        filter: invert(1);
-    }
-</style>

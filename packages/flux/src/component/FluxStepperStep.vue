@@ -1,11 +1,11 @@
 <template>
-    <div class="flux-stepper-step">
+    <div :class="styles.stepperStep">
         <slot/>
     </div>
 </template>
 
-<style lang="scss">
-    .flux-stepper-step {
-        position: relative;
-    }
-</style>
+<script
+    lang="ts"
+    setup>
+    import styles from '@/css/component/Stepper.module.scss';
+</script>

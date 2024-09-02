@@ -458,22 +458,22 @@
     lang="ts"
     setup>
     import { FluxFilter, FluxFilterDate, FluxFilterDateRange, FluxFilterOption, FluxFilterOptionAsync, FluxFilterOptionRow, FluxFilterOptions, FluxFilterOptionsAsync, FluxFilterRange, FluxFilterState, FluxPane, FluxSeparator, FluxStack } from '@basmilius/flux';
-    import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
+    import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
     import { DateTime } from 'luxon';
     import { ref } from 'vue';
-    import date from '@docs/code/components/filter/date.vue';
-    import dateCode from '@docs/code/components/filter/date.vue?raw';
-    import dateRange from '@docs/code/components/filter/dateRange.vue';
-    import dateRangeCode from '@docs/code/components/filter/dateRange.vue?raw';
-    import option from '@docs/code/components/filter/option.vue';
-    import optionCode from '@docs/code/components/filter/option.vue?raw';
-    import optionAsync from '@docs/code/components/filter/optionAsync.vue';
-    import optionAsyncCode from '@docs/code/components/filter/optionAsync.vue?raw';
-    import options from '@docs/code/components/filter/options.vue';
-    import optionsCode from '@docs/code/components/filter/options.vue?raw';
-    import optionsAsync from '@docs/code/components/filter/optionsAsync.vue';
-    import optionsAsyncCode from '@docs/code/components/filter/optionsAsync.vue?raw';
-    import dataset from '@docs/code/components/formSelect/dataset.json';
+    import date from '@/code/components/filter/date.vue';
+    import dateCode from '@/code/components/filter/date.vue?raw';
+    import dateRange from '@/code/components/filter/dateRange.vue';
+    import dateRangeCode from '@/code/components/filter/dateRange.vue?raw';
+    import option from '@/code/components/filter/option.vue';
+    import optionCode from '@/code/components/filter/option.vue?raw';
+    import optionAsync from '@/code/components/filter/optionAsync.vue';
+    import optionAsyncCode from '@/code/components/filter/optionAsync.vue?raw';
+    import options from '@/code/components/filter/options.vue';
+    import optionsCode from '@/code/components/filter/options.vue?raw';
+    import optionsAsync from '@/code/components/filter/optionsAsync.vue';
+    import optionsAsyncCode from '@/code/components/filter/optionsAsync.vue?raw';
+    import dataset from '@/code/components/formSelect/dataset.json';
 
     async function fetchOptions(ids: string[]): Promise<FluxFilterOptionRow[]> {
         await new Promise(resolve => setTimeout(resolve, 300));

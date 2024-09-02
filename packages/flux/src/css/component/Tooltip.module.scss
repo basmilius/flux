@@ -1,0 +1,57 @@
+.tooltip {
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    max-width: 360px;
+    padding: 9px 15px;
+    flex-flow: column;
+    background: rgb(var(--gray-11) / .9);
+    backdrop-filter: blur(6px) saturate(180%);
+    border-radius: var(--radius);
+    color: rgb(var(--gray-0));
+    font-variant-numeric: tabular-nums;
+    pointer-events: none;
+    translate: calc(var(--x) * 1px) calc(var(--y) * 1px);
+    z-index: 100000;
+
+    &::after {
+        position: absolute;
+        display: block;
+        top: var(--arrowY);
+        left: var(--arrowX);
+        height: 9px;
+        width: 9px;
+        content: '';
+        background: inherit;
+        border-radius: 0 0 3px 0;
+        clip-path: polygon(100% 100%, 99% 0%, 0% 99%);
+        rotate: var(--arrowAngle);
+        transform-origin: center;
+        translate: -50% -50%;
+    }
+}
+
+.tooltipAbove {
+    composes: tooltip;
+
+    transform-origin: bottom center;
+}
+
+.tooltipBelow {
+    composes: tooltip;
+
+    transform-origin: top center;
+}
+
+.tooltipEnd {
+    composes: tooltip;
+
+    transform-origin: center left;
+}
+
+.tooltipStart {
+    composes: tooltip;
+
+    transform-origin: center right;
+}

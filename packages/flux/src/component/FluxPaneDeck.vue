@@ -1,41 +1,22 @@
 <template>
-    <FluxPane class="flux-pane-deck">
+    <div :class="styles.paneDeck">
         <FluxAutoGrid
             :gap="0"
             :min-column-width="minColumnWidth">
             <slot/>
         </FluxAutoGrid>
-    </FluxPane>
+    </div>
 </template>
 
 <script
     lang="ts"
     setup>
     import FluxAutoGrid from './FluxAutoGrid.vue';
-    import FluxPane from './FluxPane.vue';
+    import styles from '@/css/component/Pane.module.scss';
 
-    export interface Props {
+    export type Props = {
         readonly minColumnWidth: number;
-    }
+    };
 
     defineProps<Props>();
 </script>
-
-<style lang="scss">
-    .flux-pane-deck {
-        overflow: hidden;
-
-        > .flux-auto-grid {
-            margin-right: -1px;
-            margin-bottom: -1px;
-
-            > .flux-pane {
-                border: 1px solid rgb(var(--gray-3));
-                border-top: 0;
-                border-left: 0;
-                border-radius: 0;
-                box-shadow: none;
-            }
-        }
-    }
-</style>

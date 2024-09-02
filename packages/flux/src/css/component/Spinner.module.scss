@@ -1,0 +1,35 @@
+.spinner {
+    --track: rgb(var(--gray-4));
+    --value: rgb(var(--primary-7));
+
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    flex: 0 0 1em;
+    animation: spinner 5s linear infinite;
+}
+
+.spinnerTrack {
+    stroke: var(--track);
+}
+
+.spinnerEffect,
+.spinnerValue {
+    stroke: var(--value);
+    transform-origin: center;
+    animation: spinner 1.2s var(--swift-out) infinite;
+}
+
+.spinnerEffect {
+    opacity: .25;
+    animation-delay: -1.05s;
+}
+
+@keyframes spinner {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(1turn);
+    }
+}

@@ -1,0 +1,84 @@
+.focalPointImage {
+    object-fit: cover;
+}
+
+.focalPointEditor {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 210px;
+    max-width: 100%;
+    aspect-ratio: var(--aspect-ratio);
+    user-select: none;
+}
+
+.focalPointEditorArea {
+    position: absolute;
+    height: 42px;
+    width: 42px;
+    background: rgb(0 0 0 / .1);
+    border: 4px solid white;
+    border-radius: 99px;
+    box-shadow: var(--shadow-md);
+    cursor: move;
+    transform: translate3d(-50%, -50%, 0);
+}
+
+.focalPointEditorImage {
+    position: relative;
+    display: block;
+    height: 100%;
+    width: 100%;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    pointer-events: none;
+}
+
+.focalPointPreview {
+    position: relative;
+    height: 210px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.focalPointPreviewImage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: -50%;
+    bottom: -50%;
+    max-height: 210px;
+    max-width: 100%;
+    background-size: cover;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    transform: translate3d(-50%, -50%, 0);
+    animation: focalPointPreview 6s var(--swift-out) infinite;
+}
+
+@keyframes focalPointPreview {
+    0% {
+        aspect-ratio: var(--aspect-ratio);
+    }
+
+    20% {
+        aspect-ratio: 1;
+    }
+
+    40% {
+        aspect-ratio: 16 / 9;
+    }
+
+    60% {
+        aspect-ratio: 3 / 4;
+    }
+
+    80% {
+        aspect-ratio: 3 / 1;
+    }
+
+    100% {
+        aspect-ratio: var(--aspect-ratio);
+    }
+}

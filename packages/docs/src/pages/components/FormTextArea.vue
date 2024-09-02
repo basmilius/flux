@@ -79,5 +79,5 @@
     lang="ts"
     setup>
     import { FluxFormTextArea, FluxPane, FluxPaneBody, FluxStack } from '@basmilius/flux';
-    import { ApiComponent, ApiSection, PageTitle, Preview } from '@docs/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
 </script>

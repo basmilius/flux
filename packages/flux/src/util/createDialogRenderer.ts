@@ -6,9 +6,10 @@ import flattenVNodeTree from './flattenVNodeTree';
 type Emit = SetupContext<['close']>['emit'];
 type Props = {
     readonly isCloseable?: boolean;
+    readonly viewKey?: string;
 };
 
-export default function (attrs: object, props: Props, emit: Emit, slots: Slots, className: string | (() => string), transition: Component, to: string = 'body'): RenderFunction {
+export default function (attrs: object, props: Props, emit: Emit, slots: Slots, className: string, transition: Component, to: string = 'body'): RenderFunction {
     let unregister: Function | null = null;
     let zIndex = 0;
 
@@ -45,7 +46,8 @@ export default function (attrs: object, props: Props, emit: Emit, slots: Slots, 
             }
 
             content.push(h('div', {
-                class: typeof className === 'function' ? className() : className,
+                key: props.viewKey,
+                class: className,
                 style: {zIndex}
             }, children));
         } else {

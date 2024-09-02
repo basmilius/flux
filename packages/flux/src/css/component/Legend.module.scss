@@ -1,0 +1,32 @@
+@value stackHorizontal, stackVertical from './Stack.module.scss';
+
+.legendHorizontal {
+    composes: stackHorizontal;
+
+    gap: 12px 21px;
+}
+
+.legendVertical {
+    composes: stackVertical;
+
+    gap: 12px;
+}
+
+.legendItem {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 6px;
+    font-size: 14px;
+    line-height: 1;
+
+    &::before {
+        display: block;
+        margin-top: 1px;
+        height: 12px;
+        width: 12px;
+        content: '';
+        flex: 0 0 12px;
+        background: var(--color);
+        border-radius: 99px;
+    }
+}

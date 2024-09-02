@@ -89,11 +89,11 @@
     lang="ts"
     setup>
     import { FluxNotice, FluxStack } from '@basmilius/flux';
-    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
-    import basic from '@docs/code/components/notice/basic.vue';
-    import basicCode from '@docs/code/components/notice/basic.vue?raw';
-    import small from '@docs/code/components/notice/small.vue';
-    import smallCode from '@docs/code/components/notice/small.vue?raw';
-    import loading from '@docs/code/components/notice/loading.vue';
-    import loadingCode from '@docs/code/components/notice/loading.vue?raw';
+    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
+    import basic from '@/code/components/notice/basic.vue';
+    import basicCode from '@/code/components/notice/basic.vue?raw';
+    import small from '@/code/components/notice/small.vue';
+    import smallCode from '@/code/components/notice/small.vue?raw';
+    import loading from '@/code/components/notice/loading.vue';
+    import loadingCode from '@/code/components/notice/loading.vue?raw';
 </script>

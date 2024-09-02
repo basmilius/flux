@@ -37,7 +37,8 @@
         font-size: 14px;
     }
 
-    a:not([class]) {
+    a:not([class]),
+    a[class=""] {
         color: rgb(var(--primary-7));
         text-decoration: underline;
         text-decoration-thickness: 1px;
@@ -78,15 +79,15 @@
         outline-offset: -1px;
     }
 
-    :where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, .flux-typography-aware) + :where(h1, h2, h3) {
+    :where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, [data-typography-aware]) + :where(h1, h2, h3) {
         margin-top: 33px;
     }
 
-    :where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, .flux-typography-aware) + :where(h4, h5, h6, p, ul, ol, li, blockquote, img) {
+    :where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, [data-typography-aware]) + :where(h4, h5, h6, p, ul, ol, li, blockquote, img) {
         margin-top: 12px;
     }
 
-    :where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, .flux-typography-aware) + :where(.flux-typography-aware) {
+    :where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, [data-typography-aware]) + :where([data-typography-aware]) {
         margin-top: 21px;
     }
 }

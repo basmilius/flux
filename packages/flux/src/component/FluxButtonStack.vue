@@ -12,11 +12,11 @@
     setup>
     import FluxStack from './FluxStack.vue';
 
-    export interface Props {
+    export type Props = {
         readonly axis?: 'horizontal' | 'vertical';
         readonly gap?: number;
         readonly isFill?: boolean;
-    }
+    };
 
     withDefaults(defineProps<Props>(), {
         axis: 'horizontal',

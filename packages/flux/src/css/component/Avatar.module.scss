@@ -1,0 +1,162 @@
+@use '@/css/mixin';
+
+@value flexColumn, flexRow from '@/css/component/base/Flex.module.scss';
+
+.avatar {
+    position: relative;
+    display: inline-flex;
+    height: 1em;
+    width: 1em;
+    flex: 0 0 1em;
+    border-radius: .5em;
+    user-select: none;
+}
+
+.avatarImage {
+    height: inherit;
+    width: inherit;
+    background: black;
+    border-radius: inherit;
+}
+
+.avatarFallback {
+    position: absolute;
+    display: flex;
+    inset: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: inherit;
+
+    .icon {
+        font-size: .5em;
+    }
+
+    :is(span) {
+        font-size: .4em;
+        font-weight: 500;
+        line-height: 1;
+    }
+}
+
+.avatarFallbackColorized {
+    composes: avatarFallback;
+
+    background: rgb(var(--color) / .2);
+    color: rgb(var(--color));
+}
+
+.avatarFallbackNeutral {
+    composes: avatarFallback;
+
+    background: rgb(var(--gray-4));
+    color: var(--foreground-secondary);
+}
+
+.avatarStatus {
+    position: absolute;
+    display: block;
+    right: 0.0238095238em;
+    bottom: 0.0238095238em;
+    height: 0.285714286em;
+    width: 0.285714286em;
+    background: black;
+    border-radius: 99px;
+}
+
+.avatarStatusGray {
+    composes: avatarStatus;
+
+    background: rgb(var(--gray-6));
+}
+
+.avatarStatusPrimary {
+    composes: avatarStatus;
+
+    background: rgb(var(--primary-7));
+}
+
+.avatarStatusDanger {
+    composes: avatarStatus;
+
+    background: rgb(var(--danger-7));
+}
+
+.avatarStatusInfo {
+    composes: avatarStatus;
+
+    background: rgb(var(--info-7));
+}
+
+.avatarStatusSuccess {
+    composes: avatarStatus;
+
+    background: rgb(var(--success-7));
+}
+
+.avatarStatusWarning {
+    composes: avatarStatus;
+
+    background: rgb(var(--warning-7));
+}
+
+.avatarClickable {
+    cursor: pointer;
+    transition: filter 150ms var(--swift-out);
+
+    @media (hover: hover) {
+        &:hover {
+            filter: brightness(110%);
+        }
+    }
+}
+
+.statusAvatar {
+    composes: avatar;
+}
+
+.statusAvatar .avatarFallback,
+.statusAvatar .avatarImage {
+    mask: url(@/image/avatar-mask.svg) no-repeat center center / cover;
+    -webkit-mask: url(@/image/avatar-mask.svg) no-repeat center center / cover;
+}
+
+.persona {
+    composes: flexRow;
+
+    padding: 6px;
+    align-items: center;
+    gap: 12px;
+    background: unset;
+    border: 0;
+    border-radius: var(--radius);
+    cursor: pointer;
+    text-align: left;
+    transition: 180ms var(--swift-out);
+    transition-property: background, mixin.focus-ring-transition-properties();
+
+    @include mixin.focus-ring(2px);
+
+    @media (hover: hover) {
+        &:hover {
+            background: rgb(var(--gray-3));
+        }
+    }
+}
+
+.personaDetails {
+    composes: flexColumn;
+
+    margin-right: 9px;
+    gap: 3px;
+    line-height: 1.2;
+
+    :is(strong) {
+        width: max-content;
+        color: var(--foreground-prominent);
+    }
+
+    :is(span) {
+        color: var(--foreground);
+        font-size: 14px;
+    }
+}

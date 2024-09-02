@@ -1,19 +1,16 @@
 <template>
     <div
-        class="flux-pane-illustration"
-        :class="{
-            'is-masked': isMasked
-        }"
+        :class="isMasked ? styles.paneIllustrationMasked : styles.paneIllustration"
         :style="{
             aspectRatio
         }">
         <div
-            class="flux-pane-illustration-magic"
+            :class="styles.paneIllustrationMagic"
             :style="{
                 border: `1px solid ${borderColor}`
             }">
             <FluxAnimatedColors
-                class="flux-gridlines flux-pane-illustration-canvas"
+                :class="styles.paneIllustrationCanvas"
                 :colors="animatedColors"
                 :opacity="props.animatedOpacity"
                 :seed="animatedSeed"/>
@@ -21,13 +18,13 @@
 
         <div
             v-if="slots.controlled"
-            class="flux-pane-illustration-content is-controlled">
+            :class="styles.paneIllustrationContentControlled">
             <slot name="controlled"/>
         </div>
 
         <div
             v-if="slots.default"
-            class="flux-pane-illustration-content">
+            :class="styles.paneIllustrationContent">
             <slot/>
         </div>
     </div>
@@ -39,14 +36,15 @@
     import { computed, toRefs, unref, useSlots } from 'vue';
     import { hexToRGB } from '@/util';
     import FluxAnimatedColors from './FluxAnimatedColors.vue';
+    import styles from '@/css/component/Pane.module.scss';
 
-    export interface Props {
+    export type Props = {
         readonly animatedColors: string[] | null;
         readonly animatedOpacity?: number;
         readonly animatedSeed?: number | null;
         readonly aspectRatio?: number;
         readonly isMasked?: boolean;
-    }
+    };
 
     const props = withDefaults(defineProps<Props>(), {
         animatedColors: null,
@@ -70,61 +68,3 @@
         return `rgb(${r} ${g} ${b} / .15)`;
     });
 </script>
-
-<style lang="scss">
-    @use '../css/mixin' as flux;
-
-    .flux-pane-illustration {
-        --mask: linear-gradient(to bottom, black, transparent);
-        --mask-content: linear-gradient(to bottom, black, rgb(0 0 0 / .75), transparent);
-
-        position: relative;
-        border-radius: calc(var(--radius) - 1px);
-
-        &:not(:first-child) {
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
-        }
-
-        &:not(:last-child) {
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-        }
-
-        &-content {
-            position: relative;
-            display: flex;
-            height: 100%;
-            align-items: center;
-            justify-content: center;
-
-            &.is-controlled {
-                overflow: hidden;
-
-                -webkit-mask-image: var(--mask-content);
-                mask-image: var(--mask-content);
-            }
-        }
-
-        &-magic {
-            position: absolute;
-            inset: -1px;
-            border-radius: inherit;
-        }
-
-        &-canvas {
-            --grid: linear-gradient(to bottom, rgb(0 0 0 / .48) calc(100% - 1px), black calc(100% - 1px)), linear-gradient(to right, rgb(0 0 0 / .48) calc(100% - 1px), black calc(100% - 1px));
-            --size: 30px;
-        }
-
-        &.is-masked &-magic {
-            -webkit-mask-image: var(--mask);
-            mask-image: var(--mask);
-        }
-
-        + :where(.flux-pane-body, .flux-pane-header) {
-            position: relative;
-            margin-top: -60px;
-        }
-    }
-</style>

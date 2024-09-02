@@ -1,0 +1,82 @@
+@value basePaneStructure from '@/css/component/base/Pane.module.scss';
+
+.filter {
+    --background: rgb(var(--gray-0));
+
+    max-height: 50dvh;
+    max-width: 100%;
+    padding: 9px;
+    width: 330px;
+    overflow: auto;
+    scrollbar-width: none;
+    transition: height 150ms var(--deceleration-curve);
+    z-index: 0;
+
+    &::-webkit-scrollbar {
+        display: none;
+        height: 0;
+        width: 0;
+    }
+
+    .menu {
+        > :where(.divider, .separator) {
+            margin: 3px -9px;
+        }
+
+        > .menuGroup > .menuSubHeader {
+            top: 51px;
+        }
+
+        > .menuGroup:has(.filterSearch) > .menuSubHeader {
+            top: 105px;
+        }
+
+        .menuItemLabel {
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    .paneBody {
+        margin: -9px;
+    }
+}
+
+.filterHeader {
+    position: sticky;
+    margin: -9px -9px 3px;
+    padding: 9px;
+    top: -9px;
+    background: var(--background);
+    border-bottom: 1px solid rgb(var(--gray-3));
+    z-index: 2;
+
+    &:first-child {
+        border-top-left-radius: var(--radius);
+        border-top-right-radius: var(--radius);
+    }
+}
+
+.filterBack {
+    flex-grow: 1;
+}
+
+.filterReset {
+    width: 42px;
+    justify-content: center;
+}
+
+.filterDatePicker {
+    margin: -9px;
+}
+
+.filterSearch {
+    position: sticky;
+    top: 52px;
+    margin: -9px -9px 0;
+    padding: 9px;
+    background: linear-gradient(to bottom, var(--background) 75%, transparent);
+    z-index: 1;
+}

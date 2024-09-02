@@ -1,5 +1,5 @@
 <template>
-    <div class="flux-form-input flux-form-input-addition">
+    <div :class="styles.formInputAddition">
         <FluxIcon
             v-if="icon"
             :size="18"
@@ -18,24 +18,12 @@
     setup>
     import type { IconNames } from '@/data';
     import FluxIcon from './FluxIcon.vue';
+    import styles from '@/css/component/Form.module.scss';
 
-    export interface Props {
+    export type Props = {
         readonly icon?: IconNames;
         readonly text?: string;
-    }
+    };
 
     defineProps<Props>();
 </script>
-
-<style lang="scss">
-    .flux-form-input-addition {
-        display: flex;
-        width: unset;
-        align-items: center;
-        flex-grow: 0;
-        justify-content: center;
-        background: rgb(var(--gray-1));
-        color: var(--foreground-secondary);
-        pointer-events: none;
-    }
-</style>

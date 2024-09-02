@@ -11,45 +11,47 @@
                     title="Questions?"/>
 
                 <FluxPaneBody>
-                    <FluxFormColumn>
-                        <FluxFormRow>
-                            <FluxFormField label="First name">
+                    <FluxForm>
+                        <FluxFormColumn>
+                            <FluxFormRow>
+                                <FluxFormField label="First name">
+                                    <FluxFormInput
+                                        auto-complete="given_name"
+                                        placeholder="E.g. Bas"/>
+                                </FluxFormField>
+
+                                <FluxFormField label="Last name">
+                                    <FluxFormInput
+                                        auto-complete="family_name"
+                                        placeholder="E.g. Milius"/>
+                                </FluxFormField>
+                            </FluxFormRow>
+
+                            <FluxFormField label="Email">
                                 <FluxFormInput
-                                    auto-complete="given_name"
-                                    placeholder="E.g. Bas"/>
+                                    auto-complete="email"
+                                    placeholder="E.g. bas@tibbaa.com"
+                                    type="email"/>
                             </FluxFormField>
 
-                            <FluxFormField label="Last name">
-                                <FluxFormInput
-                                    auto-complete="family_name"
-                                    placeholder="E.g. Milius"/>
+                            <FluxFormField label="Question">
+                                <FluxFormTextArea
+                                    auto-complete="email"
+                                    placeholder="E.g. What does API mean in the Medium ticketing package?"/>
                             </FluxFormField>
-                        </FluxFormRow>
 
-                        <FluxFormField label="Email">
-                            <FluxFormInput
-                                auto-complete="email"
-                                placeholder="E.g. bas@tibbaa.com"
-                                type="email"/>
-                        </FluxFormField>
+                            <FluxFormField label="Phone number">
+                                <FluxFormInputGroup>
+                                    <FluxFormInputAddition icon="phone"/>
 
-                        <FluxFormField label="Question">
-                            <FluxFormTextArea
-                                auto-complete="email"
-                                placeholder="E.g. What does API mean in the Medium ticketing package?"/>
-                        </FluxFormField>
-
-                        <FluxFormField label="Phone number">
-                            <FluxFormInputGroup>
-                                <FluxFormInputAddition icon="phone"/>
-
-                                <FluxFormInput
-                                    auto-complete="phone_number"
-                                    placeholder="E.g. +31 6 12345678"
-                                    type="tel"/>
-                            </FluxFormInputGroup>
-                        </FluxFormField>
-                    </FluxFormColumn>
+                                    <FluxFormInput
+                                        auto-complete="phone_number"
+                                        placeholder="E.g. +31 6 12345678"
+                                        type="tel"/>
+                                </FluxFormInputGroup>
+                            </FluxFormField>
+                        </FluxFormColumn>
+                    </FluxForm>
                 </FluxPaneBody>
 
                 <FluxPaneFooter>
@@ -76,6 +78,10 @@
         <ApiSection title="API">
             <ApiComponents>
                 <tr>
+                    <td><code>FluxForm</code></td>
+                    <td>Indicates a form.</td>
+                </tr>
+                <tr>
                     <td><code>FluxFormColumn</code></td>
                     <td>Displays form components in a column.</td>
                 </tr>
@@ -90,6 +96,10 @@
                 <tr>
                     <td><code>FluxFormInputGroup</code></td>
                     <td>A group that can combine buttons and other additions with inputs.</td>
+                </tr>
+                <tr>
+                    <td><code>FluxFormSection</code></td>
+                    <td>A section within a form, that can have a title.</td>
                 </tr>
             </ApiComponents>
 
@@ -139,6 +149,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxFormColumn, FluxFormField, FluxFormInput, FluxFormInputAddition, FluxFormInputGroup, FluxFormRow, FluxFormTextArea, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStack } from '@basmilius/flux';
-    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@docs/components';
+    import { FluxForm, FluxFormColumn, FluxFormField, FluxFormInput, FluxFormInputAddition, FluxFormInputGroup, FluxFormRow, FluxFormTextArea, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStack } from '@basmilius/flux';
+    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@/components';
 </script>

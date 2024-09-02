@@ -1,7 +1,7 @@
 <template>
     <div
         ref="faderRef"
-        class="flux-fader">
+        :class="styles.fader">
         <slot v-bind="{current, next, previous}"/>
     </div>
 </template>
@@ -11,14 +11,15 @@
     setup>
     import { computed, ref, toRefs, unref, watch } from 'vue';
     import { useInterval } from '@/composable';
+    import styles from '@/css/component/Fader.module.scss';
 
-    export interface Emits {
-        (e: 'update', index: number): void;
-    }
+    export type Emits = {
+        update: [number];
+    };
 
-    export interface Props {
+    export type Props = {
         readonly interval?: number;
-    }
+    };
 
     const emit = defineEmits<Emits>();
     const props = withDefaults(defineProps<Props>(), {
@@ -51,17 +52,7 @@
             return;
         }
 
-        Array.from(fader.children).forEach(item => item.classList.remove('is-current'));
-        fader.children[current].classList.add('is-current');
+        Array.from(fader.children).forEach(item => item.classList.remove(styles.isCurrent));
+        fader.children[current].classList.add(styles.isCurrent);
     }, {immediate: true});
 </script>
-
-<style lang="scss">
-    .flux-fader {
-        position: relative;
-        background: black;
-        border-radius: var(--radius);
-        overflow: hidden;
-        z-index: 0;
-    }
-</style>

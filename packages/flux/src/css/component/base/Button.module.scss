@@ -1,0 +1,82 @@
+@use '@/css/mixin';
+
+@layer flux-base {
+    .button {
+        display: inline-flex;
+        height: 42px;
+        padding: 0 12px;
+        align-items: center;
+        flex-shrink: 0;
+        gap: 12px;
+        justify-content: center;
+        background: unset;
+        border: 1px solid;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-px);
+        cursor: pointer;
+        font: inherit;
+        text-decoration: none;
+        transition: 180ms var(--swift-out);
+        transition-property: background, box-shadow, color, mixin.focus-ring-transition-properties();
+        user-select: none;
+
+        @include mixin.focus-ring(2px);
+
+        &:active {
+            box-shadow: none;
+        }
+
+        &:focus-visible {
+            z-index: 1;
+        }
+
+        &:disabled,
+        &[aria-disabled=true] {
+            box-shadow: none;
+            opacity: .5;
+            pointer-events: none;
+        }
+
+        &.isSmall {
+            height: 36px;
+            padding: 0 9px;
+        }
+
+        &.isMedium {
+            height: 42px;
+            padding: 0 12px;
+        }
+
+        &.isLarge {
+            height: 48px;
+            padding: 0 15px;
+        }
+
+        &.isXl {
+            height: 54px;
+            padding: 0 18px;
+        }
+    }
+
+    .buttonIcon {
+        flex-shrink: 0;
+        font-size: 20px;
+
+        &:only-child {
+            margin-left: -2px;
+            margin-right: -2px;
+        }
+    }
+
+    .buttonLabel {
+        display: inline-block;
+        font-weight: 500;
+        text-align: center;
+
+        &:only-child {
+            margin-left: 6px;
+            margin-right: 6px;
+            min-width: 42px;
+        }
+    }
+}

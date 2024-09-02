@@ -1,6 +1,7 @@
 <template>
     <HighCode
-        class="highlighted-code flux-typography-aware"
+        data-typography-aware
+        :class="$style.highlightedCode"
         height="auto"
         width="100%"
         border-radius="9px"
@@ -23,32 +24,23 @@
     defineProps<Props>();
 </script>
 
-<style lang="scss">
-    code {
-        font-family: jetbrains-mono, monospace;
-    }
-
-    .code.highlighted-code {
+<style
+    lang="scss"
+    module>
+    .highlightedCode {
         margin-top: 6px;
         margin-bottom: 6px;
         border: 1px solid rgb(var(--gray-3));
 
         &,
-        & .hljs {
+        & :global(.hljs) {
             background: rgb(var(--gray-2)) !important;
             font-family: jetbrains-mono, monospace !important;
             font-variant-ligatures: none;
         }
 
-        .code_area {
-            padding: 9px 15px;
-        }
-
-        .code_header {
-            display: none;
-        }
-
         code {
+            font-family: jetbrains-mono, monospace;
             line-height: 1.7 !important;
         }
 
@@ -56,80 +48,90 @@
             overflow: auto !important;
         }
 
-        @at-root .flux-pane & {
-            border: 0;
-            border-radius: 0;
-
-            &,
-            & .hljs {
-                background: transparent !important;
-            }
-
-            .code_area {
-                padding: 0;
-            }
+        :global(.code_area) {
+            padding: 9px 15px;
         }
 
-        .hljs {
-            &-attr,
-            &-attribute,
-            &-number {
-                color: #174ad4;
-            }
+        :global(.code_header) {
+            display: none;
+        }
+    }
 
-            &-built_in,
-            &-keyword {
-                color: #0132b2;
-            }
+    .pane .highlightedCode {
+        border: 0;
+        border-radius: 0;
 
-            &-meta,
-            &-name,
-            &-selector-class,
-            &-selector-tag {
-                color: #0033b3;
-            }
-
-            &-string {
-                color: #067d18;
-            }
-
-            &-template-variable,
-            &-title,
-            &-variable {
-                color: #830091;
-            }
+        &,
+        & :global(.hljs) {
+            background: transparent !important;
         }
 
-        @at-root [dark] & .hljs {
+        :global(.code_area) {
+            padding: 0;
+        }
+    }
+
+    .highlightedCode {
+        :global(.hljs-attr),
+        :global(.hljs-attribute),
+        :global(.hljs-number) {
+            color: #174ad4;
+        }
+
+        :global(.hljs-built_in),
+        :global(.hljs-keyword) {
+            color: #0132b2;
+        }
+
+        :global(.hljs-meta),
+        :global(.hljs-name),
+        :global(.hljs-selector-class),
+        :global(.hljs-selector-tag) {
+            color: #0033b3;
+        }
+
+        :global(.hljs-string) {
+            color: #067d18;
+        }
+
+        :global(.hljs-template-variable),
+        :global(.hljs-title),
+        :global(.hljs-variable) {
+            color: #830091;
+        }
+    }
+
+    [dark] .highlightedCode {
+        :global(.hljs) {
             color: var(--foreground);
+        }
 
-            &-attr,
-            &-attribute,
-            &-number {
-                color: #51c0cf;
-            }
+        :global(.hljs-attr),
+        :global(.hljs-attribute),
+        :global(.hljs-number) {
+            color: #51c0cf;
+        }
 
-            &-built_in,
-            &-keyword {
-                color: #d69a6b;
-            }
+        :global(.hljs-built_in),
+        :global(.hljs-keyword) {
+            color: #d69a6b;
+        }
 
-            &-meta,
-            &-name,
-            &-selector-class,
-            &-selector-tag {
-                color: #2fbaa3;
-            }
+        :global(.hljs-meta),
+        :global(.hljs-name),
+        :global(.hljs-selector-class),
+        :global(.hljs-selector-tag) {
+            color: #2fbaa3;
+        }
 
-            &-string {
-                color: #6cab74;
-            }
+        :global(.hljs-string) {
+            color: #6cab74;
+        }
 
-            &-template-variable,
-            &-title,
-            &-variable {
-                color: #cf84cf;
-            }
+        :global(.hljs-template-variable),
+        :global(.hljs-title),
+        :global(.hljs-variable) {
+            color: #cf84cf;
         }
     }
 </style>

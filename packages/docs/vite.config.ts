@@ -1,6 +1,8 @@
+import { createHash } from 'crypto';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import generateClassName from 'css-class-generator';
 
 export default defineConfig(({mode}) => ({
     build: {
@@ -12,17 +14,34 @@ export default defineConfig(({mode}) => ({
             }
         }
     },
+    css: {
+        preprocessorMaxWorkers: true,
+        preprocessorOptions: {
+            scss: {
+                api: 'modern-compiler'
+            }
+        },
+        modules: {
+            localsConvention: 'camelCaseOnly',
+            generateScopedName(name: string): string {
+                if (name.startsWith('i__const_')) {
+                    name = name.substring(9);
+                    name = name.substring(0, name.length - 2);
+                }
+
+                const hash = createHash('sha1')
+                    .update(name)
+                    .digest('hex')
+                    .substring(0, 5);
+
+                return generateClassName(parseInt(hash, 16));
+            }
+        }
+    },
     plugins: [vue()],
     resolve: {
         alias: {
-            '@docs': resolve(__dirname, 'src/'),
-            '@': resolve(__dirname, '../flux/src/'),
-            ...(mode === 'development'
-                ? {
-                    '@basmilius/flux/style.css': resolve(__dirname, '../flux/src/css/index.scss'),
-                    '@basmilius/flux': resolve(__dirname, '../flux/src/index.ts')
-                }
-                : {})
+            '@': resolve(__dirname, 'src/')
         }
     },
     server: {

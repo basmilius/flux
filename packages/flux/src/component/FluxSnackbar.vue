@@ -1,38 +1,39 @@
 <template>
     <div
         v-if="isRendered"
-        class="flux-surface flux-snackbar"
-        :class="{
-            [`is-${color}`]: !!color
-        }">
-        <div class="flux-snackbar-content">
+        :class="clsx(
+            color === 'gray' && styles.snackbarGray,
+            color === 'primary' && styles.snackbarPrimary,
+            color === 'danger' && styles.snackbarDanger,
+            color === 'info' && styles.snackbarInfo,
+            color === 'success' && styles.snackbarSuccess,
+            color === 'warning' && styles.snackbarWarning
+        )">
+        <div :class="styles.snackbarContent">
             <FluxSpinner
                 v-if="isLoading"
-                class="flux-snackbar-spinner"
                 :size="18"/>
 
             <FluxIcon
                 v-else-if="icon"
-                class="flux-snackbar-icon"
                 :size="18"
                 :variant="icon"/>
 
-            <div class="flux-snackbar-body">
+            <div :class="styles.snackbarBody">
                 <div
                     v-if="title"
-                    class="flux-snackbar-title">
+                    :class="styles.snackbarTitle">
                     {{ title }}
                 </div>
 
                 <div
                     v-if="message"
-                    class="flux-snackbar-message">
+                    :class="styles.snackbarMessage">
                     {{ message }}
                 </div>
 
                 <FluxProgressBar
                     v-if="progressIndeterminate || progressValue"
-                    class="flux-snackbar-progress-bar"
                     :is-indeterminate="progressIndeterminate"
                     :max="progressMax"
                     :min="progressMin"
@@ -41,7 +42,7 @@
 
                 <div
                     v-if="subMessage"
-                    class="flux-snackbar-sub-message">
+                    :class="styles.snackbarSubMessage">
                     {{ subMessage }}
                 </div>
             </div>
@@ -49,11 +50,11 @@
 
         <div
             v-if="hasActions"
-            class="flux-snackbar-actions">
+            :class="styles.snackbarActions">
             <button
                 v-for="(actionLabel, actionKey) of actions"
                 :key="actionKey"
-                class="flux-snackbar-action"
+                :class="styles.snackbarAction"
                 tabindex="-1"
                 type="button"
                 @click="onAction(actionKey)">
@@ -71,6 +72,7 @@
 <script
     lang="ts"
     setup>
+    import { clsx } from 'clsx';
     import { computed, onBeforeUnmount, ref, toRefs, watch } from 'vue';
     import type { FluxSnackbarSpec, IconNames } from '@/data';
     import { addSnackbar, removeSnackbar, updateSnackbar } from '@/data';
@@ -79,16 +81,16 @@
     import FluxIcon from './FluxIcon.vue';
     import FluxProgressBar from './FluxProgressBar.vue';
     import FluxSpinner from './FluxSpinner.vue';
+    import styles from '@/css/component/Snackbar.module.scss';
 
-    export interface Emits {
-        (e: 'action', actionKey: string): void;
+    export type Emits = {
+        action: [string];
+        close: [];
+    };
 
-        (e: 'close'): void;
-    }
-
-    export interface Props {
+    export type Props = {
         readonly actions?: Record<string, string>;
-        readonly color?: 'primary' | 'danger' | 'info' | 'success' | 'warning';
+        readonly color?: 'gray' | 'primary' | 'danger' | 'info' | 'success' | 'warning';
         readonly icon?: IconNames;
         readonly isCloseable?: boolean;
         readonly isLoading?: boolean;
@@ -101,10 +103,12 @@
         readonly progressValue?: number;
         readonly subMessage?: string;
         readonly title?: string;
-    }
+    };
 
     const emit = defineEmits<Emits>();
-    const props = defineProps<Props>();
+    const props = withDefaults(defineProps<Props>(), {
+        color: 'gray'
+    });
     const propRefs = toRefs(props);
 
     const id = ref<number | null>(null);
@@ -149,143 +153,3 @@
         id.value = addSnackbar(spec);
     }, {immediate: true});
 </script>
-
-<style lang="scss">
-    @use '../css/mixin' as flux;
-
-    .flux-snackbar {
-        --snackbar-title: var(--foreground-prominent);
-
-        display: flex;
-        box-shadow: var(--shadow-lg);
-        overflow: hidden;
-
-        &-content {
-            display: flex;
-            padding: 15px 18px;
-            align-items: flex-start;
-            flex-grow: 1;
-            gap: 15px;
-        }
-
-        &-body {
-            display: flex;
-            align-self: stretch;
-            flex-flow: column;
-            flex-grow: 1;
-            gap: 3px;
-        }
-
-        &-action {
-            display: flex;
-            padding: 9px 15px;
-            min-width: 84px;
-            align-items: center;
-            justify-content: center;
-            flex-grow: 1;
-            background: rgb(var(--gray-0));
-            border: 0;
-            border-radius: 0;
-            color: var(--foreground);
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            outline: 0;
-            text-align: center;
-            transition: 180ms var(--swift-out);
-            transition-property: background, color;
-
-            &:hover {
-                background: rgb(var(--gray-1));
-                color: var(--foreground-prominent);
-            }
-
-            &:active {
-                background: rgb(var(--gray-2));
-            }
-
-            &:first-child {
-                color: var(--snackbar-title);
-            }
-        }
-
-        &-actions {
-            display: flex;
-            padding-left: 1px;
-            flex-flow: column;
-            gap: 1px;
-            background: rgb(var(--gray-3));
-        }
-
-        &-message {
-            color: var(--foreground);
-        }
-
-        &-progress-bar {
-            margin-top: 9px;
-
-            &:not(:last-child) {
-                margin-bottom: 6px;
-            }
-
-            .flux-progress-bar-track {
-                height: 6px;
-            }
-        }
-
-        &-sub-message {
-            color: var(--foreground-secondary);
-            font-size: 13px;
-        }
-
-        &-title {
-            color: var(--snackbar-title);
-            font-weight: 500;
-        }
-
-        &-icon,
-        &-spinner {
-            flex-shrink: 0;
-            translate: 0 3px;
-        }
-
-        &-icon {
-            color: var(--snackbar-title);
-        }
-
-        &.is-danger {
-            --snackbar-title: rgb(var(--danger-7));
-            --spinner-value: rgb(var(--danger-8));
-        }
-
-        &.is-info {
-            --snackbar-title: rgb(var(--info-7));
-            --spinner-value: rgb(var(--info-8));
-        }
-
-        &.is-primary {
-            --snackbar-title: rgb(var(--primary-7));
-            --spinner-value: rgb(var(--primary-8));
-        }
-
-        &.is-success {
-            --snackbar-title: rgb(var(--success-7));
-            --spinner-value: rgb(var(--success-8));
-        }
-
-        &.is-warning {
-            --snackbar-title: rgb(var(--warning-7));
-            --spinner-value: rgb(var(--warning-8));
-        }
-
-        .flux-action {
-            --button-background-active: rgb(0 0 0 / .1);
-            --button-background-hover: rgb(0 0 0 / .1);
-            --button-icon: var(--foreground-secondary);
-
-            margin-top: 12px;
-            margin-right: 12px;
-            margin-bottom: 12px;
-        }
-    }
-</style>

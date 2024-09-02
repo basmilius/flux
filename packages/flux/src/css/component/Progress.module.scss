@@ -1,0 +1,83 @@
+@value basePaneStructure from '@/css/component/base/Pane.module.scss';
+
+.progressBar {
+    position: relative;
+}
+
+.progressBarTrack {
+    position: relative;
+    height: 9px;
+    background: rgb(var(--gray-3));
+    border-radius: calc(var(--radius) / 2);
+    contain: paint;
+}
+
+.progressBarValue {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: inherit;
+    background: linear-gradient(to right, rgb(var(--primary-8)) 20%, rgb(var(--primary-6)), rgb(var(--primary-8)) 80%);
+    background-size: 150px 100%;
+    border-radius: inherit;
+    animation: progressBarValue 1s linear infinite;
+}
+
+.progressBarTrackIndeterminate {
+    composes: progressBarTrack;
+
+    .progressBarValue {
+        background: linear-gradient(to right, rgb(var(--primary-8)) 20%, rgb(var(--primary-6)), rgb(var(--primary-8)) 80%);
+        background-size: 90px 100%;
+        animation: progressBarIndeterminate 1s linear infinite;
+    }
+}
+
+.progressBarInfo {
+    display: flex;
+    gap: 21px;
+    justify-content: flex-end;
+    font-size: 14px;
+}
+
+.progressBarProgress {
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+}
+
+.progressBarStatus {
+    margin-right: auto;
+    color: var(--foreground-secondary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+:local(.basePaneStructure) > .progressBar:first-child {
+    margin: 9px 9px 0;
+}
+
+:local(.basePaneStructure) > .progressBar:last-child {
+    margin: 0 9px 9px;
+}
+
+@keyframes progressBarIndeterminate {
+    from {
+        background-position-x: 90px;
+    }
+
+    to {
+        background-position-x: -90px;
+    }
+}
+
+@keyframes progressBarValue {
+    from {
+        background-position-x: -150px;
+    }
+
+    to {
+        background-position-x: 150px;
+    }
+}

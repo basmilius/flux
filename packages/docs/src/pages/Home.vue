@@ -38,5 +38,5 @@
     lang="ts"
     setup>
     import { FluxStack } from '@basmilius/flux';
-    import { ApiSection, PageTitle } from '@docs/components';
+    import { ApiSection, PageTitle } from '@/components';
 </script>

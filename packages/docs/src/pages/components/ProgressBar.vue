@@ -92,15 +92,15 @@
     lang="ts"
     setup>
     import { FluxFormField, FluxPane, FluxPaneBody, FluxProgressBar, FluxStack } from '@basmilius/flux';
-    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
-    import basic from '@docs/code/components/progressBar/basic.vue';
-    import basicCode from '@docs/code/components/progressBar/basic.vue?raw';
-    import complete from '@docs/code/components/progressBar/complete.vue';
-    import completeCode from '@docs/code/components/progressBar/complete.vue?raw';
-    import indeterminate from '@docs/code/components/progressBar/indeterminate.vue';
-    import indeterminateCode from '@docs/code/components/progressBar/indeterminate.vue?raw';
-    import snackbar from '@docs/code/components/progressBar/snackbar.vue';
-    import snackbarCode from '@docs/code/components/progressBar/snackbar.vue?raw';
-    import status from '@docs/code/components/progressBar/status.vue';
-    import statusCode from '@docs/code/components/progressBar/status.vue?raw';
+    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
+    import basic from '@/code/components/progressBar/basic.vue';
+    import basicCode from '@/code/components/progressBar/basic.vue?raw';
+    import complete from '@/code/components/progressBar/complete.vue';
+    import completeCode from '@/code/components/progressBar/complete.vue?raw';
+    import indeterminate from '@/code/components/progressBar/indeterminate.vue';
+    import indeterminateCode from '@/code/components/progressBar/indeterminate.vue?raw';
+    import snackbar from '@/code/components/progressBar/snackbar.vue';
+    import snackbarCode from '@/code/components/progressBar/snackbar.vue?raw';
+    import status from '@/code/components/progressBar/status.vue';
+    import statusCode from '@/code/components/progressBar/status.vue?raw';
 </script>

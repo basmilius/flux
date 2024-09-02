@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flux-grid-column"
+        :class="styles.gridColumn"
         :style="{
             gridColumn: `span ${span}`
         }">
@@ -13,14 +13,15 @@
     setup>
     import { computed, toRefs, unref } from 'vue';
     import { useBreakpoints } from '@/composable';
+    import styles from '@/css/component/Grid.module.scss';
 
-    export interface Props {
+    export type Props = {
         readonly xs?: number;
         readonly sm?: number;
         readonly md?: number;
         readonly lg?: number;
         readonly xl?: number;
-    }
+    };
 
     const props = defineProps<Props>();
     const {xs, sm, md, lg, xl} = toRefs(props);
@@ -47,10 +48,3 @@
 
     const span = computed(() => unref(spans)[unref(breakpoint)]);
 </script>
-
-<style lang="scss">
-    .flux-grid-column {
-        display: grid;
-        grid-template-columns: 1fr;
-    }
-</style>

@@ -15,14 +15,11 @@ class HeightTransition {
             subtree: true
         });
 
-        this.#root.classList.add('flux-window');
-
         requestAnimationFrame(this.onMutation.bind(this));
     }
 
     unregister(): void {
         this.#observer.disconnect();
-        this.#root.classList.remove('flux-window');
     }
 
     onMutation(): void {

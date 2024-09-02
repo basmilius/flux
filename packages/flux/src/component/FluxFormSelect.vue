@@ -15,8 +15,8 @@
     lang="ts"
     setup>
     import { toRefs, unref } from 'vue';
-    import { FormSelectOption, FormSelectValue, useFormSelect } from '@/composable/private';
     import { SelectBase } from '@/component/primitive';
+    import { FormSelectOption, FormSelectValue, useFormSelect } from '@/composable/private';
 
     export type Props = {
         readonly isDisabled?: boolean;

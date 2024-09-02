@@ -83,12 +83,6 @@
                         type="route"/>
 
                     <FluxMenuItem
-                        :is-active="path === '/layout/predefined-grid'"
-                        label="Predefined grid"
-                        to="/layout/predefined-grid"
-                        type="route"/>
-
-                    <FluxMenuItem
                         :is-active="path === '/layout/spacer'"
                         label="Spacer"
                         to="/layout/spacer"
@@ -220,12 +214,6 @@
                         :is-active="path === '/components/fader'"
                         label="Fader"
                         to="/components/fader"
-                        type="route"/>
-
-                    <FluxMenuItem
-                        :is-active="path === '/components/feature-card'"
-                        label="Feature card"
-                        to="/components/feature-card"
                         type="route"/>
 
                     <FluxMenuItem
@@ -534,11 +522,12 @@
 <script
     lang="ts"
     setup>
-    import { FluxDocs, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxSecondaryButton, FluxSpacer, FluxSpinner, FluxBreakthroughTransition, useDebouncedRef } from '@basmilius/flux';
+    import { FluxBreakthroughTransition, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxSecondaryButton, FluxSpacer, FluxSpinner, useDebouncedRef } from '@basmilius/flux';
     import { computed, watch } from 'vue';
     import { useRoute } from 'vue-router';
-    import { ThemeToggle } from '@docs/components';
-    import { routerIsLoading } from '@docs/routes';
+    import { ThemeToggle } from '@/components';
+    import { routerIsLoading } from '@/routes';
+    import FluxDocs from '@/Layout.vue';
 
     const route = useRoute();
     const path = computed(() => route.path);
@@ -588,39 +577,5 @@
         font-family: proxima-soft, sans-serif;
         font-size: 17px;
         font-weight: 700;
-    }
-
-    .flux-menu {
-        &.docs-menu &-group + &-group {
-            margin-top: 30px;
-        }
-
-        &.docs-menu &-item {
-            min-height: 36px;
-            transition-property: all;
-
-            span {
-                font-size: 15px;
-            }
-
-            &.is-active {
-                background: transparent;
-                transform: translate3d(3px, 0, 0);
-
-                span {
-                    color: rgb(var(--primary-7));
-                }
-            }
-        }
-
-        &.docs-menu &-sub-header {
-            position: relative;
-            background: none;
-
-            span {
-                color: var(--foreground-prominent);
-                font-weight: 700;
-            }
-        }
     }
 </style>

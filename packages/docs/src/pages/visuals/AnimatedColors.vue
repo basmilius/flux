@@ -52,5 +52,5 @@
     lang="ts"
     setup>
     import { FluxAnimatedColors, FluxAspectRatio, FluxStack } from '@basmilius/flux';
-    import { ApiComponent, ApiSection, PageTitle, Preview } from '@docs/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
 </script>

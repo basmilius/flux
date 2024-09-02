@@ -1,0 +1,207 @@
+@value flexColumn, flexRow, flexGrow from '@/css/component/base/Flex.module.scss';
+@value baseAutoGrid from '@/css/component/base/Grid.module.scss';
+@value basePaneLoader, basePaneStructure from '@/css/component/base/Pane.module.scss';
+
+@layer flux-base {
+    .pane {
+        composes: basePaneStructure;
+
+        box-shadow: var(--shadow-sm);
+    }
+
+    .paneHeader {
+        composes: flexRow;
+
+        padding: 21px 21px 0;
+        gap: 15px;
+    }
+
+    .paneHeaderCaption {
+        composes: flexColumn;
+        composes: flexGrow;
+
+        line-height: 24px;
+
+        :is(strong) {
+            color: var(--foreground-prominent);
+            font-weight: 600;
+        }
+
+        :is(span) {
+            font-size: 14px;
+        }
+    }
+
+    .paneHeaderIcon {
+        margin-top: 2px;
+        color: rgb(var(--primary-7));
+    }
+
+    .paneBody {
+        padding: 21px;
+    }
+
+    .paneFooter {
+        display: flex;
+        padding: 21px;
+        gap: 9px;
+        background: rgb(var(--gray-1));
+        border-top: 1px solid rgb(var(--gray-3));
+    }
+
+    .pane > .paneFooter {
+        &:first-child {
+            border-radius: var(--radius) var(--radius) 0 0;
+        }
+
+        &:last-child {
+            border-radius: 0 0 var(--radius) var(--radius);
+        }
+
+        &:only-child {
+            border: 0;
+            border-radius: var(--radius);
+        }
+    }
+}
+
+.paneLoader {
+    composes: basePaneLoader;
+}
+
+.paneTag {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 6px 9px;
+    background: rgb(var(--gray-10));
+    border-radius: calc(var(--radius) / 2);
+    color: rgb(var(--gray-0));
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.pane > .pane {
+    box-shadow: none;
+}
+
+.paneMedia {
+    position: relative;
+    overflow: hidden;
+}
+
+.paneMediaInset {
+    composes: paneMedia;
+
+    margin: 21px;
+    border-radius: calc(var(--radius) / 2);
+
+    &:not(:first-child) {
+        margin-top: 0;
+    }
+
+    &:not(:last-child) {
+        margin-bottom: 0;
+    }
+}
+
+.paneMediaImage {
+    display: block;
+    height: auto;
+    width: 100%;
+    margin: 0;
+    aspect-ratio: 2 / 1;
+    object-fit: cover;
+    object-position: center;
+}
+
+.paneDeck {
+    composes: pane;
+
+    overflow: hidden;
+
+    > .baseAutoGrid {
+        margin-right: -1px;
+        margin-bottom: -1px;
+
+        > .pane {
+            border: 1px solid rgb(var(--gray-11) / .05);
+            border-top: 0;
+            border-left: 0;
+            border-radius: 0;
+        }
+    }
+}
+
+.paneGroup {
+    position: relative;
+}
+
+.paneGroup + .paneGroup {
+    border-top: 1px solid rgb(var(--gray-11) / .05);
+}
+
+.paneIllustration {
+    --mask: linear-gradient(to bottom, black, transparent);
+    --mask-content: linear-gradient(to bottom, black, rgb(0 0 0 / .75), transparent);
+
+    position: relative;
+    border-radius: calc(var(--radius) - 1px);
+
+    &:not(:first-child) {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    &:not(:last-child) {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+}
+
+.paneIllustrationCanvas {
+    composes: gridLines from './Visual.module.scss';
+
+    --grid: linear-gradient(to bottom, rgb(0 0 0 / .48) calc(100% - 1px), black calc(100% - 1px)), linear-gradient(to right, rgb(0 0 0 / .48) calc(100% - 1px), black calc(100% - 1px));
+    --size: 30px;
+}
+
+.paneIllustrationContent {
+    position: relative;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.paneIllustrationContentControlled {
+    composes: paneIllustrationContent;
+
+    overflow: hidden;
+
+    -webkit-mask-image: var(--mask-content);
+    mask-image: var(--mask-content);
+}
+
+.paneIllustrationMagic {
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+}
+
+.paneIllustrationMasked {
+    composes: paneIllustration;
+
+    .paneIllustrationMagic {
+        -webkit-mask-image: var(--mask);
+        mask-image: var(--mask);
+    }
+}
+
+.paneIllustration + :where(.paneBody, .paneHeader) {
+    position: relative;
+    margin-top: -60px;
+}

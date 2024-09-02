@@ -1,27 +1,26 @@
 <template>
     <div
-        class="flux-avatar"
-        :class="{
-            'is-clickable': isClickable,
-            'has-status': !!status
-        }"
+        :class="clsx(
+            !status && styles.avatar,
+            !!status && styles.statusAvatar,
+            isClickable && styles.avatarClickable
+        )"
         :style="{
             '--color': color,
             fontSize: `${size}px`
         }"
         :aria-label="alt"
         role="img"
-        @click="isClickable && $emit('click', $event)">
+        @click="onClick">
         <img
             v-if="url"
-            class="flux-avatar-image"
+            :class="styles.avatarImage"
             :alt="alt"
             :src="url"/>
 
         <div
             v-else
-            class="flux-avatar-fallback"
-            :class="`flux-avatar-${fallback}`">
+            :class="fallback === 'colorized' ? styles.avatarFallbackColorized : styles.avatarFallbackNeutral">
             <span v-if="fallbackInitials">
                 {{ fallbackInitials }}
             </span>
@@ -33,23 +32,33 @@
 
         <div
             v-if="status"
-            class="flux-avatar-status"
-            :class="`is-${status}`"/>
+            :class="STATUS_CLASS_MAP[status]"/>
     </div>
 </template>
 
 <script
     lang="ts"
     setup>
+    import { clsx } from 'clsx';
     import { computed, toRefs, unref } from 'vue';
     import type { IconNames } from '@/data';
+    import styles from '@/css/component/Avatar.module.scss';
     import FluxIcon from './FluxIcon.vue';
 
-    export interface Emits {
-        (e: 'click', evt: MouseEvent): void;
-    }
+    const STATUS_CLASS_MAP = {
+        gray: styles.avatarStatusGray,
+        primary: styles.avatarStatusPrimary,
+        danger: styles.avatarStatusDanger,
+        info: styles.avatarStatusInfo,
+        success: styles.avatarStatusSuccess,
+        warning: styles.avatarStatusWarning
+    } as const;
 
-    export interface Props {
+    export type Emits = {
+        click: [MouseEvent];
+    };
+
+    export type Props = {
         readonly alt?: string;
         readonly fallback?: 'colorized' | 'neutral';
         readonly fallbackIcon?: IconNames;
@@ -58,7 +67,7 @@
         readonly size?: number;
         readonly status?: 'gray' | 'primary' | 'danger' | 'info' | 'success' | 'warning';
         readonly url?: string;
-    }
+    };
 
     const colors = [
         '102 159 42',
@@ -84,14 +93,15 @@
         '234 170 8'
     ];
 
-    defineEmits<Emits>();
+    const emit = defineEmits<Emits>();
     const props = withDefaults(defineProps<Props>(), {
         fallback: 'colorized',
         fallbackIcon: 'user',
         size: 30
     });
-    const {fallbackIcon, fallbackInitials, size} = toRefs(props);
+    const {fallbackIcon, fallbackInitials, isClickable, size} = toRefs(props);
 
+    const color = computed(() => colors[unref(colorSeed) % colors.length]);
     const colorSeed = computed(() => {
         const icon = unref(fallbackIcon);
         const initials = unref(fallbackInitials);
@@ -110,103 +120,11 @@
         return seed;
     });
 
-    const color = computed(() => colors[unref(colorSeed) % colors.length]);
-</script>
-
-<style lang="scss">
-    .flux-avatar {
-        position: relative;
-        display: inline-flex;
-        height: 1em;
-        width: 1em;
-        flex: 0 0 auto;
-        border-radius: .5em;
-        user-select: none;
-
-        &-image {
-            height: inherit;
-            width: inherit;
-            background: black;
-            border-radius: inherit;
+    function onClick(evt: MouseEvent): void {
+        if (!unref(isClickable)) {
+            return;
         }
 
-        &-fallback {
-            position: absolute;
-            display: flex;
-            inset: 0;
-            align-items: center;
-            justify-content: center;
-            border-radius: inherit;
-
-            .flux-icon {
-                font-size: .5em;
-            }
-
-            span {
-                font-size: .4em;
-                font-weight: 500;
-                line-height: 1;
-            }
-        }
-
-        &-status {
-            position: absolute;
-            display: block;
-            right: 0.0238095238em;
-            bottom: 0.0238095238em;
-            height: 0.285714286em;
-            width: 0.285714286em;
-            background: black;
-            border-radius: 99px;
-
-            &.is-gray {
-                background: rgb(var(--gray-6));
-            }
-
-            &.is-primary {
-                background: rgb(var(--primary-7));
-            }
-
-            &.is-danger {
-                background: rgb(var(--danger-7));
-            }
-
-            &.is-info {
-                background: rgb(var(--info-7));
-            }
-
-            &.is-success {
-                background: rgb(var(--success-7));
-            }
-
-            &.is-warning {
-                background: rgb(var(--warning-7));
-            }
-        }
-
-        &-colorized {
-            background: rgb(var(--color) / .2);
-            color: rgb(var(--color));
-        }
-
-        &-neutral {
-            background: rgb(var(--gray-4));
-            color: var(--foreground-secondary);
-        }
-
-        &.is-clickable {
-            cursor: pointer;
-            transition: filter 150ms var(--swift-out);
-
-            &:hover {
-                filter: brightness(110%);
-            }
-        }
-
-        &.has-status &-fallback,
-        &.has-status &-image {
-            mask: url(@/image/avatar-mask.svg) no-repeat center center / cover;
-            -webkit-mask: url(@/image/avatar-mask.svg) no-repeat center center / cover;
-        }
+        emit('click', evt);
     }
-</style>
+</script>

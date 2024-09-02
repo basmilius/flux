@@ -1,6 +1,6 @@
 <template>
     <FluxStack
-        class="flux-pagination-bar"
+        :class="styles.paginationBar"
         :axis="breakpoints.lg ? 'horizontal' : 'vertical'">
         <FluxFormInputGroup>
             <FluxFormInputAddition>
@@ -52,19 +52,19 @@
     import FluxPagination from './FluxPagination.vue';
     import FluxSpacer from './FluxSpacer.vue';
     import FluxStack from './FluxStack.vue';
+    import styles from '@/css/component/Pagination.module.scss';
 
-    export interface Emits {
-        (e: 'limit', limit: number): void;
+    export type Emits = {
+        limit: [number];
+        navigate: [number];
+    };
 
-        (e: 'navigate', page: number): void;
-    }
-
-    export interface Props {
+    export type Props = {
         readonly limits?: number[];
         readonly page: number;
         readonly perPage: number;
         readonly total: number;
-    }
+    };
 
     const emit = defineEmits<Emits>();
     const props = withDefaults(defineProps<Props>(), {
@@ -86,25 +86,3 @@
 
     watch(perPage, perPage => limit.value = perPage, {immediate: true});
 </script>
-
-<style lang="scss">
-    .flux-pagination-bar {
-        align-items: center;
-
-        .flux-form-input-group {
-            max-width: max-content;
-        }
-
-        .flux-form-select {
-            width: 78px;
-        }
-
-        .flux-pagination .flux-button:first-child {
-            border-radius: 0;
-        }
-    }
-
-    .flux-pane-footer > .flux-pagination-bar {
-        flex-grow: 1;
-    }
-</style>

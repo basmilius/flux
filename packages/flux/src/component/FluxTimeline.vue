@@ -1,13 +1,13 @@
 <template>
-    <FluxStack
-        class="flux-timeline"
-        :gap="15">
+    <div
+        :class="styles.timeline"
+        role="feed">
         <slot/>
-    </FluxStack>
+    </div>
 </template>
 
 <script
     lang="ts"
     setup>
-    import FluxStack from './FluxStack.vue';
+    import styles from '@/css/component/Timeline.module.scss';
 </script>

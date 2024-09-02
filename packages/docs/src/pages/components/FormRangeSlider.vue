@@ -95,13 +95,13 @@
     setup>
     import { FluxFormRangeSlider, FluxPane, FluxPaneBody, FluxStack } from '@basmilius/flux';
     import { ref } from 'vue';
-    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
-    import basic from '@docs/code/components/formRangeSlider/basic.vue';
-    import basicCode from '@docs/code/components/formRangeSlider/basic.vue?raw';
-    import formatter from '@docs/code/components/formRangeSlider/formatter.vue';
-    import formatterCode from '@docs/code/components/formRangeSlider/formatter.vue?raw';
-    import ticks from '@docs/code/components/formRangeSlider/ticks.vue';
-    import ticksCode from '@docs/code/components/formRangeSlider/ticks.vue?raw';
+    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
+    import basic from '@/code/components/formRangeSlider/basic.vue';
+    import basicCode from '@/code/components/formRangeSlider/basic.vue?raw';
+    import formatter from '@/code/components/formRangeSlider/formatter.vue';
+    import formatterCode from '@/code/components/formRangeSlider/formatter.vue?raw';
+    import ticks from '@/code/components/formRangeSlider/ticks.vue';
+    import ticksCode from '@/code/components/formRangeSlider/ticks.vue?raw';
 
     const sliderValue = ref<[number, number]>([25, 75]);
 </script>

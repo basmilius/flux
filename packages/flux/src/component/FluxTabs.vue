@@ -1,9 +1,9 @@
 <template>
-    <div class="flux-tabs">
+    <div :class="styles.tabs">
         <slot
             name="tabs"
             v-bind="{activeIndex: modelValue, children, modelValue, tabs, activate}">
-            <FluxTabBar class="flux-tabs-bar">
+            <FluxTabBar :class="styles.tabsBar">
                 <template
                     v-for="(tab, index) of tabs"
                     :key="index">
@@ -38,6 +38,7 @@
     import { VNodeRenderer } from './primitive';
     import FluxTabBar from './FluxTabBar.vue';
     import FluxTabBarItem from './FluxTabBarItem.vue';
+    import styles from '@/css/component/Tab.module.scss';
 
     const modelValue = defineModel<number>({default: 0});
 
@@ -46,10 +47,13 @@
     const isTransitioningBack = ref(false);
 
     const children = computed(() => flattenVNodeTree(slots.default?.() ?? []));
-    const tabs = computed<{ icon?: IconNames; label?: string; }[]>(() => unref(children).map((child: VNode) => ({
-        icon: getComponentProps<any>(child).icon,
-        label: getComponentProps<any>(child).label
-    })));
+    const tabs = computed<{ icon?: IconNames; label?: string; }[]>(() => unref(children)
+        .filter((child: VNode) => getComponentProps<any>(child).icon || getComponentProps<any>(child).label)
+        .map((child: VNode) => ({
+            icon: getComponentProps<any>(child).icon,
+            label: getComponentProps<any>(child).label
+        }))
+    );
 
     function activate(index: number): void {
         modelValue.value = index;
@@ -59,19 +63,3 @@
         isTransitioningBack.value = newIndex < oldIndex;
     });
 </script>
-
-<style lang="scss">
-    .flux-tabs {
-        display: flex;
-        flex-flow: column;
-        overflow: visible;
-
-        &-bar {
-            margin-bottom: 18px;
-        }
-    }
-
-    .flux-pane > .flux-tabs > .flux-tabs-bar {
-        margin-bottom: 0;
-    }
-</style>

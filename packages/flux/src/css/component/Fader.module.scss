@@ -1,0 +1,37 @@
+.fader {
+    position: relative;
+    background: black;
+    border-radius: var(--radius);
+    overflow: hidden;
+    z-index: 0;
+}
+
+.faderItem {
+    position: absolute;
+    display: block;
+    inset: 0;
+    transition: 660ms var(--deceleration-curve);
+
+    &.isCurrent {}
+
+    &:not(.isCurrent) {
+        opacity: 0;
+        pointer-events: none;
+        scale: 1.05;
+        transition-delay: 90ms;
+        z-index: 1;
+    }
+
+    :is(img) {
+        position: absolute;
+        display: block;
+        inset: 0;
+        height: 100%;
+        width: 100%;
+
+        &:not(.focalPointImage) {
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+}

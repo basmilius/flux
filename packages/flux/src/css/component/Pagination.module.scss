@@ -1,0 +1,46 @@
+.pagination {
+    z-index: 0;
+
+    .button {
+        min-width: 40px;
+    }
+
+    .buttonLabel {
+        margin-left: 0;
+        margin-right: 0;
+        min-width: 18px;
+
+        &:nth-child(2) {
+            min-width: unset;
+        }
+    }
+
+    .primaryButton {
+        z-index: 1;
+    }
+}
+
+.paginationCurrent {
+    gap: 3px;
+    font-variant-numeric: tabular-nums;
+}
+
+.paginationBar {
+    align-items: center;
+
+    .formInputGroup {
+        max-width: max-content;
+    }
+
+    .formSelect {
+        width: 78px;
+    }
+
+    .pagination .button:first-child {
+        border-radius: 0;
+    }
+}
+
+.paneFooter > .paginationBar {
+    flex-grow: 1;
+}

@@ -30,6 +30,8 @@
             });
 
             function onHover(): void {
+                onLeave();
+
                 if ((props.content?.trim().length ?? 0) === 0 && !slots.content) {
                     return;
                 }

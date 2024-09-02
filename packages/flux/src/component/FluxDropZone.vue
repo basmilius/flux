@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flux-drop-zone"
+        :class="styles.dropZone"
         @dragleave.capture="onDragLeave"
         @dragover.capture="onDragEnter"
         @drop="onDrop">
@@ -26,8 +26,11 @@
         <FluxFadeTransition>
             <div
                 v-if="isDragging && !isDisabled"
-                class="flux-drop-zone-hint"
-                :class="{'is-over': isDraggingOver}"/>
+                :class="clsx(
+                    styles.dropZoneHint,
+                    isDraggingOver && styles.isOver
+                )"
+                role="presentation"/>
         </FluxFadeTransition>
     </div>
 </template>
@@ -35,17 +38,19 @@
 <script
     lang="ts"
     setup>
+    import { clsx } from 'clsx';
     import { onMounted, onUnmounted, ref, toRefs, unref } from 'vue';
     import type { IconNames } from '@/data';
     import { FluxFadeTransition } from '@/transition';
     import FluxPlaceholder from './FluxPlaceholder.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
+    import styles from '@/css/component/DropZone.module.scss';
 
-    export interface Emits {
-        (e: 'select', files: FileList): void;
-    }
+    export type Emits = {
+        select: [FileList];
+    };
 
-    export interface Props {
+    export type Props = {
         readonly accept?: string;
         readonly isDisabled?: boolean;
         readonly isEmpty?: boolean;
@@ -55,7 +60,7 @@
         readonly placeholderMessage?: string;
         readonly placeholderTitle?: string;
         readonly placeholderVariant?: 'extended' | 'simple' | 'small';
-    }
+    };
 
     const emit = defineEmits<Emits>();
     const props = withDefaults(defineProps<Props>(), {
@@ -145,29 +150,3 @@
     }
 </script>
 
-<style lang="scss">
-    .flux-drop-zone {
-        position: relative;
-
-        &-hint {
-            position: absolute;
-            inset: 0;
-            border-radius: var(--radius);
-            outline: 3px dotted rgb(var(--primary-7));
-            outline-offset: -2px;
-            animation: flux-drop-zone-hint 540ms infinite var(--deceleration-curve) alternate;
-            transition: background 300ms var(--swift-out);
-
-            &.is-over {
-                outline-style: solid;
-                animation: none;
-            }
-        }
-    }
-
-    @keyframes flux-drop-zone-hint {
-        to {
-            outline-offset: 3px;
-        }
-    }
-</style>

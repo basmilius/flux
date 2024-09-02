@@ -67,10 +67,6 @@
                         <td>Enables the loading state of the badge.</td>
                     </tr>
                     <tr>
-                        <td><code>is-tag</code><code>boolean</code></td>
-                        <td>Alternative design for a badge that looks more like a tag.</td>
-                    </tr>
-                    <tr>
                         <td><code>label</code><code>string</code></td>
                         <td>The label displayed within the badge.</td>
                     </tr>
@@ -113,12 +109,6 @@
                 :component="loading"
                 title="Loading"
                 description="Badges with a loading state can be used to indicate that a row within a table is doing something, such as saving a particular row."/>
-
-            <ApiExample
-                :code="tagCode"
-                :component="tag"
-                title="Tag"
-                description="Badges with the tag design can be useful within form inputs."/>
         </ApiSection>
     </FluxStack>
 </template>
@@ -127,15 +117,13 @@
     lang="ts"
     setup>
     import { FluxBadge, FluxBadgeStack, FluxStack } from '@basmilius/flux';
-    import { ApiComponent, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
-    import basic from '@docs/code/components/badge/basic.vue';
-    import basicCode from '@docs/code/components/badge/basic.vue?raw';
-    import dot from '@docs/code/components/badge/dot.vue';
-    import dotCode from '@docs/code/components/badge/dot.vue?raw';
-    import icon from '@docs/code/components/badge/icon.vue';
-    import iconCode from '@docs/code/components/badge/icon.vue?raw';
-    import loading from '@docs/code/components/badge/loading.vue';
-    import loadingCode from '@docs/code/components/badge/loading.vue?raw';
-    import tag from '@docs/code/components/badge/tag.vue';
-    import tagCode from '@docs/code/components/badge/tag.vue?raw';
+    import { ApiComponent, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
+    import basic from '@/code/components/badge/basic.vue';
+    import basicCode from '@/code/components/badge/basic.vue?raw';
+    import dot from '@/code/components/badge/dot.vue';
+    import dotCode from '@/code/components/badge/dot.vue?raw';
+    import icon from '@/code/components/badge/icon.vue';
+    import iconCode from '@/code/components/badge/icon.vue?raw';
+    import loading from '@/code/components/badge/loading.vue';
+    import loadingCode from '@/code/components/badge/loading.vue?raw';
 </script>

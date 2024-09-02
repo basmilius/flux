@@ -46,6 +46,6 @@
     lang="ts"
     setup>
     import { FluxStack } from '@basmilius/flux';
-    import { ApiSection, HighlightedCode, PageTitle } from '@docs/components';
-    import usageCode from '@docs/code/getting-started/component-usage.vue?raw';
+    import { ApiSection, HighlightedCode, PageTitle } from '@/components';
+    import usageCode from '@/code/getting-started/component-usage.vue?raw';
 </script>

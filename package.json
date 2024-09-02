@@ -2,11 +2,14 @@
     "name": "flux-workspace",
     "private": true,
     "scripts": {
-        "build": "pnpm run -C packages/flux build",
-        "dev": "pnpm run -C packages/flux dev",
+        "build": "pnpm --filter '@basmilius/*' -r build",
+        "dev": "pnpm --filter '@basmilius/*' -r --parallel dev",
+        "dev:base": "pnpm run -C packages/flux dev",
+        "dev:dashboard": "pnpm run -C packages/dashboard dev",
         "docs:build": "pnpm run -C packages/docs build",
         "docs:dev": "pnpm run -C packages/docs dev",
-        "link": "pnpm link --dir packages/flux --global",
+        "link:base": "pnpm link --dir packages/flux --global",
+        "link:dashboard": "pnpm link --dir packages/dashboard --global",
         "publish": "pnpm --filter '@basmilius/*' -r publish --access public --no-git-checks"
     },
     "engines": {
@@ -16,6 +19,11 @@
     "devDependencies": {
         "@types/lodash": "^4.17.7",
         "@types/luxon": "^3.4.2",
-        "@types/node": "^22.5.1"
+        "@types/node": "^22.5.1",
+        "@vue/language-server": "^2.1.2",
+        "minimist": "^1.2.8",
+        "tsc-alias": "^1.8.10",
+        "vue-docgen-web-types": "^0.1.8",
+        "vue-tsc": "^2.1.2"
     }
 }

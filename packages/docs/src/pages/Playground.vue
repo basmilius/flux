@@ -24,7 +24,7 @@
     lang="ts"
     setup>
     import { FluxStack } from '@basmilius/flux';
-    import { PageTitle, Preview } from '@docs/components';
+    import { PageTitle, Preview } from '@/components';
     import { computed } from 'vue';
 
     type Module = {
@@ -35,7 +35,7 @@
         readonly enabled: boolean;
     };
 
-    const availablePreviews: Record<string, Module> = import.meta.glob('@docs/code/playground/*.vue', {eager: true});
+    const availablePreviews: Record<string, Module> = import.meta.glob('@/code/playground/*.vue', {eager: true});
     const previews = computed(() => Object
         .values(availablePreviews)
         .filter(module => module.enabled)

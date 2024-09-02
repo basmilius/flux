@@ -1,0 +1,71 @@
+@value flexColumn from '@/css/component/base/Flex.module.scss';
+
+.placeholder {
+    composes: flexColumn;
+
+    position: relative;
+    align-items: center;
+    flex: 1 1 0;
+    justify-content: center;
+    background: rgb(var(--gray-2));
+    border: 1px dashed rgb(var(--gray-4));
+    border-radius: var(--radius);
+    text-align: center;
+    user-select: none;
+
+    &.isButton {
+        cursor: pointer;
+
+        @media (hover: hover) {
+            &:hover {
+                background: rgb(var(--gray-3));
+                border-color: rgb(var(--gray-5));
+            }
+        }
+    }
+
+    &.isExtended {
+        padding: 27px;
+        gap: 9px;
+
+        .placeholderIcon {
+            font-size: 24px;
+        }
+    }
+
+    &.isSimple {
+        padding: 18px;
+    }
+
+    &.isSmall {
+        padding: 12px;
+        font-size: 12px;
+
+        .placeholderCaption :is(strong) {
+            color: var(--foreground-secondary);
+            font-weight: 400;
+        }
+
+        .placeholderIcon {
+            color: var(--foreground-secondary);
+        }
+    }
+}
+
+.placeholderCaption {
+    display: flex;
+    align-items: stretch;
+    flex-flow: column;
+
+    :is(p) {
+        margin: 0;
+        max-width: 510px;
+        color: var(--foreground-secondary);
+        font-size: 14px;
+    }
+}
+
+.placeholderIcon {
+    color: rgb(var(--primary-7));
+    font-size: 20px;
+}

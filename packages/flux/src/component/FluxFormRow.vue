@@ -1,13 +1,11 @@
 <template>
-    <div class="flux-form-row">
+    <div :class="styles.formRow">
         <slot/>
     </div>
 </template>
 
-<style lang="scss">
-    .flux-form-row {
-        display: flex;
-        flex-grow: 1;
-        gap: 12px;
-    }
-</style>
+<script
+    lang="ts"
+    setup>
+    import styles from '@/css/component/Form.module.scss';
+</script>

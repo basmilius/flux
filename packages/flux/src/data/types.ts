@@ -35,7 +35,7 @@ export type FluxPromptSpec = FluxBaseAlertSpec & {
 export type FluxSnackbarSpec = {
     readonly id: number;
     readonly actions?: Record<string, string>;
-    readonly color?: 'primary' | 'danger' | 'info' | 'success' | 'warning';
+    readonly color?: 'gray' | 'primary' | 'danger' | 'info' | 'success' | 'warning';
     readonly icon?: IconNames;
     readonly isCloseable?: boolean;
     readonly isLoading?: boolean;
@@ -91,10 +91,13 @@ export type FluxRoutingLocationObject = {
     replace?: boolean;
 };
 
-export type FluxPercentageBarItemSpec = {
-    readonly color?: string;
-    readonly icon?: IconNames;
+export type FluxLegendSpec = {
+    readonly color: string;
     readonly label: string;
+}
+
+export type FluxPercentageBarItemSpec = FluxLegendSpec & {
+    readonly icon: IconNames;
     readonly value: number;
 };
 

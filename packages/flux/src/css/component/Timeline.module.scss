@@ -1,0 +1,175 @@
+@value flexColumn from '@/css/component/base/Flex.module.scss';
+
+.timeline {
+    composes: flexColumn;
+
+    gap: 15px;
+}
+
+.timelineItem {
+    position: relative;
+    display: grid;
+    gap: 21px;
+    grid-template-columns: 42px minmax(0, 1fr);
+}
+
+.timelineItemIcon,
+.timelineItemPhoto {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 99px;
+    outline: 6px solid rgb(var(--gray-0));
+}
+
+.timelineItemIcon {
+    margin: 3px;
+    height: 36px;
+    width: 36px;
+}
+
+.timelineItemPhoto {
+    height: 42px;
+    width: 42px;
+}
+
+.timelineItemPhotoIcon {
+    position: absolute;
+    display: flex;
+    right: -9px;
+    bottom: -9px;
+    height: 30px;
+    width: 30px;
+    align-items: center;
+    justify-content: center;
+    background: rgb(var(--gray-0));
+    border-radius: 99px;
+}
+
+.timelineItemPhotoImage {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: inherit;
+    object-fit: cover;
+    object-position: center;
+}
+
+.timelineItemBody {
+    position: relative;
+    align-self: center;
+    padding-top: 9px;
+    padding-bottom: 9px;
+}
+
+.timelineItemHeader {
+    display: flex;
+    margin-bottom: 9px;
+    flex-flow: column;
+
+    :is(strong) {
+        color: var(--foreground-prominent);
+    }
+
+    :is(span) {
+        color: var(--foreground-secondary);
+        font-size: 14px;
+    }
+}
+
+.timelineItemLine {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    height: 100%;
+    width: 2px;
+    background: rgb(var(--gray-3));
+}
+
+.timeline .timelineItem:last-of-type .timelineItemLine {
+    display: none;
+}
+
+.timelineItemGray {
+    composes: timelineItem;
+
+    .timelineItemIcon,
+    .timelineItemPhotoIcon {
+        color: var(--foreground-prominent);
+    }
+
+    .timelineItemIcon {
+        background: rgb(var(--gray-3));
+    }
+}
+
+.timelineItemPrimary {
+    composes: timelineItem;
+
+    .timelineItemIcon,
+    .timelineItemPhotoIcon {
+        color: rgb(var(--primary-7));
+    }
+
+    .timelineItemIcon {
+        background: rgb(var(--primary-2));
+    }
+}
+
+.timelineItemDanger {
+    composes: timelineItem;
+
+    .timelineItemIcon,
+    .timelineItemPhotoIcon {
+        color: rgb(var(--danger-7));
+    }
+
+    .timelineItemIcon {
+        background: rgb(var(--danger-2));
+    }
+}
+
+.timelineItemInfo {
+    composes: timelineItem;
+
+    .timelineItemIcon,
+    .timelineItemPhotoIcon {
+        color: rgb(var(--info-7));
+    }
+
+    .timelineItemIcon {
+        background: rgb(var(--info-2));
+    }
+}
+
+.timelineItemSuccess {
+    composes: timelineItem;
+
+    .timelineItemIcon,
+    .timelineItemPhotoIcon {
+        color: rgb(var(--success-7));
+    }
+
+    .timelineItemIcon {
+        background: rgb(var(--success-2));
+    }
+}
+
+.timelineItemWarning {
+    composes: timelineItem;
+
+    .timelineItemIcon,
+    .timelineItemPhotoIcon {
+        color: rgb(var(--warning-7));
+    }
+
+    .timelineItemIcon {
+        background: rgb(var(--warning-2));
+    }
+}
+
+[dark] .timelineItemIcon {
+    background: rgb(var(--gray-2));
+}

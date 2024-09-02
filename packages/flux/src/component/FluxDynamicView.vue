@@ -10,9 +10,9 @@
     import { VNode } from 'vue';
     import { VNodeRenderer } from './primitive';
 
-    export interface Props {
+    export type Props = {
         readonly vnode?: VNode;
-    }
+    };
 
     defineProps<Props>();
 </script>

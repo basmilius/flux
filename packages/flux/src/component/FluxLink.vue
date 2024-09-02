@@ -1,7 +1,9 @@
 <template>
     <BaseButton
-        class="flux-link"
         :="{type, disabled, iconBefore: icon, iconAfter: 'arrow-right-long', label, href, rel, target, to}"
+        :css-class="styles.linkButton"
+        :css-class-icon="styles.linkButtonIcon"
+        :css-class-label="styles.linkButtonLabel"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)">
@@ -19,32 +21,14 @@
     lang="ts"
     setup>
     import { useSlots } from 'vue';
-    import type { FluxRoutingLocation, IconNames } from '@/data';
-    import { BaseButton } from './primitive';
+    import type { IconNames } from '@/data';
+    import BaseButton, { Emits, Props as BaseProps } from './primitive/BaseButton.vue';
+    import styles from '@/css/component/Button.module.scss';
 
-    // note: It is currently not possible to reuse Emits and Props from
-    //  base button, because of a limitation of vite and vue compiler-sfc.
-    //  Extending from those types is also not possible.
-    //  https://vuejs.org/api/sfc-script-setup.html#typescript-only-features
-
-    export interface Emits {
-        (e: 'click', evt: MouseEvent): void;
-
-        (e: 'mouseenter', evt: MouseEvent): void;
-
-        (e: 'mouseleave', evt: MouseEvent): void;
-    }
-
-    export interface Props {
-        readonly type?: 'button' | 'link' | 'route';
-        readonly disabled?: boolean;
+    export type Props = Omit<BaseProps, 'cssClass' | 'cssClassIcon' | 'cssClassLabel' | 'iconBefore' | 'isLoading' | 'isSubmit'> & {
         readonly icon?: IconNames;
         readonly label?: string;
-        readonly href?: string;
-        readonly rel?: string;
-        readonly target?: string;
-        readonly to?: FluxRoutingLocation;
-    }
+    };
 
     defineEmits<Emits>();
 
@@ -54,38 +38,3 @@
 
     const slots = useSlots();
 </script>
-
-<style lang="scss">
-    @use '../css/mixin' as flux;
-
-    .flux-link {
-        --button-icon: rgb(var(--primary-7));
-        --button-stroke: unset;
-
-        display: inline-flex;
-        height: unset;
-        padding: 0;
-        background: unset;
-        border: unset;
-        box-shadow: unset;
-        color: rgb(var(--primary-7));
-        text-decoration: underline;
-        text-decoration-thickness: 1px;
-        text-underline-offset: 4px;
-
-        @include flux.focus-ring(6px);
-
-        &:hover {
-            color: rgb(var(--primary-10));
-        }
-
-        .flux-icon {
-            transition: inherit;
-            transition-property: transform;
-        }
-
-        &:hover .flux-icon {
-            transform: translate3d(6px, 0, 0);
-        }
-    }
-</style>

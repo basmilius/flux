@@ -7,7 +7,7 @@
         </template>
 
         <button
-            class="flux-calendar-event"
+            :class="styles.calendarEvent"
             type="button"
             @click="onClick">
             <span>{{ label }}</span>
@@ -20,15 +20,16 @@
     setup>
     import { DateTime } from 'luxon';
     import FluxTooltip from './FluxTooltip.vue';
+    import styles from '@/css/component/Calendar.module.scss';
 
-    export interface Emits {
-        (e: 'click', evt: MouseEvent): void;
-    }
+    export type Emits = {
+        click: [MouseEvent];
+    };
 
-    export interface Props {
+    export type Props = {
         readonly date: DateTime;
         readonly label: string;
-    }
+    };
 
     const emit = defineEmits<Emits>();
     defineProps<Props>();
@@ -37,28 +38,3 @@
         emit('click', evt);
     }
 </script>
-
-<style lang="scss">
-    .flux-calendar-event {
-        margin-left: -9px;
-        margin-right: -9px;
-        padding: 3px 9px;
-        background: rgb(var(--primary-6));
-        border: 0;
-        border-radius: calc(var(--radius) / 2);
-        color: rgb(var(--primary-0));
-        cursor: pointer;
-        font-size: 12px;
-        text-align: left;
-
-        /** note: This works in all browsers. */
-        display: -webkit-box;
-        overflow: hidden;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-
-        &:hover {
-            background: rgb(var(--primary-7));
-        }
-    }
-</style>

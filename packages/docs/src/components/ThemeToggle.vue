@@ -1,10 +1,7 @@
 <template>
     <FluxToggle
         v-model="darkMode"
-        class="theme-toggle"
-        :class="{
-            'is-dark': darkMode
-        }"
+        :class="$style.themeToggle"
         icon-off="moon"
         icon-on="sun-alt"
         is-switch/>
@@ -16,15 +13,15 @@
     import { FluxToggle } from '@basmilius/flux';
     import { onMounted, ref, watch } from 'vue';
 
-    const darkMode = ref(localStorage.getItem('flux_dark_mode') === '1');
+    const darkMode = ref(localStorage.getItem('flux.darkMode') === '1');
 
     onMounted(() => updateAttribute());
 
     function addTransitions(): void {
-        document.documentElement.classList.add('flux-docs-switching-theme');
+        document.documentElement.classList.add('switching-theme');
 
         document.documentElement.addEventListener('transitionend', () => {
-            document.documentElement.classList.remove('flux-docs-switching-theme');
+            document.documentElement.classList.remove('switching-theme');
         }, {once: true, passive: true});
     }
 
@@ -37,35 +34,22 @@
     }
 
     watch(darkMode, darkMode => {
-        localStorage.setItem('flux_dark_mode', darkMode ? '1' : '0');
+        localStorage.setItem('flux.darkMode', darkMode ? '1' : '0');
 
         addTransitions();
         updateAttribute();
     });
 </script>
 
-<style lang="scss">
-    .flux-docs-switching-theme {
-        &,
-        *,
-        *::before,
-        *::after {
-            transition: 300ms var(--swift-out) !important;
-            transition-delay: 0ms !important;
-            transition-property: all !important;
-        }
-    }
-</style>
-
 <style
     lang="scss"
-    scoped>
-    .theme-toggle {
-        ::v-deep(.is-off) {
+    module>
+    .themeToggle {
+        .toggleIconOff {
             color: #06aed4;
         }
 
-        ::v-deep(.is-on) {
+        .toggleIconOn {
             color: #eaaa08;
         }
     }

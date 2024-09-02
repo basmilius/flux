@@ -16,14 +16,14 @@
     import { FluxFilterOptionRow, FluxFilterValueSingle, IconNames, isFluxFilterOptionHeader } from '@/data';
     import { FilterOptionBase } from './primitive';
 
-    export interface Props {
+    export type Props = {
         readonly icon?: IconNames;
         readonly isSearchable?: boolean;
         readonly label: string;
         readonly name: string;
         readonly options: FluxFilterOptionRow[];
         readonly searchPlaceholder?: string;
-    }
+    };
 
     const modelSearch = defineModel<string>('searchQuery', {default: ''});
     const props = defineProps<Props>();

@@ -7,7 +7,9 @@
 <script
     lang="ts"
     setup>
-    defineProps<{
+    export type Props = {
         readonly tagName: keyof HTMLElementTagNameMap;
-    }>();
+    };
+
+    defineProps<Props>();
 </script>

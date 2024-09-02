@@ -1,22 +1,27 @@
 <template>
     <div
-        class="flux-timeline-item"
-        :class="{
-            [`is-${color}`]: !!color
-        }">
-        <div class="flux-timeline-item-line"/>
+        :class="clsx(
+            color === 'gray' && styles.timelineItemGray,
+            color === 'primary' && styles.timelineItemPrimary,
+            color === 'danger' && styles.timelineItemDanger,
+            color === 'info' && styles.timelineItemInfo,
+            color === 'success' && styles.timelineItemSuccess,
+            color === 'warning' && styles.timelineItemWarning
+        )"
+        role="article">
+        <div :class="styles.timelineItemLine"/>
 
         <div
             v-if="photo"
-            class="flux-timeline-item-photo">
+            :class="styles.timelineItemPhoto">
             <img
-                class="flux-timeline-item-photo-image"
+                :class="styles.timelineItemPhotoImage"
                 :src="photo"
                 alt="">
 
             <div
                 v-if="icon"
-                class="flux-timeline-item-photo-icon">
+                :class="styles.timelineItemPhotoIcon">
                 <FluxIcon
                     :size="16"
                     :variant="icon"/>
@@ -25,16 +30,16 @@
 
         <div
             v-else-if="icon"
-            class="flux-timeline-item-icon">
+            :class="styles.timelineItemIcon">
             <FluxIcon
                 :size="20"
                 :variant="icon"/>
         </div>
 
-        <div class="flux-timeline-item-body">
+        <div :class="styles.timelineItemBody">
             <div
                 v-if="title || when"
-                class="flux-timeline-item-header">
+                :class="styles.timelineItemHeader">
                 <strong v-if="title">{{ title }}</strong>
                 <span v-if="when">{{ when }}</span>
             </div>
@@ -47,139 +52,20 @@
 <script
     lang="ts"
     setup>
+    import { clsx } from 'clsx';
     import type { IconNames } from '@/data';
     import FluxIcon from './FluxIcon.vue';
+    import styles from '@/css/component/Timeline.module.scss';
 
-    export interface Props {
-        readonly color?: 'primary' | 'danger' | 'info' | 'success' | 'warning';
+    export type Props = {
+        readonly color?: 'gray' | 'primary' | 'danger' | 'info' | 'success' | 'warning';
         readonly icon?: IconNames;
         readonly photo?: string;
         readonly title?: string;
         readonly when?: string;
-    }
+    };
 
-    defineProps<Props>();
+    withDefaults(defineProps<Props>(), {
+        color: 'gray'
+    });
 </script>
-
-<style lang="scss">
-    .flux-timeline-item {
-        --timeline-item-icon-background: rgb(var(--gray-3));
-        --timeline-item-icon-foreground: var(--foreground-secondary);
-
-        position: relative;
-        display: grid;
-        gap: 21px;
-        grid-template-columns: 42px minmax(0, 1fr);
-
-        &-icon,
-        &-photo {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 99px;
-            outline: 6px solid rgb(var(--gray-0));
-        }
-
-        &-icon {
-            margin: 3px;
-            height: 36px;
-            width: 36px;
-            background: var(--timeline-item-icon-background);
-            color: var(--timeline-item-icon-foreground);
-        }
-
-        &-photo {
-            height: 42px;
-            width: 42px;
-
-            &-icon {
-                position: absolute;
-                display: flex;
-                right: -9px;
-                bottom: -9px;
-                height: 30px;
-                width: 30px;
-                align-items: center;
-                justify-content: center;
-                background: rgb(var(--gray-0));
-                border-radius: 99px;
-                color: var(--timeline-item-icon-foreground);
-            }
-
-            &-image {
-                position: absolute;
-                inset: 0;
-                height: 100%;
-                width: 100%;
-                border-radius: inherit;
-                object-fit: cover;
-                object-position: center;
-            }
-        }
-
-        &-body {
-            position: relative;
-            align-self: center;
-            padding-top: 9px;
-            padding-bottom: 9px;
-        }
-
-        &-header {
-            display: flex;
-            margin-bottom: 9px;
-            flex-flow: column;
-
-            strong {
-                color: var(--foreground-prominent);
-            }
-
-            span {
-                color: var(--foreground-secondary);
-                font-size: 14px;
-            }
-        }
-
-        &-line {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            height: 100%;
-            width: 2px;
-            background: rgb(var(--gray-3));
-        }
-
-        &.is-primary {
-            --timeline-item-icon-background: rgb(var(--primary-2));
-            --timeline-item-icon-foreground: rgb(var(--primary-7));
-        }
-
-        &.is-danger {
-            --timeline-item-icon-background: rgb(var(--danger-2));
-            --timeline-item-icon-foreground: rgb(var(--danger-7));
-        }
-
-        &.is-info {
-            --timeline-item-icon-background: rgb(var(--info-2));
-            --timeline-item-icon-foreground: rgb(var(--info-7));
-        }
-
-        &.is-success {
-            --timeline-item-icon-background: rgb(var(--success-2));
-            --timeline-item-icon-foreground: rgb(var(--success-7));
-        }
-
-        &.is-warning {
-            --timeline-item-icon-background: rgb(var(--warning-2));
-            --timeline-item-icon-foreground: rgb(var(--warning-7));
-        }
-
-        @at-root .flux-timeline &:last-of-type &-line {
-            display: none;
-        }
-    }
-
-    [dark] .flux-timeline-item {
-        --timeline-item-icon-background: rgb(var(--gray-2));
-    }
-</style>

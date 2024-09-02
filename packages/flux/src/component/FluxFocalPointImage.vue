@@ -1,6 +1,6 @@
 <template>
     <img
-        class="flux-focal-point-image"
+        :class="styles.focalPointImage"
         :style="{
             objectPosition: `${x}% ${y}%`
         }"
@@ -13,12 +13,13 @@
     setup>
     import { computed } from 'vue';
     import type { FluxFocalPoint } from '@/data';
+    import styles from '@/css/component/FocalPoint.module.scss';
 
-    export interface Props {
+    export type Props = {
         readonly focalPoint?: FluxFocalPoint | null;
         readonly alt?: string;
         readonly src: string;
-    }
+    };
 
     const props = withDefaults(defineProps<Props>(), {
         alt: '',
@@ -28,9 +29,3 @@
     const x = computed(() => props.focalPoint?.x ?? 50);
     const y = computed(() => props.focalPoint?.y ?? 50);
 </script>
-
-<style lang="scss">
-    .flux-focal-point-image {
-        object-fit: cover;
-    }
-</style>

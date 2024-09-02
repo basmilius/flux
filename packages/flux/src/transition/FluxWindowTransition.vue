@@ -1,7 +1,10 @@
 <template>
     <Transition
         :mode="mode"
-        :name="isBack ? 'flux-window-back' : 'flux-window'">
+        :enter-active-class="isBack ? styles.windowTransitionBackEnterActive : styles.windowTransitionEnterActive"
+        :enter-from-class="isBack ? styles.windowTransitionBackEnterFrom : styles.windowTransitionEnterFrom"
+        :leave-active-class="isBack ? styles.windowTransitionBackLeaveActive : styles.windowTransitionLeaveActive"
+        :leave-to-class="isBack ? styles.windowTransitionBackLeaveTo : styles.windowTransitionLeaveTo">
         <slot/>
     </Transition>
 </template>
@@ -9,45 +12,14 @@
 <script
     lang="ts"
     setup>
-    export interface Props {
+    import styles from '@/css/component/Transition.module.scss';
+
+    export type Props = {
         readonly isBack?: boolean;
         readonly mode?: 'in-out' | 'out-in';
-    }
+    };
 
     withDefaults(defineProps<Props>(), {
         mode: 'out-in'
     });
 </script>
-
-<style lang="scss">
-    .flux-window {
-        overflow: auto;
-        transition: height 150ms var(--deceleration-curve);
-
-        &-enter-active,
-        &-back-enter-active {
-            transition: 150ms var(--deceleration-curve);
-            transition-property: opacity, transform;
-        }
-
-        &-leave-active,
-        &-back-leave-active {
-            transition: 150ms var(--acceleration-curve);
-            transition-property: opacity, transform;
-        }
-
-        &-enter,
-        &-enter-from,
-        &-back-leave-to {
-            opacity: 0;
-            transform: translate3d(15px, 0, 0);
-        }
-
-        &-leave-to,
-        &-back-enter,
-        &-back-enter-from {
-            opacity: 0;
-            transform: translate3d(-15px, 0, 0);
-        }
-    }
-</style>

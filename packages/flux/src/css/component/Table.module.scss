@@ -1,0 +1,161 @@
+@value basePaneLoader, basePaneStructure from '@/css/component/base/Pane.module.scss';
+
+.table {
+    position: relative;
+    overflow: auto;
+
+    :is(caption) {
+        color: var(--foreground-secondary);
+        font-size: 14px;
+        text-align: left;
+    }
+}
+
+.tableBase {
+    min-width: 100%;
+    bottom: 0;
+    border-spacing: 0;
+    text-align: left;
+}
+
+.tableLoader {
+    composes: basePaneLoader;
+}
+
+.tableRow {
+    height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.tableCell {
+    height: 0;
+    padding: 0;
+    border: 0 solid rgb(var(--gray-3));
+
+    @-moz-document url-prefix() {
+        height: 100%;
+    }
+}
+
+.tableCellContent {
+    display: flex;
+    height: 100%;
+    padding: 12px 15px;
+    align-items: flex-start;
+}
+
+.tableHeader {
+    composes: tableCell;
+
+    border-bottom: 2px solid rgb(var(--gray-4) / .75);
+    color: var(--foreground-prominent);
+
+    &.isShrinking {
+        width: 0;
+        white-space: nowrap;
+    }
+
+    &.isSticky {
+        position: sticky;
+        top: 0;
+        background: rgb(var(--gray-1));
+    }
+}
+
+.tableHeaderContent {
+    composes: tableCellContent;
+
+    align-items: center;
+    font-size: 14px;
+}
+
+tbody .tableRow:nth-child(even) .tableCell.isStriped {
+    background: rgb(var(--gray-2));
+}
+
+@media (hover: hover) {
+    tbody .tableRow:hover .tableCell.isHoverable {
+        background: rgb(var(--gray-2));
+    }
+}
+
+tfoot .tableCell {
+    border-top: 2px solid rgb(var(--gray-3));
+}
+
+.tableCell + .tableCell.isBordered {
+    border-left-width: 1px;
+}
+
+.tableRow + .tableRow .tableCell.isSeparated {
+    border-top-width: 1px;
+}
+
+.tableActions {
+    margin: -3px 0 -3px -3px;
+
+    .action {
+        @media (hover: hover) {
+            &:hover {
+                background: rgb(var(--gray-3));
+            }
+        }
+
+        &:active {
+            background: rgb(var(--gray-4));
+        }
+    }
+}
+
+.tableSort {
+    display: flex;
+    height: 24px;
+    width: 24px;
+    margin: -3px -6px -3px 6px;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    background: unset;
+    border: 0;
+    border-radius: calc(var(--radius) / 2);
+    color: var(--foreground-secondary);
+    cursor: pointer;
+    outline: 0;
+
+    @media (hover: hover) {
+        &:hover {
+            background: rgb(var(--gray-2));
+            color: var(--foreground);
+        }
+    }
+}
+
+:local(.basePaneStructure) > .table .tableCell:first-child .tableCellContent {
+    padding-left: 21px;
+}
+
+:local(.basePaneStructure) > .table .tableCell:last-child .tableCellContent {
+    padding-right: 21px;
+}
+
+:local(.basePaneStructure) > .table .tableActions {
+    margin-right: -3px;
+}
+
+:local(.basePaneStructure) > .table :is(caption) {
+    padding: 12px 21px;
+    border-top: 1px solid rgb(var(--gray-3));
+}
+
+:local(.basePaneStructure) > .table .tableLoader {
+    border-radius: var(--radius);
+}
+
+:not(:local(.basePaneStructure)) > .table .tableCell:not(.isBordered):first-child .tableCellContent {
+    padding-left: 0;
+}
+
+:not(:local(.basePaneStructure)) > .table .tableCell:not(.isBordered):last-child .tableCellContent {
+    padding-right: 0;
+}

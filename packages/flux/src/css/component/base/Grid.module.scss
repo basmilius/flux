@@ -1,0 +1,8 @@
+@layer flux-base {
+    .baseAutoGrid {
+        --min-column-width: 0;
+
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(calc(var(--min-column-width) * 1px), 1fr));
+    }
+}

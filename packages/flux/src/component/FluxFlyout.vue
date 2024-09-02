@@ -1,7 +1,7 @@
 <template>
     <div
         ref="mountRef"
-        class="flux-flyout"
+        :class="styles.flyout"
         :style="{
             '--opener-width': `${openerWidth}px`,
             '--pane-mx': `${paneMarginX}px`,
@@ -15,18 +15,18 @@
 
         <dialog
             ref="dialogRef"
-            class="flux-flyout-dialog"
+            :class="styles.flyoutDialog"
             @cancel.prevent="close"
             @click="onDialogBackdropClick">
             <FluxPane
                 v-if="isOpen"
                 ref="paneRef"
-                class="flux-flyout-pane"
-                :class="{
-                    'is-auto-width': isAutoWidth,
-                    'is-closing': isClosing,
-                    'is-opening': isOpening
-                }"
+                :class="clsx(
+                    styles.flyoutPane,
+                    isAutoWidth && styles.isAutoWidth,
+                    isClosing && styles.isClosing,
+                    isOpening && styles.isOpening
+                )"
                 :style="{
                     width: `${width}px`
                 }">
@@ -39,18 +39,20 @@
 <script
     lang="ts"
     setup>
+    import { clsx } from 'clsx';
     import { provide, ref, toRefs, unref, watch } from 'vue';
     import { useFocusTrap } from '@/composable';
     import { FluxFlyoutInjectionKey } from '@/data';
     import { unrefElement } from '@/util';
     import FluxPane from './FluxPane.vue';
+    import styles from '@/css/component/Flyout.module.scss';
 
-    export interface Props {
+    export type Props = {
         readonly axis?: 'horizontal' | 'vertical';
         readonly isAutoWidth?: boolean;
         readonly margin?: number;
         readonly width?: number | string;
-    }
+    };
 
     const props = withDefaults(defineProps<Props>(), {
         axis: 'vertical',
@@ -188,68 +190,3 @@
         toggle
     });
 </script>
-
-<style lang="scss">
-    .flux-flyout {
-        display: contents;
-
-        &-dialog {
-            top: var(--pane-y);
-            left: var(--pane-x);
-            margin: 0;
-            padding: 12px;
-            background: unset;
-            border: 0;
-
-            &::backdrop {
-                background: unset;
-            }
-        }
-
-        &-pane {
-            max-height: calc(100dvh - 120px);
-            box-shadow: var(--shadow-md);
-            overflow: auto;
-            transform: translate3d(var(--pane-mx), var(--pane-my), 0);
-
-            &.is-auto-width {
-                width: var(--opener-width);
-            }
-
-            &.is-closing {
-                animation: flux-flyout-close 210ms var(--swift-out) both;
-            }
-
-            &.is-opening {
-                animation: flux-flyout-open 210ms var(--deceleration-curve) both;
-            }
-        }
-    }
-
-    @keyframes flux-flyout-close {
-        to {
-            opacity: 0;
-        }
-    }
-
-    @keyframes flux-flyout-open {
-        from {
-            opacity: 0;
-            transform: translate3d(0, 0, 0)
-        }
-    }
-
-    @keyframes flux-flyout-mobile-close {
-        to {
-            opacity: 0;
-            transform: translate3d(0, 100%, 0)
-        }
-    }
-
-    @keyframes flux-flyout-mobile-open {
-        from {
-            opacity: 0;
-            transform: translate3d(0, 100%, 0)
-        }
-    }
-</style>

@@ -1,0 +1,280 @@
+@use '@/css/mixin';
+
+@value button, buttonIcon, buttonLabel, isSmall, isMedium, isLarge, isXl from '@/css/component/base/Button.module.scss';
+@value inlineFlexRow, flexNoGrow, flexNoShrink from '@/css/component/base/Flex.module.scss';
+
+.primaryButton {
+    composes: button;
+
+    background: rgb(var(--primary-7));
+    border-color: rgb(var(--primary-9));
+    box-shadow: 0 1px 1px rgb(var(--primary-7) / .25);
+    color: rgb(var(--primary-0));
+
+    @media (hover: hover) {
+        &:hover {
+            background: rgb(var(--primary-8));
+        }
+    }
+
+    &:active {
+        background: rgb(var(--primary-9));
+    }
+
+    .spinner {
+        --track: rgb(var(--primary-8));
+        --value: rgb(var(--primary-0));
+    }
+}
+
+.primaryButtonIcon {
+    composes: buttonIcon;
+
+    color: rgb(var(--primary-0));
+}
+
+.primaryButtonLabel {
+    composes: buttonLabel;
+}
+
+[dark] .primaryButton {
+    color: rgb(0 0 0 / .975);
+    border-color: rgb(var(--primary-6) / .5);
+}
+
+[dark] .primaryButtonIcon {
+    color: rgb(0 0 0 / .975);
+}
+
+.secondaryButton {
+    composes: button;
+
+    background: rgb(var(--gray-0));
+    border-color: rgb(var(--gray-4) / .75);
+    color: var(--foreground);
+
+    @media (hover: hover) {
+        &:hover {
+            background: rgb(var(--gray-2));
+        }
+    }
+
+    &:active {
+        background: rgb(var(--gray-3));
+    }
+}
+
+.secondaryButtonIcon {
+    composes: buttonIcon;
+
+    color: var(--foreground-prominent);
+}
+
+.secondaryButtonLabel {
+    composes: buttonLabel;
+}
+
+.destructiveButton {
+    composes: button;
+
+    background: rgb(var(--gray-0));
+    border-color: rgb(var(--gray-4) / .75);
+    color: var(--foreground);
+
+    @media (hover: hover) {
+        &:hover {
+            background: rgb(var(--gray-2));
+        }
+    }
+
+    &:active {
+        background: rgb(var(--gray-3));
+    }
+}
+
+.destructiveButtonIcon {
+    composes: buttonIcon;
+
+    color: rgb(var(--danger-7));
+}
+
+.destructiveButtonLabel {
+    composes: buttonLabel;
+
+    &:only-child {
+        color: rgb(var(--danger-7));
+    }
+}
+
+.linkButton {
+    composes: button;
+
+    display: inline-flex;
+    height: unset;
+    padding: 0;
+    border: 0;
+    box-shadow: unset;
+    color: rgb(var(--primary-7));
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+
+    @include mixin.focus-ring(6px);
+
+    @media (hover: hover) {
+        &:hover {
+            color: rgb(var(--primary-10));
+
+            .linkButtonIcon {
+                transform: translate3d(6px, 0, 0);
+            }
+        }
+    }
+}
+
+.linkButtonIcon {
+    composes: buttonIcon;
+
+    color: rgb(var(--primary-7));
+    transition: inherit;
+    transition-property: transform;
+
+    &.icon {
+        font-size: 16px;
+    }
+}
+
+.linkButtonLabel {
+    composes: buttonLabel;
+}
+
+.publishButton {
+    composes: primaryButton;
+
+    position: relative;
+    overflow: hidden;
+}
+
+.publishButtonIcon {
+    composes: primaryButtonIcon;
+}
+
+.publishButtonLabel {
+    composes: primaryButtonLabel;
+}
+
+.publishButtonAnimation {
+    position: relative;
+    display: block;
+    height: 20px;
+    width: 20px;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+
+    :is(path) {
+        fill: currentColor;
+        transition: 270ms var(--swift-out);
+    }
+}
+
+.publishButton.isDone {
+    .publishButtonAnimationArrow {
+        animation: publishArrowOut .4s var(--acceleration-curve) both;
+    }
+
+    .publishButtonAnimationCheck,
+    .publishButtonAnimationCircle {
+        transition-delay: .5s;
+    }
+}
+
+.publishButton.isIdle .publishButtonAnimationCheck {
+    opacity: 0;
+}
+
+.publishButton.isLoading {
+    .publishButtonAnimationArrow {
+        animation: publishArrowIn 1s var(--deceleration-curve) both;
+    }
+
+    .publishButtonAnimationCheck,
+    .publishButtonAnimationCircle {
+        opacity: 0;
+    }
+}
+
+.publishButtonCloud {
+    position: absolute;
+    top: 50%;
+    opacity: 0;
+    animation: publish .6s linear infinite;
+    transition: 360ms var(--swift-out) 210ms;
+
+    &:nth-child(2) {
+        left: -12px;
+        animation-delay: -.3s;
+    }
+
+    &:nth-child(3) {
+        right: -12px;
+    }
+}
+
+.publishButton.isLoading .publishButtonCloud {
+    opacity: .5;
+}
+
+.buttonGroup {
+    composes: inlineFlexRow;
+    composes: flexNoGrow;
+    composes: flexNoShrink;
+
+    width: min-content;
+    flex-grow: 0;
+
+    .button {
+        border-radius: 0;
+
+        &:first-child {
+            border-top-left-radius: var(--radius);
+            border-bottom-left-radius: var(--radius);
+        }
+
+        &:last-child {
+            border-top-right-radius: var(--radius);
+            border-bottom-right-radius: var(--radius);
+        }
+    }
+
+    .button + .button {
+        margin-left: -1px;
+    }
+}
+
+@keyframes publish {
+    from {
+        translate: 0 calc(-30px - 50%);
+    }
+
+    to {
+        translate: 0 calc(30px - 50%);
+    }
+}
+
+@keyframes publishArrowIn {
+    25% {
+        translate: 0 128px;
+    }
+
+    100% {
+        translate: 0 0;
+    }
+}
+
+@keyframes publishArrowOut {
+    to {
+        opacity: 0;
+        translate: 0 -512px;
+    }
+}

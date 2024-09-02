@@ -157,13 +157,13 @@
     lang="ts"
     setup>
     import { FluxSnackbar, FluxStack } from '@basmilius/flux';
-    import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
-    import actions from '@docs/code/components/snackbar/actions.vue';
-    import actionsCode from '@docs/code/components/snackbar/actions.vue?raw';
-    import api from '@docs/code/components/snackbar/api.vue';
-    import apiCode from '@docs/code/components/snackbar/api.vue?raw';
-    import global from '@docs/code/components/snackbar/global.vue';
-    import globalCode from '@docs/code/components/snackbar/global.vue?raw';
-    import local from '@docs/code/components/snackbar/local.vue';
-    import localCode from '@docs/code/components/snackbar/local.vue?raw';
+    import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
+    import actions from '@/code/components/snackbar/actions.vue';
+    import actionsCode from '@/code/components/snackbar/actions.vue?raw';
+    import api from '@/code/components/snackbar/api.vue';
+    import apiCode from '@/code/components/snackbar/api.vue?raw';
+    import global from '@/code/components/snackbar/global.vue';
+    import globalCode from '@/code/components/snackbar/global.vue?raw';
+    import local from '@/code/components/snackbar/local.vue';
+    import localCode from '@/code/components/snackbar/local.vue?raw';
 </script>

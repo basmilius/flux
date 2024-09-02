@@ -97,5 +97,5 @@
     lang="ts"
     setup>
     import { FluxGrid, FluxGridColumn, FluxPane, FluxPaneBody, FluxStack } from '@basmilius/flux';
-    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@docs/components';
+    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@/components';
 </script>

@@ -31,13 +31,13 @@
     import FluxFlyout from './FluxFlyout.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
 
-    export interface Props {
+    export type Props = {
         readonly buttonIcon?: IconNames;
         readonly flyoutAxis?: 'horizontal' | 'vertical';
         readonly flyoutIsAutoWidth?: boolean;
         readonly flyoutMargin?: number;
         readonly flyoutWidth?: number | string;
-    }
+    };
 
     defineProps<Props>();
 </script>

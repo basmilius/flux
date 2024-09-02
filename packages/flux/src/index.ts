@@ -5,7 +5,6 @@ export type {
     FluxBaseAlertSpec,
     FluxBreakpointsInjection,
     FluxConfirmSpec,
-    FluxDashboardInjection,
     FluxExpandableGroupInjection,
     FluxFilterInjection,
     FluxFilterBase,
@@ -51,5 +50,4 @@ export {
 export * from './component';
 export * from './composable';
 export * from './directive';
-export * from './layout';
 export * from './transition';

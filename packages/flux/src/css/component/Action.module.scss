@@ -1,0 +1,106 @@
+@use '@/css/mixin';
+
+@value button, buttonIcon, buttonLabel from '@/css/component/base/Button.module.scss';
+
+.action {
+    composes: button;
+
+    height: 30px;
+    width: 30px;
+    padding-left: 6px;
+    padding-right: 6px;
+    border: 0;
+    border-radius: calc(var(--radius) / 2);
+    box-shadow: none;
+
+    @media (hover: hover) {
+        &:hover {
+            background: rgb(var(--gray-2));
+        }
+    }
+
+    &:active {
+        background: rgb(var(--gray-3));
+    }
+
+    .spinner {
+        font-size: 24px;
+    }
+}
+
+.actionIcon {
+    composes: buttonIcon;
+
+    color: var(--foreground);
+    font-size: 18px;
+}
+
+.action.isDestructive .actionIcon {
+    color: rgb(var(--danger-7));
+}
+
+.actionLabel {
+    composes: buttonLabel;
+
+    color: var(--foreground);
+}
+
+.actionBar {
+    flex-wrap: wrap;
+
+    .separator {
+        margin-top: 9px;
+        margin-bottom: 9px;
+    }
+
+    @include mixin.breakpoint-up(sm) {
+        > .formInput {
+            max-width: 240px;
+        }
+    }
+}
+
+.basePaneStructure > .actionBar {
+    padding: 15px 21px;
+    background: rgb(var(--gray-1));
+    border: 1px solid rgb(var(--gray-3));
+    border-left: 0;
+    border-right: 0;
+
+    &:first-child {
+        border-top: 0;
+        border-top-left-radius: var(--radius);
+        border-top-right-radius: var(--radius);
+    }
+
+    &:last-child {
+        border-bottom: 0;
+        border-bottom-left-radius: var(--radius);
+        border-bottom-right-radius: var(--radius);
+    }
+}
+
+.paneHeader + .actionBar {
+    margin-top: 21px;
+}
+
+.actionPane {
+    container: actionPane / inline-size;
+
+    width: 100%;
+}
+
+.actionPaneGrid {
+    display: grid;
+    padding: 36px;
+    gap: 36px;
+    grid-template-columns: 1fr auto;
+
+    @container actionPane (max-width: 540px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.actionPaneBody {
+    padding: 0;
+}

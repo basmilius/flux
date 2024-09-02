@@ -1,7 +1,7 @@
 <template>
     <canvas
         ref="canvasRef"
-        class="flux-animated-colors"/>
+        :class="styles.animatedColors"/>
 </template>
 
 <script
@@ -10,13 +10,14 @@
     import { computed, onBeforeUnmount, onMounted, ref, toRefs, unref, watch } from 'vue';
     import { useComponentId } from '@/composable';
     import { mulberry32 } from '@/util';
+    import styles from '@/css/component/Visual.module.scss';
 
-    export interface Props {
+    export type Props = {
         readonly colors: string[] | null;
         readonly incrementor?: number;
         readonly opacity?: number;
         readonly seed?: number | null;
-    }
+    };
 
     type Polygon = [number, number, string, PolygonPoint[]];
     type PolygonPoint = [number, number, number];
@@ -141,13 +142,3 @@
         schedule();
     });
 </script>
-
-<style lang="scss">
-    .flux-animated-colors {
-        position: absolute;
-        inset: 0;
-        height: 100%;
-        width: 100%;
-        filter: blur(60px) saturate(180%);
-    }
-</style>

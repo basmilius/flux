@@ -1,12 +1,12 @@
 <template>
     <svg
-        class="flux-spinner"
+        :class="styles.spinner"
         viewBox="0 0 24 24"
         :style="{
             fontSize: `${size}px`
         }">
         <circle
-            class="flux-spinner-track"
+            :class="styles.spinnerTrack"
             cx="12"
             cy="12"
             r="10"
@@ -14,7 +14,7 @@
             stroke-width="4"/>
 
         <circle
-            class="flux-spinner-effect"
+            :class="styles.spinnerEffect"
             cx="12"
             cy="12"
             r="10"
@@ -25,7 +25,7 @@
             stroke-linecap="round"/>
 
         <circle
-            class="flux-spinner-value"
+            :class="styles.spinnerValue"
             cx="12"
             cy="12"
             r="10"
@@ -40,52 +40,13 @@
 <script
     lang="ts"
     setup>
-    export interface Props {
+    import styles from '@/css/component/Spinner.module.scss';
+
+    export type Props = {
         readonly size?: number;
-    }
+    };
 
     withDefaults(defineProps<Props>(), {
         size: 30
     });
 </script>
-
-<style lang="scss">
-    :root {
-        --spinner-track: rgb(var(--gray-4));
-        --spinner-value: rgb(var(--primary-7));
-    }
-
-    .flux-spinner {
-        display: inline-block;
-        height: 1em;
-        width: 1em;
-        flex-grow: 0;
-        flex-shrink: 0;
-        animation: spinner 5s linear infinite;
-
-        &-track {
-            stroke: var(--spinner-track);
-        }
-
-        &-effect,
-        &-value {
-            stroke: var(--spinner-value);
-            animation: spinner 1.2s var(--swift-out) infinite;
-            transform-origin: center;
-        }
-
-        &-effect {
-            opacity: .25;
-            animation-delay: -1.05s;
-        }
-    }
-
-    @keyframes spinner {
-        from {
-            transform: rotate(0deg);
-        }
-        to {
-            transform: rotate(1turn);
-        }
-    }
-</style>

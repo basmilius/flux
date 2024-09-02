@@ -1,15 +1,11 @@
 <template>
-    <div class="flux-pane-group">
+    <div :class="styles.paneGroup">
         <slot/>
     </div>
 </template>
 
-<style lang="scss">
-    .flux-pane-group {
-        position: relative;
-
-        + .flux-pane-group {
-            border-top: 1px solid rgb(var(--gray-3));
-        }
-    }
-</style>
+<script
+    lang="ts"
+    setup>
+    import styles from '@/css/component/Pane.module.scss';
+</script>

@@ -3,7 +3,6 @@ import type { Breakpoint, Breakpoints } from '@/composable';
 import type { FluxFilterState, FluxFilterValue } from './filter';
 
 export const FluxBreakpointsInjectionKey: InjectionKey<FluxBreakpointsInjection> = Symbol();
-export const FluxDashboardInjectionKey: InjectionKey<FluxDashboardInjection> = Symbol();
 export const FluxExpandableGroupInjectionKey: InjectionKey<FluxExpandableGroupInjection> = Symbol();
 export const FluxFlyoutInjectionKey: InjectionKey<FluxFlyoutInjection> = Symbol();
 export const FluxFilterInjectionKey: InjectionKey<FluxFilterInjection> = Symbol();
@@ -17,10 +16,6 @@ export type FluxBreakpointsInjection = {
     readonly isMobile: Ref<boolean>;
     readonly maxWidth: Ref<number | null>;
     readonly width: Ref<number>;
-};
-
-export type FluxDashboardInjection = {
-    readonly isNavigationCollapsed: Ref<boolean>;
 };
 
 export type FluxExpandableGroupInjection = {

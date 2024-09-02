@@ -1,6 +1,6 @@
 <template>
-    <div class="page-title">
-        <span class="page-title-section">{{ section }}</span>
+    <div :class="$style.pageTitle">
+        <span :class="$style.pageTitleSection">{{ section }}</span>
         <h1>{{ title }}</h1>
     </div>
 </template>
@@ -16,16 +16,18 @@
     defineProps<Props>();
 </script>
 
-<style lang="scss">
-    .page-title {
+<style
+    lang="scss"
+    module>
+    .pageTitle {
         display: flex;
         flex-flow: column;
         gap: 3px;
+    }
 
-        &-section {
-            color: rgb(var(--primary-6));
-            font-size: 16px;
-            font-weight: 500;
-        }
+    .pageTitleSection {
+        color: rgb(var(--primary-7));
+        font-size: 16px;
+        font-weight: 500;
     }
 </style>

@@ -6,7 +6,7 @@
         :icon-before="item.icon"
         :label="item.label"
         type="button"
-        @click="onClick()"/>
+        @click="$emit('click', $event)"/>
 </template>
 
 <script
@@ -18,7 +18,7 @@
     import FluxMenuItem from '../FluxMenuItem.vue';
 
     export type Emits = {
-        (e: 'click'): void;
+        click: [MouseEvent];
     };
 
     export type Props = {
@@ -34,10 +34,6 @@
     const getValueLabel = computed(() => loaded(props.item.getValueLabel));
 
     const valueLabel = ref<string | null>('');
-
-    function onClick(): void {
-        emit('click');
-    }
 
     watch(() => props.item, async () => {
         valueLabel.value = await unref(getValueLabel)(props.value, translate);

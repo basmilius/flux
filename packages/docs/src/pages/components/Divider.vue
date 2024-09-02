@@ -74,11 +74,11 @@
     lang="ts"
     setup>
     import { FluxDivider, FluxPane, FluxPaneBody, FluxSecondaryButton, FluxStack } from '@basmilius/flux';
-    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
-    import basic from '@docs/code/components/divider/basic.vue';
-    import basicCode from '@docs/code/components/divider/basic.vue?raw';
-    import button from '@docs/code/components/divider/button.vue';
-    import buttonCode from '@docs/code/components/divider/button.vue?raw';
-    import icon from '@docs/code/components/divider/icon.vue';
-    import iconCode from '@docs/code/components/divider/icon.vue?raw';
+    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
+    import basic from '@/code/components/divider/basic.vue';
+    import basicCode from '@/code/components/divider/basic.vue?raw';
+    import button from '@/code/components/divider/button.vue';
+    import buttonCode from '@/code/components/divider/button.vue?raw';
+    import icon from '@/code/components/divider/icon.vue';
+    import iconCode from '@/code/components/divider/icon.vue?raw';
 </script>

@@ -1,7 +1,7 @@
 <template>
     <div
         v-height-transition
-        class="flux-pane flux-filter">
+        :class="styles.filter">
         <FluxWindow ref="window">
             <template #default="{navigate}">
                 <FilterMenuRenderer
@@ -16,23 +16,21 @@
                 #[name]="{back}">
                 <FluxMenu>
                     <FluxMenuGroup
-                        class="flux-filter-header"
+                        :class="styles.filterHeader"
                         is-horizontal>
                         <FluxMenuItem
-                            class="flux-filter-back"
+                            :class="styles.filterBack"
                             :label="translate('flux.back')"
                             icon-before="angle-left"
                             @click="back('default')"/>
 
                         <FluxMenuItem
                             v-if="resettable?.includes(name)"
-                            class="flux-filter-reset"
+                            :class="styles.filterReset"
                             icon-before="trash"
                             is-destructive
                             @click="reset(name)"/>
                     </FluxMenuGroup>
-
-                    <FluxSeparator/>
 
                     <VNodeRenderer :vnode="filter"/>
                 </FluxMenu>
@@ -53,8 +51,8 @@
     import FluxMenu from './FluxMenu.vue';
     import FluxMenuGroup from './FluxMenuGroup.vue';
     import FluxMenuItem from './FluxMenuItem.vue';
-    import FluxSeparator from './FluxSeparator.vue';
     import FluxWindow from './FluxWindow.vue';
+    import styles from '@/css/component/Filter.module.scss';
 
     const vHeightTransition = heightTransition;
 
@@ -132,55 +130,3 @@
         setValue
     });
 </script>
-
-<style lang="scss">
-    .flux-filter {
-        max-height: 50dvh;
-        width: 330px;
-        scrollbar-width: none;
-
-        &::-webkit-scrollbar {
-            display: none;
-            height: 0;
-            width: 0;
-        }
-
-        &-header {
-            position: sticky;
-            top: 0;
-            background: rgb(var(--gray-0));
-            z-index: 2;
-        }
-
-        &-back {
-            flex-grow: 1;
-        }
-
-        &-reset {
-            width: 42px;
-            justify-content: center;
-        }
-    }
-
-    .flux-pane > .flux-menu > .flux-filter-header {
-        margin: -9px -9px -10px;
-        padding: 9px;
-        border-bottom: 1px solid rgb(var(--gray-3));
-    }
-
-    .flux-filter > .flux-menu > .flux-menu-group > .flux-menu-sub-header {
-        top: 61px;
-    }
-
-    .flux-filter > .flux-menu > .flux-menu-group > .flux-filter-search {
-        position: sticky;
-        top: 61px;
-        margin: -9px -9px 0;
-        padding: 9px;
-        background: rgb(var(--gray-0));
-    }
-
-    .flux-filter > .flux-menu > .flux-menu-group:has(.flux-filter-search) > .flux-menu-sub-header {
-        top: 113px;
-    }
-</style>

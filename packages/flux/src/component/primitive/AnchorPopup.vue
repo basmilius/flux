@@ -17,23 +17,22 @@
     import { useMutationObserver } from '@/composable';
     import { isHtmlElement } from '@/util';
 
-    const props = withDefaults(
-        defineProps<{
-            readonly anchor?: ComponentPublicInstance | HTMLElement;
-            readonly axis?: 'horizontal' | 'vertical';
-            readonly margin?: number;
-            readonly position?:
-                | 'top' | 'top-left' | 'top-right'
-                | 'left' | 'left-top' | 'left-bottom'
-                | 'right' | 'right-top' | 'right-bottom'
-                | 'bottom' | 'bottom-left' | 'bottom-right';
-            readonly useAnchorWidth?: boolean;
-        }>(),
-        {
-            axis: 'vertical',
-            margin: 12
-        }
-    );
+    export type Props = {
+        readonly anchor?: ComponentPublicInstance | HTMLElement;
+        readonly axis?: 'horizontal' | 'vertical';
+        readonly margin?: number;
+        readonly position?:
+            | 'top' | 'top-left' | 'top-right'
+            | 'left' | 'left-top' | 'left-bottom'
+            | 'right' | 'right-top' | 'right-bottom'
+            | 'bottom' | 'bottom-left' | 'bottom-right';
+        readonly useAnchorWidth?: boolean;
+    };
+
+    const props = withDefaults(defineProps<Props>(), {
+        axis: 'vertical',
+        margin: 12
+    });
 
     const anchorRef = ref<HTMLElement>();
     const popupRef = ref<HTMLElement>();

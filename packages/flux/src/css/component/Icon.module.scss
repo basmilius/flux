@@ -1,0 +1,29 @@
+@value basePane from '@/css/component/base/Pane.module.scss';
+
+@layer flux-base {
+    .icon {
+        display: inline-block;
+        height: 1em;
+        width: 1em;
+        flex-shrink: 0;
+        font-size: 20px;
+        line-height: 1em;
+    }
+
+    .iconBoxed {
+        composes: basePane;
+
+        display: flex;
+        height: 1em;
+        width: 1em;
+        align-items: center;
+        flex-shrink: 0;
+        justify-content: center;
+        box-shadow: var(--shadow-sm);
+        font-size: 42px;
+
+        .icon {
+            font-size: .33em;
+        }
+    }
+}

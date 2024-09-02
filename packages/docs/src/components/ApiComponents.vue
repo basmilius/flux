@@ -1,7 +1,9 @@
 <template>
-    <FluxPane class="api-component flux-typography-aware">
+    <FluxPane
+        :class="[$style.apiComponent, $style.apiComponents]"
+        data-typography-aware>
         <FluxPaneHeader
-            class="api-component-header api-components-header"
+            :class="$style.apiComponentHeader"
             title="Components"/>
 
         <ApiTable title="Components">
@@ -26,8 +28,10 @@
     import ApiTable from './ApiTable.vue';
 </script>
 
-<style lang="scss">
-    .api-components-header .flux-pane-header-title {
+<style
+    lang="scss"
+    module>
+    .apiComponent.apiComponents .apiComponentHeader :is(strong) {
         color: var(--foreground-prominent);
         font-family: unset;
         font-size: 15px;

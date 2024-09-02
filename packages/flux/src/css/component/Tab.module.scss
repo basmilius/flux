@@ -1,0 +1,158 @@
+@use '@/css/mixin';
+
+.tab {
+    position: relative;
+}
+
+.tabBar {
+    --tab-padding: 12px;
+
+    position: relative;
+    box-shadow: inset 0 -2px rgb(var(--gray-3));
+    z-index: 0;
+}
+
+.tabBarArrow {
+    position: absolute;
+    display: flex;
+    top: 3px;
+    height: calc(100% - 6px);
+    width: 30px;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 0;
+    border-radius: var(--radius);
+    color: var(--foreground);
+    cursor: pointer;
+    outline: 0;
+    transition: background 180ms var(--swift-out);
+    z-index: 1;
+
+    @media (hover: hover) {
+        &:hover {
+            background: rgb(var(--gray-3) / .75);
+        }
+    }
+}
+
+.tabBarArrowStart {
+    composes: tabBarArrow;
+
+    left: -6px;
+}
+
+.tabBarArrowEnd {
+    composes: tabBarArrow;
+
+    right: -6px;
+}
+
+.tabBarTabs {
+    --mask-start: 0%;
+    --mask-end: 100%;
+    --mask: linear-gradient(to right, transparent, black var(--mask-start), black, black var(--mask-end), transparent);
+
+    display: flex;
+    align-items: flex-end;
+    gap: 21px;
+    overflow: hidden;
+
+    -webkit-mask-image: var(--mask);
+    mask-image: var(--mask);
+
+    &.isStartMasked {
+        --mask-start: 60px;
+    }
+
+    &.isEndMasked {
+        --mask-end: calc(100% - 60px);
+    }
+}
+
+.tabBarItem {
+    display: inline-flex;
+    padding: var(--tab-padding) 0;
+    align-items: center;
+    gap: 9px;
+    background: unset;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    color: var(--foreground);
+    contain: layout;
+    cursor: pointer;
+    font-weight: 500;
+    outline: 0;
+    transition: 180ms var(--swift-out);
+    transition-property: border-color, color;
+    white-space: nowrap;
+
+    &::before {
+        position: absolute;
+        inset: 0;
+        content: '';
+        border-radius: var(--radius);
+        pointer-events: none;
+        transition: 180ms var(--swift-out) mixin.focus-ring-transition-properties();
+    }
+
+    @include mixin.focus-ring-pseudo(before);
+
+    @media (hover: hover) {
+        &:hover {
+            border-color: var(--foreground);
+        }
+    }
+}
+
+.tabBarItemActive {
+    composes: tabBarItem;
+
+    border-color: rgb(var(--primary-7));
+    color: var(--foreground-prominent);
+}
+
+.tabs {
+    display: flex;
+    flex-flow: column;
+    overflow: visible;
+}
+
+.tabsBar {
+    margin-bottom: 18px;
+}
+
+.basePaneStructure > .tabBar,
+.basePaneStructure > .tabs >.tabBar {
+    --tab-padding: 18px;
+
+    padding-left: 21px;
+    padding-right: 21px;
+    background: rgb(var(--gray-1));
+
+    &:first-child {
+        border-radius: var(--radius) var(--radius) 0 0;
+    }
+
+    &:not(:first-child) {
+        border-top: 1px solid rgb(var(--gray-3));
+    }
+}
+
+.basePaneStructure > .paneHeader + .tabBar,
+.basePaneStructure > .paneHeader + .tabs > .tabBar {
+    padding-top: 6px;
+
+    &:not(:first-child) {
+        border-top: 0;
+    }
+}
+
+.paneHeader:has(+ .tabBar),
+.paneHeader:has(+ .tabs > .tabBar) {
+    background: rgb(var(--gray-1));
+}
+
+.basePaneStructure > .tabs > .tabsBar {
+    margin-bottom: 0;
+}

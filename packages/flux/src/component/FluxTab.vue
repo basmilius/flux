@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flux-tab"
+        :class="styles.tab"
         role="tabpanel">
         <slot/>
     </div>
@@ -10,17 +10,12 @@
     lang="ts"
     setup>
     import type { IconNames } from '@/data';
+    import styles from '@/css/component/Tab.module.scss';
 
-    export interface Props {
+    export type Props = {
         readonly icon?: IconNames;
         readonly label?: string;
-    }
+    };
 
     defineProps<Props>();
 </script>
-
-<style lang="scss">
-    .flux-tab {
-        position: relative;
-    }
-</style>

@@ -1,8 +1,7 @@
 <template>
     <button
         ref="tabRef"
-        class="flux-tab-bar-item"
-        :class="{'is-active': isActive}"
+        :class="isActive ? styles.tabBarItemActive : styles.tabBarItem"
         type="button"
         role="tab"
         :aria-selected="isActive"
@@ -22,16 +21,17 @@
     import { ref, toRefs, unref, watch } from 'vue';
     import type { IconNames } from '@/data';
     import FluxIcon from './FluxIcon.vue';
+    import styles from '@/css/component/Tab.module.scss';
 
-    export interface Emits {
-        (e: 'click', evt: MouseEvent): void;
-    }
+    export type Emits = {
+        click: [MouseEvent];
+    };
 
-    export interface Props {
+    export type Props = {
         readonly icon?: IconNames;
         readonly isActive?: boolean;
         readonly label?: string;
-    }
+    };
 
     defineEmits<Emits>();
     const props = defineProps<Props>();
@@ -61,46 +61,3 @@
         });
     }, {immediate: true});
 </script>
-
-<style lang="scss">
-    @use '../css/mixin' as flux;
-
-    .flux-tab-bar-item {
-        position: relative;
-        display: inline-flex;
-        padding: var(--tab-padding) 0;
-        align-items: center;
-        gap: 9px;
-        background: unset;
-        border: 0;
-        border-bottom: 2px solid transparent;
-        color: var(--foreground);
-        contain: layout;
-        cursor: pointer;
-        font-weight: 500;
-        outline: 0;
-        transition: 180ms var(--swift-out);
-        transition-property: border-color, color;
-        white-space: nowrap;
-
-        &::before {
-            position: absolute;
-            inset: 0;
-            content: '';
-            border-radius: var(--radius);
-            pointer-events: none;
-            transition: 180ms var(--swift-out) flux.focus-ring-transition-properties();
-        }
-
-        @include flux.focus-ring-pseudo(before);
-
-        &:hover {
-            border-color: var(--foreground);
-        }
-
-        &.is-active {
-            border-color: rgb(var(--primary-7));
-            color: var(--foreground-prominent);
-        }
-    }
-</style>

@@ -1,11 +1,12 @@
 <template>
     <div
         ref="rootRef"
-        class="flux-slider"
-        :class="{
-            'is-disabled': isDisabled,
-            'is-dragging': isDragging
-        }"
+        :class="clsx(
+            styles.slider,
+            isDisabled && styles.isDisabled,
+            isDragging && styles.isDragging
+        )"
+        role="slider"
         @pointerdown="onPointerDown">
         <FluxTicks
             v-if="isTicksVisible"
@@ -18,24 +19,25 @@
 <script
     lang="ts"
     setup>
+    import { clsx } from 'clsx';
     import { onMounted, onUnmounted, ref, toRefs, unref, watch } from 'vue';
     import { unrefElement } from '@/util';
     import FluxTicks from '../FluxTicks.vue';
+    import styles from '@/css/component/Form.module.scss';
 
-    export interface Emits {
-        (e: 'dragging', is: boolean): void;
+    export type Emits = {
+        dragging: [boolean];
+        update: [number];
+    };
 
-        (e: 'update', value: number): void;
-    }
-
-    export interface Props {
+    export type Props = {
         readonly isDisabled?: boolean;
         readonly isDragging?: boolean;
         readonly isTicksVisible?: boolean;
         readonly max: number;
         readonly min: number;
         readonly step: number;
-    }
+    };
 
     const emit = defineEmits<Emits>();
     const props = defineProps<Props>();
@@ -83,22 +85,3 @@
 
     watch(isDragging, isDragging => emit('dragging', isDragging));
 </script>
-
-<style lang="scss">
-    .flux-slider {
-        position: relative;
-        display: flex;
-        margin: 6px;
-        flex-flow: column;
-        gap: 9px;
-        touch-action: pan-y;
-
-        &.is-disabled {
-            cursor: not-allowed;
-        }
-
-        &.is-dragging {
-            cursor: grabbing;
-        }
-    }
-</style>

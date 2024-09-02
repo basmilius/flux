@@ -47,8 +47,8 @@
     lang="ts"
     setup>
     import { FluxPane, FluxPaneHeader, FluxStack } from '@basmilius/flux';
-    import { ApiSection, ApiTable, HighlightedCode, PageTitle } from '@docs/components';
-    import { english } from '@/composable/private/useTranslate';
+    import { ApiSection, ApiTable, HighlightedCode, PageTitle } from '@/components';
+    import { english } from '../../../../flux/src/composable/private/useTranslate';
 
     const useTranslateCode = `import { useTranslate } from '@basmilius/flux';\n\nconst {t} = useTranslate();\n\nconsole.log(t('flux.back')); // "Back"`;
 </script>

@@ -1,21 +1,21 @@
 <template>
     <th
-        class="flux-table-cell flux-table-header"
-        :class="{
-            'is-bordered': isBordered,
-            'is-shrinking': isShrinking,
-            'is-sticky': isSticky
-        }"
+        :class="clsx(
+            styles.tableHeader,
+            isBordered && styles.isBordered,
+            isShrinking && styles.isShrinking,
+            isSticky && styles.isSticky
+        )"
         :style="{
             minWidth: `${minWidth}px`
         }">
-        <div class="flux-table-cell-content flux-table-header-content">
+        <div :class="styles.tableHeaderContent">
             <slot/>
 
             <FluxFlyout v-if="isSortable">
                 <template #opener="{open}">
                     <button
-                        class="flux-table-header-sort"
+                        :class="styles.tableSort"
                         :aria-label="translate('flux.sort')"
                         tabindex="-1"
                         type="button"
@@ -61,6 +61,7 @@
 <script
     lang="ts"
     setup>
+    import { clsx } from 'clsx';
     import { computed } from 'vue';
     import { useTableInjection } from '@/composable';
     import { useTranslate } from '@/composable/private';
@@ -71,18 +72,19 @@
     import FluxMenuGroup from './FluxMenuGroup.vue';
     import FluxMenuItem from './FluxMenuItem.vue';
     import FluxSeparator from './FluxSeparator.vue';
+    import styles from '@/css/component/Table.module.scss';
 
-    export interface Emits {
-        (e: 'sort', sort: 'ascending' | 'descending' | null): void;
-    }
+    export type Emits = {
+        sort: ['ascending' | 'descending' | null];
+    };
 
-    export interface Props {
+    export type Props = {
         readonly isShrinking?: boolean;
         readonly isSortable?: boolean;
         readonly isSticky?: boolean;
         readonly minWidth?: number;
         readonly sort?: 'ascending' | 'descending' | null;
-    }
+    };
 
     defineEmits<Emits>();
     const props = withDefaults(defineProps<Props>(), {
@@ -105,47 +107,3 @@
         return 'arrow-up-arrow-down';
     });
 </script>
-
-<style lang="scss">
-    .flux-table-header {
-        border-bottom: 2px solid rgb(var(--gray-4) / .75);
-        color: var(--foreground-prominent);
-        font-size: 14px;
-
-        &.is-shrinking {
-            width: 0;
-            white-space: nowrap;
-        }
-
-        &.is-sticky {
-            position: sticky;
-            top: 0;
-            background: rgb(var(--gray-1));
-        }
-
-        &-content {
-            align-items: center;
-        }
-
-        &-sort {
-            display: flex;
-            height: 24px;
-            width: 24px;
-            margin: -3px -6px -3px 6px;
-            padding: 0;
-            align-items: center;
-            justify-content: center;
-            background: unset;
-            border: 0;
-            border-radius: calc(var(--radius) / 2);
-            color: var(--foreground-secondary);
-            cursor: pointer;
-            outline: 0;
-
-            &:hover {
-                background: rgb(var(--gray-2));
-                color: var(--foreground);
-            }
-        }
-    }
-</style>

@@ -1,0 +1,287 @@
+.dashboard {
+    display: grid;
+    min-height: 100vh;
+    grid-template-columns: auto minmax(0, 1fr);
+    background: rgb(var(--gray-0));
+
+    &:has(> .dashboardMenu) {
+        grid-template-columns: auto 300px minmax(0, 1fr);
+    }
+
+    &:has(> .dashboardSide) {
+        grid-template-columns: auto minmax(0, 1fr) 330px;
+    }
+
+    &:has(> .dashboardMenu):has(> .dashboardSide) {
+        grid-template-columns: auto 300px minmax(0, 1fr) 330px;
+    }
+
+    .notice.isFluid + .dashboardContent:not(:has(> .table:first-child)) {
+        padding-top: 30px;
+    }
+
+    .notice.isFluid + .dashboardContent > .table:first-child {
+        border-top: 0;
+    }
+}
+
+.dashboardBody {
+    display: flex;
+    flex-flow: column;
+    flex-grow: 1;
+}
+
+.dashboardContent {
+    display: flex;
+    padding: 0 30px;
+    flex-flow: column;
+    flex-grow: 1;
+
+    > :is(.calendar, .table) {
+        margin-left: -30px;
+        margin-right: -30px;
+        height: calc(100dvh - 84px);
+        flex-grow: 1;
+    }
+
+    > .calendar {
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0;
+
+        .calendarActions {
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+    }
+
+    > .table {
+        border-top: 1px solid rgb(var(--gray-3));
+
+        .tableCell:first-child .tableCellContent {
+            padding-left: 30px;
+        }
+
+        .tableCell:last-child .tableCellContent {
+            padding-right: 30px;
+        }
+    }
+}
+
+.dashboardPane {
+    position: sticky;
+    top: 0;
+    height: 100dvh;
+    flex-shrink: 0;
+    background: rgb(var(--gray-1));
+    overflow: auto;
+
+    .menuSubHeader {
+        background: linear-gradient(to bottom, rgb(var(--gray-1)) 75%, transparent);
+    }
+
+    .dashboardTopBar {
+        background: rgb(var(--gray-1) / .9);
+    }
+
+    .filter {
+        --background: rgb(var(--gray-1));
+
+        max-height: calc(100dvh - 84px);
+        margin-top: -9px;
+        padding: 9px 18px 18px;
+        width: 100%;
+
+        .filterHeader {
+            margin-left: -18px;
+            margin-right: -18px;
+            padding-left: 18px;
+            padding-right: 18px;
+        }
+
+        .menu {
+            font-size: 14px;
+        }
+
+        .menuItemCommand {
+            font-size: 12px;
+        }
+
+        .menuItemIcon {
+            font-size: 16px;
+        }
+
+        .menu > :where(.divider, .separator) {
+            margin-left: -18px;
+            margin-right: -18px;
+        }
+    }
+}
+
+.dashboardMenu {
+    composes: dashboardPane;
+
+    border-right: 1px solid rgb(var(--gray-3));
+}
+
+.dashboardMenuBody {
+    padding: 0 18px 30px;
+}
+
+.dashboardSide {
+    composes: dashboardPane;
+
+    border-left: 1px solid rgb(var(--gray-3));
+}
+
+.dashboardNavigation {
+    position: sticky;
+    display: flex;
+    top: 0;
+    height: 100dvh;
+    width: 300px;
+    padding: 15px;
+    flex-flow: column;
+    gap: 15px;
+    background: rgb(var(--primary-11));
+    transition: width 210ms var(--swift-out);
+
+    .divider {
+        margin: 3px 15px;
+    }
+
+    .dividerLine {
+        background: rgb(var(--primary-10));
+    }
+
+    .menu {
+        flex-grow: 1;
+    }
+
+    .menuItem {
+        padding: 15px;
+        color: rgb(var(--primary-0));
+        overflow: hidden;
+
+        @media (hover: hover) {
+            &:hover {
+                background: rgb(var(--primary-10));
+            }
+        }
+
+        &:active {
+            background: rgb(var(--primary-9));
+        }
+    }
+
+    .menuItemHighlighted {
+        background: rgb(var(--primary-10) / .5);
+    }
+
+    .menuItemIcon {
+        color: rgb(var(--primary-0));
+        font-size: 24px;
+    }
+
+    .menuItemLabel {
+        transition: opacity 210ms var(--swift-out);
+        white-space: nowrap;
+    }
+}
+
+.dashboardNavigationCollapsed {
+    composes: dashboardNavigation;
+
+    width: 84px;
+
+    .menuItem {
+        width: 54px;
+    }
+
+    .menuItemLabel {
+        opacity: 0;
+    }
+}
+
+.dashboardNavigationLogo {
+    display: flex;
+    height: 54px;
+    width: 54px;
+    align-items: center;
+    justify-content: center;
+
+    :is(svg) {
+        max-height: 48px;
+        max-width: 48px;
+        width: 100%;
+    }
+}
+
+.dashboardNavigationRoundingFix {
+    position: absolute;
+    display: block;
+    left: 300px;
+    height: var(--radius);
+    width: var(--radius);
+    content: '';
+    background: rgb(var(--primary-11));
+    transition: left 210ms var(--swift-out);
+    z-index: 750;
+
+    &::before {
+        position: absolute;
+        display: block;
+        inset: 0;
+        content: '';
+        background: rgb(var(--gray-0));
+    }
+
+    &:first-of-type {
+        top: 0;
+
+        &::before {
+            border-top-left-radius: var(--radius);
+        }
+    }
+
+    &:not(:first-of-type) {
+        bottom: 0;
+
+        &::before {
+            border-bottom-left-radius: var(--radius);
+        }
+    }
+}
+
+.dashboardNavigationRoundingFixCollapsed {
+    composes: dashboardNavigationRoundingFix;
+
+    left: 84px;
+}
+
+.dashboardTopBar {
+    position: sticky;
+    display: flex;
+    top: 0;
+    height: 84px;
+    padding-left: 30px;
+    padding-right: 30px;
+    align-items: center;
+    flex-flow: row;
+    gap: 15px;
+    background: rgb(var(--gray-0) / .9);
+    backdrop-filter: blur(10px) saturate(180%);
+    z-index: 100;
+
+    > h1 {
+        font-size: 18px;
+    }
+
+    > .icon {
+        color: var(--foreground-prominent);
+    }
+
+    > .separator {
+        height: 24px;
+    }
+}

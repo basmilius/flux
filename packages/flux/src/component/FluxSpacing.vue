@@ -1,9 +1,5 @@
 <template>
-    <div
-        class="flux-spacing"
-        :style="{
-            flex: `0 0 ${size}px`
-        }"/>
+    <div :style="{flex: `0 0 ${size}px`}"/>
 </template>
 
 <script
@@ -32,9 +28,9 @@
         120
     ] as const;
 
-    export interface Props {
+    export type Props = {
         readonly size: keyof typeof spacings;
-    }
+    };
 
     const props = defineProps<Props>();
 

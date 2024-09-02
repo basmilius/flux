@@ -1,0 +1,102 @@
+@value sparklesContainer, sparklesContainerActive, sparklesParticles from '@/css/component/base/Effect.module.scss';
+
+.stepperStep {
+    position: relative;
+}
+
+.stepperSteps {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: space-between;
+    background: inherit;
+    z-index: 0;
+
+    &::before,
+    &::after {
+        --margin: 15px;
+        --max: calc(100% - var(--margin) * 2);
+
+        position: absolute;
+        display: block;
+        top: calc(50% - 2px);
+        left: 0;
+        margin-left: var(--margin);
+        margin-right: var(--margin);
+        height: 4px;
+        content: '';
+        z-index: -1;
+    }
+
+    &::before {
+        width: var(--max);
+        background: rgb(var(--gray-3));
+    }
+
+    &::after {
+        width: calc(min(1, var(--progress)) * var(--max));
+        background: rgb(var(--primary-7));
+        transition: width 300ms var(--swift-out);
+    }
+}
+
+.stepperStepsItem {
+    composes: sparklesContainer;
+
+    position: relative;
+    display: flex;
+    height: 33px;
+    width: 33px;
+    align-items: center;
+    justify-content: center;
+    background: rgb(var(--gray-3));
+    border: 0;
+    border-radius: 99px;
+    color: var(--foreground);
+    cursor: default;
+    font-size: 14px;
+    font-weight: 700;
+    outline: 3px solid transparent;
+    outline-offset: -2px;
+    transition: 300ms var(--swift-out);
+    transition-property: background, border, color, outline;
+
+    .icon {
+        overflow: visible;
+        scale: .8;
+
+        :is(path) {
+            stroke: currentColor;
+            stroke-width: 54px;
+        }
+    }
+}
+
+.stepperStepsItemComplete {
+    composes: sparklesContainerActive;
+    composes: stepperStepsItem;
+
+    background: rgb(var(--primary-7));
+    border-color: rgb(var(--primary-7));
+    color: rgb(var(--primary-0));
+}
+
+.stepperStepsItemCurrent {
+    composes: stepperStepsItem;
+
+    color: var(--foreground-prominent);
+    outline-color: rgb(var(--primary-7));
+    outline-width: 2px;
+    transition-delay: 75ms;
+}
+
+.stepperStepsItemIdle {
+    composes: stepperStepsItem;
+
+    outline-color: rgb(var(--gray-0));
+}
+
+.stepperStepsItemParticles {
+    composes: sparklesParticles;
+}

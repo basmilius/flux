@@ -1,0 +1,35 @@
+@layer flux-base {
+    .basePane {
+        background: rgb(var(--gray-0));
+        background-clip: padding-box;
+        border: 1px solid rgb(var(--gray-11) / .05);
+        border-radius: var(--radius);
+    }
+
+    [dark] .basePane {
+        border-color: rgb(var(--gray-11) / .2);
+    }
+
+    .basePaneLoader {
+        position: absolute;
+        display: flex;
+        inset: 0;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(2px) saturate(180%);
+        background: rgb(var(--gray-0) / .75);
+        border-radius: inherit;
+        z-index: 100;
+    }
+
+    .basePaneStructure {
+        composes: basePane;
+
+        position: relative;
+    }
+
+    .basePaneStructure > .basePaneStructure {
+        background: unset;
+        border: 0;
+    }
+}

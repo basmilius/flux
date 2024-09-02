@@ -1,0 +1,142 @@
+.breakthroughTransitionEnterActive,
+.breakthroughTransitionBackEnterActive,
+.breakthroughTransitionLeaveActive,
+.breakthroughTransitionBackLeaveActive {
+    transform-origin: top center;
+    transition-property: opacity, scale, translate;
+}
+
+.breakthroughTransitionEnterActive,
+.breakthroughTransitionBackEnterActive {
+    transition-duration: 180ms;
+    transition-timing-function: var(--deceleration-curve);
+}
+
+.breakthroughTransitionLeaveActive,
+.breakthroughTransitionBackLeaveActive {
+    transition-duration: 120ms;
+    transition-timing-function: var(--acceleration-curve);
+}
+
+.breakthroughTransitionEnterFrom,
+.breakthroughTransitionBackLeaveTo {
+    opacity: 0;
+    scale: .975;
+}
+
+.breakthroughTransitionLeaveTo,
+.breakthroughTransitionBackEnterFrom {
+    opacity: 0;
+    scale: 1.025;
+}
+
+.fadeTransitionEnterActive,
+.fadeTransitionLeaveActive {
+    transition: opacity 150ms var(--swift-out) !important;
+}
+
+.fadeTransitionEnterFrom,
+.fadeTransitionLeaveTo {
+    opacity: 0;
+}
+
+.fadeTransitionEnterTo,
+.fadeTransitionLeaveFrom {
+    opacity: 1;
+}
+
+.routeTransitionEnterActive,
+.routeTransitionBackEnterActive,
+.routeTransitionLeaveActive,
+.routeTransitionBackLeaveActive {
+    transform-origin: top center;
+    transition-property: opacity, scale;
+}
+
+.routeTransitionEnterActive,
+.routeTransitionBackEnterActive {
+    transition-duration: 180ms;
+    transition-timing-function: var(--deceleration-curve);
+}
+
+.routeTransitionLeaveActive,
+.routeTransitionBackLeaveActive {
+    transition-duration: 120ms;
+    transition-timing-function: var(--acceleration-curve);
+}
+
+.routeTransitionEnterFrom,
+.routeTransitionBackLeaveTo {
+    opacity: 0;
+    scale: .975;
+}
+
+.routeTransitionLeaveTo,
+.routeTransitionBackEnterFrom {
+    opacity: 0;
+    scale: .95;
+}
+
+.tooltipTransitionEnterActive,
+.tooltipTransitionLeaveActive {
+    transition: 210ms var(--swift-out);
+    transition-property: opacity, scale;
+}
+
+.tooltipTransitionEnterFrom {
+    scale: .975;
+}
+
+.tooltipTransitionEnterFrom,
+.tooltipTransitionLeaveTo {
+    opacity: 0;
+}
+
+.verticalWindowTransitionEnterActive,
+.verticalWindowTransitionBackEnterActive {
+    contain: paint;
+    transition: 150ms var(--deceleration-curve);
+    transition-property: opacity, transform;
+}
+
+.verticalWindowTransitionLeaveActive,
+.verticalWindowTransitionBackLeaveActive {
+    transition: 150ms var(--acceleration-curve);
+    transition-property: opacity, transform;
+}
+
+.verticalWindowTransitionBackLeaveTo,
+.verticalWindowTransitionEnterFrom {
+    opacity: 0;
+    transform: translate3d(0, 15px, 0);
+}
+
+.verticalWindowTransitionBackEnterFrom,
+.verticalWindowTransitionLeaveTo {
+    opacity: 0;
+    transform: translate3d(0, -15px, 0);
+}
+
+.windowTransitionEnterActive,
+.windowTransitionBackEnterActive {
+    transition: 150ms var(--deceleration-curve);
+    transition-property: height, opacity, transform;
+}
+
+.windowTransitionLeaveActive,
+.windowTransitionBackLeaveActive {
+    transition: 150ms var(--acceleration-curve);
+    transition-property: height, opacity, transform;
+}
+
+.windowTransitionBackLeaveTo,
+.windowTransitionEnterFrom {
+    opacity: 0;
+    transform: translate3d(15px, 0, 0);
+}
+
+.windowTransitionBackEnterFrom,
+.windowTransitionLeaveTo {
+    opacity: 0;
+    transform: translate3d(-15px, 0, 0);
+}

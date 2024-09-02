@@ -1,8 +1,13 @@
 <template>
     <ButtonComponent
         :component-type="type"
-        class="flux-button"
-        :class="[`is-${size}`]"
+        :class="clsx(
+            cssClass,
+            size === 'small' && styles.isSmall,
+            size === 'medium' && styles.isMedium,
+            size === 'large' && styles.isLarge,
+            size === 'xl' && styles.isXl
+        )"
         :type="isSubmit ? 'submit' : 'button'"
         :aria-disabled="disabled ? true : undefined"
         :disabled="disabled ? true : undefined"
@@ -23,14 +28,14 @@
 
             <FluxIcon
                 v-else-if="iconBefore"
-                class="flux-button-icon"
+                :class="cssClassIcon"
                 :variant="iconBefore"/>
         </slot>
 
         <slot name="label">
             <span
                 v-if="label"
-                class="flux-button-label">
+                :class="cssClassLabel">
                 {{ label }}
             </span>
         </slot>
@@ -42,7 +47,7 @@
 
             <FluxIcon
                 v-else-if="iconAfter"
-                class="flux-button-icon"
+                :class="cssClassIcon"
                 :variant="iconAfter"/>
         </slot>
 
@@ -53,34 +58,37 @@
 <script
     lang="ts"
     setup>
+    import { clsx } from 'clsx';
     import { toRefs, unref } from 'vue';
     import { FluxIcon, FluxSpinner } from '@/component';
     import type { FluxRoutingLocation, IconNames } from '@/data';
+    import styles from '@/css/component/Button.module.scss';
     import ButtonComponent from './ButtonComponent.vue';
 
-    export interface Emits {
-        (e: 'click', evt: MouseEvent): void;
+    export type Emits = {
+        click: [MouseEvent];
+        mouseenter: [MouseEvent];
+        mouseleave: [MouseEvent];
+    };
 
-        (e: 'mouseenter', evt: MouseEvent): void;
-
-        (e: 'mouseleave', evt: MouseEvent): void;
-    }
-
-    export interface Props {
+    export type Props = {
         readonly type?: 'button' | 'link' | 'route';
+        readonly cssClass: string;
+        readonly cssClassIcon: string;
+        readonly cssClassLabel: string;
         readonly disabled?: boolean;
         readonly iconAfter?: IconNames | null;
         readonly iconBefore?: IconNames | null;
         readonly isLoading?: boolean;
         readonly isSubmit?: boolean;
         readonly label?: string;
-        readonly size?: 'small' | 'medium' | 'large';
+        readonly size?: 'small' | 'medium' | 'large' | 'xl';
         readonly tabindex?: string | number;
         readonly href?: string;
         readonly rel?: string;
         readonly target?: string;
         readonly to?: FluxRoutingLocation;
-    }
+    };
 
     const emit = defineEmits<Emits>();
     const props = withDefaults(defineProps<Props>(), {
@@ -107,84 +115,3 @@
         emit('mouseleave', evt);
     }
 </script>
-
-<style lang="scss">
-    @use '../../css/mixin' as flux;
-
-    .flux-button {
-        display: inline-flex;
-        height: 42px;
-        padding: 0 12px;
-        align-items: center;
-        flex-shrink: 0;
-        gap: 12px;
-        justify-content: center;
-        background: var(--button-background);
-        border: 1px solid var(--button-stroke);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow-px);
-        cursor: pointer;
-        font: inherit;
-        text-decoration: none;
-        transition: 180ms var(--swift-out);
-        transition-property: background, box-shadow, color, flux.focus-ring-transition-properties();
-        user-select: none;
-
-        @include flux.focus-ring(2px);
-
-        > * {
-            color: var(--button-foreground);
-        }
-
-        &.is-small {
-            height: 36px;
-            padding: 0 9px;
-        }
-
-        &.is-large {
-            height: 48px;
-            padding: 0 15px;
-        }
-
-        &:focus-visible {
-            z-index: 1;
-        }
-
-        &-icon {
-            flex-shrink: 0;
-            color: var(--button-icon);
-
-            &:only-child {
-                margin-left: -2px;
-                margin-right: -2px;
-            }
-        }
-
-        &-label {
-            display: inline-block;
-            font-weight: 500;
-            text-align: center;
-
-            &:only-child {
-                margin-left: 6px;
-                margin-right: 6px;
-            }
-        }
-
-        &:hover {
-            background: var(--button-background-hover);
-        }
-
-        &:active {
-            background: var(--button-background-active);
-            box-shadow: none;
-        }
-
-        &:disabled,
-        &[aria-disabled="true"] {
-            box-shadow: none;
-            opacity: .5;
-            pointer-events: none;
-        }
-    }
-</style>

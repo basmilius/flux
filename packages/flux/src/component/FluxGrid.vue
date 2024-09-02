@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flux-grid"
+        :class="styles.grid"
         :style="{
             '--gap': `${gap}px`,
             '--columns': columns
@@ -12,21 +12,15 @@
 <script
     lang="ts"
     setup>
-    export interface Props {
+    import styles from '@/css/component/Grid.module.scss';
+
+    export type Props = {
         readonly columns?: number;
         readonly gap?: number;
-    }
+    };
 
     withDefaults(defineProps<Props>(), {
         columns: 12,
         gap: 30
     });
 </script>
-
-<style lang="scss">
-    .flux-grid {
-        display: grid;
-        gap: var(--gap);
-        grid-template-columns: repeat(var(--columns), 1fr);
-    }
-</style>

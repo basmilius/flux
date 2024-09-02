@@ -1,9 +1,11 @@
 <template>
-    <FluxPane class="code-preview flux-typography-aware">
+    <FluxPane
+        :class="$style.codePreview"
+        data-typography-aware>
         <Preview v-if="html">
             <template #body>
                 <div
-                    class="preview-body"
+                    :class="$style.previewBody"
                     v-html="code"/>
             </template>
         </Preview>
@@ -42,26 +44,28 @@
     defineProps<Props>();
 </script>
 
-<style lang="scss">
-    .code-preview > .flux-pane-body {
+<style
+    lang="scss"
+    module>
+    .codePreview > .paneBody {
         font-size: 15px;
     }
 
-    .code-preview .preview {
+    .codePreview .preview {
         background: rgb(var(--gray-0));
         border: 0;
-
-        &-body {
-            min-height: unset;
-            padding: 21px;
-            align-items: stretch;
-            flex-flow: column;
-        }
 
         &::before {
             background: rgb(var(--gray-3) / .25);
             -webkit-mask-position: center center;
             mask-position: center center;
         }
+    }
+
+    .codePreview .previewBody {
+        min-height: unset;
+        padding: 21px;
+        align-items: stretch;
+        flex-flow: column;
     }
 </style>

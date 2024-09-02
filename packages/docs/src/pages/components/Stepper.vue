@@ -118,12 +118,12 @@
     lang="ts"
     setup>
     import { FluxPane, FluxPaneBody, FluxStack, FluxStepper, FluxStepperStep } from '@basmilius/flux';
-    import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
+    import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
     import { onMounted, ref } from 'vue';
-    import basic from '@docs/code/components/stepper/basic.vue';
-    import basicCode from '@docs/code/components/stepper/basic.vue?raw';
-    import custom from '@docs/code/components/stepper/custom.vue';
-    import customCode from '@docs/code/components/stepper/custom.vue?raw';
+    import basic from '@/code/components/stepper/basic.vue';
+    import basicCode from '@/code/components/stepper/basic.vue?raw';
+    import custom from '@/code/components/stepper/custom.vue';
+    import customCode from '@/code/components/stepper/custom.vue?raw';
 
     const max = ref(3);
     const step = ref(1);

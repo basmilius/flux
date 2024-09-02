@@ -42,7 +42,7 @@
     lang="ts"
     setup>
     import { FluxSpinner, FluxStack } from '@basmilius/flux';
-    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@docs/components';
-    import basic from '@docs/code/components/spinner/basic.vue';
-    import basicCode from '@docs/code/components/spinner/basic.vue?raw';
+    import { ApiComponent, ApiExample, ApiSection, PageTitle, Preview } from '@/components';
+    import basic from '@/code/components/spinner/basic.vue';
+    import basicCode from '@/code/components/spinner/basic.vue?raw';
 </script>

@@ -6,22 +6,24 @@
 
         <Preview>
             <FluxPane>
-                <FluxPaneBody :gap="30">
-                    <FluxComment
-                        avatar-url="/images/bas.jpg"
-                        is-flipped
-                        name="Bas Milius"
-                        period="13:04">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet aut blanditiis consectetur doloribus earum, eos expedita magnam necessitatibus officia perferendis possimus praesentium quisquam repellendus rerum sequi totam vel voluptas voluptatem.</p>
-                    </FluxComment>
+                <FluxPaneBody>
+                    <FluxStack :gap="30">
+                        <FluxComment
+                            avatar-url="/images/bas.jpg"
+                            is-flipped
+                            name="Bas Milius"
+                            period="13:04">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet aut blanditiis consectetur doloribus earum, eos expedita magnam necessitatibus officia perferendis possimus praesentium quisquam repellendus rerum sequi totam vel voluptas voluptatem.</p>
+                        </FluxComment>
 
-                    <FluxComment
-                        avatar-fallback-initials="BM"
-                        is-received
-                        name="Bas Milius"
-                        period="13:37">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consectetur consequuntur dolores facilis, incidunt qui quia voluptatum. Ea facilis harum hic, laborum quo reiciendis voluptates! Ex excepturi nemo suscipit totam.</p>
-                    </FluxComment>
+                        <FluxComment
+                            avatar-fallback-initials="BM"
+                            is-received
+                            name="Bas Milius"
+                            period="13:37">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consectetur consequuntur dolores facilis, incidunt qui quia voluptatum. Ea facilis harum hic, laborum quo reiciendis voluptates! Ex excepturi nemo suscipit totam.</p>
+                        </FluxComment>
+                    </FluxStack>
                 </FluxPaneBody>
             </FluxPane>
         </Preview>
@@ -89,5 +91,5 @@
     lang="ts"
     setup>
     import { FluxComment, FluxPane, FluxPaneBody, FluxStack } from '@basmilius/flux';
-    import { ApiComponent, ApiSection, PageTitle, Preview } from '@docs/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
 </script>

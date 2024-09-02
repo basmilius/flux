@@ -179,5 +179,5 @@
     lang="ts"
     setup>
     import { FluxPane, FluxPaneBody, FluxPaneHeader, FluxStack, FluxTab, FluxTabBar, FluxTabBarItem, FluxTabs } from '@basmilius/flux';
-    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@docs/components';
+    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@/components';
 </script>

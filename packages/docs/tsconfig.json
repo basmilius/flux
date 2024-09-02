@@ -18,8 +18,7 @@
         "allowSyntheticDefaultImports": true,
         "baseUrl": ".",
         "paths": {
-            "@docs/*": ["src/*"],
-            "@/*": ["../flux/src/*"],
+            "@/*": ["src/*"],
             "@basmilius/flux": ["../flux/src/index.ts"]
         }
     },
@@ -27,11 +26,7 @@
         "./src/**/*.ts",
         "./src/**/*.d.ts",
         "./src/**/*.tsx",
-        "./src/**/*.vue",
-        "../flux/src/**/*.ts",
-        "../flux/src/**/*.d.ts",
-        "../flux/src/**/*.tsx",
-        "../flux/src/**/*.vue"
+        "./src/**/*.vue"
     ],
     "references": [
         {

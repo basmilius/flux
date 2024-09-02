@@ -1,42 +1,26 @@
 <template>
-    <div class="flux-info">
+    <div :class="styles.info">
         <FluxIcon
             v-if="icon"
-            class="flux-info-icon"
+            :class="styles.infoIcon"
             :variant="icon"/>
 
-        <div class="flux-info-body">
+        <div :class="styles.infoBody">
             <slot/>
         </div>
     </div>
 </template>
+
 <script
     setup
     lang="ts">
     import type { IconNames } from '@/data';
     import FluxIcon from './FluxIcon.vue';
+    import styles from '@/css/component/Info.module.scss';
 
-    export interface Props {
+    export type Props = {
         readonly icon?: IconNames;
-    }
+    };
 
     defineProps<Props>();
 </script>
-
-<style lang="scss">
-    .flux-info {
-        display: flex;
-        gap: 15px;
-
-        &-body {
-            align-items: center;
-            line-height: 1.5;
-        }
-
-        > .flux-icon {
-            margin-top: 1px;
-            flex-shrink: 0;
-            color: rgb(var(--primary-7));
-        }
-    }
-</style>

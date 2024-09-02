@@ -58,7 +58,7 @@
     lang="ts"
     setup>
     import { FluxFormTimeZonePicker, FluxPane, FluxPaneBody, FluxStack } from '@basmilius/flux';
-    import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
+    import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
     import { ref } from 'vue';
 
     const timeZone = ref('Europe/Amsterdam');

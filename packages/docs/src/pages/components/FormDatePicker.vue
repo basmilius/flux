@@ -232,15 +232,15 @@
     lang="ts"
     setup>
     import { FluxFormDateInput, FluxPane, FluxPaneBody, FluxStack } from '@basmilius/flux';
-    import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
+    import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
     import { DateTime } from 'luxon';
     import { ref } from 'vue';
-    import dateRange from '@docs/code/components/formDatePicker/dateRange.vue';
-    import dateRangeCode from '@docs/code/components/formDatePicker/dateRange.vue?raw';
-    import dateTime from '@docs/code/components/formDatePicker/dateTime.vue';
-    import dateTimeCode from '@docs/code/components/formDatePicker/dateTime.vue?raw';
-    import single from '@docs/code/components/formDatePicker/singleDate.vue';
-    import singleCode from '@docs/code/components/formDatePicker/singleDate.vue?raw';
+    import dateRange from '@/code/components/formDatePicker/dateRange.vue';
+    import dateRangeCode from '@/code/components/formDatePicker/dateRange.vue?raw';
+    import dateTime from '@/code/components/formDatePicker/dateTime.vue';
+    import dateTimeCode from '@/code/components/formDatePicker/dateTime.vue?raw';
+    import single from '@/code/components/formDatePicker/singleDate.vue';
+    import singleCode from '@/code/components/formDatePicker/singleDate.vue?raw';
 
     const date = ref(DateTime.now());
 </script>

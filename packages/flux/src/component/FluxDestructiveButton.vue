@@ -1,7 +1,9 @@
 <template>
     <BaseButton
-        class="flux-destructive-button"
         :="{type, disabled, iconAfter, iconBefore, isLoading, isSubmit, label, size, href, rel, target, to}"
+        :css-class="styles.destructiveButton"
+        :css-class-icon="styles.destructiveButtonIcon"
+        :css-class-label="styles.destructiveButtonLabel"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)">
@@ -19,57 +21,14 @@
     lang="ts"
     setup>
     import { useSlots } from 'vue';
-    import type { FluxRoutingLocation, IconNames } from '@/data';
-    import { BaseButton } from './primitive';
-
-    // note: It is currently not possible to reuse Emits and Props from
-    //  base button, because of a limitation of vite and vue compiler-sfc.
-    //  Extending from those types is also not possible.
-    //  https://vuejs.org/api/sfc-script-setup.html#typescript-only-features
-
-    export interface Emits {
-        (e: 'click', evt: MouseEvent): void;
-
-        (e: 'mouseenter', evt: MouseEvent): void;
-
-        (e: 'mouseleave', evt: MouseEvent): void;
-    }
-
-    export interface Props {
-        readonly type?: 'button' | 'link' | 'route';
-        readonly disabled?: boolean;
-        readonly iconAfter?: IconNames;
-        readonly iconBefore?: IconNames;
-        readonly isLoading?: boolean;
-        readonly isSubmit?: boolean;
-        readonly label?: string;
-        readonly size?: 'small' | 'medium' | 'large';
-        readonly href?: string;
-        readonly rel?: string;
-        readonly target?: string;
-        readonly to?: FluxRoutingLocation;
-    }
+    import BaseButton, { Emits, Props } from './primitive/BaseButton.vue';
+    import styles from '@/css/component/Button.module.scss';
 
     defineEmits<Emits>();
 
-    withDefaults(defineProps<Props>(), {
+    withDefaults(defineProps<Omit<Props, 'cssClass' | 'cssClassIcon' | 'cssClassLabel'>>(), {
         type: 'button'
     });
 
     const slots = useSlots();
 </script>
-
-<style lang="scss">
-    .flux-destructive-button {
-        --button-background: rgb(var(--gray-0));
-        --button-background-hover: rgb(var(--gray-2));
-        --button-background-active: rgb(var(--gray-3));
-        --button-foreground: var(--foreground);
-        --button-icon: rgb(var(--danger-7));
-        --button-stroke: rgb(var(--gray-4) / .75);
-
-        span:only-child {
-            color: var(--button-icon);
-        }
-    }
-</style>

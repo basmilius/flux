@@ -11,8 +11,8 @@
         @select="onFilesSelected">
         <template #default="{showPicker}">
             <TransitionGroup
-                class="flux-gallery"
-                name="flux-gallery"
+                :class="styles.gallery"
+                :move-class="styles.galleryMove"
                 tag="div">
                 <template
                     v-if="items"
@@ -44,7 +44,7 @@
                 <button
                     v-if="isEditable"
                     key="gallery-add"
-                    class="flux-placeholder flux-gallery-add"
+                    :class="styles.galleryAdd"
                     type="button"
                     @click="showPicker()">
                     <FluxIcon variant="plus"/>
@@ -62,18 +62,18 @@
     import FluxDropZone from './FluxDropZone.vue';
     import FluxGalleryItem from './FluxGalleryItem.vue';
     import FluxIcon from './FluxIcon.vue';
+    import styles from '@/css/component/Gallery.module.scss';
 
-    export interface Emits {
-        (e: 'delete', index: number): void;
+    export type Emits = {
+        delete: [number];
+        upload: [File[]];
+    };
 
-        (e: 'upload', files: File[]): void;
-    }
-
-    export interface Props {
+    export type Props = {
         readonly isEditable?: boolean;
         readonly items?: (string | (FluxFocalPoint & { readonly url: string; }))[];
         readonly pendingItems?: string[];
-    }
+    };
 
     const emit = defineEmits<Emits>();
     defineProps<Props>();
@@ -96,25 +96,3 @@
         emit('upload', images);
     }
 </script>
-
-<style lang="scss">
-    .flux-gallery {
-        display: grid;
-        gap: 9px;
-        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-
-        &-add {
-            aspect-ratio: 1 / 1;
-            color: rgb(var(--gray-7));
-
-            &:hover {
-                background: rgb(var(--gray-3));
-                border-color: rgb(var(--gray-5));
-            }
-        }
-
-        &-move {
-            transition: 360ms var(--swift-out);
-        }
-    }
-</style>

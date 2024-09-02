@@ -1,28 +1,25 @@
 <template>
     <div
-        class="flux-placeholder"
-        :class="{
-            'is-button': isButton,
-            'is-extended': variant === 'extended',
-            'is-simple': variant === 'simple',
-            'is-small': variant === 'small'
-        }"
+        :class="clsx(
+            styles.placeholder,
+            isButton && styles.isButton,
+            variant === 'extended' && styles.isExtended,
+            variant === 'simple' && styles.isSimple,
+            variant === 'small' && styles.isSmall
+        )"
+        role="presentation"
         @click="onClick">
         <FluxIcon
             v-if="icon"
-            class="flux-placeholder-icon"
+            :class="styles.placeholderIcon"
             :variant="icon"/>
 
-        <div class="flux-placeholder-caption">
-            <strong
-                v-if="title"
-                class="flux-placeholder-title">
+        <div :class="styles.placeholderCaption">
+            <strong v-if="title">
                 {{ title }}
             </strong>
 
-            <p
-                v-if="message"
-                class="flux-placeholder-message">
+            <p v-if="message">
                 {{ message }}
             </p>
         </div>
@@ -34,20 +31,22 @@
 <script
     lang="ts"
     setup>
+    import { clsx } from 'clsx';
     import type { IconNames } from '@/data';
     import FluxIcon from './FluxIcon.vue';
+    import styles from '@/css/component/Placeholder.module.scss';
 
-    export interface Emits {
-        (e: 'click', evt: MouseEvent): void;
-    }
+    export type Emits = {
+        click: [MouseEvent];
+    };
 
-    export interface Props {
+    export type Props = {
         readonly icon?: IconNames;
         readonly isButton?: boolean;
         readonly message?: string;
         readonly title?: string;
         readonly variant?: 'extended' | 'simple' | 'small';
-    }
+    };
 
     const emit = defineEmits<Emits>();
 
@@ -59,73 +58,3 @@
         emit('click', evt);
     }
 </script>
-
-<style lang="scss">
-    .flux-placeholder {
-        position: relative;
-        display: flex;
-        align-items: center;
-        flex: 1 1 0;
-        flex-flow: column;
-        justify-content: center;
-        background: rgb(var(--gray-2));
-        border: 2px dashed rgb(var(--gray-4));
-        border-radius: var(--radius);
-        text-align: center;
-        user-select: none;
-
-        &.is-button {
-            cursor: pointer;
-
-            &:hover {
-                background: rgb(var(--gray-3));
-                border-color: rgb(var(--gray-5));
-            }
-        }
-
-        &-icon {
-            color: rgb(var(--primary-7));
-            font-size: 20px;
-        }
-
-        &-caption {
-            display: flex;
-            align-items: stretch;
-            flex-flow: column;
-        }
-
-        &-message {
-            margin: 0;
-            max-width: 510px;
-            color: var(--foreground-secondary);
-            font-size: 14px;
-        }
-
-        &.is-extended {
-            padding: 27px;
-            gap: 9px;
-        }
-
-        &.is-extended &-icon {
-            font-size: 24px;
-        }
-
-        &.is-simple {
-            padding: 18px;
-        }
-
-        &.is-small {
-            padding: 12px;
-            font-size: 12px;
-        }
-
-        &.is-small &-icon {
-            color: var(--foreground-secondary);
-        }
-
-        &.is-small &-title {
-            color: var(--foreground-secondary);
-            font-weight: 400;
-        }
-    }
-</style>

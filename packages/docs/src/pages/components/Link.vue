@@ -78,5 +78,5 @@
     lang="ts"
     setup>
     import { FluxLink, FluxStack } from '@basmilius/flux';
-    import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
+    import { ApiComponent, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
 </script>

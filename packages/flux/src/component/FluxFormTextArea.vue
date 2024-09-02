@@ -1,11 +1,7 @@
 <template>
     <textarea
         ref="inputRef"
-        class="flux-form-input flux-form-text-area"
-        :class="{
-            'is-disabled': isDisabled,
-            'is-readonly': isReadonly
-        }"
+        :class="isDisabled ? styles.formTextAreaDisabled : styles.formTextAreaEnabled"
         :id="id"
         :autocomplete="autoComplete"
         :autofocus="autoFocus"
@@ -23,10 +19,11 @@
     setup>
     import { computed, onMounted, ref, toRefs, unref, watch } from 'vue';
     import { useFormFieldInjection } from '@/composable';
+    import styles from '@/css/component/Form.module.scss';
 
     export type Emits = {
-        (e: 'blur'): void;
-        (e: 'focus'): void;
+        blur: [];
+        focus: [];
     };
 
     export type Props = {
@@ -73,17 +70,3 @@
 
     watch([modelValue], () => requestAnimationFrame(sizeToContent));
 </script>
-
-<style lang="scss">
-    .flux-form-text-area {
-        height: unset;
-        padding-top: 9px;
-        padding-bottom: 9px;
-        flex-shrink: 0;
-        resize: vertical;
-
-        &::placeholder {
-            color: var(--foreground-secondary);
-        }
-    }
-</style>

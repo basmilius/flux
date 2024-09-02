@@ -1,7 +1,12 @@
 <template>
     <Transition
         :mode="mode"
-        name="flux-fade">
+        :enter-active-class="styles.fadeTransitionEnterActive"
+        :enter-from-class="styles.fadeTransitionEnterFrom"
+        :enter-to-class="styles.fadeTransitionEnterTo"
+        :leave-active-class="styles.fadeTransitionLeaveActive"
+        :leave-from-class="styles.fadeTransitionLeaveFrom"
+        :leave-to-class="styles.fadeTransitionLeaveTo">
         <slot/>
     </Transition>
 </template>
@@ -9,26 +14,13 @@
 <script
     lang="ts"
     setup>
-    export interface Props {
+    import styles from '@/css/component/Transition.module.scss';
+
+    export type Props = {
         readonly mode?: 'out-in' | 'in-out';
-    }
+    };
 
     withDefaults(defineProps<Props>(), {
         mode: 'out-in'
     });
 </script>
-
-<style lang="scss">
-    .flux-fade {
-        &-enter-active,
-        &-leave-active {
-            transition: opacity 150ms var(--swift-out);
-        }
-
-        &-enter,
-        &-enter-from,
-        &-leave-to {
-            opacity: 0;
-        }
-    }
-</style>

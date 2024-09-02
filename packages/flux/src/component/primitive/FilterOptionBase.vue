@@ -1,6 +1,6 @@
 <template>
     <FluxMenuGroup>
-        <div class="flux-filter-search">
+        <div :class="styles.filterSearch">
             <FluxFormInput
                 v-if="isSearchable"
                 v-model="modelSearch"
@@ -42,9 +42,10 @@
     import FluxFormInput from '../FluxFormInput.vue';
     import FluxMenuGroup from '../FluxMenuGroup.vue';
     import FluxMenuSubHeader from '../FluxMenuSubHeader.vue';
+    import styles from '@/css/component/Filter.module.scss';
 
     export type Emits = {
-        (e: 'select', value: FluxFilterValueSingle): void;
+        select: [FluxFilterValueSingle];
     };
 
     export type Props = {

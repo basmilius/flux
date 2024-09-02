@@ -21,8 +21,8 @@
 
                     <FluxToolbarGroup>
                         <FluxAction
-                            destructive
-                            icon="xmark"/>
+                            icon="xmark"
+                            is-destructive/>
                     </FluxToolbarGroup>
                 </FluxToolbar>
             </FluxPane>
@@ -80,5 +80,5 @@
     lang="ts"
     setup>
     import { FluxAction, FluxPane, FluxPaneBody, FluxSeparator, FluxStack, FluxToolbar, FluxToolbarGroup } from '@basmilius/flux';
-    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@docs/components';
+    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@/components';
 </script>

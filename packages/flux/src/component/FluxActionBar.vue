@@ -1,6 +1,6 @@
 <template>
     <FluxStack
-        class="flux-action-bar"
+        :class="styles.actionBar"
         axis="horizontal"
         :gap="9">
         <slot name="primary"/>
@@ -62,14 +62,15 @@
     import FluxSpacer from './FluxSpacer.vue';
     import FluxStack from './FluxStack.vue';
     import FluxTooltip from './FluxTooltip.vue';
+    import styles from '@/css/component/Action.module.scss';
 
-    export interface Emits {
-        (e: 'reset'): void;
-    }
+    export type Emits = {
+        reset: [];
+    };
 
-    export interface Props {
+    export type Props = {
         readonly isResettable?: boolean;
-    }
+    };
 
     defineEmits<Emits>();
     defineProps<Props>();
@@ -77,40 +78,3 @@
     const slots = useSlots();
     const translate = useTranslate();
 </script>
-
-<style lang="scss">
-    @use '../css/mixin' as flux;
-
-    .flux-action-bar {
-        flex-wrap: wrap;
-    }
-
-    @include flux.breakpoint-up(sm) {
-        .flux-action-bar > .flux-form-input {
-            max-width: 240px;
-        }
-    }
-
-    .flux-action-bar > .flux-separator {
-        margin-top: 9px;
-        margin-bottom: 9px;
-    }
-
-    .flux-pane > .flux-action-bar {
-        padding: 15px 21px;
-        background: rgb(var(--gray-1));
-        border: 1px solid rgb(var(--gray-3));
-        border-left: 0;
-        border-right: 0;
-
-        &:first-child {
-            border-top: 0;
-            border-top-left-radius: var(--radius);
-            border-top-right-radius: var(--radius);
-        }
-    }
-
-    .flux-pane-header + .flux-action-bar {
-        margin-top: 21px;
-    }
-</style>

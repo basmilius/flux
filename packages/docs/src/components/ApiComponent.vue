@@ -1,13 +1,15 @@
 <template>
     <FluxPane
         v-height-transition
-        class="api-component flux-typography-aware">
+        :class="$style.apiComponent"
+        data-typography-aware>
         <FluxTabs :model-value="slots.props ? 0 : (slots.emits ? 1 : 2)">
-            <template #tabs="{activeIndex, children, tabs, activate}">
+            <template #tabs="{activeIndex, tabs, activate}">
                 <FluxPaneHeader
-                    class="api-component-header"
-                    :title="name">
-                    <FluxTabBar class="api-component-tabs">
+                    :class="$style.apiComponentHeader"
+                    :title="name"
+                    #after>
+                    <FluxTabBar :class="$style.apiComponentTabs">
                         <template
                             v-for="(tab, index) of tabs"
                             :key="index">
@@ -27,7 +29,7 @@
                 <FluxTab
                     icon="wrench"
                     label="Props">
-                    <table class="api-table">
+                    <table :class="$style.apiTable">
                         <thead>
                         <slot name="head">
                             <tr>
@@ -47,7 +49,7 @@
                 <FluxTab
                     icon="bolt"
                     label="Emits">
-                    <table class="api-table">
+                    <table :class="$style.apiTable">
                         <thead>
                         <slot name="head">
                             <tr>
@@ -67,7 +69,7 @@
                 <FluxTab
                     icon="draw-square"
                     label="Slots">
-                    <table class="api-table">
+                    <table :class="$style.apiTable">
                         <thead>
                         <slot name="head">
                             <tr>
@@ -103,8 +105,10 @@
     const slots = useSlots();
 </script>
 
-<style lang="scss">
-    .api-component {
+<style
+    lang="scss"
+    module>
+    .apiComponent {
         margin-top: 30px;
         margin-bottom: 30px;
         overflow: hidden;
@@ -117,56 +121,61 @@
         &:last-of-type {
             margin-bottom: 0;
         }
+    }
 
-        &-header {
-            height: 66px;
-            padding-top: 0;
-            background: rgb(var(--gray-1));
-            border-bottom: 2px solid rgb(var(--gray-3));
-            z-index: 1;
+    .apiComponentHeader {
+        height: 66px;
+        padding-top: 0;
+        align-items: center;
+        background: rgb(var(--gray-1));
+        border-bottom: 2px solid rgb(var(--gray-3));
+        z-index: 1;
 
-            .flux-pane-header-title {
-                color: rgb(var(--primary-7));
-                font-family: jetbrains-mono, monospace;
-                font-size: 13px;
-                font-weight: 900;
+        :is(strong) {
+            color: rgb(var(--primary-7));
+            font-family: jetbrains-mono, monospace;
+            font-size: 13px;
+            font-weight: 900;
 
-                &::before,
-                &::after {
-                    color: var(--foreground-prominent);
-                }
-
-                &::before {
-                    content: '<Flux';
-                }
-
-                &::after {
-                    content: '/>';
-                }
-            }
-        }
-
-        &-tabs {
-            --tab-padding: 21px;
-
-            margin-bottom: -3px;
-            flex-grow: 1;
-
-            .flux-tab-bar-tabs {
-                justify-content: flex-end;
-            }
-
-            .flux-tab-bar-item {
+            &::before,
+            &::after {
                 color: var(--foreground-prominent);
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: 1px;
-                text-transform: uppercase;
+            }
 
-                .flux-icon {
-                    color: rgb(var(--primary-7));
-                }
+            &::before {
+                content: '<Flux';
+            }
+
+            &::after {
+                content: '/>';
             }
         }
+    }
+
+    .apiComponentTabs {
+        --tab-padding: 22px;
+
+        margin-bottom: -3px;
+        flex-grow: 1;
+
+        .tabBarTabs {
+            justify-content: flex-end;
+        }
+
+        .tabBarItem {
+            color: var(--foreground-prominent);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+
+            .icon {
+                color: rgb(var(--primary-7));
+            }
+        }
+    }
+
+    .apiTable {
+        position: relative;
     }
 </style>

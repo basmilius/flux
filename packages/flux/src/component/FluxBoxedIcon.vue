@@ -1,13 +1,12 @@
 <template>
-    <FluxSurface
-        class="flux-icon-boxed"
+    <div
+        data-typography-aware
+        :class="styles.iconBoxed"
         :style="{
-            '--size': `${size * 3}px`
+            fontSize: size && `${size}px`
         }">
-        <FluxIcon
-            :size="size"
-            :variant="variant"/>
-    </FluxSurface>
+        <FluxIcon :variant="variant"/>
+    </div>
 </template>
 
 <script
@@ -15,33 +14,17 @@
     setup>
     import type { IconNames } from '@/data';
     import FluxIcon from './FluxIcon.vue';
-    import FluxSurface from './FluxSurface.vue';
+    import styles from '@/css/component/Icon.module.scss';
 
-    export interface Emits {
-        (e: 'click', evt: MouseEvent): void;
-    }
+    export type Emits = {
+        click: [MouseEvent];
+    };
 
-    export interface Props {
+    export type Props = {
         readonly size?: number;
         readonly variant: IconNames;
-    }
+    };
 
     defineEmits<Emits>();
-    withDefaults(defineProps<Props>(), {
-        size: 20
-    });
+    defineProps<Props>();
 </script>
-
-<style
-    lang="scss"
-    scoped>
-    .flux-icon-boxed {
-        display: flex;
-        height: var(--size);
-        width: var(--size);
-        align-items: center;
-        flex-shrink: 0;
-        justify-content: center;
-        box-shadow: var(--shadow-sm);
-    }
-</style>

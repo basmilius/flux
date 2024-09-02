@@ -1,0 +1,73 @@
+@layer flux-base {
+    .flex {
+        display: flex;
+    }
+
+    .flexColumn {
+        composes: flex;
+
+        flex-flow: column;
+    }
+
+    .flexColumnNoWrap {
+        composes: flex;
+
+        flex-flow: column nowrap;
+    }
+
+    .flexColumnWrap {
+        composes: flex;
+
+        flex-flow: column wrap;
+    }
+
+    .flexRow {
+        composes: flex;
+
+        flex-flow: row;
+    }
+
+    .flexRowNoWrap {
+        composes: flex;
+
+        flex-flow: row nowrap;
+    }
+
+    .flexRowWrap {
+        composes: flex;
+
+        flex-flow: row wrap;
+    }
+
+    .flexGrow {
+        flex-grow: 1;
+    }
+
+    .flexNoGrow {
+        flex-grow: 0;
+    }
+
+    .flexShrink {
+        flex-shrink: 1;
+    }
+
+    .flexNoShrink {
+        flex-shrink: 0;
+    }
+
+    .inlineFlex {
+        display: inline-flex;
+    }
+
+    .inlineFlexColumn {
+        composes: inlineFlex;
+
+        flex-flow: column;
+    }
+
+    .inlineFlexRow {
+        composes: inlineFlex;
+
+        flex-flow: row;
+    }
+}

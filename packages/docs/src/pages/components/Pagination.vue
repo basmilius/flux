@@ -120,9 +120,9 @@
     lang="ts"
     setup>
     import { FluxPagination, FluxStack } from '@basmilius/flux';
-    import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
-    import basic from '@docs/code/components/pagination/basic.vue';
-    import basicCode from '@docs/code/components/pagination/basic.vue?raw';
-    import compact from '@docs/code/components/pagination/compact.vue';
-    import compactCode from '@docs/code/components/pagination/compact.vue?raw';
+    import { ApiComponent, ApiComponents, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
+    import basic from '@/code/components/pagination/basic.vue';
+    import basicCode from '@/code/components/pagination/basic.vue?raw';
+    import compact from '@/code/components/pagination/compact.vue';
+    import compactCode from '@/code/components/pagination/compact.vue?raw';
 </script>

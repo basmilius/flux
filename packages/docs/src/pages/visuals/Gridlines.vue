@@ -36,5 +36,5 @@
     lang="ts"
     setup>
     import { FluxGridlines, FluxPane, FluxStack } from '@basmilius/flux';
-    import { ApiComponent, ApiSection, PageTitle, Preview } from '@docs/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
 </script>

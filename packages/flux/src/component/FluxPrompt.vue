@@ -51,9 +51,9 @@
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import FluxSpacer from './FluxSpacer.vue';
 
-    export interface Props {
+    export type Props = {
         readonly prompt: FluxPromptSpec;
-    }
+    };
 
     const props = defineProps<Props>();
 

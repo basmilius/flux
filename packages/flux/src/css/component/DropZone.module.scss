@@ -1,0 +1,24 @@
+.dropZone {
+    position: relative;
+}
+
+.dropZoneHint {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+    outline: 3px dotted rgb(var(--primary-7));
+    outline-offset: -2px;
+    animation: dropZoneHint 540ms infinite var(--deceleration-curve) alternate;
+    transition: background 300ms var(--swift-out);
+
+    &.isOver {
+        outline-style: solid;
+        animation: none;
+    }
+
+    @keyframes dropZoneHint {
+        to {
+            outline-offset: 3px;
+        }
+    }
+}

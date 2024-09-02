@@ -1,9 +1,6 @@
 <template>
     <div
-        class="flux-form-pin-input"
-        :class="{
-            'is-disabled': isDisabled
-        }"
+        :class="isDisabled ? styles.pinInputDisabled : styles.pinInputEnabled"
         :style="{
             '--max-length': maxLength
         }">
@@ -11,7 +8,7 @@
             v-for="field of maxLength"
             :key="field"
             ref="fieldRefs"
-            class="flux-form-pin-input-field"
+            :class="styles.pinInputField"
             autocomplete="new-password"
             maxlength="1"
             :id="id"
@@ -31,10 +28,11 @@
     setup>
     import { ref, toRefs, unref } from 'vue';
     import { useFormFieldInjection } from '@/composable';
+    import styles from '@/css/component/Form.module.scss';
 
     export type Emits = {
-        (e: 'blur'): void;
-        (e: 'focus'): void;
+        blur: [];
+        focus: [];
     };
 
     export type Props = {
@@ -106,43 +104,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    @use '../css/mixin' as flux;
-
-    .flux-form-pin-input {
-        display: grid;
-        width: min-content;
-        gap: .4ch;
-        grid-template-columns: repeat(var(--max-length), 1fr);
-        font-size: 24px;
-        font-weight: 700;
-
-        &-field {
-            padding: 0;
-            width: 2.7ch;
-            background: rgb(var(--gray-0));
-            background-clip: padding-box;
-            border: 1px solid rgb(var(--gray-4) / .75);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-px);
-            color: var(--foreground-prominent);
-            font: inherit;
-            line-height: 3.3ch;
-            outline: 0;
-            text-align: center;
-            transition: 180ms var(--swift-out);
-            transition-property: border-color, flux.focus-ring-transition-properties();
-        }
-
-        &.is-disabled &-field {
-            background: rgb(var(--gray-2));
-            color: var(--foreground-secondary);
-            cursor: not-allowed;
-        }
-
-        &:not(.is-disabled) &-field {
-            @include flux.focus-ring(-1px, true);
-        }
-    }
-</style>

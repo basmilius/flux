@@ -3,6 +3,7 @@ export { default as FluxAutoWidthTransition } from './FluxAutoWidthTransition.vu
 export { default as FluxBreakthroughTransition } from './FluxBreakthroughTransition.vue';
 export { default as FluxFadeTransition } from './FluxFadeTransition.vue';
 export { default as FluxOverlayTransition } from './FluxOverlayTransition.vue';
+export { default as FluxRouteTransition } from './FluxRouteTransition.vue';
 export { default as FluxSlideOverTransition } from './FluxSlideOverTransition.vue';
 export { default as FluxTooltipTransition } from './FluxTooltipTransition.vue';
 export { default as FluxVerticalWindowTransition } from './FluxVerticalWindowTransition.vue';

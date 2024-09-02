@@ -1,0 +1,234 @@
+@use '@/css/mixin';
+
+@value flexColumn, flexRow, flexGrow from '@/css/component/base/Flex.module.scss';
+@value basePane from '@/css/component/base/Pane.module.scss';
+
+.snackbar {
+    composes: basePane;
+    composes: flexRow;
+
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+
+    .action {
+        margin: 12px 12px 12px 0;
+    }
+
+    .progressBar {
+        margin-top: 9px;
+
+        &:not(:last-child) {
+            margin-bottom: 6px;
+        }
+    }
+
+    .progressBarTrack {
+        height: 6px;
+    }
+}
+
+.snackbarContent {
+    composes: flexRow;
+    composes: flexGrow;
+
+    padding: 15px 18px;
+    align-items: flex-start;
+    gap: 15px;
+
+    > .icon,
+    > .spinner {
+        flex-shrink: 0;
+        translate: 0 3px;
+    }
+}
+
+.snackbarBody {
+    composes: flexColumn;
+    composes: flexGrow;
+
+    align-self: stretch;
+    flex-flow: column;
+    gap: 3px;
+}
+
+.snackbarMessage {
+    color: var(--foreground);
+}
+
+.snackbarSubMessage {
+    color: var(--foreground-secondary);
+    font-size: 13px;
+}
+
+.snackbarTitle {
+    font-weight: 500;
+}
+
+.snackbarAction {
+    display: flex;
+    padding: 9px 15px;
+    min-width: 84px;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    background: rgb(var(--gray-0));
+    border: 0;
+    border-radius: 0;
+    color: var(--foreground);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    outline: 0;
+    text-align: center;
+    transition: 180ms var(--swift-out);
+    transition-property: background, color;
+
+    &:hover {
+        background: rgb(var(--gray-1));
+        color: var(--foreground-prominent);
+    }
+
+    &:active {
+        background: rgb(var(--gray-2));
+    }
+}
+
+.snackbarActions {
+    composes: flexColumn;
+    composes: flexGrow;
+
+    padding-left: 1px;
+    gap: 1px;
+    background: rgb(var(--gray-3));
+}
+
+.snackbarGray {
+    composes: snackbar;
+
+    .snackbarAction:first-child,
+    .snackbarContent > .icon,
+    .snackbarTitle {
+        color: var(--foreground-prominent);
+    }
+}
+
+.snackbarPrimary {
+    composes: snackbar;
+
+    .snackbarAction:first-child,
+    .snackbarContent > .icon,
+    .snackbarTitle {
+        color: rgb(var(--primary-7));
+    }
+
+    .spinnerEffect,
+    .spinnerValue {
+        stroke: rgb(var(--primary-8));
+    }
+}
+
+.snackbarDanger {
+    composes: snackbar;
+
+    .snackbarAction:first-child,
+    .snackbarContent > .icon,
+    .snackbarTitle {
+        color: rgb(var(--danger-7));
+    }
+
+    .spinnerEffect,
+    .spinnerValue {
+        stroke: rgb(var(--danger-8));
+    }
+}
+
+.snackbarInfo {
+    composes: snackbar;
+
+    .snackbarAction:first-child,
+    .snackbarContent > .icon,
+    .snackbarTitle {
+        color: rgb(var(--info-7));
+    }
+
+    .spinnerEffect,
+    .spinnerValue {
+        stroke: rgb(var(--info-8));
+    }
+}
+
+.snackbarSuccess {
+    composes: snackbar;
+
+    .snackbarAction:first-child,
+    .snackbarContent > .icon,
+    .snackbarTitle {
+        color: rgb(var(--success-7));
+    }
+
+    .spinnerEffect,
+    .spinnerValue {
+        stroke: rgb(var(--success-8));
+    }
+}
+
+.snackbarWarning {
+    composes: snackbar;
+
+    .snackbarAction:first-child,
+    .snackbarContent > .icon,
+    .snackbarTitle {
+        color: rgb(var(--warning-7));
+    }
+
+    .spinnerEffect,
+    .spinnerValue {
+        stroke: rgb(var(--warning-8));
+    }
+}
+
+.snackbars {
+    composes: flexColumn;
+
+    position: fixed;
+    gap: 15px;
+    z-index: 100000;
+
+    @include mixin.breakpoint-down(sm) {
+        left: 15px;
+        right: 15px;
+        bottom: 15px;
+    }
+
+    @include mixin.breakpoint-up(md) {
+        width: 480px;
+        top: 30px;
+        right: 30px;
+    }
+}
+
+.snackbarsEnterActive,
+.snackbarsLeaveActive,
+.snackbarsMove {
+    transition: 420ms var(--swift-out);
+}
+
+.snackbarsLeaveActive {
+    position: absolute;
+    width: 100%;
+}
+
+.snackbarsEnterFrom {
+    opacity: 0;
+    transform: translate3d(0, -50%, 0);
+
+    @include mixin.breakpoint-up(lg) {
+        transform: translate3d(100%, 0, 0);
+    }
+}
+
+.snackbarsLeaveTo {
+    opacity: 0;
+    scale: .95;
+    transform: translate3d(0, -25%, 0);
+}

@@ -5,12 +5,7 @@
 
     body {
         background: var(--background);
-        font-family: manrope-variable, sans-serif;
-        font-size: 1rem;
-
-        &.is-locked {
-            overflow: hidden;
-        }
+        font-family: apple-sf-pro-text, sans-serif;
     }
 
     body,

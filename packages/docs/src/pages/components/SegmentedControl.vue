@@ -98,7 +98,7 @@
     setup>
     import { FluxPane, FluxPaneBody, FluxSegmentedControl, FluxSegmentedView, FluxStack } from '@basmilius/flux';
     import { ref } from 'vue';
-    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@docs/components';
+    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@/components';
 
     const viewIndex = ref(0);
 </script>

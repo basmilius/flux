@@ -1,6 +1,6 @@
 <template>
     <FluxDatePicker
-        class="flux-filter-date"
+        :class="styles.filterDatePicker"
         :max="max"
         :min="min"
         :model-value="currentValue"
@@ -15,14 +15,15 @@
     import { useFilterInjection } from '@/composable';
     import type { IconNames } from '@/data';
     import FluxDatePicker from './FluxDatePicker.vue';
+    import styles from '@/css/component/Filter.module.scss';
 
-    export interface Props {
+    export type Props = {
         readonly icon?: IconNames;
         readonly label: string;
         readonly max?: DateTime;
         readonly min?: DateTime;
         readonly name: string;
-    }
+    };
 
     const props = defineProps<Props>();
 
@@ -55,9 +56,3 @@
         back();
     }
 </script>
-
-<style lang="scss">
-    .flux-filter-date {
-        margin: -9px;
-    }
-</style>

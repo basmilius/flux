@@ -29,9 +29,9 @@
     import FluxPrimaryButton from './FluxPrimaryButton.vue';
     import FluxSpacer from './FluxSpacer.vue';
 
-    export interface Props {
+    export type Props = {
         readonly alert: FluxAlertSpec;
-    }
+    };
 
     defineProps<Props>();
 

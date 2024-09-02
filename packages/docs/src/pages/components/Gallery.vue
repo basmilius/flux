@@ -11,9 +11,9 @@
                         <FluxGalleryItem url="/images/1.jpg"/>
                         <FluxGalleryItem url="/images/2.jpg"/>
                         <FluxGalleryItem url="/images/3.jpg"/>
-                        <FluxGalleryItem url="/images/4.jpg"/>
-                        <FluxGalleryItem url="/images/5.jpg"/>
-                        <FluxGalleryItem url="/images/6.jpg"/>
+                        <FluxGalleryItem url="/images/4.jpg" is-deletable/>
+                        <FluxGalleryItem url="/images/5.jpg" is-deletable/>
+                        <FluxGalleryItem url="/images/6.jpg" is-pending/>
                     </FluxGallery>
                 </FluxPaneBody>
             </FluxPane>
@@ -104,5 +104,5 @@
     lang="ts"
     setup>
     import { FluxGallery, FluxGalleryItem, FluxPane, FluxPaneBody, FluxStack } from '@basmilius/flux';
-    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@docs/components';
+    import { ApiComponent, ApiComponents, ApiSection, PageTitle, Preview } from '@/components';
 </script>

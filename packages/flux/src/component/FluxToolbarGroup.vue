@@ -1,7 +1,7 @@
 <template>
     <FluxStack
         axis="horizontal"
-        :gap="0"
+        :gap="3"
         tag="nav">
         <slot/>
     </FluxStack>

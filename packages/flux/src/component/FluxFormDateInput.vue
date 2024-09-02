@@ -7,7 +7,7 @@
                 <FluxFormInput
                     :="{autoComplete, autoFocus, isDisabled, isReadonly, modelValue, placeholder}"
                     v-model="localValue"
-                    class="flux-form-date-input"
+                    :class="styles.formDateInput"
                     type="date"
                     :max="max?.toISO()?.substring(0, 10)"
                     :min="min?.toISO()?.substring(0, 10)"
@@ -39,10 +39,11 @@
     import FluxFormInput from './FluxFormInput.vue';
     import FluxFormInputGroup from './FluxFormInputGroup.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
+    import styles from '@/css/component/Form.module.scss';
 
     export type Emits = {
-        (e: 'blur'): void;
-        (e: 'focus'): void;
+        blur: [];
+        focus: [];
     };
 
     export type Props = {
@@ -69,22 +70,3 @@
 
     watch(modelValue, modelValue => localValue.value = modelValue, {immediate: true});
 </script>
-
-<style lang="scss">
-    .flux-form-date-input {
-        cursor: default;
-
-        input {
-            text-align: left;
-        }
-
-        input::-webkit-input-placeholder {
-            visibility: hidden;
-        }
-
-        input::-webkit-calendar-picker-indicator {
-            display: none;
-            -webkit-appearance: none;
-        }
-    }
-</style>

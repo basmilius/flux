@@ -1,94 +1,94 @@
 <script lang="ts">
-    import { Comment, computed, defineComponent, h, MaybeRef, ref, unref, VNode } from 'vue';
-    import { useBreakpoints } from '@/composable';
+    import { clsx } from 'clsx';
+    import { computed, defineComponent, h, ref, unref } from 'vue';
     import { useFluxStore } from '@/data';
     import { FluxTooltipTransition } from '@/transition';
+    import { unrefElement } from '@/util';
+    import styles from '@/css/component/Tooltip.module.scss';
 
-    interface TooltipPositionData {
+    type Transition = 'above' | 'below' | 'end' | 'start';
+
+    type PositionData = {
         readonly x: number;
         readonly y: number;
         readonly arrowAngle: string;
         readonly arrowX: string;
         readonly arrowY: string;
-        readonly transition: 'above' | 'below' | 'end' | 'start';
-    }
+        readonly transition: Transition;
+    };
 
-    export default defineComponent({
-        setup() {
-            const breakpoints = useBreakpoints();
-            const {tooltip} = useFluxStore();
+    export default defineComponent(() => {
+        const {tooltip} = useFluxStore();
 
-            const elementRef = ref<HTMLElement | null>(null);
+        const elementRef = ref<HTMLElement | null>(null);
 
-            const content = computed<VNode[]>(() => tooltip.value ? tooltip.value!.contentSlot!?.() ?? [tooltip.value!.content] : null);
-            const has = computed(() => !!tooltip.value);
-            const position = computed<TooltipPositionData | null>(() => {
-                const spec = unref(tooltip);
-                const element = unref<HTMLElement | null>(elementRef as MaybeRef<HTMLElement>);
+        const content = computed(() => unref(tooltip) ? unref(tooltip)!.contentSlot?.() ?? [unref(tooltip)!.content] : null);
+        const has = computed(() => !!unref(tooltip));
 
-                if (!spec || !element || !content.value) {
-                    return null;
+        const position = computed<PositionData | null>(() => {
+            const spec = unref(tooltip);
+            const element = unrefElement(elementRef);
+
+            if (!spec || !element || !unref(content)) {
+                return null;
+            }
+
+            const {axis, origin} = spec;
+            const margin = 9;
+            const safeZone = 15;
+
+            if (!origin) {
+                return null;
+            }
+
+            let {width, height} = element.getBoundingClientRect();
+            const {scale} = getComputedStyle(element);
+            const {top, left, width: originWidth, height: originHeight} = origin.getBoundingClientRect();
+
+            let s = Number(scale ?? 1);
+            s = isNaN(s) ? 1 : s;
+            height /= s;
+            width /= s;
+
+            if (axis === 'horizontal') {
+                return calculateHorizontalPosition(top, left, width, height, originWidth, originHeight, margin, safeZone);
+            }
+
+            return calculateVerticalPosition(top, left, width, height, originWidth, originHeight, margin, safeZone);
+        });
+
+        return () => h(FluxTooltipTransition, {}, {
+            default: () => {
+                if (!unref(has)) {
+                    return;
                 }
 
-                const {axis, origin} = spec;
-                const margin = 9;
-                const safeZone = 15;
+                const pos = unref(position);
 
-                if (!origin) {
-                    return null;
-                }
-
-                let {width, height} = element.getBoundingClientRect();
-                const {scale} = getComputedStyle(element);
-                const {top, left, width: originWidth, height: originHeight} = origin.getBoundingClientRect();
-
-                let s = Number(scale ?? 1);
-                s = isNaN(s) ? 1 : s;
-                height = height / s;
-                width = width / s;
-
-                switch (axis) {
-                    case 'horizontal':
-                        return calculateHorizontalPosition(top, left, width, height, originWidth, originHeight, margin, safeZone);
-
-                    case 'vertical':
-                        return calculateVerticalPosition(top, left, width, height, originWidth, originHeight, margin, safeZone);
-                }
-            });
-
-            return () => h(FluxTooltipTransition, {}, {
-                default: () => {
-                    if (unref(breakpoints.isMobile) || !unref(has)) {
-                        return null;
+                return h('div', {
+                    ref: elementRef,
+                    class: pos
+                        ? clsx(
+                            pos.transition === 'above' && styles.tooltipAbove,
+                            pos.transition === 'below' && styles.tooltipBelow,
+                            pos.transition === 'end' && styles.tooltipEnd,
+                            pos.transition === 'start' && styles.tooltipStart
+                        )
+                        : styles.tooltip,
+                    style: {
+                        '--x': pos?.x ?? undefined,
+                        '--y': pos?.y ?? undefined,
+                        '--arrowAngle': pos?.arrowAngle ?? undefined,
+                        '--arrowX': pos?.arrowX ?? undefined,
+                        '--arrowY': pos?.arrowY ?? undefined
                     }
-
-                    const children = unref(content).filter(v => v.type !== Comment);
-
-                    if (children.length === 0) {
-                        return null;
-                    }
-
-                    const pos = unref(position);
-
-                    return h('div', {
-                        ref: elementRef,
-                        class: `flux-tooltip ${pos?.transition ?? ''}`.trim(),
-                        style: {
-                            '--x': pos?.x ?? null,
-                            '--y': pos?.y ?? null,
-                            '--arrowAngle': pos?.arrowAngle ?? null,
-                            '--arrowX': pos?.arrowX ?? null,
-                            '--arrowY': pos?.arrowY ?? null
-                        }
-                    }, children);
-                }
-            });
-        }
+                }, unref(content));
+            }
+        });
     });
 
-
-    function calculateHorizontalPosition(top: number, left: number, width: number, height: number, originWidth: number, originHeight: number, margin: number, safeZone: number): TooltipPositionData {
-        let x, y, arrowAngle, arrowX, arrowY, transition: TooltipPositionData['transition'];
+    function calculateHorizontalPosition(top: number, left: number, width: number, height: number, originWidth: number, originHeight: number, margin: number, safeZone: number): PositionData {
+        let x, y, arrowAngle, arrowX, arrowY, transition: Transition;
 
         if (left > innerWidth / 2) {
             x = left - width - margin;
@@ -128,8 +128,8 @@
         };
     }
 
-    function calculateVerticalPosition(top: number, left: number, width: number, height: number, originWidth: number, originHeight: number, margin: number, safeZone: number): TooltipPositionData {
-        let x, y, arrowAngle, arrowX, arrowY, transition: TooltipPositionData['transition'];
+    function calculateVerticalPosition(top: number, left: number, width: number, height: number, originWidth: number, originHeight: number, margin: number, safeZone: number): PositionData {
+        let x, y, arrowAngle, arrowX, arrowY, transition: Transition;
 
         if (top > 300) {
             x = left + originWidth / 2 - width / 2;
@@ -168,64 +168,4 @@
             transition
         };
     }
-
 </script>
-
-<style lang="scss">
-    .flux-tooltip {
-        position: fixed;
-        display: flex;
-        top: 0;
-        left: 0;
-        max-width: 360px;
-        padding: 9px 15px;
-        flex-flow: column;
-        background: rgb(var(--gray-11) / .9);
-        backdrop-filter: blur(5px) saturate(180%);
-        border-radius: var(--radius);
-        color: rgb(var(--gray-0));
-        font-variant-numeric: tabular-nums;
-        pointer-events: none;
-        translate: calc(var(--x) * 1px) calc(var(--y) * 1px);
-        z-index: 100000;
-
-        &.above {
-            transform-origin: bottom center;
-        }
-
-        &.below {
-            transform-origin: top center;
-        }
-
-        &.end {
-            transform-origin: center left;
-        }
-
-        &.start {
-            transform-origin: center right;
-        }
-
-        &::after {
-            position: absolute;
-            display: block;
-            top: var(--arrowY);
-            left: var(--arrowX);
-            height: 9px;
-            width: 9px;
-            content: '';
-            background: inherit;
-            backdrop-filter: inherit;
-            border-radius: 0 0 3px 0;
-            clip-path: polygon(100% 100%, 99% 0%, 0% 99%);
-            rotate: var(--arrowAngle);
-            transform-origin: center;
-            translate: -50% -50%;
-            z-index: 1;
-        }
-    }
-
-    [dark] .flux-tooltip {
-        background: rgb(0 0 0 / .9);
-        color: var(--foreground-prominent);
-    }
-</style>

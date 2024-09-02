@@ -1,9 +1,9 @@
 <template>
-    <main
-        :inert="inertMain"
-        style="display: contents;">
+    <div
+        :class="styles.root"
+        :inert="inertMain">
         <slot/>
-    </main>
+    </div>
 
     <FluxOverlay size="medium">
         <FluxAlert
@@ -42,6 +42,7 @@
     import FluxOverlay from './FluxOverlay.vue';
     import FluxSnackbarProvider from './FluxSnackbarProvider.vue';
     import FluxTooltipProvider from './FluxTooltipProvider.vue';
+    import styles from '@/css/component/Root.module.scss';
 
     useBreakpointsProvider();
 
@@ -52,7 +53,7 @@
             return;
         }
 
-        document.body.classList.add('is-locked');
-        onCleanup(() => document.body.classList.remove('is-locked'));
+        document.body.classList.add(styles.isLocked);
+        onCleanup(() => document.body.classList.remove(styles.isLocked));
     }, {immediate: true});
 </script>

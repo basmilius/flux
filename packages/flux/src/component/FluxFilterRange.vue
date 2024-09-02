@@ -46,7 +46,7 @@
     import FluxFormSlider from './FluxFormSlider.vue';
     import FluxPaneBody from './FluxPaneBody.vue';
 
-    export interface Props {
+    export type Props = {
         readonly icon?: IconNames;
         readonly isTicksVisible?: boolean;
         readonly label: string;
@@ -55,7 +55,7 @@
         readonly min: number;
         readonly step: number;
         readonly formatter?: (value: number) => string;
-    }
+    };
 
     const props = withDefaults(defineProps<Props>(), {
         step: 1

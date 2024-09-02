@@ -97,14 +97,14 @@
     lang="ts"
     setup>
     import { FluxFormSelect, FluxPane, FluxPaneBody, FluxStack } from '@basmilius/flux';
-    import { ApiComponent, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
+    import { ApiComponent, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
     import { ref } from 'vue';
-    import basic from '@docs/code/components/formSelect/basic.vue';
-    import basicCode from '@docs/code/components/formSelect/basic.vue?raw';
-    import multiple from '@docs/code/components/formSelect/multiple.vue';
-    import multipleCode from '@docs/code/components/formSelect/multiple.vue?raw';
-    import multipleSearchable from '@docs/code/components/formSelect/multipleSearchable.vue';
-    import multipleSearchableCode from '@docs/code/components/formSelect/multipleSearchable.vue?raw';
+    import basic from '@/code/components/formSelect/basic.vue';
+    import basicCode from '@/code/components/formSelect/basic.vue?raw';
+    import multiple from '@/code/components/formSelect/multiple.vue';
+    import multipleCode from '@/code/components/formSelect/multiple.vue?raw';
+    import multipleSearchable from '@/code/components/formSelect/multipleSearchable.vue';
+    import multipleSearchableCode from '@/code/components/formSelect/multipleSearchable.vue?raw';
 
     const selectValue = ref(null);
 </script>

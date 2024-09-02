@@ -1,33 +1,26 @@
 <template>
-    <div class="flux-pane-header">
-        <div
+    <div :class="styles.paneHeader">
+        <slot name="before"/>
+
+        <FluxIcon
             v-if="icon"
-            class="flux-pane-header-icon"
-            :class="{
-                'is-extended': title && subTitle
-            }">
-            <FluxIcon
-                :size="20"
-                :variant="icon"/>
-        </div>
+            :class="styles.paneHeaderIcon"
+            :size="20"
+            :variant="icon"/>
 
         <div
             v-if="title || subTitle"
-            class="flux-pane-header-caption">
-            <span
-                v-if="title"
-                class="flux-pane-header-title">
+            :class="styles.paneHeaderCaption">
+            <strong v-if="title">
                 {{ title }}
-            </span>
+            </strong>
 
-            <span
-                v-if="subTitle"
-                class="flux-pane-header-sub-title">
+            <span v-if="subTitle">
                 {{ subTitle }}
             </span>
         </div>
 
-        <slot/>
+        <slot name="after"/>
     </div>
 </template>
 
@@ -36,59 +29,13 @@
     setup>
     import type { IconNames } from '@/data';
     import FluxIcon from './FluxIcon.vue';
+    import styles from '@/css/component/Pane.module.scss';
 
-    export interface Props {
+    export type Props = {
         readonly icon?: IconNames;
         readonly subTitle?: string;
         readonly title?: string;
-    }
+    };
 
     defineProps<Props>();
 </script>
-
-<style lang="scss">
-    .flux-pane-header {
-        display: flex;
-        padding: 21px 21px 0;
-        align-items: center;
-        gap: 15px;
-
-        &-caption {
-            display: flex;
-            flex-flow: column;
-            flex-grow: 1;
-        }
-
-        &-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgb(var(--primary-7));
-
-            &.is-extended {
-                height: 45px;
-                width: 45px;
-                background: rgb(var(--primary-2));
-                border-radius: var(--radius);
-            }
-        }
-
-        &-title {
-            color: var(--foreground-prominent);
-            font-weight: 700;
-        }
-
-        &-sub-title {
-            color: var(--foreground);
-            font-size: 14px;
-        }
-
-        &:first-child {
-            border-radius: var(--radius) var(--radius) 0 0;
-        }
-    }
-
-    [dark] .flux-pane-header-icon.is-extended {
-        background: rgb(var(--gray-2));
-    }
-</style>

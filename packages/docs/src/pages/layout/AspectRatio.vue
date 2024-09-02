@@ -59,5 +59,5 @@
     lang="ts"
     setup>
     import { FluxAspectRatio, FluxPane, FluxStack } from '@basmilius/flux';
-    import { ApiComponent, ApiSection, PageTitle, Preview } from '@docs/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
 </script>

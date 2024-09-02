@@ -1,0 +1,107 @@
+@use '@/css/mixin';
+
+@value flexColumn from '@/css/component/base/Flex.module.scss';
+@value basePane from '@/css/component/base/Pane.module.scss';
+
+.expandable {
+    composes: flexColumn;
+}
+
+.expandableOpened {
+    composes: expandable;
+}
+
+.expandableHeader {
+    display: flex;
+    height: 60px;
+    padding-left: 21px;
+    padding-right: 21px;
+    align-items: center;
+    background: unset;
+    border: 0;
+    color: var(--foreground-prominent);
+    cursor: pointer;
+    text-align: left;
+    z-index: 1;
+
+    @include mixin.focus-ring-transition();
+
+    &:hover {
+        background: rgb(var(--gray-1));
+    }
+
+    :is(span) {
+        flex-grow: 1;
+        font-weight: 600;
+    }
+}
+
+.expandableBody {
+    transition: height 390ms var(--swift-out),
+                translate 300ms var(--swift-out) 120ms,
+                opacity 300ms var(--swift-out) 120ms;
+
+    &:global(.v-enter-from),
+    &:global(.v-leave-to) {
+        opacity: 0;
+        translate: 0 -15px;
+    }
+
+    &:global(.v-enter-to),
+    &:global(.v-leave-from) {
+        opacity: 1;
+    }
+
+    &:global(.v-leave-active) {
+        transition-delay: 0s;
+    }
+
+    &:global(.v-enter-active),
+    &:global(.v-leave-active) {
+        overflow: hidden;
+    }
+}
+
+.expandableContent {
+    padding: 0 21px 21px;
+}
+
+.basePane > .expandable {
+    border-radius: inherit;
+}
+
+.basePane > .expandable .expandableHeader {
+    border-radius: inherit;
+}
+
+.basePane > .expandableOpened .expandableHeader {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.expandableGroup {
+    display: flex;
+    flex-flow: column;
+
+    .expandable + .expandable {
+        border-top: 1px solid rgb(var(--gray-3));
+    }
+
+    &:not(:first-child) {
+        border-top: 1px solid rgb(var(--gray-3));
+    }
+
+    &:not(:last-child) {
+        border-bottom: 1px solid rgb(var(--gray-3));
+    }
+}
+
+.basePane > .expandableGroup:first-child .expandable:first-child .expandableHeader {
+    border-top-left-radius: var(--radius);
+    border-top-right-radius: var(--radius);
+}
+
+.basePane > .expandableGroup:last-child .expandable:not(.expandableOpened):last-child .expandableHeader {
+    border-bottom-left-radius: var(--radius);
+    border-bottom-right-radius: var(--radius);
+}

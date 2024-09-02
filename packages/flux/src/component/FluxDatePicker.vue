@@ -1,6 +1,6 @@
 <template>
-    <div class="flux-date-picker">
-        <div class="flux-date-picker-header">
+    <div :class="styles.datePicker">
+        <div :class="styles.datePickerHeader">
             <FluxFadeTransition>
                 <FluxSecondaryButton
                     v-if="viewMode === 'date'"
@@ -11,17 +11,19 @@
             </FluxFadeTransition>
 
             <div
-                class="flux-date-picker-header-view"
+                :class="styles.datePickerHeaderView"
                 :id="id"
                 aria-live="polite"
                 role="presentation">
                 <button
+                    :class="styles.datePickerHeaderViewButton"
                     type="button"
                     @click="setView('month')">
                     {{ viewMonth }}
                 </button>
 
                 <button
+                    :class="styles.datePickerHeaderViewButton"
                     type="button"
                     @click="setView('year')">
                     {{ viewYear }}
@@ -42,33 +44,33 @@
             <div
                 v-if="viewMode === 'date'"
                 key="date"
-                class="flux-date-picker-dates"
+                :class="styles.datePickerDates"
                 :aria-labelledby="id">
                 <FluxWindowTransition :is-back="isTransitioningToPast">
                     <div
                         :key="viewDate.month"
-                        class="flux-date-picker-dates-grid">
+                        :class="styles.datePickerDatesGrid">
                         <template
                             v-for="day of days"
                             :key="day">
-                            <span class="flux-date-picker-day">{{ day }}</span>
+                            <span :class="styles.datePickerDay">{{ day }}</span>
                         </template>
 
                         <template
                             v-for="date of dates"
                             :key="date">
                             <button
-                                class="flux-date-picker-date"
-                                :class="{
-                                    'is-disabled': isDisabled(date),
-                                    'is-range-end': isWithinRange(date, 'end'),
-                                    'is-range-entry': isWithinRange(date),
-                                    'is-range-start': isWithinRange(date, 'start'),
-                                    'is-selection-end': isWithinSelection(date, 'end'),
-                                    'is-selection-entry': isWithinSelection(date),
-                                    'is-selection-start': isWithinSelection(date, 'start'),
-                                    'is-selected': isSelected(date)
-                                }"
+                                :class="clsx(
+                                    styles.datePickerDate,
+                                    isDisabled(date) && styles.isDisabled,
+                                    isWithinRange(date, 'end') && styles.isRangeEnd,
+                                    isWithinRange(date) && styles.isRangeEntry,
+                                    isWithinRange(date, 'start') && styles.isRangeStart,
+                                    isWithinSelection(date, 'end') && styles.isSelectionEnd,
+                                    isWithinSelection(date) && styles.isSelectionEntry,
+                                    isWithinSelection(date, 'start') && styles.isSelectionStart,
+                                    isSelected(date) && styles.isSelected
+                                )"
                                 tabindex="-1"
                                 type="button"
                                 @click="setDate(date)"
@@ -84,7 +86,7 @@
             <div
                 v-else-if="viewMode === 'month'"
                 key="month"
-                class="flux-date-picker-months">
+                :class="styles.datePickerMonths">
                 <template
                     v-for="month of months"
                     :key="month">
@@ -99,7 +101,7 @@
             <div
                 v-else-if="viewMode === 'year'"
                 key="year"
-                class="flux-date-picker-years">
+                :class="styles.datePickerYears">
                 <FluxSecondaryButton
                     icon-before="angle-left"
                     tabindex="-1"
@@ -126,12 +128,14 @@
 <script
     lang="ts"
     setup>
+    import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
     import { computed, ref, toRefs, unref } from 'vue';
     import { useId } from '@/composable';
     import { useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher, useTranslate } from '@/composable/private';
     import { FluxFadeTransition, FluxVerticalWindowTransition, FluxWindowTransition } from '@/transition';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
+    import styles from '@/css/component/DatePicker.module.scss';
 
     export type Props = {
         readonly max?: DateTime;
@@ -348,199 +352,3 @@
         selection.value = [null, null];
     }
 </script>
-
-<style lang="scss">
-    .flux-date-picker {
-        display: flex;
-        max-height: 420px;
-        flex-flow: column;
-        border-radius: inherit;
-        overflow: auto;
-        user-select: none;
-        z-index: 0;
-
-        &-dates,
-        &-months,
-        &-years,
-        &-header {
-            padding: 15px;
-        }
-
-        &-header {
-            position: sticky;
-            display: flex;
-            top: 0;
-            align-items: center;
-            background: rgb(var(--gray-1));
-            border-bottom: 1px solid rgb(var(--gray-3));
-            z-index: 1;
-
-            &-view {
-                display: flex;
-                height: 42px;
-                margin-left: auto;
-                margin-right: auto;
-                align-items: center;
-                gap: 9px;
-                font-size: 16px;
-                font-weight: 600;
-
-                button {
-                    padding: 0;
-                    background: unset;
-                    border: 0;
-                    cursor: pointer;
-                    text-transform: capitalize;
-                }
-
-                button:first-child {
-                    color: var(--foreground-prominent);
-                }
-
-                button:last-child {
-                    color: var(--foreground-secondary);
-                }
-
-                button:hover {
-                    color: rgb(var(--primary-7));
-                }
-            }
-        }
-
-        &-date {
-            display: flex;
-            padding: 0;
-            align-items: center;
-            justify-content: center;
-            aspect-ratio: 1;
-            background: unset;
-            border: 0;
-            border-radius: var(--radius);
-            color: var(--foreground-prominent);
-            cursor: pointer;
-            font-size: 14px;
-            outline: 0;
-            transition: 180ms var(--swift-out);
-            transition-property: background, border-radius, color, opacity;
-
-            &:hover {
-                background: rgb(var(--gray-3));
-            }
-
-            &:not(.is-range-entry, .is-range-end, .is-range-start, .is-selection-entry, .is-selection-start, .is-selection-end).is-disabled {
-                opacity: .25;
-                pointer-events: none;
-            }
-
-            &:not(.is-disabled) {
-                font-weight: 500;
-            }
-
-            &.is-selected {
-                background: rgb(var(--primary-7));
-                color: rgb(var(--primary-1));
-                font-weight: 700;
-            }
-
-            &.is-range {
-                &-entry {
-                    background: rgb(var(--primary-3));
-                    border-radius: 0;
-                    color: rgb(var(--primary-11));
-                }
-
-                &-start,
-                &-end {
-                    background: rgb(var(--primary-7));
-                    color: rgb(var(--primary-1));
-                    font-weight: 700;
-                }
-
-                [dark] &-entry {
-                    background: rgb(var(--primary-11));
-                    color: rgb(var(--primary-3));
-                }
-
-                [dark] &-start,
-                [dark] &-end {
-                    background: rgb(var(--primary-7));
-                }
-
-                &-entry:nth-child(7n + 8),
-                &-start {
-                    border-top-left-radius: var(--radius);
-                    border-bottom-left-radius: var(--radius);
-                }
-
-                &-entry:nth-child(7n),
-                &-end {
-                    border-top-right-radius: var(--radius);
-                    border-bottom-right-radius: var(--radius);
-                }
-            }
-
-            &.is-selection {
-                &-entry {
-                    background: rgb(var(--gray-3));
-                    border-radius: 0;
-                    color: var(--foreground-prominent);
-                }
-
-                &-start,
-                &-end {
-                    background: rgb(var(--gray-4));
-                    font-weight: 700;
-                }
-
-                &-entry:nth-child(7n + 8),
-                &-start {
-                    border-top-left-radius: var(--radius);
-                    border-bottom-left-radius: var(--radius);
-                }
-
-                &-entry:nth-child(7n),
-                &-end {
-                    border-top-right-radius: var(--radius);
-                    border-bottom-right-radius: var(--radius);
-                }
-            }
-        }
-
-        &-dates {
-            position: relative;
-
-            &-grid {
-                display: grid;
-                gap: 3px 0;
-                grid-template-columns: repeat(7, 1fr);
-            }
-        }
-
-        &-day {
-            margin-bottom: 6px;
-            color: var(--foreground-secondary);
-            font-size: 11px;
-            font-weight: 500;
-            text-align: center;
-            text-transform: uppercase;
-        }
-
-        &-months,
-        &-years {
-            display: grid;
-            margin-left: auto;
-            margin-right: auto;
-            max-width: 300px;
-            width: 100%;
-            gap: 9px;
-            grid-template-columns: repeat(3, 1fr);
-
-            .flux-secondary-button {
-                contain: size layout;
-                contain-intrinsic-size: 0 42px;
-                content-visibility: auto;
-                text-transform: capitalize;
-            }
-        }
-    }
-</style>

@@ -4,9 +4,9 @@
             <FluxPaneBody
                 v-if="isPreviewing"
                 key="preview">
-                <div class="flux-focal-point-preview">
+                <div :class="styles.focalPointPreview">
                     <div
-                        class="flux-focal-point-preview-image"
+                        :class="styles.focalPointPreviewImage"
                         :style="{
                             backgroundImage: `url(${url})`,
                             backgroundPosition: `${focalPointX}% ${focalPointY}%`
@@ -18,18 +18,18 @@
                 v-else
                 key="editor">
                 <div
-                    class="flux-focal-point-editor"
+                    :class="styles.focalPointEditor"
                     @pointerdown="onPointerDown"
                     @pointermove="onPointerMove">
                     <img
                         ref="imageRef"
-                        class="flux-focal-point-editor-image"
+                        :class="styles.focalPointEditorImage"
                         :src="url"
                         alt=""
                         @load="onImageLoaded"/>
 
                     <div
-                        class="flux-focal-point-editor-area"
+                        :class="styles.focalPointEditorArea"
                         :style="{
                             top: `${focalPointY}%`,
                             left: `${focalPointX}%`
@@ -63,10 +63,11 @@
     import FluxPaneFooter from './FluxPaneFooter.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import FluxSpacer from './FluxSpacer.vue';
+    import styles from '@/css/component/FocalPoint.module.scss';
 
-    export interface Props {
+    export type Props = {
         readonly url: string;
-    }
+    };
 
     const modelValue = defineModel<[number, number]>({required: true});
     const props = defineProps<Props>();
@@ -131,88 +132,3 @@
 
     watch(() => props.url, () => isPreviewing.value = false);
 </script>
-
-<style lang="scss">
-    .flux-focal-point {
-        &-editor {
-            position: relative;
-            margin-left: auto;
-            margin-right: auto;
-            max-height: 210px;
-            max-width: 100%;
-            aspect-ratio: var(--aspect-ratio);
-            user-select: none;
-
-            &-area {
-                position: absolute;
-                height: 42px;
-                width: 42px;
-                background: rgb(0 0 0 / .1);
-                border: 4px solid white;
-                border-radius: 99px;
-                box-shadow: var(--shadow-md);
-                cursor: move;
-                transform: translate3d(-50%, -50%, 0);
-            }
-
-            &-image {
-                position: relative;
-                display: block;
-                height: 100%;
-                width: 100%;
-                border-radius: var(--radius);
-                box-shadow: var(--shadow-lg);
-                pointer-events: none;
-            }
-        }
-
-        &-preview {
-            position: relative;
-            height: 210px;
-            width: 100%;
-            margin-left: auto;
-            margin-right: auto;
-
-            &-image {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                right: -50%;
-                bottom: -50%;
-                max-height: 210px;
-                max-width: 100%;
-                background-size: cover;
-                border-radius: var(--radius);
-                box-shadow: var(--shadow-lg);
-                transform: translate3d(-50%, -50%, 0);
-                animation: flux-focal-point-preview 6s var(--swift-out) infinite;
-            }
-        }
-    }
-
-    @keyframes flux-focal-point-preview {
-        0% {
-            aspect-ratio: var(--aspect-ratio);
-        }
-
-        20% {
-            aspect-ratio: 1;
-        }
-
-        40% {
-            aspect-ratio: 16 / 9;
-        }
-
-        60% {
-            aspect-ratio: 3 / 4;
-        }
-
-        80% {
-            aspect-ratio: 3 / 1;
-        }
-
-        100% {
-            aspect-ratio: var(--aspect-ratio);
-        }
-    }
-</style>

@@ -1,0 +1,82 @@
+@value basePane, basePaneStructure from '@/css/component/base/Pane.module.scss';
+
+.toolbar {
+    padding: 6px;
+    contain: paint;
+
+    :local(.separatorVertical) {
+        margin-top: -6px;
+        margin-bottom: -6px;
+        align-self: stretch;
+    }
+}
+
+.toolbarFlat {
+    composes: basePane;
+    composes: toolbar;
+
+    position: relative;
+    align-self: flex-start;
+    box-shadow: var(--shadow-sm);
+}
+
+.toolbarFloating {
+    composes: basePane;
+    composes: toolbar;
+
+    position: absolute;
+    box-shadow: var(--shadow-md);
+    z-index: 1;
+
+    &.isFree {
+        translate: -50% -50%;
+    }
+
+    &.isTopEnd,
+    &.isTopStart {
+        top: 0;
+        translate: 0 -50%;
+    }
+
+    &.isBottomEnd,
+    &.isBottomStart {
+        bottom: 0;
+        translate: 0 50%;
+    }
+
+    &.isTopEnd,
+    &.isBottomEnd {
+        right: 21px;
+    }
+
+    &.isTopStart,
+    &.isBottomStart {
+        left: 21px;
+    }
+}
+
+:local(.basePaneStructure) > .toolbarFlat {
+    padding: 12px 15px;
+    background: rgb(var(--gray-1));
+    border: 1px solid rgb(var(--gray-11) / .05);
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+    box-shadow: none;
+
+    &:first-child {
+        border-top: 0;
+        border-top-left-radius: var(--radius);
+        border-top-right-radius: var(--radius);
+    }
+
+    &:last-child {
+        border-bottom: 0;
+        border-bottom-left-radius: var(--radius);
+        border-bottom-right-radius: var(--radius);
+    }
+}
+
+.paneHeader + .toolbarFlat {
+    margin-top: 21px;
+}

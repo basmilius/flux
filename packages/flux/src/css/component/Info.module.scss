@@ -1,0 +1,17 @@
+@value flex from '@/css/component/base/Flex.module.scss';
+
+.info {
+    composes: flex;
+    gap: 15px;
+
+    > .icon {
+        margin-top: 1px;
+        flex-shrink: 0;
+        color: rgb(var(--primary-7));
+    }
+}
+
+.infoBody {
+    align-items: center;
+    line-height: 1.5;
+}

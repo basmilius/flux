@@ -48,7 +48,7 @@
     import FluxTable from './FluxTable.vue';
     import FluxTableRow from './FluxTableRow.vue';
 
-    export interface Props {
+    export type Props = {
         readonly dataSet: Record<string, any>[];
         readonly isBordered?: boolean;
         readonly isHoverable?: boolean;
@@ -59,14 +59,14 @@
         readonly perPage?: number;
         readonly total: number;
         readonly uniqueKey?: string;
-    }
+    };
 
-    export interface Slots {
+    export type Slots = {
         [key: string]: (props: { index: number; page: number; perPage: number; row: any; rows: any[]; total: number; }) => any;
 
         footer(props: { page: number; perPage: number; rows: any[]; total: number; }): any;
         header(props: { page: number; perPage: number; rows: any[]; total: number; }): any;
-    }
+    };
 
     const props = withDefaults(defineProps<Props>(), {
         isBordered: true,

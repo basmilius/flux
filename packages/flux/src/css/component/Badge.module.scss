@@ -1,0 +1,180 @@
+.badge {
+    display: inline-flex;
+    height: 28px;
+    margin-top: -2px;
+    margin-bottom: -2px;
+    padding-left: 9px;
+    padding-right: 9px;
+    align-items: center;
+    gap: 6px;
+    background: rgb(var(--gray-0));
+    border: 1px solid rgb(var(--gray-4));
+    border-radius: 99px;
+    color: var(--foreground-prominent);
+    font-size: 13px;
+    font-weight: 500;
+
+    &:is(a) {
+        background: unset;
+        cursor: pointer;
+        transition: background 180ms var(--swift-out);
+
+        @media (hover: hover) {
+            &:hover {
+                background: rgb(var(--gray-2));
+            }
+        }
+    }
+
+    .spinner {
+        --value: var(--color);
+    }
+}
+
+.badgeClose {
+    display: flex;
+    height: 20px;
+    width: 20px;
+    margin-right: -6px;
+    padding: 5px;
+    align-items: center;
+    justify-content: center;
+    background: rgb(var(--gray-4) / .75);
+    border: 0;
+    border-radius: 99px;
+    color: var(--foreground-secondary);
+    cursor: pointer;
+
+    @media (hover: hover) {
+        &:hover {
+            background: rgb(var(--gray-5));
+        }
+    }
+
+    .icon {
+        font-size: 16px;
+    }
+}
+
+.badgeDot {
+    display: block;
+    height: 9px;
+    width: 9px;
+    background: var(--color);
+    border-radius: 99px;
+}
+
+.badgeIcon {
+    margin-left: -3px;
+    color: var(--color);
+}
+
+.badgeLabel {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:only-child {
+        margin-left: 3px;
+        margin-right: 3px;
+        color: var(--color);
+    }
+}
+
+.badgeGray {
+    composes: badge;
+
+    --color: rgb(var(--gray-8));
+
+    .spinner {
+        --value: rgb(var(--primary-7));
+    }
+}
+
+.badgePrimary {
+    composes: badge;
+
+    --color: rgb(var(--primary-7));
+}
+
+.badgeDanger {
+    composes: badge;
+
+    --color: rgb(var(--danger-7));
+}
+
+.badgeInfo {
+    composes: badge;
+
+    --color: rgb(var(--info-7));
+}
+
+.badgeSuccess {
+    composes: badge;
+
+    --color: rgb(var(--success-7));
+}
+
+.badgeWarning {
+    composes: badge;
+
+    --color: rgb(var(--warning-7));
+}
+
+.tag {
+    composes: badge;
+
+    background: rgb(var(--gray-2));
+    border-color: rgb(var(--gray-4));
+    border-radius: calc(var(--radius) / 2);
+    font-weight: 400;
+}
+
+.tagClose {
+    composes: badgeClose;
+
+    background: rgb(var(--gray-2));
+    border-radius: calc(var(--radius) / 3);
+    color: rgb(var(--gray-7));
+
+    &:hover {
+        background: rgb(var(--gray-3));
+    }
+}
+
+.tagDot {
+    composes: badgeDot;
+}
+
+.tagIcon {
+    composes: badgeIcon;
+}
+
+.tagLabel {
+    composes: badgeLabel;
+}
+
+.tagPrimary {
+    composes: badgePrimary;
+    composes: tag;
+}
+
+.tagDanger {
+    composes: badgeDanger;
+    composes: tag;
+}
+
+.tagInfo {
+    composes: badgeInfo;
+    composes: tag;
+}
+
+.tagSuccess {
+    composes: badgeSuccess;
+    composes: tag;
+}
+
+.tagWarning {
+    composes: badgeWarning;
+    composes: tag;
+}

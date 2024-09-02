@@ -1,0 +1,64 @@
+@value placeholder from '@/css/component/Placeholder.module.scss';
+
+.gallery {
+    display: grid;
+    gap: 9px;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+}
+
+.galleryAdd {
+    composes: placeholder;
+
+    aspect-ratio: 1 / 1;
+    color: rgb(var(--gray-7));
+
+    @media (hover: hover) {
+        &:hover {
+            background: rgb(var(--gray-3));
+            border-color: rgb(var(--gray-5));
+        }
+    }
+}
+
+.galleryMove {
+    transition: 360ms var(--swift-out);
+}
+
+.galleryItem {
+    position: relative;
+    aspect-ratio: 1 / 1;
+
+    :local(.remove) {
+        z-index: 1;
+    }
+}
+
+.galleryItemImage {
+    position: absolute;
+    display: block;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: var(--radius);
+    object-fit: cover;
+    object-position: center;
+    outline: 1px solid rgb(0 0 0 / .025);
+    outline-offset: -1px;
+}
+
+.galleryItemLoader {
+    position: absolute;
+    display: flex;
+    inset: 1px;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(2px) saturate(180%);
+    background: rgb(0 0 0 / .25);
+    border-radius: calc(var(--radius) - 1px);
+    z-index: 0;
+
+    .spinner {
+        --track: rgb(255 255 255 / .25);
+        --value: rgb(255 255 255);
+    }
+}

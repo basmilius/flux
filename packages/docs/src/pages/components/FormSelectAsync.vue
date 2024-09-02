@@ -102,13 +102,13 @@
     lang="ts"
     setup>
     import { FluxFormSelectAsync, FluxFormSelectGroup, FluxFormSelectOption, FluxPane, FluxPaneBody, FluxStack } from '@basmilius/flux';
-    import { ApiComponent, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@docs/components';
+    import { ApiComponent, ApiExample, ApiRequiredIcons, ApiSection, PageTitle, Preview } from '@/components';
     import { ref } from 'vue';
-    import basic from '@docs/code/components/formSelectAsync/basic.vue';
-    import basicCode from '@docs/code/components/formSelectAsync/basic.vue?raw';
-    import multiple from '@docs/code/components/formSelectAsync/multiple.vue';
-    import multipleCode from '@docs/code/components/formSelectAsync/multiple.vue?raw';
-    import dataset from '@docs/code/components/formSelect/dataset.json';
+    import basic from '@/code/components/formSelectAsync/basic.vue';
+    import basicCode from '@/code/components/formSelectAsync/basic.vue?raw';
+    import multiple from '@/code/components/formSelectAsync/multiple.vue';
+    import multipleCode from '@/code/components/formSelectAsync/multiple.vue?raw';
+    import dataset from '@/code/components/formSelect/dataset.json';
 
     const selectValue = ref(null);
 

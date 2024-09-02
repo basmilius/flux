@@ -1,5 +1,5 @@
 <template>
-    <table class="api-table">
+    <table :class="$style.apiTable">
         <thead>
         <slot name="head">
             <tr>
@@ -14,8 +14,10 @@
     </table>
 </template>
 
-<style lang="scss">
-    .api-table {
+<style
+    lang="scss"
+    module>
+    .apiTable {
         margin: -1px;
         width: calc(100% + 2px);
         border-collapse: collapse;

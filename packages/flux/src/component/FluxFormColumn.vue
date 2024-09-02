@@ -1,13 +1,11 @@
 <template>
-    <div class="flux-form-column">
+    <div :class="styles.formColumn">
         <slot/>
     </div>
 </template>
 
-<style lang="scss">
-    .flux-form-column {
-        display: flex;
-        flex-flow: column;
-        gap: 18px;
-    }
-</style>
+<script
+    lang="ts"
+    setup>
+    import styles from '@/css/component/Form.module.scss';
+</script>

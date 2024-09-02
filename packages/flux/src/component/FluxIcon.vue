@@ -1,10 +1,10 @@
 <template>
     <svg
         :viewBox="`0 0 ${width} ${height}`"
-        class="flux-icon"
+        :class="styles.icon"
         :style="{
-            fontSize: `${size}px`,
-            '--margin': `${margin}px`
+            fontSize: size && `${size}px`,
+            scale: scale > 1 ? scale : undefined
         }"
         focusable="false"
         role="img"
@@ -21,22 +21,20 @@
     lang="ts"
     setup>
     import { computed, unref } from 'vue';
-    import type { IconNames } from '@/data';
-    import { iconRegistry } from '@/data';
+    import { type IconNames, iconRegistry } from '@/data';
+    import styles from '@/css/component/Icon.module.scss';
 
-    export interface Emits {
-        (e: 'click', evt: MouseEvent): void;
-    }
+    export type Emits = {
+        click: [MouseEvent];
+    };
 
-    export interface Props {
+    export type Props = {
         readonly size?: number | string;
         readonly variant: IconNames;
-    }
+    };
 
     const emit = defineEmits<Emits>();
-    const props = withDefaults(defineProps<Props>(), {
-        size: 20
-    });
+    const props = defineProps<Props>();
 
     const definition = computed(() => {
         const variant = iconRegistry[props.variant];
@@ -55,20 +53,7 @@
     const width = computed(() => definition.value[0] as number);
     const height = computed(() => definition.value[1] as number);
     const paths = computed(() => (Array.isArray(definition.value[4]) ? definition.value[4] : [definition.value[4]]) as string[]);
-    const margin = computed(() => Math.min(0, (512 - unref(width)) / 2) * ((props.size as number) / 512) as number);
+    const scale = computed(() => Math.max(1, unref(width) / 512));
 
     const onClick = (evt: MouseEvent) => emit('click', evt);
 </script>
-
-<style lang="scss">
-    .flux-icon {
-        --margin: 0px;
-
-        display: inline-block;
-        margin-left: var(--margin);
-        margin-right: var(--margin);
-        height: 1em;
-        width: calc(1em + -2 * var(--margin));
-        line-height: 1em;
-    }
-</style>

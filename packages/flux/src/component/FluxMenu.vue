@@ -1,10 +1,7 @@
 <template>
     <nav
-        ref="container"
-        class="flux-menu"
-        :class="{
-            'is-large': isLarge
-        }"
+        ref="elementRef"
+        :class="isLarge ? styles.menuLarge : styles.menuNormal"
         role="menu"
         aria-orientation="vertical">
         <slot/>
@@ -16,65 +13,17 @@
     setup>
     import { ref } from 'vue';
     import { useFocusZone } from '@/composable';
+    import styles from '@/css/component/Menu.module.scss';
 
-    export interface Props {
+    export type Props = {
         readonly isLarge?: boolean;
-    }
+    };
 
     defineProps<Props>();
 
-    const container = ref<HTMLDivElement>();
+    const elementRef = ref<HTMLDivElement>();
 
-    useFocusZone(container, {
+    useFocusZone(elementRef, {
         direction: 'vertical'
     });
 </script>
-
-<style lang="scss">
-    .flux-menu {
-        display: flex;
-        flex-flow: column;
-        gap: 9px;
-
-        .flux-separator {
-            margin-left: 0;
-            margin-right: 0;
-        }
-    }
-
-    .flux-pane > .flux-menu {
-        margin-left: 9px;
-        margin-right: 9px;
-
-        &:first-child {
-            margin-top: 9px;
-        }
-
-        &:last-child {
-            margin-bottom: 9px;
-        }
-
-        .flux-pane-body {
-            margin: -9px;
-        }
-
-        .flux-separator {
-            margin-left: -9px;
-            margin-right: -9px;
-        }
-    }
-
-    .flux-expandable-body > .flux-menu {
-        margin-left: 9px;
-        margin-right: 9px;
-
-        &:last-child {
-            margin-bottom: 9px;
-        }
-
-        > .flux-separator {
-            margin-left: 21px;
-            margin-right: 21px;
-        }
-    }
-</style>

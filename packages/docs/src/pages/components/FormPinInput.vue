@@ -74,7 +74,7 @@
     setup>
     import { FluxFormColumn, FluxFormField, FluxFormPinInput, FluxStack, FluxToggle } from '@basmilius/flux';
     import { ref } from 'vue';
-    import { ApiComponent, ApiSection, PageTitle, Preview } from '@docs/components';
+    import { ApiComponent, ApiSection, PageTitle, Preview } from '@/components';
 
     const isPrivate = ref(false);
     const pin = ref('13');

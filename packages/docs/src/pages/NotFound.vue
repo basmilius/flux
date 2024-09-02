@@ -6,6 +6,7 @@
 
         <FluxNotice
             icon="circle-exclamation"
+            is-small
             message="Please keep in mind that the documentation website is still in progress."
             variant="warning"/>
 
@@ -27,5 +28,5 @@
     lang="ts"
     setup>
     import { FluxNotice, FluxStack } from '@basmilius/flux';
-    import { PageTitle } from '@docs/components';
+    import { PageTitle } from '@/components';
 </script>

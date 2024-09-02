@@ -1,6 +1,6 @@
 <template>
     <FluxStack
-        class="flux-form-date-time-input"
+        :class="styles.formDateTimeInput"
         axis="horizontal"
         :gap="15">
         <FluxFlyout
@@ -10,7 +10,7 @@
                 <FluxFormInputGroup>
                     <FluxFormInput
                         :="{autoFocus, isDisabled, isReadonly, modelValue, placeholder}"
-                        class="flux-form-date-input"
+                        :class="styles.formDateInput"
                         type="date"
                         :model-value="localValue"
                         @update:model-value="setDate"
@@ -32,7 +32,7 @@
 
         <FluxFormInput
             :="{isDisabled, isReadonly, modelValue, placeholder}"
-            class="flux-form-date-input flux-form-time-input"
+            :class="styles.formTimeInput"
             type="time"
             :model-value="localValue"
             @update:model-value="setTime"/>
@@ -50,6 +50,7 @@
     import FluxFormInputGroup from './FluxFormInputGroup.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import FluxStack from './FluxStack.vue';
+    import styles from '@/css/component/Form.module.scss';
 
     export type Props = {
         readonly autoComplete?: string;
@@ -102,19 +103,3 @@
         modelValue.value = localValue;
     });
 </script>
-
-<style lang="scss">
-    .flux-form-date-time-input {
-        .flux-form-input::-webkit-calendar-picker-indicator {
-            display: none;
-        }
-
-        .flux-form-input-group {
-            flex-grow: 1;
-        }
-
-        .flux-form-input:last-child {
-            max-width: 99px;
-        }
-    }
-</style>

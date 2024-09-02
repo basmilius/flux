@@ -1,13 +1,11 @@
 <template>
-    <tr class="flux-table-row">
+    <tr :class="styles.tableRow">
         <slot/>
     </tr>
 </template>
 
-<style lang="scss">
-    .flux-table-row {
-        height: 0;
-        margin: 0;
-        padding: 0;
-    }
-</style>
+<script
+    lang="ts"
+    setup>
+    import styles from '@/css/component/Table.module.scss';
+</script>

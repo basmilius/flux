@@ -1,9 +1,10 @@
 <template>
     <div
         ref="previewRef"
-        class="preview flux-typography-aware">
+        :class="$style.preview"
+        data-typography-aware>
         <slot name="body">
-            <div class="preview-body">
+            <div :class="$style.previewBody">
                 <slot/>
             </div>
         </slot>
@@ -42,7 +43,9 @@
     }
 </script>
 
-<style lang="scss">
+<style
+    lang="scss"
+    module>
     .preview {
         position: relative;
         background: rgb(var(--gray-1));
@@ -66,17 +69,17 @@
             mask-position: top center;
             mask-size: 45px 45px;
         }
+    }
 
-        &-body {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: calc(v-bind(minHeight) * 1px - 1px);
-            padding: 15px 60px;
-        }
+    .previewBody {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: calc(v-bind(minHeight) * 1px - 1px);
+        padding: 15px 60px;
 
-        &-body > .flux-pane {
+        > .pane {
             width: 100%;
         }
     }

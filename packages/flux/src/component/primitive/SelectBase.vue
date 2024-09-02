@@ -2,12 +2,12 @@
     <Anchor
         ref="anchorRef"
         :="$attrs"
-        class="flux-form-input flux-form-select"
-        :class="{
-            'is-disabled': isDisabled,
-            'is-focused': isPopupOpen,
-            'is-searchable': isSearchable
-        }"
+        :class="clsx(
+            styles.formSelect,
+            isDisabled && styles.isDisabled,
+            isPopupOpen && styles.isFocused,
+            isSearchable && styles.isSearchable
+        )"
         :id="id"
         tabindex="0"
         tag-name="div"
@@ -15,7 +15,7 @@
         @keydown="onKeyDown">
         <template v-if="!isMultiple && selected[0]">
             <FluxMenuItem
-                class="flux-form-select-selected"
+                :class="styles.formSelectSelected"
                 :command="selected[0].command"
                 :command-icon="selected[0].commandIcon"
                 :icon-before="selected[0].icon"
@@ -24,29 +24,28 @@
         </template>
 
         <template v-else-if="isMultiple && selected[0]">
-            <FluxBadge
+            <FluxTag
                 v-for="option of selected"
                 :key="option.id ?? 'null option'"
                 :label="option.label"
                 is-deletable
-                is-tag
                 @delete="deselect(option.id)"/>
         </template>
 
         <template v-else-if="placeholder">
-            <span class="flux-form-select-placeholder">
+            <span :class="styles.formSelectPlaceholder">
                 {{ placeholder }}
             </span>
         </template>
 
         <FluxSpinner
             v-if="isLoading"
-            class="flux-form-select-icon"
+            :class="styles.formSelectIcon"
             :size="16"/>
 
         <FluxIcon
             v-else
-            class="flux-form-select-icon"
+            :class="styles.formSelectIcon"
             variant="angle-down"/>
     </Anchor>
 
@@ -55,10 +54,10 @@
             <AnchorPopup
                 v-if="isPopupOpen"
                 ref="anchorPopupRef"
-                class="flux-surface flux-pane flux-form-select-popup"
-                :class="{
-                    'is-searchable': isSearchable
-                }"
+                :class="clsx(
+                    styles.formSelectPopup,
+                    isSearchable && styles.isSearchable
+                )"
                 :anchor="anchorRef"
                 axis="vertical"
                 use-anchor-width>
@@ -67,7 +66,7 @@
                     v-model="modelSearch"
                     ref="searchInputElement"
                     auto-complete="off"
-                    class="flux-form-select-input"
+                    :class="styles.formSelectInput"
                     type="search"
                     icon-after="magnifying-glass"
                     :placeholder="translate('flux.search')"
@@ -125,13 +124,13 @@
 <script
     lang="ts"
     setup>
-    import { type ComponentPublicInstance, computed, nextTick, ref, Teleport, toRefs, unref, watch } from 'vue';
+    import { clsx } from 'clsx';
+    import { type ComponentPublicInstance, computed, nextTick, ref, toRefs, unref, watch } from 'vue';
     import { useClickOutside, useFormFieldInjection } from '@/composable';
     import { type FormSelectGroup, useTranslate } from '@/composable/private';
     import { type FluxFormSelectOption, isFluxFormSelectGroup, isFluxFormSelectOption } from '@/data';
     import { FluxFadeTransition } from '@/transition';
     import { ensureElement } from '@/util';
-    import FluxBadge from '../FluxBadge.vue';
     import FluxFormInput from '../FluxFormInput.vue';
     import FluxIcon from '../FluxIcon.vue';
     import FluxMenu from '../FluxMenu.vue';
@@ -140,18 +139,20 @@
     import FluxMenuSubHeader from '../FluxMenuSubHeader.vue';
     import FluxPaneBody from '../FluxPaneBody.vue';
     import FluxSpinner from '../FluxSpinner.vue';
+    import FluxTag from '../FluxTag.vue';
     import Anchor from './Anchor.vue';
     import AnchorPopup from './AnchorPopup.vue';
+    import styles from '@/css/component/Form.module.scss';
 
     const INITIAL_HIGHLIGHTED_INDEX = -1;
 
     export type Emits = {
-        (e: 'key-down', evt: KeyboardEvent): void;
-        (e: 'deselect', id: string | number | null): void;
-        (e: 'select', id: string | number | null): void;
-        (e: 'search', searchQuery: string): void;
-        (e: 'close'): void;
-        (e: 'open'): void;
+        keyDown: [KeyboardEvent];
+        deselect: [string | number | null];
+        select: [string | number | null];
+        search: [string];
+        close: [];
+        open: [];
     };
 
     export type Props = {
@@ -213,7 +214,7 @@
     }
 
     function onKeyDown(evt: KeyboardEvent): void {
-        emit('key-down', evt);
+        emit('keyDown', evt);
 
         if (!unref(isPopupOpen)) {
             if (evt.key === 'Enter') {
@@ -301,120 +302,3 @@
 
     watch(options, () => highlightedIndex.value = INITIAL_HIGHLIGHTED_INDEX);
 </script>
-
-<style lang="scss">
-    @use '../../css/mixin' as flux;
-
-    .flux-form-select {
-        position: relative;
-        display: flex;
-        height: unset;
-        min-height: 42px;
-        padding: 0 39px 0 6px;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 0 6px;
-        cursor: pointer;
-
-        &:not(.is-disabled) {
-            @include flux.focus-ring(-1px, true);
-        }
-
-        &.is-focused {
-            @include flux.focus-outline-visible(-1px)
-        }
-
-        &-icon {
-            position: absolute;
-            top: 50%;
-            right: 12px;
-            translate: 0 -50%;
-        }
-
-        &-input {
-            position: sticky;
-            top: 0;
-            height: 48px;
-            margin-bottom: 9px;
-            background: rgb(var(--gray-0));
-            border-top: 0;
-            border-left: 0;
-            border-right: 0;
-            border-radius: 0;
-            outline: 0;
-            z-index: 2;
-
-            .flux-form-input {
-                &-icon {
-                    margin: 15px;
-                    font-size: 18px;
-                }
-
-                &-native {
-                    padding-left: 21px;
-                    padding-right: 21px;
-                }
-            }
-        }
-
-        &-placeholder {
-            margin-left: 6px;
-            margin-right: 6px;
-            color: var(--foreground-secondary);
-            user-select: none;
-        }
-
-        &-popup.flux-pane {
-            position: fixed;
-            display: block;
-            top: 0;
-            left: 0;
-            width: var(--width, auto);
-            max-height: 330px;
-            min-width: 120px;
-            box-shadow: var(--shadow-md);
-            overflow: auto;
-            translate: var(--x) var(--y);
-            z-index: 10000;
-
-            &.is-searchable .flux-menu-sub-header {
-                top: 48px;
-            }
-
-            .flux-menu-item {
-                content-visibility: auto;
-                contain-intrinsic-size: auto 42px;
-            }
-        }
-
-        &-selected {
-            position: absolute;
-            height: 100%;
-            padding-left: 12px;
-            padding-right: 42px;
-            inset: -1px;
-            pointer-events: none;
-
-            .flux-button-label {
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-            }
-        }
-
-        &.is-disabled &-selected {
-            color: rgb(var(--gray-6));
-        }
-
-        .flux-badge {
-            margin-top: 6px;
-            margin-bottom: 6px;
-            max-width: 100%;
-            flex: 0 0 auto;
-        }
-
-        &-input {
-            @include flux.focus-ring-remove();
-        }
-    }
-</style>

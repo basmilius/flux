@@ -1,0 +1,79 @@
+.divider {
+    position: relative;
+    display: grid;
+    contain: paint;
+    margin-top: 18px;
+    margin-bottom: 18px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.dividerContentStart {
+    composes: divider;
+
+    justify-items: start;
+}
+
+.dividerContentCenter {
+    composes: divider;
+
+    justify-items: center;
+}
+
+.dividerContentEnd {
+    composes: divider;
+
+    justify-items: end;
+}
+
+.dividerContent {
+    position: relative;
+    display: flex;
+
+    &::before,
+    &::after {
+        position: absolute;
+        display: block;
+        top: 50%;
+        translate: 0 -50%;
+    }
+
+    &::before {
+        left: -100dvh;
+        right: calc(100% + 15px);
+    }
+
+    &::after {
+        left: calc(100% + 15px);
+        right: -100dvh;
+    }
+}
+
+.dividerLine {
+    width: 100%;
+    border: 0;
+}
+
+.dividerContent::before,
+.dividerContent::after,
+.dividerLine {
+    height: 1px;
+    content: '';
+    background: rgb(var(--gray-3));
+}
+
+.separator {
+    background: rgb(var(--gray-3));
+}
+
+.separatorHorizontal {
+    composes: separator;
+
+    height: 1px;
+}
+
+.separatorVertical {
+    composes: separator;
+
+    width: 1px;
+}

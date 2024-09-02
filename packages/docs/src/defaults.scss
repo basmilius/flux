@@ -17,6 +17,17 @@ h3 {
     }
 }
 
+.switching-theme {
+    &,
+    *,
+    *::before,
+    *::after {
+        transition: 300ms var(--swift-out) !important;
+        transition-delay: 0ms !important;
+        transition-property: all !important;
+    }
+}
+
 %-space {
     display: flex;
     align-items: center;

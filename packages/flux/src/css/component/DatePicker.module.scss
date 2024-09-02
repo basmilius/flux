@@ -1,0 +1,210 @@
+@value flexColumn, flexRow from '@/css/component/base/Flex.module.scss';
+
+.datePicker {
+    composes: flexColumn;
+
+    max-height: 420px;
+    border-radius: inherit;
+    overflow: auto;
+    user-select: none;
+    z-index: 0;
+}
+
+.datePickerDates,
+.datePickerMonths,
+.datePickerYears,
+.datePickerHeader {
+    padding: 15px;
+}
+
+.datePickerHeader {
+    composes: flexRow;
+
+    position: sticky;
+    top: 0;
+    align-items: center;
+    background: rgb(var(--gray-1));
+    border-bottom: 1px solid rgb(var(--gray-3));
+    z-index: 1;
+}
+
+.datePickerHeaderView {
+    composes: flexRow;
+
+    height: 42px;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    gap: 9px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.datePickerHeaderViewButton {
+    padding: 0;
+    background: unset;
+    border: 0;
+    cursor: pointer;
+    text-transform: capitalize;
+
+    &:first-child {
+        color: var(--foreground-prominent);
+    }
+
+    &:last-child {
+        color: var(--foreground-secondary);
+    }
+
+    @media(hover: hover) {
+        &:hover {
+            color: rgb(var(--primary-7));
+        }
+    }
+}
+
+.datePickerDate {
+    composes: flexRow;
+
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    background: unset;
+    border: 0;
+    border-radius: var(--radius);
+    color: var(--foreground-prominent);
+    cursor: pointer;
+    font-size: 14px;
+    outline: 0;
+    transition: 180ms var(--swift-out);
+    transition-property: background, border-radius, color, opacity;
+
+    @media (hover: hover) {
+        &:hover:not(.isSelectionEntry, .isSelectionEnd, .isSelectionStart) {
+            background: rgb(var(--gray-3));
+            color: var(--foreground-prominent);
+        }
+    }
+
+    &.isDisabled:not(.isRangeEntry, .isRangeEnd, .isRangeStart, .isSelectionEntry, .isSelectionEnd, .isSelectionStart) {
+        opacity: .25;
+        pointer-events: none;
+    }
+
+    &:not(.isDisabled) {
+        font-weight: 500;
+    }
+
+    &.isSelected {
+        background: rgb(var(--primary-7));
+        color: rgb(var(--primary-1));
+        font-weight: 700;
+    }
+
+    &.isRangeEntry {
+        background: rgb(var(--primary-3));
+        border-radius: 0;
+        color: rgb(var(--primary-11));
+    }
+
+    &.isRangeEnd,
+    &.isRangeStart {
+        background: rgb(var(--primary-7));
+        color: rgb(var(--primary-1));
+        font-weight: 700;
+    }
+
+    [dark] &.isRangeEntry {
+        background: rgb(var(--primary-7) / .75);
+        color: rgb(0 0 0 / .975);
+    }
+
+    [dark] &.isRangeStart,
+    [dark] &.isRangeEnd {
+        background: rgb(var(--primary-7));
+        color: rgb(0 0 0 / .975);
+    }
+
+    &.isRangeEntry:nth-child(7n + 8),
+    &.isRangeStart {
+        border-top-left-radius: var(--radius);
+        border-bottom-left-radius: var(--radius);
+    }
+
+    &.isRangeEntry:nth-child(7n),
+    &.isRangeEnd {
+        border-top-right-radius: var(--radius);
+        border-bottom-right-radius: var(--radius);
+    }
+
+    &.isSelectionEntry {
+        background: rgb(var(--gray-3));
+        border-radius: 0;
+        color: var(--foreground-prominent);
+    }
+
+    &.isSelectionEnd,
+    &.isSelectionStart {
+        background: rgb(var(--gray-4));
+        font-weight: 700;
+    }
+
+    [dark] &.isSelectionEntry {
+        background: rgb(var(--gray-2));
+        color: var(--foreground-prominent);
+    }
+
+    [dark] &.isSelectionStart,
+    [dark] &.isSelectionEnd {
+        background: rgb(var(--gray-3));
+    }
+
+    &.isSelectionEntry:nth-child(7n + 8),
+    &.isSelectionStart {
+        border-top-left-radius: var(--radius);
+        border-bottom-left-radius: var(--radius);
+    }
+
+    &.isSelectionEntry:nth-child(7n),
+    &.isSelectionEnd {
+        border-top-right-radius: var(--radius);
+        border-bottom-right-radius: var(--radius);
+    }
+}
+
+.datePickerDates {
+    position: relative;
+}
+
+.datePickerDatesGrid {
+    display: grid;
+    gap: 3px 0;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.datePickerDay {
+    margin-bottom: 6px;
+    color: var(--foreground-secondary);
+    font-size: 11px;
+    font-weight: 500;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.datePickerMonths,
+.datePickerYears {
+    display: grid;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 300px;
+    width: 100%;
+    gap: 9px;
+    grid-template-columns: repeat(3, 1fr);
+
+    .button {
+        contain: size layout;
+        contain-intrinsic-size: 0 42px;
+        content-visibility: auto;
+        text-transform: capitalize;
+    }
+}

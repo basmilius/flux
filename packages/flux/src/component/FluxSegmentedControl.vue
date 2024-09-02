@@ -1,10 +1,9 @@
 <template>
     <nav
         ref="controlRef"
-        class="flux-segmented-control"
-        :class="{'is-fill': isFill}">
+        :class="isFill ? styles.segmentedControlFill : styles.segmentedControlInline">
         <div
-            class="flux-segmented-control-highlight"
+            :class="styles.segmentedControlHighlight"
             :style="{
                 left: `${activeItemX}px`,
                 width: `${activeItemWidth}px`
@@ -13,17 +12,18 @@
         <template v-for="(item, index) of items">
             <div
                 v-if="index > 0"
-                class="flux-segmented-control-separator"
-                :class="{
-                    'active': index === modelValue || index === modelValue + 1
-                }"/>
+                :class="clsx(
+                    styles.segmentedControlSeparator,
+                    (index === modelValue || index === modelValue + 1) && styles.isActive
+                )"
+                role="separator"/>
 
             <button
                 ref="itemRefs"
-                class="flux-segmented-control-item"
-                :class="{
-                    'active': index === modelValue
-                }"
+                :class="clsx(
+                    styles.segmentedControlItem,
+                    index === modelValue && styles.isActive
+                )"
                 type="button"
                 @click="activate(index)">
                 <FluxIcon
@@ -40,9 +40,11 @@
 <script
     lang="ts"
     setup>
+    import { clsx } from 'clsx';
     import { onMounted, onUpdated, ref, unref } from 'vue';
     import type { FluxSegmentedControlItemSpec } from '@/data';
     import FluxIcon from './FluxIcon.vue';
+    import styles from '@/css/component/SegmentedControl.module.scss';
 
     export type Props = {
         readonly isFill?: boolean;
@@ -66,95 +68,7 @@
         const {width, left: x} = itemRef.getBoundingClientRect();
 
         activeItemX.value = x - controlX;
-        activeItemWidth.value = width;
+        activeItemWidth.value = width + 6;
         modelValue.value = index;
     }
 </script>
-
-<style lang="scss">
-    .flux-segmented-control {
-        position: relative;
-        display: inline-flex;
-        padding: 3px;
-        width: min-content;
-        align-items: center;
-        gap: 1px;
-        background: rgb(var(--gray-3));
-        border-radius: var(--radius);
-
-        &.is-fill {
-            display: flex;
-            width: unset;
-        }
-
-        &-highlight,
-        &-item {
-            height: 33px;
-            border-radius: calc(var(--radius) - 3px);
-            transition: 300ms var(--swift-out);
-        }
-
-        &-highlight {
-            position: absolute;
-            top: 3px;
-            background: rgb(var(--gray-0));
-            border: 1px solid rgb(var(--gray-5) / .5);
-            box-shadow: var(--shadow-sm);
-            pointer-events: none;
-            transition-property: left, width;
-        }
-
-        &-item {
-            display: flex;
-            padding-left: 12px;
-            padding-right: 12px;
-            align-items: center;
-            flex: 1 1 0;
-            gap: 9px;
-            justify-content: center;
-            background: none;
-            border: 0;
-            color: var(--foreground);
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 500;
-            text-align: center;
-            text-transform: uppercase;
-            transition-property: background, color;
-
-            &:hover {
-                background: rgb(var(--gray-4));
-            }
-
-            &.active {
-                background: none;
-                color: var(--foreground-prominent);
-                cursor: default;
-            }
-
-            > * {
-                position: relative;
-            }
-        }
-
-        &-separator {
-            height: 18px;
-            width: 1px;
-            flex-shrink: 0;
-            background: rgb(var(--gray-5));
-            transition: opacity 300ms var(--swift-out);
-
-            &.active {
-                opacity: 0;
-            }
-        }
-    }
-
-    [dark] .flux-segmented-control {
-        background: rgb(var(--gray-2));
-
-        &-highlight {
-            background: rgb(var(--gray-3));
-        }
-    }
-</style>

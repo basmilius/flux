@@ -1,0 +1,87 @@
+@value flexColumn, flexRow from '@/css/component/base/Flex.module.scss';
+
+.comment {
+    composes: flexRow;
+
+    gap: 21px;
+}
+
+.commentAvatar {
+    flex-shrink: 0;
+}
+
+.commentBody {
+    composes: flexColumn;
+
+    align-items: flex-start;
+    gap: 9px;
+}
+
+.commentHeader {
+    composes: flexRow;
+
+    padding: 3px 15px 0;
+    align-items: center;
+    align-self: stretch;
+    gap: 15px;
+    justify-content: space-between;
+
+    :is(strong) {
+        color: var(--foreground-prominent);
+    }
+
+    :is(time) {
+        color: var(--foreground-secondary);
+        font-size: 14px;
+    }
+}
+
+.commentMessage {
+    padding: 12px 15px;
+    background: rgb(var(--gray-1));
+    border: 1px solid rgb(var(--gray-4));
+    border-radius: calc(var(--radius) * 1.5);
+    box-shadow: var(--shadow-sm);
+}
+
+.comment.isFlipped .commentAvatar {
+    order: 1;
+}
+
+.comment.isFlipped .commentBody {
+    margin-left: auto;
+    align-items: flex-end;
+}
+
+.comment.isFlippped .commentHeader {
+    padding-right: 0;
+}
+
+.comment.isFlipped .commentMessage {
+    border-top-right-radius: calc(var(--radius) * .5);
+}
+
+.comment:not(.isFlipped) .commentHeader {
+    padding-left: 0;
+}
+
+.comment:not(.isFlipped) .commentMessage {
+    border-top-left-radius: calc(var(--radius) * .5);
+}
+
+.comment.isReceived .commentMessage {
+    background: rgb(var(--primary-7));
+    border-color: rgb(var(--primary-9));
+    color: rgb(var(--primary-0));
+}
+
+[dark] .commentMessage {
+    padding: 12px 15px;
+    background: rgb(var(--gray-1));
+    border: 1px solid rgb(var(--gray-3));
+}
+
+[dark] .comment.isReceived .commentMessage {
+    background: rgb(var(--primary-11));
+    border-color: rgb(var(--primary-9));
+}

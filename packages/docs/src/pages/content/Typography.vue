@@ -47,10 +47,10 @@
     lang="ts"
     setup>
     import { FluxStack } from '@basmilius/flux';
-    import { ApiExample, ApiSection, PageTitle } from '@docs/components';
-    import blockquoteCode from '@docs/code/content/typography/blockquote.html?raw';
-    import headingsCode from '@docs/code/content/typography/headings.html?raw';
-    import imageCode from '@docs/code/content/typography/image.html?raw';
-    import listsCode from '@docs/code/content/typography/lists.html?raw';
-    import paragraphsCode from '@docs/code/content/typography/paragraphs.html?raw';
+    import { ApiExample, ApiSection, PageTitle } from '@/components';
+    import blockquoteCode from '@/code/content/typography/blockquote.html?raw';
+    import headingsCode from '@/code/content/typography/headings.html?raw';
+    import imageCode from '@/code/content/typography/image.html?raw';
+    import listsCode from '@/code/content/typography/lists.html?raw';
+    import paragraphsCode from '@/code/content/typography/paragraphs.html?raw';
 </script>

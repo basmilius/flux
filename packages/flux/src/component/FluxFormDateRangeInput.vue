@@ -5,11 +5,11 @@
         <template #opener="{open}">
             <FluxFormInputGroup>
                 <div
-                    class="flux-form-input flux-form-date-range-input"
-                    :class="{
-                        'is-disabled': isDisabled,
-                        'is-readonly': isReadonly
-                    }">
+                    :class="clsx(
+                        styles.formDateRangeInput,
+                        isDisabled && styles.isDisabled
+                    )"
+                    role="presentation">
                     <span>{{ label }}</span>
                 </div>
 
@@ -31,6 +31,7 @@
 <script
     lang="ts"
     setup>
+    import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
     import { ComponentPublicInstance, computed, Ref, ref, unref, watch } from 'vue';
     import { useTranslate } from '@/composable/private';
@@ -39,6 +40,7 @@
     import FluxFlyout from './FluxFlyout.vue';
     import FluxFormInputGroup from './FluxFormInputGroup.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
+    import styles from '@/css/component/Form.module.scss';
 
     export type Props = {
         readonly autoComplete?: string;
@@ -80,11 +82,3 @@
 
     watch(modelValue, modelValue => localValue.value = modelValue, {immediate: true});
 </script>
-
-<style lang="scss">
-    .flux-form-input.flux-form-date-range-input {
-        display: flex;
-        align-items: center;
-        cursor: default;
-    }
-</style>
