@@ -1,64 +1,26 @@
-import { createHash } from 'crypto';
-import { resolve } from 'path';
 import { defineConfig } from 'vite';
-import { patchCssModules } from 'vite-css-modules';
-import vue from '@vitejs/plugin-vue';
-import generateClassName from 'css-class-generator';
+import { build, css, plugins, resolve } from '../../vite.base.config';
 
-export default defineConfig({
-    build: {
-        lib: {
-            entry: resolve(__dirname, './src/index.ts'),
-            name: 'BMFluxDashboard',
-            fileName: 'basmilius.flux.dashboard'
-        },
-        minify: 'esbuild',
-        outDir: resolve(__dirname, './dist'),
-        rollupOptions: {
-            external: ['@basmilius/flux', 'luxon', 'vue'],
-            output: {
-                exports: 'named',
-                globals: {
-                    '@basmilius/flux': 'BMFlux',
-                    'luxon': 'luxon',
-                    'vue': 'vue'
-                },
-                sourcemapIgnoreList: relativeSourcePath => relativeSourcePath.includes('node_modules')
-            }
-        },
-        sourcemap: true
-    },
-    css: {
-        preprocessorMaxWorkers: true,
-        preprocessorOptions: {
-            scss: {
-                api: 'modern-compiler'
-            }
-        },
-        modules: {
-            localsConvention: 'camelCaseOnly',
-            generateScopedName(name: string): string {
-                if (name.startsWith('i__const_')) {
-                    name = name.substring(9);
-                    name = name.substring(0, name.length - 2);
-                }
+const fileName = 'basmilius.flux';
+const name = 'bmflux_dashboard';
 
-                const hash = createHash('sha1')
-                    .update(name)
-                    .digest('hex')
-                    .substring(0, 5);
+const external = ['@basmilius/flux', 'luxon', 'vue'];
+const globals = {
+    '@basmilius/flux': 'bmflux',
+    luxon: 'luxon',
+    vue: 'vue'
+};
 
-                return generateClassName(parseInt(hash, 16));
-            }
-        }
-    },
-    plugins: [
-        patchCssModules(),
-        vue()
-    ],
-    resolve: {
-        alias: {
-            '@': resolve(__dirname, 'src')
-        }
-    }
-});
+export default defineConfig(({command}) => ({
+    build: build(
+        import.meta.dirname,
+        command === 'build',
+        name,
+        fileName,
+        external,
+        globals
+    ),
+    css: css(),
+    plugins: plugins(),
+    resolve: resolve(import.meta.dirname)
+}));

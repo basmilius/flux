@@ -11,6 +11,10 @@
         <FluxSecondaryButton
             label="Button"
             size="large"/>
+
+        <FluxSecondaryButton
+            label="Button"
+            size="xl"/>
     </FluxButtonStack>
 </template>
 

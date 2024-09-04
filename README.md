@@ -5,7 +5,8 @@ targets Vue 3+. Please read the following instructions and checks in order to pr
 
 ## 📦 Registry
 
-- The Vue 3 package is available under `@basmilius/flux`.
+- The UI library package is available under `@basmilius/flux`.
+- The Dashboard library package is available under `@basmilius/flux-dashboard`.
 
 ## ⚠️ Requirements
 

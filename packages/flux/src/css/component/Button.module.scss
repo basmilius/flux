@@ -106,6 +106,22 @@
     }
 }
 
+[dark] .secondaryButton,
+[dark] .destructiveButton {
+    background: rgb(var(--gray-1));
+    border-color: rgb(var(--gray-4) / .6);
+
+    @media (hover: hover) {
+        &:hover {
+            background: rgb(var(--gray-2));
+        }
+    }
+
+    &:active {
+        background: rgb(var(--gray-3));
+    }
+}
+
 .linkButton {
     composes: button;
 

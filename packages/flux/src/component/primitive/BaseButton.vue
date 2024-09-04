@@ -62,7 +62,7 @@
     import { toRefs, unref } from 'vue';
     import { FluxIcon, FluxSpinner } from '@/component';
     import type { FluxRoutingLocation, IconNames } from '@/data';
-    import styles from '@/css/component/Button.module.scss';
+    import styles from '@/css/component/base/Button.module.scss';
     import ButtonComponent from './ButtonComponent.vue';
 
     export type Emits = {
