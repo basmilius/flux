@@ -1,5 +1,5 @@
 <template>
-    <div :class="styles.pane">
+    <div :class="isFlat ? styles.paneFlat : styles.paneRaised">
         <slot/>
 
         <div
@@ -23,6 +23,7 @@
     import styles from '@/css/component/Pane.module.scss';
 
     export type Props = {
+        readonly isFlat?: boolean;
         readonly isLoading?: boolean;
         readonly tag?: string;
     };

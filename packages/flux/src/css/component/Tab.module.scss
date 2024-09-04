@@ -54,6 +54,10 @@
     --mask: linear-gradient(to right, transparent, black var(--mask-start), black, black var(--mask-end), transparent);
 
     display: flex;
+    margin-left: -3px;
+    margin-right: -3px;
+    padding-left: 3px;
+    padding-right: 3px;
     align-items: flex-end;
     gap: 21px;
     overflow: hidden;

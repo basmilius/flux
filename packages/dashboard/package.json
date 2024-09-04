@@ -5,9 +5,7 @@
     "scripts": {
         "build": "vite build && pnpm run gentypes",
         "dev": "vite build --watch",
-        "gentypes": "pnpm gentypes:dts && pnpm gentypes:webtypes",
-        "gentypes:dts": "vue-tsc --outDir dist && tsc-alias --dir dist",
-        "gentypes:webtypes": "vue-docgen-web-types --configFile web-types-gen.config.json"
+        "gentypes": "vue-tsc --outDir dist && tsc-alias --dir dist"
     },
     "exports": {
         ".": {
@@ -23,7 +21,7 @@
     "main": "./dist/basmilius.flux.dashboard.umd.cjs",
     "module": "./dist/basmilius.flux.dashboard.js",
     "types": "./dist/index.d.ts",
-    "web-types": "./dist/web-types.json",
+    "sideEffects": false,
     "dependencies": {
         "@basmilius/flux": "workspace:*"
     },

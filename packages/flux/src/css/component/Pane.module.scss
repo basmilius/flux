@@ -5,6 +5,14 @@
 @layer flux-base {
     .pane {
         composes: basePaneStructure;
+    }
+
+    .paneFlat {
+        composes: pane;
+    }
+
+    .paneRaised {
+        composes: pane;
 
         box-shadow: var(--shadow-sm);
     }
@@ -14,6 +22,10 @@
 
         padding: 21px 21px 0;
         gap: 15px;
+
+        &:only-child {
+            padding: 21px;
+        }
     }
 
     .paneHeaderCaption {
@@ -25,6 +37,10 @@
         :is(strong) {
             color: var(--foreground-prominent);
             font-weight: 600;
+
+            &:has(+ :is(span)) {
+                font-size: 16px;
+            }
         }
 
         :is(span) {

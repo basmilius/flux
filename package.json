@@ -21,9 +21,7 @@
         "@types/luxon": "^3.4.2",
         "@types/node": "^22.5.2",
         "@vue/language-server": "^2.1.4",
-        "minimist": "^1.2.8",
         "tsc-alias": "^1.8.10",
-        "vue-docgen-web-types": "^0.1.8",
         "vue-tsc": "^2.1.4"
     }
 }
