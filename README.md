@@ -9,7 +9,7 @@ targets Vue 3+. Please read the following instructions and checks in order to pr
 
 ## ⚠️ Requirements
 
-- Install Node.js ^20
+- Install Node.js ^22
 - Install pnpm using `npm i -g pnpm`.
 - Configure a new environment variable `FONTAWESOME_NPM_AUTH_TOKEN`. This should be a valid Font Awesome private npm auth token.
 - Use `pnpm install` to install the required packages.
