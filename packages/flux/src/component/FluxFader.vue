@@ -1,6 +1,6 @@
 <template>
     <div
-        ref="faderRef"
+        ref="fader"
         :class="styles.fader">
         <slot v-bind="{current, next, previous}"/>
     </div>
@@ -9,7 +9,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, ref, toRefs, unref, watch } from 'vue';
+    import { computed, ref, toRefs, unref, useTemplateRef, watch } from 'vue';
     import { useInterval } from '@/composable';
     import styles from '@/css/component/Fader.module.scss';
 
@@ -27,10 +27,10 @@
     });
     const {interval} = toRefs(props);
 
-    const faderRef = ref<HTMLDivElement>();
-    const current = ref(-1);
-
+    const faderRef = useTemplateRef('fader');
     useInterval(interval, () => next());
+
+    const current = ref(-1);
 
     const count = computed(() => {
         const fader = unref(faderRef);
@@ -54,5 +54,6 @@
 
         Array.from(fader.children).forEach(item => item.classList.remove(styles.isCurrent));
         fader.children[current].classList.add(styles.isCurrent);
+        emit('update', current);
     }, {immediate: true});
 </script>

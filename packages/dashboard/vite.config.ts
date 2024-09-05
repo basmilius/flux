@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import { build, css, plugins, resolve } from '../../vite.base.config';
 
-const fileName = 'basmilius.flux';
+const fileName = 'basmilius.flux-dashboard';
 const name = 'bmflux_dashboard';
 
 const external = ['@basmilius/flux', 'luxon', 'vue'];

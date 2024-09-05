@@ -1,5 +1,4 @@
 export { default as assertRefNotNull } from './assertRefNotNull';
-export { default as camelizeTag } from './camelizeTag';
 export { default as clampWithStepPrecision } from './clampWithStepPrecision';
 export { default as countDecimals } from './countDecimals';
 export { default as createDialogRenderer } from './createDialogRenderer';
@@ -17,7 +16,6 @@ export { default as getFocusableElement } from './getFocusableElement';
 export { default as getFocusableElements } from './getFocusableElements';
 export { default as getKeyboardFocusableElements } from './getKeyboardFocusableElements';
 export { default as hexToRGB } from './hexToRGB';
-export { default as hyphenateTag } from './hyphenateTag';
 export { default as isHtmlElement } from './isHtmlElement';
 export { default as mulberry32 } from './mulberry32';
 export { default as resolveUnref } from './resolveUnref';

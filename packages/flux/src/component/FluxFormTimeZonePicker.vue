@@ -10,10 +10,10 @@
 <script
     lang="ts"
     setup>
+    import { upperFirst } from 'lodash-es';
     import { computed, Ref } from 'vue';
     import { useTranslate, FluxTranslationKey } from '@/composable/private';
     import { FluxFormSelectEntry } from '@/data';
-    import upperFirst from 'lodash/upperFirst';
     import FluxFormSelect from './FluxFormSelect.vue';
 
     export type Props = {

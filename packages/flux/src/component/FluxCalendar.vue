@@ -70,13 +70,15 @@
                     :label="translate('flux.today')"
                     @click="setToday"/>
 
-                <FluxSecondaryButton
-                    icon-before="angle-left"
-                    @click="previousMonth"/>
+                <FluxButtonGroup>
+                    <FluxSecondaryButton
+                        icon-before="angle-left"
+                        @click="previousMonth"/>
 
-                <FluxSecondaryButton
-                    icon-before="angle-right"
-                    @click="nextMonth"/>
+                    <FluxSecondaryButton
+                        icon-before="angle-right"
+                        @click="nextMonth"/>
+                </FluxButtonGroup>
             </template>
         </FluxActionBar>
 
@@ -131,6 +133,7 @@
     import { flattenVNodeTree, getComponentName, getComponentProps } from '@/util';
     import { VNodeRenderer } from './primitive';
     import FluxActionBar from './FluxActionBar.vue';
+    import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import FluxSpinner from '@/component/FluxSpinner.vue';

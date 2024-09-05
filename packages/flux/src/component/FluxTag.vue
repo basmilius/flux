@@ -2,7 +2,7 @@
     <Component
         :is="component"
         :class="clsx(
-            !color && styles.tag,
+            color === 'gray' && styles.tagGray,
             color === 'primary' && styles.tagPrimary,
             color === 'danger' && styles.tagDanger,
             color === 'info' && styles.tagInfo,
@@ -55,7 +55,7 @@
     };
 
     export type Props = {
-        readonly color?: 'primary' | 'danger' | 'info' | 'success' | 'warning';
+        readonly color?: 'gray' | 'primary' | 'danger' | 'info' | 'success' | 'warning';
         readonly dot?: boolean;
         readonly icon?: IconNames;
         readonly isClickable?: boolean;
@@ -65,7 +65,9 @@
     };
 
     const emit = defineEmits<Emits>();
-    const props = defineProps<Props>();
+    const props = withDefaults(defineProps<Props>(), {
+        color: 'gray'
+    });
     const {isClickable} = toRefs(props);
 
     const component = computed(() => unref(isClickable) ? 'button' : 'div');

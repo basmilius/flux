@@ -4,7 +4,7 @@
         :for="id">
         <input
             v-model="modelValue"
-            ref="inputRef"
+            ref="input"
             type="checkbox"
             :class="styles.checkboxNative"
             :id="id"/>
@@ -35,7 +35,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, ref, unref, watchEffect } from 'vue';
+    import { computed, unref, useTemplateRef, watchEffect } from 'vue';
     import { useFormFieldInjection } from '@/composable';
     import FluxIcon from './FluxIcon.vue';
     import styles from '@/css/component/Form.module.scss';
@@ -47,9 +47,8 @@
     const modelValue = defineModel<boolean | null>({default: false});
     defineProps<Props>();
 
+    const inputRef = useTemplateRef('input');
     const {id} = useFormFieldInjection();
-
-    const inputRef = ref<HTMLInputElement>();
 
     const isIndeterminate = computed(() => unref(modelValue) === null);
 

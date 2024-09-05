@@ -41,7 +41,7 @@
             text-transform: uppercase;
 
             &:first-child {
-                width: 240px;
+                width: 270px;
             }
         }
 

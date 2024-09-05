@@ -31,16 +31,16 @@
             <ApiComponent name="Action">
                 <template #props>
                     <tr>
-                        <td><code>destructive</code><code>boolean</code></td>
-                        <td>Indicates that the action should be a destructive action.</td>
-                    </tr>
-                    <tr>
                         <td><code>disabled</code><code>boolean</code></td>
                         <td>Indicates that the action should be disabled.</td>
                     </tr>
                     <tr>
                         <td><code>icon</code><code>IconNames</code></td>
                         <td>The icon that is used.</td>
+                    </tr>
+                    <tr>
+                        <td><code>is-destructive</code><code>boolean</code></td>
+                        <td>Indicates that the action should be a destructive action.</td>
                     </tr>
                     <tr>
                         <td><code>is-loading</code><code>boolean</code></td>
@@ -74,15 +74,15 @@
 
                 <template #emits>
                     <tr>
-                        <td><code>click</code><code>(evt: MouseEvent): void;</code></td>
+                        <td><code>click</code><code>[MouseEvent]</code></td>
                         <td>Triggered when the action is clicked.</td>
                     </tr>
                     <tr>
-                        <td><code>mouseenter</code><code>(evt: MouseEvent): void;</code></td>
+                        <td><code>mouseenter</code><code>[MouseEvent]</code></td>
                         <td>Triggered when the cursor enters the action.</td>
                     </tr>
                     <tr>
-                        <td><code>mouseleave</code><code>(evt: MouseEvent): void;</code></td>
+                        <td><code>mouseleave</code><code>[MouseEvent]</code></td>
                         <td>Triggered when the cursor leaves the action.</td>
                     </tr>
                 </template>

@@ -1,6 +1,6 @@
 <template>
     <div
-        ref="mountRef"
+        ref="mount"
         :class="styles.flyout"
         :style="{
             '--opener-width': `${openerWidth}px`,
@@ -14,13 +14,13 @@
             v-bind="{close, open, toggle}"/>
 
         <dialog
-            ref="dialogRef"
+            ref="dialog"
             :class="styles.flyoutDialog"
             @cancel.prevent="close"
             @click="onDialogBackdropClick">
             <FluxPane
                 v-if="isOpen"
-                ref="paneRef"
+                ref="pane"
                 :class="clsx(
                     styles.flyoutPane,
                     isAutoWidth && styles.isAutoWidth,
@@ -40,7 +40,7 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { provide, ref, toRefs, unref, watch } from 'vue';
+    import { provide, ref, toRefs, unref, useTemplateRef, watch } from 'vue';
     import { useFocusTrap } from '@/composable';
     import { FluxFlyoutInjectionKey } from '@/data';
     import { unrefElement } from '@/util';
@@ -61,9 +61,9 @@
 
     const {axis, margin} = toRefs(props);
 
-    const dialogRef = ref<HTMLDialogElement>();
-    const mountRef = ref<HTMLDivElement>();
-    const paneRef = ref<HTMLDivElement>();
+    const dialogRef = useTemplateRef('dialog');
+    const mountRef = useTemplateRef('mount');
+    const paneRef = useTemplateRef('pane');
 
     const isClosing = ref(false);
     const isOpening = ref(false);

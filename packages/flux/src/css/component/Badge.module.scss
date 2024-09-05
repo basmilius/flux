@@ -86,6 +86,10 @@
 
     --color: rgb(var(--gray-8));
 
+    .badgeLabel {
+        color: var(--foreground-prominent);
+    }
+
     .spinner {
         --value: rgb(var(--primary-7));
     }
@@ -152,6 +156,11 @@
 
 .tagLabel {
     composes: badgeLabel;
+}
+
+.tagGray {
+    composes: badgeGray;
+    composes: tag;
 }
 
 .tagPrimary {

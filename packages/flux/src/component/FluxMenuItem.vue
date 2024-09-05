@@ -81,6 +81,6 @@
 
     withDefaults(defineProps<Props>(), {
         tabindex: 0,
-        type: 'link'
+        type: 'button'
     });
 </script>

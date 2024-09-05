@@ -1,13 +1,13 @@
 <template>
     <canvas
-        ref="canvasRef"
+        ref="canvas"
         :class="styles.animatedColors"/>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { computed, onBeforeUnmount, onMounted, ref, toRefs, unref, watch } from 'vue';
+    import { computed, onBeforeUnmount, onMounted, ref, toRefs, unref, useTemplateRef, watch } from 'vue';
     import { useComponentId } from '@/composable';
     import { mulberry32 } from '@/util';
     import styles from '@/css/component/Visual.module.scss';
@@ -30,9 +30,9 @@
     });
     const {colors, incrementor, opacity, seed} = toRefs(props);
 
+    const canvasRef = useTemplateRef('canvas');
     const id = useComponentId();
 
-    const canvasRef = ref<HTMLCanvasElement>();
     const contextRef = ref<CanvasRenderingContext2D>();
     const animationFrame = ref(0);
     const tick = ref(0);

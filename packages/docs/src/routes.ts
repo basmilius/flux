@@ -262,6 +262,10 @@ export const router = createRouter({
                     component: () => import('@/pages/components/Tabs.vue')
                 },
                 {
+                    path: '/components/tag',
+                    component: () => import('@/pages/components/Tag.vue')
+                },
+                {
                     path: '/components/timeline',
                     component: () => import('@/pages/components/Timeline.vue')
                 },

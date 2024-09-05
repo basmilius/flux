@@ -1,11 +1,11 @@
-import type { Ref } from 'vue';
+import type { ComponentPublicInstance, Ref, ShallowRef } from 'vue';
 import { ref, watch } from 'vue';
 import { isSSR } from '@/data';
 import { getFocusableElements, unrefElement, wrapFocus } from '@/util';
 import useFocusTrapLock from './useFocusTrapLock';
 import useFocusTrapReturn from './useFocusTrapReturn';
 
-export default function (containerRef: Ref<HTMLElement | undefined>, options: UseFocusTrapOptions = {}) {
+export default function <T extends ComponentPublicInstance>(containerRef: Readonly<ShallowRef<T | null>>, options: UseFocusTrapOptions = {}) {
     if (isSSR) {
         return;
     }
@@ -16,7 +16,7 @@ export default function (containerRef: Ref<HTMLElement | undefined>, options: Us
     useFocusTrapReturn(disableReturn);
 
     watch(containerRef, (_, __, onCleanup) => {
-        const container = unrefElement(containerRef);
+        const container = unrefElement(containerRef) as HTMLElement;
         const attach = attachTo || document;
 
         if (enabled.value && container && document.activeElement && !container.contains(document.activeElement) && !container.querySelector('[autofocus]')) {
@@ -95,7 +95,7 @@ export default function (containerRef: Ref<HTMLElement | undefined>, options: Us
             return;
         }
 
-        const elements = getFocusableElements(container);
+        const elements = getFocusableElements(container as HTMLElement);
 
         if (elements.includes(document.activeElement as HTMLElement)) {
             return;

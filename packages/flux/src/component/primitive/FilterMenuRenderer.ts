@@ -1,11 +1,12 @@
+import { camelCase } from 'lodash-es';
 import { DateTime } from 'luxon';
 import { computed, defineComponent, h, isVNode, unref, VNode } from 'vue';
 import { FluxMenu, FluxMenuGroup, FluxSeparator } from '@/component';
+import type { FluxTranslator } from '@/composable/private';
 import type { FluxFilterBase, FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterItem, FluxFilterOptionEntry, FluxFilterOptionItem, FluxFilterOptionRow, FluxFilterOptionsEntry, FluxFilterRangeEntry, FluxFilterValue, FluxFilterValueSingle } from '@/data';
 import { isFluxFilterOptionItem } from '@/data';
-import { camelizeTag, createLabelForDateRange, flattenVNodeTree, formatNumber, getComponentName, getComponentProps } from '@/util';
+import { createLabelForDateRange, flattenVNodeTree, formatNumber, getComponentName, getComponentProps } from '@/util';
 import FilterItem from './FilterItem.vue';
-import { FluxTranslator } from '@/composable/private';
 
 export const FilterMenuRenderer = defineComponent({
     props: {
@@ -28,7 +29,7 @@ export const FilterMenuRenderer = defineComponent({
 
                 if (name.startsWith('FluxFilter')) {
                     const props = getComponentProps<Omit<FluxFilterItem, 'type'>>(child);
-                    const type = camelizeTag(name.substring(10)) as FluxFilterItem['type'];
+                    const type = camelCase(name.substring(10)) as FluxFilterItem['type'];
 
                     content[content.length - 1].push(parsers[type](props));
                     continue;

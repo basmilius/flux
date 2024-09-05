@@ -13,7 +13,7 @@
 
             <template
                 v-for="(filter, name) of filters"
-                #[name]="{back}">
+                #[name]>
                 <FluxMenu>
                     <FluxMenuGroup
                         :class="styles.filterHeader"
@@ -22,7 +22,7 @@
                             :class="styles.filterBack"
                             :label="translate('flux.back')"
                             icon-before="angle-left"
-                            @click="back('default')"/>
+                            @click="back()"/>
 
                         <FluxMenuItem
                             v-if="resettable?.includes(name)"
@@ -42,7 +42,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, provide, ref, unref, useSlots, VNode } from 'vue';
+    import { computed, provide, unref, useSlots, useTemplateRef, VNode } from 'vue';
     import { useTranslate } from '@/composable/private';
     import { FluxFilterInjectionKey, FluxFilterOptionItem, FluxFilterState } from '@/data';
     import { heightTransition } from '@/directive';
@@ -57,7 +57,7 @@
     const vHeightTransition = heightTransition;
 
     export type Emits = {
-        reset: [name: string]
+        reset: [string]
     };
 
     export type Props = {
@@ -71,7 +71,7 @@
     const slots = useSlots();
     const translate = useTranslate();
 
-    const window = ref<{ back: Function; }>();
+    const windowRef = useTemplateRef('window');
 
     const filters = computed<Record<string, VNode>>(() => {
         const filters: { [key: string]: VNode; } = {};
@@ -97,7 +97,7 @@
     });
 
     function back(): void {
-        unref(window)?.back('default');
+        unref(windowRef)?.back('default');
     }
 
     function reset(name: string): void {

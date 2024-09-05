@@ -1,6 +1,6 @@
 <script lang="ts">
     import { clsx } from 'clsx';
-    import { computed, defineComponent, h, ref, unref } from 'vue';
+    import { computed, defineComponent, h, ref, unref, watch } from 'vue';
     import { useFluxStore } from '@/data';
     import { FluxTooltipTransition } from '@/transition';
     import { unrefElement } from '@/util';
@@ -21,16 +21,18 @@
         const {tooltip} = useFluxStore();
 
         const elementRef = ref<HTMLElement | null>(null);
+        const position = ref<PositionData | null>(null);
 
         const content = computed(() => unref(tooltip) ? unref(tooltip)!.contentSlot?.() ?? [unref(tooltip)!.content] : null);
         const has = computed(() => !!unref(tooltip));
 
-        const position = computed<PositionData | null>(() => {
+        function calculate(): void {
             const spec = unref(tooltip);
             const element = unrefElement(elementRef);
 
             if (!spec || !element || !unref(content)) {
-                return null;
+                position.value = null;
+                return;
             }
 
             const {axis, origin} = spec;
@@ -38,7 +40,8 @@
             const safeZone = 15;
 
             if (!origin) {
-                return null;
+                position.value = null;
+                return;
             }
 
             let {width, height} = element.getBoundingClientRect();
@@ -51,11 +54,13 @@
             width /= s;
 
             if (axis === 'horizontal') {
-                return calculateHorizontalPosition(top, left, width, height, originWidth, originHeight, margin, safeZone);
+                position.value = calculateHorizontalPosition(top, left, width, height, originWidth, originHeight, margin, safeZone);
+            } else {
+                position.value = calculateVerticalPosition(top, left, width, height, originWidth, originHeight, margin, safeZone);
             }
+        }
 
-            return calculateVerticalPosition(top, left, width, height, originWidth, originHeight, margin, safeZone);
-        });
+        watch(content, () => requestAnimationFrame(() => calculate()));
 
         return () => h(FluxTooltipTransition, {}, {
             default: () => {

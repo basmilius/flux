@@ -95,7 +95,7 @@
 
                 <template #emits>
                     <tr>
-                        <td><code>click</code><code>(evt: MouseEvent): void;</code></td>
+                        <td><code>click</code><code>[MouseEvent]</code></td>
                         <td>Triggered when the avatar is clicked.</td>
                     </tr>
                 </template>

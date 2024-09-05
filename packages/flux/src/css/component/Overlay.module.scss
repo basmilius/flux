@@ -14,7 +14,7 @@
         max-height: min(840px, 100dvh - 180px);
         width: calc(100dvw - 90px);
         flex-flow: column nowrap;
-        border-color: rgb(var(--gray-11) / .075);
+        border-color: rgb(var(--gray-11) / .18);
         box-shadow: var(--shadow-xl);
         overflow: auto;
 
@@ -97,6 +97,10 @@
             position: sticky;
             top: 45px;
             z-index: 100;
+        }
+
+        > .paneHeader:has(.paneHeaderCaption > :is(span)) + .tabBar {
+            top: 69px;
         }
 
         > .paneFooter {

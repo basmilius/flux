@@ -65,7 +65,7 @@
 
                 <template #emits>
                     <tr>
-                        <td><code>reset</code><code>(): void</code></td>
+                        <td><code>reset</code><code>[]</code></td>
                         <td>Triggered when the default reset button is clicked. Only works if the filter-opener slot isn't overridden.</td>
                     </tr>
                 </template>

@@ -457,6 +457,12 @@
                         type="route"/>
 
                     <FluxMenuItem
+                        :is-active="path === '/components/tag'"
+                        label="Tag"
+                        to="/components/tag"
+                        type="route"/>
+
+                    <FluxMenuItem
                         :is-active="path === '/components/timeline'"
                         label="Timeline"
                         to="/components/timeline"

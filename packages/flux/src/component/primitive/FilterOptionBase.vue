@@ -1,8 +1,9 @@
 <template>
     <FluxMenuGroup>
-        <div :class="styles.filterSearch">
+        <div
+            v-if="isSearchable"
+            :class="styles.filterSearch">
             <FluxFormInput
-                v-if="isSearchable"
                 v-model="modelSearch"
                 auto-complete="off"
                 is-secondary

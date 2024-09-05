@@ -20,6 +20,9 @@ export default defineConfig(({command}) => ({
         globals
     ),
     css: css(),
+    define: {
+        __VUE_OPTIONS_API__: true
+    },
     plugins: plugins(),
     resolve: resolve(import.meta.dirname)
 }));
