@@ -1,6 +1,7 @@
 @use '@/css/mixin';
 
 @value button, buttonIcon, buttonLabel from '@/css/component/base/Button.module.scss';
+@value basePaneStructure from '@/css/component/base/Pane.module.scss';
 
 .action {
     composes: button;
@@ -60,7 +61,7 @@
     }
 }
 
-.basePaneStructure > .actionBar {
+:local(.basePaneStructure) > .actionBar {
     padding: 15px 21px;
     background: rgb(var(--gray-1));
     border: 1px solid rgb(var(--gray-3));

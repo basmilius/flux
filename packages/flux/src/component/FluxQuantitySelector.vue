@@ -8,7 +8,7 @@
             @click="decrement"/>
 
         <input
-            ref="inputRef"
+            ref="input"
             v-model="modelValue"
             :class="styles.quantitySelectorInput"
             :style="{
@@ -32,38 +32,40 @@
 <script
     lang="ts"
     setup>
-    import { ref, toRefs, unref, watchEffect } from 'vue';
+    import { ref, unref, useTemplateRef, watchEffect } from 'vue';
+    import { unrefTemplateElement } from '@/util';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import styles from '@/css/component/Form.module.scss';
 
-    export type Props = {
+    const modelValue = defineModel<number>({
+        default: 0
+    });
+
+    const {
+        max = 100,
+        min = 0,
+        step = 1
+    } = defineProps<{
         readonly max?: number;
         readonly min?: number;
         readonly step?: number;
-    };
+    }>();
 
-    const modelValue = defineModel<number>({default: 0});
-    const props = withDefaults(defineProps<Props>(), {
-        max: 100,
-        min: 0,
-        step: 1
-    });
-    const {max, min, step} = toRefs(props);
+    const inputRef = useTemplateRef('input');
 
-    const inputRef = ref<HTMLInputElement>();
     const width = ref(0);
 
     function decrement(): void {
-        modelValue.value = Math.max(unref(min), unref(modelValue) - unref(step));
+        modelValue.value = Math.max(min, unref(modelValue) - step);
     }
 
     function increment(): void {
-        modelValue.value = Math.min(unref(max), unref(modelValue) + unref(step));
+        modelValue.value = Math.min(max, unref(modelValue) + step);
     }
 
     function sizeToContent(): void {
-        const input = unref(inputRef);
+        const input = unrefTemplateElement<HTMLInputElement>(inputRef);
 
         if (!input || isNaN(input.valueAsNumber)) {
             return;
@@ -77,12 +79,12 @@
     }
 
     watchEffect(() => {
-        if (unref(modelValue) > unref(max)) {
+        if (unref(modelValue) > max) {
             increment();
             return;
         }
 
-        if (unref(modelValue) < unref(min)) {
+        if (unref(modelValue) < min) {
             decrement();
             return;
         }

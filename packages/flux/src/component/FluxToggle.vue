@@ -36,19 +36,20 @@
     setup>
     import { clsx } from 'clsx';
     import { useFormFieldInjection } from '@/composable';
-    import type { IconNames } from '@/data';
+    import type { IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import styles from '@/css/component/Form.module.scss';
 
-    export type Props = {
-        readonly iconOff?: IconNames;
-        readonly iconOn?: IconNames;
+    const modelValue = defineModel<boolean>({
+        default: false
+    });
+
+    defineProps<{
+        readonly iconOff?: IconName;
+        readonly iconOn?: IconName;
         readonly isDisabled?: boolean;
         readonly isSwitch?: boolean;
-    };
-
-    const modelValue = defineModel<boolean>({default: false});
-    defineProps<Props>();
+    }>();
 
     const {id} = useFormFieldInjection();
 

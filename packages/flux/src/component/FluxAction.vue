@@ -14,15 +14,14 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '@/data';
-    import BaseButton, { Emits, Props as BaseProps } from './primitive/BaseButton.vue';
+    import type { ButtonEmits, ButtonProps, IconName } from '@/types';
+    import BaseButton from './primitive/BaseButton.vue';
     import styles from '@/css/component/Action.module.scss';
 
-    export type Props = Omit<BaseProps, 'cssClass' | 'cssClassIcon' | 'cssClassLabel' | 'iconBefore' | 'iconAfter' | 'size'> & {
-        readonly isDestructive?: boolean;
-        readonly icon?: IconNames;
-    };
+    defineEmits<ButtonEmits>();
 
-    defineEmits<Emits>();
-    defineProps<Props>();
+    defineProps<Omit<ButtonProps, 'iconBefore' | 'iconAfter' | 'size'> & {
+        readonly icon?: IconName;
+        readonly isDestructive?: boolean;
+    }>();
 </script>

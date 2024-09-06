@@ -12,7 +12,7 @@
             :percentage-lower="percentageLower"
             :percentage-upper="percentageUpper">
             <SliderThumb
-                ref="lowerThumbRef"
+                ref="lowerThumb"
                 :is-disabled="isDisabled"
                 :is-dragging="isDraggingLower"
                 :position="percentageLower"
@@ -21,7 +21,7 @@
                 @increment="onIncrement('lower')"/>
 
             <SliderThumb
-                ref="upperThumbRef"
+                ref="upperThumb"
                 :is-disabled="isDisabled"
                 :is-dragging="isDraggingUpper"
                 :position="percentageUpper"
@@ -35,31 +35,34 @@
 <script
     lang="ts"
     setup>
-    import { ComponentPublicInstance, computed, Ref, ref, toRefs, unref, watch } from 'vue';
+    import { computed, ref, unref, useTemplateRef, watch } from 'vue';
     import { addTooltip, removeTooltip, updateTooltip } from '@/data';
-    import { clampWithStepPrecision, countDecimals, formatNumber, unrefElement } from '@/util';
+    import { clampWithStepPrecision, countDecimals, formatNumber } from '@/util';
     import { SliderBase, SliderThumb, SliderTrack } from './primitive';
 
-    export type Props = {
-        readonly formatter?: (value: number, decimals?: number) => string;
+    const modelValue = defineModel<[number, number]>({
+        required: true
+    });
+
+    const {
+        formatter = formatNumber,
+        isDisabled,
+        max = 100,
+        min = 0,
+        step = 1
+    } = defineProps<{
+        formatter?(value: number, decimals?: number): string;
+
         readonly isDisabled?: boolean;
         readonly isTicksVisible?: boolean;
         readonly max?: number;
         readonly min?: number;
         readonly step?: number;
-    };
+    }>();
 
-    const modelValue = defineModel<[number, number]>({required: true}) as Ref<[number, number]>;
-    const props = withDefaults(defineProps<Props>(), {
-        formatter: formatNumber,
-        max: 100,
-        min: 0,
-        step: 1
-    });
-    const {formatter, isDisabled, max, min, step} = toRefs(props);
+    const lowerThumbRef = useTemplateRef('lowerThumb');
+    const upperThumbRef = useTemplateRef('upperThumb');
 
-    const lowerThumbRef = ref<ComponentPublicInstance>();
-    const upperThumbRef = ref<ComponentPublicInstance>();
     const isDraggingLower = ref(false);
     const isDraggingUpper = ref(false);
     const percentageLower = ref(0);
@@ -68,7 +71,7 @@
     const upperValue = ref(0);
     const tooltipId = ref<number | null>(null);
 
-    const tooltipContent = computed(() => formatter.value(modelValue.value[isDraggingLower.value ? 0 : 1], countDecimals(step.value)));
+    const tooltipContent = computed(() => formatter(modelValue.value[isDraggingLower.value ? 0 : 1], countDecimals(step)));
 
     function onDragging(is: boolean): void {
         if (is) {
@@ -80,15 +83,15 @@
     }
 
     function onUpdate(value: number): void {
-        let lower = clampWithStepPrecision(lowerValue.value, min.value, max.value, step.value);
-        let upper = clampWithStepPrecision(upperValue.value, min.value, max.value, step.value);
+        let lower = clampWithStepPrecision(lowerValue.value, min, max, step);
+        let upper = clampWithStepPrecision(upperValue.value, min, max, step);
 
         if (isDraggingLower.value) {
-            lower = clampWithStepPrecision(value, min.value, max.value, step.value);
+            lower = clampWithStepPrecision(value, min, max, step);
         }
 
         if (isDraggingUpper.value) {
-            upper = clampWithStepPrecision(value, min.value, max.value, step.value);
+            upper = clampWithStepPrecision(value, min, max, step);
         }
 
         if (lower >= upper) {
@@ -98,22 +101,22 @@
         if (tooltipId.value) {
             updateTooltip(tooltipId.value, {
                 content: unref(tooltipContent),
-                origin: unrefElement(isDraggingLower.value ? lowerThumbRef : upperThumbRef) as HTMLElement
+                origin: unref(isDraggingLower.value ? lowerThumbRef : upperThumbRef)?.$el
             });
         }
 
-        lowerValue.value = (lower - min.value) / (max.value - min.value);
-        upperValue.value = (upper - min.value) / (max.value - min.value);
+        lowerValue.value = (lower - min) / (max - min);
+        upperValue.value = (upper - min) / (max - min);
     }
 
     function onDecrement(which: 'lower' | 'upper'): void {
-        let lower = clampWithStepPrecision(lowerValue.value, min.value, max.value, step.value);
-        let upper = clampWithStepPrecision(upperValue.value, min.value, max.value, step.value);
+        let lower = clampWithStepPrecision(lowerValue.value, min, max, step);
+        let upper = clampWithStepPrecision(upperValue.value, min, max, step);
 
         if (which === 'lower') {
-            lower = Math.max(min.value, lower - step.value);
+            lower = Math.max(min, lower - step);
         } else {
-            upper = Math.max(min.value, upper - step.value);
+            upper = Math.max(min, upper - step);
         }
 
         if (lower >= upper) {
@@ -124,13 +127,13 @@
     }
 
     function onIncrement(which: 'lower' | 'upper'): void {
-        let lower = clampWithStepPrecision(lowerValue.value, min.value, max.value, step.value);
-        let upper = clampWithStepPrecision(upperValue.value, min.value, max.value, step.value);
+        let lower = clampWithStepPrecision(lowerValue.value, min, max, step);
+        let upper = clampWithStepPrecision(upperValue.value, min, max, step);
 
         if (which === 'lower') {
-            lower = Math.min(max.value, lower + step.value);
+            lower = Math.min(max, lower + step);
         } else {
-            upper = Math.min(max.value, upper + step.value);
+            upper = Math.min(max, upper + step);
         }
 
         if (lower >= upper) {
@@ -141,13 +144,13 @@
     }
 
     watch(modelValue, modelValue => {
-        lowerValue.value = (modelValue[0] - min.value) / (max.value - min.value);
-        upperValue.value = (modelValue[1] - min.value) / (max.value - min.value);
+        lowerValue.value = (modelValue[0] - min) / (max - min);
+        upperValue.value = (modelValue[1] - min) / (max - min);
     }, {immediate: true});
 
-    watch(([max, min, step, lowerValue, upperValue]), ([max, min, step, lowerValue, upperValue]) => {
-        const lower = clampWithStepPrecision(lowerValue, min, max, step);
-        const upper = clampWithStepPrecision(upperValue, min, max, step);
+    watch(([() => max, () => min, () => step, lowerValue, upperValue]), () => {
+        const lower = clampWithStepPrecision(unref(lowerValue), min, max, step);
+        const upper = clampWithStepPrecision(unref(upperValue), min, max, step);
 
         percentageLower.value = (lower - min) / (max - min);
         percentageUpper.value = (upper - min) / (max - min);
@@ -162,7 +165,7 @@
             tooltipId.value = addTooltip({
                 axis: 'vertical',
                 content: unref(tooltipContent),
-                origin: unrefElement(isDraggingLower ? lowerThumbRef : upperThumbRef) as HTMLElement
+                origin: unref(isDraggingLower ? lowerThumbRef : upperThumbRef)?.$el
             });
         } else if (!is && tooltipId.value) {
             removeTooltip(tooltipId.value);

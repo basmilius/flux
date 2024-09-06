@@ -7,7 +7,7 @@
         <input
             v-for="field of maxLength"
             :key="field"
-            ref="fieldRefs"
+            ref="fields"
             :class="styles.pinInputField"
             autocomplete="new-password"
             maxlength="1"
@@ -26,33 +26,27 @@
 <script
     lang="ts"
     setup>
-    import { ref, toRefs, unref } from 'vue';
+    import { unref, useTemplateRef } from 'vue';
     import { useFormFieldInjection } from '@/composable';
     import styles from '@/css/component/Form.module.scss';
 
-    export type Emits = {
-        blur: [];
-        focus: [];
-    };
+    const modelValue = defineModel<string>({
+        default: ''
+    });
 
-    export type Props = {
+    const {
+        autoFocus = false,
+        maxLength = 6
+    } = defineProps<{
         readonly autoFocus?: boolean;
         readonly isDisabled?: boolean;
         readonly isPrivate?: boolean;
         readonly maxLength?: number;
-    };
+    }>();
 
-    const emit = defineEmits<Emits>();
-    const modelValue = defineModel<string>({default: ''});
-    const props = withDefaults(defineProps<Props>(), {
-        autoFocus: false,
-        maxLength: 6
-    });
-
-    const {maxLength} = toRefs(props);
     const {id} = useFormFieldInjection();
 
-    const fieldRefs = ref<HTMLInputElement[]>();
+    const fieldRefs = useTemplateRef<HTMLInputElement[]>('fields');
 
     function onFocus(evt: FocusEvent): void {
         const input = evt.target as HTMLInputElement;

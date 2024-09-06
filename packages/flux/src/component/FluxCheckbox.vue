@@ -40,12 +40,13 @@
     import FluxIcon from './FluxIcon.vue';
     import styles from '@/css/component/Form.module.scss';
 
-    export type Props = {
-        readonly label?: string;
-    };
+    const modelValue = defineModel<boolean | null>({
+        default: false
+    });
 
-    const modelValue = defineModel<boolean | null>({default: false});
-    defineProps<Props>();
+    defineProps<{
+        readonly label?: string;
+    }>();
 
     const inputRef = useTemplateRef('input');
     const {id} = useFormFieldInjection();

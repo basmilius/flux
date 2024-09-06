@@ -32,27 +32,23 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { IconNames } from '@/data';
+    import type { IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import styles from '@/css/component/Placeholder.module.scss';
 
-    export type Emits = {
+    const emit = defineEmits<{
         click: [MouseEvent];
-    };
+    }>();
 
-    export type Props = {
-        readonly icon?: IconNames;
+    const {
+        variant = 'extended'
+    } = defineProps<{
+        readonly icon?: IconName;
         readonly isButton?: boolean;
         readonly message?: string;
         readonly title?: string;
         readonly variant?: 'extended' | 'simple' | 'small';
-    };
-
-    const emit = defineEmits<Emits>();
-
-    withDefaults(defineProps<Props>(), {
-        variant: 'extended'
-    });
+    }>();
 
     function onClick(evt: MouseEvent): void {
         emit('click', evt);

@@ -31,30 +31,40 @@
 <script
     lang="ts"
     setup>
-    import { provide, toRefs, useSlots } from 'vue';
+    import { provide, useSlots } from 'vue';
     import { FluxTableInjectionKey } from '@/data';
     import FluxSpinner from './FluxSpinner.vue';
     import styles from '@/css/component/Table.module.scss';
 
-    export type Props = {
+    const {
+        captionSide = 'bottom',
+        isBordered = true,
+        isHoverable = false,
+        isLoading = false,
+        isSeparated = true,
+        isStriped = false
+    } = defineProps<{
         readonly captionSide?: 'top' | 'bottom';
         readonly isBordered?: boolean;
         readonly isHoverable?: boolean;
         readonly isLoading?: boolean;
         readonly isSeparated?: boolean;
         readonly isStriped?: boolean;
-    };
+    }>();
 
-    const props = withDefaults(defineProps<Props>(), {
-        captionSide: 'bottom',
-        isBordered: true,
-        isHoverable: false,
-        isLoading: false,
-        isSeparated: true,
-        isStriped: false
-    });
+    defineSlots<{
+        caption(): any;
+        footer(): any;
+        header(): any;
+        rows(): any;
+    }>();
 
     const slots = useSlots();
 
-    provide(FluxTableInjectionKey, toRefs(props));
+    provide(FluxTableInjectionKey, {
+        isBordered,
+        isHoverable,
+        isSeparated,
+        isStriped
+    });
 </script>

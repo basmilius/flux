@@ -23,29 +23,26 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '@/data';
+    import type { IconName } from '@/types';
     import FluxAvatar from './FluxAvatar.vue';
     import styles from '@/css/component/Avatar.module.scss';
 
-    export type Emits = {
+    defineEmits<{
         click: [MouseEvent];
-    };
+    }>();
 
-    export type Props = {
+    const {
+        avatarFallback = 'colorized',
+        avatarFallbackIcon = 'user'
+    } = defineProps<{
         readonly avatarAlt?: string;
         readonly avatarFallback?: 'colorized' | 'neutral';
-        readonly avatarFallbackIcon?: IconNames;
+        readonly avatarFallbackIcon?: IconName;
         readonly avatarFallbackInitials?: string;
         readonly avatarSize?: number;
         readonly avatarUrl?: string;
         readonly isCompact?: boolean;
         readonly name: string;
         readonly title?: string;
-    };
-
-    defineEmits<Emits>();
-    withDefaults(defineProps<Props>(), {
-        avatarFallback: 'colorized',
-        avatarFallbackIcon: 'user'
-    });
+    }>();
 </script>

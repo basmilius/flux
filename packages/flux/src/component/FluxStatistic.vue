@@ -46,25 +46,23 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { IconNames } from '@/data';
+    import type { Axis, ColorVariant, IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxPane from './FluxPane.vue';
     import styles from '@/css/component/Statistic.module.scss';
 
-    export type Props = {
-        readonly axis?: 'horizontal' | 'vertical';
-        readonly changeColor?: 'gray' | 'primary' | 'danger' | 'info' | 'success' | 'warning';
-        readonly changeIcon?: IconNames;
+    const {
+        axis = 'horizontal',
+        changeColor = 'gray',
+        color = 'gray'
+    } = defineProps<{
+        readonly axis?: Axis;
+        readonly changeColor?: ColorVariant;
+        readonly changeIcon?: IconName;
         readonly changeValue?: string;
-        readonly color?: 'gray' | 'primary' | 'danger' | 'info' | 'success' | 'warning';
-        readonly icon: IconNames;
+        readonly color?: ColorVariant;
+        readonly icon: IconName;
         readonly label: string;
         readonly value: string;
-    };
-
-    withDefaults(defineProps<Props>(), {
-        axis: 'horizontal',
-        changeColor: 'gray',
-        color: 'gray'
-    });
+    }>();
 </script>

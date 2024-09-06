@@ -22,11 +22,13 @@
     import FluxSpinner from './FluxSpinner.vue';
     import styles from '@/css/component/Pane.module.scss';
 
-    export type Props = {
+    defineProps<{
         readonly isFlat?: boolean;
         readonly isLoading?: boolean;
         readonly tag?: string;
-    };
+    }>();
 
-    defineProps<Props>();
+    defineSlots<{
+        default(): any;
+    }>();
 </script>

@@ -130,22 +130,25 @@
     setup>
     import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
-    import { computed, ref, toRefs, unref } from 'vue';
-    import { useId } from '@/composable';
+    import { computed, ref, unref, useId } from 'vue';
     import { useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher, useTranslate } from '@/composable/private';
     import { FluxFadeTransition, FluxVerticalWindowTransition, FluxWindowTransition } from '@/transition';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import styles from '@/css/component/DatePicker.module.scss';
 
-    export type Props = {
+    const modelValue = defineModel<DateTime | DateTime[] | null>({
+        default: null
+    });
+
+    const {
+        max,
+        min,
+        rangeMode
+    } = defineProps<{
         readonly max?: DateTime;
         readonly min?: DateTime;
         readonly rangeMode?: 'range' | 'week' | 'month';
-    };
-
-    const modelValue = defineModel<DateTime | DateTime[] | null>({default: null});
-    const props = defineProps<Props>();
-    const {max, min, rangeMode} = toRefs(props);
+    }>();
 
     const id = useId();
     const translate = useTranslate();
@@ -177,8 +180,8 @@
     const selection = ref<[DateTime | null, DateTime | null]>([null, null]);
     const viewMode = ref<'date' | 'month' | 'year'>('date');
 
-    const maxDate = computed(() => (unref(max) ?? DateTime.now().endOf('year').plus({year: 100})).startOf('day'));
-    const minDate = computed(() => (unref(min) ?? DateTime.now().startOf('year').minus({year: 100})).startOf('day'));
+    const maxDate = computed(() => (max ?? DateTime.now().endOf('year').plus({year: 100})).startOf('day'));
+    const minDate = computed(() => (min ?? DateTime.now().startOf('year').minus({year: 100})).startOf('day'));
     const normalizedSelection = computed(() => {
         const [start, end] = unref(selection);
 
@@ -217,7 +220,7 @@
     }
 
     function isSelected(date: DateTime): boolean {
-        if (unref(rangeMode)) {
+        if (rangeMode) {
             return false;
         }
 
@@ -239,7 +242,7 @@
     }
 
     function isWithinRange(date: DateTime, edge?: 'start' | 'end'): boolean {
-        if (!unref(rangeMode)) {
+        if (!rangeMode) {
             return false;
         }
 
@@ -273,9 +276,7 @@
     }
 
     function setDate(date: DateTime): void {
-        const mode = unref(rangeMode);
-
-        switch (mode) {
+        switch (rangeMode) {
             case 'range':
                 const [start] = unref(selection);
 
@@ -321,13 +322,11 @@
     }
 
     function onDateMouseOver(date: DateTime): void {
-        const mode = unref(rangeMode);
-
-        if (!mode) {
+        if (!rangeMode) {
             return;
         }
 
-        switch (mode) {
+        switch (rangeMode) {
             case 'range':
                 selection.value = [selection.value[0], date];
                 break;
@@ -343,9 +342,7 @@
     }
 
     function onDateMouseOut(): void {
-        const mode = unref(rangeMode);
-
-        if (!mode || mode === 'range') {
+        if (!rangeMode || rangeMode === 'range') {
             return;
         }
 

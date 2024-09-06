@@ -1,15 +1,15 @@
 import { onScopeDispose, watch } from 'vue';
-import type { MaybeElementRef } from '@/util';
-import { unrefElement } from '@/util';
+import type { TemplateRef } from '@/util';
+import { unrefTemplateElement } from '@/util';
 
-export default function (elementRef: MaybeElementRef<HTMLElement | undefined>, callback: MutationCallback, options?: MutationObserverInit): void {
+export default function <TElement extends HTMLElement>(elementRef: TemplateRef<TElement>, callback: MutationCallback, options?: MutationObserverInit): void {
     options ??= {
         attributes: true
     };
 
     let observer: MutationObserver | undefined;
 
-    const stop = watch(() => unrefElement(elementRef), element => {
+    const stop = watch(() => unrefTemplateElement(elementRef), element => {
         cleanup();
 
         if (!element) {

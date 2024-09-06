@@ -65,7 +65,7 @@
     import { computed } from 'vue';
     import { useTableInjection } from '@/composable';
     import { useTranslate } from '@/composable/private';
-    import type { IconNames } from '@/data';
+    import type { IconName } from '@/types';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxMenu from './FluxMenu.vue';
@@ -74,36 +74,38 @@
     import FluxSeparator from './FluxSeparator.vue';
     import styles from '@/css/component/Table.module.scss';
 
-    export type Emits = {
+    defineEmits<{
         sort: ['ascending' | 'descending' | null];
-    };
+    }>();
 
-    export type Props = {
+    const {
+        minWidth = 0,
+        sort
+    } = defineProps<{
         readonly isShrinking?: boolean;
         readonly isSortable?: boolean;
         readonly isSticky?: boolean;
         readonly minWidth?: number;
-        readonly sort?: 'ascending' | 'descending' | null;
-    };
+        readonly sort?: 'ascending' | 'descending';
+    }>();
 
-    defineEmits<Emits>();
-    const props = withDefaults(defineProps<Props>(), {
-        minWidth: 0,
-        sort: null
-    });
+    defineSlots<{
+        default(): any;
+    }>();
 
     const {isBordered} = useTableInjection();
     const translate = useTranslate();
 
-    const sortingIcon = computed((): IconNames => {
-        switch (props.sort) {
+    const sortingIcon = computed((): IconName => {
+        switch (sort) {
             case 'ascending':
                 return 'arrow-down-a-z';
 
             case 'descending':
                 return 'arrow-up-a-z';
-        }
 
-        return 'arrow-up-arrow-down';
+            default:
+                return 'arrow-up-arrow-down';
+        }
     });
 </script>

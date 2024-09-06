@@ -1,9 +1,7 @@
-export { default as assertRefNotNull } from './assertRefNotNull';
 export { default as clampWithStepPrecision } from './clampWithStepPrecision';
 export { default as countDecimals } from './countDecimals';
 export { default as createDialogRenderer } from './createDialogRenderer';
 export { default as createLabelForDateRange } from './createLabelForDateRange';
-export { default as ensureElement } from './ensureElement';
 export { default as flattenVNodeTree } from './flattenVNodeTree';
 export { default as formatNumber } from './formatNumber';
 export { default as formatPercentage } from './formatPercentage';
@@ -18,13 +16,9 @@ export { default as getKeyboardFocusableElements } from './getKeyboardFocusableE
 export { default as hexToRGB } from './hexToRGB';
 export { default as isHtmlElement } from './isHtmlElement';
 export { default as mulberry32 } from './mulberry32';
-export { default as resolveUnref } from './resolveUnref';
 export { default as roundStep } from './roundStep';
-export { default as unrefElement } from './unrefElement';
 export { default as unrefObject } from './unrefObject';
+export { default as unrefTemplateElement, type TemplateElement, type TemplateRef } from './unrefTemplateElement';
 export { default as wrapFocus } from './wrapFocus';
 
 export { default as FOCUS_TRAP_LOCKS, type FocusTrapListener } from './focusTrap';
-
-export type { MaybeComputedRef, MaybeRef, MaybeReadonlyRef } from './resolveUnref';
-export type { MaybeComputedElementRef, MaybeElement, MaybeElementRef } from './unrefElement';

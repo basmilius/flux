@@ -2,7 +2,7 @@
     <div :class="styles.tabs">
         <slot
             name="tabs"
-            v-bind="{activeIndex: modelValue, children, modelValue, tabs, activate}">
+            v-bind="{children, modelValue, tabs, activate}">
             <FluxTabBar :class="styles.tabsBar">
                 <template
                     v-for="(tab, index) of tabs"
@@ -18,7 +18,7 @@
 
         <slot
             name="content"
-            v-bind="{activeIndex: modelValue, children, modelValue, tabs, activate}">
+            v-bind="{children, modelValue, tabs, activate}">
             <FluxWindowTransition :is-back="isTransitioningBack">
                 <VNodeRenderer
                     :key="modelValue"
@@ -32,22 +32,50 @@
     lang="ts"
     setup>
     import { computed, ref, unref, useSlots, VNode, watch } from 'vue';
-    import type { IconNames } from '@/data';
     import { FluxWindowTransition } from '@/transition';
+    import type { IconName } from '@/types';
     import { flattenVNodeTree, getComponentProps } from '@/util';
     import { VNodeRenderer } from './primitive';
     import FluxTabBar from './FluxTabBar.vue';
     import FluxTabBarItem from './FluxTabBarItem.vue';
     import styles from '@/css/component/Tab.module.scss';
 
-    const modelValue = defineModel<number>({default: 0});
+    const modelValue = defineModel<number>({
+        default: 0
+    });
+
+    defineSlots<{
+        default(): any;
+
+        content(props: {
+            activate(index: number): void;
+
+            readonly children: VNode[];
+            readonly modelValue: number;
+            readonly tabs: {
+                readonly icon?: IconName;
+                readonly label?: string;
+            }[];
+        }): any;
+
+        tabs(props: {
+            activate(index: number): void;
+
+            readonly children: VNode[];
+            readonly modelValue: number;
+            readonly tabs: {
+                readonly icon?: IconName;
+                readonly label?: string;
+            }[];
+        }): any;
+    }>();
 
     const slots = useSlots();
 
     const isTransitioningBack = ref(false);
 
     const children = computed(() => flattenVNodeTree(slots.default?.() ?? []));
-    const tabs = computed<{ icon?: IconNames; label?: string; }[]>(() => unref(children)
+    const tabs = computed<{ icon?: IconName; label?: string; }[]>(() => unref(children)
         .filter((child: VNode) => getComponentProps<any>(child).icon || getComponentProps<any>(child).label)
         .map((child: VNode) => ({
             icon: getComponentProps<any>(child).icon,

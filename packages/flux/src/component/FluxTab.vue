@@ -9,13 +9,15 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '@/data';
+    import type { IconName } from '@/types';
     import styles from '@/css/component/Tab.module.scss';
 
-    export type Props = {
-        readonly icon?: IconNames;
+    defineProps<{
+        readonly icon?: IconName;
         readonly label?: string;
-    };
+    }>();
 
-    defineProps<Props>();
+    defineSlots<{
+        default(): any;
+    }>();
 </script>

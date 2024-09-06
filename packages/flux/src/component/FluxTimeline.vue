@@ -10,4 +10,8 @@
     lang="ts"
     setup>
     import styles from '@/css/component/Timeline.module.scss';
+
+    defineSlots<{
+        default(): any;
+    }>();
 </script>

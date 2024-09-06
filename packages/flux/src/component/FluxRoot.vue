@@ -44,6 +44,10 @@
     import FluxTooltipProvider from './FluxTooltipProvider.vue';
     import styles from '@/css/component/Root.module.scss';
 
+    defineSlots<{
+        default(): any;
+    }>();
+
     useBreakpointsProvider();
 
     const {alerts, confirms, inertMain, prompts} = useFluxStore();

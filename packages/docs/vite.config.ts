@@ -1,11 +1,18 @@
-import { createHash } from 'crypto';
-import { resolve } from 'path';
+import { createHash } from 'node:crypto';
+import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
+import { patchCssModules } from 'vite-css-modules';
 import vue from '@vitejs/plugin-vue';
-import generateClassName from 'css-class-generator';
+import className from 'css-class-generator';
 
-export default defineConfig(({mode}) => ({
+export default defineConfig({
+    plugins: [
+        patchCssModules(),
+        vue()
+    ],
     build: {
+        cssMinify: 'esbuild',
+        minify: 'esbuild',
         rollupOptions: {
             output: {
                 assetFileNames: 'assets/[hash].[ext]',
@@ -22,7 +29,6 @@ export default defineConfig(({mode}) => ({
             }
         },
         modules: {
-            localsConvention: 'camelCaseOnly',
             generateScopedName(name: string): string {
                 if (name.startsWith('i__const_')) {
                     name = name.substring(9);
@@ -34,17 +40,19 @@ export default defineConfig(({mode}) => ({
                     .digest('hex')
                     .substring(0, 5);
 
-                return generateClassName(parseInt(hash, 16));
+                return className(parseInt(hash, 16));
             }
         }
     },
-    plugins: [vue()],
+    define: {
+        __VUE_OPTIONS_API__: 'false'
+    },
     resolve: {
         alias: {
-            '@': resolve(__dirname, 'src/')
+            '@': resolve(import.meta.dirname, './src')
         }
     },
     server: {
-        sourcemapIgnoreList: relativeSourcePath => relativeSourcePath.includes('node_modules')
+        sourcemapIgnoreList: path => path.includes('node_modules')
     }
-}));
+});

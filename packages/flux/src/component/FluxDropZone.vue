@@ -39,34 +39,33 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { onMounted, onUnmounted, ref, toRefs, unref } from 'vue';
-    import type { IconNames } from '@/data';
+    import { onMounted, onUnmounted, ref } from 'vue';
     import { FluxFadeTransition } from '@/transition';
+    import type { IconName } from '@/types';
     import FluxPlaceholder from './FluxPlaceholder.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import styles from '@/css/component/DropZone.module.scss';
 
-    export type Emits = {
+    const emit = defineEmits<{
         select: [FileList];
-    };
+    }>();
 
-    export type Props = {
+    const {
+        accept,
+        isDisabled,
+        isMultiple,
+        placeholderVariant = 'extended'
+    } = defineProps<{
         readonly accept?: string;
         readonly isDisabled?: boolean;
         readonly isEmpty?: boolean;
         readonly isMultiple?: boolean;
         readonly placeholderButton?: string;
-        readonly placeholderIcon?: IconNames;
+        readonly placeholderIcon?: IconName;
         readonly placeholderMessage?: string;
         readonly placeholderTitle?: string;
         readonly placeholderVariant?: 'extended' | 'simple' | 'small';
-    };
-
-    const emit = defineEmits<Emits>();
-    const props = withDefaults(defineProps<Props>(), {
-        placeholderVariant: 'extended'
-    });
-    const {accept, isDisabled, isMultiple} = toRefs(props);
+    }>();
 
     const isDragging = ref(false);
     const isDraggingOver = ref(false);
@@ -136,13 +135,13 @@
     }
 
     function showPicker(): void {
-        if (unref(isDisabled)) {
+        if (isDisabled) {
             return;
         }
 
         let input: HTMLInputElement | undefined = document.createElement('input');
-        input.accept = unref(accept) ?? '*';
-        input.multiple = unref(isMultiple) ?? false;
+        input.accept = accept ?? '*';
+        input.multiple = isMultiple ?? false;
         input.type = 'file';
 
         input.addEventListener('change', onFileSelected, {once: true});

@@ -40,14 +40,19 @@
     import { computed, unref } from 'vue';
     import { useFilterInjection } from '@/composable';
     import { useTranslate } from '@/composable/private';
-    import type { IconNames } from '@/data';
+    import type { IconName } from '@/types';
     import FluxFormColumn from './FluxFormColumn.vue';
     import FluxFormField from './FluxFormField.vue';
     import FluxFormSlider from './FluxFormSlider.vue';
     import FluxPaneBody from './FluxPaneBody.vue';
 
-    export type Props = {
-        readonly icon?: IconNames;
+    const {
+        max,
+        min,
+        name,
+        step = 1
+    } = defineProps<{
+        readonly icon?: IconName;
         readonly isTicksVisible?: boolean;
         readonly label: string;
         readonly name: string;
@@ -55,16 +60,12 @@
         readonly min: number;
         readonly step: number;
         readonly formatter?: (value: number) => string;
-    };
-
-    const props = withDefaults(defineProps<Props>(), {
-        step: 1
-    });
+    }>();
 
     const {state, setValue} = useFilterInjection();
     const translate = useTranslate();
 
-    const currentValue = computed(() => (unref(state)[props.name] ?? [props.min, props.max]) as number[]);
+    const currentValue = computed(() => (unref(state)[name] ?? [min, max]) as number[]);
 
     function update({lower, upper}: { lower?: number, upper?: number }): void {
         if (lower || lower === 0) {
@@ -83,6 +84,6 @@
             }
         }
 
-        setValue(props.name, [lower!, upper!]);
+        setValue(name, [lower!, upper!]);
     }
 </script>

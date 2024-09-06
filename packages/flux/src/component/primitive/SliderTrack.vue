@@ -15,10 +15,8 @@
     setup>
     import styles from '@/css/component/Form.module.scss';
 
-    export type Props = {
+    defineProps<{
         readonly percentageLower: number;
         readonly percentageUpper: number;
-    };
-
-    defineProps<Props>();
+    }>();
 </script>

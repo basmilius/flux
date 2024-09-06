@@ -1,7 +1,7 @@
 import { inject, ref } from 'vue';
-import { FluxFilterInjection, FluxFilterInjectionKey } from '@/data';
+import { FluxFilterInjectionKey } from '@/data';
 
-export default function (): FluxFilterInjection {
+export default function () {
     return inject(FluxFilterInjectionKey, {
         // note(Bas): The default value is never used, but required by
         //  Vue, so that explains the empty getter and function below.

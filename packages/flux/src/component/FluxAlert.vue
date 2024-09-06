@@ -21,7 +21,7 @@
     lang="ts"
     setup>
     import { useTranslate } from '@/composable/private';
-    import type { FluxAlertSpec } from '@/data';
+    import type { FluxAlertObject } from '@/types';
     import FluxPane from './FluxPane.vue';
     import FluxPaneBody from './FluxPaneBody.vue';
     import FluxPaneFooter from './FluxPaneFooter.vue';
@@ -29,11 +29,9 @@
     import FluxPrimaryButton from './FluxPrimaryButton.vue';
     import FluxSpacer from './FluxSpacer.vue';
 
-    export type Props = {
-        readonly alert: FluxAlertSpec;
-    };
-
-    defineProps<Props>();
+    defineProps<{
+        readonly alert: FluxAlertObject;
+    }>();
 
     const translate = useTranslate();
 </script>

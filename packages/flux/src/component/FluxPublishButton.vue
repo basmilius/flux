@@ -12,7 +12,7 @@
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)">
-        <template #icon-before>
+        <template #iconBefore>
             <div :class="styles.publishButtonAnimation">
                 <FluxIcon
                     :class="styles.publishButtonCloud"
@@ -46,17 +46,14 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import BaseButton, { Emits, Props as BaseProps } from './primitive/BaseButton.vue';
+    import type { ButtonEmits, ButtonProps } from '@/types';
+    import BaseButton from './primitive/BaseButton.vue';
     import FluxIcon from './FluxIcon.vue';
     import styles from '@/css/component/Button.module.scss';
 
-    export type Props = Omit<BaseProps, 'cssClass' | 'cssClassIcon' | 'cssClassLabel' | 'iconBefore'> & {
+    defineEmits<ButtonEmits>();
+
+    defineProps<Omit<ButtonProps, 'iconBefore'> & {
         readonly isDone?: boolean;
-    };
-
-    defineEmits<Emits>();
-
-    withDefaults(defineProps<Props>(), {
-        type: 'button'
-    });
+    }>();
 </script>

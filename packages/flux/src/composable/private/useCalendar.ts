@@ -1,7 +1,7 @@
-import { DateTime } from 'luxon';
-import { computed, ComputedRef, Ref, ref, unref } from 'vue';
+import type { DateTime } from 'luxon';
+import { computed, ref, unref } from 'vue';
 
-export default function (initialDate: DateTime, options: UseCalendarOptions = {}): UseCalendar {
+export default function (initialDate: DateTime, options: Options = {}) {
     const isTransitioningToPast = ref(false);
     const viewDate = ref(initialDate);
 
@@ -74,24 +74,7 @@ export default function (initialDate: DateTime, options: UseCalendarOptions = {}
     };
 }
 
-interface UseCalendar {
-    readonly isTransitioningToPast: Ref<boolean>;
-    readonly viewDate: Ref<DateTime>;
-    readonly viewDateNext: ComputedRef<DateTime>;
-    readonly viewDatePrevious: ComputedRef<DateTime>;
-    readonly viewMonth: ComputedRef<string>;
-    readonly viewYear: ComputedRef<string>;
-    readonly dates: ComputedRef<DateTime[]>;
-    readonly days: ComputedRef<string[]>;
-
-    setViewDate(date: DateTime): void;
-
-    nextMonth(): void;
-
-    previousMonth(): void;
-}
-
-interface UseCalendarOptions {
+type Options = {
     readonly monthLength?: 'short' | 'long';
     readonly weekDayLength?: 'short' | 'long';
-}
+};

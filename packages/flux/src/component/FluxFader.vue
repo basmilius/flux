@@ -9,23 +9,29 @@
 <script
     lang="ts"
     setup>
-    import { computed, ref, toRefs, unref, useTemplateRef, watch } from 'vue';
+    import { computed, ref, unref, useTemplateRef, watch } from 'vue';
     import { useInterval } from '@/composable';
+    import { unrefTemplateElement } from '@/util';
     import styles from '@/css/component/Fader.module.scss';
 
-    export type Emits = {
+    const emit = defineEmits<{
         update: [number];
-    };
+    }>();
 
-    export type Props = {
+    const {
+        interval = 9000
+    } = defineProps<{
         readonly interval?: number;
-    };
+    }>();
 
-    const emit = defineEmits<Emits>();
-    const props = withDefaults(defineProps<Props>(), {
-        interval: 9000
-    });
-    const {interval} = toRefs(props);
+    defineSlots<{
+        default(props: {
+            next(): void;
+            previous(): void;
+
+            readonly current: number;
+        }): any;
+    }>();
 
     const faderRef = useTemplateRef('fader');
     useInterval(interval, () => next());
@@ -33,7 +39,7 @@
     const current = ref(-1);
 
     const count = computed(() => {
-        const fader = unref(faderRef);
+        const fader = unrefTemplateElement(faderRef);
         return fader?.children.length ?? 0;
     });
 
@@ -46,7 +52,7 @@
     }
 
     watch(current, current => {
-        const fader = unref(faderRef);
+        const fader = unrefTemplateElement(faderRef);
 
         if (!fader || fader.children.length === 0) {
             return;

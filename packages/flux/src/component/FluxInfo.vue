@@ -14,13 +14,15 @@
 <script
     setup
     lang="ts">
-    import type { IconNames } from '@/data';
+    import type { IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import styles from '@/css/component/Info.module.scss';
 
-    export type Props = {
-        readonly icon?: IconNames;
-    };
+    defineProps<{
+        readonly icon?: IconName;
+    }>();
 
-    defineProps<Props>();
+    defineSlots<{
+        default(): any;
+    }>();
 </script>

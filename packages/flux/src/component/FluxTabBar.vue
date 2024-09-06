@@ -13,7 +13,7 @@
         </button>
 
         <div
-            ref="tabBarRef"
+            ref="tabBar"
             :class="clsx(
                 styles.tabBarTabs,
                 isEndArrowVisible && styles.isEndMasked,
@@ -37,23 +37,28 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { onMounted, ref } from 'vue';
+    import { onMounted, ref, useTemplateRef } from 'vue';
     import { useEventListener, useMutationObserver } from '@/composable';
-    import { unrefElement } from '@/util';
+    import { unrefTemplateElement } from '@/util';
     import FluxIcon from './FluxIcon.vue';
     import styles from '@/css/component/Tab.module.scss';
 
-    const isEndArrowVisible = ref(false);
-    const isStartArrowVisible = ref(false);
-    const tabBarRef = ref<HTMLDivElement>();
+    defineSlots<{
+        default(): any;
+    }>();
 
-    onMounted(() => checkScroll());
+    const tabBarRef = useTemplateRef('tabBar');
 
     useEventListener(tabBarRef, 'scroll', () => checkScroll());
     useMutationObserver(tabBarRef, () => checkScroll(), {childList: true});
 
+    const isEndArrowVisible = ref(false);
+    const isStartArrowVisible = ref(false);
+
+    onMounted(() => checkScroll());
+
     function checkScroll(): void {
-        const tabBar = unrefElement(tabBarRef)!;
+        const tabBar = unrefTemplateElement(tabBarRef)!;
 
         if (tabBar.scrollWidth <= tabBar.offsetWidth) {
             isEndArrowVisible.value = false;
@@ -66,7 +71,7 @@
     }
 
     function scrollToEnd(): void {
-        const tabBar = unrefElement(tabBarRef)!;
+        const tabBar = unrefTemplateElement(tabBarRef)!;
         tabBar.scrollBy({
             behavior: 'smooth',
             left: tabBar.offsetWidth / 1.5
@@ -74,7 +79,7 @@
     }
 
     function scrollToStart(): void {
-        const tabBar = unrefElement(tabBarRef)!;
+        const tabBar = unrefTemplateElement(tabBarRef)!;
         tabBar.scrollBy({
             behavior: 'smooth',
             left: tabBar.offsetWidth / -1.5

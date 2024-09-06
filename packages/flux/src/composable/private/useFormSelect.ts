@@ -1,8 +1,9 @@
-import type { FluxFormSelectGroup, FluxFormSelectOption } from '@/data';
+import type { MaybeRef, Ref } from 'vue';
+import { computed, unref } from 'vue';
 import { isFluxFormSelectGroup, isFluxFormSelectOption } from '@/data';
-import { computed, ComputedRef, Ref, unref } from 'vue';
+import type { FluxFormSelectEntry, FluxFormSelectGroup, FluxFormSelectOption } from '@/types';
 
-export default function (modelValue: Ref<FormSelectValue>, isMultiple: Ref<boolean>, options: Ref<FormSelectOption[]>, searchQuery?: Ref<string>): UseFormSelect {
+export default function (modelValue: Ref<FormSelectValue>, isMultiple: boolean, options: MaybeRef<FluxFormSelectEntry[]>, searchQuery?: Ref<string>) {
     const values = computed(() => {
         const model = unref(modelValue);
         return Array.isArray(model) ? model : [model];
@@ -13,8 +14,8 @@ export default function (modelValue: Ref<FormSelectValue>, isMultiple: Ref<boole
         const search = unref(searchQuery)?.trim().toLowerCase();
 
         const available = unref(options)
-            .filter(o => isFluxFormSelectGroup(o) || (!search || o.label.toLowerCase().includes(search)))
-            .filter(o => isFluxFormSelectGroup(o) || !unref(isMultiple) || !unref(selected).find(s => s.id === o.id));
+            .filter(o => !('id' in o) || (!search || o.label.toLowerCase().includes(search)))
+            .filter(o => !('id' in o) || !isMultiple || !unref(selected).find(s => s.id === o.id));
 
         if (available.length === 0) {
             return [];
@@ -63,12 +64,6 @@ export default function (modelValue: Ref<FormSelectValue>, isMultiple: Ref<boole
         values
     };
 }
-
-type UseFormSelect = {
-    readonly groups: ComputedRef<FormSelectGroup[]>;
-    readonly selected: ComputedRef<FluxFormSelectOption[]>;
-    readonly values: ComputedRef<FormSelectValueSingle[]>;
-};
 
 export type FormSelectGroup = [FormSelectOption | null, FluxFormSelectOption[]];
 export type FormSelectOption = FluxFormSelectGroup | FluxFormSelectOption;

@@ -91,14 +91,12 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneHeader, FluxTab, FluxTabBar, FluxTabBarItem, FluxTabs, heightTransition } from '@basmilius/flux';
+    import { FluxPane, FluxPaneHeader, FluxTab, FluxTabBar, FluxTabBarItem, FluxTabs, vHeightTransition } from '@basmilius/flux';
     import { useSlots } from 'vue';
 
     export interface Props {
         readonly name: string;
     }
-
-    const vHeightTransition = heightTransition;
 
     defineProps<Props>();
 

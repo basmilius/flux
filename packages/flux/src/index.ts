@@ -1,40 +1,9 @@
 import '@/css/index.scss';
 
-export type {
-    FluxAlertSpec,
-    FluxBaseAlertSpec,
-    FluxBreakpointsInjection,
-    FluxConfirmSpec,
-    FluxExpandableGroupInjection,
-    FluxFilterInjection,
-    FluxFilterBase,
-    FluxFilterDateEntry,
-    FluxFilterDateRangeEntry,
-    FluxFilterItem,
-    FluxFilterOptionEntry,
-    FluxFilterOptionHeader,
-    FluxFilterOptionItem,
-    FluxFilterOptionRow,
-    FluxFilterOptionsEntry,
-    FluxFilterState,
-    FluxFilterValue,
-    FluxFlyoutInjection,
-    FluxFocalPoint,
-    FluxFormFieldInjection,
-    FluxFormSelectEntry,
-    FluxFormSelectOption,
-    FluxFormSelectGroup,
-    FluxPercentageBarItemSpec,
-    FluxPromptSpec,
-    FluxRoutingLocation,
-    FluxSegmentedControlItemSpec,
-    FluxSnackbarSpec,
-    FluxState,
-    FluxStore,
-    FluxTooltipSpec,
-    IconNames,
-    Masks
-} from './data';
+export * from './component';
+export * from './composable';
+export * from './directive';
+export * from './transition';
 
 export {
     fluxRegisterIcons,
@@ -47,7 +16,45 @@ export {
     useFluxStore
 } from './data';
 
-export * from './component';
-export * from './composable';
-export * from './directive';
-export * from './transition';
+export type {
+    FluxBreakpointsInjection,
+    FluxExpandableGroupInjection,
+    FluxFilterInjection,
+    FluxFlyoutInjection,
+    FluxFormFieldInjection,
+    FluxState,
+    FluxStore
+} from './data';
+
+export type {
+    FluxAlertObject,
+    FluxConfirmObject,
+    FluxPromptObject,
+    FluxSnackbarObject,
+    FluxTooltipObject,
+
+    FluxFilterBase,
+    FluxFilterDateEntry,
+    FluxFilterDateRangeEntry,
+    FluxFilterItem,
+    FluxFilterOptionEntry,
+    FluxFilterOptionHeader,
+    FluxFilterOptionItem,
+    FluxFilterOptionRow,
+    FluxFilterOptionsEntry,
+    FluxFilterRangeEntry,
+    FluxFilterState,
+    FluxFilterValue,
+    FluxFilterValueSingle,
+
+    FluxFormSelectEntry,
+    FluxFormSelectOption,
+    FluxFormSelectGroup,
+
+    FluxFocalPointObject,
+    FluxLegendObject,
+    FluxPercentageBarItemObject,
+    FluxSegmentedControlItemObject,
+
+    IconName
+} from './types';

@@ -11,11 +11,13 @@
     setup>
     import styles from '@/css/component/Form.module.scss';
 
-    export type Emits = {
+    const emit = defineEmits<{
         submit: [];
-    };
+    }>();
 
-    const emit = defineEmits<Emits>();
+    defineSlots<{
+        default(): any;
+    }>();
 
     function onSubmit(): void {
         emit('submit');

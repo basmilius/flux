@@ -1,8 +1,7 @@
-import { inject } from 'vue';
-import { FluxFormFieldInjection, FluxFormFieldInjectionKey } from '@/data';
-import useId from './useId';
+import { inject, useId } from 'vue';
+import { FluxFormFieldInjectionKey } from '@/data';
 
-export default function (): FluxFormFieldInjection {
+export default function () {
     return inject(FluxFormFieldInjectionKey, {
         id: useId()
     });

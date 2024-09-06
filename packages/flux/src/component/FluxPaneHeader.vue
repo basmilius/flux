@@ -27,15 +27,18 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '@/data';
+    import type { IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import styles from '@/css/component/Pane.module.scss';
 
-    export type Props = {
-        readonly icon?: IconNames;
+    defineProps<{
+        readonly icon?: IconName;
         readonly subTitle?: string;
         readonly title?: string;
-    };
+    }>();
 
-    defineProps<Props>();
+    defineSlots<{
+        after(): any;
+        before(): any;
+    }>();
 </script>

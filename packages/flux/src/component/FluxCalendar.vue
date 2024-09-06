@@ -65,7 +65,7 @@
                 </div>
             </template>
 
-            <template #actions-end>
+            <template #actionsEnd>
                 <FluxSecondaryButton
                     :label="translate('flux.today')"
                     @click="setToday"/>
@@ -140,19 +140,20 @@
     import styles from '@/css/component/Calendar.module.scss';
     import datePickerStyles from '@/css/component/DatePicker.module.scss';
 
-    export type Emits = {
+    const emit = defineEmits<{
         navigate: [DateTime, DateTime, DateTime];
-    };
+    }>();
 
-    export type Props = {
+    const {
+        initialDate = DateTime.now()
+    } = defineProps<{
         readonly initialDate?: DateTime;
         readonly isLoading?: boolean;
-    };
+    }>();
 
-    const emit = defineEmits<Emits>();
-    const props = withDefaults(defineProps<Props>(), {
-        initialDate: () => DateTime.now()
-    });
+    defineSlots<{
+        default(): any;
+    }>();
 
     const {
         isTransitioningToPast,
@@ -164,7 +165,7 @@
         nextMonth,
         previousMonth,
         setViewDate
-    } = useCalendar(props.initialDate, {
+    } = useCalendar(initialDate, {
         weekDayLength: 'long'
     });
 
@@ -208,5 +209,5 @@
         emit('navigate', viewDate, dates[0], dates[dates.length - 1]);
     }, {immediate: true});
 
-    watch(() => props.initialDate, setViewDate);
+    watch(() => initialDate, setViewDate);
 </script>

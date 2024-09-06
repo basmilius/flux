@@ -15,15 +15,13 @@
 <script
     lang="ts"
     setup>
-    import type { FluxLegendSpec } from '@/data';
+    import type { Axis, FluxLegendObject } from '@/types';
     import styles from '@/css/component/Legend.module.scss';
 
-    export type Props = {
-        readonly axis?: 'horizontal' | 'vertical';
-        readonly items: FluxLegendSpec[];
-    };
-
-    withDefaults(defineProps<Props>(), {
-        axis: 'horizontal'
-    });
+    const {
+        axis = 'horizontal'
+    } = defineProps<{
+        readonly axis?: Axis;
+        readonly items: FluxLegendObject[];
+    }>();
 </script>

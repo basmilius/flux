@@ -1,6 +1,6 @@
 <template>
     <SelectBase
-        v-model:search-query="searchQueryModel"
+        v-model:searchQuery="modelSearch"
         :is-disabled="isDisabled"
         :is-multiple="isMultiple"
         :is-searchable="isSearchable"
@@ -14,24 +14,30 @@
 <script
     lang="ts"
     setup>
-    import { toRefs, unref } from 'vue';
+    import { unref } from 'vue';
     import { SelectBase } from '@/component/primitive';
     import { FormSelectOption, FormSelectValue, useFormSelect } from '@/composable/private';
 
-    export type Props = {
+    const modelSearch = defineModel<string>('searchQuery', {
+        default: ''
+    });
+
+    const modelValue = defineModel<FormSelectValue>({
+        required: true
+    });
+
+    const {
+        isMultiple,
+        options
+    } = defineProps<{
         readonly isDisabled?: boolean;
         readonly isMultiple?: boolean;
         readonly placeholder?: string;
         readonly isSearchable?: boolean;
         readonly options: FormSelectOption[];
-    };
+    }>();
 
-    const searchQueryModel = defineModel<string>('search', {default: ''});
-    const modelValue = defineModel<FormSelectValue>({required: true});
-    const props = defineProps<Props>();
-    const {isMultiple, options} = toRefs(props);
-
-    const {groups, selected, values} = useFormSelect(modelValue, isMultiple, options, searchQueryModel);
+    const {groups, selected, values} = useFormSelect(modelValue, isMultiple, options, modelSearch);
 
     function onDeselect(id: string | number | null): void {
         if (unref(isMultiple)) {

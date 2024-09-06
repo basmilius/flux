@@ -21,33 +21,33 @@
     lang="ts"
     setup>
     import { computed, unref } from 'vue';
-    import { type IconNames, iconRegistry } from '@/data';
+    import { iconRegistry } from '@/data';
+    import type { IconName } from '@/types';
     import styles from '@/css/component/Icon.module.scss';
 
-    export type Emits = {
+    const emit = defineEmits<{
         click: [MouseEvent];
-    };
+    }>();
 
-    export type Props = {
+    const {
+        variant
+    } = defineProps<{
         readonly size?: number | string;
-        readonly variant: IconNames;
-    };
-
-    const emit = defineEmits<Emits>();
-    const props = defineProps<Props>();
+        readonly variant: IconName;
+    }>();
 
     const definition = computed(() => {
-        const variant = iconRegistry[props.variant];
+        const definition = iconRegistry[variant];
 
-        if (!variant && props.variant === 'flux-empty') {
+        if (!definition && variant === 'flux-empty') {
             return [512, 512, null, []];
         }
 
-        if (!variant) {
-            throw new Error(`[Flux] Icon variant "${props.variant}" is not defined`);
+        if (!definition) {
+            throw new Error(`[Flux] Icon variant "${variant}" is not defined`);
         }
 
-        return variant;
+        return definition;
     });
 
     const width = computed(() => definition.value[0] as number);

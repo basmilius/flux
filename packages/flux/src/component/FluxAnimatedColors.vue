@@ -7,28 +7,25 @@
 <script
     lang="ts"
     setup>
-    import { computed, onBeforeUnmount, onMounted, ref, toRefs, unref, useTemplateRef, watch } from 'vue';
+    import { computed, onBeforeUnmount, onMounted, ref, unref, useTemplateRef, watch } from 'vue';
     import { useComponentId } from '@/composable';
     import { mulberry32 } from '@/util';
     import styles from '@/css/component/Visual.module.scss';
 
-    export type Props = {
-        readonly colors: string[] | null;
-        readonly incrementor?: number;
-        readonly opacity?: number;
-        readonly seed?: number | null;
-    };
-
     type Polygon = [number, number, string, PolygonPoint[]];
     type PolygonPoint = [number, number, number];
 
-    const props = withDefaults(defineProps<Props>(), {
-        colors: null,
-        incrementor: 1,
-        opacity: .5,
-        seed: null
-    });
-    const {colors, incrementor, opacity, seed} = toRefs(props);
+    const {
+        colors,
+        incrementor = 1,
+        opacity = .5,
+        seed
+    } = defineProps<{
+        readonly colors?: string[];
+        readonly incrementor?: number;
+        readonly opacity?: number;
+        readonly seed?: number;
+    }>();
 
     const canvasRef = useTemplateRef('canvas');
     const id = useComponentId();
@@ -38,18 +35,18 @@
     const tick = ref(0);
 
     const polygons = computed(() => {
-        if (!colors.value || colors.value.length === 0) {
+        if (!colors || colors.length === 0) {
             return [];
         }
 
-        const mulberry = mulberry32(seed.value ?? id.value);
+        const mulberry = mulberry32(seed ?? id.value);
         const polygons: Polygon[] = [];
 
-        for (const color of colors.value) {
+        for (const color of colors) {
             const localMulberry = mulberry.fork();
 
-            const x = colors.value.length === 1 ? .5 : localMulberry.next();
-            const y = colors.value.length === 1 ? .5 : localMulberry.next();
+            const x = colors.length === 1 ? .5 : localMulberry.next();
+            const y = colors.length === 1 ? .5 : localMulberry.next();
             const count = Math.round(localMulberry.nextBetween(6, 9));
             const points: PolygonPoint[] = [];
 
@@ -76,7 +73,7 @@
 
     function schedule(): void {
         animationFrame.value = requestAnimationFrame(update);
-        tick.value += incrementor.value;
+        tick.value += incrementor;
     }
 
     function update(): void {
@@ -94,7 +91,7 @@
 
         const widthBasedOpacity = Math.min(1, Math.max(.15, 360 / width));
 
-        context.globalAlpha = opacity.value * widthBasedOpacity;
+        context.globalAlpha = opacity * widthBasedOpacity;
         context.globalCompositeOperation = 'screen';
         context.clearRect(0, 0, width, height);
 

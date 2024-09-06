@@ -52,7 +52,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, toRefs, unref } from 'vue';
+    import { computed, unref } from 'vue';
     import { useTranslate } from '@/composable/private';
     import { showPrompt } from '@/data';
     import FluxButtonGroup from './FluxButtonGroup.vue';
@@ -60,27 +60,27 @@
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import styles from '@/css/component/Pagination.module.scss';
 
-    export type Emits = {
+    const emit = defineEmits<{
         navigate: [number];
-    };
+    }>();
 
-    export type Props = {
+    const {
+        page,
+        perPage,
+        total
+    } = defineProps<{
         readonly arrows?: boolean;
         readonly isCompact?: boolean;
         readonly page: number;
         readonly perPage: number;
         readonly total: number;
-    };
-
-    const emit = defineEmits<Emits>();
-    const props = defineProps<Props>();
-    const {page, perPage, total} = toRefs(props);
+    }>();
 
     const translate = useTranslate();
 
-    const pages = computed(() => Math.ceil(unref(total) / unref(perPage)));
-    const isNextDisabled = computed(() => unref(page) >= unref(pages));
-    const isPreviousDisabled = computed(() => unref(page) <= 1);
+    const pages = computed(() => Math.ceil(total / perPage));
+    const isNextDisabled = computed(() => page >= unref(pages));
+    const isPreviousDisabled = computed(() => page <= 1);
 
     const visiblePages = computed(() => {
         if (unref(pages) === 0) {
@@ -101,10 +101,10 @@
             }
         } else {
             for (let n = 1; n <= unref(pages); ++n) {
-                if (unref(page) === n) {
+                if (page === n) {
                     dots = true;
                     visible.push(n);
-                } else if (n <= sizes.end || (n >= unref(page) - sizes.middle && n <= unref(page) + sizes.middle) || n > unref(pages) - sizes.end) {
+                } else if (n <= sizes.end || (n >= page - sizes.middle && n <= page + sizes.middle) || n > unref(pages) - sizes.end) {
                     dots = true;
                     visible.push(n);
                 } else if (dots) {
@@ -122,11 +122,11 @@
     }
 
     function next(): void {
-        navigate(unref(page) + 1);
+        navigate(page + 1);
     }
 
     function previous(): void {
-        navigate(unref(page) - 1);
+        navigate(page - 1);
     }
 
     async function prompt(): Promise<void> {

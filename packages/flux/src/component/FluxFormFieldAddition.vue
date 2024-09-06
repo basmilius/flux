@@ -23,17 +23,15 @@
     setup
     lang="ts">
     import { clsx } from 'clsx';
-    import { IconNames } from '@/data';
+    import type { IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import styles from '@/css/component/Form.module.scss';
 
-    export type Props = {
-        readonly icon?: IconNames;
+    const {
+        mode = 'hint'
+    } = defineProps<{
+        readonly icon?: IconName;
         readonly message?: string;
         readonly mode?: 'error' | 'hint';
-    };
-
-    withDefaults(defineProps<Props>(), {
-        mode: 'hint'
-    });
+    }>();
 </script>

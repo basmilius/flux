@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
-        "target": "ESNext",
+        "target": "esnext",
         "useDefineForClassFields": true,
-        "module": "ESNext",
+        "module": "esnext",
         "moduleResolution": "node",
         "strict": true,
         "jsx": "preserve",
@@ -10,8 +10,8 @@
         "isolatedModules": true,
         "esModuleInterop": true,
         "lib": [
-            "ESNext",
-            "DOM"
+            "esnext",
+            "dom"
         ],
         "skipLibCheck": true,
         "allowSyntheticDefaultImports": true,
@@ -30,5 +30,10 @@
     "exclude": [
         "dist",
         "node_modules"
+    ],
+    "references": [
+        {
+            "path": "./tsconfig.node.json"
+        }
     ]
 }

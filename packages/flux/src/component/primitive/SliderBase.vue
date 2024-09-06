@@ -1,6 +1,6 @@
 <template>
     <div
-        ref="rootRef"
+        ref="root"
         :class="clsx(
             styles.slider,
             isDisabled && styles.isDisabled,
@@ -20,30 +20,29 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { onMounted, onUnmounted, ref, toRefs, unref, watch } from 'vue';
-    import { unrefElement } from '@/util';
+    import { onMounted, onUnmounted, useTemplateRef, watch } from 'vue';
+    import { unrefTemplateElement } from '@/util';
     import FluxTicks from '../FluxTicks.vue';
     import styles from '@/css/component/Form.module.scss';
 
-    export type Emits = {
+    const emit = defineEmits<{
         dragging: [boolean];
         update: [number];
-    };
+    }>();
 
-    export type Props = {
+    const {
+        isDisabled,
+        isDragging
+    } = defineProps<{
         readonly isDisabled?: boolean;
         readonly isDragging?: boolean;
         readonly isTicksVisible?: boolean;
         readonly max: number;
         readonly min: number;
         readonly step: number;
-    };
+    }>();
 
-    const emit = defineEmits<Emits>();
-    const props = defineProps<Props>();
-    const {isDisabled, isDragging} = toRefs(props);
-
-    const rootRef = ref<HTMLDivElement>();
+    const rootRef = useTemplateRef('root');
 
     onMounted(() => {
         document.addEventListener('pointermove', onPointerMove);
@@ -56,7 +55,7 @@
     });
 
     function onPointerDown(evt: PointerEvent): void {
-        if (unref(isDisabled)) {
+        if (isDisabled) {
             return;
         }
 
@@ -65,9 +64,9 @@
     }
 
     function onPointerMove(evt: PointerEvent): void {
-        const root = unrefElement(rootRef);
+        const root = unrefTemplateElement(rootRef);
 
-        if (!isDragging.value || !root) {
+        if (!isDragging || !root) {
             return;
         }
 
@@ -83,5 +82,5 @@
         emit('dragging', false);
     }
 
-    watch(isDragging, isDragging => emit('dragging', isDragging));
+    watch(() => isDragging, () => emit('dragging', isDragging));
 </script>

@@ -22,7 +22,7 @@
                     @pointerdown="onPointerDown"
                     @pointermove="onPointerMove">
                     <img
-                        ref="imageRef"
+                        ref="image"
                         :class="styles.focalPointEditorImage"
                         :src="url"
                         alt=""
@@ -55,7 +55,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, onMounted, onUnmounted, ref, unref, watch } from 'vue';
+    import { computed, onMounted, onUnmounted, ref, unref, useTemplateRef, watch } from 'vue';
     import { useTranslate } from '@/composable/private';
     import { FluxFadeTransition } from '@/transition';
     import FluxPane from './FluxPane.vue';
@@ -65,16 +65,19 @@
     import FluxSpacer from './FluxSpacer.vue';
     import styles from '@/css/component/FocalPoint.module.scss';
 
-    export type Props = {
+    const modelValue = defineModel<[number, number]>({
+        required: true
+    });
+
+    const {
+        url
+    } = defineProps<{
         readonly url: string;
-    };
+    }>();
 
-    const modelValue = defineModel<[number, number]>({required: true});
-    const props = defineProps<Props>();
-
+    const imageRef = useTemplateRef('image');
     const translate = useTranslate();
 
-    const imageRef = ref<HTMLImageElement>();
     const aspectRatio = ref(1);
     const dragging = ref<[number, number] | null>(null);
     const isPreviewing = ref(false);
@@ -130,5 +133,5 @@
         isPreviewing.value = !isPreviewing.value;
     }
 
-    watch(() => props.url, () => isPreviewing.value = false);
+    watch(() => url, () => isPreviewing.value = false);
 </script>

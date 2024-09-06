@@ -1,4 +1,5 @@
-import { ref, Ref, watch } from 'vue';
+import type { Ref } from 'vue';
+import { ref, watch } from 'vue';
 import { DateTime } from 'luxon';
 
 export default function <T>(key: string, initialValue: T): Ref<T> {

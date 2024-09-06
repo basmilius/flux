@@ -1,6 +1,5 @@
 <template>
     <div
-        ref="elementRef"
         :class="styles.stepperSteps"
         :style="{
             '--progress': progress
@@ -38,27 +37,24 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { computed, ref, toRefs, unref } from 'vue';
+    import { computed } from 'vue';
     import { FluxFadeTransition } from '@/transition';
     import FluxIcon from './FluxIcon.vue';
     import styles from '@/css/component/Stepper.module.scss';
 
-    export type Emits = {
+    const emit = defineEmits<{
         activate: [number];
-    };
+    }>();
 
-    export type Props = {
+    const {
+        amount,
+        current
+    } = defineProps<{
         readonly amount: number;
         readonly current: number;
-    };
+    }>();
 
-    const emit = defineEmits<Emits>();
-    const props = defineProps<Props>();
-    const {amount, current} = toRefs(props);
-
-    const elementRef = ref<HTMLDivElement>();
-
-    const progress = computed(() => (unref(current) - 1) / (unref(amount) - 1));
+    const progress = computed(() => (current - 1) / (amount - 1));
 
     function activate(index: number): void {
         emit('activate', index);

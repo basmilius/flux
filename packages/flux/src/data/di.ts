@@ -1,6 +1,6 @@
 import type { ComponentInternalInstance, InjectionKey, Ref } from 'vue';
 import type { Breakpoint, Breakpoints } from '@/composable';
-import type { FluxFilterState, FluxFilterValue } from './filter';
+import type { FluxFilterState, FluxFilterValue } from '@/types';
 
 export const FluxBreakpointsInjectionKey: InjectionKey<FluxBreakpointsInjection> = Symbol();
 export const FluxExpandableGroupInjectionKey: InjectionKey<FluxExpandableGroupInjection> = Symbol();
@@ -41,12 +41,12 @@ export type FluxFlyoutInjection = {
 };
 
 export type FluxFormFieldInjection = {
-    readonly id: Ref<string>;
+    readonly id?: string;
 };
 
 export type FluxTableInjection = {
-    readonly isBordered: Ref<boolean>;
-    readonly isHoverable: Ref<boolean>;
-    readonly isSeparated: Ref<boolean>;
-    readonly isStriped: Ref<boolean>;
+    readonly isBordered: boolean;
+    readonly isHoverable: boolean;
+    readonly isSeparated: boolean;
+    readonly isStriped: boolean;
 };

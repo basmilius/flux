@@ -53,17 +53,19 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { IconNames } from '@/data';
+    import type { ColorVariant, IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
     import styles from '@/css/component/Notice.module.scss';
 
-    export type Emits = {
+    const emit = defineEmits<{
         close: [];
-    }
+    }>();
 
-    export type Props = {
-        readonly icon?: IconNames;
+    const {
+        variant = 'gray'
+    } = defineProps<{
+        readonly icon?: IconName;
         readonly isCenter?: boolean;
         readonly isCloseable?: boolean;
         readonly isFluid?: boolean;
@@ -71,12 +73,11 @@
         readonly isSmall?: boolean;
         readonly message?: string;
         readonly title?: string;
-        readonly variant?: 'gray' | 'primary' | 'danger' | 'info' | 'success' | 'warning';
-    }
+        readonly variant?: ColorVariant;
+    }>();
 
-    const emit = defineEmits<Emits>();
-
-    withDefaults(defineProps<Props>(), {
-        variant: 'gray'
-    });
+    defineSlots<{
+        default(): any;
+        end(): any;
+    }>();
 </script>

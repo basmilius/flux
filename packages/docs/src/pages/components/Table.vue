@@ -11,7 +11,8 @@
                         <FluxTableRow>
                             <FluxTableHeader
                                 v-for="header in 3"
-                                :key="header">
+                                :key="header"
+                                :is-sortable="header === 2">
                                 Header {{ header }}
                             </FluxTableHeader>
 

@@ -8,4 +8,8 @@
     lang="ts"
     setup>
     import styles from '@/css/component/Fader.module.scss';
+
+    defineSlots<{
+        default(): any;
+    }>();
 </script>

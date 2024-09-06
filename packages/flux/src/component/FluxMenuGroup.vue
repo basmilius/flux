@@ -11,9 +11,11 @@
     setup>
     import styles from '@/css/component/Menu.module.scss';
 
-    export type Props = {
+    defineProps<{
         readonly isHorizontal?: boolean;
-    };
+    }>();
 
-    defineProps<Props>();
+    defineSlots<{
+        default(): any;
+    }>();
 </script>

@@ -43,13 +43,23 @@
 
 <script
     lang="ts"
-    setup>
-    import { computed, toRefs, unref, useSlots } from 'vue';
+    setup
+    generic="T extends Record<string, any>">
+    import { computed, useSlots } from 'vue';
     import FluxTable from './FluxTable.vue';
     import FluxTableRow from './FluxTableRow.vue';
 
-    export type Props = {
-        readonly dataSet: Record<string, any>[];
+    const {
+        isBordered = true,
+        isHoverable = false,
+        isLoading = false,
+        isSeparated = true,
+        isStriped = false,
+        dataSet,
+        page = 1,
+        perPage = 1000
+    } = defineProps<{
+        readonly dataSet: T[];
         readonly isBordered?: boolean;
         readonly isHoverable?: boolean;
         readonly isLoading?: boolean;
@@ -59,29 +69,34 @@
         readonly perPage?: number;
         readonly total: number;
         readonly uniqueKey?: string;
-    };
+    }>();
 
-    export type Slots = {
-        [key: string]: (props: { index: number; page: number; perPage: number; row: any; rows: any[]; total: number; }) => any;
+    defineSlots<{
+        [key: string]: (props: {
+            readonly index: number;
+            readonly page: number;
+            readonly perPage: number;
+            readonly row: T;
+            readonly rows: T[];
+            readonly total: number;
+        }) => any;
 
-        footer(props: { page: number; perPage: number; rows: any[]; total: number; }): any;
-        header(props: { page: number; perPage: number; rows: any[]; total: number; }): any;
-    };
+        footer(props: {
+            readonly page: number;
+            readonly perPage: number;
+            readonly rows: T[];
+            readonly total: number;
+        }): any;
 
-    const props = withDefaults(defineProps<Props>(), {
-        isBordered: true,
-        isHoverable: false,
-        isLoading: false,
-        isSeparated: true,
-        isStriped: false,
-        page: 1,
-        perPage: 1000
-    });
-    const {dataSet, perPage} = toRefs(props);
-
-    defineSlots<Slots>();
+        header(props: {
+            readonly page: number;
+            readonly perPage: number;
+            readonly rows: T[];
+            readonly total: number;
+        }): any;
+    }>();
 
     const slots = useSlots();
 
-    const rows = computed(() => unref(dataSet).slice(0, unref(perPage)));
+    const rows = computed(() => dataSet.slice(0, perPage));
 </script>

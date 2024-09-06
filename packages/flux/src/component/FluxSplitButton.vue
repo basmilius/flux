@@ -5,13 +5,13 @@
         :margin="flyoutMargin"
         :width="flyoutWidth">
         <template #opener="{close, open, toggle}">
-            <div class="flux-button-group">
+            <div :class="styles.buttonGroup">
                 <slot
                     name="button"
                     v-bind="{close, open, toggle}"/>
 
                 <FluxSecondaryButton
-                    :icon-before="buttonIcon ?? 'ellipsis-h'"
+                    :icon-before="buttonIcon"
                     @click="open"/>
             </div>
         </template>
@@ -27,17 +27,35 @@
 <script
     setup
     lang="ts">
-    import type { IconNames } from '@/data';
+    import type { Axis, IconName } from '@/types';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
+    import styles from '@/css/component/Button.module.scss';
 
-    export type Props = {
-        readonly buttonIcon?: IconNames;
-        readonly flyoutAxis?: 'horizontal' | 'vertical';
+    const {
+        buttonIcon = 'ellipsis-h'
+    } = defineProps<{
+        readonly buttonIcon?: IconName;
+        readonly flyoutAxis?: Axis;
         readonly flyoutIsAutoWidth?: boolean;
         readonly flyoutMargin?: number;
         readonly flyoutWidth?: number | string;
-    };
+    }>();
 
-    defineProps<Props>();
+    defineSlots<{
+        button(props: {
+            close(): void;
+            open(): void;
+            toggle(): void;
+        }): any;
+
+        flyout(props: {
+            close(): void;
+
+            readonly paneX: number;
+            readonly paneY: number;
+            readonly openerWidth: number;
+            readonly openerHeight: number;
+        }): any;
+    }>();
 </script>

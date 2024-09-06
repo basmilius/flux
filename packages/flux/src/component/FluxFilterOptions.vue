@@ -2,7 +2,7 @@
     <FilterOptionBase
         v-model:search-query="modelSearch"
         :is-searchable="isSearchable"
-        :options="options"
+        :options="filteredOptions"
         :selected="currentValue"
         :search-placeholder="searchPlaceholder"
         @select="onSelect"/>
@@ -13,25 +13,30 @@
     setup>
     import { computed, unref } from 'vue';
     import { useFilterInjection } from '@/composable';
-    import { FluxFilterOptionRow, FluxFilterValueSingle, IconNames, isFluxFilterOptionHeader } from '@/data';
+    import { isFluxFilterOptionHeader } from '@/data';
+    import type { FluxFilterOptionRow, FluxFilterValueSingle, IconName } from '@/types';
     import { FilterOptionBase } from './primitive';
 
-    export type Props = {
-        readonly icon?: IconNames;
+    const modelSearch = defineModel<string>('searchQuery', {
+        default: ''
+    });
+
+    const {
+        name,
+        options
+    } = defineProps<{
+        readonly icon?: IconName;
         readonly isSearchable?: boolean;
         readonly label: string;
         readonly name: string;
         readonly options: FluxFilterOptionRow[];
         readonly searchPlaceholder?: string;
-    };
-
-    const modelSearch = defineModel<string>('searchQuery', {default: ''});
-    const props = defineProps<Props>();
+    }>();
 
     const {state, setValue} = useFilterInjection();
 
     const currentValue = computed(() => {
-        const value = unref(state)[props.name];
+        const value = unref(state)[name];
 
         if (Array.isArray(value)) {
             return value;
@@ -40,7 +45,7 @@
         return [];
     });
 
-    const options = computed(() => props.options
+    const filteredOptions = computed(() => options
         .filter(o => isFluxFilterOptionHeader(o) || unref(modelSearch).length === 0 || o.label.toLowerCase().includes(unref(modelSearch).toLowerCase())));
 
     function onSelect(value: FluxFilterValueSingle): void {
@@ -52,6 +57,6 @@
             values.push(value);
         }
 
-        setValue(props.name, values);
+        setValue(name, values);
     }
 </script>

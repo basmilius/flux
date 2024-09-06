@@ -1,6 +1,6 @@
 <template>
     <nav
-        ref="elementRef"
+        ref="element"
         :class="isLarge ? styles.menuLarge : styles.menuNormal"
         role="menu"
         aria-orientation="vertical">
@@ -11,17 +11,19 @@
 <script
     lang="ts"
     setup>
-    import { ref } from 'vue';
+    import { useTemplateRef } from 'vue';
     import { useFocusZone } from '@/composable';
     import styles from '@/css/component/Menu.module.scss';
 
-    export type Props = {
+    defineProps<{
         readonly isLarge?: boolean;
-    };
+    }>();
 
-    defineProps<Props>();
+    defineSlots<{
+        default(): any;
+    }>();
 
-    const elementRef = ref<HTMLDivElement>();
+    const elementRef = useTemplateRef('element');
 
     useFocusZone(elementRef, {
         direction: 'vertical'

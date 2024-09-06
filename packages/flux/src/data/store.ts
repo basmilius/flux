@@ -1,38 +1,38 @@
 import type { ComputedRef } from 'vue';
 import { computed, reactive } from 'vue';
-import type { FluxAlertSpec, FluxConfirmSpec, FluxPromptSpec, FluxSnackbarSpec, FluxTooltipSpec } from './types';
+import type { FluxAlertObject, FluxConfirmObject, FluxPromptObject, FluxSnackbarObject, FluxTooltipObject } from '@/types';
 
 export type FluxState = {
     dialogCount: number;
-    readonly alerts: FluxAlertSpec[];
-    readonly confirms: FluxConfirmSpec[];
-    readonly prompts: FluxPromptSpec[];
-    readonly snackbars: FluxSnackbarSpec[];
-    readonly tooltips: FluxTooltipSpec[];
+    readonly alerts: FluxAlertObject[];
+    readonly confirms: FluxConfirmObject[];
+    readonly prompts: FluxPromptObject[];
+    readonly snackbars: FluxSnackbarObject[];
+    readonly tooltips: FluxTooltipObject[];
 };
 
 export type FluxStore = FluxState & {
     readonly inertMain: ComputedRef<boolean>;
-    readonly tooltip: ComputedRef<FluxTooltipSpec | null>;
+    readonly tooltip: ComputedRef<FluxTooltipObject | null>;
 
-    addAlert(spec: Omit<FluxAlertSpec, 'id'>): number;
-    addConfirm(spec: Omit<FluxConfirmSpec, 'id'>): number;
-    addPrompt(spec: Omit<FluxPromptSpec, 'id'>): number;
-    addSnackbar(spec: Omit<FluxSnackbarSpec, 'id'>): number;
-    addTooltip(spec: Omit<FluxTooltipSpec, 'id'>): number;
+    addAlert(spec: Omit<FluxAlertObject, 'id'>): number;
+    addConfirm(spec: Omit<FluxConfirmObject, 'id'>): number;
+    addPrompt(spec: Omit<FluxPromptObject, 'id'>): number;
+    addSnackbar(spec: Omit<FluxSnackbarObject, 'id'>): number;
+    addTooltip(spec: Omit<FluxTooltipObject, 'id'>): number;
     registerDialog(): VoidFunction;
     removeAlert(id: number): void;
     removeConfirm(id: number): void;
     removePrompt(id: number): void;
     removeSnackbar(id: number): void;
     removeTooltip(id: number): void;
-    showAlert(spec: Omit<FluxAlertSpec, 'id' | 'onClose'>): Promise<void>;
-    showConfirm(spec: Omit<FluxConfirmSpec, 'id' | 'onCancel' | 'onConfirm'>): Promise<boolean>;
-    showPrompt(spec: Omit<FluxConfirmSpec, 'id' | 'onCancel' | 'onConfirm'>): Promise<string | false>;
-    showSnackbar({duration, ...spec}: Omit<FluxSnackbarSpec, 'id'> & { readonly duration?: number; }): Promise<void> | void;
-    updateSnackbar(id: number, spec: Partial<Omit<FluxSnackbarSpec, 'id'>>): void;
-    updateTooltip(id: number, spec: Partial<Omit<FluxTooltipSpec, 'id'>>): void;
-    showSnackbarSync({duration, ...spec}: Omit<FluxSnackbarSpec, 'id'> & { readonly duration?: number; }): void;
+    showAlert(spec: Omit<FluxAlertObject, 'id' | 'onClose'>): Promise<void>;
+    showConfirm(spec: Omit<FluxConfirmObject, 'id' | 'onCancel' | 'onConfirm'>): Promise<boolean>;
+    showPrompt(spec: Omit<FluxConfirmObject, 'id' | 'onCancel' | 'onConfirm'>): Promise<string | false>;
+    showSnackbar({duration, ...spec}: Omit<FluxSnackbarObject, 'id'> & { readonly duration?: number; }): Promise<void> | void;
+    updateSnackbar(id: number, spec: Partial<Omit<FluxSnackbarObject, 'id'>>): void;
+    updateTooltip(id: number, spec: Partial<Omit<FluxTooltipObject, 'id'>>): void;
+    showSnackbarSync({duration, ...spec}: Omit<FluxSnackbarObject, 'id'> & { readonly duration?: number; }): void;
 };
 
 const DEFAULT_SNACKBAR_DURATION = 3000;
@@ -49,7 +49,7 @@ const state = reactive<FluxState>({
 let alertId: number = 0;
 let tooltipId: number = 0;
 
-export function addAlert(spec: Omit<FluxAlertSpec, 'id'>): number {
+export function addAlert(spec: Omit<FluxAlertObject, 'id'>): number {
     const id = ++alertId;
 
     state.alerts.push({
@@ -60,7 +60,7 @@ export function addAlert(spec: Omit<FluxAlertSpec, 'id'>): number {
     return id;
 }
 
-export function addConfirm(spec: Omit<FluxConfirmSpec, 'id'>): number {
+export function addConfirm(spec: Omit<FluxConfirmObject, 'id'>): number {
     const id = ++alertId;
 
     state.confirms.push({
@@ -71,7 +71,7 @@ export function addConfirm(spec: Omit<FluxConfirmSpec, 'id'>): number {
     return id;
 }
 
-export function addPrompt(spec: Omit<FluxPromptSpec, 'id'>): number {
+export function addPrompt(spec: Omit<FluxPromptObject, 'id'>): number {
     const id = ++alertId;
 
     state.prompts.push({
@@ -82,7 +82,7 @@ export function addPrompt(spec: Omit<FluxPromptSpec, 'id'>): number {
     return id;
 }
 
-export function addSnackbar(spec: Omit<FluxSnackbarSpec, 'id'>): number {
+export function addSnackbar(spec: Omit<FluxSnackbarObject, 'id'>): number {
     const id = ++alertId;
 
     state.snackbars.unshift({
@@ -93,7 +93,7 @@ export function addSnackbar(spec: Omit<FluxSnackbarSpec, 'id'>): number {
     return id;
 }
 
-export function addTooltip(spec: Omit<FluxTooltipSpec, 'id'>): number {
+export function addTooltip(spec: Omit<FluxTooltipObject, 'id'>): number {
     const id = ++tooltipId;
 
     state.tooltips.push({
@@ -134,17 +134,17 @@ export function removeTooltip(id: number): void {
     state.tooltips.splice(index, 1);
 }
 
-export function updateSnackbar(id: number, spec: Partial<Omit<FluxSnackbarSpec, 'id'>>): void {
+export function updateSnackbar(id: number, spec: Partial<Omit<FluxSnackbarObject, 'id'>>): void {
     const index = state.snackbars.findIndex(s => s.id === id);
     Object.assign(state.snackbars[index], spec);
 }
 
-export function updateTooltip(id: number, spec: Partial<Omit<FluxTooltipSpec, 'id'>>): void {
+export function updateTooltip(id: number, spec: Partial<Omit<FluxTooltipObject, 'id'>>): void {
     const index = state.tooltips.findIndex(s => s.id === id);
     Object.assign(state.tooltips[index], spec);
 }
 
-export async function showAlert(spec: Omit<FluxAlertSpec, 'id' | 'onClose'>): Promise<void> {
+export async function showAlert(spec: Omit<FluxAlertObject, 'id' | 'onClose'>): Promise<void> {
     return new Promise(resolve => {
         const id = addAlert({
             ...spec,
@@ -156,7 +156,7 @@ export async function showAlert(spec: Omit<FluxAlertSpec, 'id' | 'onClose'>): Pr
     });
 }
 
-export async function showConfirm(spec: Omit<FluxConfirmSpec, 'id' | 'onCancel' | 'onConfirm'>): Promise<boolean> {
+export async function showConfirm(spec: Omit<FluxConfirmObject, 'id' | 'onCancel' | 'onConfirm'>): Promise<boolean> {
     return new Promise(resolve => {
         const id = addConfirm({
             ...spec,
@@ -172,7 +172,7 @@ export async function showConfirm(spec: Omit<FluxConfirmSpec, 'id' | 'onCancel' 
     });
 }
 
-export async function showPrompt(spec: Omit<FluxPromptSpec, 'id' | 'onCancel' | 'onConfirm'>): Promise<string | false> {
+export async function showPrompt(spec: Omit<FluxPromptObject, 'id' | 'onCancel' | 'onConfirm'>): Promise<string | false> {
     return new Promise(resolve => {
         const id = addPrompt({
             ...spec,
@@ -188,9 +188,9 @@ export async function showPrompt(spec: Omit<FluxPromptSpec, 'id' | 'onCancel' | 
     });
 }
 
-export function showSnackbar({duration, ...spec}: Omit<FluxSnackbarSpec, 'id'> & { readonly duration?: number; }): void;
+export function showSnackbar({duration, ...spec}: Omit<FluxSnackbarObject, 'id'> & { readonly duration?: number; }): void;
 
-export async function showSnackbar({duration, ...spec}: Omit<FluxSnackbarSpec, 'id'> & { readonly duration?: number; }): Promise<void> {
+export async function showSnackbar({duration, ...spec}: Omit<FluxSnackbarObject, 'id'> & { readonly duration?: number; }): Promise<void> {
     const id = addSnackbar(spec);
     await new Promise(resolve => setTimeout(() => requestAnimationFrame(resolve), duration ?? DEFAULT_SNACKBAR_DURATION));
     removeSnackbar(id);

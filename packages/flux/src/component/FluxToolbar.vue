@@ -22,9 +22,11 @@
     import FluxStack from './FluxStack.vue';
     import styles from '@/css/component/Toolbar.module.scss';
 
-    export type Props = {
+    defineProps<{
         readonly floatingMode?: 'free' | 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end';
-    }
+    }>();
 
-    defineProps<Props>();
+    defineSlots<{
+        default(): any;
+    }>();
 </script>

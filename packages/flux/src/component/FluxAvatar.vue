@@ -40,36 +40,12 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { computed, toRefs, unref } from 'vue';
-    import type { IconNames } from '@/data';
+    import { computed, unref } from 'vue';
+    import type { ColorVariant, IconName } from '@/types';
     import styles from '@/css/component/Avatar.module.scss';
     import FluxIcon from './FluxIcon.vue';
 
-    const STATUS_CLASS_MAP = {
-        gray: styles.avatarStatusGray,
-        primary: styles.avatarStatusPrimary,
-        danger: styles.avatarStatusDanger,
-        info: styles.avatarStatusInfo,
-        success: styles.avatarStatusSuccess,
-        warning: styles.avatarStatusWarning
-    } as const;
-
-    export type Emits = {
-        click: [MouseEvent];
-    };
-
-    export type Props = {
-        readonly alt?: string;
-        readonly fallback?: 'colorized' | 'neutral';
-        readonly fallbackIcon?: IconNames;
-        readonly fallbackInitials?: string;
-        readonly isClickable?: boolean;
-        readonly size?: number;
-        readonly status?: 'gray' | 'primary' | 'danger' | 'info' | 'success' | 'warning';
-        readonly url?: string;
-    };
-
-    const colors = [
+    const COLORS = [
         '102 159 42',
         '102 198 28',
         '22 179 100',
@@ -93,27 +69,47 @@
         '234 170 8'
     ];
 
-    const emit = defineEmits<Emits>();
-    const props = withDefaults(defineProps<Props>(), {
-        fallback: 'colorized',
-        fallbackIcon: 'user',
-        size: 30
-    });
-    const {fallbackIcon, fallbackInitials, isClickable, size} = toRefs(props);
+    const STATUS_CLASS_MAP = {
+        gray: styles.avatarStatusGray,
+        primary: styles.avatarStatusPrimary,
+        danger: styles.avatarStatusDanger,
+        info: styles.avatarStatusInfo,
+        success: styles.avatarStatusSuccess,
+        warning: styles.avatarStatusWarning
+    } as const;
 
-    const color = computed(() => colors[unref(colorSeed) % colors.length]);
+    const emit = defineEmits<{
+        click: [MouseEvent];
+    }>();
+
+    const {
+        fallback = 'colorized',
+        fallbackIcon = 'user',
+        fallbackInitials,
+        isClickable,
+        size = 30
+    } = defineProps<{
+        readonly alt?: string;
+        readonly fallback?: 'colorized' | 'neutral';
+        readonly fallbackIcon?: IconName;
+        readonly fallbackInitials?: string;
+        readonly isClickable?: boolean;
+        readonly size?: number;
+        readonly status?: ColorVariant;
+        readonly url?: string;
+    }>();
+
+    const color = computed(() => COLORS[unref(colorSeed) % COLORS.length]);
     const colorSeed = computed(() => {
-        const icon = unref(fallbackIcon);
-        const initials = unref(fallbackInitials);
         let seed = 6;
 
-        if (initials) {
-            for (let i = 0; i < initials.length; ++i) {
-                seed ^= initials.charCodeAt(i);
+        if (fallbackInitials) {
+            for (let i = 0; i < fallbackInitials.length; ++i) {
+                seed ^= fallbackInitials.charCodeAt(i);
             }
-        } else if (icon) {
-            for (let i = 0; i < icon.length; ++i) {
-                seed ^= icon.charCodeAt(i);
+        } else if (fallbackIcon) {
+            for (let i = 0; i < fallbackIcon.length; ++i) {
+                seed ^= fallbackIcon.charCodeAt(i);
             }
         }
 
@@ -121,7 +117,7 @@
     });
 
     function onClick(evt: MouseEvent): void {
-        if (!unref(isClickable)) {
+        if (!isClickable) {
             return;
         }
 

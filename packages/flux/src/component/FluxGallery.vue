@@ -58,25 +58,26 @@
     lang="ts"
     setup>
     import { useTranslate } from '@/composable/private';
-    import type { FluxFocalPoint } from '@/data';
+    import type { FluxFocalPointObject } from '@/types';
     import FluxDropZone from './FluxDropZone.vue';
     import FluxGalleryItem from './FluxGalleryItem.vue';
     import FluxIcon from './FluxIcon.vue';
     import styles from '@/css/component/Gallery.module.scss';
 
-    export type Emits = {
+    const emit = defineEmits<{
         delete: [number];
         upload: [File[]];
-    };
+    }>();
 
-    export type Props = {
+    defineProps<{
         readonly isEditable?: boolean;
-        readonly items?: (string | (FluxFocalPoint & { readonly url: string; }))[];
+        readonly items?: (string | (FluxFocalPointObject & { readonly url: string; }))[];
         readonly pendingItems?: string[];
-    };
+    }>();
 
-    const emit = defineEmits<Emits>();
-    defineProps<Props>();
+    defineSlots<{
+        default(): any;
+    }>();
 
     const translate = useTranslate();
 

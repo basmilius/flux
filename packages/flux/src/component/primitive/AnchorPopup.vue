@@ -1,6 +1,6 @@
 <template>
     <div
-        ref="popupRef"
+        ref="popup"
         :style="{
                 '--x': `${state.x}px`,
                 '--y': `${state.y}px`,
@@ -13,13 +13,20 @@
 <script
     lang="ts"
     setup>
-    import { ComponentPublicInstance, onMounted, onUnmounted, reactive, ref, unref, watchEffect } from 'vue';
+    import { ComponentPublicInstance, onMounted, onUnmounted, reactive, ref, unref, useTemplateRef, watchEffect } from 'vue';
     import { useMutationObserver } from '@/composable';
+    import type { Axis } from '@/types';
     import { isHtmlElement } from '@/util';
 
-    export type Props = {
-        readonly anchor?: ComponentPublicInstance | HTMLElement;
-        readonly axis?: 'horizontal' | 'vertical';
+    const {
+        anchor,
+        axis = 'vertical',
+        position,
+        margin = 12,
+        useAnchorWidth
+    } = defineProps<{
+        readonly anchor?: ComponentPublicInstance | HTMLElement | null;
+        readonly axis?: Axis;
         readonly margin?: number;
         readonly position?:
             | 'top' | 'top-left' | 'top-right'
@@ -27,15 +34,14 @@
             | 'right' | 'right-top' | 'right-bottom'
             | 'bottom' | 'bottom-left' | 'bottom-right';
         readonly useAnchorWidth?: boolean;
-    };
+    }>();
 
-    const props = withDefaults(defineProps<Props>(), {
-        axis: 'vertical',
-        margin: 12
-    });
+    defineSlots<{
+        default(): any;
+    }>();
 
     const anchorRef = ref<HTMLElement>();
-    const popupRef = ref<HTMLElement>();
+    const popupRef = useTemplateRef('popup');
 
     const state = reactive({
         x: 0,
@@ -71,81 +77,81 @@
         let px: number,
             py: number;
 
-        switch (props.position) {
+        switch (position) {
             case 'top':
                 px = x + width / 2 - popupWidth / 2;
-                py = y - popupHeight - props.margin;
+                py = y - popupHeight - margin;
                 break;
 
             case 'top-left':
                 px = x;
-                py = y - popupHeight - props.margin;
+                py = y - popupHeight - margin;
                 break;
 
             case 'top-right':
                 px = x - popupWidth + width;
-                py = y - popupHeight - props.margin;
+                py = y - popupHeight - margin;
                 break;
 
             case 'left':
-                px = x - popupWidth - props.margin;
+                px = x - popupWidth - margin;
                 py = y + height / 2 - popupHeight / 2;
                 break;
 
             case 'left-top':
-                px = x - popupWidth - props.margin;
+                px = x - popupWidth - margin;
                 py = y;
                 break;
 
             case 'left-bottom':
-                px = x - popupWidth - props.margin;
+                px = x - popupWidth - margin;
                 py = y + height - popupHeight;
                 break;
 
             case 'right':
-                px = x + width + props.margin;
+                px = x + width + margin;
                 py = y + height / 2 - popupHeight / 2;
                 break;
 
             case 'right-top':
-                px = x + width + props.margin;
+                px = x + width + margin;
                 py = y;
                 break;
 
             case 'right-bottom':
-                px = x + width + props.margin;
+                px = x + width + margin;
                 py = y + height - popupHeight;
                 break;
 
             case 'bottom':
                 px = x + width / 2 - popupWidth / 2;
-                py = y + height + props.margin;
+                py = y + height + margin;
                 break;
 
             case 'bottom-left':
                 px = x;
-                py = y + height + props.margin;
+                py = y + height + margin;
                 break;
 
             case 'bottom-right':
                 px = x - popupWidth + width;
-                py = y + height + props.margin;
+                py = y + height + margin;
                 break;
 
             default:
-                if (props.axis === 'horizontal') {
-                    px = x + width + props.margin;
+                if (axis === 'horizontal') {
+                    px = x + width + margin;
                     py = y + height / 2 - popupHeight / 2;
 
                     if (px + popupWidth > innerWidth) {
-                        px = x - popupWidth - props.margin;
+                        px = x - popupWidth - margin;
                     }
                 } else {
                     px = x + width / 2 - popupWidth / 2;
-                    py = y + height + props.margin;
+                    py = y + height + margin;
 
                     if (py + popupHeight > innerHeight) {
-                        py = y - popupHeight - props.margin;
+                        py = y - popupHeight - margin;
                     }
                 }
                 break;
@@ -163,7 +169,7 @@
         }
 
         const {width} = anchor.getBoundingClientRect();
-        state.width = props.useAnchorWidth ? width : null;
+        state.width = useAnchorWidth ? width : null;
     }
 
     function onResize(): void {
@@ -176,11 +182,11 @@
     }
 
     watchEffect(() => {
-        if (!props.anchor || (!isHtmlElement(props.anchor) && !props.anchor.$el)) {
+        if (!anchor || (!isHtmlElement(anchor) && !anchor.$el)) {
             return;
         }
 
-        anchorRef.value = isHtmlElement(props.anchor) ? props.anchor : props.anchor.$el;
+        anchorRef.value = isHtmlElement(anchor) ? anchor : anchor.$el;
 
         requestAnimationFrame(resize);
         requestAnimationFrame(reposition);

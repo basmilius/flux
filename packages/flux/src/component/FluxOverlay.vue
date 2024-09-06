@@ -2,6 +2,7 @@
     import { clsx } from 'clsx';
     import { defineComponent, PropType } from 'vue';
     import { FluxOverlayTransition } from '@/transition';
+    import type { Size } from '@/types';
     import { createDialogRenderer } from '@/util';
     import styles from '@/css/component/Overlay.module.scss';
 
@@ -10,7 +11,7 @@
         inheritAttrs: false,
         props: {
             isCloseable: {default: false, type: Boolean},
-            size: {default: 'small', type: String as PropType<'small' | 'medium' | 'large'>}
+            size: {default: 'small', type: String as PropType<Size>}
         },
         setup(props, {attrs, emit, slots}) {
             return createDialogRenderer(

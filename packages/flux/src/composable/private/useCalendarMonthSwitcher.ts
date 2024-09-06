@@ -1,7 +1,8 @@
-import { DateTime } from 'luxon';
-import { computed, Ref, unref } from 'vue';
+import type { DateTime } from 'luxon';
+import type { Ref } from 'vue';
+import { computed, unref } from 'vue';
 
-export default function (currentDate: Ref<DateTime>, displayLength: 'short' | 'long'): UseCalendarMonthSwitcher {
+export default function (currentDate: Ref<DateTime>, displayLength: 'short' | 'long') {
     const months = computed(() => {
         const months: MonthEntry[] = [];
         const now = unref(currentDate);
@@ -23,11 +24,7 @@ export default function (currentDate: Ref<DateTime>, displayLength: 'short' | 'l
     };
 }
 
-interface UseCalendarMonthSwitcher {
-    readonly months: Ref<MonthEntry[]>;
-}
-
-interface MonthEntry {
+type MonthEntry = {
     readonly date: DateTime;
     readonly label: string;
-}
+};

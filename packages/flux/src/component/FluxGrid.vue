@@ -14,13 +14,15 @@
     setup>
     import styles from '@/css/component/Grid.module.scss';
 
-    export type Props = {
+    const {
+        columns = 12,
+        gap = 30
+    } = defineProps<{
         readonly columns?: number;
         readonly gap?: number;
-    };
+    }>();
 
-    withDefaults(defineProps<Props>(), {
-        columns: 12,
-        gap: 30
-    });
+    defineSlots<{
+        default(): any;
+    }>();
 </script>

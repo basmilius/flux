@@ -6,7 +6,7 @@
         :icon-before="item.icon"
         :label="item.label"
         type="button"
-        @click="$emit('click', $event)"/>
+        @click="onClick"/>
 </template>
 
 <script
@@ -14,28 +14,32 @@
     setup>
     import { computed, ref, unref, watch } from 'vue';
     import { useLoaded, useTranslate } from '@/composable/private';
-    import type { FluxFilterItem, FluxFilterValue } from '@/data';
+    import type { FluxFilterItem, FluxFilterValue } from '@/types';
     import FluxMenuItem from '../FluxMenuItem.vue';
 
-    export type Emits = {
+    const emit = defineEmits<{
         click: [MouseEvent];
-    };
+    }>();
 
-    export type Props = {
+    const {
+        item,
+        value
+    } = defineProps<{
         readonly item: FluxFilterItem;
         readonly value: FluxFilterValue;
-    };
-
-    const emit = defineEmits<Emits>();
-    const props = defineProps<Props>();
+    }>();
 
     const {isLoading, loaded} = useLoaded();
     const translate = useTranslate();
-    const getValueLabel = computed(() => loaded(props.item.getValueLabel));
+    const getValueLabel = computed(() => loaded(item.getValueLabel));
 
-    const valueLabel = ref<string | null>('');
+    const valueLabel = ref<string>();
 
-    watch(() => props.item, async () => {
-        valueLabel.value = await unref(getValueLabel)(props.value, translate);
+    function onClick(evt: MouseEvent): void {
+        emit('click', evt);
+    }
+
+    watch(() => item, async () => {
+        valueLabel.value = await unref(getValueLabel)(value, translate) ?? undefined;
     }, {deep: true, immediate: true});
 </script>

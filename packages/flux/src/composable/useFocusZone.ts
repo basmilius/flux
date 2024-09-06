@@ -1,15 +1,14 @@
-import type { Ref } from 'vue';
 import { watch } from 'vue';
-import { assertRefNotNull, getBidirectionalFocusElement, getFocusableElement, getFocusableElements } from '@/util';
+import type { TemplateRef } from '@/util';
+import { getBidirectionalFocusElement, getFocusableElement, getFocusableElements, unrefTemplateElement } from '@/util';
 import useMutationObserver from './useMutationObserver';
 
-export default function (container: Ref<HTMLElement | undefined>, {cycle = true, direction = 'bidirectional'}: UseFocusZoneOptions = {}) {
-    useMutationObserver(container, () => updateFocus(findInitialIndex(), false));
+export default function <TElement extends HTMLElement>(containerRef: TemplateRef<TElement>, {cycle = true, direction = 'bidirectional'}: UseFocusZoneOptions = {}) {
+    useMutationObserver(containerRef, () => updateFocus(findInitialIndex(), false));
 
     function findInitialIndex(): number {
-        assertRefNotNull(container);
-
-        const elements = getFocusableElements(container.value);
+        const container = unrefTemplateElement(containerRef)!;
+        const elements = getFocusableElements(container);
         const isActiveIndex = elements.findIndex(e => e.classList.contains('is-active'));
         const notDisabledIndex = elements.findIndex(e => !e.classList.contains('is-disabled'));
 
@@ -25,18 +24,16 @@ export default function (container: Ref<HTMLElement | undefined>, {cycle = true,
     }
 
     function updateFocus(elementIndex: number, doFocus: boolean = true): void {
-        assertRefNotNull(container);
-
-        const elements = getFocusableElements(container.value);
+        const container = unrefTemplateElement(containerRef)!;
+        const elements = getFocusableElements(container);
         elements.forEach((elm, index) => elm.tabIndex = index === elementIndex ? 0 : -1);
 
         doFocus && elements[elementIndex]?.focus();
     }
 
     function onKeyDown(evt: KeyboardEvent): void {
-        assertRefNotNull(container);
-
-        const elements = getFocusableElements(container.value);
+        const container = unrefTemplateElement(containerRef)!;
+        const elements = getFocusableElements(container);
 
         if (['Enter', ' '].includes(evt.key)) {
             return;
@@ -44,17 +41,19 @@ export default function (container: Ref<HTMLElement | undefined>, {cycle = true,
 
         switch (direction) {
             case 'bidirectional':
-                handleBidirectionalFocus(evt, container.value, elements, updateFocus);
+                handleBidirectionalFocus(evt, container, elements, updateFocus);
                 break;
 
             case 'horizontal':
             case 'vertical':
-                handleDirectionalFocus(evt, container.value, cycle, direction, elements, updateFocus);
+                handleDirectionalFocus(evt, container, cycle, direction, elements, updateFocus);
                 break;
         }
     }
 
-    watch(container, (container, _, onCleanup) => {
+    watch(containerRef, (_, __, onCleanup) => {
+        const container = unrefTemplateElement(containerRef);
+
         if (!container) {
             return;
         }

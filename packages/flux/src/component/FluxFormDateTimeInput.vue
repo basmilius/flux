@@ -4,7 +4,7 @@
         axis="horizontal"
         :gap="15">
         <FluxFlyout
-            ref="flyoutRef"
+            ref="flyout"
             :width="300">
             <template #opener="{open}">
                 <FluxFormInputGroup>
@@ -43,7 +43,7 @@
     lang="ts"
     setup>
     import { DateTime } from 'luxon';
-    import { ComponentPublicInstance, Ref, ref, toRefs, unref, watch } from 'vue';
+    import { ref, unref, useTemplateRef, watch } from 'vue';
     import FluxDatePicker from './FluxDatePicker.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxFormInput from './FluxFormInput.vue';
@@ -52,7 +52,13 @@
     import FluxStack from './FluxStack.vue';
     import styles from '@/css/component/Form.module.scss';
 
-    export type Props = {
+    const modelValue = defineModel<DateTime | null>({
+        required: true
+    });
+
+    const {
+        isHourOnly
+    } = defineProps<{
         readonly autoComplete?: string;
         readonly autoFocus?: boolean;
         readonly isDisabled?: boolean;
@@ -61,13 +67,10 @@
         readonly max?: DateTime;
         readonly min?: DateTime;
         readonly placeholder?: string;
-    };
+    }>();
 
-    const modelValue = defineModel<DateTime | null>({required: true}) as Ref<DateTime | null>;
-    const props = defineProps<Props>();
-    const {isHourOnly} = toRefs(props);
+    const flyoutRef = useTemplateRef('flyout');
 
-    const flyoutRef = ref<ComponentPublicInstance<{}, {}, {}, {}, { close: Function; }>>();
     const localValue = ref<DateTime | null>(null);
 
     function setDate(dateTime: DateTime | object | string | number | null): void {
@@ -96,7 +99,8 @@
         });
     }
 
-    watch([isHourOnly, modelValue], ([isHourOnly, modelValue]) => localValue.value = isHourOnly ? modelValue?.startOf('hour') ?? null : modelValue, {immediate: true});
+    watch(() => isHourOnly, () => isHourOnly && (localValue.value = unref(localValue)?.startOf('hour') ?? null), {immediate: true});
+    watch(modelValue, modelValue => localValue.value = isHourOnly ? modelValue?.startOf('hour') ?? null : modelValue, {immediate: true});
 
     watch(localValue, localValue => {
         unref(flyoutRef)?.close();

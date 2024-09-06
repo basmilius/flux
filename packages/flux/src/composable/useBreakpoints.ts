@@ -1,7 +1,7 @@
 import { inject } from 'vue';
-import { FluxBreakpointsInjection, FluxBreakpointsInjectionKey } from '@/data';
+import { FluxBreakpointsInjectionKey } from '@/data';
 
-export default function (): FluxBreakpointsInjection {
+export default function () {
     const breakpoints = inject(FluxBreakpointsInjectionKey, null);
 
     if (!breakpoints) {

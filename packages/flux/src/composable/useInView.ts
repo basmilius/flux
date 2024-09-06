@@ -1,10 +1,14 @@
 import type { Ref } from 'vue';
 import { ref, watch } from 'vue';
+import type { TemplateRef } from '@/util';
+import { unrefTemplateElement } from '@/util';
 
-export default function (containerRef: Ref<HTMLElement | null>, options: IntersectionObserverInit & { readonly initial?: boolean; }): Ref<boolean> {
+export default function <TElement extends HTMLElement>(containerRef: TemplateRef<TElement>, options: IntersectionObserverInit & { readonly initial?: boolean; }): Ref<boolean> {
     const inView = ref(options.initial ?? false);
 
-    watch(containerRef, (container, _, onCleanup) => {
+    watch(containerRef, (_, __, onCleanup) => {
+        const container = unrefTemplateElement(containerRef);
+
         if (!container) {
             return;
         }

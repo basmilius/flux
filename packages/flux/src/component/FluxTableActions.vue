@@ -9,4 +9,8 @@
     setup>
     import FluxActions from './FluxActions.vue';
     import styles from '@/css/component/Table.module.scss';
+
+    defineSlots<{
+        default(): any;
+    }>();
 </script>

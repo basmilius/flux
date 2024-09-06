@@ -16,25 +16,34 @@
 <script
     lang="ts"
     setup>
-    import { computed, ref, toRefs, unref, watch } from 'vue';
+    import { computed, ref, unref, watch } from 'vue';
     import { FormSelectOption, FormSelectValue, FormSelectValueSingle, useFormSelect, useLoaded } from '@/composable/private';
     import { SelectBase } from '@/component/primitive';
     import { isFluxFormSelectOption } from '@/data';
     import { useDebouncedRef } from '@/composable';
 
-    export type Props = {
+    const modelSearch = defineModel<string>('searchQuery', {
+        default: ''
+    });
+
+    const modelValue = defineModel<FormSelectValue>({
+        required: true
+    });
+
+    const {
+        fetchOptions: fetchOptionsProp,
+        fetchRelevant: fetchRelevantProp,
+        fetchSearch: fetchSearchProp,
+        isMultiple
+    } = defineProps<{
+        fetchOptions(ids: FormSelectValueSingle[]): Promise<FormSelectOption[]>;
+        fetchRelevant(): Promise<FormSelectOption[]>;
+        fetchSearch(searchQuery: string): Promise<FormSelectOption[]>;
+
         readonly isDisabled?: boolean;
         readonly isMultiple?: boolean;
         readonly placeholder?: string;
-        readonly fetchOptions: (ids: FormSelectValueSingle[]) => Promise<FormSelectOption[]>;
-        readonly fetchRelevant: () => Promise<FormSelectOption[]>;
-        readonly fetchSearch: (searchQuery: string) => Promise<FormSelectOption[]>;
-    };
-
-    const modelSearch = defineModel<string>('search', {default: ''});
-    const modelValue = defineModel<FormSelectValue>({required: true});
-    const props = defineProps<Props>();
-    const {isMultiple} = toRefs(props);
+    }>();
 
     const selectedOptions = ref<FormSelectOption[]>([]);
     const visibleOptions = ref<FormSelectOption[]>([]);
@@ -65,12 +74,12 @@
     const {groups, selected, values} = useFormSelect(modelValue, isMultiple, options);
     const {isLoading, loaded} = useLoaded();
     const debouncedModelSearch = useDebouncedRef(modelSearch, 300);
-    const fetchOptions = computed(() => loaded(props.fetchOptions));
-    const fetchRelevant = computed(() => loaded(props.fetchRelevant));
-    const fetchSearch = computed(() => loaded(props.fetchSearch));
+    const fetchOptions = computed(() => loaded(fetchOptionsProp));
+    const fetchRelevant = computed(() => loaded(fetchRelevantProp));
+    const fetchSearch = computed(() => loaded(fetchSearchProp));
 
     function onDeselect(id: string | number | null): void {
-        if (unref(isMultiple)) {
+        if (isMultiple) {
             modelValue.value = unref(values).filter(v => v !== id);
         }
     }
@@ -80,7 +89,7 @@
     }
 
     function onSelect(id: string | number | null): void {
-        if (unref(isMultiple)) {
+        if (isMultiple) {
             modelValue.value = [...unref(values), id];
         } else {
             modelValue.value = id;

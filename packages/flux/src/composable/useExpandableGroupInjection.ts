@@ -1,7 +1,7 @@
 import { inject } from 'vue';
-import { FluxExpandableGroupInjection, FluxExpandableGroupInjectionKey } from '@/data';
+import { FluxExpandableGroupInjectionKey } from '@/data';
 
-export default function (): FluxExpandableGroupInjection {
+export default function () {
     return inject(FluxExpandableGroupInjectionKey, {
         closeAll: () => void 0,
         register: () => void 0,

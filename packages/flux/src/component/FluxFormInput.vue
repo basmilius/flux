@@ -5,7 +5,7 @@
             isSecondary && styles.isSecondary
         )">
         <input
-            ref="inputRef"
+            ref="input"
             :class="clsx(
                 styles.formInputNative,
                 (!!iconAfter || type === 'password') && styles.formInputNativeHasIconAfter,
@@ -54,60 +54,61 @@
     setup>
     import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
-    import { ref, toRefs, unref, watch } from 'vue';
+    import { ref, unref, useTemplateRef, watch } from 'vue';
     import { useFormFieldInjection } from '@/composable';
-    import { type IconNames, type Masks, masks } from '@/data';
-    import { unrefElement } from '@/util';
+    import { inputMask } from '@/data';
+    import type { IconName, InputMask, InputType } from '@/types';
+    import { unrefTemplateElement } from '@/util';
     import Icon from './FluxIcon.vue';
     import styles from '@/css/component/Form.module.scss';
 
-    export type Emits = {
+    const emit = defineEmits<{
         blur: [];
         focus: [];
         showPicker: [];
-    };
+    }>();
 
-    export type Props = {
+    const modelValue = defineModel<object | string | number | null>({
+        default: ''
+    });
+
+    const {
+        autoFocus = false,
+        pattern,
+        type = 'text'
+    } = defineProps<{
         readonly autoComplete?: string;
         readonly autoFocus?: boolean;
-        readonly iconAfter?: IconNames;
-        readonly iconBefore?: IconNames;
+        readonly iconAfter?: IconName;
+        readonly iconBefore?: IconName;
         readonly isDisabled?: boolean;
         readonly isReadonly?: boolean;
         readonly isSecondary?: boolean;
         readonly max?: string | number;
         readonly maxLength?: number;
         readonly min?: string | number;
-        readonly pattern?: Masks;
+        readonly pattern?: InputMask;
         readonly placeholder?: string;
         readonly step?: number;
-        readonly type?: 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'month' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'time' | 'url' | 'week';
-    };
+        readonly type?: InputType;
+    }>();
 
-    const emit = defineEmits<Emits>();
-    const modelValue = defineModel<object | string | number | null>({default: ''});
-    const props = withDefaults(defineProps<Props>(), {
-        autoFocus: false,
-        type: 'text'
-    });
-    const {type} = toRefs(props);
-
+    const inputRef = useTemplateRef('input');
     const {id} = useFormFieldInjection();
 
-    const inputRef = ref<HTMLInputElement>();
     const localValue = ref<string | null>(null);
-    const nativeType = ref(unref(type));
+    const nativeType = ref(type);
 
     function blur(): void {
-        unrefElement(inputRef)?.blur();
+        unrefTemplateElement(inputRef)?.blur();
     }
 
     function focus(): void {
-        unrefElement(inputRef)?.focus();
+        unrefTemplateElement(inputRef)?.focus();
     }
 
     function passwordTypeToggle(): void {
-        if (unref(type) !== 'password') {
+        if (type !== 'password') {
             return;
         }
 
@@ -125,7 +126,7 @@
     function onInput(evt: Event): void {
         const value = (evt.target as HTMLInputElement).value;
 
-        switch (unref(type)) {
+        switch (type) {
             case 'date':
             case 'datetime-local':
             case 'month':
@@ -151,7 +152,7 @@
     }
 
     function onKeyDown(evt: KeyboardEvent): void {
-        if (!['date', 'datetime-local', 'month', 'week'].includes(unref(type))) {
+        if (!['date', 'datetime-local', 'month', 'week'].includes(type)) {
             return;
         }
 
@@ -161,7 +162,7 @@
         }
     }
 
-    watch([modelValue, type], ([modelValue, type]) => {
+    watch([modelValue, () => type], ([modelValue, type]) => {
         if (!modelValue) {
             localValue.value = null;
             return;
@@ -194,12 +195,12 @@
         localValue.value = modelValue.toString();
     }, {immediate: true});
 
-    watch([inputRef, () => props.pattern, localValue], ([input, pattern, value], __, onCleanup) => {
+    watch([inputRef, () => pattern, localValue], ([input, pattern, value], __, onCleanup) => {
         if (!input || !pattern) {
             return;
         }
 
-        const mask = masks[pattern](input);
+        const mask = inputMask[pattern](input);
 
         if (value) {
             mask.value = value;
@@ -209,7 +210,7 @@
         onCleanup(() => mask.destroy());
     }, {immediate: true});
 
-    watch(type, type => nativeType.value = type);
+    watch(() => type, type => nativeType.value = type);
 
     defineExpose({
         blur,

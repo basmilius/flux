@@ -12,7 +12,7 @@
             v-if="isDeletable"
             :is-hidden="!isDeleteVisible"
             tabindex="-1"
-            @click="$emit('delete')"/>
+            @click="emit('delete')"/>
 
         <div
             v-if="isPending"
@@ -26,27 +26,24 @@
     lang="ts"
     setup>
     import { ref } from 'vue';
-    import type { FluxFocalPoint } from '@/data';
+    import type { FluxFocalPointObject } from '@/types';
     import FluxFocalPointImage from './FluxFocalPointImage.vue';
     import FluxRemove from './FluxRemove.vue';
     import FluxSpinner from './FluxSpinner.vue';
     import styles from '@/css/component/Gallery.module.scss';
 
-    export type Emits = {
+    const emit = defineEmits<{
         delete: [];
-    };
+    }>();
 
-    export type Props = {
-        readonly focalPoint?: FluxFocalPoint | null;
+    const {
+        focalPoint
+    } = defineProps<{
+        readonly focalPoint?: FluxFocalPointObject;
         readonly isDeletable?: boolean;
         readonly isPending?: boolean;
         readonly url: string;
-    };
-
-    defineEmits<Emits>();
-    withDefaults(defineProps<Props>(), {
-        focalPoint: null
-    });
+    }>();
 
     const isDeleteVisible = ref(false);
 </script>

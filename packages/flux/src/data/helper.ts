@@ -1,4 +1,4 @@
-import type { FluxFormSelectGroup, FluxFormSelectOption } from './types';
+import type { FluxFormSelectGroup, FluxFormSelectOption } from '@/types';
 
 export const isSSR = typeof document === 'undefined';
 

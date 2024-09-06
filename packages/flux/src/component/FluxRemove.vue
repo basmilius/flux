@@ -5,7 +5,7 @@
             isHidden && styles.isHidden
         )"
         type="button"
-        @click="$emit('click', $event)">
+        @click="emit('click', $event)">
         <FluxIcon
             v-if="icon"
             :size="16"
@@ -17,21 +17,18 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { IconNames } from '@/data';
+    import type { IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import styles from '@/css/component/Remove.module.scss';
 
-    export type Emits = {
+    const emit = defineEmits<{
         click: [MouseEvent];
-    };
+    }>();
 
-    export type Props = {
-        readonly icon?: IconNames;
+    const {
+        icon = 'xmark'
+    } = defineProps<{
+        readonly icon?: IconName;
         readonly isHidden?: boolean;
-    };
-
-    defineEmits<Emits>();
-    withDefaults(defineProps<Props>(), {
-        icon: 'xmark'
-    });
+    }>();
 </script>

@@ -1,7 +1,8 @@
-import type { IconDefinition, IconNames, IconPathData } from './types';
+import type { IconDefinition, IconPathData } from '@fortawesome/fontawesome-common-types';
+import type { IconName } from '@/types';
 
 type Icon = [number, number, string[], string, IconPathData];
-type IconRegistry = Partial<{ [key in IconNames]: Icon; }>;
+type IconRegistry = Partial<{ [key in IconName]: Icon; }>;
 type Icons = Record<string, IconDefinition>;
 
 export let iconRegistry: IconRegistry = {};
@@ -12,7 +13,7 @@ export function fluxRegisterIcons(icons: Icons): void {
         acc[iconName] = icon;
 
         if (Array.isArray(icon[2])) {
-            icon[2].forEach((iconName: string) => acc[iconName as IconNames] = icon);
+            icon[2].forEach((iconName: string) => acc[iconName as IconName] = icon);
         }
 
         return acc;

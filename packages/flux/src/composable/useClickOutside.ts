@@ -1,11 +1,11 @@
-import type { ComponentPublicInstance } from 'vue';
-import { onMounted, onUnmounted, ref, Ref, unref, watchEffect } from 'vue';
-import { isHtmlElement } from '@/util';
+import type { Ref } from 'vue';
+import { onMounted, onUnmounted, ref, unref, watchEffect } from 'vue';
+import type { TemplateRef } from '@/util';
+import { unrefTemplateElement } from '@/util';
 
-type ElementRef = Ref<ComponentPublicInstance | HTMLElement | undefined>;
 type Handler = ((evt: PointerEvent) => void) | ((evt: PointerEvent) => Promise<void>);
 
-export default function (elementRefs: ElementRef | ElementRef[], enabled: boolean | Ref<boolean>, onOutsideClick: Handler): void {
+export default function <TElement extends HTMLElement>(elementRefs: TemplateRef<TElement> | TemplateRef<TElement>[], enabled: boolean | Ref<boolean>, onOutsideClick: Handler): void {
     const elements = ref<HTMLElement[]>([]);
 
     onMounted(() => {
@@ -29,8 +29,8 @@ export default function (elementRefs: ElementRef | ElementRef[], enabled: boolea
         const newElements: HTMLElement[] = [];
 
         (Array.isArray(elementRefs) ? elementRefs : [elementRefs]).forEach(elementRef => {
-            const element = unref(elementRef);
-            element && newElements.push(isHtmlElement(element) ? element : element.$el);
+            const element = unrefTemplateElement(elementRef);
+            element && newElements.push(element);
         });
 
         elements.value = newElements;

@@ -1,7 +1,7 @@
 <template>
     <slot
         name="steps"
-        v-bind="{activate, activeIndex: modelValue, modelValue, steps}">
+        v-bind="{activate, modelValue, steps}">
         <FluxStepperSteps
             :amount="steps"
             :current="modelValue + 1"
@@ -10,7 +10,7 @@
 
     <slot
         name="content"
-        v-bind="{activate, activeIndex: modelValue, children, isTransitioningBack, modelValue, steps, view}">
+        v-bind="{activate, modelValue, children, isTransitioningBack, steps, view}">
         <FluxWindowTransition :is-back="isTransitioningBack">
             <FluxDynamicView
                 :key="modelValue"
@@ -22,13 +22,36 @@
 <script
     lang="ts"
     setup>
-    import { computed, ref, unref, useSlots, watch } from 'vue';
+    import { computed, ref, unref, useSlots, VNode, watch } from 'vue';
     import { FluxWindowTransition } from '@/transition';
     import { flattenVNodeTree } from '@/util';
     import FluxDynamicView from './FluxDynamicView.vue';
     import FluxStepperSteps from './FluxStepperSteps.vue';
 
-    const modelValue = defineModel<number>({default: 0});
+    const modelValue = defineModel<number>({
+        default: 0
+    });
+
+    defineSlots<{
+        default(): any;
+
+        content(props: {
+            activate(index: number): void;
+
+            readonly children: VNode[];
+            readonly isTransitioningBack: boolean;
+            readonly modelValue: number;
+            readonly steps: number;
+            readonly view: VNode;
+        }): any;
+
+        steps(props: {
+            activate(index: number): void;
+
+            readonly modelValue: number;
+            readonly steps: number;
+        }): any;
+    }>();
 
     const slots = useSlots();
 

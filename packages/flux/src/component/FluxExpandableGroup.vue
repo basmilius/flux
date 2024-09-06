@@ -12,11 +12,16 @@
     import { getExposedRef } from '@/util';
     import styles from '@/css/component/Expandable.module.scss';
 
-    export type Props = {
+    const {
+        isControlled
+    } = defineProps<{
         readonly isControlled?: boolean;
-    };
+    }>();
 
-    const props = defineProps<Props>();
+
+    defineSlots<{
+        default(): any;
+    }>();
 
     const expandables: { [key: number]: ComponentInternalInstance; } = {};
 
@@ -30,7 +35,7 @@
     function register(uid: number, expandable: ComponentInternalInstance): void {
         expandables[uid] = expandable;
 
-        if (!props.isControlled && Object.values(expandables).length === 1) {
+        if (!isControlled && Object.values(expandables).length === 1) {
             const isOpenRef = getExposedRef<boolean>(expandable, 'isOpen');
             isOpenRef.value = true;
         }

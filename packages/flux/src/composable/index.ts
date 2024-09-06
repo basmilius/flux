@@ -6,11 +6,11 @@ export { default as useClickOutside } from './useClickOutside';
 export { default as useComponentId } from './useComponentId';
 export { default as useDebouncedRef } from './useDebouncedRef';
 export { default as useEventListener } from './useEventListener';
-export { default as useId } from './useId';
 export { default as useInterval } from './useInterval';
 export { default as useInView } from './useInView';
 export { default as useMutationObserver } from './useMutationObserver';
 export { default as useRemembered } from './useRemembered';
+export { default as useRender } from './useRender';
 
 export { default as useFocusTrap } from './useFocusTrap';
 export { default as useFocusTrapLock } from './useFocusTrapLock';

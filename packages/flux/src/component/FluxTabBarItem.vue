@@ -1,6 +1,6 @@
 <template>
     <ButtonComponent
-        ref="tabRef"
+        ref="tab"
         :component-type="type"
         :class="isActive ? styles.tabBarItemActive : styles.tabBarItem"
         type="button"
@@ -28,41 +28,41 @@
 <script
     lang="ts"
     setup>
-    import { ref, toRefs, unref, watch } from 'vue';
-    import type { FluxRoutingLocation, IconNames } from '@/data';
+    import { unref, useTemplateRef, watch } from 'vue';
+    import type { ButtonType, IconName, To } from '@/types';
     import ButtonComponent from '@/component/primitive/ButtonComponent.vue';
     import FluxIcon from './FluxIcon.vue';
     import styles from '@/css/component/Tab.module.scss';
 
-    export type Emits = {
+    const emit = defineEmits<{
         click: [MouseEvent];
         mouseenter: [MouseEvent];
         mouseleave: [MouseEvent];
-    };
+    }>();
 
-    export type Props = {
-        readonly type?: 'button' | 'link' | 'route';
+    const {
+        disabled,
+        isActive
+    } = defineProps<{
+        readonly type?: ButtonType;
         readonly disabled?: boolean;
-        readonly icon?: IconNames;
+        readonly icon?: IconName;
         readonly isActive?: boolean;
         readonly label?: string;
         readonly tabindex?: string | number;
         readonly href?: string;
         readonly rel?: string;
         readonly target?: string;
-        readonly to?: FluxRoutingLocation;
-    };
+        readonly to?: To;
+    }>();
 
-    const emit = defineEmits<Emits>();
-    const props = defineProps<Props>();
-    const {disabled, isActive} = toRefs(props);
-
-    const tabRef = ref<HTMLButtonElement>();
+    const tabRef = useTemplateRef('tab');
 
     function onClick(evt: MouseEvent): void {
-        if (unref(disabled)) {
+        if (disabled) {
             evt.preventDefault();
             evt.stopPropagation();
+            return;
         }
 
         emit('click', evt);
@@ -76,7 +76,7 @@
         emit('mouseleave', evt);
     }
 
-    watch(isActive, isActive => {
+    watch(() => isActive, () => {
         if (!isActive) {
             return;
         }
@@ -87,11 +87,13 @@
             return;
         }
 
-        if (tab.parentElement?.offsetWidth === tab.parentElement?.scrollWidth) {
+        const el = tab.$el;
+
+        if (el.parentElement?.offsetWidth === el.parentElement?.scrollWidth) {
             return;
         }
 
-        tab.scrollIntoView({
+        el.scrollIntoView({
             behavior: 'smooth',
             block: 'nearest',
             inline: 'center'

@@ -1,4 +1,5 @@
-import { customRef, isRef, Ref, ref, watch } from 'vue';
+import type { Ref } from 'vue';
+import { customRef, isRef, ref, watch } from 'vue';
 
 export default function <T>(initialValue: Ref<T> | T, delay: number, immediate: boolean = false): Ref<T> {
     const state = ref(isRef(initialValue) ? initialValue.value : initialValue);
@@ -22,7 +23,7 @@ export default function <T>(initialValue: Ref<T> | T, delay: number, immediate: 
     return debounced;
 }
 
-function debounce<TFunc extends (...args: any[]) => any, TParams = Parameters<TFunc>, TReturn = ReturnType<TFunc>>(fn: (...args: any[]) => TReturn, delay: number, immediate: boolean = false): VoidFunction {
+function debounce<TFunc extends (...args: any[]) => any>(fn: TFunc, delay: number, immediate: boolean = false): VoidFunction {
     let timeout: any;
 
     return (...args: any[]) => {

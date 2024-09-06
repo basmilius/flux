@@ -1,26 +1,68 @@
+import { createHash } from 'node:crypto';
+import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
-import { build, css, plugins, resolve } from '../../vite.base.config';
-
-const fileName = 'basmilius.flux-dashboard';
-const name = 'bmflux_dashboard';
-
-const external = ['@basmilius/flux', 'luxon', 'vue'];
-const globals = {
-    '@basmilius/flux': 'bmflux',
-    luxon: 'luxon',
-    vue: 'vue'
-};
+import { patchCssModules } from 'vite-css-modules';
+import vue from '@vitejs/plugin-vue';
+import className from 'css-class-generator';
 
 export default defineConfig(({command}) => ({
-    build: build(
-        import.meta.dirname,
-        command === 'build',
-        name,
-        fileName,
-        external,
-        globals
-    ),
-    css: css(),
-    plugins: plugins(),
-    resolve: resolve(import.meta.dirname)
+    plugins: [
+        patchCssModules(),
+        vue()
+    ],
+    build: {
+        emptyOutDir: command === 'build',
+        cssMinify: 'esbuild',
+        minify: 'esbuild',
+        outDir: resolve(import.meta.dirname, './dist'),
+        sourcemap: true,
+        lib: {
+            entry: resolve(import.meta.dirname, './src/index.ts'),
+            fileName: 'basmilius.flux-dashboard',
+            name: 'fluxDashboard'
+        },
+        rollupOptions: {
+            external: ['@basmilius/flux', 'luxon', 'vue'],
+            output: {
+                exports: 'named',
+                globals: {
+                    '@basmilius/flux': 'flux',
+                    luxon: 'luxon',
+                    vue: 'vue'
+                },
+                sourcemapIgnoreList: path => path.includes('node_modules')
+            }
+        }
+    },
+    css: {
+        preprocessorMaxWorkers: true,
+        preprocessorOptions: {
+            scss: {
+                api: 'modern-compiler'
+            }
+        },
+        modules: {
+            generateScopedName(name: string): string {
+                if (name.startsWith('i__const_')) {
+                    name = name.substring(9);
+                    name = name.substring(0, name.length - 2);
+                }
+
+                const hash = createHash('sha1')
+                    .update(name)
+                    .digest('hex')
+                    .substring(0, 5);
+
+                return className(parseInt(hash, 16));
+            }
+        }
+    },
+    define: {
+        __VUE_OPTIONS_API__: 'false'
+    },
+    resolve: {
+        alias: {
+            '@': resolve(import.meta.dirname, './src')
+        }
+    }
 }));

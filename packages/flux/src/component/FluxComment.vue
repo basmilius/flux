@@ -32,24 +32,26 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { IconNames } from '@/data';
+    import type { IconName } from '@/types';
     import FluxAvatar from './FluxAvatar.vue';
     import styles from '@/css/component/Comment.module.scss';
 
-    export type Props = {
+    const {
+        avatarFallback = 'colorized',
+        avatarFallbackIcon = 'user'
+    } = defineProps<{
         readonly avatarAlt?: string;
         readonly avatarFallback?: 'colorized' | 'neutral';
-        readonly avatarFallbackIcon?: IconNames;
+        readonly avatarFallbackIcon?: IconName;
         readonly avatarFallbackInitials?: string;
         readonly avatarUrl?: string;
         readonly isFlipped?: boolean;
         readonly isReceived?: boolean;
         readonly name: string;
         readonly period?: string;
-    };
+    }>();
 
-    withDefaults(defineProps<Props>(), {
-        avatarFallback: 'colorized',
-        avatarFallbackIcon: 'user'
-    });
+    defineSlots<{
+        default(): any;
+    }>();
 </script>

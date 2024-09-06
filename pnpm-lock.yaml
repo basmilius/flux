@@ -4,12 +4,18 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    '@vue/language-server':
+      specifier: ^2.1.6
+      version: 2.1.6
+
 importers:
 
   .:
     devDependencies:
       '@vue/language-server':
-        specifier: ^2.1.6
+        specifier: 'catalog:'
         version: 2.1.6(typescript@5.5.4)
 
   packages/dashboard:
@@ -18,35 +24,35 @@ importers:
         specifier: workspace:*
         version: link:../flux
       vue:
-        specifier: ^3.5.2
+        specifier: 'catalog:'
         version: 3.5.2(typescript@5.5.4)
     devDependencies:
       '@types/node':
-        specifier: ^22.5.3
-        version: 22.5.3
+        specifier: 'catalog:'
+        version: 22.5.4
       '@vitejs/plugin-vue':
-        specifier: ^5.1.3
-        version: 5.1.3(vite@5.4.3(@types/node@22.5.3)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8))(vue@3.5.2(typescript@5.5.4))
+        specifier: 'catalog:'
+        version: 5.1.3(vite@5.4.3(@types/node@22.5.4)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8))(vue@3.5.2(typescript@5.5.4))
       css-class-generator:
-        specifier: ^2.0.0
+        specifier: 'catalog:'
         version: 2.0.0
       sass-embedded:
-        specifier: ^1.78.0
+        specifier: 'catalog:'
         version: 1.78.0
       tsc-alias:
-        specifier: ^1.8.10
+        specifier: 'catalog:'
         version: 1.8.10
       typescript:
-        specifier: ^5.5.4
+        specifier: 'catalog:'
         version: 5.5.4
       vite:
-        specifier: ^5.4.3
-        version: 5.4.3(@types/node@22.5.3)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8)
+        specifier: 'catalog:'
+        version: 5.4.3(@types/node@22.5.4)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8)
       vite-css-modules:
-        specifier: ^1.4.2
-        version: 1.4.2(lightningcss@1.26.0)(postcss@8.4.44)(rollup@4.21.1)(vite@5.4.3(@types/node@22.5.3)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8))
+        specifier: 'catalog:'
+        version: 1.4.2(lightningcss@1.26.0)(postcss@8.4.44)(rollup@4.21.1)(vite@5.4.3(@types/node@22.5.4)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8))
       vue-tsc:
-        specifier: ^2.1.6
+        specifier: 'catalog:'
         version: 2.1.6(typescript@5.5.4)
 
   packages/docs:
@@ -55,105 +61,105 @@ importers:
         specifier: workspace:*
         version: link:../flux
       '@fortawesome/free-brands-svg-icons':
-        specifier: ^6.6.0
+        specifier: 'catalog:'
         version: 6.6.0
       '@fortawesome/pro-regular-svg-icons':
-        specifier: ^6.6.0
+        specifier: 'catalog:'
         version: 6.6.0
       highlight.js:
-        specifier: ^11.10.0
+        specifier: 'catalog:'
         version: 11.10.0
       luxon:
-        specifier: ^3.5.0
+        specifier: 'catalog:'
         version: 3.5.0
       vue:
-        specifier: ^3.5.2
+        specifier: 'catalog:'
         version: 3.5.2(typescript@5.5.4)
       vue-highlight-code:
-        specifier: ^0.2.0
+        specifier: 'catalog:'
         version: 0.2.0(typescript@5.5.4)
       vue-router:
-        specifier: ^4.4.3
+        specifier: 'catalog:'
         version: 4.4.3(vue@3.5.2(typescript@5.5.4))
     devDependencies:
       '@types/luxon':
-        specifier: ^3.4.2
+        specifier: 'catalog:'
         version: 3.4.2
       '@types/node':
-        specifier: ^22.5.3
-        version: 22.5.3
+        specifier: 'catalog:'
+        version: 22.5.4
       '@vitejs/plugin-vue':
-        specifier: ^5.1.3
-        version: 5.1.3(vite@5.4.3(@types/node@22.5.3)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8))(vue@3.5.2(typescript@5.5.4))
+        specifier: 'catalog:'
+        version: 5.1.3(vite@5.4.3(@types/node@22.5.4)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8))(vue@3.5.2(typescript@5.5.4))
       css-class-generator:
-        specifier: ^2.0.0
+        specifier: 'catalog:'
         version: 2.0.0
       sass-embedded:
-        specifier: ^1.78.0
+        specifier: 'catalog:'
         version: 1.78.0
       typescript:
-        specifier: ^5.5.4
+        specifier: 'catalog:'
         version: 5.5.4
       vite:
-        specifier: ^5.4.3
-        version: 5.4.3(@types/node@22.5.3)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8)
+        specifier: 'catalog:'
+        version: 5.4.3(@types/node@22.5.4)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8)
       vite-css-modules:
-        specifier: ^1.4.2
-        version: 1.4.2(lightningcss@1.26.0)(postcss@8.4.44)(rollup@4.21.1)(vite@5.4.3(@types/node@22.5.3)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8))
+        specifier: 'catalog:'
+        version: 1.4.2(lightningcss@1.26.0)(postcss@8.4.44)(rollup@4.21.1)(vite@5.4.3(@types/node@22.5.4)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8))
 
   packages/flux:
     dependencies:
       clsx:
-        specifier: ^2.1.1
+        specifier: 'catalog:'
         version: 2.1.1
       imask:
-        specifier: ^7.6.1
+        specifier: 'catalog:'
         version: 7.6.1
       lodash-es:
-        specifier: ^4.17.21
+        specifier: 'catalog:'
         version: 4.17.21
       luxon:
-        specifier: ^3.5.0
+        specifier: 'catalog:'
         version: 3.5.0
       vue:
-        specifier: ^3.5.2
+        specifier: 'catalog:'
         version: 3.5.2(typescript@5.5.4)
     devDependencies:
       '@fortawesome/fontawesome-common-types':
-        specifier: ^6.6.0
+        specifier: 'catalog:'
         version: 6.6.0
       '@types/lodash-es':
-        specifier: ^4.17.12
+        specifier: 'catalog:'
         version: 4.17.12
       '@types/luxon':
-        specifier: ^3.4.2
+        specifier: 'catalog:'
         version: 3.4.2
       '@types/node':
-        specifier: ^22.5.3
-        version: 22.5.3
+        specifier: 'catalog:'
+        version: 22.5.4
       '@vitejs/plugin-vue':
-        specifier: ^5.1.3
-        version: 5.1.3(vite@5.4.3(@types/node@22.5.3)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8))(vue@3.5.2(typescript@5.5.4))
+        specifier: 'catalog:'
+        version: 5.1.3(vite@5.4.3(@types/node@22.5.4)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8))(vue@3.5.2(typescript@5.5.4))
       css-class-generator:
-        specifier: ^2.0.0
+        specifier: 'catalog:'
         version: 2.0.0
       sass-embedded:
-        specifier: ^1.78.0
+        specifier: 'catalog:'
         version: 1.78.0
       tsc-alias:
-        specifier: ^1.8.10
+        specifier: 'catalog:'
         version: 1.8.10
       typescript:
-        specifier: ^5.5.4
+        specifier: 'catalog:'
         version: 5.5.4
       vite:
-        specifier: ^5.4.3
-        version: 5.4.3(@types/node@22.5.3)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8)
+        specifier: 'catalog:'
+        version: 5.4.3(@types/node@22.5.4)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8)
       vite-css-modules:
-        specifier: ^1.4.2
-        version: 1.4.2(lightningcss@1.26.0)(postcss@8.4.44)(rollup@4.21.1)(vite@5.4.3(@types/node@22.5.3)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8))
+        specifier: 'catalog:'
+        version: 1.4.2(lightningcss@1.26.0)(postcss@8.4.44)(rollup@4.21.1)(vite@5.4.3(@types/node@22.5.4)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8))
       vue-tsc:
-        specifier: ^2.1.6
+        specifier: 'catalog:'
         version: 2.1.6(typescript@5.5.4)
 
 packages:
@@ -491,8 +497,8 @@ packages:
   '@types/luxon@3.4.2':
     resolution: {integrity: sha512-TifLZlFudklWlMBfhubvgqTXRzLDI5pCbGa4P8a3wPyUQSW+1xQ5eDsreP9DWHX3tjq1ke96uYG/nwundroWcA==}
 
-  '@types/node@22.5.3':
-    resolution: {integrity: sha512-njripolh85IA9SQGTAqbmnNZTdxv7X/4OYGPz8tgy5JDr8MP+uDBa921GpYEoDDnwm0Hmn5ZPeJgiiSTPoOzkQ==}
+  '@types/node@22.5.4':
+    resolution: {integrity: sha512-FDuKUJQm/ju9fT/SeX/6+gBzoPzlVCzfzmGkwKvRHQVxi4BntVbyIwf6a4Xn62mrvndLiml6z/UBXIdEVjQLXg==}
 
   '@vitejs/plugin-vue@5.1.3':
     resolution: {integrity: sha512-3xbWsKEKXYlmX82aOHufFQVnkbMC/v8fLpWwh6hWOUrK5fbbtBh9Q/WWse27BFgSy2/e2c0fz5Scgya9h2GLhw==}
@@ -528,8 +534,14 @@ packages:
   '@vue/compiler-core@3.5.2':
     resolution: {integrity: sha512-1aP7FL2GkqfcskHWGg3lfWQpJnrmewKc+rNJ/hq9WNaAw4BEyJ5QbNChnqmbw+tJ409zdy1XWmUeXXMrCKJcQQ==}
 
+  '@vue/compiler-core@3.5.3':
+    resolution: {integrity: sha512-adAfy9boPkP233NTyvLbGEqVuIfK/R0ZsBsIOW4BZNfb4BRpRW41Do1u+ozJpsb+mdoy80O20IzAsHaihRb5qA==}
+
   '@vue/compiler-dom@3.5.2':
     resolution: {integrity: sha512-QY4DpT8ZIUyu/ZA5gErpSEDocGNEbHmpkZIC/d5jbp/rUF0iOJNigAy3HCCKc0PMMhDlrcysO3ufQ6Ab4MpEcQ==}
+
+  '@vue/compiler-dom@3.5.3':
+    resolution: {integrity: sha512-wnzFArg9zpvk/811CDOZOadJRugf1Bgl/TQ3RfV4nKfSPok4hi0w10ziYUQR6LnnBAUlEXYLUfZ71Oj9ds/+QA==}
 
   '@vue/compiler-sfc@3.5.2':
     resolution: {integrity: sha512-vErEtybSU290LbMW+ChYllI9tNJEdTW1oU+8cZWINZyjlWeTSa9YqDl4/pZJSnozOI+HmcaC1Vz2eFKmXNSXZA==}
@@ -575,6 +587,9 @@ packages:
   '@vue/shared@3.5.2':
     resolution: {integrity: sha512-Ce89WNFBzcDca/AgFTxgX4/K4iAyF7oFIp8Z5aBbFBNbtpwnQr+5pZOoHndxnjE2h+YFcipVMzs9UL11XB6dwA==}
 
+  '@vue/shared@3.5.3':
+    resolution: {integrity: sha512-Jp2v8nylKBT+PlOUjun2Wp/f++TfJVFjshLzNtJDdmFJabJa7noGMncqXRM1vXGX+Yo2V7WykQFNxusSim8SCA==}
+
   '@vue/typescript-plugin@2.1.6':
     resolution: {integrity: sha512-FGwinnIuwZPELbRPZmtA+G4YyLT+lxjGSZQpNvgrzvy3MZBJZzm4UU87DIA7Lb2xbbYpTMAM6P6TAWwioCNZIg==}
 
@@ -600,10 +615,6 @@ packages:
 
   brace-expansion@2.0.1:
     resolution: {integrity: sha512-XnAIvQ8eM+kC6aULx6wuQiwVsnzsi9d3WxzV3FpWTGA19F621kwdbsAcFKXgKUHZWsy+mY6iL1sHTxWEFCytDA==}
-
-  braces@3.0.2:
-    resolution: {integrity: sha512-b8um+L1RzM3WDSzvhm6gIz1yfTbBt6YTlcEKAvsmqCZZFw46z626lVj9j1yEPW33H5H+lBQpZMP1k8l+78Ha0A==}
-    engines: {node: '>=8'}
 
   braces@3.0.3:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
@@ -693,10 +704,6 @@ packages:
 
   fastq@1.17.1:
     resolution: {integrity: sha512-sRVD3lWVIXWg6By68ZN7vho9a1pQcN/WBFaAAsDDFzlJjvoGx0P8z7V1t72grFJfJhu3YPZBuu25f7Kaw2jN1w==}
-
-  fill-range@7.0.1:
-    resolution: {integrity: sha512-qOo9F+dMUmC2Lcb4BbVvnKJxTPjCm+RRpe4gDuGrzkL7mEVl/djYSu2OdQ2Pa302N4oqkSg9ir6jaLWJ2USVpQ==}
-    engines: {node: '>=8'}
 
   fill-range@7.1.1:
     resolution: {integrity: sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==}
@@ -1579,13 +1586,13 @@ snapshots:
 
   '@types/luxon@3.4.2': {}
 
-  '@types/node@22.5.3':
+  '@types/node@22.5.4':
     dependencies:
       undici-types: 6.19.8
 
-  '@vitejs/plugin-vue@5.1.3(vite@5.4.3(@types/node@22.5.3)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8))(vue@3.5.2(typescript@5.5.4))':
+  '@vitejs/plugin-vue@5.1.3(vite@5.4.3(@types/node@22.5.4)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8))(vue@3.5.2(typescript@5.5.4))':
     dependencies:
-      vite: 5.4.3(@types/node@22.5.3)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8)
+      vite: 5.4.3(@types/node@22.5.4)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8)
       vue: 3.5.2(typescript@5.5.4)
 
   '@volar/language-core@2.4.2':
@@ -1644,10 +1651,23 @@ snapshots:
       estree-walker: 2.0.2
       source-map-js: 1.2.0
 
+  '@vue/compiler-core@3.5.3':
+    dependencies:
+      '@babel/parser': 7.25.6
+      '@vue/shared': 3.5.3
+      entities: 4.5.0
+      estree-walker: 2.0.2
+      source-map-js: 1.2.0
+
   '@vue/compiler-dom@3.5.2':
     dependencies:
       '@vue/compiler-core': 3.5.2
       '@vue/shared': 3.5.2
+
+  '@vue/compiler-dom@3.5.3':
+    dependencies:
+      '@vue/compiler-core': 3.5.3
+      '@vue/shared': 3.5.3
 
   '@vue/compiler-sfc@3.5.2':
     dependencies:
@@ -1676,9 +1696,9 @@ snapshots:
   '@vue/language-core@2.1.6(typescript@5.5.4)':
     dependencies:
       '@volar/language-core': 2.4.2
-      '@vue/compiler-dom': 3.5.2
+      '@vue/compiler-dom': 3.5.3
       '@vue/compiler-vue2': 2.7.16
-      '@vue/shared': 3.5.2
+      '@vue/shared': 3.5.3
       computeds: 0.0.1
       minimatch: 9.0.5
       muggle-string: 0.4.1
@@ -1704,9 +1724,9 @@ snapshots:
       '@volar/language-core': 2.4.2
       '@volar/language-service': 2.4.2
       '@volar/typescript': 2.4.2
-      '@vue/compiler-dom': 3.5.2
+      '@vue/compiler-dom': 3.5.3
       '@vue/language-core': 2.1.6(typescript@5.5.4)
-      '@vue/shared': 3.5.2
+      '@vue/shared': 3.5.3
       '@vue/typescript-plugin': 2.1.6(typescript@5.5.4)
       computeds: 0.0.1
       path-browserify: 1.0.1
@@ -1748,11 +1768,13 @@ snapshots:
 
   '@vue/shared@3.5.2': {}
 
+  '@vue/shared@3.5.3': {}
+
   '@vue/typescript-plugin@2.1.6(typescript@5.5.4)':
     dependencies:
       '@volar/typescript': 2.4.2
       '@vue/language-core': 2.1.6(typescript@5.5.4)
-      '@vue/shared': 3.5.2
+      '@vue/shared': 3.5.3
     transitivePeerDependencies:
       - typescript
 
@@ -1772,10 +1794,6 @@ snapshots:
   brace-expansion@2.0.1:
     dependencies:
       balanced-match: 1.0.2
-
-  braces@3.0.2:
-    dependencies:
-      fill-range: 7.0.1
 
   braces@3.0.3:
     dependencies:
@@ -1798,7 +1816,7 @@ snapshots:
   chokidar@3.5.3:
     dependencies:
       anymatch: 3.1.3
-      braces: 3.0.2
+      braces: 3.0.3
       glob-parent: 5.1.2
       is-binary-path: 2.1.0
       is-glob: 4.0.3
@@ -1888,10 +1906,6 @@ snapshots:
   fastq@1.17.1:
     dependencies:
       reusify: 1.0.4
-
-  fill-range@7.0.1:
-    dependencies:
-      to-regex-range: 5.0.1
 
   fill-range@7.1.1:
     dependencies:
@@ -2318,7 +2332,7 @@ snapshots:
 
   varint@6.0.0: {}
 
-  vite-css-modules@1.4.2(lightningcss@1.26.0)(postcss@8.4.44)(rollup@4.21.1)(vite@5.4.3(@types/node@22.5.3)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8)):
+  vite-css-modules@1.4.2(lightningcss@1.26.0)(postcss@8.4.44)(rollup@4.21.1)(vite@5.4.3(@types/node@22.5.4)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8)):
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@rollup/pluginutils': 5.1.0(rollup@4.21.1)
@@ -2330,19 +2344,19 @@ snapshots:
       postcss-modules-local-by-default: 4.0.5(postcss@8.4.44)
       postcss-modules-scope: 3.2.0(postcss@8.4.44)
       postcss-modules-values: 4.0.0(postcss@8.4.44)
-      vite: 5.4.3(@types/node@22.5.3)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8)
+      vite: 5.4.3(@types/node@22.5.4)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8)
     optionalDependencies:
       lightningcss: 1.26.0
     transitivePeerDependencies:
       - rollup
 
-  vite@5.4.3(@types/node@22.5.3)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8):
+  vite@5.4.3(@types/node@22.5.4)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.77.8):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.44
       rollup: 4.21.1
     optionalDependencies:
-      '@types/node': 22.5.3
+      '@types/node': 22.5.4
       fsevents: 2.3.3
       lightningcss: 1.26.0
       sass: 1.77.8

@@ -43,37 +43,34 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { computed, toRefs, unref } from 'vue';
-    import type { IconNames } from '@/data';
+    import { computed } from 'vue';
+    import type { ColorVariant, IconName } from '@/types';
     import styles from '@/css/component/Badge.module.scss';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
 
-    export type Emits = {
+    const emit = defineEmits<{
         click: [MouseEvent];
         delete: [];
-    };
+    }>();
 
-    export type Props = {
-        readonly color?: 'gray' | 'primary' | 'danger' | 'info' | 'success' | 'warning';
+    const {
+        color = 'gray',
+        isClickable
+    } = defineProps<{
+        readonly color?: ColorVariant;
         readonly dot?: boolean;
-        readonly icon?: IconNames;
+        readonly icon?: IconName;
         readonly isClickable?: boolean;
         readonly isDeletable?: boolean;
         readonly isLoading?: boolean;
         readonly label: string;
-    };
+    }>();
 
-    const emit = defineEmits<Emits>();
-    const props = withDefaults(defineProps<Props>(), {
-        color: 'gray'
-    });
-    const {isClickable} = toRefs(props);
-
-    const component = computed(() => unref(isClickable) ? 'button' : 'div');
+    const component = computed(() => isClickable ? 'button' : 'div');
 
     function onClick(evt: MouseEvent): void {
-        if (!unref(isClickable)) {
+        if (!isClickable) {
             return;
         }
 

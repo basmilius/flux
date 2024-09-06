@@ -12,7 +12,7 @@
                         is-ticks-visible
                         :min="0"
                         :max="100"
-                        :step="10"/>
+                        :step="5"/>
                 </FluxPaneBody>
             </FluxPane>
         </Preview>

@@ -30,14 +30,14 @@
                         title="Tabs"/>
 
                     <FluxTabs>
-                        <template #tabs="{activeIndex, tabs, activate}">
+                        <template #tabs="{modelValue, tabs, activate}">
                             <FluxTabBar>
                                 <template
                                     v-for="(tab, index) of tabs"
                                     :key="index">
                                     <FluxTabBarItem
                                         :icon="tab.icon"
-                                        :is-active="activeIndex === index"
+                                        :is-active="modelValue === index"
                                         :label="tab.label"
                                         @click="activate(index)"/>
                                 </template>

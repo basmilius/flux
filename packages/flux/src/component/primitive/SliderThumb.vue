@@ -18,27 +18,24 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { toRefs, unref } from 'vue';
     import styles from '@/css/component/Form.module.scss';
 
-    export type Emits = {
+    const emit = defineEmits<{
         decrement: [];
         grab: [PointerEvent];
         increment: [];
-    };
+    }>();
 
-    export type Props = {
+    const {
+        isDisabled
+    } = defineProps<{
         readonly isDisabled?: boolean;
         readonly isDragging?: boolean;
         readonly position: number;
-    };
-
-    const emit = defineEmits<Emits>();
-    const props = defineProps<Props>();
-    const {isDisabled} = toRefs(props);
+    }>();
 
     function onKeyDown(evt: KeyboardEvent): void {
-        if (unref(isDisabled)) {
+        if (isDisabled) {
             return;
         }
 

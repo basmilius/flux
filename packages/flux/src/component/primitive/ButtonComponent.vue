@@ -39,24 +39,25 @@
 <script
     lang="ts"
     setup>
-    import type { FluxRoutingLocation } from '@/data';
+    import type { ButtonType, To } from '@/types';
 
-    export type Emits = {
+    const emit = defineEmits<{
         click: [MouseEvent];
         mouseenter: [MouseEvent];
         mouseleave: [MouseEvent];
-    };
+    }>();
 
-    export type Props = {
-        readonly componentType?: 'button' | 'link' | 'route';
+    defineSlots<{
+        default(): any;
+    }>();
+
+    defineProps<{
+        readonly componentType?: ButtonType;
         readonly href?: string;
         readonly rel?: string;
         readonly target?: string;
-        readonly to?: FluxRoutingLocation;
-    };
-
-    const emit = defineEmits<Emits>();
-    defineProps<Props>();
+        readonly to?: To;
+    }>();
 
     function onClick(evt: MouseEvent, navigate?: (evt: MouseEvent) => void): void {
         emit('click', evt);

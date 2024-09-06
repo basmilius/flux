@@ -3,7 +3,7 @@ import imask from 'imask/holder';
 
 import 'imask/masked/pattern';
 
-function bic(element: HTMLInputElement): InputMask<{}> {
+export function bic(element: HTMLInputElement): InputMask<{}> {
     return imask(element, {
         definitions: {
             '#': /[A-Z0-9]/
@@ -13,7 +13,7 @@ function bic(element: HTMLInputElement): InputMask<{}> {
     });
 }
 
-function iban(element: HTMLInputElement): InputMask<{}> {
+export function iban(element: HTMLInputElement): InputMask<{}> {
     return imask(element, {
         definitions: {
             '#': /[A-Z0-9]/
@@ -23,7 +23,7 @@ function iban(element: HTMLInputElement): InputMask<{}> {
     });
 }
 
-function vat(element: HTMLInputElement): InputMask<{}> {
+export function vat(element: HTMLInputElement): InputMask<{}> {
     return imask(element, {
         definitions: {
             '#': /[A-Z0-9]/
@@ -32,18 +32,3 @@ function vat(element: HTMLInputElement): InputMask<{}> {
         prepareChar: (str: string) => str.toUpperCase()
     });
 }
-
-export type {
-    InputMask
-};
-
-export type Masks =
-    | 'bic'
-    | 'iban'
-    | 'vat';
-
-export default {
-    bic,
-    iban,
-    vat
-};

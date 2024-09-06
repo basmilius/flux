@@ -25,7 +25,7 @@
     lang="ts"
     setup>
     import { useTranslate } from '@/composable/private';
-    import type { FluxConfirmSpec } from '@/data';
+    import type { FluxConfirmObject } from '@/types';
     import FluxPane from './FluxPane.vue';
     import FluxPaneBody from './FluxPaneBody.vue';
     import FluxPaneFooter from './FluxPaneFooter.vue';
@@ -34,11 +34,9 @@
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import FluxSpacer from './FluxSpacer.vue';
 
-    export type Props = {
-        readonly confirm: FluxConfirmSpec;
-    };
-
-    defineProps<Props>();
+    defineProps<{
+        readonly confirm: FluxConfirmObject;
+    }>();
 
     const translate = useTranslate();
 </script>

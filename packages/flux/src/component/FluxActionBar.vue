@@ -4,16 +4,13 @@
         axis="horizontal"
         :gap="9">
         <slot name="primary"/>
-
-        <slot name="actions-start"/>
+        <slot name="actionsStart"/>
 
         <FluxSpacer/>
 
-        <slot name="actions-before-search"/>
-
+        <slot name="actionsBeforeSearch"/>
         <slot name="search"/>
-
-        <slot name="actions-after-search"/>
+        <slot name="actionsAfterSearch"/>
 
         <FluxFlyout v-if="slots.filter">
             <template
@@ -21,7 +18,7 @@
                 #opener="{close, open, toggle}">
                 <slot
                     v-bind="{close, open, toggle}"
-                    name="filter-opener">
+                    name="filterOpener">
                     <FluxButtonGroup>
                         <FluxSecondaryButton
                             icon-before="filter"
@@ -39,14 +36,14 @@
                 </slot>
             </template>
 
-            <template #default="bindings">
+            <template #default="{close, paneX, paneY, openerWidth, openerHeight}">
                 <slot
-                    v-bind="bindings"
-                    name="filter"/>
+                    name="filter"
+                    v-bind="{close, paneX, paneY, openerWidth, openerHeight}"/>
             </template>
         </FluxFlyout>
 
-        <slot name="actions-end"/>
+        <slot name="actionsEnd"/>
     </FluxStack>
 </template>
 
@@ -64,16 +61,37 @@
     import FluxTooltip from './FluxTooltip.vue';
     import styles from '@/css/component/Action.module.scss';
 
-    export type Emits = {
+    defineEmits<{
         reset: [];
-    };
+    }>();
 
-    export type Props = {
+    defineProps<{
         readonly isResettable?: boolean;
-    };
+    }>();
 
-    defineEmits<Emits>();
-    defineProps<Props>();
+    defineSlots<{
+        primary(): any;
+        actionsEnd(): any;
+        actionsStart(): any;
+        actionsAfterSearch(): any;
+        actionsBeforeSearch(): any;
+        search(): any;
+
+        filter(props: {
+            close(): void;
+
+            readonly paneX: number;
+            readonly paneY: number;
+            readonly openerWidth: number;
+            readonly openerHeight: number;
+        }): any;
+
+        filterOpener(props: {
+            close(): void;
+            open(): void;
+            toggle(): void;
+        }): any;
+    }>();
 
     const slots = useSlots();
     const translate = useTranslate();

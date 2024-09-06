@@ -42,11 +42,9 @@
     setup>
     import styles from '@/css/component/Spinner.module.scss';
 
-    export type Props = {
+    const {
+        size = 30
+    } = defineProps<{
         readonly size?: number;
-    };
-
-    withDefaults(defineProps<Props>(), {
-        size: 30
-    });
+    }>();
 </script>

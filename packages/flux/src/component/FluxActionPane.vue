@@ -25,5 +25,10 @@
     import FluxPaneBody from './FluxPaneBody.vue';
     import styles from '@/css/component/Action.module.scss';
 
+    defineSlots<{
+        default(): any;
+        buttons(): any;
+    }>();
+
     const slots = useSlots();
 </script>

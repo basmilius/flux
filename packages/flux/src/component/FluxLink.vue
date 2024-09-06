@@ -4,15 +4,13 @@
         :css-class="styles.linkButton"
         :css-class-icon="styles.linkButtonIcon"
         :css-class-label="styles.linkButtonLabel"
-        @click="$emit('click', $event)"
-        @mouseenter="$emit('mouseenter', $event)"
-        @mouseleave="$emit('mouseleave', $event)">
+        @click="emit('click', $event)"
+        @mouseenter="emit('mouseenter', $event)"
+        @mouseleave="emit('mouseleave', $event)">
         <template
-            v-for="(_, slot) of slots"
-            #[slot]="scope">
-            <slot
-                :name="slot"
-                v-bind="scope"/>
+            v-for="slot of SLOTS"
+            #[slot]>
+            <slot :name="slot"/>
         </template>
     </BaseButton>
 </template>
@@ -20,21 +18,18 @@
 <script
     lang="ts"
     setup>
-    import { useSlots } from 'vue';
-    import type { IconNames } from '@/data';
-    import BaseButton, { Emits, Props as BaseProps } from './primitive/BaseButton.vue';
+    import type { ButtonEmits, ButtonProps, ButtonSlots, IconName } from '@/types';
+    import BaseButton, { SLOTS } from './primitive/BaseButton.vue';
     import styles from '@/css/component/Button.module.scss';
 
-    export type Props = Omit<BaseProps, 'cssClass' | 'cssClassIcon' | 'cssClassLabel' | 'iconBefore' | 'isLoading' | 'isSubmit'> & {
-        readonly icon?: IconNames;
+    const emit = defineEmits<ButtonEmits>();
+
+    const {
+        type = 'button'
+    } = defineProps<ButtonProps & {
+        readonly icon?: IconName;
         readonly label?: string;
-    };
+    }>();
 
-    defineEmits<Emits>();
-
-    withDefaults(defineProps<Props>(), {
-        type: 'button'
-    });
-
-    const slots = useSlots();
+    defineSlots<ButtonSlots>();
 </script>

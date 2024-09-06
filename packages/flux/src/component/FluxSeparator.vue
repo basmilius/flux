@@ -7,13 +7,12 @@
 <script
     lang="ts"
     setup>
+    import type { Axis } from '@/types';
     import styles from '@/css/component/Divider.module.scss';
 
-    export type Props = {
-        readonly axis?: 'horizontal' | 'vertical';
-    };
-
-    withDefaults(defineProps<Props>(), {
-        axis: 'horizontal'
-    });
+    const {
+        axis = 'horizontal'
+    } = defineProps<{
+        readonly axis?: Axis;
+    }>();
 </script>

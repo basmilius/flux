@@ -1,6 +1,6 @@
 <template>
     <nav
-        ref="controlRef"
+        ref="control"
         :class="isFill ? styles.segmentedControlFill : styles.segmentedControlInline">
         <div
             :class="styles.segmentedControlHighlight"
@@ -19,7 +19,7 @@
                 role="separator"/>
 
             <button
-                ref="itemRefs"
+                ref="items"
                 :class="clsx(
                     styles.segmentedControlItem,
                     index === modelValue && styles.isActive
@@ -41,29 +41,31 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { onMounted, onUpdated, ref, unref } from 'vue';
-    import type { FluxSegmentedControlItemSpec } from '@/data';
+    import { onMounted, onUpdated, ref, unref, useTemplateRef } from 'vue';
+    import type { FluxSegmentedControlItemObject } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import styles from '@/css/component/SegmentedControl.module.scss';
 
-    export type Props = {
-        readonly isFill?: boolean;
-        readonly items: FluxSegmentedControlItemSpec[];
-    };
+    const modelValue = defineModel<number>({
+        default: 0
+    });
 
-    const modelValue = defineModel<number>({default: 0});
-    defineProps<Props>();
+    defineProps<{
+        readonly isFill?: boolean;
+        readonly items: FluxSegmentedControlItemObject[];
+    }>();
+
+    const controlRef = useTemplateRef('control');
+    const itemRefs = useTemplateRef<HTMLButtonElement[]>('items');
+
+    const activeItemX = ref(0);
+    const activeItemWidth = ref(0);
 
     onMounted(() => activate(unref(modelValue)));
     onUpdated(() => activate(unref(modelValue)));
 
-    const activeItemX = ref(0);
-    const activeItemWidth = ref(0);
-    const controlRef = ref<HTMLDivElement>();
-    const itemRefs = ref<HTMLButtonElement[]>([]);
-
     function activate(index: number): void {
-        const itemRef = itemRefs.value[index];
+        const itemRef = itemRefs.value![index];
         const {left: controlX} = controlRef.value!.getBoundingClientRect();
         const {width, left: x} = itemRef.getBoundingClientRect();
 

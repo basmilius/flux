@@ -11,15 +11,10 @@
     lang="ts"
     setup>
     import { upperFirst } from 'lodash-es';
-    import { computed, Ref } from 'vue';
-    import { useTranslate, FluxTranslationKey } from '@/composable/private';
-    import { FluxFormSelectEntry } from '@/data';
+    import { computed } from 'vue';
+    import { FluxTranslationKey, useTranslate } from '@/composable/private';
+    import { FluxFormSelectEntry } from '@/types';
     import FluxFormSelect from './FluxFormSelect.vue';
-
-    export type Props = {
-        readonly isDisabled?: boolean;
-        readonly placeholder?: string;
-    };
 
     const timeZones = [
         'Africa/Abidjan',
@@ -639,8 +634,14 @@
         'flux.timezonePacific'
     ];
 
-    const modelValue = defineModel<string | null>({default: null}) as Ref<string | null>;
-    defineProps<Props>();
+    const modelValue = defineModel<string | null>({
+        default: null
+    });
+
+    defineProps<{
+        readonly isDisabled?: boolean;
+        readonly placeholder?: string;
+    }>();
 
     const translate = useTranslate();
 
@@ -696,7 +697,6 @@
             const groupOptions = sortedGroups[group].sort(({label: labelA}, {label: labelB}) => labelA.localeCompare(labelB));
 
             options.push({
-                icon: null,
                 label: translate(group as FluxTranslationKey)
             });
 

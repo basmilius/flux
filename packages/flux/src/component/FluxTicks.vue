@@ -27,18 +27,18 @@
 <script
     lang="ts"
     setup>
-    import { computed, toRefs } from 'vue';
+    import { computed } from 'vue';
     import { generateStepTicks } from '@/util';
     import styles from '@/css/component/Form.module.scss';
 
-    export type Props = {
+    const {
+        lower,
+        upper
+    } = defineProps<{
         readonly lower: number;
         readonly upper: number;
-    };
+    }>();
 
-    const props = defineProps<Props>();
-    const {lower, upper} = toRefs(props);
-
-    const smallTicks = computed(() => generateStepTicks(lower.value, upper.value, 50, true).filter(s => !ticks.value.includes(s)));
-    const ticks = computed(() => generateStepTicks(lower.value, upper.value, 5));
+    const smallTicks = computed(() => generateStepTicks(lower, upper, 50, true).filter(s => !ticks.value.includes(s)));
+    const ticks = computed(() => generateStepTicks(lower, upper, 5));
 </script>

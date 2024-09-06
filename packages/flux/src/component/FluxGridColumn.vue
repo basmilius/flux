@@ -11,31 +11,32 @@
 <script
     lang="ts"
     setup>
-    import { computed, toRefs, unref } from 'vue';
+    import { computed, unref } from 'vue';
     import { useBreakpoints } from '@/composable';
     import styles from '@/css/component/Grid.module.scss';
 
-    export type Props = {
+    const {
+        xs,
+        sm,
+        md,
+        lg,
+        xl
+    } = defineProps<{
         readonly xs?: number;
         readonly sm?: number;
         readonly md?: number;
         readonly lg?: number;
         readonly xl?: number;
-    };
+    }>();
 
-    const props = defineProps<Props>();
-    const {xs, sm, md, lg, xl} = toRefs(props);
+    defineSlots<{
+        default(): any;
+    }>();
 
     const {breakpoint} = useBreakpoints();
 
     const spans = computed(() => {
-        const values = {
-            xs: unref(xs),
-            sm: unref(sm),
-            md: unref(md),
-            lg: unref(lg),
-            xl: unref(xl)
-        };
+        const values = {xs, sm, md, lg, xl};
 
         values.xs ??= 12;
         values.sm ??= values.xs;

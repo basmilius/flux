@@ -6,7 +6,7 @@
 
         <FluxStepper :model-value="step">
             <template #steps="{modelValue, steps}">
-                <FluxPaneHeader>
+                <FluxPaneHeader #before>
                     <FluxStepperSteps
                         :amount="steps"
                         :current="modelValue + 1"/>

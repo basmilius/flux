@@ -24,11 +24,9 @@
     import { clsx } from 'clsx';
     import styles from '@/css/component/Divider.module.scss';
 
-    export type Props = {
+    const {
+        contentPlacement = 'center'
+    } = defineProps<{
         readonly contentPlacement?: 'start' | 'center' | 'end';
-    };
-
-    withDefaults(defineProps<Props>(), {
-        contentPlacement: 'center'
-    });
+    }>();
 </script>

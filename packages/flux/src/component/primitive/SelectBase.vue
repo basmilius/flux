@@ -1,6 +1,6 @@
 <template>
     <Anchor
-        ref="anchorRef"
+        ref="anchor"
         :="$attrs"
         :class="clsx(
             styles.formSelect,
@@ -53,7 +53,7 @@
         <FluxFadeTransition>
             <AnchorPopup
                 v-if="isPopupOpen"
-                ref="anchorPopupRef"
+                ref="anchorPopup"
                 :class="clsx(
                     styles.formSelectPopup,
                     isSearchable && styles.isSearchable
@@ -89,7 +89,7 @@
                             <template v-for="(subItem, index) of subItems">
                                 <FluxMenuItem
                                     v-if="isFluxFormSelectOption(subItem)"
-                                    ref="optionElementRefs"
+                                    ref="optionElements"
                                     :key="index"
                                     :command="subItem.command"
                                     :command-icon="subItem.commandIcon"
@@ -104,7 +104,7 @@
 
                         <FluxMenuItem
                             v-if="isFluxFormSelectOption(item)"
-                            ref="optionElementRefs"
+                            ref="optionElements"
                             :key="`item-${index}`"
                             :command="item.command"
                             :command-icon="item.commandIcon"
@@ -125,12 +125,13 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { type ComponentPublicInstance, computed, nextTick, ref, toRefs, unref, watch } from 'vue';
+    import { ComponentPublicInstance, computed, nextTick, ref, unref, useTemplateRef, watch } from 'vue';
     import { useClickOutside, useFormFieldInjection } from '@/composable';
     import { type FormSelectGroup, useTranslate } from '@/composable/private';
-    import { type FluxFormSelectOption, isFluxFormSelectGroup, isFluxFormSelectOption } from '@/data';
+    import { isFluxFormSelectGroup, isFluxFormSelectOption } from '@/data';
+    import type { FluxFormSelectOption } from '@/types';
     import { FluxFadeTransition } from '@/transition';
-    import { ensureElement } from '@/util';
+    import { unrefTemplateElement } from '@/util';
     import FluxFormInput from '../FluxFormInput.vue';
     import FluxIcon from '../FluxIcon.vue';
     import FluxMenu from '../FluxMenu.vue';
@@ -146,16 +147,28 @@
 
     const INITIAL_HIGHLIGHTED_INDEX = -1;
 
-    export type Emits = {
+    const emit = defineEmits<{
         keyDown: [KeyboardEvent];
         deselect: [string | number | null];
         select: [string | number | null];
         search: [string];
         close: [];
         open: [];
-    };
+    }>();
 
-    export type Props = {
+    const modelSearch = defineModel<string>('searchQuery', {
+        default: ''
+    });
+
+    defineOptions({
+        inheritAttrs: false
+    });
+
+    const {
+        isMultiple,
+        options,
+        selected
+    } = defineProps<{
         readonly isDisabled?: boolean;
         readonly isLoading?: boolean;
         readonly isMultiple?: boolean;
@@ -163,31 +176,22 @@
         readonly options: FormSelectGroup[];
         readonly placeholder?: string;
         readonly selected: FluxFormSelectOption[];
-    };
-
-    defineOptions({
-        inheritAttrs: false
-    });
-
-    const emit = defineEmits<Emits>();
-    const modelSearch = defineModel<string>('searchQuery', {default: ''});
-    const props = defineProps<Props>();
-    const {isMultiple, options} = toRefs(props);
+    }>();
 
     const {id} = useFormFieldInjection();
     const translate = useTranslate();
 
-    const anchorRef = ref<ComponentPublicInstance>();
-    const anchorPopupRef = ref<ComponentPublicInstance>();
-    const optionElementRefs = ref<ComponentPublicInstance[]>([]);
-    const searchInputElement = ref<HTMLInputElement>();
+    const anchorRef = useTemplateRef('anchor');
+    const anchorPopupRef = useTemplateRef('anchorPopup');
+    const optionElementRefs = useTemplateRef<typeof FluxMenuItem[]>('optionElements');
+    const searchInputElementRef = useTemplateRef<ComponentPublicInstance<typeof FluxFormInput>>('searchInputElement');
 
     const highlightedIndex = ref(INITIAL_HIGHLIGHTED_INDEX);
     const isPopupOpen = ref(false);
 
-    const focusElement = computed(() => ensureElement(unref(searchInputElement) ?? unref(anchorRef)));
+    const focusElement = computed(() => unrefTemplateElement(searchInputElementRef) ?? unrefTemplateElement(anchorRef));
     const highlightedId = computed(() => unref(rawOptions)[unref(highlightedIndex)]?.id);
-    const rawOptions = computed(() => unref(options).map(group => group[1]).flat());
+    const rawOptions = computed(() => options.map(group => group[1]).flat());
 
     useClickOutside([anchorRef, anchorPopupRef], isPopupOpen, () => isPopupOpen.value = false);
     useClickOutside(anchorRef, isPopupOpen, () => unref(focusElement)?.focus());
@@ -201,7 +205,7 @@
     function select(id: string | number | null): void {
         emit('select', id);
 
-        !unref(isMultiple) && (isPopupOpen.value = false);
+        !isMultiple && (isPopupOpen.value = false);
 
         highlightedIndex.value = INITIAL_HIGHLIGHTED_INDEX;
         modelSearch.value = '';
@@ -236,11 +240,11 @@
             case 'Backspace':
                 const search = unref(modelSearch);
 
-                if (search.length > 0 || props.selected.length === 0) {
+                if (search.length > 0 || selected.length === 0) {
                     return;
                 }
 
-                deselect(props.selected[props.selected.length - 1].id);
+                deselect(selected[selected.length - 1].id);
                 break;
 
             case 'Enter':
@@ -265,7 +269,7 @@
     }
 
     watch(highlightedIndex, highlightedIndex => {
-        const options = unref(optionElementRefs);
+        const options = unref(optionElementRefs)!;
         options[highlightedIndex]?.$el.scrollIntoView({
             block: 'nearest'
         });
@@ -278,14 +282,14 @@
         }
 
         nextTick(() => {
-            const searchInput = unref(searchInputElement);
+            const searchInput = unref(searchInputElementRef);
             searchInput?.focus();
         });
 
         nextTick(() => {
             const options = unref(optionElementRefs);
 
-            if (unref(isMultiple)) {
+            if (!options || isMultiple) {
                 return;
             }
 
@@ -300,5 +304,5 @@
 
     watch(modelSearch, searchQuery => emit('search', searchQuery));
 
-    watch(options, () => highlightedIndex.value = INITIAL_HIGHLIGHTED_INDEX);
+    watch(() => options, () => highlightedIndex.value = INITIAL_HIGHLIGHTED_INDEX);
 </script>

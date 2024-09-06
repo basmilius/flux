@@ -34,4 +34,11 @@
         back,
         navigate
     });
+
+    defineSlots<{
+        [key: string]: (props: {
+            back(to?: string): void;
+            navigate(to: string): void;
+        }) => any;
+    }>();
 </script>

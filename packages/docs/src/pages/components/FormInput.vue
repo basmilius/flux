@@ -9,6 +9,7 @@
                 <FluxPaneBody>
                     <FluxFormInput
                         type="email"
+                        pattern="iban"
                         placeholder="E.g. user@example.com"/>
                 </FluxPaneBody>
             </FluxPane>

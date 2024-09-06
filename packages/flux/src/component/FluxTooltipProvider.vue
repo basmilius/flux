@@ -3,7 +3,7 @@
     import { computed, defineComponent, h, ref, unref, watch } from 'vue';
     import { useFluxStore } from '@/data';
     import { FluxTooltipTransition } from '@/transition';
-    import { unrefElement } from '@/util';
+    import { unrefTemplateElement } from '@/util';
     import styles from '@/css/component/Tooltip.module.scss';
 
     type Transition = 'above' | 'below' | 'end' | 'start';
@@ -27,8 +27,8 @@
         const has = computed(() => !!unref(tooltip));
 
         function calculate(): void {
+            const element = unrefTemplateElement(elementRef);
             const spec = unref(tooltip);
-            const element = unrefElement(elementRef);
 
             if (!spec || !element || !unref(content)) {
                 position.value = null;

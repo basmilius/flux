@@ -1,12 +1,10 @@
 <template>
-    <div :style="{flex: `0 0 ${size}px`}"/>
+    <div :style="{flex: `0 0 ${spacings[size]}px`}"/>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { computed } from 'vue';
-
     const spacings = [
         0,
         3,
@@ -28,11 +26,7 @@
         120
     ] as const;
 
-    export type Props = {
+    defineProps<{
         readonly size: keyof typeof spacings;
-    };
-
-    const props = defineProps<Props>();
-
-    const size = computed(() => spacings[props.size]);
+    }>();
 </script>

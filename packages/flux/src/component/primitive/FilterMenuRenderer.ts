@@ -3,8 +3,8 @@ import { DateTime } from 'luxon';
 import { computed, defineComponent, h, isVNode, unref, VNode } from 'vue';
 import { FluxMenu, FluxMenuGroup, FluxSeparator } from '@/component';
 import type { FluxTranslator } from '@/composable/private';
-import type { FluxFilterBase, FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterItem, FluxFilterOptionEntry, FluxFilterOptionItem, FluxFilterOptionRow, FluxFilterOptionsEntry, FluxFilterRangeEntry, FluxFilterValue, FluxFilterValueSingle } from '@/data';
 import { isFluxFilterOptionItem } from '@/data';
+import type { FluxFilterBase, FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterItem, FluxFilterOptionEntry, FluxFilterOptionItem, FluxFilterOptionRow, FluxFilterOptionsEntry, FluxFilterRangeEntry, FluxFilterValue, FluxFilterValueSingle } from '@/types';
 import { createLabelForDateRange, flattenVNodeTree, formatNumber, getComponentName, getComponentProps } from '@/util';
 import FilterItem from './FilterItem.vue';
 

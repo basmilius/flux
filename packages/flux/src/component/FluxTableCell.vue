@@ -27,13 +27,16 @@
     import { useTableInjection } from '@/composable';
     import styles from '@/css/component/Table.module.scss';
 
-    export type Props = {
+    const {
+        contentDirection = 'row'
+    } = defineProps<{
         readonly contentDirection?: 'column' | 'row';
-    };
+    }>();
 
-    withDefaults(defineProps<Props>(), {
-        contentDirection: 'row'
-    });
+    defineSlots<{
+        default(): any;
+        content(): any;
+    }>();
 
     const {
         isBordered,

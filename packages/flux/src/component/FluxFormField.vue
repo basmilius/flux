@@ -16,7 +16,9 @@
             <span
                 v-if="$slots.value"
                 :class="styles.formFieldValue">
-                <slot name="value"/>
+                <slot
+                    name="value"
+                    v-bind="{currentLength, error, hint, id, isOptional, label, maxLength}"/>
             </span>
         </label>
 
@@ -40,31 +42,52 @@
             :message="hint"/>
 
         <slot
-            v-bind="{currentLength, error, hint, isOptional, label, maxLength}"
-            name="addition"/>
+            name="addition"
+            v-bind="{currentLength, error, hint, id, isOptional, label, maxLength}"/>
     </div>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { provide } from 'vue';
-    import { useId } from '@/composable';
+    import { provide, useId } from 'vue';
     import { useTranslate } from '@/composable/private';
     import { FluxFormFieldInjectionKey } from '@/data';
     import FluxFormFieldAddition from './FluxFormFieldAddition.vue';
     import styles from '@/css/component/Form.module.scss';
 
-    export type Props = {
+    defineProps<{
         readonly currentLength?: number;
         readonly error?: string;
         readonly hint?: string;
         readonly isOptional?: boolean;
         readonly label: string;
         readonly maxLength?: number;
-    };
+    }>();
 
-    defineProps<Props>();
+    defineSlots<{
+        default(props: {
+            readonly id?: string;
+        }): any;
+
+        addition(props: {
+            readonly currentLength?: number;
+            readonly error?: string;
+            readonly hint?: string;
+            readonly isOptional?: boolean;
+            readonly label: string;
+            readonly maxLength?: number;
+        }): any;
+
+        value(props: {
+            readonly currentLength?: number;
+            readonly error?: string;
+            readonly hint?: string;
+            readonly isOptional?: boolean;
+            readonly label: string;
+            readonly maxLength?: number;
+        }): any;
+    }>();
 
     const id = useId();
     const translate = useTranslate();

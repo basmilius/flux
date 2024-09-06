@@ -8,4 +8,8 @@
     lang="ts"
     setup>
     import styles from '@/css/component/Table.module.scss';
+
+    defineSlots<{
+        default(): any;
+    }>();
 </script>

@@ -53,19 +53,21 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { IconNames } from '@/data';
+    import type { ColorVariant, IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import styles from '@/css/component/Timeline.module.scss';
 
-    export type Props = {
-        readonly color?: 'gray' | 'primary' | 'danger' | 'info' | 'success' | 'warning';
-        readonly icon?: IconNames;
+    const {
+        color = 'gray'
+    } = defineProps<{
+        readonly color?: ColorVariant;
+        readonly icon?: IconName;
         readonly photo?: string;
         readonly title?: string;
         readonly when?: string;
-    };
+    }>();
 
-    withDefaults(defineProps<Props>(), {
-        color: 'gray'
-    });
+    defineSlots<{
+        default(): any;
+    }>();
 </script>

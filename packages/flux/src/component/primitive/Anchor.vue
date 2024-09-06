@@ -7,9 +7,11 @@
 <script
     lang="ts"
     setup>
-    export type Props = {
+    defineProps<{
         readonly tagName: keyof HTMLElementTagNameMap;
-    };
+    }>();
 
-    defineProps<Props>();
+    defineSlots<{
+        default(): any;
+    }>();
 </script>

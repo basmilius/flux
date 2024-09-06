@@ -22,17 +22,18 @@
     import FluxTooltip from './FluxTooltip.vue';
     import styles from '@/css/component/Calendar.module.scss';
 
-    export type Emits = {
+    const emit = defineEmits<{
         click: [MouseEvent];
-    };
+    }>();
 
-    export type Props = {
+    defineProps<{
         readonly date: DateTime;
         readonly label: string;
-    };
+    }>();
 
-    const emit = defineEmits<Emits>();
-    defineProps<Props>();
+    defineSlots<{
+        tooltip(): any;
+    }>();
 
     function onClick(evt: MouseEvent): void {
         emit('click', evt);

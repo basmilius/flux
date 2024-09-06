@@ -21,7 +21,7 @@
         @mouseleave="onMouseLeave">
         <slot name="before"/>
 
-        <slot name="icon-before">
+        <slot name="iconBefore">
             <FluxSpinner
                 v-if="isLoading && (iconBefore || !iconAfter)"
                 :size="20"/>
@@ -40,7 +40,7 @@
             </span>
         </slot>
 
-        <slot name="icon-after">
+        <slot name="iconAfter">
             <FluxSpinner
                 v-if="isLoading && (!iconBefore && iconAfter)"
                 :size="20"/>
@@ -55,51 +55,37 @@
     </ButtonComponent>
 </template>
 
+<script lang="ts">
+    export const SLOTS = ['default', 'after', 'before', 'iconAfter', 'iconBefore', 'label'] as const;
+</script>
+
 <script
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { toRefs, unref } from 'vue';
     import { FluxIcon, FluxSpinner } from '@/component';
-    import type { FluxRoutingLocation, IconNames } from '@/data';
-    import styles from '@/css/component/base/Button.module.scss';
+    import type { ButtonEmits, ButtonProps, ButtonSlots } from '@/types';
     import ButtonComponent from './ButtonComponent.vue';
+    import styles from '@/css/component/base/Button.module.scss';
 
-    export type Emits = {
-        click: [MouseEvent];
-        mouseenter: [MouseEvent];
-        mouseleave: [MouseEvent];
-    };
+    const emit = defineEmits<ButtonEmits>();
 
-    export type Props = {
-        readonly type?: 'button' | 'link' | 'route';
+    const {
+        disabled,
+        isLoading,
+        size = 'medium',
+        tabindex = 0,
+        type = 'button'
+    } = defineProps<ButtonProps & {
         readonly cssClass: string;
         readonly cssClassIcon: string;
         readonly cssClassLabel: string;
-        readonly disabled?: boolean;
-        readonly iconAfter?: IconNames | null;
-        readonly iconBefore?: IconNames | null;
-        readonly isLoading?: boolean;
-        readonly isSubmit?: boolean;
-        readonly label?: string;
-        readonly size?: 'small' | 'medium' | 'large' | 'xl';
-        readonly tabindex?: string | number;
-        readonly href?: string;
-        readonly rel?: string;
-        readonly target?: string;
-        readonly to?: FluxRoutingLocation;
-    };
+    }>();
 
-    const emit = defineEmits<Emits>();
-    const props = withDefaults(defineProps<Props>(), {
-        size: 'medium',
-        type: 'button'
-    });
-
-    const {disabled, isLoading} = toRefs(props);
+    defineSlots<ButtonSlots>();
 
     function onClick(evt: MouseEvent): void {
-        if (unref(disabled) || unref(isLoading)) {
+        if (disabled || isLoading) {
             evt.preventDefault();
             evt.stopPropagation();
         }

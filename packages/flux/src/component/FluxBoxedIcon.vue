@@ -12,19 +12,16 @@
 <script
     lang="ts"
     setup>
-    import type { IconNames } from '@/data';
+    import type { IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import styles from '@/css/component/Icon.module.scss';
 
-    export type Emits = {
+    defineEmits<{
         click: [MouseEvent];
-    };
+    }>();
 
-    export type Props = {
+    defineProps<{
         readonly size?: number;
-        readonly variant: IconNames;
-    };
-
-    defineEmits<Emits>();
-    defineProps<Props>();
+        readonly variant: IconName;
+    }>();
 </script>

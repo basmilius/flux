@@ -10,16 +10,19 @@
 <script
     lang="ts"
     setup>
+    import type { Axis } from '@/types';
     import FluxStack from './FluxStack.vue';
 
-    export type Props = {
-        readonly axis?: 'horizontal' | 'vertical';
+    const {
+        axis = 'horizontal',
+        gap = 9
+    } = defineProps<{
+        readonly axis?: Axis;
         readonly gap?: number;
         readonly isFill?: boolean;
-    };
+    }>();
 
-    withDefaults(defineProps<Props>(), {
-        axis: 'horizontal',
-        gap: 9
-    });
+    defineSlots<{
+        default(): any;
+    }>();
 </script>

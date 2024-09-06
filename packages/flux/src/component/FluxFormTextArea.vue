@@ -1,6 +1,6 @@
 <template>
     <textarea
-        ref="inputRef"
+        ref="input"
         :class="isDisabled ? styles.formTextAreaDisabled : styles.formTextAreaEnabled"
         :id="id"
         :autocomplete="autoComplete"
@@ -17,16 +17,23 @@
 <script
     lang="ts"
     setup>
-    import { computed, onMounted, ref, toRefs, unref, watch } from 'vue';
+    import { computed, onMounted, unref, useTemplateRef, watch } from 'vue';
     import { useFormFieldInjection } from '@/composable';
     import styles from '@/css/component/Form.module.scss';
 
-    export type Emits = {
+    const emit = defineEmits<{
         blur: [];
         focus: [];
-    };
+    }>();
 
-    export type Props = {
+    const modelValue = defineModel<string>({
+        default: ''
+    });
+
+    const {
+        autoFocus = false,
+        rows = 3
+    } = defineProps<{
         readonly autoComplete?: string;
         readonly autoFocus?: boolean;
         readonly isDisabled?: boolean;
@@ -34,19 +41,10 @@
         readonly maxLength?: number;
         readonly placeholder?: string;
         readonly rows?: number;
-    };
+    }>();
 
-    const emit = defineEmits<Emits>();
-    const modelValue = defineModel<string>({default: ''});
-    const props = withDefaults(defineProps<Props>(), {
-        autoFocus: false,
-        rows: 3
-    });
-    const {rows} = toRefs(props);
-
+    const inputRef = useTemplateRef('input');
     const {id} = useFormFieldInjection();
-
-    const inputRef = ref<HTMLTextAreaElement>();
 
     const parsedValue = computed(() => unref(modelValue) ?? '');
 

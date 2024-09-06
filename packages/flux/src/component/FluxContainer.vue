@@ -15,13 +15,15 @@
     import { useBreakpoints } from '@/composable';
     import styles from '@/css/component/Layout.module.scss';
 
-    export type Props = {
+    const {
+        gutter = 30
+    } = defineProps<{
         readonly gutter?: number;
-    };
+    }>();
 
-    withDefaults(defineProps<Props>(), {
-        gutter: 30
-    });
+    defineSlots<{
+        default(): any;
+    }>();
 
     const {maxWidth} = useBreakpoints();
 </script>

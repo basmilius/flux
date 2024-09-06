@@ -13,9 +13,11 @@
     setup>
     import styles from '@/css/component/Form.module.scss';
 
-    export type Props = {
+    defineProps<{
         readonly title: string;
-    };
+    }>();
 
-    defineProps<Props>();
+    defineSlots<{
+        default(): any;
+    }>();
 </script>

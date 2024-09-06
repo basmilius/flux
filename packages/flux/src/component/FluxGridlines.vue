@@ -13,11 +13,13 @@
     setup>
     import styles from '@/css/component/Visual.module.scss';
 
-    export type Props = {
+    const {
+        size = 30
+    } = defineProps<{
         readonly size: number;
-    };
+    }>();
 
-    withDefaults(defineProps<Props>(), {
-        size: 30
-    });
+    defineSlots<{
+        default(): any;
+    }>();
 </script>

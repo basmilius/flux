@@ -14,9 +14,11 @@
     import FluxAutoGrid from './FluxAutoGrid.vue';
     import styles from '@/css/component/Pane.module.scss';
 
-    export type Props = {
+    defineProps<{
         readonly minColumnWidth: number;
-    };
+    }>();
 
-    defineProps<Props>();
+    defineSlots<{
+        default(): any;
+    }>();
 </script>

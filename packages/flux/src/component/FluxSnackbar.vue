@@ -73,25 +73,28 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { computed, onBeforeUnmount, ref, toRefs, watch } from 'vue';
-    import type { FluxSnackbarSpec, IconNames } from '@/data';
+    import { computed, getCurrentInstance, onBeforeUnmount, ref, watch, watchEffect } from 'vue';
     import { addSnackbar, removeSnackbar, updateSnackbar } from '@/data';
-    import { unrefObject } from '@/util';
+    import type { ColorVariant, FluxSnackbarObject, IconName } from '@/types';
     import FluxAction from './FluxAction.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxProgressBar from './FluxProgressBar.vue';
     import FluxSpinner from './FluxSpinner.vue';
     import styles from '@/css/component/Snackbar.module.scss';
 
-    export type Emits = {
+    const emit = defineEmits<{
         action: [string];
         close: [];
-    };
+    }>();
 
-    export type Props = {
+    const {
+        actions,
+        color = 'gray',
+        isRendered
+    } = defineProps<{
         readonly actions?: Record<string, string>;
-        readonly color?: 'gray' | 'primary' | 'danger' | 'info' | 'success' | 'warning';
-        readonly icon?: IconNames;
+        readonly color?: ColorVariant;
+        readonly icon?: IconName;
         readonly isCloseable?: boolean;
         readonly isLoading?: boolean;
         readonly isRendered?: boolean;
@@ -103,17 +106,13 @@
         readonly progressValue?: number;
         readonly subMessage?: string;
         readonly title?: string;
-    };
+    }>();
 
-    const emit = defineEmits<Emits>();
-    const props = withDefaults(defineProps<Props>(), {
-        color: 'gray'
-    });
-    const propRefs = toRefs(props);
+    const instance = getCurrentInstance()!;
 
     const id = ref<number | null>(null);
 
-    const hasActions = computed(() => props.actions && Object.entries(props.actions).length > 0);
+    const hasActions = computed(() => actions && Object.entries(actions).length > 0);
 
     onBeforeUnmount(() => {
         if (id.value) {
@@ -129,15 +128,15 @@
         emit('close');
     }
 
-    watch(props, props => {
+    watchEffect(() => {
         if (!id.value) {
             return;
         }
 
-        updateSnackbar(id.value, props);
+        updateSnackbar(id.value, instance.props);
     });
 
-    watch(propRefs.isRendered, isRendered => {
+    watch(() => isRendered, () => {
         if (isRendered) {
             if (id.value) {
                 removeSnackbar(id.value);
@@ -146,7 +145,7 @@
             return;
         }
 
-        let spec: Omit<FluxSnackbarSpec, 'id'> = unrefObject(propRefs);
+        let spec: Omit<FluxSnackbarObject, 'id'> = instance.props;
         spec.onAction = onAction;
         spec.onClose = onClose;
 

@@ -10,4 +10,8 @@
     setup
     lang="ts">
     import FluxStack from './FluxStack.vue';
+
+    defineSlots<{
+        default(): any;
+    }>();
 </script>

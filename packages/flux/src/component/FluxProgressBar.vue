@@ -39,33 +39,30 @@
 <script
     lang="ts"
     setup>
-    import { computed, toRefs, unref } from 'vue';
+    import { computed, unref } from 'vue';
     import { FluxFadeTransition } from '@/transition';
     import FluxStack from './FluxStack.vue';
     import styles from '@/css/component/Progress.module.scss';
 
-    export type Props = {
+    const {
+        isIndeterminate,
+        max = 1,
+        min = 0,
+        value
+    } = defineProps<{
         readonly isIndeterminate?: boolean;
         readonly max?: number;
         readonly min?: number;
         readonly status?: string;
         readonly value?: number;
-    };
-
-    const props = withDefaults(defineProps<Props>(), {
-        max: 1,
-        min: 0
-    });
-    const {isIndeterminate, max, min, value} = toRefs(props);
+    }>();
 
     const position = computed(() => {
-        if (unref(isIndeterminate)) {
+        if (isIndeterminate) {
             return 0;
         }
 
-        const val = unref(value) ?? min.value;
-
-        return (val - min.value) / (max.value - min.value);
+        return ((value ?? min) - min) / (max - min);
     });
 
     const progress = computed(() => new Intl

@@ -14,12 +14,14 @@
     setup>
     import styles from '@/css/component/Layout.module.scss';
 
-    export type Props = {
+    const {
+        gap = 30
+    } = defineProps<{
         readonly gap?: number;
         readonly minColumnWidth: number;
-    };
+    }>();
 
-    withDefaults(defineProps<Props>(), {
-        gap: 30
-    });
+    defineSlots<{
+        default(): any;
+    }>();
 </script>

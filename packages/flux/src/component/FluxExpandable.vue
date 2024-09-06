@@ -42,24 +42,22 @@
 <script
     lang="ts"
     setup>
-    import { getCurrentInstance, onBeforeMount, onUnmounted, ref, toRefs, unref, watch } from 'vue';
-    import { useComponentId, useExpandableGroupInjection, useId } from '@/composable';
+    import { getCurrentInstance, onBeforeMount, onUnmounted, ref, unref, useId, watch } from 'vue';
+    import { useComponentId, useExpandableGroupInjection } from '@/composable';
     import { FluxAutoHeightTransition, FluxFadeTransition } from '@/transition';
     import FluxIcon from './FluxIcon.vue';
     import styles from '@/css/component/Expandable.module.scss';
 
-    export type Emits = {
+    const emit = defineEmits<{
         toggle: [boolean];
-    };
+    }>();
 
-    export type Props = {
+    const {
+        isOpened
+    } = defineProps<{
         readonly isOpened?: boolean;
         readonly label?: string;
-    };
-
-    const emit = defineEmits<Emits>();
-    const props = defineProps<Props>();
-    const {isOpened} = toRefs(props);
+    }>();
 
     const componentId = useComponentId();
     const contentId = useId();
@@ -91,7 +89,7 @@
         }
     }
 
-    watch(isOpened, isOpened => {
+    watch(() => isOpened, () => {
         if (isOpened) {
             open();
         } else {

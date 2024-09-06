@@ -31,17 +31,15 @@
 <script
     lang="ts"
     setup>
-    import type { FluxPercentageBarItemSpec } from '@/data';
+    import type { FluxPercentageBarItemObject } from '@/types';
     import { formatPercentage } from '@/util';
     import styles from '@/css/component/PercentageBar.module.scss';
     import FluxIcon from './FluxIcon.vue';
     import FluxLegend from './FluxLegend.vue';
     import FluxTooltip from './FluxTooltip.vue';
 
-    export type Props = {
+    defineProps<{
         readonly isLegendVisible?: boolean;
-        readonly items: FluxPercentageBarItemSpec[];
-    };
-
-    defineProps<Props>();
+        readonly items: FluxPercentageBarItemObject[];
+    }>();
 </script>

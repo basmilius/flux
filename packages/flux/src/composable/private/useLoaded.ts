@@ -1,8 +1,7 @@
-import type { ComputedRef } from 'vue';
-import { computed, ref, unref } from 'vue';
+import { computed, shallowRef, unref } from 'vue';
 
-export default function (): UseLoaded {
-    const tasks = ref(0);
+export default function () {
+    const tasks = shallowRef(0);
 
     const isLoading = computed(() => unref(tasks) > 0);
 
@@ -20,8 +19,3 @@ export default function (): UseLoaded {
         loaded
     };
 }
-
-type UseLoaded = {
-    readonly isLoading: ComputedRef<boolean>;
-    loaded<T extends Function>(fn: T): T;
-};

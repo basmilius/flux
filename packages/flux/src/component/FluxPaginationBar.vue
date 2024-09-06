@@ -42,10 +42,10 @@
 <script
     lang="ts"
     setup>
-    import { computed, ref, toRefs, unref, watch } from 'vue';
+    import { computed, ref, watch } from 'vue';
     import { useBreakpoints } from '@/composable';
     import { useTranslate } from '@/composable/private';
-    import type { FluxFormSelectOption } from '@/data';
+    import type { FluxFormSelectOption } from '@/types';
     import FluxFormInputAddition from './FluxFormInputAddition.vue';
     import FluxFormInputGroup from './FluxFormInputGroup.vue';
     import FluxFormSelect from './FluxFormSelect.vue';
@@ -54,35 +54,32 @@
     import FluxStack from './FluxStack.vue';
     import styles from '@/css/component/Pagination.module.scss';
 
-    export type Emits = {
+    const emit = defineEmits<{
         limit: [number];
         navigate: [number];
-    };
+    }>();
 
-    export type Props = {
+    const {
+        limits = [5, 10, 25, 50, 100],
+        perPage
+    } = defineProps<{
         readonly limits?: number[];
         readonly page: number;
         readonly perPage: number;
         readonly total: number;
-    };
-
-    const emit = defineEmits<Emits>();
-    const props = withDefaults(defineProps<Props>(), {
-        limits: () => [5, 10, 25, 50, 100]
-    });
-    const {limits, perPage} = toRefs(props);
+    }>();
 
     const translate = useTranslate();
     const {breakpoints} = useBreakpoints();
 
-    const limit = ref(unref(perPage));
+    const limit = ref(perPage);
 
-    const limitOptions = computed(() => unref(limits).map<FluxFormSelectOption>(limit => ({
+    const limitOptions = computed(() => limits.map<FluxFormSelectOption>(limit => ({
         id: limit,
         label: `${limit}`
     })));
 
     watch(limit, limit => emit('limit', limit));
 
-    watch(perPage, perPage => limit.value = perPage, {immediate: true});
+    watch(() => perPage, perPage => limit.value = perPage, {immediate: true});
 </script>

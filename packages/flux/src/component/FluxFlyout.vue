@@ -16,8 +16,8 @@
         <dialog
             ref="dialog"
             :class="styles.flyoutDialog"
-            @cancel.prevent="close"
-            @click="onDialogBackdropClick">
+            @click="onDialogBackdropClick"
+            @keydown.prevent.esc="close">
             <FluxPane
                 v-if="isOpen"
                 ref="pane"
@@ -40,26 +40,40 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { provide, ref, toRefs, unref, useTemplateRef, watch } from 'vue';
+    import { provide, ref, unref, useTemplateRef, watch } from 'vue';
     import { useFocusTrap } from '@/composable';
     import { FluxFlyoutInjectionKey } from '@/data';
-    import { unrefElement } from '@/util';
+    import type { Axis } from '@/types';
+    import { unrefTemplateElement } from '@/util';
     import FluxPane from './FluxPane.vue';
     import styles from '@/css/component/Flyout.module.scss';
 
-    export type Props = {
-        readonly axis?: 'horizontal' | 'vertical';
+    const {
+        axis = 'vertical',
+        margin = 9
+    } = defineProps<{
+        readonly axis?: Axis;
         readonly isAutoWidth?: boolean;
         readonly margin?: number;
         readonly width?: number | string;
-    };
+    }>();
 
-    const props = withDefaults(defineProps<Props>(), {
-        axis: 'vertical',
-        margin: 9
-    });
+    defineSlots<{
+        default(props: {
+            close(): void;
 
-    const {axis, margin} = toRefs(props);
+            readonly paneX: number;
+            readonly paneY: number;
+            readonly openerWidth: number;
+            readonly openerHeight: number;
+        }): any;
+
+        opener(props: {
+            close(): void;
+            open(): void;
+            toggle(): void;
+        }): any;
+    }>();
 
     const dialogRef = useTemplateRef('dialog');
     const mountRef = useTemplateRef('mount');
@@ -78,7 +92,7 @@
     useFocusTrap(paneRef);
 
     function close(): void {
-        const pane = unrefElement(paneRef);
+        const pane = unrefTemplateElement(paneRef);
 
         if (!pane) {
             return;
@@ -101,7 +115,7 @@
         openerHeight.value = height;
 
         requestAnimationFrame(() => {
-            const pane = unrefElement(paneRef)!;
+            const pane = unrefTemplateElement(paneRef)!;
 
             pane.addEventListener('animationend', () => {
                 isOpening.value = false;
@@ -115,16 +129,16 @@
 
     function reposition(): void {
         const mount = unref(mountRef)!;
-        const pane = unrefElement(paneRef)!;
+        const pane = unrefTemplateElement(paneRef)!;
         const {top, left, width, height} = mount.children[0].getBoundingClientRect();
         const {width: paneWidth, height: paneHeight} = pane.getBoundingClientRect();
 
         let x, y, mx = 0, my = 0;
 
-        if (unref(axis) === 'horizontal') {
+        if (axis === 'horizontal') {
             x = left + width;
             y = top + height / 2 - paneHeight / 2;
-            mx = unref(margin);
+            mx = margin;
 
             if (x + paneWidth > innerWidth - 30) {
                 x = left - paneWidth;
@@ -133,7 +147,7 @@
         } else {
             x = left + width / 2 - paneWidth / 2;
             y = top + height;
-            my = unref(margin);
+            my = margin;
 
             if (y + paneHeight > innerHeight - 30) {
                 y = top - paneHeight;

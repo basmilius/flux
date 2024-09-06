@@ -175,7 +175,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxButtonStack, FluxFlyout, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxSecondaryButton, FluxSeparator, FluxWindow, heightTransition } from '@basmilius/flux';
-
-    const vHeightTransition = heightTransition;
+    import { FluxButtonStack, FluxFlyout, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxSecondaryButton, FluxSeparator, FluxWindow, vHeightTransition } from '@basmilius/flux';
 </script>

@@ -13,24 +13,24 @@
     import { DateTime } from 'luxon';
     import { computed, unref } from 'vue';
     import { useFilterInjection } from '@/composable';
-    import type { IconNames } from '@/data';
+    import type { IconName } from '@/types';
     import FluxDatePicker from './FluxDatePicker.vue';
     import styles from '@/css/component/Filter.module.scss';
 
-    export type Props = {
-        readonly icon?: IconNames;
+    const {
+        name
+    } = defineProps<{
+        readonly icon?: IconName;
         readonly label: string;
         readonly max?: DateTime;
         readonly min?: DateTime;
         readonly name: string;
-    };
-
-    const props = defineProps<Props>();
+    }>();
 
     const {back, state, setValue} = useFilterInjection();
 
     const currentValue = computed(() => {
-        const value = unref(state)[props.name];
+        const value = unref(state)[name];
 
         if (!value) {
             return null;
@@ -52,7 +52,7 @@
             return;
         }
 
-        setValue(props.name, date);
+        setValue(name, date);
         back();
     }
 </script>

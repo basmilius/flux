@@ -1,11 +1,11 @@
-import { inject, ref } from 'vue';
-import { FluxTableInjection, FluxTableInjectionKey } from '@/data';
+import { inject } from 'vue';
+import { FluxTableInjectionKey } from '@/data';
 
-export default function (): FluxTableInjection {
+export default function () {
     return inject(FluxTableInjectionKey, {
-        isBordered: ref(false),
-        isHoverable: ref(false),
-        isSeparated: ref(false),
-        isStriped: ref(false)
+        isBordered: false,
+        isHoverable: false,
+        isSeparated: false,
+        isStriped: false
     });
 }

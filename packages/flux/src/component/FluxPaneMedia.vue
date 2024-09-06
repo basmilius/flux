@@ -17,15 +17,15 @@
     import { computed } from 'vue';
     import styles from '@/css/component/Pane.module.scss';
 
-    export type Props = {
+    const {
+        imageFocalPoint
+    } = defineProps<{
         readonly imageAlt?: string;
         readonly imageFocalPoint?: [number, number];
         readonly imageUrl?: string;
         readonly isInset?: boolean;
-    };
+    }>();
 
-    const props = defineProps<Props>();
-
-    const focalPointX = computed(() => props.imageFocalPoint ? props.imageFocalPoint[0] : 50);
-    const focalPointY = computed(() => props.imageFocalPoint ? props.imageFocalPoint[1] : 50);
+    const focalPointX = computed(() => imageFocalPoint?.[0] ?? 50);
+    const focalPointY = computed(() => imageFocalPoint?.[1] ?? 50);
 </script>

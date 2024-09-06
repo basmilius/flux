@@ -30,22 +30,19 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { IconNames } from '@/data';
+    import type { IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import styles from '@/css/component/Chip.module.scss';
 
-    export type Emits = {
+    defineEmits<{
         click: [MouseEvent];
-    };
+    }>();
 
-    export type Props = {
-        readonly iconAfter?: IconNames;
-        readonly iconBefore?: IconNames;
+    defineProps<{
+        readonly iconAfter?: IconName;
+        readonly iconBefore?: IconName;
         readonly isSelectable?: boolean;
         readonly isSelected?: boolean;
         readonly label: string;
-    };
-
-    defineEmits<Emits>();
-    defineProps<Props>();
+    }>();
 </script>

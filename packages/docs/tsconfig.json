@@ -18,8 +18,7 @@
         "allowSyntheticDefaultImports": true,
         "baseUrl": ".",
         "paths": {
-            "@/*": ["src/*"],
-            "@basmilius/flux": ["../flux/src/index.ts"]
+            "@/*": ["src/*"]
         }
     },
     "include": [

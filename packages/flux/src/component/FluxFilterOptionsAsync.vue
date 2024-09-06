@@ -15,34 +15,42 @@
     import { computed, ref, unref, watch } from 'vue';
     import { useDebouncedRef, useFilterInjection } from '@/composable';
     import { useLoaded } from '@/composable/private';
-    import { FluxFilterOptionRow, FluxFilterValue, FluxFilterValueSingle, IconNames, isFluxFilterOptionItem } from '@/data';
+    import { isFluxFilterOptionItem } from '@/data';
+    import type { FluxFilterOptionRow, FluxFilterValue, FluxFilterValueSingle, IconName } from '@/types';
     import { FilterOptionBase } from './primitive';
 
-    export type Props = {
-        readonly fetchOptions: (ids: FluxFilterValue[]) => Promise<FluxFilterOptionRow[]>;
-        readonly fetchRelevant: () => Promise<FluxFilterOptionRow[]>;
-        readonly fetchSearch: (searchQuery: string) => Promise<FluxFilterOptionRow[]>;
-        readonly icon?: IconNames;
+    const modelSearch = defineModel<string>('searchQuery', {
+        default: ''
+    });
+
+    const {
+        fetchOptions: fetchOptionsProp,
+        fetchRelevant: fetchRelevantProp,
+        fetchSearch: fetchSearchProp,
+        name
+    } = defineProps<{
+        fetchOptions(ids: FluxFilterValue[]): Promise<FluxFilterOptionRow[]>;
+        fetchRelevant(): Promise<FluxFilterOptionRow[]>;
+        fetchSearch(searchQuery: string): Promise<FluxFilterOptionRow[]>;
+
+        readonly icon?: IconName;
         readonly label: string;
         readonly name: string;
         readonly searchPlaceholder?: string;
-    };
-
-    const modelSearch = defineModel<string>('searchQuery', {default: ''});
-    const props = defineProps<Props>();
+    }>();
 
     const {state, setValue} = useFilterInjection();
     const {isLoading, loaded} = useLoaded();
     const debouncedModelSearch = useDebouncedRef(modelSearch, 150);
-    const fetchOptions = computed(() => loaded(props.fetchOptions));
-    const fetchRelevant = computed(() => loaded(props.fetchRelevant));
-    const fetchSearch = computed(() => loaded(props.fetchSearch));
+    const fetchOptions = computed(() => loaded(fetchOptionsProp));
+    const fetchRelevant = computed(() => loaded(fetchRelevantProp));
+    const fetchSearch = computed(() => loaded(fetchSearchProp));
 
     const selectedOptions = ref<FluxFilterOptionRow[]>([]);
     const visibleOptions = ref<FluxFilterOptionRow[]>([]);
 
     const currentValue = computed(() => {
-        const value = unref(state)[props.name];
+        const value = unref(state)[name];
 
         if (Array.isArray(value)) {
             return value;
@@ -83,7 +91,7 @@
             values.push(value);
         }
 
-        setValue(props.name, values);
+        setValue(name, values);
     }
 
     watch(currentValue, async value => {

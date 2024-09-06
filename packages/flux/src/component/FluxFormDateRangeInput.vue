@@ -1,6 +1,6 @@
 <template>
     <FluxFlyout
-        ref="flyoutRef"
+        ref="flyout"
         :width="300">
         <template #opener="{open}">
             <FluxFormInputGroup>
@@ -32,8 +32,8 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { DateTime } from 'luxon';
-    import { ComponentPublicInstance, computed, Ref, ref, unref, watch } from 'vue';
+    import type { DateTime } from 'luxon';
+    import { computed, ref, unref, useTemplateRef, watch } from 'vue';
     import { useTranslate } from '@/composable/private';
     import { createLabelForDateRange } from '@/util';
     import FluxDatePicker from './FluxDatePicker.vue';
@@ -42,7 +42,13 @@
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import styles from '@/css/component/Form.module.scss';
 
-    export type Props = {
+    const modelValue = defineModel<[DateTime, DateTime] | null>({
+        required: true
+    });
+
+    const {
+        rangeMode = 'range'
+    } = defineProps<{
         readonly autoComplete?: string;
         readonly autoFocus?: boolean;
         readonly isDisabled?: boolean;
@@ -51,16 +57,11 @@
         readonly min?: DateTime;
         readonly placeholder?: string;
         readonly rangeMode?: 'range' | 'week' | 'month';
-    };
+    }>();
 
-    const modelValue = defineModel<[DateTime, DateTime] | null>({required: true}) as Ref<[DateTime, DateTime] | null>;
-    withDefaults(defineProps<Props>(), {
-        rangeMode: 'range'
-    });
-
+    const flyoutRef = useTemplateRef('flyout');
     const translate = useTranslate();
 
-    const flyoutRef = ref<ComponentPublicInstance<{}, {}, {}, {}, { close: Function; }>>();
     const localValue = ref<[DateTime, DateTime] | null>(null);
 
     const label = computed(() => {

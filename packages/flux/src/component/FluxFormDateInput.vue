@@ -1,6 +1,6 @@
 <template>
     <FluxFlyout
-        ref="flyoutRef"
+        ref="flyout"
         :width="300">
         <template #opener="{open}">
             <FluxFormInputGroup>
@@ -11,8 +11,8 @@
                     type="date"
                     :max="max?.toISO()?.substring(0, 10)"
                     :min="min?.toISO()?.substring(0, 10)"
-                    @blur="$emit('blur')"
-                    @focus="$emit('focus')"
+                    @blur="onBlur()"
+                    @focus="onFocus()"
                     @show-picker="open"/>
 
                 <FluxSecondaryButton
@@ -32,8 +32,8 @@
 <script
     lang="ts"
     setup>
-    import { DateTime } from 'luxon';
-    import { ComponentPublicInstance, Ref, ref, unref, watch } from 'vue';
+    import type { DateTime } from 'luxon';
+    import { ref, unref, useTemplateRef, watch } from 'vue';
     import FluxDatePicker from './FluxDatePicker.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxFormInput from './FluxFormInput.vue';
@@ -41,12 +41,16 @@
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import styles from '@/css/component/Form.module.scss';
 
-    export type Emits = {
+    const emit = defineEmits<{
         blur: [];
         focus: [];
-    };
+    }>();
 
-    export type Props = {
+    const modelValue = defineModel<DateTime | null>({
+        required: true
+    });
+
+    defineProps<{
         readonly autoComplete?: string;
         readonly autoFocus?: boolean;
         readonly isDisabled?: boolean;
@@ -54,14 +58,19 @@
         readonly max?: DateTime;
         readonly min?: DateTime;
         readonly placeholder?: string;
-    };
+    }>();
 
-    const emit = defineEmits<Emits>();
-    const modelValue = defineModel<DateTime | null>({required: true}) as Ref<DateTime | null>;
-    defineProps<Props>();
+    const flyoutRef = useTemplateRef('flyout');
 
-    const flyoutRef = ref<ComponentPublicInstance<{}, {}, {}, {}, { close: Function; }>>();
     const localValue = ref<DateTime | null>(null);
+
+    function onBlur(): void {
+        emit('blur');
+    }
+
+    function onFocus(): void {
+        emit('focus');
+    }
 
     watch(localValue, localValue => {
         unref(flyoutRef)?.close();

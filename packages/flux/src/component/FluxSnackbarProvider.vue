@@ -21,13 +21,14 @@
 <script
     lang="ts"
     setup>
-    import { FluxSnackbarSpec, useFluxStore } from '@/data';
+    import { useFluxStore } from '@/data';
+    import type { FluxSnackbarObject } from '@/types';
     import FluxSnackbar from './FluxSnackbar.vue';
     import styles from '@/css/component/Snackbar.module.scss';
 
     const {snackbars} = useFluxStore();
 
-    function onAction(snackbar: FluxSnackbarSpec): (actionKey: string) => void {
+    function onAction(snackbar: FluxSnackbarObject): (actionKey: string) => void {
         return actionKey => snackbar.onAction?.(actionKey);
     }
 </script>

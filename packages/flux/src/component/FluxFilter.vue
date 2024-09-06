@@ -44,8 +44,9 @@
     setup>
     import { computed, provide, unref, useSlots, useTemplateRef, VNode } from 'vue';
     import { useTranslate } from '@/composable/private';
-    import { FluxFilterInjectionKey, FluxFilterOptionItem, FluxFilterState } from '@/data';
-    import { heightTransition } from '@/directive';
+    import { FluxFilterInjectionKey } from '@/data';
+    import { vHeightTransition } from '@/directive';
+    import type { FluxFilterOptionItem, FluxFilterState } from '@/types';
     import { flattenVNodeTree, getComponentName, getComponentProps } from '@/util';
     import { FilterMenuRenderer, VNodeRenderer } from './primitive';
     import FluxMenu from './FluxMenu.vue';
@@ -54,19 +55,21 @@
     import FluxWindow from './FluxWindow.vue';
     import styles from '@/css/component/Filter.module.scss';
 
-    const vHeightTransition = heightTransition;
-
-    export type Emits = {
+    const emit = defineEmits<{
         reset: [string]
-    };
+    }>();
 
-    export type Props = {
+    const modelValue = defineModel<FluxFilterState>({
+        required: true
+    });
+
+    defineProps<{
         readonly resettable?: string[];
-    };
+    }>();
 
-    const modelValue = defineModel<FluxFilterState>({required: true});
-    const emit = defineEmits<Emits>();
-    defineProps<Props>();
+    defineSlots<{
+        default(): any;
+    }>();
 
     const slots = useSlots();
     const translate = useTranslate();

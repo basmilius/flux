@@ -11,9 +11,11 @@
     setup>
     import styles from '@/css/component/Layout.module.scss';
 
-    export type Props = {
+    defineProps<{
         aspectRatio: number;
-    };
+    }>();
 
-    defineProps<Props>();
+    defineSlots<{
+        default(): any;
+    }>();
 </script>
