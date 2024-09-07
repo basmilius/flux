@@ -49,7 +49,7 @@
 .routeTransitionBackEnterActive,
 .routeTransitionLeaveActive,
 .routeTransitionBackLeaveActive {
-    transform-origin: top center;
+    transform-origin: center;
     transition-property: opacity, scale;
 }
 
@@ -74,7 +74,7 @@
 .routeTransitionLeaveTo,
 .routeTransitionBackEnterFrom {
     opacity: 0;
-    scale: .95;
+    scale: .975;
 }
 
 .tooltipTransitionEnterActive,
