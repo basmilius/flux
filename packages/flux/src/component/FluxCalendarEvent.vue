@@ -27,7 +27,7 @@
     }>();
 
     defineProps<{
-        readonly date: DateTime;
+        readonly date: DateTime | [DateTime, DateTime];
         readonly label: string;
     }>();
 

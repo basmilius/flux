@@ -101,9 +101,18 @@
                         )"
                         role="gridcell">
                         <div :class="styles.calendarEvents">
-                            <template v-for="event of getEventsForDate(date)">
-                                <VNodeRenderer :vnode="event"/>
-                            </template>
+                            <VNodeRenderer
+                                v-for="event of getEventsForDate(date)"
+                                :class="clsx(
+                                    event.type === 'single' && styles.isSingle,
+                                    event.type === 'start' && styles.isStart,
+                                    event.type === 'end' && styles.isEnd,
+                                    event.type === 'middle' && styles.isMiddle
+                                )"
+                                :style="{
+                                    gridRow: event.index
+                                }"
+                                :vnode="event.vnode"/>
                         </div>
 
                         <span :class="styles.calendarEntryDate">
@@ -139,6 +148,12 @@
     import FluxSpinner from '@/component/FluxSpinner.vue';
     import styles from '@/css/component/Calendar.module.scss';
     import datePickerStyles from '@/css/component/DatePicker.module.scss';
+
+    type Event = {
+        readonly index: number;
+        readonly type: 'start' | 'end' | 'middle' | 'single';
+        readonly vnode: VNode;
+    };
 
     const emit = defineEmits<{
         navigate: [DateTime, DateTime, DateTime];
@@ -186,9 +201,36 @@
     const events = computed(() => unref(eventNodes)
         .filter(en => getComponentName(en) === 'FluxCalendarEvent'));
 
-    function getEventsForDate(date: DateTime): VNode[] {
+    function getEventsForDate(forDate: DateTime): Event[] {
+        const forDateStr = forDate.toSQLDate();
+
         return unref(events)
-            .filter(e => date.toSQLDate() === getComponentProps<{ date: DateTime; }>(e).date.toSQLDate());
+            .map<Event | null>((vnode, index) => {
+                const {date} = getComponentProps<{ date: DateTime | [DateTime, DateTime]; }>(vnode);
+
+                if (Array.isArray(date)) {
+                    if (forDate < date[0] || forDate > date[1]) {
+                        return null;
+                    }
+
+                    return {
+                        type: forDateStr === date[0].toSQLDate() ? 'start' : (forDateStr === date[1].toSQLDate() ? 'end' : 'middle'),
+                        index,
+                        vnode
+                    };
+                }
+
+                if (forDateStr !== date.toSQLDate()) {
+                    return null;
+                }
+
+                return {
+                    type: 'single',
+                    index,
+                    vnode
+                };
+            })
+            .filter(e => e !== null);
     }
 
     function setToday(): void {

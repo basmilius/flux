@@ -72,7 +72,9 @@
     padding-left: 0;
     padding-right: 0;
     color: var(--foreground-secondary);
-    font-size: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
     line-height: 1em;
     text-align: center;
     text-transform: uppercase;
@@ -112,8 +114,8 @@
 }
 
 .calendarEvents {
-    display: flex;
-    flex-flow: column;
+    display: grid;
+    grid-auto-rows: 1fr;
     gap: 3px;
 }
 
@@ -121,12 +123,11 @@
     margin-left: -9px;
     margin-right: -9px;
     padding: 3px 9px;
-    background: rgb(var(--primary-6));
+    background: rgb(var(--primary-2));
     border: 0;
-    border-radius: calc(var(--radius) / 2);
-    color: rgb(var(--primary-0));
+    color: rgb(var(--primary-9));
     cursor: pointer;
-    font-size: 12px;
+    font-size: 14px;
     text-align: left;
 
     /** note: This works in all browsers. */
@@ -135,9 +136,36 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 
+    &.isSingle {
+        border-radius: calc(var(--radius) / 2);
+    }
+
+    &.isMiddle {
+        margin-left: -22px;
+        margin-right: -22px;
+    }
+
+    &.isStart {
+        margin-right: -21px;
+        border-top-left-radius: calc(var(--radius) / 2);
+        border-bottom-left-radius: calc(var(--radius) / 2);
+    }
+
+    &.isEnd {
+        margin-left: -21px;
+        border-top-right-radius: calc(var(--radius) / 2);
+        border-bottom-right-radius: calc(var(--radius) / 2);
+    }
+
+    &:not(.isSingle):not(.isStart) {
+        span {
+            opacity: 0;
+        }
+    }
+
     @media (hover: hover) {
         &:hover {
-            background: rgb(var(--primary-7));
+            background: rgb(var(--primary-3));
         }
     }
 }
