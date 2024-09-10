@@ -1,12 +1,13 @@
 <template>
     <button
         :class="clsx(
-            styles.sliderThumb,
+            styles.coordinatePickerThumb,
             isDisabled && styles.isDisabled,
             isDragging && styles.isDragging
         )"
         :style="{
-            left: `${position * 100}%`
+            top: `${position[1] * 100}%`,
+            left: `${position[0] * 100}%`
         }"
         :tabindex="isDisabled ? -1 : 0"
         type="button"
@@ -18,12 +19,12 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import styles from '@/css/component/primitive/Slider.module.scss';
+    import styles from '@/css/component/primitive/CoordinatePicker.module.scss';
 
     const emit = defineEmits<{
-        decrement: [];
+        decrement: [boolean, boolean];
         grab: [PointerEvent];
-        increment: [];
+        increment: [boolean, boolean];
     }>();
 
     const {
@@ -31,7 +32,7 @@
     } = defineProps<{
         readonly isDisabled?: boolean;
         readonly isDragging?: boolean;
-        readonly position: number;
+        readonly position: [number, number];
     }>();
 
     function onKeyDown(evt: KeyboardEvent): void {
@@ -40,14 +41,20 @@
         }
 
         switch (evt.key) {
-            case 'ArrowDown':
-            case 'ArrowLeft':
-                emit('decrement');
+            case 'ArrowUp':
+                emit('decrement', false, true);
                 break;
 
-            case 'ArrowUp':
+            case 'ArrowDown':
+                emit('increment', false, true);
+                break;
+
+            case 'ArrowLeft':
+                emit('decrement', true, false);
+                break;
+
             case 'ArrowRight':
-                emit('increment');
+                emit('increment', true, false);
                 break;
 
             default:

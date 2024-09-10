@@ -13,7 +13,7 @@
 <script
     lang="ts"
     setup>
-    import styles from '@/css/component/Form.module.scss';
+    import styles from '@/css/component/primitive/Slider.module.scss';
 
     defineProps<{
         readonly percentageLower: number;

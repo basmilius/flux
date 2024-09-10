@@ -1,0 +1,24 @@
+@value sliderThumb from '@/css/component/primitive/Slider.module.scss';
+
+.coordinatePicker {
+    position: relative;
+    aspect-ratio: 5 / 3;
+    background: rgb(var(--gray-1));
+    border: 1px solid rgb(var(--gray-11) / .05);
+    border-radius: calc(var(--radius) / 2);
+    z-index: 0;
+}
+
+.coordinatePickerThumb {
+    composes: sliderThumb;
+
+    z-index: 1;
+
+    &.isDisabled {
+        counter-reset: t;
+    }
+
+    &.isDragging {
+        counter-reset: t;
+    }
+}

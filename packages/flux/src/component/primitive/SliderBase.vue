@@ -23,7 +23,7 @@
     import { onMounted, onUnmounted, useTemplateRef, watch } from 'vue';
     import { unrefTemplateElement } from '@/util';
     import FluxTicks from '../FluxTicks.vue';
-    import styles from '@/css/component/Form.module.scss';
+    import styles from '@/css/component/primitive/Slider.module.scss';
 
     const emit = defineEmits<{
         dragging: [boolean];

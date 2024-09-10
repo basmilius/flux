@@ -37,6 +37,7 @@
     const {
         formatter = formatNumber,
         isDisabled = false,
+        isTooltipDisabled,
         max = 100,
         min = 0,
         step = 1
@@ -45,6 +46,7 @@
 
         readonly isDisabled?: boolean;
         readonly isTicksVisible?: boolean;
+        readonly isTooltipDisabled?: boolean;
         readonly max?: number;
         readonly min?: number;
         readonly step?: number;
@@ -62,7 +64,7 @@
     function onDragging(is: boolean): void {
         isDragging.value = is;
 
-        if (is && !tooltipId.value) {
+        if (is && !tooltipId.value && !isTooltipDisabled) {
             tooltipId.value = addTooltip({
                 axis: 'vertical',
                 content: unref(tooltipContent),

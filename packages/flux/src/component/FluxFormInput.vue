@@ -163,7 +163,7 @@
     }
 
     watch([modelValue, () => type], ([modelValue, type]) => {
-        if (!modelValue) {
+        if (!modelValue && modelValue !== 0) {
             localValue.value = null;
             return;
         }

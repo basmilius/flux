@@ -29,7 +29,7 @@
     setup>
     import { computed } from 'vue';
     import { generateStepTicks } from '@/util';
-    import styles from '@/css/component/Form.module.scss';
+    import styles from '@/css/component/primitive/Slider.module.scss';
 
     const {
         lower,
