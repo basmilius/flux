@@ -17,13 +17,14 @@
         font: inherit;
         text-decoration: none;
         transition: 180ms var(--swift-out);
-        transition-property: background, box-shadow, color, mixin.focus-ring-transition-properties();
+        transition-property: background, box-shadow, color, scale, mixin.focus-ring-transition-properties();
         user-select: none;
 
         @include mixin.focus-ring(2px);
 
         &:active {
             box-shadow: none;
+            scale: .975;
         }
 
         &:focus-visible {
