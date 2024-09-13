@@ -48,6 +48,7 @@ jobs:
                 with:
                     apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                     accountId: 5e565cf9fa55b0eae1f8131903da2ca9
+                    branch: ${{ inputs.branch_id }}
                     projectName: flux-documentation
                     directory: packages/docs/dist
                     gitHubToken: ${{ secrets.GITHUB_TOKEN }}
