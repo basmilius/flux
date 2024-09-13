@@ -5,10 +5,6 @@ on:
     release:
         types: [ published ]
 
-concurrency:
-    group: ${{ github.workflow }}-${{ inputs.branch_id }}
-    cancel-in-progress: true
-
 jobs:
     publish:
         runs-on: ubuntu-latest
@@ -52,7 +48,7 @@ jobs:
                 with:
                     apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                     accountId: 5e565cf9fa55b0eae1f8131903da2ca9
-                    branch: ${{ inputs.branch_id }}
+                    branch: ${{ vars.GITHUB_REF_TYPE == 'branch' && vars.GITHUB_REF_NAME || 'main' }}
                     projectName: flux-documentation
                     directory: packages/docs/dist
                     gitHubToken: ${{ secrets.GITHUB_TOKEN }}
