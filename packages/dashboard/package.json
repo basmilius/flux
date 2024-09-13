@@ -1,6 +1,6 @@
 {
     "name": "@basmilius/flux-dashboard",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "type": "module",
     "scripts": {
         "build": "vite build && pnpm run gentypes",
