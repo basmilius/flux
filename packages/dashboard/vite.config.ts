@@ -35,12 +35,11 @@ export default defineConfig(({command}) => ({
         }
     },
     css: {
-        preprocessorMaxWorkers: true,
-        // preprocessorOptions: {
-        //     scss: {
-        //         api: 'modern-compiler'
-        //     }
-        // },
+        preprocessorOptions: {
+            scss: {
+                api: 'modern-compiler'
+            }
+        },
         modules: {
             generateScopedName(name: string): string {
                 if (name.startsWith('i__const_')) {
