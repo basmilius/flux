@@ -3,7 +3,7 @@
         "target": "esnext",
         "useDefineForClassFields": true,
         "module": "esnext",
-        "moduleResolution": "node",
+        "moduleResolution": "bundler",
         "strict": true,
         "jsx": "preserve",
         "resolveJsonModule": true,
@@ -35,5 +35,9 @@
         {
             "path": "./tsconfig.node.json"
         }
-    ]
+    ],
+    "vueCompilerOptions": {
+        "target": 3.5,
+        "strictTemplates": true
+    }
 }

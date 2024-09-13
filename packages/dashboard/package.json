@@ -1,11 +1,11 @@
 {
     "name": "@basmilius/flux-dashboard",
-    "version": "1.4.3",
+    "version": "1.4.4",
     "type": "module",
     "scripts": {
         "build": "vite build && pnpm run gentypes",
         "dev": "vite build --watch",
-        "gentypes": "vue-tsc --outDir dist && tsc-alias --dir dist",
+        "gentypes": "vue-tsc --noCheck --outDir dist && tsc-alias --dir dist",
         "prepublishOnly": "cp ../../README.md ."
     },
     "exports": {
