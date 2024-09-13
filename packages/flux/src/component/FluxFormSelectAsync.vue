@@ -57,7 +57,7 @@
         visible.forEach(vo => options.push(vo));
 
         selected.forEach(so => {
-            if (isFluxFormSelectOption(so) && visible.find(vo => isFluxFormSelectOption(vo) && vo.id === so.id)) {
+            if (isFluxFormSelectOption(so) && visible.find(vo => isFluxFormSelectOption(vo) && vo.value === so.value)) {
                 return;
             }
 

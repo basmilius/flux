@@ -75,8 +75,8 @@
     const limit = ref(perPage);
 
     const limitOptions = computed(() => limits.map<FluxFormSelectOption>(limit => ({
-        id: limit,
-        label: `${limit}`
+        label: limit.toString(),
+        value: limit
     })));
 
     watch(limit, limit => emit('limit', limit));

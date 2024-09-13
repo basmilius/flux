@@ -5,7 +5,8 @@
             contentPlacement === 'center' && styles.dividerContentCenter,
             contentPlacement === 'end' && styles.dividerContentEnd
         )"
-        role="separator">
+        role="separator"
+        aria-orientation="horizontal">
         <div
             v-if="$slots.default"
             :class="styles.dividerContent">

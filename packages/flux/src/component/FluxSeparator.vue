@@ -1,7 +1,8 @@
 <template>
     <div
         :class="axis === 'horizontal' ? styles.separatorHorizontal : styles.separatorVertical"
-        role="separator"/>
+        role="separator"
+        :aria-orientation="axis"/>
 </template>
 
 <script

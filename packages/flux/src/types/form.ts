@@ -10,9 +10,9 @@ export type FluxFormSelectOption = {
     readonly command?: string;
     readonly commandIcon?: IconName;
     readonly icon?: IconName;
-    readonly id: string | number | null;
     readonly label: string;
     readonly selectable?: boolean;
+    readonly value: string | number | null;
 };
 
 export type FluxFormSelectEntry =

@@ -49,7 +49,7 @@
 .routeTransitionBackEnterActive,
 .routeTransitionLeaveActive,
 .routeTransitionBackLeaveActive {
-    transform-origin: center;
+    transform-origin: center 50dvh;
     transition-property: opacity, scale;
 }
 

@@ -14,8 +14,8 @@ export default function (modelValue: Ref<FormSelectValue>, isMultiple: boolean, 
         const search = unref(searchQuery)?.trim().toLowerCase();
 
         const available = unref(options)
-            .filter(o => !('id' in o) || (!search || o.label.toLowerCase().includes(search)))
-            .filter(o => !('id' in o) || !isMultiple || !unref(selected).find(s => s.id === o.id));
+            .filter(o => !('value' in o) || (!search || o.label.toLowerCase().includes(search)))
+            .filter(o => !('value' in o) || !isMultiple || !unref(selected).find(s => s.value === o.value));
 
         if (available.length === 0) {
             return [];
@@ -55,7 +55,7 @@ export default function (modelValue: Ref<FormSelectValue>, isMultiple: boolean, 
     });
 
     const selected = computed(() => unref(values)
-        .map(v => unref(options).find(o => isFluxFormSelectOption(o) && o.id === v))
+        .map(v => unref(options).find(o => isFluxFormSelectOption(o) && o.value === v))
         .filter(isFluxFormSelectOption));
 
     return {
