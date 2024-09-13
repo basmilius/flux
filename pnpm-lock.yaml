@@ -30,7 +30,7 @@ importers:
       css-class-generator:
         specifier: ^2.0.0
         version: 2.0.0
-      sass:
+      sass-embedded:
         specifier: ^1.78.0
         version: 1.78.0
       tsc-alias:
@@ -88,7 +88,7 @@ importers:
       css-class-generator:
         specifier: ^2.0.0
         version: 2.0.0
-      sass:
+      sass-embedded:
         specifier: ^1.78.0
         version: 1.78.0
       typescript:
@@ -137,7 +137,7 @@ importers:
       css-class-generator:
         specifier: ^2.0.0
         version: 2.0.0
-      sass:
+      sass-embedded:
         specifier: ^1.78.0
         version: 1.78.0
       tsc-alias:
@@ -1370,8 +1370,7 @@ snapshots:
       '@babel/helper-validator-identifier': 7.24.7
       to-fast-properties: 2.0.0
 
-  '@bufbuild/protobuf@1.10.0':
-    optional: true
+  '@bufbuild/protobuf@1.10.0': {}
 
   '@emmetio/abbreviation@2.3.3':
     dependencies:
@@ -1770,8 +1769,7 @@ snapshots:
     dependencies:
       fill-range: 7.1.1
 
-  buffer-builder@0.2.0:
-    optional: true
+  buffer-builder@0.2.0: {}
 
   call-bind@1.0.7:
     dependencies:
@@ -1917,8 +1915,7 @@ snapshots:
     dependencies:
       get-intrinsic: 1.2.4
 
-  has-flag@4.0.0:
-    optional: true
+  has-flag@4.0.0: {}
 
   has-property-descriptors@1.0.2:
     dependencies:
@@ -2157,7 +2154,6 @@ snapshots:
   rxjs@7.8.1:
     dependencies:
       tslib: 2.5.0
-    optional: true
 
   sass-embedded-android-arm64@1.78.0:
     optional: true
@@ -2248,13 +2244,13 @@ snapshots:
       sass-embedded-win32-arm64: 1.78.0
       sass-embedded-win32-ia32: 1.78.0
       sass-embedded-win32-x64: 1.78.0
-    optional: true
 
   sass@1.78.0:
     dependencies:
       chokidar: 3.5.3
       immutable: 4.3.0
       source-map-js: 1.2.1
+    optional: true
 
   semver@7.6.3: {}
 
@@ -2274,7 +2270,6 @@ snapshots:
   supports-color@8.1.1:
     dependencies:
       has-flag: 4.0.0
-    optional: true
 
   to-fast-properties@2.0.0: {}
 
@@ -2293,8 +2288,7 @@ snapshots:
       normalize-path: 3.0.0
       plimit-lit: 1.6.1
 
-  tslib@2.5.0:
-    optional: true
+  tslib@2.5.0: {}
 
   typescript-auto-import-cache@0.3.3:
     dependencies:
@@ -2306,8 +2300,7 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  varint@6.0.0:
-    optional: true
+  varint@6.0.0: {}
 
   vite-css-modules@1.4.2(lightningcss@1.26.0)(postcss@8.4.44)(rollup@4.21.1)(vite@5.4.4(@types/node@22.5.4)(lightningcss@1.26.0)(sass-embedded@1.78.0)(sass@1.78.0)):
     dependencies:
