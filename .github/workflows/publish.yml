@@ -30,8 +30,11 @@ jobs:
 
             -   name: 🔨 Build
                 run: pnpm build
+                env:
+                    FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
 
             -   name: 🚀 Publish
                 run: pnpm run publish
                 env:
+                    FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
                     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
