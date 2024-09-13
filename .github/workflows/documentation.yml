@@ -5,6 +5,10 @@ on:
     release:
         types: [ published ]
 
+concurrency:
+    group: ${{ github.workflow }}-${{ inputs.branch_id }}
+    cancel-in-progress: true
+
 jobs:
     publish:
         runs-on: ubuntu-latest
