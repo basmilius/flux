@@ -73,6 +73,7 @@ export { default as FluxMenu } from './FluxMenu.vue';
 export { default as FluxMenuGroup } from './FluxMenuGroup.vue';
 export { default as FluxMenuItem } from './FluxMenuItem.vue';
 export { default as FluxMenuSubHeader } from './FluxMenuSubHeader.vue';
+export { default as FluxMenuTitle } from './FluxMenuTitle.vue';
 export { default as FluxNotice } from './FluxNotice.vue';
 export { default as FluxNoticeStack } from './FluxNoticeStack.vue';
 export { default as FluxOverlay } from './FluxOverlay.vue';

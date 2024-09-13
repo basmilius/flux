@@ -29,12 +29,17 @@
     gap: 42px;
 }
 
-.formColumn {
+.formColumn,
+.formSection {
     composes: flexColumn;
 
     gap: 18px;
+}
 
-    :local(.button) {
+.form,
+.formColumn,
+.formSection {
+    > :local(.button) {
         align-self: flex-start;
     }
 }
@@ -44,12 +49,6 @@
     composes: flexGrow;
 
     gap: 12px;
-}
-
-.formSection {
-    composes: flexColumn;
-
-    gap: 18px;
 }
 
 .formSectionTitle {
@@ -347,6 +346,12 @@
 
     &:not(.isDisabled) {
         @include mixin.focus-ring(-1px, true);
+
+        @media (hover: hover) {
+            &:hover {
+                border-color: rgb(var(--gray-5));
+            }
+        }
     }
 
     &.isFocused {
@@ -409,7 +414,7 @@
     top: 0;
     left: 0;
     width: var(--width, auto);
-    max-height: 330px;
+    max-height: max(330px, 50dvh);
     min-width: 120px;
     box-shadow: var(--shadow-md);
     overflow: auto;
@@ -419,6 +424,10 @@
     .menuItem {
         contain-intrinsic-size: #{'auto 42px'};
         content-visibility: auto;
+    }
+
+    &.isKeyboardAction .menuItem {
+        transition: 0s;
     }
 
     &.isSearchable .menuSubHeader {
@@ -447,9 +456,12 @@
 
 .formTextArea {
     height: unset;
+    // 18px = padding / 2px = border
+    min-height: calc(18px + 2px + var(--rows, 1) * 1lh);
     padding-top: 9px;
     padding-bottom: 9px;
     flex-shrink: 0;
+    field-sizing: content;
     resize: vertical;
 }
 

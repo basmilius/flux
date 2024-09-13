@@ -16,8 +16,8 @@
 
     const selectValue = ref(null);
 
-    async function fetchOptions(ids: string[]): Promise<FluxFormSelectEntry[]> {
-        return dataset.filter(o => ids.includes(o.id));
+    async function fetchOptions(values: string[]): Promise<FluxFormSelectEntry[]> {
+        return dataset.filter(o => values.includes(o.value));
     }
 
     async function fetchRelevant(): Promise<FluxFormSelectEntry[]> {

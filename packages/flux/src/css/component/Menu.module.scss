@@ -190,6 +190,13 @@
     border-radius: 3px;
 }
 
+.menuTitle {
+    padding: 0 12px;
+    color: var(--foreground-prominent);
+    font-size: 18px;
+    font-weight: 700;
+}
+
 .menuSubHeader {
     position: sticky;
     display: flex;

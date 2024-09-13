@@ -12,7 +12,8 @@
         tabindex="0"
         tag-name="div"
         @click="toggle()"
-        @keydown="onKeyDown">
+        @keydown="onKeyDown"
+        @keyup="onKeyUp">
         <template v-if="!isMultiple && selected[0]">
             <FluxMenuItem
                 :class="styles.formSelectSelected"
@@ -26,10 +27,10 @@
         <template v-else-if="isMultiple && selected[0]">
             <FluxTag
                 v-for="option of selected"
-                :key="option.id ?? 'null option'"
+                :key="option.value ?? 'null option'"
                 :label="option.label"
                 is-deletable
-                @delete="deselect(option.id)"/>
+                @delete="deselect(option.value)"/>
         </template>
 
         <template v-else-if="placeholder">
@@ -56,6 +57,7 @@
                 ref="anchorPopup"
                 :class="clsx(
                     styles.formSelectPopup,
+                    isKeyboardAction && styles.isKeyboardAction,
                     isSearchable && styles.isSearchable
                 )"
                 :anchor="anchorRef"
@@ -94,11 +96,11 @@
                                     :command="subItem.command"
                                     :command-icon="subItem.commandIcon"
                                     :icon-before="subItem.icon"
-                                    :is-active="!!selected.find(so => so.id === subItem.id)"
-                                    :is-highlighted="highlightedId === subItem.id"
+                                    :is-active="!!selected.find(so => so.value === subItem.value)"
+                                    :is-highlighted="highlightedId === subItem.value"
                                     :label="subItem.label"
                                     type="button"
-                                    @click="select(subItem.id)"/>
+                                    @click="select(subItem.value)"/>
                             </template>
                         </FluxMenuGroup>
 
@@ -109,11 +111,11 @@
                             :command="item.command"
                             :command-icon="item.commandIcon"
                             :icon-before="item.icon"
-                            :is-active="!!selected.find(so => so.id === item.id)"
-                            :is-highlighted="highlightedId === item.id"
+                            :is-active="!!selected.find(so => so.value === item.value)"
+                            :is-highlighted="highlightedId === item.value"
                             :label="item.label"
                             type="button"
-                            @click="select(item.id)"/>
+                            @click="select(item.value)"/>
                     </template>
                 </FluxMenu>
             </AnchorPopup>
@@ -187,10 +189,11 @@
     const searchInputElementRef = useTemplateRef<ComponentPublicInstance<typeof FluxFormInput>>('searchInputElement');
 
     const highlightedIndex = ref(INITIAL_HIGHLIGHTED_INDEX);
+    const isKeyboardAction = ref(false);
     const isPopupOpen = ref(false);
 
     const focusElement = computed(() => unrefTemplateElement(searchInputElementRef) ?? unrefTemplateElement(anchorRef));
-    const highlightedId = computed(() => unref(rawOptions)[unref(highlightedIndex)]?.id);
+    const highlightedId = computed(() => unref(rawOptions)[unref(highlightedIndex)]?.value);
     const rawOptions = computed(() => options.map(group => group[1]).flat());
 
     useClickOutside([anchorRef, anchorPopupRef], isPopupOpen, () => isPopupOpen.value = false);
@@ -228,6 +231,15 @@
             return;
         }
 
+        isKeyboardAction.value = true;
+
+        if (unref(highlightedIndex) === INITIAL_HIGHLIGHTED_INDEX && ['ArrowDown', 'ArrowUp'].includes(evt.key)) {
+            const options = unref(optionElementRefs);
+            const selectedIndex = options?.findIndex(o => 'isActive' in o.$props && o.$props.isActive);
+
+            highlightedIndex.value = selectedIndex ?? INITIAL_HIGHLIGHTED_INDEX;
+        }
+
         switch (evt.key) {
             case 'ArrowUp':
                 highlightedIndex.value = Math.max(0, unref(highlightedIndex) - 1);
@@ -244,7 +256,7 @@
                     return;
                 }
 
-                deselect(selected[selected.length - 1].id);
+                deselect(selected[selected.length - 1].value);
                 break;
 
             case 'Enter':
@@ -261,17 +273,25 @@
                 return;
 
             default:
-                highlightedIndex.value = -1;
+                if (evt.key.match(/[a-z]/)) {
+                    highlightedIndex.value = unref(rawOptions).findIndex(o => o.label.toLowerCase().startsWith(evt.key));
+                } else {
+                    highlightedIndex.value = -1;
+                }
                 return;
         }
 
         evt.preventDefault();
     }
 
+    function onKeyUp(): void {
+        isKeyboardAction.value = false;
+    }
+
     watch(highlightedIndex, highlightedIndex => {
         const options = unref(optionElementRefs)!;
         options[highlightedIndex]?.$el.scrollIntoView({
-            block: 'nearest'
+            block: 'center'
         });
     });
 
@@ -293,9 +313,15 @@
                 return;
             }
 
-            const option = options.find(o => 'isActive' in o.$props && o.$props.isActive);
-            option?.$el.scrollIntoView({
-                block: 'nearest'
+            const selectedIndex = options.findIndex(o => 'isActive' in o.$props && o.$props.isActive);
+            const option = options[selectedIndex];
+
+            if (!option) {
+                return;
+            }
+
+            option.$el.scrollIntoView({
+                block: 'center'
             });
         });
 
@@ -304,5 +330,5 @@
 
     watch(modelSearch, searchQuery => emit('search', searchQuery));
 
-    watch(() => options, () => highlightedIndex.value = INITIAL_HIGHLIGHTED_INDEX);
+    watch([() => options, isPopupOpen], () => highlightedIndex.value = INITIAL_HIGHLIGHTED_INDEX);
 </script>

@@ -19,7 +19,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxFilter, FluxFilterOptionsAsync, FluxFilterOptionRow, FluxPane, FluxStack } from '@basmilius/flux';
+    import { FluxFilter, FluxFilterOptionRow, FluxFilterOptionsAsync, FluxPane, FluxStack } from '@basmilius/flux';
     import { ref } from 'vue';
     import dataset from '../formSelect/dataset.json';
 
@@ -34,36 +34,21 @@
         }
     });
 
-    async function fetchOptions(ids: string[]): Promise<FluxFilterOptionRow[]> {
+    async function fetchOptions(values: string[]): Promise<FluxFilterOptionRow[]> {
         await new Promise(resolve => setTimeout(resolve, 300));
 
-        return dataset
-            .filter(o => ids.includes(o.id))
-            .map(o => ({
-                label: o.label,
-                value: o.id
-            }));
+        return dataset.filter(o => values.includes(o.value));
     }
 
     async function fetchRelevant(): Promise<FluxFilterOptionRow[]> {
         await new Promise(resolve => setTimeout(resolve, 300));
 
-        return dataset
-            .map(o => ({
-                label: o.label,
-                value: o.id
-            }))
-            .toSorted();
+        return dataset.toSorted();
     }
 
     async function fetchSearch(searchQuery: string): Promise<FluxFilterOptionRow[]> {
         await new Promise(resolve => setTimeout(resolve, 300));
 
-        return dataset
-            .filter(o => o.label.toLowerCase().includes(searchQuery.toLowerCase()))
-            .map(o => ({
-                label: o.label,
-                value: o.id
-            }));
+        return dataset.filter(o => o.label.toLowerCase().includes(searchQuery.toLowerCase()));
     }
 </script>

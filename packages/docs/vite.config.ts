@@ -22,7 +22,6 @@ export default defineConfig({
         }
     },
     css: {
-        preprocessorMaxWorkers: true,
         preprocessorOptions: {
             scss: {
                 api: 'modern-compiler'

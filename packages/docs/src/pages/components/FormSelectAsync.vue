@@ -112,8 +112,8 @@
 
     const selectValue = ref(null);
 
-    async function fetchOptions(ids: string[]): Promise<(FluxFormSelectGroup | FluxFormSelectOption)[]> {
-        return dataset.filter(o => ids.includes(o.id));
+    async function fetchOptions(values: string[]): Promise<(FluxFormSelectGroup | FluxFormSelectOption)[]> {
+        return dataset.filter(o => values.includes(o.value));
     }
 
     async function fetchRelevant(): Promise<(FluxFormSelectGroup | FluxFormSelectOption)[]> {

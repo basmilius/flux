@@ -669,9 +669,9 @@
             }
 
             groups[group].push({
-                id: timeZone,
+                command: timeZoneOffset,
                 label: label,
-                command: timeZoneOffset
+                value: timeZone
             });
         }
 

@@ -34,7 +34,6 @@ export default defineConfig(({command}) => ({
         }
     },
     css: {
-        preprocessorMaxWorkers: true,
         preprocessorOptions: {
             scss: {
                 api: 'modern-compiler'

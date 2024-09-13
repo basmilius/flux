@@ -1,0 +1,61 @@
+name: Deploy Flux Documentation
+
+on:
+    pull_request:
+    release:
+        types: [ published ]
+
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            deployments: write
+        name: 🚀 Publish to Cloudflare Pages
+        steps:
+            -   name: 👀 Checkout
+                uses: actions/checkout@v3
+
+            -   name: ⚙️ Setup pnpm
+                uses: pnpm/action-setup@v2
+                with:
+                    version: 9
+
+            -   name: ✨ Setup node 22.x
+                uses: actions/setup-node@v4
+                with:
+                    node-version: '22.x'
+                    registry-url: https://registry.npmjs.org
+                    cache: pnpm
+
+            -   name: 📦️ Install dependencies
+                run: pnpm install --frozen-lockfile
+                env:
+                    FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+
+            -   name: 🔨 Build Flux
+                run: pnpm build
+                env:
+                    FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+
+            -   name: 🔨 Build Documentation
+                run: pnpm docs:build
+                env:
+                    FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+
+            -   name: 🚀 Publish to Cloudflare Pages
+                uses: cloudflare/pages-action@v1
+                with:
+                    apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                    accountId: 5e565cf9fa55b0eae1f8131903da2ca9
+                    projectName: flux-documentation
+                    directory: packages/docs/dist
+                    gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+                id: publish
+
+            -   name: ⭐️ Output
+                run: |
+                    echo "ID: ${{ steps.publish.outputs.id }}"
+                    echo "URL: ${{ steps.publish.outputs.url }}"
+                    echo "Environment: ${{ steps.publish.outputs.environment }}"
+                    echo "Alias: ${{ steps.publish.outputs.alias }}"
