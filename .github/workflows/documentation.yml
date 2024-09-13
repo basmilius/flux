@@ -37,7 +37,7 @@ jobs:
                 run: pnpm build
 
             -   name: 🔨 Build Documentation
-                run: pnpm build:docs
+                run: pnpm docs:build
 
             -   name: 🚀 Publish to Cloudflare Pages
                 uses: cloudflare/pages-action@v1
