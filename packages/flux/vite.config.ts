@@ -18,7 +18,7 @@ export default defineConfig(({command}) => ({
         sourcemap: true,
         lib: {
             entry: resolve(import.meta.dirname, './src/index.ts'),
-            fileName: 'basmilius.flux',
+            fileName: 'flux',
             name: 'flux'
         },
         rollupOptions: {

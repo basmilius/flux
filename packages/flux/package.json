@@ -1,6 +1,6 @@
 {
     "name": "@basmilius/flux",
-    "version": "1.4.7",
+    "version": "1.4.8",
     "type": "module",
     "license": "MIT",
     "funding": "https://github.com/sponsors/basmilius",
@@ -29,8 +29,8 @@
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
-            "import": "./dist/basmilius.flux.js",
-            "require": "./dist/basmilius.flux.umd.cjs"
+            "import": "./dist/flux.js",
+            "require": "./dist/flux.umd.cjs"
         },
         "./style.css": "./dist/style.css"
     },
@@ -41,8 +41,8 @@
     "files": [
         "dist"
     ],
-    "main": "./dist/basmilius.flux.umd.cjs",
-    "module": "./dist/basmilius.flux.js",
+    "main": "./dist/flux.umd.cjs",
+    "module": "./dist/flux.js",
     "types": "./dist/index.d.ts",
     "sideEffects": false,
     "dependencies": {

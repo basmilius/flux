@@ -1,6 +1,6 @@
 {
     "name": "@basmilius/flux-dashboard",
-    "version": "1.4.7",
+    "version": "1.4.8",
     "type": "module",
     "license": "MIT",
     "funding": "https://github.com/sponsors/basmilius",
@@ -30,8 +30,8 @@
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
-            "import": "./dist/basmilius.flux-dashboard.js",
-            "require": "./dist/basmilius.flux-dashboard.umd.cjs"
+            "import": "./dist/flux-dashboard.js",
+            "require": "./dist/flux-dashboard.umd.cjs"
         },
         "./style.css": "./dist/style.css"
     },
@@ -42,8 +42,8 @@
     "files": [
         "dist"
     ],
-    "main": "./dist/basmilius.flux-dashboard.umd.cjs",
-    "module": "./dist/basmilius.flux-dashboard.js",
+    "main": "./dist/flux-dashboard.umd.cjs",
+    "module": "./dist/flux-dashboard.js",
     "types": "./dist/index.d.ts",
     "sideEffects": false,
     "dependencies": {
