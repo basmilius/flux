@@ -1,6 +1,6 @@
 {
     "name": "@basmilius/flux",
-    "version": "1.4.6",
+    "version": "1.4.7",
     "type": "module",
     "license": "MIT",
     "funding": "https://github.com/sponsors/basmilius",
@@ -10,6 +10,16 @@
         "url": "git+https://github.com/basmilius/flux.git",
         "directory": "packages/flux"
     },
+    "keywords": [
+        "ui libeary",
+        "component library",
+        "design system",
+        "vue",
+        "vue 3",
+        "ui",
+        "components",
+        "flux"
+    ],
     "scripts": {
         "build": "vite build && pnpm run gentypes",
         "dev": "vite build --watch",
