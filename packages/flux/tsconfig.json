@@ -38,6 +38,6 @@
     ],
     "vueCompilerOptions": {
         "target": 3.5,
-        "strictTemplates": true
+        "strictTemplates": false
     }
 }

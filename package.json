@@ -9,13 +9,12 @@
         "docs:build": "pnpm run -C packages/docs build",
         "docs:dev": "pnpm run -C packages/docs dev",
         "link:base": "pnpm link --dir packages/flux --global",
-        "link:dashboard": "pnpm link --dir packages/dashboard --global",
-        "publish": "pnpm --filter '@basmilius/*' -r publish --access public --no-git-checks"
+        "link:dashboard": "pnpm link --dir packages/dashboard --global"
     },
     "engines": {
         "node": ">=22"
     },
-    "packageManager": "pnpm@9.9.0",
+    "packageManager": "pnpm@9.10.0",
     "devDependencies": {
         "@vue/language-server": "^2.1.6"
     }
