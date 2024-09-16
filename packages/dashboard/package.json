@@ -24,6 +24,10 @@
         },
         "./style.css": "./dist/style.css"
     },
+    "publishConfig": {
+        "access": "public",
+        "provenance": true
+    },
     "files": [
         "dist"
     ],
