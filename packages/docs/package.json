@@ -13,7 +13,7 @@
         "@fortawesome/pro-regular-svg-icons": "^6.6.0",
         "highlight.js": "^11.10.0",
         "luxon": "^3.5.0",
-        "vue": "^3.5.5",
+        "vue": "^3.5.6",
         "vue-highlight-code": "^0.2.0",
         "vue-router": "^4.4.5"
     },

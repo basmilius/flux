@@ -1,6 +1,6 @@
 {
     "name": "@basmilius/flux-dashboard",
-    "version": "1.4.5",
+    "version": "1.4.6",
     "type": "module",
     "license": "MIT",
     "funding": "https://github.com/sponsors/basmilius",
@@ -33,7 +33,7 @@
     "sideEffects": false,
     "dependencies": {
         "@basmilius/flux": "workspace:*",
-        "vue": "^3.5.5"
+        "vue": "^3.5.6"
     },
     "devDependencies": {
         "@types/node": "^22.5.5",

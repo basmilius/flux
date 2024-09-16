@@ -1,6 +1,6 @@
 {
     "name": "@basmilius/flux",
-    "version": "1.4.5",
+    "version": "1.4.6",
     "type": "module",
     "license": "MIT",
     "funding": "https://github.com/sponsors/basmilius",
@@ -34,7 +34,7 @@
         "imask": "^7.6.1",
         "lodash-es": "^4.17.21",
         "luxon": "^3.5.0",
-        "vue": "^3.5.5"
+        "vue": "^3.5.6"
     },
     "devDependencies": {
         "@fortawesome/fontawesome-common-types": "^6.6.0",
