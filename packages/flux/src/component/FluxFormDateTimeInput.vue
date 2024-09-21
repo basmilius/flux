@@ -104,6 +104,11 @@
 
     watch(localValue, localValue => {
         unref(flyoutRef)?.close();
+
+        if (modelValue.value?.toISO() === localValue?.toISO()) {
+            return;
+        }
+
         modelValue.value = localValue;
     });
 </script>

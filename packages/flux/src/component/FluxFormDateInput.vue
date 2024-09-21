@@ -72,10 +72,15 @@
         emit('focus');
     }
 
+    watch(modelValue, modelValue => localValue.value = modelValue, {immediate: true});
+
     watch(localValue, localValue => {
         unref(flyoutRef)?.close();
+
+        if (modelValue.value?.toISODate() === localValue?.toISODate()) {
+            return;
+        }
+
         modelValue.value = localValue;
     });
-
-    watch(modelValue, modelValue => localValue.value = modelValue, {immediate: true});
 </script>
