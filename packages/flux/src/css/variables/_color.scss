@@ -2,7 +2,7 @@
 @use '../mixin' as flux;
 
 @function to-rgb($hex) {
-    @return color.red($hex) color.green($hex) color.blue($hex);
+    @return color.channel($hex, 'red', $space: rgb) color.channel($hex, 'green', $space: rgb) color.channel($hex, 'blue', $space: rgb);
 }
 
 [light],
