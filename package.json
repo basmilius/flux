@@ -14,7 +14,7 @@
     "engines": {
         "node": ">=22"
     },
-    "packageManager": "pnpm@9.10.0",
+    "packageManager": "pnpm@9.11.0",
     "devDependencies": {
         "@vue/language-server": "^2.1.6"
     }

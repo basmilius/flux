@@ -1,6 +1,6 @@
 {
     "name": "@basmilius/flux-dashboard",
-    "version": "1.4.8",
+    "version": "1.4.9",
     "type": "module",
     "license": "MIT",
     "funding": "https://github.com/sponsors/basmilius",
@@ -11,7 +11,7 @@
         "directory": "packages/dashboard"
     },
     "keywords": [
-        "ui libeary",
+        "ui library",
         "component library",
         "design system",
         "vue",
@@ -48,16 +48,16 @@
     "sideEffects": false,
     "dependencies": {
         "@basmilius/flux": "workspace:*",
-        "vue": "^3.5.6"
+        "vue": "^3.5.7"
     },
     "devDependencies": {
         "@types/node": "^22.5.5",
-        "@vitejs/plugin-vue": "^5.1.3",
+        "@vitejs/plugin-vue": "^5.1.4",
         "css-class-generator": "^2.0.0",
-        "sass-embedded": "^1.78.0",
+        "sass-embedded": "^1.79.3",
         "tsc-alias": "^1.8.10",
         "typescript": "^5.6.2",
-        "vite": "^5.4.5",
+        "vite": "^5.4.7",
         "vite-css-modules": "^1.4.2",
         "vue-tsc": "^2.1.6"
     }
