@@ -111,9 +111,21 @@
                         type="route"/>
 
                     <FluxMenuItem
-                        :is-active="path === '/visuals/gridlines'"
-                        label="Gridlines"
-                        to="/visuals/gridlines"
+                        :is-active="path === '/visuals/dot-pattern'"
+                        label="Dot pattern"
+                        to="/visuals/dot-pattern"
+                        type="route"/>
+
+                    <FluxMenuItem
+                        :is-active="path === '/visuals/flickering-grid'"
+                        label="Flickering grid"
+                        to="/visuals/flickering-grid"
+                        type="route"/>
+
+                    <FluxMenuItem
+                        :is-active="path === '/visuals/grid-pattern'"
+                        label="Grid pattern"
+                        to="/visuals/grid-pattern"
                         type="route"/>
                 </FluxMenuGroup>
 

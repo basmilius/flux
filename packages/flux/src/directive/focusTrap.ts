@@ -60,7 +60,7 @@ class FocusTrap {
     }
 }
 
-export const focusTrap: Directive = {
+export default {
     beforeUnmount(elm: HTMLElement): void {
         const focusTrap = focusTraps.get(elm);
         focusTrap?.unregister();
@@ -72,6 +72,6 @@ export const focusTrap: Directive = {
         focusTrap.register();
         focusTraps.set(elm, focusTrap);
     }
-};
+} satisfies Directive;
 
 const focusTraps: WeakMap<HTMLElement, FocusTrap> = new WeakMap();

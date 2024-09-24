@@ -38,7 +38,7 @@ class HeightTransition {
     }
 }
 
-export const heightTransition: Directive = {
+export default {
     beforeUnmount(elm: HTMLElement): void {
         const heightTransition = heightTransitions.get(elm);
         heightTransition?.unregister();
@@ -50,6 +50,6 @@ export const heightTransition: Directive = {
         heightTransition.register();
         heightTransitions.set(elm, heightTransition);
     }
-};
+} satisfies Directive;
 
 const heightTransitions: WeakMap<HTMLElement, HeightTransition> = new WeakMap();

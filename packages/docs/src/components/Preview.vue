@@ -3,6 +3,8 @@
         ref="previewRef"
         :class="$style.preview"
         data-typography-aware>
+        <FluxGridPattern :stroke-dasharray="3"/>
+
         <slot name="body">
             <div :class="$style.previewBody">
                 <slot/>
@@ -14,6 +16,7 @@
 <script
     lang="ts"
     setup>
+    import { FluxGridPattern } from '@basmilius/flux';
     import { onMounted, ref, unref } from 'vue';
 
     const minHeight = ref(0);
@@ -48,27 +51,10 @@
     module>
     .preview {
         position: relative;
-        background: rgb(var(--gray-1));
+        background: rgb(var(--gray-1) / .75);
         border: 1px solid rgb(var(--gray-3));
         border-radius: var(--radius);
         font-size: 15px;
-
-        &::before {
-            --mask: linear-gradient(to bottom, transparent calc(100% - 1px), black calc(100% - 1px)), linear-gradient(to right, transparent calc(100% - 1px), black calc(100% - 1px));
-
-            position: absolute;
-            display: block;
-            inset: 0;
-            content: '';
-            background: rgb(var(--gray-3) / .75);
-            border-radius: var(--radius);
-            -webkit-mask-image: var(--mask);
-            -webkit-mask-position: top center;
-            -webkit-mask-size: 45px 45px;
-            mask-image: var(--mask);
-            mask-position: top center;
-            mask-size: 45px 45px;
-        }
     }
 
     .previewBody {

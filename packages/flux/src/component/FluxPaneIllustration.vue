@@ -9,8 +9,9 @@
             :style="{
                 border: `1px solid ${borderColor}`
             }">
+            <FluxGridPattern :stroke-dasharray="3"/>
+
             <FluxAnimatedColors
-                :class="styles.paneIllustrationCanvas"
                 :colors="animatedColors"
                 :opacity="animatedOpacity"
                 :seed="animatedSeed"/>
@@ -36,6 +37,7 @@
     import { computed, useSlots } from 'vue';
     import { hexToRGB } from '@/util';
     import FluxAnimatedColors from './FluxAnimatedColors.vue';
+    import FluxGridPattern from './FluxGridPattern.vue';
     import styles from '@/css/component/Pane.module.scss';
 
     const {

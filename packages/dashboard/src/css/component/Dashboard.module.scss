@@ -218,7 +218,7 @@
 }
 
 .dashboardNavigationRoundingFix {
-    position: absolute;
+    position: fixed;
     display: block;
     left: 300px;
     height: var(--radius);

@@ -179,13 +179,6 @@
     }
 }
 
-.paneIllustrationCanvas {
-    composes: gridLines from './Visual.module.scss';
-
-    --grid: linear-gradient(to bottom, rgb(0 0 0 / .48) calc(100% - 1px), black calc(100% - 1px)), linear-gradient(to right, rgb(0 0 0 / .48) calc(100% - 1px), black calc(100% - 1px));
-    --size: 30px;
-}
-
 .paneIllustrationContent {
     position: relative;
     display: flex;

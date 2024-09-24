@@ -17,14 +17,6 @@
 
     onMounted(() => updateAttribute());
 
-    function addTransitions(): void {
-        document.documentElement.classList.add('switching-theme');
-
-        document.documentElement.addEventListener('transitionend', () => {
-            document.documentElement.classList.remove('switching-theme');
-        }, {once: true, passive: true});
-    }
-
     function updateAttribute(): void {
         if (darkMode.value) {
             document.documentElement.setAttribute('dark', 'dark');
@@ -36,8 +28,11 @@
     watch(darkMode, darkMode => {
         localStorage.setItem('flux.darkMode', darkMode ? '1' : '0');
 
-        addTransitions();
-        updateAttribute();
+        if ('startViewTransition' in document) {
+            document.startViewTransition(updateAttribute);
+        } else {
+            updateAttribute();
+        }
     });
 </script>
 

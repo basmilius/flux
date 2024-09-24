@@ -1,2 +1,7 @@
-export { focusTrap as vFocusTrap } from './focusTrap';
-export { heightTransition as vHeightTransition } from './heightTransition';
+import vFocusTrap from './focusTrap';
+import vHeightTransition from './heightTransition';
+
+export {
+    vFocusTrap,
+    vHeightTransition
+}

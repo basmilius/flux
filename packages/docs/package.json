@@ -13,13 +13,13 @@
         "@fortawesome/pro-regular-svg-icons": "^6.6.0",
         "highlight.js": "^11.10.0",
         "luxon": "^3.5.0",
-        "vue": "^3.5.7",
+        "vue": "^3.5.8",
         "vue-highlight-code": "^0.2.0",
         "vue-router": "^4.4.5"
     },
     "devDependencies": {
         "@types/luxon": "^3.4.2",
-        "@types/node": "^22.5.5",
+        "@types/node": "^22.6.1",
         "@vitejs/plugin-vue": "^5.1.4",
         "css-class-generator": "^2.0.0",
         "sass-embedded": "^1.79.3",

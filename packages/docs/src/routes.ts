@@ -318,8 +318,16 @@ export const router = createRouter({
                     component: () => import('@/pages/visuals/AnimatedColors.vue')
                 },
                 {
-                    path: '/visuals/gridlines',
-                    component: () => import('@/pages/visuals/Gridlines.vue')
+                    path: '/visuals/dot-pattern',
+                    component: () => import('@/pages/visuals/DotPattern.vue')
+                },
+                {
+                    path: '/visuals/flickering-grid',
+                    component: () => import('@/pages/visuals/FlickeringGrid.vue')
+                },
+                {
+                    path: '/visuals/grid-pattern',
+                    component: () => import('@/pages/visuals/GridPattern.vue')
                 },
                 {
                     path: '/:pathMatch(.*)*',

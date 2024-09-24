@@ -4,7 +4,7 @@
             section="Visuals"
             title="Animated colors"/>
 
-        <Preview>
+        <Preview>,
             <FluxAspectRatio
                 :aspect-ratio="16 / 9"
                 style="width: 420px">

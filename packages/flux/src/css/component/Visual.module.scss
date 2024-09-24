@@ -1,3 +1,16 @@
+@property --shine-degrees {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.fillVisual {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
 .animatedColors {
     position: absolute;
     inset: 0;
@@ -6,15 +19,54 @@
     filter: blur(60px) saturate(180%);
 }
 
-.gridLines {
-    --grid: linear-gradient(to bottom, transparent calc(100% - 1px), black calc(100% - 1px)), linear-gradient(to right, transparent calc(100% - 1px), black calc(100% - 1px));
+.dotPattern {
+    composes: fillVisual;
 
-    background: rgb(var(--gray-3));
+    fill: rgb(var(--gray-4));
+    pointer-events: none;
+}
 
-    -webkit-mask-image: var(--grid);
-    -webkit-mask-position: top left;
-    -webkit-mask-size: var(--size) var(--size);
-    mask-image: var(--grid);
-    mask-position: top left;
-    mask-size: var(--size) var(--size);
+.flickeringGrid {
+    composes: fillVisual;
+
+    pointer-events: none;
+}
+
+.gridPattern {
+    composes: fillVisual;
+
+    fill: rgb(var(--gray-2));
+    stroke: rgb(var(--gray-4));
+    pointer-events: none;
+}
+
+.borderShine {
+    position: relative;
+
+    --shine-radius: var(--radius);
+    --shine-mask: linear-gradient(#fff #{0} #{0}) content-box, linear-gradient(#fff #{0} #{0});
+
+    &::before {
+        position: absolute;
+        display: block;
+        inset: calc(var(--shine-offset) * -1px);
+        padding: calc(var(--shine-width) * 1px);
+        content: '';
+        background: conic-gradient(from var(--shine-degrees), #{var(--shine-colors)});
+        border-radius: var(--shine-radius);
+        pointer-events: none;
+        animation: borderShinePosition calc(var(--shine-duration) * 1s) linear infinite;
+        mask: var(--shine-mask);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+    }
+}
+
+@keyframes borderShinePosition {
+    from {
+        --shine-degrees: 0deg;
+    }
+    to {
+        --shine-degrees: 360deg;
+    }
 }
