@@ -1,5 +1,5 @@
 <template>
-    <div :class="isFlat ? styles.paneFlat : styles.paneRaised">
+    <div :class="CLASS_MAP[variant]">
         <slot/>
 
         <div
@@ -22,10 +22,18 @@
     import FluxSpinner from './FluxSpinner.vue';
     import styles from '@/css/component/Pane.module.scss';
 
-    defineProps<{
-        readonly isFlat?: boolean;
+    const CLASS_MAP = {
+        default: styles.paneDefault,
+        flat: styles.paneFlat,
+        well: styles.paneWell
+    } as const;
+
+    const {
+        variant = 'default'
+    } = defineProps<{
         readonly isLoading?: boolean;
         readonly tag?: string;
+        readonly variant?: 'default' | 'flat' | 'well';
     }>();
 
     defineSlots<{

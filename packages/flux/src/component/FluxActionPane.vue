@@ -1,5 +1,9 @@
 <template>
-    <FluxPane :class="styles.actionPane">
+    <FluxPane
+        :class="styles.actionPane"
+        :variant="paneVariant">
+        <slot name="base"/>
+
         <div :class="styles.actionPaneGrid">
             <FluxPaneBody :class="styles.actionPaneBody">
                 <slot/>
@@ -25,9 +29,14 @@
     import FluxPaneBody from './FluxPaneBody.vue';
     import styles from '@/css/component/Action.module.scss';
 
+    defineProps<{
+        readonly paneVariant?: 'default' | 'flat' | 'well';
+    }>();
+
     defineSlots<{
         default(): any;
         buttons(): any;
+        base(): any;
     }>();
 
     const slots = useSlots();

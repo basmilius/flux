@@ -88,6 +88,7 @@
         if (disabled || isLoading) {
             evt.preventDefault();
             evt.stopPropagation();
+            return;
         }
 
         emit('click', evt);

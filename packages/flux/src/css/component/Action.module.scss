@@ -103,5 +103,7 @@
 }
 
 .actionPaneBody {
+    position: relative;
     padding: 0;
+    text-wrap: pretty;
 }

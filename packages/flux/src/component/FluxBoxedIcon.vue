@@ -1,7 +1,15 @@
 <template>
     <div
         data-typography-aware
-        :class="styles.iconBoxed"
+        :class="clsx(
+            !color && styles.iconBoxedDefault,
+            color === 'gray' && styles.iconBoxedGray,
+            color === 'primary' && styles.iconBoxedPrimary,
+            color === 'danger' && styles.iconBoxedDanger,
+            color === 'info' && styles.iconBoxedInfo,
+            color === 'success' && styles.iconBoxedSuccess,
+            color === 'warning' && styles.iconBoxedWarning,
+        )"
         :style="{
             fontSize: size && `${size}px`
         }">
@@ -12,7 +20,8 @@
 <script
     lang="ts"
     setup>
-    import type { IconName } from '@/types';
+    import { clsx } from 'clsx';
+    import type { ColorVariant, IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import styles from '@/css/component/Icon.module.scss';
 
@@ -21,6 +30,7 @@
     }>();
 
     defineProps<{
+        readonly color?: ColorVariant;
         readonly size?: number;
         readonly variant: IconName;
     }>();

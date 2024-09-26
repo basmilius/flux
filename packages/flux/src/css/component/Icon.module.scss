@@ -19,11 +19,64 @@
         align-items: center;
         flex-shrink: 0;
         justify-content: center;
-        box-shadow: var(--shadow-sm);
         font-size: 42px;
 
         .icon {
             font-size: .33em;
         }
+    }
+
+    .iconBoxedDefault {
+        composes: iconBoxed;
+
+        box-shadow: var(--shadow-sm);
+    }
+
+    .iconBoxedColored {
+        composes: iconBoxed;
+
+        border: 0;
+    }
+
+    .iconBoxedGray {
+        composes: iconBoxedColored;
+
+        background: rgb(var(--gray-3));
+        color: var(--foreground);
+    }
+
+    .iconBoxedPrimary {
+        composes: iconBoxedColored;
+
+        background: rgb(var(--primary-2));
+        color: rgb(var(--primary-10));
+    }
+
+    .iconBoxedDanger {
+        composes: iconBoxedColored;
+
+        background: rgb(var(--danger-2));
+        color: rgb(var(--danger-10));
+    }
+
+    .iconBoxedInfo {
+        composes: iconBoxedColored;
+
+        background: rgb(var(--info-2));
+        color: rgb(var(--info-10));
+    }
+
+    .iconBoxedSuccess {
+        composes: iconBoxedColored;
+
+        background: rgb(var(--success-2));
+        color: rgb(var(--success-10));
+    }
+
+    .iconBoxedWarning {
+        composes: iconBoxedColored;
+
+        background: rgb(var(--warning-2));
+        color: rgb(var(--warning-10));
     }
 }

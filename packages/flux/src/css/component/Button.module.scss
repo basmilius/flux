@@ -90,6 +90,10 @@
     &:active {
         background: rgb(var(--gray-3));
     }
+
+    .spinner {
+        --value: rgb(var(--danger-7));
+    }
 }
 
 .destructiveButtonIcon {
