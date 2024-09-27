@@ -4,7 +4,9 @@
         :key="index"
         :class="isNavigationCollapsed ? styles.dashboardNavigationRoundingFixCollapsed : styles.dashboardNavigationRoundingFix"/>
 
-    <nav :class="isNavigationCollapsed ? styles.dashboardNavigationCollapsed : styles.dashboardNavigation">
+    <nav
+        v-bind="$attrs"
+        :class="isNavigationCollapsed ? styles.dashboardNavigationCollapsed : styles.dashboardNavigation">
         <router-link
             v-if="slots.logo"
             :class="styles.dashboardNavigationLogo"
@@ -25,6 +27,10 @@
     import { useSlots } from 'vue';
     import { useDashboardInjection } from '@/composable';
     import styles from '@/css/component/Dashboard.module.scss';
+
+    defineOptions({
+        inheritAttrs: false
+    });
 
     defineProps<{
         logoLocation?: To
