@@ -8,7 +8,7 @@
         <router-link
             v-if="slots.logo"
             :class="styles.dashboardNavigationLogo"
-            to="/">
+            :to="logoLocation || '/'">
             <slot
                 name="logo"
                 v-bind="{isNavigationCollapsed}"/>
@@ -23,7 +23,12 @@
     setup>
     import { useSlots } from 'vue';
     import { useDashboardInjection } from '@/composable';
+    import { To } from '@/types';
     import styles from '@/css/component/Dashboard.module.scss';
+
+    defineProps<{
+        logoLocation?: To
+    }>();
 
     const {isNavigationCollapsed} = useDashboardInjection();
     const slots = useSlots();
