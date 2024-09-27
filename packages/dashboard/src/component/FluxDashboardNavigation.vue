@@ -21,9 +21,9 @@
 <script
     lang="ts"
     setup>
+    import type { To } from '@basmilius/flux';
     import { useSlots } from 'vue';
     import { useDashboardInjection } from '@/composable';
-    import { To } from '@/types';
     import styles from '@/css/component/Dashboard.module.scss';
 
     defineProps<{

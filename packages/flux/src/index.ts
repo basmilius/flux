@@ -56,5 +56,6 @@ export type {
     FluxPercentageBarItemObject,
     FluxSegmentedControlItemObject,
 
-    IconName
+    IconName,
+    To
 } from './types';

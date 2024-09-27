@@ -19,7 +19,7 @@
     },
     "devDependencies": {
         "@types/luxon": "^3.4.2",
-        "@types/node": "^22.7.2",
+        "@types/node": "^22.7.3",
         "@vitejs/plugin-vue": "^5.1.4",
         "css-class-generator": "^2.0.0",
         "sass-embedded": "^1.79.3",
