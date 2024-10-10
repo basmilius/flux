@@ -1,0 +1,15 @@
+@import url('https://font.bmcdn.nl/css2?family=apple-sf-pro-text|jetbrains-mono');
+
+:root {
+    --vp-font-family-base: apple-sf-pro-text;
+    --vp-font-family-mono: jetbrains-mono;
+
+    --vp-c-brand-1: #528bff;
+    --vp-c-brand-2: #84adff;
+    --vp-c-brand-3: #2970ff;
+}
+
+button {
+    font-size: inherit;
+    font-weight: inherit;
+}

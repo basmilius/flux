@@ -8,8 +8,8 @@
                 :width="width"
                 :height="height"
                 patternUnits="userSpaceOnUse"
-                :x="x"
-                :y="y">
+                :x="-1"
+                :y="-1">
                 <path
                     :d="`M.5 ${height}V.5H${width}`"
                     fill="none"
@@ -25,8 +25,6 @@
 
         <svg
             v-if="squares"
-            :x="x"
-            :y="y"
             style="overflow: visible;">
             <rect
                 v-for="[x, y] of squares"
@@ -58,30 +56,5 @@
         readonly squares?: Array<[x: number, y: number]>;
     }>();
 
-    const svgRef = useTemplateRef('svg');
     const id = useId();
-
-    const svgWidth = ref(0);
-    const svgHeight = ref(0);
-
-    const x = computed(() => -((svgWidth.value % width) / 2));
-    const y = computed(() => -((svgHeight.value % height) / 2));
-
-    watch(svgRef, (svg, _, onCleanup) => {
-        if (!svg) {
-            return;
-        }
-
-        const onResize = () => {
-            svgWidth.value = svg.clientWidth;
-            svgHeight.value = svg.clientHeight;
-        };
-
-        window.addEventListener('resize', onResize, {passive: true});
-        onResize();
-
-        onCleanup(() => {
-            window.removeEventListener('resize', onResize);
-        });
-    }, {immediate: true});
 </script>

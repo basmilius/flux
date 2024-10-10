@@ -16,6 +16,7 @@ export { default as FluxCalendar } from './FluxCalendar.vue';
 export { default as FluxCalendarEvent } from './FluxCalendarEvent.vue';
 export { default as FluxCheckbox } from './FluxCheckbox.vue';
 export { default as FluxChip } from './FluxChip.vue';
+export { default as FluxClickablePane } from './FluxClickablePane.vue';
 export { default as FluxComment } from './FluxComment.vue';
 export { default as FluxColorPicker } from './FluxColorPicker.vue';
 export { default as FluxColorSelect } from './FluxColorSelect.vue';

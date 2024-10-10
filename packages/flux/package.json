@@ -21,10 +21,12 @@
         "flux"
     ],
     "scripts": {
-        "build": "vite build && pnpm run gentypes",
+        "build": "vue-tsc && vite build",
         "dev": "vite build --watch",
-        "gentypes": "vue-tsc --outDir dist && tsc-alias --dir dist",
-        "prepublishOnly": "cp ../../README.md ."
+        "prepublishOnly": "cp ../../README.md .",
+        "docs:dev": "vitepress dev docs",
+        "docs:build": "vitepress build docs",
+        "docs:preview": "vitepress preview docs"
     },
     "exports": {
         ".": {
@@ -46,24 +48,26 @@
     "types": "./dist/index.d.ts",
     "sideEffects": false,
     "dependencies": {
+        "@fortawesome/fontawesome-common-types": "^6.6.0",
+        "@fortawesome/pro-regular-svg-icons": "^6.6.0",
         "clsx": "^2.1.1",
         "imask": "^7.6.1",
         "lodash-es": "^4.17.21",
         "luxon": "^3.5.0",
-        "vue": "^3.5.10"
+        "vue": "^3.5.11"
     },
     "devDependencies": {
-        "@fortawesome/fontawesome-common-types": "^6.6.0",
         "@types/lodash-es": "^4.17.12",
         "@types/luxon": "^3.4.2",
-        "@types/node": "^22.7.4",
+        "@types/node": "^22.7.5",
         "@vitejs/plugin-vue": "^5.1.4",
         "css-class-generator": "^2.0.0",
         "sass-embedded": "^1.79.4",
-        "tsc-alias": "^1.8.10",
         "typescript": "^5.6.2",
         "vite": "^5.4.8",
         "vite-css-modules": "^1.4.2",
+        "vite-plugin-dts": "^4.2.3",
+        "vitepress": "^1.4.0",
         "vue-tsc": "^2.1.6"
     }
 }

@@ -3,12 +3,16 @@ import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import { patchCssModules } from 'vite-css-modules';
 import vue from '@vitejs/plugin-vue';
+import dts from 'vite-plugin-dts';
 import className from 'css-class-generator';
 
 export default defineConfig(({command}) => ({
     plugins: [
         patchCssModules(),
-        vue()
+        vue(),
+        dts({
+            cleanVueFileName: true
+        })
     ],
     build: {
         emptyOutDir: command === 'build',

@@ -29,3 +29,7 @@ dist-ssr
 
 # Project
 packages/*/README.md
+
+# Vitepress
+.vitepress/cache/
+.vitepress/dist/
