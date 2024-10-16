@@ -7,7 +7,7 @@
                 <FluxFormInput
                     :="{autoComplete, autoFocus, isDisabled, isReadonly, modelValue, placeholder}"
                     v-model="localValue"
-                    :class="styles.formDateInput"
+                    :class="$style.formDateInput"
                     type="date"
                     :max="max?.toISO()?.substring(0, 10)"
                     :min="min?.toISO()?.substring(0, 10)"
@@ -39,7 +39,7 @@
     import FluxFormInput from './FluxFormInput.vue';
     import FluxFormInputGroup from './FluxFormInputGroup.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import styles from '@/css/component/Form.module.scss';
+    import $style from '@/css/component/Form.module.scss';
 
     const emit = defineEmits<{
         blur: [];

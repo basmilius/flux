@@ -1,6 +1,6 @@
 <template>
-    <div :class="styles.datePicker">
-        <div :class="styles.datePickerHeader">
+    <div :class="$style.datePicker">
+        <div :class="$style.datePickerHeader">
             <FluxFadeTransition>
                 <FluxSecondaryButton
                     v-if="viewMode === 'date'"
@@ -11,19 +11,19 @@
             </FluxFadeTransition>
 
             <div
-                :class="styles.datePickerHeaderView"
+                :class="$style.datePickerHeaderView"
                 :id="id"
                 aria-live="polite"
                 role="presentation">
                 <button
-                    :class="styles.datePickerHeaderViewButton"
+                    :class="$style.datePickerHeaderViewButton"
                     type="button"
                     @click="setView('month')">
                     {{ viewMonth }}
                 </button>
 
                 <button
-                    :class="styles.datePickerHeaderViewButton"
+                    :class="$style.datePickerHeaderViewButton"
                     type="button"
                     @click="setView('year')">
                     {{ viewYear }}
@@ -44,16 +44,16 @@
             <div
                 v-if="viewMode === 'date'"
                 key="date"
-                :class="styles.datePickerDates"
+                :class="$style.datePickerDates"
                 :aria-labelledby="id">
                 <FluxWindowTransition :is-back="isTransitioningToPast">
                     <div
                         :key="viewDate.month"
-                        :class="styles.datePickerDatesGrid">
+                        :class="$style.datePickerDatesGrid">
                         <template
                             v-for="day of days"
                             :key="day">
-                            <span :class="styles.datePickerDay">{{ day }}</span>
+                            <span :class="$style.datePickerDay">{{ day }}</span>
                         </template>
 
                         <template
@@ -61,15 +61,15 @@
                             :key="date">
                             <button
                                 :class="clsx(
-                                    styles.datePickerDate,
-                                    isDisabled(date) && styles.isDisabled,
-                                    isWithinRange(date, 'end') && styles.isRangeEnd,
-                                    isWithinRange(date) && styles.isRangeEntry,
-                                    isWithinRange(date, 'start') && styles.isRangeStart,
-                                    isWithinSelection(date, 'end') && styles.isSelectionEnd,
-                                    isWithinSelection(date) && styles.isSelectionEntry,
-                                    isWithinSelection(date, 'start') && styles.isSelectionStart,
-                                    isSelected(date) && styles.isSelected
+                                    $style.datePickerDate,
+                                    isDisabled(date) && $style.isDisabled,
+                                    isWithinRange(date, 'end') && $style.isRangeEnd,
+                                    isWithinRange(date) && $style.isRangeEntry,
+                                    isWithinRange(date, 'start') && $style.isRangeStart,
+                                    isWithinSelection(date, 'end') && $style.isSelectionEnd,
+                                    isWithinSelection(date) && $style.isSelectionEntry,
+                                    isWithinSelection(date, 'start') && $style.isSelectionStart,
+                                    isSelected(date) && $style.isSelected
                                 )"
                                 tabindex="-1"
                                 type="button"
@@ -86,7 +86,7 @@
             <div
                 v-else-if="viewMode === 'month'"
                 key="month"
-                :class="styles.datePickerMonths">
+                :class="$style.datePickerMonths">
                 <template
                     v-for="month of months"
                     :key="month">
@@ -101,7 +101,7 @@
             <div
                 v-else-if="viewMode === 'year'"
                 key="year"
-                :class="styles.datePickerYears">
+                :class="$style.datePickerYears">
                 <FluxSecondaryButton
                     icon-before="angle-left"
                     tabindex="-1"
@@ -134,7 +134,7 @@
     import { useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher, useTranslate } from '@/composable/private';
     import { FluxFadeTransition, FluxVerticalWindowTransition, FluxWindowTransition } from '@/transition';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import styles from '@/css/component/DatePicker.module.scss';
+    import $style from '@/css/component/DatePicker.module.scss';
 
     const modelValue = defineModel<DateTime | DateTime[] | null>({
         default: null

@@ -1,6 +1,6 @@
 <template>
-    <div :class="styles.table">
-        <table :class="styles.tableBase">
+    <div :class="$style.table">
+        <table :class="$style.tableBase">
             <thead v-if="slots.header">
             <slot name="header"/>
             </thead>
@@ -22,7 +22,7 @@
 
         <div
             v-if="isLoading"
-            :class="styles.tableLoader">
+            :class="$style.tableLoader">
             <FluxSpinner/>
         </div>
     </div>
@@ -34,7 +34,7 @@
     import { provide, useSlots } from 'vue';
     import { FluxTableInjectionKey } from '@/data';
     import FluxSpinner from './FluxSpinner.vue';
-    import styles from '@/css/component/Table.module.scss';
+    import $style from '@/css/component/Table.module.scss';
 
     const {
         captionSide = 'bottom',

@@ -7,7 +7,7 @@
         </template>
 
         <button
-            :class="styles.calendarEvent"
+            :class="$style.calendarEvent"
             type="button"
             @click="onClick">
             <span>{{ label }}</span>
@@ -18,9 +18,9 @@
 <script
     lang="ts"
     setup>
-    import { DateTime } from 'luxon';
+    import type { DateTime } from 'luxon';
     import FluxTooltip from './FluxTooltip.vue';
-    import styles from '@/css/component/Calendar.module.scss';
+    import $style from '@/css/component/Calendar.module.scss';
 
     const emit = defineEmits<{
         click: [MouseEvent];

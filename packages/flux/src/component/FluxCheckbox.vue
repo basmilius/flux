@@ -1,16 +1,16 @@
 <template>
     <label
-        :class="styles.checkbox"
+        :class="$style.checkbox"
         :for="id">
         <input
             v-model="modelValue"
             ref="input"
             type="checkbox"
-            :class="styles.checkboxNative"
+            :class="$style.checkboxNative"
             :id="id"/>
 
         <button
-            :class="styles.checkboxElement"
+            :class="$style.checkboxElement"
             role="checkbox"
             :aria-checked="modelValue ?? false">
             <FluxIcon
@@ -26,7 +26,7 @@
 
         <span
             v-if="label"
-            :class="styles.checkboxLabel">
+            :class="$style.checkboxLabel">
             {{ label }}
         </span>
     </label>
@@ -38,7 +38,7 @@
     import { computed, unref, useTemplateRef, watchEffect } from 'vue';
     import { useFormFieldInjection } from '@/composable';
     import FluxIcon from './FluxIcon.vue';
-    import styles from '@/css/component/Form.module.scss';
+    import $style from '@/css/component/Form.module.scss';
 
     const modelValue = defineModel<boolean | null>({
         default: false

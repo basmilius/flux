@@ -1,5 +1,5 @@
 <template>
-    <aside :class="styles.dashboardMenu">
+    <aside :class="$style.dashboardMenu">
         <FluxDashboardTopBar>
             <slot name="top-bar-start"/>
 
@@ -14,7 +14,7 @@
             <slot name="top-bar-end"/>
         </FluxDashboardTopBar>
 
-        <div :class="styles.dashboardMenuBody">
+        <div :class="$style.dashboardMenuBody">
             <slot/>
         </div>
     </aside>
@@ -25,12 +25,10 @@
     setup>
     import { FluxIcon, FluxSpacer, IconName } from '@basmilius/flux';
     import FluxDashboardTopBar from './FluxDashboardTopBar.vue';
-    import styles from '@/css/component/Dashboard.module.scss';
+    import $style from '@/css/component/Dashboard.module.scss';
 
-    export type Props = {
+    defineProps<{
         readonly icon?: IconName;
         readonly title: string;
-    };
-
-    defineProps<Props>();
+    }>();
 </script>

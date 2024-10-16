@@ -1,6 +1,6 @@
 <template>
     <div
-        :class="styles.menuTitle"
+        :class="$style.menuTitle"
         role="presentation">
         {{ title }}
     </div>
@@ -9,7 +9,7 @@
 <script
     lang="ts"
     setup>
-    import styles from '@/css/component/Menu.module.scss';
+    import $style from '@/css/component/Menu.module.scss';
 
     defineProps<{
         readonly title: string;

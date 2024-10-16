@@ -1,5 +1,5 @@
 <template>
-    <tr :class="styles.tableRow">
+    <tr :class="$style.tableRow">
         <slot/>
     </tr>
 </template>
@@ -7,7 +7,7 @@
 <script
     lang="ts"
     setup>
-    import styles from '@/css/component/Table.module.scss';
+    import $style from '@/css/component/Table.module.scss';
 
     defineSlots<{
         default(): any;

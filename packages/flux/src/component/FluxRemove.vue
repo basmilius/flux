@@ -1,8 +1,8 @@
 <template>
     <button
         :class="clsx(
-            styles.remove,
-            isHidden && styles.isHidden
+            $style.remove,
+            isHidden && $style.isHidden
         )"
         type="button"
         @click="emit('click', $event)">
@@ -19,7 +19,7 @@
     import { clsx } from 'clsx';
     import type { IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
-    import styles from '@/css/component/Remove.module.scss';
+    import $style from '@/css/component/Remove.module.scss';
 
     const emit = defineEmits<{
         click: [MouseEvent];

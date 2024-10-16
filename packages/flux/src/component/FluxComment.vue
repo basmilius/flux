@@ -1,13 +1,13 @@
 <template>
     <div
         :class="clsx(
-            styles.comment,
-            isFlipped && styles.isFlipped,
-            isReceived && styles.isReceived
+            $style.comment,
+            isFlipped && $style.isFlipped,
+            isReceived && $style.isReceived
         )"
         role="article">
         <FluxAvatar
-            :class="styles.commentAvatar"
+            :class="$style.commentAvatar"
             :alt="avatarAlt"
             :fallback="avatarFallback"
             :fallback-icon="avatarFallbackIcon"
@@ -15,13 +15,13 @@
             :size="42"
             :url="avatarUrl"/>
 
-        <div :class="styles.commentBody">
-            <div :class="styles.commentHeader">
+        <div :class="$style.commentBody">
+            <div :class="$style.commentHeader">
                 <strong>{{ name }}</strong>
                 <time v-if="period">{{ period }}</time>
             </div>
 
-            <div :class="styles.commentMessage">
+            <div :class="$style.commentMessage">
                 <slot/>
             </div>
         </div>
@@ -34,7 +34,7 @@
     import { clsx } from 'clsx';
     import type { IconName } from '@/types';
     import FluxAvatar from './FluxAvatar.vue';
-    import styles from '@/css/component/Comment.module.scss';
+    import $style from '@/css/component/Comment.module.scss';
 
     const {
         avatarFallback = 'colorized',

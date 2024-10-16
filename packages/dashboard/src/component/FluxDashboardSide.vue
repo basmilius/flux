@@ -1,5 +1,5 @@
 <template>
-    <aside :class="styles.dashboardSide">
+    <aside :class="$style.dashboardSide">
         <FluxDashboardTopBar>
             <slot name="top-bar-start"/>
 
@@ -19,11 +19,9 @@
     setup>
     import { FluxSpacer } from '@basmilius/flux';
     import FluxDashboardTopBar from './FluxDashboardTopBar.vue';
-    import styles from '@/css/component/Dashboard.module.scss';
+    import $style from '@/css/component/Dashboard.module.scss';
 
-    export type Props = {
+    defineProps<{
         readonly title: string;
-    };
-
-    defineProps<Props>();
+    }>();
 </script>

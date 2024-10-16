@@ -1,14 +1,14 @@
 <template>
     <div
         :class="clsx(
-            mode === 'error' && styles.formFieldAdditionError,
-            mode === 'hint' && styles.formFieldAdditionHint
+            mode === 'error' && $style.formFieldAdditionError,
+            mode === 'hint' && $style.formFieldAdditionHint
         )"
         role="alert">
         <FluxIcon
             v-if="icon"
             :size="16"
-            :class="styles.formFieldAdditionIcon"
+            :class="$style.formFieldAdditionIcon"
             :variant="icon"/>
 
         <span v-if="message">
@@ -25,7 +25,7 @@
     import { clsx } from 'clsx';
     import type { IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
-    import styles from '@/css/component/Form.module.scss';
+    import $style from '@/css/component/Form.module.scss';
 
     const {
         mode = 'hint'

@@ -1,5 +1,5 @@
 <template>
-    <div :class="styles.expandableGroup">
+    <div :class="$style.expandableGroup">
         <slot/>
     </div>
 </template>
@@ -10,7 +10,7 @@
     import { ComponentInternalInstance, provide } from 'vue';
     import { FluxExpandableGroupInjectionKey } from '@/data';
     import { getExposedRef } from '@/util';
-    import styles from '@/css/component/Expandable.module.scss';
+    import $style from '@/css/component/Expandable.module.scss';
 
     const {
         isControlled

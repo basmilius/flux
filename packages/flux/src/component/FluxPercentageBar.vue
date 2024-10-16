@@ -1,9 +1,9 @@
 <template>
-    <div :class="styles.percentageBar">
-        <div :class="styles.percentageBarTrack">
+    <div :class="$style.percentageBar">
+        <div :class="$style.percentageBarTrack">
             <FluxTooltip v-for="item of items">
                 <template #content>
-                    <div :class="styles.percentageBarTooltip">
+                    <div :class="$style.percentageBarTooltip">
                         <FluxIcon
                             v-if="item.icon"
                             :size="16"
@@ -14,7 +14,7 @@
                 </template>
 
                 <div
-                    :class="styles.percentageBarSegment"
+                    :class="$style.percentageBarSegment"
                     :style="{
                         backgroundColor: item.color,
                         flexGrow: item.value
@@ -33,10 +33,10 @@
     setup>
     import type { FluxPercentageBarItemObject } from '@/types';
     import { formatPercentage } from '@/util';
-    import styles from '@/css/component/PercentageBar.module.scss';
     import FluxIcon from './FluxIcon.vue';
     import FluxLegend from './FluxLegend.vue';
     import FluxTooltip from './FluxTooltip.vue';
+    import $style from '@/css/component/PercentageBar.module.scss';
 
     defineProps<{
         readonly isLegendVisible?: boolean;

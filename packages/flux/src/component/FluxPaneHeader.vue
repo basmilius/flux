@@ -1,16 +1,16 @@
 <template>
-    <div :class="styles.paneHeader">
+    <div :class="$style.paneHeader">
         <slot name="before"/>
 
         <FluxIcon
             v-if="icon"
-            :class="styles.paneHeaderIcon"
+            :class="$style.paneHeaderIcon"
             :size="20"
             :variant="icon"/>
 
         <div
             v-if="title || subTitle"
-            :class="styles.paneHeaderCaption">
+            :class="$style.paneHeaderCaption">
             <strong v-if="title">
                 {{ title }}
             </strong>
@@ -29,7 +29,7 @@
     setup>
     import type { IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
-    import styles from '@/css/component/Pane.module.scss';
+    import $style from '@/css/component/Pane.module.scss';
 
     defineProps<{
         readonly icon?: IconName;

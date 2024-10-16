@@ -1,7 +1,7 @@
 <template>
     <svg
         ref="svg"
-        :class="styles.dotPattern">
+        :class="$style.dotPattern">
         <defs>
             <pattern
                 :id="id"
@@ -30,7 +30,7 @@
     lang="ts"
     setup>
     import { ref, useId, useTemplateRef, watch } from 'vue';
-    import styles from '@/css/component/Visual.module.scss';
+    import $style from '@/css/component/Visual.module.scss';
 
     const {
         width = 16,

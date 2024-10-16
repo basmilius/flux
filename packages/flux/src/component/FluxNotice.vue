@@ -1,37 +1,37 @@
 <template>
     <div
         :class="clsx(
-            variant === 'gray' && styles.noticeGray,
-            variant === 'primary' && styles.noticePrimary,
-            variant === 'danger' && styles.noticeDanger,
-            variant === 'info' && styles.noticeInfo,
-            variant === 'success' && styles.noticeSuccess,
-            variant === 'warning' && styles.noticeWarning,
-            isCenter && styles.isCenter,
-            isFluid && styles.isFluid,
-            isSmall && styles.isSmall
+            variant === 'gray' && $style.noticeGray,
+            variant === 'primary' && $style.noticePrimary,
+            variant === 'danger' && $style.noticeDanger,
+            variant === 'info' && $style.noticeInfo,
+            variant === 'success' && $style.noticeSuccess,
+            variant === 'warning' && $style.noticeWarning,
+            isCenter && $style.isCenter,
+            isFluid && $style.isFluid,
+            isSmall && $style.isSmall
         )"
         role="alert">
         <FluxSpinner
             v-if="isLoading"
-            :class="styles.noticePrefix"
+            :class="$style.noticePrefix"
             :size="isSmall ? 16 : 20"/>
 
         <FluxIcon
             v-if="icon && !isLoading"
-            :class="styles.noticePrefix"
+            :class="$style.noticePrefix"
             :size="isSmall ? 16 : 20"
             :variant="icon"/>
 
-        <div :class="styles.noticeBody">
+        <div :class="$style.noticeBody">
             <p
                 v-if="title"
-                :class="styles.noticeTitle">
+                :class="$style.noticeTitle">
                 {{ title }}
             </p>
             <p
                 v-if="message"
-                :class="styles.noticeMessage">
+                :class="$style.noticeMessage">
                 {{ message }}
             </p>
             <slot/>
@@ -41,7 +41,7 @@
 
         <button
             v-if="isCloseable"
-            :class="styles.noticeClose"
+            :class="$style.noticeClose"
             type="button"
             @click="emit('close')">
             <FluxIcon variant="xmark"/>
@@ -56,7 +56,7 @@
     import type { ColorVariant, IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
-    import styles from '@/css/component/Notice.module.scss';
+    import $style from '@/css/component/Notice.module.scss';
 
     const emit = defineEmits<{
         close: [];

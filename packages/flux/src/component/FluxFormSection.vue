@@ -1,6 +1,6 @@
 <template>
-    <div :class="styles.formSection">
-        <div :class="styles.formSectionTitle">
+    <div :class="$style.formSection">
+        <div :class="$style.formSectionTitle">
             {{ title }}
         </div>
 
@@ -11,7 +11,7 @@
 <script
     lang="ts"
     setup>
-    import styles from '@/css/component/Form.module.scss';
+    import $style from '@/css/component/Form.module.scss';
 
     defineProps<{
         readonly title: string;

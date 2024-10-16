@@ -1,22 +1,22 @@
 <template>
     <FluxPane
         :class="clsx(
-            axis === 'horizontal' && styles.statisticHorizontal,
-            axis === 'vertical' && styles.statisticVertical,
-            color === 'gray' && styles.isGray,
-            color === 'primary' && styles.isPrimary,
-            color === 'danger' && styles.isDanger,
-            color === 'info' && styles.isInfo,
-            color === 'success' && styles.isSuccess,
-            color === 'warning' && styles.isWarning
+            axis === 'horizontal' && $style.statisticHorizontal,
+            axis === 'vertical' && $style.statisticVertical,
+            color === 'gray' && $style.isGray,
+            color === 'primary' && $style.isPrimary,
+            color === 'danger' && $style.isDanger,
+            color === 'info' && $style.isInfo,
+            color === 'success' && $style.isSuccess,
+            color === 'warning' && $style.isWarning
         )">
-        <div :class="styles.statisticIcon">
+        <div :class="$style.statisticIcon">
             <FluxIcon
                 :size="24"
                 :variant="icon"/>
         </div>
 
-        <div :class="styles.statisticData">
+        <div :class="$style.statisticData">
             <span>{{ label }}</span>
             <strong>{{ value }}</strong>
         </div>
@@ -24,13 +24,13 @@
         <div
             v-if="changeIcon || changeValue"
             :class="clsx(
-                styles.statisticChange,
-                changeColor === 'gray' && styles.isGray,
-                changeColor === 'primary' && styles.isPrimary,
-                changeColor === 'danger' && styles.isDanger,
-                changeColor === 'info' && styles.isInfo,
-                changeColor === 'success' && styles.isSuccess,
-                changeColor === 'warning' && styles.isWarning
+                $style.statisticChange,
+                changeColor === 'gray' && $style.isGray,
+                changeColor === 'primary' && $style.isPrimary,
+                changeColor === 'danger' && $style.isDanger,
+                changeColor === 'info' && $style.isInfo,
+                changeColor === 'success' && $style.isSuccess,
+                changeColor === 'warning' && $style.isWarning
             )">
             <span v-if="changeValue">{{ changeValue }}</span>
 
@@ -49,7 +49,7 @@
     import type { Axis, ColorVariant, IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxPane from './FluxPane.vue';
-    import styles from '@/css/component/Statistic.module.scss';
+    import $style from '@/css/component/Statistic.module.scss';
 
     const {
         axis = 'horizontal',

@@ -1,16 +1,16 @@
 <template>
     <FluxButton
         :="{type, disabled, iconAfter, iconBefore, isLoading, label, href, rel, target, to}"
-        :css-class="styles.menuItem"
-        :css-class-icon="styles.menuItemIcon"
-        :css-class-label="styles.menuItemLabel"
+        :css-class="$style.menuItem"
+        :css-class-icon="$style.menuItemIcon"
+        :css-class-label="$style.menuItemLabel"
         :role="isSelectable ? 'menuitemradio' : 'menuitem'"
         :class="{
-            [styles.menuItemActive]: isActive,
-            [styles.menuItemDestructive]: isDestructive,
-            [styles.menuItemHighlighted]: isHighlighted,
-            [styles.menuItemIndented]: isIndented,
-            [styles.menuItemSelected]: isSelectable && isSelected
+            [$style.menuItemActive]: isActive,
+            [$style.menuItemDestructive]: isDestructive,
+            [$style.menuItemHighlighted]: isHighlighted,
+            [$style.menuItemIndented]: isIndented,
+            [$style.menuItemSelected]: isSelectable && isSelected
         }"
         :aria-checked="isSelectable ? isSelected : undefined"
         @click="$emit('click', $event)">
@@ -18,7 +18,7 @@
             v-if="isSelectable"
             #iconBefore>
             <FluxIcon
-                :class="styles.menuItemSelectableIcon"
+                :class="$style.menuItemSelectableIcon"
                 :variant="isSelected ? 'circle-check' : 'flux-empty'"/>
         </template>
 
@@ -26,7 +26,7 @@
             v-else-if="imageUrl"
             #iconBefore>
             <img
-                :class="styles.menuItemImage"
+                :class="$style.menuItemImage"
                 :src="imageUrl"
                 alt=""/>
         </template>
@@ -36,19 +36,19 @@
             #after>
             <FluxSpinner
                 v-if="commandLoading"
-                :class="styles.menuItemCommandIcon"
+                :class="$style.menuItemCommandIcon"
                 :size="16"/>
 
             <template v-else>
                 <kbd
                     v-if="command"
-                    :class="styles.menuItemCommand">
+                    :class="$style.menuItemCommand">
                     {{ command }}
                 </kbd>
 
                 <FluxIcon
                     v-if="commandIcon"
-                    :class="styles.menuItemCommandIcon"
+                    :class="$style.menuItemCommandIcon"
                     :variant="commandIcon"/>
             </template>
         </template>
@@ -62,7 +62,7 @@
     import FluxButton from './FluxButton.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
-    import styles from '@/css/component/Menu.module.scss';
+    import $style from '@/css/component/Menu.module.scss';
 
     defineEmits<ButtonEmits>();
 

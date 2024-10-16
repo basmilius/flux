@@ -1,6 +1,6 @@
 <template>
     <div
-        :class="styles.tab"
+        :class="$style.tab"
         role="tabpanel">
         <slot/>
     </div>
@@ -10,7 +10,7 @@
     lang="ts"
     setup>
     import type { IconName } from '@/types';
-    import styles from '@/css/component/Tab.module.scss';
+    import $style from '@/css/component/Tab.module.scss';
 
     defineProps<{
         readonly icon?: IconName;

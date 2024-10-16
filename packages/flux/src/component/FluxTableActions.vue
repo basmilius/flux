@@ -1,5 +1,5 @@
 <template>
-    <FluxActions :class="styles.tableActions">
+    <FluxActions :class="$style.tableActions">
         <slot/>
     </FluxActions>
 </template>
@@ -8,7 +8,7 @@
     lang="ts"
     setup>
     import FluxActions from './FluxActions.vue';
-    import styles from '@/css/component/Table.module.scss';
+    import $style from '@/css/component/Table.module.scss';
 
     defineSlots<{
         default(): any;

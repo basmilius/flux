@@ -3,10 +3,10 @@
         ref="anchor"
         :="$attrs"
         :class="clsx(
-            styles.formSelect,
-            isDisabled && styles.isDisabled,
-            isPopupOpen && styles.isFocused,
-            isSearchable && styles.isSearchable
+            $style.formSelect,
+            isDisabled && $style.isDisabled,
+            isPopupOpen && $style.isFocused,
+            isSearchable && $style.isSearchable
         )"
         :id="id"
         tabindex="0"
@@ -16,7 +16,7 @@
         @keyup="onKeyUp">
         <template v-if="!isMultiple && selected[0]">
             <FluxMenuItem
-                :class="styles.formSelectSelected"
+                :class="$style.formSelectSelected"
                 :command="selected[0].command"
                 :command-icon="selected[0].commandIcon"
                 :icon-before="selected[0].icon"
@@ -34,19 +34,19 @@
         </template>
 
         <template v-else-if="placeholder">
-            <span :class="styles.formSelectPlaceholder">
+            <span :class="$style.formSelectPlaceholder">
                 {{ placeholder }}
             </span>
         </template>
 
         <FluxSpinner
             v-if="isLoading"
-            :class="styles.formSelectIcon"
+            :class="$style.formSelectIcon"
             :size="16"/>
 
         <FluxIcon
             v-else
-            :class="styles.formSelectIcon"
+            :class="$style.formSelectIcon"
             variant="angle-down"/>
     </Anchor>
 
@@ -56,9 +56,9 @@
                 v-if="isPopupOpen"
                 ref="anchorPopup"
                 :class="clsx(
-                    styles.formSelectPopup,
-                    isKeyboardAction && styles.isKeyboardAction,
-                    isSearchable && styles.isSearchable
+                    $style.formSelectPopup,
+                    isKeyboardAction && $style.isKeyboardAction,
+                    isSearchable && $style.isSearchable
                 )"
                 :anchor="anchorRef"
                 axis="vertical"
@@ -68,7 +68,7 @@
                     v-model="modelSearch"
                     ref="searchInputElement"
                     auto-complete="off"
-                    :class="styles.formSelectInput"
+                    :class="$style.formSelectInput"
                     type="search"
                     icon-after="magnifying-glass"
                     :placeholder="translate('flux.search')"
@@ -145,7 +145,7 @@
     import FluxTag from '../FluxTag.vue';
     import Anchor from './Anchor.vue';
     import AnchorPopup from './AnchorPopup.vue';
-    import styles from '@/css/component/Form.module.scss';
+    import $style from '@/css/component/Form.module.scss';
 
     const INITIAL_HIGHLIGHTED_INDEX = -1;
 
@@ -183,7 +183,7 @@
     const {id} = useFormFieldInjection();
     const translate = useTranslate();
 
-    const anchorRef = useTemplateRef('anchor');
+    const anchorRef = useTemplateRef<ComponentPublicInstance>('anchor');
     const anchorPopupRef = useTemplateRef('anchorPopup');
     const optionElementRefs = useTemplateRef<typeof FluxMenuItem[]>('optionElements');
     const searchInputElementRef = useTemplateRef<ComponentPublicInstance<typeof FluxFormInput>>('searchInputElement');

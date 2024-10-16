@@ -1,5 +1,5 @@
 <template>
-    <div :class="styles.formRow">
+    <div :class="$style.formRow">
         <slot/>
     </div>
 </template>
@@ -7,7 +7,7 @@
 <script
     lang="ts"
     setup>
-    import styles from '@/css/component/Form.module.scss';
+    import $style from '@/css/component/Form.module.scss';
 
     defineSlots<{
         default(): any;

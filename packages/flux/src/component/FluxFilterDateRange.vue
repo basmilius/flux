@@ -1,6 +1,6 @@
 <template>
     <FluxDatePicker
-        :class="styles.filterDatePicker"
+        :class="$style.filterDatePicker"
         :max="max"
         :min="min"
         :model-value="currentValue"
@@ -16,7 +16,7 @@
     import { useFilterInjection } from '@/composable';
     import type { IconName } from '@/types';
     import FluxDatePicker from './FluxDatePicker.vue';
-    import styles from '@/css/component/Filter.module.scss';
+    import $style from '@/css/component/Filter.module.scss';
 
     const {
         name,

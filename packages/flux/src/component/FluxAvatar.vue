@@ -1,9 +1,9 @@
 <template>
     <div
         :class="clsx(
-            !status && styles.avatar,
-            !!status && styles.statusAvatar,
-            isClickable && styles.avatarClickable
+            !status && $style.avatar,
+            !!status && $style.statusAvatar,
+            isClickable && $style.avatarClickable
         )"
         :style="{
             '--color': color,
@@ -14,13 +14,13 @@
         @click="onClick">
         <img
             v-if="url"
-            :class="styles.avatarImage"
+            :class="$style.avatarImage"
             :alt="alt"
             :src="url"/>
 
         <div
             v-else
-            :class="fallback === 'colorized' ? styles.avatarFallbackColorized : styles.avatarFallbackNeutral">
+            :class="fallback === 'colorized' ? $style.avatarFallbackColorized : $style.avatarFallbackNeutral">
             <span v-if="fallbackInitials">
                 {{ fallbackInitials }}
             </span>
@@ -42,8 +42,8 @@
     import { clsx } from 'clsx';
     import { computed, unref } from 'vue';
     import type { ColorVariant, IconName } from '@/types';
-    import styles from '@/css/component/Avatar.module.scss';
     import FluxIcon from './FluxIcon.vue';
+    import $style from '@/css/component/Avatar.module.scss';
 
     const COLORS = [
         '102 159 42',
@@ -70,12 +70,12 @@
     ];
 
     const STATUS_CLASS_MAP = {
-        gray: styles.avatarStatusGray,
-        primary: styles.avatarStatusPrimary,
-        danger: styles.avatarStatusDanger,
-        info: styles.avatarStatusInfo,
-        success: styles.avatarStatusSuccess,
-        warning: styles.avatarStatusWarning
+        gray: $style.avatarStatusGray,
+        primary: $style.avatarStatusPrimary,
+        danger: $style.avatarStatusDanger,
+        info: $style.avatarStatusInfo,
+        success: $style.avatarStatusSuccess,
+        warning: $style.avatarStatusWarning
     } as const;
 
     const emit = defineEmits<{

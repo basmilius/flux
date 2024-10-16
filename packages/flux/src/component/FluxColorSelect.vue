@@ -1,14 +1,14 @@
 <template>
-    <div :class="styles.colorSelect">
+    <div :class="$style.colorSelect">
         <button
             v-for="color of colors"
-            :class="modelValue === color ? styles.colorSelectColorSelected : styles.colorSelectColorDeselected"
+            :class="modelValue === color ? $style.colorSelectColorSelected : $style.colorSelectColorDeselected"
             :style="{
                 '--color': color
             }"
             @click="select(color)">
             <FluxIcon
-                :class="styles.colorSelectCheck"
+                :class="$style.colorSelectCheck"
                 :size="16"
                 variant="check"/>
         </button>
@@ -16,7 +16,7 @@
         <FluxFlyout v-if="isCustomAllowed">
             <template #opener="{open}">
                 <button
-                    :class="styles.colorSelectCustom"
+                    :class="$style.colorSelectCustom"
                     @click="open()">
                     <FluxIcon
                         :size="16"
@@ -27,9 +27,9 @@
             <template #default="{close}">
                 <FluxColorPicker
                     v-model="customColor"
-                    :class="styles.colorSelectCustomPicker"/>
+                    :class="$style.colorSelectCustomPicker"/>
 
-                <FluxPaneBody :class="styles.colorSelectButtons">
+                <FluxPaneBody :class="$style.colorSelectButtons">
                     <FluxSecondaryButton
                         :label="t('flux.cancel')"
                         @click="close()"/>
@@ -55,7 +55,7 @@
     import FluxPaneBody from './FluxPaneBody.vue';
     import FluxPrimaryButton from './FluxPrimaryButton.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import styles from '@/css/component/Color.module.scss';
+    import $style from '@/css/component/Color.module.scss';
 
     const modelValue = defineModel<string>({
         default: '#000000'

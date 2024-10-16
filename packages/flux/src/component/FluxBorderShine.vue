@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cloneVNode, defineComponent, Fragment, h, PropType } from 'vue';
     import { flattenVNodeTree } from '@/util';
-    import styles from '@/css/component/Visual.module.scss';
+    import $style from '@/css/component/Visual.module.scss';
 
     export default defineComponent({
         inheritAttrs: false,
@@ -16,7 +16,7 @@
             return () => h(
                 Fragment,
                 flattenVNodeTree(slots.default?.() ?? []).map(vnode => cloneVNode(vnode, {
-                    class: styles.borderShine,
+                    class: $style.borderShine,
                     style: {
                         '--shine-colors': props.colors.join(', '),
                         '--shine-duration': props.duration,

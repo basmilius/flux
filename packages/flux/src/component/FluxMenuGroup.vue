@@ -1,6 +1,6 @@
 <template>
     <div
-        :class="isHorizontal ? styles.menuGroupHorizontal : styles.menuGroupVertical"
+        :class="isHorizontal ? $style.menuGroupHorizontal : $style.menuGroupVertical"
         role="group">
         <slot/>
     </div>
@@ -9,7 +9,7 @@
 <script
     lang="ts"
     setup>
-    import styles from '@/css/component/Menu.module.scss';
+    import $style from '@/css/component/Menu.module.scss';
 
     defineProps<{
         readonly isHorizontal?: boolean;

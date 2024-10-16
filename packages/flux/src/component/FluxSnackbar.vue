@@ -2,14 +2,14 @@
     <div
         v-if="isRendered"
         :class="clsx(
-            color === 'gray' && styles.snackbarGray,
-            color === 'primary' && styles.snackbarPrimary,
-            color === 'danger' && styles.snackbarDanger,
-            color === 'info' && styles.snackbarInfo,
-            color === 'success' && styles.snackbarSuccess,
-            color === 'warning' && styles.snackbarWarning
+            color === 'gray' && $style.snackbarGray,
+            color === 'primary' && $style.snackbarPrimary,
+            color === 'danger' && $style.snackbarDanger,
+            color === 'info' && $style.snackbarInfo,
+            color === 'success' && $style.snackbarSuccess,
+            color === 'warning' && $style.snackbarWarning
         )">
-        <div :class="styles.snackbarContent">
+        <div :class="$style.snackbarContent">
             <FluxSpinner
                 v-if="isLoading"
                 :size="18"/>
@@ -19,16 +19,16 @@
                 :size="18"
                 :variant="icon"/>
 
-            <div :class="styles.snackbarBody">
+            <div :class="$style.snackbarBody">
                 <div
                     v-if="title"
-                    :class="styles.snackbarTitle">
+                    :class="$style.snackbarTitle">
                     {{ title }}
                 </div>
 
                 <div
                     v-if="message"
-                    :class="styles.snackbarMessage">
+                    :class="$style.snackbarMessage">
                     {{ message }}
                 </div>
 
@@ -42,7 +42,7 @@
 
                 <div
                     v-if="subMessage"
-                    :class="styles.snackbarSubMessage">
+                    :class="$style.snackbarSubMessage">
                     {{ subMessage }}
                 </div>
             </div>
@@ -50,11 +50,11 @@
 
         <div
             v-if="hasActions"
-            :class="styles.snackbarActions">
+            :class="$style.snackbarActions">
             <button
                 v-for="(actionLabel, actionKey) of actions"
                 :key="actionKey"
-                :class="styles.snackbarAction"
+                :class="$style.snackbarAction"
                 tabindex="-1"
                 type="button"
                 @click="onAction(actionKey)">
@@ -80,7 +80,7 @@
     import FluxIcon from './FluxIcon.vue';
     import FluxProgressBar from './FluxProgressBar.vue';
     import FluxSpinner from './FluxSpinner.vue';
-    import styles from '@/css/component/Snackbar.module.scss';
+    import $style from '@/css/component/Snackbar.module.scss';
 
     const emit = defineEmits<{
         action: [string];

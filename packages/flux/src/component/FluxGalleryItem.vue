@@ -1,10 +1,10 @@
 <template>
     <div
-        :class="styles.galleryItem"
+        :class="$style.galleryItem"
         @mouseenter.capture="isDeleteVisible = true"
         @mouseout.capture="isDeleteVisible = false">
         <FluxFocalPointImage
-            :class="styles.galleryItemImage"
+            :class="$style.galleryItemImage"
             :focal-point="focalPoint"
             :src="url"/>
 
@@ -16,7 +16,7 @@
 
         <div
             v-if="isPending"
-            :class="styles.galleryItemLoader">
+            :class="$style.galleryItemLoader">
             <FluxSpinner :size="24"/>
         </div>
     </div>
@@ -30,7 +30,7 @@
     import FluxFocalPointImage from './FluxFocalPointImage.vue';
     import FluxRemove from './FluxRemove.vue';
     import FluxSpinner from './FluxSpinner.vue';
-    import styles from '@/css/component/Gallery.module.scss';
+    import $style from '@/css/component/Gallery.module.scss';
 
     const emit = defineEmits<{
         delete: [];

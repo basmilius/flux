@@ -17,10 +17,10 @@
     lang="ts"
     setup>
     import { computed, ref, unref, watch } from 'vue';
-    import { FormSelectOption, FormSelectValue, FormSelectValueSingle, useFormSelect, useLoaded } from '@/composable/private';
     import { SelectBase } from '@/component/primitive';
-    import { isFluxFormSelectOption } from '@/data';
     import { useDebouncedRef } from '@/composable';
+    import { FormSelectOption, FormSelectValue, FormSelectValueSingle, useFormSelect, useLoaded } from '@/composable/private';
+    import { isFluxFormSelectOption } from '@/data';
 
     const modelSearch = defineModel<string>('searchQuery', {
         default: ''

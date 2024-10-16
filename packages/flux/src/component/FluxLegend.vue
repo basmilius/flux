@@ -1,8 +1,8 @@
 <template>
-    <div :class="axis === 'horizontal' ? styles.legendHorizontal : styles.legendVertical">
+    <div :class="axis === 'horizontal' ? $style.legendHorizontal : $style.legendVertical">
         <template v-for="item of items">
             <span
-                :class="styles.legendItem"
+                :class="$style.legendItem"
                 :style="{
                     '--color': item.color
                 }">
@@ -16,7 +16,7 @@
     lang="ts"
     setup>
     import type { Axis, FluxLegendObject } from '@/types';
-    import styles from '@/css/component/Legend.module.scss';
+    import $style from '@/css/component/Legend.module.scss';
 
     const {
         axis = 'horizontal'

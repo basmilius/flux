@@ -2,7 +2,7 @@
     <FluxPressable
         ref="tab"
         :component-type="type"
-        :class="isActive ? styles.tabBarItemActive : styles.tabBarItem"
+        :class="isActive ? $style.tabBarItemActive : $style.tabBarItem"
         type="button"
         role="tab"
         :aria-disabled="disabled ? true : undefined"
@@ -32,7 +32,7 @@
     import type { IconName, PressableType, To } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
-    import styles from '@/css/component/Tab.module.scss';
+    import $style from '@/css/component/Tab.module.scss';
 
     const emit = defineEmits<{
         click: [MouseEvent];

@@ -1,7 +1,7 @@
 <template>
     <svg
         :viewBox="`0 0 ${width} ${height}`"
-        :class="styles.icon"
+        :class="$style.icon"
         :style="{
             fontSize: size && `${size}px`,
             scale: scale > 1 ? scale : undefined
@@ -23,7 +23,7 @@
     import { computed, unref } from 'vue';
     import { iconRegistry } from '@/data';
     import type { IconName } from '@/types';
-    import styles from '@/css/component/Icon.module.scss';
+    import $style from '@/css/component/Icon.module.scss';
 
     const emit = defineEmits<{
         click: [MouseEvent];

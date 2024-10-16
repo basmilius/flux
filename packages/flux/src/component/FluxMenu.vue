@@ -1,7 +1,7 @@
 <template>
     <nav
         ref="element"
-        :class="isLarge ? styles.menuLarge : styles.menuNormal"
+        :class="isLarge ? $style.menuLarge : $style.menuNormal"
         role="menu"
         aria-orientation="vertical">
         <slot/>
@@ -13,7 +13,7 @@
     setup>
     import { useTemplateRef } from 'vue';
     import { useFocusZone } from '@/composable';
-    import styles from '@/css/component/Menu.module.scss';
+    import $style from '@/css/component/Menu.module.scss';
 
     defineProps<{
         readonly isLarge?: boolean;

@@ -2,7 +2,7 @@
     <textarea
         v-model="modelValue"
         ref="input"
-        :class="isDisabled ? styles.formTextAreaDisabled : styles.formTextAreaEnabled"
+        :class="isDisabled ? $style.formTextAreaDisabled : $style.formTextAreaEnabled"
         :id="id"
         :autocomplete="autoComplete"
         :autofocus="autoFocus"
@@ -19,7 +19,7 @@
     lang="ts"
     setup>
     import { useFormFieldInjection } from '@/composable';
-    import styles from '@/css/component/Form.module.scss';
+    import $style from '@/css/component/Form.module.scss';
 
     const emit = defineEmits<{
         blur: [];

@@ -1,12 +1,12 @@
 <template>
     <FluxStack
         :class="clsx(
-            !!floatingMode ? styles.toolbarFloating : styles.toolbarFlat,
-            floatingMode === 'free' && styles.isFree,
-            floatingMode === 'top-end' && styles.isTopEnd,
-            floatingMode === 'top-start' && styles.isTopStart,
-            floatingMode === 'bottom-end' && styles.isBottomEnd,
-            floatingMode === 'bottom-start' && styles.isBottomStart,
+            !!floatingMode ? $style.toolbarFloating : $style.toolbarFlat,
+            floatingMode === 'free' && $style.isFree,
+            floatingMode === 'top-end' && $style.isTopEnd,
+            floatingMode === 'top-start' && $style.isTopStart,
+            floatingMode === 'bottom-end' && $style.isBottomEnd,
+            floatingMode === 'bottom-start' && $style.isBottomStart,
         )"
         axis="horizontal"
         :gap="6"
@@ -20,7 +20,7 @@
     setup>
     import { clsx } from 'clsx';
     import FluxStack from './FluxStack.vue';
-    import styles from '@/css/component/Toolbar.module.scss';
+    import $style from '@/css/component/Toolbar.module.scss';
 
     defineProps<{
         readonly floatingMode?: 'free' | 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end';

@@ -1,16 +1,16 @@
 <template>
     <td
         :class="clsx(
-            styles.tableCell,
-            isBordered && styles.isBordered,
-            isHoverable && styles.isHoverable,
-            isSeparated && styles.isSeparated,
-            isStriped && styles.isStriped
+            $style.tableCell,
+            isBordered && $style.isBordered,
+            isHoverable && $style.isHoverable,
+            isSeparated && $style.isSeparated,
+            isStriped && $style.isStriped
         )"
         role="cell">
         <slot name="content">
             <div
-                :class="styles.tableCellContent"
+                :class="$style.tableCellContent"
                 :style="{
                     flexFlow: contentDirection
                 }">
@@ -25,7 +25,7 @@
     setup>
     import { clsx } from 'clsx';
     import { useTableInjection } from '@/composable';
-    import styles from '@/css/component/Table.module.scss';
+    import $style from '@/css/component/Table.module.scss';
 
     const {
         contentDirection = 'row'

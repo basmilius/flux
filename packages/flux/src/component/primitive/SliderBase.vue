@@ -2,9 +2,9 @@
     <div
         ref="root"
         :class="clsx(
-            styles.slider,
-            isDisabled && styles.isDisabled,
-            isDragging && styles.isDragging
+            $style.slider,
+            isDisabled && $style.isDisabled,
+            isDragging && $style.isDragging
         )"
         role="slider"
         @pointerdown="onPointerDown">
@@ -23,7 +23,7 @@
     import { onMounted, onUnmounted, useTemplateRef, watch } from 'vue';
     import { unrefTemplateElement } from '@/util';
     import FluxTicks from '../FluxTicks.vue';
-    import styles from '@/css/component/primitive/Slider.module.scss';
+    import $style from '@/css/component/primitive/Slider.module.scss';
 
     const emit = defineEmits<{
         dragging: [boolean];

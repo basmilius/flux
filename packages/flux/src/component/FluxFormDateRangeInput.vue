@@ -6,8 +6,8 @@
             <FluxFormInputGroup>
                 <div
                     :class="clsx(
-                        styles.formDateRangeInput,
-                        isDisabled && styles.isDisabled
+                        $style.formDateRangeInput,
+                        isDisabled && $style.isDisabled
                     )"
                     role="presentation">
                     <span>{{ label }}</span>
@@ -40,7 +40,7 @@
     import FluxFlyout from './FluxFlyout.vue';
     import FluxFormInputGroup from './FluxFormInputGroup.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import styles from '@/css/component/Form.module.scss';
+    import $style from '@/css/component/Form.module.scss';
 
     const modelValue = defineModel<[DateTime, DateTime] | null>({
         required: true

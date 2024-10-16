@@ -1,20 +1,20 @@
 <template>
     <div
         :class="clsx(
-            styles.placeholder,
-            isButton && styles.isButton,
-            variant === 'extended' && styles.isExtended,
-            variant === 'simple' && styles.isSimple,
-            variant === 'small' && styles.isSmall
+            $style.placeholder,
+            isButton && $style.isButton,
+            variant === 'extended' && $style.isExtended,
+            variant === 'simple' && $style.isSimple,
+            variant === 'small' && $style.isSmall
         )"
         role="presentation"
         @click="onClick">
         <FluxIcon
             v-if="icon"
-            :class="styles.placeholderIcon"
+            :class="$style.placeholderIcon"
             :variant="icon"/>
 
-        <div :class="styles.placeholderCaption">
+        <div :class="$style.placeholderCaption">
             <strong v-if="title">
                 {{ title }}
             </strong>
@@ -34,7 +34,7 @@
     import { clsx } from 'clsx';
     import type { IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
-    import styles from '@/css/component/Placeholder.module.scss';
+    import $style from '@/css/component/Placeholder.module.scss';
 
     const emit = defineEmits<{
         click: [MouseEvent];

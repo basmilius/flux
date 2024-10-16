@@ -1,5 +1,5 @@
 <template>
-    <div :class="styles.stepperStep">
+    <div :class="$style.stepperStep">
         <slot/>
     </div>
 </template>
@@ -7,7 +7,7 @@
 <script
     lang="ts"
     setup>
-    import styles from '@/css/component/Stepper.module.scss';
+    import $style from '@/css/component/Stepper.module.scss';
 
     defineSlots<{
         default(): any;

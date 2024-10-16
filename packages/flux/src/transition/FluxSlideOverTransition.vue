@@ -1,10 +1,10 @@
 <template>
     <Transition
         :mode="mode"
-        :enter-active-class="styles.slideOverTransitionEnterActive"
-        :enter-from-class="styles.slideOverTransitionEnterFrom"
-        :leave-active-class="styles.slideOverTransitionLeaveActive"
-        :leave-to-class="styles.slideOverTransitionLeaveTo">
+        :enter-active-class="$style.slideOverTransitionEnterActive"
+        :enter-from-class="$style.slideOverTransitionEnterFrom"
+        :leave-active-class="$style.slideOverTransitionLeaveActive"
+        :leave-to-class="$style.slideOverTransitionLeaveTo">
         <slot/>
     </Transition>
 </template>
@@ -12,13 +12,11 @@
 <script
     lang="ts"
     setup>
-    import styles from '@/css/component/Overlay.module.scss';
+    import $style from '@/css/component/Overlay.module.scss';
 
-    export type Props = {
+    const {
+        mode = 'out-in'
+    } = defineProps<{
         readonly mode?: 'in-out' | 'out-in';
-    };
-
-    withDefaults(defineProps<Props>(), {
-        mode: 'out-in'
-    });
+    }>();
 </script>

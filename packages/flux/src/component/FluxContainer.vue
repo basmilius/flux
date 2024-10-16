@@ -1,6 +1,6 @@
 <template>
     <div
-        :class="styles.container"
+        :class="$style.container"
         :style="{
             '--gutter': `${gutter}px`,
             maxWidth: `${maxWidth}px`
@@ -13,7 +13,7 @@
     lang="ts"
     setup>
     import { useBreakpoints } from '@/composable';
-    import styles from '@/css/component/Layout.module.scss';
+    import $style from '@/css/component/Layout.module.scss';
 
     const {
         gutter = 30

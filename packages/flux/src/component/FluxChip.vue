@@ -2,9 +2,9 @@
     <Component
         :is="isSelectable ? 'button' : 'div'"
         :class="clsx(
-            styles.chip,
-            isSelectable && styles.isSelectable,
-            isSelected && styles.isSelected
+            $style.chip,
+            isSelectable && $style.isSelectable,
+            isSelected && $style.isSelected
         )"
         @click="$emit('click', $event)">
         <FluxIcon
@@ -32,7 +32,7 @@
     import { clsx } from 'clsx';
     import type { IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
-    import styles from '@/css/component/Chip.module.scss';
+    import $style from '@/css/component/Chip.module.scss';
 
     defineEmits<{
         click: [MouseEvent];

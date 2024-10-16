@@ -1,14 +1,14 @@
 <template>
-    <div :class="styles.calendar">
-        <FluxActionBar :class="styles.calendarActions">
+    <div :class="$style.calendar">
+        <FluxActionBar :class="$style.calendarActions">
             <template #primary>
                 <div
-                    :class="styles.calendarCurrent"
+                    :class="$style.calendarCurrent"
                     role="presentation">
                     <FluxFlyout :width="300">
                         <template #opener="{open}">
                             <button
-                                :class="styles.calendarCurrentMonth"
+                                :class="$style.calendarCurrentMonth"
                                 type="button"
                                 @click="open">
                                 {{ viewMonth }}
@@ -16,7 +16,7 @@
                         </template>
 
                         <template #default="{close}">
-                            <div :class="datePickerStyles.datePickerMonths">
+                            <div :class="$styleDatePicker.datePickerMonths">
                                 <template
                                     v-for="month of months"
                                     :key="month">
@@ -32,7 +32,7 @@
                     <FluxFlyout :width="300">
                         <template #opener="{open}">
                             <button
-                                :class="styles.calendarCurrentYear"
+                                :class="$style.calendarCurrentYear"
                                 type="button"
                                 @click="open">
                                 {{ viewYear }}
@@ -40,7 +40,7 @@
                         </template>
 
                         <template #default="{close}">
-                            <div :class="datePickerStyles.datePickerYears">
+                            <div :class="$styleDatePicker.datePickerYears">
                                 <FluxSecondaryButton
                                     icon-before="angle-left"
                                     tabindex="-1"
@@ -85,10 +85,10 @@
         <FluxWindowTransition :is-back="isTransitioningToPast">
             <div
                 :key="viewDate.month"
-                :class="styles.calendarCells"
+                :class="$style.calendarCells"
                 role="grid">
                 <template v-for="day of days">
-                    <div :class="styles.calendarDay">
+                    <div :class="$style.calendarDay">
                         {{ day }}
                     </div>
                 </template>
@@ -96,18 +96,18 @@
                 <template v-for="date of dates">
                     <div
                         :class="clsx(
-                            styles.calendarEntry,
-                            viewDate.month !== date.month && styles.isDisabled
+                            $style.calendarEntry,
+                            viewDate.month !== date.month && $style.isDisabled
                         )"
                         role="gridcell">
-                        <div :class="styles.calendarEvents">
+                        <div :class="$style.calendarEvents">
                             <VNodeRenderer
                                 v-for="event of getEventsForDate(date)"
                                 :class="clsx(
-                                    event.type === 'single' && styles.isSingle,
-                                    event.type === 'start' && styles.isStart,
-                                    event.type === 'end' && styles.isEnd,
-                                    event.type === 'middle' && styles.isMiddle
+                                    event.type === 'single' && $style.isSingle,
+                                    event.type === 'start' && $style.isStart,
+                                    event.type === 'end' && $style.isEnd,
+                                    event.type === 'middle' && $style.isMiddle
                                 )"
                                 :style="{
                                     gridRow: event.index
@@ -115,7 +115,7 @@
                                 :vnode="event.vnode"/>
                         </div>
 
-                        <span :class="styles.calendarEntryDate">
+                        <span :class="$style.calendarEntryDate">
                             {{ date.toLocaleString({day: 'numeric'}) }}
                         </span>
                     </div>
@@ -125,7 +125,7 @@
 
         <div
             v-if="isLoading"
-            :class="styles.calendarLoader">
+            :class="$style.calendarLoader">
             <FluxSpinner/>
         </div>
     </div>
@@ -146,8 +146,8 @@
     import FluxFlyout from './FluxFlyout.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import FluxSpinner from '@/component/FluxSpinner.vue';
-    import styles from '@/css/component/Calendar.module.scss';
-    import datePickerStyles from '@/css/component/DatePicker.module.scss';
+    import $style from '@/css/component/Calendar.module.scss';
+    import $styleDatePicker from '@/css/component/DatePicker.module.scss';
 
     type Event = {
         readonly index: number;

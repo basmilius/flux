@@ -1,7 +1,7 @@
 <template>
     <div
         ref="root"
-        :class="styles.coordinatePicker"
+        :class="$style.coordinatePicker"
         role="slider"
         @pointerdown="onPointerDown">
         <CoordinatePickerThumb
@@ -19,7 +19,7 @@
     import { computed, onMounted, onUnmounted, ref, unref, useTemplateRef, watch } from 'vue';
     import { roundStep, unrefTemplateElement } from '@/util';
     import CoordinatePickerThumb from './CoordinatePickerThumb.vue';
-    import styles from '@/css/component/primitive/CoordinatePicker.module.scss';
+    import $style from '@/css/component/primitive/CoordinatePicker.module.scss';
 
     const emit = defineEmits<{
         dragging: [boolean];

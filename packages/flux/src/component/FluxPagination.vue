@@ -1,6 +1,6 @@
 <template>
     <FluxButtonGroup
-        :class="styles.pagination"
+        :class="$style.pagination"
         role="navigation"
         :aria-label="translate('flux.pagination')">
         <FluxSecondaryButton
@@ -31,7 +31,7 @@
 
         <template v-else>
             <FluxSecondaryButton
-                :class="styles.paginationCurrentZZ"
+                :class="$style.paginationCurrentZZ"
                 @click="prompt"
                 #before>
                 <strong>{{ page }}</strong>
@@ -58,7 +58,7 @@
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxPrimaryButton from './FluxPrimaryButton.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import styles from '@/css/component/Pagination.module.scss';
+    import $style from '@/css/component/Pagination.module.scss';
 
     const emit = defineEmits<{
         navigate: [number];

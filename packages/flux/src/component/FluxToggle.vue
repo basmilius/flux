@@ -1,26 +1,26 @@
 <template>
     <label
         :class="clsx(
-            styles.toggle,
-            modelValue && styles.isChecked,
-            isDisabled && styles.isDisabled,
-            isSwitch && styles.isSwitch
+            $style.toggle,
+            modelValue && $style.isChecked,
+            isDisabled && $style.isDisabled,
+            isSwitch && $style.isSwitch
         )"
         :for="id">
         <FluxIcon
             v-if="iconOff"
-            :class="styles.toggleIconOff"
+            :class="$style.toggleIconOff"
             :size="14"
             :variant="iconOff"/>
 
         <FluxIcon
             v-if="iconOn"
-            :class="styles.toggleIconOn"
+            :class="$style.toggleIconOn"
             :size="14"
             :variant="iconOn"/>
 
         <input
-            :class="styles.toggleInput"
+            :class="$style.toggleInput"
             :id="id"
             :disabled="isDisabled"
             type="checkbox"
@@ -38,7 +38,7 @@
     import { useFormFieldInjection } from '@/composable';
     import type { IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
-    import styles from '@/css/component/Form.module.scss';
+    import $style from '@/css/component/Form.module.scss';
 
     const modelValue = defineModel<boolean>({
         default: false

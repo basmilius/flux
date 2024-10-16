@@ -1,5 +1,5 @@
 <template>
-    <main :class="styles.dashboardContent">
+    <main :class="$style.dashboardContent">
         <slot/>
     </main>
 </template>
@@ -7,5 +7,5 @@
 <script
     lang="ts"
     setup>
-    import styles from '@/css/component/Dashboard.module.scss';
+    import $style from '@/css/component/Dashboard.module.scss';
 </script>

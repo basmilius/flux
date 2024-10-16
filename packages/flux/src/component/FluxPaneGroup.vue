@@ -1,5 +1,5 @@
 <template>
-    <div :class="styles.paneGroup">
+    <div :class="$style.paneGroup">
         <slot/>
     </div>
 </template>
@@ -7,7 +7,7 @@
 <script
     lang="ts"
     setup>
-    import styles from '@/css/component/Pane.module.scss';
+    import $style from '@/css/component/Pane.module.scss';
 
     defineSlots<{
         default(): any;

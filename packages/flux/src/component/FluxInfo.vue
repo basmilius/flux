@@ -1,11 +1,11 @@
 <template>
-    <div :class="styles.info">
+    <div :class="$style.info">
         <FluxIcon
             v-if="icon"
-            :class="styles.infoIcon"
+            :class="$style.infoIcon"
             :variant="icon"/>
 
-        <div :class="styles.infoBody">
+        <div :class="$style.infoBody">
             <slot/>
         </div>
     </div>
@@ -16,7 +16,7 @@
     lang="ts">
     import type { IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
-    import styles from '@/css/component/Info.module.scss';
+    import $style from '@/css/component/Info.module.scss';
 
     defineProps<{
         readonly icon?: IconName;

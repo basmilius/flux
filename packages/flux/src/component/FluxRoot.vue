@@ -1,6 +1,6 @@
 <template>
     <div
-        :class="styles.root"
+        :class="$style.root"
         :inert="inertMain">
         <slot/>
     </div>
@@ -42,7 +42,7 @@
     import FluxOverlay from './FluxOverlay.vue';
     import FluxSnackbarProvider from './FluxSnackbarProvider.vue';
     import FluxTooltipProvider from './FluxTooltipProvider.vue';
-    import styles from '@/css/component/Root.module.scss';
+    import $style from '@/css/component/Root.module.scss';
 
     defineSlots<{
         default(): any;
@@ -57,7 +57,7 @@
             return;
         }
 
-        document.body.classList.add(styles.isLocked);
-        onCleanup(() => document.body.classList.remove(styles.isLocked));
+        document.body.classList.add($style.isLocked);
+        onCleanup(() => document.body.classList.remove($style.isLocked));
     }, {immediate: true});
 </script>

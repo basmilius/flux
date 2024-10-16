@@ -2,14 +2,14 @@
     <div
         v-for="index of 2"
         :key="index"
-        :class="isNavigationCollapsed ? styles.dashboardNavigationRoundingFixCollapsed : styles.dashboardNavigationRoundingFix"/>
+        :class="isNavigationCollapsed ? $style.dashboardNavigationRoundingFixCollapsed : $style.dashboardNavigationRoundingFix"/>
 
     <nav
         v-bind="$attrs"
-        :class="isNavigationCollapsed ? styles.dashboardNavigationCollapsed : styles.dashboardNavigation">
+        :class="isNavigationCollapsed ? $style.dashboardNavigationCollapsed : $style.dashboardNavigation">
         <router-link
             v-if="slots.logo"
-            :class="styles.dashboardNavigationLogo"
+            :class="$style.dashboardNavigationLogo"
             :to="logoLocation || '/'">
             <slot
                 name="logo"
@@ -26,7 +26,7 @@
     import type { To } from '@basmilius/flux';
     import { useSlots } from 'vue';
     import { useDashboardInjection } from '@/composable';
-    import styles from '@/css/component/Dashboard.module.scss';
+    import $style from '@/css/component/Dashboard.module.scss';
 
     defineOptions({
         inheritAttrs: false

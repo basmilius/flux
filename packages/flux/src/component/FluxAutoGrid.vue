@@ -1,6 +1,6 @@
 <template>
     <div
-        :class="styles.autoGrid"
+        :class="$style.autoGrid"
         :style="{
             gap: `${gap}px`,
             '--min-column-width': minColumnWidth
@@ -12,7 +12,7 @@
 <script
     lang="ts"
     setup>
-    import styles from '@/css/component/Layout.module.scss';
+    import $style from '@/css/component/Layout.module.scss';
 
     const {
         gap = 30

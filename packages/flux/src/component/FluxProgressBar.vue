@@ -1,14 +1,14 @@
 <template>
     <FluxStack
-        :class="styles.progressBar"
+        :class="$style.progressBar"
         :gap="6"
         role="progressbar"
         :aria-valuenow="value"
         :aria-valuemax="max"
         :aria-valuemin="min">
-        <div :class="isIndeterminate ? styles.progressBarTrackIndeterminate : styles.progressBarTrack">
+        <div :class="isIndeterminate ? $style.progressBarTrackIndeterminate : $style.progressBarTrack">
             <div
-                :class="styles.progressBarValue"
+                :class="$style.progressBarValue"
                 :style="{
                     width: `${isIndeterminate ? 100 : position * 100}%`
                 }"/>
@@ -16,11 +16,11 @@
 
         <div
             v-if="status"
-            :class="styles.progressBarInfo">
+            :class="$style.progressBarInfo">
             <FluxFadeTransition>
                 <span
                     :key="status"
-                    :class="styles.progressBarStatus">
+                    :class="$style.progressBarStatus">
                     {{ status }}
                 </span>
             </FluxFadeTransition>
@@ -28,7 +28,7 @@
             <FluxFadeTransition>
                 <span
                     v-if="!isIndeterminate"
-                    :class="styles.progressBarProgress">
+                    :class="$style.progressBarProgress">
                     {{ progress }}
                 </span>
             </FluxFadeTransition>
@@ -42,7 +42,7 @@
     import { computed, unref } from 'vue';
     import { FluxFadeTransition } from '@/transition';
     import FluxStack from './FluxStack.vue';
-    import styles from '@/css/component/Progress.module.scss';
+    import $style from '@/css/component/Progress.module.scss';
 
     const {
         isIndeterminate,

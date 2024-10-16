@@ -1,7 +1,7 @@
 <template>
     <div
         ref="mount"
-        :class="styles.flyout"
+        :class="$style.flyout"
         :style="{
             '--opener-width': `${openerWidth}px`,
             '--pane-mx': `${paneMarginX}px`,
@@ -15,17 +15,17 @@
 
         <dialog
             ref="dialog"
-            :class="styles.flyoutDialog"
+            :class="$style.flyoutDialog"
             @click="onDialogBackdropClick"
             @keydown.prevent.esc="close">
             <FluxPane
                 v-if="isOpen"
                 ref="pane"
                 :class="clsx(
-                    styles.flyoutPane,
-                    isAutoWidth && styles.isAutoWidth,
-                    isClosing && styles.isClosing,
-                    isOpening && styles.isOpening
+                    $style.flyoutPane,
+                    isAutoWidth && $style.isAutoWidth,
+                    isClosing && $style.isClosing,
+                    isOpening && $style.isOpening
                 )"
                 :style="{
                     width: `${width}px`
@@ -46,7 +46,7 @@
     import type { Axis } from '@/types';
     import { unrefTemplateElement } from '@/util';
     import FluxPane from './FluxPane.vue';
-    import styles from '@/css/component/Flyout.module.scss';
+    import $style from '@/css/component/Flyout.module.scss';
 
     const {
         axis = 'vertical',

@@ -1,6 +1,6 @@
 <template>
     <div
-        :class="axis === 'horizontal' ? styles.separatorHorizontal : styles.separatorVertical"
+        :class="axis === 'horizontal' ? $style.separatorHorizontal : $style.separatorVertical"
         role="separator"
         :aria-orientation="axis"/>
 </template>
@@ -9,7 +9,7 @@
     lang="ts"
     setup>
     import type { Axis } from '@/types';
-    import styles from '@/css/component/Divider.module.scss';
+    import $style from '@/css/component/Divider.module.scss';
 
     const {
         axis = 'horizontal'

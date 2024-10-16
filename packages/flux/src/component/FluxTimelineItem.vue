@@ -1,27 +1,27 @@
 <template>
     <div
         :class="clsx(
-            color === 'gray' && styles.timelineItemGray,
-            color === 'primary' && styles.timelineItemPrimary,
-            color === 'danger' && styles.timelineItemDanger,
-            color === 'info' && styles.timelineItemInfo,
-            color === 'success' && styles.timelineItemSuccess,
-            color === 'warning' && styles.timelineItemWarning
+            color === 'gray' && $style.timelineItemGray,
+            color === 'primary' && $style.timelineItemPrimary,
+            color === 'danger' && $style.timelineItemDanger,
+            color === 'info' && $style.timelineItemInfo,
+            color === 'success' && $style.timelineItemSuccess,
+            color === 'warning' && $style.timelineItemWarning
         )"
         role="article">
-        <div :class="styles.timelineItemLine"/>
+        <div :class="$style.timelineItemLine"/>
 
         <div
             v-if="photo"
-            :class="styles.timelineItemPhoto">
+            :class="$style.timelineItemPhoto">
             <img
-                :class="styles.timelineItemPhotoImage"
+                :class="$style.timelineItemPhotoImage"
                 :src="photo"
                 alt="">
 
             <div
                 v-if="icon"
-                :class="styles.timelineItemPhotoIcon">
+                :class="$style.timelineItemPhotoIcon">
                 <FluxIcon
                     :size="16"
                     :variant="icon"/>
@@ -30,16 +30,16 @@
 
         <div
             v-else-if="icon"
-            :class="styles.timelineItemIcon">
+            :class="$style.timelineItemIcon">
             <FluxIcon
                 :size="20"
                 :variant="icon"/>
         </div>
 
-        <div :class="styles.timelineItemBody">
+        <div :class="$style.timelineItemBody">
             <div
                 v-if="title || when"
-                :class="styles.timelineItemHeader">
+                :class="$style.timelineItemHeader">
                 <strong v-if="title">{{ title }}</strong>
                 <span v-if="when">{{ when }}</span>
             </div>
@@ -55,7 +55,7 @@
     import { clsx } from 'clsx';
     import type { ColorVariant, IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
-    import styles from '@/css/component/Timeline.module.scss';
+    import $style from '@/css/component/Timeline.module.scss';
 
     const {
         color = 'gray'

@@ -1,12 +1,12 @@
 <template>
     <svg
-        :class="styles.spinner"
+        :class="$style.spinner"
         viewBox="0 0 24 24"
         :style="{
             fontSize: `${size}px`
         }">
         <circle
-            :class="styles.spinnerTrack"
+            :class="$style.spinnerTrack"
             cx="12"
             cy="12"
             r="10"
@@ -14,7 +14,7 @@
             stroke-width="4"/>
 
         <circle
-            :class="styles.spinnerEffect"
+            :class="$style.spinnerEffect"
             cx="12"
             cy="12"
             r="10"
@@ -25,7 +25,7 @@
             stroke-linecap="round"/>
 
         <circle
-            :class="styles.spinnerValue"
+            :class="$style.spinnerValue"
             cx="12"
             cy="12"
             r="10"
@@ -40,7 +40,7 @@
 <script
     lang="ts"
     setup>
-    import styles from '@/css/component/Spinner.module.scss';
+    import $style from '@/css/component/Spinner.module.scss';
 
     const {
         size = 30

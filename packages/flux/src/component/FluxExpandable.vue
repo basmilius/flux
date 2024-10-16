@@ -1,6 +1,6 @@
 <template>
     <div
-        :class="isOpen ? styles.expandableOpened : styles.expandable"
+        :class="isOpen ? $style.expandableOpened : $style.expandable"
         :id="headerId"
         :aria-controls="contentId"
         :aria-expanded="isOpen">
@@ -8,7 +8,7 @@
             v-bind="{label, isOpen, close, open, toggle}"
             name="header">
             <button
-                :class="styles.expandableHeader"
+                :class="$style.expandableHeader"
                 type="button"
                 @click="toggle">
                 <span>{{ label }}</span>
@@ -24,13 +24,13 @@
         <FluxAutoHeightTransition>
             <div
                 v-if="isOpen"
-                :class="styles.expandableBody"
+                :class="$style.expandableBody"
                 :id="contentId"
                 :aria-labelledby="headerId">
                 <slot
                     v-bind="{label, close}"
                     name="body">
-                    <div :class="styles.expandableContent">
+                    <div :class="$style.expandableContent">
                         <slot v-bind="{label, close}"/>
                     </div>
                 </slot>
@@ -46,7 +46,7 @@
     import { useComponentId, useExpandableGroupInjection } from '@/composable';
     import { FluxAutoHeightTransition, FluxFadeTransition } from '@/transition';
     import FluxIcon from './FluxIcon.vue';
-    import styles from '@/css/component/Expandable.module.scss';
+    import $style from '@/css/component/Expandable.module.scss';
 
     const emit = defineEmits<{
         toggle: [boolean];

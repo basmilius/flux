@@ -5,7 +5,7 @@
         :margin="flyoutMargin"
         :width="flyoutWidth">
         <template #opener="{close, open, toggle}">
-            <div :class="styles.buttonGroup">
+            <div :class="$style.buttonGroup">
                 <slot
                     name="button"
                     v-bind="{close, open, toggle}"/>
@@ -30,7 +30,7 @@
     import type { Axis, IconName } from '@/types';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import styles from '@/css/component/Button.module.scss';
+    import $style from '@/css/component/Button.module.scss';
 
     const {
         buttonIcon = 'ellipsis-h'

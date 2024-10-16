@@ -1,12 +1,12 @@
 <template>
     <Transition
         :mode="mode"
-        :enter-active-class="styles.fadeTransitionEnterActive"
-        :enter-from-class="styles.fadeTransitionEnterFrom"
-        :enter-to-class="styles.fadeTransitionEnterTo"
-        :leave-active-class="styles.fadeTransitionLeaveActive"
-        :leave-from-class="styles.fadeTransitionLeaveFrom"
-        :leave-to-class="styles.fadeTransitionLeaveTo">
+        :enter-active-class="$style.fadeTransitionEnterActive"
+        :enter-from-class="$style.fadeTransitionEnterFrom"
+        :enter-to-class="$style.fadeTransitionEnterTo"
+        :leave-active-class="$style.fadeTransitionLeaveActive"
+        :leave-from-class="$style.fadeTransitionLeaveFrom"
+        :leave-to-class="$style.fadeTransitionLeaveTo">
         <slot/>
     </Transition>
 </template>
@@ -14,13 +14,11 @@
 <script
     lang="ts"
     setup>
-    import styles from '@/css/component/Transition.module.scss';
+    import $style from '@/css/component/Transition.module.scss';
 
-    export type Props = {
-        readonly mode?: 'out-in' | 'in-out';
-    };
-
-    withDefaults(defineProps<Props>(), {
-        mode: 'out-in'
-    });
+    const {
+        mode = 'out-in'
+    } = defineProps<{
+        readonly mode?: 'in-out' | 'out-in';
+    }>();
 </script>

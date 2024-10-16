@@ -5,14 +5,14 @@
         <slot
             v-if="isLoading"
             name="loader">
-            <div :class="styles.paneLoader">
+            <div :class="$style.paneLoader">
                 <FluxSpinner/>
             </div>
         </slot>
 
         <div
             v-if="tag"
-            :class="styles.paneTag">
+            :class="$style.paneTag">
             {{ tag }}
         </div>
     </div>
@@ -22,12 +22,12 @@
     lang="ts"
     setup>
     import FluxSpinner from './FluxSpinner.vue';
-    import styles from '@/css/component/Pane.module.scss';
+    import $style from '@/css/component/Pane.module.scss';
 
     const CLASS_MAP = {
-        default: styles.paneDefault,
-        flat: styles.paneFlat,
-        well: styles.paneWell
+        default: $style.paneDefault,
+        flat: $style.paneFlat,
+        well: $style.paneWell
     } as const;
 
     const {

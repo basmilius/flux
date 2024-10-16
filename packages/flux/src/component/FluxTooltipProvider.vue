@@ -4,7 +4,7 @@
     import { useFluxStore } from '@/data';
     import { FluxTooltipTransition } from '@/transition';
     import { unrefTemplateElement } from '@/util';
-    import styles from '@/css/component/Tooltip.module.scss';
+    import $style from '@/css/component/Tooltip.module.scss';
 
     type Transition = 'above' | 'below' | 'end' | 'start';
 
@@ -74,12 +74,12 @@
                     ref: elementRef,
                     class: pos
                         ? clsx(
-                            pos.transition === 'above' && styles.tooltipAbove,
-                            pos.transition === 'below' && styles.tooltipBelow,
-                            pos.transition === 'end' && styles.tooltipEnd,
-                            pos.transition === 'start' && styles.tooltipStart
+                            pos.transition === 'above' && $style.tooltipAbove,
+                            pos.transition === 'below' && $style.tooltipBelow,
+                            pos.transition === 'end' && $style.tooltipEnd,
+                            pos.transition === 'start' && $style.tooltipStart
                         )
-                        : styles.tooltip,
+                        : $style.tooltip,
                     style: {
                         '--x': pos?.x ?? undefined,
                         '--y': pos?.y ?? undefined,

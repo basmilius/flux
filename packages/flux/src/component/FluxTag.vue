@@ -2,36 +2,36 @@
     <Component
         :is="component"
         :class="clsx(
-            color === 'gray' && styles.tagGray,
-            color === 'primary' && styles.tagPrimary,
-            color === 'danger' && styles.tagDanger,
-            color === 'info' && styles.tagInfo,
-            color === 'success' && styles.tagSuccess,
-            color === 'warning' && styles.tagWarning
+            color === 'gray' && $style.tagGray,
+            color === 'primary' && $style.tagPrimary,
+            color === 'danger' && $style.tagDanger,
+            color === 'info' && $style.tagInfo,
+            color === 'success' && $style.tagSuccess,
+            color === 'warning' && $style.tagWarning
         )"
         @click="onClick">
         <FluxSpinner
             v-if="isLoading"
-            :class="styles.tagIcon"
+            :class="$style.tagIcon"
             :size="16"/>
 
         <span
             v-else-if="dot"
-            :class="styles.tagDot"/>
+            :class="$style.tagDot"/>
 
         <FluxIcon
             v-else-if="icon"
-            :class="styles.tagIcon"
+            :class="$style.tagIcon"
             :size="16"
             :variant="icon"/>
 
-        <span :class="styles.tagLabel">
+        <span :class="$style.tagLabel">
             {{ label }}
         </span>
 
         <button
             v-if="!isClickable && isDeletable"
-            :class="styles.tagClose"
+            :class="$style.tagClose"
             type="button"
             @click="onDeleteClick()">
             <FluxIcon variant="xmark"/>
@@ -45,9 +45,9 @@
     import { clsx } from 'clsx';
     import { computed } from 'vue';
     import type { ColorVariant, IconName } from '@/types';
-    import styles from '@/css/component/Badge.module.scss';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
+    import $style from '@/css/component/Badge.module.scss';
 
     const emit = defineEmits<{
         click: [MouseEvent];

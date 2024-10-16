@@ -1,7 +1,7 @@
 <template>
     <svg
         ref="svg"
-        :class="styles.gridPattern">
+        :class="$style.gridPattern">
         <defs>
             <pattern
                 :id="id"
@@ -41,8 +41,8 @@
 <script
     lang="ts"
     setup>
-    import { computed, ref, useId, useTemplateRef, watch } from 'vue';
-    import styles from '@/css/component/Visual.module.scss';
+    import { useId } from 'vue';
+    import $style from '@/css/component/Visual.module.scss';
 
     const {
         width = 42,

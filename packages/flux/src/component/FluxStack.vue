@@ -2,11 +2,11 @@
     <Component
         :is="tag ?? 'div'"
         :class="clsx(
-            axis === 'horizontal' && styles.stackHorizontal,
-            axis === 'vertical' && styles.stackVertical,
-            isCentered && styles.isCentered,
-            isFill && styles.isFill,
-            isWrapping && styles.isWrapping
+            axis === 'horizontal' && $style.stackHorizontal,
+            axis === 'vertical' && $style.stackVertical,
+            isCentered && $style.isCentered,
+            isFill && $style.isFill,
+            isWrapping && $style.isWrapping
         )"
         :style="{
             '--gap': gap && `${gap}px`
@@ -20,7 +20,7 @@
     setup>
     import { clsx } from 'clsx';
     import type { Axis } from '@/types';
-    import styles from '@/css/component/Stack.module.scss';
+    import $style from '@/css/component/Stack.module.scss';
 
     const {
         axis = 'vertical',

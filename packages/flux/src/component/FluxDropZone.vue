@@ -1,6 +1,6 @@
 <template>
     <div
-        :class="styles.dropZone"
+        :class="$style.dropZone"
         @dragleave.capture="onDragLeave"
         @dragover.capture="onDragEnter"
         @drop="onDrop">
@@ -27,8 +27,8 @@
             <div
                 v-if="isDragging && !isDisabled"
                 :class="clsx(
-                    styles.dropZoneHint,
-                    isDraggingOver && styles.isOver
+                    $style.dropZoneHint,
+                    isDraggingOver && $style.isOver
                 )"
                 role="presentation"/>
         </FluxFadeTransition>
@@ -44,7 +44,7 @@
     import type { IconName } from '@/types';
     import FluxPlaceholder from './FluxPlaceholder.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import styles from '@/css/component/DropZone.module.scss';
+    import $style from '@/css/component/DropZone.module.scss';
 
     const emit = defineEmits<{
         select: [FileList];

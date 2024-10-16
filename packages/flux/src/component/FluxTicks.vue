@@ -1,10 +1,10 @@
 <template>
-    <div :class="styles.ticks">
+    <div :class="$style.ticks">
         <template
             v-for="tick of ticks"
             :key="tick">
             <div
-                :class="styles.tickLarge"
+                :class="$style.tickLarge"
                 :style="{
                     '--position': (tick - lower) / (upper - lower)
                 }">
@@ -16,7 +16,7 @@
             v-for="tick of smallTicks"
             :key="tick">
             <div
-                :class="styles.tickSmall"
+                :class="$style.tickSmall"
                 :style="{
                     '--position': (tick - lower) / (upper - lower)
                 }"/>
@@ -29,7 +29,7 @@
     setup>
     import { computed } from 'vue';
     import { generateStepTicks } from '@/util';
-    import styles from '@/css/component/primitive/Slider.module.scss';
+    import $style from '@/css/component/primitive/Slider.module.scss';
 
     const {
         lower,

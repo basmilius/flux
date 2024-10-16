@@ -1,9 +1,9 @@
 <template>
-    <div :class="styles.tabs">
+    <div :class="$style.tabs">
         <slot
             name="tabs"
             v-bind="{children, modelValue, tabs, activate}">
-            <FluxTabBar :class="styles.tabsBar">
+            <FluxTabBar :class="$style.tabsBar">
                 <template
                     v-for="(tab, index) of tabs"
                     :key="index">
@@ -38,7 +38,7 @@
     import { VNodeRenderer } from './primitive';
     import FluxTabBar from './FluxTabBar.vue';
     import FluxTabBarItem from './FluxTabBarItem.vue';
-    import styles from '@/css/component/Tab.module.scss';
+    import $style from '@/css/component/Tab.module.scss';
 
     const modelValue = defineModel<number>({
         default: 0

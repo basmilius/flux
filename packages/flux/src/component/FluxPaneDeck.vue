@@ -1,5 +1,5 @@
 <template>
-    <div :class="styles.paneDeck">
+    <div :class="$style.paneDeck">
         <FluxAutoGrid
             :gap="0"
             :min-column-width="minColumnWidth">
@@ -12,7 +12,7 @@
     lang="ts"
     setup>
     import FluxAutoGrid from './FluxAutoGrid.vue';
-    import styles from '@/css/component/Pane.module.scss';
+    import $style from '@/css/component/Pane.module.scss';
 
     defineProps<{
         readonly minColumnWidth: number;

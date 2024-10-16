@@ -1,12 +1,12 @@
 <template>
     <div
-        :class="styles.colorPicker"
+        :class="$style.colorPicker"
         :style="{
             '--pickerBackground': saturationPickerColor
         }">
         <CoordinatePicker
             v-model="saturationValue"
-            :class="styles.colorPickerSaturation"
+            :class="$style.colorPickerSaturation"
             :max="1"
             :min="0"
             :step="0.0005"
@@ -14,7 +14,7 @@
 
         <FluxFormSlider
             v-model="hue"
-            :class="styles.colorPickerHueSlider"
+            :class="$style.colorPickerHueSlider"
             is-tooltip-disabled
             :max="360"
             :min="0"
@@ -23,15 +23,15 @@
         <FluxFormSlider
             v-if="isAlphaEnabled"
             v-model="alpha"
-            :class="styles.colorPickerAlphaSlider"
+            :class="$style.colorPickerAlphaSlider"
             is-tooltip-disabled
             :max="1"
             :min="0"
             :step="0.001"/>
 
-        <div :class="styles.colorPickerValue">
+        <div :class="$style.colorPickerValue">
             <div
-                :class="styles.colorPickerPreview"
+                :class="$style.colorPickerPreview"
                 :style="{
                 '--color': rgb
             }"/>
@@ -133,7 +133,7 @@
     import FluxFormField from './FluxFormField.vue';
     import FluxFormInput from './FluxFormInput.vue';
     import FluxFormSlider from './FluxFormSlider.vue';
-    import styles from '@/css/component/Color.module.scss';
+    import $style from '@/css/component/Color.module.scss';
 
     const modelValue = defineModel<string | [number, number, number]>({
         default: blue500

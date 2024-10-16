@@ -2,7 +2,7 @@
     import { defineComponent } from 'vue';
     import { FluxSlideOverTransition } from '@/transition';
     import { createDialogRenderer } from '@/util';
-    import styles from '@/css/component/Overlay.module.scss';
+    import $style from '@/css/component/Overlay.module.scss';
 
     export default defineComponent({
         emits: ['close'],
@@ -17,7 +17,7 @@
                 props,
                 emit,
                 slots,
-                styles.slideOver,
+                $style.slideOver,
                 FluxSlideOverTransition
             );
         }

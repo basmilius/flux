@@ -1,9 +1,9 @@
 <template>
     <FluxButton
         :="{type, disabled, iconBefore: icon, iconAfter: 'arrow-right-long', label, href, rel, target, to}"
-        :css-class="styles.linkButton"
-        :css-class-icon="styles.linkButtonIcon"
-        :css-class-label="styles.linkButtonLabel"
+        :css-class="$style.linkButton"
+        :css-class-icon="$style.linkButtonIcon"
+        :css-class-label="$style.linkButtonLabel"
         @click="emit('click', $event)"
         @mouseenter="emit('mouseenter', $event)"
         @mouseleave="emit('mouseleave', $event)">
@@ -20,7 +20,7 @@
     setup>
     import type { ButtonEmits, ButtonProps, ButtonSlots, IconName } from '@/types';
     import FluxButton, { SLOTS } from './FluxButton.vue';
-    import styles from '@/css/component/Button.module.scss';
+    import $style from '@/css/component/Button.module.scss';
 
     const emit = defineEmits<ButtonEmits>();
 

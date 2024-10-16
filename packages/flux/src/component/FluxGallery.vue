@@ -11,8 +11,8 @@
         @select="onFilesSelected">
         <template #default="{showPicker}">
             <TransitionGroup
-                :class="styles.gallery"
-                :move-class="styles.galleryMove"
+                :class="$style.gallery"
+                :move-class="$style.galleryMove"
                 tag="div">
                 <template
                     v-if="items"
@@ -44,7 +44,7 @@
                 <button
                     v-if="isEditable"
                     key="gallery-add"
-                    :class="styles.galleryAdd"
+                    :class="$style.galleryAdd"
                     type="button"
                     @click="showPicker()">
                     <FluxIcon variant="plus"/>
@@ -62,7 +62,7 @@
     import FluxDropZone from './FluxDropZone.vue';
     import FluxGalleryItem from './FluxGalleryItem.vue';
     import FluxIcon from './FluxIcon.vue';
-    import styles from '@/css/component/Gallery.module.scss';
+    import $style from '@/css/component/Gallery.module.scss';
 
     const emit = defineEmits<{
         delete: [number];

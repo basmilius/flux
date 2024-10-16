@@ -1,6 +1,6 @@
 <template>
     <form
-        :class="styles.form"
+        :class="$style.form"
         @submit.prevent="onSubmit()">
         <slot/>
     </form>
@@ -9,7 +9,7 @@
 <script
     lang="ts"
     setup>
-    import styles from '@/css/component/Form.module.scss';
+    import $style from '@/css/component/Form.module.scss';
 
     const emit = defineEmits<{
         submit: [];

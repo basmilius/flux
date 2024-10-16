@@ -1,21 +1,21 @@
 <template>
-    <div :class="styles.formField">
+    <div :class="$style.formField">
         <label
             :for="id"
-            :class="styles.formFieldHeader">
-            <span :class="styles.formFieldLabel">
+            :class="$style.formFieldHeader">
+            <span :class="$style.formFieldLabel">
                 {{ label }}
             </span>
 
             <span
                 v-if="isOptional"
-                :class="styles.formFieldOptional">
+                :class="$style.formFieldOptional">
                 ({{ translate('flux.optional') }})
             </span>
 
             <span
                 v-if="$slots.value"
-                :class="styles.formFieldValue">
+                :class="$style.formFieldValue">
                 <slot
                     name="value"
                     v-bind="{currentLength, error, hint, id, isOptional, label, maxLength}"/>
@@ -26,7 +26,7 @@
 
         <span
             v-if="currentLength && maxLength && maxLength > 0"
-            :class="styles.formFieldCounter">
+            :class="$style.formFieldCounter">
             {{ currentLength }} / {{ maxLength }}
         </span>
 
@@ -54,7 +54,7 @@
     import { useTranslate } from '@/composable/private';
     import { FluxFormFieldInjectionKey } from '@/data';
     import FluxFormFieldAddition from './FluxFormFieldAddition.vue';
-    import styles from '@/css/component/Form.module.scss';
+    import $style from '@/css/component/Form.module.scss';
 
     defineProps<{
         readonly currentLength?: number;

@@ -1,9 +1,9 @@
 <template>
     <button
         :class="clsx(
-            styles.coordinatePickerThumb,
-            isDisabled && styles.isDisabled,
-            isDragging && styles.isDragging
+            $style.coordinatePickerThumb,
+            isDisabled && $style.isDisabled,
+            isDragging && $style.isDragging
         )"
         :style="{
             top: `${position[1] * 100}%`,
@@ -19,7 +19,7 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import styles from '@/css/component/primitive/CoordinatePicker.module.scss';
+    import $style from '@/css/component/primitive/CoordinatePicker.module.scss';
 
     const emit = defineEmits<{
         decrement: [boolean, boolean];

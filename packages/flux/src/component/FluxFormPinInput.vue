@@ -1,6 +1,6 @@
 <template>
     <div
-        :class="isDisabled ? styles.pinInputDisabled : styles.pinInputEnabled"
+        :class="isDisabled ? $style.pinInputDisabled : $style.pinInputEnabled"
         :style="{
             '--max-length': maxLength
         }">
@@ -8,7 +8,7 @@
             v-for="field of maxLength"
             :key="field"
             ref="fields"
-            :class="styles.pinInputField"
+            :class="$style.pinInputField"
             autocomplete="new-password"
             maxlength="1"
             :id="id"
@@ -28,7 +28,7 @@
     setup>
     import { unref, useTemplateRef } from 'vue';
     import { useFormFieldInjection } from '@/composable';
-    import styles from '@/css/component/Form.module.scss';
+    import $style from '@/css/component/Form.module.scss';
 
     const modelValue = defineModel<string>({
         default: ''

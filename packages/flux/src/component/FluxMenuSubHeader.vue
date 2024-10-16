@@ -1,19 +1,19 @@
 <template>
     <div
-        :class="styles.menuSubHeader"
+        :class="$style.menuSubHeader"
         role="presentation">
         <FluxIcon
             v-if="iconBefore"
-            :class="styles.menuSubHeaderIcon"
+            :class="$style.menuSubHeaderIcon"
             :variant="iconBefore"/>
 
-        <span :class="styles.menuSubHeaderLabel">
+        <span :class="$style.menuSubHeaderLabel">
             {{ label }}
         </span>
 
         <FluxIcon
             v-if="iconAfter"
-            :class="styles.menuSubHeaderIcon"
+            :class="$style.menuSubHeaderIcon"
             :variant="iconAfter"/>
     </div>
 </template>
@@ -23,7 +23,7 @@
     setup>
     import type { IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
-    import styles from '@/css/component/Menu.module.scss';
+    import $style from '@/css/component/Menu.module.scss';
 
     defineProps<{
         readonly iconAfter?: IconName;

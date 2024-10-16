@@ -1,6 +1,6 @@
 <template>
     <div
-        :class="styles.timeline"
+        :class="$style.timeline"
         role="feed">
         <slot/>
     </div>
@@ -9,7 +9,7 @@
 <script
     lang="ts"
     setup>
-    import styles from '@/css/component/Timeline.module.scss';
+    import $style from '@/css/component/Timeline.module.scss';
 
     defineSlots<{
         default(): any;

@@ -1,17 +1,17 @@
 <template>
     <FluxPane
-        :class="styles.actionPane"
+        :class="$style.actionPane"
         :variant="paneVariant">
         <slot name="base"/>
 
-        <div :class="styles.actionPaneGrid">
-            <FluxPaneBody :class="styles.actionPaneBody">
+        <div :class="$style.actionPaneGrid">
+            <FluxPaneBody :class="$style.actionPaneBody">
                 <slot/>
             </FluxPaneBody>
 
             <FluxPaneBody
                 v-if="slots.buttons"
-                :class="styles.actionPaneBody">
+                :class="$style.actionPaneBody">
                 <FluxButtonStack axis="vertical">
                     <slot name="buttons"/>
                 </FluxButtonStack>
@@ -27,7 +27,7 @@
     import FluxButtonStack from './FluxButtonStack.vue';
     import FluxPane from './FluxPane.vue';
     import FluxPaneBody from './FluxPaneBody.vue';
-    import styles from '@/css/component/Action.module.scss';
+    import $style from '@/css/component/Action.module.scss';
 
     defineProps<{
         readonly paneVariant?: 'default' | 'flat' | 'well';

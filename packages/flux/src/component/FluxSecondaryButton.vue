@@ -1,9 +1,9 @@
 <template>
     <FluxButton
         :="{type, disabled, iconAfter, iconBefore, isLoading, isSubmit, label, size, href, rel, target, to}"
-        :css-class="styles.secondaryButton"
-        :css-class-icon="styles.secondaryButtonIcon"
-        :css-class-label="styles.secondaryButtonLabel"
+        :css-class="$style.secondaryButton"
+        :css-class-icon="$style.secondaryButtonIcon"
+        :css-class-label="$style.secondaryButtonLabel"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)">
@@ -20,7 +20,7 @@
     setup>
     import type { ButtonEmits, ButtonProps, ButtonSlots } from '@/types';
     import FluxButton, { SLOTS } from './FluxButton.vue';
-    import styles from '@/css/component/Button.module.scss';
+    import $style from '@/css/component/Button.module.scss';
 
     defineEmits<ButtonEmits>();
     defineProps<ButtonProps>();

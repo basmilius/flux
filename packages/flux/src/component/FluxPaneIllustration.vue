@@ -1,11 +1,11 @@
 <template>
     <div
-        :class="isMasked ? styles.paneIllustrationMasked : styles.paneIllustration"
+        :class="isMasked ? $style.paneIllustrationMasked : $style.paneIllustration"
         :style="{
             aspectRatio
         }">
         <div
-            :class="styles.paneIllustrationMagic"
+            :class="$style.paneIllustrationMagic"
             :style="{
                 border: `1px solid ${borderColor}`
             }">
@@ -19,13 +19,13 @@
 
         <div
             v-if="slots.controlled"
-            :class="styles.paneIllustrationContentControlled">
+            :class="$style.paneIllustrationContentControlled">
             <slot name="controlled"/>
         </div>
 
         <div
             v-if="slots.default"
-            :class="styles.paneIllustrationContent">
+            :class="$style.paneIllustrationContent">
             <slot/>
         </div>
     </div>
@@ -38,7 +38,7 @@
     import { hexToRGB } from '@/util';
     import FluxAnimatedColors from './FluxAnimatedColors.vue';
     import FluxGridPattern from './FluxGridPattern.vue';
-    import styles from '@/css/component/Pane.module.scss';
+    import $style from '@/css/component/Pane.module.scss';
 
     const {
         animatedColors,

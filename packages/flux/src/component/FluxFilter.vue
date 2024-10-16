@@ -1,7 +1,7 @@
 <template>
     <div
         v-height-transition
-        :class="styles.filter">
+        :class="$style.filter">
         <FluxWindow ref="window">
             <template #default="{navigate}">
                 <FilterMenuRenderer
@@ -16,17 +16,17 @@
                 #[name]>
                 <FluxMenu>
                     <FluxMenuGroup
-                        :class="styles.filterHeader"
+                        :class="$style.filterHeader"
                         is-horizontal>
                         <FluxMenuItem
-                            :class="styles.filterBack"
+                            :class="$style.filterBack"
                             :label="translate('flux.back')"
                             icon-before="angle-left"
                             @click="back()"/>
 
                         <FluxMenuItem
                             v-if="resettable?.includes(name)"
-                            :class="styles.filterReset"
+                            :class="$style.filterReset"
                             icon-before="trash"
                             is-destructive
                             @click="reset(name)"/>
@@ -53,7 +53,7 @@
     import FluxMenuGroup from './FluxMenuGroup.vue';
     import FluxMenuItem from './FluxMenuItem.vue';
     import FluxWindow from './FluxWindow.vue';
-    import styles from '@/css/component/Filter.module.scss';
+    import $style from '@/css/component/Filter.module.scss';
 
     const emit = defineEmits<{
         reset: [string]
@@ -74,7 +74,7 @@
     const slots = useSlots();
     const translate = useTranslate();
 
-    const windowRef = useTemplateRef('window');
+    const windowRef = useTemplateRef<{ back(to: string): void; }>('window');
 
     const filters = computed<Record<string, VNode>>(() => {
         const filters: { [key: string]: VNode; } = {};

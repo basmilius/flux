@@ -1,9 +1,9 @@
 <template>
     <nav
         ref="control"
-        :class="isFill ? styles.segmentedControlFill : styles.segmentedControlInline">
+        :class="isFill ? $style.segmentedControlFill : $style.segmentedControlInline">
         <div
-            :class="styles.segmentedControlHighlight"
+            :class="$style.segmentedControlHighlight"
             :style="{
                 left: `${activeItemX}px`,
                 width: `${activeItemWidth}px`
@@ -13,16 +13,16 @@
             <div
                 v-if="index > 0"
                 :class="clsx(
-                    styles.segmentedControlSeparator,
-                    (index === modelValue || index === modelValue + 1) && styles.isActive
+                    $style.segmentedControlSeparator,
+                    (index === modelValue || index === modelValue + 1) && $style.isActive
                 )"
                 role="separator"/>
 
             <button
                 ref="items"
                 :class="clsx(
-                    styles.segmentedControlItem,
-                    index === modelValue && styles.isActive
+                    $style.segmentedControlItem,
+                    index === modelValue && $style.isActive
                 )"
                 type="button"
                 @click="activate(index)">
@@ -44,7 +44,7 @@
     import { onMounted, onUpdated, ref, unref, useTemplateRef } from 'vue';
     import type { FluxSegmentedControlItemObject } from '@/types';
     import FluxIcon from './FluxIcon.vue';
-    import styles from '@/css/component/SegmentedControl.module.scss';
+    import $style from '@/css/component/SegmentedControl.module.scss';
 
     const modelValue = defineModel<number>({
         default: 0

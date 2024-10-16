@@ -1,7 +1,7 @@
 <template>
     <canvas
         ref="canvas"
-        :class="styles.animatedColors"/>
+        :class="$style.animatedColors"/>
 </template>
 
 <script
@@ -10,7 +10,7 @@
     import { computed, onBeforeUnmount, onMounted, ref, unref, useTemplateRef, watch } from 'vue';
     import { useComponentId } from '@/composable';
     import { mulberry32 } from '@/util';
-    import styles from '@/css/component/Visual.module.scss';
+    import $style from '@/css/component/Visual.module.scss';
 
     type Polygon = [number, number, string, PolygonPoint[]];
     type PolygonPoint = [number, number, number];

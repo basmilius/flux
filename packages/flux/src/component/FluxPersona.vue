@@ -1,6 +1,6 @@
 <template>
     <button
-        :class="styles.persona"
+        :class="$style.persona"
         type="button"
         @click="$emit('click', $event)">
         <FluxAvatar
@@ -12,7 +12,7 @@
             :url="avatarUrl"/>
 
         <template v-if="!isCompact">
-            <div :class="styles.personaDetails">
+            <div :class="$style.personaDetails">
                 <strong>{{ name }}</strong>
                 <span v-if="title">{{ title }}</span>
             </div>
@@ -25,7 +25,7 @@
     setup>
     import type { IconName } from '@/types';
     import FluxAvatar from './FluxAvatar.vue';
-    import styles from '@/css/component/Avatar.module.scss';
+    import $style from '@/css/component/Avatar.module.scss';
 
     defineEmits<{
         click: [MouseEvent];

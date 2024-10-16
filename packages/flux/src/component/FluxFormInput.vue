@@ -1,15 +1,15 @@
 <template>
     <div
         :class="clsx(
-            isDisabled ? styles.formInputDisabled : styles.formInputEnabled,
-            isSecondary && styles.isSecondary
+            isDisabled ? $style.formInputDisabled : $style.formInputEnabled,
+            isSecondary && $style.isSecondary
         )">
         <input
             ref="input"
             :class="clsx(
-                styles.formInputNative,
-                (!!iconAfter || type === 'password') && styles.formInputNativeHasIconAfter,
-                !!iconBefore && styles.formInputNativeHasIconBefore
+                $style.formInputNative,
+                (!!iconAfter || type === 'password') && $style.formInputNativeHasIconAfter,
+                !!iconBefore && $style.formInputNativeHasIconBefore
             )"
             :id="id"
             :autocomplete="autoComplete"
@@ -28,22 +28,22 @@
             @input="onInput"
             @keydown="onKeyDown">
 
-        <Icon
+        <FluxIcon
             v-if="iconBefore"
-            :class="styles.formInputIconBefore"
+            :class="$style.formInputIconBefore"
             :size="18"
             :variant="iconBefore"/>
 
-        <Icon
+        <FluxIcon
             v-if="type === 'password'"
-            :class="styles.formInputIconPasswordToggle"
+            :class="$style.formInputIconPasswordToggle"
             :size="18"
             :variant="nativeType === 'password' ? 'eye' : 'eye-slash'"
             @click="passwordTypeToggle()"/>
 
-        <Icon
+        <FluxIcon
             v-else-if="iconAfter"
-            :class="styles.formInputIconAfter"
+            :class="$style.formInputIconAfter"
             :size="18"
             :variant="iconAfter"/>
     </div>
@@ -59,8 +59,8 @@
     import { inputMask } from '@/data';
     import type { IconName, InputMask, InputType } from '@/types';
     import { unrefTemplateElement } from '@/util';
-    import Icon from './FluxIcon.vue';
-    import styles from '@/css/component/Form.module.scss';
+    import FluxIcon from './FluxIcon.vue';
+    import $style from '@/css/component/Form.module.scss';
 
     const emit = defineEmits<{
         blur: [];
@@ -93,7 +93,7 @@
         readonly type?: InputType;
     }>();
 
-    const inputRef = useTemplateRef('input');
+    const inputRef = useTemplateRef<HTMLInputElement>('input');
     const {id} = useFormFieldInjection();
 
     const localValue = ref<string | null>(null);

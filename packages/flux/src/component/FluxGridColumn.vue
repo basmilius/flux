@@ -1,6 +1,6 @@
 <template>
     <div
-        :class="styles.gridColumn"
+        :class="$style.gridColumn"
         :style="{
             gridColumn: `span ${span}`
         }">
@@ -13,7 +13,7 @@
     setup>
     import { computed, unref } from 'vue';
     import { useBreakpoints } from '@/composable';
-    import styles from '@/css/component/Grid.module.scss';
+    import $style from '@/css/component/Grid.module.scss';
 
     const {
         xs,

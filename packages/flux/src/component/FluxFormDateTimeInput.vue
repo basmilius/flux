@@ -1,6 +1,6 @@
 <template>
     <FluxStack
-        :class="styles.formDateTimeInput"
+        :class="$style.formDateTimeInput"
         axis="horizontal"
         :gap="15">
         <FluxFlyout
@@ -10,7 +10,7 @@
                 <FluxFormInputGroup>
                     <FluxFormInput
                         :="{autoFocus, isDisabled, isReadonly, modelValue, placeholder}"
-                        :class="styles.formDateInput"
+                        :class="$style.formDateInput"
                         type="date"
                         :model-value="localValue"
                         @update:model-value="setDate"
@@ -32,7 +32,7 @@
 
         <FluxFormInput
             :="{isDisabled, isReadonly, modelValue, placeholder}"
-            :class="styles.formTimeInput"
+            :class="$style.formTimeInput"
             type="time"
             :model-value="localValue"
             @update:model-value="setTime"/>
@@ -50,7 +50,7 @@
     import FluxFormInputGroup from './FluxFormInputGroup.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import FluxStack from './FluxStack.vue';
-    import styles from '@/css/component/Form.module.scss';
+    import $style from '@/css/component/Form.module.scss';
 
     const modelValue = defineModel<DateTime | null>({
         required: true
@@ -69,7 +69,7 @@
         readonly placeholder?: string;
     }>();
 
-    const flyoutRef = useTemplateRef('flyout');
+    const flyoutRef = useTemplateRef<{ close(): void; }>('flyout');
 
     const localValue = ref<DateTime | null>(null);
 

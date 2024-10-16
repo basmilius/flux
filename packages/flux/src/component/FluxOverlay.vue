@@ -4,7 +4,7 @@
     import { FluxOverlayTransition } from '@/transition';
     import type { Size } from '@/types';
     import { createDialogRenderer } from '@/util';
-    import styles from '@/css/component/Overlay.module.scss';
+    import $style from '@/css/component/Overlay.module.scss';
 
     export default defineComponent({
         emits: ['close'],
@@ -20,9 +20,9 @@
                 emit,
                 slots,
                 clsx(
-                    props.size === 'small' && styles.overlaySmall,
-                    props.size === 'medium' && styles.overlayMedium,
-                    props.size === 'large' && styles.overlayLarge
+                    props.size === 'small' && $style.overlaySmall,
+                    props.size === 'medium' && $style.overlayMedium,
+                    props.size === 'large' && $style.overlayLarge
                 ),
                 FluxOverlayTransition
             );

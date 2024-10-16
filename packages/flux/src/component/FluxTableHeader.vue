@@ -1,21 +1,21 @@
 <template>
     <th
         :class="clsx(
-            styles.tableHeader,
-            isBordered && styles.isBordered,
-            isShrinking && styles.isShrinking,
-            isSticky && styles.isSticky
+            $style.tableHeader,
+            isBordered && $style.isBordered,
+            isShrinking && $style.isShrinking,
+            isSticky && $style.isSticky
         )"
         :style="{
             minWidth: `${minWidth}px`
         }">
-        <div :class="styles.tableHeaderContent">
+        <div :class="$style.tableHeaderContent">
             <slot/>
 
             <FluxFlyout v-if="isSortable">
                 <template #opener="{open}">
                     <button
-                        :class="styles.tableSort"
+                        :class="$style.tableSort"
                         :aria-label="translate('flux.sort')"
                         tabindex="-1"
                         type="button"
@@ -72,7 +72,7 @@
     import FluxMenuGroup from './FluxMenuGroup.vue';
     import FluxMenuItem from './FluxMenuItem.vue';
     import FluxSeparator from './FluxSeparator.vue';
-    import styles from '@/css/component/Table.module.scss';
+    import $style from '@/css/component/Table.module.scss';
 
     defineEmits<{
         sort: ['ascending' | 'descending' | null];

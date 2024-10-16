@@ -1,6 +1,6 @@
 <template>
     <div
-        :class="styles.aspectRatio"
+        :class="$style.aspectRatio"
         :style="{aspectRatio}">
         <slot/>
     </div>
@@ -9,7 +9,7 @@
 <script
     lang="ts"
     setup>
-    import styles from '@/css/component/Layout.module.scss';
+    import $style from '@/css/component/Layout.module.scss';
 
     defineProps<{
         aspectRatio: number;

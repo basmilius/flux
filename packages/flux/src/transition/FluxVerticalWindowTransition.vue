@@ -1,10 +1,10 @@
 <template>
     <Transition
         :mode="mode"
-        :enter-active-class="isBack ? styles.verticalWindowTransitionBackEnterActive : styles.verticalWindowTransitionEnterActive"
-        :enter-from-class="isBack ? styles.verticalWindowTransitionBackEnterFrom : styles.verticalWindowTransitionEnterFrom"
-        :leave-active-class="isBack ? styles.verticalWindowTransitionBackLeaveActive : styles.verticalWindowTransitionLeaveActive"
-        :leave-to-class="isBack ? styles.verticalWindowTransitionBackLeaveTo : styles.verticalWindowTransitionLeaveTo">
+        :enter-active-class="isBack ? $style.verticalWindowTransitionBackEnterActive : $style.verticalWindowTransitionEnterActive"
+        :enter-from-class="isBack ? $style.verticalWindowTransitionBackEnterFrom : $style.verticalWindowTransitionEnterFrom"
+        :leave-active-class="isBack ? $style.verticalWindowTransitionBackLeaveActive : $style.verticalWindowTransitionLeaveActive"
+        :leave-to-class="isBack ? $style.verticalWindowTransitionBackLeaveTo : $style.verticalWindowTransitionLeaveTo">
         <slot/>
     </Transition>
 </template>
@@ -12,14 +12,12 @@
 <script
     lang="ts"
     setup>
-    import styles from '@/css/component/Transition.module.scss';
+    import $style from '@/css/component/Transition.module.scss';
 
-    export type Props = {
+    const {
+        mode = 'out-in'
+    } = defineProps<{
         readonly isBack?: boolean;
         readonly mode?: 'in-out' | 'out-in';
-    };
-
-    withDefaults(defineProps<Props>(), {
-        mode: 'out-in'
-    });
+    }>();
 </script>

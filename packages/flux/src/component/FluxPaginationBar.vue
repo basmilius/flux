@@ -1,6 +1,6 @@
 <template>
     <FluxStack
-        :class="styles.paginationBar"
+        :class="$style.paginationBar"
         :axis="breakpoints.lg ? 'horizontal' : 'vertical'">
         <FluxFormInputGroup>
             <FluxFormInputAddition>
@@ -52,7 +52,7 @@
     import FluxPagination from './FluxPagination.vue';
     import FluxSpacer from './FluxSpacer.vue';
     import FluxStack from './FluxStack.vue';
-    import styles from '@/css/component/Pagination.module.scss';
+    import $style from '@/css/component/Pagination.module.scss';
 
     const emit = defineEmits<{
         limit: [number];

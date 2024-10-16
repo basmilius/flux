@@ -4,9 +4,9 @@
             <FluxPaneBody
                 v-if="isPreviewing"
                 key="preview">
-                <div :class="styles.focalPointPreview">
+                <div :class="$style.focalPointPreview">
                     <div
-                        :class="styles.focalPointPreviewImage"
+                        :class="$style.focalPointPreviewImage"
                         :style="{
                             backgroundImage: `url(${url})`,
                             backgroundPosition: `${focalPointX}% ${focalPointY}%`
@@ -18,18 +18,18 @@
                 v-else
                 key="editor">
                 <div
-                    :class="styles.focalPointEditor"
+                    :class="$style.focalPointEditor"
                     @pointerdown="onPointerDown"
                     @pointermove="onPointerMove">
                     <img
                         ref="image"
-                        :class="styles.focalPointEditorImage"
+                        :class="$style.focalPointEditorImage"
                         :src="url"
                         alt=""
                         @load="onImageLoaded"/>
 
                     <div
-                        :class="styles.focalPointEditorArea"
+                        :class="$style.focalPointEditorArea"
                         :style="{
                             top: `${focalPointY}%`,
                             left: `${focalPointX}%`
@@ -63,7 +63,7 @@
     import FluxPaneFooter from './FluxPaneFooter.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import FluxSpacer from './FluxSpacer.vue';
-    import styles from '@/css/component/FocalPoint.module.scss';
+    import $style from '@/css/component/FocalPoint.module.scss';
 
     const modelValue = defineModel<[number, number]>({
         required: true

@@ -1,7 +1,7 @@
 <template>
     <div
         ref="fader"
-        :class="styles.fader">
+        :class="$style.fader">
         <slot v-bind="{current, next, previous}"/>
     </div>
 </template>
@@ -12,7 +12,7 @@
     import { computed, ref, unref, useTemplateRef, watch } from 'vue';
     import { useInterval } from '@/composable';
     import { unrefTemplateElement } from '@/util';
-    import styles from '@/css/component/Fader.module.scss';
+    import $style from '@/css/component/Fader.module.scss';
 
     const emit = defineEmits<{
         update: [number];
@@ -58,8 +58,8 @@
             return;
         }
 
-        Array.from(fader.children).forEach(item => item.classList.remove(styles.isCurrent));
-        fader.children[current].classList.add(styles.isCurrent);
+        Array.from(fader.children).forEach(item => item.classList.remove($style.isCurrent));
+        fader.children[current].classList.add($style.isCurrent);
         emit('update', current);
     }, {immediate: true});
 </script>

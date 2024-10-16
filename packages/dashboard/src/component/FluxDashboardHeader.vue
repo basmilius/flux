@@ -22,10 +22,8 @@
     import { FluxIcon, FluxSpacer, IconName } from '@basmilius/flux';
     import FluxDashboardTopBar from './FluxDashboardTopBar.vue';
 
-    export type Props = {
+    defineProps<{
         readonly icon?: IconName;
         readonly title?: string;
-    };
-
-    defineProps<Props>();
+    }>();
 </script>

@@ -1,6 +1,6 @@
 <template>
     <FluxStack
-        :class="styles.actionBar"
+        :class="$style.actionBar"
         axis="horizontal"
         :gap="9">
         <slot name="primary"/>
@@ -59,7 +59,7 @@
     import FluxSpacer from './FluxSpacer.vue';
     import FluxStack from './FluxStack.vue';
     import FluxTooltip from './FluxTooltip.vue';
-    import styles from '@/css/component/Action.module.scss';
+    import $style from '@/css/component/Action.module.scss';
 
     defineEmits<{
         reset: [];

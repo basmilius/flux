@@ -1,7 +1,7 @@
 <template>
     <canvas
         ref="canvas"
-        :class="styles.flickeringGrid"/>
+        :class="$style.flickeringGrid"/>
 </template>
 
 <script
@@ -10,7 +10,7 @@
     import { computed, unref, useTemplateRef, watch } from 'vue';
     import { useInView } from '@/composable';
     import { mulberry32 } from '@/util';
-    import styles from '@/css/component/Visual.module.scss';
+    import $style from '@/css/component/Visual.module.scss';
 
     const {
         color = '#1d4ed8',

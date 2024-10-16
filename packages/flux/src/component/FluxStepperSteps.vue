@@ -1,6 +1,6 @@
 <template>
     <div
-        :class="styles.stepperSteps"
+        :class="$style.stepperSteps"
         :style="{
             '--progress': progress
         }">
@@ -9,15 +9,15 @@
             :key="step">
             <button
                 :class="clsx(
-                    styles.stepperStepsItem,
-                    current > step && styles.stepperStepsItemComplete,
-                    current === step && styles.stepperStepsItemCurrent,
-                    current < step && styles.stepperStepsItemIdle
+                    $style.stepperStepsItem,
+                    current > step && $style.stepperStepsItemComplete,
+                    current === step && $style.stepperStepsItemCurrent,
+                    current < step && $style.stepperStepsItemIdle
                 )"
                 tabindex="-1"
                 type="button"
                 @click="activate(step)">
-                <span :class="styles.stepperStepsItemParticles"/>
+                <span :class="$style.stepperStepsItemParticles"/>
 
                 <FluxFadeTransition>
                     <FluxIcon
@@ -40,7 +40,7 @@
     import { computed } from 'vue';
     import { FluxFadeTransition } from '@/transition';
     import FluxIcon from './FluxIcon.vue';
-    import styles from '@/css/component/Stepper.module.scss';
+    import $style from '@/css/component/Stepper.module.scss';
 
     const emit = defineEmits<{
         activate: [number];

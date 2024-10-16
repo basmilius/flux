@@ -1,11 +1,11 @@
 <template>
     <nav
-        :class="styles.tabBar"
+        :class="$style.tabBar"
         role="tablist"
         aria-orientation="horizontal">
         <button
             v-if="isStartArrowVisible"
-            :class="styles.tabBarArrowStart"
+            :class="$style.tabBarArrowStart"
             tabindex="-1"
             type="button"
             @click="scrollToStart">
@@ -15,16 +15,16 @@
         <div
             ref="tabBar"
             :class="clsx(
-                styles.tabBarTabs,
-                isEndArrowVisible && styles.isEndMasked,
-                isStartArrowVisible && styles.isStartMasked
+                $style.tabBarTabs,
+                isEndArrowVisible && $style.isEndMasked,
+                isStartArrowVisible && $style.isStartMasked
             )">
             <slot/>
         </div>
 
         <button
             v-if="isEndArrowVisible"
-            :class="styles.tabBarArrowEnd"
+            :class="$style.tabBarArrowEnd"
             tabindex="-1"
             type="button"
             @click="scrollToEnd">
@@ -41,7 +41,7 @@
     import { useEventListener, useMutationObserver } from '@/composable';
     import { unrefTemplateElement } from '@/util';
     import FluxIcon from './FluxIcon.vue';
-    import styles from '@/css/component/Tab.module.scss';
+    import $style from '@/css/component/Tab.module.scss';
 
     defineSlots<{
         default(): any;

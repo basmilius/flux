@@ -3,10 +3,10 @@
         :component-type="type"
         :class="clsx(
             cssClass,
-            size === 'small' && styles.isSmall,
-            size === 'medium' && styles.isMedium,
-            size === 'large' && styles.isLarge,
-            size === 'xl' && styles.isXl
+            size === 'small' && $style.isSmall,
+            size === 'medium' && $style.isMedium,
+            size === 'large' && $style.isLarge,
+            size === 'xl' && $style.isXl
         )"
         :type="isSubmit ? 'submit' : 'button'"
         :aria-disabled="disabled ? true : undefined"
@@ -67,7 +67,7 @@
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
     import FluxSpinner from './FluxSpinner.vue';
-    import styles from '@/css/component/base/Button.module.scss';
+    import $style from '@/css/component/base/Button.module.scss';
 
     const emit = defineEmits<ButtonEmits>();
 

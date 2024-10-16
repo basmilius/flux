@@ -1,9 +1,9 @@
 <template>
     <button
         :class="clsx(
-            styles.sliderThumb,
-            isDisabled && styles.isDisabled,
-            isDragging && styles.isDragging
+            $style.sliderThumb,
+            isDisabled && $style.isDisabled,
+            isDragging && $style.isDragging
         )"
         :style="{
             left: `${position * 100}%`
@@ -18,7 +18,7 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import styles from '@/css/component/primitive/Slider.module.scss';
+    import $style from '@/css/component/primitive/Slider.module.scss';
 
     const emit = defineEmits<{
         decrement: [];

@@ -1,8 +1,8 @@
 <template>
-    <div :class="isInset ? styles.paneMediaInset : styles.paneMedia">
+    <div :class="isInset ? $style.paneMediaInset : $style.paneMedia">
         <img
             v-if="imageUrl"
-            :class="styles.paneMediaImage"
+            :class="$style.paneMediaImage"
             :style="{
                 objectPosition: `${focalPointX}% ${focalPointY}%`
             }"
@@ -15,7 +15,7 @@
     lang="ts"
     setup>
     import { computed } from 'vue';
-    import styles from '@/css/component/Pane.module.scss';
+    import $style from '@/css/component/Pane.module.scss';
 
     const {
         imageFocalPoint

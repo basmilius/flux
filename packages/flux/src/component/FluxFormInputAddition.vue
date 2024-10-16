@@ -1,5 +1,5 @@
 <template>
-    <div :class="styles.formInputAddition">
+    <div :class="$style.formInputAddition">
         <FluxIcon
             v-if="icon"
             :size="18"
@@ -18,7 +18,7 @@
     setup>
     import type { IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
-    import styles from '@/css/component/Form.module.scss';
+    import $style from '@/css/component/Form.module.scss';
 
     defineProps<{
         readonly icon?: IconName;

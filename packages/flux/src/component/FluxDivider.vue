@@ -1,21 +1,21 @@
 <template>
     <div
         :class="clsx(
-            contentPlacement === 'start' && styles.dividerContentStart,
-            contentPlacement === 'center' && styles.dividerContentCenter,
-            contentPlacement === 'end' && styles.dividerContentEnd
+            contentPlacement === 'start' && $style.dividerContentStart,
+            contentPlacement === 'center' && $style.dividerContentCenter,
+            contentPlacement === 'end' && $style.dividerContentEnd
         )"
         role="separator"
         aria-orientation="horizontal">
         <div
             v-if="$slots.default"
-            :class="styles.dividerContent">
+            :class="$style.dividerContent">
             <slot/>
         </div>
 
         <hr
             v-else
-            :class="styles.dividerLine">
+            :class="$style.dividerLine">
     </div>
 </template>
 
@@ -23,7 +23,7 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import styles from '@/css/component/Divider.module.scss';
+    import $style from '@/css/component/Divider.module.scss';
 
     const {
         contentPlacement = 'center'

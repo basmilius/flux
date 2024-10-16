@@ -1,7 +1,7 @@
 <template>
-    <FluxButtonGroup :class="styles.quantitySelector">
+    <FluxButtonGroup :class="$style.quantitySelector">
         <FluxSecondaryButton
-            :class="styles.quantitySelectorButton"
+            :class="$style.quantitySelectorButton"
             :disabled="modelValue <= min"
             icon-before="minus"
             tabindex="-1"
@@ -10,7 +10,7 @@
         <input
             ref="input"
             v-model="modelValue"
-            :class="styles.quantitySelectorInput"
+            :class="$style.quantitySelectorInput"
             :style="{
                 width: `${width}px`
             }"
@@ -21,7 +21,7 @@
             :step="step"/>
 
         <FluxSecondaryButton
-            :class="styles.quantitySelectorButton"
+            :class="$style.quantitySelectorButton"
             :disabled="modelValue >= max"
             icon-before="plus"
             tabindex="-1"
@@ -36,7 +36,7 @@
     import { unrefTemplateElement } from '@/util';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import styles from '@/css/component/Form.module.scss';
+    import $style from '@/css/component/Form.module.scss';
 
     const modelValue = defineModel<number>({
         default: 0

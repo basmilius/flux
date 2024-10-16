@@ -2,7 +2,7 @@
     <FluxMenuGroup>
         <div
             v-if="isSearchable"
-            :class="styles.filterSearch">
+            :class="$style.filterSearch">
             <FluxFormInput
                 v-model="modelSearch"
                 auto-complete="off"
@@ -43,7 +43,7 @@
     import FluxFormInput from '../FluxFormInput.vue';
     import FluxMenuGroup from '../FluxMenuGroup.vue';
     import FluxMenuSubHeader from '../FluxMenuSubHeader.vue';
-    import styles from '@/css/component/Filter.module.scss';
+    import $style from '@/css/component/Filter.module.scss';
 
     const emit = defineEmits<{
         select: [FluxFilterValueSingle];

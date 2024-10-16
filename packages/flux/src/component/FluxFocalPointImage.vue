@@ -1,6 +1,6 @@
 <template>
     <img
-        :class="styles.focalPointImage"
+        :class="$style.focalPointImage"
         :style="{
             objectPosition: `${x}% ${y}%`
         }"
@@ -13,7 +13,7 @@
     setup>
     import { computed } from 'vue';
     import type { FluxFocalPointObject } from '@/types';
-    import styles from '@/css/component/FocalPoint.module.scss';
+    import $style from '@/css/component/FocalPoint.module.scss';
 
     const {
         alt = '',

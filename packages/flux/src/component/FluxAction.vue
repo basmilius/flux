@@ -1,10 +1,10 @@
 <template>
     <FluxButton
         :="{disabled, isLoading, label, href, rel, target, to, type}"
-        :css-class="styles.action"
-        :css-class-icon="styles.actionIcon"
-        :css-class-label="styles.actionLabel"
-        :class="isDestructive && styles.isDestructive"
+        :css-class="$style.action"
+        :css-class-icon="$style.actionIcon"
+        :css-class-label="$style.actionLabel"
+        :class="isDestructive && $style.isDestructive"
         :icon-before="icon"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
@@ -16,7 +16,7 @@
     setup>
     import type { ButtonEmits, ButtonProps, IconName } from '@/types';
     import FluxButton from './FluxButton.vue';
-    import styles from '@/css/component/Action.module.scss';
+    import $style from '@/css/component/Action.module.scss';
 
     defineEmits<ButtonEmits>();
 
