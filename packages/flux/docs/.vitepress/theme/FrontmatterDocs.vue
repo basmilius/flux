@@ -1,4 +1,5 @@
 <template>
+    <Variants v-if="frontmatter.variants"/>
     <RequiredIcons v-if="frontmatter.requiredIcons"/>
     <Props v-if="frontmatter.props"/>
     <Emits v-if="frontmatter.emits"/>
@@ -13,6 +14,7 @@
     import Props from './Props.vue';
     import RequiredIcons from './RequiredIcons.vue';
     import Slots from './Slots.vue';
+    import Variants from './Variants.vue';
 
     const {frontmatter} = useData();
 </script>

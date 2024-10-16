@@ -1,5 +1,4 @@
 ---
-# https://vitepress.dev/reference/default-theme-home-page
 layout: home
 
 title: "Flux"
@@ -12,7 +11,7 @@ hero:
     actions:
         -   theme: brand
             text: Get Started
-            link: /guide/introduction/installation
+            link: /guide/introduction/installation/manual
 
         -   theme: alt
             text: Examples

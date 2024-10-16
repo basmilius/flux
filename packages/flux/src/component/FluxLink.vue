@@ -1,5 +1,5 @@
 <template>
-    <BaseButton
+    <FluxButton
         :="{type, disabled, iconBefore: icon, iconAfter: 'arrow-right-long', label, href, rel, target, to}"
         :css-class="styles.linkButton"
         :css-class-icon="styles.linkButtonIcon"
@@ -12,14 +12,14 @@
             #[slot]>
             <slot :name="slot"/>
         </template>
-    </BaseButton>
+    </FluxButton>
 </template>
 
 <script
     lang="ts"
     setup>
     import type { ButtonEmits, ButtonProps, ButtonSlots, IconName } from '@/types';
-    import BaseButton, { SLOTS } from './primitive/BaseButton.vue';
+    import FluxButton, { SLOTS } from './FluxButton.vue';
     import styles from '@/css/component/Button.module.scss';
 
     const emit = defineEmits<ButtonEmits>();

@@ -24,6 +24,8 @@ import Preview from './Preview.vue';
 import Props from './Props.vue';
 import RequiredIcons from './RequiredIcons.vue';
 import RouterLink from './RouterLink.vue';
+import Slots from './Slots.vue';
+import Variants from './Variants.vue';
 
 import type { Theme } from 'vitepress';
 
@@ -58,6 +60,8 @@ const theme: Theme = {
         app.component('Props', Props);
         app.component('RequiredIcons', RequiredIcons);
         app.component('RouterLink', RouterLink);
+        app.component('Slots', Slots);
+        app.component('Variants', Variants);
     }
 };
 

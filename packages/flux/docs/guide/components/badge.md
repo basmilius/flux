@@ -53,6 +53,10 @@ requiredIcons:
     lang="ts"
     setup>
     import { FluxBadge, FluxBadgeStack } from '@basmilius/flux';
+    import BasicExample from '../../code/guide/components/badge/basic.vue';
+    import DotExample from '../../code/guide/components/badge/dot.vue';
+    import IconExample from '../../code/guide/components/badge/icon.vue';
+    import LoadingExample from '../../code/guide/components/badge/loading.vue';
 </script>
 
 # Badge
@@ -61,7 +65,7 @@ The Badge component serves as a label for specific elements in the UI. It can be
 
 <Preview>
     <FluxBadgeStack>
-        <FluxBadge label="Prospect"/>
+        <FluxBadge label="Help wanted"/>
         <FluxBadge
             color="danger"
             dot
@@ -73,9 +77,6 @@ The Badge component serves as a label for specific elements in the UI. It can be
         <FluxBadge
             is-loading
             label="Running"/>
-        <FluxBadge
-            is-deletable
-            label="Prospect"/>
     </FluxBadgeStack>
 </Preview>
 
@@ -89,16 +90,45 @@ Flux also has [Tags](./tag), which look similar to badges.
 
 ### Basic
 
-A basic badge can give more information about something else.
+A simple badge can deliver additional insights about an entity.
+
+<Preview>
+    <BasicExample/>
+</Preview>
+
+<<< @/code/guide/components/badge/basic.vue
 
 ### Dot
 
-A badge with a dot can be used to indicate status of something. For example the status of a server or the payment status of an order.
+A dot badge is useful for indicating statuses, for instance, the status of a server.
+
+<Preview>
+    <DotExample/>
+</Preview>
+
+<<< @/code/guide/components/badge/dot.vue
 
 ### Icon
 
-Icons within badges can be used to improve the meaning of the badge. This can for example be used to display features of something.
+Including icons in badges can improve their clarity, for instance, indicating an app's release status.
+
+<Preview>
+    <IconExample/>
+</Preview>
+
+<<< @/code/guide/components/badge/icon.vue
 
 ### Loading
 
-Badges with a loading state can be used to indicate that a row within a table is doing something, such as saving a particular row.
+A loading state badge can signify that a table row is processing, for instance, retrieving data.
+
+<Preview>
+    <LoadingExample/>
+</Preview>
+
+<<< @/code/guide/components/badge/loading.vue
+
+## Used components
+
+- [Icon](./icon)
+- [Spinner](./spinner)

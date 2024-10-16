@@ -165,15 +165,15 @@
         cursor: pointer;
     }
 
-    button:focus,
-    button:focus-visible {
-        outline: 1px dotted;
-        outline: 4px auto -webkit-focus-ring-color;
-    }
+    /*button:focus,*/
+    /*button:focus-visible {*/
+    /*    outline: 1px dotted;*/
+    /*    outline: 4px auto -webkit-focus-ring-color;*/
+    /*}*/
 
-    button:focus:not(:focus-visible) {
-        outline: none !important;
-    }
+    /*button:focus:not(:focus-visible) {*/
+    /*    outline: none !important;*/
+    /*}*/
 
     input:focus,
     textarea:focus,

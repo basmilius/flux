@@ -1,5 +1,5 @@
 <template>
-    <BaseButton
+    <FluxButton
         :="{type, disabled, iconAfter, iconBefore, isLoading, isSubmit, label, size, href, rel, target, to}"
         :css-class="styles.destructiveButton"
         :css-class-icon="styles.destructiveButtonIcon"
@@ -12,14 +12,14 @@
             #[slot]>
             <slot :name="slot"/>
         </template>
-    </BaseButton>
+    </FluxButton>
 </template>
 
 <script
     lang="ts"
     setup>
     import type { ButtonEmits, ButtonProps, ButtonSlots } from '@/types';
-    import BaseButton, { SLOTS } from './primitive/BaseButton.vue';
+    import FluxButton, { SLOTS } from './FluxButton.vue';
     import styles from '@/css/component/Button.module.scss';
 
     defineEmits<ButtonEmits>();

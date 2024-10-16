@@ -1,5 +1,5 @@
 <template>
-    <BaseButton
+    <FluxButton
         :="{type, disabled, iconAfter, isLoading, label, size, to}"
         :class="clsx(
             !isDone && !isLoading && styles.isIdle,
@@ -39,7 +39,7 @@
                 </svg>
             </div>
         </template>
-    </BaseButton>
+    </FluxButton>
 </template>
 
 <script
@@ -47,7 +47,7 @@
     setup>
     import { clsx } from 'clsx';
     import type { ButtonEmits, ButtonProps } from '@/types';
-    import BaseButton from './primitive/BaseButton.vue';
+    import FluxButton from './FluxButton.vue';
     import FluxIcon from './FluxIcon.vue';
     import styles from '@/css/component/Button.module.scss';
 

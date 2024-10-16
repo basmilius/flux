@@ -54,7 +54,7 @@
         "imask": "^7.6.1",
         "lodash-es": "^4.17.21",
         "luxon": "^3.5.0",
-        "vue": "^3.5.11"
+        "vue": "^3.5.12"
     },
     "devDependencies": {
         "@types/lodash-es": "^4.17.12",
@@ -66,7 +66,7 @@
         "typescript": "^5.6.3",
         "vite": "^5.4.8",
         "vite-css-modules": "^1.4.2",
-        "vite-plugin-dts": "^4.2.3",
+        "vite-plugin-dts": "^4.2.4",
         "vitepress": "^1.4.0",
         "vue-tsc": "^2.1.6"
     }

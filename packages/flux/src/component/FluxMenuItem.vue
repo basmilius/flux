@@ -1,5 +1,5 @@
 <template>
-    <BaseButton
+    <FluxButton
         :="{type, disabled, iconAfter, iconBefore, isLoading, label, href, rel, target, to}"
         :css-class="styles.menuItem"
         :css-class-icon="styles.menuItemIcon"
@@ -52,14 +52,14 @@
                     :variant="commandIcon"/>
             </template>
         </template>
-    </BaseButton>
+    </FluxButton>
 </template>
 
 <script
     lang="ts"
     setup>
     import type { ButtonEmits, ButtonProps,  IconName } from '@/types';
-    import BaseButton from './primitive/BaseButton.vue';
+    import FluxButton from './FluxButton.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
     import styles from '@/css/component/Menu.module.scss';

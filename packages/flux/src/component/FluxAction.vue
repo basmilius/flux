@@ -1,5 +1,5 @@
 <template>
-    <BaseButton
+    <FluxButton
         :="{disabled, isLoading, label, href, rel, target, to, type}"
         :css-class="styles.action"
         :css-class-icon="styles.actionIcon"
@@ -15,7 +15,7 @@
     lang="ts"
     setup>
     import type { ButtonEmits, ButtonProps, IconName } from '@/types';
-    import BaseButton from './primitive/BaseButton.vue';
+    import FluxButton from './FluxButton.vue';
     import styles from '@/css/component/Action.module.scss';
 
     defineEmits<ButtonEmits>();

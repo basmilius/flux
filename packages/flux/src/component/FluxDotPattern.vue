@@ -46,7 +46,7 @@
         readonly cy?: number;
     }>();
 
-    const svgRef = useTemplateRef('svg');
+    const svgRef = useTemplateRef<HTMLElement>('svg');
     const id = useId();
 
     const svgWidth = ref(0);

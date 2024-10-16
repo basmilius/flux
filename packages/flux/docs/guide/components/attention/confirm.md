@@ -18,7 +18,7 @@
 
 # Confirm
 
-This function displays an confirm with the specified properties and waits for the confirm to be closed before resolving the promise.
+This function displays a confirm with the specified properties and waits for the confirm to be closed before resolving the promise.
 
 <Preview>
     <FluxStack axis="horizontal" is-centered>
@@ -36,18 +36,21 @@ This function displays an confirm with the specified properties and waits for th
 This feature requires a parent [Root](../root) component to function correctly, as it is responsible for rendering the confirm.
 :::
 
-## Signature
+## Functional API
 
-```typescript
+```ts
 function showConfirm(spec: FluxConfirmObject): Promise<void> {}
+
+interface FluxConfirmObject {
+    readonly id: number;
+    readonly icon?: IconName;
+    readonly message: string;
+    readonly title: string;
+
+    onCancel(): void;
+    onConfirm(): void;
+}
 ```
-
-## FluxConfirmObject
-
-- `id: number` &mdash; A unique identifier for the alert.
-- `icon?: IconName` &mdash; (optional) The icon to be displayed in the alert.
-- `message: string` &mdash; The message to be displayed in the alert.
-- `title: string` &mdash; The title of the alert.
 
 ## Example
 

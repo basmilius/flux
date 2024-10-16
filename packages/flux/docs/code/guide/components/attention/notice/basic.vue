@@ -3,7 +3,7 @@
         icon="circle-exclamation"
         title="Not activated"
         message="Your account is not yet activated, please check your email to activate it."
-        variant="gray"/>
+        variant="danger"/>
 </template>
 
 <script

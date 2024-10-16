@@ -40,12 +40,12 @@ export type Size =
     | 'medium'
     | 'large';
 
-export type ButtonSize = Size | 'xl';
-
-export type ButtonType =
+export type PressableType =
     | 'button'
     | 'link'
     | 'route';
+
+export type ButtonSize = Size | 'xl';
 
 export type ButtonEmits = {
     click: [MouseEvent];
@@ -54,7 +54,7 @@ export type ButtonEmits = {
 };
 
 export type ButtonProps = {
-    readonly type?: ButtonType;
+    readonly type?: PressableType;
     readonly disabled?: boolean;
     readonly iconAfter?: IconName | null;
     readonly iconBefore?: IconName | null;

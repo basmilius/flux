@@ -1,5 +1,5 @@
 <template>
-    <ButtonComponent
+    <FluxPressable
         ref="tab"
         :component-type="type"
         :class="isActive ? styles.tabBarItemActive : styles.tabBarItem"
@@ -22,16 +22,16 @@
             :variant="icon"/>
 
         <span v-if="label">{{ label }}</span>
-    </ButtonComponent>
+    </FluxPressable>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { unref, useTemplateRef, watch } from 'vue';
-    import type { ButtonType, IconName, To } from '@/types';
-    import ButtonComponent from '@/component/primitive/ButtonComponent.vue';
+    import { ComponentPublicInstance, unref, useTemplateRef, watch } from 'vue';
+    import type { IconName, PressableType, To } from '@/types';
     import FluxIcon from './FluxIcon.vue';
+    import FluxPressable from './FluxPressable.vue';
     import styles from '@/css/component/Tab.module.scss';
 
     const emit = defineEmits<{
@@ -44,7 +44,7 @@
         disabled,
         isActive
     } = defineProps<{
-        readonly type?: ButtonType;
+        readonly type?: PressableType;
         readonly disabled?: boolean;
         readonly icon?: IconName;
         readonly isActive?: boolean;
@@ -56,7 +56,7 @@
         readonly to?: To;
     }>();
 
-    const tabRef = useTemplateRef('tab');
+    const tabRef = useTemplateRef<ComponentPublicInstance>('tab');
 
     function onClick(evt: MouseEvent): void {
         if (disabled) {

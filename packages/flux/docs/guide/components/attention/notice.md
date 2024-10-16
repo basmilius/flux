@@ -132,5 +132,5 @@ Variants such as `success`, `error`, `warning`, and `info` help convey the sever
 
 ## Used components
 
-- [Icon](../icon) — To display any icon within the notice.
-- [Spinner](../spinner) — To display a loading state within the notice.
+- [Icon](../icon)
+- [Spinner](../spinner)

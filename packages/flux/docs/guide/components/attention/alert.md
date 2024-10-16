@@ -31,18 +31,20 @@ Alerts can interrupt the user by taking over the entire screen. Consider using a
 This feature requires a parent [Root](../root) component to function correctly, as it is responsible for rendering the alert.
 :::
 
-## Signature
+## Functional API
 
-```typescript
+```ts
 function showAlert(spec: FluxAlertObject): Promise<void> {}
+
+interface FluxAlertObject {
+    readonly id: number;
+    readonly icon?: IconName;
+    readonly message: string;
+    readonly title: string;
+
+    onClose(): void;
+}
 ```
-
-## FluxAlertObject
-
-- `id: number` &mdash; A unique identifier for the alert.
-- `icon?: IconName` &mdash; The icon to be displayed in the alert.
-- `message: string` &mdash; The message to be displayed in the alert.
-- `title: string` &mdash; The title of the alert.
 
 ## Example
 

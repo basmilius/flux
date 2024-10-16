@@ -1,5 +1,5 @@
 <template>
-    <ButtonComponent
+    <FluxPressable
         :component-type="type"
         :class="CLASS_MAP[variant]"
         type="button"
@@ -23,14 +23,14 @@
             :class="styles.paneTag">
             {{ tag }}
         </div>
-    </ButtonComponent>
+    </FluxPressable>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { ButtonType, To } from '@/types';
-    import ButtonComponent from './primitive/ButtonComponent.vue';
+    import { PressableType, To } from '@/types';
+    import FluxPressable from './FluxPressable.vue';
     import FluxSpinner from './FluxSpinner.vue';
     import styles from '@/css/component/Pane.module.scss';
 
@@ -46,7 +46,7 @@
         readonly isLoading?: boolean;
         readonly tag?: string;
         readonly variant?: 'default' | 'flat' | 'well';
-        readonly type?: ButtonType;
+        readonly type?: PressableType;
         readonly tabindex?: string | number;
         readonly href?: string;
         readonly rel?: string;

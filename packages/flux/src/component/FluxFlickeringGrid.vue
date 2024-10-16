@@ -45,9 +45,7 @@
         context.fillStyle = color;
         context.fillRect(0, 0, 1, 1);
 
-        const [r, g, b] = context.getImageData(0, 0, 1, 1).data;
-
-        return [r, g, b];
+        return context.getImageData(0, 0, 1, 1).data;
     });
 
     function draw(context: CanvasRenderingContext2D, width: number, height: number, columns: number, rows: number, squares: Float32Array, dpr: number): void {

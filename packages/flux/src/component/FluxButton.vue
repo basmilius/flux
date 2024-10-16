@@ -1,5 +1,5 @@
 <template>
-    <ButtonComponent
+    <FluxPressable
         :component-type="type"
         :class="clsx(
             cssClass,
@@ -52,7 +52,7 @@
         </slot>
 
         <slot name="after"/>
-    </ButtonComponent>
+    </FluxPressable>
 </template>
 
 <script lang="ts">
@@ -63,9 +63,10 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { FluxIcon, FluxSpinner } from '@/component';
     import type { ButtonEmits, ButtonProps, ButtonSlots } from '@/types';
-    import ButtonComponent from './ButtonComponent.vue';
+    import FluxIcon from './FluxIcon.vue';
+    import FluxPressable from './FluxPressable.vue';
+    import FluxSpinner from './FluxSpinner.vue';
     import styles from '@/css/component/base/Button.module.scss';
 
     const emit = defineEmits<ButtonEmits>();

@@ -9,7 +9,13 @@
                     <br>
 
                     <template v-for="(value, key) in type">
-                        &nbsp;&nbsp;&nbsp;&nbsp;readonly {{ key }}: {{ value }};<br>
+                        <template v-if="value.startsWith('(')">
+                            &nbsp;&nbsp;&nbsp;&nbsp;{{ key }}{{ value }};<br>
+                        </template>
+
+                        <template v-else>
+                            &nbsp;&nbsp;&nbsp;&nbsp;readonly {{ key }}: {{ value }};<br>
+                        </template>
                     </template>
                 })
             </template>

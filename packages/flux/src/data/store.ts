@@ -28,7 +28,7 @@ export type FluxStore = FluxState & {
     removeTooltip(id: number): void;
     showAlert(spec: Omit<FluxAlertObject, 'id' | 'onClose'>): Promise<void>;
     showConfirm(spec: Omit<FluxConfirmObject, 'id' | 'onCancel' | 'onConfirm'>): Promise<boolean>;
-    showPrompt(spec: Omit<FluxConfirmObject, 'id' | 'onCancel' | 'onConfirm'>): Promise<string | false>;
+    showPrompt(spec: Omit<FluxPromptObject, 'id' | 'onCancel' | 'onConfirm'>): Promise<string | false>;
     showSnackbar({duration, ...spec}: Omit<FluxSnackbarObject, 'id'> & { readonly duration?: number; }): Promise<void> | void;
     updateSnackbar(id: number, spec: Partial<Omit<FluxSnackbarObject, 'id'>>): void;
     updateTooltip(id: number, spec: Partial<Omit<FluxTooltipObject, 'id'>>): void;
