@@ -118,6 +118,7 @@ export default defineConfig({
                         },
                         {text: 'Avatar', link: '/guide/components/avatar'},
                         {text: 'Badge', link: '/guide/components/badge'},
+                        {text: 'Boxed icon', link: '/guide/components/boxed-icon'},
                         {text: 'Button', link: '/guide/components/button'},
                         {text: 'Button group', link: '/guide/components/button-group'},
                         {text: 'Calendar', link: '/guide/components/calendar'},
@@ -179,7 +180,17 @@ export default defineConfig({
                         },
                         {text: 'Legend', link: '/guide/components/legend'},
                         {text: 'Link', link: '/guide/components/link'},
-                        {text: 'Menu', link: '/guide/components/menu'},
+                        {
+                            text: 'Menu',
+                            collapsed: true,
+                            items: [
+                                {text: 'Container', link: '/guide/components/menu/container'},
+                                {text: 'Group', link: '/guide/components/menu/group'},
+                                {text: 'Item', link: '/guide/components/menu/item'},
+                                {text: 'Sub header', link: '/guide/components/menu/sub-header'},
+                                {text: 'Title', link: '/guide/components/menu/title'}
+                            ]
+                        },
                         {text: 'Overlay', link: '/guide/components/overlay'},
                         {text: 'Pagination', link: '/guide/components/pagination'},
                         {text: 'Pane', link: '/guide/components/pane'},

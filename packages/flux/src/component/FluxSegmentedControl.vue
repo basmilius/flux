@@ -55,7 +55,7 @@
         readonly items: FluxSegmentedControlItemObject[];
     }>();
 
-    const controlRef = useTemplateRef('control');
+    const controlRef = useTemplateRef<HTMLElement>('control');
     const itemRefs = useTemplateRef<HTMLButtonElement[]>('items');
 
     const activeItemX = ref(0);
@@ -69,8 +69,8 @@
         const {left: controlX} = controlRef.value!.getBoundingClientRect();
         const {width, left: x} = itemRef.getBoundingClientRect();
 
-        activeItemX.value = x - controlX;
-        activeItemWidth.value = width + 6;
+        activeItemX.value = x - controlX - 1;
+        activeItemWidth.value = width;
         modelValue.value = index;
     }
 </script>

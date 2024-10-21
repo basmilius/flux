@@ -19,6 +19,7 @@
 
     &:active {
         background: rgb(var(--primary-9));
+        scale: .9875;
     }
 
     .spinner {
@@ -61,6 +62,7 @@
 
     &:active {
         background: rgb(var(--gray-3));
+        scale: .9875;
     }
 }
 
@@ -89,6 +91,7 @@
 
     &:active {
         background: rgb(var(--gray-3));
+        scale: .9875;
     }
 
     .spinner {

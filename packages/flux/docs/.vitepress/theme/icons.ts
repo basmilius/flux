@@ -15,11 +15,15 @@ export {
     faEllipsisH,
     faFilter,
     faGear,
+    faGrid2,
+    faList,
     faLock,
     faMagnifyingGlass,
     faMinus,
     faPlus,
+    faRectangleHistory,
     faRocket,
+    faTrash,
     faUser,
     faXmark
 } from '@fortawesome/pro-regular-svg-icons';

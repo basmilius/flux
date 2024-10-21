@@ -4,10 +4,6 @@
     "scripts": {
         "build": "pnpm --filter '@basmilius/*' -r build",
         "dev": "pnpm --filter '@basmilius/*' -r --parallel dev",
-        "dev:base": "pnpm run -C packages/flux dev",
-        "dev:dashboard": "pnpm run -C packages/dashboard dev",
-        "docs:build": "pnpm run -C packages/docs build",
-        "docs:dev": "pnpm run -C packages/docs dev",
         "link:base": "pnpm link --dir packages/flux --global",
         "link:dashboard": "pnpm link --dir packages/dashboard --global"
     },

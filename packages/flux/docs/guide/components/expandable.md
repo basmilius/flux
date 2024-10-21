@@ -67,7 +67,13 @@ Multiple expandables can be grouped together using [Expandable Groups](./expanda
 
 ## Examples
 
-Todo
+### Basic
+
+The most basic form of an expandable.
+
+<Preview>
+    Hi
+</Preview>
 
 ## Used components
 

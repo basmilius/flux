@@ -53,7 +53,7 @@
     .preview {
         position: relative;
         margin: 16px 0;
-        background: rgb(var(--gray-1) / .75);
+        background: rgb(var(--gray-1));
         border: 1px solid rgb(var(--gray-3));
         border-radius: var(--radius);
         font-size: 15px;
@@ -61,6 +61,10 @@
         :global(p) {
             margin: unset;
             line-height: 1.6;
+        }
+
+        :global(svg) {
+            stroke: rgb(var(--gray-3));
         }
     }
 
