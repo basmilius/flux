@@ -1,0 +1,47 @@
+name: Publish Any Commit
+
+on:
+    push:
+        branches:
+            - '**'
+        paths-ignore:
+            - 'packages/flux/docs/**'
+
+    pull_request:
+        branches:
+            - 'main'
+        paths-ignore:
+            - 'packages/flux/docs/**'
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        name: 🚀 Publish to pkg.pr.new
+        steps:
+            -   name: 👀 Checkout
+                uses: actions/checkout@v4
+
+            -   name: ⚙️ Setup pnpm
+                uses: pnpm/action-setup@v4
+                with:
+                    run_install: false
+
+            -   name: ✨ Setup node 22.x
+                uses: actions/setup-node@v4
+                with:
+                    node-version: '22.x'
+                    registry-url: https://registry.npmjs.org
+                    cache: pnpm
+
+            -   name: 📦️ Install dependencies
+                run: pnpm install --frozen-lockfile
+                env:
+                    FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+
+            -   name: 🔨 Build
+                run: pnpm build
+                env:
+                    FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+
+            -   name: 🚀 Publish
+                run: pnpx pkg-pr-new publish --compact './packages/*'
