@@ -15,7 +15,7 @@
         :aria-checked="isSelectable ? isSelected : undefined"
         @click="$emit('click', $event)">
         <template
-            v-if="isSelectable"
+            v-if="isSelectable && (!iconBefore || isSelected)"
             #iconBefore>
             <FluxIcon
                 :class="$style.menuItemSelectableIcon"

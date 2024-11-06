@@ -6,7 +6,7 @@ props:
         description: Enables a larger mode for the menu.
         type: boolean
         optional: true
-        
+
 slots:
     -   name: default
         description: The content of the menu.
@@ -16,6 +16,8 @@ slots:
     lang="ts"
     setup>
     import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxSeparator } from '@basmilius/flux';
+    import BasicExample from '../../../code/guide/components/menu/container/basic.vue';
+    import PaneExample from '../../../code/guide/components/menu/container/pane.vue';
 </script>
 
 # Menu
@@ -26,28 +28,7 @@ It allows you to easily insert custom content and handles keyboard navigation to
 
 <Preview>
     <FluxPane style="width: 300px">
-        <FluxMenu>
-            <FluxMenuGroup>
-                <FluxMenuItem
-                    icon-before="grid-2"
-                    label="Overview"/>
-            </FluxMenuGroup>
-            <FluxSeparator/>
-            <FluxMenuGroup>
-                <FluxMenuItem
-                    icon-before="rocket"
-                    label="Releases"/>
-                <FluxMenuItem
-                    icon-before="rectangle-history"
-                    label="History"/>
-            </FluxMenuGroup>
-            <FluxSeparator/>
-            <FluxMenuGroup>
-                <FluxMenuItem
-                    icon-before="gear"
-                    label="Settings"/>
-            </FluxMenuGroup>
-        </FluxMenu>
+        <BasicExample/>
     </FluxPane>
 </Preview>
 
@@ -55,4 +36,22 @@ It allows you to easily insert custom content and handles keyboard navigation to
 
 ## Examples
 
-Todo
+### Basic
+
+A basic menu that consists of a few items.
+
+<Preview>
+    <BasicExample style="width: 270px"/>
+</Preview>
+
+<<< @/code/guide/components/menu/container/basic.vue
+
+### Pane
+
+Panes have first class support for menus inside them. Place a menu directly inside a Pane to create a contained menu.
+
+<Preview>
+    <PaneExample style="width: 270px"/>
+</Preview>
+
+<<< @/code/guide/components/menu/container/pane.vue

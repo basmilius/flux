@@ -187,6 +187,7 @@ export default defineConfig({
                                 {text: 'Container', link: '/guide/components/menu/container'},
                                 {text: 'Group', link: '/guide/components/menu/group'},
                                 {text: 'Item', link: '/guide/components/menu/item'},
+                                {text: 'Options', link: '/guide/components/menu/options'},
                                 {text: 'Sub header', link: '/guide/components/menu/sub-header'},
                                 {text: 'Title', link: '/guide/components/menu/title'}
                             ]

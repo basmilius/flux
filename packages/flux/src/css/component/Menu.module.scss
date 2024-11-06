@@ -190,6 +190,15 @@
     border-radius: 3px;
 }
 
+.menuGroupHorizontal .menuItem {
+    flex-basis: 0;
+    flex-grow: 1;
+
+    &:has(.menuItemIcon:only-child) {
+        justify-content: center;
+    }
+}
+
 .menuTitle {
     padding: 0 12px;
     color: var(--foreground-prominent);

@@ -9,57 +9,42 @@ props:
         
 slots:
     -   name: default
-        description: The content of the group.
+        description: The content of the options group.
 ---
 
 <script
     lang="ts"
     setup>
     import { ref } from 'vue';
-    import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxSeparator } from '@basmilius/flux';
+    import { FluxMenu, FluxMenuItem, FluxMenuOptions, FluxPane, FluxSeparator } from '@basmilius/flux';
     import BothExample from '../../../code/guide/components/menu/group/both.vue';
     import HorizontalExample from '../../../code/guide/components/menu/group/horizontal.vue';
     import VerticalExample from '../../../code/guide/components/menu/group/vertical.vue';
     import SeparatedExample from '../../../code/guide/components/menu/group/separated.vue';
+
+    const alignment = ref(0);
+    const variant = ref(0);
 </script>
 
-# Menu group
+# Menu options
 
-This component provides a container for grouping menu items, adjusting its orientation based on the `isHorizontal` prop. When set to horizontal, it applies a specific style; otherwise, it defaults to a vertical layout.
+This component provides a container for grouping menu items that behave like options, allowing only one to be selected at a time. Its layout can be adjusted based on the `isHorizontal` prop. When set to horizontal, it applies a specific style; otherwise, it defaults to a vertical layout.
 
 <Preview>
     <FluxPane style="width: 270px">
         <FluxMenu>
-            <FluxMenuGroup is-horizontal>
-                <FluxMenuItem icon-before="align-left" is-highlighted/>
+            <FluxMenuOptions v-model="alignment" is-horizontal>
+                <FluxMenuItem icon-before="align-left"/>
                 <FluxMenuItem icon-before="align-center"/>
                 <FluxMenuItem icon-before="align-right"/>
                 <FluxMenuItem icon-before="align-justify"/>
-            </FluxMenuGroup>
+            </FluxMenuOptions>
             <FluxSeparator/>
-            <FluxMenuGroup>
+            <FluxMenuOptions v-model="variant" mode="select">
                 <FluxMenuItem
-                    icon-before="list-ul"
-                    label="Unordered list"/>
-                <FluxMenuItem
-                    icon-before="list-ol"
-                    label="Ordered list"/>
-                <FluxMenuItem
-                    icon-before="image"
-                    label="Image"/>
-                <FluxMenuItem
-                    icon-before="play"
-                    label="Video"/>
-            </FluxMenuGroup>
-            <FluxSeparator/>
-            <FluxMenuGroup>
-                <FluxMenuItem
-                    icon-before="indent"
-                    label="Indent"/>
-                <FluxMenuItem
-                    icon-before="outdent"
-                    label="Outdent"/>
-            </FluxMenuGroup>
+                    v-for="i of 5"
+                    :label="`Menu item ${i}`"/>
+            </FluxMenuOptions>
         </FluxMenu>
     </FluxPane>
 </Preview>

@@ -77,6 +77,7 @@ export { default as FluxLink } from './FluxLink.vue';
 export { default as FluxMenu } from './FluxMenu.vue';
 export { default as FluxMenuGroup } from './FluxMenuGroup.vue';
 export { default as FluxMenuItem } from './FluxMenuItem.vue';
+export { default as FluxMenuOptions } from './FluxMenuOptions.vue';
 export { default as FluxMenuSubHeader } from './FluxMenuSubHeader.vue';
 export { default as FluxMenuTitle } from './FluxMenuTitle.vue';
 export { default as FluxNotice } from './FluxNotice.vue';
