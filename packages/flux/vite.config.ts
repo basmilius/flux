@@ -11,7 +11,8 @@ export default defineConfig(({command}) => ({
         patchCssModules(),
         vue(),
         dts({
-            cleanVueFileName: true
+            cleanVueFileName: true,
+            staticImport: true
         })
     ],
     build: {
