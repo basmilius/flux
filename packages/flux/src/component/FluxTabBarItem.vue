@@ -28,7 +28,8 @@
 <script
     lang="ts"
     setup>
-    import { ComponentPublicInstance, unref, useTemplateRef, watch } from 'vue';
+    import { ComponentPublicInstance, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { useDisabled } from '@/composable';
     import type { IconName, PressableType, To } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
@@ -41,7 +42,7 @@
     }>();
 
     const {
-        disabled,
+        disabled: componentDisabled,
         isActive
     } = defineProps<{
         readonly type?: PressableType;
@@ -56,10 +57,11 @@
         readonly to?: To;
     }>();
 
+    const disabled = useDisabled(toRef(() => componentDisabled));
     const tabRef = useTemplateRef<ComponentPublicInstance>('tab');
 
     function onClick(evt: MouseEvent): void {
-        if (disabled) {
+        if (unref(disabled)) {
             evt.preventDefault();
             evt.stopPropagation();
             return;

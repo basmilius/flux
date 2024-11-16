@@ -1,6 +1,6 @@
 <template>
     <SliderBase
-        :is-disabled="isDisabled"
+        :disabled="disabled"
         :is-dragging="isDraggingLower || isDraggingUpper"
         :is-ticks-visible="isTicksVisible"
         :max="max"
@@ -13,19 +13,19 @@
             :percentage-upper="percentageUpper">
             <SliderThumb
                 ref="lowerThumb"
-                :is-disabled="isDisabled"
+                :disabled="disabled"
                 :is-dragging="isDraggingLower"
                 :position="percentageLower"
-                @grab="!isDisabled && (isDraggingLower = true)"
+                @grab="!disabled && (isDraggingLower = true)"
                 @decrement="onDecrement('lower')"
                 @increment="onIncrement('lower')"/>
 
             <SliderThumb
                 ref="upperThumb"
-                :is-disabled="isDisabled"
+                :disabled="disabled"
                 :is-dragging="isDraggingUpper"
                 :position="percentageUpper"
-                @grab="!isDisabled && (isDraggingUpper = true)"
+                @grab="!disabled && (isDraggingUpper = true)"
                 @decrement="onDecrement('upper')"
                 @increment="onIncrement('upper')"/>
         </SliderTrack>
@@ -35,7 +35,8 @@
 <script
     lang="ts"
     setup>
-    import { computed, ref, unref, useTemplateRef, watch } from 'vue';
+    import { computed, ref, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { useDisabled } from '@/composable';
     import { addTooltip, removeTooltip, updateTooltip } from '@/data';
     import { clampWithStepPrecision, countDecimals, formatNumber } from '@/util';
     import { SliderBase, SliderThumb, SliderTrack } from './primitive';
@@ -46,7 +47,7 @@
 
     const {
         formatter = formatNumber,
-        isDisabled,
+        disabled: componentDisabled,
         isTooltipDisabled,
         max = 100,
         min = 0,
@@ -54,7 +55,7 @@
     } = defineProps<{
         formatter?(value: number, decimals?: number): string;
 
-        readonly isDisabled?: boolean;
+        readonly disabled?: boolean;
         readonly isTicksVisible?: boolean;
         readonly isTooltipDisabled?: boolean;
         readonly max?: number;
@@ -62,6 +63,7 @@
         readonly step?: number;
     }>();
 
+    const disabled = useDisabled(toRef(() => componentDisabled));
     const lowerThumbRef = useTemplateRef('lowerThumb');
     const upperThumbRef = useTemplateRef('upperThumb');
 

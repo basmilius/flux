@@ -63,6 +63,8 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
+    import { toRef, unref } from 'vue';
+    import { useDisabled } from '@/composable';
     import type { ButtonEmits, ButtonProps, ButtonSlots } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
@@ -72,7 +74,7 @@
     const emit = defineEmits<ButtonEmits>();
 
     const {
-        disabled,
+        disabled: componentDisabled,
         isLoading,
         size = 'medium',
         tabindex = 0,
@@ -85,8 +87,10 @@
 
     defineSlots<ButtonSlots>();
 
+    const disabled = useDisabled(toRef(() => componentDisabled));
+
     function onClick(evt: MouseEvent): void {
-        if (disabled || isLoading) {
+        if (unref(disabled) || isLoading) {
             evt.preventDefault();
             evt.stopPropagation();
             return;

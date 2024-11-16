@@ -1,6 +1,6 @@
 <template>
     <SliderBase
-        :is-disabled="isDisabled"
+        :disabled="disabled"
         :is-dragging="isDragging"
         :is-ticks-visible="isTicksVisible"
         :max="max"
@@ -13,7 +13,7 @@
             :percentage-upper="percentage">
             <SliderThumb
                 ref="thumb"
-                :is-disabled="isDisabled"
+                :disabled="disabled"
                 :is-dragging="isDragging"
                 :position="percentage"
                 @decrement="onDecrement"
@@ -25,7 +25,8 @@
 <script
     lang="ts"
     setup>
-    import { computed, ref, unref, useTemplateRef, watch, watchEffect } from 'vue';
+    import { computed, ref, toRef, unref, useTemplateRef, watch, watchEffect } from 'vue';
+    import { useDisabled } from '@/composable';
     import { addTooltip, removeTooltip, updateTooltip } from '@/data';
     import { clampWithStepPrecision, countDecimals, formatNumber } from '@/util';
     import { SliderBase, SliderThumb, SliderTrack } from './primitive';
@@ -36,7 +37,7 @@
 
     const {
         formatter = formatNumber,
-        isDisabled = false,
+        disabled: componentDisabled = false,
         isTooltipDisabled,
         max = 100,
         min = 0,
@@ -44,7 +45,7 @@
     } = defineProps<{
         formatter?(value: number, decimals?: number): string;
 
-        readonly isDisabled?: boolean;
+        readonly disabled?: boolean;
         readonly isTicksVisible?: boolean;
         readonly isTooltipDisabled?: boolean;
         readonly max?: number;
@@ -52,6 +53,7 @@
         readonly step?: number;
     }>();
 
+    const disabled = useDisabled(toRef(() => componentDisabled));
     const thumbRef = useTemplateRef('thumb');
 
     const isDragging = ref(false);
@@ -92,7 +94,7 @@
     }
 
     function onDecrement(): void {
-        if (isDisabled) {
+        if (unref(disabled)) {
             return;
         }
 
@@ -101,7 +103,7 @@
     }
 
     function onIncrement(): void {
-        if (isDisabled) {
+        if (unref(disabled)) {
             return;
         }
 

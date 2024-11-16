@@ -1,7 +1,7 @@
 <template>
     <SelectBase
         v-model:searchQuery="modelSearch"
-        :is-disabled="isDisabled"
+        :disabled="disabled"
         :is-multiple="isMultiple"
         :is-searchable="isSearchable"
         :options="groups"
@@ -14,8 +14,9 @@
 <script
     lang="ts"
     setup>
-    import { unref } from 'vue';
+    import { toRef, unref } from 'vue';
     import { SelectBase } from '@/component/primitive';
+    import { useDisabled } from '@/composable';
     import { FormSelectOption, FormSelectValue, useFormSelect } from '@/composable/private';
 
     const modelSearch = defineModel<string>('searchQuery', {
@@ -27,16 +28,18 @@
     });
 
     const {
+        disabled: componentDisabled,
         isMultiple,
         options
     } = defineProps<{
-        readonly isDisabled?: boolean;
+        readonly disabled?: boolean;
         readonly isMultiple?: boolean;
         readonly placeholder?: string;
         readonly isSearchable?: boolean;
         readonly options: FormSelectOption[];
     }>();
 
+    const disabled = useDisabled(toRef(() => componentDisabled));
     const {groups, selected, values} = useFormSelect(modelValue, isMultiple, options, modelSearch);
 
     function onDeselect(id: string | number | null): void {

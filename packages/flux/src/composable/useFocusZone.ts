@@ -10,7 +10,7 @@ export default function <TElement extends HTMLElement>(containerRef: TemplateRef
         const container = unrefTemplateElement(containerRef)!;
         const elements = getFocusableElements(container);
         const isActiveIndex = elements.findIndex(e => e.classList.contains('is-active'));
-        const notDisabledIndex = elements.findIndex(e => !e.classList.contains('is-disabled'));
+        const notDisabledIndex = elements.findIndex(e => !e.hasAttribute('aria-disabled'));
 
         if (isActiveIndex > -1) {
             return isActiveIndex;

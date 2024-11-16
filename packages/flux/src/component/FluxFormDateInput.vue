@@ -5,18 +5,19 @@
         <template #opener="{open}">
             <FluxFormInputGroup>
                 <FluxFormInput
-                    :="{autoComplete, autoFocus, isDisabled, isReadonly, modelValue, placeholder}"
+                    :="{autoComplete, autoFocus, disabled, isReadonly, modelValue, placeholder}"
                     v-model="localValue"
                     :class="$style.formDateInput"
-                    type="date"
+                    :disabled="disabled"
                     :max="max?.toISO()?.substring(0, 10)"
                     :min="min?.toISO()?.substring(0, 10)"
+                    type="date"
                     @blur="onBlur()"
                     @focus="onFocus()"
                     @show-picker="open"/>
 
                 <FluxSecondaryButton
-                    :disabled="isDisabled"
+                    :disabled="disabled"
                     icon-before="calendar"
                     @click.prevent="open"/>
             </FluxFormInputGroup>
@@ -33,7 +34,8 @@
     lang="ts"
     setup>
     import type { DateTime } from 'luxon';
-    import { ref, unref, useTemplateRef, watch } from 'vue';
+    import { ref, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { useDisabled } from '@/composable';
     import FluxDatePicker from './FluxDatePicker.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxFormInput from './FluxFormInput.vue';
@@ -50,16 +52,19 @@
         required: true
     });
 
-    defineProps<{
+    const {
+        disabled: componentDisabled
+    } = defineProps<{
         readonly autoComplete?: string;
         readonly autoFocus?: boolean;
-        readonly isDisabled?: boolean;
+        readonly disabled?: boolean;
         readonly isReadonly?: boolean;
         readonly max?: DateTime;
         readonly min?: DateTime;
         readonly placeholder?: string;
     }>();
 
+    const disabled = useDisabled(toRef(() => componentDisabled));
     const flyoutRef = useTemplateRef('flyout');
 
     const localValue = ref<DateTime | null>(null);

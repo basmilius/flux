@@ -3,18 +3,18 @@
         ref="flyout"
         :width="300">
         <template #opener="{open}">
-            <FluxFormInputGroup>
+            <FluxFormInputGroup :aria-disabled="disabled ? true : undefined">
                 <div
                     :class="clsx(
                         $style.formDateRangeInput,
-                        isDisabled && $style.isDisabled
+                        disabled && $style.isDisabled
                     )"
                     role="presentation">
                     <span>{{ label }}</span>
                 </div>
 
                 <FluxSecondaryButton
-                    :disabled="isDisabled"
+                    :disabled="disabled"
                     icon-before="calendar"
                     @click.prevent="open"/>
             </FluxFormInputGroup>
@@ -33,7 +33,8 @@
     setup>
     import { clsx } from 'clsx';
     import type { DateTime } from 'luxon';
-    import { computed, ref, unref, useTemplateRef, watch } from 'vue';
+    import { computed, ref, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { useDisabled } from '@/composable';
     import { useTranslate } from '@/composable/private';
     import { createLabelForDateRange } from '@/util';
     import FluxDatePicker from './FluxDatePicker.vue';
@@ -47,11 +48,12 @@
     });
 
     const {
+        disabled: componentDisabled,
         rangeMode = 'range'
     } = defineProps<{
         readonly autoComplete?: string;
         readonly autoFocus?: boolean;
-        readonly isDisabled?: boolean;
+        readonly disabled?: boolean;
         readonly isReadonly?: boolean;
         readonly max?: DateTime;
         readonly min?: DateTime;
@@ -59,6 +61,7 @@
         readonly rangeMode?: 'range' | 'week' | 'month';
     }>();
 
+    const disabled = useDisabled(toRef(() => componentDisabled));
     const flyoutRef = useTemplateRef('flyout');
     const translate = useTranslate();
 

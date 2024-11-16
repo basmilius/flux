@@ -25,6 +25,7 @@ export { default as FluxContainer } from './FluxContainer.vue';
 export { default as FluxDataTable } from './FluxDataTable.vue';
 export { default as FluxDatePicker } from './FluxDatePicker.vue';
 export { default as FluxDestructiveButton } from './FluxDestructiveButton.vue';
+export { default as FluxDisabled } from './FluxDisabled.vue';
 export { default as FluxDivider } from './FluxDivider.vue';
 export { default as FluxDotPattern } from './FluxDotPattern.vue';
 export { default as FluxDropZone } from './FluxDropZone.vue';

@@ -3,10 +3,11 @@
         :class="clsx(
             $style.toggle,
             modelValue && $style.isChecked,
-            isDisabled && $style.isDisabled,
+            disabled && $style.isDisabled,
             isSwitch && $style.isSwitch
         )"
-        :for="id">
+        :for="id"
+        :aria-disabled="disabled ? true : undefined">
         <FluxIcon
             v-if="iconOff"
             :class="$style.toggleIconOff"
@@ -22,7 +23,7 @@
         <input
             :class="$style.toggleInput"
             :id="id"
-            :disabled="isDisabled"
+            :disabled="disabled"
             type="checkbox"
             :checked="modelValue"
             role="switch"
@@ -35,7 +36,8 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { useFormFieldInjection } from '@/composable';
+    import { toRef } from 'vue';
+    import { useDisabled, useFormFieldInjection } from '@/composable';
     import type { IconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '@/css/component/Form.module.scss';
@@ -44,13 +46,16 @@
         default: false
     });
 
-    defineProps<{
+    const {
+        disabled: componentDisabled
+    } = defineProps<{
         readonly iconOff?: IconName;
         readonly iconOn?: IconName;
-        readonly isDisabled?: boolean;
+        readonly disabled?: boolean;
         readonly isSwitch?: boolean;
     }>();
 
+    const disabled = useDisabled(toRef(() => componentDisabled));
     const {id} = useFormFieldInjection();
 
     function toggle(evt: Event): void {

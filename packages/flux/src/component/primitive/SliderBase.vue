@@ -3,10 +3,11 @@
         ref="root"
         :class="clsx(
             $style.slider,
-            isDisabled && $style.isDisabled,
+            disabled && $style.isDisabled,
             isDragging && $style.isDragging
         )"
         role="slider"
+        :aria-disabled="disabled ? true : undefined"
         @pointerdown="onPointerDown">
         <FluxTicks
             v-if="isTicksVisible"
@@ -20,7 +21,8 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { onMounted, onUnmounted, useTemplateRef, watch } from 'vue';
+    import { onMounted, onUnmounted, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { useDisabled } from '@/composable';
     import { unrefTemplateElement } from '@/util';
     import FluxTicks from '../FluxTicks.vue';
     import $style from '@/css/component/primitive/Slider.module.scss';
@@ -31,10 +33,10 @@
     }>();
 
     const {
-        isDisabled,
+        disabled: componentDisabled,
         isDragging
     } = defineProps<{
-        readonly isDisabled?: boolean;
+        readonly disabled?: boolean;
         readonly isDragging?: boolean;
         readonly isTicksVisible?: boolean;
         readonly max: number;
@@ -42,6 +44,7 @@
         readonly step: number;
     }>();
 
+    const disabled = useDisabled(toRef(() => componentDisabled));
     const rootRef = useTemplateRef('root');
 
     onMounted(() => {
@@ -55,7 +58,7 @@
     });
 
     function onPointerDown(evt: PointerEvent): void {
-        if (isDisabled) {
+        if (unref(disabled)) {
             return;
         }
 

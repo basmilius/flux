@@ -159,6 +159,10 @@
 
     background: rgb(var(--gray-2));
     cursor: not-allowed;
+
+    input {
+        cursor: inherit;
+    }
 }
 
 .formInputEnabled {
@@ -354,6 +358,10 @@
         }
     }
 
+    &.isDisabled {
+        cursor: not-allowed;
+    }
+
     &.isFocused {
         @include mixin.focus-outline-visible(-1px);
     }
@@ -450,8 +458,15 @@
     }
 }
 
+.isDisabled .formSelectIcon {
+    opacity: .5;
+}
+
 .isDisabled .formSelectSelected {
+    background: rgb(var(--gray-2));
+    border: 1px solid rgb(var(--gray-4) / .75);
     color: rgb(var(--gray-6));
+    opacity: 1;
 }
 
 .formTextArea {

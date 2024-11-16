@@ -3,6 +3,7 @@ import type { Breakpoint, Breakpoints } from '@/composable';
 import type { FluxFilterState, FluxFilterValue } from '@/types';
 
 export const FluxBreakpointsInjectionKey: InjectionKey<FluxBreakpointsInjection> = Symbol();
+export const FluxDisabledInjectionKey: InjectionKey<Ref<boolean>> = Symbol();
 export const FluxExpandableGroupInjectionKey: InjectionKey<FluxExpandableGroupInjection> = Symbol();
 export const FluxFlyoutInjectionKey: InjectionKey<FluxFlyoutInjection> = Symbol();
 export const FluxFilterInjectionKey: InjectionKey<FluxFilterInjection> = Symbol();

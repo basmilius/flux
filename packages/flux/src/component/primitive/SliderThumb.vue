@@ -2,13 +2,14 @@
     <button
         :class="clsx(
             $style.sliderThumb,
-            isDisabled && $style.isDisabled,
+            disabled && $style.isDisabled,
             isDragging && $style.isDragging
         )"
         :style="{
             left: `${position * 100}%`
         }"
-        :tabindex="isDisabled ? -1 : 0"
+        :aria-disabled="disabled ? true : undefined"
+        :tabindex="disabled ? -1 : 0"
         type="button"
         @keydown="onKeyDown"
         @pointerdown="$emit('grab', $event)"/>
@@ -18,6 +19,8 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
+    import { toRef, unref } from 'vue';
+    import { useDisabled } from '@/composable';
     import $style from '@/css/component/primitive/Slider.module.scss';
 
     const emit = defineEmits<{
@@ -27,15 +30,17 @@
     }>();
 
     const {
-        isDisabled
+        disabled: componentDisabled
     } = defineProps<{
-        readonly isDisabled?: boolean;
+        readonly disabled?: boolean;
         readonly isDragging?: boolean;
         readonly position: number;
     }>();
 
+    const disabled = useDisabled(toRef(() => componentDisabled));
+
     function onKeyDown(evt: KeyboardEvent): void {
-        if (isDisabled) {
+        if (unref(disabled)) {
             return;
         }
 

@@ -1,6 +1,7 @@
 <template>
     <div
         :class="$style.dropZone"
+        :aria-disabled="disabled ? true : undefined"
         @dragleave.capture="onDragLeave"
         @dragover.capture="onDragEnter"
         @drop="onDrop">
@@ -25,7 +26,7 @@
 
         <FluxFadeTransition>
             <div
-                v-if="isDragging && !isDisabled"
+                v-if="isDragging && !disabled"
                 :class="clsx(
                     $style.dropZoneHint,
                     isDraggingOver && $style.isOver
@@ -39,7 +40,8 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { onMounted, onUnmounted, ref } from 'vue';
+    import { onMounted, onUnmounted, ref, toRef, unref } from 'vue';
+    import { useDisabled } from '@/composable';
     import { FluxFadeTransition } from '@/transition';
     import type { IconName } from '@/types';
     import FluxPlaceholder from './FluxPlaceholder.vue';
@@ -52,12 +54,12 @@
 
     const {
         accept,
-        isDisabled,
+        disabled: componentDisabled,
         isMultiple,
         placeholderVariant = 'extended'
     } = defineProps<{
         readonly accept?: string;
-        readonly isDisabled?: boolean;
+        readonly disabled?: boolean;
         readonly isEmpty?: boolean;
         readonly isMultiple?: boolean;
         readonly placeholderButton?: string;
@@ -66,6 +68,8 @@
         readonly placeholderTitle?: string;
         readonly placeholderVariant?: 'extended' | 'simple' | 'small';
     }>();
+
+    const disabled = useDisabled(toRef(() => componentDisabled));
 
     const isDragging = ref(false);
     const isDraggingOver = ref(false);
@@ -135,7 +139,7 @@
     }
 
     function showPicker(): void {
-        if (isDisabled) {
+        if (unref(disabled)) {
             return;
         }
 

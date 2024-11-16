@@ -1,8 +1,10 @@
 <template>
-    <FluxButtonGroup :class="$style.quantitySelector">
+    <FluxButtonGroup
+        :class="$style.quantitySelector"
+        :aria-disabled="disabled ? true : undefined">
         <FluxSecondaryButton
             :class="$style.quantitySelectorButton"
-            :disabled="modelValue <= min"
+            :disabled="disabled || modelValue <= min"
             icon-before="minus"
             tabindex="-1"
             @click="decrement"/>
@@ -14,6 +16,7 @@
             :style="{
                 width: `${width}px`
             }"
+            :disabled="disabled"
             tabindex="0"
             type="number"
             :max="max"
@@ -22,7 +25,7 @@
 
         <FluxSecondaryButton
             :class="$style.quantitySelectorButton"
-            :disabled="modelValue >= max"
+            :disabled="disabled || modelValue >= max"
             icon-before="plus"
             tabindex="-1"
             @click="increment"/>
@@ -32,7 +35,8 @@
 <script
     lang="ts"
     setup>
-    import { ref, unref, useTemplateRef, watchEffect } from 'vue';
+    import { ref, toRef, unref, useTemplateRef, watchEffect } from 'vue';
+    import { useDisabled } from '@/composable';
     import { unrefTemplateElement } from '@/util';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
@@ -43,24 +47,35 @@
     });
 
     const {
+        disabled: componentDisabled,
         max = 100,
         min = 0,
         step = 1
     } = defineProps<{
+        readonly disabled?: boolean;
         readonly max?: number;
         readonly min?: number;
         readonly step?: number;
     }>();
 
+    const disabled = useDisabled(toRef(() => componentDisabled));
     const inputRef = useTemplateRef('input');
 
     const width = ref(0);
 
     function decrement(): void {
+        if (unref(disabled)) {
+            return;
+        }
+
         modelValue.value = Math.max(min, unref(modelValue) - step);
     }
 
     function increment(): void {
+        if (unref(disabled)) {
+            return;
+        }
+
         modelValue.value = Math.min(max, unref(modelValue) + step);
     }
 

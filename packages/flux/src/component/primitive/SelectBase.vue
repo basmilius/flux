@@ -4,11 +4,12 @@
         :="$attrs"
         :class="clsx(
             $style.formSelect,
-            isDisabled && $style.isDisabled,
+            disabled && $style.isDisabled,
             isPopupOpen && $style.isFocused,
             isSearchable && $style.isSearchable
         )"
         :id="id"
+        :aria-disabled="disabled ? true : undefined"
         tabindex="0"
         tag-name="div"
         @click="toggle()"
@@ -53,7 +54,7 @@
     <Teleport to="body">
         <FluxFadeTransition>
             <AnchorPopup
-                v-if="isPopupOpen"
+                v-if="isPopupOpen && !disabled"
                 ref="anchorPopup"
                 :class="clsx(
                     $style.formSelectPopup,
@@ -127,8 +128,8 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { ComponentPublicInstance, computed, nextTick, ref, unref, useTemplateRef, watch } from 'vue';
-    import { useClickOutside, useFormFieldInjection } from '@/composable';
+    import { ComponentPublicInstance, computed, nextTick, ref, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { useClickOutside, useDisabled, useFormFieldInjection } from '@/composable';
     import { type FormSelectGroup, useTranslate } from '@/composable/private';
     import { isFluxFormSelectGroup, isFluxFormSelectOption } from '@/data';
     import type { FluxFormSelectOption } from '@/types';
@@ -167,11 +168,12 @@
     });
 
     const {
+        disabled: componentDisabled,
         isMultiple,
         options,
         selected
     } = defineProps<{
-        readonly isDisabled?: boolean;
+        readonly disabled?: boolean;
         readonly isLoading?: boolean;
         readonly isMultiple?: boolean;
         readonly isSearchable?: boolean;
@@ -180,6 +182,7 @@
         readonly selected: FluxFormSelectOption[];
     }>();
 
+    const disabled = useDisabled(toRef(() => componentDisabled));
     const {id} = useFormFieldInjection();
     const translate = useTranslate();
 
@@ -217,6 +220,10 @@
     }
 
     function toggle(): void {
+        if (unref(disabled)) {
+            return;
+        }
+
         isPopupOpen.value = !unref(isPopupOpen);
     }
 

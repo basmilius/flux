@@ -1,9 +1,10 @@
 <template>
     <div
         :class="clsx(
-            isDisabled ? $style.formInputDisabled : $style.formInputEnabled,
+            disabled ? $style.formInputDisabled : $style.formInputEnabled,
             isSecondary && $style.isSecondary
-        )">
+        )"
+        :aria-disabled="disabled ? true : undefined">
         <input
             ref="input"
             :class="clsx(
@@ -14,7 +15,8 @@
             :id="id"
             :autocomplete="autoComplete"
             :autofocus="autoFocus"
-            :disabled="isDisabled"
+            :aria-disabled="disabled ? true : undefined"
+            :disabled="disabled"
             :max="max"
             :maxlength="maxLength"
             :min="min"
@@ -54,8 +56,8 @@
     setup>
     import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
-    import { ref, unref, useTemplateRef, watch } from 'vue';
-    import { useFormFieldInjection } from '@/composable';
+    import { ref, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { useDisabled, useFormFieldInjection } from '@/composable';
     import { inputMask } from '@/data';
     import type { IconName, InputMask, InputType } from '@/types';
     import { unrefTemplateElement } from '@/util';
@@ -74,6 +76,7 @@
 
     const {
         autoFocus = false,
+        disabled: componentDisabled,
         pattern,
         type = 'text'
     } = defineProps<{
@@ -81,7 +84,7 @@
         readonly autoFocus?: boolean;
         readonly iconAfter?: IconName;
         readonly iconBefore?: IconName;
-        readonly isDisabled?: boolean;
+        readonly disabled?: boolean;
         readonly isReadonly?: boolean;
         readonly isSecondary?: boolean;
         readonly max?: string | number;
@@ -93,6 +96,7 @@
         readonly type?: InputType;
     }>();
 
+    const disabled = useDisabled(toRef(() => componentDisabled));
     const inputRef = useTemplateRef<HTMLInputElement>('input');
     const {id} = useFormFieldInjection();
 

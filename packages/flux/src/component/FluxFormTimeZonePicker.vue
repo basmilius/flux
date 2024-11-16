@@ -1,8 +1,8 @@
 <template>
     <FluxFormSelect
         v-model="modelValue"
+        :disabled="disabled"
         is-searchable
-        :is-disabled="isDisabled"
         :options="options"
         :placeholder="placeholder"/>
 </template>
@@ -11,7 +11,8 @@
     lang="ts"
     setup>
     import { upperFirst } from 'lodash-es';
-    import { computed } from 'vue';
+    import { computed, toRef } from 'vue';
+    import { useDisabled } from '@/composable';
     import { FluxTranslationKey, useTranslate } from '@/composable/private';
     import { FluxFormSelectEntry } from '@/types';
     import FluxFormSelect from './FluxFormSelect.vue';
@@ -638,11 +639,14 @@
         default: null
     });
 
-    defineProps<{
-        readonly isDisabled?: boolean;
+    const {
+        disabled: componentDisabled
+    } = defineProps<{
+        readonly disabled?: boolean;
         readonly placeholder?: string;
     }>();
 
+    const disabled = useDisabled(toRef(() => componentDisabled));
     const translate = useTranslate();
 
     const options = computed<FluxFormSelectEntry[]>(() => {

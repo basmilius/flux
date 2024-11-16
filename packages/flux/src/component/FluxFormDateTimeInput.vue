@@ -2,22 +2,24 @@
     <FluxStack
         :class="$style.formDateTimeInput"
         axis="horizontal"
-        :gap="15">
+        :gap="15"
+        :aria-disabled="disabled ? true : undefined">
         <FluxFlyout
             ref="flyout"
             :width="300">
             <template #opener="{open}">
                 <FluxFormInputGroup>
                     <FluxFormInput
-                        :="{autoFocus, isDisabled, isReadonly, modelValue, placeholder}"
+                        :="{autoFocus, disabled, isReadonly, modelValue, placeholder}"
                         :class="$style.formDateInput"
-                        type="date"
+                        :disabled="disabled"
                         :model-value="localValue"
+                        type="date"
                         @update:model-value="setDate"
                         @show-picker="open"/>
 
                     <FluxSecondaryButton
-                        :disabled="isDisabled"
+                        :disabled="disabled"
                         icon-before="calendar"
                         @click.prevent="open"/>
                 </FluxFormInputGroup>
@@ -31,7 +33,7 @@
         </FluxFlyout>
 
         <FluxFormInput
-            :="{isDisabled, isReadonly, modelValue, placeholder}"
+            :="{disabled, isReadonly, modelValue, placeholder}"
             :class="$style.formTimeInput"
             type="time"
             :model-value="localValue"
@@ -43,7 +45,8 @@
     lang="ts"
     setup>
     import { DateTime } from 'luxon';
-    import { ref, unref, useTemplateRef, watch } from 'vue';
+    import { ref, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { useDisabled } from '@/composable';
     import FluxDatePicker from './FluxDatePicker.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxFormInput from './FluxFormInput.vue';
@@ -57,11 +60,12 @@
     });
 
     const {
+        disabled: componentDisabled,
         isHourOnly
     } = defineProps<{
         readonly autoComplete?: string;
         readonly autoFocus?: boolean;
-        readonly isDisabled?: boolean;
+        readonly disabled?: boolean;
         readonly isHourOnly?: boolean;
         readonly isReadonly?: boolean;
         readonly max?: DateTime;
@@ -69,6 +73,7 @@
         readonly placeholder?: string;
     }>();
 
+    const disabled = useDisabled(toRef(() => componentDisabled));
     const flyoutRef = useTemplateRef<{ close(): void; }>('flyout');
 
     const localValue = ref<DateTime | null>(null);

@@ -3,9 +3,10 @@
         ref="root"
         :class="$style.coordinatePicker"
         role="slider"
+        :aria-disabled="disabled ? true : undefined"
         @pointerdown="onPointerDown">
         <CoordinatePickerThumb
-            :is-disabled="isDisabled"
+            :disabled="disabled"
             :is-dragging="isDragging"
             :position="thumbPosition"
             @decrement="onDecrement"
@@ -16,7 +17,8 @@
 <script
     lang="ts"
     setup>
-    import { computed, onMounted, onUnmounted, ref, unref, useTemplateRef, watch } from 'vue';
+    import { computed, onMounted, onUnmounted, ref, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { useDisabled } from '@/composable';
     import { roundStep, unrefTemplateElement } from '@/util';
     import CoordinatePickerThumb from './CoordinatePickerThumb.vue';
     import $style from '@/css/component/primitive/CoordinatePicker.module.scss';
@@ -30,17 +32,18 @@
     });
 
     const {
-        isDisabled,
+        disabled: componentDisabled,
         max: maxProp = 100,
         min: minProp = 0,
         step: stepProp = 1
     } = defineProps<{
-        readonly isDisabled?: boolean;
+        readonly disabled?: boolean;
         readonly max?: number | [number, number];
         readonly min?: number | [number, number];
         readonly step?: number | [number, number];
     }>();
 
+    const disabled = useDisabled(toRef(() => componentDisabled));
     const rootRef = useTemplateRef('root');
 
     const isDragging = ref(false);
@@ -65,7 +68,7 @@
     });
 
     function onDecrement(x: boolean, y: boolean): void {
-        if (isDisabled) {
+        if (unref(disabled)) {
             return;
         }
 
@@ -86,7 +89,7 @@
     }
 
     function onIncrement(x: boolean, y: boolean): void {
-        if (isDisabled) {
+        if (unref(disabled)) {
             return;
         }
 
@@ -107,7 +110,7 @@
     }
 
     function onPointerDown(evt: PointerEvent): void {
-        if (isDisabled) {
+        if (unref(disabled)) {
             return;
         }
 

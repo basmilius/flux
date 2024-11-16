@@ -2,15 +2,17 @@
     <textarea
         v-model="modelValue"
         ref="input"
-        :class="isDisabled ? $style.formTextAreaDisabled : $style.formTextAreaEnabled"
+        :class="disabled ? $style.formTextAreaDisabled : $style.formTextAreaEnabled"
         :id="id"
         :autocomplete="autoComplete"
         :autofocus="autoFocus"
+        :disabled="disabled"
         :maxlength="maxLength"
         :placeholder="placeholder"
         :style="{
             '--rows': rows
         }"
+        :aria-disabled="disabled ? true : undefined"
         @blur="emit('blur')"
         @focus="emit('focus')"/>
 </template>
@@ -18,7 +20,8 @@
 <script
     lang="ts"
     setup>
-    import { useFormFieldInjection } from '@/composable';
+    import { toRef } from 'vue';
+    import { useDisabled, useFormFieldInjection } from '@/composable';
     import $style from '@/css/component/Form.module.scss';
 
     const emit = defineEmits<{
@@ -32,16 +35,18 @@
 
     const {
         autoFocus = false,
+        disabled: componentDisabled,
         rows = 3
     } = defineProps<{
         readonly autoComplete?: string;
         readonly autoFocus?: boolean;
-        readonly isDisabled?: boolean;
+        readonly disabled?: boolean;
         readonly isReadonly?: boolean;
         readonly maxLength?: number;
         readonly placeholder?: string;
         readonly rows?: number;
     }>();
 
+    const disabled = useDisabled(toRef(() => componentDisabled));
     const {id} = useFormFieldInjection();
 </script>

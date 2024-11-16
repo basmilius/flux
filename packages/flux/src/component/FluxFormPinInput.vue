@@ -1,9 +1,10 @@
 <template>
     <div
-        :class="isDisabled ? $style.pinInputDisabled : $style.pinInputEnabled"
+        :class="disabled ? $style.pinInputDisabled : $style.pinInputEnabled"
         :style="{
             '--max-length': maxLength
-        }">
+        }"
+        :aria-disabled="disabled ? true : undefined">
         <input
             v-for="field of maxLength"
             :key="field"
@@ -13,7 +14,7 @@
             maxlength="1"
             :id="id"
             :autofocus="autoFocus"
-            :disabled="isDisabled"
+            :disabled="disabled"
             :tabindex="(field - 1) === modelValue?.length ? 0 : -1"
             :type="isPrivate ? 'password' : 'text'"
             :value="modelValue[field - 1]"
@@ -26,8 +27,8 @@
 <script
     lang="ts"
     setup>
-    import { unref, useTemplateRef } from 'vue';
-    import { useFormFieldInjection } from '@/composable';
+    import { toRef, unref, useTemplateRef } from 'vue';
+    import { useDisabled, useFormFieldInjection } from '@/composable';
     import $style from '@/css/component/Form.module.scss';
 
     const modelValue = defineModel<string>({
@@ -36,14 +37,16 @@
 
     const {
         autoFocus = false,
+        disabled: componentDisabled,
         maxLength = 6
     } = defineProps<{
         readonly autoFocus?: boolean;
-        readonly isDisabled?: boolean;
+        readonly disabled?: boolean;
         readonly isPrivate?: boolean;
         readonly maxLength?: number;
     }>();
 
+    const disabled = useDisabled(toRef(() => componentDisabled));
     const {id} = useFormFieldInjection();
 
     const fieldRefs = useTemplateRef<HTMLInputElement[]>('fields');

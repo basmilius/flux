@@ -1,7 +1,7 @@
 <template>
     <SelectBase
         v-model:search-query="modelSearch"
-        :is-disabled="isDisabled"
+        :disabled="disabled"
         :is-loading="isLoading"
         :is-multiple="isMultiple"
         is-searchable
@@ -16,9 +16,9 @@
 <script
     lang="ts"
     setup>
-    import { computed, ref, unref, watch } from 'vue';
+    import { computed, ref, toRef, unref, watch } from 'vue';
     import { SelectBase } from '@/component/primitive';
-    import { useDebouncedRef } from '@/composable';
+    import { useDebouncedRef, useDisabled } from '@/composable';
     import { FormSelectOption, FormSelectValue, FormSelectValueSingle, useFormSelect, useLoaded } from '@/composable/private';
     import { isFluxFormSelectOption } from '@/data';
 
@@ -34,17 +34,19 @@
         fetchOptions: fetchOptionsProp,
         fetchRelevant: fetchRelevantProp,
         fetchSearch: fetchSearchProp,
+        disabled: componentDisabled,
         isMultiple
     } = defineProps<{
         fetchOptions(ids: FormSelectValueSingle[]): Promise<FormSelectOption[]>;
         fetchRelevant(): Promise<FormSelectOption[]>;
         fetchSearch(searchQuery: string): Promise<FormSelectOption[]>;
 
-        readonly isDisabled?: boolean;
+        readonly disabled?: boolean;
         readonly isMultiple?: boolean;
         readonly placeholder?: string;
     }>();
 
+    const disabled = useDisabled(toRef(() => componentDisabled));
     const selectedOptions = ref<FormSelectOption[]>([]);
     const visibleOptions = ref<FormSelectOption[]>([]);
 

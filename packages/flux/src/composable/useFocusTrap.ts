@@ -66,7 +66,7 @@ export default function (containerRef: TemplateRef<HTMLElement>, options: UseFoc
         if (container) {
             const elements = getFocusableElements(container);
             const isActiveIndex = elements.findIndex(e => e.classList.contains('is-active'));
-            const notDisabledIndex = elements.findIndex(e => !e.classList.contains('is-disabled'));
+            const notDisabledIndex = elements.findIndex(e => !e.hasAttribute('aria-disabled'));
             let element = elements[0];
 
             if (isActiveIndex > -1) {
