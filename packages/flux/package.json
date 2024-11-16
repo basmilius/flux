@@ -55,7 +55,7 @@
         "imask": "^7.6.1",
         "lodash-es": "^4.17.21",
         "luxon": "^3.5.0",
-        "vue": "^3.5.12"
+        "vue": "^3.5.13"
     },
     "devDependencies": {
         "@types/lodash-es": "^4.17.12",
@@ -63,7 +63,7 @@
         "@types/node": "^22.9.0",
         "@vitejs/plugin-vue": "^5.2.0",
         "css-class-generator": "^2.0.0",
-        "sass-embedded": "^1.80.7",
+        "sass-embedded": "^1.81.0",
         "typescript": "^5.6.3",
         "vite": "^5.4.11",
         "vite-css-modules": "^1.6.0",
