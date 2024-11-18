@@ -7,6 +7,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Project
 node_modules
 dist
 dist-ssr
@@ -29,7 +30,3 @@ dist-ssr
 
 # Project
 packages/*/README.md
-
-# Vitepress
-.vitepress/cache/
-.vitepress/dist/
