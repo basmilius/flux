@@ -1,5 +1,4 @@
 import { createHash } from 'node:crypto';
-import { resolve } from 'node:path';
 import { defineConfig } from 'vitepress';
 import className from 'css-class-generator';
 
@@ -28,12 +27,6 @@ export default defineConfig({
 
                     return className(parseInt(hash, 16));
                 }
-            }
-        },
-        resolve: {
-            alias: {
-                '@basmilius/flux': resolve(__dirname, '../../src/index-nostyle.ts'),
-                '@': resolve(__dirname, '../../src')
             }
         }
     },

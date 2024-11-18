@@ -3,7 +3,7 @@ outline: deep
 ---
 
 <script setup>
-import { english } from '../../../src/composable/private/useTranslate';
+import { english } from '../../../packages/flux/src/composable/private/useTranslate';
 </script>
 
 # Translations

@@ -1,5 +1,5 @@
 import 'vitepress/dist/client/theme-default/styles/vars.css';
-import './base.css';
+import './override/base.css';
 import 'vitepress/dist/client/theme-default/styles/icons.css';
 import 'vitepress/dist/client/theme-default/styles/utils.css';
 import 'vitepress/dist/client/theme-default/styles/components/custom-block.css';
@@ -8,10 +8,11 @@ import 'vitepress/dist/client/theme-default/styles/components/vp-code-group.css'
 import 'vitepress/dist/client/theme-default/styles/components/vp-doc.css';
 import 'vitepress/dist/client/theme-default/styles/components/vp-sponsor.css';
 
-import '../../../src/css/variables/index.scss';
+import '@basmilius/flux/style.css';
 import './style.css';
 
-// @ts-ignore
+import type { Theme } from 'vitepress';
+
 import { fluxRegisterIcons } from '@basmilius/flux';
 import * as icons from './icons';
 fluxRegisterIcons(icons);
@@ -26,8 +27,6 @@ import RequiredIcons from './RequiredIcons.vue';
 import RouterLink from './RouterLink.vue';
 import Slots from './Slots.vue';
 import Variants from './Variants.vue';
-
-import type { Theme } from 'vitepress';
 
 import VPBadge from 'vitepress/dist/client/theme-default/components/VPBadge.vue';
 // import VPImage from 'vitepress/dist/client/theme-default/components/VPImage.vue';
@@ -45,9 +44,6 @@ import VPBadge from 'vitepress/dist/client/theme-default/components/VPBadge.vue'
 // import VPTeamPageTitle from 'vitepress/dist/client/theme-default/components/VPTeamPageTitle.vue';
 // import VPTeamPageSection from 'vitepress/dist/client/theme-default/components/VPTeamPageSection.vue';
 // import VPTeamMembers from 'vitepress/dist/client/theme-default/components/VPTeamMembers.vue';
-
-export { useSidebar } from 'vitepress/dist/client/theme-default/composables/sidebar';
-export { useLocalNav } from 'vitepress/dist/client/theme-default/composables/local-nav';
 
 const theme: Theme = {
     Layout,

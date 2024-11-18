@@ -1,51 +1,51 @@
-@layer flux-base {
-    @media (prefers-reduced-motion: reduce) {
-        *,
-        ::before,
-        ::after {
-            animation-delay: -1ms !important;
-            animation-duration: 1ms !important;
-            animation-iteration-count: 1 !important;
-            background-attachment: initial !important;
-            scroll-behavior: auto !important;
-            transition-duration: 0s !important;
-            transition-delay: 0s !important;
-        }
-    }
-
+@media (prefers-reduced-motion: reduce) {
     *,
     ::before,
     ::after {
-        box-sizing: border-box;
+        animation-delay: -1ms !important;
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        background-attachment: initial !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0s !important;
+        transition-delay: 0s !important;
     }
+}
 
-    html {
-        line-height: 1.4;
-        font-size: 16px;
-        -webkit-text-size-adjust: 100%;
-    }
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
 
-    html.dark {
-        color-scheme: dark;
-    }
+html {
+    line-height: 1.4;
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+}
 
-    body {
-        margin: 0;
-        width: 100%;
-        min-width: 320px;
-        min-height: 100vh;
-        line-height: 24px;
-        font-family: var(--vp-font-family-base);
-        font-size: 16px;
-        font-weight: 400;
-        color: var(--vp-c-text-1);
-        background-color: var(--vp-c-bg);
-        font-synthesis: style;
-        text-rendering: optimizeLegibility;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
+html.dark {
+    color-scheme: dark;
+}
 
+body {
+    margin: 0;
+    width: 100%;
+    min-width: 320px;
+    min-height: 100vh;
+    line-height: 24px;
+    font-family: var(--vp-font-family-base);
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--vp-c-text-1);
+    background-color: var(--vp-c-bg);
+    font-synthesis: style;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@layer flux-base {
     main {
         display: block;
     }
@@ -164,16 +164,6 @@
     [role='button']:enabled {
         cursor: pointer;
     }
-
-    /*button:focus,*/
-    /*button:focus-visible {*/
-    /*    outline: 1px dotted;*/
-    /*    outline: 4px auto -webkit-focus-ring-color;*/
-    /*}*/
-
-    /*button:focus:not(:focus-visible) {*/
-    /*    outline: none !important;*/
-    /*}*/
 
     input:focus,
     textarea:focus,
