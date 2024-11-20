@@ -46,7 +46,7 @@
     "typings": "./dist/index.d.ts",
     "sideEffects": false,
     "dependencies": {
-        "@fortawesome/fontawesome-common-types": "^6.6.0",
+        "@fortawesome/fontawesome-common-types": "^6.7.0",
         "clsx": "^2.1.1",
         "imask": "^7.6.1",
         "lodash-es": "^4.17.21",
@@ -56,12 +56,12 @@
     "devDependencies": {
         "@types/lodash-es": "^4.17.12",
         "@types/luxon": "^3.4.2",
-        "@types/node": "^22.9.0",
+        "@types/node": "^22.9.1",
         "@vitejs/plugin-vue": "^5.2.0",
         "css-class-generator": "^2.0.0",
         "sass-embedded": "^1.81.0",
         "typescript": "^5.6.3",
-        "vite": "^6.0.0-beta.10",
+        "vite": "6.0.0-beta.10",
         "vite-css-modules": "^1.6.0",
         "vite-plugin-dts": "^4.3.0",
         "vue-tsc": "^2.1.10"
