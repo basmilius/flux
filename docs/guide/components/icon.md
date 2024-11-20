@@ -48,3 +48,9 @@ There is also a [Boxed icon](./boxed-icon) variant available.
 </Preview>
 
 <FrontmatterDocs/>
+
+## Snippet
+
+```vue
+<FluxIcon variant="rocket"/>
+```

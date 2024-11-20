@@ -25,3 +25,13 @@ This component groups multiple buttons together. It modifies the border radius o
 </Preview>
 
 <FrontmatterDocs/>
+
+## Snippet
+
+```vue
+<FluxButtonGroup>
+    <FluxSecondaryButton label="Left"/>
+    <FluxSecondaryButton label="Center"/>
+    <FluxSecondaryButton label="Right"/>
+</FluxButtonGroup>
+```

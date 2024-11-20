@@ -125,6 +125,16 @@ When no image is available, you can use an icon as a fallback instead of initial
 
 <<< @/code/guide/components/avatar/icon.vue
 
+## Snippet
+
+```vue
+<FluxAvatar
+    alt="Bas"
+    :size="42"
+    status="success"
+    url="https://avatars.githubusercontent.com/u/978257?v=4"/>
+```
+
 ## Used components
 
 - [Icon](./icon)

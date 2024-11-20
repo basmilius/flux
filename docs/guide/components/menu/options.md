@@ -53,42 +53,4 @@ This component provides a container for grouping menu items that behave like opt
 
 ## Examples
 
-### Vertical
-
-Vertical groups are for combining menu items that share context.
-
-<Preview>
-    <VerticalExample style="width: 270px"/>
-</Preview>
-
-<<< @/code/guide/components/menu/group/vertical.vue
-
-### Horizontal
-
-Horizontal groups are perfect for menu items that together form a single state, such as the alignment of text.
-
-<Preview>
-    <HorizontalExample style="width: 270px"/>
-</Preview>
-
-<<< @/code/guide/components/menu/group/horizontal.vue
-
-### Separated
-
-Groups can also be separated using the [Separator](../separator).
-
-<Preview>
-    <SeparatedExample style="width: 270px"/>
-</Preview>
-
-<<< @/code/guide/components/menu/group/separated.vue
-
-### Both
-
-Menu's can also have both horizontal and vertical groups in them.
-
-<Preview>
-    <BothExample style="width: 270px"/>
-</Preview>
-
-<<< @/code/guide/components/menu/group/both.vue
+Todo

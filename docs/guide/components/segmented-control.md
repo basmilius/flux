@@ -49,7 +49,7 @@ This component is a UI element that allows users to choose between multiple opti
 
 Todo
 
-## FluxSegmentedControlItemObject
+## Types
 
 ```ts
 type FluxSegmentedControlItemObject = {

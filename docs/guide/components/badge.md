@@ -128,6 +128,15 @@ A loading state badge can signify that a table row is processing, for instance, 
 
 <<< @/code/guide/components/badge/loading.vue
 
+## Snippet
+
+```vue
+<FluxBadge
+    color="success"
+    icon="circle-check"
+    label="Completed"/>
+```
+
 ## Used components
 
 - [Icon](./icon)

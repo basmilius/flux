@@ -45,6 +45,14 @@ This component displays a single customizable Font Awesome icon, rendered as SVG
 
 <FrontmatterDocs/>
 
+## Snippet
+
+```vue
+<FluxBoxedIcon
+    :size="90"
+    variant="circle-check"/>
+```
+
 ## Used components
 
 - [Icon](./icon)

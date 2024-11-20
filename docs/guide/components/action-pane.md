@@ -33,6 +33,23 @@ An action pane highlights important actions or new features to the user.
 
 <FrontmatterDocs/>
 
+## Examples
+
+Todo
+
+## Snippet
+
+```vue
+<FluxActionPane>
+    <p>Lorem ipsum...</p>
+    
+    <template #buttons>
+        <FluxPrimaryButton label="Button"/>
+        <FluxSecondaryButton label="Button"/>
+    </template>
+</FluxActionPane>
+```
+
 ## Used components
 
 - [Pane](./pane)

@@ -103,6 +103,16 @@ Actions can be used to add functionality to components like data tables. They ca
 
 <FrontmatterDocs/>
 
+## Examples
+
+Todo
+
+## Snippet
+
+```vue
+<FluxAction icon="trash"/>
+```
+
 ## Used components
 
 - [Icon](./icon)

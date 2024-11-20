@@ -97,6 +97,28 @@ Action bars are toolbars commonly used alongside data tables. They can display a
 
 <FrontmatterDocs/>
 
+## Examples
+
+Todo
+
+## Snippet
+
+```vue
+<FluxActionBar>
+    <template #primary>
+        <FluxPrimaryButton label="Button"/>
+    </template>
+    
+    <template #filter>
+        <FluxFilter/>
+    </template>
+    
+    <template #search>
+        <FluxFormInput/>
+    </template>
+</FluxActionBar>
+```
+
 ## Used components
 
 - [Button](./button)

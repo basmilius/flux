@@ -67,13 +67,17 @@ Multiple expandables can be grouped together using [Expandable Groups](./expanda
 
 ## Examples
 
-### Basic
+Todo
 
-The most basic form of an expandable.
+## Snippet
 
-<Preview>
-    Hi
-</Preview>
+```vue
+<FluxPane>
+    <FluxExpandable label="More options...">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad culpa debitis deleniti dignissimos dolorem ducimus earum error facilis, fugit hic modi nulla odit praesentium rerum voluptate. Ipsum neque quasi sint?
+    </FluxExpandable>
+</FluxPane>
+```
 
 ## Used components
 

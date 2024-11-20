@@ -1,7 +1,17 @@
 ---
 outline: deep
 
+emits:
+    -   name: update:model-value
+        description: The updated selected color.
+        type: [ string ]
+
 props:
+    -   name: model-value
+        description: The selected color.
+        type: string
+        optional: true
+
     -   name: colors
         description: The default set of colors that are shown as options.
         type: string[]
@@ -35,6 +45,14 @@ This component allows users to select a color from a predefined set or choose a 
 </Preview>
 
 <FrontmatterDocs/>
+
+## Snippet
+
+```vue
+<FluxColorSelect
+    v-model="color"
+    is-custom-allowed/>
+```
 
 ## Used components
 

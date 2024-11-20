@@ -43,3 +43,17 @@ The animated colors component presents an array of colors with a blurred animati
 </Preview>
 
 <FrontmatterDocs/>
+
+## Examples
+
+Todo
+
+## Snippet
+
+```vue
+<FluxAnimatedColors
+    :colors="['#6071b5', '#f07db7', '#0284c7']"
+    :incrementor=".5"
+    :opacity="1"
+    :seed="130496"/>
+```

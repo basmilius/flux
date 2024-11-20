@@ -184,6 +184,14 @@ Buttons can have three different sizes.
 
 <<< @/code/guide/components/button/sizes.vue
 
+## Snippet
+
+```vue
+<FluxPrimaryButton
+    icon-before="circle-check"
+    label="Save"/>
+```
+
 ## Used components
 
 - [Icon](./icon)

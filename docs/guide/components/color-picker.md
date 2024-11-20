@@ -44,6 +44,14 @@ This component allows users to select and adjust colors in various formats, incl
 
 <FrontmatterDocs/>
 
+## Snippet
+
+```vue
+<FluxColorPicker
+    v-model="color"
+    type="hex"/>
+```
+
 ## Used components
 
 - [Form field](./form/field)
