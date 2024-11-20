@@ -3,6 +3,7 @@
         ref="control"
         :class="isFill ? $style.segmentedControlFill : $style.segmentedControlInline">
         <div
+            v-if="activeItemWidth > 0"
             :class="$style.segmentedControlHighlight"
             :style="{
                 left: `${activeItemX}px`,
