@@ -1,6 +1,5 @@
 <template>
     <div
-        data-typography-aware
         :class="clsx(
             !color && $style.iconBoxedDefault,
             color === 'gray' && $style.iconBoxedGray,
