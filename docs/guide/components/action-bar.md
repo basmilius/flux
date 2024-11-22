@@ -103,7 +103,7 @@ Todo
 
 ## Snippet
 
-```vue
+```vue-html
 <FluxActionBar>
     <template #primary>
         <FluxPrimaryButton label="Button"/>

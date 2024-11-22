@@ -36,19 +36,19 @@ This feature requires a parent [Root](../root) component to function correctly, 
 ```ts
 function showAlert(spec: FluxAlertObject): Promise<void> {}
 
-interface FluxAlertObject {
+type FluxAlertObject = {
     readonly id: number;
     readonly icon?: IconName;
     readonly message: string;
     readonly title: string;
 
     onClose(): void;
-}
+};
 ```
 
 ## Example
 
-```typescript
+```ts
 showAlert({
     icon: 'circle-exclamation',
     title: 'Title',

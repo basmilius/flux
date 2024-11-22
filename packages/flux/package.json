@@ -46,7 +46,7 @@
     "typings": "./dist/index.d.ts",
     "sideEffects": false,
     "dependencies": {
-        "@fortawesome/fontawesome-common-types": "^6.7.0",
+        "@fortawesome/fontawesome-common-types": "^6.7.1",
         "clsx": "^2.1.1",
         "imask": "^7.6.1",
         "lodash-es": "^4.17.21",

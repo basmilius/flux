@@ -109,7 +109,7 @@ Todo
 
 ## Snippet
 
-```vue
+```vue-html
 <FluxAction icon="trash"/>
 ```
 
