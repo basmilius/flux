@@ -1,4 +1,4 @@
-import isHtmlElement from './isHtmlElement';
+import { isHtmlElement } from '@basmilius/utils';
 
 const FOCUSABLE_ELEMENTS = [
     'a:not([disabled])',

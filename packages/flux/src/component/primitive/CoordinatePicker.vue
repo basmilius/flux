@@ -17,9 +17,10 @@
 <script
     lang="ts"
     setup>
+    import { roundStep } from '@basmilius/utils';
     import { computed, onMounted, onUnmounted, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '@/composable';
-    import { roundStep, unrefTemplateElement } from '@/util';
+    import { unrefTemplateElement } from '@/util';
     import CoordinatePickerThumb from './CoordinatePickerThumb.vue';
     import $style from '@/css/component/primitive/CoordinatePicker.module.scss';
 

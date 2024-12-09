@@ -31,8 +31,8 @@
 <script
     lang="ts"
     setup>
+    import { formatPercentage } from '@basmilius/utils';
     import type { FluxPercentageBarItemObject } from '@/types';
-    import { formatPercentage } from '@/util';
     import FluxIcon from './FluxIcon.vue';
     import FluxLegend from './FluxLegend.vue';
     import FluxTooltip from './FluxTooltip.vue';

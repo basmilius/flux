@@ -34,8 +34,8 @@
 <script
     lang="ts"
     setup>
+    import { hexToRGB } from '@basmilius/utils';
     import { computed, useSlots } from 'vue';
-    import { hexToRGB } from '@/util';
     import FluxAnimatedColors from './FluxAnimatedColors.vue';
     import FluxGridPattern from './FluxGridPattern.vue';
     import $style from '@/css/component/Pane.module.scss';

@@ -1,5 +1,5 @@
+import { isHtmlElement } from '@basmilius/utils';
 import getFocusableElements from './getFocusableElements';
-import isHtmlElement from './isHtmlElement';
 
 export default function (container: HTMLElement, direction: number, activeElement: HTMLElement | undefined = undefined): HTMLElement | undefined {
     const elements = getFocusableElements(container);

@@ -13,10 +13,10 @@
 <script
     lang="ts"
     setup>
+    import { isHtmlElement } from '@basmilius/utils';
     import { ComponentPublicInstance, onMounted, onUnmounted, reactive, ref, unref, useTemplateRef, watchEffect } from 'vue';
     import { useMutationObserver } from '@/composable';
     import type { Axis } from '@/types';
-    import { isHtmlElement } from '@/util';
 
     const {
         anchor,

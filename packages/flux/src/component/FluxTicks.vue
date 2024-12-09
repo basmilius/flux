@@ -27,8 +27,8 @@
 <script
     lang="ts"
     setup>
+    import { generateStepTicks } from '@basmilius/utils';
     import { computed } from 'vue';
-    import { generateStepTicks } from '@/util';
     import $style from '@/css/component/primitive/Slider.module.scss';
 
     const {

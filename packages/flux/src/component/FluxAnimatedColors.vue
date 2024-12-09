@@ -7,9 +7,9 @@
 <script
     lang="ts"
     setup>
+    import { mulberry32 } from '@basmilius/utils';
     import { computed, onBeforeUnmount, onMounted, ref, unref, useTemplateRef, watch } from 'vue';
     import { useComponentId } from '@/composable';
-    import { mulberry32 } from '@/util';
     import $style from '@/css/component/Visual.module.scss';
 
     type Polygon = [number, number, string, PolygonPoint[]];

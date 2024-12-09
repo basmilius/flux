@@ -25,10 +25,10 @@
 <script
     lang="ts"
     setup>
+    import { clampWithStepPrecision, countDecimals, formatNumber } from '@basmilius/utils';
     import { computed, ref, toRef, unref, useTemplateRef, watch, watchEffect } from 'vue';
     import { useDisabled } from '@/composable';
     import { addTooltip, removeTooltip, updateTooltip } from '@/data';
-    import { clampWithStepPrecision, countDecimals, formatNumber } from '@/util';
     import { SliderBase, SliderThumb, SliderTrack } from './primitive';
 
     const modelValue = defineModel<number>({
