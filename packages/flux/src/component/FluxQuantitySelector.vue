@@ -35,9 +35,9 @@
 <script
     lang="ts"
     setup>
+    import { unrefTemplateElement } from '@basmilius/flux-internals';
     import { ref, toRef, unref, useTemplateRef, watchEffect } from 'vue';
     import { useDisabled } from '@/composable';
-    import { unrefTemplateElement } from '@/util';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import $style from '@/css/component/Form.module.scss';

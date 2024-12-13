@@ -127,14 +127,14 @@
 <script
     lang="ts"
     setup>
+    import { unrefTemplateElement, useClickOutside } from '@basmilius/flux-internals';
     import { clsx } from 'clsx';
     import { ComponentPublicInstance, computed, nextTick, ref, toRef, unref, useTemplateRef, watch } from 'vue';
-    import { useClickOutside, useDisabled, useFormFieldInjection } from '@/composable';
+    import { useDisabled, useFormFieldInjection } from '@/composable';
     import { type FormSelectGroup, useTranslate } from '@/composable/private';
     import { isFluxFormSelectGroup, isFluxFormSelectOption } from '@/data';
     import type { FluxFormSelectOption } from '@/types';
     import { FluxFadeTransition } from '@/transition';
-    import { unrefTemplateElement } from '@/util';
     import FluxFormInput from '../FluxFormInput.vue';
     import FluxIcon from '../FluxIcon.vue';
     import FluxMenu from '../FluxMenu.vue';

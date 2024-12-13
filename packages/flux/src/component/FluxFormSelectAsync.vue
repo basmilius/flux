@@ -16,9 +16,10 @@
 <script
     lang="ts"
     setup>
+    import { useDebouncedRef } from '@basmilius/flux-internals';
     import { computed, ref, toRef, unref, watch } from 'vue';
     import { SelectBase } from '@/component/primitive';
-    import { useDebouncedRef, useDisabled } from '@/composable';
+    import { useDisabled } from '@/composable';
     import { FormSelectOption, FormSelectValue, FormSelectValueSingle, useFormSelect, useLoaded } from '@/composable/private';
     import { isFluxFormSelectOption } from '@/data';
 

@@ -1,6 +1,6 @@
 {
     "name": "@basmilius/flux",
-    "version": "1.4.18",
+    "version": "1.5.0",
     "type": "module",
     "license": "MIT",
     "funding": "https://github.com/sponsors/basmilius",
@@ -11,7 +11,7 @@
         "directory": "packages/flux"
     },
     "keywords": [
-        "ui libeary",
+        "ui library",
         "component library",
         "design system",
         "vue",
@@ -31,7 +31,7 @@
             "import": "./dist/flux.js",
             "require": "./dist/flux.umd.cjs"
         },
-        "./style.css": "./dist/flux.css"
+        "./style.css": "./dist/style.css"
     },
     "publishConfig": {
         "access": "public",
@@ -46,6 +46,7 @@
     "typings": "./dist/index.d.ts",
     "sideEffects": false,
     "dependencies": {
+        "@basmilius/flux-internals": "workspace:*",
         "@basmilius/utils": "^1.2.0",
         "@fortawesome/fontawesome-common-types": "^6.7.1",
         "clsx": "^2.1.1",
@@ -60,6 +61,7 @@
         "@types/luxon": "^3.4.2",
         "@types/node": "^22.10.1",
         "@vitejs/plugin-vue": "^5.2.1",
+        "pinia": "^2.3.0",
         "sass-embedded": "^1.82.0",
         "typescript": "~5.6.3",
         "vite": "~5.4.11",

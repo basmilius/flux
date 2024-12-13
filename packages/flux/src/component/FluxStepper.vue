@@ -22,9 +22,9 @@
 <script
     lang="ts"
     setup>
+    import { flattenVNodeTree } from '@basmilius/flux-internals';
     import { computed, ref, unref, useSlots, VNode, watch } from 'vue';
     import { FluxWindowTransition } from '@/transition';
-    import { flattenVNodeTree } from '@/util';
     import FluxDynamicView from './FluxDynamicView.vue';
     import FluxStepperSteps from './FluxStepperSteps.vue';
 

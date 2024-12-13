@@ -7,9 +7,9 @@
 <script
     lang="ts"
     setup>
+    import { getExposedRef } from '@basmilius/flux-internals';
     import { ComponentInternalInstance, provide } from 'vue';
     import { FluxExpandableGroupInjectionKey } from '@/data';
-    import { getExposedRef } from '@/util';
     import $style from '@/css/component/Expandable.module.scss';
 
     const {

@@ -9,8 +9,8 @@
 <script
     lang="ts"
     setup>
+    import { flattenVNodeTree } from '@basmilius/flux-internals';
     import { cloneVNode, computed, unref, VNode } from 'vue';
-    import { flattenVNodeTree } from '@/util';
     import FluxMenuGroup from './FluxMenuGroup.vue';
 
     const modelValue = defineModel<number>({

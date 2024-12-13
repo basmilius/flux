@@ -54,13 +54,13 @@
 <script
     lang="ts"
     setup>
+    import { unrefTemplateElement } from '@basmilius/flux-internals';
     import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
     import { ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled, useFormFieldInjection } from '@/composable';
     import { inputMask } from '@/data';
     import type { IconName, InputMask, InputType } from '@/types';
-    import { unrefTemplateElement } from '@/util';
     import FluxIcon from './FluxIcon.vue';
     import $style from '@/css/component/Form.module.scss';
 

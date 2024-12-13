@@ -8,7 +8,8 @@
 <script
     lang="ts"
     setup>
-    import { FluxPublishButton, useInterval } from '@basmilius/flux';
+    import { FluxPublishButton } from '@basmilius/flux';
+    import { useInterval } from '@basmilius/flux-internals';
     import { ref } from 'vue';
 
     const state = ref(0);

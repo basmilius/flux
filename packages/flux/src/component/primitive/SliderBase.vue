@@ -20,10 +20,10 @@
 <script
     lang="ts"
     setup>
+    import { unrefTemplateElement } from '@basmilius/flux-internals';
     import { clsx } from 'clsx';
     import { onMounted, onUnmounted, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '@/composable';
-    import { unrefTemplateElement } from '@/util';
     import FluxTicks from '../FluxTicks.vue';
     import $style from '@/css/component/primitive/Slider.module.scss';
 

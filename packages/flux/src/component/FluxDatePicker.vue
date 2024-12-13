@@ -128,10 +128,11 @@
 <script
     lang="ts"
     setup>
+    import { useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher } from '@basmilius/flux-internals';
     import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
     import { computed, ref, unref, useId } from 'vue';
-    import { useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher, useTranslate } from '@/composable/private';
+    import { useTranslate } from '@/composable/private';
     import { FluxFadeTransition, FluxVerticalWindowTransition, FluxWindowTransition } from '@/transition';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import $style from '@/css/component/DatePicker.module.scss';

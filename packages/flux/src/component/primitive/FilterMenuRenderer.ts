@@ -1,3 +1,4 @@
+import { flattenVNodeTree, getComponentName, getComponentProps } from '@basmilius/flux-internals';
 import { formatNumber } from '@basmilius/utils';
 import { camelCase } from 'lodash-es';
 import { DateTime } from 'luxon';
@@ -6,7 +7,7 @@ import { FluxMenu, FluxMenuGroup, FluxSeparator } from '@/component';
 import type { FluxTranslator } from '@/composable/private';
 import { isFluxFilterOptionItem } from '@/data';
 import type { FluxFilterBase, FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterItem, FluxFilterOptionEntry, FluxFilterOptionItem, FluxFilterOptionRow, FluxFilterOptionsEntry, FluxFilterRangeEntry, FluxFilterValue, FluxFilterValueSingle } from '@/types';
-import { createLabelForDateRange, flattenVNodeTree, getComponentName, getComponentProps } from '@/util';
+import { createLabelForDateRange } from '@/util';
 import FilterItem from './FilterItem.vue';
 
 export const FilterMenuRenderer = defineComponent({

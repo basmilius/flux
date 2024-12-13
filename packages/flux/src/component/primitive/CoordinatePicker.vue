@@ -17,10 +17,10 @@
 <script
     lang="ts"
     setup>
+    import { unrefTemplateElement } from '@basmilius/flux-internals';
     import { roundStep } from '@basmilius/utils';
     import { computed, onMounted, onUnmounted, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '@/composable';
-    import { unrefTemplateElement } from '@/util';
     import CoordinatePickerThumb from './CoordinatePickerThumb.vue';
     import $style from '@/css/component/primitive/CoordinatePicker.module.scss';
 

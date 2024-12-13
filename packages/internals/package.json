@@ -1,0 +1,66 @@
+{
+    "name": "@basmilius/flux-internals",
+    "version": "1.5.0",
+    "type": "module",
+    "license": "MIT",
+    "funding": "https://github.com/sponsors/basmilius",
+    "homepage": "https://flux.bas.dev",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/basmilius/flux.git",
+        "directory": "packages/internals"
+    },
+    "keywords": [
+        "ui library",
+        "component library",
+        "design system",
+        "vue",
+        "vue 3",
+        "ui",
+        "components",
+        "flux"
+    ],
+    "scripts": {
+        "build": "pnpm esbuild && pnpm gentypes",
+        "dev": "pnpm esbuild --watch",
+        "esbuild": "esbuild src/index.ts --bundle --sourcemap --external:@basmilius --external:lodash-es --external:luxon --external:vue --platform=browser --target=esnext --format=esm --outfile=dist/flux-internals.js",
+        "gentypes": "tsc && tsc-alias",
+        "prepublishOnly": "cp ../../README.md ."
+    },
+    "engines": {
+        "node": ">=22"
+    },
+    "files": [
+        "dist/*"
+    ],
+    "publishConfig": {
+        "access": "public",
+        "provenance": true
+    },
+    "main": "./dist/flux-internals.js",
+    "types": "./dist/index.d.ts",
+    "typings": "./dist/index.d.ts",
+    "sideEffects": false,
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/flux-internals.js"
+        }
+    },
+    "devDependencies": {
+        "@basmilius/utils": "^1.2.0",
+        "@types/luxon": "^3.4.2",
+        "esbuild": "^0.24.0",
+        "lodash-es": "^4.17.21",
+        "luxon": "^3.5.0",
+        "tsc-alias": "^1.8.10",
+        "typescript": "^5.7.2",
+        "vue": "^3.5.13"
+    },
+    "peerDependencies": {
+        "@basmilius/utils": "^1.2.0",
+        "lodash-es": "^4.17.21",
+        "luxon": "^3.5.0",
+        "vue": "^3.5.13"
+    }
+}

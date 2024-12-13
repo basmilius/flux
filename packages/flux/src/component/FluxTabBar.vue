@@ -36,10 +36,9 @@
 <script
     lang="ts"
     setup>
+    import { unrefTemplateElement, useEventListener, useMutationObserver } from '@basmilius/flux-internals';
     import { clsx } from 'clsx';
     import { onMounted, ref, useTemplateRef } from 'vue';
-    import { useEventListener, useMutationObserver } from '@/composable';
-    import { unrefTemplateElement } from '@/util';
     import FluxIcon from './FluxIcon.vue';
     import $style from '@/css/component/Tab.module.scss';
 

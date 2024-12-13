@@ -12,8 +12,9 @@
 <script
     lang="ts"
     setup>
+    import { useDebouncedRef } from '@basmilius/flux-internals';
     import { computed, ref, unref, watch } from 'vue';
-    import { useDebouncedRef, useFilterInjection } from '@/composable';
+    import { useFilterInjection } from '@/composable';
     import { useLoaded } from '@/composable/private';
     import { isFluxFilterOptionItem } from '@/data';
     import type { FluxFilterOptionRow, FluxFilterValue, FluxFilterValueSingle, IconName } from '@/types';

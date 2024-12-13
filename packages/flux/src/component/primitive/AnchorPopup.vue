@@ -13,9 +13,9 @@
 <script
     lang="ts"
     setup>
+    import { useMutationObserver } from '@basmilius/flux-internals';
     import { isHtmlElement } from '@basmilius/utils';
     import { ComponentPublicInstance, onMounted, onUnmounted, reactive, ref, unref, useTemplateRef, watchEffect } from 'vue';
-    import { useMutationObserver } from '@/composable';
     import type { Axis } from '@/types';
 
     const {

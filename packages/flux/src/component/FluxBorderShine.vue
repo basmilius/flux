@@ -1,6 +1,6 @@
 <script lang="ts">
+    import { flattenVNodeTree } from '@basmilius/flux-internals';
     import { cloneVNode, defineComponent, Fragment, h, PropType } from 'vue';
-    import { flattenVNodeTree } from '@/util';
     import $style from '@/css/component/Visual.module.scss';
 
     export default defineComponent({

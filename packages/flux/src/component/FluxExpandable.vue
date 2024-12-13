@@ -42,8 +42,9 @@
 <script
     lang="ts"
     setup>
+    import { useComponentId } from '@basmilius/flux-internals';
     import { getCurrentInstance, onBeforeMount, onUnmounted, ref, unref, useId, watch } from 'vue';
-    import { useComponentId, useExpandableGroupInjection } from '@/composable';
+    import { useExpandableGroupInjection } from '@/composable';
     import { FluxAutoHeightTransition, FluxFadeTransition } from '@/transition';
     import FluxIcon from './FluxIcon.vue';
     import $style from '@/css/component/Expandable.module.scss';

@@ -1,9 +1,9 @@
 <script lang="ts">
+    import { unrefTemplateElement } from '@basmilius/flux-internals';
     import { clsx } from 'clsx';
     import { computed, defineComponent, h, ref, unref, watch } from 'vue';
     import { useFluxStore } from '@/data';
     import { FluxTooltipTransition } from '@/transition';
-    import { unrefTemplateElement } from '@/util';
     import $style from '@/css/component/Tooltip.module.scss';
 
     type Transition = 'above' | 'below' | 'end' | 'start';

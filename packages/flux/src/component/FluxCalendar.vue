@@ -134,12 +134,12 @@
 <script
     lang="ts"
     setup>
+    import { flattenVNodeTree, getComponentName, getComponentProps, useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher } from '@basmilius/flux-internals';
     import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
     import { computed, unref, useSlots, VNode, watch } from 'vue';
-    import { useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher, useTranslate } from '@/composable/private';
+    import { useTranslate } from '@/composable/private';
     import { FluxWindowTransition } from '@/transition';
-    import { flattenVNodeTree, getComponentName, getComponentProps } from '@/util';
     import { VNodeRenderer } from './primitive';
     import FluxActionBar from './FluxActionBar.vue';
     import FluxButtonGroup from './FluxButtonGroup.vue';
