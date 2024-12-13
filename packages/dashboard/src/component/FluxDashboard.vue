@@ -16,7 +16,7 @@
 <script
     lang="ts"
     setup>
-    import { useRemembered } from '@basmilius/flux';
+    import { useRemembered } from '@basmilius/flux-internals';
     import { provide } from 'vue';
     import { FluxDashboardInjectionKey } from '@/data';
     import $style from '@/css/component/Dashboard.module.scss';
