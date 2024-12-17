@@ -16,6 +16,7 @@
         "skipLibCheck": true,
         "allowSyntheticDefaultImports": true,
         "declaration": true,
+        "declarationMap": true,
         "emitDeclarationOnly": true,
         "outDir": "dist",
         "baseUrl": ".",
