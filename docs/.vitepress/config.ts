@@ -1,12 +1,21 @@
 import { createHash } from 'node:crypto';
 import { defineConfig } from 'vitepress';
+import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons';
 import className from 'css-class-generator';
 
 export default defineConfig({
     title: 'Flux',
     titleTemplate: ':title — Flux',
     description: 'Component library for Vue 3.',
+    markdown: {
+        config(md) {
+            md.use(groupIconMdPlugin);
+        }
+    },
     vite: {
+        plugins: [
+            groupIconVitePlugin()
+        ],
         css: {
             preprocessorOptions: {
                 scss: {

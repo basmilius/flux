@@ -8,6 +8,8 @@ import 'vitepress/dist/client/theme-default/styles/components/vp-code-group.css'
 import 'vitepress/dist/client/theme-default/styles/components/vp-doc.css';
 import 'vitepress/dist/client/theme-default/styles/components/vp-sponsor.css';
 
+import 'virtual:group-icons.css';
+
 import '@basmilius/flux/style.css';
 import './style.css';
 
@@ -15,6 +17,7 @@ import type { Theme } from 'vitepress';
 
 import { fluxRegisterIcons } from '@basmilius/flux';
 import * as icons from './icons';
+
 fluxRegisterIcons(icons);
 
 import ColorPalette from './ColorPalette.vue';
