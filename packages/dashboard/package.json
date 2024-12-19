@@ -1,6 +1,6 @@
 {
     "name": "@basmilius/flux-dashboard",
-    "version": "1.5.2",
+    "version": "1.5.3",
     "type": "module",
     "license": "MIT",
     "funding": "https://github.com/sponsors/basmilius",
@@ -53,12 +53,12 @@
         "vue": "^3.5.13"
     },
     "devDependencies": {
-        "@basmilius/vite-vue-preset": "^1.8.0",
+        "@basmilius/vite-vue-preset": "^1.9.0",
         "@types/node": "^22.10.2",
         "@vitejs/plugin-vue": "^5.2.1",
         "sass-embedded": "^1.83.0",
         "typescript": "~5.6.3",
-        "vite": "~5.4.11",
+        "vite": "^6.0.4",
         "vue-tsc": "^2.1.10"
     }
 }
