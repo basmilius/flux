@@ -1,6 +1,6 @@
 {
     "name": "@basmilius/flux-dashboard",
-    "version": "1.5.3",
+    "version": "1.5.4",
     "type": "module",
     "license": "MIT",
     "funding": "https://github.com/sponsors/basmilius",
@@ -32,7 +32,7 @@
             "import": "./dist/flux-dashboard.js",
             "require": "./dist/flux-dashboard.umd.cjs"
         },
-        "./style.css": "./dist/style.css"
+        "./style.css": "./dist/flux-dashboard.css"
     },
     "publishConfig": {
         "access": "public",

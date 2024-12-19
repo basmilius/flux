@@ -101,8 +101,8 @@ importers:
         version: 3.5.13(typescript@5.6.3)
     devDependencies:
       '@basmilius/vite-vue-preset':
-        specifier: ^1.8.0
-        version: 1.8.0(@types/node@22.10.2)(lightningcss@1.26.0)(postcss@8.4.49)(rollup@4.28.1)(typescript@5.6.3)(vite@5.4.11(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))
+        specifier: ^1.9.0
+        version: 1.9.0(@types/node@22.10.2)(lightningcss@1.26.0)(postcss@8.4.49)(rollup@4.28.1)(typescript@5.6.3)(vite@6.0.4(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))
       '@types/lodash-es':
         specifier: ^4.17.12
         version: 4.17.12
@@ -114,7 +114,7 @@ importers:
         version: 22.10.2
       '@vitejs/plugin-vue':
         specifier: ^5.2.1
-        version: 5.2.1(vite@5.4.11(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))(vue@3.5.13(typescript@5.6.3))
+        version: 5.2.1(vite@6.0.4(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))(vue@3.5.13(typescript@5.6.3))
       pinia:
         specifier: ^2.3.0
         version: 2.3.0(typescript@5.6.3)(vue@3.5.13(typescript@5.6.3))
@@ -125,8 +125,8 @@ importers:
         specifier: ~5.6.3
         version: 5.6.3
       vite:
-        specifier: ~5.4.11
-        version: 5.4.11(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0)
+        specifier: ^6.0.4
+        version: 6.0.4(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0)
       vue-tsc:
         specifier: ^2.1.10
         version: 2.1.10(typescript@5.6.3)
@@ -269,9 +269,6 @@ packages:
     peerDependencies:
       luxon: ^3.5.0
       pinia: ^2.2.4
-
-  '@basmilius/vite-vue-preset@1.8.0':
-    resolution: {integrity: sha512-WaUF3Wi+pdU1eDNUfaTyhkGIJDrh6mDehbHYrkTBXrD+wIt1wUpuGj2ac+3Z7XcWiLI7sOy4lghXtUtGeFdA9w==}
 
   '@basmilius/vite-vue-preset@1.9.0':
     resolution: {integrity: sha512-Fe9h+8TSyoTGS5LKAihqM0xZ7uSxCMtW+DK6HctMuDwsAR/XytYl9Azbx3bMFZyXLkPmE5KyM2kxG5cpiByi2g==}
@@ -2125,21 +2122,6 @@ snapshots:
       luxon: 3.5.0
       pinia: 2.3.0(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2))
 
-  '@basmilius/vite-vue-preset@1.8.0(@types/node@22.10.2)(lightningcss@1.26.0)(postcss@8.4.49)(rollup@4.28.1)(typescript@5.6.3)(vite@5.4.11(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))':
-    dependencies:
-      '@laynezh/vite-plugin-lib-assets': 0.5.26(vite@5.4.11(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))
-      css-class-generator: 2.0.0
-      vite-css-modules: 1.8.0(lightningcss@1.26.0)(postcss@8.4.49)(rollup@4.28.1)(vite@5.4.11(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))
-      vite-plugin-dts: 4.4.0(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.6.3)(vite@5.4.11(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))
-    transitivePeerDependencies:
-      - '@types/node'
-      - lightningcss
-      - postcss
-      - rollup
-      - supports-color
-      - typescript
-      - vite
-
   '@basmilius/vite-vue-preset@1.9.0(@types/node@22.10.2)(lightningcss@1.26.0)(postcss@8.4.49)(rollup@4.28.1)(typescript@5.6.3)(vite@6.0.4(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))':
     dependencies:
       '@laynezh/vite-plugin-lib-assets': 0.5.26(vite@6.0.4(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))
@@ -2372,14 +2354,6 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@laynezh/vite-plugin-lib-assets@0.5.26(vite@5.4.11(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))':
-    dependencies:
-      escape-string-regexp: 4.0.0
-      loader-utils: 3.3.1
-      mrmime: 1.0.1
-      semver: 7.6.3
-      vite: 5.4.11(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0)
-
   '@laynezh/vite-plugin-lib-assets@0.5.26(vite@6.0.4(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))':
     dependencies:
       escape-string-regexp: 4.0.0
@@ -2603,11 +2577,6 @@ snapshots:
   '@types/web-bluetooth@0.0.20': {}
 
   '@ungap/structured-clone@1.2.1': {}
-
-  '@vitejs/plugin-vue@5.2.1(vite@5.4.11(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))(vue@3.5.13(typescript@5.6.3))':
-    dependencies:
-      vite: 5.4.11(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0)
-      vue: 3.5.13(typescript@5.6.3)
 
   '@vitejs/plugin-vue@5.2.1(vite@5.4.11(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))(vue@3.5.13(typescript@5.7.2))':
     dependencies:
@@ -3608,24 +3577,6 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.2
 
-  vite-css-modules@1.8.0(lightningcss@1.26.0)(postcss@8.4.49)(rollup@4.28.1)(vite@5.4.11(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0)):
-    dependencies:
-      '@ampproject/remapping': 2.3.0
-      '@rollup/pluginutils': 5.1.4(rollup@4.28.1)
-      generic-names: 4.0.0
-      icss-utils: 5.1.0(postcss@8.4.49)
-      magic-string: 0.30.17
-      postcss: 8.4.49
-      postcss-modules-extract-imports: 3.1.0(postcss@8.4.49)
-      postcss-modules-local-by-default: 4.2.0(postcss@8.4.49)
-      postcss-modules-scope: 3.2.1(postcss@8.4.49)
-      postcss-modules-values: 4.0.0(postcss@8.4.49)
-      vite: 5.4.11(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0)
-    optionalDependencies:
-      lightningcss: 1.26.0
-    transitivePeerDependencies:
-      - rollup
-
   vite-css-modules@1.8.0(lightningcss@1.26.0)(postcss@8.4.49)(rollup@4.28.1)(vite@6.0.4(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0)):
     dependencies:
       '@ampproject/remapping': 2.3.0
@@ -3643,25 +3594,6 @@ snapshots:
       lightningcss: 1.26.0
     transitivePeerDependencies:
       - rollup
-
-  vite-plugin-dts@4.4.0(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.6.3)(vite@5.4.11(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0)):
-    dependencies:
-      '@microsoft/api-extractor': 7.48.1(@types/node@22.10.2)
-      '@rollup/pluginutils': 5.1.4(rollup@4.28.1)
-      '@volar/typescript': 2.4.11
-      '@vue/language-core': 2.1.10(typescript@5.6.3)
-      compare-versions: 6.1.1
-      debug: 4.4.0
-      kolorist: 1.8.0
-      local-pkg: 0.5.1
-      magic-string: 0.30.17
-      typescript: 5.6.3
-    optionalDependencies:
-      vite: 5.4.11(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0)
-    transitivePeerDependencies:
-      - '@types/node'
-      - rollup
-      - supports-color
 
   vite-plugin-dts@4.4.0(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.6.3)(vite@6.0.4(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0)):
     dependencies:
