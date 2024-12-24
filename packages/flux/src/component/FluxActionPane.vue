@@ -10,7 +10,7 @@
             </FluxPaneBody>
 
             <FluxPaneBody
-                v-if="slots.buttons"
+                v-if="'buttons' in slots"
                 :class="$style.actionPaneBody">
                 <FluxButtonStack axis="vertical">
                     <slot name="buttons"/>

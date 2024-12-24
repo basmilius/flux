@@ -13,11 +13,11 @@
         "@fortawesome/fontawesome-common-types": "^6.7.2",
         "@fortawesome/pro-regular-svg-icons": "^6.7.2",
         "vitepress": "^1.5.0",
-        "vitepress-plugin-group-icons": "^1.3.1",
+        "vitepress-plugin-group-icons": "^1.3.2",
         "vue": "^3.5.13"
     },
     "devDependencies": {
         "css-class-generator": "^2.0.0",
-        "vite": "^6.0.4"
+        "vite": "^6.0.5"
     }
 }

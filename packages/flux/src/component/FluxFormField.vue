@@ -14,7 +14,7 @@
             </span>
 
             <span
-                v-if="$slots.value"
+                v-if="'value' in slots"
                 :class="$style.formFieldValue">
                 <slot
                     name="value"
@@ -50,7 +50,7 @@
 <script
     lang="ts"
     setup>
-    import { provide, useId } from 'vue';
+    import { provide, useId, useSlots } from 'vue';
     import { useTranslate } from '@/composable/private';
     import { FluxFormFieldInjectionKey } from '@/data';
     import FluxFormFieldAddition from './FluxFormFieldAddition.vue';
@@ -90,6 +90,7 @@
     }>();
 
     const id = useId();
+    const slots = useSlots();
     const translate = useTranslate();
 
     provide(FluxFormFieldInjectionKey, {

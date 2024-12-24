@@ -18,13 +18,13 @@
         </div>
 
         <div
-            v-if="slots.controlled"
+            v-if="'controlled' in slots"
             :class="$style.paneIllustrationContentControlled">
             <slot name="controlled"/>
         </div>
 
         <div
-            v-if="slots.default"
+            v-if="'default' in slots"
             :class="$style.paneIllustrationContent">
             <slot/>
         </div>

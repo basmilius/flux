@@ -1,7 +1,7 @@
 <template>
     <div :class="$style.table">
         <table :class="$style.tableBase">
-            <thead v-if="slots.header">
+            <thead v-if="'header' in slots">
             <slot name="header"/>
             </thead>
 
@@ -9,12 +9,12 @@
             <slot name="rows"/>
             </tbody>
 
-            <tfoot v-if="slots.footer">
+            <tfoot v-if="'footer' in slots">
             <slot name="footer"/>
             </tfoot>
 
             <caption
-                v-if="slots.caption"
+                v-if="'caption' in slots"
                 :style="{captionSide}">
                 <slot name="caption"/>
             </caption>
