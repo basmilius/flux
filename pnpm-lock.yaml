@@ -56,8 +56,8 @@ importers:
         version: 3.5.13(typescript@5.7.2)
     devDependencies:
       '@basmilius/vite-vue-preset':
-        specifier: ^1.10.0
-        version: 1.10.0(@types/node@22.10.2)(lightningcss@1.26.0)(postcss@8.4.49)(rollup@4.29.1)(typescript@5.7.2)(vite@6.0.5(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))
+        specifier: ^1.11.0
+        version: 1.11.0(@types/node@22.10.2)(lightningcss@1.26.0)(postcss@8.4.49)(rollup@4.29.1)(typescript@5.7.2)(vite@6.0.5(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))
       '@types/node':
         specifier: ^22.10.2
         version: 22.10.2
@@ -105,8 +105,8 @@ importers:
         version: 3.5.13(typescript@5.7.2)
     devDependencies:
       '@basmilius/vite-vue-preset':
-        specifier: ^1.10.0
-        version: 1.10.0(@types/node@22.10.2)(lightningcss@1.26.0)(postcss@8.4.49)(rollup@4.29.1)(typescript@5.7.2)(vite@6.0.5(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))
+        specifier: ^1.11.0
+        version: 1.11.0(@types/node@22.10.2)(lightningcss@1.26.0)(postcss@8.4.49)(rollup@4.29.1)(typescript@5.7.2)(vite@6.0.5(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))
       '@types/lodash-es':
         specifier: ^4.17.12
         version: 4.17.12
@@ -274,8 +274,8 @@ packages:
       luxon: ^3.5.0
       pinia: ^2.2.4
 
-  '@basmilius/vite-vue-preset@1.10.0':
-    resolution: {integrity: sha512-3+c4gq2Nc/WD5xrZdTZYyVjLHH3ErBUtUz6zVjdn6brC0FyrfSN+513ysdZufG9uUiPn/Fjvau9C0l8WJ8V2xg==}
+  '@basmilius/vite-vue-preset@1.11.0':
+    resolution: {integrity: sha512-hHclatDD02Uy1XCplhvZJasTZlMMMu0sxWcUbd1KFgZ/TRHbWEOXj1s3ofujIO+JUoxghi3mry67CHhIV8bzRg==}
 
   '@bufbuild/protobuf@2.2.3':
     resolution: {integrity: sha512-tFQoXHJdkEOSwj5tRIZSPNUuXK3RaR7T1nUrPgbYX1pUbvqqaaZAsfo+NXBPsz5rZMSKVFrgK1WL8Q/MSLvprg==}
@@ -800,10 +800,10 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@laynezh/vite-plugin-lib-assets@0.5.26':
-    resolution: {integrity: sha512-WObL2hZZyAYHQXOzGs7TyWKJUrIOF9IABEaiwtwIY08/repd14dLfig11LV4EKSIEkfQpITSQoWsjuyhrkldpw==}
+  '@laynezh/vite-plugin-lib-assets@0.6.1':
+    resolution: {integrity: sha512-pdIRW/PiJkuM7/OObjGBGfQmsWetmVObeez6uwT3nhP5cu2zT0L5QELq69caWD/v3QlPY3CPXVN0kZrzQzdvsQ==}
     peerDependencies:
-      vite: ^3.0.0 || ^4.0.0 || ^5.0.0
+      vite: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0
 
   '@microsoft/api-extractor-model@7.30.1':
     resolution: {integrity: sha512-CTS2PlASJHxVY8hqHORVb1HdECWOEMcMnM6/kDkPr0RZapAFSIHhg9D4jxuE8g+OWYHtPc10LCpmde5pylTRlA==}
@@ -2510,9 +2510,9 @@ snapshots:
       luxon: 3.5.0
       pinia: 2.3.0(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2))
 
-  '@basmilius/vite-vue-preset@1.10.0(@types/node@22.10.2)(lightningcss@1.26.0)(postcss@8.4.49)(rollup@4.29.1)(typescript@5.7.2)(vite@6.0.5(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))':
+  '@basmilius/vite-vue-preset@1.11.0(@types/node@22.10.2)(lightningcss@1.26.0)(postcss@8.4.49)(rollup@4.29.1)(typescript@5.7.2)(vite@6.0.5(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))':
     dependencies:
-      '@laynezh/vite-plugin-lib-assets': 0.5.26(vite@6.0.5(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))
+      '@laynezh/vite-plugin-lib-assets': 0.6.1(vite@6.0.5(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))
       css-class-generator: 2.0.0
       vite-css-modules: 1.8.0(lightningcss@1.26.0)(postcss@8.4.49)(rollup@4.29.1)(vite@6.0.5(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))
       vite-plugin-dts: 4.4.0(@types/node@22.10.2)(rollup@4.29.1)(typescript@5.7.2)(vite@6.0.5(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))
@@ -2842,7 +2842,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@laynezh/vite-plugin-lib-assets@0.5.26(vite@6.0.5(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))':
+  '@laynezh/vite-plugin-lib-assets@0.6.1(vite@6.0.5(@types/node@22.10.2)(lightningcss@1.26.0)(sass-embedded@1.83.0)(sass@1.78.0))':
     dependencies:
       escape-string-regexp: 4.0.0
       loader-utils: 3.3.1
