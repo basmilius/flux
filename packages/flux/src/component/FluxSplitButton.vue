@@ -7,8 +7,8 @@
         <template #opener="{close, open, toggle}">
             <div :class="$style.buttonGroup">
                 <slot
-                    name="button"
-                    v-bind="{close, open, toggle}"/>
+                    v-bind="{close, open, toggle}"
+                    name="button"/>
 
                 <FluxSecondaryButton
                     :icon-before="buttonIcon"
@@ -18,8 +18,8 @@
 
         <template #default="bindings">
             <slot
-                name="flyout"
-                v-bind="bindings"/>
+                v-bind="bindings"
+                name="flyout"/>
         </template>
     </FluxFlyout>
 </template>

@@ -50,7 +50,7 @@
 <script
     lang="ts"
     setup>
-    import { provide, useId, useSlots } from 'vue';
+    import { provide, useId } from 'vue';
     import { useTranslate } from '@/composable/private';
     import { FluxFormFieldInjectionKey } from '@/data';
     import FluxFormFieldAddition from './FluxFormFieldAddition.vue';
@@ -65,7 +65,7 @@
         readonly maxLength?: number;
     }>();
 
-    defineSlots<{
+    const slots = defineSlots<{
         default(props: {
             readonly id?: string;
         }): any;
@@ -90,7 +90,6 @@
     }>();
 
     const id = useId();
-    const slots = useSlots();
     const translate = useTranslate();
 
     provide(FluxFormFieldInjectionKey, {

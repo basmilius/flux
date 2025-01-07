@@ -20,11 +20,10 @@
                 v-for="(row, index) of rows"
                 :key="uniqueKey ? row[uniqueKey] : index">
                 <template v-for="(_, name) of slots">
-                    <template v-if="name !== 'footer' && name !== 'header'">
-                        <slot
-                            :name="name"
-                            v-bind="{index, page, perPage, row, rows, total}"/>
-                    </template>
+                    <slot
+                        v-if="name !== 'footer' && name !== 'header'"
+                        v-bind="{index, page, perPage, row, rows, total}"
+                        :name="name"/>
                 </template>
             </FluxTableRow>
         </template>
@@ -45,7 +44,7 @@
     lang="ts"
     setup
     generic="T extends Record<string, any>">
-    import { computed, useSlots } from 'vue';
+    import { computed } from 'vue';
     import FluxTable from './FluxTable.vue';
     import FluxTableRow from './FluxTableRow.vue';
 
@@ -71,7 +70,7 @@
         readonly uniqueKey?: string;
     }>();
 
-    defineSlots<{
+    const slots = defineSlots<{
         [key: string]: (props: {
             readonly index: number;
             readonly page: number;
@@ -95,8 +94,6 @@
             readonly total: number;
         }): any;
     }>();
-
-    const slots = useSlots();
 
     const rows = computed(() => dataSet.slice(0, perPage));
 </script>

@@ -1,7 +1,7 @@
 <template>
     <slot
-        name="steps"
-        v-bind="{activate, modelValue, steps}">
+        v-bind="{activate, modelValue, steps}"
+        name="steps">
         <FluxStepperSteps
             :amount="steps"
             :current="modelValue + 1"
@@ -9,8 +9,8 @@
     </slot>
 
     <slot
-        name="content"
-        v-bind="{activate, modelValue, children, isTransitioningBack, steps, view}">
+        v-bind="{activate, modelValue, children, isTransitioningBack, steps, view}"
+        name="content">
         <FluxWindowTransition :is-back="isTransitioningBack">
             <FluxDynamicView
                 :key="modelValue"
@@ -23,7 +23,7 @@
     lang="ts"
     setup>
     import { flattenVNodeTree } from '@basmilius/flux-internals';
-    import { computed, ref, unref, useSlots, VNode, watch } from 'vue';
+    import { computed, ref, unref, VNode, watch } from 'vue';
     import { FluxWindowTransition } from '@/transition';
     import FluxDynamicView from './FluxDynamicView.vue';
     import FluxStepperSteps from './FluxStepperSteps.vue';
@@ -32,7 +32,7 @@
         default: 0
     });
 
-    defineSlots<{
+    const slots = defineSlots<{
         default(): any;
 
         content(props: {
@@ -52,8 +52,6 @@
             readonly steps: number;
         }): any;
     }>();
-
-    const slots = useSlots();
 
     const isTransitioningBack = ref(false);
 

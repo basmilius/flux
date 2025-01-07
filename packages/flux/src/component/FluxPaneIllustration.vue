@@ -18,13 +18,13 @@
         </div>
 
         <div
-            v-if="'controlled' in slots"
+            v-if="slots.controlled"
             :class="$style.paneIllustrationContentControlled">
             <slot name="controlled"/>
         </div>
 
         <div
-            v-if="'default' in slots"
+            v-if="slots.default"
             :class="$style.paneIllustrationContent">
             <slot/>
         </div>
@@ -35,7 +35,7 @@
     lang="ts"
     setup>
     import { hexToRGB } from '@basmilius/utils';
-    import { computed, useSlots } from 'vue';
+    import { computed } from 'vue';
     import FluxAnimatedColors from './FluxAnimatedColors.vue';
     import FluxGridPattern from './FluxGridPattern.vue';
     import $style from '@/css/component/Pane.module.scss';
@@ -51,12 +51,10 @@
         readonly isMasked?: boolean;
     }>();
 
-    defineSlots<{
-        default(): any;
-        controlled(): any;
+    const slots = defineSlots<{
+        default?(): any;
+        controlled?(): any;
     }>();
-
-    const slots = useSlots();
 
     const borderColor = computed(() => {
         if (!animatedColors || animatedColors.length === 0) {

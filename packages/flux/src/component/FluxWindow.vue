@@ -1,9 +1,9 @@
 <template>
     <FluxWindowTransition :is-back="isBack">
-        <template v-for="(_, slot) of $slots">
+        <template v-for="(_, slot) of slots">
             <slot
-                v-bind="{back, navigate}"
                 v-if="slot === view"
+                v-bind="{back, navigate}"
                 :name="slot"/>
         </template>
     </FluxWindowTransition>
@@ -14,6 +14,18 @@
     setup>
     import { ref } from 'vue';
     import { FluxWindowTransition } from '@/transition';
+
+    const slots = defineSlots<{
+        default(props: {
+            back(to?: string): void;
+            navigate(to: string): void;
+        }): any;
+
+        [key: string]: (props: {
+            back(to?: string): void;
+            navigate(to: string): void;
+        }) => any;
+    }>();
 
     const isBack = ref(false);
     const view = ref<string>('default');
@@ -32,16 +44,4 @@
         back,
         navigate
     });
-
-    defineSlots<{
-        default(props: {
-            back(to?: string): void;
-            navigate(to: string): void;
-        }): any;
-
-        [key: string]: (props: {
-            back(to?: string): void;
-            navigate(to: string): void;
-        }) => any;
-    }>();
 </script>

@@ -10,7 +10,7 @@
             </FluxPaneBody>
 
             <FluxPaneBody
-                v-if="'buttons' in slots"
+                v-if="slots.buttons"
                 :class="$style.actionPaneBody">
                 <FluxButtonStack axis="vertical">
                     <slot name="buttons"/>
@@ -23,7 +23,6 @@
 <script
     lang="ts"
     setup>
-    import { useSlots } from 'vue';
     import FluxButtonStack from './FluxButtonStack.vue';
     import FluxPane from './FluxPane.vue';
     import FluxPaneBody from './FluxPaneBody.vue';
@@ -33,11 +32,9 @@
         readonly paneVariant?: 'default' | 'flat' | 'well';
     }>();
 
-    defineSlots<{
-        default(): any;
-        buttons(): any;
-        base(): any;
+    const slots = defineSlots<{
+        default?(): any;
+        buttons?(): any;
+        base?(): any;
     }>();
-
-    const slots = useSlots();
 </script>

@@ -43,7 +43,7 @@
     lang="ts"
     setup>
     import { flattenVNodeTree, getComponentName, getComponentProps, vHeightTransition } from '@basmilius/flux-internals';
-    import { computed, provide, unref, useSlots, useTemplateRef, VNode } from 'vue';
+    import { computed, provide, unref, useTemplateRef, VNode } from 'vue';
     import { useTranslate } from '@/composable/private';
     import { FluxFilterInjectionKey } from '@/data';
     import type { FluxFilterOptionItem, FluxFilterState } from '@/types';
@@ -66,11 +66,10 @@
         readonly resettable?: string[];
     }>();
 
-    defineSlots<{
+    const slots = defineSlots<{
         default(): any;
     }>();
 
-    const slots = useSlots();
     const translate = useTranslate();
 
     const windowRef = useTemplateRef<{ back(to: string): void; }>('window');

@@ -1,20 +1,20 @@
 <template>
     <div :class="$style.table">
         <table :class="$style.tableBase">
-            <thead v-if="'header' in slots">
+            <thead v-if="slots.header">
             <slot name="header"/>
             </thead>
 
-            <tbody>
+            <tbody v-if="slots.rows">
             <slot name="rows"/>
             </tbody>
 
-            <tfoot v-if="'footer' in slots">
+            <tfoot v-if="slots.footer">
             <slot name="footer"/>
             </tfoot>
 
             <caption
-                v-if="'caption' in slots"
+                v-if="slots.caption"
                 :style="{captionSide}">
                 <slot name="caption"/>
             </caption>
@@ -31,7 +31,7 @@
 <script
     lang="ts"
     setup>
-    import { provide, useSlots } from 'vue';
+    import { provide } from 'vue';
     import { FluxTableInjectionKey } from '@/data';
     import FluxSpinner from './FluxSpinner.vue';
     import $style from '@/css/component/Table.module.scss';
@@ -52,14 +52,12 @@
         readonly isStriped?: boolean;
     }>();
 
-    defineSlots<{
-        caption(): any;
-        footer(): any;
-        header(): any;
-        rows(): any;
+    const slots = defineSlots<{
+        caption?(): any;
+        footer?(): any;
+        header?(): any;
+        rows?(): any;
     }>();
-
-    const slots = useSlots();
 
     provide(FluxTableInjectionKey, {
         isBordered,

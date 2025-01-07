@@ -8,7 +8,7 @@
         role="separator"
         aria-orientation="horizontal">
         <div
-            v-if="$slots.default"
+            v-if="slots.default"
             :class="$style.dividerContent">
             <slot/>
         </div>
@@ -29,5 +29,9 @@
         contentPlacement = 'center'
     } = defineProps<{
         readonly contentPlacement?: 'start' | 'center' | 'end';
+    }>();
+
+    const slots = defineSlots<{
+        default?(): any;
     }>();
 </script>

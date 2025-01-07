@@ -1,8 +1,8 @@
 <template>
     <div :class="$style.tabs">
         <slot
-            name="tabs"
-            v-bind="{children, modelValue, tabs, activate}">
+            v-bind="{children, modelValue, tabs, activate}"
+            name="tabs">
             <FluxTabBar :class="$style.tabsBar">
                 <template
                     v-for="(tab, index) of tabs"
@@ -17,8 +17,8 @@
         </slot>
 
         <slot
-            name="content"
-            v-bind="{children, modelValue, tabs, activate}">
+            v-bind="{children, modelValue, tabs, activate}"
+            name="content">
             <FluxWindowTransition :is-back="isTransitioningBack">
                 <VNodeRenderer
                     :key="modelValue"
@@ -32,7 +32,7 @@
     lang="ts"
     setup>
     import { flattenVNodeTree, getComponentProps } from '@basmilius/flux-internals';
-    import { computed, ref, unref, useSlots, VNode, watch } from 'vue';
+    import { computed, ref, unref, VNode, watch } from 'vue';
     import { FluxWindowTransition } from '@/transition';
     import type { IconName } from '@/types';
     import { VNodeRenderer } from './primitive';
@@ -44,7 +44,7 @@
         default: 0
     });
 
-    defineSlots<{
+    const slots = defineSlots<{
         default(): any;
 
         content(props: {
@@ -69,8 +69,6 @@
             }[];
         }): any;
     }>();
-
-    const slots = useSlots();
 
     const isTransitioningBack = ref(false);
 

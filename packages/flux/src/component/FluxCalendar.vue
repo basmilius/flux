@@ -137,7 +137,7 @@
     import { flattenVNodeTree, getComponentName, getComponentProps, useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher } from '@basmilius/flux-internals';
     import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
-    import { computed, unref, useSlots, VNode, watch } from 'vue';
+    import { computed, unref, VNode, watch } from 'vue';
     import { useTranslate } from '@/composable/private';
     import { FluxWindowTransition } from '@/transition';
     import { VNodeRenderer } from './primitive';
@@ -166,8 +166,8 @@
         readonly isLoading?: boolean;
     }>();
 
-    defineSlots<{
-        default(): any;
+    const slots = defineSlots<{
+        default?(): any;
     }>();
 
     const {
@@ -194,7 +194,6 @@
         previous: previousYears
     } = useCalendarYearSwitcher(viewDate);
 
-    const slots = useSlots();
     const translate = useTranslate();
 
     const eventNodes = computed(() => flattenVNodeTree(slots.default?.() ?? []));

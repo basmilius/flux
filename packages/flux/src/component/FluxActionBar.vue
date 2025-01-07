@@ -13,9 +13,7 @@
         <slot name="actionsAfterSearch"/>
 
         <FluxFlyout v-if="slots.filter">
-            <template
-                v-if="$slots.filter"
-                #opener="{close, open, toggle}">
+            <template #opener="{close, open, toggle}">
                 <slot
                     v-bind="{close, open, toggle}"
                     name="filterOpener">
@@ -50,7 +48,6 @@
 <script
     lang="ts"
     setup>
-    import { useSlots } from 'vue';
     import { useTranslate } from '@/composable/private';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxDestructiveButton from './FluxDestructiveButton.vue';
@@ -69,15 +66,15 @@
         readonly isResettable?: boolean;
     }>();
 
-    defineSlots<{
-        primary(): any;
-        actionsEnd(): any;
-        actionsStart(): any;
-        actionsAfterSearch(): any;
-        actionsBeforeSearch(): any;
-        search(): any;
+    const slots = defineSlots<{
+        primary?(): any;
+        actionsEnd?(): any;
+        actionsStart?(): any;
+        actionsAfterSearch?(): any;
+        actionsBeforeSearch?(): any;
+        search?(): any;
 
-        filter(props: {
+        filter?(props: {
             close(): void;
 
             readonly paneX: number;
@@ -86,13 +83,12 @@
             readonly openerHeight: number;
         }): any;
 
-        filterOpener(props: {
+        filterOpener?(props: {
             close(): void;
             open(): void;
             toggle(): void;
         }): any;
     }>();
 
-    const slots = useSlots();
     const translate = useTranslate();
 </script>
