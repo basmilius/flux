@@ -1,6 +1,6 @@
 {
     "name": "@basmilius/flux-internals",
-    "version": "1.6.2",
+    "version": "1.6.3",
     "type": "module",
     "license": "MIT",
     "funding": "https://github.com/sponsors/basmilius",
@@ -49,13 +49,13 @@
         }
     },
     "devDependencies": {
-        "@basmilius/utils": "^1.3.1",
+        "@basmilius/utils": "^1.3.2",
         "@types/luxon": "^3.4.2",
         "esbuild": "^0.24.2",
         "lodash-es": "^4.17.21",
         "luxon": "^3.5.0",
         "tsc-alias": "^1.8.10",
-        "typescript": "^5.7.2",
+        "typescript": "^5.7.3",
         "vue": "^3.5.13"
     },
     "peerDependencies": {
