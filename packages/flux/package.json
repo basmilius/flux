@@ -1,6 +1,6 @@
 {
     "name": "@basmilius/flux",
-    "version": "1.6.3",
+    "version": "1.7.0",
     "type": "module",
     "license": "MIT",
     "funding": "https://github.com/sponsors/basmilius",
@@ -24,6 +24,9 @@
         "build": "vue-tsc && vite build",
         "dev": "vite build --watch",
         "prepublishOnly": "cp ../../README.md ."
+    },
+    "engines": {
+        "node": ">=23"
     },
     "exports": {
         ".": {
@@ -57,10 +60,10 @@
         "vue": "^3.5.13"
     },
     "devDependencies": {
-        "@basmilius/vite-vue-preset": "^1.14.0",
+        "@basmilius/vite-vue-preset": "^1.15.0",
         "@types/lodash-es": "^4.17.12",
         "@types/luxon": "^3.4.2",
-        "@types/node": "^22.10.6",
+        "@types/node": "^22.10.7",
         "@vitejs/plugin-vue": "^5.2.1",
         "pinia": "^2.3.0",
         "sass-embedded": "^1.83.4",

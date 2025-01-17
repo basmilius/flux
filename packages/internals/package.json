@@ -1,6 +1,6 @@
 {
     "name": "@basmilius/flux-internals",
-    "version": "1.6.3",
+    "version": "1.7.0",
     "type": "module",
     "license": "MIT",
     "funding": "https://github.com/sponsors/basmilius",
@@ -28,7 +28,7 @@
         "prepublishOnly": "cp ../../README.md ."
     },
     "engines": {
-        "node": ">=22"
+        "node": ">=23"
     },
     "files": [
         "dist",

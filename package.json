@@ -8,7 +8,7 @@
         "link:dashboard": "pnpm link --dir packages/dashboard --global"
     },
     "engines": {
-        "node": ">=22"
+        "node": ">=23"
     },
-    "packageManager": "pnpm@9.15.0"
+    "packageManager": "pnpm@9.15.4"
 }
