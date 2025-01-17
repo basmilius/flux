@@ -18,6 +18,7 @@ export default defineConfig(({command}) => ({
         lib: {
             entry: resolve(import.meta.dirname, 'src/index.ts'),
             fileName: 'flux-dashboard',
+            formats: ['es'],
             name: 'fluxDashboard'
         },
         rollupOptions: {

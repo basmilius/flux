@@ -13,11 +13,12 @@ export default defineConfig(({command}) => ({
     build: {
         assetsDir: '',
         emptyOutDir: command === 'build',
-        outDir: resolve(import.meta.dirname, './dist'),
+        outDir: resolve(import.meta.dirname, 'dist'),
         sourcemap: true,
         lib: {
-            entry: resolve(import.meta.dirname, './src/index.ts'),
+            entry: resolve(import.meta.dirname, 'src/index.ts'),
             fileName: 'flux',
+            formats: ['es'],
             name: 'flux'
         },
         rollupOptions: {
