@@ -65,10 +65,10 @@
         "@types/luxon": "^3.4.2",
         "@types/node": "^22.10.7",
         "@vitejs/plugin-vue": "^5.2.1",
-        "pinia": "^2.3.0",
+        "pinia": "^2.3.1",
         "sass-embedded": "^1.83.4",
         "typescript": "^5.7.3",
-        "vite": "^6.0.7",
+        "vite": "^6.0.10",
         "vue-tsc": "^2.2.0"
     }
 }
