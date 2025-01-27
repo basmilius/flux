@@ -5,7 +5,7 @@ import 'vitepress/dist/client/theme-default/styles/utils.css';
 import 'vitepress/dist/client/theme-default/styles/components/custom-block.css';
 import 'vitepress/dist/client/theme-default/styles/components/vp-code.css';
 import 'vitepress/dist/client/theme-default/styles/components/vp-code-group.css';
-import 'vitepress/dist/client/theme-default/styles/components/vp-doc.css';
+import './override/vp-doc.css';
 import 'vitepress/dist/client/theme-default/styles/components/vp-sponsor.css';
 
 import 'virtual:group-icons.css';
@@ -32,21 +32,6 @@ import Slots from './Slots.vue';
 import Variants from './Variants.vue';
 
 import VPBadge from 'vitepress/dist/client/theme-default/components/VPBadge.vue';
-// import VPImage from 'vitepress/dist/client/theme-default/components/VPImage.vue';
-// import VPButton from 'vitepress/dist/client/theme-default/components/VPButton.vue';
-// import VPHomeContent from 'vitepress/dist/client/theme-default/components/VPHomeContent.vue';
-// import VPHomeHero from 'vitepress/dist/client/theme-default/components/VPHomeHero.vue';
-// import VPHomeFeatures from 'vitepress/dist/client/theme-default/components/VPHomeFeatures.vue';
-// import VPHomeSponsors from 'vitepress/dist/client/theme-default/components/VPHomeSponsors.vue';
-// import VPLink from 'vitepress/dist/client/theme-default/components/VPLink.vue';
-// import VPDocAsideSponsors from 'vitepress/dist/client/theme-default/components/VPDocAsideSponsors.vue';
-// import VPSocialLink from 'vitepress/dist/client/theme-default/components/VPSocialLink.vue';
-// import VPSocialLinks from 'vitepress/dist/client/theme-default/components/VPSocialLinks.vue';
-// import VPSponsors from 'vitepress/dist/client/theme-default/components/VPSponsors.vue';
-// import VPTeamPage from 'vitepress/dist/client/theme-default/components/VPTeamPage.vue';
-// import VPTeamPageTitle from 'vitepress/dist/client/theme-default/components/VPTeamPageTitle.vue';
-// import VPTeamPageSection from 'vitepress/dist/client/theme-default/components/VPTeamPageSection.vue';
-// import VPTeamMembers from 'vitepress/dist/client/theme-default/components/VPTeamMembers.vue';
 
 const theme: Theme = {
     Layout,

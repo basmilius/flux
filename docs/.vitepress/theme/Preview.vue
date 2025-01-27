@@ -35,11 +35,7 @@
         getComputedStyle(preview);
 
         const {height} = preview.getBoundingClientRect();
-        let rows = Math.ceil(height / 42) + 2;
-
-        if (rows % 2 === 1) {
-            rows++;
-        }
+        let rows = Math.ceil(height / 42) + 1;
 
         minHeight.value = Math.max(6, rows) * 42;
 

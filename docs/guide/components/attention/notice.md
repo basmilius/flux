@@ -67,9 +67,6 @@ requiredIcons:
     lang="ts"
     setup>
     import { FluxNotice } from '@basmilius/flux';
-    import BasicExample from '../../../code/guide/components/attention/notice/basic.vue';
-    import LoadingExample from '../../../code/guide/components/attention/notice/loading.vue';
-    import SmallExample from '../../../code/guide/components/attention/notice/small.vue';
 </script>
 
 # Notice
@@ -92,43 +89,26 @@ For temporary notifications that auto-dismiss or need less prominence, consider 
 
 ## Examples
 
-### Basic
+::: example Basic || Notices can display the result of an action that the user performed. The variant of the notice depends on whether the result of that action is positive or negative.
+example=../../../code/guide/components/attention/notice/basic.vue
+:::
 
-Notices can display the result of an action that the user performed. The variant of the notice depends on whether the result of that action is positive or negative.
+::: example Small || A smaller notice can be used within a pane or, for example, within sidebars.
+example=../../../code/guide/components/attention/notice/small.vue
+:::
 
-<Preview>
-    <BasicExample/>
-</Preview>
-
-<<< @/code/guide/components/attention/notice/basic.vue
-
-### Small
-
-A smaller notice can be used within a pane or, for example, within sidebars.
-
-<Preview>
-    <SmallExample/>
-</Preview>
-
-<<< @/code/guide/components/attention/notice/small.vue
-
-### Loading
-
-Notices may also indicate that something is loading.
-
-<Preview>
-    <LoadingExample/>
-</Preview>
-
-<<< @/code/guide/components/attention/notice/loading.vue
+::: example Loading || Notices may also indicate that something is loading.
+example=../../../code/guide/components/attention/notice/loading.vue
+:::
 
 ## Serverty examples
 
-Variants such as `success`, `error`, `warning`, and `info` help convey the severity of the message. For example:
+Variants such as `success`, `error`, `warning`, `info`, and `gray` help convey the severity of the message. For example:
 - `danger` — Failed to save data. Please try again.
 - `info` — New updates are available.
 - `success` — Data saved successfully.
 - `warning` — You have unsaved changes.
+- `gray` — We've updated the invoice filter, see what's new.
 
 ## Used components
 

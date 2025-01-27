@@ -43,49 +43,13 @@ props:
         optional: true
 ---
 
-<script
-    lang="ts"
-    setup>
-    import { FluxAvatar, FluxStack } from '@basmilius/flux';
-    import IconExample from '../../code/guide/components/avatar/icon.vue';
-    import ImageWithStatusExample from '../../code/guide/components/avatar/image-with-status.vue';
-    import InitialsExample from '../../code/guide/components/avatar/initials.vue';
-</script>
-
 # Avatar
 
 The Avatar component is a versatile UI element designed to display an image, initials, or an icon. It accepts various props to dynamically render the appropriate content based on the provided input. This component is perfect for representing users or any entities that require a visual identifier.
 
-<Preview>
-    <FluxStack
-        axis="horizontal"
-        :gap="18"
-        is-centered
-        is-wrapping>
-        <FluxAvatar
-            alt="Bas"
-            :size="42"
-            status="success"
-            url="https://avatars.githubusercontent.com/u/978257?v=4"/>
-        <FluxAvatar
-            alt="Bas"
-            fallback-initials="BM"
-            :size="42"
-            status="danger"/>
-        <FluxAvatar
-            alt="Bas"
-            fallback="neutral"
-            fallback-initials="BM"
-            :size="42"/>
-        <FluxAvatar
-            alt="Bas"
-            :size="42"/>
-        <FluxAvatar
-            alt="Bas"
-            fallback="neutral"
-            :size="42"/>
-    </FluxStack>
-</Preview>
+::: render
+render=../../code/guide/components/avatar/preview.vue
+:::
 
 ::: tip
 To display a person's name and title along with their avatar, consider using the [Persona](./persona) component.
@@ -95,45 +59,17 @@ To display a person's name and title along with their avatar, consider using the
 
 ## Examples
 
-### Image with status
+::: example Image with status || Avatars can include statuses to indicate conditions such as online status.
+example=../../code/guide/components/avatar/image-with-status.vue
+:::
 
-Avatars can include statuses to indicate conditions such as online status.
+::: example Initials || In the absence of an image, avatars can default to using initials.
+example=../../code/guide/components/avatar/initials.vue
+:::
 
-<Preview>
-    <ImageWithStatusExample/>
-</Preview>
-
-<<< @/code/guide/components/avatar/image-with-status.vue
-
-### Initials
-
-In the absence of an image, avatars can default to using initials.
-
-<Preview>
-    <InitialsExample/>
-</Preview>
-
-<<< @/code/guide/components/avatar/initials.vue
-
-### Icon
-
-When no image is available, you can use an icon as a fallback instead of initials.
-
-<Preview>
-    <IconExample/>
-</Preview>
-
-<<< @/code/guide/components/avatar/icon.vue
-
-## Snippet
-
-```vue
-<FluxAvatar
-    alt="Bas"
-    :size="42"
-    status="success"
-    url="https://avatars.githubusercontent.com/u/978257?v=4"/>
-```
+::: example Icon || When no image is available, you can use an icon as a fallback instead of initials.
+example=../../code/guide/components/avatar/icon.vue
+:::
 
 ## Used components
 

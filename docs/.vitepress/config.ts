@@ -2,19 +2,24 @@ import { createHash } from 'node:crypto';
 import { defineConfig } from 'vitepress';
 import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons';
 import className from 'css-class-generator';
+import examplePlugin from 'vitepress-plugin-example';
+import renderPlugin from 'vitepress-plugin-render';
 
 export default defineConfig({
     title: 'Flux',
     titleTemplate: ':title — Flux',
     description: 'Component library for Vue 3.',
+    ignoreDeadLinks: true,
     markdown: {
         config(md) {
+            md.use(examplePlugin);
+            md.use(renderPlugin);
             md.use(groupIconMdPlugin);
         }
     },
     vite: {
         plugins: [
-            groupIconVitePlugin()
+            groupIconVitePlugin() as any
         ],
         css: {
             preprocessorOptions: {
@@ -56,7 +61,8 @@ export default defineConfig({
                 activeMatch: '/guide/',
                 items: [
                     {text: 'Introduction', link: '/guide/introduction/what-is-flux'},
-                    {text: 'Components', link: '/guide/components/'}
+                    {text: 'Components', link: '/guide/components/'},
+                    {text: 'Transitions', link: '/guide/transitions/breakthrough'}
                 ]
             },
             {
@@ -124,6 +130,7 @@ export default defineConfig({
                         {text: 'Button', link: '/guide/components/button'},
                         {text: 'Button group', link: '/guide/components/button-group'},
                         {text: 'Calendar', link: '/guide/components/calendar'},
+                        {text: 'Calendar event', link: '/guide/components/calendar-event'},
                         {text: 'Chip', link: '/guide/components/chip'},
                         {text: 'Color picker', link: '/guide/components/color-picker'},
                         {text: 'Color select', link: '/guide/components/color-select'},
@@ -196,7 +203,20 @@ export default defineConfig({
                         },
                         {text: 'Overlay', link: '/guide/components/overlay'},
                         {text: 'Pagination', link: '/guide/components/pagination'},
-                        {text: 'Pane', link: '/guide/components/pane'},
+                        {
+                            text: 'Pane',
+                            collapsed: true,
+                            items: [
+                                {text: 'Base', link: '/guide/components/pane/base'},
+                                {text: 'Body', link: '/guide/components/pane/body'},
+                                {text: 'Deck', link: '/guide/components/pane/deck'},
+                                {text: 'Footer', link: '/guide/components/pane/footer'},
+                                {text: 'Group', link: '/guide/components/pane/group'},
+                                {text: 'Header', link: '/guide/components/pane/header'},
+                                {text: 'Illustration', link: '/guide/components/pane/illustration'},
+                                {text: 'Media', link: '/guide/components/pane/media'}
+                            ]
+                        },
                         {text: 'Percentage bar', link: '/guide/components/percentage-bar'},
                         {text: 'Persona', link: '/guide/components/persona'},
                         {text: 'Placeholder', link: '/guide/components/placeholder'},
@@ -211,7 +231,17 @@ export default defineConfig({
                         {text: 'Statistic', link: '/guide/components/statistic'},
                         {text: 'Stepper', link: '/guide/components/stepper'},
                         {text: 'Tabs', link: '/guide/components/tabs'},
-                        {text: 'Table', link: '/guide/components/table'},
+                        {
+                            text: 'Table',
+                            collapsed: true,
+                            items: [
+                                {text: 'Base', link: '/guide/components/table/base'},
+                                {text: 'Actions', link: '/guide/components/table/actions'},
+                                {text: 'Cell', link: '/guide/components/table/cell'},
+                                {text: 'Header', link: '/guide/components/table/header'},
+                                {text: 'Row', link: '/guide/components/table/row'},
+                            ],
+                        },
                         {text: 'Tag', link: '/guide/components/tag'},
                         {text: 'Ticks', link: '/guide/components/ticks'},
                         {text: 'Timeline', link: '/guide/components/timeline'},

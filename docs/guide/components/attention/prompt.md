@@ -38,10 +38,26 @@ This feature requires a parent [Root](../root) component to function correctly, 
 
 ## Functional API
 
-```ts
-function showPrompt(spec: FluxPromptObject): Promise<void> {}
+Prompts can only be shown from code. An [Overlay](../overlay) should be used if you want
+to show a prompt from within your template.
 
-interface FluxPromptObject {
+::: code-group
+
+```ts [Example]
+const result = await showPrompt({
+    icon: 'circle-exclamation',
+    title: 'Title',
+    message: 'What is your name?',
+    fieldLabel: "Name"
+});
+```
+
+```ts [Signature]
+function showPrompt(spec: FluxPromptObject): Promise<void> {}
+```
+
+```ts [Options]
+type FluxPromptObject = {
     readonly id: number;
     readonly icon?: IconName;
     readonly message: string;
@@ -52,16 +68,19 @@ interface FluxPromptObject {
 
     onCancel(): void;
     onConfirm(text: string): void;
-}
+};
 ```
 
-## Example
+:::
 
-```typescript
-showPrompt({
-    icon: 'circle-exclamation',
-    title: 'Title',
-    message: 'What is your name?',
-    fieldLabel: "Name"
-});
-```
+## Used components
+
+- [Button](../button)
+- [Form field](../form/field)
+- [Form input](../form/input)
+- [Overlay](../overlay)
+- [Pane](../pane/base)
+- [Pane footer](../pane/footer)
+- [Pane header](../pane/header)
+- [Pane body](../pane/body)
+- [Spacer](../spacer)

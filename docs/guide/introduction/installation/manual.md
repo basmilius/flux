@@ -35,7 +35,7 @@ To start using Flux in your Vue application, you'll need to add it to your proje
 5. Import the components you want to use, like this:
    ```vue [App.vue]
    <template>
-       <FluxPane> // [!code focus:5]
+       <FluxPane> <!-- [!code focus:5] -->
            <FluxSecondaryButton
                href="https://flux.bas.dev"
                label="Button"/>

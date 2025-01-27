@@ -109,11 +109,6 @@ variants:
     lang="ts"
     setup>
     import { FluxPrimaryButton } from '@basmilius/flux';
-    import DestructiveExample from '../../code/guide/components/button/destructive.vue';
-    import PrimaryExample from '../../code/guide/components/button/primary.vue';
-    import PublishExample from '../../code/guide/components/button/publish.vue';
-    import SecondaryExample from '../../code/guide/components/button/secondary.vue';
-    import SizesExample from '../../code/guide/components/button/sizes.vue';
 </script>
 
 # Button
@@ -130,67 +125,29 @@ Buttons are clickable elements designed to trigger actions. They can start new p
 
 ## Examples
 
-### Primary
-
-Primary buttons can be used for tasks such as saving.
-
-<Preview>
-    <PrimaryExample/>
-</Preview>
+::: example Primary || Primary buttons can be used for tasks such as saving.
+example=../../code/guide/components/button/primary.vue
+:::
 
 ::: warning
 Overusing primary buttons can distract users, so use them sparingly in your interface.
 :::
 
-<<< @/code/guide/components/button/primary.vue
+::: example Secondary || Secondary buttons can be used in situations that are not covered by other buttons.
+example=../../code/guide/components/button/secondary.vue
+:::
 
-### Secondary
+::: example Destructive || Destructive buttons can be used for destructive actions such as deleting something.
+example=../../code/guide/components/button/destructive.vue
+:::
 
-Secondary buttons can be used in situations that are not covered by other buttons.
+::: example Publish || Publish buttons can be used in situations where the user can publish something.
+example=../../code/guide/components/button/publish.vue
+:::
 
-<Preview>
-    <SecondaryExample/>
-</Preview>
-
-<<< @/code/guide/components/button/secondary.vue
-
-### Destructive
-
-Destructive buttons can be used for destructive actions such as deleting something.
-
-<Preview>
-    <DestructiveExample/>
-</Preview>
-
-<<< @/code/guide/components/button/destructive.vue
-
-### Publish
-
-Publish buttons can be used in situations where the user can publish something.
-
-<Preview>
-    <PublishExample/>
-</Preview>
-
-<<< @/code/guide/components/button/publish.vue
-
-### Sizes
-
-Buttons can have three different sizes.
-
-<Preview>
-    <SizesExample/>
-</Preview>
-
-<<< @/code/guide/components/button/sizes.vue
-
-## Snippet
-
-```vue
-<FluxPrimaryButton
-    icon-before="circle-check"
-    label="Save"/>
-```
+::: example Sizes || Buttons can have three different sizes.
+example=../../code/guide/components/button/sizes.vue
+:::
 
 ## Used components
 

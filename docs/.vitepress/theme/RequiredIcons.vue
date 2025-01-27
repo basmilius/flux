@@ -32,6 +32,7 @@
     .requiredIcons {
         display: grid;
         width: 100%;
+        align-items: stretch;
         gap: 15px;
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
@@ -39,9 +40,8 @@
     .requiredIcon {
         display: flex;
         padding: 15px;
-        aspect-ratio: 5 / 3;
         flex-flow: column;
-        gap: 9px;
+        gap: 15px;
         justify-content: space-between;
         background: var(--vp-c-bg-soft);
         border-radius: 8px;

@@ -89,8 +89,6 @@ requiredIcons:
     lang="ts"
     setup>
     import { FluxPrimaryButton, FluxSnackbar, showSnackbar } from '@basmilius/flux';
-    import ActionsExample from '../../../code/guide/components/attention/snackbar/actions.vue';
-    import GlobalExample from '../../../code/guide/components/attention/snackbar/global.vue';
 
     function functionalExample(): void {
         showSnackbar({
@@ -124,25 +122,27 @@ For notifications that need prominence, consider using the [Notice](./notice) co
 
 Snackbars can be part of your template and controlled with `v-if`, but they also have an api that you can use within scripts.
 
-```ts
-function showSnackbar(options: FluxSnackbarObject): Promise<void> {}
-```
+<FluxPrimaryButton
+    label="Show Snackbar"
+    @click="functionalExample()"/>
 
-<Preview>
-    <FluxPrimaryButton
-        label="Show Snackbar"
-        @click="functionalExample()"/>
-</Preview>
+::: code-group
 
-```ts
+```ts [Example]
 showSnackbar({
     color: 'success',
     duration: 3000,
     icon: 'circle-check',
     message: 'Changes saved successfully.'
 });
+```
 
-interface FluxSnackbarObject {
+```ts [Signature]
+function showSnackbar(options: FluxSnackbarObject): Promise<void> {}
+```
+
+```ts [Options]
+export type FluxSnackbarObject = {
     readonly id: number;
     readonly actions?: Record<string, string>;
     readonly color?: ColorVariant;
@@ -162,30 +162,20 @@ interface FluxSnackbarObject {
 
     onAction?(actionKey: string): void;
     onClose?(): void;
-}
+};
 ```
+
+:::
 
 ## Examples
 
-### Global
+::: example Global || Snackbars render globally by-default.
+example=../../../code/guide/components/attention/snackbar/global.vue
+:::
 
-Snackbars render globally by-default.
-
-<Preview>
-    <GlobalExample/>
-</Preview>
-
-<<< @/code/guide/components/attention/snackbar/global.vue
-
-### Actions
-
-Actions can be added to the snackbar to request for input.
-
-<Preview>
-    <ActionsExample/>
-</Preview>
-
-<<< @/code/guide/components/attention/snackbar/actions.vue
+::: example Actions || Actions can be added to the snackbar to request for input.
+example=../../../code/guide/components/attention/snackbar/actions.vue
+:::
 
 ## Used components
 

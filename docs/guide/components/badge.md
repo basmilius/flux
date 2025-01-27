@@ -49,36 +49,13 @@ requiredIcons:
     - xmark
 ---
 
-<script
-    lang="ts"
-    setup>
-    import { FluxBadge, FluxBadgeStack } from '@basmilius/flux';
-    import BasicExample from '../../code/guide/components/badge/basic.vue';
-    import DotExample from '../../code/guide/components/badge/dot.vue';
-    import IconExample from '../../code/guide/components/badge/icon.vue';
-    import LoadingExample from '../../code/guide/components/badge/loading.vue';
-</script>
-
 # Badge
 
 The Badge component serves as a label for specific elements in the UI. It can be used, for example, to display the status of an order or highlight important information.
 
-<Preview>
-    <FluxBadgeStack>
-        <FluxBadge label="Help wanted"/>
-        <FluxBadge
-            color="danger"
-            dot
-            label="Attention"/>
-        <FluxBadge
-            color="success"
-            icon="circle-check"
-            label="Completed"/>
-        <FluxBadge
-            is-loading
-            label="Running"/>
-    </FluxBadgeStack>
-</Preview>
+::: render
+render=../../code/guide/components/badge/preview.vue
+:::
 
 ::: tip
 Flux also has [Tags](./tag), which look similar to badges.
@@ -88,54 +65,21 @@ Flux also has [Tags](./tag), which look similar to badges.
 
 ## Examples
 
-### Basic
+::: example Basic || A simple badge can deliver additional insights about an entity.
+example=../../code/guide/components/badge/basic.vue
+:::
 
-A simple badge can deliver additional insights about an entity.
+::: example Dot || A dot badge is useful for indicating statuses, for instance, the status of a server.
+example=../../code/guide/components/badge/dot.vue
+:::
 
-<Preview>
-    <BasicExample/>
-</Preview>
+::: example Icon || Including icons in badges can improve their clarity, for instance, indicating an app's release status.
+example=../../code/guide/components/badge/icon.vue
+:::
 
-<<< @/code/guide/components/badge/basic.vue
-
-### Dot
-
-A dot badge is useful for indicating statuses, for instance, the status of a server.
-
-<Preview>
-    <DotExample/>
-</Preview>
-
-<<< @/code/guide/components/badge/dot.vue
-
-### Icon
-
-Including icons in badges can improve their clarity, for instance, indicating an app's release status.
-
-<Preview>
-    <IconExample/>
-</Preview>
-
-<<< @/code/guide/components/badge/icon.vue
-
-### Loading
-
-A loading state badge can signify that a table row is processing, for instance, retrieving data.
-
-<Preview>
-    <LoadingExample/>
-</Preview>
-
-<<< @/code/guide/components/badge/loading.vue
-
-## Snippet
-
-```vue
-<FluxBadge
-    color="success"
-    icon="circle-check"
-    label="Completed"/>
-```
+::: example Loading || A loading state badge can signify that a table row is processing, for instance, retrieving data.
+example=../../code/guide/components/badge/loading.vue
+:::
 
 ## Used components
 

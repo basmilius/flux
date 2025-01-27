@@ -77,41 +77,19 @@ props:
         optional: true
 ---
 
-<script
-    lang="ts"
-    setup>
-    import { FluxAction, FluxActions, FluxPane, FluxPaneBody } from '@basmilius/flux';
-</script>
-
 # Action
 
 Actions can be used to add functionality to components like data tables. They can navigate to another view or perform an in-page action, such as displaying a share overlay.
 
-<Preview>
-    <FluxPane>
-        <FluxPaneBody>
-            <FluxActions>
-                <FluxAction
-                    icon="circle-xmark"
-                    is-destructive/>
-                <FluxAction icon="circle-sort"/>
-                <FluxAction icon="circle-minus"/>
-            </FluxActions>
-        </FluxPaneBody>
-    </FluxPane>
-</Preview>
+::: render
+render=../../code/guide/components/action/preview.vue
+:::
 
 <FrontmatterDocs/>
 
 ## Examples
 
 Todo
-
-## Snippet
-
-```vue-html
-<FluxAction icon="trash"/>
-```
 
 ## Used components
 

@@ -2,14 +2,14 @@
 outline: deep
 
 slots:
-    - name: default
-      description: The buttons within the group.
+    -   name: default
+        description: The buttons within the group.
 ---
 
 <script
     lang="ts"
     setup>
-    import { FluxButtonGroup, FluxSecondaryButton } from '@basmilius/flux';
+
 </script>
 
 # Button group
@@ -29,6 +29,7 @@ This component groups multiple buttons together. It modifies the border radius o
 ## Snippet
 
 ```vue
+
 <FluxButtonGroup>
     <FluxSecondaryButton label="Left"/>
     <FluxSecondaryButton label="Center"/>
