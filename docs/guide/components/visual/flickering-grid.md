@@ -33,18 +33,18 @@ props:
         optional: true
 ---
 
-<script
-    lang="ts"
-    setup>
-    import { FluxFlickeringGrid } from '@basmilius/flux';
-</script>
-
 # Flickering grid
 
 Displays a dynamic grid of flickering squares, creating an eye-catching effect. Customize the grid's color, size, opacity, and spacing for added visual interest.
 
-<div style="height: 258px; contain: paint;">
-    <FluxFlickeringGrid/>
-</div>
+::: render
+render=../../../code/guide/components/visual/flickering-grid/preview.vue
+:::
 
 <FrontmatterDocs/>
+
+## Examples
+
+::: example Free || When used freely, the flickering grid fills the parent container.
+example=../../../code/guide/components/visual/flickering-grid/free.vue
+:::

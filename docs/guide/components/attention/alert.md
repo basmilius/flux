@@ -5,20 +5,6 @@ requiredIcons:
 - circle-check
 ---
 
-<script
-    lang="ts"
-    setup>
-    import { FluxPrimaryButton, showAlert } from '@basmilius/flux';
-    
-    function show(): void {
-        showAlert({
-            icon: 'circle-exclamation',
-            title: 'Title',
-            message: 'Hello world'
-        });
-    }
-</script>
-
 # Alert
 
 This function displays an alert with the specified properties and waits for the alert to be closed before resolving the promise.
@@ -42,9 +28,9 @@ This feature requires a parent [Root](../root) component to function correctly, 
 Alerts can only be shown from code. An [Overlay](../overlay) should be used if you want
 to show an alert from within your template.
 
-<FluxPrimaryButton
-    label="Show alert"
-    @click="show()"/>
+::: render
+render=../../../code/guide/components/attention/alert/functional.vue
+:::
 
 ::: code-group
 

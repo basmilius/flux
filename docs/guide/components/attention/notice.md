@@ -55,7 +55,7 @@ props:
 slots:
     -   name: default
         description: Extra content that should be rendered inside the notice.
-        
+
     -   name: end
         description: Content that should render at the horizontal end of the notice.
 
@@ -63,23 +63,13 @@ requiredIcons:
     - xmark
 ---
 
-<script
-    lang="ts"
-    setup>
-    import { FluxNotice } from '@basmilius/flux';
-</script>
-
 # Notice
 
 A UI element designed to inform or alert users about important statuses, events, or actions. It can include an icon, a message, and an optional title, ensuring that critical information is effectively communicated and stands out within the user interface.
 
-<Preview>
-    <FluxNotice
-        icon="circle-exclamation"
-        is-small
-        message="Please note that this is a warning message."
-        variant="warning"/>
-</Preview>
+::: render
+render=../../../code/guide/components/attention/notice/preview.vue
+:::
 
 ::: tip
 For temporary notifications that auto-dismiss or need less prominence, consider using the [Snackbar](./snackbar) component. Snackbars are ideal for brief messages.
@@ -104,6 +94,7 @@ example=../../../code/guide/components/attention/notice/loading.vue
 ## Serverty examples
 
 Variants such as `success`, `error`, `warning`, `info`, and `gray` help convey the severity of the message. For example:
+
 - `danger` — Failed to save data. Please try again.
 - `info` — New updates are available.
 - `success` — Data saved successfully.

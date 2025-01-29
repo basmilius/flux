@@ -2,26 +2,8 @@
 outline: deep
 
 requiredIcons:
-- circle-check
+    - circle-check
 ---
-
-<script
-    lang="ts"
-    setup>
-    import { FluxPrimaryButton, showConfirm } from '@basmilius/flux';
-    import { ref } from 'vue';
-
-    const result = ref<boolean | null>(null);
-    
-    async function show(): Promise<void> {
-        result.value = null;
-        result.value = await showConfirm({
-            icon: 'circle-exclamation',
-            title: 'Title',
-            message: 'Are you sure?'
-        });
-    }
-</script>
 
 # Confirm
 
@@ -42,13 +24,9 @@ This feature requires a parent [Root](../root) component to function correctly, 
 Confirms can only be shown from code. An [Overlay](../overlay) should be used if you want
 to show a confirm from within your template.
 
-<FluxPrimaryButton
-    label="Show confirm"
-    @click="show()"/>
-
-<span v-if="result === true">✅ Accepted</span>
-<span v-if="result === false">❌ Declined</span>
-<span v-if="result === null">⌛️ Waiting for confirmation...</span>
+::: render
+render=../../../code/guide/components/attention/confirm/functional.vue
+:::
 
 ::: code-group
 
@@ -60,8 +38,8 @@ const result = await showConfirm({
 });
 ```
 
-```ts [Signature]
-function showConfirm(spec: FluxConfirmObject): Promise<void> {}
+```ts [Declaration]
+declare function showConfirm(spec: FluxConfirmObject): Promise<void>;
 ```
 
 ```ts [Options]

@@ -33,21 +33,18 @@ props:
         optional: true
 ---
 
-<script
-    lang="ts"
-    setup>
-    import { FluxDotPattern } from '@basmilius/flux';
-</script>
-
 # Dot pattern
 
 A customizable SVG-based dot pattern component that can seamlessly fill any container. Adjust properties like dot size and positioning, ideal for backgrounds and overlays.
 
-<div style="height: 258px; contain: paint;">
-    <FluxDotPattern
-        :width="15"
-        :height="15"
-        style="fill: rgb(var(--primary-7))"/>
-</div>
+::: render
+render=../../../code/guide/components/visual/dot-pattern/preview.vue
+:::
 
 <FrontmatterDocs/>
+
+## Examples
+
+::: example Free || When used freely, the dot pattern fills the parent container.
+example=../../../code/guide/components/visual/dot-pattern/free.vue
+:::

@@ -85,32 +85,13 @@ requiredIcons:
     - xmark
 ---
 
-<script
-    lang="ts"
-    setup>
-    import { FluxPrimaryButton, FluxSnackbar, showSnackbar } from '@basmilius/flux';
-
-    function functionalExample(): void {
-        showSnackbar({
-            color: 'success',
-            icon: 'circle-check',
-            message: 'Changes saved successfully.'
-        });
-    }
-</script>
-
 # Snackbar
 
 Snackbars are used to notify the user about tasks that have been or will be performed by the system. They can also include actions that the user can select.
 
-<Preview>
-    <FluxSnackbar
-        :actions="{update: 'Update', later: 'Later'}"
-        icon="circle-arrow-up"
-        message="A new version of macOS is available."
-        title="Update available"
-        is-rendered/>
-</Preview>
+::: render
+render=../../../code/guide/components/attention/snackbar/preview.vue
+:::
 
 ::: tip
 For notifications that need prominence, consider using the [Notice](./notice) component.
@@ -122,9 +103,9 @@ For notifications that need prominence, consider using the [Notice](./notice) co
 
 Snackbars can be part of your template and controlled with `v-if`, but they also have an api that you can use within scripts.
 
-<FluxPrimaryButton
-    label="Show Snackbar"
-    @click="functionalExample()"/>
+::: render
+render=../../../code/guide/components/attention/snackbar/functional.vue
+:::
 
 ::: code-group
 
@@ -137,8 +118,8 @@ showSnackbar({
 });
 ```
 
-```ts [Signature]
-function showSnackbar(options: FluxSnackbarObject): Promise<void> {}
+```ts [Declaration]
+declare function showSnackbar(options: FluxSnackbarObject): Promise<void>;
 ```
 
 ```ts [Options]

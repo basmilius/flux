@@ -1,0 +1,14 @@
+<template>
+    <FluxAspectRatio :aspect-ratio="16 / 9">
+        <FluxDotPattern
+            :width="15"
+            :height="15"
+            style="fill: rgb(var(--gray-11))"/>
+    </FluxAspectRatio>
+</template>
+
+<script
+    lang="ts"
+    setup>
+    import { FluxAspectRatio, FluxDotPattern } from '@basmilius/flux';
+</script>

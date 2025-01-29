@@ -24,36 +24,22 @@ props:
         optional: true
 ---
 
-<script
-    lang="ts"
-    setup>
-    import { FluxAnimatedColors } from '@basmilius/flux';
-</script>
-
 # Animated colors
 
-The animated colors component presents an array of colors with a blurred animation effect, often used in the [Pane Illustration](../pane#illustration) component.
+The animated colors component presents an array of colors with a blurred animation effect, often used in the [Pane Illustration](../pane/illustration) component.
 
-<Preview>
-    <FluxAnimatedColors
-        :colors="['#6071b5', '#f07db7', '#0284c7']"
-        :incrementor=".5"
-        :opacity="1"
-        :seed="130496"/>
-</Preview>
+::: render
+render=../../../code/guide/components/visual/animated-colors/preview.vue
+:::
 
 <FrontmatterDocs/>
 
 ## Examples
 
-Todo
+::: example Free || When used freely, the animated colors fill the parent container.
+example=../../../code/guide/components/visual/animated-colors/free.vue
+:::
 
-## Snippet
-
-```vue
-<FluxAnimatedColors
-    :colors="['#6071b5', '#f07db7', '#0284c7']"
-    :incrementor=".5"
-    :opacity="1"
-    :seed="130496"/>
-```
+::: example Pane || The animated colors visual can be used to make pane's more alive.
+example=../../../code/guide/components/visual/animated-colors/pane.vue
+:::

@@ -1,5 +1,5 @@
 <template>
-    <FluxPane>
+    <FluxPane style="max-width: 300px">
         <FluxMenu>
             <FluxMenuGroup>
                 <FluxMenuItem

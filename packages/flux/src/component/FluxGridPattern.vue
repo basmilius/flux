@@ -31,8 +31,8 @@
                 :key="`${x}-${y}`"
                 :width="width - 1"
                 :height="height - 1"
-                :x="x * width + 1"
-                :y="y * height + 1"
+                :x="x * width"
+                :y="y * height"
                 stroke-width="0"/>
         </svg>
     </svg>

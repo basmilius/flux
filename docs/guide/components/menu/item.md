@@ -45,7 +45,7 @@ props:
         description: The label that is shown in the menu item.
         type: string
         optional: true
-        
+
     -   name: command
         description: The label of the menu item command.
         type: string
@@ -122,31 +122,41 @@ props:
         optional: true
 ---
 
-<script
-    lang="ts"
-    setup>
-    import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxSeparator } from '@basmilius/flux';
-</script>
-
 # Menu item
 
 This component is designed to be a flexible menu item that fits into a navigation or action menu. It leverages the properties of buttons and can display icons, images, and commands to suit various needs.
 
 You can customize it with different states like active, selected, or highlighted, and it's capable of handling click events. Its versatility makes it easy to integrate into any menu structure, enhancing the user experience with well-defined actions and options.
 
-<Preview>
-    <FluxPane style="width: 300px">
-        <FluxMenu>
-            <FluxMenuItem
-                icon-after="angle-right"
-                icon-before="grid-2"
-                label="Dashboard"/>
-        </FluxMenu>
-    </FluxPane>
-</Preview>
+::: render
+render=../../../code/guide/components/menu/item/preview.vue
+:::
 
 <FrontmatterDocs/>
 
 ## Examples
 
-Todo
+::: example Basic || A simple menu item with an icon.
+example=../../../code/guide/components/menu/item/basic.vue
+:::
+
+::: example Selectable || Menu items can be selectable, mostly used within groups.
+example=../../../code/guide/components/menu/item/selectable.vue
+:::
+
+::: example Keybind || Each menu item can have a keybind (command).
+example=../../../code/guide/components/menu/item/keybind.vue
+:::
+
+::: example Navigate || A menu item can also just contain an icon at the end.
+example=../../../code/guide/components/menu/item/navigate.vue
+:::
+
+::: example Spinner || Loading states can also be applied to menu items to indicate that something is loading.
+example=../../../code/guide/components/menu/item/spinner.vue
+:::
+
+## Used components
+
+- [Icon](../icon)
+- [Spinner](../spinner)

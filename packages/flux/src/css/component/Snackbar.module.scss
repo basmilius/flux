@@ -7,7 +7,7 @@
     composes: basePane;
     composes: flexRow;
 
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-xl);
     overflow: hidden;
 
     .action {
