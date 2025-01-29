@@ -1,7 +1,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxSecondaryButton, FluxStack, showPrompt } from '@basmilius/flux';
+    import { FluxPrimaryButton, showPrompt } from '@basmilius/flux';
     import { ref } from 'vue';
 
     const result = ref<string | null>(null);
@@ -12,7 +12,7 @@
             icon: 'circle-exclamation',
             title: 'Title',
             message: 'What is your name?',
-            fieldLabel: "Name"
+            fieldLabel: 'Name'
         });
     }
 </script>
@@ -21,25 +21,28 @@
 
 This function displays a prompt with the specified properties and waits for the input to be entered before resolving the promise.
 
-<Preview>
-    <FluxStack axis="horizontal" is-centered>
-        <FluxSecondaryButton
-            icon-before="circle-exclamation"
-            label="Show prompt"
-            @click="show()"/>
-        <span v-if="result">{{ result }}</span>
-        <span v-else>🤔</span>
-    </FluxStack>
-</Preview>
+::: render
+render=../../../code/guide/components/attention/prompt/preview.vue
+:::
 
 ::: warning
 This feature requires a parent [Root](../root) component to function correctly, as it is responsible for rendering the prompt.
 :::
 
+<FrontmatterDocs/>
+
 ## Functional API
 
 Prompts can only be shown from code. An [Overlay](../overlay) should be used if you want
 to show a prompt from within your template.
+
+<FluxPrimaryButton
+    label="Show prompt"
+    @click="show()"/>
+
+<span v-if="result">{{ result }}</span>
+<span v-else-if="result === false">❌ Canceled</span>
+<span v-else>⌛️ Waiting for prompt...</span>
 
 ::: code-group
 
