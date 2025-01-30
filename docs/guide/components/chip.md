@@ -32,19 +32,13 @@ props:
         type: string
 ---
 
-<script
-    lang="ts"
-    setup>
-    import { FluxChip } from '@basmilius/flux';
-</script>
-
 # Chip
 
 This component displays brief information with optional interactivity. It supports icons before and after the label and can function as either a static element or a selectable button with a selected state.
 
-<Preview>
-    <FluxChip icon-before="gear" label="Settings"/>
-</Preview>
+::: render
+render=../../code/guide/components/chip/preview.vue
+:::
 
 <FrontmatterDocs/>
 

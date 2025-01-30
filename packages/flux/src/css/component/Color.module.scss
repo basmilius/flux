@@ -89,7 +89,9 @@
     gap: 9px;
 
     .formFieldLabel {
+        min-height: unset;
         font-size: 12px;
+        line-height: 15px;
     }
 
     .formInput {

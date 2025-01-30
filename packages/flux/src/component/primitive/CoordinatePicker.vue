@@ -136,8 +136,8 @@
         width -= 12;
         height -= 12;
 
-        const x = Math.max(0, Math.min(1, (evt.pageX - left) / width));
-        const y = Math.max(0, Math.min(1, (evt.pageY - top) / height));
+        const x = Math.max(0, Math.min(1, (evt.clientX - left) / width));
+        const y = Math.max(0, Math.min(1, (evt.clientY - top) / height));
 
         modelValue.value = [
             +roundStep(x * (maxX - minX) + minX, stepX).toPrecision(4),

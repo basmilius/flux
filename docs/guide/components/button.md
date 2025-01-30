@@ -83,20 +83,20 @@ props:
         optional: true
 
 slots:
-    - name: after
-      description: Content that is shown at the end of the button.
-      
-    - name: before
-      description: Content that is shown at the start of the button.
-      
-    - name: icon-after
-      description: Slot for overriding the icon at the end.
-      
-    - name: icon-before
-      description: Slot for overriding the icon at the start.
-      
-    - name: label
-      description: Slot for overriding the label.
+    -   name: after
+        description: Content that is shown at the end of the button.
+
+    -   name: before
+        description: Content that is shown at the start of the button.
+
+    -   name: icon-after
+        description: Slot for overriding the icon at the end.
+
+    -   name: icon-before
+        description: Slot for overriding the icon at the start.
+
+    -   name: label
+        description: Slot for overriding the label.
 
 variants:
     - FluxPrimaryButton
@@ -105,21 +105,13 @@ variants:
     - FluxPublishButton
 ---
 
-<script
-    lang="ts"
-    setup>
-    import { FluxPrimaryButton } from '@basmilius/flux';
-</script>
-
 # Button
 
 Buttons are clickable elements designed to trigger actions. They can start new processes, modify existing ones, or perform specific tasks. When designing your interface, ensure primary buttons are prominently placed and clearly indicate their purpose to make them easy to find and use.
 
-<Preview>
-    <FluxPrimaryButton
-        icon-before="circle-check"
-        label="Save"/>
-</Preview>
+::: render
+render=../../code/guide/components/button/preview.vue
+:::
 
 <FrontmatterDocs/>
 

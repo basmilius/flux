@@ -23,27 +23,14 @@ slots:
         description: The calendar events that should be visible.
 ---
 
-<script
-    lang="ts"
-    setup>
-    import { FluxCalendar, FluxCalendarEvent } from '@basmilius/flux';
-    import { DateTime } from 'luxon';
-
-    const events = [
-        {date: DateTime.now(), label: 'Today event'}
-    ];
-</script>
-
 # Calendar
 
 This component shows a month calendar. Events can be added to the calendar by filling the
 default slot of the component.
 
-<FluxCalendar>
-    <template v-for="event of events">
-        <FluxCalendarEvent :date="event.date" :label="event.label"/>
-    </template>
-</FluxCalendar>
+::: render
+render=../../code/guide/components/calendar/preview.vue
+:::
 
 <FrontmatterDocs/>
 

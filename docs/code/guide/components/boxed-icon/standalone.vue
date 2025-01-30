@@ -1,0 +1,23 @@
+<template>
+    <FluxStack
+        axis="horizontal"
+        :gap="15">
+        <FluxBoxedIcon
+            :size="90"
+            variant="circle-check"/>
+
+        <FluxBoxedIcon
+            :size="90"
+            variant="lock"/>
+
+        <FluxBoxedIcon
+            :size="90"
+            variant="rocket"/>
+    </FluxStack>
+</template>
+
+<script
+    lang="ts"
+    setup>
+    import { FluxBoxedIcon, FluxStack } from '@basmilius/flux';
+</script>

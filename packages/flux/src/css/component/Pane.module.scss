@@ -222,3 +222,7 @@
     position: relative;
     margin-top: -60px;
 }
+
+.paneBody:has(.iconBoxed:only-child):has(+ .paneHeader) {
+    padding-bottom: 0;
+}

@@ -260,6 +260,7 @@
 
     width: min-content;
     flex-grow: 0;
+    z-index: 0;
 
     .button {
         border-radius: 0;
@@ -273,6 +274,10 @@
             border-top-right-radius: var(--radius);
             border-bottom-right-radius: var(--radius);
         }
+    }
+
+    .primaryButton {
+        z-index: 1;
     }
 
     .button + .button {
