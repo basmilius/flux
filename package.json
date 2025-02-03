@@ -10,5 +10,8 @@
     "engines": {
         "node": ">=23"
     },
-    "packageManager": "pnpm@10.1.0"
+    "workspaces": [
+        "docs",
+        "packages/*"
+    ]
 }
