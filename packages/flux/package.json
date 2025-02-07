@@ -51,7 +51,7 @@
     "sideEffects": false,
     "dependencies": {
         "@basmilius/flux-internals": "workspace:*",
-        "@basmilius/utils": "^1.5.0",
+        "@basmilius/utils": "^1.7.0",
         "@fortawesome/fontawesome-common-types": "^6.7.2",
         "clsx": "^2.1.1",
         "imask": "^7.6.1",
