@@ -122,12 +122,13 @@
 .calendarEvent {
     margin-left: -9px;
     margin-right: -9px;
-    padding: 3px 9px;
+    padding: 6px 9px;
     background: rgb(var(--primary-2));
     border: 0;
     color: rgb(var(--primary-9));
     cursor: pointer;
     font-size: 14px;
+    line-height: 1.3em;
     text-align: left;
 
     /** note: This works in all browsers. */

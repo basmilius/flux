@@ -15,6 +15,6 @@
     import { DateTime } from 'luxon';
 
     const events = [
-        {date: DateTime.now(), label: 'Today event'}
+        {date: DateTime.now(), label: 'Work'}
     ];
 </script>

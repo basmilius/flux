@@ -36,26 +36,11 @@ render=../../code/guide/components/calendar/preview.vue
 
 ## Snippet
 
-```vue [Calendar.vue]
-<template>
-    <FluxCalendar>
-        <template v-for="event of events">
-            <FluxCalendarEvent :date="event.date" :label="event.label"/>
-        </template>
-    </FluxCalendar>
-</template>
+::: code-group
 
-<script
-    lang="ts"
-    setup>
-    import { FluxCalendar, FluxCalendarEvent } from '@basmilius/flux';
-    import { DateTime } from 'luxon';
+<<< @/code/guide/components/calendar/preview.vue [Calendar.vue]
 
-    const events = [
-        {date: DateTime.now(), label: 'Today event'}
-    ];
-</script>
-```
+:::
 
 ## Used components
 

@@ -1,7 +1,7 @@
-@import url('https://font.bmcdn.nl/css2?family=apple-sf-pro-text|jetbrains-mono');
+@import url('https://font.bmcdn.nl/css2?family=inter-variable|jetbrains-mono');
 
 :root {
-    --vp-font-family-base: apple-sf-pro-text;
+    --vp-font-family-base: inter-variable;
     --vp-font-family-mono: jetbrains-mono;
 
     --vp-c-brand-1: #528bff;

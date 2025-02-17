@@ -49,7 +49,7 @@
         }
     },
     "devDependencies": {
-        "@basmilius/utils": "^1.7.0",
+        "@basmilius/utils": "^1.8.0",
         "@types/luxon": "^3.4.2",
         "esbuild": "^0.25.0",
         "lodash-es": "^4.17.21",

@@ -14,7 +14,7 @@ export default defineConfig({
         config(md) {
             md.use(examplePlugin);
             md.use(renderPlugin);
-            md.use(groupIconMdPlugin);
+            // md.use(groupIconMdPlugin);
         }
     },
     vite: {
