@@ -71,7 +71,8 @@
     }>();
 
     const modelValue = defineModel<object | string | number | null>({
-        default: ''
+        default: '',
+        required: true
     });
 
     const {

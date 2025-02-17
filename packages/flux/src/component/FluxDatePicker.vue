@@ -138,7 +138,8 @@
     import $style from '@/css/component/DatePicker.module.scss';
 
     const modelValue = defineModel<DateTime | DateTime[] | null>({
-        default: null
+        default: null,
+        required: true
     });
 
     const {

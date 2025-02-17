@@ -24,7 +24,6 @@
     lang="ts"
     setup>
     import type { To } from '@basmilius/flux';
-    import { useSlots } from 'vue';
     import { useDashboardInjection } from '@/composable';
     import $style from '@/css/component/Dashboard.module.scss';
 
@@ -36,6 +35,10 @@
         logoLocation?: To
     }>();
 
+    const slots = defineSlots<{
+        default(): any;
+        logo?(): any;
+    }>();
+
     const {isNavigationCollapsed} = useDashboardInjection();
-    const slots = useSlots();
 </script>
