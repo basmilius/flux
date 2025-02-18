@@ -46,7 +46,8 @@ example=../../code/guide/components/color-picker/flyout.vue
 
 ## Used components
 
-- [Form field](./form/field)
-- [Form input](./form/input)
-- [Form slider](./form/slider)
-- [Pane](../pane/base)
+- [Form](./form)
+    - [Field](./form/field)
+    - [Input](./form/input)
+    - [Slider](./form/slider)
+- [Pane](../pane)

@@ -6,7 +6,7 @@ props:
         description: Indicates that the items should flow horizontally.
         type: boolean
         optional: true
-        
+
 slots:
     -   name: default
         description: The content of the options group.
@@ -31,3 +31,7 @@ example=../../../code/guide/components/menu/options/alignment.vue
 ::: example Option || Vertical option menus can be used to allow the user to switch between different view modes.
 example=../../../code/guide/components/menu/options/option.vue
 :::
+
+## Used components
+
+- [Menu group](./group)

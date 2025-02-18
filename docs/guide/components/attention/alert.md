@@ -2,7 +2,7 @@
 outline: deep
 
 requiredIcons:
-- circle-check
+    - circle-check
 ---
 
 # Alert
@@ -43,7 +43,8 @@ showAlert({
 ```
 
 ```ts [Signature]
-function showAlert(spec: FluxAlertObject): Promise<void> {}
+function showAlert(spec: FluxAlertObject): Promise<void> {
+}
 ```
 
 ```ts [Options]
@@ -63,8 +64,8 @@ type FluxAlertObject = {
 
 - [Button](../button)
 - [Overlay](../overlay)
-- [Pane](../pane/base)
-- [Pane footer](../pane/footer)
-- [Pane header](../pane/header)
-- [Pane body](../pane/body)
+- [Pane](../pane)
+    - [Body](../pane/body)
+    - [Footer](../pane/footer)
+    - [Header](../pane/header)
 - [Spacer](../spacer)

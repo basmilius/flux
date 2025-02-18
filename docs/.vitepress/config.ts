@@ -14,7 +14,7 @@ export default defineConfig({
         config(md) {
             md.use(examplePlugin);
             md.use(renderPlugin);
-            // md.use(groupIconMdPlugin);
+            md.use(groupIconMdPlugin);
         }
     },
     vite: {
@@ -108,15 +108,15 @@ export default defineConfig({
                     text: 'Components',
                     collapsed: false,
                     items: [
-                        {text: 'Overview', link: '/guide/components/index'},
+                        {text: 'Overview', link: '/guide/components/'},
                         {text: 'Action', link: '/guide/components/action'},
                         {text: 'Action bar', link: '/guide/components/action-bar'},
                         {text: 'Action pane', link: '/guide/components/action-pane'},
                         {
                             text: 'Attention',
+                            link: '/guide/components/attention/',
                             collapsed: true,
                             items: [
-
                                 {text: 'Alert', link: '/guide/components/attention/alert'},
                                 {text: 'Confirm', link: '/guide/components/attention/confirm'},
                                 {text: 'Notice', link: '/guide/components/attention/notice'},
@@ -146,6 +146,7 @@ export default defineConfig({
                         {text: 'Flyout', link: '/guide/components/flyout'},
                         {
                             text: 'Focal point',
+                            link: '/guide/components/focal-point/editor',
                             collapsed: true,
                             items: [
                                 {text: 'Editor', link: '/guide/components/focal-point/editor'},
@@ -154,9 +155,9 @@ export default defineConfig({
                         },
                         {
                             text: 'Form',
+                            link: '/guide/components/form/',
                             collapsed: true,
                             items: [
-                                {text: 'Form', link: '/guide/components/form/index'},
                                 {text: 'Checkbox', link: '/guide/components/form/checkbox'},
                                 {text: 'Toggle', link: '/guide/components/form/toggle'},
                                 {text: 'Date / time', link: '/guide/components/form/date-time'},
@@ -176,6 +177,7 @@ export default defineConfig({
                         {text: 'Info', link: '/guide/components/info'},
                         {
                             text: 'Layout',
+                            link: '/guide/components/layout/',
                             collapsed: true,
                             items: [
                                 {text: 'Aspect ratio', link: '/guide/components/layout/aspect-ratio'},
@@ -191,9 +193,9 @@ export default defineConfig({
                         {text: 'Link', link: '/guide/components/link'},
                         {
                             text: 'Menu',
+                            link: '/guide/components/menu/',
                             collapsed: true,
                             items: [
-                                {text: 'Container', link: '/guide/components/menu/container'},
                                 {text: 'Group', link: '/guide/components/menu/group'},
                                 {text: 'Item', link: '/guide/components/menu/item'},
                                 {text: 'Options', link: '/guide/components/menu/options'},
@@ -205,9 +207,9 @@ export default defineConfig({
                         {text: 'Pagination', link: '/guide/components/pagination'},
                         {
                             text: 'Pane',
+                            link: '/guide/components/pane/',
                             collapsed: true,
                             items: [
-                                {text: 'Base', link: '/guide/components/pane/base'},
                                 {text: 'Body', link: '/guide/components/pane/body'},
                                 {text: 'Deck', link: '/guide/components/pane/deck'},
                                 {text: 'Footer', link: '/guide/components/pane/footer'},
@@ -233,9 +235,9 @@ export default defineConfig({
                         {text: 'Tabs', link: '/guide/components/tabs'},
                         {
                             text: 'Table',
+                            link: '/guide/components/table/',
                             collapsed: true,
                             items: [
-                                {text: 'Base', link: '/guide/components/table/base'},
                                 {text: 'Actions', link: '/guide/components/table/actions'},
                                 {text: 'Cell', link: '/guide/components/table/cell'},
                                 {text: 'Header', link: '/guide/components/table/header'},
@@ -249,6 +251,7 @@ export default defineConfig({
                         {text: 'Tooltip', link: '/guide/components/tooltip'},
                         {
                             text: 'Visual',
+                            link: '/guide/components/visual/',
                             collapsed: true,
                             items: [
                                 {text: 'Animated colors', link: '/guide/components/visual/animated-colors'},

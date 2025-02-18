@@ -51,30 +51,25 @@ slots:
         description: The contents of the comment.
 ---
 
-<script
-    lang="ts"
-    setup>
-    import { FluxComment, FluxStack } from '@basmilius/flux';
-</script>
-
 # Comment
 
 This component represents a user comment with support for customizable details such as the author's name, avatar, and optional time information. It includes a structured layout with an avatar, header, and message body, allowing additional content to be provided via a slot. Styles can adjust its appearance, such as flipping or differentiating received comments.
 
-<Preview>
-    <FluxStack>
-        <FluxComment avatar-fallback="neutral" avatar-fallback-icon="gear" name="System">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio ducimus earum sed tenetur. Amet at dicta explicabo facere, fuga id itaque nisi quam quisquam tempore. Alias asperiores ea odio perspiciatis?    
-        </FluxComment>
-        <FluxComment avatar-fallback-icon="user" is-flipped is-received name="Agent">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio ducimus earum sed tenetur. Amet at dicta explicabo facere, fuga id itaque nisi quam quisquam tempore. Alias asperiores ea odio perspiciatis?    
-        </FluxComment>
-    </FluxStack>
-</Preview>
+::: render
+render=../../code/guide/components/comment/preview.vue
+:::
 
 <FrontmatterDocs/>
 
 ## Examples
+
+::: example Incoming || An incoming comment that is used within a message thread.
+example=../../code/guide/components/comment/incoming.vue
+:::
+
+::: example Outgoing || An outgoing comment that is used within a message thread.
+example=../../code/guide/components/comment/outgoing.vue
+:::
 
 ## Used components
 

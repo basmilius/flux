@@ -1,6 +1,7 @@
 @use '@/css/mixin';
 
 @value flexColumn from '@/css/component/base/Flex.module.scss';
+
 @value basePane from '@/css/component/base/Pane.module.scss';
 
 .expandable {
@@ -17,6 +18,7 @@
     padding-left: 21px;
     padding-right: 21px;
     align-items: center;
+    gap: 12px;
     background: unset;
     border: 0;
     color: var(--foreground-prominent);
@@ -34,12 +36,16 @@
         flex-grow: 1;
         font-weight: 600;
     }
+
+    :local(.icon):last-child {
+        color: var(--foreground-secondary);
+    }
 }
 
 .expandableBody {
     transition: height 390ms var(--swift-out),
-                translate 300ms var(--swift-out) 120ms,
-                opacity 300ms var(--swift-out) 120ms;
+    translate 300ms var(--swift-out) 120ms,
+    opacity 300ms var(--swift-out) 120ms;
 
     &:global(.v-enter-from),
     &:global(.v-leave-to) {

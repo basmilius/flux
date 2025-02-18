@@ -55,8 +55,7 @@
         isSeparated = true,
         isStriped = false,
         dataSet,
-        page = 1,
-        perPage = 1000
+        perPage
     } = defineProps<{
         readonly dataSet: T[];
         readonly isBordered?: boolean;
@@ -64,8 +63,8 @@
         readonly isLoading?: boolean;
         readonly isSeparated?: boolean;
         readonly isStriped?: boolean;
-        readonly page?: number;
-        readonly perPage?: number;
+        readonly page: number;
+        readonly perPage: number;
         readonly total: number;
         readonly uniqueKey?: string;
     }>();

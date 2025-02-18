@@ -36,7 +36,7 @@ Here are the official translations for the strings used by Flux. If you have add
 
 ### Dutch - Nederlands
 
-```yaml
+```yaml [nl.yaml]
 flux:
     back: "Terug"
     cancel: "Annuleren"

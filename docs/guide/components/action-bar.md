@@ -46,7 +46,7 @@ slots:
             close: "(): void"
             open: "(): void"
             toggle: "(): void"
-            
+
 requiredIcons:
     - filter
     - xmark
@@ -71,6 +71,7 @@ Todo
 - [Button](./button)
 - [Button group](./button-group)
 - [Flyout](./flyout)
-- [Spacer](./layout/spacer)
-- [Stack](./layout/stack)
+- [Layout](./layout)
+    - [Spacer](./layout/spacer)
+    - [Stack](./layout/stack)
 - [Tooltip](./tooltip)

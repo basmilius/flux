@@ -63,11 +63,12 @@ type FluxPromptObject = {
 ## Used components
 
 - [Button](../button)
-- [Form field](../form/field)
-- [Form input](../form/input)
+- [Form](../form)
+    - [Field](../form/field)
+    - [Input](../form/input)
 - [Overlay](../overlay)
-- [Pane](../pane/base)
-- [Pane footer](../pane/footer)
-- [Pane header](../pane/header)
-- [Pane body](../pane/body)
+- [Pane](../pane)
+    - [Body](../pane/body)
+    - [Footer](../pane/footer)
+    - [Header](../pane/header)
 - [Spacer](../spacer)

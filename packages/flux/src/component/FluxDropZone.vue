@@ -24,15 +24,15 @@
             v-bind="{isDragging, isDraggingOver, showPicker}"
             v-else/>
 
-        <FluxFadeTransition>
+        <FluxBorderShine :width="2">
             <div
-                v-if="isDragging && !disabled"
+                role="presentation"
                 :class="clsx(
                     $style.dropZoneHint,
-                    isDraggingOver && $style.isOver
-                )"
-                role="presentation"/>
-        </FluxFadeTransition>
+                    isDragging && $style.isDragging,
+                    isDraggingOver && $style.isDraggingOver
+                )"/>
+        </FluxBorderShine>
     </div>
 </template>
 
@@ -40,10 +40,10 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { onMounted, onUnmounted, ref, toRef, unref } from 'vue';
+    import { nextTick, onMounted, onUnmounted, ref, toRef, unref } from 'vue';
     import { useDisabled } from '@/composable';
-    import { FluxFadeTransition } from '@/transition';
     import type { IconName } from '@/types';
+    import FluxBorderShine from './FluxBorderShine.vue';
     import FluxPlaceholder from './FluxPlaceholder.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import $style from '@/css/component/DropZone.module.scss';
@@ -69,6 +69,22 @@
         readonly placeholderVariant?: 'extended' | 'simple' | 'small';
     }>();
 
+    defineSlots<{
+        default(props: {
+            readonly isDragging: boolean;
+            readonly isDraggingOver: boolean;
+
+            showPicker(): void;
+        }): any;
+
+        placeholder?(props: {
+            readonly isDragging: boolean;
+            readonly isDraggingOver: boolean;
+
+            showPicker(): void;
+        }): any;
+    }>();
+
     const disabled = useDisabled(toRef(() => componentDisabled));
 
     const isDragging = ref(false);
@@ -87,7 +103,7 @@
     });
 
     function onDragEnter(evt: DragEvent): void {
-        isDraggingOver.value = true;
+        nextTick(() => isDraggingOver.value = true);
         evt.preventDefault();
     }
 

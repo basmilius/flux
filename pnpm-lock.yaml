@@ -16,6 +16,9 @@ importers:
       '@basmilius/flux-internals':
         specifier: workspace:*
         version: link:../packages/internals
+      '@faker-js/faker':
+        specifier: ^9.5.0
+        version: 9.5.0
       '@fortawesome/fontawesome-common-types':
         specifier: ^6.7.2
         version: 6.7.2
@@ -748,6 +751,10 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@faker-js/faker@9.5.0':
+    resolution: {integrity: sha512-3qbjLv+fzuuCg3umxc9/7YjrEXNaKwHgmig949nfyaTx8eL4FAsvFbu+1JcFUj1YAXofhaDn6JdEUBTYuk0Ssw==}
+    engines: {node: '>=18.0.0', npm: '>=9.0.0'}
 
   '@fortawesome/fontawesome-common-types@6.7.2':
     resolution: {integrity: sha512-Zs+YeHUC5fkt7Mg1l6XTniei3k4bwG/yo3iFUtZWd/pMx9g3fdvkSK9E0FOC+++phXOka78uJcYb8JaFkW52Xg==, tarball: https://npm.fontawesome.com/@fortawesome/fontawesome-common-types/-/6.7.2/fontawesome-common-types-6.7.2.tgz}
@@ -2582,6 +2589,8 @@ snapshots:
 
   '@esbuild/win32-x64@0.25.0':
     optional: true
+
+  '@faker-js/faker@9.5.0': {}
 
   '@fortawesome/fontawesome-common-types@6.7.2': {}
 
