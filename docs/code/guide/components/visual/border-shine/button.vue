@@ -4,7 +4,7 @@
         :duration="3"
         :width="1">
         <FluxSecondaryButton
-            icon-before="circle-arrow-up"
+            icon-leading="circle-arrow-up"
             label="Upgrade now"/>
     </FluxBorderShine>
 </template>

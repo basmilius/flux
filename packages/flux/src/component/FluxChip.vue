@@ -10,19 +10,19 @@
         <FluxIcon
             v-if="isSelectable"
             :size="16"
-            :variant="isSelected ? 'check' : (iconBefore ?? 'plus')"/>
+            :variant="isSelected ? 'check' : (iconLeading ?? 'plus')"/>
 
         <FluxIcon
-            v-else-if="iconBefore"
+            v-else-if="iconLeading"
             :size="16"
-            :variant="iconBefore"/>
+            :variant="iconLeading"/>
 
         <span>{{ label }}</span>
 
         <FluxIcon
-            v-if="iconAfter"
+            v-if="iconTrailing"
             :size="16"
-            :variant="iconAfter"/>
+            :variant="iconTrailing"/>
     </component>
 </template>
 
@@ -39,8 +39,8 @@
     }>();
 
     defineProps<{
-        readonly iconAfter?: FluxIconName;
-        readonly iconBefore?: FluxIconName;
+        readonly iconLeading?: FluxIconName;
+        readonly iconTrailing?: FluxIconName;
         readonly isSelectable?: boolean;
         readonly isSelected?: boolean;
         readonly label: string;

@@ -6,7 +6,7 @@
             <FluxActionBar>
                 <template #primary>
                     <FluxPrimaryButton
-                        icon-before="circle-plus"
+                        icon-leading="circle-plus"
                         label="Event"/>
                 </template>
 
@@ -18,22 +18,23 @@
 
                 <template #filterOpener="{open}">
                     <FluxSecondaryButton
-                        icon-before="filter"
+                        icon-leading="filter"
                         @click="open()"/>
                 </template>
 
                 <template #search>
                     <FluxFormInput
+                        v-model="searchQuery"
                         type="search"
-                        icon-before="magnifying-glass"
+                        icon-leading="magnifying-glass"
                         placeholder="Search anything..."/>
                 </template>
 
                 <template #actionsBeforeSearch>
                     <FluxSecondaryButton
-                        icon-before="arrow-down-to-line"
+                        icon-leading="arrow-down-to-line"
                         label="Download"/>
-                    <FluxSeparator axis="vertical"/>
+                    <FluxSeparator direction="vertical"/>
                 </template>
             </FluxActionBar>
 
@@ -48,4 +49,7 @@
     lang="ts"
     setup>
     import { FluxActionBar, FluxFormInput, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSeparator } from '@basmilius/flux';
+    import { ref } from 'vue';
+
+    const searchQuery = ref('');
 </script>

@@ -13,7 +13,7 @@
                 <FluxSpacer/>
 
                 <FluxPrimaryButton
-                    icon-before="circle-check"
+                    icon-leading="circle-check"
                     label="Ok"/>
             </FluxPaneFooter>
         </FluxPane>

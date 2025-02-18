@@ -4,7 +4,7 @@
             <FluxMenu>
                 <FluxMenuGroup>
                     <FluxMenuItem
-                        icon-before="grid-2"
+                        icon-leading="grid-2"
                         label="Overview"/>
                 </FluxMenuGroup>
 
@@ -12,11 +12,11 @@
 
                 <FluxMenuGroup>
                     <FluxMenuItem
-                        icon-before="rocket"
+                        icon-leading="rocket"
                         label="Releases"/>
 
                     <FluxMenuItem
-                        icon-before="rectangle-history"
+                        icon-leading="rectangle-history"
                         label="History"/>
                 </FluxMenuGroup>
 
@@ -24,7 +24,7 @@
 
                 <FluxMenuGroup>
                     <FluxMenuItem
-                        icon-before="gear"
+                        icon-leading="gear"
                         label="Settings"/>
                 </FluxMenuGroup>
             </FluxMenu>

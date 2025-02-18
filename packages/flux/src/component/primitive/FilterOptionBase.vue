@@ -7,7 +7,7 @@
                 v-model="modelSearch"
                 auto-complete="off"
                 is-secondary
-                icon-before="magnifying-glass"
+                icon-leading="magnifying-glass"
                 :placeholder="searchPlaceholder"
                 type="search"/>
         </div>

@@ -3,7 +3,7 @@
         :command="valueLabel"
         command-icon="angle-right"
         :command-loading="isLoading"
-        :icon-before="item.icon"
+        :icon-leading="item.icon"
         :label="item.label"
         type="button"
         @click="onClick"/>

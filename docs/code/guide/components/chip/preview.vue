@@ -1,7 +1,7 @@
 <template>
     <Preview>
         <FluxChip
-            icon-before="gear"
+            icon-leading="gear"
             label="Settings"/>
     </Preview>
 </template>

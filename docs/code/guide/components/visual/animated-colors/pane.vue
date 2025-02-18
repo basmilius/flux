@@ -18,7 +18,7 @@
 
         <FluxPaneBody>
             <FluxSecondaryButton
-                icon-before="gear"
+                icon-leading="gear"
                 label="Manage"/>
         </FluxPaneBody>
     </FluxPane>

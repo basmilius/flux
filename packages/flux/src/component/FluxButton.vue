@@ -21,15 +21,15 @@
         @mouseleave="onMouseLeave">
         <slot name="before"/>
 
-        <slot name="iconBefore">
+        <slot name="iconLeading">
             <FluxSpinner
-                v-if="isLoading && (iconBefore || !iconAfter)"
+                v-if="isLoading && (iconLeading || !iconTrailing)"
                 :size="20"/>
 
             <FluxIcon
-                v-else-if="iconBefore"
+                v-else-if="iconLeading"
                 :class="cssClassIcon"
-                :variant="iconBefore"/>
+                :variant="iconLeading"/>
         </slot>
 
         <slot name="label">
@@ -40,15 +40,15 @@
             </span>
         </slot>
 
-        <slot name="iconAfter">
+        <slot name="iconTrailing">
             <FluxSpinner
-                v-if="isLoading && (!iconBefore && iconAfter)"
+                v-if="isLoading && (!iconLeading && iconTrailing)"
                 :size="20"/>
 
             <FluxIcon
-                v-else-if="iconAfter"
+                v-else-if="iconTrailing"
                 :class="cssClassIcon"
-                :variant="iconAfter"/>
+                :variant="iconTrailing"/>
         </slot>
 
         <slot name="after"/>
@@ -56,7 +56,7 @@
 </template>
 
 <script lang="ts">
-    export const SLOTS = ['default', 'after', 'before', 'iconAfter', 'iconBefore', 'label'] as const;
+    export const SLOTS = ['default', 'after', 'before', 'iconLeading', 'iconTrailing', 'label'] as const;
 </script>
 
 <script

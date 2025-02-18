@@ -1,6 +1,6 @@
 <template>
     <FluxDestructiveButton
-        icon-before="lock"
+        icon-leading="lock"
         label="Lock account"/>
 </template>
 

@@ -67,8 +67,8 @@ export type FluxButtonEmits = {
 export type FluxButtonProps = {
     readonly type?: FluxPressableType;
     readonly disabled?: boolean;
-    readonly iconAfter?: FluxIconName | null;
-    readonly iconBefore?: FluxIconName | null;
+    readonly iconLeading?: FluxIconName | null;
+    readonly iconTrailing?: FluxIconName | null;
     readonly isLoading?: boolean;
     readonly isSubmit?: boolean;
     readonly label?: string;
@@ -84,7 +84,7 @@ export type FluxButtonSlots = {
     default(): any;
     after(): any;
     before(): any;
-    iconAfter(): any;
-    iconBefore(): any;
+    iconLeading(): any;
+    iconTrailing(): any;
     label(): any;
 }

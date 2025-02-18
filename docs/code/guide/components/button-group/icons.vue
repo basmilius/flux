@@ -1,8 +1,8 @@
 <template>
     <FluxButtonGroup>
-        <FluxSecondaryButton icon-before="list"/>
-        <FluxSecondaryButton icon-before="grid-2"/>
-        <FluxPrimaryButton icon-before="rectangle-history"/>
+        <FluxSecondaryButton icon-leading="list"/>
+        <FluxSecondaryButton icon-leading="grid-2"/>
+        <FluxPrimaryButton icon-leading="rectangle-history"/>
     </FluxButtonGroup>
 </template>
 

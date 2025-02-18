@@ -185,20 +185,20 @@
     pointer-events: none;
 }
 
-.formInputIconAfter {
+.formInputIconTrailing {
     composes: formInputIcon;
 
     right: 12px;
 }
 
-.formInputIconBefore {
+.formInputIconLeading {
     composes: formInputIcon;
 
     left: 12px;
 }
 
 .formInputIconPasswordToggle {
-    composes: formInputIconAfter;
+    composes: formInputIconTrailing;
 
     pointer-events: unset;
     cursor: pointer;
@@ -247,12 +247,12 @@
     }
 }
 
-.formInputNativeHasIconAfter {
-    padding-right: 42px;
+.formInputNativeHasIconLeading {
+    padding-left: 42px;
 }
 
-.formInputNativeHasIconBefore {
-    padding-left: 42px;
+.formInputNativeHasIconTrailing {
+    padding-right: 42px;
 }
 
 .formInputAddition {

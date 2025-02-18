@@ -1,7 +1,7 @@
 <template>
     <Preview>
         <FluxStack
-            axis="horizontal"
+            direction="horizontal"
             :gap="18"
             is-centered
             is-wrapping>

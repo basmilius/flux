@@ -5,7 +5,7 @@
                 <FluxSecondaryButton
                     v-if="viewMode === 'date'"
                     :disabled="!isWithinBoundary(viewDatePrevious, 'month')"
-                    icon-before="angle-left"
+                    icon-leading="angle-left"
                     :aria-label="translate('flux.previous')"
                     @click="previousMonth"/>
             </FluxFadeTransition>
@@ -34,7 +34,7 @@
                 <FluxSecondaryButton
                     v-if="viewMode === 'date'"
                     :disabled="!isWithinBoundary(viewDateNext, 'month')"
-                    icon-before="angle-right"
+                    icon-leading="angle-right"
                     :aria-label="translate('flux.next')"
                     @click="nextMonth"/>
             </FluxFadeTransition>
@@ -103,7 +103,7 @@
                 key="year"
                 :class="$style.datePickerYears">
                 <FluxSecondaryButton
-                    icon-before="angle-left"
+                    icon-leading="angle-left"
                     tabindex="-1"
                     @click="previousYears"/>
 
@@ -117,7 +117,7 @@
                 </template>
 
                 <FluxSecondaryButton
-                    icon-before="angle-right"
+                    icon-leading="angle-right"
                     tabindex="-1"
                     @click="nextYears"/>
             </div>

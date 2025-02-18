@@ -5,7 +5,7 @@
         <FluxSecondaryButton
             :class="$style.quantitySelectorButton"
             :disabled="disabled || modelValue <= min"
-            icon-before="minus"
+            icon-leading="minus"
             tabindex="-1"
             @click="decrement"/>
 
@@ -26,7 +26,7 @@
         <FluxSecondaryButton
             :class="$style.quantitySelectorButton"
             :disabled="disabled || modelValue >= max"
-            icon-before="plus"
+            icon-leading="plus"
             tabindex="-1"
             @click="increment"/>
     </FluxButtonGroup>

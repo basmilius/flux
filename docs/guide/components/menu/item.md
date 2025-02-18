@@ -26,13 +26,13 @@ props:
         type: boolean
         optional: true
 
-    -   name: icon-after
-        description: The icon at the end of the menu item.
+    -   name: icon-leading
+        description: The icon at the start of the menu item.
         type: IconName
         optional: true
 
-    -   name: icon-before
-        description: The icon at the start of the menu item.
+    -   name: icon-trailing
+        description: The icon at the end of the menu item.
         type: IconName
         optional: true
 

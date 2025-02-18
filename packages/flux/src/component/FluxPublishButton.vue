@@ -1,6 +1,6 @@
 <template>
     <FluxButton
-        :="{type, disabled, iconAfter, isLoading, label, size, to}"
+        :="{type, disabled, iconTrailing, isLoading, label, size, to}"
         :class="clsx(
             !isDone && !isLoading && $style.isIdle,
             isDone && $style.isDone,
@@ -12,7 +12,7 @@
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)">
-        <template #iconBefore>
+        <template #iconLeading>
             <div :class="$style.publishButtonAnimation">
                 <FluxIcon
                     :class="$style.publishButtonCloud"
@@ -53,7 +53,7 @@
 
     defineEmits<FluxButtonEmits>();
 
-    defineProps<Omit<FluxButtonProps, 'iconBefore'> & {
+    defineProps<Omit<FluxButtonProps, 'iconLeading'> & {
         readonly isDone?: boolean;
     }>();
 </script>

@@ -42,7 +42,7 @@
                         <template #default="{close}">
                             <div :class="$styleDatePicker.datePickerYears">
                                 <FluxSecondaryButton
-                                    icon-before="angle-left"
+                                    icon-leading="angle-left"
                                     tabindex="-1"
                                     @click="previousYears"/>
 
@@ -56,7 +56,7 @@
                                 </template>
 
                                 <FluxSecondaryButton
-                                    icon-before="angle-right"
+                                    icon-leading="angle-right"
                                     tabindex="-1"
                                     @click="nextYears"/>
                             </div>
@@ -72,11 +72,11 @@
 
                 <FluxButtonGroup>
                     <FluxSecondaryButton
-                        icon-before="angle-left"
+                        icon-leading="angle-left"
                         @click="previousMonth"/>
 
                     <FluxSecondaryButton
-                        icon-before="angle-right"
+                        icon-leading="angle-right"
                         @click="nextMonth"/>
                 </FluxButtonGroup>
             </template>

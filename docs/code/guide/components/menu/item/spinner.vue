@@ -3,19 +3,19 @@
         <FluxMenu>
             <FluxMenuItem
                 command-icon="angle-right"
-                icon-before="heart"
+                icon-leading="heart"
                 label="My liked videos"/>
 
             <FluxMenuItem
                 command="42%"
                 command-icon="angle-right"
-                icon-before="arrow-up-from-square"
+                icon-leading="arrow-up-from-square"
                 is-loading
                 label="My uploads"/>
 
             <FluxMenuItem
                 command-loading
-                icon-before="arrow-up-from-square"
+                icon-leading="arrow-up-from-square"
                 label="My uploads"/>
         </FluxMenu>
     </FluxPane>

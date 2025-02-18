@@ -21,13 +21,13 @@
                         <FluxMenuItem
                             :class="$style.filterBack"
                             :label="translate('flux.back')"
-                            icon-before="angle-left"
+                            icon-leading="angle-left"
                             @click="back()"/>
 
                         <FluxMenuItem
                             v-if="resettable?.includes(name)"
                             :class="$style.filterReset"
-                            icon-before="trash"
+                            icon-leading="trash"
                             is-destructive
                             @click="reset(name)"/>
                     </FluxMenuGroup>

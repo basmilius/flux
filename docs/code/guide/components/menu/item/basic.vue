@@ -2,11 +2,11 @@
     <FluxPane style="width: 300px">
         <FluxMenu>
             <FluxMenuItem
-                icon-before="heart"
+                icon-leading="heart"
                 label="My liked videos"/>
 
             <FluxMenuItem
-                icon-before="arrow-up-from-square"
+                icon-leading="arrow-up-from-square"
                 label="My uploads"/>
         </FluxMenu>
     </FluxPane>

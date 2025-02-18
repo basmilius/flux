@@ -17,12 +17,6 @@ props:
         type: IconName
 ---
 
-<script
-    lang="ts"
-    setup>
-    import { FluxIcon, FluxStack } from '@basmilius/flux';
-</script>
-
 # Icon
 
 This component displays a single customizable Font Awesome icon, rendered as SVG. It is commonly used in various Flux components, including [Buttons](./button), and can be easily styled with CSS.
@@ -31,26 +25,15 @@ Please refer to [Font Awesome](../introduction/font-awesome) to read more about 
 
 There is also a [Boxed icon](./boxed-icon) variant available.
 
-<Preview>
-    <FluxStack
-        axis="horizontal"
-        :gap="36">
-        <FluxIcon
-            :size="48"
-            variant="circle-check"/>
-        <FluxIcon
-            :size="48"
-            variant="lock"/>
-        <FluxIcon
-            :size="48"
-            variant="rocket"/>
-    </FluxStack>
-</Preview>
+::: render
+render=../../code/guide/components/icon/preview.vue
+:::
 
 <FrontmatterDocs/>
 
 ## Snippet
 
 ```vue
+
 <FluxIcon variant="rocket"/>
 ```

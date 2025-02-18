@@ -3,8 +3,8 @@
         <FluxPane style="width: 300px">
             <FluxMenu>
                 <FluxMenuItem
-                    icon-after="angle-right"
-                    icon-before="grid-2"
+                    icon-leading="grid-2"
+                    icon-trailing="angle-right"
                     label="Dashboard"/>
             </FluxMenu>
         </FluxPane>

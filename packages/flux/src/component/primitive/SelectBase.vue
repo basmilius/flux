@@ -20,7 +20,7 @@
                 :class="$style.formSelectSelected"
                 :command="selected[0].command"
                 :command-icon="selected[0].commandIcon"
-                :icon-before="selected[0].icon"
+                :icon-leading="selected[0].icon"
                 :label="selected[0].label"
                 tabindex="-1"/>
         </template>
@@ -71,7 +71,7 @@
                     auto-complete="off"
                     :class="$style.formSelectInput"
                     type="search"
-                    icon-after="magnifying-glass"
+                    icon-trailing="magnifying-glass"
                     :placeholder="translate('flux.search')"
                     @keydown="onKeyDown"/>
 
@@ -86,7 +86,7 @@
                         <FluxMenuGroup>
                             <FluxMenuSubHeader
                                 v-if="isFluxFormSelectGroup(item)"
-                                :icon-before="item.icon"
+                                :icon-leading="item.icon"
                                 :label="item.label"/>
 
                             <template v-for="(subItem, index) of subItems">
@@ -96,7 +96,7 @@
                                     :key="index"
                                     :command="subItem.command"
                                     :command-icon="subItem.commandIcon"
-                                    :icon-before="subItem.icon"
+                                    :icon-leading="subItem.icon"
                                     :is-active="!!selected.find(so => so.value === subItem.value)"
                                     :is-highlighted="highlightedId === subItem.value"
                                     :label="subItem.label"
@@ -111,7 +111,7 @@
                             :key="`item-${index}`"
                             :command="item.command"
                             :command-icon="item.commandIcon"
-                            :icon-before="item.icon"
+                            :icon-leading="item.icon"
                             :is-active="!!selected.find(so => so.value === item.value)"
                             :is-highlighted="highlightedId === item.value"
                             :label="item.label"

@@ -1,6 +1,6 @@
 <template>
     <FluxChip
-        icon-before="stars"
+        icon-leading="stars"
         is-selectable
         :is-selected="selected"
         label="Prospects"

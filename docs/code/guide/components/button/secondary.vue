@@ -1,6 +1,6 @@
 <template>
     <FluxSecondaryButton
-        icon-before="circle-arrow-up"
+        icon-leading="circle-arrow-up"
         label="Upgrade subscription"/>
 </template>
 

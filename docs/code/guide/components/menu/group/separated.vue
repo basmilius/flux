@@ -3,7 +3,7 @@
         <FluxMenu>
             <FluxMenuGroup>
                 <FluxMenuItem
-                    icon-before="grid-2"
+                    icon-leading="grid-2"
                     label="Menu item"/>
             </FluxMenuGroup>
 
@@ -13,7 +13,7 @@
                 <FluxMenuItem
                     v-for="i of 3"
                     :is-highlighted="i === 1"
-                    icon-before="grid-2"
+                    icon-leading="grid-2"
                     label="Menu item"/>
             </FluxMenuGroup>
 
@@ -22,7 +22,7 @@
             <FluxMenuGroup>
                 <FluxMenuItem
                     v-for="_ of 2"
-                    icon-before="grid-2"
+                    icon-leading="grid-2"
                     label="Menu item"/>
             </FluxMenuGroup>
         </FluxMenu>

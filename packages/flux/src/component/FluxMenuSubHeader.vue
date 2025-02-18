@@ -3,18 +3,18 @@
         :class="$style.menuSubHeader"
         role="presentation">
         <FluxIcon
-            v-if="iconBefore"
+            v-if="iconLeading"
             :class="$style.menuSubHeaderIcon"
-            :variant="iconBefore"/>
+            :variant="iconLeading"/>
 
         <span :class="$style.menuSubHeaderLabel">
             {{ label }}
         </span>
 
         <FluxIcon
-            v-if="iconAfter"
+            v-if="iconTrailing"
             :class="$style.menuSubHeaderIcon"
-            :variant="iconAfter"/>
+            :variant="iconTrailing"/>
     </div>
 </template>
 
@@ -26,8 +26,8 @@
     import $style from '@/css/component/Menu.module.scss';
 
     defineProps<{
-        readonly iconAfter?: FluxIconName;
-        readonly iconBefore?: FluxIconName;
+        readonly iconLeading?: FluxIconName;
+        readonly iconTrailing?: FluxIconName;
         readonly label: string;
     }>();
 </script>

@@ -5,15 +5,15 @@
                 <FluxMenuSubHeader label="Releases"/>
 
                 <FluxMenuItem
-                    icon-before="rocket"
+                    icon-leading="rocket"
                     label="Production"/>
 
                 <FluxMenuItem
-                    icon-before="cloud"
+                    icon-leading="cloud"
                     label="Cloud building"/>
 
                 <FluxMenuItem
-                    icon-before="rectangle-history"
+                    icon-leading="rectangle-history"
                     label="History"/>
             </FluxMenuGroup>
 
@@ -23,11 +23,11 @@
                 <FluxMenuSubHeader label="Manage"/>
 
                 <FluxMenuItem
-                    icon-before="gear"
+                    icon-leading="gear"
                     label="Settings"/>
 
                 <FluxMenuItem
-                    icon-before="trash"
+                    icon-leading="trash"
                     is-destructive
                     label="Delete"/>
             </FluxMenuGroup>

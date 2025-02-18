@@ -1,7 +1,7 @@
 <template>
     <Preview>
         <FluxPrimaryButton
-            icon-before="circle-check"
+            icon-leading="circle-check"
             label="Save"/>
     </Preview>
 </template>

@@ -30,13 +30,13 @@
                     <FluxMenuGroup>
                         <FluxMenuItem
                             :is-highlighted="sort === 'ascending'"
-                            icon-before="arrow-down-a-z"
+                            icon-leading="arrow-down-a-z"
                             :label="translate('flux.sortAscending')"
                             @click="$emit('sort', 'ascending')"/>
 
                         <FluxMenuItem
                             :is-highlighted="sort === 'descending'"
-                            icon-before="arrow-up-a-z"
+                            icon-leading="arrow-up-a-z"
                             :label="translate('flux.sortDescending')"
                             @click="$emit('sort', 'descending')"/>
                     </FluxMenuGroup>
@@ -46,7 +46,7 @@
 
                         <FluxMenuGroup>
                             <FluxMenuItem
-                                icon-before="circle-xmark"
+                                icon-leading="circle-xmark"
                                 is-destructive
                                 :label="translate('flux.sortRemove')"
                                 @click="$emit('sort', null)"/>

@@ -5,10 +5,10 @@
                 <FluxMenuOptions
                     v-model="alignment"
                     is-horizontal>
-                    <FluxMenuItem icon-before="align-left"/>
-                    <FluxMenuItem icon-before="align-center"/>
-                    <FluxMenuItem icon-before="align-right"/>
-                    <FluxMenuItem icon-before="align-justify"/>
+                    <FluxMenuItem icon-leading="align-left"/>
+                    <FluxMenuItem icon-leading="align-center"/>
+                    <FluxMenuItem icon-leading="align-right"/>
+                    <FluxMenuItem icon-leading="align-justify"/>
                 </FluxMenuOptions>
             </FluxMenu>
         </FluxPane>

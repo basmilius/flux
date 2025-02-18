@@ -13,12 +13,12 @@
             <template #name="{row: {name, type}}">
                 <FluxTableCell>
                     <FluxStack
-                        axis="horizontal"
+                        direction="horizontal"
                         :gap="21">
                         <FluxBoxedIcon variant="image"/>
 
                         <FluxStack
-                            axis="vertical"
+                            direction="vertical"
                             :gap="0">
                             <strong>{{ name }}</strong>
                             <small>{{ type }}</small>

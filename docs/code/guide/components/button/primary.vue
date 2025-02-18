@@ -1,6 +1,6 @@
 <template>
     <FluxPrimaryButton
-        icon-before="circle-plus"
+        icon-leading="circle-plus"
         label="New user"/>
 </template>
 

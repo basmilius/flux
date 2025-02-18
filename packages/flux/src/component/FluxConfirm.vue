@@ -14,7 +14,7 @@
                 @click="confirm.onCancel()"/>
 
             <FluxPrimaryButton
-                icon-before="circle-check"
+                icon-leading="circle-check"
                 :label="translate('flux.ok')"
                 @click="confirm.onConfirm()"/>
         </FluxPaneFooter>

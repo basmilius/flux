@@ -1,6 +1,6 @@
 <template>
     <FluxStack
-        axis="horizontal"
+        direction="horizontal"
         :gap="15">
         <FluxBoxedIcon
             :size="90"

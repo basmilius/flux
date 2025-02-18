@@ -73,7 +73,7 @@ props:
 
     -   name: to
         description: This prop is enabled if the button's type is set to route. This integrates with Vue Router.
-        type: To
+        type: FluxTo
         optional: true
 ---
 

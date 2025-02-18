@@ -1,6 +1,6 @@
 <template>
     <FluxButton
-        :="{type, disabled, iconAfter, iconBefore, isLoading, label, href, rel, target, to}"
+        :="{type, disabled, iconLeading, iconTrailing, isLoading, label, href, rel, target, to}"
         :css-class="$style.menuItem"
         :css-class-icon="$style.menuItemIcon"
         :css-class-label="$style.menuItemLabel"
@@ -15,8 +15,8 @@
         :aria-checked="isSelectable ? isSelected : undefined"
         @click="$emit('click', $event)">
         <template
-            v-if="isSelectable && (!iconBefore || isSelected)"
-            #iconBefore>
+            v-if="isSelectable && (!iconLeading || isSelected)"
+            #iconLeading>
             <FluxIcon
                 :class="$style.menuItemSelectableIcon"
                 :variant="isSelected ? 'circle-check' : 'flux-empty'"/>
@@ -24,7 +24,7 @@
 
         <template
             v-else-if="imageUrl"
-            #iconBefore>
+            #iconLeading>
             <img
                 :class="$style.menuItemImage"
                 :src="imageUrl"

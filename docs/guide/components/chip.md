@@ -7,13 +7,13 @@ emits:
         type: [ MouseEvent ]
 
 props:
-    -   name: icon-after
-        description: The icon shown at the end of the chip.
+    -   name: icon-leading
+        description: The icon shown at the start of the chip.
         type: IconName
         optional: true
 
-    -   name: icon-before
-        description: The icon shown at the start of the chip.
+    -   name: icon-trailing
+        description: The icon shown at the end of the chip.
         type: IconName
         optional: true
 

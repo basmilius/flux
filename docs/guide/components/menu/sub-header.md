@@ -2,16 +2,16 @@
 outline: deep
 
 props:
-    -   name: icon-after
-        description: Icon at the end of the sub header.
-        type: IconName
-        optional: true
-        
-    -   name: icon-before
+    -   name: icon-leading
         description: Icon at the start of the sub header.
         type: IconName
         optional: true
-        
+
+    -   name: icon-trailing
+        description: Icon at the end of the sub header.
+        type: IconName
+        optional: true
+
     -   name: label
         description: Label of the sub header.
         type: string

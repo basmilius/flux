@@ -2,8 +2,8 @@
     <FluxPane style="width: 300px">
         <FluxMenu>
             <FluxMenuItem
-                icon-after="angle-right"
-                icon-before="arrow-up-from-square"
+                icon-leading="arrow-up-from-square"
+                icon-trailing="angle-right"
                 label="My uploads"/>
         </FluxMenu>
     </FluxPane>

@@ -19,7 +19,7 @@
                     name="filterOpener">
                     <FluxButtonGroup>
                         <FluxSecondaryButton
-                            icon-before="filter"
+                            icon-leading="filter"
                             :label="translate('flux.filter')"
                             @click="open"/>
 
@@ -27,7 +27,7 @@
                             v-if="isResettable"
                             :content="translate('flux.filterReset')">
                             <FluxDestructiveButton
-                                icon-before="xmark"
+                                icon-leading="xmark"
                                 @click="$emit('reset')"/>
                         </FluxTooltip>
                     </FluxButtonGroup>

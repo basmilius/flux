@@ -3,12 +3,12 @@
         <FluxMenu>
             <FluxMenuItem
                 command="⌘C"
-                icon-before="clone"
+                icon-leading="clone"
                 label="Copy"/>
 
             <FluxMenuItem
                 command="⌘V"
-                icon-before="clipboard"
+                icon-leading="clipboard"
                 label="Paste"/>
         </FluxMenu>
     </FluxPane>

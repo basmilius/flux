@@ -5,7 +5,7 @@
         :css-class-icon="$style.actionIcon"
         :css-class-label="$style.actionLabel"
         :class="isDestructive && $style.isDestructive"
-        :icon-before="icon"
+        :icon-leading="icon"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)"/>
@@ -20,7 +20,7 @@
 
     defineEmits<FluxButtonEmits>();
 
-    defineProps<Omit<FluxButtonProps, 'iconBefore' | 'iconAfter' | 'size'> & {
+    defineProps<Omit<FluxButtonProps, 'iconLeading' | 'iconTrailing' | 'size'> & {
         readonly icon?: FluxIconName;
         readonly isDestructive?: boolean;
     }>();

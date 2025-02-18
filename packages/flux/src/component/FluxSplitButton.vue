@@ -11,7 +11,7 @@
                     name="button"/>
 
                 <FluxSecondaryButton
-                    :icon-before="buttonIcon"
+                    :icon-leading="buttonIcon"
                     @click="open"/>
             </div>
         </template>

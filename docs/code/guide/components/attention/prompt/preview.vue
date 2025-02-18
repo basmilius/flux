@@ -12,6 +12,7 @@
             <FluxPaneBody>
                 <FluxFormField label="Name">
                     <FluxFormInput
+                        v-model="name"
                         ref="input"
                         placeholder="E.g. John Doe"/>
                 </FluxFormField>
@@ -23,7 +24,7 @@
                 <FluxSecondaryButton label="Cancel"/>
 
                 <FluxPrimaryButton
-                    icon-before="circle-check"
+                    icon-leading="circle-check"
                     label="Ok"/>
             </FluxPaneFooter>
         </FluxPane>
@@ -34,4 +35,7 @@
     lang="ts"
     setup>
     import { FluxFormField, FluxFormInput, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer } from '@basmilius/flux';
+    import { ref } from 'vue';
+
+    const name = ref('');
 </script>

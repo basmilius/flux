@@ -9,8 +9,8 @@
             ref="input"
             :class="clsx(
                 $style.formInputNative,
-                (!!iconAfter || type === 'password') && $style.formInputNativeHasIconAfter,
-                !!iconBefore && $style.formInputNativeHasIconBefore
+                (!!iconTrailing || type === 'password') && $style.formInputNativeHasIconTrailing,
+                !!iconLeading && $style.formInputNativeHasIconLeading
             )"
             :id="id"
             :autocomplete="autoComplete"
@@ -31,10 +31,10 @@
             @keydown="onKeyDown">
 
         <FluxIcon
-            v-if="iconBefore"
-            :class="$style.formInputIconBefore"
+            v-if="iconLeading"
+            :class="$style.formInputIconLeading"
             :size="18"
-            :variant="iconBefore"/>
+            :variant="iconLeading"/>
 
         <FluxIcon
             v-if="type === 'password'"
@@ -44,10 +44,10 @@
             @click="passwordTypeToggle()"/>
 
         <FluxIcon
-            v-else-if="iconAfter"
-            :class="$style.formInputIconAfter"
+            v-else-if="iconTrailing"
+            :class="$style.formInputIconTrailing"
             :size="18"
-            :variant="iconAfter"/>
+            :variant="iconTrailing"/>
     </div>
 </template>
 
@@ -83,8 +83,8 @@
     } = defineProps<{
         readonly autoComplete?: string;
         readonly autoFocus?: boolean;
-        readonly iconAfter?: FluxIconName;
-        readonly iconBefore?: FluxIconName;
+        readonly iconLeading?: FluxIconName;
+        readonly iconTrailing?: FluxIconName;
         readonly disabled?: boolean;
         readonly isReadonly?: boolean;
         readonly isSecondary?: boolean;

@@ -1,13 +1,13 @@
 <template>
     <FluxStack
-        axis="horizontal"
+        direction="horizontal"
         :gap="6">
         <FluxChip
-            icon-before="bolt"
+            icon-leading="bolt"
             label="Releases"/>
 
         <FluxChip
-            icon-before="gear"
+            icon-leading="gear"
             label="Builds"/>
     </FluxStack>
 </template>

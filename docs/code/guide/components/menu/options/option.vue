@@ -6,11 +6,11 @@
                     v-model="view"
                     mode="select">
                     <FluxMenuItem
-                        icon-before="list"
+                        icon-leading="list"
                         label="List"/>
 
                     <FluxMenuItem
-                        icon-before="grid-2"
+                        icon-leading="grid-2"
                         label="Grid"/>
                 </FluxMenuOptions>
             </FluxMenu>

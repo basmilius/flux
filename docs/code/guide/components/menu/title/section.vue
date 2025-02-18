@@ -5,19 +5,19 @@
 
             <FluxMenuGroup>
                 <FluxMenuItem
-                    icon-before="user"
+                    icon-leading="user"
                     label="Users"/>
 
                 <FluxMenuItem
-                    icon-before="grid-2"
+                    icon-leading="grid-2"
                     label="Dashboard layout"/>
 
                 <FluxMenuItem
-                    icon-before="cloud"
+                    icon-leading="cloud"
                     label="Cloud runners"/>
 
                 <FluxMenuItem
-                    icon-before="rectangle-history"
+                    icon-leading="rectangle-history"
                     label="History"/>
             </FluxMenuGroup>
 
@@ -25,7 +25,7 @@
 
             <FluxMenuGroup>
                 <FluxMenuItem
-                    icon-before="trash"
+                    icon-leading="trash"
                     is-destructive
                     label="Deactivate"/>
             </FluxMenuGroup>

@@ -26,13 +26,13 @@ props:
         type: boolean
         optional: true
 
-    -   name: icon-after
-        description: The icon at the end of the button.
+    -   name: icon-leading
+        description: The icon at the start of the button.
         type: IconName
         optional: true
 
-    -   name: icon-before
-        description: The icon at the start of the button.
+    -   name: icon-trailing
+        description: The icon at the end of the button.
         type: IconName
         optional: true
 
@@ -79,7 +79,7 @@ props:
 
     -   name: to
         description: This prop is enabled if the button's type is set to route. This integrates with Vue Router.
-        type: To
+        type: FluxTo
         optional: true
 
 slots:
@@ -89,11 +89,11 @@ slots:
     -   name: before
         description: Content that is shown at the start of the button.
 
-    -   name: icon-after
-        description: Slot for overriding the icon at the end.
-
-    -   name: icon-before
+    -   name: icon-leading
         description: Slot for overriding the icon at the start.
+
+    -   name: icon-trailing
+        description: Slot for overriding the icon at the end.
 
     -   name: label
         description: Slot for overriding the label.
