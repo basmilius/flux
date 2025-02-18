@@ -1,6 +1,6 @@
 import { onScopeDispose, watch } from 'vue';
-import type { TemplateRef } from '@/util';
-import { unrefTemplateElement } from '@/util';
+import type { TemplateRef } from '../util';
+import { unrefTemplateElement } from '../util';
 
 export default function <K extends keyof HTMLElementEventMap>(elementRef: TemplateRef<HTMLElement>, eventName: K, listener: (evt: HTMLElementEventMap[K]) => any, options: AddEventListenerOptions = {passive: true}): void {
     let cleanup: Function | undefined;

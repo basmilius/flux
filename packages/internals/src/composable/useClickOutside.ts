@@ -1,7 +1,7 @@
 import type { Ref } from 'vue';
 import { onMounted, onUnmounted, ref, unref, watchEffect } from 'vue';
-import type { TemplateRef } from '@/util';
-import { unrefTemplateElement } from '@/util';
+import type { TemplateRef } from '../util';
+import { unrefTemplateElement } from '../util';
 
 type Handler = ((evt: PointerEvent) => void) | ((evt: PointerEvent) => Promise<void>);
 

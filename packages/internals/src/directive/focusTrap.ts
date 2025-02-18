@@ -1,5 +1,5 @@
 import type { Directive } from 'vue';
-import { getKeyboardFocusableElements } from '@/util';
+import { getKeyboardFocusableElements } from '../util';
 
 class FocusTrap {
     readonly #root: HTMLElement;

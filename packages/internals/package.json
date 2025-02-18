@@ -24,7 +24,7 @@
         "build": "$npm_execpath run esbuild && $npm_execpath run gentypes",
         "dev": "$npm_execpath run esbuild --watch",
         "esbuild": "esbuild src/index.ts --bundle --sourcemap --external:@basmilius --external:lodash-es --external:luxon --external:vue --platform=browser --target=esnext --format=esm --outfile=dist/flux-internals.js",
-        "gentypes": "tsc && tsc-alias",
+        "gentypes": "tsc",
         "prepublishOnly": "cp ../../README.md ."
     },
     "engines": {
