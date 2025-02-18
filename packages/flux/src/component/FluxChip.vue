@@ -30,7 +30,7 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { IconName } from '@/types';
+    import type { FluxIconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '@/css/component/Chip.module.scss';
 
@@ -39,8 +39,8 @@
     }>();
 
     defineProps<{
-        readonly iconAfter?: IconName;
-        readonly iconBefore?: IconName;
+        readonly iconAfter?: FluxIconName;
+        readonly iconBefore?: FluxIconName;
         readonly isSelectable?: boolean;
         readonly isSelected?: boolean;
         readonly label: string;

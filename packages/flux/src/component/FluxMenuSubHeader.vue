@@ -21,13 +21,13 @@
 <script
     lang="ts"
     setup>
-    import type { IconName } from '@/types';
+    import type { FluxIconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '@/css/component/Menu.module.scss';
 
     defineProps<{
-        readonly iconAfter?: IconName;
-        readonly iconBefore?: IconName;
+        readonly iconAfter?: FluxIconName;
+        readonly iconBefore?: FluxIconName;
         readonly label: string;
     }>();
 </script>

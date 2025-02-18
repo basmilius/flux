@@ -27,12 +27,12 @@
 <script
     lang="ts"
     setup>
-    import type { IconName } from '@/types';
+    import type { FluxIconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '@/css/component/Pane.module.scss';
 
     defineProps<{
-        readonly icon?: IconName;
+        readonly icon?: FluxIconName;
         readonly subTitle?: string;
         readonly title?: string;
     }>();

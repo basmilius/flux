@@ -14,7 +14,7 @@
     import { computed, unref } from 'vue';
     import { useFilterInjection } from '@/composable';
     import { isFluxFilterOptionHeader } from '@/data';
-    import type { FluxFilterOptionRow, FluxFilterValueSingle, IconName } from '@/types';
+    import type { FluxFilterOptionRow, FluxFilterValueSingle, FluxIconName } from '@/types';
     import { FilterOptionBase } from './primitive';
 
     const modelSearch = defineModel<string>('searchQuery', {
@@ -25,7 +25,7 @@
         name,
         options
     } = defineProps<{
-        readonly icon?: IconName;
+        readonly icon?: FluxIconName;
         readonly isSearchable?: boolean;
         readonly label: string;
         readonly name: string;

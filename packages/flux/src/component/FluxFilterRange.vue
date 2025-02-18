@@ -40,7 +40,7 @@
     import { computed, unref } from 'vue';
     import { useFilterInjection } from '@/composable';
     import { useTranslate } from '@/composable/private';
-    import type { IconName } from '@/types';
+    import type { FluxIconName } from '@/types';
     import FluxFormColumn from './FluxFormColumn.vue';
     import FluxFormField from './FluxFormField.vue';
     import FluxFormSlider from './FluxFormSlider.vue';
@@ -52,7 +52,7 @@
         name,
         step = 1
     } = defineProps<{
-        readonly icon?: IconName;
+        readonly icon?: FluxIconName;
         readonly isTicksVisible?: boolean;
         readonly label: string;
         readonly name: string;

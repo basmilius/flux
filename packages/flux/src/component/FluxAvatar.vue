@@ -41,7 +41,7 @@
     setup>
     import { clsx } from 'clsx';
     import { computed, unref } from 'vue';
-    import type { ColorVariant, IconName } from '@/types';
+    import type { FluxColorVariant, FluxIconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '@/css/component/Avatar.module.scss';
 
@@ -91,11 +91,11 @@
     } = defineProps<{
         readonly alt?: string;
         readonly fallback?: 'colorized' | 'neutral';
-        readonly fallbackIcon?: IconName;
+        readonly fallbackIcon?: FluxIconName;
         readonly fallbackInitials?: string;
         readonly isClickable?: boolean;
         readonly size?: number;
-        readonly status?: ColorVariant;
+        readonly status?: FluxColorVariant;
         readonly url?: string;
     }>();
 

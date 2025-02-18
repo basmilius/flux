@@ -44,7 +44,7 @@
     setup>
     import { clsx } from 'clsx';
     import { computed } from 'vue';
-    import type { ColorVariant, IconName } from '@/types';
+    import type { FluxColorVariant, FluxIconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
     import $style from '@/css/component/Badge.module.scss';
@@ -58,9 +58,9 @@
         color = 'gray',
         isClickable
     } = defineProps<{
-        readonly color?: ColorVariant;
+        readonly color?: FluxColorVariant;
         readonly dot?: boolean;
-        readonly icon?: IconName;
+        readonly icon?: FluxIconName;
         readonly isClickable?: boolean;
         readonly isDeletable?: boolean;
         readonly isLoading?: boolean;

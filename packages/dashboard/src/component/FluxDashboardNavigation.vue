@@ -23,7 +23,7 @@
 <script
     lang="ts"
     setup>
-    import type { To } from '@basmilius/flux';
+    import type { FluxTo } from '@basmilius/flux';
     import { useDashboardInjection } from '@/composable';
     import $style from '@/css/component/Dashboard.module.scss';
 
@@ -32,7 +32,7 @@
     });
 
     defineProps<{
-        logoLocation?: To
+        logoLocation?: FluxTo
     }>();
 
     const slots = defineSlots<{

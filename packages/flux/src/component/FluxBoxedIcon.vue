@@ -20,7 +20,7 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { ColorVariant, IconName } from '@/types';
+    import type { FluxColorVariant, FluxIconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '@/css/component/Icon.module.scss';
 
@@ -29,8 +29,8 @@
     }>();
 
     defineProps<{
-        readonly color?: ColorVariant;
+        readonly color?: FluxColorVariant;
         readonly size?: number;
-        readonly variant: IconName;
+        readonly variant: FluxIconName;
     }>();
 </script>

@@ -18,18 +18,18 @@
 <script
     lang="ts"
     setup>
-    import type { ButtonEmits, ButtonProps, ButtonSlots, IconName } from '@/types';
+    import type { FluxButtonEmits, FluxButtonProps, FluxButtonSlots, FluxIconName } from '@/types';
     import FluxButton, { SLOTS } from './FluxButton.vue';
     import $style from '@/css/component/Button.module.scss';
 
-    const emit = defineEmits<ButtonEmits>();
+    const emit = defineEmits<FluxButtonEmits>();
 
     const {
         type = 'button'
-    } = defineProps<ButtonProps & {
-        readonly icon?: IconName;
+    } = defineProps<FluxButtonProps & {
+        readonly icon?: FluxIconName;
         readonly label?: string;
     }>();
 
-    defineSlots<ButtonSlots>();
+    defineSlots<FluxButtonSlots>();
 </script>

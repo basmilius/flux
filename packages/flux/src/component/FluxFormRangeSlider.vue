@@ -167,8 +167,8 @@
 
         if (is && !tooltipId.value && !isTooltipDisabled) {
             tooltipId.value = addTooltip({
-                axis: 'vertical',
                 content: unref(tooltipContent),
+                direction: 'vertical',
                 origin: unref(isDraggingLower ? lowerThumbRef : upperThumbRef)?.$el
             });
         } else if (!is && tooltipId.value) {

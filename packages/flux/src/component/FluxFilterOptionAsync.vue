@@ -17,7 +17,7 @@
     import { useFilterInjection } from '@/composable';
     import { useLoaded } from '@/composable/private';
     import { isFluxFilterOptionItem } from '@/data';
-    import type { FluxFilterOptionRow, FluxFilterValue, FluxFilterValueSingle, IconName } from '@/types';
+    import type { FluxFilterOptionRow, FluxFilterValue, FluxFilterValueSingle, FluxIconName } from '@/types';
     import { FilterOptionBase } from './primitive';
 
     const modelSearch = defineModel<string>('searchQuery', {
@@ -34,7 +34,7 @@
         fetchRelevant(): Promise<FluxFilterOptionRow[]>;
         fetchSearch(searchQuery: string): Promise<FluxFilterOptionRow[]>;
 
-        readonly icon?: IconName;
+        readonly icon?: FluxIconName;
         readonly label: string;
         readonly name: string;
         readonly searchPlaceholder?: string;

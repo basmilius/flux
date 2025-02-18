@@ -65,13 +65,13 @@
     import { clsx } from 'clsx';
     import { toRef, unref } from 'vue';
     import { useDisabled } from '@/composable';
-    import type { ButtonEmits, ButtonProps, ButtonSlots } from '@/types';
+    import type { FluxButtonEmits, FluxButtonProps, FluxButtonSlots } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
     import FluxSpinner from './FluxSpinner.vue';
     import $style from '@/css/component/base/Button.module.scss';
 
-    const emit = defineEmits<ButtonEmits>();
+    const emit = defineEmits<FluxButtonEmits>();
 
     const {
         disabled: componentDisabled,
@@ -79,13 +79,13 @@
         size = 'medium',
         tabindex = 0,
         type = 'button'
-    } = defineProps<ButtonProps & {
+    } = defineProps<FluxButtonProps & {
         readonly cssClass: string;
         readonly cssClassIcon: string;
         readonly cssClassLabel: string;
     }>();
 
-    defineSlots<ButtonSlots>();
+    defineSlots<FluxButtonSlots>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));
 

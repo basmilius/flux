@@ -22,7 +22,7 @@
     setup>
     import { computed, unref } from 'vue';
     import { iconRegistry } from '@/data';
-    import type { IconName } from '@/types';
+    import type { FluxIconName } from '@/types';
     import $style from '@/css/component/Icon.module.scss';
 
     const emit = defineEmits<{
@@ -33,7 +33,7 @@
         variant
     } = defineProps<{
         readonly size?: number | string;
-        readonly variant: IconName;
+        readonly variant: FluxIconName;
     }>();
 
     const definition = computed(() => {

@@ -14,14 +14,14 @@
 <script
     lang="ts"
     setup>
-    import type { ButtonEmits, ButtonProps, IconName } from '@/types';
+    import type { FluxButtonEmits, FluxButtonProps, FluxIconName } from '@/types';
     import FluxButton from './FluxButton.vue';
     import $style from '@/css/component/Action.module.scss';
 
-    defineEmits<ButtonEmits>();
+    defineEmits<FluxButtonEmits>();
 
-    defineProps<Omit<ButtonProps, 'iconBefore' | 'iconAfter' | 'size'> & {
-        readonly icon?: IconName;
+    defineProps<Omit<FluxButtonProps, 'iconBefore' | 'iconAfter' | 'size'> & {
+        readonly icon?: FluxIconName;
         readonly isDestructive?: boolean;
     }>();
 </script>

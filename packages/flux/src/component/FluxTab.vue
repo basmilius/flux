@@ -9,11 +9,11 @@
 <script
     lang="ts"
     setup>
-    import type { IconName } from '@/types';
+    import type { FluxIconName } from '@/types';
     import $style from '@/css/component/Tab.module.scss';
 
     defineProps<{
-        readonly icon?: IconName;
+        readonly icon?: FluxIconName;
         readonly label?: string;
     }>();
 

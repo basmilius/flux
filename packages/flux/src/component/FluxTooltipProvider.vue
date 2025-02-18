@@ -35,7 +35,7 @@
                 return;
             }
 
-            const {axis, origin} = spec;
+            const {direction, origin} = spec;
             const margin = 9;
             const safeZone = 15;
 
@@ -53,7 +53,7 @@
             height /= s;
             width /= s;
 
-            if (axis === 'horizontal') {
+            if (direction === 'horizontal') {
                 position.value = calculateHorizontalPosition(top, left, width, height, originWidth, originHeight, margin, safeZone);
             } else {
                 position.value = calculateVerticalPosition(top, left, width, height, originWidth, originHeight, margin, safeZone);

@@ -60,7 +60,7 @@
     import { ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled, useFormFieldInjection } from '@/composable';
     import { inputMask } from '@/data';
-    import type { IconName, InputMask, InputType } from '@/types';
+    import type { FluxIconName, FluxInputMask, FluxInputType } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '@/css/component/Form.module.scss';
 
@@ -83,18 +83,18 @@
     } = defineProps<{
         readonly autoComplete?: string;
         readonly autoFocus?: boolean;
-        readonly iconAfter?: IconName;
-        readonly iconBefore?: IconName;
+        readonly iconAfter?: FluxIconName;
+        readonly iconBefore?: FluxIconName;
         readonly disabled?: boolean;
         readonly isReadonly?: boolean;
         readonly isSecondary?: boolean;
         readonly max?: string | number;
         readonly maxLength?: number;
         readonly min?: string | number;
-        readonly pattern?: InputMask;
+        readonly pattern?: FluxInputMask;
         readonly placeholder?: string;
         readonly step?: number;
-        readonly type?: InputType;
+        readonly type?: FluxInputType;
     }>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));

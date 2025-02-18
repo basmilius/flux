@@ -62,7 +62,7 @@
                     isSearchable && $style.isSearchable
                 )"
                 :anchor="anchorRef"
-                axis="vertical"
+                direction="vertical"
                 use-anchor-width>
                 <FluxFormInput
                     v-if="isSearchable"

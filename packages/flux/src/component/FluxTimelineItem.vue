@@ -53,15 +53,15 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { ColorVariant, IconName } from '@/types';
+    import type { FluxColorVariant, FluxIconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '@/css/component/Timeline.module.scss';
 
     const {
         color = 'gray'
     } = defineProps<{
-        readonly color?: ColorVariant;
-        readonly icon?: IconName;
+        readonly color?: FluxColorVariant;
+        readonly icon?: FluxIconName;
         readonly photo?: string;
         readonly title?: string;
         readonly when?: string;

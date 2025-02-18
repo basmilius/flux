@@ -54,7 +54,7 @@
     import { getCurrentInstance, onBeforeMount, onUnmounted, ref, unref, useId, watch } from 'vue';
     import { useExpandableGroupInjection } from '@/composable';
     import { FluxAutoHeightTransition, FluxFadeTransition } from '@/transition';
-    import { IconName } from '@/types';
+    import { FluxIconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '@/css/component/Expandable.module.scss';
 
@@ -65,7 +65,7 @@
     const {
         isOpened
     } = defineProps<{
-        readonly icon?: IconName;
+        readonly icon?: FluxIconName;
         readonly isOpened?: boolean;
         readonly label?: string;
     }>();

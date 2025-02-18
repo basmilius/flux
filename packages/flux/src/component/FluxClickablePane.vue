@@ -29,7 +29,7 @@
 <script
     lang="ts"
     setup>
-    import { PressableType, To } from '@/types';
+    import { FluxPressableType, FluxTo } from '@/types';
     import FluxPressable from './FluxPressable.vue';
     import FluxSpinner from './FluxSpinner.vue';
     import $style from '@/css/component/Pane.module.scss';
@@ -46,12 +46,12 @@
         readonly isLoading?: boolean;
         readonly tag?: string;
         readonly variant?: 'default' | 'flat' | 'well';
-        readonly type?: PressableType;
+        readonly type?: FluxPressableType;
         readonly tabindex?: string | number;
         readonly href?: string;
         readonly rel?: string;
         readonly target?: string;
-        readonly to?: To;
+        readonly to?: FluxTo;
     }>();
 
     defineSlots<{

@@ -38,7 +38,7 @@
     import { clsx } from 'clsx';
     import { toRef } from 'vue';
     import { useDisabled, useFormFieldInjection } from '@/composable';
-    import type { IconName } from '@/types';
+    import type { FluxIconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '@/css/component/Form.module.scss';
 
@@ -49,8 +49,8 @@
     const {
         disabled: componentDisabled
     } = defineProps<{
-        readonly iconOff?: IconName;
-        readonly iconOn?: IconName;
+        readonly iconOff?: FluxIconName;
+        readonly iconOn?: FluxIconName;
         readonly disabled?: boolean;
         readonly isSwitch?: boolean;
     }>();

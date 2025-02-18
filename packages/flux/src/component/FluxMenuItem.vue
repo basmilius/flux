@@ -58,19 +58,19 @@
 <script
     lang="ts"
     setup>
-    import type { ButtonEmits, ButtonProps,  IconName } from '@/types';
+    import type { FluxButtonEmits, FluxButtonProps, FluxIconName } from '@/types';
     import FluxButton from './FluxButton.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
     import $style from '@/css/component/Menu.module.scss';
 
-    defineEmits<ButtonEmits>();
+    defineEmits<FluxButtonEmits>();
 
     const {
         type = 'button'
-    } = defineProps<Omit<ButtonProps, 'isSubmit' | 'size'> & {
+    } = defineProps<Omit<FluxButtonProps, 'isSubmit' | 'size'> & {
         readonly command?: string;
-        readonly commandIcon?: IconName;
+        readonly commandIcon?: FluxIconName;
         readonly commandLoading?: boolean;
         readonly imageUrl?: string;
         readonly isActive?: boolean;

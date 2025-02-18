@@ -8,7 +8,7 @@
             floatingMode === 'bottom-end' && $style.isBottomEnd,
             floatingMode === 'bottom-start' && $style.isBottomStart,
         )"
-        axis="horizontal"
+        direction="horizontal"
         :gap="6"
         tag="nav">
         <slot/>

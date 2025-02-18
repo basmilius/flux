@@ -12,7 +12,7 @@
             <FluxPaneBody
                 v-if="slots.buttons"
                 :class="$style.actionPaneBody">
-                <FluxButtonStack axis="vertical">
+                <FluxButtonStack direction="vertical">
                     <slot name="buttons"/>
                 </FluxButtonStack>
             </FluxPaneBody>

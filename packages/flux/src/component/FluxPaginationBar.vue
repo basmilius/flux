@@ -1,7 +1,7 @@
 <template>
     <FluxStack
         :class="$style.paginationBar"
-        :axis="breakpoints.lg ? 'horizontal' : 'vertical'">
+        :direction="breakpoints.lg ? 'horizontal' : 'vertical'">
         <FluxFormInputGroup>
             <FluxFormInputAddition>
                 <span>{{ translate('flux.rowsPerPage') }}</span>

@@ -1,5 +1,5 @@
 <template>
-    <div :class="axis === 'horizontal' ? $style.legendHorizontal : $style.legendVertical">
+    <div :class="direction === 'horizontal' ? $style.legendHorizontal : $style.legendVertical">
         <template v-for="item of items">
             <span
                 :class="$style.legendItem"
@@ -15,13 +15,13 @@
 <script
     lang="ts"
     setup>
-    import type { Axis, FluxLegendObject } from '@/types';
+    import type { FluxDirection, FluxLegendObject } from '@/types';
     import $style from '@/css/component/Legend.module.scss';
 
     const {
-        axis = 'horizontal'
+        direction = 'horizontal'
     } = defineProps<{
-        readonly axis?: Axis;
+        readonly direction?: FluxDirection;
         readonly items: FluxLegendObject[];
     }>();
 </script>

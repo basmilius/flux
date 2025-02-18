@@ -23,7 +23,7 @@
 <script
     lang="ts"
     setup>
-    import type { IconName } from '@/types';
+    import type { FluxIconName } from '@/types';
     import FluxAvatar from './FluxAvatar.vue';
     import $style from '@/css/component/Avatar.module.scss';
 
@@ -37,7 +37,7 @@
     } = defineProps<{
         readonly avatarAlt?: string;
         readonly avatarFallback?: 'colorized' | 'neutral';
-        readonly avatarFallbackIcon?: IconName;
+        readonly avatarFallbackIcon?: FluxIconName;
         readonly avatarFallbackInitials?: string;
         readonly avatarSize?: number;
         readonly avatarUrl?: string;

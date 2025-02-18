@@ -1,7 +1,7 @@
 <template>
     <FluxStack
         :class="$style.formDateTimeInput"
-        axis="horizontal"
+        direction="horizontal"
         :gap="15"
         :aria-disabled="disabled ? true : undefined">
         <FluxFlyout

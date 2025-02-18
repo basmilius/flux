@@ -46,14 +46,14 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { ButtonEmits, ButtonProps } from '@/types';
+    import type { FluxButtonEmits, FluxButtonProps } from '@/types';
     import FluxButton from './FluxButton.vue';
     import FluxIcon from './FluxIcon.vue';
     import $style from '@/css/component/Button.module.scss';
 
-    defineEmits<ButtonEmits>();
+    defineEmits<FluxButtonEmits>();
 
-    defineProps<Omit<ButtonProps, 'iconBefore'> & {
+    defineProps<Omit<FluxButtonProps, 'iconBefore'> & {
         readonly isDone?: boolean;
     }>();
 </script>

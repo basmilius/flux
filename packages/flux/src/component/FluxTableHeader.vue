@@ -65,7 +65,7 @@
     import { computed } from 'vue';
     import { useTableInjection } from '@/composable';
     import { useTranslate } from '@/composable/private';
-    import type { IconName } from '@/types';
+    import type { FluxIconName } from '@/types';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxMenu from './FluxMenu.vue';
@@ -96,7 +96,7 @@
     const {isBordered} = useTableInjection();
     const translate = useTranslate();
 
-    const sortingIcon = computed((): IconName => {
+    const sortingIcon = computed((): FluxIconName => {
         switch (sort) {
             case 'ascending':
                 return 'arrow-down-a-z';

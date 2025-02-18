@@ -26,6 +26,20 @@ export type {
 } from './data';
 
 export type {
+    FluxColorVariant,
+    FluxDirection,
+    FluxIconName,
+    FluxInputMask,
+    FluxInputType,
+    FluxPressableType,
+    FluxSize,
+    FluxTo,
+
+    FluxButtonEmits,
+    FluxButtonProps,
+    FluxButtonSize,
+    FluxButtonSlots,
+
     FluxAlertObject,
     FluxConfirmObject,
     FluxPromptObject,
@@ -53,9 +67,6 @@ export type {
     FluxFocalPointObject,
     FluxLegendObject,
     FluxPercentageBarItemObject,
-    FluxSegmentedControlItemObject,
-
-    IconName,
-    To
+    FluxSegmentedControlItemObject
 } from './types';
 

@@ -1,12 +1,8 @@
-import type { IconName as _IconName } from '@fortawesome/fontawesome-common-types';
+import type { IconName } from '@fortawesome/fontawesome-common-types';
 
-export type IconName = _IconName | 'flux-empty';
+export type FluxIconName = IconName | 'flux-empty';
 
-export type Axis =
-    | 'horizontal'
-    | 'vertical';
-
-export type ColorVariant =
+export type FluxColorVariant =
     | 'gray'
     | 'primary'
     | 'danger'
@@ -14,12 +10,16 @@ export type ColorVariant =
     | 'success'
     | 'warning';
 
-export type InputMask =
+export type FluxDirection =
+    | 'horizontal'
+    | 'vertical';
+
+export type FluxInputMask =
     | 'bic'
     | 'iban'
     | 'vat';
 
-export type InputType =
+export type FluxInputType =
     | 'color'
     | 'date'
     | 'datetime-local'
@@ -35,50 +35,18 @@ export type InputType =
     | 'url'
     | 'week';
 
-export type Size =
+export type FluxPressableType =
+    | 'button'
+    | 'link'
+    | 'route'
+    | 'none';
+
+export type FluxSize =
     | 'small'
     | 'medium'
     | 'large';
 
-export type PressableType =
-    | 'button'
-    | 'link'
-    | 'route';
-
-export type ButtonSize = Size | 'xl';
-
-export type ButtonEmits = {
-    click: [MouseEvent];
-    mouseenter: [MouseEvent];
-    mouseleave: [MouseEvent];
-};
-
-export type ButtonProps = {
-    readonly type?: PressableType;
-    readonly disabled?: boolean;
-    readonly iconAfter?: IconName | null;
-    readonly iconBefore?: IconName | null;
-    readonly isLoading?: boolean;
-    readonly isSubmit?: boolean;
-    readonly label?: string;
-    readonly size?: ButtonSize;
-    readonly tabindex?: string | number;
-    readonly href?: string;
-    readonly rel?: string;
-    readonly target?: string;
-    readonly to?: To;
-};
-
-export type ButtonSlots = {
-    default(): any;
-    after(): any;
-    before(): any;
-    iconAfter(): any;
-    iconBefore(): any;
-    label(): any;
-}
-
-export type To = {
+export type FluxTo = {
     name?: string;
     path?: string;
     hash?: string;
@@ -87,3 +55,36 @@ export type To = {
     append?: boolean;
     replace?: boolean;
 };
+
+export type FluxButtonSize = FluxSize | 'xl';
+
+export type FluxButtonEmits = {
+    click: [MouseEvent];
+    mouseenter: [MouseEvent];
+    mouseleave: [MouseEvent];
+};
+
+export type FluxButtonProps = {
+    readonly type?: FluxPressableType;
+    readonly disabled?: boolean;
+    readonly iconAfter?: FluxIconName | null;
+    readonly iconBefore?: FluxIconName | null;
+    readonly isLoading?: boolean;
+    readonly isSubmit?: boolean;
+    readonly label?: string;
+    readonly size?: FluxButtonSize;
+    readonly tabindex?: string | number;
+    readonly href?: string;
+    readonly rel?: string;
+    readonly target?: string;
+    readonly to?: FluxTo;
+};
+
+export type FluxButtonSlots = {
+    default(): any;
+    after(): any;
+    before(): any;
+    iconAfter(): any;
+    iconBefore(): any;
+    label(): any;
+}

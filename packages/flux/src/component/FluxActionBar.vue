@@ -1,7 +1,7 @@
 <template>
     <FluxStack
         :class="$style.actionBar"
-        axis="horizontal"
+        direction="horizontal"
         :gap="9">
         <slot name="primary"/>
         <slot name="actionsStart"/>

@@ -32,7 +32,7 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { IconName } from '@/types';
+    import type { FluxIconName } from '@/types';
     import FluxAvatar from './FluxAvatar.vue';
     import $style from '@/css/component/Comment.module.scss';
 
@@ -42,7 +42,7 @@
     } = defineProps<{
         readonly avatarAlt?: string;
         readonly avatarFallback?: 'colorized' | 'neutral';
-        readonly avatarFallbackIcon?: IconName;
+        readonly avatarFallbackIcon?: FluxIconName;
         readonly avatarFallbackInitials?: string;
         readonly avatarUrl?: string;
         readonly isFlipped?: boolean;

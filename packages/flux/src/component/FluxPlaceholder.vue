@@ -32,7 +32,7 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { IconName } from '@/types';
+    import type { FluxIconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '@/css/component/Placeholder.module.scss';
 
@@ -43,7 +43,7 @@
     const {
         variant = 'extended'
     } = defineProps<{
-        readonly icon?: IconName;
+        readonly icon?: FluxIconName;
         readonly isButton?: boolean;
         readonly message?: string;
         readonly title?: string;

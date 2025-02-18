@@ -4,9 +4,16 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  flux: link:../../../Library/pnpm/global/5/node_modules/@basmilius/flux
+
 importers:
 
-  .: {}
+  .:
+    dependencies:
+      flux:
+        specifier: link:../../../Library/pnpm/global/5/node_modules/@basmilius/flux
+        version: link:../../../Library/pnpm/global/5/node_modules/@basmilius/flux
 
   docs:
     dependencies:

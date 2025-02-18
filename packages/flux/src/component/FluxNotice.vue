@@ -53,7 +53,7 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { ColorVariant, IconName } from '@/types';
+    import type { FluxColorVariant, FluxIconName } from '@/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
     import $style from '@/css/component/Notice.module.scss';
@@ -65,7 +65,7 @@
     const {
         variant = 'gray'
     } = defineProps<{
-        readonly icon?: IconName;
+        readonly icon?: FluxIconName;
         readonly isCenter?: boolean;
         readonly isCloseable?: boolean;
         readonly isFluid?: boolean;
@@ -73,7 +73,7 @@
         readonly isSmall?: boolean;
         readonly message?: string;
         readonly title?: string;
-        readonly variant?: ColorVariant;
+        readonly variant?: FluxColorVariant;
     }>();
 
     defineSlots<{

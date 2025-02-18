@@ -42,7 +42,7 @@
     import { clsx } from 'clsx';
     import { nextTick, onMounted, onUnmounted, ref, toRef, unref } from 'vue';
     import { useDisabled } from '@/composable';
-    import type { IconName } from '@/types';
+    import type { FluxIconName } from '@/types';
     import FluxBorderShine from './FluxBorderShine.vue';
     import FluxPlaceholder from './FluxPlaceholder.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
@@ -63,7 +63,7 @@
         readonly isEmpty?: boolean;
         readonly isMultiple?: boolean;
         readonly placeholderButton?: string;
-        readonly placeholderIcon?: IconName;
+        readonly placeholderIcon?: FluxIconName;
         readonly placeholderMessage?: string;
         readonly placeholderTitle?: string;
         readonly placeholderVariant?: 'extended' | 'simple' | 'small';
