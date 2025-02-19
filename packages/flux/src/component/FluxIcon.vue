@@ -1,26 +1,43 @@
 <template>
     <svg
-        :viewBox="`0 0 ${width} ${height}`"
-        :class="$style.icon"
+        v-if="definition"
+        :viewBox="`0 0 ${definition.width} ${definition.height}`"
+        :class="$style.fontAwesomeIcon"
         :style="{
             fontSize: size && `${size}px`,
-            scale: scale > 1 ? scale : undefined
+            scale: definition.scale > 1 ? definition.scale : undefined
         }"
         focusable="false"
         role="img"
         aria-hidden="true"
         @click="onClick">
         <path
-            v-for="path in paths"
+            v-for="path in definition.paths"
             :d="path"
             fill="currentColor"/>
     </svg>
+
+    <i
+        v-else-if="variant !== 'flux-empty'"
+        :class="$style.materialSymbolIcon"
+        :style="{
+            fontSize: size && `${size}px`
+        }"
+        role="img"
+        aria-hidden="true"
+        @click="onClick">
+        {{ variant }}
+    </i>
+
+    <i
+        v-else
+        :class="$style.icon"/>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { computed, unref } from 'vue';
+    import { computed } from 'vue';
     import { iconRegistry } from '@/data';
     import type { FluxIconName } from '@/types';
     import $style from '@/css/component/Icon.module.scss';
@@ -37,23 +54,19 @@
     }>();
 
     const definition = computed(() => {
-        const definition = iconRegistry[variant];
+        const icon = iconRegistry[variant];
 
-        if (!definition && variant === 'flux-empty') {
-            return [512, 512, null, []];
+        if (!icon || variant === 'flux-empty') {
+            return null;
         }
 
-        if (!definition) {
-            throw new Error(`[Flux] Icon variant "${variant}" is not defined`);
-        }
-
-        return definition;
+        return {
+            width: icon[0],
+            height: icon[1],
+            paths: (Array.isArray(icon[4]) ? icon[4] : [icon[4]]) as string[],
+            scale: Math.max(1, icon[0] / 512)
+        };
     });
-
-    const width = computed(() => definition.value[0] as number);
-    const height = computed(() => definition.value[1] as number);
-    const paths = computed(() => (Array.isArray(definition.value[4]) ? definition.value[4] : [definition.value[4]]) as string[]);
-    const scale = computed(() => Math.max(1, unref(width) / 512));
 
     const onClick = (evt: MouseEvent) => emit('click', evt);
 </script>

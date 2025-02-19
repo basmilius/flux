@@ -9,7 +9,7 @@ emits:
 props:
     -   name: icon
         description: The icon of the expandable header.
-        type: IconName
+        type: FluxIconName
         optional: true
 
     -   name: is-opened

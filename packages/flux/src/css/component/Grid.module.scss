@@ -5,6 +5,7 @@
 }
 
 .gridColumn {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-flow: column;
+    gap: var(--gap);
 }

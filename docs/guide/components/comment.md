@@ -14,7 +14,7 @@ props:
 
     -   name: avatar-fallback-icon
         description: The icon that is used within the fallback.
-        type: IconName
+        type: FluxIconName
         optional: true
 
     -   name: avatar-fallback-initials

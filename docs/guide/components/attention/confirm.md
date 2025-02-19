@@ -45,7 +45,7 @@ declare function showConfirm(spec: FluxConfirmObject): Promise<void>;
 ```ts [Options]
 type FluxConfirmObject = {
     readonly id: number;
-    readonly icon?: IconName;
+    readonly icon?: FluxIconName;
     readonly message: string;
     readonly title: string;
 

@@ -2,8 +2,8 @@
     <FluxAvatar
         alt="Bas"
         :size="60"
-        status="success"
-        url="https://avatars.githubusercontent.com/u/978257?v=4"/>
+        src="https://avatars.githubusercontent.com/u/978257?v=4"
+        status="success"/>
 </template>
 
 <script

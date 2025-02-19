@@ -1,6 +1,6 @@
 <template>
     <FluxButton
-        :="{type, disabled, iconLeading, iconTrailing, isLoading, isSubmit, label, size, href, rel, target, to}"
+        :="{type, disabled, iconLeading, iconTrailing, isFilled, isLoading, isSubmit, label, size, href, rel, target, to}"
         :css-class="$style.destructiveButton"
         :css-class-icon="$style.destructiveButtonIcon"
         :css-class-label="$style.destructiveButtonLabel"

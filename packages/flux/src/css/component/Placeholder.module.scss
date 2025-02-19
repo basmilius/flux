@@ -50,6 +50,10 @@
             color: var(--foreground-secondary);
         }
     }
+
+    :local(.button) {
+        align-self: center;
+    }
 }
 
 .placeholderCaption {

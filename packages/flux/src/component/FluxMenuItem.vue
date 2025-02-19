@@ -4,6 +4,7 @@
         :css-class="$style.menuItem"
         :css-class-icon="$style.menuItemIcon"
         :css-class-label="$style.menuItemLabel"
+        is-filled
         :role="isSelectable ? 'menuitemradio' : 'menuitem'"
         :class="{
             [$style.menuItemActive]: isActive,
@@ -68,7 +69,7 @@
 
     const {
         type = 'button'
-    } = defineProps<Omit<FluxButtonProps, 'isSubmit' | 'size'> & {
+    } = defineProps<Omit<FluxButtonProps, 'isFilled' | 'isSubmit' | 'size'> & {
         readonly command?: string;
         readonly commandIcon?: FluxIconName;
         readonly commandLoading?: boolean;

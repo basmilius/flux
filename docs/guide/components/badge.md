@@ -13,7 +13,7 @@ emits:
 props:
     -   name: color
         description: The color of the badge.
-        type: ColorVariant
+        type: FluxColorVariant
         optional: true
 
     -   name: dot
@@ -23,7 +23,7 @@ props:
 
     -   name: icon
         description: The icon that is used in the badge.
-        type: IconName
+        type: FluxIconName
         optional: true
 
     -   name: is-clickable

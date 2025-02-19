@@ -28,12 +28,17 @@ props:
 
     -   name: icon-leading
         description: The icon at the start of the button.
-        type: IconName
+        type: FluxIconName
         optional: true
 
     -   name: icon-trailing
         description: The icon at the end of the button.
-        type: IconName
+        type: FluxIconName
+        optional: true
+
+    -   name: is-filled
+        description: Let the button fill its parent container.
+        type: boolean
         optional: true
 
     -   name: is-loading

@@ -28,12 +28,12 @@ props:
 
     -   name: icon-leading
         description: The icon at the start of the menu item.
-        type: IconName
+        type: FluxIconName
         optional: true
 
     -   name: icon-trailing
         description: The icon at the end of the menu item.
-        type: IconName
+        type: FluxIconName
         optional: true
 
     -   name: is-loading

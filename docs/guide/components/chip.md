@@ -9,12 +9,12 @@ emits:
 props:
     -   name: icon-leading
         description: The icon shown at the start of the chip.
-        type: IconName
+        type: FluxIconName
         optional: true
 
     -   name: icon-trailing
         description: The icon shown at the end of the chip.
-        type: IconName
+        type: FluxIconName
         optional: true
 
     -   name: is-selectable

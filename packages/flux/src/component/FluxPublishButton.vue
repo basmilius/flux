@@ -1,6 +1,6 @@
 <template>
     <FluxButton
-        :="{type, disabled, iconTrailing, isLoading, label, size, to}"
+        :="{type, disabled, iconTrailing, isFilled, isLoading, label, size, to}"
         :class="clsx(
             !isDone && !isLoading && $style.isIdle,
             isDone && $style.isDone,

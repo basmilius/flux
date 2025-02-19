@@ -1,6 +1,7 @@
-import type { IconName } from '@fortawesome/fontawesome-common-types';
+import type { FontAwesome } from './font-awesome';
+import type { MaterialSymbol } from './material-symbols';
 
-export type FluxIconName = IconName | 'flux-empty';
+export type FluxIconName = FontAwesome | MaterialSymbol | 'flux-empty';
 
 export type FluxColorVariant =
     | 'gray'
@@ -69,6 +70,7 @@ export type FluxButtonProps = {
     readonly disabled?: boolean;
     readonly iconLeading?: FluxIconName | null;
     readonly iconTrailing?: FluxIconName | null;
+    readonly isFilled?: boolean;
     readonly isLoading?: boolean;
     readonly isSubmit?: boolean;
     readonly label?: string;

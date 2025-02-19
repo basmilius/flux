@@ -34,7 +34,7 @@ props:
 
     -   name: placeholder-icon
         description: The icon of the placeholder.
-        type: IconName
+        type: FluxIconName
         optional: true
 
     -   name: placeholder-message

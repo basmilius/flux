@@ -18,12 +18,12 @@ props:
 
     -   name: color
         description: The color of the snackbar.
-        type: ColorVariant
+        type: FluxColorVariant
         optional: true
 
     -   name: icon
         description: The icon that is shown at the start of the snackbar.
-        type: IconName
+        type: FluxIconName
         optional: true
 
     -   name: is-closeable
@@ -126,9 +126,9 @@ declare function showSnackbar(options: FluxSnackbarObject): Promise<void>;
 export type FluxSnackbarObject = {
     readonly id: number;
     readonly actions?: Record<string, string>;
-    readonly color?: ColorVariant;
+    readonly color?: FluxColorVariant;
     readonly duration?: number;
-    readonly icon?: IconName;
+    readonly icon?: FluxIconName;
     readonly isCloseable?: boolean;
     readonly isLoading?: boolean;
     readonly isRendered?: boolean;

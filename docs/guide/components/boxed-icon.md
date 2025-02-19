@@ -14,7 +14,7 @@ props:
 
     -   name: variant
         description: The icon variant.
-        type: IconName
+        type: FluxIconName
 ---
 
 # Boxed icon

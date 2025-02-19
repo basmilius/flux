@@ -50,7 +50,7 @@ function showAlert(spec: FluxAlertObject): Promise<void> {
 ```ts [Options]
 type FluxAlertObject = {
     readonly id: number;
-    readonly icon?: IconName;
+    readonly icon?: FluxIconName;
     readonly message: string;
     readonly title: string;
 

@@ -17,9 +17,14 @@ props:
         type: [ '"colored"', '"neutral"' ]
         optional: true
 
+    -   name: fallback-colors
+        description: The fallback colors available. Only specify if you want to override the default colorful set.
+        type: string[]
+        optional: true
+
     -   name: fallback-icon
         description: The icon that is used within the fallback.
-        type: IconName
+        type: FluxIconName
         optional: true
 
     -   name: fallback-initials
@@ -27,19 +32,44 @@ props:
         type: string
         optional: true
 
-    -   name: is-clickable
-        description: Indicates that the avatar is clickable.
-        type: boolean
+    -   name: size
+        description: The size in pixels of the avatar.
+        type: number
+        optional: true
+
+    -   name: src
+        description: The url to the image source that is used in the avatar.
+        type: string
         optional: true
 
     -   name: status
         description: The status dot that is shown within the avatar. E.g. an online status.
-        type: ColorVariant
+        type: FluxColorVariant
         optional: true
 
-    -   name: url
-        description: The url to the image source that is used in the avatar.
+    -   name: tabindex
+        description: The tabindex of the button, works exactly the same as html.
+        type: [ 'string', 'number' ]
+        optional: true
+
+    -   name: href
+        description: This prop is enabled if the button's type is set to link. It's the same as the <a> HTML element.
         type: string
+        optional: true
+
+    -   name: rel
+        description: This prop is enabled if the button's type is set to link. It's the same as the <a> HTML element.
+        type: string
+        optional: true
+
+    -   name: target
+        description: This prop is enabled if the button's type is set to link. It's the same as the <a> HTML element.
+        type: string
+        optional: true
+
+    -   name: to
+        description: This prop is enabled if the button's type is set to route. This integrates with Vue Router.
+        type: FluxTo
         optional: true
 ---
 

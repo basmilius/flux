@@ -4,12 +4,12 @@ outline: deep
 props:
     -   name: icon-leading
         description: Icon at the start of the sub header.
-        type: IconName
+        type: FluxIconName
         optional: true
 
     -   name: icon-trailing
         description: Icon at the end of the sub header.
-        type: IconName
+        type: FluxIconName
         optional: true
 
     -   name: label

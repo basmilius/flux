@@ -46,7 +46,7 @@ declare function showPrompt(spec: FluxPromptObject): Promise<void>;
 ```ts [Options]
 type FluxPromptObject = {
     readonly id: number;
-    readonly icon?: IconName;
+    readonly icon?: FluxIconName;
     readonly message: string;
     readonly title: string;
     readonly fieldLabel: string;

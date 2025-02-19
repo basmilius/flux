@@ -28,7 +28,7 @@ props:
 
     -   name: icon
         description: The icon at the end of the button.
-        type: IconName
+        type: FluxIconName
         optional: true
 
     -   name: is-destructive

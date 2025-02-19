@@ -20,7 +20,7 @@
 
     defineEmits<FluxButtonEmits>();
 
-    defineProps<Omit<FluxButtonProps, 'iconLeading' | 'iconTrailing' | 'size'> & {
+    defineProps<Omit<FluxButtonProps, 'iconLeading' | 'iconTrailing' | 'isFilled' | 'size'> & {
         readonly icon?: FluxIconName;
         readonly isDestructive?: boolean;
     }>();

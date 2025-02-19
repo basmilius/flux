@@ -63,6 +63,10 @@
         padding: 21px;
     }
 
+    .paneBody + .paneBody {
+        padding-top: 0;
+    }
+
     .paneFooter {
         display: flex;
         padding: 21px;

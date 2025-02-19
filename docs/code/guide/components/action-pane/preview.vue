@@ -6,8 +6,13 @@
             </p>
 
             <template #buttons>
-                <FluxPrimaryButton label="Upgrade now"/>
-                <FluxSecondaryButton label="Dismiss"/>
+                <FluxPrimaryButton
+                    is-filled
+                    label="Upgrade now"/>
+
+                <FluxSecondaryButton
+                    is-filled
+                    label="Dismiss"/>
             </template>
         </FluxActionPane>
     </Preview>

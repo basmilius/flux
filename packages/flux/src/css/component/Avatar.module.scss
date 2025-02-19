@@ -41,8 +41,8 @@
 .avatarFallbackColorized {
     composes: avatarFallback;
 
-    background: rgb(var(--color) / .2);
-    color: rgb(var(--color));
+    background: color(from var(--color) srgb r g b / .2);
+    color: var(--color);
 }
 
 .avatarFallbackNeutral {

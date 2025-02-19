@@ -53,7 +53,7 @@ Todo
 
 ```ts
 type FluxSegmentedControlItemObject = {
-    readonly icon?: IconName;
+    readonly icon?: FluxIconName;
     readonly label?: string;
 };
 ```

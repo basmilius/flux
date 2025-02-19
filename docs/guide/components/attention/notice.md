@@ -9,7 +9,7 @@ emits:
 props:
     -   name: icon
         description: The icon that is shown at the start of the notice.
-        type: IconName
+        type: FluxIconName
         optional: true
 
     -   name: is-center
@@ -49,7 +49,7 @@ props:
 
     -   name: variant
         description: The color variant of the notice.
-        type: ColorVariant
+        type: FluxColorVariant
         optional: true
 
 slots:

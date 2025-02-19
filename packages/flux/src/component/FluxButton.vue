@@ -3,6 +3,7 @@
         :component-type="type"
         :class="clsx(
             cssClass,
+            isFilled && $style.isFilled,
             size === 'small' && $style.isSmall,
             size === 'medium' && $style.isMedium,
             size === 'large' && $style.isLarge,
