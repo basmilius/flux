@@ -6,4 +6,4 @@ The components in Flux are designed with flexibility and scalability in mind. Th
 
 ## Available components
 
-Todo.
+<ComponentGridIndex/>

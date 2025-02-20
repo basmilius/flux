@@ -21,6 +21,9 @@ import * as icons from './icons';
 fluxRegisterIcons(icons);
 
 import ColorPalette from './ColorPalette.vue';
+import ComponentGrid from './ComponentGrid.vue';
+import ComponentGridIndex from './ComponentGridIndex.vue';
+import ComponentGridItem from './ComponentGridItem.vue';
 import Emits from './Emits.vue';
 import FrontmatterDocs from './FrontmatterDocs.vue';
 import Layout from './Layout.vue';
@@ -38,6 +41,9 @@ const theme: Theme = {
     enhanceApp: ({app}) => {
         app.component('Badge', VPBadge);
         app.component('ColorPalette', ColorPalette);
+        app.component('ComponentGrid', ComponentGrid);
+        app.component('ComponentGridIndex', ComponentGridIndex);
+        app.component('ComponentGridItem', ComponentGridItem);
         app.component('Emits', Emits);
         app.component('FrontmatterDocs', FrontmatterDocs);
         app.component('Preview', Preview);
