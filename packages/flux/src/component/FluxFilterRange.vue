@@ -37,6 +37,7 @@
 <script
     lang="ts"
     setup>
+    import { formatNumber } from '@basmilius/utils';
     import { computed, unref } from 'vue';
     import { useFilterInjection } from '@/composable';
     import { useTranslate } from '@/composable/private';
@@ -47,6 +48,7 @@
     import FluxPaneBody from './FluxPaneBody.vue';
 
     const {
+        formatter = formatNumber,
         max,
         min,
         name,
@@ -58,7 +60,7 @@
         readonly name: string;
         readonly max: number;
         readonly min: number;
-        readonly step: number;
+        readonly step?: number;
         readonly formatter?: (value: number) => string;
     }>();
 

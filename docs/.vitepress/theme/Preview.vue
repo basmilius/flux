@@ -72,7 +72,8 @@
         min-height: calc(v-bind(minHeight) * 1px - 1px);
         padding: 15px 60px;
 
-        > .button {
+        > .button,
+        > .flyout > .button {
             align-self: center;
         }
 

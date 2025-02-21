@@ -23,7 +23,7 @@
     const components = computed(() => navigation.items
         .reduce((acc, curr) => {
             if (curr.items) {
-                if ('image' in curr) {
+                if ('image' in curr && (!category || curr.text === category)) {
                     acc.push(curr);
                 }
 

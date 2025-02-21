@@ -1,3 +1,5 @@
+import { Settings } from 'luxon';
+
 import 'vitepress/dist/client/theme-default/styles/vars.css';
 import './override/base.css';
 import 'vitepress/dist/client/theme-default/styles/icons.css';
@@ -19,6 +21,7 @@ import { fluxRegisterIcons } from '@basmilius/flux';
 import * as icons from './icons';
 
 fluxRegisterIcons(icons);
+Settings.defaultLocale = navigator.language;
 
 import ColorPalette from './ColorPalette.vue';
 import ComponentGrid from './ComponentGrid.vue';

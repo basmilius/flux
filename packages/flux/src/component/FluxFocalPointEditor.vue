@@ -8,7 +8,7 @@
                     <div
                         :class="$style.focalPointPreviewImage"
                         :style="{
-                            backgroundImage: `url(${url})`,
+                            backgroundImage: `url(${src})`,
                             backgroundPosition: `${focalPointX}% ${focalPointY}%`
                         }"/>
                 </div>
@@ -24,7 +24,7 @@
                     <img
                         ref="image"
                         :class="$style.focalPointEditorImage"
-                        :src="url"
+                        :src="src"
                         alt=""
                         @load="onImageLoaded"/>
 
@@ -70,9 +70,9 @@
     });
 
     const {
-        url
+        src
     } = defineProps<{
-        readonly url: string;
+        readonly src: string;
     }>();
 
     const imageRef = useTemplateRef('image');
@@ -133,5 +133,5 @@
         isPreviewing.value = !isPreviewing.value;
     }
 
-    watch(() => url, () => isPreviewing.value = false);
+    watch(() => src, () => isPreviewing.value = false);
 </script>

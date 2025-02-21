@@ -1,8 +1,8 @@
 .fader {
     position: relative;
     background: black;
-    border-radius: var(--radius);
-    overflow: hidden;
+    border-radius: inherit;
+    contain: paint;
     z-index: 0;
 }
 
@@ -28,6 +28,7 @@
         inset: 0;
         height: 100%;
         width: 100%;
+        border-radius: 0;
 
         &:not(.focalPointImage) {
             object-fit: cover;

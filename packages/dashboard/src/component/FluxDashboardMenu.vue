@@ -23,12 +23,12 @@
 <script
     lang="ts"
     setup>
-    import { FluxIcon, FluxSpacer, IconName } from '@basmilius/flux';
+    import { FluxIcon, FluxIconName, FluxSpacer } from '@basmilius/flux';
     import FluxDashboardTopBar from './FluxDashboardTopBar.vue';
     import $style from '@/css/component/Dashboard.module.scss';
 
     defineProps<{
-        readonly icon?: IconName;
+        readonly icon?: FluxIconName;
         readonly title: string;
     }>();
 </script>

@@ -3,7 +3,7 @@ const navigation: SidebarItem = {
     collapsed: false,
     items: [
         {text: 'Overview', link: '/guide/components/'},
-        {text: 'Action', link: '/guide/components/action'},
+        {text: 'Action', link: '/guide/components/action', image: '/assets/components/action.svg'},
         {text: 'Action bar', link: '/guide/components/action-bar'},
         {text: 'Action pane', link: '/guide/components/action-pane'},
         {
@@ -30,17 +30,31 @@ const navigation: SidebarItem = {
         {text: 'Color select', link: '/guide/components/color-select'},
         {text: 'Comment', link: '/guide/components/comment'},
         {text: 'Data table', link: '/guide/components/data-table'},
+        {text: 'Date picker', link: '/guide/components/date-picker'},
         {text: 'Divider', link: '/guide/components/divider'},
         {text: 'Drop zone', link: '/guide/components/drop-zone'},
         {text: 'Dynamic view', link: '/guide/components/dynamic-view'},
         {text: 'Expandable', link: '/guide/components/expandable'},
         {text: 'Expandable group', link: '/guide/components/expandable-group'},
         {text: 'Fader', link: '/guide/components/fader'},
-        {text: 'Filter', link: '/guide/components/filter'},
+        {
+            text: 'Filter',
+            link: '/guide/components/filter/',
+            image: null,
+            collapsed: true,
+            items: [
+                {text: 'Date', link: '/guide/components/filter/date'},
+                {text: 'Date range', link: '/guide/components/filter/date-range'},
+                {text: 'Option', link: '/guide/components/filter/option'},
+                {text: 'Options', link: '/guide/components/filter/options'},
+                {text: 'Range', link: '/guide/components/filter/range'},
+                {text: 'Async option', link: '/guide/components/filter/async-option'},
+                {text: 'Async options', link: '/guide/components/filter/async-options'}
+            ]
+        },
         {text: 'Flyout', link: '/guide/components/flyout'},
         {
             text: 'Focal point',
-            link: '/guide/components/focal-point/editor',
             collapsed: true,
             items: [
                 {text: 'Editor', link: '/guide/components/focal-point/editor'},
@@ -50,10 +64,11 @@ const navigation: SidebarItem = {
         {
             text: 'Form',
             link: '/guide/components/form/',
+            image: null,
             collapsed: true,
             items: [
                 {text: 'Checkbox', link: '/guide/components/form/checkbox'},
-                {text: 'Toggle', link: '/guide/components/form/toggle'},
+                {text: 'Date', link: '/guide/components/form/date'},
                 {text: 'Date time', link: '/guide/components/form/date-time'},
                 {text: 'Field', link: '/guide/components/form/field'},
                 {text: 'Input', link: '/guide/components/form/input'},
@@ -63,7 +78,9 @@ const navigation: SidebarItem = {
                 {text: 'Select', link: '/guide/components/form/select'},
                 {text: 'Slider', link: '/guide/components/form/slider'},
                 {text: 'Text area', link: '/guide/components/form/text-area'},
-                {text: 'Time zone picker', link: '/guide/components/form/time-zone-picker'}
+                {text: 'Time', link: '/guide/components/form/time'},
+                {text: 'Time zone picker', link: '/guide/components/form/time-zone-picker'},
+                {text: 'Toggle', link: '/guide/components/form/toggle'}
             ]
         },
         {text: 'Gallery', link: '/guide/components/gallery'},
