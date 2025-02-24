@@ -1,7 +1,7 @@
 <template>
     <Preview>
         <FluxForm>
-            <FluxPane>
+            <FluxPane style="width: 360px">
                 <FluxPaneBody>
                     <FluxFormColumn>
                         <FluxFormRow>
