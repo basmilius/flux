@@ -15,19 +15,6 @@
             </FluxTableRow>
         </template>
 
-        <template #rows>
-            <FluxTableRow
-                v-for="(row, index) of rows"
-                :key="uniqueKey ? row[uniqueKey] : index">
-                <template v-for="(_, name) of slots">
-                    <slot
-                        v-if="name !== 'footer' && name !== 'header'"
-                        v-bind="{index, page, perPage, row, rows, total}"
-                        :name="name"/>
-                </template>
-            </FluxTableRow>
-        </template>
-
         <template
             v-if="'footer' in slots"
             #footer>
@@ -37,6 +24,17 @@
                     v-bind="{page, perPage, rows, total}"/>
             </FluxTableRow>
         </template>
+
+        <FluxTableRow
+            v-for="(row, index) of rows"
+            :key="uniqueKey ? row[uniqueKey] : index">
+            <template v-for="(_, name) of slots">
+                <slot
+                    v-if="name !== 'footer' && name !== 'header'"
+                    v-bind="{index, page, perPage, row, rows, total}"
+                    :name="name"/>
+            </template>
+        </FluxTableRow>
     </FluxTable>
 </template>
 

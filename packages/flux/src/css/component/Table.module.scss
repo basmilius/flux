@@ -75,7 +75,8 @@ tbody .tableRow:nth-child(even) .tableCell.isStriped {
 }
 
 @media (hover: hover) {
-    tbody .tableRow:hover .tableCell.isHoverable {
+    tbody .tableRow:hover .tableCell.isHoverable,
+    tbody .tableRow:has(:focus-visible) .tableCell.isHoverable {
         background: rgb(var(--gray-2));
     }
 }

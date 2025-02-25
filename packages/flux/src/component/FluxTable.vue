@@ -5,8 +5,8 @@
             <slot name="header"/>
             </thead>
 
-            <tbody v-if="slots.rows">
-            <slot name="rows"/>
+            <tbody v-if="slots.default">
+            <slot/>
             </tbody>
 
             <tfoot v-if="slots.footer">
@@ -53,10 +53,10 @@
     }>();
 
     const slots = defineSlots<{
+        default?(): any;
         caption?(): any;
         footer?(): any;
         header?(): any;
-        rows?(): any;
     }>();
 
     provide(FluxTableInjectionKey, {
