@@ -67,14 +67,19 @@ export default defineConfig({
                 ]
             },
             {
-                text: 'Layouts',
-                link: '/layouts',
-                activeMatch: '/layouts/'
+                text: 'Dashboard',
+                link: '/dashboard',
+                activeMatch: '/dashboard/'
             },
             {
-                text: 'Examples',
-                link: '/examples',
-                activeMatch: '/examples/'
+                text: 'Internals',
+                link: '/internals',
+                activeMatch: '/internals/'
+            },
+            {
+                text: 'Showcase',
+                link: '/showcase',
+                activeMatch: '/showcase/'
             }
         ],
 
@@ -121,24 +126,76 @@ export default defineConfig({
                     ]
                 }
             ],
-            '/examples/': [
+            '/dashboard/': [
                 {
-                    text: 'Examples',
-                    link: '/examples',
+                    text: 'Dashboard',
                     items: [
-                        {text: 'Dashboard', link: '/examples/dashboard'},
-                        {text: 'Form', link: '/examples/form'},
-                        {text: 'Sign in', link: '/examples/sign-in'},
-                        {text: 'Data table', link: '/examples/data-table'}
+                        {text: 'Installation', link: '/dashboard/'}
                     ]
                 }
             ],
-            '/layouts/': [
+            '/internals/': [
                 {
-                    text: 'Layouts',
-                    link: '/layouts',
+                    text: 'Introduction',
+                    collapsed: false,
                     items: [
-                        {text: 'Dashboard', link: '/layouts/dashboard'}
+                        {text: 'Installation', link: '/internals/'}
+                    ]
+                },
+                {
+                    text: 'Composables',
+                    collapsed: false,
+                    items: [
+                        {text: 'useCalendar', link: '/internals/composables/useCalendar'},
+                        {text: 'useCalendarMonthSwitcher', link: '/internals/composables/useCalendarMonthSwitcher'},
+                        {text: 'useCalendarYearSwitcher', link: '/internals/composables/useCalendarYearSwitcher'},
+                        {text: 'useClickOutside', link: '/internals/composables/useClickOutside'},
+                        {text: 'useComponentId', link: '/internals/composables/useComponentId'},
+                        {text: 'useDebouncedRef', link: '/internals/composables/useDebouncedRef'},
+                        {text: 'useEventListener', link: '/internals/composables/useEventListener'},
+                        {text: 'useFocusTrap', link: '/internals/composables/useFocusTrap'},
+                        {text: 'useFocusTrapLock', link: '/internals/composables/useFocusTrapLock'},
+                        {text: 'useFocusTrapReturn', link: '/internals/composables/useFocusTrapReturn'},
+                        {text: 'useFocusTrapSubscription', link: '/internals/composables/useFocusTrapSubscription'},
+                        {text: 'useFocusZone', link: '/internals/composables/useFocusZone'},
+                        {text: 'useInterval', link: '/internals/composables/useInterval'},
+                        {text: 'useInView', link: '/internals/composables/useInView'},
+                        {text: 'useMutationObserver', link: '/internals/composables/useMutationObserver'},
+                        {text: 'useRemembered', link: '/internals/composables/useRemembered'}
+                    ]
+                },
+                {
+                    text: 'Directives',
+                    collapsed: false,
+                    items: [
+                        {text: 'focusTrap', link: '/internals/directives/focusTrap'},
+                        {text: 'heightTransition', link: '/internals/directives/heightTransition'}
+                    ]
+                },
+                {
+                    text: 'Utils',
+                    collapsed: false,
+                    items: [
+                        {text: 'getFocusableElements', link: '/internals/utils/getFocusableElements'},
+                        {text: 'flattenVNodeTree', link: '/internals/utils/flattenVNodeTree'},
+                        {text: 'unrefTemplateElement', link: '/internals/utils/unrefTemplateElement'},
+                        {text: 'wrapFocus', link: '/internals/utils/wrapFocus'},
+                        {text: 'getBidirectionalFocusElement', link: '/internals/utils/getBidirectionalFocusElement'},
+                        {text: 'getExposedRef', link: '/internals/utils/getExposedRef'},
+                        {text: 'focusTrap', link: '/internals/utils/focusTrap'},
+                        {text: 'getComponentName', link: '/internals/utils/getComponentName'},
+                        {text: 'getKeyboardFocusableElements', link: '/internals/utils/getKeyboardFocusableElements'},
+                        {text: 'getComponentProps', link: '/internals/utils/getComponentProps'},
+                        {text: 'unrefObject', link: '/internals/utils/unrefObject'},
+                        {text: 'getFocusableElement', link: '/internals/utils/getFocusableElement'},
+                    ]
+                }
+            ],
+            '/showcase/': [
+                {
+                    text: 'Showcase',
+                    items: [
+                        {text: 'Overview', link: '/showcase/'}
                     ]
                 }
             ]

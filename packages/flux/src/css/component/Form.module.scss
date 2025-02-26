@@ -29,6 +29,11 @@
     gap: 42px;
 }
 
+:local(.pane) > .form {
+    display: contents;
+    gap: 0;
+}
+
 .formColumn,
 .formSection {
     composes: flexColumn;

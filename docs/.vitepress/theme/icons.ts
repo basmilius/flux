@@ -29,6 +29,8 @@ export {
     faCloud,
     faCoin,
     faEllipsisH,
+    faEye,
+    faEyeSlash,
     faFilter,
     faGear,
     faGrid2,

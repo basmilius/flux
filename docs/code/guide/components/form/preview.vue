@@ -1,57 +1,50 @@
 <template>
     <Preview>
-        <FluxForm>
-            <FluxPane style="width: 360px">
+        <FluxPane style="max-width: 390px">
+            <FluxForm>
                 <FluxPaneBody>
                     <FluxFormColumn>
                         <FluxFormRow>
                             <FluxFormField label="First name">
                                 <FluxFormInput
-                                    model-value=""
                                     auto-complete="given_name"
-                                    placeholder="E.g. Bas"/>
+                                    placeholder="E.g. John"/>
                             </FluxFormField>
 
                             <FluxFormField label="Last name">
                                 <FluxFormInput
-                                    model-value=""
                                     auto-complete="family_name"
-                                    placeholder="E.g. Milius"/>
+                                    placeholder="E.g. Doe"/>
                             </FluxFormField>
                         </FluxFormRow>
 
                         <FluxFormField label="Email">
                             <FluxFormInput
-                                model-value=""
                                 auto-complete="email"
-                                placeholder="E.g. bas@mili.us"
+                                placeholder="E.g. email@example.com"
                                 type="email"/>
                         </FluxFormField>
 
                         <FluxFormField label="Question">
                             <FluxFormTextArea auto-complete="email"/>
                         </FluxFormField>
-
-                        <FluxFormField label="Phone number">
-                            <FluxFormInputGroup>
-                                <FluxFormInputAddition icon="phone"/>
-
-                                <FluxFormInput
-                                    model-value=""
-                                    auto-complete="phone_number"
-                                    placeholder="E.g. +31 6 12345678"
-                                    type="tel"/>
-                            </FluxFormInputGroup>
-                        </FluxFormField>
                     </FluxFormColumn>
                 </FluxPaneBody>
-            </FluxPane>
-        </FluxForm>
+
+                <FluxPaneFooter>
+                    <FluxSpacer/>
+
+                    <FluxPrimaryButton
+                        icon-leading="circle-check"
+                        label="Submit"/>
+                </FluxPaneFooter>
+            </FluxForm>
+        </FluxPane>
     </Preview>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxForm, FluxFormColumn, FluxFormField, FluxFormInput, FluxFormInputAddition, FluxFormInputGroup, FluxFormRow, FluxFormTextArea, FluxPane, FluxPaneBody } from '@basmilius/flux';
+    import { FluxForm, FluxFormColumn, FluxFormField, FluxFormInput, FluxFormRow, FluxFormTextArea, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPrimaryButton, FluxSpacer } from '@basmilius/flux';
 </script>
