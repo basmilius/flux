@@ -34,6 +34,5 @@ render=../../code/guide/components/icon/preview.vue
 ## Snippet
 
 ```vue
-
 <FluxIcon variant="rocket"/>
 ```

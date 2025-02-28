@@ -90,15 +90,15 @@
     flex-flow: column;
 
     .expandable + .expandable {
-        border-top: 1px solid rgb(var(--gray-3));
+        border-top: 1px solid rgb(var(--gray-2));
     }
 
     &:not(:first-child) {
-        border-top: 1px solid rgb(var(--gray-3));
+        border-top: 1px solid rgb(var(--gray-2));
     }
 
     &:not(:last-child) {
-        border-bottom: 1px solid rgb(var(--gray-3));
+        border-bottom: 1px solid rgb(var(--gray-2));
     }
 }
 

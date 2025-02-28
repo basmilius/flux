@@ -1,7 +1,4 @@
-export type { Breakpoint, Breakpoints } from './useBreakpointsProvider';
-
 export { default as useBreakpoints } from './useBreakpoints';
-export { default as useBreakpointsProvider } from './useBreakpointsProvider';
 export { default as useDisabled } from './useDisabled';
 
 export { default as useDisabledInjection } from './useDisabledInjection';

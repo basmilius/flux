@@ -26,7 +26,7 @@
     position: absolute;
     top: 3px;
     bottom: 3px;
-    background: rgb(var(--gray-3));
+    background: rgb(var(--gray-2));
     border-radius: var(--radius);
     pointer-events: none;
     transition: 300ms var(--swift-out);
@@ -73,7 +73,7 @@
     height: 15px;
     width: 1px;
     flex-shrink: 0;
-    background: rgb(var(--gray-4));
+    background: rgb(var(--gray-3));
     transition: opacity 300ms var(--swift-out);
 
     &.isActive {

@@ -136,26 +136,21 @@
     align-self: start;
     background: rgb(var(--gray-0));
     background-clip: padding-box;
-    border: 1px solid rgb(var(--gray-4) / .75);
+    border: 1px solid rgb(var(--gray-3));
     border-radius: var(--radius);
     box-shadow: var(--shadow-px);
     color: var(--foreground);
     transition: 180ms var(--swift-out);
-    transition-property: border-color, mixin.focus-ring-transition-properties();
+    transition-property: background, border-color, mixin.focus-ring-transition-properties();
 
     &::placeholder {
         color: var(--foreground-secondary);
     }
 
     &.isSecondary {
-        background: rgb(var(--gray-3) / .8);
+        background: rgb(var(--gray-2));
         border-color: transparent;
-
-        @media (hover: hover) {
-            &:hover {
-                background: rgb(var(--gray-3));
-            }
-        }
+        box-shadow: none;
     }
 }
 
@@ -177,7 +172,7 @@
 
     @media (hover: hover) {
         &:hover {
-            border-color: rgb(var(--gray-5));
+            border-color: rgb(var(--gray-4));
         }
     }
 }
@@ -271,32 +266,73 @@
     background: rgb(var(--gray-1));
     color: var(--foreground-secondary);
     pointer-events: none;
+
+    &:has(+ .formInput .formInputNative) {
+        border-right: 1px solid rgb(var(--gray-4) / .75);
+    }
+
+    + .formInputAddition {
+        border-left: 1px solid rgb(var(--gray-4) / .75);
+    }
+
+    @at-root .formInput:has(.formInputNative) + & {
+        border-left: 1px solid rgb(var(--gray-4) / .75);
+    }
 }
 
 .formInputGroup {
-    composes: formInput;
+    composes: formInputEnabled;
 
     display: flex;
     padding: 0;
-    gap: 1px;
-    background: rgb(var(--gray-4) / .75);
 
-    @include mixin.focus-ring-transition(-1px, true);
-
-    &,
-    &:hover {
-        border: 1px solid rgb(var(--gray-4) / .75);
-    }
+    @include mixin.focus-ring(-1px, true);
 
     > :is(.formInput, .formSelect, :local(.button)) {
         @extend %-form-input-group-inner-styles;
+
+        + :is(:local(.button), :local(.buttonGroup)) {
+            margin: 0;
+            border-left: 1px solid rgb(var(--gray-3));
+        }
     }
 
-    > .buttonGroup > :local(.button) {
+    > :local(.buttonGroup) > :local(.button) {
         @extend %-form-input-group-inner-styles;
 
         + :local(.button) {
-            margin-left: 1px;
+            margin: 0;
+            border-left: 1px solid rgb(var(--gray-3));
+        }
+    }
+
+    > :local(.buttonGroup):not(:first-child) > :local(.button):first-child {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    &.isSecondary {
+        .formInput {
+            background: transparent;
+            border-color: transparent;
+            box-shadow: none;
+        }
+
+        .formInputAddition:not(:last-child) {
+            padding-right: 0;
+        }
+
+        .secondaryButton {
+            background: transparent;
+            border-left: 1px solid rgb(var(--gray-3));
+            box-shadow: none;
+
+            @media (hover: hover) {
+                &:hover {
+                    background: rgb(var(--gray-3));
+                    border-left-color: rgb(var(--gray-4));
+                }
+            }
         }
     }
 }

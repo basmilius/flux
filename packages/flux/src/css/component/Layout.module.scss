@@ -1,3 +1,6 @@
+@use 'sass:map';
+@use '@/css/mixin';
+
 @value flexGrow, flexNoShrink from '@/css/component/base/Flex.module.scss';
 @value baseAutoGrid from '@/css/component/base/Grid.module.scss';
 
@@ -23,6 +26,8 @@
         padding-left: var(--gutter);
         padding-right: var(--gutter);
         width: 100%;
+
+        @include mixin.breakpoint-max-widths;
     }
 
     .spacer {

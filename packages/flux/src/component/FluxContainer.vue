@@ -1,10 +1,7 @@
 <template>
     <div
         :class="$style.container"
-        :style="{
-            '--gutter': `${gutter}px`,
-            maxWidth: `${maxWidth}px`
-        }">
+        :style="{'--gutter': `${gutter}px`}">
         <slot/>
     </div>
 </template>
@@ -12,7 +9,6 @@
 <script
     lang="ts"
     setup>
-    import { useBreakpoints } from '@/composable';
     import $style from '@/css/component/Layout.module.scss';
 
     const {
@@ -24,6 +20,4 @@
     defineSlots<{
         default(): any;
     }>();
-
-    const {maxWidth} = useBreakpoints();
 </script>

@@ -60,15 +60,16 @@
 .sliderTrack {
     position: relative;
     height: 12px;
-    background: rgb(var(--gray-3) / .75);
-    border: 1px solid rgb(var(--gray-11) / .05);
-    border-radius: calc(var(--radius) / 2);
+    background: rgb(var(--gray-1));
+    border: 1px solid rgb(var(--gray-3));
+    border-radius: calc(var(--radius));
 }
 
 .sliderTrackValue {
     position: absolute;
     display: block;
     top: 0;
+    margin: -1px;
     height: inherit;
     background: rgb(var(--primary-7));
     border-radius: inherit;

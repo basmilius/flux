@@ -16,7 +16,6 @@ export {
 } from './data';
 
 export type {
-    FluxBreakpointsInjection,
     FluxExpandableGroupInjection,
     FluxFilterInjection,
     FluxFlyoutInjection,

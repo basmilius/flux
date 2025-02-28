@@ -34,7 +34,6 @@
     lang="ts"
     setup>
     import { watch } from 'vue';
-    import { useBreakpointsProvider } from '@/composable';
     import { useFluxStore } from '@/data';
     import FluxAlert from './FluxAlert.vue';
     import FluxConfirm from './FluxConfirm.vue';
@@ -47,8 +46,6 @@
     defineSlots<{
         default(): any;
     }>();
-
-    useBreakpointsProvider();
 
     const {alerts, confirms, inertMain, prompts} = useFluxStore();
 

@@ -22,7 +22,7 @@
     ],
     "scripts": {
         "build": "vue-tsc && vite build",
-        "dev": "vite build --watch",
+        "dev": "vite build --mode dev --watch",
         "prepublishOnly": "cp ../../README.md ."
     },
     "engines": {
@@ -34,7 +34,8 @@
             "import": "./dist/flux.js",
             "require": "./dist/flux.umd.cjs"
         },
-        "./style.css": "./dist/flux.css"
+        "./style.css": "./dist/flux.css",
+        "./*": "./"
     },
     "publishConfig": {
         "access": "public",

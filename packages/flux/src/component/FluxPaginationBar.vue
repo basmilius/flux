@@ -1,7 +1,5 @@
 <template>
-    <FluxStack
-        :class="$style.paginationBar"
-        :direction="breakpoints.lg ? 'horizontal' : 'vertical'">
+    <FluxStack :class="$style.paginationBar">
         <FluxFormInputGroup>
             <FluxFormInputAddition>
                 <span>{{ translate('flux.rowsPerPage') }}</span>
@@ -12,7 +10,7 @@
                 :options="limitOptions"/>
         </FluxFormInputGroup>
 
-        <FluxSpacer v-if="breakpoints.lg"/>
+        <FluxSpacer :class="$style.paginationBarSpacer"/>
 
         <FluxFormInputGroup>
             <FluxFormInputAddition>
@@ -43,7 +41,6 @@
     lang="ts"
     setup>
     import { computed, ref, watch } from 'vue';
-    import { useBreakpoints } from '@/composable';
     import { useTranslate } from '@/composable/private';
     import type { FluxFormSelectOption } from '@/types';
     import FluxFormInputAddition from './FluxFormInputAddition.vue';
@@ -70,7 +67,6 @@
     }>();
 
     const translate = useTranslate();
-    const {breakpoints} = useBreakpoints();
 
     const limit = ref(perPage);
 

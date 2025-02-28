@@ -8,7 +8,7 @@ import componentNavigation from './component-navigation';
 
 export default defineConfig({
     title: 'Flux',
-    titleTemplate: ':title — Flux',
+    titleTemplate: 'Flux — :title',
     description: 'Component library for Vue 3.',
     ignoreDeadLinks: true,
     markdown: {

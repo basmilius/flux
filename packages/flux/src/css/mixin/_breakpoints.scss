@@ -74,3 +74,39 @@ $-breakpoints: (
         @content;
     }
 }
+
+@mixin container-breakpoint-down($container, $breakpoint) {
+    $max: -maxWidth($breakpoint);
+
+    @if $max {
+        @container #{$container} (max-width: #{$max}) {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}
+
+@mixin container-breakpoint-up($container, $breakpoint) {
+    $min: -minWidth($breakpoint);
+
+    @if $min {
+        @container #{$container} (min-width: #{$min}) {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}
+
+@mixin breakpoint-max-widths {
+    @each $-breakpoint, $-max-width in $-breakpoints {
+        @if $-breakpoint != xs {
+            @include breakpoint-up($-breakpoint) {
+                & {
+                    max-width: #{$-max-width};
+                }
+            }
+        }
+    }
+}

@@ -21,12 +21,10 @@ Flux uses a bunch of strings in its library, and the cool part is that they can 
                 <FluxTableHeader>Value</FluxTableHeader>
             </FluxTableRow>
         </template>
-        <template #rows>
-            <FluxTableRow v-for="(value, key) of english">
-                <FluxTableCell><small><kbd>{{ key }}</kbd></small></FluxTableCell>
-                <FluxTableCell>{{ value }}</FluxTableCell>
-            </FluxTableRow>
-        </template>
+        <FluxTableRow v-for="(value, key) of english">
+            <FluxTableCell><small><kbd>{{ key }}</kbd></small></FluxTableCell>
+            <FluxTableCell>{{ value }}</FluxTableCell>
+        </FluxTableRow>
     </FluxTable>
 </FluxPane>
 

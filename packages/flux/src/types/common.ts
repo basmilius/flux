@@ -52,7 +52,8 @@ export type FluxTo = {
     path?: string;
     hash?: string;
     query?: Record<string, string | (string | null)[] | null | undefined>;
-    params?: Record<string, string>;
+    params?: Record<string, string | number>;
+    state?: Record<string, string | number | boolean>;
     append?: boolean;
     replace?: boolean;
 };

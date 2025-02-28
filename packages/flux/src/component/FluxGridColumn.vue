@@ -2,7 +2,11 @@
     <div
         :class="$style.gridColumn"
         :style="{
-            gridColumn: `span ${span}`
+            '--xs': xs ?? 12,
+            '--sm': sm ?? xs ?? 12,
+            '--md': md ?? sm ?? xs ?? 12,
+            '--lg': lg ?? md ?? sm ?? xs ?? 12,
+            '--xl': xl ?? lg ?? md ?? sm ?? xs ?? 12
         }">
         <slot/>
     </div>
@@ -11,17 +15,9 @@
 <script
     lang="ts"
     setup>
-    import { computed, unref } from 'vue';
-    import { useBreakpoints } from '@/composable';
     import $style from '@/css/component/Grid.module.scss';
 
-    const {
-        xs,
-        sm,
-        md,
-        lg,
-        xl
-    } = defineProps<{
+    defineProps<{
         readonly xs?: number;
         readonly sm?: number;
         readonly md?: number;
@@ -32,20 +28,4 @@
     defineSlots<{
         default(): any;
     }>();
-
-    const {breakpoint} = useBreakpoints();
-
-    const spans = computed(() => {
-        const values = {xs, sm, md, lg, xl};
-
-        values.xs ??= 12;
-        values.sm ??= values.xs;
-        values.md ??= values.sm;
-        values.lg ??= values.md;
-        values.xl ??= values.lg;
-
-        return values;
-    });
-
-    const span = computed(() => unref(spans)[unref(breakpoint)]);
 </script>

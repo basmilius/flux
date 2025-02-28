@@ -52,10 +52,6 @@
 
 [dark] .overlay {
     background: rgb(0 0 0 / .5);
-
-    > .basePaneStructure {
-        border-color: rgb(var(--gray-11) / .3);
-    }
 }
 
 .slideOver {
@@ -124,7 +120,7 @@
 
     > .basePaneStructure {
         opacity: 0;
-        scale: 1.1;
+        scale: .95;
     }
 }
 
@@ -133,7 +129,7 @@
 
     > .basePaneStructure {
         opacity: 0;
-        scale: .9;
+        scale: .95;
     }
 }
 

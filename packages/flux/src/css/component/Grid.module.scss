@@ -1,11 +1,24 @@
+@use '@/css/mixin';
+
 .grid {
     display: grid;
     gap: var(--gap);
     grid-template-columns: repeat(var(--columns), 1fr);
+    container: grid / inline-size;
 }
 
 .gridColumn {
     display: flex;
     flex-flow: column;
     gap: var(--gap);
+}
+
+$-breakpoints: xl, lg, md, sm, xs;
+
+@each $-breakpoint in $-breakpoints {
+    @include mixin.container-breakpoint-down(grid, $-breakpoint) {
+        .gridColumn {
+            grid-column: span var(--#{$-breakpoint});
+        }
+    }
 }

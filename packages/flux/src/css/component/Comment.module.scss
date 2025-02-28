@@ -38,9 +38,9 @@
 
 .commentMessage {
     padding: 12px 15px;
-    background: rgb(var(--gray-1));
-    border: 1px solid rgb(var(--gray-4));
-    border-radius: calc(var(--radius) * 1.5);
+    background: linear-gradient(to bottom, rgb(var(--gray-1)), rgb(var(--gray-2)));
+    border: 1px solid rgb(var(--gray-3));
+    border-radius: calc(var(--radius) * 2);
     box-shadow: var(--shadow-sm);
 }
 
@@ -58,7 +58,7 @@
 }
 
 .comment.isFlipped .commentMessage {
-    border-top-right-radius: calc(var(--radius) * .5);
+    border-top-right-radius: calc(var(--radius));
 }
 
 .comment:not(.isFlipped) .commentHeader {
@@ -66,22 +66,17 @@
 }
 
 .comment:not(.isFlipped) .commentMessage {
-    border-top-left-radius: calc(var(--radius) * .5);
+    border-top-left-radius: calc(var(--radius));
 }
 
 .comment.isReceived .commentMessage {
-    background: rgb(var(--primary-7));
-    border-color: rgb(var(--primary-9));
-    color: rgb(var(--primary-0));
+    background: linear-gradient(to bottom, rgb(var(--gray-0)), rgb(var(--gray-1)));
 }
 
 [dark] .commentMessage {
-    padding: 12px 15px;
-    background: rgb(var(--gray-1));
-    border: 1px solid rgb(var(--gray-3));
+    background: linear-gradient(to bottom, rgb(var(--gray-2)), rgb(var(--gray-1)));
 }
 
 [dark] .comment.isReceived .commentMessage {
-    background: rgb(var(--primary-11));
-    border-color: rgb(var(--primary-9));
+    background: linear-gradient(to bottom, rgb(var(--gray-1)), rgb(var(--gray-0)));
 }

@@ -163,7 +163,7 @@
  * Decorational elements
  * -------------------------------------------------------------------------- */
 
-.vp-doc hr {
+.vp-doc hr:not(:only-child) {
     margin: 16px 0;
     border: none;
     border-top: 1px solid var(--vp-c-divider);

@@ -5,8 +5,8 @@
             :size="18"
             :variant="icon"/>
 
-        <span v-if="text">
-            {{ text }}
+        <span v-if="label">
+            {{ label }}
         </span>
 
         <slot/>
@@ -22,7 +22,7 @@
 
     defineProps<{
         readonly icon?: FluxIconName;
-        readonly text?: string;
+        readonly label?: string;
     }>();
 
     defineSlots<{

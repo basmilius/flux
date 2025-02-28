@@ -51,7 +51,7 @@
     composes: button;
 
     background: rgb(var(--gray-0));
-    border-color: rgb(var(--gray-4));
+    border-color: rgb(var(--gray-3));
     color: var(--foreground);
 
     @media (hover: hover) {
@@ -80,7 +80,7 @@
     composes: button;
 
     background: rgb(var(--gray-0));
-    border-color: rgb(var(--gray-4));
+    border-color: rgb(var(--gray-3));
     color: var(--foreground);
 
     @media (hover: hover) {
@@ -131,7 +131,7 @@
 
 .secondaryButton,
 .destructiveButton {
-    box-shadow: var(--shadow-px), inset 0 -1px rgb(var(--gray-4) / .25);
+    box-shadow: var(--shadow-px), inset 0 -1px rgb(var(--gray-3) / .25);
 }
 
 .linkButton {
