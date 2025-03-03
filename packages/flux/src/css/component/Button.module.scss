@@ -1,6 +1,7 @@
 @use '@/css/mixin';
 
 @value button, buttonIcon, buttonLabel, isSmall, isMedium, isLarge, isXl from '@/css/component/base/Button.module.scss';
+
 @value inlineFlexRow, flexNoGrow, flexNoShrink from '@/css/component/base/Flex.module.scss';
 
 .primaryButton {
@@ -11,10 +12,8 @@
     box-shadow: 0 1px 1px rgb(var(--primary-7) / .25);
     color: rgb(var(--primary-0));
 
-    @media (hover: hover) {
-        &:hover {
-            background: rgb(var(--primary-8));
-        }
+    @include mixin.hover {
+        background: rgb(var(--primary-8));
     }
 
     &:active {
@@ -38,15 +37,6 @@
     composes: buttonLabel;
 }
 
-[dark] .primaryButton {
-    color: rgb(0 0 0 / .975);
-    border-color: rgb(var(--primary-6) / .5);
-}
-
-[dark] .primaryButtonIcon {
-    color: rgb(0 0 0 / .975);
-}
-
 .secondaryButton {
     composes: button;
 
@@ -54,14 +44,13 @@
     border-color: rgb(var(--gray-3));
     color: var(--foreground);
 
-    @media (hover: hover) {
-        &:hover {
-            background: rgb(var(--gray-2));
-        }
+    @include mixin.hover {
+        background: rgb(var(--gray-2));
     }
 
     &:active {
         background: rgb(var(--gray-3));
+        border-color: rgb(var(--gray-4));
         scale: .9875;
     }
 }
@@ -83,14 +72,13 @@
     border-color: rgb(var(--gray-3));
     color: var(--foreground);
 
-    @media (hover: hover) {
-        &:hover {
-            background: rgb(var(--gray-2));
-        }
+    @include mixin.hover {
+        background: rgb(var(--gray-2));
     }
 
     &:active {
         background: rgb(var(--gray-3));
+        border-color: rgb(var(--gray-4));
         scale: .9875;
     }
 
@@ -116,12 +104,10 @@
 [dark] .secondaryButton,
 [dark] .destructiveButton {
     background: rgb(var(--gray-1));
-    border-color: rgb(var(--gray-4) / .6);
+    border-color: rgb(var(--gray-3));
 
-    @media (hover: hover) {
-        &:hover {
-            background: rgb(var(--gray-2));
-        }
+    @include mixin.hover {
+        background: rgb(var(--gray-2));
     }
 
     &:active {
@@ -131,7 +117,7 @@
 
 .secondaryButton,
 .destructiveButton {
-    box-shadow: var(--shadow-px), inset 0 -1px rgb(var(--gray-3) / .25);
+    box-shadow: var(--shadow-px), inset 0 -1px rgb(var(--gray-3) / .3);
 }
 
 .linkButton {
@@ -149,13 +135,11 @@
 
     @include mixin.focus-ring(6px);
 
-    @media (hover: hover) {
-        &:hover {
-            color: rgb(var(--primary-10));
+    @include mixin.hover {
+        color: rgb(var(--primary-10));
 
-            .linkButtonIcon {
-                transform: translate3d(6px, 0, 0);
-            }
+        .linkButtonIcon {
+            transform: translate3d(6px, 0, 0);
         }
     }
 }

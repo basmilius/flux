@@ -24,11 +24,13 @@
     color: var(--foreground-prominent);
     cursor: pointer;
     text-align: left;
+    transition: background 180ms var(--swift-out);
+    transition-property: background, mixin.focus-ring-transition-properties();
     z-index: 1;
 
-    @include mixin.focus-ring-transition();
+    @include mixin.focus-ring();
 
-    &:hover {
+    @include mixin.hover {
         background: rgb(var(--gray-1));
     }
 
@@ -43,9 +45,7 @@
 }
 
 .expandableBody {
-    transition: height 390ms var(--swift-out),
-    translate 300ms var(--swift-out) 120ms,
-    opacity 300ms var(--swift-out) 120ms;
+    transition: height 390ms var(--swift-out), translate 300ms var(--swift-out) 120ms, opacity 300ms var(--swift-out) 120ms;
 
     &:global(.v-enter-from),
     &:global(.v-leave-to) {

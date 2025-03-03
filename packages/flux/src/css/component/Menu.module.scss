@@ -1,3 +1,5 @@
+@use '@/css/mixin';
+
 @value button, buttonIcon, buttonLabel from '@/css/component/base/Button.module.scss';
 @value flexColumn, flexRow from '@/css/component/base/Flex.module.scss';
 @value basePane from '@/css/component/base/Pane.module.scss';
@@ -49,10 +51,8 @@
     color: var(--foreground);
     text-align: left;
 
-    @media (hover: hover) {
-        &:hover {
-            background: rgb(var(--gray-2));
-        }
+    @include mixin.hover {
+        background: rgb(var(--gray-2));
     }
 
     &:active {
@@ -272,7 +272,7 @@
     }
 
     &.menuItemIndented {
-        background: rgb(var(--gray-3));
+        background: rgb(var(--gray-2));
 
         .menuItemIcon,
         .menuItemLabel {

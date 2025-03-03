@@ -14,14 +14,12 @@
     border-radius: calc(var(--radius) / 2);
     box-shadow: none;
 
-    @media (hover: hover) {
-        &:hover {
-            background: rgb(var(--gray-2));
-        }
+    @include mixin.hover {
+        background: rgb(var(--gray-3));
     }
 
     &:active {
-        background: rgb(var(--gray-3));
+        background: rgb(var(--gray-2));
     }
 
     .spinner {
@@ -64,7 +62,7 @@
 :local(.basePaneStructure) > .actionBar {
     padding: 15px 21px;
     background: rgb(var(--gray-1));
-    border: 1px solid rgb(var(--gray-3));
+    border: 1px solid rgb(var(--gray-2));
     border-left: 0;
     border-right: 0;
 

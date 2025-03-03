@@ -71,6 +71,10 @@ example=../../code/guide/components/comment/incoming.vue
 example=../../code/guide/components/comment/outgoing.vue
 :::
 
+::: example Typing || An indication that someone is typing a message.
+example=../../code/guide/components/comment/typing.vue
+:::
+
 ## Used components
 
 - [Avatar](./avatar)

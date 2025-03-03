@@ -1,3 +1,5 @@
+@use '@/css/mixin';
+
 @value placeholder from '@/css/component/Placeholder.module.scss';
 
 .gallery {
@@ -12,11 +14,9 @@
     aspect-ratio: 1 / 1;
     color: rgb(var(--gray-7));
 
-    @media (hover: hover) {
-        &:hover {
-            background: rgb(var(--gray-3));
-            border-color: rgb(var(--gray-5));
-        }
+    @include mixin.hover {
+        background: rgb(var(--gray-1));
+        border-color: rgb(var(--gray-3));
     }
 }
 

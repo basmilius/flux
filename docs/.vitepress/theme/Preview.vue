@@ -49,8 +49,8 @@
     .preview {
         position: relative;
         margin: 16px 0;
-        background: rgb(var(--gray-1));
-        border: 1px solid rgb(var(--gray-3));
+        background: rgb(var(--gray-1) / .5);
+        border: 1px solid rgb(var(--gray-3) / .5);
         border-radius: var(--radius);
         font-size: 15px;
 

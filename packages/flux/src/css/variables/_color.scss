@@ -87,18 +87,70 @@
 }
 
 [dark] {
-    --primary-0: #{to-rgb(#ffffff)};
-    --primary-1: #{to-rgb(#f5f8ff)};
-    --primary-2: #{to-rgb(#dde7fd)};
-    --primary-3: #{to-rgb(#c4d6fb)};
-    --primary-4: #{to-rgb(#acc5f9)};
-    --primary-5: #{to-rgb(#93b4f7)};
-    --primary-6: #{to-rgb(#7ba3f5)};
-    --primary-7: #{to-rgb(#6292f3)};
-    --primary-8: #{to-rgb(#4a81f1)};
-    --primary-9: #{to-rgb(#3170ef)};
-    --primary-10: #{to-rgb(#195fed)};
-    --primary-11: #{to-rgb(#004eeb)};
+    //--primary-0: #{to-rgb(#182035)};
+    //--primary-1: #{to-rgb(#1f2a45)};
+    //--primary-2: #{to-rgb(#243254)};
+    //--primary-3: #{to-rgb(#2b3c63)};
+    //--primary-4: #{to-rgb(#314471)};
+    //--primary-5: #{to-rgb(#385080)};
+    //--primary-6: #{to-rgb(#3e5a8e)};
+    //--primary-7: #{to-rgb(#44669e)};
+    //--primary-8: #{to-rgb(#5077b0)};
+    //--primary-9: #{to-rgb(#5a84bf)};
+    //--primary-10: #{to-rgb(#6594d1)};
+    //--primary-11: #{to-rgb(#709fe3)};
+
+    --danger-0: #{to-rgb(#272325)};
+    --danger-1: #{to-rgb(#331e23)};
+    --danger-2: #{to-rgb(#3e1f28)};
+    --danger-3: #{to-rgb(#4c222e)};
+    --danger-4: #{to-rgb(#5b2635)};
+    --danger-5: #{to-rgb(#6a2b3e)};
+    --danger-6: #{to-rgb(#7a3047)};
+    --danger-7: #{to-rgb(#8b3552)};
+    --danger-8: #{to-rgb(#9e3a5f)};
+    --danger-9: #{to-rgb(#a53d6e)};
+    --danger-10: #{to-rgb(#b63e7c)};
+    --danger-11: #{to-rgb(#c8408c)};
+
+    --info-0: #{to-rgb(#23262c)};
+    --info-1: #{to-rgb(#1f2832)};
+    --info-2: #{to-rgb(#243141)};
+    --info-3: #{to-rgb(#2a3d52)};
+    --info-4: #{to-rgb(#2f4a66)};
+    --info-5: #{to-rgb(#34567b)};
+    --info-6: #{to-rgb(#3b638f)};
+    --info-7: #{to-rgb(#436fa3)};
+    --info-8: #{to-rgb(#4b7bb7)};
+    --info-9: #{to-rgb(#5588cb)};
+    --info-10: #{to-rgb(#6094df)};
+    --info-11: #{to-rgb(#6aa3f3)};
+
+    --success-0: #{to-rgb(#1d2620)};
+    --success-1: #{to-rgb(#222d26)};
+    --success-2: #{to-rgb(#26342c)};
+    --success-3: #{to-rgb(#2c4435)};
+    --success-4: #{to-rgb(#33543e)};
+    --success-5: #{to-rgb(#3a6547)};
+    --success-6: #{to-rgb(#417651)};
+    --success-7: #{to-rgb(#4b875d)};
+    --success-8: #{to-rgb(#589967)};
+    --success-9: #{to-rgb(#6eac74)};
+    --success-10: #{to-rgb(#86ba86)};
+    --success-11: #{to-rgb(#9bc89b)};
+
+    --warning-0: #{to-rgb(#2b261a)};
+    --warning-1: #{to-rgb(#332b1b)};
+    --warning-2: #{to-rgb(#3d321e)};
+    --warning-3: #{to-rgb(#4a3c21)};
+    --warning-4: #{to-rgb(#554825)};
+    --warning-5: #{to-rgb(#63552a)};
+    --warning-6: #{to-rgb(#74602f)};
+    --warning-7: #{to-rgb(#8a6c34)};
+    --warning-8: #{to-rgb(#a37b3a)};
+    --warning-9: #{to-rgb(#c19041)};
+    --warning-10: #{to-rgb(#d5a048)};
+    --warning-11: #{to-rgb(#eab14f)};
 
     --gray-0: #{to-rgb(#14161a)};
     --gray-1: #{to-rgb(#1b1d21)};

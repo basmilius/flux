@@ -3,12 +3,20 @@ outline: deep
 
 emits:
     -   name: click
-        description: Triggered when the badge is clicked.
+        description: Triggered when the avatar is clicked.
         type: [ MouseEvent ]
 
     -   name: delete
         description: Triggered when the delete button is clicked.
         type: [ ]
+
+    -   name: mouseenter
+        description: Triggered when the button is being hovered.
+        type: [ MouseEvent ]
+
+    -   name: mouseleave
+        description: Triggered when the button is not being hovered anymore.
+        type: [ MouseEvent ]
 
 props:
     -   name: color
@@ -26,11 +34,6 @@ props:
         type: FluxIconName
         optional: true
 
-    -   name: is-clickable
-        description: Indicates that the badge is clickable.
-        type: boolean
-        optional: true
-
     -   name: is-deletable
         description: Indicates that the badge is deletable.
         type: boolean
@@ -44,6 +47,32 @@ props:
     -   name: label
         description: The label that is shown in the badge.
         type: string
+
+    -   name: type
+        description: The type of button.
+        type: [ '"button"', '"link"', '"route"', '"none"' ]
+        default: button
+        optional: true
+
+    -   name: href
+        description: This prop is enabled if the button's type is set to link. It's the same as the <a> HTML element.
+        type: string
+        optional: true
+
+    -   name: rel
+        description: This prop is enabled if the button's type is set to link. It's the same as the <a> HTML element.
+        type: string
+        optional: true
+
+    -   name: target
+        description: This prop is enabled if the button's type is set to link. It's the same as the <a> HTML element.
+        type: string
+        optional: true
+
+    -   name: to
+        description: This prop is enabled if the button's type is set to route. This integrates with Vue Router.
+        type: FluxTo
+        optional: true
 
 requiredIcons:
     - xmark

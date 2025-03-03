@@ -1,7 +1,9 @@
 @use '@/css/mixin';
 
 @value button, buttonLabel from '@/css/component/base/Button.module.scss';
+
 @value flexColumn, flexRow, flexGrow, flexNoShrink, inlineFlexRow from '@/css/component/base/Flex.module.scss';
+
 @value basePaneStructure from '@/css/component/base/Pane.module.scss';
 
 %-form-input-group-inner-styles {
@@ -170,10 +172,8 @@
 
     @include mixin.focus-ring(-1px, true);
 
-    @media (hover: hover) {
-        &:hover {
-            border-color: rgb(var(--gray-4));
-        }
+    @include mixin.hover {
+        border-color: rgb(var(--gray-4));
     }
 }
 
@@ -203,10 +203,8 @@
     pointer-events: unset;
     cursor: pointer;
 
-    @media (hover: hover) {
-        &:hover {
-            color: var(--foreground);
-        }
+    @include mixin.hover {
+        color: var(--foreground);
     }
 }
 
@@ -268,15 +266,15 @@
     pointer-events: none;
 
     &:has(+ .formInput .formInputNative) {
-        border-right: 1px solid rgb(var(--gray-4) / .75);
+        border-right: 1px solid rgb(var(--gray-3));
     }
 
     + .formInputAddition {
-        border-left: 1px solid rgb(var(--gray-4) / .75);
+        border-left: 1px solid rgb(var(--gray-3));
     }
 
     @at-root .formInput:has(.formInputNative) + & {
-        border-left: 1px solid rgb(var(--gray-4) / .75);
+        border-left: 1px solid rgb(var(--gray-3));
     }
 }
 
@@ -324,14 +322,11 @@
 
         .secondaryButton {
             background: transparent;
-            border-left: 1px solid rgb(var(--gray-3));
+            border-color: rgb(var(--gray-3));
             box-shadow: none;
 
-            @media (hover: hover) {
-                &:hover {
-                    background: rgb(var(--gray-3));
-                    border-left-color: rgb(var(--gray-4));
-                }
+            @include mixin.hover {
+                background: rgb(var(--gray-3));
             }
         }
     }
@@ -392,10 +387,8 @@
     &:not(.isDisabled) {
         @include mixin.focus-ring(-1px, true);
 
-        @media (hover: hover) {
-            &:hover {
-                border-color: rgb(var(--gray-5));
-            }
+        @include mixin.hover {
+            border-color: rgb(var(--gray-4));
         }
     }
 
@@ -505,8 +498,8 @@
 
 .isDisabled .formSelectSelected {
     background: rgb(var(--gray-2));
-    border: 1px solid rgb(var(--gray-4) / .75);
-    color: rgb(var(--gray-6));
+    border: 1px solid rgb(var(--gray-3));
+    color: var(--foreground-secondary);
     opacity: 1;
 }
 
@@ -555,10 +548,11 @@
     padding: 0;
     align-items: center;
     justify-content: center;
-    background: rgb(var(--gray-5) / .75);
+    background: rgb(var(--gray-3));
     border: 0;
     border-radius: calc(var(--radius) / 2);
     color: rgb(var(--primary-0));
+    cursor: pointer;
     pointer-events: none;
     transition: 210ms var(--swift-out);
     transition-property: background, color, mixin.focus-ring-transition-properties();
@@ -586,9 +580,9 @@
     position: absolute;
     opacity: 0;
 
-    @media (hover: hover) {
-        &:hover + .checkboxElement {
-            background: rgb(var(--gray-5));
+    @include mixin.hover {
+        + .checkboxElement {
+            background: rgb(var(--gray-4));
         }
     }
 
@@ -608,12 +602,16 @@
 .quantitySelector {
     align-self: center;
     justify-self: center;
-    border: 1px solid rgb(var(--gray-4) / .75);
+    border: 1px solid rgb(var(--gray-3));
     border-radius: var(--radius);
     box-shadow: var(--shadow-px);
     overflow: hidden;
 
     @include mixin.focus-ring-transition(2px, true);
+
+    @include mixin.hover {
+        border-color: rgb(var(--gray-4));
+    }
 }
 
 .quantitySelectorButton {
@@ -647,7 +645,7 @@
     text-align: center;
 
     &:hover {
-        border-color: rgb(var(--gray-4));
+        border-color: rgb(var(--gray-3));
     }
 
     &,
@@ -680,7 +678,7 @@
     padding: 0;
     width: 2.7ch;
     background-clip: padding-box;
-    border: 1px solid rgb(var(--gray-4) / .75);
+    border: 1px solid rgb(var(--gray-3));
     border-radius: var(--radius);
     box-shadow: var(--shadow-px);
     font: inherit;
@@ -718,7 +716,7 @@
     width: 54px;
     height: 30px;
     flex: 0 0 auto;
-    background: rgb(var(--gray-3));
+    background: rgb(var(--gray-2));
     border-radius: 99px;
     contain: paint;
 
@@ -801,7 +799,7 @@
         content: '';
         background: rgb(var(--gray-0));
         background-clip: padding-box;
-        border: 1px solid rgb(var(--gray-4) / .75);
+        border: 1px solid rgb(var(--gray-3));
         border-radius: 99px;
         box-shadow: var(--shadow-sm);
     }

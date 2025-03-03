@@ -42,6 +42,10 @@
         .icon {
             font-size: .33em;
         }
+
+        .materialSymbolIcon {
+            font-size: .5em;
+        }
     }
 
     .iconBoxedDefault {
@@ -59,7 +63,7 @@
     .iconBoxedGray {
         composes: iconBoxedColored;
 
-        background: rgb(var(--gray-3));
+        background: rgb(var(--gray-2));
         color: var(--foreground);
     }
 

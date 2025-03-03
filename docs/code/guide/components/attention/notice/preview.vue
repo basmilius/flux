@@ -2,7 +2,6 @@
     <Preview>
         <FluxNotice
             icon="circle-exclamation"
-            is-small
             message="Please note that this is a warning message."
             variant="warning"/>
     </Preview>

@@ -1,3 +1,5 @@
+@use '@/css/mixin';
+
 @value flexColumn from '@/css/component/base/Flex.module.scss';
 
 .placeholder {
@@ -16,11 +18,8 @@
     &.isButton {
         cursor: pointer;
 
-        @media (hover: hover) {
-            &:hover {
-                background: rgb(var(--gray-3));
-                border-color: rgb(var(--gray-5));
-            }
+        @include mixin.hover {
+            background: rgb(var(--gray-2));
         }
     }
 

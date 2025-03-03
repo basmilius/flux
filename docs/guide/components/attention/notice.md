@@ -32,11 +32,6 @@ props:
         type: boolean
         optional: true
 
-    -   name: is-small
-        description: Enables the small variant of the notice.
-        type: boolean
-        optional: true
-
     -   name: message
         description: The message of the notice.
         type: string
@@ -81,10 +76,6 @@ For temporary notifications that auto-dismiss or need less prominence, consider 
 
 ::: example Basic || Notices can display the result of an action that the user performed. The variant of the notice depends on whether the result of that action is positive or negative.
 example=../../../code/guide/components/attention/notice/basic.vue
-:::
-
-::: example Small || A smaller notice can be used within a pane or, for example, within sidebars.
-example=../../../code/guide/components/attention/notice/small.vue
 :::
 
 ::: example Loading || Notices may also indicate that something is loading.

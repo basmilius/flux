@@ -1,4 +1,6 @@
 .dashboard {
+    --dashboard-navigation-background: rgb(var(--primary-11));
+
     display: grid;
     min-height: 100vh;
     grid-template-columns: auto minmax(0, 1fr);
@@ -23,6 +25,10 @@
     .notice.isFluid + .dashboardContent > .table:first-child {
         border-top: 0;
     }
+}
+
+[dark] .dashboard {
+    --dashboard-navigation-background: color-mix(in srgb, rgb(var(--gray-0)), black 50%);
 }
 
 .dashboardBody {
@@ -122,7 +128,7 @@
 .dashboardMenu {
     composes: dashboardPane;
 
-    border-right: 1px solid rgb(var(--gray-3));
+    border-right: 1px solid rgb(var(--gray-2));
 }
 
 .dashboardMenuBody {
@@ -132,7 +138,7 @@
 .dashboardSide {
     composes: dashboardPane;
 
-    border-left: 1px solid rgb(var(--gray-3));
+    border-left: 1px solid rgb(var(--gray-2));
 }
 
 .dashboardNavigation {
@@ -144,7 +150,7 @@
     padding: 15px;
     flex-flow: column;
     gap: 15px;
-    background: rgb(var(--primary-11));
+    background: var(--dashboard-navigation-background);
     transition: width 210ms var(--swift-out);
 
     .divider {
@@ -190,6 +196,28 @@
     }
 }
 
+[dark] .dashboardNavigation {
+    .dividerLine {
+        background: rgb(var(--gray-2));
+    }
+
+    .menuItem {
+        @media (hover: hover) {
+            &:hover {
+                background: rgb(var(--gray-2));
+            }
+        }
+
+        &:active {
+            background: rgb(var(--gray-3));
+        }
+    }
+
+    .menuItemHighlighted {
+        background: rgb(var(--gray-1));
+    }
+}
+
 .dashboardNavigationCollapsed {
     composes: dashboardNavigation;
 
@@ -225,7 +253,7 @@
     height: var(--radius);
     width: var(--radius);
     content: '';
-    background: rgb(var(--primary-11));
+    background: var(--dashboard-navigation-background);
     transition: left 210ms var(--swift-out);
     z-index: 750;
 
@@ -234,7 +262,7 @@
         display: block;
         inset: 0;
         content: '';
-        background: rgb(var(--gray-0));
+        background: rgb(var(--gray-1));
     }
 
     &:first-of-type {
@@ -258,6 +286,10 @@
     composes: dashboardNavigationRoundingFix;
 
     left: 84px;
+}
+
+.dashboard:not(:has(.dashboardMenu)) .dashboardNavigationRoundingFix::before {
+    background: rgb(var(--gray-0));
 }
 
 .dashboardTopBar {

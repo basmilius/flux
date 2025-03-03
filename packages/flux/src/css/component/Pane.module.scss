@@ -1,6 +1,8 @@
 @value flexColumn, flexRow, flexGrow from '@/css/component/base/Flex.module.scss';
+
 @value baseAutoGrid from '@/css/component/base/Grid.module.scss';
-@value basePaneLoader, basePaneStructure from '@/css/component/base/Pane.module.scss';
+
+@value basePaneElement, basePaneLoader, basePaneStructure from '@/css/component/base/Pane.module.scss';
 
 @layer flux-base {
     .pane {
@@ -25,11 +27,16 @@
 
     .paneHeader {
         composes: flexRow;
+        composes: basePaneElement;
 
         padding: 21px 21px 0;
         gap: 15px;
 
         &:only-child {
+            padding: 21px;
+        }
+
+        &:has(+ .basePaneElement:not(.paneBody)) {
             padding: 21px;
         }
     }
@@ -60,6 +67,8 @@
     }
 
     .paneBody {
+        composes: basePaneElement;
+
         padding: 21px;
     }
 
@@ -68,29 +77,13 @@
     }
 
     .paneFooter {
+        composes: basePaneElement;
+
         display: flex;
         padding: 21px;
         gap: 9px;
         background: rgb(var(--gray-1));
         border-top: 1px solid rgb(var(--gray-2));
-    }
-
-    .pane > .paneFooter,
-    .pane > :local(.form) > .paneFooter {
-        &:first-child {
-            border-top-left-radius: var(--radius);
-            border-top-right-radius: var(--radius);
-        }
-
-        &:last-child,
-        &:nth-last-child(1 of .paneFooter) {
-            border-bottom-left-radius: var(--radius);
-            border-bottom-right-radius: var(--radius);
-        }
-
-        &:only-child {
-            border: 0;
-        }
     }
 }
 
@@ -111,10 +104,6 @@
     letter-spacing: 1px;
     line-height: 1;
     text-transform: uppercase;
-}
-
-.pane > .pane {
-    box-shadow: none;
 }
 
 .paneMedia {
@@ -148,7 +137,7 @@
 }
 
 .paneDeck {
-    composes: pane;
+    composes: paneDefault;
 
     overflow: hidden;
 
@@ -157,7 +146,6 @@
         margin-bottom: -1px;
 
         > .pane {
-            border: 1px solid rgb(var(--gray-11) / .05);
             border-top: 0;
             border-left: 0;
             border-radius: 0;

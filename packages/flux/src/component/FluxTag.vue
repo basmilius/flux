@@ -1,6 +1,5 @@
 <template>
-    <Component
-        :is="component"
+    <FluxPressable
         :class="clsx(
             color === 'gray' && $style.tagGray,
             color === 'primary' && $style.tagPrimary,
@@ -9,7 +8,15 @@
             color === 'success' && $style.tagSuccess,
             color === 'warning' && $style.tagWarning
         )"
-        @click="onClick">
+        :component-type="type"
+        :tabindex="tabindex"
+        :href="href"
+        :rel="rel"
+        :target="target"
+        :to="to"
+        @click="$emit('click', $event)"
+        @mouseenter="$emit('mouseenter', $event)"
+        @mouseleave="$emit('mouseleave', $event)">
         <FluxSpinner
             v-if="isLoading"
             :class="$style.tagIcon"
@@ -36,21 +43,20 @@
             @click="onDeleteClick()">
             <FluxIcon variant="xmark"/>
         </button>
-    </component>
+    </FluxPressable>
 </template>
 
 <script
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { computed } from 'vue';
-    import type { FluxColorVariant, FluxIconName } from '@/types';
+    import type { FluxButtonEmits, FluxColorVariant, FluxIconName, FluxPressableType, FluxTo } from '@/types';
     import FluxIcon from './FluxIcon.vue';
+    import FluxPressable from './FluxPressable.vue';
     import FluxSpinner from './FluxSpinner.vue';
     import $style from '@/css/component/Badge.module.scss';
 
-    const emit = defineEmits<{
-        click: [MouseEvent];
+    const emit = defineEmits<FluxButtonEmits & {
         delete: [];
     }>();
 
@@ -65,17 +71,13 @@
         readonly isDeletable?: boolean;
         readonly isLoading?: boolean;
         readonly label: string;
+        readonly type?: FluxPressableType;
+        readonly tabindex?: string | number;
+        readonly href?: string;
+        readonly rel?: string;
+        readonly target?: string;
+        readonly to?: FluxTo;
     }>();
-
-    const component = computed(() => isClickable ? 'button' : 'div');
-
-    function onClick(evt: MouseEvent): void {
-        if (!isClickable) {
-            return;
-        }
-
-        emit('click', evt);
-    }
 
     function onDeleteClick(): void {
         emit('delete');

@@ -41,7 +41,7 @@
     }
 
     &.isDisabled {
-        background-color: rgb(var(--gray-2));
+        background-color: rgb(var(--gray-1));
         box-shadow: none;
         pointer-events: none;
     }
@@ -60,23 +60,22 @@
 .sliderTrack {
     position: relative;
     height: 12px;
-    background: rgb(var(--gray-1));
-    border: 1px solid rgb(var(--gray-3));
-    border-radius: calc(var(--radius));
+    background: rgb(var(--gray-2));
+    border-radius: calc(var(--radius) / 2);
+    box-shadow: inset 0 0 0 1px rgb(var(--gray-3));
 }
 
 .sliderTrackValue {
     position: absolute;
     display: block;
     top: 0;
-    margin: -1px;
     height: inherit;
     background: rgb(var(--primary-7));
     border-radius: inherit;
 }
 
 .slider.isDisabled .sliderTrackValue {
-    background: rgb(var(--gray-5));
+    background: rgb(var(--gray-4));
 }
 
 .tick {
@@ -85,7 +84,7 @@
     bottom: 0;
     height: 9px;
     width: 2px;
-    background: rgb(var(--gray-5));
+    background: rgb(var(--gray-4));
     border-radius: 99px;
     color: var(--foreground-prominent);
     font-size: 10px;

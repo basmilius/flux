@@ -17,7 +17,7 @@ emits:
 props:
     -   name: type
         description: The type of button.
-        type: [ '"button"', '"link"', '"route"' ]
+        type: [ '"button"', '"link"', '"route"', '"none"' ]
         default: button
         optional: true
 

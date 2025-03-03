@@ -18,7 +18,7 @@
         font: inherit;
         text-decoration: none;
         transition: 180ms var(--swift-out);
-        transition-property: background, box-shadow, color, scale, mixin.focus-ring-transition-properties();
+        transition-property: background, border, box-shadow, color, scale, mixin.focus-ring-transition-properties();
         user-select: none;
 
         @include mixin.focus-ring(2px);

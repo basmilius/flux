@@ -6,6 +6,14 @@ emits:
         description: Triggered when the avatar is clicked.
         type: [ MouseEvent ]
 
+    -   name: mouseenter
+        description: Triggered when the button is being hovered.
+        type: [ MouseEvent ]
+
+    -   name: mouseleave
+        description: Triggered when the button is not being hovered anymore.
+        type: [ MouseEvent ]
+
 props:
     -   name: alt
         description: A brief description of the image that is shown.
@@ -50,6 +58,12 @@ props:
     -   name: tabindex
         description: The tabindex of the button, works exactly the same as html.
         type: [ 'string', 'number' ]
+        optional: true
+        
+    -   name: type
+        description: The type of button.
+        type: [ '"button"', '"link"', '"route"', '"none"' ]
+        default: button
         optional: true
 
     -   name: href

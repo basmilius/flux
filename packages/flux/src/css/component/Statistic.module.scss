@@ -5,7 +5,7 @@
     gap: 21px;
 
     &.isGray .statisticIcon {
-        background: rgb(var(--gray-3));
+        background: rgb(var(--gray-2));
         color: rgb(var(--gray-7));
     }
 
@@ -116,8 +116,4 @@
     .statisticData {
         align-items: center;
     }
-}
-
-[dark] .statistic .statisticIcon {
-    background: rgb(var(--gray-2));
 }

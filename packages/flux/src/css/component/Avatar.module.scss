@@ -41,8 +41,12 @@
 .avatarFallbackColorized {
     composes: avatarFallback;
 
-    background: color(from var(--color) srgb r g b / .2);
+    background: color-mix(in srgb, var(--color), rgb(var(--gray-0)) 80%);
     color: var(--color);
+}
+
+[dark] .avatarFallbackColorized {
+    background: color-mix(in srgb, var(--color), rgb(var(--gray-0)) 70%);
 }
 
 .avatarFallbackNeutral {
@@ -103,10 +107,8 @@
     cursor: pointer;
     transition: filter 150ms var(--swift-out);
 
-    @media (hover: hover) {
-        &:hover {
-            filter: brightness(110%);
-        }
+    @include mixin.hover {
+        filter: brightness(110%);
     }
 }
 
@@ -136,10 +138,8 @@
 
     @include mixin.focus-ring(2px);
 
-    @media (hover: hover) {
-        &:hover {
-            background: rgb(var(--gray-3));
-        }
+    @include mixin.hover {
+        background: rgb(var(--gray-2));
     }
 }
 

@@ -82,7 +82,7 @@ tbody .tableRow:nth-child(even) .tableCell.isStriped {
 }
 
 tfoot .tableCell {
-    border-top: 2px solid rgb(var(--gray-2));
+    border-top: 1px solid rgb(var(--gray-2));
 }
 
 .tableCell + .tableCell.isBordered {

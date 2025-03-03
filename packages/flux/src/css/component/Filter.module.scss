@@ -1,8 +1,6 @@
 @value basePaneStructure from '@/css/component/base/Pane.module.scss';
 
 .filter {
-    --background: rgb(var(--gray-0));
-
     max-height: 50dvh;
     max-width: 100%;
     padding: 9px;
@@ -49,8 +47,8 @@
     margin: -9px -9px 3px;
     padding: 9px;
     top: -9px;
-    background: var(--background);
-    border-bottom: 1px solid rgb(var(--gray-3));
+    background: rgb(var(--gray-0));
+    border-bottom: 1px solid rgb(var(--gray-2));
     z-index: 2;
 
     &:first-child {
@@ -77,6 +75,6 @@
     top: 52px;
     margin: -9px -9px 0;
     padding: 9px;
-    background: linear-gradient(to bottom, var(--background) 75%, transparent);
+    background: linear-gradient(to bottom, rgb(var(--gray-0)) 75%, transparent);
     z-index: 1;
 }

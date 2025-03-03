@@ -1,16 +1,21 @@
+@use '@/css/mixin';
+
 @value flex, flexColumn, flexRow, flexGrow, flexNoShrink from '@/css/component/base/Flex.module.scss';
+@value basePaneElement from '@/css/component/base/Pane.module.scss';
 
 .notice {
     composes: flexRow;
+    composes: basePaneElement;
 
-    padding: 21px;
-    gap: 15px;
+    padding: 12px 15px;
+    gap: 12px;
     border-radius: var(--radius);
 
     .button {
-        margin-top: -9px;
+        margin-top: -6px;
         margin-right: -9px;
-        margin-bottom: -9px;
+        margin-bottom: -6px;
+        height: 36px;
     }
 
     a {
@@ -32,8 +37,11 @@
     composes: flexColumn;
     composes: flexGrow;
 
-    gap: 3px;
     text-wrap: pretty;
+
+    :global(p) {
+        line-height: 1.6;
+    }
 
     &:last-child {
         flex-grow: 0;
@@ -43,8 +51,9 @@
 .noticeClose {
     composes: flex;
 
-    height: 24px;
-    width: 24px;
+    height: 20px;
+    width: 20px;
+    margin: 2px;
     padding: 0;
     align-items: center;
     justify-content: center;
@@ -54,14 +63,12 @@
     cursor: pointer;
     transition: opacity 150ms var(--swift-out);
 
-    @media (hover: hover) {
-        &:hover {
-            opacity: .75;
-        }
+    @include mixin.hover {
+        opacity: .75;
     }
 
     > .icon {
-        font-size: 16px;
+        font-size: 14px;
     }
 }
 
@@ -77,7 +84,7 @@
 }
 
 .noticeTitle {
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .notice.isCenter {
@@ -101,52 +108,20 @@
     }
 }
 
-.notice.isSmall {
-    padding: 15px;
-    gap: 12px;
-
-    .noticeBody {
-        margin-top: -3px;
-        margin-bottom: -3px;
-    }
-
-    .noticeClose {
-        height: 20px;
-        width: 20px;
-
-        .icon {
-            font-size: 14px;
-        }
-    }
-
-    .button {
-        height: 36px;
-    }
-}
-
 .noticeGray {
     composes: notice;
 
     background: rgb(var(--gray-2));
-    border-color: rgb(var(--gray-4));
+    border-color: rgb(var(--gray-3));
     color: var(--foreground);
 
     .noticeClose {
-        background: rgb(var(--gray-4));
+        background: rgb(var(--gray-3));
     }
 
     .noticePrefix,
     .noticeTitle {
         color: var(--foreground-prominent);
-    }
-
-    .spinnerTrack {
-        stroke: rgb(var(--gray-4));
-    }
-
-    .spinnerEffect,
-    .spinnerValue {
-        stroke: rgb(var(--gray-10));
     }
 }
 
@@ -166,12 +141,16 @@
         color: rgb(var(--primary-7));
     }
 
-    .spinnerTrack {
+    :local(.button) {
+        border-color: rgb(var(--primary-4));
+    }
+
+    :local(.spinnerTrack) {
         stroke: rgb(var(--primary-3));
     }
 
-    .spinnerEffect,
-    .spinnerValue {
+    :local(.spinnerEffect),
+    :local(.spinnerValue) {
         stroke: rgb(var(--primary-7));
     }
 }
@@ -192,12 +171,16 @@
         color: rgb(var(--danger-7));
     }
 
-    .spinnerTrack {
+    :local(.button) {
+        border-color: rgb(var(--danger-4));
+    }
+
+    :local(.spinnerTrack) {
         stroke: rgb(var(--danger-3));
     }
 
-    .spinnerEffect,
-    .spinnerValue {
+    :local(.spinnerEffect),
+    :local(.spinnerValue) {
         stroke: rgb(var(--danger-7));
     }
 }
@@ -218,12 +201,16 @@
         color: rgb(var(--info-7));
     }
 
-    .spinnerTrack {
+    :local(.button) {
+        border-color: rgb(var(--info-4));
+    }
+
+    :local(.spinnerTrack) {
         stroke: rgb(var(--info-3));
     }
 
-    .spinnerEffect,
-    .spinnerValue {
+    :local(.spinnerEffect),
+    :local(.spinnerValue) {
         stroke: rgb(var(--info-7));
     }
 }
@@ -244,12 +231,16 @@
         color: rgb(var(--success-7));
     }
 
-    .spinnerTrack {
+    :local(.button) {
+        border-color: rgb(var(--success-4));
+    }
+
+    :local(.spinnerTrack) {
         stroke: rgb(var(--success-3));
     }
 
-    .spinnerEffect,
-    .spinnerValue {
+    :local(.spinnerEffect),
+    :local(.spinnerValue) {
         stroke: rgb(var(--success-7));
     }
 }
@@ -270,17 +261,21 @@
         color: rgb(var(--warning-7));
     }
 
-    .spinnerTrack {
+    :local(.button) {
+        border-color: rgb(var(--warning-4));
+    }
+
+    :local(.spinnerTrack) {
         stroke: rgb(var(--warning-3));
     }
 
-    .spinnerEffect,
-    .spinnerValue {
+    :local(.spinnerEffect),
+    :local(.spinnerValue) {
         stroke: rgb(var(--warning-7));
     }
 }
 
-[dark] .noticePrimary {
+[_dark] .noticePrimary {
     background: rgb(var(--primary-11) / .25);
     border-color: rgb(var(--primary-11));
     color: rgb(var(--primary-4));
@@ -290,12 +285,12 @@
         color: rgb(var(--primary-6));
     }
 
-    .spinnerTrack {
+    :local(.spinnerTrack) {
         stroke: rgb(var(--primary-11));
     }
 }
 
-[dark] .noticeDanger {
+[_dark] .noticeDanger {
     background: rgb(var(--danger-11) / .25);
     border-color: rgb(var(--danger-11));
     color: rgb(var(--danger-4));
@@ -305,12 +300,12 @@
         color: rgb(var(--danger-6));
     }
 
-    .spinnerTrack {
+    :local(.spinnerTrack) {
         stroke: rgb(var(--danger-11));
     }
 }
 
-[dark] .noticeInfo {
+[_dark] .noticeInfo {
     background: rgb(var(--info-11) / .25);
     border-color: rgb(var(--info-11));
     color: rgb(var(--info-4));
@@ -320,12 +315,12 @@
         color: rgb(var(--info-6));
     }
 
-    .spinnerTrack {
+    :local(.spinnerTrack) {
         stroke: rgb(var(--info-11));
     }
 }
 
-[dark] .noticeSuccess {
+[_dark] .noticeSuccess {
     background: rgb(var(--success-11) / .25);
     border-color: rgb(var(--success-11));
     color: rgb(var(--success-4));
@@ -335,12 +330,12 @@
         color: rgb(var(--success-6));
     }
 
-    .spinnerTrack {
+    :local(.spinnerTrack) {
         stroke: rgb(var(--success-11));
     }
 }
 
-[dark] .noticeWarning {
+[_dark] .noticeWarning {
     background: rgb(var(--warning-11) / .25);
     border-color: rgb(var(--warning-11));
     color: rgb(var(--warning-4));
@@ -350,19 +345,7 @@
         color: rgb(var(--warning-6));
     }
 
-    .spinnerTrack {
+    :local(.spinnerTrack) {
         stroke: rgb(var(--warning-11));
     }
-}
-
-.paneHeader + .notice,
-.paneHeader + .stack > .notice {
-    margin-top: 21px;
-}
-
-.basePaneStructure > .notice,
-.basePaneStructure > .stack > .notice {
-    padding-left: 21px;
-    padding-right: 21px;
-    border-radius: 0;
 }

@@ -1,3 +1,5 @@
+@use '@/css/mixin';
+
 .badge {
     display: inline-flex;
     height: 28px;
@@ -15,14 +17,14 @@
     font-weight: 500;
 
     &:is(a) {
-        background: unset;
+        color: var(--foreground-prominent);
         cursor: pointer;
+        text-decoration: none;
         transition: background 180ms var(--swift-out);
 
-        @media (hover: hover) {
-            &:hover {
-                background: rgb(var(--gray-2));
-            }
+        @include mixin.hover {
+            background: rgb(var(--gray-1));
+            color: var(--foreground-prominent);
         }
     }
 
@@ -39,16 +41,20 @@
     padding: 5px;
     align-items: center;
     justify-content: center;
-    background: rgb(var(--gray-4) / .75);
+    background: unset;
     border: 0;
     border-radius: 99px;
     color: var(--foreground-secondary);
     cursor: pointer;
 
-    @media (hover: hover) {
-        &:hover {
-            background: rgb(var(--gray-5));
-        }
+    @include mixin.hover {
+        background: rgb(var(--gray-2));
+        color: var(--foreground);
+    }
+
+    &:active {
+        background: rgb(var(--gray-3));
+        color: var(--foreground);
     }
 
     .icon {
@@ -128,8 +134,8 @@
 .tag {
     composes: badge;
 
-    background: rgb(var(--gray-2));
-    border-color: rgb(var(--gray-4));
+    background: rgb(var(--gray-1));
+    border-color: rgb(var(--gray-3));
     border-radius: calc(var(--radius) / 2);
     font-weight: 400;
 }
@@ -137,13 +143,7 @@
 .tagClose {
     composes: badgeClose;
 
-    background: rgb(var(--gray-2));
     border-radius: calc(var(--radius) / 3);
-    color: rgb(var(--gray-7));
-
-    &:hover {
-        background: rgb(var(--gray-3));
-    }
 }
 
 .tagDot {

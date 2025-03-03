@@ -8,8 +8,7 @@
             variant === 'success' && $style.noticeSuccess,
             variant === 'warning' && $style.noticeWarning,
             isCenter && $style.isCenter,
-            isFluid && $style.isFluid,
-            isSmall && $style.isSmall
+            isFluid && $style.isFluid
         )"
         role="alert">
         <FluxSpinner

@@ -1,82 +1,120 @@
 @value flexColumn, flexRow from '@/css/component/base/Flex.module.scss';
 
 .comment {
-    composes: flexRow;
+    display: grid;
+    max-width: 100%;
+    gap: 3px 15px;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: repeat(2, auto);
 
-    gap: 21px;
-}
-
-.commentAvatar {
-    flex-shrink: 0;
-}
-
-.commentBody {
-    composes: flexColumn;
-
-    align-items: flex-start;
-    gap: 9px;
-}
-
-.commentHeader {
-    composes: flexRow;
-
-    padding: 3px 15px 0;
-    align-items: center;
-    align-self: stretch;
-    gap: 15px;
-    justify-content: space-between;
-
-    :is(strong) {
-        color: var(--foreground-prominent);
+    :local(.avatar) {
+        align-self: end;
+        grid-column: 2;
+        grid-row: 1;
     }
 
-    :is(time) {
-        color: var(--foreground-secondary);
-        font-size: 14px;
+    .commentContent {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .commentFooter {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    &.isReceived {
+        grid-template-columns: auto 1fr;
+
+        :local(.avatar) {
+            grid-column: 1;
+        }
+
+        .commentContent {
+            grid-column: 2;
+        }
+
+        .commentFooter {
+            grid-column: 2;
+        }
     }
 }
 
-.commentMessage {
-    padding: 12px 15px;
-    background: linear-gradient(to bottom, rgb(var(--gray-1)), rgb(var(--gray-2)));
+.commentContent {
+    min-width: 0;
+    padding: 12px 18px;
+    background: linear-gradient(to bottom, rgb(var(--gray-0)), rgb(var(--gray-1)));
     border: 1px solid rgb(var(--gray-3));
     border-radius: calc(var(--radius) * 2);
     box-shadow: var(--shadow-sm);
 }
 
-.comment.isFlipped .commentAvatar {
-    order: 1;
+.comment:not(.isReceived) .commentContent {
+    border-bottom-right-radius: var(--radius);
 }
 
-.comment.isFlipped .commentBody {
-    margin-left: auto;
-    align-items: flex-end;
+.comment.isReceived .commentContent {
+    background: linear-gradient(to bottom, rgb(var(--gray-1)), rgb(var(--gray-2)));
+    border-bottom-left-radius: var(--radius);
 }
 
-.comment.isFlippped .commentHeader {
-    padding-right: 0;
+.comment.isTyping .commentContent {
+    width: min-content;
 }
 
-.comment.isFlipped .commentMessage {
-    border-top-right-radius: calc(var(--radius));
+.commentTyping {
+    display: block;
+    margin: 6px;
+    height: 6px;
+    width: 6px;
+    border-radius: 6px;
+    animation: commentTyping 1.2s linear infinite both;
 }
 
-.comment:not(.isFlipped) .commentHeader {
-    padding-left: 0;
+.commentFooter {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: flex-end;
+    font-size: 12px;
+    font-weight: 500;
+
+    :global(span) {
+        margin-right: auto;
+    }
+
+    :global(time) {
+        color: var(--foreground-secondary);
+    }
 }
 
-.comment:not(.isFlipped) .commentMessage {
-    border-top-left-radius: calc(var(--radius));
+[dark] .commentContent {
+    background: linear-gradient(to bottom, rgb(var(--gray-1)), rgb(var(--gray-0)));
 }
 
-.comment.isReceived .commentMessage {
-    background: linear-gradient(to bottom, rgb(var(--gray-0)), rgb(var(--gray-1)));
-}
-
-[dark] .commentMessage {
+[dark] .comment.isReceived .commentContent {
     background: linear-gradient(to bottom, rgb(var(--gray-2)), rgb(var(--gray-1)));
 }
 
-[dark] .comment.isReceived .commentMessage {
-    background: linear-gradient(to bottom, rgb(var(--gray-1)), rgb(var(--gray-0)));
+@keyframes commentTyping {
+    0%,
+    100% {
+        background: rgb(var(--gray-3));
+        box-shadow: -9px 0 rgb(var(--gray-3)), 9px 0 rgb(var(--gray-3));
+    }
+
+    25% {
+        background: rgb(var(--gray-3));
+        box-shadow: -9px 0 rgb(var(--gray-5)), 9px 0 rgb(var(--gray-3));
+    }
+
+    50% {
+        background: rgb(var(--gray-5));
+        box-shadow: -9px 0 rgb(var(--gray-3)), 9px 0 rgb(var(--gray-3));
+    }
+
+    75% {
+        background: rgb(var(--gray-3));
+        box-shadow: -9px 0 rgb(var(--gray-3)), 9px 0 rgb(var(--gray-5));
+    }
 }
