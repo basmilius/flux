@@ -10,7 +10,7 @@
     "dependencies": {
         "@basmilius/flux": "workspace:*",
         "@basmilius/flux-internals": "workspace:*",
-        "@faker-js/faker": "^9.5.0",
+        "@faker-js/faker": "^9.5.1",
         "@fortawesome/fontawesome-common-types": "^6.7.2",
         "@fortawesome/pro-regular-svg-icons": "^6.7.2",
         "luxon": "^3.5.0",
