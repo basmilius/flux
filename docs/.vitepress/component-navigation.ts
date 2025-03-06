@@ -72,7 +72,7 @@ const navigation: SidebarItem = {
                 {text: 'Date time', link: '/guide/components/form/date-time'},
                 {text: 'Field', link: '/guide/components/form/field'},
                 {text: 'Input', link: '/guide/components/form/input'},
-                {text: 'Pin input', link: '/guide/components/form/pin-input'},
+                {text: 'PIN input', link: '/guide/components/form/pin-input'},
                 {text: 'Quantity selector', link: '/guide/components/form/quantity-selector'},
                 {text: 'Range slider', link: '/guide/components/form/range-slider'},
                 {text: 'Select', link: '/guide/components/form/select'},

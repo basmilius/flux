@@ -2,7 +2,7 @@
     <h2 id="emits">Emits</h2>
 
     <p v-for="({name, description, type}) of emits">
-        <code><strong>{{ name }}</strong>: [{{ (type ?? []).join(', ') }}]</code>
+        <code><strong>{{ name }}</strong>: [{{ (type ?? []).map(String).join(', ') }}]</code>
         <template v-if="description">
             <br>
             {{ description }}

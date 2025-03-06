@@ -7,7 +7,7 @@
         </template>
 
         <template v-else-if="Array.isArray(type)">
-            <code><strong>{{ name }}</strong>{{ optional ? '?' : '' }}: {{ type.join(' | ') }}</code>
+            <code><strong>{{ name }}</strong>{{ optional ? '?' : '' }}: {{ type.map(String).join(' | ') }}</code>
         </template>
 
         <template v-else>

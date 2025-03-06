@@ -49,7 +49,7 @@
     }>();
 
     const modelValue = defineModel<DateTime | null>({
-        required: true
+        default: null
     });
 
     const {

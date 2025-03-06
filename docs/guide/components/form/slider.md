@@ -4,12 +4,11 @@ outline: deep
 emits:
     -   name: update:model-value
         description: Triggered when the value is changed.
-        type: [ boolean ]
 
 props:
     -   name: model-value
         description: The value of the checkbox.
-        type: [ boolean, null ]
+        type: [ "boolean", "null" ]
 
     -   name: label
         description: The label that is shown next to the checkbox.
@@ -20,12 +19,12 @@ requiredIcons:
     - minus
 ---
 
-# Checkbox
+# Slider
 
-A clean and functional input element that supports labels and multiple states, designed to enhance usability and accessibility in forms and interfaces.
+Todo
 
 ::: render
-render=../../../code/guide/components/form/checkbox/preview.vue
+render=../../../code/guide/components/a-todo/preview.vue
 :::
 
 <FrontmatterDocs/>
