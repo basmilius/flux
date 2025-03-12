@@ -24,11 +24,11 @@
         </template>
 
         <template
-            v-else-if="imageUrl"
+            v-else-if="imageSrc"
             #iconLeading>
             <img
                 :class="$style.menuItemImage"
-                :src="imageUrl"
+                :src="imageSrc"
                 alt=""/>
         </template>
 
@@ -73,7 +73,7 @@
         readonly command?: string;
         readonly commandIcon?: FluxIconName;
         readonly commandLoading?: boolean;
-        readonly imageUrl?: string;
+        readonly imageSrc?: string;
         readonly isActive?: boolean;
         readonly isDestructive?: boolean;
         readonly isHighlighted?: boolean;

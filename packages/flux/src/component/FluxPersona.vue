@@ -9,7 +9,7 @@
             :fallback-icon="avatarFallbackIcon"
             :fallback-initials="avatarFallbackInitials"
             :size="avatarSize"
-            :url="avatarUrl"/>
+            :src="avatarSrc"/>
 
         <template v-if="!isCompact">
             <div :class="$style.personaDetails">
@@ -40,7 +40,7 @@
         readonly avatarFallbackIcon?: FluxIconName;
         readonly avatarFallbackInitials?: string;
         readonly avatarSize?: number;
-        readonly avatarUrl?: string;
+        readonly avatarSrc?: string;
         readonly isCompact?: boolean;
         readonly name: string;
         readonly title?: string;
