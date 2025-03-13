@@ -31,8 +31,7 @@
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
-            "import": "./dist/flux.js",
-            "require": "./dist/flux.umd.cjs"
+            "default": "./dist/flux.js"
         },
         "./plugin": "./src/plugin.ts",
         "./style.css": "./dist/flux.css",
