@@ -6,6 +6,9 @@ import vue from '@vitejs/plugin-vue';
 export default defineConfig(({mode}) => ({
     plugins: [
         preset({
+            cssModules: {
+                classNames: 'kebab'
+            },
             isLibrary: true
         }),
         vue()
