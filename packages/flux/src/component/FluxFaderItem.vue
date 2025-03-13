@@ -7,7 +7,7 @@
 <script
     lang="ts"
     setup>
-    import $style from '@/css/component/Fader.module.scss';
+    import $style from '$flux/css/component/Fader.module.scss';
 
     defineSlots<{
         default(): any;

@@ -1,6 +1,6 @@
-@use '@/css/mixin';
+@use '$flux/css/mixin';
 
-@value flexColumn, flexRow from '@/css/component/base/Flex.module.scss';
+@value flexColumn, flexRow from './base/Flex.module.scss';
 
 .avatar {
     position: relative;
@@ -118,8 +118,8 @@
 
 .statusAvatar .avatarFallback,
 .statusAvatar .avatarImage {
-    mask: url(@/image/avatar-mask.svg) no-repeat center center / cover;
-    -webkit-mask: url(@/image/avatar-mask.svg) no-repeat center center / cover;
+    mask: url('$flux/image/avatar-mask.svg') no-repeat center center / cover;
+    -webkit-mask: url('$flux/image/avatar-mask.svg') no-repeat center center / cover;
 }
 
 .persona {

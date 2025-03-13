@@ -35,5 +35,10 @@ export default defineConfig(({mode}) => ({
     },
     define: {
         __VUE_OPTIONS_API__: 'false'
+    },
+    resolve: {
+        alias: {
+            '$flux': resolve(import.meta.dirname, 'src'),
+        }
     }
 }));

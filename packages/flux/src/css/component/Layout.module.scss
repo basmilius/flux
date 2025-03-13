@@ -1,8 +1,8 @@
 @use 'sass:map';
-@use '@/css/mixin';
+@use '$flux/css/mixin';
 
-@value flexGrow, flexNoShrink from '@/css/component/base/Flex.module.scss';
-@value baseAutoGrid from '@/css/component/base/Grid.module.scss';
+@value flexGrow, flexNoShrink from './base/Flex.module.scss';
+@value baseAutoGrid from './base/Grid.module.scss';
 
 @layer flux-base {
     .aspectRatio {

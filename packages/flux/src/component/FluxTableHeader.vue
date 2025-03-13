@@ -63,16 +63,16 @@
     setup>
     import { clsx } from 'clsx';
     import { computed } from 'vue';
-    import { useTableInjection } from '@/composable';
-    import { useTranslate } from '@/composable/private';
-    import type { FluxIconName } from '@/types';
+    import { useTableInjection } from '$flux/composable';
+    import { useTranslate } from '$flux/composable/private';
+    import type { FluxIconName } from '$flux/types';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxMenu from './FluxMenu.vue';
     import FluxMenuGroup from './FluxMenuGroup.vue';
     import FluxMenuItem from './FluxMenuItem.vue';
     import FluxSeparator from './FluxSeparator.vue';
-    import $style from '@/css/component/Table.module.scss';
+    import $style from '$flux/css/component/Table.module.scss';
 
     defineEmits<{
         sort: ['ascending' | 'descending' | null];

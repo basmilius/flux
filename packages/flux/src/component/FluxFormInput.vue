@@ -58,11 +58,11 @@
     import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
     import { ref, toRef, unref, useTemplateRef, watch } from 'vue';
-    import { useDisabled, useFormFieldInjection } from '@/composable';
-    import { inputMask } from '@/data';
-    import type { FluxIconName, FluxInputMask, FluxInputType } from '@/types';
+    import { useDisabled, useFormFieldInjection } from '$flux/composable';
+    import { inputMask } from '$flux/data';
+    import type { FluxIconName, FluxInputMask, FluxInputType } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '@/css/component/Form.module.scss';
+    import $style from '$flux/css/component/Form.module.scss';
 
     const emit = defineEmits<{
         blur: [];

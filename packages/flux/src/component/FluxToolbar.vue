@@ -20,7 +20,7 @@
     setup>
     import { clsx } from 'clsx';
     import FluxStack from './FluxStack.vue';
-    import $style from '@/css/component/Toolbar.module.scss';
+    import $style from '$flux/css/component/Toolbar.module.scss';
 
     defineProps<{
         readonly floatingMode?: 'free' | 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end';

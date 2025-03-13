@@ -1,7 +1,7 @@
 import type { MaybeRef, Ref } from 'vue';
 import { computed, unref } from 'vue';
-import { isFluxFormSelectGroup, isFluxFormSelectOption } from '@/data';
-import type { FluxFormSelectEntry, FluxFormSelectGroup, FluxFormSelectOption } from '@/types';
+import { isFluxFormSelectGroup, isFluxFormSelectOption } from '$flux/data';
+import type { FluxFormSelectEntry, FluxFormSelectGroup, FluxFormSelectOption } from '$flux/types';
 
 export default function (modelValue: Ref<FormSelectValue>, isMultiple: boolean, options: MaybeRef<FluxFormSelectEntry[]>, searchQuery?: Ref<string>) {
     const values = computed(() => {

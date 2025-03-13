@@ -13,7 +13,7 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import $style from '@/css/component/Form.module.scss';
+    import $style from '$flux/css/component/Form.module.scss';
 
     defineProps<{
         readonly isSecondary?: boolean;

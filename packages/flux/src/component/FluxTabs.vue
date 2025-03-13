@@ -33,12 +33,12 @@
     setup>
     import { flattenVNodeTree, getComponentProps } from '@basmilius/flux-internals';
     import { computed, ref, unref, VNode, watch } from 'vue';
-    import { FluxWindowTransition } from '@/transition';
-    import type { FluxIconName } from '@/types';
+    import { FluxWindowTransition } from '$flux/transition';
+    import type { FluxIconName } from '$flux/types';
     import { VNodeRenderer } from './primitive';
     import FluxTabBar from './FluxTabBar.vue';
     import FluxTabBarItem from './FluxTabBarItem.vue';
-    import $style from '@/css/component/Tab.module.scss';
+    import $style from '$flux/css/component/Tab.module.scss';
 
     const modelValue = defineModel<number>({
         default: 0

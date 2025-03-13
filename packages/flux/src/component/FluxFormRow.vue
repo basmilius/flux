@@ -7,7 +7,7 @@
 <script
     lang="ts"
     setup>
-    import $style from '@/css/component/Form.module.scss';
+    import $style from '$flux/css/component/Form.module.scss';
 
     defineSlots<{
         default(): any;

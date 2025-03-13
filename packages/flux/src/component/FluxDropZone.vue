@@ -41,12 +41,12 @@
     setup>
     import { clsx } from 'clsx';
     import { nextTick, onMounted, onUnmounted, ref, toRef, unref } from 'vue';
-    import { useDisabled } from '@/composable';
-    import type { FluxIconName } from '@/types';
+    import { useDisabled } from '$flux/composable';
+    import type { FluxIconName } from '$flux/types';
     import FluxBorderShine from './FluxBorderShine.vue';
     import FluxPlaceholder from './FluxPlaceholder.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import $style from '@/css/component/DropZone.module.scss';
+    import $style from '$flux/css/component/DropZone.module.scss';
 
     const emit = defineEmits<{
         select: [FileList];

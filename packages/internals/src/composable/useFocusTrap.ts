@@ -5,7 +5,7 @@ import { getFocusableElements, isSSR, unrefTemplateElement, wrapFocus } from '..
 import useFocusTrapLock from './useFocusTrapLock';
 import useFocusTrapReturn from './useFocusTrapReturn';
 
-export default function (containerRef: TemplateRef<HTMLElement>, options: UseFocusTrapOptions = {}) {
+export default function (containerRef: TemplateRef<HTMLElement>, options: UseFocusTrapOptions = {}): void {
     if (isSSR) {
         return;
     }

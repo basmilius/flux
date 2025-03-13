@@ -15,7 +15,7 @@
     lang="ts"
     setup>
     import { computed } from 'vue';
-    import $style from '@/css/component/Pane.module.scss';
+    import $style from '$flux/css/component/Pane.module.scss';
 
     const {
         imageFocalPoint

@@ -50,11 +50,11 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { FluxButtonEmits, FluxColorVariant, FluxIconName, FluxPressableType, FluxTo } from '@/types';
+    import type { FluxButtonEmits, FluxColorVariant, FluxIconName, FluxPressableType, FluxTo } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
     import FluxSpinner from './FluxSpinner.vue';
-    import $style from '@/css/component/Badge.module.scss';
+    import $style from '$flux/css/component/Badge.module.scss';
 
     const emit = defineEmits<FluxButtonEmits & {
         delete: [];

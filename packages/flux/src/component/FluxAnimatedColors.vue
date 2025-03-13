@@ -10,7 +10,7 @@
     import { useComponentId } from '@basmilius/flux-internals';
     import { mulberry32 } from '@basmilius/utils';
     import { computed, onBeforeUnmount, onMounted, ref, unref, useTemplateRef, watch } from 'vue';
-    import $style from '@/css/component/Visual.module.scss';
+    import $style from '$flux/css/component/Visual.module.scss';
 
     type Polygon = [number, number, string, PolygonPoint[]];
     type PolygonPoint = [number, number, number];

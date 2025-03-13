@@ -1,4 +1,5 @@
-import {onMounted, onUnmounted, Ref, ref} from 'vue';
+import type { Ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 const BREAKPOINTS = {
     xs: 0,

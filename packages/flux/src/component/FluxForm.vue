@@ -13,7 +13,7 @@
     lang="ts"
     setup>
     import FluxDisabled from './FluxDisabled.vue';
-    import $style from '@/css/component/Form.module.scss';
+    import $style from '$flux/css/component/Form.module.scss';
 
     const emit = defineEmits<{
         submit: [];

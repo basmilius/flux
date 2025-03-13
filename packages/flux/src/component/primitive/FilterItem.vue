@@ -13,9 +13,9 @@
     lang="ts"
     setup>
     import { computed, ref, unref, watch } from 'vue';
-    import { useLoaded, useTranslate } from '@/composable/private';
-    import type { FluxFilterItem, FluxFilterValue } from '@/types';
-    import FluxMenuItem from '../FluxMenuItem.vue';
+    import { useLoaded, useTranslate } from '$flux/composable/private';
+    import type { FluxFilterItem, FluxFilterValue } from '$flux/types';
+    import FluxMenuItem from '$flux/component/FluxMenuItem.vue';
 
     const emit = defineEmits<{
         click: [MouseEvent];

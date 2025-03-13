@@ -16,7 +16,7 @@
     import { useMutationObserver } from '@basmilius/flux-internals';
     import { isHtmlElement } from '@basmilius/utils';
     import { ComponentPublicInstance, onMounted, onUnmounted, reactive, ref, unref, useTemplateRef, watchEffect } from 'vue';
-    import type { FluxDirection } from '@/types';
+    import type { FluxDirection } from '$flux/types';
 
     const {
         anchor,

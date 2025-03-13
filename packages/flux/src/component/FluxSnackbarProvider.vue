@@ -21,10 +21,10 @@
 <script
     lang="ts"
     setup>
-    import { useFluxStore } from '@/data';
-    import type { FluxSnackbarObject } from '@/types';
+    import { useFluxStore } from '$flux/data';
+    import type { FluxSnackbarObject } from '$flux/types';
     import FluxSnackbar from './FluxSnackbar.vue';
-    import $style from '@/css/component/Snackbar.module.scss';
+    import $style from '$flux/css/component/Snackbar.module.scss';
 
     const {snackbars} = useFluxStore();
 

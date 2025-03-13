@@ -59,11 +59,11 @@
 <script
     lang="ts"
     setup>
-    import type { FluxButtonEmits, FluxButtonProps, FluxIconName } from '@/types';
+    import type { FluxButtonEmits, FluxButtonProps, FluxIconName } from '$flux/types';
     import FluxButton from './FluxButton.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
-    import $style from '@/css/component/Menu.module.scss';
+    import $style from '$flux/css/component/Menu.module.scss';
 
     defineEmits<FluxButtonEmits>();
 

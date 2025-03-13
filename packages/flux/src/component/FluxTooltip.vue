@@ -1,6 +1,6 @@
 <script lang="ts">
     import { defineComponent, getCurrentInstance, onMounted, onUnmounted, PropType, ref, SlotsType, VNode } from 'vue';
-    import { addTooltip, removeTooltip } from '@/data';
+    import { addTooltip, removeTooltip } from '$flux/data';
 
     export default defineComponent({
         props: {

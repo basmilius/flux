@@ -13,7 +13,7 @@
     setup>
     import { useFocusZone } from '@basmilius/flux-internals';
     import { useTemplateRef } from 'vue';
-    import $style from '@/css/component/Menu.module.scss';
+    import $style from '$flux/css/component/Menu.module.scss';
 
     defineProps<{
         readonly isLarge?: boolean;

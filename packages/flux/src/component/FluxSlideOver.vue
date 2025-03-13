@@ -1,8 +1,8 @@
 <script lang="ts">
     import { defineComponent } from 'vue';
-    import { FluxSlideOverTransition } from '@/transition';
-    import { createDialogRenderer } from '@/util';
-    import $style from '@/css/component/Overlay.module.scss';
+    import { FluxSlideOverTransition } from '$flux/transition';
+    import { createDialogRenderer } from '$flux/util';
+    import $style from '$flux/css/component/Overlay.module.scss';
 
     export default defineComponent({
         emits: ['close'],

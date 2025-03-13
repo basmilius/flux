@@ -23,7 +23,7 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import $style from '@/css/component/Divider.module.scss';
+    import $style from '$flux/css/component/Divider.module.scss';
 
     const {
         contentPlacement = 'center'

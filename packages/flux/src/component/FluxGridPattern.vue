@@ -42,7 +42,7 @@
     lang="ts"
     setup>
     import { useId } from 'vue';
-    import $style from '@/css/component/Visual.module.scss';
+    import $style from '$flux/css/component/Visual.module.scss';
 
     const {
         width = 42,

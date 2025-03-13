@@ -34,14 +34,14 @@
     lang="ts"
     setup>
     import { watch } from 'vue';
-    import { useFluxStore } from '@/data';
+    import { useFluxStore } from '$flux/data';
     import FluxAlert from './FluxAlert.vue';
     import FluxConfirm from './FluxConfirm.vue';
     import FluxPrompt from './FluxPrompt.vue';
     import FluxOverlay from './FluxOverlay.vue';
     import FluxSnackbarProvider from './FluxSnackbarProvider.vue';
     import FluxTooltipProvider from './FluxTooltipProvider.vue';
-    import $style from '@/css/component/Root.module.scss';
+    import $style from '$flux/css/component/Root.module.scss';
 
     defineSlots<{
         default(): any;

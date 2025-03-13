@@ -52,10 +52,10 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { FluxColorVariant, FluxIconName } from '@/types';
+    import type { FluxColorVariant, FluxIconName } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
-    import $style from '@/css/component/Notice.module.scss';
+    import $style from '$flux/css/component/Notice.module.scss';
 
     const emit = defineEmits<{
         close: [];

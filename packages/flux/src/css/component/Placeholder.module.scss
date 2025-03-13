@@ -1,6 +1,6 @@
-@use '@/css/mixin';
+@use '$flux/css/mixin';
 
-@value flexColumn from '@/css/component/base/Flex.module.scss';
+@value flexColumn from './base/Flex.module.scss';
 
 .placeholder {
     composes: flexColumn;

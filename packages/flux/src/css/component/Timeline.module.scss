@@ -1,4 +1,4 @@
-@value flexColumn from '@/css/component/base/Flex.module.scss';
+@value flexColumn from './base/Flex.module.scss';
 
 .timeline {
     composes: flexColumn;

@@ -17,9 +17,9 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { FluxIconName } from '@/types';
+    import type { FluxIconName } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '@/css/component/Remove.module.scss';
+    import $style from '$flux/css/component/Remove.module.scss';
 
     const emit = defineEmits<{
         click: [MouseEvent];

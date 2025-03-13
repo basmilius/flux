@@ -15,7 +15,7 @@
 <script
     lang="ts"
     setup>
-    import $style from '@/css/component/Grid.module.scss';
+    import $style from '$flux/css/component/Grid.module.scss';
 
     defineProps<{
         readonly xs?: number;

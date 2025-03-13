@@ -46,10 +46,10 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { FluxButtonEmits, FluxButtonProps } from '@/types';
+    import type { FluxButtonEmits, FluxButtonProps } from '$flux/types';
     import FluxButton from './FluxButton.vue';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '@/css/component/Button.module.scss';
+    import $style from '$flux/css/component/Button.module.scss';
 
     defineEmits<FluxButtonEmits>();
 

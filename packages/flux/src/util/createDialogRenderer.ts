@@ -1,7 +1,7 @@
 import { flattenVNodeTree } from '@basmilius/flux-internals';
 import type { Component, RenderFunction, Slots } from 'vue';
 import { Comment, h, onMounted, onUnmounted, SetupContext, Teleport, VNode } from 'vue';
-import { registerDialog, useFluxStore } from '@/data';
+import { registerDialog, useFluxStore } from '$flux/data';
 
 type Emit = SetupContext<['close']>['emit'];
 type Props = {

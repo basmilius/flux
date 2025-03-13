@@ -132,10 +132,10 @@
     import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
     import { computed, ref, unref, useId } from 'vue';
-    import { useTranslate } from '@/composable/private';
-    import { FluxFadeTransition, FluxVerticalWindowTransition, FluxWindowTransition } from '@/transition';
+    import { useTranslate } from '$flux/composable/private';
+    import { FluxFadeTransition, FluxVerticalWindowTransition, FluxWindowTransition } from '$flux/transition';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import $style from '@/css/component/DatePicker.module.scss';
+    import $style from '$flux/css/component/DatePicker.module.scss';
 
     const modelValue = defineModel<DateTime | DateTime[] | null>({
         default: null,

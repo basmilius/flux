@@ -1,8 +1,8 @@
-@use '@/css/mixin';
+@use '$flux/css/mixin';
 
-@value flexColumn from '@/css/component/base/Flex.module.scss';
+@value flexColumn from './base/Flex.module.scss';
 
-@value basePane from '@/css/component/base/Pane.module.scss';
+@value basePane from './base/Pane.module.scss';
 
 .expandable {
     composes: flexColumn;

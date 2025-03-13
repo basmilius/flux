@@ -1,5 +1,5 @@
 import type { IconDefinition, IconPathData } from '@fortawesome/fontawesome-common-types';
-import type { FluxIconName } from '@/types';
+import type { FluxIconName } from '$flux/types';
 
 type Icon = [number, number, string[], string, IconPathData];
 type IconRegistry = Partial<{ [key in FluxIconName]: Icon; }>;

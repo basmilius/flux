@@ -37,8 +37,8 @@
     lang="ts"
     setup>
     import { computed, onMounted, ref, unref, useTemplateRef } from 'vue';
-    import { useTranslate } from '@/composable/private';
-    import type { FluxPromptObject } from '@/types';
+    import { useTranslate } from '$flux/composable/private';
+    import type { FluxPromptObject } from '$flux/types';
     import FluxFormField from './FluxFormField.vue';
     import FluxFormInput from './FluxFormInput.vue';
     import FluxPane from './FluxPane.vue';

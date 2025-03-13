@@ -23,9 +23,9 @@
 <script
     lang="ts"
     setup>
-    import type { FluxIconName } from '@/types';
+    import type { FluxIconName } from '$flux/types';
     import FluxAvatar from './FluxAvatar.vue';
-    import $style from '@/css/component/Avatar.module.scss';
+    import $style from '$flux/css/component/Avatar.module.scss';
 
     defineEmits<{
         click: [MouseEvent];

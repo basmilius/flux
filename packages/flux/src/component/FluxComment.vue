@@ -34,10 +34,10 @@
     import { clsx } from 'clsx';
     import type { DateTime } from 'luxon';
     import { computed } from 'vue';
-    import { useTranslate } from '@/composable/private';
-    import type { FluxIconName } from '@/types';
+    import { useTranslate } from '$flux/composable/private';
+    import type { FluxIconName } from '$flux/types';
     import FluxAvatar from './FluxAvatar.vue';
-    import $style from '@/css/component/Comment.module.scss';
+    import $style from '$flux/css/component/Comment.module.scss';
 
     const {
         avatarFallback = 'colorized',

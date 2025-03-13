@@ -15,31 +15,27 @@ jobs:
             -   name: 👀 Checkout
                 uses: actions/checkout@v4
 
-            -   name: ⚙️ Setup pnpm
-                uses: pnpm/action-setup@v4
-                with:
-                    run_install: false
-                    version: 10.x
-
-            -   name: ✨ Setup node 23.x
-                uses: actions/setup-node@v4
-                with:
-                    node-version: '23.x'
-                    registry-url: https://registry.npmjs.org
-                    cache: pnpm
+            -   name: ⚙️ Setup Bun
+                uses: oven-sh/setup-bun@v2
 
             -   name: 📦️ Install dependencies
-                run: pnpm install --frozen-lockfile
+                run: bun install --frozen-lockfile
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
 
             -   name: 🔨 Build
-                run: pnpm build
+                run: |
+                    bun --filter @basmilius/flux-internals build
+                    bun --filter @basmilius/flux build
+                    bun --filter @basmilius/flux-dashboard build
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
 
             -   name: 🚀 Publish
-                run: pnpm --filter '@basmilius/*' -r publish --access public --no-git-checks
+                run: |
+                    bun --filter @basmilius/flux-internals publish --access public
+                    bun --filter @basmilius/flux publish --access public
+                    bun --filter @basmilius/flux-dashboard publish --access public
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
-                    NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+                    NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}

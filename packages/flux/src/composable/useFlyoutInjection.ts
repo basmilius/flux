@@ -1,5 +1,5 @@
 import { inject, ref } from 'vue';
-import { FluxFlyoutInjectionKey } from '@/data';
+import { FluxFlyoutInjectionKey } from '$flux/data';
 
 export default function () {
     return inject(FluxFlyoutInjectionKey, {

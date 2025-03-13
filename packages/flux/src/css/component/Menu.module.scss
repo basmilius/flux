@@ -1,8 +1,8 @@
-@use '@/css/mixin';
+@use '$flux/css/mixin';
 
-@value button, buttonIcon, buttonLabel from '@/css/component/base/Button.module.scss';
-@value flexColumn, flexRow from '@/css/component/base/Flex.module.scss';
-@value basePane from '@/css/component/base/Pane.module.scss';
+@value button, buttonIcon, buttonLabel from './base/Button.module.scss';
+@value flexColumn, flexRow from './base/Flex.module.scss';
+@value basePane from './base/Pane.module.scss';
 
 .menu {
     composes: flexColumn;

@@ -21,8 +21,8 @@
     setup>
     import { clsx } from 'clsx';
     import { toRef, unref } from 'vue';
-    import { useDisabled } from '@/composable';
-    import $style from '@/css/component/primitive/CoordinatePicker.module.scss';
+    import { useDisabled } from '$flux/composable';
+    import $style from '$flux/css/component/primitive/CoordinatePicker.module.scss';
 
     const emit = defineEmits<{
         decrement: [boolean, boolean];

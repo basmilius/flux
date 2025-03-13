@@ -1,6 +1,6 @@
-@use '@/css/mixin';
+@use '$flux/css/mixin';
 
-@value placeholder from '@/css/component/Placeholder.module.scss';
+@value placeholder from './Placeholder.module.scss';
 
 .gallery {
     display: grid;

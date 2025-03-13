@@ -130,23 +130,23 @@
     import { unrefTemplateElement, useClickOutside } from '@basmilius/flux-internals';
     import { clsx } from 'clsx';
     import { ComponentPublicInstance, computed, nextTick, ref, toRef, unref, useTemplateRef, watch } from 'vue';
-    import { useDisabled, useFormFieldInjection } from '@/composable';
-    import { type FormSelectGroup, useTranslate } from '@/composable/private';
-    import { isFluxFormSelectGroup, isFluxFormSelectOption } from '@/data';
-    import type { FluxFormSelectOption } from '@/types';
-    import { FluxFadeTransition } from '@/transition';
-    import FluxFormInput from '../FluxFormInput.vue';
-    import FluxIcon from '../FluxIcon.vue';
-    import FluxMenu from '../FluxMenu.vue';
-    import FluxMenuGroup from '../FluxMenuGroup.vue';
-    import FluxMenuItem from '../FluxMenuItem.vue';
-    import FluxMenuSubHeader from '../FluxMenuSubHeader.vue';
-    import FluxPaneBody from '../FluxPaneBody.vue';
-    import FluxSpinner from '../FluxSpinner.vue';
-    import FluxTag from '../FluxTag.vue';
+    import { useDisabled, useFormFieldInjection } from '$flux/composable';
+    import { type FormSelectGroup, useTranslate } from '$flux/composable/private';
+    import { isFluxFormSelectGroup, isFluxFormSelectOption } from '$flux/data';
+    import type { FluxFormSelectOption } from '$flux/types';
+    import { FluxFadeTransition } from '$flux/transition';
+    import FluxFormInput from '$flux/component/FluxFormInput.vue';
+    import FluxIcon from '$flux/component/FluxIcon.vue';
+    import FluxMenu from '$flux/component/FluxMenu.vue';
+    import FluxMenuGroup from '$flux/component/FluxMenuGroup.vue';
+    import FluxMenuItem from '$flux/component/FluxMenuItem.vue';
+    import FluxMenuSubHeader from '$flux/component/FluxMenuSubHeader.vue';
+    import FluxPaneBody from '$flux/component/FluxPaneBody.vue';
+    import FluxSpinner from '$flux/component/FluxSpinner.vue';
+    import FluxTag from '$flux/component/FluxTag.vue';
     import Anchor from './Anchor.vue';
     import AnchorPopup from './AnchorPopup.vue';
-    import $style from '@/css/component/Form.module.scss';
+    import $style from '$flux/css/component/Form.module.scss';
 
     const INITIAL_HIGHLIGHTED_INDEX = -1;
 

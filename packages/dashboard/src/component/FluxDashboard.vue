@@ -18,8 +18,8 @@
     setup>
     import { useRemembered } from '@basmilius/flux-internals';
     import { provide } from 'vue';
-    import { FluxDashboardInjectionKey } from '@/data';
-    import $style from '@/css/component/Dashboard.module.scss';
+    import { FluxDashboardInjectionKey } from '$fluxDashboard/data';
+    import $style from '$fluxDashboard/css/component/Dashboard.module.scss';
 
     const isNavigationCollapsed = useRemembered('dashboard-navigation-collapsed', true);
 

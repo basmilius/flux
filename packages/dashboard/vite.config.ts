@@ -36,5 +36,10 @@ export default defineConfig(({command}) => ({
     },
     define: {
         __VUE_OPTIONS_API__: 'false'
+    },
+    resolve: {
+        alias: {
+            '$fluxDashboard': resolve(import.meta.dirname, 'src'),
+        }
     }
 }));

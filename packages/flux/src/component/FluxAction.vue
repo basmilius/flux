@@ -14,9 +14,9 @@
 <script
     lang="ts"
     setup>
-    import type { FluxButtonEmits, FluxButtonProps, FluxIconName } from '@/types';
+    import type { FluxButtonEmits, FluxButtonProps, FluxIconName } from '$flux/types';
     import FluxButton from './FluxButton.vue';
-    import $style from '@/css/component/Action.module.scss';
+    import $style from '$flux/css/component/Action.module.scss';
 
     defineEmits<FluxButtonEmits>();
 

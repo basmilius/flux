@@ -13,7 +13,7 @@
 <script
     lang="ts"
     setup>
-    import $style from '@/css/component/primitive/Slider.module.scss';
+    import $style from '$flux/css/component/primitive/Slider.module.scss';
 
     defineProps<{
         readonly percentageLower: number;

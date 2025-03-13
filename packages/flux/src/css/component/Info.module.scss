@@ -1,4 +1,4 @@
-@value flex from '@/css/component/base/Flex.module.scss';
+@value flex from './base/Flex.module.scss';
 
 .info {
     composes: flex;

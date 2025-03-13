@@ -1,4 +1,4 @@
-@value basePaneStructure, basePaneLoader from '@/css/component/base/Pane.module.scss';
+@value basePaneStructure, basePaneLoader from './base/Pane.module.scss';
 
 .calendar {
     composes: basePaneStructure;

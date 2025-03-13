@@ -29,11 +29,11 @@
     lang="ts"
     setup>
     import { ComponentPublicInstance, toRef, unref, useTemplateRef, watch } from 'vue';
-    import { useDisabled } from '@/composable';
-    import type { FluxIconName, FluxPressableType, FluxTo } from '@/types';
+    import { useDisabled } from '$flux/composable';
+    import type { FluxIconName, FluxPressableType, FluxTo } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
-    import $style from '@/css/component/Tab.module.scss';
+    import $style from '$flux/css/component/Tab.module.scss';
 
     const emit = defineEmits<{
         click: [MouseEvent];

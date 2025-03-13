@@ -26,11 +26,11 @@
     lang="ts"
     setup>
     import { ref } from 'vue';
-    import type { FluxFocalPointObject } from '@/types';
+    import type { FluxFocalPointObject } from '$flux/types';
     import FluxFocalPointImage from './FluxFocalPointImage.vue';
     import FluxRemove from './FluxRemove.vue';
     import FluxSpinner from './FluxSpinner.vue';
-    import $style from '@/css/component/Gallery.module.scss';
+    import $style from '$flux/css/component/Gallery.module.scss';
 
     const emit = defineEmits<{
         delete: [];

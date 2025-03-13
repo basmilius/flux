@@ -29,7 +29,7 @@
     setup>
     import { generateStepTicks } from '@basmilius/utils';
     import { computed } from 'vue';
-    import $style from '@/css/component/primitive/Slider.module.scss';
+    import $style from '$flux/css/component/primitive/Slider.module.scss';
 
     const {
         lower,

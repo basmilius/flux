@@ -27,9 +27,9 @@
 <script
     lang="ts"
     setup>
-    import type { FluxIconName } from '@/types';
+    import type { FluxIconName } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '@/css/component/Pane.module.scss';
+    import $style from '$flux/css/component/Pane.module.scss';
 
     defineProps<{
         readonly icon?: FluxIconName;

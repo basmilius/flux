@@ -42,10 +42,10 @@
     import { unrefTemplateElement, useFocusTrap } from '@basmilius/flux-internals';
     import { clsx } from 'clsx';
     import { provide, ref, unref, useTemplateRef, watch } from 'vue';
-    import { FluxFlyoutInjectionKey } from '@/data';
-    import type { FluxDirection } from '@/types';
+    import { FluxFlyoutInjectionKey } from '$flux/data';
+    import type { FluxDirection } from '$flux/types';
     import FluxPane from './FluxPane.vue';
-    import $style from '@/css/component/Flyout.module.scss';
+    import $style from '$flux/css/component/Flyout.module.scss';
 
     const {
         direction = 'vertical',

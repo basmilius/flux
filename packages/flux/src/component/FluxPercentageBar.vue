@@ -32,11 +32,11 @@
     lang="ts"
     setup>
     import { formatPercentage } from '@basmilius/utils';
-    import type { FluxPercentageBarItemObject } from '@/types';
+    import type { FluxPercentageBarItemObject } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxLegend from './FluxLegend.vue';
     import FluxTooltip from './FluxTooltip.vue';
-    import $style from '@/css/component/PercentageBar.module.scss';
+    import $style from '$flux/css/component/PercentageBar.module.scss';
 
     defineProps<{
         readonly isLegendVisible?: boolean;

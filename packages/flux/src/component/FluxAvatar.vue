@@ -50,10 +50,10 @@
     import { amber600, blue600, cyan600, emerald600, fuchsia600, green600, indigo600, lime600, orange600, pink600, purple600, red600, rose600, sky600, teal600, violet600, yellow600 } from '@basmilius/flux-internals';
     import { clsx } from 'clsx';
     import { computed, unref } from 'vue';
-    import type { FluxButtonEmits, FluxColorVariant, FluxIconName, FluxPressableType, FluxTo } from '@/types';
+    import type { FluxButtonEmits, FluxColorVariant, FluxIconName, FluxPressableType, FluxTo } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
-    import $style from '@/css/component/Avatar.module.scss';
+    import $style from '$flux/css/component/Avatar.module.scss';
 
     const STATUS_CLASS_MAP = {
         gray: $style.avatarStatusGray,

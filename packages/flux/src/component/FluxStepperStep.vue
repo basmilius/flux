@@ -7,7 +7,7 @@
 <script
     lang="ts"
     setup>
-    import $style from '@/css/component/Stepper.module.scss';
+    import $style from '$flux/css/component/Stepper.module.scss';
 
     defineSlots<{
         default(): any;

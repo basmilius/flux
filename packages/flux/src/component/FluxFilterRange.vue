@@ -39,9 +39,9 @@
     setup>
     import { formatNumber } from '@basmilius/utils';
     import { computed, unref } from 'vue';
-    import { useFilterInjection } from '@/composable';
-    import { useTranslate } from '@/composable/private';
-    import type { FluxIconName } from '@/types';
+    import { useFilterInjection } from '$flux/composable';
+    import { useTranslate } from '$flux/composable/private';
+    import type { FluxIconName } from '$flux/types';
     import FluxFormColumn from './FluxFormColumn.vue';
     import FluxFormField from './FluxFormField.vue';
     import FluxFormSlider from './FluxFormSlider.vue';

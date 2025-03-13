@@ -2,7 +2,7 @@ import type { DateTime } from 'luxon';
 import type { Ref } from 'vue';
 import { computed, ref, unref, watch } from 'vue';
 
-export default function (currentDate: Ref<DateTime>, limit: number = 10) {
+export default function (currentDate: Ref<DateTime>, limit: number = 10): UseCalendarYearSwitcherReturn {
     const index = ref(0);
 
     const years = computed(() => {
@@ -33,3 +33,10 @@ export default function (currentDate: Ref<DateTime>, limit: number = 10) {
         previous
     };
 }
+
+type UseCalendarYearSwitcherReturn = {
+    readonly years: Ref<number[]>;
+
+    next(): void;
+    previous(): void;
+};

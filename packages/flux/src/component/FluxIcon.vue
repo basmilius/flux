@@ -38,9 +38,9 @@
     lang="ts"
     setup>
     import { computed } from 'vue';
-    import { iconRegistry } from '@/data';
-    import type { FluxIconName } from '@/types';
-    import $style from '@/css/component/Icon.module.scss';
+    import { iconRegistry } from '$flux/data';
+    import type { FluxIconName } from '$flux/types';
+    import $style from '$flux/css/component/Icon.module.scss';
 
     const emit = defineEmits<{
         click: [MouseEvent];

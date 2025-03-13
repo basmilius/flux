@@ -1,5 +1,5 @@
 import type { DateTime } from 'luxon';
-import type { FluxTranslator } from '@/composable/private';
+import type { FluxTranslator } from '$flux/composable/private';
 import type { FluxIconName } from './common';
 
 export type FluxFilterBase = {

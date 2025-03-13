@@ -12,4 +12,4 @@ export { default as wrapFocus } from './wrapFocus';
 
 export { default as FOCUS_TRAP_LOCKS, type FocusTrapListener } from './focusTrap';
 
-export const isSSR = typeof document === 'undefined';
+export const isSSR = !globalThis.document;

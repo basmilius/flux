@@ -35,13 +35,13 @@
     setup>
     import type { DateTime } from 'luxon';
     import { ref, toRef, unref, useTemplateRef, watch } from 'vue';
-    import { useDisabled } from '@/composable';
+    import { useDisabled } from '$flux/composable';
     import FluxDatePicker from './FluxDatePicker.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxFormInput from './FluxFormInput.vue';
     import FluxFormInputGroup from './FluxFormInputGroup.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import $style from '@/css/component/Form.module.scss';
+    import $style from '$flux/css/component/Form.module.scss';
 
     const emit = defineEmits<{
         blur: [];

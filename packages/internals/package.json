@@ -21,10 +21,7 @@
         "flux"
     ],
     "scripts": {
-        "build": "$npm_execpath run esbuild && $npm_execpath run gentypes",
-        "dev": "$npm_execpath run esbuild --watch",
-        "esbuild": "esbuild src/index.ts --bundle --sourcemap --external:@basmilius --external:lodash-es --external:luxon --external:vue --platform=browser --target=esnext --format=esm --outfile=dist/flux-internals.js",
-        "gentypes": "tsc",
+        "build": "bun -b build.ts",
         "prepublishOnly": "cp ../../README.md ."
     },
     "engines": {
@@ -39,6 +36,7 @@
         "provenance": true
     },
     "main": "./dist/flux-internals.js",
+    "module": "./dist/flux-internals.js",
     "types": "./dist/index.d.ts",
     "typings": "./dist/index.d.ts",
     "sideEffects": false,
@@ -48,20 +46,19 @@
             "default": "./dist/flux-internals.js"
         }
     },
-    "devDependencies": {
-        "@basmilius/utils": "^1.8.0",
-        "@types/luxon": "^3.4.2",
-        "esbuild": "^0.25.0",
+    "dependencies": {
+        "@basmilius/utils": "^1.10.0",
         "lodash-es": "^4.17.21",
         "luxon": "^3.5.0",
-        "tsc-alias": "^1.8.11",
-        "typescript": "^5.8.2",
         "vue": "^3.5.13"
     },
-    "peerDependencies": {
-        "@basmilius/utils": "^1.2.0",
+    "devDependencies": {
+        "@basmilius/utils": "^1.10.0",
+        "@types/bun": "^1.2.5",
+        "@types/luxon": "^3.4.2",
         "lodash-es": "^4.17.21",
         "luxon": "^3.5.0",
+        "oxc-transform": "^0.57.0",
         "vue": "^3.5.13"
     }
 }

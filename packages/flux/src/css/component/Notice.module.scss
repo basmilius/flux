@@ -1,7 +1,7 @@
-@use '@/css/mixin';
+@use '$flux/css/mixin';
 
-@value flex, flexColumn, flexRow, flexGrow, flexNoShrink from '@/css/component/base/Flex.module.scss';
-@value basePaneElement from '@/css/component/base/Pane.module.scss';
+@value flex, flexColumn, flexRow, flexGrow, flexNoShrink from './base/Flex.module.scss';
+@value basePaneElement from './base/Pane.module.scss';
 
 .notice {
     composes: flexRow;

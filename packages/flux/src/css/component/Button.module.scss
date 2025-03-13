@@ -1,8 +1,8 @@
-@use '@/css/mixin';
+@use '$flux/css/mixin';
 
-@value button, buttonIcon, buttonLabel, isSmall, isMedium, isLarge, isXl from '@/css/component/base/Button.module.scss';
+@value button, buttonIcon, buttonLabel, isSmall, isMedium, isLarge, isXl from './base/Button.module.scss';
 
-@value inlineFlexRow, flexNoGrow, flexNoShrink from '@/css/component/base/Flex.module.scss';
+@value inlineFlexRow, flexNoGrow, flexNoShrink from './base/Flex.module.scss';
 
 .primaryButton {
     composes: button;

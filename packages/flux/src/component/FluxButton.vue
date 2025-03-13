@@ -65,12 +65,12 @@
     setup>
     import { clsx } from 'clsx';
     import { toRef, unref } from 'vue';
-    import { useDisabled } from '@/composable';
-    import type { FluxButtonEmits, FluxButtonProps, FluxButtonSlots } from '@/types';
+    import { useDisabled } from '$flux/composable';
+    import type { FluxButtonEmits, FluxButtonProps, FluxButtonSlots } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
     import FluxSpinner from './FluxSpinner.vue';
-    import $style from '@/css/component/base/Button.module.scss';
+    import $style from '$flux/css/component/base/Button.module.scss';
 
     const emit = defineEmits<FluxButtonEmits>();
 

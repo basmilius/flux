@@ -45,7 +45,7 @@
 <script
     lang="ts"
     setup>
-    import type { FluxPressableType, FluxTo } from '@/types';
+    import type { FluxPressableType, FluxTo } from '$flux/types';
 
     const emit = defineEmits<{
         click: [MouseEvent];

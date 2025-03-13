@@ -9,7 +9,7 @@
 <script
     lang="ts"
     setup>
-    import $style from '@/css/component/Timeline.module.scss';
+    import $style from '$flux/css/component/Timeline.module.scss';
 
     defineSlots<{
         default(): any;

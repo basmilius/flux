@@ -1,6 +1,6 @@
-@use '@/css/mixin';
+@use '$flux/css/mixin';
 
-@value inlineFlexRow, flexNoGrow from '@/css/component/base/Flex.module.scss';
+@value inlineFlexRow, flexNoGrow from './base/Flex.module.scss';
 
 .chip {
     composes: inlineFlexRow;

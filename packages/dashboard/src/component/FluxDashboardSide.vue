@@ -19,7 +19,7 @@
     setup>
     import { FluxSpacer } from '@basmilius/flux';
     import FluxDashboardTopBar from './FluxDashboardTopBar.vue';
-    import $style from '@/css/component/Dashboard.module.scss';
+    import $style from '$fluxDashboard/css/component/Dashboard.module.scss';
 
     defineProps<{
         readonly title: string;

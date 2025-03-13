@@ -15,8 +15,8 @@
 <script
     lang="ts"
     setup>
-    import type { FluxDirection, FluxLegendObject } from '@/types';
-    import $style from '@/css/component/Legend.module.scss';
+    import type { FluxDirection, FluxLegendObject } from '$flux/types';
+    import $style from '$flux/css/component/Legend.module.scss';
 
     const {
         direction = 'horizontal'

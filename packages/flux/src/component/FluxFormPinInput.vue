@@ -28,8 +28,8 @@
     lang="ts"
     setup>
     import { toRef, unref, useTemplateRef } from 'vue';
-    import { useDisabled, useFormFieldInjection } from '@/composable';
-    import $style from '@/css/component/Form.module.scss';
+    import { useDisabled, useFormFieldInjection } from '$flux/composable';
+    import $style from '$flux/css/component/Form.module.scss';
 
     const modelValue = defineModel<string>({
         default: ''

@@ -8,8 +8,8 @@
 <script
     lang="ts"
     setup>
-    import type { FluxDirection } from '@/types';
-    import $style from '@/css/component/Divider.module.scss';
+    import type { FluxDirection } from '$flux/types';
+    import $style from '$flux/css/component/Divider.module.scss';
 
     const {
         direction = 'horizontal'

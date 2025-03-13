@@ -24,8 +24,8 @@
     lang="ts"
     setup>
     import type { FluxTo } from '@basmilius/flux';
-    import { useDashboardInjection } from '@/composable';
-    import $style from '@/css/component/Dashboard.module.scss';
+    import { useDashboardInjection } from '$fluxDashboard/composable';
+    import $style from '$fluxDashboard/css/component/Dashboard.module.scss';
 
     defineOptions({
         inheritAttrs: false

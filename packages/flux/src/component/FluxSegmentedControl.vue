@@ -43,9 +43,9 @@
     setup>
     import { clsx } from 'clsx';
     import { onMounted, onUpdated, ref, unref, useTemplateRef } from 'vue';
-    import type { FluxSegmentedControlItemObject } from '@/types';
+    import type { FluxSegmentedControlItemObject } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '@/css/component/SegmentedControl.module.scss';
+    import $style from '$flux/css/component/SegmentedControl.module.scss';
 
     const modelValue = defineModel<number>({
         default: 0

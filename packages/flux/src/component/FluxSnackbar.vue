@@ -74,13 +74,13 @@
     setup>
     import { clsx } from 'clsx';
     import { computed, getCurrentInstance, onBeforeUnmount, ref, watch, watchEffect } from 'vue';
-    import { addSnackbar, removeSnackbar, updateSnackbar } from '@/data';
-    import type { FluxColorVariant, FluxIconName, FluxSnackbarObject } from '@/types';
+    import { addSnackbar, removeSnackbar, updateSnackbar } from '$flux/data';
+    import type { FluxColorVariant, FluxIconName, FluxSnackbarObject } from '$flux/types';
     import FluxAction from './FluxAction.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxProgressBar from './FluxProgressBar.vue';
     import FluxSpinner from './FluxSpinner.vue';
-    import $style from '@/css/component/Snackbar.module.scss';
+    import $style from '$flux/css/component/Snackbar.module.scss';
 
     const emit = defineEmits<{
         action: [string];

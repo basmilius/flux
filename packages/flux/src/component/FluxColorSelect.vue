@@ -48,14 +48,14 @@
     setup>
     import { amber500, blue500, cyan500, emerald500, fuchsia500, green500, indigo500, lime500, orange500, pink500, purple500, red500, rose500, sky500, teal500, violet500, yellow500 } from '@basmilius/flux-internals';
     import { ref, watch } from 'vue';
-    import { useTranslate } from '@/composable/private';
+    import { useTranslate } from '$flux/composable/private';
     import FluxColorPicker from './FluxColorPicker.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxPaneBody from './FluxPaneBody.vue';
     import FluxPrimaryButton from './FluxPrimaryButton.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import $style from '@/css/component/Color.module.scss';
+    import $style from '$flux/css/component/Color.module.scss';
 
     const modelValue = defineModel<string>({
         default: '#000000'

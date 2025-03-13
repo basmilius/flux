@@ -46,10 +46,10 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { FluxColorVariant, FluxDirection, FluxIconName } from '@/types';
+    import type { FluxColorVariant, FluxDirection, FluxIconName } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxPane from './FluxPane.vue';
-    import $style from '@/css/component/Statistic.module.scss';
+    import $style from '$flux/css/component/Statistic.module.scss';
 
     const {
         changeColor = 'gray',

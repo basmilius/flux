@@ -40,7 +40,7 @@
     import { clsx } from 'clsx';
     import { onMounted, ref, useTemplateRef } from 'vue';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '@/css/component/Tab.module.scss';
+    import $style from '$flux/css/component/Tab.module.scss';
 
     defineSlots<{
         default(): any;

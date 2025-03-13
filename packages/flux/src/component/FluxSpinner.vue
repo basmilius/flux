@@ -40,7 +40,7 @@
 <script
     lang="ts"
     setup>
-    import $style from '@/css/component/Spinner.module.scss';
+    import $style from '$flux/css/component/Spinner.module.scss';
 
     const {
         size = 30

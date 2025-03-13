@@ -32,9 +32,9 @@
     lang="ts"
     setup>
     import { provide } from 'vue';
-    import { FluxTableInjectionKey } from '@/data';
+    import { FluxTableInjectionKey } from '$flux/data';
     import FluxSpinner from './FluxSpinner.vue';
-    import $style from '@/css/component/Table.module.scss';
+    import $style from '$flux/css/component/Table.module.scss';
 
     const {
         captionSide = 'bottom',

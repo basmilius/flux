@@ -12,9 +12,9 @@
     lang="ts"
     setup>
     import { computed, unref } from 'vue';
-    import { useFilterInjection } from '@/composable';
-    import { isFluxFilterOptionHeader } from '@/data';
-    import type { FluxFilterOptionRow, FluxFilterValueSingle, FluxIconName } from '@/types';
+    import { useFilterInjection } from '$flux/composable';
+    import { isFluxFilterOptionHeader } from '$flux/data';
+    import type { FluxFilterOptionRow, FluxFilterValueSingle, FluxIconName } from '$flux/types';
     import { FilterOptionBase } from './primitive';
 
     const modelSearch = defineModel<string>('searchQuery', {

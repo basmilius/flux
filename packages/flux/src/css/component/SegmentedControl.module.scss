@@ -1,6 +1,6 @@
-@use '@/css/mixin';
+@use '$flux/css/mixin';
 
-@value flexRow, inlineFlexRow from '@/css/component/base/Flex.module.scss';
+@value flexRow, inlineFlexRow from './base/Flex.module.scss';
 
 .segmentedControl {
     position: relative;

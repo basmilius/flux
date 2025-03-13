@@ -36,9 +36,9 @@
     lang="ts"
     setup>
     import { computed, unref, useTemplateRef, watchEffect } from 'vue';
-    import { useFormFieldInjection } from '@/composable';
+    import { useFormFieldInjection } from '$flux/composable';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '@/css/component/Form.module.scss';
+    import $style from '$flux/css/component/Form.module.scss';
 
     const modelValue = defineModel<boolean | null>({
         default: false

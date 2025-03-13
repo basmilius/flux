@@ -21,8 +21,7 @@
         "outDir": "dist",
         "baseUrl": ".",
         "paths": {
-            "@basmilius/flux": ["src/index.ts"],
-            "@/*": ["src/*"]
+            "$flux/*": ["src/*"]
         }
     },
     "include": [
