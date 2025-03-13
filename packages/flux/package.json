@@ -35,7 +35,7 @@
         },
         "./plugin": "./src/plugin.ts",
         "./style.css": "./dist/flux.css",
-        "./*": "./"
+        "./*": "./*"
     },
     "publishConfig": {
         "access": "public",
