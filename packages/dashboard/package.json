@@ -22,7 +22,8 @@
         "dashboard"
     ],
     "scripts": {
-        "build": "vue-tsc && vite build",
+        "build": "vue-tsc && vite build && bun run build:plugin",
+        "build:plugin": "bun build --packages=external --outfile dist/plugin.js src/plugin.ts",
         "dev": "vite build --watch",
         "prepublishOnly": "cp ../../README.md ."
     },
@@ -34,7 +35,7 @@
             "types": "./dist/index.d.ts",
             "default": "./dist/flux-dashboard.js"
         },
-        "./plugin": "./src/plugin.ts",
+        "./plugin": "./dist/plugin.js",
         "./style.css": "./dist/flux-dashboard.css"
     },
     "publishConfig": {
