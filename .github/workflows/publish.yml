@@ -25,19 +25,19 @@ jobs:
 
             -   name: 🔨 Build
                 run: |
-                    bun --filter @basmilius/flux-build-tools build
-                    bun --filter @basmilius/flux-internals build
-                    bun --filter @basmilius/flux build
-                    bun --filter @basmilius/flux-dashboard build
+                    bun -F @basmilius/flux-build-tools build
+                    bun -F @basmilius/flux-internals build
+                    bun -F @basmilius/flux build
+                    bun -F @basmilius/flux-dashboard build
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
 
             -   name: 🚀 Publish
                 run: |
-                    bun --filter @basmilius/flux-build-tools publish --access public
-                    bun --filter @basmilius/flux-internals publish --access public
-                    bun --filter @basmilius/flux publish --access public
-                    bun --filter @basmilius/flux-dashboard publish --access public
+                    bun --cwd packages/build-tools publish --access public
+                    bun --cwd packages/internals publish --access public
+                    bun --cwd packages/flux publish --access public
+                    bun --cwd packages/dashboard publish --access public
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
                     NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}

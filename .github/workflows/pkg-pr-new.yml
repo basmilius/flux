@@ -31,10 +31,10 @@ jobs:
 
             -   name: 🔨 Build
                 run: |
-                    bun --filter @basmilius/flux-build-tools build
-                    bun --filter @basmilius/flux-internals build
-                    bun --filter @basmilius/flux build
-                    bun --filter @basmilius/flux-dashboard build
+                    bun -F @basmilius/flux-build-tools build
+                    bun -F @basmilius/flux-internals build
+                    bun -F @basmilius/flux build
+                    bun -F @basmilius/flux-dashboard build
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
 
