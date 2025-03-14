@@ -2,8 +2,16 @@ import { existsSync, readFileSync, realpathSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import type { Plugin, ResolvedConfig, UserConfig } from 'vite';
 
-export default (name: string, alias: string): () => Plugin => {
-    const src = realpathSync(resolve(process.cwd(), `./node_modules/${name}/src`));
+type PathGenerator = (name: string) => string;
+
+const defaultSrcPathGenerator: PathGenerator = name => resolve(process.cwd(), `./node_modules/${name}/src`);
+const defaultTsaPathGenerator: PathGenerator = name => `node_modules/${name}/src/*`;
+
+export default (name: string, alias: string, srcPathGenerator?: PathGenerator, tsaPathGenerator?: PathGenerator): () => Plugin => {
+    srcPathGenerator ??= defaultSrcPathGenerator;
+    tsaPathGenerator ??= defaultTsaPathGenerator;
+
+    const src = srcPathGenerator(name);
 
     return (): Plugin => ({
         name,
@@ -42,7 +50,7 @@ export default (name: string, alias: string): () => Plugin => {
                 return;
             }
 
-            tsconfig.compilerOptions.paths[key] = [`node_modules/${name}/src/*`];
+            tsconfig.compilerOptions.paths[key] = [tsaPathGenerator(name)];
 
             writeFileSync(tsconfigPath, JSON.stringify(tsconfig, null, 4), {encoding: 'utf-8'});
         }
