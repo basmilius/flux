@@ -13,6 +13,17 @@
     "scripts": {
         "build": "bun -b build.ts"
     },
+    "engines": {
+        "node": ">=23"
+    },
+    "files": [
+        "dist",
+        "src"
+    ],
+    "publishConfig": {
+        "access": "public",
+        "provenance": true
+    },
     "main": "./dist/flux-build-tools.js",
     "module": "./dist/flux-build-tools.js",
     "types": "./dist/index.d.ts",
