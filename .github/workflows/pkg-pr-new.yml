@@ -31,6 +31,7 @@ jobs:
 
             -   name: 🔨 Build
                 run: |
+                    bun --filter @basmilius/flux-build-tools build
                     bun --filter @basmilius/flux-internals build
                     bun --filter @basmilius/flux build
                     bun --filter @basmilius/flux-dashboard build

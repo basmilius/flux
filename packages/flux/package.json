@@ -21,8 +21,7 @@
         "flux"
     ],
     "scripts": {
-        "build": "vue-tsc && vite build && bun run build:plugin",
-        "build:plugin": "bun build --packages=external --outfile dist/plugin.js src/plugin.ts",
+        "build": "vue-tsc && vite build",
         "dev": "vite build --mode dev --watch",
         "prepublishOnly": "cp ../../README.md ."
     },
@@ -34,7 +33,6 @@
             "types": "./dist/index.d.ts",
             "default": "./dist/flux.js"
         },
-        "./plugin": "./dist/plugin.js",
         "./style.css": "./dist/flux.css",
         "./*": "./*"
     },
@@ -62,6 +60,7 @@
         "vue": "^3.5.13"
     },
     "devDependencies": {
+        "@basmilius/flux-build-tools": "workspace:*",
         "@basmilius/vite-vue-preset": "^1.21.0",
         "@types/lodash-es": "^4.17.12",
         "@types/luxon": "^3.4.2",

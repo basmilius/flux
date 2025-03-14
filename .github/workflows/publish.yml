@@ -25,6 +25,7 @@ jobs:
 
             -   name: 🔨 Build
                 run: |
+                    bun --filter @basmilius/flux-build-tools build
                     bun --filter @basmilius/flux-internals build
                     bun --filter @basmilius/flux build
                     bun --filter @basmilius/flux-dashboard build
@@ -33,6 +34,7 @@ jobs:
 
             -   name: 🚀 Publish
                 run: |
+                    bun --filter @basmilius/flux-build-tools publish --access public
                     bun --filter @basmilius/flux-internals publish --access public
                     bun --filter @basmilius/flux publish --access public
                     bun --filter @basmilius/flux-dashboard publish --access public
