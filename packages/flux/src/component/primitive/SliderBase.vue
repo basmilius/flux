@@ -24,7 +24,7 @@
     import { clsx } from 'clsx';
     import { onMounted, onUnmounted, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '$flux/composable';
-    import FluxTicks from '$flux//component/FluxTicks.vue';
+    import FluxTicks from '$flux/component/FluxTicks.vue';
     import $style from '$flux/css/component/primitive/Slider.module.scss';
 
     const emit = defineEmits<{

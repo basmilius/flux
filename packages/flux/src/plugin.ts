@@ -1,4 +1,4 @@
+import { composePlugin } from '@basmilius/flux-internals';
 import { name } from '../package.json' assert { type: 'json' };
-import plugin from '../../plugin';
 
-export default plugin(name, '$flux');
+export default composePlugin(name, '$flux');

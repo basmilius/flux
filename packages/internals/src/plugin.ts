@@ -1,6 +1,6 @@
 import { existsSync, readFileSync, realpathSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
-import type { Plugin } from 'vite';
+import type { Plugin, ResolvedConfig, UserConfig } from 'vite';
 
 export default (name: string, alias: string): () => Plugin => {
     const src = realpathSync(resolve(process.cwd(), `./node_modules/${name}/src`));
@@ -8,7 +8,7 @@ export default (name: string, alias: string): () => Plugin => {
     return (): Plugin => ({
         name,
 
-        config: () => ({
+        config: (): UserConfig => ({
             optimizeDeps: {
                 exclude: [name]
             },
@@ -25,7 +25,7 @@ export default (name: string, alias: string): () => Plugin => {
             }
         }),
 
-        configResolved(config) {
+        configResolved(config: ResolvedConfig): void {
             const tsconfigPath = join(config.root, 'tsconfig.json');
 
             if (!existsSync(tsconfigPath)) {
@@ -48,11 +48,3 @@ export default (name: string, alias: string): () => Plugin => {
         }
     });
 };
-
-/*
-{
-    "@/*": ["src/*"],
-    "$flux/*": ["node_modules/@basmilius/flux/src/*"],
-    "$fluxDashboard/*": ["node_modules/@basmilius/flux-dashboard/src/*"]
-}
- */

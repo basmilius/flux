@@ -20,6 +20,7 @@
         "emitDeclarationOnly": true,
         "outDir": "dist",
         "baseUrl": ".",
+        "rootDir": "./src",
         "paths": {
             "$flux/*": ["src/*"]
         }
