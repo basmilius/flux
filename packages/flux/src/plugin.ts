@@ -1,23 +1,4 @@
-import { realpathSync } from 'node:fs';
-import { resolve } from 'node:path';
-import type { Plugin } from 'vite';
+import { name } from '../package.json' assert { type: 'json' };
+import plugin from '../../plugin';
 
-const SRC = realpathSync(resolve(process.cwd(), './node_modules/@basmilius/flux/src'));
-
-export default (): Plugin => ({
-    name: '@basmilius/flux',
-
-    config: () => ({
-        resolve: {
-            alias: {
-                '@basmilius/flux': SRC,
-                '$flux': SRC
-            }
-        },
-        server: {
-            fs: {
-                allow: [SRC]
-            }
-        }
-    })
-});
+export default plugin(name, '$flux');
