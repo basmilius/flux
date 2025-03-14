@@ -6,9 +6,6 @@
     },
     "workspaces": [
         "docs",
-        "packages/build-tools",
-        "packages/internals",
-        "packages/flux",
-        "packages/dashboard"
+        "packages/*"
     ]
 }
