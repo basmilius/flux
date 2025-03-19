@@ -1,5 +1,5 @@
-import { resolve } from 'node:path';
-import { defineConfig } from 'vite';
+import { relative, resolve } from 'node:path';
+import { defineConfig, searchForWorkspaceRoot } from 'vite';
 import preset from '@basmilius/vite-vue-preset';
 import vue from '@vitejs/plugin-vue';
 

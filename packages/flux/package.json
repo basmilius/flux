@@ -61,7 +61,6 @@
         "vue": "^3.5.13"
     },
     "devDependencies": {
-        "@basmilius/flux-build-tools": "workspace:*",
         "@basmilius/vite-vue-preset": "^1.21.0",
         "@types/lodash-es": "^4.17.12",
         "@types/luxon": "^3.4.2",
