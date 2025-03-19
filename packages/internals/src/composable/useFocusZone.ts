@@ -121,7 +121,7 @@ function handleDirectionalFocus(evt: KeyboardEvent, container: HTMLElement, cycl
     evt.preventDefault();
 }
 
-interface UseFocusZoneOptions {
+type UseFocusZoneOptions = {
     readonly cycle?: boolean;
     readonly direction?: 'bidirectional' | 'horizontal' | 'vertical';
-}
+};

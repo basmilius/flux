@@ -1,7 +1,6 @@
-import { createHash } from 'node:crypto';
+import { flux, preset } from '@basmilius/vite-vue-preset';
 import { defineConfig } from 'vitepress';
 import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons';
-import className from 'css-class-generator';
 import examplePlugin from 'vitepress-plugin-example';
 import renderPlugin from 'vitepress-plugin-render';
 import componentNavigation from './component-navigation';
@@ -20,30 +19,14 @@ export default defineConfig({
     },
     vite: {
         plugins: [
-            groupIconVitePlugin() as any
-        ],
-        css: {
-            preprocessorOptions: {
-                scss: {
-                    api: 'modern-compiler'
+            groupIconVitePlugin() as any,
+            preset({
+                cssModules: {
+                    classNames: 'mangled'
                 }
-            },
-            modules: {
-                generateScopedName(name: string): string {
-                    if (name.startsWith('i__const_')) {
-                        name = name.substring(9);
-                        name = name.substring(0, name.length - 2);
-                    }
-
-                    const hash = createHash('sha1')
-                        .update(name)
-                        .digest('hex')
-                        .substring(0, 5);
-
-                    return className(parseInt(hash, 16));
-                }
-            }
-        }
+            }),
+            flux()
+        ]
     },
     themeConfig: {
         logo: '/assets/logo.svg',
@@ -176,18 +159,15 @@ export default defineConfig({
                     text: 'Utils',
                     collapsed: false,
                     items: [
-                        {text: 'getFocusableElements', link: '/internals/utils/getFocusableElements'},
                         {text: 'flattenVNodeTree', link: '/internals/utils/flattenVNodeTree'},
-                        {text: 'unrefTemplateElement', link: '/internals/utils/unrefTemplateElement'},
-                        {text: 'wrapFocus', link: '/internals/utils/wrapFocus'},
                         {text: 'getBidirectionalFocusElement', link: '/internals/utils/getBidirectionalFocusElement'},
-                        {text: 'getExposedRef', link: '/internals/utils/getExposedRef'},
-                        {text: 'focusTrap', link: '/internals/utils/focusTrap'},
                         {text: 'getComponentName', link: '/internals/utils/getComponentName'},
-                        {text: 'getKeyboardFocusableElements', link: '/internals/utils/getKeyboardFocusableElements'},
                         {text: 'getComponentProps', link: '/internals/utils/getComponentProps'},
-                        {text: 'unrefObject', link: '/internals/utils/unrefObject'},
+                        {text: 'getExposedRef', link: '/internals/utils/getExposedRef'},
                         {text: 'getFocusableElement', link: '/internals/utils/getFocusableElement'},
+                        {text: 'getFocusableElements', link: '/internals/utils/getFocusableElements'},
+                        {text: 'getKeyboardFocusableElements', link: '/internals/utils/getKeyboardFocusableElements'},
+                        {text: 'unrefTemplateElement', link: '/internals/utils/unrefTemplateElement'}
                     ]
                 }
             ],

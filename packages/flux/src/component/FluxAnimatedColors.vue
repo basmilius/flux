@@ -28,7 +28,7 @@
     }>();
 
     const canvasRef = useTemplateRef('canvas');
-    const id = useComponentId();
+    const componentId = useComponentId();
 
     const contextRef = ref<CanvasRenderingContext2D>();
     const animationFrame = ref(0);
@@ -39,7 +39,7 @@
             return [];
         }
 
-        const mulberry = mulberry32(seed ?? id.value);
+        const mulberry = mulberry32(seed ?? unref(componentId));
         const polygons: Polygon[] = [];
 
         for (const color of colors) {

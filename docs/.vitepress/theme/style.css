@@ -9,9 +9,9 @@
     --vp-c-gray-3: rgb(var(--gray-2));
 
     --vp-c-bg: rgb(var(--gray-0));
-    --vp-c-bg-alt: rgb(var(--gray-1));
+    --vp-c-bg-alt: rgb(var(--gray-2));
     --vp-c-bg-elv: rgb(var(--gray-0));
-    --vp-c-bg-soft: rgb(var(--gray-1));
+    --vp-c-bg-soft: rgb(var(--gray-2));
 
     --vp-c-border: rgb(var(--gray-4));
     --vp-c-divider: rgb(var(--gray-3));

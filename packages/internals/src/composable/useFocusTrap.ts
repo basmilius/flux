@@ -105,8 +105,8 @@ export default function (containerRef: TemplateRef<HTMLElement>, options: UseFoc
     }, {immediate: true});
 }
 
-interface UseFocusTrapOptions {
+type UseFocusTrapOptions = {
     attachTo?: HTMLElement | Document;
     disable?: Ref<boolean>;
     disableReturn?: Ref<boolean>;
-}
+};

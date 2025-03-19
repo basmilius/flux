@@ -4,7 +4,8 @@
         style="max-width: 300px">
         <FluxPaneBody>
             <FluxBoxedIcon
-                :size="60"
+                color="primary"
+                :size="48"
                 variant="rocket"/>
         </FluxPaneBody>
 

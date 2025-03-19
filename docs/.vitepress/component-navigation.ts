@@ -144,6 +144,7 @@ const navigation: SidebarItem = {
         {text: 'Split button', link: '/guide/components/split-button'},
         {text: 'Statistic', link: '/guide/components/statistic'},
         {text: 'Stepper', link: '/guide/components/stepper'},
+        {text: 'Tab bar', link: '/guide/components/tab-bar'},
         {text: 'Tabs', link: '/guide/components/tabs'},
         {
             text: 'Table',

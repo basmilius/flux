@@ -12,12 +12,12 @@ Run the following command to install Flux.
 
 ::: code-group
 
-```shell [PNPM]
-pnpm install @basmilius/flux
-```
-
 ```shell [Bun]
 bun add @basmilius/flux
+```
+
+```shell [PNPM]
+pnpm install @basmilius/flux
 ```
 
 ```shell [Yarn]

@@ -12,7 +12,6 @@ import 'vitepress/dist/client/theme-default/styles/components/vp-sponsor.css';
 
 import 'virtual:group-icons.css';
 
-import '@basmilius/flux/style.css';
 import './style.css';
 
 import type { Theme } from 'vitepress';

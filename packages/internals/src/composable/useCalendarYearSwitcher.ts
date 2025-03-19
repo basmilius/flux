@@ -29,6 +29,7 @@ export default function (currentDate: Ref<DateTime>, limit: number = 10): UseCal
 
     return {
         years,
+
         next,
         previous
     };

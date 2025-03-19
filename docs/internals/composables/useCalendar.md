@@ -32,14 +32,17 @@ const {
 import type { DateTime } from 'luxon';
 import type { ComputedRef, Ref } from 'vue';
 
-export declare function useCalendar(initialDate: DateTime, options: Options): UseCalendar;
+export declare function useCalendar(
+    initialDate: DateTime,
+    options?: Options
+): UseCalendarReturn;
 
 export declare type Options = {
     readonly monthLength?: 'short' | 'long';
     readonly weekDayLength?: 'short' | 'long';
 };
 
-export declare type UseCalendar = {
+export declare type UseCalendarReturn = {
     readonly isTransitioningToPast: Ref<boolean>;
     readonly viewDate: Ref<DateTime>;
     readonly viewDateNext: ComputedRef<DateTime>;

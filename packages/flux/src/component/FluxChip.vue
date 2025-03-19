@@ -7,10 +7,12 @@
             isSelected && $style.isSelected
         )"
         @click="$emit('click', $event)">
-        <FluxIcon
-            v-if="isSelectable"
-            :size="16"
-            :variant="isSelected ? 'check' : (iconLeading ?? 'plus')"/>
+        <FluxFadeTransition v-if="isSelectable">
+            <FluxIcon
+                :key="isSelected ? 'check' : (iconLeading ?? 'plus')"
+                :size="16"
+                :variant="isSelected ? 'check' : (iconLeading ?? 'plus')"/>
+        </FluxFadeTransition>
 
         <FluxIcon
             v-else-if="iconLeading"
@@ -30,6 +32,7 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
+    import { FluxFadeTransition } from '$flux/transition';
     import type { FluxIconName } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '$flux/css/component/Chip.module.scss';

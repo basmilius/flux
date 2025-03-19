@@ -4,20 +4,20 @@ This package contains internal composables, directives and utilities that are us
 
 ::: code-group
 
-```shell [PNPM]
-pnpm install @basmilius/flux
+```shell [Bun]
+bun add @basmilius/flux-internals
 ```
 
-```shell [Bun]
-bun add @basmilius/flux
+```shell [PNPM]
+pnpm install @basmilius/flux-internals
 ```
 
 ```shell [Yarn]
-yarn add @basmilius/flux
+yarn add @basmilius/flux-internals
 ```
 
 ```shell [NPM]
-npm install @basmilius/flux
+npm install @basmilius/flux-internals
 ```
 
 :::

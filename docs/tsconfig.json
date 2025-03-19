@@ -14,7 +14,12 @@
             "dom"
         ],
         "skipLibCheck": true,
-        "allowSyntheticDefaultImports": true
+        "allowSyntheticDefaultImports": true,
+        "paths": {
+            "$flux/*": [
+                "../node_modules/@basmilius/flux/src/*"
+            ]
+        }
     },
     "include": [
         "./**/*.ts",

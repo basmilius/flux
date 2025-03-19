@@ -1,6 +1,6 @@
-import { relative, resolve } from 'node:path';
-import { defineConfig, searchForWorkspaceRoot } from 'vite';
-import preset from '@basmilius/vite-vue-preset';
+import { preset } from '@basmilius/vite-vue-preset';
+import { resolve } from 'node:path';
+import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig(({mode}) => ({
@@ -41,7 +41,7 @@ export default defineConfig(({mode}) => ({
     },
     resolve: {
         alias: {
-            '$flux': resolve(import.meta.dirname, 'src'),
+            '$flux': resolve(import.meta.dirname, 'src')
         }
     }
 }));
