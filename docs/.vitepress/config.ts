@@ -23,7 +23,8 @@ export default defineConfig({
             preset({
                 cssModules: {
                     classNames: 'mangled'
-                }
+                },
+                fileNames: 'actual'
             }),
             flux()
         ]

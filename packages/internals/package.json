@@ -47,13 +47,12 @@
         }
     },
     "dependencies": {
-        "@basmilius/utils": "^1.10.0",
+        "@basmilius/utils": "^1.11.0",
         "lodash-es": "^4.17.21",
         "luxon": "^3.5.0",
         "vue": "^3.5.13"
     },
     "devDependencies": {
-        "@basmilius/utils": "^1.10.0",
         "@types/bun": "^1.2.5",
         "@types/luxon": "^3.4.2",
         "lodash-es": "^4.17.21",

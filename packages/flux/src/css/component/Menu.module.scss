@@ -281,7 +281,7 @@
     }
 }
 
-.basePane > .menu {
+:local(.basePane) > .menu {
     margin-left: 9px;
     margin-right: 9px;
 
@@ -298,7 +298,7 @@
     }
 }
 
-.expandableBody > .menu {
+:local(.expandableBody) > .menu {
     margin-left: 9px;
     margin-right: 9px;
 
