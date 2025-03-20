@@ -12,7 +12,7 @@ const {
     years,
     next,
     previous
-} = useCalendarYearSwitcher(DateTime.now(), 'short');
+} = useCalendarYearSwitcher(DateTime.now(), 10);
 ```
 
 ## Type declarations

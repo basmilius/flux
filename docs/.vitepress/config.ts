@@ -100,13 +100,13 @@ export default defineConfig({
                     collapsed: false,
                     items: [
                         {text: 'Breakthrough', link: '/guide/transitions/breakthrough'},
-                        {text: 'Fade', link: '/guide/transitions/breakthrough'},
-                        {text: 'Overlay', link: '/guide/transitions/breakthrough'},
-                        {text: 'Route', link: '/guide/transitions/breakthrough'},
-                        {text: 'Slide over', link: '/guide/transitions/breakthrough'},
-                        {text: 'Tooltip', link: '/guide/transitions/breakthrough'},
-                        {text: 'Vertical window', link: '/guide/transitions/breakthrough'},
-                        {text: 'Window', link: '/guide/transitions/breakthrough'}
+                        {text: 'Fade', link: '/guide/transitions/fade'},
+                        {text: 'Overlay', link: '/guide/transitions/overlay'},
+                        {text: 'Route', link: '/guide/transitions/route'},
+                        {text: 'Slide over', link: '/guide/transitions/slide-over'},
+                        {text: 'Tooltip', link: '/guide/transitions/tooltip'},
+                        {text: 'Vertical window', link: '/guide/transitions/vertical-window'},
+                        {text: 'Window', link: '/guide/transitions/window'}
                     ]
                 }
             ],

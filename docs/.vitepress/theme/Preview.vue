@@ -49,8 +49,8 @@
     .preview {
         position: relative;
         margin: 16px 0;
-        background: rgb(var(--gray-1) / .5);
-        border: 1px solid rgb(var(--gray-3) / .5);
+        background: var(--vp-c-bg-soft);
+        border: 1px solid var(--vp-c-gutter);
         border-radius: var(--radius);
         font-size: 15px;
 
@@ -79,6 +79,20 @@
 
         > .pane {
             width: 100%;
+        }
+    }
+
+    @media (max-width: 639px) {
+        .preview {
+            margin-left: -24px;
+            margin-right: -24px;
+            border-left: 0;
+            border-right: 0;
+            border-radius: 0;
+        }
+
+        .previewBody {
+            padding: 15px 24px;
         }
     }
 </style>
