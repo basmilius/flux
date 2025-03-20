@@ -14,8 +14,8 @@ hero:
             link: /guide/introduction/installation/manual
 
         -   theme: alt
-            text: Examples
-            link: /examples
+            text: Components
+            link: /guide/components
 
         -   theme: alt
             text: View on GitHub
@@ -31,12 +31,16 @@ features:
     -   title: Beautiful
         details: Flux's opinionated design strives to achieve the perfect balance between beauty and functionality.
         icon: ⭐️
-        link: './guide/introduction/installation'
+        link: './guide/introduction/installation/manual'
         linkText: Get started
 
     -   title: Why
         details: Originally developed for a large SaaS application, Flux eventually evolved into its own standalone ui library.
         icon: 🤔
-        link: './examples'
+        link: './showcase'
         linkText: View examples
 ---
+
+```shell
+bun add @basmilius/flux
+```
