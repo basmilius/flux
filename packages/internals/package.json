@@ -53,11 +53,11 @@
         "vue": "^3.5.13"
     },
     "devDependencies": {
-        "@types/bun": "^1.2.5",
-        "@types/luxon": "^3.4.2",
+        "@types/bun": "^1.2.8",
+        "@types/luxon": "^3.6.0",
         "lodash-es": "^4.17.21",
-        "luxon": "^3.5.0",
-        "oxc-transform": "^0.57.0",
+        "luxon": "^3.6.1",
+        "oxc-transform": "^0.61.2",
         "vue": "^3.5.13"
     }
 }

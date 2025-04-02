@@ -38,6 +38,14 @@
                 :variant="fallbackIcon"/>
         </div>
 
+        <FluxFadeTransition>
+            <div
+                v-if="isLoading"
+                :class="$style.avatarLoading">
+                <FluxSpinner/>
+            </div>
+        </FluxFadeTransition>
+
         <div
             v-if="status"
             :class="STATUS_CLASS_MAP[status]"/>
@@ -50,9 +58,11 @@
     import { amber600, blue600, cyan600, emerald600, fuchsia600, green600, indigo600, lime600, orange600, pink600, purple600, red600, rose600, sky600, teal600, violet600, yellow600 } from '@basmilius/flux-internals';
     import { clsx } from 'clsx';
     import { computed, unref } from 'vue';
+    import { FluxFadeTransition } from '$flux/transition';
     import type { FluxButtonEmits, FluxColorVariant, FluxIconName, FluxPressableType, FluxTo } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
+    import FluxSpinner from './FluxSpinner.vue';
     import $style from '$flux/css/component/Avatar.module.scss';
 
     const STATUS_CLASS_MAP = {
@@ -78,6 +88,7 @@
         readonly fallbackColors?: string[];
         readonly fallbackIcon?: FluxIconName;
         readonly fallbackInitials?: string;
+        readonly isLoading?: boolean;
         readonly size?: number;
         readonly src?: string;
         readonly status?: FluxColorVariant;

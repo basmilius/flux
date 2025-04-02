@@ -91,3 +91,80 @@ export type FluxButtonSlots = {
     iconTrailing(): any;
     label(): any;
 }
+
+type AutoCompleteGroupIdentifier =
+    | 'billing'
+    | 'shipping';
+
+type AutoCompleteRecipientType =
+    | 'home'
+    | 'work'
+    | 'mobile'
+    | 'fax'
+    | 'page';
+
+type AutoCompleteContactToken =
+    | 'tel'
+    | 'tel-country-code'
+    | 'tel-national'
+    | 'tel-area-code'
+    | 'tel-local'
+    | 'tel-extension'
+    | 'email'
+    | 'impp';
+
+type AutoCompleteToken =
+    | 'name'
+    | 'honorific-prefix'
+    | 'given-name'
+    | 'additional-name'
+    | 'family-name'
+    | 'honorific-suffix'
+    | 'nickname'
+    | 'username'
+    | 'new-password'
+    | 'current-password'
+    | 'one-time-code'
+    | 'organization-title'
+    | 'organization'
+    | 'street-address'
+    | 'address-line1'
+    | 'address-line2'
+    | 'address-line3'
+    | 'address-level4'
+    | 'address-level3'
+    | 'address-level2'
+    | 'address-level1'
+    | 'country'
+    | 'country-name'
+    | 'postal-code'
+    | 'cc-name'
+    | 'cc-given-name'
+    | 'cc-additional-name'
+    | 'cc-family-name'
+    | 'cc-number'
+    | 'cc-exp'
+    | 'cc-exp-month'
+    | 'cc-exp-year'
+    | 'cc-csc'
+    | 'cc-type'
+    | 'transaction-currency'
+    | 'transaction-amount'
+    | 'language'
+    | 'bday'
+    | 'bday-day'
+    | 'bday-month'
+    | 'bday-year'
+    | 'sex'
+    | 'url'
+    | 'photo'
+    | 'webauthn';
+
+export type FluxAutoCompleteType =
+    | AutoCompleteToken
+    | AutoCompleteContactToken
+    | AutoCompleteRecipientType
+    | AutoCompleteGroupIdentifier
+    | `${AutoCompleteGroupIdentifier} ${AutoCompleteToken}`
+    | `${AutoCompleteGroupIdentifier} ${AutoCompleteContactToken}`
+    | (string & {});

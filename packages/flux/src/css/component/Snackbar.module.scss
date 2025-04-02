@@ -1,13 +1,14 @@
 @use '$flux/css/mixin';
 
 @value flexColumn, flexRow, flexGrow from './base/Flex.module.scss';
+
 @value basePane from './base/Pane.module.scss';
 
 .snackbar {
     composes: basePane;
     composes: flexRow;
 
-    box-shadow: var(--shadow-xl);
+    box-shadow: var(--shadow-xl), var(--shadow-2xl);
     overflow: hidden;
 
     .action {
@@ -200,9 +201,9 @@
     }
 
     @include mixin.breakpoint-up(md) {
-        width: 480px;
+        width: 540px;
         top: 30px;
-        right: 30px;
+        left: calc(50dvw - 270px);
     }
 }
 
@@ -219,15 +220,12 @@
 
 .snackbarsEnterFrom {
     opacity: 0;
-    transform: translate3d(0, -50%, 0);
-
-    @include mixin.breakpoint-up(lg) {
-        transform: translate3d(100%, 0, 0);
-    }
+    transform: translate3d(0, -15px, 0);
 }
 
 .snackbarsLeaveTo {
     opacity: 0;
     scale: .95;
-    transform: translate3d(0, -25%, 0);
+    translate: 0 -15px;
+    z-index: -1;
 }

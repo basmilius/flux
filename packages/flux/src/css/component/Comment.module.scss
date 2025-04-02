@@ -46,7 +46,7 @@
     background: linear-gradient(to bottom, rgb(var(--gray-0)), rgb(var(--gray-1)));
     border: 1px solid rgb(var(--gray-3));
     border-radius: calc(var(--radius) * 2);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-xs);
 }
 
 .comment:not(.isReceived) .commentContent {

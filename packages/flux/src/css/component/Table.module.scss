@@ -1,6 +1,8 @@
-@value basePaneLoader, basePaneStructure from './base/Pane.module.scss';
+@value basePaneElement, basePaneLoader, basePaneStructure from './base/Pane.module.scss';
 
 .table {
+    composes: basePaneElement;
+
     position: relative;
     overflow: auto;
 

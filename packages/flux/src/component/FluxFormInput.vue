@@ -60,7 +60,7 @@
     import { ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled, useFormFieldInjection } from '$flux/composable';
     import { inputMask } from '$flux/data';
-    import type { FluxIconName, FluxInputMask, FluxInputType } from '$flux/types';
+    import type { FluxAutoCompleteType, FluxIconName, FluxInputMask, FluxInputType } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '$flux/css/component/Form.module.scss';
 
@@ -80,7 +80,7 @@
         pattern,
         type = 'text'
     } = defineProps<{
-        readonly autoComplete?: string;
+        readonly autoComplete?: FluxAutoCompleteType;
         readonly autoFocus?: boolean;
         readonly iconLeading?: FluxIconName;
         readonly iconTrailing?: FluxIconName;

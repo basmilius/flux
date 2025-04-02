@@ -36,6 +36,7 @@
     import type { DateTime } from 'luxon';
     import { ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '$flux/composable';
+    import type { FluxAutoCompleteType } from '$flux/types';
     import FluxDatePicker from './FluxDatePicker.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxFormInput from './FluxFormInput.vue';
@@ -55,7 +56,7 @@
     const {
         disabled: componentDisabled
     } = defineProps<{
-        readonly autoComplete?: string;
+        readonly autoComplete?: FluxAutoCompleteType;
         readonly autoFocus?: boolean;
         readonly disabled?: boolean;
         readonly isReadonly?: boolean;

@@ -8,7 +8,7 @@
         :placeholder-button="translate('flux.galleryPlaceholderButton')"
         :placeholder-message="translate('flux.galleryPlaceholderMessage')"
         :placeholder-title="translate('flux.galleryPlaceholderTitle')"
-        @select="onFilesSelected">
+        @select-multiple="onFilesSelected">
         <template #default="{showPicker}">
             <TransitionGroup
                 :class="$style.gallery"

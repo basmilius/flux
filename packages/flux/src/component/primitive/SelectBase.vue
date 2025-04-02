@@ -75,9 +75,9 @@
                     :placeholder="translate('flux.search')"
                     @keydown="onKeyDown"/>
 
-                <FluxPaneBody v-if="!isLoading && options.length === 0">
-                    <em>{{ translate('flux.noItems') }}</em>
-                </FluxPaneBody>
+                <FluxMenu v-if="!isLoading && options.length === 0">
+                    <FluxMenuSubHeader :label="translate('flux.noItems')"/>
+                </FluxMenu>
 
                 <FluxMenu v-else>
                     <template

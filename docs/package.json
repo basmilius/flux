@@ -13,16 +13,16 @@
         "@faker-js/faker": "^9.6.0",
         "@fortawesome/fontawesome-common-types": "^6.7.2",
         "@fortawesome/pro-regular-svg-icons": "^6.7.2",
-        "luxon": "^3.5.0",
-        "vitepress": "^2.0.0-alpha.4",
+        "luxon": "^3.6.1",
+        "vitepress": "^1.6.3",
         "vitepress-plugin-example": "^1.1.0",
-        "vitepress-plugin-group-icons": "^1.3.7",
+        "vitepress-plugin-group-icons": "^1.3.8",
         "vitepress-plugin-render": "^1.1.0",
         "vue": "^3.5.13"
     },
     "devDependencies": {
         "@basmilius/vite-vue-preset": "^2.2.0",
-        "@types/luxon": "^3.4.2",
-        "vite": "^6.2.1"
+        "@types/luxon": "^3.6.0",
+        "vite": "^6.2.4"
     }
 }

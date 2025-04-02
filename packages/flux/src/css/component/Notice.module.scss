@@ -1,7 +1,7 @@
 @use '$flux/css/mixin';
 
 @value flex, flexColumn, flexRow, flexGrow, flexNoShrink from './base/Flex.module.scss';
-@value basePaneElement from './base/Pane.module.scss';
+@value basePane, basePaneElement from './base/Pane.module.scss';
 
 .notice {
     composes: flexRow;
@@ -76,6 +76,7 @@
     composes: flexNoShrink;
 
     margin-top: 2px;
+    font-size: 20px;
 }
 
 .noticeMessage,
@@ -275,77 +276,7 @@
     }
 }
 
-[_dark] .noticePrimary {
-    background: rgb(var(--primary-11) / .25);
-    border-color: rgb(var(--primary-11));
-    color: rgb(var(--primary-4));
-
-    .noticePrefix,
-    .noticeTitle {
-        color: rgb(var(--primary-6));
-    }
-
-    :local(.spinnerTrack) {
-        stroke: rgb(var(--primary-11));
-    }
-}
-
-[_dark] .noticeDanger {
-    background: rgb(var(--danger-11) / .25);
-    border-color: rgb(var(--danger-11));
-    color: rgb(var(--danger-4));
-
-    .noticePrefix,
-    .noticeTitle {
-        color: rgb(var(--danger-6));
-    }
-
-    :local(.spinnerTrack) {
-        stroke: rgb(var(--danger-11));
-    }
-}
-
-[_dark] .noticeInfo {
-    background: rgb(var(--info-11) / .25);
-    border-color: rgb(var(--info-11));
-    color: rgb(var(--info-4));
-
-    .noticePrefix,
-    .noticeTitle {
-        color: rgb(var(--info-6));
-    }
-
-    :local(.spinnerTrack) {
-        stroke: rgb(var(--info-11));
-    }
-}
-
-[_dark] .noticeSuccess {
-    background: rgb(var(--success-11) / .25);
-    border-color: rgb(var(--success-11));
-    color: rgb(var(--success-4));
-
-    .noticePrefix,
-    .noticeTitle {
-        color: rgb(var(--success-6));
-    }
-
-    :local(.spinnerTrack) {
-        stroke: rgb(var(--success-11));
-    }
-}
-
-[_dark] .noticeWarning {
-    background: rgb(var(--warning-11) / .25);
-    border-color: rgb(var(--warning-11));
-    color: rgb(var(--warning-4));
-
-    .noticePrefix,
-    .noticeTitle {
-        color: rgb(var(--warning-6));
-    }
-
-    :local(.spinnerTrack) {
-        stroke: rgb(var(--warning-11));
-    }
+:local(.basePane) > .notice {
+    padding-left: 21px;
+    padding-right: 21px;
 }

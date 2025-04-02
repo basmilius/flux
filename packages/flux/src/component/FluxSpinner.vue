@@ -3,7 +3,7 @@
         :class="$style.spinner"
         viewBox="0 0 24 24"
         :style="{
-            fontSize: `${size}px`
+            fontSize: size && `${size}px`
         }">
         <circle
             :class="$style.spinnerTrack"
@@ -42,9 +42,7 @@
     setup>
     import $style from '$flux/css/component/Spinner.module.scss';
 
-    const {
-        size = 30
-    } = defineProps<{
+    defineProps<{
         readonly size?: number;
     }>();
 </script>

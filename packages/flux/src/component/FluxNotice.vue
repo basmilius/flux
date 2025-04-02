@@ -13,13 +13,11 @@
         role="alert">
         <FluxSpinner
             v-if="isLoading"
-            :class="$style.noticePrefix"
-            :size="isSmall ? 16 : 20"/>
+            :class="$style.noticePrefix"/>
 
         <FluxIcon
             v-if="icon && !isLoading"
             :class="$style.noticePrefix"
-            :size="isSmall ? 16 : 20"
             :variant="icon"/>
 
         <div :class="$style.noticeBody">
@@ -69,7 +67,6 @@
         readonly isCloseable?: boolean;
         readonly isFluid?: boolean;
         readonly isLoading?: boolean;
-        readonly isSmall?: boolean;
         readonly message?: string;
         readonly title?: string;
         readonly variant?: FluxColorVariant;

@@ -1,32 +1,99 @@
 .dropZone {
-    position: relative;
-    border-radius: var(--radius);
+    display: grid;
+    align-items: center;
+    gap: 15px 30px;
+    grid-template-columns: 1fr;
 
-    :local(.placeholder) {
-        transition: background 300ms var(--swift-out);
-    }
-
-    &:has(.dropZoneHint.isDraggingOver) :local(.placeholder) {
-        background: rgb(var(--primary-2));
+    &:has(> .dropZoneActions) {
+        grid-template-columns: auto 1fr;
     }
 }
 
-.dropZoneHint {
+.dropZoneActions {
+    display: flex;
+    flex-flow: column;
+    gap: 15px;
+}
+
+.dropZoneBorder {
     position: absolute;
-    inset: 0;
-    opacity: 0;
+    inset: var(--dz-inset);
+    height: var(--dz-height);
+    width: var(--dz-width);
+    overflow: visible;
     pointer-events: none;
-    transition: opacity 300ms var(--swift-out);
 
-    &::before {
-        --shine-colors: rgb(var(--primary-7)), transparent, rgb(var(--primary-7));
+    :global(rect) {
+        fill: var(--dz-fill);
+        rx: var(--dz-radius);
+        stroke: var(--dz-stroke);
+        stroke-dasharray: 6px 6px;
+        stroke-width: 2px;
+        transition: 270ms var(--swift-out);
+        transition-property: fill, stroke;
+    }
+}
+
+.dropZoneContent {
+    --dz-fill: transparent;
+    --dz-stroke: transparent;
+    --dz-inset: -1px;
+    --dz-radius: var(--radius);
+    --dz-height: calc(100% + 2px);
+    --dz-width: calc(100% + 2px);
+
+    position: relative;
+
+    &:has(.avatar) {
+        --dz-inset: -3px;
+        --dz-radius: 999px;
+        --dz-height: calc(100% + 6px);
+        --dz-width: calc(100% + 6px);
     }
 
-    &.isDragging {
-        opacity: 1;
+    &:has(.placeholder) {
+        --dz-fill: rgb(var(--gray-1));
+        --dz-stroke: rgb(var(--gray-3));
     }
 
-    &.isDraggingOver::before {
-        --shine-colors: rgb(var(--primary-7)), rgb(var(--primary-8)), rgb(var(--primary-7));
+    :local(.avatar) {
+        display: block;
+    }
+
+    :local(.placeholder) {
+        background: transparent;
+        border: 0;
+    }
+}
+
+.isDragging .dropZoneContent {
+    --dz-stroke: rgb(var(--primary-7));
+}
+
+.isDraggingOver .dropZoneContent {
+    &:has(.placeholder) {
+        --dz-fill: rgb(var(--primary-2));
+    }
+
+    .dropZoneBorder rect {
+        animation: dropZoneBorderAnimation 480ms linear infinite both;
+    }
+}
+
+.dropZoneLoader {
+    position: absolute;
+    display: flex;
+    inset: var(--dz-inset);
+    align-items: center;
+    justify-content: center;
+    background: rgb(var(--gray-1) / .84);
+    backdrop-filter: blur(3px) saturate(180%);
+    border-radius: var(--dz-radius);
+    z-index: 100;
+}
+
+@keyframes dropZoneBorderAnimation {
+    to {
+        stroke-dashoffset: -12px;
     }
 }

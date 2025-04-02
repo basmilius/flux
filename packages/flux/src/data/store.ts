@@ -35,7 +35,7 @@ export type FluxStore = FluxState & {
     showSnackbarSync({duration, ...spec}: Omit<FluxSnackbarObject, 'id'> & { readonly duration?: number; }): void;
 };
 
-const DEFAULT_SNACKBAR_DURATION = 3000;
+const DEFAULT_SNACKBAR_DURATION = 6000;
 
 const state = reactive<FluxState>({
     dialogCount: 0,

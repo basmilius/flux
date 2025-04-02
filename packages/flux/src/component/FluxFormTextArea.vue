@@ -22,6 +22,7 @@
     setup>
     import { toRef } from 'vue';
     import { useDisabled, useFormFieldInjection } from '$flux/composable';
+    import type { FluxAutoCompleteType } from '$flux/types';
     import $style from '$flux/css/component/Form.module.scss';
 
     const emit = defineEmits<{
@@ -38,7 +39,7 @@
         disabled: componentDisabled,
         rows = 3
     } = defineProps<{
-        readonly autoComplete?: string;
+        readonly autoComplete?: FluxAutoCompleteType;
         readonly autoFocus?: boolean;
         readonly disabled?: boolean;
         readonly isReadonly?: boolean;
