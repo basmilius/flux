@@ -1,4 +1,4 @@
-@value flexColumn from '@/css/component/base/Flex.module.scss';
+@value flexColumn from './base/Flex.module.scss';
 
 .timeline {
     composes: flexColumn;
@@ -85,7 +85,7 @@
     left: 20px;
     height: 100%;
     width: 2px;
-    background: rgb(var(--gray-3));
+    background: rgb(var(--gray-2));
 }
 
 .timeline .timelineItem:last-of-type .timelineItemLine {
@@ -101,7 +101,7 @@
     }
 
     .timelineItemIcon {
-        background: rgb(var(--gray-3));
+        background: rgb(var(--gray-2));
     }
 }
 

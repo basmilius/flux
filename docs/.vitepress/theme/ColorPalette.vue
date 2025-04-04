@@ -29,13 +29,13 @@
     .colorPalette {
         display: grid;
         margin: 16px 0;
-        grid-template-columns: repeat(6, 1fr);
-        gap: 15px;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 12px;
     }
 
     .colorPaletteShade {
         display: flex;
-        height: 60px;
+        aspect-ratio: 1 / 1;
         align-items: center;
         background: var(--background);
         border-radius: var(--radius);

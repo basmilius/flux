@@ -1,18 +1,21 @@
+import { preset } from '@basmilius/vite-vue-preset';
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
-import preset from '@basmilius/vite-vue-preset';
 import vue from '@vitejs/plugin-vue';
 
-export default defineConfig(({command}) => ({
+export default defineConfig(({mode}) => ({
     plugins: [
         preset({
+            cssModules: {
+                classNames: 'kebab'
+            },
             isLibrary: true
         }),
         vue()
     ],
     build: {
         assetsDir: '',
-        emptyOutDir: command === 'build',
+        emptyOutDir: mode !== 'dev',
         outDir: resolve(import.meta.dirname, 'dist'),
         sourcemap: true,
         lib: {
@@ -26,7 +29,6 @@ export default defineConfig(({command}) => ({
             output: {
                 exports: 'named',
                 globals: {
-                    '@basmilius/flux': 'flux',
                     luxon: 'luxon',
                     vue: 'vue'
                 },
@@ -36,5 +38,10 @@ export default defineConfig(({command}) => ({
     },
     define: {
         __VUE_OPTIONS_API__: 'false'
+    },
+    resolve: {
+        alias: {
+            '$fluxDashboard': resolve(import.meta.dirname, 'src')
+        }
     }
 }));

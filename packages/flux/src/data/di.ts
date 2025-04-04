@@ -1,23 +1,12 @@
 import type { ComponentInternalInstance, InjectionKey, Ref } from 'vue';
-import type { Breakpoint, Breakpoints } from '@/composable';
-import type { FluxFilterState, FluxFilterValue } from '@/types';
+import type { FluxFilterState, FluxFilterValue } from '$flux/types';
 
-export const FluxBreakpointsInjectionKey: InjectionKey<FluxBreakpointsInjection> = Symbol();
 export const FluxDisabledInjectionKey: InjectionKey<Ref<boolean>> = Symbol();
 export const FluxExpandableGroupInjectionKey: InjectionKey<FluxExpandableGroupInjection> = Symbol();
 export const FluxFlyoutInjectionKey: InjectionKey<FluxFlyoutInjection> = Symbol();
 export const FluxFilterInjectionKey: InjectionKey<FluxFilterInjection> = Symbol();
 export const FluxFormFieldInjectionKey: InjectionKey<FluxFormFieldInjection> = Symbol();
 export const FluxTableInjectionKey: InjectionKey<FluxTableInjection> = Symbol();
-
-export type FluxBreakpointsInjection = {
-    readonly breakpoint: Ref<Breakpoint>;
-    readonly breakpoints: Ref<Breakpoints>;
-    readonly isDesktop: Ref<boolean>;
-    readonly isMobile: Ref<boolean>;
-    readonly maxWidth: Ref<number | null>;
-    readonly width: Ref<number>;
-};
 
 export type FluxExpandableGroupInjection = {
     closeAll(): void;

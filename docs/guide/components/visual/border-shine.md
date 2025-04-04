@@ -37,43 +37,22 @@ slots:
         description: The element that should receive a shining border.
 ---
 
-<script
-    lang="ts"
-    setup>
-    import { FluxBorderShine, FluxSecondaryButton } from '@basmilius/flux';
-    import PaneExample from '../../../code/guide/components/visual/border-shine/pane.vue';
-</script>
-
 # Border shine
 
 This component adds a shimmering border effect to any element. Customize the colors, duration, offset, radius, and width to create a unique glowing effect that enhances the visual appeal of your interface.
 
-<FluxBorderShine
-    :colors="['transparent', 'transparent', 'transparent', '#2563eb', 'transparent', 'transparent', 'transparent']"
-    :duration="12"
-    :width="1">
-    <Preview>
-        <FluxBorderShine
-            :colors="['transparent', 'transparent', 'transparent', '#10b981', 'transparent', 'transparent', 'transparent']"
-            :duration="3"
-            :width="1">
-            <FluxSecondaryButton
-                icon-before="circle-arrow-up"
-                label="Upgrade now"/>
-        </FluxBorderShine>
-    </Preview>
-</FluxBorderShine>
+::: render
+render=../../../code/guide/components/visual/border-shine/preview.vue
+:::
 
 <FrontmatterDocs/>
 
 ## Examples
 
-### Pane
+::: example Button || Use it on buttons to guide the user to subscriptions.
+example=../../../code/guide/components/visual/border-shine/button.vue
+:::
 
-Use it on panes to apply a vibrant shine, perfect for highlighting prominent features.
-
-<Preview>
-    <PaneExample/>
-</Preview>
-
-<<< @/code/guide/components/visual/border-shine/pane.vue
+::: example Pane || Use it on panes to apply a vibrant shine, perfect for highlighting prominent features.
+example=../../../code/guide/components/visual/border-shine/pane.vue
+:::

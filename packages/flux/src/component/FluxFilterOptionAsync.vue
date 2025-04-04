@@ -14,10 +14,10 @@
     setup>
     import { useDebouncedRef } from '@basmilius/flux-internals';
     import { computed, ref, unref, watch } from 'vue';
-    import { useFilterInjection } from '@/composable';
-    import { useLoaded } from '@/composable/private';
-    import { isFluxFilterOptionItem } from '@/data';
-    import type { FluxFilterOptionRow, FluxFilterValue, FluxFilterValueSingle, IconName } from '@/types';
+    import { useFilterInjection } from '$flux/composable';
+    import { useLoaded } from '$flux/composable/private';
+    import { isFluxFilterOptionItem } from '$flux/data';
+    import type { FluxFilterOptionRow, FluxFilterValue, FluxFilterValueSingle, FluxIconName } from '$flux/types';
     import { FilterOptionBase } from './primitive';
 
     const modelSearch = defineModel<string>('searchQuery', {
@@ -34,7 +34,7 @@
         fetchRelevant(): Promise<FluxFilterOptionRow[]>;
         fetchSearch(searchQuery: string): Promise<FluxFilterOptionRow[]>;
 
-        readonly icon?: IconName;
+        readonly icon?: FluxIconName;
         readonly label: string;
         readonly name: string;
         readonly searchPlaceholder?: string;

@@ -1,5 +1,5 @@
 import { inject } from 'vue';
-import { FluxTableInjectionKey } from '@/data';
+import { FluxTableInjectionKey } from '$flux/data';
 
 export default function () {
     return inject(FluxTableInjectionKey, {

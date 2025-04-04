@@ -3,31 +3,31 @@
         :class="$style.menuSubHeader"
         role="presentation">
         <FluxIcon
-            v-if="iconBefore"
+            v-if="iconLeading"
             :class="$style.menuSubHeaderIcon"
-            :variant="iconBefore"/>
+            :variant="iconLeading"/>
 
         <span :class="$style.menuSubHeaderLabel">
             {{ label }}
         </span>
 
         <FluxIcon
-            v-if="iconAfter"
+            v-if="iconTrailing"
             :class="$style.menuSubHeaderIcon"
-            :variant="iconAfter"/>
+            :variant="iconTrailing"/>
     </div>
 </template>
 
 <script
     lang="ts"
     setup>
-    import type { IconName } from '@/types';
+    import type { FluxIconName } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '@/css/component/Menu.module.scss';
+    import $style from '$flux/css/component/Menu.module.scss';
 
     defineProps<{
-        readonly iconAfter?: IconName;
-        readonly iconBefore?: IconName;
+        readonly iconLeading?: FluxIconName;
+        readonly iconTrailing?: FluxIconName;
         readonly label: string;
     }>();
 </script>

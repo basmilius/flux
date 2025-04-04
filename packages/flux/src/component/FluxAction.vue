@@ -5,7 +5,7 @@
         :css-class-icon="$style.actionIcon"
         :css-class-label="$style.actionLabel"
         :class="isDestructive && $style.isDestructive"
-        :icon-before="icon"
+        :icon-leading="icon"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)"/>
@@ -14,14 +14,14 @@
 <script
     lang="ts"
     setup>
-    import type { ButtonEmits, ButtonProps, IconName } from '@/types';
+    import type { FluxButtonEmits, FluxButtonProps, FluxIconName } from '$flux/types';
     import FluxButton from './FluxButton.vue';
-    import $style from '@/css/component/Action.module.scss';
+    import $style from '$flux/css/component/Action.module.scss';
 
-    defineEmits<ButtonEmits>();
+    defineEmits<FluxButtonEmits>();
 
-    defineProps<Omit<ButtonProps, 'iconBefore' | 'iconAfter' | 'size'> & {
-        readonly icon?: IconName;
+    defineProps<Omit<FluxButtonProps, 'iconLeading' | 'iconTrailing' | 'isFilled' | 'size'> & {
+        readonly icon?: FluxIconName;
         readonly isDestructive?: boolean;
     }>();
 </script>

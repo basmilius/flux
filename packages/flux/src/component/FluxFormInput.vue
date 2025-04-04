@@ -9,8 +9,8 @@
             ref="input"
             :class="clsx(
                 $style.formInputNative,
-                (!!iconAfter || type === 'password') && $style.formInputNativeHasIconAfter,
-                !!iconBefore && $style.formInputNativeHasIconBefore
+                (!!iconTrailing || type === 'password') && $style.formInputNativeHasIconTrailing,
+                !!iconLeading && $style.formInputNativeHasIconLeading
             )"
             :id="id"
             :autocomplete="autoComplete"
@@ -31,10 +31,10 @@
             @keydown="onKeyDown">
 
         <FluxIcon
-            v-if="iconBefore"
-            :class="$style.formInputIconBefore"
+            v-if="iconLeading"
+            :class="$style.formInputIconLeading"
             :size="18"
-            :variant="iconBefore"/>
+            :variant="iconLeading"/>
 
         <FluxIcon
             v-if="type === 'password'"
@@ -44,10 +44,10 @@
             @click="passwordTypeToggle()"/>
 
         <FluxIcon
-            v-else-if="iconAfter"
-            :class="$style.formInputIconAfter"
+            v-else-if="iconTrailing"
+            :class="$style.formInputIconTrailing"
             :size="18"
-            :variant="iconAfter"/>
+            :variant="iconTrailing"/>
     </div>
 </template>
 
@@ -58,11 +58,11 @@
     import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
     import { ref, toRef, unref, useTemplateRef, watch } from 'vue';
-    import { useDisabled, useFormFieldInjection } from '@/composable';
-    import { inputMask } from '@/data';
-    import type { IconName, InputMask, InputType } from '@/types';
+    import { useDisabled, useFormFieldInjection } from '$flux/composable';
+    import { inputMask } from '$flux/data';
+    import type { FluxAutoCompleteType, FluxIconName, FluxInputMask, FluxInputType } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '@/css/component/Form.module.scss';
+    import $style from '$flux/css/component/Form.module.scss';
 
     const emit = defineEmits<{
         blur: [];
@@ -80,20 +80,20 @@
         pattern,
         type = 'text'
     } = defineProps<{
-        readonly autoComplete?: string;
+        readonly autoComplete?: FluxAutoCompleteType;
         readonly autoFocus?: boolean;
-        readonly iconAfter?: IconName;
-        readonly iconBefore?: IconName;
+        readonly iconLeading?: FluxIconName;
+        readonly iconTrailing?: FluxIconName;
         readonly disabled?: boolean;
         readonly isReadonly?: boolean;
         readonly isSecondary?: boolean;
         readonly max?: string | number;
         readonly maxLength?: number;
         readonly min?: string | number;
-        readonly pattern?: InputMask;
+        readonly pattern?: FluxInputMask;
         readonly placeholder?: string;
         readonly step?: number;
-        readonly type?: InputType;
+        readonly type?: FluxInputType;
     }>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));

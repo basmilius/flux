@@ -37,10 +37,10 @@
     setup>
     import { clsx } from 'clsx';
     import { toRef } from 'vue';
-    import { useDisabled, useFormFieldInjection } from '@/composable';
-    import type { IconName } from '@/types';
+    import { useDisabled, useFormFieldInjection } from '$flux/composable';
+    import type { FluxIconName } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '@/css/component/Form.module.scss';
+    import $style from '$flux/css/component/Form.module.scss';
 
     const modelValue = defineModel<boolean>({
         default: false
@@ -49,8 +49,8 @@
     const {
         disabled: componentDisabled
     } = defineProps<{
-        readonly iconOff?: IconName;
-        readonly iconOn?: IconName;
+        readonly iconOff?: FluxIconName;
+        readonly iconOn?: FluxIconName;
         readonly disabled?: boolean;
         readonly isSwitch?: boolean;
     }>();

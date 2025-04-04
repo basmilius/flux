@@ -6,7 +6,7 @@
     lang="ts"
     setup>
     import { provide, toRef } from 'vue';
-    import { FluxDisabledInjectionKey } from '@/data';
+    import { FluxDisabledInjectionKey } from '$flux/data';
 
     defineOptions({
         inheritAttrs: false

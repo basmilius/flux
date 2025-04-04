@@ -22,7 +22,7 @@
     lang="ts"
     setup>
     import FluxSpinner from './FluxSpinner.vue';
-    import $style from '@/css/component/Pane.module.scss';
+    import $style from '$flux/css/component/Pane.module.scss';
 
     const CLASS_MAP = {
         default: $style.paneDefault,

@@ -12,44 +12,22 @@ slots:
         description: Expandables that should be part of the group.
 ---
 
-<script
-    lang="ts"
-    setup>
-    import { FluxExpandable, FluxExpandableGroup, FluxPane } from '@basmilius/flux';
-</script>
-
 # Expandable group
 
 This component groups multiple [Expandables](./expandable) together, allowing for collective control of their open and close states. It provides mechanisms to register, unregister, and close all expandable items within the group. The first item in an uncontrolled group opens by default.
 
-<Preview>
-    <FluxPane>
-        <FluxExpandableGroup>
-            <FluxExpandable label="First">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad culpa debitis deleniti dignissimos dolorem ducimus earum error facilis, fugit hic modi nulla odit praesentium rerum voluptate. Ipsum neque quasi sint?
-            </FluxExpandable>
-            <FluxExpandable label="Second">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad culpa debitis deleniti dignissimos dolorem ducimus earum error facilis, fugit hic modi nulla odit praesentium rerum voluptate. Ipsum neque quasi sint?
-            </FluxExpandable>
-            <FluxExpandable label="Last">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad culpa debitis deleniti dignissimos dolorem ducimus earum error facilis, fugit hic modi nulla odit praesentium rerum voluptate. Ipsum neque quasi sint?
-            </FluxExpandable>
-        </FluxExpandableGroup>
-    </FluxPane>
-</Preview>
+::: render
+render=../../code/guide/components/expandable-group/preview.vue
+:::
 
 <FrontmatterDocs/>
 
 ## Examples
 
-Todo
+::: example Default || An expandable group makes sure that only one expandable is open at ant moment. It closes other expandables when one is opened.
+example=../../code/guide/components/expandable-group/default.vue
+:::
 
-## Snippet
-
-```vue
-<FluxExpandableGroup>
-    <FluxExpandable label="First">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad culpa debitis deleniti dignissimos dolorem ducimus earum error facilis, fugit hic modi nulla odit praesentium rerum voluptate. Ipsum neque quasi sint?
-    </FluxExpandable>
-</FluxExpandableGroup>
-```
+::: example Pane || Grouped expandables are especially nice within a Pane.
+example=../../code/guide/components/expandable-group/pane.vue
+:::

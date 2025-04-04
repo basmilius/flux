@@ -31,8 +31,8 @@
                 :key="`${x}-${y}`"
                 :width="width - 1"
                 :height="height - 1"
-                :x="x * width + 1"
-                :y="y * height + 1"
+                :x="x * width"
+                :y="y * height"
                 stroke-width="0"/>
         </svg>
     </svg>
@@ -42,7 +42,7 @@
     lang="ts"
     setup>
     import { useId } from 'vue';
-    import $style from '@/css/component/Visual.module.scss';
+    import $style from '$flux/css/component/Visual.module.scss';
 
     const {
         width = 42,

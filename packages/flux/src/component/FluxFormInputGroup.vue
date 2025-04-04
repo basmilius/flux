@@ -1,5 +1,10 @@
 <template>
-    <div :class="$style.formInputGroup">
+    <div
+        :class="clsx(
+            $style.formInputGroup,
+            isSecondary && $style.isSecondary
+        )"
+        role="textbox">
         <slot/>
     </div>
 </template>
@@ -7,7 +12,12 @@
 <script
     lang="ts"
     setup>
-    import $style from '@/css/component/Form.module.scss';
+    import { clsx } from 'clsx';
+    import $style from '$flux/css/component/Form.module.scss';
+
+    defineProps<{
+        readonly isSecondary?: boolean;
+    }>();
 
     defineSlots<{
         default(): any;

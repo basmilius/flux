@@ -1,4 +1,4 @@
-@use '@/css/mixin';
+@use '$flux/css/mixin';
 
 @layer flux-base {
     .button {
@@ -6,6 +6,7 @@
         height: 42px;
         padding: 0 12px;
         align-items: center;
+        flex-grow: 0;
         flex-shrink: 0;
         gap: 12px;
         justify-content: center;
@@ -17,7 +18,7 @@
         font: inherit;
         text-decoration: none;
         transition: 180ms var(--swift-out);
-        transition-property: background, box-shadow, color, scale, mixin.focus-ring-transition-properties();
+        transition-property: background, border, box-shadow, color, scale, mixin.focus-ring-transition-properties();
         user-select: none;
 
         @include mixin.focus-ring(2px);
@@ -55,6 +56,10 @@
         &.isXl {
             height: 54px;
             padding: 0 18px;
+        }
+
+        &.isFilled {
+            align-self: stretch;
         }
     }
 

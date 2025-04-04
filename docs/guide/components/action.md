@@ -28,7 +28,7 @@ props:
 
     -   name: icon
         description: The icon at the end of the button.
-        type: IconName
+        type: FluxIconName
         optional: true
 
     -   name: is-destructive
@@ -73,45 +73,23 @@ props:
 
     -   name: to
         description: This prop is enabled if the button's type is set to route. This integrates with Vue Router.
-        type: To
+        type: FluxTo
         optional: true
 ---
-
-<script
-    lang="ts"
-    setup>
-    import { FluxAction, FluxActions, FluxPane, FluxPaneBody } from '@basmilius/flux';
-</script>
 
 # Action
 
 Actions can be used to add functionality to components like data tables. They can navigate to another view or perform an in-page action, such as displaying a share overlay.
 
-<Preview>
-    <FluxPane>
-        <FluxPaneBody>
-            <FluxActions>
-                <FluxAction
-                    icon="circle-xmark"
-                    is-destructive/>
-                <FluxAction icon="circle-sort"/>
-                <FluxAction icon="circle-minus"/>
-            </FluxActions>
-        </FluxPaneBody>
-    </FluxPane>
-</Preview>
+::: render
+render=../../code/guide/components/action/preview.vue
+:::
 
 <FrontmatterDocs/>
 
 ## Examples
 
 Todo
-
-## Snippet
-
-```vue-html
-<FluxAction icon="trash"/>
-```
 
 ## Used components
 

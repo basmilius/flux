@@ -1,11 +1,11 @@
 <script lang="ts">
     import { defineComponent, getCurrentInstance, onMounted, onUnmounted, PropType, ref, SlotsType, VNode } from 'vue';
-    import { addTooltip, removeTooltip } from '@/data';
+    import { addTooltip, removeTooltip } from '$flux/data';
 
     export default defineComponent({
         props: {
-            axis: String as PropType<'horizontal' | 'vertical'>,
-            content: String as PropType<string | undefined>
+            content: String as PropType<string | undefined>,
+            direction: String as PropType<'horizontal' | 'vertical'>
         },
         slots: Object as SlotsType<{
             content: () => VNode[],
@@ -37,9 +37,9 @@
                 }
 
                 tooltipId.value = addTooltip({
-                    axis: props.axis || 'vertical',
                     content: props.content,
                     contentSlot: slots.content,
+                    direction: props.direction || 'vertical',
                     origin: instance.proxy?.$el
                 });
             }

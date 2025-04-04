@@ -1,5 +1,5 @@
 import { inject, ref } from 'vue';
-import { FluxFilterInjectionKey } from '@/data';
+import { FluxFilterInjectionKey } from '$flux/data';
 
 export default function () {
     return inject(FluxFilterInjectionKey, {

@@ -3,11 +3,13 @@ import { formatNumber } from '@basmilius/utils';
 import { camelCase } from 'lodash-es';
 import { DateTime } from 'luxon';
 import { computed, defineComponent, h, isVNode, unref, VNode } from 'vue';
-import { FluxMenu, FluxMenuGroup, FluxSeparator } from '@/component';
-import type { FluxTranslator } from '@/composable/private';
-import { isFluxFilterOptionItem } from '@/data';
-import type { FluxFilterBase, FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterItem, FluxFilterOptionEntry, FluxFilterOptionItem, FluxFilterOptionRow, FluxFilterOptionsEntry, FluxFilterRangeEntry, FluxFilterValue, FluxFilterValueSingle } from '@/types';
-import { createLabelForDateRange } from '@/util';
+import type { FluxTranslator } from '$flux/composable/private';
+import { isFluxFilterOptionItem } from '$flux/data';
+import type { FluxFilterBase, FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterItem, FluxFilterOptionEntry, FluxFilterOptionItem, FluxFilterOptionRow, FluxFilterOptionsEntry, FluxFilterRangeEntry, FluxFilterValue, FluxFilterValueSingle } from '$flux/types';
+import { createLabelForDateRange } from '$flux/util';
+import FluxMenu from '$flux/component/FluxMenu.vue';
+import FluxMenuGroup from '$flux/component/FluxMenuGroup.vue';
+import FluxSeparator from '$flux/component/FluxSeparator.vue';
 import FilterItem from './FilterItem.vue';
 
 export const FilterMenuRenderer = defineComponent({

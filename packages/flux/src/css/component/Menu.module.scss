@@ -1,6 +1,8 @@
-@value button, buttonIcon, buttonLabel from '@/css/component/base/Button.module.scss';
-@value flexColumn, flexRow from '@/css/component/base/Flex.module.scss';
-@value basePane from '@/css/component/base/Pane.module.scss';
+@use '$flux/css/mixin';
+
+@value button, buttonIcon, buttonLabel from './base/Button.module.scss';
+@value flexColumn, flexRow from './base/Flex.module.scss';
+@value basePane from './base/Pane.module.scss';
 
 .menu {
     composes: flexColumn;
@@ -49,10 +51,8 @@
     color: var(--foreground);
     text-align: left;
 
-    @media (hover: hover) {
-        &:hover {
-            background: rgb(var(--gray-2));
-        }
+    @include mixin.hover {
+        background: rgb(var(--gray-2));
     }
 
     &:active {
@@ -272,7 +272,7 @@
     }
 
     &.menuItemIndented {
-        background: rgb(var(--gray-3));
+        background: rgb(var(--gray-2));
 
         .menuItemIcon,
         .menuItemLabel {
@@ -281,7 +281,7 @@
     }
 }
 
-.basePane > .menu {
+:local(.basePane) > .menu {
     margin-left: 9px;
     margin-right: 9px;
 
@@ -298,7 +298,7 @@
     }
 }
 
-.expandableBody > .menu {
+:local(.expandableBody) > .menu {
     margin-left: 9px;
     margin-right: 9px;
 

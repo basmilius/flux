@@ -2,7 +2,6 @@
     <FluxNotice
         icon="circle-exclamation"
         is-loading
-        is-small
         message="Sending newsletters..."
         variant="info"/>
 </template>

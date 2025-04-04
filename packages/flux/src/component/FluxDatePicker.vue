@@ -5,7 +5,7 @@
                 <FluxSecondaryButton
                     v-if="viewMode === 'date'"
                     :disabled="!isWithinBoundary(viewDatePrevious, 'month')"
-                    icon-before="angle-left"
+                    icon-leading="angle-left"
                     :aria-label="translate('flux.previous')"
                     @click="previousMonth"/>
             </FluxFadeTransition>
@@ -34,7 +34,7 @@
                 <FluxSecondaryButton
                     v-if="viewMode === 'date'"
                     :disabled="!isWithinBoundary(viewDateNext, 'month')"
-                    icon-before="angle-right"
+                    icon-leading="angle-right"
                     :aria-label="translate('flux.next')"
                     @click="nextMonth"/>
             </FluxFadeTransition>
@@ -103,7 +103,7 @@
                 key="year"
                 :class="$style.datePickerYears">
                 <FluxSecondaryButton
-                    icon-before="angle-left"
+                    icon-leading="angle-left"
                     tabindex="-1"
                     @click="previousYears"/>
 
@@ -117,7 +117,7 @@
                 </template>
 
                 <FluxSecondaryButton
-                    icon-before="angle-right"
+                    icon-leading="angle-right"
                     tabindex="-1"
                     @click="nextYears"/>
             </div>
@@ -132,13 +132,14 @@
     import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
     import { computed, ref, unref, useId } from 'vue';
-    import { useTranslate } from '@/composable/private';
-    import { FluxFadeTransition, FluxVerticalWindowTransition, FluxWindowTransition } from '@/transition';
+    import { useTranslate } from '$flux/composable/private';
+    import { FluxFadeTransition, FluxVerticalWindowTransition, FluxWindowTransition } from '$flux/transition';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import $style from '@/css/component/DatePicker.module.scss';
+    import $style from '$flux/css/component/DatePicker.module.scss';
 
     const modelValue = defineModel<DateTime | DateTime[] | null>({
-        default: null
+        default: null,
+        required: true
     });
 
     const {

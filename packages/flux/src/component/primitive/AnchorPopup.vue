@@ -16,17 +16,17 @@
     import { useMutationObserver } from '@basmilius/flux-internals';
     import { isHtmlElement } from '@basmilius/utils';
     import { ComponentPublicInstance, onMounted, onUnmounted, reactive, ref, unref, useTemplateRef, watchEffect } from 'vue';
-    import type { Axis } from '@/types';
+    import type { FluxDirection } from '$flux/types';
 
     const {
         anchor,
-        axis = 'vertical',
-        position,
+        direction = 'vertical',
         margin = 12,
+        position,
         useAnchorWidth
     } = defineProps<{
         readonly anchor?: ComponentPublicInstance | HTMLElement | null;
-        readonly axis?: Axis;
+        readonly direction?: FluxDirection;
         readonly margin?: number;
         readonly position?:
             | 'top' | 'top-left' | 'top-right'
@@ -139,7 +139,7 @@
                 break;
 
             default:
-                if (axis === 'horizontal') {
+                if (direction === 'horizontal') {
                     px = x + width + margin;
                     py = y + height / 2 - popupHeight / 2;
 

@@ -1,24 +1,99 @@
 .dropZone {
-    position: relative;
+    display: grid;
+    align-items: center;
+    gap: 15px 30px;
+    grid-template-columns: 1fr;
+
+    &:has(> .dropZoneActions) {
+        grid-template-columns: auto 1fr;
+    }
 }
 
-.dropZoneHint {
-    position: absolute;
-    inset: 0;
-    border-radius: var(--radius);
-    outline: 3px dotted rgb(var(--primary-7));
-    outline-offset: -2px;
-    animation: dropZoneHint 540ms infinite var(--deceleration-curve) alternate;
-    transition: background 300ms var(--swift-out);
+.dropZoneActions {
+    display: flex;
+    flex-flow: column;
+    gap: 15px;
+}
 
-    &.isOver {
-        outline-style: solid;
-        animation: none;
+.dropZoneBorder {
+    position: absolute;
+    inset: var(--dz-inset);
+    height: var(--dz-height);
+    width: var(--dz-width);
+    overflow: visible;
+    pointer-events: none;
+
+    :global(rect) {
+        fill: var(--dz-fill);
+        rx: var(--dz-radius);
+        stroke: var(--dz-stroke);
+        stroke-dasharray: 6px 6px;
+        stroke-width: 2px;
+        transition: 270ms var(--swift-out);
+        transition-property: fill, stroke;
+    }
+}
+
+.dropZoneContent {
+    --dz-fill: transparent;
+    --dz-stroke: transparent;
+    --dz-inset: -1px;
+    --dz-radius: var(--radius);
+    --dz-height: calc(100% + 2px);
+    --dz-width: calc(100% + 2px);
+
+    position: relative;
+
+    &:has(.avatar) {
+        --dz-inset: -3px;
+        --dz-radius: 999px;
+        --dz-height: calc(100% + 6px);
+        --dz-width: calc(100% + 6px);
     }
 
-    @keyframes dropZoneHint {
-        to {
-            outline-offset: 3px;
-        }
+    &:has(.placeholder) {
+        --dz-fill: rgb(var(--gray-1));
+        --dz-stroke: rgb(var(--gray-3));
+    }
+
+    :local(.avatar) {
+        display: block;
+    }
+
+    :local(.placeholder) {
+        background: transparent;
+        border: 0;
+    }
+}
+
+.isDragging .dropZoneContent {
+    --dz-stroke: rgb(var(--primary-7));
+}
+
+.isDraggingOver .dropZoneContent {
+    &:has(.placeholder) {
+        --dz-fill: rgb(var(--primary-2));
+    }
+
+    .dropZoneBorder rect {
+        animation: dropZoneBorderAnimation 480ms linear infinite both;
+    }
+}
+
+.dropZoneLoader {
+    position: absolute;
+    display: flex;
+    inset: var(--dz-inset);
+    align-items: center;
+    justify-content: center;
+    background: rgb(var(--gray-1) / .84);
+    backdrop-filter: blur(3px) saturate(180%);
+    border-radius: var(--dz-radius);
+    z-index: 100;
+}
+
+@keyframes dropZoneBorderAnimation {
+    to {
+        stroke-dashoffset: -12px;
     }
 }

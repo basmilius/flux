@@ -1,4 +1,4 @@
-@value flexColumn, flexRow from '@/css/component/base/Flex.module.scss';
+@value flexColumn, flexRow from './base/Flex.module.scss';
 
 .stack {
     gap: var(--gap, 0);

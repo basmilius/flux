@@ -4,8 +4,8 @@
     inset: 0;
     height: 100dvh;
     width: 100dvw;
-    background: rgb(var(--gray-10) / .3);
-    backdrop-filter: blur(6px) saturate(180%);
+    background: rgb(var(--gray-3) / .5);
+    backdrop-filter: blur(3px) saturate(180%);
     z-index: 10000;
 
     > .basePaneStructure {
@@ -14,8 +14,7 @@
         max-height: min(840px, 100dvh - 180px);
         width: calc(100dvw - 90px);
         flex-flow: column nowrap;
-        border-color: rgb(var(--gray-11) / .18);
-        box-shadow: var(--shadow-xl);
+        box-shadow: var(--shadow-lg);
         overflow: auto;
 
         .paneFooter {
@@ -50,14 +49,6 @@
     }
 }
 
-[dark] .overlay {
-    background: rgb(0 0 0 / .5);
-
-    > .basePaneStructure {
-        border-color: rgb(var(--gray-11) / .3);
-    }
-}
-
 .slideOver {
     composes: overlay;
 
@@ -79,8 +70,8 @@
         > .paneHeader {
             top: 0;
             padding-bottom: 21px;
-            border-bottom: 1px solid rgb(var(--gray-3));
-            box-shadow: var(--shadow-sm);
+            border-bottom: 1px solid rgb(var(--gray-2));
+            box-shadow: var(--shadow-xs);
 
             &:has(+ :where(.tabs, .tabBar)) {
                 padding-bottom: 0;
@@ -124,7 +115,7 @@
 
     > .basePaneStructure {
         opacity: 0;
-        scale: 1.1;
+        scale: .9;
     }
 }
 
@@ -133,7 +124,7 @@
 
     > .basePaneStructure {
         opacity: 0;
-        scale: .9;
+        scale: .95;
     }
 }
 

@@ -1,6 +1,6 @@
 <template>
     <FluxButton
-        :="{type, disabled, iconBefore: icon, iconAfter: 'arrow-right-long', label, href, rel, target, to}"
+        :="{type, disabled, iconLeading: icon, iconTrailing: 'arrow-right-long', isFilled, label, href, rel, target, to}"
         :css-class="$style.linkButton"
         :css-class-icon="$style.linkButtonIcon"
         :css-class-label="$style.linkButtonLabel"
@@ -18,18 +18,18 @@
 <script
     lang="ts"
     setup>
-    import type { ButtonEmits, ButtonProps, ButtonSlots, IconName } from '@/types';
+    import type { FluxButtonEmits, FluxButtonProps, FluxButtonSlots, FluxIconName } from '$flux/types';
     import FluxButton, { SLOTS } from './FluxButton.vue';
-    import $style from '@/css/component/Button.module.scss';
+    import $style from '$flux/css/component/Button.module.scss';
 
-    const emit = defineEmits<ButtonEmits>();
+    const emit = defineEmits<FluxButtonEmits>();
 
     const {
         type = 'button'
-    } = defineProps<ButtonProps & {
-        readonly icon?: IconName;
+    } = defineProps<FluxButtonProps & {
+        readonly icon?: FluxIconName;
         readonly label?: string;
     }>();
 
-    defineSlots<ButtonSlots>();
+    defineSlots<FluxButtonSlots>();
 </script>

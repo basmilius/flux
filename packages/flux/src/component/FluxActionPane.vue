@@ -12,7 +12,7 @@
             <FluxPaneBody
                 v-if="slots.buttons"
                 :class="$style.actionPaneBody">
-                <FluxButtonStack axis="vertical">
+                <FluxButtonStack direction="vertical">
                     <slot name="buttons"/>
                 </FluxButtonStack>
             </FluxPaneBody>
@@ -26,7 +26,7 @@
     import FluxButtonStack from './FluxButtonStack.vue';
     import FluxPane from './FluxPane.vue';
     import FluxPaneBody from './FluxPaneBody.vue';
-    import $style from '@/css/component/Action.module.scss';
+    import $style from '$flux/css/component/Action.module.scss';
 
     defineProps<{
         readonly paneVariant?: 'default' | 'flat' | 'well';

@@ -15,9 +15,9 @@
     lang="ts"
     setup>
     import { toRef, unref } from 'vue';
-    import { SelectBase } from '@/component/primitive';
-    import { useDisabled } from '@/composable';
-    import { FormSelectOption, FormSelectValue, useFormSelect } from '@/composable/private';
+    import { SelectBase } from '$flux/component/primitive';
+    import { useDisabled } from '$flux/composable';
+    import { FormSelectOption, FormSelectValue, useFormSelect } from '$flux/composable/private';
 
     const modelSearch = defineModel<string>('searchQuery', {
         default: ''

@@ -1,6 +1,6 @@
 import { onScopeDispose, watch } from 'vue';
-import type { TemplateRef } from '@/util';
-import { unrefTemplateElement } from '@/util';
+import type { TemplateRef } from '../util';
+import { unrefTemplateElement } from '../util';
 
 export default function <TElement extends HTMLElement>(elementRef: TemplateRef<TElement>, callback: MutationCallback, options?: MutationObserverInit): void {
     options ??= {

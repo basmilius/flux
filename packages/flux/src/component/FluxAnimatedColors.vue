@@ -10,7 +10,7 @@
     import { useComponentId } from '@basmilius/flux-internals';
     import { mulberry32 } from '@basmilius/utils';
     import { computed, onBeforeUnmount, onMounted, ref, unref, useTemplateRef, watch } from 'vue';
-    import $style from '@/css/component/Visual.module.scss';
+    import $style from '$flux/css/component/Visual.module.scss';
 
     type Polygon = [number, number, string, PolygonPoint[]];
     type PolygonPoint = [number, number, number];
@@ -28,7 +28,7 @@
     }>();
 
     const canvasRef = useTemplateRef('canvas');
-    const id = useComponentId();
+    const componentId = useComponentId();
 
     const contextRef = ref<CanvasRenderingContext2D>();
     const animationFrame = ref(0);
@@ -39,7 +39,7 @@
             return [];
         }
 
-        const mulberry = mulberry32(seed ?? id.value);
+        const mulberry = mulberry32(seed ?? unref(componentId));
         const polygons: Polygon[] = [];
 
         for (const color of colors) {

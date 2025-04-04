@@ -10,8 +10,10 @@
 <script
     lang="ts"
     setup>
+    import { isHtmlElement } from '@basmilius/utils';
+
     function afterEnter(elm: Element): void {
-        if (!(elm instanceof HTMLElement)) {
+        if (!isHtmlElement(elm)) {
             return;
         }
 
@@ -19,7 +21,7 @@
     }
 
     function enter(elm: Element): void {
-        if (!(elm instanceof HTMLElement)) {
+        if (!isHtmlElement(elm)) {
             return;
         }
 
@@ -42,7 +44,7 @@
     }
 
     function leave(elm: Element): void {
-        if (!(elm instanceof HTMLElement)) {
+        if (!isHtmlElement(elm)) {
             return;
         }
 

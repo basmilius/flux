@@ -30,13 +30,13 @@
                     <FluxMenuGroup>
                         <FluxMenuItem
                             :is-highlighted="sort === 'ascending'"
-                            icon-before="arrow-down-a-z"
+                            icon-leading="arrow-down-a-z"
                             :label="translate('flux.sortAscending')"
                             @click="$emit('sort', 'ascending')"/>
 
                         <FluxMenuItem
                             :is-highlighted="sort === 'descending'"
-                            icon-before="arrow-up-a-z"
+                            icon-leading="arrow-up-a-z"
                             :label="translate('flux.sortDescending')"
                             @click="$emit('sort', 'descending')"/>
                     </FluxMenuGroup>
@@ -46,7 +46,7 @@
 
                         <FluxMenuGroup>
                             <FluxMenuItem
-                                icon-before="circle-xmark"
+                                icon-leading="circle-xmark"
                                 is-destructive
                                 :label="translate('flux.sortRemove')"
                                 @click="$emit('sort', null)"/>
@@ -63,16 +63,16 @@
     setup>
     import { clsx } from 'clsx';
     import { computed } from 'vue';
-    import { useTableInjection } from '@/composable';
-    import { useTranslate } from '@/composable/private';
-    import type { IconName } from '@/types';
+    import { useTableInjection } from '$flux/composable';
+    import { useTranslate } from '$flux/composable/private';
+    import type { FluxIconName } from '$flux/types';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxMenu from './FluxMenu.vue';
     import FluxMenuGroup from './FluxMenuGroup.vue';
     import FluxMenuItem from './FluxMenuItem.vue';
     import FluxSeparator from './FluxSeparator.vue';
-    import $style from '@/css/component/Table.module.scss';
+    import $style from '$flux/css/component/Table.module.scss';
 
     defineEmits<{
         sort: ['ascending' | 'descending' | null];
@@ -96,7 +96,7 @@
     const {isBordered} = useTableInjection();
     const translate = useTranslate();
 
-    const sortingIcon = computed((): IconName => {
+    const sortingIcon = computed((): FluxIconName => {
         switch (sort) {
             case 'ascending':
                 return 'arrow-down-a-z';

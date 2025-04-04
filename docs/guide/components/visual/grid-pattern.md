@@ -31,6 +31,14 @@ props:
 
 A stylish SVG grid pattern component that fills any container and can be customized in terms of grid size, positioning, and stroke style. Supports highlighting specific squares.
 
-<Preview/>
+::: render
+render=../../../code/guide/components/visual/grid-pattern/preview.vue
+:::
 
 <FrontmatterDocs/>
+
+## Examples
+
+::: example Free || When used freely, the grid pattern fills its parent container.
+example=../../../code/guide/components/visual/grid-pattern/free.vue
+:::

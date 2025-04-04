@@ -1,22 +1,27 @@
 <script lang="ts">
-    import { flattenVNodeTree } from '@basmilius/flux-internals';
+    import { flattenVNodeTree, orange600, pink600, purple600 } from '@basmilius/flux-internals';
+    import { clsx } from 'clsx';
     import { cloneVNode, defineComponent, Fragment, h, PropType } from 'vue';
-    import $style from '@/css/component/Visual.module.scss';
+    import $style from '$flux/css/component/Visual.module.scss';
 
     export default defineComponent({
         inheritAttrs: false,
         props: {
-            colors: {default: ['#9333ea', 'transparent', '#ea580c', 'transparent', '#db2777', 'transparent', '#9333ea'], type: Array as PropType<string[]>},
+            colors: {default: [purple600, 'transparent', orange600, 'transparent', pink600, 'transparent', purple600], type: Array as PropType<string[]>},
             duration: {default: 9, type: Number},
             offset: {default: 1, type: Number},
             radius: {default: undefined, type: [String, Number] as PropType<string | number>},
             width: {default: 2, type: Number}
         },
-        setup(props, {slots}) {
+        setup(props, {attrs, slots}) {
             return () => h(
                 Fragment,
                 flattenVNodeTree(slots.default?.() ?? []).map(vnode => cloneVNode(vnode, {
-                    class: $style.borderShine,
+                    ...attrs,
+                    class: clsx(
+                        attrs.class as string,
+                        $style.borderShine
+                    ),
                     style: {
                         '--shine-colors': props.colors.join(', '),
                         '--shine-duration': props.duration,

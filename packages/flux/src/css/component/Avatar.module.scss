@@ -1,6 +1,6 @@
-@use '@/css/mixin';
+@use '$flux/css/mixin';
 
-@value flexColumn, flexRow from '@/css/component/base/Flex.module.scss';
+@value flexColumn, flexRow from './base/Flex.module.scss';
 
 .avatar {
     position: relative;
@@ -13,10 +13,12 @@
 }
 
 .avatarImage {
+    display: block;
     height: inherit;
     width: inherit;
-    background: black;
+    background: rgb(var(--gray-1));
     border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgb(var(--gray-2));
 }
 
 .avatarFallback {
@@ -33,7 +35,7 @@
 
     :is(span) {
         font-size: .4em;
-        font-weight: 500;
+        font-weight: 600;
         line-height: 1;
     }
 }
@@ -41,15 +43,35 @@
 .avatarFallbackColorized {
     composes: avatarFallback;
 
-    background: rgb(var(--color) / .2);
-    color: rgb(var(--color));
+    background: color-mix(in srgb, var(--color), rgb(var(--gray-0)) 80%);
+    color: var(--color);
+}
+
+[dark] .avatarFallbackColorized {
+    background: color-mix(in srgb, var(--color), rgb(var(--gray-0)) 70%);
 }
 
 .avatarFallbackNeutral {
     composes: avatarFallback;
 
-    background: rgb(var(--gray-4));
+    background: rgb(var(--gray-3));
     color: var(--foreground-secondary);
+}
+
+.avatarLoading {
+    position: absolute;
+    display: flex;
+    inset: 0;
+    align-items: center;
+    justify-content: center;
+    background: rgb(var(--gray-1) / .84);
+    box-shadow: inset 0 0 0 1px rgb(var(--gray-2));
+    border-radius: inherit;
+    backdrop-filter: blur(3px) saturate(180%);
+
+    :local(.spinner) {
+        --track: rgb(0 0 0 / .12);
+    }
 }
 
 .avatarStatus {
@@ -103,10 +125,8 @@
     cursor: pointer;
     transition: filter 150ms var(--swift-out);
 
-    @media (hover: hover) {
-        &:hover {
-            filter: brightness(110%);
-        }
+    @include mixin.hover {
+        filter: brightness(110%);
     }
 }
 
@@ -116,8 +136,8 @@
 
 .statusAvatar .avatarFallback,
 .statusAvatar .avatarImage {
-    mask: url(@/image/avatar-mask.svg) no-repeat center center / cover;
-    -webkit-mask: url(@/image/avatar-mask.svg) no-repeat center center / cover;
+    mask: url('$flux/image/avatar-mask.svg') no-repeat center center / cover;
+    -webkit-mask: url('$flux/image/avatar-mask.svg') no-repeat center center / cover;
 }
 
 .persona {
@@ -136,10 +156,8 @@
 
     @include mixin.focus-ring(2px);
 
-    @media (hover: hover) {
-        &:hover {
-            background: rgb(var(--gray-3));
-        }
+    @include mixin.hover {
+        background: rgb(var(--gray-2));
     }
 }
 

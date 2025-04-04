@@ -1,6 +1,6 @@
 <template>
     <FluxButton
-        :="{type, disabled, iconAfter, iconBefore, isLoading, isSubmit, label, size, href, rel, target, to}"
+        :="{type, disabled, iconLeading, iconTrailing, isFilled, isLoading, isSubmit, label, size, href, rel, target, to}"
         :css-class="$style.secondaryButton"
         :css-class-icon="$style.secondaryButtonIcon"
         :css-class-label="$style.secondaryButtonLabel"
@@ -18,11 +18,11 @@
 <script
     lang="ts"
     setup>
-    import type { ButtonEmits, ButtonProps, ButtonSlots } from '@/types';
+    import type { FluxButtonEmits, FluxButtonProps, FluxButtonSlots } from '$flux/types';
     import FluxButton, { SLOTS } from './FluxButton.vue';
-    import $style from '@/css/component/Button.module.scss';
+    import $style from '$flux/css/component/Button.module.scss';
 
-    defineEmits<ButtonEmits>();
-    defineProps<ButtonProps>();
-    defineSlots<ButtonSlots>();
+    defineEmits<FluxButtonEmits>();
+    defineProps<FluxButtonProps>();
+    defineSlots<FluxButtonSlots>();
 </script>

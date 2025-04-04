@@ -1,6 +1,6 @@
 <template>
     <FluxStack
-        :axis="axis"
+        :direction="direction"
         :gap="gap"
         :is-fill="isFill">
         <slot/>
@@ -10,14 +10,14 @@
 <script
     lang="ts"
     setup>
-    import type { Axis } from '@/types';
+    import type { FluxDirection } from '$flux/types';
     import FluxStack from './FluxStack.vue';
 
     const {
-        axis = 'horizontal',
+        direction = 'horizontal',
         gap = 9
     } = defineProps<{
-        readonly axis?: Axis;
+        readonly direction?: FluxDirection;
         readonly gap?: number;
         readonly isFill?: boolean;
     }>();

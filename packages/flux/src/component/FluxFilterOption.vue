@@ -12,9 +12,9 @@
     lang="ts"
     setup>
     import { computed, unref } from 'vue';
-    import { useFilterInjection } from '@/composable';
-    import { isFluxFilterOptionHeader } from '@/data';
-    import type { FluxFilterOptionRow, FluxFilterValue, FluxFilterValueSingle, IconName } from '@/types';
+    import { useFilterInjection } from '$flux/composable';
+    import { isFluxFilterOptionHeader } from '$flux/data';
+    import type { FluxFilterOptionRow, FluxFilterValue, FluxFilterValueSingle, FluxIconName } from '$flux/types';
     import { FilterOptionBase } from './primitive';
 
     const modelSearch = defineModel<string>('searchQuery', {default: ''});
@@ -23,7 +23,7 @@
         name,
         options
     } = defineProps<{
-        readonly icon?: IconName;
+        readonly icon?: FluxIconName;
         readonly isSearchable?: boolean;
         readonly label: string;
         readonly name: string;

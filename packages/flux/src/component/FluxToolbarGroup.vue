@@ -1,6 +1,6 @@
 <template>
     <FluxStack
-        axis="horizontal"
+        direction="horizontal"
         :gap="3"
         tag="nav">
         <slot/>

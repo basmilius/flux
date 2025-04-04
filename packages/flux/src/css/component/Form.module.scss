@@ -1,8 +1,10 @@
-@use '@/css/mixin';
+@use '$flux/css/mixin';
 
-@value button, buttonLabel from '@/css/component/base/Button.module.scss';
-@value flexColumn, flexRow, flexGrow, flexNoShrink, inlineFlexRow from '@/css/component/base/Flex.module.scss';
-@value basePaneStructure from '@/css/component/base/Pane.module.scss';
+@value button, buttonLabel from './base/Button.module.scss';
+
+@value flexColumn, flexRow, flexGrow, flexNoShrink, inlineFlexRow from './base/Flex.module.scss';
+
+@value basePaneStructure from './base/Pane.module.scss';
 
 %-form-input-group-inner-styles {
     height: 100%;
@@ -27,6 +29,11 @@
     composes: flexColumn;
 
     gap: 42px;
+}
+
+:local(.pane) > .form {
+    display: contents;
+    gap: 0;
 }
 
 .formColumn,
@@ -131,26 +138,21 @@
     align-self: start;
     background: rgb(var(--gray-0));
     background-clip: padding-box;
-    border: 1px solid rgb(var(--gray-4) / .75);
+    border: 1px solid rgb(var(--gray-3));
     border-radius: var(--radius);
     box-shadow: var(--shadow-px);
     color: var(--foreground);
     transition: 180ms var(--swift-out);
-    transition-property: border-color, mixin.focus-ring-transition-properties();
+    transition-property: background, border-color, mixin.focus-ring-transition-properties();
 
     &::placeholder {
         color: var(--foreground-secondary);
     }
 
     &.isSecondary {
-        background: rgb(var(--gray-3) / .8);
+        background: rgb(var(--gray-2));
         border-color: transparent;
-
-        @media (hover: hover) {
-            &:hover {
-                background: rgb(var(--gray-3));
-            }
-        }
+        box-shadow: none;
     }
 }
 
@@ -170,10 +172,8 @@
 
     @include mixin.focus-ring(-1px, true);
 
-    @media (hover: hover) {
-        &:hover {
-            border-color: rgb(var(--gray-5));
-        }
+    @include mixin.hover {
+        border-color: rgb(var(--gray-4));
     }
 }
 
@@ -185,28 +185,26 @@
     pointer-events: none;
 }
 
-.formInputIconAfter {
+.formInputIconTrailing {
     composes: formInputIcon;
 
     right: 12px;
 }
 
-.formInputIconBefore {
+.formInputIconLeading {
     composes: formInputIcon;
 
     left: 12px;
 }
 
 .formInputIconPasswordToggle {
-    composes: formInputIconAfter;
+    composes: formInputIconTrailing;
 
     pointer-events: unset;
     cursor: pointer;
 
-    @media (hover: hover) {
-        &:hover {
-            color: var(--foreground);
-        }
+    @include mixin.hover {
+        color: var(--foreground);
     }
 }
 
@@ -247,12 +245,12 @@
     }
 }
 
-.formInputNativeHasIconAfter {
-    padding-right: 42px;
+.formInputNativeHasIconLeading {
+    padding-left: 42px;
 }
 
-.formInputNativeHasIconBefore {
-    padding-left: 42px;
+.formInputNativeHasIconTrailing {
+    padding-right: 42px;
 }
 
 .formInputAddition {
@@ -266,32 +264,70 @@
     background: rgb(var(--gray-1));
     color: var(--foreground-secondary);
     pointer-events: none;
+
+    &:has(+ .formInput .formInputNative) {
+        border-right: 1px solid rgb(var(--gray-3));
+    }
+
+    + .formInputAddition {
+        border-left: 1px solid rgb(var(--gray-3));
+    }
+
+    @at-root .formInput:has(.formInputNative) + & {
+        border-left: 1px solid rgb(var(--gray-3));
+    }
 }
 
 .formInputGroup {
-    composes: formInput;
+    composes: formInputEnabled;
 
     display: flex;
     padding: 0;
-    gap: 1px;
-    background: rgb(var(--gray-4) / .75);
 
-    @include mixin.focus-ring-transition(-1px, true);
-
-    &,
-    &:hover {
-        border: 1px solid rgb(var(--gray-4) / .75);
-    }
+    @include mixin.focus-ring(-1px, true);
 
     > :is(.formInput, .formSelect, :local(.button)) {
         @extend %-form-input-group-inner-styles;
+
+        + :is(:local(.button), :local(.buttonGroup)) {
+            margin: 0;
+            border-left: 1px solid rgb(var(--gray-3));
+        }
     }
 
-    > .buttonGroup > :local(.button) {
+    > :local(.buttonGroup) > :local(.button) {
         @extend %-form-input-group-inner-styles;
 
         + :local(.button) {
-            margin-left: 1px;
+            margin: 0;
+            border-left: 1px solid rgb(var(--gray-3));
+        }
+    }
+
+    > :local(.buttonGroup):not(:first-child) > :local(.button):first-child {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    &.isSecondary {
+        .formInput {
+            background: transparent;
+            border-color: transparent;
+            box-shadow: none;
+        }
+
+        .formInputAddition:not(:last-child) {
+            padding-right: 0;
+        }
+
+        .secondaryButton {
+            background: transparent;
+            border-color: rgb(var(--gray-3));
+            box-shadow: none;
+
+            @include mixin.hover {
+                background: rgb(var(--gray-3));
+            }
         }
     }
 }
@@ -351,10 +387,8 @@
     &:not(.isDisabled) {
         @include mixin.focus-ring(-1px, true);
 
-        @media (hover: hover) {
-            &:hover {
-                border-color: rgb(var(--gray-5));
-            }
+        @include mixin.hover {
+            border-color: rgb(var(--gray-4));
         }
     }
 
@@ -464,8 +498,8 @@
 
 .isDisabled .formSelectSelected {
     background: rgb(var(--gray-2));
-    border: 1px solid rgb(var(--gray-4) / .75);
-    color: rgb(var(--gray-6));
+    border: 1px solid rgb(var(--gray-3));
+    color: var(--foreground-secondary);
     opacity: 1;
 }
 
@@ -514,10 +548,11 @@
     padding: 0;
     align-items: center;
     justify-content: center;
-    background: rgb(var(--gray-5) / .75);
+    background: rgb(var(--gray-3));
     border: 0;
     border-radius: calc(var(--radius) / 2);
     color: rgb(var(--primary-0));
+    cursor: pointer;
     pointer-events: none;
     transition: 210ms var(--swift-out);
     transition-property: background, color, mixin.focus-ring-transition-properties();
@@ -545,9 +580,9 @@
     position: absolute;
     opacity: 0;
 
-    @media (hover: hover) {
-        &:hover + .checkboxElement {
-            background: rgb(var(--gray-5));
+    @include mixin.hover {
+        + .checkboxElement {
+            background: rgb(var(--gray-4));
         }
     }
 
@@ -567,12 +602,16 @@
 .quantitySelector {
     align-self: center;
     justify-self: center;
-    border: 1px solid rgb(var(--gray-4) / .75);
+    border: 1px solid rgb(var(--gray-3));
     border-radius: var(--radius);
     box-shadow: var(--shadow-px);
     overflow: hidden;
 
     @include mixin.focus-ring-transition(2px, true);
+
+    @include mixin.hover {
+        border-color: rgb(var(--gray-4));
+    }
 }
 
 .quantitySelectorButton {
@@ -606,7 +645,7 @@
     text-align: center;
 
     &:hover {
-        border-color: rgb(var(--gray-4));
+        border-color: rgb(var(--gray-3));
     }
 
     &,
@@ -631,6 +670,9 @@
     width: min-content;
     gap: .4ch;
     grid-template-columns: repeat(var(--max-length, 0), 1fr);
+    margin: 0;
+    padding: 0;
+    border: 0;
     font-size: 24px;
     font-weight: 700;
 }
@@ -639,7 +681,7 @@
     padding: 0;
     width: 2.7ch;
     background-clip: padding-box;
-    border: 1px solid rgb(var(--gray-4) / .75);
+    border: 1px solid rgb(var(--gray-3));
     border-radius: var(--radius);
     box-shadow: var(--shadow-px);
     font: inherit;
@@ -677,7 +719,7 @@
     width: 54px;
     height: 30px;
     flex: 0 0 auto;
-    background: rgb(var(--gray-3));
+    background: rgb(var(--gray-2));
     border-radius: 99px;
     contain: paint;
 
@@ -760,7 +802,7 @@
         content: '';
         background: rgb(var(--gray-0));
         background-clip: padding-box;
-        border: 1px solid rgb(var(--gray-4) / .75);
+        border: 1px solid rgb(var(--gray-3));
         border-radius: 99px;
         box-shadow: var(--shadow-sm);
     }

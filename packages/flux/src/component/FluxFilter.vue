@@ -21,13 +21,13 @@
                         <FluxMenuItem
                             :class="$style.filterBack"
                             :label="translate('flux.back')"
-                            icon-before="angle-left"
+                            icon-leading="angle-left"
                             @click="back()"/>
 
                         <FluxMenuItem
                             v-if="resettable?.includes(name)"
                             :class="$style.filterReset"
-                            icon-before="trash"
+                            icon-leading="trash"
                             is-destructive
                             @click="reset(name)"/>
                     </FluxMenuGroup>
@@ -44,15 +44,15 @@
     setup>
     import { flattenVNodeTree, getComponentName, getComponentProps, vHeightTransition } from '@basmilius/flux-internals';
     import { computed, provide, unref, useTemplateRef, VNode } from 'vue';
-    import { useTranslate } from '@/composable/private';
-    import { FluxFilterInjectionKey } from '@/data';
-    import type { FluxFilterOptionItem, FluxFilterState } from '@/types';
+    import { useTranslate } from '$flux/composable/private';
+    import { FluxFilterInjectionKey } from '$flux/data';
+    import type { FluxFilterOptionItem, FluxFilterState } from '$flux/types';
     import { FilterMenuRenderer, VNodeRenderer } from './primitive';
     import FluxMenu from './FluxMenu.vue';
     import FluxMenuGroup from './FluxMenuGroup.vue';
     import FluxMenuItem from './FluxMenuItem.vue';
     import FluxWindow from './FluxWindow.vue';
-    import $style from '@/css/component/Filter.module.scss';
+    import $style from '$flux/css/component/Filter.module.scss';
 
     const emit = defineEmits<{
         reset: [string]

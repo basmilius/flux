@@ -1,9 +1,10 @@
 <template>
     <FluxButton
-        :="{type, disabled, iconAfter, iconBefore, isLoading, label, href, rel, target, to}"
+        :="{type, disabled, iconLeading, iconTrailing, isLoading, label, href, rel, target, to}"
         :css-class="$style.menuItem"
         :css-class-icon="$style.menuItemIcon"
         :css-class-label="$style.menuItemLabel"
+        is-filled
         :role="isSelectable ? 'menuitemradio' : 'menuitem'"
         :class="{
             [$style.menuItemActive]: isActive,
@@ -15,19 +16,19 @@
         :aria-checked="isSelectable ? isSelected : undefined"
         @click="$emit('click', $event)">
         <template
-            v-if="isSelectable && (!iconBefore || isSelected)"
-            #iconBefore>
+            v-if="isSelectable && (!iconLeading || isSelected)"
+            #iconLeading>
             <FluxIcon
                 :class="$style.menuItemSelectableIcon"
                 :variant="isSelected ? 'circle-check' : 'flux-empty'"/>
         </template>
 
         <template
-            v-else-if="imageUrl"
-            #iconBefore>
+            v-else-if="imageSrc"
+            #iconLeading>
             <img
                 :class="$style.menuItemImage"
-                :src="imageUrl"
+                :src="imageSrc"
                 alt=""/>
         </template>
 
@@ -58,21 +59,21 @@
 <script
     lang="ts"
     setup>
-    import type { ButtonEmits, ButtonProps,  IconName } from '@/types';
+    import type { FluxButtonEmits, FluxButtonProps, FluxIconName } from '$flux/types';
     import FluxButton from './FluxButton.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
-    import $style from '@/css/component/Menu.module.scss';
+    import $style from '$flux/css/component/Menu.module.scss';
 
-    defineEmits<ButtonEmits>();
+    defineEmits<FluxButtonEmits>();
 
     const {
         type = 'button'
-    } = defineProps<Omit<ButtonProps, 'isSubmit' | 'size'> & {
+    } = defineProps<Omit<FluxButtonProps, 'isFilled' | 'isSubmit' | 'size'> & {
         readonly command?: string;
-        readonly commandIcon?: IconName;
+        readonly commandIcon?: FluxIconName;
         readonly commandLoading?: boolean;
-        readonly imageUrl?: string;
+        readonly imageSrc?: string;
         readonly isActive?: boolean;
         readonly isDestructive?: boolean;
         readonly isHighlighted?: boolean;

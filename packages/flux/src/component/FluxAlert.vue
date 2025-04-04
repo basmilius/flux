@@ -10,7 +10,7 @@
             <FluxSpacer/>
 
             <FluxPrimaryButton
-                icon-before="circle-check"
+                icon-leading="circle-check"
                 :label="translate('flux.ok')"
                 @click="alert.onClose()"/>
         </FluxPaneFooter>
@@ -20,8 +20,8 @@
 <script
     lang="ts"
     setup>
-    import { useTranslate } from '@/composable/private';
-    import type { FluxAlertObject } from '@/types';
+    import { useTranslate } from '$flux/composable/private';
+    import type { FluxAlertObject } from '$flux/types';
     import FluxPane from './FluxPane.vue';
     import FluxPaneBody from './FluxPaneBody.vue';
     import FluxPaneFooter from './FluxPaneFooter.vue';

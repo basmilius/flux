@@ -1,4 +1,6 @@
-@value flexColumn from '@/css/component/base/Flex.module.scss';
+@use '$flux/css/mixin';
+
+@value flexColumn from './base/Flex.module.scss';
 
 .placeholder {
     composes: flexColumn;
@@ -7,8 +9,8 @@
     align-items: center;
     flex: 1 1 0;
     justify-content: center;
-    background: rgb(var(--gray-2));
-    border: 1px dashed rgb(var(--gray-4));
+    background: rgb(var(--gray-1));
+    border: 1px dashed rgb(var(--gray-3));
     border-radius: var(--radius);
     text-align: center;
     user-select: none;
@@ -16,11 +18,8 @@
     &.isButton {
         cursor: pointer;
 
-        @media (hover: hover) {
-            &:hover {
-                background: rgb(var(--gray-3));
-                border-color: rgb(var(--gray-5));
-            }
+        @include mixin.hover {
+            background: rgb(var(--gray-2));
         }
     }
 
@@ -49,6 +48,10 @@
         .placeholderIcon {
             color: var(--foreground-secondary);
         }
+    }
+
+    :local(.button) {
+        align-self: center;
     }
 }
 

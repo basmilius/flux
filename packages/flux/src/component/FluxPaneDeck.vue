@@ -12,7 +12,7 @@
     lang="ts"
     setup>
     import FluxAutoGrid from './FluxAutoGrid.vue';
-    import $style from '@/css/component/Pane.module.scss';
+    import $style from '$flux/css/component/Pane.module.scss';
 
     defineProps<{
         readonly minColumnWidth: number;

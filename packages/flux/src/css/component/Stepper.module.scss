@@ -1,4 +1,4 @@
-@value sparklesContainer, sparklesContainerActive, sparklesParticles from '@/css/component/base/Effect.module.scss';
+@value sparklesContainer, sparklesContainerActive, sparklesParticles from './base/Effect.module.scss';
 
 .stepperStep {
     position: relative;
@@ -31,7 +31,7 @@
 
     &::before {
         width: var(--max);
-        background: rgb(var(--gray-3));
+        background: rgb(var(--gray-2));
     }
 
     &::after {
@@ -57,7 +57,7 @@
     cursor: default;
     font-size: 14px;
     font-weight: 700;
-    outline: 3px solid transparent;
+    outline: 6px solid transparent;
     outline-offset: -2px;
     transition: 300ms var(--swift-out);
     transition-property: background, border, color, outline;
@@ -85,6 +85,7 @@
 .stepperStepsItemCurrent {
     composes: stepperStepsItem;
 
+    background: rgb(var(--gray-1));
     color: var(--foreground-prominent);
     outline-color: rgb(var(--primary-7));
     outline-width: 2px;

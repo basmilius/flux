@@ -8,7 +8,7 @@
         :placeholder-button="translate('flux.galleryPlaceholderButton')"
         :placeholder-message="translate('flux.galleryPlaceholderMessage')"
         :placeholder-title="translate('flux.galleryPlaceholderTitle')"
-        @select="onFilesSelected">
+        @select-multiple="onFilesSelected">
         <template #default="{showPicker}">
             <TransitionGroup
                 :class="$style.gallery"
@@ -57,12 +57,12 @@
 <script
     lang="ts"
     setup>
-    import { useTranslate } from '@/composable/private';
-    import type { FluxFocalPointObject } from '@/types';
+    import { useTranslate } from '$flux/composable/private';
+    import type { FluxFocalPointObject } from '$flux/types';
     import FluxDropZone from './FluxDropZone.vue';
     import FluxGalleryItem from './FluxGalleryItem.vue';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '@/css/component/Gallery.module.scss';
+    import $style from '$flux/css/component/Gallery.module.scss';
 
     const emit = defineEmits<{
         delete: [number];

@@ -1,4 +1,4 @@
-@value basePaneStructure, basePaneLoader from '@/css/component/base/Pane.module.scss';
+@value basePaneStructure, basePaneLoader from './base/Pane.module.scss';
 
 .calendar {
     composes: basePaneStructure;
@@ -58,7 +58,7 @@
     gap: 1px;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: min-content repeat(6, auto);
-    background: rgb(var(--gray-3));
+    background: rgb(var(--gray-2));
 }
 
 .calendarCell {
@@ -73,11 +73,10 @@
     padding-right: 0;
     color: var(--foreground-secondary);
     font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 1px;
+    font-weight: 400;
     line-height: 1em;
     text-align: center;
-    text-transform: uppercase;
+    text-transform: capitalize;
 }
 
 .calendarEntry {
@@ -93,7 +92,7 @@
         pointer-events: none;
 
         .calendarEntryDate {
-            opacity: .5;
+            opacity: .25;
         }
 
         .calendarEvents {
@@ -122,12 +121,13 @@
 .calendarEvent {
     margin-left: -9px;
     margin-right: -9px;
-    padding: 3px 9px;
+    padding: 6px 9px;
     background: rgb(var(--primary-2));
     border: 0;
     color: rgb(var(--primary-9));
     cursor: pointer;
     font-size: 14px;
+    line-height: 1.3em;
     text-align: left;
 
     /** note: This works in all browsers. */

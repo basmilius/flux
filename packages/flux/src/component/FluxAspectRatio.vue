@@ -9,7 +9,7 @@
 <script
     lang="ts"
     setup>
-    import $style from '@/css/component/Layout.module.scss';
+    import $style from '$flux/css/component/Layout.module.scss';
 
     defineProps<{
         aspectRatio: number;

@@ -3,6 +3,7 @@
         :component-type="type"
         :class="clsx(
             cssClass,
+            isFilled && $style.isFilled,
             size === 'small' && $style.isSmall,
             size === 'medium' && $style.isMedium,
             size === 'large' && $style.isLarge,
@@ -21,15 +22,15 @@
         @mouseleave="onMouseLeave">
         <slot name="before"/>
 
-        <slot name="iconBefore">
+        <slot name="iconLeading">
             <FluxSpinner
-                v-if="isLoading && (iconBefore || !iconAfter)"
+                v-if="isLoading && (iconLeading || !iconTrailing)"
                 :size="20"/>
 
             <FluxIcon
-                v-else-if="iconBefore"
+                v-else-if="iconLeading"
                 :class="cssClassIcon"
-                :variant="iconBefore"/>
+                :variant="iconLeading"/>
         </slot>
 
         <slot name="label">
@@ -40,15 +41,15 @@
             </span>
         </slot>
 
-        <slot name="iconAfter">
+        <slot name="iconTrailing">
             <FluxSpinner
-                v-if="isLoading && (!iconBefore && iconAfter)"
+                v-if="isLoading && (!iconLeading && iconTrailing)"
                 :size="20"/>
 
             <FluxIcon
-                v-else-if="iconAfter"
+                v-else-if="iconTrailing"
                 :class="cssClassIcon"
-                :variant="iconAfter"/>
+                :variant="iconTrailing"/>
         </slot>
 
         <slot name="after"/>
@@ -56,7 +57,7 @@
 </template>
 
 <script lang="ts">
-    export const SLOTS = ['default', 'after', 'before', 'iconAfter', 'iconBefore', 'label'] as const;
+    export const SLOTS = ['default', 'after', 'before', 'iconLeading', 'iconTrailing', 'label'] as const;
 </script>
 
 <script
@@ -64,14 +65,14 @@
     setup>
     import { clsx } from 'clsx';
     import { toRef, unref } from 'vue';
-    import { useDisabled } from '@/composable';
-    import type { ButtonEmits, ButtonProps, ButtonSlots } from '@/types';
+    import { useDisabled } from '$flux/composable';
+    import type { FluxButtonEmits, FluxButtonProps, FluxButtonSlots } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
     import FluxSpinner from './FluxSpinner.vue';
-    import $style from '@/css/component/base/Button.module.scss';
+    import $style from '$flux/css/component/base/Button.module.scss';
 
-    const emit = defineEmits<ButtonEmits>();
+    const emit = defineEmits<FluxButtonEmits>();
 
     const {
         disabled: componentDisabled,
@@ -79,13 +80,13 @@
         size = 'medium',
         tabindex = 0,
         type = 'button'
-    } = defineProps<ButtonProps & {
+    } = defineProps<FluxButtonProps & {
         readonly cssClass: string;
         readonly cssClassIcon: string;
         readonly cssClassLabel: string;
     }>();
 
-    defineSlots<ButtonSlots>();
+    defineSlots<FluxButtonSlots>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));
 

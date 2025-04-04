@@ -1,15 +1,15 @@
-import type { IconName } from './common';
+import type { FluxIconName } from './common';
 
 export type FluxFormSelectGroup = {
-    readonly icon?: IconName;
+    readonly icon?: FluxIconName;
     readonly label: string;
 };
 
 export type FluxFormSelectOption = {
     readonly badge?: string;
     readonly command?: string;
-    readonly commandIcon?: IconName;
-    readonly icon?: IconName;
+    readonly commandIcon?: FluxIconName;
+    readonly icon?: FluxIconName;
     readonly label: string;
     readonly selectable?: boolean;
     readonly value: string | number | null;

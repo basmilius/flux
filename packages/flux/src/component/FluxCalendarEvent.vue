@@ -20,7 +20,7 @@
     setup>
     import type { DateTime } from 'luxon';
     import FluxTooltip from './FluxTooltip.vue';
-    import $style from '@/css/component/Calendar.module.scss';
+    import $style from '$flux/css/component/Calendar.module.scss';
 
     const emit = defineEmits<{
         click: [MouseEvent];

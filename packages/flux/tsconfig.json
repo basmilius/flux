@@ -3,7 +3,7 @@
         "target": "esnext",
         "useDefineForClassFields": true,
         "module": "esnext",
-        "moduleResolution": "node",
+        "moduleResolution": "bundler",
         "strict": true,
         "jsx": "preserve",
         "resolveJsonModule": true,
@@ -20,9 +20,9 @@
         "emitDeclarationOnly": true,
         "outDir": "dist",
         "baseUrl": ".",
+        "rootDir": "./src",
         "paths": {
-            "@basmilius/flux": ["src/index.ts"],
-            "@/*": ["src/*"]
+            "$flux/*": ["src/*"]
         }
     },
     "include": [

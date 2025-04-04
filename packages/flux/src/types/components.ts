@@ -1,4 +1,4 @@
-import type { IconName } from './common';
+import type { FluxIconName } from './common';
 
 export type FluxFocalPointObject = {
     readonly x: number;
@@ -11,11 +11,11 @@ export type FluxLegendObject = {
 }
 
 export type FluxPercentageBarItemObject = FluxLegendObject & {
-    readonly icon: IconName;
+    readonly icon: FluxIconName;
     readonly value: number;
 };
 
 export type FluxSegmentedControlItemObject = {
-    readonly icon?: IconName;
+    readonly icon?: FluxIconName;
     readonly label?: string;
 };

@@ -7,7 +7,7 @@
                 v-model="modelSearch"
                 auto-complete="off"
                 is-secondary
-                icon-before="magnifying-glass"
+                icon-leading="magnifying-glass"
                 :placeholder="searchPlaceholder"
                 type="search"/>
         </div>
@@ -37,13 +37,13 @@
 <script
     lang="ts"
     setup>
-    import { isFluxFilterOptionHeader, isFluxFilterOptionItem } from '@/data';
-    import type { FluxFilterOptionItem, FluxFilterOptionRow, FluxFilterValueSingle } from '@/types';
-    import FluxMenuItem from '../FluxMenuItem.vue';
-    import FluxFormInput from '../FluxFormInput.vue';
-    import FluxMenuGroup from '../FluxMenuGroup.vue';
-    import FluxMenuSubHeader from '../FluxMenuSubHeader.vue';
-    import $style from '@/css/component/Filter.module.scss';
+    import { isFluxFilterOptionHeader, isFluxFilterOptionItem } from '$flux/data';
+    import type { FluxFilterOptionItem, FluxFilterOptionRow, FluxFilterValueSingle } from '$flux/types';
+    import FluxMenuItem from '$flux/component/FluxMenuItem.vue';
+    import FluxFormInput from '$flux/component/FluxFormInput.vue';
+    import FluxMenuGroup from '$flux/component/FluxMenuGroup.vue';
+    import FluxMenuSubHeader from '$flux/component/FluxMenuSubHeader.vue';
+    import $style from '$flux/css/component/Filter.module.scss';
 
     const emit = defineEmits<{
         select: [FluxFilterValueSingle];

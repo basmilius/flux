@@ -18,12 +18,12 @@ props:
 
     -   name: color
         description: The color of the snackbar.
-        type: ColorVariant
+        type: FluxColorVariant
         optional: true
 
     -   name: icon
         description: The icon that is shown at the start of the snackbar.
-        type: IconName
+        type: FluxIconName
         optional: true
 
     -   name: is-closeable
@@ -85,34 +85,13 @@ requiredIcons:
     - xmark
 ---
 
-<script
-    lang="ts"
-    setup>
-    import { FluxPrimaryButton, FluxSnackbar, showSnackbar } from '@basmilius/flux';
-    import ActionsExample from '../../../code/guide/components/attention/snackbar/actions.vue';
-    import GlobalExample from '../../../code/guide/components/attention/snackbar/global.vue';
-
-    function functionalExample(): void {
-        showSnackbar({
-            color: 'success',
-            icon: 'circle-check',
-            message: 'Changes saved successfully.'
-        });
-    }
-</script>
-
 # Snackbar
 
 Snackbars are used to notify the user about tasks that have been or will be performed by the system. They can also include actions that the user can select.
 
-<Preview>
-    <FluxSnackbar
-        :actions="{update: 'Update', later: 'Later'}"
-        icon="circle-arrow-up"
-        message="A new version of macOS is available."
-        title="Update available"
-        is-rendered/>
-</Preview>
+::: render
+render=../../../code/guide/components/attention/snackbar/preview.vue
+:::
 
 ::: tip
 For notifications that need prominence, consider using the [Notice](./notice) component.
@@ -124,30 +103,32 @@ For notifications that need prominence, consider using the [Notice](./notice) co
 
 Snackbars can be part of your template and controlled with `v-if`, but they also have an api that you can use within scripts.
 
-```ts
-function showSnackbar(options: FluxSnackbarObject): Promise<void> {}
-```
+::: render
+render=../../../code/guide/components/attention/snackbar/functional.vue
+:::
 
-<Preview>
-    <FluxPrimaryButton
-        label="Show Snackbar"
-        @click="functionalExample()"/>
-</Preview>
+::: code-group
 
-```ts
+```ts [Example]
 showSnackbar({
     color: 'success',
     duration: 3000,
     icon: 'circle-check',
     message: 'Changes saved successfully.'
 });
+```
 
-interface FluxSnackbarObject {
+```ts [Declaration]
+declare function showSnackbar(options: FluxSnackbarObject): Promise<void>;
+```
+
+```ts [Options]
+export type FluxSnackbarObject = {
     readonly id: number;
     readonly actions?: Record<string, string>;
-    readonly color?: ColorVariant;
+    readonly color?: FluxColorVariant;
     readonly duration?: number;
-    readonly icon?: IconName;
+    readonly icon?: FluxIconName;
     readonly isCloseable?: boolean;
     readonly isLoading?: boolean;
     readonly isRendered?: boolean;
@@ -162,30 +143,20 @@ interface FluxSnackbarObject {
 
     onAction?(actionKey: string): void;
     onClose?(): void;
-}
+};
 ```
+
+:::
 
 ## Examples
 
-### Global
+::: example Global || Snackbars render globally by-default.
+example=../../../code/guide/components/attention/snackbar/global.vue
+:::
 
-Snackbars render globally by-default.
-
-<Preview>
-    <GlobalExample/>
-</Preview>
-
-<<< @/code/guide/components/attention/snackbar/global.vue
-
-### Actions
-
-Actions can be added to the snackbar to request for input.
-
-<Preview>
-    <ActionsExample/>
-</Preview>
-
-<<< @/code/guide/components/attention/snackbar/actions.vue
+::: example Actions || Actions can be added to the snackbar to request for input.
+example=../../../code/guide/components/attention/snackbar/actions.vue
+:::
 
 ## Used components
 

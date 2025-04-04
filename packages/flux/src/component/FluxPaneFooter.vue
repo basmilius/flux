@@ -7,7 +7,7 @@
 <script
     lang="ts"
     setup>
-    import $style from '@/css/component/Pane.module.scss';
+    import $style from '$flux/css/component/Pane.module.scss';
 
     defineSlots<{
         default(): any;

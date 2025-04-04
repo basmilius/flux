@@ -2,9 +2,9 @@
     import { unrefTemplateElement } from '@basmilius/flux-internals';
     import { clsx } from 'clsx';
     import { computed, defineComponent, h, ref, unref, watch } from 'vue';
-    import { useFluxStore } from '@/data';
-    import { FluxTooltipTransition } from '@/transition';
-    import $style from '@/css/component/Tooltip.module.scss';
+    import { useFluxStore } from '$flux/data';
+    import { FluxTooltipTransition } from '$flux/transition';
+    import $style from '$flux/css/component/Tooltip.module.scss';
 
     type Transition = 'above' | 'below' | 'end' | 'start';
 
@@ -35,7 +35,7 @@
                 return;
             }
 
-            const {axis, origin} = spec;
+            const {direction, origin} = spec;
             const margin = 9;
             const safeZone = 15;
 
@@ -53,7 +53,7 @@
             height /= s;
             width /= s;
 
-            if (axis === 'horizontal') {
+            if (direction === 'horizontal') {
                 position.value = calculateHorizontalPosition(top, left, width, height, originWidth, originHeight, margin, safeZone);
             } else {
                 position.value = calculateVerticalPosition(top, left, width, height, originWidth, originHeight, margin, safeZone);

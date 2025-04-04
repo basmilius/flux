@@ -1,8 +1,8 @@
-import type { Axis, ColorVariant, IconName, InputType } from './common';
+import type { FluxColorVariant, FluxDirection, FluxIconName, FluxInputType } from './common';
 
 type FluxBaseAlertObject = {
     readonly id: number;
-    readonly icon?: IconName;
+    readonly icon?: FluxIconName;
     readonly message: string;
     readonly title: string;
 }
@@ -22,14 +22,14 @@ export type FluxPromptObject = FluxBaseAlertObject & {
 
     readonly fieldLabel: string;
     readonly fieldPlaceholder?: string;
-    readonly fieldType?: InputType;
+    readonly fieldType?: FluxInputType;
 };
 
 export type FluxSnackbarObject = {
     readonly id: number;
     readonly actions?: Record<string, string>;
-    readonly color?: ColorVariant;
-    readonly icon?: IconName;
+    readonly color?: FluxColorVariant;
+    readonly icon?: FluxIconName;
     readonly isCloseable?: boolean;
     readonly isLoading?: boolean;
     readonly isRendered?: boolean;
@@ -48,8 +48,8 @@ export type FluxSnackbarObject = {
 
 export type FluxTooltipObject = {
     readonly id: number;
-    readonly axis: Axis;
     readonly content?: string;
     readonly contentSlot?: Function;
+    readonly direction: FluxDirection;
     readonly origin?: HTMLElement;
 };

@@ -2,8 +2,8 @@
     <Component
         :is="tag ?? 'div'"
         :class="clsx(
-            axis === 'horizontal' && $style.stackHorizontal,
-            axis === 'vertical' && $style.stackVertical,
+            direction === 'horizontal' && $style.stackHorizontal,
+            direction === 'vertical' && $style.stackVertical,
             isCentered && $style.isCentered,
             isFill && $style.isFill,
             isWrapping && $style.isWrapping
@@ -19,14 +19,14 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { Axis } from '@/types';
-    import $style from '@/css/component/Stack.module.scss';
+    import type { FluxDirection } from '$flux/types';
+    import $style from '$flux/css/component/Stack.module.scss';
 
     const {
-        axis = 'vertical',
+        direction = 'vertical',
         gap = 30
     } = defineProps<{
-        readonly axis?: Axis;
+        readonly direction?: FluxDirection;
         readonly gap?: number;
         readonly isCentered?: boolean;
         readonly isFill?: boolean;

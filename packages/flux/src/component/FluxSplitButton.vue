@@ -1,6 +1,6 @@
 <template>
     <FluxFlyout
-        :axis="flyoutAxis"
+        :direction="flyoutDirection"
         :is-auto-width="flyoutIsAutoWidth"
         :margin="flyoutMargin"
         :width="flyoutWidth">
@@ -11,7 +11,7 @@
                     name="button"/>
 
                 <FluxSecondaryButton
-                    :icon-before="buttonIcon"
+                    :icon-leading="buttonIcon"
                     @click="open"/>
             </div>
         </template>
@@ -27,16 +27,16 @@
 <script
     setup
     lang="ts">
-    import type { Axis, IconName } from '@/types';
+    import type { FluxDirection, FluxIconName } from '$flux/types';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import $style from '@/css/component/Button.module.scss';
+    import $style from '$flux/css/component/Button.module.scss';
 
     const {
         buttonIcon = 'ellipsis-h'
     } = defineProps<{
-        readonly buttonIcon?: IconName;
-        readonly flyoutAxis?: Axis;
+        readonly buttonIcon?: FluxIconName;
+        readonly flyoutDirection?: FluxDirection;
         readonly flyoutIsAutoWidth?: boolean;
         readonly flyoutMargin?: number;
         readonly flyoutWidth?: number | string;

@@ -42,7 +42,7 @@
                         <template #default="{close}">
                             <div :class="$styleDatePicker.datePickerYears">
                                 <FluxSecondaryButton
-                                    icon-before="angle-left"
+                                    icon-leading="angle-left"
                                     tabindex="-1"
                                     @click="previousYears"/>
 
@@ -56,7 +56,7 @@
                                 </template>
 
                                 <FluxSecondaryButton
-                                    icon-before="angle-right"
+                                    icon-leading="angle-right"
                                     tabindex="-1"
                                     @click="nextYears"/>
                             </div>
@@ -72,11 +72,11 @@
 
                 <FluxButtonGroup>
                     <FluxSecondaryButton
-                        icon-before="angle-left"
+                        icon-leading="angle-left"
                         @click="previousMonth"/>
 
                     <FluxSecondaryButton
-                        icon-before="angle-right"
+                        icon-leading="angle-right"
                         @click="nextMonth"/>
                 </FluxButtonGroup>
             </template>
@@ -138,16 +138,16 @@
     import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
     import { computed, unref, VNode, watch } from 'vue';
-    import { useTranslate } from '@/composable/private';
-    import { FluxWindowTransition } from '@/transition';
+    import { useTranslate } from '$flux/composable/private';
+    import { FluxWindowTransition } from '$flux/transition';
     import { VNodeRenderer } from './primitive';
     import FluxActionBar from './FluxActionBar.vue';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import FluxSpinner from '@/component/FluxSpinner.vue';
-    import $style from '@/css/component/Calendar.module.scss';
-    import $styleDatePicker from '@/css/component/DatePicker.module.scss';
+    import FluxSpinner from '$flux/component/FluxSpinner.vue';
+    import $style from '$flux/css/component/Calendar.module.scss';
+    import $styleDatePicker from '$flux/css/component/DatePicker.module.scss';
 
     type Event = {
         readonly index: number;

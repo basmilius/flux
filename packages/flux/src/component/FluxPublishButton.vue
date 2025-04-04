@@ -1,6 +1,6 @@
 <template>
     <FluxButton
-        :="{type, disabled, iconAfter, isLoading, label, size, to}"
+        :="{type, disabled, iconTrailing, isFilled, isLoading, label, size, to}"
         :class="clsx(
             !isDone && !isLoading && $style.isIdle,
             isDone && $style.isDone,
@@ -12,7 +12,7 @@
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)">
-        <template #iconBefore>
+        <template #iconLeading>
             <div :class="$style.publishButtonAnimation">
                 <FluxIcon
                     :class="$style.publishButtonCloud"
@@ -46,14 +46,14 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { ButtonEmits, ButtonProps } from '@/types';
+    import type { FluxButtonEmits, FluxButtonProps } from '$flux/types';
     import FluxButton from './FluxButton.vue';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '@/css/component/Button.module.scss';
+    import $style from '$flux/css/component/Button.module.scss';
 
-    defineEmits<ButtonEmits>();
+    defineEmits<FluxButtonEmits>();
 
-    defineProps<Omit<ButtonProps, 'iconBefore'> & {
+    defineProps<Omit<FluxButtonProps, 'iconLeading'> & {
         readonly isDone?: boolean;
     }>();
 </script>

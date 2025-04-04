@@ -42,16 +42,16 @@
     import { unrefTemplateElement, useFocusTrap } from '@basmilius/flux-internals';
     import { clsx } from 'clsx';
     import { provide, ref, unref, useTemplateRef, watch } from 'vue';
-    import { FluxFlyoutInjectionKey } from '@/data';
-    import type { Axis } from '@/types';
+    import { FluxFlyoutInjectionKey } from '$flux/data';
+    import type { FluxDirection } from '$flux/types';
     import FluxPane from './FluxPane.vue';
-    import $style from '@/css/component/Flyout.module.scss';
+    import $style from '$flux/css/component/Flyout.module.scss';
 
     const {
-        axis = 'vertical',
+        direction = 'vertical',
         margin = 9
     } = defineProps<{
-        readonly axis?: Axis;
+        readonly direction?: FluxDirection;
         readonly isAutoWidth?: boolean;
         readonly margin?: number;
         readonly width?: number | string;
@@ -134,7 +134,7 @@
 
         let x, y, mx = 0, my = 0;
 
-        if (axis === 'horizontal') {
+        if (direction === 'horizontal') {
             x = left + width;
             y = top + height / 2 - paneHeight / 2;
             mx = margin;

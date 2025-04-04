@@ -1,6 +1,6 @@
-@use '@/css/mixin';
+@use '$flux/css/mixin';
 
-@value inlineFlexRow, flexNoGrow from '@/css/component/base/Flex.module.scss';
+@value inlineFlexRow, flexNoGrow from './base/Flex.module.scss';
 
 .chip {
     composes: inlineFlexRow;
@@ -11,7 +11,7 @@
     align-items: center;
     gap: 9px;
     background: rgb(var(--gray-1));
-    border: 1px solid rgb(var(--gray-4));
+    border: 1px solid rgb(var(--gray-3));
     border-radius: 99px;
     color: var(--foreground);
     transition: 180ms var(--swift-out);
@@ -24,19 +24,19 @@
 
         @media (hover: hover) {
             &:hover {
-                background: rgb(var(--gray-3) / .75);
+                background: rgb(var(--gray-2));
             }
         }
     }
 
     &.isSelected {
         background: rgb(var(--primary-2));
-        border-color: rgb(var(--primary-6));
+        border-color: rgb(var(--primary-4));
         color: rgb(var(--primary-7));
 
         @media (hover: hover) {
             &:hover {
-                background: rgb(var(--primary-3) / .75);
+                background: rgb(var(--primary-3));
             }
         }
     }

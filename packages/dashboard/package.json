@@ -1,6 +1,6 @@
 {
     "name": "@basmilius/flux-dashboard",
-    "version": "1.7.0",
+    "version": "2.0.0-alpha.0",
     "type": "module",
     "license": "MIT",
     "funding": "https://github.com/sponsors/basmilius",
@@ -32,8 +32,7 @@
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
-            "import": "./dist/flux-dashboard.js",
-            "require": "./dist/flux-dashboard.umd.cjs"
+            "default": "./dist/flux-dashboard.js"
         },
         "./style.css": "./dist/flux-dashboard.css"
     },
@@ -43,9 +42,10 @@
     },
     "files": [
         "dist",
-        "src"
+        "src",
+        "tsconfig.json"
     ],
-    "main": "./dist/flux-dashboard.umd.cjs",
+    "main": "./dist/flux-dashboard.js",
     "module": "./dist/flux-dashboard.js",
     "types": "./dist/index.d.ts",
     "typings": "./dist/index.d.ts",
@@ -56,12 +56,12 @@
         "vue": "^3.5.13"
     },
     "devDependencies": {
-        "@basmilius/vite-vue-preset": "^1.15.0",
-        "@types/node": "^22.10.7",
-        "@vitejs/plugin-vue": "^5.2.1",
-        "sass-embedded": "^1.83.4",
-        "typescript": "^5.7.3",
-        "vite": "^6.0.7",
-        "vue-tsc": "^2.2.0"
+        "@basmilius/vite-vue-preset": "^2.2.0",
+        "@types/node": "^22.13.17",
+        "@vitejs/plugin-vue": "^5.2.3",
+        "sass-embedded": "^1.86.1",
+        "typescript": "^5.8.2",
+        "vite": "^6.2.4",
+        "vue-tsc": "^2.2.8"
     }
 }

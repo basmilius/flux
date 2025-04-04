@@ -12,7 +12,7 @@
 <script
     lang="ts"
     setup>
-    import $style from '@/css/component/Transition.module.scss';
+    import $style from '$flux/css/component/Transition.module.scss';
 
     const {
         mode = 'out-in'

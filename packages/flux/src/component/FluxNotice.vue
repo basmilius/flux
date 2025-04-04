@@ -8,19 +8,16 @@
             variant === 'success' && $style.noticeSuccess,
             variant === 'warning' && $style.noticeWarning,
             isCenter && $style.isCenter,
-            isFluid && $style.isFluid,
-            isSmall && $style.isSmall
+            isFluid && $style.isFluid
         )"
         role="alert">
         <FluxSpinner
             v-if="isLoading"
-            :class="$style.noticePrefix"
-            :size="isSmall ? 16 : 20"/>
+            :class="$style.noticePrefix"/>
 
         <FluxIcon
             v-if="icon && !isLoading"
             :class="$style.noticePrefix"
-            :size="isSmall ? 16 : 20"
             :variant="icon"/>
 
         <div :class="$style.noticeBody">
@@ -53,10 +50,10 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { ColorVariant, IconName } from '@/types';
+    import type { FluxColorVariant, FluxIconName } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
-    import $style from '@/css/component/Notice.module.scss';
+    import $style from '$flux/css/component/Notice.module.scss';
 
     const emit = defineEmits<{
         close: [];
@@ -65,15 +62,14 @@
     const {
         variant = 'gray'
     } = defineProps<{
-        readonly icon?: IconName;
+        readonly icon?: FluxIconName;
         readonly isCenter?: boolean;
         readonly isCloseable?: boolean;
         readonly isFluid?: boolean;
         readonly isLoading?: boolean;
-        readonly isSmall?: boolean;
         readonly message?: string;
         readonly title?: string;
-        readonly variant?: ColorVariant;
+        readonly variant?: FluxColorVariant;
     }>();
 
     defineSlots<{

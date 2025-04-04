@@ -1,6 +1,6 @@
 import type { Ref } from 'vue';
 import { onMounted, onUnmounted, ref, unref } from 'vue';
-import { FOCUS_TRAP_LOCKS } from '@/util';
+import { FOCUS_TRAP_LOCKS } from '../util';
 
 let lockId = 0;
 

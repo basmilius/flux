@@ -1,5 +1,6 @@
+import type { Ref } from 'vue';
+import { computed, unref } from 'vue';
 import useDisabledInjection from './useDisabledInjection';
-import { computed, Ref, unref } from 'vue';
 
 export default function (componentDisabled: Ref<boolean>) {
     const treeDisabled = useDisabledInjection();

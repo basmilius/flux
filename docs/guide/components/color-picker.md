@@ -24,36 +24,30 @@ props:
         optional: true
 ---
 
-<script
-    lang="ts"
-    setup>
-    import { FluxColorPicker, FluxPane, FluxPaneBody } from '@basmilius/flux';
-</script>
-
 # Color picker
 
 This component allows users to select and adjust colors in various formats, including HEX, RGB, HSV, and HSL. It features a hue and saturation slider, an optional alpha slider for transparency control, and input fields for precise value adjustments.
 
-<Preview>
-    <FluxPane style="width: 330px">
-        <FluxColorPicker
-            :model-value="[31, 75, 109]"
-            type="rgb"/>
-    </FluxPane>
-</Preview>
+::: render
+render=../../code/guide/components/color-picker/preview.vue
+:::
 
 <FrontmatterDocs/>
 
-## Snippet
+## Examples
 
-```vue
-<FluxColorPicker
-    v-model="color"
-    type="hex"/>
-```
+::: example Basic || A basic color picker that is shown directly.
+example=../../code/guide/components/color-picker/basic.vue
+:::
+
+::: example Flyout || A basic color picker that is shown directly.
+example=../../code/guide/components/color-picker/flyout.vue
+:::
 
 ## Used components
 
-- [Form field](./form/field)
-- [Form input](./form/input)
-- [Form slider](./form/slider)
+- [Form](./form)
+    - [Field](./form/field)
+    - [Input](./form/input)
+    - [Slider](./form/slider)
+- [Pane](../pane)

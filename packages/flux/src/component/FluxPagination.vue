@@ -6,7 +6,7 @@
         <FluxSecondaryButton
             v-if="arrows || isCompact"
             :disabled="isPreviousDisabled"
-            icon-before="angle-left"
+            icon-leading="angle-left"
             :aria-label="translate('flux.previous')"
             @click="previous"/>
 
@@ -16,7 +16,7 @@
             <FluxSecondaryButton
                 v-if="p === 'dots'"
                 disabled
-                icon-before="ellipsis-h"/>
+                icon-leading="ellipsis-h"/>
 
             <FluxPrimaryButton
                 v-else-if="p === page"
@@ -43,7 +43,7 @@
         <FluxSecondaryButton
             v-if="arrows || isCompact"
             :disabled="isNextDisabled"
-            icon-before="angle-right"
+            icon-leading="angle-right"
             :aria-label="translate('flux.next')"
             @click="next"/>
     </FluxButtonGroup>
@@ -53,12 +53,12 @@
     lang="ts"
     setup>
     import { computed, unref } from 'vue';
-    import { useTranslate } from '@/composable/private';
-    import { showPrompt } from '@/data';
+    import { useTranslate } from '$flux/composable/private';
+    import { showPrompt } from '$flux/data';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxPrimaryButton from './FluxPrimaryButton.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import $style from '@/css/component/Pagination.module.scss';
+    import $style from '$flux/css/component/Pagination.module.scss';
 
     const emit = defineEmits<{
         navigate: [number];

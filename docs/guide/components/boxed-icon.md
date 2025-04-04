@@ -14,44 +14,28 @@ props:
 
     -   name: variant
         description: The icon variant.
-        type: IconName
+        type: FluxIconName
 ---
-
-<script
-    lang="ts"
-    setup>
-    import { FluxBoxedIcon, FluxStack } from '@basmilius/flux';
-</script>
 
 # Boxed icon
 
 This component displays a single customizable Font Awesome icon, rendered as SVG in a box.
 
-<Preview>
-    <FluxStack
-        axis="horizontal"
-        :gap="15">
-        <FluxBoxedIcon
-            :size="90"
-            variant="circle-check"/>
-        <FluxBoxedIcon
-            :size="90"
-            variant="lock"/>
-        <FluxBoxedIcon
-            :size="90"
-            variant="rocket"/>
-    </FluxStack>
-</Preview>
+::: render
+render=../../code/guide/components/boxed-icon/preview.vue
+:::
 
 <FrontmatterDocs/>
 
-## Snippet
+## Examples
 
-```vue
-<FluxBoxedIcon
-    :size="90"
-    variant="circle-check"/>
-```
+::: example Standalone
+example=../../code/guide/components/boxed-icon/standalone.vue
+:::
+
+::: example Pane
+example=../../code/guide/components/boxed-icon/pane.vue
+:::
 
 ## Used components
 

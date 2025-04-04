@@ -37,28 +37,30 @@
 <script
     lang="ts"
     setup>
+    import { formatNumber } from '@basmilius/utils';
     import { computed, unref } from 'vue';
-    import { useFilterInjection } from '@/composable';
-    import { useTranslate } from '@/composable/private';
-    import type { IconName } from '@/types';
+    import { useFilterInjection } from '$flux/composable';
+    import { useTranslate } from '$flux/composable/private';
+    import type { FluxIconName } from '$flux/types';
     import FluxFormColumn from './FluxFormColumn.vue';
     import FluxFormField from './FluxFormField.vue';
     import FluxFormSlider from './FluxFormSlider.vue';
     import FluxPaneBody from './FluxPaneBody.vue';
 
     const {
+        formatter = formatNumber,
         max,
         min,
         name,
         step = 1
     } = defineProps<{
-        readonly icon?: IconName;
+        readonly icon?: FluxIconName;
         readonly isTicksVisible?: boolean;
         readonly label: string;
         readonly name: string;
         readonly max: number;
         readonly min: number;
-        readonly step: number;
+        readonly step?: number;
         readonly formatter?: (value: number) => string;
     }>();
 

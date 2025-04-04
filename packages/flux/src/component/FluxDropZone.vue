@@ -1,88 +1,118 @@
 <template>
     <div
-        :class="$style.dropZone"
-        :aria-disabled="disabled ? true : undefined"
-        @dragleave.capture="onDragLeave"
-        @dragover.capture="onDragEnter"
-        @drop="onDrop">
-        <slot
-            v-bind="{isDragging, isDraggingOver, showPicker}"
-            v-if="isEmpty"
-            name="placeholder">
-            <FluxPlaceholder
-                :icon="placeholderIcon"
-                :message="placeholderMessage"
-                :title="placeholderTitle"
-                :variant="placeholderVariant">
-                <FluxSecondaryButton
-                    :label="placeholderButton"
-                    @click="showPicker"/>
-            </FluxPlaceholder>
-        </slot>
+        :class="[
+            $style.dropZone,
+            isDragging && $style.isDragging,
+            isDraggingOver && $style.isDraggingOver
+        ]"
+        :aria-disabled="disabled ? true : undefined">
+        <div
+            :class="$style.dropZoneContent"
+            @dragleave.capture="onDragLeave"
+            @dragover.capture="onDragEnter"
+            @drop="onDrop">
+            <svg
+                ref="content"
+                :class="$style.dropZoneBorder"
+                role="presentation">
+                <rect
+                    height="100%"
+                    width="100%"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    :pathLength="pathLength"/>
+            </svg>
+
+            <slot v-bind="{isDragging, isDraggingOver, showPicker}"/>
+
+            <FluxFadeTransition>
+                <div
+                    v-if="isLoading"
+                    :class="$style.dropZoneLoader">
+                    <FluxSpinner/>
+                </div>
+            </FluxFadeTransition>
+        </div>
+
+        <div
+            v-if="slots.actions"
+            :class="$style.dropZoneActions">
+            <slot
+                name="actions"
+                v-bind="{isDragging, isDraggingOver, showPicker}"/>
+        </div>
 
         <slot
-            v-bind="{isDragging, isDraggingOver, showPicker}"
-            v-else/>
-
-        <FluxFadeTransition>
-            <div
-                v-if="isDragging && !disabled"
-                :class="clsx(
-                    $style.dropZoneHint,
-                    isDraggingOver && $style.isOver
-                )"
-                role="presentation"/>
-        </FluxFadeTransition>
+            name="extra"
+            v-bind="{isDragging, isDraggingOver, showPicker}"/>
     </div>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { clsx } from 'clsx';
-    import { onMounted, onUnmounted, ref, toRef, unref } from 'vue';
-    import { useDisabled } from '@/composable';
-    import { FluxFadeTransition } from '@/transition';
-    import type { IconName } from '@/types';
-    import FluxPlaceholder from './FluxPlaceholder.vue';
-    import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import $style from '@/css/component/DropZone.module.scss';
+    import { roundStep } from '@basmilius/utils';
+    import { onMounted, onUnmounted, ref, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { useDisabled } from '$flux/composable';
+    import { FluxFadeTransition } from '$flux/transition';
+    import FluxSpinner from './FluxSpinner.vue';
+    import $style from '$flux/css/component/DropZone.module.scss';
 
     const emit = defineEmits<{
-        select: [FileList];
+        select: [File];
+        selectMultiple: [FileList];
     }>();
 
     const {
         accept,
         disabled: componentDisabled,
-        isMultiple,
-        placeholderVariant = 'extended'
+        isMultiple
     } = defineProps<{
         readonly accept?: string;
         readonly disabled?: boolean;
-        readonly isEmpty?: boolean;
+        readonly isLoading?: boolean;
         readonly isMultiple?: boolean;
-        readonly placeholderButton?: string;
-        readonly placeholderIcon?: IconName;
-        readonly placeholderMessage?: string;
-        readonly placeholderTitle?: string;
-        readonly placeholderVariant?: 'extended' | 'simple' | 'small';
     }>();
 
+    const slots = defineSlots<{
+        default?(props: {
+            readonly isDragging: boolean;
+            readonly isDraggingOver: boolean;
+
+            showPicker(): void;
+        }): any;
+
+        actions?(props: {
+            readonly isDragging: boolean;
+            readonly isDraggingOver: boolean;
+
+            showPicker(): void;
+        }): any;
+
+        extra?(props: {
+            readonly isDragging: boolean;
+            readonly isDraggingOver: boolean;
+
+            showPicker(): void;
+        }): any;
+    }>();
+
+    const contentRef = useTemplateRef('content');
     const disabled = useDisabled(toRef(() => componentDisabled));
 
     const isDragging = ref(false);
     const isDraggingOver = ref(false);
+    const pathLength = ref(0);
 
     onMounted(() => {
-        window.addEventListener('dragleave', onWindowDragLeave, {capture: true});
-        window.addEventListener('dragover', onWindowDragEnter, {capture: true});
+        window.addEventListener('dragleave', onWindowDragEnd, {capture: true});
+        window.addEventListener('dragover', onWindowDragStart, {capture: true});
         window.addEventListener('drop', onWindowDrop, {capture: true});
     });
 
     onUnmounted(() => {
-        window.removeEventListener('dragleave', onWindowDragLeave);
-        window.removeEventListener('dragover', onWindowDragEnter);
+        window.removeEventListener('dragleave', onWindowDragEnd);
+        window.removeEventListener('dragover', onWindowDragStart);
         window.removeEventListener('drop', onWindowDrop);
     });
 
@@ -109,18 +139,22 @@
             return;
         }
 
-        emit('select', files);
+        if (isMultiple) {
+            emit('selectMultiple', files);
+        } else {
+            emit('select', files[0]);
+        }
 
         evt.preventDefault();
         evt.stopPropagation();
     }
 
-    function onWindowDragEnter(): void {
-        isDragging.value = true;
+    function onWindowDragEnd(): void {
+        isDragging.value = false;
     }
 
-    function onWindowDragLeave(): void {
-        isDragging.value = false;
+    function onWindowDragStart(): void {
+        isDragging.value = true;
     }
 
     function onWindowDrop(): void {
@@ -135,7 +169,11 @@
             return;
         }
 
-        emit('select', files);
+        if (isMultiple) {
+            emit('selectMultiple', files);
+        } else {
+            emit('select', files[0]);
+        }
     }
 
     function showPicker(): void {
@@ -151,5 +189,14 @@
         input.addEventListener('change', onFileSelected, {once: true});
         input.showPicker();
     }
+
+    watch(contentRef, content => {
+        if (!content) {
+            return;
+        }
+
+        const {width, height} = content.getBoundingClientRect();
+        pathLength.value = roundStep(width * 2 + height * 2, 6);
+    }, {immediate: true});
 </script>
 

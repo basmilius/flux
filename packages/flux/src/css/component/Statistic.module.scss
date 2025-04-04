@@ -1,11 +1,11 @@
-@value flexColumn, flexRow, flexGrow from '@/css/component/base/Flex.module.scss';
+@value flexColumn, flexRow, flexGrow from './base/Flex.module.scss';
 
 .statistic {
     padding: 21px;
     gap: 21px;
 
     &.isGray .statisticIcon {
-        background: rgb(var(--gray-3));
+        background: rgb(var(--gray-2));
         color: rgb(var(--gray-7));
     }
 
@@ -116,8 +116,4 @@
     .statisticData {
         align-items: center;
     }
-}
-
-[dark] .statistic .statisticIcon {
-    background: rgb(var(--gray-2));
 }

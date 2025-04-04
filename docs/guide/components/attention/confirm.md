@@ -1,63 +1,67 @@
-<script
-    lang="ts"
-    setup>
-    import { FluxSecondaryButton, FluxStack, showConfirm } from '@basmilius/flux';
-    import { ref } from 'vue';
+---
+outline: deep
 
-    const result = ref<boolean | null>(null);
-    
-    async function show(): Promise<void> {
-        result.value = null;
-        result.value = await showConfirm({
-            icon: 'circle-exclamation',
-            title: 'Title',
-            message: 'Are you sure?'
-        });
-    }
-</script>
+requiredIcons:
+    - circle-check
+---
 
 # Confirm
 
 This function displays a confirm with the specified properties and waits for the confirm to be closed before resolving the promise.
 
-<Preview>
-    <FluxStack axis="horizontal" is-centered>
-        <FluxSecondaryButton
-            icon-before="circle-exclamation"
-            label="Show confirm"
-            @click="show()"/>
-        <span v-if="result === true">✅</span>
-        <span v-if="result === false">❌</span>
-        <span v-if="result === null">🤔</span>
-    </FluxStack>
-</Preview>
+::: render
+render=../../../code/guide/components/attention/confirm/preview.vue
+:::
 
 ::: warning
 This feature requires a parent [Root](../root) component to function correctly, as it is responsible for rendering the confirm.
 :::
 
+<FrontmatterDocs/>
+
 ## Functional API
 
-```ts
-function showConfirm(spec: FluxConfirmObject): Promise<void> {}
+Confirms can only be shown from code. An [Overlay](../overlay) should be used if you want
+to show a confirm from within your template.
 
-interface FluxConfirmObject {
-    readonly id: number;
-    readonly icon?: IconName;
-    readonly message: string;
-    readonly title: string;
+::: render
+render=../../../code/guide/components/attention/confirm/functional.vue
+:::
 
-    onCancel(): void;
-    onConfirm(): void;
-}
-```
+::: code-group
 
-## Example
-
-```typescript
-showConfirm({
+```ts [Example]
+const result = await showConfirm({
     icon: 'circle-exclamation',
     title: 'Title',
     message: 'Are you sure?'
 });
 ```
+
+```ts [Declaration]
+declare function showConfirm(spec: FluxConfirmObject): Promise<void>;
+```
+
+```ts [Options]
+type FluxConfirmObject = {
+    readonly id: number;
+    readonly icon?: FluxIconName;
+    readonly message: string;
+    readonly title: string;
+
+    onCancel(): void;
+    onConfirm(): void;
+};
+```
+
+:::
+
+## Used components
+
+- [Button](../button)
+- [Overlay](../overlay)
+- [Pane](../pane)
+    - [Body](../pane/body)
+    - [Footer](../pane/footer)
+    - [Header](../pane/header)
+- [Spacer](../spacer)

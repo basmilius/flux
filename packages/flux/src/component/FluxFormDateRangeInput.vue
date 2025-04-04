@@ -15,7 +15,7 @@
 
                 <FluxSecondaryButton
                     :disabled="disabled"
-                    icon-before="calendar"
+                    icon-leading="calendar"
                     @click.prevent="open"/>
             </FluxFormInputGroup>
         </template>
@@ -34,14 +34,15 @@
     import { clsx } from 'clsx';
     import type { DateTime } from 'luxon';
     import { computed, ref, toRef, unref, useTemplateRef, watch } from 'vue';
-    import { useDisabled } from '@/composable';
-    import { useTranslate } from '@/composable/private';
-    import { createLabelForDateRange } from '@/util';
+    import { useDisabled } from '$flux/composable';
+    import { useTranslate } from '$flux/composable/private';
+    import type { FluxAutoCompleteType } from '$flux/types';
+    import { createLabelForDateRange } from '$flux/util';
     import FluxDatePicker from './FluxDatePicker.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxFormInputGroup from './FluxFormInputGroup.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import $style from '@/css/component/Form.module.scss';
+    import $style from '$flux/css/component/Form.module.scss';
 
     const modelValue = defineModel<[DateTime, DateTime] | null>({
         required: true
@@ -51,7 +52,7 @@
         disabled: componentDisabled,
         rangeMode = 'range'
     } = defineProps<{
-        readonly autoComplete?: string;
+        readonly autoComplete?: FluxAutoCompleteType;
         readonly autoFocus?: boolean;
         readonly disabled?: boolean;
         readonly isReadonly?: boolean;

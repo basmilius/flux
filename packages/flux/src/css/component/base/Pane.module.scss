@@ -7,7 +7,7 @@
     }
 
     [dark] .basePane {
-        border-color: rgb(var(--gray-11) / .2);
+        border-color: rgb(var(--gray-3));
     }
 
     .basePaneLoader {
@@ -30,6 +30,25 @@
 
     .basePaneStructure > .basePaneStructure {
         background: unset;
+        border: 0;
+        box-shadow: none;
+    }
+}
+
+.basePane > .basePaneElement,
+.basePane > :local(.form) > .basePaneElement {
+    &:first-child {
+        border-top-left-radius: calc(var(--radius) - 1px);
+        border-top-right-radius: calc(var(--radius) - 1px);
+    }
+
+    &:last-child,
+    &:not(.paneHeader):nth-last-child(1 of .basePaneElement) {
+        border-bottom-left-radius: calc(var(--radius) - 1px);
+        border-bottom-right-radius: calc(var(--radius) - 1px);
+    }
+
+    &:only-child {
         border: 0;
     }
 }

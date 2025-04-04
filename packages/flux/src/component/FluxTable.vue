@@ -5,8 +5,8 @@
             <slot name="header"/>
             </thead>
 
-            <tbody v-if="slots.rows">
-            <slot name="rows"/>
+            <tbody v-if="slots.default">
+            <slot/>
             </tbody>
 
             <tfoot v-if="slots.footer">
@@ -32,9 +32,9 @@
     lang="ts"
     setup>
     import { provide } from 'vue';
-    import { FluxTableInjectionKey } from '@/data';
+    import { FluxTableInjectionKey } from '$flux/data';
     import FluxSpinner from './FluxSpinner.vue';
-    import $style from '@/css/component/Table.module.scss';
+    import $style from '$flux/css/component/Table.module.scss';
 
     const {
         captionSide = 'bottom',
@@ -53,10 +53,10 @@
     }>();
 
     const slots = defineSlots<{
+        default?(): any;
         caption?(): any;
         footer?(): any;
         header?(): any;
-        rows?(): any;
     }>();
 
     provide(FluxTableInjectionKey, {

@@ -1,11 +1,11 @@
 import type { DateTime } from 'luxon';
-import type { FluxTranslator } from '@/composable/private';
-import type { IconName } from './common';
+import type { FluxTranslator } from '$flux/composable/private';
+import type { FluxIconName } from './common';
 
 export type FluxFilterBase = {
     getValueLabel(value: FluxFilterValue, translate: FluxTranslator): Promise<string | null>;
 
-    readonly icon?: IconName;
+    readonly icon?: FluxIconName;
     readonly label: string;
     readonly name: string;
 };

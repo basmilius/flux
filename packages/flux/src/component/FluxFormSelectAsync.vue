@@ -18,10 +18,10 @@
     setup>
     import { useDebouncedRef } from '@basmilius/flux-internals';
     import { computed, ref, toRef, unref, watch } from 'vue';
-    import { SelectBase } from '@/component/primitive';
-    import { useDisabled } from '@/composable';
-    import { FormSelectOption, FormSelectValue, FormSelectValueSingle, useFormSelect, useLoaded } from '@/composable/private';
-    import { isFluxFormSelectOption } from '@/data';
+    import { SelectBase } from '$flux/component/primitive';
+    import { useDisabled } from '$flux/composable';
+    import { FormSelectOption, FormSelectValue, FormSelectValueSingle, useFormSelect, useLoaded } from '$flux/composable/private';
+    import { isFluxFormSelectOption } from '$flux/data';
 
     const modelSearch = defineModel<string>('searchQuery', {
         default: ''

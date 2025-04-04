@@ -23,19 +23,22 @@
 <script
     lang="ts"
     setup>
-    import type { To } from '@basmilius/flux';
-    import { useSlots } from 'vue';
-    import { useDashboardInjection } from '@/composable';
-    import $style from '@/css/component/Dashboard.module.scss';
+    import type { FluxTo } from '@basmilius/flux';
+    import { useDashboardInjection } from '$fluxDashboard/composable';
+    import $style from '$fluxDashboard/css/component/Dashboard.module.scss';
 
     defineOptions({
         inheritAttrs: false
     });
 
     defineProps<{
-        logoLocation?: To
+        logoLocation?: FluxTo
+    }>();
+
+    const slots = defineSlots<{
+        default(): any;
+        logo?(): any;
     }>();
 
     const {isNavigationCollapsed} = useDashboardInjection();
-    const slots = useSlots();
 </script>

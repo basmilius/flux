@@ -1,4 +1,4 @@
-import '@/css/index.scss';
+import './css/index.scss';
 
 export * from './component';
 export * from './composable';
@@ -16,7 +16,6 @@ export {
 } from './data';
 
 export type {
-    FluxBreakpointsInjection,
     FluxExpandableGroupInjection,
     FluxFilterInjection,
     FluxFlyoutInjection,
@@ -26,6 +25,20 @@ export type {
 } from './data';
 
 export type {
+    FluxColorVariant,
+    FluxDirection,
+    FluxIconName,
+    FluxInputMask,
+    FluxInputType,
+    FluxPressableType,
+    FluxSize,
+    FluxTo,
+
+    FluxButtonEmits,
+    FluxButtonProps,
+    FluxButtonSize,
+    FluxButtonSlots,
+
     FluxAlertObject,
     FluxConfirmObject,
     FluxPromptObject,
@@ -53,9 +66,6 @@ export type {
     FluxFocalPointObject,
     FluxLegendObject,
     FluxPercentageBarItemObject,
-    FluxSegmentedControlItemObject,
-
-    IconName,
-    To
+    FluxSegmentedControlItemObject
 } from './types';
 

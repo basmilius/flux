@@ -1,7 +1,8 @@
-@use '@/css/mixin';
+@use '$flux/css/mixin';
 
-@value flexColumn from '@/css/component/base/Flex.module.scss';
-@value basePane from '@/css/component/base/Pane.module.scss';
+@value flexColumn from './base/Flex.module.scss';
+
+@value basePane from './base/Pane.module.scss';
 
 .expandable {
     composes: flexColumn;
@@ -17,16 +18,19 @@
     padding-left: 21px;
     padding-right: 21px;
     align-items: center;
+    gap: 12px;
     background: unset;
     border: 0;
     color: var(--foreground-prominent);
     cursor: pointer;
     text-align: left;
+    transition: background 180ms var(--swift-out);
+    transition-property: background, mixin.focus-ring-transition-properties();
     z-index: 1;
 
-    @include mixin.focus-ring-transition();
+    @include mixin.focus-ring();
 
-    &:hover {
+    @include mixin.hover {
         background: rgb(var(--gray-1));
     }
 
@@ -34,12 +38,14 @@
         flex-grow: 1;
         font-weight: 600;
     }
+
+    :local(.icon):last-child {
+        color: var(--foreground-secondary);
+    }
 }
 
 .expandableBody {
-    transition: height 390ms var(--swift-out),
-                translate 300ms var(--swift-out) 120ms,
-                opacity 300ms var(--swift-out) 120ms;
+    transition: height 390ms var(--swift-out), translate 300ms var(--swift-out) 120ms, opacity 300ms var(--swift-out) 120ms;
 
     &:global(.v-enter-from),
     &:global(.v-leave-to) {
@@ -84,15 +90,15 @@
     flex-flow: column;
 
     .expandable + .expandable {
-        border-top: 1px solid rgb(var(--gray-3));
+        border-top: 1px solid rgb(var(--gray-2));
     }
 
     &:not(:first-child) {
-        border-top: 1px solid rgb(var(--gray-3));
+        border-top: 1px solid rgb(var(--gray-2));
     }
 
     &:not(:last-child) {
-        border-bottom: 1px solid rgb(var(--gray-3));
+        border-bottom: 1px solid rgb(var(--gray-2));
     }
 }
 

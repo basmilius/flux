@@ -20,7 +20,7 @@
                 :class="$style.formSelectSelected"
                 :command="selected[0].command"
                 :command-icon="selected[0].commandIcon"
-                :icon-before="selected[0].icon"
+                :icon-leading="selected[0].icon"
                 :label="selected[0].label"
                 tabindex="-1"/>
         </template>
@@ -62,7 +62,7 @@
                     isSearchable && $style.isSearchable
                 )"
                 :anchor="anchorRef"
-                axis="vertical"
+                direction="vertical"
                 use-anchor-width>
                 <FluxFormInput
                     v-if="isSearchable"
@@ -71,13 +71,13 @@
                     auto-complete="off"
                     :class="$style.formSelectInput"
                     type="search"
-                    icon-after="magnifying-glass"
+                    icon-trailing="magnifying-glass"
                     :placeholder="translate('flux.search')"
                     @keydown="onKeyDown"/>
 
-                <FluxPaneBody v-if="!isLoading && options.length === 0">
-                    <em>{{ translate('flux.noItems') }}</em>
-                </FluxPaneBody>
+                <FluxMenu v-if="!isLoading && options.length === 0">
+                    <FluxMenuSubHeader :label="translate('flux.noItems')"/>
+                </FluxMenu>
 
                 <FluxMenu v-else>
                     <template
@@ -86,7 +86,7 @@
                         <FluxMenuGroup>
                             <FluxMenuSubHeader
                                 v-if="isFluxFormSelectGroup(item)"
-                                :icon-before="item.icon"
+                                :icon-leading="item.icon"
                                 :label="item.label"/>
 
                             <template v-for="(subItem, index) of subItems">
@@ -96,7 +96,7 @@
                                     :key="index"
                                     :command="subItem.command"
                                     :command-icon="subItem.commandIcon"
-                                    :icon-before="subItem.icon"
+                                    :icon-leading="subItem.icon"
                                     :is-active="!!selected.find(so => so.value === subItem.value)"
                                     :is-highlighted="highlightedId === subItem.value"
                                     :label="subItem.label"
@@ -111,7 +111,7 @@
                             :key="`item-${index}`"
                             :command="item.command"
                             :command-icon="item.commandIcon"
-                            :icon-before="item.icon"
+                            :icon-leading="item.icon"
                             :is-active="!!selected.find(so => so.value === item.value)"
                             :is-highlighted="highlightedId === item.value"
                             :label="item.label"
@@ -130,23 +130,23 @@
     import { unrefTemplateElement, useClickOutside } from '@basmilius/flux-internals';
     import { clsx } from 'clsx';
     import { ComponentPublicInstance, computed, nextTick, ref, toRef, unref, useTemplateRef, watch } from 'vue';
-    import { useDisabled, useFormFieldInjection } from '@/composable';
-    import { type FormSelectGroup, useTranslate } from '@/composable/private';
-    import { isFluxFormSelectGroup, isFluxFormSelectOption } from '@/data';
-    import type { FluxFormSelectOption } from '@/types';
-    import { FluxFadeTransition } from '@/transition';
-    import FluxFormInput from '../FluxFormInput.vue';
-    import FluxIcon from '../FluxIcon.vue';
-    import FluxMenu from '../FluxMenu.vue';
-    import FluxMenuGroup from '../FluxMenuGroup.vue';
-    import FluxMenuItem from '../FluxMenuItem.vue';
-    import FluxMenuSubHeader from '../FluxMenuSubHeader.vue';
-    import FluxPaneBody from '../FluxPaneBody.vue';
-    import FluxSpinner from '../FluxSpinner.vue';
-    import FluxTag from '../FluxTag.vue';
+    import { useDisabled, useFormFieldInjection } from '$flux/composable';
+    import { type FormSelectGroup, useTranslate } from '$flux/composable/private';
+    import { isFluxFormSelectGroup, isFluxFormSelectOption } from '$flux/data';
+    import type { FluxFormSelectOption } from '$flux/types';
+    import { FluxFadeTransition } from '$flux/transition';
+    import FluxFormInput from '$flux/component/FluxFormInput.vue';
+    import FluxIcon from '$flux/component/FluxIcon.vue';
+    import FluxMenu from '$flux/component/FluxMenu.vue';
+    import FluxMenuGroup from '$flux/component/FluxMenuGroup.vue';
+    import FluxMenuItem from '$flux/component/FluxMenuItem.vue';
+    import FluxMenuSubHeader from '$flux/component/FluxMenuSubHeader.vue';
+    import FluxPaneBody from '$flux/component/FluxPaneBody.vue';
+    import FluxSpinner from '$flux/component/FluxSpinner.vue';
+    import FluxTag from '$flux/component/FluxTag.vue';
     import Anchor from './Anchor.vue';
     import AnchorPopup from './AnchorPopup.vue';
-    import $style from '@/css/component/Form.module.scss';
+    import $style from '$flux/css/component/Form.module.scss';
 
     const INITIAL_HIGHLIGHTED_INDEX = -1;
 

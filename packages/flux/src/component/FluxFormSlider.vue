@@ -27,8 +27,8 @@
     setup>
     import { clampWithStepPrecision, countDecimals, formatNumber } from '@basmilius/utils';
     import { computed, ref, toRef, unref, useTemplateRef, watch, watchEffect } from 'vue';
-    import { useDisabled } from '@/composable';
-    import { addTooltip, removeTooltip, updateTooltip } from '@/data';
+    import { useDisabled } from '$flux/composable';
+    import { addTooltip, removeTooltip, updateTooltip } from '$flux/data';
     import { SliderBase, SliderThumb, SliderTrack } from './primitive';
 
     const modelValue = defineModel<number>({
@@ -68,8 +68,8 @@
 
         if (is && !tooltipId.value && !isTooltipDisabled) {
             tooltipId.value = addTooltip({
-                axis: 'vertical',
                 content: unref(tooltipContent),
+                direction: 'vertical',
                 origin: unref(thumbRef)?.$el
             });
         } else if (!is && tooltipId.value) {

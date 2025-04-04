@@ -133,7 +133,7 @@
     import FluxFormField from './FluxFormField.vue';
     import FluxFormInput from './FluxFormInput.vue';
     import FluxFormSlider from './FluxFormSlider.vue';
-    import $style from '@/css/component/Color.module.scss';
+    import $style from '$flux/css/component/Color.module.scss';
 
     const modelValue = defineModel<string | [number, number, number]>({
         default: blue500

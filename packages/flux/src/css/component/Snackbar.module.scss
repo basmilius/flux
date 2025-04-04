@@ -1,13 +1,14 @@
-@use '@/css/mixin';
+@use '$flux/css/mixin';
 
-@value flexColumn, flexRow, flexGrow from '@/css/component/base/Flex.module.scss';
-@value basePane from '@/css/component/base/Pane.module.scss';
+@value flexColumn, flexRow, flexGrow from './base/Flex.module.scss';
+
+@value basePane from './base/Pane.module.scss';
 
 .snackbar {
     composes: basePane;
     composes: flexRow;
 
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-xl), var(--shadow-2xl);
     overflow: hidden;
 
     .action {
@@ -48,7 +49,6 @@
 
     align-self: stretch;
     flex-flow: column;
-    gap: 3px;
 }
 
 .snackbarMessage {
@@ -57,7 +57,7 @@
 
 .snackbarSubMessage {
     color: var(--foreground-secondary);
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .snackbarTitle {
@@ -66,7 +66,7 @@
 
 .snackbarAction {
     display: flex;
-    padding: 9px 15px;
+    padding: 6px 15px;
     min-width: 84px;
     align-items: center;
     justify-content: center;
@@ -99,7 +99,7 @@
 
     padding-left: 1px;
     gap: 1px;
-    background: rgb(var(--gray-3));
+    background: rgb(var(--gray-2));
 }
 
 .snackbarGray {
@@ -201,9 +201,9 @@
     }
 
     @include mixin.breakpoint-up(md) {
-        width: 480px;
+        width: 540px;
         top: 30px;
-        right: 30px;
+        left: calc(50dvw - 270px);
     }
 }
 
@@ -220,15 +220,12 @@
 
 .snackbarsEnterFrom {
     opacity: 0;
-    transform: translate3d(0, -50%, 0);
-
-    @include mixin.breakpoint-up(lg) {
-        transform: translate3d(100%, 0, 0);
-    }
+    transform: translate3d(0, -15px, 0);
 }
 
 .snackbarsLeaveTo {
     opacity: 0;
     scale: .95;
-    transform: translate3d(0, -25%, 0);
+    translate: 0 -15px;
+    z-index: -1;
 }

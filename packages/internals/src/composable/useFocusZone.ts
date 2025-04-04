@@ -1,9 +1,9 @@
 import { watch } from 'vue';
-import type { TemplateRef } from '@/util';
-import { getBidirectionalFocusElement, getFocusableElement, getFocusableElements, unrefTemplateElement } from '@/util';
+import type { TemplateRef } from '../util';
+import { getBidirectionalFocusElement, getFocusableElement, getFocusableElements, unrefTemplateElement } from '../util';
 import useMutationObserver from './useMutationObserver';
 
-export default function <TElement extends HTMLElement>(containerRef: TemplateRef<TElement>, {cycle = true, direction = 'bidirectional'}: UseFocusZoneOptions = {}) {
+export default function <TElement extends HTMLElement>(containerRef: TemplateRef<TElement>, {cycle = true, direction = 'bidirectional'}: UseFocusZoneOptions = {}): void {
     useMutationObserver(containerRef, () => updateFocus(findInitialIndex(), false));
 
     function findInitialIndex(): number {
@@ -121,7 +121,7 @@ function handleDirectionalFocus(evt: KeyboardEvent, container: HTMLElement, cycl
     evt.preventDefault();
 }
 
-interface UseFocusZoneOptions {
+type UseFocusZoneOptions = {
     readonly cycle?: boolean;
     readonly direction?: 'bidirectional' | 'horizontal' | 'vertical';
-}
+};

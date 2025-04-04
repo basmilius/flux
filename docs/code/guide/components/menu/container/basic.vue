@@ -1,15 +1,15 @@
 <template>
     <FluxMenu>
         <FluxMenuItem
-            icon-before="grid-2"
+            icon-leading="grid-2"
             label="Overview"/>
 
         <FluxMenuItem
-            icon-before="rocket"
+            icon-leading="rocket"
             label="Releases"/>
 
         <FluxMenuItem
-            icon-before="rectangle-history"
+            icon-leading="rectangle-history"
             label="History"/>
     </FluxMenu>
 </template>

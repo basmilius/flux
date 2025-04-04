@@ -1,19 +1,19 @@
 <template>
     <div
-        :class="axis === 'horizontal' ? $style.separatorHorizontal : $style.separatorVertical"
+        :class="direction === 'horizontal' ? $style.separatorHorizontal : $style.separatorVertical"
         role="separator"
-        :aria-orientation="axis"/>
+        :aria-orientation="direction"/>
 </template>
 
 <script
     lang="ts"
     setup>
-    import type { Axis } from '@/types';
-    import $style from '@/css/component/Divider.module.scss';
+    import type { FluxDirection } from '$flux/types';
+    import $style from '$flux/css/component/Divider.module.scss';
 
     const {
-        axis = 'horizontal'
+        direction = 'horizontal'
     } = defineProps<{
-        readonly axis?: Axis;
+        readonly direction?: FluxDirection;
     }>();
 </script>

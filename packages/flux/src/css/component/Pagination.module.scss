@@ -1,3 +1,5 @@
+@use '$flux/css/mixin';
+
 .pagination {
     z-index: 0;
 
@@ -27,6 +29,7 @@
 
 .paginationBar {
     align-items: center;
+    flex-direction: column;
 
     .formInputGroup {
         max-width: max-content;
@@ -38,6 +41,16 @@
 
     .pagination .button:first-child {
         border-radius: 0;
+    }
+
+    @include mixin.breakpoint-up(lg) {
+        flex-direction: row;
+    }
+}
+
+@include mixin.breakpoint-down(md) {
+    .paginationBarSpacer {
+        display: none;
     }
 }
 

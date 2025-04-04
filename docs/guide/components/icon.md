@@ -14,14 +14,8 @@ props:
 
     -   name: variant
         description: The icon variant.
-        type: IconName
+        type: FluxIconName
 ---
-
-<script
-    lang="ts"
-    setup>
-    import { FluxIcon, FluxStack } from '@basmilius/flux';
-</script>
 
 # Icon
 
@@ -31,21 +25,9 @@ Please refer to [Font Awesome](../introduction/font-awesome) to read more about 
 
 There is also a [Boxed icon](./boxed-icon) variant available.
 
-<Preview>
-    <FluxStack
-        axis="horizontal"
-        :gap="36">
-        <FluxIcon
-            :size="48"
-            variant="circle-check"/>
-        <FluxIcon
-            :size="48"
-            variant="lock"/>
-        <FluxIcon
-            :size="48"
-            variant="rocket"/>
-    </FluxStack>
-</Preview>
+::: render
+render=../../code/guide/components/icon/preview.vue
+:::
 
 <FrontmatterDocs/>
 

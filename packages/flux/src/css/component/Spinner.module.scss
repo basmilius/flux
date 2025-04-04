@@ -1,5 +1,5 @@
 .spinner {
-    --track: rgb(var(--gray-4));
+    --track: rgb(var(--gray-2));
     --value: rgb(var(--primary-7));
 
     display: inline-block;
@@ -7,6 +7,7 @@
     width: 1em;
     flex: 0 0 1em;
     animation: spinner 5s linear infinite;
+    font-size: 20px;
 }
 
 .spinnerTrack {

@@ -24,19 +24,28 @@
     </a>
 
     <button
-        v-else
+        v-else-if="componentType === 'button'"
         v-bind="$attrs"
         @click="onClick($event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)">
         <slot/>
     </button>
+
+    <div
+        v-else
+        v-bind="$attrs"
+        @click="onClick"
+        @mouseenter="$emit('mouseenter', $event)"
+        @mouseleave="$emit('mouseleave', $event)">
+        <slot/>
+    </div>
 </template>
 
 <script
     lang="ts"
     setup>
-    import type { PressableType, To } from '@/types';
+    import type { FluxPressableType, FluxTo } from '$flux/types';
 
     const emit = defineEmits<{
         click: [MouseEvent];
@@ -45,11 +54,11 @@
     }>();
 
     defineProps<{
-        readonly componentType?: PressableType;
+        readonly componentType?: FluxPressableType;
         readonly href?: string;
         readonly rel?: string;
         readonly target?: string;
-        readonly to?: To;
+        readonly to?: FluxTo;
     }>();
 
     defineSlots<{

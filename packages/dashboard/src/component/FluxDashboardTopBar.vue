@@ -7,5 +7,5 @@
 <script
     lang="ts"
     setup>
-    import $style from '@/css/component/Dashboard.module.scss';
+    import $style from '$fluxDashboard/css/component/Dashboard.module.scss';
 </script>

@@ -2,13 +2,10 @@
     "name": "flux-workspace",
     "private": true,
     "scripts": {
-        "build": "pnpm --filter '@basmilius/*' -r build",
-        "dev": "pnpm --filter '@basmilius/*' -r --parallel dev",
-        "link:base": "pnpm link --dir packages/flux --global",
-        "link:dashboard": "pnpm link --dir packages/dashboard --global"
+        "dev": "bun --filter '@basmilius/*' dev"
     },
-    "engines": {
-        "node": ">=23"
-    },
-    "packageManager": "pnpm@9.15.4"
+    "workspaces": [
+        "docs",
+        "packages/*"
+    ]
 }

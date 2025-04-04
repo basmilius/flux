@@ -17,7 +17,7 @@ emits:
 props:
     -   name: type
         description: The type of button.
-        type: [ '"button"', '"link"', '"route"' ]
+        type: [ '"button"', '"link"', '"route"', '"none"' ]
         default: button
         optional: true
 
@@ -26,14 +26,19 @@ props:
         type: boolean
         optional: true
 
-    -   name: icon-after
-        description: The icon at the end of the button.
-        type: IconName
+    -   name: icon-leading
+        description: The icon at the start of the button.
+        type: FluxIconName
         optional: true
 
-    -   name: icon-before
-        description: The icon at the start of the button.
-        type: IconName
+    -   name: icon-trailing
+        description: The icon at the end of the button.
+        type: FluxIconName
+        optional: true
+
+    -   name: is-filled
+        description: Let the button fill its parent container.
+        type: boolean
         optional: true
 
     -   name: is-loading
@@ -79,24 +84,24 @@ props:
 
     -   name: to
         description: This prop is enabled if the button's type is set to route. This integrates with Vue Router.
-        type: To
+        type: FluxTo
         optional: true
 
 slots:
-    - name: after
-      description: Content that is shown at the end of the button.
-      
-    - name: before
-      description: Content that is shown at the start of the button.
-      
-    - name: icon-after
-      description: Slot for overriding the icon at the end.
-      
-    - name: icon-before
-      description: Slot for overriding the icon at the start.
-      
-    - name: label
-      description: Slot for overriding the label.
+    -   name: after
+        description: Content that is shown at the end of the button.
+
+    -   name: before
+        description: Content that is shown at the start of the button.
+
+    -   name: icon-leading
+        description: Slot for overriding the icon at the start.
+
+    -   name: icon-trailing
+        description: Slot for overriding the icon at the end.
+
+    -   name: label
+        description: Slot for overriding the label.
 
 variants:
     - FluxPrimaryButton
@@ -105,92 +110,41 @@ variants:
     - FluxPublishButton
 ---
 
-<script
-    lang="ts"
-    setup>
-    import { FluxPrimaryButton } from '@basmilius/flux';
-    import DestructiveExample from '../../code/guide/components/button/destructive.vue';
-    import PrimaryExample from '../../code/guide/components/button/primary.vue';
-    import PublishExample from '../../code/guide/components/button/publish.vue';
-    import SecondaryExample from '../../code/guide/components/button/secondary.vue';
-    import SizesExample from '../../code/guide/components/button/sizes.vue';
-</script>
-
 # Button
 
 Buttons are clickable elements designed to trigger actions. They can start new processes, modify existing ones, or perform specific tasks. When designing your interface, ensure primary buttons are prominently placed and clearly indicate their purpose to make them easy to find and use.
 
-<Preview>
-    <FluxPrimaryButton
-        icon-before="circle-check"
-        label="Save"/>
-</Preview>
+::: render
+render=../../code/guide/components/button/preview.vue
+:::
 
 <FrontmatterDocs/>
 
 ## Examples
 
-### Primary
-
-Primary buttons can be used for tasks such as saving.
-
-<Preview>
-    <PrimaryExample/>
-</Preview>
+::: example Primary || Primary buttons can be used for tasks such as saving.
+example=../../code/guide/components/button/primary.vue
+:::
 
 ::: warning
 Overusing primary buttons can distract users, so use them sparingly in your interface.
 :::
 
-<<< @/code/guide/components/button/primary.vue
+::: example Secondary || Secondary buttons can be used in situations that are not covered by other buttons.
+example=../../code/guide/components/button/secondary.vue
+:::
 
-### Secondary
+::: example Destructive || Destructive buttons can be used for destructive actions such as deleting something.
+example=../../code/guide/components/button/destructive.vue
+:::
 
-Secondary buttons can be used in situations that are not covered by other buttons.
+::: example Publish || Publish buttons can be used in situations where the user can publish something.
+example=../../code/guide/components/button/publish.vue
+:::
 
-<Preview>
-    <SecondaryExample/>
-</Preview>
-
-<<< @/code/guide/components/button/secondary.vue
-
-### Destructive
-
-Destructive buttons can be used for destructive actions such as deleting something.
-
-<Preview>
-    <DestructiveExample/>
-</Preview>
-
-<<< @/code/guide/components/button/destructive.vue
-
-### Publish
-
-Publish buttons can be used in situations where the user can publish something.
-
-<Preview>
-    <PublishExample/>
-</Preview>
-
-<<< @/code/guide/components/button/publish.vue
-
-### Sizes
-
-Buttons can have three different sizes.
-
-<Preview>
-    <SizesExample/>
-</Preview>
-
-<<< @/code/guide/components/button/sizes.vue
-
-## Snippet
-
-```vue
-<FluxPrimaryButton
-    icon-before="circle-check"
-    label="Save"/>
-```
+::: example Sizes || Buttons can have three different sizes.
+example=../../code/guide/components/button/sizes.vue
+:::
 
 ## Used components
 

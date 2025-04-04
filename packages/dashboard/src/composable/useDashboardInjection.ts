@@ -1,5 +1,5 @@
 import { inject } from 'vue';
-import { FluxDashboardInjection, FluxDashboardInjectionKey } from '@/data';
+import { FluxDashboardInjection, FluxDashboardInjectionKey } from '$fluxDashboard/data';
 
 export default function (): FluxDashboardInjection {
     const injection = inject(FluxDashboardInjectionKey);

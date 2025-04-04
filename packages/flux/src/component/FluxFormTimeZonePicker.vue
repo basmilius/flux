@@ -12,9 +12,9 @@
     setup>
     import { upperFirst } from 'lodash-es';
     import { computed, toRef } from 'vue';
-    import { useDisabled } from '@/composable';
-    import { FluxTranslationKey, useTranslate } from '@/composable/private';
-    import { FluxFormSelectEntry } from '@/types';
+    import { useDisabled } from '$flux/composable';
+    import { FluxTranslationKey, useTranslate } from '$flux/composable/private';
+    import { FluxFormSelectEntry } from '$flux/types';
     import FluxFormSelect from './FluxFormSelect.vue';
 
     const timeZones = [

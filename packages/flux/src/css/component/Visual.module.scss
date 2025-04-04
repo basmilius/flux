@@ -12,10 +12,8 @@
 }
 
 .animatedColors {
-    position: absolute;
-    inset: 0;
-    height: 100%;
-    width: 100%;
+    composes: fillVisual;
+
     filter: blur(60px) saturate(180%);
 }
 

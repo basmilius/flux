@@ -7,7 +7,7 @@
 <script
     lang="ts"
     setup>
-    import $style from '@/css/component/Button.module.scss';
+    import $style from '$flux/css/component/Button.module.scss';
 
     defineSlots<{
         default(): any;

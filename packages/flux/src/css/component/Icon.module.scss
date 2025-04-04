@@ -1,13 +1,31 @@
-@value basePane from '@/css/component/base/Pane.module.scss';
+@value basePane from './base/Pane.module.scss';
 
 @layer flux-base {
     .icon {
-        display: inline-block;
         height: 1em;
         width: 1em;
         flex-shrink: 0;
         font-size: 20px;
-        line-height: 1em;
+        line-height: 1;
+    }
+
+    .fontAwesomeIcon {
+        composes: icon;
+
+        display: inline-block;
+    }
+
+    .materialSymbolIcon {
+        composes: icon;
+
+        display: inline-flex;
+        color: currentColor;
+        font-family: 'Material Symbols Outlined', sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        user-select: none;
+        -webkit-font-feature-settings: 'liga';
+        -webkit-font-smoothing: antialiased;
     }
 
     .iconBoxed {
@@ -23,6 +41,10 @@
 
         .icon {
             font-size: .33em;
+        }
+
+        .materialSymbolIcon {
+            font-size: .5em;
         }
     }
 
@@ -41,7 +63,7 @@
     .iconBoxedGray {
         composes: iconBoxedColored;
 
-        background: rgb(var(--gray-3));
+        background: rgb(var(--gray-2));
         color: var(--foreground);
     }
 

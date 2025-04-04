@@ -1,8 +1,8 @@
 <template>
     <FluxPane
         :class="clsx(
-            axis === 'horizontal' && $style.statisticHorizontal,
-            axis === 'vertical' && $style.statisticVertical,
+            direction === 'horizontal' && $style.statisticHorizontal,
+            direction === 'vertical' && $style.statisticVertical,
             color === 'gray' && $style.isGray,
             color === 'primary' && $style.isPrimary,
             color === 'danger' && $style.isDanger,
@@ -46,22 +46,22 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { Axis, ColorVariant, IconName } from '@/types';
+    import type { FluxColorVariant, FluxDirection, FluxIconName } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxPane from './FluxPane.vue';
-    import $style from '@/css/component/Statistic.module.scss';
+    import $style from '$flux/css/component/Statistic.module.scss';
 
     const {
-        axis = 'horizontal',
         changeColor = 'gray',
-        color = 'gray'
+        color = 'gray',
+        direction = 'horizontal'
     } = defineProps<{
-        readonly axis?: Axis;
-        readonly changeColor?: ColorVariant;
-        readonly changeIcon?: IconName;
+        readonly changeColor?: FluxColorVariant;
+        readonly changeIcon?: FluxIconName;
         readonly changeValue?: string;
-        readonly color?: ColorVariant;
-        readonly icon: IconName;
+        readonly color?: FluxColorVariant;
+        readonly direction?: FluxDirection;
+        readonly icon: FluxIconName;
         readonly label: string;
         readonly value: string;
     }>();

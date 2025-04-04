@@ -1,13 +1,15 @@
-@value flexRow, inlineFlexRow from '@/css/component/base/Flex.module.scss';
+@use '$flux/css/mixin';
+
+@value flexRow, inlineFlexRow from './base/Flex.module.scss';
 
 .segmentedControl {
     position: relative;
     padding: 3px;
     align-items: center;
     gap: 1px;
-    background: rgb(var(--gray-0));
-    border: 1px solid rgb(var(--gray-11) / .05);
-    border-radius: calc(var(--radius) + 3px)
+    background: rgb(var(--gray-1));
+    border: 1px solid rgb(var(--gray-2));
+    border-radius: var(--radius);
 }
 
 .segmentedControlFill {
@@ -26,8 +28,10 @@
     position: absolute;
     top: 3px;
     bottom: 3px;
-    background: rgb(var(--gray-3));
-    border-radius: var(--radius);
+    background: rgb(var(--gray-0));
+    border: 1px solid rgb(var(--gray-3));
+    border-radius: calc(var(--radius) - 3px);
+    box-shadow: var(--shadow-sm);
     pointer-events: none;
     transition: 300ms var(--swift-out);
     transition-property: left, width;
@@ -44,7 +48,7 @@
     justify-content: center;
     background: none;
     border: 0;
-    border-radius: var(--radius);
+    border-radius: calc(var(--radius) - 3px);
     color: var(--foreground);
     cursor: pointer;
     font-weight: 500;
@@ -52,10 +56,8 @@
     transition: 300ms var(--swift-out);
     transition-property: background, color;
 
-    @media (hover: hover) {
-        &:hover {
-            background: rgb(var(--gray-2));
-        }
+    @include mixin.hover {
+        background: rgb(var(--gray-2));
     }
 
     &.isActive {
@@ -73,7 +75,7 @@
     height: 15px;
     width: 1px;
     flex-shrink: 0;
-    background: rgb(var(--gray-4));
+    background: rgb(var(--gray-3));
     transition: opacity 300ms var(--swift-out);
 
     &.isActive {

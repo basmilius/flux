@@ -1,11 +1,11 @@
 import type { Ref } from 'vue';
 import { ref, watch } from 'vue';
-import type { TemplateRef } from '@/util';
-import { getFocusableElements, isSSR, unrefTemplateElement, wrapFocus } from '@/util';
+import type { TemplateRef } from '../util';
+import { getFocusableElements, isSSR, unrefTemplateElement, wrapFocus } from '../util';
 import useFocusTrapLock from './useFocusTrapLock';
 import useFocusTrapReturn from './useFocusTrapReturn';
 
-export default function (containerRef: TemplateRef<HTMLElement>, options: UseFocusTrapOptions = {}) {
+export default function (containerRef: TemplateRef<HTMLElement>, options: UseFocusTrapOptions = {}): void {
     if (isSSR) {
         return;
     }
@@ -105,8 +105,8 @@ export default function (containerRef: TemplateRef<HTMLElement>, options: UseFoc
     }, {immediate: true});
 }
 
-interface UseFocusTrapOptions {
+type UseFocusTrapOptions = {
     attachTo?: HTMLElement | Document;
     disable?: Ref<boolean>;
     disableReturn?: Ref<boolean>;
-}
+};

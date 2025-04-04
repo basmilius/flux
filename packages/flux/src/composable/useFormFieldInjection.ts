@@ -1,5 +1,5 @@
 import { inject, useId } from 'vue';
-import { FluxFormFieldInjectionKey } from '@/data';
+import { FluxFormFieldInjectionKey } from '$flux/data';
 
 export default function () {
     return inject(FluxFormFieldInjectionKey, {

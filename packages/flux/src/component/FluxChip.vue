@@ -7,22 +7,24 @@
             isSelected && $style.isSelected
         )"
         @click="$emit('click', $event)">
-        <FluxIcon
-            v-if="isSelectable"
-            :size="16"
-            :variant="isSelected ? 'check' : (iconBefore ?? 'plus')"/>
+        <FluxFadeTransition v-if="isSelectable">
+            <FluxIcon
+                :key="isSelected ? 'check' : (iconLeading ?? 'plus')"
+                :size="16"
+                :variant="isSelected ? 'check' : (iconLeading ?? 'plus')"/>
+        </FluxFadeTransition>
 
         <FluxIcon
-            v-else-if="iconBefore"
+            v-else-if="iconLeading"
             :size="16"
-            :variant="iconBefore"/>
+            :variant="iconLeading"/>
 
         <span>{{ label }}</span>
 
         <FluxIcon
-            v-if="iconAfter"
+            v-if="iconTrailing"
             :size="16"
-            :variant="iconAfter"/>
+            :variant="iconTrailing"/>
     </component>
 </template>
 
@@ -30,17 +32,18 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { IconName } from '@/types';
+    import { FluxFadeTransition } from '$flux/transition';
+    import type { FluxIconName } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '@/css/component/Chip.module.scss';
+    import $style from '$flux/css/component/Chip.module.scss';
 
     defineEmits<{
         click: [MouseEvent];
     }>();
 
     defineProps<{
-        readonly iconAfter?: IconName;
-        readonly iconBefore?: IconName;
+        readonly iconLeading?: FluxIconName;
+        readonly iconTrailing?: FluxIconName;
         readonly isSelectable?: boolean;
         readonly isSelected?: boolean;
         readonly label: string;

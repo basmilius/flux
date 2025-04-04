@@ -1,3 +1,5 @@
+@use '$flux/css/mixin';
+
 .remove {
     position: absolute;
     display: flex;
@@ -15,10 +17,8 @@
     transition: 300ms var(--swift-out);
     transition-property: background, opacity, scale;
 
-    @media (hover: hover) {
-        &:hover {
-            background: rgb(var(--danger-8));
-        }
+    @include mixin.hover {
+        background: rgb(var(--danger-8));
     }
 
     &.isHidden {

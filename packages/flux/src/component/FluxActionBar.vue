@@ -1,7 +1,7 @@
 <template>
     <FluxStack
         :class="$style.actionBar"
-        axis="horizontal"
+        direction="horizontal"
         :gap="9">
         <slot name="primary"/>
         <slot name="actionsStart"/>
@@ -19,7 +19,7 @@
                     name="filterOpener">
                     <FluxButtonGroup>
                         <FluxSecondaryButton
-                            icon-before="filter"
+                            icon-leading="filter"
                             :label="translate('flux.filter')"
                             @click="open"/>
 
@@ -27,7 +27,7 @@
                             v-if="isResettable"
                             :content="translate('flux.filterReset')">
                             <FluxDestructiveButton
-                                icon-before="xmark"
+                                icon-leading="xmark"
                                 @click="$emit('reset')"/>
                         </FluxTooltip>
                     </FluxButtonGroup>
@@ -48,7 +48,7 @@
 <script
     lang="ts"
     setup>
-    import { useTranslate } from '@/composable/private';
+    import { useTranslate } from '$flux/composable/private';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxDestructiveButton from './FluxDestructiveButton.vue';
     import FluxFlyout from './FluxFlyout.vue';
@@ -56,7 +56,7 @@
     import FluxSpacer from './FluxSpacer.vue';
     import FluxStack from './FluxStack.vue';
     import FluxTooltip from './FluxTooltip.vue';
-    import $style from '@/css/component/Action.module.scss';
+    import $style from '$flux/css/component/Action.module.scss';
 
     defineEmits<{
         reset: [];

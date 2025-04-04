@@ -16,7 +16,7 @@
                 )"
                 tabindex="-1"
                 type="button"
-                @click="activate(step)">
+                @click="activate(step - 1)">
                 <span :class="$style.stepperStepsItemParticles"/>
 
                 <FluxFadeTransition>
@@ -38,9 +38,9 @@
     setup>
     import { clsx } from 'clsx';
     import { computed } from 'vue';
-    import { FluxFadeTransition } from '@/transition';
+    import { FluxFadeTransition } from '$flux/transition';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '@/css/component/Stepper.module.scss';
+    import $style from '$flux/css/component/Stepper.module.scss';
 
     const emit = defineEmits<{
         activate: [number];

@@ -24,8 +24,8 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { useTableInjection } from '@/composable';
-    import $style from '@/css/component/Table.module.scss';
+    import { useTableInjection } from '$flux/composable';
+    import $style from '$flux/css/component/Table.module.scss';
 
     const {
         contentDirection = 'row'

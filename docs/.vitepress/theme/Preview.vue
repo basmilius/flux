@@ -35,11 +35,7 @@
         getComputedStyle(preview);
 
         const {height} = preview.getBoundingClientRect();
-        let rows = Math.ceil(height / 42) + 2;
-
-        if (rows % 2 === 1) {
-            rows++;
-        }
+        let rows = Math.ceil(height / 42) + 1;
 
         minHeight.value = Math.max(6, rows) * 42;
 
@@ -53,8 +49,8 @@
     .preview {
         position: relative;
         margin: 16px 0;
-        background: rgb(var(--gray-1));
-        border: 1px solid rgb(var(--gray-3));
+        background: var(--vp-c-bg-soft);
+        border: 1px solid var(--vp-c-gutter);
         border-radius: var(--radius);
         font-size: 15px;
 
@@ -76,8 +72,27 @@
         min-height: calc(v-bind(minHeight) * 1px - 1px);
         padding: 15px 60px;
 
+        > .button,
+        > .flyout > .button {
+            align-self: center;
+        }
+
         > .pane {
             width: 100%;
+        }
+    }
+
+    @media (max-width: 639px) {
+        .preview {
+            margin-left: -24px;
+            margin-right: -24px;
+            border-left: 0;
+            border-right: 0;
+            border-radius: 0;
+        }
+
+        .previewBody {
+            padding: 15px 24px;
         }
     }
 </style>

@@ -1,30 +1,35 @@
 <template>
-    <FluxPane>
+    <FluxPane style="max-width: 300px">
         <FluxMenu>
             <FluxMenuGroup is-horizontal>
-                <FluxMenuItem icon-before="align-left" is-highlighted/>
-                <FluxMenuItem icon-before="align-center"/>
-                <FluxMenuItem icon-before="align-right"/>
-                <FluxMenuItem icon-before="align-justify"/>
+                <FluxMenuItem
+                    icon-leading="align-left"
+                    is-highlighted/>
+
+                <FluxMenuItem icon-leading="align-center"/>
+
+                <FluxMenuItem icon-leading="align-right"/>
+
+                <FluxMenuItem icon-leading="align-justify"/>
             </FluxMenuGroup>
 
             <FluxSeparator/>
 
             <FluxMenuGroup>
                 <FluxMenuItem
-                    icon-before="list-ul"
+                    icon-leading="list-ul"
                     label="Unordered list"/>
 
                 <FluxMenuItem
-                    icon-before="list-ol"
+                    icon-leading="list-ol"
                     label="Ordered list"/>
 
                 <FluxMenuItem
-                    icon-before="image"
+                    icon-leading="image"
                     label="Image"/>
 
                 <FluxMenuItem
-                    icon-before="play"
+                    icon-leading="play"
                     label="Video"/>
             </FluxMenuGroup>
 
@@ -32,11 +37,11 @@
 
             <FluxMenuGroup>
                 <FluxMenuItem
-                    icon-before="indent"
+                    icon-leading="indent"
                     label="Indent"/>
 
                 <FluxMenuItem
-                    icon-before="outdent"
+                    icon-leading="outdent"
                     label="Outdent"/>
             </FluxMenuGroup>
         </FluxMenu>

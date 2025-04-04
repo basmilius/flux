@@ -1,4 +1,4 @@
-@use '@/css/mixin';
+@use '$flux/css/mixin';
 
 .tab {
     position: relative;
@@ -8,7 +8,7 @@
     --tab-padding: 12px;
 
     position: relative;
-    box-shadow: inset 0 -2px rgb(var(--gray-3));
+    box-shadow: inset 0 -2px rgb(var(--gray-2));
     z-index: 0;
 }
 
@@ -31,7 +31,7 @@
 
     @media (hover: hover) {
         &:hover {
-            background: rgb(var(--gray-3) / .75);
+            background: rgb(var(--gray-2));
         }
     }
 }
@@ -139,7 +139,7 @@
     }
 
     &:not(:first-child) {
-        border-top: 1px solid rgb(var(--gray-3));
+        border-top: 1px solid rgb(var(--gray-2));
     }
 }
 

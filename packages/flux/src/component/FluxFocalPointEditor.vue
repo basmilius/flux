@@ -8,7 +8,7 @@
                     <div
                         :class="$style.focalPointPreviewImage"
                         :style="{
-                            backgroundImage: `url(${url})`,
+                            backgroundImage: `url(${src})`,
                             backgroundPosition: `${focalPointX}% ${focalPointY}%`
                         }"/>
                 </div>
@@ -24,7 +24,7 @@
                     <img
                         ref="image"
                         :class="$style.focalPointEditorImage"
-                        :src="url"
+                        :src="src"
                         alt=""
                         @load="onImageLoaded"/>
 
@@ -56,23 +56,23 @@
     lang="ts"
     setup>
     import { computed, onMounted, onUnmounted, ref, unref, useTemplateRef, watch } from 'vue';
-    import { useTranslate } from '@/composable/private';
-    import { FluxFadeTransition } from '@/transition';
+    import { useTranslate } from '$flux/composable/private';
+    import { FluxFadeTransition } from '$flux/transition';
     import FluxPane from './FluxPane.vue';
     import FluxPaneBody from './FluxPaneBody.vue';
     import FluxPaneFooter from './FluxPaneFooter.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import FluxSpacer from './FluxSpacer.vue';
-    import $style from '@/css/component/FocalPoint.module.scss';
+    import $style from '$flux/css/component/FocalPoint.module.scss';
 
     const modelValue = defineModel<[number, number]>({
         required: true
     });
 
     const {
-        url
+        src
     } = defineProps<{
-        readonly url: string;
+        readonly src: string;
     }>();
 
     const imageRef = useTemplateRef('image');
@@ -133,5 +133,5 @@
         isPreviewing.value = !isPreviewing.value;
     }
 
-    watch(() => url, () => isPreviewing.value = false);
+    watch(() => src, () => isPreviewing.value = false);
 </script>

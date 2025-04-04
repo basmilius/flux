@@ -46,54 +46,19 @@ slots:
             close: "(): void"
             open: "(): void"
             toggle: "(): void"
-            
+
 requiredIcons:
     - filter
     - xmark
 ---
 
-<script
-    lang="ts"
-    setup>
-    import { FluxActionBar, FluxFormInput, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSeparator } from '@basmilius/flux';
-</script>
-
 # Action bar
 
 Action bars are toolbars commonly used alongside data tables. They can display a primary action, a search bar, and a filter button. Filters are typically displayed within a flyout containing a window.
 
-<Preview>
-    <FluxPane>
-        <FluxPaneHeader title="Filter"/>
-        <FluxActionBar>
-            <template #primary>
-                <FluxPrimaryButton
-                    icon-before="circle-plus"
-                    label="Event"/>
-            </template>
-            <template #filter>
-                <FluxPaneBody>
-                    Filter contents.
-                </FluxPaneBody>
-            </template>
-            <template #search>
-                <FluxFormInput
-                    type="search"
-                    icon-before="magnifying-glass"
-                    placeholder="Search anything..."/>
-            </template>
-            <template #actions-before-search>
-                <FluxSecondaryButton
-                    icon-before="arrow-down-to-line"
-                    label="Download"/>
-                <FluxSeparator axis="vertical"/>
-            </template>
-        </FluxActionBar>
-        <FluxPaneBody>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque neque nobis quasi recusandae reprehenderit. Ad amet, blanditiis, delectus dolorem dolorum error, esse expedita explicabo mollitia quam quia quisquam reiciendis temporibus?
-        </FluxPaneBody>
-    </FluxPane>
-</Preview>
+::: render
+render=../../code/guide/components/action-bar/preview.vue
+:::
 
 <FrontmatterDocs/>
 
@@ -101,29 +66,12 @@ Action bars are toolbars commonly used alongside data tables. They can display a
 
 Todo
 
-## Snippet
-
-```vue-html
-<FluxActionBar>
-    <template #primary>
-        <FluxPrimaryButton label="Button"/>
-    </template>
-    
-    <template #filter>
-        <FluxFilter/>
-    </template>
-    
-    <template #search>
-        <FluxFormInput/>
-    </template>
-</FluxActionBar>
-```
-
 ## Used components
 
 - [Button](./button)
 - [Button group](./button-group)
 - [Flyout](./flyout)
-- [Spacer](./layout/spacer)
-- [Stack](./layout/stack)
+- [Layout](./layout)
+    - [Spacer](./layout/spacer)
+    - [Stack](./layout/stack)
 - [Tooltip](./tooltip)

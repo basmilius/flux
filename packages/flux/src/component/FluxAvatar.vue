@@ -1,22 +1,30 @@
 <template>
-    <div
+    <FluxPressable
         :class="clsx(
             !status && $style.avatar,
             !!status && $style.statusAvatar,
-            isClickable && $style.avatarClickable
+            type !== 'none' && $style.avatarClickable
         )"
         :style="{
             '--color': color,
-            fontSize: `${size}px`
+            fontSize: size && `${size}px`
         }"
-        :aria-label="alt"
+        :component-type="type"
         role="img"
-        @click="onClick">
+        :aria-label="alt"
+        :tabindex="tabindex"
+        :href="href"
+        :rel="rel"
+        :target="target"
+        :to="to"
+        @click="$emit('click', $event)"
+        @mouseenter="$emit('mouseenter', $event)"
+        @mouseleave="$emit('mouseleave', $event)">
         <img
-            v-if="url"
+            v-if="src"
             :class="$style.avatarImage"
             :alt="alt"
-            :src="url"/>
+            :src="src"/>
 
         <div
             v-else
@@ -30,44 +38,32 @@
                 :variant="fallbackIcon"/>
         </div>
 
+        <FluxFadeTransition>
+            <div
+                v-if="isLoading"
+                :class="$style.avatarLoading">
+                <FluxSpinner/>
+            </div>
+        </FluxFadeTransition>
+
         <div
             v-if="status"
             :class="STATUS_CLASS_MAP[status]"/>
-    </div>
+    </FluxPressable>
 </template>
 
 <script
     lang="ts"
     setup>
+    import { amber600, blue600, cyan600, emerald600, fuchsia600, green600, indigo600, lime600, orange600, pink600, purple600, red600, rose600, sky600, teal600, violet600, yellow600 } from '@basmilius/flux-internals';
     import { clsx } from 'clsx';
     import { computed, unref } from 'vue';
-    import type { ColorVariant, IconName } from '@/types';
+    import { FluxFadeTransition } from '$flux/transition';
+    import type { FluxButtonEmits, FluxColorVariant, FluxIconName, FluxPressableType, FluxTo } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '@/css/component/Avatar.module.scss';
-
-    const COLORS = [
-        '102 159 42',
-        '102 198 28',
-        '22 179 100',
-        '18 183 106',
-        '21 183 158',
-        '6 174 212',
-        '11 165 236',
-        '46 144 250',
-        '41 112 255',
-        '97 114 243',
-        '122 90 248',
-        '135 91 247',
-        '158 119 237',
-        '212 68 241',
-        '238 70 188',
-        '246 61 104',
-        '240 68 56',
-        '255 68 5',
-        '239 104 32',
-        '247 144 9',
-        '234 170 8'
-    ];
+    import FluxPressable from './FluxPressable.vue';
+    import FluxSpinner from './FluxSpinner.vue';
+    import $style from '$flux/css/component/Avatar.module.scss';
 
     const STATUS_CLASS_MAP = {
         gray: $style.avatarStatusGray,
@@ -78,28 +74,33 @@
         warning: $style.avatarStatusWarning
     } as const;
 
-    const emit = defineEmits<{
-        click: [MouseEvent];
-    }>();
+    defineEmits<FluxButtonEmits>();
 
     const {
         fallback = 'colorized',
+        fallbackColors = [lime600, green600, emerald600, teal600, cyan600, sky600, blue600, indigo600, violet600, purple600, fuchsia600, pink600, rose600, red600, orange600, amber600, yellow600],
         fallbackIcon = 'user',
         fallbackInitials,
-        isClickable,
-        size = 30
+        type = 'none'
     } = defineProps<{
         readonly alt?: string;
         readonly fallback?: 'colorized' | 'neutral';
-        readonly fallbackIcon?: IconName;
+        readonly fallbackColors?: string[];
+        readonly fallbackIcon?: FluxIconName;
         readonly fallbackInitials?: string;
-        readonly isClickable?: boolean;
+        readonly isLoading?: boolean;
         readonly size?: number;
-        readonly status?: ColorVariant;
-        readonly url?: string;
+        readonly src?: string;
+        readonly status?: FluxColorVariant;
+        readonly type?: FluxPressableType;
+        readonly tabindex?: string | number;
+        readonly href?: string;
+        readonly rel?: string;
+        readonly target?: string;
+        readonly to?: FluxTo;
     }>();
 
-    const color = computed(() => COLORS[unref(colorSeed) % COLORS.length]);
+    const color = computed(() => fallbackColors[unref(colorSeed) % fallbackColors.length]);
     const colorSeed = computed(() => {
         let seed = 6;
 
@@ -115,12 +116,4 @@
 
         return seed;
     });
-
-    function onClick(evt: MouseEvent): void {
-        if (!isClickable) {
-            return;
-        }
-
-        emit('click', evt);
-    }
 </script>

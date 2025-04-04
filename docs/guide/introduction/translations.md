@@ -3,6 +3,7 @@ outline: deep
 ---
 
 <script setup>
+import { FluxPane, FluxTable, FluxTableRow, FluxTableCell, FluxTableHeader } from '@basmilius/flux';
 import { english } from '../../../packages/flux/src/composable/private/useTranslate';
 </script>
 
@@ -12,20 +13,20 @@ Flux uses a bunch of strings in its library, and the cool part is that they can 
 
 ## Strings
 
-<table>
-<thead>
-<tr>
-    <th>Key</th>
-    <th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr v-for="(value, key) of english">
-    <td><code>{{ key }}</code></td>
-    <td>{{ value }}</td>
-</tr>
-</tbody>
-</table>
+<FluxPane>
+    <FluxTable>
+        <template #header>
+            <FluxTableRow>
+                <FluxTableHeader>Key</FluxTableHeader>
+                <FluxTableHeader>Value</FluxTableHeader>
+            </FluxTableRow>
+        </template>
+        <FluxTableRow v-for="(value, key) of english">
+            <FluxTableCell><small><kbd>{{ key }}</kbd></small></FluxTableCell>
+            <FluxTableCell>{{ value }}</FluxTableCell>
+        </FluxTableRow>
+    </FluxTable>
+</FluxPane>
 
 ## Pre-translated strings
 
@@ -33,7 +34,7 @@ Here are the official translations for the strings used by Flux. If you have add
 
 ### Dutch - Nederlands
 
-```yaml
+```yaml [nl.yaml]
 flux:
     back: "Terug"
     cancel: "Annuleren"

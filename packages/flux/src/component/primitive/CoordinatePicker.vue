@@ -20,9 +20,9 @@
     import { unrefTemplateElement } from '@basmilius/flux-internals';
     import { roundStep } from '@basmilius/utils';
     import { computed, onMounted, onUnmounted, ref, toRef, unref, useTemplateRef, watch } from 'vue';
-    import { useDisabled } from '@/composable';
+    import { useDisabled } from '$flux/composable';
     import CoordinatePickerThumb from './CoordinatePickerThumb.vue';
-    import $style from '@/css/component/primitive/CoordinatePicker.module.scss';
+    import $style from '$flux/css/component/primitive/CoordinatePicker.module.scss';
 
     const emit = defineEmits<{
         dragging: [boolean];
@@ -136,8 +136,8 @@
         width -= 12;
         height -= 12;
 
-        const x = Math.max(0, Math.min(1, (evt.pageX - left) / width));
-        const y = Math.max(0, Math.min(1, (evt.pageY - top) / height));
+        const x = Math.max(0, Math.min(1, (evt.clientX - left) / width));
+        const y = Math.max(0, Math.min(1, (evt.clientY - top) / height));
 
         modelValue.value = [
             +roundStep(x * (maxX - minX) + minX, stepX).toPrecision(4),

@@ -17,9 +17,9 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { IconName } from '@/types';
+    import type { FluxIconName } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '@/css/component/Remove.module.scss';
+    import $style from '$flux/css/component/Remove.module.scss';
 
     const emit = defineEmits<{
         click: [MouseEvent];
@@ -28,7 +28,7 @@
     const {
         icon = 'xmark'
     } = defineProps<{
-        readonly icon?: IconName;
+        readonly icon?: FluxIconName;
         readonly isHidden?: boolean;
     }>();
 </script>

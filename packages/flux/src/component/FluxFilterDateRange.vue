@@ -13,16 +13,16 @@
     setup>
     import { DateTime } from 'luxon';
     import { computed, unref } from 'vue';
-    import { useFilterInjection } from '@/composable';
-    import type { IconName } from '@/types';
+    import { useFilterInjection } from '$flux/composable';
+    import type { FluxIconName } from '$flux/types';
     import FluxDatePicker from './FluxDatePicker.vue';
-    import $style from '@/css/component/Filter.module.scss';
+    import $style from '$flux/css/component/Filter.module.scss';
 
     const {
         name,
         rangeMode = 'range'
     } = defineProps<{
-        readonly icon?: IconName;
+        readonly icon?: FluxIconName;
         readonly label: string;
         readonly max?: DateTime;
         readonly min?: DateTime;

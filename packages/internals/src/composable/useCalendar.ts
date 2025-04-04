@@ -1,7 +1,7 @@
 import type { DateTime } from 'luxon';
-import { computed, ref, unref } from 'vue';
+import { computed, type Ref, ref, unref } from 'vue';
 
-export default function (initialDate: DateTime, options: Options = {}) {
+export default function (initialDate: DateTime, options?: UseCalendarOptions): UseCalendarReturn {
     const isTransitioningToPast = ref(false);
     const viewDate = ref(initialDate);
 
@@ -39,11 +39,11 @@ export default function (initialDate: DateTime, options: Options = {}) {
 
     const days = computed(() => unref(dates)
         .slice(0, 7)
-        .map(d => d.toLocaleString({weekday: options.weekDayLength ?? 'short'})));
+        .map(d => d.toLocaleString({weekday: options?.weekDayLength ?? 'short'})));
 
     const viewDateNext = computed(() => unref(viewDate).plus({month: 1}));
     const viewDatePrevious = computed(() => unref(viewDate).minus({month: 1}));
-    const viewMonth = computed(() => unref(viewDate).toLocaleString({month: options.monthLength ?? 'long'}));
+    const viewMonth = computed(() => unref(viewDate).toLocaleString({month: options?.monthLength ?? 'long'}));
     const viewYear = computed(() => unref(viewDate).year.toString());
 
     function setViewDate(date: DateTime): void {
@@ -74,7 +74,22 @@ export default function (initialDate: DateTime, options: Options = {}) {
     };
 }
 
-type Options = {
+type UseCalendarOptions = {
     readonly monthLength?: 'short' | 'long';
     readonly weekDayLength?: 'short' | 'long';
+};
+
+type UseCalendarReturn = {
+    readonly isTransitioningToPast: Ref<boolean>;
+    readonly viewDate: Ref<DateTime>;
+    readonly viewDateNext: Ref<DateTime>;
+    readonly viewDatePrevious: Ref<DateTime>;
+    readonly viewMonth: Ref<string>;
+    readonly viewYear: Ref<string>;
+    readonly dates: Ref<DateTime[]>;
+    readonly days: Ref<string[]>;
+
+    setViewDate(date: DateTime): void;
+    nextMonth(): void;
+    previousMonth(): void;
 };

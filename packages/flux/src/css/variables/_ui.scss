@@ -4,12 +4,12 @@
     --background: rgb(var(--gray-2));
     --foreground: rgb(var(--gray-8));
     --foreground-prominent: rgb(var(--gray-10));
-    --foreground-secondary: rgb(var(--gray-6));
+    --foreground-secondary: rgb(var(--gray-5));
 }
 
 [dark] {
     --background: rgb(var(--gray-2));
-    --foreground: #cdd5df;
+    --foreground: #cbd5e1;
     --foreground-prominent: #ffffff;
-    --foreground-secondary: rgb(var(--gray-10));
+    --foreground-secondary: #64748b;
 }

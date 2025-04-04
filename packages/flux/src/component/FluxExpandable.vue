@@ -11,7 +11,15 @@
                 :class="$style.expandableHeader"
                 type="button"
                 @click="toggle">
+                <FluxFadeTransition>
+                    <FluxIcon
+                        v-if="icon"
+                        :key="icon"
+                        :variant="icon"/>
+                </FluxFadeTransition>
+
                 <span>{{ label }}</span>
+
                 <FluxFadeTransition>
                     <FluxIcon
                         :key="isOpen ? 'minus' : 'plus'"
@@ -44,10 +52,11 @@
     setup>
     import { useComponentId } from '@basmilius/flux-internals';
     import { getCurrentInstance, onBeforeMount, onUnmounted, ref, unref, useId, watch } from 'vue';
-    import { useExpandableGroupInjection } from '@/composable';
-    import { FluxAutoHeightTransition, FluxFadeTransition } from '@/transition';
+    import { useExpandableGroupInjection } from '$flux/composable';
+    import { FluxAutoHeightTransition, FluxFadeTransition } from '$flux/transition';
+    import { FluxIconName } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '@/css/component/Expandable.module.scss';
+    import $style from '$flux/css/component/Expandable.module.scss';
 
     const emit = defineEmits<{
         toggle: [boolean];
@@ -56,6 +65,7 @@
     const {
         isOpened
     } = defineProps<{
+        readonly icon?: FluxIconName;
         readonly isOpened?: boolean;
         readonly label?: string;
     }>();
