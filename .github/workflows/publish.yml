@@ -33,9 +33,9 @@ jobs:
 
             -   name: 🚀 Publish
                 run: |
-                    bun --cwd packages/internals publish --access public
-                    bun --cwd packages/flux publish --access public
-                    bun --cwd packages/dashboard publish --access public
+                    bun publish--cwd packages/internals --access public
+                    bun publish--cwd packages/flux --access public
+                    bun publish--cwd packages/dashboard --access public
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
                     NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
