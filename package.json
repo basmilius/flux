@@ -1,9 +1,6 @@
 {
     "name": "flux-workspace",
     "private": true,
-    "scripts": {
-        "dev": "bun --filter '@basmilius/*' dev"
-    },
     "workspaces": [
         "docs",
         "packages/*"
