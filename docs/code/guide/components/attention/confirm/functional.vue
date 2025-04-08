@@ -15,7 +15,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxPrimaryButton, FluxStack, showConfirm } from '@basmilius/flux';
+    import { FluxPrimaryButton, FluxStack, showConfirm } from '@flux-ui/flux';
     import { ref } from 'vue';
 
     const result = ref<boolean | null>(null);

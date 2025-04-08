@@ -35,7 +35,7 @@
 <script
     lang="ts"
     setup>
-    import { unrefTemplateElement } from '@basmilius/flux-internals';
+    import { unrefTemplateElement } from '@flux-ui/internals';
     import { ref, toRef, unref, useTemplateRef, watchEffect } from 'vue';
     import { useDisabled } from '$flux/composable';
     import FluxButtonGroup from './FluxButtonGroup.vue';

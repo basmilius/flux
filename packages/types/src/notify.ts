@@ -1,22 +1,22 @@
-import type { FluxColorVariant, FluxDirection, FluxIconName, FluxInputType } from './common';
+import type { FluxColor, FluxDirection, FluxIconName, FluxInputType } from './common';
 
-type FluxBaseAlertObject = {
+type BaseAlertObject = {
     readonly id: number;
     readonly icon?: FluxIconName;
     readonly message: string;
     readonly title: string;
 }
 
-export type FluxAlertObject = FluxBaseAlertObject & {
+export type FluxAlertObject = BaseAlertObject & {
     onClose(): void;
 };
 
-export type FluxConfirmObject = FluxBaseAlertObject & {
+export type FluxConfirmObject = BaseAlertObject & {
     onCancel(): void;
     onConfirm(): void;
 };
 
-export type FluxPromptObject = FluxBaseAlertObject & {
+export type FluxPromptObject = BaseAlertObject & {
     onCancel(): void;
     onConfirm(text: string): void;
 
@@ -28,7 +28,7 @@ export type FluxPromptObject = FluxBaseAlertObject & {
 export type FluxSnackbarObject = {
     readonly id: number;
     readonly actions?: Record<string, string>;
-    readonly color?: FluxColorVariant;
+    readonly color?: FluxColor;
     readonly icon?: FluxIconName;
     readonly isCloseable?: boolean;
     readonly isLoading?: boolean;

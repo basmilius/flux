@@ -1,16 +1,16 @@
+import type { FluxFormSelectEntry, FluxFormSelectOption, FluxFormSelectOptions, FluxFormSelectValue } from '@flux-ui/types';
 import type { MaybeRef, Ref } from 'vue';
 import { computed, unref } from 'vue';
 import { isFluxFormSelectGroup, isFluxFormSelectOption } from '$flux/data';
-import type { FluxFormSelectEntry, FluxFormSelectGroup, FluxFormSelectOption } from '$flux/types';
 
-export default function (modelValue: Ref<FormSelectValue>, isMultiple: boolean, options: MaybeRef<FluxFormSelectEntry[]>, searchQuery?: Ref<string>) {
+export default function (modelValue: Ref<FluxFormSelectValue>, isMultiple: boolean, options: MaybeRef<FluxFormSelectEntry[]>, searchQuery?: Ref<string>) {
     const values = computed(() => {
         const model = unref(modelValue);
         return Array.isArray(model) ? model : [model];
     });
 
     const groups = computed(() => {
-        const groups: FormSelectGroup[] = [];
+        const groups: FluxFormSelectOptions[] = [];
         const search = unref(searchQuery)?.trim().toLowerCase();
 
         const available = unref(options)
@@ -22,7 +22,7 @@ export default function (modelValue: Ref<FormSelectValue>, isMultiple: boolean, 
         }
 
         if (!available.find(isFluxFormSelectGroup)) {
-            return [[null, available]] as FormSelectGroup[];
+            return [[null, available]] as FluxFormSelectOptions[];
         }
 
         for (let i = 0; i < available.length;) {
@@ -64,8 +64,3 @@ export default function (modelValue: Ref<FormSelectValue>, isMultiple: boolean, 
         values
     };
 }
-
-export type FormSelectGroup = [FormSelectOption | null, FluxFormSelectOption[]];
-export type FormSelectOption = FluxFormSelectGroup | FluxFormSelectOption;
-export type FormSelectValue = FormSelectValueSingle | FormSelectValueSingle[];
-export type FormSelectValueSingle = string | number | null;

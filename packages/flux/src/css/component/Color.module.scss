@@ -1,7 +1,5 @@
 @use '$flux/css/mixin';
 
-@value flexRow from './base/Flex.module.scss';
-
 .colorPicker {
     --transparent: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMElEQVQ4T2N89uzZfwY8QFJSEp80A+OoAcMiDP7//483HTx//hx/Ohg1gIFx6IcBALl+VXknOCvFAAAAAElFTkSuQmCC);
 
@@ -86,8 +84,7 @@
 }
 
 .colorPickerValue {
-    composes: flexRow;
-
+    display: flex;
     align-items: flex-end;
     gap: 9px;
 
@@ -168,8 +165,7 @@
 }
 
 .colorSelectButtons {
-    composes: flexRow;
-
+    display: flex;
     padding-top: 0;
     gap: 9px;
 

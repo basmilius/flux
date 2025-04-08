@@ -2,8 +2,6 @@
 
 @value button, buttonIcon, buttonLabel, isSmall, isMedium, isLarge, isXl from './base/Button.module.scss';
 
-@value inlineFlexRow, flexNoGrow, flexNoShrink from './base/Flex.module.scss';
-
 .primaryButton {
     composes: button;
 
@@ -238,12 +236,10 @@
 }
 
 .buttonGroup {
-    composes: inlineFlexRow;
-    composes: flexNoGrow;
-    composes: flexNoShrink;
-
+    display: inline-flex;
     width: min-content;
     flex-grow: 0;
+    flex-shrink: 0;
     z-index: 0;
 
     :local(.button) {

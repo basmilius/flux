@@ -12,15 +12,15 @@
         :style="{
             fontSize: size && `${size}px`
         }">
-        <FluxIcon :variant="variant"/>
+        <FluxIcon :name="name"/>
     </div>
 </template>
 
 <script
     lang="ts"
     setup>
+    import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import type { FluxColorVariant, FluxIconName } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '$flux/css/component/Icon.module.scss';
 
@@ -29,8 +29,8 @@
     }>();
 
     defineProps<{
-        readonly color?: FluxColorVariant;
+        readonly color?: FluxColor;
+        readonly name: FluxIconName;
         readonly size?: number;
-        readonly variant: FluxIconName;
     }>();
 </script>

@@ -8,7 +8,7 @@
 <script
     lang="ts"
     setup>
-    import type { FluxDirection } from '$flux/types';
+    import type { FluxDirection } from '@flux-ui/types';
     import $style from '$flux/css/component/Divider.module.scss';
 
     const {

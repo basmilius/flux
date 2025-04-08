@@ -20,8 +20,8 @@
 <script
     lang="ts"
     setup>
+    import type { FluxAlertObject } from '@flux-ui/types';
     import { useTranslate } from '$flux/composable/private';
-    import type { FluxAlertObject } from '$flux/types';
     import FluxPane from './FluxPane.vue';
     import FluxPaneBody from './FluxPaneBody.vue';
     import FluxPaneFooter from './FluxPaneFooter.vue';

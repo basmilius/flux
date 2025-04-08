@@ -2,6 +2,8 @@
     <FluxPane>
         <FluxDataTable
             :data-set="dataSet"
+            :page="1"
+            :per-page="20"
             :total="dataSet.length"
             is-hoverable>
             <template #header>
@@ -15,7 +17,7 @@
                     <FluxStack
                         direction="horizontal"
                         :gap="21">
-                        <FluxBoxedIcon variant="image"/>
+                        <FluxBoxedIcon name="image"/>
 
                         <FluxStack
                             direction="vertical"
@@ -46,7 +48,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxAction, FluxBoxedIcon, FluxDataTable, FluxPane, FluxStack, FluxTableActions, FluxTableCell, FluxTableHeader } from '@basmilius/flux';
+    import { FluxAction, FluxBoxedIcon, FluxDataTable, FluxPane, FluxStack, FluxTableActions, FluxTableCell, FluxTableHeader } from '@flux-ui/flux';
     import { faker } from '@faker-js/faker';
     import { computed } from 'vue';
 

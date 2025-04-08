@@ -1,9 +1,11 @@
 import type { FontAwesome } from './font-awesome';
 import type { MaterialSymbol } from './material-symbols';
 
-export type FluxIconName = FontAwesome | MaterialSymbol | 'flux-empty';
+export type FluxIconName = FontAwesome | MaterialSymbol;
+export type FluxFontAwesomeIconName = FontAwesome;
+export type FluxMaterialIconName = MaterialSymbol;
 
-export type FluxColorVariant =
+export type FluxColor =
     | 'gray'
     | 'primary'
     | 'danger'
@@ -58,39 +60,16 @@ export type FluxTo = {
     replace?: boolean;
 };
 
-export type FluxButtonSize = FluxSize | 'xl';
+export type FluxMaybePromise<T> = T | Promise<T>;
 
-export type FluxButtonEmits = {
-    click: [MouseEvent];
-    mouseenter: [MouseEvent];
-    mouseleave: [MouseEvent];
-};
-
-export type FluxButtonProps = {
-    readonly type?: FluxPressableType;
-    readonly disabled?: boolean;
-    readonly iconLeading?: FluxIconName | null;
-    readonly iconTrailing?: FluxIconName | null;
-    readonly isFilled?: boolean;
-    readonly isLoading?: boolean;
-    readonly isSubmit?: boolean;
-    readonly label?: string;
-    readonly size?: FluxButtonSize;
-    readonly tabindex?: string | number;
-    readonly href?: string;
-    readonly rel?: string;
-    readonly target?: string;
-    readonly to?: FluxTo;
-};
-
-export type FluxButtonSlots = {
-    default(): any;
-    after(): any;
-    before(): any;
-    iconLeading(): any;
-    iconTrailing(): any;
-    label(): any;
-}
+export type FluxAutoCompleteType =
+    | AutoCompleteToken
+    | AutoCompleteContactToken
+    | AutoCompleteRecipientType
+    | AutoCompleteGroupIdentifier
+    | `${AutoCompleteGroupIdentifier} ${AutoCompleteToken}`
+    | `${AutoCompleteGroupIdentifier} ${AutoCompleteContactToken}`
+    | (string & {});
 
 type AutoCompleteGroupIdentifier =
     | 'billing'
@@ -159,12 +138,3 @@ type AutoCompleteToken =
     | 'url'
     | 'photo'
     | 'webauthn';
-
-export type FluxAutoCompleteType =
-    | AutoCompleteToken
-    | AutoCompleteContactToken
-    | AutoCompleteRecipientType
-    | AutoCompleteGroupIdentifier
-    | `${AutoCompleteGroupIdentifier} ${AutoCompleteToken}`
-    | `${AutoCompleteGroupIdentifier} ${AutoCompleteContactToken}`
-    | (string & {});

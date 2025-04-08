@@ -5,7 +5,7 @@ This composable function is used to subscribe to focus locking of a component in
 ## Usage
 
 ```ts
-import { useFocusTrapSubscription } from '@basmilius/flux-internals';
+import { useFocusTrapSubscription } from '@flux-ui/internals';
 
 useFocusTrapSubscription(() => {
     console.log('Focus trap changed!');

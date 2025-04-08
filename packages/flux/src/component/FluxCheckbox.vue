@@ -15,13 +15,13 @@
             :aria-checked="modelValue ?? false">
             <FluxIcon
                 v-if="isIndeterminate"
-                :size="16"
-                variant="minus"/>
+                name="minus"
+                :size="16"/>
 
             <FluxIcon
                 v-else
-                :size="16"
-                variant="check"/>
+                name="check"
+                :size="16"/>
         </button>
 
         <span

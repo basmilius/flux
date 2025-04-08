@@ -20,7 +20,7 @@
             #iconLeading>
             <FluxIcon
                 :class="$style.menuItemSelectableIcon"
-                :variant="isSelected ? 'circle-check' : 'flux-empty'"/>
+                :name="isSelected ? 'circle-check' : undefined"/>
         </template>
 
         <template
@@ -50,7 +50,7 @@
                 <FluxIcon
                     v-if="commandIcon"
                     :class="$style.menuItemCommandIcon"
-                    :variant="commandIcon"/>
+                    :name="commandIcon"/>
             </template>
         </template>
     </FluxButton>
@@ -59,7 +59,7 @@
 <script
     lang="ts"
     setup>
-    import type { FluxButtonEmits, FluxButtonProps, FluxIconName } from '$flux/types';
+    import type { FluxButtonEmits, FluxButtonProps, FluxIconName } from '@flux-ui/types';
     import FluxButton from './FluxButton.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';

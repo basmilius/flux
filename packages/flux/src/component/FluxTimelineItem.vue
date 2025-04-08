@@ -23,8 +23,8 @@
                 v-if="icon"
                 :class="$style.timelineItemPhotoIcon">
                 <FluxIcon
-                    :size="16"
-                    :variant="icon"/>
+                    :name="icon"
+                    :size="16"/>
             </div>
         </div>
 
@@ -32,8 +32,8 @@
             v-else-if="icon"
             :class="$style.timelineItemIcon">
             <FluxIcon
-                :size="20"
-                :variant="icon"/>
+                :name="icon"
+                :size="20"/>
         </div>
 
         <div :class="$style.timelineItemBody">
@@ -52,15 +52,15 @@
 <script
     lang="ts"
     setup>
+    import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import type { FluxColorVariant, FluxIconName } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '$flux/css/component/Timeline.module.scss';
 
     const {
         color = 'gray'
     } = defineProps<{
-        readonly color?: FluxColorVariant;
+        readonly color?: FluxColor;
         readonly icon?: FluxIconName;
         readonly photo?: string;
         readonly title?: string;

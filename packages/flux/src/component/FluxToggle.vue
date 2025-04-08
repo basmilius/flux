@@ -11,14 +11,14 @@
         <FluxIcon
             v-if="iconOff"
             :class="$style.toggleIconOff"
-            :size="14"
-            :variant="iconOff"/>
+            :name="iconOff"
+            :size="14"/>
 
         <FluxIcon
             v-if="iconOn"
             :class="$style.toggleIconOn"
-            :size="14"
-            :variant="iconOn"/>
+            :name="iconOn"
+            :size="14"/>
 
         <input
             :class="$style.toggleInput"
@@ -35,10 +35,10 @@
 <script
     lang="ts"
     setup>
+    import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { toRef } from 'vue';
     import { useDisabled, useFormFieldInjection } from '$flux/composable';
-    import type { FluxIconName } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '$flux/css/component/Form.module.scss';
 

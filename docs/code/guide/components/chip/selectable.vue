@@ -10,7 +10,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxChip } from '@basmilius/flux';
+    import { FluxChip } from '@flux-ui/flux';
     import { ref } from 'vue';
 
     const selected = ref(true);

@@ -1,9 +1,11 @@
-import { flux, preset } from '@basmilius/vite-vue-preset';
+import { composeLibrary, preset } from '@basmilius/vite-vue-preset';
 import { defineConfig } from 'vitepress';
 import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons';
 import examplePlugin from 'vitepress-plugin-example';
 import renderPlugin from 'vitepress-plugin-render';
 import componentNavigation from './component-navigation';
+
+export const flux = composeLibrary('@flux-ui/flux', '$flux');
 
 export default defineConfig({
     title: 'Flux',
@@ -184,7 +186,7 @@ export default defineConfig({
 
         socialLinks: [
             {icon: 'github', link: 'https://github.com/basmilius/flux'},
-            {icon: 'npm', link: 'https://www.npmjs.com/package/@basmilius/flux'}
+            {icon: 'npm', link: 'https://www.npmjs.com/package/@flux-ui/flux'}
         ]
     }
 });

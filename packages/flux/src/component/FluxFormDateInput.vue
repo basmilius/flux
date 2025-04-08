@@ -33,10 +33,10 @@
 <script
     lang="ts"
     setup>
+    import type { FluxAutoCompleteType } from '@flux-ui/types';
     import type { DateTime } from 'luxon';
     import { ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '$flux/composable';
-    import type { FluxAutoCompleteType } from '$flux/types';
     import FluxDatePicker from './FluxDatePicker.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxFormInput from './FluxFormInput.vue';

@@ -5,7 +5,7 @@ Navigates to a next or previous focusable element within the container.
 ## Usage
 
 ```ts
-import { getFocusableElement } from '@basmilius/flux-internals';
+import { getFocusableElement } from '@flux-ui/internals';
 
 const container = document.querySelector('#container');
 const focusableElements = getFocusableElement(container, 1);

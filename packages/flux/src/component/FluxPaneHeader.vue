@@ -6,7 +6,7 @@
             v-if="icon"
             :class="$style.paneHeaderIcon"
             :size="20"
-            :variant="icon"/>
+            :name="icon"/>
 
         <div
             v-if="title || subTitle"
@@ -27,7 +27,7 @@
 <script
     lang="ts"
     setup>
-    import type { FluxIconName } from '$flux/types';
+    import type { FluxIconName } from '@flux-ui/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '$flux/css/component/Pane.module.scss';
 

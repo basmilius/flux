@@ -1,4 +1,4 @@
-@value stackHorizontal, stackVertical from './Stack.module.scss';
+@value stackHorizontal, stackVertical from './Layout.module.scss';
 
 .legendHorizontal {
     composes: stackHorizontal;

@@ -9,7 +9,7 @@
             tabindex="-1"
             type="button"
             @click="scrollToStart">
-            <FluxIcon variant="angle-left"/>
+            <FluxIcon name="angle-left"/>
         </button>
 
         <div
@@ -28,7 +28,7 @@
             tabindex="-1"
             type="button"
             @click="scrollToEnd">
-            <FluxIcon variant="angle-right"/>
+            <FluxIcon name="angle-right"/>
         </button>
     </nav>
 </template>
@@ -36,7 +36,7 @@
 <script
     lang="ts"
     setup>
-    import { unrefTemplateElement, useEventListener, useMutationObserver } from '@basmilius/flux-internals';
+    import { unrefTemplateElement, useEventListener, useMutationObserver } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { onMounted, ref, useTemplateRef } from 'vue';
     import FluxIcon from './FluxIcon.vue';

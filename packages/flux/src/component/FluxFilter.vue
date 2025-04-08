@@ -42,11 +42,11 @@
 <script
     lang="ts"
     setup>
-    import { flattenVNodeTree, getComponentName, getComponentProps, vHeightTransition } from '@basmilius/flux-internals';
+    import { flattenVNodeTree, getComponentName, getComponentProps, vHeightTransition } from '@flux-ui/internals';
+    import type { FluxFilterOptionItem, FluxFilterState } from '@flux-ui/types';
     import { computed, provide, unref, useTemplateRef, VNode } from 'vue';
     import { useTranslate } from '$flux/composable/private';
     import { FluxFilterInjectionKey } from '$flux/data';
-    import type { FluxFilterOptionItem, FluxFilterState } from '$flux/types';
     import { FilterMenuRenderer, VNodeRenderer } from './primitive';
     import FluxMenu from './FluxMenu.vue';
     import FluxMenuGroup from './FluxMenuGroup.vue';

@@ -1,14 +1,11 @@
 @use '$flux/css/mixin';
 
-@value inlineFlexRow, flexNoGrow from './base/Flex.module.scss';
-
 .chip {
-    composes: inlineFlexRow;
-    composes: flexNoGrow;
-
+    display: flex;
     height: 36px;
     padding: 0 12px;
     align-items: center;
+    flex-grow: 0;
     gap: 9px;
     background: rgb(var(--gray-1));
     border: 1px solid rgb(var(--gray-3));

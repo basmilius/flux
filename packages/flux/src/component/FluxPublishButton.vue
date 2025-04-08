@@ -16,11 +16,11 @@
             <div :class="$style.publishButtonAnimation">
                 <FluxIcon
                     :class="$style.publishButtonCloud"
-                    variant="cloud"/>
+                    name="cloud"/>
 
                 <FluxIcon
                     :class="$style.publishButtonCloud"
-                    variant="cloud"/>
+                    name="cloud"/>
 
                 <svg
                     :class="$style.publishButtonAnimation"
@@ -45,8 +45,8 @@
 <script
     lang="ts"
     setup>
+    import type { FluxButtonEmits, FluxButtonProps } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import type { FluxButtonEmits, FluxButtonProps } from '$flux/types';
     import FluxButton from './FluxButton.vue';
     import FluxIcon from './FluxIcon.vue';
     import $style from '$flux/css/component/Button.module.scss';

@@ -22,7 +22,7 @@
                 <FluxFadeTransition>
                     <FluxIcon
                         v-if="current > step"
-                        variant="check"/>
+                        name="check"/>
 
                     <span v-else>
                         {{ step }}

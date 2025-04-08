@@ -33,34 +33,34 @@
         <FluxIcon
             v-if="iconLeading"
             :class="$style.formInputIconLeading"
-            :size="18"
-            :variant="iconLeading"/>
+            :name="iconLeading"
+            :size="18"/>
 
         <FluxIcon
             v-if="type === 'password'"
             :class="$style.formInputIconPasswordToggle"
+            :name="nativeType === 'password' ? 'eye' : 'eye-slash'"
             :size="18"
-            :variant="nativeType === 'password' ? 'eye' : 'eye-slash'"
             @click="passwordTypeToggle()"/>
 
         <FluxIcon
             v-else-if="iconTrailing"
             :class="$style.formInputIconTrailing"
-            :size="18"
-            :variant="iconTrailing"/>
+            :name="iconTrailing"
+            :size="18"/>
     </div>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { unrefTemplateElement } from '@basmilius/flux-internals';
+    import { unrefTemplateElement } from '@flux-ui/internals';
+    import type { FluxAutoCompleteType, FluxIconName, FluxInputMask, FluxInputType } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
     import { ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled, useFormFieldInjection } from '$flux/composable';
     import { inputMask } from '$flux/data';
-    import type { FluxAutoCompleteType, FluxIconName, FluxInputMask, FluxInputType } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '$flux/css/component/Form.module.scss';
 

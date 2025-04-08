@@ -39,11 +39,11 @@
 <script
     lang="ts"
     setup>
-    import { unrefTemplateElement, useFocusTrap } from '@basmilius/flux-internals';
+    import { unrefTemplateElement, useFocusTrap } from '@flux-ui/internals';
+    import type { FluxDirection } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { provide, ref, unref, useTemplateRef, watch } from 'vue';
     import { FluxFlyoutInjectionKey } from '$flux/data';
-    import type { FluxDirection } from '$flux/types';
     import FluxPane from './FluxPane.vue';
     import $style from '$flux/css/component/Flyout.module.scss';
 

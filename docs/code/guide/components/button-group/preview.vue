@@ -12,5 +12,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxButtonGroup, FluxPrimaryButton, FluxSecondaryButton } from '@basmilius/flux';
+    import { FluxButtonGroup, FluxPrimaryButton, FluxSecondaryButton } from '@flux-ui/flux';
 </script>

@@ -5,7 +5,7 @@ This composable function is used to create a focus zone within an element.
 ## Usage
 
 ```ts
-import { useFocusZone } from '@basmilius/flux-internals';
+import { useFocusZone } from '@flux-ui/internals';
 import { useTemplateRef } from 'vue';
 
 const element = useTemplateRef('element');
@@ -19,7 +19,7 @@ useFocusZone(element, {
 ## Type declarations
 
 ```ts
-import type { TemplateRef } from '@basmilius/flux-internals';
+import type { TemplateRef } from '@flux-ui/internals';
 
 export declare function useFocusZone<TElement extends HTMLElement>(
     containerRef: TemplateRef<TElement>,

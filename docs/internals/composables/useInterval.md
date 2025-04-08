@@ -5,7 +5,7 @@ This composable function is used to run a function on an interval. The interval 
 ## Usage
 
 ```ts
-import { useInterval } from '@basmilius/flux-internals';
+import { useInterval } from '@flux-ui/internals';
 
 useInterval(1000, () => {
     console.log('Another second has passed!');

@@ -46,5 +46,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxFlyout, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSecondaryButton, FluxSeparator } from '@basmilius/flux';
+    import { FluxFlyout, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSecondaryButton, FluxSeparator } from '@flux-ui/flux';
 </script>

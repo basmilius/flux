@@ -23,7 +23,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxColorPicker, FluxFlyout, FluxPane, FluxSecondaryButton } from '@basmilius/flux';
+    import { FluxColorPicker, FluxFlyout, FluxPane, FluxSecondaryButton } from '@flux-ui/flux';
     import { ref } from 'vue';
 
     const color = ref<[number, number, number]>([31, 75, 109]);

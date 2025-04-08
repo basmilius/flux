@@ -4,16 +4,16 @@
             direction="horizontal"
             :gap="36">
             <FluxIcon
-                :size="48"
-                variant="circle-check"/>
+                name="circle-check"
+                :size="48"/>
 
             <FluxIcon
-                :size="48"
-                variant="lock"/>
+                name="lock"
+                :size="48"/>
 
             <FluxIcon
-                :size="48"
-                variant="rocket"/>
+                name="rocket"
+                :size="48"/>
         </FluxStack>
     </Preview>
 </template>
@@ -21,5 +21,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxIcon, FluxStack } from '@basmilius/flux';
+    import { FluxIcon, FluxStack } from '@flux-ui/flux';
 </script>

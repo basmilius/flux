@@ -1,6 +1,6 @@
 {
-    "name": "@basmilius/flux-internals",
-    "version": "2.0.0",
+    "name": "@flux-ui/internals",
+    "version": "3.0.0",
     "type": "module",
     "license": "MIT",
     "funding": "https://github.com/sponsors/basmilius",
@@ -21,11 +21,7 @@
         "flux"
     ],
     "scripts": {
-        "build": "bun -b build.ts",
-        "prepublishOnly": "cp ../../README.md ."
-    },
-    "engines": {
-        "node": ">=23"
+        "build": "bun -b build.ts"
     },
     "files": [
         "dist",
@@ -53,11 +49,12 @@
         "vue": "^3.5.13"
     },
     "devDependencies": {
+        "@fortawesome/fontawesome-common-types": "^6.7.2",
         "@types/bun": "^1.2.8",
         "@types/luxon": "^3.6.2",
         "lodash-es": "^4.17.21",
         "luxon": "^3.6.1",
-        "oxc-transform": "^0.62.0",
+        "oxc-transform": "^0.63.0",
         "vue": "^3.5.13"
     }
 }

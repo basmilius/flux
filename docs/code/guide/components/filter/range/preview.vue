@@ -17,7 +17,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxFilter, FluxFilterRange, FluxFilterState, FluxPane } from '@basmilius/flux';
+    import { FluxFilter, FluxFilterRange, FluxFilterState, FluxPane } from '@flux-ui/flux';
     import { ref } from 'vue';
 
     const filterState = ref<FluxFilterState>({

@@ -1,12 +1,12 @@
 <template>
     <div
         :class="clsx(
-            variant === 'gray' && $style.noticeGray,
-            variant === 'primary' && $style.noticePrimary,
-            variant === 'danger' && $style.noticeDanger,
-            variant === 'info' && $style.noticeInfo,
-            variant === 'success' && $style.noticeSuccess,
-            variant === 'warning' && $style.noticeWarning,
+            color === 'gray' && $style.noticeGray,
+            color === 'primary' && $style.noticePrimary,
+            color === 'danger' && $style.noticeDanger,
+            color === 'info' && $style.noticeInfo,
+            color === 'success' && $style.noticeSuccess,
+            color === 'warning' && $style.noticeWarning,
             isCenter && $style.isCenter,
             isFluid && $style.isFluid
         )"
@@ -18,7 +18,7 @@
         <FluxIcon
             v-if="icon && !isLoading"
             :class="$style.noticePrefix"
-            :variant="icon"/>
+            :name="icon"/>
 
         <div :class="$style.noticeBody">
             <p
@@ -41,7 +41,7 @@
             :class="$style.noticeClose"
             type="button"
             @click="emit('close')">
-            <FluxIcon variant="xmark"/>
+            <FluxIcon name="xmark"/>
         </button>
     </div>
 </template>
@@ -49,8 +49,8 @@
 <script
     lang="ts"
     setup>
+    import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import type { FluxColorVariant, FluxIconName } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
     import $style from '$flux/css/component/Notice.module.scss';
@@ -60,8 +60,9 @@
     }>();
 
     const {
-        variant = 'gray'
+        color = 'gray'
     } = defineProps<{
+        readonly color?: FluxColor;
         readonly icon?: FluxIconName;
         readonly isCenter?: boolean;
         readonly isCloseable?: boolean;
@@ -69,7 +70,6 @@
         readonly isLoading?: boolean;
         readonly message?: string;
         readonly title?: string;
-        readonly variant?: FluxColorVariant;
     }>();
 
     defineSlots<{

@@ -8,9 +8,9 @@
         "preview": "vitepress preview"
     },
     "dependencies": {
-        "@basmilius/flux": "workspace:*",
-        "@basmilius/flux-internals": "workspace:*",
         "@faker-js/faker": "^9.6.0",
+        "@flux-ui/flux": "workspace:*",
+        "@flux-ui/internals": "workspace:*",
         "@fortawesome/fontawesome-common-types": "^6.7.2",
         "@fortawesome/pro-regular-svg-icons": "^6.7.2",
         "luxon": "^3.6.1",
@@ -21,7 +21,7 @@
         "vue": "^3.5.13"
     },
     "devDependencies": {
-        "@basmilius/vite-vue-preset": "^2.4.0",
+        "@basmilius/vite-vue-preset": "^2.5.0",
         "@types/luxon": "^3.6.2",
         "vite": "^6.2.5"
     }

@@ -28,5 +28,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane } from '@basmilius/flux';
+    import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane } from '@flux-ui/flux';
 </script>

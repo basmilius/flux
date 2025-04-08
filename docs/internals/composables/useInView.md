@@ -5,7 +5,7 @@ This composable function is used to check if an element is currently visible in 
 ## Usage
 
 ```ts
-import { useInView } from '@basmilius/flux-internals';
+import { useInView } from '@flux-ui/internals';
 import { useTemplateRef } from 'vue';
 
 const element = useTemplateRef('element');
@@ -18,7 +18,7 @@ useInView(element, {
 ## Type declarations
 
 ```ts
-import type { TemplateRef } from '@basmilius/flux-internals';
+import type { TemplateRef } from '@flux-ui/internals';
 import type { Ref } from 'vue';
 
 export declare function useInView<TElement extends HTMLElement>(

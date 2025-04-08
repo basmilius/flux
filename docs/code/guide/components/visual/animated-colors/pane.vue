@@ -27,5 +27,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxAnimatedColors, FluxAspectRatio, FluxPane, FluxPaneBody, FluxPaneHeader, FluxSecondaryButton } from '@basmilius/flux';
+    import { FluxAnimatedColors, FluxAspectRatio, FluxPane, FluxPaneBody, FluxPaneHeader, FluxSecondaryButton } from '@flux-ui/flux';
 </script>

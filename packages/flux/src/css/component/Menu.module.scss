@@ -1,11 +1,11 @@
 @use '$flux/css/mixin';
 
 @value button, buttonIcon, buttonLabel from './base/Button.module.scss';
-@value flexColumn, flexRow from './base/Flex.module.scss';
 @value basePane from './base/Pane.module.scss';
 
 .menu {
-    composes: flexColumn;
+    display: flex;
+    flex-flow: column;
 }
 
 .menuNormal {
@@ -25,16 +25,17 @@
 }
 
 .menuGroupHorizontal {
-    composes: flexRow;
     composes: menuGroup;
 
+    display: flex;
     gap: 3px;
 }
 
 .menuGroupVertical {
-    composes: flexColumn;
     composes: menuGroup;
 
+    display: flex;
+    flex-flow: column;
     gap: 1px;
 }
 

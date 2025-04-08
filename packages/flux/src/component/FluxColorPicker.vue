@@ -126,8 +126,8 @@
 <script
     lang="ts"
     setup>
-    import { blue500 } from '@basmilius/flux-internals';
     import { hexToRGB, hslToHSV, hslToRGB, hsvToHSL, hsvToRGB, rgbToHEX, rgbToHSL, rgbToHSV } from '@basmilius/utils';
+    import { blue500 } from '@flux-ui/internals';
     import { computed, ComputedRef, ref, unref, watch } from 'vue';
     import CoordinatePicker from './primitive/CoordinatePicker.vue';
     import FluxFormField from './FluxFormField.vue';

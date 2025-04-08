@@ -5,7 +5,7 @@ This composable function is used to manage focus locking for a component instanc
 ## Usage
 
 ```ts
-import { useFocusTrapLock } from '@basmilius/flux-internals';
+import { useFocusTrapLock } from '@flux-ui/internals';
 
 useFocusTrapLock(true);
 ```

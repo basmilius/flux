@@ -7,5 +7,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxExpandable } from '@basmilius/flux';
+    import { FluxExpandable } from '@flux-ui/flux';
 </script>

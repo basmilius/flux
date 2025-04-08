@@ -10,8 +10,8 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxVerticalWindowTransition } from '@basmilius/flux';
-    import { useInterval } from '@basmilius/flux-internals';
+    import { FluxPane, FluxVerticalWindowTransition } from '@flux-ui/flux';
+    import { useInterval } from '@flux-ui/internals';
     import { ref } from 'vue';
 
     const visible = ref(true);

@@ -8,16 +8,16 @@
         @click="emit('click', $event)">
         <FluxIcon
             v-if="icon"
-            :size="16"
-            :variant="icon"/>
+            :name="icon"
+            :size="16"/>
     </button>
 </template>
 
 <script
     lang="ts"
     setup>
+    import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import type { FluxIconName } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '$flux/css/component/Remove.module.scss';
 

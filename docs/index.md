@@ -42,5 +42,5 @@ features:
 ---
 
 ```shell
-bun add @basmilius/flux
+bun add @flux-ui/flux
 ```

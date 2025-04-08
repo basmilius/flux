@@ -30,7 +30,7 @@
             <FluxIcon
                 v-else-if="iconLeading"
                 :class="cssClassIcon"
-                :variant="iconLeading"/>
+                :name="iconLeading"/>
         </slot>
 
         <slot name="label">
@@ -49,7 +49,7 @@
             <FluxIcon
                 v-else-if="iconTrailing"
                 :class="cssClassIcon"
-                :variant="iconTrailing"/>
+                :name="iconTrailing"/>
         </slot>
 
         <slot name="after"/>
@@ -63,10 +63,10 @@
 <script
     lang="ts"
     setup>
+    import type { FluxButtonEmits, FluxButtonProps, FluxButtonSlots } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { toRef, unref } from 'vue';
     import { useDisabled } from '$flux/composable';
-    import type { FluxButtonEmits, FluxButtonProps, FluxButtonSlots } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
     import FluxSpinner from './FluxSpinner.vue';

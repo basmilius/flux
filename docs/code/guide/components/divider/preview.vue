@@ -9,7 +9,7 @@
                 <p>Ab, deserunt eius eos, eveniet explicabo itaque minima officia optio pariatur perspiciatis provident quaerat qui, quo sapiente temporibus veritatis vero voluptates voluptatibus. Commodi dolore in maiores provident quod ratione repudiandae.</p>
 
                 <FluxDivider content-placement="start">
-                    <FluxIcon variant="bolt"/>
+                    <FluxIcon name="bolt"/>
                 </FluxDivider>
 
                 <p>Aliquam aperiam corporis, cupiditate eaque esse fuga, hic inventore odio quam quibusdam quisquam suscipit vel voluptatem! Assumenda cumque distinctio dolorem fugit ipsam maiores numquam provident ratione saepe sunt? Facilis, sapiente.</p>
@@ -21,5 +21,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxDivider, FluxIcon, FluxPane, FluxPaneBody } from '@basmilius/flux';
+    import { FluxDivider, FluxIcon, FluxPane, FluxPaneBody } from '@flux-ui/flux';
 </script>

@@ -48,7 +48,7 @@
         <FluxIcon
             v-else
             :class="$style.formSelectIcon"
-            variant="angle-down"/>
+            name="angle-down"/>
     </Anchor>
 
     <Teleport to="body">
@@ -127,13 +127,13 @@
 <script
     lang="ts"
     setup>
-    import { unrefTemplateElement, useClickOutside } from '@basmilius/flux-internals';
+    import { unrefTemplateElement, useClickOutside } from '@flux-ui/internals';
+    import type { FluxFormSelectOption, FluxFormSelectOptions } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { ComponentPublicInstance, computed, nextTick, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled, useFormFieldInjection } from '$flux/composable';
-    import { type FormSelectGroup, useTranslate } from '$flux/composable/private';
+    import { useTranslate } from '$flux/composable/private';
     import { isFluxFormSelectGroup, isFluxFormSelectOption } from '$flux/data';
-    import type { FluxFormSelectOption } from '$flux/types';
     import { FluxFadeTransition } from '$flux/transition';
     import FluxFormInput from '$flux/component/FluxFormInput.vue';
     import FluxIcon from '$flux/component/FluxIcon.vue';
@@ -141,7 +141,6 @@
     import FluxMenuGroup from '$flux/component/FluxMenuGroup.vue';
     import FluxMenuItem from '$flux/component/FluxMenuItem.vue';
     import FluxMenuSubHeader from '$flux/component/FluxMenuSubHeader.vue';
-    import FluxPaneBody from '$flux/component/FluxPaneBody.vue';
     import FluxSpinner from '$flux/component/FluxSpinner.vue';
     import FluxTag from '$flux/component/FluxTag.vue';
     import Anchor from './Anchor.vue';
@@ -177,7 +176,7 @@
         readonly isLoading?: boolean;
         readonly isMultiple?: boolean;
         readonly isSearchable?: boolean;
-        readonly options: FormSelectGroup[];
+        readonly options: FluxFormSelectOptions[];
         readonly placeholder?: string;
         readonly selected: FluxFormSelectOption[];
     }>();

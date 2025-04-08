@@ -5,7 +5,7 @@ This composable function is used to create month calendars in Flux. It contains 
 ## Usage
 
 ```ts
-import { useCalendar } from '@basmilius/flux-internals';
+import { useCalendar } from '@flux-ui/internals';
 import { DateTime } from 'luxon';
 
 const {

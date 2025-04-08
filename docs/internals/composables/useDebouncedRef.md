@@ -5,7 +5,7 @@ This composable function is used to debounce changes to the ref.
 ## Usage
 
 ```ts
-import { useDebouncedRef } from '@basmilius/flux-internals';
+import { useDebouncedRef } from '@flux-ui/internals';
 import { ref } from 'vue';
 
 const searchQuery = ref('');

@@ -5,7 +5,7 @@ Returns the props of the component, based on its `VNode`.
 ## Usage
 
 ```ts
-import { getComponentProps } from '@basmilius/flux-internals';
+import { getComponentProps } from '@flux-ui/internals';
 
 const props = getComponentProps(vnode);
 ```

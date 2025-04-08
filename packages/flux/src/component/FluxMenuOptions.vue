@@ -9,7 +9,7 @@
 <script
     lang="ts"
     setup>
-    import { flattenVNodeTree } from '@basmilius/flux-internals';
+    import { flattenVNodeTree } from '@flux-ui/internals';
     import { cloneVNode, computed, unref, VNode } from 'vue';
     import FluxMenuGroup from './FluxMenuGroup.vue';
 

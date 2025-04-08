@@ -24,8 +24,8 @@
 <script
     lang="ts"
     setup>
+    import type { FluxConfirmObject } from '@flux-ui/types';
     import { useTranslate } from '$flux/composable/private';
-    import type { FluxConfirmObject } from '$flux/types';
     import FluxPane from './FluxPane.vue';
     import FluxPaneBody from './FluxPaneBody.vue';
     import FluxPaneFooter from './FluxPaneFooter.vue';

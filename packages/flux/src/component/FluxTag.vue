@@ -29,8 +29,8 @@
         <FluxIcon
             v-else-if="icon"
             :class="$style.tagIcon"
-            :size="16"
-            :variant="icon"/>
+            :name="icon"
+            :size="16"/>
 
         <span :class="$style.tagLabel">
             {{ label }}
@@ -41,7 +41,7 @@
             :class="$style.tagClose"
             type="button"
             @click="onDeleteClick()">
-            <FluxIcon variant="xmark"/>
+            <FluxIcon name="xmark"/>
         </button>
     </FluxPressable>
 </template>
@@ -49,8 +49,8 @@
 <script
     lang="ts"
     setup>
+    import type { FluxButtonEmits, FluxColor, FluxIconName, FluxPressableType, FluxTo } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import type { FluxButtonEmits, FluxColorVariant, FluxIconName, FluxPressableType, FluxTo } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
     import FluxSpinner from './FluxSpinner.vue';
@@ -64,7 +64,7 @@
         color = 'gray',
         isClickable
     } = defineProps<{
-        readonly color?: FluxColorVariant;
+        readonly color?: FluxColor;
         readonly dot?: boolean;
         readonly icon?: FluxIconName;
         readonly isClickable?: boolean;

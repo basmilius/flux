@@ -58,7 +58,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxAction, FluxBadge, FluxBadgeStack, FluxDataTable, FluxPane, FluxTableActions, FluxTableCell, FluxTableHeader } from '@basmilius/flux';
+    import { FluxAction, FluxBadge, FluxBadgeStack, FluxDataTable, FluxPane, FluxTableActions, FluxTableCell, FluxTableHeader } from '@flux-ui/flux';
     import { faker } from '@faker-js/faker';
     import { computed } from 'vue';
 

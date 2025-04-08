@@ -38,5 +38,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxAvatar, FluxStack } from '@basmilius/flux';
+    import { FluxAvatar, FluxStack } from '@flux-ui/flux';
 </script>

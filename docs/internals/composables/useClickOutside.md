@@ -5,7 +5,7 @@ This composable function is used to detect when a user is clicking outside the t
 ## Usage
 
 ```ts
-import { useClickOutside } from '@basmilius/flux-internals';
+import { useClickOutside } from '@flux-ui/internals';
 import { ref, useTemplateRef } from 'vue';
 
 const element = useTemplateRef('element');
@@ -19,7 +19,7 @@ useClickOutside(element, enabled, () => {
 ## Type declarations
 
 ```ts
-import type { TemplateRef } from '@basmilius/flux-internals';
+import type { TemplateRef } from '@flux-ui/internals';
 import type { Ref } from 'vue';
 
 export declare function useClickOutside<TElement extends HTMLElement>(

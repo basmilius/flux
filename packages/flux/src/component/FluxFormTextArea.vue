@@ -20,9 +20,9 @@
 <script
     lang="ts"
     setup>
+    import type { FluxAutoCompleteType } from '@flux-ui/types';
     import { toRef } from 'vue';
     import { useDisabled, useFormFieldInjection } from '$flux/composable';
-    import type { FluxAutoCompleteType } from '$flux/types';
     import $style from '$flux/css/component/Form.module.scss';
 
     const emit = defineEmits<{

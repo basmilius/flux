@@ -7,5 +7,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxDestructiveButton } from '@basmilius/flux';
+    import { FluxDestructiveButton } from '@flux-ui/flux';
 </script>

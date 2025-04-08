@@ -3,7 +3,7 @@
         <FluxIcon
             v-if="icon"
             :class="$style.infoIcon"
-            :variant="icon"/>
+            :name="icon"/>
 
         <div :class="$style.infoBody">
             <slot/>
@@ -14,7 +14,7 @@
 <script
     setup
     lang="ts">
-    import type { FluxIconName } from '$flux/types';
+    import type { FluxIconName } from '@flux-ui/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '$flux/css/component/Info.module.scss';
 

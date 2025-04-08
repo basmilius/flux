@@ -29,8 +29,8 @@
                 @click="activate(index)">
                 <FluxIcon
                     v-if="item.icon"
-                    :size="15"
-                    :variant="item.icon"/>
+                    :name="item.icon"
+                    :size="15"/>
 
                 <span>{{ item.label }}</span>
             </button>
@@ -41,9 +41,9 @@
 <script
     lang="ts"
     setup>
+    import type { FluxSegmentedControlItemObject } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { onMounted, onUpdated, ref, unref, useTemplateRef } from 'vue';
-    import type { FluxSegmentedControlItemObject } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '$flux/css/component/SegmentedControl.module.scss';
 

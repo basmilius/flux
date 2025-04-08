@@ -1,13 +1,11 @@
 @use '$flux/css/mixin';
 
-@value flexColumn from './base/Flex.module.scss';
-
 .placeholder {
-    composes: flexColumn;
-
     position: relative;
+    display: flex;
     align-items: center;
     flex: 1 1 0;
+    flex-flow: column;
     justify-content: center;
     background: rgb(var(--gray-1));
     border: 1px dashed rgb(var(--gray-3));

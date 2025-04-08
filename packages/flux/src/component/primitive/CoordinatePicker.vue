@@ -17,8 +17,8 @@
 <script
     lang="ts"
     setup>
-    import { unrefTemplateElement } from '@basmilius/flux-internals';
     import { roundStep } from '@basmilius/utils';
+    import { unrefTemplateElement } from '@flux-ui/internals';
     import { computed, onMounted, onUnmounted, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '$flux/composable';
     import CoordinatePickerThumb from './CoordinatePickerThumb.vue';

@@ -1,5 +1,5 @@
+import type { FluxFilterState, FluxFilterValue } from '@flux-ui/types';
 import type { ComponentInternalInstance, InjectionKey, Ref } from 'vue';
-import type { FluxFilterState, FluxFilterValue } from '$flux/types';
 
 export const FluxDisabledInjectionKey: InjectionKey<Ref<boolean>> = Symbol();
 export const FluxExpandableGroupInjectionKey: InjectionKey<FluxExpandableGroupInjection> = Symbol();

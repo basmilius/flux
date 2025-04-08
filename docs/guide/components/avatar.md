@@ -52,7 +52,7 @@ props:
 
     -   name: status
         description: The status dot that is shown within the avatar. E.g. an online status.
-        type: FluxColorVariant
+        type: FluxColor
         optional: true
 
     -   name: tabindex

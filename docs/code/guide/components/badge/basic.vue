@@ -5,5 +5,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxBadge } from '@basmilius/flux';
+    import { FluxBadge } from '@flux-ui/flux';
 </script>

@@ -20,7 +20,7 @@
 <script
     lang="ts"
     setup>
-    import { unrefTemplateElement } from '@basmilius/flux-internals';
+    import { unrefTemplateElement } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { onMounted, onUnmounted, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '$flux/composable';

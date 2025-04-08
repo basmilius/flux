@@ -1,7 +1,5 @@
 @use '$flux/css/mixin';
 
-@value flexColumn, flexRow from './base/Flex.module.scss';
-
 .avatar {
     position: relative;
     display: inline-flex;
@@ -141,8 +139,7 @@
 }
 
 .persona {
-    composes: flexRow;
-
+    display: flex;
     padding: 6px;
     align-items: center;
     gap: 12px;
@@ -162,9 +159,9 @@
 }
 
 .personaDetails {
-    composes: flexColumn;
-
+    display: flex;
     margin-right: 9px;
+    flex-flow: column;
     gap: 3px;
     line-height: 1.2;
 

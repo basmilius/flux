@@ -1,9 +1,8 @@
 import type { DateTime } from 'luxon';
-import type { FluxTranslator } from '$flux/composable/private';
 import type { FluxIconName } from './common';
 
 export type FluxFilterBase = {
-    getValueLabel(value: FluxFilterValue, translate: FluxTranslator): Promise<string | null>;
+    getValueLabel(value: FluxFilterValue): Promise<string | null>;
 
     readonly icon?: FluxIconName;
     readonly label: string;
@@ -61,12 +60,10 @@ export type FluxFilterValue =
     | FluxFilterValueSingle
     | FluxFilterValueSingle[];
 
-type FluxFilterStateApi = {
+export type FluxFilterState = {
     get resettable(): string[];
 
     reset(): void;
-};
-
-export type FluxFilterState = FluxFilterStateApi & {
+} & {
     [key: string]: FluxFilterValue | Function;
 };

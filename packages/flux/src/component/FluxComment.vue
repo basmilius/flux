@@ -15,13 +15,17 @@
             :src="avatarSrc"/>
 
         <div :class="$style.commentContent">
-            <div v-if="isTyping" :class="$style.commentTyping"/>
+            <div
+                v-if="isTyping"
+                :class="$style.commentTyping"/>
             <slot v-else/>
         </div>
 
         <div :class="$style.commentFooter">
             <span v-if="isReceived && postedBy">{{ postedBy }}</span>
-            <time v-if="iso && relative && !isTyping" :datetime="iso">
+            <time
+                v-if="iso && relative && !isTyping"
+                :datetime="iso">
                 {{ isJustNowVisible ? translate('flux.justNow') : relative }}
             </time>
         </div>
@@ -31,11 +35,11 @@
 <script
     lang="ts"
     setup>
+    import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import type { DateTime } from 'luxon';
     import { computed } from 'vue';
     import { useTranslate } from '$flux/composable/private';
-    import type { FluxIconName } from '$flux/types';
     import FluxAvatar from './FluxAvatar.vue';
     import $style from '$flux/css/component/Comment.module.scss';
 

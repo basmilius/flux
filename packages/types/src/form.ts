@@ -18,3 +18,7 @@ export type FluxFormSelectOption = {
 export type FluxFormSelectEntry =
     | FluxFormSelectGroup
     | FluxFormSelectOption;
+
+export type FluxFormSelectOptions = [FluxFormSelectEntry | null, FluxFormSelectOption[]];
+export type FluxFormSelectValue = FluxFormSelectValueSingle | FluxFormSelectValueSingle[];
+export type FluxFormSelectValueSingle = string | number | null;

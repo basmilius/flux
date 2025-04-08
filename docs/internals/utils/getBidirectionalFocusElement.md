@@ -5,7 +5,7 @@ Navigates bidirectionally within a container.
 ## Usage
 
 ```ts
-import { getBidirectionalFocusElement } from '@basmilius/flux-internals';
+import { getBidirectionalFocusElement } from '@flux-ui/internals';
 
 const container = document.querySelector('#container');
 const newFocusElement = getBidirectionalFocusElement(container.document.activeElement, 'down');

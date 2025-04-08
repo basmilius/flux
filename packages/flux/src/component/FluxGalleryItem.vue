@@ -25,8 +25,8 @@
 <script
     lang="ts"
     setup>
+    import type { FluxFocalPointObject } from '@flux-ui/types';
     import { ref } from 'vue';
-    import type { FluxFocalPointObject } from '$flux/types';
     import FluxFocalPointImage from './FluxFocalPointImage.vue';
     import FluxRemove from './FluxRemove.vue';
     import FluxSpinner from './FluxSpinner.vue';

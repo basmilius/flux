@@ -19,7 +19,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxFocalPointEditor, FluxPane, FluxPrimaryButton, FluxSecondaryButton } from '@basmilius/flux';
+    import { FluxFocalPointEditor, FluxPane, FluxPrimaryButton, FluxSecondaryButton } from '@flux-ui/flux';
     import { ref } from 'vue';
 
     const focalPoint = ref<[number, number]>([75, 50]);

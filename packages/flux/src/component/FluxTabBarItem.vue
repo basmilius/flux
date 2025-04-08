@@ -18,8 +18,8 @@
         @mouseleave="onMouseLeave">
         <FluxIcon
             v-if="icon"
-            :size="16"
-            :variant="icon"/>
+            :name="icon"
+            :size="16"/>
 
         <span v-if="label">{{ label }}</span>
     </FluxPressable>
@@ -28,9 +28,9 @@
 <script
     lang="ts"
     setup>
+    import type { FluxIconName, FluxPressableType, FluxTo } from '@flux-ui/types';
     import { ComponentPublicInstance, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '$flux/composable';
-    import type { FluxIconName, FluxPressableType, FluxTo } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
     import $style from '$flux/css/component/Tab.module.scss';

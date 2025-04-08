@@ -1,7 +1,9 @@
 import type { DateTime } from 'luxon';
-import type { FluxTranslator } from '$flux/composable/private';
+import { useTranslate } from '$flux/composable/private';
 
-export default function (translate: FluxTranslator, start: DateTime, end: DateTime, preventCustom: boolean = false): string {
+export default function (start: DateTime, end: DateTime, preventCustom: boolean = false): string {
+    const translate = useTranslate();
+
     if (start.day === end.day && start.month === end.month && start.year === end.year) {
         return start.toLocaleString({
             day: 'numeric',

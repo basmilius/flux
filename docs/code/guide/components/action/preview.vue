@@ -19,5 +19,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxAction, FluxActions, FluxPane, FluxPaneBody } from '@basmilius/flux';
+    import { FluxAction, FluxActions, FluxPane, FluxPaneBody } from '@flux-ui/flux';
 </script>

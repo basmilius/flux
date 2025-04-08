@@ -15,16 +15,16 @@
                     <FluxIcon
                         v-if="icon"
                         :key="icon"
-                        :variant="icon"/>
+                        :name="icon"/>
                 </FluxFadeTransition>
 
                 <span>{{ label }}</span>
 
                 <FluxFadeTransition>
                     <FluxIcon
-                        :key="isOpen ? 'minus' : 'plus'"
-                        :size="16"
-                        :variant="isOpen ? 'minus' : 'plus'"/>
+                        :key="expandIcon"
+                        :name="expandIcon"
+                        :size="16"/>
                 </FluxFadeTransition>
             </button>
         </slot>
@@ -50,11 +50,11 @@
 <script
     lang="ts"
     setup>
-    import { useComponentId } from '@basmilius/flux-internals';
-    import { getCurrentInstance, onBeforeMount, onUnmounted, ref, unref, useId, watch } from 'vue';
+    import { useComponentId } from '@flux-ui/internals';
+    import type { FluxIconName } from '@flux-ui/types';
+    import { computed, getCurrentInstance, onBeforeMount, onUnmounted, ref, unref, useId, watch } from 'vue';
     import { useExpandableGroupInjection } from '$flux/composable';
     import { FluxAutoHeightTransition, FluxFadeTransition } from '$flux/transition';
-    import { FluxIconName } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '$flux/css/component/Expandable.module.scss';
 
@@ -77,6 +77,8 @@
     const isOpen = ref(false);
 
     const {closeAll, register, unregister} = useExpandableGroupInjection();
+
+    const expandIcon = computed<FluxIconName>(() => unref(isOpen) ? 'minus' : 'plus');
 
     onBeforeMount(() => register?.(unref(componentId), instance));
     onUnmounted(() => unregister?.(unref(componentId)));

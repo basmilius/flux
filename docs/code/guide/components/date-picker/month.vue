@@ -9,7 +9,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxDatePicker, FluxPane } from '@basmilius/flux';
+    import { FluxDatePicker, FluxPane } from '@flux-ui/flux';
     import { DateTime } from 'luxon';
     import { ref } from 'vue';
 

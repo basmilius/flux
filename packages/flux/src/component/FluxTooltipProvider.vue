@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { unrefTemplateElement } from '@basmilius/flux-internals';
+    import { unrefTemplateElement } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { computed, defineComponent, h, ref, unref, watch } from 'vue';
     import { useFluxStore } from '$flux/data';

@@ -12,5 +12,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxBorderShine, FluxSecondaryButton } from '@basmilius/flux';
+    import { FluxBorderShine, FluxSecondaryButton } from '@flux-ui/flux';
 </script>

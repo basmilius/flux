@@ -3,8 +3,8 @@ outline: deep
 ---
 
 <script setup>
-import { FluxPane, FluxTable, FluxTableRow, FluxTableCell, FluxTableHeader } from '@basmilius/flux';
-import { english } from '../../../packages/flux/src/composable/private/useTranslate';
+import { FluxPane, FluxTable, FluxTableRow, FluxTableCell, FluxTableHeader } from '@flux-ui/flux';
+import { english } from '../../../packages/flux/src/data/i18n';
 </script>
 
 # Translations

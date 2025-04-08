@@ -1,4 +1,4 @@
-import { flattenVNodeTree } from '@basmilius/flux-internals';
+import { flattenVNodeTree } from '@flux-ui/internals';
 import type { Component, RenderFunction, Slots } from 'vue';
 import { Comment, h, onMounted, onUnmounted, SetupContext, Teleport, VNode } from 'vue';
 import { registerDialog, useFluxStore } from '$flux/data';

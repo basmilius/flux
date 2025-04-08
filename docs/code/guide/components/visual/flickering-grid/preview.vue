@@ -7,5 +7,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxAspectRatio, FluxFlickeringGrid } from '@basmilius/flux';
+    import { FluxAspectRatio, FluxFlickeringGrid } from '@flux-ui/flux';
 </script>

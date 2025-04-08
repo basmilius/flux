@@ -9,5 +9,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxAvatar } from '@basmilius/flux';
+    import { FluxAvatar } from '@flux-ui/flux';
 </script>

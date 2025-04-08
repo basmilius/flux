@@ -5,7 +5,7 @@ Returns the name of the component, based on its `VNode`.
 ## Usage
 
 ```ts
-import { getExposedRef } from '@basmilius/flux-internals';
+import { getExposedRef } from '@flux-ui/internals';
 
 const isOpen = getExposedRef(instance, 'isOpen');
 ```

@@ -23,7 +23,7 @@
 <script
     lang="ts"
     setup>
-    import type { FluxTo } from '@basmilius/flux';
+    import type { FluxTo } from '@flux-ui/types';
     import { useDashboardInjection } from '$fluxDashboard/composable';
     import $style from '$fluxDashboard/css/component/Dashboard.module.scss';
 

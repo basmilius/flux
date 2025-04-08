@@ -16,7 +16,7 @@ import './style.css';
 
 import type { Theme } from 'vitepress';
 
-import { fluxRegisterIcons } from '@basmilius/flux';
+import { fluxRegisterIcons } from '@flux-ui/flux';
 import * as icons from './icons';
 
 fluxRegisterIcons(icons);
@@ -27,6 +27,7 @@ import ComponentGrid from './ComponentGrid.vue';
 import ComponentGridIndex from './ComponentGridIndex.vue';
 import ComponentGridItem from './ComponentGridItem.vue';
 import Emits from './Emits.vue';
+import FluxView from './FluxView.vue';
 import FrontmatterDocs from './FrontmatterDocs.vue';
 import Layout from './Layout.vue';
 import Preview from './Preview.vue';
@@ -47,6 +48,7 @@ const theme: Theme = {
         app.component('ComponentGridIndex', ComponentGridIndex);
         app.component('ComponentGridItem', ComponentGridItem);
         app.component('Emits', Emits);
+        app.component('FluxView', FluxView);
         app.component('FrontmatterDocs', FrontmatterDocs);
         app.component('Preview', Preview);
         app.component('Props', Props);

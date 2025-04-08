@@ -31,10 +31,10 @@
 <script
     lang="ts"
     setup>
-    import { flattenVNodeTree, getComponentProps } from '@basmilius/flux-internals';
+    import { flattenVNodeTree, getComponentProps } from '@flux-ui/internals';
+    import type { FluxIconName } from '@flux-ui/types';
     import { computed, ref, unref, VNode, watch } from 'vue';
     import { FluxWindowTransition } from '$flux/transition';
-    import type { FluxIconName } from '$flux/types';
     import { VNodeRenderer } from './primitive';
     import FluxTabBar from './FluxTabBar.vue';
     import FluxTabBarItem from './FluxTabBarItem.vue';

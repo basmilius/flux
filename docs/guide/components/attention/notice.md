@@ -7,6 +7,11 @@ emits:
         type: [ ]
 
 props:
+    -   name: color
+        description: The color of the notice.
+        type: FluxColor
+        optional: true
+        
     -   name: icon
         description: The icon that is shown at the start of the notice.
         type: FluxIconName
@@ -42,11 +47,6 @@ props:
         type: string
         optional: true
 
-    -   name: variant
-        description: The color variant of the notice.
-        type: FluxColorVariant
-        optional: true
-
 slots:
     -   name: default
         description: Extra content that should be rendered inside the notice.
@@ -74,7 +74,7 @@ For temporary notifications that auto-dismiss or need less prominence, consider 
 
 ## Examples
 
-::: example Basic || Notices can display the result of an action that the user performed. The variant of the notice depends on whether the result of that action is positive or negative.
+::: example Basic || Notices can display the result of an action that the user performed. The color of the notice depends on whether the result of that action is positive or negative.
 example=../../../code/guide/components/attention/notice/basic.vue
 :::
 
@@ -84,7 +84,7 @@ example=../../../code/guide/components/attention/notice/loading.vue
 
 ## Serverty examples
 
-Variants such as `success`, `error`, `warning`, `info`, and `gray` help convey the severity of the message. For example:
+Colors such as `success`, `error`, `warning`, `info`, and `gray` help convey the severity of the message. For example:
 
 - `danger` — Failed to save data. Please try again.
 - `info` — New updates are available.

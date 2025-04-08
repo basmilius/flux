@@ -1,9 +1,6 @@
 @use '$flux/css/mixin';
 
 @value button, buttonLabel from './base/Button.module.scss';
-
-@value flexColumn, flexRow, flexGrow, flexNoShrink, inlineFlexRow from './base/Flex.module.scss';
-
 @value basePaneStructure from './base/Pane.module.scss';
 
 %-form-input-group-inner-styles {
@@ -25,9 +22,13 @@
     }
 }
 
-.form {
-    composes: flexColumn;
+.formStructureElement {
+    display: flex;
+    flex-flow: column;
+}
 
+.form {
+    composes: formStructureElement;
     gap: 42px;
 }
 
@@ -38,8 +39,7 @@
 
 .formColumn,
 .formSection {
-    composes: flexColumn;
-
+    composes: formStructureElement;
     gap: 18px;
 }
 
@@ -52,9 +52,8 @@
 }
 
 .formRow {
-    composes: flexRow;
-    composes: flexGrow;
-
+    display: flex;
+    flex-grow: 1;
     gap: 12px;
 }
 
@@ -65,15 +64,14 @@
 }
 
 .formField {
-    composes: flexColumn;
-
+    display: flex;
     flex: 1 1 0;
+    flex-flow: column;
     gap: 6px;
 }
 
 .formFieldHeader {
-    composes: flexRow;
-
+    display: flex;
     margin-bottom: 0;
     width: 100%;
     align-items: center;
@@ -107,8 +105,7 @@
 }
 
 .formFieldAddition {
-    composes: flexRow;
-
+    display: flex;
     gap: 9px;
     font-size: 14px;
 }
@@ -525,9 +522,8 @@
 }
 
 .checkbox {
-    composes: inlineFlexRow;
-    composes: flexNoShrink;
-
+    display: inline-flex;
+    flex-shrink: 0;
     gap: 12px;
     outline: 0;
 }
@@ -540,9 +536,8 @@
 }
 
 .checkboxElement {
-    composes: inlineFlexRow;
-
     position: relative;
+    display: inline-flex;
     height: 22px;
     width: 22px;
     padding: 0;

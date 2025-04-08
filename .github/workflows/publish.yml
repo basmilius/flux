@@ -25,9 +25,9 @@ jobs:
 
             -   name: 🔨 Build
                 run: |
-                    bun -F @basmilius/flux-internals build
-                    bun -F @basmilius/flux build
-                    bun -F @basmilius/flux-dashboard build
+                    bun -F @flux-ui/internals build
+                    bun -F @flux-ui/flux build
+                    bun -F @flux-ui/dashboard build
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
 

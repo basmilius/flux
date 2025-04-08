@@ -20,7 +20,7 @@ export {
 ```
 
 ```ts [register.ts]
-import { fluxRegisterIcons  } from '@basmilius/flux';
+import { fluxRegisterIcons  } from '@flux-ui/flux';
 import * as icons from './icons.ts';
 
 fluxRegisterIcons(icons);
@@ -29,14 +29,14 @@ fluxRegisterIcons(icons);
 ```vue [Page.vue]
 <template>
     <FluxIcon
-        :size="24"
-        variant="circle-check"/>
+        name="circle-check"
+        :size="24"/>
 </template>
 
 <script
     type="ts"
     setup>
-    import { FluxIcon } from '@basmilius/flux';
+    import { FluxIcon } from '@flux-ui/flux';
 </script>
 ```
 

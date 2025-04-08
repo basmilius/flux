@@ -5,7 +5,7 @@ This composable function returns the unique id of the component.
 ## Usage
 
 ```ts
-import { useComponentId } from '@basmilius/flux-internals';
+import { useComponentId } from '@flux-ui/internals';
 
 const componentId = useComponentId();
 ```

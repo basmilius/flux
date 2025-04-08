@@ -11,8 +11,8 @@
 <script
     lang="ts"
     setup>
-    import { FluxBreakthroughTransition, FluxPane } from '@basmilius/flux';
-    import { useInterval } from '@basmilius/flux-internals';
+    import { FluxBreakthroughTransition, FluxPane } from '@flux-ui/flux';
+    import { useInterval } from '@flux-ui/internals';
     import { ref } from 'vue';
 
     const visible = ref(true);

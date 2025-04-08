@@ -134,7 +134,7 @@
 <script
     lang="ts"
     setup>
-    import { flattenVNodeTree, getComponentName, getComponentProps, useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher } from '@basmilius/flux-internals';
+    import { flattenVNodeTree, getComponentName, getComponentProps, useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
     import { computed, unref, VNode, watch } from 'vue';

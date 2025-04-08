@@ -11,10 +11,10 @@
 <script
     lang="ts"
     setup>
+    import type { FluxFilterOptionRow, FluxFilterValueSingle, FluxIconName } from '@flux-ui/types';
     import { computed, unref } from 'vue';
     import { useFilterInjection } from '$flux/composable';
     import { isFluxFilterOptionHeader } from '$flux/data';
-    import type { FluxFilterOptionRow, FluxFilterValueSingle, FluxIconName } from '$flux/types';
     import { FilterOptionBase } from './primitive';
 
     const modelSearch = defineModel<string>('searchQuery', {

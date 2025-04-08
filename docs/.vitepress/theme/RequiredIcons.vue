@@ -6,8 +6,8 @@
             v-for="icon of icons"
             :class="$style.requiredIcon">
             <FluxIcon
-                :size="24"
-                :variant="icon"/>
+                :name="icon"
+                :size="24"/>
 
             <span>{{ icon }}</span>
         </div>
@@ -17,7 +17,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxIcon } from '@basmilius/flux';
+    import { FluxIcon } from '@flux-ui/flux';
     import { useData } from 'vitepress';
     import { computed, unref } from 'vue';
 

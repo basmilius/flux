@@ -18,7 +18,7 @@
 <script
     lang="ts"
     setup>
-    import type { FluxButtonEmits, FluxButtonProps, FluxButtonSlots } from '$flux/types';
+    import type { FluxButtonEmits, FluxButtonProps, FluxButtonSlots } from '@flux-ui/types';
     import FluxButton, { SLOTS } from './FluxButton.vue';
     import $style from '$flux/css/component/Button.module.scss';
 

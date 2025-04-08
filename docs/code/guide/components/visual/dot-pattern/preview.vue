@@ -10,5 +10,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxAspectRatio, FluxDotPattern } from '@basmilius/flux';
+    import { FluxAspectRatio, FluxDotPattern } from '@flux-ui/flux';
 </script>

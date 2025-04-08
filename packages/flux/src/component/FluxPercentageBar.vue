@@ -6,8 +6,8 @@
                     <div :class="$style.percentageBarTooltip">
                         <FluxIcon
                             v-if="item.icon"
-                            :size="16"
-                            :variant="item.icon"/>
+                            :name="item.icon"
+                            :size="16"/>
 
                         <span>{{ formatPercentage(item.value) }} {{ item.label }}</span>
                     </div>
@@ -32,7 +32,7 @@
     lang="ts"
     setup>
     import { formatPercentage } from '@basmilius/utils';
-    import type { FluxPercentageBarItemObject } from '$flux/types';
+    import type { FluxPercentageBarItemObject } from '@flux-ui/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxLegend from './FluxLegend.vue';
     import FluxTooltip from './FluxTooltip.vue';

@@ -17,7 +17,7 @@
             <FluxIcon
                 v-else-if="icon"
                 :size="18"
-                :variant="icon"/>
+                :name="icon"/>
 
             <div :class="$style.snackbarBody">
                 <div
@@ -72,10 +72,10 @@
 <script
     lang="ts"
     setup>
+    import type { FluxColor, FluxIconName, FluxSnackbarObject } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, getCurrentInstance, onBeforeUnmount, ref, watch, watchEffect } from 'vue';
     import { addSnackbar, removeSnackbar, updateSnackbar } from '$flux/data';
-    import type { FluxColorVariant, FluxIconName, FluxSnackbarObject } from '$flux/types';
     import FluxAction from './FluxAction.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxProgressBar from './FluxProgressBar.vue';
@@ -93,7 +93,7 @@
         isRendered
     } = defineProps<{
         readonly actions?: Record<string, string>;
-        readonly color?: FluxColorVariant;
+        readonly color?: FluxColor;
         readonly icon?: FluxIconName;
         readonly isCloseable?: boolean;
         readonly isLoading?: boolean;

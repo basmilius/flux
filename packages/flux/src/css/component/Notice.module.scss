@@ -1,12 +1,11 @@
 @use '$flux/css/mixin';
 
-@value flex, flexColumn, flexRow, flexGrow, flexNoShrink from './base/Flex.module.scss';
 @value basePane, basePaneElement from './base/Pane.module.scss';
 
 .notice {
-    composes: flexRow;
     composes: basePaneElement;
 
+    display: flex;
     padding: 12px 15px;
     gap: 12px;
     border-radius: var(--radius);
@@ -34,9 +33,9 @@
 }
 
 .noticeBody {
-    composes: flexColumn;
-    composes: flexGrow;
-
+    display: flex;
+    flex-flow: column;
+    flex-grow: 1;
     text-wrap: pretty;
 
     :global(p) {
@@ -49,8 +48,7 @@
 }
 
 .noticeClose {
-    composes: flex;
-
+    display: flex;
     height: 20px;
     width: 20px;
     margin: 2px;
@@ -73,9 +71,8 @@
 }
 
 .noticePrefix {
-    composes: flexNoShrink;
-
     margin-top: 2px;
+    flex-shrink: 0;
     font-size: 20px;
 }
 

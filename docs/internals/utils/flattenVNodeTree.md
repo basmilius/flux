@@ -5,7 +5,7 @@ Flattens a VNode tree to remove non-dom elements.
 ## Usage
 
 ```ts
-import { flattenVNodeTree } from '@basmilius/flux-internals';
+import { flattenVNodeTree } from '@flux-ui/internals';
 import { useSlots } from 'vue';
 
 const slots = useSlots();

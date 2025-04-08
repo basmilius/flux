@@ -15,7 +15,7 @@
 <script
     lang="ts"
     setup>
-    import type { FluxDirection, FluxLegendObject } from '$flux/types';
+    import type { FluxDirection, FluxLegendObject } from '@flux-ui/types';
     import $style from '$flux/css/component/Legend.module.scss';
 
     const {

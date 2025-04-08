@@ -21,7 +21,7 @@ emits:
 props:
     -   name: color
         description: The color of the badge.
-        type: FluxColorVariant
+        type: FluxColor
         optional: true
 
     -   name: dot

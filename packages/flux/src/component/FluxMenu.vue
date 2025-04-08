@@ -11,7 +11,7 @@
 <script
     lang="ts"
     setup>
-    import { useFocusZone } from '@basmilius/flux-internals';
+    import { useFocusZone } from '@flux-ui/internals';
     import { useTemplateRef } from 'vue';
     import $style from '$flux/css/component/Menu.module.scss';
 

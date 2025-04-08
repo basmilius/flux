@@ -31,12 +31,11 @@
 <script
     lang="ts"
     setup>
+    import type { FluxAutoCompleteType } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import type { DateTime } from 'luxon';
     import { computed, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '$flux/composable';
-    import { useTranslate } from '$flux/composable/private';
-    import type { FluxAutoCompleteType } from '$flux/types';
     import { createLabelForDateRange } from '$flux/util';
     import FluxDatePicker from './FluxDatePicker.vue';
     import FluxFlyout from './FluxFlyout.vue';
@@ -64,7 +63,6 @@
 
     const disabled = useDisabled(toRef(() => componentDisabled));
     const flyoutRef = useTemplateRef('flyout');
-    const translate = useTranslate();
 
     const localValue = ref<[DateTime, DateTime] | null>(null);
 
@@ -77,7 +75,7 @@
 
         const [start, end] = value;
 
-        return createLabelForDateRange(translate, start, end, true);
+        return createLabelForDateRange(start, end, true);
     });
 
     watch(localValue, localValue => {

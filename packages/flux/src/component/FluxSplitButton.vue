@@ -27,7 +27,7 @@
 <script
     setup
     lang="ts">
-    import type { FluxDirection, FluxIconName } from '$flux/types';
+    import type { FluxDirection, FluxIconName } from '@flux-ui/types';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import $style from '$flux/css/component/Button.module.scss';

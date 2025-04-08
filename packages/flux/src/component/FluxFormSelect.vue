@@ -14,16 +14,17 @@
 <script
     lang="ts"
     setup>
+    import type { FluxFormSelectEntry, FluxFormSelectValue } from '@flux-ui/types';
     import { toRef, unref } from 'vue';
     import { SelectBase } from '$flux/component/primitive';
     import { useDisabled } from '$flux/composable';
-    import { FormSelectOption, FormSelectValue, useFormSelect } from '$flux/composable/private';
+    import { useFormSelect } from '$flux/composable/private';
 
     const modelSearch = defineModel<string>('searchQuery', {
         default: ''
     });
 
-    const modelValue = defineModel<FormSelectValue>({
+    const modelValue = defineModel<FluxFormSelectValue>({
         required: true
     });
 
@@ -36,7 +37,7 @@
         readonly isMultiple?: boolean;
         readonly placeholder?: string;
         readonly isSearchable?: boolean;
-        readonly options: FormSelectOption[];
+        readonly options: FluxFormSelectEntry[];
     }>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));

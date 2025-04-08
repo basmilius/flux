@@ -24,7 +24,7 @@ render=../../../code/guide/components/menu/options/preview.vue
 
 ## Examples
 
-::: example Alignment || Horizontal option menus can be used to allow users to select a variant.
+::: example Alignment || Horizontal option menus can be used to allow users to select an alignment.
 example=../../../code/guide/components/menu/options/alignment.vue
 :::
 

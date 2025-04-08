@@ -1,11 +1,10 @@
 @use '$flux/css/mixin';
 
-@value flexColumn from './base/Flex.module.scss';
-
 @value basePane from './base/Pane.module.scss';
 
 .expandable {
-    composes: flexColumn;
+    display: flex;
+    flex-flow: column;
 }
 
 .expandableOpened {
@@ -72,15 +71,15 @@
     padding: 0 21px 21px;
 }
 
-.basePane > .expandable {
+:local(.basePane) > .expandable {
     border-radius: inherit;
 }
 
-.basePane > .expandable .expandableHeader {
+:local(.basePane) > .expandable .expandableHeader {
     border-radius: inherit;
 }
 
-.basePane > .expandableOpened .expandableHeader {
+:local(.basePane) > .expandableOpened .expandableHeader {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -102,12 +101,12 @@
     }
 }
 
-.basePane > .expandableGroup:first-child .expandable:first-child .expandableHeader {
+:local(.basePane) > .expandableGroup:first-child .expandable:first-child .expandableHeader {
     border-top-left-radius: var(--radius);
     border-top-right-radius: var(--radius);
 }
 
-.basePane > .expandableGroup:last-child .expandable:not(.expandableOpened):last-child .expandableHeader {
+:local(.basePane) > .expandableGroup:last-child .expandable:not(.expandableOpened):last-child .expandableHeader {
     border-bottom-left-radius: var(--radius);
     border-bottom-right-radius: var(--radius);
 }

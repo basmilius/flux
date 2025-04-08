@@ -7,14 +7,14 @@ emits:
         type: [ MouseEvent ]
 
 props:
+    -   name: name
+        description: The name of the icon to use.
+        type: FluxIconName
+        
     -   name: size
         description: The size of the icon.
         type: [ number, string ]
         optional: true
-
-    -   name: variant
-        description: The icon variant.
-        type: FluxIconName
 ---
 
 # Icon
@@ -23,7 +23,7 @@ This component displays a single customizable Font Awesome icon, rendered as SVG
 
 Please refer to [Font Awesome](../introduction/font-awesome) to read more about the usage of icons.
 
-There is also a [Boxed icon](./boxed-icon) variant available.
+There is also a [Boxed icon](./boxed-icon) component available.
 
 ::: render
 render=../../code/guide/components/icon/preview.vue
@@ -34,5 +34,5 @@ render=../../code/guide/components/icon/preview.vue
 ## Snippet
 
 ```vue
-<FluxIcon variant="rocket"/>
+<FluxIcon name="rocket"/>
 ```

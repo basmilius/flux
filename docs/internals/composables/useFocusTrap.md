@@ -5,7 +5,7 @@ This composable function is used to trap focus within a container.
 ## Usage
 
 ```ts
-import { useFocusTrap } from '@basmilius/flux-internals';
+import { useFocusTrap } from '@flux-ui/internals';
 import { useTemplateRef } from 'vue';
 
 const element = useTemplateRef('element');
@@ -16,7 +16,7 @@ useFocusTrap(element);
 ## Type declarations
 
 ```ts
-import type { TemplateRef } from '@basmilius/flux-internals';
+import type { TemplateRef } from '@flux-ui/internals';
 import type { Ref } from 'vue';
 
 export declare function useFocusTrap(

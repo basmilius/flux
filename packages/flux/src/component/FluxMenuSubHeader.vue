@@ -5,7 +5,7 @@
         <FluxIcon
             v-if="iconLeading"
             :class="$style.menuSubHeaderIcon"
-            :variant="iconLeading"/>
+            :name="iconLeading"/>
 
         <span :class="$style.menuSubHeaderLabel">
             {{ label }}
@@ -14,14 +14,14 @@
         <FluxIcon
             v-if="iconTrailing"
             :class="$style.menuSubHeaderIcon"
-            :variant="iconTrailing"/>
+            :name="iconTrailing"/>
     </div>
 </template>
 
 <script
     lang="ts"
     setup>
-    import type { FluxIconName } from '$flux/types';
+    import type { FluxIconName } from '@flux-ui/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '$flux/css/component/Menu.module.scss';
 

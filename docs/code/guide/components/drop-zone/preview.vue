@@ -12,5 +12,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxDropZone } from '@basmilius/flux';
+    import { FluxDropZone } from '@flux-ui/flux';
 </script>

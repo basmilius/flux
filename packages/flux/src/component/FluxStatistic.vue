@@ -12,8 +12,8 @@
         )">
         <div :class="$style.statisticIcon">
             <FluxIcon
-                :size="24"
-                :variant="icon"/>
+                :name="icon"
+                :size="24"/>
         </div>
 
         <div :class="$style.statisticData">
@@ -36,8 +36,8 @@
 
             <FluxIcon
                 v-if="changeIcon"
-                :size="14"
-                :variant="changeIcon"/>
+                :name="changeIcon"
+                :size="14"/>
         </div>
     </FluxPane>
 </template>
@@ -45,8 +45,8 @@
 <script
     lang="ts"
     setup>
+    import type { FluxColor, FluxDirection, FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import type { FluxColorVariant, FluxDirection, FluxIconName } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import FluxPane from './FluxPane.vue';
     import $style from '$flux/css/component/Statistic.module.scss';
@@ -56,10 +56,10 @@
         color = 'gray',
         direction = 'horizontal'
     } = defineProps<{
-        readonly changeColor?: FluxColorVariant;
+        readonly changeColor?: FluxColor;
         readonly changeIcon?: FluxIconName;
         readonly changeValue?: string;
-        readonly color?: FluxColorVariant;
+        readonly color?: FluxColor;
         readonly direction?: FluxDirection;
         readonly icon: FluxIconName;
         readonly label: string;

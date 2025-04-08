@@ -11,10 +11,10 @@
 <script
     lang="ts"
     setup>
+    import type { FluxIconName } from '@flux-ui/types';
     import { DateTime } from 'luxon';
     import { computed, unref } from 'vue';
     import { useFilterInjection } from '$flux/composable';
-    import type { FluxIconName } from '$flux/types';
     import FluxDatePicker from './FluxDatePicker.vue';
     import $style from '$flux/css/component/Filter.module.scss';
 

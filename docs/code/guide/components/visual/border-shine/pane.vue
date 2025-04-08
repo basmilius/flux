@@ -41,5 +41,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxBorderShine, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPaneIllustration, FluxSecondaryButton } from '@basmilius/flux';
+    import { FluxBorderShine, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPaneIllustration, FluxSecondaryButton } from '@flux-ui/flux';
 </script>

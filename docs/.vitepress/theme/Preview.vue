@@ -15,7 +15,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxGridPattern } from '@basmilius/flux';
+    import { FluxGridPattern } from '@flux-ui/flux';
     import { onMounted, ref, unref } from 'vue';
 
     const minHeight = ref(0);

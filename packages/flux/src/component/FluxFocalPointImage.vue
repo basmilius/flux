@@ -11,8 +11,8 @@
 <script
     lang="ts"
     setup>
+    import type { FluxFocalPointObject } from '@flux-ui/types';
     import { computed } from 'vue';
-    import type { FluxFocalPointObject } from '$flux/types';
     import $style from '$flux/css/component/FocalPoint.module.scss';
 
     const {

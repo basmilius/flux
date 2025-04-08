@@ -9,8 +9,8 @@
             @click="select(color)">
             <FluxIcon
                 :class="$style.colorSelectCheck"
-                :size="16"
-                variant="check"/>
+                name="check"
+                :size="16"/>
         </button>
 
         <FluxFlyout v-if="isCustomAllowed">
@@ -19,8 +19,8 @@
                     :class="$style.colorSelectCustom"
                     @click="open()">
                     <FluxIcon
-                        :size="16"
-                        variant="ellipsis-h"/>
+                        name="ellipsis-h"
+                        :size="16"/>
                 </button>
             </template>
 
@@ -46,7 +46,7 @@
 <script
     lang="ts"
     setup>
-    import { amber500, blue500, cyan500, emerald500, fuchsia500, green500, indigo500, lime500, orange500, pink500, purple500, red500, rose500, sky500, teal500, violet500, yellow500 } from '@basmilius/flux-internals';
+    import { amber500, blue500, cyan500, emerald500, fuchsia500, green500, indigo500, lime500, orange500, pink500, purple500, red500, rose500, sky500, teal500, violet500, yellow500 } from '@flux-ui/internals';
     import { ref, watch } from 'vue';
     import { useTranslate } from '$flux/composable/private';
     import FluxColorPicker from './FluxColorPicker.vue';

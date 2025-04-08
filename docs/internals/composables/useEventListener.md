@@ -5,7 +5,7 @@ This composable function is used to attach events to an element, with automatic 
 ## Usage
 
 ```ts
-import { useEventListener } from '@basmilius/flux-internals';
+import { useEventListener } from '@flux-ui/internals';
 import { useTemplateRef } from 'vue';
 
 const element = useTemplateRef('element');
@@ -18,7 +18,7 @@ useEventListener(element, 'click', () => {
 ## Type declarations
 
 ```ts
-import type { TemplateRef } from '@basmilius/flux-internals';
+import type { TemplateRef } from '@flux-ui/internals';
 import type { Ref } from 'vue';
 
 export declare function useEventListener<K extends keyof HTMLElementEventMap>(

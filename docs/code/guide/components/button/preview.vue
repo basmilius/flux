@@ -9,5 +9,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxPrimaryButton } from '@basmilius/flux';
+    import { FluxPrimaryButton } from '@flux-ui/flux';
 </script>

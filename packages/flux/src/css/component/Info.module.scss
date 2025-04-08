@@ -1,7 +1,5 @@
-@value flex from './base/Flex.module.scss';
-
 .info {
-    composes: flex;
+    display: flex;
     gap: 15px;
 
     > .icon {

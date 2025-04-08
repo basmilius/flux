@@ -1,7 +1,4 @@
-@value flexColumn, flexRow, flexGrow from './base/Flex.module.scss';
-
 @value baseAutoGrid from './base/Grid.module.scss';
-
 @value basePaneElement, basePaneLoader, basePaneStructure from './base/Pane.module.scss';
 
 @layer flux-base {
@@ -26,9 +23,9 @@
     }
 
     .paneHeader {
-        composes: flexRow;
         composes: basePaneElement;
 
+        display: flex;
         padding: 21px 21px 0;
         gap: 15px;
 
@@ -36,15 +33,15 @@
             padding: 21px;
         }
 
-        &:has(+ .basePaneElement:not(.paneBody)) {
+        &:has(+ :local(.basePaneElement):not(.paneBody)) {
             padding: 21px;
         }
     }
 
     .paneHeaderCaption {
-        composes: flexColumn;
-        composes: flexGrow;
-
+        display: flex;
+        flex-flow: column;
+        flex-grow: 1;
         line-height: 24px;
 
         :is(strong) {
@@ -141,7 +138,7 @@
 
     overflow: hidden;
 
-    > .baseAutoGrid {
+    > :local(.baseAutoGrid) {
         margin-right: -1px;
         margin-bottom: -1px;
 

@@ -1,8 +1,6 @@
-@value flexColumn from './base/Flex.module.scss';
-
 .timeline {
-    composes: flexColumn;
-
+    display: flex;
+    flex-flow: column;
     gap: 15px;
 }
 

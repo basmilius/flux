@@ -1,0 +1,214 @@
+@use 'sass:color';
+
+@function -rgb($hex) {
+    @return color.channel($hex, 'red', $space: rgb) color.channel($hex, 'green', $space: rgb) color.channel($hex, 'blue', $space: rgb);
+}
+
+@mixin animation {
+    --acceleration-curve: cubic-bezier(0.4, 0, 1, 1);
+    --deceleration-curve: cubic-bezier(0, 0, 0.2, 1);
+    --standard-curve: cubic-bezier(0.4, 0, 0.2, 1);
+    --swift-out: cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+@mixin color-light {
+    --primary-0: #{-rgb(#ffffff)};
+    --primary-1: #{-rgb(#f5f8ff)};
+    --primary-2: #{-rgb(#eff4ff)};
+    --primary-3: #{-rgb(#d1e0ff)};
+    --primary-4: #{-rgb(#b2ccff)};
+    --primary-5: #{-rgb(#84adff)};
+    --primary-6: #{-rgb(#528bff)};
+    --primary-7: #{-rgb(#2970ff)};
+    --primary-8: #{-rgb(#155eef)};
+    --primary-9: #{-rgb(#004eeb)};
+    --primary-10: #{-rgb(#0040c1)};
+    --primary-11: #{-rgb(#00359e)};
+
+    --danger-0: #{-rgb(#ffffff)};
+    --danger-1: #{-rgb(#fff1f2)};
+    --danger-2: #{-rgb(#ffe4e6)};
+    --danger-3: #{-rgb(#ffccd3)};
+    --danger-4: #{-rgb(#ffa1ad)};
+    --danger-5: #{-rgb(#ff637e)};
+    --danger-6: #{-rgb(#ff2056)};
+    --danger-7: #{-rgb(#ec003f)};
+    --danger-8: #{-rgb(#c70036)};
+    --danger-9: #{-rgb(#a50036)};
+    --danger-10: #{-rgb(#8b0836)};
+    --danger-11: #{-rgb(#4d0218)};
+
+    --info-0: #{-rgb(#ffffff)};
+    --info-1: #{-rgb(#eff6ff)};
+    --info-2: #{-rgb(#dbeafe)};
+    --info-3: #{-rgb(#bedbff)};
+    --info-4: #{-rgb(#8ec5ff)};
+    --info-5: #{-rgb(#51a2ff)};
+    --info-6: #{-rgb(#2b7fff)};
+    --info-7: #{-rgb(#155dfc)};
+    --info-8: #{-rgb(#1447e6)};
+    --info-9: #{-rgb(#193cb8)};
+    --info-10: #{-rgb(#1c398e)};
+    --info-11: #{-rgb(#162456)};
+
+    --success-0: #{-rgb(#ffffff)};
+    --success-1: #{-rgb(#f0fdf4)};
+    --success-2: #{-rgb(#dcfce7)};
+    --success-3: #{-rgb(#b9f8cf)};
+    --success-4: #{-rgb(#7bf1a8)};
+    --success-5: #{-rgb(#05df72)};
+    --success-6: #{-rgb(#00c950)};
+    --success-7: #{-rgb(#00a63e)};
+    --success-8: #{-rgb(#008236)};
+    --success-9: #{-rgb(#016630)};
+    --success-10: #{-rgb(#0d542b)};
+    --success-11: #{-rgb(#032e15)};
+
+    --warning-0: #{-rgb(#ffffff)};
+    --warning-1: #{-rgb(#fffbeb)};
+    --warning-2: #{-rgb(#fef3c6)};
+    --warning-3: #{-rgb(#fee685)};
+    --warning-4: #{-rgb(#ffd230)};
+    --warning-5: #{-rgb(#ffb900)};
+    --warning-6: #{-rgb(#fe9a00)};
+    --warning-7: #{-rgb(#e17100)};
+    --warning-8: #{-rgb(#bb4d00)};
+    --warning-9: #{-rgb(#973c00)};
+    --warning-10: #{-rgb(#7b3306)};
+    --warning-11: #{-rgb(#461901)};
+
+    --gray-0: #{-rgb(#ffffff)};
+    --gray-1: #{-rgb(#f8fafc)};
+    --gray-2: #{-rgb(#f1f5f9)};
+    --gray-3: #{-rgb(#e2e8f0)};
+    --gray-4: #{-rgb(#cad5e2)};
+    --gray-5: #{-rgb(#90a1b9)};
+    --gray-6: #{-rgb(#62748e)};
+    --gray-7: #{-rgb(#45556c)};
+    --gray-8: #{-rgb(#314158)};
+    --gray-9: #{-rgb(#1d293d)};
+    --gray-10: #{-rgb(#0f172b)};
+    --gray-11: #{-rgb(#020618)};
+}
+
+@mixin color-dark {
+    //--primary-0: #{-rgb(#182035)};
+    //--primary-1: #{-rgb(#1f2a45)};
+    //--primary-2: #{-rgb(#243254)};
+    //--primary-3: #{-rgb(#2b3c63)};
+    //--primary-4: #{-rgb(#314471)};
+    //--primary-5: #{-rgb(#385080)};
+    //--primary-6: #{-rgb(#3e5a8e)};
+    //--primary-7: #{-rgb(#44669e)};
+    //--primary-8: #{-rgb(#5077b0)};
+    //--primary-9: #{-rgb(#5a84bf)};
+    //--primary-10: #{-rgb(#6594d1)};
+    //--primary-11: #{-rgb(#709fe3)};
+
+    --danger-0: #{-rgb(#272325)};
+    --danger-1: #{-rgb(#331e23)};
+    --danger-2: #{-rgb(#3e1f28)};
+    --danger-3: #{-rgb(#4c222e)};
+    --danger-4: #{-rgb(#5b2635)};
+    --danger-5: #{-rgb(#6a2b3e)};
+    --danger-6: #{-rgb(#7a3047)};
+    --danger-7: #{-rgb(#8b3552)};
+    --danger-8: #{-rgb(#9e3a5f)};
+    --danger-9: #{-rgb(#a53d6e)};
+    --danger-10: #{-rgb(#b63e7c)};
+    --danger-11: #{-rgb(#c8408c)};
+
+    --info-0: #{-rgb(#23262c)};
+    --info-1: #{-rgb(#1f2832)};
+    --info-2: #{-rgb(#243141)};
+    --info-3: #{-rgb(#2a3d52)};
+    --info-4: #{-rgb(#2f4a66)};
+    --info-5: #{-rgb(#34567b)};
+    --info-6: #{-rgb(#3b638f)};
+    --info-7: #{-rgb(#436fa3)};
+    --info-8: #{-rgb(#4b7bb7)};
+    --info-9: #{-rgb(#5588cb)};
+    --info-10: #{-rgb(#6094df)};
+    --info-11: #{-rgb(#6aa3f3)};
+
+    --success-0: #{-rgb(#1d2620)};
+    --success-1: #{-rgb(#222d26)};
+    --success-2: #{-rgb(#26342c)};
+    --success-3: #{-rgb(#2c4435)};
+    --success-4: #{-rgb(#33543e)};
+    --success-5: #{-rgb(#3a6547)};
+    --success-6: #{-rgb(#417651)};
+    --success-7: #{-rgb(#4b875d)};
+    --success-8: #{-rgb(#589967)};
+    --success-9: #{-rgb(#6eac74)};
+    --success-10: #{-rgb(#86ba86)};
+    --success-11: #{-rgb(#9bc89b)};
+
+    --warning-0: #{-rgb(#2b261a)};
+    --warning-1: #{-rgb(#332b1b)};
+    --warning-2: #{-rgb(#3d321e)};
+    --warning-3: #{-rgb(#4a3c21)};
+    --warning-4: #{-rgb(#554825)};
+    --warning-5: #{-rgb(#63552a)};
+    --warning-6: #{-rgb(#74602f)};
+    --warning-7: #{-rgb(#8a6c34)};
+    --warning-8: #{-rgb(#a37b3a)};
+    --warning-9: #{-rgb(#c19041)};
+    --warning-10: #{-rgb(#d5a048)};
+    --warning-11: #{-rgb(#eab14f)};
+
+    --gray-0: #{-rgb(#14161a)};
+    --gray-1: #{-rgb(#1b1d21)};
+    --gray-2: #{-rgb(#22252b)};
+    --gray-3: #{-rgb(#2a2d33)};
+    --gray-4: #{-rgb(#333b3d)};
+    --gray-5: #{-rgb(#3d464a)};
+    --gray-6: #{-rgb(#475055)};
+    --gray-7: #{-rgb(#515d60)};
+    --gray-8: #{-rgb(#5c696b)};
+    --gray-9: #{-rgb(#677577)};
+    --gray-10: #{-rgb(#738180)};
+    --gray-11: #{-rgb(#7f8c8c)};
+}
+
+@mixin default-light {
+    --font-monospace: jetbrains-mono, monospace;
+    --font-sans: inter-variable, sans-serif;
+    --font-serif: serif;
+    --font-size: 15px;
+    --radius: 9px;
+
+    --background: rgb(var(--gray-2));
+
+    --foreground: rgb(var(--gray-8));
+    --foreground-prominent: rgb(var(--gray-10));
+    --foreground-secondary: rgb(var(--gray-5));
+}
+
+@mixin default-dark {
+    --background: rgb(var(--gray-2));
+
+    --foreground: #cbd5e1;
+    --foreground-prominent: #ffffff;
+    --foreground-secondary: #64748b;
+}
+
+@mixin shadow-light {
+    --shadow-px: 0 1px 1px rgb(29 41 61 / .025);
+    --shadow-xs: 0 1px 2px 0 rgb(29 41 61 / .025);
+    --shadow-sm: 0 1px 3px rgb(29 41 61 / .05), 0 1px 2px -1px rgb(29 41 61 / .05);
+    --shadow-md: 0 4px 6px -1px rgb(29 41 61 / .05), 0 2px 4px -2px rgb(29 41 61 / .05);
+    --shadow-lg: 0 10px 15px -3px rgb(29 41 61 / .05), 0 4px 6px -4px rgb(29 41 61 / .05);
+    --shadow-xl: 0 20px 25px -5px rgb(29 41 61 / .05), 0 8px 10px -6px rgb(29 41 61 / .05);
+    --shadow-2xl: 0 25px 50px -12px rgb(29 41 61 / .125);
+}
+
+@mixin shadow-dark {
+    --shadow-px: 0 1px 1px rgb(0 0 0 / .05);
+    --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / .05);
+    --shadow-sm: 0 1px 3px rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / .1), 0 4px 6px -4px rgb(0 0 0 / .1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / .1), 0 8px 10px -6px rgb(0 0 0 / .1);
+    --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / .25);
+}

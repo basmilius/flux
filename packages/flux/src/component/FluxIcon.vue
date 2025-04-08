@@ -18,7 +18,7 @@
     </svg>
 
     <i
-        v-else-if="variant !== 'flux-empty'"
+        v-else-if="name"
         :class="$style.materialSymbolIcon"
         :style="{
             fontSize: size && `${size}px`
@@ -26,7 +26,7 @@
         role="img"
         aria-hidden="true"
         @click="onClick">
-        {{ variant }}
+        {{ name }}
     </i>
 
     <i
@@ -37,9 +37,10 @@
 <script
     lang="ts"
     setup>
+    import { warn } from '@flux-ui/internals';
+    import type { FluxIconName } from '@flux-ui/types';
     import { computed } from 'vue';
     import { iconRegistry } from '$flux/data';
-    import type { FluxIconName } from '$flux/types';
     import $style from '$flux/css/component/Icon.module.scss';
 
     const emit = defineEmits<{
@@ -47,16 +48,22 @@
     }>();
 
     const {
-        variant
+        name
     } = defineProps<{
         readonly size?: number | string;
-        readonly variant: FluxIconName;
+        readonly name?: FluxIconName;
     }>();
 
     const definition = computed(() => {
-        const icon = iconRegistry[variant];
+        if (!name) {
+            return null;
+        }
 
-        if (!icon || variant === 'flux-empty') {
+        const icon = iconRegistry[name];
+
+        if (!icon) {
+            warn(`Unknown icon: ${name}`);
+
             return null;
         }
 

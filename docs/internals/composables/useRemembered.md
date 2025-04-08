@@ -5,7 +5,7 @@ This composable function is used remember a simple value in the browser.
 ## Usage
 
 ```ts
-import { useRemembered } from '@basmilius/flux-internals';
+import { useRemembered } from '@flux-ui/internals';
 
 const darkMode = useRemembered('dark-mode', false);
 ```

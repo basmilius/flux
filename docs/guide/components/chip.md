@@ -48,7 +48,7 @@ render=../../code/guide/components/chip/preview.vue
 example=../../code/guide/components/chip/list.vue
 :::
 
-::: example Selectable || This variant of a chip can be used within filters.
+::: example Selectable || A chip that is selectable can be used in filters for example.
 example=../../code/guide/components/chip/selectable.vue
 :::
 

@@ -7,8 +7,8 @@
 <script
     lang="ts"
     setup>
-    import { useInView } from '@basmilius/flux-internals';
     import { mulberry32 } from '@basmilius/utils';
+    import { useInView } from '@flux-ui/internals';
     import { computed, unref, useTemplateRef, watch } from 'vue';
     import $style from '$flux/css/component/Visual.module.scss';
 

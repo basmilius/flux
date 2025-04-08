@@ -47,7 +47,7 @@
                     :class="$style.galleryAdd"
                     type="button"
                     @click="showPicker()">
-                    <FluxIcon variant="plus"/>
+                    <FluxIcon name="plus"/>
                 </button>
             </TransitionGroup>
         </template>
@@ -57,8 +57,8 @@
 <script
     lang="ts"
     setup>
+    import type { FluxFocalPointObject } from '@flux-ui/types';
     import { useTranslate } from '$flux/composable/private';
-    import type { FluxFocalPointObject } from '$flux/types';
     import FluxDropZone from './FluxDropZone.vue';
     import FluxGalleryItem from './FluxGalleryItem.vue';
     import FluxIcon from './FluxIcon.vue';

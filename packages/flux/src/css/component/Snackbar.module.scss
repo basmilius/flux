@@ -1,13 +1,11 @@
 @use '$flux/css/mixin';
 
-@value flexColumn, flexRow, flexGrow from './base/Flex.module.scss';
-
 @value basePane from './base/Pane.module.scss';
 
 .snackbar {
     composes: basePane;
-    composes: flexRow;
 
+    display: flex;
     box-shadow: var(--shadow-xl), var(--shadow-2xl);
     overflow: hidden;
 
@@ -29,11 +27,10 @@
 }
 
 .snackbarContent {
-    composes: flexRow;
-    composes: flexGrow;
-
+    display: flex;
     padding: 15px 18px;
     align-items: flex-start;
+    flex-grow: 1;
     gap: 15px;
 
     > .icon,
@@ -44,11 +41,10 @@
 }
 
 .snackbarBody {
-    composes: flexColumn;
-    composes: flexGrow;
-
+    display: flex;
     align-self: stretch;
     flex-flow: column;
+    flex-grow: 1;
 }
 
 .snackbarMessage {
@@ -94,10 +90,10 @@
 }
 
 .snackbarActions {
-    composes: flexColumn;
-    composes: flexGrow;
-
+    display: flex;
     padding-left: 1px;
+    flex-flow: column;
+    flex-grow: 1;
     gap: 1px;
     background: rgb(var(--gray-2));
 }
@@ -188,9 +184,9 @@
 }
 
 .snackbars {
-    composes: flexColumn;
-
     position: fixed;
+    display: flex;
+    flex-flow: column;
     gap: 15px;
     z-index: 100000;
 

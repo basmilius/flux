@@ -15,5 +15,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxChip, FluxStack } from '@basmilius/flux';
+    import { FluxChip, FluxStack } from '@flux-ui/flux';
 </script>

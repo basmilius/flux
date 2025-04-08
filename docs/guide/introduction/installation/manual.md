@@ -13,19 +13,19 @@ Run the following command to install Flux.
 ::: code-group
 
 ```shell [Bun]
-bun add @basmilius/flux
+bun add @flux-ui/flux
 ```
 
 ```shell [PNPM]
-pnpm install @basmilius/flux
+pnpm install @flux-ui/flux
 ```
 
 ```shell [Yarn]
-yarn add @basmilius/flux
+yarn add @flux-ui/flux
 ```
 
 ```shell [NPM]
-npm install @basmilius/flux
+npm install @flux-ui/flux
 ```
 
 :::
@@ -55,10 +55,10 @@ Import the components you want to use, like this:
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxSecondaryButton } from '@basmilius/flux'; // [!code focus]
+    import { FluxPane, FluxSecondaryButton } from '@flux-ui/flux'; // [!code focus]
 </script>
 ```
 
 ```ts
-import '@basmilius/flux/style.css';
+import '@flux-ui/flux/style.css';
 ```

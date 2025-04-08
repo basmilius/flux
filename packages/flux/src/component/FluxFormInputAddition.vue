@@ -2,8 +2,8 @@
     <div :class="$style.formInputAddition">
         <FluxIcon
             v-if="icon"
-            :size="18"
-            :variant="icon"/>
+            :name="icon"
+            :size="18"/>
 
         <span v-if="label">
             {{ label }}
@@ -16,7 +16,7 @@
 <script
     lang="ts"
     setup>
-    import type { FluxIconName } from '$flux/types';
+    import type { FluxIconName } from '@flux-ui/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '$flux/css/component/Form.module.scss';
 

@@ -5,7 +5,7 @@ This composable function is used to create month switchers in Flux. It returns t
 ## Usage
 
 ```ts
-import { useCalendarMonthSwitcher } from '@basmilius/flux-internals';
+import { useCalendarMonthSwitcher } from '@flux-ui/internals';
 import { DateTime } from 'luxon';
 
 const {

@@ -1,8 +1,8 @@
 <script
     lang="ts"
     setup>
-    import { FluxRoot } from '@basmilius/flux';
-    import { isSSR } from '@basmilius/flux-internals';
+    import { FluxRoot } from '@flux-ui/flux';
+    import { isSSR } from '@flux-ui/internals';
     import { useData } from 'vitepress';
     import { watch } from 'vue';
     import Layout from 'vitepress/dist/client/theme-default/Layout.vue';

@@ -40,9 +40,9 @@
 <script
     lang="ts"
     setup>
+    import type { FluxFormSelectOption } from '@flux-ui/types';
     import { computed, ref, watch } from 'vue';
     import { useTranslate } from '$flux/composable/private';
-    import type { FluxFormSelectOption } from '$flux/types';
     import FluxFormInputAddition from './FluxFormInputAddition.vue';
     import FluxFormInputGroup from './FluxFormInputGroup.vue';
     import FluxFormSelect from './FluxFormSelect.vue';

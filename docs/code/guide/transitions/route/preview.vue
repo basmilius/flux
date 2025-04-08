@@ -11,8 +11,8 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxRouteTransition } from '@basmilius/flux';
-    import { useInterval } from '@basmilius/flux-internals';
+    import { FluxPane, FluxRouteTransition } from '@flux-ui/flux';
+    import { useInterval } from '@flux-ui/internals';
     import { ref } from 'vue';
 
     const visible = ref(true);

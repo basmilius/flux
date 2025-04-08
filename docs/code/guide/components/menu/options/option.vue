@@ -23,7 +23,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxMenu, FluxMenuItem, FluxMenuOptions, FluxPane, FluxStack } from '@basmilius/flux';
+    import { FluxMenu, FluxMenuItem, FluxMenuOptions, FluxPane, FluxStack } from '@flux-ui/flux';
     import { ref } from 'vue';
 
     const VIEWS = {

@@ -18,5 +18,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxAspectRatio, FluxGridPattern, FluxPane } from '@basmilius/flux';
+    import { FluxAspectRatio, FluxGridPattern, FluxPane } from '@flux-ui/flux';
 </script>

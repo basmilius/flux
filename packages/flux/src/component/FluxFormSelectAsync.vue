@@ -16,18 +16,19 @@
 <script
     lang="ts"
     setup>
-    import { useDebouncedRef } from '@basmilius/flux-internals';
+    import { useDebouncedRef } from '@flux-ui/internals';
+    import type { FluxFormSelectEntry, FluxFormSelectValue, FluxFormSelectValueSingle } from '@flux-ui/types';
     import { computed, ref, toRef, unref, watch } from 'vue';
     import { SelectBase } from '$flux/component/primitive';
     import { useDisabled } from '$flux/composable';
-    import { FormSelectOption, FormSelectValue, FormSelectValueSingle, useFormSelect, useLoaded } from '$flux/composable/private';
+    import { useFormSelect, useLoaded } from '$flux/composable/private';
     import { isFluxFormSelectOption } from '$flux/data';
 
     const modelSearch = defineModel<string>('searchQuery', {
         default: ''
     });
 
-    const modelValue = defineModel<FormSelectValue>({
+    const modelValue = defineModel<FluxFormSelectValue>({
         required: true
     });
 
@@ -38,9 +39,9 @@
         disabled: componentDisabled,
         isMultiple
     } = defineProps<{
-        fetchOptions(ids: FormSelectValueSingle[]): Promise<FormSelectOption[]>;
-        fetchRelevant(): Promise<FormSelectOption[]>;
-        fetchSearch(searchQuery: string): Promise<FormSelectOption[]>;
+        fetchOptions(ids: FluxFormSelectValueSingle[]): Promise<FluxFormSelectEntry[]>;
+        fetchRelevant(): Promise<FluxFormSelectEntry[]>;
+        fetchSearch(searchQuery: string): Promise<FluxFormSelectEntry[]>;
 
         readonly disabled?: boolean;
         readonly isMultiple?: boolean;
@@ -48,11 +49,11 @@
     }>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));
-    const selectedOptions = ref<FormSelectOption[]>([]);
-    const visibleOptions = ref<FormSelectOption[]>([]);
+    const selectedOptions = ref<FluxFormSelectEntry[]>([]);
+    const visibleOptions = ref<FluxFormSelectEntry[]>([]);
 
     const options = computed(() => {
-        const options: FormSelectOption[] = [];
+        const options: FluxFormSelectEntry[] = [];
         const search = unref(modelSearch);
         const selected = unref(selectedOptions);
         const visible = unref(visibleOptions);

@@ -18,9 +18,9 @@
 <script
     lang="ts"
     setup>
+    import type { FluxDirection } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import type { FluxDirection } from '$flux/types';
-    import $style from '$flux/css/component/Stack.module.scss';
+    import $style from '$flux/css/component/Layout.module.scss';
 
     const {
         direction = 'vertical',

@@ -15,7 +15,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxMenu, FluxMenuItem, FluxPane } from '@basmilius/flux';
+    import { FluxMenu, FluxMenuItem, FluxPane } from '@flux-ui/flux';
     import { ref } from 'vue';
 
     const selected = ref(1);

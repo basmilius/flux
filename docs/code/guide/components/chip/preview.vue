@@ -19,5 +19,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxBadgeStack, FluxChip, FluxPane, FluxPaneBody } from '@basmilius/flux';
+    import { FluxBadgeStack, FluxChip, FluxPane, FluxPaneBody } from '@flux-ui/flux';
 </script>

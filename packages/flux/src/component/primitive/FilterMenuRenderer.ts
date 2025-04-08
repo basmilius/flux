@@ -1,11 +1,11 @@
-import { flattenVNodeTree, getComponentName, getComponentProps } from '@basmilius/flux-internals';
 import { formatNumber } from '@basmilius/utils';
+import { flattenVNodeTree, getComponentName, getComponentProps } from '@flux-ui/internals';
+import type { FluxFilterBase, FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterItem, FluxFilterOptionEntry, FluxFilterOptionItem, FluxFilterOptionRow, FluxFilterOptionsEntry, FluxFilterRangeEntry, FluxFilterValue, FluxFilterValueSingle } from '@flux-ui/types';
 import { camelCase } from 'lodash-es';
 import { DateTime } from 'luxon';
 import { computed, defineComponent, h, isVNode, unref, VNode } from 'vue';
-import type { FluxTranslator } from '$flux/composable/private';
-import { isFluxFilterOptionItem } from '$flux/data';
-import type { FluxFilterBase, FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterItem, FluxFilterOptionEntry, FluxFilterOptionItem, FluxFilterOptionRow, FluxFilterOptionsEntry, FluxFilterRangeEntry, FluxFilterValue, FluxFilterValueSingle } from '$flux/types';
+import { useTranslate } from '$flux/composable/private';
+import { FluxTranslate, isFluxFilterOptionItem } from '$flux/data';
 import { createLabelForDateRange } from '$flux/util';
 import FluxMenu from '$flux/component/FluxMenu.vue';
 import FluxMenuGroup from '$flux/component/FluxMenuGroup.vue';
@@ -75,7 +75,7 @@ function parseDateRange(base: FluxFilterBase): FluxFilterDateRangeEntry {
         ...base,
         type: 'dateRange',
 
-        async getValueLabel(value, translate): Promise<string | null> {
+        async getValueLabel(value): Promise<string | null> {
             if (!Array.isArray(value) || value.length !== 2) {
                 return null;
             }
@@ -86,7 +86,7 @@ function parseDateRange(base: FluxFilterBase): FluxFilterDateRangeEntry {
                 return null;
             }
 
-            return createLabelForDateRange(translate, start, end);
+            return createLabelForDateRange(start, end);
         }
     };
 }
@@ -121,36 +121,38 @@ function parseOptionAsync(base: FluxFilterBase): FluxFilterOptionEntry {
 
 function parseOptions(base: FluxFilterBase): FluxFilterOptionsEntry {
     const options = (base as any).options as FluxFilterOptionItem[];
+    const translate = useTranslate();
 
     return {
         ...base,
         type: 'options',
 
-        async getValueLabel(value, translate): Promise<string | null> {
+        async getValueLabel(value): Promise<string | null> {
             if (!Array.isArray(value)) {
                 return null;
             }
 
-            return generateMultiOptionsLabel(options, value, translate);
+            return generateMultiOptionsLabel(translate, options, value);
         }
     };
 }
 
 function parseOptionsAsync(base: FluxFilterBase): FluxFilterOptionsEntry {
     const fetchOptions = (base as any).fetchOptions as (ids: FluxFilterValue[]) => Promise<FluxFilterOptionRow[]>;
+    const translate = useTranslate();
 
     return {
         ...base,
         type: 'options',
 
-        async getValueLabel(value, translate): Promise<string | null> {
+        async getValueLabel(value): Promise<string | null> {
             if (!Array.isArray(value)) {
                 return null;
             }
 
             const options = (await fetchOptions(value)).filter(isFluxFilterOptionItem);
 
-            return generateMultiOptionsLabel(options, value, translate);
+            return generateMultiOptionsLabel(translate, options, value);
         }
     };
 }
@@ -204,7 +206,7 @@ function renderFilterItem(item: FluxFilterItem | VNode, navigate: Function, stat
     });
 }
 
-function generateMultiOptionsLabel(options: FluxFilterOptionItem[], values: FluxFilterValueSingle[], translate: FluxTranslator): string | null {
+function generateMultiOptionsLabel(translate: FluxTranslate, options: FluxFilterOptionItem[], values: FluxFilterValueSingle[]): string | null {
     const selected = options.filter(o => values.includes(o.value)).length;
 
     if (selected <= 0) {

@@ -23,5 +23,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxBadge, FluxBadgeStack } from '@basmilius/flux';
+    import { FluxBadge, FluxBadgeStack } from '@flux-ui/flux';
 </script>

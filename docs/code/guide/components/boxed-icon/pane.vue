@@ -5,8 +5,8 @@
         <FluxPaneBody>
             <FluxBoxedIcon
                 color="primary"
-                :size="48"
-                variant="rocket"/>
+                name="rocket"
+                :size="48"/>
         </FluxPaneBody>
 
         <FluxPaneHeader title="Let's get started"/>
@@ -20,5 +20,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxBoxedIcon, FluxPane, FluxPaneBody, FluxPaneHeader } from '@basmilius/flux';
+    import { FluxBoxedIcon, FluxPane, FluxPaneBody, FluxPaneHeader } from '@flux-ui/flux';
 </script>

@@ -1,14 +1,11 @@
-@use 'sass:map';
 @use '$flux/css/mixin';
 
-@value flexGrow, flexNoShrink from './base/Flex.module.scss';
 @value baseAutoGrid from './base/Grid.module.scss';
 
 @layer flux-base {
     .aspectRatio {
-        composes: flexNoShrink;
-
         position: relative;
+        flex-shrink: 0;
 
         > * {
             height: 100%;
@@ -31,6 +28,36 @@
     }
 
     .spacer {
-        composes: flexGrow;
+        flex-grow: 1;
+    }
+
+    .stack {
+        gap: var(--gap, 0);
+
+        &.isCentered {
+            place-content: center;
+            place-items: center;
+        }
+
+        &.isFill {
+            width: 100%;
+        }
+
+        &.isWrapping {
+            flex-wrap: wrap;
+        }
+    }
+
+    .stackHorizontal {
+        composes: stack;
+
+        display: flex;
+    }
+
+    .stackVertical {
+        composes: stack;
+
+        display: flex;
+        flex-flow: column;
     }
 }

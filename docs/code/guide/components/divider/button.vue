@@ -15,5 +15,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxDivider, FluxPane, FluxPaneBody, FluxSecondaryButton } from '@basmilius/flux';
+    import { FluxDivider, FluxPane, FluxPaneBody, FluxSecondaryButton } from '@flux-ui/flux';
 </script>

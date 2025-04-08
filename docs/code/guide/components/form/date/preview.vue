@@ -15,7 +15,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxForm, FluxFormDateInput, FluxFormField, FluxPane, FluxPaneBody } from '@basmilius/flux';
+    import { FluxForm, FluxFormDateInput, FluxFormField, FluxPane, FluxPaneBody } from '@flux-ui/flux';
     import { DateTime } from 'luxon';
     import { ref } from 'vue';
 

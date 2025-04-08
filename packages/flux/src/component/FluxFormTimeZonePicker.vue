@@ -10,11 +10,11 @@
 <script
     lang="ts"
     setup>
+    import type { FluxFormSelectEntry } from '@flux-ui/types';
     import { upperFirst } from 'lodash-es';
     import { computed, toRef } from 'vue';
     import { useDisabled } from '$flux/composable';
     import { FluxTranslationKey, useTranslate } from '$flux/composable/private';
-    import { FluxFormSelectEntry } from '$flux/types';
     import FluxFormSelect from './FluxFormSelect.vue';
 
     const timeZones = [

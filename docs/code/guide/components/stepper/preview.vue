@@ -15,5 +15,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneBody, FluxStepper, FluxStepperStep } from '@basmilius/flux';
+    import { FluxPane, FluxPaneBody, FluxStepper, FluxStepperStep } from '@flux-ui/flux';
 </script>

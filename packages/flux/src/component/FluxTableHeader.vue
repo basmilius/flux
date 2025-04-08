@@ -22,7 +22,7 @@
                         @click="open">
                         <FluxIcon
                             :size="16"
-                            :variant="sortingIcon"/>
+                            :name="sortingIcon"/>
                     </button>
                 </template>
 
@@ -61,11 +61,11 @@
 <script
     lang="ts"
     setup>
+    import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed } from 'vue';
     import { useTableInjection } from '$flux/composable';
     import { useTranslate } from '$flux/composable/private';
-    import type { FluxIconName } from '$flux/types';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxMenu from './FluxMenu.vue';

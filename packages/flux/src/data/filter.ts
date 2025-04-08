@@ -1,4 +1,4 @@
-import type { FluxFilterOptionHeader, FluxFilterOptionItem } from '$flux/types';
+import type { FluxFilterOptionHeader, FluxFilterOptionItem } from '@flux-ui/types';
 
 export function isFluxFilterOptionHeader(obj: object): obj is FluxFilterOptionHeader {
     return 'title' in obj;

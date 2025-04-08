@@ -17,7 +17,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxFilter, FluxFilterOptionAsync, FluxFilterOptionRow, FluxFilterState, FluxPane } from '@basmilius/flux';
+    import { FluxFilter, FluxFilterOptionAsync, FluxFilterOptionRow, FluxFilterState, FluxPane } from '@flux-ui/flux';
     import { ref } from 'vue';
     import dataset from '../../../../../assets/select-dataset.json';
 

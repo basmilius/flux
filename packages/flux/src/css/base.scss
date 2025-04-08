@@ -1,0 +1,33 @@
+@use 'variables';
+
+@layer flux-base {
+    :root, [light] {
+        @include variables.animation;
+        @include variables.color-light;
+        @include variables.default-light;
+        @include variables.shadow-light;
+    }
+
+    [dark] {
+        @include variables.color-dark;
+        @include variables.default-dark;
+        @include variables.shadow-dark;
+    }
+
+    html {
+        font-size: var(--font-size);
+    }
+
+    body {
+        background: var(--background);
+        font-family: var(--font-sans), system-ui;
+    }
+
+    body, dialog {
+        color: var(--foreground);
+    }
+
+    [inert] *::-webkit-scrollbar {
+        display: none;
+    }
+}

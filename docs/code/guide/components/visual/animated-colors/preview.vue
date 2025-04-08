@@ -11,5 +11,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxAnimatedColors } from '@basmilius/flux';
+    import { FluxAnimatedColors } from '@flux-ui/flux';
 </script>

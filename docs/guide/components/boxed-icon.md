@@ -7,14 +7,14 @@ emits:
         type: [ MouseEvent ]
 
 props:
+    -   name: name
+        description: The name of the icon to use.
+        type: FluxIconName
+        
     -   name: size
         description: The size of the icon.
         type: [ number, string ]
         optional: true
-
-    -   name: variant
-        description: The icon variant.
-        type: FluxIconName
 ---
 
 # Boxed icon

@@ -12,7 +12,7 @@
         <FluxIcon
             v-if="icon"
             :class="$style.placeholderIcon"
-            :variant="icon"/>
+            :name="icon"/>
 
         <div :class="$style.placeholderCaption">
             <strong v-if="title">
@@ -31,8 +31,8 @@
 <script
     lang="ts"
     setup>
+    import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import type { FluxIconName } from '$flux/types';
     import FluxIcon from './FluxIcon.vue';
     import $style from '$flux/css/component/Placeholder.module.scss';
 

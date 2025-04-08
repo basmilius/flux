@@ -29,7 +29,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxPressableType, FluxTo } from '$flux/types';
+    import type { FluxPressableType, FluxTo } from '@flux-ui/types';
     import FluxPressable from './FluxPressable.vue';
     import FluxSpinner from './FluxSpinner.vue';
     import $style from '$flux/css/component/Pane.module.scss';

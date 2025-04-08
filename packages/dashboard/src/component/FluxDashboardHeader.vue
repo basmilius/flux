@@ -4,7 +4,7 @@
 
         <FluxIcon
             v-if="icon"
-            :variant="icon"/>
+            :name="icon"/>
 
         <h1 v-if="title">
             {{ title }}
@@ -19,7 +19,8 @@
 <script
     lang="ts"
     setup>
-    import { FluxIcon, FluxIconName, FluxSpacer } from '@basmilius/flux';
+    import { FluxIcon, FluxSpacer } from '@flux-ui/flux';
+    import type { FluxIconName } from '@flux-ui/types';
     import FluxDashboardTopBar from './FluxDashboardTopBar.vue';
 
     defineProps<{

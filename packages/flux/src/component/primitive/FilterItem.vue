@@ -12,9 +12,9 @@
 <script
     lang="ts"
     setup>
+    import type { FluxFilterItem, FluxFilterValue } from '@flux-ui/types';
     import { computed, ref, unref, watch } from 'vue';
-    import { useLoaded, useTranslate } from '$flux/composable/private';
-    import type { FluxFilterItem, FluxFilterValue } from '$flux/types';
+    import { useLoaded } from '$flux/composable/private';
     import FluxMenuItem from '$flux/component/FluxMenuItem.vue';
 
     const emit = defineEmits<{
@@ -30,7 +30,6 @@
     }>();
 
     const {isLoading, loaded} = useLoaded();
-    const translate = useTranslate();
     const getValueLabel = computed(() => loaded(item.getValueLabel));
 
     const valueLabel = ref<string>();
@@ -40,6 +39,6 @@
     }
 
     watch(() => item, async () => {
-        valueLabel.value = await unref(getValueLabel)(value, translate) ?? undefined;
+        valueLabel.value = await unref(getValueLabel)(value) ?? undefined;
     }, {deep: true, immediate: true});
 </script>

@@ -5,7 +5,7 @@ This composable function is used to create years switchers in Flux. It contains 
 ## Usage
 
 ```ts
-import { useCalendarYearSwitcher } from '@basmilius/flux-internals';
+import { useCalendarYearSwitcher } from '@flux-ui/internals';
 import { DateTime } from 'luxon';
 
 const {

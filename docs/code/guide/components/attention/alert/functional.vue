@@ -7,7 +7,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxPrimaryButton, showAlert } from '@basmilius/flux';
+    import { FluxPrimaryButton, showAlert } from '@flux-ui/flux';
 
     async function show(): Promise<void> {
         await showAlert({

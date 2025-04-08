@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { flattenVNodeTree, orange600, pink600, purple600 } from '@basmilius/flux-internals';
+    import { flattenVNodeTree, orange600, pink600, purple600 } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { cloneVNode, defineComponent, Fragment, h, PropType } from 'vue';
     import $style from '$flux/css/component/Visual.module.scss';

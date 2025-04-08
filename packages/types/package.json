@@ -1,0 +1,46 @@
+{
+    "name": "@flux-ui/types",
+    "version": "3.0.0",
+    "type": "module",
+    "license": "MIT",
+    "funding": "https://github.com/sponsors/basmilius",
+    "homepage": "https://flux.bas.dev",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/basmilius/flux.git",
+        "directory": "packages/primitives"
+    },
+    "keywords": [
+        "ui library",
+        "component library",
+        "design system",
+        "vue",
+        "vue 3",
+        "ui",
+        "components",
+        "flux"
+    ],
+    "scripts": {
+        "prepublishOnly": "cp ../../README.md ."
+    },
+    "exports": {
+        ".": "./src/index.ts"
+    },
+    "publishConfig": {
+        "access": "public",
+        "provenance": true
+    },
+    "files": [
+        "src",
+        "tsconfig.json"
+    ],
+    "main": "./src/index.ts",
+    "module": "./src/index.ts",
+    "types": "./src/index.ts",
+    "typings": "./src/index.ts",
+    "sideEffects": false,
+    "dependencies": {},
+    "devDependencies": {
+        "@types/luxon": "^3.6.2"
+    }
+}
