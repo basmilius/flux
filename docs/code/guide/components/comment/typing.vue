@@ -9,5 +9,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxComment } from '@flux-ui/flux';
+    import { FluxComment } from '@flux-ui/components';
 </script>

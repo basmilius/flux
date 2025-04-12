@@ -19,5 +19,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxBadgeStack, FluxChip, FluxPane, FluxPaneBody } from '@flux-ui/flux';
+    import { FluxBadgeStack, FluxChip, FluxPane, FluxPaneBody } from '@flux-ui/components';
 </script>

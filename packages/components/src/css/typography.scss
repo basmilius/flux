@@ -1,10 +1,5 @@
 @layer flux-base {
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
+    h1, h2, h3, h4, h5, h6 {
         font-weight: 700;
         line-height: 1.6;
         text-wrap: balance;
@@ -37,8 +32,7 @@
         font-size: 14px;
     }
 
-    a:not([class]),
-    a[class=""] {
+    a:not([class]), a[class=""] {
         color: rgb(var(--primary-7));
         text-decoration: underline;
         text-decoration-thickness: 1px;
@@ -71,9 +65,12 @@
         }
     }
 
+    code, kbd, samp, pre {
+        font-family: var(--font-monospace), monospace;
+    }
+
     img:not([class]) {
         height: unset;
-        max-width: 100%;
         border-radius: calc(var(--radius) / 2);
         outline: 1px solid rgb(0 0 0 / .025);
         outline-offset: -1px;

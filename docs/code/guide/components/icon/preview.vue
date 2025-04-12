@@ -21,5 +21,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxIcon, FluxStack } from '@flux-ui/flux';
+    import { FluxIcon, FluxStack } from '@flux-ui/components';
 </script>

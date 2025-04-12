@@ -1,7 +1,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxRoot } from '@flux-ui/flux';
+    import { FluxRoot } from '@flux-ui/components';
     import { isSSR } from '@flux-ui/internals';
     import { useData } from 'vitepress';
     import { watch } from 'vue';

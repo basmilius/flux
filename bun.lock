@@ -8,7 +8,7 @@
       "name": "docs",
       "dependencies": {
         "@faker-js/faker": "^9.6.0",
-        "@flux-ui/flux": "workspace:*",
+        "@flux-ui/components": "workspace:*",
         "@flux-ui/internals": "workspace:*",
         "@fortawesome/fontawesome-common-types": "^6.7.2",
         "@fortawesome/pro-regular-svg-icons": "^6.7.2",
@@ -25,27 +25,9 @@
         "vite": "^6.2.5",
       },
     },
-    "packages/dashboard": {
-      "name": "@flux-ui/dashboard",
-      "version": "2.0.0",
-      "dependencies": {
-        "@flux-ui/flux": "workspace:*",
-        "@flux-ui/internals": "workspace:*",
-        "vue": "^3.5.13",
-      },
-      "devDependencies": {
-        "@basmilius/vite-vue-preset": "^2.5.0",
-        "@types/node": "^22.14.0",
-        "@vitejs/plugin-vue": "^5.2.3",
-        "sass-embedded": "^1.86.3",
-        "typescript": "^5.8.3",
-        "vite": "^6.2.5",
-        "vue-tsc": "^2.2.8",
-      },
-    },
-    "packages/flux": {
-      "name": "@flux-ui/flux",
-      "version": "2.0.0",
+    "packages/components": {
+      "name": "@flux-ui/components",
+      "version": "3.0.0-next.0",
       "dependencies": {
         "@basmilius/utils": "^1.12.0",
         "@flux-ui/internals": "workspace:*",
@@ -70,9 +52,27 @@
         "vue-tsc": "^2.2.8",
       },
     },
+    "packages/dashboard": {
+      "name": "@flux-ui/dashboard",
+      "version": "3.0.0-next.0",
+      "dependencies": {
+        "@flux-ui/components": "workspace:*",
+        "@flux-ui/internals": "workspace:*",
+        "vue": "^3.5.13",
+      },
+      "devDependencies": {
+        "@basmilius/vite-vue-preset": "^2.5.0",
+        "@types/node": "^22.14.0",
+        "@vitejs/plugin-vue": "^5.2.3",
+        "sass-embedded": "^1.86.3",
+        "typescript": "^5.8.3",
+        "vite": "^6.2.5",
+        "vue-tsc": "^2.2.8",
+      },
+    },
     "packages/internals": {
       "name": "@flux-ui/internals",
-      "version": "3.0.0",
+      "version": "3.0.0-next.0",
       "dependencies": {
         "@basmilius/utils": "^1.12.0",
         "lodash-es": "^4.17.21",
@@ -91,7 +91,7 @@
     },
     "packages/types": {
       "name": "@flux-ui/types",
-      "version": "3.0.0",
+      "version": "3.0.0-next.0",
       "devDependencies": {
         "@types/luxon": "^3.6.2",
       },
@@ -218,9 +218,9 @@
 
     "@faker-js/faker": ["@faker-js/faker@9.6.0", "", {}, "sha512-3vm4by+B5lvsFPSyep3ELWmZfE3kicDtmemVpuwl1yH7tqtnHdsA6hG8fbXedMVdkzgtvzWoRgjSB4Q+FHnZiw=="],
 
-    "@flux-ui/dashboard": ["@flux-ui/dashboard@workspace:packages/dashboard"],
+    "@flux-ui/components": ["@flux-ui/components@workspace:packages/components"],
 
-    "@flux-ui/flux": ["@flux-ui/flux@workspace:packages/flux"],
+    "@flux-ui/dashboard": ["@flux-ui/dashboard@workspace:packages/dashboard"],
 
     "@flux-ui/internals": ["@flux-ui/internals@workspace:packages/internals"],
 

@@ -19,5 +19,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxBoxedIcon, FluxStack } from '@flux-ui/flux';
+    import { FluxBoxedIcon, FluxStack } from '@flux-ui/components';
 </script>

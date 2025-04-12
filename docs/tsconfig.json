@@ -17,7 +17,7 @@
         "allowSyntheticDefaultImports": true,
         "paths": {
             "$flux/*": [
-                "../node_modules/@flux-ui/flux/src/*"
+                "../node_modules/@flux-ui/components/src/*"
             ]
         }
     },

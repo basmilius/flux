@@ -20,5 +20,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxBoxedIcon, FluxPane, FluxPaneBody, FluxPaneHeader } from '@flux-ui/flux';
+    import { FluxBoxedIcon, FluxPane, FluxPaneBody, FluxPaneHeader } from '@flux-ui/components';
 </script>

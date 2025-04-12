@@ -16,7 +16,7 @@ import './style.css';
 
 import type { Theme } from 'vitepress';
 
-import { fluxRegisterIcons } from '@flux-ui/flux';
+import { fluxRegisterIcons } from '@flux-ui/components';
 import * as icons from './icons';
 
 fluxRegisterIcons(icons);

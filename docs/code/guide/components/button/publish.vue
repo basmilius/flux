@@ -8,7 +8,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxPublishButton } from '@flux-ui/flux';
+    import { FluxPublishButton } from '@flux-ui/components';
     import { useInterval } from '@flux-ui/internals';
     import { ref } from 'vue';
 

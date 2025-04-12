@@ -27,5 +27,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxFlyout, FluxPane, FluxPaneBody, FluxSecondaryButton } from '@flux-ui/flux';
+    import { FluxFlyout, FluxPane, FluxPaneBody, FluxSecondaryButton } from '@flux-ui/components';
 </script>

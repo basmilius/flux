@@ -5,7 +5,7 @@ import examplePlugin from 'vitepress-plugin-example';
 import renderPlugin from 'vitepress-plugin-render';
 import componentNavigation from './component-navigation';
 
-export const flux = composeLibrary('@flux-ui/flux', '$flux');
+export const flux = composeLibrary('@flux-ui/components', '$flux');
 
 export default defineConfig({
     title: 'Flux',
@@ -186,7 +186,7 @@ export default defineConfig({
 
         socialLinks: [
             {icon: 'github', link: 'https://github.com/basmilius/flux'},
-            {icon: 'npm', link: 'https://www.npmjs.com/package/@flux-ui/flux'}
+            {icon: 'npm', link: 'https://www.npmjs.com/package/@flux-ui/components'}
         ]
     }
 });

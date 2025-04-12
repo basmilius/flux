@@ -17,7 +17,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxIcon } from '@flux-ui/flux';
+    import { FluxIcon } from '@flux-ui/components';
     import { useData } from 'vitepress';
     import { computed, unref } from 'vue';
 

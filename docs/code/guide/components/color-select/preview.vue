@@ -11,5 +11,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxColorSelect, FluxPane, FluxPaneBody } from '@flux-ui/flux';
+    import { FluxColorSelect, FluxPane, FluxPaneBody } from '@flux-ui/components';
 </script>

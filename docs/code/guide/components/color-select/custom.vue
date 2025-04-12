@@ -10,7 +10,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxColorSelect } from '@flux-ui/flux';
+    import { FluxColorSelect } from '@flux-ui/components';
     import { blue500, cyan500, emerald500, indigo500, sky500, teal500 } from '@flux-ui/internals';
     import { ref } from 'vue';
 

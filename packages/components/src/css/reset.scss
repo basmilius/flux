@@ -60,6 +60,12 @@
         text-transform: none;
     }
 
+    // Inherit anchor color and remove default underline.
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
     // Create a new root stacking context.
     #app {
         isolation: isolate;

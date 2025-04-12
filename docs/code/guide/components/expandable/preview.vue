@@ -13,5 +13,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxExpandable, FluxPane } from '@flux-ui/flux';
+    import { FluxExpandable, FluxPane } from '@flux-ui/components';
 </script>

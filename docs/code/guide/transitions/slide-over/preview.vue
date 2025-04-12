@@ -13,7 +13,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxSlideOverTransition } from '@flux-ui/flux';
+    import { FluxPane, FluxSlideOverTransition } from '@flux-ui/components';
     import { useInterval } from '@flux-ui/internals';
     import { ref } from 'vue';
 

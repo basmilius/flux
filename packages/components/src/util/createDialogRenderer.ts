@@ -1,5 +1,5 @@
 import { flattenVNodeTree } from '@flux-ui/internals';
-import type { Component, RenderFunction, Slots } from 'vue';
+import { Component, getCurrentInstance, RenderFunction, Slots } from 'vue';
 import { Comment, h, onMounted, onUnmounted, SetupContext, Teleport, VNode } from 'vue';
 import { registerDialog, useFluxStore } from '$flux/data';
 
@@ -9,7 +9,8 @@ type Props = {
     readonly viewKey?: string;
 };
 
-export default function (attrs: object, props: Props, emit: Emit, slots: Slots, className: string, transition: Component, to: string = 'body'): RenderFunction {
+export default function (attrs: object, props: Props, emit: Emit, slots: Slots, className: string, transition: Component): RenderFunction {
+    const instance = getCurrentInstance();
     let unregister: Function | null = null;
     let zIndex = 0;
 
@@ -55,7 +56,7 @@ export default function (attrs: object, props: Props, emit: Emit, slots: Slots, 
             unregister = null;
         }
 
-        return h(Teleport, {disabled: content.length === 0, to}, [
+        return h(Teleport, {disabled: content.length === 0, to: instance?.appContext.app._container}, [
             h(transition, attrs, {
                 default: () => content
             })

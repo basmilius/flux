@@ -11,7 +11,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxCalendar, FluxCalendarEvent } from '@flux-ui/flux';
+    import { FluxCalendar, FluxCalendarEvent } from '@flux-ui/components';
     import { DateTime } from 'luxon';
 
     const events = [

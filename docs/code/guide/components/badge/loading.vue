@@ -7,5 +7,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxBadge } from '@flux-ui/flux';
+    import { FluxBadge } from '@flux-ui/components';
 </script>

@@ -12,5 +12,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxSnackbar } from '@flux-ui/flux';
+    import { FluxSnackbar } from '@flux-ui/components';
 </script>

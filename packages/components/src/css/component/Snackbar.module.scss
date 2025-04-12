@@ -197,9 +197,9 @@
     }
 
     @include mixin.breakpoint-up(md) {
-        width: 540px;
+        width: 570px;
         top: 30px;
-        left: calc(50dvw - 270px);
+        left: calc(50dvw - 285px);
     }
 }
 

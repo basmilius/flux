@@ -41,5 +41,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxAspectRatio, FluxFader, FluxFaderItem } from '@flux-ui/flux';
+    import { FluxAspectRatio, FluxFader, FluxFaderItem } from '@flux-ui/components';
 </script>

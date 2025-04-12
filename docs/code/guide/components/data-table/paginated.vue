@@ -28,7 +28,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxDataTable, FluxPaginationBar, FluxPane, FluxPaneFooter, FluxTableCell, FluxTableHeader } from '@flux-ui/flux';
+    import { FluxDataTable, FluxPaginationBar, FluxPane, FluxPaneFooter, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
     import { computed, ref, unref } from 'vue';
 
     const page = ref(1);

@@ -16,7 +16,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxTooltip } from '@flux-ui/flux';
+    import { FluxTooltip } from '@flux-ui/components';
 
     defineProps<{
         readonly name: 'primary' | 'gray' | 'danger' | 'info' | 'success' | 'warning';

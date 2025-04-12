@@ -12,7 +12,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxPrimaryButton, FluxSnackbar } from '@flux-ui/flux';
+    import { FluxPrimaryButton, FluxSnackbar } from '@flux-ui/components';
     import { ref } from 'vue';
 
     const isVisible = ref(false);

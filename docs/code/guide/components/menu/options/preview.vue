@@ -28,7 +28,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxMenu, FluxMenuItem, FluxMenuOptions, FluxPane, FluxSeparator } from '@flux-ui/flux';
+    import { FluxMenu, FluxMenuItem, FluxMenuOptions, FluxPane, FluxSeparator } from '@flux-ui/components';
     import { ref } from 'vue';
 
     const alignment = ref(0);

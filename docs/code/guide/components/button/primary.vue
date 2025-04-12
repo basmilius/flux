@@ -7,5 +7,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxPrimaryButton } from '@flux-ui/flux';
+    import { FluxPrimaryButton } from '@flux-ui/components';
 </script>

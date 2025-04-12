@@ -9,5 +9,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneBody } from '@flux-ui/flux';
+    import { FluxPane, FluxPaneBody } from '@flux-ui/components';
 </script>

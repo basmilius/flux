@@ -20,7 +20,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxMenu, FluxMenuItem, FluxMenuOptions, FluxPane, FluxStack } from '@flux-ui/flux';
+    import { FluxMenu, FluxMenuItem, FluxMenuOptions, FluxPane, FluxStack } from '@flux-ui/components';
     import { ref } from 'vue';
 
     const ALIGNMENTS = {

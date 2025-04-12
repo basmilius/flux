@@ -9,5 +9,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxColorPicker, FluxPane } from '@flux-ui/flux';
+    import { FluxColorPicker, FluxPane } from '@flux-ui/components';
 </script>

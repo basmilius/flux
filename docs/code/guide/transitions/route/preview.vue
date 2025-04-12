@@ -11,7 +11,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxRouteTransition } from '@flux-ui/flux';
+    import { FluxPane, FluxRouteTransition } from '@flux-ui/components';
     import { useInterval } from '@flux-ui/internals';
     import { ref } from 'vue';
 

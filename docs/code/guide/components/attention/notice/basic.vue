@@ -9,5 +9,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxNotice } from '@flux-ui/flux';
+    import { FluxNotice } from '@flux-ui/components';
 </script>

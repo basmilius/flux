@@ -9,7 +9,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxAspectRatio, FluxPane } from '@flux-ui/flux';
+    import { FluxAspectRatio, FluxPane } from '@flux-ui/components';
 </script>
 
 <style module>

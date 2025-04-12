@@ -46,5 +46,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxForm, FluxFormColumn, FluxFormField, FluxFormInput, FluxFormRow, FluxFormTextArea, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPrimaryButton, FluxSpacer } from '@flux-ui/flux';
+    import { FluxForm, FluxFormColumn, FluxFormField, FluxFormInput, FluxFormRow, FluxFormTextArea, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPrimaryButton, FluxSpacer } from '@flux-ui/components';
 </script>

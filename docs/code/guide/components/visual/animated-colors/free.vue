@@ -11,5 +11,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxAnimatedColors, FluxAspectRatio } from '@flux-ui/flux';
+    import { FluxAnimatedColors, FluxAspectRatio } from '@flux-ui/components';
 </script>

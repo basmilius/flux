@@ -17,5 +17,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxCheckbox, FluxForm, FluxFormField, FluxPane, FluxPaneBody } from '@flux-ui/flux';
+    import { FluxCheckbox, FluxForm, FluxFormField, FluxPane, FluxPaneBody } from '@flux-ui/components';
 </script>

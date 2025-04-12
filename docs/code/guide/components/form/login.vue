@@ -39,5 +39,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxButtonStack, FluxForm, FluxFormColumn, FluxFormField, FluxFormInput, FluxPane, FluxPaneBody, FluxPrimaryButton, FluxSecondaryButton } from '@flux-ui/flux';
+    import { FluxButtonStack, FluxForm, FluxFormColumn, FluxFormField, FluxFormInput, FluxPane, FluxPaneBody, FluxPrimaryButton, FluxSecondaryButton } from '@flux-ui/components';
 </script>

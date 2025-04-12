@@ -17,7 +17,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxSpacer } from '@flux-ui/flux';
+    import { FluxSpacer } from '@flux-ui/components';
     import FluxDashboardTopBar from './FluxDashboardTopBar.vue';
     import $style from '$fluxDashboard/css/component/Dashboard.module.scss';
 

@@ -26,15 +26,16 @@ jobs:
             -   name: 🔨 Build
                 run: |
                     bun -F @flux-ui/internals build
-                    bun -F @flux-ui/flux build
+                    bun -F @flux-ui/components build
                     bun -F @flux-ui/dashboard build
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
 
             -   name: 🚀 Publish
                 run: |
+                    bun publish --cwd packages/types --access public
                     bun publish --cwd packages/internals --access public
-                    bun publish --cwd packages/flux --access public
+                    bun publish --cwd packages/components --access public
                     bun publish --cwd packages/dashboard --access public
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}

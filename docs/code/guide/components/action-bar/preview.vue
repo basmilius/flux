@@ -48,7 +48,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxActionBar, FluxFormInput, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSeparator } from '@flux-ui/flux';
+    import { FluxActionBar, FluxFormInput, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSeparator } from '@flux-ui/components';
     import { ref } from 'vue';
 
     const searchQuery = ref('');

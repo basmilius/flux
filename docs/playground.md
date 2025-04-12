@@ -21,7 +21,7 @@ import {
     FluxTabBar,
     FluxTabBarItem,
     FluxToggle
-} from '@flux-ui/flux';
+} from '@flux-ui/components';
 </script>
 
 # Playground

@@ -36,5 +36,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuTitle, FluxPane, FluxSeparator } from '@flux-ui/flux';
+    import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuTitle, FluxPane, FluxSeparator } from '@flux-ui/components';
 </script>

@@ -17,5 +17,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxMenu, FluxMenuItem } from '@flux-ui/flux';
+    import { FluxMenu, FluxMenuItem } from '@flux-ui/components';
 </script>

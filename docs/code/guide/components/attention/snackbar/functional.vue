@@ -7,7 +7,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxPrimaryButton, showSnackbar } from '@flux-ui/flux';
+    import { FluxPrimaryButton, showSnackbar } from '@flux-ui/components';
 
     function show(): void {
         showSnackbar({

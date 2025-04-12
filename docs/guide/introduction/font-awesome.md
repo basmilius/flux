@@ -20,7 +20,7 @@ export {
 ```
 
 ```ts [register.ts]
-import { fluxRegisterIcons  } from '@flux-ui/flux';
+import { fluxRegisterIcons  } from '@flux-ui/components';
 import * as icons from './icons.ts';
 
 fluxRegisterIcons(icons);
@@ -36,7 +36,7 @@ fluxRegisterIcons(icons);
 <script
     type="ts"
     setup>
-    import { FluxIcon } from '@flux-ui/flux';
+    import { FluxIcon } from '@flux-ui/components';
 </script>
 ```
 

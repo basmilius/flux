@@ -23,7 +23,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxComment, FluxStack } from '@flux-ui/flux';
+    import { FluxComment, FluxStack } from '@flux-ui/components';
     import { faker } from '@faker-js/faker';
     import { DateTime } from 'luxon';
 

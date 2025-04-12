@@ -25,7 +25,7 @@ export default defineConfig(({mode}) => ({
             name: 'fluxDashboard'
         },
         rollupOptions: {
-            external: ['@flux-ui/flux', 'luxon', 'vue'],
+            external: ['@flux-ui/components', 'luxon', 'vue'],
             output: {
                 exports: 'named',
                 globals: {

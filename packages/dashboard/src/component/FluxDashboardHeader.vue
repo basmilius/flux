@@ -1,5 +1,5 @@
 <template>
-    <FluxDashboardTopBar>
+    <FluxDashboardTopBar :class="y > 0 ? $style.dashboardHeaderScrolled : $style.dashboardHeader">
         <slot name="start"/>
 
         <FluxIcon
@@ -19,12 +19,16 @@
 <script
     lang="ts"
     setup>
-    import { FluxIcon, FluxSpacer } from '@flux-ui/flux';
+    import { FluxIcon, FluxSpacer } from '@flux-ui/components';
+    import { useScrollPosition } from '@flux-ui/internals';
     import type { FluxIconName } from '@flux-ui/types';
     import FluxDashboardTopBar from './FluxDashboardTopBar.vue';
+    import $style from '$fluxDashboard/css/component/Dashboard.module.scss';
 
     defineProps<{
         readonly icon?: FluxIconName;
         readonly title?: string;
     }>();
+
+    const {y} = useScrollPosition();
 </script>

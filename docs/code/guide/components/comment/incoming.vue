@@ -12,7 +12,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxComment } from '@flux-ui/flux';
+    import { FluxComment } from '@flux-ui/components';
     import { DateTime } from 'luxon';
 
     const postedOn = DateTime.now().minus({seconds: 45});

@@ -152,6 +152,7 @@
     gap: 15px;
     background: var(--dashboard-navigation-background);
     transition: width 210ms var(--swift-out);
+    z-index: 750;
 
     .divider {
         margin: 3px 15px;
@@ -247,15 +248,14 @@
 }
 
 .dashboardNavigationRoundingFix {
-    position: fixed;
+    position: absolute;
     display: block;
-    left: 300px;
+    left: 100%;
     height: var(--radius);
     width: var(--radius);
     content: '';
     background: var(--dashboard-navigation-background);
     transition: left 210ms var(--swift-out);
-    z-index: 750;
 
     &::before {
         position: absolute;
@@ -280,12 +280,6 @@
             border-bottom-left-radius: var(--radius);
         }
     }
-}
-
-.dashboardNavigationRoundingFixCollapsed {
-    composes: dashboardNavigationRoundingFix;
-
-    left: 84px;
 }
 
 .dashboard:not(:has(.dashboardMenu)) .dashboardNavigationRoundingFix::before {
@@ -320,4 +314,18 @@
     > .separator {
         height: 24px;
     }
+}
+
+.dashboardHeader:not(.routeTransitionEnterActive):not(.routeTransitionLeaveActive) {
+    transition: box-shadow 210ms var(--swift-out);
+}
+
+.dashboardHeaderScrolled {
+    composes: dashboardHeader;
+
+    box-shadow: var(--shadow-md);
+}
+
+[dark] .dashboardHeaderScrolled {
+    box-shadow: 0 1px 0 rgb(var(--gray-1)), var(--shadow-md);
 }

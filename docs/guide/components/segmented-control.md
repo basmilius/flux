@@ -26,7 +26,7 @@ props:
 <script
     lang="ts"
     setup>
-    import { FluxSegmentedControl } from '@flux-ui/flux';
+    import { FluxSegmentedControl } from '@flux-ui/components';
 </script>
 
 # Segmented control

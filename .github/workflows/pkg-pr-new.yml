@@ -5,13 +5,13 @@ on:
         branches:
             - '**'
         paths-ignore:
-            - 'packages/flux/docs/**'
+            - 'docs/**'
 
     pull_request:
         branches:
             - 'main'
         paths-ignore:
-            - 'packages/flux/docs/**'
+            - 'docs/**'
 
 jobs:
     build:
@@ -31,8 +31,9 @@ jobs:
 
             -   name: 🔨 Build
                 run: |
+                    bun -F @flux-ui/types build
                     bun -F @flux-ui/internals build
-                    bun -F @flux-ui/flux build
+                    bun -F @flux-ui/components build
                     bun -F @flux-ui/dashboard build
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}

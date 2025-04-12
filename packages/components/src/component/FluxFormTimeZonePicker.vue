@@ -14,7 +14,8 @@
     import { upperFirst } from 'lodash-es';
     import { computed, toRef } from 'vue';
     import { useDisabled } from '$flux/composable';
-    import { FluxTranslationKey, useTranslate } from '$flux/composable/private';
+    import { useTranslate } from '$flux/composable/private';
+    import type { FluxTranslation } from '$flux/data';
     import FluxFormSelect from './FluxFormSelect.vue';
 
     const timeZones = [
@@ -615,7 +616,7 @@
         'Zulu'
     ];
 
-    const timeZoneGroupOrder: FluxTranslationKey[] = [
+    const timeZoneGroupOrder: FluxTranslation[] = [
         'flux.timezoneEurope',
         'flux.timezoneAmerica',
         'flux.timezoneUs',
@@ -682,8 +683,8 @@
         const sortedGroups = Object.fromEntries(
             Object.entries(groups)
                 .sort(([a], [b]) => {
-                    const ai = timeZoneGroupOrder.indexOf(a as FluxTranslationKey);
-                    const bi = timeZoneGroupOrder.indexOf(b as FluxTranslationKey);
+                    const ai = timeZoneGroupOrder.indexOf(a as FluxTranslation);
+                    const bi = timeZoneGroupOrder.indexOf(b as FluxTranslation);
 
                     if (ai > bi) {
                         return 1;
@@ -701,7 +702,7 @@
             const groupOptions = sortedGroups[group].sort(({label: labelA}, {label: labelB}) => labelA.localeCompare(labelB));
 
             options.push({
-                label: translate(group as FluxTranslationKey)
+                label: translate(group as FluxTranslation)
             });
 
             groupOptions.forEach(go => options.push(go));

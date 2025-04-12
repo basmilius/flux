@@ -27,5 +27,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxExpandable, FluxExpandableGroup, FluxPane } from '@flux-ui/flux';
+    import { FluxExpandable, FluxExpandableGroup, FluxPane } from '@flux-ui/components';
 </script>

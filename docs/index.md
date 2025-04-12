@@ -42,5 +42,5 @@ features:
 ---
 
 ```shell
-bun add @flux-ui/flux
+bun add @flux-ui/components
 ```

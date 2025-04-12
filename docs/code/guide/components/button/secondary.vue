@@ -7,5 +7,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxSecondaryButton } from '@flux-ui/flux';
+    import { FluxSecondaryButton } from '@flux-ui/components';
 </script>

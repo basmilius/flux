@@ -1,6 +1,7 @@
 {
     "name": "@flux-ui/internals",
-    "version": "3.0.0",
+    "description": "Contains internal workings of Flux UI packages.",
+    "version": "3.0.0-next.0",
     "type": "module",
     "license": "MIT",
     "funding": "https://github.com/sponsors/basmilius",

@@ -1,6 +1,7 @@
 {
-    "name": "@flux-ui/flux",
-    "version": "2.0.0",
+    "name": "@flux-ui/components",
+    "description": "A set of opiniated UI components.",
+    "version": "3.0.0-next.0",
     "type": "module",
     "license": "MIT",
     "funding": "https://github.com/sponsors/basmilius",
@@ -8,7 +9,7 @@
     "repository": {
         "type": "git",
         "url": "git+https://github.com/basmilius/flux.git",
-        "directory": "packages/flux"
+        "directory": "packages/components"
     },
     "keywords": [
         "ui library",

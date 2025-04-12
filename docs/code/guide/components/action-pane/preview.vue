@@ -21,5 +21,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxActionPane, FluxPrimaryButton, FluxSecondaryButton } from '@flux-ui/flux';
+    import { FluxActionPane, FluxPrimaryButton, FluxSecondaryButton } from '@flux-ui/components';
 </script>

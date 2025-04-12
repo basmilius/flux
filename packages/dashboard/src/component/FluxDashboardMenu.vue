@@ -23,7 +23,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxIcon, FluxSpacer } from '@flux-ui/flux';
+    import { FluxIcon, FluxSpacer } from '@flux-ui/components';
     import type { FluxIconName } from '@flux-ui/types';
     import FluxDashboardTopBar from './FluxDashboardTopBar.vue';
     import $style from '$fluxDashboard/css/component/Dashboard.module.scss';

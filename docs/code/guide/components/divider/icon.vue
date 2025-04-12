@@ -15,5 +15,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxDivider, FluxIcon, FluxPane, FluxPaneBody } from '@flux-ui/flux';
+    import { FluxDivider, FluxIcon, FluxPane, FluxPaneBody } from '@flux-ui/components';
 </script>

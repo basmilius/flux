@@ -1,9 +1,4 @@
 <template>
-    <div
-        v-for="index of 2"
-        :key="index"
-        :class="isNavigationCollapsed ? $style.dashboardNavigationRoundingFixCollapsed : $style.dashboardNavigationRoundingFix"/>
-
     <nav
         v-bind="$attrs"
         :class="isNavigationCollapsed ? $style.dashboardNavigationCollapsed : $style.dashboardNavigation">
@@ -15,6 +10,11 @@
                 name="logo"
                 v-bind="{isNavigationCollapsed}"/>
         </router-link>
+
+        <div
+            v-for="index of 2"
+            :key="index"
+            :class="$style.dashboardNavigationRoundingFix"/>
 
         <slot/>
     </nav>

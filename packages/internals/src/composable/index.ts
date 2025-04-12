@@ -9,6 +9,7 @@ export { default as useInterval } from './useInterval';
 export { default as useInView } from './useInView';
 export { default as useMutationObserver } from './useMutationObserver';
 export { default as useRemembered } from './useRemembered';
+export { default as useScrollPosition } from './useScrollPosition';
 
 export { default as useFocusTrap } from './useFocusTrap';
 export { default as useFocusTrapLock } from './useFocusTrapLock';
