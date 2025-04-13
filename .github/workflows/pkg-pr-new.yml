@@ -31,10 +31,10 @@ jobs:
 
             -   name: 🔨 Build
                 run: |
-                    bun -F @flux-ui/types build
-                    bun -F @flux-ui/internals build
-                    bun -F @flux-ui/components build
-                    bun -F @flux-ui/dashboard build
+                    bun --cwd packages/types build
+                    bun --cwd packages/internals build
+                    bun --cwd packages/components build
+                    bun --cwd packages/dashboard build
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
 
