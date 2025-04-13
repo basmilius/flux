@@ -43,10 +43,10 @@ jobs:
 
             -   name: 🚀 Publish v${{ env.RELEASE_VERSION }}
                 run: |
-                    bun publish --cwd packages/types --access public --report-summary --tag next
-                    bun publish --cwd packages/internals --access public --report-summary --tag next
-                    bun publish --cwd packages/components --access public --report-summary --tag next
-                    bun publish --cwd packages/dashboard --access public --report-summary --tag next
+                    bun publish --cwd packages/types --access public --tag next
+                    bun publish --cwd packages/internals --access public --tag next
+                    bun publish --cwd packages/components --access public --tag next
+                    bun publish --cwd packages/dashboard --access public --tag next
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
                     NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
