@@ -1,0 +1,52 @@
+name: Pre-release Flux
+
+on:
+    release:
+        types: [ prereleased ]
+
+env:
+    RELEASE_VERSION: ${{ github.event.release.tag_name }}
+
+permissions:
+    id-token: write
+
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        name: 🚀 Publish to Registry
+        steps:
+            -   name: 👀 Checkout
+                uses: actions/checkout@v4
+
+            -   name: ⚙️ Setup Bun
+                uses: oven-sh/setup-bun@v2
+
+            -   name: 📦️ Install dependencies
+                run: bun install --frozen-lockfile
+                env:
+                    FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+
+            -   name: ✏️ Tag v${{ env.RELEASE_VERSION }}
+                run: |
+                    sed -i 's/0.0.0/${{ env.RELEASE_VERSION }}/g' packages/types/package.json
+                    sed -i 's/0.0.0/${{ env.RELEASE_VERSION }}/g' packages/internals/package.json
+                    sed -i 's/0.0.0/${{ env.RELEASE_VERSION }}/g' packages/components/package.json
+                    sed -i 's/0.0.0/${{ env.RELEASE_VERSION }}/g' packages/dashboard/package.json
+
+            -   name: 🔨 Build v${{ env.RELEASE_VERSION }}
+                run: |
+                    bun --cwd packages/internals build
+                    bun --cwd packages/components build
+                    bun --cwd packages/dashboard build
+                env:
+                    FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+
+            -   name: 🚀 Publish v${{ env.RELEASE_VERSION }}
+                run: |
+                    bun publish --cwd packages/types --access public --report-summary --tag next
+                    bun publish --cwd packages/internals --access public --report-summary --tag next
+                    bun publish --cwd packages/components --access public --report-summary --tag next
+                    bun publish --cwd packages/dashboard --access public --report-summary --tag next
+                env:
+                    FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+                    NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}

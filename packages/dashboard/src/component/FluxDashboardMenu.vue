@@ -1,5 +1,5 @@
 <template>
-    <aside :class="$style.dashboardMenu">
+    <aside :class="[$style.dashboardMenu, isMenuCollapsed && $style.dashboardMenuCollapsed]">
         <FluxDashboardTopBar>
             <slot name="top-bar-start"/>
 
@@ -25,11 +25,14 @@
     setup>
     import { FluxIcon, FluxSpacer } from '@flux-ui/components';
     import type { FluxIconName } from '@flux-ui/types';
+    import { useDashboardInjection } from '$fluxDashboard/composable';
     import FluxDashboardTopBar from './FluxDashboardTopBar.vue';
-    import $style from '$fluxDashboard/css/component/Dashboard.module.scss';
+    import $style from '$fluxDashboard/css/component/DashboardPane.module.scss';
 
     defineProps<{
         readonly icon?: FluxIconName;
         readonly title: string;
     }>();
+
+    const {isMenuCollapsed} = useDashboardInjection();
 </script>

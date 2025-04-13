@@ -1,0 +1,55 @@
+@use '../../../../components/src/css/mixin';
+
+.dashboardTopBar {
+    position: sticky;
+    display: flex;
+    top: 0;
+    height: 84px;
+    padding-left: 30px;
+    padding-right: 30px;
+    align-items: center;
+    flex-flow: row;
+    gap: 15px;
+    background: rgb(var(--gray-0) / .9);
+    backdrop-filter: blur(10px) saturate(180%);
+    z-index: 100;
+
+    > h1 {
+        font-size: 18px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    > .icon {
+        color: var(--foreground-prominent);
+    }
+
+    > .separator {
+        height: 24px;
+    }
+}
+
+.dashboardHeader:not(.routeTransitionEnterActive):not(.routeTransitionLeaveActive) {
+    transition: box-shadow var(--dashboard-duration) var(--swift-out);
+}
+
+.dashboardHeaderScrolled {
+    composes: dashboardHeader;
+
+    box-shadow: var(--shadow-md);
+}
+
+[dark] .dashboardHeaderScrolled {
+    box-shadow: 0 1px 0 rgb(var(--gray-1)), var(--shadow-md);
+}
+
+@include mixin.breakpoint-down(md) {
+    .dashboard > .dashboardTopBar {
+        top: 84px;
+    }
+
+    .dashboard > .dashboardTopBarCollapsed {
+        display: none;
+    }
+}

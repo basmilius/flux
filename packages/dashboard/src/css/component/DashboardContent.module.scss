@@ -1,0 +1,44 @@
+@use '../../../../components/src/css/mixin';
+
+.dashboardContent {
+    display: flex;
+    padding: 0 30px;
+    flex-flow: column;
+    flex-grow: 1;
+
+    > :is(.calendar, .table) {
+        margin-left: -30px;
+        margin-right: -30px;
+        height: calc(100dvh - 84px);
+        flex-grow: 1;
+    }
+
+    > .calendar {
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0;
+
+        .calendarActions {
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+    }
+
+    > .table {
+        border-top: 1px solid rgb(var(--gray-2));
+
+        .tableCell:first-child .tableCellContent {
+            padding-left: 30px;
+        }
+
+        .tableCell:last-child .tableCellContent {
+            padding-right: 30px;
+        }
+    }
+}
+
+@include mixin.breakpoint-down(md) {
+    .dashboardContentCollapsed {
+        display: none;
+    }
+}

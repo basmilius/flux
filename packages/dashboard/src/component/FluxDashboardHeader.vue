@@ -23,7 +23,7 @@
     import { useScrollPosition } from '@flux-ui/internals';
     import type { FluxIconName } from '@flux-ui/types';
     import FluxDashboardTopBar from './FluxDashboardTopBar.vue';
-    import $style from '$fluxDashboard/css/component/Dashboard.module.scss';
+    import $style from '$fluxDashboard/css/component/DashboardTopBar.module.scss';
 
     defineProps<{
         readonly icon?: FluxIconName;

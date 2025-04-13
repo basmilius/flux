@@ -1,0 +1,83 @@
+@use '../../../../components/src/css/mixin';
+
+.dashboardPane {
+    background: rgb(var(--gray-1));
+    overflow: auto;
+    z-index: 200;
+
+    .menuSubHeader {
+        background: linear-gradient(to bottom, rgb(var(--gray-1)) 75%, transparent);
+    }
+
+    .dashboardTopBar {
+        background: rgb(var(--gray-1) / .9);
+    }
+
+    .filter {
+        --background: rgb(var(--gray-1));
+
+        max-height: calc(100dvh - 84px);
+        margin-top: -9px;
+        padding: 9px 18px 18px;
+        width: 100%;
+
+        .filterHeader {
+            margin-left: -18px;
+            margin-right: -18px;
+            padding-left: 18px;
+            padding-right: 18px;
+        }
+
+        .menu {
+            font-size: 14px;
+        }
+
+        .menuItemCommand {
+            font-size: 12px;
+        }
+
+        .menuItemIcon {
+            font-size: 16px;
+        }
+
+        .menu > :where(.divider, .separator) {
+            margin-left: -18px;
+            margin-right: -18px;
+        }
+    }
+}
+
+.dashboardMenu {
+    composes: dashboardPane;
+
+    border-right: 1px solid rgb(var(--gray-2));
+}
+
+.dashboardMenuBody {
+    padding: 0 18px 30px;
+}
+
+.dashboardSide {
+    composes: dashboardPane;
+
+    border-left: 1px solid rgb(var(--gray-2));
+}
+
+@include mixin.breakpoint-up(lg) {
+    .dashboardPane {
+        position: sticky;
+        top: 0;
+        height: 100dvh;
+        grid-row: 1 / span 2;
+    }
+}
+
+@include mixin.breakpoint-down(md) {
+    .dashboardMenu {
+        height: calc(100dvh - 84px);
+    }
+
+    .dashboardMenuCollapsed {
+        display: none;
+    }
+}

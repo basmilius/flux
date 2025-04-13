@@ -1,5 +1,6 @@
 <template>
     <div
+        v-bind="$attrs"
         :class="$style.root"
         :inert="inertMain">
         <slot/>
@@ -42,6 +43,10 @@
     import FluxSnackbarProvider from './FluxSnackbarProvider.vue';
     import FluxTooltipProvider from './FluxTooltipProvider.vue';
     import $style from '$flux/css/component/Root.module.scss';
+
+    defineOptions({
+        inheritAttrs: false
+    });
 
     defineSlots<{
         default(): any;

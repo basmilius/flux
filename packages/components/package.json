@@ -1,7 +1,7 @@
 {
     "name": "@flux-ui/components",
     "description": "A set of opiniated UI components.",
-    "version": "3.0.0-next.0",
+    "version": "0.0.0",
     "type": "module",
     "license": "MIT",
     "funding": "https://github.com/sponsors/basmilius",
@@ -63,15 +63,15 @@
         "vue": "^3.5.13"
     },
     "devDependencies": {
-        "@basmilius/vite-vue-preset": "^2.5.0",
+        "@basmilius/vite-vue-preset": "^2.6.0",
         "@types/lodash-es": "^4.17.12",
         "@types/luxon": "^3.6.2",
-        "@types/node": "^22.14.0",
+        "@types/node": "^22.14.1",
         "@vitejs/plugin-vue": "^5.2.3",
-        "pinia": "^3.0.1",
+        "pinia": "^3.0.2",
         "sass-embedded": "^1.86.3",
         "typescript": "^5.8.3",
-        "vite": "^6.2.5",
+        "vite": "^6.2.6",
         "vue-tsc": "^2.2.8"
     }
 }

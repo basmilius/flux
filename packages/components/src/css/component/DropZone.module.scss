@@ -20,6 +20,7 @@
     inset: var(--dz-inset);
     height: var(--dz-height);
     width: var(--dz-width);
+    max-width: unset;
     overflow: visible;
     pointer-events: none;
 
