@@ -31,7 +31,6 @@ jobs:
 
             -   name: 🔨 Build
                 run: |
-                    bun --cwd packages/types build
                     bun --cwd packages/internals build
                     bun --cwd packages/components build
                     bun --cwd packages/dashboard build
