@@ -8,7 +8,7 @@
         </template>
 
         <template #default="{ close }">
-            <FluxMenu style="width: 270px">
+            <FluxMenu style="width: 210px">
                 <FluxMenuGroup>
                     <FluxMenuItem
                         icon-leading="grid-2"

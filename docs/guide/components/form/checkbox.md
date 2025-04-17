@@ -8,7 +8,7 @@ emits:
 
 props:
     -   name: model-value
-        description: The value of the checkbox.
+        description: The value.
         type: [ boolean, null ]
 
     -   name: label

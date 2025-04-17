@@ -14,7 +14,7 @@
                         </template>
 
                         <template v-else>
-                            &nbsp;&nbsp;&nbsp;&nbsp;readonly {{ key }}: {{ value }};<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;readonly {{ key }}{{ value.includes(" | undefined") ? "?" : "" }}: {{ value.replace(" | undefined", "") }};<br>
                         </template>
                     </template>
                 })

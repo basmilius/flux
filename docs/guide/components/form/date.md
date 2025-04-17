@@ -8,44 +8,43 @@ emits:
 
 props:
     -   name: model-value
-        description: The value of the checkbox.
+        description: The value.
         type: [ DateTime, null ]
 
     -   name: auto-complete
         description: The label that is shown next to the checkbox.
-        type: string
+        type: FluxAutoCompleteType
+        optional: true
 
-    -   name: label
-        description: The label that is shown next to the checkbox.
-        type: string
+    -   name: auto-focus
+        description: Focus the input when the form is mounted.
+        type: boolean
+        optional: true
 
-    -   name: label
-        description: The label that is shown next to the checkbox.
-        type: string
+    -   name: disabled
+        description: Disable the form input.
+        type: boolean
+        optional: true
 
-    -   name: label
-        description: The label that is shown next to the checkbox.
+    -   name: is-readonly
+        description: Make the form input read-only.
         type: string
+        optional: true
 
-    -   name: label
-        description: The label that is shown next to the checkbox.
-        type: string
+    -   name: max
+        description: The maximum selectable date.
+        type: DateTime
+        optional: true
 
-    -   name: label
-        description: The label that is shown next to the checkbox.
-        type: string
+    -   name: min
+        description: The minimum selectable date.
+        type: DateTime
+        optional: true
 
-    -   name: label
-        description: The label that is shown next to the checkbox.
+    -   name: placeholder
+        description: The placeholder that is visible in the form input.
         type: string
-
-    -   name: label
-        description: The label that is shown next to the checkbox.
-        type: string
-
-    -   name: label
-        description: The label that is shown next to the checkbox.
-        type: string
+        optional: true
 
 requiredIcons:
     - angle-left

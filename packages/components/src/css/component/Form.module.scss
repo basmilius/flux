@@ -106,12 +106,15 @@
 
 .formFieldAddition {
     display: flex;
+    margin-top: 3px;
+    margin-bottom: 3px;
     gap: 9px;
     font-size: 14px;
+    line-height: 24px;
 }
 
 .formFieldAdditionIcon {
-    margin-top: 3px;
+    margin-top: 4px;
 }
 
 .formFieldAdditionError {
@@ -124,6 +127,10 @@
     composes: formFieldAddition;
 
     color: var(--foreground-secondary);
+}
+
+.formFieldAddition + .formFieldAddition {
+    margin-top: 0;
 }
 
 .formInput {
@@ -595,6 +602,7 @@
 }
 
 .quantitySelector {
+    min-width: max-content;
     align-self: center;
     justify-self: center;
     border: 1px solid rgb(var(--gray-3));

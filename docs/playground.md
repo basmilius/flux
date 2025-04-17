@@ -33,6 +33,7 @@ import {
         <FluxTabBarItem label="Invoices" is-active/>
         <FluxTabBarItem label="Quotes"/>
         <FluxTabBarItem label="Payment"/>
+        <FluxTabBarItem v-for="num of 10" :label="`Tab ${num}`"/>
     </FluxTabBar>
 </FluxView>
 
