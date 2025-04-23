@@ -29,7 +29,7 @@
       "name": "@flux-ui/components",
       "version": "0.0.0",
       "dependencies": {
-        "@basmilius/utils": "link:@basmilius/utils",
+        "@basmilius/utils": "^1.13.0",
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/types": "workspace:*",
         "@fortawesome/fontawesome-common-types": "^6.7.2",
@@ -148,7 +148,7 @@
 
     "@babel/types": ["@babel/types@7.26.10", "", { "dependencies": { "@babel/helper-string-parser": "^7.25.9", "@babel/helper-validator-identifier": "^7.25.9" } }, "sha512-emqcG3vHrpxUKTrxcblR36dcrcoRDvKmnL/dCL6ZsHaShW80qxCAcNhzQZrpeM765VzEos+xOi4s+r4IXzTwdQ=="],
 
-    "@basmilius/utils": ["@basmilius/utils@link:@basmilius/utils", {}],
+    "@basmilius/utils": ["@basmilius/utils@1.13.0", "", { "peerDependencies": { "luxon": "^3.6.1", "pinia": "^3.0.1" } }, "sha512-j/PEVSqT78jpMxfLZjEFBHRjyHPJSdaZYxMuwnZMFhRi4krQQ93WAGIAQFlYJ5sGFvBwUMoEAPubKr1a+Rv3CQ=="],
 
     "@basmilius/vite-vue-preset": ["@basmilius/vite-vue-preset@3.0.0", "", { "dependencies": { "@laynezh/vite-plugin-lib-assets": "^1.1.0", "change-case": "^5.4.4", "css-class-generator": "^2.0.0", "lightningcss": "^1.29.3", "oxc-transform": "^0.65.0", "vite-css-modules": "^1.8.5", "vite-plugin-dts": "^4.5.3" } }, "sha512-SWiCDTCaxwoFkWUfyt4vEULsGhatvck/hDMj8/xBo4IU4roYwUuIsvaSPyTYyL4YnVwlgK8swniUuqA3wJgYnw=="],
 
@@ -829,8 +829,6 @@
     "zwitch": ["zwitch@2.0.4", "", {}, "sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A=="],
 
     "@basmilius/vite-vue-preset/oxc-transform": ["oxc-transform@0.65.0", "", { "optionalDependencies": { "@oxc-transform/binding-darwin-arm64": "0.65.0", "@oxc-transform/binding-darwin-x64": "0.65.0", "@oxc-transform/binding-linux-arm-gnueabihf": "0.65.0", "@oxc-transform/binding-linux-arm64-gnu": "0.65.0", "@oxc-transform/binding-linux-arm64-musl": "0.65.0", "@oxc-transform/binding-linux-x64-gnu": "0.65.0", "@oxc-transform/binding-linux-x64-musl": "0.65.0", "@oxc-transform/binding-wasm32-wasi": "0.65.0", "@oxc-transform/binding-win32-arm64-msvc": "0.65.0", "@oxc-transform/binding-win32-x64-msvc": "0.65.0" } }, "sha512-TWAMi8zVvORQw545O1/1irpbMPDQGD6ernen5QyY5PCL9nj3RqgR1ULlQiHVDXEl2rW+OtHF8KS0ItAUyOfQ+Q=="],
-
-    "@flux-ui/internals/@basmilius/utils": ["@basmilius/utils@1.13.0", "", { "peerDependencies": { "luxon": "^3.6.1", "pinia": "^3.0.1" } }, "sha512-j/PEVSqT78jpMxfLZjEFBHRjyHPJSdaZYxMuwnZMFhRi4krQQ93WAGIAQFlYJ5sGFvBwUMoEAPubKr1a+Rv3CQ=="],
 
     "@microsoft/api-extractor/minimatch": ["minimatch@3.0.8", "", { "dependencies": { "brace-expansion": "^1.1.7" } }, "sha512-6FsRAQsxQ61mw+qP1ZzbL9Bc78x2p5OqNgNpnoAFLTrX8n5Kxph0CsnhmKKNXTWjXqU5L0pGPR7hYk+XWZr60Q=="],
 
