@@ -32,6 +32,10 @@ jobs:
                     sed -i 's/0.0.0/${{ env.RELEASE_VERSION }}/g' packages/internals/package.json
                     sed -i 's/0.0.0/${{ env.RELEASE_VERSION }}/g' packages/components/package.json
                     sed -i 's/0.0.0/${{ env.RELEASE_VERSION }}/g' packages/dashboard/package.json
+                    sed -i 's/workspace:\*/${{ env.RELEASE_VERSION }}/g' packages/types/package.json
+                    sed -i 's/workspace:\*/${{ env.RELEASE_VERSION }}/g' packages/internals/package.json
+                    sed -i 's/workspace:\*/${{ env.RELEASE_VERSION }}/g' packages/components/package.json
+                    sed -i 's/workspace:\*/${{ env.RELEASE_VERSION }}/g' packages/dashboard/package.json
 
             -   name: 🔨 Build v${{ env.RELEASE_VERSION }}
                 run: |
