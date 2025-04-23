@@ -1,91 +1,86 @@
-@value baseAutoGrid from './base/Grid.module.scss';
-@value basePaneElement, basePaneLoader, basePaneStructure from './base/Pane.module.scss';
+.pane {
+    composes: basePaneStructure from './base/Pane.module.scss';
+}
 
-@layer flux-base {
-    .pane {
-        composes: basePaneStructure;
-    }
+.paneDefault {
+    composes: pane;
 
-    .paneDefault {
-        composes: pane;
+    box-shadow: var(--shadow-sm);
+}
 
-        box-shadow: var(--shadow-sm);
-    }
+.paneFlat {
+    composes: pane;
+}
 
-    .paneFlat {
-        composes: pane;
-    }
+.paneWell {
+    composes: pane;
 
-    .paneWell {
-        composes: pane;
+    background: rgb(var(--gray-1));
+}
 
-        background: rgb(var(--gray-1));
-    }
+.paneHeader {
+    composes: basePaneElement from './base/Pane.module.scss';
 
-    .paneHeader {
-        composes: basePaneElement;
+    display: flex;
+    padding: 21px 21px 0;
+    gap: 15px;
 
-        display: flex;
-        padding: 21px 21px 0;
-        gap: 15px;
-
-        &:only-child {
-            padding: 21px;
-        }
-
-        &:has(+ :local(.basePaneElement):not(.paneBody)) {
-            padding: 21px;
-        }
-    }
-
-    .paneHeaderCaption {
-        display: flex;
-        flex-flow: column;
-        flex-grow: 1;
-        line-height: 24px;
-
-        :is(strong) {
-            color: var(--foreground-prominent);
-            font-weight: 600;
-
-            &:has(+ :is(span)) {
-                font-size: 16px;
-            }
-        }
-
-        :is(span) {
-            font-size: 14px;
-        }
-    }
-
-    .paneHeaderIcon {
-        margin-top: 2px;
-        color: rgb(var(--primary-7));
-    }
-
-    .paneBody {
-        composes: basePaneElement;
-
+    &:only-child {
         padding: 21px;
     }
 
-    .paneBody + .paneBody {
-        padding-top: 0;
-    }
-
-    .paneFooter {
-        composes: basePaneElement;
-
-        display: flex;
+    &:has(+ .basePaneElement:not(.paneBody)) {
         padding: 21px;
-        gap: 9px;
-        background: rgb(var(--gray-1));
-        border-top: 1px solid rgb(var(--gray-2));
     }
 }
 
+.paneHeaderCaption {
+    display: flex;
+    flex-flow: column;
+    flex-grow: 1;
+    line-height: 24px;
+
+    :is(strong) {
+        color: var(--foreground-prominent);
+        font-weight: 600;
+
+        &:has(+ :is(span)) {
+            font-size: 16px;
+        }
+    }
+
+    :is(span) {
+        font-size: 14px;
+    }
+}
+
+.paneHeaderIcon {
+    margin-top: 2px;
+    color: rgb(var(--primary-7));
+}
+
+.paneBody {
+    composes: basePaneElement from './base/Pane.module.scss';
+
+    padding: 21px;
+}
+
+.paneBody + .paneBody {
+    padding-top: 0;
+}
+
+.paneFooter {
+    composes: basePaneElement from './base/Pane.module.scss';
+
+    display: flex;
+    padding: 21px;
+    gap: 9px;
+    background: rgb(var(--gray-1));
+    border-top: 1px solid rgb(var(--gray-2));
+}
+
 .paneLoader {
-    composes: basePaneLoader;
+    composes: basePaneLoader from './base/Pane.module.scss';
 }
 
 .paneTag {
@@ -138,7 +133,7 @@
 
     overflow: hidden;
 
-    > :local(.baseAutoGrid) {
+    > .baseAutoGrid {
         margin-right: -1px;
         margin-bottom: -1px;
 

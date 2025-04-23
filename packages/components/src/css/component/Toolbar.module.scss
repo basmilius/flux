@@ -1,5 +1,3 @@
-@value basePane, basePaneStructure from './base/Pane.module.scss';
-
 .toolbar {
     padding: 6px;
     contain: paint;
@@ -12,7 +10,7 @@
 }
 
 .toolbarFlat {
-    composes: basePane;
+    composes: basePane from './base/Pane.module.scss';
     composes: toolbar;
 
     position: relative;
@@ -21,7 +19,7 @@
 }
 
 .toolbarFloating {
-    composes: basePane;
+    composes: basePane from './base/Pane.module.scss';
     composes: toolbar;
 
     position: absolute;
@@ -55,7 +53,7 @@
     }
 }
 
-:local(.basePaneStructure) > .toolbarFlat {
+.basePaneStructure > .toolbarFlat {
     padding: 12px 15px;
     background: rgb(var(--gray-1));
     border: 1px solid rgb(var(--gray-11) / .05);

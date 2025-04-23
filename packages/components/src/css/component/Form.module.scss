@@ -1,8 +1,5 @@
 @use '$flux/css/mixin';
 
-@value button, buttonLabel from './base/Button.module.scss';
-@value basePaneStructure from './base/Pane.module.scss';
-
 %-form-input-group-inner-styles {
     height: 100%;
     min-height: unset;
@@ -29,6 +26,7 @@
 
 .form {
     composes: formStructureElement;
+
     gap: 42px;
 }
 
@@ -40,13 +38,14 @@
 .formColumn,
 .formSection {
     composes: formStructureElement;
+
     gap: 18px;
 }
 
 .form,
 .formColumn,
 .formSection {
-    > :local(.button) {
+    > .button {
         align-self: flex-start;
     }
 }
@@ -61,6 +60,13 @@
     color: var(--foreground-prominent);
     font-size: 18px;
     font-weight: 800;
+}
+
+@include mixin.breakpoint-down(sm) {
+    .formRow {
+        flex-flow: column;
+        gap: 18px;
+    }
 }
 
 .formField {
@@ -290,25 +296,25 @@
 
     @include mixin.focus-ring(-1px, true);
 
-    > :is(.formInput, .formSelect, :local(.button)) {
+    > :is(.formInput, .formSelect, .button) {
         @extend %-form-input-group-inner-styles;
 
-        + :is(:local(.button), :local(.buttonGroup)) {
+        + :is(.button, .buttonGroup) {
             margin: 0;
             border-left: 1px solid rgb(var(--gray-3));
         }
     }
 
-    > :local(.buttonGroup) > :local(.button) {
+    > .buttonGroup > .button {
         @extend %-form-input-group-inner-styles;
 
-        + :local(.button) {
+        + .button {
             margin: 0;
             border-left: 1px solid rgb(var(--gray-3));
         }
     }
 
-    > :local(.buttonGroup):not(:first-child) > :local(.button):first-child {
+    > .buttonGroup:not(:first-child) > .button:first-child {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }
@@ -453,7 +459,7 @@
 }
 
 .formSelectPopup {
-    composes: basePaneStructure;
+    composes: basePaneStructure from './base/Pane.module.scss';
 
     position: fixed;
     display: block;
@@ -489,7 +495,7 @@
     inset: -1px;
     pointer-events: none;
 
-    :local(.buttonLabel) {
+    .buttonLabel {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;

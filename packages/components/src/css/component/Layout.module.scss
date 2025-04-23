@@ -1,63 +1,59 @@
 @use '$flux/css/mixin';
 
-@value baseAutoGrid from './base/Grid.module.scss';
+.aspectRatio {
+    position: relative;
+    flex-shrink: 0;
 
-@layer flux-base {
-    .aspectRatio {
-        position: relative;
-        flex-shrink: 0;
-
-        > * {
-            height: 100%;
-            width: 100%;
-        }
-    }
-
-    .autoGrid {
-        composes: baseAutoGrid;
-    }
-
-    .container {
-        margin-left: auto;
-        margin-right: auto;
-        padding-left: var(--gutter);
-        padding-right: var(--gutter);
+    > * {
+        height: 100%;
         width: 100%;
+    }
+}
 
-        @include mixin.breakpoint-max-widths;
+.autoGrid {
+    composes: baseAutoGrid from './base/Grid.module.scss';
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+    width: 100%;
+
+    @include mixin.breakpoint-max-widths;
+}
+
+.spacer {
+    flex-grow: 1;
+}
+
+.stack {
+    gap: var(--gap, 0);
+
+    &.isCentered {
+        place-content: center;
+        place-items: center;
     }
 
-    .spacer {
-        flex-grow: 1;
+    &.isFill {
+        width: 100%;
     }
 
-    .stack {
-        gap: var(--gap, 0);
-
-        &.isCentered {
-            place-content: center;
-            place-items: center;
-        }
-
-        &.isFill {
-            width: 100%;
-        }
-
-        &.isWrapping {
-            flex-wrap: wrap;
-        }
+    &.isWrapping {
+        flex-wrap: wrap;
     }
+}
 
-    .stackHorizontal {
-        composes: stack;
+.stackHorizontal {
+    composes: stack;
 
-        display: flex;
-    }
+    display: flex;
+}
 
-    .stackVertical {
-        composes: stack;
+.stackVertical {
+    composes: stack;
 
-        display: flex;
-        flex-flow: column;
-    }
+    display: flex;
+    flex-flow: column;
 }

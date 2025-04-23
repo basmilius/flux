@@ -1,5 +1,3 @@
-@value sliderThumb from './Slider.module.scss';
-
 .coordinatePicker {
     position: relative;
     aspect-ratio: 5 / 3;
@@ -10,7 +8,7 @@
 }
 
 .coordinatePickerThumb {
-    composes: sliderThumb;
+    composes: sliderThumb from './Slider.module.scss';
 
     z-index: 1;
 

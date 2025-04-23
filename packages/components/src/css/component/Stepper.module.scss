@@ -1,5 +1,3 @@
-@value sparklesContainer, sparklesContainerActive, sparklesParticles from './base/Effect.module.scss';
-
 .stepperStep {
     position: relative;
 }
@@ -42,7 +40,7 @@
 }
 
 .stepperStepsItem {
-    composes: sparklesContainer;
+    composes: sparklesContainer from './base/Effect.module.scss';
 
     position: relative;
     display: flex;
@@ -74,7 +72,7 @@
 }
 
 .stepperStepsItemComplete {
-    composes: sparklesContainerActive;
+    composes: sparklesContainerActive from './base/Effect.module.scss';
     composes: stepperStepsItem;
 
     background: rgb(var(--primary-7));
@@ -99,5 +97,5 @@
 }
 
 .stepperStepsItemParticles {
-    composes: sparklesParticles;
+    composes: sparklesParticles from './base/Effect.module.scss';
 }

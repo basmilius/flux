@@ -1,7 +1,5 @@
 @use '$flux/css/mixin';
 
-@value placeholder from './Placeholder.module.scss';
-
 .gallery {
     display: grid;
     gap: 9px;
@@ -9,7 +7,7 @@
 }
 
 .galleryAdd {
-    composes: placeholder;
+    composes: placeholder from './Placeholder.module.scss';
 
     aspect-ratio: 1 / 1;
     color: rgb(var(--gray-7));

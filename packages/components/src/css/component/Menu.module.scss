@@ -1,8 +1,5 @@
 @use '$flux/css/mixin';
 
-@value button, buttonIcon, buttonLabel from './base/Button.module.scss';
-@value basePane from './base/Pane.module.scss';
-
 .menu {
     display: flex;
     flex-flow: column;
@@ -40,7 +37,7 @@
 }
 
 .menuItem {
-    composes: button;
+    composes: button from './base/Button.module.scss';
 
     height: unset;
     min-height: 42px;
@@ -62,13 +59,13 @@
 }
 
 .menuItemIcon {
-    composes: buttonIcon;
+    composes: buttonIcon from './base/Button.module.scss';
 
     color: var(--foreground-prominent);
 }
 
 .menuItemLabel {
-    composes: buttonLabel;
+    composes: buttonLabel from './base/Button.module.scss';
 
     flex-grow: 1;
     font-weight: 400;
@@ -89,10 +86,8 @@
         color: rgb(var(--primary-0));
     }
 
-    @media (hover: hover) {
-        &:hover {
-            background: rgb(var(--primary-7));
-        }
+    @include mixin.hover {
+        background: rgb(var(--primary-7));
     }
 
     &:active {
@@ -118,10 +113,8 @@
         color: rgb(var(--primary-8));
     }
 
-    @media (hover: hover) {
-        &:hover {
-            background: rgb(var(--primary-2));
-        }
+    @include mixin.hover {
+        background: rgb(var(--primary-2));
     }
 
     &:active {
@@ -132,10 +125,8 @@
 [dark] .menuItemHighlighted {
     background: rgb(var(--primary-11) / .5);
 
-    @media (hover: hover) {
-        &:hover {
-            background: rgb(var(--primary-11) / .5);
-        }
+    @include mixin.hover {
+        background: rgb(var(--primary-11) / .5);
     }
 
     &:active {
@@ -148,7 +139,7 @@
 }
 
 .menuItemSelectableIcon {
-    composes: buttonIcon;
+    composes: buttonIcon from './base/Button.module.scss';
 }
 
 .menuItemSelected .menuItemSelectableIcon {
@@ -282,7 +273,7 @@
     }
 }
 
-:local(.basePane) > .menu {
+.basePane > .menu {
     margin-left: 9px;
     margin-right: 9px;
 
@@ -299,7 +290,7 @@
     }
 }
 
-:local(.expandableBody) > .menu {
+.expandableBody > .menu {
     margin-left: 9px;
     margin-right: 9px;
 

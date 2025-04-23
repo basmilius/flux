@@ -1,7 +1,5 @@
-@value basePaneElement, basePaneLoader, basePaneStructure from './base/Pane.module.scss';
-
 .table {
-    composes: basePaneElement;
+    composes: basePaneElement from './base/Pane.module.scss';
 
     position: relative;
     overflow: auto;
@@ -21,7 +19,7 @@
 }
 
 .tableLoader {
-    composes: basePaneLoader;
+    composes: basePaneLoader from './base/Pane.module.scss';
 }
 
 .tableRow {
@@ -134,31 +132,31 @@ tfoot .tableCell {
     }
 }
 
-:local(.basePaneStructure) > .table .tableCell:first-child .tableCellContent {
+.basePaneStructure > .table .tableCell:first-child .tableCellContent {
     padding-left: 21px;
 }
 
-:local(.basePaneStructure) > .table .tableCell:last-child .tableCellContent {
+.basePaneStructure > .table .tableCell:last-child .tableCellContent {
     padding-right: 21px;
 }
 
-:local(.basePaneStructure) > .table .tableActions {
+.basePaneStructure > .table .tableActions {
     margin-right: -3px;
 }
 
-:local(.basePaneStructure) > .table :is(caption) {
+.basePaneStructure > .table :is(caption) {
     padding: 12px 21px;
     border-top: 1px solid rgb(var(--gray-3));
 }
 
-:local(.basePaneStructure) > .table .tableLoader {
+.basePaneStructure > .table .tableLoader {
     border-radius: var(--radius);
 }
 
-:not(:local(.basePaneStructure)) > .table .tableCell:not(.isBordered):first-child .tableCellContent {
+:not(.basePaneStructure) > .table .tableCell:not(.isBordered):first-child .tableCellContent {
     padding-left: 0;
 }
 
-:not(:local(.basePaneStructure)) > .table .tableCell:not(.isBordered):last-child .tableCellContent {
+:not(.basePaneStructure) > .table .tableCell:not(.isBordered):last-child .tableCellContent {
     padding-right: 0;
 }

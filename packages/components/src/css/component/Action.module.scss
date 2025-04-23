@@ -1,10 +1,7 @@
 @use '$flux/css/mixin';
 
-@value button, buttonIcon, buttonLabel from './base/Button.module.scss';
-@value basePaneStructure from './base/Pane.module.scss';
-
 .action {
-    composes: button;
+    composes: button from './base/Button.module.scss';
 
     height: 30px;
     width: 30px;
@@ -28,7 +25,7 @@
 }
 
 .actionIcon {
-    composes: buttonIcon;
+    composes: buttonIcon from './base/Button.module.scss';
 
     color: var(--foreground);
     font-size: 18px;
@@ -39,7 +36,7 @@
 }
 
 .actionLabel {
-    composes: buttonLabel;
+    composes: buttonLabel from './base/Button.module.scss';
 
     color: var(--foreground);
 }
@@ -59,7 +56,7 @@
     }
 }
 
-:local(.basePaneStructure) > .actionBar {
+.basePaneStructure > .actionBar {
     padding: 15px 21px;
     background: rgb(var(--gray-1));
     border: 1px solid rgb(var(--gray-2));

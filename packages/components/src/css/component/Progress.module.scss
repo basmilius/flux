@@ -1,5 +1,3 @@
-@value basePaneStructure from './base/Pane.module.scss';
-
 .progressBar {
     position: relative;
 }
@@ -55,11 +53,11 @@
     white-space: nowrap;
 }
 
-:local(.basePaneStructure) > .progressBar:first-child {
+.basePaneStructure > .progressBar:first-child {
     margin: 9px 9px 0;
 }
 
-:local(.basePaneStructure) > .progressBar:last-child {
+.basePaneStructure > .progressBar:last-child {
     margin: 0 9px 9px;
 }
 

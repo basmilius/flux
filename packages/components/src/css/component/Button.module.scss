@@ -1,9 +1,7 @@
 @use '$flux/css/mixin';
 
-@value button, buttonIcon, buttonLabel, isSmall, isMedium, isLarge, isXl from './base/Button.module.scss';
-
 .primaryButton {
-    composes: button;
+    composes: button from './base/Button.module.scss';
 
     background: rgb(var(--primary-7));
     border-color: rgb(var(--primary-9));
@@ -26,17 +24,17 @@
 }
 
 .primaryButtonIcon {
-    composes: buttonIcon;
+    composes: buttonIcon from './base/Button.module.scss';
 
     color: rgb(var(--primary-0));
 }
 
 .primaryButtonLabel {
-    composes: buttonLabel;
+    composes: buttonLabel from './base/Button.module.scss';
 }
 
 .secondaryButton {
-    composes: button;
+    composes: button from './base/Button.module.scss';
 
     background: rgb(var(--gray-0));
     border-color: rgb(var(--gray-3));
@@ -54,17 +52,17 @@
 }
 
 .secondaryButtonIcon {
-    composes: buttonIcon;
+    composes: buttonIcon from './base/Button.module.scss';
 
     color: var(--foreground-prominent);
 }
 
 .secondaryButtonLabel {
-    composes: buttonLabel;
+    composes: buttonLabel from './base/Button.module.scss';
 }
 
 .destructiveButton {
-    composes: button;
+    composes: button from './base/Button.module.scss';
 
     background: rgb(var(--gray-0));
     border-color: rgb(var(--gray-3));
@@ -86,13 +84,13 @@
 }
 
 .destructiveButtonIcon {
-    composes: buttonIcon;
+    composes: buttonIcon from './base/Button.module.scss';
 
     color: rgb(var(--danger-7));
 }
 
 .destructiveButtonLabel {
-    composes: buttonLabel;
+    composes: buttonLabel from './base/Button.module.scss';
 
     &:only-child {
         color: rgb(var(--danger-7));
@@ -119,7 +117,7 @@
 }
 
 .linkButton {
-    composes: button;
+    composes: button from './base/Button.module.scss';
 
     display: inline-flex;
     height: unset;
@@ -143,7 +141,7 @@
 }
 
 .linkButtonIcon {
-    composes: buttonIcon;
+    composes: buttonIcon from './base/Button.module.scss';
 
     color: rgb(var(--primary-7));
     transition: inherit;
@@ -155,7 +153,7 @@
 }
 
 .linkButtonLabel {
-    composes: buttonLabel;
+    composes: buttonLabel from './base/Button.module.scss';
 }
 
 .publishButton {

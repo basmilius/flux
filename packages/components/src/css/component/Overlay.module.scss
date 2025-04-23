@@ -4,7 +4,7 @@
     inset: 0;
     height: 100dvh;
     width: 100dvw;
-    background: rgb(var(--gray-3) / .5);
+    background: rgb(var(--gray-8) / .5);
     backdrop-filter: blur(3px) saturate(180%);
     z-index: 10000;
 
@@ -23,6 +23,10 @@
             margin-top: auto;
         }
     }
+}
+
+[dark] .overlay {
+    background: rgb(0 0 0 / .5);
 }
 
 .overlaySmall {

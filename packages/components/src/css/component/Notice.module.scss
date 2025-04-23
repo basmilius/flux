@@ -1,9 +1,7 @@
 @use '$flux/css/mixin';
 
-@value basePane, basePaneElement from './base/Pane.module.scss';
-
 .notice {
-    composes: basePaneElement;
+    composes: basePaneElement from './base/Pane.module.scss';
 
     display: flex;
     padding: 12px 15px;
@@ -274,7 +272,7 @@
     }
 }
 
-:local(.basePane) > .notice {
+.basePane > .notice {
     padding-left: 21px;
     padding-right: 21px;
 }

@@ -44,18 +44,18 @@
         }
     },
     "dependencies": {
-        "@basmilius/utils": "^1.12.0",
+        "@basmilius/utils": "^1.13.0",
         "lodash-es": "^4.17.21",
         "luxon": "^3.6.1",
         "vue": "^3.5.13"
     },
     "devDependencies": {
         "@fortawesome/fontawesome-common-types": "^6.7.2",
-        "@types/bun": "^1.2.9",
+        "@types/bun": "^1.2.10",
         "@types/luxon": "^3.6.2",
         "lodash-es": "^4.17.21",
         "luxon": "^3.6.1",
-        "oxc-transform": "^0.63.0",
+        "oxc-transform": "^0.66.0",
         "vue": "^3.5.13"
     }
 }

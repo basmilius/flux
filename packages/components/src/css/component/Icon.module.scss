@@ -1,104 +1,100 @@
-@value basePane from './base/Pane.module.scss';
+.icon {
+    height: 1em;
+    width: 1em;
+    flex-shrink: 0;
+    font-size: 20px;
+    line-height: 1;
+}
 
-@layer flux-base {
+.fontAwesomeIcon {
+    composes: icon;
+
+    display: inline-block;
+}
+
+.materialSymbolIcon {
+    composes: icon;
+
+    display: inline-flex;
+    color: currentColor;
+    font-family: 'Material Symbols Outlined', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    user-select: none;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+
+.iconBoxed {
+    composes: basePane from './base/Pane.module.scss';
+
+    display: flex;
+    height: 1em;
+    width: 1em;
+    align-items: center;
+    flex-shrink: 0;
+    justify-content: center;
+    font-size: 42px;
+
     .icon {
-        height: 1em;
-        width: 1em;
-        flex-shrink: 0;
-        font-size: 20px;
-        line-height: 1;
-    }
-
-    .fontAwesomeIcon {
-        composes: icon;
-
-        display: inline-block;
+        font-size: .33em;
     }
 
     .materialSymbolIcon {
-        composes: icon;
-
-        display: inline-flex;
-        color: currentColor;
-        font-family: 'Material Symbols Outlined', sans-serif;
-        font-weight: 400;
-        font-style: normal;
-        user-select: none;
-        -webkit-font-feature-settings: 'liga';
-        -webkit-font-smoothing: antialiased;
+        font-size: .5em;
     }
+}
 
-    .iconBoxed {
-        composes: basePane;
+.iconBoxedDefault {
+    composes: iconBoxed;
 
-        display: flex;
-        height: 1em;
-        width: 1em;
-        align-items: center;
-        flex-shrink: 0;
-        justify-content: center;
-        font-size: 42px;
+    box-shadow: var(--shadow-sm);
+}
 
-        .icon {
-            font-size: .33em;
-        }
+.iconBoxedColored {
+    composes: iconBoxed;
 
-        .materialSymbolIcon {
-            font-size: .5em;
-        }
-    }
+    border: 0;
+}
 
-    .iconBoxedDefault {
-        composes: iconBoxed;
+.iconBoxedGray {
+    composes: iconBoxedColored;
 
-        box-shadow: var(--shadow-sm);
-    }
+    background: rgb(var(--gray-2));
+    color: var(--foreground);
+}
 
-    .iconBoxedColored {
-        composes: iconBoxed;
+.iconBoxedPrimary {
+    composes: iconBoxedColored;
 
-        border: 0;
-    }
+    background: rgb(var(--primary-2));
+    color: rgb(var(--primary-10));
+}
 
-    .iconBoxedGray {
-        composes: iconBoxedColored;
+.iconBoxedDanger {
+    composes: iconBoxedColored;
 
-        background: rgb(var(--gray-2));
-        color: var(--foreground);
-    }
+    background: rgb(var(--danger-2));
+    color: rgb(var(--danger-10));
+}
 
-    .iconBoxedPrimary {
-        composes: iconBoxedColored;
+.iconBoxedInfo {
+    composes: iconBoxedColored;
 
-        background: rgb(var(--primary-2));
-        color: rgb(var(--primary-10));
-    }
+    background: rgb(var(--info-2));
+    color: rgb(var(--info-10));
+}
 
-    .iconBoxedDanger {
-        composes: iconBoxedColored;
+.iconBoxedSuccess {
+    composes: iconBoxedColored;
 
-        background: rgb(var(--danger-2));
-        color: rgb(var(--danger-10));
-    }
+    background: rgb(var(--success-2));
+    color: rgb(var(--success-10));
+}
 
-    .iconBoxedInfo {
-        composes: iconBoxedColored;
+.iconBoxedWarning {
+    composes: iconBoxedColored;
 
-        background: rgb(var(--info-2));
-        color: rgb(var(--info-10));
-    }
-
-    .iconBoxedSuccess {
-        composes: iconBoxedColored;
-
-        background: rgb(var(--success-2));
-        color: rgb(var(--success-10));
-    }
-
-    .iconBoxedWarning {
-        composes: iconBoxedColored;
-
-        background: rgb(var(--warning-2));
-        color: rgb(var(--warning-10));
-    }
+    background: rgb(var(--warning-2));
+    color: rgb(var(--warning-10));
 }

@@ -1,7 +1,7 @@
-@value basePaneStructure, basePaneLoader from './base/Pane.module.scss';
+@use '$flux/css/mixin';
 
 .calendar {
-    composes: basePaneStructure;
+    composes: basePaneStructure from './base/Pane.module.scss';
 
     display: flex;
     flex-flow: column;
@@ -14,7 +14,7 @@
 }
 
 .calendarLoader {
-    composes: basePaneLoader;
+    composes: basePaneLoader from './base/Pane.module.scss';
 }
 
 .calendarCurrent {
@@ -32,10 +32,8 @@
     line-height: 1.5em;
     text-transform: capitalize;
 
-    @media (hover: hover) {
-        &:hover {
-            color: rgb(var(--primary-7));
-        }
+    @include mixin.hover {
+        color: rgb(var(--primary-7));
     }
 }
 
@@ -163,9 +161,7 @@
         }
     }
 
-    @media (hover: hover) {
-        &:hover {
-            background: rgb(var(--primary-3));
-        }
+    @include mixin.hover {
+        background: rgb(var(--primary-3));
     }
 }

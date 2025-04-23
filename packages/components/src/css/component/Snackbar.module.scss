@@ -1,9 +1,7 @@
 @use '$flux/css/mixin';
 
-@value basePane from './base/Pane.module.scss';
-
 .snackbar {
-    composes: basePane;
+    composes: basePane from './base/Pane.module.scss';
 
     display: flex;
     box-shadow: var(--shadow-xl), var(--shadow-2xl);

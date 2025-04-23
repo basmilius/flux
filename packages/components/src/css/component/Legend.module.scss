@@ -1,13 +1,11 @@
-@value stackHorizontal, stackVertical from './Layout.module.scss';
-
 .legendHorizontal {
-    composes: stackHorizontal;
+    composes: stackHorizontal from './Layout.module.scss';
 
     gap: 12px 21px;
 }
 
 .legendVertical {
-    composes: stackVertical;
+    composes: stackVertical from './Layout.module.scss';
 
     gap: 12px;
 }
