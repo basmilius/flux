@@ -2,8 +2,12 @@
     <div :class="[$style.dashboard, isResizing && $style.isResizing]">
         <slot name="navigation"/>
         <slot name="menu"/>
-        <slot name="header"/>
-        <slot/>
+
+        <div :class="$style.dashboardMount">
+            <slot name="header"/>
+            <slot/>
+        </div>
+
         <slot name="side"/>
     </div>
 </template>
@@ -18,10 +22,10 @@
 
     defineSlots<{
         default(): VNode;
-        header(): VNode;
-        navigation(): VNode;
-        menu(): VNode;
-        side(): VNode;
+        header?(): VNode;
+        navigation?(): VNode;
+        menu?(): VNode;
+        side?(): VNode;
     }>();
 
     const isMenuCollapsed = useRemembered('dashboard-menu-collapsed', true);

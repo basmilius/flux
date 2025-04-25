@@ -29,7 +29,7 @@
       "name": "@flux-ui/components",
       "version": "0.0.0",
       "dependencies": {
-        "@basmilius/utils": "^1.13.0",
+        "@basmilius/utils": "^1.14.0",
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/types": "workspace:*",
         "@fortawesome/fontawesome-common-types": "^6.7.2",
@@ -74,7 +74,7 @@
       "name": "@flux-ui/internals",
       "version": "0.0.0",
       "dependencies": {
-        "@basmilius/utils": "^1.13.0",
+        "@basmilius/utils": "^1.14.0",
         "lodash-es": "^4.17.21",
         "luxon": "^3.6.1",
         "vue": "^3.5.13",
@@ -148,7 +148,7 @@
 
     "@babel/types": ["@babel/types@7.26.10", "", { "dependencies": { "@babel/helper-string-parser": "^7.25.9", "@babel/helper-validator-identifier": "^7.25.9" } }, "sha512-emqcG3vHrpxUKTrxcblR36dcrcoRDvKmnL/dCL6ZsHaShW80qxCAcNhzQZrpeM765VzEos+xOi4s+r4IXzTwdQ=="],
 
-    "@basmilius/utils": ["@basmilius/utils@1.13.0", "", { "peerDependencies": { "luxon": "^3.6.1", "pinia": "^3.0.1" } }, "sha512-j/PEVSqT78jpMxfLZjEFBHRjyHPJSdaZYxMuwnZMFhRi4krQQ93WAGIAQFlYJ5sGFvBwUMoEAPubKr1a+Rv3CQ=="],
+    "@basmilius/utils": ["@basmilius/utils@1.14.0", "", { "peerDependencies": { "luxon": "^3.6.1", "pinia": "^3.0.2" } }, "sha512-89pWC61z4g4mvKECUevtLqyJmh+O9xmLcQUhu7//g8Tr4gbBOK50ivC7r+C9SE8rZgaSnwSOvG1ghnCWcTVMmg=="],
 
     "@basmilius/vite-vue-preset": ["@basmilius/vite-vue-preset@3.0.0", "", { "dependencies": { "@laynezh/vite-plugin-lib-assets": "^1.1.0", "change-case": "^5.4.4", "css-class-generator": "^2.0.0", "lightningcss": "^1.29.3", "oxc-transform": "^0.65.0", "vite-css-modules": "^1.8.5", "vite-plugin-dts": "^4.5.3" } }, "sha512-SWiCDTCaxwoFkWUfyt4vEULsGhatvck/hDMj8/xBo4IU4roYwUuIsvaSPyTYyL4YnVwlgK8swniUuqA3wJgYnw=="],
 

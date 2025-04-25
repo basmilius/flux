@@ -19,6 +19,12 @@ body:has(.root > .dashboard) {
     min-height: 100dvh;
 }
 
+.dashboardMount {
+    display: flex;
+    align-items: stretch;
+    flex-flow: column;
+}
+
 .isResizing, .isResizing * {
     animation: none !important;
     transition: none !important;
@@ -27,9 +33,8 @@ body:has(.root > .dashboard) {
 @include mixin.breakpoint-up(lg) {
     .dashboard {
         display: grid;
-        grid-template-areas: 'menu header side' 'menu content side';
         grid-template-columns: auto minmax(0, 1fr) auto;
-        grid-template-rows: auto minmax(0, 1fr);
+        grid-template-rows: minmax(0, 1fr);
         transition: padding-left var(--dashboard-duration) var(--swift-out);
 
         &:has(> .dashboardNavigation) {
@@ -40,20 +45,16 @@ body:has(.root > .dashboard) {
             padding-left: 84px;
         }
 
-        .dashboardContent {
-            grid-area: content;
-        }
-
-        .dashboardHeader {
-            grid-area: header;
+        .dashboardMount {
+            grid-column: 2;
         }
 
         .dashboardMenu {
-            grid-area: menu;
+            grid-column: 1;
         }
 
         .dashboardSide {
-            grid-area: side;
+            grid-column: 3;
         }
     }
 }

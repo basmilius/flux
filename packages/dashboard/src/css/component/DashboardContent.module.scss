@@ -1,5 +1,9 @@
 @use '../../../../components/src/css/mixin';
 
+.notice + .dashboardContent {
+    padding-top: 30px;
+}
+
 .dashboardContent {
     display: flex;
     padding: 0 30px;

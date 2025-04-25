@@ -52,7 +52,7 @@
     "typings": "./dist/index.d.ts",
     "sideEffects": false,
     "dependencies": {
-        "@basmilius/utils": "^1.13.0",
+        "@basmilius/utils": "^1.14.0",
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/types": "workspace:*",
         "@fortawesome/fontawesome-common-types": "^6.7.2",
