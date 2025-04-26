@@ -1,52 +1,56 @@
 <template>
-    <FluxButtonGroup
+    <nav
         :class="$style.pagination"
         role="navigation"
         :aria-label="translate('flux.pagination')">
-        <FluxSecondaryButton
+        <FluxPaginationButton
             v-if="arrows || isCompact"
             :disabled="isPreviousDisabled"
             icon-leading="angle-left"
+            is-arrow
             :aria-label="translate('flux.previous')"
             @click="previous"/>
 
         <template
             v-if="!isCompact"
             v-for="p of visiblePages">
-            <FluxSecondaryButton
+            <FluxPaginationButton
                 v-if="p === 'dots'"
                 disabled
-                icon-leading="ellipsis-h"/>
+                icon-leading="ellipsis-h"
+                is-spacer/>
 
-            <FluxPrimaryButton
+            <FluxPaginationButton
                 v-else-if="p === page"
+                is-current
                 :label="`${p}`"
                 aria-current="page"/>
 
-            <FluxSecondaryButton
+            <FluxPaginationButton
                 v-else
                 :label="`${p}`"
                 @click="navigate(p)"/>
         </template>
 
         <template v-else>
-            <FluxSecondaryButton
+            <FluxPaginationButton
                 :class="$style.paginationCurrentZZ"
                 @click="prompt"
                 #before>
                 <strong>{{ page }}</strong>
                 <span>/</span>
                 <span>{{ pages }}</span>
-            </FluxSecondaryButton>
+            </FluxPaginationButton>
         </template>
 
-        <FluxSecondaryButton
+        <FluxPaginationButton
             v-if="arrows || isCompact"
             :disabled="isNextDisabled"
             icon-leading="angle-right"
+            is-arrow
             :aria-label="translate('flux.next')"
             @click="next"/>
-    </FluxButtonGroup>
+    </nav>
 </template>
 
 <script
@@ -55,9 +59,10 @@
     import { computed, unref } from 'vue';
     import { useTranslate } from '$flux/composable/private';
     import { showPrompt } from '$flux/data';
+    import FluxButton from './FluxButton.vue';
     import FluxButtonGroup from './FluxButtonGroup.vue';
+    import FluxPaginationButton from './FluxPaginationButton.vue';
     import FluxPrimaryButton from './FluxPrimaryButton.vue';
-    import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import $style from '$flux/css/component/Pagination.module.scss';
 
     const emit = defineEmits<{
@@ -89,7 +94,7 @@
 
         const sizes = {
             end: 1,
-            middle: 1
+            middle: 2
         } as const;
 
         let dots = false;

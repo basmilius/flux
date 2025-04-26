@@ -18,7 +18,7 @@ export const english = {
     'flux.preview': 'Preview',
     'flux.previewClose': 'Close preview',
     'flux.displayingOf': '{from}–{to} of {total}',
-    'flux.rowsPerPage': 'Rows per page',
+    'flux.showN': 'Show {n}',
     'flux.next': 'Next',
     'flux.noItems': 'There are no items (left).',
     'flux.pagination': 'Pagination',

@@ -1,59 +1,91 @@
 @use '$flux/css/mixin';
 
 .pagination {
-    z-index: 0;
+    display: flex;
+    gap: 1px;
+}
 
-    .button {
-        min-width: 40px;
+.paginationButton {
+    composes: secondaryButton from './Button.module.scss';
+
+    height: 36px;
+    min-width: 36px;
+    padding: 0 6px;
+    background: unset;
+    border-color: transparent;
+    box-shadow: none !important;
+}
+
+.paginationButtonArrow {
+    border-color: rgb(var(--gray-3));
+
+    &:first-child {
+        margin-right: 6px;
     }
 
-    .buttonLabel {
-        margin-left: 0;
-        margin-right: 0;
-        min-width: 18px;
-
-        &:nth-child(2) {
-            min-width: unset;
-        }
-    }
-
-    .primaryButton {
-        z-index: 1;
+    &:last-child {
+        margin-left: 6px;
     }
 }
 
-.paginationCurrent {
-    gap: 3px;
-    font-variant-numeric: tabular-nums;
+.paginationButtonCurrent {
+    background: rgb(var(--primary-1));
+    border-color: rgb(var(--primary-3));
+}
+
+.paginationButtonSpacer {
+    pointer-events: none;
+}
+
+.paginationButtonIcon {
+    composes: secondaryButtonIcon from './Button.module.scss';
+
+    font-size: 16px;
+}
+
+.paginationButtonLabel {
+    composes: secondaryButtonLabel from './Button.module.scss';
+
+    margin: 0;
+    min-width: unset;
+    font-size: 12px;
 }
 
 .paginationBar {
+    display: flex;
     align-items: center;
-    flex-direction: column;
+    flex-flow: row;
+}
 
-    .formInputGroup {
-        max-width: max-content;
+.paginationBarLimit {
+    display: flex;
+    align-items: center;
+    flex-flow: row;
+    gap: 15px;
+}
+
+.paginationBarLimitDisplayingOf {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.paginationBarLimitSelect {
+    min-height: 36px;
+    width: 120px;
+
+    .menuItem {
+        min-height: 36px;
     }
 
-    .formSelect {
-        width: 78px;
-    }
-
-    .pagination .button:first-child {
-        border-radius: 0;
-    }
-
-    @include mixin.breakpoint-up(lg) {
-        flex-direction: row;
+    .menuItemLabel {
+        font-size: 12px;
+        font-weight: 600;
     }
 }
 
-@include mixin.breakpoint-down(md) {
-    .paginationBarSpacer {
-        display: none;
+@include mixin.breakpoint-down(sm) {
+    .paginationBar {
+        flex-flow: column;
+        gap: 15px;
     }
-}
-
-.paneFooter > .paginationBar {
-    flex-grow: 1;
 }

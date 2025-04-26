@@ -1,40 +1,32 @@
 <template>
-    <FluxStack :class="$style.paginationBar">
-        <FluxFormInputGroup>
-            <FluxFormInputAddition>
-                <span>{{ translate('flux.rowsPerPage') }}</span>
-            </FluxFormInputAddition>
-
-            <FluxFormSelect
-                v-model="limit"
-                :options="limitOptions"/>
-        </FluxFormInputGroup>
+    <div :class="$style.paginationBar">
+        <FluxPagination
+            v-if="total > perPage"
+            arrows
+            :page="page"
+            :per-page="perPage"
+            :total="total"
+            @navigate="$emit('navigate', $event)"/>
 
         <FluxSpacer :class="$style.paginationBarSpacer"/>
 
-        <FluxFormInputGroup>
-            <FluxFormInputAddition>
-                <span>
-                    {{
-                        translate('flux.displayingOf', {
-                            from: (page - 1) * perPage + 1,
-                            to: Math.min(total, page * perPage),
-                            total: total
-                        })
-                    }}
-                </span>
-            </FluxFormInputAddition>
+        <div :class="$style.paginationBarLimit">
+            <span :class="$style.paginationBarLimitDisplayingOf">
+                {{
+                    translate('flux.displayingOf', {
+                        from: (page - 1) * perPage + 1,
+                        to: Math.min(total, page * perPage),
+                        total: total
+                    })
+                }}
+            </span>
 
-            <FluxPagination
-                v-if="total > perPage"
-                arrows
-                is-compact
-                :page="page"
-                :per-page="perPage"
-                :total="total"
-                @navigate="$emit('navigate', $event)"/>
-        </FluxFormInputGroup>
-    </FluxStack>
+            <FluxFormSelect
+                v-model="limit"
+                :class="$style.paginationBarLimitSelect"
+                :options="limitOptions"/>
+        </div>
+    </div>
 </template>
 
 <script
@@ -70,9 +62,9 @@
 
     const limit = ref(perPage);
 
-    const limitOptions = computed(() => limits.map<FluxFormSelectOption>(limit => ({
-        label: limit.toString(),
-        value: limit
+    const limitOptions = computed(() => limits.map<FluxFormSelectOption>(n => ({
+        label: translate('flux.showN', {n}),
+        value: n
     })));
 
     watch(limit, limit => emit('limit', limit));

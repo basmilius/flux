@@ -2,6 +2,8 @@
     composes: basePaneElement from './base/Pane.module.scss';
 
     position: relative;
+    display: flex;
+    flex-flow: column;
     overflow: auto;
 
     :is(caption) {
@@ -16,6 +18,14 @@
     bottom: 0;
     border-spacing: 0;
     text-align: left;
+
+    &:has(.tableFill) {
+        flex-grow: 1;
+    }
+
+    &:has(.tableFill):has(.tablePagination) {
+        margin-bottom: -1px;
+    }
 }
 
 .tableLoader {
@@ -107,6 +117,27 @@ tfoot .tableCell {
             background: rgb(var(--gray-4));
         }
     }
+}
+
+.tableFill {
+    pointer-events: none;
+
+    .tableCell {
+        height: 100%;
+    }
+
+    .tableCellContent {
+        padding: 0;
+    }
+}
+
+.tablePagination {
+    position: sticky;
+    bottom: 0;
+    margin-top: auto;
+    background: rgb(var(--gray-0));
+    border-top: 1px solid rgb(var(--gray-2));
+    z-index: 100;
 }
 
 .tableSort {
