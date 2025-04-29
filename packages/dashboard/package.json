@@ -57,7 +57,7 @@
         "vue": "^3.5.13"
     },
     "devDependencies": {
-        "@basmilius/vite-preset": "^2.0.1",
+        "@basmilius/vite-preset": "^2.1.0",
         "@types/node": "^22.15.3",
         "@vitejs/plugin-vue": "^5.2.3",
         "sass-embedded": "^1.87.0",
