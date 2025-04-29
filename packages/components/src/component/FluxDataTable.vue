@@ -7,13 +7,13 @@
         :is-separated="isSeparated"
         :is-striped="isStriped">
         <template
-            v-if="slots.colgroups"
+            v-if="'colgroups' in slots"
             #colgroups>
             <slot name="colgroups"/>
         </template>
 
         <template
-            v-if="slots.header"
+            v-if="'header' in slots"
             #header>
             <FluxTableRow>
                 <slot
@@ -23,7 +23,7 @@
         </template>
 
         <template
-            v-if="slots.footer"
+            v-if="'footer' in slots"
             #footer>
             <FluxTableRow>
                 <slot

@@ -31,6 +31,10 @@ props:
         type: boolean
         optional: true
 
+    -   name: limits
+        description: The available options for the pagination limit.
+        type: number[]
+
     -   name: page
         description: The page that is currently shown, starting from 1.
         type: number

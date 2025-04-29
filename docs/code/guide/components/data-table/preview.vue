@@ -3,6 +3,9 @@
         <FluxPane>
             <FluxDataTable
                 :data-set="dataSet"
+                :limits="[]"
+                :page="1"
+                :per-page="5"
                 :total="dataSet.length"
                 is-hoverable>
                 <template #header>

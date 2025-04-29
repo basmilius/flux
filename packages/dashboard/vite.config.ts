@@ -1,4 +1,4 @@
-import { preset } from '@basmilius/vite-vue-preset';
+import { preset } from '@basmilius/vite-preset';
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
@@ -20,7 +20,7 @@ export default defineConfig(({mode}) => ({
         sourcemap: true,
         lib: {
             entry: resolve(import.meta.dirname, 'src/index.ts'),
-            fileName: 'flux-dashboard',
+            fileName: 'index',
             formats: ['es'],
             name: 'fluxDashboard'
         },

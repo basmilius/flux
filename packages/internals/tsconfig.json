@@ -26,7 +26,8 @@
         "experimentalDecorators": true
     },
     "include": [
-        "src/**/*.ts"
+        "src/**/*.ts",
+        "build.ts"
     ],
     "exclude": [
         "dist",

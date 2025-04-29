@@ -2,6 +2,7 @@
     <FluxPane>
         <FluxDataTable
             :data-set="dataSet"
+            :limits="[]"
             :page="1"
             :per-page="20"
             :total="dataSet.length"

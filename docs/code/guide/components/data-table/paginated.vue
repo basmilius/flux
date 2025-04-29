@@ -2,8 +2,13 @@
     <FluxPane>
         <FluxDataTable
             :data-set="visibleDataSet"
+            is-hoverable
+            :limits="[5, 10, 25, 50, 100]"
+            :page="page"
+            :per-page="perPage"
             :total="dataSet.length"
-            is-hoverable>
+            @limit="limit => perPage = limit"
+            @navigate="p => page = p">
             <template #header>
                 <FluxTableHeader>Name</FluxTableHeader>
             </template>
@@ -12,23 +17,13 @@
                 <FluxTableCell>{{ name }}</FluxTableCell>
             </template>
         </FluxDataTable>
-
-        <FluxPaneFooter>
-            <FluxPaginationBar
-                :limits="[5, 10, 25, 50, 100]"
-                :page="page"
-                :per-page="perPage"
-                :total="dataSet.length"
-                @limit="limit => perPage = limit"
-                @navigate="p => page = p"/>
-        </FluxPaneFooter>
     </FluxPane>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxDataTable, FluxPaginationBar, FluxPane, FluxPaneFooter, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
+    import { FluxDataTable, FluxPane, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
     import { computed, ref, unref } from 'vue';
 
     const page = ref(1);

@@ -1,11 +1,14 @@
-import { composeLibrary, preset } from '@basmilius/vite-vue-preset';
+import { composeLibrary, preset } from '@basmilius/vite-preset';
 import { defineConfig } from 'vitepress';
 import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons';
 import examplePlugin from 'vitepress-plugin-example';
 import renderPlugin from 'vitepress-plugin-render';
 import componentNavigation from './component-navigation';
 
-export const flux = composeLibrary('@flux-ui/components', '$flux');
+export const flux = composeLibrary({
+    name: '@flux-ui/components',
+    alias: '$flux'
+});
 
 export default defineConfig({
     title: 'Flux',

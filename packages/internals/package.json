@@ -32,30 +32,28 @@
         "access": "public",
         "provenance": true
     },
-    "main": "./dist/flux-internals.js",
-    "module": "./dist/flux-internals.js",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "typings": "./dist/index.d.ts",
     "sideEffects": false,
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
-            "default": "./dist/flux-internals.js"
+            "default": "./dist/index.js"
         }
     },
     "dependencies": {
-        "@basmilius/utils": "^1.14.0",
+        "@basmilius/utils": "^2.0.1",
         "lodash-es": "^4.17.21",
         "luxon": "^3.6.1",
         "vue": "^3.5.13"
     },
     "devDependencies": {
-        "@fortawesome/fontawesome-common-types": "^6.7.2",
-        "@types/bun": "^1.2.10",
+        "@basmilius/tools": "^2.0.1",
         "@types/luxon": "^3.6.2",
         "lodash-es": "^4.17.21",
         "luxon": "^3.6.1",
-        "oxc-transform": "^0.66.0",
         "vue": "^3.5.13"
     }
 }
