@@ -208,7 +208,7 @@
 
         if (value) {
             mask.value = value;
-            localValue.value = mask.value;
+            modelValue.value = mask.value;
         }
 
         onCleanup(() => mask.destroy());

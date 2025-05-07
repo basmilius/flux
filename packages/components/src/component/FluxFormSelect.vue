@@ -41,7 +41,7 @@
     }>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));
-    const {groups, selected, values} = useFormSelect(modelValue, isMultiple, options, modelSearch);
+    const {groups, selected, values} = useFormSelect(modelValue, isMultiple, toRef(() => options), modelSearch);
 
     function onDeselect(id: string | number | null): void {
         if (unref(isMultiple)) {
