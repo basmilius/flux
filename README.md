@@ -1,23 +1,21 @@
 # Flux
 
-This repository contains the source code for the basic components that are used throughout our front-end projects. It
-targets Vue 3+. Please read the following instructions and checks in order to proceed.
+This repository contains the source code of Flux UI.
+Please read the following instructions and checks in order to proceed.
 
 ## 📦 Registry
 
 - The UI library package is available under `@flux-ui/components`.
 - The Dashboard library package is available under `@flux-ui/dashboard`.
 - The internal package is available under `@flux-ui/internals`.
+- The types package is available under `@flux-ui/types`.
 
-## ⚠️ Requirements
+## ⭐️ Prerequisites
 
-- Install Node.js ^22
-- Install pnpm using `npm i -g pnpm`.
+- Bun >= 1.2.13
+- Node.js >= 23
 - Configure a new environment variable `FONTAWESOME_NPM_AUTH_TOKEN`. This should be a valid Font Awesome private npm auth token.
-- Use `pnpm install` to install the required packages.
-- Use `pnpm dev` to start a build watcher for both targets.
-- Use `pnpm build` to build a production bundle.
-- Use `pnpm link` to link the dist folder of flux to your global node_modules.
+- Use `bun install` to install the required packages.
 
 ## 🪵 Git
 

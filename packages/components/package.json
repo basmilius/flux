@@ -23,8 +23,7 @@
     ],
     "scripts": {
         "build": "vue-tsc && vite build",
-        "dev": "vite build --mode dev --watch",
-        "prepublishOnly": "cp ../../README.md ."
+        "dev": "vite build --mode dev --watch"
     },
     "engines": {
         "node": ">=23"

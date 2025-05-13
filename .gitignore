@@ -27,6 +27,3 @@ dist-ssr
 # Editor Icon
 !.idea/icon.svg
 !.idea/.name
-
-# Project
-packages/*/README.md

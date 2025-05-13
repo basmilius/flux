@@ -9,21 +9,12 @@
     "repository": {
         "type": "git",
         "url": "git+https://github.com/basmilius/flux.git",
-        "directory": "packages/primitives"
+        "directory": "packages/types"
     },
     "keywords": [
-        "ui library",
-        "component library",
-        "design system",
-        "vue",
-        "vue 3",
-        "ui",
-        "components",
-        "flux"
+        "flux",
+        "types"
     ],
-    "scripts": {
-        "prepublishOnly": "cp ../../README.md ."
-    },
     "exports": {
         ".": "./src/index.ts"
     },
