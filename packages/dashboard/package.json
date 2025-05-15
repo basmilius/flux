@@ -53,11 +53,11 @@
     "dependencies": {
         "@flux-ui/components": "workspace:*",
         "@flux-ui/internals": "workspace:*",
-        "vue": "^3.5.13"
+        "vue": "^3.5.14"
     },
     "devDependencies": {
-        "@basmilius/vite-preset": "^2.2.1",
-        "@types/node": "^22.15.17",
+        "@basmilius/vite-preset": "^2.3.0",
+        "@types/node": "^22.15.18",
         "@vitejs/plugin-vue": "^5.2.4",
         "sass-embedded": "^1.88.0",
         "typescript": "^5.8.3",

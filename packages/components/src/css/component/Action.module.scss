@@ -95,6 +95,10 @@
     @container actionPane (max-width: 540px) {
         grid-template-columns: 1fr;
     }
+
+    .paneBody + .paneBody {
+        padding-top: 21px;
+    }
 }
 
 .actionPaneBody {
