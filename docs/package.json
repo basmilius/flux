@@ -18,11 +18,11 @@
         "vitepress-plugin-example": "^1.2.0",
         "vitepress-plugin-group-icons": "^1.6.0",
         "vitepress-plugin-render": "^1.2.0",
-        "vue": "^3.5.16"
+        "vue": "^3.5.17"
     },
     "devDependencies": {
-        "@basmilius/vite-preset": "^2.3.1",
+        "@basmilius/vite-preset": "^2.4.0",
         "@types/luxon": "^3.6.2",
-        "vite": "^6.3.5"
+        "vite": "^7.0.0"
     }
 }
