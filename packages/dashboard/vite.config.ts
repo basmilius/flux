@@ -11,7 +11,12 @@ export default defineConfig(({mode}) => ({
             },
             isLibrary: true
         }),
-        vue()
+        vue(),
+        {
+            closeBundle(error) {
+                process.exit(error ? 1 : 0);
+            }
+        }
     ],
     build: {
         assetsDir: '',
