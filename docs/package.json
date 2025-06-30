@@ -21,7 +21,7 @@
         "vue": "^3.5.17"
     },
     "devDependencies": {
-        "@basmilius/vite-preset": "^2.4.0",
+        "@basmilius/vite-preset": "^2.4.1",
         "@types/luxon": "^3.6.2",
         "vite": "^7.0.0"
     }
