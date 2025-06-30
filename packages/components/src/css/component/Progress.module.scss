@@ -5,9 +5,9 @@
 .progressBarTrack {
     position: relative;
     height: 9px;
-    background: rgb(var(--gray-2));
+    background: var(--gray-1);
     border-radius: calc(var(--radius) / 2);
-    box-shadow: inset 0 0 0 1px rgb(var(--gray-3));
+    box-shadow: inset 0 0 0 1px var(--gray-2);
     contain: paint;
 }
 
@@ -16,7 +16,7 @@
     top: 0;
     left: 0;
     height: inherit;
-    background: linear-gradient(to right, rgb(var(--primary-8)) 20%, rgb(var(--primary-6)), rgb(var(--primary-8)) 80%);
+    background: linear-gradient(to right, var(--primary-7) 20%, var(--primary-6), var(--primary-7) 80%);
     background-size: 150px 100%;
     border-radius: inherit;
     animation: progressBarValue 1s linear infinite;
@@ -26,7 +26,7 @@
     composes: progressBarTrack;
 
     .progressBarValue {
-        background: linear-gradient(to right, rgb(var(--primary-8)) 20%, rgb(var(--primary-6)), rgb(var(--primary-8)) 80%);
+        background: linear-gradient(to right, var(--primary-7) 20%, var(--primary-6), var(--primary-7) 80%);
         background-size: 90px 100%;
         animation: progressBarIndeterminate 1s linear infinite;
     }

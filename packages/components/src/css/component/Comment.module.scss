@@ -41,8 +41,8 @@
 .commentContent {
     min-width: 0;
     padding: 12px 18px;
-    background: linear-gradient(to bottom, rgb(var(--gray-0)), rgb(var(--gray-1)));
-    border: 1px solid rgb(var(--gray-3));
+    background: linear-gradient(to bottom, var(--gray-0), var(--gray-1));
+    border: 1px solid var(--gray-2);
     border-radius: calc(var(--radius) * 2);
     box-shadow: var(--shadow-xs);
 }
@@ -52,7 +52,8 @@
 }
 
 .comment.isReceived .commentContent {
-    background: linear-gradient(to bottom, rgb(var(--gray-1)), rgb(var(--gray-2)));
+    background: linear-gradient(to bottom, var(--gray-1), var(--gray-2));
+    border-color: var(--gray-3);
     border-bottom-left-radius: var(--radius);
 }
 
@@ -87,37 +88,37 @@
 }
 
 [dark] .commentContent {
-    background: linear-gradient(to bottom, rgb(var(--gray-1)), rgb(var(--gray-0)));
+    background: linear-gradient(to bottom, var(--gray-1), var(--gray-0));
 }
 
 [dark] .comment.isReceived .commentContent {
-    background: linear-gradient(to bottom, rgb(var(--gray-2)), rgb(var(--gray-1)));
+    background: linear-gradient(to bottom, var(--gray-2), var(--gray-1));
 }
 
 @keyframes commentTyping {
     0%,
     80%,
     100% {
-        background: rgb(var(--gray-3));
-        box-shadow: -9px 0 rgb(var(--gray-3)), 9px 0 rgb(var(--gray-3));
+        background: var(--gray-3);
+        box-shadow: -9px 0 var(--gray-3), 9px 0 var(--gray-3);
         translate: 0 0;
     }
 
     20% {
-        background: rgb(var(--gray-3));
-        box-shadow: -9px -3px rgb(var(--gray-5)), 9px 0 rgb(var(--gray-3));
+        background: var(--gray-3);
+        box-shadow: -9px -3px var(--gray-5), 9px 0 var(--gray-3);
         translate: 0 0;
     }
 
     40% {
-        background: rgb(var(--gray-5));
-        box-shadow: -9px 3px rgb(var(--gray-3)), 9px 3px rgb(var(--gray-3));
+        background: var(--gray-5);
+        box-shadow: -9px 3px var(--gray-3), 9px 3px var(--gray-3);
         translate: 0 -3px;
     }
 
     60% {
-        background: rgb(var(--gray-3));
-        box-shadow: -9px 0 rgb(var(--gray-3)), 9px -3px rgb(var(--gray-5));
+        background: var(--gray-3);
+        box-shadow: -9px 0 var(--gray-3), 9px -3px var(--gray-5);
         translate: 0 0;
     }
 }

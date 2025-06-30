@@ -22,8 +22,8 @@
     display: flex;
     top: 0;
     align-items: center;
-    background: rgb(var(--gray-1));
-    border-bottom: 1px solid rgb(var(--gray-2));
+    background: var(--gray-1);
+    border-bottom: 1px solid var(--gray-2);
     z-index: 1;
 }
 
@@ -54,7 +54,7 @@
     }
 
     @include mixin.hover {
-        color: rgb(var(--primary-7));
+        color: var(--primary-7);
     }
 }
 
@@ -75,7 +75,7 @@
     transition-property: background, border-radius, color, opacity;
 
     @include mixin.hover {
-        background: rgb(var(--gray-2));
+        background: var(--gray-2);
         color: var(--foreground-prominent);
     }
 
@@ -89,33 +89,22 @@
     }
 
     &.isSelected {
-        background: rgb(var(--primary-7));
-        color: rgb(var(--primary-1));
+        background: var(--primary-7);
+        color: var(--primary-1);
         font-weight: 700;
     }
 
     &.isRangeEntry {
-        background: rgb(var(--primary-3));
+        background: var(--primary-3);
         border-radius: 0;
-        color: rgb(var(--primary-11));
+        color: var(--primary-11);
     }
 
     &.isRangeEnd,
     &.isRangeStart {
-        background: rgb(var(--primary-7));
-        color: rgb(var(--primary-1));
+        background: var(--primary-7);
+        color: var(--primary-1);
         font-weight: 700;
-    }
-
-    [dark] &.isRangeEntry {
-        background: rgb(var(--primary-7) / .75);
-        color: rgb(0 0 0 / .975);
-    }
-
-    [dark] &.isRangeStart,
-    [dark] &.isRangeEnd {
-        background: rgb(var(--primary-7));
-        color: rgb(0 0 0 / .975);
     }
 
     &.isRangeEntry:nth-child(7n + 8),
@@ -131,14 +120,14 @@
     }
 
     &.isSelectionEntry {
-        background: rgb(var(--gray-2));
+        background: var(--gray-2);
         border-radius: 0;
         color: var(--foreground-prominent);
     }
 
     &.isSelectionEnd,
     &.isSelectionStart {
-        background: rgb(var(--gray-3));
+        background: var(--gray-3);
         font-weight: 700;
     }
 

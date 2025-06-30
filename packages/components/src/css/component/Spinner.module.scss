@@ -1,6 +1,6 @@
 .spinner {
-    --track: rgb(var(--gray-2));
-    --value: rgb(var(--primary-7));
+    --track: var(--gray-1);
+    --value: var(--primary-7);
 
     display: inline-block;
     height: 1em;

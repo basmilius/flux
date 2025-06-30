@@ -1,12 +1,8 @@
 .basePane {
-    background: rgb(var(--gray-0));
+    background: var(--gray-0);
     background-clip: padding-box;
-    border: 1px solid rgb(var(--gray-11) / .05);
+    border: 1px solid oklch(from var(--gray-11) l c h / .05);
     border-radius: var(--radius);
-}
-
-[dark] .basePane {
-    border-color: rgb(var(--gray-3));
 }
 
 .basePaneLoader {
@@ -16,7 +12,7 @@
     align-items: center;
     justify-content: center;
     backdrop-filter: blur(2px) saturate(180%);
-    background: rgb(var(--gray-0) / .75);
+    background: oklch(from var(--gray-0) l c h / .75);
     border-radius: inherit;
     z-index: 100;
 }

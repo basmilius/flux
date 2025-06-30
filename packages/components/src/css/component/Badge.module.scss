@@ -10,8 +10,8 @@
     padding-right: 9px;
     align-items: center;
     gap: 6px;
-    background: rgb(var(--gray-0));
-    border: 1px solid rgb(var(--gray-3));
+    background: var(--gray-0);
+    border: 1px solid var(--gray-2);
     border-radius: 99px;
     color: var(--foreground-prominent);
     font-size: 13px;
@@ -24,7 +24,7 @@
         transition: background 180ms var(--swift-out);
 
         @include mixin.hover {
-            background: rgb(var(--gray-1));
+            background: var(--gray-1);
             color: var(--foreground-prominent);
         }
     }
@@ -49,12 +49,12 @@
     cursor: pointer;
 
     @include mixin.hover {
-        background: rgb(var(--gray-2));
+        background: var(--gray-2);
         color: var(--foreground);
     }
 
     &:active {
-        background: rgb(var(--gray-3));
+        background: var(--gray-3);
         color: var(--foreground);
     }
 
@@ -91,52 +91,52 @@
 .badgeGray {
     composes: badge;
 
-    --color: rgb(var(--gray-8));
+    --color: var(--gray-8);
 
     .badgeLabel {
         color: var(--foreground-prominent);
     }
 
     .spinner {
-        --value: rgb(var(--primary-7));
+        --value: var(--primary-7);
     }
 }
 
 .badgePrimary {
     composes: badge;
 
-    --color: rgb(var(--primary-7));
+    --color: var(--primary-7);
 }
 
 .badgeDanger {
     composes: badge;
 
-    --color: rgb(var(--danger-7));
+    --color: var(--danger-7);
 }
 
 .badgeInfo {
     composes: badge;
 
-    --color: rgb(var(--info-7));
+    --color: var(--info-7);
 }
 
 .badgeSuccess {
     composes: badge;
 
-    --color: rgb(var(--success-7));
+    --color: var(--success-7);
 }
 
 .badgeWarning {
     composes: badge;
 
-    --color: rgb(var(--warning-7));
+    --color: var(--warning-7);
 }
 
 .tag {
     composes: badge;
 
-    background: rgb(var(--gray-1));
-    border-color: rgb(var(--gray-3));
+    background: var(--gray-1);
+    border-color: var(--gray-2);
     border-radius: calc(var(--radius) / 2);
     font-weight: 400;
 }

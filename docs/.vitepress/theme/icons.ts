@@ -29,6 +29,7 @@ export {
     faCloud,
     faCoin,
     faEllipsisH,
+    faEllipsisV,
     faEye,
     faEyeSlash,
     faFilter,

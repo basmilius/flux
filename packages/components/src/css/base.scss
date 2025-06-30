@@ -1,16 +1,18 @@
 @use 'variables';
 
 @layer flux-base {
-    :root, [light] {
+    :root {
         @include variables.animation;
+        @include variables.defaults;
+    }
+
+    :root, [light] {
         @include variables.color-light;
-        @include variables.default-light;
         @include variables.shadow-light;
     }
 
     [dark] {
         @include variables.color-dark;
-        @include variables.default-dark;
         @include variables.shadow-dark;
     }
 

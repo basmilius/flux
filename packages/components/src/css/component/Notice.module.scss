@@ -108,12 +108,12 @@
 .noticeGray {
     composes: notice;
 
-    background: rgb(var(--gray-2));
-    border-color: rgb(var(--gray-3));
+    background: var(--gray-1);
+    border-color: var(--gray-2);
     color: var(--foreground);
 
     .noticeClose {
-        background: rgb(var(--gray-3));
+        background: var(--gray-3);
     }
 
     .noticePrefix,
@@ -125,150 +125,150 @@
 .noticePrimary {
     composes: notice;
 
-    background: rgb(var(--primary-2));
-    border-color: rgb(var(--primary-3));
-    color: rgb(var(--primary-11));
+    background: var(--primary-2);
+    border-color: var(--primary-3);
+    color: var(--primary-11);
 
     .noticeClose {
-        background: rgb(var(--primary-3));
+        background: var(--primary-3);
     }
 
     .noticePrefix,
     .noticeTitle {
-        color: rgb(var(--primary-7));
+        color: var(--primary-7);
     }
 
     :local(.button) {
-        border-color: rgb(var(--primary-4));
+        border-color: var(--primary-4);
     }
 
     :local(.spinnerTrack) {
-        stroke: rgb(var(--primary-3));
+        stroke: var(--primary-3);
     }
 
     :local(.spinnerEffect),
     :local(.spinnerValue) {
-        stroke: rgb(var(--primary-7));
+        stroke: var(--primary-7);
     }
 }
 
 .noticeDanger {
     composes: notice;
 
-    background: rgb(var(--danger-2));
-    border-color: rgb(var(--danger-3));
-    color: rgb(var(--danger-11));
+    background: var(--danger-2);
+    border-color: var(--danger-3);
+    color: var(--danger-11);
 
     .noticeClose {
-        background: rgb(var(--danger-3));
+        background: var(--danger-3);
     }
 
     .noticePrefix,
     .noticeTitle {
-        color: rgb(var(--danger-7));
+        color: var(--danger-7);
     }
 
     :local(.button) {
-        border-color: rgb(var(--danger-4));
+        border-color: var(--danger-4);
     }
 
     :local(.spinnerTrack) {
-        stroke: rgb(var(--danger-3));
+        stroke: var(--danger-3);
     }
 
     :local(.spinnerEffect),
     :local(.spinnerValue) {
-        stroke: rgb(var(--danger-7));
+        stroke: var(--danger-7);
     }
 }
 
 .noticeInfo {
     composes: notice;
 
-    background: rgb(var(--info-2));
-    border-color: rgb(var(--info-3));
-    color: rgb(var(--info-11));
+    background: var(--info-2);
+    border-color: var(--info-3);
+    color: var(--info-11);
 
     .noticeClose {
-        background: rgb(var(--info-3));
+        background: var(--info-3);
     }
 
     .noticePrefix,
     .noticeTitle {
-        color: rgb(var(--info-7));
+        color: var(--info-7);
     }
 
     :local(.button) {
-        border-color: rgb(var(--info-4));
+        border-color: var(--info-4);
     }
 
     :local(.spinnerTrack) {
-        stroke: rgb(var(--info-3));
+        stroke: var(--info-3);
     }
 
     :local(.spinnerEffect),
     :local(.spinnerValue) {
-        stroke: rgb(var(--info-7));
+        stroke: var(--info-7);
     }
 }
 
 .noticeSuccess {
     composes: notice;
 
-    background: rgb(var(--success-2));
-    border-color: rgb(var(--success-3));
-    color: rgb(var(--success-11));
+    background: var(--success-2);
+    border-color: var(--success-3);
+    color: var(--success-11);
 
     .noticeClose {
-        background: rgb(var(--success-3));
+        background: var(--success-3);
     }
 
     .noticePrefix,
     .noticeTitle {
-        color: rgb(var(--success-7));
+        color: var(--success-7);
     }
 
     :local(.button) {
-        border-color: rgb(var(--success-4));
+        border-color: var(--success-4);
     }
 
     :local(.spinnerTrack) {
-        stroke: rgb(var(--success-3));
+        stroke: var(--success-3);
     }
 
     :local(.spinnerEffect),
     :local(.spinnerValue) {
-        stroke: rgb(var(--success-7));
+        stroke: var(--success-7);
     }
 }
 
 .noticeWarning {
     composes: notice;
 
-    background: rgb(var(--warning-2));
-    border-color: rgb(var(--warning-3));
-    color: rgb(var(--warning-11));
+    background: var(--warning-2);
+    border-color: var(--warning-3);
+    color: var(--warning-11);
 
     .noticeClose {
-        background: rgb(var(--warning-3));
+        background: var(--warning-3);
     }
 
     .noticePrefix,
     .noticeTitle {
-        color: rgb(var(--warning-7));
+        color: var(--warning-7);
     }
 
     :local(.button) {
-        border-color: rgb(var(--warning-4));
+        border-color: var(--warning-4);
     }
 
     :local(.spinnerTrack) {
-        stroke: rgb(var(--warning-3));
+        stroke: var(--warning-3);
     }
 
     :local(.spinnerEffect),
     :local(.spinnerValue) {
-        stroke: rgb(var(--warning-7));
+        stroke: var(--warning-7);
     }
 }
 

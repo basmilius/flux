@@ -1,11 +1,16 @@
 <script lang="ts" setup>
 import {
+    FluxAction,
     FluxBoxedIcon,
     FluxButtonGroup,
     FluxCheckbox,
     FluxFormInput,
     FluxFormInputAddition,
     FluxFormInputGroup,
+    FluxGallery,
+    FluxGalleryItem,
+    FluxInfo,
+    FluxInfoStack,
     FluxNotice,
     FluxPane,
     FluxPaneBody,
@@ -17,14 +22,45 @@ import {
     FluxQuantitySelector,
     FluxSecondaryButton,
     FluxSegmentedControl,
+    FluxSeparator,
+    FluxSpacer,
+    FluxSpinner,
     FluxStack,
+    FluxStatistic,
     FluxTabBar,
     FluxTabBarItem,
-    FluxToggle
+    FluxTimeline,
+    FluxTimelineItem,
+    FluxToggle,
+    FluxToolbar,
+    FluxToolbarGroup,
+    FluxTooltip
 } from '@flux-ui/components';
 </script>
 
 # Playground
+
+## Tooltip
+
+<FluxView>
+    <FluxStack direction="horizontal" :gap="15">
+        <FluxTooltip content="Tooltip content">
+            <FluxSecondaryButton label="Button"/>
+        </FluxTooltip>
+        <FluxTooltip>
+            <template #content>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aperiam architecto aspernatur, commodi, deserunt dolorum eum expedita iusto maiores molestiae nihil non praesentium, quibusdam quisquam recusandae reprehenderit saepe sapiente vero.</p>
+            </template>
+            <FluxSecondaryButton label="Button"/>
+        </FluxTooltip>
+    </FluxStack>
+</FluxView>
+
+## Spinner
+
+<FluxView>
+    <FluxSpinner/>
+</FluxView>
 
 ## Tab bar
 
@@ -170,4 +206,84 @@ import {
             </FluxButtonGroup>
         </FluxFormInputGroup>
     </FluxStack>
+</FluxView>
+
+## Gallery
+
+<FluxView>
+    <FluxGallery is-editable>
+        <FluxGalleryItem is-deletable url="/assets/demo/image-1.jpg" alt="Image 1"/>
+        <FluxGalleryItem is-deletable url="/assets/demo/image-2.jpg" alt="Image 2"/>
+        <FluxGalleryItem is-deletable url="/assets/demo/image-3.jpg" alt="Image 3"/>
+        <FluxGalleryItem is-deletable url="/assets/demo/image-4.jpg" alt="Image 4"/>
+        <FluxGalleryItem is-pending url="/assets/demo/image-5.jpg" alt="Image 5"/>
+    </FluxGallery>
+</FluxView>
+
+## Info
+
+<FluxView>
+    <FluxInfoStack>
+        <FluxInfo icon="square-dashed"><strong>Age</strong><br><span>18-30</span></FluxInfo>
+    </FluxInfoStack>
+</FluxView>
+
+## Statistic
+
+<FluxView>
+    <FluxStack direction="horizontal" :gap="15">
+        <FluxStatistic change-color="success" change-icon="square-dashed" change-value="13%" color="primary" direction="horizontal" icon="square-dashed" label="Sales" value="456"/>
+        <FluxStatistic change-color="success" change-icon="square-dashed" change-value="13%" color="primary" direction="horizontal" icon="square-dashed" label="Customers" value="123"/>
+    </FluxStack>
+</FluxView>
+
+## Timeline
+
+<FluxView>
+    <FluxTimeline>
+        <FluxTimelineItem color="danger" icon="square-dashed" title="Timeline item" when="March 13, 2025">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim, similique, voluptates! A aspernatur dolore, enim ipsa numquam rem repellat tempora voluptate. Aperiam autem delectus dolores laborum nesciunt officiis perspiciatis temporibus!</p>
+        </FluxTimelineItem>
+        <FluxTimelineItem color="gray" icon="square-dashed" title="Timeline item" when="March 13, 2025">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim, similique, voluptates! A aspernatur dolore, enim ipsa numquam rem repellat tempora voluptate. Aperiam autem delectus dolores laborum nesciunt officiis perspiciatis temporibus!</p>
+        </FluxTimelineItem>
+        <FluxTimelineItem color="warning" icon="square-dashed" title="Timeline item" when="March 13, 2025">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim, similique, voluptates! A aspernatur dolore, enim ipsa numquam rem repellat tempora voluptate. Aperiam autem delectus dolores laborum nesciunt officiis perspiciatis temporibus!</p>
+        </FluxTimelineItem>
+    </FluxTimeline>
+</FluxView>
+
+## Toolbar
+
+<FluxView>
+    <FluxPane>
+        <FluxPaneHeader title="Content"/>
+        <FluxToolbar>
+            <FluxToolbarGroup>
+                <FluxAction icon="square-dashed"/>
+            </FluxToolbarGroup>
+            <FluxSeparator direction="vertical"/>
+            <FluxToolbarGroup>
+                <FluxAction icon="square-dashed"/>
+                <FluxAction icon="square-dashed"/>
+                <FluxAction icon="square-dashed"/>
+            </FluxToolbarGroup>
+            <FluxSeparator direction="vertical"/>
+            <FluxToolbarGroup>
+                <FluxAction icon="square-dashed"/>
+                <FluxAction icon="square-dashed"/>
+            </FluxToolbarGroup>
+            <FluxSeparator direction="vertical"/>
+            <FluxToolbarGroup>
+                <FluxAction icon="square-dashed" is-destructive/>
+            </FluxToolbarGroup>
+            <FluxSpacer/>
+            <FluxToolbarGroup>
+                <FluxAction icon="ellipsis-v"/>
+            </FluxToolbarGroup>
+        </FluxToolbar>
+        <FluxPaneBody>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aut culpa, dolorum eaque explicabo minus nobis perferendis quas, quod repudiandae sit sunt tempore! Aut blanditiis corporis dolorem nesciunt quis totam.</p>
+        </FluxPaneBody>
+    </FluxPane>
 </FluxView>

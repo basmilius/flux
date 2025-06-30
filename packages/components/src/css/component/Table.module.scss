@@ -41,7 +41,7 @@
 .tableCell {
     height: 0;
     padding: 0;
-    border: 0 solid rgb(var(--gray-2));
+    border: 0 solid var(--gray-1);
 
     @-moz-document url-prefix() {
         height: 100%;
@@ -58,7 +58,7 @@
 .tableHeader {
     composes: tableCell;
 
-    border-bottom: 2px solid rgb(var(--gray-2));
+    border-bottom: 2px solid var(--gray-1);
     color: var(--foreground-prominent);
 
     &.isShrinking {
@@ -69,7 +69,7 @@
     &.isSticky {
         position: sticky;
         top: 0;
-        background: rgb(var(--gray-1));
+        background: var(--gray-1);
     }
 }
 
@@ -81,18 +81,18 @@
 }
 
 tbody .tableRow:nth-child(even) .tableCell.isStriped {
-    background: rgb(var(--gray-2));
+    background: oklch(from var(--gray-1) l c h / .5);
 }
 
 @media (hover: hover) {
     tbody .tableRow:hover .tableCell.isHoverable,
     tbody .tableRow:has(:focus-visible) .tableCell.isHoverable {
-        background: rgb(var(--gray-1));
+        background: oklch(from var(--gray-1) l c h / .75);
     }
 }
 
 tfoot .tableCell {
-    border-top: 1px solid rgb(var(--gray-2));
+    border-top: 1px solid var(--gray-2);
 }
 
 .tableCell + .tableCell.isBordered {
@@ -105,18 +105,6 @@ tfoot .tableCell {
 
 .tableActions {
     margin: -3px 0 -3px -3px;
-
-    .action {
-        @media (hover: hover) {
-            &:hover {
-                background: rgb(var(--gray-3));
-            }
-        }
-
-        &:active {
-            background: rgb(var(--gray-4));
-        }
-    }
 }
 
 .tableFill {
@@ -135,8 +123,8 @@ tfoot .tableCell {
     position: sticky;
     bottom: 0;
     margin-top: auto;
-    background: rgb(var(--gray-0));
-    border-top: 1px solid rgb(var(--gray-2));
+    background: var(--gray-0);
+    border-top: 1px solid var(--gray-2);
     z-index: 100;
 }
 
@@ -157,7 +145,7 @@ tfoot .tableCell {
 
     @media (hover: hover) {
         &:hover {
-            background: rgb(var(--gray-2));
+            background: var(--gray-2);
             color: var(--foreground);
         }
     }
@@ -177,7 +165,7 @@ tfoot .tableCell {
 
 .basePaneStructure > .table :is(caption) {
     padding: 12px 21px;
-    border-top: 1px solid rgb(var(--gray-3));
+    border-top: 1px solid var(--gray-3);
 }
 
 .basePaneStructure > .table .tableLoader {

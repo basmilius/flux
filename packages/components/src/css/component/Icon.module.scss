@@ -60,41 +60,41 @@
 .iconBoxedGray {
     composes: iconBoxedColored;
 
-    background: rgb(var(--gray-2));
+    background: var(--gray-2);
     color: var(--foreground);
 }
 
 .iconBoxedPrimary {
     composes: iconBoxedColored;
 
-    background: rgb(var(--primary-2));
-    color: rgb(var(--primary-10));
+    background: var(--primary-2);
+    color: var(--primary-10);
 }
 
 .iconBoxedDanger {
     composes: iconBoxedColored;
 
-    background: rgb(var(--danger-2));
-    color: rgb(var(--danger-10));
+    background: var(--danger-2);
+    color: var(--danger-10);
 }
 
 .iconBoxedInfo {
     composes: iconBoxedColored;
 
-    background: rgb(var(--info-2));
-    color: rgb(var(--info-10));
+    background: var(--info-2);
+    color: var(--info-10);
 }
 
 .iconBoxedSuccess {
     composes: iconBoxedColored;
 
-    background: rgb(var(--success-2));
-    color: rgb(var(--success-10));
+    background: var(--success-2);
+    color: var(--success-10);
 }
 
 .iconBoxedWarning {
     composes: iconBoxedColored;
 
-    background: rgb(var(--warning-2));
-    color: rgb(var(--warning-10));
+    background: var(--warning-2);
+    color: var(--warning-10);
 }

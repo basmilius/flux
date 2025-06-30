@@ -7,8 +7,8 @@
     align-items: center;
     flex-grow: 0;
     gap: 9px;
-    background: rgb(var(--gray-1));
-    border: 1px solid rgb(var(--gray-3));
+    background: var(--gray-1);
+    border: 1px solid var(--gray-2);
     border-radius: 99px;
     color: var(--foreground);
     transition: 180ms var(--swift-out);
@@ -21,19 +21,21 @@
 
         @media (hover: hover) {
             &:hover {
-                background: rgb(var(--gray-2));
+                background: var(--gray-2);
+                border-color: var(--gray-3);
             }
         }
     }
 
     &.isSelected {
-        background: rgb(var(--primary-2));
-        border-color: rgb(var(--primary-4));
-        color: rgb(var(--primary-7));
+        background: var(--primary-2);
+        border-color: var(--primary-3);
+        color: var(--primary-7);
 
         @media (hover: hover) {
             &:hover {
-                background: rgb(var(--primary-3));
+                background: var(--primary-3);
+                border-color: var(--primary-4);
             }
         }
     }
@@ -42,17 +44,5 @@
         font-size: 14px;
         font-weight: 500;
         white-space: nowrap;
-    }
-}
-
-[dark] .chip.isSelected {
-    background: rgb(var(--primary-11) / .5);
-    border-color: rgb(var(--primary-11));
-    color: rgb(var(--primary-5));
-
-    @media (hover: hover) {
-        &:hover {
-            background: rgb(var(--primary-10) / .5);
-        }
     }
 }

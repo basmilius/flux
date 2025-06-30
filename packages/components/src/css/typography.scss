@@ -33,7 +33,7 @@
     }
 
     a:not([class]), a[class=""] {
-        color: rgb(var(--primary-7));
+        color: var(--primary-7);
         text-decoration: underline;
         text-decoration-thickness: 1px;
         text-underline-offset: 4px;
@@ -51,7 +51,7 @@
         position: relative;
         margin: 0 0 0 30px;
         padding: 15px 21px;
-        background: rgb(var(--gray-2));
+        background: var(--gray-2);
         border-radius: var(--radius);
 
         &::before {
@@ -59,7 +59,7 @@
             top: 5px;
             left: -27px;
             content: '”';
-            color: rgb(var(--primary-7));
+            color: var(--primary-7);
             font-size: 39px;
             font-weight: 700;
         }

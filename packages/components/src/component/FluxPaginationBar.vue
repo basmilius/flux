@@ -35,12 +35,9 @@
     import type { FluxFormSelectOption } from '@flux-ui/types';
     import { computed, ref, watch } from 'vue';
     import { useTranslate } from '$flux/composable/private';
-    import FluxFormInputAddition from './FluxFormInputAddition.vue';
-    import FluxFormInputGroup from './FluxFormInputGroup.vue';
     import FluxFormSelect from './FluxFormSelect.vue';
     import FluxPagination from './FluxPagination.vue';
     import FluxSpacer from './FluxSpacer.vue';
-    import FluxStack from './FluxStack.vue';
     import $style from '$flux/css/component/Pagination.module.scss';
 
     const emit = defineEmits<{

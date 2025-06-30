@@ -1,16 +1,18 @@
 <template>
     <Preview>
-        <FluxDropZone
-            is-empty
-            placeholder-button="Upload"
-            placeholder-icon="square-dashed"
-            placeholder-message="You can drop your files here for uploading..."
-            style="width: 100%"/>
+        <FluxDropZone>
+            <FluxPlaceholder
+                icon="square-dashed"
+                message="You can drop your files here for uploading..."
+                style="width: 100%">
+                <FluxSecondaryButton label="Upload"/>
+            </FluxPlaceholder>
+        </FluxDropZone>
     </Preview>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxDropZone } from '@flux-ui/components';
+    import { FluxDropZone, FluxPlaceholder, FluxSecondaryButton } from '@flux-ui/components';
 </script>

@@ -59,11 +59,11 @@
 .dividerLine {
     height: 1px;
     content: '';
-    background: rgb(var(--gray-2));
+    background: var(--gray-1);
 }
 
 .separator {
-    background: rgb(var(--gray-2));
+    background: var(--gray-1);
 }
 
 .separatorHorizontal {

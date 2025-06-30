@@ -12,12 +12,17 @@
     min-width: 36px;
     padding: 0 6px;
     background: unset;
-    border-color: transparent;
-    box-shadow: none !important;
+
+    &:local(.secondaryButton) {
+        border-color: transparent;
+        box-shadow: none;
+    }
 }
 
 .paginationButtonArrow {
-    border-color: rgb(var(--gray-3));
+    &:local(.secondaryButton) {
+        border-color: var(--gray-2);
+    }
 
     &:first-child {
         margin-right: 6px;
@@ -28,9 +33,9 @@
     }
 }
 
-.paginationButtonCurrent {
-    background: rgb(var(--primary-1));
-    border-color: rgb(var(--primary-3));
+.paginationButton.paginationButtonCurrent {
+    background: var(--primary-1);
+    border-color: var(--primary-3);
 }
 
 .paginationButtonSpacer {

@@ -28,7 +28,7 @@
     @include mixin.focus-ring();
 
     @include mixin.hover {
-        background: rgb(var(--gray-1));
+        background: var(--gray-1);
     }
 
     :is(span) {
@@ -87,15 +87,15 @@
     flex-flow: column;
 
     .expandable + .expandable {
-        border-top: 1px solid rgb(var(--gray-2));
+        border-top: 1px solid var(--gray-2);
     }
 
     &:not(:first-child) {
-        border-top: 1px solid rgb(var(--gray-2));
+        border-top: 1px solid var(--gray-2);
     }
 
     &:not(:last-child) {
-        border-bottom: 1px solid rgb(var(--gray-2));
+        border-bottom: 1px solid var(--gray-2);
     }
 }
 

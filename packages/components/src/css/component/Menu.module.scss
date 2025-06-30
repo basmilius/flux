@@ -50,11 +50,11 @@
     text-align: left;
 
     @include mixin.hover {
-        background: rgb(var(--gray-2));
+        background: var(--gray-1);
     }
 
     &:active {
-        background: rgb(var(--gray-3));
+        background: var(--gray-2);
     }
 }
 
@@ -79,58 +79,46 @@
 }
 
 .menuItemActive {
-    background: rgb(var(--primary-7));
-    color: rgb(var(--primary-1));
+    background: var(--primary-7);
+    color: var(--primary-1);
 
     .menuItemIcon {
-        color: rgb(var(--primary-0));
+        color: var(--primary-0);
     }
 
     @include mixin.hover {
-        background: rgb(var(--primary-7));
+        background: var(--primary-7);
     }
 
     &:active {
-        background: rgb(var(--primary-7));
+        background: var(--primary-7);
     }
 }
 
 .menuItemDestructive {
     .menuItemIcon {
-        color: rgb(var(--danger-8));
+        color: var(--danger-8);
     }
 
     .menuItemLabel {
-        color: rgb(var(--danger-8));
+        color: var(--danger-8);
     }
 }
 
 .menuItemHighlighted {
-    background: rgb(var(--primary-2));
-    color: rgb(var(--primary-7));
+    background: var(--primary-2);
+    color: var(--primary-7);
 
     .menuItemIcon {
-        color: rgb(var(--primary-8));
+        color: var(--primary-8);
     }
 
     @include mixin.hover {
-        background: rgb(var(--primary-2));
+        background: var(--primary-2);
     }
 
     &:active {
-        background: rgb(var(--primary-2));
-    }
-}
-
-[dark] .menuItemHighlighted {
-    background: rgb(var(--primary-11) / .5);
-
-    @include mixin.hover {
-        background: rgb(var(--primary-11) / .5);
-    }
-
-    &:active {
-        background: rgb(var(--primary-11) / .5);
+        background: var(--primary-2);
     }
 }
 
@@ -143,7 +131,7 @@
 }
 
 .menuItemSelected .menuItemSelectableIcon {
-    color: rgb(var(--primary-7));
+    color: var(--primary-7);
 }
 
 .menuItemCommand {
@@ -171,7 +159,7 @@
 
 .menuItemActive .menuItemCommand,
 .menuItemActive .menuItemCommandIcon {
-    color: rgb(var(--primary-4));
+    color: var(--primary-4);
 }
 
 .menuItemImage {
@@ -207,7 +195,7 @@
     padding: 12px 12px 6px;
     align-items: center;
     gap: 9px;
-    background: linear-gradient(to bottom, rgb(var(--gray-0)) 75%, transparent);
+    background: linear-gradient(to bottom, var(--gray-0) 75%, transparent);
     font-size: 14px;
     pointer-events: none;
     z-index: 1;
@@ -243,7 +231,7 @@
         bottom: 12px;
         width: 4px;
         content: '';
-        background: rgb(var(--primary-7));
+        background: var(--primary-7);
         border-radius: 99px;
         opacity: 0;
         transition: opacity 180ms var(--swift-out);
@@ -254,7 +242,7 @@
     min-height: 48px;
 
     &::after {
-        background: rgb(var(--primary-0));
+        background: var(--primary-0);
     }
 }
 
@@ -264,7 +252,7 @@
     }
 
     &.menuItemIndented {
-        background: rgb(var(--gray-2));
+        background: var(--gray-2);
 
         .menuItemIcon,
         .menuItemLabel {

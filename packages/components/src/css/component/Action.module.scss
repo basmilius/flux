@@ -12,11 +12,11 @@
     box-shadow: none;
 
     @include mixin.hover {
-        background: rgb(var(--gray-3));
+        background: var(--gray-2);
     }
 
     &:active {
-        background: rgb(var(--gray-2));
+        background: var(--gray-3);
     }
 
     .spinner {
@@ -32,7 +32,7 @@
 }
 
 .action.isDestructive .actionIcon {
-    color: rgb(var(--danger-7));
+    color: var(--danger-7);
 }
 
 .actionLabel {
@@ -58,8 +58,8 @@
 
 .basePaneStructure > .actionBar {
     padding: 15px 21px;
-    background: rgb(var(--gray-1));
-    border: 1px solid rgb(var(--gray-2));
+    background: var(--gray-1);
+    border: 1px solid var(--gray-2);
     border-left: 0;
     border-right: 0;
 
@@ -95,14 +95,13 @@
     @container actionPane (max-width: 540px) {
         grid-template-columns: 1fr;
     }
-
-    .paneBody + .paneBody {
-        padding-top: 21px;
-    }
 }
 
 .actionPaneBody {
     position: relative;
-    padding: 0;
     text-wrap: pretty;
+
+    &:local(.paneBody) {
+        padding: 0;
+    }
 }

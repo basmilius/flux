@@ -33,7 +33,7 @@
     text-transform: capitalize;
 
     @include mixin.hover {
-        color: rgb(var(--primary-7));
+        color: var(--primary-7);
     }
 }
 
@@ -56,12 +56,12 @@
     gap: 1px;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: min-content repeat(6, auto);
-    background: rgb(var(--gray-2));
+    background: var(--gray-1);
 }
 
 .calendarCell {
     padding: 12px 21px;
-    background: rgb(var(--gray-0));
+    background: var(--gray-0);
 }
 
 .calendarDay {
@@ -85,7 +85,7 @@
     padding-bottom: 39px;
 
     &.isDisabled {
-        background: rgb(var(--gray-1));
+        background: oklch(from var(--gray-0) l c h / .5);
         color: var(--foreground-secondary);
         pointer-events: none;
 
@@ -120,9 +120,9 @@
     margin-left: -9px;
     margin-right: -9px;
     padding: 6px 9px;
-    background: rgb(var(--primary-2));
+    background: var(--primary-2);
     border: 0;
-    color: rgb(var(--primary-9));
+    color: var(--primary-9);
     cursor: pointer;
     font-size: 14px;
     line-height: 1.3em;
@@ -162,6 +162,6 @@
     }
 
     @include mixin.hover {
-        background: rgb(var(--primary-3));
+        background: var(--primary-3);
     }
 }

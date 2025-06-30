@@ -59,10 +59,7 @@
     import { computed, unref } from 'vue';
     import { useTranslate } from '$flux/composable/private';
     import { showPrompt } from '$flux/data';
-    import FluxButton from './FluxButton.vue';
-    import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxPaginationButton from './FluxPaginationButton.vue';
-    import FluxPrimaryButton from './FluxPrimaryButton.vue';
     import $style from '$flux/css/component/Pagination.module.scss';
 
     const emit = defineEmits<{

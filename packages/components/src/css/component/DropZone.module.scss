@@ -1,4 +1,27 @@
 .dropZone {
+    --dz-fill: transparent;
+    --dz-stroke: transparent;
+    --dz-inset: -1px;
+    --dz-radius: var(--radius);
+    --dz-height: calc(100% + 2px);
+    --dz-width: calc(100% + 2px);
+
+    position: relative;
+
+    &:has(.dropZoneContent > .avatar) {
+        --dz-inset: -3px;
+        --dz-radius: 999px;
+        --dz-height: calc(100% + 6px);
+        --dz-width: calc(100% + 6px);
+    }
+
+    &:has(.dropZoneContent > .placeholder) {
+        --dz-fill: var(--gray-1);
+        --dz-stroke: var(--gray-3);
+    }
+}
+
+.dropZone {
     display: grid;
     align-items: center;
     gap: 15px 30px;
@@ -36,44 +59,23 @@
 }
 
 .dropZoneContent {
-    --dz-fill: transparent;
-    --dz-stroke: transparent;
-    --dz-inset: -1px;
-    --dz-radius: var(--radius);
-    --dz-height: calc(100% + 2px);
-    --dz-width: calc(100% + 2px);
-
-    position: relative;
-
-    &:has(.avatar) {
-        --dz-inset: -3px;
-        --dz-radius: 999px;
-        --dz-height: calc(100% + 6px);
-        --dz-width: calc(100% + 6px);
-    }
-
-    &:has(.placeholder) {
-        --dz-fill: rgb(var(--gray-1));
-        --dz-stroke: rgb(var(--gray-3));
-    }
-
-    :local(.avatar) {
+    > :local(.avatar) {
         display: block;
     }
 
-    :local(.placeholder) {
+    > :local(.placeholder) {
         background: transparent;
         border: 0;
     }
 }
 
 .isDragging .dropZoneContent {
-    --dz-stroke: rgb(var(--primary-7));
+    --dz-stroke: var(--primary-7);
 }
 
 .isDraggingOver .dropZoneContent {
     &:has(.placeholder) {
-        --dz-fill: rgb(var(--primary-2));
+        --dz-fill: var(--primary-2);
     }
 
     .dropZoneBorder rect {
@@ -87,7 +89,7 @@
     inset: var(--dz-inset);
     align-items: center;
     justify-content: center;
-    background: rgb(var(--gray-1) / .84);
+    background: oklch(from var(--gray-1) l c h / .84);
     backdrop-filter: blur(3px) saturate(180%);
     border-radius: var(--dz-radius);
     z-index: 100;

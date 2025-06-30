@@ -126,7 +126,7 @@
 .formFieldAdditionError {
     composes: formFieldAddition;
 
-    color: rgb(var(--danger-7));
+    color: var(--danger-7);
 }
 
 .formFieldAdditionHint {
@@ -146,9 +146,9 @@
     width: 100%;
     padding: 0 12px;
     align-self: start;
-    background: rgb(var(--gray-0));
+    background: var(--gray-0);
     background-clip: padding-box;
-    border: 1px solid rgb(var(--gray-3));
+    border: 1px solid var(--gray-2);
     border-radius: var(--radius);
     box-shadow: var(--shadow-px);
     color: var(--foreground);
@@ -160,7 +160,7 @@
     }
 
     &.isSecondary {
-        background: rgb(var(--gray-2));
+        background: var(--gray-1);
         border-color: transparent;
         box-shadow: none;
     }
@@ -169,7 +169,7 @@
 .formInputDisabled {
     composes: formInput;
 
-    background: rgb(var(--gray-2));
+    background: var(--gray-2);
     cursor: not-allowed;
 
     input {
@@ -183,7 +183,7 @@
     @include mixin.focus-ring(-1px, true);
 
     @include mixin.hover {
-        border-color: rgb(var(--gray-4));
+        border-color: var(--gray-3);
     }
 }
 
@@ -271,20 +271,20 @@
     align-items: center;
     flex-grow: 0;
     justify-content: center;
-    background: rgb(var(--gray-1));
+    background: var(--gray-1);
     color: var(--foreground-secondary);
     pointer-events: none;
 
     &:has(+ .formInput .formInputNative) {
-        border-right: 1px solid rgb(var(--gray-3));
+        border-right: 1px solid var(--gray-2);
     }
 
     + .formInputAddition {
-        border-left: 1px solid rgb(var(--gray-3));
+        border-left: 1px solid var(--gray-2);
     }
 
     @at-root .formInput:has(.formInputNative) + & {
-        border-left: 1px solid rgb(var(--gray-3));
+        border-left: 1px solid var(--gray-2);
     }
 }
 
@@ -301,7 +301,7 @@
 
         + :is(.button, .buttonGroup) {
             margin: 0;
-            border-left: 1px solid rgb(var(--gray-3));
+            border-left: 1px solid var(--gray-2);
         }
     }
 
@@ -310,7 +310,7 @@
 
         + .button {
             margin: 0;
-            border-left: 1px solid rgb(var(--gray-3));
+            border-left: 1px solid var(--gray-2);
         }
     }
 
@@ -332,11 +332,11 @@
 
         .secondaryButton {
             background: transparent;
-            border-color: rgb(var(--gray-3));
+            border-color: var(--gray-2);
             box-shadow: none;
 
             @include mixin.hover {
-                background: rgb(var(--gray-3));
+                background: var(--gray-3);
             }
         }
     }
@@ -398,7 +398,7 @@
         @include mixin.focus-ring(-1px, true);
 
         @include mixin.hover {
-            border-color: rgb(var(--gray-4));
+            border-color: var(--gray-4);
         }
     }
 
@@ -430,7 +430,7 @@
     top: 0;
     height: 48px;
     margin-bottom: 9px;
-    background: rgb(var(--gray-0));
+    background: var(--gray-0);
     border-top: 0;
     border-left: 0;
     border-right: 0;
@@ -507,8 +507,8 @@
 }
 
 .isDisabled .formSelectSelected {
-    background: rgb(var(--gray-2));
-    border: 1px solid rgb(var(--gray-3));
+    background: var(--gray-2);
+    border: 1px solid var(--gray-3);
     color: var(--foreground-secondary);
     opacity: 1;
 }
@@ -556,10 +556,10 @@
     padding: 0;
     align-items: center;
     justify-content: center;
-    background: rgb(var(--gray-3));
+    background: var(--gray-2);
     border: 0;
     border-radius: calc(var(--radius) / 2);
-    color: rgb(var(--primary-0));
+    color: var(--primary-0);
     cursor: pointer;
     pointer-events: none;
     transition: 210ms var(--swift-out);
@@ -590,12 +590,12 @@
 
     @include mixin.hover {
         + .checkboxElement {
-            background: rgb(var(--gray-4));
+            background: var(--gray-3);
         }
     }
 
     &:is(:checked, :indeterminate) + .checkboxElement {
-        background: rgb(var(--primary-7));
+        background: var(--primary-7);
 
         .icon {
             opacity: 1;
@@ -611,7 +611,7 @@
     min-width: max-content;
     align-self: center;
     justify-self: center;
-    border: 1px solid rgb(var(--gray-3));
+    border: 1px solid var(--gray-3);
     border-radius: var(--radius);
     box-shadow: var(--shadow-px);
     overflow: hidden;
@@ -619,7 +619,7 @@
     @include mixin.focus-ring-transition(2px, true);
 
     @include mixin.hover {
-        border-color: rgb(var(--gray-4));
+        border-color: var(--gray-4);
     }
 }
 
@@ -654,7 +654,7 @@
     text-align: center;
 
     &:hover {
-        border-color: rgb(var(--gray-3));
+        border-color: var(--gray-3);
     }
 
     &,
@@ -690,7 +690,7 @@
     padding: 0;
     width: 2.7ch;
     background-clip: padding-box;
-    border: 1px solid rgb(var(--gray-3));
+    border: 1px solid var(--gray-3);
     border-radius: var(--radius);
     box-shadow: var(--shadow-px);
     font: inherit;
@@ -705,7 +705,7 @@
     composes: pinInput;
 
     .pinInputField {
-        background-color: rgb(var(--gray-0));
+        background-color: var(--gray-0);
         color: var(--foreground-prominent);
 
         @include mixin.focus-ring(-1px, true);
@@ -716,7 +716,7 @@
     composes: pinInput;
 
     .pinInputField {
-        background-color: rgb(var(--gray-2));
+        background-color: var(--gray-2);
         color: var(--foreground-secondary);
         cursor: not-allowed;
     }
@@ -728,7 +728,7 @@
     width: 54px;
     height: 30px;
     flex: 0 0 auto;
-    background: rgb(var(--gray-2));
+    background: var(--gray-2);
     border-radius: 99px;
     contain: paint;
 
@@ -738,10 +738,10 @@
         }
 
         &:not(.isSwitch) {
-            background: rgb(var(--primary-7));
+            background: var(--primary-7);
 
             .toggleIcon {
-                color: rgb(var(--primary-0));
+                color: var(--primary-0);
             }
 
             .toggleInput::after {
@@ -809,9 +809,9 @@
         height: 24px;
         width: 24px;
         content: '';
-        background: rgb(var(--gray-0));
+        background: var(--gray-0);
         background-clip: padding-box;
-        border: 1px solid rgb(var(--gray-3));
+        border: 1px solid var(--gray-3);
         border-radius: 99px;
         box-shadow: var(--shadow-sm);
     }

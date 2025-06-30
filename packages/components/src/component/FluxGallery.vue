@@ -1,8 +1,8 @@
 <template>
     <FluxDropZone
+        :class="$style.gallery"
         accept="image/*"
         :disabled="!isEditable"
-        :is-empty="items && items.length === 0"
         is-multiple
         placeholder-icon="image"
         :placeholder-button="translate('flux.galleryPlaceholderButton')"
@@ -11,7 +11,7 @@
         @select-multiple="onFilesSelected">
         <template #default="{showPicker}">
             <TransitionGroup
-                :class="$style.gallery"
+                :class="$style.galleryGrid"
                 :move-class="$style.galleryMove"
                 tag="div">
                 <template

@@ -1,35 +1,36 @@
 .statistic {
     padding: 21px;
+    flex-grow: 1;
     gap: 21px;
 
     &.isGray .statisticIcon {
-        background: rgb(var(--gray-2));
-        color: rgb(var(--gray-7));
+        background: var(--gray-2);
+        color: var(--gray-7);
     }
 
     &.isPrimary .statisticIcon {
-        background: rgb(var(--primary-2));
-        color: rgb(var(--primary-7));
+        background: var(--primary-2);
+        color: var(--primary-7);
     }
 
     &.isDanger .statisticIcon {
-        background: rgb(var(--danger-2));
-        color: rgb(var(--danger-7));
+        background: var(--danger-2);
+        color: var(--danger-7);
     }
 
     &.isInfo .statisticIcon {
-        background: rgb(var(--info-2));
-        color: rgb(var(--info-7));
+        background: var(--info-2);
+        color: var(--info-7);
     }
 
     &.isSuccess .statisticIcon {
-        background: rgb(var(--success-2));
-        color: rgb(var(--success-7));
+        background: var(--success-2);
+        color: var(--success-7);
     }
 
     &.isWarning .statisticIcon {
-        background: rgb(var(--warning-2));
-        color: rgb(var(--warning-7));
+        background: var(--warning-2);
+        color: var(--warning-7);
     }
 }
 
@@ -47,23 +48,23 @@
     }
 
     &.isPrimary {
-        color: rgb(var(--primary-7));
+        color: var(--primary-7);
     }
 
     &.isDanger {
-        color: rgb(var(--danger-7));
+        color: var(--danger-7);
     }
 
     &.isInfo {
-        color: rgb(var(--info-7));
+        color: var(--info-7);
     }
 
     &.isSuccess {
-        color: rgb(var(--success-7));
+        color: var(--success-7);
     }
 
     &.isWarning {
-        color: rgb(var(--warning-7));
+        color: var(--warning-7);
     }
 }
 

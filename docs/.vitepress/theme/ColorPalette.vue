@@ -6,8 +6,8 @@
             <div
                 :class="$style.colorPaletteShade"
                 :style="{
-                    '--background': `rgb(var(--${name}-${i - 1}))`,
-                    '--foreground': `rgb(var(--${name}-${i - 1 >= 7 ? 2 : 11}))`
+                    '--background': `var(--${name}-${i - 1})`,
+                    '--foreground': `var(--${name}-${i - 1 >= 7 ? 2 : 11})`
                 }"/>
         </FluxTooltip>
     </div>
