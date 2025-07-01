@@ -611,7 +611,7 @@
     min-width: max-content;
     align-self: center;
     justify-self: center;
-    border: 1px solid var(--gray-3);
+    border: 1px solid var(--gray-2);
     border-radius: var(--radius);
     box-shadow: var(--shadow-px);
     overflow: hidden;
@@ -619,7 +619,7 @@
     @include mixin.focus-ring-transition(2px, true);
 
     @include mixin.hover {
-        border-color: var(--gray-4);
+        border-color: var(--gray-3);
     }
 }
 

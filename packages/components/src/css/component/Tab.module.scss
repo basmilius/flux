@@ -60,7 +60,8 @@
     padding-right: 3px;
     align-items: flex-end;
     gap: 30px;
-    overflow: hidden;
+    overflow: auto;
+    scrollbar-width: none;
 
     -webkit-mask-image: var(--mask);
     mask-image: var(--mask);

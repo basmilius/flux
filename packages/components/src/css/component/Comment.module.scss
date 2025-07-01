@@ -106,19 +106,19 @@
 
     20% {
         background: var(--gray-3);
-        box-shadow: -9px -3px var(--gray-5), 9px 0 var(--gray-3);
+        box-shadow: -9px -4px var(--gray-5), 9px 0 var(--gray-3);
         translate: 0 0;
     }
 
     40% {
         background: var(--gray-5);
-        box-shadow: -9px 3px var(--gray-3), 9px 3px var(--gray-3);
-        translate: 0 -3px;
+        box-shadow: -9px 4px var(--gray-3), 9px 4px var(--gray-3);
+        translate: 0 -4px;
     }
 
     60% {
         background: var(--gray-3);
-        box-shadow: -9px 0 var(--gray-3), 9px -3px var(--gray-5);
+        box-shadow: -9px 0 var(--gray-3), 9px -4px var(--gray-5);
         translate: 0 0;
     }
 }

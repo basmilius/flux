@@ -4,24 +4,24 @@ Flux offers a versatile color palette that includes six essential colors: **gray
 
 ## Gray
 
-<ColorPalette name="gray"/>
+<ColorPalette label="Gray" name="gray"/>
 
 ## Primary
 
-<ColorPalette name="primary"/>
+<ColorPalette label="Primary" name="primary"/>
 
 ## Danger
 
-<ColorPalette name="danger"/>
+<ColorPalette label="Danger" name="danger"/>
 
 ## Info
 
-<ColorPalette name="info"/>
+<ColorPalette label="Info" name="info"/>
 
 ## Success
 
-<ColorPalette name="success"/>
+<ColorPalette label="Success" name="success"/>
 
 ## Warning
 
-<ColorPalette name="warning"/>
+<ColorPalette label="Warning" name="warning"/>

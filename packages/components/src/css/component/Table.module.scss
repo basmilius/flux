@@ -81,13 +81,13 @@
 }
 
 tbody .tableRow:nth-child(even) .tableCell.isStriped {
-    background: oklch(from var(--gray-1) l c h / .5);
+    background: oklch(from var(--gray-1) l c h / .25);
 }
 
 @media (hover: hover) {
     tbody .tableRow:hover .tableCell.isHoverable,
     tbody .tableRow:has(:focus-visible) .tableCell.isHoverable {
-        background: oklch(from var(--gray-1) l c h / .75);
+        background: oklch(from var(--gray-1) l c h / .5);
     }
 }
 

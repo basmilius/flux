@@ -3,14 +3,16 @@
         :class="$style.tabBar"
         role="tablist"
         aria-orientation="horizontal">
-        <button
-            v-if="isStartArrowVisible"
-            :class="$style.tabBarArrowStart"
-            tabindex="-1"
-            type="button"
-            @click="scrollToStart">
-            <FluxIcon name="angle-left"/>
-        </button>
+        <FluxFadeTransition>
+            <button
+                v-if="isStartArrowVisible"
+                :class="$style.tabBarArrowStart"
+                tabindex="-1"
+                type="button"
+                @click="scrollToStart">
+                <FluxIcon name="angle-left"/>
+            </button>
+        </FluxFadeTransition>
 
         <div
             ref="tabBar"
@@ -22,14 +24,16 @@
             <slot/>
         </div>
 
-        <button
-            v-if="isEndArrowVisible"
-            :class="$style.tabBarArrowEnd"
-            tabindex="-1"
-            type="button"
-            @click="scrollToEnd">
-            <FluxIcon name="angle-right"/>
-        </button>
+        <FluxFadeTransition>
+            <button
+                v-if="isEndArrowVisible"
+                :class="$style.tabBarArrowEnd"
+                tabindex="-1"
+                type="button"
+                @click="scrollToEnd">
+                <FluxIcon name="angle-right"/>
+            </button>
+        </FluxFadeTransition>
     </nav>
 </template>
 
@@ -39,6 +43,7 @@
     import { unrefTemplateElement, useEventListener, useMutationObserver } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { onMounted, ref, useTemplateRef } from 'vue';
+    import { FluxFadeTransition } from '$flux/transition';
     import FluxIcon from './FluxIcon.vue';
     import $style from '$flux/css/component/Tab.module.scss';
 

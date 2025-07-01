@@ -15,6 +15,9 @@ export default defineConfig({
     titleTemplate: 'Flux — :title',
     description: 'Component library for Vue 3.',
     ignoreDeadLinks: true,
+    head: [
+        ['link', {rel: 'stylesheet', href: 'https://font.bmcdn.nl/css2?family=inter-variable|jetbrains-mono'}],
+    ],
     markdown: {
         config(md) {
             md.use(examplePlugin);

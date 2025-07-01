@@ -2,7 +2,7 @@
     <div :class="$style.colorPalette">
         <FluxTooltip
             v-for="i of 12"
-            :content="`--${name}-${i}`">
+            :content="`${label} ${i - 1}`">
             <div
                 :class="$style.colorPaletteShade"
                 :style="{
@@ -19,6 +19,7 @@
     import { FluxTooltip } from '@flux-ui/components';
 
     defineProps<{
+        readonly label: string;
         readonly name: 'primary' | 'gray' | 'danger' | 'info' | 'success' | 'warning';
     }>();
 </script>
@@ -38,7 +39,7 @@
         aspect-ratio: 1 / 1;
         align-items: center;
         background: var(--background);
-        border-radius: var(--radius);
+        border-radius: 99px;
         box-shadow: inset 0 0 0 1px rgb(0 0 0 / .05);
         color: var(--foreground);
         font-family: var(--vp-font-family-mono), monospace;

@@ -82,6 +82,10 @@
         color: var(--foreground-prominent);
     }
 
+    &:first-child {
+        font-weight: 600;
+    }
+
     &:active {
         background: var(--gray-2);
     }
