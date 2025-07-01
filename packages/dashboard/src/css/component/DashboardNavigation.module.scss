@@ -14,7 +14,7 @@
     }
 
     .dividerLine {
-        background: rgb(var(--primary-10));
+        background: var(--primary-10);
     }
 
     .menu {
@@ -31,17 +31,17 @@
 
         @media (hover: hover) {
             &:hover {
-                background: rgb(var(--primary-10));
+                background: var(--primary-10);
             }
         }
 
         &:active {
-            background: rgb(var(--primary-9));
+            background: var(--primary-9);
         }
     }
 
     .menuItemHighlighted {
-        background: rgb(var(--primary-10) / .5);
+        background: oklch(from var(--primary-10) l c h / .5);
     }
 
     .menuItemIcon {
@@ -62,23 +62,23 @@
 
 [dark] .dashboardNavigation {
     .dividerLine {
-        background: rgb(var(--gray-2));
+        background: var(--gray-2);
     }
 
     .menuItem {
         @media (hover: hover) {
             &:hover {
-                background: rgb(var(--gray-2));
+                background: var(--gray-2);
             }
         }
 
         &:active {
-            background: rgb(var(--gray-3));
+            background: var(--gray-3);
         }
     }
 
     .menuItemHighlighted {
-        background: rgb(var(--gray-1));
+        background: var(--gray-1);
     }
 }
 
@@ -110,12 +110,12 @@
         display: block;
         inset: 0;
         content: '';
-        background: rgb(var(--gray-1));
+        background: var(--gray-1);
     }
 }
 
 .dashboard:not(:has(.dashboardMenu)) .dashboardNavigationRoundingFix::before {
-    background: rgb(var(--gray-0));
+    background: var(--gray-0);
 }
 
 @include mixin.breakpoint-up(lg) {
@@ -185,7 +185,7 @@
             width: 100dvw;
             height: 100dvh;
             content: '';
-            background: rgb(var(--gray-3) / .5);
+            background: oklch(from var(--gray-3) l c h / .5);
             backdrop-filter: blur(3px) saturate(180%);
             transition: var(--dashboard-duration) var(--swift-out);
             transition-property: background, backdrop-filter;

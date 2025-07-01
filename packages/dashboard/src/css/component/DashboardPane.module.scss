@@ -1,20 +1,20 @@
 @use '../../../../components/src/css/mixin';
 
 .dashboardPane {
-    background: rgb(var(--gray-1));
+    background: var(--gray-1);
     overflow: auto;
     z-index: 200;
 
     .menuSubHeader {
-        background: linear-gradient(to bottom, rgb(var(--gray-1)) 75%, transparent);
+        background: linear-gradient(to bottom, var(--gray-1) 75%, transparent);
     }
 
     .dashboardTopBar {
-        background: rgb(var(--gray-1) / .9);
+        background: oklch(from var(--gray-1) l c h / .9);
     }
 
     .filter {
-        --background: rgb(var(--gray-1));
+        --background: var(--gray-1);
 
         max-height: calc(100dvh - 84px);
         margin-top: -9px;
@@ -50,7 +50,7 @@
 .dashboardMenu {
     composes: dashboardPane;
 
-    border-right: 1px solid rgb(var(--gray-2));
+    border-right: 1px solid var(--gray-2);
 }
 
 .dashboardMenuBody {
@@ -60,7 +60,7 @@
 .dashboardSide {
     composes: dashboardPane;
 
-    border-left: 1px solid rgb(var(--gray-2));
+    border-left: 1px solid var(--gray-2);
 }
 
 @include mixin.breakpoint-up(lg) {

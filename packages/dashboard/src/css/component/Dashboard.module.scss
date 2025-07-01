@@ -1,14 +1,14 @@
 @use '../../../../components/src/css/mixin';
 
 :root {
-    --dashboard-background: rgb(var(--gray-0));
+    --dashboard-background: var(--gray-0);
     --dashboard-duration: 360ms;
-    --dashboard-navigation-background: rgb(var(--primary-11));
-    --dashboard-navigation-foreground: rgb(var(--primary-0));
+    --dashboard-navigation-background: var(--primary-11);
+    --dashboard-navigation-foreground: var(--primary-0);
 }
 
 [dark] {
-    --dashboard-navigation-background: color-mix(in srgb, rgb(var(--gray-0)), black 50%);
+    --dashboard-navigation-background: color-mix(in oklch, var(--gray-0), black 50%);
 }
 
 body:has(.root > .dashboard) {
