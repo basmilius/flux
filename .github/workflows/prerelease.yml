@@ -28,10 +28,11 @@ jobs:
 
             -   name: ✏️ Tag v${{ env.RELEASE_VERSION }}
                 run: |
-                    sed -i 's/0.0.0/${{ env.RELEASE_VERSION }}/g' packages/types/package.json
-                    sed -i 's/0.0.0/${{ env.RELEASE_VERSION }}/g' packages/internals/package.json
-                    sed -i 's/0.0.0/${{ env.RELEASE_VERSION }}/g' packages/components/package.json
-                    sed -i 's/0.0.0/${{ env.RELEASE_VERSION }}/g' packages/dashboard/package.json
+                    bun pm version --cwd packages/types ${{ env.RELEASE_VERSION }}
+                    bun pm version --cwd packages/internals ${{ env.RELEASE_VERSION }}
+                    bun pm version --cwd packages/components ${{ env.RELEASE_VERSION }}
+                    bun pm version --cwd packages/dashboard ${{ env.RELEASE_VERSION }}
+                    
                     sed -i 's/workspace:\*/${{ env.RELEASE_VERSION }}/g' packages/types/package.json
                     sed -i 's/workspace:\*/${{ env.RELEASE_VERSION }}/g' packages/internals/package.json
                     sed -i 's/workspace:\*/${{ env.RELEASE_VERSION }}/g' packages/components/package.json
