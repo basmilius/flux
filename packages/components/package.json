@@ -51,7 +51,7 @@
     "typings": "./dist/index.d.ts",
     "sideEffects": false,
     "dependencies": {
-        "@basmilius/utils": "^2.4.3",
+        "@basmilius/utils": "^2.5.0",
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/types": "workspace:*",
         "@fortawesome/fontawesome-common-types": "^6.7.2",
@@ -62,7 +62,7 @@
         "vue": "^3.5.17"
     },
     "devDependencies": {
-        "@basmilius/vite-preset": "^2.4.3",
+        "@basmilius/vite-preset": "^2.5.0",
         "@types/lodash-es": "^4.17.12",
         "@types/luxon": "^3.6.2",
         "@types/node": "^24.0.10",
@@ -70,7 +70,7 @@
         "pinia": "^3.0.3",
         "sass-embedded": "^1.89.2",
         "typescript": "^5.8.3",
-        "vite": "^7.0.2",
+        "vite": "^7.0.3",
         "vue-tsc": "^3.0.1"
     }
 }
