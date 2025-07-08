@@ -50,11 +50,11 @@
     text-align: left;
 
     @include mixin.hover {
-        background: var(--gray-1);
+        background: var(--gray-2);
     }
 
     &:active {
-        background: var(--gray-2);
+        background: var(--gray-3);
     }
 }
 
