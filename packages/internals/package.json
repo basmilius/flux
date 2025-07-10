@@ -44,16 +44,16 @@
         }
     },
     "dependencies": {
-        "@basmilius/utils": "^2.5.0",
+        "@basmilius/utils": "^2.5.1",
         "lodash-es": "^4.17.21",
         "luxon": "^3.6.1",
         "vue": "^3.5.13"
     },
     "devDependencies": {
-        "@basmilius/tools": "^2.5.0",
+        "@basmilius/tools": "^2.5.1",
         "@types/luxon": "^3.6.2",
         "lodash-es": "^4.17.21",
-        "luxon": "^3.6.1",
+        "luxon": "^3.7.1",
         "vue": "^3.5.17"
     }
 }
