@@ -23,6 +23,6 @@
     "devDependencies": {
         "@basmilius/vite-preset": "^2.5.1",
         "@types/luxon": "^3.6.2",
-        "vite": "^7.0.4"
+        "vite": "^7.0.5"
     }
 }

@@ -6,8 +6,6 @@
     --dz-height: calc(100% + 2px);
     --dz-width: calc(100% + 2px);
 
-    position: relative;
-
     &:has(.dropZoneContent > .avatar) {
         --dz-inset: -3px;
         --dz-radius: 999px;
@@ -22,6 +20,7 @@
 }
 
 .dropZone {
+    position: relative;
     display: grid;
     align-items: center;
     gap: 15px 30px;
@@ -59,6 +58,8 @@
 }
 
 .dropZoneContent {
+    position: relative;
+
     > :local(.avatar) {
         display: block;
     }
