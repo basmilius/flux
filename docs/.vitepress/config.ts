@@ -26,6 +26,9 @@ export default defineConfig({
         }
     },
     vite: {
+        build: {
+            cssTarget: 'chrome120'
+        },
         plugins: [
             groupIconVitePlugin() as any,
             preset({
@@ -77,7 +80,7 @@ export default defineConfig({
 
         footer: {
             message: 'Released under the <a href="https://github.com/basmilius/flux/blob/main/LICENSE">MIT License</a>.',
-            copyright: 'Copyright © 2023-present <a href="https://github.com/basmilius">Bas Milius</a>'
+            copyright: 'Copyright © 2023–present <a href="https://github.com/basmilius">Bas Milius</a>'
         },
 
         sidebar: {
