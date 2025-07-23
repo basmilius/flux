@@ -10,6 +10,7 @@
     backdrop-filter: blur(6px) saturate(180%);
     border-radius: var(--radius);
     color: var(--gray-0);
+    font-size: 14px;
     font-variant-numeric: tabular-nums;
     pointer-events: none;
     translate: calc(var(--x) * 1px) calc(var(--y) * 1px);
