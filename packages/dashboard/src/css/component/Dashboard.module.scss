@@ -8,7 +8,8 @@
 }
 
 [dark] {
-    --dashboard-navigation-background: color-mix(in oklch, var(--gray-0), black 50%);
+    --dashboard-navigation-background: color-mix(in oklch, var(--gray-0), black 25%);
+    --dashboard-navigation-foreground: var(--gray-9);
 }
 
 body:has(.root > .dashboard) {
