@@ -7,6 +7,7 @@ export const FluxFlyoutInjectionKey: InjectionKey<FluxFlyoutInjection> = Symbol(
 export const FluxFilterInjectionKey: InjectionKey<FluxFilterInjection> = Symbol();
 export const FluxFormFieldInjectionKey: InjectionKey<FluxFormFieldInjection> = Symbol();
 export const FluxTableInjectionKey: InjectionKey<FluxTableInjection> = Symbol();
+export const FluxTooltipInjectionKey: InjectionKey<FluxTooltipInjection> = Symbol();
 
 export type FluxExpandableGroupInjection = {
     closeAll(): void;
@@ -39,4 +40,8 @@ export type FluxTableInjection = {
     readonly isHoverable: boolean;
     readonly isSeparated: boolean;
     readonly isStriped: boolean;
+};
+
+export type FluxTooltipInjection = {
+    calculate(): void;
 };

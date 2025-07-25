@@ -7,3 +7,4 @@ export { default as useFilterInjection } from './useFilterInjection';
 export { default as useFlyoutInjection } from './useFlyoutInjection';
 export { default as useFormFieldInjection } from './useFormFieldInjection';
 export { default as useTableInjection } from './useTableInjection';
+export { default as useTooltipInjection } from './useTooltipInjection';

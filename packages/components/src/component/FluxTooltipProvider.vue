@@ -1,8 +1,8 @@
 <script lang="ts">
     import { unrefTemplateElement } from '@flux-ui/internals';
     import { clsx } from 'clsx';
-    import { computed, defineComponent, h, ref, unref, watch } from 'vue';
-    import { useFluxStore } from '$flux/data';
+    import { computed, defineComponent, h, provide, ref, unref, watch } from 'vue';
+    import { FluxTooltipInjectionKey, useFluxStore } from '$flux/data';
     import { FluxTooltipTransition } from '$flux/transition';
     import $style from '$flux/css/component/Tooltip.module.scss';
 
@@ -60,7 +60,11 @@
             }
         }
 
-        watch(content, () => requestAnimationFrame(() => calculate()));
+        provide(FluxTooltipInjectionKey, {
+            calculate
+        });
+
+        watch(content, () => requestAnimationFrame(calculate));
 
         return () => h(FluxTooltipTransition, {}, {
             default: () => {

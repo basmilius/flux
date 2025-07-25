@@ -7,7 +7,9 @@
                 v-if="icon"
                 :name="icon"/>
 
-            <h1>{{ title }}</h1>
+            <h1 v-if="title">
+                {{ title }}
+            </h1>
 
             <FluxSpacer/>
 
@@ -31,7 +33,7 @@
 
     defineProps<{
         readonly icon?: FluxIconName;
-        readonly title: string;
+        readonly title?: string;
     }>();
 
     const {isMenuCollapsed} = useDashboardInjection();

@@ -131,7 +131,7 @@
     import { useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
-    import { computed, ref, unref, useId } from 'vue';
+    import { computed, ref, unref, useId, watch } from 'vue';
     import { useTranslate } from '$flux/composable/private';
     import { FluxFadeTransition, FluxVerticalWindowTransition, FluxWindowTransition } from '$flux/transition';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
@@ -196,6 +196,10 @@
         } else {
             return [start, end];
         }
+    });
+
+    watch(modelValue, () => {
+        setViewDate(getInitialDate());
     });
 
     function getInitialDate(): DateTime {

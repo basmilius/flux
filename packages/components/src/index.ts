@@ -20,6 +20,7 @@ export type {
     FluxFilterInjection,
     FluxFlyoutInjection,
     FluxFormFieldInjection,
+    FluxTooltipInjection,
     FluxState,
     FluxStore
 } from './data';
