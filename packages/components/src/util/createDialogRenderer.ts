@@ -48,7 +48,7 @@ export default function (attrs: object, props: Props, emit: Emit, slots: Slots, 
 
         const children = flattenVNodeTree(slots.default?.() ?? []);
         const isVisible = children.length > 0 && children.some(child => child.type !== Comment);
-        let content: VNode;
+        let content: VNode | undefined;
 
         if (isVisible) {
             if (!unregister) {
