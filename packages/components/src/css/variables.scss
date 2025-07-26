@@ -178,6 +178,14 @@
     --foreground: var(--gray-8);
     --foreground-prominent: var(--gray-10);
     --foreground-secondary: var(--gray-5);
+
+    --overlay: oklch(from var(--gray-11) l c h / .6);
+    --overlay-secondary: oklch(from var(--gray-11) l c h / .4);
+}
+
+@mixin defaults-dark {
+    --overlay: rgb(0 0 0 / .6);
+    --overlay-secondary: rgb(0 0 0 / .4);
 }
 
 @mixin shadow-light {

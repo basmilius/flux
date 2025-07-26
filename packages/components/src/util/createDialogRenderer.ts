@@ -1,6 +1,6 @@
-import { flattenVNodeTree } from '@flux-ui/internals';
-import { Component, getCurrentInstance, RenderFunction, Slots } from 'vue';
-import { Comment, h, onMounted, onUnmounted, SetupContext, Teleport, VNode } from 'vue';
+import { flattenVNodeTree, useFocusTrap } from '@flux-ui/internals';
+import type { Component, RenderFunction, SetupContext, Slots, VNode } from 'vue';
+import { Comment, getCurrentInstance, h, onUnmounted, ref, Teleport, watch } from 'vue';
 import { registerDialog, useFluxStore } from '$flux/data';
 
 type Emit = SetupContext<['close']>['emit'];
@@ -14,13 +14,25 @@ export default function (attrs: object, props: Props, emit: Emit, slots: Slots, 
     let unregister: Function | null = null;
     let zIndex = 0;
 
-    onMounted(() => {
-        window.addEventListener('keydown', onKeyDown);
-    });
+    const dialogRef = ref<HTMLElement>();
+
+    useFocusTrap(dialogRef);
 
     onUnmounted(() => {
-        window.removeEventListener('keydown', onKeyDown);
         unregister?.();
+    });
+
+    watch(dialogRef, (dialog, _, onCleanup) => {
+        if (!dialog) {
+            return;
+        }
+
+        dialog.addEventListener('keydown', onKeyDown, {passive: true});
+        dialog.focus();
+
+        onCleanup(() => {
+            dialog.removeEventListener('keydown', onKeyDown);
+        });
     });
 
     function onKeyDown(evt: KeyboardEvent): void {
@@ -28,8 +40,6 @@ export default function (attrs: object, props: Props, emit: Emit, slots: Slots, 
             return;
         }
 
-        evt.preventDefault();
-        evt.stopPropagation();
         emit('close');
     }
 
@@ -38,7 +48,7 @@ export default function (attrs: object, props: Props, emit: Emit, slots: Slots, 
 
         const children = flattenVNodeTree(slots.default?.() ?? []);
         const isVisible = children.length > 0 && children.some(child => child.type !== Comment);
-        const content: VNode[] = [];
+        let content: VNode;
 
         if (isVisible) {
             if (!unregister) {
@@ -46,17 +56,19 @@ export default function (attrs: object, props: Props, emit: Emit, slots: Slots, 
                 zIndex = dialogCount + 1000;
             }
 
-            content.push(h('div', {
+            content = h('div', {
                 key: props.viewKey,
+                ref: dialogRef,
                 class: className,
-                style: {zIndex}
-            }, children));
+                style: {zIndex},
+                tabindex: 0
+            }, children);
         } else {
             unregister?.();
             unregister = null;
         }
 
-        return h(Teleport, {disabled: content.length === 0, to: instance?.appContext.app._container}, [
+        return h(Teleport, {defer: true, disabled: !content, to: instance?.appContext.app._container}, [
             h(transition, attrs, {
                 default: () => content
             })

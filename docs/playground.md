@@ -12,6 +12,7 @@ import {
     FluxInfo,
     FluxInfoStack,
     FluxNotice,
+    FluxOverlay,
     FluxPane,
     FluxPaneBody,
     FluxPaneDeck,
@@ -36,9 +37,41 @@ import {
     FluxToolbarGroup,
     FluxTooltip
 } from '@flux-ui/components';
+import { ref } from 'vue';
+
+const isOverlayOpen = ref(false);
+const isOverlay2Open = ref(false);
 </script>
 
 # Playground
+
+## Overlay
+
+<FluxView>
+    <FluxSecondaryButton label="Open" @click="isOverlayOpen = true"/>
+    <FluxOverlay is-closeable @close="isOverlayOpen = false">
+        <FluxPane v-if="isOverlayOpen">
+            <FluxPaneBody>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt enim error, harum impedit in inventore ipsa ipsam itaque minus necessitatibus nesciunt nihil nulla officia qui repudiandae unde voluptates. Dolore, fuga.</p>
+                <p>Ad architecto, atque eaque enim, expedita maiores mollitia obcaecati possimus quibusdam, rem repellat sit voluptatem? Aperiam commodi expedita harum in ipsa labore laudantium nam nemo, pariatur quisquam ratione repudiandae sapiente.</p>
+            </FluxPaneBody>
+            <FluxPaneFooter>
+                <FluxSecondaryButton label="Close" @click="isOverlayOpen = false"/>
+                <FluxSecondaryButton label="Open 2" @click="isOverlay2Open = true"/>
+            </FluxPaneFooter>
+        </FluxPane>
+    </FluxOverlay>
+    <FluxOverlay is-closeable @close="isOverlay2Open = false">
+        <FluxPane v-if="isOverlay2Open">
+            <FluxPaneBody>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim excepturi illum possimus quo quod sequi suscipit temporibus ullam voluptate. Dolorum eaque, sint. Consequuntur delectus, eius fugit officiis provident quia quis.</p>
+            </FluxPaneBody>
+            <FluxPaneFooter>
+                <FluxSecondaryButton label="Close" @click="isOverlay2Open = false"/>
+            </FluxPaneFooter>
+        </FluxPane>
+    </FluxOverlay>
+</FluxView>
 
 ## Tooltip
 

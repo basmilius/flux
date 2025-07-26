@@ -1,14 +1,18 @@
-import type { Ref } from 'vue';
-import { onUnmounted, ref, unref } from 'vue';
+import { type Ref, unref, watch } from 'vue';
+import { type TemplateRef, unrefTemplateElement } from '../util';
 
-export default function (disabled: Ref<boolean>): void {
-    const target = ref<HTMLElement | null>(document.activeElement as HTMLElement | null);
+export default function (containerRef: TemplateRef<HTMLElement>, disabled: Ref<boolean>): void {
+    watch(containerRef, (_, __, onCleanup) => {
+        const container = unrefTemplateElement(containerRef);
 
-    onUnmounted(() => {
-        if (unref(disabled)) {
+        if (!container || unref(disabled)) {
             return;
         }
 
-        requestAnimationFrame(() => unref(target)?.focus());
+        const previousTarget = document.activeElement as HTMLElement | null;
+
+        onCleanup(() => {
+            requestAnimationFrame(() => previousTarget?.focus());
+        });
     });
 }

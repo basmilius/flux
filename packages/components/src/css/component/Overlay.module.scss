@@ -4,8 +4,9 @@
     inset: 0;
     height: 100dvh;
     width: 100dvw;
-    background: oklch(from var(--gray-11) l c h / .6);
+    background: var(--overlay);
     backdrop-filter: blur(3px) saturate(180%);
+    outline: 0;
     z-index: 10000;
 
     > .basePaneStructure {
@@ -23,10 +24,6 @@
             margin-top: auto;
         }
     }
-}
-
-[dark] .overlay {
-    background: rgb(0 0 0 / .6);
 }
 
 .overlaySmall {
@@ -149,5 +146,36 @@
 
     > .basePaneStructure {
         transform: translate3d(100%, 0, 0);
+    }
+}
+
+.overlay + .overlay {
+    background: transparent;
+    backdrop-filter: none;
+}
+
+.overlay > .basePaneStructure::after {
+    position: absolute;
+    display: block;
+    inset: 0;
+    content: '';
+    background: var(--overlay-secondary);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 420ms var(--swift-out);
+    z-index: 1;
+}
+
+.overlay:has(+ .overlay) > .basePaneStructure {
+    transition: 420ms var(--swift-out);
+    transition-property: filter, scale;
+}
+
+.overlay:has(+ .overlay:not(.overlayTransitionLeaveActive)) > .pane {
+    filter: blur(3px);
+    scale: .95;
+
+    &::after {
+        opacity: 1;
     }
 }

@@ -12,6 +12,7 @@
     }
 
     [dark] {
+        @include variables.defaults-dark;
         @include variables.color-dark;
         @include variables.shadow-dark;
     }

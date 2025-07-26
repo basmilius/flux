@@ -13,7 +13,7 @@ export default function (containerRef: TemplateRef<HTMLElement>, options: UseFoc
     const {disable = ref(false), disableReturn = ref(false), attachTo = null} = options;
     const enabled = useFocusTrapLock(!disable);
 
-    useFocusTrapReturn(disableReturn);
+    useFocusTrapReturn(containerRef, disableReturn);
 
     watch(containerRef, (_, __, onCleanup) => {
         const container = unrefTemplateElement(containerRef);
