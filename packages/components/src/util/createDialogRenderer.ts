@@ -1,7 +1,8 @@
 import { flattenVNodeTree, useFocusTrap } from '@flux-ui/internals';
 import type { Component, RenderFunction, SetupContext, Slots, VNode } from 'vue';
-import { Comment, getCurrentInstance, h, onUnmounted, ref, Teleport, watch } from 'vue';
+import { Comment, h, onUnmounted, ref, Teleport, watch } from 'vue';
 import { registerDialog, useFluxStore } from '$flux/data';
+import $style from '$flux/css/component/Overlay.module.scss';
 
 type Emit = SetupContext<['close']>['emit'];
 type Props = {
@@ -9,8 +10,9 @@ type Props = {
     readonly viewKey?: string;
 };
 
+const TARGET_SELECTOR = `.${$style.overlayProvider.replaceAll(' ', '.')}`;
+
 export default function (attrs: object, props: Props, emit: Emit, slots: Slots, className: string, transition: Component): RenderFunction {
-    const instance = getCurrentInstance();
     let unregister: Function | null = null;
     let zIndex = 0;
 
@@ -52,15 +54,16 @@ export default function (attrs: object, props: Props, emit: Emit, slots: Slots, 
 
         if (isVisible) {
             if (!unregister) {
-                unregister = registerDialog();
-                zIndex = dialogCount + 1000;
+                [zIndex, unregister] = registerDialog();
             }
 
             content = h('div', {
                 key: props.viewKey,
                 ref: dialogRef,
-                class: className,
-                style: {zIndex},
+                class: [className, zIndex === dialogCount && $style.isCurrent],
+                style: {
+                    zIndex: zIndex + 1000
+                },
                 tabindex: 0
             }, children);
         } else {
@@ -68,7 +71,9 @@ export default function (attrs: object, props: Props, emit: Emit, slots: Slots, 
             unregister = null;
         }
 
-        return h(Teleport, {defer: true, disabled: !content, to: instance?.appContext.app._container}, [
+        console.log(dialogCount, zIndex, $style.overlayProvider, TARGET_SELECTOR);
+
+        return h(Teleport, {defer: true, disabled: !content, to: TARGET_SELECTOR}, [
             h(transition, attrs, {
                 default: () => content
             })

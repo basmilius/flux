@@ -84,6 +84,7 @@ export { default as FluxMenuTitle } from './FluxMenuTitle.vue';
 export { default as FluxNotice } from './FluxNotice.vue';
 export { default as FluxNoticeStack } from './FluxNoticeStack.vue';
 export { default as FluxOverlay } from './FluxOverlay.vue';
+export { default as FluxOverlayProvider } from './FluxOverlayProvider.vue';
 export { default as FluxPagination } from './FluxPagination.vue';
 export { default as FluxPaginationBar } from './FluxPaginationBar.vue';
 export { default as FluxPane } from './FluxPane.vue';

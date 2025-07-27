@@ -6,27 +6,7 @@
         <slot/>
     </div>
 
-    <FluxOverlay size="medium">
-        <FluxAlert
-            v-for="alert of alerts"
-            :key="alert.id"
-            :alert="alert"/>
-    </FluxOverlay>
-
-    <FluxOverlay size="medium">
-        <FluxConfirm
-            v-for="confirm of confirms"
-            :key="confirm.id"
-            :confirm="confirm"/>
-    </FluxOverlay>
-
-    <FluxOverlay size="medium">
-        <FluxPrompt
-            v-for="prompt of prompts"
-            :key="prompt.id"
-            :prompt="prompt"/>
-    </FluxOverlay>
-
+    <FluxOverlayProvider/>
     <FluxSnackbarProvider/>
     <FluxTooltipProvider/>
 </template>
@@ -36,10 +16,7 @@
     setup>
     import { watch } from 'vue';
     import { useFluxStore } from '$flux/data';
-    import FluxAlert from './FluxAlert.vue';
-    import FluxConfirm from './FluxConfirm.vue';
-    import FluxPrompt from './FluxPrompt.vue';
-    import FluxOverlay from './FluxOverlay.vue';
+    import FluxOverlayProvider from './FluxOverlayProvider.vue';
     import FluxSnackbarProvider from './FluxSnackbarProvider.vue';
     import FluxTooltipProvider from './FluxTooltipProvider.vue';
     import $style from '$flux/css/component/Root.module.scss';
@@ -52,7 +29,7 @@
         default(): any;
     }>();
 
-    const {alerts, confirms, inertMain, prompts} = useFluxStore();
+    const {inertMain} = useFluxStore();
 
     watch(inertMain, (inert, _, onCleanup): void => {
         if (!inert) {

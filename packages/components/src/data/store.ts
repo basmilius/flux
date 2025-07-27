@@ -104,9 +104,11 @@ export function addTooltip(spec: Omit<FluxTooltipObject, 'id'>): number {
     return id;
 }
 
-export function registerDialog(): VoidFunction {
-    ++state.dialogCount;
-    return () => --state.dialogCount;
+export function registerDialog(): [number, VoidFunction] {
+    return [
+        ++state.dialogCount,
+        () => --state.dialogCount
+    ];
 }
 
 export function removeAlert(id: number): void {

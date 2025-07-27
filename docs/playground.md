@@ -49,6 +49,7 @@ const isOverlay2Open = ref(false);
 
 <FluxView>
     <FluxSecondaryButton label="Open" @click="isOverlayOpen = true"/>
+    <FluxSecondaryButton label="Open 2" @click="isOverlay2Open = true"/>
     <FluxOverlay is-closeable @close="isOverlayOpen = false">
         <FluxPane v-if="isOverlayOpen">
             <FluxPaneBody>
