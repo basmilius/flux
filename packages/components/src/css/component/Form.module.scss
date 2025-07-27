@@ -459,7 +459,7 @@
 }
 
 .formSelectPopup {
-    composes: basePaneStructure from './base/Pane.module.scss';
+    composes: basePane from './base/Pane.module.scss';
 
     position: fixed;
     display: block;

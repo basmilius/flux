@@ -71,8 +71,6 @@ export default function (attrs: object, props: Props, emit: Emit, slots: Slots, 
             unregister = null;
         }
 
-        console.log(dialogCount, zIndex, $style.overlayProvider, TARGET_SELECTOR);
-
         return h(Teleport, {defer: true, disabled: !content, to: TARGET_SELECTOR}, [
             h(transition, attrs, {
                 default: () => content
