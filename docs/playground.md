@@ -7,6 +7,7 @@ import {
     FluxFormInput,
     FluxFormInputAddition,
     FluxFormInputGroup,
+    FluxFormSelect,
     FluxGallery,
     FluxGalleryItem,
     FluxInfo,
@@ -55,6 +56,9 @@ const isOverlay2Open = ref(false);
             <FluxPaneBody>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt enim error, harum impedit in inventore ipsa ipsam itaque minus necessitatibus nesciunt nihil nulla officia qui repudiandae unde voluptates. Dolore, fuga.</p>
                 <p>Ad architecto, atque eaque enim, expedita maiores mollitia obcaecati possimus quibusdam, rem repellat sit voluptatem? Aperiam commodi expedita harum in ipsa labore laudantium nam nemo, pariatur quisquam ratione repudiandae sapiente.</p>
+            </FluxPaneBody>
+            <FluxPaneBody>
+                <FluxFormSelect :options="[{label: 'Één blok', value: 1}, {label: 'Twee blokken', value: 2}, {label: 'Drie blokken', value: 3}]"/>
             </FluxPaneBody>
             <FluxPaneFooter>
                 <FluxSecondaryButton label="Close" @click="isOverlayOpen = false"/>
