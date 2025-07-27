@@ -20,7 +20,7 @@ export type FluxStore = FluxState & {
     addPrompt(spec: Omit<FluxPromptObject, 'id'>): number;
     addSnackbar(spec: Omit<FluxSnackbarObject, 'id'>): number;
     addTooltip(spec: Omit<FluxTooltipObject, 'id'>): number;
-    registerDialog(): VoidFunction;
+    registerDialog(): [number, VoidFunction];
     removeAlert(id: number): void;
     removeConfirm(id: number): void;
     removePrompt(id: number): void;
