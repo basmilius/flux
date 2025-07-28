@@ -19,7 +19,7 @@
     setup>
     import { FluxFilter, FluxFilterOptionRow, FluxFilterOptionsAsync, FluxFilterState, FluxPane } from '@flux-ui/components';
     import { ref } from 'vue';
-    import dataset from '../../../../../assets/select-dataset.json';
+    import dataset from '../../../../../assets/select-dataset.json' with { type: 'json' };
 
     const filterState = ref<FluxFilterState>({
         options: ['73c83353-de92-8110-9bce-c2a9e8c0de64', '92f99357-7fe5-71eb-74e2-55e057607e16'],
