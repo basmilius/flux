@@ -20,7 +20,6 @@ import { fluxRegisterIcons } from '@flux-ui/components';
 import * as icons from './icons';
 
 fluxRegisterIcons(icons);
-Settings.defaultLocale = navigator.language;
 
 import ColorPalette from './ColorPalette.vue';
 import ComponentGrid from './ComponentGrid.vue';
@@ -42,6 +41,8 @@ import VPBadge from 'vitepress/dist/client/theme-default/components/VPBadge.vue'
 const theme: Theme = {
     Layout,
     enhanceApp: ({app}) => {
+        Settings.defaultLocale = navigator.language;
+
         app.component('Badge', VPBadge);
         app.component('ColorPalette', ColorPalette);
         app.component('ComponentGrid', ComponentGrid);
