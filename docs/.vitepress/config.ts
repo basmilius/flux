@@ -29,6 +29,11 @@ export default defineConfig({
         build: {
             cssTarget: 'chrome120'
         },
+        define: {
+            navigator: {
+                language: 'en'
+            }
+        },
         plugins: [
             groupIconVitePlugin() as any,
             preset({
