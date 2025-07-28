@@ -14,6 +14,7 @@
             [$style.menuItemSelected]: isSelectable && isSelected
         }"
         :aria-checked="isSelectable ? isSelected : undefined"
+        :tabindex="tabindex"
         @click="$emit('click', $event)">
         <template
             v-if="isSelectable && (!iconLeading || isSelected)"
