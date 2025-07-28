@@ -43,6 +43,7 @@ jobs:
                     bun --cwd packages/internals build
                     bun --cwd packages/components build
                     bun --cwd packages/dashboard build
+                    bun --cwd docs build
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
 
@@ -55,3 +56,21 @@ jobs:
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
                     NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+            -   name: 🚀 Publish Docs
+                uses: cloudflare/pages-action@v1
+                id: publish
+                with:
+                    apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                    accountId: 5e565cf9fa55b0eae1f8131903da2ca9
+                    branch: ${{ github.head_ref || github.ref_name }}
+                    projectName: fluxui
+                    directory: docs/.vitepress/dist
+                    gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+            -   name: ⭐️ Output
+                run: |
+                    echo "Build ID: ${{ steps.publish.outputs.id }}"
+                    echo "Publish URL: ${{ steps.publish.outputs.url }}"
+                    echo "Environment: ${{ steps.publish.outputs.environment }}"
+                    echo "Alias: ${{ steps.publish.outputs.alias }}"
