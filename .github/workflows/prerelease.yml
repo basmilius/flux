@@ -8,6 +8,8 @@ env:
     RELEASE_VERSION: ${{ github.event.release.tag_name }}
 
 permissions:
+    contents: read
+    deployments: write
     id-token: write
 
 jobs:
