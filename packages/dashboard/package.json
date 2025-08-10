@@ -57,6 +57,7 @@
     },
     "devDependencies": {
         "@basmilius/vite-preset": "^2.9.0",
+        "@flux-ui/types": "workspace:*",
         "@types/node": "^24.2.1",
         "@vitejs/plugin-vue": "^6.0.1",
         "sass-embedded": "^1.90.0",
