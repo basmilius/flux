@@ -14,12 +14,15 @@ import 'virtual:group-icons.css';
 
 import './style.css';
 
-import type { Theme } from 'vitepress';
+import { inBrowser, type Theme } from 'vitepress';
 
 import { fluxRegisterIcons } from '@flux-ui/components';
 import * as icons from './icons';
 
-Settings.defaultLocale = navigator.language;
+if (inBrowser) {
+    Settings.defaultLocale = navigator.language;
+}
+
 fluxRegisterIcons(icons);
 
 import ColorPalette from './ColorPalette.vue';
