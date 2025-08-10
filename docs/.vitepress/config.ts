@@ -7,14 +7,16 @@ import componentNavigation from './component-navigation';
 
 export const flux = composeLibrary({
     name: '@flux-ui/components',
-    alias: '$flux'
+    alias: '$flux',
+    isolated: true
 });
 
-export default defineConfig({
+export default defineConfig(({isSsrBuild}) => ({
     title: 'Flux',
     titleTemplate: 'Flux — :title',
     description: 'Component library for Vue 3.',
     ignoreDeadLinks: true,
+    cleanUrls: true,
     head: [
         ['link', {rel: 'stylesheet', href: 'https://font.bmcdn.nl/css2?family=inter-variable|jetbrains-mono'}],
     ],
@@ -28,11 +30,6 @@ export default defineConfig({
     vite: {
         build: {
             cssTarget: 'chrome120'
-        },
-        define: {
-            navigator: {
-                language: 'en'
-            }
         },
         plugins: [
             groupIconVitePlugin() as any,
@@ -203,4 +200,4 @@ export default defineConfig({
             {icon: 'npm', link: 'https://www.npmjs.com/package/@flux-ui/components'}
         ]
     }
-});
+}));
