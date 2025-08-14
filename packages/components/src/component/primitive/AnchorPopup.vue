@@ -150,7 +150,7 @@
                     px = x + width / 2 - popupWidth / 2;
                     py = y + height + margin;
 
-                    if (py + popupHeight > innerHeight) {
+                    if (py + popupHeight + margin > innerHeight) {
                         py = y - popupHeight - margin;
                     }
                 }
@@ -188,7 +188,9 @@
 
         anchorRef.value = isHtmlElement(anchor) ? anchor : anchor.$el;
 
-        requestAnimationFrame(resize);
-        requestAnimationFrame(reposition);
+        requestAnimationFrame(() => {
+            requestAnimationFrame(resize);
+            requestAnimationFrame(reposition);
+        });
     });
 </script>
