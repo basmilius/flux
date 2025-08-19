@@ -51,7 +51,6 @@
         </template>
 
         <FluxTableRow
-            v-if="false"
             v-for="(item, index) of items"
             :key="uniqueKey ? item[uniqueKey] : index">
             <template v-for="(_, name) of slots">
