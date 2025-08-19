@@ -15,12 +15,12 @@
         <template
             v-if="'header' in slots"
             #header>
-            <slot name="filter" v-bind="{page, perPage, items, total}"/>
+            <slot name="filter" v-bind="{page, perPage, items: limitedItems, total}"/>
 
             <FluxTableRow>
                 <slot
                     name="header"
-                    v-bind="{page, perPage, items, total}"/>
+                    v-bind="{page, perPage, items: limitedItems, total}"/>
             </FluxTableRow>
         </template>
 
@@ -30,7 +30,7 @@
             <FluxTableRow>
                 <slot
                     name="footer"
-                    v-bind="{page, perPage, items, total}"/>
+                    v-bind="{page, perPage, items: limitedItems, total}"/>
             </FluxTableRow>
         </template>
 
@@ -39,7 +39,7 @@
             #pagination>
             <slot
                 name="pagination"
-                v-bind="{page, perPage, items, total}">
+                v-bind="{page, perPage, items: limitedItems, total}">
                 <FluxPaginationBar
                     :limits="limits"
                     :page="page"
@@ -51,12 +51,12 @@
         </template>
 
         <FluxTableRow
-            v-for="(item, index) of items"
+            v-for="(item, index) of limitedItems"
             :key="uniqueKey ? item[uniqueKey] : index">
             <template v-for="(_, name) of slots">
                 <slot
                     v-if="!IGNORED_SLOTS.includes(name as string)"
-                    v-bind="{index, item, items, page, perPage, total}"
+                    v-bind="{index, item, items: limitedItems, page, perPage, total}"
                     :name="name"/>
             </template>
         </FluxTableRow>
@@ -144,5 +144,5 @@
         colgroups(): VNode;
     }>();
 
-    const rows = computed(() => dataSet.slice(0, perPage));
+    const limitedItems = computed(() => items.slice(0, perPage));
 </script>
