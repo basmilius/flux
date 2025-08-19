@@ -319,15 +319,20 @@
         border-bottom-left-radius: 0;
     }
 
+    &.isCondensed,
+    &.isSecondary {
+        .formInputAddition:not(:last-child) {
+            padding-right: 0;
+            background: unset;
+            border-color: transparent;
+        }
+    }
+
     &.isSecondary {
         .formInput {
             background: transparent;
             border-color: transparent;
             box-shadow: none;
-        }
-
-        .formInputAddition:not(:last-child) {
-            padding-right: 0;
         }
 
         .secondaryButton {

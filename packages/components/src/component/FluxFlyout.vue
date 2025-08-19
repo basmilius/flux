@@ -39,7 +39,7 @@
 <script
     lang="ts"
     setup>
-    import { unrefTemplateElement, useFocusTrap } from '@flux-ui/internals';
+    import { unrefTemplateElement, useEventListener, useFocusTrap } from '@flux-ui/internals';
     import type { FluxDirection } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { provide, ref, unref, useTemplateRef, watch } from 'vue';
@@ -88,6 +88,7 @@
     const paneMarginX = ref(0);
     const paneMarginY = ref(0);
 
+    useEventListener(ref(window), 'resize', () => unref(isOpen) && reposition());
     useFocusTrap(paneRef);
 
     function close(): void {

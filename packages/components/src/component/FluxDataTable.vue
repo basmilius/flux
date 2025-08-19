@@ -15,10 +15,12 @@
         <template
             v-if="'header' in slots"
             #header>
+            <slot name="filter" v-bind="{page, perPage, items, total}"/>
+
             <FluxTableRow>
                 <slot
                     name="header"
-                    v-bind="{page, perPage, rows, total}"/>
+                    v-bind="{page, perPage, items, total}"/>
             </FluxTableRow>
         </template>
 
@@ -28,7 +30,7 @@
             <FluxTableRow>
                 <slot
                     name="footer"
-                    v-bind="{page, perPage, rows, total}"/>
+                    v-bind="{page, perPage, items, total}"/>
             </FluxTableRow>
         </template>
 
@@ -37,7 +39,7 @@
             #pagination>
             <slot
                 name="pagination"
-                v-bind="{page, perPage, rows, total}">
+                v-bind="{page, perPage, items, total}">
                 <FluxPaginationBar
                     :limits="limits"
                     :page="page"
@@ -49,12 +51,13 @@
         </template>
 
         <FluxTableRow
-            v-for="(row, index) of rows"
-            :key="uniqueKey ? row[uniqueKey] : index">
+            v-if="false"
+            v-for="(item, index) of items"
+            :key="uniqueKey ? item[uniqueKey] : index">
             <template v-for="(_, name) of slots">
                 <slot
                     v-if="!IGNORED_SLOTS.includes(name as string)"
-                    v-bind="{index, page, perPage, row, rows, total}"
+                    v-bind="{index, item, items, page, perPage, total}"
                     :name="name"/>
             </template>
         </FluxTableRow>
@@ -71,7 +74,7 @@
     import FluxTable from './FluxTable.vue';
     import FluxTableRow from './FluxTableRow.vue';
 
-    const IGNORED_SLOTS: string[] = ['header', 'footer', 'colgroups', 'pagination'];
+    const IGNORED_SLOTS: string[] = ['filter', 'header', 'footer', 'colgroups', 'pagination'];
 
     const emit = defineEmits<{
         limit: [number];
@@ -84,16 +87,16 @@
         isLoading = false,
         isSeparated = true,
         isStriped = false,
-        dataSet,
+        items,
         perPage
     } = defineProps<{
-        readonly dataSet: T[];
         readonly fillColumns?: number;
         readonly isBordered?: boolean;
         readonly isHoverable?: boolean;
         readonly isLoading?: boolean;
         readonly isSeparated?: boolean;
         readonly isStriped?: boolean;
+        readonly items: T[];
         readonly limits: number[];
         readonly page: number;
         readonly perPage: number;
@@ -106,29 +109,36 @@
             readonly index: number;
             readonly page: number;
             readonly perPage: number;
-            readonly row: T;
-            readonly rows: T[];
+            readonly item: T;
+            readonly items: T[];
             readonly total: number;
         }) => VNode;
+
+        filter(props: {
+            readonly page: number;
+            readonly perPage: number;
+            readonly items: T[];
+            readonly total: number;
+        }): VNode;
 
         footer(props: {
             readonly page: number;
             readonly perPage: number;
-            readonly rows: T[];
+            readonly items: T[];
             readonly total: number;
         }): VNode;
 
         header(props: {
             readonly page: number;
             readonly perPage: number;
-            readonly rows: T[];
+            readonly items: T[];
             readonly total: number;
         }): VNode;
 
         pagination(props: {
             readonly page: number;
             readonly perPage: number;
-            readonly rows: T[];
+            readonly items: T[];
             readonly total: number;
         }): VNode;
 

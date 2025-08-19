@@ -2,6 +2,7 @@
     <div
         :class="clsx(
             disabled ? $style.formInputDisabled : $style.formInputEnabled,
+            isCondensed && $style.isCondensed,
             isSecondary && $style.isSecondary
         )"
         :aria-disabled="disabled ? true : undefined">
@@ -85,6 +86,7 @@
         readonly iconLeading?: FluxIconName;
         readonly iconTrailing?: FluxIconName;
         readonly disabled?: boolean;
+        readonly isCondensed?: boolean;
         readonly isReadonly?: boolean;
         readonly isSecondary?: boolean;
         readonly max?: string | number;

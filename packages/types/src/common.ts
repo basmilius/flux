@@ -5,6 +5,11 @@ export type FluxIconName = FontAwesome | MaterialSymbol;
 export type FluxFontAwesomeIconName = FontAwesome;
 export type FluxMaterialIconName = MaterialSymbol;
 
+export type FluxAlignment =
+    | 'start'
+    | 'center'
+    | 'end';
+
 export type FluxColor =
     | 'gray'
     | 'primary'

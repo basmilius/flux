@@ -2,6 +2,7 @@
     <div
         :class="clsx(
             $style.formInputGroup,
+            isCondensed && $style.isCondensed,
             isSecondary && $style.isSecondary
         )"
         role="textbox">
@@ -17,6 +18,7 @@
 
     defineProps<{
         readonly isSecondary?: boolean;
+        readonly isCondensed?: boolean;
     }>();
 
     defineSlots<{

@@ -173,6 +173,7 @@ export default defineConfig(({isSsrBuild}) => ({
                     text: 'Utils',
                     collapsed: false,
                     items: [
+                        {text: 'animationFrameDebounce', link: '/internals/utils/animationFrameDebounce'},
                         {text: 'flattenVNodeTree', link: '/internals/utils/flattenVNodeTree'},
                         {text: 'getBidirectionalFocusElement', link: '/internals/utils/getBidirectionalFocusElement'},
                         {text: 'getComponentName', link: '/internals/utils/getComponentName'},

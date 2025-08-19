@@ -1,4 +1,5 @@
 export type {
+    FluxAlignment,
     FluxAutoCompleteType,
     FluxColor,
     FluxDirection,
