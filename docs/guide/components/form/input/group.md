@@ -22,7 +22,7 @@ slots:
 The input group combines an input field with an additional element, such as a button to create a single, cohesive control. This layout is useful for actions or context directly related to the input.
 
 ::: render
-render=../../../code/guide/components/form/input-group/preview.vue
+render=../../../../code/guide/components/form/input/group/preview.vue
 :::
 
 <FrontmatterDocs/>
@@ -30,5 +30,5 @@ render=../../../code/guide/components/form/input-group/preview.vue
 ## Examples
 
 ::: example Basic || A basic and simple input group.
-example=../../../code/guide/components/form/input-group/basic.vue
+example=../../../../code/guide/components/form/input/group/basic.vue
 :::

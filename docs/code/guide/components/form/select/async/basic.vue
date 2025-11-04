@@ -17,7 +17,7 @@
     import { FluxFormSelectAsync, FluxPane, FluxPaneBody } from '@flux-ui/components';
     import { FluxFormSelectEntry } from '@flux-ui/types';
     import { ref } from 'vue';
-    import dataset from '../../../../../assets/select-dataset.json' with { type: 'json' };
+    import dataset from '../../../../../../assets/select-dataset.json' with { type: 'json' };
 
     const selectedValue = ref(null);
 

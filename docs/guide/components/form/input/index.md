@@ -106,7 +106,7 @@ requiredIcons:
 A form input is a text field that consists of a single line. It accepts various data types that can be specified using the type prop.
 
 ::: render
-render=../../../code/guide/components/form/input/preview.vue
+render=../../../../code/guide/components/form/input/preview.vue
 :::
 
 <FrontmatterDocs/>
@@ -114,21 +114,21 @@ render=../../../code/guide/components/form/input/preview.vue
 ## Examples
 
 ::: example Basic || A basic form input.
-example=../../../code/guide/components/form/input/basic.vue
+example=../../../../code/guide/components/form/input/basic.vue
 :::
 
 ::: example Icon || Form input with an icon.
-example=../../../code/guide/components/form/input/icon.vue
+example=../../../../code/guide/components/form/input/icon.vue
 :::
 
 ::: example Password || A password form input.
-example=../../../code/guide/components/form/input/password.vue
+example=../../../../code/guide/components/form/input/password.vue
 :::
 
 ::: example Pattern || A form input with a pattern.
-example=../../../code/guide/components/form/input/pattern.vue
+example=../../../../code/guide/components/form/input/pattern.vue
 :::
 
 ## Used components
 
-- [Icon](../icon)
+- [Icon](../../icon)

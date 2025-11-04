@@ -53,10 +53,10 @@ props:
 
 # Slider
 
-Sliders are a type of user interface component that allow users to select a single value from a specific range. They are widely used in various digital applications such as mobile apps, web applications, and desktop software. The main advantage of using a slider component is its ability to allow users to easily and quickly choose a desired value within a predefined range, without the need for any manual input.
+Sliders are a type of user interface component that allows users to select a single value from a specific range. They are widely used in various digital applications such as mobile apps, web applications, and desktop software. The main advantage of using a slider component is its ability to allow users to easily and quickly choose a desired value within a predefined range, without the need for any manual input.
 
 ::: render
-render=../../../code/guide/components/form/slider/preview.vue
+render=../../../../code/guide/components/form/slider/preview.vue
 :::
 
 <FrontmatterDocs/>
@@ -64,13 +64,13 @@ render=../../../code/guide/components/form/slider/preview.vue
 ## Examples
 
 ::: example Basic || A basic slider from 0 to 100.
-example=../../../code/guide/components/form/slider/basic.vue
+example=../../../../code/guide/components/form/slider/basic.vue
 :::
 
 ::: example Ticks || A slider where the ticks are visible.
-example=../../../code/guide/components/form/slider/ticks.vue
+example=../../../../code/guide/components/form/slider/ticks.vue
 :::
 
 ::: example Custom formatter || A slider with a custom formatter.
-example=../../../code/guide/components/form/slider/formatter.vue
+example=../../../../code/guide/components/form/slider/formatter.vue
 :::

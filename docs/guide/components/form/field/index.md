@@ -64,10 +64,10 @@ requiredIcons:
 
 # Field
 
-The form field component is a base component that wraps a single form control, such as [FluxFormInput](./input.md). It provides a label, error and hint. Fields can also be marked optional.
+The form field component is a base component that wraps a single form control, such as [FluxFormInput](../input/index.md). It provides a label, error and hint. Fields can also be marked optional.
 
 ::: render
-render=../../../code/guide/components/form/field/preview.vue
+render=../../../../code/guide/components/form/field/preview.vue
 :::
 
 <FrontmatterDocs/>
@@ -75,22 +75,22 @@ render=../../../code/guide/components/form/field/preview.vue
 ## Examples
 
 ::: example Basic || A basic form field.
-example=../../../code/guide/components/form/field/basic.vue
+example=../../../../code/guide/components/form/field/basic.vue
 :::
 
 ::: example Optional || An optional form field.
-example=../../../code/guide/components/form/field/optional.vue
+example=../../../../code/guide/components/form/field/optional.vue
 :::
 
 ::: example Hint and error || A form field with a hint and error.
-example=../../../code/guide/components/form/field/error-hint.vue
+example=../../../../code/guide/components/form/field/error-hint.vue
 :::
 
 ::: example Multiple hints or errors || A form field with multiple hints and errors.
-example=../../../code/guide/components/form/field/error-hint-multiple.vue
+example=../../../../code/guide/components/form/field/error-hint-multiple.vue
 :::
 
 ## Used components
 
-- [Form](../form)
-    - [Field addition](./field-addition)
+- [Form](../../form)
+    - [Addition](./addition)

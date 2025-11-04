@@ -45,7 +45,7 @@ requiredIcons:
 This is a form select element that allows the user to choose from a list of options. It is similar to a drop-down menu, but with more advanced functionality. The select element can be configured to allow for the selection of multiple values, which is useful when the user needs to select more than one option. It's a great option for forms that require multiple selections, such as when a user needs to choose multiple interests, hobbies, or preferences.
 
 ::: render
-render=../../../code/guide/components/form/select/preview.vue
+render=../../../../code/guide/components/form/select/preview.vue
 :::
 
 <FrontmatterDocs/>
@@ -53,25 +53,25 @@ render=../../../code/guide/components/form/select/preview.vue
 ## Examples
 
 ::: example Basic || A basic form select.
-example=../../../code/guide/components/form/select/basic.vue
+example=../../../../code/guide/components/form/select/basic.vue
 :::
 
 ::: example Searchable || A form select in where you can search for the items.
-example=../../../code/guide/components/form/select/searchable.vue
+example=../../../../code/guide/components/form/select/searchable.vue
 :::
 
 ::: example Multiple || A form select in where you can select multiple options.
-example=../../../code/guide/components/form/select/multiple.vue
+example=../../../../code/guide/components/form/select/multiple.vue
 :::
 
 ## Used components
 
-- [Form](../form)
-    - [Input](./input)
-- [Menu](../menu)
-    - [Item](../menu/item)
-    - [Group](../menu/group)
-    - [SubHeader](../menu/sub-header)
-- [Icon](../icon)
-- [Spinner](../spinner)
-- [Tag](../tag)
+- [Form](../../form)
+    - [Input](../input)
+- [Menu](../../menu)
+    - [Item](../../menu/item)
+    - [Group](../../menu/group)
+    - [SubHeader](../../menu/sub-header)
+- [Icon](../../icon)
+- [Spinner](../../spinner)
+- [Tag](../../tag)

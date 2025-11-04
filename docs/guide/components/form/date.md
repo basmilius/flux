@@ -86,6 +86,6 @@ example=../../../code/guide/components/form/date/limited.vue
 - [Date picker](../date-picker)
 - [Form](../form)
     - [Input](./input)
-    - [Input group](./input-group)
+    - [Input group](./input/group)
 - [Button](../button)
     - [Secondary](../button/secondary)

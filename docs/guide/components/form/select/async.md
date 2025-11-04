@@ -48,7 +48,7 @@ requiredIcons:
 This is a dynamic form select element that retrieves options dynamically, allowing the user to choose from a list of selections. It resembles a drop-down menu but offers enhanced functionality. The select element can be tailored to permit the selection of multiple values, making it convenient for users who need to choose more than one option. It's particularly beneficial for forms requiring multiple selections, such as selecting multiple interests, hobbies, or preferences.
 
 ::: render
-render=../../../code/guide/components/form/select-async/preview.vue
+render=../../../../code/guide/components/form/select/async/preview.vue
 :::
 
 <FrontmatterDocs/>
@@ -56,21 +56,21 @@ render=../../../code/guide/components/form/select-async/preview.vue
 ## Examples
 
 ::: example Basic || A basic asynchronous form select.
-example=../../../code/guide/components/form/select-async/basic.vue
+example=../../../../code/guide/components/form/select/async/basic.vue
 :::
 
 ::: example Multiple || An asynchronous form select in where you can select multiple options.
-example=../../../code/guide/components/form/select-async/multiple.vue
+example=../../../../code/guide/components/form/select/async/multiple.vue
 :::
 
 ## Used components
 
-- [Form](../form)
-    - [Input](./input)
-- [Menu](../menu)
-    - [Item](../menu/item)
-    - [Group](../menu/group)
-    - [SubHeader](../menu/sub-header)
-- [Icon](../icon)
-- [Spinner](../spinner)
-- [Tag](../tag)
+- [Form](../../form)
+    - [Input](../input)
+- [Menu](../../menu)
+    - [Item](../../menu/item)
+    - [Group](../../menu/group)
+    - [SubHeader](../../menu/sub-header)
+- [Icon](../../icon)
+- [Spinner](../../spinner)
+- [Tag](../../tag)

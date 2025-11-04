@@ -24,11 +24,11 @@ props:
 The field addition is used to display contextual text beneath an input field, providing either a hint or an error message. Hints offer subtle guidance or clarification to help users input information correctly, while errors appear when validation fails, clearly indicating what needs to be fixed.
 
 ::: render
-render=../../../code/guide/components/form/field-addition/preview.vue
+render=../../../../code/guide/components/form/field/addition/preview.vue
 :::
 
 ::: tip
-This component is best used within a [Form field](./field.md).
+This component is best used within a [Form field](index.md).
 :::
 
 <FrontmatterDocs/>
@@ -36,13 +36,13 @@ This component is best used within a [Form field](./field.md).
 ## Examples
 
 ::: example Hint || A form field addition that displays a hint.
-example=../../../code/guide/components/form/field-addition/hint.vue
+example=../../../../code/guide/components/form/field/addition/hint.vue
 :::
 
 ::: example Error || A form field addition that displays an error.
-example=../../../code/guide/components/form/field-addition/error.vue
+example=../../../../code/guide/components/form/field/addition/error.vue
 :::
 
 ## Used components
 
-- [Icon](../icon)
+- [Icon](../../icon)

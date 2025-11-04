@@ -56,7 +56,7 @@ props:
 A range slider is a user interface component that allows users to select two values within a predefined range. It is similar to a single-value slider, but instead of selecting a single value, a range slider allows the user to select a range of values between two endpoints. The two endpoints of the slider represent the minimum and maximum values of the range, and the user can adjust the position of each endpoint to select the desired range.
 
 ::: render
-render=../../../code/guide/components/form/range-slider/preview.vue
+render=../../../../code/guide/components/form/slider/ranged/preview.vue
 :::
 
 <FrontmatterDocs/>
@@ -64,13 +64,13 @@ render=../../../code/guide/components/form/range-slider/preview.vue
 ## Examples
 
 ::: example Basic || A basic range slider from 0 to 100.
-example=../../../code/guide/components/form/range-slider/basic.vue
+example=../../../../code/guide/components/form/slider/ranged/basic.vue
 :::
 
 ::: example Ticks || A range slider where the ticks are visible.
-example=../../../code/guide/components/form/range-slider/ticks.vue
+example=../../../../code/guide/components/form/slider/ranged/ticks.vue
 :::
 
 ::: example Custom formatter || A range slider with a custom formatter.
-example=../../../code/guide/components/form/range-slider/formatter.vue
+example=../../../../code/guide/components/form/slider/ranged/formatter.vue
 :::
