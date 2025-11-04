@@ -58,7 +58,7 @@ props:
 
     -   name: size
         description: The size of the button.
-        type: [ '"small"', '"medium"', '"large"', '"xl"' ]
+        type: FluxButtonSize
         default: medium
         optional: true
 
@@ -102,51 +102,33 @@ slots:
 
     -   name: label
         description: Slot for overriding the label.
-
-variants:
-    - FluxPrimaryButton
-    - FluxSecondaryButton
-    - FluxDestructiveButton
-    - FluxPublishButton
 ---
 
-# Button
+# Secondary
 
-Buttons are clickable elements designed to trigger actions. They can start new processes, modify existing ones, or perform specific tasks. When designing your interface, ensure primary buttons are prominently placed and clearly indicate their purpose to make them easy to find and use.
+The secondary button is used for less prominent actions that support the main task. It offers a subtle visual contrast to the primary button while maintaining clear visibility and accessibility.
 
 ::: render
-render=../../code/guide/components/button/preview.vue
+render=../../../code/guide/components/button/secondary/preview.vue
 :::
 
 <FrontmatterDocs/>
 
 ## Examples
 
-::: example Primary || Primary buttons can be used for tasks such as saving.
-example=../../code/guide/components/button/primary.vue
+::: example Basic || A basic secondary button with a label.
+example=../../../code/guide/components/button/secondary/basic.vue
 :::
 
-::: warning
-Overusing primary buttons can distract users, so use them sparingly in your interface.
+::: example Icon || A secondary button with an icon at the start or the end.
+example=../../../code/guide/components/button/secondary/icon.vue
 :::
 
-::: example Secondary || Secondary buttons can be used in situations that are not covered by other buttons.
-example=../../code/guide/components/button/secondary.vue
-:::
-
-::: example Destructive || Destructive buttons can be used for destructive actions such as deleting something.
-example=../../code/guide/components/button/destructive.vue
-:::
-
-::: example Publish || Publish buttons can be used in situations where the user can publish something.
-example=../../code/guide/components/button/publish.vue
-:::
-
-::: example Sizes || Buttons can have three different sizes.
-example=../../code/guide/components/button/sizes.vue
+::: example Sizes || The secondary button is available in four sizes.
+example=../../../code/guide/components/button/secondary/sizes.vue
 :::
 
 ## Used components
 
-- [Icon](./icon)
-- [Spinner](./spinner)
+- [Icon](../icon)
+- [Spinner](../spinner)

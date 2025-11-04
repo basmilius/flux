@@ -1,8 +1,13 @@
 <template>
     <FluxButtonGroup>
-        <FluxSecondaryButton label="Personal"/>
-        <FluxPrimaryButton label="Address"/>
-        <FluxSecondaryButton label="Shipping"/>
+        <FluxSecondaryButton
+            label="Personal"/>
+
+        <FluxPrimaryButton
+            label="Address"/>
+
+        <FluxSecondaryButton
+            label="Shipping"/>
     </FluxButtonGroup>
 </template>
 

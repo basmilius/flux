@@ -1,7 +1,6 @@
 <template>
     <FluxDestructiveButton
-        icon-leading="lock"
-        label="Lock account"/>
+        label="Button"/>
 </template>
 
 <script
