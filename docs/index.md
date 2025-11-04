@@ -41,6 +41,22 @@ features:
         linkText: View examples
 ---
 
-```shell
+::: code-group
+
+```shell [Bun]
 bun add @flux-ui/components
 ```
+
+```shell [PNPM]
+pnpm install @flux-ui/components
+```
+
+```shell [Yarn]
+yarn add @flux-ui/components
+```
+
+```shell [NPM]
+npm install @flux-ui/components
+```
+
+:::
