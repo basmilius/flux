@@ -1,7 +1,7 @@
 <template>
     <FluxPane>
         <FluxDataTable
-            :data-set="visibleDataSet"
+            :items="visibleDataSet"
             is-hoverable
             :limits="[5, 10, 25, 50, 100]"
             :page="page"
@@ -13,7 +13,7 @@
                 <FluxTableHeader>Name</FluxTableHeader>
             </template>
 
-            <template #name="{row: {name}}">
+            <template #name="{item: {name}}">
                 <FluxTableCell>{{ name }}</FluxTableCell>
             </template>
         </FluxDataTable>
