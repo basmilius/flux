@@ -28,6 +28,10 @@ props:
         description: The placeholder to show in the search bar.
         type: boolean
         optional: true
+
+requiredIcons:
+    - magnifying-glass
+    - circle-check
 ---
 
 # Filter option
@@ -43,6 +47,14 @@ This component can only be used within a [Filter](./index).
 :::
 
 <FrontmatterDocs/>
+
+## Snippet
+
+::: code-group
+
+<<< @/code/guide/components/filter/option/snippet.vue [FilterOption.vue]
+
+:::
 
 ## Used components
 

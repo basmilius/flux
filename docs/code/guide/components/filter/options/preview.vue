@@ -21,7 +21,8 @@
 <script
     lang="ts"
     setup>
-    import { FluxFilter, FluxFilterOptions, FluxFilterState, FluxPane } from '@flux-ui/components';
+    import { FluxFilter, FluxFilterOptions, FluxPane } from '@flux-ui/components';
+    import type { FluxFilterState } from '@flux-ui/types';
     import { ref } from 'vue';
 
     const filterState = ref<FluxFilterState>({

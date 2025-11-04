@@ -76,7 +76,8 @@
 <script
     lang="ts"
     setup>
-    import { FluxFilter, FluxFilterDate, FluxFilterDateRange, FluxFilterOption, FluxFilterOptionAsync, FluxFilterOptionRow, FluxFilterOptions, FluxFilterOptionsAsync, FluxFilterRange, FluxFilterState, FluxPane, FluxSeparator } from '@flux-ui/components';
+    import { FluxFilter, FluxFilterDate, FluxFilterDateRange, FluxFilterOption, FluxFilterOptionAsync, FluxFilterOptions, FluxFilterOptionsAsync, FluxFilterRange, FluxPane, FluxSeparator } from '@flux-ui/components';
+    import type { FluxFilterOptionRow, FluxFilterState } from '@flux-ui/types';
     import { DateTime } from 'luxon';
     import { ref } from 'vue';
     import dataset from '../../../../assets/select-dataset.json' with { type: 'json' };

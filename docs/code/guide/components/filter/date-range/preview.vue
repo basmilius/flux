@@ -14,7 +14,8 @@
 <script
     lang="ts"
     setup>
-    import { FluxFilter, FluxFilterDateRange, FluxFilterState, FluxPane } from '@flux-ui/components';
+    import { FluxFilter, FluxFilterDateRange, FluxPane } from '@flux-ui/components';
+    import type { FluxFilterState } from '@flux-ui/types';
     import { DateTime } from 'luxon';
     import { ref } from 'vue';
 
