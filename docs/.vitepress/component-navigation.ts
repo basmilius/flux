@@ -95,19 +95,45 @@ const navigation: SidebarItem = {
             image: null,
             collapsed: true,
             items: [
+                {text: 'Column', link: '/guide/components/form/column'},
+                {text: 'Row', link: '/guide/components/form/row'},
                 {text: 'Checkbox', link: '/guide/components/form/checkbox'},
                 {text: 'Date', link: '/guide/components/form/date'},
                 {text: 'Date time', link: '/guide/components/form/date-time'},
-                {text: 'Field', link: '/guide/components/form/field'},
-                {text: 'Field addition', link: '/guide/components/form/field-addition'},
-                {text: 'Input', link: '/guide/components/form/input'},
-                {text: 'Input group', link: '/guide/components/form/input-group'},
+                {
+                    text: 'Field',
+                    link: '/guide/components/form/field/',
+                    collapsed: true,
+                    items: [
+                        {text: 'Addition', link: '/guide/components/form/field/addition'}
+                    ]
+                },
+                {
+                    text: 'Input',
+                    link: '/guide/components/form/input/',
+                    collapsed: true,
+                    items: [
+                        {text: 'Group', link: '/guide/components/form/input/group'}
+                    ]
+                },
                 {text: 'PIN input', link: '/guide/components/form/pin-input'},
                 {text: 'Quantity selector', link: '/guide/components/form/quantity-selector'},
-                {text: 'Select', link: '/guide/components/form/select'},
-                {text: 'Select async', link: '/guide/components/form/select-async'},
-                {text: 'Slider', link: '/guide/components/form/slider'},
-                {text: 'Range slider', link: '/guide/components/form/range-slider'},
+                {
+                    text: 'Select',
+                    link: '/guide/components/form/select/',
+                    collapsed: true,
+                    items: [
+                        {text: 'Async', link: '/guide/components/form/select/async'}
+                    ]
+                },
+                {
+                    text: 'Slider',
+                    link: '/guide/components/form/slider/',
+                    collapsed: true,
+                    items: [
+                        {text: 'Ranged', link: '/guide/components/form/slider/ranged'}
+                    ]
+                },
                 {text: 'Text area', link: '/guide/components/form/text-area'},
                 {text: 'Time', link: '/guide/components/form/time'},
                 {text: 'Time zone picker', link: '/guide/components/form/time-zone-picker'},
@@ -130,7 +156,6 @@ const navigation: SidebarItem = {
             collapsed: true,
             items: [
                 {text: 'Aspect ratio', link: '/guide/components/layout/aspect-ratio', image: '/assets/components/layout-aspect-ratio.svg'},
-                {text: 'Auto grid', link: '/guide/components/layout/auto-grid', image: '/assets/components/layout-auto-grid.svg'},
                 {text: 'Container', link: '/guide/components/layout/container', image: '/assets/components/layout-container.svg'},
                 {
                     text: 'Grid',
@@ -138,6 +163,7 @@ const navigation: SidebarItem = {
                     image: '/assets/components/layout-grid.svg',
                     collapsed: true,
                     items: [
+                        {text: 'Auto', link: '/guide/components/layout/grid/auto', image: '/assets/components/layout-auto-grid.svg'},
                         {text: 'Column', link: '/guide/components/layout/grid/column'},
                     ]
                 },
