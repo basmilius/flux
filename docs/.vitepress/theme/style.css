@@ -40,3 +40,36 @@ button {
 .vp-adaptive-theme p {
     margin: unset;
 }
+
+.column-example {
+    display: flex;
+    height: 78px;
+    align-items: center;
+    justify-content: center;
+    background: var(--gray-2);
+    border: 1px dashed var(--gray-4);
+    border-radius: var(--radius);
+}
+
+.column-example:before {
+    content: "Column";
+    color: var(--gray-6);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Everything below is Shogun's bad CSS overrides to make previews not look so weird */
+.language-vue > p > :is(h1, h2, h3, h4, h5, h6) {
+    margin-top: unset;
+    border-top: unset;
+}
+
+.language-vue > p > p + p {
+    margin-top: 10px;
+}
+
+.language-vue:has(> p > blockquote) {
+    padding-left: 45px !important;
+}
