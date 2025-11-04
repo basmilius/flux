@@ -78,3 +78,6 @@ render=../../code/guide/components/drop-zone/preview.vue
 ::: example Basic
 example=../../code/guide/components/drop-zone/preview.vue
 :::
+
+## Used components
+- [Spinner](./spinner)

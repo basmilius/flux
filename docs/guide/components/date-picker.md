@@ -58,3 +58,8 @@ example=../../code/guide/components/date-picker/week.vue
 ::: example Month || A month can be selected here.
 example=../../code/guide/components/date-picker/month.vue
 :::
+
+## Used components
+
+- [Button](./button)
+    - [Secondary](./button/secondary)
