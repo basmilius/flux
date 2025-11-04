@@ -21,21 +21,49 @@ const navigation: SidebarItem = {
         {text: 'Avatar', link: '/guide/components/avatar', image: '/assets/components/avatar.svg'},
         {text: 'Badge', link: '/guide/components/badge'},
         {text: 'Boxed icon', link: '/guide/components/boxed-icon', image: '/assets/components/boxed-icon.svg'},
-        {text: 'Button', link: '/guide/components/button'},
-        {text: 'Button group', link: '/guide/components/button-group'},
-        {text: 'Calendar', link: '/guide/components/calendar'},
-        {text: 'Calendar event', link: '/guide/components/calendar-event'},
+        {
+            text: 'Button',
+            link: '/guide/components/button/',
+            collapsed: true,
+            items: [
+                {text: 'Primary', link: '/guide/components/button/primary'},
+                {text: 'Secondary', link: '/guide/components/button/secondary'},
+                {text: 'Destructive', link: '/guide/components/button/destructive'},
+                {text: 'Publish', link: '/guide/components/button/publish'},
+                {text: 'Group', link: '/guide/components/button/group'}
+            ]
+        },
+        {
+            text: 'Calendar',
+            link: '/guide/components/calendar/',
+            collapsed: true,
+            items: [
+                {text: 'Event', link: '/guide/components/calendar/event'},
+            ]
+        },
         {text: 'Chip', link: '/guide/components/chip'},
-        {text: 'Color picker', link: '/guide/components/color-picker'},
-        {text: 'Color select', link: '/guide/components/color-select'},
+        {
+            text: 'Color',
+            collapsed: true,
+            items: [
+                {text: 'Picker', link: '/guide/components/color/picker'},
+                {text: 'Select', link: '/guide/components/color/select'},
+            ]
+        },
         {text: 'Comment', link: '/guide/components/comment', image: '/assets/components/comment.svg'},
         {text: 'Data table', link: '/guide/components/data-table'},
         {text: 'Date picker', link: '/guide/components/date-picker'},
         {text: 'Divider', link: '/guide/components/divider'},
         {text: 'Drop zone', link: '/guide/components/drop-zone'},
         {text: 'Dynamic view', link: '/guide/components/dynamic-view'},
-        {text: 'Expandable', link: '/guide/components/expandable'},
-        {text: 'Expandable group', link: '/guide/components/expandable-group'},
+        {
+            text: 'Expandable',
+            link: '/guide/components/expandable/',
+            collapsed: true,
+            items: [
+                {text: 'Group', link: '/guide/components/expandable/group'},
+            ]
+        },
         {text: 'Fader', link: '/guide/components/fader'},
         {
             text: 'Filter',
@@ -71,19 +99,29 @@ const navigation: SidebarItem = {
                 {text: 'Date', link: '/guide/components/form/date'},
                 {text: 'Date time', link: '/guide/components/form/date-time'},
                 {text: 'Field', link: '/guide/components/form/field'},
+                {text: 'Field addition', link: '/guide/components/form/field-addition'},
                 {text: 'Input', link: '/guide/components/form/input'},
+                {text: 'Input group', link: '/guide/components/form/input-group'},
                 {text: 'PIN input', link: '/guide/components/form/pin-input'},
                 {text: 'Quantity selector', link: '/guide/components/form/quantity-selector'},
-                {text: 'Range slider', link: '/guide/components/form/range-slider'},
                 {text: 'Select', link: '/guide/components/form/select'},
+                {text: 'Select async', link: '/guide/components/form/select-async'},
                 {text: 'Slider', link: '/guide/components/form/slider'},
+                {text: 'Range slider', link: '/guide/components/form/range-slider'},
                 {text: 'Text area', link: '/guide/components/form/text-area'},
                 {text: 'Time', link: '/guide/components/form/time'},
                 {text: 'Time zone picker', link: '/guide/components/form/time-zone-picker'},
                 {text: 'Toggle', link: '/guide/components/form/toggle'}
             ]
         },
-        {text: 'Gallery', link: '/guide/components/gallery'},
+        {
+            text: 'Gallery',
+            link: '/guide/components/gallery/',
+            collapsed: true,
+            items: [
+                {text: 'Item', link: '/guide/components/gallery/item'},
+            ]
+        },
         {text: 'Icon', link: '/guide/components/icon', image: '/assets/components/icon.svg'},
         {text: 'Info', link: '/guide/components/info'},
         {
@@ -94,10 +132,30 @@ const navigation: SidebarItem = {
                 {text: 'Aspect ratio', link: '/guide/components/layout/aspect-ratio', image: '/assets/components/layout-aspect-ratio.svg'},
                 {text: 'Auto grid', link: '/guide/components/layout/auto-grid', image: '/assets/components/layout-auto-grid.svg'},
                 {text: 'Container', link: '/guide/components/layout/container', image: '/assets/components/layout-container.svg'},
-                {text: 'Grid', link: '/guide/components/layout/grid', image: '/assets/components/layout-grid.svg'},
+                {
+                    text: 'Grid',
+                    link: '/guide/components/layout/grid/',
+                    image: '/assets/components/layout-grid.svg',
+                    collapsed: true,
+                    items: [
+                        {text: 'Column', link: '/guide/components/layout/grid/column'},
+                    ]
+                },
                 {text: 'Spacer', link: '/guide/components/layout/spacer', image: '/assets/components/layout-spacer.svg'},
                 {text: 'Spacing', link: '/guide/components/layout/spacing', image: '/assets/components/layout-spacing.svg'},
-                {text: 'Stack', link: '/guide/components/layout/stack', image: '/assets/components/layout-stack.svg'}
+                {
+                    text: 'Stack',
+                    link: '/guide/components/layout/stack/',
+                    image: '/assets/components/layout-stack.svg',
+                    collapsed: true,
+                    items: [
+                        {text: 'Badge', link: '/guide/components/layout/stack/badge'},
+                        {text: 'Button', link: '/guide/components/layout/stack/button'},
+                        {text: 'Info', link: '/guide/components/layout/stack/info'},
+                        {text: 'Notice', link: '/guide/components/layout/stack/notice'},
+                        {text: 'Tag', link: '/guide/components/layout/stack/tag'}
+                    ]
+                }
             ]
         },
         {text: 'Legend', link: '/guide/components/legend'},

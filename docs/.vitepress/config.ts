@@ -104,6 +104,8 @@ export default defineConfig(({isSsrBuild}) => ({
                         },
                         {text: 'Translations', link: '/guide/introduction/translations'},
                         {text: 'Colors', link: '/guide/introduction/colors'},
+                        {text: 'Typography', link: '/guide/introduction/typography'},
+                        {text: 'Dark mode', link: '/guide/introduction/dark-mode'},
                         {text: 'Font Awesome', link: '/guide/introduction/font-awesome'}
                     ]
                 },
