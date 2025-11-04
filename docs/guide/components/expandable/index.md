@@ -51,11 +51,11 @@ requiredIcons:
 This component provides a toggleable container for additional content. It consists of a header with a label and a body that holds the expandable content. When the header button is clicked, the body opens or closes to reveal or hide the content.
 
 ::: render
-render=../../code/guide/components/expandable/preview.vue
+render=../../../code/guide/components/expandable/preview.vue
 :::
 
 ::: tip
-Multiple expandables can be grouped together using [Expandable Groups](./expandable-group).
+Multiple expandables can be grouped together using [Expandable Groups](./group).
 :::
 
 <FrontmatterDocs/>
@@ -63,17 +63,17 @@ Multiple expandables can be grouped together using [Expandable Groups](./expanda
 ## Examples
 
 ::: example Basic || The most basic form of an expandable.
-example=../../code/guide/components/expandable/basic.vue
+example=../../../code/guide/components/expandable/basic.vue
 :::
 
 ::: example Pane || Expandables work great with panes.
-example=../../code/guide/components/expandable/pane.vue
+example=../../../code/guide/components/expandable/pane.vue
 :::
 
 ::: example Custom || The header of an expandable can be overwritten with a slot called header. That slot is provided with an isOpen boolean and three functions to control the expandable.
-example=../../code/guide/components/expandable/custom.vue
+example=../../../code/guide/components/expandable/custom.vue
 :::
 
 ## Used components
 
-- [Icon](./icon)
+- [Icon](../icon)
