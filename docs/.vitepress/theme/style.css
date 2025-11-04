@@ -42,8 +42,10 @@ button {
 }
 
 .spacer-example,
-.column-example {
+.column-example,
+.spacing-example {
     display: flex;
+    min-width: 90px;
     align-items: center;
     justify-content: center;
     background: var(--gray-2);
@@ -51,21 +53,26 @@ button {
     border-radius: var(--radius);
 }
 
-.spacer-example {
+.spacing-example {
     height: 42px;
 }
 
 .column-example {
-    height: 50px;
+    height: 40px;
 }
 
 .spacer-example:before,
-.column-example:before {
+.column-example:before,
+.spacing-example:before {
     color: var(--gray-6);
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 2px;
     text-transform: uppercase;
+}
+
+.spacing-example:before {
+    content: "Spacing";
 }
 
 .spacer-example:before {
