@@ -65,5 +65,9 @@ export {
     faHardDrive,
     faSun,
     faMoon,
-    faMapLocation
+    faMapLocation,
+    faTruck,
+    faRectangleSd,
+    faRectangleHd,
+    faRectangle4k
 } from '@fortawesome/pro-regular-svg-icons';

@@ -30,7 +30,8 @@ const navigation: SidebarItem = {
                 {text: 'Secondary', link: '/guide/components/button/secondary'},
                 {text: 'Destructive', link: '/guide/components/button/destructive'},
                 {text: 'Publish', link: '/guide/components/button/publish'},
-                {text: 'Group', link: '/guide/components/button/group'}
+                {text: 'Group', link: '/guide/components/button/group'},
+                {text: 'Split', link: '/guide/components/button/split'}
             ]
         },
         {
@@ -225,7 +226,6 @@ const navigation: SidebarItem = {
         {text: 'Separator', link: '/guide/components/separator'},
         {text: 'Slide over', link: '/guide/components/slide-over'},
         {text: 'Spinner', link: '/guide/components/spinner'},
-        {text: 'Split button', link: '/guide/components/split-button'},
         {text: 'Statistic', link: '/guide/components/statistic'},
         {text: 'Stepper', link: '/guide/components/stepper', image: '/assets/components/stepper.svg'},
         {text: 'Tab bar', link: '/guide/components/tab-bar'},
