@@ -13,3 +13,4 @@ Buttons are clickable elements designed to trigger actions. They can start new p
 - [Destructive](./destructive)
 - [Publish](./publish)
 - [Group](./group)
+- [Split](./split)
