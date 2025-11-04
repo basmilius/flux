@@ -41,9 +41,9 @@ button {
     margin: unset;
 }
 
+.spacer-example,
 .column-example {
     display: flex;
-    height: 78px;
     align-items: center;
     justify-content: center;
     background: var(--gray-2);
@@ -51,13 +51,29 @@ button {
     border-radius: var(--radius);
 }
 
+.spacer-example {
+    height: 42px;
+}
+
+.column-example {
+    height: 50px;
+}
+
+.spacer-example:before,
 .column-example:before {
-    content: "Column";
     color: var(--gray-6);
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 2px;
     text-transform: uppercase;
+}
+
+.spacer-example:before {
+    content: "Spacer";
+}
+
+.column-example:before {
+    content: "Column";
 }
 
 /* Everything below is Shogun's bad CSS overrides to make previews not look so weird */
