@@ -60,5 +60,10 @@ export {
     faStars,
     faTrash,
     faUser,
-    faXmark
+    faXmark,
+    faRotate,
+    faHardDrive,
+    faSun,
+    faMoon,
+    faMapLocation
 } from '@fortawesome/pro-regular-svg-icons';
