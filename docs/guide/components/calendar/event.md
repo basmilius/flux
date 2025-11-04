@@ -20,7 +20,7 @@ slots:
         description: An optional tooltip for when the event is being hovered.
 ---
 
-# Calendar
+# Calendar event
 
 This component is used within the [Calendar]() component and resembles
 a single calendar event.
