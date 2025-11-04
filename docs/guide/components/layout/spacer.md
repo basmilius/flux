@@ -14,6 +14,10 @@ render=../../../code/guide/components/layout/spacer/preview.vue
 
 ## Examples
 
+::: tip
+The class `spacer-example` is used in the documentation to display the columns.
+:::
+
 ::: example Horizontal || A horizontal spacer.
 example=../../../code/guide/components/layout/spacer/horizontal.vue
 :::
