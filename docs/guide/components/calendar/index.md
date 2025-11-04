@@ -29,7 +29,7 @@ This component shows a month calendar. Events can be added to the calendar by fi
 default slot of the component.
 
 ::: render
-render=../../code/guide/components/calendar/preview.vue
+render=../../../code/guide/components/calendar/preview.vue
 :::
 
 <FrontmatterDocs/>
@@ -44,9 +44,10 @@ render=../../code/guide/components/calendar/preview.vue
 
 ## Used components
 
-- [Action bar](./action-bar)
-- [Button](./button)
-- [Button group](./button-group)
-- [Calendar event](./calendar-event)
-- [Flyout](./flyout)
-- [Spinner](./spinner)
+- [Action bar](../action-bar)
+- [Button](../button)
+    - [Secondary](../button/secondary)
+    - [Group](../button/group)
+- [Calendar event](event)
+- [Flyout](../flyout)
+- [Spinner](../spinner)
