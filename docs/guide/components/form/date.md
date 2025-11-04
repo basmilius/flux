@@ -5,6 +5,14 @@ emits:
     -   name: update:model-value
         description: Triggered when the value is changed.
         type: [ DateTime | null ]
+        
+    -   name: blur
+        description: Triggered when the input loses focus.
+        type: [ ]
+        
+    -   name: focus
+        description: Triggered when the input receives focus.
+        type: [ ]
 
 props:
     -   name: model-value
@@ -12,7 +20,7 @@ props:
         type: [ DateTime, null ]
 
     -   name: auto-complete
-        description: The label that is shown next to the checkbox.
+        description: Please refer to the HTMLInputElement documentation for examples of values that can be given here.
         type: FluxAutoCompleteType
         optional: true
 
@@ -61,3 +69,23 @@ render=../../../code/guide/components/form/date/preview.vue
 :::
 
 <FrontmatterDocs/>
+
+## Examples
+
+::: example Basic || A basic date input.
+example=../../../code/guide/components/form/date/basic.vue
+:::
+
+::: example Limited || A date input with a minimal and maximum value.
+example=../../../code/guide/components/form/date/limited.vue
+:::
+
+## Used components
+
+- [Flyout](../flyout)
+- [Date picker](../date-picker)
+- [Form](../form)
+    - [Input](./input)
+    - [Input group](./input-group)
+- [Button](../button)
+    - [Secondary](../button/secondary)

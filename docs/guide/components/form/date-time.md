@@ -12,7 +12,7 @@ props:
         type: [ DateTime, null ]
 
     -   name: auto-complete
-        description: The label that is shown next to the checkbox.
+        description: Please refer to the HTMLInputElement documentation for examples of values that can be given here.
         type: FluxAutoCompleteType
         optional: true
 
@@ -66,3 +66,25 @@ render=../../../code/guide/components/form/date-time/preview.vue
 :::
 
 <FrontmatterDocs/>
+
+## Examples
+
+::: example Basic || A basic date time input.
+example=../../../code/guide/components/form/date-time/basic.vue
+:::
+
+::: example Hour only || A date time input where the time is always rounded to whole hours.
+example=../../../code/guide/components/form/date-time/hour-only.vue
+:::
+
+## Used components
+
+- [Flyout](../flyout)
+- [Date picker](../date-picker)
+- [Form](../form)
+    - [Input](./input)
+    - [Input group](./input-group)
+- [Button](../button)
+    - [Secondary](../button/secondary)
+- [Layout](../layout)
+  - [Stack](../layout/stack)
