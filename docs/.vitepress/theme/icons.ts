@@ -72,5 +72,7 @@ export {
     faRectangle4k,
     faArrowRightLong,
     faCodeBranch,
-    faStore
+    faStore,
+    faUserKey,
+    faCopy
 } from '@fortawesome/pro-regular-svg-icons';
