@@ -77,5 +77,6 @@ export {
     faCopy,
     faBookSparkles,
     faMessage,
-    faGlobe
+    faGlobe,
+    faFiles
 } from '@fortawesome/pro-regular-svg-icons';
