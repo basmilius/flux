@@ -6,7 +6,7 @@ slots:
         description: The notices that should be stacked.
 ---
 
-# Notice
+# Notice stack
 
 The notice stack organizes notices in a vertical flow. This helps group related alerts or system messages while maintaining structure and readability.
 

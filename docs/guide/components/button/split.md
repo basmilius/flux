@@ -48,7 +48,7 @@ requiredIcons:
     - ellipsis-h
 ---
 
-# Split
+# Split button
 
 Split buttons are buttons that have one primary action and multiple secondary actions. A common usecase for this component is a download button with more options for that download.
 

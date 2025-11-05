@@ -6,7 +6,7 @@ slots:
         description: The badges that should be stacked.
 ---
 
-# Badge
+# Badge stack
 
 The badge stack arranges badges in a horizontal line with consistent spacing. It’s ideal for displaying multiple labels or status indicators side-by-side in a clean and compact manner.
 

@@ -37,7 +37,7 @@ slots:
         description: The content of the grid item.
 ---
 
-# Column
+# Grid column
 
 The grid column is used to arrange content within a grid layout. It defines how elements are positioned across the available columns, helping maintain clear alignment and consistent spacing. Using grid columns ensures that content stays organized and visually balanced across different screen sizes.
 

@@ -24,7 +24,7 @@ slots:
         description: The buttons that should be stacked.
 ---
 
-# Button
+# Button stack
 
 The button stack arranges buttons along a chosen axis. Whether stacked vertically or aligned horizontally, it ensures clear spacing and visual balance between related actions.
 

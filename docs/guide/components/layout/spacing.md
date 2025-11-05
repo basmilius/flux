@@ -11,7 +11,6 @@ props:
 
 The spacing component adds a div within its parent flex container with a predefined size. It works in both column and row flex containers. The sizes are predefined. Spacings are invisible elements and are made visible for demo purposes.
 
-
 ::: render
 render=../../../code/guide/components/layout/spacing/preview.vue
 :::

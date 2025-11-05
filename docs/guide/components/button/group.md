@@ -6,7 +6,7 @@ slots:
         description: The buttons within the group.
 ---
 
-# Group
+# Button group
 
 This component groups multiple buttons together. It modifies the border radius of the buttons and removes any gaps between them.
 

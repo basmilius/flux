@@ -104,7 +104,7 @@ slots:
         description: Slot for overriding the label.
 ---
 
-# Destructive
+# Destructive button
 
 The destructive button is reserved for actions that remove data or undo progress, such as deleting or resetting. It uses a distinct warning color, typically red, to communicate risk and encourage users to confirm their intent before proceeding.
 

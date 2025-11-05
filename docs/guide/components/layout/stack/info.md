@@ -6,7 +6,7 @@ slots:
         description: The info items that should be stacked.
 ---
 
-# Info
+# Info stack
 
 The info stack displays multiple info components in a vertical stack. It provides a clear, readable way to present informational messages in sequence without overwhelming the layout.
 

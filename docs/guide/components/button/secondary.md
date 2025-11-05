@@ -104,7 +104,7 @@ slots:
         description: Slot for overriding the label.
 ---
 
-# Secondary
+# Secondary button
 
 The secondary button is used for less prominent actions that support the main task. It offers a subtle visual contrast to the primary button while maintaining clear visibility and accessibility.
 

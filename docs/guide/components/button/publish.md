@@ -100,7 +100,7 @@ requiredIcons:
     - cloud
 ---
 
-# Publish
+# Publish button
 
 The publish button is a specialized primary action used to finalize or make content public. It signals a clear commitment, once pressed, changes are saved or content is shared.
 

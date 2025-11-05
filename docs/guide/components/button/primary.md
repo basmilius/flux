@@ -104,7 +104,7 @@ slots:
         description: Slot for overriding the label.
 ---
 
-# Primary
+# Primary button
 
 The primary button represents the main action on a page or within a component. It should be used sparingly to draw attention to the most important task a user can perform.
 
