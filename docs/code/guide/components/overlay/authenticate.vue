@@ -48,7 +48,7 @@
 <script
     setup
     lang="ts">
-    import { FluxButtonStack, FluxDestructiveButton, FluxForm, FluxFormColumn, FluxFormField, FluxFormInput, FluxOverlay, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton } from '@flux-ui/components';
+    import { FluxButtonStack, FluxDestructiveButton, FluxForm, FluxFormColumn, FluxFormField, FluxFormInput, FluxOverlay, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPrimaryButton, FluxSecondaryButton } from '@flux-ui/components';
     import { ref } from 'vue';
 
     const isOpen = ref(false);
