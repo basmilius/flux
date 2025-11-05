@@ -47,7 +47,9 @@ render=../../../code/guide/components/pane/illustration/preview.vue
 
 ## Examples 
 
-// examples
+::: example Basic || A basic pane illustration.
+example=../../../code/guide/components/pane/illustration/basic.vue
+:::
 
 ## Used components
 
