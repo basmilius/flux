@@ -69,5 +69,8 @@ export {
     faTruck,
     faRectangleSd,
     faRectangleHd,
-    faRectangle4k
+    faRectangle4k,
+    faArrowRightLong,
+    faCodeBranch,
+    faStore
 } from '@fortawesome/pro-regular-svg-icons';
