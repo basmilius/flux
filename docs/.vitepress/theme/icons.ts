@@ -75,5 +75,7 @@ export {
     faStore,
     faUserKey,
     faCopy,
-    faBookSparkles
+    faBookSparkles,
+    faMessage,
+    faGlobe
 } from '@fortawesome/pro-regular-svg-icons';
