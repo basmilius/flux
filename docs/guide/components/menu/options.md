@@ -7,6 +7,10 @@ props:
         type: boolean
         optional: true
 
+    -   name: mode
+        description: The active mode of the option.
+        type: [ '"highlight"', '"select"' ]
+
 slots:
     -   name: default
         description: The content of the options group.
@@ -34,4 +38,5 @@ example=../../../code/guide/components/menu/options/option.vue
 
 ## Used components
 
-- [Menu group](./group)
+- [Button](../button)
+    - [Menu group](./group)
