@@ -75,8 +75,8 @@ render=../../code/guide/components/drop-zone/preview.vue
 
 ## Examples
 
-::: example Basic
-example=../../code/guide/components/drop-zone/preview.vue
+::: example Basic || A basic drop zone example.
+example=../../code/guide/components/drop-zone/basic.vue
 :::
 
 ## Used components
