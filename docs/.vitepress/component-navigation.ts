@@ -201,7 +201,14 @@ const navigation: SidebarItem = {
             ]
         },
         {text: 'Overlay', link: '/guide/components/overlay'},
-        {text: 'Pagination', link: '/guide/components/pagination'},
+        {
+            text: 'Pagination',
+            link: '/guide/components/pagination/',
+            collapsed: true,
+            items: [
+                {text: 'Bar', link: '/guide/components/pagination/bar'},
+            ]
+        },
         {
             text: 'Pane',
             link: '/guide/components/pane/',
