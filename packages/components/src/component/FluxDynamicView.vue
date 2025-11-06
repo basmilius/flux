@@ -7,7 +7,7 @@
 <script
     setup
     lang="ts">
-    import { VNode } from 'vue';
+    import type { VNode } from 'vue';
     import { VNodeRenderer } from './primitive';
 
     defineProps<{

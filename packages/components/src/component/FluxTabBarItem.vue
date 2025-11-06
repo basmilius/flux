@@ -29,7 +29,7 @@
     lang="ts"
     setup>
     import type { FluxIconName, FluxPressableType, FluxTo } from '@flux-ui/types';
-    import { ComponentPublicInstance, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { type ComponentPublicInstance, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '$flux/composable';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';

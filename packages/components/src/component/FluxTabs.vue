@@ -33,7 +33,7 @@
     setup>
     import { flattenVNodeTree, getComponentProps } from '@flux-ui/internals';
     import type { FluxIconName } from '@flux-ui/types';
-    import { computed, ref, unref, VNode, watch } from 'vue';
+    import { computed, ref, unref, type VNode, watch } from 'vue';
     import { FluxWindowTransition } from '$flux/transition';
     import { VNodeRenderer } from './primitive';
     import FluxTabBar from './FluxTabBar.vue';

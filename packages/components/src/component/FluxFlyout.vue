@@ -6,8 +6,8 @@
             '--opener-width': `${openerWidth}px`,
             '--pane-mx': `${paneMarginX}px`,
             '--pane-my': `${paneMarginY}px`,
-            '--pane-x': `${paneX - 12}px`,
-            '--pane-y': `${paneY - 12}px`
+            '--pane-x': `${paneX - 24}px`,
+            '--pane-y': `${paneY - 24}px`
         }">
         <slot
             name="opener"

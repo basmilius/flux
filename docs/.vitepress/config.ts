@@ -11,7 +11,7 @@ export const flux = composeLibrary({
     isolated: true
 });
 
-export default defineConfig(({isSsrBuild}) => ({
+export default defineConfig({
     title: 'Flux',
     titleTemplate: 'Flux — :title',
     description: 'Component library for Vue 3.',
@@ -40,7 +40,10 @@ export default defineConfig(({isSsrBuild}) => ({
                 fileNames: 'actual'
             }),
             flux()
-        ]
+        ],
+        server: {
+            port: 5174
+        }
     },
     themeConfig: {
         logo: '/assets/logo.svg',
@@ -201,4 +204,4 @@ export default defineConfig(({isSsrBuild}) => ({
             {icon: 'npm', link: 'https://www.npmjs.com/package/@flux-ui/components'}
         ]
     }
-}));
+});

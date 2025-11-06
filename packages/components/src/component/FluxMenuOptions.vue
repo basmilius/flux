@@ -10,7 +10,7 @@
     lang="ts"
     setup>
     import { flattenVNodeTree } from '@flux-ui/internals';
-    import { cloneVNode, computed, unref, VNode } from 'vue';
+    import { cloneVNode, computed, unref, type VNode } from 'vue';
     import FluxMenuGroup from './FluxMenuGroup.vue';
 
     const modelValue = defineModel<number>({

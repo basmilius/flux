@@ -33,6 +33,7 @@
     "sideEffects": false,
     "dependencies": {},
     "devDependencies": {
+        "@fortawesome/fontawesome-common-types": "^7.1.0",
         "@types/luxon": "^3.7.1"
     }
 }

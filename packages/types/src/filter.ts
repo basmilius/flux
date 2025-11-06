@@ -41,6 +41,7 @@ export type FluxFilterOptionHeader = {
 };
 
 export type FluxFilterOptionItem = {
+    readonly icon?: FluxIconName;
     readonly label: string;
     readonly value: FluxFilterValueSingle;
 };
@@ -60,10 +61,4 @@ export type FluxFilterValue =
     | FluxFilterValueSingle
     | FluxFilterValueSingle[];
 
-export type FluxFilterState = {
-    get resettable(): string[];
-
-    reset(): void;
-} & {
-    [key: string]: FluxFilterValue | Function;
-};
+export type FluxFilterState = Record<string, FluxFilterValue>;

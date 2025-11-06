@@ -130,7 +130,7 @@
     import { unrefTemplateElement, useClickOutside } from '@flux-ui/internals';
     import type { FluxFormSelectOption, FluxFormSelectOptions } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { ComponentPublicInstance, computed, nextTick, ref, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { type ComponentPublicInstance, computed, nextTick, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled, useFormFieldInjection } from '$flux/composable';
     import { useTranslate } from '$flux/composable/private';
     import { isFluxFormSelectGroup, isFluxFormSelectOption } from '$flux/data';

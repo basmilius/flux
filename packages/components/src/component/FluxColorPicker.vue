@@ -128,7 +128,7 @@
     setup>
     import { hexToRGB, hslToHSV, hslToRGB, hsvToHSL, hsvToRGB, rgbToHEX, rgbToHSL, rgbToHSV } from '@basmilius/utils';
     import { blue500 } from '@flux-ui/internals';
-    import { computed, ComputedRef, ref, unref, watch } from 'vue';
+    import { computed, type ComputedRef, ref, unref, watch } from 'vue';
     import CoordinatePicker from './primitive/CoordinatePicker.vue';
     import FluxFormField from './FluxFormField.vue';
     import FluxFormInput from './FluxFormInput.vue';

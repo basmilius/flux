@@ -1,0 +1,41 @@
+.overflowBar {
+    display: flex;
+    flex-basis: 0;
+    flex-grow: 2;
+    overflow: hidden;
+
+    &.alignStart {
+        justify-content: flex-start;
+    }
+
+    &.alignCenter {
+        justify-content: center;
+    }
+
+    &.alignEnd {
+        justify-content: flex-end;
+    }
+}
+
+.overflowBarHorizontal {
+    composes: overflowBar;
+
+    flex-flow: row nowrap;
+}
+
+.overflowBarVertical {
+    composes: overflowBar;
+
+    flex-flow: column nowrap;
+}
+
+.overflowBarMeasurer {
+    position: absolute;
+    overflow: hidden;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+.overflowBarOverflow {
+    display: contents;
+}

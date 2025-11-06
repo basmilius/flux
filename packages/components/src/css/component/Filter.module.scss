@@ -2,7 +2,7 @@
     max-height: 50dvh;
     max-width: 100%;
     padding: 9px;
-    width: 330px;
+    width: 300px;
     overflow: auto;
     scrollbar-width: none;
     transition: height 150ms var(--deceleration-curve);
@@ -75,4 +75,15 @@
     padding: 9px;
     background: linear-gradient(to bottom, var(--gray-0) 75%, transparent);
     z-index: 1;
+}
+
+.filterBar {
+    display: flex;
+    flex-flow: row nowrap;
+    flex-grow: 1;
+    gap: 15px;
+}
+
+.filterBarSearch {
+    max-width: 300px;
 }

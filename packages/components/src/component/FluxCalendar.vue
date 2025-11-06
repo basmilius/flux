@@ -137,7 +137,7 @@
     import { flattenVNodeTree, getComponentName, getComponentProps, useCalendar, useCalendarMonthSwitcher, useCalendarYearSwitcher } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
-    import { computed, unref, VNode, watch } from 'vue';
+    import { computed, type ComputedRef, unref, type VNode, watch } from 'vue';
     import { useTranslate } from '$flux/composable/private';
     import { FluxWindowTransition } from '$flux/transition';
     import { VNodeRenderer } from './primitive';
@@ -198,7 +198,7 @@
 
     const eventNodes = computed(() => flattenVNodeTree(slots.default?.() ?? []));
     const events = computed(() => unref(eventNodes)
-        .filter(en => getComponentName(en) === 'FluxCalendarEvent'));
+        .filter(en => getComponentName(en) === 'FluxCalendarEvent')) as ComputedRef<VNode[]>;
 
     function getEventsForDate(forDate: DateTime): Event[] {
         const forDateStr = forDate.toSQLDate();

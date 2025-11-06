@@ -95,13 +95,13 @@
 .verticalWindowTransitionEnterActive,
 .verticalWindowTransitionBackEnterActive {
     contain: paint;
-    transition: 150ms var(--deceleration-curve);
+    transition: 120ms var(--deceleration-curve);
     transition-property: opacity, transform;
 }
 
 .verticalWindowTransitionLeaveActive,
 .verticalWindowTransitionBackLeaveActive {
-    transition: 150ms var(--acceleration-curve);
+    transition: 120ms var(--acceleration-curve);
     transition-property: opacity, transform;
 }
 
@@ -119,13 +119,13 @@
 
 .windowTransitionEnterActive,
 .windowTransitionBackEnterActive {
-    transition: 150ms var(--deceleration-curve);
+    transition: 120ms var(--deceleration-curve);
     transition-property: height, opacity, transform;
 }
 
 .windowTransitionLeaveActive,
 .windowTransitionBackLeaveActive {
-    transition: 150ms var(--acceleration-curve);
+    transition: 120ms var(--acceleration-curve);
     transition-property: height, opacity, transform;
 }
 

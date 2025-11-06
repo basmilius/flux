@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { FluxSize } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { defineComponent, PropType } from 'vue';
+    import { defineComponent, type PropType } from 'vue';
     import { FluxOverlayTransition } from '$flux/transition';
     import { createDialogRenderer } from '$flux/util';
     import $style from '$flux/css/component/Overlay.module.scss';

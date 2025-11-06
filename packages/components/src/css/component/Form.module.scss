@@ -169,7 +169,8 @@
 .formInputDisabled {
     composes: formInput;
 
-    background: var(--gray-2);
+    background: var(--gray-1);
+    color: var(--foreground-secondary);
     cursor: not-allowed;
 
     input {
@@ -289,7 +290,7 @@
 }
 
 .formInputGroup {
-    composes: formInputEnabled;
+    composes: formInput;
 
     display: flex;
     padding: 0;
@@ -343,6 +344,25 @@
             @include mixin.hover {
                 background: var(--gray-3);
             }
+        }
+    }
+
+    &:has(*:disabled) {
+        cursor: not-allowed;
+
+        > * {
+            pointer-events: none;
+        }
+    }
+
+    :is(.button[disabled]),
+    :is(.button[aria-disabled="true"]) {
+        background: var(--gray-1);
+        opacity: 1;
+
+        &,
+        .buttonIcon {
+            color: var(--foreground-secondary);
         }
     }
 }

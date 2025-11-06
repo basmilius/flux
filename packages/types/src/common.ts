@@ -1,4 +1,4 @@
-import type { FontAwesome } from './font-awesome';
+import type { IconName as FontAwesome } from '@fortawesome/fontawesome-common-types';
 import type { MaterialSymbol } from './material-symbols';
 
 export type FluxIconName = FontAwesome | MaterialSymbol;

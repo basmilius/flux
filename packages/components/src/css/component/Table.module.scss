@@ -127,11 +127,11 @@ tfoot .tableCell {
     position: relative;
     background: var(--gray-1);
     box-shadow: 0 0 24px var(--gray-1),
-                0 0 18px var(--gray-1),
-                0 0 12px var(--gray-1),
-                0 0 9px var(--gray-1),
-                0 0 6px var(--gray-1),
-                0 0 3px var(--gray-1);
+                0 0 24px var(--gray-1),
+                0 0 24px var(--gray-1),
+                0 0 24px var(--gray-1),
+                0 0 24px var(--gray-1),
+                0 0 24px var(--gray-1);
     z-index: 2;
 }
 
@@ -143,11 +143,6 @@ tfoot .tableCell {
     max-width: 100cqw;
     flex-flow: row nowrap;
     gap: 15px;
-
-    > :local(.formInput) {
-        max-width: 300px;
-        min-width: 210px;
-    }
 }
 
 .tablePagination {

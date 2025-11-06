@@ -5,14 +5,7 @@ export default function () {
     return inject(FluxFilterInjectionKey, {
         // note(Bas): The default value is never used, but required by
         //  Vue, so that explains the empty getter and function below.
-        state: ref({
-            get resettable() {
-                return [];
-            },
-
-            reset(): void {
-            }
-        }),
+        state: ref({}),
         back: () => void 0,
         reset: () => void 0,
         getValue: () => void 0,

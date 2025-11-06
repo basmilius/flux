@@ -4,19 +4,18 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig(({mode}) => ({
+    experimental: {
+        enableNativePlugin: true
+    },
     plugins: [
         preset({
             cssModules: {
                 classNames: 'kebab'
             },
-            isLibrary: true
+            isLibrary: true,
+            tsconfigPath: resolve(import.meta.dirname, 'tsconfig.app.json')
         }),
-        vue(),
-        {
-            closeBundle(error) {
-                process.exit(error ? 1 : 0);
-            }
-        }
+        vue()
     ],
     build: {
         assetsDir: '',
