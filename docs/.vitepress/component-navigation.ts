@@ -229,7 +229,14 @@ const navigation: SidebarItem = {
         {text: 'Progress bar', link: '/guide/components/progress-bar'},
         {text: 'Remove', link: '/guide/components/remove', image: '/assets/components/remove.svg'},
         {text: 'Root', link: '/guide/components/root'},
-        {text: 'Segmented control', link: '/guide/components/segmented-control'},
+        {
+            text: 'Segmented control',
+            link: '/guide/components/segmented-control/',
+            collapsed: true,
+            items: [
+                {text: 'View', link: '/guide/components/segmented-control/view'}
+            ]
+        },
         {text: 'Separator', link: '/guide/components/separator'},
         {text: 'Slide over', link: '/guide/components/slide-over'},
         {text: 'Spinner', link: '/guide/components/spinner'},
