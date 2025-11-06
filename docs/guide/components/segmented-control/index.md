@@ -23,41 +23,26 @@ props:
         optional: true
 ---
 
-<script
-    lang="ts"
-    setup>
-    import { FluxSegmentedControl } from '@flux-ui/components';
-</script>
-
 # Segmented control
 
 This component is a UI element that allows users to choose between multiple options by selecting one of the multiple segments. Each segment is represented as a button with a distinct label, and the currently selected segment is visually indicated, for example, by a highlighted background. It is commonly used in navigation, forms, or settings, providing a compact and intuitive way for users to make a choice.
 
-<Preview>
-    <FluxSegmentedControl
-        :items="[
-            {icon: 'grid-2', label: 'Grid'},
-            {icon: 'list', label: 'List'},
-            {icon: 'rectangle-history', label: 'Stack'}
-        ]"
-        style="width: 390px"/>
-</Preview>
+::: render
+render=../../../code/guide/components/segmented-control/preview.vue
+:::
 
 <FrontmatterDocs/>
 
 ## Examples
 
-Todo
+::: example Basic || A basic segmented control.
+example=../../../code/guide/components/segmented-control/basic.vue
+:::
 
-## Types
-
-```ts
-type FluxSegmentedControlItemObject = {
-    readonly icon?: FluxIconName;
-    readonly label?: string;
-};
-```
+::: example Icons || A segmented control with icons only.
+example=../../../code/guide/components/segmented-control/icon.vue
+:::
 
 ## Used components
 
-- [Icon](./icon)
+- [Icon](../icon)
