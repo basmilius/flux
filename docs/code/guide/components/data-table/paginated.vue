@@ -1,7 +1,7 @@
 <template>
     <FluxPane>
         <FluxDataTable
-            :data-set="visibleDataSet"
+            :items="visibleItems"
             is-hoverable
             :limits="[5, 10, 25, 50, 100]"
             :page="page"
@@ -13,7 +13,7 @@
                 <FluxTableHeader>Name</FluxTableHeader>
             </template>
 
-            <template #name="{row: {name}}">
+            <template #name="{item: {name}}">
                 <FluxTableCell>{{ name }}</FluxTableCell>
             </template>
         </FluxDataTable>
@@ -36,5 +36,5 @@
             name: `Item ${index + 1}`
         })));
 
-    const visibleDataSet = computed(() => unref(dataSet).slice((unref(page) - 1) * unref(perPage), unref(page) * unref(perPage)));
+    const visibleItems = computed(() => unref(dataSet).slice((unref(page) - 1) * unref(perPage), unref(page) * unref(perPage)) ?? []);
 </script>

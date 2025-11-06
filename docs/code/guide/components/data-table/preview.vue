@@ -2,7 +2,7 @@
     <Preview>
         <FluxPane>
             <FluxDataTable
-                :data-set="dataSet"
+                :items="dataSet"
                 :limits="[]"
                 :page="1"
                 :per-page="5"
@@ -20,14 +20,14 @@
                     <FluxTableHeader is-shrinking/>
                 </template>
 
-                <template #name="{row: {name, email}}">
+                <template #name="{item: {name, email}}">
                     <FluxTableCell content-direction="column">
                         <strong>{{ name }}</strong>
                         <small>{{ email }}</small>
                     </FluxTableCell>
                 </template>
 
-                <template #isActive="{row: {isActive}}">
+                <template #isActive="{item: {isActive}}">
                     <FluxTableCell>
                         <FluxBadgeStack>
                             <FluxBadge

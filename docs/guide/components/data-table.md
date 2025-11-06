@@ -2,7 +2,7 @@
 outline: deep
 
 props:
-    -   name: data-set
+    -   name: items
         description: The data to show in the table.
         type: T[]
 
@@ -58,7 +58,7 @@ slots:
         type:
             page: number
             per-page: number
-            rows: T[]
+            items: T[]
             total: number
 
     -   name: header
@@ -66,7 +66,7 @@ slots:
         type:
             page: number
             per-page: number
-            rows: T[]
+            items: T[]
             total: number
 
     -   name: "[key: string]"
@@ -75,8 +75,8 @@ slots:
             index: number
             page: number
             per-page: number
-            row: T
-            rows: T[]
+            item: T
+            items: T[]
             total: number
 
 requiredIcons:
