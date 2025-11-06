@@ -60,19 +60,18 @@ jobs:
                     NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
 
             -   name: 🚀 Publish Docs
-                uses: cloudflare/pages-action@v1
+                uses: cloudflare/wrangler-action@v3
                 id: publish
                 with:
                     apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                     accountId: 5e565cf9fa55b0eae1f8131903da2ca9
-                    branch: ${{ github.head_ref || github.ref_name }}
-                    projectName: fluxui
-                    directory: docs/.vitepress/dist
+                    command: pages deploy . --project-name=fluxui --branch=${{ github.head_ref || github.ref_name }}
                     gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+                    workingDirectory: docs/.vitepress/dist
 
             -   name: ⭐️ Output
                 run: |
-                    echo "Build ID: ${{ steps.publish.outputs.id }}"
-                    echo "Publish URL: ${{ steps.publish.outputs.url }}"
-                    echo "Environment: ${{ steps.publish.outputs.environment }}"
-                    echo "Alias: ${{ steps.publish.outputs.alias }}"
+                    echo "Build ID: ${{ steps.publish.outputs.pages-deployment-id }}"
+                    echo "Publish URL: ${{ steps.publish.outputs.deployment-url }}"
+                    echo "Environment: ${{ steps.publish.outputs.pages-environment }}"
+                    echo "Alias: ${{ steps.publish.outputs.pages-deployment-alias-url }}"
