@@ -8,21 +8,23 @@
         "preview": "vitepress preview"
     },
     "dependencies": {
-        "@faker-js/faker": "^9.9.0",
+        "@faker-js/faker": "^10.1.0",
         "@flux-ui/components": "workspace:*",
         "@flux-ui/internals": "workspace:*",
-        "@fortawesome/fontawesome-common-types": "^7.0.0",
-        "@fortawesome/pro-regular-svg-icons": "^7.0.0",
-        "luxon": "^3.7.1",
-        "vitepress": "^1.6.4",
-        "vitepress-plugin-example": "^1.3.0",
-        "vitepress-plugin-group-icons": "^1.6.3",
-        "vitepress-plugin-render": "^1.3.0",
-        "vue": "^3.5.18"
+        "@flux-ui/types": "workspace:*",
+        "@fortawesome/fontawesome-common-types": "^7.1.0",
+        "@fortawesome/pro-regular-svg-icons": "^7.1.0",
+        "luxon": "^3.7.2",
+        "vitepress": "^2.0.0-alpha.12",
+        "vitepress-plugin-example": "^1.4.0",
+        "vitepress-plugin-group-icons": "^1.6.5",
+        "vitepress-plugin-render": "^1.4.0",
+        "vue": "^3.5.23"
     },
     "devDependencies": {
-        "@basmilius/vite-preset": "^2.9.1",
+        "@basmilius/vite-preset": "^2.13.0",
         "@types/luxon": "^3.7.1",
-        "vite": "^7.1.3"
+        "oxc-minify": "^0.96.0",
+        "vite": "^7.2.1"
     }
 }

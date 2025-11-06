@@ -10,7 +10,7 @@ export let iconRegistry: IconRegistry = {};
 export function fluxRegisterIcons(icons: Icons): void {
     iconRegistry = Object.keys(icons).reduce((acc: IconRegistry, key: string) => {
         const {icon, iconName} = icons[key];
-        acc[iconName] = icon;
+        acc[iconName as FluxIconName] = icon;
 
         if (Array.isArray(icon[2])) {
             icon[2].forEach((iconName: string) => acc[iconName as FluxIconName] = icon);
