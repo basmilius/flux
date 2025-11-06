@@ -1,8 +1,11 @@
-name: Pre-release Flux
+name: Pull Request
 
 on:
-    release:
-        types: [ prereleased ]
+    pull_request:
+
+concurrency:
+    cancel-in-progress: true
+    group: ${{ format('ci-{0}', github.ref) }}
 
 env:
     RELEASE_VERSION: ${{ github.event.release.tag_name }}
@@ -15,7 +18,7 @@ permissions:
 jobs:
     publish:
         runs-on: ubuntu-latest
-        name: 🚀 Publish to Registry
+        name: 🚀 Build and preview
         steps:
             -   name: 👀 Checkout
                 uses: actions/checkout@v4
@@ -28,19 +31,7 @@ jobs:
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
 
-            -   name: ✏️ Tag v${{ env.RELEASE_VERSION }}
-                run: |
-                    bun pm version --cwd packages/types ${{ env.RELEASE_VERSION }}
-                    bun pm version --cwd packages/internals ${{ env.RELEASE_VERSION }}
-                    bun pm version --cwd packages/components ${{ env.RELEASE_VERSION }}
-                    bun pm version --cwd packages/dashboard ${{ env.RELEASE_VERSION }}
-                    
-                    sed -i 's/workspace:\*/${{ env.RELEASE_VERSION }}/g' packages/types/package.json
-                    sed -i 's/workspace:\*/${{ env.RELEASE_VERSION }}/g' packages/internals/package.json
-                    sed -i 's/workspace:\*/${{ env.RELEASE_VERSION }}/g' packages/components/package.json
-                    sed -i 's/workspace:\*/${{ env.RELEASE_VERSION }}/g' packages/dashboard/package.json
-
-            -   name: 🔨 Build v${{ env.RELEASE_VERSION }}
+            -   name: 🔨 Build
                 run: |
                     bun --cwd packages/internals build
                     bun --cwd packages/components build
@@ -48,16 +39,6 @@ jobs:
                     bun --cwd docs build
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
-
-            -   name: 🚀 Publish v${{ env.RELEASE_VERSION }}
-                run: |
-                    bun publish --cwd packages/types --access public --tag next
-                    bun publish --cwd packages/internals --access public --tag next
-                    bun publish --cwd packages/components --access public --tag next
-                    bun publish --cwd packages/dashboard --access public --tag next
-                env:
-                    FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
-                    NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
 
             -   name: 🚀 Publish Docs
                 uses: cloudflare/wrangler-action@v3
