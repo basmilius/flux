@@ -48,6 +48,7 @@ jobs:
                     accountId: 5e565cf9fa55b0eae1f8131903da2ca9
                     command: pages deploy . --project-name=fluxui --branch=${{ github.head_ref || github.ref_name }}
                     gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+                    packageManager: bun
                     workingDirectory: docs/.vitepress/dist
 
             -   name: ⭐️ Output

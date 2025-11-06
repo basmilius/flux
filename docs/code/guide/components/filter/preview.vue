@@ -76,10 +76,12 @@
 <script
     lang="ts"
     setup>
-    import { FluxFilter, FluxFilterDate, FluxFilterDateRange, FluxFilterOption, FluxFilterOptionAsync, FluxFilterOptionRow, FluxFilterOptions, FluxFilterOptionsAsync, FluxFilterRange, FluxFilterState, FluxPane, FluxSeparator } from '@flux-ui/components';
+    import { FluxFilter, FluxFilterDate, FluxFilterDateRange, FluxFilterOption, FluxFilterOptionAsync, FluxFilterOptions, FluxFilterOptionsAsync, FluxFilterRange, FluxPane, FluxSeparator } from '@flux-ui/components';
+    import type { FluxFilterOptionRow, FluxFilterState } from '@flux-ui/types';
     import { DateTime } from 'luxon';
     import { ref } from 'vue';
     import dataset from '../../../../assets/select-dataset.json' with { type: 'json' };
+    import { inBrowser } from 'vitepress';
 
     async function fetchOptions(values: string[]): Promise<FluxFilterOptionRow[]> {
         await new Promise(resolve => setTimeout(resolve, 300));
@@ -117,7 +119,7 @@
     });
 
     function rangeFormatter(value: number): string {
-        const formatter = new Intl.NumberFormat(navigator.language, {
+        const formatter = new Intl.NumberFormat(inBrowser ? navigator.language : 'en', {
             currency: 'EUR',
             maximumFractionDigits: 2,
             minimumFractionDigits: 2,

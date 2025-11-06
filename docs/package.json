@@ -11,6 +11,7 @@
         "@faker-js/faker": "^10.1.0",
         "@flux-ui/components": "workspace:*",
         "@flux-ui/internals": "workspace:*",
+        "@flux-ui/types": "workspace:*",
         "@fortawesome/fontawesome-common-types": "^7.1.0",
         "@fortawesome/pro-regular-svg-icons": "^7.1.0",
         "luxon": "^3.7.2",
