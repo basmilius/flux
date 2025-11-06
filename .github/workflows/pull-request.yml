@@ -31,7 +31,7 @@ jobs:
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
 
-            -   name: 🔨 Build v${{ env.RELEASE_VERSION }}
+            -   name: 🔨 Build
                 run: |
                     bun --cwd packages/internals build
                     bun --cwd packages/components build
