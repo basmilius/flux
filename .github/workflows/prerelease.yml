@@ -69,6 +69,8 @@ jobs:
                     gitHubToken: ${{ secrets.GITHUB_TOKEN }}
                     packageManager: bun
                     workingDirectory: docs/.vitepress/dist
+                env:
+                    FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
 
             -   name: ⭐️ Output
                 run: |
