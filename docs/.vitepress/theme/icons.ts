@@ -78,5 +78,11 @@ export {
     faBookSparkles,
     faMessage,
     faGlobe,
-    faFiles
+    faFiles,
+    faArrowLeftToLine,
+    faCircle,
+    faArrowTrendDown,
+    faArrowTrendUp,
+    faUsers,
+    faUserPlus
 } from '@fortawesome/pro-regular-svg-icons';
