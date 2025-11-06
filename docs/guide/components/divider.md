@@ -4,7 +4,7 @@ outline: deep
 props:
     -   name: content-placement
         description: The placement of the content.
-        type: [ 'start', 'center', 'end' ]
+        type: [ '"start"', '"center"', '"end"' ]
         optional: true
 
 slots:

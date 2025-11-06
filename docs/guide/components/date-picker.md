@@ -23,7 +23,7 @@ props:
 
     -   name: range-mode
         description: Which range mode should be used.
-        type: [ 'range', 'week', 'month' ]
+        type: [ '"range"', '"week"', '"month"' ]
         optional: true
 
 requiredIcons:
