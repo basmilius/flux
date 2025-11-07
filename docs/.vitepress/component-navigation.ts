@@ -54,6 +54,7 @@ const navigation: SidebarItem = {
         {text: 'Comment', link: '/guide/components/comment', image: '/assets/components/comment.svg'},
         {text: 'Data table', link: '/guide/components/data-table'},
         {text: 'Date picker', link: '/guide/components/date-picker'},
+        {text: 'Disabled', link: '/guide/components/disabled'},
         {text: 'Divider', link: '/guide/components/divider'},
         {text: 'Drop zone', link: '/guide/components/drop-zone'},
         {text: 'Dynamic view', link: '/guide/components/dynamic-view'},
@@ -241,9 +242,32 @@ const navigation: SidebarItem = {
         {text: 'Slide over', link: '/guide/components/slide-over'},
         {text: 'Spinner', link: '/guide/components/spinner'},
         {text: 'Statistic', link: '/guide/components/statistic'},
-        {text: 'Stepper', link: '/guide/components/stepper', image: '/assets/components/stepper.svg'},
-        {text: 'Tab bar', link: '/guide/components/tab-bar'},
-        {text: 'Tabs', link: '/guide/components/tabs'},
+        {
+            text: 'Stepper',
+            link: '/guide/components/stepper/',
+            image: '/assets/components/stepper.svg',
+            collapsed: true,
+            items: [
+                {text: 'Steps', link: '/guide/components/stepper/steps'},
+                {text: 'Step', link: '/guide/components/stepper/step'}
+            ]
+        },
+        {
+            text: 'Tab bar',
+            link: '/guide/components/tab-bar/',
+            collapsed: true,
+            items: [
+                {text: 'Item', link: '/guide/components/tab-bar/item'},
+            ]
+        },
+        {
+            text: 'Tabs',
+            link: '/guide/components/tabs/',
+            collapsed: true,
+            items: [
+                {text: 'Tab', link: '/guide/components/tabs/tab'},
+            ]
+        },
         {
             text: 'Table',
             link: '/guide/components/table/',
@@ -257,8 +281,22 @@ const navigation: SidebarItem = {
         },
         {text: 'Tag', link: '/guide/components/tag'},
         {text: 'Ticks', link: '/guide/components/ticks'},
-        {text: 'Timeline', link: '/guide/components/timeline'},
-        {text: 'Toolbar', link: '/guide/components/toolbar'},
+        {
+            text: 'Timeline',
+            link: '/guide/components/timeline/',
+            collapsed: true,
+            items: [
+                {text: 'Item', link: '/guide/components/timeline/item'},
+            ]
+        },
+        {
+            text: 'Toolbar',
+            link: '/guide/components/toolbar/',
+            collapsed: true,
+            items: [
+                {text: 'Group', link: '/guide/components/toolbar/group'},
+            ]
+        },
         {text: 'Tooltip', link: '/guide/components/tooltip'},
         {
             text: 'Visual',
