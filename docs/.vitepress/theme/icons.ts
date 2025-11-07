@@ -84,5 +84,8 @@ export {
     faArrowTrendDown,
     faArrowTrendUp,
     faUsers,
-    faUserPlus
+    faUserPlus,
+    faCubes,
+    faDesktop,
+    faPuzzlePiece
 } from '@fortawesome/pro-regular-svg-icons';
