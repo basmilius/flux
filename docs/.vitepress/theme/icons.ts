@@ -87,5 +87,7 @@ export {
     faUserPlus,
     faCubes,
     faDesktop,
-    faPuzzlePiece
+    faPuzzlePiece,
+    faGrip,
+    faAngleUp
 } from '@fortawesome/pro-regular-svg-icons';
