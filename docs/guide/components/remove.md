@@ -17,6 +17,9 @@ props:
         description: If the remove button is hidden.
         type: boolean
         optional: true
+
+requiredIcons:
+    - xmark
 ---
 
 # Remove

@@ -16,11 +16,15 @@ props:
     -   name: is-loading
         description: Indicates that the calendar is loading.
         type: boolean
-        optiona: true
+        optional: true
 
 slots:
     -   name: default
         description: The calendar events that should be visible.
+
+requiredIcons:
+    - angle-left
+    - angle-right
 ---
 
 # Calendar

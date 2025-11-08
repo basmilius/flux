@@ -49,6 +49,9 @@ props:
 slots:
     -   name: default
         description: The contents of the comment.
+
+requiredIcons:
+    - user
 ---
 
 # Comment
