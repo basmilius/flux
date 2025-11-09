@@ -18,6 +18,9 @@
         "paths": {
             "$flux/*": [
                 "../node_modules/@flux-ui/components/src/*"
+            ],
+            "$fluxDashboard/*": [
+                "../node_modules/@flux-ui/dashboard/src/*"
             ]
         }
     },

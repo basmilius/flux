@@ -90,5 +90,6 @@ export {
     faPuzzlePiece,
     faGrip,
     faAngleUp,
-    faStar
+    faStar,
+    faBars
 } from '@fortawesome/pro-regular-svg-icons';

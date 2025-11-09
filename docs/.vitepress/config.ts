@@ -11,6 +11,12 @@ export const flux = composeLibrary({
     isolated: true
 });
 
+export const fluxDashboard = composeLibrary({
+    name: '@flux-ui/dashboard',
+    alias: '$fluxDashboard',
+    isolated: true
+});
+
 export default defineConfig(({isSsrBuild}) => ({
     title: 'Flux',
     titleTemplate: 'Flux — :title',
@@ -39,7 +45,8 @@ export default defineConfig(({isSsrBuild}) => ({
                 },
                 fileNames: 'actual'
             }),
-            flux()
+            flux(),
+            fluxDashboard()
         ]
     },
     themeConfig: {
@@ -127,9 +134,23 @@ export default defineConfig(({isSsrBuild}) => ({
             ],
             '/dashboard/': [
                 {
-                    text: 'Dashboard',
+                    text: 'Introduction',
+                    collapsed: false,
                     items: [
-                        {text: 'Installation', link: '/dashboard/'}
+                        {text: 'What is Flux Dashboard?', link: '/dashboard/'},
+                        {text: 'Installation', link: '/dashboard/introduction/installation'}
+                    ]
+                },
+                {
+                    text: 'Components',
+                    collapsed: false,
+                    items: [
+                        {text: 'Dashboard', link: '/dashboard/components/dashboard'},
+                        {text: 'Content', link: '/dashboard/components/content'},
+                        {text: 'Header', link: '/dashboard/components/header'},
+                        {text: 'Menu', link: '/dashboard/components/menu'},
+                        {text: 'Navigation', link: '/dashboard/components/navigation'},
+                        {text: 'Side', link: '/dashboard/components/side'}
                     ]
                 }
             ],

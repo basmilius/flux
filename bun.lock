@@ -9,6 +9,7 @@
       "dependencies": {
         "@faker-js/faker": "^10.1.0",
         "@flux-ui/components": "workspace:*",
+        "@flux-ui/dashboard": "workspace:*",
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/types": "workspace:*",
         "@fortawesome/fontawesome-common-types": "^7.1.0",
