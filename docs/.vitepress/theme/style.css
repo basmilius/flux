@@ -33,7 +33,7 @@ button {
     margin-top: unset;
 }
 
-.vp-code-group .blocks > div:first-child:not(:has(.vp-code)) {
+.vp-code-group .blocks > div:first-child:has(p) {
     padding: 18px;
 }
 
