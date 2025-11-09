@@ -9,11 +9,7 @@ This is the most recommended way to use Flux. Use this form of installation if y
 
 ### Step 1
 
-Open your project's root directory in your terminal.
-
-### Step 2
-
-Run the following command to install Flux.
+Open your project's root directory in your terminal and run the following command:
 
 ::: code-group
 
@@ -35,21 +31,20 @@ npm install @flux-ui/components
 
 :::
 
-### Step 3
+### Step 2
 Once the installation is completed, you need to add the following to your `main.ts` file.
 
 ```ts [main.ts]
 import '@flux-ui/components/style.css'
 ```
 
-### Step 4
+### Step 3
 For setting up icons, please refer to [Font Awesome](./font-awesome).
 
-### Step 5
+### Step 4
 Import the components you want to use, like this:
 
 ```vue [App.vue]
-
 <template>
     <FluxPane> <!-- [!code focus:5] -->
         <FluxSecondaryButton
@@ -67,17 +62,14 @@ Import the components you want to use, like this:
 
 
 ## Vite-preset installation
+
 ::: tip
 Only use this form of installation if you need more control of Flux and need the Flux source code injected into your own project.
 :::
 
 ### Step 1
 
-Open your project's root directory in your terminal.
-
-### Step 2
-
-Run the following command to install Flux.
+Open your project's root directory in your terminal and run the following command:
 
 ::: code-group
 
@@ -99,7 +91,7 @@ npm install @flux-ui/components sass-embedded @basmilius/vite-preset
 
 :::
 
-### Step 3
+### Step 2
 
 Once the installation is completed, you need to configure your Vite config file to use Flux.
 
@@ -121,16 +113,15 @@ export default defineConfig({
 });
 ```
 
-### Step 4
+### Step 3
 
 For setting up icons, please refer to [Font Awesome](./font-awesome).
 
-### Step 5
+### Step 4
 
 Import the components you want to use, like this:
 
 ```vue [App.vue]
-
 <template>
     <FluxPane> <!-- [!code focus:5] -->
         <FluxSecondaryButton
