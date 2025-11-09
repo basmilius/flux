@@ -4,13 +4,13 @@ outline: deep
 props:
     -   name: focal-point
         description: The focal point.
-        type:
-            x: number
-            y: number
+        type: FluxFocalPointObject
+        optional: true
 
     -   name: alt
         description: Alt text of the image.
         type: string
+        optional: true
 
     -   name: src
         description: Source of the image.

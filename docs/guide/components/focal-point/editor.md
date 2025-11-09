@@ -35,6 +35,7 @@ example=../../../code/guide/components/focal-point/editor/editor.vue
 ## Used components
 
 - [Button](../button)
+    - [Secondary](../button/secondary)
 - [Layout](../layout)
     - [Spacer](../layout/spacer)
 - [Pane](../pane)

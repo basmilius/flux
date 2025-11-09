@@ -25,6 +25,11 @@ props:
         description: If the placeholder should be shown.
         type: boolean
         optional: true
+        
+    -   name: is-loading
+        description: If the drop zone is in a loading state.
+        type: boolean
+        optional: true
 
     -   name: is-multiple
         description: If it's allowed to upload multiple files.

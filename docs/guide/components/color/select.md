@@ -51,7 +51,8 @@ example=../../../code/guide/components/color-select/custom.vue
 - [Button](../button)
     - [Primary](../button/primary)
     - [Secondary](../button/secondary)
-- [Color picker](picker)
+- Color
+    - [Color picker](../color/picker.md)
 - [Flyout](../flyout)
 - [Icon](../icon)
 - [Pane](../pane)

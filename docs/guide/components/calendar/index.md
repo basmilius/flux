@@ -52,6 +52,7 @@ render=../../../code/guide/components/calendar/preview.vue
 - [Button](../button)
     - [Secondary](../button/secondary)
     - [Group](../button/group)
-- [Calendar event](event)
+- [Calendar](../calendar)
+    - [Event](../calendar/event)
 - [Flyout](../flyout)
 - [Spinner](../spinner)
