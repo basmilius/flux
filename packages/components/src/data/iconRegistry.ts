@@ -14,7 +14,7 @@ export function fluxRegisterIcons(icons: Icons): void {
         }
 
         const {icon, iconName} = icons[key];
-        acc[iconName] = icon;
+        acc[iconName as FluxIconName] = icon;
 
         if (Array.isArray(icon[2])) {
             icon[2].forEach((iconName: string) => acc[iconName as FluxIconName] = icon);

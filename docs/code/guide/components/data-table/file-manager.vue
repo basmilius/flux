@@ -1,7 +1,7 @@
 <template>
     <FluxPane>
         <FluxDataTable
-            :data-set="dataSet"
+            :items="dataSet"
             :limits="[]"
             :page="1"
             :per-page="20"
@@ -13,7 +13,7 @@
                 <FluxTableHeader is-shrinking/>
             </template>
 
-            <template #name="{row: {name, type}}">
+            <template #name="{item: {name, type}}">
                 <FluxTableCell>
                     <FluxStack
                         direction="horizontal"
@@ -30,7 +30,7 @@
                 </FluxTableCell>
             </template>
 
-            <template #owner="{row: {owner}}">
+            <template #owner="{item: {owner}}">
                 <FluxTableCell>{{ owner }}</FluxTableCell>
             </template>
 
