@@ -54,6 +54,14 @@ This component can only be used within a [Filter](./index).
 
 <FrontmatterDocs/>
 
+## Snippet
+
+::: code-group
+
+<<< @/code/guide/components/filter/range/snippet.vue [FilterRange.vue]
+
+:::
+
 ## Used components
 
 - [Form](../form)

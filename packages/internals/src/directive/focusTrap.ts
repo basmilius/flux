@@ -71,6 +71,10 @@ export default {
         const focusTrap = new FocusTrap(elm);
         focusTrap.register();
         focusTraps.set(elm, focusTrap);
+    },
+
+    getSSRProps(): Record<string, unknown> {
+        return {};
     }
 } satisfies Directive;
 

@@ -10,6 +10,7 @@
 <script
     lang="ts"
     setup>
+    import { isSSR } from '@flux-ui/internals';
     import type { FluxFormSelectEntry } from '@flux-ui/types';
     import { upperFirst } from 'lodash-es';
     import { computed, toRef } from 'vue';
@@ -651,6 +652,10 @@
     const translate = useTranslate();
 
     const options = computed<FluxFormSelectEntry[]>(() => {
+        if (isSSR) {
+            return [];
+        }
+
         const groups: Record<string, FluxFormSelectEntry[]> = {};
         const options: FluxFormSelectEntry[] = [];
 

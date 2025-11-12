@@ -1,9 +1,11 @@
 <template>
     <Preview :class="$style.overlayPreview">
+        <div :class="$style.overlayShade"/>
+
         <FluxOverlayTransition>
             <div
                 v-if="visible"
-                :class="$style.overlay">
+                :class="[$style.overlay, $style.isCurrent]">
                 <FluxPane/>
             </div>
         </FluxOverlayTransition>
@@ -27,6 +29,10 @@
 <style
     lang="scss"
     module>
+    .overlayPreview {
+        overflow: hidden;
+    }
+
     .overlayPreview :local(.overlay) {
         position: absolute;
         height: unset;
@@ -36,6 +42,22 @@
         :local(.pane) {
             height: 150px;
             width: 75%;
+        }
+    }
+
+    .isCurrent,
+    .overlayTransitionLeaveActive {
+        pointer-events: auto;
+    }
+
+    .overlayShade {
+        position: absolute;
+        height: unset;
+        width: unset;
+        inset: 0;
+
+        &:not(:has(+ .overlay:not(.overlayTransitionLeaveActive))) {
+            opacity: 0;
         }
     }
 </style>

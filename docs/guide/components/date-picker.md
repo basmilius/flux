@@ -23,7 +23,7 @@ props:
 
     -   name: range-mode
         description: Which range mode should be used.
-        type: [ 'range', 'week', 'month' ]
+        type: [ '"range"', '"week"', '"month"' ]
         optional: true
 
 requiredIcons:
@@ -58,3 +58,8 @@ example=../../code/guide/components/date-picker/week.vue
 ::: example Month || A month can be selected here.
 example=../../code/guide/components/date-picker/month.vue
 :::
+
+## Used components
+
+- [Button](./button)
+    - [Secondary](./button/secondary)

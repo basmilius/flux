@@ -53,7 +53,7 @@ props:
 
     -   name: command-icon
         description: The icon of the menu item command.
-        type: string
+        type: FluxIconName
         optional: true
 
     -   name: command-loading
@@ -61,7 +61,7 @@ props:
         type: boolean
         optional: true
 
-    -   name: image-url
+    -   name: image-src
         description: An image that shows instead of the before icon.
         type: string
         optional: true

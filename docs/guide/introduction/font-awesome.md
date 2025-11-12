@@ -41,3 +41,36 @@ fluxRegisterIcons(icons);
 ```
 
 :::
+
+## Required icons
+
+Below is a list of all the icons that Flux uses throughout the library.
+
+```ts [icons.ts]
+export {
+    faFilter,
+    faXmark,
+    faCircleCheck,
+    faCloud,
+    faEllipsisH,
+    faAngleLeft,
+    faAngleRight,
+    faUser,
+    faMinus,
+    faPlus,
+    faMagnifyingGlass,
+    faTrash,
+    faCheck,
+    faCalendar,
+    faCircleExclamation,
+    faCircleInfo,
+    faEye,
+    faEyeSlash,
+    faAngleDown,
+    faArrowRightLong,
+    faArrowDownAZ,
+    faArrowUpAZ,
+    faArrowUpArrowDown,
+    faCircleXmark
+} from '@fortawesome/pro-regular-svg-icons';
+```

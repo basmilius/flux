@@ -44,6 +44,14 @@ This component can only be used within a [Filter](./index).
 
 <FrontmatterDocs/>
 
+## Snippet
+
+::: code-group
+
+<<< @/code/guide/components/filter/date-range/snippet.vue [FilterDateRange.vue]
+
+:::
+
 ## Used components
 
 - [Date picker](../date-picker)

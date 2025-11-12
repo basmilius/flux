@@ -16,8 +16,16 @@ Alerts, confirms and snackbars are all rendered here for example.
 
 ## Snippet
 
-```vue
-<FluxRoot>
-    <!-- Your application -->
-</FluxRoot>
+```vue [App.vue]
+<template>
+    <FluxRoot>
+        <!-- Your application -->
+    </FluxRoot>
+</template>
+
+<script
+    setup
+    lang="ts">
+    import { FluxRoot } from '@flux-ui/components';
+</script>
 ```

@@ -8,7 +8,7 @@
         :aria-valuemin="min">
         <div :class="isIndeterminate ? $style.progressBarTrackIndeterminate : $style.progressBarTrack">
             <div
-                :class="$style.progressBarValue"
+                :class="position >= 1 ? $style.progressBarValueComplete : $style.progressBarValueIncomplete"
                 :style="{
                     width: `${isIndeterminate ? 100 : position * 100}%`
                 }"/>

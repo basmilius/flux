@@ -34,3 +34,7 @@ render=../../../code/guide/components/menu/sub-header/preview.vue
 ::: example Grouped
 example=../../../code/guide/components/menu/sub-header/grouped.vue
 :::
+
+## Used components
+
+- [Icon](../icon)

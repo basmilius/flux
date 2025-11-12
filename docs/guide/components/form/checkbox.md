@@ -8,7 +8,7 @@ emits:
 
 props:
     -   name: model-value
-        description: The value.
+        description: The value of the checkbox.
         type: [ boolean, null ]
 
     -   name: label
@@ -29,3 +29,13 @@ render=../../../code/guide/components/form/checkbox/preview.vue
 :::
 
 <FrontmatterDocs/>
+
+## Examples
+
+::: example Basic || A simple and basic checkbox.
+example=../../../code/guide/components/form/checkbox/basic.vue
+:::
+
+::: example Indeterminate || A checkbox with an indeterminate state.
+example=../../../code/guide/components/form/checkbox/indeterminate.vue
+:::

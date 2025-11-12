@@ -49,6 +49,10 @@ export default {
         const heightTransition = new HeightTransition(elm);
         heightTransition.register();
         heightTransitions.set(elm, heightTransition);
+    },
+
+    getSSRProps(): Record<string, unknown> {
+        return {};
     }
 } satisfies Directive;
 

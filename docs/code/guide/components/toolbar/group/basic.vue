@@ -1,0 +1,29 @@
+<template>
+    <div style="padding-top: 10px;">
+        <FluxPane>
+            <FluxToolbar
+                floating-mode="top-end">
+                <FluxToolbarGroup>
+                    <FluxAction
+                        icon="grip"/>
+
+                    <FluxAction
+                        icon="angle-up"/>
+
+                    <FluxAction
+                        icon="angle-down"/>
+                </FluxToolbarGroup>
+            </FluxToolbar>
+
+            <FluxPaneBody>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aliquid aperiam earum facilis fugiat in, itaque laboriosam, libero molestias nulla, pariatur qui quod sequi sint totam? Fuga ipsum placeat unde.
+            </FluxPaneBody>
+        </FluxPane>
+    </div>
+</template>
+
+<script
+    setup
+    lang="ts">
+    import { FluxAction, FluxPane, FluxPaneBody, FluxToolbar, FluxToolbarGroup } from '@flux-ui/components';
+</script>
