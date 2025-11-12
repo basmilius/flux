@@ -5,9 +5,9 @@
                 <FluxInfoStack>
                     <FluxInfo
                         icon="map-location">
-                        Voltastraat 20
+                        Het Blik 60
                         <br>
-                        7006 RV Doetinchem
+                        7141 TK Groenlo
                         <br>
                         Nederland
                     </FluxInfo>
