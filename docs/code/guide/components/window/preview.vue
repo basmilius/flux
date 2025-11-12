@@ -166,4 +166,5 @@
     setup
     lang="ts">
     import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxSeparator, FluxWindow } from '@flux-ui/components';
+    import { vHeightTransition } from '@flux-ui/internals';
 </script>
