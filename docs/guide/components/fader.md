@@ -34,4 +34,6 @@ render=../../code/guide/components/fader/preview.vue
 
 ## Examples
 
-Todo
+::: example Basic || A simple and basic fader.
+example=../../code/guide/components/fader/basic.vue
+:::

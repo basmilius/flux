@@ -20,3 +20,9 @@ render=../../../code/guide/components/layout/aspect-ratio/preview.vue
 :::
 
 <FrontmatterDocs/>
+
+## Examples
+
+::: example Basic || A basic aspect ratio.
+example=../../../code/guide/components/layout/aspect-ratio/basic.vue
+:::

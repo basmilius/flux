@@ -16,9 +16,20 @@
     top: 0;
     left: 0;
     height: inherit;
+    border-radius: inherit;
+}
+
+.progressBarValueComplete {
+    composes: progressBarValue;
+
+    background: var(--primary-7);
+}
+
+.progressBarValueIncomplete {
+    composes: progressBarValue;
+
     background: linear-gradient(to right, var(--primary-7) 20%, var(--primary-6), var(--primary-7) 80%);
     background-size: 150px 100%;
-    border-radius: inherit;
     animation: progressBarValue 1s linear infinite;
 }
 

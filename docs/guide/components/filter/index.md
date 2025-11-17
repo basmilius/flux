@@ -56,6 +56,16 @@ Don't make your view too complex. Limit yourself to one filter per view.
 - [Async option](./async-option)
 - [Async options](./async-options)
 
+## Examples
+
+::: example Basic || A basic example of the filter.
+example=../../../code/guide/components/filter/full.vue
+:::
+
+::: example Flyout || A filter that pops up when you press on a button.
+example=../../../code/guide/components/filter/flyout.vue
+:::
+
 ## Used components
 
 - [Menu](../menu)

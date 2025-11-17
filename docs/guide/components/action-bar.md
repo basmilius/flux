@@ -64,12 +64,20 @@ render=../../code/guide/components/action-bar/preview.vue
 
 ## Examples
 
-Todo
+::: example Basic || A simple and basic action bar.
+example=../../code/guide/components/action-bar/basic.vue
+:::
+
+::: example Datatable || Using an action bar with a datatable.
+example=../../code/guide/components/action-bar/datatable.vue
+:::
 
 ## Used components
 
 - [Button](./button)
-- [Button group](./button-group)
+    - [Secondary](./button/secondary)
+    - [Destructive](./button/destructive)
+    - [Group](./button/group)
 - [Flyout](./flyout)
 - [Layout](./layout)
     - [Spacer](./layout/spacer)

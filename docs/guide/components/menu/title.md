@@ -2,14 +2,9 @@
 outline: deep
 
 props:
-    -   name: is-large
-        description: Enables a larger mode for the menu.
-        type: boolean
-        optional: true
-        
-slots:
-    -   name: default
-        description: The content of the menu.
+    -   name: title
+        description: The title of the menu.
+        type: string
 ---
 
 # Menu title

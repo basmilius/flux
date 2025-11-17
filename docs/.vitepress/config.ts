@@ -11,7 +11,13 @@ export const flux = composeLibrary({
     isolated: true
 });
 
-export default defineConfig(({isSsrBuild}) => ({
+export const fluxDashboard = composeLibrary({
+    name: '@flux-ui/dashboard',
+    alias: '$fluxDashboard',
+    isolated: true
+});
+
+export default defineConfig({
     title: 'Flux',
     titleTemplate: 'Flux — :title',
     description: 'Component library for Vue 3.',
@@ -39,7 +45,8 @@ export default defineConfig(({isSsrBuild}) => ({
                 },
                 fileNames: 'actual'
             }),
-            flux()
+            flux(),
+            fluxDashboard()
         ]
     },
     themeConfig: {
@@ -104,6 +111,8 @@ export default defineConfig(({isSsrBuild}) => ({
                         },
                         {text: 'Translations', link: '/guide/introduction/translations'},
                         {text: 'Colors', link: '/guide/introduction/colors'},
+                        {text: 'Typography', link: '/guide/introduction/typography'},
+                        {text: 'Dark mode', link: '/guide/introduction/dark-mode'},
                         {text: 'Font Awesome', link: '/guide/introduction/font-awesome'}
                     ]
                 },
@@ -125,9 +134,23 @@ export default defineConfig(({isSsrBuild}) => ({
             ],
             '/dashboard/': [
                 {
-                    text: 'Dashboard',
+                    text: 'Introduction',
+                    collapsed: false,
                     items: [
-                        {text: 'Installation', link: '/dashboard/'}
+                        {text: 'What is Flux Dashboard?', link: '/dashboard/'},
+                        {text: 'Installation', link: '/dashboard/introduction/installation'}
+                    ]
+                },
+                {
+                    text: 'Components',
+                    collapsed: false,
+                    items: [
+                        {text: 'Dashboard', link: '/dashboard/components/dashboard'},
+                        {text: 'Content', link: '/dashboard/components/content'},
+                        {text: 'Header', link: '/dashboard/components/header'},
+                        {text: 'Menu', link: '/dashboard/components/menu'},
+                        {text: 'Navigation', link: '/dashboard/components/navigation'},
+                        {text: 'Side', link: '/dashboard/components/side'}
                     ]
                 }
             ],
@@ -201,4 +224,4 @@ export default defineConfig(({isSsrBuild}) => ({
             {icon: 'npm', link: 'https://www.npmjs.com/package/@flux-ui/components'}
         ]
     }
-}));
+});
