@@ -10,10 +10,17 @@
             color === 'success' && $style.isSuccess,
             color === 'warning' && $style.isWarning
         )">
-        <div :class="$style.statisticIcon">
+        <div :class="$style.statisticIcon" v-if="icon">
             <FluxIcon
                 :name="icon"
                 :size="24"/>
+        </div>
+
+        <div v-else-if="imageSrc">
+            <img
+                :class="$style.statisticImage"
+                :src="imageSrc"
+                :alt="imageAlt"/>
         </div>
 
         <div :class="$style.statisticData">
@@ -61,7 +68,9 @@
         readonly changeValue?: string;
         readonly color?: FluxColor;
         readonly direction?: FluxDirection;
-        readonly icon: FluxIconName;
+        readonly icon?: FluxIconName;
+        readonly imageSrc?: string;
+        readonly imageAlt?: string;
         readonly label: string;
         readonly value: string;
     }>();

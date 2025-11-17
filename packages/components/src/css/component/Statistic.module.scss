@@ -96,6 +96,12 @@
     border-radius: var(--radius);
 }
 
+.statisticImage {
+    height: 48px;
+    width: 48px;
+    border-radius: var(--radius);
+}
+
 .statisticHorizontal {
     composes: statistic;
 
