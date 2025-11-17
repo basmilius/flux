@@ -33,6 +33,7 @@ props:
     -   name: icon
         description: The icon of the statistic.
         type: FluxIconName
+        optional: true
 
     -   name: label
         description: The label of the statistic.
