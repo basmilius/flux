@@ -41,6 +41,16 @@ props:
     -   name: value
         description: The value of the statistic.
         type: string
+
+    -   name: image-src
+        description: The image of the statistic.
+        type: string
+        optional: true
+
+    -   name: image-alt
+        description: The alt tag for the image.
+        type: string
+        optional: true
 ---
 
 # Statistic
@@ -65,6 +75,10 @@ example=../../code/guide/components/statistic/vertical.vue
 
 ::: example Change || A statistic with change details.
 example=../../code/guide/components/statistic/change.vue
+:::
+
+::: example Image || A statistic with an image.
+example=../../code/guide/components/statistic/image.vue
 :::
 
 ## Used components

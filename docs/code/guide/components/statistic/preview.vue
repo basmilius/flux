@@ -10,6 +10,11 @@
                 value="Value"/>
 
             <FluxStatistic
+                label="Label"
+                value="Value"
+                image-src="https://avatars.githubusercontent.com/u/978257?v=4"/>
+
+            <FluxStatistic
                 icon="users"
                 color="danger"
                 label="Active users this month"
