@@ -10,7 +10,8 @@
             color === 'success' && $style.isSuccess,
             color === 'warning' && $style.isWarning
         )">
-        <div :class="$style.statisticIcon" v-if="icon">
+        <div v-if="icon"
+             :class="$style.statisticIcon">
             <FluxIcon
                 :name="icon"
                 :size="24"/>
