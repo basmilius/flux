@@ -30,7 +30,7 @@
             <img
                 :class="$style.menuItemImage"
                 :src="imageSrc"
-                alt=""/>
+                :alt="imageAlt ?? ''"/>
         </template>
 
         <template
@@ -74,6 +74,7 @@
         readonly command?: string;
         readonly commandIcon?: FluxIconName;
         readonly commandLoading?: boolean;
+        readonly imageAlt?: string;
         readonly imageSrc?: string;
         readonly isActive?: boolean;
         readonly isDestructive?: boolean;

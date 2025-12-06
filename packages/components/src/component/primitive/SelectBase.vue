@@ -21,6 +21,8 @@
                 :command="selected[0].command"
                 :command-icon="selected[0].commandIcon"
                 :icon-leading="selected[0].icon"
+                :image-alt="selected[0].imageAlt"
+                :image-src="selected[0].imageSrc"
                 :label="selected[0].label"
                 tabindex="-1"/>
         </template>
@@ -97,6 +99,8 @@
                                     :command="subItem.command"
                                     :command-icon="subItem.commandIcon"
                                     :icon-leading="subItem.icon"
+                                    :image-alt="subItem.imageAlt"
+                                    :image-src="subItem.imageSrc"
                                     :is-active="!!selected.find(so => so.value === subItem.value)"
                                     :is-highlighted="highlightedId === subItem.value"
                                     :label="subItem.label"
@@ -112,6 +116,8 @@
                             :command="item.command"
                             :command-icon="item.commandIcon"
                             :icon-leading="item.icon"
+                            :image-alt="item.imageAlt"
+                            :image-src="item.imageSrc"
                             :is-active="!!selected.find(so => so.value === item.value)"
                             :is-highlighted="highlightedId === item.value"
                             :label="item.label"
