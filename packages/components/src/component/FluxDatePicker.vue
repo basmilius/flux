@@ -57,8 +57,8 @@
                         </template>
 
                         <template
-                            v-for="date of dates"
-                            :key="date">
+                            v-for="(date, index) of dates"
+                            :key="index">
                             <button
                                 :class="clsx(
                                     $style.datePickerDate,
@@ -89,7 +89,7 @@
                 :class="$style.datePickerMonths">
                 <template
                     v-for="month of months"
-                    :key="month">
+                    :key="month.label">
                     <FluxSecondaryButton
                         :disabled="!isWithinBoundary(month.date, 'month')"
                         :label="month.label"

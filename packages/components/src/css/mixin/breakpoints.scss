@@ -17,19 +17,31 @@ $-breakpoints: (
         @error 'Breakpoint "#{$breakpoint}" not found in "#{$names}".';
     }
 
-    @return if($n < list.length($names), list.nth($names, $n + 1), null);
+    @if $n == list.length($names) {
+        @return list.nth($names, 1);
+    }
+
+    @return null;
 }
 
 @function -maxWidth($breakpoint) {
     $next: -next($breakpoint);
 
-    @return if($next, -minWidth($next) - .02, null);
+    @if $next {
+        @return -minWidth($next) - .02;
+    }
+
+    @return null;
 }
 
 @function -minWidth($breakpoint) {
     $min: map.get($-breakpoints, $breakpoint);
 
-    @return if($min != 0, $min, null);
+    @if $min != 0 {
+        @return $min;
+    }
+
+    @return null;
 }
 
 @mixin breakpoint-between($lower, $upper) {
