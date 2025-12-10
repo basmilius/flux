@@ -56,9 +56,7 @@
                             <span :class="$style.datePickerDay">{{ day }}</span>
                         </template>
 
-                        <template
-                            v-for="(date, index) of dates"
-                            :key="index">
+                        <template v-for="date of dates">
                             <button
                                 :class="clsx(
                                     $style.datePickerDate,
