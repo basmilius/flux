@@ -19,7 +19,7 @@
                             <div :class="$styleDatePicker.datePickerMonths">
                                 <template
                                     v-for="month of months"
-                                    :key="month">
+                                    :key="month.label">
                                     <FluxSecondaryButton
                                         :label="month.label"
                                         tabindex="-1"

@@ -1,9 +1,11 @@
 <template>
     <Preview :class="$style.slideOverPreview">
+        <div :class="$style.overlayShade"/>
+
         <FluxSlideOverTransition>
             <div
                 v-if="visible"
-                :class="[$style.overlay, $style.slideOver]">
+                :class="[$style.overlay, $style.slideOver, $style.isCurrent]">
                 <FluxPane/>
             </div>
         </FluxSlideOverTransition>
@@ -13,7 +15,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxSlideOverTransition } from '@flux-ui/components';
+    import { FluxOverlayTransition, FluxPane, FluxSlideOverTransition } from '@flux-ui/components';
     import { useInterval } from '@flux-ui/internals';
     import { ref } from 'vue';
 
@@ -29,17 +31,33 @@
     module>
     .slideOverPreview {
         overflow: clip;
+    }
 
-        :local(.overlay) {
-            position: absolute;
-            height: unset;
-            width: unset;
-            border-radius: var(--radius);
-        }
+    .slideOverPreview :local(.slideOver) {
+        position: absolute;
+        height: unset;
+        width: unset;
+        border-radius: var(--radius);
 
-        :local(.slideOver) :local(.pane) {
+        :local(.pane) {
             height: 100%;
             width: 50%;
+        }
+    }
+
+    .isCurrent,
+    .slideOverTransitionLeaveActive {
+        pointer-events: auto;
+    }
+
+    .overlayShade {
+        position: absolute;
+        height: unset;
+        width: unset;
+        inset: 0;
+
+        &:not(:has(+ .overlay:not(.slideOverTransitionLeaveActive))) {
+            opacity: 0;
         }
     }
 </style>

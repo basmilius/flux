@@ -10,6 +10,8 @@ export type FluxFormSelectOption = {
     readonly command?: string;
     readonly commandIcon?: FluxIconName;
     readonly icon?: FluxIconName;
+    readonly imageAlt?: string;
+    readonly imageSrc?: string;
     readonly label: string;
     readonly selectable?: boolean;
     readonly value: string | number | null;

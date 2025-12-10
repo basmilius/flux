@@ -10,19 +10,21 @@
     "dependencies": {
         "@faker-js/faker": "^10.1.0",
         "@flux-ui/components": "workspace:*",
+        "@flux-ui/dashboard": "workspace:*",
         "@flux-ui/internals": "workspace:*",
         "@fortawesome/fontawesome-common-types": "^7.1.0",
         "@fortawesome/pro-regular-svg-icons": "^7.1.0",
         "luxon": "^3.7.2",
-        "vitepress": "^1.6.4",
+        "vitepress": "^2.0.0-alpha.15",
         "vitepress-plugin-example": "^1.4.0",
         "vitepress-plugin-group-icons": "^1.6.5",
         "vitepress-plugin-render": "^1.4.0",
-        "vue": "^3.5.24"
+        "vue": "^3.5.25"
     },
     "devDependencies": {
-        "@basmilius/vite-preset": "^2.13.0",
+        "@basmilius/vite-preset": "^2.16.0",
         "@types/luxon": "^3.7.1",
-        "vite": "^7.2.4"
+        "oxc-minify": "^0.102.0",
+        "vite": "^8.0.0-beta.1"
     }
 }

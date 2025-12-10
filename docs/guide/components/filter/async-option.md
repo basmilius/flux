@@ -31,6 +31,10 @@ props:
         description: The placeholder to show in the search bar.
         type: boolean
         optional: true
+
+requiredIcons:
+    - magnifying-glass
+    - circle-check
 ---
 
 # Filter option (async)
@@ -46,6 +50,14 @@ This component can only be used within a [Filter](./index).
 :::
 
 <FrontmatterDocs/>
+
+## Snippet
+
+::: code-group
+
+<<< @/code/guide/components/filter/async-option/snippet.vue [FilterAsyncOption.vue]
+
+:::
 
 ## Used components
 

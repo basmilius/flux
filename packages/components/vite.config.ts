@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 
-export default defineConfig(({mode}) => ({
+export default defineConfig({
     experimental: {
         enableNativePlugin: true
     },
@@ -19,7 +19,7 @@ export default defineConfig(({mode}) => ({
     ],
     build: {
         assetsDir: '',
-        emptyOutDir: mode !== 'dev',
+        emptyOutDir: true,
         outDir: resolve(import.meta.dirname, 'dist'),
         sourcemap: true,
         lib: {
@@ -48,4 +48,4 @@ export default defineConfig(({mode}) => ({
             '$flux': resolve(import.meta.dirname, 'src')
         }
     }
-}));
+});
