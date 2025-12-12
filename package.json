@@ -4,8 +4,5 @@
     "workspaces": [
         "docs",
         "packages/*"
-    ],
-    "overrides": {
-        "vite": "npm:rolldown-vite@latest"
-    }
+    ]
 }
