@@ -17,8 +17,8 @@ $-breakpoints: (
         @error 'Breakpoint "#{$breakpoint}" not found in "#{$names}".';
     }
 
-    @if $n == list.length($names) {
-        @return list.nth($names, 1);
+    @if $n < list.length($names) {
+        @return list.nth($names, $n + 1);
     }
 
     @return null;
