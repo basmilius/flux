@@ -3,10 +3,7 @@ import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 
-export default defineConfig(({mode}) => ({
-    experimental: {
-        enableNativePlugin: true
-    },
+export default defineConfig({
     plugins: [
         preset({
             cssModules: {
@@ -16,9 +13,12 @@ export default defineConfig(({mode}) => ({
         }),
         vue()
     ],
+    experimental: {
+        enableNativePlugin: true
+    },
     build: {
         assetsDir: '',
-        emptyOutDir: mode !== 'dev',
+        emptyOutDir: true,
         outDir: resolve(import.meta.dirname, 'dist'),
         sourcemap: true,
         lib: {
@@ -47,4 +47,4 @@ export default defineConfig(({mode}) => ({
             '$fluxDashboard': resolve(import.meta.dirname, 'src')
         }
     }
-}));
+});

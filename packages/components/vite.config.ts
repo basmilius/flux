@@ -4,9 +4,6 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
-    experimental: {
-        enableNativePlugin: true
-    },
     plugins: [
         preset({
             cssModules: {
@@ -17,6 +14,9 @@ export default defineConfig({
         }),
         vue()
     ],
+    experimental: {
+        enableNativePlugin: true
+    },
     build: {
         assetsDir: '',
         emptyOutDir: true,

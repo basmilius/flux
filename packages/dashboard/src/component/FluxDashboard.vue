@@ -16,7 +16,7 @@
     lang="ts"
     setup>
     import { useRemembered } from '@flux-ui/internals';
-    import { provide, ref, VNode, watch } from 'vue';
+    import { provide, ref, type VNode, watch } from 'vue';
     import { FluxDashboardInjectionKey } from '$fluxDashboard/data';
     import $style from '$fluxDashboard/css/component/Dashboard.module.scss';
 
