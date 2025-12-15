@@ -154,6 +154,10 @@
                         py = y - popupHeight - margin;
                     }
                 }
+
+                if (py < 0 || py + popupHeight > innerHeight) {
+                    py = innerHeight / 2 - popupHeight / 2;
+                }
                 break;
         }
 
