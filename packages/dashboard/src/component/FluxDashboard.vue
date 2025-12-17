@@ -38,7 +38,7 @@
     });
 
     watch(isNavigationCollapsed, (_, __, onCleanup) => {
-        let timeout: NodeJS.Timeout;
+        let timeout: any;
 
         function onResize(): void {
             clearTimeout(timeout);
