@@ -54,14 +54,14 @@
     --columns: 2;
 
     display: grid;
-    gap: 18px 12px;
+    gap: 18px;
     grid-template-columns: repeat(var(--columns), 1fr);
 }
 
 .formRow {
     display: flex;
     flex-grow: 1;
-    gap: 12px;
+    gap: 18px;
 }
 
 .formSectionTitle {
