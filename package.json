@@ -4,5 +4,10 @@
     "workspaces": [
         "docs",
         "packages/*"
-    ]
+    ],
+    "overrides": {
+        "@basmilius/tools": "link:@basmilius/tools",
+        "@basmilius/utils": "link:@basmilius/utils",
+        "@basmilius/vite-preset": "link:@basmilius/vite-preset"
+    }
 }

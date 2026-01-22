@@ -8,7 +8,7 @@
         "preview": "vitepress preview"
     },
     "dependencies": {
-        "@faker-js/faker": "^10.1.0",
+        "@faker-js/faker": "^10.2.0",
         "@flux-ui/components": "workspace:*",
         "@flux-ui/dashboard": "workspace:*",
         "@flux-ui/internals": "workspace:*",
@@ -17,14 +17,14 @@
         "luxon": "^3.7.2",
         "vitepress": "^2.0.0-alpha.15",
         "vitepress-plugin-example": "^1.4.0",
-        "vitepress-plugin-group-icons": "^1.6.5",
+        "vitepress-plugin-group-icons": "^1.7.1",
         "vitepress-plugin-render": "^1.4.0",
-        "vue": "^3.5.25"
+        "vue": "^3.6.0-beta.3"
     },
     "devDependencies": {
-        "@basmilius/vite-preset": "^2.19.0",
+        "@basmilius/vite-preset": "^2.23.0",
         "@types/luxon": "^3.7.1",
-        "oxc-minify": "^0.103.0",
-        "vite": "^8.0.0-beta.3"
+        "oxc-minify": "^0.110.0",
+        "vite": "^8.0.0-beta.8"
     }
 }
