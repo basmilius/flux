@@ -1,4 +1,4 @@
-import { build, dts } from '@basmilius/tools';
+import { build, clean, dts } from '@basmilius/tools';
 
 await build({
     entrypoints: ['src/index.ts'],
@@ -9,6 +9,7 @@ await build({
         'vue'
     ],
     plugins: [
+        clean('dist'),
         dts()
     ]
 });

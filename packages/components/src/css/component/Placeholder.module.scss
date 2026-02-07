@@ -7,8 +7,8 @@
     flex: 1 0 auto;
     flex-flow: column;
     justify-content: center;
-    background: var(--gray-1);
-    border: 2px dashed var(--gray-3);
+    background: var(--gray-50);
+    border: 2px dashed var(--gray-200);
     border-radius: var(--radius);
     text-align: center;
     user-select: none;
@@ -17,7 +17,7 @@
         cursor: pointer;
 
         @include mixin.hover {
-            background: var(--gray-2);
+            background: var(--gray-100);
         }
     }
 
@@ -67,6 +67,6 @@
 }
 
 .placeholderIcon {
-    color: var(--primary-7);
+    color: var(--primary-600);
     font-size: 20px;
 }

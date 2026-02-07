@@ -14,8 +14,8 @@
     }
 
     &:has(.dropZoneContent > .placeholder) {
-        --dz-fill: var(--gray-1);
-        --dz-stroke: var(--gray-3);
+        --dz-fill: var(--gray-50);
+        --dz-stroke: var(--gray-200);
     }
 }
 
@@ -71,12 +71,12 @@
 }
 
 .isDragging .dropZoneContent {
-    --dz-stroke: var(--primary-7);
+    --dz-stroke: var(--primary-600);
 }
 
 .isDraggingOver .dropZoneContent {
     &:has(.placeholder) {
-        --dz-fill: var(--primary-2);
+        --dz-fill: var(--primary-100);
     }
 
     .dropZoneBorder rect {
@@ -90,7 +90,7 @@
     inset: var(--dz-inset);
     align-items: center;
     justify-content: center;
-    background: oklch(from var(--gray-1) l c h / .84);
+    background: rgb(from var(--gray-50) r g b / .84);
     backdrop-filter: blur(3px) saturate(180%);
     border-radius: var(--dz-radius);
     z-index: 100;

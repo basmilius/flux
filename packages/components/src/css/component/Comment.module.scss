@@ -41,8 +41,8 @@
 .commentContent {
     min-width: 0;
     padding: 12px 18px;
-    background: linear-gradient(to bottom, var(--gray-0), var(--gray-1));
-    border: 1px solid var(--gray-2);
+    background: linear-gradient(to bottom, var(--gray-25), var(--gray-50));
+    border: 1px solid var(--gray-200);
     border-radius: calc(var(--radius) * 2);
     box-shadow: var(--shadow-xs);
 }
@@ -52,8 +52,8 @@
 }
 
 .comment.isReceived .commentContent {
-    background: linear-gradient(to bottom, var(--gray-1), var(--gray-2));
-    border-color: var(--gray-3);
+    background: linear-gradient(to bottom, var(--gray-50), var(--gray-100));
+    border-color: var(--gray-200);
     border-bottom-left-radius: var(--radius);
 }
 
@@ -88,37 +88,37 @@
 }
 
 [dark] .commentContent {
-    background: linear-gradient(to bottom, var(--gray-1), var(--gray-0));
+    background: linear-gradient(to bottom, var(--gray-50), var(--gray-25));
 }
 
 [dark] .comment.isReceived .commentContent {
-    background: linear-gradient(to bottom, var(--gray-2), var(--gray-1));
+    background: linear-gradient(to bottom, var(--gray-100), var(--gray-50));
 }
 
 @keyframes commentTyping {
     0%,
     80%,
     100% {
-        background: var(--gray-3);
-        box-shadow: -9px 0 var(--gray-3), 9px 0 var(--gray-3);
+        background: var(--gray-200);
+        box-shadow: -9px 0 var(--gray-200), 9px 0 var(--gray-200);
         translate: 0 0;
     }
 
     20% {
-        background: var(--gray-3);
-        box-shadow: -9px -4px var(--gray-5), 9px 0 var(--gray-3);
+        background: var(--gray-200);
+        box-shadow: -9px -4px var(--gray-300), 9px 0 var(--gray-200);
         translate: 0 0;
     }
 
     40% {
-        background: var(--gray-5);
-        box-shadow: -9px 4px var(--gray-3), 9px 4px var(--gray-3);
+        background: var(--gray-300);
+        box-shadow: -9px 4px var(--gray-200), 9px 4px var(--gray-200);
         translate: 0 -4px;
     }
 
     60% {
-        background: var(--gray-3);
-        box-shadow: -9px 0 var(--gray-3), 9px -4px var(--gray-5);
+        background: var(--gray-200);
+        box-shadow: -9px 0 var(--gray-200), 9px -4px var(--gray-300);
         translate: 0 0;
     }
 }

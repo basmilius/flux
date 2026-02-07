@@ -55,8 +55,8 @@
 
 .basePaneStructure > .toolbarFlat {
     padding: 12px 15px;
-    background: var(--gray-1);
-    border: 1px solid var(--gray-2);
+    background: var(--gray-50);
+    border: 1px solid var(--surface-stroke);
     border-left: 0;
     border-right: 0;
     border-radius: 0;
@@ -75,7 +75,7 @@
     }
 
     :local(.separator) {
-        background: var(--gray-2);
+        background: var(--surface-stroke);
     }
 }
 

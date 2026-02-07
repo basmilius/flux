@@ -33,7 +33,7 @@
     text-transform: capitalize;
 
     @include mixin.hover {
-        color: var(--primary-7);
+        color: var(--primary-600);
     }
 }
 
@@ -56,12 +56,12 @@
     gap: 1px;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: min-content repeat(6, auto);
-    background: var(--gray-1);
+    background: var(--gray-100);
 }
 
 .calendarCell {
     padding: 12px 21px;
-    background: var(--gray-0);
+    background: var(--gray-25);
 }
 
 .calendarDay {
@@ -85,7 +85,7 @@
     padding-bottom: 39px;
 
     &.isDisabled {
-        background: oklch(from var(--gray-0) l c h / .5);
+        background: var(--gray-50);
         color: var(--foreground-secondary);
         pointer-events: none;
 
@@ -120,9 +120,9 @@
     margin-left: -9px;
     margin-right: -9px;
     padding: 6px 9px;
-    background: var(--primary-2);
+    background: var(--primary-100);
     border: 0;
-    color: var(--primary-9);
+    color: var(--primary-800);
     cursor: pointer;
     font-size: 14px;
     line-height: 1.3em;
@@ -135,7 +135,7 @@
     -webkit-box-orient: vertical;
 
     &.isSingle {
-        border-radius: calc(var(--radius) / 2);
+        border-radius: var(--radius-half);
     }
 
     &.isMiddle {
@@ -145,14 +145,14 @@
 
     &.isStart {
         margin-right: -21px;
-        border-top-left-radius: calc(var(--radius) / 2);
-        border-bottom-left-radius: calc(var(--radius) / 2);
+        border-top-left-radius: var(--radius-half);
+        border-bottom-left-radius: var(--radius-half);
     }
 
     &.isEnd {
         margin-left: -21px;
-        border-top-right-radius: calc(var(--radius) / 2);
-        border-bottom-right-radius: calc(var(--radius) / 2);
+        border-top-right-radius: var(--radius-half);
+        border-bottom-right-radius: var(--radius-half);
     }
 
     &:not(.isSingle):not(.isStart) {
@@ -162,6 +162,6 @@
     }
 
     @include mixin.hover {
-        background: var(--primary-3);
+        background: var(--primary-200);
     }
 }

@@ -5,9 +5,9 @@
 .progressBarTrack {
     position: relative;
     height: 9px;
-    background: var(--gray-1);
-    border-radius: calc(var(--radius) / 2);
-    box-shadow: inset 0 0 0 1px var(--gray-2);
+    background: var(--gray-50);
+    border-radius: var(--radius-half);
+    box-shadow: inset 0 0 0 1px var(--gray-200);
     contain: paint;
 }
 
@@ -22,13 +22,13 @@
 .progressBarValueComplete {
     composes: progressBarValue;
 
-    background: var(--primary-7);
+    background: var(--primary-600);
 }
 
 .progressBarValueIncomplete {
     composes: progressBarValue;
 
-    background: linear-gradient(to right, var(--primary-7) 20%, var(--primary-6), var(--primary-7) 80%);
+    background: linear-gradient(to right, var(--primary-600) 20%, var(--primary-500), var(--primary-600) 80%);
     background-size: 150px 100%;
     animation: progressBarValue 1s linear infinite;
 }
@@ -37,7 +37,7 @@
     composes: progressBarTrack;
 
     .progressBarValue {
-        background: linear-gradient(to right, var(--primary-7) 20%, var(--primary-6), var(--primary-7) 80%);
+        background: linear-gradient(to right, var(--primary-600) 20%, var(--primary-500), var(--primary-600) 80%);
         background-size: 90px 100%;
         animation: progressBarIndeterminate 1s linear infinite;
     }

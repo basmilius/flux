@@ -21,7 +21,7 @@
 
 .paginationButtonArrow {
     &:local(.secondaryButton) {
-        border-color: var(--gray-2);
+        border-color: var(--surface-stroke);
     }
 
     &:first-child {
@@ -34,8 +34,8 @@
 }
 
 .paginationButton.paginationButtonCurrent {
-    background: var(--primary-1);
-    border-color: var(--primary-3);
+    background: var(--primary-50);
+    border-color: var(--primary-200);
 }
 
 .paginationButtonSpacer {

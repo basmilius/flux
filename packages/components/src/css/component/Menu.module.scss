@@ -50,11 +50,11 @@
     text-align: left;
 
     @include mixin.hover {
-        background: var(--gray-2);
+        background: var(--gray-100);
     }
 
     &:active {
-        background: var(--gray-3);
+        background: var(--gray-200);
     }
 }
 
@@ -79,46 +79,46 @@
 }
 
 .menuItemActive {
-    background: var(--primary-7);
-    color: var(--primary-1);
+    background: var(--primary-600);
+    color: var(--primary-50);
 
     .menuItemIcon {
-        color: var(--primary-0);
+        color: var(--primary-25);
     }
 
     @include mixin.hover {
-        background: var(--primary-7);
+        background: var(--primary-600);
     }
 
     &:active {
-        background: var(--primary-7);
+        background: var(--primary-600);
     }
 }
 
 .menuItemDestructive {
     .menuItemIcon {
-        color: var(--danger-8);
+        color: var(--danger-700);
     }
 
     .menuItemLabel {
-        color: var(--danger-8);
+        color: var(--danger-700);
     }
 }
 
 .menuItemHighlighted {
-    background: var(--primary-2);
-    color: var(--primary-7);
+    background: var(--primary-100);
+    color: var(--primary-600);
 
     .menuItemIcon {
-        color: var(--primary-8);
+        color: var(--primary-700);
     }
 
     @include mixin.hover {
-        background: var(--primary-2);
+        background: var(--primary-100);
     }
 
     &:active {
-        background: var(--primary-2);
+        background: var(--primary-100);
     }
 }
 
@@ -131,7 +131,7 @@
 }
 
 .menuItemSelected .menuItemSelectableIcon {
-    color: var(--primary-7);
+    color: var(--primary-600);
 }
 
 .menuItemCommand {
@@ -159,7 +159,7 @@
 
 .menuItemActive .menuItemCommand,
 .menuItemActive .menuItemCommandIcon {
-    color: var(--primary-4);
+    color: var(--primary-300);
 }
 
 .menuItemImage {
@@ -195,7 +195,7 @@
     padding: 12px 12px 6px;
     align-items: center;
     gap: 9px;
-    background: linear-gradient(to bottom, var(--gray-0) 75%, transparent);
+    background: linear-gradient(to bottom, var(--surface) 75%, transparent);
     font-size: 14px;
     pointer-events: none;
     z-index: 1;
@@ -231,7 +231,7 @@
         bottom: 12px;
         width: 4px;
         content: '';
-        background: var(--primary-7);
+        background: var(--primary-600);
         border-radius: 99px;
         opacity: 0;
         transition: opacity 180ms var(--swift-out);
@@ -242,7 +242,7 @@
     min-height: 48px;
 
     &::after {
-        background: var(--primary-0);
+        background: var(--primary-25);
     }
 }
 
@@ -252,7 +252,7 @@
     }
 
     &.menuItemIndented {
-        background: var(--gray-2);
+        background: var(--gray-100);
 
         .menuItemIcon,
         .menuItemLabel {

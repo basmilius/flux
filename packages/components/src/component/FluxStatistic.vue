@@ -10,13 +10,12 @@
             color === 'success' && $style.isSuccess,
             color === 'warning' && $style.isWarning
         )">
-        <div
+        <FluxBoxedIcon
             v-if="icon"
-            :class="$style.statisticIcon">
-            <FluxIcon
-                :name="icon"
-                :size="24"/>
-        </div>
+            :class="$style.statisticIcon"
+            :color="color"
+            :name="icon"
+            :size="48"/>
 
         <div v-else-if="imageSrc">
             <img
@@ -59,6 +58,7 @@
     import FluxIcon from './FluxIcon.vue';
     import FluxPane from './FluxPane.vue';
     import $style from '$flux/css/component/Statistic.module.scss';
+    import FluxBoxedIcon from '$flux/component/FluxBoxedIcon.vue';
 
     const {
         changeColor = 'gray',
@@ -74,6 +74,6 @@
         readonly imageSrc?: string;
         readonly imageAlt?: string;
         readonly label: string;
-        readonly value: string;
+        readonly value: string | number;
     }>();
 </script>

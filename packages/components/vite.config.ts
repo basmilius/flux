@@ -29,7 +29,10 @@ export default defineConfig({
             formats: ['es'],
             name: 'flux'
         },
-        rollupOptions: {
+        rolldownOptions: {
+            experimental: {
+                lazyBarrel: true
+            },
             external: ['luxon', 'vue'],
             output: {
                 exports: 'named',

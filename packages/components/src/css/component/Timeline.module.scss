@@ -18,7 +18,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 99px;
-    outline: 6px solid var(--gray-0);
+    outline: 6px solid var(--gray-25);
 }
 
 .timelineItemIcon {
@@ -41,7 +41,7 @@
     width: 30px;
     align-items: center;
     justify-content: center;
-    background: var(--gray-0);
+    background: var(--gray-25);
     border-radius: 99px;
 }
 
@@ -83,7 +83,7 @@
     left: 20px;
     height: 100%;
     width: 2px;
-    background: var(--gray-2);
+    background: var(--gray-100);
 }
 
 .timeline .timelineItem:last-of-type .timelineItemLine {
@@ -99,7 +99,7 @@
     }
 
     .timelineItemIcon {
-        background: var(--gray-2);
+        background: var(--gray-100);
     }
 }
 
@@ -108,11 +108,11 @@
 
     .timelineItemIcon,
     .timelineItemPhotoIcon {
-        color: var(--primary-7);
+        color: var(--primary-600);
     }
 
     .timelineItemIcon {
-        background: var(--primary-2);
+        background: var(--primary-100);
     }
 }
 
@@ -121,11 +121,11 @@
 
     .timelineItemIcon,
     .timelineItemPhotoIcon {
-        color: var(--danger-7);
+        color: var(--danger-600);
     }
 
     .timelineItemIcon {
-        background: var(--danger-2);
+        background: var(--danger-100);
     }
 }
 
@@ -134,11 +134,11 @@
 
     .timelineItemIcon,
     .timelineItemPhotoIcon {
-        color: var(--info-7);
+        color: var(--info-600);
     }
 
     .timelineItemIcon {
-        background: var(--info-2);
+        background: var(--info-100);
     }
 }
 
@@ -147,11 +147,11 @@
 
     .timelineItemIcon,
     .timelineItemPhotoIcon {
-        color: var(--success-7);
+        color: var(--success-600);
     }
 
     .timelineItemIcon {
-        background: var(--success-2);
+        background: var(--success-100);
     }
 }
 
@@ -160,10 +160,10 @@
 
     .timelineItemIcon,
     .timelineItemPhotoIcon {
-        color: var(--warning-7);
+        color: var(--warning-600);
     }
 
     .timelineItemIcon {
-        background: var(--warning-2);
+        background: var(--warning-100);
     }
 }

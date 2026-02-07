@@ -42,7 +42,7 @@
 .tableCell {
     height: 0;
     padding: 0;
-    border: 0 solid var(--gray-2);
+    border: 0 solid var(--surface-stroke);
 
     @-moz-document url-prefix() {
         height: 100%;
@@ -59,7 +59,7 @@
 .tableHeader {
     composes: tableCell;
 
-    border-bottom: 2px solid var(--gray-2);
+    border-bottom: 2px solid var(--surface-stroke);
     color: var(--foreground-prominent);
 
     &.isShrinking {
@@ -70,7 +70,7 @@
     &.isSticky {
         position: sticky;
         top: 0;
-        background: var(--gray-1);
+        background: var(--gray-50);
         z-index: 1;
     }
 }
@@ -83,18 +83,18 @@
 }
 
 tbody .tableRow:nth-child(even) .tableCell.isStriped {
-    background: oklch(from var(--gray-1) l c h / .5);
+    background: rgb(from var(--gray-50) r g b / .5);
 }
 
 @media (hover: hover) {
     tbody .tableRow:hover .tableCell.isHoverable,
     tbody .tableRow:has(:focus-visible) .tableCell.isHoverable {
-        background: var(--gray-1);
+        background: var(--gray-50);
     }
 }
 
 tfoot .tableCell {
-    border-top: 1px solid var(--gray-2);
+    border-top: 1px solid var(--surface-stroke);
 }
 
 .tableCell + .tableCell.isBordered {
@@ -125,13 +125,13 @@ tfoot .tableCell {
     composes: tableCell;
 
     position: relative;
-    background: var(--gray-1);
-    box-shadow: 0 0 24px var(--gray-1),
-                0 0 24px var(--gray-1),
-                0 0 24px var(--gray-1),
-                0 0 24px var(--gray-1),
-                0 0 24px var(--gray-1),
-                0 0 24px var(--gray-1);
+    background: var(--gray-50);
+    box-shadow: 0 0 24px var(--gray-50),
+                0 0 24px var(--gray-50),
+                0 0 24px var(--gray-50),
+                0 0 24px var(--gray-50),
+                0 0 24px var(--gray-50),
+                0 0 24px var(--gray-50);
     z-index: 2;
 }
 
@@ -150,8 +150,8 @@ tfoot .tableCell {
     bottom: 0;
     margin-top: auto;
     margin-bottom: -1px;
-    background: var(--gray-0);
-    border-top: 1px solid var(--gray-2);
+    background: var(--surface);
+    border-top: 1px solid var(--surface-stroke);
     translate: 0 -1px;
     z-index: 100;
 }
@@ -166,14 +166,14 @@ tfoot .tableCell {
     justify-content: center;
     background: unset;
     border: 0;
-    border-radius: calc(var(--radius) / 2);
+    border-radius: var(--radius-half);
     color: var(--foreground-secondary);
     cursor: pointer;
     outline: 0;
 
     @media (hover: hover) {
         &:hover {
-            background: var(--gray-2);
+            background: var(--gray-100);
             color: var(--foreground);
         }
     }
@@ -193,7 +193,7 @@ tfoot .tableCell {
 
 .basePaneStructure > .table :is(caption) {
     padding: 12px 21px;
-    border-top: 1px solid var(--gray-3);
+    border-top: 1px solid var(--surface-stroke);
 }
 
 .basePaneStructure > .table .tableLoader {

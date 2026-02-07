@@ -6,10 +6,10 @@
     max-width: 360px;
     padding: 9px 15px;
     flex-flow: column;
-    background: oklch(from var(--gray-11) l c h / .9);
+    background: rgb(from var(--gray-950) r g b / .9);
     backdrop-filter: blur(6px) saturate(180%);
     border-radius: var(--radius);
-    color: var(--gray-0);
+    color: var(--gray-25);
     font-size: 14px;
     font-variant-numeric: tabular-nums;
     pointer-events: none;

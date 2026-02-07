@@ -8,7 +8,7 @@
     --tab-padding: 12px;
 
     position: relative;
-    box-shadow: inset 0 -2px var(--gray-2);
+    box-shadow: inset 0 -2px var(--surface-stroke);
     z-index: 0;
 }
 
@@ -31,7 +31,7 @@
 
     @media (hover: hover) {
         &:hover {
-            background: var(--gray-2);
+            background: var(--surface-stroke);
         }
     }
 }
@@ -113,7 +113,7 @@
 .tabBarItemActive {
     composes: tabBarItem;
 
-    border-color: var(--primary-7);
+    border-color: var(--primary-600);
     color: var(--foreground-prominent);
 }
 
@@ -128,19 +128,19 @@
 }
 
 .basePaneStructure > .tabBar,
-.basePaneStructure > .tabs >.tabBar {
+.basePaneStructure > .tabs > .tabBar {
     --tab-padding: 18px;
 
     padding-left: 21px;
     padding-right: 21px;
-    background: var(--gray-1);
+    background: var(--gray-50);
 
     &:first-child {
         border-radius: var(--radius) var(--radius) 0 0;
     }
 
     &:not(:first-child) {
-        border-top: 1px solid var(--gray-2);
+        border-top: 1px solid var(--surface-stroke);
     }
 }
 
@@ -155,7 +155,7 @@
 
 .paneHeader:has(+ .tabBar),
 .paneHeader:has(+ .tabs > .tabBar) {
-    background: var(--gray-1);
+    background: var(--gray-50);
 }
 
 .basePaneStructure > .tabs > .tabsBar {

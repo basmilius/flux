@@ -7,8 +7,8 @@
     align-items: center;
     flex-grow: 0;
     gap: 9px;
-    background: var(--gray-1);
-    border: 1px solid var(--gray-2);
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
     border-radius: 99px;
     color: var(--foreground);
     transition: 180ms var(--swift-out);
@@ -21,21 +21,19 @@
 
         @media (hover: hover) {
             &:hover {
-                background: var(--gray-2);
-                border-color: var(--gray-3);
+                background: var(--gray-100);
             }
         }
     }
 
     &.isSelected {
-        background: var(--primary-2);
-        border-color: var(--primary-3);
-        color: var(--primary-7);
+        background: var(--primary-50);
+        border-color: var(--primary-200);
+        color: var(--primary-600);
 
         @media (hover: hover) {
             &:hover {
-                background: var(--primary-3);
-                border-color: var(--primary-4);
+                background: var(--primary-100);
             }
         }
     }

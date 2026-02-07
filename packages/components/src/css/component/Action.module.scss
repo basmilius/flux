@@ -8,15 +8,15 @@
     padding-left: 6px;
     padding-right: 6px;
     border: 0;
-    border-radius: var(--radius);
+    border-radius: var(--radius-half);
     box-shadow: none;
 
     @include mixin.hover {
-        background: var(--gray-2);
+        background: var(--gray-100);
     }
 
     &:active {
-        background: var(--gray-3);
+        background: var(--gray-200);
     }
 
     .spinner {
@@ -32,7 +32,7 @@
 }
 
 .action.isDestructive .actionIcon {
-    color: var(--danger-7);
+    color: var(--danger-600);
 }
 
 .actionLabel {
@@ -58,8 +58,8 @@
 
 .basePaneStructure > .actionBar {
     padding: 15px 21px;
-    background: var(--gray-1);
-    border: 1px solid var(--gray-2);
+    background: var(--gray-50);
+    border: 1px solid var(--gray-100);
     border-left: 0;
     border-right: 0;
 

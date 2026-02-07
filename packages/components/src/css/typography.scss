@@ -33,7 +33,7 @@
     }
 
     a:not([class]), a[class=""] {
-        color: var(--primary-7);
+        color: var(--primary-600);
         text-decoration: underline;
         text-decoration-thickness: 1px;
         text-underline-offset: 4px;
@@ -51,7 +51,7 @@
         position: relative;
         margin: 0 0 0 30px;
         padding: 15px 21px;
-        background: var(--gray-2);
+        background: var(--gray-100);
         border-radius: var(--radius);
 
         &::before {
@@ -59,7 +59,7 @@
             top: 5px;
             left: -27px;
             content: '”';
-            color: var(--primary-7);
+            color: var(--primary-600);
             font-size: 39px;
             font-weight: 700;
         }
@@ -71,7 +71,7 @@
 
     img:not([class]) {
         height: unset;
-        border-radius: calc(var(--radius) / 2);
+        border-radius: var(--radius-half);
         outline: 1px solid rgb(0 0 0 / .025);
         outline-offset: -1px;
     }

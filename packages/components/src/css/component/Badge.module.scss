@@ -10,8 +10,8 @@
     padding-right: 9px;
     align-items: center;
     gap: 6px;
-    background: var(--gray-0);
-    border: 1px solid var(--gray-2);
+    background: var(--gray-25);
+    border: 1px solid var(--gray-200);
     border-radius: 99px;
     color: var(--foreground-prominent);
     font-size: 13px;
@@ -24,7 +24,7 @@
         transition: background 180ms var(--swift-out);
 
         @include mixin.hover {
-            background: var(--gray-1);
+            background: var(--gray-50);
             color: var(--foreground-prominent);
         }
     }
@@ -49,12 +49,12 @@
     cursor: pointer;
 
     @include mixin.hover {
-        background: var(--gray-2);
+        background: var(--gray-100);
         color: var(--foreground);
     }
 
     &:active {
-        background: var(--gray-3);
+        background: var(--gray-200);
         color: var(--foreground);
     }
 
@@ -91,60 +91,60 @@
 .badgeGray {
     composes: badge;
 
-    --color: var(--gray-8);
+    --color: var(--gray-700);
 
     .badgeLabel {
         color: var(--foreground-prominent);
     }
 
     .spinner {
-        --value: var(--primary-7);
+        --value: var(--primary-600);
     }
 }
 
 .badgePrimary {
     composes: badge;
 
-    --color: var(--primary-7);
+    --color: var(--primary-600);
 }
 
 .badgeDanger {
     composes: badge;
 
-    --color: var(--danger-7);
+    --color: var(--danger-600);
 }
 
 .badgeInfo {
     composes: badge;
 
-    --color: var(--info-7);
+    --color: var(--info-600);
 }
 
 .badgeSuccess {
     composes: badge;
 
-    --color: var(--success-7);
+    --color: var(--success-600);
 }
 
 .badgeWarning {
     composes: badge;
 
-    --color: var(--warning-7);
+    --color: var(--warning-600);
 }
 
 .tag {
     composes: badge;
 
-    background: var(--gray-1);
-    border-color: var(--gray-2);
-    border-radius: calc(var(--radius) / 2);
+    background: var(--gray-50);
+    border-color: var(--gray-200);
+    border-radius: var(--radius-half);
     font-weight: 400;
 }
 
 .tagClose {
     composes: badgeClose;
 
-    border-radius: calc(var(--radius) / 3);
+    border-radius: var(--radius-half);
 }
 
 .tagDot {

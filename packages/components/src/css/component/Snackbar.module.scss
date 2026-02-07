@@ -18,10 +18,6 @@
             margin-bottom: 6px;
         }
     }
-
-    .progressBarTrack {
-        height: 6px;
-    }
 }
 
 .snackbarContent {
@@ -65,7 +61,7 @@
     align-items: center;
     justify-content: center;
     flex-grow: 1;
-    background: var(--gray-0);
+    background: var(--surface);
     border: 0;
     border-radius: 0;
     color: var(--foreground);
@@ -78,7 +74,7 @@
     transition-property: background, color;
 
     &:hover {
-        background: var(--gray-1);
+        background: var(--surface-hover);
         color: var(--foreground-prominent);
     }
 
@@ -87,7 +83,7 @@
     }
 
     &:active {
-        background: var(--gray-2);
+        background: var(--surface-active);
     }
 }
 
@@ -98,7 +94,7 @@
     flex-flow: column;
     flex-grow: 1;
     gap: 1px;
-    background: var(--gray-2);
+    background: var(--surface-stroke);
 }
 
 .snackbarGray {
@@ -117,12 +113,12 @@
     .snackbarAction:first-child,
     .snackbarContent > .icon,
     .snackbarTitle {
-        color: var(--primary-7);
+        color: var(--primary-600);
     }
 
     .spinnerEffect,
     .spinnerValue {
-        stroke: var(--primary-8);
+        stroke: var(--primary-700);
     }
 }
 
@@ -132,12 +128,12 @@
     .snackbarAction:first-child,
     .snackbarContent > .icon,
     .snackbarTitle {
-        color: var(--danger-7);
+        color: var(--danger-600);
     }
 
     .spinnerEffect,
     .spinnerValue {
-        stroke: var(--danger-8);
+        stroke: var(--danger-700);
     }
 }
 
@@ -147,12 +143,12 @@
     .snackbarAction:first-child,
     .snackbarContent > .icon,
     .snackbarTitle {
-        color: var(--info-7);
+        color: var(--info-600);
     }
 
     .spinnerEffect,
     .spinnerValue {
-        stroke: var(--info-8);
+        stroke: var(--info-700);
     }
 }
 
@@ -162,12 +158,12 @@
     .snackbarAction:first-child,
     .snackbarContent > .icon,
     .snackbarTitle {
-        color: var(--success-7);
+        color: var(--success-600);
     }
 
     .spinnerEffect,
     .spinnerValue {
-        stroke: var(--success-8);
+        stroke: var(--success-700);
     }
 }
 
@@ -177,12 +173,12 @@
     .snackbarAction:first-child,
     .snackbarContent > .icon,
     .snackbarTitle {
-        color: var(--warning-7);
+        color: var(--warning-600);
     }
 
     .spinnerEffect,
     .spinnerValue {
-        stroke: var(--warning-8);
+        stroke: var(--warning-700);
     }
 }
 

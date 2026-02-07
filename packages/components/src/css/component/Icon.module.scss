@@ -61,41 +61,41 @@
 .iconBoxedGray {
     composes: iconBoxedColored;
 
-    background: var(--gray-2);
+    background: var(--gray-100);
     color: var(--foreground);
 }
 
 .iconBoxedPrimary {
     composes: iconBoxedColored;
 
-    background: var(--primary-2);
-    color: var(--primary-10);
+    background: var(--primary-100);
+    color: var(--primary-900);
 }
 
 .iconBoxedDanger {
     composes: iconBoxedColored;
 
-    background: var(--danger-2);
-    color: var(--danger-10);
+    background: var(--danger-100);
+    color: var(--danger-900);
 }
 
 .iconBoxedInfo {
     composes: iconBoxedColored;
 
-    background: var(--info-2);
-    color: var(--info-10);
+    background: var(--info-100);
+    color: var(--info-900);
 }
 
 .iconBoxedSuccess {
     composes: iconBoxedColored;
 
-    background: var(--success-2);
-    color: var(--success-10);
+    background: var(--success-100);
+    color: var(--success-900);
 }
 
 .iconBoxedWarning {
     composes: iconBoxedColored;
 
-    background: var(--warning-2);
-    color: var(--warning-10);
+    background: var(--warning-100);
+    color: var(--warning-900);
 }

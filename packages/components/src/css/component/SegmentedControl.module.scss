@@ -4,8 +4,8 @@
     position: relative;
     align-items: center;
     gap: 1px;
-    background: var(--gray-1);
-    border: 1px solid var(--gray-2);
+    background: var(--gray-50);
+    border: 1px solid var(--surface-stroke);
     border-radius: var(--radius);
 }
 
@@ -26,10 +26,10 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    background: var(--gray-0);
-    border-radius: var(--radius);
+    background: var(--surface);
+    border-radius: calc(var(--radius) - 2px);
     box-shadow: var(--shadow-sm);
-    outline: 1px solid var(--gray-2);
+    outline: 1px solid var(--surface-stroke);
     pointer-events: none;
     transition: 300ms var(--swift-out);
     transition-property: left, width;
@@ -46,7 +46,7 @@
     justify-content: center;
     background: none;
     border: 0;
-    border-radius: calc(var(--radius) - 3px);
+    border-radius: var(--radius);
     color: var(--foreground);
     cursor: pointer;
     font-weight: 500;
@@ -55,7 +55,7 @@
     transition-property: background, color;
 
     @include mixin.hover {
-        background: var(--gray-2);
+        background: var(--gray-100);
     }
 
     &.isActive {
@@ -73,7 +73,7 @@
     height: 15px;
     width: 1px;
     flex-shrink: 0;
-    background: var(--gray-2);
+    background: var(--surface-stroke);
     transition: opacity 300ms var(--swift-out);
 
     &.isActive {

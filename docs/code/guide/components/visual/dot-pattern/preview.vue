@@ -3,7 +3,7 @@
         <FluxDotPattern
             :width="15"
             :height="15"
-            style="fill: rgb(var(--primary-7))"/>
+            style="fill: var(--primary-600)"/>
     </FluxAspectRatio>
 </template>
 

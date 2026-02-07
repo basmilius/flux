@@ -22,8 +22,8 @@
     display: flex;
     top: 0;
     align-items: center;
-    background: var(--gray-1);
-    border-bottom: 1px solid var(--gray-2);
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--surface-stroke);
     z-index: 1;
 }
 
@@ -54,7 +54,7 @@
     }
 
     @include mixin.hover {
-        color: var(--primary-7);
+        color: var(--primary-600);
     }
 }
 
@@ -75,7 +75,7 @@
     transition-property: background, border-radius, color, opacity;
 
     @include mixin.hover {
-        background: var(--gray-2);
+        background: var(--gray-100);
         color: var(--foreground-prominent);
     }
 
@@ -89,21 +89,21 @@
     }
 
     &.isSelected {
-        background: var(--primary-7);
-        color: var(--primary-1);
+        background: var(--primary-600);
+        color: var(--primary-50);
         font-weight: 700;
     }
 
     &.isRangeEntry {
-        background: var(--primary-3);
+        background: var(--primary-200);
         border-radius: 0;
-        color: var(--primary-11);
+        color: var(--primary-950);
     }
 
     &.isRangeEnd,
     &.isRangeStart {
-        background: var(--primary-7);
-        color: var(--primary-1);
+        background: var(--primary-600);
+        color: var(--primary-50);
         font-weight: 700;
     }
 
@@ -120,14 +120,14 @@
     }
 
     &.isSelectionEntry {
-        background: var(--gray-2);
+        background: var(--gray-100);
         border-radius: 0;
         color: var(--foreground-prominent);
     }
 
     &.isSelectionEnd,
     &.isSelectionStart {
-        background: var(--gray-3);
+        background: var(--gray-200);
         font-weight: 700;
     }
 

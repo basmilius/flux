@@ -3,31 +3,31 @@
 .primaryButton {
     composes: button from './base/Button.module.scss';
 
-    background: var(--primary-7);
-    border-color: var(--primary-8);
-    box-shadow: 0 1px 1px oklch(from var(--primary-7) l c h / .25);
-    color: var(--primary-0);
+    background: var(--primary-600);
+    border-color: var(--primary-700);
+    box-shadow: 0 1px 1px rgb(from var(--primary-600) r g b / .25);
+    color: var(--primary-25);
 
     @include mixin.hover {
-        background: var(--primary-8);
-        border-color: var(--primary-9);
+        background: var(--primary-700);
+        border-color: var(--primary-800);
     }
 
     &:active {
-        background: var(--primary-9);
+        background: var(--primary-800);
         scale: .9875;
     }
 
     .spinner {
-        --track: var(--primary-8);
-        --value: var(--primary-0);
+        --track: var(--primary-700);
+        --value: var(--primary-25);
     }
 }
 
 .primaryButtonIcon {
     composes: buttonIcon from './base/Button.module.scss';
 
-    color: var(--primary-0);
+    color: var(--primary-25);
 }
 
 .primaryButtonLabel {
@@ -37,17 +37,16 @@
 .secondaryButton {
     composes: button from './base/Button.module.scss';
 
-    background: var(--gray-0);
-    border-color: var(--gray-2);
+    background: var(--surface);
+    border-color: var(--surface-stroke);
     color: var(--foreground);
 
     @include mixin.hover {
-        background: var(--gray-1);
+        background: var(--surface-hover);
     }
 
     &:active {
-        background: var(--gray-2);
-        border-color: var(--gray-3);
+        background: var(--surface-active);
         scale: .9875;
     }
 }
@@ -55,7 +54,7 @@
 .secondaryButtonIcon {
     composes: buttonIcon from './base/Button.module.scss';
 
-    color: var(--foreground-prominent);
+    color: var(--foreground);
 }
 
 .secondaryButtonLabel {
@@ -65,42 +64,41 @@
 .destructiveButton {
     composes: button from './base/Button.module.scss';
 
-    background: var(--gray-0);
-    border-color: var(--gray-2);
+    background: var(--surface);
+    border-color: var(--surface-stroke);
     color: var(--foreground);
 
     @include mixin.hover {
-        background: var(--gray-1);
+        background: var(--surface-hover);
     }
 
     &:active {
-        background: var(--gray-2);
-        border-color: var(--gray-3);
+        background: var(--surface-active);
         scale: .9875;
     }
 
     .spinner {
-        --value: var(--danger-7);
+        --value: var(--danger-600);
     }
 }
 
 .destructiveButtonIcon {
     composes: buttonIcon from './base/Button.module.scss';
 
-    color: var(--danger-7);
+    color: var(--danger-600);
 }
 
 .destructiveButtonLabel {
     composes: buttonLabel from './base/Button.module.scss';
 
     &:only-child {
-        color: var(--danger-7);
+        color: var(--danger-600);
     }
 }
 
 .secondaryButton,
 .destructiveButton {
-    box-shadow: var(--shadow-px), inset 0 -1px oklch(from var(--gray-3) l c h / .15);
+    box-shadow: var(--shadow-px), inset 0 -1px rgb(from var(--gray-200) r g b / .15);
 }
 
 .linkButton {
@@ -111,7 +109,7 @@
     padding: 0;
     border: 0;
     box-shadow: unset;
-    color: var(--primary-7);
+    color: var(--primary-600);
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 4px;
@@ -119,7 +117,7 @@
     @include mixin.focus-ring(6px);
 
     @include mixin.hover {
-        color: var(--primary-10);
+        color: var(--primary-900);
 
         .linkButtonIcon {
             transform: translate3d(6px, 0, 0);
@@ -130,7 +128,7 @@
 .linkButtonIcon {
     composes: buttonIcon from './base/Button.module.scss';
 
-    color: var(--primary-7);
+    color: var(--primary-600);
     transition: inherit;
     transition-property: transform;
 

@@ -32,7 +32,7 @@
 
         &:hover {
             color: white;
-            background: var(--primary-9);
+            background: var(--primary-800);
         }
     }
 </style>

@@ -29,12 +29,12 @@
 
     &::before {
         width: var(--max);
-        background: var(--gray-2);
+        background: var(--gray-100);
     }
 
     &::after {
         width: calc(min(1, var(--progress)) * var(--max));
-        background: var(--primary-7);
+        background: var(--primary-600);
         transition: width 300ms var(--swift-out);
     }
 }
@@ -48,7 +48,7 @@
     width: 33px;
     align-items: center;
     justify-content: center;
-    background: var(--gray-3);
+    background: var(--gray-100);
     border: 0;
     border-radius: 99px;
     color: var(--foreground);
@@ -75,17 +75,17 @@
     composes: sparklesContainerActive from './base/Effect.module.scss';
     composes: stepperStepsItem;
 
-    background: var(--primary-7);
-    border-color: var(--primary-7);
-    color: var(--primary-0);
+    background: var(--primary-600);
+    border-color: var(--primary-600);
+    color: var(--primary-25);
 }
 
 .stepperStepsItemCurrent {
     composes: stepperStepsItem;
 
-    background: var(--gray-1);
+    background: var(--gray-100);
     color: var(--foreground-prominent);
-    outline-color: var(--primary-7);
+    outline-color: var(--primary-600);
     outline-width: 2px;
     transition-delay: 75ms;
 }
@@ -93,7 +93,7 @@
 .stepperStepsItemIdle {
     composes: stepperStepsItem;
 
-    outline-color: var(--gray-0);
+    outline-color: var(--gray-25);
 }
 
 .stepperStepsItemParticles {

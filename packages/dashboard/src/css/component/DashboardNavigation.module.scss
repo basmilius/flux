@@ -14,7 +14,7 @@
     }
 
     .dividerLine {
-        background: var(--primary-10);
+        background: var(--primary-900);
     }
 
     .menu {
@@ -31,17 +31,17 @@
 
         @media (hover: hover) {
             &:hover {
-                background: var(--primary-10);
+                background: var(--primary-900);
             }
         }
 
         &:active {
-            background: var(--primary-9);
+            background: var(--primary-800);
         }
     }
 
     .menuItemHighlighted {
-        background: oklch(from var(--primary-10) l c h / .5);
+        background: rgb(from var(--primary-900) r g b / .5);
     }
 
     .menuItemIcon {
@@ -62,23 +62,23 @@
 
 [dark] .dashboardNavigation {
     .dividerLine {
-        background: var(--gray-2);
+        background: var(--gray-100);
     }
 
     .menuItem {
         @media (hover: hover) {
             &:hover {
-                background: var(--gray-2);
+                background: var(--gray-100);
             }
         }
 
         &:active {
-            background: var(--gray-3);
+            background: var(--gray-200);
         }
     }
 
     .menuItemHighlighted {
-        background: var(--gray-1);
+        background: var(--gray-50);
     }
 }
 
@@ -110,12 +110,12 @@
         display: block;
         inset: 0;
         content: '';
-        background: var(--gray-1);
+        background: var(--gray-50);
     }
 }
 
 .dashboard:not(:has(.dashboardMenu)) .dashboardNavigationRoundingFix::before {
-    background: var(--gray-0);
+    background: var(--gray-25);
 }
 
 @include mixin.breakpoint-up(lg) {
@@ -185,7 +185,7 @@
             width: 100dvw;
             height: 100dvh;
             content: '';
-            background: oklch(from var(--gray-3) l c h / .5);
+            background: rgb(from var(--gray-200) r g b / .5);
             backdrop-filter: blur(3px) saturate(180%);
             transition: var(--dashboard-duration) var(--swift-out);
             transition-property: background, backdrop-filter;

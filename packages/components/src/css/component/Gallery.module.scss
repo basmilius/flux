@@ -20,11 +20,11 @@
 
     position: relative;
     aspect-ratio: 1 / 1;
-    color: var(--gray-7);
+    color: var(--foreground-secondary);
 
     @include mixin.hover {
-        background: var(--gray-2);
-        border-color: var(--gray-3);
+        background: var(--gray-100);
+        border-color: var(--gray-200);
     }
 }
 
@@ -60,7 +60,7 @@
     inset: 1px;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(2px) saturate(180%);
+    backdrop-filter: blur(3px) saturate(180%);
     background: rgb(0 0 0 / .25);
     border-radius: calc(var(--radius) - 1px);
     z-index: 0;

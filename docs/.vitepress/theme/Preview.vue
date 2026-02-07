@@ -65,7 +65,7 @@
         }
 
         :global(svg) {
-            stroke: var(--gray-2);
+            stroke: var(--gray-100);
         }
     }
 

@@ -9,7 +9,8 @@ export default defineConfig({
             cssModules: {
                 classNames: 'kebab'
             },
-            isLibrary: true
+            isLibrary: true,
+            tsconfigPath: resolve(import.meta.dirname, 'tsconfig.app.json')
         }),
         vue(),
         closeBundle()
@@ -28,7 +29,10 @@ export default defineConfig({
             formats: ['es'],
             name: 'fluxDashboard'
         },
-        rollupOptions: {
+        rolldownOptions: {
+            experimental: {
+                lazyBarrel: true
+            },
             external: ['@flux-ui/components', 'luxon', 'vue'],
             output: {
                 exports: 'named',

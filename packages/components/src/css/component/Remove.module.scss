@@ -9,16 +9,16 @@
     width: 27px;
     align-items: center;
     justify-content: center;
-    background: var(--danger-7);
-    border: 3px solid var(--gray-0);
+    background: var(--danger-600);
+    border: 3px solid var(--surface);
     border-radius: 99px;
-    color: var(--danger-0);
+    color: var(--danger-25);
     cursor: pointer;
     transition: 300ms var(--swift-out);
     transition-property: background, opacity, scale;
 
     @include mixin.hover {
-        background: var(--danger-8);
+        background: var(--danger-700);
     }
 
     &.isHidden {

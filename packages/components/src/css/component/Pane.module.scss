@@ -15,7 +15,7 @@
 .paneWell {
     composes: pane;
 
-    background: var(--gray-1);
+    background: var(--background);
 }
 
 .paneHeader {
@@ -56,7 +56,7 @@
 
 .paneHeaderIcon {
     margin-top: 2px;
-    color: var(--primary-7);
+    color: var(--primary-600);
 }
 
 .paneBody {
@@ -75,8 +75,8 @@
     display: flex;
     padding: 21px;
     gap: 9px;
-    background: var(--gray-1);
-    border-top: 1px solid var(--gray-2);
+    background: var(--gray-50);
+    border-top: 1px solid var(--gray-100);
 }
 
 .paneLoader {
@@ -88,9 +88,9 @@
     top: 15px;
     right: 15px;
     padding: 6px 9px;
-    background: var(--gray-10);
-    border-radius: calc(var(--radius) / 2);
-    color: var(--gray-0);
+    background: var(--gray-900);
+    border-radius: var(--radius-half);
+    color: var(--gray-25);
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 1px;
@@ -107,7 +107,7 @@
     composes: paneMedia;
 
     margin: 21px;
-    border-radius: calc(var(--radius) / 2);
+    border-radius: var(--radius-half);
 
     &:not(:first-child) {
         margin-top: 0;
@@ -150,7 +150,7 @@
 }
 
 .paneGroup + .paneGroup {
-    border-top: 1px solid oklch(from var(--gray-11) l c h / .05);
+    border-top: 1px solid var(--surface-stroke);
 }
 
 .paneIllustration {

@@ -3,36 +3,6 @@
     flex-basis: 0;
     flex-grow: 1;
     gap: 21px;
-
-    &.isGray .statisticIcon {
-        background: var(--gray-2);
-        color: var(--gray-7);
-    }
-
-    &.isPrimary .statisticIcon {
-        background: var(--primary-2);
-        color: var(--primary-7);
-    }
-
-    &.isDanger .statisticIcon {
-        background: var(--danger-2);
-        color: var(--danger-7);
-    }
-
-    &.isInfo .statisticIcon {
-        background: var(--info-2);
-        color: var(--info-7);
-    }
-
-    &.isSuccess .statisticIcon {
-        background: var(--success-2);
-        color: var(--success-7);
-    }
-
-    &.isWarning .statisticIcon {
-        background: var(--warning-2);
-        color: var(--warning-7);
-    }
 }
 
 .statisticChange {
@@ -49,23 +19,23 @@
     }
 
     &.isPrimary {
-        color: var(--primary-7);
+        color: var(--primary-600);
     }
 
     &.isDanger {
-        color: var(--danger-7);
+        color: var(--danger-600);
     }
 
     &.isInfo {
-        color: var(--info-7);
+        color: var(--info-600);
     }
 
     &.isSuccess {
-        color: var(--success-7);
+        color: var(--success-600);
     }
 
     &.isWarning {
-        color: var(--warning-7);
+        color: var(--warning-600);
     }
 }
 
@@ -85,15 +55,6 @@
         font-size: 24px;
         font-weight: 700;
     }
-}
-
-.statisticIcon {
-    display: flex;
-    height: 48px;
-    width: 48px;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--radius);
 }
 
 .statisticImage {

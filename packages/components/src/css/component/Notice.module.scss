@@ -70,7 +70,7 @@
 }
 
 .noticePrefix {
-    margin-top: 2px;
+    margin-top: 3px;
     flex-shrink: 0;
     font-size: 20px;
 }
@@ -108,12 +108,12 @@
 .noticeGray {
     composes: notice;
 
-    background: var(--gray-1);
-    border-color: var(--gray-2);
+    background: var(--gray-50);
+    border-color: var(--gray-200);
     color: var(--foreground);
 
     .noticeClose {
-        background: var(--gray-3);
+        background: var(--gray-200);
     }
 
     .noticePrefix,
@@ -125,150 +125,150 @@
 .noticePrimary {
     composes: notice;
 
-    background: var(--primary-2);
-    border-color: var(--primary-3);
-    color: var(--primary-11);
+    background: var(--primary-100);
+    border-color: var(--primary-200);
+    color: var(--primary-950);
 
     .noticeClose {
-        background: var(--primary-3);
+        background: var(--primary-200);
     }
 
     .noticePrefix,
     .noticeTitle {
-        color: var(--primary-7);
+        color: var(--primary-600);
     }
 
     :local(.button) {
-        border-color: var(--primary-4);
+        border-color: var(--primary-300);
     }
 
     :local(.spinnerTrack) {
-        stroke: var(--primary-3);
+        stroke: var(--primary-200);
     }
 
     :local(.spinnerEffect),
     :local(.spinnerValue) {
-        stroke: var(--primary-7);
+        stroke: var(--primary-600);
     }
 }
 
 .noticeDanger {
     composes: notice;
 
-    background: var(--danger-2);
-    border-color: var(--danger-3);
-    color: var(--danger-11);
+    background: var(--danger-100);
+    border-color: var(--danger-200);
+    color: var(--danger-950);
 
     .noticeClose {
-        background: var(--danger-3);
+        background: var(--danger-200);
     }
 
     .noticePrefix,
     .noticeTitle {
-        color: var(--danger-7);
+        color: var(--danger-600);
     }
 
     :local(.button) {
-        border-color: var(--danger-4);
+        border-color: var(--danger-300);
     }
 
     :local(.spinnerTrack) {
-        stroke: var(--danger-3);
+        stroke: var(--danger-200);
     }
 
     :local(.spinnerEffect),
     :local(.spinnerValue) {
-        stroke: var(--danger-7);
+        stroke: var(--danger-600);
     }
 }
 
 .noticeInfo {
     composes: notice;
 
-    background: var(--info-2);
-    border-color: var(--info-3);
-    color: var(--info-11);
+    background: var(--info-100);
+    border-color: var(--info-200);
+    color: var(--info-950);
 
     .noticeClose {
-        background: var(--info-3);
+        background: var(--info-200);
     }
 
     .noticePrefix,
     .noticeTitle {
-        color: var(--info-7);
+        color: var(--info-600);
     }
 
     :local(.button) {
-        border-color: var(--info-4);
+        border-color: var(--info-300);
     }
 
     :local(.spinnerTrack) {
-        stroke: var(--info-3);
+        stroke: var(--info-200);
     }
 
     :local(.spinnerEffect),
     :local(.spinnerValue) {
-        stroke: var(--info-7);
+        stroke: var(--info-600);
     }
 }
 
 .noticeSuccess {
     composes: notice;
 
-    background: var(--success-2);
-    border-color: var(--success-3);
-    color: var(--success-11);
+    background: var(--success-100);
+    border-color: var(--success-200);
+    color: var(--success-950);
 
     .noticeClose {
-        background: var(--success-3);
+        background: var(--success-200);
     }
 
     .noticePrefix,
     .noticeTitle {
-        color: var(--success-7);
+        color: var(--success-600);
     }
 
     :local(.button) {
-        border-color: var(--success-4);
+        border-color: var(--success-300);
     }
 
     :local(.spinnerTrack) {
-        stroke: var(--success-3);
+        stroke: var(--success-200);
     }
 
     :local(.spinnerEffect),
     :local(.spinnerValue) {
-        stroke: var(--success-7);
+        stroke: var(--success-600);
     }
 }
 
 .noticeWarning {
     composes: notice;
 
-    background: var(--warning-2);
-    border-color: var(--warning-3);
-    color: var(--warning-11);
+    background: var(--warning-100);
+    border-color: var(--warning-200);
+    color: var(--warning-950);
 
     .noticeClose {
-        background: var(--warning-3);
+        background: var(--warning-200);
     }
 
     .noticePrefix,
     .noticeTitle {
-        color: var(--warning-7);
+        color: var(--warning-600);
     }
 
     :local(.button) {
-        border-color: var(--warning-4);
+        border-color: var(--warning-300);
     }
 
     :local(.spinnerTrack) {
-        stroke: var(--warning-3);
+        stroke: var(--warning-200);
     }
 
     :local(.spinnerEffect),
     :local(.spinnerValue) {
-        stroke: var(--warning-7);
+        stroke: var(--warning-600);
     }
 }
 

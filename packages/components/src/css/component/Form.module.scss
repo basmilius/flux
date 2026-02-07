@@ -138,7 +138,7 @@
 .formFieldAdditionError {
     composes: formFieldAddition;
 
-    color: var(--danger-7);
+    color: var(--danger-600);
 }
 
 .formFieldAdditionHint {
@@ -158,9 +158,9 @@
     width: 100%;
     padding: 0 12px;
     align-self: start;
-    background: var(--gray-0);
+    background: var(--surface);
     background-clip: padding-box;
-    border: 1px solid var(--gray-2);
+    border: 1px solid var(--surface-stroke);
     border-radius: var(--radius);
     box-shadow: var(--shadow-px);
     color: var(--foreground);
@@ -172,7 +172,7 @@
     }
 
     &.isSecondary {
-        background: var(--gray-1);
+        background: var(--background);
         border-color: transparent;
         box-shadow: none;
     }
@@ -181,7 +181,7 @@
 .formInputDisabled {
     composes: formInput;
 
-    background: var(--gray-1);
+    background: var(--surface-disabled);
     color: var(--foreground-secondary);
     cursor: not-allowed;
 
@@ -196,7 +196,7 @@
     @include mixin.focus-ring(-1px, true);
 
     @include mixin.hover {
-        border-color: var(--gray-3);
+        border-color: var(--surface-stroke-hover);
     }
 }
 
@@ -258,7 +258,7 @@
 
     &::-webkit-color-swatch {
         border: 0;
-        border-radius: calc(var(--radius) / 2);
+        border-radius: var(--radius-half);
     }
 
     &::-webkit-color-swatch-wrapper {
@@ -284,20 +284,20 @@
     align-items: center;
     flex-grow: 0;
     justify-content: center;
-    background: var(--gray-1);
+    background: var(--surface-disabled);
     color: var(--foreground-secondary);
     pointer-events: none;
 
     &:has(+ .formInput .formInputNative) {
-        border-right: 1px solid var(--gray-2);
+        border-right: 1px solid var(--surface-stroke);
     }
 
     + .formInputAddition {
-        border-left: 1px solid var(--gray-2);
+        border-left: 1px solid var(--surface-stroke);
     }
 
     @at-root .formInput:has(.formInputNative) + & {
-        border-left: 1px solid var(--gray-2);
+        border-left: 1px solid var(--surface-stroke);
     }
 }
 
@@ -314,7 +314,7 @@
 
         + :is(.button, .buttonGroup) {
             margin: 0;
-            border-left: 1px solid var(--gray-2);
+            border-left: 1px solid var(--surface-stroke);
         }
     }
 
@@ -323,7 +323,7 @@
 
         + .button {
             margin: 0;
-            border-left: 1px solid var(--gray-2);
+            border-left: 1px solid var(--surface-stroke);
         }
     }
 
@@ -350,11 +350,11 @@
 
         .secondaryButton {
             background: transparent;
-            border-color: var(--gray-2);
+            border-color: var(--surface-stroke);
             box-shadow: none;
 
             @include mixin.hover {
-                background: var(--gray-3);
+                background: var(--surface-stroke-hover);
             }
         }
     }
@@ -369,7 +369,7 @@
 
     :is(.button[disabled]),
     :is(.button[aria-disabled="true"]) {
-        background: var(--gray-1);
+        background: var(--surface-disabled);
         opacity: 1;
 
         &,
@@ -435,7 +435,7 @@
         @include mixin.focus-ring(-1px, true);
 
         @include mixin.hover {
-            border-color: var(--gray-4);
+            border-color: var(--surface-stroke-hover);
         }
     }
 
@@ -467,7 +467,7 @@
     top: 0;
     height: 48px;
     margin-bottom: 9px;
-    background: var(--gray-0);
+    background: var(--surface);
     border-top: 0;
     border-left: 0;
     border-right: 0;
@@ -511,7 +511,7 @@
     z-index: 10000;
 
     .menuItem {
-        contain-intrinsic-size: #{'auto 42px'};
+        contain-intrinsic-size: auto 42px;
         content-visibility: auto;
     }
 
@@ -544,8 +544,8 @@
 }
 
 .isDisabled .formSelectSelected {
-    background: var(--gray-2);
-    border: 1px solid var(--gray-3);
+    background: var(--surface-disabled);
+    border: 1px solid var(--surface-stroke);
     color: var(--foreground-secondary);
     opacity: 1;
 }
@@ -593,14 +593,14 @@
     padding: 0;
     align-items: center;
     justify-content: center;
-    background: var(--gray-2);
-    border: 0;
-    border-radius: calc(var(--radius) / 2);
-    color: var(--primary-0);
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-half);
+    color: var(--primary-25);
     cursor: pointer;
     pointer-events: none;
     transition: 210ms var(--swift-out);
-    transition-property: background, color, mixin.focus-ring-transition-properties();
+    transition-property: background, border-color, color, mixin.focus-ring-transition-properties();
 
     @include mixin.focus-outline;
 
@@ -627,12 +627,13 @@
 
     @include mixin.hover {
         + .checkboxElement {
-            background: var(--gray-3);
+            background: var(--gray-100);
         }
     }
 
     &:is(:checked, :indeterminate) + .checkboxElement {
-        background: var(--primary-7);
+        background: var(--primary-600);
+        border-color: var(--primary-600);
 
         .icon {
             opacity: 1;
@@ -648,15 +649,17 @@
     min-width: max-content;
     align-self: center;
     justify-self: center;
-    border: 1px solid var(--gray-2);
+    border: 1px solid var(--surface-stroke);
     border-radius: var(--radius);
     box-shadow: var(--shadow-px);
     overflow: hidden;
+    transition: 180ms var(--swift-out);
+    transition-property: border-color, mixin.focus-ring-transition-properties();
 
-    @include mixin.focus-ring-transition(2px, true);
+    @include mixin.focus-ring(2px, true);
 
     @include mixin.hover {
-        border-color: var(--gray-3);
+        border-color: var(--surface-stroke-hover);
     }
 }
 
@@ -691,7 +694,7 @@
     text-align: center;
 
     &:hover {
-        border-color: var(--gray-3);
+        border-color: var(--surface-stroke-hover);
     }
 
     &,
@@ -726,8 +729,7 @@
 .pinInputField {
     padding: 0;
     width: 2.7ch;
-    background-clip: padding-box;
-    border: 1px solid var(--gray-3);
+    border: 1px solid var(--surface-stroke);
     border-radius: var(--radius);
     box-shadow: var(--shadow-px);
     font: inherit;
@@ -742,7 +744,7 @@
     composes: pinInput;
 
     .pinInputField {
-        background-color: var(--gray-0);
+        background-color: var(--surface);
         color: var(--foreground-prominent);
 
         @include mixin.focus-ring(-1px, true);
@@ -753,7 +755,7 @@
     composes: pinInput;
 
     .pinInputField {
-        background-color: var(--gray-2);
+        background-color: var(--surface-disabled);
         color: var(--foreground-secondary);
         cursor: not-allowed;
     }
@@ -765,20 +767,23 @@
     width: 54px;
     height: 30px;
     flex: 0 0 auto;
-    background: var(--gray-2);
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
     border-radius: 99px;
     contain: paint;
 
     &.isChecked {
+        border-color: transparent;
+
         .toggleInput::after {
             translate: 24px 0;
         }
 
         &:not(.isSwitch) {
-            background: var(--primary-7);
+            background: var(--primary-600);
 
             .toggleIcon {
-                color: var(--primary-0);
+                color: var(--primary-25);
             }
 
             .toggleInput::after {
@@ -841,14 +846,13 @@
     &::after {
         position: absolute;
         display: block;
-        top: 3px;
-        left: 3px;
+        top: 2px;
+        left: 2px;
         height: 24px;
         width: 24px;
         content: '';
-        background: var(--gray-0);
-        background-clip: padding-box;
-        border: 1px solid var(--gray-3);
+        background: var(--surface);
+        border: 1px solid var(--surface-stroke);
         border-radius: 99px;
         box-shadow: var(--shadow-sm);
     }

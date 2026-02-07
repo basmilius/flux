@@ -7,7 +7,7 @@
             <slot/>
         </template>
 
-        <template #default="{ filters, menuItems }">
+        <template #default="{ buttons, filters, menuItems }">
             <div :class="$style.filterBar">
                 <FluxFormInput
                     v-model="modelSearch"
@@ -17,9 +17,20 @@
                     type="search"/>
 
                 <FluxOverflowBar alignment="end">
-                    <div/>
+                    <template
+                        v-for="button of buttons"
+                        :key="button.name">
+                        <FluxSecondaryButton
+                            v-if="modelValue[button.name]"
+                            :icon-leading="button.icon"
+                            :label="button.label"/>
+                    </template>
 
-                    <template #overflow="{items}">
+                    <template #overflow>
+                        <FluxSpacing
+                            v-if="buttons"
+                            :size="2"/>
+
                         <FluxFlyout>
                             <template #opener="{open}">
                                 <FluxSecondaryButton
@@ -27,8 +38,6 @@
                                     label="Filter"
                                     @click="open()"/>
                             </template>
-
-                            <pre>{{ items }}</pre>
 
                             <FluxFilterWindow
                                 :filters="filters"
@@ -54,6 +63,7 @@
     import FluxOverflowBar from './FluxOverflowBar.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import $style from '$flux/css/component/Filter.module.scss';
+    import FluxSpacing from '$flux/component/FluxSpacing.vue';
 
     const emit = defineEmits<{
         reset: [string];

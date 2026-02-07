@@ -1,5 +1,5 @@
 <template>
-    <slot v-bind="{filters, menuItems}"/>
+    <slot v-bind="{buttons, filters, menuItems}"/>
 </template>
 
 <script
@@ -26,12 +26,33 @@
 
     const slots = defineSlots<{
         default(props: {
+            readonly buttons: Record<string, FluxFilterItem>;
             readonly filters: Record<string, VNode>;
             readonly menuItems: (FluxFilterItem | VNode)[][];
         }): any;
 
         filters(): any;
     }>();
+
+    const buttons = computed(() => {
+        const buttons: Record<string, FluxFilterItem> = {};
+        const items = unref(flattenedFilters);
+
+        for (const item of items) {
+            const name = getComponentName(item);
+
+            if (!name.startsWith('FluxFilter')) {
+                continue;
+            }
+
+            const props = getComponentProps<Omit<FluxFilterItem, 'type'>>(item);
+            const type = camelCase(name.substring(10)) as FluxFilterItem['type'];
+
+            buttons[props.name] = filterParsers[type](props);
+        }
+
+        return buttons;
+    });
 
     const flattenedFilters = computed(() => flattenVNodeTree(slots.filters?.() ?? []));
 

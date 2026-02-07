@@ -1,15 +1,15 @@
 @use '../../../../components/src/css/mixin';
 
 :root {
-    --dashboard-background: var(--gray-0);
+    --dashboard-background: var(--gray-25);
     --dashboard-duration: 360ms;
-    --dashboard-navigation-background: var(--primary-11);
-    --dashboard-navigation-foreground: var(--primary-0);
+    --dashboard-navigation-background: var(--primary-950);
+    --dashboard-navigation-foreground: var(--primary-25);
 }
 
 [dark] {
-    --dashboard-navigation-background: color-mix(in oklch, var(--gray-0), black 25%);
-    --dashboard-navigation-foreground: var(--gray-9);
+    --dashboard-navigation-background: color-mix(in oklch, var(--gray-25), black 25%);
+    --dashboard-navigation-foreground: var(--gray-800);
 }
 
 body:has(.root > .dashboard) {

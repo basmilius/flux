@@ -3,13 +3,12 @@
     gap: 15px;
 
     > .icon {
-        margin-top: 1px;
+        margin-top: 3px;
         flex-shrink: 0;
-        color: var(--primary-7);
+        color: var(--primary-600);
     }
 }
 
 .infoBody {
     align-items: center;
-    line-height: 1.5;
 }
