@@ -34,7 +34,7 @@
         </template>
 
         <template
-            v-if="command || commandIcon || commandLoading"
+            v-if="command || commandIcon || commandLoading || slots.after"
             #after>
             <FluxSpinner
                 v-if="commandLoading"
@@ -53,6 +53,8 @@
                     :class="$style.menuItemCommandIcon"
                     :name="commandIcon"/>
             </template>
+
+            <slot name="after"/>
         </template>
     </FluxButton>
 </template>
@@ -67,6 +69,10 @@
     import $style from '$flux/css/component/Menu.module.scss';
 
     defineEmits<FluxButtonEmits>();
+
+    const slots = defineSlots<{
+        after(): any;
+    }>();
 
     const {
         type = 'button'

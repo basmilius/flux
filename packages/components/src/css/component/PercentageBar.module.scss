@@ -8,7 +8,7 @@
     height: 12px;
     border-radius: calc(var(--radius) / 3);
     transition: 180ms var(--swift-out);
-    transition-property: height, margin;
+    transition-property: height, margin, flex-grow;
 
     &:hover {
         height: 16px;

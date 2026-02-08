@@ -21,7 +21,7 @@
     transition: opacity 600ms var(--swift-out);
 }
 
-.overlayProvider:not(:has(.overlay:not(.overlayTransitionLeaveActive))) .overlayShade {
+.overlayProvider:not(:has(.overlay:not(.overlayTransitionLeaveActive):not(.slideOverTransitionLeaveActive))) .overlayShade {
     opacity: 0;
 }
 

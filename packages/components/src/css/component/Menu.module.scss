@@ -56,6 +56,10 @@
     &:active {
         background: var(--gray-200);
     }
+
+    :local(.badge):last-child {
+        margin-right: -6px;
+    }
 }
 
 .menuItemIcon {
@@ -119,6 +123,10 @@
 
     &:active {
         background: var(--primary-100);
+    }
+
+    :local(.badge) {
+        --surface-stroke: var(--primary-200);
     }
 }
 
