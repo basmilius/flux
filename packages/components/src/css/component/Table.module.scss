@@ -42,7 +42,7 @@
 .tableCell {
     height: 0;
     padding: 0;
-    border: 0 solid var(--surface-stroke);
+    border: 0 solid var(--gray-100);
 
     @-moz-document url-prefix() {
         height: 100%;
@@ -59,7 +59,7 @@
 .tableHeader {
     composes: tableCell;
 
-    border-bottom: 2px solid var(--surface-stroke);
+    border-bottom: 2px solid var(--gray-100);
     color: var(--foreground-prominent);
 
     &.isShrinking {
@@ -94,7 +94,7 @@ tbody .tableRow:nth-child(even) .tableCell.isStriped {
 }
 
 tfoot .tableCell {
-    border-top: 1px solid var(--surface-stroke);
+    border-top: 1px solid var(--gray-100);
 }
 
 .tableCell + .tableCell.isBordered {
@@ -151,7 +151,7 @@ tfoot .tableCell {
     margin-top: auto;
     margin-bottom: -1px;
     background: var(--surface);
-    border-top: 1px solid var(--surface-stroke);
+    border-top: 1px solid var(--gray-100);
     translate: 0 -1px;
     z-index: 100;
 }
@@ -193,7 +193,7 @@ tfoot .tableCell {
 
 .basePaneStructure > .table :is(caption) {
     padding: 12px 21px;
-    border-top: 1px solid var(--surface-stroke);
+    border-top: 1px solid var(--gray-100);
 }
 
 .basePaneStructure > .table .tableLoader {
