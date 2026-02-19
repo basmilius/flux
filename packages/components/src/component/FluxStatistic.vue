@@ -9,7 +9,8 @@
             color === 'info' && $style.isInfo,
             color === 'success' && $style.isSuccess,
             color === 'warning' && $style.isWarning
-        )">
+        )"
+        :is-loading="isLoading">
         <FluxBoxedIcon
             v-if="icon"
             :class="$style.statisticIcon"
@@ -26,7 +27,7 @@
 
         <div :class="$style.statisticData">
             <span>{{ label }}</span>
-            <strong>{{ value }}</strong>
+            <strong>{{ value ?? MDASH }}</strong>
         </div>
 
         <div
@@ -53,6 +54,7 @@
 <script
     lang="ts"
     setup>
+    import { MDASH } from '@basmilius/utils';
     import type { FluxColor, FluxDirection, FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import FluxIcon from './FluxIcon.vue';
@@ -67,13 +69,14 @@
     } = defineProps<{
         readonly changeColor?: FluxColor;
         readonly changeIcon?: FluxIconName;
-        readonly changeValue?: string;
+        readonly changeValue?: string | number | null;
         readonly color?: FluxColor;
         readonly direction?: FluxDirection;
         readonly icon?: FluxIconName;
         readonly imageSrc?: string;
         readonly imageAlt?: string;
+        readonly isLoading?: boolean;
         readonly label: string;
-        readonly value: string | number;
+        readonly value?: string | number | null;
     }>();
 </script>

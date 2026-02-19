@@ -128,7 +128,9 @@
 }
 
 .basePaneStructure > .tabBar,
-.basePaneStructure > .tabs > .tabBar {
+.basePaneStructure > .tabs > .tabBar,
+.basePaneStructure > .form > .tabBar,
+.basePaneStructure > .form > .tabs > .tabBar {
     --tab-padding: 18px;
 
     padding-left: 21px;
@@ -145,7 +147,9 @@
 }
 
 .basePaneStructure > .paneHeader + .tabBar,
-.basePaneStructure > .paneHeader + .tabs > .tabBar {
+.basePaneStructure > .paneHeader + .tabs > .tabBar,
+.basePaneStructure > .form > .paneHeader + .tabBar,
+.basePaneStructure > .form > .paneHeader + .tabs > .tabBar {
     padding-top: 6px;
 
     &:not(:first-child) {

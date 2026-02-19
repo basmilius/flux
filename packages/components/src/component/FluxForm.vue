@@ -1,12 +1,12 @@
 <template>
-    <FluxDisabled :disabled="disabled">
-        <form
-            :class="$style.form"
-            :aria-disabled="disabled ? true : undefined"
-            @submit.prevent="onSubmit()">
+    <form
+        :class="$style.form"
+        :aria-disabled="disabled ? true : undefined"
+        @submit.prevent="onSubmit()">
+        <FluxDisabled :disabled="disabled">
             <slot/>
-        </form>
-    </FluxDisabled>
+        </FluxDisabled>
+    </form>
 </template>
 
 <script

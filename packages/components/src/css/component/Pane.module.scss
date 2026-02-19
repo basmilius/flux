@@ -18,6 +18,15 @@
     background: var(--background);
 }
 
+
+:is(.paneDefault, .paneFlat, .paneWell):is(a, button) {
+    transition: box-shadow 210ms var(--swift-out);
+
+    &:hover {
+        box-shadow: var(--shadow-lg);
+    }
+}
+
 .paneHeader {
     composes: basePaneElement from './base/Pane.module.scss';
 
@@ -101,6 +110,31 @@
 .paneMedia {
     position: relative;
     overflow: hidden;
+    z-index: 0;
+
+    &::after {
+        position: absolute;
+        inset: 0;
+        content: '';
+        border: 1px solid var(--surface-stroke-out);
+        border-radius: inherit;
+        z-index: 1;
+    }
+
+    &:first-child {
+        margin: -1px;
+        margin-bottom: 0;
+        border-top-left-radius: var(--radius);
+        border-top-right-radius: var(--radius);
+    }
+
+    &:not(:first-child)::after {
+        border-top: 0;
+    }
+
+    &:not(:last-child)::after {
+        border-bottom: 0;
+    }
 }
 
 .paneMediaInset {

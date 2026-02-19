@@ -101,6 +101,55 @@
     box-shadow: var(--shadow-px), inset 0 -1px rgb(from var(--gray-200) r g b / .15);
 }
 
+.baseLinkButton {
+    composes: button from './base/Button.module.scss';
+
+    gap: 6px;
+    border-color: transparent;
+    box-shadow: none;
+
+    @include mixin.hover {
+        background: var(--surface-hover);
+    }
+
+    &:active {
+        background: var(--surface-active);
+        scale: .9875;
+    }
+}
+
+.primaryLinkButton {
+    composes: baseLinkButton;
+
+    color: var(--primary-700);
+}
+
+.primaryLinkButtonIcon {
+    composes: buttonIcon from './base/Button.module.scss';
+
+    color: var(--primary-700);
+}
+
+.primaryLinkButtonLabel {
+    composes: buttonLabel from './base/Button.module.scss';
+}
+
+.secondaryLinkButton {
+    composes: baseLinkButton;
+
+    color: var(--foreground-prominent);
+}
+
+.secondaryLinkButtonIcon {
+    composes: buttonIcon from './base/Button.module.scss';
+
+    color: var(--foreground);
+}
+
+.secondaryLinkButtonLabel {
+    composes: buttonLabel from './base/Button.module.scss';
+}
+
 .linkButton {
     composes: button from './base/Button.module.scss';
 

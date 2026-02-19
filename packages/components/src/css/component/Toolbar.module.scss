@@ -55,6 +55,7 @@
 
 .basePaneStructure > .toolbarFlat {
     padding: 12px 15px;
+    align-self: unset;
     background: var(--gray-50);
     border: 1px solid var(--surface-stroke);
     border-left: 0;

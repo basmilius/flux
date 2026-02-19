@@ -4,6 +4,7 @@
             v-if="imageUrl"
             :class="$style.paneMediaImage"
             :style="{
+                aspectRatio,
                 objectPosition: `${focalPointX}% ${focalPointY}%`
             }"
             :src="imageUrl"
@@ -20,6 +21,7 @@
     const {
         imageFocalPoint
     } = defineProps<{
+        readonly aspectRatio?: number;
         readonly imageAlt?: string;
         readonly imageFocalPoint?: [number, number];
         readonly imageUrl?: string;
