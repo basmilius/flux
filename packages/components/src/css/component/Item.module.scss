@@ -1,0 +1,59 @@
+@use '$flux/css/mixin';
+
+.item {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 21px;
+}
+
+.itemActions {
+    flex-shrink: 0;
+}
+
+.itemContent {
+    display: flex;
+    flex-flow: column;
+    gap: 3px;
+}
+
+.itemMedia {
+    flex-shrink: 0;
+}
+
+.itemMedia > img {
+    height: 48px;
+    width: 48px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.itemMedia > .avatar {
+    font-size: 48px;
+}
+
+.itemMedia > .icon {
+    font-size: 24px;
+}
+
+.itemMedia > .iconBoxed {
+    font-size: 48px;
+}
+
+.itemStack {
+    position: relative;
+
+    .item + .item {
+        margin-top: 21px;
+        padding-top: 21px;
+        border-top: 1px solid var(--surface-stroke);
+    }
+}
+
+.basePaneStructure > .item,
+.basePaneStructure > .itemStack > .item {
+    padding: 21px;
+}
+
+.basePaneStructure > .itemStack > .item {
+    margin: 0;
+}

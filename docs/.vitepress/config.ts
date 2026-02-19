@@ -1,5 +1,6 @@
 import { composeLibrary, preset } from '@basmilius/vite-preset';
 import { defineConfig } from 'vitepress';
+// @ts-ignore
 import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons';
 import examplePlugin from 'vitepress-plugin-example';
 import renderPlugin from 'vitepress-plugin-render';

@@ -29,9 +29,11 @@ const navigation: SidebarItem = {
                 {text: 'Primary', link: '/guide/components/button/primary'},
                 {text: 'Secondary', link: '/guide/components/button/secondary'},
                 {text: 'Destructive', link: '/guide/components/button/destructive'},
-                {text: 'Publish', link: '/guide/components/button/publish'},
                 {text: 'Group', link: '/guide/components/button/group'},
-                {text: 'Split', link: '/guide/components/button/split'}
+                {text: 'Split', link: '/guide/components/button/split'},
+                {text: 'Primary Link', link: '/guide/components/button/primary-link'},
+                {text: 'Secondary Link', link: '/guide/components/button/secondary-link'},
+                {text: 'Publish', link: '/guide/components/button/publish'}
             ]
         },
         {

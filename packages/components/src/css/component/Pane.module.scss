@@ -15,7 +15,7 @@
 .paneWell {
     composes: pane;
 
-    background: var(--background);
+    --surface: var(--background);
 }
 
 

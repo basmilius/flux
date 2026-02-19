@@ -6,7 +6,7 @@
         <slot name="primary"/>
         <slot name="actionsStart"/>
 
-        <FluxSpacer/>
+        <FluxSpacer v-if="(slots.primary || slots.actionsStart) && (slots.actionsBeforeSearch || slots.search || slots.actionsAfterSearch || slots.filter || slots.actionsEnd)"/>
 
         <slot name="actionsBeforeSearch"/>
         <slot name="search"/>

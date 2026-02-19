@@ -1,5 +1,7 @@
 <template>
-    <section :class="$style.fluxView">
+    <section
+        :class="$style.fluxView"
+        data-flux>
         <slot/>
     </section>
 </template>

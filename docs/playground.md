@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import {
     FluxAction,
+    FluxAvatar,
     FluxBoxedIcon,
     FluxButtonGroup,
     FluxCheckbox,
@@ -10,8 +11,14 @@ import {
     FluxFormSelect,
     FluxGallery,
     FluxGalleryItem,
+    FluxIcon,
     FluxInfo,
     FluxInfoStack,
+    FluxItem,
+    FluxItemActions,
+    FluxItemContent,
+    FluxItemMedia,
+    FluxItemStack,
     FluxNotice,
     FluxOverlay,
     FluxPane,
@@ -19,10 +26,12 @@ import {
     FluxPaneDeck,
     FluxPaneFooter,
     FluxPaneHeader,
+    FluxPrimaryLinkButton,
     FluxProgressBar,
     FluxFormPinInput,
     FluxQuantitySelector,
     FluxSecondaryButton,
+    FluxSecondaryLinkButton,
     FluxSegmentedControl,
     FluxSeparator,
     FluxSpacer,
@@ -45,6 +54,130 @@ const isOverlay2Open = ref(false);
 </script>
 
 # Playground
+
+## Item
+
+<FluxView>
+    <FluxStack>
+        <FluxItem>
+            <FluxItemContent>
+                <strong>Item</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem excepturi, nihil praesentium provident quibusdam temporibus tenetur. Cum explicabo facere ipsa maiores maxime, porro praesentium sed temporibus vel? Architecto, deserunt, odit!</p>
+            </FluxItemContent>
+        </FluxItem>
+        <FluxItem>
+            <FluxItemMedia>
+                <FluxIcon name="square-dashed"/>
+            </FluxItemMedia>
+            <FluxItemContent>
+                <strong>Item</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem excepturi, nihil praesentium provident quibusdam temporibus tenetur. Cum explicabo facere ipsa maiores maxime, porro praesentium sed temporibus vel? Architecto, deserunt, odit!</p>
+            </FluxItemContent>
+        </FluxItem>
+        <FluxItem>
+            <FluxItemMedia>
+                <FluxBoxedIcon color="primary" name="square-dashed"/>
+            </FluxItemMedia>
+            <FluxItemContent>
+                <strong>Item</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem excepturi, nihil praesentium provident quibusdam temporibus tenetur. Cum explicabo facere ipsa maiores maxime, porro praesentium sed temporibus vel? Architecto, deserunt, odit!</p>
+            </FluxItemContent>
+        </FluxItem>
+        <FluxItem>
+            <FluxItemMedia>
+                <FluxAvatar alt="" src="https://avatars.githubusercontent.com/u/978257?v=4" status="success"/>
+            </FluxItemMedia>
+            <FluxItemContent>
+                <strong>Item</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem excepturi, nihil praesentium provident quibusdam temporibus tenetur. Cum explicabo facere ipsa maiores maxime, porro praesentium sed temporibus vel? Architecto, deserunt, odit!</p>
+            </FluxItemContent>
+        </FluxItem>
+        <FluxItem>
+            <FluxItemMedia>
+                <img src="/assets/demo/image-1.jpg" alt="">
+            </FluxItemMedia>
+            <FluxItemContent>
+                <strong>Item</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem excepturi, nihil praesentium provident quibusdam temporibus tenetur. Cum explicabo facere ipsa maiores maxime, porro praesentium sed temporibus vel? Architecto, deserunt, odit!</p>
+            </FluxItemContent>
+        </FluxItem>
+        <FluxItem>
+            <FluxItemMedia>
+                <FluxIcon name="square-dashed"/>
+            </FluxItemMedia>
+            <FluxItemContent>
+                <strong>Item</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem excepturi, nihil praesentium provident quibusdam temporibus tenetur. Cum explicabo facere ipsa maiores maxime, porro praesentium sed temporibus vel? Architecto, deserunt, odit!</p>
+            </FluxItemContent>
+        </FluxItem>
+        <FluxItem>
+            <FluxItemMedia>
+                <FluxIcon name="square-dashed"/>
+            </FluxItemMedia>
+            <FluxItemContent>
+                <strong>Item</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem excepturi, nihil praesentium provident quibusdam temporibus tenetur. Cum explicabo facere ipsa maiores maxime, porro praesentium sed temporibus vel? Architecto, deserunt, odit!</p>
+            </FluxItemContent>
+            <FluxItemActions>
+                <FluxAction icon="square-dashed"/>
+                <FluxAction icon="square-dashed"/>
+            </FluxItemActions>
+        </FluxItem>
+        <FluxPane>
+            <FluxItem>
+                <FluxItemMedia>
+                    <FluxIcon name="square-dashed"/>
+                </FluxItemMedia>
+                <FluxItemContent>
+                    <strong>Item</strong>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem excepturi, nihil praesentium provident quibusdam temporibus tenetur. Cum explicabo facere ipsa maiores maxime, porro praesentium sed temporibus vel? Architecto, deserunt, odit!</p>
+                </FluxItemContent>
+                <FluxItemActions>
+                    <FluxAction icon="square-dashed"/>
+                    <FluxAction icon="square-dashed"/>
+                </FluxItemActions>
+            </FluxItem>
+        </FluxPane>
+        <FluxPane>
+            <FluxItem>
+                <FluxItemMedia>
+                    <img src="/assets/demo/image-1.jpg" alt="">
+                </FluxItemMedia>
+                <FluxItemContent>
+                    <strong>Item</strong>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem excepturi, nihil praesentium provident quibusdam temporibus tenetur. Cum explicabo facere ipsa maiores maxime, porro praesentium sed temporibus vel? Architecto, deserunt, odit!</p>
+                </FluxItemContent>
+                <FluxItemActions>
+                    <FluxPrimaryLinkButton icon-trailing="angle-right" label="Action"/>
+                </FluxItemActions>
+            </FluxItem>
+        </FluxPane>
+        <FluxItemStack>
+            <FluxItem v-for="_ of 3">
+                <FluxItemMedia>
+                    <FluxBoxedIcon name="square-dashed"/>
+                </FluxItemMedia>
+                <FluxItemContent>
+                    <strong>Item</strong>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem excepturi, nihil praesentium provident quibusdam temporibus tenetur. Cum explicabo facere ipsa maiores maxime, porro praesentium sed temporibus vel? Architecto, deserunt, odit!</p>
+                </FluxItemContent>
+            </FluxItem>
+        </FluxItemStack>
+        <FluxPane>
+            <FluxItemStack>
+                <FluxItem v-for="_ of 3">
+                    <FluxItemMedia>
+                        <FluxBoxedIcon color="gray" name="square-dashed"/>
+                    </FluxItemMedia>
+                    <FluxItemContent>
+                        <strong>Item</strong>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem excepturi, nihil praesentium provident quibusdam temporibus tenetur. Cum explicabo facere ipsa maiores maxime, porro praesentium sed temporibus vel? Architecto, deserunt, odit!</p>
+                    </FluxItemContent>
+                </FluxItem>
+            </FluxItemStack>
+        </FluxPane>
+    </FluxStack>
+</FluxView>
 
 ## Overlay
 

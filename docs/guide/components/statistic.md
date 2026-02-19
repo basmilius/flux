@@ -35,6 +35,11 @@ props:
         type: FluxIconName
         optional: true
 
+    -   name: is-loading
+        description: Mark the statistic as loading.
+        type: boolean
+        optional: true
+
     -   name: label
         description: The label of the statistic.
         type: string
