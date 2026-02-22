@@ -14,6 +14,7 @@
 }
 
 $-breakpoints: xl, lg, md, sm, xs;
+//$-breakpoints: xs, sm, md, lg, xl;
 
 @each $-breakpoint in $-breakpoints {
     @include mixin.container-breakpoint-down(grid, $-breakpoint) {

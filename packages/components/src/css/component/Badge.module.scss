@@ -91,7 +91,7 @@
 .badgeGray {
     composes: badge;
 
-    --color: var(--gray-700);
+    --color: var(--foreground);
 
     .badgeLabel {
         color: var(--foreground-prominent);

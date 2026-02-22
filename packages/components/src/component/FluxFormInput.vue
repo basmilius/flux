@@ -49,6 +49,11 @@
             :class="$style.formInputIconTrailing"
             :name="iconTrailing"
             :size="18"/>
+
+        <FluxSpinner
+            v-if="isLoading"
+            :class="$style.formInputIconTrailing"
+            :size="18"/>
     </div>
 </template>
 
@@ -63,6 +68,7 @@
     import { useDisabled, useFormFieldInjection } from '$flux/composable';
     import { inputMask } from '$flux/data';
     import FluxIcon from './FluxIcon.vue';
+    import FluxSpinner from './FluxSpinner.vue';
     import $style from '$flux/css/component/Form.module.scss';
 
     const emit = defineEmits<{
@@ -87,6 +93,7 @@
         readonly iconTrailing?: FluxIconName;
         readonly disabled?: boolean;
         readonly isCondensed?: boolean;
+        readonly isLoading?: boolean;
         readonly isReadonly?: boolean;
         readonly isSecondary?: boolean;
         readonly max?: string | number;

@@ -36,7 +36,7 @@
         color: var(--primary-600);
         text-decoration: underline;
         text-decoration-thickness: 1px;
-        text-underline-offset: 4px;
+        text-underline-offset: 3px;
 
         &:hover {
             text-decoration: none;
@@ -45,6 +45,10 @@
 
     p {
         line-height: 1.6;
+    }
+
+    small {
+        font-size: 14px;
     }
 
     blockquote {

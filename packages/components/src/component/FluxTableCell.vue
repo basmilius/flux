@@ -12,7 +12,8 @@
             <div
                 :class="$style.tableCellContent"
                 :style="{
-                    flexFlow: contentDirection
+                    flexFlow: contentDirection,
+                    gap: contentGap && `${contentGap}px`
                 }">
                 <slot/>
             </div>
@@ -31,6 +32,7 @@
         contentDirection = 'row'
     } = defineProps<{
         readonly contentDirection?: 'column' | 'row';
+        readonly contentGap?: number;
     }>();
 
     defineSlots<{

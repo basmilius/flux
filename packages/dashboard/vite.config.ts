@@ -49,6 +49,7 @@ export default defineConfig({
     },
     resolve: {
         alias: {
+            '$flux': resolve(import.meta.dirname, '../components/src'),
             '$fluxDashboard': resolve(import.meta.dirname, 'src')
         }
     }

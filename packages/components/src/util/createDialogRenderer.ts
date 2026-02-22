@@ -11,8 +11,10 @@ type Props = {
 };
 
 const TARGET_SELECTOR = `.${$style.overlayProvider.replaceAll(' ', '.')}`;
+let DIALOG_ID = 0;
 
 export default function (attrs: object, props: Props, emit: Emit, slots: Slots, className: string, transition: Component): RenderFunction {
+    const dialogId = `flux-dialog:${DIALOG_ID++}`;
     let unregister: Function | null = null;
     let zIndex = 0;
 
@@ -58,7 +60,7 @@ export default function (attrs: object, props: Props, emit: Emit, slots: Slots, 
             }
 
             content = h('div', {
-                key: props.viewKey,
+                key: props.viewKey ?? dialogId,
                 ref: dialogRef,
                 class: [className, zIndex === dialogCount && $style.isCurrent],
                 style: {

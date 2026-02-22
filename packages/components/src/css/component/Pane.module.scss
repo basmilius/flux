@@ -18,12 +18,21 @@
     --surface: var(--background);
 }
 
+:is(.paneDefault, .paneFlat, .paneWell):is(button) {
+    padding: 0;
+}
 
 :is(.paneDefault, .paneFlat, .paneWell):is(a, button) {
-    transition: box-shadow 210ms var(--swift-out);
+    cursor: pointer;
+    transition: 210ms var(--swift-out);
+    transition-property: background, box-shadow;
 
     &:hover {
         box-shadow: var(--shadow-lg);
+    }
+
+    &:active {
+        box-shadow: var(--shadow-xs);
     }
 }
 

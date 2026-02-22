@@ -4,6 +4,7 @@
     display: flex;
     flex-flow: row nowrap;
     gap: 21px;
+    text-align: left;
 }
 
 .itemActions {
@@ -13,22 +14,25 @@
 .itemContent {
     display: flex;
     flex-flow: column;
+    flex-grow: 1;
     gap: 3px;
 }
 
 .itemMedia {
+    --size: 48px;
+
     flex-shrink: 0;
 }
 
 .itemMedia > img {
-    height: 48px;
-    width: 48px;
+    height: var(--size);
+    width: var(--size);
     object-fit: cover;
     object-position: center;
 }
 
 .itemMedia > .avatar {
-    font-size: 48px;
+    font-size: var(--size);
 }
 
 .itemMedia > .icon {
@@ -36,7 +40,13 @@
 }
 
 .itemMedia > .iconBoxed {
-    font-size: 48px;
+    font-size: var(--size);
+}
+
+.itemActions.isCenter,
+.itemContent.isCenter,
+.itemMedia.isCenter {
+    align-self: center;
 }
 
 .itemStack {
@@ -56,4 +66,8 @@
 
 .basePaneStructure > .itemStack > .item {
     margin: 0;
+}
+
+.basePaneStructure:is(a, button):hover:has(> .item) {
+    background-color: color-mix(in srgb, rgb(from var(--surface-hover) r g b / .125), var(--surface));
 }

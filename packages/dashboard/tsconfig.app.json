@@ -15,6 +15,9 @@
         "noUncheckedSideEffectImports": true,
         "verbatimModuleSyntax": true,
         "paths": {
+            "$flux/*": [
+                "../components/src/*"
+            ],
             "$fluxDashboard/*": [
                 "src/*"
             ]
