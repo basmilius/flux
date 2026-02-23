@@ -16,7 +16,7 @@
 
     const {
         columns = 12,
-        gap = 30
+        gap = 21
     } = defineProps<{
         readonly columns?: number;
         readonly gap?: number;

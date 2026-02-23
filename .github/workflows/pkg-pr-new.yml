@@ -28,6 +28,7 @@ jobs:
                     bun --cwd packages/internals build
                     bun --cwd packages/components build
                     bun --cwd packages/dashboard build
+                    bun --cwd packages/statistics build
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
 

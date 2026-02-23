@@ -1,0 +1,42 @@
+.statisticsChange {
+    display: inline-flex;
+    align-items: baseline;
+    flex-flow: row nowrap;
+    gap: 6px;
+
+    &.isGray {
+        --color: var(--foreground-prominent);
+    }
+
+    &.isPrimary {
+        --color: var(--primary-600);
+    }
+
+    &.isDanger {
+        --color: var(--danger-600);
+    }
+
+    &.isInfo {
+        --color: var(--info-600);
+    }
+
+    &.isSuccess {
+        --color: var(--success-600);
+    }
+
+    &.isWarning {
+        --color: var(--warning-600);
+    }
+}
+
+.statisticsChangeIcon {
+    color: var(--color);
+    font-size: 12px;
+    translate: 0 1px;
+}
+
+.statisticsChangeValue {
+    color: var(--color);
+    font-size: 12px;
+    font-weight: 500;
+}

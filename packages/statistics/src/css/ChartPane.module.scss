@@ -1,0 +1,22 @@
+@use '$flux/css/mixin';
+
+.statisticsChartPane {
+    --aspect-ratio: unset;
+    --max-height: unset;
+    --min-height: unset;
+
+    max-width: 100%;
+    contain: paint;
+}
+
+.statisticsChartPaneContainer {
+    position: relative;
+    display: block;
+    max-height: var(--max-height);
+    min-height: var(--min-height);
+    aspect-ratio: var(--aspect-ratio);
+}
+
+:local(.paneHeader) + .statisticsChartPaneContainer {
+    margin-top: 21px;
+}

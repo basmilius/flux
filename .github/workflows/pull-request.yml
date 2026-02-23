@@ -23,10 +23,10 @@ jobs:
             -   name: 👀 Checkout
                 uses: actions/checkout@v4
 
-            -   name: ✨ Setup node 24.x
+            -   name: ✨ Setup node 25.x
                 uses: actions/setup-node@v4
                 with:
-                    node-version: '24.x'
+                    node-version: '25.x'
                     registry-url: https://registry.npmjs.org
 
             -   name: ⚙️ Setup Bun
@@ -42,6 +42,7 @@ jobs:
                     bun --cwd packages/internals build
                     bun --cwd packages/components build
                     bun --cwd packages/dashboard build
+                    bun --cwd packages/statistics build
                     bun --cwd docs build
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}

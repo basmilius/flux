@@ -20,10 +20,10 @@ jobs:
             -   name: 👀 Checkout
                 uses: actions/checkout@v4
 
-            -   name: ✨ Setup node 24.x
+            -   name: ✨ Setup node 25.x
                 uses: actions/setup-node@v4
                 with:
-                    node-version: '24.x'
+                    node-version: '25.x'
                     registry-url: https://registry.npmjs.org
 
             -   name: ⚙️ Setup Bun
@@ -40,17 +40,20 @@ jobs:
                     bun pm version --cwd packages/internals ${{ env.RELEASE_VERSION }}
                     bun pm version --cwd packages/components ${{ env.RELEASE_VERSION }}
                     bun pm version --cwd packages/dashboard ${{ env.RELEASE_VERSION }}
+                    bun pm version --cwd packages/statistics ${{ env.RELEASE_VERSION }}
                     
                     sed -i 's/workspace:\*/${{ env.RELEASE_VERSION }}/g' packages/types/package.json
                     sed -i 's/workspace:\*/${{ env.RELEASE_VERSION }}/g' packages/internals/package.json
                     sed -i 's/workspace:\*/${{ env.RELEASE_VERSION }}/g' packages/components/package.json
                     sed -i 's/workspace:\*/${{ env.RELEASE_VERSION }}/g' packages/dashboard/package.json
+                    sed -i 's/workspace:\*/${{ env.RELEASE_VERSION }}/g' packages/statistics/package.json
 
             -   name: 🔨 Build v${{ env.RELEASE_VERSION }}
                 run: |
                     bun --cwd packages/internals build
                     bun --cwd packages/components build
                     bun --cwd packages/dashboard build
+                    bun --cwd packages/statistics build
                     bun --cwd docs build
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
@@ -61,6 +64,7 @@ jobs:
                     bun publish --cwd packages/internals --access public
                     bun publish --cwd packages/components --access public
                     bun publish --cwd packages/dashboard --access public
+                    bun publish --cwd packages/statistics --access public
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
                     NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}

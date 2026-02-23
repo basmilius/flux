@@ -1,0 +1,26 @@
+@use '$flux/css/mixin';
+
+.statisticsGrid {
+    --columns: 1;
+    --gap: 21px;
+
+    position: relative;
+    container: grid / inline-size;
+}
+
+.statisticsGridContent {
+    display: grid;
+    gap: var(--gap);
+    grid-template-columns: repeat(var(--columns), 1fr);
+}
+
+$-breakpoints: xl, lg, md, sm, xs;
+//$-breakpoints: xs, sm, md, lg, xl;
+
+@each $-breakpoint in $-breakpoints {
+    @include mixin.container-breakpoint-down(grid, $-breakpoint) {
+        .statisticsGridContent {
+            --columns: var(--#{$-breakpoint});
+        }
+    }
+}

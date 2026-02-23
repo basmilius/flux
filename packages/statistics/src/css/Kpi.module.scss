@@ -1,0 +1,21 @@
+.statisticsKpiBottom {
+    margin-top: 3px;
+    line-height: 18px;
+
+    :local(.statisticsChange) {
+        margin-right: .3em;
+    }
+}
+
+.statisticsKpiFooter {
+    color: var(--foreground-secondary);
+    font-size: 14px;
+}
+
+.statisticsKpiValue {
+    padding-top: 21px;
+    color: var(--foreground-prominent);
+    font-size: 21px;
+    font-weight: 800;
+    line-height: 36px;
+}

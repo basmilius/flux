@@ -1,0 +1,65 @@
+.statisticsMetricBottom {
+    margin-top: 3px;
+    line-height: 24px;
+
+    :local(.statisticsChange) {
+        margin-right: .3em;
+    }
+
+    :local(.statisticsChangeIcon),
+    :local(.statisticsChangeValue) {
+        font-size: 14px;
+        font-weight: 600;
+    }
+}
+
+.statisticsMetricContent {
+    display: flex;
+    flex-flow: column;
+
+    :global(small) {
+        color: var(--foreground-secondary);
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    :global(span) {
+        color: var(--foreground);
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    :global(strong) {
+        color: var(--foreground-prominent);
+        font-size: 21px;
+        font-weight: 800;
+        line-height: 36px;
+    }
+
+    :global(small):not(:first-child) {
+        margin-top: 9px;
+    }
+}
+
+.statisticsMetricFooter {
+    color: var(--foreground-secondary);
+    font-size: 14px;
+}
+
+.statisticsMetricLabel {
+    padding-top: 21px;
+    color: var(--foreground-secondary);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.statisticsMetricValue {
+    color: var(--foreground-prominent);
+    font-size: 21px;
+    font-weight: 800;
+    line-height: 36px;
+}
+
+.statisticsMetricContent + .statisticsMetricBottom {
+    margin-top: 9px;
+}

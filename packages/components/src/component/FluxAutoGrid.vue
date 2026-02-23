@@ -15,7 +15,7 @@
     import $style from '$flux/css/component/Layout.module.scss';
 
     const {
-        gap = 30
+        gap = 21
     } = defineProps<{
         readonly gap?: number;
         readonly minColumnWidth: number;

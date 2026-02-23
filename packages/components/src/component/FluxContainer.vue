@@ -12,7 +12,7 @@
     import $style from '$flux/css/component/Layout.module.scss';
 
     const {
-        gutter = 30
+        gutter = 21
     } = defineProps<{
         readonly gutter?: number;
     }>();
