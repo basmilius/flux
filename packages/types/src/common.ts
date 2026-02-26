@@ -1,9 +1,6 @@
 import type { IconName as FontAwesome } from '@fortawesome/fontawesome-common-types';
-import type { MaterialSymbol } from './material-symbols';
 
-export type FluxIconName = FontAwesome | MaterialSymbol;
-export type FluxFontAwesomeIconName = FontAwesome;
-export type FluxMaterialIconName = MaterialSymbol;
+export type FluxIconName = FontAwesome;
 
 export type FluxAlignment =
     | 'start'

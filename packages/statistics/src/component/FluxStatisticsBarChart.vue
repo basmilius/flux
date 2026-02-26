@@ -3,28 +3,20 @@
         :aspectRatio="aspectRatio"
         :options="merge({
             chart: {
-                type: 'area',
-                sparkline: {
-                    enabled: true
-                }
-            },
-            fill: {
-                gradient: {
-                    enabled: true,
-                    opacityFrom: 0.5,
-                    opacityTo: 0
-                }
+                type: 'bar'
             },
             grid: {
                 show: true,
-                clipMarkers: false
+                clipMarkers: false,
+                padding: {
+                    top: 21,
+                    left: 9,
+                    right: 9
+                }
             },
-            legend: {
-                show: false
-            },
-            stroke: {
-                curve: 'smooth',
-                width: 2
+            tooltip: {
+                shared: true,
+                intersect: false
             }
         }, options)"
         :series="translatedSeries"/>

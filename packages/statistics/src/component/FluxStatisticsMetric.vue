@@ -1,5 +1,5 @@
 <template>
-    <FluxStatisticsBase
+    <Base
         :icon="icon"
         :title="title">
         <div :class="$style.statisticsMetricLabel">
@@ -19,13 +19,13 @@
         </div>
 
         <div
-            v-if="changeValue || footer"
+            v-if="change || footer"
             :class="$style.statisticsMetricBottom">
-            <FluxStatisticsChange
-                v-if="changeValue"
-                :color="changeColor"
-                :icon="changeIcon"
-                :value="changeValue"/>
+            <Change
+                v-if="change"
+                :color="change.color"
+                :icon="change.icon"
+                :value="change.value"/>
 
             <span
                 v-if="footer"
@@ -33,22 +33,20 @@
                 {{ footer }}
             </span>
         </div>
-    </FluxStatisticsBase>
+    </Base>
 </template>
 
 <script
     lang="ts"
     setup>
-    import type { FluxColor, FluxIconName } from '@flux-ui/types';
-    import FluxStatisticsBase from './FluxStatisticsBase.vue';
-    import FluxStatisticsChange from './FluxStatisticsChange.vue';
+    import type { FluxIconName, FluxStatisticsChange } from '@flux-ui/types';
+    import Base from './FluxStatisticsBase.vue';
+    import Change from './FluxStatisticsChange.vue';
     import $style from '$fluxStatistics/css/Metric.module.scss';
 
     defineProps<{
         readonly footer?: string;
-        readonly changeColor?: FluxColor;
-        readonly changeIcon?: FluxIconName;
-        readonly changeValue?: string | number;
+        readonly change?: FluxStatisticsChange;
         readonly icon?: FluxIconName;
         readonly label?: string;
         readonly title: string;

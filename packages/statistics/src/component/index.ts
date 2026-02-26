@@ -1,10 +1,17 @@
 export { default as FluxStatisticsAreaChart } from './FluxStatisticsAreaChart.vue';
+export { default as FluxStatisticsBarChart } from './FluxStatisticsBarChart.vue';
 export { default as FluxStatisticsBase } from './FluxStatisticsBase.vue';
 export { default as FluxStatisticsChange } from './FluxStatisticsChange.vue';
 export { default as FluxStatisticsChart } from './FluxStatisticsChart.vue';
 export { default as FluxStatisticsChartPane } from './FluxStatisticsChartPane.vue';
+export { default as FluxStatisticsDetailsTable } from './FluxStatisticsDetailsTable.vue';
+export { default as FluxStatisticsDetailsTableRow } from './FluxStatisticsDetailsTableRow.vue';
+export { default as FluxStatisticsDonutChart } from './FluxStatisticsDonutChart.vue';
 export { default as FluxStatisticsGrid } from './FluxStatisticsGrid.vue';
 export { default as FluxStatisticsLineChart } from './FluxStatisticsLineChart.vue';
 export { default as FluxStatisticsKpi } from './FluxStatisticsKpi.vue';
+export { default as FluxStatisticsLegend } from './FluxStatisticsLegend.vue';
+export { default as FluxStatisticsLegendItem } from './FluxStatisticsLegendItem.vue';
 export { default as FluxStatisticsMeter } from './FluxStatisticsMeter.vue';
 export { default as FluxStatisticsMetric } from './FluxStatisticsMetric.vue';
+export { default as FluxStatisticsPieChart } from './FluxStatisticsPieChart.vue';

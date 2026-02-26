@@ -2,19 +2,35 @@
 
 .statisticsChartPane {
     --aspect-ratio: unset;
-    --max-height: unset;
-    --min-height: unset;
 
     max-width: 100%;
-    contain: paint;
+    aspect-ratio: var(--aspect-ratio);
+}
+
+.statisticsChartPaneBody {
+    display: grid;
+    flex-grow: 1;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+
+    &:has(.statisticsLegend) {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 .statisticsChartPaneContainer {
     position: relative;
     display: block;
-    max-height: var(--max-height);
-    min-height: var(--min-height);
-    aspect-ratio: var(--aspect-ratio);
+
+    &:first-child :global(svg) {
+        border-top-left-radius: var(--radius);
+        border-top-right-radius: var(--radius);
+    }
+
+    &:last-child :global(svg) {
+        border-bottom-left-radius: var(--radius);
+        border-bottom-right-radius: var(--radius);
+    }
 }
 
 :local(.paneHeader) + .statisticsChartPaneContainer {

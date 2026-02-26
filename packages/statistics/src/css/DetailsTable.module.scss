@@ -1,0 +1,43 @@
+@use '$flux/css/mixin';
+
+.detailsTable {
+    composes: statisticsStackable from './Core.module.scss';
+
+    display: flex;
+    flex-flow: column;
+    gap: 6px;
+}
+
+.detailsTableRow {
+    display: flex;
+    margin: -3px -6px;
+    padding: 3px 6px;
+    color: var(--foreground-secondary);
+    font-size: 14px;
+    line-height: 24px;
+    border-radius: var(--radius-half);
+
+    @include mixin.hover {
+        background: var(--gray-50);
+    }
+}
+
+.detailsTableRowLabel {
+    flex-grow: 1;
+    font-weight: 500;
+}
+
+.detailsTableRowValue {
+    text-align: right;
+}
+
+.detailsTableRows {
+    display: flex;
+    flex-flow: column;
+    gap: 3px;
+}
+
+.detailsTableTitle {
+    font-size: 15px;
+    font-weight: 600;
+}

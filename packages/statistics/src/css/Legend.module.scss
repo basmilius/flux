@@ -1,0 +1,53 @@
+@use '$flux/css/mixin';
+
+.statisticsLegend {
+    display: flex;
+    min-width: 0;
+    padding: 15px 21px 15px;
+    align-self: center;
+    flex-flow: column;
+    flex-grow: 1;
+    gap: 3px;
+}
+
+.statisticsLegendItem {
+    --color: var(--primary-600);
+
+    display: flex;
+    padding: 6px 0;
+    align-items: flex-start;
+    flex-flow: row nowrap;
+    gap: 9px;
+    font-size: 14px;
+    line-height: 20px;
+    white-space: nowrap;
+}
+
+.statisticsLegendItemColor {
+    height: 12px;
+    width: 12px;
+    margin: 4px;
+    flex-shrink: 0;
+    background: var(--color);
+    border-radius: calc(var(--radius-half) / 2);
+}
+
+.statisticsLegendItemIcon {
+    margin: 2px;
+    color: var(--color);
+}
+
+.statisticsLegendItemLabel {
+    flex-grow: 1;
+    color: var(--foreground);
+    font-weight: 600;
+}
+
+.statisticsLegendItemValue {
+    margin-left: 15px;
+    text-align: right;
+}
+
+.statisticsLegendItem + .statisticsLegendItem {
+    border-top: 1px dashed var(--surface-stroke);
+}

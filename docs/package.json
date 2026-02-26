@@ -22,7 +22,7 @@
         "vue": "^3.6.0-beta.6"
     },
     "devDependencies": {
-        "@basmilius/vite-preset": "^3.3.0",
+        "@basmilius/vite-preset": "^3.8.0",
         "@types/luxon": "^3.7.1",
         "vite": "^8.0.0-beta.15"
     }

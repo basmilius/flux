@@ -12,11 +12,10 @@
 <script
     lang="ts"
     setup>
-    import { useDebouncedRef } from '@flux-ui/internals';
+    import { useDebouncedRef, useLoaded } from '@basmilius/common';
     import type { FluxFilterOptionRow, FluxFilterValue, FluxFilterValueSingle, FluxIconName } from '@flux-ui/types';
     import { computed, ref, unref, watch } from 'vue';
     import { useFilterInjection } from '$flux/composable';
-    import { useLoaded } from '$flux/composable/private';
     import { isFluxFilterOptionItem } from '$flux/data';
     import { FilterOptionBase } from './primitive';
 

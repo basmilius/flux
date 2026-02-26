@@ -3,11 +3,9 @@ export type {
     FluxAutoCompleteType,
     FluxColor,
     FluxDirection,
-    FluxFontAwesomeIconName,
     FluxIconName,
     FluxInputMask,
     FluxInputType,
-    FluxMaterialIconName,
     FluxMaybePromise,
     FluxPressableType,
     FluxSize,
@@ -57,3 +55,7 @@ export type {
     FluxSnackbarObject,
     FluxTooltipObject
 } from './notify';
+
+export type {
+    FluxStatisticsChange
+} from './statistics';

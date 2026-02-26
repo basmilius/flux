@@ -37,7 +37,7 @@
     }
 
     :global(small):not(:first-child) {
-        margin-top: 9px;
+        margin-top: 15px;
     }
 }
 
@@ -58,6 +58,7 @@
     font-size: 21px;
     font-weight: 800;
     line-height: 36px;
+    text-transform: capitalize;
 }
 
 .statisticsMetricContent + .statisticsMetricBottom {

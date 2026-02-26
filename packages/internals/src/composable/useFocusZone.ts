@@ -1,13 +1,14 @@
-import { watch } from 'vue';
-import type { TemplateRef } from '../util';
-import { getBidirectionalFocusElement, getFocusableElement, getFocusableElements, unrefTemplateElement } from '../util';
-import useMutationObserver from './useMutationObserver';
+import { unwrapElement, useMutationObserver } from '@basmilius/common';
+import { type ComponentPublicInstance, type Ref, watch } from 'vue';
+import { getBidirectionalFocusElement, getFocusableElement, getFocusableElements } from '../util';
 
-export default function <TElement extends HTMLElement>(containerRef: TemplateRef<TElement>, {cycle = true, direction = 'bidirectional'}: UseFocusZoneOptions = {}): void {
+type EligibleElement = ComponentPublicInstance | HTMLElement;
+
+export default function <TElement extends EligibleElement>(containerRef: Ref<TElement>, {cycle = true, direction = 'bidirectional'}: UseFocusZoneOptions = {}): void {
     useMutationObserver(containerRef, () => updateFocus(findInitialIndex(), false));
 
     function findInitialIndex(): number {
-        const container = unrefTemplateElement(containerRef)!;
+        const container = unwrapElement(containerRef);
         const elements = getFocusableElements(container);
         const isActiveIndex = elements.findIndex(e => e.classList.contains('is-active'));
         const notDisabledIndex = elements.findIndex(e => !e.hasAttribute('aria-disabled'));
@@ -24,7 +25,7 @@ export default function <TElement extends HTMLElement>(containerRef: TemplateRef
     }
 
     function updateFocus(elementIndex: number, doFocus: boolean = true): void {
-        const container = unrefTemplateElement(containerRef)!;
+        const container = unwrapElement(containerRef)!;
         const elements = getFocusableElements(container);
         elements.forEach((elm, index) => elm.tabIndex = index === elementIndex ? 0 : -1);
 
@@ -32,7 +33,7 @@ export default function <TElement extends HTMLElement>(containerRef: TemplateRef
     }
 
     function onKeyDown(evt: KeyboardEvent): void {
-        const container = unrefTemplateElement(containerRef)!;
+        const container = unwrapElement(containerRef)!;
         const elements = getFocusableElements(container);
 
         if (['Enter', ' '].includes(evt.key)) {
@@ -52,7 +53,7 @@ export default function <TElement extends HTMLElement>(containerRef: TemplateRef
     }
 
     watch(containerRef, (_, __, onCleanup) => {
-        const container = unrefTemplateElement(containerRef);
+        const container = unwrapElement(containerRef);
 
         if (!container) {
             return;

@@ -133,7 +133,8 @@
 <script
     lang="ts"
     setup>
-    import { unrefTemplateElement, useClickOutside } from '@flux-ui/internals';
+    import { useClickOutside } from '@basmilius/common';
+    import { unrefTemplateElement } from '@flux-ui/internals';
     import type { FluxFormSelectOption, FluxFormSelectOptions } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { type ComponentPublicInstance, computed, nextTick, ref, toRef, unref, useTemplateRef, watch } from 'vue';

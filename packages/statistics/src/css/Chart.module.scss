@@ -12,25 +12,43 @@
 
 :local(.pane):has(.statisticsChart) {
     display: flex;
+    min-width: 0;
     flex-flow: column;
-    contain: paint;
 }
 
 .statisticsChart {
     position: absolute;
     display: block;
-    inset: -3px 0 -3px -4px;
+    inset: 0;
+    //inset: -3px -2px -4px -2px;
     height: unset;
     width: unset;
 
     :global(svg) {
-        overflow: visible;
+        overflow: hidden;
     }
 
     --stroke: rgb(from var(--surface-stroke) r g b / .5);
 
-    :global(.apexcharts-grid-borders) {
-        display: none;
+    :global(.apexcharts-canvas) {
+        :global(.apexcharts-grid-borders) {
+            display: none;
+        }
+
+        :global(.apexcharts-yaxis-texts-g) {
+            display: none;
+        }
+
+        :global(.apexcharts-tooltip) {
+            background: rgb(from var(--gray-25) r g b / .85);
+            background-clip: padding-box;
+            backdrop-filter: blur(6px) saturate(180%);
+            border: 1px solid var(--surface-stroke-out-hover);
+            border-radius: var(--radius-double);
+            box-shadow: var(--shadow-lg);
+            color: var(--foreground);
+            contain: paint;
+        }
     }
 }
 
@@ -40,28 +58,17 @@
     inset: 0;
 }
 
-.statisticsChartTooltip {
-    background: var(--gray-25);
-    background-clip: padding-box;
-    border: 1px solid var(--surface-stroke-out);
-    border-radius: var(--radius-half);
-    box-shadow: var(--shadow-lg);
-    color: var(--foreground);
-    contain: paint;
-}
-
 .statisticsChartTooltipTitle {
-    padding: 15px;
-    background: var(--gray-25);
-    border-bottom: 1px solid var(--surface-stroke-out);
+    padding: 18px 18px 0;
     color: var(--foreground-prominent);
+    font-size: 15px;
     font-weight: 700;
     line-height: 1;
 }
 
 .statisticsChartTooltipBody {
     display: grid;
-    padding: 12px 15px;
+    padding: 12px 18px 15px;
     align-items: center;
     gap: 6px 15px;
     grid-template-columns: repeat(3, auto);
@@ -75,5 +82,12 @@
 }
 
 .statisticsChartTooltipSeriesName {
+    font-size: 14px;
     font-weight: 700;
+}
+
+.statisticsChartTooltipSeriesValue {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: right;
 }

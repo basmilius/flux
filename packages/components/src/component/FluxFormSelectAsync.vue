@@ -16,12 +16,12 @@
 <script
     lang="ts"
     setup>
-    import { useDebouncedRef } from '@flux-ui/internals';
+    import { useDebouncedRef, useLoaded } from '@basmilius/common';
     import type { FluxFormSelectEntry, FluxFormSelectValue, FluxFormSelectValueSingle } from '@flux-ui/types';
     import { computed, ref, toRef, unref, watch } from 'vue';
     import { SelectBase } from '$flux/component/primitive';
     import { useDisabled } from '$flux/composable';
-    import { useFormSelect, useLoaded } from '$flux/composable/private';
+    import { useFormSelect } from '$flux/composable/private';
     import { isFluxFormSelectOption } from '$flux/data';
 
     const modelSearch = defineModel<string>('searchQuery', {

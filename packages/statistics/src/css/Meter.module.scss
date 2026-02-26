@@ -2,9 +2,17 @@
     --color: var(--primary-600);
     --percentage: 0%;
 
+    composes: statisticsStackable from './Core.module.scss';
+
     display: flex;
     flex-flow: column;
     gap: 9px;
+}
+
+.statisticsMeterSmall {
+    composes: statisticsMeter;
+
+    align-self: center;
 }
 
 .statisticsMeterBar {
@@ -62,7 +70,7 @@
     grid-area: value;
     justify-self: end;
     color: var(--foreground-prominent);
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
 }
 
@@ -73,6 +81,18 @@
     font-size: 13px;
 }
 
-:local(.statisticsBaseContent) .statisticsMeter + .statisticsMeter {
-    margin-top: 21px;
+.statisticsMeterSmall .statisticsMeterHeader {
+    grid-template-areas: "value tip";
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto;
+}
+
+.statisticsMeterSmall .statisticsMeterHeaderValue {
+    justify-self: unset;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+:local(.tableCell) .statisticsMeterSmall {
+    width: 180px;
 }

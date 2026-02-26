@@ -9,7 +9,8 @@
 <script
     lang="ts"
     setup>
-    import { unrefTemplateElement, useInterval } from '@flux-ui/internals';
+    import { useInterval } from '@basmilius/common';
+    import { unrefTemplateElement } from '@flux-ui/internals';
     import { computed, ref, unref, useTemplateRef, watch } from 'vue';
     import $style from '$flux/css/component/Fader.module.scss';
 

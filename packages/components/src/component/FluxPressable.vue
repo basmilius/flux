@@ -4,7 +4,7 @@
         v-bind="$attrs"
         :rel="rel"
         :target="target"
-        :to="to"
+        :to="to as any"
         @click="onClick($event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)">

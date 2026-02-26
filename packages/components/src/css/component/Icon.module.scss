@@ -13,19 +13,6 @@
     display: inline-block;
 }
 
-.materialSymbolIcon {
-    composes: icon;
-
-    display: inline-flex;
-    color: currentColor;
-    font-family: 'Material Symbols Outlined', sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    user-select: none;
-    -webkit-font-feature-settings: 'liga';
-    -webkit-font-smoothing: antialiased;
-}
-
 .iconBoxed {
     composes: basePane from './base/Pane.module.scss';
 
@@ -39,10 +26,6 @@
 
     .icon {
         font-size: .45em;
-    }
-
-    .materialSymbolIcon {
-        font-size: .5em;
     }
 }
 

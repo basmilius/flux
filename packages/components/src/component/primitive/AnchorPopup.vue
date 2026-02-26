@@ -13,8 +13,8 @@
 <script
     lang="ts"
     setup>
+    import { useMutationObserver } from '@basmilius/common';
     import { isHtmlElement } from '@basmilius/utils';
-    import { useMutationObserver } from '@flux-ui/internals';
     import type { FluxDirection } from '@flux-ui/types';
     import { type ComponentPublicInstance, onMounted, onUnmounted, reactive, ref, unref, useTemplateRef, watchEffect } from 'vue';
 

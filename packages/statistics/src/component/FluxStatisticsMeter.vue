@@ -1,8 +1,8 @@
 <template>
     <div
-        :class="$style.statisticsMeter"
+        :class="isSmall ? $style.statisticsMeterSmall : $style.statisticsMeter"
         :style="{
-            '--color': color,
+            '--color': colorValue,
             '--percentage': `${value * 100}%`
         }">
         <div :class="$style.statisticsMeterHeader">
@@ -12,7 +12,9 @@
                 :name="icon"
                 :size="16"/>
 
-            <span :class="$style.statisticsMeterHeaderTitle">
+            <span
+                v-if="title"
+                :class="$style.statisticsMeterHeaderTitle">
                 {{ title }}
             </span>
 
@@ -50,16 +52,32 @@
     setup>
     import { formatPercentage } from '@basmilius/utils';
     import { FluxIcon } from '@flux-ui/components';
-    import type { FluxIconName } from '@flux-ui/types';
+    import type { FluxColor, FluxIconName } from '@flux-ui/types';
+    import { computed } from 'vue';
     import $style from '$fluxStatistics/css/Meter.module.scss';
 
-    defineProps<{
-        readonly color?: string;
+    const {
+        color
+    } = defineProps<{
+        readonly color?: FluxColor | `#${string}`;
         readonly icon?: FluxIconName;
+        readonly isSmall?: boolean;
         readonly footer?: string;
         readonly subTitle?: string;
         readonly tip?: string;
-        readonly title: string;
+        readonly title?: string;
         readonly value: number;
     }>();
+
+    const colorValue = computed(() => {
+        if (!color) {
+            return;
+        }
+
+        if (['gray', 'primary', 'danger', 'info', 'success', 'warning'].includes(color)) {
+            return `var(--${color}-600)`
+        }
+
+        return color;
+    });
 </script>

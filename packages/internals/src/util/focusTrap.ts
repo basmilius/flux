@@ -59,4 +59,5 @@ interface FocusTrap {
 
 export type FocusTrapListener = (isEnabled: boolean, focusTraps: FocusTrap[]) => void;
 
-export default new FocusTrapLockStack();
+const _default: FocusTrapLockStack = new FocusTrapLockStack();
+export default _default;

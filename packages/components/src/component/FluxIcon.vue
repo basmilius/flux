@@ -18,18 +18,6 @@
     </svg>
 
     <i
-        v-else-if="name"
-        :class="$style.materialSymbolIcon"
-        :style="{
-            fontSize: size && `${size}px`
-        }"
-        role="img"
-        aria-hidden="true"
-        @click="onClick">
-        {{ name }}
-    </i>
-
-    <i
         v-else
         :class="$style.icon"/>
 </template>

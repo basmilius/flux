@@ -7,8 +7,8 @@
 <script
     lang="ts"
     setup>
+    import { useComponentId } from '@basmilius/common';
     import { mulberry32 } from '@basmilius/utils';
-    import { useComponentId } from '@flux-ui/internals';
     import { computed, onBeforeUnmount, onMounted, ref, unref, useTemplateRef, watch } from 'vue';
     import $style from '$flux/css/component/Visual.module.scss';
 
@@ -19,12 +19,14 @@
         colors,
         incrementor = 1,
         opacity = .5,
-        seed
+        seed,
+        static: isStatic
     } = defineProps<{
         readonly colors?: string[];
         readonly incrementor?: number;
         readonly opacity?: number;
         readonly seed?: number;
+        readonly static?: boolean;
     }>();
 
     const canvasRef = useTemplateRef('canvas');
@@ -119,7 +121,7 @@
             context.restore();
         }
 
-        schedule();
+        !isStatic && schedule();
     }
 
     watch(canvasRef, canvas => {
@@ -136,6 +138,6 @@
 
     watch(polygons, () => {
         cancel();
-        schedule();
+        !isStatic && schedule();
     });
 </script>

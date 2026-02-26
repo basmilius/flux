@@ -12,9 +12,9 @@
 <script
     lang="ts"
     setup>
+    import { useLoaded } from '@basmilius/common';
     import type { FluxFilterItem, FluxFilterValue } from '@flux-ui/types';
     import { computed, ref, unref, watch } from 'vue';
-    import { useLoaded } from '$flux/composable/private';
     import FluxMenuItem from '$flux/component/FluxMenuItem.vue';
 
     const emit = defineEmits<{

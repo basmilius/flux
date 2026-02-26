@@ -108,6 +108,13 @@
             border-color: var(--foreground);
         }
     }
+
+    &:disabled,
+    &[aria-disabled=true] {
+        box-shadow: none;
+        opacity: .5;
+        pointer-events: none;
+    }
 }
 
 .tabBarItemActive {

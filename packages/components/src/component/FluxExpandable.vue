@@ -50,7 +50,7 @@
 <script
     lang="ts"
     setup>
-    import { useComponentId } from '@flux-ui/internals';
+    import { useComponentId } from '@basmilius/common';
     import type { FluxIconName } from '@flux-ui/types';
     import { computed, getCurrentInstance, onBeforeMount, onUnmounted, ref, unref, useId, watch } from 'vue';
     import { useExpandableGroupInjection } from '$flux/composable';

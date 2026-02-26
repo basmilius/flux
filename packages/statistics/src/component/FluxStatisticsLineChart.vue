@@ -1,5 +1,5 @@
 <template>
-    <FluxStatisticsChart
+    <Chart
         :aspectRatio="aspectRatio"
         :options="merge({
             chart: {
@@ -8,8 +8,16 @@
                     enabled: true
                 }
             },
+            fill: {
+                gradient: {
+                    enabled: true,
+                    opacityFrom: 0.5,
+                    opacityTo: 0
+                }
+            },
             grid: {
-                show: true
+                show: true,
+                clipMarkers: false
             },
             legend: {
                 show: false
@@ -17,30 +25,6 @@
             stroke: {
                 curve: 'smooth',
                 width: 2
-            },
-            xaxis: {
-                axisTicks: {
-                    show: true
-                },
-                floating: false,
-                labels: {
-                    show: false
-                },
-                tooltip: {
-                    enabled: false
-                }
-            },
-            yaxis: {
-                axisTicks: {
-                    show: false
-                },
-                floating: false,
-                labels: {
-                    show: false
-                },
-                tooltip: {
-                    enabled: false
-                }
             }
         }, options)"
         :series="translatedSeries"/>
@@ -53,7 +37,7 @@
     import { merge } from 'lodash-es';
     import { computed } from 'vue';
     import { useI18n } from 'vue-i18n';
-    import FluxStatisticsChart from './FluxStatisticsChart.vue';
+    import Chart from './FluxStatisticsChart.vue';
 
     const {
         options = {},

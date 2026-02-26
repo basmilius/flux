@@ -22,7 +22,7 @@
         "flux"
     ],
     "scripts": {
-        "build": "bun -b build.ts"
+        "build": "tsdown"
     },
     "files": [
         "dist",
@@ -32,25 +32,27 @@
         "access": "public",
         "provenance": true
     },
-    "main": "./dist/index.js",
-    "module": "./dist/index.js",
-    "types": "./dist/index.d.ts",
-    "typings": "./dist/index.d.ts",
+    "main": "./dist/index.mjs",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.mts",
+    "typings": "./dist/index.d.mts",
     "sideEffects": false,
     "exports": {
         ".": {
-            "types": "./dist/index.d.ts",
-            "default": "./dist/index.js"
+            "types": "./dist/index.d.mts",
+            "default": "./dist/index.mjs"
         }
     },
     "dependencies": {
-        "@basmilius/utils": "^3.3.0",
+        "@basmilius/common": "^3.8.0",
+        "@basmilius/utils": "^3.8.0",
         "lodash-es": "^4.17.23",
         "luxon": "^3.7.2",
         "vue": "^3.6.0-beta.6"
     },
     "devDependencies": {
-        "@basmilius/tools": "^3.3.0",
-        "@types/luxon": "^3.7.1"
+        "@types/bun": "^1.3.9",
+        "@types/luxon": "^3.7.1",
+        "tsdown": "^0.21.0-beta.2"
     }
 }

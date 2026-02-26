@@ -40,7 +40,8 @@
 <script
     lang="ts"
     setup>
-    import { unrefTemplateElement, useEventListener, useMutationObserver } from '@flux-ui/internals';
+    import { useMutationObserver } from '@basmilius/common';
+    import { unrefTemplateElement, useEventListener } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { onMounted, ref, useTemplateRef } from 'vue';
     import { FluxFadeTransition } from '$flux/transition';
