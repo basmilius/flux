@@ -8,6 +8,7 @@
         "preview": "vitepress preview"
     },
     "dependencies": {
+        "@basmilius/common": "^3.8.0",
         "@faker-js/faker": "^10.3.0",
         "@flux-ui/components": "workspace:*",
         "@flux-ui/dashboard": "workspace:*",

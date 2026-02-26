@@ -15,8 +15,8 @@
 <script
     lang="ts"
     setup>
-    import { FluxOverlayTransition, FluxPane, FluxSlideOverTransition } from '@flux-ui/components';
-    import { useInterval } from '@flux-ui/internals';
+    import { useInterval } from '@basmilius/common';
+    import { FluxPane, FluxSlideOverTransition } from '@flux-ui/components';
     import { ref } from 'vue';
 
     const visible = ref(true);
