@@ -52,6 +52,10 @@ example=../../../code/guide/components/context-menu/sub-menu.vue
 example=../../../code/guide/components/context-menu/multiple-sub-menus.vue
 :::
 
+::: example Nested sub menus || FluxContextMenuItem can be used inside a sub-menu slot to create deeply nested menus.
+example=../../../code/guide/components/context-menu/nested-sub-menus.vue
+:::
+
 ## Used components
 
 - [Menu](../menu)

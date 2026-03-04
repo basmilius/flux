@@ -1,8 +1,9 @@
 <template>
     <FluxMenuItem
         ref="menuItem"
-        v-bind="$props"
-        :command-icon="hasSubMenu ? 'angle-right' : $props.commandIcon"
+        v-bind="props"
+        :style="subMenuOpenStyle"
+        :command-icon="hasSubMenu ? 'angle-right' : props.commandIcon"
         @mouseenter="onMouseEnter"
         @mouseleave="onMouseLeave">
         <template
@@ -18,6 +19,7 @@
         <div
             v-if="isSubMenuOpen"
             ref="subMenuPane"
+            data-flux-submenu="true"
             :class="clsx(
                 $style.contextMenuSubMenuPane,
                 isSubMenuClosing && $style.isClosing,
@@ -64,7 +66,7 @@
         'sub-menu'(): any;
     }>();
 
-    defineProps<Omit<FluxButtonProps, 'isFilled' | 'isSubmit' | 'size'> & {
+    const props = defineProps<Omit<FluxButtonProps, 'isFilled' | 'isSubmit' | 'size'> & {
         readonly command?: string;
         readonly commandIcon?: FluxIconName;
         readonly commandLoading?: boolean;
@@ -94,16 +96,30 @@
     const viewportWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 1920);
     const viewportHeight = ref(typeof window !== 'undefined' ? window.innerHeight : 1080);
 
+    const subMenuOpenStyle = computed(() =>
+        isSubMenuOpen.value && !isSubMenuClosing.value && !props.isActive && !props.isHighlighted
+            ? {background: 'var(--gray-100)'}
+            : undefined
+    );
+
     const SUB_MENU_OVERLAP = 20;
     const MENU_FIRST_ITEM_MARGIN_TOP = 9;
 
     let lastMouseX = 0;
     let lastMouseY = 0;
+    let subMenuAnchorX = 0;
+    let subMenuAnchorY = 0;
+    let subMenuAnchorSet = false;
     let itemRect: DOMRect | null = null;
 
     function openSubMenu(triggerEl: HTMLElement): void {
         isSubMenuOpen.value = true;
         itemRect = triggerEl.getBoundingClientRect();
+        subMenuAnchorSet = false;
+
+        if (isDebug.value) {
+            window.addEventListener('mousemove', onMouseMoveCone, {passive: true});
+        }
 
         requestAnimationFrame(() => {
             const pane = unref(subMenuPaneRef);
@@ -123,6 +139,7 @@
 
     function closeSubMenu(): void {
         const pane = unref(subMenuPaneRef);
+        subMenuAnchorSet = false;
 
         if (!pane) {
             isSubMenuOpen.value = false;
@@ -181,42 +198,45 @@
 
         const paneRect = pane.getBoundingClientRect();
         const subMenuIsRight = paneRect.left >= itemRect.right - SUB_MENU_OVERLAP;
-        const dx = mouseX - lastMouseX;
+        const dx = mouseX - subMenuAnchorX;
+
+        // Mouse hasn't moved horizontally from the anchor — always in cone.
+        if (dx === 0) {
+            return true;
+        }
 
         if (subMenuIsRight) {
-            if (dx <= 0) {
+            if (dx < 0) {
                 return false;
             }
 
-            const dxToPane = paneRect.left - lastMouseX;
-
-            if (dxToPane <= 0) {
+            if (mouseX >= paneRect.left) {
                 return true;
             }
 
-            const slopeToTop = (paneRect.top - lastMouseY) / dxToPane;
-            const slopeToBottom = (paneRect.bottom - lastMouseY) / dxToPane;
-            const currentSlope = (mouseY - lastMouseY) / dx;
+            const dxToPane = paneRect.left - subMenuAnchorX;
+            const slopeToTop = (paneRect.top - subMenuAnchorY) / dxToPane;
+            const slopeToBottom = (paneRect.bottom - subMenuAnchorY) / dxToPane;
+            const slopeToMouse = (mouseY - subMenuAnchorY) / dx;
 
-            return currentSlope >= Math.min(slopeToTop, slopeToBottom) &&
-                currentSlope <= Math.max(slopeToTop, slopeToBottom);
+            return slopeToMouse >= Math.min(slopeToTop, slopeToBottom) &&
+                slopeToMouse <= Math.max(slopeToTop, slopeToBottom);
         } else {
-            if (dx >= 0) {
+            if (dx > 0) {
                 return false;
             }
 
-            const dxToPane = paneRect.right - lastMouseX;
-
-            if (dxToPane >= 0) {
+            if (mouseX <= paneRect.right) {
                 return true;
             }
 
-            const slopeToTop = (paneRect.top - lastMouseY) / dxToPane;
-            const slopeToBottom = (paneRect.bottom - lastMouseY) / dxToPane;
-            const currentSlope = (mouseY - lastMouseY) / dx;
+            const dxToPane = paneRect.right - subMenuAnchorX;
+            const slopeToTop = (paneRect.top - subMenuAnchorY) / dxToPane;
+            const slopeToBottom = (paneRect.bottom - subMenuAnchorY) / dxToPane;
+            const slopeToMouse = (mouseY - subMenuAnchorY) / dx;
 
-            return currentSlope >= Math.min(slopeToTop, slopeToBottom) &&
-                currentSlope <= Math.max(slopeToTop, slopeToBottom);
+            return slopeToMouse >= Math.min(slopeToTop, slopeToBottom) &&
+                slopeToMouse <= Math.max(slopeToTop, slopeToBottom);
         }
     }
 
@@ -234,16 +254,16 @@
         const paneRect = pane.getBoundingClientRect();
         const subMenuIsRight = paneRect.left >= itemRect.right - SUB_MENU_OVERLAP;
         const edgeX = subMenuIsRight ? paneRect.left : paneRect.right;
+        const apexX = subMenuAnchorSet ? subMenuAnchorX : evt.clientX;
+        const apexY = subMenuAnchorSet ? subMenuAnchorY : evt.clientY;
 
         viewportWidth.value = window.innerWidth;
         viewportHeight.value = window.innerHeight;
-        conePoints.value = `${evt.clientX},${evt.clientY} ${edgeX},${paneRect.top} ${edgeX},${paneRect.bottom}`;
+        conePoints.value = `${apexX},${apexY} ${edgeX},${paneRect.top} ${edgeX},${paneRect.bottom}`;
     }
 
     function onMouseMoveWhileLeaving(evt: MouseEvent): void {
         if (isMovingTowardsSubMenu(evt.clientX, evt.clientY)) {
-            lastMouseX = evt.clientX;
-            lastMouseY = evt.clientY;
             return;
         }
 
@@ -254,6 +274,7 @@
     function onMouseEnter(evt: MouseEvent): void {
         lastMouseX = evt.clientX;
         lastMouseY = evt.clientY;
+        subMenuAnchorSet = false;
         window.removeEventListener('mousemove', onMouseMoveWhileLeaving);
 
         if (unref(hasSubMenu)) {
@@ -273,14 +294,34 @@
             return;
         }
 
+        subMenuAnchorX = evt.clientX;
+        subMenuAnchorY = evt.clientY;
+        subMenuAnchorSet = true;
         window.addEventListener('mousemove', onMouseMoveWhileLeaving, {passive: true});
     }
 
     function onSubMenuMouseEnter(): void {
         window.removeEventListener('mousemove', onMouseMoveWhileLeaving);
+        window.removeEventListener('mousemove', onMouseMoveCone);
+        conePoints.value = null;
     }
 
-    function onSubMenuMouseLeave(): void {
+    function onSubMenuMouseLeave(evt: MouseEvent): void {
+        const relatedTarget = evt.relatedTarget as HTMLElement | null;
+        const destinationPane = relatedTarget?.closest<HTMLElement>('[data-flux-submenu]') ?? null;
+
+        if (destinationPane) {
+            const triggerEl = unrefTemplateElement(menuItemRef);
+
+            // If our trigger is NOT inside the destination pane, the mouse moved into
+            // a child sub-menu pane — keep this level open.
+            // If our trigger IS inside the destination pane, the mouse moved back to a
+            // parent pane — fall through and close this level.
+            if (!triggerEl || !destinationPane.contains(triggerEl)) {
+                return;
+            }
+        }
+
         closeSubMenu();
     }
 
@@ -289,6 +330,7 @@
             isSubMenuOpen.value = false;
             isSubMenuClosing.value = false;
             conePoints.value = null;
+            subMenuAnchorSet = false;
         }
     });
 
