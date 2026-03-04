@@ -54,6 +54,14 @@ const navigation: SidebarItem = {
             ]
         },
         {text: 'Comment', link: '/guide/components/comment', image: '/assets/components/comment.svg'},
+        {
+            text: 'Context menu',
+            link: '/guide/components/context-menu/',
+            collapsed: true,
+            items: [
+                {text: 'Item', link: '/guide/components/context-menu/item'}
+            ]
+        },
         {text: 'Data table', link: '/guide/components/data-table'},
         {text: 'Date picker', link: '/guide/components/date-picker'},
         {text: 'Disabled', link: '/guide/components/disabled'},

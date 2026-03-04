@@ -22,6 +22,8 @@ export { default as FluxComment } from './FluxComment.vue';
 export { default as FluxColorPicker } from './FluxColorPicker.vue';
 export { default as FluxColorSelect } from './FluxColorSelect.vue';
 export { default as FluxContainer } from './FluxContainer.vue';
+export { default as FluxContextMenu } from './FluxContextMenu.vue';
+export { default as FluxContextMenuItem } from './FluxContextMenuItem.vue';
 export { default as FluxDataTable } from './FluxDataTable.vue';
 export { default as FluxDatePicker } from './FluxDatePicker.vue';
 export { default as FluxDestructiveButton } from './FluxDestructiveButton.vue';

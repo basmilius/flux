@@ -16,6 +16,7 @@ export {
 } from './data';
 
 export type {
+    FluxContextMenuInjection,
     FluxExpandableGroupInjection,
     FluxFilterInjection,
     FluxFlyoutInjection,
