@@ -229,7 +229,7 @@
                     vnode
                 };
             })
-            .filter(e => e !== null);
+            .filter((e): e is Event => e !== null);
     }
 
     function setToday(): void {

@@ -41,21 +41,21 @@ export default function (start: DateTime, end: DateTime, preventCustom: boolean 
         return `${startStr} – ${endStr}`;
     }
 
-    if (preventCustom) {
-        const startStr = start.toLocaleString({
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric'
-        });
-
-        const endStr = end.toLocaleString({
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric'
-        });
-
-        return `${startStr} – ${endStr}`;
+    if (!preventCustom) {
+        return translate('flux.customPeriod');
     }
 
-    return translate('flux.customPeriod');
+    const startStr = start.toLocaleString({
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+    });
+
+    const endStr = end.toLocaleString({
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+    });
+
+    return `${startStr} – ${endStr}`;
 }

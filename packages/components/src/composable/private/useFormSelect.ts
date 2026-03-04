@@ -14,8 +14,8 @@ export default function (modelValue: Ref<FluxFormSelectValue>, isMultiple: boole
         const search = unref(searchQuery)?.trim().toLowerCase();
 
         const available = unref(options)
-            .filter(o => !('value' in o) || (!search || o.label.toLowerCase().includes(search)))
-            .filter(o => !('value' in o) || !isMultiple || !unref(selected).find(s => s.value === o.value));
+            .filter(o => isFluxFormSelectGroup(o) || (!search || o.label.toLowerCase().includes(search)))
+            .filter(o => isFluxFormSelectGroup(o) || !isMultiple || !unref(selected).find(s => s.value === o.value));
 
         if (available.length === 0) {
             return [];
