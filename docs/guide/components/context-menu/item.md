@@ -131,7 +131,7 @@ The context menu item is an extended menu item that supports nested sub-menus. W
 The prediction cone can be visualized in debug mode by enabling the `is-debug` prop on the parent [FluxContextMenu](./index).
 
 ::: render
-render=../../../../code/guide/components/context-menu/item/preview.vue
+render=../../../code/guide/components/context-menu/item/preview.vue
 :::
 
 <FrontmatterDocs/>
@@ -139,11 +139,11 @@ render=../../../../code/guide/components/context-menu/item/preview.vue
 ## Examples
 
 ::: example Basic || A context menu item with a nested sub-menu.
-example=../../../../code/guide/components/context-menu/item/basic.vue
+example=../../../code/guide/components/context-menu/item/basic.vue
 :::
 
 ::: example Prediction cone || Enable debug mode to visualize the prediction cone.
-example=../../../../code/guide/components/context-menu/item/debug.vue
+example=../../../code/guide/components/context-menu/item/debug.vue
 :::
 
 ## Used components
