@@ -225,13 +225,9 @@
         const subMenuIsRight = paneRect.left >= itemRect.right - SUB_MENU_OVERLAP;
         const dx = mouseX - subMenuAnchorX;
 
-        // Mouse hasn't moved horizontally from the anchor — always in cone.
-        if (dx === 0) {
-            return true;
-        }
-
         if (subMenuIsRight) {
-            if (dx < 0) {
+            // Cursor must move right to reach the sub-menu; dx ≤ 0 means it hasn't.
+            if (dx <= 0) {
                 return false;
             }
 
@@ -247,7 +243,8 @@
             return slopeToMouse >= Math.min(slopeToTop, slopeToBottom) &&
                 slopeToMouse <= Math.max(slopeToTop, slopeToBottom);
         } else {
-            if (dx > 0) {
+            // Cursor must move left to reach the sub-menu; dx ≥ 0 means it hasn't.
+            if (dx >= 0) {
                 return false;
             }
 
