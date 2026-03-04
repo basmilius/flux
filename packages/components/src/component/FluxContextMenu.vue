@@ -1,6 +1,5 @@
 <template>
     <div
-        ref="mount"
         :class="$style.contextMenu"
         @contextmenu.prevent="onContextMenu">
         <slot v-bind="{close}"/>
@@ -137,16 +136,16 @@
         close();
     }
 
-    watch(isOpen, (open, _, onCleanup) => {
+    watch(isOpen, (isNowOpen, _, onCleanup) => {
         const dialog = unref(dialogRef)!;
 
-        if (open && !dialog.open) {
+        if (isNowOpen && !dialog.open) {
             dialog.showModal();
 
             const onScroll = () => close();
             window.addEventListener('scroll', onScroll, {passive: true, capture: true});
             onCleanup(() => window.removeEventListener('scroll', onScroll, {capture: true}));
-        } else if (!open && dialog.open) {
+        } else if (!isNowOpen && dialog.open) {
             dialog.close();
         }
     });

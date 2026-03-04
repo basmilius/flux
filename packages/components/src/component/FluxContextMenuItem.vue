@@ -1,5 +1,6 @@
 <template>
     <FluxMenuItem
+        ref="menuItem"
         v-bind="$props"
         :command-icon="hasSubMenu ? 'angle-right' : $props.commandIcon"
         @mouseenter="onMouseEnter"
@@ -49,6 +50,7 @@
     lang="ts"
     setup>
     import type { FluxButtonEmits, FluxButtonProps, FluxIconName } from '@flux-ui/types';
+    import { unrefTemplateElement } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { computed, inject, onUnmounted, ref, unref, useTemplateRef, watch, watchEffect } from 'vue';
     import { FluxContextMenuInjectionKey } from '$flux/data';
@@ -78,6 +80,7 @@
 
     const injection = inject(FluxContextMenuInjectionKey);
     const isDebug = injection?.isDebug ?? false;
+    const menuItemRef = useTemplateRef('menuItem');
     const subMenuPaneRef = useTemplateRef('subMenuPane');
 
     const hasSubMenu = computed(() => !!slots['sub-menu']);
@@ -89,6 +92,8 @@
     const conePoints = ref<string | null>(null);
     const viewportWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 1920);
     const viewportHeight = ref(typeof window !== 'undefined' ? window.innerHeight : 1080);
+
+    const SUB_MENU_OVERLAP = 20;
 
     let lastMouseX = 0;
     let lastMouseY = 0;
@@ -160,7 +165,7 @@
         }
 
         const paneRect = pane.getBoundingClientRect();
-        const subMenuIsRight = paneRect.left >= itemRect.right - 20;
+        const subMenuIsRight = paneRect.left >= itemRect.right - SUB_MENU_OVERLAP;
         const dx = mouseX - lastMouseX;
 
         if (subMenuIsRight) {
@@ -229,7 +234,11 @@
         window.removeEventListener('mousemove', onMouseMoveWhileLeaving);
 
         if (unref(hasSubMenu)) {
-            openSubMenu(evt.currentTarget as HTMLElement);
+            const el = unrefTemplateElement(menuItemRef);
+
+            if (el) {
+                openSubMenu(el);
+            }
         }
     }
 
@@ -265,6 +274,19 @@
             window.removeEventListener('mousemove', onMouseMoveWhileLeaving);
         }
     });
+
+    if (isDebug) {
+        const onResize = () => {
+            viewportWidth.value = window.innerWidth;
+            viewportHeight.value = window.innerHeight;
+        };
+
+        window.addEventListener('resize', onResize, {passive: true});
+
+        onUnmounted(() => {
+            window.removeEventListener('resize', onResize);
+        });
+    }
 
     onUnmounted(() => {
         window.removeEventListener('mousemove', onMouseMoveWhileLeaving);
