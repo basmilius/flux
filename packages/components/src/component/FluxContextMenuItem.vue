@@ -105,7 +105,9 @@
 
     const SUB_MENU_OVERLAP = 20;
     const MENU_FIRST_ITEM_MARGIN_TOP = 9;
+    const CONE_GRACE_PERIOD_MS = 300;
 
+    let isHovered = false;
     let lastMouseX = 0;
     let lastMouseY = 0;
     let subMenuAnchorX = 0;
@@ -114,6 +116,8 @@
     let itemRect: DOMRect | null = null;
     let closeGeneration = 0;
     let myActiveCone: FluxContextMenuActiveCone | null = null;
+    let pendingConeTimer: ReturnType<typeof setTimeout> | null = null;
+    let pendingConeMoveHandler: ((evt: MouseEvent) => void) | null = null;
 
     function openSubMenu(triggerEl: HTMLElement): void {
         // Cancel any pending close animation from a previous closeSubMenu() call.
@@ -214,6 +218,56 @@
         closeSubMenu();
     }
 
+    function cancelDeferredOpen(): void {
+        if (pendingConeTimer !== null) {
+            clearTimeout(pendingConeTimer);
+            pendingConeTimer = null;
+        }
+
+        if (pendingConeMoveHandler !== null) {
+            window.removeEventListener('mousemove', pendingConeMoveHandler);
+            pendingConeMoveHandler = null;
+        }
+    }
+
+    function openIfStillHovered(): void {
+        if (!isHovered || !unref(hasSubMenu)) {
+            return;
+        }
+
+        const el = unrefTemplateElement(menuItemRef);
+
+        if (el) {
+            subMenuAnchorSet = false;
+            openSubMenu(el);
+        }
+    }
+
+    function deferOpenWhileInCone(otherCone: FluxContextMenuActiveCone): void {
+        const doOpen = () => {
+            cancelDeferredOpen();
+            otherCone.cancel();
+
+            if (injection?.activeCone) {
+                injection.activeCone.value = null;
+            }
+
+            openIfStillHovered();
+        };
+
+        pendingConeMoveHandler = (evt: MouseEvent) => {
+            lastMouseX = evt.clientX;
+            lastMouseY = evt.clientY;
+
+            if (!otherCone.isInside(evt.clientX, evt.clientY)) {
+                doOpen();
+            }
+        };
+
+        window.addEventListener('mousemove', pendingConeMoveHandler, {passive: true});
+        pendingConeTimer = setTimeout(doOpen, CONE_GRACE_PERIOD_MS);
+    }
+
     function isMovingTowardsSubMenu(mouseX: number, mouseY: number): boolean {
         const pane = unref(subMenuPaneRef);
 
@@ -294,19 +348,23 @@
     }
 
     function onMouseEnter(evt: MouseEvent): void {
+        isHovered = true;
         lastMouseX = evt.clientX;
         lastMouseY = evt.clientY;
 
         // Cancel our own pending cone tracking (re-entering our trigger).
         clearActiveCone();
         window.removeEventListener('mousemove', onMouseMoveWhileLeaving);
+        cancelDeferredOpen();
 
         // Check whether we're passing through another item's active cone.
         const otherCone = injection?.activeCone?.value;
 
         if (otherCone) {
             if (otherCone.isInside(evt.clientX, evt.clientY)) {
-                // Inside another item's cone — don't steal focus.
+                // Inside another item's cone — defer opening until the cone is exited or the
+                // grace period expires so the user can still navigate to that sub-menu.
+                deferOpenWhileInCone(otherCone);
                 return;
             }
 
@@ -327,8 +385,12 @@
     }
 
     function onMouseLeave(evt: MouseEvent): void {
+        isHovered = false;
         lastMouseX = evt.clientX;
         lastMouseY = evt.clientY;
+
+        // If the mouse leaves before a deferred open fires, cancel it.
+        cancelDeferredOpen();
 
         if (!unref(isSubMenuOpen)) {
             return;
@@ -384,6 +446,7 @@
             conePoints.value = null;
             subMenuAnchorSet = false;
             clearActiveCone();
+            cancelDeferredOpen();
         }
     });
 
@@ -413,5 +476,6 @@
         window.removeEventListener('mousemove', onMouseMoveWhileLeaving);
         window.removeEventListener('mousemove', onMouseMoveCone);
         clearActiveCone();
+        cancelDeferredOpen();
     });
 </script>
