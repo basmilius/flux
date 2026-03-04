@@ -95,6 +95,7 @@
     const viewportHeight = ref(typeof window !== 'undefined' ? window.innerHeight : 1080);
 
     const SUB_MENU_OVERLAP = 20;
+    const MENU_FIRST_ITEM_MARGIN_TOP = 9;
 
     let lastMouseX = 0;
     let lastMouseY = 0;
@@ -144,7 +145,7 @@
         const safeZone = 12;
 
         let x = rect.right;
-        let y = rect.top;
+        let y = rect.top - MENU_FIRST_ITEM_MARGIN_TOP;
 
         if (x + paneWidth > innerWidth - safeZone) {
             x = rect.left - paneWidth;
@@ -182,13 +183,6 @@
         const subMenuIsRight = paneRect.left >= itemRect.right - SUB_MENU_OVERLAP;
         const dx = mouseX - lastMouseX;
 
-        if (isDebug.value) {
-            const edgeX = subMenuIsRight ? paneRect.left : paneRect.right;
-            viewportWidth.value = window.innerWidth;
-            viewportHeight.value = window.innerHeight;
-            conePoints.value = `${mouseX},${mouseY} ${edgeX},${paneRect.top} ${edgeX},${paneRect.bottom}`;
-        }
-
         if (subMenuIsRight) {
             if (dx <= 0) {
                 return false;
@@ -224,6 +218,26 @@
             return currentSlope >= Math.min(slopeToTop, slopeToBottom) &&
                 currentSlope <= Math.max(slopeToTop, slopeToBottom);
         }
+    }
+
+    function onMouseMoveCone(evt: MouseEvent): void {
+        if (isSubMenuClosing.value) {
+            return;
+        }
+
+        const pane = unref(subMenuPaneRef);
+
+        if (!pane || !itemRect) {
+            return;
+        }
+
+        const paneRect = pane.getBoundingClientRect();
+        const subMenuIsRight = paneRect.left >= itemRect.right - SUB_MENU_OVERLAP;
+        const edgeX = subMenuIsRight ? paneRect.left : paneRect.right;
+
+        viewportWidth.value = window.innerWidth;
+        viewportHeight.value = window.innerHeight;
+        conePoints.value = `${evt.clientX},${evt.clientY} ${edgeX},${paneRect.top} ${edgeX},${paneRect.bottom}`;
     }
 
     function onMouseMoveWhileLeaving(evt: MouseEvent): void {
@@ -281,6 +295,9 @@
     watch(isSubMenuOpen, isOpen => {
         if (!isOpen) {
             window.removeEventListener('mousemove', onMouseMoveWhileLeaving);
+            window.removeEventListener('mousemove', onMouseMoveCone);
+        } else if (isDebug.value) {
+            window.addEventListener('mousemove', onMouseMoveCone, {passive: true});
         }
     });
 
@@ -299,5 +316,6 @@
 
     onUnmounted(() => {
         window.removeEventListener('mousemove', onMouseMoveWhileLeaving);
+        window.removeEventListener('mousemove', onMouseMoveCone);
     });
 </script>

@@ -26,11 +26,11 @@
     overflow: auto;
 
     &.isClosing {
-        animation: contextMenuClose 210ms var(--swift-out) both;
+        animation: contextMenuClose 150ms var(--swift-out) both;
     }
 
     &.isOpening {
-        animation: contextMenuOpen 210ms var(--deceleration-curve) both;
+        animation: contextMenuOpen 150ms var(--deceleration-curve) both;
     }
 }
 
@@ -47,11 +47,11 @@
     z-index: 100001;
 
     &.isClosing {
-        animation: contextMenuClose 210ms var(--swift-out) both;
+        animation: contextMenuClose 150ms var(--swift-out) both;
     }
 
     &.isOpening {
-        animation: contextMenuOpen 210ms var(--deceleration-curve) both;
+        animation: contextMenuOpen 150ms var(--deceleration-curve) both;
     }
 }
 
@@ -68,13 +68,11 @@
 @keyframes contextMenuClose {
     to {
         opacity: 0;
-        scale: .97;
     }
 }
 
 @keyframes contextMenuOpen {
     from {
         opacity: 0;
-        scale: .97;
     }
 }
