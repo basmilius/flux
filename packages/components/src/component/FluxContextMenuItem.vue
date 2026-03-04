@@ -31,11 +31,9 @@
             @mouseleave="onSubMenuMouseLeave">
             <slot name="sub-menu"/>
         </div>
-    </Teleport>
 
-    <Teleport to="body">
         <svg
-            v-if="hasSubMenu && isSubMenuOpen && isDebug && conePoints"
+            v-if="isSubMenuOpen && isDebug && conePoints"
             :class="$style.contextMenuPredictionCone"
             :viewBox="`0 0 ${viewportWidth} ${viewportHeight}`"
             xmlns="http://www.w3.org/2000/svg">
