@@ -130,7 +130,7 @@
         close();
     }
 
-    watch(isOpen, (isOpen, _, onCleanup) => {
+    watch(isOpen, isOpen => {
         const dialog = unref(dialogRef)!;
 
         if (isOpen && !dialog.open) {
