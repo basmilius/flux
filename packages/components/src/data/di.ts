@@ -10,7 +10,13 @@ export const FluxFormFieldInjectionKey: InjectionKey<FluxFormFieldInjection> = S
 export const FluxTableInjectionKey: InjectionKey<FluxTableInjection> = Symbol();
 export const FluxTooltipInjectionKey: InjectionKey<FluxTooltipInjection> = Symbol();
 
+export type FluxContextMenuActiveCone = {
+    isInside(x: number, y: number): boolean;
+    cancel(): void;
+};
+
 export type FluxContextMenuInjection = {
+    readonly activeCone: Ref<FluxContextMenuActiveCone | null>;
     readonly isDebug: Ref<boolean>;
     readonly isOpen: Ref<boolean>;
     readonly dialog: Ref<HTMLElement | null>;

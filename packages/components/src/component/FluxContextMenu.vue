@@ -36,6 +36,7 @@
     import type { Ref } from 'vue';
     import { clsx } from 'clsx';
     import { computed, provide, ref, unref, useTemplateRef, watch } from 'vue';
+    import type { FluxContextMenuActiveCone } from '$flux/data';
     import { FluxContextMenuInjectionKey } from '$flux/data';
     import FluxPane from './FluxPane.vue';
     import $style from '$flux/css/component/ContextMenu.module.scss';
@@ -64,6 +65,7 @@
     const isOpen = ref(false);
     const paneX = ref(0);
     const paneY = ref(0);
+    const activeCone = ref<FluxContextMenuActiveCone | null>(null);
 
     const isDebugRef = computed(() => !!isDebug);
 
@@ -154,6 +156,7 @@
     });
 
     provide(FluxContextMenuInjectionKey, {
+        activeCone,
         isDebug: isDebugRef,
         isOpen,
         dialog: dialogRef as Ref<HTMLElement | null>,
