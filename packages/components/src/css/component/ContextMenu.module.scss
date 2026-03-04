@@ -22,7 +22,6 @@
 .contextMenuPane {
     min-width: 180px;
     max-height: calc(100dvh - 60px);
-    padding: 6px 0;
     box-shadow: var(--shadow-md);
     overflow: auto;
 
@@ -43,7 +42,6 @@
     left: var(--sub-pane-x);
     min-width: 180px;
     max-height: calc(100dvh - 60px);
-    padding: 6px 0;
     box-shadow: var(--shadow-md);
     overflow: auto;
     z-index: 100001;

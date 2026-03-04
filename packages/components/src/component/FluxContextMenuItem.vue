@@ -31,9 +31,11 @@
             @mouseleave="onSubMenuMouseLeave">
             <slot name="sub-menu"/>
         </div>
+    </Teleport>
 
+    <Teleport to="body">
         <svg
-            v-if="isSubMenuOpen && isDebug && conePoints"
+            v-if="hasSubMenu && isSubMenuOpen && isDebug && conePoints"
             :class="$style.contextMenuPredictionCone"
             :viewBox="`0 0 ${viewportWidth} ${viewportHeight}`"
             xmlns="http://www.w3.org/2000/svg">
@@ -154,8 +156,21 @@
             y = innerHeight - paneHeight - safeZone;
         }
 
-        subMenuX.value = Math.max(safeZone, x);
-        subMenuY.value = Math.max(safeZone, y);
+        const finalX = Math.max(safeZone, x);
+        const finalY = Math.max(safeZone, y);
+
+        subMenuX.value = finalX;
+        subMenuY.value = finalY;
+
+        if (isDebug.value) {
+            const subMenuIsRight = finalX >= rect.right - SUB_MENU_OVERLAP;
+            const edgeX = subMenuIsRight ? finalX : finalX + paneWidth;
+            const apexX = lastMouseX || (rect.left + rect.right) / 2;
+            const apexY = lastMouseY || (rect.top + rect.bottom) / 2;
+            viewportWidth.value = window.innerWidth;
+            viewportHeight.value = window.innerHeight;
+            conePoints.value = `${apexX},${apexY} ${edgeX},${finalY} ${edgeX},${finalY + paneHeight}`;
+        }
     }
 
     function isMovingTowardsSubMenu(mouseX: number, mouseY: number): boolean {
