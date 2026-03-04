@@ -71,6 +71,13 @@
     import FluxPane from './FluxPane.vue';
     import $style from '$flux/css/component/ContextMenu.module.scss';
 
+    // Extra vertical tolerance added beyond the sub-menu's actual top/bottom edges.
+    // Without this buffer, a cursor that exits an item near the sub-menu's top or
+    // bottom corner would immediately leave the triangular safe zone (because the
+    // cone's slanted top edge tilts slightly downward toward the sub-menu corner),
+    // causing the sub-menu to close before the user can reach it.
+    const CONE_BUFFER = 50;
+
     defineEmits<FluxButtonEmits>();
 
     const slots = useSlots();
@@ -122,6 +129,7 @@
     let mouseX = 0;
     let mouseY = 0;
     let coneCheckFrame: number | null = null;
+    let coneRetries = 0;
 
     onUnmounted(() => {
         stopConeCheck();
@@ -215,14 +223,15 @@
 
         const {top, bottom, left, right} = subMenuContainer.getBoundingClientRect();
 
-        // nearX is the edge of the sub-menu closest to the cursor
-        const openedLeft = unref(subMenuX) < mouseX;
-        const nearX = openedLeft ? right : left;
+        // Use the sub-menu's centre to determine which edge is closest to the cursor.
+        // This is more reliable than comparing subMenuX (a reactive ref that may still
+        // hold its initial pre-rAF value) with mouseX.
+        const nearX = (left + right) / 2 > mouseX ? left : right;
 
         predictionCone.value = [
             {x: mouseX, y: mouseY},
-            {x: nearX, y: top},
-            {x: nearX, y: bottom}
+            {x: nearX, y: top - CONE_BUFFER},
+            {x: nearX, y: bottom + CONE_BUFFER}
         ];
 
         viewportWidth.value = innerWidth;
@@ -255,6 +264,7 @@
     }
 
     function startConeCheck(): void {
+        coneRetries = 0;
         document.addEventListener('mousemove', onMouseMove, {passive: true});
         scheduleConeCheck();
     }
@@ -274,6 +284,24 @@
 
             if (!unref(isSubMenuOpen)) {
                 return;
+            }
+
+            // If the cone hasn't been computed yet (sub-menu container wasn't in the
+            // DOM when onMouseLeave fired), try again now that a frame has passed.
+            // Limit retries so a permanently-missing container doesn't loop forever.
+            if (!unref(predictionCone)) {
+                computePredictionCone();
+
+                if (!unref(predictionCone)) {
+                    if (++coneRetries < 5) {
+                        scheduleConeCheck();
+                    } else {
+                        closeSubMenu();
+                        stopConeCheck();
+                    }
+
+                    return;
+                }
             }
 
             if (!isInPredictionCone(mouseX, mouseY)) {
