@@ -10,22 +10,28 @@
             <template #menu>
                 <FluxMenu>
                     <FluxMenuGroup>
-                        <FluxMenuItem
-                            icon-leading="copy"
-                            label="Copy"/>
+                        <FluxContextMenuItem
+                            icon-leading="pen"
+                            label="Edit">
+                            <template #sub-menu>
+                                <FluxMenu>
+                                    <FluxMenuGroup>
+                                        <FluxMenuItem
+                                            icon-leading="scissors"
+                                            label="Cut"/>
 
-                        <FluxMenuItem
-                            icon-leading="scissors"
-                            label="Cut"/>
+                                        <FluxMenuItem
+                                            icon-leading="copy"
+                                            label="Copy"/>
 
-                        <FluxMenuItem
-                            icon-leading="paste"
-                            label="Paste"/>
-                    </FluxMenuGroup>
+                                        <FluxMenuItem
+                                            icon-leading="paste"
+                                            label="Paste"/>
+                                    </FluxMenuGroup>
+                                </FluxMenu>
+                            </template>
+                        </FluxContextMenuItem>
 
-                    <FluxSeparator/>
-
-                    <FluxMenuGroup>
                         <FluxContextMenuItem
                             icon-leading="share-nodes"
                             label="Share">
@@ -43,6 +49,15 @@
                                 </FluxMenu>
                             </template>
                         </FluxContextMenuItem>
+                    </FluxMenuGroup>
+
+                    <FluxSeparator/>
+
+                    <FluxMenuGroup>
+                        <FluxMenuItem
+                            icon-leading="trash"
+                            is-destructive
+                            label="Delete"/>
                     </FluxMenuGroup>
                 </FluxMenu>
             </template>

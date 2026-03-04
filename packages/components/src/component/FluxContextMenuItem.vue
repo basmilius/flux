@@ -169,6 +169,13 @@
         const subMenuIsRight = paneRect.left >= itemRect.right - SUB_MENU_OVERLAP;
         const dx = mouseX - lastMouseX;
 
+        if (isDebug.value) {
+            const edgeX = subMenuIsRight ? paneRect.left : paneRect.right;
+            viewportWidth.value = window.innerWidth;
+            viewportHeight.value = window.innerHeight;
+            conePoints.value = `${mouseX},${mouseY} ${edgeX},${paneRect.top} ${edgeX},${paneRect.bottom}`;
+        }
+
         if (subMenuIsRight) {
             if (dx <= 0) {
                 return false;
@@ -183,12 +190,6 @@
             const slopeToTop = (paneRect.top - lastMouseY) / dxToPane;
             const slopeToBottom = (paneRect.bottom - lastMouseY) / dxToPane;
             const currentSlope = (mouseY - lastMouseY) / dx;
-
-            if (isDebug.value) {
-                viewportWidth.value = window.innerWidth;
-                viewportHeight.value = window.innerHeight;
-                conePoints.value = `${lastMouseX},${lastMouseY} ${paneRect.left},${paneRect.top} ${paneRect.left},${paneRect.bottom}`;
-            }
 
             return currentSlope >= Math.min(slopeToTop, slopeToBottom) &&
                 currentSlope <= Math.max(slopeToTop, slopeToBottom);
@@ -206,12 +207,6 @@
             const slopeToTop = (paneRect.top - lastMouseY) / dxToPane;
             const slopeToBottom = (paneRect.bottom - lastMouseY) / dxToPane;
             const currentSlope = (mouseY - lastMouseY) / dx;
-
-            if (isDebug.value) {
-                viewportWidth.value = window.innerWidth;
-                viewportHeight.value = window.innerHeight;
-                conePoints.value = `${lastMouseX},${lastMouseY} ${paneRect.right},${paneRect.top} ${paneRect.right},${paneRect.bottom}`;
-            }
 
             return currentSlope >= Math.min(slopeToTop, slopeToBottom) &&
                 currentSlope <= Math.max(slopeToTop, slopeToBottom);

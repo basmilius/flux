@@ -48,6 +48,10 @@ example=../../../code/guide/components/context-menu/basic.vue
 example=../../../code/guide/components/context-menu/sub-menu.vue
 :::
 
+::: example Multiple sub menus || Multiple FluxContextMenuItem components can be used in a single context menu.
+example=../../../code/guide/components/context-menu/multiple-sub-menus.vue
+:::
+
 ## Used components
 
 - [Menu](../menu)
