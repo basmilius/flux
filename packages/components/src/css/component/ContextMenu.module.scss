@@ -1,0 +1,72 @@
+.contextMenuTrigger {
+    display: contents;
+}
+
+.contextMenuItemWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.contextMenu {
+    position: fixed;
+    top: var(--y);
+    left: var(--x);
+    z-index: 100;
+    width: var(--width, 240px);
+}
+
+.contextMenuPane {
+    max-height: calc(100dvh - 60px);
+    overflow: auto;
+    box-shadow: var(--shadow-md);
+
+    &.isClosing {
+        animation: contextMenuClose 180ms var(--swift-out) both;
+    }
+
+    &.isOpening {
+        animation: contextMenuOpen 180ms var(--deceleration-curve) both;
+    }
+}
+
+.contextMenuSubMenu {
+    position: fixed;
+    top: var(--sub-y);
+    left: var(--sub-x);
+    z-index: 101;
+    width: var(--sub-width, 240px);
+}
+
+.contextMenuSubMenuPane {
+    max-height: calc(100dvh - 60px);
+    overflow: auto;
+    box-shadow: var(--shadow-md);
+
+    &.isClosing {
+        animation: contextMenuClose 180ms var(--swift-out) both;
+    }
+
+    &.isOpening {
+        animation: contextMenuOpen 180ms var(--deceleration-curve) both;
+    }
+}
+
+.contextMenuPredictionCone {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+@keyframes contextMenuClose {
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes contextMenuOpen {
+    from {
+        opacity: 0;
+    }
+}
