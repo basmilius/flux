@@ -13,6 +13,8 @@ export const FluxTooltipInjectionKey: InjectionKey<FluxTooltipInjection> = Symbo
 export type FluxContextMenuActiveCone = {
     isInside(x: number, y: number): boolean;
     cancel(): void;
+    suspend(): void;
+    resume(): void;
 };
 
 export type FluxContextMenuInjection = {

@@ -118,6 +118,7 @@
     let myActiveCone: FluxContextMenuActiveCone | null = null;
     let pendingConeTimer: ReturnType<typeof setTimeout> | null = null;
     let pendingConeMoveHandler: ((evt: MouseEvent) => void) | null = null;
+    let suspendedCone: FluxContextMenuActiveCone | null = null;
 
     function openSubMenu(triggerEl: HTMLElement): void {
         // Cancel any pending close animation from a previous closeSubMenu() call.
@@ -218,6 +219,16 @@
         closeSubMenu();
     }
 
+    function suspendConeTracking(): void {
+        window.removeEventListener('mousemove', onMouseMoveWhileLeaving);
+    }
+
+    function resumeConeTracking(): void {
+        if (unref(isSubMenuOpen) && !unref(isSubMenuClosing) && subMenuAnchorSet) {
+            window.addEventListener('mousemove', onMouseMoveWhileLeaving, {passive: true});
+        }
+    }
+
     function cancelDeferredOpen(): void {
         if (pendingConeTimer !== null) {
             clearTimeout(pendingConeTimer);
@@ -227,6 +238,13 @@
         if (pendingConeMoveHandler !== null) {
             window.removeEventListener('mousemove', pendingConeMoveHandler);
             pendingConeMoveHandler = null;
+        }
+
+        // Restore the suspended cone's onMouseMoveWhileLeaving listener so it can
+        // resume guarding its own sub-menu now that we are no longer deferring.
+        if (suspendedCone !== null) {
+            suspendedCone.resume();
+            suspendedCone = null;
         }
     }
 
@@ -244,7 +262,17 @@
     }
 
     function deferOpenWhileInCone(otherCone: FluxContextMenuActiveCone): void {
+        // Immediately stop the other item's onMouseMoveWhileLeaving so it cannot
+        // close its own sub-menu while we are waiting. Our pendingConeMoveHandler
+        // takes over the responsibility of monitoring the cone.
+        otherCone.suspend();
+        suspendedCone = otherCone;
+
         const doOpen = () => {
+            // Clear suspendedCone BEFORE cancelDeferredOpen so the resume branch
+            // inside cancelDeferredOpen is skipped — we are about to cancel the
+            // other cone completely, not restore it.
+            suspendedCone = null;
             cancelDeferredOpen();
             otherCone.cancel();
 
@@ -401,7 +429,12 @@
         subMenuAnchorSet = true;
 
         if (injection?.activeCone) {
-            myActiveCone = { isInside: isMovingTowardsSubMenu, cancel: cancelConeTracking };
+            myActiveCone = {
+                isInside: isMovingTowardsSubMenu,
+                cancel: cancelConeTracking,
+                suspend: suspendConeTracking,
+                resume: resumeConeTracking
+            };
             injection.activeCone.value = myActiveCone;
         }
 
