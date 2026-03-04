@@ -15,7 +15,9 @@
         }"
         :aria-checked="isSelectable ? isSelected : undefined"
         :tabindex="tabindex"
-        @click="$emit('click', $event)">
+        @click="$emit('click', $event)"
+        @mouseenter="$emit('mouseenter', $event)"
+        @mouseleave="$emit('mouseleave', $event)">
         <template
             v-if="isSelectable && (!iconLeading || isSelected)"
             #iconLeading>
