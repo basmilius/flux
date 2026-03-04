@@ -11,8 +11,9 @@ export const FluxTableInjectionKey: InjectionKey<FluxTableInjection> = Symbol();
 export const FluxTooltipInjectionKey: InjectionKey<FluxTooltipInjection> = Symbol();
 
 export type FluxContextMenuInjection = {
-    readonly isDebug: boolean;
+    readonly isDebug: Ref<boolean>;
     readonly isOpen: Ref<boolean>;
+    readonly dialog: Ref<HTMLElement | null>;
 
     close(): void;
 };

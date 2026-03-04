@@ -33,8 +33,9 @@
     lang="ts"
     setup>
     import { unrefTemplateElement } from '@flux-ui/internals';
+    import type { Ref } from 'vue';
     import { clsx } from 'clsx';
-    import { provide, ref, unref, useTemplateRef, watch } from 'vue';
+    import { computed, provide, ref, unref, useTemplateRef, watch } from 'vue';
     import { FluxContextMenuInjectionKey } from '$flux/data';
     import FluxPane from './FluxPane.vue';
     import $style from '$flux/css/component/ContextMenu.module.scss';
@@ -63,6 +64,8 @@
     const isOpen = ref(false);
     const paneX = ref(0);
     const paneY = ref(0);
+
+    const isDebugRef = computed(() => !!isDebug);
 
     function close(): void {
         const pane = unrefTemplateElement(paneRef);
@@ -151,8 +154,9 @@
     });
 
     provide(FluxContextMenuInjectionKey, {
-        isDebug,
+        isDebug: isDebugRef,
         isOpen,
+        dialog: dialogRef as Ref<HTMLElement | null>,
         close
     });
 

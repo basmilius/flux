@@ -14,7 +14,7 @@
 
     <Teleport
         v-if="hasSubMenu"
-        to="body">
+        :to="teleportTarget">
         <div
             v-if="isSubMenuOpen"
             ref="subMenuPane"
@@ -79,7 +79,8 @@
     }>();
 
     const injection = inject(FluxContextMenuInjectionKey);
-    const isDebug = injection?.isDebug ?? false;
+    const isDebug = computed(() => unref(injection?.isDebug) ?? false);
+    const teleportTarget = computed<string | HTMLElement>(() => unref(injection?.dialog) ?? 'body');
     const menuItemRef = useTemplateRef('menuItem');
     const subMenuPaneRef = useTemplateRef('subMenuPane');
 
@@ -183,7 +184,7 @@
             const slopeToBottom = (paneRect.bottom - lastMouseY) / dxToPane;
             const currentSlope = (mouseY - lastMouseY) / dx;
 
-            if (isDebug) {
+            if (isDebug.value) {
                 viewportWidth.value = window.innerWidth;
                 viewportHeight.value = window.innerHeight;
                 conePoints.value = `${lastMouseX},${lastMouseY} ${paneRect.left},${paneRect.top} ${paneRect.left},${paneRect.bottom}`;
@@ -206,7 +207,7 @@
             const slopeToBottom = (paneRect.bottom - lastMouseY) / dxToPane;
             const currentSlope = (mouseY - lastMouseY) / dx;
 
-            if (isDebug) {
+            if (isDebug.value) {
                 viewportWidth.value = window.innerWidth;
                 viewportHeight.value = window.innerHeight;
                 conePoints.value = `${lastMouseX},${lastMouseY} ${paneRect.right},${paneRect.top} ${paneRect.right},${paneRect.bottom}`;
@@ -275,7 +276,7 @@
         }
     });
 
-    if (isDebug) {
+    if (isDebug.value) {
         const onResize = () => {
             viewportWidth.value = window.innerWidth;
             viewportHeight.value = window.innerHeight;
