@@ -1,0 +1,76 @@
+@use '$flux/css/mixin';
+
+.contextMenu {
+    display: contents;
+}
+
+.contextMenuDialog {
+    top: var(--y);
+    left: var(--x);
+    margin: 0;
+    padding: 24px;
+    background: unset;
+    border: 0;
+    font-size: 1rem;
+
+    &::backdrop {
+        background: unset;
+    }
+}
+
+.contextMenuPane {
+    max-height: calc(100dvh - 120px);
+    box-shadow: var(--shadow-md);
+    overflow: auto;
+
+    &.isClosing {
+        animation: close 210ms var(--swift-out) both;
+    }
+
+    &.isOpening {
+        animation: open 210ms var(--deceleration-curve) both;
+    }
+}
+
+.contextMenuSubMenu {
+    position: relative;
+}
+
+.contextMenuSubMenuPane {
+    position: fixed;
+    min-width: 210px;
+    max-height: calc(100dvh - 120px);
+    box-shadow: var(--shadow-md);
+    overflow: auto;
+    background: var(--surface);
+    border: 1px solid var(--surface-stroke-out);
+    border-radius: var(--radius);
+    z-index: 1;
+}
+
+.contextMenuSubMenuDebug {
+    position: fixed;
+    pointer-events: none;
+    inset: 0;
+    width: 100dvw;
+    height: 100dvh;
+    z-index: 2;
+
+    polygon {
+        fill: rgb(from var(--primary-600) r g b / .15);
+        stroke: var(--primary-600);
+        stroke-width: 1;
+    }
+}
+
+@keyframes close {
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes open {
+    from {
+        opacity: 0;
+    }
+}
