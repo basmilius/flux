@@ -47,7 +47,7 @@ Import the components you want to use, like this:
 
 ```vue [Dashboard.vue]
 <template>
-    <FluxStatisticsGrid :md="3"> <!-- [!code focus:10] -->
+    <FluxStatisticsGrid :md="3"> <!-- [!code focus:13] -->
         <FluxStatisticsKpi
             icon="users"
             title="Total users"

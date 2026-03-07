@@ -235,18 +235,13 @@ export default defineConfig({
                         {text: 'useCalendar', link: '/internals/composables/useCalendar'},
                         {text: 'useCalendarMonthSwitcher', link: '/internals/composables/useCalendarMonthSwitcher'},
                         {text: 'useCalendarYearSwitcher', link: '/internals/composables/useCalendarYearSwitcher'},
-                        {text: 'useClickOutside', link: '/internals/composables/useClickOutside'},
-                        {text: 'useComponentId', link: '/internals/composables/useComponentId'},
-                        {text: 'useDebouncedRef', link: '/internals/composables/useDebouncedRef'},
                         {text: 'useEventListener', link: '/internals/composables/useEventListener'},
                         {text: 'useFocusTrap', link: '/internals/composables/useFocusTrap'},
                         {text: 'useFocusTrapLock', link: '/internals/composables/useFocusTrapLock'},
                         {text: 'useFocusTrapReturn', link: '/internals/composables/useFocusTrapReturn'},
                         {text: 'useFocusTrapSubscription', link: '/internals/composables/useFocusTrapSubscription'},
                         {text: 'useFocusZone', link: '/internals/composables/useFocusZone'},
-                        {text: 'useInterval', link: '/internals/composables/useInterval'},
                         {text: 'useInView', link: '/internals/composables/useInView'},
-                        {text: 'useMutationObserver', link: '/internals/composables/useMutationObserver'},
                         {text: 'useRemembered', link: '/internals/composables/useRemembered'}
                     ]
                 },
