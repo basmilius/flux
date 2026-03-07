@@ -43,7 +43,7 @@
     setup>
     import type { FluxSegmentedControlItemObject } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { onMounted, onUpdated, ref, unref, useTemplateRef } from 'vue';
+    import { ref, unref, useTemplateRef, watchEffect } from 'vue';
     import FluxIcon from './FluxIcon.vue';
     import $style from '$flux/css/component/SegmentedControl.module.scss';
 
@@ -62,8 +62,7 @@
     const activeItemX = ref(0);
     const activeItemWidth = ref(0);
 
-    onMounted(() => activate(unref(modelValue)));
-    onUpdated(() => activate(unref(modelValue)));
+    watchEffect(() => activate(unref(modelValue)), {flush: 'post'});
 
     function activate(index: number): void {
         const itemRef = itemRefs.value![index];

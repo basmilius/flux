@@ -10,9 +10,9 @@
             :id="id"/>
 
         <button
+            aria-hidden="true"
             :class="$style.checkboxElement"
-            role="checkbox"
-            :aria-checked="modelValue ?? false">
+            tabindex="-1">
             <FluxIcon
                 v-if="isIndeterminate"
                 name="minus"

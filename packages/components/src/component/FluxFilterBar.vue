@@ -10,6 +10,7 @@
         <template #default="{ buttons, filters, menuItems }">
             <div :class="$style.filterBar">
                 <FluxFormInput
+                    v-if="isSearchable"
                     v-model="modelSearch"
                     :class="$style.filterBarSearch"
                     icon-leading="magnifying-glass"

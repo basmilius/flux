@@ -2,42 +2,38 @@
     <router-link
         v-if="componentType === 'route'"
         v-bind="$attrs"
+        v-on="hoverListeners"
         :rel="rel"
         :target="target"
         :to="to as any"
-        @click="onClick($event)"
-        @mouseenter="$emit('mouseenter', $event)"
-        @mouseleave="$emit('mouseleave', $event)">
+        @click="onClick($event)">
         <slot/>
     </router-link>
 
     <a
         v-else-if="componentType === 'link'"
         v-bind="$attrs"
+        v-on="hoverListeners"
         :href="href"
         :rel="rel"
         :target="target"
-        @click="onClick($event)"
-        @mouseenter="$emit('mouseenter', $event)"
-        @mouseleave="$emit('mouseleave', $event)">
+        @click="onClick($event)">
         <slot/>
     </a>
 
     <button
         v-else-if="componentType === 'button'"
         v-bind="$attrs"
-        @click="onClick($event)"
-        @mouseenter="$emit('mouseenter', $event)"
-        @mouseleave="$emit('mouseleave', $event)">
+        v-on="hoverListeners"
+        @click="onClick($event)">
         <slot/>
     </button>
 
     <div
         v-else
         v-bind="$attrs"
-        @click="onClick"
-        @mouseenter="$emit('mouseenter', $event)"
-        @mouseleave="$emit('mouseleave', $event)">
+        v-on="hoverListeners"
+        @click="onClick">
         <slot/>
     </div>
 </template>
@@ -64,6 +60,11 @@
     defineSlots<{
         default(): any;
     }>();
+
+    const hoverListeners = {
+        onMouseenter: (evt: MouseEvent) => emit('mouseenter', evt),
+        onMouseleave: (evt: MouseEvent) => emit('mouseleave', evt)
+    };
 
     function onClick(evt: MouseEvent, navigate?: (evt: MouseEvent) => void): void {
         emit('click', evt);

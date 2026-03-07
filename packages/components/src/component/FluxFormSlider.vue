@@ -115,7 +115,7 @@
         localValue.value = (unref(modelValue) - min) / (max - min);
     });
 
-    watch(([() => max, () => min, localValue, () => step]), () => {
+    watch([() => max, () => min, localValue, () => step], () => {
         const value = clampWithStepPrecision(unref(localValue), min, max, step);
         modelValue.value = value;
         percentage.value = (value - min) / (max - min);

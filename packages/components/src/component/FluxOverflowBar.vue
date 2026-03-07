@@ -21,7 +21,7 @@
             :class="$style.overflowBarOverflow">
             <slot
                 name="overflow"
-                v-bind="{items: hiddenItems}"/>
+                v-bind="{hasOverflow: hiddenItems.length > 0, items: hiddenItems}"/>
         </div>
     </div>
 
@@ -53,7 +53,7 @@
 
     const slots = defineSlots<{
         default?(): any;
-        overflow?(props: { items: VNode[] }): any;
+        overflow?(props: { hasOverflow: boolean; items: VNode[] }): any;
     }>();
 
     const barRef = useTemplateRef('bar');

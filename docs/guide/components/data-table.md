@@ -3,7 +3,7 @@ outline: deep
 
 props:
     -   name: items
-        description: The data to show in the table.
+        description: The data to show in the table. This should already be the current page's data — pagination is handled server-side. Pass the subset of items for the active page here.
         type: T[]
 
     -   name: is-bordered
@@ -36,7 +36,7 @@ props:
         type: number[]
 
     -   name: page
-        description: The page that is currently shown, starting from 1.
+        description: The currently active page, starting from 1. Used for slot bindings and the pagination bar display only — it does not slice the items array.
         type: number
 
     -   name: per-page
@@ -97,6 +97,10 @@ render=../../code/guide/components/data-table/preview.vue
 :::
 
 <FrontmatterDocs/>
+
+::: info Server-side pagination
+The data table does **not** paginate `items` internally. The `items` prop should contain only the rows for the currently active page, fetched from your server or API. The `page` and `per-page` props are used to drive the pagination bar and are exposed through slot bindings so you can display them, but the component never slices or filters the `items` array itself.
+:::
 
 ## Examples
 
