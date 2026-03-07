@@ -1,4 +1,5 @@
 import { Settings } from 'luxon';
+import { createI18n } from 'vue-i18n';
 
 import 'vitepress/dist/client/theme-default/styles/vars.css';
 import './override/base.css';
@@ -45,6 +46,14 @@ import VPBadge from 'vitepress/dist/client/theme-default/components/VPBadge.vue'
 const theme: Theme = {
     Layout,
     enhanceApp: ({app}) => {
+        app.use(createI18n({
+            legacy: false,
+            fallbackWarn: false,
+            locale: 'en',
+            missingWarn: false,
+            messages: {en: {}}
+        }) as any);
+
         app.component('Badge', VPBadge);
         app.component('ColorPalette', ColorPalette);
         app.component('ComponentGrid', ComponentGrid);
