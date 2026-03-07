@@ -46,3 +46,9 @@ render=../../code/statistics/components/grid/preview.vue
 :::
 
 <FrontmatterDocs/>
+
+## Examples
+
+::: example Responsive || A grid that collapses to one column on small screens and expands to four on large screens.
+example=../../code/statistics/components/grid/responsive.vue
+:::

@@ -51,3 +51,9 @@ render=../../code/statistics/components/meter/preview.vue
 :::
 
 <FrontmatterDocs/>
+
+## Examples
+
+::: example Compact || Multiple compact meters grouped inside a statistics base widget.
+example=../../code/statistics/components/meter/compact.vue
+:::

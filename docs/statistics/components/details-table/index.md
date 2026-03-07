@@ -21,6 +21,12 @@ render=../../../code/statistics/components/details-table/preview.vue
 
 <FrontmatterDocs/>
 
+## Examples
+
+::: example Standalone || A details table used without a pane wrapper.
+example=../../../code/statistics/components/details-table/standalone.vue
+:::
+
 ## Used components
 
 - [Row](./row)

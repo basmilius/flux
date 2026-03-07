@@ -36,6 +36,16 @@ render=../../code/statistics/components/kpi/preview.vue
 
 <FrontmatterDocs/>
 
+## Examples
+
+::: example Simple || A KPI widget without a change indicator.
+example=../../code/statistics/components/kpi/simple.vue
+:::
+
+::: example In a grid || Multiple KPI widgets arranged in a responsive statistics grid.
+example=../../code/statistics/components/kpi/in-grid.vue
+:::
+
 ## Used components
 
 - [Change](./change)

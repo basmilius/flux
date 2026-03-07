@@ -31,6 +31,16 @@ This component is best used inside a [KPI](./kpi) or [Metric](./metric) via the 
 
 <FrontmatterDocs/>
 
+## Examples
+
+::: example Positive || A positive change indicator with a trend-up icon.
+example=../../code/statistics/components/change/positive.vue
+:::
+
+::: example Negative || A negative change indicator with a trend-down icon.
+example=../../code/statistics/components/change/negative.vue
+:::
+
 ## Used components
 
 - [Icon](../../guide/components/icon)

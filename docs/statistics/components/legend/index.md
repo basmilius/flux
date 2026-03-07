@@ -20,6 +20,16 @@ This component is best used within a [Chart pane](../chart-pane) via the `legend
 
 <FrontmatterDocs/>
 
+## Examples
+
+::: example Basic || A legend with two series using a color swatch.
+example=../../../code/statistics/components/legend/basic.vue
+:::
+
+::: example With values || Legend items that include a percentage value alongside the label.
+example=../../../code/statistics/components/legend/with-values.vue
+:::
+
 ## Used components
 
 - [Item](./item)

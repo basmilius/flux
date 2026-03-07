@@ -30,3 +30,9 @@ This component is best used inside a [Chart pane](../chart-pane).
 :::
 
 <FrontmatterDocs/>
+
+## Examples
+
+::: example Multiple series || Comparing two data series in a single area chart.
+example=../../../code/statistics/components/charts/area/multi-series.vue
+:::

@@ -48,6 +48,16 @@ render=../../code/statistics/components/chart-pane/preview.vue
 
 <FrontmatterDocs/>
 
+## Examples
+
+::: example Basic || A chart pane with an area chart, legend, and icon.
+example=../../code/statistics/components/chart-pane/basic.vue
+:::
+
+::: example With toolbar || A chart pane with an action button in the toolbar slot.
+example=../../code/statistics/components/chart-pane/with-toolbar.vue
+:::
+
 ## Used components
 
 - [Charts](./charts/)

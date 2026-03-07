@@ -46,6 +46,12 @@ render=../../code/statistics/components/metric/preview.vue
 
 <FrontmatterDocs/>
 
+## Examples
+
+::: example With a breakdown || A metric widget using the default slot to display a breakdown of values.
+example=../../code/statistics/components/metric/with-sparkline.vue
+:::
+
 ## Used components
 
 - [Change](./change)

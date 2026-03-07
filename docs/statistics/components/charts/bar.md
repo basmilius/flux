@@ -30,3 +30,9 @@ This component is best used inside a [Chart pane](../chart-pane).
 :::
 
 <FrontmatterDocs/>
+
+## Examples
+
+::: example Multiple series || A grouped bar chart comparing two data series side by side.
+example=../../../code/statistics/components/charts/bar/multi-series.vue
+:::

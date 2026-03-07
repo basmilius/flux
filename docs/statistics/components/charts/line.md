@@ -30,3 +30,9 @@ This component is best used inside a [Chart pane](../chart-pane).
 :::
 
 <FrontmatterDocs/>
+
+## Examples
+
+::: example Single series || A single series line chart tracking one metric over time.
+example=../../../code/statistics/components/charts/line/single-series.vue
+:::

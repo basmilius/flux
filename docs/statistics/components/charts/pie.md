@@ -30,3 +30,9 @@ This component is best used inside a [Chart pane](../chart-pane).
 :::
 
 <FrontmatterDocs/>
+
+## Examples
+
+::: example In a chart pane || A pie chart inside a chart pane with matching colors and a legend.
+example=../../../code/statistics/components/charts/pie/in-chart-pane.vue
+:::
