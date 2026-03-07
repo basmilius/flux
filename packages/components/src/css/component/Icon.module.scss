@@ -1,31 +1,33 @@
-.icon {
-    height: 1em;
-    width: 1em;
-    flex-shrink: 0;
-    font-size: 20px;
-    line-height: 1;
-    overflow: visible;
-}
-
-.fontAwesomeIcon {
-    composes: icon;
-
-    display: inline-block;
-}
-
-.iconBoxed {
-    composes: basePane from './base/Pane.module.scss';
-
-    display: flex;
-    height: 1em;
-    width: 1em;
-    align-items: center;
-    flex-shrink: 0;
-    justify-content: center;
-    font-size: 42px;
-
+@layer flux-base {
     .icon {
-        font-size: .45em;
+        height: 1em;
+        width: 1em;
+        flex-shrink: 0;
+        font-size: 20px;
+        line-height: 1;
+        overflow: visible;
+    }
+
+    .fontAwesomeIcon {
+        composes: icon;
+
+        display: inline-block;
+    }
+
+    .iconBoxed {
+        composes: basePane from './base/Pane.module.scss';
+
+        display: flex;
+        height: 1em;
+        width: 1em;
+        align-items: center;
+        flex-shrink: 0;
+        justify-content: center;
+        font-size: 42px;
+
+        .icon {
+            font-size: .45em;
+        }
     }
 }
 

@@ -76,7 +76,17 @@
         availableSize.value = direction === 'horizontal' ? bar.offsetWidth : bar.offsetHeight;
         itemSizes.value = Array.from(measurer.children)
             .filter(item => item instanceof HTMLElement)
-            .map(item => direction === 'horizontal' ? item.offsetWidth : item.offsetHeight);
+            .map(item => {
+                const {display} = getComputedStyle(item);
+
+                if (display === 'contents') {
+                    item = item.children[0] as HTMLElement;
+                }
+
+                return direction === 'horizontal'
+                    ? item.offsetWidth
+                    : item.offsetHeight;
+            });
 
         let size = 0;
         let visible = 0;

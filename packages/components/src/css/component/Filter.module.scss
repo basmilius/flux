@@ -2,7 +2,7 @@
     max-height: 50dvh;
     max-width: 100%;
     padding: 9px;
-    width: 300px;
+    width: 270px;
     overflow: auto;
     scrollbar-width: none;
     transition: height 150ms var(--deceleration-curve);
@@ -40,6 +40,32 @@
     }
 }
 
+.filterBadge {
+    padding-left: 6px;
+    padding-right: 6px;
+    background: var(--primary-50);
+    border: 1px dashed var(--primary-300);
+    font-weight: 500;
+
+    :local(.badgeLabel) {
+        color: var(--primary-900);
+    }
+}
+
+.filterButton {
+    border: 1px solid var(--surface-stroke);
+    box-shadow: none;
+
+    :local(.badge) {
+        border-radius: var(--radius-half);
+    }
+
+    :local(.buttonIcon) {
+        color: var(--primary-700);
+        font-size: 16px;
+    }
+}
+
 .filterHeader {
     position: sticky;
     margin: -9px -9px 3px;
@@ -70,11 +96,14 @@
 
 .filterSearch {
     position: sticky;
-    top: 52px;
     margin: -9px -9px 0;
     padding: 9px;
     background: linear-gradient(to bottom, var(--surface) 75%, transparent);
     z-index: 1;
+}
+
+.filterHeader + .menuGroup .filterSearch {
+    top: 52px;
 }
 
 .filterBar {

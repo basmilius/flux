@@ -57,14 +57,18 @@
 
 .timelineItemBody {
     position: relative;
-    align-self: center;
+    display: flex;
     padding-top: 9px;
     padding-bottom: 9px;
+    align-items: flex-start;
+    align-self: center;
+    flex-flow: column;
+    gap: 15px;
 }
 
 .timelineItemHeader {
     display: flex;
-    margin-bottom: 9px;
+    margin-bottom: -9px;
     flex-flow: column;
 
     :is(strong) {

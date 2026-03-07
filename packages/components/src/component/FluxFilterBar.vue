@@ -20,16 +20,35 @@
                     <template
                         v-for="button of buttons"
                         :key="button.name">
-                        <FluxSecondaryButton
-                            v-if="modelValue[button.name]"
-                            :icon-leading="button.icon"
-                            :label="button.label"/>
+                        <FluxFlyout>
+                            <template #opener="{open}">
+                                <FluxSecondaryButton
+                                    v-if="modelValue[button.name]"
+                                    :class="$style.filterButton"
+                                    :icon-leading="button.icon"
+                                    :label="button.label"
+                                    @click="open()">
+                                    <template #after>
+                                        <FilterBadge
+                                            :item="button"
+                                            :value="modelValue[button.name]"/>
+                                    </template>
+                                </FluxSecondaryButton>
+                            </template>
+
+                            <div :class="$style.filter">
+                                <FluxMenu>
+                                    <VNodeRenderer :vnode="filters[button.name]"/>
+                                </FluxMenu>
+                            </div>
+                        </FluxFlyout>
                     </template>
 
                     <template #overflow>
-                        <FluxSpacing
-                            v-if="buttons"
-                            :size="2"/>
+                        <FluxSeparator
+                            v-if="isFiltered"
+                            direction="vertical"
+                            style="margin-top: 9px; margin-bottom: 9px"/>
 
                         <FluxFlyout>
                             <template #opener="{open}">
@@ -56,14 +75,17 @@
     lang="ts"
     setup>
     import type { FluxFilterState } from '@flux-ui/types';
+    import { computed, unref } from "vue";
+    import { FilterBadge, VNodeRenderer } from '$flux/component/primitive';
     import FluxFilterBase from './FluxFilterBase.vue';
     import FluxFilterWindow from './FluxFilterWindow.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxFormInput from './FluxFormInput.vue';
+    import FluxMenu from '$flux/component/FluxMenu.vue';
     import FluxOverflowBar from './FluxOverflowBar.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
+    import FluxSeparator from '$flux/component/FluxSeparator.vue';
     import $style from '$flux/css/component/Filter.module.scss';
-    import FluxSpacing from '$flux/component/FluxSpacing.vue';
 
     const emit = defineEmits<{
         reset: [string];
@@ -86,6 +108,8 @@
     defineSlots<{
         default?(): any;
     }>();
+
+    const isFiltered = computed(() => Object.entries(unref(modelValue)).filter(([, val]) => Boolean(val)).length > 0);
 
     function reset(name: string): void {
         emit('reset', name);

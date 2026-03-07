@@ -7,7 +7,7 @@
 
     h1 {
         color: var(--foreground-prominent);
-        font-size: 30px;
+        font-size: 27px;
     }
 
     h2 {
@@ -35,8 +35,10 @@
     a:not([class]), a[class=""] {
         color: var(--primary-600);
         text-decoration: underline;
+        text-decoration-color: var(--primary-400);
+        text-decoration-skip: auto;
         text-decoration-thickness: 1px;
-        text-underline-offset: 3px;
+        text-underline-offset: 2px;
 
         &:hover {
             text-decoration: none;

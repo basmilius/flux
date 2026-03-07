@@ -65,7 +65,10 @@
 .menuItemIcon {
     composes: buttonIcon from './base/Button.module.scss';
 
+    margin-left: 2px;
+    margin-right: 2px;
     color: var(--foreground-prominent);
+    font-size: 16px;
 }
 
 .menuItemLabel {
