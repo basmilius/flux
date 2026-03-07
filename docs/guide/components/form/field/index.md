@@ -44,7 +44,7 @@ slots:
             error: "string | undefined"
             hint: "string | undefined"
             isOptional: "boolean | undefined"
-            label: "string | undefined"
+            label: string
             maxLength: "number | undefined"
 
     -   name: value
@@ -54,7 +54,7 @@ slots:
             error: "string | undefined"
             hint: "string | undefined"
             isOptional: "boolean | undefined"
-            label: "string | undefined"
+            label: string
             maxLength: "number | undefined"
         
 requiredIcons:

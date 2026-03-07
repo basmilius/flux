@@ -46,6 +46,10 @@ Don't make your view too complex. Limit yourself to one filter per view.
 
 <FrontmatterDocs/>
 
+::: tip
+Looking for a toolbar-style filter with a search input? See [Filter bar](./bar).
+:::
+
 ## Available filters
 
 - [Date](./date)

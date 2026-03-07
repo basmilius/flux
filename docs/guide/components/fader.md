@@ -37,3 +37,7 @@ render=../../code/guide/components/fader/preview.vue
 ::: example Basic || A simple and basic fader.
 example=../../code/guide/components/fader/basic.vue
 :::
+
+## Used components
+
+- [Fader item](./fader-item)

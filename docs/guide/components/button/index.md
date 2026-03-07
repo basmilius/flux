@@ -14,3 +14,5 @@ Buttons are clickable elements designed to trigger actions. They can start new p
 - [Publish](./publish)
 - [Group](./group)
 - [Split](./split)
+- [Primary link](./primary-link)
+- [Secondary link](./secondary-link)

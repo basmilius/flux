@@ -68,13 +68,21 @@ const navigation: SidebarItem = {
                 {text: 'Group', link: '/guide/components/expandable/group'},
             ]
         },
-        {text: 'Fader', link: '/guide/components/fader'},
+        {
+            text: 'Fader',
+            link: '/guide/components/fader',
+            collapsed: true,
+            items: [
+                {text: 'Item', link: '/guide/components/fader-item'}
+            ]
+        },
         {
             text: 'Filter',
             link: '/guide/components/filter/',
             image: null,
             collapsed: true,
             items: [
+                {text: 'Bar', link: '/guide/components/filter/bar'},
                 {text: 'Date', link: '/guide/components/filter/date'},
                 {text: 'Date range', link: '/guide/components/filter/date-range'},
                 {text: 'Option', link: '/guide/components/filter/option'},
@@ -112,15 +120,18 @@ const navigation: SidebarItem = {
                         {text: 'Addition', link: '/guide/components/form/field/addition'}
                     ]
                 },
+                {text: 'Grid', link: '/guide/components/form/grid'},
                 {
                     text: 'Input',
                     link: '/guide/components/form/input/',
                     collapsed: true,
                     items: [
+                        {text: 'Addition', link: '/guide/components/form/input/addition'},
                         {text: 'Group', link: '/guide/components/form/input/group'}
                     ]
                 },
                 {text: 'PIN input', link: '/guide/components/form/pin-input'},
+                {text: 'Section', link: '/guide/components/form/section'},
                 {text: 'Quantity selector', link: '/guide/components/form/quantity-selector'},
                 {
                     text: 'Select',
@@ -154,6 +165,17 @@ const navigation: SidebarItem = {
         },
         {text: 'Icon', link: '/guide/components/icon', image: '/assets/components/icon.svg'},
         {text: 'Info', link: '/guide/components/info'},
+        {
+            text: 'Item',
+            link: '/guide/components/item/',
+            collapsed: true,
+            items: [
+                {text: 'Actions', link: '/guide/components/item/actions'},
+                {text: 'Content', link: '/guide/components/item/content'},
+                {text: 'Media', link: '/guide/components/item/media'},
+                {text: 'Stack', link: '/guide/components/item/stack'}
+            ]
+        },
         {
             text: 'Layout',
             link: '/guide/components/layout/',
@@ -203,6 +225,7 @@ const navigation: SidebarItem = {
                 {text: 'Title', link: '/guide/components/menu/title'}
             ]
         },
+        {text: 'Overflow bar', link: '/guide/components/overflow-bar'},
         {text: 'Overlay', link: '/guide/components/overlay'},
         {
             text: 'Pagination',
@@ -218,6 +241,7 @@ const navigation: SidebarItem = {
             collapsed: true,
             items: [
                 {text: 'Body', link: '/guide/components/pane/body'},
+                {text: 'Clickable', link: '/guide/components/pane/clickable'},
                 {text: 'Deck', link: '/guide/components/pane/deck'},
                 {text: 'Footer', link: '/guide/components/pane/footer'},
                 {text: 'Group', link: '/guide/components/pane/group'},
@@ -276,6 +300,7 @@ const navigation: SidebarItem = {
             collapsed: true,
             items: [
                 {text: 'Actions', link: '/guide/components/table/actions'},
+                {text: 'Bar', link: '/guide/components/table/bar'},
                 {text: 'Cell', link: '/guide/components/table/cell'},
                 {text: 'Header', link: '/guide/components/table/header'},
                 {text: 'Row', link: '/guide/components/table/row'}

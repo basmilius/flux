@@ -91,5 +91,6 @@ export {
     faGrip,
     faAngleUp,
     faStar,
-    faBars
+    faBars,
+    faSlidersSimple
 } from '@fortawesome/pro-regular-svg-icons';

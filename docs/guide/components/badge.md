@@ -54,6 +54,11 @@ props:
         default: button
         optional: true
 
+    -   name: tabindex
+        description: The tabindex of the badge, works exactly the same as html.
+        type: [ 'string', 'number' ]
+        optional: true
+
     -   name: href
         description: This prop is enabled if the button's type is set to link. It's the same as the <a> HTML element.
         type: string
