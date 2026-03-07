@@ -21,6 +21,9 @@
             ],
             "$fluxDashboard/*": [
                 "../node_modules/@flux-ui/dashboard/src/*"
+            ],
+            "$fluxStatistics/*": [
+                "/Users/bas/Development/Projects/flux/docs/node_modules/@flux-ui/statistics/src/*"
             ]
         }
     },

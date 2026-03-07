@@ -92,5 +92,13 @@ export {
     faAngleUp,
     faStar,
     faBars,
-    faSlidersSimple
+    faSlidersSimple,
+    faChartLine,
+    faChartArea,
+    faChartBar,
+    faChartPie,
+    faCartShopping,
+    faMoneyBill,
+    faServer,
+    faDatabase
 } from '@fortawesome/pro-regular-svg-icons';

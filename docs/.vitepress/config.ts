@@ -18,6 +18,12 @@ export const fluxDashboard = composeLibrary({
     isolated: true
 });
 
+export const fluxStatistics = composeLibrary({
+    name: '@flux-ui/statistics',
+    alias: '$fluxStatistics',
+    isolated: true
+});
+
 export default defineConfig({
     title: 'Flux',
     titleTemplate: 'Flux — :title',
@@ -47,7 +53,8 @@ export default defineConfig({
                 fileNames: 'actual'
             }),
             flux(),
-            fluxDashboard()
+            fluxDashboard(),
+            fluxStatistics()
         ],
         server: {
             port: 5174
@@ -78,6 +85,11 @@ export default defineConfig({
                 text: 'Dashboard',
                 link: '/dashboard',
                 activeMatch: '/dashboard/'
+            },
+            {
+                text: 'Statistics',
+                link: '/statistics',
+                activeMatch: '/statistics/'
             },
             {
                 text: 'Internals',
@@ -155,6 +167,56 @@ export default defineConfig({
                         {text: 'Menu', link: '/dashboard/components/menu'},
                         {text: 'Navigation', link: '/dashboard/components/navigation'},
                         {text: 'Side', link: '/dashboard/components/side'}
+                    ]
+                }
+            ],
+            '/statistics/': [
+                {
+                    text: 'Introduction',
+                    collapsed: false,
+                    items: [
+                        {text: 'What is Flux Statistics?', link: '/statistics/'},
+                        {text: 'Installation', link: '/statistics/introduction/installation'}
+                    ]
+                },
+                {
+                    text: 'Components',
+                    collapsed: false,
+                    items: [
+                        {text: 'Change', link: '/statistics/components/change'},
+                        {
+                            text: 'Charts',
+                            link: '/statistics/components/charts/',
+                            collapsed: true,
+                            items: [
+                                {text: 'Area', link: '/statistics/components/charts/area'},
+                                {text: 'Bar', link: '/statistics/components/charts/bar'},
+                                {text: 'Donut', link: '/statistics/components/charts/donut'},
+                                {text: 'Line', link: '/statistics/components/charts/line'},
+                                {text: 'Pie', link: '/statistics/components/charts/pie'}
+                            ]
+                        },
+                        {text: 'Chart pane', link: '/statistics/components/chart-pane'},
+                        {
+                            text: 'Details table',
+                            link: '/statistics/components/details-table/',
+                            collapsed: true,
+                            items: [
+                                {text: 'Row', link: '/statistics/components/details-table/row'}
+                            ]
+                        },
+                        {text: 'Grid', link: '/statistics/components/grid'},
+                        {text: 'KPI', link: '/statistics/components/kpi'},
+                        {
+                            text: 'Legend',
+                            link: '/statistics/components/legend/',
+                            collapsed: true,
+                            items: [
+                                {text: 'Item', link: '/statistics/components/legend/item'}
+                            ]
+                        },
+                        {text: 'Meter', link: '/statistics/components/meter'},
+                        {text: 'Metric', link: '/statistics/components/metric'}
                     ]
                 }
             ],
