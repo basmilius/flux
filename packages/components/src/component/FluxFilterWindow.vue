@@ -29,7 +29,8 @@
                             :class="$style.filterReset"
                             icon-leading="trash"
                             is-destructive
-                            @click="reset(name)"/>
+                            @click="reset(name)"
+                            style="flex-grow: 0"/>
                     </FluxMenuGroup>
 
                     <VNodeRenderer :vnode="filter"/>

@@ -19,13 +19,6 @@ import { inBrowser, type Theme } from 'vitepress';
 
 import { fluxRegisterIcons } from '@flux-ui/components';
 import * as icons from './icons';
-
-if (inBrowser) {
-    Settings.defaultLocale = navigator.language;
-}
-
-fluxRegisterIcons(icons);
-
 import ColorPalette from './ColorPalette.vue';
 import ComponentGrid from './ComponentGrid.vue';
 import ComponentGridIndex from './ComponentGridIndex.vue';
@@ -43,6 +36,12 @@ import Variants from './Variants.vue';
 
 import VPBadge from 'vitepress/dist/client/theme-default/components/VPBadge.vue';
 
+if (inBrowser) {
+    Settings.defaultLocale = navigator.language;
+}
+
+fluxRegisterIcons(icons);
+
 const theme: Theme = {
     Layout,
     enhanceApp: ({app}) => {
@@ -51,7 +50,62 @@ const theme: Theme = {
             fallbackWarn: false,
             locale: 'en',
             missingWarn: false,
-            messages: {en: {}}
+            messages: {
+                en: {
+                    'flux': {
+                        back: 'Back',
+                        cancel: 'Cancel',
+                        comingSoon: 'Coming soon',
+                        continue: 'Continue',
+                        customPeriod: 'Custom period',
+                        filter: 'Filter',
+                        filterReset: 'Reset filters',
+                        justNow: 'Just now',
+                        max: 'Max',
+                        min: 'Min',
+                        nSelected: '{n} selected',
+                        ok: 'Ok',
+                        optional: 'Optional',
+                        preview: 'Preview',
+                        previewClose: 'Close preview',
+                        displayingOf: '{from}–{to} of {total}',
+                        showN: 'Show {n}',
+                        next: 'Next',
+                        noItems: 'There are no items (left).',
+                        pagination: 'Pagination',
+                        paginationNavigateTitle: 'Navigate',
+                        paginationNavigateMessage: 'Please provide the desired page number you wish to navigate to.',
+                        paginationNavigatePage: 'Page',
+                        previous: 'Previous',
+                        search: 'Search...',
+                        sort: 'Sort',
+                        sortAscending: 'Ascending',
+                        sortDescending: 'Descending',
+                        sortRemove: 'Remove sorting',
+                        today: 'Today',
+                        galleryPlaceholderButton: 'Pick image',
+                        galleryPlaceholderMessage: 'Drop an image here or click the button to upload...',
+                        galleryPlaceholderTitle: 'Gallery',
+                        timezoneEurope: 'Europe',
+                        timezoneAmerica: 'America',
+                        timezoneUs: 'United States',
+                        timezoneAustralia: 'Australia',
+                        timezoneCanada: 'Canada',
+                        timezoneMexico: 'Mexico',
+                        timezoneAfrica: 'Africa',
+                        timezoneAntarctica: 'Antarctica',
+                        timezoneArctic: 'Arctic',
+                        timezoneAsia: 'Asia',
+                        timezoneAtlantic: 'Atlantic',
+                        timezoneBrazil: 'Brazil',
+                        timezoneChile: 'Chile',
+                        timezoneEtc: 'ETC',
+                        timezoneOther: 'Other',
+                        timezoneIndian: 'Indian',
+                        timezonePacific: 'Pacific'
+                    }
+                }
+            }
         }) as any);
 
         app.component('Badge', VPBadge);
