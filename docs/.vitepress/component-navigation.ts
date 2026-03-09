@@ -326,6 +326,7 @@ const navigation: SidebarItem = {
             ]
         },
         {text: 'Tooltip', link: '/guide/components/tooltip'},
+        {text: 'Tree view', link: '/guide/components/tree-view'},
         {
             text: 'Visual',
             link: '/guide/components/visual/',

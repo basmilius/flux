@@ -53,3 +53,10 @@ export type FluxSegmentedControlItemObject = {
     readonly icon?: FluxIconName;
     readonly label?: string;
 };
+
+export type FluxTreeViewOption = {
+    readonly id: string | number;
+    readonly label: string;
+    readonly icon?: FluxIconName;
+    readonly children?: FluxTreeViewOption[];
+};

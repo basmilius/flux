@@ -10,7 +10,7 @@
 .treeViewSelectList {
     display: flex;
     flex-flow: column;
-    padding: 6px;
+    padding: 9px;
 }
 
 .treeViewSelectEmpty {
@@ -65,100 +65,9 @@
     }
 }
 
-// Wrapper for guide lines + expand button — no internal gap so lines align perfectly
-.treeNodeLineArea {
-    display: flex;
-    align-self: stretch;
-    flex-shrink: 0;
-}
-
-// Vertical guide line for each ancestor level
-.treeIndent {
-    position: relative;
-    width: 20px;
-    align-self: stretch;
-    flex-shrink: 0;
-    pointer-events: none;
-
-    &.hasLine::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 9px;
-        width: 1px;
-        background: var(--surface-stroke);
-    }
-}
-
-// Connector from parent to current node, with rounded elbow
-.treeConnector {
-    position: relative;
-    width: 20px;
-    align-self: stretch;
-    flex-shrink: 0;
-    pointer-events: none;
-
-    // Non-last siblings: full-height vertical continuation line
-    &:not(.isLast)::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 9px;
-        width: 1px;
-        background: var(--surface-stroke);
-    }
-
-    // Rounded elbow: vertical segment from top to midpoint, curves right to expand area
-    // Overlaps the ::before vertical line for non-last nodes (same position, same color)
-    &::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        bottom: 50%;
-        left: 9px;
-        right: 0;
-        border-left: 1px solid var(--surface-stroke);
-        border-bottom: 1px solid var(--surface-stroke);
-        border-bottom-left-radius: 6px;
-    }
-}
-
-.treeNodeExpand {
-    display: flex;
-    width: 16px;
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    color: var(--foreground-secondary);
-
-    &:not(:empty) {
-        cursor: pointer;
-    }
-}
-
-.treeNodeColorDot {
-    display: block;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    flex-shrink: 0;
-}
-
-.treeNodeIcon {
-    color: var(--foreground-secondary);
-    flex-shrink: 0;
-}
-
-.treeNodeLabel {
-    flex: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
 .treeNodeCheck {
     color: var(--primary-600);
     flex-shrink: 0;
 }
+
+@include mixin.tree-node-classes();

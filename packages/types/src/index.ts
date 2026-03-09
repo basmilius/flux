@@ -20,7 +20,8 @@ export type {
     FluxFocalPointObject,
     FluxLegendObject,
     FluxPercentageBarItemObject,
-    FluxSegmentedControlItemObject
+    FluxSegmentedControlItemObject,
+    FluxTreeViewOption
 } from './components';
 
 export type {

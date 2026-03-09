@@ -105,9 +105,9 @@
                             </div>
 
                             <span
-                                v-if="getLevelColor(node.depth)"
+                                v-if="getLevelColor(node.depth, levelColors)"
                                 :class="$style.treeNodeColorDot"
-                                :style="{ background: getLevelColor(node.depth) }"/>
+                                :style="{ background: getLevelColor(node.depth, levelColors) }"/>
 
                             <FluxIcon
                                 v-if="node.icon"
@@ -139,7 +139,8 @@
     import { clsx } from 'clsx';
     import { type ComponentPublicInstance, computed, nextTick, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled, useFormFieldInjection } from '$flux/composable';
-    import { useTranslate } from '$flux/composable/private';
+    import { flattenAll, flattenVisible, getLevelColor, INITIAL_HIGHLIGHTED_INDEX, useTranslate, useTreeView } from '$flux/composable/private';
+    import type { TreeFlatNode } from '$flux/composable/private';
     import { FluxFadeTransition } from '$flux/transition';
     import FluxFormInput from '$flux/component/FluxFormInput.vue';
     import FluxIcon from '$flux/component/FluxIcon.vue';
@@ -149,14 +150,7 @@
     import $formStyle from '$flux/css/component/Form.module.scss';
     import $style from '$flux/css/component/TreeViewSelect.module.scss';
 
-    type FlatNode = FluxFormTreeViewSelectOption & {
-        readonly depth: number;
-        readonly isLast: boolean;
-        readonly lineGuides: boolean[];
-    };
-
-    const FLUX_COLORS: FluxColor[] = ['gray', 'primary', 'danger', 'info', 'success', 'warning'];
-    const INITIAL_HIGHLIGHTED_INDEX = -1;
+    type FlatNode = TreeFlatNode<FluxFormTreeViewSelectOption>;
 
     defineOptions({
         inheritAttrs: false
@@ -190,7 +184,6 @@
     const searchInputRef = useTemplateRef<ComponentPublicInstance<typeof FluxFormInput>>('searchInput');
 
     const expandedIds = ref(new Set<string | number>());
-    const highlightedIndex = ref(INITIAL_HIGHLIGHTED_INDEX);
     const isPopupOpen = ref(false);
     const searchQuery = ref('');
 
@@ -212,7 +205,7 @@
         return flattenAll(options).filter(node => ids.has(node.id));
     });
 
-    const visibleNodes = computed(() => {
+    const visibleNodes = computed((): FlatNode[] => {
         const query = unref(searchQuery).toLowerCase().trim();
         if (query) {
             return flattenAll(options)
@@ -222,61 +215,20 @@
         return flattenVisible(options, 0, unref(expandedIds));
     });
 
+    const {highlightedIndex, toggleExpand, onExpandClick, onKeyNavigate} = useTreeView({
+        expandedIds,
+        nodeElementRefs,
+        visibleNodes,
+    });
+
     useClickOutside([anchorRef, anchorPopupRef], isPopupOpen, () => isPopupOpen.value = false);
     useClickOutside(anchorRef, isPopupOpen, () => unref(focusElement)?.focus());
-
-    function flattenAll(nodes: FluxFormTreeViewSelectOption[], depth = 0): FlatNode[] {
-        return nodes.flatMap(node => [
-            {...node, depth, isLast: false, lineGuides: [] as boolean[]},
-            ...(node.children ? flattenAll(node.children, depth + 1) : [])
-        ]);
-    }
-
-    function flattenVisible(
-        nodes: FluxFormTreeViewSelectOption[],
-        depth: number,
-        expanded: Set<string | number>,
-        parentGuides: boolean[] = []
-    ): FlatNode[] {
-        return nodes.flatMap((node, index) => {
-            const isLast = index === nodes.length - 1;
-            const flatNode: FlatNode = {...node, depth, isLast, lineGuides: parentGuides};
-
-            if (node.children?.length && expanded.has(node.id)) {
-                const childGuides = [...parentGuides, !isLast];
-                return [flatNode, ...flattenVisible(node.children, depth + 1, expanded, childGuides)];
-            }
-
-            return [flatNode];
-        });
-    }
-
-    function getLevelColor(depth: number): string | undefined {
-        if (!levelColors || depth >= levelColors.length) {
-            return undefined;
-        }
-        const color = levelColors[depth];
-        if (FLUX_COLORS.includes(color as FluxColor)) {
-            return `var(--${color}-600)`;
-        }
-        return color;
-    }
 
     function toggle(): void {
         if (unref(disabled)) {
             return;
         }
         isPopupOpen.value = !unref(isPopupOpen);
-    }
-
-    function toggleExpand(nodeId: string | number): void {
-        const ids = new Set(unref(expandedIds));
-        if (ids.has(nodeId)) {
-            ids.delete(nodeId);
-        } else {
-            ids.add(nodeId);
-        }
-        expandedIds.value = ids;
     }
 
     function select(nodeId: string | number): void {
@@ -301,14 +253,6 @@
         nextTick(() => unrefTemplateElement(anchorRef)?.focus());
     }
 
-    function onExpandClick(node: FlatNode, evt: MouseEvent): void {
-        if (!node.children?.length) {
-            return;
-        }
-        evt.stopPropagation();
-        toggleExpand(node.id);
-    }
-
     function onNodeClick(node: FlatNode): void {
         if (node.selectable !== false) {
             select(node.id);
@@ -329,63 +273,7 @@
             return;
         }
 
-        const nodes = unref(visibleNodes);
-        const current = unref(highlightedIndex);
-
         switch (evt.key) {
-            case 'ArrowDown':
-                evt.preventDefault();
-                highlightedIndex.value = current === INITIAL_HIGHLIGHTED_INDEX
-                    ? 0
-                    : Math.min(nodes.length - 1, current + 1);
-                break;
-
-            case 'ArrowUp':
-                evt.preventDefault();
-                highlightedIndex.value = current === INITIAL_HIGHLIGHTED_INDEX
-                    ? nodes.length - 1
-                    : Math.max(0, current - 1);
-                break;
-
-            case 'ArrowRight':
-                evt.preventDefault();
-                if (current >= 0) {
-                    const node = nodes[current];
-                    if (node.children?.length) {
-                        if (!unref(expandedIds).has(node.id)) {
-                            toggleExpand(node.id);
-                        } else if (current + 1 < nodes.length && nodes[current + 1].depth > node.depth) {
-                            highlightedIndex.value = current + 1;
-                        }
-                    }
-                }
-                break;
-
-            case 'ArrowLeft':
-                evt.preventDefault();
-                if (current >= 0) {
-                    const node = nodes[current];
-                    if (node.children?.length && unref(expandedIds).has(node.id)) {
-                        toggleExpand(node.id);
-                    } else if (node.depth > 0) {
-                        for (let i = current - 1; i >= 0; i--) {
-                            if (nodes[i].depth === node.depth - 1) {
-                                highlightedIndex.value = i;
-                                break;
-                            }
-                        }
-                    }
-                }
-                break;
-
-            case 'Enter':
-            case ' ':
-                evt.preventDefault();
-                if (current >= 0) {
-                    onNodeClick(nodes[current]);
-                }
-                break;
-
             case 'Backspace':
                 if (!unref(isMultiple)) {
                     return;
@@ -395,41 +283,25 @@
                 }
                 const selectedList = [...unref(selectedIds)];
                 deselect(selectedList[selectedList.length - 1]);
-                break;
+                return;
 
             case 'Escape':
                 isPopupOpen.value = false;
                 nextTick(() => unrefTemplateElement(anchorRef)?.focus());
-                break;
+                return;
 
             case 'Tab':
                 isPopupOpen.value = false;
                 return;
-
-            default:
-                if (isSearchable) {
-                    return;
-                }
-                if (evt.key.length === 1) {
-                    const lowerKey = evt.key.toLowerCase();
-                    let matchIndex = nodes.findIndex((n, i) => i > current && n.label.toLowerCase().startsWith(lowerKey));
-                    if (matchIndex < 0) {
-                        matchIndex = nodes.findIndex(n => n.label.toLowerCase().startsWith(lowerKey));
-                    }
-                    if (matchIndex >= 0) {
-                        highlightedIndex.value = matchIndex;
-                    }
-                }
-                return;
         }
-    }
 
-    watch(highlightedIndex, index => {
-        if (index < 0) {
+        // When searchable, don't intercept letter keys — let the search input handle them
+        if (isSearchable && evt.key.length === 1 && evt.key !== 'Enter' && evt.key !== ' ') {
             return;
         }
-        unref(nodeElementRefs)?.[index]?.scrollIntoView({block: 'nearest'});
-    });
+
+        onKeyNavigate(evt, onNodeClick);
+    }
 
     watch(isPopupOpen, isOpen => {
         if (!isOpen) {
@@ -455,13 +327,6 @@
 
     watch(searchQuery, () => {
         highlightedIndex.value = INITIAL_HIGHLIGHTED_INDEX;
-    });
-
-    watch(visibleNodes, nodes => {
-        const current = unref(highlightedIndex);
-        if (current >= nodes.length) {
-            highlightedIndex.value = Math.max(INITIAL_HIGHLIGHTED_INDEX, nodes.length - 1);
-        }
     });
 
     function autoExpandSelected(): void {

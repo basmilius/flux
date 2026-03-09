@@ -148,6 +148,7 @@ export { default as FluxTicks } from './FluxTicks.vue';
 export { default as FluxTimeline } from './FluxTimeline.vue';
 export { default as FluxTimelineItem } from './FluxTimelineItem.vue';
 export { default as FluxToggle } from './FluxToggle.vue';
+export { default as FluxTreeView } from './FluxTreeView.vue';
 export { default as FluxToolbar } from './FluxToolbar.vue';
 export { default as FluxToolbarGroup } from './FluxToolbarGroup.vue';
 export { default as FluxTooltip } from './FluxTooltip.vue';
