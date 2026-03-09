@@ -41,9 +41,10 @@
 <script
     lang="ts"
     setup>
+    import { useResizeObserver } from '@basmilius/common';
     import type { FluxSegmentedControlItemObject } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { ref, unref, useTemplateRef, watchEffect } from 'vue';
+    import { onBeforeUnmount, ref, unref, useTemplateRef, watchEffect } from 'vue';
     import FluxIcon from './FluxIcon.vue';
     import $style from '$flux/css/component/SegmentedControl.module.scss';
 
@@ -61,16 +62,43 @@
 
     const activeItemX = ref(0);
     const activeItemWidth = ref(0);
+    const isAlive = ref(true);
 
-    watchEffect(() => activate(unref(modelValue)), {flush: 'post'});
+    onBeforeUnmount(() => {
+        isAlive.value = false;
+    });
+
+    watchEffect(() => updateHighlight(unref(modelValue)), {flush: 'post'});
+
+    useResizeObserver(controlRef, () => updateHighlight(unref(modelValue)));
 
     function activate(index: number): void {
-        const itemRef = itemRefs.value![index];
-        const {left: controlX} = controlRef.value!.getBoundingClientRect();
-        const {width, left: x} = itemRef.getBoundingClientRect();
-
-        activeItemX.value = x - controlX - 1;
-        activeItemWidth.value = width;
         modelValue.value = index;
+    }
+
+    function updateHighlight(index: number): void {
+        if (!isAlive.value) {
+            return;
+        }
+
+        const itemRef = itemRefs.value?.[index];
+        const control = controlRef.value;
+
+        if (!itemRef || !control) {
+            return;
+        }
+
+        const width = itemRef.offsetWidth;
+
+        if (width === 0) {
+            return;
+        }
+
+        const controlRect = control.getBoundingClientRect();
+        const itemRect = itemRef.getBoundingClientRect();
+        const scaleX = control.offsetWidth > 0 ? controlRect.width / control.offsetWidth : 1;
+
+        activeItemX.value = (itemRect.left - controlRect.left) / scaleX;
+        activeItemWidth.value = width;
     }
 </script>

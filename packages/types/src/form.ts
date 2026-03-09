@@ -1,5 +1,16 @@
 import type { FluxIconName } from './common';
 
+export type FluxFormTreeViewSelectOption = {
+    readonly id: string | number;
+    readonly label: string;
+    readonly icon?: FluxIconName;
+    readonly selectable?: boolean;
+    readonly children?: FluxFormTreeViewSelectOption[];
+};
+
+export type FluxFormTreeViewSelectValue = FluxFormTreeViewSelectValueSingle | FluxFormTreeViewSelectValueSingle[];
+export type FluxFormTreeViewSelectValueSingle = string | number;
+
 export type FluxFormSelectGroup = {
     readonly icon?: FluxIconName;
     readonly label: string;

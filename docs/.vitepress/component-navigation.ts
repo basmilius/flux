@@ -152,7 +152,8 @@ const navigation: SidebarItem = {
                 {text: 'Text area', link: '/guide/components/form/text-area'},
                 {text: 'Time', link: '/guide/components/form/time'},
                 {text: 'Time zone picker', link: '/guide/components/form/time-zone-picker'},
-                {text: 'Toggle', link: '/guide/components/form/toggle'}
+                {text: 'Toggle', link: '/guide/components/form/toggle'},
+                {text: 'Tree view select', link: '/guide/components/form/tree-view-select'}
             ]
         },
         {

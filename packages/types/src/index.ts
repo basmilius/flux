@@ -45,7 +45,10 @@ export type {
     FluxFormSelectOption,
     FluxFormSelectOptions,
     FluxFormSelectValue,
-    FluxFormSelectValueSingle
+    FluxFormSelectValueSingle,
+    FluxFormTreeViewSelectOption,
+    FluxFormTreeViewSelectValue,
+    FluxFormTreeViewSelectValueSingle
 } from './form';
 
 export type {
