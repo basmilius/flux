@@ -21,7 +21,7 @@ props:
         optional: true
 
     -   name: href
-        description: URL for anchor elements. Used when component-type is 'link'.
+        description: URL for anchor elements.
         type: string
         optional: true
 
@@ -36,7 +36,7 @@ props:
         optional: true
 
     -   name: to
-        description: Vue Router navigation target. Used when component-type is 'route'.
+        description: Vue Router navigation target.
         type: FluxTo
         optional: true
 
@@ -57,14 +57,14 @@ render=../../code/guide/components/pressable/preview.vue
 
 ## Examples
 
-::: example Route || Renders as a `<router-link>` for internal navigation with Vue Router.
+::: example Route || Renders as a router-link for internal navigation with Vue Router.
 example=../../code/guide/components/pressable/route.vue
 :::
 
-::: example Link || Renders as an `<a>` tag for external links.
+::: example Link || Renders as an anchor tag for external links.
 example=../../code/guide/components/pressable/link.vue
 :::
 
-::: example Button || Renders as a `<button>` for click actions.
+::: example Button || Renders as a button element for click actions.
 example=../../code/guide/components/pressable/button.vue
 :::
