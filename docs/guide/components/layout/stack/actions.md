@@ -32,4 +32,4 @@ Actions is a horizontal container for action buttons with built-in keyboard navi
 
 ## Used components
 
-- [Stack](./layout/stack/)
+- [Stack](./)

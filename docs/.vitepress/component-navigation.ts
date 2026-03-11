@@ -6,7 +6,6 @@ const navigation: SidebarItem = {
         {text: 'Action', link: '/guide/components/action', image: '/assets/components/action.svg'},
         {text: 'Action bar', link: '/guide/components/action-bar'},
         {text: 'Action pane', link: '/guide/components/action-pane'},
-        {text: 'Actions', link: '/guide/components/actions'},
         {
             text: 'Attention',
             link: '/guide/components/attention/',
@@ -204,6 +203,7 @@ const navigation: SidebarItem = {
                     image: '/assets/components/layout-stack.svg',
                     collapsed: true,
                     items: [
+                        {text: 'Actions', link: '/guide/components/layout/stack/actions'},
                         {text: 'Badge', link: '/guide/components/layout/stack/badge'},
                         {text: 'Button', link: '/guide/components/layout/stack/button'},
                         {text: 'Info', link: '/guide/components/layout/stack/info'},

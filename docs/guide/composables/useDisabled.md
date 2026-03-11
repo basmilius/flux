@@ -28,5 +28,6 @@ declare function useDisabled(
 ## Used by
 
 - [Button](../components/button/)
-- [Form input](../components/form/input/)
-- [Form select](../components/form/select/)
+- [Form](../components/form/)
+    - [Input](../components/form/input/)
+    - [Select](../components/form/select/)

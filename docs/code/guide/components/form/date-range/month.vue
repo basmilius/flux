@@ -2,10 +2,10 @@
     <FluxPane style="max-width: 390px">
         <FluxForm>
             <FluxPaneBody>
-                <FluxFormField label="Week">
+                <FluxFormField label="Month">
                     <FluxFormDateRangeInput
                         v-model="value"
-                        range-mode="week"/>
+                        range-mode="month"/>
                 </FluxFormField>
             </FluxPaneBody>
         </FluxForm>
@@ -20,7 +20,7 @@
     import { ref } from 'vue';
 
     const value = ref<[DateTime, DateTime] | null>([
-        DateTime.now().startOf('week'),
-        DateTime.now().endOf('week')
+        DateTime.now().startOf('month'),
+        DateTime.now().endOf('month')
     ]);
 </script>

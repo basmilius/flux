@@ -79,7 +79,7 @@ export default defineConfig({
                     {text: 'Introduction', link: '/guide/introduction/what-is-flux'},
                     {text: 'Components', link: '/guide/components/'},
                     {text: 'Composables', link: '/guide/composables/useBreakpoints'},
-                    {text: 'API', link: '/guide/api/fluxRegisterIcons'},
+                    {text: 'API', link: '/guide/api/useFluxStore'},
                     {text: 'Transitions', link: '/guide/transitions/breakthrough'}
                 ]
             },
@@ -154,7 +154,6 @@ export default defineConfig({
                     text: 'API',
                     collapsed: false,
                     items: [
-                        {text: 'fluxRegisterIcons', link: '/guide/api/fluxRegisterIcons'},
                         {text: 'useFluxStore', link: '/guide/api/useFluxStore'},
                         {text: 'Helpers', link: '/guide/api/helpers'}
                     ]

@@ -23,6 +23,7 @@ declare function useTableInjection(): {
 
 ## Used by
 
-- [Table row](../components/table/row)
-- [Table cell](../components/table/cell)
-- [Table header](../components/table/header)
+- [Table](../components/table/)
+    - [Row](../components/table/row)
+    - [Cell](../components/table/cell)
+    - [Header](../components/table/header)

@@ -57,39 +57,14 @@ render=../../code/guide/components/pressable/preview.vue
 
 ## Examples
 
-::: example Basic || Different component types rendered side by side.
-example=../../code/guide/components/pressable/basic.vue
+::: example Route || Renders as a `<router-link>` for internal navigation with Vue Router.
+example=../../code/guide/components/pressable/route.vue
 :::
 
-## Component types
+::: example Link || Renders as an `<a>` tag for external links.
+example=../../code/guide/components/pressable/link.vue
+:::
 
-| Type | Renders as | Use case |
-|------|-----------|----------|
-| `route` | `<router-link>` | Internal navigation with Vue Router |
-| `link` | `<a>` | External links |
-| `button` | `<button>` | Click actions |
-| `div` | `<div>` | Non-interactive wrapper |
-
-## Snippet
-
-```vue
-<template>
-    <FluxPressable
-        component-type="link"
-        href="https://example.com"
-        target="_blank"
-        @click="onClick">
-        Click me
-    </FluxPressable>
-</template>
-
-<script
-    setup
-    lang="ts">
-    import { FluxPressable } from '@flux-ui/components';
-
-    function onClick(evt: MouseEvent): void {
-        console.log('Clicked!', evt);
-    }
-</script>
-```
+::: example Button || Renders as a `<button>` for click actions.
+example=../../code/guide/components/pressable/button.vue
+:::

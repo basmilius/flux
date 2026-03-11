@@ -59,25 +59,23 @@ render=../../../code/guide/components/form/date-range/preview.vue
 
 ## Examples
 
-::: example Basic || A basic date range input.
+::: example Range || Free selection of a start and end date. This is the default mode.
 example=../../../code/guide/components/form/date-range/basic.vue
 :::
 
-::: example Week mode || A date range input that selects entire weeks.
+::: example Week || Selects an entire week at once by setting `range-mode` to `week`.
 example=../../../code/guide/components/form/date-range/week.vue
 :::
 
-## Range modes
-
-The `range-mode` prop controls how the date range is selected:
-
-- **range** (default) — Free selection of start and end date.
-- **week** — Selects an entire week at once.
-- **month** — Selects an entire month at once.
+::: example Month || Selects an entire month at once by setting `range-mode` to `month`.
+example=../../../code/guide/components/form/date-range/month.vue
+:::
 
 ## Used components
 
+- [Button](../button)
+    - [Secondary](../button/secondary)
 - [Date picker](../date-picker)
 - [Flyout](../flyout)
-- [Form input group](./input/group)
-- [Secondary button](../button/secondary)
+- [Form](.)
+    - [Input group](./input/group)

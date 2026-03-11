@@ -27,7 +27,8 @@ declare function useFilterInjection(): {
 
 ## Used by
 
-- [Filter date](../components/filter/date)
-- [Filter option](../components/filter/option)
-- [Filter options](../components/filter/options)
-- [Filter range](../components/filter/range)
+- [Filter](../components/filter/)
+    - [Date](../components/filter/date)
+    - [Option](../components/filter/option)
+    - [Options](../components/filter/options)
+    - [Range](../components/filter/range)

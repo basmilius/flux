@@ -17,5 +17,8 @@
     import { DateTime } from 'luxon';
     import { ref } from 'vue';
 
-    const value = ref<[DateTime, DateTime] | null>(null);
+    const value = ref<[DateTime, DateTime] | null>([
+        DateTime.now().startOf('week'),
+        DateTime.now().endOf('week')
+    ]);
 </script>
