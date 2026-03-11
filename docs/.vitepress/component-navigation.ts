@@ -6,6 +6,7 @@ const navigation: SidebarItem = {
         {text: 'Action', link: '/guide/components/action', image: '/assets/components/action.svg'},
         {text: 'Action bar', link: '/guide/components/action-bar'},
         {text: 'Action pane', link: '/guide/components/action-pane'},
+        {text: 'Actions', link: '/guide/components/actions'},
         {
             text: 'Attention',
             link: '/guide/components/attention/',
@@ -111,6 +112,7 @@ const navigation: SidebarItem = {
                 {text: 'Row', link: '/guide/components/form/row'},
                 {text: 'Checkbox', link: '/guide/components/form/checkbox'},
                 {text: 'Date', link: '/guide/components/form/date'},
+                {text: 'Date range', link: '/guide/components/form/date-range'},
                 {text: 'Date time', link: '/guide/components/form/date-time'},
                 {
                     text: 'Field',
@@ -254,6 +256,7 @@ const navigation: SidebarItem = {
         {text: 'Percentage bar', link: '/guide/components/percentage-bar'},
         {text: 'Persona', link: '/guide/components/persona'},
         {text: 'Placeholder', link: '/guide/components/placeholder'},
+        {text: 'Pressable', link: '/guide/components/pressable'},
         {text: 'Progress bar', link: '/guide/components/progress-bar'},
         {text: 'Remove', link: '/guide/components/remove', image: '/assets/components/remove.svg'},
         {text: 'Root', link: '/guide/components/root'},

@@ -12,7 +12,7 @@ props:
         optional: true
 
     -   name: view-key
-        description: ??
+        description: A unique key to identify the current view within the slide over. Used for view-based transitions.
         type: string
         optional: true
 

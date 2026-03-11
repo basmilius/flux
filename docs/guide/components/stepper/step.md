@@ -19,3 +19,26 @@ The stepper step represents an individual step within the stepper. It contains t
 <<< @/code/guide/components/stepper/step/snippet.vue [StepperStep.vue]
 
 :::
+
+## Usage
+
+Each step is placed inside a [Stepper steps](./steps) component. The step's content is only rendered when the corresponding step is active.
+
+```vue
+<FluxStepper v-model="currentStep">
+    <FluxStepperSteps>
+        <FluxStepperStep>
+            <p>Content for the first step.</p>
+        </FluxStepperStep>
+
+        <FluxStepperStep>
+            <p>Content for the second step.</p>
+        </FluxStepperStep>
+    </FluxStepperSteps>
+</FluxStepper>
+```
+
+## Used components
+
+- [Stepper](./index)
+- [Stepper steps](./steps)

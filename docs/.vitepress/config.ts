@@ -78,6 +78,8 @@ export default defineConfig({
                 items: [
                     {text: 'Introduction', link: '/guide/introduction/what-is-flux'},
                     {text: 'Components', link: '/guide/components/'},
+                    {text: 'Composables', link: '/guide/composables/useBreakpoints'},
+                    {text: 'API', link: '/guide/api/fluxRegisterIcons'},
                     {text: 'Transitions', link: '/guide/transitions/breakthrough'}
                 ]
             },
@@ -134,6 +136,30 @@ export default defineConfig({
                 },
                 componentNavigation,
                 {
+                    text: 'Composables',
+                    collapsed: false,
+                    items: [
+                        {text: 'useBreakpoints', link: '/guide/composables/useBreakpoints'},
+                        {text: 'useDisabled', link: '/guide/composables/useDisabled'},
+                        {text: 'useDisabledInjection', link: '/guide/composables/useDisabledInjection'},
+                        {text: 'useExpandableGroupInjection', link: '/guide/composables/useExpandableGroupInjection'},
+                        {text: 'useFilterInjection', link: '/guide/composables/useFilterInjection'},
+                        {text: 'useFlyoutInjection', link: '/guide/composables/useFlyoutInjection'},
+                        {text: 'useFormFieldInjection', link: '/guide/composables/useFormFieldInjection'},
+                        {text: 'useTableInjection', link: '/guide/composables/useTableInjection'},
+                        {text: 'useTooltipInjection', link: '/guide/composables/useTooltipInjection'}
+                    ]
+                },
+                {
+                    text: 'API',
+                    collapsed: false,
+                    items: [
+                        {text: 'fluxRegisterIcons', link: '/guide/api/fluxRegisterIcons'},
+                        {text: 'useFluxStore', link: '/guide/api/useFluxStore'},
+                        {text: 'Helpers', link: '/guide/api/helpers'}
+                    ]
+                },
+                {
                     text: 'Transitions',
                     collapsed: false,
                     items: [
@@ -168,6 +194,13 @@ export default defineConfig({
                         {text: 'Navigation', link: '/dashboard/components/navigation'},
                         {text: 'Side', link: '/dashboard/components/side'}
                     ]
+                },
+                {
+                    text: 'Composables',
+                    collapsed: false,
+                    items: [
+                        {text: 'useDashboardInjection', link: '/dashboard/composables/useDashboardInjection'}
+                    ]
                 }
             ],
             '/statistics/': [
@@ -176,7 +209,8 @@ export default defineConfig({
                     collapsed: false,
                     items: [
                         {text: 'What is Flux Statistics?', link: '/statistics/'},
-                        {text: 'Installation', link: '/statistics/introduction/installation'}
+                        {text: 'Installation', link: '/statistics/introduction/installation'},
+                        {text: 'Chart colors', link: '/statistics/introduction/colors'}
                     ]
                 },
                 {
@@ -242,7 +276,8 @@ export default defineConfig({
                         {text: 'useFocusTrapSubscription', link: '/internals/composables/useFocusTrapSubscription'},
                         {text: 'useFocusZone', link: '/internals/composables/useFocusZone'},
                         {text: 'useInView', link: '/internals/composables/useInView'},
-                        {text: 'useRemembered', link: '/internals/composables/useRemembered'}
+                        {text: 'useRemembered', link: '/internals/composables/useRemembered'},
+                        {text: 'useScrollPosition', link: '/internals/composables/useScrollPosition'}
                     ]
                 },
                 {
@@ -266,7 +301,17 @@ export default defineConfig({
                         {text: 'getFocusableElement', link: '/internals/utils/getFocusableElement'},
                         {text: 'getFocusableElements', link: '/internals/utils/getFocusableElements'},
                         {text: 'getKeyboardFocusableElements', link: '/internals/utils/getKeyboardFocusableElements'},
-                        {text: 'unrefTemplateElement', link: '/internals/utils/unrefTemplateElement'}
+                        {text: 'unrefTemplateElement', link: '/internals/utils/unrefTemplateElement'},
+                        {text: 'warn', link: '/internals/utils/warn'},
+                        {text: 'wrapFocus', link: '/internals/utils/wrapFocus'},
+                        {text: 'FOCUS_TRAP_LOCKS', link: '/internals/utils/focusTrap'}
+                    ]
+                },
+                {
+                    text: 'Data',
+                    collapsed: false,
+                    items: [
+                        {text: 'Color palette', link: '/internals/data/color'}
                     ]
                 }
             ],
