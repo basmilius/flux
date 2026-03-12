@@ -111,6 +111,7 @@ const navigation: SidebarItem = {
                 {text: 'Row', link: '/guide/components/form/row'},
                 {text: 'Checkbox', link: '/guide/components/form/checkbox'},
                 {text: 'Date', link: '/guide/components/form/date'},
+                {text: 'Date range', link: '/guide/components/form/date-range'},
                 {text: 'Date time', link: '/guide/components/form/date-time'},
                 {
                     text: 'Field',
@@ -202,6 +203,7 @@ const navigation: SidebarItem = {
                     image: '/assets/components/layout-stack.svg',
                     collapsed: true,
                     items: [
+                        {text: 'Actions', link: '/guide/components/layout/stack/actions'},
                         {text: 'Badge', link: '/guide/components/layout/stack/badge'},
                         {text: 'Button', link: '/guide/components/layout/stack/button'},
                         {text: 'Info', link: '/guide/components/layout/stack/info'},
@@ -254,6 +256,7 @@ const navigation: SidebarItem = {
         {text: 'Percentage bar', link: '/guide/components/percentage-bar'},
         {text: 'Persona', link: '/guide/components/persona'},
         {text: 'Placeholder', link: '/guide/components/placeholder'},
+        {text: 'Pressable', link: '/guide/components/pressable'},
         {text: 'Progress bar', link: '/guide/components/progress-bar'},
         {text: 'Remove', link: '/guide/components/remove', image: '/assets/components/remove.svg'},
         {text: 'Root', link: '/guide/components/root'},

@@ -14,6 +14,18 @@ Alerts, confirms and snackbars are all rendered here for example.
 
 <FrontmatterDocs/>
 
+## Providers
+
+FluxRoot internally renders the following provider components. These are not used directly, but are required for certain features to work:
+
+- **FluxOverlayProvider** — Renders stacked [alerts](./attention/alert), [confirms](./attention/confirm) and [prompts](./attention/prompt) from the global store.
+- **FluxSnackbarProvider** — Renders [snackbars](./attention/snackbar) with transition animations.
+- **FluxTooltipProvider** — Renders [tooltips](./tooltip) with intelligent positioning relative to their trigger element.
+
+::: tip
+These providers are automatically included when you use FluxRoot. You do not need to import or configure them separately.
+:::
+
 ## Snippet
 
 ```vue [App.vue]
