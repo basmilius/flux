@@ -286,8 +286,8 @@
                 return;
 
             default:
-                if (evt.key.match(/[a-z]/)) {
-                    highlightedIndex.value = unref(rawOptions).findIndex(o => o.label.toLowerCase().startsWith(evt.key));
+                if (evt.key.length === 1) {
+                    highlightedIndex.value = unref(rawOptions).findIndex(o => o.label.toLowerCase().startsWith(evt.key.toLowerCase()));
                 } else {
                     highlightedIndex.value = -1;
                 }

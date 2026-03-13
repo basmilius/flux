@@ -44,13 +44,13 @@
     const {groups, selected, values} = useFormSelect(modelValue, isMultiple, toRef(() => options), modelSearch);
 
     function onDeselect(id: string | number | null): void {
-        if (unref(isMultiple)) {
+        if (isMultiple) {
             modelValue.value = unref(values).filter(v => v !== id);
         }
     }
 
     function onSelect(id: string | number | null): void {
-        if (unref(isMultiple)) {
+        if (isMultiple) {
             modelValue.value = [...unref(values), id];
         } else {
             modelValue.value = id;

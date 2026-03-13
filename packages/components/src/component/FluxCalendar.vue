@@ -103,6 +103,7 @@
                         <div :class="$style.calendarEvents">
                             <VNodeRenderer
                                 v-for="event of getEventsForDate(date)"
+                                :key="event.index"
                                 :class="clsx(
                                     event.type === 'single' && $style.isSingle,
                                     event.type === 'start' && $style.isStart,

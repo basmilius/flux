@@ -31,7 +31,6 @@
 <script
     lang="ts"
     setup>
-    import type { FluxAutoCompleteType } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import type { DateTime } from 'luxon';
     import { computed, ref, toRef, unref, useTemplateRef, watch } from 'vue';
@@ -51,13 +50,9 @@
         disabled: componentDisabled,
         rangeMode = 'range'
     } = defineProps<{
-        readonly autoComplete?: FluxAutoCompleteType;
-        readonly autoFocus?: boolean;
         readonly disabled?: boolean;
-        readonly isReadonly?: boolean;
         readonly max?: DateTime;
         readonly min?: DateTime;
-        readonly placeholder?: string;
         readonly rangeMode?: 'range' | 'week' | 'month';
     }>();
 

@@ -24,10 +24,6 @@
     import FluxIcon from './FluxIcon.vue';
     import $style from '$flux/css/component/Icon.module.scss';
 
-    defineEmits<{
-        click: [MouseEvent];
-    }>();
-
     defineProps<{
         readonly color?: FluxColor;
         readonly name: FluxIconName;

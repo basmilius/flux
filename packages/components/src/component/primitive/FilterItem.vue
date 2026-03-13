@@ -38,7 +38,16 @@
         emit('click', evt);
     }
 
-    watch(() => item, async () => {
-        valueLabel.value = await unref(getValueLabel)(value) ?? undefined;
+    watch([() => item, () => value], async ([, nextValue], _prev, onCleanup) => {
+        let cancelled = false;
+        onCleanup(() => {
+            cancelled = true;
+        });
+
+        const nextLabel = await unref(getValueLabel)(nextValue);
+
+        if (!cancelled) {
+            valueLabel.value = nextLabel ?? undefined;
+        }
     }, {deep: true, immediate: true});
 </script>

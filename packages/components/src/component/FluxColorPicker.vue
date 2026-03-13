@@ -205,7 +205,7 @@
         return computed({
             get: () => fromHSV?.(...unref(hsv))[index] ?? unref(hsv)[index],
             set: value => {
-                const values = fromHSV?.(...unref(hsv)) ?? unref(hsv);
+                const values: [number, number, number] = [...(fromHSV?.(...unref(hsv)) ?? unref(hsv))];
                 values[index] = value;
                 hsv.value = toHSV?.(...values) ?? values;
             }

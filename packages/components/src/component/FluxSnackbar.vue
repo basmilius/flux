@@ -145,9 +145,11 @@
             return;
         }
 
-        let spec: Omit<FluxSnackbarObject, 'id'> = instance.props;
-        spec.onAction = onAction;
-        spec.onClose = onClose;
+        const spec: Omit<FluxSnackbarObject, 'id'> = {
+            ...instance.props,
+            onAction,
+            onClose
+        };
 
         id.value = addSnackbar(spec);
     }, {immediate: true});
