@@ -25,7 +25,7 @@
             v-if="iconTrailing"
             :name="iconTrailing"
             :size="16"/>
-    </component>
+    </Component>
 </template>
 
 <script
