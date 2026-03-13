@@ -7,6 +7,7 @@
         :autocomplete="autoComplete"
         :autofocus="autoFocus"
         :disabled="disabled"
+        :readonly="isReadonly"
         :maxlength="maxLength"
         :placeholder="placeholder"
         :style="{
