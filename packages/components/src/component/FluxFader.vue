@@ -48,13 +48,13 @@
     }
 
     function previous(): void {
-        current.value = unref(current) - 1 <= -1 ? unref(count) - 1 : unref(current) + 1;
+        current.value = unref(current) - 1 <= -1 ? unref(count) - 1 : unref(current) - 1;
     }
 
     watch(current, current => {
         const fader = unrefTemplateElement(faderRef);
 
-        if (!fader || fader.children.length === 0) {
+        if (!fader || fader.children.length === 0 || current < 0) {
             return;
         }
 
