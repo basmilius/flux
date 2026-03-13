@@ -22,7 +22,7 @@
     setup>
     import { unrefTemplateElement } from '@flux-ui/internals';
     import { clsx } from 'clsx';
-    import { toRef, unref, useTemplateRef, watch } from 'vue';
+    import { onUnmounted, toRef, unref, useTemplateRef } from 'vue';
     import { useDisabled } from '$flux/composable';
     import FluxTicks from '$flux/component/FluxTicks.vue';
     import $style from '$flux/css/component/primitive/Slider.module.scss';
@@ -79,5 +79,8 @@
         document.removeEventListener('pointerup', onPointerUp);
     }
 
-    watch(() => isDragging, () => emit('dragging', isDragging));
+    onUnmounted(() => {
+        document.removeEventListener('pointermove', onPointerMove);
+        document.removeEventListener('pointerup', onPointerUp);
+    });
 </script>

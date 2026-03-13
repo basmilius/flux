@@ -19,7 +19,7 @@
     setup>
     import { roundStep } from '@basmilius/utils';
     import { unrefTemplateElement } from '@flux-ui/internals';
-    import { computed, ref, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { computed, onUnmounted, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '$flux/composable';
     import CoordinatePickerThumb from './CoordinatePickerThumb.vue';
     import $style from '$flux/css/component/primitive/CoordinatePicker.module.scss';
@@ -146,4 +146,9 @@
     }
 
     watch(isDragging, isDragging => emit('dragging', isDragging));
+
+    onUnmounted(() => {
+        document.removeEventListener('pointermove', onPointerMove);
+        document.removeEventListener('pointerup', onPointerUp);
+    });
 </script>
