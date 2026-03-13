@@ -112,11 +112,11 @@
         }
 
         const {top, left, width, height} = image.getBoundingClientRect();
-        const {pageX, pageY} = evt;
+        const {clientX, clientY} = evt;
 
         dragging.value = [
-            Math.max(0, Math.min(1, (pageX - left) / width)) * 100,
-            Math.max(0, Math.min(1, (pageY - top) / height)) * 100
+            Math.max(0, Math.min(1, (clientX - left) / width)) * 100,
+            Math.max(0, Math.min(1, (clientY - top) / height)) * 100
         ];
     }
 
