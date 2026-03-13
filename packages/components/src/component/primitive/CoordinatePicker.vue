@@ -19,7 +19,7 @@
     setup>
     import { roundStep } from '@basmilius/utils';
     import { unrefTemplateElement } from '@flux-ui/internals';
-    import { computed, onMounted, onUnmounted, ref, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { computed, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '$flux/composable';
     import CoordinatePickerThumb from './CoordinatePickerThumb.vue';
     import $style from '$flux/css/component/primitive/CoordinatePicker.module.scss';
@@ -57,16 +57,6 @@
         (unref(modelValue)[0] - unref(min)[0]) / (unref(max)[0] - unref(min)[0]),
         (unref(modelValue)[1] - unref(min)[1]) / (unref(max)[1] - unref(min)[1])
     ]);
-
-    onMounted(() => {
-        document.addEventListener('pointermove', onPointerMove);
-        document.addEventListener('pointerup', onPointerUp, {passive: true});
-    });
-
-    onUnmounted(() => {
-        document.removeEventListener('pointermove', onPointerMove);
-        document.removeEventListener('pointerup', onPointerUp);
-    });
 
     function onDecrement(x: boolean, y: boolean): void {
         if (unref(disabled)) {
@@ -116,6 +106,8 @@
         }
 
         isDragging.value = true;
+        document.addEventListener('pointermove', onPointerMove);
+        document.addEventListener('pointerup', onPointerUp, {passive: true});
         requestAnimationFrame(() => onPointerMove(evt));
     }
 
@@ -149,6 +141,8 @@
 
     function onPointerUp(): void {
         isDragging.value = false;
+        document.removeEventListener('pointermove', onPointerMove);
+        document.removeEventListener('pointerup', onPointerUp);
     }
 
     watch(isDragging, isDragging => emit('dragging', isDragging));
