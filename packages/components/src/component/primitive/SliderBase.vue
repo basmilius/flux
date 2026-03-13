@@ -22,7 +22,7 @@
     setup>
     import { unrefTemplateElement } from '@flux-ui/internals';
     import { clsx } from 'clsx';
-    import { onMounted, onUnmounted, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '$flux/composable';
     import FluxTicks from '$flux/component/FluxTicks.vue';
     import $style from '$flux/css/component/primitive/Slider.module.scss';
@@ -47,22 +47,14 @@
     const disabled = useDisabled(toRef(() => componentDisabled));
     const rootRef = useTemplateRef('root');
 
-    onMounted(() => {
-        document.addEventListener('pointermove', onPointerMove);
-        document.addEventListener('pointerup', onPointerUp, {passive: true});
-    });
-
-    onUnmounted(() => {
-        document.removeEventListener('pointermove', onPointerMove);
-        document.removeEventListener('pointerup', onPointerUp);
-    });
-
     function onPointerDown(evt: PointerEvent): void {
         if (unref(disabled)) {
             return;
         }
 
         emit('dragging', true);
+        document.addEventListener('pointermove', onPointerMove);
+        document.addEventListener('pointerup', onPointerUp, {passive: true});
         requestAnimationFrame(() => onPointerMove(evt));
     }
 
@@ -77,12 +69,14 @@
         left += 6; // margin.
         width -= 12; // margin times two.
 
-        emit('update', Math.max(0, Math.min(1, (evt.pageX - left) / width)));
+        emit('update', Math.max(0, Math.min(1, (evt.clientX - left) / width)));
         evt.preventDefault();
     }
 
     function onPointerUp(): void {
         emit('dragging', false);
+        document.removeEventListener('pointermove', onPointerMove);
+        document.removeEventListener('pointerup', onPointerUp);
     }
 
     watch(() => isDragging, () => emit('dragging', isDragging));
