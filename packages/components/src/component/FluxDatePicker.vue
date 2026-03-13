@@ -136,7 +136,6 @@
     import $style from '$flux/css/component/DatePicker.module.scss';
 
     const modelValue = defineModel<DateTime | DateTime[] | null>({
-        default: null,
         required: true
     });
 
