@@ -94,13 +94,10 @@
     }
 
     watchEffect(() => {
-        if (unref(modelValue) > max) {
-            increment();
-            return;
-        }
+        const value = unref(modelValue);
 
-        if (unref(modelValue) < min) {
-            decrement();
+        if (value > max || value < min) {
+            modelValue.value = Math.min(max, Math.max(min, value));
             return;
         }
 
