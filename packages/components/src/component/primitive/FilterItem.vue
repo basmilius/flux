@@ -38,7 +38,7 @@
         emit('click', evt);
     }
 
-    watch(() => item, async () => {
+    watch([() => item, () => value], async () => {
         valueLabel.value = await unref(getValueLabel)(value) ?? undefined;
     }, {deep: true, immediate: true});
 </script>
