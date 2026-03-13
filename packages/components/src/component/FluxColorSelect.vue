@@ -31,11 +31,11 @@
 
                 <FluxPaneBody :class="$style.colorSelectButtons">
                     <FluxSecondaryButton
-                        :label="t('flux.cancel')"
+                        :label="translate('flux.cancel')"
                         @click="close()"/>
 
                     <FluxPrimaryButton
-                        :label="t('flux.ok')"
+                        :label="translate('flux.ok')"
                         @click="select(customColor, close)"/>
                 </FluxPaneBody>
             </template>
@@ -68,7 +68,7 @@
         readonly isCustomAllowed?: boolean;
     }>();
 
-    const t = useTranslate();
+    const translate = useTranslate();
 
     const customColor = ref('#000000');
 
