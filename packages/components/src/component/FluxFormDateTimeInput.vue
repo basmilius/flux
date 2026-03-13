@@ -100,8 +100,8 @@
         const value: DateTime = (localValue.value ?? DateTime.now());
         localValue.value = value.set({
             hour: dateTime.hour,
-            minute: unref(isHourOnly) ? 0 : dateTime.minute,
-            second: unref(isHourOnly) ? 0 : dateTime.second
+            minute: isHourOnly ? 0 : dateTime.minute,
+            second: isHourOnly ? 0 : dateTime.second
         });
     }
 
