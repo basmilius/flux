@@ -1,0 +1,79 @@
+<template>
+    <FluxStack
+        direction="vertical"
+        :gap="16">
+        <FluxContextMenu
+            :is-debug="isDebug"
+            style="width: 240px; height: 120px; background: var(--gray-100); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--foreground-secondary); font-size: 14px;">
+            <span>Right-click here</span>
+
+            <template #menu>
+                <FluxMenu>
+                    <FluxMenuGroup>
+                        <FluxContextMenuItem
+                            icon-leading="share-nodes"
+                            label="Share">
+                            <template #sub-menu>
+                                <FluxMenu>
+                                    <FluxMenuGroup>
+                                        <FluxContextMenuItem
+                                            icon-leading="envelope"
+                                            label="Via email">
+                                            <template #sub-menu>
+                                                <FluxMenu>
+                                                    <FluxMenuGroup>
+                                                        <FluxMenuItem
+                                                            icon-leading="user"
+                                                            label="Personal"/>
+
+                                                        <FluxMenuItem
+                                                            icon-leading="briefcase"
+                                                            label="Work"/>
+                                                    </FluxMenuGroup>
+                                                </FluxMenu>
+                                            </template>
+                                        </FluxContextMenuItem>
+
+                                        <FluxMenuItem
+                                            icon-leading="link"
+                                            label="Copy link"/>
+                                    </FluxMenuGroup>
+                                </FluxMenu>
+                            </template>
+                        </FluxContextMenuItem>
+
+                        <FluxMenuItem
+                            icon-leading="copy"
+                            label="Copy"/>
+
+                        <FluxMenuItem
+                            icon-leading="paste"
+                            label="Paste"/>
+                    </FluxMenuGroup>
+
+                    <FluxSeparator/>
+
+                    <FluxMenuGroup>
+                        <FluxMenuItem
+                            icon-leading="trash"
+                            is-destructive
+                            label="Delete"/>
+                    </FluxMenuGroup>
+                </FluxMenu>
+            </template>
+        </FluxContextMenu>
+
+        <FluxFormField label="Debug mode">
+            <FluxToggle v-model="isDebug"/>
+        </FluxFormField>
+    </FluxStack>
+</template>
+
+<script
+    lang="ts"
+    setup>
+    import { FluxContextMenu, FluxContextMenuItem, FluxFormField, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSeparator, FluxStack, FluxToggle } from '@flux-ui/components';
+    import { ref } from 'vue';
+
+    const isDebug = ref(false);
+</script>

@@ -1,0 +1,31 @@
+<template>
+    <Preview>
+        <FluxContextMenu style="width: 240px; height: 120px; background: var(--gray-100); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--foreground-secondary); font-size: 14px;">
+            <span>Right-click here</span>
+
+            <template #menu>
+                <FluxMenu>
+                    <FluxMenuGroup>
+                        <FluxMenuItem
+                            icon-leading="copy"
+                            label="Copy"/>
+
+                        <FluxMenuItem
+                            icon-leading="scissors"
+                            label="Cut"/>
+
+                        <FluxMenuItem
+                            icon-leading="paste"
+                            label="Paste"/>
+                    </FluxMenuGroup>
+                </FluxMenu>
+            </template>
+        </FluxContextMenu>
+    </Preview>
+</template>
+
+<script
+    lang="ts"
+    setup>
+    import { FluxContextMenu, FluxMenu, FluxMenuGroup, FluxMenuItem } from '@flux-ui/components';
+</script>
