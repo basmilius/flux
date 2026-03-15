@@ -14,6 +14,7 @@ export type FluxFormTreeViewSelectValueSingle = string | number;
 export type FluxFormSelectGroup = {
     readonly icon?: FluxIconName;
     readonly label: string;
+    readonly value?: never;
 };
 
 export type FluxFormSelectOption = {
