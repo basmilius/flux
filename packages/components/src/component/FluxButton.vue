@@ -33,7 +33,7 @@
                 :name="iconLeading"/>
         </slot>
 
-        <slot name="label" v-if="label">
+        <slot name="label">
             <span
                 v-if="label"
                 :class="cssClassLabel">
