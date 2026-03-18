@@ -203,7 +203,7 @@ const navigation: SidebarItem = {
                     image: '/assets/components/layout-stack.svg',
                     collapsed: true,
                     items: [
-                        {text: 'Actions', link: '/guide/components/layout/stack/actions'},
+                        {text: 'Action', link: '/guide/components/layout/stack/action'},
                         {text: 'Badge', link: '/guide/components/layout/stack/badge'},
                         {text: 'Button', link: '/guide/components/layout/stack/button'},
                         {text: 'Info', link: '/guide/components/layout/stack/info'},
