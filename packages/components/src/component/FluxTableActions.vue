@@ -1,13 +1,13 @@
 <template>
-    <FluxActions :class="$style.tableActions">
+    <FluxActionStack :class="$style.tableActions">
         <slot/>
-    </FluxActions>
+    </FluxActionStack>
 </template>
 
 <script
     lang="ts"
     setup>
-    import FluxActions from './FluxActions.vue';
+    import FluxActionStack from './FluxActionStack.vue';
     import $style from '$flux/css/component/Table.module.scss';
 
     defineSlots<{
