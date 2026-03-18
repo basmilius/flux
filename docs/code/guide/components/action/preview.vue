@@ -2,7 +2,7 @@
     <Preview>
         <FluxPane>
             <FluxPaneBody>
-                <FluxActions>
+                <FluxActionStack>
                     <FluxAction
                         icon="circle-xmark"
                         is-destructive/>
@@ -10,7 +10,7 @@
                     <FluxAction icon="circle-sort"/>
 
                     <FluxAction icon="circle-minus"/>
-                </FluxActions>
+                </FluxActionStack>
             </FluxPaneBody>
         </FluxPane>
     </Preview>
@@ -19,5 +19,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxAction, FluxActions, FluxPane, FluxPaneBody } from '@flux-ui/components';
+    import { FluxAction, FluxActionStack, FluxPane, FluxPaneBody } from '@flux-ui/components';
 </script>
