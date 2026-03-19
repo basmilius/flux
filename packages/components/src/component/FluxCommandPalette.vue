@@ -5,7 +5,9 @@
             :class="[$style.commandPaletteDialog, isClosing && $style.isClosing]"
             @click="onBackdropClick"
             @keydown="onKeyDown">
-            <div :class="$style.commandPalette">
+            <div
+                v-height-transition
+                :class="$style.commandPalette">
                 <div :class="$style.commandPaletteSearch">
                     <FluxIcon
                         :class="$style.commandPaletteSearchIcon"
@@ -128,7 +130,7 @@
     lang="ts"
     setup>
     import type { FluxCommandSource, FluxCommandSourceItem } from '@flux-ui/types';
-    import { isSSR } from '@flux-ui/internals';
+    import { isSSR, vHeightTransition } from '@flux-ui/internals';
     import { onMounted, onUnmounted, ref, toRef, unref, useTemplateRef } from 'vue';
     import { useCommandPalette } from '$flux/composable/private/useCommandPalette';
     import FluxCommandPaletteGroup from './FluxCommandPaletteGroup.vue';
