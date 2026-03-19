@@ -149,7 +149,7 @@ export function useCommandPalette(params: {
 
     function setSearch(value: string): void {
         search.value = value;
-        highlightedIndex.value = -1;
+        highlightedIndex.value = value.trim() ? 0 : -1;
 
         if (value.trim() && !unref(subActionTarget) && unref(params.sources).some(s => s.fetchSearch)) {
             isLoading.value = true;
