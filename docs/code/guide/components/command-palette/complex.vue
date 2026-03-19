@@ -27,7 +27,6 @@
         {
             key: 'navigation',
             label: 'Navigation',
-            global: true,
             items: [
                 {
                     id: 'nav-dashboard',

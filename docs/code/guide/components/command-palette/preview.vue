@@ -29,7 +29,6 @@
         {
             key: 'navigation',
             label: 'Navigation',
-            global: true,
             items: [
                 {id: 'dashboard', label: 'Dashboard', icon: 'grid-2', onActivate: () => activate('Dashboard')},
                 {id: 'settings', label: 'Settings', icon: 'gear', onActivate: () => activate('Settings')},

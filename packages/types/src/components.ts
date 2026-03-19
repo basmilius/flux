@@ -82,7 +82,6 @@ export type FluxCommandSource = {
     readonly label: string;
     readonly icon?: FluxIconName;
     readonly tab?: boolean;
-    readonly global?: boolean;
     readonly items: FluxCommandSourceItem[];
     readonly fetchSearch?: (query: string) => Promise<FluxCommandSourceItem[]>;
 };

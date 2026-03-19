@@ -26,7 +26,6 @@
         {
             key: 'navigation',
             label: 'Navigation',
-            global: true,
             items: [
                 {
                     id: 'dashboard',
@@ -52,7 +51,6 @@
             key: 'actions',
             label: 'Actions',
             tab: true,
-            global: true,
             items: [
                 {
                     id: 'dark-mode',

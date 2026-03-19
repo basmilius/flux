@@ -65,7 +65,7 @@ render=../../code/guide/components/command-palette/preview.vue
 
 ## Sources
 
-Sources are the core building blocks of the command palette. Each source has a `key`, `label`, and a list of `items`. Set `tab: true` to show the source as a tab in the tab bar. Set `global: true` to make the source visible across all tabs.
+Sources are the core building blocks of the command palette. Each source has a `key`, `label`, and a list of `items`. Set `tab: true` to show the source as a tab in the tab bar.
 
 ```ts
 type FluxCommandSource = {
@@ -73,7 +73,6 @@ type FluxCommandSource = {
     readonly label: string;
     readonly icon?: FluxIconName;
     readonly tab?: boolean;
-    readonly global?: boolean;
     readonly items: FluxCommandSourceItem[];
     readonly fetchSearch?: (query: string) => Promise<FluxCommandSourceItem[]>;
 };
