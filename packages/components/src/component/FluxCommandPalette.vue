@@ -5,7 +5,8 @@
             :class="[$style.commandPaletteBackdrop, isClosing && $style.isClosing]"
             @click="close"/>
 
-        <dialog
+        <div
+            v-if="isOpen || isClosing"
             ref="dialogRef"
             :class="[$style.commandPaletteDialog, isClosing && $style.isClosing]"
             @keydown="onKeyDown">
@@ -126,7 +127,7 @@
                     </div>
                 </div>
             </div>
-        </dialog>
+        </div>
     </Teleport>
 </template>
 
@@ -151,7 +152,7 @@
         select: [item: FluxCommandSourceItem];
     }>();
 
-    const dialogRef = useTemplateRef<HTMLDialogElement>('dialogRef');
+    const dialogRef = useTemplateRef<HTMLDivElement>('dialogRef');
     const inputRef = useTemplateRef<HTMLInputElement>('inputRef');
     const itemRefs = ref<InstanceType<typeof FluxCommandPaletteItem>[]>();
 
@@ -184,15 +185,7 @@
 
         isOpen.value = true;
 
-        requestAnimationFrame(() => {
-            const dialog = unref(dialogRef);
-
-            if (dialog && !dialog.open) {
-                dialog.show();
-            }
-
-            unref(inputRef)?.focus();
-        });
+        requestAnimationFrame(() => unref(inputRef)?.focus());
     }
 
     function close(): void {
@@ -211,7 +204,6 @@
         dialog.addEventListener('animationend', () => {
             isClosing.value = false;
             isOpen.value = false;
-            dialog.close();
             reset();
         }, {once: true});
     }
