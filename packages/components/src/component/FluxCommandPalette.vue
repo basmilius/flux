@@ -9,10 +9,12 @@
             v-if="isOpen || isClosing"
             ref="dialogRef"
             :class="[$style.commandPaletteDialog, isClosing && $style.isClosing]"
+            @click.self="close"
             @keydown="onKeyDown">
             <div
                 v-height-transition
-                :class="$style.commandPalette">
+                :class="$style.commandPalette"
+                @mousedown.prevent>
                 <div :class="$style.commandPaletteSearch">
                     <FluxIcon
                         :class="$style.commandPaletteSearchIcon"
