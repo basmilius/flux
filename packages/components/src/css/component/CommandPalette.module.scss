@@ -1,0 +1,353 @@
+@use "$flux/css/mixin";
+
+.commandPaletteDialog {
+    &[open] {
+        position: fixed;
+        display: flex;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        max-width: unset;
+        max-height: unset;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 0;
+        padding-top: clamp(60px, 15vh, 160px);
+        border: 0;
+        background: transparent;
+        outline: 0;
+        animation: commandPaletteIn 300ms var(--swift-out) both;
+
+        &::backdrop {
+            animation: commandPaletteBackdropIn 300ms var(--swift-out) both;
+        }
+    }
+
+    &[open].isClosing {
+        animation: commandPaletteOut 210ms var(--swift-out) both;
+        pointer-events: none;
+
+        &::backdrop {
+            animation: commandPaletteBackdropOut 210ms var(--swift-out) both;
+        }
+    }
+}
+
+.commandPalette {
+    display: flex;
+    width: min(600px, calc(100dvw - 48px));
+    max-height: min(480px, calc(100dvh - 120px - clamp(60px, 15vh, 160px)));
+    flex-flow: column nowrap;
+    border-radius: 12px;
+    background: var(--surface);
+    background-clip: padding-box;
+    border: 1px solid var(--surface-stroke-out);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+}
+
+.commandPaletteSearch {
+    display: flex;
+    flex-shrink: 0;
+    height: 54px;
+    padding: 0 18px;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.commandPaletteSearchIcon {
+    font-size: 16px;
+    flex-shrink: 0;
+    color: var(--foreground-secondary);
+}
+
+.commandPaletteSearchInput {
+    flex-grow: 1;
+    height: 100%;
+    border: 0;
+    background: transparent;
+    color: var(--foreground);
+    font: inherit;
+    font-size: 16px;
+    outline: 0;
+
+    &::placeholder {
+        color: var(--foreground-secondary);
+    }
+}
+
+.commandPaletteBreadcrumb {
+    flex-shrink: 0;
+    cursor: pointer;
+    white-space: nowrap;
+    border: 0;
+    background: transparent;
+    color: var(--foreground-secondary);
+    font: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 0;
+    transition: color 150ms;
+
+    @include mixin.hover {
+        color: var(--foreground);
+    }
+}
+
+.commandPaletteBreadcrumbSeparator {
+    flex-shrink: 0;
+    color: var(--foreground-secondary);
+    font-size: 14px;
+    opacity: .5;
+}
+
+.commandPaletteSearchHint {
+    flex-shrink: 0;
+    padding: 3px 6px;
+    border-radius: 4px;
+    background: var(--gray-100);
+    color: var(--foreground-secondary);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.commandPaletteTabs {
+    display: flex;
+    flex-shrink: 0;
+    padding: 6px 9px;
+    gap: 3px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-bottom: 1px solid var(--gray-100);
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.commandPaletteTab {
+    display: flex;
+    height: 30px;
+    padding: 0 10px;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--foreground-secondary);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    transition: background 150ms, color 150ms;
+
+    @include mixin.hover {
+        background: var(--gray-100);
+        color: var(--foreground);
+    }
+}
+
+.commandPaletteTabActive {
+    composes: commandPaletteTab;
+
+    background: var(--primary-100);
+    color: var(--primary-700);
+
+    @include mixin.hover {
+        background: var(--primary-100);
+        color: var(--primary-700);
+    }
+}
+
+.commandPaletteTabIcon {
+    font-size: 13px;
+}
+
+.commandPaletteResults {
+    flex-grow: 1;
+    padding: 6px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scroll-padding-block: 30px 6px;
+    scrollbar-width: thin;
+}
+
+.commandPaletteEmpty {
+    display: flex;
+    padding: 24px;
+    align-items: center;
+    justify-content: center;
+    color: var(--foreground-secondary);
+    font-size: 14px;
+}
+
+.commandPaletteGroup {
+    display: flex;
+    padding: 9px 10px 3px;
+    align-items: center;
+    gap: 6px;
+    pointer-events: none;
+    color: var(--foreground-secondary);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.commandPaletteGroupIcon {
+    font-size: 12px;
+}
+
+.commandPaletteItem {
+    display: flex;
+    width: 100%;
+    padding: 8px 10px;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--foreground);
+    font: inherit;
+    font-size: 14px;
+    text-align: left;
+    transition: background 100ms;
+
+    @include mixin.hover {
+        background: var(--gray-100);
+    }
+
+    &:active {
+        background: var(--gray-200);
+    }
+}
+
+.commandPaletteItemHighlighted {
+    composes: commandPaletteItem;
+
+    background: var(--primary-50);
+    color: var(--primary-700);
+
+    @include mixin.hover {
+        background: var(--primary-50);
+    }
+}
+
+.commandPaletteItemIcon {
+    display: flex;
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    align-items: center;
+    align-self: flex-start;
+    justify-content: center;
+    border-radius: 7px;
+    background: var(--gray-100);
+    color: var(--foreground-secondary);
+    transition: background 100ms, color 100ms;
+
+    :local(.icon) {
+        font-size: 16px;
+    }
+}
+
+.commandPaletteItemHighlighted .commandPaletteItemIcon {
+    background: var(--primary-100);
+    color: var(--primary-600);
+}
+
+.commandPaletteItemContent {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.commandPaletteItemLabel {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.commandPaletteItemSubLabel {
+    overflow: hidden;
+    margin-top: 1px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: var(--foreground-secondary);
+    font-size: 12px;
+    transition: color 100ms;
+}
+
+.commandPaletteItemHighlighted .commandPaletteItemSubLabel {
+    color: var(--primary-500);
+}
+
+.commandPaletteItemCommand {
+    flex-shrink: 0;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: var(--gray-100);
+    color: var(--foreground-secondary);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    transition: background 100ms, color 100ms;
+}
+
+.commandPaletteItemHighlighted .commandPaletteItemCommand {
+    background: var(--primary-100);
+    color: var(--primary-500);
+}
+
+.commandPaletteItemSubActionIndicator {
+    flex-shrink: 0;
+    color: var(--foreground-secondary);
+    font-size: 12px;
+    transition: color 100ms;
+}
+
+.commandPaletteItemHighlighted .commandPaletteItemSubActionIndicator {
+    color: var(--primary-500);
+}
+
+@keyframes commandPaletteIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes commandPaletteOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes commandPaletteBackdropIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes commandPaletteBackdropOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}

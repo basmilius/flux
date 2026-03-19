@@ -53,6 +53,7 @@ const navigation: SidebarItem = {
                 {text: 'Select', link: '/guide/components/color/select'},
             ]
         },
+        {text: 'Command palette', link: '/guide/components/command-palette'},
         {text: 'Comment', link: '/guide/components/comment', image: '/assets/components/comment.svg'},
         {text: 'Data table', link: '/guide/components/data-table'},
         {text: 'Date picker', link: '/guide/components/date-picker'},
