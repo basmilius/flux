@@ -34,7 +34,7 @@ A searchable command palette that can be opened with `⌘K` (Mac) or `Ctrl+K` (W
 Items are organized through sources, where each source represents a group of related items. Sources can optionally appear as horizontal tabs for scoped filtering. Items within a source can have sub-actions, which are shown after selecting the item.
 
 ::: render
-render=../../code/guide/components/command-palette/basic.vue
+render=../../code/guide/components/command-palette/preview.vue
 :::
 
 <FrontmatterDocs/>

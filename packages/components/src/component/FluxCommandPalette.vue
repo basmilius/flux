@@ -1,9 +1,13 @@
 <template>
     <Teleport to="body">
+        <div
+            v-if="isOpen || isClosing"
+            :class="[$style.commandPaletteBackdrop, isClosing && $style.isClosing]"
+            @click="close"/>
+
         <dialog
             ref="dialogRef"
             :class="[$style.commandPaletteDialog, isClosing && $style.isClosing]"
-            @click="onBackdropClick"
             @keydown="onKeyDown">
             <div
                 v-height-transition
@@ -184,7 +188,7 @@
             const dialog = unref(dialogRef);
 
             if (dialog && !dialog.open) {
-                dialog.showModal();
+                dialog.show();
             }
 
             unref(inputRef)?.focus();
@@ -232,14 +236,11 @@
         close();
     }
 
-    function onBackdropClick(evt: MouseEvent): void {
-        if ((evt.target as HTMLElement).tagName === 'DIALOG') {
-            close();
-        }
-    }
-
     function onKeyDown(evt: KeyboardEvent): void {
-        onKeyNavigate(evt, close);
+        onKeyNavigate(evt, close, (item) => {
+            emit('select', item);
+            close();
+        });
     }
 
     function onGlobalKeyDown(evt: KeyboardEvent): void {

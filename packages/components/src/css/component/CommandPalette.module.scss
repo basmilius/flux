@@ -1,5 +1,18 @@
 @use "$flux/css/mixin";
 
+.commandPaletteBackdrop {
+    position: fixed;
+    inset: 0;
+    background: var(--overlay);
+    backdrop-filter: blur(3px) saturate(180%);
+    animation: commandPaletteBackdropIn 300ms var(--swift-out) both;
+    z-index: 99000;
+
+    &.isClosing {
+        animation: commandPaletteBackdropOut 210ms var(--swift-out) both;
+    }
+}
+
 .commandPaletteDialog {
     &[open] {
         position: fixed;
@@ -17,21 +30,12 @@
         border: 0;
         animation: commandPaletteIn 300ms var(--swift-out) both;
         outline: 0;
-
-        &::backdrop {
-            background: var(--overlay);
-            backdrop-filter: blur(3px) saturate(180%);
-            animation: commandPaletteBackdropIn 300ms var(--swift-out) both;
-        }
+        z-index: 99001;
     }
 
     &[open].isClosing {
         animation: commandPaletteOut 210ms var(--swift-out) both;
         pointer-events: none;
-
-        &::backdrop {
-            animation: commandPaletteBackdropOut 210ms var(--swift-out) both;
-        }
     }
 }
 
@@ -318,10 +322,12 @@
 @keyframes commandPaletteIn {
     from {
         opacity: 0;
+        scale: 1.05;
     }
 
     to {
         opacity: 1;
+        scale: 1;
     }
 }
 

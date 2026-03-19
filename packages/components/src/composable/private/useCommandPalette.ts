@@ -32,7 +32,7 @@ export function useCommandPalette(params: {
     setSearch: (value: string) => void;
     setActiveTab: (key: string | null) => void;
     enterSubActions: (item: FluxCommandSourceItem) => void;
-    onKeyNavigate: (evt: KeyboardEvent, onClose: () => void) => void;
+    onKeyNavigate: (evt: KeyboardEvent, onClose: () => void, onActivate: (item: FluxCommandSourceItem) => void) => void;
     reset: () => void;
 } {
     const search = ref('');
@@ -133,7 +133,7 @@ export function useCommandPalette(params: {
         subActionTarget.value = null;
     }
 
-    function selectHighlighted(): void {
+    function selectHighlighted(onActivate: (item: FluxCommandSourceItem) => void): void {
         const index = unref(highlightedIndex);
         const target = unref(subActionTarget);
 
@@ -142,6 +142,7 @@ export function useCommandPalette(params: {
 
             if (action) {
                 action.onActivate();
+                onActivate(target);
             }
 
             return;
@@ -157,6 +158,7 @@ export function useCommandPalette(params: {
             enterSubActions(result.item);
         } else {
             result.item.onActivate();
+            onActivate(result.item);
         }
     }
 
@@ -195,7 +197,7 @@ export function useCommandPalette(params: {
         }
     }
 
-    function onKeyNavigate(evt: KeyboardEvent, onClose: () => void): void {
+    function onKeyNavigate(evt: KeyboardEvent, onClose: () => void, onActivate: (item: FluxCommandSourceItem) => void): void {
         const total = unref(totalItems);
         const current = unref(highlightedIndex);
 
@@ -230,7 +232,7 @@ export function useCommandPalette(params: {
 
             case 'Enter':
                 evt.preventDefault();
-                selectHighlighted();
+                selectHighlighted(onActivate);
                 break;
 
             case 'Escape':
