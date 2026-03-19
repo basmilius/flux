@@ -209,10 +209,17 @@
 
         isClosing.value = true;
 
-        dialog.addEventListener('animationend', () => {
+        const finishClose = () => {
             isClosing.value = false;
             isOpen.value = false;
             reset();
+        };
+
+        const fallbackTimeout = setTimeout(finishClose, 250);
+
+        dialog.addEventListener('animationend', () => {
+            clearTimeout(fallbackTimeout);
+            finishClose();
         }, {once: true});
     }
 

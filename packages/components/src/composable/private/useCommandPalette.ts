@@ -163,7 +163,7 @@ export function useCommandPalette(params: {
         subActionTarget.value = null;
     }
 
-    function selectHighlighted(onActivate: (item: FluxCommandSourceItem) => void): void {
+    function selectHighlighted(onClose: () => void, onActivate: (item: FluxCommandSourceItem) => void): void {
         const index = unref(highlightedIndex);
         const target = unref(subActionTarget);
 
@@ -172,7 +172,7 @@ export function useCommandPalette(params: {
 
             if (action) {
                 action.onActivate();
-                onActivate(target);
+                onClose();
             }
 
             return;
@@ -241,7 +241,7 @@ export function useCommandPalette(params: {
             case 'ArrowUp':
                 evt.preventDefault();
                 isKeyboardNav.value = true;
-                highlightedIndex.value = Math.max(0, current - 1);
+                highlightedIndex.value = total === 0 ? -1 : Math.max(0, current - 1);
                 break;
 
             case 'ArrowLeft':
@@ -262,7 +262,7 @@ export function useCommandPalette(params: {
 
             case 'Enter':
                 evt.preventDefault();
-                selectHighlighted(onActivate);
+                selectHighlighted(onClose, onActivate);
                 break;
 
             case 'Escape':
