@@ -241,7 +241,7 @@
     justify-content: center;
     background: var(--gray-100);
     border-radius: var(--radius-half);
-    color: var(--foreground-secondary);
+    color: var(--foreground);
     transition: background 100ms, color 100ms;
 
     :local(.icon) {
