@@ -51,9 +51,9 @@
                         type="text"
                         @input="setSearch(($event.target as HTMLInputElement).value)"/>
 
-                    <kbd :class="$style.commandPaletteSearchHint">
-                        Esc
-                    </kbd>
+                    <FluxTag
+                        is-keyboard-shortcut
+                        label="Esc"/>
                 </div>
 
                 <div
@@ -152,10 +152,12 @@
     import FluxCommandPaletteItem from './FluxCommandPaletteItem.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
+    import FluxTag from './FluxTag.vue';
     import FluxWindowTransition from '$flux/transition/FluxWindowTransition.vue';
     import $style from '$flux/css/component/CommandPalette.module.scss';
 
     const props = defineProps<{
+        readonly hasKeyboardShortcut?: boolean;
         readonly placeholder?: string;
         readonly sources: FluxCommandSource[];
     }>();
@@ -268,7 +270,7 @@
         }
     }
 
-    if (!isSSR) {
+    if (!isSSR && props.hasKeyboardShortcut) {
         onMounted(() => {
             window.addEventListener('keydown', onGlobalKeyDown);
         });

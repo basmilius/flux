@@ -2,6 +2,11 @@
 outline: deep
 
 props:
+    -   name: has-keyboard-shortcut
+        description: Enables the global keyboard shortcut (⌘K / Ctrl+K) to open and close the command palette.
+        type: boolean
+        optional: true
+
     -   name: placeholder
         description: Custom placeholder text for the search input.
         type: string
@@ -29,7 +34,7 @@ expose:
 
 # Command Palette
 
-A searchable command palette that can be opened with `⌘K` (Mac) or `Ctrl+K` (Windows/Linux). It provides quick access to navigation, actions, and entity search through a unified interface.
+A searchable command palette that provides quick access to navigation, actions, and entity search through a unified interface. It can optionally be opened with a global `⌘K` (Mac) or `Ctrl+K` (Windows/Linux) keyboard shortcut by setting the `has-keyboard-shortcut` prop.
 
 Items are organized through sources, where each source represents a group of related items. Sources can optionally appear as horizontal tabs for scoped filtering. Items within a source can have sub-actions, which are shown after selecting the item.
 

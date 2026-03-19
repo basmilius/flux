@@ -142,6 +142,13 @@
     font-weight: 400;
 }
 
+.tagKeyboardShortcut {
+    composes: tag;
+
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
 .tagClose {
     composes: badgeClose;
 

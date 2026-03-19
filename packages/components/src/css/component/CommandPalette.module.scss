@@ -99,15 +99,6 @@
     font-size: 14px;
 }
 
-.commandPaletteSearchHint {
-    padding: 3px 6px;
-    flex-shrink: 0;
-    background: var(--gray-100);
-    border-radius: calc(var(--radius-half) / 1.5);
-    color: var(--foreground-secondary);
-    font-size: 12px;
-    font-weight: 500;
-}
 
 .commandPaletteTabs {
     display: flex;
@@ -288,22 +279,6 @@
     color: var(--primary-500);
 }
 
-.commandPaletteItemCommand {
-    padding: 2px 6px;
-    flex-shrink: 0;
-    background: var(--gray-100);
-    border-radius: calc(var(--radius-half) / 1.5);
-    color: var(--foreground-secondary);
-    font: inherit;
-    font-size: 12px;
-    font-weight: 500;
-    transition: background 100ms, color 100ms;
-}
-
-.commandPaletteItemHighlighted .commandPaletteItemCommand {
-    background: var(--primary-100);
-    color: var(--primary-500);
-}
 
 .commandPaletteItemSubActionIndicator {
     flex-shrink: 0;

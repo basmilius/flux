@@ -24,11 +24,10 @@
             </div>
         </div>
 
-        <kbd
+        <FluxTag
             v-if="command"
-            :class="$style.commandPaletteItemCommand">
-            {{ command }}
-        </kbd>
+            is-keyboard-shortcut
+            :label="command"/>
 
         <FluxIcon
             v-if="hasSubActions"
@@ -42,6 +41,7 @@
     setup>
     import type { FluxIconName } from '@flux-ui/types';
     import FluxIcon from './FluxIcon.vue';
+    import FluxTag from './FluxTag.vue';
     import $style from '$flux/css/component/CommandPalette.module.scss';
 
     defineEmits<{

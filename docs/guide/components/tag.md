@@ -45,6 +45,11 @@ props:
         type: boolean
         optional: true
 
+    -   name: is-keyboard-shortcut
+        description: Reduces horizontal padding for a compact keyboard shortcut appearance.
+        type: boolean
+        optional: true
+
     -   name: is-loading
         description: If the tag should have a loading state.
         type: boolean
