@@ -30,6 +30,25 @@ expose:
 
     -   name: close
         description: Closes the command palette.
+
+keyboardShortcuts:
+    -   key: ⌘K / Ctrl+K
+        action: Open / close the command palette (requires has-keyboard-shortcut)
+
+    -   key: ↑ / ↓
+        action: Navigate through items
+
+    -   key: ← / →
+        action: Navigate through tabs (when search is empty)
+
+    -   key: Enter
+        action: Activate the highlighted item
+
+    -   key: Escape
+        action: Close the palette, or exit sub-actions
+
+    -   key: Backspace
+        action: Go back one breadcrumb level (when search is empty)
 ---
 
 # Command Palette
@@ -110,13 +129,3 @@ example=../../code/guide/components/command-palette/async.vue
 example=../../code/guide/components/command-palette/complex.vue
 :::
 
-## Keyboard shortcuts
-
-| Key | Action |
-|---|---|
-| `⌘K` / `Ctrl+K` | Open / close the command palette |
-| `↑` / `↓` | Navigate through items |
-| `←` / `→` | Navigate through tabs (when search is empty) |
-| `Enter` | Activate the highlighted item |
-| `Escape` | Close the palette, or exit sub-actions |
-| `Backspace` | Go back one breadcrumb level (when search is empty) |
