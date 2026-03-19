@@ -54,6 +54,13 @@ export type FluxSegmentedControlItemObject = {
     readonly label?: string;
 };
 
+export type FluxKanbanMoveEvent = {
+    readonly cardId: string | number;
+    readonly fromColumnId: string | number;
+    readonly toColumnId: string | number;
+    readonly beforeCardId?: string | number;
+};
+
 export type FluxTreeViewOption = {
     readonly id: string | number;
     readonly label: string;

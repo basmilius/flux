@@ -18,6 +18,7 @@ export type {
     FluxButtonSize,
     FluxButtonSlots,
     FluxFocalPointObject,
+    FluxKanbanMoveEvent,
     FluxLegendObject,
     FluxPercentageBarItemObject,
     FluxSegmentedControlItemObject,

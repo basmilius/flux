@@ -179,6 +179,15 @@ const navigation: SidebarItem = {
             ]
         },
         {
+            text: 'Kanban',
+            link: '/guide/components/kanban',
+            collapsed: true,
+            items: [
+                {text: 'Column', link: '/guide/components/kanban#fluxkanbancolumn'},
+                {text: 'Card', link: '/guide/components/kanban#fluxkanbancard'}
+            ]
+        },
+        {
             text: 'Layout',
             link: '/guide/components/layout/',
             collapsed: true,

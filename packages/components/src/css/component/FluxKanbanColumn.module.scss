@@ -1,0 +1,49 @@
+.kanbanColumn {
+    display: flex;
+    flex-flow: column;
+    flex-shrink: 0;
+    width: 280px;
+    background: var(--gray-100);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.kanbanColumnHeader {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.kanbanColumnLabel {
+    flex: 1;
+    font-size: .8125rem;
+    font-weight: 600;
+    color: var(--foreground);
+    letter-spacing: .01em;
+    text-transform: uppercase;
+}
+
+.kanbanColumnBody {
+    display: flex;
+    flex-flow: column;
+    gap: 9px;
+    padding: 9px;
+    min-height: 60px;
+    flex: 1;
+    overflow-y: auto;
+    transition: background 180ms var(--swift-out);
+}
+
+.isOver .kanbanColumnBody {
+    background: rgb(from var(--primary-500) r g b / .06);
+}
+
+.kanbanDropIndicator {
+    height: 2px;
+    border-radius: 999px;
+    background: var(--primary-500);
+    flex-shrink: 0;
+}

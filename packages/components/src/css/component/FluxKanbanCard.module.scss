@@ -1,0 +1,35 @@
+.kanbanCard {
+    position: relative;
+    padding: 12px;
+    background: var(--gray-25);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    cursor: grab;
+    transition: opacity 180ms var(--swift-out), box-shadow 180ms var(--swift-out);
+    user-select: none;
+
+    &:active {
+        cursor: grabbing;
+    }
+
+    &:hover {
+        box-shadow: 0 1px 4px rgb(0 0 0 / .08);
+    }
+}
+
+.isDragging {
+    opacity: .4;
+    cursor: grabbing;
+}
+
+.isDropBefore {
+    &::before {
+        content: '';
+        position: absolute;
+        inset-inline: 0;
+        top: -6px;
+        height: 2px;
+        border-radius: 999px;
+        background: var(--primary-500);
+    }
+}
