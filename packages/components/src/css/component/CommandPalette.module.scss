@@ -40,7 +40,7 @@
     border: 1px solid var(--surface-stroke-out);
     border-radius: var(--radius);
     box-shadow: var(--shadow-lg);
-    transition: height 150ms var(--deceleration-curve);
+    transition: height 120ms var(--deceleration-curve);
 }
 
 .commandPaletteSearch {

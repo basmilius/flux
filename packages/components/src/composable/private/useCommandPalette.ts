@@ -24,6 +24,7 @@ export function useCommandPalette(params: {
     readonly activeTab: Ref<string | null>;
     readonly highlightedIndex: Ref<number>;
     readonly isLoading: Ref<boolean>;
+    readonly isTransitioningBack: Ref<boolean>;
     readonly subActionTarget: Ref<FluxCommandSourceItem | null>;
     readonly filteredItems: Ref<CommandPaletteResultItem[]>;
     readonly groupedItems: Ref<CommandPaletteGroup[]>;
@@ -43,6 +44,7 @@ export function useCommandPalette(params: {
     const subActionTarget = ref<FluxCommandSourceItem | null>(null);
     const isKeyboardNav = ref(false);
     const isLoading = ref(false);
+    const isTransitioningBack = ref(false);
     const savedState = ref<{ readonly search: string; readonly highlightedIndex: number; } | null>(null);
     const asyncResults = ref<Map<string, FluxCommandSourceItem[]>>(new Map());
     const debouncedSearch = useDebouncedRef(search, 300);
@@ -157,6 +159,10 @@ export function useCommandPalette(params: {
     }
 
     function setActiveTab(key: string | null): void {
+        const allTabs = unref(tabs);
+        const tabKeys: (string | null)[] = [null, ...allTabs.map(t => t.key)];
+
+        isTransitioningBack.value = tabKeys.indexOf(key) < tabKeys.indexOf(unref(activeTab));
         activeTab.value = key;
         search.value = '';
         highlightedIndex.value = -1;
@@ -383,6 +389,7 @@ export function useCommandPalette(params: {
         activeTabSource,
         highlightedIndex,
         isLoading,
+        isTransitioningBack,
         subActionTarget,
         filteredItems,
         groupedItems,

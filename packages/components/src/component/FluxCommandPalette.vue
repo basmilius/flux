@@ -85,53 +85,57 @@
                     </button>
                 </div>
 
-                <div :class="$style.commandPaletteResults">
-                    <template v-if="subActionTarget">
-                        <FluxCommandPaletteItem
-                            v-for="(action, index) of subActions"
-                            :key="index"
-                            ref="itemRefs"
-                            :icon="action.icon"
-                            :is-highlighted="highlightedIndex === index"
-                            :label="action.label"
-                            @activate="activateSubAction(action)"
-                            @highlight="highlightedIndex = index"/>
-                    </template>
-
-                    <template v-else-if="groupedItems.length > 0">
-                        <template
-                            v-for="group of groupedItems"
-                            :key="group.sourceKey">
-                            <FluxCommandPaletteGroup
-                                :label="group.sourceLabel"/>
-
+                <FluxWindowTransition :is-back="isTransitioningBack">
+                    <div
+                        :key="activeTab"
+                        :class="$style.commandPaletteResults">
+                        <template v-if="subActionTarget">
                             <FluxCommandPaletteItem
-                                v-for="result of group.items"
-                                :key="result.item.id"
+                                v-for="(action, index) of subActions"
+                                :key="index"
                                 ref="itemRefs"
-                                :command="result.item.command"
-                                :has-sub-actions="!!result.item.subActions?.length"
-                                :icon="result.item.icon"
-                                :is-highlighted="highlightedIndex === result.globalIndex"
-                                :label="result.item.label"
-                                :sub-label="result.item.subLabel"
-                                @activate="activateItem(result.item)"
-                                @highlight="highlightedIndex = result.globalIndex"/>
+                                :icon="action.icon"
+                                :is-highlighted="highlightedIndex === index"
+                                :label="action.label"
+                                @activate="activateSubAction(action)"
+                                @highlight="highlightedIndex = index"/>
                         </template>
-                    </template>
 
-                    <div
-                        v-else-if="isLoading"
-                        :class="$style.commandPaletteLoading">
-                        <FluxSpinner :size="22"/>
-                    </div>
+                        <template v-else-if="groupedItems.length > 0">
+                            <template
+                                v-for="group of groupedItems"
+                                :key="group.sourceKey">
+                                <FluxCommandPaletteGroup
+                                    :label="group.sourceLabel"/>
 
-                    <div
-                        v-else
-                        :class="$style.commandPaletteEmpty">
-                        No results found.
+                                <FluxCommandPaletteItem
+                                    v-for="result of group.items"
+                                    :key="result.item.id"
+                                    ref="itemRefs"
+                                    :command="result.item.command"
+                                    :has-sub-actions="!!result.item.subActions?.length"
+                                    :icon="result.item.icon"
+                                    :is-highlighted="highlightedIndex === result.globalIndex"
+                                    :label="result.item.label"
+                                    :sub-label="result.item.subLabel"
+                                    @activate="activateItem(result.item)"
+                                    @highlight="highlightedIndex = result.globalIndex"/>
+                            </template>
+                        </template>
+
+                        <div
+                            v-else-if="isLoading"
+                            :class="$style.commandPaletteLoading">
+                            <FluxSpinner :size="22"/>
+                        </div>
+
+                        <div
+                            v-else
+                            :class="$style.commandPaletteEmpty">
+                            No results found.
+                        </div>
                     </div>
-                </div>
+                </FluxWindowTransition>
             </div>
         </div>
     </Teleport>
@@ -148,6 +152,7 @@
     import FluxCommandPaletteItem from './FluxCommandPaletteItem.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
+    import FluxWindowTransition from '$flux/transition/FluxWindowTransition.vue';
     import $style from '$flux/css/component/CommandPalette.module.scss';
 
     const props = defineProps<{
@@ -172,6 +177,7 @@
         activeTabSource,
         highlightedIndex,
         isLoading,
+        isTransitioningBack,
         subActionTarget,
         groupedItems,
         subActions,
