@@ -171,6 +171,13 @@
     flex-grow: 1;
 }
 
+.commandPaletteLoading {
+    display: flex;
+    padding: 24px;
+    align-items: center;
+    justify-content: center;
+}
+
 .commandPaletteEmpty {
     display: flex;
     padding: 24px;

@@ -84,4 +84,5 @@ export type FluxCommandSource = {
     readonly tab?: boolean;
     readonly global?: boolean;
     readonly items: FluxCommandSourceItem[];
+    readonly fetchSearch?: (query: string) => Promise<FluxCommandSourceItem[]>;
 };

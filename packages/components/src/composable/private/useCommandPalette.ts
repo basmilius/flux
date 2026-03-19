@@ -1,4 +1,5 @@
 import type { FluxCommandSource, FluxCommandSourceItem, FluxCommandSubAction } from '@flux-ui/types';
+import { useDebouncedRef } from '@basmilius/common';
 import { computed, nextTick, type Ref, ref, unref, watch } from 'vue';
 
 export type CommandPaletteResultItem = {
@@ -22,6 +23,7 @@ export function useCommandPalette(params: {
     readonly search: Ref<string>;
     readonly activeTab: Ref<string | null>;
     readonly highlightedIndex: Ref<number>;
+    readonly isLoading: Ref<boolean>;
     readonly subActionTarget: Ref<FluxCommandSourceItem | null>;
     readonly filteredItems: Ref<CommandPaletteResultItem[]>;
     readonly groupedItems: Ref<CommandPaletteGroup[]>;
@@ -40,16 +42,38 @@ export function useCommandPalette(params: {
     const highlightedIndex = ref(-1);
     const subActionTarget = ref<FluxCommandSourceItem | null>(null);
     const isKeyboardNav = ref(false);
+    const isLoading = ref(false);
     const savedState = ref<{ readonly search: string; readonly highlightedIndex: number; } | null>(null);
+    const asyncResults = ref<Map<string, FluxCommandSourceItem[]>>(new Map());
+    const debouncedSearch = useDebouncedRef(search, 300);
+    let fetchGeneration = 0;
 
     const filteredItems = computed<CommandPaletteResultItem[]>(() => {
         const query = unref(search).toLowerCase().trim();
         const tab = unref(activeTab);
         const sources = unref(params.sources);
+        const asyncMap = unref(asyncResults);
         const results: CommandPaletteResultItem[] = [];
 
         for (const source of sources) {
             if (tab && source.key !== tab) {
+                continue;
+            }
+
+            if (source.fetchSearch) {
+                const items = query ? asyncMap.get(source.key) : source.items;
+
+                if (items) {
+                    for (const item of items) {
+                        results.push({
+                            globalIndex: results.length,
+                            sourceKey: source.key,
+                            sourceLabel: source.label,
+                            item
+                        });
+                    }
+                }
+
                 continue;
             }
 
@@ -124,6 +148,12 @@ export function useCommandPalette(params: {
     function setSearch(value: string): void {
         search.value = value;
         highlightedIndex.value = -1;
+
+        if (value.trim() && !unref(subActionTarget) && unref(params.sources).some(s => s.fetchSearch)) {
+            isLoading.value = true;
+        } else {
+            isLoading.value = false;
+        }
     }
 
     function setActiveTab(key: string | null): void {
@@ -267,7 +297,67 @@ export function useCommandPalette(params: {
         activeTab.value = null;
         highlightedIndex.value = -1;
         subActionTarget.value = null;
+        asyncResults.value = new Map();
+        isLoading.value = false;
+        fetchGeneration++;
     }
+
+    watch(debouncedSearch, async (query) => {
+        if (unref(subActionTarget)) {
+            return;
+        }
+
+        const trimmed = query.trim();
+
+        if (!trimmed) {
+            asyncResults.value = new Map();
+            isLoading.value = false;
+            return;
+        }
+
+        const tab = unref(activeTab);
+        const sources = unref(params.sources);
+        const asyncSources = sources.filter(s => {
+            if (!s.fetchSearch) {
+                return false;
+            }
+
+            return !tab || s.key === tab;
+        });
+
+        if (asyncSources.length === 0) {
+            isLoading.value = false;
+            return;
+        }
+
+        const generation = ++fetchGeneration;
+        isLoading.value = true;
+
+        try {
+            const fetched = await Promise.all(
+                asyncSources.map(async (source) => ({
+                    key: source.key,
+                    items: await source.fetchSearch!(trimmed)
+                }))
+            );
+
+            if (generation !== fetchGeneration) {
+                return;
+            }
+
+            const map = new Map<string, FluxCommandSourceItem[]>();
+
+            for (const {key, items} of fetched) {
+                map.set(key, items);
+            }
+
+            asyncResults.value = map;
+        } finally {
+            if (generation === fetchGeneration) {
+                isLoading.value = false;
+            }
+        }
+    });
 
     watch(highlightedIndex, (index) => {
         if (index < 0 || !unref(isKeyboardNav)) {
@@ -292,6 +382,7 @@ export function useCommandPalette(params: {
         activeTab,
         activeTabSource,
         highlightedIndex,
+        isLoading,
         subActionTarget,
         filteredItems,
         groupedItems,

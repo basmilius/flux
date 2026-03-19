@@ -121,6 +121,12 @@
                     </template>
 
                     <div
+                        v-else-if="isLoading"
+                        :class="$style.commandPaletteLoading">
+                        <FluxSpinner :size="22"/>
+                    </div>
+
+                    <div
                         v-else
                         :class="$style.commandPaletteEmpty">
                         No results found.
@@ -141,6 +147,7 @@
     import FluxCommandPaletteGroup from './FluxCommandPaletteGroup.vue';
     import FluxCommandPaletteItem from './FluxCommandPaletteItem.vue';
     import FluxIcon from './FluxIcon.vue';
+    import FluxSpinner from './FluxSpinner.vue';
     import $style from '$flux/css/component/CommandPalette.module.scss';
 
     const props = defineProps<{
@@ -164,6 +171,7 @@
         activeTab,
         activeTabSource,
         highlightedIndex,
+        isLoading,
         subActionTarget,
         groupedItems,
         subActions,

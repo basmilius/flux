@@ -51,8 +51,13 @@ type FluxCommandSource = {
     readonly tab?: boolean;
     readonly global?: boolean;
     readonly items: FluxCommandSourceItem[];
+    readonly fetchSearch?: (query: string) => Promise<FluxCommandSourceItem[]>;
 };
 ```
+
+### Async sources
+
+A source can provide a `fetchSearch` function to load items asynchronously when the user types a search query. Static `items` are shown when the search is empty, and `fetchSearch` results replace them when a query is entered. A centered spinner is displayed while the fetch is in progress.
 
 ## Items
 
@@ -90,6 +95,10 @@ example=../../code/guide/components/command-palette/basic.vue
 
 ::: example Multiple sources || A command palette with multiple sources, tabs, and sub-actions.
 example=../../code/guide/components/command-palette/with-sources.vue
+:::
+
+::: example Async || A command palette with an async source that fetches customers from a simulated API. Static items are shown initially, and search results are loaded dynamically.
+example=../../code/guide/components/command-palette/async.vue
 :::
 
 ::: example Complex || A full-featured command palette with navigation, entity search, standalone actions with sub-menus (Theme, Language, Export), recent items, and keyboard shortcut badges.
