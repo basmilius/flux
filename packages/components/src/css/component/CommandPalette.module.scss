@@ -104,7 +104,7 @@
     display: flex;
     overflow-x: auto;
     scrollbar-width: none;
-    padding: 6px 9px;
+    padding: 6px 15px;
     flex-shrink: 0;
     gap: 3px;
     border-bottom: 1px solid var(--gray-100);
@@ -223,11 +223,10 @@
 .commandPaletteItemHighlighted {
     composes: commandPaletteItem;
 
-    background: var(--primary-50);
-    color: var(--primary-700);
+    background: var(--gray-100);
 
     @include mixin.hover {
-        background: var(--primary-50);
+        background: var(--gray-100);
     }
 }
 
@@ -250,8 +249,7 @@
 }
 
 .commandPaletteItemHighlighted .commandPaletteItemIcon {
-    background: var(--primary-100);
-    color: var(--primary-600);
+    background: var(--gray-200);
 }
 
 .commandPaletteItemContent {
