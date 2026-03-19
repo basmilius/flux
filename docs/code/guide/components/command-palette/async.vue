@@ -39,7 +39,7 @@
     const sources: FluxCommandSource[] = [
         {
             key: 'navigation',
-            label: 'Navigation',
+            label: '',
             items: [
                 {id: 'dashboard', label: 'Dashboard', icon: 'grid-2', onActivate: () => activate('Dashboard')},
                 {id: 'customers', label: 'Customers', icon: 'users', onActivate: () => activate('Customers')},

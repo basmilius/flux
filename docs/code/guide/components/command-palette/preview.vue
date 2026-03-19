@@ -28,7 +28,7 @@
     const sources: FluxCommandSource[] = [
         {
             key: 'navigation',
-            label: 'Navigation',
+            label: '',
             items: [
                 {id: 'dashboard', label: 'Dashboard', icon: 'grid-2', onActivate: () => activate('Dashboard')},
                 {id: 'settings', label: 'Settings', icon: 'gear', onActivate: () => activate('Settings')},

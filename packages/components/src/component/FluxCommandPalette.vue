@@ -108,6 +108,7 @@
                                 v-for="group of groupedItems"
                                 :key="group.sourceKey">
                                 <FluxCommandPaletteGroup
+                                    v-if="group.sourceLabel"
                                     :label="group.sourceLabel"/>
 
                                 <FluxCommandPaletteItem

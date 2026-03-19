@@ -65,7 +65,7 @@ render=../../code/guide/components/command-palette/preview.vue
 
 ## Sources
 
-Sources are the core building blocks of the command palette. Each source has a `key`, `label`, and a list of `items`. Set `tab: true` to show the source as a tab in the tab bar.
+Sources are the core building blocks of the command palette. Each source has a `key`, `label`, and a list of `items`. Set `tab: true` to show the source as a tab in the tab bar. Use an empty `label` to hide the group header for a source.
 
 ```ts
 type FluxCommandSource = {

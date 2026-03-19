@@ -26,7 +26,7 @@
     const sources: FluxCommandSource[] = [
         {
             key: 'navigation',
-            label: 'Navigation',
+            label: '',
             items: [
                 {
                     id: 'nav-dashboard',
