@@ -4,12 +4,13 @@
             <FluxPaneBody>
                 <FluxActionStack>
                     <FluxAction
-                        icon="circle-xmark"
-                        is-destructive/>
+                        icon="scissors"/>
 
-                    <FluxAction icon="circle-sort"/>
+                    <FluxAction
+                        icon="copy"/>
 
-                    <FluxAction icon="circle-minus"/>
+                    <FluxAction
+                        icon="paste"/>
                 </FluxActionStack>
             </FluxPaneBody>
         </FluxPane>
@@ -17,7 +18,7 @@
 </template>
 
 <script
-    lang="ts"
-    setup>
+    setup
+    lang="ts">
     import { FluxAction, FluxActionStack, FluxPane, FluxPaneBody } from '@flux-ui/components';
 </script>

@@ -100,5 +100,7 @@ export {
     faCartShopping,
     faMoneyBill,
     faServer,
-    faDatabase
+    faDatabase,
+    faScissors,
+    faPaste
 } from '@fortawesome/pro-regular-svg-icons';

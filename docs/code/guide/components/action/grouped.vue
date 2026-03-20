@@ -1,5 +1,5 @@
 <template>
-    <FluxActions>
+    <FluxActionStack>
         <FluxAction
             icon="calendar"/>
 
@@ -9,11 +9,11 @@
         <FluxAction
             is-destructive
             icon="trash"/>
-    </FluxActions>
+    </FluxActionStack>
 </template>
 
 <script
     setup
     lang="ts">
-    import { FluxAction, FluxActions } from '@flux-ui/components';
+    import { FluxAction, FluxActionStack } from '@flux-ui/components';
 </script>
