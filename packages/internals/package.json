@@ -44,8 +44,8 @@
         }
     },
     "dependencies": {
-        "@basmilius/common": "^3.13.0",
-        "@basmilius/utils": "^3.13.0",
+        "@basmilius/common": "^3.14.0",
+        "@basmilius/utils": "^3.14.0",
         "lodash-es": "^4.17.23",
         "luxon": "^3.7.2",
         "vue": "^3.6.0-beta.8"
