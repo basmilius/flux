@@ -5,7 +5,7 @@
             isCondensed && $style.isCondensed,
             isSecondary && $style.isSecondary
         )"
-        role="textbox">
+        role="group">
         <slot/>
     </div>
 </template>

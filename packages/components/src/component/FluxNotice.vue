@@ -40,6 +40,7 @@
             v-if="isCloseable"
             :class="$style.noticeClose"
             type="button"
+            :aria-label="translate('flux.close')"
             @click="emit('close')">
             <FluxIcon name="xmark"/>
         </button>
@@ -51,6 +52,7 @@
     setup>
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
+    import { useTranslate } from '$flux/composable/private';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
     import $style from '$flux/css/component/Notice.module.scss';
@@ -76,4 +78,6 @@
         default(): any;
         end(): any;
     }>();
+
+    const translate = useTranslate();
 </script>

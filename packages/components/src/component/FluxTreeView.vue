@@ -16,6 +16,7 @@
             role="treeitem"
             tabindex="-1"
             :aria-expanded="node.children?.length ? expandedIds.has(node.id) : undefined"
+            :aria-level="node.depth + 1"
             @click="onNodeClick(node)"
             @dblclick="onNodeDblClick(node)">
 

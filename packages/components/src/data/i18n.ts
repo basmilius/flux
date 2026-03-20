@@ -4,9 +4,11 @@ export type FluxTranslation = keyof typeof english;
 export const english = {
     'flux.back': 'Back',
     'flux.cancel': 'Cancel',
+    'flux.close': 'Close',
     'flux.comingSoon': 'Coming soon',
     'flux.continue': 'Continue',
     'flux.customPeriod': 'Custom period',
+    'flux.delete': 'Delete',
     'flux.filter': 'Filter',
     'flux.filterReset': 'Reset filters',
     'flux.justNow': 'Just now',

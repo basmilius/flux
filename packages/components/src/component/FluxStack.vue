@@ -9,7 +9,7 @@
             isWrapping && $style.isWrapping
         )"
         :style="{
-            '--gap': gap && `${gap}px`
+            '--gap': gap != null ? `${gap}px` : undefined
         }">
         <slot/>
     </Component>

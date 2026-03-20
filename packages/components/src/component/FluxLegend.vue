@@ -1,14 +1,14 @@
 <template>
     <div :class="direction === 'horizontal' ? $style.legendHorizontal : $style.legendVertical">
-        <template v-for="item of items">
-            <span
-                :class="$style.legendItem"
-                :style="{
-                    '--color': item.color
-                }">
-                {{ item.label }}
-            </span>
-        </template>
+        <span
+            v-for="(item, index) of items"
+            :key="index"
+            :class="$style.legendItem"
+            :style="{
+                '--color': item.color
+            }">
+            {{ item.label }}
+        </span>
     </div>
 </template>
 
