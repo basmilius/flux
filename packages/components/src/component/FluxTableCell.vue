@@ -13,7 +13,7 @@
                 :class="$style.tableCellContent"
                 :style="{
                     flexFlow: contentDirection,
-                    gap: contentGap && `${contentGap}px`
+                    gap: contentGap != null ? `${contentGap}px` : undefined
                 }">
                 <slot/>
             </div>

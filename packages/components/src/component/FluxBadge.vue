@@ -40,7 +40,8 @@
             v-if="type === 'none' && isDeletable"
             :class="$style.badgeClose"
             type="button"
-            @click="onDeleteClick()">
+            :aria-label="translate('flux.delete')"
+            @click.stop="onDeleteClick()">
             <FluxIcon name="xmark"/>
         </button>
     </FluxPressable>
@@ -51,6 +52,7 @@
     setup>
     import type { FluxButtonEmits, FluxColor, FluxIconName, FluxPressableType, FluxTo } from '@flux-ui/types';
     import { clsx } from 'clsx';
+    import { useTranslate } from '$flux/composable/private';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
     import FluxSpinner from './FluxSpinner.vue';
@@ -77,6 +79,8 @@
         readonly target?: string;
         readonly to?: FluxTo;
     }>();
+
+    const translate = useTranslate();
 
     function onDeleteClick(): void {
         emit('delete');

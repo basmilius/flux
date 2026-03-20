@@ -1,7 +1,9 @@
 <template>
     <div :class="$style.percentageBar">
         <div :class="$style.percentageBarTrack">
-            <FluxTooltip v-for="item of items">
+            <FluxTooltip
+                v-for="(item, index) of items"
+                :key="index">
                 <template #content>
                     <div :class="$style.percentageBarTooltip">
                         <FluxIcon

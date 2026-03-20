@@ -1,8 +1,8 @@
 <template>
     <div :class="$style.formSection">
-        <div :class="$style.formSectionTitle">
+        <h3 :class="$style.formSectionTitle">
             {{ title }}
-        </div>
+        </h3>
 
         <slot/>
     </div>

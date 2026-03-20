@@ -6,6 +6,7 @@
             isShrinking && $style.isShrinking,
             isSticky && $style.isSticky
         )"
+        scope="col"
         :style="{
             minWidth: `${minWidth}px`
         }">

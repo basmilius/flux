@@ -5,6 +5,7 @@
             isHidden && $style.isHidden
         )"
         type="button"
+        :aria-label="translate('flux.delete')"
         @click="emit('click', $event)">
         <FluxIcon
             v-if="icon"
@@ -18,6 +19,7 @@
     setup>
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
+    import { useTranslate } from '$flux/composable/private';
     import FluxIcon from './FluxIcon.vue';
     import $style from '$flux/css/component/Remove.module.scss';
 
@@ -31,4 +33,6 @@
         readonly icon?: FluxIconName;
         readonly isHidden?: boolean;
     }>();
+
+    const translate = useTranslate();
 </script>

@@ -8,6 +8,8 @@
                     v-for="(tab, index) of tabs"
                     :key="index">
                     <FluxTabBarItem
+                        :id="`${baseId}-tab-${index}`"
+                        :aria-controls="`${baseId}-panel-${index}`"
                         :icon="tab.icon"
                         :is-active="modelValue === index"
                         :label="tab.label"
@@ -33,7 +35,7 @@
     setup>
     import { flattenVNodeTree, getComponentProps } from '@flux-ui/internals';
     import type { FluxIconName } from '@flux-ui/types';
-    import { computed, ref, unref, type VNode, watch } from 'vue';
+    import { cloneVNode, computed, ref, unref, useId, type VNode, watch } from 'vue';
     import { FluxWindowTransition } from '$flux/transition';
     import { VNodeRenderer } from './primitive';
     import FluxTabBar from './FluxTabBar.vue';
@@ -70,10 +72,17 @@
         }): any;
     }>();
 
+    const baseId = useId();
     const isTransitioningBack = ref(false);
 
-    const children = computed(() => flattenVNodeTree(slots.default?.() ?? []));
-    const tabs = computed<{ icon?: FluxIconName; label?: string; }[]>(() => unref(children)
+    const rawChildren = computed(() => flattenVNodeTree(slots.default?.() ?? []));
+
+    const children = computed(() => unref(rawChildren).map((child, index) => cloneVNode(child, {
+        id: `${baseId}-panel-${index}`,
+        'aria-labelledby': `${baseId}-tab-${index}`
+    })));
+
+    const tabs = computed<{ icon?: FluxIconName; label?: string; }[]>(() => unref(rawChildren)
         .filter((child: VNode) => getComponentProps<any>(child).icon || getComponentProps<any>(child).label)
         .map((child: VNode) => ({
             icon: getComponentProps<any>(child).icon,
