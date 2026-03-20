@@ -40,9 +40,11 @@ Here are the official translations for the strings used by Flux. If you have add
 flux:
   back: "Back"
   cancel: "Cancel"
+  close: "Close"
   comingSoon: "Coming soon"
   continue: "Continue"
   customPeriod: "Custom period"
+  delete: "Delete"
   filter: "Filter"
   filterReset: "Reset filters"
   justNow: "Just now"
@@ -95,9 +97,11 @@ flux:
   "flux": {
     "back": "Back",
     "cancel": "Cancel",
+    "close": "Close",
     "comingSoon": "Coming soon",
     "continue": "Continue",
     "customPeriod": "Custom period",
+    "delete": "Delete",
     "filter": "Filter",
     "filterReset": "Reset filters",
     "justNow": "Just now",
@@ -157,9 +161,11 @@ flux:
 flux:
     back: "Terug"
     cancel: "Annuleren"
+    close: "Sluiten"
     comingSoon: "Binnenkort"
     continue: "Verder"
     customPeriod: "Aangepaste periode"
+    delete: "Verwijderen"
     filter: "Filter"
     filterReset: "Verwijder alle filters"
     max: "Maximaal"
@@ -211,9 +217,11 @@ flux:
   "flux": {
     "back": "Terug",
     "cancel": "Annuleren",
+    "close": "Sluiten",
     "comingSoon": "Binnenkort",
     "continue": "Verder",
     "customPeriod": "Aangepaste periode",
+    "delete": "Verwijderen",
     "filter": "Filter",
     "filterReset": "Verwijder alle filters",
     "max": "Maximaal",
@@ -272,9 +280,11 @@ flux:
 flux:
   back: "Retour"
   cancel: "Annuler"
+  close: "Fermer"
   comingSoon: "Bientôt disponible"
   continue: "Continuer"
   customPeriod: "Période personnalisée"
+  delete: "Supprimer"
   filter: "Filtrer"
   filterReset: "Réinitialiser les filtres"
   justNow: "À l'instant"
@@ -327,9 +337,11 @@ flux:
   "flux": {
     "back": "Retour",
     "cancel": "Annuler",
+    "close": "Fermer",
     "comingSoon": "Bientôt disponible",
     "continue": "Continuer",
     "customPeriod": "Période personnalisée",
+    "delete": "Supprimer",
     "filter": "Filtrer",
     "filterReset": "Réinitialiser les filtres",
     "justNow": "À l'instant",
