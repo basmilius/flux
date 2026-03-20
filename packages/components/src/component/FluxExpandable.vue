@@ -18,7 +18,7 @@
                         :name="icon"/>
                 </FluxFadeTransition>
 
-                <span v-if="label">{{ label }}</span>
+                <span>{{ label }}</span>
 
                 <FluxFadeTransition>
                     <FluxIcon
