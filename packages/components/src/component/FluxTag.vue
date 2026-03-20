@@ -6,7 +6,8 @@
             color === 'danger' && $style.tagDanger,
             color === 'info' && $style.tagInfo,
             color === 'success' && $style.tagSuccess,
-            color === 'warning' && $style.tagWarning
+            color === 'warning' && $style.tagWarning,
+            isKeyboardShortcut && $style.tagKeyboardShortcut
         )"
         :component-type="type"
         :tabindex="tabindex"
@@ -69,6 +70,7 @@
         readonly icon?: FluxIconName;
         readonly isClickable?: boolean;
         readonly isDeletable?: boolean;
+        readonly isKeyboardShortcut?: boolean;
         readonly isLoading?: boolean;
         readonly label: string;
         readonly type?: FluxPressableType;

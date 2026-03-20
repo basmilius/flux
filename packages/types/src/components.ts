@@ -60,3 +60,28 @@ export type FluxTreeViewOption = {
     readonly icon?: FluxIconName;
     readonly children?: FluxTreeViewOption[];
 };
+
+export type FluxCommandSubAction = {
+    readonly label: string;
+    readonly icon?: FluxIconName;
+    readonly onActivate: () => void;
+};
+
+export type FluxCommandSourceItem = {
+    readonly id: string | number;
+    readonly label: string;
+    readonly subLabel?: string;
+    readonly icon?: FluxIconName;
+    readonly command?: string;
+    readonly subActions?: FluxCommandSubAction[];
+    readonly onActivate: () => void;
+};
+
+export type FluxCommandSource = {
+    readonly key: string;
+    readonly label: string;
+    readonly icon?: FluxIconName;
+    readonly tab?: boolean;
+    readonly items: FluxCommandSourceItem[];
+    readonly fetchSearch?: (query: string) => Promise<FluxCommandSourceItem[]>;
+};

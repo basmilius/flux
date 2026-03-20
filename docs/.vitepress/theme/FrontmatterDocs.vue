@@ -4,6 +4,7 @@
     <Props v-if="frontmatter.props"/>
     <Emits v-if="frontmatter.emits"/>
     <Slots v-if="frontmatter.slots"/>
+    <KeyboardShortcuts v-if="frontmatter.keyboardShortcuts"/>
 </template>
 
 <script
@@ -11,6 +12,7 @@
     setup>
     import { useData } from 'vitepress';
     import Emits from './Emits.vue';
+    import KeyboardShortcuts from './KeyboardShortcuts.vue';
     import Props from './Props.vue';
     import RequiredIcons from './RequiredIcons.vue';
     import Slots from './Slots.vue';

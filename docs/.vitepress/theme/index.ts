@@ -25,6 +25,7 @@ import ComponentGridIndex from './ComponentGridIndex.vue';
 import ComponentGridItem from './ComponentGridItem.vue';
 import Emits from './Emits.vue';
 import FluxView from './FluxView.vue';
+import KeyboardShortcuts from './KeyboardShortcuts.vue';
 import FrontmatterDocs from './FrontmatterDocs.vue';
 import Layout from './Layout.vue';
 import Preview from './Preview.vue';
@@ -116,6 +117,7 @@ const theme: Theme = {
         app.component('Emits', Emits);
         app.component('FluxView', FluxView);
         app.component('FrontmatterDocs', FrontmatterDocs);
+        app.component('KeyboardShortcuts', KeyboardShortcuts);
         app.component('Preview', Preview);
         app.component('Props', Props);
         app.component('RequiredIcons', RequiredIcons);
