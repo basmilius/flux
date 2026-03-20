@@ -9,6 +9,7 @@ Please read the following instructions and checks in order to proceed.
 - The Dashboard library package is available under `@flux-ui/dashboard`.
 - The internal package is available under `@flux-ui/internals`.
 - The types package is available under `@flux-ui/types`.
+- The statistics package is available under `@flux-ui/statistics`.
 
 ## ⭐️ Prerequisites
 

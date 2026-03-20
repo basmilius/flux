@@ -32,7 +32,7 @@
                     :name="item.icon"
                     :size="15"/>
 
-                <span>{{ item.label }}</span>
+                <span v-if="item.label">{{ item.label }}</span>
             </button>
         </template>
     </nav>
