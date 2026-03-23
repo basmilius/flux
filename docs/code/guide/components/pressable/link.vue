@@ -1,11 +1,11 @@
 <template>
     <FluxPressable
         component-type="link"
-        href="https://flux.bas.dev"
+        href="https://flux-ui.dev"
         target="_blank">
         <FluxPane>
             <FluxPaneBody>
-                External link to flux.bas.dev
+                External link to flux-ui.dev
             </FluxPaneBody>
         </FluxPane>
     </FluxPressable>

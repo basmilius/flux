@@ -48,7 +48,7 @@ Import the components you want to use, like this:
 <template>
     <FluxPane> <!-- [!code focus:5] -->
         <FluxSecondaryButton
-            href="https://flux.bas.dev"
+            href="https://flux-ui.dev"
             label="Button"/>
     </FluxPane>
 </template>
@@ -125,7 +125,7 @@ Import the components you want to use, like this:
 <template>
     <FluxPane> <!-- [!code focus:5] -->
         <FluxSecondaryButton
-            href="https://flux.bas.dev"
+            href="https://flux-ui.dev"
             label="Button"/>
     </FluxPane>
 </template>

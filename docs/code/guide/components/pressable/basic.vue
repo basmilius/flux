@@ -12,7 +12,7 @@
 
         <FluxPressable
             component-type="link"
-            href="https://flux.bas.dev"
+            href="https://flux-ui.dev"
             target="_blank">
             <FluxPane>
                 <FluxPaneBody>
