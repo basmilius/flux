@@ -33,6 +33,7 @@
     pointer-events: none;
     transition: 300ms var(--swift-out);
     transition-property: left, width;
+    translate: -1px 0;
 }
 
 .segmentedControlItem {
