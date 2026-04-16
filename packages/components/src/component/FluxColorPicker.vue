@@ -6,6 +6,7 @@
         }">
         <CoordinatePicker
             v-model="saturationValue"
+            :aria-label="translate('flux.colorSaturationBrightness')"
             :class="$style.colorPickerSaturation"
             :max="1"
             :min="0"
@@ -14,6 +15,7 @@
 
         <FluxFormSlider
             v-model="hue"
+            :aria-label="translate('flux.hue')"
             :class="$style.colorPickerHueSlider"
             is-tooltip-disabled
             :max="360"
@@ -23,6 +25,7 @@
         <FluxFormSlider
             v-if="isAlphaEnabled"
             v-model="alpha"
+            :aria-label="translate('flux.opacity')"
             :class="$style.colorPickerAlphaSlider"
             is-tooltip-disabled
             :max="1"
@@ -34,7 +37,8 @@
                 :class="$style.colorPickerPreview"
                 :style="{
                 '--color': rgb
-            }"/>
+            }"
+                aria-hidden="true"/>
 
             <FluxFormField
                 v-if="type === 'hex'"
@@ -129,6 +133,7 @@
     import { hexToRGB, hslToHSV, hslToRGB, hsvToHSL, hsvToRGB, rgbToHEX, rgbToHSL, rgbToHSV } from '@basmilius/utils';
     import { blue500 } from '@flux-ui/internals';
     import { computed, type ComputedRef, ref, unref, watch } from 'vue';
+    import { useTranslate } from '$flux/composable/private';
     import CoordinatePicker from './primitive/CoordinatePicker.vue';
     import FluxFormField from './FluxFormField.vue';
     import FluxFormInput from './FluxFormInput.vue';
@@ -145,6 +150,8 @@
         readonly isAlphaEnabled?: boolean;
         readonly type?: 'hex' | 'rgb' | 'hsl' | 'hsv';
     }>();
+
+    const translate = useTranslate();
 
     const alpha = ref(1);
     const hsv = ref<[number, number, number]>([0, 0, 0]);

@@ -5,7 +5,10 @@
             isDragging && $style.isDragging,
             isDraggingOver && $style.isDraggingOver
         ]"
-        :aria-disabled="disabled ? true : undefined">
+        :aria-disabled="disabled ? true : undefined"
+        :aria-label="ariaLabel ?? translate('flux.dropFilesOrClick')"
+        :tabindex="disabled ? -1 : 0"
+        @keydown="onKeyDown">
         <div
             :class="$style.dropZoneContent"
             @dragleave.capture="onDragLeave"
@@ -54,6 +57,7 @@
     import { roundStep } from '@basmilius/utils';
     import { onMounted, onUnmounted, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '$flux/composable';
+    import { useTranslate } from '$flux/composable/private';
     import { FluxFadeTransition } from '$flux/transition';
     import FluxSpinner from './FluxSpinner.vue';
     import $style from '$flux/css/component/DropZone.module.scss';
@@ -65,10 +69,12 @@
 
     const {
         accept,
+        ariaLabel,
         disabled: componentDisabled,
         isMultiple
     } = defineProps<{
         readonly accept?: string;
+        readonly ariaLabel?: string;
         readonly disabled?: boolean;
         readonly isLoading?: boolean;
         readonly isMultiple?: boolean;
@@ -99,6 +105,7 @@
 
     const contentRef = useTemplateRef('content');
     const disabled = useDisabled(toRef(() => componentDisabled));
+    const translate = useTranslate();
 
     const isDragging = ref(false);
     const isDraggingOver = ref(false);
@@ -115,6 +122,13 @@
         window.removeEventListener('dragover', onWindowDragStart);
         window.removeEventListener('drop', onWindowDrop);
     });
+
+    function onKeyDown(evt: KeyboardEvent): void {
+        if (evt.key === 'Enter' || evt.key === ' ') {
+            showPicker();
+            evt.preventDefault();
+        }
+    }
 
     function onDragEnter(evt: DragEvent): void {
         isDraggingOver.value = true;

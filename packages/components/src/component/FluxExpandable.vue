@@ -80,8 +80,8 @@
 
     const expandIcon = computed<FluxIconName>(() => unref(isOpen) ? 'minus' : 'plus');
 
-    onBeforeMount(() => register?.(unref(componentId), instance));
-    onUnmounted(() => unregister?.(unref(componentId)));
+    onBeforeMount(() => register?.(componentId.value, instance));
+    onUnmounted(() => unregister?.(componentId.value));
 
     function close(): void {
         isOpen.value = false;

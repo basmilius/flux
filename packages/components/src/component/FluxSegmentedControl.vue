@@ -1,7 +1,10 @@
 <template>
-    <nav
+    <div
         ref="control"
-        :class="isFill ? $style.segmentedControlFill : $style.segmentedControlInline">
+        :class="isFill ? $style.segmentedControlFill : $style.segmentedControlInline"
+        role="radiogroup"
+        :aria-label="ariaLabel"
+        @keydown="onKeyDown">
         <div
             v-if="activeItemWidth > 0"
             :class="$style.segmentedControlHighlight"
@@ -25,6 +28,10 @@
                     $style.segmentedControlItem,
                     index === modelValue && $style.isActive
                 )"
+                role="radio"
+                :aria-checked="index === modelValue"
+                :aria-label="item.label"
+                :tabindex="index === modelValue ? 0 : -1"
                 type="button"
                 @click="activate(index)">
                 <FluxIcon
@@ -35,7 +42,7 @@
                 <span v-if="item.label">{{ item.label }}</span>
             </button>
         </template>
-    </nav>
+    </div>
 </template>
 
 <script
@@ -53,6 +60,7 @@
     });
 
     defineProps<{
+        readonly ariaLabel?: string;
         readonly isFill?: boolean;
         readonly items: FluxSegmentedControlItemObject[];
     }>();
@@ -70,10 +78,49 @@
 
     watchEffect(() => updateHighlight(unref(modelValue)), {flush: 'post'});
 
-    useResizeObserver(controlRef, () => updateHighlight(unref(modelValue)));
+    useResizeObserver(controlRef as any, () => updateHighlight(unref(modelValue)));
 
     function activate(index: number): void {
         modelValue.value = index;
+
+        const itemRef = itemRefs.value?.[index];
+        itemRef?.focus();
+    }
+
+    function onKeyDown(evt: KeyboardEvent): void {
+        const items = itemRefs.value;
+
+        if (!items) {
+            return;
+        }
+
+        let newIndex: number | null = null;
+
+        switch (evt.key) {
+            case 'ArrowLeft':
+            case 'ArrowUp':
+                newIndex = Math.max(0, unref(modelValue) - 1);
+                break;
+
+            case 'ArrowRight':
+            case 'ArrowDown':
+                newIndex = Math.min(items.length - 1, unref(modelValue) + 1);
+                break;
+
+            case 'Home':
+                newIndex = 0;
+                break;
+
+            case 'End':
+                newIndex = items.length - 1;
+                break;
+
+            default:
+                return;
+        }
+
+        activate(newIndex);
+        evt.preventDefault();
     }
 
     function updateHighlight(index: number): void {

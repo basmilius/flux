@@ -2,8 +2,8 @@
     <div
         ref="root"
         :class="$style.coordinatePicker"
-        role="slider"
         :aria-disabled="disabled ? true : undefined"
+        :aria-label="ariaLabel"
         @pointerdown="onPointerDown">
         <CoordinatePickerThumb
             :disabled="disabled"
@@ -38,6 +38,7 @@
         min: minProp = 0,
         step: stepProp = 1
     } = defineProps<{
+        readonly ariaLabel?: string;
         readonly disabled?: boolean;
         readonly max?: number | [number, number];
         readonly min?: number | [number, number];

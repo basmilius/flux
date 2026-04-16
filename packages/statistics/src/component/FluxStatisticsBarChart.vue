@@ -9,7 +9,7 @@
                 show: true,
                 clipMarkers: false,
                 padding: {
-                    top: 21,
+                    top: 18,
                     left: 9,
                     right: 9
                 }

@@ -5,7 +5,8 @@
         role="progressbar"
         :aria-valuenow="value"
         :aria-valuemax="max"
-        :aria-valuemin="min">
+        :aria-valuemin="min"
+        :aria-valuetext="status ? `${status}: ${progress}` : undefined">
         <div :class="isIndeterminate ? $style.progressBarTrackIndeterminate : $style.progressBarTrack">
             <div
                 :class="position >= 1 ? $style.progressBarValueComplete : $style.progressBarValueIncomplete"

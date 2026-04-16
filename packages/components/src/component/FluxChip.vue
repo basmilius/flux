@@ -6,6 +6,7 @@
             isSelectable && $style.isSelectable,
             isSelected && $style.isSelected
         )"
+        :aria-pressed="isSelectable ? isSelected : undefined"
         @click="$emit('click', $event)">
         <FluxFadeTransition v-if="isSelectable">
             <FluxIcon

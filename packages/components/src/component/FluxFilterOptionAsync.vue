@@ -1,7 +1,7 @@
 <template>
     <FilterOptionBase
         v-model:search-query="modelSearch"
-        :is-loading="isLoading"
+        :is-loading="isLoading.value"
         is-searchable
         :options="options"
         :selected="[currentValue]"
@@ -14,7 +14,7 @@
     setup>
     import { useDebouncedRef, useLoaded } from '@basmilius/common';
     import type { FluxFilterOptionRow, FluxFilterValue, FluxFilterValueSingle, FluxIconName } from '@flux-ui/types';
-    import { computed, ref, unref, watch } from 'vue';
+    import { computed, type Ref, ref, unref, watch } from 'vue';
     import { useFilterInjection } from '$flux/composable';
     import { isFluxFilterOptionItem } from '$flux/data';
     import { FilterOptionBase } from './primitive';
@@ -41,7 +41,7 @@
 
     const {back, state, setValue} = useFilterInjection();
     const {isLoading, loaded} = useLoaded();
-    const debouncedModelSearch = useDebouncedRef(modelSearch, 150);
+    const debouncedModelSearch = useDebouncedRef(modelSearch, 150) as unknown as Ref<string>;
     const fetchOptions = computed(() => loaded(fetchOptionsProp));
     const fetchRelevant = computed(() => loaded(fetchRelevantProp));
     const fetchSearch = computed(() => loaded(fetchSearchProp));

@@ -13,6 +13,7 @@
             ref="fields"
             :class="$style.pinInputField"
             maxlength="1"
+            :aria-label="translate('flux.pinDigit', {index: field, total: maxLength})"
             :autocomplete="field === 1 ? autoComplete : undefined"
             :autofocus="field === 1 && autoFocus"
             :disabled="disabled"
@@ -32,6 +33,7 @@
     import type { FluxAutoCompleteType } from '@flux-ui/types';
     import { toRef, unref, useTemplateRef } from 'vue';
     import { useDisabled, useFormFieldInjection } from '$flux/composable';
+    import { useTranslate } from '$flux/composable/private';
     import $style from '$flux/css/component/Form.module.scss';
 
     const modelValue = defineModel<string>({
@@ -53,6 +55,7 @@
 
     const disabled = useDisabled(toRef(() => componentDisabled));
     const {id} = useFormFieldInjection();
+    const translate = useTranslate();
 
     const fieldRefs = useTemplateRef<HTMLInputElement[]>('fields');
 

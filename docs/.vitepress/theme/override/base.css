@@ -20,7 +20,7 @@
 
 html {
     line-height: 1.4;
-    font-size: 16px;
+    font-size: 15px;
     -webkit-text-size-adjust: 100%;
 }
 
@@ -34,8 +34,8 @@ body {
     min-width: 320px;
     min-height: 100vh;
     line-height: 24px;
-    font-family: var(--vp-font-family-base);
-    font-size: 16px;
+    font-family: var(--vp-font-family-base), sans-serif;
+    font-size: 1rem;
     font-weight: 400;
     color: var(--vp-c-text-1);
     background-color: var(--vp-c-bg);
@@ -118,7 +118,7 @@ body {
     code,
     kbd,
     samp {
-        font-family: var(--vp-font-family-mono);
+        font-family: var(--vp-font-family-mono), sans-serif;
     }
 
     img,

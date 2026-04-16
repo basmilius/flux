@@ -180,11 +180,11 @@ tfoot .tableCell {
 }
 
 .basePaneStructure > .table .tableCell:first-child .tableCellContent {
-    padding-left: 21px;
+    padding-left: 18px;
 }
 
 .basePaneStructure > .table .tableCell:last-child .tableCellContent {
-    padding-right: 21px;
+    padding-right: 18px;
 }
 
 .basePaneStructure > .table .tableActions {
@@ -192,7 +192,7 @@ tfoot .tableCell {
 }
 
 .basePaneStructure > .table :is(caption) {
-    padding: 12px 21px;
+    padding: 12px 18px;
     border-top: 1px solid var(--gray-100);
 }
 

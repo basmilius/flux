@@ -8,8 +8,9 @@
             scale: definition.scale > 1 ? definition.scale : undefined
         }"
         focusable="false"
-        role="img"
-        aria-hidden="true"
+        :role="ariaLabel ? 'img' : undefined"
+        :aria-hidden="ariaLabel ? undefined : true"
+        :aria-label="ariaLabel"
         @click="onClick">
         <path
             v-for="path in definition.paths"
@@ -38,6 +39,7 @@
     const {
         name
     } = defineProps<{
+        readonly ariaLabel?: string;
         readonly size?: number | string;
         readonly name?: FluxIconName;
     }>();

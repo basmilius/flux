@@ -48,7 +48,8 @@ export default defineConfig({
             groupIconVitePlugin() as any,
             preset({
                 cssModules: {
-                    classNames: 'mangled'
+                    classNames: 'camel',
+                    prefix: 'f_'
                 },
                 fileNames: 'actual'
             }),

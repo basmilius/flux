@@ -41,7 +41,7 @@
             return [];
         }
 
-        const mulberry = mulberry32(seed ?? unref(componentId));
+        const mulberry = mulberry32(seed ?? componentId.value);
         const polygons: Polygon[] = [];
 
         for (const color of colors) {

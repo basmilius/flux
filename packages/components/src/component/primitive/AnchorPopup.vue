@@ -59,7 +59,7 @@
         window.removeEventListener('scroll', onScroll);
     });
 
-    useMutationObserver(popupRef, () => {
+    useMutationObserver(popupRef as any, () => {
         reposition();
     }, {childList: true, subtree: true});
 

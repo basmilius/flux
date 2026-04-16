@@ -13,6 +13,10 @@
             :percentage-upper="percentage">
             <SliderThumb
                 ref="thumb"
+                :aria-label="ariaLabel"
+                :aria-valuemax="max"
+                :aria-valuemin="min"
+                :aria-valuenow="modelValue"
                 :disabled="disabled"
                 :is-dragging="isDragging"
                 :position="percentage"
@@ -36,6 +40,7 @@
     });
 
     const {
+        ariaLabel,
         formatter = formatNumber,
         disabled: componentDisabled = false,
         isTooltipDisabled,
@@ -45,6 +50,7 @@
     } = defineProps<{
         formatter?(value: number, decimals?: number): string;
 
+        readonly ariaLabel?: string;
         readonly disabled?: boolean;
         readonly isTicksVisible?: boolean;
         readonly isTooltipDisabled?: boolean;

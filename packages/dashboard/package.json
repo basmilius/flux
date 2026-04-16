@@ -53,17 +53,17 @@
     "dependencies": {
         "@flux-ui/components": "workspace:*",
         "@flux-ui/internals": "workspace:*",
-        "vue": "^3.6.0-beta.8"
+        "vue": "^3.6.0-beta.9"
     },
     "devDependencies": {
-        "@basmilius/vite-preset": "^3.14.0",
+        "@basmilius/vite-preset": "^3.16.0",
         "@flux-ui/types": "workspace:*",
-        "@types/node": "^25.5.0",
+        "@types/node": "^25.5.2",
         "@vitejs/plugin-vue": "^6.0.5",
-        "@vue/tsconfig": "^0.9.0",
-        "sass-embedded": "^1.98.0",
-        "typescript": "^5.9.3",
-        "vite": "^8.0.1",
+        "@vue/tsconfig": "^0.9.1",
+        "sass-embedded": "^1.99.0",
+        "typescript": "^6.0.2",
+        "vite": "^8.0.7",
         "vue-tsc": "^3.2.6"
     }
 }

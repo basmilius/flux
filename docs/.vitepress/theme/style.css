@@ -96,3 +96,22 @@ button {
 .language-vue:has(> p > blockquote) {
     padding-left: 45px !important;
 }
+
+.vp-code-group .blocks :where(h1, h2, h3, h4, h5, h6) {
+    margin: unset;
+    line-height: 1.6;
+}
+
+.vp-code-group .blocks p {
+    margin: unset;
+    line-height: 1.6;
+}
+
+.vp-code-group .blocks .button,
+.vp-code-group .blocks .flyout > .button {
+    align-self: center;
+}
+
+.vp-code-group .blocks .pane {
+    width: 100%;
+}

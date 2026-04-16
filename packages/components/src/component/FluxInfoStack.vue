@@ -1,7 +1,7 @@
 <template>
     <FluxStack
         direction="vertical"
-        :gap="21">
+        :gap="18">
         <slot/>
     </FluxStack>
 </template>

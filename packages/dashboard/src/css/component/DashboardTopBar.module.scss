@@ -4,9 +4,9 @@
     position: sticky;
     display: flex;
     top: 0;
-    height: 84px;
-    padding-left: 30px;
-    padding-right: 30px;
+    height: 72px;
+    padding-left: 21px;
+    padding-right: 21px;
     align-items: center;
     flex-flow: row;
     gap: 15px;
@@ -15,7 +15,7 @@
     z-index: 100;
 
     > h1 {
-        font-size: 18px;
+        font-size: 16px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;

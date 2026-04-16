@@ -1,5 +1,5 @@
 <template>
-    <div :class="isInset ? $style.paneMediaInset : $style.paneMedia">
+    <div :class="isInset ? $style.paneMediaInset : $style.paneMediaDefault">
         <img
             v-if="imageUrl"
             :class="$style.paneMediaImage"

@@ -60,7 +60,7 @@
 }
 
 .calendarCell {
-    padding: 12px 21px;
+    padding: 12px 18px;
     background: var(--gray-25);
 }
 
@@ -102,7 +102,7 @@
 
 .calendarEntryDate {
     position: absolute;
-    right: 21px;
+    right: 18px;
     bottom: 15px;
     color: var(--foreground);
     font-size: 15px;
@@ -144,13 +144,13 @@
     }
 
     &.isStart {
-        margin-right: -21px;
+        margin-right: -18px;
         border-top-left-radius: var(--radius-half);
         border-bottom-left-radius: var(--radius-half);
     }
 
     &.isEnd {
-        margin-left: -21px;
+        margin-left: -18px;
         border-top-right-radius: var(--radius-half);
         border-bottom-right-radius: var(--radius-half);
     }

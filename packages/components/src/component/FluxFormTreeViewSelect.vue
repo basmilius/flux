@@ -221,8 +221,8 @@
         visibleNodes,
     });
 
-    useClickOutside([anchorRef, anchorPopupRef], isPopupOpen, () => isPopupOpen.value = false);
-    useClickOutside(anchorRef, isPopupOpen, () => unref(focusElement)?.focus());
+    useClickOutside([anchorRef, anchorPopupRef] as any, isPopupOpen as any, () => isPopupOpen.value = false);
+    useClickOutside(anchorRef as any, isPopupOpen as any, () => unref(focusElement)?.focus());
 
     function toggle(): void {
         if (unref(disabled)) {

@@ -55,7 +55,7 @@
     const tabBarRef = useTemplateRef('tabBar');
 
     useEventListener(tabBarRef, 'scroll', () => checkScroll());
-    useMutationObserver(tabBarRef, () => checkScroll(), {childList: true});
+    useMutationObserver(tabBarRef as any, () => checkScroll(), {childList: true});
 
     const isEndArrowVisible = ref(false);
     const isStartArrowVisible = ref(false);

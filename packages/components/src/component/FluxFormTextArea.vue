@@ -14,6 +14,7 @@
             '--rows': rows
         }"
         :aria-disabled="disabled ? true : undefined"
+        :aria-readonly="isReadonly || undefined"
         @blur="emit('blur')"
         @focus="emit('focus')"/>
 </template>

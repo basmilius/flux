@@ -1,0 +1,40 @@
+.layerPane {
+    display: flex;
+    flex-flow: column;
+    border: 1px solid var(--surface-stroke-out);
+    border-radius: var(--radius);
+    background: var(--gray-50);
+    background-clip: padding-box;
+}
+
+.layerPane > .basePaneStructure {
+    border-right-width: 0;
+    border-left-width: 0;
+}
+
+.layerPane > .basePaneStructure:first-child {
+    border-top-width: 0;
+}
+
+.layerPane > .basePaneStructure:last-child {
+    border-bottom-width: 0;
+}
+
+.layerPane > .basePaneStructure + .basePaneStructure {
+    border-top-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.layerPane > .basePaneStructure:has(+ .basePaneStructure) {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.layerPaneSecondary {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 12px 18px;
+    color: var(--foreground-prominent);
+}

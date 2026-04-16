@@ -59,7 +59,7 @@
     padding-left: 3px;
     padding-right: 3px;
     align-items: flex-end;
-    gap: 30px;
+    gap: 21px;
     overflow: auto;
     scrollbar-width: none;
 
@@ -140,8 +140,8 @@
 .basePaneStructure > .form > .tabs > .tabBar {
     --tab-padding: 18px;
 
-    padding-left: 21px;
-    padding-right: 21px;
+    padding-left: 18px;
+    padding-right: 18px;
     background: var(--gray-50);
 
     &:first-child {

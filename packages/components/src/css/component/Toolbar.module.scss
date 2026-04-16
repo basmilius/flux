@@ -44,12 +44,12 @@
 
     &.isTopEnd,
     &.isBottomEnd {
-        right: 21px;
+        right: 18px;
     }
 
     &.isTopStart,
     &.isBottomStart {
-        left: 21px;
+        left: 18px;
     }
 }
 
@@ -81,5 +81,5 @@
 }
 
 .paneHeader + .toolbarFlat {
-    margin-top: 21px;
+    margin-top: 18px;
 }

@@ -13,6 +13,10 @@
             :percentage-upper="percentageUpper">
             <SliderThumb
                 ref="lowerThumb"
+                :aria-label="translate('flux.lowerBound')"
+                :aria-valuemax="max"
+                :aria-valuemin="min"
+                :aria-valuenow="modelValue[0]"
                 :disabled="disabled"
                 :is-dragging="isDraggingLower"
                 :position="percentageLower"
@@ -22,6 +26,10 @@
 
             <SliderThumb
                 ref="upperThumb"
+                :aria-label="translate('flux.upperBound')"
+                :aria-valuemax="max"
+                :aria-valuemin="min"
+                :aria-valuenow="modelValue[1]"
                 :disabled="disabled"
                 :is-dragging="isDraggingUpper"
                 :position="percentageUpper"
@@ -38,6 +46,7 @@
     import { clampWithStepPrecision, countDecimals, formatNumber } from '@basmilius/utils';
     import { computed, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '$flux/composable';
+    import { useTranslate } from '$flux/composable/private';
     import { addTooltip, removeTooltip, updateTooltip } from '$flux/data';
     import { SliderBase, SliderThumb, SliderTrack } from './primitive';
 
@@ -66,6 +75,7 @@
     const disabled = useDisabled(toRef(() => componentDisabled));
     const lowerThumbRef = useTemplateRef('lowerThumb');
     const upperThumbRef = useTemplateRef('upperThumb');
+    const translate = useTranslate();
 
     const isDraggingLower = ref(false);
     const isDraggingUpper = ref(false);

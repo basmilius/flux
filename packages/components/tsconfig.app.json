@@ -14,6 +14,8 @@
         "noFallthroughCasesInSwitch": true,
         "noUncheckedSideEffectImports": true,
         "verbatimModuleSyntax": true,
+
+        "rootDir": "src",
         "paths": {
             "$flux/*": [
                 "src/*"

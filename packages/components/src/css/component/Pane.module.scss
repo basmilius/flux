@@ -40,15 +40,15 @@
     composes: basePaneElement from './base/Pane.module.scss';
 
     display: flex;
-    padding: 21px 21px 0;
+    padding: 18px 18px 0;
     gap: 15px;
 
     &:only-child {
-        padding: 21px;
+        padding: 18px;
     }
 
     &:has(+ .basePaneElement:not(.paneBody)) {
-        padding: 21px;
+        padding: 18px;
     }
 }
 
@@ -80,7 +80,7 @@
 .paneBody {
     composes: basePaneElement from './base/Pane.module.scss';
 
-    padding: 21px;
+    padding: 18px;
 }
 
 .paneBody + .paneBody {
@@ -91,7 +91,7 @@
     composes: basePaneElement from './base/Pane.module.scss';
 
     display: flex;
-    padding: 21px;
+    padding: 18px;
     gap: 9px;
     background: var(--gray-50);
     border-top: 1px solid var(--gray-100);
@@ -129,6 +129,10 @@
         border-radius: inherit;
         z-index: 1;
     }
+}
+
+.paneMediaDefault {
+    composes: paneMedia;
 
     &:first-child {
         margin: -1px;
@@ -149,7 +153,7 @@
 .paneMediaInset {
     composes: paneMedia;
 
-    margin: 21px;
+    margin: 18px;
     border-radius: var(--radius-half);
 
     &:not(:first-child) {

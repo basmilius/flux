@@ -84,6 +84,8 @@ export { default as FluxItemActions } from './FluxItemActions.vue';
 export { default as FluxItemContent } from './FluxItemContent.vue';
 export { default as FluxItemMedia } from './FluxItemMedia.vue';
 export { default as FluxItemStack } from './FluxItemStack.vue';
+export { default as FluxLayerPane } from './FluxLayerPane.vue';
+export { default as FluxLayerPaneSecondary } from './FluxLayerPaneSecondary.vue';
 export { default as FluxLegend } from './FluxLegend.vue';
 export { default as FluxLink } from './FluxLink.vue';
 export { default as FluxMenu } from './FluxMenu.vue';

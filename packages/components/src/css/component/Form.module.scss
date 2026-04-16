@@ -478,13 +478,14 @@
     @include mixin.focus-ring-remove;
 
     .formInputIcon {
+        right: 0;
         margin: 15px;
         font-size: 18px;
     }
 
     .formInputNative {
-        padding-left: 21px;
-        padding-right: 21px;
+        padding-left: 18px;
+        padding-right: 18px;
     }
 }
 

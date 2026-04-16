@@ -80,7 +80,6 @@ const navigation: SidebarItem = {
         {
             text: 'Filter',
             link: '/guide/components/filter/',
-            image: null,
             collapsed: true,
             items: [
                 {text: 'Bar', link: '/guide/components/filter/bar'},
@@ -105,7 +104,6 @@ const navigation: SidebarItem = {
         {
             text: 'Form',
             link: '/guide/components/form/',
-            image: null,
             collapsed: true,
             items: [
                 {text: 'Column', link: '/guide/components/form/column'},
@@ -220,7 +218,6 @@ const navigation: SidebarItem = {
             text: 'Menu',
             link: '/guide/components/menu/',
             collapsed: true,
-            image: null,
             items: [
                 {text: 'Group', link: '/guide/components/menu/group'},
                 {text: 'Item', link: '/guide/components/menu/item'},
@@ -251,6 +248,7 @@ const navigation: SidebarItem = {
                 {text: 'Group', link: '/guide/components/pane/group'},
                 {text: 'Header', link: '/guide/components/pane/header'},
                 {text: 'Illustration', link: '/guide/components/pane/illustration'},
+                {text: 'Layer pane', link: '/guide/components/pane/layer-pane'},
                 {text: 'Media', link: '/guide/components/pane/media'}
             ]
         },

@@ -47,7 +47,7 @@ export function useCommandPalette(params: {
     const isTransitioningBack = ref(false);
     const savedState = ref<{ readonly search: string; readonly highlightedIndex: number; } | null>(null);
     const asyncResults = ref<Map<string, FluxCommandSourceItem[]>>(new Map());
-    const debouncedSearch = useDebouncedRef(search, 300);
+    const debouncedSearch = useDebouncedRef(search, 300) as unknown as Ref<string>;
     let fetchGeneration = 0;
 
     const filteredItems = computed<CommandPaletteResultItem[]>(() => {

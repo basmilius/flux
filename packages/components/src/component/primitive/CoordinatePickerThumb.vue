@@ -9,7 +9,9 @@
             top: `${position[1] * 100}%`,
             left: `${position[0] * 100}%`
         }"
+        role="slider"
         :aria-disabled="disabled ? true : undefined"
+        :aria-valuetext="`X: ${Math.round(position[0] * 100)}%, Y: ${Math.round(position[1] * 100)}%`"
         :tabindex="disabled ? -1 : 0"
         type="button"
         @keydown="onKeyDown"

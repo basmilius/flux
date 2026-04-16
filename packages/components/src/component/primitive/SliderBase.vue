@@ -6,7 +6,6 @@
             disabled && $style.isDisabled,
             isDragging && $style.isDragging
         )"
-        role="slider"
         :aria-disabled="disabled ? true : undefined"
         @pointerdown="onPointerDown">
         <FluxTicks

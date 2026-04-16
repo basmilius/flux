@@ -2,7 +2,7 @@
     <SelectBase
         v-model:search-query="modelSearch"
         :disabled="disabled"
-        :is-loading="isLoading"
+        :is-loading="isLoading.value"
         :is-multiple="isMultiple"
         is-searchable
         :options="groups"
@@ -18,7 +18,7 @@
     setup>
     import { useDebouncedRef, useLoaded } from '@basmilius/common';
     import type { FluxFormSelectEntry, FluxFormSelectValue, FluxFormSelectValueSingle } from '@flux-ui/types';
-    import { computed, ref, toRef, unref, watch } from 'vue';
+    import { computed, type Ref, ref, toRef, unref, watch } from 'vue';
     import { SelectBase } from '$flux/component/primitive';
     import { useDisabled } from '$flux/composable';
     import { useFormSelect } from '$flux/composable/private';
@@ -77,7 +77,7 @@
 
     const {groups, selected, values} = useFormSelect(modelValue, isMultiple, options);
     const {isLoading, loaded} = useLoaded();
-    const debouncedModelSearch = useDebouncedRef(modelSearch, 300);
+    const debouncedModelSearch = useDebouncedRef(modelSearch, 300) as unknown as Ref<string>;
     const fetchOptions = computed(() => loaded(fetchOptionsProp));
     const fetchRelevant = computed(() => loaded(fetchRelevantProp));
     const fetchSearch = computed(() => loaded(fetchSearchProp));

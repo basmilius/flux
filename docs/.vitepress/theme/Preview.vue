@@ -5,9 +5,9 @@
         <FluxGridPattern :stroke-dasharray="3"/>
 
         <slot name="body">
-            <div :class="$style.previewBody">
+            <FluxView :class="$style.previewBody">
                 <slot/>
-            </div>
+            </FluxView>
         </slot>
     </div>
 </template>
@@ -17,6 +17,7 @@
     setup>
     import { FluxGridPattern } from '@flux-ui/components';
     import { onMounted, ref, unref } from 'vue';
+    import FluxView from './FluxView.vue';
 
     const minHeight = ref(0);
     const previewRef = ref<HTMLDivElement>();
@@ -54,15 +55,6 @@
         border-radius: var(--radius);
         font-size: 15px;
         line-height: 1.6;
-
-        :global(h1, h2, h3, h4, h5, h6) {
-            line-height: 1.6;
-        }
-
-        :global(p) {
-            margin: unset;
-            line-height: 1.6;
-        }
 
         :global(svg) {
             stroke: var(--gray-100);

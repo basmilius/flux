@@ -8,7 +8,12 @@
         :style="{
             left: `${position * 100}%`
         }"
+        role="slider"
         :aria-disabled="disabled ? true : undefined"
+        :aria-label="ariaLabel"
+        :aria-valuemax="ariaValuemax"
+        :aria-valuemin="ariaValuemin"
+        :aria-valuenow="ariaValuenow"
         :tabindex="disabled ? -1 : 0"
         type="button"
         @keydown="onKeyDown"
@@ -32,6 +37,10 @@
     const {
         disabled: componentDisabled
     } = defineProps<{
+        readonly ariaLabel?: string;
+        readonly ariaValuemax?: number;
+        readonly ariaValuemin?: number;
+        readonly ariaValuenow?: number;
         readonly disabled?: boolean;
         readonly isDragging?: boolean;
         readonly position: number;

@@ -7,6 +7,7 @@
             isSticky && $style.isSticky
         )"
         scope="col"
+        :aria-sort="isSortable ? (sort ?? 'none') : undefined"
         :style="{
             minWidth: `${minWidth}px`
         }">

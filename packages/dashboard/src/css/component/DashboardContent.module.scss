@@ -1,18 +1,18 @@
 @use '../../../../components/src/css/mixin';
 
 .notice + .dashboardContent {
-    padding-top: 30px;
+    padding-top: 21px;
 }
 
 .dashboardContent {
     display: flex;
-    padding: 0 30px;
+    padding: 0 21px;
     flex-flow: column;
     flex-grow: 1;
 
     > :is(.calendar, .table) {
-        margin-left: -30px;
-        margin-right: -30px;
+        margin-left: -21px;
+        margin-right: -21px;
         height: calc(100dvh - 84px);
         flex-grow: 1;
     }
@@ -23,8 +23,8 @@
         border-radius: 0;
 
         .calendarActions {
-            padding-left: 30px;
-            padding-right: 30px;
+            padding-left: 21px;
+            padding-right: 21px;
         }
     }
 
@@ -32,11 +32,11 @@
         border-top: 1px solid var(--surface-stroke);
 
         .tableCell:first-child .tableCellContent {
-            padding-left: 30px;
+            padding-left: 21px;
         }
 
         .tableCell:last-child .tableCellContent {
-            padding-right: 30px;
+            padding-right: 21px;
         }
     }
 }

@@ -9,7 +9,10 @@
             isSearchable && $style.isSearchable
         )"
         :id="id"
+        role="combobox"
         :aria-disabled="disabled ? true : undefined"
+        :aria-expanded="isPopupOpen"
+        aria-haspopup="listbox"
         tabindex="0"
         tag-name="div"
         @click="toggle()"
@@ -205,8 +208,8 @@
     const highlightedId = computed(() => unref(rawOptions)[unref(highlightedIndex)]?.value);
     const rawOptions = computed(() => options.map(group => group[1]).flat());
 
-    useClickOutside([anchorRef, anchorPopupRef], isPopupOpen, () => isPopupOpen.value = false);
-    useClickOutside(anchorRef, isPopupOpen, () => unref(focusElement)?.focus());
+    useClickOutside([anchorRef, anchorPopupRef] as any, isPopupOpen as any, () => isPopupOpen.value = false);
+    useClickOutside(anchorRef as any, isPopupOpen as any, () => unref(focusElement)?.focus());
 
     function deselect(id: string | number | null): void {
         emit('deselect', id);

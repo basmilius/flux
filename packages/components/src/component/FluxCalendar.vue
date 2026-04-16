@@ -9,6 +9,7 @@
                         <template #opener="{open}">
                             <button
                                 :class="$style.calendarCurrentMonth"
+                                :aria-label="translate('flux.selectMonth')"
                                 type="button"
                                 @click="open">
                                 {{ viewMonth }}
@@ -33,6 +34,7 @@
                         <template #opener="{open}">
                             <button
                                 :class="$style.calendarCurrentYear"
+                                :aria-label="translate('flux.selectYear')"
                                 type="button"
                                 @click="open">
                                 {{ viewYear }}
@@ -42,6 +44,7 @@
                         <template #default="{close}">
                             <div :class="$styleDatePicker.datePickerYears">
                                 <FluxSecondaryButton
+                                    :aria-label="translate('flux.previousYears')"
                                     icon-leading="angle-left"
                                     tabindex="-1"
                                     @click="previousYears"/>
@@ -56,6 +59,7 @@
                                 </template>
 
                                 <FluxSecondaryButton
+                                    :aria-label="translate('flux.nextYears')"
                                     icon-leading="angle-right"
                                     tabindex="-1"
                                     @click="nextYears"/>
@@ -67,15 +71,18 @@
 
             <template #actionsEnd>
                 <FluxSecondaryButton
+                    :aria-label="translate('flux.today')"
                     :label="translate('flux.today')"
                     @click="setToday"/>
 
                 <FluxButtonGroup>
                     <FluxSecondaryButton
+                        :aria-label="translate('flux.previousMonth')"
                         icon-leading="angle-left"
                         @click="previousMonth"/>
 
                     <FluxSecondaryButton
+                        :aria-label="translate('flux.nextMonth')"
                         icon-leading="angle-right"
                         @click="nextMonth"/>
                 </FluxButtonGroup>

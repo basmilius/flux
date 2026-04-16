@@ -28,6 +28,7 @@
 
             <FluxPaginationButton
                 v-else
+                :aria-label="translate('flux.goToPage', {page: p})"
                 :label="`${p}`"
                 @click="navigate(p)"/>
         </template>

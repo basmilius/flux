@@ -132,7 +132,7 @@
     const chart = useTemplateRef('chart');
     const {t} = useI18n({useScope: 'parent'});
 
-    useResizeObserver(chart, () => {
+    useResizeObserver(chart as any, () => {
         const _chart = unref(chart);
 
         if (!_chart) {

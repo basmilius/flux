@@ -24,7 +24,7 @@
 
     const {
         direction = 'vertical',
-        gap = 21
+        gap = 18
     } = defineProps<{
         readonly direction?: FluxDirection;
         readonly gap?: number;
