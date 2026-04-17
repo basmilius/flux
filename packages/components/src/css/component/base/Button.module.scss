@@ -3,8 +3,6 @@
 @layer flux-base {
     .button {
         display: inline-flex;
-        height: 42px;
-        padding: 0 12px;
         align-items: center;
         flex-grow: 0;
         flex-shrink: 0;
@@ -64,12 +62,13 @@
     }
 
     .buttonIcon {
+        margin: 1px;
         flex-shrink: 0;
-        font-size: 20px;
+        font-size: 18px;
 
         &:only-child {
-            margin-left: -2px;
-            margin-right: -2px;
+            margin-left: 0;
+            margin-right: 0;
         }
     }
 

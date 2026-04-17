@@ -2,7 +2,7 @@
     <FluxBadge
         v-if="valueLabel"
         :class="$style.filterBadge"
-        :is-loading="isLoading.value"
+        :is-loading="isLoading"
         :label="valueLabel"
         @click="onClick"/>
 </template>

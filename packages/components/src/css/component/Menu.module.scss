@@ -41,7 +41,6 @@
 
     height: unset;
     min-height: 42px;
-    padding: 6px 12px;
     gap: 15px;
     justify-content: flex-start;
     border: 0;
@@ -64,11 +63,6 @@
 
 .menuItemIcon {
     composes: buttonIcon from './base/Button.module.scss';
-
-    margin-left: 2px;
-    margin-right: 2px;
-    color: var(--foreground-prominent);
-    font-size: 16px;
 }
 
 .menuItemLabel {
@@ -179,6 +173,11 @@
     height: 24px;
     width: 24px;
     border-radius: 3px;
+}
+
+.menuItem :local(.avatar) {
+    margin: -3px;
+    font-size: 24px;
 }
 
 .menuGroupHorizontal .menuItem {

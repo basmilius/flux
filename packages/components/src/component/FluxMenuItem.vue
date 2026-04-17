@@ -34,6 +34,12 @@
         </template>
 
         <template
+            v-else-if="slots.before"
+            #iconLeading>
+            <slot name="before"/>
+        </template>
+
+        <template
             v-if="command || commandIcon || commandLoading || slots.after"
             #after>
             <FluxSpinner
@@ -72,6 +78,7 @@
 
     const slots = defineSlots<{
         after(): any;
+        before(): any;
     }>();
 
     const {

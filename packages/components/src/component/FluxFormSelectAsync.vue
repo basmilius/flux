@@ -2,7 +2,7 @@
     <SelectBase
         v-model:search-query="modelSearch"
         :disabled="disabled"
-        :is-loading="isLoading.value"
+        :is-loading="isLoading"
         :is-multiple="isMultiple"
         is-searchable
         :options="groups"

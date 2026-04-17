@@ -1,0 +1,28 @@
+@use '$flux/css/mixin';
+
+.applicationMenuPromo {
+    display: flex;
+    padding: 12px;
+    flex-flow: row;
+    gap: 12px;
+    background: var(--gray-25);
+    border: 1px solid var(--application-menu-stroke);
+    border-radius: var(--radius);
+}
+
+.applicationMenuPromo > :local(.icon) {
+    margin: 2px;
+    color: var(--gray-600);
+    font-size: 16px;
+}
+
+.applicationMenuPromoContent {
+    display: flex;
+    flex-flow: column;
+    gap: 6px;
+    font-size: 14px;
+}
+
+.applicationMenuPromoContent :global(a) {
+    color: var(--gray-700);
+}

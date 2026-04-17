@@ -24,15 +24,19 @@ export default defineConfig(({mode}) => ({
             entry: resolve(import.meta.dirname, 'src/index.ts'),
             fileName: 'index',
             formats: ['es'],
-            name: 'fluxStatistics'
+            name: 'fluxApplication'
         },
         rolldownOptions: {
             experimental: {
                 lazyBarrel: true
             },
-            external: ['@flux-ui/components', 'apexcharts', 'lodash-es', 'vue', 'vue-i18n', 'vue3-apexcharts'],
+            external: ['@flux-ui/components', 'luxon', 'vue'],
             output: {
                 exports: 'named',
+                globals: {
+                    luxon: 'luxon',
+                    vue: 'vue'
+                },
                 sourcemapIgnoreList: path => path.includes('node_modules')
             }
         }
@@ -43,7 +47,7 @@ export default defineConfig(({mode}) => ({
     resolve: {
         alias: {
             '$flux': resolve(import.meta.dirname, '../components/src'),
-            '$fluxStatistics': resolve(import.meta.dirname, 'src')
+            '$fluxApplication': resolve(import.meta.dirname, 'src')
         }
     }
 }));

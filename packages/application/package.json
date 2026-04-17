@@ -1,6 +1,6 @@
 {
-    "name": "@flux-ui/dashboard",
-    "description": "Contains components to create dashboards with Flux UI.",
+    "name": "@flux-ui/application",
+    "description": "Contains components to create applications with Flux UI.",
     "version": "0.0.0",
     "type": "module",
     "license": "MIT",
@@ -9,7 +9,7 @@
     "repository": {
         "type": "git",
         "url": "git+https://github.com/basmilius/flux.git",
-        "directory": "packages/dashboard"
+        "directory": "packages/application"
     },
     "keywords": [
         "ui library",
@@ -20,7 +20,7 @@
         "ui",
         "components",
         "flux",
-        "dashboard"
+        "application"
     ],
     "scripts": {
         "build": "vue-tsc && vite build",

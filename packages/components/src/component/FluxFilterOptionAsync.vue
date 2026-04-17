@@ -1,7 +1,7 @@
 <template>
     <FilterOptionBase
         v-model:search-query="modelSearch"
-        :is-loading="isLoading.value"
+        :is-loading="isLoading"
         is-searchable
         :options="options"
         :selected="[currentValue]"

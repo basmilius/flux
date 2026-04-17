@@ -33,9 +33,10 @@
     }
 
     a:not([class]), a[class=""] {
+        align-self: start;
         color: var(--primary-600);
         text-decoration: underline;
-        text-decoration-color: var(--primary-400);
+        text-decoration-color: currentColor;
         text-decoration-skip: auto;
         text-decoration-thickness: 1px;
         text-underline-offset: 2px;

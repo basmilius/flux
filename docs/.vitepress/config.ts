@@ -1,6 +1,5 @@
 import { composeLibrary, preset } from '@basmilius/vite-preset';
 import { defineConfig } from 'vitepress';
-// @ts-ignore
 import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons';
 import examplePlugin from 'vitepress-plugin-example';
 import renderPlugin from 'vitepress-plugin-render';
@@ -9,6 +8,12 @@ import componentNavigation from './component-navigation';
 export const flux = composeLibrary({
     name: '@flux-ui/components',
     alias: '$flux',
+    isolated: true
+});
+
+export const fluxApplication = composeLibrary({
+    name: '@flux-ui/application',
+    alias: '$fluxApplication',
     isolated: true
 });
 
@@ -54,6 +59,7 @@ export default defineConfig({
                 fileNames: 'actual'
             }),
             flux(),
+            fluxApplication(),
             fluxDashboard(),
             fluxStatistics()
         ],

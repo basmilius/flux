@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 
-export default defineConfig({
+export default defineConfig(({mode}) => ({
     plugins: [
         preset({
             cssModules: {
@@ -13,11 +13,8 @@ export default defineConfig({
             tsconfigPath: resolve(import.meta.dirname, 'tsconfig.app.json')
         }),
         vue(),
-        closeBundle()
+        mode !== 'development' && closeBundle()
     ],
-    experimental: {
-        enableNativePlugin: true
-    },
     build: {
         assetsDir: '',
         emptyOutDir: true,
@@ -53,4 +50,4 @@ export default defineConfig({
             '$fluxDashboard': resolve(import.meta.dirname, 'src')
         }
     }
-});
+}));

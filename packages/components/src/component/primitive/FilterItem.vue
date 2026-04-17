@@ -2,7 +2,7 @@
     <FluxMenuItem
         :command="valueLabel"
         command-icon="angle-right"
-        :command-loading="isLoading.value"
+        :command-loading="isLoading"
         :icon-leading="item.icon"
         :label="item.label"
         type="button"

@@ -1,0 +1,41 @@
+@use '$flux/css/mixin';
+@use '$flux/css/variables';
+
+.applicationMenu {
+    --gray-25: #ffffff;
+    --gray-50: #fafafa;
+    --gray-100: #f3f1f1;
+    --gray-200: #e8e4e3;
+    --gray-300: #d8d2d0;
+    --gray-400: #aba09c;
+    --gray-500: #7c6d67;
+    --gray-600: #5b4f4b;
+    --gray-700: #473c39;
+    --gray-800: #2b2422;
+    --gray-900: #1d1816;
+    --gray-950: #0c0a09;
+
+    --application-menu-background: var(--gray-100);
+    --application-menu-stroke: var(--gray-200);
+
+    @include variables.defaults;
+}
+
+:root {
+    --application-menu-background: var(--gray-100);
+    --application-menu-stroke: var(--gray-200);
+    --application-menu-width: 300px;
+    --application-side-width: 300px;
+}
+
+.application {
+    display: flex;
+
+    &:has(> .applicationMenu) {
+        padding-left: var(--application-menu-width);
+    }
+
+    &:has(> .applicationSide) {
+        padding-right: var(--application-side-width);
+    }
+}

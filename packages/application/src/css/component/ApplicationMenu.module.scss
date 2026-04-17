@@ -1,0 +1,39 @@
+@use '$flux/css/mixin';
+
+.applicationMenu {
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    height: 100dvh;
+    width: var(--application-menu-width);
+    padding: 12px;
+    flex-flow: column;
+    gap: 12px;
+    background: var(--application-menu-background);
+    border-right: 1px solid var(--application-menu-stroke);
+}
+
+.applicationMenu :local(.menu) {
+    flex-grow: 1;
+    gap: 12px;
+}
+
+.applicationMenu :local(.menuItem) {
+    @include mixin.hover {
+        background: var(--gray-200);
+    }
+
+    &:active {
+        background: var(--gray-300);
+    }
+}
+
+.applicationMenuAccount :local(.menuItemLabel) {
+    font-weight: 600;
+}
+
+.applicationMenuAccount :local(.avatar) {
+    margin: -6px;
+    font-size: 30px;
+}

@@ -1,0 +1,35 @@
+{
+    "extends": "@vue/tsconfig/tsconfig.dom.json",
+    "compilerOptions": {
+        "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+        "lib": [
+            "ES2023",
+            "DOM",
+            "DOM.Iterable"
+        ],
+        "strict": false,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "erasableSyntaxOnly": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUncheckedSideEffectImports": true,
+        "verbatimModuleSyntax": true,
+
+        "rootDir": "src",
+        "paths": {
+            "$flux/*": [
+                "../components/src/*"
+            ],
+            "$fluxApplication/*": [
+                "src/*"
+            ]
+        },
+        "types": [
+            "vite/client"
+        ]
+    },
+    "include": [
+        "./src/**/*.ts",
+        "./src/**/*.vue"
+    ]
+}

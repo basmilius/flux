@@ -6,12 +6,12 @@
             '--opener-width': `${openerWidth}px`,
             '--pane-mx': `${paneMarginX}px`,
             '--pane-my': `${paneMarginY}px`,
-            '--pane-x': `${paneX - 24}px`,
-            '--pane-y': `${paneY - 24}px`
+            '--pane-x': `${paneX - 30}px`,
+            '--pane-y': `${paneY - 30}px`
         }">
         <slot
             name="opener"
-            v-bind="{close, open, toggle}"/>
+            v-bind="{close, open, toggle, isOpen: isOpen || isOpening || isClosing}"/>
 
         <dialog
             ref="dialog"
@@ -71,6 +71,8 @@
             close(): void;
             open(): void;
             toggle(): void;
+
+            readonly isOpen: boolean;
         }): any;
     }>();
 
@@ -133,14 +135,14 @@
         const {top, left, width, height} = mount.children[0].getBoundingClientRect();
         const {width: paneWidth, height: paneHeight} = pane.getBoundingClientRect();
 
-        let x, y, mx = 0, my = 0;
+        let x: number, y: number, mx = 0, my = 0;
 
         if (direction === 'horizontal') {
             x = left + width;
             y = top + height / 2 - paneHeight / 2;
             mx = margin;
 
-            if (x + paneWidth > innerWidth - 30) {
+            if (x + paneWidth > innerWidth - 12) {
                 x = left - paneWidth;
                 mx = -mx;
             }
@@ -149,14 +151,14 @@
             y = top + height;
             my = margin;
 
-            if (y + paneHeight > innerHeight - 30) {
+            if (y + paneHeight > innerHeight - 12) {
                 y = top - paneHeight;
                 my = -my;
             }
         }
 
-        paneX.value = Math.max(30, Math.min(innerWidth - paneWidth - 30, x));
-        paneY.value = Math.max(30, Math.min(innerHeight - paneHeight - 30, y));
+        paneX.value = Math.max(12, Math.min(innerWidth - paneWidth - 12, x));
+        paneY.value = Math.max(12, Math.min(innerHeight - paneHeight - 12, y));
         paneMarginX.value = mx;
         paneMarginY.value = my;
     }
