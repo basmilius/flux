@@ -1,31 +1,64 @@
 @use '$flux/css/mixin';
 @use '$flux/css/variables';
 
-.applicationMenu {
-    --gray-25: #ffffff;
-    --gray-50: #fafafa;
-    --gray-100: #f3f1f1;
-    --gray-200: #e8e4e3;
-    --gray-300: #d8d2d0;
-    --gray-400: #aba09c;
-    --gray-500: #7c6d67;
-    --gray-600: #5b4f4b;
-    --gray-700: #473c39;
-    --gray-800: #2b2422;
-    --gray-900: #1d1816;
-    --gray-950: #0c0a09;
+//.applicationMenu {
+//    --application-menu-background: var(--gray-100);
+//    --application-menu-stroke: var(--gray-200);
+//
+//    @include variables.defaults;
+//}
 
-    --application-menu-background: var(--gray-100);
-    --application-menu-stroke: var(--gray-200);
+:root {
+    //--gray-25: #ffffff;
+    //--gray-50: #f9fbfb;
+    //--gray-100: #f1f3f3;
+    //--gray-200: #e3e7e8;
+    //--gray-300: #d0d6d8;
+    //--gray-400: #9ca8ab;
+    //--gray-500: #67787c;
+    //--gray-600: #4b585b;
+    //--gray-700: #394447;
+    //--gray-800: #22292b;
+    //--gray-900: #161b1d;
+    //--gray-950: #090b0c;
 
-    @include variables.defaults;
+    //--gray-25: #ffffff;
+    //--gray-50: #fafafa;
+    //--gray-100: #f3f1f1;
+    //--gray-200: #e8e4e3;
+    //--gray-300: #d8d2d0;
+    //--gray-400: #aba09c;
+    //--gray-500: #7c6d67;
+    //--gray-600: #5b4f4b;
+    //--gray-700: #473c39;
+    //--gray-800: #2b2422;
+    //--gray-900: #1d1816;
+    //--gray-950: #0c0a09;
+
+    //--primary-25: #ffffff;
+    //--primary-50: #fcf3f8;
+    //--primary-100: #fae9f3;
+    //--primary-200: #f6d4e7;
+    //--primary-300: #f0b1d3;
+    //--primary-400: #e581b5;
+    //--primary-500: #d95b9a;
+    //--primary-600: #c73b7a;
+    //--primary-700: #ab2b61;
+    //--primary-800: #8d2650;
+    //--primary-900: #772445;
+    //--primary-950: #480f26;
 }
 
 :root {
-    --application-menu-background: var(--gray-100);
-    --application-menu-stroke: var(--gray-200);
+    --application-menu-surface: var(--gray-100);
+    --application-menu-surface-stroke: var(--gray-200);
     --application-menu-width: 300px;
     --application-side-width: 300px;
+}
+
+[dark] {
+    --application-menu-surface: var(--gray-50);
+    --application-menu-surface-stroke: var(--gray-100);
 }
 
 .application {
@@ -37,5 +70,25 @@
 
     &:has(> .applicationSide) {
         padding-right: var(--application-side-width);
+    }
+}
+
+.applicationBody {
+    position: relative;
+    display: flex;
+    min-height: 100dvh;
+    flex-flow: column;
+    flex-grow: 1;
+}
+
+@include mixin.breakpoint-down(md) {
+    .application {
+        &:has(> .applicationMenu) {
+            padding-left: 0;
+        }
+
+        &:has(> .applicationSide) {
+            padding-right: 0;
+        }
     }
 }

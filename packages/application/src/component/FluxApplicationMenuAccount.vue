@@ -2,9 +2,9 @@
     <FluxFlyout is-auto-width>
         <template #opener="{open}">
             <FluxMenuItem
-                :class="$style.applicationMenuAccount"
-                :command-icon="slots.switcher ? 'angle-down' : undefined"
+                :class="slots.switcher ? $style.applicationMenuAccountSwitcher : $style.applicationMenuAccount"
                 :icon-leading="icon"
+                :icon-trailing="slots.switcher ? 'angle-down' : undefined"
                 :image-alt="imageAlt"
                 :image-src="imageSrc"
                 :label="label"
@@ -31,7 +31,7 @@
     import { FluxFlyout, FluxMenuItem, FluxPane } from '@flux-ui/components';
     import type { FluxIconName } from '@flux-ui/types';
     import type { VNode } from 'vue';
-    import $style from '$fluxApplication/css/component/ApplicationMenu.module.scss';
+    import $style from '../css/component/ApplicationMenu.module.scss';
 
     defineProps<{
         readonly icon?: FluxIconName;

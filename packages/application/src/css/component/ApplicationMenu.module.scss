@@ -7,19 +7,100 @@
     left: 0;
     height: 100dvh;
     width: var(--application-menu-width);
-    padding: 12px;
     flex-flow: column;
-    gap: 12px;
-    background: var(--application-menu-background);
-    border-right: 1px solid var(--application-menu-stroke);
+    background: var(--application-menu-surface);
+    border-right: 1px solid var(--application-menu-surface-stroke);
+    overflow: hidden;
+    z-index: 500;
 }
 
-.applicationMenu :local(.menu) {
-    flex-grow: 1;
+.applicationMenuContent,
+.applicationMenuFooter,
+.applicationMenuHeader {
+    padding: 12px;
     gap: 12px;
+}
+
+.applicationMenuFooter,
+.applicationMenuHeader {
+    position: sticky;
+    background: var(--application-menu-surface);
+    z-index: 1;
+
+    &::before {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 18px;
+        width: 100%;
+        content: '';
+        pointer-events: none;
+        transition: opacity 200ms var(--swift-out);
+    }
+}
+
+.applicationMenu[data-at-start] .applicationMenuHeader::before,
+.applicationMenu[data-at-end] .applicationMenuFooter::before {
+    opacity: 0;
+}
+
+.applicationMenu[data-at-start] .applicationMenuHeader::before {
+    opacity: 0;
+}
+
+.applicationMenu[data-at-end] .applicationMenuFooter::before {
+    opacity: 0;
+}
+
+.applicationMenuContent {
+    min-height: 0;
+    flex: 1 1 auto;
+    overflow: auto;
+}
+
+.applicationMenuFooter {
+    bottom: 0;
+
+    &::before {
+        bottom: 100%;
+        background: linear-gradient(to top, var(--application-menu-surface), transparent);
+    }
+}
+
+.applicationMenuHeader {
+    top: 0;
+
+    &::before {
+        top: 100%;
+        background: linear-gradient(to bottom, var(--application-menu-surface), transparent);
+    }
+}
+
+.applicationMenuHeader + .applicationMenuContent {
+    padding-top: 0;
+}
+
+.applicationMenuContent:has(+ .applicationMenuFooter) {
+    padding-bottom: 0;
+}
+
+.applicationMenu :local(.divider) {
+    margin: 3px 12px;
+}
+
+.applicationMenu :local(.dividerContent)::before,
+.applicationMenu :local(.dividerContent)::after,
+.applicationMenu :local(.dividerLine) {
+    background: var(--application-menu-surface-stroke);
+}
+
+.applicationMenu :local(.menuSubHeader) {
+    --surface: var(--application-menu-surface);
 }
 
 .applicationMenu :local(.menuItem) {
+    position: relative;
+
     @include mixin.hover {
         background: var(--gray-200);
     }
@@ -27,6 +108,56 @@
     &:active {
         background: var(--gray-300);
     }
+
+    &::before {
+        position: absolute;
+        display: block;
+        content: '';
+        top: 50%;
+        right: 0;
+        height: 1em;
+        width: 3px;
+        background: var(--foreground-secondary);
+        border-radius: var(--radius);
+        opacity: 0;
+        transition: 300ms var(--swift-out);
+        transition-property: height, opacity;
+        translate: 8px -50%;
+    }
+}
+
+.applicationMenu :local(.menuItemIcon) {
+    color: var(--foreground-secondary);
+}
+
+.applicationMenu :local(.menuItemActive) {
+    background: var(--gray-200);
+    color: var(--foreground-prominent);
+
+    &::before {
+        height: 1.6em;
+        opacity: 1;
+    }
+}
+
+.applicationMenu :local(.menuItemActive) :local(.menuItemIcon) {
+    color: var(--foreground);
+}
+
+.applicationMenu :local(.menuItemActive) :local(.menuItemLabel) {
+    font-weight: 500;
+}
+
+.applicationMenuAccount {
+    position: relative;
+
+    pointer-events: none;
+}
+
+.applicationMenuAccountSwitcher {
+    composes: applicationMenuAccount;
+
+    pointer-events: auto;
 }
 
 .applicationMenuAccount :local(.menuItemLabel) {
@@ -34,6 +165,87 @@
 }
 
 .applicationMenuAccount :local(.avatar) {
-    margin: -6px;
+    margin: -5px;
     font-size: 30px;
+}
+
+.applicationMenuContext {
+    display: flex;
+    margin-left: -12px;
+    margin-right: -12px;
+    padding: 15px;
+    flex-flow: row nowrap;
+    gap: 15px;
+    border: 1px solid var(--application-menu-surface-stroke);
+    border-left: 0;
+    border-right: 0;
+}
+
+.applicationMenuContextContent {
+    display: flex;
+    align-self: center;
+    flex-flow: column;
+
+    :global(strong) {
+        color: var(--foreground-prominent);
+    }
+
+    :global(span) {
+        color: var(--foreground-secondary);
+        font-size: 14px;
+    }
+}
+
+.applicationMenuPromo {
+    display: flex;
+    padding: 12px;
+    flex-flow: row;
+    gap: 12px;
+    background: var(--gray-25);
+    border: 1px solid var(--application-menu-surface-stroke);
+    border-radius: var(--radius);
+}
+
+.applicationMenuPromo > :local(.icon) {
+    margin: 2px;
+    color: var(--gray-600);
+    font-size: 16px;
+}
+
+.applicationMenuPromoContent {
+    display: flex;
+    flex-flow: column;
+    gap: 6px;
+    font-size: 14px;
+}
+
+.applicationMenuPromoContent :global(a) {
+    color: var(--gray-700);
+}
+
+.applicationMenuToggle:local(.menuItem) {
+    height: min-content;
+    align-self: center;
+    color: var(--foreground);
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.applicationMenuToggleIcon {
+    height: 1em;
+    width: 1em;
+    flex-shrink: 0;
+    font-size: 18px;
+    line-height: 1;
+    overflow: visible;
+
+    :global(path) {
+        fill: currentColor;
+    }
+}
+
+@include mixin.breakpoint-down(md) {
+    .applicationMenu {
+        translate: 0 -100%;
+    }
 }

@@ -1,0 +1,82 @@
+@use '$flux/css/mixin';
+
+.applicationTop {
+    position: sticky;
+    top: 0;
+    background: rgb(from var(--surface) r g b / .975);
+    background-clip: padding-box;
+    backdrop-filter: blur(3px) saturate(180%);
+    border-bottom: 1px solid transparent;
+    transition: 300ms var(--swift-out);
+    transition-property: border-color, box-shadow;
+    z-index: 400;
+}
+
+.applicationTopScrolled {
+    composes: applicationTop;
+
+    border-bottom-color: var(--surface-stroke-out);
+    box-shadow: var(--shadow-lg);
+}
+
+.applicationTopBar {
+    display: flex;
+    height: 66px;
+    padding-left: 21px;
+    padding-right: 21px;
+    align-items: center;
+    flex-flow: row;
+    gap: 15px;
+    color: var(--foreground-prominent);
+}
+
+.applicationTopBarTitle {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.applicationTopBar > :local(.separator) {
+    height: 18px;
+}
+
+.applicationTopTabs {
+    position: relative;
+    display: flex;
+    margin-top: -6px;
+    margin-left: auto;
+    margin-right: auto;
+    flex-flow: row;
+    gap: 21px;
+
+    :local(.tabBar) {
+        --tab-padding: 18px;
+
+        width: 100%;
+        box-shadow: unset;
+    }
+}
+
+.applicationTopTabsDefault {
+    composes: applicationTopTabs;
+
+    width: min(1620px, 100% - 42px);
+}
+
+.applicationTopTabsFull {
+    composes: applicationTopTabs;
+
+    width: calc(100% - 42px);
+}
+
+.applicationTopTabsMedium {
+    composes: applicationTopTabs;
+
+    width: min(1280px, 100% - 42px);
+}
+
+.applicationTopTabsNarrow {
+    composes: applicationTopTabs;
+
+    width: min(840px, 100% - 42px);
+}

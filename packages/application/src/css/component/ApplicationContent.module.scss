@@ -1,5 +1,71 @@
 @use '$flux/css/mixin';
 
 .applicationContent {
-    padding: 12px;
+    position: relative;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 21px;
+    padding-bottom: 21px;
+    flex-flow: column;
+    flex-grow: 1;
+    gap: 21px;
+}
+
+.applicationContentDefault {
+    composes: applicationContent;
+
+    width: min(1620px, 100% - 42px);
+}
+
+.applicationContentFull {
+    composes: applicationContent;
+
+    padding-top: 0;
+    padding-bottom: 0;
+    width: calc(100% - 42px);
+}
+
+.applicationContentMedium {
+    composes: applicationContent;
+
+    width: min(1280px, 100% - 42px);
+}
+
+.applicationContentNarrow {
+    composes: applicationContent;
+
+    width: min(840px, 100% - 42px);
+}
+
+.applicationContentFull {
+    > :is(.calendar, .table) {
+        margin-left: -21px;
+        margin-right: -21px;
+        height: calc(100dvh - 84px);
+        flex-grow: 1;
+    }
+
+    > .calendar {
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0;
+
+        .calendarActions {
+            padding-left: 21px;
+            padding-right: 21px;
+        }
+    }
+
+    > .table {
+        border-top: 1px solid var(--surface-stroke);
+
+        .tableCell:first-child .tableCellContent {
+            padding-left: 21px;
+        }
+
+        .tableCell:last-child .tableCellContent {
+            padding-right: 21px;
+        }
+    }
 }

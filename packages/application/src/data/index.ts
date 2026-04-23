@@ -1,8 +1,14 @@
 import type { InjectionKey, Ref } from 'vue';
 
-export const FluxDashboardInjectionKey: InjectionKey<FluxDashboardInjection> = Symbol();
+export const FluxApplicationInjectionKey: InjectionKey<FluxApplicationInjection> = Symbol();
 
-export type FluxDashboardInjection = {
+export type FluxApplicationInjection = {
     readonly isMenuCollapsed: Ref<boolean>;
-    readonly isNavigationCollapsed: Ref<boolean>;
+    readonly layout: Ref<FluxApplicationLayout>;
 };
+
+export type FluxApplicationLayout =
+    | 'default'
+    | 'full'
+    | 'medium'
+    | 'narrow';

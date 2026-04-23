@@ -1,1 +1,1 @@
-export { default as useDashboardInjection } from './useDashboardInjection';
+export { default as useApplicationInjection } from './useApplicationInjection';
