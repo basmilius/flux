@@ -14,7 +14,7 @@
 <script
     lang="ts"
     setup>
-    import { watch } from 'vue';
+    import { type VNode, watch } from 'vue';
     import { useFluxStore } from '$flux/data';
     import FluxOverlayProvider from './FluxOverlayProvider.vue';
     import FluxSnackbarProvider from './FluxSnackbarProvider.vue';
@@ -26,7 +26,7 @@
     });
 
     defineSlots<{
-        default(): any;
+        default(): VNode[];
     }>();
 
     const {inertMain} = useFluxStore();

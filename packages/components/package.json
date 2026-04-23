@@ -33,8 +33,7 @@
             "types": "./dist/index.d.ts",
             "default": "./dist/index.js"
         },
-        "./style.css": "./dist/index.css",
-        "./*": "./*"
+        "./style.css": "./dist/index.css"
     },
     "publishConfig": {
         "access": "public",
@@ -42,17 +41,14 @@
     },
     "files": [
         "dist",
-        "src",
-        "tsconfig.json"
+        "src"
     ],
     "main": "./dist/index.js",
     "module": "./dist/index.js",
     "types": "./dist/index.d.ts",
-    "typings": "./dist/index.d.ts",
-    "sideEffects": false,
     "dependencies": {
-        "@basmilius/common": "^3.16.0",
-        "@basmilius/utils": "^3.16.0",
+        "@basmilius/common": "^3.18.0",
+        "@basmilius/utils": "^3.18.0",
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/types": "workspace:*",
         "@fortawesome/fontawesome-common-types": "^7.2.0",
@@ -63,7 +59,7 @@
         "vue": "^3.6.0-beta.10"
     },
     "devDependencies": {
-        "@basmilius/vite-preset": "^3.16.0",
+        "@basmilius/vite-preset": "^3.18.0",
         "@types/lodash-es": "^4.17.12",
         "@types/luxon": "^3.7.1",
         "@types/node": "^25.6.0",
@@ -71,8 +67,8 @@
         "@vue/tsconfig": "^0.9.1",
         "pinia": "^3.0.4",
         "sass-embedded": "^1.99.0",
-        "typescript": "^6.0.2",
-        "vite": "^8.0.8",
-        "vue-tsc": "^3.2.6"
+        "typescript": "^6.0.3",
+        "vite": "^8.0.9",
+        "vue-tsc": "^3.2.7"
     }
 }

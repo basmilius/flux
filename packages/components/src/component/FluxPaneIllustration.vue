@@ -35,7 +35,7 @@
     lang="ts"
     setup>
     import { hexToRGB } from '@basmilius/utils';
-    import { computed } from 'vue';
+    import { computed, type VNode } from 'vue';
     import FluxAnimatedColors from './FluxAnimatedColors.vue';
     import FluxGridPattern from './FluxGridPattern.vue';
     import $style from '$flux/css/component/Pane.module.scss';
@@ -52,8 +52,8 @@
     }>();
 
     const slots = defineSlots<{
-        default?(): any;
-        controlled?(): any;
+        default?(): VNode[];
+        controlled?(): VNode[];
     }>();
 
     const borderColor = computed(() => {

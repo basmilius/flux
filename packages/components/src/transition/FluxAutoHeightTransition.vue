@@ -11,6 +11,11 @@
     lang="ts"
     setup>
     import { isHtmlElement } from '@basmilius/utils';
+    import type { VNode } from 'vue';
+
+    defineSlots<{
+        default(): VNode[];
+    }>();
 
     function afterEnter(elm: Element): void {
         if (!isHtmlElement(elm)) {

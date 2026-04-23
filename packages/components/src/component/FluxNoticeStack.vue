@@ -9,9 +9,10 @@
 <script
     lang="ts"
     setup>
+    import type { VNode } from 'vue';
     import FluxStack from './FluxStack.vue';
 
     defineSlots<{
-        default(): any;
+        default(): VNode[];
     }>();
 </script>

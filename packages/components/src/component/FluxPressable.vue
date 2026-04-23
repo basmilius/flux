@@ -41,6 +41,7 @@
 <script
     lang="ts"
     setup>
+    import type { VNode } from 'vue';
     import type { FluxPressableType, FluxTo } from '@flux-ui/types';
 
     const emit = defineEmits<{
@@ -58,7 +59,7 @@
     }>();
 
     defineSlots<{
-        default(): any;
+        default(): VNode[];
     }>();
 
     const hoverListeners = {

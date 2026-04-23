@@ -16,7 +16,7 @@
     import { useMutationObserver } from '@basmilius/common';
     import { isHtmlElement } from '@basmilius/utils';
     import type { FluxDirection } from '@flux-ui/types';
-    import { type ComponentPublicInstance, onMounted, onUnmounted, reactive, ref, unref, useTemplateRef, watchEffect } from 'vue';
+    import { type ComponentPublicInstance, onMounted, onUnmounted, reactive, ref, unref, useTemplateRef, type VNode, watchEffect } from 'vue';
 
     const {
         anchor,
@@ -37,7 +37,7 @@
     }>();
 
     defineSlots<{
-        default(): any;
+        default(): VNode[];
     }>();
 
     const anchorRef = ref<HTMLElement>();

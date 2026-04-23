@@ -29,9 +29,9 @@
             readonly buttons: Record<string, FluxFilterItem>;
             readonly filters: Record<string, VNode>;
             readonly menuItems: (FluxFilterItem | VNode)[][];
-        }): any;
+        }): VNode[];
 
-        filters(): any;
+        filters(): VNode[];
     }>();
 
     const buttons = computed(() => {

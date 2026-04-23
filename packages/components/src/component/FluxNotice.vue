@@ -50,6 +50,7 @@
 <script
     lang="ts"
     setup>
+    import type { VNode } from 'vue';
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { useTranslate } from '$flux/composable/private';
@@ -75,8 +76,8 @@
     }>();
 
     defineSlots<{
-        default(): any;
-        end(): any;
+        default(): VNode[];
+        end(): VNode[];
     }>();
 
     const translate = useTranslate();

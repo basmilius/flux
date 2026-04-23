@@ -12,11 +12,11 @@
     lang="ts"
     setup>
     import { useFocusZone } from '@flux-ui/internals';
-    import { useTemplateRef } from 'vue';
+    import { useTemplateRef, type VNode } from 'vue';
     import FluxStack from './FluxStack.vue';
 
     defineSlots<{
-        default(): any;
+        default(): VNode[];
     }>();
 
     const elementRef = useTemplateRef('element');

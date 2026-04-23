@@ -74,7 +74,7 @@
     setup>
     import type { FluxColor, FluxIconName, FluxSnackbarObject } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { computed, getCurrentInstance, onBeforeUnmount, ref, watch, watchEffect } from 'vue';
+    import { computed, onBeforeUnmount, ref, watch, watchEffect } from 'vue';
     import { addSnackbar, removeSnackbar, updateSnackbar } from '$flux/data';
     import FluxAction from './FluxAction.vue';
     import FluxIcon from './FluxIcon.vue';
@@ -90,7 +90,18 @@
     const {
         actions,
         color = 'gray',
-        isRendered
+        icon,
+        isCloseable,
+        isLoading,
+        isRendered,
+        message,
+        progressIndeterminate,
+        progressMax,
+        progressMin,
+        progressStatus,
+        progressValue,
+        subMessage,
+        title
     } = defineProps<{
         readonly actions?: Record<string, string>;
         readonly color?: FluxColor;
@@ -107,8 +118,6 @@
         readonly subMessage?: string;
         readonly title?: string;
     }>();
-
-    const instance = getCurrentInstance()!;
 
     const id = ref<number | null>(null);
 
@@ -128,12 +137,33 @@
         emit('close');
     }
 
+    function buildSpec(): Omit<FluxSnackbarObject, 'id'> {
+        return {
+            actions,
+            color,
+            icon,
+            isCloseable,
+            isLoading,
+            isRendered,
+            message,
+            progressIndeterminate,
+            progressMax,
+            progressMin,
+            progressStatus,
+            progressValue,
+            subMessage,
+            title,
+            onAction,
+            onClose
+        };
+    }
+
     watchEffect(() => {
         if (!id.value) {
             return;
         }
 
-        updateSnackbar(id.value, instance.props);
+        updateSnackbar(id.value, buildSpec());
     });
 
     watch(() => isRendered, () => {
@@ -145,12 +175,6 @@
             return;
         }
 
-        const spec: Omit<FluxSnackbarObject, 'id'> = {
-            ...instance.props,
-            onAction,
-            onClose
-        };
-
-        id.value = addSnackbar(spec);
+        id.value = addSnackbar(buildSpec());
     }, {immediate: true});
 </script>

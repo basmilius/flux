@@ -175,23 +175,6 @@
     object-position: center;
 }
 
-.paneDeck {
-    composes: paneDefault;
-
-    overflow: hidden;
-
-    > .baseAutoGrid {
-        margin-right: -1px;
-        margin-bottom: -1px;
-
-        > .pane {
-            border-top: 0;
-            border-left: 0;
-            border-radius: 0;
-        }
-    }
-}
-
 .paneGroup {
     position: relative;
 }

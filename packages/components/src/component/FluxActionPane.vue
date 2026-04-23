@@ -23,6 +23,7 @@
 <script
     lang="ts"
     setup>
+    import type { VNode } from 'vue';
     import FluxButtonStack from './FluxButtonStack.vue';
     import FluxPane from './FluxPane.vue';
     import FluxPaneBody from './FluxPaneBody.vue';
@@ -33,8 +34,8 @@
     }>();
 
     const slots = defineSlots<{
-        default?(): any;
-        buttons?(): any;
-        base?(): any;
+        default?(): VNode[];
+        buttons?(): VNode[];
+        base?(): VNode[];
     }>();
 </script>

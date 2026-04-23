@@ -22,6 +22,7 @@
 <script
     lang="ts"
     setup>
+    import type { VNode } from 'vue';
     import type { FluxDirection } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import $style from '$flux/css/component/Divider.module.scss';
@@ -35,6 +36,6 @@
     }>();
 
     const slots = defineSlots<{
-        default?(): any;
+        default?(): VNode[];
     }>();
 </script>

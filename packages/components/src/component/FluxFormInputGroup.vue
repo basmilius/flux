@@ -13,6 +13,7 @@
 <script
     lang="ts"
     setup>
+    import type { VNode } from 'vue';
     import { clsx } from 'clsx';
     import $style from '$flux/css/component/Form.module.scss';
 
@@ -22,6 +23,6 @@
     }>();
 
     defineSlots<{
-        default(): any;
+        default(): VNode[];
     }>();
 </script>

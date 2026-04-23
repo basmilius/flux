@@ -2,6 +2,7 @@
     <SelectBase
         v-model:searchQuery="modelSearch"
         :disabled="disabled"
+        :is-loading="isLoading"
         :is-multiple="isMultiple"
         :is-searchable="isSearchable"
         :options="groups"
@@ -34,6 +35,7 @@
         options
     } = defineProps<{
         readonly disabled?: boolean;
+        readonly isLoading?: boolean;
         readonly isMultiple?: boolean;
         readonly placeholder?: string;
         readonly isSearchable?: boolean;

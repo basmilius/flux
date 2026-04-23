@@ -62,8 +62,8 @@
     import type { FluxColor, FluxTreeViewOption } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, ref, unref, useTemplateRef } from 'vue';
-    import { flattenVisible, getLevelColor, useTreeView } from '$flux/composable/private';
     import type { TreeFlatNode } from '$flux/composable/private';
+    import { flattenVisible, getLevelColor, useTreeView } from '$flux/composable/private';
     import FluxIcon from '$flux/component/FluxIcon.vue';
     import $style from '$flux/css/component/TreeView.module.scss';
 
@@ -91,7 +91,7 @@
     const {highlightedIndex, toggleExpand, onExpandClick, onKeyNavigate} = useTreeView({
         expandedIds,
         nodeElementRefs,
-        visibleNodes,
+        visibleNodes
     });
 
     function onNodeClick(node: FlatNode): void {

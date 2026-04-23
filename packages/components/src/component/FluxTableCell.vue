@@ -24,6 +24,7 @@
 <script
     lang="ts"
     setup>
+    import type { VNode } from 'vue';
     import { clsx } from 'clsx';
     import { useTableInjection } from '$flux/composable';
     import $style from '$flux/css/component/Table.module.scss';
@@ -36,8 +37,8 @@
     }>();
 
     defineSlots<{
-        default(): any;
-        content(): any;
+        default(): VNode[];
+        content(): VNode[];
     }>();
 
     const {

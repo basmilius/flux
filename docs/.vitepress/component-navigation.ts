@@ -183,6 +183,7 @@ const navigation: SidebarItem = {
             collapsed: true,
             items: [
                 {text: 'Aspect ratio', link: '/guide/components/layout/aspect-ratio', image: '/assets/components/layout-aspect-ratio.svg'},
+                {text: 'Column', link: '/guide/components/layout/column'},
                 {text: 'Container', link: '/guide/components/layout/container', image: '/assets/components/layout-container.svg'},
                 {
                     text: 'Grid',
@@ -190,10 +191,10 @@ const navigation: SidebarItem = {
                     image: '/assets/components/layout-grid.svg',
                     collapsed: true,
                     items: [
-                        {text: 'Auto', link: '/guide/components/layout/grid/auto', image: '/assets/components/layout-auto-grid.svg'},
                         {text: 'Column', link: '/guide/components/layout/grid/column'},
                     ]
                 },
+                {text: 'Row', link: '/guide/components/layout/row'},
                 {text: 'Spacer', link: '/guide/components/layout/spacer', image: '/assets/components/layout-spacer.svg'},
                 {text: 'Spacing', link: '/guide/components/layout/spacing', image: '/assets/components/layout-spacing.svg'},
                 {
@@ -219,6 +220,7 @@ const navigation: SidebarItem = {
             link: '/guide/components/menu/',
             collapsed: true,
             items: [
+                {text: 'Collapsible', link: '/guide/components/menu/collapsible'},
                 {text: 'Group', link: '/guide/components/menu/group'},
                 {text: 'Item', link: '/guide/components/menu/item'},
                 {text: 'Options', link: '/guide/components/menu/options'},
@@ -243,7 +245,6 @@ const navigation: SidebarItem = {
             items: [
                 {text: 'Body', link: '/guide/components/pane/body'},
                 {text: 'Clickable', link: '/guide/components/pane/clickable'},
-                {text: 'Deck', link: '/guide/components/pane/deck'},
                 {text: 'Footer', link: '/guide/components/pane/footer'},
                 {text: 'Group', link: '/guide/components/pane/group'},
                 {text: 'Header', link: '/guide/components/pane/header'},

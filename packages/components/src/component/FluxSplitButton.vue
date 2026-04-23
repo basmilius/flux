@@ -27,6 +27,7 @@
 <script
     setup
     lang="ts">
+    import type { VNode } from 'vue';
     import type { FluxDirection, FluxIconName } from '@flux-ui/types';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
@@ -47,7 +48,7 @@
             close(): void;
             open(): void;
             toggle(): void;
-        }): any;
+        }): VNode[];
 
         flyout(props: {
             close(): void;
@@ -56,6 +57,6 @@
             readonly paneY: number;
             readonly openerWidth: number;
             readonly openerHeight: number;
-        }): any;
+        }): VNode[];
     }>();
 </script>

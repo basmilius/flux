@@ -25,7 +25,7 @@
     }>();
 
     const slots = defineSlots<{
-        default(): any;
+        default(): VNode[];
     }>();
 
     const items = computed(() => flattenVNodeTree(slots.default())

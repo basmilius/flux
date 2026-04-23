@@ -75,8 +75,9 @@
 <script
     lang="ts"
     setup>
+    import type { VNode } from 'vue';
+    import { computed, unref } from 'vue';
     import type { FluxFilterState } from '@flux-ui/types';
-    import { computed, unref } from "vue";
     import { FilterBadge, VNodeRenderer } from '$flux/component/primitive';
     import FluxFilterBase from './FluxFilterBase.vue';
     import FluxFilterWindow from './FluxFilterWindow.vue';
@@ -107,7 +108,7 @@
     }>();
 
     defineSlots<{
-        default?(): any;
+        default?(): VNode[];
     }>();
 
     const isFiltered = computed(() => Object.entries(unref(modelValue)).filter(([, val]) => Boolean(val)).length > 0);

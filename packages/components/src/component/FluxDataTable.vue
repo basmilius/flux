@@ -15,7 +15,9 @@
         <template
             v-if="'header' in slots"
             #header>
-            <slot name="filter" v-bind="{page, perPage, items: limitedItems, total}"/>
+            <slot
+                name="filter"
+                v-bind="{page, perPage, items: limitedItems, total}"/>
 
             <FluxTableRow>
                 <slot

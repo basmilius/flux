@@ -48,6 +48,7 @@
 <script
     lang="ts"
     setup>
+    import type { VNode } from 'vue';
     import { useTranslate } from '$flux/composable/private';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxDestructiveButton from './FluxDestructiveButton.vue';
@@ -67,12 +68,12 @@
     }>();
 
     const slots = defineSlots<{
-        primary?(): any;
-        actionsEnd?(): any;
-        actionsStart?(): any;
-        actionsAfterSearch?(): any;
-        actionsBeforeSearch?(): any;
-        search?(): any;
+        primary?(): VNode[];
+        actionsEnd?(): VNode[];
+        actionsStart?(): VNode[];
+        actionsAfterSearch?(): VNode[];
+        actionsBeforeSearch?(): VNode[];
+        search?(): VNode[];
 
         filter?(props: {
             close(): void;
@@ -81,13 +82,13 @@
             readonly paneY: number;
             readonly openerWidth: number;
             readonly openerHeight: number;
-        }): any;
+        }): VNode[];
 
         filterOpener?(props: {
             close(): void;
             open(): void;
             toggle(): void;
-        }): any;
+        }): VNode[];
     }>();
 
     const translate = useTranslate();

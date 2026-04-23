@@ -12,7 +12,7 @@
     lang="ts"
     setup>
     import { useFocusZone } from '@flux-ui/internals';
-    import { useTemplateRef } from 'vue';
+    import { useTemplateRef, type VNode } from 'vue';
     import $style from '$flux/css/component/Menu.module.scss';
 
     defineProps<{
@@ -20,7 +20,7 @@
     }>();
 
     defineSlots<{
-        default(): any;
+        default(): VNode[];
     }>();
 
     const elementRef = useTemplateRef('element');

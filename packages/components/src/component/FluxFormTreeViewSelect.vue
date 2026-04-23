@@ -139,8 +139,8 @@
     import { clsx } from 'clsx';
     import { type ComponentPublicInstance, computed, nextTick, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled, useFormFieldInjection } from '$flux/composable';
-    import { flattenAll, flattenVisible, getLevelColor, INITIAL_HIGHLIGHTED_INDEX, useTranslate, useTreeView } from '$flux/composable/private';
     import type { TreeFlatNode } from '$flux/composable/private';
+    import { flattenAll, flattenVisible, getLevelColor, INITIAL_HIGHLIGHTED_INDEX, useTranslate, useTreeView } from '$flux/composable/private';
     import { FluxFadeTransition } from '$flux/transition';
     import FluxFormInput from '$flux/component/FluxFormInput.vue';
     import FluxIcon from '$flux/component/FluxIcon.vue';
@@ -156,7 +156,7 @@
         inheritAttrs: false
     });
 
-    const modelValue = defineModel<FluxFormTreeViewSelectValue>({ required: true });
+    const modelValue = defineModel<FluxFormTreeViewSelectValue>({required: true});
 
     const {
         disabled: componentDisabled,
@@ -218,7 +218,7 @@
     const {highlightedIndex, toggleExpand, onExpandClick, onKeyNavigate} = useTreeView({
         expandedIds,
         nodeElementRefs,
-        visibleNodes,
+        visibleNodes
     });
 
     useClickOutside([anchorRef, anchorPopupRef] as any, isPopupOpen as any, () => isPopupOpen.value = false);

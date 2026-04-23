@@ -50,7 +50,7 @@
 <script
     lang="ts"
     setup>
-    import { provide, useId } from 'vue';
+    import { provide, useId, type VNode } from 'vue';
     import { useTranslate } from '$flux/composable/private';
     import { FluxFormFieldInjectionKey } from '$flux/data';
     import FluxFormFieldAddition from './FluxFormFieldAddition.vue';
@@ -68,7 +68,7 @@
     const slots = defineSlots<{
         default(props: {
             readonly id?: string;
-        }): any;
+        }): VNode[];
 
         addition(props: {
             readonly currentLength?: number;
@@ -77,7 +77,7 @@
             readonly isOptional?: boolean;
             readonly label: string;
             readonly maxLength?: number;
-        }): any;
+        }): VNode[];
 
         value(props: {
             readonly currentLength?: number;
@@ -86,7 +86,7 @@
             readonly isOptional?: boolean;
             readonly label: string;
             readonly maxLength?: number;
-        }): any;
+        }): VNode[];
     }>();
 
     const id = useId();

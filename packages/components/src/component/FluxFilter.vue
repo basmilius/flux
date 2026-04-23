@@ -20,6 +20,7 @@
 <script
     lang="ts"
     setup>
+    import type { VNode } from 'vue';
     import type { FluxFilterState } from '@flux-ui/types';
     import FluxFilterBase from './FluxFilterBase.vue';
     import FluxFilterWindow from '$flux/component/FluxFilterWindow.vue';
@@ -37,7 +38,7 @@
     }>();
 
     defineSlots<{
-        default(): any;
+        default(): VNode[];
     }>();
 
     function reset(name: string): void {

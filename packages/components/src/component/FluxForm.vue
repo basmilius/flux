@@ -12,6 +12,7 @@
 <script
     lang="ts"
     setup>
+    import type { VNode } from 'vue';
     import FluxDisabled from './FluxDisabled.vue';
     import $style from '$flux/css/component/Form.module.scss';
 
@@ -26,7 +27,7 @@
     }>();
 
     defineSlots<{
-        default(): any;
+        default(): VNode[];
     }>();
 
     function onSubmit(): void {

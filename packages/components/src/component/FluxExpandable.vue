@@ -34,6 +34,7 @@
                 v-if="isOpen"
                 :class="$style.expandableBody"
                 :id="contentId"
+                role="region"
                 :aria-labelledby="headerId">
                 <slot
                     v-bind="{label, close}"

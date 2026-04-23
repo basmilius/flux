@@ -12,14 +12,14 @@
 <script
     lang="ts"
     setup>
-    import { ref } from 'vue';
+    import { ref, type VNode } from 'vue';
     import { FluxWindowTransition } from '$flux/transition';
 
     const slots = defineSlots<{
         default(props: {
             back(to?: string): void;
             navigate(to: string): void;
-        }): any;
+        }): VNode[];
 
         [key: string]: (props: {
             back(to?: string): void;

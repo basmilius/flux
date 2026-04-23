@@ -12,6 +12,7 @@
 <script
     lang="ts"
     setup>
+    import type { VNode } from 'vue';
     import $style from '$flux/css/component/Transition.module.scss';
 
     const {
@@ -19,5 +20,9 @@
     } = defineProps<{
         readonly isBack?: boolean;
         readonly mode?: 'in-out' | 'out-in';
+    }>();
+
+    defineSlots<{
+        default(): VNode[];
     }>();
 </script>

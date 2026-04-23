@@ -65,7 +65,7 @@
     }>();
 
     defineSlots<{
-        default(): any;
+        default(): VNode[];
     }>();
 
     const translate = useTranslate();

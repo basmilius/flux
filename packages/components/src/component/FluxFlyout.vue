@@ -42,7 +42,7 @@
     import { isSSR, unrefTemplateElement, useEventListener, useFocusTrap } from '@flux-ui/internals';
     import type { FluxDirection } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { provide, ref, unref, useTemplateRef, watch } from 'vue';
+    import { provide, ref, unref, useTemplateRef, type VNode, watch } from 'vue';
     import { FluxFlyoutInjectionKey } from '$flux/data';
     import FluxPane from './FluxPane.vue';
     import $style from '$flux/css/component/Flyout.module.scss';
@@ -65,7 +65,7 @@
             readonly paneY: number;
             readonly openerWidth: number;
             readonly openerHeight: number;
-        }): any;
+        }): VNode[];
 
         opener(props: {
             close(): void;
@@ -73,7 +73,7 @@
             toggle(): void;
 
             readonly isOpen: boolean;
-        }): any;
+        }): VNode[];
     }>();
 
     const dialogRef = useTemplateRef('dialog');

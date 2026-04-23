@@ -18,6 +18,7 @@
 <script
     lang="ts"
     setup>
+    import type { VNode } from 'vue';
     import type { DateTime } from 'luxon';
     import FluxTooltip from './FluxTooltip.vue';
     import $style from '$flux/css/component/Calendar.module.scss';
@@ -32,7 +33,7 @@
     }>();
 
     defineSlots<{
-        tooltip(): any;
+        tooltip(): VNode[];
     }>();
 
     function onClick(evt: MouseEvent): void {

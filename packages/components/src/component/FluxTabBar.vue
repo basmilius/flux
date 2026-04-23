@@ -43,13 +43,13 @@
     import { useMutationObserver } from '@basmilius/common';
     import { unrefTemplateElement, useEventListener } from '@flux-ui/internals';
     import { clsx } from 'clsx';
-    import { onMounted, ref, useTemplateRef } from 'vue';
+    import { onMounted, ref, useTemplateRef, type VNode } from 'vue';
     import { FluxFadeTransition } from '$flux/transition';
     import FluxIcon from './FluxIcon.vue';
     import $style from '$flux/css/component/Tab.module.scss';
 
     defineSlots<{
-        default(): any;
+        default(): VNode[];
     }>();
 
     const tabBarRef = useTemplateRef('tabBar');

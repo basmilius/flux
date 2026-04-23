@@ -20,12 +20,13 @@
 <script
     lang="ts"
     setup>
+    import type { VNode } from 'vue';
     import { useTableInjection } from '$flux/composable';
     import { clsx } from 'clsx';
     import $style from '$flux/css/component/Table.module.scss';
 
     defineSlots<{
-        default(): any;
+        default(): VNode[];
     }>();
 
     const {

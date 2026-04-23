@@ -7,11 +7,13 @@
 <script
     lang="ts"
     setup>
+    import type { VNode } from 'vue';
+
     defineProps<{
         readonly tagName: keyof HTMLElementTagNameMap;
     }>();
 
     defineSlots<{
-        default(): any;
+        default(): VNode[];
     }>();
 </script>

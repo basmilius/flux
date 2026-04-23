@@ -11,7 +11,7 @@
     setup>
     import { useInterval } from '@basmilius/common';
     import { unrefTemplateElement } from '@flux-ui/internals';
-    import { computed, ref, unref, useTemplateRef, watch } from 'vue';
+    import { computed, ref, unref, useTemplateRef, type VNode, watch } from 'vue';
     import $style from '$flux/css/component/Fader.module.scss';
 
     const emit = defineEmits<{
@@ -30,7 +30,7 @@
             previous(): void;
 
             readonly current: number;
-        }): any;
+        }): VNode[];
     }>();
 
     const faderRef = useTemplateRef('fader');

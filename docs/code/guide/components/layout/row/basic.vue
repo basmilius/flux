@@ -1,14 +1,13 @@
 <template>
     <FluxPane>
         <FluxPaneBody>
-            <FluxAutoGrid
-                :gap="21"
-                :min-column-width="200">
+            <FluxRow
+                :gap="10">
                 <div class="column-example"></div>
                 <div class="column-example"></div>
                 <div class="column-example"></div>
                 <div class="column-example"></div>
-            </FluxAutoGrid>
+            </FluxRow>
         </FluxPaneBody>
     </FluxPane>
 </template>
@@ -16,5 +15,5 @@
 <script
     setup
     lang="ts">
-    import { FluxAutoGrid, FluxPane, FluxPaneBody } from '@flux-ui/components';
+    import { FluxPane, FluxPaneBody, FluxRow } from '@flux-ui/components';
 </script>

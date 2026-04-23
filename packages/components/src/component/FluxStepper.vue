@@ -33,7 +33,7 @@
     });
 
     const slots = defineSlots<{
-        default(): any;
+        default(): VNode[];
 
         content(props: {
             activate(index: number): void;
@@ -43,14 +43,14 @@
             readonly modelValue: number;
             readonly steps: number;
             readonly view: VNode;
-        }): any;
+        }): VNode[];
 
         steps(props: {
             activate(index: number): void;
 
             readonly modelValue: number;
             readonly steps: number;
-        }): any;
+        }): VNode[];
     }>();
 
     const isTransitioningBack = ref(false);

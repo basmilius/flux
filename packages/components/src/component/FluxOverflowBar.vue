@@ -37,7 +37,7 @@
     setup>
     import { animationFrameDebounce, flattenVNodeTree, unrefTemplateElement } from '@flux-ui/internals';
     import type { FluxAlignment, FluxDirection } from '@flux-ui/types';
-    import { computed, ref, unref, useTemplateRef, watch, type VNode } from 'vue';
+    import { computed, ref, unref, useTemplateRef, type VNode, watch } from 'vue';
     import FluxDynamicView from './FluxDynamicView.vue';
     import $style from '$flux/css/component/OverflowBar.module.scss';
 
@@ -52,8 +52,8 @@
     }>();
 
     const slots = defineSlots<{
-        default?(): any;
-        overflow?(props: { hasOverflow: boolean; items: VNode[] }): any;
+        default?(): VNode[];
+        overflow?(props: { hasOverflow: boolean; items: VNode[] }): VNode[];
     }>();
 
     const barRef = useTemplateRef('bar');

@@ -68,6 +68,7 @@
 <script
     lang="ts"
     setup>
+    import type { VNode } from 'vue';
     import type { FluxButtonEmits, FluxButtonProps, FluxIconName } from '@flux-ui/types';
     import FluxButton from './FluxButton.vue';
     import FluxIcon from './FluxIcon.vue';
@@ -77,8 +78,8 @@
     defineEmits<FluxButtonEmits>();
 
     const slots = defineSlots<{
-        after(): any;
-        before(): any;
+        after(): VNode[];
+        before(): VNode[];
     }>();
 
     const {

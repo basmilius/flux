@@ -32,20 +32,19 @@
         "access": "public",
         "provenance": true
     },
-    "main": "./dist/index.mjs",
-    "module": "./dist/index.mjs",
-    "types": "./dist/index.d.mts",
-    "typings": "./dist/index.d.mts",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "sideEffects": false,
     "exports": {
         ".": {
-            "types": "./dist/index.d.mts",
-            "default": "./dist/index.mjs"
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
         }
     },
     "dependencies": {
-        "@basmilius/common": "^3.16.0",
-        "@basmilius/utils": "^3.16.0",
+        "@basmilius/common": "^3.18.0",
+        "@basmilius/utils": "^3.18.0",
         "lodash-es": "^4.18.1",
         "luxon": "^3.7.2",
         "vue": "^3.6.0-beta.10"

@@ -12,7 +12,8 @@
     inset: 0;
     transition: 660ms var(--deceleration-curve);
 
-    &.isCurrent {}
+    &.isCurrent {
+    }
 
     &:not(.isCurrent) {
         opacity: 0;

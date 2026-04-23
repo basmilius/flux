@@ -157,7 +157,6 @@
     height: 42px;
     width: 100%;
     padding: 0 12px;
-    align-self: start;
     background: var(--surface);
     background-clip: padding-box;
     border: 1px solid var(--surface-stroke);
@@ -172,10 +171,14 @@
     }
 
     &.isSecondary {
-        background: var(--background);
+        background: var(--gray-100);
         border-color: transparent;
         box-shadow: none;
     }
+}
+
+.form .formInput {
+    align-self: start;
 }
 
 .formInputDisabled {
@@ -302,7 +305,7 @@
 }
 
 .formInputGroup {
-    composes: formInput;
+    composes: formInputEnabled;
 
     display: flex;
     padding: 0;

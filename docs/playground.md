@@ -23,7 +23,6 @@ import {
     FluxOverlay,
     FluxPane,
     FluxPaneBody,
-    FluxPaneDeck,
     FluxPaneFooter,
     FluxPaneHeader,
     FluxPrimaryLinkButton,
@@ -265,17 +264,6 @@ const isOverlay2Open = ref(false);
         <FluxProgressBar :value=".5"/>
         <FluxProgressBar :value="1"/>
     </FluxStack>
-</FluxView>
-
-## Pane deck
-
-<FluxView>
-    <FluxPaneDeck :min-column-width="240">
-        <FluxPane><FluxPaneBody>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, sapien eu tincidunt tincidunt, elit sapien ornare elit, quis efficitur libero ligula et massa.</FluxPaneBody></FluxPane>
-        <FluxPane><FluxPaneBody>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, sapien eu tincidunt tincidunt, elit sapien ornare elit, quis efficitur libero ligula et massa.</FluxPaneBody></FluxPane>
-        <FluxPane><FluxPaneBody>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, sapien eu tincidunt tincidunt, elit sapien ornare elit, quis efficitur libero ligula et massa.</FluxPaneBody></FluxPane>
-        <FluxPane><FluxPaneBody>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, sapien eu tincidunt tincidunt, elit sapien ornare elit, quis efficitur libero ligula et massa.</FluxPaneBody></FluxPane>
-    </FluxPaneDeck>
 </FluxView>
 
 ## Notice in pane

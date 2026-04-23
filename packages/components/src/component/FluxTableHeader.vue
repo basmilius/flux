@@ -65,7 +65,7 @@
     setup>
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { computed } from 'vue';
+    import { computed, type VNode } from 'vue';
     import { useTableInjection } from '$flux/composable';
     import { useTranslate } from '$flux/composable/private';
     import FluxFlyout from './FluxFlyout.vue';
@@ -92,7 +92,7 @@
     }>();
 
     defineSlots<{
-        default(): any;
+        default(): VNode[];
     }>();
 
     const {isBordered} = useTableInjection();

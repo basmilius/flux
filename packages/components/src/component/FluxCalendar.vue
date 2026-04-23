@@ -175,7 +175,7 @@
     }>();
 
     const slots = defineSlots<{
-        default?(): any;
+        default?(): VNode[];
     }>();
 
     const {

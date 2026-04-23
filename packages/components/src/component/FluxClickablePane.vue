@@ -29,6 +29,7 @@
 <script
     lang="ts"
     setup>
+    import type { VNode } from 'vue';
     import type { FluxPressableType, FluxTo } from '@flux-ui/types';
     import FluxPressable from './FluxPressable.vue';
     import FluxSpinner from './FluxSpinner.vue';
@@ -55,7 +56,7 @@
     }>();
 
     defineSlots<{
-        default(): any;
-        loader(): any;
+        default(): VNode[];
+        loader(): VNode[];
     }>();
 </script>

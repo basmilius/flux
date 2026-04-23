@@ -131,6 +131,55 @@
     margin-left: 33px;
 }
 
+.menuCollapsible {
+    display: flex;
+    flex-flow: column;
+}
+
+.menuCollapsibleOpened {
+    composes: menuCollapsible;
+}
+
+.menuCollapsibleBody {
+    position: relative;
+    min-height: 0;
+    transition: height 300ms var(--swift-out), opacity 200ms var(--swift-out);
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 3px;
+        bottom: 3px;
+        left: 21px;
+        width: 2px;
+        background: var(--surface-stroke);
+    }
+
+    &:global(.v-enter-from),
+    &:global(.v-leave-to) {
+        opacity: 0;
+    }
+
+    &:global(.v-enter-to),
+    &:global(.v-leave-from) {
+        opacity: 1;
+    }
+
+    &:global(.v-enter-active),
+    &:global(.v-leave-active) {
+        overflow: hidden;
+    }
+}
+
+.menuCollapsibleContent {
+    display: flex;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 35px;
+    flex-flow: column;
+    gap: 3px;
+}
+
 .menuItemSelectableIcon {
     composes: buttonIcon from './base/Button.module.scss';
 }

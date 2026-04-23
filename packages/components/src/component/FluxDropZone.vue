@@ -55,7 +55,7 @@
     lang="ts"
     setup>
     import { roundStep } from '@basmilius/utils';
-    import { onMounted, onUnmounted, ref, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { onMounted, onUnmounted, ref, toRef, unref, useTemplateRef, type VNode, watch } from 'vue';
     import { useDisabled } from '$flux/composable';
     import { useTranslate } from '$flux/composable/private';
     import { FluxFadeTransition } from '$flux/transition';
@@ -86,21 +86,21 @@
             readonly isDraggingOver: boolean;
 
             showPicker(): void;
-        }): any;
+        }): VNode[];
 
         actions?(props: {
             readonly isDragging: boolean;
             readonly isDraggingOver: boolean;
 
             showPicker(): void;
-        }): any;
+        }): VNode[];
 
         extra?(props: {
             readonly isDragging: boolean;
             readonly isDraggingOver: boolean;
 
             showPicker(): void;
-        }): any;
+        }): VNode[];
     }>();
 
     const contentRef = useTemplateRef('content');

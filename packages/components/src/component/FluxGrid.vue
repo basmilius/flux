@@ -12,6 +12,7 @@
 <script
     lang="ts"
     setup>
+    import type { VNode } from 'vue';
     import $style from '$flux/css/component/Grid.module.scss';
 
     const {
@@ -23,6 +24,6 @@
     }>();
 
     defineSlots<{
-        default(): any;
+        default(): VNode[];
     }>();
 </script>

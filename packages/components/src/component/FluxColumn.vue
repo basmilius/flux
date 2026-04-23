@@ -1,10 +1,7 @@
 <template>
     <div
-        :class="$style.autoGrid"
-        :style="{
-            gap: `${gap}px`,
-            '--min-column-width': minColumnWidth
-        }">
+        :class="$style.column"
+        :style="{'--gap': `${gap}px`}">
         <slot/>
     </div>
 </template>
@@ -12,16 +9,16 @@
 <script
     lang="ts"
     setup>
+    import type { VNode } from 'vue';
     import $style from '$flux/css/component/Layout.module.scss';
 
     const {
         gap = 18
     } = defineProps<{
         readonly gap?: number;
-        readonly minColumnWidth: number;
     }>();
 
     defineSlots<{
-        default(): any;
+        default(): VNode[];
     }>();
 </script>

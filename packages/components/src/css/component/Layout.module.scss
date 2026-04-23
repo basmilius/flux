@@ -13,10 +13,6 @@
     }
 }
 
-.autoGrid {
-    composes: baseAutoGrid from './base/Grid.module.scss';
-}
-
 .container {
     margin-left: auto;
     margin-right: auto;
@@ -25,6 +21,17 @@
     width: 100%;
 
     @include mixin.breakpoint-max-widths;
+}
+
+.column {
+    display: flex;
+    flex-flow: column;
+    gap: var(--gap, 0);
+}
+
+.row {
+    display: flex;
+    gap: var(--gap, 0);
 }
 
 .spacer {

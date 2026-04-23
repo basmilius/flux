@@ -44,6 +44,7 @@ export const english = {
     'flux.pinDigit': 'Digit {index} of {total}',
     'flux.dropFilesOrClick': 'Drop files here or click to upload',
     'flux.colorSaturationBrightness': 'Color saturation and brightness',
+    'flux.customColor': 'Custom color',
     'flux.hue': 'Hue',
     'flux.opacity': 'Opacity',
     'flux.lowerBound': 'Lower bound',

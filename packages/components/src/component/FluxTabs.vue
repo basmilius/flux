@@ -47,7 +47,7 @@
     });
 
     const slots = defineSlots<{
-        default(): any;
+        default(): VNode[];
 
         content(props: {
             activate(index: number): void;
@@ -58,7 +58,7 @@
                 readonly icon?: FluxIconName;
                 readonly label?: string;
             }[];
-        }): any;
+        }): VNode[];
 
         tabs(props: {
             activate(index: number): void;
@@ -69,7 +69,7 @@
                 readonly icon?: FluxIconName;
                 readonly label?: string;
             }[];
-        }): any;
+        }): VNode[];
     }>();
 
     const baseId = useId();

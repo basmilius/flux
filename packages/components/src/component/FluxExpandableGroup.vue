@@ -8,7 +8,7 @@
     lang="ts"
     setup>
     import { getExposedRef } from '@flux-ui/internals';
-    import { type ComponentInternalInstance, provide } from 'vue';
+    import { type ComponentInternalInstance, provide, type VNode } from 'vue';
     import { FluxExpandableGroupInjectionKey } from '$flux/data';
     import $style from '$flux/css/component/Expandable.module.scss';
 
@@ -20,7 +20,7 @@
 
 
     defineSlots<{
-        default(): any;
+        default(): VNode[];
     }>();
 
     const expandables: { [key: number]: ComponentInternalInstance; } = {};

@@ -38,7 +38,7 @@
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import type { DateTime } from 'luxon';
-    import { computed } from 'vue';
+    import { computed, type VNode } from 'vue';
     import { useTranslate } from '$flux/composable/private';
     import FluxAvatar from './FluxAvatar.vue';
     import $style from '$flux/css/component/Comment.module.scss';
@@ -60,7 +60,7 @@
     }>();
 
     defineSlots<{
-        default(): any;
+        default(): VNode[];
     }>();
 
     const translate = useTranslate();
