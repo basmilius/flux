@@ -1,8 +1,15 @@
 <template>
     <FluxFormSelect
         v-model="modelValue"
+        :auto-focus="autoFocus"
         :disabled="disabled"
+        :error="error"
+        :is-condensed="isCondensed"
+        :is-loading="isLoading"
+        :is-readonly="isReadonly"
         is-searchable
+        :is-secondary="isSecondary"
+        :name="name"
         :options="options"
         :placeholder="placeholder"/>
 </template>
@@ -11,7 +18,7 @@
     lang="ts"
     setup>
     import { isSSR } from '@flux-ui/internals';
-    import type { FluxFormSelectEntry } from '@flux-ui/types';
+    import type { FluxFormInputBaseProps, FluxFormSelectEntry } from '@flux-ui/types';
     import { upperFirst } from 'lodash-es';
     import { computed, toRef } from 'vue';
     import { useDisabled } from '$flux/composable';
@@ -26,10 +33,7 @@
 
     const {
         disabled: componentDisabled
-    } = defineProps<{
-        readonly disabled?: boolean;
-        readonly placeholder?: string;
-    }>();
+    } = defineProps<FluxFormInputBaseProps>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));
     const translate = useTranslate();

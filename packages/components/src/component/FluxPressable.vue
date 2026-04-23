@@ -5,7 +5,7 @@
         v-on="hoverListeners"
         :rel="rel"
         :target="target"
-        :to="to as any"
+        :to="to"
         @click="onClick($event)">
         <slot/>
     </router-link>

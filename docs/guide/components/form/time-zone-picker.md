@@ -11,9 +11,45 @@ props:
         description: The value of the timezone picker.
         type: [ "string", "null" ]
 
+    -   name: auto-focus
+        description: Focus the picker when the form is mounted.
+        type: boolean
+        optional: true
+        default: false
+
     -   name: disabled
         description: If the timezone picker is disabled.
         type: boolean
+        optional: true
+
+    -   name: error
+        description: Error message describing why the picker is invalid. Sets aria-invalid and a red border.
+        type: [ string, null ]
+        optional: true
+
+    -   name: is-condensed
+        description: Renders the picker in a compact style with reduced padding.
+        type: boolean
+        optional: true
+
+    -   name: is-loading
+        description: Shows a loading spinner inside the picker.
+        type: boolean
+        optional: true
+
+    -   name: is-readonly
+        description: If the picker is readonly. Blocks opening the popup.
+        type: boolean
+        optional: true
+
+    -   name: is-secondary
+        description: If the field is secondary and is rendered in an alternative style.
+        type: boolean
+        optional: true
+
+    -   name: name
+        description: The name attribute passed to the underlying select.
+        type: string
         optional: true
 
     -   name: placeholder

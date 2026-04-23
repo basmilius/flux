@@ -16,6 +16,26 @@ props:
         type: boolean
         optional: true
 
+    -   name: error
+        description: Error message describing why the slider is invalid. Sets aria-invalid.
+        type: [ string, null ]
+        optional: true
+
+    -   name: is-loading
+        description: Marks the slider as loading.
+        type: boolean
+        optional: true
+
+    -   name: is-readonly
+        description: If the slider is readonly. Blocks interaction.
+        type: boolean
+        optional: true
+
+    -   name: name
+        description: The name attribute of the underlying form control.
+        type: string
+        optional: true
+
     -   name: is-ticks-visible
         description: If the ticks are visible.
         type: boolean

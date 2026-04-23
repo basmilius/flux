@@ -11,8 +11,29 @@ props:
         description: The selected value(s) of the tree view select.
         type: FluxFormTreeViewSelectValue
 
+    -   name: auto-focus
+        description: Focus the trigger when the form is mounted.
+        type: boolean
+        optional: true
+        default: false
+
     -   name: disabled
         description: If the tree view select is disabled.
+        type: boolean
+        optional: true
+
+    -   name: error
+        description: Error message describing why the tree view select is invalid. Sets aria-invalid and a red border.
+        type: [ string, null ]
+        optional: true
+
+    -   name: is-condensed
+        description: Renders the trigger in a compact style with reduced padding.
+        type: boolean
+        optional: true
+
+    -   name: is-loading
+        description: Marks the tree view select as loading.
         type: boolean
         optional: true
 
@@ -21,9 +42,24 @@ props:
         type: boolean
         optional: true
 
+    -   name: is-readonly
+        description: If the tree view select is readonly. Blocks opening the popup.
+        type: boolean
+        optional: true
+
     -   name: is-searchable
         description: If the tree view select has a search input to filter options.
         type: boolean
+        optional: true
+
+    -   name: is-secondary
+        description: If the field is secondary and is rendered in an alternative style.
+        type: boolean
+        optional: true
+
+    -   name: name
+        description: The name attribute passed to the underlying form control.
+        type: string
         optional: true
 
     -   name: level-colors

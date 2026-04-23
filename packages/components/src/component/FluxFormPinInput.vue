@@ -1,12 +1,17 @@
 <template>
     <fieldset
-        :class="disabled ? $style.pinInputDisabled : $style.pinInputEnabled"
+        :class="clsx(
+            disabled ? $style.pinInputDisabled : $style.pinInputEnabled,
+            error && $style.isInvalid
+        )"
         :id="id"
+        :name="name"
         :style="{
             '--max-length': maxLength
         }"
         :autofocus="autoFocus"
-        :aria-disabled="disabled ? true : undefined">
+        :aria-disabled="disabled ? true : undefined"
+        :aria-invalid="error ? true : undefined">
         <input
             v-for="field of maxLength"
             :key="field"
@@ -17,6 +22,7 @@
             :autocomplete="field === 1 ? autoComplete : undefined"
             :autofocus="field === 1 && autoFocus"
             :disabled="disabled"
+            :readonly="isReadonly"
             :tabindex="(field - 1) === modelValue?.length ? 0 : -1"
             :type="isPrivate ? 'password' : 'text'"
             :value="modelValue[field - 1]"
@@ -30,7 +36,8 @@
 <script
     lang="ts"
     setup>
-    import type { FluxAutoCompleteType } from '@flux-ui/types';
+    import type { FluxAutoCompleteType, FluxFormInputBaseProps } from '@flux-ui/types';
+    import { clsx } from 'clsx';
     import { toRef, unref, useTemplateRef } from 'vue';
     import { useDisabled, useFormFieldInjection } from '$flux/composable';
     import { useTranslate } from '$flux/composable/private';
@@ -45,10 +52,8 @@
         autoFocus = false,
         disabled: componentDisabled,
         maxLength = 6
-    } = defineProps<{
+    } = defineProps<Pick<FluxFormInputBaseProps, 'autoFocus' | 'disabled' | 'error' | 'isLoading' | 'isReadonly' | 'name'> & {
         readonly autoComplete?: FluxAutoCompleteType;
-        readonly autoFocus?: boolean;
-        readonly disabled?: boolean;
         readonly isPrivate?: boolean;
         readonly maxLength?: number;
     }>();

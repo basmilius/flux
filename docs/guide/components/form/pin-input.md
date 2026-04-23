@@ -26,17 +26,37 @@ props:
         description: If the input is disabled.
         type: boolean
         optional: true
-        
+
+    -   name: error
+        description: Error message describing why the input is invalid. Sets aria-invalid and a red border.
+        type: [ string, null ]
+        optional: true
+
+    -   name: is-loading
+        description: Marks the input as loading.
+        type: boolean
+        optional: true
+
     -   name: is-private
         description: If the input is private.
         type: boolean
         optional: true
-        
+
+    -   name: is-readonly
+        description: If the input is readonly.
+        type: boolean
+        optional: true
+
     -   name: max-length
         description: The maximum value length of the input.
         type: number
         optional: true
         default: 6
+
+    -   name: name
+        description: The name attribute for the underlying fieldset.
+        type: string
+        optional: true
 ---
 
 # PIN input

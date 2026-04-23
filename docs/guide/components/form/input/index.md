@@ -44,7 +44,12 @@ props:
         description: If the input is disabled.
         type: boolean
         optional: true
-        
+
+    -   name: error
+        description: Error message describing why the input is invalid. Sets aria-invalid and a red border.
+        type: [ string, null ]
+        optional: true
+
     -   name: is-condensed
         description: Renders the input in a compact style with reduced padding.
         type: boolean
@@ -59,12 +64,12 @@ props:
         description: If the input is readonly.
         type: boolean
         optional: true
-        
+
     -   name: is-secondary
         description: If the field is secondary and is rendered in an alternative style.
         type: boolean
         optional: true
-        
+
     -   name: max
         description: The maximum value of the input.
         type: [ string, number ]
@@ -79,7 +84,12 @@ props:
         description: The minimum value of the input.
         type: [ string, number ]
         optional: true
-        
+
+    -   name: name
+        description: The name attribute of the underlying input element.
+        type: string
+        optional: true
+
     -   name: pattern
         description: The pattern attribute specifies a regular expression the form control's value should match. If a non-null value doesn't conform to the constraints set by the pattern value, the ValidityState object's read-only patternMismatch property will be true.
         type: FluxInputMask

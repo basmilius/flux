@@ -1,8 +1,14 @@
 <template>
     <SelectBase
         v-model:search-query="modelSearch"
+        :aria-invalid="error ? true : undefined"
+        :class="clsx(
+            isCondensed && $formStyle.isCondensed,
+            isSecondary && $formStyle.isSecondary,
+            error && $formStyle.isInvalid
+        )"
         :disabled="disabled"
-        :is-loading="isLoading"
+        :is-loading="isLoading || isFetchingLoading"
         :is-multiple="isMultiple"
         is-searchable
         :options="groups"
@@ -17,12 +23,14 @@
     lang="ts"
     setup>
     import { useDebouncedRef, useLoaded } from '@basmilius/common';
-    import type { FluxFormSelectEntry, FluxFormSelectValue, FluxFormSelectValueSingle } from '@flux-ui/types';
+    import type { FluxFormInputBaseProps, FluxFormSelectEntry, FluxFormSelectValue, FluxFormSelectValueSingle } from '@flux-ui/types';
+    import { clsx } from 'clsx';
     import { computed, type Ref, ref, toRef, unref, watch } from 'vue';
     import { SelectBase } from '$flux/component/primitive';
     import { useDisabled } from '$flux/composable';
     import { useFormSelect } from '$flux/composable/private';
     import { isFluxFormSelectOption } from '$flux/data';
+    import $formStyle from '$flux/css/component/Form.module.scss';
 
     const modelSearch = defineModel<string>('searchQuery', {
         default: ''
@@ -38,14 +46,12 @@
         fetchSearch: fetchSearchProp,
         disabled: componentDisabled,
         isMultiple
-    } = defineProps<{
+    } = defineProps<Pick<FluxFormInputBaseProps, 'autoFocus' | 'disabled' | 'error' | 'isCondensed' | 'isLoading' | 'isReadonly' | 'isSecondary' | 'name' | 'placeholder'> & {
         fetchOptions(ids: FluxFormSelectValueSingle[]): Promise<FluxFormSelectEntry[]>;
         fetchRelevant(): Promise<FluxFormSelectEntry[]>;
         fetchSearch(searchQuery: string): Promise<FluxFormSelectEntry[]>;
 
-        readonly disabled?: boolean;
         readonly isMultiple?: boolean;
-        readonly placeholder?: string;
     }>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));
@@ -76,7 +82,7 @@
     });
 
     const {groups, selected, values} = useFormSelect(modelValue, isMultiple, options);
-    const {isLoading, loaded} = useLoaded();
+    const {isLoading: isFetchingLoading, loaded} = useLoaded();
     const debouncedModelSearch = useDebouncedRef(modelSearch, 300) as unknown as Ref<string>;
     const fetchOptions = computed(() => loaded(fetchOptionsProp));
     const fetchRelevant = computed(() => loaded(fetchRelevantProp));

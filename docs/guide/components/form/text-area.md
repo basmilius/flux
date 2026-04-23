@@ -35,16 +35,41 @@ props:
         type: boolean
         optional: true
 
+    -   name: error
+        description: Error message describing why the textarea is invalid. Sets aria-invalid and a red border.
+        type: [ string, null ]
+        optional: true
+
+    -   name: is-condensed
+        description: Renders the textarea in a compact style with reduced padding.
+        type: boolean
+        optional: true
+
+    -   name: is-loading
+        description: Marks the textarea as loading.
+        type: boolean
+        optional: true
+
     -   name: is-readonly
         description: If the textarea is readonly.
         type: boolean
         optional: true
-        
+
+    -   name: is-secondary
+        description: If the field is secondary and is rendered in an alternative style.
+        type: boolean
+        optional: true
+
     -   name: max-length
         description: The maximum value length of the textarea.
         type: number
         optional: true
-        
+
+    -   name: name
+        description: The name attribute of the underlying textarea element.
+        type: string
+        optional: true
+
     -   name: placeholder
         description: The placeholder of the textarea.
         type: string

@@ -56,10 +56,10 @@
 
     onUnmounted(() => {
         window.removeEventListener('resize', onResize);
-        window.removeEventListener('scroll', onScroll);
+        window.removeEventListener('scroll', onScroll, {capture: true});
     });
 
-    useMutationObserver(popupRef as any, () => {
+    useMutationObserver(popupRef, () => {
         reposition();
     }, {childList: true, subtree: true});
 

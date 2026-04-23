@@ -4,10 +4,14 @@
             $style.toggle,
             modelValue && $style.isChecked,
             disabled && $style.isDisabled,
+            isReadonly && $style.isReadonly,
+            error && $style.isInvalid,
             isSwitch && $style.isSwitch
         )"
         :for="id"
-        :aria-disabled="disabled ? true : undefined">
+        :aria-disabled="disabled ? true : undefined"
+        :aria-readonly="isReadonly ? true : undefined"
+        :aria-invalid="error ? true : undefined">
         <FluxIcon
             v-if="iconOff"
             :class="$style.toggleIconOff"
@@ -28,6 +32,7 @@
             :checked="modelValue"
             role="switch"
             :aria-checked="modelValue"
+            @click="onClick"
             @input="toggle"/>
     </label>
 </template>
@@ -35,7 +40,7 @@
 <script
     lang="ts"
     setup>
-    import type { FluxIconName } from '@flux-ui/types';
+    import type { FluxFormInputBaseProps, FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { toRef } from 'vue';
     import { useDisabled, useFormFieldInjection } from '$flux/composable';
@@ -47,18 +52,28 @@
     });
 
     const {
-        disabled: componentDisabled
-    } = defineProps<{
+        disabled: componentDisabled,
+        isReadonly
+    } = defineProps<Pick<FluxFormInputBaseProps, 'disabled' | 'error' | 'isReadonly'> & {
         readonly iconOff?: FluxIconName;
         readonly iconOn?: FluxIconName;
-        readonly disabled?: boolean;
         readonly isSwitch?: boolean;
     }>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));
     const {id} = useFormFieldInjection();
 
+    function onClick(evt: MouseEvent): void {
+        if (isReadonly) {
+            evt.preventDefault();
+        }
+    }
+
     function toggle(evt: Event): void {
+        if (isReadonly) {
+            return;
+        }
+
         modelValue.value = (evt.target as HTMLInputElement).checked;
     }
 </script>

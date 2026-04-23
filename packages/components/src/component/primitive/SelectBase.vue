@@ -208,8 +208,8 @@
     const highlightedId = computed(() => unref(rawOptions)[unref(highlightedIndex)]?.value);
     const rawOptions = computed(() => options.map(group => group[1]).flat());
 
-    useClickOutside([anchorRef, anchorPopupRef] as any, isPopupOpen as any, () => isPopupOpen.value = false);
-    useClickOutside(anchorRef as any, isPopupOpen as any, () => unref(focusElement)?.focus());
+    useClickOutside([anchorRef, anchorPopupRef], isPopupOpen, () => isPopupOpen.value = false);
+    useClickOutside(anchorRef, isPopupOpen, () => unref(focusElement)?.focus());
 
     function deselect(id: string | number | null): void {
         emit('deselect', id);
@@ -220,7 +220,9 @@
     function select(id: string | number | null): void {
         emit('select', id);
 
-        !isMultiple && (isPopupOpen.value = false);
+        if (!isMultiple) {
+            isPopupOpen.value = false;
+        }
 
         highlightedIndex.value = INITIAL_HIGHLIGHTED_INDEX;
         modelSearch.value = '';

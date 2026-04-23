@@ -25,7 +25,17 @@ props:
         description: Whether the toggle is disabled.
         type: boolean
         optional: true
-        
+
+    -   name: error
+        description: Error message describing why the toggle is invalid. Sets aria-invalid and a red border.
+        type: [ string, null ]
+        optional: true
+
+    -   name: is-readonly
+        description: If the toggle is readonly. Blocks toggling via mouse or keyboard.
+        type: boolean
+        optional: true
+
     -   name: is-switch
         description: Applies a switch style to the toggle. This means that the toggle won't change color when it's activated.
         type: boolean

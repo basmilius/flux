@@ -6,10 +6,18 @@
     lang="ts"
     setup>
     import { flattenVNodeTree, getComponentName, getComponentProps } from '@flux-ui/internals';
-    import type { FluxFilterItem, FluxFilterOptionItem, FluxFilterState } from '@flux-ui/types';
+    import type { FluxFilterItem, FluxFilterOptionItem, FluxFilterSpecMap, FluxFilterState } from '@flux-ui/types';
     import { computed, provide, unref, type VNode } from 'vue';
     import { filterParsers, FluxFilterInjectionKey } from '$flux/data';
     import { camelCase } from 'lodash-es';
+
+    type FluxFilterType = keyof FluxFilterSpecMap;
+
+    function applyParser<K extends FluxFilterType>(type: K, spec: FluxFilterSpecMap[K]): FluxFilterItem {
+        const parser = filterParsers[type] as (spec: FluxFilterSpecMap[K]) => FluxFilterItem;
+
+        return parser(spec);
+    }
 
     const emit = defineEmits<{
         back: [];
@@ -45,10 +53,10 @@
                 continue;
             }
 
-            const props = getComponentProps<Omit<FluxFilterItem, 'type'>>(item);
-            const type = camelCase(name.substring(10)) as FluxFilterItem['type'];
+            const type = camelCase(name.substring(10)) as FluxFilterType;
+            const props = getComponentProps<FluxFilterSpecMap[FluxFilterType]>(item);
 
-            buttons[props.name] = filterParsers[type](props);
+            buttons[props.name] = applyParser(type, props);
         }
 
         return buttons;
@@ -92,10 +100,10 @@
             }
 
             if (name.startsWith('FluxFilter')) {
-                const props = getComponentProps<Omit<FluxFilterItem, 'type'>>(item);
-                const type = camelCase(name.substring(10)) as FluxFilterItem['type'];
+                const type = camelCase(name.substring(10)) as FluxFilterType;
+                const props = getComponentProps<FluxFilterSpecMap[FluxFilterType]>(item);
 
-                menuItems[menuItems.length - 1].push(filterParsers[type](props));
+                menuItems[menuItems.length - 1].push(applyParser(type, props));
                 continue;
             }
 

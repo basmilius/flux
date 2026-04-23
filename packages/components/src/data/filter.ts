@@ -1,11 +1,11 @@
 import { formatNumber } from '@basmilius/utils';
-import type { FluxFilterBase, FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterOptionEntry, FluxFilterOptionHeader, FluxFilterOptionItem, FluxFilterOptionRow, FluxFilterOptionsEntry, FluxFilterRangeEntry, FluxFilterValue, FluxFilterValueSingle } from '@flux-ui/types';
+import type { FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterDateRangeSpec, FluxFilterDateSpec, FluxFilterEntryMap, FluxFilterOptionAsyncSpec, FluxFilterOptionEntry, FluxFilterOptionHeader, FluxFilterOptionItem, FluxFilterOptionSpec, FluxFilterOptionsAsyncSpec, FluxFilterOptionsEntry, FluxFilterOptionsSpec, FluxFilterRangeEntry, FluxFilterRangeSpec, FluxFilterSpecMap, FluxFilterValueSingle } from '@flux-ui/types';
 import { DateTime } from 'luxon';
 import { useTranslate } from '$flux/composable/private';
 import type { FluxTranslate } from '$flux/data';
 import { createLabelForDateRange } from '$flux/util';
 
-function parseDate(base: FluxFilterBase): FluxFilterDateEntry {
+function parseDate(base: FluxFilterDateSpec): FluxFilterDateEntry {
     return {
         ...base,
         type: 'date',
@@ -24,7 +24,7 @@ function parseDate(base: FluxFilterBase): FluxFilterDateEntry {
     };
 }
 
-function parseDateRange(base: FluxFilterBase): FluxFilterDateRangeEntry {
+function parseDateRange(base: FluxFilterDateRangeSpec): FluxFilterDateRangeEntry {
     return {
         ...base,
         type: 'dateRange',
@@ -45,36 +45,34 @@ function parseDateRange(base: FluxFilterBase): FluxFilterDateRangeEntry {
     };
 }
 
-function parseOption(base: FluxFilterBase): FluxFilterOptionEntry {
-    const options = (base as any).options as FluxFilterOptionItem[];
+function parseOption({options, ...base}: FluxFilterOptionSpec): FluxFilterOptionEntry {
+    const items = options.filter(isFluxFilterOptionItem);
 
     return {
         ...base,
         type: 'option',
 
         async getValueLabel(value): Promise<string | null> {
-            return options.find(o => o.value === value)?.label ?? null;
+            return items.find(o => o.value === value)?.label ?? null;
         }
     };
 }
 
-function parseOptionAsync(base: FluxFilterBase): FluxFilterOptionEntry {
-    const fetchOptions = (base as any).fetchOptions as (ids: FluxFilterValue[]) => Promise<FluxFilterOptionRow[]>;
-
+function parseOptionAsync({fetchOptions, ...base}: FluxFilterOptionAsyncSpec): FluxFilterOptionEntry {
     return {
         ...base,
         type: 'option',
 
         async getValueLabel(value): Promise<string | null> {
-            const options = (await fetchOptions([value])).filter(isFluxFilterOptionItem);
+            const items = (await fetchOptions([value])).filter(isFluxFilterOptionItem);
 
-            return options.find(o => o.value === value)?.label ?? null;
+            return items.find(o => o.value === value)?.label ?? null;
         }
     };
 }
 
-function parseOptions(base: FluxFilterBase): FluxFilterOptionsEntry {
-    const options = (base as any).options as FluxFilterOptionItem[];
+function parseOptions({options, ...base}: FluxFilterOptionsSpec): FluxFilterOptionsEntry {
+    const items = options.filter(isFluxFilterOptionItem);
     const translate = useTranslate();
 
     return {
@@ -86,13 +84,12 @@ function parseOptions(base: FluxFilterBase): FluxFilterOptionsEntry {
                 return null;
             }
 
-            return generateMultiOptionsLabel(translate, options, value);
+            return generateMultiOptionsLabel(translate, items, value);
         }
     };
 }
 
-function parseOptionsAsync(base: FluxFilterBase): FluxFilterOptionsEntry {
-    const fetchOptions = (base as any).fetchOptions as (ids: FluxFilterValue[]) => Promise<FluxFilterOptionRow[]>;
+function parseOptionsAsync({fetchOptions, ...base}: FluxFilterOptionsAsyncSpec): FluxFilterOptionsEntry {
     const translate = useTranslate();
 
     return {
@@ -104,14 +101,14 @@ function parseOptionsAsync(base: FluxFilterBase): FluxFilterOptionsEntry {
                 return null;
             }
 
-            const options = (await fetchOptions(value)).filter(isFluxFilterOptionItem);
+            const items = (await fetchOptions(value)).filter(isFluxFilterOptionItem);
 
-            return generateMultiOptionsLabel(translate, options, value);
+            return generateMultiOptionsLabel(translate, items, value);
         }
     };
 }
 
-function parseRange(base: FluxFilterBase): FluxFilterRangeEntry {
+function parseRange(base: FluxFilterRangeSpec): FluxFilterRangeEntry {
     return {
         ...base,
         type: 'range',
@@ -122,14 +119,9 @@ function parseRange(base: FluxFilterBase): FluxFilterRangeEntry {
             }
 
             const [lower, upper] = value as number[];
+            const formatter = base.formatter ?? formatNumber;
 
-            if ('formatter' in base) {
-                const formatter = base.formatter as (value: number) => string;
-
-                return `${formatter(lower!)} – ${formatter(upper!)}`;
-            }
-
-            return `${formatNumber(lower!)} – ${formatNumber(upper!)}`;
+            return `${formatter(lower!)} – ${formatter(upper!)}`;
         }
     };
 }
@@ -150,7 +142,11 @@ function generateMultiOptionsLabel(translate: FluxTranslate, options: FluxFilter
     });
 }
 
-export const filterParsers = {
+export type FluxFilterParsers = {
+    [K in keyof FluxFilterSpecMap]: (spec: FluxFilterSpecMap[K]) => FluxFilterEntryMap[K];
+};
+
+export const filterParsers: FluxFilterParsers = {
     date: parseDate,
     dateRange: parseDateRange,
     option: parseOption,
@@ -158,7 +154,7 @@ export const filterParsers = {
     options: parseOptions,
     optionsAsync: parseOptionsAsync,
     range: parseRange
-} as const;
+};
 
 export function isFluxFilterOptionHeader(obj: object): obj is FluxFilterOptionHeader {
     return 'title' in obj;

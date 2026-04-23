@@ -44,6 +44,7 @@
     lang="ts"
     setup>
     import { clampWithStepPrecision, countDecimals, formatNumber } from '@basmilius/utils';
+    import type { FluxFormInputBaseProps } from '@flux-ui/types';
     import { computed, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '$flux/composable';
     import { useTranslate } from '$flux/composable/private';
@@ -61,10 +62,9 @@
         max = 100,
         min = 0,
         step = 1
-    } = defineProps<{
+    } = defineProps<Pick<FluxFormInputBaseProps, 'disabled' | 'error' | 'isLoading' | 'isReadonly' | 'name'> & {
         formatter?(value: number, decimals?: number): string;
 
-        readonly disabled?: boolean;
         readonly isTicksVisible?: boolean;
         readonly isTooltipDisabled?: boolean;
         readonly max?: number;

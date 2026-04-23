@@ -43,6 +43,19 @@
     import FluxMenuItem from './FluxMenuItem.vue';
     import $style from '$flux/css/component/Menu.module.scss';
 
+    type RouteRecordLike = {
+        readonly name?: string | symbol | null | undefined;
+    };
+
+    type RouteLike = {
+        readonly path: string;
+        readonly matched: readonly RouteRecordLike[];
+    };
+
+    type RouteAwareInstance = {
+        readonly $route?: RouteLike;
+    };
+
     const emit = defineEmits<{
         toggle: [boolean];
         'update:isOpened': [boolean];
@@ -71,7 +84,7 @@
     const bodyId = useId();
     const instance = getCurrentInstance();
     const isOpen = ref(!!isOpened);
-    const route = computed(() => (instance?.proxy as any)?.$route);
+    const route = computed<RouteLike | undefined>(() => (instance?.proxy as RouteAwareInstance | null)?.$route);
 
     function open(): void {
         if (isOpen.value) {
@@ -109,7 +122,7 @@
         }
     }
 
-    function matchesRoute(target: unknown, currentRoute: any): boolean {
+    function matchesRoute(target: unknown, currentRoute: RouteLike | undefined): boolean {
         if (!target || !currentRoute) {
             return false;
         }
@@ -119,14 +132,14 @@
         }
 
         if (typeof target === 'object') {
-            const obj = target as Record<string, any>;
+            const obj = target as Record<string, unknown>;
 
             if (typeof obj.path === 'string') {
                 return currentRoute.path === obj.path || currentRoute.path.startsWith(`${obj.path}/`);
             }
 
             if (obj.name && Array.isArray(currentRoute.matched)) {
-                return currentRoute.matched.some((record: any) => record.name === obj.name);
+                return currentRoute.matched.some(record => record.name === obj.name);
             }
         }
 

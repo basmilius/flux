@@ -1,6 +1,12 @@
 <template>
     <SelectBase
         v-model:searchQuery="modelSearch"
+        :aria-invalid="error ? true : undefined"
+        :class="clsx(
+            isCondensed && $formStyle.isCondensed,
+            isSecondary && $formStyle.isSecondary,
+            error && $formStyle.isInvalid
+        )"
         :disabled="disabled"
         :is-loading="isLoading"
         :is-multiple="isMultiple"
@@ -15,11 +21,13 @@
 <script
     lang="ts"
     setup>
-    import type { FluxFormSelectEntry, FluxFormSelectValue } from '@flux-ui/types';
+    import type { FluxFormInputBaseProps, FluxFormSelectEntry, FluxFormSelectValue } from '@flux-ui/types';
+    import { clsx } from 'clsx';
     import { toRef, unref } from 'vue';
     import { SelectBase } from '$flux/component/primitive';
     import { useDisabled } from '$flux/composable';
     import { useFormSelect } from '$flux/composable/private';
+    import $formStyle from '$flux/css/component/Form.module.scss';
 
     const modelSearch = defineModel<string>('searchQuery', {
         default: ''
@@ -33,11 +41,8 @@
         disabled: componentDisabled,
         isMultiple,
         options
-    } = defineProps<{
-        readonly disabled?: boolean;
-        readonly isLoading?: boolean;
+    } = defineProps<Pick<FluxFormInputBaseProps, 'autoFocus' | 'disabled' | 'error' | 'isCondensed' | 'isLoading' | 'isReadonly' | 'isSecondary' | 'name' | 'placeholder'> & {
         readonly isMultiple?: boolean;
-        readonly placeholder?: string;
         readonly isSearchable?: boolean;
         readonly options: FluxFormSelectEntry[];
     }>();

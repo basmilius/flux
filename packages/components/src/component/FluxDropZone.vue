@@ -8,7 +8,7 @@
         :aria-disabled="disabled ? true : undefined"
         :aria-label="ariaLabel ?? translate('flux.dropFilesOrClick')"
         :tabindex="disabled ? -1 : 0"
-        @keydown="onKeyDown">
+        @keydown.self="onKeyDown">
         <div
             :class="$style.dropZoneContent"
             @dragleave.capture="onDragLeave"
@@ -118,9 +118,9 @@
     });
 
     onUnmounted(() => {
-        window.removeEventListener('dragleave', onWindowDragEnd);
-        window.removeEventListener('dragover', onWindowDragStart);
-        window.removeEventListener('drop', onWindowDrop);
+        window.removeEventListener('dragleave', onWindowDragEnd, {capture: true});
+        window.removeEventListener('dragover', onWindowDragStart, {capture: true});
+        window.removeEventListener('drop', onWindowDrop, {capture: true});
     });
 
     function onKeyDown(evt: KeyboardEvent): void {

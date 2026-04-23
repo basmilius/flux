@@ -1,5 +1,17 @@
 import type { FluxIconName } from './common';
 
+export type FluxFormInputBaseProps = {
+    readonly autoFocus?: boolean;
+    readonly disabled?: boolean;
+    readonly error?: string | null;
+    readonly isCondensed?: boolean;
+    readonly isLoading?: boolean;
+    readonly isReadonly?: boolean;
+    readonly isSecondary?: boolean;
+    readonly name?: string;
+    readonly placeholder?: string;
+};
+
 export type FluxFormTreeViewSelectOption = {
     readonly id: string | number;
     readonly label: string;

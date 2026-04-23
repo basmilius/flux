@@ -34,9 +34,29 @@ props:
         type: boolean
         optional: true
 
+    -   name: error
+        description: Error message describing why the input is invalid. Sets aria-invalid and a red border.
+        type: [ string, null ]
+        optional: true
+
+    -   name: is-condensed
+        description: Renders the input in a compact style with reduced padding.
+        type: boolean
+        optional: true
+
+    -   name: is-loading
+        description: Shows a loading spinner inside the input.
+        type: boolean
+        optional: true
+
     -   name: is-readonly
         description: Make the form input read-only.
-        type: string
+        type: boolean
+        optional: true
+
+    -   name: is-secondary
+        description: If the field is secondary and is rendered in an alternative style.
+        type: boolean
         optional: true
 
     -   name: max
@@ -47,6 +67,11 @@ props:
     -   name: min
         description: The minimum selectable date.
         type: DateTime
+        optional: true
+
+    -   name: name
+        description: The name attribute of the underlying input element.
+        type: string
         optional: true
 
     -   name: placeholder

@@ -62,3 +62,53 @@ export type FluxFilterValue =
     | FluxFilterValueSingle[];
 
 export type FluxFilterState = Record<string, FluxFilterValue>;
+
+export type FluxFilterSpec = {
+    readonly icon?: FluxIconName;
+    readonly label: string;
+    readonly name: string;
+};
+
+export type FluxFilterDateSpec = FluxFilterSpec;
+
+export type FluxFilterDateRangeSpec = FluxFilterSpec;
+
+export type FluxFilterOptionSpec = FluxFilterSpec & {
+    readonly options: FluxFilterOptionRow[];
+};
+
+export type FluxFilterOptionAsyncSpec = FluxFilterSpec & {
+    fetchOptions(ids: FluxFilterValue[]): Promise<FluxFilterOptionRow[]>;
+};
+
+export type FluxFilterOptionsSpec = FluxFilterSpec & {
+    readonly options: FluxFilterOptionRow[];
+};
+
+export type FluxFilterOptionsAsyncSpec = FluxFilterSpec & {
+    fetchOptions(ids: FluxFilterValue[]): Promise<FluxFilterOptionRow[]>;
+};
+
+export type FluxFilterRangeSpec = FluxFilterSpec & {
+    formatter?(value: number): string;
+};
+
+export type FluxFilterSpecMap = {
+    date: FluxFilterDateSpec;
+    dateRange: FluxFilterDateRangeSpec;
+    option: FluxFilterOptionSpec;
+    optionAsync: FluxFilterOptionAsyncSpec;
+    options: FluxFilterOptionsSpec;
+    optionsAsync: FluxFilterOptionsAsyncSpec;
+    range: FluxFilterRangeSpec;
+};
+
+export type FluxFilterEntryMap = {
+    date: FluxFilterDateEntry;
+    dateRange: FluxFilterDateRangeEntry;
+    option: FluxFilterOptionEntry;
+    optionAsync: FluxFilterOptionEntry;
+    options: FluxFilterOptionsEntry;
+    optionsAsync: FluxFilterOptionsEntry;
+    range: FluxFilterRangeEntry;
+};

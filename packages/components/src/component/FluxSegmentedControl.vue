@@ -78,7 +78,7 @@
 
     watchEffect(() => updateHighlight(unref(modelValue)), {flush: 'post'});
 
-    useResizeObserver(controlRef as any, () => updateHighlight(unref(modelValue)));
+    useResizeObserver(controlRef, () => updateHighlight(unref(modelValue)));
 
     function activate(index: number): void {
         modelValue.value = index;

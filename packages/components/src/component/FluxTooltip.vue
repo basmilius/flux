@@ -27,7 +27,7 @@
                 const elm = instance.proxy!.$el;
                 elm.removeEventListener('mouseenter', onHover);
                 elm.removeEventListener('mouseleave', onLeave);
-                window.removeEventListener('scroll', onLeave);
+                window.removeEventListener('scroll', onLeave, {capture: true});
                 onLeave();
             });
 

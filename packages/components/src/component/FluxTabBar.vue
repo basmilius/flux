@@ -52,10 +52,10 @@
         default(): VNode[];
     }>();
 
-    const tabBarRef = useTemplateRef('tabBar');
+    const tabBarRef = useTemplateRef<HTMLElement>('tabBar');
 
     useEventListener(tabBarRef, 'scroll', () => checkScroll());
-    useMutationObserver(tabBarRef as any, () => checkScroll(), {childList: true});
+    useMutationObserver(tabBarRef, () => checkScroll(), {childList: true});
 
     const isEndArrowVisible = ref(false);
     const isStartArrowVisible = ref(false);

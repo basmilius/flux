@@ -175,6 +175,14 @@
         border-color: transparent;
         box-shadow: none;
     }
+
+    &.isCondensed {
+        height: 34px;
+    }
+
+    &.isInvalid {
+        border-color: var(--danger-500);
+    }
 }
 
 .form .formInput {
@@ -580,6 +588,32 @@
     flex-shrink: 0;
     gap: 12px;
     outline: 0;
+
+    &.isDisabled {
+        cursor: not-allowed;
+
+        .checkboxElement {
+            background: var(--surface-disabled);
+            border-color: var(--surface-stroke);
+            color: var(--foreground-secondary);
+        }
+
+        .checkboxLabel {
+            color: var(--foreground-secondary);
+        }
+    }
+
+    &.isReadonly {
+        cursor: default;
+
+        .checkboxNative {
+            pointer-events: none;
+        }
+    }
+
+    &.isInvalid .checkboxElement {
+        border-color: var(--danger-500);
+    }
 }
 
 .checkboxElement,
@@ -807,6 +841,14 @@
     &.isDisabled {
         cursor: not-allowed;
         opacity: .6;
+    }
+
+    &.isReadonly .toggleInput {
+        pointer-events: none;
+    }
+
+    &.isInvalid {
+        border-color: var(--danger-500);
     }
 }
 

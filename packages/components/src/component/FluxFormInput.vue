@@ -3,7 +3,8 @@
         :class="clsx(
             disabled ? $style.formInputDisabled : $style.formInputEnabled,
             isCondensed && $style.isCondensed,
-            isSecondary && $style.isSecondary
+            isSecondary && $style.isSecondary,
+            error && $style.isInvalid
         )"
         :aria-disabled="disabled ? true : undefined">
         <input
@@ -14,9 +15,11 @@
                 !!iconLeading && $style.formInputNativeHasIconLeading
             )"
             :id="id"
+            :name="name"
             :autocomplete="autoComplete"
             :autofocus="autoFocus"
             :aria-disabled="disabled ? true : undefined"
+            :aria-invalid="error ? true : undefined"
             :disabled="disabled"
             :max="max"
             :maxlength="maxLength"
@@ -61,7 +64,7 @@
     lang="ts"
     setup>
     import { unrefTemplateElement } from '@flux-ui/internals';
-    import type { FluxAutoCompleteType, FluxIconName, FluxInputMask, FluxInputType } from '@flux-ui/types';
+    import type { FluxAutoCompleteType, FluxFormInputBaseProps, FluxIconName, FluxInputMask, FluxInputType } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
     import { ref, toRef, unref, useTemplateRef, watch } from 'vue';
@@ -84,23 +87,17 @@
     const {
         autoFocus = false,
         disabled: componentDisabled,
+        isReadonly,
         pattern,
         type = 'text'
-    } = defineProps<{
+    } = defineProps<FluxFormInputBaseProps & {
         readonly autoComplete?: FluxAutoCompleteType;
-        readonly autoFocus?: boolean;
         readonly iconLeading?: FluxIconName;
         readonly iconTrailing?: FluxIconName;
-        readonly disabled?: boolean;
-        readonly isCondensed?: boolean;
-        readonly isLoading?: boolean;
-        readonly isReadonly?: boolean;
-        readonly isSecondary?: boolean;
         readonly max?: string | number;
         readonly maxLength?: number;
         readonly min?: string | number;
         readonly pattern?: FluxInputMask;
-        readonly placeholder?: string;
         readonly step?: number;
         readonly type?: FluxInputType;
     }>();
@@ -165,6 +162,10 @@
     }
 
     function onKeyDown(evt: KeyboardEvent): void {
+        if (isReadonly) {
+            return;
+        }
+
         if (!['date', 'datetime-local', 'month', 'week'].includes(type)) {
             return;
         }

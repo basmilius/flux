@@ -5,7 +5,7 @@
         <template #opener="{open}">
             <FluxFormInputGroup>
                 <FluxFormInput
-                    :="{autoComplete, autoFocus, disabled, isReadonly, modelValue, placeholder}"
+                    :="{autoComplete, autoFocus, error, isCondensed, isLoading, isReadonly, isSecondary, name, placeholder}"
                     v-model="localValue"
                     :class="$style.formDateInput"
                     :disabled="disabled"
@@ -17,7 +17,7 @@
                     @show-picker="open"/>
 
                 <FluxSecondaryButton
-                    :disabled="disabled"
+                    :disabled="disabled || isReadonly"
                     icon-leading="calendar"
                     @click.prevent="open"/>
             </FluxFormInputGroup>
@@ -33,7 +33,7 @@
 <script
     lang="ts"
     setup>
-    import type { FluxAutoCompleteType } from '@flux-ui/types';
+    import type { FluxAutoCompleteType, FluxFormInputBaseProps } from '@flux-ui/types';
     import type { DateTime } from 'luxon';
     import { ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '$flux/composable';
@@ -55,14 +55,10 @@
 
     const {
         disabled: componentDisabled
-    } = defineProps<{
+    } = defineProps<FluxFormInputBaseProps & {
         readonly autoComplete?: FluxAutoCompleteType;
-        readonly autoFocus?: boolean;
-        readonly disabled?: boolean;
-        readonly isReadonly?: boolean;
         readonly max?: DateTime;
         readonly min?: DateTime;
-        readonly placeholder?: string;
     }>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));

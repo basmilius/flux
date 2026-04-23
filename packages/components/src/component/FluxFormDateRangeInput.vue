@@ -3,18 +3,29 @@
         ref="flyout"
         :width="300">
         <template #opener="{open}">
-            <FluxFormInputGroup :aria-disabled="disabled ? true : undefined">
+            <FluxFormInputGroup
+                :aria-disabled="disabled ? true : undefined"
+                :aria-readonly="isReadonly ? true : undefined"
+                :aria-invalid="error ? true : undefined">
                 <div
                     :class="clsx(
                         $style.formDateRangeInput,
-                        disabled && $style.isDisabled
+                        disabled && $style.isDisabled,
+                        isCondensed && $style.isCondensed,
+                        isSecondary && $style.isSecondary,
+                        error && $style.isInvalid
                     )"
                     role="presentation">
-                    <span>{{ label }}</span>
+                    <span v-if="label">{{ label }}</span>
+                    <span
+                        v-else-if="placeholder"
+                        :class="$style.formSelectPlaceholder">
+                        {{ placeholder }}
+                    </span>
                 </div>
 
                 <FluxSecondaryButton
-                    :disabled="disabled"
+                    :disabled="disabled || isReadonly"
                     icon-leading="calendar"
                     @click.prevent="open"/>
             </FluxFormInputGroup>
@@ -31,6 +42,7 @@
 <script
     lang="ts"
     setup>
+    import type { FluxFormInputBaseProps } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import type { DateTime } from 'luxon';
     import { computed, ref, toRef, unref, useTemplateRef, watch } from 'vue';
@@ -49,8 +61,7 @@
     const {
         disabled: componentDisabled,
         rangeMode = 'range'
-    } = defineProps<{
-        readonly disabled?: boolean;
+    } = defineProps<FluxFormInputBaseProps & {
         readonly max?: DateTime;
         readonly min?: DateTime;
         readonly rangeMode?: 'range' | 'week' | 'month';

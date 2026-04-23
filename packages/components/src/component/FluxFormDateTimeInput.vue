@@ -10,7 +10,7 @@
             <template #opener="{open}">
                 <FluxFormInputGroup>
                     <FluxFormInput
-                        :="{autoFocus, disabled, isReadonly, modelValue, placeholder}"
+                        :="{autoFocus, error, isCondensed, isLoading, isReadonly, isSecondary, name, placeholder}"
                         :class="$style.formDateInput"
                         :disabled="disabled"
                         :model-value="localValue"
@@ -19,7 +19,7 @@
                         @show-picker="open"/>
 
                     <FluxSecondaryButton
-                        :disabled="disabled"
+                        :disabled="disabled || isReadonly"
                         icon-leading="calendar"
                         @click.prevent="open"/>
                 </FluxFormInputGroup>
@@ -33,8 +33,10 @@
         </FluxFlyout>
 
         <FluxFormInput
-            :="{disabled, isReadonly, modelValue, placeholder}"
+            :="{error, isCondensed, isLoading, isReadonly, isSecondary, placeholder}"
             :class="$style.formTimeInput"
+            :disabled="disabled"
+            :name="name ? `${name}-time` : undefined"
             type="time"
             :model-value="localValue"
             @update:model-value="setTime"/>
@@ -44,7 +46,7 @@
 <script
     lang="ts"
     setup>
-    import type { FluxAutoCompleteType } from '@flux-ui/types';
+    import type { FluxAutoCompleteType, FluxFormInputBaseProps } from '@flux-ui/types';
     import { DateTime } from 'luxon';
     import { ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '$flux/composable';
@@ -63,15 +65,11 @@
     const {
         disabled: componentDisabled,
         isHourOnly
-    } = defineProps<{
+    } = defineProps<FluxFormInputBaseProps & {
         readonly autoComplete?: FluxAutoCompleteType;
-        readonly autoFocus?: boolean;
-        readonly disabled?: boolean;
         readonly isHourOnly?: boolean;
-        readonly isReadonly?: boolean;
         readonly max?: DateTime;
         readonly min?: DateTime;
-        readonly placeholder?: string;
     }>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));
@@ -105,7 +103,13 @@
         });
     }
 
-    watch(() => isHourOnly, () => isHourOnly && (localValue.value = unref(localValue)?.startOf('hour') ?? null), {immediate: true});
+    watch(() => isHourOnly, () => {
+        if (!isHourOnly) {
+            return;
+        }
+
+        localValue.value = unref(localValue)?.startOf('hour') ?? null;
+    }, {immediate: true});
     watch(modelValue, modelValue => localValue.value = isHourOnly ? modelValue?.startOf('hour') ?? null : modelValue, {immediate: true});
 
     watch(localValue, localValue => {

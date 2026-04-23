@@ -11,26 +11,62 @@ props:
         description: The selected value(s) of the select element.
         type: FluxFormSelectValue
 
+    -   name: auto-focus
+        description: Focus the select when the form is mounted.
+        type: boolean
+        optional: true
+        default: false
+
     -   name: disabled
         description: If the select element is disabled.
         type: boolean
         optional: true
-        
+
+    -   name: error
+        description: Error message describing why the select is invalid. Sets aria-invalid and a red border.
+        type: [ string, null ]
+        optional: true
+
+    -   name: is-condensed
+        description: Renders the select in a compact style with reduced padding.
+        type: boolean
+        optional: true
+
+    -   name: is-loading
+        description: Shows a loading spinner inside the select.
+        type: boolean
+        optional: true
+
     -   name: is-multiple
         description: If the select element allows multiple values to be selected.
         type: boolean
         optional: true
-        
-    -   name: placeholder
-        description: The placeholder text to display when no value is selected.
-        type: string
+
+    -   name: is-readonly
+        description: If the select is readonly. Blocks opening the popup.
+        type: boolean
         optional: true
-        
+
     -   name: is-searchable
         description: If the select element is searchable.
         type: boolean
         optional: true
-        
+
+    -   name: is-secondary
+        description: If the field is secondary and is rendered in an alternative style.
+        type: boolean
+        optional: true
+
+    -   name: name
+        description: The name attribute passed to a hidden form control.
+        type: string
+        optional: true
+
+    -   name: placeholder
+        description: The placeholder text to display when no value is selected.
+        type: string
+        optional: true
+
     -   name: options
         description: The options to display in the select element.
         type: FluxFormSelectOption[]

@@ -46,11 +46,10 @@ const state = reactive<FluxState>({
     tooltips: []
 });
 
-let alertId: number = 0;
-let tooltipId: number = 0;
+let nextId: number = 0;
 
 export function addAlert(spec: Omit<FluxAlertObject, 'id'>): number {
-    const id = ++alertId;
+    const id = ++nextId;
 
     state.alerts.push({
         id,
@@ -61,7 +60,7 @@ export function addAlert(spec: Omit<FluxAlertObject, 'id'>): number {
 }
 
 export function addConfirm(spec: Omit<FluxConfirmObject, 'id'>): number {
-    const id = ++alertId;
+    const id = ++nextId;
 
     state.confirms.push({
         id,
@@ -72,7 +71,7 @@ export function addConfirm(spec: Omit<FluxConfirmObject, 'id'>): number {
 }
 
 export function addPrompt(spec: Omit<FluxPromptObject, 'id'>): number {
-    const id = ++alertId;
+    const id = ++nextId;
 
     state.prompts.push({
         id,
@@ -83,7 +82,7 @@ export function addPrompt(spec: Omit<FluxPromptObject, 'id'>): number {
 }
 
 export function addSnackbar(spec: Omit<FluxSnackbarObject, 'id'>): number {
-    const id = ++alertId;
+    const id = ++nextId;
 
     state.snackbars.unshift({
         id,
@@ -94,7 +93,7 @@ export function addSnackbar(spec: Omit<FluxSnackbarObject, 'id'>): number {
 }
 
 export function addTooltip(spec: Omit<FluxTooltipObject, 'id'>): number {
-    const id = ++tooltipId;
+    const id = ++nextId;
 
     state.tooltips.push({
         id,
@@ -113,36 +112,71 @@ export function registerDialog(): [number, VoidFunction] {
 
 export function removeAlert(id: number): void {
     const index = state.alerts.findIndex(a => a.id === id);
+
+    if (index < 0) {
+        return;
+    }
+
     state.alerts.splice(index, 1);
 }
 
 export function removeConfirm(id: number): void {
     const index = state.confirms.findIndex(c => c.id === id);
+
+    if (index < 0) {
+        return;
+    }
+
     state.confirms.splice(index, 1);
 }
 
 export function removePrompt(id: number): void {
     const index = state.prompts.findIndex(c => c.id === id);
+
+    if (index < 0) {
+        return;
+    }
+
     state.prompts.splice(index, 1);
 }
 
 export function removeSnackbar(id: number): void {
     const index = state.snackbars.findIndex(s => s.id === id);
+
+    if (index < 0) {
+        return;
+    }
+
     state.snackbars.splice(index, 1);
 }
 
 export function removeTooltip(id: number): void {
     const index = state.tooltips.findIndex(t => t.id === id);
+
+    if (index < 0) {
+        return;
+    }
+
     state.tooltips.splice(index, 1);
 }
 
 export function updateSnackbar(id: number, spec: Partial<Omit<FluxSnackbarObject, 'id'>>): void {
     const index = state.snackbars.findIndex(s => s.id === id);
+
+    if (index < 0) {
+        return;
+    }
+
     Object.assign(state.snackbars[index], spec);
 }
 
 export function updateTooltip(id: number, spec: Partial<Omit<FluxTooltipObject, 'id'>>): void {
     const index = state.tooltips.findIndex(s => s.id === id);
+
+    if (index < 0) {
+        return;
+    }
+
     Object.assign(state.tooltips[index], spec);
 }
 
@@ -227,9 +261,10 @@ export function useFluxStore(): FluxStore {
     };
 }
 
-type Fn = (...args: any[]) => any;
-type FnSync<T extends Fn> = (...args: Parameters<T>) => void;
+type Fn = (...args: never[]) => unknown;
 
-function promiseToVoidFunction<T extends Fn>(fn: T): FnSync<T> {
-    return (...args: any[]) => fn(...args);
+function promiseToVoidFunction<T extends Fn>(fn: T): (...args: Parameters<T>) => void {
+    return (...args) => {
+        fn(...args);
+    };
 }

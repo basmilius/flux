@@ -14,6 +14,22 @@ props:
     -   name: label
         description: The label that is shown next to the checkbox.
         type: string
+        optional: true
+
+    -   name: disabled
+        description: If the checkbox is disabled.
+        type: boolean
+        optional: true
+
+    -   name: error
+        description: Error message describing why the checkbox is invalid. Sets aria-invalid and a red border.
+        type: [ string, null ]
+        optional: true
+
+    -   name: is-readonly
+        description: If the checkbox is readonly. Blocks toggling via mouse or keyboard.
+        type: boolean
+        optional: true
 
 requiredIcons:
     - check

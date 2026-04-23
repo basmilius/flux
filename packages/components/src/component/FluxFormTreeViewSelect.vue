@@ -5,10 +5,15 @@
         :class="clsx(
             $formStyle.formSelect,
             disabled && $formStyle.isDisabled,
-            isPopupOpen && $formStyle.isFocused
+            isPopupOpen && $formStyle.isFocused,
+            isCondensed && $formStyle.isCondensed,
+            isSecondary && $formStyle.isSecondary,
+            error && $formStyle.isInvalid
         )"
         :id="id"
         :aria-disabled="disabled ? true : undefined"
+        :aria-readonly="isReadonly ? true : undefined"
+        :aria-invalid="error ? true : undefined"
         tabindex="0"
         tag-name="div"
         @click="toggle()"
@@ -135,7 +140,7 @@
     setup>
     import { useClickOutside } from '@basmilius/common';
     import { unrefTemplateElement } from '@flux-ui/internals';
-    import type { FluxColor, FluxFormTreeViewSelectOption, FluxFormTreeViewSelectValue } from '@flux-ui/types';
+    import type { FluxColor, FluxFormInputBaseProps, FluxFormTreeViewSelectOption, FluxFormTreeViewSelectValue } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { type ComponentPublicInstance, computed, nextTick, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled, useFormFieldInjection } from '$flux/composable';
@@ -161,17 +166,16 @@
     const {
         disabled: componentDisabled,
         isMultiple,
+        isReadonly,
         isSearchable,
         levelColors,
         options,
         placeholder
-    } = defineProps<{
-        readonly disabled?: boolean;
+    } = defineProps<Pick<FluxFormInputBaseProps, 'autoFocus' | 'disabled' | 'error' | 'isCondensed' | 'isLoading' | 'isReadonly' | 'isSecondary' | 'name' | 'placeholder'> & {
         readonly isMultiple?: boolean;
         readonly isSearchable?: boolean;
         readonly levelColors?: (FluxColor | string)[];
         readonly options: FluxFormTreeViewSelectOption[];
-        readonly placeholder?: string;
     }>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));
@@ -221,13 +225,14 @@
         visibleNodes
     });
 
-    useClickOutside([anchorRef, anchorPopupRef] as any, isPopupOpen as any, () => isPopupOpen.value = false);
-    useClickOutside(anchorRef as any, isPopupOpen as any, () => unref(focusElement)?.focus());
+    useClickOutside([anchorRef, anchorPopupRef], isPopupOpen, () => isPopupOpen.value = false);
+    useClickOutside(anchorRef, isPopupOpen, () => unref(focusElement)?.focus());
 
     function toggle(): void {
-        if (unref(disabled)) {
+        if (unref(disabled) || isReadonly) {
             return;
         }
+
         isPopupOpen.value = !unref(isPopupOpen);
     }
 

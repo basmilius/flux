@@ -2,8 +2,14 @@
     <textarea
         v-model="modelValue"
         ref="input"
-        :class="disabled ? $style.formTextAreaDisabled : $style.formTextAreaEnabled"
+        :class="clsx(
+            disabled ? $style.formTextAreaDisabled : $style.formTextAreaEnabled,
+            isCondensed && $style.isCondensed,
+            isSecondary && $style.isSecondary,
+            error && $style.isInvalid
+        )"
         :id="id"
+        :name="name"
         :autocomplete="autoComplete"
         :autofocus="autoFocus"
         :disabled="disabled"
@@ -15,6 +21,7 @@
         }"
         :aria-disabled="disabled ? true : undefined"
         :aria-readonly="isReadonly || undefined"
+        :aria-invalid="error ? true : undefined"
         @blur="emit('blur')"
         @focus="emit('focus')"/>
 </template>
@@ -22,7 +29,8 @@
 <script
     lang="ts"
     setup>
-    import type { FluxAutoCompleteType } from '@flux-ui/types';
+    import type { FluxAutoCompleteType, FluxFormInputBaseProps } from '@flux-ui/types';
+    import { clsx } from 'clsx';
     import { toRef } from 'vue';
     import { useDisabled, useFormFieldInjection } from '$flux/composable';
     import $style from '$flux/css/component/Form.module.scss';
@@ -40,13 +48,9 @@
         autoFocus = false,
         disabled: componentDisabled,
         rows = 3
-    } = defineProps<{
+    } = defineProps<FluxFormInputBaseProps & {
         readonly autoComplete?: FluxAutoCompleteType;
-        readonly autoFocus?: boolean;
-        readonly disabled?: boolean;
-        readonly isReadonly?: boolean;
         readonly maxLength?: number;
-        readonly placeholder?: string;
         readonly rows?: number;
     }>();
 
