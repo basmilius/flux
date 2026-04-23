@@ -9,14 +9,14 @@
             :name="icon"/>
 
         <div
-            v-if="title || subTitle"
+            v-if="title || subtitle"
             :class="$style.paneHeaderCaption">
             <strong v-if="title">
                 {{ title }}
             </strong>
 
-            <span v-if="subTitle">
-                {{ subTitle }}
+            <span v-if="subtitle">
+                {{ subtitle }}
             </span>
         </div>
 
@@ -34,7 +34,7 @@
 
     defineProps<{
         readonly icon?: FluxIconName;
-        readonly subTitle?: string;
+        readonly subtitle?: string;
         readonly title?: string;
     }>();
 

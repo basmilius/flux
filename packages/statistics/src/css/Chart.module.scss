@@ -40,9 +40,9 @@
         }
 
         :global(.apexcharts-tooltip) {
-            background: rgb(from var(--gray-25) r g b / .85);
+            background: rgb(from var(--surface) r g b / .975);
             background-clip: padding-box;
-            backdrop-filter: blur(6px) saturate(180%);
+            backdrop-filter: blur(3px) saturate(180%);
             border: 1px solid var(--surface-stroke-out-hover);
             border-radius: var(--radius-double);
             box-shadow: var(--shadow-lg);

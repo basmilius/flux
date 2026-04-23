@@ -67,8 +67,8 @@
         font-size: 18px;
 
         &:only-child {
-            margin-left: 0;
-            margin-right: 0;
+            margin-left: -1px;
+            margin-right: -1px;
         }
     }
 

@@ -255,7 +255,6 @@
     align-items: center;
     gap: 9px;
     background: linear-gradient(to bottom, var(--surface) 75%, transparent);
-    font-size: 14px;
     pointer-events: none;
     z-index: 1;
 }
@@ -271,6 +270,7 @@
 
 .menuSubHeaderLabel {
     flex-grow: 1;
+    font-size: 14px;
 }
 
 .menuItem + .menuSubHeader {

@@ -68,7 +68,7 @@
         "pinia": "^3.0.4",
         "sass-embedded": "^1.99.0",
         "typescript": "^6.0.3",
-        "vite": "^8.0.9",
+        "vite": "^8.0.10",
         "vue-tsc": "^3.2.7"
     }
 }
