@@ -195,11 +195,13 @@
 
     --overlay: rgb(from var(--gray-950) r g b / .5);
     --overlay-secondary: rgb(from var(--gray-950) r g b / .15);
+    --overlay-strong: rgb(from var(--gray-950) r g b / .9);
 }
 
 @mixin defaults-dark {
     --overlay: rgb(0 0 0 / .6);
     --overlay-secondary: rgb(0 0 0 / .4);
+    --overlay-strong: rgb(0 0 0 / .9);
 }
 
 @mixin shadow-light {

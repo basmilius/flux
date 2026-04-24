@@ -68,7 +68,7 @@
     backdrop-filter: blur(3px) saturate(180%);
 
     :local(.spinner) {
-        --track: rgb(0 0 0 / .12);
+        --track: rgb(from var(--gray-950) r g b / .12);
     }
 }
 
@@ -79,7 +79,6 @@
     bottom: .021em;
     height: .27em;
     width: .27em;
-    background: black;
     border-radius: var(--radius-full);
 }
 

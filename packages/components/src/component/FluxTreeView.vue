@@ -20,38 +20,11 @@
             @click="onNodeClick(node)"
             @dblclick="onNodeDblClick(node)">
 
-            <div :class="$style.treeNodeLineArea">
-                <span
-                    v-for="(showLine, guideIndex) in node.lineGuides"
-                    :key="`g-${guideIndex}`"
-                    :class="[$style.treeIndent, showLine && $style.hasLine]"/>
-
-                <span
-                    v-if="node.depth > 0"
-                    :class="[$style.treeConnector, node.isLast && $style.isLast]"/>
-
-                <span
-                    :class="$style.treeNodeExpand"
-                    @click="onExpandClick(node, $event)">
-                    <FluxIcon
-                        v-if="node.children?.length"
-                        :name="expandedIds.has(node.id) ? 'angle-down' : 'angle-right'"
-                        :size="12"/>
-                </span>
-            </div>
-
-            <span
-                v-if="getLevelColor(node.depth, levelColors)"
-                :class="$style.treeNodeColorDot"
-                :style="{ background: getLevelColor(node.depth, levelColors) }"/>
-
-            <FluxIcon
-                v-if="node.icon"
-                :class="$style.treeNodeIcon"
-                :name="node.icon"
-                :size="16"/>
-
-            <span :class="$style.treeNodeLabel">{{ node.label }}</span>
+            <TreeNodeRenderer
+                :node="node"
+                :expanded="expandedIds.has(node.id)"
+                :level-colors="levelColors"
+                @expand-click="onExpandClick(node, $event)"/>
         </div>
     </div>
 </template>
@@ -63,8 +36,8 @@
     import { clsx } from 'clsx';
     import { computed, ref, unref, useTemplateRef } from 'vue';
     import type { TreeFlatNode } from '$flux/composable/private';
-    import { flattenVisible, getLevelColor, useTreeView } from '$flux/composable/private';
-    import FluxIcon from '$flux/component/FluxIcon.vue';
+    import { flattenVisible, useTreeView } from '$flux/composable/private';
+    import TreeNodeRenderer from '$flux/component/primitive/TreeNodeRenderer.vue';
     import $style from '$flux/css/component/TreeView.module.scss';
 
     type FlatNode = TreeFlatNode<FluxTreeViewOption>;

@@ -1,5 +1,7 @@
 export { default as useAsyncFilterOptions } from './useAsyncFilterOptions';
 export { default as useDateFlyout } from './useDateFlyout';
+export { default as useDropdownPopup } from './useDropdownPopup';
+export type { UseDropdownPopupOptions, UseDropdownPopupReturn } from './useDropdownPopup';
 export { default as useFormSelect } from './useFormSelect';
 export { default as useTranslate } from './useTranslate';
 export { useCommandPalette } from './useCommandPalette';

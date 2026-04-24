@@ -7,20 +7,9 @@
 }
 
 .treeNode {
-    display: flex;
-    width: 100%;
-    min-height: 36px;
-    padding: 0 8px;
-    align-items: center;
-    border-radius: var(--radius-half);
-    color: var(--foreground);
+    composes: treeNode from './primitive/TreeNode.module.scss';
+
     cursor: pointer;
-    font-size: 14px;
-    gap: 8px;
-    outline: 0;
-    transition: 150ms var(--swift-out);
-    transition-property: background, color;
-    user-select: none;
 
     @include mixin.hover {
         background: var(--surface-hover);
@@ -30,5 +19,3 @@
         background: var(--surface-hover);
     }
 }
-
-@include mixin.tree-node-classes();

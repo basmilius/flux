@@ -88,45 +88,19 @@
                             @keydown.enter.prevent="onNodeClick(node)"
                             @keydown.space.prevent="onNodeClick(node)">
 
-                            <!-- Line guides and expand button grouped without gap -->
-                            <div :class="$style.treeNodeLineArea">
-                                <span
-                                    v-for="(showLine, guideIndex) in node.lineGuides"
-                                    :key="`g-${guideIndex}`"
-                                    :class="[$style.treeIndent, showLine && $style.hasLine]"/>
-
-                                <span
-                                    v-if="node.depth > 0"
-                                    :class="[$style.treeConnector, node.isLast && $style.isLast]"/>
-
-                                <span
-                                    :class="$style.treeNodeExpand"
-                                    @click="onExpandClick(node, $event)">
+                            <TreeNodeRenderer
+                                :node="node"
+                                :expanded="expandedIds.has(node.id)"
+                                :level-colors="levelColors"
+                                @expand-click="onExpandClick(node, $event)">
+                                <template #trailing>
                                     <FluxIcon
-                                        v-if="node.children?.length"
-                                        :name="expandedIds.has(node.id) ? 'angle-down' : 'angle-right'"
-                                        :size="12"/>
-                                </span>
-                            </div>
-
-                            <span
-                                v-if="getLevelColor(node.depth, levelColors)"
-                                :class="$style.treeNodeColorDot"
-                                :style="{ background: getLevelColor(node.depth, levelColors) }"/>
-
-                            <FluxIcon
-                                v-if="node.icon"
-                                :class="$style.treeNodeIcon"
-                                :name="node.icon"
-                                :size="16"/>
-
-                            <span :class="$style.treeNodeLabel">{{ node.label }}</span>
-
-                            <FluxIcon
-                                v-if="selectedIds.has(node.id)"
-                                :class="$style.treeNodeCheck"
-                                name="check"
-                                :size="14"/>
+                                        v-if="selectedIds.has(node.id)"
+                                        :class="$style.treeNodeCheck"
+                                        name="check"
+                                        :size="14"/>
+                                </template>
+                            </TreeNodeRenderer>
                         </div>
                     </template>
                 </div>
@@ -138,20 +112,20 @@
 <script
     lang="ts"
     setup>
-    import { useClickOutside } from '@basmilius/common';
     import { unrefTemplateElement } from '@flux-ui/internals';
     import type { FluxColor, FluxFormInputBaseProps, FluxFormTreeViewSelectOption, FluxFormTreeViewSelectValue } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { type ComponentPublicInstance, computed, nextTick, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled, useFormFieldInjection } from '$flux/composable';
     import type { TreeFlatNode } from '$flux/composable/private';
-    import { flattenAll, flattenVisible, getLevelColor, INITIAL_HIGHLIGHTED_INDEX, useTranslate, useTreeView } from '$flux/composable/private';
+    import { flattenAll, flattenVisible, INITIAL_HIGHLIGHTED_INDEX, useDropdownPopup, useTranslate, useTreeView } from '$flux/composable/private';
     import { FluxFadeTransition } from '$flux/transition';
     import FluxFormInput from '$flux/component/FluxFormInput.vue';
     import FluxIcon from '$flux/component/FluxIcon.vue';
     import FluxTag from '$flux/component/FluxTag.vue';
     import Anchor from '$flux/component/primitive/Anchor.vue';
     import AnchorPopup from '$flux/component/primitive/AnchorPopup.vue';
+    import TreeNodeRenderer from '$flux/component/primitive/TreeNodeRenderer.vue';
     import $formStyle from '$flux/css/component/Form.module.scss';
     import $style from '$flux/css/component/TreeViewSelect.module.scss';
 
@@ -183,15 +157,27 @@
     const translate = useTranslate();
 
     const anchorRef = useTemplateRef<ComponentPublicInstance>('anchor');
-    const anchorPopupRef = useTemplateRef('anchorPopup');
+    const anchorPopupRef = useTemplateRef<ComponentPublicInstance>('anchorPopup');
     const nodeElementRefs = useTemplateRef<HTMLDivElement[]>('nodeElements');
     const searchInputRef = useTemplateRef<ComponentPublicInstance<typeof FluxFormInput>>('searchInput');
 
     const expandedIds = ref(new Set<string | number>());
-    const isPopupOpen = ref(false);
     const searchQuery = ref('');
 
     const focusElement = computed(() => unrefTemplateElement(searchInputRef) ?? unrefTemplateElement(anchorRef));
+
+    const {
+        isOpen: isPopupOpen,
+        toggle,
+        focusAnchor,
+        onKeyDownBase
+    } = useDropdownPopup({
+        anchorRef,
+        popupRef: anchorPopupRef,
+        focusElement,
+        disabled,
+        readonly: toRef(() => !!isReadonly)
+    });
 
     const selectedIds = computed(() => {
         const value = unref(modelValue);
@@ -225,17 +211,6 @@
         visibleNodes
     });
 
-    useClickOutside([anchorRef, anchorPopupRef], isPopupOpen, () => isPopupOpen.value = false);
-    useClickOutside(anchorRef, isPopupOpen, () => unref(focusElement)?.focus());
-
-    function toggle(): void {
-        if (unref(disabled) || isReadonly) {
-            return;
-        }
-
-        isPopupOpen.value = !unref(isPopupOpen);
-    }
-
     function select(nodeId: string | number): void {
         if (unref(isMultiple)) {
             const current = [...unref(selectedIds)];
@@ -255,7 +230,7 @@
         if (Array.isArray(current)) {
             modelValue.value = current.filter(v => v !== nodeId);
         }
-        nextTick(() => unrefTemplateElement(anchorRef)?.focus());
+        focusAnchor();
     }
 
     function onNodeClick(node: FlatNode): void {
@@ -278,26 +253,20 @@
             return;
         }
 
-        switch (evt.key) {
-            case 'Backspace':
-                if (!unref(isMultiple)) {
-                    return;
-                }
-                if (unref(searchQuery).length > 0 || unref(selectedIds).size === 0) {
-                    return;
-                }
-                const selectedList = [...unref(selectedIds)];
-                deselect(selectedList[selectedList.length - 1]);
+        if (evt.key === 'Backspace') {
+            if (!unref(isMultiple)) {
                 return;
+            }
+            if (unref(searchQuery).length > 0 || unref(selectedIds).size === 0) {
+                return;
+            }
+            const selectedList = [...unref(selectedIds)];
+            deselect(selectedList[selectedList.length - 1]);
+            return;
+        }
 
-            case 'Escape':
-                isPopupOpen.value = false;
-                nextTick(() => unrefTemplateElement(anchorRef)?.focus());
-                return;
-
-            case 'Tab':
-                isPopupOpen.value = false;
-                return;
+        if (onKeyDownBase(evt)) {
+            return;
         }
 
         // When searchable, don't intercept letter keys — let the search input handle them
@@ -325,8 +294,6 @@
                     highlightedIndex.value = firstSelectedIndex;
                 }
             }
-
-            unref(focusElement)?.focus();
         });
     });
 

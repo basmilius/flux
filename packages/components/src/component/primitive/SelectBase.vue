@@ -136,13 +136,12 @@
 <script
     lang="ts"
     setup>
-    import { useClickOutside } from '@basmilius/common';
     import { unrefTemplateElement } from '@flux-ui/internals';
     import type { FluxFormSelectOption, FluxFormSelectOptions } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { type ComponentPublicInstance, computed, nextTick, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled, useFormFieldInjection } from '$flux/composable';
-    import { useTranslate } from '$flux/composable/private';
+    import { useDropdownPopup, useTranslate } from '$flux/composable/private';
     import { isFluxFormSelectGroup, isFluxFormSelectOption } from '$flux/data';
     import { FluxFadeTransition } from '$flux/transition';
     import FluxFormInput from '$flux/component/FluxFormInput.vue';
@@ -196,20 +195,27 @@
     const translate = useTranslate();
 
     const anchorRef = useTemplateRef<ComponentPublicInstance>('anchor');
-    const anchorPopupRef = useTemplateRef('anchorPopup');
+    const anchorPopupRef = useTemplateRef<ComponentPublicInstance>('anchorPopup');
     const optionElementRefs = useTemplateRef<typeof FluxMenuItem[]>('optionElements');
     const searchInputElementRef = useTemplateRef<ComponentPublicInstance<typeof FluxFormInput>>('searchInputElement');
 
     const highlightedIndex = ref(INITIAL_HIGHLIGHTED_INDEX);
     const isKeyboardAction = ref(false);
-    const isPopupOpen = ref(false);
 
     const focusElement = computed(() => unrefTemplateElement(searchInputElementRef) ?? unrefTemplateElement(anchorRef));
     const highlightedId = computed(() => unref(rawOptions)[unref(highlightedIndex)]?.value);
     const rawOptions = computed(() => options.map(group => group[1]).flat());
 
-    useClickOutside([anchorRef, anchorPopupRef], isPopupOpen, () => isPopupOpen.value = false);
-    useClickOutside(anchorRef, isPopupOpen, () => unref(focusElement)?.focus());
+    const {
+        isOpen: isPopupOpen,
+        toggle,
+        onKeyDownBase
+    } = useDropdownPopup({
+        anchorRef,
+        popupRef: anchorPopupRef,
+        focusElement,
+        disabled
+    });
 
     function deselect(id: string | number | null): void {
         emit('deselect', id);
@@ -230,14 +236,6 @@
         nextTick(() => unref(focusElement)?.focus());
     }
 
-    function toggle(): void {
-        if (unref(disabled)) {
-            return;
-        }
-
-        isPopupOpen.value = !unref(isPopupOpen);
-    }
-
     function onKeyDown(evt: KeyboardEvent): void {
         emit('keyDown', evt);
 
@@ -250,6 +248,10 @@
         }
 
         isKeyboardAction.value = true;
+
+        if (onKeyDownBase(evt)) {
+            return;
+        }
 
         if (unref(highlightedIndex) === INITIAL_HIGHLIGHTED_INDEX && ['ArrowDown', 'ArrowUp'].includes(evt.key)) {
             const options = unref(optionElementRefs);
@@ -282,14 +284,6 @@
                 id && select(id);
                 break;
 
-            case 'Escape':
-                isPopupOpen.value = false;
-                break;
-
-            case 'Tab':
-                isPopupOpen.value = false;
-                return;
-
             default:
                 if (evt.key.length === 1) {
                     highlightedIndex.value = unref(rawOptions).findIndex(o => o.label.toLowerCase().startsWith(evt.key.toLowerCase()));
@@ -318,11 +312,6 @@
             emit('close');
             return;
         }
-
-        nextTick(() => {
-            const searchInput = unref(searchInputElementRef);
-            searchInput?.focus();
-        });
 
         nextTick(() => {
             const options = unref(optionElementRefs);

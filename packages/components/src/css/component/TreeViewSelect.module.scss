@@ -21,19 +21,7 @@
 }
 
 .treeNode {
-    display: flex;
-    width: 100%;
-    min-height: 36px;
-    padding: 0 8px;
-    align-items: center;
-    border-radius: var(--radius-half);
-    color: var(--foreground);
-    font-size: 14px;
-    gap: 8px;
-    outline: 0;
-    transition: 150ms var(--swift-out);
-    transition-property: background, color;
-    user-select: none;
+    composes: treeNode from './primitive/TreeNode.module.scss';
 
     &.isSelectable,
     &.isExpandable {
@@ -69,5 +57,3 @@
     color: var(--primary-600);
     flex-shrink: 0;
 }
-
-@include mixin.tree-node-classes();

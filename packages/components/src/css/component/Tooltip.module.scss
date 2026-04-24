@@ -6,7 +6,7 @@
     max-width: 360px;
     padding: 9px 15px;
     flex-flow: column;
-    background: rgb(from var(--gray-950) r g b / .9);
+    background: var(--overlay-strong);
     backdrop-filter: blur(3px) saturate(180%);
     border-radius: var(--radius);
     color: var(--gray-25);
@@ -35,8 +35,7 @@
 }
 
 [dark] .tooltip {
-    background: rgb(0 0 0 / .9);
-    color: white;
+    color: var(--gray-700);
 }
 
 .tooltipAbove {

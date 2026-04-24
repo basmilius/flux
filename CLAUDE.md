@@ -79,14 +79,22 @@ All components use `<script lang="ts" setup>`. The Options API is disabled (`__V
 
 ### Props pattern
 
-Props and their types always come from `@flux-ui/types`. Never define ad-hoc prop types inside a component file. Internal-only props (e.g. CSS class overrides passed by a wrapper component) may be added inline.
+**Inline prop, emit and slot definitions are the default.** Keep types next to the component that owns them:
 
-```typescript
-// In @flux-ui/types:
-export type FluxFooProps = { ... };
-export type FluxFooEmits = { click: [MouseEvent] };
-export type FluxFooSlots = { default(): any };
+```vue
+<script lang="ts" setup>
+    defineEmits<{ click: [MouseEvent] }>();
+    defineProps<{
+        readonly label: string;
+        readonly disabled?: boolean;
+    }>();
+    defineSlots<{ default(): any }>();
+</script>
 ```
+
+Moving a type to `@flux-ui/types` is the **exception** and only appropriate when there is a clear cross-package or cross-component reuse need (e.g. a shared `FluxColor`, `FluxSize`, or a type consumed by multiple components in `@flux-ui/statistics` / `@flux-ui/dashboard`).
+
+Never propose migrating existing inline prop types to `@flux-ui/types` as a cleanup — treat inline definitions as intentional unless the component author explicitly asks to extract them.
 
 ### Wrapper / variant pattern
 
