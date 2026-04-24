@@ -1,14 +1,9 @@
 <template>
-    <FluxPane>
-        <FluxPaneHeader
-            :icon="confirm.icon"
-            :title="confirm.title"/>
-
-        <FluxPaneBody v-html="confirm.message"/>
-
-        <FluxPaneFooter>
-            <FluxSpacer/>
-
+    <DialogLayout
+        :icon="confirm.icon"
+        :message="confirm.message"
+        :title="confirm.title">
+        <template #footer>
             <FluxSecondaryButton
                 :label="translate('flux.cancel')"
                 @click="confirm.onCancel()"/>
@@ -17,8 +12,8 @@
                 icon-leading="circle-check"
                 :label="translate('flux.ok')"
                 @click="confirm.onConfirm()"/>
-        </FluxPaneFooter>
-    </FluxPane>
+        </template>
+    </DialogLayout>
 </template>
 
 <script
@@ -26,13 +21,9 @@
     setup>
     import type { FluxConfirmObject } from '@flux-ui/types';
     import { useTranslate } from '$flux/composable/private';
-    import FluxPane from './FluxPane.vue';
-    import FluxPaneBody from './FluxPaneBody.vue';
-    import FluxPaneFooter from './FluxPaneFooter.vue';
-    import FluxPaneHeader from './FluxPaneHeader.vue';
     import FluxPrimaryButton from './FluxPrimaryButton.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import FluxSpacer from './FluxSpacer.vue';
+    import { DialogLayout } from './primitive';
 
     defineProps<{
         readonly confirm: FluxConfirmObject;

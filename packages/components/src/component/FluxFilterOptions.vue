@@ -11,9 +11,9 @@
 <script
     lang="ts"
     setup>
-    import type { FluxFilterOptionRow, FluxFilterValueSingle, FluxIconName } from '@flux-ui/types';
+    import type { FluxFilterOptionRow, FluxIconName } from '@flux-ui/types';
     import { computed, unref } from 'vue';
-    import { useFilterInjection } from '$flux/composable';
+    import { useFilterOptionMulti } from '$flux/composable/private';
     import { isFluxFilterOptionHeader } from '$flux/data';
     import { FilterOptionBase } from './primitive';
 
@@ -33,30 +33,8 @@
         readonly searchPlaceholder?: string;
     }>();
 
-    const {state, setValue} = useFilterInjection();
-
-    const currentValue = computed(() => {
-        const value = unref(state)[name];
-
-        if (Array.isArray(value)) {
-            return value;
-        }
-
-        return [];
-    });
+    const {currentValue, onSelect} = useFilterOptionMulti(name);
 
     const filteredOptions = computed(() => options
         .filter(o => isFluxFilterOptionHeader(o) || unref(modelSearch).length === 0 || o.label.toLowerCase().includes(unref(modelSearch).toLowerCase())));
-
-    function onSelect(value: FluxFilterValueSingle): void {
-        let values = Array.from(unref(currentValue));
-
-        if (values.includes(value)) {
-            values = values.filter(v => v !== value);
-        } else {
-            values.push(value);
-        }
-
-        setValue(name, values);
-    }
 </script>

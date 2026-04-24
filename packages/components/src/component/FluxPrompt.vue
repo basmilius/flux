@@ -1,25 +1,18 @@
 <template>
-    <FluxPane>
-        <FluxPaneHeader
-            :icon="prompt.icon"
-            :title="prompt.title"/>
+    <DialogLayout
+        :icon="prompt.icon"
+        :message="prompt.message"
+        :title="prompt.title">
+        <FluxFormField :label="prompt.fieldLabel">
+            <FluxFormInput
+                ref="input"
+                v-model="value"
+                :placeholder="prompt.fieldPlaceholder"
+                :type="prompt.fieldType ?? 'text'"
+                @keydown="onKeyDown"/>
+        </FluxFormField>
 
-        <FluxPaneBody v-html="prompt.message"/>
-
-        <FluxPaneBody>
-            <FluxFormField :label="prompt.fieldLabel">
-                <FluxFormInput
-                    ref="input"
-                    v-model="value"
-                    :placeholder="prompt.fieldPlaceholder"
-                    :type="prompt.fieldType ?? 'text'"
-                    @keydown="onKeyDown"/>
-            </FluxFormField>
-        </FluxPaneBody>
-
-        <FluxPaneFooter>
-            <FluxSpacer/>
-
+        <template #footer>
             <FluxSecondaryButton
                 :label="translate('flux.cancel')"
                 @click="prompt.onCancel()"/>
@@ -29,8 +22,8 @@
                 icon-leading="circle-check"
                 :label="translate('flux.ok')"
                 @click="prompt.onConfirm(value)"/>
-        </FluxPaneFooter>
-    </FluxPane>
+        </template>
+    </DialogLayout>
 </template>
 
 <script
@@ -41,13 +34,9 @@
     import { useTranslate } from '$flux/composable/private';
     import FluxFormField from './FluxFormField.vue';
     import FluxFormInput from './FluxFormInput.vue';
-    import FluxPane from './FluxPane.vue';
-    import FluxPaneBody from './FluxPaneBody.vue';
-    import FluxPaneFooter from './FluxPaneFooter.vue';
-    import FluxPaneHeader from './FluxPaneHeader.vue';
     import FluxPrimaryButton from './FluxPrimaryButton.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import FluxSpacer from './FluxSpacer.vue';
+    import { DialogLayout } from './primitive';
 
     const {
         prompt

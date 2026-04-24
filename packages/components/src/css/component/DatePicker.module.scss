@@ -71,7 +71,7 @@
     cursor: pointer;
     font-size: 14px;
     outline: 0;
-    transition: 180ms var(--swift-out);
+    transition: var(--transition-default);
     transition-property: background, border-radius, color, opacity;
 
     @include mixin.hover {

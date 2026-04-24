@@ -48,8 +48,9 @@
     setup>
     import type { FluxAutoCompleteType, FluxFormInputBaseProps } from '@flux-ui/types';
     import { DateTime } from 'luxon';
-    import { ref, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '$flux/composable';
+    import { useDateFlyout } from '$flux/composable/private';
     import FluxDatePicker from './FluxDatePicker.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxFormInput from './FluxFormInput.vue';
@@ -75,7 +76,10 @@
     const disabled = useDisabled(toRef(() => componentDisabled));
     const flyoutRef = useTemplateRef<{ close(): void; }>('flyout');
 
-    const localValue = ref<DateTime | null>(null);
+    const localValue = useDateFlyout(modelValue, flyoutRef, {
+        compareKey: value => value?.toISO(),
+        transformIn: value => isHourOnly ? value?.startOf('hour') ?? null : value
+    });
 
     function setDate(dateTime: DateTime | object | string | number | null): void {
         if (!DateTime.isDateTime(dateTime)) {
@@ -110,15 +114,4 @@
 
         localValue.value = unref(localValue)?.startOf('hour') ?? null;
     }, {immediate: true});
-    watch(modelValue, modelValue => localValue.value = isHourOnly ? modelValue?.startOf('hour') ?? null : modelValue, {immediate: true});
-
-    watch(localValue, localValue => {
-        unref(flyoutRef)?.close();
-
-        if (modelValue.value?.toISO() === localValue?.toISO()) {
-            return;
-        }
-
-        modelValue.value = localValue;
-    });
 </script>

@@ -70,7 +70,7 @@
     font-weight: 500;
     outline: 0;
     text-align: center;
-    transition: 180ms var(--swift-out);
+    transition: var(--transition-default);
     transition-property: background, color;
 
     &:hover {

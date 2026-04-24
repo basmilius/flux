@@ -12,11 +12,9 @@
 <script
     lang="ts"
     setup>
-    import { useDebouncedRef, useLoaded } from '@basmilius/common';
-    import type { FluxFilterOptionRow, FluxFilterValue, FluxFilterValueSingle, FluxIconName } from '@flux-ui/types';
-    import { computed, type Ref, ref, unref, watch } from 'vue';
-    import { useFilterInjection } from '$flux/composable';
-    import { isFluxFilterOptionItem } from '$flux/data';
+    import type { FluxFilterOptionRow, FluxFilterValue, FluxIconName } from '@flux-ui/types';
+    import { computed, unref } from 'vue';
+    import { useAsyncFilterOptions, useFilterOptionSingle } from '$flux/composable/private';
     import { FilterOptionBase } from './primitive';
 
     const modelSearch = defineModel<string>('searchQuery', {
@@ -39,64 +37,23 @@
         readonly searchPlaceholder?: string;
     }>();
 
-    const {back, state, setValue} = useFilterInjection();
-    const {isLoading, loaded} = useLoaded();
-    const debouncedModelSearch = useDebouncedRef(modelSearch, 150) as unknown as Ref<string>;
-    const fetchOptions = computed(() => loaded(fetchOptionsProp));
-    const fetchRelevant = computed(() => loaded(fetchRelevantProp));
-    const fetchSearch = computed(() => loaded(fetchSearchProp));
+    const {currentValue, onSelect} = useFilterOptionSingle(name);
 
-    const selectedOptions = ref<FluxFilterOptionRow[]>([]);
-    const visibleOptions = ref<FluxFilterOptionRow[]>([]);
+    const currentValueIds = computed<FluxFilterValue[]>(() => {
+        const value = unref(currentValue);
 
-    const currentValue = computed(() => unref(state)[name] as FluxFilterValueSingle);
+        if (value === null || value === undefined) {
+            return [];
+        }
 
-    const options = computed(() => {
-        const options: FluxFilterOptionRow[] = [];
-        const search = unref(modelSearch);
-        const selected = unref(selectedOptions);
-        const visible = unref(visibleOptions);
-
-        visible.forEach(vo => options.push(vo));
-
-        selected.forEach(so => {
-            if (isFluxFilterOptionItem(so) && visible.find(vo => isFluxFilterOptionItem(vo) && vo.value === so.value)) {
-                return;
-            }
-
-            if (isFluxFilterOptionItem(so) && !so.label.toLowerCase().includes(search.toLowerCase())) {
-                return;
-            }
-
-            options.push(so);
-        });
-
-        return options;
+        return [value];
     });
 
-    function onSelect(value: FluxFilterValue): void {
-        if (unref(currentValue) === value) {
-            setValue(name, null);
-        } else {
-            setValue(name, value);
-        }
-
-        back();
-    }
-
-    watch(currentValue, async value => {
-        if (!value && value !== 0) {
-            return;
-        }
-
-        selectedOptions.value = await unref(fetchOptions)([value]);
-    }, {immediate: true});
-
-    watch(debouncedModelSearch, async searchQuery => {
-        if (searchQuery.length > 0) {
-            visibleOptions.value = await unref(fetchSearch)(searchQuery);
-        } else {
-            visibleOptions.value = await unref(fetchRelevant)();
-        }
-    }, {immediate: true});
+    const {isLoading, options} = useAsyncFilterOptions({
+        currentValueIds,
+        modelSearch,
+        fetchOptions: (ids: FluxFilterValue[]) => fetchOptionsProp(ids),
+        fetchRelevant: () => fetchRelevantProp(),
+        fetchSearch: (searchQuery: string) => fetchSearchProp(searchQuery)
+    });
 </script>

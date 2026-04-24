@@ -163,7 +163,7 @@
     border-radius: var(--radius);
     box-shadow: var(--shadow-px);
     color: var(--foreground);
-    transition: 180ms var(--swift-out);
+    transition: var(--transition-default);
     transition-property: background, border-color, mixin.focus-ring-transition-properties();
 
     &::placeholder {
@@ -691,7 +691,7 @@
     border-radius: var(--radius);
     box-shadow: var(--shadow-px);
     overflow: hidden;
-    transition: 180ms var(--swift-out);
+    transition: var(--transition-default);
     transition-property: border-color, mixin.focus-ring-transition-properties();
 
     @include mixin.focus-ring(2px, true);
@@ -774,7 +774,7 @@
     line-height: 3.3ch;
     outline: 0;
     text-align: center;
-    transition: 180ms var(--swift-out);
+    transition: var(--transition-default);
     transition-property: border-color, mixin.focus-ring-transition-properties();
 }
 
@@ -807,7 +807,7 @@
     flex: 0 0 auto;
     background: var(--gray-50);
     border: 1px solid var(--gray-200);
-    border-radius: 99px;
+    border-radius: var(--radius-full);
     contain: paint;
 
     &.isChecked {
@@ -899,7 +899,7 @@
         content: '';
         background: var(--surface);
         border: 1px solid var(--surface-stroke);
-        border-radius: 99px;
+        border-radius: var(--radius-full);
         box-shadow: var(--shadow-sm);
     }
 }

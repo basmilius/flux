@@ -1,3 +1,5 @@
+@use '$flux/css/mixin';
+
 .table {
     composes: basePaneElement from './base/Pane.module.scss';
 
@@ -171,11 +173,9 @@ tfoot .tableCell {
     cursor: pointer;
     outline: 0;
 
-    @media (hover: hover) {
-        &:hover {
-            background: var(--gray-100);
-            color: var(--foreground);
-        }
+    @include mixin.hover {
+        background: var(--gray-100);
+        color: var(--foreground);
     }
 }
 

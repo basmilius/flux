@@ -50,7 +50,7 @@
     justify-content: center;
     background: var(--gray-100);
     border: 0;
-    border-radius: 99px;
+    border-radius: var(--radius-full);
     color: var(--foreground);
     cursor: default;
     font-size: 14px;

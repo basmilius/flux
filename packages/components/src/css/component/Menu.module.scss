@@ -291,9 +291,9 @@
         width: 4px;
         content: '';
         background: var(--primary-600);
-        border-radius: 99px;
+        border-radius: var(--radius-full);
         opacity: 0;
-        transition: opacity 180ms var(--swift-out);
+        transition: opacity var(--transition-default);
     }
 }
 

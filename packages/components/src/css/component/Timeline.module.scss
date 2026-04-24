@@ -17,7 +17,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 99px;
+    border-radius: var(--radius-full);
     outline: 6px solid var(--surface);
 }
 
@@ -42,7 +42,7 @@
     align-items: center;
     justify-content: center;
     background: var(--gray-25);
-    border-radius: 99px;
+    border-radius: var(--radius-full);
 }
 
 .timelineItemPhotoImage {

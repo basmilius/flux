@@ -45,8 +45,9 @@
     import type { FluxFormInputBaseProps } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import type { DateTime } from 'luxon';
-    import { computed, ref, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { computed, toRef, unref, useTemplateRef } from 'vue';
     import { useDisabled } from '$flux/composable';
+    import { useDateFlyout } from '$flux/composable/private';
     import { createLabelForDateRange } from '$flux/util';
     import FluxDatePicker from './FluxDatePicker.vue';
     import FluxFlyout from './FluxFlyout.vue';
@@ -70,7 +71,7 @@
     const disabled = useDisabled(toRef(() => componentDisabled));
     const flyoutRef = useTemplateRef('flyout');
 
-    const localValue = ref<[DateTime, DateTime] | null>(null);
+    const localValue = useDateFlyout(modelValue, flyoutRef);
 
     const label = computed(() => {
         const value = unref(localValue);
@@ -83,11 +84,4 @@
 
         return createLabelForDateRange(start, end, true);
     });
-
-    watch(localValue, localValue => {
-        unref(flyoutRef)?.close();
-        modelValue.value = localValue;
-    });
-
-    watch(modelValue, modelValue => localValue.value = modelValue, {immediate: true});
 </script>

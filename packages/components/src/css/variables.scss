@@ -174,7 +174,10 @@
     --font-size: 15px;
     --radius: 12px;
     --radius-double: 24px;
+    --radius-full: 9999px;
     --radius-half: 6px;
+
+    --transition-default: 180ms var(--swift-out);
 
     --background: var(--gray-25);
     --foreground: var(--gray-700);

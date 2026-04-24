@@ -11,7 +11,7 @@
     justify-content: center;
     background: var(--danger-600);
     border: 3px solid var(--surface);
-    border-radius: 99px;
+    border-radius: var(--radius-full);
     color: var(--danger-25);
     cursor: pointer;
     transition: 300ms var(--swift-out);

@@ -9,9 +9,9 @@
     gap: 9px;
     background: var(--gray-50);
     border: 1px solid var(--gray-200);
-    border-radius: 99px;
+    border-radius: var(--radius-full);
     color: var(--foreground);
-    transition: 180ms var(--swift-out);
+    transition: var(--transition-default);
     transition-property: background, border, color, mixin.focus-ring-transition-properties();
 
     &.isSelectable {
@@ -19,10 +19,8 @@
 
         @include mixin.focus-ring(2px);
 
-        @media (hover: hover) {
-            &:hover {
-                background: var(--gray-100);
-            }
+        @include mixin.hover {
+            background: var(--gray-100);
         }
     }
 
@@ -31,10 +29,8 @@
         border-color: var(--primary-200);
         color: var(--primary-600);
 
-        @media (hover: hover) {
-            &:hover {
-                background: var(--primary-100);
-            }
+        @include mixin.hover {
+            background: var(--primary-100);
         }
     }
 

@@ -26,7 +26,7 @@
     background: var(--surface);
     background-clip: padding-box;
     border: 1px solid var(--surface-stroke-out);
-    border-radius: 99px;
+    border-radius: var(--radius-full);
     box-shadow: var(--shadow-sm);
     cursor: grab;
     outline: 0;
@@ -34,10 +34,8 @@
 
     @include mixin.focus-ring-transition(2px);
 
-    @media (hover: hover) {
-        &:hover {
-            background-color: var(--surface-hover);
-        }
+    @include mixin.hover {
+        background-color: var(--surface-hover);
     }
 
     &.isDisabled {
@@ -81,7 +79,7 @@
     height: 9px;
     width: 2px;
     background: var(--gray-300);
-    border-radius: 99px;
+    border-radius: var(--radius-full);
     color: var(--foreground-prominent);
     font-size: 10px;
     font-weight: 600;

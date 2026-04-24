@@ -15,7 +15,7 @@
         cursor: pointer;
         font: inherit;
         text-decoration: none;
-        transition: 180ms var(--swift-out);
+        transition: var(--transition-default);
         transition-property: background, border, box-shadow, color, scale, mixin.focus-ring-transition-properties();
         user-select: none;
 

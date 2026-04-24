@@ -21,7 +21,7 @@
     color: var(--foreground-prominent);
     cursor: pointer;
     text-align: left;
-    transition: background 180ms var(--swift-out);
+    transition: background var(--transition-default);
     transition-property: background, mixin.focus-ring-transition-properties();
     z-index: 1;
 

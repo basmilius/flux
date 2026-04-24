@@ -12,7 +12,7 @@
     gap: 6px;
     background: var(--surface);
     border: 1px solid var(--surface-stroke);
-    border-radius: 99px;
+    border-radius: var(--radius-full);
     color: var(--foreground-prominent);
     font-size: 13px;
     font-weight: 500;
@@ -22,7 +22,7 @@
         color: var(--foreground-prominent);
         cursor: pointer;
         text-decoration: none;
-        transition: background 180ms var(--swift-out);
+        transition: background var(--transition-default);
 
         @include mixin.hover {
             background: var(--gray-50);
@@ -45,7 +45,7 @@
     justify-content: center;
     background: unset;
     border: 0;
-    border-radius: 99px;
+    border-radius: var(--radius-full);
     color: var(--foreground-secondary);
     cursor: pointer;
 
@@ -69,7 +69,7 @@
     height: 9px;
     width: 9px;
     background: var(--color);
-    border-radius: 99px;
+    border-radius: var(--radius-full);
 }
 
 .badgeIcon {

@@ -13,10 +13,7 @@
         border-color: var(--primary-800);
     }
 
-    &:active {
-        background: var(--primary-800);
-        scale: .9875;
-    }
+    @include mixin.button-active(var(--primary-800));
 
     .spinner {
         --track: var(--primary-700);
@@ -45,10 +42,7 @@
         background: var(--surface-hover);
     }
 
-    &:active {
-        background: var(--surface-active);
-        scale: .9875;
-    }
+    @include mixin.button-active(var(--surface-active));
 }
 
 .secondaryButtonIcon {
@@ -72,10 +66,7 @@
         background: var(--surface-hover);
     }
 
-    &:active {
-        background: var(--surface-active);
-        scale: .9875;
-    }
+    @include mixin.button-active(var(--surface-active));
 
     .spinner {
         --value: var(--danger-600);
@@ -112,10 +103,7 @@
         background: var(--surface-hover);
     }
 
-    &:active {
-        background: var(--surface-active);
-        scale: .9875;
-    }
+    @include mixin.button-active(var(--surface-active));
 }
 
 .primaryLinkButton {

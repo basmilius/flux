@@ -35,8 +35,9 @@
     setup>
     import type { FluxAutoCompleteType, FluxFormInputBaseProps } from '@flux-ui/types';
     import type { DateTime } from 'luxon';
-    import { ref, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { toRef, useTemplateRef } from 'vue';
     import { useDisabled } from '$flux/composable';
+    import { useDateFlyout } from '$flux/composable/private';
     import FluxDatePicker from './FluxDatePicker.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxFormInput from './FluxFormInput.vue';
@@ -64,7 +65,9 @@
     const disabled = useDisabled(toRef(() => componentDisabled));
     const flyoutRef = useTemplateRef('flyout');
 
-    const localValue = ref<DateTime | null>(null);
+    const localValue = useDateFlyout(modelValue, flyoutRef, {
+        compareKey: value => value?.toISODate()
+    });
 
     function onBlur(): void {
         emit('blur');
@@ -73,16 +76,4 @@
     function onFocus(): void {
         emit('focus');
     }
-
-    watch(modelValue, modelValue => localValue.value = modelValue, {immediate: true});
-
-    watch(localValue, localValue => {
-        unref(flyoutRef)?.close();
-
-        if (modelValue.value?.toISODate() === localValue?.toISODate()) {
-            return;
-        }
-
-        modelValue.value = localValue;
-    });
 </script>

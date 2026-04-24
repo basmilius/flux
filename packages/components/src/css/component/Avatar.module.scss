@@ -80,7 +80,7 @@
     height: .27em;
     width: .27em;
     background: black;
-    border-radius: 99px;
+    border-radius: var(--radius-full);
 }
 
 .avatarStatusGray {
@@ -148,7 +148,7 @@
     border-radius: var(--radius);
     cursor: pointer;
     text-align: left;
-    transition: 180ms var(--swift-out);
+    transition: var(--transition-default);
     transition-property: background, mixin.focus-ring-transition-properties();
 
     @include mixin.focus-ring(2px);
