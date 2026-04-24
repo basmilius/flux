@@ -1,9 +1,9 @@
 export { default as FluxApplication } from './FluxApplication.vue';
-export { default as FluxApplicationBody } from './FluxApplicationBody.vue';
 export { default as FluxApplicationContent } from './FluxApplicationContent.vue';
 export { default as FluxApplicationMenu } from './FluxApplicationMenu.vue';
 export { default as FluxApplicationMenuAccount } from './FluxApplicationMenuAccount.vue';
 export { default as FluxApplicationMenuContext } from './FluxApplicationMenuContext.vue';
 export { default as FluxApplicationMenuPromo } from './FluxApplicationMenuPromo.vue';
 export { default as FluxApplicationMenuToggle } from './FluxApplicationMenuToggle.vue';
+export { default as FluxApplicationSide } from './FluxApplicationSide.vue';
 export { default as FluxApplicationTop } from './FluxApplicationTop.vue';

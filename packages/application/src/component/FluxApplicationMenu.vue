@@ -2,7 +2,9 @@
     <aside
         :class="$style.applicationMenu"
         :data-at-start="isAtStart ? '' : undefined"
-        :data-at-end="isAtEnd ? '' : undefined">
+        :data-at-end="isAtEnd ? '' : undefined"
+        :data-collapsed="isMenuCollapsed ? '' : undefined"
+        :data-collapsible="showDesktopMenuToggle ? '' : undefined">
         <FluxMenu
             v-if="slots.header"
             :class="$style.applicationMenuHeader">
@@ -44,6 +46,7 @@
     import { FluxMenu, FluxWindowTransition } from '@flux-ui/components';
     import { useScrollEdges } from '@flux-ui/internals';
     import { useTemplateRef, type VNode } from 'vue';
+    import { useApplicationInjection } from '../composable';
     import $style from '../css/component/ApplicationMenu.module.scss';
 
     defineProps<{
@@ -57,6 +60,7 @@
         header?(): VNode;
     }>();
 
+    const {isMenuCollapsed, showDesktopMenuToggle} = useApplicationInjection();
     const contentRef = useTemplateRef<HTMLElement>('contentRef');
     const {isAtStart, isAtEnd} = useScrollEdges(contentRef);
 </script>

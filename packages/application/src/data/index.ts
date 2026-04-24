@@ -5,6 +5,7 @@ export const FluxApplicationInjectionKey: InjectionKey<FluxApplicationInjection>
 export type FluxApplicationInjection = {
     readonly isMenuCollapsed: Ref<boolean>;
     readonly layout: Ref<FluxApplicationLayout>;
+    readonly showDesktopMenuToggle: Ref<boolean>;
 };
 
 export type FluxApplicationLayout =

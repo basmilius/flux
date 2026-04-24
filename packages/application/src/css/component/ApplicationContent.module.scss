@@ -3,6 +3,7 @@
 .applicationContent {
     position: relative;
     display: flex;
+    container: applicationContent / inline-size;
     margin-left: auto;
     margin-right: auto;
     padding-top: 21px;
@@ -66,6 +67,41 @@
 
         .tableCell:last-child .tableCellContent {
             padding-right: 21px;
+        }
+    }
+}
+
+@include mixin.breakpoint-down(md) {
+    .applicationContentDefault,
+    .applicationContentMedium,
+    .applicationContentNarrow {
+        gap: 15px;
+    }
+
+    .applicationContentFull {
+        width: 100%;
+    }
+
+    .applicationContentFull {
+        > :is(.calendar, .table) {
+            margin-left: 0;
+            margin-right: 0;
+            height: auto;
+        }
+
+        > .calendar .calendarActions {
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+
+        > .table {
+            .tableCell:first-child .tableCellContent {
+                padding-left: 12px;
+            }
+
+            .tableCell:last-child .tableCellContent {
+                padding-right: 12px;
+            }
         }
     }
 }

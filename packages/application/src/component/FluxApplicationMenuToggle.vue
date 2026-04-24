@@ -1,5 +1,7 @@
 <template>
-    <FluxMenuItem :class="$style.applicationMenuToggle">
+    <FluxMenuItem
+        :class="$style.applicationMenuToggle"
+        @click="isMenuCollapsed = !isMenuCollapsed">
         <template #before>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -21,5 +23,8 @@
     lang="ts"
     setup>
     import { FluxMenuItem } from '@flux-ui/components';
+    import { useApplicationInjection } from '../composable';
     import $style from '../css/component/ApplicationMenu.module.scss';
+
+    const {isMenuCollapsed} = useApplicationInjection();
 </script>

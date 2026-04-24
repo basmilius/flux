@@ -1,0 +1,21 @@
+@use '$flux/css/mixin';
+
+.applicationSide {
+    position: fixed;
+    display: flex;
+    top: 0;
+    right: 0;
+    height: 100dvh;
+    width: var(--application-side-width);
+    flex-flow: column;
+    background: var(--surface);
+    border-left: 1px solid var(--surface-stroke);
+    overflow: hidden;
+    z-index: 500;
+}
+
+@include mixin.breakpoint-down(lg) {
+    .applicationSide {
+        display: none;
+    }
+}

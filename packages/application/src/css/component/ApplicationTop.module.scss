@@ -21,7 +21,7 @@
 
 .applicationTopBar {
     display: flex;
-    height: 66px;
+    height: var(--application-top-height);
     padding-left: 21px;
     padding-right: 21px;
     align-items: center;
@@ -34,10 +34,18 @@
     font-size: 16px;
     font-weight: 700;
     line-height: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .applicationTopBar > :local(.separator) {
     height: 18px;
+}
+
+@include mixin.breakpoint-up(lg) {
+    .applicationTopMenuToggleHidden {
+        display: none;
+    }
 }
 
 .applicationTopTabs {
@@ -79,4 +87,20 @@
     composes: applicationTopTabs;
 
     width: min(840px, 100% - 42px);
+}
+
+@include mixin.breakpoint-down(md) {
+    .applicationTop,
+    .applicationTopScrolled {
+        padding-top: env(safe-area-inset-top);
+    }
+
+    .applicationTopBar > :local(.icon) {
+        display: none;
+    }
+
+    .applicationMenuToggle {
+        margin-left: -12px;
+        margin-right: -15px;
+    }
 }

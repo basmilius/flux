@@ -1,6 +1,8 @@
 <template>
     <header :class="y > 1 ? $style.applicationTopScrolled : $style.applicationTop">
         <div :class="$style.applicationTopBar">
+            <FluxApplicationMenuToggle :class="!showDesktopMenuToggle && $style.applicationTopMenuToggleHidden"/>
+
             <slot name="start"/>
 
             <FluxFadeTransition>
@@ -52,6 +54,7 @@
     import clsx from 'clsx';
     import type { VNode } from 'vue';
     import { useApplicationInjection } from '../composable';
+    import FluxApplicationMenuToggle from './FluxApplicationMenuToggle.vue';
     import $style from '../css/component/ApplicationTop.module.scss';
 
     defineProps<{
@@ -65,6 +68,6 @@
         tabs?(): VNode;
     }>();
 
-    const {layout} = useApplicationInjection();
+    const {layout, showDesktopMenuToggle} = useApplicationInjection();
     const {y} = useScrollPosition();
 </script>
