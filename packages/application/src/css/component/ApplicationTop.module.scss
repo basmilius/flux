@@ -104,3 +104,7 @@
         margin-right: -15px;
     }
 }
+
+.applicationTop:has(+ .applicationContentFull > :local(.table)) {
+    border-bottom-color: var(--surface-stroke-out);
+}

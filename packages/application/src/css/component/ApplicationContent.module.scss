@@ -40,35 +40,42 @@
 }
 
 .applicationContentFull {
-    > :is(.calendar, .table) {
-        margin-left: -21px;
-        margin-right: -21px;
-        height: calc(100dvh - 84px);
+    &:has(> :is(:local(.calendar), :local(.table))) {
+        min-height: 0;
+        width: 100%;
+        contain: paint;
+        overflow: hidden;
+    }
+
+    > :is(:local(.calendar), :local(.table)) {
+        max-height: 100%;
         flex-grow: 1;
     }
 
-    > .calendar {
+    > :local(.calendar) {
         border-left: 0;
         border-right: 0;
         border-radius: 0;
 
-        .calendarActions {
+        :local(.calendarActions) {
             padding-left: 21px;
             padding-right: 21px;
         }
     }
 
-    > .table {
-        border-top: 1px solid var(--surface-stroke);
-
-        .tableCell:first-child .tableCellContent {
+    > :local(.table) {
+        :local(.tableCell):first-child :local(.tableCellContent) {
             padding-left: 21px;
         }
 
-        .tableCell:last-child .tableCellContent {
+        :local(.tableCell):last-child :local(.tableCellContent) {
             padding-right: 21px;
         }
     }
+}
+
+:local(.applicationBody):has(> .applicationContentFull:has(> :is(:local(.calendar), :local(.table)))) {
+    max-height: 100dvh;
 }
 
 @include mixin.breakpoint-down(md) {
