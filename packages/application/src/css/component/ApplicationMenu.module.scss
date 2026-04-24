@@ -16,16 +16,16 @@
     z-index: 500;
 }
 
-.applicationMenuContent,
 .applicationMenuFooter,
-.applicationMenuHeader {
+.applicationMenuHeader,
+.applicationMenuPanel {
     padding: 12px;
     gap: 12px;
 }
 
 .applicationMenuFooter,
 .applicationMenuHeader {
-    position: sticky;
+    position: relative;
     background: var(--application-menu-surface);
     z-index: 1;
 
@@ -37,55 +37,127 @@
         width: 100%;
         content: '';
         pointer-events: none;
-        transition: opacity 200ms var(--swift-out);
     }
 }
 
-.applicationMenu[data-at-start] .applicationMenuHeader::before,
-.applicationMenu[data-at-end] .applicationMenuFooter::before {
-    opacity: 0;
-}
-
-.applicationMenu[data-at-start] .applicationMenuHeader::before {
-    opacity: 0;
-}
-
-.applicationMenu[data-at-end] .applicationMenuFooter::before {
-    opacity: 0;
-}
-
-.applicationMenuContent {
-    min-height: 0;
-    flex: 1 1 auto;
-    overflow: auto;
-}
-
 .applicationMenuFooter {
-    bottom: 0;
+    max-height: 50vh;
     padding-bottom: max(12px, env(safe-area-inset-bottom));
+    transition: var(--application-duration) var(--swift-out);
+    transition-property: max-height, opacity, padding-top, padding-bottom;
 
     &::before {
         bottom: 100%;
         background: linear-gradient(to top, var(--application-menu-surface), transparent);
+        transition: opacity var(--application-duration) var(--swift-out);
+    }
+
+    /**
+     * Collapses the footer in sync with the slider track when the
+     * user navigates into a context-menu panel. Animating `max-height`
+     * is the standard hack to transition a height-auto element; 50vh
+     * is far above any realistic footer height yet small enough to
+     * animate smoothly without the leading edge appearing to "wait".
+     */
+    &[data-hidden] {
+        max-height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        opacity: 0;
+        pointer-events: none;
+        overflow: hidden;
+
+        &::before {
+            opacity: 0;
+        }
     }
 }
 
 .applicationMenuHeader {
-    top: 0;
     padding-top: max(12px, env(safe-area-inset-top));
+    border-bottom: 1px solid var(--application-menu-surface-stroke);
 
     &::before {
-        top: 100%;
+        top: calc(100% + 1px);
         background: linear-gradient(to bottom, var(--application-menu-surface), transparent);
     }
 }
 
-.applicationMenuHeader + .applicationMenuContent {
-    padding-top: 0;
+.applicationMenuStage {
+    position: relative;
+    min-height: 0;
+    flex: 1 1 auto;
+    overflow: hidden;
 }
 
-.applicationMenuContent:has(+ .applicationMenuFooter) {
-    padding-bottom: 0;
+.applicationMenuTrack {
+    display: flex;
+    flex-flow: row nowrap;
+    height: 100%;
+    transform: translateX(calc(var(--view-index, 0) * -100%));
+    transition: transform var(--application-duration) var(--swift-out);
+    will-change: transform;
+}
+
+.applicationMenuPanel {
+    display: flex;
+    flex: 0 0 100%;
+    flex-flow: column;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.applicationMenuPageIndicator {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+    padding: 9px 12px;
+    background: var(--application-menu-surface);
+    z-index: 1;
+}
+
+.applicationMenuPageIndicatorDot {
+    height: 6px;
+    width: 6px;
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border: 1.5px solid var(--application-menu-surface-stroke);
+    border-radius: 50%;
+    transition: 200ms var(--swift-out);
+    transition-property: background, border-color, transform;
+
+    @include mixin.hover {
+        border-color: var(--foreground-secondary);
+        transform: scale(1.2);
+    }
+
+    @include mixin.focus-ring;
+}
+
+.applicationMenuPageIndicatorDotActive {
+    background: var(--foreground-prominent);
+    border-color: var(--foreground-prominent);
+}
+
+/**
+ * No visual animation on enter/leave — just hold the leaving panel in
+ * the DOM for the duration of the slider's translate transition so it
+ * stays visible while the track slides away from it. Without this the
+ * v-for would unmount the panel the moment matches shrinks, leaving
+ * the slider sliding over an empty track.
+ */
+.applicationMenuPanelEnterActive,
+.applicationMenuPanelEnterFrom,
+.applicationMenuPanelLeaveActive,
+.applicationMenuPanelLeaveTo {
+    transition: opacity var(--application-duration) var(--swift-out);
+}
+
+.applicationMenuPanelLeaveActive {
+    pointer-events: none;
 }
 
 .applicationMenu :local(.divider) {
@@ -181,12 +253,14 @@
 
 .applicationMenuContext {
     display: flex;
+    margin-top: -12px;
     margin-left: -12px;
     margin-right: -12px;
     padding: 15px;
     flex-flow: row nowrap;
     gap: 15px;
     border: 1px solid var(--application-menu-surface-stroke);
+    border-top: 0;
     border-left: 0;
     border-right: 0;
 }
@@ -203,6 +277,62 @@
     :global(span) {
         color: var(--foreground-secondary);
         font-size: 14px;
+    }
+}
+
+.applicationMenuContextPill {
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 9px;
+    align-items: center;
+    margin: -3px -6px 6px;
+    padding: 9px 12px;
+    cursor: pointer;
+    color: var(--foreground-secondary);
+    background: transparent;
+    border: 1px solid var(--application-menu-surface-stroke);
+    border-radius: var(--radius);
+    transition: background 200ms var(--swift-out);
+
+    @include mixin.hover {
+        background: var(--gray-200);
+    }
+
+    &:active {
+        background: var(--gray-300);
+    }
+
+    @include mixin.focus-ring;
+}
+
+.applicationMenuContextPillContent {
+    display: flex;
+    flex: 1 1 auto;
+    flex-flow: column;
+    min-width: 0;
+
+    :global(strong) {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: hidden;
+        color: var(--foreground-prominent);
+        text-overflow: ellipsis;
+        transition: var(--application-duration) var(--swift-out);
+        transition-property: filter, opacity, translate;
+    }
+
+    :global(span) {
+        font-size: 12px;
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: hidden;
+        color: var(--foreground-secondary);
+        text-overflow: ellipsis;
+        transition: var(--application-duration) var(--swift-out);
+        transition-property: filter, opacity, translate;
     }
 }
 
@@ -268,6 +398,13 @@
         .applicationMenuContext {
             opacity: 0;
             pointer-events: none;
+        }
+
+        .applicationMenuContextPillContent :global(strong),
+        .applicationMenuContextPillContent :global(span) {
+            filter: blur(6px);
+            opacity: 0;
+            translate: -12px 0;
         }
     }
 }

@@ -54,7 +54,8 @@
         "@flux-ui/components": "workspace:*",
         "@flux-ui/internals": "workspace:*",
         "clsx": "^2.1.1",
-        "vue": "^3.6.0-beta.10"
+        "vue": "^3.6.0-beta.10",
+        "vue-router": "^5.0.6"
     },
     "devDependencies": {
         "@basmilius/vite-preset": "^3.18.0",
