@@ -33,6 +33,10 @@
     min-height: 100dvh;
     flex-flow: column;
     flex-grow: 1;
+
+    &:has(> .applicationContentFull > :is(.calendar, .table)) {
+        max-height: 100dvh;
+    }
 }
 
 .applicationMenuBackdrop {

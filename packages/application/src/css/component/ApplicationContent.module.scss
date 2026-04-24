@@ -74,10 +74,6 @@
     }
 }
 
-:local(.applicationBody):has(> .applicationContentFull:has(> :is(:local(.calendar), :local(.table)))) {
-    max-height: 100dvh;
-}
-
 @include mixin.breakpoint-down(md) {
     .applicationContentDefault,
     .applicationContentMedium,
