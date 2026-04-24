@@ -2,6 +2,8 @@ export { default as FluxAction } from './FluxAction.vue';
 export { default as FluxActionBar } from './FluxActionBar.vue';
 export { default as FluxActionPane } from './FluxActionPane.vue';
 export { default as FluxActionStack } from './FluxActionStack.vue';
+export { default as FluxAdaptiveGroup } from './FluxAdaptiveGroup.vue';
+export { default as FluxAdaptiveSlot } from './FluxAdaptiveSlot.vue';
 export { default as FluxAnimatedColors } from './FluxAnimatedColors.vue';
 export { default as FluxAspectRatio } from './FluxAspectRatio.vue';
 export { default as FluxAvatar } from './FluxAvatar.vue';

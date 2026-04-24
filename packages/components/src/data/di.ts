@@ -1,6 +1,7 @@
 import type { FluxFilterState, FluxFilterValue } from '@flux-ui/types';
 import type { ComponentInternalInstance, InjectionKey, Ref } from 'vue';
 
+export const FluxAdaptiveGroupInjectionKey: InjectionKey<FluxAdaptiveGroupInjection> = Symbol();
 export const FluxDisabledInjectionKey: InjectionKey<Ref<boolean>> = Symbol();
 export const FluxExpandableGroupInjectionKey: InjectionKey<FluxExpandableGroupInjection> = Symbol();
 export const FluxFlyoutInjectionKey: InjectionKey<FluxFlyoutInjection> = Symbol();
@@ -8,6 +9,18 @@ export const FluxFilterInjectionKey: InjectionKey<FluxFilterInjection> = Symbol(
 export const FluxFormFieldInjectionKey: InjectionKey<FluxFormFieldInjection> = Symbol();
 export const FluxTableInjectionKey: InjectionKey<FluxTableInjection> = Symbol();
 export const FluxTooltipInjectionKey: InjectionKey<FluxTooltipInjection> = Symbol();
+
+export type FluxAdaptiveGroupChild = {
+    readonly priority: Ref<number>;
+    readonly desiredDefaultWidth: Ref<number>;
+    readonly desiredFallbackWidth: Ref<number>;
+    readonly isDefaultVisible: Ref<boolean>;
+};
+
+export type FluxAdaptiveGroupInjection = {
+    register(uid: number, child: FluxAdaptiveGroupChild): void;
+    unregister(uid: number): void;
+};
 
 export type FluxExpandableGroupInjection = {
     closeAll(): void;

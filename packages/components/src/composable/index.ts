@@ -1,6 +1,7 @@
 export { default as useBreakpoints } from './useBreakpoints';
 export { default as useDisabled } from './useDisabled';
 
+export { default as useAdaptiveGroupInjection } from './useAdaptiveGroupInjection';
 export { default as useDisabledInjection } from './useDisabledInjection';
 export { default as useExpandableGroupInjection } from './useExpandableGroupInjection';
 export { default as useFilterInjection } from './useFilterInjection';

@@ -6,6 +6,8 @@ const navigation: SidebarItem = {
         {text: 'Action', link: '/guide/components/action', image: '/assets/components/action.svg'},
         {text: 'Action bar', link: '/guide/components/action-bar'},
         {text: 'Action pane', link: '/guide/components/action-pane'},
+        {text: 'Adaptive group', link: '/guide/components/adaptive-group'},
+        {text: 'Adaptive slot', link: '/guide/components/adaptive-slot'},
         {
             text: 'Attention',
             link: '/guide/components/attention/',

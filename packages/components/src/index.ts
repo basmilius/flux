@@ -16,6 +16,8 @@ export {
 } from './data';
 
 export type {
+    FluxAdaptiveGroupChild,
+    FluxAdaptiveGroupInjection,
     FluxExpandableGroupInjection,
     FluxFilterInjection,
     FluxFlyoutInjection,
