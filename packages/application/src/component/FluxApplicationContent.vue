@@ -2,6 +2,7 @@
     <main
         :class="clsx(
             layout === 'default' && $style.applicationContentDefault,
+            layout === 'dashboard' && $style.applicationContentDashboard,
             layout === 'full' && $style.applicationContentFull,
             layout === 'medium' && $style.applicationContentMedium,
             layout === 'narrow' && $style.applicationContentNarrow

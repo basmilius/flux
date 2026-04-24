@@ -65,7 +65,8 @@
     }
 }
 
-.applicationTopTabsDefault {
+.applicationTopTabsDefault,
+.applicationTopTabsDashboard {
     composes: applicationTopTabs;
 
     width: min(1620px, 100% - 42px);

@@ -1,0 +1,39 @@
+@use '$flux/css/mixin';
+
+.applicationSection {
+    display: flex;
+    flex-flow: column;
+    gap: 21px;
+}
+
+.applicationSectionHeader {
+    display: flex;
+    align-items: center;
+    flex-flow: row;
+    gap: 21px;
+
+    :global(h2) {
+        flex-grow: 1;
+        color: var(--foreground-prominent);
+    }
+}
+
+.applicationSectionInfo {
+    font-size: 14px;
+    color: var(--foreground-secondary);
+}
+
+.applicationSectionContent {
+    display: flex;
+    flex-flow: column;
+    flex-grow: 1;
+    gap: 21px;
+}
+
+@include mixin.breakpoint-down(md) {
+    .applicationSectionHeader {
+        align-items: flex-start;
+        flex-flow: column;
+        gap: 0;
+    }
+}

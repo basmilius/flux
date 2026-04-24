@@ -1,0 +1,17 @@
+.applicationHero {
+    display: flex;
+    align-items: center;
+    flex-flow: row;
+    gap: 21px;
+}
+
+.applicationHeroBody {
+    display: flex;
+    flex-flow: column;
+    flex-grow: 1;
+    gap: 6px;
+}
+
+.applicationHeroSubtitle {
+    color: var(--foreground-secondary);
+}

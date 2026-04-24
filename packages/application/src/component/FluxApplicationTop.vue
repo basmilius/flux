@@ -31,6 +31,7 @@
                 v-if="slots.tabs"
                 :class="clsx(
                     layout === 'default' && $style.applicationTopTabsDefault,
+                    layout === 'dashboard' && $style.applicationTopTabsDashboard,
                     layout === 'full' && $style.applicationTopTabsFull,
                     layout === 'medium' && $style.applicationTopTabsMedium,
                     layout === 'narrow' && $style.applicationTopTabsNarrow
