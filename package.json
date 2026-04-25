@@ -6,8 +6,8 @@
         "packages/*"
     ],
     "overrides": {
-        "@basmilius/common": "link:@basmilius/common",
-        "@basmilius/utils": "link:@basmilius/utils",
-        "@basmilius/vite-preset": "link:@basmilius/vite-preset"
+        "@disabled-basmilius/common": "link:@basmilius/common",
+        "@disabled-basmilius/utils": "link:@basmilius/utils",
+        "@disabled-basmilius/vite-preset": "link:@basmilius/vite-preset"
     }
 }

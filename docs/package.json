@@ -8,7 +8,7 @@
         "preview": "vitepress preview"
     },
     "dependencies": {
-        "@basmilius/common": "^3.18.0",
+        "@basmilius/common": "^3.19.0",
         "@faker-js/faker": "^10.4.0",
         "@flux-ui/application": "workspace:*",
         "@flux-ui/components": "workspace:*",
@@ -23,10 +23,10 @@
         "vitepress-plugin-group-icons": "^1.7.5",
         "vitepress-plugin-render": "^1.4.0",
         "vue": "^3.6.0-beta.10",
-        "vue-i18n": "^11.3.2"
+        "vue-i18n": "^11.4.0"
     },
     "devDependencies": {
-        "@basmilius/vite-preset": "^3.18.0",
+        "@basmilius/vite-preset": "^3.19.0",
         "@types/luxon": "^3.7.1",
         "vite": "^8.0.10"
     }
