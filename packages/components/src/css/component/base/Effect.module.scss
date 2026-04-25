@@ -31,7 +31,8 @@ $-sparkle-r: .5 * $-sparkle-d;
             $-xs: $-xg + $-sparkle-d * cos($-sparkle-curr-angle);
             $-ys: $-yg + $-sparkle-d * sin($-sparkle-curr-angle);
 
-            $-shadow-list: $-shadow-list, $-xs $-ys 0 $-spread-r hsl(($i + $j) * $-group-base-angle, 100%, 75%);
+            $-hue: ($i + $j) * $-group-base-angle;
+            $-shadow-list: $-shadow-list, $-xs $-ys 0 $-spread-r hsl($-hue, 100%, 75%);
         }
     }
 

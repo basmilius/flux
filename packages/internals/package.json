@@ -61,6 +61,7 @@
     "dependencies": {
         "@basmilius/common": "^3.19.0",
         "@basmilius/utils": "^3.19.0",
+        "@flux-ui/types": "workspace:*",
         "lodash-es": "^4.18.1",
         "luxon": "^3.7.2",
         "vue": "^3.6.0-beta.10"
