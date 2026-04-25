@@ -72,8 +72,10 @@ export default function useDropdownPopup(options: UseDropdownPopupOptions): UseD
         return false;
     }
 
-    useClickOutside([options.anchorRef, options.popupRef], isOpen, () => isOpen.value = false);
-    useClickOutside(options.anchorRef, isOpen, () => unref(options.focusElement)?.focus());
+    if (typeof window !== 'undefined') {
+        useClickOutside([options.anchorRef, options.popupRef], isOpen, () => isOpen.value = false);
+        useClickOutside(options.anchorRef, isOpen, () => unref(options.focusElement)?.focus());
+    }
 
     watch(isOpen, opened => {
         if (!opened) {
