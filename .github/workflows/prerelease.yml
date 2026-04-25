@@ -39,12 +39,14 @@ jobs:
                     bun pm version --cwd packages/types ${{ env.RELEASE_VERSION }}
                     bun pm version --cwd packages/internals ${{ env.RELEASE_VERSION }}
                     bun pm version --cwd packages/components ${{ env.RELEASE_VERSION }}
+                    bun pm version --cwd packages/application ${{ env.RELEASE_VERSION }}
                     bun pm version --cwd packages/dashboard ${{ env.RELEASE_VERSION }}
                     bun pm version --cwd packages/statistics ${{ env.RELEASE_VERSION }}
                     
                     sed -i 's/workspace:\*/${{ env.RELEASE_VERSION }}/g' packages/types/package.json
                     sed -i 's/workspace:\*/${{ env.RELEASE_VERSION }}/g' packages/internals/package.json
                     sed -i 's/workspace:\*/${{ env.RELEASE_VERSION }}/g' packages/components/package.json
+                    sed -i 's/workspace:\*/${{ env.RELEASE_VERSION }}/g' packages/application/package.json
                     sed -i 's/workspace:\*/${{ env.RELEASE_VERSION }}/g' packages/dashboard/package.json
                     sed -i 's/workspace:\*/${{ env.RELEASE_VERSION }}/g' packages/statistics/package.json
 
@@ -52,6 +54,7 @@ jobs:
                 run: |
                     bun --cwd packages/internals build
                     bun --cwd packages/components build
+                    bun --cwd packages/application build
                     bun --cwd packages/dashboard build
                     bun --cwd packages/statistics build
                     bun --cwd docs build
@@ -63,6 +66,7 @@ jobs:
                     bun publish --cwd packages/types --access public --tag next
                     bun publish --cwd packages/internals --access public --tag next
                     bun publish --cwd packages/components --access public --tag next
+                    bun publish --cwd packages/application --access public --tag next
                     bun publish --cwd packages/dashboard --access public --tag next
                     bun publish --cwd packages/statistics --access public --tag next
                 env:
