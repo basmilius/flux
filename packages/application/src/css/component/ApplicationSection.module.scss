@@ -30,6 +30,10 @@
     gap: 21px;
 }
 
+:local(.gridColumn) > .applicationSection {
+    min-height: 100%;
+}
+
 @include mixin.breakpoint-down(md) {
     .applicationSectionHeader {
         align-items: flex-start;
