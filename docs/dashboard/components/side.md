@@ -27,7 +27,7 @@ The dashboard side component provides space for supplementary content or tools, 
 
 ::: code-group
 
-
+<<< @/code/dashboard/side/snippet.vue [FluxDashboardSide.vue]
 
 :::
 

@@ -1,6 +1,6 @@
 # useTooltipInjection
 
-This composable provides access to the [Tooltip](../components/tooltip) provider context. It exposes a `calculate` method that triggers tooltip position recalculation.
+This composable provides access to the [Tooltip](../../components/tooltip) provider context. It exposes a `calculate` method that triggers tooltip position recalculation.
 
 ## Usage
 
@@ -23,4 +23,4 @@ declare function useTooltipInjection(): {
 
 ## Used by
 
-- [Tooltip](../components/tooltip)
+- [Tooltip](../../components/tooltip)

@@ -1,6 +1,6 @@
 # useDisabledInjection
 
-This composable retrieves the disabled state from a parent [Disabled](../components/disabled) component via Vue's dependency injection. Returns `false` when no parent provides a disabled state.
+This composable retrieves the disabled state from a parent [Disabled](../../components/disabled) component via Vue's dependency injection. Returns `false` when no parent provides a disabled state.
 
 ## Usage
 

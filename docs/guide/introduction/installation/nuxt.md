@@ -166,7 +166,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
 ### `<FluxRoot>` placement
 
-Place `<FluxRoot>` in your top-level `app.vue` so programmatic overlays such as [`showAlert`](../../components/attention/alert), [`showConfirm`](../../components/attention/confirm) and [`showSnackbar`](../../components/attention/snackbar) have a mounting point on every page:
+Place `<FluxRoot>` in your top-level `app.vue` so programmatic overlays such as [`showAlert`](../../../components/attention/alert), [`showConfirm`](../../../components/attention/confirm) and [`showSnackbar`](../../../components/attention/snackbar) have a mounting point on every page:
 
 ```vue [app.vue]
 <template>

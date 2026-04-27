@@ -10,6 +10,10 @@ slots:
 
 A fader item is a single slide within a [Fader](./fader). Each item is shown in turn according to the fader's interval.
 
+::: render
+render=../code/components/fader-item/preview.vue
+:::
+
 ::: tip
 This component is best used within a [Fader](./fader).
 :::

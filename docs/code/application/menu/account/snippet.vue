@@ -2,7 +2,7 @@
     <FluxApplicationMenuAccount
         label="Bas Milius"
         image-alt="Bas Milius"
-        image-src="https://i.pravatar.cc/64?img=12">
+        image-src="https://avatars.githubusercontent.com/u/978257?v=4">
         <template #switcher>
             <FluxMenu>
                 <FluxMenuItem

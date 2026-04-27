@@ -1,6 +1,6 @@
 # useFlyoutInjection
 
-This composable provides access to the [Flyout](../components/flyout) state. It allows child components to react to the flyout's open, opening and closing states.
+This composable provides access to the [Flyout](../../components/flyout) state. It allows child components to react to the flyout's open, opening and closing states.
 
 ## Usage
 
@@ -24,5 +24,5 @@ declare function useFlyoutInjection(): {
 
 ## Used by
 
-- [Flyout](../components/flyout)
-- [Menu](../components/menu/)
+- [Flyout](../../components/flyout)
+- [Menu](../../components/menu/)

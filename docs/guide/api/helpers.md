@@ -4,7 +4,7 @@ Utility type guards for working with form select data structures.
 
 ## isFluxFormSelectGroup
 
-Checks if a given item is a [Form select](../components/form/select/) group.
+Checks if a given item is a [Form select](../../components/form/select/) group.
 
 ```ts
 import { isFluxFormSelectGroup } from '@flux-ui/components';
@@ -16,7 +16,7 @@ if (isFluxFormSelectGroup(item)) {
 
 ## isFluxFormSelectOption
 
-Checks if a given item is a [Form select](../components/form/select/) option.
+Checks if a given item is a [Form select](../../components/form/select/) option.
 
 ```ts
 import { isFluxFormSelectOption } from '@flux-ui/components';

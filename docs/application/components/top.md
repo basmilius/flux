@@ -41,11 +41,12 @@ The component also exposes a `tabs` slot. When provided, a `FluxTabBar` is rende
 
 ## Used components
 
-- [Application menu toggle](./menu-toggle)
+- [Menu](./menu/)
+    - [Toggle](./menu/toggle)
 - [Icon](../../components/icon)
 - [Layout](../../components/layout)
     - [Spacer](../../components/layout/spacer)
 - [Tab bar](../../components/tab-bar)
-- [Transitions](../../components/transitions/fade)
+- Transitions
     - [Fade](../../components/transitions/fade)
     - [Route](../../components/transitions/route)

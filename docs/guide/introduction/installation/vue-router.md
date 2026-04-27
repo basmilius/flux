@@ -127,7 +127,7 @@ Every Flux component that accepts a `to` prop hands it off to Vue Router's `<Rou
 
 ## Animating route transitions
 
-Flux ships with a [Route transition](../../transitions/route) that animates entering and leaving views. Wrap your `<RouterView/>` in a `<FluxRouteTransition>` to enable it:
+Flux ships with a [Route transition](../../../components/transitions/route) that animates entering and leaving views. Wrap your `<RouterView/>` in a `<FluxRouteTransition>` to enable it:
 
 ```vue [App.vue]
 <template>

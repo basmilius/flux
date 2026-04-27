@@ -57,8 +57,8 @@ type FluxApplicationLayout =
 ## Used by
 
 - [Application](../components/application)
-    - [Application content](../components/content)
-    - [Application menu](../components/menu)
-    - [Application menu context](../components/menu-context)
-    - [Application menu toggle](../components/menu-toggle)
-    - [Application top](../components/top)
+- [Content](../components/content)
+- [Menu](../components/menu/)
+    - [Context](../components/menu/context)
+    - [Toggle](../components/menu/toggle)
+- [Top](../components/top)

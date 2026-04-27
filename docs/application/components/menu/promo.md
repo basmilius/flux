@@ -17,11 +17,11 @@ slots:
 The application menu promo is a small content block that you can drop inside the menu sidebar to highlight a feature, advertise a plan upgrade, or surface contextual help.
 
 ::: render
-render=../../code/application/menu-promo/preview.vue
+render=../../../code/application/menu/promo/preview.vue
 :::
 
 <FrontmatterDocs/>
 
 ## Used components
 
-- [Icon](../../components/icon)
+- [Icon](../../../components/icon)

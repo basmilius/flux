@@ -16,6 +16,10 @@ slots:
 
 The item actions area holds buttons or other controls that act on the item, such as edit or delete buttons.
 
+::: render
+render=../../code/components/item/actions/preview.vue
+:::
+
 ::: tip
 This component is best used within an [Item](./index).
 :::

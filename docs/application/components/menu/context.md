@@ -59,11 +59,11 @@ The component automatically registers its title and subtitle in the parent `Flux
 
 ::: code-group
 
-<<< @/code/application/menu-context/snippet.vue [FluxApplicationMenuContext.vue]
+<<< @/code/application/menu/context/snippet.vue [FluxApplicationMenuContext.vue]
 
 :::
 
 ## Used components
 
-- [Button](../../components/button)
-    - [Secondary](../../components/button/secondary)
+- [Button](../../../components/button)
+    - [Secondary](../../../components/button/secondary)

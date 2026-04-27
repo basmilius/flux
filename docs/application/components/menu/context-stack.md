@@ -35,11 +35,11 @@ The matched menu components are then rendered through `<FluxApplicationMenuConte
 
 ::: code-group
 
-<<< @/code/application/menu-context-stack/snippet.vue [FluxApplicationMenuContextStack.vue]
+<<< @/code/application/menu/context-stack/snippet.vue [FluxApplicationMenuContextStack.vue]
 
 :::
 
 ## Used components
 
-- [Application menu](./menu)
-- [Menu](../../components/menu)
+- [Application menu](./)
+- [Menu](../../../components/menu)

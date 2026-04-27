@@ -218,12 +218,18 @@ export default defineConfig({
                         {text: 'Application', link: '/application/components/application'},
                         {text: 'Content', link: '/application/components/content'},
                         {text: 'Hero', link: '/application/components/hero'},
-                        {text: 'Menu', link: '/application/components/menu'},
-                        {text: 'Menu account', link: '/application/components/menu-account'},
-                        {text: 'Menu context', link: '/application/components/menu-context'},
-                        {text: 'Menu context stack', link: '/application/components/menu-context-stack'},
-                        {text: 'Menu promo', link: '/application/components/menu-promo'},
-                        {text: 'Menu toggle', link: '/application/components/menu-toggle'},
+                        {
+                            text: 'Menu',
+                            link: '/application/components/menu/',
+                            collapsed: true,
+                            items: [
+                                {text: 'Account', link: '/application/components/menu/account'},
+                                {text: 'Context', link: '/application/components/menu/context'},
+                                {text: 'Context stack', link: '/application/components/menu/context-stack'},
+                                {text: 'Promo', link: '/application/components/menu/promo'},
+                                {text: 'Toggle', link: '/application/components/menu/toggle'}
+                            ]
+                        },
                         {text: 'Section', link: '/application/components/section'},
                         {text: 'Side', link: '/application/components/side'},
                         {text: 'Top', link: '/application/components/top'}

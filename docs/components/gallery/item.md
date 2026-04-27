@@ -56,7 +56,6 @@ example=../../code/components/gallery/item/delete.vue
 :::
 
 ## Used components
-- [Focal point](../focal-point)
-    - [Image](../focal-point/image)
+- [Focal point](../focal-point/image)
 - [Remove](../remove)
 - [Icon](../icon)

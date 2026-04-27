@@ -6,7 +6,7 @@
 
 Flux ships two distinct ways of showing dialogs:
 
-- **[`FluxOverlay`](../components/overlay)** — a template-driven container that you render conditionally with `v-if`. Best when the dialog has its own UI, lifecycle and interactions, or when it is tied to a route.
+- **[`FluxOverlay`](../../components/overlay)** — a template-driven container that you render conditionally with `v-if`. Best when the dialog has its own UI, lifecycle and interactions, or when it is tied to a route.
 - **`showAlert` / `showConfirm` / `showPrompt` / `showSnackbar`** — imperative functions that mount a dialog from anywhere in your code. Best for short, ephemeral interactions that interrupt a user action.
 
 This recipe lays out when to reach for which.
@@ -23,23 +23,23 @@ This recipe lays out when to reach for which.
         </template>
         <FluxTableRow>
             <FluxTableCell>A complex form, a wizard, a deep-link target</FluxTableCell>
-            <FluxTableCell><a href="../components/overlay"><code>FluxOverlay</code></a> (or <a href="../components/slide-over"><code>FluxSlideOver</code></a>)</FluxTableCell>
+            <FluxTableCell><a href="../../components/overlay"><code>FluxOverlay</code></a> (or <a href="../../components/slide-over"><code>FluxSlideOver</code></a>)</FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell>Confirm a destructive action ("Are you sure you want to delete?")</FluxTableCell>
-            <FluxTableCell><a href="../components/attention/confirm"><code>showConfirm</code></a></FluxTableCell>
+            <FluxTableCell><a href="../../components/attention/confirm"><code>showConfirm</code></a></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell>Surface a one-off message after a save</FluxTableCell>
-            <FluxTableCell><a href="../components/attention/snackbar"><code>showSnackbar</code></a></FluxTableCell>
+            <FluxTableCell><a href="../../components/attention/snackbar"><code>showSnackbar</code></a></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell>Ask the user for a single value (rename, enter URL, …)</FluxTableCell>
-            <FluxTableCell><a href="../components/attention/prompt"><code>showPrompt</code></a></FluxTableCell>
+            <FluxTableCell><a href="../../components/attention/prompt"><code>showPrompt</code></a></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell>Display a fatal error or terms acceptance</FluxTableCell>
-            <FluxTableCell><a href="../components/attention/alert"><code>showAlert</code></a></FluxTableCell>
+            <FluxTableCell><a href="../../components/attention/alert"><code>showAlert</code></a></FluxTableCell>
         </FluxTableRow>
     </FluxTable>
 </FluxPane>
@@ -48,7 +48,7 @@ The rule of thumb: if the dialog has more than one input, or if it should surviv
 
 ## Provider setup
 
-All programmatic dialogs need a single [`FluxRoot`](../components/root) somewhere in your tree — typically wrapping your application. The functions throw if no root has been mounted.
+All programmatic dialogs need a single [`FluxRoot`](../../components/root) somewhere in your tree — typically wrapping your application. The functions throw if no root has been mounted.
 
 ```vue [App.vue]
 <template>

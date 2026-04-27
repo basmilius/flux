@@ -1,6 +1,6 @@
 # Stepper wizard
 
-Multi-step flows — onboarding, checkout, lengthy forms — fit naturally into a [`FluxStepper`](../components/stepper). Each child of the default slot is treated as one step; the current step is controlled through `v-model` and the stepper handles the in/out animation.
+Multi-step flows — onboarding, checkout, lengthy forms — fit naturally into a [`FluxStepper`](../../components/stepper). Each child of the default slot is treated as one step; the current step is controlled through `v-model` and the stepper handles the in/out animation.
 
 ## Anatomy
 

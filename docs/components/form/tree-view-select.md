@@ -83,6 +83,10 @@ requiredIcons:
     - magnifying-glass
 ---
 
+<script setup>
+    import { FluxPane, FluxTable, FluxTableRow, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
+</script>
+
 # Tree view select
 
 This is a form select element that displays options in a hierarchical tree structure. It supports expanding and collapsing branches, single and multiple selection, an optional search input for filtering, and configurable per-level colors using either a `FluxColor` name or any CSS/HEX color string. The tree structure is rendered with connecting lines to visualize the hierarchy.
@@ -97,27 +101,91 @@ render=../../code/components/form/tree-view-select/preview.vue
 
 Each entry in the `options` array (and nested `children` arrays) is a `FluxFormTreeViewSelectOption`:
 
-| Property | Type | Description |
-|---|---|---|
-| `id` | `string \| number` | Unique identifier used as the value when selected. |
-| `label` | `string` | Display label for the node. |
-| `icon` | `FluxIconName` | Optional icon shown before the label. |
-| `selectable` | `boolean` | Whether this node can be selected. Defaults to `true`. Set to `false` on parent nodes to make them act as group headers — clicking them only expands or collapses their children. |
-| `children` | `FluxFormTreeViewSelectOption[]` | Nested child options. A node with children shows an expand/collapse chevron. |
+<FluxPane>
+    <FluxTable>
+        <template #header>
+            <FluxTableRow>
+                <FluxTableHeader>Property</FluxTableHeader>
+                <FluxTableHeader>Type</FluxTableHeader>
+                <FluxTableHeader>Description</FluxTableHeader>
+            </FluxTableRow>
+        </template>
+        <FluxTableRow>
+            <FluxTableCell><code>id</code></FluxTableCell>
+            <FluxTableCell><code>string | number</code></FluxTableCell>
+            <FluxTableCell>Unique identifier used as the value when selected.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><code>label</code></FluxTableCell>
+            <FluxTableCell><code>string</code></FluxTableCell>
+            <FluxTableCell>Display label for the node.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><code>icon</code></FluxTableCell>
+            <FluxTableCell><code>FluxIconName</code></FluxTableCell>
+            <FluxTableCell>Optional icon shown before the label.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><code>selectable</code></FluxTableCell>
+            <FluxTableCell><code>boolean</code></FluxTableCell>
+            <FluxTableCell>Whether this node can be selected. Defaults to <code>true</code>. Set to <code>false</code> on parent nodes to make them act as group headers — clicking them only expands or collapses their children.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><code>children</code></FluxTableCell>
+            <FluxTableCell><code>FluxFormTreeViewSelectOption[]</code></FluxTableCell>
+            <FluxTableCell>Nested child options. A node with children shows an expand/collapse chevron.</FluxTableCell>
+        </FluxTableRow>
+    </FluxTable>
+</FluxPane>
 
 ## Keyboard navigation
 
-| Key | Action |
-|---|---|
-| `Enter` / `Space` | Open the popup (when closed) or select/activate the highlighted node. |
-| `Arrow Down` | Move highlight to the next visible node. |
-| `Arrow Up` | Move highlight to the previous visible node. |
-| `Arrow Right` | Expand the highlighted node (if collapsed). If already expanded, moves to its first child. |
-| `Arrow Left` | Collapse the highlighted node (if expanded). If already collapsed, moves to its parent. |
-| `Backspace` | *(multiple mode)* Removes the last selected tag when the search field is empty. |
-| `Escape` | Close the popup and return focus to the trigger. |
-| `Tab` | Close the popup. |
-| Any letter | Jump to the first visible node whose label starts with that letter. |
+<FluxPane>
+    <FluxTable>
+        <template #header>
+            <FluxTableRow>
+                <FluxTableHeader>Key</FluxTableHeader>
+                <FluxTableHeader>Action</FluxTableHeader>
+            </FluxTableRow>
+        </template>
+        <FluxTableRow>
+            <FluxTableCell><kbd>Enter</kbd> / <kbd>Space</kbd></FluxTableCell>
+            <FluxTableCell>Open the popup (when closed) or select/activate the highlighted node.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>Arrow Down</kbd></FluxTableCell>
+            <FluxTableCell>Move highlight to the next visible node.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>Arrow Up</kbd></FluxTableCell>
+            <FluxTableCell>Move highlight to the previous visible node.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>Arrow Right</kbd></FluxTableCell>
+            <FluxTableCell>Expand the highlighted node (if collapsed). If already expanded, moves to its first child.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>Arrow Left</kbd></FluxTableCell>
+            <FluxTableCell>Collapse the highlighted node (if expanded). If already collapsed, moves to its parent.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>Backspace</kbd></FluxTableCell>
+            <FluxTableCell><em>(multiple mode)</em> Removes the last selected tag when the search field is empty.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>Escape</kbd></FluxTableCell>
+            <FluxTableCell>Close the popup and return focus to the trigger.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>Tab</kbd></FluxTableCell>
+            <FluxTableCell>Close the popup.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell>Any letter</FluxTableCell>
+            <FluxTableCell>Jump to the first visible node whose label starts with that letter.</FluxTableCell>
+        </FluxTableRow>
+    </FluxTable>
+</FluxPane>
 
 ## Examples
 
@@ -143,7 +211,7 @@ example=../../code/components/form/tree-view-select/custom-colors.vue
 
 ## Used components
 
-- [Form](../../form)
-    - [Input](../input)
-- [Icon](../../icon)
-- [Tag](../../tag)
+- [Form](../form)
+    - [Input](./input)
+- [Icon](../icon)
+- [Tag](../tag)

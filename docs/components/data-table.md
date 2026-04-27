@@ -149,6 +149,6 @@ example=../code/components/data-table/paginated.vue
 
 - [Table](./table)
     - [Actions](./table/actions)
-    - [Column](./table/column)
+    - [Cell](./table/cell)
     - [Header](./table/header)
     - [Row](./table/row)

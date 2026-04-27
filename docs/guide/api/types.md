@@ -18,7 +18,7 @@ import type { FluxColor, FluxIconName, FluxSize } from '@flux-ui/types';
 type FluxAlignment = 'start' | 'center' | 'end';
 ```
 
-Used by layout components such as [Overflow bar](../components/overflow-bar) and [Stack](../components/layout/stack).
+Used by layout components such as [Overflow bar](../../components/overflow-bar) and [Stack](../../components/layout/stack).
 
 ### `FluxColor`
 
@@ -26,7 +26,7 @@ Used by layout components such as [Overflow bar](../components/overflow-bar) and
 type FluxColor = 'gray' | 'primary' | 'danger' | 'info' | 'success' | 'warning';
 ```
 
-The six semantic colours that drive everything from [Badge](../components/badge) and [Notice](../components/attention/notice) to [Avatar](../components/avatar) status dots.
+The six semantic colours that drive everything from [Badge](../../components/badge) and [Notice](../../components/attention/notice) to [Avatar](../../components/avatar) status dots.
 
 ### `FluxDirection`
 
@@ -48,7 +48,7 @@ Any Font Awesome icon name. The icon must be registered through [`fluxRegisterIc
 type FluxInputMask = 'bic' | 'iban' | 'vat';
 ```
 
-The built-in masks for [Form input](../components/form/input).
+The built-in masks for [Form input](../../components/form/input).
 
 ### `FluxInputType`
 
@@ -157,7 +157,7 @@ type FluxFormSelectOption = {
 type FluxFormSelectEntry = FluxFormSelectGroup | FluxFormSelectOption;
 ```
 
-The shape of items inside [Form select](../components/form/select). Use [`isFluxFormSelectGroup`](./helpers) and [`isFluxFormSelectOption`](./helpers) to narrow at runtime.
+The shape of items inside [Form select](../../components/form/select). Use [`isFluxFormSelectGroup`](./helpers) and [`isFluxFormSelectOption`](./helpers) to narrow at runtime.
 
 ### `FluxFormSelectValue`
 
@@ -178,7 +178,7 @@ type FluxFormTreeViewSelectOption = {
 };
 ```
 
-The shape of items inside [Tree view select](../components/form/tree-view-select).
+The shape of items inside [Tree view select](../../components/form/tree-view-select).
 
 ## Filters
 
@@ -190,7 +190,7 @@ type FluxFilterValue = FluxFilterValueSingle | FluxFilterValueSingle[];
 type FluxFilterState = Record<string, FluxFilterValue>;
 ```
 
-The current value of a [Filter](../components/filter) keyed by filter `name`.
+The current value of a [Filter](../../components/filter) keyed by filter `name`.
 
 ### `FluxFilterSpecMap` / `FluxFilterEntryMap`
 
@@ -198,7 +198,7 @@ These two record types map filter type names (`'date'`, `'option'`, `'optionAsyn
 
 ## Notify objects
 
-The objects passed to the programmatic [Alert](../components/attention/alert), [Confirm](../components/attention/confirm), [Prompt](../components/attention/prompt), [Snackbar](../components/attention/snackbar) and tooltip APIs.
+The objects passed to the programmatic [Alert](../../components/attention/alert), [Confirm](../../components/attention/confirm), [Prompt](../../components/attention/prompt), [Snackbar](../../components/attention/snackbar) and tooltip APIs.
 
 ### `FluxAlertObject`
 
@@ -274,35 +274,35 @@ These types are exported from `@flux-ui/types` but are typically only referenced
         </template>
         <FluxTableRow>
             <FluxTableCell><code>FluxButtonProps</code> / <code>FluxButtonEmits</code> / <code>FluxButtonSlots</code></FluxTableCell>
-            <FluxTableCell><a href="../components/button">Button</a> variants</FluxTableCell>
+            <FluxTableCell><a href="../../components/button">Button</a> variants</FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell><code>FluxButtonSize</code></FluxTableCell>
-            <FluxTableCell><a href="../components/button">Button</a></FluxTableCell>
+            <FluxTableCell><a href="../../components/button">Button</a></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell><code>FluxCommandSource</code> / <code>FluxCommandSourceItem</code> / <code>FluxCommandSubAction</code></FluxTableCell>
-            <FluxTableCell><a href="../components/command-palette">Command palette</a></FluxTableCell>
+            <FluxTableCell><a href="../../components/command-palette">Command palette</a></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell><code>FluxFocalPointObject</code></FluxTableCell>
-            <FluxTableCell><a href="../components/focal-point">Focal point</a></FluxTableCell>
+            <FluxTableCell><a href="../../components/focal-point">Focal point</a></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell><code>FluxLegendObject</code></FluxTableCell>
-            <FluxTableCell><a href="../components/legend">Legend</a></FluxTableCell>
+            <FluxTableCell><a href="../../components/legend">Legend</a></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell><code>FluxPercentageBarItemObject</code></FluxTableCell>
-            <FluxTableCell><a href="../components/percentage-bar">Percentage bar</a></FluxTableCell>
+            <FluxTableCell><a href="../../components/percentage-bar">Percentage bar</a></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell><code>FluxSegmentedControlItemObject</code></FluxTableCell>
-            <FluxTableCell><a href="../components/segmented-control">Segmented control</a></FluxTableCell>
+            <FluxTableCell><a href="../../components/segmented-control">Segmented control</a></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell><code>FluxTreeViewOption</code></FluxTableCell>
-            <FluxTableCell><a href="../components/tree-view">Tree view</a></FluxTableCell>
+            <FluxTableCell><a href="../../components/tree-view">Tree view</a></FluxTableCell>
         </FluxTableRow>
     </FluxTable>
 </FluxPane>

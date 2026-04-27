@@ -4,7 +4,7 @@
 
 # Patterns
 
-The Patterns section collects opinionated recipes for common UI flows that span multiple Flux components. Where the [Components](../components/) section documents each component in isolation, these recipes show how to wire them together for a real-world feature.
+The Patterns section collects opinionated recipes for common UI flows that span multiple Flux components. Where the [Components](../../components/) section documents each component in isolation, these recipes show how to wire them together for a real-world feature.
 
 Each pattern is self-contained — copy the snippets into your project and adjust them to your needs.
 

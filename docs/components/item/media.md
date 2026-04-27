@@ -21,6 +21,10 @@ slots:
 
 The item media area holds a visual element such as an avatar, icon, or image that accompanies the item content.
 
+::: render
+render=../../code/components/item/media/preview.vue
+:::
+
 ::: tip
 This component is best used within an [Item](./index).
 :::

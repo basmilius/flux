@@ -39,7 +39,7 @@ import '@flux-ui/components/style.css'
 ```
 
 ### Step 3
-For setting up icons, please refer to [Font Awesome](./font-awesome).
+For setting up icons, please refer to [Font Awesome](../font-awesome).
 
 ### Step 4
 Import the components you want to use, like this:
@@ -115,7 +115,7 @@ export default defineConfig({
 
 ### Step 3
 
-For setting up icons, please refer to [Font Awesome](./font-awesome).
+For setting up icons, please refer to [Font Awesome](../font-awesome).
 
 ### Step 4
 

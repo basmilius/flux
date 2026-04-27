@@ -26,6 +26,10 @@ props:
 
 A single entry in a [Legend](./index), consisting of a color swatch or icon, a label, and an optional value.
 
+::: render
+render=../../../code/statistics/components/legend/item/preview.vue
+:::
+
 ::: tip
 This component is best used within a [Legend](./index).
 :::

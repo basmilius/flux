@@ -37,9 +37,9 @@ Three building blocks:
         <template #default="{item}">
             <FluxTableCell>{{ item.name }}</FluxTableCell>
             <FluxTableCell>
-                <FluxBadge :color="item.status === 'active' ? 'success' : 'gray'">
-                    {{ item.status }}
-                </FluxBadge>
+                <FluxBadge
+                    :color="item.status === 'active' ? 'success' : 'gray'"
+                    :label="item.status"/>
             </FluxTableCell>
             <FluxTableCell>{{ item.createdOn.toFormat('dd LLL yyyy') }}</FluxTableCell>
         </template>

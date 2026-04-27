@@ -46,7 +46,7 @@ render=../../../code/components/layout/grid/column/preview.vue
 :::
 
 ::: warning
-This component only works properly inside [Grid](../grid) or [Auto grid](./auto).
+This component only works properly inside a [Grid](../grid).
 :::
 
 <FrontmatterDocs/>

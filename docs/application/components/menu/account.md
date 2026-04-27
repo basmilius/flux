@@ -39,13 +39,13 @@ The application menu account renders the current user as the last item of the me
 
 ::: code-group
 
-<<< @/code/application/menu-account/snippet.vue [FluxApplicationMenuAccount.vue]
+<<< @/code/application/menu/account/snippet.vue [FluxApplicationMenuAccount.vue]
 
 :::
 
 ## Used components
 
-- [Flyout](../../components/flyout)
-- [Menu](../../components/menu)
-    - [Item](../../components/menu/item)
-- [Pane](../../components/pane)
+- [Flyout](../../../components/flyout)
+- [Menu](../../../components/menu)
+    - [Item](../../../components/menu/item)
+- [Pane](../../../components/pane)

@@ -4,7 +4,7 @@ A typical create/edit pattern: a list view, a router-driven overlay for the form
 
 ## Anatomy
 
-The form lives behind a named route (see [Overlay → Router-driven](../components/overlay#router-driven)). The list view triggers it through `router.push`; the overlay reads the resource id from `route.params`.
+The form lives behind a named route (see [Overlay → Router-driven](../../components/overlay#router-driven)). The list view triggers it through `router.push`; the overlay reads the resource id from `route.params`.
 
 ```ts [router.ts]
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';

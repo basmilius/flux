@@ -1,6 +1,6 @@
 # useFilterInjection
 
-This composable provides access to the [Filter](../components/filter/) context. It is used by filter sub-components to interact with the parent filter's state and actions.
+This composable provides access to the [Filter](../../components/filter/) context. It is used by filter sub-components to interact with the parent filter's state and actions.
 
 ## Usage
 
@@ -27,8 +27,8 @@ declare function useFilterInjection(): {
 
 ## Used by
 
-- [Filter](../components/filter/)
-    - [Date](../components/filter/date)
-    - [Option](../components/filter/option)
-    - [Options](../components/filter/options)
-    - [Range](../components/filter/range)
+- [Filter](../../components/filter/)
+    - [Date](../../components/filter/date)
+    - [Option](../../components/filter/option)
+    - [Options](../../components/filter/options)
+    - [Range](../../components/filter/range)

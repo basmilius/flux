@@ -26,7 +26,7 @@ slots:
 
 The application menu is the sidebar of `FluxApplication`. It hosts the main menu and any number of context menu panels that slide in horizontally as the user navigates deeper into the route tree. When more than one level is visible, page indicator dots are rendered at the bottom so the user can jump to any level directly.
 
-The collapsed state of the menu is shared with the rest of the application through [`useApplicationInjection`](../composables/useApplicationInjection).
+The collapsed state of the menu is shared with the rest of the application through [`useApplicationInjection`](../../composables/useApplicationInjection).
 
 <FrontmatterDocs/>
 
@@ -40,7 +40,9 @@ The collapsed state of the menu is shared with the rest of the application throu
 
 ## Used components
 
-- [Application menu account](./menu-account)
-- [Application menu context stack](./menu-context-stack)
-- [Application menu promo](./menu-promo)
-- [Application menu toggle](./menu-toggle)
+- [Application menu](./)
+    - [Account](./account)
+    - [Context](./context)
+    - [Context stack](./context-stack)
+    - [Promo](./promo)
+    - [Toggle](./toggle)

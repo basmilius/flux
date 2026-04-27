@@ -64,4 +64,4 @@ type FluxConfirmObject = {
     - [Body](../pane/body)
     - [Footer](../pane/footer)
     - [Header](../pane/header)
-- [Spacer](../spacer)
+- [Spacer](../layout/spacer)

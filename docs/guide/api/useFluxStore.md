@@ -59,5 +59,5 @@ interface FluxStore {
 ```
 
 ::: tip
-For showing dialogs and snackbars, prefer using the dedicated functions [showAlert](../components/attention/alert), [showConfirm](../components/attention/confirm), [showPrompt](../components/attention/prompt) and [showSnackbar](../components/attention/snackbar) instead of interacting with the store directly.
+For showing dialogs and snackbars, prefer using the dedicated functions [showAlert](../../components/attention/alert), [showConfirm](../../components/attention/confirm), [showPrompt](../../components/attention/prompt) and [showSnackbar](../../components/attention/snackbar) instead of interacting with the store directly.
 :::

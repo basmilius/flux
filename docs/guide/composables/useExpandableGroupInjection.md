@@ -1,6 +1,6 @@
 # useExpandableGroupInjection
 
-This composable provides access to the [Expandable group](../components/expandable/group) context. It allows child expandable items to register with the group and respond to group-level actions like closing all items.
+This composable provides access to the [Expandable group](../../components/expandable/group) context. It allows child expandable items to register with the group and respond to group-level actions like closing all items.
 
 ## Usage
 
@@ -22,4 +22,4 @@ declare function useExpandableGroupInjection(): {
 
 ## Used by
 
-- [Expandable](../components/expandable/)
+- [Expandable](../../components/expandable/)

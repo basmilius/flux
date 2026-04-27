@@ -16,6 +16,10 @@ slots:
 
 The item content area holds the main textual or inline content of an item, such as a title, description, or metadata.
 
+::: render
+render=../../code/components/item/content/preview.vue
+:::
+
 ::: tip
 This component is best used within an [Item](./index).
 :::
