@@ -20,3 +20,11 @@ render=../../code/components/transitions/fade/preview.vue
 :::
 
 <FrontmatterDocs/>
+
+## Snippet
+
+::: code-group
+
+<<< @/code/components/transitions/fade/preview.vue [FluxFadeTransition.vue]
+
+:::

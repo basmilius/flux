@@ -19,3 +19,11 @@ This component is best used within a [Table](./index).
 :::
 
 <FrontmatterDocs/>
+
+## Snippet
+
+::: code-group
+
+<<< @/code/components/table/bar/preview.vue [FluxTableBar.vue]
+
+:::

@@ -20,3 +20,11 @@ render=../../code/components/transitions/slide-over/preview.vue
 :::
 
 <FrontmatterDocs/>
+
+## Snippet
+
+::: code-group
+
+<<< @/code/components/transitions/slide-over/preview.vue [FluxSlideOverTransition.vue]
+
+:::

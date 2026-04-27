@@ -20,3 +20,11 @@ render=../../code/components/transitions/tooltip/preview.vue
 :::
 
 <FrontmatterDocs/>
+
+## Snippet
+
+::: code-group
+
+<<< @/code/components/transitions/tooltip/preview.vue [FluxTooltipTransition.vue]
+
+:::

@@ -16,6 +16,14 @@ render=../../code/components/item/stack/preview.vue
 
 <FrontmatterDocs/>
 
+## Snippet
+
+::: code-group
+
+<<< @/code/components/item/stack/preview.vue [FluxItemStack.vue]
+
+:::
+
 ## Used components
 
 - [Stack](../layout/stack/index)

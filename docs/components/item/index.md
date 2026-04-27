@@ -16,6 +16,14 @@ render=../../code/components/item/preview.vue
 
 <FrontmatterDocs/>
 
+## Snippet
+
+::: code-group
+
+<<< @/code/components/item/preview.vue [FluxItem.vue]
+
+:::
+
 ## Available sub-components
 
 - [Content](./content)

@@ -22,6 +22,14 @@ render=../../../code/application/menu/promo/preview.vue
 
 <FrontmatterDocs/>
 
+## Snippet
+
+::: code-group
+
+<<< @/code/application/menu/promo/preview.vue [FluxApplicationMenuPromo.vue]
+
+:::
+
 ## Used components
 
 - [Icon](../../../components/icon)

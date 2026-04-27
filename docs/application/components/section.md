@@ -29,3 +29,11 @@ render=../../code/application/section/preview.vue
 :::
 
 <FrontmatterDocs/>
+
+## Snippet
+
+::: code-group
+
+<<< @/code/application/section/preview.vue [FluxApplicationSection.vue]
+
+:::

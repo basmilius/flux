@@ -19,3 +19,11 @@ This component is best used within a [Fader](./fader).
 :::
 
 <FrontmatterDocs/>
+
+## Snippet
+
+::: code-group
+
+<<< @/code/components/fader-item/preview.vue [FluxFaderItem.vue]
+
+:::

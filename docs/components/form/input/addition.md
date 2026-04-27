@@ -31,6 +31,14 @@ This component is best used within an [Input group](./group).
 
 <FrontmatterDocs/>
 
+## Snippet
+
+::: code-group
+
+<<< @/code/components/form/input/addition/preview.vue [FluxFormInputAddition.vue]
+
+:::
+
 ## Used components
 
 - [Icon](../../icon)

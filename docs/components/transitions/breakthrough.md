@@ -25,3 +25,11 @@ render=../../code/components/transitions/breakthrough/preview.vue
 :::
 
 <FrontmatterDocs/>
+
+## Snippet
+
+::: code-group
+
+<<< @/code/components/transitions/breakthrough/preview.vue [FluxBreakthroughTransition.vue]
+
+:::

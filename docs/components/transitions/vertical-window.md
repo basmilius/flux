@@ -25,3 +25,11 @@ render=../../code/components/transitions/vertical-window/preview.vue
 :::
 
 <FrontmatterDocs/>
+
+## Snippet
+
+::: code-group
+
+<<< @/code/components/transitions/vertical-window/preview.vue [FluxVerticalWindowTransition.vue]
+
+:::

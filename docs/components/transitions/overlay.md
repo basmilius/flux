@@ -20,3 +20,11 @@ render=../../code/components/transitions/overlay/preview.vue
 :::
 
 <FrontmatterDocs/>
+
+## Snippet
+
+::: code-group
+
+<<< @/code/components/transitions/overlay/preview.vue [FluxOverlayTransition.vue]
+
+:::

@@ -24,3 +24,11 @@ This component is best used within a [Details table](./index).
 :::
 
 <FrontmatterDocs/>
+
+## Snippet
+
+::: code-group
+
+<<< @/code/statistics/components/details-table/row/preview.vue [FluxStatisticsDetailsTableRow.vue]
+
+:::

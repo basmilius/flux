@@ -30,3 +30,11 @@ This component is best used within an [Item](./index).
 :::
 
 <FrontmatterDocs/>
+
+## Snippet
+
+::: code-group
+
+<<< @/code/components/item/media/preview.vue [FluxItemMedia.vue]
+
+:::

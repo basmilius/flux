@@ -25,3 +25,11 @@ This component is best used within an [Item](./index).
 :::
 
 <FrontmatterDocs/>
+
+## Snippet
+
+::: code-group
+
+<<< @/code/components/item/content/preview.vue [FluxItemContent.vue]
+
+:::

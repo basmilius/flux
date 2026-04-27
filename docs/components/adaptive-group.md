@@ -29,6 +29,14 @@ The ordering is strict: if two items have the same priority, the one declared fi
 
 <FrontmatterDocs/>
 
+## Snippet
+
+::: code-group
+
+<<< @/code/components/adaptive-slot/preview.vue [FluxAdaptiveGroup.vue]
+
+:::
+
 ## Used components
 
 - [Adaptive slot](./adaptive-slot)

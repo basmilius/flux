@@ -26,6 +26,14 @@ This component is best used within an [Item](./index).
 
 <FrontmatterDocs/>
 
+## Snippet
+
+::: code-group
+
+<<< @/code/components/item/actions/preview.vue [FluxItemActions.vue]
+
+:::
+
 ## Used components
 
 - [Action bar](../action-bar)

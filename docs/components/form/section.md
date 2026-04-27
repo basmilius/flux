@@ -24,3 +24,11 @@ This component is best used within a [Form](../form).
 :::
 
 <FrontmatterDocs/>
+
+## Snippet
+
+::: code-group
+
+<<< @/code/components/form/section/preview.vue [FluxFormSection.vue]
+
+:::

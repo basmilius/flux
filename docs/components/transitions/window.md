@@ -25,3 +25,11 @@ render=../../code/components/transitions/window/preview.vue
 :::
 
 <FrontmatterDocs/>
+
+## Snippet
+
+::: code-group
+
+<<< @/code/components/transitions/window/preview.vue [FluxWindowTransition.vue]
+
+:::

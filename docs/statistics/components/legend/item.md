@@ -36,6 +36,14 @@ This component is best used within a [Legend](./index).
 
 <FrontmatterDocs/>
 
+## Snippet
+
+::: code-group
+
+<<< @/code/statistics/components/legend/item/preview.vue [FluxStatisticsLegendItem.vue]
+
+:::
+
 ## Used components
 
 - [Icon](../../../components/icon)
