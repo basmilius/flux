@@ -39,6 +39,6 @@ The dashboard menu component displays secondary navigation or contextual actions
 
 ## Used components
 
-- [Icon](../../guide/components/icon)
-- [Layout](../../guide/components/layout)
-    - [Spacer](../../guide/components/layout/spacer)
+- [Icon](../../components/icon)
+- [Layout](../../components/layout)
+    - [Spacer](../../components/layout/spacer)

@@ -31,4 +31,4 @@ export declare function useEventListener<K extends keyof HTMLElementEventMap>(
 
 ## Used by
 
-- [Tab bar](../../guide/components/tab-bar)
+- [Tab bar](../../components/tab-bar)

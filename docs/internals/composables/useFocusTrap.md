@@ -33,4 +33,4 @@ type UseFocusTrapOptions = {
 
 ## Used by
 
-- [Flyout](../../guide/components/flyout)
+- [Flyout](../../components/flyout)

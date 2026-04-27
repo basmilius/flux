@@ -43,4 +43,4 @@ example=../../code/statistics/components/change/negative.vue
 
 ## Used components
 
-- [Icon](../../guide/components/icon)
+- [Icon](../../components/icon)

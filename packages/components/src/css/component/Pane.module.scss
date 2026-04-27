@@ -1,3 +1,5 @@
+@use '../../css/mixin';
+
 .pane {
     composes: basePaneStructure from './base/Pane.module.scss';
 }
@@ -16,6 +18,15 @@
     composes: pane;
 
     --surface: var(--background);
+}
+
+:is(.paneDefault, .paneFlat, .paneWell):is(a) {
+    color: currentColor;
+    text-decoration: unset;
+
+    @include mixin.hover {
+        color: currentColor;
+    }
 }
 
 :is(.paneDefault, .paneFlat, .paneWell):is(button) {

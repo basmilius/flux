@@ -34,4 +34,4 @@ type UseFocusZoneOptions = {
 
 ## Used by
 
-- [Menu](../../guide/components/menu)
+- [Menu](../../components/menu)

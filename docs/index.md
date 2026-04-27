@@ -15,7 +15,7 @@ hero:
 
         -   theme: alt
             text: Components
-            link: /guide/components
+            link: /components
 
         -   theme: alt
             text: View on GitHub
@@ -25,7 +25,7 @@ features:
     -   title: Essential components
         details: Flux offers a large set of components, ranging from buttons to data tables, making it a complete solution for most applications.
         icon: 🚀
-        link: './guide/components'
+        link: './components'
         linkText: View all
 
     -   title: Beautiful
@@ -37,8 +37,8 @@ features:
     -   title: Why
         details: Originally developed for a large SaaS application, Flux eventually evolved into its own standalone ui library.
         icon: 🤔
-        link: './showcase'
-        linkText: View examples
+        link: './guide/patterns'
+        linkText: Browse patterns
 ---
 
 ::: code-group

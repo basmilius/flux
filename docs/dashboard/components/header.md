@@ -36,6 +36,6 @@ The dashboard header component appears at the top of the dashboard content area.
 
 ## Used components
 
-- [Icon](../../guide/components/icon)
-- [Layout](../../guide/components/layout)
-    - [Spacer](../../guide/components/layout/spacer)
+- [Icon](../../components/icon)
+- [Layout](../../components/layout)
+    - [Spacer](../../components/layout/spacer)

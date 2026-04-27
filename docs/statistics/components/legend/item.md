@@ -34,4 +34,4 @@ This component is best used within a [Legend](./index).
 
 ## Used components
 
-- [Icon](../../../guide/components/icon)
+- [Icon](../../../components/icon)

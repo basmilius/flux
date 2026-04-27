@@ -33,5 +33,5 @@ The dashboard side component provides space for supplementary content or tools, 
 
 ## Used components
 
-- [Layout](../../guide/components/layout)
-    - [Spacer](../../guide/components/layout/spacer)
+- [Layout](../../components/layout)
+    - [Spacer](../../components/layout/spacer)

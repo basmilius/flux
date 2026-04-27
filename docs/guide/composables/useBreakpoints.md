@@ -15,6 +15,14 @@ if (md.value) {
 }
 ```
 
+## Example
+
+Switch a stack from horizontal to vertical depending on the active breakpoint. Resize the preview to see it in action.
+
+::: example Responsive layout || A card layout that switches direction at the `md` breakpoint.
+example=../../code/guide/composables/useBreakpoints/responsive-layout.vue
+:::
+
 ## Breakpoints
 
 ### xs — 0px

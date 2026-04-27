@@ -36,5 +36,5 @@ type UseCalendarYearSwitcherReturn = {
 
 ## Used by
 
-- [Calendar](../../guide/components/calendar)
-- [Date picker](../../guide/components/date-picker)
+- [Calendar](../../components/calendar)
+- [Date picker](../../components/date-picker)

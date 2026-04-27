@@ -7,26 +7,22 @@ import componentNavigation from './component-navigation';
 
 export const flux = composeLibrary({
     name: '@flux-ui/components',
-    alias: '$flux',
-    isolated: true
+    alias: '$flux'
 });
 
 export const fluxApplication = composeLibrary({
     name: '@flux-ui/application',
-    alias: '$fluxApplication',
-    isolated: true
+    alias: '$fluxApplication'
 });
 
 export const fluxDashboard = composeLibrary({
     name: '@flux-ui/dashboard',
-    alias: '$fluxDashboard',
-    isolated: true
+    alias: '$fluxDashboard'
 });
 
 export const fluxStatistics = composeLibrary({
     name: '@flux-ui/statistics',
-    alias: '$fluxStatistics',
-    isolated: true
+    alias: '$fluxStatistics'
 });
 
 export default defineConfig({
@@ -81,34 +77,28 @@ export default defineConfig({
             },
             {
                 text: 'Guide',
-                activeMatch: '/guide/',
+                activeMatch: '^/guide/',
                 items: [
                     {text: 'Introduction', link: '/guide/introduction/what-is-flux'},
-                    {text: 'Components', link: '/guide/components/'},
                     {text: 'Composables', link: '/guide/composables/useBreakpoints'},
                     {text: 'API', link: '/guide/api/useFluxStore'},
-                    {text: 'Transitions', link: '/guide/transitions/breakthrough'}
+                    {text: 'Patterns', link: '/guide/patterns/'}
                 ]
             },
             {
-                text: 'Dashboard',
-                link: '/dashboard',
-                activeMatch: '/dashboard/'
+                text: 'Components',
+                activeMatch: '^/components/',
+                link: '/components/'
             },
             {
-                text: 'Statistics',
-                link: '/statistics',
-                activeMatch: '/statistics/'
-            },
-            {
-                text: 'Internals',
-                link: '/internals',
-                activeMatch: '/internals/'
-            },
-            {
-                text: 'Showcase',
-                link: '/showcase',
-                activeMatch: '/showcase/'
+                text: 'Packages',
+                activeMatch: '/(application|dashboard|internals|statistics)/',
+                items: [
+                    {text: 'Application', link: '/application/'},
+                    {text: 'Dashboard', link: '/dashboard/'},
+                    {text: 'Internals', link: '/internals/'},
+                    {text: 'Statistics', link: '/statistics/'}
+                ]
             }
         ],
 
@@ -136,12 +126,12 @@ export default defineConfig({
                         },
                         {text: 'Translations', link: '/guide/introduction/translations'},
                         {text: 'Colors', link: '/guide/introduction/colors'},
+                        {text: 'Design tokens', link: '/guide/introduction/design-tokens'},
                         {text: 'Typography', link: '/guide/introduction/typography'},
                         {text: 'Dark mode', link: '/guide/introduction/dark-mode'},
                         {text: 'Font Awesome', link: '/guide/introduction/font-awesome'}
                     ]
                 },
-                componentNavigation,
                 {
                     text: 'Composables',
                     collapsed: false,
@@ -162,21 +152,90 @@ export default defineConfig({
                     collapsed: false,
                     items: [
                         {text: 'useFluxStore', link: '/guide/api/useFluxStore'},
-                        {text: 'Helpers', link: '/guide/api/helpers'}
+                        {text: 'Helpers', link: '/guide/api/helpers'},
+                        {text: 'Types', link: '/guide/api/types'}
                     ]
                 },
+                {
+                    text: 'Patterns',
+                    collapsed: false,
+                    items: [
+                        {text: 'Overview', link: '/guide/patterns/'},
+                        {text: 'CRUD form', link: '/guide/patterns/crud-form'},
+                        {text: 'Filterable data table', link: '/guide/patterns/filterable-data-table'},
+                        {text: 'Stepper wizard', link: '/guide/patterns/stepper-wizard'},
+                        {text: 'Programmatic dialogs', link: '/guide/patterns/programmatic-dialogs'}
+                    ]
+                }
+            ],
+            '/components/transitions/': [
+                componentNavigation,
                 {
                     text: 'Transitions',
                     collapsed: false,
                     items: [
-                        {text: 'Breakthrough', link: '/guide/transitions/breakthrough'},
-                        {text: 'Fade', link: '/guide/transitions/fade'},
-                        {text: 'Overlay', link: '/guide/transitions/overlay'},
-                        {text: 'Route', link: '/guide/transitions/route'},
-                        {text: 'Slide over', link: '/guide/transitions/slide-over'},
-                        {text: 'Tooltip', link: '/guide/transitions/tooltip'},
-                        {text: 'Vertical window', link: '/guide/transitions/vertical-window'},
-                        {text: 'Window', link: '/guide/transitions/window'}
+                        {text: 'Breakthrough', link: '/components/transitions/breakthrough'},
+                        {text: 'Fade', link: '/components/transitions/fade'},
+                        {text: 'Overlay', link: '/components/transitions/overlay'},
+                        {text: 'Route', link: '/components/transitions/route'},
+                        {text: 'Slide over', link: '/components/transitions/slide-over'},
+                        {text: 'Tooltip', link: '/components/transitions/tooltip'},
+                        {text: 'Vertical window', link: '/components/transitions/vertical-window'},
+                        {text: 'Window', link: '/components/transitions/window'}
+                    ]
+                }
+            ],
+            '/components/': [
+                componentNavigation,
+                {
+                    text: 'Transitions',
+                    collapsed: true,
+                    items: [
+                        {text: 'Breakthrough', link: '/components/transitions/breakthrough'},
+                        {text: 'Fade', link: '/components/transitions/fade'},
+                        {text: 'Overlay', link: '/components/transitions/overlay'},
+                        {text: 'Route', link: '/components/transitions/route'},
+                        {text: 'Slide over', link: '/components/transitions/slide-over'},
+                        {text: 'Tooltip', link: '/components/transitions/tooltip'},
+                        {text: 'Vertical window', link: '/components/transitions/vertical-window'},
+                        {text: 'Window', link: '/components/transitions/window'}
+                    ]
+                }
+            ],
+            '/application/': [
+                {
+                    text: 'Introduction',
+                    collapsed: false,
+                    items: [
+                        {text: 'What is Flux Application?', link: '/application/'},
+                        {text: 'Installation', link: '/application/introduction/installation'}
+                    ]
+                },
+                {
+                    text: 'Components',
+                    collapsed: false,
+                    items: [
+                        {text: 'Application', link: '/application/components/application'},
+                        {text: 'Content', link: '/application/components/content'},
+                        {text: 'Hero', link: '/application/components/hero'},
+                        {text: 'Menu', link: '/application/components/menu'},
+                        {text: 'Menu account', link: '/application/components/menu-account'},
+                        {text: 'Menu context', link: '/application/components/menu-context'},
+                        {text: 'Menu context stack', link: '/application/components/menu-context-stack'},
+                        {text: 'Menu promo', link: '/application/components/menu-promo'},
+                        {text: 'Menu toggle', link: '/application/components/menu-toggle'},
+                        {text: 'Section', link: '/application/components/section'},
+                        {text: 'Side', link: '/application/components/side'},
+                        {text: 'Top', link: '/application/components/top'}
+                    ]
+                },
+                {
+                    text: 'Composables',
+                    collapsed: false,
+                    items: [
+                        {text: 'useApplicationContextMenu', link: '/application/composables/useApplicationContextMenu'},
+                        {text: 'useApplicationInjection', link: '/application/composables/useApplicationInjection'},
+                        {text: 'useApplicationMenu', link: '/application/composables/useApplicationMenu'}
                     ]
                 }
             ],
@@ -198,7 +257,8 @@ export default defineConfig({
                         {text: 'Header', link: '/dashboard/components/header'},
                         {text: 'Menu', link: '/dashboard/components/menu'},
                         {text: 'Navigation', link: '/dashboard/components/navigation'},
-                        {text: 'Side', link: '/dashboard/components/side'}
+                        {text: 'Side', link: '/dashboard/components/side'},
+                        {text: 'Top bar', link: '/dashboard/components/top-bar'}
                     ]
                 },
                 {

@@ -47,5 +47,5 @@ To collapse the navigation, you will need to create a component that will handle
 
 ## Used components
 
-- [Menu](../../guide/components/menu)
-    - [Item](../../guide/components/menu/item)
+- [Menu](../../components/menu)
+    - [Item](../../components/menu/item)
