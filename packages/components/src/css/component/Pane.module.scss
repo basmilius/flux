@@ -47,7 +47,7 @@
         padding: 18px;
     }
 
-    &:has(+ .basePaneElement:not(.paneBody)) {
+    &:has(+ :not(.paneBody)) {
         padding: 18px;
     }
 }
