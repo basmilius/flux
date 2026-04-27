@@ -3,6 +3,8 @@
         <slot name="start"/>
 
         <div :class="$style.applicationHeroBody">
+            <slot name="before"/>
+
             <h1>{{ title }}</h1>
 
             <p
@@ -10,6 +12,8 @@
                 :class="$style.applicationHeroSubtitle">
                 {{ subtitle }}
             </p>
+
+            <slot name="after"/>
         </div>
 
         <slot name="end"/>
@@ -28,7 +32,9 @@
     }>();
 
     defineSlots<{
-        start?(): VNode;
-        end?(): VNode;
+        after?(): VNode[];
+        before?(): VNode[];
+        end?(): VNode[];
+        start?(): VNode[];
     }>();
 </script>
