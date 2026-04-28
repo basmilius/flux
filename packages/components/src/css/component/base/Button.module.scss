@@ -59,6 +59,15 @@
         &.isFilled {
             align-self: stretch;
         }
+
+        :local(.spinner) {
+            flex-shrink: 0;
+
+            &:only-child {
+                margin-left: -2px;
+                margin-right: -2px;
+            }
+        }
     }
 
     .buttonIcon {
