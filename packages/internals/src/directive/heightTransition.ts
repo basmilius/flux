@@ -34,7 +34,7 @@ class HeightTransition {
         }
 
         getComputedStyle(this.#root);
-        requestAnimationFrame(() => requestAnimationFrame(() => this.#root.style.height = height));
+        requestAnimationFrame(() => this.#root.style.height = height);
     }
 }
 
@@ -54,6 +54,6 @@ export default {
     getSSRProps(): Record<string, unknown> {
         return {};
     }
-} satisfies Directive;
+} satisfies Directive as Directive;
 
 const heightTransitions: WeakMap<HTMLElement, HeightTransition> = new WeakMap();

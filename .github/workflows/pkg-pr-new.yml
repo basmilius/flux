@@ -15,7 +15,7 @@ jobs:
             -   name: 👀 Checkout
                 uses: actions/checkout@v6
 
-            -   name: ⚙️ Setup Bun
+            -   name: 🍞 Setup Bun
                 uses: oven-sh/setup-bun@v2
 
             -   name: 📦️ Install dependencies
