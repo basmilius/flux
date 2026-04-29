@@ -1,6 +1,6 @@
 import { useDebouncedRef, useLoaded } from '@basmilius/common';
 import type { FluxFilterOptionRow, FluxFilterValue } from '@flux-ui/types';
-import { type ComputedRef, type ModelRef, computed, type Ref, ref, unref, watch } from 'vue';
+import { computed, type ComputedRef, type ModelRef, type Ref, ref, unref, watch } from 'vue';
 import { isFluxFilterOptionItem } from '$flux/data';
 
 type UseAsyncFilterOptionsParams = {
@@ -11,25 +11,19 @@ type UseAsyncFilterOptionsParams = {
     fetchSearch(searchQuery: string): Promise<FluxFilterOptionRow[]>;
 };
 
-export default function ({
-    currentValueIds,
-    modelSearch,
-    fetchOptions: fetchOptionsProp,
-    fetchRelevant: fetchRelevantProp,
-    fetchSearch: fetchSearchProp
-}: UseAsyncFilterOptionsParams) {
+export default function (params: UseAsyncFilterOptionsParams) {
     const {isLoading, loaded} = useLoaded();
-    const debouncedModelSearch = useDebouncedRef(modelSearch, 150) as unknown as Ref<string>;
-    const fetchOptions = computed(() => loaded(fetchOptionsProp));
-    const fetchRelevant = computed(() => loaded(fetchRelevantProp));
-    const fetchSearch = computed(() => loaded(fetchSearchProp));
+    const debouncedModelSearch = useDebouncedRef(params.modelSearch, 150) as unknown as Ref<string>;
+    const fetchOptions = computed(() => loaded(params.fetchOptions));
+    const fetchRelevant = computed(() => loaded(params.fetchRelevant));
+    const fetchSearch = computed(() => loaded(params.fetchSearch));
 
     const selectedOptions = ref<FluxFilterOptionRow[]>([]);
     const visibleOptions = ref<FluxFilterOptionRow[]>([]);
 
     const options = computed(() => {
         const options: FluxFilterOptionRow[] = [];
-        const search = unref(modelSearch);
+        const search = unref(params.modelSearch);
         const selected = unref(selectedOptions);
         const visible = unref(visibleOptions);
 
@@ -50,7 +44,7 @@ export default function ({
         return options;
     });
 
-    watch(currentValueIds, async ids => {
+    watch(params.currentValueIds, async ids => {
         if (ids.length === 0) {
             return;
         }

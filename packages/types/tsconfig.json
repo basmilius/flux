@@ -22,7 +22,9 @@
         "baseUrl": ".",
         "rootDir": "./src",
         "paths": {
-            "$flux/*": ["src/*"]
+            "$flux/*": [
+                "src/*"
+            ]
         }
     },
     "include": [

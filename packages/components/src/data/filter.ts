@@ -1,5 +1,5 @@
 import { formatNumber } from '@basmilius/utils';
-import type { FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterDateRangeSpec, FluxFilterDateSpec, FluxFilterEntryMap, FluxFilterOptionAsyncSpec, FluxFilterOptionEntry, FluxFilterOptionHeader, FluxFilterOptionItem, FluxFilterOptionSpec, FluxFilterOptionsAsyncSpec, FluxFilterOptionsEntry, FluxFilterOptionsSpec, FluxFilterRangeEntry, FluxFilterRangeSpec, FluxFilterSpecMap, FluxFilterValueSingle } from '@flux-ui/types';
+import type { FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterDateRangeSpec, FluxFilterDateSpec, FluxFilterEntryMap, FluxFilterOptionAsyncSpec, FluxFilterOptionEntry, FluxFilterOptionHeader, FluxFilterOptionItem, FluxFilterOptionsAsyncSpec, FluxFilterOptionsEntry, FluxFilterOptionSpec, FluxFilterOptionsSpec, FluxFilterRangeEntry, FluxFilterRangeSpec, FluxFilterSpecMap, FluxFilterValueSingle } from '@flux-ui/types';
 import { DateTime } from 'luxon';
 import { useTranslate } from '$flux/composable/private';
 import type { FluxTranslate } from '$flux/data';

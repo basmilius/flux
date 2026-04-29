@@ -75,7 +75,7 @@
         }
 
         if (['gray', 'primary', 'danger', 'info', 'success', 'warning'].includes(color)) {
-            return `var(--${color}-600)`
+            return `var(--${color}-600)`;
         }
 
         return color;

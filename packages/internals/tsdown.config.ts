@@ -17,7 +17,7 @@ export default defineConfig({
         ]
     },
     format: 'esm',
-    outExtensions: () => ({ js: '.js', dts: '.d.ts' }),
+    outExtensions: () => ({js: '.js', dts: '.d.ts'}),
     dts: true,
     minify: true
 });

@@ -8,13 +8,13 @@ Built with [`tsdown`](https://github.com/rolldown/tsdown).
 
 The package exposes four sub-entry points alongside the root export:
 
-| Entry                       | Contents                                                                            |
-|-----------------------------|-------------------------------------------------------------------------------------|
-| `@flux-ui/internals`        | Re-exports of every entry below.                                                    |
-| `@flux-ui/internals/composable` | `useCalendar`, `useEventListener`, `useFocusTrap`, `useFocusZone`, `useInView`, `useRemembered`, `useScrollEdges`, `useScrollPosition`, … |
-| `@flux-ui/internals/data`   | Data helpers — e.g. color utilities.                                                |
-| `@flux-ui/internals/directive` | Vue directives — `focusTrap`, `heightTransition`.                                |
-| `@flux-ui/internals/util`   | Focus helpers (`wrapFocus`, `getFocusableElement(s)`, `getKeyboardFocusableElements`, `getBidirectionalFocusElement`), `flattenVNodeTree`, `animationFrameDebounce`, `warn`, … |
+| Entry                           | Contents                                                                                                                                                                       |
+|---------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `@flux-ui/internals`            | Re-exports of every entry below.                                                                                                                                               |
+| `@flux-ui/internals/composable` | `useCalendar`, `useEventListener`, `useFocusTrap`, `useFocusZone`, `useInView`, `useRemembered`, `useScrollEdges`, `useScrollPosition`, …                                      |
+| `@flux-ui/internals/data`       | Data helpers — e.g. color utilities.                                                                                                                                           |
+| `@flux-ui/internals/directive`  | Vue directives — `focusTrap`, `heightTransition`.                                                                                                                              |
+| `@flux-ui/internals/util`       | Focus helpers (`wrapFocus`, `getFocusableElement(s)`, `getKeyboardFocusableElements`, `getBidirectionalFocusElement`), `flattenVNodeTree`, `animationFrameDebounce`, `warn`, … |
 
 ## ⭐️ Prerequisites
 
