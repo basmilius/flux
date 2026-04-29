@@ -3,12 +3,33 @@ import type { ComponentInternalInstance, InjectionKey, Ref } from 'vue';
 
 export const FluxAdaptiveGroupInjectionKey: InjectionKey<FluxAdaptiveGroupInjection> = Symbol();
 export const FluxDisabledInjectionKey: InjectionKey<Ref<boolean>> = Symbol();
+export const FluxKanbanInjectionKey: InjectionKey<FluxKanbanInjection> = Symbol();
 export const FluxExpandableGroupInjectionKey: InjectionKey<FluxExpandableGroupInjection> = Symbol();
 export const FluxFlyoutInjectionKey: InjectionKey<FluxFlyoutInjection> = Symbol();
 export const FluxFilterInjectionKey: InjectionKey<FluxFilterInjection> = Symbol();
 export const FluxFormFieldInjectionKey: InjectionKey<FluxFormFieldInjection> = Symbol();
 export const FluxTableInjectionKey: InjectionKey<FluxTableInjection> = Symbol();
 export const FluxTooltipInjectionKey: InjectionKey<FluxTooltipInjection> = Symbol();
+
+export type FluxKanbanDragState = {
+    readonly cardId: string | number;
+    readonly fromColumnId: string | number;
+    readonly dropColumnId: string | number | null;
+    readonly beforeCardId: string | number | null;
+};
+
+export type FluxKanbanInjection = {
+    readonly dragState: Ref<FluxKanbanDragState | null>;
+
+    registerCard(element: Element, cardId: string | number): void;
+    unregisterCard(element: Element): void;
+    getCardInfo(element: Element): { readonly cardId: string | number } | undefined;
+    startDrag(cardId: string | number, fromColumnId: string | number): void;
+    endDrag(): void;
+    updateDropTarget(columnId: string | number, beforeCardId: string | number | null): void;
+    clearDropTarget(): void;
+    commitDrop(): void;
+};
 
 export type FluxAdaptiveGroupChild = {
     readonly priority: Ref<number>;

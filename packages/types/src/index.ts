@@ -21,6 +21,7 @@ export type {
     FluxCommandSourceItem,
     FluxCommandSubAction,
     FluxFocalPointObject,
+    FluxKanbanMoveEvent,
     FluxLegendObject,
     FluxPercentageBarItemObject,
     FluxSegmentedControlItemObject,
