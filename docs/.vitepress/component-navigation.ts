@@ -181,11 +181,11 @@ const navigation: SidebarItem = {
         },
         {
             text: 'Kanban',
-            link: '/guide/components/kanban',
+            link: '/components/kanban/',
             collapsed: true,
             items: [
-                {text: 'Column', link: '/guide/components/kanban#fluxkanbancolumn'},
-                {text: 'Card', link: '/guide/components/kanban#fluxkanbancard'}
+                {text: 'Card', link: '/components/kanban/card'},
+                {text: 'Column', link: '/components/kanban/column'}
             ]
         },
         {
