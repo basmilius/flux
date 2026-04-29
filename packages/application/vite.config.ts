@@ -30,7 +30,7 @@ export default defineConfig(({mode}) => ({
             experimental: {
                 lazyBarrel: true
             },
-            external: ['@flux-ui/components', 'luxon', 'vue'],
+            external: ['@flux-ui/components', 'luxon', 'vue', 'vue-router'],
             output: {
                 exports: 'named',
                 globals: {

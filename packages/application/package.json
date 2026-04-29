@@ -53,13 +53,16 @@
     "dependencies": {
         "@flux-ui/components": "workspace:*",
         "@flux-ui/internals": "workspace:*",
-        "clsx": "^2.1.1",
+        "@flux-ui/types": "workspace:*",
+        "clsx": "^2.1.1"
+    },
+    "peerDependencies": {
+        "luxon": "^3.7.2",
         "vue": "^3.6.0-beta.10",
         "vue-router": "^5.0.6"
     },
     "devDependencies": {
         "@basmilius/vite-preset": "^3.20.2",
-        "@flux-ui/types": "workspace:*",
         "@types/node": "^25.6.0",
         "@vitejs/plugin-vue": "^6.0.6",
         "@vue/tsconfig": "^0.9.1",
