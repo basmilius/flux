@@ -30,8 +30,13 @@
     "types": "./src/index.ts",
     "typings": "./src/index.ts",
     "sideEffects": false,
-    "dependencies": {
+    "peerDependencies": {
         "@fortawesome/fontawesome-common-types": "^7.2.0",
+        "luxon": "^3.7.2"
+    },
+    "devDependencies": {
+        "@fortawesome/fontawesome-common-types": "^7.2.0",
+        "@types/luxon": "^3.7.1",
         "luxon": "^3.7.2"
     }
 }

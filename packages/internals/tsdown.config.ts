@@ -8,6 +8,14 @@ export default defineConfig({
         './src/directive/index.ts',
         './src/util/index.ts'
     ],
+    deps: {
+        neverBundle: [
+            '@flux-ui/types',
+            'lodash-es',
+            'luxon',
+            'vue'
+        ]
+    },
     format: 'esm',
     outExtensions: () => ({ js: '.js', dts: '.d.ts' }),
     dts: true,
