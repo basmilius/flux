@@ -1,43 +1,56 @@
-# Flux
+# Flux UI
 
-This repository contains the source code of Flux UI.
-Please read the following instructions and checks in order to proceed.
+Source repository for **Flux UI** — an opinionated component library for [Vue 3](https://vuejs.org).
 
-## 📦 Registry
+Documentation, live examples, and the component API reference live at [flux-ui.dev](https://flux-ui.dev).
 
-- The UI library package is available under `@flux-ui/components`.
-- The Dashboard library package is available under `@flux-ui/dashboard`.
-- The internal package is available under `@flux-ui/internals`.
-- The types package is available under `@flux-ui/types`.
-- The statistics package is available under `@flux-ui/statistics`.
+## 📦 Packages
+
+This is a [Bun workspaces](https://bun.com/docs/install/workspaces) monorepo. All packages are published under the `@flux-ui` scope.
+
+| Package                                          | Description                                      |
+|--------------------------------------------------|--------------------------------------------------|
+| [`@flux-ui/components`](packages/components)     | Main component library.                          |
+| [`@flux-ui/types`](packages/types)               | Public TypeScript types (no build step).         |
+| [`@flux-ui/internals`](packages/internals)       | Shared composables, utilities, and directives.   |
+| [`@flux-ui/statistics`](packages/statistics)     | Chart components built on ApexCharts.            |
+| [`@flux-ui/dashboard`](packages/dashboard)       | Dashboard layout components.                     |
+| [`@flux-ui/application`](packages/application)   | Application shell components.                    |
 
 ## ⭐️ Prerequisites
 
 - Bun >= 1.2.13
 - Node.js >= 23
-- Configure a new environment variable `FONTAWESOME_NPM_AUTH_TOKEN`. This should be a valid Font Awesome private npm auth token.
-- Use `bun install` to install the required packages.
+- A FontAwesome Pro npm token in the `FONTAWESOME_NPM_AUTH_TOKEN` environment variable (configured via the root `.npmrc`).
+
+## 🚀 Getting started
+
+1. Clone the repository.
+2. Run `bun install` in the project root.
+3. Build all publishable packages with `./build.sh`, or build a single package with `bun run --cwd packages/<name> build`.
+
+The documentation site can be developed against the local packages with `bun run --cwd docs dev`.
 
 ## 🪵 Git
 
-All commit messages and branches will be in English.
+All commit messages and branch names are in English.
 
 ### Branches
 
-- **Main** — Contains the latest stable release and is the exact source that is running in production.
-- **Develop** — Contains the latest staging release that is marked for deployment and is the exact source that is running on staging.
-- **Feature branches** — Any feature should have its own feature branch. Once complete, the branch should be merged into the _develop_ branch and the feature branch should be deleted.
-- **Bugfix branches** — When a bug is found, it should be fixed within a bugfix branch. Once complete the branch should be merged into the _develop_ branch and the feature branch should be deleted.
+- **main** — Latest stable release; matches what is running in production.
+- **develop** — Latest staging release; matches what is running on staging.
+- **Feature branches** — Each feature gets its own branch. Merge into `develop` once complete, then delete the branch.
+- **Bugfix branches** — Each bug fix gets its own branch. Merge into `develop` once complete, then delete the branch.
 
 ### Commit messages
 
-Commit messages are bound to the following templates:
+Commit messages follow [Conventional Commits](https://www.conventionalcommits.org):
 
-- `<type>: <message> `
-- `<type>(<feature>): <message>`
-- `<type>(<feature>): <message> [<issue-number>]`
+- `<type>: <message>`
+- `<type>(<scope>): <message>`
+- `<type>(<scope>): <message> [<issue-number>]`
 
-#### Examples
+Examples:
 
 - `feat(expandable): adds header slot to expandable.`
 - `feat(expandable): adds header slot to expandable. [FLUX-123]`
