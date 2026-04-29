@@ -82,24 +82,17 @@ jobs:
                 uses: cloudflare/wrangler-action@v3
                 if: ${{ github.event.release.prerelease }}
                 with:
-                    apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                     accountId: 5e565cf9fa55b0eae1f8131903da2ca9
-                    command: pages deploy . --project-name=fluxui --branch=${{ github.head_ref || github.ref_name }}
+                    apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                    command: versions upload --tag prerelease-${{ env.RELEASE_VERSION }}
                     gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-                    packageManager: bun
-                    workingDirectory: docs/.vitepress/dist
-                env:
-                    FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+                    wranglerVersion: "4.69.0"
 
             -   name: 🚀 Publish Docs
                 uses: cloudflare/wrangler-action@v3
                 if: ${{ !github.event.release.prerelease }}
                 with:
-                    apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                     accountId: 5e565cf9fa55b0eae1f8131903da2ca9
-                    command: pages deploy . --project-name=fluxui
+                    apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                     gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-                    packageManager: bun
-                    workingDirectory: docs/.vitepress/dist
-                env:
-                    FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+                    wranglerVersion: "4.69.0"

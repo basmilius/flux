@@ -52,18 +52,12 @@ jobs:
                 uses: cloudflare/wrangler-action@v3
                 id: publish
                 with:
-                    apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                     accountId: 5e565cf9fa55b0eae1f8131903da2ca9
-                    command: pages deploy . --project-name=fluxui --branch=${{ github.head_ref || github.ref_name }}
+                    apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                    command: versions upload --tag pr-${{ github.event.pull_request.number }}
                     gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-                    packageManager: bun
-                    workingDirectory: docs/.vitepress/dist
-                env:
-                    FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+                    wranglerVersion: "4.69.0"
 
             -   name: ⭐️ Output
                 run: |
-                    echo "Build ID: ${{ steps.publish.outputs.pages-deployment-id }}"
-                    echo "Publish URL: ${{ steps.publish.outputs.deployment-url }}"
-                    echo "Environment: ${{ steps.publish.outputs.pages-environment }}"
-                    echo "Alias: ${{ steps.publish.outputs.pages-deployment-alias-url }}"
+                    echo "Deployed on ${{ steps.publish.outputs.deployment-url }}"
