@@ -78,13 +78,28 @@ jobs:
                     (cd packages/dashboard && npm publish --access public)
                     (cd packages/statistics && npm publish --access public)
 
-            -   name: 🚀 Publish Docs
+            -   name: 🚀 Publish Docs (Pre-release)
                 uses: cloudflare/wrangler-action@v3
                 id: publish
+                if: ${{ github.event.release.prerelease }}
                 with:
                     apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                     accountId: 5e565cf9fa55b0eae1f8131903da2ca9
                     command: pages deploy . --project-name=fluxui --branch=${{ github.head_ref || github.ref_name }}
+                    gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+                    packageManager: bun
+                    workingDirectory: docs/.vitepress/dist
+                env:
+                    FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+
+            -   name: 🚀 Publish Docs
+                uses: cloudflare/wrangler-action@v3
+                id: publish
+                if: ${{ !github.event.release.prerelease }}
+                with:
+                    apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                    accountId: 5e565cf9fa55b0eae1f8131903da2ca9
+                    command: pages deploy . --project-name=fluxui
                     gitHubToken: ${{ secrets.GITHUB_TOKEN }}
                     packageManager: bun
                     workingDirectory: docs/.vitepress/dist
