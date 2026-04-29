@@ -80,7 +80,6 @@ jobs:
 
             -   name: 🚀 Publish Docs (Pre-release)
                 uses: cloudflare/wrangler-action@v3
-                id: publish
                 if: ${{ github.event.release.prerelease }}
                 with:
                     apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -94,7 +93,6 @@ jobs:
 
             -   name: 🚀 Publish Docs
                 uses: cloudflare/wrangler-action@v3
-                id: publish
                 if: ${{ !github.event.release.prerelease }}
                 with:
                     apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
