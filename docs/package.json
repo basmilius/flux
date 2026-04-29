@@ -8,7 +8,7 @@
         "preview": "vitepress preview"
     },
     "dependencies": {
-        "@basmilius/common": "^3.20.2",
+        "@basmilius/common": "^3.21.0",
         "@faker-js/faker": "^10.4.0",
         "@flux-ui/application": "workspace:*",
         "@flux-ui/components": "workspace:*",
@@ -26,7 +26,7 @@
         "vue-i18n": "^11.4.0"
     },
     "devDependencies": {
-        "@basmilius/vite-preset": "^3.20.2",
+        "@basmilius/vite-preset": "^3.21.0",
         "@types/luxon": "^3.7.1",
         "vite": "^8.0.10"
     }

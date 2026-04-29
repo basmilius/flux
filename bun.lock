@@ -8,7 +8,7 @@
     "docs": {
       "name": "docs",
       "dependencies": {
-        "@basmilius/common": "^3.20.2",
+        "@basmilius/common": "^3.21.0",
         "@faker-js/faker": "^10.4.0",
         "@flux-ui/application": "workspace:*",
         "@flux-ui/components": "workspace:*",
@@ -26,7 +26,7 @@
         "vue-i18n": "^11.4.0",
       },
       "devDependencies": {
-        "@basmilius/vite-preset": "^3.20.2",
+        "@basmilius/vite-preset": "^3.21.0",
         "@types/luxon": "^3.7.1",
         "vite": "^8.0.10",
       },
@@ -41,7 +41,7 @@
         "clsx": "^2.1.1",
       },
       "devDependencies": {
-        "@basmilius/vite-preset": "^3.20.2",
+        "@basmilius/vite-preset": "^3.21.0",
         "@types/node": "^25.6.0",
         "@vitejs/plugin-vue": "^6.0.6",
         "@vue/tsconfig": "^0.9.1",
@@ -60,8 +60,8 @@
       "name": "@flux-ui/components",
       "version": "0.0.0",
       "dependencies": {
-        "@basmilius/common": "^3.20.2",
-        "@basmilius/utils": "^3.20.2",
+        "@basmilius/common": "^3.21.0",
+        "@basmilius/utils": "^3.21.0",
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/types": "workspace:*",
         "@fortawesome/fontawesome-common-types": "^7.2.0",
@@ -70,7 +70,7 @@
         "lodash-es": "^4.18.1",
       },
       "devDependencies": {
-        "@basmilius/vite-preset": "^3.20.2",
+        "@basmilius/vite-preset": "^3.21.0",
         "@types/lodash-es": "^4.17.12",
         "@types/luxon": "^3.7.1",
         "@types/node": "^25.6.0",
@@ -95,7 +95,7 @@
         "@flux-ui/types": "workspace:*",
       },
       "devDependencies": {
-        "@basmilius/vite-preset": "^3.20.2",
+        "@basmilius/vite-preset": "^3.21.0",
         "@types/node": "^25.6.0",
         "@vitejs/plugin-vue": "^6.0.6",
         "@vue/tsconfig": "^0.9.1",
@@ -113,8 +113,8 @@
       "name": "@flux-ui/internals",
       "version": "0.0.0",
       "dependencies": {
-        "@basmilius/common": "^3.20.2",
-        "@basmilius/utils": "^3.20.2",
+        "@basmilius/common": "^3.21.0",
+        "@basmilius/utils": "^3.21.0",
         "@flux-ui/types": "workspace:*",
         "lodash-es": "^4.18.1",
       },
@@ -132,15 +132,15 @@
       "name": "@flux-ui/statistics",
       "version": "0.0.0",
       "dependencies": {
-        "@basmilius/common": "^3.20.2",
-        "@basmilius/utils": "^3.20.2",
+        "@basmilius/common": "^3.21.0",
+        "@basmilius/utils": "^3.21.0",
         "@flux-ui/components": "workspace:*",
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/types": "workspace:*",
         "clsx": "^2.1.1",
       },
       "devDependencies": {
-        "@basmilius/vite-preset": "^3.20.2",
+        "@basmilius/vite-preset": "^3.21.0",
         "@types/lodash-es": "^4.17.12",
         "@types/node": "^25.6.0",
         "@vitejs/plugin-vue": "^6.0.6",
@@ -192,13 +192,13 @@
 
     "@babel/types": ["@babel/types@7.29.0", "", { "dependencies": { "@babel/helper-string-parser": "^7.27.1", "@babel/helper-validator-identifier": "^7.28.5" } }, "sha512-LwdZHpScM4Qz8Xw2iKSzS+cfglZzJGvofQICy7W7v4caru4EaAmyUuO6BGrbyQ2mYV11W0U8j5mBhd14dd3B0A=="],
 
-    "@basmilius/common": ["@basmilius/common@3.20.2", "", { "dependencies": { "@basmilius/http-client": "3.20.2", "@basmilius/utils": "3.20.2", "culori": "^4.0.2", "lodash-es": "^4.18.1" }, "peerDependencies": { "pinia": "^3.0.4", "vue": "^3.6.0-beta.10", "vue-router": "^5.0.6" } }, "sha512-yJaMxadjVkqrBC+V3RdwcXg9IE3QWv1XDUozpGBCrNxgnP6HWlolDm+UYSxMc05xSaciyP1FRoyh3zirFHa2bQ=="],
+    "@basmilius/common": ["@basmilius/common@3.21.0", "", { "dependencies": { "@basmilius/http-client": "3.21.0", "@basmilius/utils": "3.21.0", "culori": "^4.0.2", "lodash-es": "^4.18.1" }, "peerDependencies": { "pinia": "^3.0.4", "vue": "^3.6.0-beta.10", "vue-router": "^5.0.6" } }, "sha512-z+o78QJW+KhOOG3y2Mp8BcHbeHS4Qw3nvA/+/S5alTCf85kZhOcUBekpRXzpd/NcJyPpfxVduVQ8F1V2N4Qt0g=="],
 
-    "@basmilius/http-client": ["@basmilius/http-client@3.20.2", "", { "dependencies": { "@basmilius/utils": "3.20.2", "luxon": "^3.7.2" }, "peerDependencies": { "vue": "^3.6.0-beta.10" } }, "sha512-BX1vraaePxzKgX4fMzTGNtvKlwB9LlKciYHeFTx9ipN58s2SGBod9IRs9YcGrpMKT3q2+vSq1ZAygIgShMVZuw=="],
+    "@basmilius/http-client": ["@basmilius/http-client@3.21.0", "", { "dependencies": { "@basmilius/utils": "3.21.0", "luxon": "^3.7.2" }, "peerDependencies": { "vue": "^3.6.0-beta.10" } }, "sha512-lBWLVLgmmsTjwRWoAZdB8gtEeZCfKVNaCLWqFLAusIitVB2eIWsy/zq5GtucqW6X5rHnjM3P/Z6hw+mqA9f2WA=="],
 
-    "@basmilius/utils": ["@basmilius/utils@3.20.2", "", { "dependencies": { "luxon": "^3.7.2" } }, "sha512-Nmof0TkWH/0ShiFSXPdQ4xjuD8NBbxq/TQlXka8afniUUI4915j1hB7ltRMTWMsnAQfoiOiF9g2nHkx2ax5DRQ=="],
+    "@basmilius/utils": ["@basmilius/utils@3.21.0", "", { "dependencies": { "luxon": "^3.7.2" } }, "sha512-SgsSfSP9k4PUbEnT2pvS6ugfAL6p5xHdYkfYVzqbPN3QDGcBtv9OVFUwK0BrpCZuVfV1QaoidISj6IqVWsr38Q=="],
 
-    "@basmilius/vite-preset": ["@basmilius/vite-preset@3.20.2", "", { "dependencies": { "@laynezh/vite-plugin-lib-assets": "^2.1.3", "change-case": "^5.4.4", "css-class-generator": "^2.0.0", "lightningcss": "^1.32.0", "vite-css-modules": "^1.15.0", "vite-plugin-dts": "^4.5.4" }, "peerDependencies": { "vite": "^8.0.10" } }, "sha512-eHMTvkpBLUNZ9/TVJvt1SGB7/J0y0VDaBcXrgNJVvpUUl3XP8SS3kDEyXOZK5ISPiqiRCpGTNPR8W4x9yq3j2Q=="],
+    "@basmilius/vite-preset": ["@basmilius/vite-preset@3.21.0", "", { "dependencies": { "@laynezh/vite-plugin-lib-assets": "^2.1.3", "change-case": "^5.4.4", "css-class-generator": "^2.0.0", "lightningcss": "^1.32.0", "vite-css-modules": "^1.15.0", "vite-plugin-dts": "^4.5.4" }, "peerDependencies": { "vite": "^8.0.10" } }, "sha512-aet9qrFrGqB5zMiGAQfOPQz3p/U4nX/bUkoOS9wTe9lhH8gt7i/0SBnDTD3yvtulP+lK8DR/psUsV0+cZ2blCQ=="],
 
     "@bufbuild/protobuf": ["@bufbuild/protobuf@2.5.2", "", {}, "sha512-foZ7qr0IsUBjzWIq+SuBLfdQCpJ1j8cTuNNT4owngTHoN5KsJb8L9t65fzz7SCeSWzescoOil/0ldqiL041ABg=="],
 
