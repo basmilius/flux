@@ -1,8 +1,27 @@
 <template>
     <div
-        data-kanban-column
-        :class="[$style.kanbanColumn, isOver && $style.isOver]">
-        <div :class="$style.kanbanColumnHeader">
+        ref="root"
+        role="list"
+        aria-roledescription="Kanban column"
+        :aria-label="label"
+        :aria-disabled="disabledState ? true : undefined"
+        :class="[
+            $style.kanbanColumn,
+            isOver && $style.isOver,
+            isOver && !kanban.isDropAllowed.value && $style.isDropDisallowed,
+            isReorderable && $style.isReorderable,
+            isColumnDragging && $style.isColumnDragging,
+            isColumnDropBefore && $style.isColumnDropBefore,
+            disabledState && $style.isDisabled
+        ]">
+        <div
+            :class="$style.kanbanColumnHeader"
+            :draggable="isReorderable && !disabledState"
+            :tabindex="isReorderable && !disabledState ? 0 : undefined"
+            @dragstart="onColumnDragStart"
+            @dragend="onColumnDragEnd"
+            @dragover="onColumnDragOver"
+            @drop="onColumnDrop">
             <slot name="header">
                 <span :class="$style.kanbanColumnLabel">{{ label }}</span>
             </slot>
@@ -11,16 +30,32 @@
         </div>
 
         <div
+            ref="body"
             :class="$style.kanbanColumnBody"
             @dragenter="onDragEnter"
             @dragleave="onDragLeave"
-            @dragover.prevent="onDragOver"
-            @drop.prevent="onDrop">
+            @dragover="onDragOver"
+            @drop="onDrop">
             <slot/>
 
             <div
-                v-if="isDropEnd"
-                :class="$style.kanbanDropIndicator"/>
+                v-if="isEmpty"
+                :class="$style.kanbanColumnEmpty">
+                <slot name="empty"/>
+            </div>
+
+            <div
+                :class="[
+                    $style.kanbanDropIndicator,
+                    isDropEnd && $style.isDropEndActive,
+                    isDropEnd && !kanban.isDropAllowed.value && $style.isDropEndDisallowed
+                ]"/>
+        </div>
+
+        <div
+            v-if="hasFooter"
+            :class="$style.kanbanColumnFooter">
+            <slot name="footer"/>
         </div>
     </div>
 </template>
@@ -28,12 +63,19 @@
 <script
     lang="ts"
     setup>
-    import { computed, inject, ref, unref } from 'vue';
-    import { FluxKanbanInjectionKey } from '$flux/data/di';
-    import $style from '$flux/css/component/FluxKanbanColumn.module.scss';
+    import { Comment, Text, computed, inject, onBeforeUnmount, onMounted, provide, ref, toRef, unref, useSlots, useTemplateRef, watch } from 'vue';
+    import { flattenVNodeTree } from '@flux-ui/internals';
+    import { FluxDisabledInjectionKey, FluxKanbanInjectionKey } from '$flux/data/di';
+    import useDisabled from '$flux/composable/useDisabled';
+    import $style from '$flux/css/component/FluxKanban.module.scss';
 
-    const {columnId, label} = defineProps<{
+    const {
+        columnId,
+        disabled = false,
+        label
+    } = defineProps<{
         readonly columnId: string | number;
+        readonly disabled?: boolean;
         readonly label: string;
     }>();
 
@@ -41,19 +83,62 @@
         default?(): any;
         header?(): any;
         actions?(): any;
+        empty?(): any;
+        footer?(): any;
     }>();
 
     const kanban = inject(FluxKanbanInjectionKey)!;
+    const root = useTemplateRef('root');
+    const body = useTemplateRef('body');
+    const slots = useSlots();
+
+    const disabledState = useDisabled(toRef(() => disabled));
+    provide(FluxDisabledInjectionKey, disabledState);
 
     let dragEnterCount = 0;
     const isOver = ref(false);
+
+    const isReorderable = computed(() => unref(kanban.reorderableColumns) && !unref(disabledState));
 
     const isDropEnd = computed(() => {
         const state = unref(kanban.dragState);
         return state !== null && state.dropColumnId === columnId && state.beforeCardId === null;
     });
 
+    const isColumnDragging = computed(() => unref(kanban.columnDragState)?.columnId === columnId);
+
+    const isColumnDropBefore = computed(() => {
+        const state = unref(kanban.columnDragState);
+
+        if (!state || state.dropBeforeColumnId !== columnId || state.columnId === columnId) {
+            return false;
+        }
+
+        return true;
+    });
+
+    const isEmpty = computed(() => {
+        if (!slots.empty) {
+            return false;
+        }
+
+        const defaultSlot = slots.default?.();
+
+        if (!defaultSlot || defaultSlot.length === 0) {
+            return true;
+        }
+
+        const hasContent = flattenVNodeTree(defaultSlot).some(vnode => vnode.type !== Comment && vnode.type !== Text);
+        return !hasContent;
+    });
+
+    const hasFooter = computed(() => !!slots.footer);
+
     function onDragEnter(): void {
+        if (unref(disabledState)) {
+            return;
+        }
+
         dragEnterCount++;
         isOver.value = true;
     }
@@ -67,7 +152,12 @@
     }
 
     function onDragOver(evt: DragEvent): void {
-        // Only handle empty-area drops; cards stop propagation on their own dragover
+        if (unref(disabledState) || !unref(kanban.dragState)) {
+            return;
+        }
+
+        evt.preventDefault();
+
         const target = evt.target as Element;
         const isOverCard = !!target.closest('[data-kanban-card]');
 
@@ -76,9 +166,106 @@
         }
     }
 
-    function onDrop(): void {
+    function onDrop(evt: DragEvent): void {
         dragEnterCount = 0;
         isOver.value = false;
+
+        if (unref(disabledState) || !unref(kanban.dragState)) {
+            return;
+        }
+
+        evt.preventDefault();
         kanban.commitDrop();
     }
+
+    function onColumnDragStart(evt: DragEvent): void {
+        if (!unref(isReorderable)) {
+            return;
+        }
+
+        if (evt.dataTransfer) {
+            evt.dataTransfer.effectAllowed = 'move';
+            evt.dataTransfer.setData('text/plain', `column:${String(columnId)}`);
+        }
+
+        kanban.startColumnDrag(columnId);
+    }
+
+    function onColumnDragEnd(): void {
+        kanban.endColumnDrag();
+    }
+
+    function onColumnDragOver(evt: DragEvent): void {
+        const state = unref(kanban.columnDragState);
+
+        if (!state || state.columnId === columnId) {
+            return;
+        }
+
+        evt.preventDefault();
+
+        const headerEl = evt.currentTarget as Element;
+        const rect = headerEl.getBoundingClientRect();
+
+        if (evt.clientX < rect.left + rect.width / 2) {
+            kanban.updateColumnDropTarget(columnId);
+        } else {
+            let next = root.value?.nextElementSibling ?? null;
+
+            while (next) {
+                const info = kanban.getColumnInfo(next);
+
+                if (info) {
+                    kanban.updateColumnDropTarget(info.columnId);
+                    return;
+                }
+
+                next = next.nextElementSibling;
+            }
+
+            kanban.updateColumnDropTarget(null);
+        }
+    }
+
+    function onColumnDrop(evt: DragEvent): void {
+        if (!unref(kanban.columnDragState)) {
+            return;
+        }
+
+        evt.preventDefault();
+        kanban.commitColumnDrop();
+    }
+
+    onMounted(() => {
+        if (root.value) {
+            kanban.registerColumn(root.value, columnId);
+        }
+
+        if (body.value) {
+            kanban.setColumnBodyElement(columnId, body.value);
+        }
+    });
+
+    onBeforeUnmount(() => {
+        if (root.value) {
+            kanban.unregisterColumn(root.value);
+        }
+
+        kanban.setColumnBodyElement(columnId, null);
+    });
+
+    watch(() => columnId, (newId, oldId) => {
+        if (oldId !== undefined) {
+            kanban.setColumnBodyElement(oldId, null);
+        }
+
+        if (root.value) {
+            kanban.unregisterColumn(root.value);
+            kanban.registerColumn(root.value, newId);
+        }
+
+        if (body.value) {
+            kanban.setColumnBodyElement(newId, body.value);
+        }
+    });
 </script>

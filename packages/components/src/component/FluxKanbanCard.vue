@@ -2,15 +2,25 @@
     <div
         ref="root"
         data-kanban-card
+        role="listitem"
+        aria-roledescription="Kanban card"
+        :aria-disabled="disabledState ? true : undefined"
+        :aria-grabbed="isGrabbed ? true : undefined"
         :class="[
             $style.kanbanCard,
             isDragging && $style.isDragging,
-            isDropBefore && $style.isDropBefore
+            isGrabbed && $style.isGrabbed,
+            isDropBefore && $style.isDropBefore,
+            isDropBefore && !kanban.isDropAllowed.value && $style.isDropBeforeDisallowed,
+            disabledState && $style.isDisabled
         ]"
-        draggable="true"
+        :draggable="!disabledState"
+        :tabindex="disabledState ? -1 : 0"
         @dragstart="onDragStart"
         @dragend="onDragEnd"
-        @dragover.prevent.stop="onDragOver">
+        @dragover.stop="onDragOver"
+        @focus="onFocus"
+        @keydown="onKeyDown">
         <slot/>
     </div>
 </template>
@@ -18,13 +28,19 @@
 <script
     lang="ts"
     setup>
-    import { computed, inject, onMounted, onUnmounted, unref, useTemplateRef } from 'vue';
+    import { computed, inject, onBeforeUnmount, onMounted, toRef, unref, useTemplateRef, watch } from 'vue';
     import { FluxKanbanInjectionKey } from '$flux/data/di';
-    import $style from '$flux/css/component/FluxKanbanCard.module.scss';
+    import useDisabled from '$flux/composable/useDisabled';
+    import $style from '$flux/css/component/FluxKanban.module.scss';
 
-    const {cardId, columnId} = defineProps<{
+    const {
+        cardId,
+        columnId,
+        disabled = false
+    } = defineProps<{
         readonly cardId: string | number;
         readonly columnId: string | number;
+        readonly disabled?: boolean;
     }>();
 
     defineSlots<{
@@ -33,8 +49,10 @@
 
     const kanban = inject(FluxKanbanInjectionKey)!;
     const root = useTemplateRef('root');
+    const disabledState = useDisabled(toRef(() => disabled));
 
-    const isDragging = computed(() => unref(kanban.dragState)?.cardId === cardId);
+    const isDragging = computed(() => unref(kanban.dragState)?.cardId === cardId && unref(kanban.dragState)?.mode === 'pointer');
+    const isGrabbed = computed(() => kanban.isCardGrabbed(cardId));
 
     const isDropBefore = computed(() => {
         const state = unref(kanban.dragState);
@@ -50,19 +68,42 @@
         if (root.value) {
             kanban.registerCard(root.value, cardId);
         }
+
+        if (kanban.isCardGrabbed(cardId)) {
+            root.value?.focus();
+        }
     });
 
-    onUnmounted(() => {
+    onBeforeUnmount(() => {
         if (root.value) {
             kanban.unregisterCard(root.value);
         }
     });
 
+    watch(() => cardId, (newId, oldId) => {
+        if (root.value && oldId !== undefined) {
+            kanban.unregisterCard(root.value);
+            kanban.registerCard(root.value, newId);
+        }
+    });
+
     function onDragStart(evt: DragEvent): void {
+        if (unref(disabledState)) {
+            evt.preventDefault();
+            return;
+        }
+
         kanban.startDrag(cardId, columnId);
 
         if (evt.dataTransfer) {
             evt.dataTransfer.effectAllowed = 'move';
+            evt.dataTransfer.setData('text/plain', `card:${String(cardId)}`);
+
+            if (root.value) {
+                const offsetX = evt.offsetX || root.value.getBoundingClientRect().width / 2;
+                const offsetY = evt.offsetY || 12;
+                evt.dataTransfer.setDragImage(root.value, offsetX, offsetY);
+            }
         }
     }
 
@@ -70,21 +111,25 @@
         kanban.endDrag();
     }
 
+    function onFocus(): void {
+        root.value?.scrollIntoView({block: 'nearest', inline: 'nearest', behavior: 'smooth'});
+    }
+
     function onDragOver(evt: DragEvent): void {
         const state = unref(kanban.dragState);
 
-        if (!state) {
+        if (!state || unref(disabledState)) {
             return;
         }
+
+        evt.preventDefault();
 
         const cardEl = evt.currentTarget as Element;
         const rect = cardEl.getBoundingClientRect();
 
         if (evt.clientY < rect.top + rect.height / 2) {
-            // Drop before this card
             kanban.updateDropTarget(columnId, cardId);
         } else {
-            // Drop after this card = before the next sibling card
             let next = cardEl.nextElementSibling;
 
             while (next) {
@@ -98,8 +143,57 @@
                 next = next.nextElementSibling;
             }
 
-            // No next sibling → append to end of column
             kanban.updateDropTarget(columnId, null);
+        }
+    }
+
+    function onKeyDown(evt: KeyboardEvent): void {
+        if (unref(disabledState)) {
+            return;
+        }
+
+        const state = unref(kanban.dragState);
+        const grabbed = state !== null && state.mode === 'keyboard' && state.cardId === cardId;
+
+        if (!grabbed) {
+            if (evt.key === ' ' || evt.key === 'Enter') {
+                evt.preventDefault();
+                kanban.grabCard(cardId, columnId);
+            }
+            return;
+        }
+
+        switch (evt.key) {
+            case 'ArrowUp':
+                evt.preventDefault();
+                kanban.moveKeyboard('up');
+                break;
+
+            case 'ArrowDown':
+                evt.preventDefault();
+                kanban.moveKeyboard('down');
+                break;
+
+            case 'ArrowLeft':
+                evt.preventDefault();
+                kanban.moveKeyboard('left');
+                break;
+
+            case 'ArrowRight':
+                evt.preventDefault();
+                kanban.moveKeyboard('right');
+                break;
+
+            case ' ':
+            case 'Enter':
+                evt.preventDefault();
+                kanban.commitKeyboardDrop();
+                break;
+
+            case 'Escape':
+                evt.preventDefault();
+                kanban.cancelKeyboardDrop();
+                break;
         }
     }
 </script>

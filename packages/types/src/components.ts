@@ -61,6 +61,11 @@ export type FluxKanbanMoveEvent = {
     readonly beforeCardId?: string | number;
 };
 
+export type FluxKanbanMoveColumnEvent = {
+    readonly columnId: string | number;
+    readonly beforeColumnId?: string | number;
+};
+
 export type FluxTreeViewOption = {
     readonly id: string | number;
     readonly label: string;

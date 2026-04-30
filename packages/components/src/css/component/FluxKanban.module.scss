@@ -1,7 +1,212 @@
+@use '$flux/css/mixin';
+
+/* region root */
+
 .kanban {
+    position: relative;
     display: flex;
     flex-flow: row;
     gap: 15px;
+    block-size: 100%;
+    inline-size: 100%;
     overflow-x: auto;
     padding-bottom: 6px;
 }
+
+.kanbanLiveRegion {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
+/* endregion */
+
+/* region column */
+
+.kanbanColumn {
+    display: flex;
+    flex-flow: column;
+    flex: 1 0 300px;
+    background: var(--gray-100);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: opacity 180ms var(--swift-out);
+}
+
+.kanbanColumn.isColumnDragging {
+    opacity: .4;
+}
+
+.kanbanColumn.isColumnDropBefore {
+    box-shadow: -3px 0 0 var(--primary-500);
+}
+
+.kanbanColumnHeader {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--gray-200);
+
+    @include mixin.focus-ring(-2);
+}
+
+.kanbanColumn.isReorderable .kanbanColumnHeader {
+    cursor: grab;
+}
+
+.kanbanColumn.isReorderable .kanbanColumnHeader:active {
+    cursor: grabbing;
+}
+
+.kanbanColumnLabel {
+    flex: 1;
+    font-size: .8125rem;
+    font-weight: 600;
+    color: var(--foreground);
+    letter-spacing: .01em;
+    text-transform: uppercase;
+}
+
+.kanbanColumnBody {
+    display: flex;
+    flex-flow: column;
+    gap: 9px;
+    padding: 9px;
+    min-height: 60px;
+    flex: 1;
+    overflow-y: auto;
+    transition: background 180ms var(--swift-out);
+}
+
+.isOver .kanbanColumnBody {
+    background: rgb(from var(--primary-500) r g b / .06);
+}
+
+.isOver.isDropDisallowed .kanbanColumnBody {
+    background: rgb(from var(--danger-500) r g b / .06);
+    cursor: not-allowed;
+}
+
+.isBoardDragging .kanbanColumn:not(.isOver):not(.isDisabled) .kanbanColumnBody {
+    background: rgb(from var(--primary-500) r g b / .02);
+}
+
+.kanbanColumn.isDisabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+.kanbanColumn.isDisabled .kanbanColumnBody {
+    pointer-events: none;
+}
+
+.kanbanColumnEmpty {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 12px;
+    font-size: .8125rem;
+    color: var(--gray-500);
+    text-align: center;
+}
+
+.kanbanColumnFooter {
+    padding: 9px 15px;
+    border-top: 1px solid var(--gray-200);
+}
+
+.kanbanDropIndicator {
+    flex-shrink: 0;
+    height: 2px;
+    border-radius: 999px;
+    background: transparent;
+    transition: background 180ms var(--swift-out);
+}
+
+.isDropEndActive {
+    background: var(--primary-500);
+}
+
+.isDropEndActive.isDropEndDisallowed {
+    background: var(--danger-500);
+}
+
+/* endregion */
+
+/* region card */
+
+.kanbanCard {
+    position: relative;
+    padding: 12px;
+    background: var(--gray-25);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    cursor: grab;
+    scroll-margin: 9px;
+    transition: opacity 180ms var(--swift-out), box-shadow 180ms var(--swift-out), transform 180ms var(--swift-out);
+    user-select: none;
+
+    @include mixin.focus-ring(-2);
+
+    &:active {
+        cursor: grabbing;
+    }
+
+    &:hover {
+        box-shadow: 0 1px 4px rgb(0 0 0 / .08);
+    }
+}
+
+.kanbanCard.isDisabled {
+    cursor: not-allowed;
+    opacity: .6;
+
+    &:hover {
+        box-shadow: none;
+    }
+
+    &:active {
+        cursor: not-allowed;
+    }
+}
+
+.isDragging {
+    opacity: .4;
+    cursor: grabbing;
+}
+
+.isGrabbed {
+    transform: scale(1.04);
+    background: var(--surface);
+    box-shadow: 0 0 0 2px var(--primary-500), 0 8px 24px rgb(0 0 0 / .15);
+    z-index: 1;
+}
+
+.isDropBefore {
+    &::before {
+        content: '';
+        position: absolute;
+        inset-inline: 0;
+        top: -6px;
+        height: 2px;
+        border-radius: 999px;
+        background: var(--primary-500);
+    }
+}
+
+.isDropBefore.isDropBeforeDisallowed {
+    &::before {
+        background: var(--danger-500);
+    }
+}
+
+/* endregion */
