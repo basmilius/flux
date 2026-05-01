@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Settings } from 'luxon';
 import { createI18n } from 'vue-i18n';
 
@@ -84,6 +85,16 @@ const theme: Theme = {
                         sortDescending: 'Descending',
                         sortRemove: 'Remove sorting',
                         today: 'Today',
+                        selectMonth: 'Select month',
+                        selectYear: 'Select year',
+                        selectDate: 'Select date',
+                        previousMonth: 'Previous month',
+                        nextMonth: 'Next month',
+                        previousYears: 'Previous years',
+                        nextYears: 'Next years',
+                        allDay: 'All day',
+                        grabbedAnnounce: 'Item grabbed. Use arrow keys to move, Enter to drop, Escape to cancel.',
+                        releasedAnnounce: 'Item released.',
                         galleryPlaceholderButton: 'Pick image',
                         galleryPlaceholderMessage: 'Drop an image here or click the button to upload...',
                         galleryPlaceholderTitle: 'Gallery',

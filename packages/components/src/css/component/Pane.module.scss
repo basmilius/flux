@@ -36,9 +36,10 @@
 :is(.paneDefault, .paneFlat, .paneWell):is(a, button) {
     cursor: pointer;
     transition: 210ms var(--swift-out);
-    transition-property: background, box-shadow;
+    transition-property: background, border-color, box-shadow;
 
     &:hover {
+        border-color: var(--surface-stroke-out-hover);
         box-shadow: var(--shadow-lg);
     }
 

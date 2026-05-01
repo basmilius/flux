@@ -63,10 +63,11 @@
 <script
     lang="ts"
     setup>
-    import { Comment, Text, computed, inject, onBeforeUnmount, onMounted, provide, ref, toRef, unref, useSlots, useTemplateRef, watch } from 'vue';
+    import { Comment, Text, computed, onBeforeUnmount, onMounted, provide, toRef, unref, useSlots, useTemplateRef, watch } from 'vue';
     import { flattenVNodeTree } from '@flux-ui/internals';
-    import { FluxDisabledInjectionKey, FluxKanbanInjectionKey } from '$flux/data/di';
+    import { FluxDisabledInjectionKey } from '$flux/data/di';
     import useDisabled from '$flux/composable/useDisabled';
+    import useFluxKanbanInjection from '$flux/composable/useFluxKanbanInjection';
     import $style from '$flux/css/component/FluxKanban.module.scss';
 
     const {
@@ -87,7 +88,7 @@
         footer?(): any;
     }>();
 
-    const kanban = inject(FluxKanbanInjectionKey)!;
+    const kanban = useFluxKanbanInjection();
     const root = useTemplateRef('root');
     const body = useTemplateRef('body');
     const slots = useSlots();
@@ -95,14 +96,12 @@
     const disabledState = useDisabled(toRef(() => disabled));
     provide(FluxDisabledInjectionKey, disabledState);
 
-    let dragEnterCount = 0;
-    const isOver = ref(false);
-
+    const isOver = computed(() => kanban.isOverColumnId.value === columnId);
     const isReorderable = computed(() => unref(kanban.reorderableColumns) && !unref(disabledState));
 
     const isDropEnd = computed(() => {
         const state = unref(kanban.dragState);
-        return state !== null && state.dropColumnId === columnId && state.beforeCardId === null;
+        return state !== null && state.dropColumnId === columnId && state.beforeItemId === null;
     });
 
     const isColumnDragging = computed(() => unref(kanban.columnDragState)?.columnId === columnId);
@@ -135,20 +134,11 @@
     const hasFooter = computed(() => !!slots.footer);
 
     function onDragEnter(): void {
-        if (unref(disabledState)) {
-            return;
-        }
-
-        dragEnterCount++;
-        isOver.value = true;
+        kanban.enterColumn(columnId);
     }
 
     function onDragLeave(): void {
-        if (--dragEnterCount <= 0) {
-            dragEnterCount = 0;
-            isOver.value = false;
-            kanban.clearDropTarget();
-        }
+        kanban.leaveColumn(columnId);
     }
 
     function onDragOver(evt: DragEvent): void {
@@ -159,17 +149,14 @@
         evt.preventDefault();
 
         const target = evt.target as Element;
-        const isOverCard = !!target.closest('[data-kanban-card]');
+        const isOverItem = !!target.closest('[data-kanban-item]');
 
-        if (!isOverCard) {
+        if (!isOverItem) {
             kanban.updateDropTarget(columnId, null);
         }
     }
 
     function onDrop(evt: DragEvent): void {
-        dragEnterCount = 0;
-        isOver.value = false;
-
         if (unref(disabledState) || !unref(kanban.dragState)) {
             return;
         }

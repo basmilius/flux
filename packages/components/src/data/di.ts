@@ -1,7 +1,9 @@
 import type { FluxFilterState, FluxFilterValue } from '@flux-ui/types';
-import type { ComponentInternalInstance, InjectionKey, Ref } from 'vue';
+import type { DateTime } from 'luxon';
+import type { ComponentInternalInstance, ComputedRef, InjectionKey, Ref } from 'vue';
 
 export const FluxAdaptiveGroupInjectionKey: InjectionKey<FluxAdaptiveGroupInjection> = Symbol();
+export const FluxCalendarInjectionKey: InjectionKey<FluxCalendarInjection> = Symbol();
 export const FluxDisabledInjectionKey: InjectionKey<Ref<boolean>> = Symbol();
 export const FluxKanbanInjectionKey: InjectionKey<FluxKanbanInjection> = Symbol();
 export const FluxExpandableGroupInjectionKey: InjectionKey<FluxExpandableGroupInjection> = Symbol();
@@ -15,11 +17,11 @@ export type FluxKanbanDragMode = 'pointer' | 'keyboard';
 
 export type FluxKanbanDragState = {
     readonly mode: FluxKanbanDragMode;
-    readonly cardId: string | number;
+    readonly itemId: string | number;
     readonly fromColumnId: string | number;
     readonly dropColumnId: string | number | null;
-    readonly beforeCardId: string | number | null;
-    readonly originBeforeCardId?: string | number | null;
+    readonly beforeItemId: string | number | null;
+    readonly originBeforeItemId?: string | number | null;
 };
 
 export type FluxKanbanColumnDragState = {
@@ -34,33 +36,39 @@ export type FluxKanbanInjection = {
     readonly reorderableColumns: Ref<boolean>;
     readonly dragState: Ref<FluxKanbanDragState | null>;
     readonly columnDragState: Ref<FluxKanbanColumnDragState | null>;
+    readonly grabbedId: Ref<string | number | null>;
+    readonly isOverColumnId: Ref<string | number | null>;
     readonly isDropAllowed: Ref<boolean>;
 
-    registerCard(element: Element, cardId: string | number): void;
-    unregisterCard(element: Element): void;
-    getCardInfo(element: Element): { readonly cardId: string | number } | undefined;
+    registerItem(element: Element, itemId: string | number): void;
+    unregisterItem(element: Element): void;
+    getItemInfo(element: Element): { readonly itemId: string | number } | undefined;
     registerColumn(element: Element, columnId: string | number): void;
     unregisterColumn(element: Element): void;
     getColumnInfo(element: Element): { readonly columnId: string | number } | undefined;
     setBoardElement(element: Element | null): void;
     setColumnBodyElement(columnId: string | number, element: Element | null): void;
+    enterColumn(columnId: string | number): void;
+    leaveColumn(columnId: string | number): void;
 
-    startDrag(cardId: string | number, fromColumnId: string | number): void;
+    startDrag(itemId: string | number, fromColumnId: string | number): void;
     endDrag(): void;
-    updateDropTarget(columnId: string | number, beforeCardId: string | number | null): void;
+    updateDropTarget(columnId: string | number, beforeItemId: string | number | null): void;
     clearDropTarget(): void;
     commitDrop(): void;
 
-    grabCard(cardId: string | number, fromColumnId: string | number): void;
+    grabItem(itemId: string | number, fromColumnId: string | number): void;
     moveKeyboard(direction: FluxKanbanKeyboardDirection): void;
     commitKeyboardDrop(): void;
     cancelKeyboardDrop(): void;
-    isCardGrabbed(cardId: string | number): boolean;
+    isItemGrabbed(itemId: string | number): boolean;
 
     startColumnDrag(columnId: string | number): void;
     endColumnDrag(): void;
     updateColumnDropTarget(beforeColumnId: string | number | null): void;
     commitColumnDrop(): void;
+
+    cancelAll(): void;
     onPointerMove(clientX: number, clientY: number): void;
 };
 
@@ -74,6 +82,30 @@ export type FluxAdaptiveGroupChild = {
 export type FluxAdaptiveGroupInjection = {
     register(uid: number, child: FluxAdaptiveGroupChild): void;
     unregister(uid: number): void;
+};
+
+export type FluxCalendarView = 'month' | 'week' | 'two-days' | 'day';
+
+export type FluxCalendarKeyboardDirection = 'up' | 'down' | 'left' | 'right';
+
+export type FluxCalendarInjection = {
+    readonly isDraggable: ComputedRef<boolean>;
+    readonly resolvedView: ComputedRef<FluxCalendarView>;
+    readonly hourRange: ComputedRef<readonly [number, number]>;
+    readonly pixelsPerMinute: ComputedRef<number>;
+    readonly snapMinutes: ComputedRef<number>;
+    readonly grabbedId: Ref<string | number | null>;
+
+    registerItem(element: Element, id: string | number): void;
+    unregisterItem(element: Element): void;
+
+    onItemDragStart(id: string | number, fromDate: DateTime, evt: DragEvent): void;
+    onItemDragEnd(id: string | number): void;
+
+    onItemKeyboardGrab(id: string | number, fromDate: DateTime): void;
+    onItemKeyboardMove(direction: FluxCalendarKeyboardDirection): void;
+    onItemKeyboardCommit(): void;
+    onItemKeyboardCancel(): void;
 };
 
 export type FluxExpandableGroupInjection = {

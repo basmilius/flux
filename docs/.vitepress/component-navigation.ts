@@ -43,7 +43,7 @@ const navigation: SidebarItem = {
             link: '/components/calendar/',
             collapsed: true,
             items: [
-                {text: 'Event', link: '/components/calendar/event'},
+                {text: 'Item', link: '/components/calendar/item'},
             ]
         },
         {text: 'Chip', link: '/components/chip'},
@@ -184,8 +184,8 @@ const navigation: SidebarItem = {
             link: '/components/kanban/',
             collapsed: true,
             items: [
-                {text: 'Card', link: '/components/kanban/card'},
-                {text: 'Column', link: '/components/kanban/column'}
+                {text: 'Column', link: '/components/kanban/column'},
+                {text: 'Item', link: '/components/kanban/item'}
             ]
         },
         {

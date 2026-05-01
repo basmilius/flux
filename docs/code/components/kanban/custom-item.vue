@@ -5,31 +5,33 @@
             :key="column.id"
             :column-id="column.id"
             :label="column.label">
-            <FluxKanbanCard
+            <FluxKanbanItem
                 v-for="card in getCards(column.id)"
                 :key="card.id"
-                :card-id="card.id"
+                :item-id="card.id"
                 :column-id="column.id">
-                <div class="card-header">
-                    <span class="card-title">{{ card.title }}</span>
-                    <FluxBadge
-                        :color="priorityColor(card.priority)"
-                        :label="card.priority"
-                        type="none"/>
-                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">{{ card.title }}</span>
+                        <FluxBadge
+                            :color="priorityColor(card.priority)"
+                            :label="card.priority"
+                            type="none"/>
+                    </div>
 
-                <p
-                    v-if="card.description"
-                    class="card-description">
-                    {{ card.description }}
-                </p>
+                    <p
+                        v-if="card.description"
+                        class="card-description">
+                        {{ card.description }}
+                    </p>
 
-                <div
-                    v-if="card.assignee"
-                    class="card-footer">
-                    <span class="card-assignee">{{ card.assignee }}</span>
+                    <div
+                        v-if="card.assignee"
+                        class="card-footer">
+                        <span class="card-assignee">{{ card.assignee }}</span>
+                    </div>
                 </div>
-            </FluxKanbanCard>
+            </FluxKanbanItem>
         </FluxKanbanColumn>
     </FluxKanban>
 </template>
@@ -38,7 +40,7 @@
     lang="ts"
     setup>
     import { ref } from 'vue';
-    import { FluxBadge, FluxKanban, FluxKanbanCard, FluxKanbanColumn } from '@flux-ui/components';
+    import { FluxBadge, FluxKanban, FluxKanbanItem, FluxKanbanColumn } from '@flux-ui/components';
     import type { FluxColor, FluxKanbanMoveEvent } from '@flux-ui/types';
 
     const columns = [
@@ -65,20 +67,20 @@
         return 'gray';
     }
 
-    function onMove({cardId, toColumnId, beforeCardId}: FluxKanbanMoveEvent): void {
-        const movedCard = cards.value.find(card => card.id === cardId);
+    function onMove({itemId, toColumnId, beforeItemId}: FluxKanbanMoveEvent): void {
+        const movedCard = cards.value.find(card => card.id === itemId);
 
         if (!movedCard) {
             return;
         }
 
-        const updated = cards.value.filter(card => card.id !== cardId);
+        const updated = cards.value.filter(card => card.id !== itemId);
         movedCard.columnId = String(toColumnId);
 
-        if (beforeCardId === undefined) {
+        if (beforeItemId === undefined) {
             updated.push(movedCard);
         } else {
-            const beforeIndex = updated.findIndex(card => card.id === beforeCardId);
+            const beforeIndex = updated.findIndex(card => card.id === beforeItemId);
             updated.splice(beforeIndex === -1 ? updated.length : beforeIndex, 0, movedCard);
         }
 
@@ -87,6 +89,18 @@
 </script>
 
 <style scoped>
+    .card {
+        padding: 12px;
+        background: var(--gray-25);
+        border: 1px solid var(--gray-200);
+        border-radius: var(--radius);
+        transition: box-shadow 180ms var(--swift-out);
+    }
+
+    .card:hover {
+        box-shadow: 0 1px 4px rgb(0 0 0 / .08);
+    }
+
     .card-header {
         display: flex;
         align-items: flex-start;

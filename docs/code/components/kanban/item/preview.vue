@@ -11,14 +11,6 @@
                         Design system review
                     </div>
                 </FluxKanbanItem>
-
-                <FluxKanbanItem
-                    item-id="2"
-                    column-id="todo">
-                    <div class="card">
-                        Write unit tests
-                    </div>
-                </FluxKanbanItem>
             </FluxKanbanColumn>
         </FluxKanban>
     </Preview>

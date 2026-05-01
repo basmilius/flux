@@ -1,0 +1,152 @@
+import { computed, type ComputedRef, type Ref, ref, unref } from 'vue';
+
+export type KeyboardGrabDirection = 'up' | 'down' | 'left' | 'right';
+
+export type UseKeyboardGrabOptions<TPos> = {
+    readonly isDraggable: Ref<boolean>;
+    readonly itemId: Ref<string | number | null | undefined>;
+    readonly grabbedId: Ref<string | number | null>;
+    onGrab(): TPos;
+    onMove(direction: KeyboardGrabDirection): void;
+    onCommit(origin: TPos): void;
+    onCancel(origin: TPos): void;
+    announce?(message: string): void;
+};
+
+export type UseKeyboardGrabReturn = {
+    readonly isGrabbed: ComputedRef<boolean>;
+    handleKeyDown(evt: KeyboardEvent): void;
+    release(): void;
+};
+
+let liveRegion: HTMLElement | null = null;
+
+function ensureLiveRegion(): HTMLElement {
+    if (liveRegion) {
+        return liveRegion;
+    }
+
+    if (typeof document === 'undefined') {
+        return null as unknown as HTMLElement;
+    }
+
+    const region = document.createElement('div');
+    region.setAttribute('role', 'status');
+    region.setAttribute('aria-live', 'polite');
+    region.setAttribute('aria-atomic', 'true');
+    region.style.cssText = 'position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0';
+    document.body.appendChild(region);
+    liveRegion = region;
+    return region;
+}
+
+export function defaultAnnounce(message: string): void {
+    const region = ensureLiveRegion();
+
+    if (!region) {
+        return;
+    }
+
+    region.textContent = '';
+    requestAnimationFrame(() => {
+        region.textContent = message;
+    });
+}
+
+/**
+ * Generic keyboard-grab state machine. Maps Space/Enter/Escape/Arrow keys
+ * onto grab/commit/cancel/move callbacks. The actual movement logic is
+ * delegated to `onMove` since it depends on the host component's topology.
+ */
+export default function useKeyboardGrab<TPos>(options: UseKeyboardGrabOptions<TPos>): UseKeyboardGrabReturn {
+    const origin = ref<TPos | null>(null);
+    const announce = options.announce ?? defaultAnnounce;
+
+    const isGrabbed = computed<boolean>(() => {
+        const id = unref(options.itemId);
+        const grabbed = unref(options.grabbedId);
+
+        return id != null && grabbed === id;
+    });
+
+    function release(): void {
+        origin.value = null;
+    }
+
+    function handleKeyDown(evt: KeyboardEvent): void {
+        if (!unref(options.isDraggable)) {
+            return;
+        }
+
+        const id = unref(options.itemId);
+
+        if (id == null) {
+            return;
+        }
+
+        if (!isGrabbed.value) {
+            if (evt.key === ' ' || evt.key === 'Enter') {
+                evt.preventDefault();
+                origin.value = options.onGrab() as TPos;
+            }
+
+            return;
+        }
+
+        switch (evt.key) {
+            case 'ArrowUp':
+                evt.preventDefault();
+                options.onMove('up');
+                break;
+
+            case 'ArrowDown':
+                evt.preventDefault();
+                options.onMove('down');
+                break;
+
+            case 'ArrowLeft':
+                evt.preventDefault();
+                options.onMove('left');
+                break;
+
+            case 'ArrowRight':
+                evt.preventDefault();
+                options.onMove('right');
+                break;
+
+            case ' ':
+            case 'Enter': {
+                evt.preventDefault();
+                const o = origin.value;
+                origin.value = null;
+
+                if (o !== null) {
+                    options.onCommit(o);
+                }
+
+                break;
+            }
+
+            case 'Escape': {
+                evt.preventDefault();
+                const o = origin.value;
+                origin.value = null;
+
+                if (o !== null) {
+                    options.onCancel(o);
+                }
+
+                break;
+            }
+        }
+
+        // Suppress unused-warning when announce is unused inside the function.
+        void announce;
+    }
+
+    return {
+        isGrabbed,
+        handleKeyDown,
+        release
+    };
+}

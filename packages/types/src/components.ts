@@ -55,10 +55,10 @@ export type FluxSegmentedControlItemObject = {
 };
 
 export type FluxKanbanMoveEvent = {
-    readonly cardId: string | number;
+    readonly itemId: string | number;
     readonly fromColumnId: string | number;
     readonly toColumnId: string | number;
-    readonly beforeCardId?: string | number;
+    readonly beforeItemId?: string | number;
 };
 
 export type FluxKanbanMoveColumnEvent = {

@@ -26,7 +26,7 @@ props:
 
 emits:
     -   name: move
-        description: Triggered when a card is dragged to a new position or column.
+        description: Triggered when an item is dragged to a new position or column.
         type: [ FluxKanbanMoveEvent ]
 
     -   name: move-column
@@ -44,14 +44,14 @@ slots:
 
 # Kanban
 
-A kanban board for organizing cards across draggable columns. Cards can be moved between columns and reordered within a column using drag and drop, or with the keyboard. The component is fully controlled — the parent is responsible for updating the data after a `move` event.
+A kanban board for organizing items across draggable columns. Items can be moved between columns and reordered within a column using drag and drop, or with the keyboard. The component is fully controlled — the parent is responsible for updating the data after a `move` event.
 
 ::: render
 render=../../code/components/kanban/preview.vue
 :::
 
 ::: tip Keyboard support
-Tab to a card, press <kbd>Space</kbd> or <kbd>Enter</kbd> to grab it, use the arrow keys to move, <kbd>Enter</kbd>/<kbd>Space</kbd> to drop and <kbd>Escape</kbd> to cancel.
+Tab to an item, press <kbd>Space</kbd> or <kbd>Enter</kbd> to grab it, use the arrow keys to move, <kbd>Enter</kbd>/<kbd>Space</kbd> to drop and <kbd>Escape</kbd> to cancel.
 :::
 
 <FrontmatterDocs/>
@@ -70,36 +70,36 @@ The `move` event contains everything needed to update the data:
             </FluxTableRow>
         </template>
         <FluxTableRow>
-            <FluxTableCell><code>cardId</code></FluxTableCell>
+            <FluxTableCell><code>itemId</code></FluxTableCell>
             <FluxTableCell><code>string | number</code></FluxTableCell>
-            <FluxTableCell>The ID of the card that was moved.</FluxTableCell>
+            <FluxTableCell>The ID of the item that was moved.</FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell><code>fromColumnId</code></FluxTableCell>
             <FluxTableCell><code>string | number</code></FluxTableCell>
-            <FluxTableCell>The column the card originated from.</FluxTableCell>
+            <FluxTableCell>The column the item originated from.</FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell><code>toColumnId</code></FluxTableCell>
             <FluxTableCell><code>string | number</code></FluxTableCell>
-            <FluxTableCell>The column the card was dropped into.</FluxTableCell>
+            <FluxTableCell>The column the item was dropped into.</FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
-            <FluxTableCell><code>beforeCardId</code></FluxTableCell>
+            <FluxTableCell><code>beforeItemId</code></FluxTableCell>
             <FluxTableCell><code>string | number | undefined</code></FluxTableCell>
-            <FluxTableCell>The card before which the moved card should be inserted. <code>undefined</code> means append at the end of the column.</FluxTableCell>
+            <FluxTableCell>The item before which the moved item should be inserted. <code>undefined</code> means append at the end of the column.</FluxTableCell>
         </FluxTableRow>
     </FluxTable>
 </FluxPane>
 
 ## Examples
 
-::: example Basic || A task board with draggable cards.
+::: example Basic || A task board with draggable items.
 example=../../code/components/kanban/basic.vue
 :::
 
-::: example Custom card || Using the default slot to render rich card content.
-example=../../code/components/kanban/custom-card.vue
+::: example Custom item || Using the default slot to render rich item content.
+example=../../code/components/kanban/custom-item.vue
 :::
 
 ::: example Disabled || A read-only board — drag-and-drop is disabled.
@@ -116,6 +116,6 @@ example=../../code/components/kanban/reorder-columns.vue
 
 ## Used components
 
-- [Card](./card)
 - [Column](./column)
+- [Item](./item)
 - [Pane](../pane)

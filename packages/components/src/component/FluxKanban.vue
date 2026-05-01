@@ -73,28 +73,21 @@
         kanban.onPointerMove(evt.clientX, evt.clientY);
     }
 
-    function onWindowDrop(): void {
-        kanban.endDrag();
-        kanban.endColumnDrag();
-    }
-
     onMounted(() => {
         kanban.setBoardElement(root.value);
         window.addEventListener('drag', onPointerMove);
-        window.addEventListener('dragend', onWindowDrop);
+        window.addEventListener('dragend', kanban.cancelAll);
     });
 
     onBeforeUnmount(() => {
         kanban.setBoardElement(null);
         window.removeEventListener('drag', onPointerMove);
-        window.removeEventListener('dragend', onWindowDrop);
+        window.removeEventListener('dragend', kanban.cancelAll);
     });
 
     watch(() => disabled, value => {
         if (value) {
-            kanban.endDrag();
-            kanban.endColumnDrag();
-            kanban.cancelKeyboardDrop();
+            kanban.cancelAll();
         }
     });
 

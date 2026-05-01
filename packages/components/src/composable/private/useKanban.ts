@@ -2,6 +2,7 @@ import type { FluxKanbanMoveColumnEvent, FluxKanbanMoveEvent } from '@flux-ui/ty
 import type { Ref } from 'vue';
 import { computed, ref, unref } from 'vue';
 import type { FluxKanbanColumnDragState, FluxKanbanDragState, FluxKanbanInjection, FluxKanbanKeyboardDirection } from '$flux/data/di';
+import { useKanbanAutoScroll } from './useKanbanAutoScroll';
 
 export type UseKanbanOptions = {
     readonly disabled: Ref<boolean>;
@@ -12,55 +13,67 @@ export type UseKanbanOptions = {
     readonly onAnnounce: (message: string) => void;
 };
 
-const AUTOSCROLL_ZONE = 40;
-const AUTOSCROLL_MAX_SPEED = 12;
 const DRAG_LEAVE_GRACE_MS = 50;
+
+const WITHIN_COLUMN_DELTA: Record<'up' | 'down', -1 | 1> = {up: -1, down: 1};
+const ACROSS_COLUMN_DELTA: Record<'left' | 'right', -1 | 1> = {left: -1, right: 1};
 
 /**
  * Internal composable for managing kanban drag-and-drop state.
- * Provides card registration, drag tracking, drop target management,
+ * Provides item registration, drag tracking, drop target management,
  * keyboard drag-and-drop, column reordering, drop validation and auto-scroll.
  */
 export function useKanban(options: UseKanbanOptions): FluxKanbanInjection {
     const dragState = ref<FluxKanbanDragState | null>(null);
     const columnDragState = ref<FluxKanbanColumnDragState | null>(null);
+    const isOverColumnId = ref<string | number | null>(null);
 
-    const cardRegistry = new WeakMap<Element, { readonly cardId: string | number }>();
-    const cardElementsById = new Map<string | number, Element>();
+    const itemRegistry = new WeakMap<Element, { readonly itemId: string | number }>();
+    const itemElementsById = new Map<string | number, Element>();
     const columnRegistry = new WeakMap<Element, { readonly columnId: string | number }>();
     const columnElementsById = new Map<string | number, Element>();
     const columnBodyById = new Map<string | number, Element>();
+    const dragEnterCounts = new Map<string | number, number>();
 
     let boardElement: Element | null = null;
     let clearTimer: ReturnType<typeof setTimeout> | null = null;
-    let autoScrollFrame: number | null = null;
-    let autoScrollX = 0;
-    let autoScrollY = 0;
-    let autoScrollVerticalTarget: Element | null = null;
 
-    const isDropAllowed = computed(() => {
-        const state = unref(dragState);
-
-        if (!state || state.dropColumnId === null) {
-            return true;
+    const autoScroll = useKanbanAutoScroll({
+        getBoardElement: () => boardElement,
+        getVerticalTarget: () => {
+            const state = unref(dragState);
+            return state && state.dropColumnId !== null ? columnBodyById.get(state.dropColumnId) ?? null : null;
         }
-
-        const validate = unref(options.canMove);
-
-        if (!validate) {
-            return true;
-        }
-
-        return validate(buildMoveEvent(state));
     });
 
-    function buildMoveEvent(state: FluxKanbanDragState): FluxKanbanMoveEvent {
+    const grabbedId = computed<string | number | null>(() => {
+        const state = unref(dragState);
+        return state !== null && state.mode === 'keyboard' ? state.itemId : null;
+    });
+
+    const currentMoveEvent = computed<FluxKanbanMoveEvent | null>(() => tryBuildMoveEvent(unref(dragState)));
+
+    const isDropAllowed = computed(() => {
+        const event = unref(currentMoveEvent);
+        return event === null || validateMove(event);
+    });
+
+    function tryBuildMoveEvent(state: FluxKanbanDragState | null): FluxKanbanMoveEvent | null {
+        if (!state || state.dropColumnId === null) {
+            return null;
+        }
+
         return {
-            cardId: state.cardId,
+            itemId: state.itemId,
             fromColumnId: state.fromColumnId,
-            toColumnId: state.dropColumnId as string | number,
-            beforeCardId: state.beforeCardId ?? undefined
+            toColumnId: state.dropColumnId,
+            beforeItemId: state.beforeItemId ?? undefined
         };
+    }
+
+    function validateMove(event: FluxKanbanMoveEvent): boolean {
+        const validate = unref(options.canMove);
+        return validate ? validate(event) : true;
     }
 
     function clearTimerIfAny(): void {
@@ -71,33 +84,8 @@ export function useKanban(options: UseKanbanOptions): FluxKanbanInjection {
     }
 
     function isSelfDrop(state: FluxKanbanDragState): boolean {
-        if (state.dropColumnId !== state.fromColumnId) {
-            return false;
-        }
-
-        if (state.beforeCardId === state.cardId) {
-            return true;
-        }
-
-        const fromBody = columnBodyById.get(state.fromColumnId);
-
-        if (!fromBody) {
-            return false;
-        }
-
-        const cards = Array.from(fromBody.children).filter(child => cardRegistry.has(child));
-        const draggedIndex = cards.findIndex(elm => cardRegistry.get(elm)?.cardId === state.cardId);
-
-        if (draggedIndex === -1) {
-            return false;
-        }
-
-        if (state.beforeCardId === null) {
-            return draggedIndex === cards.length - 1;
-        }
-
-        const beforeIndex = cards.findIndex(elm => cardRegistry.get(elm)?.cardId === state.beforeCardId);
-        return beforeIndex !== -1 && beforeIndex === draggedIndex + 1;
+        return state.fromColumnId === state.dropColumnId
+            && state.beforeItemId === (state.originBeforeItemId ?? null);
     }
 
     function getColumnIndex(columnId: string | number): number {
@@ -120,7 +108,7 @@ export function useKanban(options: UseKanbanOptions): FluxKanbanInjection {
         return elm ? columnRegistry.get(elm)! : null;
     }
 
-    function getCardsInColumn(columnId: string | number): (string | number)[] {
+    function getItemsInColumn(columnId: string | number): (string | number)[] {
         const body = columnBodyById.get(columnId);
 
         if (!body) {
@@ -128,27 +116,27 @@ export function useKanban(options: UseKanbanOptions): FluxKanbanInjection {
         }
 
         return Array.from(body.children)
-            .map(child => cardRegistry.get(child)?.cardId)
+            .map(child => itemRegistry.get(child)?.itemId)
             .filter((id): id is string | number => id !== undefined);
     }
 
-    function registerCard(element: Element, cardId: string | number): void {
-        cardRegistry.set(element, {cardId});
-        cardElementsById.set(cardId, element);
+    function registerItem(element: Element, itemId: string | number): void {
+        itemRegistry.set(element, {itemId});
+        itemElementsById.set(itemId, element);
     }
 
-    function unregisterCard(element: Element): void {
-        const info = cardRegistry.get(element);
+    function unregisterItem(element: Element): void {
+        const info = itemRegistry.get(element);
 
         if (info) {
-            cardElementsById.delete(info.cardId);
+            itemElementsById.delete(info.itemId);
         }
 
-        cardRegistry.delete(element);
+        itemRegistry.delete(element);
     }
 
-    function getCardInfo(element: Element): { readonly cardId: string | number } | undefined {
-        return cardRegistry.get(element);
+    function getItemInfo(element: Element): { readonly itemId: string | number } | undefined {
+        return itemRegistry.get(element);
     }
 
     function registerColumn(element: Element, columnId: string | number): void {
@@ -162,6 +150,11 @@ export function useKanban(options: UseKanbanOptions): FluxKanbanInjection {
         if (info) {
             columnElementsById.delete(info.columnId);
             columnBodyById.delete(info.columnId);
+            dragEnterCounts.delete(info.columnId);
+
+            if (isOverColumnId.value === info.columnId) {
+                isOverColumnId.value = null;
+            }
         }
 
         columnRegistry.delete(element);
@@ -183,28 +176,64 @@ export function useKanban(options: UseKanbanOptions): FluxKanbanInjection {
         }
     }
 
-    function startDrag(cardId: string | number, fromColumnId: string | number): void {
+    function enterColumn(columnId: string | number): void {
+        if (unref(options.disabled)) {
+            return;
+        }
+
+        const count = (dragEnterCounts.get(columnId) ?? 0) + 1;
+        dragEnterCounts.set(columnId, count);
+        isOverColumnId.value = columnId;
+    }
+
+    function leaveColumn(columnId: string | number): void {
+        const next = (dragEnterCounts.get(columnId) ?? 0) - 1;
+
+        if (next > 0) {
+            dragEnterCounts.set(columnId, next);
+            return;
+        }
+
+        dragEnterCounts.delete(columnId);
+
+        if (isOverColumnId.value === columnId) {
+            isOverColumnId.value = null;
+        }
+
+        clearDropTarget();
+    }
+
+    function startDrag(itemId: string | number, fromColumnId: string | number): void {
         if (unref(options.disabled)) {
             return;
         }
 
         clearTimerIfAny();
-        dragState.value = {mode: 'pointer', cardId, fromColumnId, dropColumnId: null, beforeCardId: null};
+        dragState.value = {
+            mode: 'pointer',
+            itemId,
+            fromColumnId,
+            dropColumnId: null,
+            beforeItemId: null,
+            originBeforeItemId: findCurrentBeforeItemId(itemId, fromColumnId)
+        };
     }
 
     function endDrag(): void {
         clearTimerIfAny();
-        stopAutoScroll();
+        autoScroll.stop();
         dragState.value = null;
+        isOverColumnId.value = null;
+        dragEnterCounts.clear();
     }
 
-    function updateDropTarget(columnId: string | number, beforeCardId: string | number | null): void {
+    function updateDropTarget(columnId: string | number, beforeItemId: string | number | null): void {
         if (!dragState.value) {
             return;
         }
 
         clearTimerIfAny();
-        dragState.value = {...dragState.value, dropColumnId: columnId, beforeCardId};
+        dragState.value = {...dragState.value, dropColumnId: columnId, beforeItemId};
     }
 
     function clearDropTarget(): void {
@@ -220,44 +249,33 @@ export function useKanban(options: UseKanbanOptions): FluxKanbanInjection {
                 return;
             }
 
-            dragState.value = {...dragState.value, dropColumnId: null, beforeCardId: null};
+            dragState.value = {...dragState.value, dropColumnId: null, beforeItemId: null};
         }, DRAG_LEAVE_GRACE_MS);
     }
 
     function commitDrop(): void {
         const state = dragState.value;
-        clearTimerIfAny();
-        stopAutoScroll();
+        const event = tryBuildMoveEvent(state);
+        endDrag();
 
-        if (!state || state.dropColumnId === null) {
-            dragState.value = null;
+        if (!event || !state || isSelfDrop(state)) {
             return;
         }
 
-        if (isSelfDrop(state)) {
-            dragState.value = null;
-            return;
-        }
-
-        const event = buildMoveEvent(state);
-        const validate = unref(options.canMove);
-
-        if (validate && !validate(event)) {
+        if (!validateMove(event)) {
             options.onAnnounce('Drop not allowed.');
-            dragState.value = null;
             return;
         }
 
         options.onMove(event);
-        options.onAnnounce(`Card moved to ${String(state.dropColumnId)}.`);
-        dragState.value = null;
+        options.onAnnounce(`Item moved to ${String(event.toColumnId)}.`);
     }
 
     /* region keyboard */
 
-    function findCurrentColumnId(cardId: string | number): string | number | null {
+    function findCurrentColumnId(itemId: string | number): string | number | null {
         for (const columnId of columnElementsById.keys()) {
-            if (getCardsInColumn(columnId).includes(cardId)) {
+            if (getItemsInColumn(columnId).includes(itemId)) {
                 return columnId;
             }
         }
@@ -265,18 +283,18 @@ export function useKanban(options: UseKanbanOptions): FluxKanbanInjection {
         return null;
     }
 
-    function findCurrentBeforeCardId(cardId: string | number, columnId: string | number): string | number | null {
-        const cards = getCardsInColumn(columnId);
-        const idx = cards.indexOf(cardId);
+    function findCurrentBeforeItemId(itemId: string | number, columnId: string | number): string | number | null {
+        const items = getItemsInColumn(columnId);
+        const idx = items.indexOf(itemId);
 
         if (idx === -1) {
             return null;
         }
 
-        return cards[idx + 1] ?? null;
+        return items[idx + 1] ?? null;
     }
 
-    function grabCard(cardId: string | number, fromColumnId: string | number): void {
+    function grabItem(itemId: string | number, fromColumnId: string | number): void {
         if (unref(options.disabled)) {
             return;
         }
@@ -285,13 +303,13 @@ export function useKanban(options: UseKanbanOptions): FluxKanbanInjection {
 
         dragState.value = {
             mode: 'keyboard',
-            cardId,
+            itemId,
             fromColumnId,
             dropColumnId: null,
-            beforeCardId: null,
-            originBeforeCardId: findCurrentBeforeCardId(cardId, fromColumnId)
+            beforeItemId: null,
+            originBeforeItemId: findCurrentBeforeItemId(itemId, fromColumnId)
         };
-        options.onAnnounce('Card grabbed. Use arrow keys to move, Enter to drop, Escape to cancel.');
+        options.onAnnounce('Item grabbed. Use arrow keys to move, Enter to drop, Escape to cancel.');
     }
 
     function moveKeyboard(direction: FluxKanbanKeyboardDirection): void {
@@ -301,15 +319,15 @@ export function useKanban(options: UseKanbanOptions): FluxKanbanInjection {
             return;
         }
 
-        const cardId = state.cardId;
-        const currentColumnId = findCurrentColumnId(cardId);
+        const itemId = state.itemId;
+        const currentColumnId = findCurrentColumnId(itemId);
 
         if (currentColumnId === null) {
             return;
         }
 
         const target = direction === 'up' || direction === 'down'
-            ? computeWithinColumnTarget(cardId, currentColumnId, direction)
+            ? computeWithinColumnTarget(itemId, currentColumnId, direction)
             : computeAcrossColumnTarget(currentColumnId, direction);
 
         if (!target) {
@@ -317,27 +335,25 @@ export function useKanban(options: UseKanbanOptions): FluxKanbanInjection {
         }
 
         const event: FluxKanbanMoveEvent = {
-            cardId,
+            itemId,
             fromColumnId: currentColumnId,
             toColumnId: target.columnId,
-            beforeCardId: target.beforeCardId ?? undefined
+            beforeItemId: target.beforeItemId ?? undefined
         };
 
-        const validate = unref(options.canMove);
-
-        if (validate && !validate(event)) {
+        if (!validateMove(event)) {
             options.onAnnounce('Move not allowed.');
             return;
         }
 
         options.onMove(event);
         options.onAnnounce(target.announcement);
-        restoreCardFocus(cardId);
+        restoreItemFocus(itemId);
     }
 
-    function restoreCardFocus(cardId: string | number): void {
+    function restoreItemFocus(itemId: string | number): void {
         requestAnimationFrame(() => {
-            const elm = cardElementsById.get(cardId);
+            const elm = itemElementsById.get(itemId);
 
             if (elm instanceof HTMLElement) {
                 elm.focus();
@@ -346,62 +362,54 @@ export function useKanban(options: UseKanbanOptions): FluxKanbanInjection {
     }
 
     function computeWithinColumnTarget(
-        cardId: string | number,
+        itemId: string | number,
         columnId: string | number,
         direction: 'up' | 'down'
-    ): { columnId: string | number; beforeCardId: string | number | null; announcement: string } | null {
-        const cards = getCardsInColumn(columnId);
-        const idx = cards.indexOf(cardId);
+    ): { columnId: string | number; beforeItemId: string | number | null; announcement: string } | null {
+        const items = getItemsInColumn(columnId);
+        const idx = items.indexOf(itemId);
 
         if (idx === -1) {
             return null;
         }
 
-        if (direction === 'up') {
-            if (idx === 0) {
-                return null;
-            }
+        const targetIdx = idx + WITHIN_COLUMN_DELTA[direction];
 
-            return {
-                columnId,
-                beforeCardId: cards[idx - 1],
-                announcement: `Position ${idx} of ${cards.length}.`
-            };
-        }
-
-        if (idx === cards.length - 1) {
+        if (targetIdx < 0 || targetIdx >= items.length) {
             return null;
         }
 
+        // For "down" we want the item to land after items[targetIdx], so beforeItemId is items[targetIdx + 1]; for "up" it's items[targetIdx].
+        const beforeItemId = direction === 'up' ? items[targetIdx] : items[targetIdx + 1] ?? null;
+
         return {
             columnId,
-            beforeCardId: cards[idx + 2] ?? null,
-            announcement: `Position ${idx + 2} of ${cards.length}.`
+            beforeItemId,
+            announcement: `Position ${targetIdx + 1} of ${items.length}.`
         };
     }
 
     function computeAcrossColumnTarget(
         currentColumnId: string | number,
         direction: 'left' | 'right'
-    ): { columnId: string | number; beforeCardId: string | number | null; announcement: string } | null {
+    ): { columnId: string | number; beforeItemId: string | number | null; announcement: string } | null {
         const currentIdx = getColumnIndex(currentColumnId);
 
         if (currentIdx === -1) {
             return null;
         }
 
-        const nextIdx = direction === 'left' ? currentIdx - 1 : currentIdx + 1;
-        const nextColumn = getColumnByIndex(nextIdx);
+        const nextColumn = getColumnByIndex(currentIdx + ACROSS_COLUMN_DELTA[direction]);
 
         if (!nextColumn) {
             return null;
         }
 
-        const targetCards = getCardsInColumn(nextColumn.columnId);
+        const targetItems = getItemsInColumn(nextColumn.columnId);
 
         return {
             columnId: nextColumn.columnId,
-            beforeCardId: targetCards[0] ?? null,
+            beforeItemId: targetItems[0] ?? null,
             announcement: `Moved to column ${String(nextColumn.columnId)}.`
         };
     }
@@ -413,11 +421,11 @@ export function useKanban(options: UseKanbanOptions): FluxKanbanInjection {
             return;
         }
 
-        const currentColumnId = findCurrentColumnId(state.cardId);
+        const currentColumnId = findCurrentColumnId(state.itemId);
         dragState.value = null;
 
         if (currentColumnId !== null) {
-            options.onAnnounce(`Card dropped in ${String(currentColumnId)}.`);
+            options.onAnnounce(`Item dropped in ${String(currentColumnId)}.`);
         }
     }
 
@@ -428,21 +436,21 @@ export function useKanban(options: UseKanbanOptions): FluxKanbanInjection {
             return;
         }
 
-        const cardId = state.cardId;
-        const currentColumnId = findCurrentColumnId(cardId);
-        const currentBeforeCardId = currentColumnId !== null
-            ? findCurrentBeforeCardId(cardId, currentColumnId)
+        const itemId = state.itemId;
+        const currentColumnId = findCurrentColumnId(itemId);
+        const currentBeforeItemId = currentColumnId !== null
+            ? findCurrentBeforeItemId(itemId, currentColumnId)
             : null;
 
         const isAtOrigin = currentColumnId === state.fromColumnId
-            && currentBeforeCardId === (state.originBeforeCardId ?? null);
+            && currentBeforeItemId === (state.originBeforeItemId ?? null);
 
         if (!isAtOrigin && currentColumnId !== null) {
             options.onMove({
-                cardId,
+                itemId,
                 fromColumnId: currentColumnId,
                 toColumnId: state.fromColumnId,
-                beforeCardId: state.originBeforeCardId ?? undefined
+                beforeItemId: state.originBeforeItemId ?? undefined
             });
         }
 
@@ -450,9 +458,9 @@ export function useKanban(options: UseKanbanOptions): FluxKanbanInjection {
         options.onAnnounce('Drop cancelled.');
     }
 
-    function isCardGrabbed(cardId: string | number): boolean {
+    function isItemGrabbed(itemId: string | number): boolean {
         const state = unref(dragState);
-        return state !== null && state.mode === 'keyboard' && state.cardId === cardId;
+        return state !== null && state.mode === 'keyboard' && state.itemId === itemId;
     }
 
     /* endregion */
@@ -468,7 +476,7 @@ export function useKanban(options: UseKanbanOptions): FluxKanbanInjection {
     }
 
     function endColumnDrag(): void {
-        stopAutoScroll();
+        autoScroll.stop();
         columnDragState.value = null;
     }
 
@@ -482,7 +490,7 @@ export function useKanban(options: UseKanbanOptions): FluxKanbanInjection {
 
     function commitColumnDrop(): void {
         const state = columnDragState.value;
-        stopAutoScroll();
+        autoScroll.stop();
 
         if (!state) {
             return;
@@ -512,137 +520,53 @@ export function useKanban(options: UseKanbanOptions): FluxKanbanInjection {
 
     /* endregion */
 
-    /* region auto-scroll */
+    function cancelAll(): void {
+        endDrag();
+        endColumnDrag();
+        cancelKeyboardDrop();
+    }
 
     function onPointerMove(clientX: number, clientY: number): void {
         if (!unref(dragState) && !unref(columnDragState)) {
             return;
         }
 
-        autoScrollX = computeHorizontalScrollDelta(clientX);
-        autoScrollY = 0;
-        autoScrollVerticalTarget = null;
-
-        const state = unref(dragState);
-
-        if (state && state.dropColumnId !== null) {
-            const body = columnBodyById.get(state.dropColumnId);
-
-            if (body) {
-                autoScrollY = computeVerticalScrollDelta(body, clientY);
-                autoScrollVerticalTarget = body;
-            }
-        }
-
-        if (autoScrollX !== 0 || autoScrollY !== 0) {
-            startAutoScroll();
-        } else {
-            stopAutoScroll();
-        }
+        autoScroll.onPointerMove(clientX, clientY);
     }
-
-    function computeHorizontalScrollDelta(clientX: number): number {
-        if (!boardElement) {
-            return 0;
-        }
-
-        const rect = boardElement.getBoundingClientRect();
-
-        if (clientX < rect.left + AUTOSCROLL_ZONE) {
-            const distance = Math.max(0, clientX - rect.left);
-            return -Math.round(((AUTOSCROLL_ZONE - distance) / AUTOSCROLL_ZONE) * AUTOSCROLL_MAX_SPEED);
-        }
-
-        if (clientX > rect.right - AUTOSCROLL_ZONE) {
-            const distance = Math.max(0, rect.right - clientX);
-            return Math.round(((AUTOSCROLL_ZONE - distance) / AUTOSCROLL_ZONE) * AUTOSCROLL_MAX_SPEED);
-        }
-
-        return 0;
-    }
-
-    function computeVerticalScrollDelta(target: Element, clientY: number): number {
-        const rect = target.getBoundingClientRect();
-
-        if (clientY < rect.top + AUTOSCROLL_ZONE) {
-            const distance = Math.max(0, clientY - rect.top);
-            return -Math.round(((AUTOSCROLL_ZONE - distance) / AUTOSCROLL_ZONE) * AUTOSCROLL_MAX_SPEED);
-        }
-
-        if (clientY > rect.bottom - AUTOSCROLL_ZONE) {
-            const distance = Math.max(0, rect.bottom - clientY);
-            return Math.round(((AUTOSCROLL_ZONE - distance) / AUTOSCROLL_ZONE) * AUTOSCROLL_MAX_SPEED);
-        }
-
-        return 0;
-    }
-
-    function startAutoScroll(): void {
-        if (autoScrollFrame !== null) {
-            return;
-        }
-
-        const tick = () => {
-            if (autoScrollX !== 0 && boardElement) {
-                boardElement.scrollLeft += autoScrollX;
-            }
-
-            if (autoScrollY !== 0 && autoScrollVerticalTarget) {
-                autoScrollVerticalTarget.scrollTop += autoScrollY;
-            }
-
-            if (autoScrollX === 0 && autoScrollY === 0) {
-                autoScrollFrame = null;
-                return;
-            }
-
-            autoScrollFrame = requestAnimationFrame(tick);
-        };
-
-        autoScrollFrame = requestAnimationFrame(tick);
-    }
-
-    function stopAutoScroll(): void {
-        if (autoScrollFrame !== null) {
-            cancelAnimationFrame(autoScrollFrame);
-            autoScrollFrame = null;
-        }
-
-        autoScrollX = 0;
-        autoScrollY = 0;
-        autoScrollVerticalTarget = null;
-    }
-
-    /* endregion */
 
     return {
         disabled: options.disabled,
         reorderableColumns: options.reorderableColumns,
         dragState,
         columnDragState,
+        grabbedId,
+        isOverColumnId,
         isDropAllowed,
-        registerCard,
-        unregisterCard,
-        getCardInfo,
+        registerItem,
+        unregisterItem,
+        getItemInfo,
         registerColumn,
         unregisterColumn,
         getColumnInfo,
         setBoardElement,
         setColumnBodyElement,
+        enterColumn,
+        leaveColumn,
         startDrag,
         endDrag,
         updateDropTarget,
         clearDropTarget,
         commitDrop,
-        grabCard,
+        grabItem,
         moveKeyboard,
         commitKeyboardDrop,
         cancelKeyboardDrop,
-        isCardGrabbed,
+        isItemGrabbed,
         startColumnDrag,
         endColumnDrag,
         updateColumnDropTarget,
         commitColumnDrop,
+        cancelAll,
         onPointerMove
     };
 }

@@ -1,6 +1,8 @@
 export { default as useCalendar } from './useCalendar';
 export { default as useCalendarMonthSwitcher } from './useCalendarMonthSwitcher';
+export { default as useCalendarTimeGrid } from './useCalendarTimeGrid';
 export { default as useCalendarYearSwitcher } from './useCalendarYearSwitcher';
+export { default as useKeyboardGrab, defaultAnnounce as defaultKeyboardGrabAnnounce } from './useKeyboardGrab';
 export { default as useEventListener } from './useEventListener';
 export { default as useInView } from './useInView';
 export { default as useRemembered } from './useRemembered';

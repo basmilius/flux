@@ -1,25 +1,23 @@
 .adaptiveGroup {
     display: flex;
-    overflow: hidden;
+    min-width: 0;
     flex-flow: row nowrap;
     gap: var(--gap, 9px);
-    min-width: 0;
 }
 
 .adaptiveSlot {
     display: flex;
-    overflow: hidden;
-    flex-flow: row nowrap;
     min-width: 0;
+    flex-flow: row nowrap;
 }
 
 .adaptiveSlotMeasurer {
     position: absolute;
+    display: flex;
     top: 0;
     left: 0;
-    display: flex;
-    visibility: hidden;
-    flex-flow: row nowrap;
     width: max-content;
+    flex-flow: row nowrap;
     pointer-events: none;
+    visibility: hidden;
 }

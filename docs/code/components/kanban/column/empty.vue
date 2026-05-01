@@ -5,13 +5,15 @@
             :key="column.id"
             :column-id="column.id"
             :label="column.label">
-            <FluxKanbanCard
+            <FluxKanbanItem
                 v-for="card in getCards(column.id)"
                 :key="card.id"
-                :card-id="card.id"
+                :item-id="card.id"
                 :column-id="column.id">
-                {{ card.title }}
-            </FluxKanbanCard>
+                <div class="card">
+                    {{ card.title }}
+                </div>
+            </FluxKanbanItem>
 
             <template #empty>
                 Drop a card here.
@@ -23,7 +25,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxKanban, FluxKanbanCard, FluxKanbanColumn } from '@flux-ui/components';
+    import { FluxKanban, FluxKanbanItem, FluxKanbanColumn } from '@flux-ui/components';
 
     const columns = [
         {id: 'todo', label: 'To do'},
@@ -39,3 +41,17 @@
         return cards.filter(card => card.columnId === columnId);
     }
 </script>
+
+<style scoped>
+    .card {
+        padding: 12px;
+        background: var(--gray-25);
+        border: 1px solid var(--gray-200);
+        border-radius: var(--radius);
+        transition: box-shadow 180ms var(--swift-out);
+    }
+
+    .card:hover {
+        box-shadow: 0 1px 4px rgb(0 0 0 / .08);
+    }
+</style>

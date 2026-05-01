@@ -8,13 +8,15 @@
             :key="column.id"
             :column-id="column.id"
             :label="column.label">
-            <FluxKanbanCard
+            <FluxKanbanItem
                 v-for="card in getCards(column.id)"
                 :key="card.id"
-                :card-id="card.id"
+                :item-id="card.id"
                 :column-id="column.id">
-                {{ card.title }}
-            </FluxKanbanCard>
+                <div class="card">
+                    {{ card.title }}
+                </div>
+            </FluxKanbanItem>
         </FluxKanbanColumn>
     </FluxKanban>
 </template>
@@ -23,7 +25,7 @@
     lang="ts"
     setup>
     import { ref } from 'vue';
-    import { FluxKanban, FluxKanbanCard, FluxKanbanColumn } from '@flux-ui/components';
+    import { FluxKanban, FluxKanbanItem, FluxKanbanColumn } from '@flux-ui/components';
     import type { FluxKanbanMoveColumnEvent, FluxKanbanMoveEvent } from '@flux-ui/types';
 
     const columns = ref([
@@ -43,20 +45,20 @@
         return cards.value.filter(card => card.columnId === columnId);
     }
 
-    function onMove({cardId, toColumnId, beforeCardId}: FluxKanbanMoveEvent): void {
-        const movedCard = cards.value.find(card => card.id === cardId);
+    function onMove({itemId, toColumnId, beforeItemId}: FluxKanbanMoveEvent): void {
+        const movedCard = cards.value.find(card => card.id === itemId);
 
         if (!movedCard) {
             return;
         }
 
-        const updated = cards.value.filter(card => card.id !== cardId);
+        const updated = cards.value.filter(card => card.id !== itemId);
         movedCard.columnId = String(toColumnId);
 
-        if (beforeCardId === undefined) {
+        if (beforeItemId === undefined) {
             updated.push(movedCard);
         } else {
-            const beforeIndex = updated.findIndex(card => card.id === beforeCardId);
+            const beforeIndex = updated.findIndex(card => card.id === beforeItemId);
             updated.splice(beforeIndex === -1 ? updated.length : beforeIndex, 0, movedCard);
         }
 
@@ -82,3 +84,17 @@
         columns.value = remaining;
     }
 </script>
+
+<style scoped>
+    .card {
+        padding: 12px;
+        background: var(--gray-25);
+        border: 1px solid var(--gray-200);
+        border-radius: var(--radius);
+        transition: box-shadow 180ms var(--swift-out);
+    }
+
+    .card:hover {
+        box-shadow: 0 1px 4px rgb(0 0 0 / .08);
+    }
+</style>
