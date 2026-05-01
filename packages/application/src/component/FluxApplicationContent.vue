@@ -16,10 +16,10 @@
     lang="ts"
     setup>
     import clsx from 'clsx';
+    import { watch } from 'vue';
     import { useApplicationInjection } from '../composable';
     import type { FluxApplicationLayout } from '../data';
-    import $style from '../css/component/ApplicationContent.module.scss';
-    import { watch } from 'vue';
+    import $style from '$fluxApplication/css/component/ApplicationContent.module.scss';
 
     const {
         layout = 'default'

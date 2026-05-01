@@ -147,16 +147,16 @@
 <script
     lang="ts"
     setup>
-    import type { FluxCommandSource, FluxCommandSourceItem } from '@flux-ui/types';
     import { isSSR, vHeightTransition } from '@flux-ui/internals';
+    import type { FluxCommandSource, FluxCommandSourceItem } from '@flux-ui/types';
     import { onMounted, onUnmounted, ref, toRef, unref, useTemplateRef } from 'vue';
-    import { useCommandPalette } from '$flux/composable/private/useCommandPalette';
+    import { useCommandPalette } from '$flux/composable/private';
+    import { FluxWindowTransition } from '$flux/transition';
     import FluxCommandPaletteGroup from './FluxCommandPaletteGroup.vue';
     import FluxCommandPaletteItem from './FluxCommandPaletteItem.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
     import FluxTag from './FluxTag.vue';
-    import FluxWindowTransition from '$flux/transition/FluxWindowTransition.vue';
     import $style from '$flux/css/component/CommandPalette.module.scss';
 
     const props = defineProps<{

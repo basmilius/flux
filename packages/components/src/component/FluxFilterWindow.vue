@@ -47,11 +47,11 @@
     import type { FluxFilterItem } from '@flux-ui/types';
     import { unref, useTemplateRef, type VNode } from 'vue';
     import { useTranslate } from '$flux/composable/private';
-    import { FilterMenuRenderer, VNodeRenderer } from './primitive';
     import FluxMenu from './FluxMenu.vue';
     import FluxMenuGroup from './FluxMenuGroup.vue';
     import FluxMenuItem from './FluxMenuItem.vue';
     import FluxWindow from './FluxWindow.vue';
+    import { FilterMenuRenderer, VNodeRenderer } from './primitive';
     import $style from '$flux/css/component/Filter.module.scss';
 
     const emit = defineEmits<{

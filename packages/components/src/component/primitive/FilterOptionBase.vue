@@ -39,10 +39,10 @@
     setup>
     import type { FluxFilterOptionItem, FluxFilterOptionRow, FluxFilterValueSingle } from '@flux-ui/types';
     import { isFluxFilterOptionHeader, isFluxFilterOptionItem } from '$flux/data';
-    import FluxMenuItem from '$flux/component/FluxMenuItem.vue';
-    import FluxFormInput from '$flux/component/FluxFormInput.vue';
-    import FluxMenuGroup from '$flux/component/FluxMenuGroup.vue';
-    import FluxMenuSubHeader from '$flux/component/FluxMenuSubHeader.vue';
+    import FluxFormInput from '../FluxFormInput.vue';
+    import FluxMenuGroup from '../FluxMenuGroup.vue';
+    import FluxMenuItem from '../FluxMenuItem.vue';
+    import FluxMenuSubHeader from '../FluxMenuSubHeader.vue';
     import $style from '$flux/css/component/Filter.module.scss';
 
     const emit = defineEmits<{

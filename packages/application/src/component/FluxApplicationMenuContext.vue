@@ -25,9 +25,9 @@
     import type { FluxPressableType, FluxTo } from '@flux-ui/types';
     import { computed, inject } from 'vue';
     import { matchedRouteKey } from 'vue-router';
+    import { useApplicationContextRegistration } from '../composable';
     import { FluxApplicationInjectionKey } from '../data';
-    import useApplicationContextRegistration from '../composable/useApplicationContextRegistration';
-    import $style from '../css/component/ApplicationMenu.module.scss';
+    import $style from '$fluxApplication/css/component/ApplicationMenu.module.scss';
 
     const props = defineProps<{
         readonly subtitle?: string;

@@ -9,8 +9,8 @@
 <script
     lang="ts"
     setup>
-    import type { VNode } from 'vue';
     import type { FluxIconName } from '@flux-ui/types';
+    import type { VNode } from 'vue';
     import $style from '$flux/css/component/Tab.module.scss';
 
     defineProps<{

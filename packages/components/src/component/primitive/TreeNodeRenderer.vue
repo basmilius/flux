@@ -43,9 +43,8 @@
     generic="TOption extends TreeBaseOption">
     import type { FluxColor } from '@flux-ui/types';
     import { computed } from 'vue';
-    import type { TreeBaseOption, TreeFlatNode } from '$flux/composable/private';
-    import { getLevelColor } from '$flux/composable/private';
-    import FluxIcon from '$flux/component/FluxIcon.vue';
+    import { getLevelColor, type TreeBaseOption, type TreeFlatNode } from '$flux/composable/private';
+    import FluxIcon from '../FluxIcon.vue';
     import $style from '$flux/css/component/primitive/TreeNode.module.scss';
 
     const emit = defineEmits<{

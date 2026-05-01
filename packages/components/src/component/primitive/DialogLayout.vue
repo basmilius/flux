@@ -23,8 +23,8 @@
 <script
     lang="ts"
     setup>
-    import type { VNode } from 'vue';
     import type { FluxIconName } from '@flux-ui/types';
+    import type { VNode } from 'vue';
     import FluxPane from '../FluxPane.vue';
     import FluxPaneBody from '../FluxPaneBody.vue';
     import FluxPaneFooter from '../FluxPaneFooter.vue';

@@ -19,6 +19,7 @@ packages/
   internals/    @flux-ui/internals   — shared internal utilities & composables
   statistics/   @flux-ui/statistics  — statistics / chart components (ApexCharts)
   dashboard/    @flux-ui/dashboard   — dashboard layout components
+  application/  @flux-ui/application — application layout / navigation components
 docs/                                — VitePress documentation site
 ```
 
@@ -53,6 +54,85 @@ Always run a build as the validation step before declaring an implementation don
 - **Trailing commas**: removed (`ij_typescript_enforce_trailing_comma = remove`)
 - **Max line length**: 999 (effectively unlimited)
 - **Final newline**: required
+
+---
+
+## Import conventions
+
+Strict rules apply to all `.ts` and `.vue` files in `packages/*/src/`.
+
+### 1. Type imports
+
+- **Mixed value + type from the same module** → use **inline `type`** keyword:
+  ```ts
+  import { computed, ref, type Ref } from 'vue';
+  ```
+- **Pure type-only imports** (every named import is a type) → use **`import type {}`**:
+  ```ts
+  import type { FluxButtonEmits, FluxButtonProps } from '@flux-ui/types';
+  import type { VNode } from 'vue';
+  ```
+- **Default + named** imports stay as-is, never split:
+  ```ts
+  import FluxButton, { SLOTS } from './FluxButton.vue';
+  ```
+- **Side-effect imports** stay as-is: `import './foo.scss'`, `import 'imask/masked/pattern'`.
+
+### 2. Path aliases
+
+Each package has its own alias to its own `src/`. Never use `@/*` — it is not configured anywhere.
+
+| Package      | Alias              | Resolves to                  |
+|--------------|--------------------|------------------------------|
+| components   | `$flux/*`          | `packages/components/src/*`  |
+| dashboard    | `$fluxDashboard/*` | `packages/dashboard/src/*`   |
+| statistics   | `$fluxStatistics/*`| `packages/statistics/src/*`  |
+| application  | `$fluxApplication/*` + `$flux/*` (cross-pkg, only for `$flux/css/...`) | `packages/application/src/*` |
+| internals    | (none — relative paths only) | — |
+| types        | (none — relative paths only) | — |
+
+Cross-package alias usage is forbidden (e.g. no `$fluxDashboard/*` from inside `components`). The single exception: `application` may use `$flux/css/...` for shared CSS.
+
+### 3. Barrel imports
+
+Always import from a directory's barrel (`index.ts`) **unless** the importing file is in that same directory.
+
+- ❌ From `component/FluxButton.vue`: `import { useDisabled } from '$flux/composable/useDisabled';`
+- ✅ From `component/FluxButton.vue`: `import { useDisabled } from '$flux/composable';`
+- ✅ From `composable/useFoo.ts`: `import { useDisabled } from './useDisabled';`
+
+Known barrels in `packages/components/src/`: `composable/`, `composable/private/`, `data/`, `transition/`, `util/`, `component/primitive/`, `component/calendar/`, plus the top-level `index.ts`.
+
+**Critical for injection keys**: keys like `FluxKanbanInjectionKey`, `FluxCalendarInjectionKey`, `FluxDisabledInjectionKey` (defined in `data/di.ts`) **must** always be imported via the `$flux/data` barrel. Importing them via the deep path (`$flux/data/di`) creates a separate module instance in Vite/rolldown — provider and consumer end up with different `Symbol()` instances and `inject()` returns nothing.
+
+**Documented exceptions** (deep imports allowed):
+- `$flux/data/timeZones` — too large to include in the data barrel
+- `$flux/css/...` — CSS modules, no barrel
+- `../FluxX.vue` from `component/primitive/*` and `component/calendar/*` — kept relative to avoid import cycles between primitives and parent components
+
+### 4. Import order
+
+Four groups, **no** blank lines between groups, alphabetic within each group:
+
+1. **External (npm)** — `@`-scoped first (alphabetic), then unscoped (alphabetic)
+2. **Internal absolute / parent** — alias paths (`$flux/*`, `$fluxDashboard/*`, etc., excluding `/css/`) and `../...`
+3. **Local siblings** — `./...`
+4. **Styles (last)** — `$flux/css/*`, `$fluxDashboard/css/*`, `*.module.scss`
+
+Example:
+```ts
+import { type FluxButtonEmits, type FluxButtonProps, type FluxButtonSlots } from '@flux-ui/types';
+import { clsx } from 'clsx';
+import { toRef, unref } from 'vue';
+import { useDisabled } from '$flux/composable';
+import FluxIcon from './FluxIcon.vue';
+import FluxPressable from './FluxPressable.vue';
+import $style from '$flux/css/component/base/Button.module.scss';
+```
+
+### 5. Type-only npm packages
+
+Some npm packages export only TypeScript types and have no runtime entry (e.g. `@fortawesome/fontawesome-common-types`). Always import these with `import type {}` — inline `type` keyword leaves an empty runtime import that Vite/rolldown will try to resolve, which fails for type-only packages.
 
 ---
 

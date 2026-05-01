@@ -5,7 +5,7 @@
     import { clsx } from 'clsx';
     import { computed, defineComponent, onBeforeUnmount, onMounted, ref, toRef, watch } from 'vue';
     import { useCalendarInjection } from '$flux/composable';
-    import type { FluxCalendarItemData } from '$flux/data/di';
+    import type { FluxCalendarItemData } from '$flux/data';
     import $style from '$flux/css/component/Calendar.module.scss';
 
     const {data} = defineProps<{

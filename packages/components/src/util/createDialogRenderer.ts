@@ -1,6 +1,5 @@
 import { flattenVNodeTree, useFocusTrap } from '@flux-ui/internals';
-import type { Component, RenderFunction, SetupContext, Slots, VNode } from 'vue';
-import { Comment, h, onUnmounted, ref, Teleport, watch } from 'vue';
+import { Comment, h, onUnmounted, ref, Teleport, watch, type Component, type RenderFunction, type SetupContext, type Slots, type VNode } from 'vue';
 import { registerDialog, useFluxStore } from '$flux/data';
 import $style from '$flux/css/component/Overlay.module.scss';
 

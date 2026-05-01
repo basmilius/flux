@@ -36,8 +36,8 @@
 <script
     lang="ts"
     setup>
-    import type { FluxIconName, FluxTo } from '@flux-ui/types';
     import { flattenVNodeTree } from '@flux-ui/internals';
+    import type { FluxIconName, FluxTo } from '@flux-ui/types';
     import { computed, getCurrentInstance, ref, useId, type VNode, watch } from 'vue';
     import { FluxAutoHeightTransition } from '$flux/transition';
     import FluxMenuItem from './FluxMenuItem.vue';

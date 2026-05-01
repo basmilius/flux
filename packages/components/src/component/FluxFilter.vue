@@ -20,10 +20,10 @@
 <script
     lang="ts"
     setup>
-    import type { VNode } from 'vue';
     import type { FluxFilterState } from '@flux-ui/types';
+    import type { VNode } from 'vue';
     import FluxFilterBase from './FluxFilterBase.vue';
-    import FluxFilterWindow from '$flux/component/FluxFilterWindow.vue';
+    import FluxFilterWindow from './FluxFilterWindow.vue';
 
     const emit = defineEmits<{
         reset: [string]

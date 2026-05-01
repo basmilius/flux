@@ -1,5 +1,5 @@
-import type { ComputedRef, InjectionKey, Ref } from 'vue';
 import type { FluxPressableType, FluxTo } from '@flux-ui/types';
+import type { ComputedRef, InjectionKey, Ref } from 'vue';
 
 export const FluxApplicationInjectionKey: InjectionKey<FluxApplicationInjection> = Symbol();
 

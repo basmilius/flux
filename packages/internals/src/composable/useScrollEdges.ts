@@ -1,7 +1,5 @@
-import type { Ref } from 'vue';
-import { ref, watch } from 'vue';
-import type { TemplateRef } from '../util';
-import { unrefTemplateElement } from '../util';
+import { ref, type Ref, watch } from 'vue';
+import { type TemplateRef, unrefTemplateElement } from '../util';
 
 export default function <TElement extends HTMLElement>(elementRef: TemplateRef<TElement>): UseScrollEdgesReturn {
     const isAtStart = ref(true);

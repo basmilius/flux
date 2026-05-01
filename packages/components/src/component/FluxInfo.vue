@@ -14,8 +14,8 @@
 <script
     setup
     lang="ts">
-    import type { VNode } from 'vue';
     import type { FluxIconName } from '@flux-ui/types';
+    import type { VNode } from 'vue';
     import FluxIcon from './FluxIcon.vue';
     import $style from '$flux/css/component/Info.module.scss';
 

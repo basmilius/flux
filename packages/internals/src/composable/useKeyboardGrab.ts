@@ -1,4 +1,4 @@
-import { computed, type ComputedRef, type Ref, ref, unref } from 'vue';
+import { computed, type ComputedRef, ref, type Ref, unref } from 'vue';
 
 export type KeyboardGrabDirection = 'up' | 'down' | 'left' | 'right';
 

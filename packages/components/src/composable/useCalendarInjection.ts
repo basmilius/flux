@@ -1,6 +1,5 @@
 import { inject } from 'vue';
-import type { FluxCalendarInjection } from '$flux/data/di';
-import { FluxCalendarInjectionKey } from '$flux/data/di';
+import { FluxCalendarInjectionKey, type FluxCalendarInjection } from '$flux/data';
 
 export default function (): FluxCalendarInjection | null {
     return inject(FluxCalendarInjectionKey, null);

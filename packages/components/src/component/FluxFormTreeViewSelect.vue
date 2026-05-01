@@ -117,15 +117,12 @@
     import { clsx } from 'clsx';
     import { type ComponentPublicInstance, computed, nextTick, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled, useFormFieldInjection } from '$flux/composable';
-    import type { TreeFlatNode } from '$flux/composable/private';
-    import { flattenAll, flattenVisible, INITIAL_HIGHLIGHTED_INDEX, useDropdownPopup, useTranslate, useTreeView } from '$flux/composable/private';
+    import { flattenAll, flattenVisible, INITIAL_HIGHLIGHTED_INDEX, type TreeFlatNode, useDropdownPopup, useTranslate, useTreeView } from '$flux/composable/private';
     import { FluxFadeTransition } from '$flux/transition';
-    import FluxFormInput from '$flux/component/FluxFormInput.vue';
-    import FluxIcon from '$flux/component/FluxIcon.vue';
-    import FluxTag from '$flux/component/FluxTag.vue';
-    import Anchor from '$flux/component/primitive/Anchor.vue';
-    import AnchorPopup from '$flux/component/primitive/AnchorPopup.vue';
-    import TreeNodeRenderer from '$flux/component/primitive/TreeNodeRenderer.vue';
+    import FluxFormInput from './FluxFormInput.vue';
+    import FluxIcon from './FluxIcon.vue';
+    import FluxTag from './FluxTag.vue';
+    import { Anchor, AnchorPopup, TreeNodeRenderer } from './primitive';
     import $formStyle from '$flux/css/component/Form.module.scss';
     import $style from '$flux/css/component/TreeViewSelect.module.scss';
 

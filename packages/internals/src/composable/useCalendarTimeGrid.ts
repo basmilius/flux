@@ -1,5 +1,5 @@
 import type { DateTime } from 'luxon';
-import { computed, type ComputedRef, type MaybeRefOrGetter, type Ref, ref, toValue, unref, watch } from 'vue';
+import { computed, type ComputedRef, type MaybeRefOrGetter, ref, type Ref, toValue, unref, watch } from 'vue';
 
 export type UseCalendarTimeGridDayCount = 1 | 2 | 7;
 

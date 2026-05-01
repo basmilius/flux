@@ -1,5 +1,4 @@
-import type { Ref } from 'vue';
-import { ref, unref } from 'vue';
+import { ref, type Ref, unref } from 'vue';
 import type { TemplateRef } from '../util';
 import useEventListener from './useEventListener';
 

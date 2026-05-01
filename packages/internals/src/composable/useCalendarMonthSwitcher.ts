@@ -1,6 +1,5 @@
 import type { DateTime } from 'luxon';
-import type { Ref } from 'vue';
-import { computed, unref } from 'vue';
+import { computed, type Ref, unref } from 'vue';
 
 export default function (currentDate: Ref<DateTime>, displayLength: 'short' | 'long'): UseCalendarMonthSwitcherReturn {
     const months = computed(() => {

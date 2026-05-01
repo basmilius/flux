@@ -13,7 +13,7 @@
     import { useLoaded } from '@basmilius/common';
     import type { FluxFilterItem, FluxFilterValue } from '@flux-ui/types';
     import { computed, ref, unref, watch } from 'vue';
-    import { FluxBadge } from '$flux/component';
+    import FluxBadge from '../FluxBadge.vue';
     import $style from '$flux/css/component/Filter.module.scss';
 
     const emit = defineEmits<{

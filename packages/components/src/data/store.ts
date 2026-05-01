@@ -1,6 +1,5 @@
 import type { FluxAlertObject, FluxConfirmObject, FluxPromptObject, FluxSnackbarObject, FluxTooltipObject } from '@flux-ui/types';
-import type { ComputedRef } from 'vue';
-import { computed, reactive } from 'vue';
+import { computed, reactive, type ComputedRef } from 'vue';
 
 export type FluxState = {
     dialogCount: number;

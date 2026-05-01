@@ -50,9 +50,9 @@
 <script
     lang="ts"
     setup>
-    import type { VNode } from 'vue';
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
+    import type { VNode } from 'vue';
     import { useTranslate } from '$flux/composable/private';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';

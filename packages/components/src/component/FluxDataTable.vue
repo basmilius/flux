@@ -69,8 +69,7 @@
     lang="ts"
     setup
     generic="T extends Record<string, any>">
-    import type { VNode } from 'vue';
-    import { computed } from 'vue';
+    import { computed, type VNode } from 'vue';
     import FluxPaginationBar from './FluxPaginationBar.vue';
     import FluxTable from './FluxTable.vue';
     import FluxTableRow from './FluxTableRow.vue';

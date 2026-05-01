@@ -1,5 +1,4 @@
-import type { VNode } from 'vue';
-import { Fragment } from 'vue';
+import { Fragment, type VNode } from 'vue';
 
 export default function (vnodes: VNode[]): VNode[] {
     const flattened: VNode[] = [];

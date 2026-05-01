@@ -41,8 +41,8 @@
 <script
     lang="ts"
     setup>
-    import type { VNode } from 'vue';
     import type { FluxPressableType, FluxTo } from '@flux-ui/types';
+    import type { VNode } from 'vue';
 
     const emit = defineEmits<{
         click: [MouseEvent];

@@ -13,8 +13,8 @@
 <script
     lang="ts"
     setup>
-    import type { VNode } from 'vue';
     import { clsx } from 'clsx';
+    import type { VNode } from 'vue';
     import $style from '$flux/css/component/Form.module.scss';
 
     defineProps<{

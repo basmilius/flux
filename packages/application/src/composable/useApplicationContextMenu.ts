@@ -1,5 +1,5 @@
 import { computed, type ComputedRef, toRef } from 'vue';
-import useNamedRoutes from '../routing/useNamedRoutes';
+import { useNamedRoutes } from '../routing';
 
 export default function (name: string = 'menu'): UseApplicationContextMenu {
     const matches = useNamedRoutes(toRef(() => name));

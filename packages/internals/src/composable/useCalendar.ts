@@ -1,5 +1,5 @@
 import type { DateTime } from 'luxon';
-import { computed, type Ref, ref, unref } from 'vue';
+import { computed, ref, type Ref, unref } from 'vue';
 
 export default function (initialDate: DateTime, options?: UseCalendarOptions): UseCalendarReturn {
     const isTransitioningToPast = ref(false);

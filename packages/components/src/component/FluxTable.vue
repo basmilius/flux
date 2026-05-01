@@ -45,8 +45,7 @@
 <script
     lang="ts"
     setup>
-    import type { VNode } from 'vue';
-    import { provide } from 'vue';
+    import { provide, type VNode } from 'vue';
     import { FluxTableInjectionKey } from '$flux/data';
     import FluxPaneBody from './FluxPaneBody.vue';
     import FluxSpinner from './FluxSpinner.vue';

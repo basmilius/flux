@@ -52,9 +52,9 @@
 <script
     lang="ts"
     setup>
-    import type { VNode } from 'vue';
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
+    import type { VNode } from 'vue';
     import FluxIcon from './FluxIcon.vue';
     import $style from '$flux/css/component/Timeline.module.scss';
 

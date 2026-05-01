@@ -24,7 +24,7 @@
     lang="ts"
     setup>
     import type { VNode } from 'vue';
-    import $style from '../css/component/ApplicationHero.module.scss';
+    import $style from '$fluxApplication/css/component/ApplicationHero.module.scss';
 
     defineProps<{
         readonly title: string;

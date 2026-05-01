@@ -35,9 +35,8 @@
     import type { FluxColor, FluxTreeViewOption } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, ref, unref, useTemplateRef } from 'vue';
-    import type { TreeFlatNode } from '$flux/composable/private';
-    import { flattenVisible, useTreeView } from '$flux/composable/private';
-    import TreeNodeRenderer from '$flux/component/primitive/TreeNodeRenderer.vue';
+    import { flattenVisible, type TreeFlatNode, useTreeView } from '$flux/composable/private';
+    import { TreeNodeRenderer } from './primitive';
     import $style from '$flux/css/component/TreeView.module.scss';
 
     type FlatNode = TreeFlatNode<FluxTreeViewOption>;

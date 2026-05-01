@@ -22,7 +22,7 @@
     import type { FluxKanbanMoveColumnEvent, FluxKanbanMoveEvent } from '@flux-ui/types';
     import { computed, onBeforeUnmount, onMounted, provide, ref, toRef, useTemplateRef, watch } from 'vue';
     import { useKanban } from '$flux/composable/private';
-    import { FluxDisabledInjectionKey, FluxKanbanInjectionKey } from '$flux/data/di';
+    import { FluxDisabledInjectionKey, FluxKanbanInjectionKey } from '$flux/data';
     import $style from '$flux/css/component/Kanban.module.scss';
 
     const {

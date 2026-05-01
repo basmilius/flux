@@ -110,8 +110,8 @@
     import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
     import { computed, onBeforeUnmount, ref, unref } from 'vue';
-    import type { FluxCalendarItemData } from '$flux/data/di';
     import { useTranslate } from '$flux/composable/private';
+    import type { FluxCalendarItemData } from '$flux/data';
     import { FluxWindowTransition } from '$flux/transition';
     import FluxCalendarItemDisplay from './FluxCalendarItemDisplay.vue';
     import $style from '$flux/css/component/Calendar.module.scss';

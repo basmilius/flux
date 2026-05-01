@@ -45,7 +45,7 @@
     import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
     import { computed, ref, unref } from 'vue';
-    import type { FluxCalendarItemData } from '$flux/data/di';
+    import type { FluxCalendarItemData } from '$flux/data';
     import { FluxWindowTransition } from '$flux/transition';
     import FluxCalendarItemDisplay from './FluxCalendarItemDisplay.vue';
     import $style from '$flux/css/component/Calendar.module.scss';

@@ -75,18 +75,17 @@
 <script
     lang="ts"
     setup>
-    import type { VNode } from 'vue';
-    import { computed, unref } from 'vue';
     import type { FluxFilterState } from '@flux-ui/types';
+    import { computed, unref, type VNode } from 'vue';
     import { FilterBadge, VNodeRenderer } from '$flux/component/primitive';
     import FluxFilterBase from './FluxFilterBase.vue';
     import FluxFilterWindow from './FluxFilterWindow.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxFormInput from './FluxFormInput.vue';
-    import FluxMenu from '$flux/component/FluxMenu.vue';
+    import FluxMenu from './FluxMenu.vue';
     import FluxOverflowBar from './FluxOverflowBar.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import FluxSeparator from '$flux/component/FluxSeparator.vue';
+    import FluxSeparator from './FluxSeparator.vue';
     import $style from '$flux/css/component/Filter.module.scss';
 
     const emit = defineEmits<{

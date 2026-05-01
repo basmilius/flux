@@ -1,7 +1,5 @@
-import type { Ref } from 'vue';
-import { ref, watch } from 'vue';
-import type { TemplateRef } from '../util';
-import { getFocusableElements, isSSR, unrefTemplateElement, wrapFocus } from '../util';
+import { ref, type Ref, watch } from 'vue';
+import { getFocusableElements, isSSR, type TemplateRef, unrefTemplateElement, wrapFocus } from '../util';
 import useFocusTrapLock from './useFocusTrapLock';
 import useFocusTrapReturn from './useFocusTrapReturn';
 

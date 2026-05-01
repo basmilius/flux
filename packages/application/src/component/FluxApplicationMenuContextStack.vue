@@ -21,8 +21,8 @@
     import { FluxMenu } from '@flux-ui/components';
     import { defineComponent, h, provide, ref, toRef, type VNode } from 'vue';
     import { RouterView, viewDepthKey } from 'vue-router';
-    import useNamedRoutes from '../routing/useNamedRoutes';
-    import $style from '../css/component/ApplicationMenu.module.scss';
+    import { useNamedRoutes } from '../routing';
+    import $style from '$fluxApplication/css/component/ApplicationMenu.module.scss';
 
     const {
         name = 'menu'

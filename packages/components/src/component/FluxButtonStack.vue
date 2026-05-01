@@ -10,8 +10,8 @@
 <script
     lang="ts"
     setup>
-    import type { VNode } from 'vue';
     import type { FluxDirection } from '@flux-ui/types';
+    import type { VNode } from 'vue';
     import FluxStack from './FluxStack.vue';
 
     const {

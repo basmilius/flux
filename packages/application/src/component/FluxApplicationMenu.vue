@@ -51,9 +51,9 @@
     lang="ts"
     setup>
     import { FluxMenu } from '@flux-ui/components';
-    import { type VNode } from 'vue';
+    import type { VNode } from 'vue';
     import { useApplicationInjection, useApplicationMenu } from '../composable';
-    import $style from '../css/component/ApplicationMenu.module.scss';
+    import $style from '$fluxApplication/css/component/ApplicationMenu.module.scss';
 
     const {
         showPageIndicator = true

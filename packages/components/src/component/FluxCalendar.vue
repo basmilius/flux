@@ -168,7 +168,7 @@
     import { computed, onBeforeUnmount, onMounted, provide, ref, shallowRef, unref, type VNode, watch } from 'vue';
     import { useBreakpoints } from '$flux/composable';
     import { useTranslate } from '$flux/composable/private';
-    import { FluxCalendarInjectionKey, type FluxCalendarItemData, type FluxCalendarKeyboardDirection, type FluxCalendarView } from '$flux/data/di';
+    import { FluxCalendarInjectionKey, type FluxCalendarItemData, type FluxCalendarKeyboardDirection, type FluxCalendarView } from '$flux/data';
     import { FluxCalendarMonthView, FluxCalendarTimeGridView } from './calendar';
     import FluxActionBar from './FluxActionBar.vue';
     import FluxButtonGroup from './FluxButtonGroup.vue';

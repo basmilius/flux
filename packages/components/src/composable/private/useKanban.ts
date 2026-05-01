@@ -1,7 +1,6 @@
 import type { FluxKanbanMoveColumnEvent, FluxKanbanMoveEvent } from '@flux-ui/types';
-import type { Ref } from 'vue';
-import { computed, ref, unref } from 'vue';
-import type { FluxKanbanColumnDragState, FluxKanbanDragState, FluxKanbanInjection, FluxKanbanKeyboardDirection } from '$flux/data/di';
+import { computed, ref, unref, type Ref } from 'vue';
+import type { FluxKanbanColumnDragState, FluxKanbanDragState, FluxKanbanInjection, FluxKanbanKeyboardDirection } from '$flux/data';
 import { useKanbanAutoScroll } from './useKanbanAutoScroll';
 
 export type UseKanbanOptions = {

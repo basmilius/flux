@@ -68,8 +68,8 @@
 <script
     lang="ts"
     setup>
-    import type { VNode } from 'vue';
     import type { FluxButtonEmits, FluxButtonProps, FluxIconName } from '@flux-ui/types';
+    import type { VNode } from 'vue';
     import FluxButton from './FluxButton.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';

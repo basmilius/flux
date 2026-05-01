@@ -1,6 +1,5 @@
 import { DateTime } from 'luxon';
-import type { Ref } from 'vue';
-import { ref, watch } from 'vue';
+import { ref, type Ref, watch } from 'vue';
 
 export default function <T>(key: string, initialValue: T): Ref<T> {
     const realKey = `flux/${key}`;

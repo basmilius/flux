@@ -1,5 +1,5 @@
 import type { FluxColor, FluxIconName } from '@flux-ui/types';
-import { type ComputedRef, nextTick, ref, type Ref, unref, watch } from 'vue';
+import { nextTick, ref, unref, watch, type ComputedRef, type Ref } from 'vue';
 
 export type TreeBaseOption = {
     readonly id: string | number;

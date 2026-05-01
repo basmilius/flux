@@ -57,10 +57,10 @@
     import { MDASH } from '@basmilius/utils';
     import type { FluxColor, FluxDirection, FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
+    import FluxBoxedIcon from './FluxBoxedIcon.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxPane from './FluxPane.vue';
     import $style from '$flux/css/component/Statistic.module.scss';
-    import FluxBoxedIcon from '$flux/component/FluxBoxedIcon.vue';
 
     const {
         changeColor = 'gray',

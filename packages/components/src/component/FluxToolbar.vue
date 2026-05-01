@@ -18,8 +18,8 @@
 <script
     lang="ts"
     setup>
-    import type { VNode } from 'vue';
     import { clsx } from 'clsx';
+    import type { VNode } from 'vue';
     import FluxStack from './FluxStack.vue';
     import $style from '$flux/css/component/Toolbar.module.scss';
 

@@ -1,6 +1,5 @@
 import { inject } from 'vue';
-import type { FluxKanbanInjection } from '$flux/data/di';
-import { FluxKanbanInjectionKey } from '$flux/data/di';
+import { FluxKanbanInjectionKey, type FluxKanbanInjection } from '$flux/data';
 
 export default function (): FluxKanbanInjection {
     const injection = inject(FluxKanbanInjectionKey);

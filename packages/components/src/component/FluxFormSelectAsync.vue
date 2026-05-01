@@ -25,7 +25,7 @@
     import { useDebouncedRef, useLoaded } from '@basmilius/common';
     import type { FluxFormInputBaseProps, FluxFormSelectEntry, FluxFormSelectValue, FluxFormSelectValueSingle } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { computed, type Ref, ref, toRef, unref, watch } from 'vue';
+    import { computed, ref, type Ref, toRef, unref, watch } from 'vue';
     import { SelectBase } from '$flux/component/primitive';
     import { useDisabled } from '$flux/composable';
     import { useFormSelect } from '$flux/composable/private';

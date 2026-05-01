@@ -15,7 +15,7 @@
     import { useLoaded } from '@basmilius/common';
     import type { FluxFilterItem, FluxFilterValue } from '@flux-ui/types';
     import { computed, ref, unref, watch } from 'vue';
-    import FluxMenuItem from '$flux/component/FluxMenuItem.vue';
+    import FluxMenuItem from '../FluxMenuItem.vue';
 
     const emit = defineEmits<{
         click: [MouseEvent];

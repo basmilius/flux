@@ -9,8 +9,8 @@
 <script
     lang="ts"
     setup>
-    import $style from '$flux/css/component/Item.module.scss';
     import FluxActionBar from './FluxActionBar.vue';
+    import $style from '$flux/css/component/Item.module.scss';
 
     defineProps<{
         readonly isCenter?: boolean;

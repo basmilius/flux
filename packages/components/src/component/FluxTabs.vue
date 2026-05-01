@@ -37,9 +37,9 @@
     import type { FluxIconName } from '@flux-ui/types';
     import { cloneVNode, computed, ref, unref, useId, type VNode, watch } from 'vue';
     import { FluxWindowTransition } from '$flux/transition';
-    import { VNodeRenderer } from './primitive';
     import FluxTabBar from './FluxTabBar.vue';
     import FluxTabBarItem from './FluxTabBarItem.vue';
+    import { VNodeRenderer } from './primitive';
     import $style from '$flux/css/component/Tab.module.scss';
 
     const modelValue = defineModel<number>({

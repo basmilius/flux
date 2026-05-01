@@ -56,7 +56,7 @@
     import type { VNode } from 'vue';
     import { useApplicationInjection } from '../composable';
     import FluxApplicationMenuToggle from './FluxApplicationMenuToggle.vue';
-    import $style from '../css/component/ApplicationTop.module.scss';
+    import $style from '$fluxApplication/css/component/ApplicationTop.module.scss';
 
     defineProps<{
         readonly icon?: FluxIconName;

@@ -22,9 +22,8 @@
     import { useRemembered } from '@flux-ui/internals';
     import { computed, onUnmounted, provide, ref, shallowRef, toRef, type VNode, watch } from 'vue';
     import { type FluxApplicationContextInfo, FluxApplicationInjectionKey, type FluxApplicationLayout } from '../data';
-    import useNamedRoutes from '../routing/useNamedRoutes';
-    import useRoute from '../routing/useRoute';
-    import $style from '../css/component/Application.module.scss';
+    import { useNamedRoutes, useRoute } from '../routing';
+    import $style from '$fluxApplication/css/component/Application.module.scss';
 
     const {
         contextMenuName = 'menu',
