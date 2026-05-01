@@ -53,7 +53,7 @@
     import { clsx } from 'clsx';
     import { onBeforeUnmount, ref, unref, useTemplateRef, watchEffect } from 'vue';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '$flux/css/component/SegmentedControl.module.scss';
+    import $style from '~flux/components/css/component/SegmentedControl.module.scss';
 
     const modelValue = defineModel<number>({
         default: 0

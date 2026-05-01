@@ -30,10 +30,10 @@
     setup>
     import type { FluxIconName, FluxPressableType, FluxTo } from '@flux-ui/types';
     import { type ComponentPublicInstance, toRef, unref, useTemplateRef, watch } from 'vue';
-    import { useDisabled } from '$flux/composable';
+    import { useDisabled } from '~flux/components/composable';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
-    import $style from '$flux/css/component/Tab.module.scss';
+    import $style from '~flux/components/css/component/Tab.module.scss';
 
     const emit = defineEmits<{
         click: [MouseEvent];

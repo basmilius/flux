@@ -37,8 +37,8 @@
     setup>
     import { FluxMenuItem } from '@flux-ui/components';
     import type { FluxTo } from '@flux-ui/types';
-    import { useDashboardInjection } from '$fluxDashboard/composable';
-    import $style from '$fluxDashboard/css/component/DashboardNavigation.module.scss';
+    import { useDashboardInjection } from '~flux/dashboard/composable';
+    import $style from '~flux/dashboard/css/component/DashboardNavigation.module.scss';
 
     defineOptions({
         inheritAttrs: false

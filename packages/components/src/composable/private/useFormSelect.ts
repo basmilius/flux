@@ -1,6 +1,6 @@
 import type { FluxFormSelectEntry, FluxFormSelectOption, FluxFormSelectOptions, FluxFormSelectValue } from '@flux-ui/types';
 import { computed, unref, type Ref } from 'vue';
-import { isFluxFormSelectGroup, isFluxFormSelectOption } from '$flux/data';
+import { isFluxFormSelectGroup, isFluxFormSelectOption } from '~flux/components/data';
 
 export default function (modelValue: Ref<FluxFormSelectValue>, isMultiple: boolean, options: Ref<FluxFormSelectEntry[]>, searchQuery?: Ref<string>) {
     const values = computed(() => {

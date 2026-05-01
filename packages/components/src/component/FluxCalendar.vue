@@ -166,9 +166,9 @@
     import { defaultKeyboardGrabAnnounce, useCalendar, useCalendarMonthSwitcher, useCalendarTimeGrid, useCalendarYearSwitcher } from '@flux-ui/internals';
     import { DateTime } from 'luxon';
     import { computed, onBeforeUnmount, onMounted, provide, ref, shallowRef, unref, type VNode, watch } from 'vue';
-    import { useBreakpoints } from '$flux/composable';
-    import { useTranslate } from '$flux/composable/private';
-    import { FluxCalendarInjectionKey, type FluxCalendarItemData, type FluxCalendarKeyboardDirection, type FluxCalendarView } from '$flux/data';
+    import { useBreakpoints } from '~flux/components/composable';
+    import { useTranslate } from '~flux/components/composable/private';
+    import { FluxCalendarInjectionKey, type FluxCalendarItemData, type FluxCalendarKeyboardDirection, type FluxCalendarView } from '~flux/components/data';
     import { FluxCalendarMonthView, FluxCalendarTimeGridView } from './calendar';
     import FluxActionBar from './FluxActionBar.vue';
     import FluxButtonGroup from './FluxButtonGroup.vue';
@@ -176,8 +176,8 @@
     import FluxFlyout from './FluxFlyout.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import FluxSpinner from './FluxSpinner.vue';
-    import $style from '$flux/css/component/Calendar.module.scss';
-    import $styleDatePicker from '$flux/css/component/DatePicker.module.scss';
+    import $style from '~flux/components/css/component/Calendar.module.scss';
+    import $styleDatePicker from '~flux/components/css/component/DatePicker.module.scss';
 
     const SNAP_MINUTES = 30;
     const NAV_HOVER_INITIAL_DELAY_MS = 700;

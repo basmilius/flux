@@ -9,7 +9,7 @@
     lang="ts"
     setup>
     import type { FluxDirection } from '@flux-ui/types';
-    import $style from '$flux/css/component/Divider.module.scss';
+    import $style from '~flux/components/css/component/Divider.module.scss';
 
     const {
         direction = 'horizontal'

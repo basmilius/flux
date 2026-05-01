@@ -15,11 +15,11 @@
     lang="ts"
     setup>
     import { type VNode, watch } from 'vue';
-    import { useFluxStore } from '$flux/data';
+    import { useFluxStore } from '~flux/components/data';
     import FluxOverlayProvider from './FluxOverlayProvider.vue';
     import FluxSnackbarProvider from './FluxSnackbarProvider.vue';
     import FluxTooltipProvider from './FluxTooltipProvider.vue';
-    import $style from '$flux/css/component/Root.module.scss';
+    import $style from '~flux/components/css/component/Root.module.scss';
 
     defineOptions({
         inheritAttrs: false

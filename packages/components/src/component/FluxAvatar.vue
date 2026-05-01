@@ -59,11 +59,11 @@
     import type { FluxButtonEmits, FluxColor, FluxIconName, FluxPressableType, FluxTo } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, unref } from 'vue';
-    import { FluxFadeTransition } from '$flux/transition';
+    import { FluxFadeTransition } from '~flux/components/transition';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
     import FluxSpinner from './FluxSpinner.vue';
-    import $style from '$flux/css/component/Avatar.module.scss';
+    import $style from '~flux/components/css/component/Avatar.module.scss';
 
     const STATUS_CLASS_MAP = {
         gray: $style.avatarStatusGray,

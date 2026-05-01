@@ -26,8 +26,8 @@
     setup>
     import { clsx } from 'clsx';
     import type { VNode } from 'vue';
-    import { useTableInjection } from '$flux/composable';
-    import $style from '$flux/css/component/Table.module.scss';
+    import { useTableInjection } from '~flux/components/composable';
+    import $style from '~flux/components/css/component/Table.module.scss';
 
     const {
         contentDirection = 'row'

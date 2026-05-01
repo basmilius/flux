@@ -10,5 +10,5 @@
     lang="ts"
     setup>
     import FluxStack from './FluxStack.vue';
-    import $style from '$flux/css/component/Item.module.scss';
+    import $style from '~flux/components/css/component/Item.module.scss';
 </script>

@@ -16,17 +16,32 @@
         "skipLibCheck": true,
         "allowSyntheticDefaultImports": true,
         "paths": {
-            "$flux/*": [
-                "../node_modules/@flux-ui/components/src/*"
+            "~flux/application/*": [
+                "/Users/bas/Development/Projects/flux/docs/node_modules/@flux-ui/application/src/*"
             ],
-            "$fluxDashboard/*": [
+            "~flux/dashboard/*": [
                 "../node_modules/@flux-ui/dashboard/src/*"
             ],
-            "$fluxStatistics/*": [
+            "~flux/statistics/*": [
                 "/Users/bas/Development/Projects/flux/docs/node_modules/@flux-ui/statistics/src/*"
             ],
-            "$fluxApplication/*": [
+            "~flux/*": [
+                "../node_modules/@flux-ui/components/src/*"
+            ],
+            "~flux/components/*": [
+                "/Users/bas/Development/Projects/flux/docs/node_modules/@flux-ui/components/src/*"
+            ],
+            "~flux/components/components/*": [
+                "/Users/bas/Development/Projects/flux/docs/node_modules/@flux-ui/components/src/*"
+            ],
+            "~flux/components/application/*": [
                 "/Users/bas/Development/Projects/flux/docs/node_modules/@flux-ui/application/src/*"
+            ],
+            "~flux/components/dashboard/*": [
+                "/Users/bas/Development/Projects/flux/docs/node_modules/@flux-ui/dashboard/src/*"
+            ],
+            "~flux/components/statistics/*": [
+                "/Users/bas/Development/Projects/flux/docs/node_modules/@flux-ui/statistics/src/*"
             ]
         }
     },

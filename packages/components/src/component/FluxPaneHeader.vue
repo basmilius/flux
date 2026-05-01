@@ -30,7 +30,7 @@
     import type { FluxIconName } from '@flux-ui/types';
     import type { VNode } from 'vue';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '$flux/css/component/Pane.module.scss';
+    import $style from '~flux/components/css/component/Pane.module.scss';
 
     defineProps<{
         readonly icon?: FluxIconName;

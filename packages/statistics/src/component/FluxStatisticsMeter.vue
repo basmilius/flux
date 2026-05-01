@@ -54,7 +54,7 @@
     import { FluxIcon } from '@flux-ui/components';
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { computed } from 'vue';
-    import $style from '$fluxStatistics/css/Meter.module.scss';
+    import $style from '~flux/statistics/css/Meter.module.scss';
 
     const {
         color

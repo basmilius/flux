@@ -29,7 +29,7 @@
     import { FluxToolbar } from '@flux-ui/components';
     import type { FluxIconName } from '@flux-ui/types';
     import Base from './FluxStatisticsBase.vue';
-    import $style from '$fluxStatistics/css/ChartPane.module.scss';
+    import $style from '~flux/statistics/css/ChartPane.module.scss';
 
     defineProps<{
         readonly aspectRatio?: number;

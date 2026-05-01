@@ -25,7 +25,7 @@
     import type { FluxDirection } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import type { VNode } from 'vue';
-    import $style from '$flux/css/component/Divider.module.scss';
+    import $style from '~flux/components/css/component/Divider.module.scss';
 
     const {
         contentPlacement = 'center',

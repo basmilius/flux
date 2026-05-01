@@ -38,7 +38,7 @@
     import { computed, type VNode } from 'vue';
     import FluxAnimatedColors from './FluxAnimatedColors.vue';
     import FluxGridPattern from './FluxGridPattern.vue';
-    import $style from '$flux/css/component/Pane.module.scss';
+    import $style from '~flux/components/css/component/Pane.module.scss';
 
     const {
         animatedColors,

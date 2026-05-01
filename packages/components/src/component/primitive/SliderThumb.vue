@@ -25,8 +25,8 @@
     setup>
     import { clsx } from 'clsx';
     import { toRef, unref } from 'vue';
-    import { useDisabled } from '$flux/composable';
-    import $style from '$flux/css/component/primitive/Slider.module.scss';
+    import { useDisabled } from '~flux/components/composable';
+    import $style from '~flux/components/css/component/primitive/Slider.module.scss';
 
     const emit = defineEmits<{
         decrement: [];

@@ -28,7 +28,7 @@
     setup>
     import { FluxIcon, FluxPane } from '@flux-ui/components';
     import type { FluxIconName } from '@flux-ui/types';
-    import $style from '$fluxStatistics/css/Base.module.scss';
+    import $style from '~flux/statistics/css/Base.module.scss';
 
     defineProps<{
         readonly icon?: FluxIconName;

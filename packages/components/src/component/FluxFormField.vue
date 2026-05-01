@@ -51,10 +51,10 @@
     lang="ts"
     setup>
     import { provide, useId, type VNode } from 'vue';
-    import { useTranslate } from '$flux/composable/private';
-    import { FluxFormFieldInjectionKey } from '$flux/data';
+    import { useTranslate } from '~flux/components/composable/private';
+    import { FluxFormFieldInjectionKey } from '~flux/components/data';
     import FluxFormFieldAddition from './FluxFormFieldAddition.vue';
-    import $style from '$flux/css/component/Form.module.scss';
+    import $style from '~flux/components/css/component/Form.module.scss';
 
     defineProps<{
         readonly currentLength?: number;

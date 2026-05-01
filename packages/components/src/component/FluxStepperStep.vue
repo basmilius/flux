@@ -8,7 +8,7 @@
     lang="ts"
     setup>
     import type { VNode } from 'vue';
-    import $style from '$flux/css/component/Stepper.module.scss';
+    import $style from '~flux/components/css/component/Stepper.module.scss';
 
     defineSlots<{
         default(): VNode[];

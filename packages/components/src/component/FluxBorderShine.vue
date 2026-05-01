@@ -2,7 +2,7 @@
     import { flattenVNodeTree, orange600, pink600, purple600 } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { cloneVNode, defineComponent, Fragment, h, type PropType } from 'vue';
-    import $style from '$flux/css/component/Visual.module.scss';
+    import $style from '~flux/components/css/component/Visual.module.scss';
 
     export default defineComponent({
         inheritAttrs: false,

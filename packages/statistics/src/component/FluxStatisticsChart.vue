@@ -120,7 +120,7 @@
     import { toRaw, unref, useTemplateRef } from 'vue';
     import { useI18n } from 'vue-i18n';
     import ApexCharts from 'vue3-apexcharts';
-    import $style from '$fluxStatistics/css/Chart.module.scss';
+    import $style from '~flux/statistics/css/Chart.module.scss';
 
     const {
         options = {}

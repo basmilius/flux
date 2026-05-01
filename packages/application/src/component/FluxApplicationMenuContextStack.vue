@@ -22,7 +22,7 @@
     import { defineComponent, h, provide, ref, toRef, type VNode } from 'vue';
     import { RouterView, viewDepthKey } from 'vue-router';
     import { useNamedRoutes } from '../routing';
-    import $style from '$fluxApplication/css/component/ApplicationMenu.module.scss';
+    import $style from '~flux/application/css/component/ApplicationMenu.module.scss';
 
     const {
         name = 'menu'

@@ -1,5 +1,5 @@
 import { getCurrentInstance } from 'vue';
-import { english, type FluxTranslate, type FluxTranslation } from '$flux/data';
+import { english, type FluxTranslate, type FluxTranslation } from '~flux/components/data';
 
 const fallback: FluxTranslate = (key, params) => {
     if (!(key in english)) {

@@ -14,7 +14,7 @@
     setup>
     import type { FluxFilterOptionRow, FluxFilterValue, FluxIconName } from '@flux-ui/types';
     import { computed, unref } from 'vue';
-    import { useAsyncFilterOptions, useFilterOptionSingle } from '$flux/composable/private';
+    import { useAsyncFilterOptions, useFilterOptionSingle } from '~flux/components/composable/private';
     import { FilterOptionBase } from './primitive';
 
     const modelSearch = defineModel<string>('searchQuery', {

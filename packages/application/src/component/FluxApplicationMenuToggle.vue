@@ -24,7 +24,7 @@
     setup>
     import { FluxMenuItem } from '@flux-ui/components';
     import { useApplicationInjection } from '../composable';
-    import $style from '$fluxApplication/css/component/ApplicationMenu.module.scss';
+    import $style from '~flux/application/css/component/ApplicationMenu.module.scss';
 
     const {isMenuCollapsed} = useApplicationInjection();
 </script>

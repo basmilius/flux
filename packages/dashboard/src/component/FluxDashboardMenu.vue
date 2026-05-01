@@ -27,9 +27,9 @@
     setup>
     import { FluxIcon, FluxSpacer } from '@flux-ui/components';
     import type { FluxIconName } from '@flux-ui/types';
-    import { useDashboardInjection } from '$fluxDashboard/composable';
+    import { useDashboardInjection } from '~flux/dashboard/composable';
     import FluxDashboardTopBar from './FluxDashboardTopBar.vue';
-    import $style from '$fluxDashboard/css/component/DashboardPane.module.scss';
+    import $style from '~flux/dashboard/css/component/DashboardPane.module.scss';
 
     defineProps<{
         readonly icon?: FluxIconName;

@@ -34,7 +34,7 @@
     import { FluxIcon } from '@flux-ui/components';
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { computed } from 'vue';
-    import $style from '$fluxStatistics/css/Legend.module.scss';
+    import $style from '~flux/statistics/css/Legend.module.scss';
 
     const {
         color

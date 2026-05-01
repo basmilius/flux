@@ -59,11 +59,11 @@
     setup>
     import type { FluxFocalPointObject } from '@flux-ui/types';
     import type { VNode } from 'vue';
-    import { useTranslate } from '$flux/composable/private';
+    import { useTranslate } from '~flux/components/composable/private';
     import FluxDropZone from './FluxDropZone.vue';
     import FluxGalleryItem from './FluxGalleryItem.vue';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '$flux/css/component/Gallery.module.scss';
+    import $style from '~flux/components/css/component/Gallery.module.scss';
 
     const emit = defineEmits<{
         delete: [number];

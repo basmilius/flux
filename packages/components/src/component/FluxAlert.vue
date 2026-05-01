@@ -16,7 +16,7 @@
     lang="ts"
     setup>
     import type { FluxAlertObject } from '@flux-ui/types';
-    import { useTranslate } from '$flux/composable/private';
+    import { useTranslate } from '~flux/components/composable/private';
     import FluxPrimaryButton from './FluxPrimaryButton.vue';
     import { DialogLayout } from './primitive';
 

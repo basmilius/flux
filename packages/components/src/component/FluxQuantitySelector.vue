@@ -37,10 +37,10 @@
     setup>
     import { unrefTemplateElement } from '@flux-ui/internals';
     import { ref, toRef, unref, useTemplateRef, watchEffect } from 'vue';
-    import { useDisabled } from '$flux/composable';
+    import { useDisabled } from '~flux/components/composable';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import $style from '$flux/css/component/Form.module.scss';
+    import $style from '~flux/components/css/component/Form.module.scss';
 
     const modelValue = defineModel<number>({
         default: 0

@@ -13,8 +13,8 @@
     setup>
     import type { FluxFilterOptionRow, FluxIconName } from '@flux-ui/types';
     import { computed, unref } from 'vue';
-    import { useFilterOptionMulti } from '$flux/composable/private';
-    import { isFluxFilterOptionHeader } from '$flux/data';
+    import { useFilterOptionMulti } from '~flux/components/composable/private';
+    import { isFluxFilterOptionHeader } from '~flux/components/data';
     import { FilterOptionBase } from './primitive';
 
     const modelSearch = defineModel<string>('searchQuery', {

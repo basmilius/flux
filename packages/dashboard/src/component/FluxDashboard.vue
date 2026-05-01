@@ -17,8 +17,8 @@
     setup>
     import { useRemembered } from '@flux-ui/internals';
     import { provide, ref, type VNode, watch } from 'vue';
-    import { FluxDashboardInjectionKey } from '$fluxDashboard/data';
-    import $style from '$fluxDashboard/css/component/Dashboard.module.scss';
+    import { FluxDashboardInjectionKey } from '~flux/dashboard/data';
+    import $style from '~flux/dashboard/css/component/Dashboard.module.scss';
 
     defineSlots<{
         default(): VNode;

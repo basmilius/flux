@@ -3,7 +3,7 @@
     setup>
     import type { DateTime } from 'luxon';
     import { computed, getCurrentInstance, onBeforeUnmount, onMounted, type VNode, watch } from 'vue';
-    import { useCalendarInjection } from '$flux/composable';
+    import { useCalendarInjection } from '~flux/components/composable';
 
     const emit = defineEmits<{
         click: [MouseEvent];

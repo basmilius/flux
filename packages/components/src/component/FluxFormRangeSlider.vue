@@ -46,9 +46,9 @@
     import { clampWithStepPrecision, countDecimals, formatNumber } from '@basmilius/utils';
     import type { FluxFormInputBaseProps } from '@flux-ui/types';
     import { computed, ref, toRef, unref, useTemplateRef, watch } from 'vue';
-    import { useDisabled } from '$flux/composable';
-    import { useTranslate } from '$flux/composable/private';
-    import { addTooltip, removeTooltip, updateTooltip } from '$flux/data';
+    import { useDisabled } from '~flux/components/composable';
+    import { useTranslate } from '~flux/components/composable/private';
+    import { addTooltip, removeTooltip, updateTooltip } from '~flux/components/data';
     import { SliderBase, SliderThumb, SliderTrack } from './primitive';
 
     const modelValue = defineModel<[number, number]>({

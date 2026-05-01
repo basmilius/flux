@@ -140,10 +140,10 @@
     import type { FluxFormSelectOption, FluxFormSelectOptions } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { type ComponentPublicInstance, computed, nextTick, ref, toRef, unref, useTemplateRef, watch } from 'vue';
-    import { useDisabled, useFormFieldInjection } from '$flux/composable';
-    import { useDropdownPopup, useTranslate } from '$flux/composable/private';
-    import { isFluxFormSelectGroup, isFluxFormSelectOption } from '$flux/data';
-    import { FluxFadeTransition } from '$flux/transition';
+    import { useDisabled, useFormFieldInjection } from '~flux/components/composable';
+    import { useDropdownPopup, useTranslate } from '~flux/components/composable/private';
+    import { isFluxFormSelectGroup, isFluxFormSelectOption } from '~flux/components/data';
+    import { FluxFadeTransition } from '~flux/components/transition';
     import FluxFormInput from '../FluxFormInput.vue';
     import FluxIcon from '../FluxIcon.vue';
     import FluxMenu from '../FluxMenu.vue';
@@ -154,7 +154,7 @@
     import FluxTag from '../FluxTag.vue';
     import Anchor from './Anchor.vue';
     import AnchorPopup from './AnchorPopup.vue';
-    import $style from '$flux/css/component/Form.module.scss';
+    import $style from '~flux/components/css/component/Form.module.scss';
 
     const INITIAL_HIGHLIGHTED_INDEX = -1;
 

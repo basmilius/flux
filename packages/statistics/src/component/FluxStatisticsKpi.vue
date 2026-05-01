@@ -31,7 +31,7 @@
     import type { FluxIconName, FluxStatisticsChange } from '@flux-ui/types';
     import Base from './FluxStatisticsBase.vue';
     import Change from './FluxStatisticsChange.vue';
-    import $style from '$fluxStatistics/css/Kpi.module.scss';
+    import $style from '~flux/statistics/css/Kpi.module.scss';
 
     defineProps<{
         readonly footer?: string;

@@ -22,9 +22,9 @@
     import { unrefTemplateElement } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { onUnmounted, toRef, unref, useTemplateRef } from 'vue';
-    import { useDisabled } from '$flux/composable';
+    import { useDisabled } from '~flux/components/composable';
     import FluxTicks from '../FluxTicks.vue';
-    import $style from '$flux/css/component/primitive/Slider.module.scss';
+    import $style from '~flux/components/css/component/primitive/Slider.module.scss';
 
     const emit = defineEmits<{
         dragging: [boolean];

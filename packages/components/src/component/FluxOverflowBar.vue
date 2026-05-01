@@ -39,7 +39,7 @@
     import type { FluxAlignment, FluxDirection } from '@flux-ui/types';
     import { computed, ref, unref, useTemplateRef, type VNode, watch } from 'vue';
     import FluxDynamicView from './FluxDynamicView.vue';
-    import $style from '$flux/css/component/OverflowBar.module.scss';
+    import $style from '~flux/components/css/component/OverflowBar.module.scss';
 
     const {
         alignment = 'center',

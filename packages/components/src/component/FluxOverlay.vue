@@ -2,9 +2,9 @@
     import type { FluxSize } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { defineComponent, type PropType } from 'vue';
-    import { FluxOverlayTransition } from '$flux/transition';
-    import { createDialogRenderer } from '$flux/util';
-    import $style from '$flux/css/component/Overlay.module.scss';
+    import { FluxOverlayTransition } from '~flux/components/transition';
+    import { createDialogRenderer } from '~flux/components/util';
+    import $style from '~flux/components/css/component/Overlay.module.scss';
 
     export default defineComponent({
         emits: ['close'],

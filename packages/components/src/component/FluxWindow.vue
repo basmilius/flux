@@ -13,7 +13,7 @@
     lang="ts"
     setup>
     import { ref, type VNode } from 'vue';
-    import { FluxWindowTransition } from '$flux/transition';
+    import { FluxWindowTransition } from '~flux/components/transition';
 
     const slots = defineSlots<{
         default(props: {

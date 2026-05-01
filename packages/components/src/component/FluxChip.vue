@@ -35,9 +35,9 @@
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed } from 'vue';
-    import { FluxFadeTransition } from '$flux/transition';
+    import { FluxFadeTransition } from '~flux/components/transition';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '$flux/css/component/Chip.module.scss';
+    import $style from '~flux/components/css/component/Chip.module.scss';
 
     defineEmits<{
         click: [MouseEvent];

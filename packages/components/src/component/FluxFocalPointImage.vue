@@ -13,7 +13,7 @@
     setup>
     import type { FluxFocalPointObject } from '@flux-ui/types';
     import { computed } from 'vue';
-    import $style from '$flux/css/component/FocalPoint.module.scss';
+    import $style from '~flux/components/css/component/FocalPoint.module.scss';
 
     const {
         alt = '',

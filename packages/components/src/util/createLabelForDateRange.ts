@@ -1,5 +1,5 @@
 import type { DateTime } from 'luxon';
-import { useTranslate } from '$flux/composable/private';
+import { useTranslate } from '~flux/components/composable/private';
 
 export default function (start: DateTime, end: DateTime, preventCustom: boolean = false): string {
     const translate = useTranslate();

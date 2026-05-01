@@ -13,7 +13,7 @@
 <script
     lang="ts"
     setup>
-    import $style from '$fluxStatistics/css/DetailsTable.module.scss';
+    import $style from '~flux/statistics/css/DetailsTable.module.scss';
 
     defineProps<{
         readonly label: string;

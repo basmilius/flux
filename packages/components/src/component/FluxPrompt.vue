@@ -31,7 +31,7 @@
     setup>
     import type { FluxPromptObject } from '@flux-ui/types';
     import { computed, onMounted, ref, unref, useTemplateRef } from 'vue';
-    import { useTranslate } from '$flux/composable/private';
+    import { useTranslate } from '~flux/components/composable/private';
     import FluxFormField from './FluxFormField.vue';
     import FluxFormInput from './FluxFormInput.vue';
     import FluxPrimaryButton from './FluxPrimaryButton.vue';

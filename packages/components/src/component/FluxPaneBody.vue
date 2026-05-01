@@ -8,7 +8,7 @@
     lang="ts"
     setup>
     import type { VNode } from 'vue';
-    import $style from '$flux/css/component/Pane.module.scss';
+    import $style from '~flux/components/css/component/Pane.module.scss';
 
     defineSlots<{
         default(): VNode[];

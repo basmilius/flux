@@ -24,10 +24,10 @@
     import type { FluxFormInputBaseProps, FluxFormSelectEntry, FluxFormSelectValue } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { toRef, unref } from 'vue';
-    import { SelectBase } from '$flux/component/primitive';
-    import { useDisabled } from '$flux/composable';
-    import { useFormSelect } from '$flux/composable/private';
-    import $formStyle from '$flux/css/component/Form.module.scss';
+    import { SelectBase } from '~flux/components/component/primitive';
+    import { useDisabled } from '~flux/components/composable';
+    import { useFormSelect } from '~flux/components/composable/private';
+    import $formStyle from '~flux/components/css/component/Form.module.scss';
 
     const modelSearch = defineModel<string>('searchQuery', {
         default: ''

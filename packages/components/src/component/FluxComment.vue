@@ -39,9 +39,9 @@
     import { clsx } from 'clsx';
     import type { DateTime } from 'luxon';
     import { computed, type VNode } from 'vue';
-    import { useTranslate } from '$flux/composable/private';
+    import { useTranslate } from '~flux/components/composable/private';
     import FluxAvatar from './FluxAvatar.vue';
-    import $style from '$flux/css/component/Comment.module.scss';
+    import $style from '~flux/components/css/component/Comment.module.scss';
 
     const {
         avatarFallback = 'colorized',

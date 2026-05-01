@@ -18,7 +18,7 @@
 <script
     lang="ts"
     setup>
-    import $style from '$fluxStatistics/css/Grid.module.scss';
+    import $style from '~flux/statistics/css/Grid.module.scss';
 
     defineProps<{
         readonly gap?: number;

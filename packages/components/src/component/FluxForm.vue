@@ -14,7 +14,7 @@
     setup>
     import type { VNode } from 'vue';
     import FluxDisabled from './FluxDisabled.vue';
-    import $style from '$flux/css/component/Form.module.scss';
+    import $style from '~flux/components/css/component/Form.module.scss';
 
     const emit = defineEmits<{
         submit: [];

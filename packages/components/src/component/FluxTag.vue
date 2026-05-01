@@ -53,11 +53,11 @@
     setup>
     import type { FluxButtonEmits, FluxColor, FluxIconName, FluxPressableType, FluxTo } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { useTranslate } from '$flux/composable/private';
+    import { useTranslate } from '~flux/components/composable/private';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
     import FluxSpinner from './FluxSpinner.vue';
-    import $style from '$flux/css/component/Badge.module.scss';
+    import $style from '~flux/components/css/component/Badge.module.scss';
 
     const emit = defineEmits<FluxButtonEmits & {
         delete: [];

@@ -150,14 +150,14 @@
     import { isSSR, vHeightTransition } from '@flux-ui/internals';
     import type { FluxCommandSource, FluxCommandSourceItem } from '@flux-ui/types';
     import { onMounted, onUnmounted, ref, toRef, unref, useTemplateRef } from 'vue';
-    import { useCommandPalette } from '$flux/composable/private';
-    import { FluxWindowTransition } from '$flux/transition';
+    import { useCommandPalette } from '~flux/components/composable/private';
+    import { FluxWindowTransition } from '~flux/components/transition';
     import FluxCommandPaletteGroup from './FluxCommandPaletteGroup.vue';
     import FluxCommandPaletteItem from './FluxCommandPaletteItem.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
     import FluxTag from './FluxTag.vue';
-    import $style from '$flux/css/component/CommandPalette.module.scss';
+    import $style from '~flux/components/css/component/CommandPalette.module.scss';
 
     const props = defineProps<{
         readonly hasKeyboardShortcut?: boolean;

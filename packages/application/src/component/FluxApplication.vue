@@ -23,7 +23,7 @@
     import { computed, onUnmounted, provide, ref, shallowRef, toRef, type VNode, watch } from 'vue';
     import { type FluxApplicationContextInfo, FluxApplicationInjectionKey, type FluxApplicationLayout } from '../data';
     import { useNamedRoutes, useRoute } from '../routing';
-    import $style from '$fluxApplication/css/component/Application.module.scss';
+    import $style from '~flux/application/css/component/Application.module.scss';
 
     const {
         contextMenuName = 'menu',

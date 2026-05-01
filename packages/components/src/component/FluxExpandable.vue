@@ -54,10 +54,10 @@
     import { useComponentId } from '@basmilius/common';
     import type { FluxIconName } from '@flux-ui/types';
     import { computed, getCurrentInstance, onBeforeMount, onUnmounted, ref, unref, useId, watch } from 'vue';
-    import { useExpandableGroupInjection } from '$flux/composable';
-    import { FluxAutoHeightTransition, FluxFadeTransition } from '$flux/transition';
+    import { useExpandableGroupInjection } from '~flux/components/composable';
+    import { FluxAutoHeightTransition, FluxFadeTransition } from '~flux/components/transition';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '$flux/css/component/Expandable.module.scss';
+    import $style from '~flux/components/css/component/Expandable.module.scss';
 
     const emit = defineEmits<{
         toggle: [boolean];

@@ -13,7 +13,7 @@
     lang="ts"
     setup>
     import type { VNode } from 'vue';
-    import $style from '$flux/css/component/Overlay.module.scss';
+    import $style from '~flux/components/css/component/Overlay.module.scss';
 
     const {
         mode = 'out-in'

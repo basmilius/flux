@@ -40,8 +40,8 @@
     import { formatNumber } from '@basmilius/utils';
     import type { FluxIconName } from '@flux-ui/types';
     import { computed, unref } from 'vue';
-    import { useFilterInjection } from '$flux/composable';
-    import { useTranslate } from '$flux/composable/private';
+    import { useFilterInjection } from '~flux/components/composable';
+    import { useTranslate } from '~flux/components/composable/private';
     import FluxFormColumn from './FluxFormColumn.vue';
     import FluxFormField from './FluxFormField.vue';
     import FluxFormSlider from './FluxFormSlider.vue';

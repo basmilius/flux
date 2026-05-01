@@ -53,10 +53,10 @@
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import type { VNode } from 'vue';
-    import { useTranslate } from '$flux/composable/private';
+    import { useTranslate } from '~flux/components/composable/private';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
-    import $style from '$flux/css/component/Notice.module.scss';
+    import $style from '~flux/components/css/component/Notice.module.scss';
 
     const emit = defineEmits<{
         close: [];

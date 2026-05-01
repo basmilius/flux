@@ -40,7 +40,7 @@
 <script
     lang="ts"
     setup>
-    import $style from '$flux/css/component/Spinner.module.scss';
+    import $style from '~flux/components/css/component/Spinner.module.scss';
 
     defineProps<{
         readonly size?: number;

@@ -20,7 +20,7 @@
     lang="ts"
     setup>
     import type { FluxConfirmObject } from '@flux-ui/types';
-    import { useTranslate } from '$flux/composable/private';
+    import { useTranslate } from '~flux/components/composable/private';
     import FluxPrimaryButton from './FluxPrimaryButton.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import { DialogLayout } from './primitive';

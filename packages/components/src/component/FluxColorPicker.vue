@@ -133,12 +133,12 @@
     import { hexToRGB, hslToHSV, hslToRGB, hsvToHSL, hsvToRGB, rgbToHEX, rgbToHSL, rgbToHSV } from '@basmilius/utils';
     import { blue500 } from '@flux-ui/internals';
     import { computed, type ComputedRef, ref, unref, watch } from 'vue';
-    import { useTranslate } from '$flux/composable/private';
+    import { useTranslate } from '~flux/components/composable/private';
     import CoordinatePicker from './primitive/CoordinatePicker.vue';
     import FluxFormField from './FluxFormField.vue';
     import FluxFormInput from './FluxFormInput.vue';
     import FluxFormSlider from './FluxFormSlider.vue';
-    import $style from '$flux/css/component/Color.module.scss';
+    import $style from '~flux/components/css/component/Color.module.scss';
 
     const modelValue = defineModel<string | [number, number, number]>({
         default: blue500

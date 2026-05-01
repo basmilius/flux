@@ -60,7 +60,7 @@
     import FluxBoxedIcon from './FluxBoxedIcon.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxPane from './FluxPane.vue';
-    import $style from '$flux/css/component/Statistic.module.scss';
+    import $style from '~flux/components/css/component/Statistic.module.scss';
 
     const {
         changeColor = 'gray',

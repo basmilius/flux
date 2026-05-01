@@ -12,8 +12,8 @@
     setup>
     import { animationFrameDebounce, unrefTemplateElement } from '@flux-ui/internals';
     import { provide, shallowReactive, useTemplateRef, watch, watchEffect } from 'vue';
-    import { type FluxAdaptiveGroupChild, FluxAdaptiveGroupInjectionKey } from '$flux/data';
-    import $style from '$flux/css/component/AdaptiveSlot.module.scss';
+    import { type FluxAdaptiveGroupChild, FluxAdaptiveGroupInjectionKey } from '~flux/components/data';
+    import $style from '~flux/components/css/component/AdaptiveSlot.module.scss';
 
     const {
         gap = 9

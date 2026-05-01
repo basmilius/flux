@@ -31,7 +31,7 @@
     import type { VNode } from 'vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import $style from '$flux/css/component/Button.module.scss';
+    import $style from '~flux/components/css/component/Button.module.scss';
 
     const {
         buttonIcon = 'ellipsis-h'

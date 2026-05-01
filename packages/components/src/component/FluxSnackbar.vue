@@ -75,12 +75,12 @@
     import type { FluxColor, FluxIconName, FluxSnackbarObject } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, onBeforeUnmount, ref, watch, watchEffect } from 'vue';
-    import { addSnackbar, removeSnackbar, updateSnackbar } from '$flux/data';
+    import { addSnackbar, removeSnackbar, updateSnackbar } from '~flux/components/data';
     import FluxAction from './FluxAction.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxProgressBar from './FluxProgressBar.vue';
     import FluxSpinner from './FluxSpinner.vue';
-    import $style from '$flux/css/component/Snackbar.module.scss';
+    import $style from '~flux/components/css/component/Snackbar.module.scss';
 
     const emit = defineEmits<{
         action: [string];

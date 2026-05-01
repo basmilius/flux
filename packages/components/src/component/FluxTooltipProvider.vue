@@ -2,9 +2,9 @@
     import { unrefTemplateElement } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { computed, defineComponent, h, provide, ref, unref, watch } from 'vue';
-    import { FluxTooltipInjectionKey, useFluxStore } from '$flux/data';
-    import { FluxTooltipTransition } from '$flux/transition';
-    import $style from '$flux/css/component/Tooltip.module.scss';
+    import { FluxTooltipInjectionKey, useFluxStore } from '~flux/components/data';
+    import { FluxTooltipTransition } from '~flux/components/transition';
+    import $style from '~flux/components/css/component/Tooltip.module.scss';
 
     type Transition = 'above' | 'below' | 'end' | 'start';
 

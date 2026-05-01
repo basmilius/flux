@@ -15,7 +15,7 @@
     setup>
     import { FluxIcon } from '@flux-ui/components';
     import type { FluxIconName } from '@flux-ui/types';
-    import $style from '$fluxApplication/css/component/ApplicationMenu.module.scss';
+    import $style from '~flux/application/css/component/ApplicationMenu.module.scss';
 
     defineProps<{
         readonly icon?: FluxIconName;

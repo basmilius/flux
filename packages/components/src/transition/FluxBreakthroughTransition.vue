@@ -13,7 +13,7 @@
     lang="ts"
     setup>
     import type { VNode } from 'vue';
-    import $style from '$flux/css/component/Transition.module.scss';
+    import $style from '~flux/components/css/component/Transition.module.scss';
 
     const {
         mode = 'out-in'

@@ -7,22 +7,22 @@ import componentNavigation from './component-navigation';
 
 export const flux = composeLibrary({
     name: '@flux-ui/components',
-    alias: '$flux'
+    alias: '~flux/components'
 });
 
 export const fluxApplication = composeLibrary({
     name: '@flux-ui/application',
-    alias: '$fluxApplication'
+    alias: '~flux/application'
 });
 
 export const fluxDashboard = composeLibrary({
     name: '@flux-ui/dashboard',
-    alias: '$fluxDashboard'
+    alias: '~flux/dashboard'
 });
 
 export const fluxStatistics = composeLibrary({
     name: '@flux-ui/statistics',
-    alias: '$fluxStatistics'
+    alias: '~flux/statistics'
 });
 
 export default defineConfig({

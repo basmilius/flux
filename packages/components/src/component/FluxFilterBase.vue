@@ -9,7 +9,7 @@
     import type { FluxFilterItem, FluxFilterOptionItem, FluxFilterSpecMap, FluxFilterState } from '@flux-ui/types';
     import { camelCase } from 'lodash-es';
     import { computed, provide, unref, type VNode } from 'vue';
-    import { filterParsers, FluxFilterInjectionKey } from '$flux/data';
+    import { filterParsers, FluxFilterInjectionKey } from '~flux/components/data';
 
     type FluxFilterType = keyof FluxFilterSpecMap;
 

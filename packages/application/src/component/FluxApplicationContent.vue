@@ -19,7 +19,7 @@
     import { watch } from 'vue';
     import { useApplicationInjection } from '../composable';
     import type { FluxApplicationLayout } from '../data';
-    import $style from '$fluxApplication/css/component/ApplicationContent.module.scss';
+    import $style from '~flux/application/css/component/ApplicationContent.module.scss';
 
     const {
         layout = 'default'

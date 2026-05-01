@@ -66,11 +66,11 @@
     import type { FluxButtonEmits, FluxButtonProps, FluxButtonSlots } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { toRef, unref } from 'vue';
-    import { useDisabled } from '$flux/composable';
+    import { useDisabled } from '~flux/components/composable';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
     import FluxSpinner from './FluxSpinner.vue';
-    import $style from '$flux/css/component/base/Button.module.scss';
+    import $style from '~flux/components/css/component/base/Button.module.scss';
 
     const emit = defineEmits<FluxButtonEmits>();
 

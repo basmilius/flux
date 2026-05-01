@@ -29,8 +29,8 @@
     import { warn } from '@flux-ui/internals';
     import type { FluxIconName } from '@flux-ui/types';
     import { computed } from 'vue';
-    import { iconRegistry } from '$flux/data';
-    import $style from '$flux/css/component/Icon.module.scss';
+    import { iconRegistry } from '~flux/components/data';
+    import $style from '~flux/components/css/component/Icon.module.scss';
 
     const emit = defineEmits<{
         click: [MouseEvent];

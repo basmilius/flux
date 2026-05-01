@@ -28,12 +28,12 @@
 <script
     lang="ts"
     setup>
-    import { useFluxStore } from '$flux/data';
+    import { useFluxStore } from '~flux/components/data';
     import FluxAlert from './FluxAlert.vue';
     import FluxConfirm from './FluxConfirm.vue';
     import FluxOverlay from './FluxOverlay.vue';
     import FluxPrompt from './FluxPrompt.vue';
-    import $style from '$flux/css/component/Overlay.module.scss';
+    import $style from '~flux/components/css/component/Overlay.module.scss';
 
     const {alerts, confirms, prompts} = useFluxStore();
 </script>

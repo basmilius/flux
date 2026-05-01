@@ -22,7 +22,7 @@
         "baseUrl": ".",
         "rootDir": "./src",
         "paths": {
-            "$flux/*": [
+            "~flux/components/*": [
                 "src/*"
             ]
         }

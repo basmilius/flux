@@ -23,7 +23,7 @@
     setup>
     import type { FluxIconName } from '@flux-ui/types';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '$flux/css/component/Menu.module.scss';
+    import $style from '~flux/components/css/component/Menu.module.scss';
 
     defineProps<{
         readonly iconLeading?: FluxIconName;

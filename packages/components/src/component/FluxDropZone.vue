@@ -56,11 +56,11 @@
     setup>
     import { roundStep } from '@basmilius/utils';
     import { onMounted, onUnmounted, ref, toRef, unref, useTemplateRef, type VNode, watch } from 'vue';
-    import { useDisabled } from '$flux/composable';
-    import { useTranslate } from '$flux/composable/private';
-    import { FluxFadeTransition } from '$flux/transition';
+    import { useDisabled } from '~flux/components/composable';
+    import { useTranslate } from '~flux/components/composable/private';
+    import { FluxFadeTransition } from '~flux/components/transition';
     import FluxSpinner from './FluxSpinner.vue';
-    import $style from '$flux/css/component/DropZone.module.scss';
+    import $style from '~flux/components/css/component/DropZone.module.scss';
 
     const emit = defineEmits<{
         select: [File];

@@ -9,7 +9,7 @@
     setup>
     import type { VNode } from 'vue';
     import FluxActionStack from './FluxActionStack.vue';
-    import $style from '$flux/css/component/Table.module.scss';
+    import $style from '~flux/components/css/component/Table.module.scss';
 
     defineSlots<{
         default(): VNode[];

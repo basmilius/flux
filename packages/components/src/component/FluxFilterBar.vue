@@ -77,7 +77,7 @@
     setup>
     import type { FluxFilterState } from '@flux-ui/types';
     import { computed, unref, type VNode } from 'vue';
-    import { FilterBadge, VNodeRenderer } from '$flux/component/primitive';
+    import { FilterBadge, VNodeRenderer } from '~flux/components/component/primitive';
     import FluxFilterBase from './FluxFilterBase.vue';
     import FluxFilterWindow from './FluxFilterWindow.vue';
     import FluxFlyout from './FluxFlyout.vue';
@@ -86,7 +86,7 @@
     import FluxOverflowBar from './FluxOverflowBar.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import FluxSeparator from './FluxSeparator.vue';
-    import $style from '$flux/css/component/Filter.module.scss';
+    import $style from '~flux/components/css/component/Filter.module.scss';
 
     const emit = defineEmits<{
         reset: [string];

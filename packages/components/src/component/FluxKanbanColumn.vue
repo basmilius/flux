@@ -69,9 +69,9 @@
     setup>
     import { flattenVNodeTree } from '@flux-ui/internals';
     import { Comment, computed, onBeforeUnmount, onMounted, provide, Text, toRef, unref, useSlots, useTemplateRef, watch } from 'vue';
-    import { useDisabled, useKanbanInjection } from '$flux/composable';
-    import { FluxDisabledInjectionKey } from '$flux/data';
-    import $style from '$flux/css/component/Kanban.module.scss';
+    import { useDisabled, useKanbanInjection } from '~flux/components/composable';
+    import { FluxDisabledInjectionKey } from '~flux/components/data';
+    import $style from '~flux/components/css/component/Kanban.module.scss';
 
     const {
         columnId,

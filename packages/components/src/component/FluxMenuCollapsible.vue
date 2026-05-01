@@ -39,9 +39,9 @@
     import { flattenVNodeTree } from '@flux-ui/internals';
     import type { FluxIconName, FluxTo } from '@flux-ui/types';
     import { computed, getCurrentInstance, ref, useId, type VNode, watch } from 'vue';
-    import { FluxAutoHeightTransition } from '$flux/transition';
+    import { FluxAutoHeightTransition } from '~flux/components/transition';
     import FluxMenuItem from './FluxMenuItem.vue';
-    import $style from '$flux/css/component/Menu.module.scss';
+    import $style from '~flux/components/css/component/Menu.module.scss';
 
     type RouteRecordLike = {
         readonly name?: string | symbol | null | undefined;

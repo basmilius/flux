@@ -58,10 +58,10 @@
     lang="ts"
     setup>
     import { computed, unref } from 'vue';
-    import { useTranslate } from '$flux/composable/private';
-    import { showPrompt } from '$flux/data';
+    import { useTranslate } from '~flux/components/composable/private';
+    import { showPrompt } from '~flux/components/data';
     import FluxPaginationButton from './FluxPaginationButton.vue';
-    import $style from '$flux/css/component/Pagination.module.scss';
+    import $style from '~flux/components/css/component/Pagination.module.scss';
 
     const emit = defineEmits<{
         navigate: [number];

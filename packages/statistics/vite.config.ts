@@ -42,8 +42,8 @@ export default defineConfig(({mode}) => ({
     },
     resolve: {
         alias: {
-            '$flux': resolve(import.meta.dirname, '../components/src'),
-            '$fluxStatistics': resolve(import.meta.dirname, 'src')
+            '~flux/statistics': resolve(import.meta.dirname, 'src'),
+            '~flux/components': resolve(import.meta.dirname, '../components/src')
         }
     }
 }));

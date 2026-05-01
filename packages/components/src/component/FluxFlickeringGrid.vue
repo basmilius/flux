@@ -10,7 +10,7 @@
     import { mulberry32 } from '@basmilius/utils';
     import { useInView } from '@flux-ui/internals';
     import { computed, unref, useTemplateRef, watch } from 'vue';
-    import $style from '$flux/css/component/Visual.module.scss';
+    import $style from '~flux/components/css/component/Visual.module.scss';
 
     const {
         color = '#1d4ed8',

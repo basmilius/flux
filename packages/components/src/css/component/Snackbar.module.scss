@@ -1,4 +1,4 @@
-@use '$flux/css/mixin';
+@use '~flux/components/css/mixin';
 
 .snackbar {
     composes: basePane from './base/Pane.module.scss';

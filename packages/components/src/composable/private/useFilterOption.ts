@@ -1,6 +1,6 @@
 import type { FluxFilterValue, FluxFilterValueSingle } from '@flux-ui/types';
 import { computed, unref, type ComputedRef } from 'vue';
-import { useFilterInjection } from '$flux/composable';
+import { useFilterInjection } from '~flux/components/composable';
 
 export type FilterOptionSingle = {
     readonly currentValue: ComputedRef<FluxFilterValueSingle>;

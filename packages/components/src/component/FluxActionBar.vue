@@ -49,7 +49,7 @@
     lang="ts"
     setup>
     import type { VNode } from 'vue';
-    import { useTranslate } from '$flux/composable/private';
+    import { useTranslate } from '~flux/components/composable/private';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxDestructiveButton from './FluxDestructiveButton.vue';
     import FluxFlyout from './FluxFlyout.vue';
@@ -57,7 +57,7 @@
     import FluxSpacer from './FluxSpacer.vue';
     import FluxStack from './FluxStack.vue';
     import FluxTooltip from './FluxTooltip.vue';
-    import $style from '$flux/css/component/Action.module.scss';
+    import $style from '~flux/components/css/component/Action.module.scss';
 
     defineEmits<{
         reset: [];

@@ -56,7 +56,7 @@
     import { clsx } from 'clsx';
     import type { VNode } from 'vue';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '$flux/css/component/Timeline.module.scss';
+    import $style from '~flux/components/css/component/Timeline.module.scss';
 
     const {
         color = 'gray'

@@ -49,7 +49,7 @@
     import { clsx } from 'clsx';
     import FluxButton from './FluxButton.vue';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '$flux/css/component/Button.module.scss';
+    import $style from '~flux/components/css/component/Button.module.scss';
 
     defineEmits<FluxButtonEmits>();
 

@@ -42,7 +42,7 @@
     import type { FluxIconName, FluxStatisticsChange } from '@flux-ui/types';
     import Base from './FluxStatisticsBase.vue';
     import Change from './FluxStatisticsChange.vue';
-    import $style from '$fluxStatistics/css/Metric.module.scss';
+    import $style from '~flux/statistics/css/Metric.module.scss';
 
     defineProps<{
         readonly footer?: string;

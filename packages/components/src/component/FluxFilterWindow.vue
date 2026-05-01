@@ -46,13 +46,13 @@
     import { vHeightTransition } from '@flux-ui/internals';
     import type { FluxFilterItem } from '@flux-ui/types';
     import { unref, useTemplateRef, type VNode } from 'vue';
-    import { useTranslate } from '$flux/composable/private';
+    import { useTranslate } from '~flux/components/composable/private';
     import FluxMenu from './FluxMenu.vue';
     import FluxMenuGroup from './FluxMenuGroup.vue';
     import FluxMenuItem from './FluxMenuItem.vue';
     import FluxWindow from './FluxWindow.vue';
     import { FilterMenuRenderer, VNodeRenderer } from './primitive';
-    import $style from '$flux/css/component/Filter.module.scss';
+    import $style from '~flux/components/css/component/Filter.module.scss';
 
     const emit = defineEmits<{
         reset: [string]

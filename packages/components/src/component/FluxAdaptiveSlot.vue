@@ -29,8 +29,8 @@
     setup>
     import { animationFrameDebounce, unrefTemplateElement } from '@flux-ui/internals';
     import { getCurrentInstance, onMounted, onUnmounted, ref, toRef, useTemplateRef, watch } from 'vue';
-    import { useAdaptiveGroupInjection } from '$flux/composable';
-    import $style from '$flux/css/component/AdaptiveSlot.module.scss';
+    import { useAdaptiveGroupInjection } from '~flux/components/composable';
+    import $style from '~flux/components/css/component/AdaptiveSlot.module.scss';
 
     const props = withDefaults(defineProps<{
         readonly priority?: number;

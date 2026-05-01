@@ -8,7 +8,7 @@
     lang="ts"
     setup>
     import type { VNode } from 'vue';
-    import $style from '$flux/css/component/Form.module.scss';
+    import $style from '~flux/components/css/component/Form.module.scss';
 
     defineSlots<{
         default(): VNode[];

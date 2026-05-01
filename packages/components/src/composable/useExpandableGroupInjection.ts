@@ -1,5 +1,5 @@
 import { inject } from 'vue';
-import { FluxExpandableGroupInjectionKey } from '$flux/data';
+import { FluxExpandableGroupInjectionKey } from '~flux/components/data';
 
 export default function () {
     return inject(FluxExpandableGroupInjectionKey, {

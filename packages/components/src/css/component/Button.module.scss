@@ -1,4 +1,4 @@
-@use '$flux/css/mixin';
+@use '~flux/components/css/mixin';
 
 .primaryButton {
     composes: button from './base/Button.module.scss';

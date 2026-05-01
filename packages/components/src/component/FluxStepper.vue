@@ -24,7 +24,7 @@
     setup>
     import { flattenVNodeTree } from '@flux-ui/internals';
     import { computed, ref, unref, type VNode, watch } from 'vue';
-    import { FluxWindowTransition } from '$flux/transition';
+    import { FluxWindowTransition } from '~flux/components/transition';
     import FluxDynamicView from './FluxDynamicView.vue';
     import FluxStepperSteps from './FluxStepperSteps.vue';
 

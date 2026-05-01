@@ -27,8 +27,8 @@
     setup>
     import { useKeyboardGrab } from '@flux-ui/internals';
     import { computed, onBeforeUnmount, onMounted, toRef, unref, useTemplateRef, watch } from 'vue';
-    import { useDisabled, useKanbanInjection } from '$flux/composable';
-    import $style from '$flux/css/component/Kanban.module.scss';
+    import { useDisabled, useKanbanInjection } from '~flux/components/composable';
+    import $style from '~flux/components/css/component/Kanban.module.scss';
 
     const {
         columnId,

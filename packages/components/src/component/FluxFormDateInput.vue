@@ -36,14 +36,14 @@
     import type { FluxAutoCompleteType, FluxFormInputBaseProps } from '@flux-ui/types';
     import type { DateTime } from 'luxon';
     import { toRef, useTemplateRef } from 'vue';
-    import { useDisabled } from '$flux/composable';
-    import { useDateFlyout } from '$flux/composable/private';
+    import { useDisabled } from '~flux/components/composable';
+    import { useDateFlyout } from '~flux/components/composable/private';
     import FluxDatePicker from './FluxDatePicker.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxFormInput from './FluxFormInput.vue';
     import FluxFormInputGroup from './FluxFormInputGroup.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import $style from '$flux/css/component/Form.module.scss';
+    import $style from '~flux/components/css/component/Form.module.scss';
 
     const emit = defineEmits<{
         blur: [];

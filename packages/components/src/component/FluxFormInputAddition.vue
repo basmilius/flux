@@ -19,7 +19,7 @@
     import type { FluxIconName } from '@flux-ui/types';
     import type { VNode } from 'vue';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '$flux/css/component/Form.module.scss';
+    import $style from '~flux/components/css/component/Form.module.scss';
 
     defineProps<{
         readonly icon?: FluxIconName;

@@ -41,9 +41,9 @@
     lang="ts"
     setup>
     import { computed, unref } from 'vue';
-    import { FluxFadeTransition } from '$flux/transition';
+    import { FluxFadeTransition } from '~flux/components/transition';
     import FluxStack from './FluxStack.vue';
-    import $style from '$flux/css/component/Progress.module.scss';
+    import $style from '~flux/components/css/component/Progress.module.scss';
 
     const {
         isIndeterminate,

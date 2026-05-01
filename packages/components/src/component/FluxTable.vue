@@ -46,12 +46,12 @@
     lang="ts"
     setup>
     import { provide, type VNode } from 'vue';
-    import { FluxTableInjectionKey } from '$flux/data';
+    import { FluxTableInjectionKey } from '~flux/components/data';
     import FluxPaneBody from './FluxPaneBody.vue';
     import FluxSpinner from './FluxSpinner.vue';
     import FluxTableCell from './FluxTableCell.vue';
     import FluxTableRow from './FluxTableRow.vue';
-    import $style from '$flux/css/component/Table.module.scss';
+    import $style from '~flux/components/css/component/Table.module.scss';
 
     const {
         captionSide = 'bottom',

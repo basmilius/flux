@@ -16,11 +16,11 @@
         "verbatimModuleSyntax": true,
         "rootDir": "src",
         "paths": {
-            "$flux/*": [
-                "../components/src/*"
-            ],
-            "$fluxApplication/*": [
+            "~flux/application/*": [
                 "src/*"
+            ],
+            "~flux/components/*": [
+                "../components/src/*"
             ]
         },
         "types": [

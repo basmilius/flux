@@ -48,9 +48,9 @@
     import type { FluxFormInputBaseProps } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, toRef, unref, useTemplateRef, watchEffect } from 'vue';
-    import { useDisabled, useFormFieldInjection } from '$flux/composable';
+    import { useDisabled, useFormFieldInjection } from '~flux/components/composable';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '$flux/css/component/Form.module.scss';
+    import $style from '~flux/components/css/component/Form.module.scss';
 
     const modelValue = defineModel<boolean | null>({
         default: false

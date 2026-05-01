@@ -21,10 +21,10 @@
     import type { FluxFormInputBaseProps, FluxFormSelectEntry } from '@flux-ui/types';
     import { upperFirst } from 'lodash-es';
     import { computed, toRef } from 'vue';
-    import { useDisabled } from '$flux/composable';
-    import { useTranslate } from '$flux/composable/private';
-    import type { FluxTranslation } from '$flux/data';
-    import { TIME_ZONE_GROUP_ORDER, TIME_ZONES } from '$flux/data/timeZones';
+    import { useDisabled } from '~flux/components/composable';
+    import { useTranslate } from '~flux/components/composable/private';
+    import type { FluxTranslation } from '~flux/components/data';
+    import { TIME_ZONE_GROUP_ORDER, TIME_ZONES } from '~flux/components/data/timeZones';
     import FluxFormSelect from './FluxFormSelect.vue';
 
     const modelValue = defineModel<string | null>({

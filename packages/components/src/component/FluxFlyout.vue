@@ -43,9 +43,9 @@
     import type { FluxDirection } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { provide, ref, unref, useTemplateRef, type VNode, watch } from 'vue';
-    import { FluxFlyoutInjectionKey } from '$flux/data';
+    import { FluxFlyoutInjectionKey } from '~flux/components/data';
     import FluxPane from './FluxPane.vue';
-    import $style from '$flux/css/component/Flyout.module.scss';
+    import $style from '~flux/components/css/component/Flyout.module.scss';
 
     const {
         direction = 'vertical',

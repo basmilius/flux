@@ -7,8 +7,8 @@
 <script
     lang="ts"
     setup>
-    import { useDashboardInjection } from '$fluxDashboard/composable';
-    import $style from '$fluxDashboard/css/component/DashboardTopBar.module.scss';
+    import { useDashboardInjection } from '~flux/dashboard/composable';
+    import $style from '~flux/dashboard/css/component/DashboardTopBar.module.scss';
 
     const {isMenuCollapsed} = useDashboardInjection();
 </script>

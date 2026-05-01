@@ -16,7 +16,7 @@
     lang="ts"
     setup>
     import type { VNode } from 'vue';
-    import $style from '$flux/css/component/Grid.module.scss';
+    import $style from '~flux/components/css/component/Grid.module.scss';
 
     defineProps<{
         readonly xs?: number;

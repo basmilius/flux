@@ -14,7 +14,7 @@
     setup>
     import type { FluxIconName } from '@flux-ui/types';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '$flux/css/component/CommandPalette.module.scss';
+    import $style from '~flux/components/css/component/CommandPalette.module.scss';
 
     defineProps<{
         readonly icon?: FluxIconName;

@@ -10,7 +10,7 @@
     lang="ts"
     setup>
     import type { VNode } from 'vue';
-    import $style from '$flux/css/component/Timeline.module.scss';
+    import $style from '~flux/components/css/component/Timeline.module.scss';
 
     defineSlots<{
         default(): VNode[];

@@ -43,9 +43,9 @@
     generic="TOption extends TreeBaseOption">
     import type { FluxColor } from '@flux-ui/types';
     import { computed } from 'vue';
-    import { getLevelColor, type TreeBaseOption, type TreeFlatNode } from '$flux/composable/private';
+    import { getLevelColor, type TreeBaseOption, type TreeFlatNode } from '~flux/components/composable/private';
     import FluxIcon from '../FluxIcon.vue';
-    import $style from '$flux/css/component/primitive/TreeNode.module.scss';
+    import $style from '~flux/components/css/component/primitive/TreeNode.module.scss';
 
     const emit = defineEmits<{
         expandClick: [MouseEvent];

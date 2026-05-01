@@ -27,7 +27,7 @@
     import { FluxIcon } from '@flux-ui/components';
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import $style from '$fluxStatistics/css/Change.module.scss';
+    import $style from '~flux/statistics/css/Change.module.scss';
 
     defineProps<{
         readonly color?: FluxColor;

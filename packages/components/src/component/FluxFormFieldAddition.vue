@@ -25,7 +25,7 @@
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '$flux/css/component/Form.module.scss';
+    import $style from '~flux/components/css/component/Form.module.scss';
 
     const {
         mode = 'hint'

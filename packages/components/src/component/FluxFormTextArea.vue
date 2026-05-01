@@ -32,8 +32,8 @@
     import type { FluxAutoCompleteType, FluxFormInputBaseProps } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { toRef } from 'vue';
-    import { useDisabled, useFormFieldInjection } from '$flux/composable';
-    import $style from '$flux/css/component/Form.module.scss';
+    import { useDisabled, useFormFieldInjection } from '~flux/components/composable';
+    import $style from '~flux/components/css/component/Form.module.scss';
 
     const emit = defineEmits<{
         blur: [];

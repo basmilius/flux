@@ -25,7 +25,7 @@
     setup>
     import type { FluxButtonEmits, FluxButtonProps, FluxButtonSlots } from '@flux-ui/types';
     import FluxButton, { SLOTS } from './FluxButton.vue';
-    import $style from '$flux/css/component/Pagination.module.scss';
+    import $style from '~flux/components/css/component/Pagination.module.scss';
 
     defineEmits<FluxButtonEmits>();
 

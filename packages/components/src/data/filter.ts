@@ -1,8 +1,8 @@
 import { formatNumber } from '@basmilius/utils';
 import type { FluxFilterDateEntry, FluxFilterDateRangeEntry, FluxFilterDateRangeSpec, FluxFilterDateSpec, FluxFilterEntryMap, FluxFilterOptionAsyncSpec, FluxFilterOptionEntry, FluxFilterOptionHeader, FluxFilterOptionItem, FluxFilterOptionsAsyncSpec, FluxFilterOptionsEntry, FluxFilterOptionSpec, FluxFilterOptionsSpec, FluxFilterRangeEntry, FluxFilterRangeSpec, FluxFilterSpecMap, FluxFilterValueSingle } from '@flux-ui/types';
 import { DateTime } from 'luxon';
-import { useTranslate } from '$flux/composable/private';
-import { createLabelForDateRange } from '$flux/util';
+import { useTranslate } from '~flux/components/composable/private';
+import { createLabelForDateRange } from '~flux/components/util';
 import type { FluxTranslate } from './i18n';
 
 function parseDate(base: FluxFilterDateSpec): FluxFilterDateEntry {

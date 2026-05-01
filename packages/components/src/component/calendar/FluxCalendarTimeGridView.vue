@@ -110,11 +110,11 @@
     import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
     import { computed, onBeforeUnmount, ref, unref } from 'vue';
-    import { useTranslate } from '$flux/composable/private';
-    import type { FluxCalendarItemData } from '$flux/data';
-    import { FluxWindowTransition } from '$flux/transition';
+    import { useTranslate } from '~flux/components/composable/private';
+    import type { FluxCalendarItemData } from '~flux/components/data';
+    import { FluxWindowTransition } from '~flux/components/transition';
     import FluxCalendarItemDisplay from './FluxCalendarItemDisplay.vue';
-    import $style from '$flux/css/component/Calendar.module.scss';
+    import $style from '~flux/components/css/component/Calendar.module.scss';
 
     type Positioned = {
         readonly id: string | number;

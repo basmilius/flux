@@ -14,7 +14,7 @@
     import type { FluxFilterItem, FluxFilterValue } from '@flux-ui/types';
     import { computed, ref, unref, watch } from 'vue';
     import FluxBadge from '../FluxBadge.vue';
-    import $style from '$flux/css/component/Filter.module.scss';
+    import $style from '~flux/components/css/component/Filter.module.scss';
 
     const emit = defineEmits<{
         click: [MouseEvent];

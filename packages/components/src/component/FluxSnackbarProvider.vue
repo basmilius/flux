@@ -22,9 +22,9 @@
     lang="ts"
     setup>
     import type { FluxSnackbarObject } from '@flux-ui/types';
-    import { useFluxStore } from '$flux/data';
+    import { useFluxStore } from '~flux/components/data';
     import FluxSnackbar from './FluxSnackbar.vue';
-    import $style from '$flux/css/component/Snackbar.module.scss';
+    import $style from '~flux/components/css/component/Snackbar.module.scss';
 
     const {snackbars} = useFluxStore();
 

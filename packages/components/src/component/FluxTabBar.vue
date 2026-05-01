@@ -44,9 +44,9 @@
     import { unrefTemplateElement, useEventListener } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { onMounted, ref, useTemplateRef, type VNode } from 'vue';
-    import { FluxFadeTransition } from '$flux/transition';
+    import { FluxFadeTransition } from '~flux/components/transition';
     import FluxIcon from './FluxIcon.vue';
-    import $style from '$flux/css/component/Tab.module.scss';
+    import $style from '~flux/components/css/component/Tab.module.scss';
 
     defineSlots<{
         default(): VNode[];

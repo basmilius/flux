@@ -20,9 +20,9 @@
     import { roundStep } from '@basmilius/utils';
     import { unrefTemplateElement } from '@flux-ui/internals';
     import { computed, onUnmounted, ref, toRef, unref, useTemplateRef, watch } from 'vue';
-    import { useDisabled } from '$flux/composable';
+    import { useDisabled } from '~flux/components/composable';
     import CoordinatePickerThumb from './CoordinatePickerThumb.vue';
-    import $style from '$flux/css/component/primitive/CoordinatePicker.module.scss';
+    import $style from '~flux/components/css/component/primitive/CoordinatePicker.module.scss';
 
     const emit = defineEmits<{
         dragging: [boolean];

@@ -23,9 +23,16 @@ packages/
 docs/                                — VitePress documentation site
 ```
 
-### Path alias inside `packages/components`
+### Path aliases
 
-`$flux` resolves to `packages/components/src/` (configured in `vite.config.ts` and `tsconfig.app.json`).
+A unified `~flux/*` namespace is used across all packages, with each Flux package mounted under its own sub-path:
+
+- `~flux/components/*` → `packages/components/src/*`
+- `~flux/application/*` → `packages/application/src/*`
+- `~flux/dashboard/*` → `packages/dashboard/src/*`
+- `~flux/statistics/*` → `packages/statistics/src/*`
+
+The same alias is used for both TypeScript/Vue imports and Sass `@use` statements.
 
 ---
 
@@ -80,34 +87,49 @@ Strict rules apply to all `.ts` and `.vue` files in `packages/*/src/`.
 
 ### 2. Path aliases
 
-Each package has its own alias to its own `src/`. Never use `@/*` — it is not configured anywhere.
+A single unified `~flux/*` namespace is used for both TypeScript/Vue imports and Sass `@use` statements. Each Flux package is mounted under its own sub-path — fully symmetric. Never use `@/*` — it is not configured anywhere.
 
-| Package      | Alias              | Resolves to                  |
-|--------------|--------------------|------------------------------|
-| components   | `$flux/*`          | `packages/components/src/*`  |
-| dashboard    | `$fluxDashboard/*` | `packages/dashboard/src/*`   |
-| statistics   | `$fluxStatistics/*`| `packages/statistics/src/*`  |
-| application  | `$fluxApplication/*` + `$flux/*` (cross-pkg, only for `$flux/css/...`) | `packages/application/src/*` |
-| internals    | (none — relative paths only) | — |
-| types        | (none — relative paths only) | — |
+| Path pattern             | Resolves to                   |
+|--------------------------|-------------------------------|
+| `~flux/components/*`     | `packages/components/src/*`   |
+| `~flux/application/*`    | `packages/application/src/*`  |
+| `~flux/dashboard/*`      | `packages/dashboard/src/*`    |
+| `~flux/statistics/*`     | `packages/statistics/src/*`   |
 
-Cross-package alias usage is forbidden (e.g. no `$fluxDashboard/*` from inside `components`). The single exception: `application` may use `$flux/css/...` for shared CSS.
+`packages/internals` and `packages/types` have no alias; they only use relative paths internally.
+
+Examples:
+
+```ts
+// inside packages/components/src/component/FluxButton.vue
+import { useDisabled } from '~flux/components/composable';
+
+// inside packages/application/src/component/FluxApplication.vue
+import { FluxSecondaryButton } from '@flux-ui/components';   // npm dep
+import { useApplicationMenu } from '~flux/application/composable';  // own package
+```
+
+```scss
+@use '~flux/components/css/mixin';
+```
+
+Cross-package consumption is allowed via the unified `~flux/*` namespace. For instance, `application` legitimately uses `~flux/components/css/...` to consume shared CSS from `components`.
 
 ### 3. Barrel imports
 
 Always import from a directory's barrel (`index.ts`) **unless** the importing file is in that same directory.
 
-- ❌ From `component/FluxButton.vue`: `import { useDisabled } from '$flux/composable/useDisabled';`
-- ✅ From `component/FluxButton.vue`: `import { useDisabled } from '$flux/composable';`
+- ❌ From `component/FluxButton.vue`: `import { useDisabled } from '~flux/composable/useDisabled';`
+- ✅ From `component/FluxButton.vue`: `import { useDisabled } from '~flux/composable';`
 - ✅ From `composable/useFoo.ts`: `import { useDisabled } from './useDisabled';`
 
 Known barrels in `packages/components/src/`: `composable/`, `composable/private/`, `data/`, `transition/`, `util/`, `component/primitive/`, `component/calendar/`, plus the top-level `index.ts`.
 
-**Critical for injection keys**: keys like `FluxKanbanInjectionKey`, `FluxCalendarInjectionKey`, `FluxDisabledInjectionKey` (defined in `data/di.ts`) **must** always be imported via the `$flux/data` barrel. Importing them via the deep path (`$flux/data/di`) creates a separate module instance in Vite/rolldown — provider and consumer end up with different `Symbol()` instances and `inject()` returns nothing.
+**Critical for injection keys**: keys like `FluxKanbanInjectionKey`, `FluxCalendarInjectionKey`, `FluxDisabledInjectionKey` (defined in `data/di.ts`) **must** always be imported via the `~flux/data` barrel. Importing them via the deep path (`~flux/data/di`) creates a separate module instance in Vite/rolldown — provider and consumer end up with different `Symbol()` instances and `inject()` returns nothing.
 
 **Documented exceptions** (deep imports allowed):
-- `$flux/data/timeZones` — too large to include in the data barrel
-- `$flux/css/...` — CSS modules, no barrel
+- `~flux/data/timeZones` — too large to include in the data barrel
+- `~flux/css/...` — CSS modules, no barrel
 - `../FluxX.vue` from `component/primitive/*` and `component/calendar/*` — kept relative to avoid import cycles between primitives and parent components
 
 ### 4. Import order
@@ -115,19 +137,19 @@ Known barrels in `packages/components/src/`: `composable/`, `composable/private/
 Four groups, **no** blank lines between groups, alphabetic within each group:
 
 1. **External (npm)** — `@`-scoped first (alphabetic), then unscoped (alphabetic)
-2. **Internal absolute / parent** — alias paths (`$flux/*`, `$fluxDashboard/*`, etc., excluding `/css/`) and `../...`
+2. **Internal absolute / parent** — alias paths (`~flux/*`, `~fluxDashboard/*`, etc., excluding `/css/`) and `../...`
 3. **Local siblings** — `./...`
-4. **Styles (last)** — `$flux/css/*`, `$fluxDashboard/css/*`, `*.module.scss`
+4. **Styles (last)** — `~flux/css/*`, `~fluxDashboard/css/*`, `*.module.scss`
 
 Example:
 ```ts
 import { type FluxButtonEmits, type FluxButtonProps, type FluxButtonSlots } from '@flux-ui/types';
 import { clsx } from 'clsx';
 import { toRef, unref } from 'vue';
-import { useDisabled } from '$flux/composable';
+import { useDisabled } from '~flux/composable';
 import FluxIcon from './FluxIcon.vue';
 import FluxPressable from './FluxPressable.vue';
-import $style from '$flux/css/component/base/Button.module.scss';
+import $style from '~flux/css/component/base/Button.module.scss';
 ```
 
 ### 5. Type-only npm packages
@@ -205,7 +227,7 @@ CSS module class names are compiled in **kebab-case** for the library build (con
 
 ### SCSS mixins
 
-Available mixins (import via `@use '$flux/css/mixin'`):
+Available mixins (import via `@use '~flux/css/mixin'`):
 
 - `mixin.hover` — hover state helper
 - `mixin.focus-ring` — focus ring

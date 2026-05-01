@@ -7,5 +7,5 @@
 <script
     lang="ts"
     setup>
-    import $style from '$fluxStatistics/css/Legend.module.scss';
+    import $style from '~flux/statistics/css/Legend.module.scss';
 </script>

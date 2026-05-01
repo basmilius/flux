@@ -30,7 +30,7 @@
     import FluxFocalPointImage from './FluxFocalPointImage.vue';
     import FluxRemove from './FluxRemove.vue';
     import FluxSpinner from './FluxSpinner.vue';
-    import $style from '$flux/css/component/Gallery.module.scss';
+    import $style from '~flux/components/css/component/Gallery.module.scss';
 
     const emit = defineEmits<{
         delete: [];

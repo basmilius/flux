@@ -13,9 +13,9 @@
     import type { FluxIconName } from '@flux-ui/types';
     import { DateTime } from 'luxon';
     import { computed, unref } from 'vue';
-    import { useFilterInjection } from '$flux/composable';
+    import { useFilterInjection } from '~flux/components/composable';
     import FluxDatePicker from './FluxDatePicker.vue';
-    import $style from '$flux/css/component/Filter.module.scss';
+    import $style from '~flux/components/css/component/Filter.module.scss';
 
     const {
         name

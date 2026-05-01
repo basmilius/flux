@@ -9,8 +9,8 @@
     setup>
     import { getExposedRef } from '@flux-ui/internals';
     import { type ComponentInternalInstance, provide, type VNode } from 'vue';
-    import { FluxExpandableGroupInjectionKey } from '$flux/data';
-    import $style from '$flux/css/component/Expandable.module.scss';
+    import { FluxExpandableGroupInjectionKey } from '~flux/components/data';
+    import $style from '~flux/components/css/component/Expandable.module.scss';
 
     const {
         isControlled

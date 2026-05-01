@@ -13,7 +13,7 @@
     lang="ts"
     setup>
     import type { FluxFilterOptionRow, FluxFilterValue, FluxIconName } from '@flux-ui/types';
-    import { useAsyncFilterOptions, useFilterOptionMulti } from '$flux/composable/private';
+    import { useAsyncFilterOptions, useFilterOptionMulti } from '~flux/components/composable/private';
     import { FilterOptionBase } from './primitive';
 
     const modelSearch = defineModel<string>('searchQuery', {

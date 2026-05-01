@@ -12,7 +12,7 @@
     import { useInterval } from '@basmilius/common';
     import { unrefTemplateElement } from '@flux-ui/internals';
     import { computed, ref, unref, useTemplateRef, type VNode, watch } from 'vue';
-    import $style from '$flux/css/component/Fader.module.scss';
+    import $style from '~flux/components/css/component/Fader.module.scss';
 
     const emit = defineEmits<{
         update: [number];

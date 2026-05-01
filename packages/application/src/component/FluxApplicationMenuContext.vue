@@ -27,7 +27,7 @@
     import { matchedRouteKey } from 'vue-router';
     import { useApplicationContextRegistration } from '../composable';
     import { FluxApplicationInjectionKey } from '../data';
-    import $style from '$fluxApplication/css/component/ApplicationMenu.module.scss';
+    import $style from '~flux/application/css/component/ApplicationMenu.module.scss';
 
     const props = defineProps<{
         readonly subtitle?: string;
