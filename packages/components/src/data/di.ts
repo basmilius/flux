@@ -1,6 +1,6 @@
 import type { FluxFilterState, FluxFilterValue } from '@flux-ui/types';
 import type { DateTime } from 'luxon';
-import type { ComponentInternalInstance, ComputedRef, InjectionKey, Ref } from 'vue';
+import type { ComponentInternalInstance, ComputedRef, InjectionKey, Ref, VNode } from 'vue';
 
 export const FluxAdaptiveGroupInjectionKey: InjectionKey<FluxAdaptiveGroupInjection> = Symbol();
 export const FluxCalendarInjectionKey: InjectionKey<FluxCalendarInjection> = Symbol();
@@ -88,6 +88,16 @@ export type FluxCalendarView = 'month' | 'week' | 'two-days' | 'day';
 
 export type FluxCalendarKeyboardDirection = 'up' | 'down' | 'left' | 'right';
 
+export type FluxCalendarItemData = {
+    readonly id: string | number;
+    readonly date: DateTime;
+    readonly duration?: number;
+    readonly allDay: boolean;
+    readonly isClickable: boolean;
+    renderContent(): VNode[];
+    handleClick(evt: MouseEvent): void;
+};
+
 export type FluxCalendarInjection = {
     readonly isDraggable: ComputedRef<boolean>;
     readonly resolvedView: ComputedRef<FluxCalendarView>;
@@ -96,8 +106,11 @@ export type FluxCalendarInjection = {
     readonly snapMinutes: ComputedRef<number>;
     readonly grabbedId: Ref<string | number | null>;
 
-    registerItem(element: Element, id: string | number): void;
-    unregisterItem(element: Element): void;
+    registerItem(id: string | number, data: FluxCalendarItemData): void;
+    unregisterItem(id: string | number): void;
+
+    registerItemElement(element: Element, id: string | number): void;
+    unregisterItemElement(element: Element): void;
 
     onItemDragStart(id: string | number, fromDate: DateTime, evt: DragEvent): void;
     onItemDragEnd(id: string | number): void;

@@ -1,43 +1,52 @@
 @use '$flux/css/mixin';
 
-/* region root */
-
 .kanban {
     position: relative;
-    display: flex;
-    flex-flow: row;
-    gap: 15px;
-    block-size: 100%;
-    inline-size: 100%;
+    display: grid;
+    flex-grow: 1;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(300px, 1fr);
+    grid-template-rows: auto 1fr auto;
+    margin: -9px;
+    padding: 9px;
+    gap: 0 15px;
     overflow-x: auto;
-    padding-bottom: 6px;
 }
 
 .kanbanLiveRegion {
     position: absolute;
+    grid-row: 1;
     width: 1px;
     height: 1px;
     margin: -1px;
     padding: 0;
     border: 0;
-    overflow: hidden;
     clip: rect(0, 0, 0, 0);
+    overflow: hidden;
     white-space: nowrap;
 }
 
-/* endregion */
-
-/* region column */
-
 .kanbanColumn {
-    display: flex;
-    flex-flow: column;
-    flex: 1 0 300px;
-    background: var(--gray-100);
-    border: 1px solid var(--gray-200);
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 2;
+    min-width: 0;
+    background: var(--gray-50);
+    border: 1px solid var(--surface-stroke);
     border-radius: var(--radius);
+    outline: 2px dashed transparent;
+    outline-offset: 2px;
     overflow: hidden;
-    transition: opacity 180ms var(--swift-out);
+    transition: 210ms var(--swift-out);
+    transition-property: background, border, outline-color, opacity, z-index;
+    z-index: 0;
+
+    &.isOver {
+        background: var(--primary-50);
+        border-color: var(--primary-200);
+        outline-color: var(--primary-600);
+        z-index: 1;
+    }
 }
 
 .kanbanColumn.isColumnDragging {
@@ -52,8 +61,7 @@
     display: flex;
     align-items: center;
     gap: 9px;
-    padding: 12px 15px;
-    border-bottom: 1px solid var(--gray-200);
+    padding: 12px 12px 0;
 
     @include mixin.focus-ring(-2);
 }
@@ -68,26 +76,22 @@
 
 .kanbanColumnLabel {
     flex: 1;
-    font-size: .8125rem;
+    font-size: 14px;
     font-weight: 600;
     color: var(--foreground);
-    letter-spacing: .01em;
     text-transform: uppercase;
 }
 
 .kanbanColumnBody {
+    position: relative;
     display: flex;
     flex-flow: column;
-    gap: 9px;
-    padding: 9px;
+    gap: 12px;
+    padding: 12px;
     min-height: 60px;
     flex: 1;
     overflow-y: auto;
     transition: background 180ms var(--swift-out);
-}
-
-.isOver .kanbanColumnBody {
-    background: rgb(from var(--primary-500) r g b / .06);
 }
 
 .isOver.isDropDisallowed .kanbanColumnBody {
@@ -125,24 +129,26 @@
 }
 
 .kanbanDropIndicator {
-    flex-shrink: 0;
-    height: 2px;
+    position: absolute;
+    top: -3px;
+    inset-inline: 15px;
+    height: 4px;
     border-radius: 999px;
-    background: transparent;
-    transition: background 180ms var(--swift-out);
-}
-
-.isDropEndActive {
     background: var(--primary-500);
+    opacity: 0;
+    pointer-events: none;
+    transition: 300ms var(--swift-out);
+    transition-property: background, opacity;
+    will-change: transform;
 }
 
-.isDropEndActive.isDropEndDisallowed {
+.kanbanDropIndicator.isVisible {
+    opacity: 1;
+}
+
+.kanbanDropIndicator.isDisallowed {
     background: var(--danger-500);
 }
-
-/* endregion */
-
-/* region item */
 
 .kanbanItem {
     position: relative;
@@ -181,23 +187,3 @@
     outline-offset: 2px;
     z-index: 1;
 }
-
-.isDropBefore {
-    &::before {
-        content: '';
-        position: absolute;
-        inset-inline: 0;
-        top: -6px;
-        height: 2px;
-        border-radius: 999px;
-        background: var(--primary-500);
-    }
-}
-
-.isDropBefore.isDropBeforeDisallowed {
-    &::before {
-        background: var(--danger-500);
-    }
-}
-
-/* endregion */

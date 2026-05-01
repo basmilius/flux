@@ -2,6 +2,12 @@
     <div
         ref="root"
         :class="$style.calendar">
+        <div
+            :class="$style.calendarItemRegistry"
+            aria-hidden="true">
+            <slot/>
+        </div>
+
         <FluxActionBar :class="$style.calendarActions">
             <template #primary>
                 <div
@@ -157,23 +163,13 @@
 <script
     lang="ts"
     setup>
-    import {
-        defaultKeyboardGrabAnnounce,
-        flattenVNodeTree,
-        getComponentName,
-        useCalendar,
-        useCalendarMonthSwitcher,
-        useCalendarTimeGrid,
-        useCalendarYearSwitcher
-    } from '@flux-ui/internals';
+    import { defaultKeyboardGrabAnnounce, useCalendar, useCalendarMonthSwitcher, useCalendarTimeGrid, useCalendarYearSwitcher } from '@flux-ui/internals';
     import { DateTime } from 'luxon';
-    import { computed, onBeforeUnmount, onMounted, provide, ref, unref, type VNode, watch } from 'vue';
-    import useBreakpoints from '$flux/composable/useBreakpoints';
+    import { computed, onBeforeUnmount, onMounted, provide, ref, shallowRef, unref, type VNode, watch } from 'vue';
+    import { useBreakpoints } from '$flux/composable';
     import { useTranslate } from '$flux/composable/private';
-    import type { FluxCalendarKeyboardDirection, FluxCalendarView } from '$flux/data/di';
-    import { FluxCalendarInjectionKey } from '$flux/data';
-    import FluxCalendarMonthView from './calendar/FluxCalendarMonthView.vue';
-    import FluxCalendarTimeGridView from './calendar/FluxCalendarTimeGridView.vue';
+    import { FluxCalendarInjectionKey, type FluxCalendarItemData, type FluxCalendarKeyboardDirection, type FluxCalendarView } from '$flux/data/di';
+    import { FluxCalendarMonthView, FluxCalendarTimeGridView } from './calendar';
     import FluxActionBar from './FluxActionBar.vue';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxDatePicker from './FluxDatePicker.vue';
@@ -237,10 +233,6 @@
         const [from, to] = hourRange;
 
         if (from < 0 || to > 24 || from >= to) {
-            if (import.meta.env.DEV) {
-                console.warn(`[FluxCalendar] Invalid hourRange [${from}, ${to}], falling back to [0, 24].`);
-            }
-
             return [0, 24] as const;
         }
 
@@ -312,18 +304,14 @@
         previous: previousTimeGrid
     } = useCalendarTimeGrid(initialDate, timeGridDayCount);
 
-    // Items uit slot.
-    const items = computed<VNode[]>(() => {
-        const flat = flattenVNodeTree(slots.default?.() ?? []);
-        return flat.filter(en => getComponentName(en) === 'FluxCalendarItem');
-    });
+    // Items registry — items registreren zichzelf via inject.
+    const items = shallowRef<FluxCalendarItemData[]>([]);
 
     // Drag-state.
-    const root = ref<HTMLDivElement | null>(null);
     const dragState = ref<{ readonly id: string | number; readonly fromDate: DateTime } | null>(null);
     const grabbedId = ref<string | number | null>(null);
     const monthFocusedDate = ref<DateTime | null>(null);
-    const itemRegistry = new WeakMap<Element, { readonly id: string | number }>();
+    const itemElementRegistry = new WeakMap<Element, { readonly id: string | number }>();
     const itemElementsById = new Map<string | number, Element>();
     let navHoverTimer: ReturnType<typeof setTimeout> | null = null;
 
@@ -351,19 +339,33 @@
         snapMinutes: computed(() => SNAP_MINUTES),
         grabbedId,
 
-        registerItem(element, id) {
-            itemRegistry.set(element, {id});
+        registerItem(id, data) {
+            const existing = items.value.findIndex(i => i.id === id);
+
+            if (existing >= 0) {
+                items.value = items.value.map((i, idx) => idx === existing ? data : i);
+            } else {
+                items.value = [...items.value, data];
+            }
+        },
+
+        unregisterItem(id) {
+            items.value = items.value.filter(i => i.id !== id);
+        },
+
+        registerItemElement(element, id) {
+            itemElementRegistry.set(element, {id});
             itemElementsById.set(id, element);
         },
 
-        unregisterItem(element) {
-            const info = itemRegistry.get(element);
+        unregisterItemElement(element) {
+            const info = itemElementRegistry.get(element);
 
             if (info) {
                 itemElementsById.delete(info.id);
             }
 
-            itemRegistry.delete(element);
+            itemElementRegistry.delete(element);
         },
 
         onItemDragStart(id, fromDate, evt) {
@@ -500,17 +502,7 @@
 
     // Keyboard-grab routing.
     function findItemDate(id: string | number): DateTime | null {
-        const item = unref(items).find(vn => {
-            const props = (vn.props ?? {}) as { id?: string | number };
-            return props.id === id;
-        });
-
-        if (!item) {
-            return null;
-        }
-
-        const props = (item.props ?? {}) as { date?: DateTime };
-        return props.date ?? null;
+        return items.value.find(i => i.id === id)?.date ?? null;
     }
 
     function handleKeyboardMove(direction: FluxCalendarKeyboardDirection): void {

@@ -24,10 +24,10 @@
                     @dragleave="draggable ? onCellDragLeave(date) : undefined"
                     @drop="draggable ? onCellDrop(date, $event) : undefined">
                     <div :class="$style.calendarEvents">
-                        <VNodeRenderer
-                            v-for="event of getItemsForDate(date)"
-                            :key="event.key"
-                            :vnode="event.vnode"/>
+                        <FluxCalendarItemDisplay
+                            v-for="item of getItemsForDate(date)"
+                            :key="item.id"
+                            :data="item"/>
                     </div>
 
                     <span :class="$style.calendarEntryDate">
@@ -42,16 +42,13 @@
 <script
     lang="ts"
     setup>
-    import { getComponentProps } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
-    import { computed, ref, unref, type VNode } from 'vue';
+    import { computed, ref, unref } from 'vue';
+    import type { FluxCalendarItemData } from '$flux/data/di';
     import { FluxWindowTransition } from '$flux/transition';
-    import { VNodeRenderer } from '../primitive';
+    import FluxCalendarItemDisplay from './FluxCalendarItemDisplay.vue';
     import $style from '$flux/css/component/Calendar.module.scss';
-
-    type ItemEntry = { readonly key: string | number; readonly vnode: VNode };
-    type ItemProps = { date: DateTime; id?: string | number };
 
     const emit = defineEmits<{
         cellDrop: [DateTime];
@@ -71,7 +68,7 @@
         readonly viewDate: DateTime;
         readonly isTransitioningToPast: boolean;
         readonly draggable: boolean;
-        readonly items: VNode[];
+        readonly items: FluxCalendarItemData[];
         readonly hasActiveDrag: boolean;
         readonly focusedDate?: DateTime | null;
     }>();
@@ -83,31 +80,28 @@
     }
 
     const itemsByDate = computed(() => {
-        const map = new Map<string, ItemEntry[]>();
+        const map = new Map<string, FluxCalendarItemData[]>();
 
-        items.forEach((vnode, index) => {
-            const props = getComponentProps<ItemProps>(vnode);
-            const dateKey = props.date.toSQLDate();
+        items.forEach(item => {
+            const dateKey = item.date.toSQLDate();
 
             if (!dateKey) {
                 return;
             }
 
-            const key = props.id ?? (vnode.key as string | number | null) ?? index;
-            const entry: ItemEntry = {key, vnode};
             const list = map.get(dateKey);
 
             if (list) {
-                list.push(entry);
+                list.push(item);
             } else {
-                map.set(dateKey, [entry]);
+                map.set(dateKey, [item]);
             }
         });
 
         return map;
     });
 
-    function getItemsForDate(forDate: DateTime): ItemEntry[] {
+    function getItemsForDate(forDate: DateTime): FluxCalendarItemData[] {
         const key = forDate.toSQLDate();
         return key ? unref(itemsByDate).get(key) ?? [] : [];
     }

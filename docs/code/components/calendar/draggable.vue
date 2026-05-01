@@ -1,7 +1,7 @@
 <template>
     <FluxCalendar
         :initial-date="anchorDate"
-        draggable
+        :draggable="true"
         @reschedule="onReschedule">
         <template
             v-for="event of events"

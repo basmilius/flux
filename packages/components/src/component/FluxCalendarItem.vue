@@ -1,133 +1,79 @@
-<template>
-    <button
-        ref="root"
-        :class="itemClasses"
-        :draggable="canDrag"
-        :tabindex="canDrag ? 0 : undefined"
-        type="button"
-        @click="emit('click', $event)"
-        @dragstart="onDragStart"
-        @dragend="onDragEnd"
-        @keydown="handleKeyDown">
-        <slot/>
-    </button>
-</template>
-
 <script
     lang="ts"
     setup>
-    import { useKeyboardGrab } from '@flux-ui/internals';
-    import { clsx } from 'clsx';
     import type { DateTime } from 'luxon';
-    import type { VNode } from 'vue';
-    import { computed, getCurrentInstance, onBeforeUnmount, onMounted, ref, toRef, watch } from 'vue';
-    import useFluxCalendarInjection from '$flux/composable/useFluxCalendarInjection';
-    import $style from '$flux/css/component/Calendar.module.scss';
+    import { computed, getCurrentInstance, onBeforeUnmount, onMounted, type VNode, watch } from 'vue';
+    import { useCalendarInjection } from '$flux/composable';
 
     const emit = defineEmits<{
         click: [MouseEvent];
     }>();
 
-    const {
-        date,
-        id,
-        allDay = false
-    } = defineProps<{
+    const props = defineProps<{
         readonly date: DateTime;
         readonly id?: string | number;
-        /** Length of the item in minutes. Read by FluxCalendar in time-grid views (default 60). */
         readonly duration?: number;
         readonly allDay?: boolean;
     }>();
 
-    defineSlots<{
+    const slots = defineSlots<{
         default(): VNode[];
     }>();
 
-    const root = ref<HTMLButtonElement | null>(null);
+    const dragContext = useCalendarInjection();
     const instance = getCurrentInstance();
-    const dragContext = useFluxCalendarInjection();
-
     const isClickable = computed(() => !!instance?.vnode?.props?.onClick);
-    const canDrag = computed(() =>
-        dragContext?.isDraggable.value === true && id != null);
 
-    const {
-        isGrabbed,
-        handleKeyDown,
-        release: releaseKeyboardGrab
-    } = useKeyboardGrab<DateTime>({
-        isDraggable: canDrag,
-        itemId: toRef(() => id ?? null),
-        grabbedId: dragContext?.grabbedId ?? ref<string | number | null>(null),
-        onGrab() {
-            dragContext?.onItemKeyboardGrab(id as string | number, date);
-            return date;
-        },
-        onMove(direction) {
-            dragContext?.onItemKeyboardMove(direction);
-        },
-        onCommit() {
-            dragContext?.onItemKeyboardCommit();
-        },
-        onCancel() {
-            dragContext?.onItemKeyboardCancel();
-        }
-    });
-
-    const itemClasses = computed(() => clsx(
-        $style.calendarItem,
-        isClickable.value && $style.isClickable,
-        canDrag.value && $style.isDraggable,
-        isGrabbed.value && $style.isGrabbed,
-        allDay && $style.isAllDay
-    ));
-
-    function onDragStart(evt: DragEvent): void {
-        if (!canDrag.value || id == null || !dragContext) {
-            return;
-        }
-
-        // Cancel any keyboard-grab when starting a pointer drag.
-        if (isGrabbed.value) {
-            dragContext.onItemKeyboardCancel();
-            releaseKeyboardGrab();
-        }
-
-        dragContext.onItemDragStart(id, date, evt);
-    }
-
-    function onDragEnd(): void {
-        if (id == null) {
-            return;
-        }
-
-        dragContext?.onItemDragEnd(id);
+    function buildData() {
+        return {
+            id: props.id as string | number,
+            date: props.date,
+            duration: props.duration,
+            allDay: props.allDay ?? false,
+            isClickable: isClickable.value,
+            renderContent: () => slots.default?.() ?? [],
+            handleClick: (evt: MouseEvent) => emit('click', evt)
+        };
     }
 
     onMounted(() => {
-        if (root.value && id != null) {
-            dragContext?.registerItem(root.value, id);
+        if (dragContext && props.id != null) {
+            dragContext.registerItem(props.id, buildData());
         }
     });
 
     onBeforeUnmount(() => {
-        if (root.value) {
-            dragContext?.unregisterItem(root.value);
+        if (dragContext && props.id != null) {
+            dragContext.unregisterItem(props.id);
         }
     });
 
-    watch(() => id, (newId, oldId) => {
-        if (!root.value) {
+    watch(() => props.id, (newId, oldId) => {
+        if (!dragContext) {
             return;
         }
 
         if (oldId != null) {
-            dragContext?.unregisterItem(root.value);
+            dragContext.unregisterItem(oldId);
         }
 
         if (newId != null) {
-            dragContext?.registerItem(root.value, newId);
+            dragContext.registerItem(newId, buildData());
         }
     });
+
+    watch(
+        () => [props.date, props.duration, props.allDay, isClickable.value],
+        () => {
+            if (dragContext && props.id != null) {
+                dragContext.registerItem(props.id, buildData());
+            }
+        }
+    );
 </script>
+
+<template>
+    <span
+        aria-hidden="true"
+        style="display: none"/>
+</template>

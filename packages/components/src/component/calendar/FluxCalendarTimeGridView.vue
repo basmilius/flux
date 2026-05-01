@@ -31,10 +31,10 @@
                                 @dragover="draggable ? onAllDayDragOver(d, $event) : undefined"
                                 @dragleave="draggable ? onAllDayDragLeave(d) : undefined"
                                 @drop="draggable ? onAllDayDrop(d, $event) : undefined">
-                                <VNodeRenderer
-                                    v-for="evt of getAllDayItems(d)"
-                                    :key="evt.index"
-                                    :vnode="evt.vnode"/>
+                                <FluxCalendarItemDisplay
+                                    v-for="item of getAllDayItems(d)"
+                                    :key="item.id"
+                                    :data="item"/>
                             </div>
                         </template>
                     </div>
@@ -62,7 +62,7 @@
                                 @dragover="draggable ? onColumnDragOver(d, $event) : undefined"
                                 @dragleave="draggable ? onColumnDragLeave(d) : undefined"
                                 @drop="draggable ? onColumnDrop(d, $event) : undefined">
-                                <template v-for="positioned of getTimedItems(d)" :key="positioned.index">
+                                <template v-for="positioned of getTimedItems(d)" :key="positioned.id">
                                     <div
                                         :class="clsx(
                                             $style.timeGridDayItem,
@@ -77,9 +77,9 @@
                                             width: `${positioned.width}%`
                                         }">
                                         <div :class="$style.timeGridDayItemBody">
-                                            <VNodeRenderer :vnode="positioned.vnode"/>
+                                            <FluxCalendarItemDisplay :data="positioned.data"/>
 
-                                            <template v-if="positioned.id != null && draggable">
+                                            <template v-if="draggable && !hasActiveDrag">
                                                 <div
                                                     :class="clsx($style.timeGridDayItemHandle, $style.isTop)"
                                                     @mousedown="(evt) => onResizeStart(positioned, 'top', evt)"/>
@@ -107,31 +107,18 @@
 <script
     lang="ts"
     setup>
-    import { getComponentProps } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
-    import { computed, onBeforeUnmount, ref, unref, type VNode } from 'vue';
+    import { computed, onBeforeUnmount, ref, unref } from 'vue';
+    import type { FluxCalendarItemData } from '$flux/data/di';
     import { useTranslate } from '$flux/composable/private';
     import { FluxWindowTransition } from '$flux/transition';
-    import { VNodeRenderer } from '../primitive';
+    import FluxCalendarItemDisplay from './FluxCalendarItemDisplay.vue';
     import $style from '$flux/css/component/Calendar.module.scss';
 
-    type ItemProps = {
-        date: DateTime;
-        duration?: number;
-        allDay?: boolean;
-        id?: string | number;
-    };
-
-    type AllDayEntry = {
-        readonly index: number;
-        readonly vnode: VNode;
-    };
-
     type Positioned = {
-        readonly index: number;
-        readonly id: string | number | undefined;
-        readonly vnode: VNode;
+        readonly id: string | number;
+        readonly data: FluxCalendarItemData;
         readonly date: DateTime;
         readonly duration: number;
         readonly top: number;
@@ -169,7 +156,7 @@
         readonly viewDates: DateTime[];
         readonly isTransitioningToPast: boolean;
         readonly draggable: boolean;
-        readonly items: VNode[];
+        readonly items: FluxCalendarItemData[];
         readonly hasActiveDrag: boolean;
         readonly hourRange: readonly [number, number];
         readonly pixelsPerMinute: number;
@@ -226,53 +213,36 @@
         return DateTime.fromObject({hour}).toFormat('HH:mm');
     }
 
-    function getAllDayItems(d: DateTime): AllDayEntry[] {
+    function getAllDayItems(d: DateTime): FluxCalendarItemData[] {
         const dStr = d.toSQLDate();
 
-        return items
-            .map<AllDayEntry | null>((vnode, index) => {
-                const props = getComponentProps<ItemProps>(vnode);
-
-                if (!props.allDay) {
-                    return null;
-                }
-
-                if (props.date.toSQLDate() !== dStr) {
-                    return null;
-                }
-
-                return {index, vnode};
-            })
-            .filter((entry): entry is AllDayEntry => entry !== null);
+        return items.filter(item => item.allDay && item.date.toSQLDate() === dStr);
     }
 
     function getTimedItems(d: DateTime): Positioned[] {
         const dStr = d.toSQLDate();
         const matching = items
-            .map((vnode, index) => {
-                const props = getComponentProps<ItemProps>(vnode);
-
-                if (props.allDay) {
+            .map(item => {
+                if (item.allDay) {
                     return null;
                 }
 
                 const preview = unref(resizePreview);
-                const effectiveDate = preview && preview.id === props.id ? preview.date : props.date;
-                const effectiveDuration = preview && preview.id === props.id ? preview.duration : (props.duration ?? 60);
+                const effectiveDate = preview && preview.id === item.id ? preview.date : item.date;
+                const effectiveDuration = preview && preview.id === item.id ? preview.duration : (item.duration ?? 60);
 
                 if (effectiveDate.toSQLDate() !== dStr) {
                     return null;
                 }
 
                 return {
-                    index,
-                    id: props.id,
-                    vnode,
+                    id: item.id,
+                    data: item,
                     date: effectiveDate,
                     duration: effectiveDuration
                 };
             })
-            .filter((entry): entry is { index: number; id: string | number | undefined; vnode: VNode; date: DateTime; duration: number } => entry !== null)
+            .filter((entry): entry is { id: string | number; data: FluxCalendarItemData; date: DateTime; duration: number } => entry !== null)
             .sort((a, b) => a.date.toMillis() - b.date.toMillis());
 
         const lanes = assignLanes(matching);
@@ -301,9 +271,8 @@
             const left = lane * width;
 
             out.push({
-                index: m.index,
                 id: m.id,
-                vnode: m.vnode,
+                data: m.data,
                 date: m.date,
                 duration: m.duration,
                 top,

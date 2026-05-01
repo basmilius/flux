@@ -9,8 +9,6 @@
             $style.kanbanItem,
             isDragging && $style.isDragging,
             isGrabbed && $style.isGrabbed,
-            isDropBefore && $style.isDropBefore,
-            isDropBefore && !kanban.isDropAllowed.value && $style.isDropBeforeDisallowed,
             disabledState && $style.isDisabled
         ]"
         :draggable="!disabledState"
@@ -29,9 +27,8 @@
     setup>
     import { useKeyboardGrab } from '@flux-ui/internals';
     import { computed, onBeforeUnmount, onMounted, toRef, unref, useTemplateRef, watch } from 'vue';
-    import useDisabled from '$flux/composable/useDisabled';
-    import useFluxKanbanInjection from '$flux/composable/useFluxKanbanInjection';
-    import $style from '$flux/css/component/FluxKanban.module.scss';
+    import { useDisabled, useKanbanInjection } from '$flux/composable';
+    import $style from '$flux/css/component/Kanban.module.scss';
 
     const {
         columnId,
@@ -47,23 +44,13 @@
         default?(): any;
     }>();
 
-    const kanban = useFluxKanbanInjection();
+    const kanban = useKanbanInjection();
     const root = useTemplateRef('root');
     const disabledState = useDisabled(toRef(() => disabled));
 
     const isDragging = computed(() => {
         const state = unref(kanban.dragState);
         return state?.itemId === itemId && state?.mode === 'pointer';
-    });
-
-    const isDropBefore = computed(() => {
-        const state = unref(kanban.dragState);
-
-        if (!state || state.dropColumnId === null || state.beforeItemId === null) {
-            return false;
-        }
-
-        return state.beforeItemId === itemId && state.itemId !== itemId;
     });
 
     const {isGrabbed, handleKeyDown, release} = useKeyboardGrab<true>({

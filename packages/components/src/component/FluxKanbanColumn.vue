@@ -14,7 +14,7 @@
             isColumnDropBefore && $style.isColumnDropBefore,
             disabledState && $style.isDisabled
         ]">
-        <div
+        <header
             :class="$style.kanbanColumnHeader"
             :draggable="isReorderable && !disabledState"
             :tabindex="isReorderable && !disabledState ? 0 : undefined"
@@ -27,9 +27,9 @@
             </slot>
 
             <slot name="actions"/>
-        </div>
+        </header>
 
-        <div
+        <main
             ref="body"
             :class="$style.kanbanColumnBody"
             @dragenter="onDragEnter"
@@ -45,30 +45,33 @@
             </div>
 
             <div
+                aria-hidden="true"
                 :class="[
                     $style.kanbanDropIndicator,
-                    isDropEnd && $style.isDropEndActive,
-                    isDropEnd && !kanban.isDropAllowed.value && $style.isDropEndDisallowed
-                ]"/>
-        </div>
+                    dropIndicator !== null && $style.isVisible,
+                    dropIndicator !== null && !kanban.isDropAllowed.value && $style.isDisallowed
+                ]"
+                :style="dropIndicator !== null ? { transform: `translateY(${dropIndicator}px)` } : undefined"/>
+        </main>
 
-        <div
+        <footer
             v-if="hasFooter"
             :class="$style.kanbanColumnFooter">
-            <slot name="footer"/>
-        </div>
+            <slot
+                v-if="hasFooter"
+                name="footer"/>
+        </footer>
     </div>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { Comment, Text, computed, onBeforeUnmount, onMounted, provide, toRef, unref, useSlots, useTemplateRef, watch } from 'vue';
     import { flattenVNodeTree } from '@flux-ui/internals';
+    import { Comment, computed, onBeforeUnmount, onMounted, provide, Text, toRef, unref, useSlots, useTemplateRef, watch } from 'vue';
+    import { useDisabled, useKanbanInjection } from '$flux/composable';
     import { FluxDisabledInjectionKey } from '$flux/data/di';
-    import useDisabled from '$flux/composable/useDisabled';
-    import useFluxKanbanInjection from '$flux/composable/useFluxKanbanInjection';
-    import $style from '$flux/css/component/FluxKanban.module.scss';
+    import $style from '$flux/css/component/Kanban.module.scss';
 
     const {
         columnId,
@@ -88,7 +91,7 @@
         footer?(): any;
     }>();
 
-    const kanban = useFluxKanbanInjection();
+    const kanban = useKanbanInjection();
     const root = useTemplateRef('root');
     const body = useTemplateRef('body');
     const slots = useSlots();
@@ -99,9 +102,25 @@
     const isOver = computed(() => kanban.isOverColumnId.value === columnId);
     const isReorderable = computed(() => unref(kanban.reorderableColumns) && !unref(disabledState));
 
-    const isDropEnd = computed(() => {
+    const dropIndicator = computed<number | null>(() => {
         const state = unref(kanban.dragState);
-        return state !== null && state.dropColumnId === columnId && state.beforeItemId === null;
+        const bodyEl = body.value;
+
+        if (!state || state.dropColumnId !== columnId || !(bodyEl instanceof HTMLElement)) {
+            return null;
+        }
+
+        const items = Array.from(bodyEl.children).filter(
+            (child): child is HTMLElement => child instanceof HTMLElement && kanban.getItemInfo(child) !== undefined
+        );
+
+        if (state.beforeItemId === null) {
+            const last = items[items.length - 1];
+            return last ? last.offsetTop + last.offsetHeight + 4 : 4;
+        }
+
+        const target = items.find(el => kanban.getItemInfo(el)?.itemId === state.beforeItemId);
+        return target ? target.offsetTop - 5 : null;
     });
 
     const isColumnDragging = computed(() => unref(kanban.columnDragState)?.columnId === columnId);
