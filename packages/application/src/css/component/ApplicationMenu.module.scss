@@ -51,31 +51,13 @@
         background: linear-gradient(to top, var(--application-menu-surface), transparent);
         transition: opacity var(--application-duration) var(--swift-out);
     }
-
-    /**
-     * Collapses the footer in sync with the slider track when the
-     * user navigates into a context-menu panel. Animating `max-height`
-     * is the standard hack to transition a height-auto element; 50vh
-     * is far above any realistic footer height yet small enough to
-     * animate smoothly without the leading edge appearing to "wait".
-     */
-    &[data-hidden] {
-        max-height: 0;
-        padding-top: 0;
-        padding-bottom: 0;
-        opacity: 0;
-        pointer-events: none;
-        overflow: hidden;
-
-        &::before {
-            opacity: 0;
-        }
-    }
 }
 
 .applicationMenuHeader {
     padding-top: max(12px, env(safe-area-inset-top));
     border-bottom: 1px solid var(--application-menu-surface-stroke);
+    overflow: hidden;
+    transition: height var(--application-duration) var(--swift-out);
 
     &::before {
         top: calc(100% + 1px);
@@ -142,13 +124,6 @@
     border-color: var(--foreground-prominent);
 }
 
-/**
- * No visual animation on enter/leave — just hold the leaving panel in
- * the DOM for the duration of the slider's translate transition so it
- * stays visible while the track slides away from it. Without this the
- * v-for would unmount the panel the moment matches shrinks, leaving
- * the slider sliding over an empty track.
- */
 .applicationMenuPanelEnterActive,
 .applicationMenuPanelEnterFrom,
 .applicationMenuPanelLeaveActive,
@@ -228,6 +203,11 @@
 
 .applicationMenu :local(.menuItemActive) :local(.menuItemLabel) {
     font-weight: 500;
+}
+
+.applicationMenu :local(.menuItemHighlighted) {
+    background: var(--gray-200);
+    color: var(--foreground-prominent);
 }
 
 .applicationMenuAccount {

@@ -22,7 +22,7 @@
     lang="ts"
     setup>
     import { FluxSecondaryButton } from '@flux-ui/components';
-    import type { FluxPressableType, FluxTo } from '@flux-ui/types';
+    import type { FluxIconName, FluxPressableType, FluxTo } from '@flux-ui/types';
     import { computed, inject } from 'vue';
     import { matchedRouteKey } from 'vue-router';
     import { useApplicationContextRegistration } from '../composable';
@@ -38,6 +38,7 @@
         readonly target?: string;
         readonly to?: FluxTo;
         readonly entryTo?: FluxTo;
+        readonly icon?: FluxIconName;
         readonly type?: FluxPressableType;
     }>();
 
@@ -73,6 +74,7 @@
         to: props.to,
         entryTo: props.entryTo ?? autoEntryTo.value,
         href: props.href,
+        icon: props.icon,
         type: props.type
     }));
 </script>
