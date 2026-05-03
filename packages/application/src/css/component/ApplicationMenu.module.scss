@@ -55,6 +55,7 @@
 
 .applicationMenuHeader {
     padding-top: max(12px, env(safe-area-inset-top));
+    flex-shrink: 0;
     border-bottom: 1px solid var(--application-menu-surface-stroke);
     overflow: hidden;
     transition: height var(--application-duration) var(--swift-out);
@@ -207,6 +208,10 @@
 
 .applicationMenu :local(.menuItemHighlighted) {
     background: var(--gray-200);
+    color: var(--foreground-prominent);
+}
+
+.applicationMenu :local(.menuItemHighlighted) :local(.menuItemIcon) {
     color: var(--foreground-prominent);
 }
 
