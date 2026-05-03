@@ -1,6 +1,6 @@
 <template>
     <nav
-        :class="$style.tabBar"
+        :class="isPills ? $style.tabBarPills : $style.tabBarDefault"
         role="tablist"
         aria-orientation="horizontal">
         <FluxFadeTransition>
@@ -17,10 +17,17 @@
         <div
             ref="tabBar"
             :class="clsx(
-                $style.tabBarTabs,
+                isPills ? $style.tabBarTabsPills : $style.tabBarTabsDefault,
                 isEndArrowVisible && $style.isEndMasked,
                 isStartArrowVisible && $style.isStartMasked
             )">
+            <div
+                v-if="activeItemWidth > 0"
+                :class="isPills ? $style.tabBarHighlightPills : $style.tabBarHighlightDefault"
+                :style="{
+                    left: `${activeItemX}px`,
+                    width: `${activeItemWidth}px`
+                }"/>
             <slot/>
         </div>
 
@@ -40,13 +47,18 @@
 <script
     lang="ts"
     setup>
-    import { useMutationObserver } from '@basmilius/common';
+    import { useMutationObserver, useResizeObserver } from '@basmilius/common';
     import { unrefTemplateElement, useEventListener } from '@flux-ui/internals';
     import { clsx } from 'clsx';
-    import { onMounted, ref, useTemplateRef, type VNode } from 'vue';
+    import { onMounted, provide, ref, toRef, useTemplateRef, watch, type Ref, type VNode } from 'vue';
+    import { FluxTabBarInjectionKey } from '~flux/components/data';
     import { FluxFadeTransition } from '~flux/components/transition';
     import FluxIcon from './FluxIcon.vue';
     import $style from '~flux/components/css/component/Tab.module.scss';
+
+    const { isPills } = defineProps<{
+        readonly isPills?: boolean;
+    }>();
 
     defineSlots<{
         default(): VNode[];
@@ -55,12 +67,37 @@
     const tabBarRef = useTemplateRef<HTMLElement>('tabBar');
 
     useEventListener(tabBarRef, 'scroll', () => checkScroll());
-    useMutationObserver(tabBarRef, () => checkScroll(), {childList: true});
+    useMutationObserver(tabBarRef, () => {
+        checkScroll();
+        updateHighlight();
+    }, {childList: true});
+    useResizeObserver(tabBarRef, () => updateHighlight());
 
     const isEndArrowVisible = ref(false);
     const isStartArrowVisible = ref(false);
+    const activeItemX = ref(0);
+    const activeItemWidth = ref(0);
+
+    const items = new Map<Element, Ref<boolean>>();
+    const itemUnwatchers = new Map<Element, () => void>();
 
     onMounted(() => checkScroll());
+
+    provide(FluxTabBarInjectionKey, {
+        isPills: toRef(() => isPills ?? false),
+        registerItem(element, isActive) {
+            items.set(element, isActive);
+            const unwatch = watch(isActive, () => updateHighlight(), {flush: 'post', immediate: true});
+            itemUnwatchers.set(element, unwatch);
+        },
+        unregisterItem(element) {
+            const unwatch = itemUnwatchers.get(element);
+            unwatch?.();
+            itemUnwatchers.delete(element);
+            items.delete(element);
+            updateHighlight();
+        }
+    });
 
     function checkScroll(): void {
         const tabBar = unrefTemplateElement(tabBarRef)!;
@@ -73,6 +110,37 @@
 
         isEndArrowVisible.value = tabBar.scrollLeft < tabBar.scrollWidth - tabBar.offsetWidth;
         isStartArrowVisible.value = tabBar.scrollLeft > 0;
+    }
+
+    function updateHighlight(): void {
+        const tabBar = unrefTemplateElement(tabBarRef);
+
+        if (!tabBar) {
+            return;
+        }
+
+        let activeElement: HTMLElement | null = null;
+
+        for (const [element, isActive] of items) {
+            if (isActive.value) {
+                activeElement = element as HTMLElement;
+                break;
+            }
+        }
+
+        if (!activeElement) {
+            activeItemWidth.value = 0;
+            return;
+        }
+
+        const width = activeElement.offsetWidth;
+
+        if (width === 0) {
+            return;
+        }
+
+        activeItemX.value = activeElement.offsetLeft;
+        activeItemWidth.value = width;
     }
 
     function scrollToEnd(): void {

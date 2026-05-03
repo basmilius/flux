@@ -2,7 +2,7 @@
     <FluxPressable
         ref="tab"
         :component-type="type"
-        :class="isActive ? $style.tabBarItemActive : $style.tabBarItem"
+        :class="itemClass"
         type="button"
         role="tab"
         :aria-disabled="disabled ? true : undefined"
@@ -29,8 +29,8 @@
     lang="ts"
     setup>
     import type { FluxIconName, FluxPressableType, FluxTo } from '@flux-ui/types';
-    import { type ComponentPublicInstance, toRef, unref, useTemplateRef, watch } from 'vue';
-    import { useDisabled } from '~flux/components/composable';
+    import { type ComponentPublicInstance, computed, onBeforeUnmount, onMounted, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { useDisabled, useTabBarInjection } from '~flux/components/composable';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
     import $style from '~flux/components/css/component/Tab.module.scss';
@@ -58,7 +58,38 @@
     }>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));
+    const tabBar = useTabBarInjection();
     const tabRef = useTemplateRef<ComponentPublicInstance>('tab');
+
+    const itemClass = computed(() => {
+        if (tabBar.isPills.value) {
+            return isActive ? $style.tabBarItemPillsActive : $style.tabBarItemPills;
+        }
+
+        return isActive ? $style.tabBarItemDefaultActive : $style.tabBarItemDefault;
+    });
+
+    let registeredElement: Element | null = null;
+
+    onMounted(() => {
+        const tab = unref(tabRef);
+
+        if (!tab) {
+            return;
+        }
+
+        registeredElement = tab.$el;
+        tabBar.registerItem(registeredElement!, toRef(() => !!isActive));
+    });
+
+    onBeforeUnmount(() => {
+        if (!registeredElement) {
+            return;
+        }
+
+        tabBar.unregisterItem(registeredElement);
+        registeredElement = null;
+    });
 
     function onClick(evt: MouseEvent): void {
         if (unref(disabled)) {

@@ -125,24 +125,24 @@
             border-bottom: 1px solid var(--gray-100);
             box-shadow: var(--shadow-xs);
 
-            &:has(+ :where(.tabs, .tabBar)) {
+            &:has(+ :where(.tabs, .tabBarDefault)) {
                 padding-bottom: 0;
                 border-bottom: 0;
                 box-shadow: none;
             }
 
-            &:not(:has(+ :where(.tabs, .tabBar))) {
+            &:not(:has(+ :where(.tabs, .tabBarDefault))) {
                 background: inherit;
             }
         }
 
-        > .paneHeader + .tabBar {
+        > .paneHeader + .tabBarDefault {
             position: sticky;
             top: 45px;
             z-index: 100;
         }
 
-        > .paneHeader:has(.paneHeaderCaption > :is(span)) + .tabBar {
+        > .paneHeader:has(.paneHeaderCaption > :is(span)) + .tabBarDefault {
             top: 66px;
         }
 

@@ -7,6 +7,11 @@ emits:
         type: [ number ]
 
 props:
+    -   name: is-pills
+        description: If the tab bar should be rendered as pills.
+        type: boolean
+        optional: true
+
     -   name: model-value
         description: The index of the active tab.
         type: number
@@ -58,6 +63,22 @@ example=../../code/components/tabs/basic.vue
 
 ::: example Icons || A tabs pane with only icons.
 example=../../code/components/tabs/icons.vue
+:::
+
+::: example Icon and label || A tabs pane with both icons and labels.
+example=../../code/components/tabs/icon-label.vue
+:::
+
+::: example Pills || A tabs pane with the tab bar rendered as pills.
+example=../../code/components/tabs/pills.vue
+:::
+
+::: example Pills with icons || A pills tabs pane with only icons.
+example=../../code/components/tabs/pills-icons.vue
+:::
+
+::: example Pills with icon and label || A pills tabs pane with both icons and labels.
+example=../../code/components/tabs/pills-icon-label.vue
 :::
 
 ## Used components

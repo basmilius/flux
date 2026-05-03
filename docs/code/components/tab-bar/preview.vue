@@ -4,13 +4,19 @@
             <FluxPaneBody>
                 <FluxTabBar>
                     <FluxTabBarItem
-                        label="Components"/>
+                        label="Components"
+                        :is-active="index == 0"
+                        @click="index = 0"/>
 
                     <FluxTabBarItem
-                        label="Dashboard"/>
+                        label="Dashboard"
+                        :is-active="index == 1"
+                        @click="index = 1"/>
 
                     <FluxTabBarItem
-                        label="Internals"/>
+                        label="Internals"
+                        :is-active="index == 2"
+                        @click="index = 2"/>
                 </FluxTabBar>
             </FluxPaneBody>
         </FluxPane>
@@ -21,4 +27,7 @@
     setup
     lang="ts">
     import { FluxPane, FluxPaneBody, FluxTabBar, FluxTabBarItem } from '@flux-ui/components';
+    import { ref } from 'vue';
+
+    const index = ref(0);
 </script>

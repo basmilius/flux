@@ -1,7 +1,7 @@
 <template>
     <FluxPane style="max-width: max-content">
         <FluxPaneBody>
-            <FluxTabBar>
+            <FluxTabBar is-pills>
                 <FluxTabBarItem
                     label="Components"
                     :is-active="index == 0"

@@ -10,6 +10,7 @@ export const FluxExpandableGroupInjectionKey: InjectionKey<FluxExpandableGroupIn
 export const FluxFlyoutInjectionKey: InjectionKey<FluxFlyoutInjection> = Symbol();
 export const FluxFilterInjectionKey: InjectionKey<FluxFilterInjection> = Symbol();
 export const FluxFormFieldInjectionKey: InjectionKey<FluxFormFieldInjection> = Symbol();
+export const FluxTabBarInjectionKey: InjectionKey<FluxTabBarInjection> = Symbol();
 export const FluxTableInjectionKey: InjectionKey<FluxTableInjection> = Symbol();
 export const FluxTooltipInjectionKey: InjectionKey<FluxTooltipInjection> = Symbol();
 
@@ -145,6 +146,13 @@ export type FluxFlyoutInjection = {
 
 export type FluxFormFieldInjection = {
     readonly id?: string;
+};
+
+export type FluxTabBarInjection = {
+    readonly isPills: Ref<boolean>;
+
+    registerItem(element: Element, isActive: Ref<boolean>): void;
+    unregisterItem(element: Element): void;
 };
 
 export type FluxTableInjection = {

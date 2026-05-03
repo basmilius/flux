@@ -86,6 +86,10 @@ This component is best used within a [Tab bar](../tab-bar).
 example=../../code/components/tab-bar/item/basic.vue
 :::
 
+::: example Pills || A tab bar item rendered as a pill.
+example=../../code/components/tab-bar/item/pills.vue
+:::
+
 ## Used components
 
 - [Icon](../icon)

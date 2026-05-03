@@ -3,7 +3,9 @@
         <slot
             v-bind="{children, modelValue, tabs, activate}"
             name="tabs">
-            <FluxTabBar :class="$style.tabsBar">
+            <FluxTabBar
+                :class="$style.tabsBar"
+                :is-pills="isPills">
                 <template
                     v-for="(tab, index) of tabs"
                     :key="index">
@@ -45,6 +47,10 @@
     const modelValue = defineModel<number>({
         default: 0
     });
+
+    defineProps<{
+        readonly isPills?: boolean;
+    }>();
 
     const slots = defineSlots<{
         default(): VNode[];
