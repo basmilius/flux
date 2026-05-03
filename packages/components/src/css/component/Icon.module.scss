@@ -12,6 +12,10 @@
         composes: icon;
 
         display: inline-block;
+
+        &:has(> path:nth-child(2)) path:first-child {
+            opacity: .2;
+        }
     }
 
     .iconBoxed {
