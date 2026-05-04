@@ -187,14 +187,28 @@ The shape of items inside [Tree view select](../../components/form/tree-view-sel
 ```ts
 type FluxFilterValueSingle = DateTime | string | boolean | number | null;
 type FluxFilterValue = FluxFilterValueSingle | FluxFilterValueSingle[];
-type FluxFilterState = Record<string, FluxFilterValue>;
+type FluxFilterState<T extends Record<string, unknown> = Record<string, FluxFilterValue>> = T;
 ```
 
-The current value of a [Filter](../../components/filter) keyed by filter `name`.
+The current value of a [Filter](../../components/filter) keyed by filter `name`. Pass a generic to type the state shape for custom filter types.
 
-### `FluxFilterSpecMap` / `FluxFilterEntryMap`
+### `FluxFilterDefinition`
 
-These two record types map filter type names (`'date'`, `'option'`, `'optionAsync'`, …) to their corresponding spec and entry types — useful when you build a generic filter wrapper.
+```ts
+type FluxFilterDefinition<TValue = FluxFilterValue> = {
+    readonly type: string;
+    readonly name: string;
+    readonly label: string;
+    readonly icon?: FluxIconName;
+    readonly disabled?: boolean;
+    readonly defaultValue?: TValue;
+    getValueLabel(value: TValue): Promise<string | null>;
+    onChange?(value: TValue): void;
+    onClear?(): void;
+};
+```
+
+The runtime metadata returned by a filter component's `__filterDefinitionFactory`. Built via [`defineFilter`](./helpers) inside `defineOptions`. `FluxFilterBase` calls the factory on each slot VNode to build the menu, badge labels and lifecycle hooks.
 
 ## Notify objects
 

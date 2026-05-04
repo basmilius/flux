@@ -1,4 +1,4 @@
-import type { FluxFilterItem, FluxFilterValue } from '@flux-ui/types';
+import type { FluxFilterDefinition, FluxFilterValue } from '@flux-ui/types';
 import { defineComponent, h, isVNode, type VNode, unref } from 'vue';
 import { useFilterInjection } from '~flux/components/composable';
 import FluxMenuGroup from '../FluxMenuGroup.vue';
@@ -14,11 +14,11 @@ export const FilterMenuRenderer = defineComponent({
     setup(props) {
         const {state} = useFilterInjection();
 
-        return () => props.menuItems.map((group, index) => renderFilterGroup(group as (FluxFilterItem | VNode)[], index, props.navigate, unref(state) as Record<string, FluxFilterValue>));
+        return () => props.menuItems.map((group, index) => renderFilterGroup(group as (FluxFilterDefinition | VNode)[], index, props.navigate, unref(state) as Record<string, FluxFilterValue>));
     }
 });
 
-function renderFilterGroup(group: (FluxFilterItem | VNode)[], index: number, navigate: Function, state: Record<string, FluxFilterValue>): VNode[] {
+function renderFilterGroup(group: (FluxFilterDefinition | VNode)[], index: number, navigate: Function, state: Record<string, FluxFilterValue>): VNode[] {
     const slot: VNode[] = [];
 
     if (index > 0) {
@@ -32,7 +32,7 @@ function renderFilterGroup(group: (FluxFilterItem | VNode)[], index: number, nav
     return slot;
 }
 
-function renderFilterItem(item: FluxFilterItem | VNode, navigate: Function, state: Record<string, FluxFilterValue>): VNode {
+function renderFilterItem(item: FluxFilterDefinition | VNode, navigate: Function, state: Record<string, FluxFilterValue>): VNode {
     if (isVNode(item)) {
         return item;
     }
@@ -40,6 +40,11 @@ function renderFilterItem(item: FluxFilterItem | VNode, navigate: Function, stat
     return h(FilterItem, {
         item,
         value: state[item.name] ?? null,
-        onClick: () => navigate(item.name)
+        disabled: item.disabled,
+        onClick: () => {
+            if (!item.disabled) {
+                navigate(item.name);
+            }
+        }
     });
 }

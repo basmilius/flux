@@ -1,12 +1,37 @@
 import type { DateTime } from 'luxon';
 import type { FluxIconName } from './common';
 
+export type FluxFilterValueSingle =
+    | DateTime
+    | string
+    | boolean
+    | number
+    | null;
+
+export type FluxFilterValue =
+    | FluxFilterValueSingle
+    | FluxFilterValueSingle[];
+
+export type FluxFilterState<T extends Record<string, unknown> = Record<string, FluxFilterValue>> = T;
+
+export type FluxFilterDefinition<TValue = FluxFilterValue> = {
+    readonly type: string;
+    readonly name: string;
+    readonly label: string;
+    readonly icon?: FluxIconName;
+    readonly disabled?: boolean;
+    readonly defaultValue?: TValue;
+    getValueLabel(value: TValue): Promise<string | null>;
+    onChange?(value: TValue): void;
+    onClear?(): void;
+};
+
 export type FluxFilterBase = {
     getValueLabel(value: FluxFilterValue): Promise<string | null>;
-
     readonly icon?: FluxIconName;
     readonly label: string;
     readonly name: string;
+    readonly disabled?: boolean;
 };
 
 export type FluxFilterItem =
@@ -50,23 +75,14 @@ export type FluxFilterOptionRow =
     | FluxFilterOptionHeader
     | FluxFilterOptionItem;
 
-export type FluxFilterValueSingle =
-    | DateTime
-    | string
-    | boolean
-    | number
-    | null;
-
-export type FluxFilterValue =
-    | FluxFilterValueSingle
-    | FluxFilterValueSingle[];
-
-export type FluxFilterState = Record<string, FluxFilterValue>;
-
 export type FluxFilterSpec = {
     readonly icon?: FluxIconName;
     readonly label: string;
     readonly name: string;
+    readonly disabled?: boolean;
+    readonly defaultValue?: FluxFilterValue;
+    onChange?(value: FluxFilterValue): void;
+    onClear?(): void;
 };
 
 export type FluxFilterDateSpec = FluxFilterSpec;
@@ -91,24 +107,4 @@ export type FluxFilterOptionsAsyncSpec = FluxFilterSpec & {
 
 export type FluxFilterRangeSpec = FluxFilterSpec & {
     formatter?(value: number): string;
-};
-
-export type FluxFilterSpecMap = {
-    date: FluxFilterDateSpec;
-    dateRange: FluxFilterDateRangeSpec;
-    option: FluxFilterOptionSpec;
-    optionAsync: FluxFilterOptionAsyncSpec;
-    options: FluxFilterOptionsSpec;
-    optionsAsync: FluxFilterOptionsAsyncSpec;
-    range: FluxFilterRangeSpec;
-};
-
-export type FluxFilterEntryMap = {
-    date: FluxFilterDateEntry;
-    dateRange: FluxFilterDateRangeEntry;
-    option: FluxFilterOptionEntry;
-    optionAsync: FluxFilterOptionEntry;
-    options: FluxFilterOptionsEntry;
-    optionsAsync: FluxFilterOptionsEntry;
-    range: FluxFilterRangeEntry;
 };

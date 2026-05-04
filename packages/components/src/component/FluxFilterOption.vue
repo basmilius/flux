@@ -11,25 +11,35 @@
 <script
     lang="ts"
     setup>
-    import type { FluxFilterOptionRow, FluxIconName } from '@flux-ui/types';
+    import type { FluxFilterOptionSpec } from '@flux-ui/types';
     import { computed, unref } from 'vue';
     import { useFilterOptionSingle } from '~flux/components/composable/private';
-    import { isFluxFilterOptionHeader } from '~flux/components/data';
+    import { defineFilter, isFluxFilterOptionHeader, isFluxFilterOptionItem, pickFilterCommon } from '~flux/components/util';
     import { FilterOptionBase } from './primitive';
+
+    type Props = FluxFilterOptionSpec & {
+        readonly isSearchable?: boolean;
+        readonly searchPlaceholder?: string;
+    };
+
+    defineFilter<Props>(p => {
+        const items = p.options.filter(isFluxFilterOptionItem);
+
+        return {
+            ...pickFilterCommon(p),
+            type: 'option',
+            async getValueLabel(value) {
+                return items.find(o => o.value === value)?.label ?? null;
+            }
+        };
+    });
 
     const modelSearch = defineModel<string>('searchQuery', {default: ''});
 
     const {
         name,
         options
-    } = defineProps<{
-        readonly icon?: FluxIconName;
-        readonly isSearchable?: boolean;
-        readonly label: string;
-        readonly name: string;
-        readonly options: FluxFilterOptionRow[];
-        readonly searchPlaceholder?: string;
-    }>();
+    } = defineProps<Props>();
 
     const {currentValue, onSelect} = useFilterOptionSingle(name);
 

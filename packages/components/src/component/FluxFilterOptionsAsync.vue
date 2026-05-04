@@ -12,9 +12,34 @@
 <script
     lang="ts"
     setup>
-    import type { FluxFilterOptionRow, FluxFilterValue, FluxIconName } from '@flux-ui/types';
-    import { useAsyncFilterOptions, useFilterOptionMulti } from '~flux/components/composable/private';
+    import type { FluxFilterOptionRow, FluxFilterOptionsAsyncSpec, FluxFilterValue } from '@flux-ui/types';
+    import { useAsyncFilterOptions, useFilterOptionMulti, useTranslate } from '~flux/components/composable/private';
+    import { defineFilter, generateMultiOptionsLabel, isFluxFilterOptionItem, pickFilterCommon } from '~flux/components/util';
     import { FilterOptionBase } from './primitive';
+
+    type Props = FluxFilterOptionsAsyncSpec & {
+        fetchRelevant(): Promise<FluxFilterOptionRow[]>;
+        fetchSearch(searchQuery: string): Promise<FluxFilterOptionRow[]>;
+        readonly searchPlaceholder?: string;
+    };
+
+    defineFilter<Props>(p => {
+        const translate = useTranslate();
+
+        return {
+            ...pickFilterCommon(p),
+            type: 'options',
+            async getValueLabel(value) {
+                if (!Array.isArray(value)) {
+                    return null;
+                }
+
+                const items = (await p.fetchOptions(value)).filter(isFluxFilterOptionItem);
+
+                return generateMultiOptionsLabel(translate, items, value);
+            }
+        };
+    });
 
     const modelSearch = defineModel<string>('searchQuery', {
         default: ''
@@ -25,16 +50,7 @@
         fetchRelevant: fetchRelevantProp,
         fetchSearch: fetchSearchProp,
         name
-    } = defineProps<{
-        fetchOptions(ids: FluxFilterValue[]): Promise<FluxFilterOptionRow[]>;
-        fetchRelevant(): Promise<FluxFilterOptionRow[]>;
-        fetchSearch(searchQuery: string): Promise<FluxFilterOptionRow[]>;
-
-        readonly icon?: FluxIconName;
-        readonly label: string;
-        readonly name: string;
-        readonly searchPlaceholder?: string;
-    }>();
+    } = defineProps<Props>();
 
     const {currentValue, onSelect} = useFilterOptionMulti(name);
 

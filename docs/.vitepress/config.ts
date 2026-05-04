@@ -1,4 +1,5 @@
 import { composeLibrary, preset } from '@basmilius/vite-preset';
+import { defineFilterMacro } from '@flux-ui/components/vite';
 import { defineConfig } from 'vitepress';
 import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons';
 import examplePlugin from 'vitepress-plugin-example';
@@ -47,6 +48,7 @@ export default defineConfig({
         },
         plugins: [
             groupIconVitePlugin() as any,
+            defineFilterMacro(),
             preset({
                 cssModules: {
                     classNames: 'camel',

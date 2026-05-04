@@ -2,9 +2,11 @@ import { closeBundle, preset } from '@basmilius/vite-preset';
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import defineFilterMacro from './src/vite/defineFilterMacro';
 
 export default defineConfig(({mode}) => ({
     plugins: [
+        defineFilterMacro(),
         preset({
             cssModules: {
                 classNames: 'kebab'
@@ -21,17 +23,27 @@ export default defineConfig(({mode}) => ({
         outDir: resolve(import.meta.dirname, 'dist'),
         sourcemap: true,
         lib: {
-            entry: resolve(import.meta.dirname, 'src/index.ts'),
-            fileName: 'index',
+            entry: {
+                index: resolve(import.meta.dirname, 'src/index.ts'),
+                vite: resolve(import.meta.dirname, 'src/vite/index.ts')
+            },
             formats: ['es'],
+            fileName: (_format, entryName) => `${entryName}.js`,
             name: 'flux'
         },
         rolldownOptions: {
             experimental: {
                 lazyBarrel: false
             },
-            external: ['luxon', 'vue'],
+            external: ['luxon', 'vite', 'vue'],
             output: {
+                assetFileNames: assetInfo => {
+                    if (assetInfo.name?.endsWith('.css')) {
+                        return 'index.css';
+                    }
+
+                    return '[name][extname]';
+                },
                 exports: 'named',
                 globals: {
                     luxon: 'luxon',

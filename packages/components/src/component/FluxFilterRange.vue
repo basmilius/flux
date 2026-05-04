@@ -38,14 +38,37 @@
     lang="ts"
     setup>
     import { formatNumber } from '@basmilius/utils';
-    import type { FluxIconName } from '@flux-ui/types';
+    import type { FluxFilterRangeSpec } from '@flux-ui/types';
     import { computed, unref } from 'vue';
     import { useFilterInjection } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';
+    import { defineFilter, pickFilterCommon } from '~flux/components/util';
     import FluxFormColumn from './FluxFormColumn.vue';
     import FluxFormField from './FluxFormField.vue';
     import FluxFormSlider from './FluxFormSlider.vue';
     import FluxPaneBody from './FluxPaneBody.vue';
+
+    type Props = FluxFilterRangeSpec & {
+        readonly isTicksVisible?: boolean;
+        readonly max: number;
+        readonly min: number;
+        readonly step?: number;
+    };
+
+    defineFilter<Props>(p => ({
+        ...pickFilterCommon(p),
+        type: 'range',
+        async getValueLabel(value) {
+            if (!value || !Array.isArray(value) || value.length !== 2) {
+                return null;
+            }
+
+            const [lower, upper] = value as number[];
+            const format = p.formatter ?? formatNumber;
+
+            return `${format(lower!)} – ${format(upper!)}`;
+        }
+    }));
 
     const {
         formatter = formatNumber,
@@ -53,16 +76,7 @@
         min,
         name,
         step = 1
-    } = defineProps<{
-        readonly icon?: FluxIconName;
-        readonly isTicksVisible?: boolean;
-        readonly label: string;
-        readonly name: string;
-        readonly max: number;
-        readonly min: number;
-        readonly step?: number;
-        readonly formatter?: (value: number) => string;
-    }>();
+    } = defineProps<Props>();
 
     const {state, setValue} = useFilterInjection();
     const translate = useTranslate();

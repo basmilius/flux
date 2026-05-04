@@ -38,7 +38,7 @@
     lang="ts"
     setup>
     import type { FluxFilterOptionItem, FluxFilterOptionRow, FluxFilterValueSingle } from '@flux-ui/types';
-    import { isFluxFilterOptionHeader, isFluxFilterOptionItem } from '~flux/components/data';
+    import { isFluxFilterOptionHeader, isFluxFilterOptionItem } from '~flux/components/util';
     import FluxFormInput from '../FluxFormInput.vue';
     import FluxMenuGroup from '../FluxMenuGroup.vue';
     import FluxMenuItem from '../FluxMenuItem.vue';

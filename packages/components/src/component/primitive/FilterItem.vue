@@ -3,6 +3,7 @@
         :command="valueLabel"
         command-icon="angle-right"
         :command-loading="isLoading"
+        :disabled="disabled"
         :icon-leading="item.icon"
         :label="item.label"
         type="button"
@@ -13,7 +14,7 @@
     lang="ts"
     setup>
     import { useLoaded } from '@basmilius/common';
-    import type { FluxFilterItem, FluxFilterValue } from '@flux-ui/types';
+    import type { FluxFilterDefinition, FluxFilterValue } from '@flux-ui/types';
     import { computed, ref, unref, watch } from 'vue';
     import FluxMenuItem from '../FluxMenuItem.vue';
 
@@ -25,8 +26,9 @@
         item,
         value
     } = defineProps<{
-        readonly item: FluxFilterItem;
+        readonly item: FluxFilterDefinition;
         readonly value: FluxFilterValue;
+        readonly disabled?: boolean;
     }>();
 
     const {isLoading, loaded} = useLoaded();

@@ -35,7 +35,7 @@ export type {
     FluxFilterDateRangeEntry,
     FluxFilterDateRangeSpec,
     FluxFilterDateSpec,
-    FluxFilterEntryMap,
+    FluxFilterDefinition,
     FluxFilterItem,
     FluxFilterOptionAsyncSpec,
     FluxFilterOptionEntry,
@@ -49,7 +49,6 @@ export type {
     FluxFilterRangeEntry,
     FluxFilterRangeSpec,
     FluxFilterSpec,
-    FluxFilterSpecMap,
     FluxFilterState,
     FluxFilterValue,
     FluxFilterValueSingle

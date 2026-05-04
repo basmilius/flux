@@ -44,7 +44,7 @@
     lang="ts"
     setup>
     import { vHeightTransition } from '@flux-ui/internals';
-    import type { FluxFilterItem } from '@flux-ui/types';
+    import type { FluxFilterDefinition } from '@flux-ui/types';
     import { unref, useTemplateRef, type VNode } from 'vue';
     import { useTranslate } from '~flux/components/composable/private';
     import FluxMenu from './FluxMenu.vue';
@@ -60,7 +60,7 @@
 
     defineProps<{
         readonly filters: Record<string, VNode>;
-        readonly menuItems: (FluxFilterItem | VNode)[][];
+        readonly menuItems: (FluxFilterDefinition | VNode)[][];
         readonly resettable?: string[];
     }>();
 

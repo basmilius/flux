@@ -11,11 +11,33 @@
 <script
     lang="ts"
     setup>
-    import type { FluxFilterOptionRow, FluxIconName } from '@flux-ui/types';
+    import type { FluxFilterOptionsSpec } from '@flux-ui/types';
     import { computed, unref } from 'vue';
-    import { useFilterOptionMulti } from '~flux/components/composable/private';
-    import { isFluxFilterOptionHeader } from '~flux/components/data';
+    import { useFilterOptionMulti, useTranslate } from '~flux/components/composable/private';
+    import { defineFilter, generateMultiOptionsLabel, isFluxFilterOptionHeader, isFluxFilterOptionItem, pickFilterCommon } from '~flux/components/util';
     import { FilterOptionBase } from './primitive';
+
+    type Props = FluxFilterOptionsSpec & {
+        readonly isSearchable?: boolean;
+        readonly searchPlaceholder?: string;
+    };
+
+    defineFilter<Props>(p => {
+        const items = p.options.filter(isFluxFilterOptionItem);
+        const translate = useTranslate();
+
+        return {
+            ...pickFilterCommon(p),
+            type: 'options',
+            async getValueLabel(value) {
+                if (!Array.isArray(value)) {
+                    return null;
+                }
+
+                return generateMultiOptionsLabel(translate, items, value);
+            }
+        };
+    });
 
     const modelSearch = defineModel<string>('searchQuery', {
         default: ''
@@ -24,14 +46,7 @@
     const {
         name,
         options
-    } = defineProps<{
-        readonly icon?: FluxIconName;
-        readonly isSearchable?: boolean;
-        readonly label: string;
-        readonly name: string;
-        readonly options: FluxFilterOptionRow[];
-        readonly searchPlaceholder?: string;
-    }>();
+    } = defineProps<Props>();
 
     const {currentValue, onSelect} = useFilterOptionMulti(name);
 

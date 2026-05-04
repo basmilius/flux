@@ -11,24 +11,42 @@
 <script
     lang="ts"
     setup>
-    import type { FluxIconName } from '@flux-ui/types';
+    import type { FluxFilterDateRangeSpec } from '@flux-ui/types';
     import { DateTime } from 'luxon';
     import { computed, unref } from 'vue';
     import { useFilterInjection } from '~flux/components/composable';
+    import { createLabelForDateRange, defineFilter, pickFilterCommon } from '~flux/components/util';
     import FluxDatePicker from './FluxDatePicker.vue';
     import $style from '~flux/components/css/component/Filter.module.scss';
+
+    type Props = FluxFilterDateRangeSpec & {
+        readonly max?: DateTime;
+        readonly min?: DateTime;
+        readonly rangeMode?: 'range' | 'week' | 'month';
+    };
+
+    defineFilter<Props>(p => ({
+        ...pickFilterCommon(p),
+        type: 'dateRange',
+        async getValueLabel(value) {
+            if (!Array.isArray(value) || value.length !== 2) {
+                return null;
+            }
+
+            const [start, end] = value;
+
+            if (!DateTime.isDateTime(start) || !DateTime.isDateTime(end)) {
+                return null;
+            }
+
+            return createLabelForDateRange(start, end);
+        }
+    }));
 
     const {
         name,
         rangeMode = 'range'
-    } = defineProps<{
-        readonly icon?: FluxIconName;
-        readonly label: string;
-        readonly max?: DateTime;
-        readonly min?: DateTime;
-        readonly name: string;
-        readonly rangeMode?: 'range' | 'week' | 'month';
-    }>();
+    } = defineProps<Props>();
 
     const {back, state, setValue} = useFilterInjection();
 

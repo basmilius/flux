@@ -6,18 +6,9 @@
     lang="ts"
     setup>
     import { flattenVNodeTree, getComponentName, getComponentProps } from '@flux-ui/internals';
-    import type { FluxFilterItem, FluxFilterOptionItem, FluxFilterSpecMap, FluxFilterState } from '@flux-ui/types';
-    import { camelCase } from 'lodash-es';
-    import { computed, provide, unref, type VNode } from 'vue';
-    import { filterParsers, FluxFilterInjectionKey } from '~flux/components/data';
-
-    type FluxFilterType = keyof FluxFilterSpecMap;
-
-    function applyParser<K extends FluxFilterType>(type: K, spec: FluxFilterSpecMap[K]): FluxFilterItem {
-        const parser = filterParsers[type] as (spec: FluxFilterSpecMap[K]) => FluxFilterItem;
-
-        return parser(spec);
-    }
+    import type { FluxFilterDefinition, FluxFilterState, FluxFilterValue } from '@flux-ui/types';
+    import { computed, provide, unref, watchEffect, type VNode } from 'vue';
+    import { FluxFilterInjectionKey } from '~flux/components/data';
 
     const emit = defineEmits<{
         back: [];
@@ -34,76 +25,70 @@
 
     const slots = defineSlots<{
         default(props: {
-            readonly buttons: Record<string, FluxFilterItem>;
+            readonly buttons: Record<string, FluxFilterDefinition>;
             readonly filters: Record<string, VNode>;
-            readonly menuItems: (FluxFilterItem | VNode)[][];
+            readonly menuItems: (FluxFilterDefinition | VNode)[][];
         }): VNode[];
 
         filters(): VNode[];
     }>();
 
+    function resolveDefinition(vnode: VNode): FluxFilterDefinition | null {
+        const factory = (vnode.type as { __filterDefinitionFactory?: (props: unknown) => FluxFilterDefinition })?.__filterDefinitionFactory;
+
+        return typeof factory === 'function' ? factory(getComponentProps(vnode)) : null;
+    }
+
+    const flattenedFilters = computed(() => flattenVNodeTree(slots.filters?.() ?? []));
+
     const buttons = computed(() => {
-        const buttons: Record<string, FluxFilterItem> = {};
+        const buttons: Record<string, FluxFilterDefinition> = {};
         const items = unref(flattenedFilters);
 
         for (const item of items) {
-            const name = getComponentName(item);
+            const definition = resolveDefinition(item);
 
-            if (!name.startsWith('FluxFilter')) {
+            if (!definition) {
                 continue;
             }
 
-            const type = camelCase(name.substring(10)) as FluxFilterType;
-            const props = getComponentProps<FluxFilterSpecMap[FluxFilterType]>(item);
-
-            buttons[props.name] = applyParser(type, props);
+            buttons[definition.name] = definition;
         }
 
         return buttons;
     });
-
-    const flattenedFilters = computed(() => flattenVNodeTree(slots.filters?.() ?? []));
 
     const filters = computed<Record<string, VNode>>(() => {
         const filters: { [key: string]: VNode; } = {};
         const items = unref(flattenedFilters);
 
         for (const item of items) {
-            const name = getComponentName(item);
+            const definition = resolveDefinition(item);
 
-            if (!name.startsWith('FluxFilter')) {
+            if (!definition) {
                 continue;
             }
 
-            const props = getComponentProps<{ name: string; }>(item);
-
-            if (!props.name) {
-                continue;
-            }
-
-            filters[props.name] = item;
+            filters[definition.name] = item;
         }
 
         return filters;
     });
 
-    const menuItems = computed<(FluxFilterItem | VNode)[][]>(() => {
-        const menuItems: (FluxFilterItem | VNode)[][] = [[]];
+    const menuItems = computed<(FluxFilterDefinition | VNode)[][]>(() => {
+        const menuItems: (FluxFilterDefinition | VNode)[][] = [[]];
         const items = unref(flattenedFilters);
 
         for (const item of items) {
-            const name = getComponentName(item);
-
-            if (name === 'FluxSeparator') {
+            if (getComponentName(item) === 'FluxSeparator') {
                 menuItems.push([]);
                 continue;
             }
 
-            if (name.startsWith('FluxFilter')) {
-                const type = camelCase(name.substring(10)) as FluxFilterType;
-                const props = getComponentProps<FluxFilterSpecMap[FluxFilterType]>(item);
+            const definition = resolveDefinition(item);
 
-                menuItems[menuItems.length - 1].push(applyParser(type, props));
+            if (definition) {
+                menuItems[menuItems.length - 1].push(definition);
                 continue;
             }
 
@@ -113,29 +98,44 @@
         return menuItems;
     });
 
+    watchEffect(() => {
+        const state = unref(modelValue);
+
+        for (const definition of Object.values(unref(buttons))) {
+            if (definition.defaultValue !== undefined && state[definition.name] === undefined) {
+                modelValue.value[definition.name] = definition.defaultValue as FluxFilterValue;
+            }
+        }
+    });
+
     function back(): void {
         emit('back');
     }
 
     function reset(name: string): void {
+        const definition = unref(buttons)[name];
+
         back();
+        modelValue.value[name] = (definition?.defaultValue ?? null) as FluxFilterValue;
+        definition?.onClear?.();
         emit('reset', name);
     }
 
-    function getValue(name: string): FluxFilterOptionItem['value'] | undefined {
+    function getValue(name: string): FluxFilterValue | undefined {
         if (!hasValue(name)) {
             return undefined;
         }
 
-        return unref(modelValue)[name] as FluxFilterOptionItem['value'];
+        return unref(modelValue)[name] as FluxFilterValue;
     }
 
     function hasValue(name: string): boolean {
         return name in unref(modelValue);
     }
 
-    function setValue(name: string, value: FluxFilterOptionItem['value']): void {
+    function setValue(name: string, value: FluxFilterValue): void {
         modelValue.value[name] = value;
+        unref(buttons)[name]?.onChange?.(value);
     }
 
     provide(FluxFilterInjectionKey, {

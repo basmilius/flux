@@ -11,7 +11,7 @@
     lang="ts"
     setup>
     import { useLoaded } from '@basmilius/common';
-    import type { FluxFilterItem, FluxFilterValue } from '@flux-ui/types';
+    import type { FluxFilterDefinition, FluxFilterValue } from '@flux-ui/types';
     import { computed, ref, unref, watch } from 'vue';
     import FluxBadge from '../FluxBadge.vue';
     import $style from '~flux/components/css/component/Filter.module.scss';
@@ -24,7 +24,7 @@
         item,
         value
     } = defineProps<{
-        readonly item: FluxFilterItem;
+        readonly item: FluxFilterDefinition;
         readonly value: FluxFilterValue;
     }>();
 

@@ -12,10 +12,27 @@
 <script
     lang="ts"
     setup>
-    import type { FluxFilterOptionRow, FluxFilterValue, FluxIconName } from '@flux-ui/types';
+    import type { FluxFilterOptionAsyncSpec, FluxFilterOptionRow, FluxFilterValue } from '@flux-ui/types';
     import { computed, unref } from 'vue';
     import { useAsyncFilterOptions, useFilterOptionSingle } from '~flux/components/composable/private';
+    import { defineFilter, isFluxFilterOptionItem, pickFilterCommon } from '~flux/components/util';
     import { FilterOptionBase } from './primitive';
+
+    type Props = FluxFilterOptionAsyncSpec & {
+        fetchRelevant(): Promise<FluxFilterOptionRow[]>;
+        fetchSearch(searchQuery: string): Promise<FluxFilterOptionRow[]>;
+        readonly searchPlaceholder?: string;
+    };
+
+    defineFilter<Props>(p => ({
+        ...pickFilterCommon(p),
+        type: 'option',
+        async getValueLabel(value) {
+            const items = (await p.fetchOptions([value])).filter(isFluxFilterOptionItem);
+
+            return items.find(o => o.value === value)?.label ?? null;
+        }
+    }));
 
     const modelSearch = defineModel<string>('searchQuery', {
         default: ''
@@ -26,16 +43,7 @@
         fetchRelevant: fetchRelevantProp,
         fetchSearch: fetchSearchProp,
         name
-    } = defineProps<{
-        fetchOptions(ids: FluxFilterValue[]): Promise<FluxFilterOptionRow[]>;
-        fetchRelevant(): Promise<FluxFilterOptionRow[]>;
-        fetchSearch(searchQuery: string): Promise<FluxFilterOptionRow[]>;
-
-        readonly icon?: FluxIconName;
-        readonly label: string;
-        readonly name: string;
-        readonly searchPlaceholder?: string;
-    }>();
+    } = defineProps<Props>();
 
     const {currentValue, onSelect} = useFilterOptionSingle(name);
 

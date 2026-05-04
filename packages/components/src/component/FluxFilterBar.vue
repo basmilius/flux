@@ -26,6 +26,7 @@
                                 <FluxSecondaryButton
                                     v-if="modelValue[button.name]"
                                     :class="$style.filterButton"
+                                    :disabled="button.disabled"
                                     :icon-leading="button.icon"
                                     :label="button.label"
                                     @click="open()">
@@ -56,7 +57,13 @@
                                 <FluxSecondaryButton
                                     icon-leading="sliders-simple"
                                     label="Filter"
-                                    @click="open()"/>
+                                    @click="open()">
+                                    <template
+                                        v-if="filterCount > 0"
+                                        #after>
+                                        <FluxBadge :label="String(filterCount)"/>
+                                    </template>
+                                </FluxSecondaryButton>
                             </template>
 
                             <FluxFilterWindow
@@ -78,6 +85,7 @@
     import type { FluxFilterState } from '@flux-ui/types';
     import { computed, unref, type VNode } from 'vue';
     import { FilterBadge, VNodeRenderer } from '~flux/components/component/primitive';
+    import FluxBadge from './FluxBadge.vue';
     import FluxFilterBase from './FluxFilterBase.vue';
     import FluxFilterWindow from './FluxFilterWindow.vue';
     import FluxFlyout from './FluxFlyout.vue';
@@ -110,7 +118,20 @@
         default?(): VNode[];
     }>();
 
-    const isFiltered = computed(() => Object.entries(unref(modelValue)).filter(([, val]) => Boolean(val)).length > 0);
+    const filterCount = computed(() => Object.entries(unref(modelValue))
+        .filter(([, val]) => {
+            if (val === null || val === undefined) {
+                return false;
+            }
+
+            if (Array.isArray(val)) {
+                return val.length > 0;
+            }
+
+            return true;
+        }).length);
+
+    const isFiltered = computed(() => unref(filterCount) > 0);
 
     function reset(name: string): void {
         emit('reset', name);
