@@ -21,6 +21,7 @@
         const {tooltip} = useFluxStore();
 
         const elementRef = ref<HTMLElement | null>(null);
+        const hostRef = ref<HTMLElement | null>(null);
         const position = ref<PositionData | null>(null);
 
         const content = computed(() => unref(tooltip) ? unref(tooltip)!.contentSlot?.() ?? [unref(tooltip)!.content] : null);
@@ -66,34 +67,64 @@
 
         watch(content, () => requestAnimationFrame(calculate));
 
-        return () => h(FluxTooltipTransition, {}, {
-            default: () => {
-                if (!unref(has)) {
-                    return;
-                }
+        watch(has, isVisible => {
+            if (!isVisible) {
+                return;
+            }
 
-                const pos = unref(position);
+            const host = unrefTemplateElement(hostRef);
 
-                return h('div', {
-                    ref: elementRef,
-                    class: pos
-                        ? clsx(
-                            pos.transition === 'above' && $style.tooltipAbove,
-                            pos.transition === 'below' && $style.tooltipBelow,
-                            pos.transition === 'end' && $style.tooltipEnd,
-                            pos.transition === 'start' && $style.tooltipStart
-                        )
-                        : $style.tooltip,
-                    style: {
-                        '--x': pos?.x ?? undefined,
-                        '--y': pos?.y ?? undefined,
-                        '--arrowAngle': pos?.arrowAngle ?? undefined,
-                        '--arrowX': pos?.arrowX ?? undefined,
-                        '--arrowY': pos?.arrowY ?? undefined
-                    }
-                }, unref(content));
+            if (host && !host.matches(':popover-open')) {
+                host.showPopover();
             }
         });
+
+        return () => h('div', {
+            ref: hostRef,
+            popover: 'manual',
+            class: $style.tooltipHost
+        }, [
+            h(FluxTooltipTransition, {
+                onAfterLeave: () => {
+                    if (unref(has)) {
+                        return;
+                    }
+
+                    const host = unrefTemplateElement(hostRef);
+
+                    if (host && host.matches(':popover-open')) {
+                        host.hidePopover();
+                    }
+                }
+            }, {
+                default: () => {
+                    if (!unref(has)) {
+                        return;
+                    }
+
+                    const pos = unref(position);
+
+                    return h('div', {
+                        ref: elementRef,
+                        class: pos
+                            ? clsx(
+                                pos.transition === 'above' && $style.tooltipAbove,
+                                pos.transition === 'below' && $style.tooltipBelow,
+                                pos.transition === 'end' && $style.tooltipEnd,
+                                pos.transition === 'start' && $style.tooltipStart
+                            )
+                            : $style.tooltip,
+                        style: {
+                            '--x': pos?.x ?? undefined,
+                            '--y': pos?.y ?? undefined,
+                            '--arrowAngle': pos?.arrowAngle ?? undefined,
+                            '--arrowX': pos?.arrowX ?? undefined,
+                            '--arrowY': pos?.arrowY ?? undefined
+                        }
+                    }, unref(content));
+                }
+            })
+        ]);
     });
 
     function calculateHorizontalPosition(top: number, left: number, width: number, height: number, originWidth: number, originHeight: number, margin: number, safeZone: number): PositionData {
