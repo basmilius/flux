@@ -404,3 +404,16 @@
         translate: -100% 0;
     }
 }
+
+html[data-application-resizing] {
+    .applicationMenu,
+    .applicationMenuFooter,
+    .applicationMenuFooter::before,
+    .applicationMenuHeader,
+    .applicationMenuTrack,
+    .applicationMenu :local(.menuItemLabel),
+    .applicationMenuContextPillContent :global(strong),
+    .applicationMenuContextPillContent :global(span) {
+        transition: none;
+    }
+}

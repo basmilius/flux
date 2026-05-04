@@ -19,8 +19,9 @@
 <script
     lang="ts"
     setup>
+    import { useBreakpoints } from '@flux-ui/components';
     import { useRemembered } from '@flux-ui/internals';
-    import { computed, onUnmounted, provide, ref, shallowRef, toRef, type VNode, watch } from 'vue';
+    import { computed, onMounted, onUnmounted, provide, ref, shallowRef, toRef, type VNode, watch } from 'vue';
     import { type FluxApplicationContextInfo, FluxApplicationInjectionKey, type FluxApplicationLayout } from '../data';
     import { useNamedRoutes, useRoute } from '../routing';
     import $style from '~flux/application/css/component/Application.module.scss';
@@ -39,14 +40,44 @@
         side(): VNode[];
     }>();
 
-    const route = useRoute();
-    const matchedMenuRoutes = useNamedRoutes(toRef(() => contextMenuName));
+    let resizeTimer: ReturnType<typeof setTimeout> | undefined;
 
     const isMenuCollapsed = useRemembered('application-menu-collapsed', true);
-    const layout = ref<FluxApplicationLayout>('default');
+    const matchedMenuRoutes = useNamedRoutes(toRef(() => contextMenuName));
+    const route = useRoute();
+    const {lg, xl} = useBreakpoints();
 
-    const totalLevels = computed(() => 1 + matchedMenuRoutes.value.length);
+    const contextStack = shallowRef<FluxApplicationContextInfo[]>([]);
+    const layout = ref<FluxApplicationLayout>('default');
     const viewIndex = ref(0);
+
+    const activeContext = computed(() => contextStack.value.at(-1));
+    const contexts = computed(() => contextStack.value);
+    const totalLevels = computed(() => 1 + matchedMenuRoutes.value.length);
+
+    onMounted(() => {
+        if (typeof window === 'undefined') {
+            return;
+        }
+
+        window.addEventListener('resize', onResize, {passive: true});
+    });
+
+    onUnmounted(() => {
+        if (typeof window !== 'undefined') {
+            window.removeEventListener('resize', onResize);
+        }
+
+        if (resizeTimer !== undefined) {
+            clearTimeout(resizeTimer);
+            resizeTimer = undefined;
+        }
+
+        if (typeof document !== 'undefined') {
+            delete document.documentElement.dataset.applicationMenuOpen;
+            delete document.documentElement.dataset.applicationResizing;
+        }
+    });
 
     function clampViewIndex(target: number): number {
         if (target < 0) {
@@ -79,9 +110,22 @@
         viewIndex.value = clampViewIndex(viewIndex.value + 1);
     }
 
-    const contextStack = shallowRef<FluxApplicationContextInfo[]>([]);
-    const contexts = computed(() => contextStack.value);
-    const activeContext = computed(() => contextStack.value.at(-1));
+    function onResize(): void {
+        if (typeof document === 'undefined') {
+            return;
+        }
+
+        document.documentElement.dataset.applicationResizing = '';
+
+        if (resizeTimer !== undefined) {
+            clearTimeout(resizeTimer);
+        }
+
+        resizeTimer = setTimeout(() => {
+            delete document.documentElement.dataset.applicationResizing;
+            resizeTimer = undefined;
+        }, 150);
+    }
 
     function pushContext(info: FluxApplicationContextInfo): void {
         contextStack.value = [...contextStack.value, info];
@@ -91,25 +135,12 @@
         contextStack.value = contextStack.value.filter(entry => entry.id !== id);
     }
 
-    provide(FluxApplicationInjectionKey, {
-        activeContext,
-        contexts,
-        isMenuCollapsed,
-        layout,
-        showDesktopMenuToggle: toRef(() => showDesktopMenuToggle),
-        totalLevels,
-        viewIndex,
-        goToChild,
-        goToCurrent,
-        goToLevel,
-        goToMain,
-        goToParent,
-        pushContext,
-        removeContext
-    });
-
     watch(() => route.fullPath, () => {
         viewIndex.value = totalLevels.value - 1;
+
+        if (!lg.value && !xl.value) {
+            isMenuCollapsed.value = true;
+        }
     });
 
     watch(totalLevels, (next) => {
@@ -135,9 +166,20 @@
         }
     }, {immediate: true});
 
-    onUnmounted(() => {
-        if (typeof document !== 'undefined') {
-            delete document.documentElement.dataset.applicationMenuOpen;
-        }
+    provide(FluxApplicationInjectionKey, {
+        activeContext,
+        contexts,
+        isMenuCollapsed,
+        layout,
+        showDesktopMenuToggle: toRef(() => showDesktopMenuToggle),
+        totalLevels,
+        viewIndex,
+        goToChild,
+        goToCurrent,
+        goToLevel,
+        goToMain,
+        goToParent,
+        pushContext,
+        removeContext
     });
 </script>

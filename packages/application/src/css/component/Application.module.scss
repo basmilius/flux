@@ -10,11 +10,6 @@
     --application-top-height: 66px;
 }
 
-[dark] {
-    --application-menu-surface: color-mix(in srgb, var(--gray-25), black 25%);
-    --application-menu-surface-stroke: var(--gray-100);
-}
-
 .application {
     position: relative;
     display: flex;
@@ -85,4 +80,9 @@
         overflow: hidden;
         overscroll-behavior: contain;
     }
+}
+
+html[data-application-resizing] .application,
+html[data-application-resizing] .applicationMenuBackdrop {
+    transition: none;
 }
