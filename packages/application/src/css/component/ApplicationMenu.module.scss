@@ -90,41 +90,6 @@
     overflow-y: auto;
 }
 
-.applicationMenuPageIndicator {
-    display: flex;
-    flex-flow: row nowrap;
-    gap: 6px;
-    justify-content: center;
-    align-items: center;
-    padding: 9px 12px;
-    background: var(--application-menu-surface);
-    z-index: 1;
-}
-
-.applicationMenuPageIndicatorDot {
-    height: 6px;
-    width: 6px;
-    padding: 0;
-    cursor: pointer;
-    background: transparent;
-    border: 1.5px solid var(--application-menu-surface-stroke);
-    border-radius: 50%;
-    transition: 200ms var(--swift-out);
-    transition-property: background, border-color, transform;
-
-    @include mixin.hover {
-        border-color: var(--foreground-secondary);
-        transform: scale(1.2);
-    }
-
-    @include mixin.focus-ring;
-}
-
-.applicationMenuPageIndicatorDotActive {
-    background: var(--foreground-prominent);
-    border-color: var(--foreground-prominent);
-}
-
 .applicationMenuPanelEnterActive,
 .applicationMenuPanelEnterFrom,
 .applicationMenuPanelLeaveActive,

@@ -42,7 +42,7 @@
     height: 100dvh;
     padding: 0;
     border: 0;
-    background: rgb(from var(--gray-200) r g b / .5);
+    background: var(--overlay);
     backdrop-filter: blur(3px) saturate(180%);
     transition: var(--application-duration) var(--swift-out);
     transition-property: background, backdrop-filter, opacity;

@@ -17,7 +17,7 @@
 .paneWell {
     composes: pane;
 
-    --surface: var(--background);
+    background-color: var(--gray-50);
 }
 
 :is(.paneDefault, .paneFlat, .paneWell):is(a) {

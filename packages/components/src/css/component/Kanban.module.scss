@@ -168,6 +168,18 @@
     &:active {
         cursor: grabbing;
     }
+
+    &.isDragging {
+        opacity: .4;
+        cursor: grabbing;
+    }
+
+    &.isGrabbed {
+        transform: scale(1.04);
+        outline: 2px solid var(--primary-500);
+        outline-offset: 2px;
+        z-index: 1;
+    }
 }
 
 .kanbanItem.isDisabled {
@@ -177,16 +189,4 @@
     &:active {
         cursor: not-allowed;
     }
-}
-
-.isDragging {
-    opacity: .4;
-    cursor: grabbing;
-}
-
-.isGrabbed {
-    transform: scale(1.04);
-    outline: 2px solid var(--primary-500);
-    outline-offset: 2px;
-    z-index: 1;
 }

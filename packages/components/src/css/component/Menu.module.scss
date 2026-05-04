@@ -47,6 +47,7 @@
     box-shadow: none;
     color: var(--foreground);
     text-align: left;
+    transition-duration: 0s;
 
     @include mixin.hover {
         background: var(--gray-100);

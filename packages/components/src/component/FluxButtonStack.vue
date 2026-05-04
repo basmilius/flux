@@ -2,7 +2,8 @@
     <FluxStack
         :direction="direction"
         :gap="gap"
-        :is-fill="isFill">
+        :is-fill="isFill"
+        is-wrapping>
         <slot/>
     </FluxStack>
 </template>
