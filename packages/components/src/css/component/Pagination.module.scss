@@ -91,6 +91,6 @@
 @include mixin.breakpoint-down(sm) {
     .paginationBar {
         flex-flow: column;
-        gap: 15px;
+        gap: 9px;
     }
 }

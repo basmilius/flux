@@ -22,9 +22,17 @@
             @dragend="onColumnDragEnd"
             @dragover="onColumnDragOver"
             @drop="onColumnDrop">
-            <slot name="header">
-                <span :class="$style.kanbanColumnLabel">{{ label }}</span>
-            </slot>
+            <div :class="$style.kanbanColumnHeaderCaption">
+                <FluxIcon
+                    v-if="icon"
+                    :name="icon"/>
+
+                <span>{{ label }}</span>
+
+                <FluxBadge
+                    v-if="count"
+                    :label="String(count)"/>
+            </div>
 
             <slot name="actions"/>
         </header>
@@ -68,10 +76,13 @@
     lang="ts"
     setup>
     import { flattenVNodeTree } from '@flux-ui/internals';
+    import type { FluxIconName } from '@flux-ui/types';
     import { Comment, computed, onBeforeUnmount, onMounted, provide, Text, toRef, unref, useSlots, useTemplateRef, watch } from 'vue';
     import { useDisabled, useKanbanInjection } from '~flux/components/composable';
     import { FluxDisabledInjectionKey } from '~flux/components/data';
     import $style from '~flux/components/css/component/Kanban.module.scss';
+    import FluxBadge from './FluxBadge.vue';
+    import FluxIcon from './FluxIcon.vue';
 
     const {
         columnId,
@@ -79,7 +90,9 @@
         label
     } = defineProps<{
         readonly columnId: string | number;
+        readonly count: string | number;
         readonly disabled?: boolean;
+        readonly icon?: FluxIconName;
         readonly label: string;
     }>();
 

@@ -41,8 +41,8 @@
 .commentContent {
     min-width: 0;
     padding: 12px 18px;
-    background: linear-gradient(to bottom, var(--gray-25), var(--gray-50));
-    border: 1px solid var(--gray-200);
+    background: var(--primary-50);
+    border: 1px solid var(--primary-200);
     border-radius: calc(var(--radius) * 2);
     box-shadow: var(--shadow-xs);
 }
@@ -52,7 +52,7 @@
 }
 
 .comment.isReceived .commentContent {
-    background: linear-gradient(to bottom, var(--gray-50), var(--gray-100));
+    background: var(--gray-50);
     border-color: var(--gray-200);
     border-bottom-left-radius: var(--radius);
 }
@@ -85,14 +85,6 @@
     :global(time) {
         color: var(--foreground-secondary);
     }
-}
-
-[dark] .commentContent {
-    background: linear-gradient(to bottom, var(--gray-50), var(--gray-25));
-}
-
-[dark] .comment.isReceived .commentContent {
-    background: linear-gradient(to bottom, var(--gray-100), var(--gray-50));
 }
 
 @keyframes commentTyping {

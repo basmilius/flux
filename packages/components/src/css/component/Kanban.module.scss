@@ -7,8 +7,6 @@
     grid-auto-flow: column;
     grid-auto-columns: minmax(300px, 1fr);
     grid-template-rows: auto 1fr auto;
-    margin: -9px;
-    padding: 9px;
     gap: 0 15px;
     overflow-x: auto;
 }
@@ -35,7 +33,7 @@
     border: 1px solid var(--surface-stroke);
     border-radius: var(--radius);
     outline: 2px dashed transparent;
-    outline-offset: 2px;
+    outline-offset: -2px;
     overflow: hidden;
     transition: 210ms var(--swift-out);
     transition-property: background, border, outline-color, opacity, z-index;
@@ -66,20 +64,27 @@
     @include mixin.focus-ring(-2);
 }
 
+.kanbanColumnHeaderCaption {
+    display: flex;
+    padding-left: 9px;
+    align-items: center;
+    gap: 9px;
+
+    :local(.icon) {
+        font-size: 16px;
+    }
+
+    :global(span) {
+        font-weight: 500;
+    }
+}
+
 .kanbanColumn.isReorderable .kanbanColumnHeader {
     cursor: grab;
 }
 
 .kanbanColumn.isReorderable .kanbanColumnHeader:active {
     cursor: grabbing;
-}
-
-.kanbanColumnLabel {
-    flex: 1;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--foreground);
-    text-transform: uppercase;
 }
 
 .kanbanColumnBody {
@@ -117,9 +122,7 @@
     flex: 1;
     align-items: center;
     justify-content: center;
-    padding: 18px 12px;
-    font-size: .8125rem;
-    color: var(--gray-500);
+    color: var(--foreground-secondary);
     text-align: center;
 }
 
@@ -130,9 +133,9 @@
 
 .kanbanDropIndicator {
     position: absolute;
-    top: -3px;
+    top: -2px;
     inset-inline: 15px;
-    height: 4px;
+    height: 2px;
     border-radius: 999px;
     background: var(--primary-500);
     opacity: 0;
