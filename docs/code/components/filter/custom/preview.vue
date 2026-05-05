@@ -2,8 +2,7 @@
     <Preview>
         <FluxPane style="width: max-content; align-self: start">
             <FluxFilter
-                v-model="filterState"
-                :resettable="['notifications', 'darkMode']">
+                v-model="filterState">
                 <MyToggleFilter
                     icon="bell"
                     label="Notifications"

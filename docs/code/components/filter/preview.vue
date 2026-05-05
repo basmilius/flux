@@ -108,14 +108,7 @@
         option4: [DateTime.now(), DateTime.now().plus({day: 14})],
         option5: [250, 500],
         option6: '73c83353-de92-8110-9bce-c2a9e8c0de64',
-        option7: ['73c83353-de92-8110-9bce-c2a9e8c0de64', '92f99357-7fe5-71eb-74e2-55e057607e16'],
-
-        get resettable(): string[] {
-            return ['option2'];
-        },
-
-        reset(): void {
-        }
+        option7: ['73c83353-de92-8110-9bce-c2a9e8c0de64', '92f99357-7fe5-71eb-74e2-55e057607e16']
     });
 
     function rangeFormatter(value: number): string {

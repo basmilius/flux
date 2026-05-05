@@ -52,7 +52,7 @@ export function useFilterOptionMulti(name: string): FilterOptionMulti {
             values.push(value);
         }
 
-        setValue(name, values);
+        setValue(name, values.length > 0 ? values : null);
     }
 
     return {currentValue, onSelect};

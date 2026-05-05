@@ -85,9 +85,13 @@
     flex-grow: 1;
 }
 
-.filterReset {
+.filterAction {
     width: 42px;
     justify-content: center;
+}
+
+.filterHeaderActions {
+    justify-content: flex-end;
 }
 
 .filterDatePicker {

@@ -3,8 +3,7 @@
         v-model="filterState"
         v-model:search="search"
         is-searchable
-        search-placeholder="Search items..."
-        :resettable="['status', 'category']">
+        search-placeholder="Search items...">
         <FluxFilterOption
             icon="circle-check"
             label="Status"

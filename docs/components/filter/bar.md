@@ -10,8 +10,12 @@ emits:
         description: Triggered when the search query changes.
         type: [ string ]
 
+    -   name: clear
+        description: Triggered when a filter's value is cleared via the trash button. Receives the name of the cleared filter.
+        type: [ string ]
+
     -   name: reset
-        description: Triggered when a filter is reset. Contains the name of the reset filter field.
+        description: Triggered when a filter is reset to its default value. Receives the name of the reset filter.
         type: [ string ]
 
 props:
@@ -27,11 +31,6 @@ props:
     -   name: is-searchable
         description: Whether the search input is shown.
         type: boolean
-        optional: true
-
-    -   name: resettable
-        description: The fields that are resettable.
-        type: string[]
         optional: true
 
     -   name: search-placeholder

@@ -1,5 +1,5 @@
 <template>
-    <slot v-bind="{buttons, filters, menuItems}"/>
+    <slot v-bind="{buttons, filters, menuItems, clear, reset}"/>
 </template>
 
 <script
@@ -12,22 +12,21 @@
 
     const emit = defineEmits<{
         back: [];
-        reset: [string]
+        clear: [string];
+        reset: [string];
     }>();
 
     const modelValue = defineModel<FluxFilterState>({
         required: true
     });
 
-    defineProps<{
-        readonly resettable?: string[];
-    }>();
-
     const slots = defineSlots<{
         default(props: {
             readonly buttons: Record<string, FluxFilterDefinition>;
             readonly filters: Record<string, VNode>;
             readonly menuItems: (FluxFilterDefinition | VNode)[][];
+            clear(name: string): void;
+            reset(name: string): void;
         }): VNode[];
 
         filters(): VNode[];
@@ -112,6 +111,15 @@
         emit('back');
     }
 
+    function clear(name: string): void {
+        const definition = unref(buttons)[name];
+
+        back();
+        modelValue.value[name] = null;
+        definition?.onClear?.();
+        emit('clear', name);
+    }
+
     function reset(name: string): void {
         const definition = unref(buttons)[name];
 
@@ -119,6 +127,10 @@
         modelValue.value[name] = (definition?.defaultValue ?? null) as FluxFilterValue;
         definition?.onClear?.();
         emit('reset', name);
+    }
+
+    function getDefinition(name: string): FluxFilterDefinition | undefined {
+        return unref(buttons)[name];
     }
 
     function getValue(name: string): FluxFilterValue | undefined {
@@ -141,9 +153,11 @@
     provide(FluxFilterInjectionKey, {
         state: modelValue,
         back,
-        reset,
+        clear,
+        getDefinition,
         getValue,
         hasValue,
+        reset,
         setValue
     });
 </script>

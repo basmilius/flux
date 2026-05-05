@@ -23,14 +23,7 @@
     import dataset from '../../../../assets/select-dataset.json' with { type: 'json' };
 
     const filterState = ref<FluxFilterState>({
-        option: '73c83353-de92-8110-9bce-c2a9e8c0de64',
-
-        get resettable(): string[] {
-            return [];
-        },
-
-        reset(): void {
-        }
+        option: '73c83353-de92-8110-9bce-c2a9e8c0de64'
     });
 
     async function fetchOptions(values: string[]): Promise<FluxFilterOptionRow[]> {

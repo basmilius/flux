@@ -23,13 +23,6 @@
         option: [
             DateTime.now().startOf('week'),
             DateTime.now().endOf('week')
-        ],
-
-        get resettable(): string[] {
-            return [];
-        },
-
-        reset(): void {
-        }
+        ]
     });
 </script>

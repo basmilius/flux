@@ -24,13 +24,6 @@
     import { ref } from 'vue';
 
     const filterState = ref<FluxFilterState>({
-        option: 'a',
-
-        get resettable(): string[] {
-            return [];
-        },
-
-        reset(): void {
-        }
+        option: 'a'
     });
 </script>

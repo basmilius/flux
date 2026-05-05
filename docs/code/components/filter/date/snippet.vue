@@ -18,13 +18,6 @@
     import { ref } from 'vue';
 
     const filterState = ref<FluxFilterState>({
-        option: DateTime.now(),
-
-        get resettable(): string[] {
-            return [];
-        },
-
-        reset(): void {
-        }
+        option: DateTime.now()
     });
 </script>

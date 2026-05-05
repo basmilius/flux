@@ -25,11 +25,17 @@
                             @click="back()"/>
 
                         <FluxMenuItem
-                            v-if="resettable?.includes(name)"
-                            :class="$style.filterReset"
+                            v-if="canReset(name)"
+                            :class="$style.filterAction"
+                            icon-leading="rotate-left"
+                            @click="reset(name)"
+                            style="flex-grow: 0"/>
+
+                        <FluxMenuItem
+                            :class="$style.filterAction"
                             icon-leading="trash"
                             is-destructive
-                            @click="reset(name)"
+                            @click="clear(name)"
                             style="flex-grow: 0"/>
                     </FluxMenuGroup>
 
@@ -46,7 +52,9 @@
     import { vHeightTransition } from '@flux-ui/internals';
     import type { FluxFilterDefinition } from '@flux-ui/types';
     import { unref, useTemplateRef, type VNode } from 'vue';
+    import { useFilterInjection } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';
+    import { isResettable } from '~flux/components/util';
     import FluxMenu from './FluxMenu.vue';
     import FluxMenuGroup from './FluxMenuGroup.vue';
     import FluxMenuItem from './FluxMenuItem.vue';
@@ -54,19 +62,16 @@
     import { FilterMenuRenderer, VNodeRenderer } from './primitive';
     import $style from '~flux/components/css/component/Filter.module.scss';
 
-    const emit = defineEmits<{
-        reset: [string]
-    }>();
-
     defineProps<{
         readonly filters: Record<string, VNode>;
         readonly menuItems: (FluxFilterDefinition | VNode)[][];
-        readonly resettable?: string[];
     }>();
 
     defineSlots<{
         default(): VNode[];
     }>();
+
+    const {clear: clearFilter, getDefinition, getValue, reset: resetFilter} = useFilterInjection();
 
     const translate = useTranslate();
 
@@ -76,8 +81,17 @@
         unref(windowRef)?.back('default');
     }
 
+    function clear(name: string): void {
+        back();
+        clearFilter(name);
+    }
+
     function reset(name: string): void {
         back();
-        emit('reset', name);
+        resetFilter(name);
+    }
+
+    function canReset(name: string): boolean {
+        return isResettable(getDefinition(name), getValue(name));
     }
 </script>

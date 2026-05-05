@@ -1,8 +1,8 @@
 <template>
     <FluxFilterBase
         v-model="modelValue"
-        :resettable="resettable"
-        @reset="reset">
+        @clear="onClear"
+        @reset="onReset">
         <template #filters>
             <slot/>
         </template>
@@ -10,9 +10,7 @@
         <template #default="{ filters, menuItems }">
             <FluxFilterWindow
                 :filters="filters"
-                :menu-items="menuItems"
-                :resettable="resettable"
-                @reset="reset"/>
+                :menu-items="menuItems"/>
         </template>
     </FluxFilterBase>
 </template>
@@ -26,22 +24,23 @@
     import FluxFilterWindow from './FluxFilterWindow.vue';
 
     const emit = defineEmits<{
-        reset: [string]
+        clear: [string];
+        reset: [string];
     }>();
 
     const modelValue = defineModel<FluxFilterState>({
         required: true
     });
 
-    defineProps<{
-        readonly resettable?: string[];
-    }>();
-
     defineSlots<{
         default(): VNode[];
     }>();
 
-    function reset(name: string): void {
+    function onClear(name: string): void {
+        emit('clear', name);
+    }
+
+    function onReset(name: string): void {
         emit('reset', name);
     }
 </script>

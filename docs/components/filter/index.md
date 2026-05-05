@@ -6,19 +6,18 @@ emits:
         description: Triggered when the filter state changes.
         type: [ FluxFilterState ]
 
+    -   name: clear
+        description: Triggered when a filter's value is cleared via the trash button. Receives the name of the cleared filter.
+        type: [ string ]
+
     -   name: reset
-        description: Triggered when the user clicks the reset button. An optional field can be provided if a single filter entry should be resetted.
+        description: Triggered when a filter is reset to its default value. Receives the name of the reset filter.
         type: [ string ]
 
 props:
     -   name: model-value
         description: The filter state.
         type: FluxFilterState
-
-    -   name: resettable
-        description: The fields that are resettable.
-        type: string[]
-        optional: true
 
 slots:
     -   name: default
@@ -29,6 +28,7 @@ requiredIcons:
     - angle-right
     - circle-check
     - magnifying-glass
+    - rotate-left
     - trash
 ---
 

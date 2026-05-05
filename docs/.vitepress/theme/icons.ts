@@ -124,5 +124,6 @@ export {
     faScissors,
     faPaste,
     faSidebar,
-    faSidebarFlip
+    faSidebarFlip,
+    faRotateLeft
 } from '@fortawesome/pro-regular-svg-icons';

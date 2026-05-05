@@ -1,13 +1,13 @@
 <template>
     <FluxFilterBase
         v-model="modelValue"
-        :resettable="resettable"
-        @reset="reset">
+        @clear="onClear"
+        @reset="onReset">
         <template #filters>
             <slot/>
         </template>
 
-        <template #default="{ buttons, filters, menuItems }">
+        <template #default="{ buttons, filters, menuItems, clear, reset }">
             <div :class="$style.filterBar">
                 <FluxFormInput
                     v-if="isSearchable"
@@ -38,11 +38,31 @@
                                 </FluxSecondaryButton>
                             </template>
 
-                            <div :class="$style.filter">
-                                <FluxMenu>
-                                    <VNodeRenderer :vnode="filters[button.name]"/>
-                                </FluxMenu>
-                            </div>
+                            <template #default="{close}">
+                                <div :class="$style.filter">
+                                    <FluxMenu>
+                                        <FluxMenuGroup
+                                            :class="[$style.filterHeader, $style.filterHeaderActions]"
+                                            is-horizontal>
+                                            <FluxMenuItem
+                                                v-if="isResettable(button, modelValue[button.name])"
+                                                :class="$style.filterAction"
+                                                icon-leading="rotate-left"
+                                                @click="onResetClick(close, reset, button.name)"
+                                                style="flex-grow: 0"/>
+
+                                            <FluxMenuItem
+                                                :class="$style.filterAction"
+                                                icon-leading="trash"
+                                                is-destructive
+                                                @click="onClearClick(close, clear, button.name)"
+                                                style="flex-grow: 0"/>
+                                        </FluxMenuGroup>
+
+                                        <VNodeRenderer :vnode="filters[button.name]"/>
+                                    </FluxMenu>
+                                </div>
+                            </template>
                         </FluxFlyout>
                     </template>
 
@@ -68,9 +88,7 @@
 
                             <FluxFilterWindow
                                 :filters="filters"
-                                :menu-items="menuItems"
-                                :resettable="resettable"
-                                @reset="reset"/>
+                                :menu-items="menuItems"/>
                         </FluxFlyout>
                     </template>
                 </FluxOverflowBar>
@@ -85,18 +103,22 @@
     import type { FluxFilterState } from '@flux-ui/types';
     import { computed, unref, type VNode } from 'vue';
     import { FilterBadge, VNodeRenderer } from '~flux/components/component/primitive';
+    import { isResettable } from '~flux/components/util';
     import FluxBadge from './FluxBadge.vue';
     import FluxFilterBase from './FluxFilterBase.vue';
     import FluxFilterWindow from './FluxFilterWindow.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxFormInput from './FluxFormInput.vue';
     import FluxMenu from './FluxMenu.vue';
+    import FluxMenuGroup from './FluxMenuGroup.vue';
+    import FluxMenuItem from './FluxMenuItem.vue';
     import FluxOverflowBar from './FluxOverflowBar.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import FluxSeparator from './FluxSeparator.vue';
     import $style from '~flux/components/css/component/Filter.module.scss';
 
     const emit = defineEmits<{
+        clear: [string];
         reset: [string];
     }>();
 
@@ -110,7 +132,6 @@
 
     defineProps<{
         readonly isSearchable?: boolean;
-        readonly resettable?: string[];
         readonly searchPlaceholder?: string;
     }>();
 
@@ -133,7 +154,21 @@
 
     const isFiltered = computed(() => unref(filterCount) > 0);
 
-    function reset(name: string): void {
+    function onClear(name: string): void {
+        emit('clear', name);
+    }
+
+    function onReset(name: string): void {
         emit('reset', name);
+    }
+
+    function onClearClick(close: () => void, clear: (name: string) => void, name: string): void {
+        close();
+        clear(name);
+    }
+
+    function onResetClick(close: () => void, reset: (name: string) => void, name: string): void {
+        close();
+        reset(name);
     }
 </script>

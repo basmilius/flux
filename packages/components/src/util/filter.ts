@@ -1,4 +1,5 @@
-import type { FluxFilterOptionHeader, FluxFilterOptionItem, FluxFilterSpec, FluxFilterValueSingle } from '@flux-ui/types';
+import type { FluxFilterDefinition, FluxFilterOptionHeader, FluxFilterOptionItem, FluxFilterSpec, FluxFilterValue, FluxFilterValueSingle } from '@flux-ui/types';
+import { DateTime } from 'luxon';
 import type { FluxTranslate } from '~flux/components/data';
 
 export function isFluxFilterOptionHeader(obj: object): obj is FluxFilterOptionHeader {
@@ -7,6 +8,30 @@ export function isFluxFilterOptionHeader(obj: object): obj is FluxFilterOptionHe
 
 export function isFluxFilterOptionItem(obj: object): obj is FluxFilterOptionItem {
     return 'label' in obj && 'value' in obj;
+}
+
+export function isResettable(definition: FluxFilterDefinition | undefined, value: FluxFilterValue | undefined): boolean {
+    if (!definition || definition.defaultValue === undefined) {
+        return false;
+    }
+
+    return !isFilterValueEqual(value, definition.defaultValue);
+}
+
+function isFilterValueEqual(a: FluxFilterValue | undefined, b: FluxFilterValue | undefined): boolean {
+    if (a === b) {
+        return true;
+    }
+
+    if (DateTime.isDateTime(a) && DateTime.isDateTime(b)) {
+        return a.equals(b);
+    }
+
+    if (Array.isArray(a) && Array.isArray(b)) {
+        return a.length === b.length && a.every((value, index) => isFilterValueEqual(value, b[index]));
+    }
+
+    return false;
 }
 
 export function pickFilterCommon<T extends FluxFilterSpec>(props: T): FluxFilterSpec {
