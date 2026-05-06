@@ -18,6 +18,7 @@
 
 .flyoutPane {
     max-height: calc(100dvh - 120px);
+    width: max-content;
     box-shadow: var(--shadow-md);
     overflow: auto;
     transform: translate3d(var(--pane-mx), var(--pane-my), 0);

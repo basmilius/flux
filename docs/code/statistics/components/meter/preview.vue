@@ -1,7 +1,9 @@
 <template>
     <Preview>
         <FluxStatisticsBase title="System resources">
-            <FluxStack>
+            <FluxFlex
+                direction="vertical"
+                :gap="18">
                 <FluxStatisticsMeter
                     color="success"
                     icon="server"
@@ -19,7 +21,7 @@
                     tip="of 500 GB"
                     footer="374 GB used"
                     :value="0.74"/>
-            </FluxStack>
+            </FluxFlex>
         </FluxStatisticsBase>
     </Preview>
 </template>
@@ -27,6 +29,6 @@
 <script
     setup
     lang="ts">
-    import { FluxStack } from '@flux-ui/components';
+    import { FluxFlex } from '@flux-ui/components';
     import { FluxStatisticsBase, FluxStatisticsMeter } from '@flux-ui/statistics';
 </script>

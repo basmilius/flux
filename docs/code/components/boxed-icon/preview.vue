@@ -1,8 +1,6 @@
 <template>
     <Preview>
-        <FluxStack
-            direction="horizontal"
-            :gap="15">
+        <FluxFlex :gap="15">
             <FluxBoxedIcon
                 name="circle-check"
                 :size="90"/>
@@ -14,12 +12,12 @@
             <FluxBoxedIcon
                 name="rocket"
                 :size="90"/>
-        </FluxStack>
+        </FluxFlex>
     </Preview>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxBoxedIcon, FluxStack } from '@flux-ui/components';
+    import { FluxBoxedIcon, FluxFlex } from '@flux-ui/components';
 </script>

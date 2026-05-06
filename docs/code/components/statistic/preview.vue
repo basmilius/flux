@@ -1,8 +1,8 @@
 <template>
     <Preview>
-        <FluxStack
-            :gap="10"
-            direction="vertical">
+        <FluxFlex
+            direction="vertical"
+            :gap="10">
             <FluxStatistic
                 color="info"
                 icon="circle"
@@ -31,12 +31,12 @@
                 change-color="success"
                 change-value="5%"
                 change-icon="arrow-trend-up"/>
-        </FluxStack>
+        </FluxFlex>
     </Preview>
 </template>
 
 <script
     setup
     lang="ts">
-    import { FluxStack, FluxStatistic } from '@flux-ui/components';
+    import { FluxFlex, FluxStatistic } from '@flux-ui/components';
 </script>

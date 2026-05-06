@@ -6,6 +6,12 @@ props:
         description: The aspect ratio, can be a formula such as "16 / 9".
         type: number
 
+    -   name: tag
+        description: The HTML tag to use for the aspect ratio container.
+        type: keyof HTMLElementTagNameMap
+        optional: true
+        default: div
+
 slots:
     -   name: default
         description: The contents of the element.

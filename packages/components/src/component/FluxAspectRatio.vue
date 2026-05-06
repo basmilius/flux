@@ -1,9 +1,10 @@
 <template>
-    <div
+    <Component
+        :is="tag ?? 'div'"
         :class="$style.aspectRatio"
         :style="{aspectRatio}">
         <slot/>
-    </div>
+    </Component>
 </template>
 
 <script
@@ -13,7 +14,8 @@
     import $style from '~flux/components/css/component/Layout.module.scss';
 
     defineProps<{
-        aspectRatio: number;
+        readonly aspectRatio: number;
+        readonly tag?: keyof HTMLElementTagNameMap;
     }>();
 
     defineSlots<{

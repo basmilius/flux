@@ -3,17 +3,16 @@
         <FluxPaneBody>
             <FluxStepper v-model="step">
                 <template #steps="{activate, modelValue, steps}">
-                    <FluxStack
-                        direction="horizontal"
-                        is-fill
-                        :gap="9">
+                    <FluxFlex
+                        :gap="9"
+                        style="width: 100%">
                         <FluxSecondaryButton
                             v-for="index in steps"
                             :key="index - 1"
                             :label="`${index}. ${titles[index - 1]}`"
                             :is-filled="(index - 1) === modelValue"
                             @click="activate(index - 1)"/>
-                    </FluxStack>
+                    </FluxFlex>
                 </template>
 
                 <FluxStepperStep class="mt">
@@ -53,7 +52,7 @@
 <script
     setup
     lang="ts">
-    import { FluxPane, FluxPaneBody, FluxPaneFooter, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStack, FluxStepper, FluxStepperStep } from '@flux-ui/components';
+    import { FluxFlex, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStepper, FluxStepperStep } from '@flux-ui/components';
     import { ref } from 'vue';
 
     const step = ref(0);

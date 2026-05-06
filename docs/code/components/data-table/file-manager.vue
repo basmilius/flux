@@ -15,18 +15,14 @@
 
             <template #name="{item: {name, type}}">
                 <FluxTableCell>
-                    <FluxStack
-                        direction="horizontal"
-                        :gap="21">
+                    <FluxFlex :gap="21">
                         <FluxBoxedIcon name="image"/>
 
-                        <FluxStack
-                            direction="vertical"
-                            :gap="0">
+                        <FluxFlex direction="vertical">
                             <strong>{{ name }}</strong>
                             <small>{{ type }}</small>
-                        </FluxStack>
-                    </FluxStack>
+                        </FluxFlex>
+                    </FluxFlex>
                 </FluxTableCell>
             </template>
 
@@ -49,7 +45,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxAction, FluxBoxedIcon, FluxDataTable, FluxPane, FluxStack, FluxTableActions, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
+    import { FluxAction, FluxBoxedIcon, FluxDataTable, FluxFlex, FluxPane, FluxTableActions, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
     import { faker } from '@faker-js/faker';
     import { computed } from 'vue';
 

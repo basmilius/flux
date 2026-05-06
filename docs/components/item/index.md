@@ -32,4 +32,4 @@ render=../../code/components/item/preview.vue
 
 ## Used components
 
-- [Stack](../layout/stack/index)
+- [Flex](../layout/flex/)

@@ -1,6 +1,8 @@
 <template>
     <Preview>
-        <FluxStack :gap="9">
+        <FluxFlex
+            direction="vertical"
+            :gap="9">
             <FluxToggle v-model="parentDisabled">
                 Disable everything below
             </FluxToggle>
@@ -14,21 +16,19 @@
                     <FluxFormInput placeholder="E.g. Doe"/>
                 </FluxFormField>
 
-                <FluxStack
-                    direction="horizontal"
-                    :gap="9">
+                <FluxFlex :gap="9">
                     <FluxSecondaryButton label="Cancel"/>
                     <FluxPrimaryButton label="Save"/>
-                </FluxStack>
+                </FluxFlex>
             </FluxDisabled>
-        </FluxStack>
+        </FluxFlex>
     </Preview>
 </template>
 
 <script
     setup
     lang="ts">
-    import { FluxDisabled, FluxFormField, FluxFormInput, FluxPrimaryButton, FluxSecondaryButton, FluxStack, FluxToggle } from '@flux-ui/components';
+    import { FluxDisabled, FluxFlex, FluxFormField, FluxFormInput, FluxPrimaryButton, FluxSecondaryButton, FluxToggle } from '@flux-ui/components';
     import { ref } from 'vue';
 
     const parentDisabled = ref(false);

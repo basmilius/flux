@@ -6,8 +6,6 @@ const navigation: SidebarItem = {
         {text: 'Action', link: '/components/action', image: '/assets/components/action.svg'},
         {text: 'Action bar', link: '/components/action-bar'},
         {text: 'Action pane', link: '/components/action-pane'},
-        {text: 'Adaptive group', link: '/components/adaptive-group'},
-        {text: 'Adaptive slot', link: '/components/adaptive-slot'},
         {
             text: 'Attention',
             link: '/components/attention/',
@@ -60,7 +58,6 @@ const navigation: SidebarItem = {
         {text: 'Data table', link: '/components/data-table'},
         {text: 'Date picker', link: '/components/date-picker'},
         {text: 'Disabled', link: '/components/disabled'},
-        {text: 'Divider', link: '/components/divider'},
         {text: 'Drop zone', link: '/components/drop-zone'},
         {text: 'Dynamic view', link: '/components/dynamic-view'},
         {
@@ -193,9 +190,31 @@ const navigation: SidebarItem = {
             link: '/components/layout/',
             collapsed: true,
             items: [
+                {text: 'Adaptive group', link: '/components/adaptive-group'},
+                {text: 'Adaptive slot', link: '/components/adaptive-slot'},
                 {text: 'Aspect ratio', link: '/components/layout/aspect-ratio', image: '/assets/components/layout-aspect-ratio.svg'},
-                {text: 'Column', link: '/components/layout/column'},
                 {text: 'Container', link: '/components/layout/container', image: '/assets/components/layout-container.svg'},
+                {text: 'Divider', link: '/components/divider'},
+                {
+                    text: 'Flex',
+                    link: '/components/layout/flex/',
+                    collapsed: true,
+                    items: [
+                        {text: 'Item', link: '/components/layout/flex/item'},
+                        {
+                            text: 'Stack',
+                            collapsed: true,
+                            items: [
+                                {text: 'Action', link: '/components/layout/flex/action'},
+                                {text: 'Badge', link: '/components/layout/flex/badge'},
+                                {text: 'Button', link: '/components/layout/flex/button'},
+                                {text: 'Info', link: '/components/layout/flex/info'},
+                                {text: 'Notice', link: '/components/layout/flex/notice'},
+                                {text: 'Tag', link: '/components/layout/flex/tag'}
+                            ]
+                        }
+                    ]
+                },
                 {
                     text: 'Grid',
                     link: '/components/layout/grid/',
@@ -205,23 +224,20 @@ const navigation: SidebarItem = {
                         {text: 'Column', link: '/components/layout/grid/column'},
                     ]
                 },
-                {text: 'Row', link: '/components/layout/row'},
+                {text: 'Overflow bar', link: '/components/overflow-bar'},
+                {text: 'Scroller', link: '/components/layout/scroller'},
+                {text: 'Separator', link: '/components/separator'},
                 {text: 'Spacer', link: '/components/layout/spacer', image: '/assets/components/layout-spacer.svg'},
                 {text: 'Spacing', link: '/components/layout/spacing', image: '/assets/components/layout-spacing.svg'},
                 {
-                    text: 'Stack',
-                    link: '/components/layout/stack/',
-                    image: '/assets/components/layout-stack.svg',
+                    text: 'Split view',
+                    link: '/components/layout/split-view/',
                     collapsed: true,
                     items: [
-                        {text: 'Action', link: '/components/layout/stack/action'},
-                        {text: 'Badge', link: '/components/layout/stack/badge'},
-                        {text: 'Button', link: '/components/layout/stack/button'},
-                        {text: 'Info', link: '/components/layout/stack/info'},
-                        {text: 'Notice', link: '/components/layout/stack/notice'},
-                        {text: 'Tag', link: '/components/layout/stack/tag'}
+                        {text: 'Pane', link: '/components/layout/split-view/pane'}
                     ]
-                }
+                },
+                {text: 'Sticky', link: '/components/layout/sticky'}
             ]
         },
         {text: 'Legend', link: '/components/legend'},
@@ -239,7 +255,6 @@ const navigation: SidebarItem = {
                 {text: 'Title', link: '/components/menu/title'}
             ]
         },
-        {text: 'Overflow bar', link: '/components/overflow-bar'},
         {text: 'Overlay', link: '/components/overlay'},
         {
             text: 'Pagination',
@@ -279,7 +294,6 @@ const navigation: SidebarItem = {
                 {text: 'View', link: '/components/segmented-control/view'}
             ]
         },
-        {text: 'Separator', link: '/components/separator'},
         {text: 'Slide over', link: '/components/slide-over'},
         {text: 'Spinner', link: '/components/spinner'},
         {text: 'Statistic', link: '/components/statistic'},

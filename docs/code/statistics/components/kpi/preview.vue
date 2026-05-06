@@ -1,6 +1,9 @@
 <template>
     <Preview>
-        <FluxStack style="width: 100%; max-width: 360px">
+        <FluxFlex
+            direction="vertical"
+            :gap="18"
+            style="width: 100%; max-width: 360px">
             <FluxStatisticsKpi
                 style="min-width: 100%"
                 icon="users"
@@ -16,13 +19,13 @@
                 value="3,821"
                 footer="vs. last month"
                 :change="{color: 'danger', icon: 'arrow-trend-down', value: '-1.4%'}"/>
-        </FluxStack>
+        </FluxFlex>
     </Preview>
 </template>
 
 <script
     setup
     lang="ts">
-    import { FluxStack } from '@flux-ui/components';
+    import { FluxFlex } from '@flux-ui/components';
     import { FluxStatisticsKpi } from '@flux-ui/statistics';
 </script>

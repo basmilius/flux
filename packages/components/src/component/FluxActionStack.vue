@@ -1,11 +1,11 @@
 <template>
-    <FluxStack
+    <FluxFlex
         ref="element"
         direction="horizontal"
         :gap="1"
         tag="nav">
         <slot/>
-    </FluxStack>
+    </FluxFlex>
 </template>
 
 <script
@@ -13,7 +13,7 @@
     setup>
     import { useFocusZone } from '@flux-ui/internals';
     import { useTemplateRef, type VNode } from 'vue';
-    import FluxStack from './FluxStack.vue';
+    import FluxFlex from './FluxFlex.vue';
 
     defineSlots<{
         default(): VNode[];

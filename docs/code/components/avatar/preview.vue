@@ -1,10 +1,10 @@
 <template>
     <Preview>
-        <FluxStack
-            direction="horizontal"
+        <FluxFlex
+            align="center"
             :gap="18"
-            is-centered
-            is-wrapping>
+            justify="center"
+            wrap="wrap">
             <FluxAvatar
                 alt="Bas"
                 :size="42"
@@ -31,12 +31,12 @@
                 alt="Bas"
                 fallback="neutral"
                 :size="42"/>
-        </FluxStack>
+        </FluxFlex>
     </Preview>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxAvatar, FluxStack } from '@flux-ui/components';
+    import { FluxAvatar, FluxFlex } from '@flux-ui/components';
 </script>

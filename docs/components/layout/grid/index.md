@@ -14,6 +14,12 @@ props:
         optional: true
         default: 18
 
+    -   name: tag
+        description: The HTML tag to use for the grid.
+        type: keyof HTMLElementTagNameMap
+        optional: true
+        default: div
+
 slots:
     -   name: default
         description: The content of the grid.

@@ -1,9 +1,10 @@
 <template>
-    <div
+    <Component
+        :is="tag ?? 'div'"
         :class="$style.container"
         :style="{'--gutter': `${gutter}px`}">
         <slot/>
-    </div>
+    </Component>
 </template>
 
 <script
@@ -16,6 +17,7 @@
         gutter = 18
     } = defineProps<{
         readonly gutter?: number;
+        readonly tag?: keyof HTMLElementTagNameMap;
     }>();
 
     defineSlots<{

@@ -102,16 +102,14 @@ By default `FluxStepper` renders a `FluxStepperSteps` bar above the content. Ove
 ```vue
 <FluxStepper v-model="current">
     <template #steps="{activate, modelValue, steps}">
-        <FluxStack
-            direction="horizontal"
-            :gap="9">
+        <FluxFlex :gap="9">
             <FluxSecondaryButton
                 v-for="index in steps"
                 :key="index - 1"
                 :label="titles[index - 1]"
                 :is-filled="(index - 1) === modelValue"
                 @click="activate(index - 1)"/>
-        </FluxStack>
+        </FluxFlex>
     </template>
 
     <!-- step content -->

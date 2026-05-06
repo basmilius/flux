@@ -1,7 +1,6 @@
 <template>
-    <FluxStack
+    <FluxFlex
         :class="$style.actionBar"
-        direction="horizontal"
         :gap="9">
         <slot name="primary"/>
         <slot name="actionsStart"/>
@@ -42,7 +41,7 @@
         </FluxFlyout>
 
         <slot name="actionsEnd"/>
-    </FluxStack>
+    </FluxFlex>
 </template>
 
 <script
@@ -52,10 +51,10 @@
     import { useTranslate } from '~flux/components/composable/private';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxDestructiveButton from './FluxDestructiveButton.vue';
+    import FluxFlex from './FluxFlex.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import FluxSpacer from './FluxSpacer.vue';
-    import FluxStack from './FluxStack.vue';
     import FluxTooltip from './FluxTooltip.vue';
     import $style from '~flux/components/css/component/Action.module.scss';
 

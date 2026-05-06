@@ -80,6 +80,6 @@ example=../code/components/action-bar/datatable.vue
     - [Group](./button/group)
 - [Flyout](./flyout)
 - [Layout](./layout)
+    - [Flex](./layout/flex/)
     - [Spacer](./layout/spacer)
-    - [Stack](./layout/stack)
 - [Tooltip](./tooltip)

@@ -1,5 +1,5 @@
 <template>
-    <FluxStack
+    <FluxFlex
         :class="clsx(
             !!floatingMode ? $style.toolbarFloating : $style.toolbarFlat,
             floatingMode === 'free' && $style.isFree,
@@ -8,11 +8,10 @@
             floatingMode === 'bottom-end' && $style.isBottomEnd,
             floatingMode === 'bottom-start' && $style.isBottomStart,
         )"
-        direction="horizontal"
         :gap="6"
         tag="nav">
         <slot/>
-    </FluxStack>
+    </FluxFlex>
 </template>
 
 <script
@@ -20,7 +19,7 @@
     setup>
     import { clsx } from 'clsx';
     import type { VNode } from 'vue';
-    import FluxStack from './FluxStack.vue';
+    import FluxFlex from './FluxFlex.vue';
     import $style from '~flux/components/css/component/Toolbar.module.scss';
 
     defineProps<{

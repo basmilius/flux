@@ -1,6 +1,9 @@
 <template>
     <Preview>
-        <FluxStack style="width: min(100%, 320px)">
+        <FluxFlex
+            direction="vertical"
+            :gap="18"
+            style="width: min(100%, 320px)">
             <FluxFormField label="Price">
                 <FluxFormInputGroup>
                     <FluxFormInputAddition label="€"/>
@@ -16,12 +19,12 @@
                     <FluxFormInputAddition label=".com"/>
                 </FluxFormInputGroup>
             </FluxFormField>
-        </FluxStack>
+        </FluxFlex>
     </Preview>
 </template>
 
 <script
     setup
     lang="ts">
-    import { FluxFormField, FluxFormInput, FluxFormInputAddition, FluxFormInputGroup, FluxStack } from '@flux-ui/components';
+    import { FluxFlex, FluxFormField, FluxFormInput, FluxFormInputAddition, FluxFormInputGroup } from '@flux-ui/components';
 </script>

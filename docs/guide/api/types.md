@@ -18,7 +18,7 @@ import type { FluxColor, FluxIconName, FluxSize } from '@flux-ui/types';
 type FluxAlignment = 'start' | 'center' | 'end';
 ```
 
-Used by layout components such as [Overflow bar](../../components/overflow-bar) and [Stack](../../components/layout/stack).
+Used by layout components such as [Overflow bar](../../components/overflow-bar) and [Flex](../../components/layout/flex/).
 
 ### `FluxColor`
 

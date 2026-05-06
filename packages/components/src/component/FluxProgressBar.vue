@@ -1,6 +1,7 @@
 <template>
-    <FluxStack
+    <FluxFlex
         :class="$style.progressBar"
+        direction="vertical"
         :gap="6"
         role="progressbar"
         :aria-valuenow="value"
@@ -34,7 +35,7 @@
                 </span>
             </FluxFadeTransition>
         </div>
-    </FluxStack>
+    </FluxFlex>
 </template>
 
 <script
@@ -42,7 +43,7 @@
     setup>
     import { computed, unref } from 'vue';
     import { FluxFadeTransition } from '~flux/components/transition';
-    import FluxStack from './FluxStack.vue';
+    import FluxFlex from './FluxFlex.vue';
     import $style from '~flux/components/css/component/Progress.module.scss';
 
     const {

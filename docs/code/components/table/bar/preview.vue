@@ -10,13 +10,13 @@
                 </template>
 
                 <FluxTableBar>
-                    <FluxStack
-                        direction="horizontal"
+                    <FluxFlex
+                        align="center"
                         :gap="9"
-                        is-centered>
+                        justify="center">
                         <FluxIcon name="circle-info"/>
                         <span>3 items match the current filter.</span>
-                    </FluxStack>
+                    </FluxFlex>
                 </FluxTableBar>
 
                 <FluxTableRow>
@@ -47,5 +47,5 @@
 <script
     setup
     lang="ts">
-    import { FluxBadge, FluxIcon, FluxPane, FluxStack, FluxTable, FluxTableBar, FluxTableCell, FluxTableHeader, FluxTableRow } from '@flux-ui/components';
+    import { FluxBadge, FluxFlex, FluxIcon, FluxPane, FluxTable, FluxTableBar, FluxTableCell, FluxTableHeader, FluxTableRow } from '@flux-ui/components';
 </script>

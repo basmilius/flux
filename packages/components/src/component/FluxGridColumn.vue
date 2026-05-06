@@ -1,5 +1,6 @@
 <template>
-    <div
+    <Component
+        :is="tag ?? 'div'"
         :class="$style.gridColumn"
         :style="{
             '--xs': xs ?? 12,
@@ -9,7 +10,7 @@
             '--xl': xl ?? lg ?? md ?? sm ?? xs ?? 12
         }">
         <slot/>
-    </div>
+    </Component>
 </template>
 
 <script
@@ -24,6 +25,7 @@
         readonly md?: number;
         readonly lg?: number;
         readonly xl?: number;
+        readonly tag?: keyof HTMLElementTagNameMap;
     }>();
 
     defineSlots<{

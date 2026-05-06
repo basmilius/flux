@@ -1,6 +1,6 @@
 <template>
     <Preview>
-        <FluxStack
+        <FluxFlex
             :direction="md ? 'horizontal' : 'vertical'"
             :gap="9">
             <FluxPane
@@ -8,20 +8,22 @@
                 :key="card.title"
                 :style="md ? 'flex: 1' : 'width: 100%'">
                 <FluxPaneBody>
-                    <FluxStack :gap="6">
+                    <FluxFlex
+                        direction="vertical"
+                        :gap="6">
                         <strong>{{ card.title }}</strong>
                         <span style="font-size: .875rem; opacity: .6">{{ card.description }}</span>
-                    </FluxStack>
+                    </FluxFlex>
                 </FluxPaneBody>
             </FluxPane>
-        </FluxStack>
+        </FluxFlex>
     </Preview>
 </template>
 
 <script
     setup
     lang="ts">
-    import { FluxPane, FluxPaneBody, FluxStack, useBreakpoints } from '@flux-ui/components';
+    import { FluxFlex, FluxPane, FluxPaneBody, useBreakpoints } from '@flux-ui/components';
 
     const {md} = useBreakpoints();
 

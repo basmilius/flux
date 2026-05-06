@@ -1,17 +1,17 @@
 <template>
-    <FluxStack
+    <FluxFlex
         direction="horizontal"
         :gap="6"
-        is-wrapping>
+        wrap="wrap">
         <slot/>
-    </FluxStack>
+    </FluxFlex>
 </template>
 
 <script
     lang="ts"
     setup>
     import type { VNode } from 'vue';
-    import FluxStack from './FluxStack.vue';
+    import FluxFlex from './FluxFlex.vue';
 
     defineSlots<{
         default(): VNode[];

@@ -35,4 +35,4 @@ example=../../code/components/toolbar/standalone.vue
 ## Used components
 
 - [Layout](../layout)
-    - [Stack](../layout/stack)
+    - [Flex](../layout/flex/)

@@ -102,7 +102,9 @@ Every Flux component that accepts a `to` prop hands it off to Vue Router's `<Rou
 
 ```vue [Navigation.vue]
 <template>
-    <FluxStack>
+    <FluxFlex
+        direction="vertical"
+        :gap="18">
         <FluxLink
             label="Home"
             :to="{name: 'home'}"/>
@@ -115,13 +117,13 @@ Every Flux component that accepts a `to` prop hands it off to Vue Router's `<Rou
             icon="gear"
             label="Settings"
             :to="{name: 'settings'}"/>
-    </FluxStack>
+    </FluxFlex>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxLink, FluxMenuItem, FluxSecondaryButton, FluxStack } from '@flux-ui/components';
+    import { FluxFlex, FluxLink, FluxMenuItem, FluxSecondaryButton } from '@flux-ui/components';
 </script>
 ```
 

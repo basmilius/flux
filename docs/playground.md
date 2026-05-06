@@ -35,7 +35,7 @@ import {
     FluxSeparator,
     FluxSpacer,
     FluxSpinner,
-    FluxStack,
+    FluxFlex,
     FluxStatistic,
     FluxTabBar,
     FluxTabBarItem,
@@ -57,7 +57,7 @@ const isOverlay2Open = ref(false);
 ## Item
 
 <FluxView>
-    <FluxStack>
+    <FluxFlex direction="vertical" :gap="18">
         <FluxItem>
             <FluxItemContent>
                 <strong>Item</strong>
@@ -175,16 +175,16 @@ const isOverlay2Open = ref(false);
                 </FluxItem>
             </FluxItemStack>
         </FluxPane>
-    </FluxStack>
+    </FluxFlex>
 </FluxView>
 
 ## Overlay
 
 <FluxView>
-    <FluxStack direction="horizontal" :gap="15">
+    <FluxFlex :gap="15">
         <FluxSecondaryButton label="Open" @click="isOverlayOpen = true"/>
         <FluxSecondaryButton label="Open 2" @click="isOverlay2Open = true"/>
-    </FluxStack>
+    </FluxFlex>
     <FluxOverlay is-closeable @close="isOverlayOpen = false">
         <FluxPane v-if="isOverlayOpen">
             <FluxPaneBody>
@@ -215,7 +215,7 @@ const isOverlay2Open = ref(false);
 ## Tooltip
 
 <FluxView>
-    <FluxStack direction="horizontal" :gap="15">
+    <FluxFlex :gap="15">
         <FluxTooltip content="Tooltip content">
             <FluxSecondaryButton label="Button"/>
         </FluxTooltip>
@@ -225,7 +225,7 @@ const isOverlay2Open = ref(false);
             </template>
             <FluxSecondaryButton label="Button"/>
         </FluxTooltip>
-    </FluxStack>
+    </FluxFlex>
 </FluxView>
 
 ## Spinner
@@ -260,10 +260,10 @@ const isOverlay2Open = ref(false);
 ## Progress bar
 
 <FluxView>
-    <FluxStack :gap="15">
+    <FluxFlex direction="vertical" :gap="15">
         <FluxProgressBar :value=".5"/>
         <FluxProgressBar :value="1"/>
-    </FluxStack>
+    </FluxFlex>
 </FluxView>
 
 ## Notice in pane
@@ -283,7 +283,7 @@ const isOverlay2Open = ref(false);
 ## Notice
 
 <FluxView>
-    <FluxStack :gap="15">
+    <FluxFlex direction="vertical" :gap="15">
         <FluxNotice icon="circle-check" message="Lorem ipsum dolor sit amet." #end>
             <FluxSecondaryButton label="Do something"/>
         </FluxNotice>
@@ -295,13 +295,13 @@ const isOverlay2Open = ref(false);
         <FluxNotice color="info" icon="circle-check" message="Lorem ipsum dolor sit amet."/>
         <FluxNotice color="success" icon="circle-check" message="Lorem ipsum dolor sit amet."/>
         <FluxNotice color="warning" icon="circle-check" message="Lorem ipsum dolor sit amet."/>
-    </FluxStack>
+    </FluxFlex>
 </FluxView>
 
 ## Boxed icon
 
 <FluxView>
-    <FluxStack direction="horizontal" :gap="21">
+    <FluxFlex :gap="21">
         <FluxBoxedIcon  name="rocket" :size="54"/>
         <FluxBoxedIcon color="gray" name="rocket" :size="54"/>
         <FluxBoxedIcon color="primary" name="rocket" :size="54"/>
@@ -309,7 +309,7 @@ const isOverlay2Open = ref(false);
         <FluxBoxedIcon color="info" name="rocket" :size="54"/>
         <FluxBoxedIcon color="success" name="rocket" :size="54"/>
         <FluxBoxedIcon color="warning" name="rocket" :size="54"/>
-    </FluxStack>
+    </FluxFlex>
 </FluxView>
 
 ## Toggle
@@ -339,7 +339,7 @@ const isOverlay2Open = ref(false);
 ## Secondary input groups
 
 <FluxView>
-    <FluxStack>
+    <FluxFlex direction="vertical" :gap="18">
         <FluxFormInputGroup>
             <FluxFormInputAddition icon="magnifying-glass"/>
             <FluxFormInput placeholder="Zoek naar alles..."/>
@@ -366,7 +366,7 @@ const isOverlay2Open = ref(false);
                 <FluxSecondaryButton label="Zoek"/>
             </FluxButtonGroup>
         </FluxFormInputGroup>
-    </FluxStack>
+    </FluxFlex>
 </FluxView>
 
 ## Gallery
@@ -392,10 +392,10 @@ const isOverlay2Open = ref(false);
 ## Statistic
 
 <FluxView>
-    <FluxStack direction="horizontal" :gap="15">
+    <FluxFlex :gap="15">
         <FluxStatistic change-color="success" change-icon="square-dashed" change-value="13%" color="primary" direction="horizontal" icon="square-dashed" label="Sales" value="456"/>
         <FluxStatistic change-color="success" change-icon="square-dashed" change-value="13%" color="primary" direction="horizontal" icon="square-dashed" label="Customers" value="123"/>
-    </FluxStack>
+    </FluxFlex>
 </FluxView>
 
 ## Timeline

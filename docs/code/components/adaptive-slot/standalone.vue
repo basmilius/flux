@@ -2,7 +2,7 @@
     <Preview>
         <FluxPane style="width: min(100%, 360px); resize: horizontal; overflow: auto">
             <FluxPaneBody>
-                <FluxRow :gap="9">
+                <FluxFlex :gap="9">
                     <FluxAdaptiveSlot>
                         <FluxSecondaryButton
                             icon-leading="magnifying-glass"
@@ -22,7 +22,7 @@
                             <FluxSecondaryButton icon-leading="filter"/>
                         </template>
                     </FluxAdaptiveSlot>
-                </FluxRow>
+                </FluxFlex>
             </FluxPaneBody>
         </FluxPane>
     </Preview>
@@ -31,5 +31,5 @@
 <script
     setup
     lang="ts">
-    import { FluxAdaptiveSlot, FluxPane, FluxPaneBody, FluxRow, FluxSecondaryButton } from '@flux-ui/components';
+    import { FluxAdaptiveSlot, FluxFlex, FluxPane, FluxPaneBody, FluxSecondaryButton } from '@flux-ui/components';
 </script>

@@ -7,6 +7,11 @@ export type FluxAlignment =
     | 'center'
     | 'end';
 
+export type FluxAlign =
+    | FluxAlignment
+    | 'stretch'
+    | 'baseline';
+
 export type FluxColor =
     | 'gray'
     | 'primary'
@@ -18,6 +23,17 @@ export type FluxColor =
 export type FluxDirection =
     | 'horizontal'
     | 'vertical';
+
+export type FluxFlexWrap =
+    | 'wrap'
+    | 'nowrap'
+    | 'wrap-reverse';
+
+export type FluxJustify =
+    | FluxAlignment
+    | 'between'
+    | 'around'
+    | 'evenly';
 
 export type FluxInputMask =
     | 'bic'

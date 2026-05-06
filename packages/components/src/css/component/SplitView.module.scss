@@ -1,0 +1,78 @@
+.splitView {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.splitViewHorizontal {
+    composes: splitView;
+
+    grid-auto-flow: column;
+}
+
+.splitViewVertical {
+    composes: splitView;
+
+    grid-auto-flow: row;
+}
+
+.splitViewDragging {
+    user-select: none;
+
+    & * {
+        pointer-events: none;
+    }
+}
+
+.splitViewPane {
+    min-width: 0;
+    min-height: 0;
+    overflow: auto;
+}
+
+.splitViewHandle {
+    appearance: none;
+    position: relative;
+
+    display: block;
+    border: 0;
+    margin: 0;
+    padding: 0;
+
+    background: transparent;
+    cursor: col-resize;
+
+    &::before {
+        position: absolute;
+        top: 0;
+        left: calc(50% - 1px);
+        height: 100%;
+        width: 2px;
+        content: '';
+        background: var(--surface-stroke);
+        transition: background .15s var(--swift-out);
+    }
+
+    &:hover::before,
+    &:focus-visible::before {
+        background: var(--primary-500);
+    }
+
+    &:focus-visible {
+        outline: none;
+    }
+}
+
+.splitViewHandleVertical {
+    composes: splitViewHandle;
+
+    cursor: row-resize;
+
+    &::before {
+        top: calc(50% - 1px);
+        left: 0;
+        height: 2px;
+        width: 100%;
+    }
+}

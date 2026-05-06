@@ -4,6 +4,8 @@ import { type TemplateRef, unrefTemplateElement } from '../util';
 export default function <TElement extends HTMLElement>(elementRef: TemplateRef<TElement>): UseScrollEdgesReturn {
     const isAtStart = ref(true);
     const isAtEnd = ref(true);
+    const isAtLeft = ref(true);
+    const isAtRight = ref(true);
 
     watch(elementRef, (_, __, onCleanup) => {
         const element = unrefTemplateElement(elementRef);
@@ -13,10 +15,12 @@ export default function <TElement extends HTMLElement>(elementRef: TemplateRef<T
         }
 
         const update = (): void => {
-            const {scrollTop, scrollHeight, clientHeight} = element;
+            const {scrollTop, scrollHeight, clientHeight, scrollLeft, scrollWidth, clientWidth} = element;
 
             isAtStart.value = scrollTop <= 0;
             isAtEnd.value = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
+            isAtLeft.value = scrollLeft <= 0;
+            isAtRight.value = Math.ceil(scrollLeft + clientWidth) >= scrollWidth;
         };
 
         const resizeObserver = new ResizeObserver(update);
@@ -58,11 +62,15 @@ export default function <TElement extends HTMLElement>(elementRef: TemplateRef<T
 
     return {
         isAtStart,
-        isAtEnd
+        isAtEnd,
+        isAtLeft,
+        isAtRight
     };
 }
 
 export type UseScrollEdgesReturn = {
     readonly isAtStart: Ref<boolean>;
     readonly isAtEnd: Ref<boolean>;
+    readonly isAtLeft: Ref<boolean>;
+    readonly isAtRight: Ref<boolean>;
 };

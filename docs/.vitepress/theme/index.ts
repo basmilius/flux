@@ -30,6 +30,7 @@ import KeyboardShortcuts from './KeyboardShortcuts.vue';
 import FrontmatterDocs from './FrontmatterDocs.vue';
 import Layout from './Layout.vue';
 import Preview from './Preview.vue';
+import PreviewColumn from './PreviewColumn.vue';
 import Props from './Props.vue';
 import RequiredIcons from './RequiredIcons.vue';
 import RouterLink from './RouterLink.vue';
@@ -130,6 +131,7 @@ const theme: Theme = {
         app.component('FrontmatterDocs', FrontmatterDocs);
         app.component('KeyboardShortcuts', KeyboardShortcuts);
         app.component('Preview', Preview);
+        app.component('PreviewColumn', PreviewColumn);
         app.component('Props', Props);
         app.component('RequiredIcons', RequiredIcons);
         app.component('RouterLink', RouterLink);

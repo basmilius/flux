@@ -1,7 +1,6 @@
 <template>
-    <FluxStack
+    <FluxFlex
         :class="$style.formDateTimeInput"
-        direction="horizontal"
         :gap="15"
         :aria-disabled="disabled ? true : undefined">
         <FluxFlyout
@@ -40,7 +39,7 @@
             type="time"
             :model-value="localValue"
             @update:model-value="setTime"/>
-    </FluxStack>
+    </FluxFlex>
 </template>
 
 <script
@@ -52,11 +51,11 @@
     import { useDisabled } from '~flux/components/composable';
     import { useDateFlyout } from '~flux/components/composable/private';
     import FluxDatePicker from './FluxDatePicker.vue';
+    import FluxFlex from './FluxFlex.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxFormInput from './FluxFormInput.vue';
     import FluxFormInputGroup from './FluxFormInputGroup.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
-    import FluxStack from './FluxStack.vue';
     import $style from '~flux/components/css/component/Form.module.scss';
 
     const modelValue = defineModel<DateTime | null>({

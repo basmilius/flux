@@ -7,10 +7,12 @@
             rel="noopener"
             style="width: 280px">
             <FluxPaneBody>
-                <FluxStack :gap="3">
+                <FluxFlex
+                    direction="vertical"
+                    :gap="3">
                     <strong>Flux UI</strong>
                     <span style="font-size: .875rem; opacity: .6">Open the documentation in a new tab.</span>
-                </FluxStack>
+                </FluxFlex>
             </FluxPaneBody>
         </FluxClickablePane>
     </Preview>
@@ -19,5 +21,5 @@
 <script
     setup
     lang="ts">
-    import { FluxClickablePane, FluxPaneBody, FluxStack } from '@flux-ui/components';
+    import { FluxClickablePane, FluxFlex, FluxPaneBody } from '@flux-ui/components';
 </script>

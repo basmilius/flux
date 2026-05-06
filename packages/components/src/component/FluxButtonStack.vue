@@ -1,11 +1,11 @@
 <template>
-    <FluxStack
+    <FluxFlex
+        :class="isFill ? $style.flexFill : undefined"
         :direction="direction"
         :gap="gap"
-        :is-fill="isFill"
-        is-wrapping>
+        wrap="wrap">
         <slot/>
-    </FluxStack>
+    </FluxFlex>
 </template>
 
 <script
@@ -13,7 +13,8 @@
     setup>
     import type { FluxDirection } from '@flux-ui/types';
     import type { VNode } from 'vue';
-    import FluxStack from './FluxStack.vue';
+    import FluxFlex from './FluxFlex.vue';
+    import $style from '~flux/components/css/component/Flex.module.scss';
 
     const {
         direction = 'horizontal',

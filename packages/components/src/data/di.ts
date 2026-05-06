@@ -10,6 +10,7 @@ export const FluxExpandableGroupInjectionKey: InjectionKey<FluxExpandableGroupIn
 export const FluxFlyoutInjectionKey: InjectionKey<FluxFlyoutInjection> = Symbol();
 export const FluxFilterInjectionKey: InjectionKey<FluxFilterInjection> = Symbol();
 export const FluxFormFieldInjectionKey: InjectionKey<FluxFormFieldInjection> = Symbol();
+export const FluxSplitViewInjectionKey: InjectionKey<FluxSplitViewInjection> = Symbol();
 export const FluxTabBarInjectionKey: InjectionKey<FluxTabBarInjection> = Symbol();
 export const FluxTableInjectionKey: InjectionKey<FluxTableInjection> = Symbol();
 export const FluxTooltipInjectionKey: InjectionKey<FluxTooltipInjection> = Symbol();
@@ -148,6 +149,23 @@ export type FluxFlyoutInjection = {
 
 export type FluxFormFieldInjection = {
     readonly id?: string;
+};
+
+export type FluxSplitViewPaneSpec = {
+    readonly id: number;
+    readonly defaultSize: Ref<number | string | undefined>;
+    readonly minSize: Ref<number>;
+    readonly maxSize: Ref<number | undefined>;
+    readonly isResizable: Ref<boolean>;
+};
+
+export type FluxSplitViewInjection = {
+    readonly direction: Ref<'horizontal' | 'vertical'>;
+    readonly panes: Ref<readonly FluxSplitViewPaneSpec[]>;
+
+    registerPane(spec: FluxSplitViewPaneSpec): void;
+    unregisterPane(id: number): void;
+    getPaneIndex(id: number): number;
 };
 
 export type FluxTabBarInjection = {

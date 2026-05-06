@@ -23,47 +23,6 @@
     @include mixin.breakpoint-max-widths;
 }
 
-.column {
-    display: flex;
-    flex-flow: column;
-    gap: var(--gap, 0);
-}
-
-.row {
-    display: flex;
-    gap: var(--gap, 0);
-}
-
 .spacer {
     flex-grow: 1;
-}
-
-.stack {
-    gap: var(--gap, 0);
-
-    &.isCentered {
-        place-content: center;
-        place-items: center;
-    }
-
-    &.isFill {
-        width: 100%;
-    }
-
-    &.isWrapping {
-        flex-wrap: wrap;
-    }
-}
-
-.stackHorizontal {
-    composes: stack;
-
-    display: flex;
-}
-
-.stackVertical {
-    composes: stack;
-
-    display: flex;
-    flex-flow: column;
 }

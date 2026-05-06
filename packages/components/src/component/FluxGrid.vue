@@ -1,12 +1,13 @@
 <template>
-    <div
+    <Component
+        :is="tag ?? 'div'"
         :class="$style.grid"
         :style="{
             '--gap': `${gap}px`,
             '--columns': columns
         }">
         <slot/>
-    </div>
+    </Component>
 </template>
 
 <script
@@ -21,6 +22,7 @@
     } = defineProps<{
         readonly columns?: number;
         readonly gap?: number;
+        readonly tag?: keyof HTMLElementTagNameMap;
     }>();
 
     defineSlots<{

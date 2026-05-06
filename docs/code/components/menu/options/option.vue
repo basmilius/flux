@@ -1,5 +1,7 @@
 <template>
-    <FluxStack :gap="12">
+    <FluxFlex
+        direction="vertical"
+        :gap="12">
         <FluxPane style="width: 270px">
             <FluxMenu>
                 <FluxMenuOptions
@@ -17,13 +19,13 @@
         </FluxPane>
 
         <small><kbd>Result = {{ VIEWS[view] }}</kbd></small>
-    </FluxStack>
+    </FluxFlex>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxMenu, FluxMenuItem, FluxMenuOptions, FluxPane, FluxStack } from '@flux-ui/components';
+    import { FluxFlex, FluxMenu, FluxMenuItem, FluxMenuOptions, FluxPane } from '@flux-ui/components';
     import { ref } from 'vue';
 
     const VIEWS = {

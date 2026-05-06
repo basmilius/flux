@@ -1,6 +1,8 @@
 <template>
-    <FluxStack direction="vertical" :style="{ alignItems: 'center' }">
-
+    <FluxFlex
+        align="center"
+        direction="vertical"
+        :gap="18">
         <FluxFormField label="Pin code">
             <FluxFormPinInput
                 :is-private="isPrivate"/>
@@ -10,13 +12,13 @@
             <FluxToggle
                 v-model="isPrivate"/>
         </FluxFormField>
-    </FluxStack>
+    </FluxFlex>
 </template>
 
 <script
     setup
     lang="ts">
-    import { FluxFormField, FluxFormPinInput, FluxStack, FluxToggle } from '@flux-ui/components';
+    import { FluxFlex, FluxFormField, FluxFormPinInput, FluxToggle } from '@flux-ui/components';
     import { ref } from 'vue';
 
     const isPrivate = ref(false);

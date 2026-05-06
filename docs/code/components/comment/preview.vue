@@ -1,6 +1,8 @@
 <template>
     <Preview>
-        <FluxStack>
+        <FluxFlex
+            direction="vertical"
+            :gap="18">
             <FluxComment
                 avatar-alt="Profile picture of Bas Milius"
                 avatar-src="https://avatars.githubusercontent.com/u/978257?v=4"
@@ -16,14 +18,14 @@
                 :posted-on="outgoingPostedOn">
                 {{ outgoing }}
             </FluxComment>
-        </FluxStack>
+        </FluxFlex>
     </Preview>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxComment, FluxStack } from '@flux-ui/components';
+    import { FluxComment, FluxFlex } from '@flux-ui/components';
     import { faker } from '@faker-js/faker';
     import { DateTime } from 'luxon';
 

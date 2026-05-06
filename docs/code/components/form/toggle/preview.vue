@@ -2,7 +2,7 @@
     <Preview>
         <FluxPane style="max-width: 390px">
             <FluxPaneBody>
-                <FluxStack direction="horizontal">
+                <FluxFlex :gap="18">
                     <FluxToggle
                         v-model="value"/>
 
@@ -10,7 +10,7 @@
                         v-model="iconValue"
                         icon-off="xmark"
                         icon-on="check"/>
-                </FluxStack>
+                </FluxFlex>
             </FluxPaneBody>
         </FluxPane>
     </Preview>
@@ -19,7 +19,7 @@
 <script
     setup
     lang="ts">
-    import { FluxPane, FluxPaneBody, FluxStack, FluxToggle } from '@flux-ui/components';
+    import { FluxFlex, FluxPane, FluxPaneBody, FluxToggle } from '@flux-ui/components';
     import { ref } from 'vue';
 
     const value = ref(false);

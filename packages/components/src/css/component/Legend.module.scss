@@ -1,12 +1,11 @@
 .legendHorizontal {
-    composes: stackHorizontal from './Layout.module.scss';
-
+    display: flex;
     gap: 12px 18px;
 }
 
 .legendVertical {
-    composes: stackVertical from './Layout.module.scss';
-
+    display: flex;
+    flex-flow: column;
     gap: 12px;
 }
 

@@ -65,4 +65,4 @@ example=../code/components/progress-bar/snackbar.vue
 ## Used components
 
 - [Layout](./layout)
-    - [Stack](./layout/stack)
+    - [Flex](./layout/flex/)

@@ -1,5 +1,7 @@
 <template>
-    <FluxStack>
+    <FluxFlex
+        direction="vertical"
+        :gap="18">
         <FluxButtonStack align="center">
             <FluxSecondaryButton
                 label="Toggle"
@@ -18,13 +20,13 @@
                 </FluxMenuCollapsible>
             </FluxMenu>
         </FluxPane>
-    </FluxStack>
+    </FluxFlex>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxButtonStack, FluxMenu, FluxMenuCollapsible, FluxMenuItem, FluxPane, FluxSecondaryButton, FluxStack } from '@flux-ui/components';
+    import { FluxButtonStack, FluxFlex, FluxMenu, FluxMenuCollapsible, FluxMenuItem, FluxPane, FluxSecondaryButton } from '@flux-ui/components';
     import { ref } from 'vue';
 
     const isOpened = ref(true);

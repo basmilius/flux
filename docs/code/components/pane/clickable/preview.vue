@@ -1,28 +1,28 @@
 <template>
     <Preview>
-        <FluxStack
-            direction="horizontal"
-            :gap="9">
+        <FluxFlex :gap="9">
             <FluxClickablePane
                 v-for="item in items"
                 :key="item.title"
                 type="button"
                 style="width: 200px">
                 <FluxPaneBody>
-                    <FluxStack :gap="3">
+                    <FluxFlex
+                        direction="vertical"
+                        :gap="3">
                         <strong>{{ item.title }}</strong>
                         <span style="font-size: .875rem; opacity: .6">{{ item.description }}</span>
-                    </FluxStack>
+                    </FluxFlex>
                 </FluxPaneBody>
             </FluxClickablePane>
-        </FluxStack>
+        </FluxFlex>
     </Preview>
 </template>
 
 <script
     setup
     lang="ts">
-    import { FluxClickablePane, FluxPaneBody, FluxStack } from '@flux-ui/components';
+    import { FluxClickablePane, FluxFlex, FluxPaneBody } from '@flux-ui/components';
 
     const items = [
         {title: 'Starter', description: 'For individuals and small teams.'},

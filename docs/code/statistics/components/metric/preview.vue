@@ -1,6 +1,9 @@
 <template>
     <Preview>
-        <FluxStack style="width: 100%; max-width: 360px">
+        <FluxFlex
+            direction="vertical"
+            :gap="18"
+            style="width: 100%; max-width: 360px">
             <FluxStatisticsMetric
                 style="min-width: 100%"
                 icon="chart-line"
@@ -18,13 +21,13 @@
                 value="9,841"
                 footer="vs. last month"
                 :change="{color: 'success', icon: 'arrow-trend-up', value: '+3.1%'}"/>
-        </FluxStack>
+        </FluxFlex>
     </Preview>
 </template>
 
 <script
     setup
     lang="ts">
-    import { FluxStack } from '@flux-ui/components';
+    import { FluxFlex } from '@flux-ui/components';
     import { FluxStatisticsMetric } from '@flux-ui/statistics';
 </script>

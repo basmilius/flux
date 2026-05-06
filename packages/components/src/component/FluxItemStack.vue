@@ -1,14 +1,14 @@
 <template>
-    <FluxStack
+    <FluxFlex
         :class="$style.itemStack"
-        :gap="0">
+        direction="vertical">
         <slot/>
-    </FluxStack>
+    </FluxFlex>
 </template>
 
 <script
     lang="ts"
     setup>
-    import FluxStack from './FluxStack.vue';
+    import FluxFlex from './FluxFlex.vue';
     import $style from '~flux/components/css/component/Item.module.scss';
 </script>

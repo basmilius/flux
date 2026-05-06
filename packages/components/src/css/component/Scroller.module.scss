@@ -1,0 +1,109 @@
+.scroller {
+    position: relative;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-color: var(--surface-stroke) transparent;
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--surface-stroke);
+        border-radius: 4px;
+    }
+
+    &:hover {
+        &::-webkit-scrollbar-thumb {
+            background-color: var(--gray-400);
+        }
+    }
+}
+
+.scrollerDirectionVertical {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.scrollerDirectionHorizontal {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.scrollerDirectionBoth {
+    overflow: auto;
+}
+
+.scrollerSnapMandatoryHorizontal {
+    scroll-snap-type: x mandatory;
+}
+
+.scrollerSnapMandatoryVertical {
+    scroll-snap-type: y mandatory;
+}
+
+.scrollerSnapMandatoryBoth {
+    scroll-snap-type: both mandatory;
+}
+
+.scrollerSnapProximityHorizontal {
+    scroll-snap-type: x proximity;
+}
+
+.scrollerSnapProximityVertical {
+    scroll-snap-type: y proximity;
+}
+
+.scrollerSnapProximityBoth {
+    scroll-snap-type: both proximity;
+}
+
+.scrollerSnapAlignStart > * {
+    scroll-snap-align: start;
+}
+
+.scrollerSnapAlignCenter > * {
+    scroll-snap-align: center;
+}
+
+.scrollerSnapAlignEnd > * {
+    scroll-snap-align: end;
+}
+
+.scrollerFade {
+    --fade-mask-vertical: linear-gradient(
+        to bottom,
+        transparent 0,
+        black var(--fade-start, 0px),
+        black calc(100% - var(--fade-end, 0px)),
+        transparent 100%
+    );
+
+    --fade-mask-horizontal: linear-gradient(
+        to right,
+        transparent 0,
+        black var(--fade-start, 0px),
+        black calc(100% - var(--fade-end, 0px)),
+        transparent 100%
+    );
+}
+
+.scrollerFadeVertical {
+    composes: scrollerFade;
+
+    -webkit-mask-image: var(--fade-mask-vertical);
+    mask-image: var(--fade-mask-vertical);
+}
+
+.scrollerFadeHorizontal {
+    composes: scrollerFade;
+
+    -webkit-mask-image: var(--fade-mask-horizontal);
+    mask-image: var(--fade-mask-horizontal);
+}

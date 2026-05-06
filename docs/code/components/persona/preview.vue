@@ -2,9 +2,7 @@
     <Preview>
         <FluxPane style="max-width: max-content">
             <FluxPaneBody>
-                <FluxStack
-                    :gap="10"
-                    direction="horizontal">
+                <FluxFlex :gap="10">
                     <FluxPersona
                         name="Bas Milius"
                         title="Flux engineer"
@@ -17,7 +15,7 @@
                         title="Flux engineer"
                         :avatar-size="42"
                         avatar-src="https://avatars.githubusercontent.com/u/978257?v=4"/>
-                </FluxStack>
+                </FluxFlex>
             </FluxPaneBody>
         </FluxPane>
     </Preview>
@@ -26,5 +24,5 @@
 <script
     setup
     lang="ts">
-    import { FluxPane, FluxPaneBody, FluxPersona, FluxStack } from '@flux-ui/components';
+    import { FluxFlex, FluxPane, FluxPaneBody, FluxPersona } from '@flux-ui/components';
 </script>

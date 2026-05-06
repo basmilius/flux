@@ -112,4 +112,4 @@ example=../../code/components/form/date-time/hour-only.vue
 - [Button](../button)
     - [Secondary](../button/secondary)
 - [Layout](../layout)
-    - [Stack](../layout/stack)
+    - [Flex](../layout/flex/)

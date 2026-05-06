@@ -1,5 +1,5 @@
 <template>
-    <FluxStack direction="horizontal">
+    <FluxFlex :gap="18">
         <FluxPressable
             component-type="button"
             @click="clicks++">
@@ -20,13 +20,13 @@
                 </FluxPaneBody>
             </FluxPane>
         </FluxPressable>
-    </FluxStack>
+    </FluxFlex>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneBody, FluxPressable, FluxStack } from '@flux-ui/components';
+    import { FluxFlex, FluxPane, FluxPaneBody, FluxPressable } from '@flux-ui/components';
     import { ref } from 'vue';
 
     const clicks = ref(0);

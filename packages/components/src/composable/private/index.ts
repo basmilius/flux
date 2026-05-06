@@ -3,6 +3,7 @@ export { default as useDateFlyout } from './useDateFlyout';
 export { default as useDropdownPopup, type UseDropdownPopupOptions, type UseDropdownPopupReturn } from './useDropdownPopup';
 export { default as useFormSelect } from './useFormSelect';
 export { useKanban } from './useKanban';
+export { useSplitView, type SplitViewPane, type UseSplitViewOptions, type UseSplitViewReturn } from './useSplitView';
 export { default as useTranslate } from './useTranslate';
 export { useCommandPalette, type CommandPaletteGroup, type CommandPaletteResultItem } from './useCommandPalette';
 export { useFilterOptionMulti, useFilterOptionSingle, type FilterOptionMulti, type FilterOptionSingle } from './useFilterOption';

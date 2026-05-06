@@ -44,4 +44,4 @@ example=../code/components/action-pane/buttons.vue
 - [Pane](./pane)
     - [Body](./pane/body)
 - [Layout](./layout)
-    - [Stack](./layout/stack)
+    - [Flex](./layout/flex/)

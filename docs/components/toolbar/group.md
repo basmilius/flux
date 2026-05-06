@@ -15,7 +15,7 @@ render=../../code/components/toolbar/group/preview.vue
 :::
 
 ::: tip
-The toolbar group component basically serves as a horizontal [Stack](../layout/stack).
+The toolbar group component basically serves as a horizontal [Flex](../layout/flex/).
 :::
 
 <FrontmatterDocs/>
@@ -29,4 +29,4 @@ example=../../code/components/toolbar/group/basic.vue
 ## Used components
 
 - [Layout](../layout)
-    - [Stack](../layout/stack)
+    - [Flex](../layout/flex/)

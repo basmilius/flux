@@ -26,4 +26,4 @@ render=../../code/components/item/stack/preview.vue
 
 ## Used components
 
-- [Stack](../layout/stack/index)
+- [Flex](../layout/flex/)
