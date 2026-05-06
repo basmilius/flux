@@ -2,13 +2,15 @@
     <div :class="CLASS_MAP[variant]">
         <slot/>
 
-        <slot
-            v-if="isLoading"
-            name="loader">
-            <div :class="$style.paneLoader">
-                <FluxSpinner/>
-            </div>
-        </slot>
+        <FluxFadeTransition>
+            <slot
+                v-if="isLoading"
+                name="loader">
+                <div :class="$style.paneLoader">
+                    <FluxSpinner/>
+                </div>
+            </slot>
+        </FluxFadeTransition>
 
         <div
             v-if="tag"
@@ -22,6 +24,7 @@
     lang="ts"
     setup>
     import type { VNode } from 'vue';
+    import { FluxFadeTransition } from '~flux/components/transition';
     import FluxSpinner from './FluxSpinner.vue';
     import $style from '~flux/components/css/component/Pane.module.scss';
 
