@@ -10,6 +10,10 @@ emits:
         description: Triggered when the user navigates to a different page.
         type: [ number ]
 
+    -   name: update:selected
+        description: Triggered when the selection changes. The payload type matches `selection-mode` — a single id (or `null`) for `single`, an array of ids for `multiple`.
+        type: [ "string | number | null | (string | number)[]" ]
+
 props:
     -   name: items
         description: The data to show in the table. This should already be the current page's data — pagination is handled server-side. Pass the subset of items for the active page here.
@@ -56,6 +60,11 @@ props:
     -   name: per-page
         description: The number of rows to show per page.
         type: number
+
+    -   name: selection-mode
+        description: Enables row selection. Use `single` for at most one selected row, or `multiple` for an array of selected rows. Requires `unique-key` to be set.
+        type: "'single' | 'multiple'"
+        optional: true
 
     -   name: total
         description: The total number of items in the data set.
@@ -111,12 +120,15 @@ slots:
             item: T
             items: T[]
             total: number
+            is-selected: boolean
 
 requiredIcons:
     - arrow-down-a-z
     - arrow-up-a-z
     - arrow-up-arrow-down
+    - check
     - circle-xmark
+    - minus
 ---
 
 # Data table
@@ -143,6 +155,10 @@ example=../code/components/data-table/file-manager.vue
 
 ::: example Paginated || A data table that is split into pages.
 example=../code/components/data-table/paginated.vue
+:::
+
+::: example Selectable rows || A data table where multiple rows can be selected via checkboxes.
+example=../code/components/data-table/selection.vue
 :::
 
 ## Used components

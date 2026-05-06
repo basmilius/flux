@@ -83,7 +83,6 @@ button {
     content: "Column";
 }
 
-/* Everything below is Shogun's bad CSS overrides to make previews not look so weird */
 .language-vue > p > :is(h1, h2, h3, h4, h5, h6) {
     margin-top: unset;
     border-top: unset;
@@ -95,6 +94,11 @@ button {
 
 .language-vue:has(> p > blockquote) {
     padding-left: 45px !important;
+}
+
+.vp-code-group .blocks {
+    position: relative;
+    z-index: 0;
 }
 
 .vp-code-group .blocks :where(h1, h2, h3, h4, h5, h6) {

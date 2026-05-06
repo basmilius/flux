@@ -39,6 +39,10 @@
     height: 0;
     margin: 0;
     padding: 0;
+
+    &.isSelectableRow {
+        cursor: pointer;
+    }
 }
 
 .tableCell {
@@ -88,10 +92,24 @@ tbody .tableRow:nth-child(even) .tableCell.isStriped {
     background: rgb(from var(--gray-50) r g b / .5);
 }
 
+tbody .tableRow.isSelected .tableCell {
+    background: var(--primary-50);
+    border-color: var(--primary-100);
+}
+
+tbody .tableRow.isSelected + .tableRow .tableCell {
+    border-top-color: var(--primary-100);
+}
+
 @media (hover: hover) {
     tbody .tableRow:hover .tableCell.isHoverable,
     tbody .tableRow:has(:focus-visible) .tableCell.isHoverable {
         background: var(--gray-50);
+    }
+
+    tbody .tableRow.isSelected:hover .tableCell.isHoverable,
+    tbody .tableRow.isSelected:has(:focus-visible) .tableCell.isHoverable {
+        background: var(--primary-50);
     }
 }
 
@@ -109,6 +127,10 @@ tfoot .tableCell {
 
 .tableActions {
     margin: -4px 0 -4px -3px;
+}
+
+.tableCellSelection {
+    width: 0;
 }
 
 .tableFill {
