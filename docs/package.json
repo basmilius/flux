@@ -27,6 +27,7 @@
     },
     "devDependencies": {
         "@basmilius/vite-preset": "^3.25.0",
+        "@flux-ui/types": "workspace:*",
         "@types/luxon": "^3.7.1",
         "vite": "^8.0.10"
     }
