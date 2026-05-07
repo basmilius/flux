@@ -50,6 +50,10 @@
     "main": "./dist/index.js",
     "module": "./dist/index.js",
     "types": "./dist/index.d.ts",
+    "sideEffects": [
+        "**/css/index.scss",
+        "**/dist/index.css"
+    ],
     "dependencies": {
         "@basmilius/common": "^3.25.0",
         "@basmilius/utils": "^3.25.0",

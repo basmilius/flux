@@ -33,7 +33,7 @@ export default defineConfig(({mode}) => ({
         },
         rolldownOptions: {
             experimental: {
-                lazyBarrel: false
+                lazyBarrel: true
             },
             external: ['luxon', 'vite', 'vue'],
             output: {
