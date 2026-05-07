@@ -202,12 +202,20 @@ tfoot .tableCell {
     }
 }
 
+.basePaneStructure:has(.table) {
+    --table-spacing: 18px;
+}
+
+.basePaneStructure .basePaneStructure {
+    --table-spacing: 15px;
+}
+
 .basePaneStructure > .table .tableCell:first-child .tableCellContent {
-    padding-left: 18px;
+    padding-left: var(--table-spacing);
 }
 
 .basePaneStructure > .table .tableCell:last-child .tableCellContent {
-    padding-right: 18px;
+    padding-right: var(--table-spacing);
 }
 
 .basePaneStructure > .table .tableActions {
@@ -215,7 +223,7 @@ tfoot .tableCell {
 }
 
 .basePaneStructure > .table :is(caption) {
-    padding: 12px 18px;
+    padding: 12px var(--table-spacing);
     border-top: 1px solid var(--gray-100);
 }
 

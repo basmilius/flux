@@ -26,12 +26,12 @@
             <FluxIcon
                 v-if="isIndeterminate"
                 name="minus"
-                :size="16"/>
+                :size="12"/>
 
             <FluxIcon
                 v-else
                 name="check"
-                :size="16"/>
+                :size="12"/>
         </button>
 
         <span

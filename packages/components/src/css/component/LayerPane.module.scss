@@ -36,6 +36,10 @@
     border: 0;
 }
 
+.layerPane > .paneHeader .button {
+    margin: -9px -9px -9px 0;
+}
+
 .layerPaneSecondary {
     display: flex;
     align-items: center;

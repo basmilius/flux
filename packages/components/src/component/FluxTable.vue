@@ -1,5 +1,5 @@
 <template>
-    <div :class="$style.table">
+    <div :class="[$style.table, isBordered && $style.isBordered]">
         <table :class="$style.tableBase">
             <slot name="colgroups"/>
 
