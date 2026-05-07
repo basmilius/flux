@@ -1,5 +1,10 @@
 <template>
-    <div :class="[$style.table, isBordered && $style.isBordered]">
+    <div
+        ref="base"
+        :class="[
+            $style.table,
+            isBordered && $style.isBordered
+        ]">
         <table :class="$style.tableBase">
             <slot name="colgroups"/>
 
@@ -30,7 +35,8 @@
 
         <div
             v-if="isLoading"
-            :class="$style.tableLoader">
+            :class="$style.tableLoader"
+            :style="{transform: `translate(${x}px, ${y}px)`}">
             <FluxSpinner/>
         </div>
 
@@ -45,7 +51,8 @@
 <script
     lang="ts"
     setup>
-    import { provide, type VNode } from 'vue';
+    import { useScrollPosition } from '@flux-ui/internals';
+    import { provide, useTemplateRef, type VNode } from 'vue';
     import { FluxTableInjectionKey } from '~flux/components/data';
     import FluxPaneBody from './FluxPaneBody.vue';
     import FluxSpinner from './FluxSpinner.vue';
@@ -78,6 +85,9 @@
         header?(): VNode;
         pagination?(): VNode;
     }>();
+
+    const base = useTemplateRef('base');
+    const {x, y} = useScrollPosition(base);
 
     provide(FluxTableInjectionKey, {
         isBordered,

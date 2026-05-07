@@ -1,5 +1,6 @@
 <template>
     <FluxTable
+        ref="table"
         :fill-columns="fillColumns"
         :is-bordered="isBordered"
         :is-hoverable="isHoverable"
@@ -90,7 +91,7 @@
     lang="ts"
     setup
     generic="T extends Record<string, any>">
-    import { computed, unref, type VNode } from 'vue';
+    import { computed, unref, useTemplateRef, type VNode, watch } from 'vue';
     import FluxCheckbox from './FluxCheckbox.vue';
     import FluxPaginationBar from './FluxPaginationBar.vue';
     import FluxTable from './FluxTable.vue';
@@ -178,6 +179,8 @@
 
         colgroups(): VNode;
     }>();
+
+    const table = useTemplateRef('table');
 
     const limitedItems = computed(() => items.slice(0, perPage));
 
@@ -292,4 +295,8 @@
     if (import.meta.env.DEV && selectionMode && !uniqueKey) {
         console.warn('[FluxDataTable] `uniqueKey` is required when `selectionMode` is set, otherwise rows cannot be tracked across renders.');
     }
+
+    watch(() => items, () => {
+        unref(table)?.$el.scrollTo(0, 0);
+    });
 </script>
