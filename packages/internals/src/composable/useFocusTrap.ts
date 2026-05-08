@@ -61,21 +61,29 @@ export default function (containerRef: TemplateRef<HTMLElement>, options: UseFoc
         attach.addEventListener('focusout', onFocusOut as EventListener, {capture: true});
 
         if (container) {
-            const elements = getFocusableElements(container);
-            const isActiveIndex = elements.findIndex(e => e.classList.contains('is-active'));
-            const notDisabledIndex = elements.findIndex(e => !e.hasAttribute('aria-disabled'));
-            let element = elements[0];
+            const autofocusElement = container.querySelector<HTMLElement>('[autofocus]');
 
-            if (isActiveIndex > -1) {
-                element = elements[isActiveIndex];
-            }
+            if (autofocusElement) {
+                autofocusElement.focus();
+            } else {
+                const elements = getFocusableElements(container);
+                const isActiveIndex = elements.findIndex(e => e.classList.contains('is-active'));
+                const notDisabledIndex = elements.findIndex(e => !e.hasAttribute('aria-disabled'));
+                let element = elements[0];
 
-            if (notDisabledIndex > -1) {
-                element = elements[notDisabledIndex];
-            }
+                if (isActiveIndex > -1) {
+                    element = elements[isActiveIndex];
+                }
 
-            if (element) {
-                element.focus();
+                if (notDisabledIndex > -1) {
+                    element = elements[notDisabledIndex];
+                }
+
+                if (element) {
+                    element.focus();
+                } else {
+                    container.focus();
+                }
             }
         }
 

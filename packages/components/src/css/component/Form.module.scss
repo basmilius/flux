@@ -651,7 +651,7 @@
         transition-property: opacity;
 
         :is(path) {
-            stroke: white;
+            stroke: currentColor;
             stroke-width: 54px;
         }
     }
@@ -683,6 +683,16 @@
 
     &:focus-visible + .checkboxElement {
         @include mixin.focus-outline-visible(2px);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+
+    &:disabled + .checkboxElement {
+        background: var(--gray-100);
+        border-color: var(--gray-200);
+        color: var(--foreground-secondary);
     }
 }
 
@@ -813,6 +823,12 @@
     border-radius: var(--radius-full);
     contain: paint;
 
+    @include mixin.focus-outline;
+
+    &:has(.toggleInput:focus-visible) {
+        @include mixin.focus-outline-visible(2px);
+    }
+
     &.isChecked {
         border-color: transparent;
 
@@ -889,8 +905,6 @@
     border-radius: inherit;
     cursor: pointer;
     outline: 0;
-
-    @include mixin.focus-ring(2px);
 
     &::after {
         position: absolute;

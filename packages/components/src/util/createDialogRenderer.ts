@@ -31,7 +31,6 @@ export default function (attrs: object, props: Props, emit: Emit, slots: Slots, 
         }
 
         dialog.addEventListener('keydown', onKeyDown, {passive: true});
-        dialog.focus();
 
         onCleanup(() => {
             dialog.removeEventListener('keydown', onKeyDown);

@@ -66,7 +66,7 @@
         <FluxTableRow
             v-for="(item, index) of limitedItems"
             :key="uniqueKey ? item[uniqueKey] : index"
-            :class="selectionMode && $style.isSelectableRow"
+            :class="selectionMode && !treeDisabled && $style.isSelectableRow"
             :is-selected="selectionMode ? isItemSelected(item) : false"
             @click="onRowClick(item, $event)">
             <FluxTableCell
@@ -92,6 +92,7 @@
     setup
     generic="T extends Record<string, any>">
     import { computed, unref, useTemplateRef, type VNode, watch } from 'vue';
+    import { useDisabledInjection } from '~flux/components/composable';
     import FluxCheckbox from './FluxCheckbox.vue';
     import FluxPaginationBar from './FluxPaginationBar.vue';
     import FluxTable from './FluxTable.vue';
@@ -181,6 +182,7 @@
     }>();
 
     const table = useTemplateRef('table');
+    const treeDisabled = useDisabledInjection();
 
     const limitedItems = computed(() => items.slice(0, perPage));
 
@@ -242,7 +244,7 @@
     }
 
     function onRowClick(item: T, event: MouseEvent): void {
-        if (!selectionMode) {
+        if (!selectionMode || unref(treeDisabled)) {
             return;
         }
 
