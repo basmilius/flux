@@ -1,6 +1,13 @@
 ---
 outline: deep
 
+props:
+    -   name: color
+        description: The color of the layer pane.
+        type: FluxColor
+        default: gray
+        optional: true
+
 slots:
     -   name: default
         description: The content of the layer pane.
@@ -28,6 +35,10 @@ render=../../code/components/layer-pane/preview.vue
 example=../../code/components/layer-pane/basic.vue
 :::
 
+::: example Colors || Use the `color` prop to convey meaning, such as severity or status.
+example=../../code/components/layer-pane/colors.vue
+:::
+
 ::: example With footer || Secondary sections can be placed at the top, bottom, or both.
 example=../../code/components/layer-pane/with-footer.vue
 :::
@@ -48,7 +59,12 @@ example=../../code/components/layer-pane/with-secondary-button.vue
 example=../../code/components/layer-pane/with-secondary-badge.vue
 :::
 
+::: example With pane header || Use a [Pane header](./header) instead of a secondary section when you need a prominent title with an icon and optional subtitle.
+example=../../code/components/layer-pane/with-pane-header.vue
+:::
+
 ## Used components
 
 - [Pane](../)
     - [Body](./body)
+    - [Header](./header)

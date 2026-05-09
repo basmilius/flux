@@ -1,23 +1,85 @@
 .layerPane {
     display: flex;
     flex-flow: column;
-    border: 1px solid var(--surface-stroke-out);
-    border-radius: var(--radius);
-    background: var(--gray-50);
     background-clip: padding-box;
+    border: 1px solid;
+    border-radius: var(--radius);
+    contain: paint;
+
+    :local(.basePaneStructure) {
+        border-color: inherit;
+    }
+}
+
+.layerPaneGray {
+    composes: layerPane;
+
+    background-color: var(--gray-50);
+    border-color: var(--surface-stroke-out);
+}
+
+.layerPanePrimary {
+    composes: layerPane;
+
+    background-color: var(--primary-100);
+    border-color: var(--primary-200);
+}
+
+.layerPaneDanger {
+    composes: layerPane;
+
+    background-color: var(--danger-100);
+    border-color: var(--danger-200);
+
+    :local(.paneHeaderIcon) {
+        color: var(--danger-600);
+    }
+}
+
+.layerPaneInfo {
+    composes: layerPane;
+
+    background-color: var(--info-100);
+    border-color: var(--info-200);
+
+    :local(.paneHeaderIcon) {
+        color: var(--info-600);
+    }
+}
+
+.layerPaneSuccess {
+    composes: layerPane;
+
+    background-color: var(--success-100);
+    border-color: var(--success-200);
+
+    :local(.paneHeaderIcon) {
+        color: var(--success-600);
+    }
+}
+
+.layerPaneWarning {
+    composes: layerPane;
+
+    background-color: var(--warning-100);
+    border-color: var(--warning-200);
+
+    :local(.paneHeaderIcon) {
+        color: var(--warning-600);
+    }
 }
 
 .layerPane > .basePaneStructure {
-    border-right-width: 0;
-    border-left-width: 0;
+    margin-left: -1px;
+    margin-right: -1px;
 }
 
 .layerPane > .basePaneStructure:first-child {
-    border-top-width: 0;
+    margin-top: -1px;
 }
 
 .layerPane > .basePaneStructure:last-child {
-    border-bottom-width: 0;
+    margin-bottom: -1px;
 }
 
 .layerPane > .basePaneStructure + .basePaneStructure {
