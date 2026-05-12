@@ -32,7 +32,7 @@
     }
 
     &.isOpening {
-        animation: open 210ms var(--deceleration-curve) both;
+        animation: open 210ms var(--swift-out) both;
     }
 }
 

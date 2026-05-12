@@ -16,7 +16,7 @@
     composes: overlayView;
 
     background: var(--overlay);
-    backdrop-filter: blur(3px) saturate(180%);
+    backdrop-filter: blur(3px) grayscale(.5) saturate(180%);
     pointer-events: none;
     transition: opacity 600ms var(--swift-out);
 }
@@ -58,8 +58,8 @@
             background: var(--overlay-secondary);
             opacity: 0;
             pointer-events: none;
-            transition: opacity 420ms var(--swift-out);
-            z-index: 1;
+            transition: opacity 600ms var(--swift-out);
+            z-index: 1000;
         }
     }
 
@@ -111,6 +111,7 @@
         max-height: calc(100% - 18px);
         width: min(100dvw, 720px);
         contain: paint;
+        transition-duration: 600ms;
         overflow: auto;
 
         > .paneHeader,
@@ -154,10 +155,10 @@
 
 .overlayTransitionEnterActive,
 .overlayTransitionLeaveActive {
-    transition: opacity 420ms var(--swift-out);
+    transition: opacity 300ms var(--swift-out);
 
     > .basePaneStructure {
-        transition: 420ms var(--swift-out);
+        transition: 300ms var(--swift-out);
         transition-property: opacity, scale;
     }
 }
@@ -182,10 +183,10 @@
 
 .slideOverTransitionEnterActive,
 .slideOverTransitionLeaveActive {
-    transition: opacity 600ms var(--swift-out);
+    transition: opacity 480ms var(--swift-out);
 
     > .basePaneStructure {
-        transition: 600ms var(--swift-out);
+        transition: 480ms var(--swift-out);
         transition-property: opacity, transform;
     }
 }
