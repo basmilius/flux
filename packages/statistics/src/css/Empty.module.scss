@@ -1,0 +1,39 @@
+.statisticsEmpty {
+    position: absolute;
+    display: flex;
+    inset: 0;
+    padding: 24px 18px;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 9px;
+}
+
+.statisticsEmptyIcon {
+    color: var(--foreground-secondary);
+    font-size: 32px;
+    opacity: 0.5;
+}
+
+.statisticsEmptyTitle {
+    color: var(--foreground-prominent);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+}
+
+.statisticsEmptyDescription {
+    max-width: 320px;
+    color: var(--foreground-secondary);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.statisticsEmptyActions {
+    display: flex;
+    margin-top: 9px;
+    align-items: center;
+    gap: 9px;
+}

@@ -1,0 +1,52 @@
+.statisticsComparison {
+    display: grid;
+    margin-top: 18px;
+    gap: 12px;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+}
+
+.statisticsComparisonDivider {
+    width: 1px;
+    height: 36px;
+    background: var(--stroke);
+}
+
+.statisticsComparisonItem {
+    display: flex;
+    flex-flow: column;
+    gap: 3px;
+}
+
+.statisticsComparisonItemLabel {
+    color: var(--foreground-secondary);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.statisticsComparisonItemValue {
+    color: var(--foreground-prominent);
+    font-size: 21px;
+    font-weight: 800;
+    line-height: 28px;
+}
+
+.statisticsComparisonItemValueMuted {
+    color: var(--foreground-secondary);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 28px;
+}
+
+.statisticsComparisonBottom {
+    display: flex;
+    margin-top: 9px;
+    align-items: center;
+    gap: 9px;
+    line-height: 18px;
+}
+
+.statisticsComparisonFooter {
+    color: var(--foreground-secondary);
+    font-size: 14px;
+}

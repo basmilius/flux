@@ -299,12 +299,24 @@ export default defineConfig({
                             items: [
                                 {text: 'Area', link: '/statistics/components/charts/area'},
                                 {text: 'Bar', link: '/statistics/components/charts/bar'},
+                                {text: 'Box plot', link: '/statistics/components/charts/box-plot'},
+                                {text: 'Bubble', link: '/statistics/components/charts/bubble'},
+                                {text: 'Candlestick', link: '/statistics/components/charts/candlestick'},
                                 {text: 'Donut', link: '/statistics/components/charts/donut'},
+                                {text: 'Heatmap', link: '/statistics/components/charts/heatmap'},
                                 {text: 'Line', link: '/statistics/components/charts/line'},
-                                {text: 'Pie', link: '/statistics/components/charts/pie'}
+                                {text: 'Mixed', link: '/statistics/components/charts/mixed'},
+                                {text: 'Pie', link: '/statistics/components/charts/pie'},
+                                {text: 'Polar area', link: '/statistics/components/charts/polar-area'},
+                                {text: 'Radar', link: '/statistics/components/charts/radar'},
+                                {text: 'Radial bar', link: '/statistics/components/charts/radial-bar'},
+                                {text: 'Range bar', link: '/statistics/components/charts/range-bar'},
+                                {text: 'Scatter', link: '/statistics/components/charts/scatter'},
+                                {text: 'Treemap', link: '/statistics/components/charts/treemap'}
                             ]
                         },
                         {text: 'Chart pane', link: '/statistics/components/chart-pane'},
+                        {text: 'Comparison', link: '/statistics/components/comparison'},
                         {
                             text: 'Details table',
                             link: '/statistics/components/details-table/',
@@ -313,6 +325,7 @@ export default defineConfig({
                                 {text: 'Row', link: '/statistics/components/details-table/row'}
                             ]
                         },
+                        {text: 'Empty', link: '/statistics/components/empty'},
                         {text: 'Grid', link: '/statistics/components/grid'},
                         {text: 'KPI', link: '/statistics/components/kpi'},
                         {
@@ -324,7 +337,8 @@ export default defineConfig({
                             ]
                         },
                         {text: 'Meter', link: '/statistics/components/meter'},
-                        {text: 'Metric', link: '/statistics/components/metric'}
+                        {text: 'Metric', link: '/statistics/components/metric'},
+                        {text: 'Sparkline', link: '/statistics/components/sparkline'}
                     ]
                 }
             ],

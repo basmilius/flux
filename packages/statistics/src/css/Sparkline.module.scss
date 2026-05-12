@@ -1,0 +1,13 @@
+.statisticsSparkline {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 40px;
+    min-width: 60px;
+}
+
+.statisticsSparklineChart {
+    position: absolute;
+    display: block;
+    inset: 0;
+}

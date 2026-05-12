@@ -39,6 +39,12 @@
     :global(small):not(:first-child) {
         margin-top: 15px;
     }
+
+    :global([data-sparkline]) {
+        margin-inline: -18px;
+        width: calc(100% + 36px);
+        max-width: none;
+    }
 }
 
 .statisticsMetricFooter {

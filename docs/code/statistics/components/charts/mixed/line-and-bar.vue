@@ -1,0 +1,31 @@
+<template>
+    <FluxStatisticsChartPane
+        icon="chart-line"
+        title="Sales overview"
+        :aspect-ratio="3">
+        <FluxStatisticsMixedChart :series="series"/>
+
+        <template #legend>
+            <FluxStatisticsLegend>
+                <FluxStatisticsLegendItem
+                    color="primary"
+                    label="Revenue"/>
+
+                <FluxStatisticsLegendItem
+                    color="info"
+                    label="Orders"/>
+            </FluxStatisticsLegend>
+        </template>
+    </FluxStatisticsChartPane>
+</template>
+
+<script
+    setup
+    lang="ts">
+    import { FluxStatisticsChartPane, FluxStatisticsLegend, FluxStatisticsLegendItem, FluxStatisticsMixedChart } from '@flux-ui/statistics';
+
+    const series = [
+        { name: 'Revenue', type: 'column', data: [3800, 4200, 4700, 5100, 5500, 6200, 6800] },
+        { name: 'Orders', type: 'line', data: [110, 132, 142, 156, 164, 188, 205] }
+    ];
+</script>

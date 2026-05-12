@@ -35,8 +35,19 @@
             display: none;
         }
 
-        :global(.apexcharts-yaxis-texts-g) {
-            display: none;
+        :global(.apexcharts-xaxis-texts-g text),
+        :global(.apexcharts-yaxis-texts-g text) {
+            fill: var(--foreground-secondary);
+            paint-order: fill;
+            stroke: none;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        :global(.apexcharts-datalabels text),
+        :global(.apexcharts-data-labels text) {
+            paint-order: fill;
+            stroke: none;
         }
 
         :global(.apexcharts-tooltip) {
