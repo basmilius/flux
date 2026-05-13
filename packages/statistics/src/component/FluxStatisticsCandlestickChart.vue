@@ -9,9 +9,8 @@
     setup>
     import type { FluxStatisticsChartCandlestickSeries } from '@flux-ui/types';
     import { merge } from 'lodash-es';
-    import { computed, inject, useTemplateRef, watchEffect } from 'vue';
-    import { useI18n } from 'vue-i18n';
-    import { FluxStatisticsChartLegendInjectionKey, useChartHoverSync, type ChartLegendItem, type EChartsInstance, type EChartsOption } from '~flux/statistics/composable';
+    import { computed } from 'vue';
+    import { useChartSeriesSetup, type EChartsOption } from '~flux/statistics/composable';
     import { buildCartesianBaseOptions, buildCartesianTooltipOptions, resolveChartColor, toCandlestickSeries } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
     import $style from '~flux/statistics/css/Chart.module.scss';
@@ -28,13 +27,19 @@
         readonly tooltip?: boolean;
     }>();
 
-    const {t} = useI18n({useScope: 'parent'});
-
-    const legendContext = inject(FluxStatisticsChartLegendInjectionKey, null);
-    const chartRef = useTemplateRef<InstanceType<typeof Chart>>('chartRef');
-    const chartInstance = computed<EChartsInstance | null>(() => chartRef.value?.chartInstance ?? null);
-
-    useChartHoverSync(chartInstance, legendContext, { mode: 'series' });
+    const { t } = useChartSeriesSetup(() => series, {
+        getLegendItem: s => [
+            {
+                color: resolveChartColor(s.positiveColor) ?? 'var(--success-500)',
+                icon: s.icon,
+                label: 'Up'
+            },
+            {
+                color: resolveChartColor(s.negativeColor) ?? 'var(--danger-500)',
+                label: 'Down'
+            }
+        ]
+    });
 
     const xAxisLabels = computed<readonly string[] | undefined>(() => {
         if (labels) {
@@ -54,30 +59,6 @@
     const echartsSeries = computed(() => series.map(s =>
         toCandlestickSeries({ ...s, name: s.name ? t(String(s.name)) : undefined })
     ));
-
-    const legendItems = computed<readonly ChartLegendItem[]>(() => {
-        if (series.length === 0) {
-            return [];
-        }
-
-        return series.flatMap(s => [
-            {
-                color: resolveChartColor(s.positiveColor) ?? 'var(--success-500)',
-                icon: s.icon,
-                label: 'Up'
-            },
-            {
-                color: resolveChartColor(s.negativeColor) ?? 'var(--danger-500)',
-                label: 'Down'
-            }
-        ]);
-    });
-
-    watchEffect(() => {
-        if (legendContext) {
-            legendContext.items.value = legendItems.value;
-        }
-    });
 
     const mergedOptions = computed<EChartsOption>(() => {
         const base = buildCartesianBaseOptions({ scale: true, dashedSplitLines: true });

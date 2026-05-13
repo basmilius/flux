@@ -274,15 +274,15 @@ Common types to know:
 
 Shared utilities and composables used across packages. Built with `tsdown`.
 
-Key utilities (`packages/internals/src/util/`):
-- `wrapFocus` — wrap keyboard focus within a container
-- `getFocusableElements` / `getFocusableElement` — find focusable descendants
-- `getBidirectionalFocusElement` — bidirectional focus helper
-- `flattenVNodeTree` — flatten VNode tree
-- `getKeyboardFocusableElements`
+Utilities (`packages/internals/src/util/`):
+- Focus helpers — `wrapFocus`, `focusTrap`, `getFocusableElement`, `getFocusableElements`, `getKeyboardFocusableElements`, `getBidirectionalFocusElement`
+- VNode helpers — `flattenVNodeTree`, `getComponentName`, `getComponentProps`, `getExposedRef`, `unrefTemplateElement`
+- Misc — `animationFrameDebounce`, `warn`
 
 Composables (`packages/internals/src/composable/`):
-- `useRemembered` — persist values
+- Focus traps — `useFocusTrap`, `useFocusTrapLock`, `useFocusTrapReturn`, `useFocusTrapSubscription`, `useFocusZone`
+- Calendar — `useCalendar`, `useCalendarMonthSwitcher`, `useCalendarTimeGrid`, `useCalendarYearSwitcher`
+- Misc — `useEventListener`, `useInView`, `useKeyboardGrab`, `useRemembered`, `useScrollEdges`, `useScrollPosition`
 
 ---
 
@@ -310,8 +310,9 @@ Exported publicly:
 - `useDisabled(disabledRef)` — resolves disabled state (considers parent `FluxDisabled` injection)
 
 Injection composables (not public, used internally):
-- `useDisabledInjection`, `useExpandableGroupInjection`, `useFilterInjection`
-- `useFlyoutInjection`, `useFormFieldInjection`, `useTableInjection`, `useTooltipInjection`
+- `useAdaptiveGroupInjection`, `useCalendarInjection`, `useDisabledInjection`, `useExpandableGroupInjection`
+- `useFilterInjection`, `useFlyoutInjection`, `useFormFieldInjection`, `useKanbanInjection`
+- `useTabBarInjection`, `useTableInjection`, `useTooltipInjection`
 
 ---
 

@@ -17,7 +17,7 @@ export type ChartLegendItemBuilder<S> = (
     color: string,
     index: number,
     t: ReturnType<typeof useI18n>['t']
-) => ChartLegendItem;
+) => ChartLegendItem | readonly ChartLegendItem[];
 
 export interface UseChartSeriesSetupOptions<S extends ChartSeriesShape> {
     readonly mode?: ChartHoverSyncMode;
@@ -59,7 +59,10 @@ export function useChartSeriesSetup<S extends ChartSeriesShape>(
     );
 
     const legendItems = computed<readonly ChartLegendItem[]>(() =>
-        seriesGetter().map((s, i) => getLegendItem(s, palette.value[i], i, t))
+        seriesGetter().flatMap((s, i) => {
+            const item = getLegendItem(s, palette.value[i], i, t);
+            return Array.isArray(item) ? item : [item as ChartLegendItem];
+        })
     );
 
     watchEffect(() => {

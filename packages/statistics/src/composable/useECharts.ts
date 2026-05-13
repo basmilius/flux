@@ -1,7 +1,6 @@
 import { useResizeObserver } from '@basmilius/common';
-import type { EChartsCoreOption } from 'echarts/core';
-import { init } from 'echarts/core';
-import { markRaw, onBeforeUnmount, onMounted, type MaybeRefOrGetter, type Ref, ref, toValue } from 'vue';
+import { init, type EChartsCoreOption } from 'echarts/core';
+import { markRaw, onBeforeUnmount, onMounted, ref, toValue, type MaybeRefOrGetter, type Ref } from 'vue';
 import '~flux/statistics/echarts';
 
 export type EChartsOption = EChartsCoreOption;
