@@ -4,13 +4,7 @@
             icon="chart-pie"
             title="Sales by category"
             :aspect-ratio="1.5">
-            <FluxStatisticsDonutChart
-                :options="{
-                    colors: ['var(--primary-600)', '#10b981', '#3b82f6', '#f59e0b', '#8b5cf6', '#ec4899'],
-                    grid: {padding: {top: 21, left: 15, right: 15, bottom: 15}},
-                    labels: ['Electronics', 'Clothing', 'Books', 'Home & Garden', 'Sports', 'Other']
-                }"
-                :series="[32, 24, 16, 12, 10, 6]"/>
+            <FluxStatisticsDonutChart :series="series"/>
 
             <template #legend>
                 <FluxStatisticsLegend>
@@ -48,4 +42,16 @@
     setup
     lang="ts">
     import { FluxStatisticsChartPane, FluxStatisticsDonutChart, FluxStatisticsLegend, FluxStatisticsLegendItem } from '@flux-ui/statistics';
+
+    const series = [{
+        color: ['var(--primary-600)', '#10b981', '#3b82f6', '#f59e0b', '#8b5cf6', '#ec4899'],
+        data: [
+            { value: 32, name: 'Electronics' },
+            { value: 24, name: 'Clothing' },
+            { value: 16, name: 'Books' },
+            { value: 12, name: 'Home & Garden' },
+            { value: 10, name: 'Sports' },
+            { value: 6, name: 'Other' }
+        ]
+    }];
 </script>

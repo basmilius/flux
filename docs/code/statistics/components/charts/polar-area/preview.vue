@@ -4,9 +4,7 @@
             icon="chart-pie"
             title="Revenue by segment"
             :aspect-ratio="1.4">
-            <FluxStatisticsPolarAreaChart
-                :series="series"
-                :options="options"/>
+            <FluxStatisticsPolarAreaChart :series="series"/>
         </FluxStatisticsChartPane>
     </Preview>
 </template>
@@ -14,12 +12,15 @@
 <script
     setup
     lang="ts">
-    import type { ApexOptions } from 'apexcharts';
     import { FluxStatisticsChartPane, FluxStatisticsPolarAreaChart } from '@flux-ui/statistics';
 
-    const series = [44, 55, 13, 33, 22];
-
-    const options: ApexOptions = {
-        labels: ['Retail', 'B2B', 'Marketplace', 'Subscriptions', 'Services']
-    };
+    const series = [{
+        data: [
+            { value: 44, name: 'Retail' },
+            { value: 55, name: 'B2B' },
+            { value: 13, name: 'Marketplace' },
+            { value: 33, name: 'Subscriptions' },
+            { value: 22, name: 'Services' }
+        ]
+    }];
 </script>

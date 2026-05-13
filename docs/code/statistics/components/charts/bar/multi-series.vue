@@ -5,11 +5,8 @@
         :aspect-ratio="2.5">
         <FluxStatisticsBarChart
             :options="{
-                xaxis: {
-                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                    labels: {show: true},
-                    axisTicks: {show: false},
-                    axisBorder: {show: false}
+                xAxis: {
+                    data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
                 }
             }"
             :series="series"/>

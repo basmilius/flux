@@ -3,21 +3,16 @@
         icon="circle-check"
         title="Tasks complete"
         :aspect-ratio="1.4">
-        <FluxStatisticsRadialBar
-            :series="series"
-            :options="options"/>
+        <FluxStatisticsRadialBar :series="series"/>
     </FluxStatisticsChartPane>
 </template>
 
 <script
     setup
     lang="ts">
-    import type { ApexOptions } from 'apexcharts';
     import { FluxStatisticsChartPane, FluxStatisticsRadialBar } from '@flux-ui/statistics';
 
-    const series = [84];
-
-    const options: ApexOptions = {
-        labels: ['Done']
-    };
+    const series = [{
+        data: [{ value: 84, name: 'Done' }]
+    }];
 </script>

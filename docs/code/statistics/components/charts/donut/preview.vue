@@ -4,13 +4,7 @@
             icon="chart-pie"
             title="Traffic sources"
             :aspect-ratio="1.5">
-            <FluxStatisticsDonutChart
-                :options="{
-                    colors: ['var(--primary-600)', '#10b981', '#3b82f6', '#f59e0b'],
-                    grid: {padding: {top: 21, left: 15, right: 15, bottom: 15}},
-                    labels: ['Organic', 'Direct', 'Referral', 'Social']
-                }"
-                :series="[44, 28, 18, 10]"/>
+            <FluxStatisticsDonutChart :series="series"/>
 
             <template #legend>
                 <FluxStatisticsLegend>
@@ -40,4 +34,14 @@
     setup
     lang="ts">
     import { FluxStatisticsChartPane, FluxStatisticsDonutChart, FluxStatisticsLegend, FluxStatisticsLegendItem } from '@flux-ui/statistics';
+
+    const series = [{
+        color: ['var(--primary-600)', '#10b981', '#3b82f6', '#f59e0b'],
+        data: [
+            { value: 44, name: 'Organic' },
+            { value: 28, name: 'Direct' },
+            { value: 18, name: 'Referral' },
+            { value: 10, name: 'Social' }
+        ]
+    }];
 </script>

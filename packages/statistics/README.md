@@ -2,7 +2,7 @@
 
 Chart and statistics components for [Flux UI](https://flux-ui.dev).
 
-Built on top of [ApexCharts](https://apexcharts.com) via [`vue3-apexcharts`](https://github.com/apexcharts/vue3-apexcharts), themed to match the Flux design system. Locale-aware labels are provided through `vue-i18n`.
+Built on top of [Apache ECharts](https://echarts.apache.org/), themed to match the Flux design system. Locale-aware labels are provided through `vue-i18n`.
 
 ## Highlights
 

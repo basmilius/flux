@@ -16,13 +16,13 @@
 
     const series = [{
         data: [
-            { x: 'Documents', y: 320 },
-            { x: 'Photos', y: 540 },
-            { x: 'Videos', y: 780 },
-            { x: 'Music', y: 210 },
-            { x: 'Apps', y: 150 },
-            { x: 'System', y: 90 },
-            { x: 'Other', y: 60 }
+            { value: 320, name: 'Documents' },
+            { value: 540, name: 'Photos' },
+            { value: 780, name: 'Videos' },
+            { value: 210, name: 'Music' },
+            { value: 150, name: 'Apps' },
+            { value: 90, name: 'System' },
+            { value: 60, name: 'Other' }
         ]
     }];
 </script>

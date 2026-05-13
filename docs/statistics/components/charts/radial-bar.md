@@ -12,8 +12,8 @@ props:
         optional: true
 
     -   name: options
-        description: Additional ApexCharts options to merge with the defaults. Use `labels` to label each ring.
-        type: ApexOptions
+        description: Additional ECharts options to merge with the defaults. Use `labels` to label each ring.
+        type: EChartsOption
         optional: true
 ---
 

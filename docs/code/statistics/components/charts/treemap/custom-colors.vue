@@ -3,29 +3,23 @@
         icon="rectangle-history"
         title="Browser share"
         :aspect-ratio="2.4">
-        <FluxStatisticsTreemapChart
-            :series="series"
-            :options="options"/>
+        <FluxStatisticsTreemapChart :series="series"/>
     </FluxStatisticsChartPane>
 </template>
 
 <script
     setup
     lang="ts">
-    import type { ApexOptions } from 'apexcharts';
     import { FluxStatisticsChartPane, FluxStatisticsTreemapChart } from '@flux-ui/statistics';
 
     const series = [{
+        color: ['var(--primary-500)', 'var(--info-500)', 'var(--success-500)', 'var(--warning-500)', 'var(--gray-500)'],
         data: [
-            { x: 'Chrome', y: 62 },
-            { x: 'Safari', y: 19 },
-            { x: 'Edge', y: 10 },
-            { x: 'Firefox', y: 6 },
-            { x: 'Other', y: 3 }
+            { value: 62, name: 'Chrome' },
+            { value: 19, name: 'Safari' },
+            { value: 10, name: 'Edge' },
+            { value: 6, name: 'Firefox' },
+            { value: 3, name: 'Other' }
         ]
     }];
-
-    const options: ApexOptions = {
-        colors: ['var(--primary-500)', 'var(--info-500)', 'var(--success-500)', 'var(--warning-500)', 'var(--gray-500)']
-    };
 </script>

@@ -5,6 +5,7 @@
 
     max-width: 100%;
     aspect-ratio: var(--aspect-ratio);
+    contain: paint;
 }
 
 .statisticsChartPaneBody {

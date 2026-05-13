@@ -20,47 +20,10 @@
     position: absolute;
     display: block;
     inset: 0;
-    //inset: -3px -2px -4px -2px;
     height: unset;
     width: unset;
 
-    :global(svg) {
-        overflow: hidden;
-    }
-
     --stroke: rgb(from var(--surface-stroke) r g b / .5);
-
-    :global(.apexcharts-canvas) {
-        :global(.apexcharts-grid-borders) {
-            display: none;
-        }
-
-        :global(.apexcharts-xaxis-texts-g text),
-        :global(.apexcharts-yaxis-texts-g text) {
-            fill: var(--foreground-secondary);
-            paint-order: fill;
-            stroke: none;
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        :global(.apexcharts-datalabels text),
-        :global(.apexcharts-data-labels text) {
-            paint-order: fill;
-            stroke: none;
-        }
-
-        :global(.apexcharts-tooltip) {
-            background: rgb(from var(--surface) r g b / .975);
-            background-clip: padding-box;
-            backdrop-filter: blur(3px) saturate(180%);
-            border: 1px solid var(--surface-stroke-out-hover);
-            border-radius: var(--radius-double);
-            box-shadow: var(--shadow-lg);
-            color: var(--foreground);
-            contain: paint;
-        }
-    }
 }
 
 .statisticsChartElement {
@@ -101,4 +64,15 @@
     font-size: 14px;
     font-weight: 500;
     text-align: right;
+}
+
+:global(.flux-statistics-tooltip) {
+    background: rgb(from var(--surface) r g b / .975) !important;
+    background-clip: padding-box;
+    backdrop-filter: blur(3px) saturate(180%);
+    border: 1px solid var(--surface-stroke-out-hover) !important;
+    border-radius: var(--radius-double) !important;
+    box-shadow: var(--shadow-lg) !important;
+    color: var(--foreground);
+    contain: paint;
 }

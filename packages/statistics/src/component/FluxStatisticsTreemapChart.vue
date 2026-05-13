@@ -1,58 +1,31 @@
 <template>
     <Chart
-        :aspectRatio="aspectRatio"
-        :options="merge({
-            chart: {
-                type: 'treemap'
-            },
-            dataLabels: {
-                enabled: true,
-                style: {
-                    fontSize: '13px',
-                    fontWeight: 600,
-                    fontFamily: 'inherit',
-                    colors: ['var(--white)']
-                },
-                offsetY: -2
-            },
-            grid: {
-                show: false
-            },
-            legend: {
-                show: false
-            },
-            plotOptions: {
-                treemap: {
-                    distributed: true,
-                    enableShades: true,
-                    shadeIntensity: 0.3,
-                    borderRadius: 6,
-                    useFillColorAsStroke: false
-                }
-            },
-            stroke: {
-                width: 3,
-                colors: ['var(--surface)']
-            },
-            tooltip: {
-                enabled: false
-            }
-        }, options)"
-        :series="series"/>
+        :options="mergedOptions"/>
 </template>
 
 <script
     lang="ts"
     setup>
-    import type { ApexOptions } from 'apexcharts';
+    import type { TreemapSeriesOption } from 'echarts/charts';
     import { merge } from 'lodash-es';
+    import { computed } from 'vue';
+    import type { EChartsOption } from '~flux/statistics/composable';
+    import { POLAR_BASE_OPTIONS, TREEMAP_SERIES_DEFAULTS } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
 
     const {
-        options = {}
+        options = {},
+        series
     } = defineProps<{
-        readonly aspectRatio?: number;
-        readonly options?: ApexOptions;
-        readonly series: ApexOptions['series'];
+        readonly options?: EChartsOption;
+        readonly series: readonly TreemapSeriesOption[];
     }>();
+
+    const decoratedSeries = computed<TreemapSeriesOption[]>(() =>
+        series.map(item => ({ ...TREEMAP_SERIES_DEFAULTS, ...item }))
+    );
+
+    const mergedOptions = computed<EChartsOption>(() =>
+        merge({}, POLAR_BASE_OPTIONS, options, { series: decoratedSeries.value })
+    );
 </script>

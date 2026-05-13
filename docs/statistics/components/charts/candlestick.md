@@ -4,7 +4,7 @@ outline: deep
 props:
     -   name: series
         description: The OHLC data series. Each data point must contain `x` (date) and `y` as `[open, high, low, close]`.
-        type: ApexOptions['series']
+        type: EChartsOption['series']
 
     -   name: aspect-ratio
         description: The aspect ratio of the chart.
@@ -12,8 +12,8 @@ props:
         optional: true
 
     -   name: options
-        description: Additional ApexCharts options to merge with the defaults.
-        type: ApexOptions
+        description: Additional ECharts options to merge with the defaults.
+        type: EChartsOption
         optional: true
 ---
 

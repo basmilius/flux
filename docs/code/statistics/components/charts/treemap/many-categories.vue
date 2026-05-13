@@ -14,18 +14,18 @@
 
     const series = [{
         data: [
-            { x: 'Tag A', y: 220 },
-            { x: 'Tag B', y: 180 },
-            { x: 'Tag C', y: 160 },
-            { x: 'Tag D', y: 140 },
-            { x: 'Tag E', y: 120 },
-            { x: 'Tag F', y: 100 },
-            { x: 'Tag G', y: 85 },
-            { x: 'Tag H', y: 70 },
-            { x: 'Tag I', y: 55 },
-            { x: 'Tag J', y: 40 },
-            { x: 'Tag K', y: 30 },
-            { x: 'Tag L', y: 20 }
+            { value: 220, name: 'Tag A' },
+            { value: 180, name: 'Tag B' },
+            { value: 160, name: 'Tag C' },
+            { value: 140, name: 'Tag D' },
+            { value: 120, name: 'Tag E' },
+            { value: 100, name: 'Tag F' },
+            { value: 85, name: 'Tag G' },
+            { value: 70, name: 'Tag H' },
+            { value: 55, name: 'Tag I' },
+            { value: 40, name: 'Tag J' },
+            { value: 30, name: 'Tag K' },
+            { value: 20, name: 'Tag L' }
         ]
     }];
 </script>

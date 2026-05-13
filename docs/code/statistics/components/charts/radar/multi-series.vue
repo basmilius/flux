@@ -4,8 +4,8 @@
         title="Profile comparison"
         :aspect-ratio="1.4">
         <FluxStatisticsRadarChart
-            :series="series"
-            :options="options"/>
+            :options="options"
+            :series="series"/>
 
         <template #legend>
             <FluxStatisticsLegend>
@@ -24,15 +24,26 @@
 <script
     setup
     lang="ts">
-    import type { ApexOptions } from 'apexcharts';
+    import type { EChartsOption } from 'echarts/core';
     import { FluxStatisticsChartPane, FluxStatisticsLegend, FluxStatisticsLegendItem, FluxStatisticsRadarChart } from '@flux-ui/statistics';
 
-    const series = [
-        { name: 'Alice', data: [90, 80, 70, 95, 85, 78] },
-        { name: 'Bob', data: [60, 70, 80, 75, 65, 85] }
-    ];
+    const series = [{
+        data: [
+            { value: [90, 80, 70, 95, 85, 78], name: 'Alice' },
+            { value: [60, 70, 80, 75, 65, 85], name: 'Bob' }
+        ]
+    }];
 
-    const options: ApexOptions = {
-        labels: ['Speed', 'Accuracy', 'Quality', 'Volume', 'Focus', 'Collaboration']
+    const options: EChartsOption = {
+        radar: {
+            indicator: [
+                { name: 'Speed', max: 100 },
+                { name: 'Accuracy', max: 100 },
+                { name: 'Quality', max: 100 },
+                { name: 'Volume', max: 100 },
+                { name: 'Focus', max: 100 },
+                { name: 'Collaboration', max: 100 }
+            ]
+        }
     };
 </script>

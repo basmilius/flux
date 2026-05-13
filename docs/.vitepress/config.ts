@@ -310,7 +310,6 @@ export default defineConfig({
                                 {text: 'Polar area', link: '/statistics/components/charts/polar-area'},
                                 {text: 'Radar', link: '/statistics/components/charts/radar'},
                                 {text: 'Radial bar', link: '/statistics/components/charts/radial-bar'},
-                                {text: 'Range bar', link: '/statistics/components/charts/range-bar'},
                                 {text: 'Scatter', link: '/statistics/components/charts/scatter'},
                                 {text: 'Treemap', link: '/statistics/components/charts/treemap'}
                             ]

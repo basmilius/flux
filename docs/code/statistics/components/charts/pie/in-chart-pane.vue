@@ -3,13 +3,7 @@
         icon="chart-pie"
         title="Sales by category"
         :aspect-ratio="1.5">
-        <FluxStatisticsPieChart
-            :options="{
-                colors: ['var(--primary-600)', '#10b981', '#3b82f6', '#f59e0b'],
-                grid: {padding: {top: 21, left: 15, right: 15, bottom: 15}},
-                labels: ['Electronics', 'Clothing', 'Books', 'Other']
-            }"
-            :series="[38, 27, 20, 15]"/>
+        <FluxStatisticsPieChart :series="series"/>
 
         <template #legend>
             <FluxStatisticsLegend>
@@ -38,4 +32,14 @@
     setup
     lang="ts">
     import { FluxStatisticsChartPane, FluxStatisticsLegend, FluxStatisticsLegendItem, FluxStatisticsPieChart } from '@flux-ui/statistics';
+
+    const series = [{
+        color: ['var(--primary-600)', '#10b981', '#3b82f6', '#f59e0b'],
+        data: [
+            { value: 38, name: 'Electronics' },
+            { value: 27, name: 'Clothing' },
+            { value: 20, name: 'Books' },
+            { value: 15, name: 'Other' }
+        ]
+    }];
 </script>

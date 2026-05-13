@@ -1,73 +1,30 @@
 <template>
-    <Chart
-        :aspectRatio="aspectRatio"
-        :options="merge({
-            chart: {
-                type: 'radialBar'
-            },
-            grid: {
-                show: false
-            },
-            legend: {
-                show: false
-            },
-            plotOptions: {
-                radialBar: {
-                    startAngle: -135,
-                    endAngle: 135,
-                    hollow: {
-                        size: '62%',
-                        background: 'transparent'
-                    },
-                    track: {
-                        background: 'var(--gray-100)',
-                        strokeWidth: '100%',
-                        margin: 6,
-                        opacity: 1
-                    },
-                    dataLabels: {
-                        name: {
-                            show: true,
-                            color: 'var(--foreground-secondary)',
-                            fontSize: '12px',
-                            fontWeight: 500,
-                            fontFamily: 'inherit',
-                            offsetY: -8
-                        },
-                        value: {
-                            show: true,
-                            color: 'var(--foreground-prominent)',
-                            fontSize: '28px',
-                            fontWeight: 800,
-                            fontFamily: 'inherit',
-                            offsetY: 6,
-                            formatter: (val) => `${val}%`
-                        }
-                    }
-                }
-            },
-            stroke: {
-                lineCap: 'round'
-            },
-            tooltip: {
-                enabled: false
-            }
-        }, options)"
-        :series="series"/>
+    <Chart :options="mergedOptions"/>
 </template>
 
 <script
     lang="ts"
     setup>
-    import type { ApexOptions } from 'apexcharts';
+    import type { GaugeSeriesOption } from 'echarts/charts';
     import { merge } from 'lodash-es';
+    import { computed } from 'vue';
+    import type { EChartsOption } from '~flux/statistics/composable';
+    import { GAUGE_SERIES_DEFAULTS, POLAR_BASE_OPTIONS } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
 
     const {
-        options = {}
+        options = {},
+        series
     } = defineProps<{
-        readonly aspectRatio?: number;
-        readonly options?: ApexOptions;
-        readonly series: ApexOptions['series'];
+        readonly options?: EChartsOption;
+        readonly series: readonly GaugeSeriesOption[];
     }>();
+
+    const decoratedSeries = computed<GaugeSeriesOption[]>(() =>
+        series.map(item => ({ ...GAUGE_SERIES_DEFAULTS, ...item }))
+    );
+
+    const mergedOptions = computed<EChartsOption>(() =>
+        merge({}, POLAR_BASE_OPTIONS, options, { series: decoratedSeries.value })
+    );
 </script>

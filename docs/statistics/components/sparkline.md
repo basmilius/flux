@@ -4,7 +4,7 @@ outline: deep
 props:
     -   name: series
         description: The data series for the sparkline.
-        type: ApexOptions['series']
+        type: EChartsOption['series']
 
     -   name: variant
         description: The visual style of the sparkline.
@@ -18,8 +18,8 @@ props:
         optional: true
 
     -   name: options
-        description: Additional ApexCharts options to merge with the defaults.
-        type: ApexOptions
+        description: Additional ECharts options to merge with the defaults.
+        type: EChartsOption
         optional: true
 ---
 

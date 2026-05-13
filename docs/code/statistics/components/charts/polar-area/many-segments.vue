@@ -3,21 +3,27 @@
         icon="chart-pie"
         title="Country distribution"
         :aspect-ratio="1.4">
-        <FluxStatisticsPolarAreaChart
-            :series="series"
-            :options="options"/>
+        <FluxStatisticsPolarAreaChart :series="series"/>
     </FluxStatisticsChartPane>
 </template>
 
 <script
     setup
     lang="ts">
-    import type { ApexOptions } from 'apexcharts';
     import { FluxStatisticsChartPane, FluxStatisticsPolarAreaChart } from '@flux-ui/statistics';
 
-    const series = [42, 28, 22, 18, 14, 11, 9, 7, 5, 3];
-
-    const options: ApexOptions = {
-        labels: ['NL', 'DE', 'BE', 'FR', 'UK', 'ES', 'IT', 'PL', 'SE', 'DK']
-    };
+    const series = [{
+        data: [
+            { value: 42, name: 'NL' },
+            { value: 28, name: 'DE' },
+            { value: 22, name: 'BE' },
+            { value: 18, name: 'FR' },
+            { value: 14, name: 'UK' },
+            { value: 11, name: 'ES' },
+            { value: 9, name: 'IT' },
+            { value: 7, name: 'PL' },
+            { value: 5, name: 'SE' },
+            { value: 3, name: 'DK' }
+        ]
+    }];
 </script>

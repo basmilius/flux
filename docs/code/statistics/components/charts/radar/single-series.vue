@@ -4,23 +4,33 @@
         title="Skill profile"
         :aspect-ratio="1.4">
         <FluxStatisticsRadarChart
-            :series="series"
-            :options="options"/>
+            :options="options"
+            :series="series"/>
     </FluxStatisticsChartPane>
 </template>
 
 <script
     setup
     lang="ts">
-    import type { ApexOptions } from 'apexcharts';
+    import type { EChartsOption } from 'echarts/core';
     import { FluxStatisticsChartPane, FluxStatisticsRadarChart } from '@flux-ui/statistics';
 
     const series = [{
-        name: 'Skills',
-        data: [88, 76, 64, 91, 70, 82]
+        data: [
+            { value: [88, 76, 64, 91, 70, 82], name: 'Skills' }
+        ]
     }];
 
-    const options: ApexOptions = {
-        labels: ['Vue', 'TypeScript', 'CSS', 'Tooling', 'Testing', 'Design']
+    const options: EChartsOption = {
+        radar: {
+            indicator: [
+                { name: 'Vue', max: 100 },
+                { name: 'TypeScript', max: 100 },
+                { name: 'CSS', max: 100 },
+                { name: 'Tooling', max: 100 },
+                { name: 'Testing', max: 100 },
+                { name: 'Design', max: 100 }
+            ]
+        }
     };
 </script>

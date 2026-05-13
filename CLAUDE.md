@@ -17,7 +17,7 @@ packages/
   components/   @flux-ui/components  — main component library
   types/        @flux-ui/types       — all public TypeScript types
   internals/    @flux-ui/internals   — shared internal utilities & composables
-  statistics/   @flux-ui/statistics  — statistics / chart components (ApexCharts)
+  statistics/   @flux-ui/statistics  — statistics / chart components (Apache ECharts)
   dashboard/    @flux-ui/dashboard   — dashboard layout components
   application/  @flux-ui/application — application layout / navigation components
 docs/                                — VitePress documentation site
@@ -369,7 +369,7 @@ Configured in `.npmrc` with `@fortawesome:registry=https://npm.fontawesome.com/`
 
 ## Statistics package (`@flux-ui/statistics`)
 
-Wraps **ApexCharts** (`apexcharts` + `vue3-apexcharts`) with themed Flux components. Uses `vue-i18n` for locale-aware labels. Chart components follow the same CSS Modules and naming conventions.
+Wraps **Apache ECharts** (`echarts/core` modular imports + custom `useECharts` composable) with themed Flux components. Uses `vue-i18n` for locale-aware labels. Chart components follow the same CSS Modules and naming conventions.
 
 ---
 

@@ -56,7 +56,7 @@
         font-size: 15px;
         line-height: 1.6;
 
-        :global(svg) {
+        > :global(svg) {
             stroke: var(--gray-100);
         }
     }

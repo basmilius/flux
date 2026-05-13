@@ -1,65 +1,31 @@
 <template>
     <Chart
-        :aspectRatio="aspectRatio"
-        :options="merge({
-            chart: {
-                type: 'polarArea'
-            },
-            dataLabels: {
-                enabled: false
-            },
-            fill: {
-                opacity: 0.85
-            },
-            legend: {
-                show: false
-            },
-            plotOptions: {
-                polarArea: {
-                    rings: {
-                        strokeWidth: 1,
-                        strokeColor: 'var(--stroke)'
-                    },
-                    spokes: {
-                        strokeWidth: 1,
-                        connectorColors: 'var(--stroke)'
-                    }
-                }
-            },
-            states: {
-                hover: {
-                    filter: {
-                        type: 'lighten',
-                        value: 0.05
-                    }
-                }
-            },
-            stroke: {
-                width: 2,
-                colors: ['var(--surface)']
-            },
-            tooltip: {
-                enabled: false
-            },
-            yaxis: {
-                show: false
-            }
-        }, options)"
-        :series="series"/>
+        :options="mergedOptions"/>
 </template>
 
 <script
     lang="ts"
     setup>
-    import type { ApexOptions } from 'apexcharts';
+    import type { PieSeriesOption } from 'echarts/charts';
     import { merge } from 'lodash-es';
+    import { computed } from 'vue';
+    import type { EChartsOption } from '~flux/statistics/composable';
+    import { POLAR_AREA_SERIES_DEFAULTS, POLAR_BASE_OPTIONS } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
 
     const {
-        options = {}
+        options = {},
+        series
     } = defineProps<{
-        readonly aspectRatio?: number;
-        readonly options?: ApexOptions;
-        readonly series: ApexOptions['series'];
+        readonly options?: EChartsOption;
+        readonly series: readonly PieSeriesOption[];
     }>();
+
+    const decoratedSeries = computed<PieSeriesOption[]>(() =>
+        series.map(item => ({ ...POLAR_AREA_SERIES_DEFAULTS, ...item }))
+    );
+
+    const mergedOptions = computed<EChartsOption>(() =>
+        merge({}, POLAR_BASE_OPTIONS, options, { series: decoratedSeries.value })
+    );
 </script>

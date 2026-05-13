@@ -30,7 +30,7 @@ export default defineConfig(({mode}) => ({
             experimental: {
                 lazyBarrel: true
             },
-            external: ['@flux-ui/components', 'apexcharts', 'lodash-es', 'vue', 'vue-i18n', 'vue3-apexcharts'],
+            external: ['@flux-ui/components', 'echarts', /^echarts\//, 'lodash-es', 'vue', 'vue-i18n'],
             output: {
                 exports: 'named',
                 sourcemapIgnoreList: path => path.includes('node_modules')

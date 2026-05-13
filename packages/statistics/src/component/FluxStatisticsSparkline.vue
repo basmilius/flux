@@ -5,13 +5,9 @@
         :style="{
             '--color': resolvedColor
         }">
-        <ApexCharts
-            :class="$style.statisticsSparklineChart"
-            width="100%"
-            height="100%"
-            :type="chartType"
-            :options="chartOptions"
-            :series="series"/>
+        <div
+            ref="chart"
+            :class="$style.statisticsSparklineChart"/>
     </div>
 </template>
 
@@ -19,10 +15,10 @@
     lang="ts"
     setup>
     import type { FluxColor } from '@flux-ui/types';
-    import type { ApexOptions } from 'apexcharts';
     import { merge } from 'lodash-es';
-    import { computed } from 'vue';
-    import ApexCharts from 'vue3-apexcharts';
+    import { computed, useTemplateRef } from 'vue';
+    import { type EChartsOption, useECharts } from '~flux/statistics/composable';
+    import { buildSparklineOptions, deepResolveCssVars, type SparklineSeriesItem, useCssVarVersion } from '~flux/statistics/util';
     import $style from '~flux/statistics/css/Sparkline.module.scss';
 
     const FLUX_COLORS: FluxColor[] = ['gray', 'primary', 'danger', 'info', 'success', 'warning'];
@@ -30,19 +26,20 @@
     const {
         color,
         options = {},
+        series,
         variant = 'line'
     } = defineProps<{
         readonly color?: FluxColor | `#${string}`;
-        readonly options?: ApexOptions;
-        readonly series: ApexOptions['series'];
+        readonly options?: EChartsOption;
+        readonly series: readonly SparklineSeriesItem[];
         readonly variant?: 'line' | 'bar' | 'area';
     }>();
 
-    const chartType = computed(() => variant);
+    const chart = useTemplateRef('chart');
 
     const resolvedColor = computed(() => {
         if (!color) {
-            return;
+            return undefined;
         }
 
         if (FLUX_COLORS.includes(color as FluxColor)) {
@@ -52,70 +49,19 @@
         return color;
     });
 
-    const chartOptions = computed<ApexOptions>(() => merge({
-        chart: {
-            type: variant,
-            sparkline: {
-                enabled: true
-            },
-            animations: {
-                enabled: false
-            },
-            toolbar: {
-                show: false
-            },
-            zoom: {
-                enabled: false
-            }
-        },
-        colors: [resolvedColor.value ?? 'var(--chart-1)'],
-        dataLabels: {
-            enabled: false
-        },
-        fill: variant === 'area'
-            ? {
-                type: 'gradient',
-                gradient: {
-                    opacityFrom: 0.5,
-                    opacityTo: 0
-                }
-            }
-            : {
-                type: 'solid',
-                opacity: 1
-            },
-        grid: {
-            show: false,
-            padding: {
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0
-            }
-        },
-        legend: {
-            show: false
-        },
-        plotOptions: {
-            bar: {
-                columnWidth: '60%',
-                borderRadius: 2
-            }
-        },
-        stroke: {
-            curve: 'smooth',
-            width: variant === 'bar' ? 0 : 2
-        },
-        tooltip: {
-            enabled: false
-        },
-        xaxis: {
-            labels: { show: false },
-            axisBorder: { show: false },
-            axisTicks: { show: false }
-        },
-        yaxis: {
-            show: false
-        }
-    }, options));
+    const themeVersion = useCssVarVersion();
+
+    const mergedOptions = computed<EChartsOption>(() => {
+        themeVersion.value;
+
+        const merged = merge(
+            {},
+            buildSparklineOptions(variant, resolvedColor.value ?? 'var(--chart-1)', series),
+            options
+        );
+
+        return deepResolveCssVars(merged);
+    });
+
+    useECharts(chart, mergedOptions);
 </script>

@@ -13,7 +13,7 @@ This is a [Bun workspaces](https://bun.com/docs/install/workspaces) monorepo. Al
 | [`@flux-ui/components`](packages/components)     | Main component library.                          |
 | [`@flux-ui/types`](packages/types)               | Public TypeScript types (no build step).         |
 | [`@flux-ui/internals`](packages/internals)       | Shared composables, utilities, and directives.   |
-| [`@flux-ui/statistics`](packages/statistics)     | Chart components built on ApexCharts.            |
+| [`@flux-ui/statistics`](packages/statistics)     | Chart components built on Apache ECharts.        |
 | [`@flux-ui/dashboard`](packages/dashboard)       | Dashboard layout components.                     |
 | [`@flux-ui/application`](packages/application)   | Application shell components.                    |
 

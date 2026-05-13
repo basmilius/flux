@@ -4,29 +4,35 @@
         title="Feature coverage"
         :aspect-ratio="1.4">
         <FluxStatisticsRadarChart
-            :series="series"
-            :options="options"/>
+            :options="options"
+            :series="series"/>
     </FluxStatisticsChartPane>
 </template>
 
 <script
     setup
     lang="ts">
-    import type { ApexOptions } from 'apexcharts';
+    import type { EChartsOption } from 'echarts/core';
     import { FluxStatisticsChartPane, FluxStatisticsRadarChart } from '@flux-ui/statistics';
 
     const series = [{
-        name: 'Coverage',
-        data: [75, 90, 60, 80, 70, 85]
+        areaStyle: { opacity: 0.55 },
+        lineStyle: { width: 3 },
+        data: [
+            { value: [75, 90, 60, 80, 70, 85], name: 'Coverage' }
+        ]
     }];
 
-    const options: ApexOptions = {
-        labels: ['Auth', 'API', 'UI', 'Storage', 'Sync', 'Search'],
-        fill: {
-            opacity: 0.55
-        },
-        stroke: {
-            width: 3
+    const options: EChartsOption = {
+        radar: {
+            indicator: [
+                { name: 'Auth', max: 100 },
+                { name: 'API', max: 100 },
+                { name: 'UI', max: 100 },
+                { name: 'Storage', max: 100 },
+                { name: 'Sync', max: 100 },
+                { name: 'Search', max: 100 }
+            ]
         }
     };
 </script>

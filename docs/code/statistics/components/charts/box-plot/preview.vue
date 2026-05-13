@@ -4,7 +4,9 @@
             icon="chart-bar"
             title="Response times"
             :aspect-ratio="3">
-            <FluxStatisticsBoxPlotChart :series="series"/>
+            <FluxStatisticsBoxPlotChart
+                :options="options"
+                :series="series"/>
         </FluxStatisticsChartPane>
     </Preview>
 </template>
@@ -12,16 +14,21 @@
 <script
     setup
     lang="ts">
+    import type { EChartsOption } from 'echarts/core';
     import { FluxStatisticsBoxPlotChart, FluxStatisticsChartPane } from '@flux-ui/statistics';
 
     const series = [{
         name: 'ms',
         data: [
-            { x: 'API', y: [54, 66, 82, 88, 120] },
-            { x: 'DB', y: [22, 30, 38, 44, 60] },
-            { x: 'Cache', y: [4, 6, 8, 12, 18] },
-            { x: 'Worker', y: [110, 130, 152, 168, 210] },
-            { x: 'Search', y: [38, 52, 64, 78, 96] }
+            [54, 66, 82, 88, 120],
+            [22, 30, 38, 44, 60],
+            [4, 6, 8, 12, 18],
+            [110, 130, 152, 168, 210],
+            [38, 52, 64, 78, 96]
         ]
     }];
+
+    const options: EChartsOption = {
+        xAxis: { data: ['API', 'DB', 'Cache', 'Worker', 'Search'] }
+    };
 </script>

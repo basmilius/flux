@@ -4,7 +4,7 @@ outline: deep
 props:
     -   name: series
         description: The data series for the chart. Each series may declare its own `type` (`line`, `bar`, or `area`) to combine chart types.
-        type: ApexOptions['series']
+        type: EChartsOption['series']
 
     -   name: aspect-ratio
         description: The aspect ratio of the chart.
@@ -12,8 +12,8 @@ props:
         optional: true
 
     -   name: options
-        description: Additional ApexCharts options to merge with the defaults.
-        type: ApexOptions
+        description: Additional ECharts options to merge with the defaults.
+        type: EChartsOption
         optional: true
 ---
 

@@ -4,7 +4,7 @@ outline: deep
 
 # Charts
 
-Flux Statistics includes several chart types built on top of [ApexCharts](https://apexcharts.com/). Each chart accepts a `series` prop compatible with the ApexCharts API and an optional `options` prop for customization.
+Flux Statistics includes several chart types built on top of [Apache ECharts](https://echarts.apache.org/). Each chart accepts a `series` prop compatible with the ECharts API and an optional `options` prop for customization.
 
 ## Available charts
 
@@ -21,7 +21,6 @@ Flux Statistics includes several chart types built on top of [ApexCharts](https:
 - [Polar area](./polar-area)
 - [Radar](./radar)
 - [Radial bar](./radial-bar)
-- [Range bar](./range-bar)
 - [Scatter](./scatter)
 - [Treemap](./treemap)
 

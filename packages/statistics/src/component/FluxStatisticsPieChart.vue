@@ -1,32 +1,31 @@
 <template>
     <Chart
-        :aspectRatio="aspectRatio"
-        :options="merge({
-            chart: {
-                type: 'pie'
-            },
-            legend: {
-                show: false
-            },
-            tooltip: {
-                enabled: false
-            }
-        }, options)"
-        :series="series"/>
+        :options="mergedOptions"/>
 </template>
 
 <script
     lang="ts"
     setup>
-    import type { ApexOptions } from 'apexcharts';
+    import type { PieSeriesOption } from 'echarts/charts';
     import { merge } from 'lodash-es';
+    import { computed } from 'vue';
+    import type { EChartsOption } from '~flux/statistics/composable';
+    import { PIE_SERIES_DEFAULTS, POLAR_BASE_OPTIONS } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
 
     const {
-        options = {}
+        options = {},
+        series
     } = defineProps<{
-        readonly aspectRatio?: number;
-        readonly options?: ApexOptions;
-        readonly series: ApexOptions['series'];
+        readonly options?: EChartsOption;
+        readonly series: readonly PieSeriesOption[];
     }>();
+
+    const decoratedSeries = computed<PieSeriesOption[]>(() =>
+        series.map(item => ({ ...PIE_SERIES_DEFAULTS, ...item }))
+    );
+
+    const mergedOptions = computed<EChartsOption>(() =>
+        merge({}, POLAR_BASE_OPTIONS, options, { series: decoratedSeries.value })
+    );
 </script>

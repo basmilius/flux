@@ -25,7 +25,6 @@ export { default as FluxStatisticsPieChart } from './FluxStatisticsPieChart.vue'
 export { default as FluxStatisticsPolarAreaChart } from './FluxStatisticsPolarAreaChart.vue';
 export { default as FluxStatisticsRadarChart } from './FluxStatisticsRadarChart.vue';
 export { default as FluxStatisticsRadialBar } from './FluxStatisticsRadialBar.vue';
-export { default as FluxStatisticsRangeBarChart } from './FluxStatisticsRangeBarChart.vue';
 export { default as FluxStatisticsScatterChart } from './FluxStatisticsScatterChart.vue';
 export { default as FluxStatisticsSparkline } from './FluxStatisticsSparkline.vue';
 export { default as FluxStatisticsTreemapChart } from './FluxStatisticsTreemapChart.vue';
