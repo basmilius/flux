@@ -271,6 +271,196 @@ function formatValue(value: TooltipParam['value']): string {
     return String(value ?? '');
 }
 
+export interface BoxPlotTooltipPoint {
+    readonly label?: string;
+    readonly min: number;
+    readonly q1: number;
+    readonly median: number;
+    readonly q3: number;
+    readonly max: number;
+}
+
+export function buildBoxPlotTooltipOptions(
+    t: Translator,
+    styles: TooltipStyleClasses,
+    getSeries: () => readonly { readonly name?: string; readonly icon?: FluxIconName; readonly data: readonly BoxPlotTooltipPoint[] }[],
+    getPalette: () => readonly string[]
+): EChartsOption {
+    const formatter = (params: TooltipParam | TooltipParam[]): string => {
+        const param = Array.isArray(params) ? params[0] : params;
+
+        if (!param) {
+            return '';
+        }
+
+        const series = getSeries();
+        const palette = getPalette();
+        const seriesIndex = param.seriesIndex ?? 0;
+        const dataIndex = param.dataIndex ?? 0;
+        const s = series[seriesIndex];
+        const point = s?.data[dataIndex];
+
+        if (!s || !point) {
+            return '';
+        }
+
+        const color = palette[seriesIndex % palette.length];
+        const seriesName = s.name ? t(String(s.name)) : '';
+        const pointLabel = point.label ? t(String(point.label)) : '';
+        const title = [seriesName, pointLabel].filter(Boolean).join(' — ');
+
+        const items: SharedTooltipItem[] = [
+            { name: 'Min', value: point.min, color },
+            { name: 'Q1', value: point.q1, color },
+            { name: 'Median', value: point.median, color },
+            { name: 'Q3', value: point.q3, color },
+            { name: 'Max', value: point.max, color }
+        ];
+
+        return renderTooltip(t, styles, title, items);
+    };
+
+    return {
+        tooltip: {
+            show: true,
+            trigger: 'item',
+            formatter: formatter as never
+        }
+    };
+}
+
+export interface HeatmapTooltipPoint {
+    readonly x: string | number;
+    readonly y: string | number;
+    readonly value: number;
+}
+
+export function buildHeatmapTooltipOptions(
+    t: Translator,
+    styles: TooltipStyleClasses,
+    getSeries: () => readonly { readonly name?: string; readonly data: readonly HeatmapTooltipPoint[] }[]
+): EChartsOption {
+    const formatter = (params: TooltipParam | TooltipParam[]): string => {
+        const param = Array.isArray(params) ? params[0] : params;
+
+        if (!param) {
+            return '';
+        }
+
+        const series = getSeries();
+        const seriesIndex = param.seriesIndex ?? 0;
+        const dataIndex = param.dataIndex ?? 0;
+        const s = series[seriesIndex];
+        const point = s?.data[dataIndex];
+
+        if (!s || !point) {
+            return '';
+        }
+
+        const seriesName = s.name ? t(String(s.name)) : '';
+        const xLabel = t(String(point.x));
+        const yLabel = t(String(point.y));
+        const title = [seriesName, `${xLabel} · ${yLabel}`].filter(Boolean).join(' — ');
+
+        const items: SharedTooltipItem[] = [
+            { name: '', value: point.value, color: 'var(--primary-600)' }
+        ];
+
+        return renderTooltip(t, styles, title, items);
+    };
+
+    return {
+        tooltip: {
+            show: true,
+            trigger: 'item',
+            formatter: formatter as never
+        }
+    };
+}
+
+export interface TreemapTooltipNode {
+    readonly name: string;
+    readonly value?: number;
+    readonly color?: string;
+}
+
+export function buildTreemapTooltipOptions(
+    t: Translator,
+    styles: TooltipStyleClasses
+): EChartsOption {
+    const formatter = (params: TooltipParam | TooltipParam[]): string => {
+        const param = Array.isArray(params) ? params[0] : params;
+
+        if (!param) {
+            return '';
+        }
+
+        const data = param.data as TreemapTooltipNode | undefined;
+
+        if (!data) {
+            return '';
+        }
+
+        const color = data.color ?? 'var(--primary-600)';
+        const title = data.name ? t(String(data.name)) : '';
+
+        const items: SharedTooltipItem[] = [
+            { name: '', value: data.value ?? '', color }
+        ];
+
+        return renderTooltip(t, styles, title, items);
+    };
+
+    return {
+        tooltip: {
+            show: true,
+            trigger: 'item',
+            formatter: formatter as never
+        }
+    };
+}
+
+export function buildGaugeTooltipOptions(
+    t: Translator,
+    styles: TooltipStyleClasses,
+    getSeries: () => readonly { readonly name?: string; readonly value: number; readonly icon?: FluxIconName }[],
+    getPalette: () => readonly string[]
+): EChartsOption {
+    const formatter = (params: TooltipParam | TooltipParam[]): string => {
+        const param = Array.isArray(params) ? params[0] : params;
+
+        if (!param) {
+            return '';
+        }
+
+        const series = getSeries();
+        const palette = getPalette();
+        const seriesIndex = param.seriesIndex ?? 0;
+        const s = series[seriesIndex];
+
+        if (!s) {
+            return '';
+        }
+
+        const color = palette[seriesIndex % palette.length];
+        const title = s.name ? t(String(s.name)) : '';
+
+        const items: SharedTooltipItem[] = [
+            { name: '', value: s.value, color, icon: s.icon }
+        ];
+
+        return renderTooltip(t, styles, title, items);
+    };
+
+    return {
+        tooltip: {
+            show: true,
+            trigger: 'item',
+            formatter: formatter as never
+        }
+    };
+}
+
 export interface DefaultOptionsConfig {
     readonly tooltipFormatter: ReturnType<typeof buildTooltipFormatter>;
 }
@@ -289,7 +479,7 @@ export function buildDefaultOptions({ tooltipFormatter }: DefaultOptionsConfig):
         animationEasing: 'cubicOut',
         animationEasingUpdate: 'cubicInOut',
         tooltip: {
-            show: true,
+            show: false,
             trigger: 'axis',
             formatter: tooltipFormatter as never,
             backgroundColor: 'transparent',

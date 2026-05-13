@@ -11,6 +11,11 @@ props:
         type: string[]
         optional: true
 
+    -   name: tooltip
+        description: Show a tooltip on hover. Disabled by default.
+        type: boolean
+        optional: true
+
     -   name: advanced-options
         description: Escape-hatch for raw ECharts options merged on top of the Flux defaults.
         type: EChartsOption
@@ -43,4 +48,8 @@ example=../../../code/statistics/components/charts/line/with-labels.vue
 
 ::: example With icons || A line chart whose series carry icons that surface in the legend and tooltip.
 example=../../../code/statistics/components/charts/line/with-icons.vue
+:::
+
+::: example With tooltip || Enable the hover tooltip by setting the `tooltip` prop.
+example=../../../code/statistics/components/charts/line/with-tooltip.vue
 :::

@@ -6,6 +6,11 @@ props:
         description: The data series for the chart. Each point's `size` controls the marker radius.
         type: FluxStatisticsChartBubbleSeries[]
 
+    -   name: tooltip
+        description: Show a tooltip on hover. Disabled by default.
+        type: boolean
+        optional: true
+
     -   name: advanced-options
         description: Escape-hatch for raw ECharts options merged on top of the Flux defaults.
         type: EChartsOption
@@ -46,4 +51,8 @@ example=../../../code/statistics/components/charts/bubble/with-icons.vue
 
 ::: example Dense || A bubble chart with many randomly distributed points.
 example=../../../code/statistics/components/charts/bubble/dense.vue
+:::
+
+::: example With tooltip || Enable the hover tooltip by setting the `tooltip` prop.
+example=../../../code/statistics/components/charts/bubble/with-tooltip.vue
 :::

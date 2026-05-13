@@ -1,6 +1,6 @@
 <template>
     <div
-        :class="$style.statisticsLegendItem"
+        :class="clsx($style.statisticsLegendItem, isHovered && $style.isHovered)"
         :style="{
             '--color': colorValue
         }">
@@ -33,6 +33,7 @@
     setup>
     import { FluxIcon } from '@flux-ui/components';
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
+    import { clsx } from 'clsx';
     import { computed } from 'vue';
     import $style from '~flux/statistics/css/Legend.module.scss';
 
@@ -41,6 +42,7 @@
     } = defineProps<{
         readonly color?: FluxColor | `#${string}`;
         readonly icon?: FluxIconName;
+        readonly isHovered?: boolean;
         readonly label: string;
         readonly value?: string | number;
     }>();

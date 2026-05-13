@@ -16,6 +16,11 @@ props:
         type: string[]
         optional: true
 
+    -   name: tooltip
+        description: Show a tooltip on hover. Disabled by default.
+        type: boolean
+        optional: true
+
     -   name: advanced-options
         description: Escape-hatch for raw ECharts options merged on top of the Flux defaults. Use for custom `visualMap` ranges.
         type: EChartsOption
@@ -56,4 +61,8 @@ example=../../../code/statistics/components/charts/heatmap/sparse.vue
 
 ::: example Punchcard || A weekly punchcard heatmap highlighting peak working hours.
 example=../../../code/statistics/components/charts/heatmap/punchcard.vue
+:::
+
+::: example With tooltip || Enable the hover tooltip by setting the `tooltip` prop.
+example=../../../code/statistics/components/charts/heatmap/with-tooltip.vue
 :::

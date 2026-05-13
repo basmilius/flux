@@ -1,5 +1,6 @@
 <template>
     <Chart
+        ref="chartRef"
         :options="mergedOptions"/>
 </template>
 
@@ -8,26 +9,33 @@
     setup>
     import type { FluxStatisticsChartCandlestickSeries } from '@flux-ui/types';
     import { merge } from 'lodash-es';
-    import { computed, inject, watchEffect } from 'vue';
+    import { computed, inject, useTemplateRef, watchEffect } from 'vue';
     import { useI18n } from 'vue-i18n';
-    import { type ChartLegendItem, FluxStatisticsChartLegendInjectionKey } from '~flux/statistics/composable';
-    import type { EChartsOption } from '~flux/statistics/composable';
-    import { buildCartesianBaseOptions, resolveChartColor, toCandlestickSeries } from '~flux/statistics/util';
+    import { type ChartLegendItem, FluxStatisticsChartLegendInjectionKey, useChartHoverSync } from '~flux/statistics/composable';
+    import type { EChartsInstance, EChartsOption } from '~flux/statistics/composable';
+    import { buildCartesianBaseOptions, buildCartesianTooltipOptions, resolveChartColor, toCandlestickSeries } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
+    import $style from '~flux/statistics/css/Chart.module.scss';
 
     const {
         advancedOptions = {},
         labels,
-        series
+        series,
+        tooltip = false
     } = defineProps<{
         readonly advancedOptions?: EChartsOption;
         readonly labels?: readonly string[];
         readonly series: readonly FluxStatisticsChartCandlestickSeries[];
+        readonly tooltip?: boolean;
     }>();
 
     const {t} = useI18n({useScope: 'parent'});
 
     const legendContext = inject(FluxStatisticsChartLegendInjectionKey, null);
+    const chartRef = useTemplateRef<InstanceType<typeof Chart>>('chartRef');
+    const chartInstance = computed<EChartsInstance | null>(() => chartRef.value?.chartInstance ?? null);
+
+    useChartHoverSync(chartInstance, legendContext, { mode: 'series' });
 
     const xAxisLabels = computed<readonly string[] | undefined>(() => {
         if (labels) {
@@ -78,6 +86,10 @@
             ? { xAxis: { type: 'category', data: xAxisLabels.value as string[] } }
             : undefined;
 
-        return merge({}, base, xAxisOverride ?? {}, advancedOptions, { series: echartsSeries.value });
+        const tooltipOptions: EChartsOption = tooltip
+            ? buildCartesianTooltipOptions(t, $style as never, () => series.map(s => s.icon))
+            : { tooltip: { show: false } };
+
+        return merge({}, base, xAxisOverride ?? {}, tooltipOptions, advancedOptions, { series: echartsSeries.value });
     });
 </script>

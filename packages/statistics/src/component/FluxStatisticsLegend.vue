@@ -3,12 +3,15 @@
         <slot v-if="hasSlot"/>
         <FluxStatisticsLegendItem
             v-else
-            v-for="item in autoItems"
+            v-for="(item, index) in autoItems"
             :key="item.label"
             :color="item.color as `#${string}` | undefined"
             :icon="item.icon"
+            :is-hovered="legendContext?.hoveredIndex.value === index"
             :label="item.label"
-            :value="item.value"/>
+            :value="item.value"
+            @mouseenter="onItemMouseEnter(index)"
+            @mouseleave="onItemMouseLeave"/>
     </div>
 </template>
 
@@ -25,4 +28,16 @@
 
     const hasSlot = computed(() => !!slots.default);
     const autoItems = computed(() => legendContext?.items.value ?? []);
+
+    function onItemMouseEnter(index: number): void {
+        if (legendContext) {
+            legendContext.hoveredIndex.value = index;
+        }
+    }
+
+    function onItemMouseLeave(): void {
+        if (legendContext) {
+            legendContext.hoveredIndex.value = null;
+        }
+    }
 </script>

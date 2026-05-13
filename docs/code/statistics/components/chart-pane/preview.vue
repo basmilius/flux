@@ -4,7 +4,7 @@
             icon="chart-pie"
             title="Sales by category"
             :aspect-ratio="1.5">
-            <FluxStatisticsDonutChart :series="series"/>
+            <FluxStatisticsDonutChart :slices="slices"/>
 
             <template #legend>
                 <FluxStatisticsLegend/>
@@ -16,17 +16,15 @@
 <script
     setup
     lang="ts">
+    import type { FluxStatisticsChartPieSlice } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsDonutChart, FluxStatisticsLegend } from '@flux-ui/statistics';
 
-    const series = [{
-        color: ['var(--primary-600)', '#10b981', '#3b82f6', '#f59e0b', '#8b5cf6', '#ec4899'],
-        data: [
-            { value: 32, name: 'Electronics' },
-            { value: 24, name: 'Clothing' },
-            { value: 16, name: 'Books' },
-            { value: 12, name: 'Home & Garden' },
-            { value: 10, name: 'Sports' },
-            { value: 6, name: 'Other' }
-        ]
-    }];
+    const slices: FluxStatisticsChartPieSlice[] = [
+        { label: 'Electronics', value: 32, color: 'primary' },
+        { label: 'Clothing', value: 24, color: '#10b981' },
+        { label: 'Books', value: 16, color: '#3b82f6' },
+        { label: 'Home & Garden', value: 12, color: '#f59e0b' },
+        { label: 'Sports', value: 10, color: '#8b5cf6' },
+        { label: 'Other', value: 6, color: '#ec4899' }
+    ];
 </script>

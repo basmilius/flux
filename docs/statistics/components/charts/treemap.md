@@ -6,6 +6,11 @@ props:
         description: The (optionally nested) tiles to render.
         type: FluxStatisticsChartTreemapNode[]
 
+    -   name: tooltip
+        description: Show a tooltip on hover. Disabled by default.
+        type: boolean
+        optional: true
+
     -   name: advanced-options
         description: Escape-hatch for raw ECharts options merged on top of the Flux defaults.
         type: EChartsOption
@@ -46,4 +51,8 @@ example=../../../code/statistics/components/charts/treemap/nested.vue
 
 ::: example Two categories || A simple two-tile split for a high-level breakdown.
 example=../../../code/statistics/components/charts/treemap/two-categories.vue
+:::
+
+::: example With tooltip || Enable the hover tooltip by setting the `tooltip` prop.
+example=../../../code/statistics/components/charts/treemap/with-tooltip.vue
 :::

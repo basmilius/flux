@@ -1,5 +1,7 @@
 <template>
-    <Chart :options="mergedOptions"/>
+    <Chart
+        ref="chartRef"
+        :options="mergedOptions"/>
 </template>
 
 <script
@@ -7,10 +9,10 @@
     setup>
     import type { FluxStatisticsChartLineSeries } from '@flux-ui/types';
     import { merge } from 'lodash-es';
-    import { computed, inject, watchEffect } from 'vue';
+    import { computed, inject, useTemplateRef, watchEffect } from 'vue';
     import { useI18n } from 'vue-i18n';
-    import { type ChartLegendItem, FluxStatisticsChartLegendInjectionKey } from '~flux/statistics/composable';
-    import type { EChartsOption } from '~flux/statistics/composable';
+    import { type ChartLegendItem, FluxStatisticsChartLegendInjectionKey, useChartHoverSync } from '~flux/statistics/composable';
+    import type { EChartsInstance, EChartsOption } from '~flux/statistics/composable';
     import { buildCartesianTooltipOptions, cartesianFallbackLabels, CHART_DEFAULT_COLORS, extractLabels, resolveChartColor, toLineSeries } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
     import $style from '~flux/statistics/css/Chart.module.scss';
@@ -18,16 +20,22 @@
     const {
         advancedOptions = {},
         labels,
-        series
+        series,
+        tooltip = false
     } = defineProps<{
         readonly advancedOptions?: EChartsOption;
         readonly labels?: readonly string[];
         readonly series: readonly FluxStatisticsChartLineSeries[];
+        readonly tooltip?: boolean;
     }>();
 
     const {t} = useI18n({useScope: 'parent'});
 
     const legendContext = inject(FluxStatisticsChartLegendInjectionKey, null);
+    const chartRef = useTemplateRef<InstanceType<typeof Chart>>('chartRef');
+    const chartInstance = computed<EChartsInstance | null>(() => chartRef.value?.chartInstance ?? null);
+
+    useChartHoverSync(chartInstance, legendContext, { mode: 'series' });
 
     const palette = computed<readonly string[]>(() =>
         series.map((s, i) => resolveChartColor(s.color) ?? CHART_DEFAULT_COLORS[i % CHART_DEFAULT_COLORS.length])
@@ -60,7 +68,9 @@
             yAxis: { type: 'value', show: false }
         };
 
-        const tooltipOptions = buildCartesianTooltipOptions(t, $style as never, () => series.map(s => s.icon));
+        const tooltipOptions: EChartsOption = tooltip
+            ? buildCartesianTooltipOptions(t, $style as never, () => series.map(s => s.icon))
+            : { tooltip: { show: false } };
 
         return merge({}, base, tooltipOptions, advancedOptions, { series: echartsSeries.value, color: palette.value });
     });

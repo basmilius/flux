@@ -13,13 +13,20 @@
     --color: var(--primary-600);
 
     display: flex;
-    padding: 6px 0;
+    padding: 6px 9px;
+    margin: 0 -9px;
     align-items: flex-start;
     flex-flow: row nowrap;
     gap: 9px;
     font-size: 14px;
     line-height: 20px;
     white-space: nowrap;
+    border-radius: var(--radius-small);
+    transition: background var(--swift-out);
+}
+
+.statisticsLegendItem.isHovered {
+    background: var(--surface-hover);
 }
 
 .statisticsLegendItemColor {

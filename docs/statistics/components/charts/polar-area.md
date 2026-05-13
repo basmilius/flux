@@ -6,6 +6,11 @@ props:
         description: The polar slices to render. Each slice sweeps the same angle but its radius scales with `value`.
         type: FluxStatisticsChartPieSlice[]
 
+    -   name: tooltip
+        description: Show a tooltip on hover. Disabled by default.
+        type: boolean
+        optional: true
+
     -   name: advanced-options
         description: Escape-hatch for raw ECharts options merged on top of the Flux defaults.
         type: EChartsOption
@@ -46,4 +51,8 @@ example=../../../code/statistics/components/charts/polar-area/with-icons.vue
 
 ::: example Few segments || A focused polar area chart with three segments.
 example=../../../code/statistics/components/charts/polar-area/few-segments.vue
+:::
+
+::: example With tooltip || Enable the hover tooltip by setting the `tooltip` prop.
+example=../../../code/statistics/components/charts/polar-area/with-tooltip.vue
 :::

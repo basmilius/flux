@@ -1,5 +1,6 @@
 <template>
     <Chart
+        ref="chartRef"
         :options="mergedOptions"/>
 </template>
 
@@ -8,10 +9,10 @@
     setup>
     import type { FluxStatisticsChartRadarIndicator, FluxStatisticsChartRadarSeries } from '@flux-ui/types';
     import { merge } from 'lodash-es';
-    import { computed, inject, watchEffect } from 'vue';
+    import { computed, inject, useTemplateRef, watchEffect } from 'vue';
     import { useI18n } from 'vue-i18n';
-    import { type ChartLegendItem, FluxStatisticsChartLegendInjectionKey } from '~flux/statistics/composable';
-    import type { EChartsOption } from '~flux/statistics/composable';
+    import { type ChartLegendItem, FluxStatisticsChartLegendInjectionKey, useChartHoverSync } from '~flux/statistics/composable';
+    import type { EChartsInstance, EChartsOption } from '~flux/statistics/composable';
     import { CHART_DEFAULT_COLORS, POLAR_BASE_OPTIONS, resolveChartColor, type SharedTooltipItem, toRadarSeries, type TooltipParam, type TooltipStyleClasses } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
     import $style from '~flux/statistics/css/Chart.module.scss';
@@ -19,16 +20,22 @@
     const {
         advancedOptions = {},
         indicators,
-        series
+        series,
+        tooltip = false
     } = defineProps<{
         readonly advancedOptions?: EChartsOption;
         readonly indicators: readonly FluxStatisticsChartRadarIndicator[];
         readonly series: readonly FluxStatisticsChartRadarSeries[];
+        readonly tooltip?: boolean;
     }>();
 
     const {t} = useI18n({useScope: 'parent'});
 
     const legendContext = inject(FluxStatisticsChartLegendInjectionKey, null);
+    const chartRef = useTemplateRef<InstanceType<typeof Chart>>('chartRef');
+    const chartInstance = computed<EChartsInstance | null>(() => chartRef.value?.chartInstance ?? null);
+
+    useChartHoverSync(chartInstance, legendContext, { mode: 'data' });
 
     const palette = computed<readonly string[]>(() =>
         series.map((s, i) => resolveChartColor(s.color) ?? CHART_DEFAULT_COLORS[i % CHART_DEFAULT_COLORS.length])
@@ -107,15 +114,21 @@
         return `${titleHtml}<div class="${styles.statisticsChartTooltipBody}">${body}</div>`;
     };
 
-    const tooltipOptions: EChartsOption = {
-        tooltip: {
-            show: true,
-            trigger: 'item',
-            formatter: tooltipFormatter as never
+    const tooltipOptions = computed<EChartsOption>(() => {
+        if (!tooltip) {
+            return { tooltip: { show: false } };
         }
-    };
+
+        return {
+            tooltip: {
+                show: true,
+                trigger: 'item',
+                formatter: tooltipFormatter as never
+            }
+        };
+    });
 
     const mergedOptions = computed<EChartsOption>(() =>
-        merge({}, POLAR_BASE_OPTIONS, radarConfig.value, tooltipOptions, advancedOptions, { series: echartsSeries.value, color: palette.value })
+        merge({}, POLAR_BASE_OPTIONS, radarConfig.value, tooltipOptions.value, advancedOptions, { series: echartsSeries.value, color: palette.value })
     );
 </script>

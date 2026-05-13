@@ -10,6 +10,11 @@ props:
         description: The named axes of the radar chart. Order must match the order of values in each series.
         type: FluxStatisticsChartRadarIndicator[]
 
+    -   name: tooltip
+        description: Show a tooltip on hover. Disabled by default.
+        type: boolean
+        optional: true
+
     -   name: advanced-options
         description: Escape-hatch for raw ECharts options merged on top of the Flux defaults.
         type: EChartsOption
@@ -50,4 +55,8 @@ example=../../../code/statistics/components/charts/radar/with-icons.vue
 
 ::: example Many axes || A radar chart with a wider scorecard spanning eight indicators.
 example=../../../code/statistics/components/charts/radar/many-axes.vue
+:::
+
+::: example With tooltip || Enable the hover tooltip by setting the `tooltip` prop.
+example=../../../code/statistics/components/charts/radar/with-tooltip.vue
 :::

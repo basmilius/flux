@@ -12,17 +12,20 @@
     import { computed } from 'vue';
     import { useI18n } from 'vue-i18n';
     import type { EChartsOption } from '~flux/statistics/composable';
-    import { buildCartesianBaseOptions, toHeatmapSeries } from '~flux/statistics/util';
+    import { buildCartesianBaseOptions, buildHeatmapTooltipOptions, toHeatmapSeries } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
+    import $style from '~flux/statistics/css/Chart.module.scss';
 
     const {
         advancedOptions = {},
         series,
+        tooltip = false,
         xLabels = [],
         yLabels = []
     } = defineProps<{
         readonly advancedOptions?: EChartsOption;
         readonly series: readonly FluxStatisticsChartHeatmapSeries[];
+        readonly tooltip?: boolean;
         readonly xLabels?: readonly string[];
         readonly yLabels?: readonly string[];
     }>();
@@ -65,6 +68,10 @@
             }
         };
 
-        return merge({}, base, advancedOptions, { series: echartsSeries.value });
+        const tooltipOptions: EChartsOption = tooltip
+            ? buildHeatmapTooltipOptions(t, $style as never, () => series)
+            : { tooltip: { show: false } };
+
+        return merge({}, base, tooltipOptions, advancedOptions, { series: echartsSeries.value });
     });
 </script>

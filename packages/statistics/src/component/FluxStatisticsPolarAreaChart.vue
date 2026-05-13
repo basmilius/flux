@@ -1,5 +1,7 @@
 <template>
-    <Chart :options="mergedOptions"/>
+    <Chart
+        ref="chartRef"
+        :options="mergedOptions"/>
 </template>
 
 <script
@@ -7,25 +9,31 @@
     setup>
     import type { FluxStatisticsChartPieSlice } from '@flux-ui/types';
     import { merge } from 'lodash-es';
-    import { computed, inject, watchEffect } from 'vue';
+    import { computed, inject, useTemplateRef, watchEffect } from 'vue';
     import { useI18n } from 'vue-i18n';
-    import { type ChartLegendItem, FluxStatisticsChartLegendInjectionKey } from '~flux/statistics/composable';
-    import type { EChartsOption } from '~flux/statistics/composable';
+    import { type ChartLegendItem, FluxStatisticsChartLegendInjectionKey, useChartHoverSync } from '~flux/statistics/composable';
+    import type { EChartsInstance, EChartsOption } from '~flux/statistics/composable';
     import { buildSharedItemTooltipFormatter, CHART_DEFAULT_COLORS, POLAR_BASE_OPTIONS, resolveChartColor, type SharedTooltipItem, toPolarAreaSeries } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
     import $style from '~flux/statistics/css/Chart.module.scss';
 
     const {
         advancedOptions = {},
-        slices
+        slices,
+        tooltip = false
     } = defineProps<{
         readonly advancedOptions?: EChartsOption;
         readonly slices: readonly FluxStatisticsChartPieSlice[];
+        readonly tooltip?: boolean;
     }>();
 
     const {t} = useI18n({useScope: 'parent'});
 
     const legendContext = inject(FluxStatisticsChartLegendInjectionKey, null);
+    const chartRef = useTemplateRef<InstanceType<typeof Chart>>('chartRef');
+    const chartInstance = computed<EChartsInstance | null>(() => chartRef.value?.chartInstance ?? null);
+
+    useChartHoverSync(chartInstance, legendContext, { mode: 'data' });
 
     const palette = computed<readonly string[]>(() =>
         slices.map((slice, i) => resolveChartColor(slice.color) ?? CHART_DEFAULT_COLORS[i % CHART_DEFAULT_COLORS.length])
@@ -40,13 +48,19 @@
         }))
     );
 
-    const tooltipOptions = computed<EChartsOption>(() => ({
-        tooltip: {
-            show: true,
-            trigger: 'item',
-            formatter: buildSharedItemTooltipFormatter(t, $style as never, () => tooltipItems.value) as never
+    const tooltipOptions = computed<EChartsOption>(() => {
+        if (!tooltip) {
+            return { tooltip: { show: false } };
         }
-    }));
+
+        return {
+            tooltip: {
+                show: true,
+                trigger: 'item',
+                formatter: buildSharedItemTooltipFormatter(t, $style as never, () => tooltipItems.value) as never
+            }
+        };
+    });
 
     const echartsSeries = computed(() => [toPolarAreaSeries(slices, palette.value)]);
 

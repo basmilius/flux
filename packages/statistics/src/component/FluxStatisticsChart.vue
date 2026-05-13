@@ -42,5 +42,7 @@
         return deepResolveCssVars(merged);
     });
 
-    useECharts(chart, mergedOptions);
+    const { chartInstance } = useECharts(chart, mergedOptions);
+
+    defineExpose({ chartInstance });
 </script>
