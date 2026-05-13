@@ -3,7 +3,7 @@
         icon="chart-pie"
         title="Traffic sources"
         :aspect-ratio="1.5">
-        <FluxStatisticsDonutChart :series="series"/>
+        <FluxStatisticsDonutChart :slices="slices"/>
 
         <template #legend>
             <FluxStatisticsLegend/>
@@ -14,15 +14,13 @@
 <script
     setup
     lang="ts">
+    import type { FluxStatisticsChartPieSlice } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsDonutChart, FluxStatisticsLegend } from '@flux-ui/statistics';
 
-    const series = [{
-        color: ['var(--primary-600)', '#10b981', '#3b82f6', '#f59e0b'],
-        data: [
-            { value: 44, name: 'Organic' },
-            { value: 28, name: 'Direct' },
-            { value: 18, name: 'Referral' },
-            { value: 10, name: 'Social' }
-        ]
-    }];
+    const slices: FluxStatisticsChartPieSlice[] = [
+        { label: 'Organic', value: 44, color: 'primary' },
+        { label: 'Direct', value: 28, color: '#10b981' },
+        { label: 'Referral', value: 18, color: '#3b82f6' },
+        { label: 'Social', value: 10, color: '#f59e0b' }
+    ];
 </script>

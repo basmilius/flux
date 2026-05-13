@@ -5,8 +5,9 @@
             title="Weekly activity"
             :aspect-ratio="2.4">
             <FluxStatisticsHeatmapChart
-                :options="options"
-                :series="series"/>
+                :series="series"
+                :x-labels="weeks"
+                :y-labels="days"/>
         </FluxStatisticsChartPane>
     </Preview>
 </template>
@@ -14,20 +15,15 @@
 <script
     setup
     lang="ts">
-    import type { EChartsOption } from 'echarts/core';
+    import type { FluxStatisticsChartHeatmapPoint, FluxStatisticsChartHeatmapSeries } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsHeatmapChart } from '@flux-ui/statistics';
 
     const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
     const weeks = Array.from({ length: 12 }, (_, i) => `W${i + 1}`);
 
-    const data = days.flatMap((_, dayIdx) =>
-        weeks.map((_, weekIdx) => [weekIdx, dayIdx, Math.round(Math.random() * 100)] as [number, number, number])
+    const data: FluxStatisticsChartHeatmapPoint[] = days.flatMap(day =>
+        weeks.map(week => ({ x: week, y: day, value: Math.round(Math.random() * 100) }))
     );
 
-    const series = [{ data }];
-
-    const options: EChartsOption = {
-        xAxis: { data: weeks },
-        yAxis: { data: days }
-    };
+    const series: FluxStatisticsChartHeatmapSeries[] = [{ data }];
 </script>

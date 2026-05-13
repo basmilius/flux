@@ -3,16 +3,16 @@ outline: deep
 
 props:
     -   name: series
-        description: The data series. Each data point must contain `x` (label) and `y` as `[min, q1, median, q3, max]`.
-        type: EChartsOption['series']
+        description: The data series. Each point holds `min`, `q1`, `median`, `q3`, and `max` values.
+        type: FluxStatisticsChartBoxPlotSeries[]
 
-    -   name: aspect-ratio
-        description: The aspect ratio of the chart.
-        type: number
+    -   name: labels
+        description: X-axis category labels. If omitted, the `label` field on each point is used.
+        type: string[]
         optional: true
 
-    -   name: options
-        description: Additional ECharts options to merge with the defaults.
+    -   name: advanced-options
+        description: Escape-hatch for raw ECharts options merged on top of the Flux defaults.
         type: EChartsOption
         optional: true
 ---
@@ -43,4 +43,12 @@ example=../../../code/statistics/components/charts/box-plot/multi-category.vue
 
 ::: example Tight distribution || A box plot showing tightly clustered distributions.
 example=../../../code/statistics/components/charts/box-plot/tight-distribution.vue
+:::
+
+::: example Wide spread || A box plot with wide whiskers showing large variance per route.
+example=../../../code/statistics/components/charts/box-plot/wide-spread.vue
+:::
+
+::: example Single category || A focused single-category box plot.
+example=../../../code/statistics/components/charts/box-plot/single-category.vue
 :::

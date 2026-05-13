@@ -1,7 +1,10 @@
-import { type InjectionKey, type Ref, ref } from 'vue';
+import type { FluxIconName } from '@flux-ui/types';
+import type { InjectionKey, Ref } from 'vue';
+import { ref } from 'vue';
 
 export interface ChartLegendItem {
-    readonly color: string;
+    readonly color?: string;
+    readonly icon?: FluxIconName;
     readonly label: string;
     readonly value?: string | number;
 }

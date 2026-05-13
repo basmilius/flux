@@ -79,5 +79,28 @@ export type {
 } from './notify';
 
 export type {
-    FluxStatisticsChange
+    FluxStatisticsChange,
+    FluxStatisticsChartAreaSeries,
+    FluxStatisticsChartBarSeries,
+    FluxStatisticsChartBoxPlotPoint,
+    FluxStatisticsChartBoxPlotSeries,
+    FluxStatisticsChartBubblePoint,
+    FluxStatisticsChartBubbleSeries,
+    FluxStatisticsChartCandlestickPoint,
+    FluxStatisticsChartCandlestickSeries,
+    FluxStatisticsChartCartesianSeries,
+    FluxStatisticsChartCategoryPoint,
+    FluxStatisticsChartColor,
+    FluxStatisticsChartGaugeSeries,
+    FluxStatisticsChartHeatmapPoint,
+    FluxStatisticsChartHeatmapSeries,
+    FluxStatisticsChartLineSeries,
+    FluxStatisticsChartMixedSeries,
+    FluxStatisticsChartPieSlice,
+    FluxStatisticsChartRadarIndicator,
+    FluxStatisticsChartRadarSeries,
+    FluxStatisticsChartScatterPoint,
+    FluxStatisticsChartScatterSeries,
+    FluxStatisticsChartTreemapNode,
+    FluxStatisticsChartTreemapSeries
 } from './statistics';

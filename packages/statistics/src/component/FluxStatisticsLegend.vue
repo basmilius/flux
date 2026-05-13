@@ -5,7 +5,8 @@
             v-else
             v-for="item in autoItems"
             :key="item.label"
-            :color="item.color as `#${string}`"
+            :color="item.color as `#${string}` | undefined"
+            :icon="item.icon"
             :label="item.label"
             :value="item.value"/>
     </div>

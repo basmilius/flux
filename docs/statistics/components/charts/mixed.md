@@ -3,16 +3,16 @@ outline: deep
 
 props:
     -   name: series
-        description: The data series for the chart. Each series may declare its own `type` (`line`, `bar`, or `area`) to combine chart types.
-        type: EChartsOption['series']
+        description: The data series for the chart. Each series declares its own `type` (`line`, `bar`, or `area`) to combine chart types.
+        type: FluxStatisticsChartMixedSeries[]
 
-    -   name: aspect-ratio
-        description: The aspect ratio of the chart.
-        type: number
+    -   name: labels
+        description: X-axis category labels.
+        type: string[]
         optional: true
 
-    -   name: options
-        description: Additional ECharts options to merge with the defaults.
+    -   name: advanced-options
+        description: Escape-hatch for raw ECharts options merged on top of the Flux defaults.
         type: EChartsOption
         optional: true
 ---
@@ -43,4 +43,12 @@ example=../../../code/statistics/components/charts/mixed/area-and-line.vue
 
 ::: example Three series || A combination of bar, line, and area series in one chart.
 example=../../../code/statistics/components/charts/mixed/three-series.vue
+:::
+
+::: example With icons || A mixed chart whose series carry icons that surface in the legend and tooltip.
+example=../../../code/statistics/components/charts/mixed/with-icons.vue
+:::
+
+::: example Area with line || An area for open pipeline value layered with a line for closed-won deals.
+example=../../../code/statistics/components/charts/mixed/area-with-line.vue
 :::

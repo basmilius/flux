@@ -284,7 +284,8 @@ export default defineConfig({
                     items: [
                         {text: 'What is Flux Statistics?', link: '/statistics/'},
                         {text: 'Installation', link: '/statistics/introduction/installation'},
-                        {text: 'Chart colors', link: '/statistics/introduction/colors'}
+                        {text: 'Chart colors', link: '/statistics/introduction/colors'},
+                        {text: 'Chart types', link: '/statistics/introduction/types'}
                     ]
                 },
                 {

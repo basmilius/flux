@@ -6,44 +6,40 @@
 <script
     lang="ts"
     setup>
-    import type { ScatterSeriesOption } from 'echarts/charts';
+    import type { FluxStatisticsChartScatterSeries } from '@flux-ui/types';
     import { merge } from 'lodash-es';
     import { computed, inject, watchEffect } from 'vue';
     import { useI18n } from 'vue-i18n';
     import { type ChartLegendItem, FluxStatisticsChartLegendInjectionKey } from '~flux/statistics/composable';
     import type { EChartsOption } from '~flux/statistics/composable';
-    import { buildCartesianBaseOptions, CHART_DEFAULT_COLORS, SCATTER_SERIES_DEFAULTS } from '~flux/statistics/util';
+    import { buildCartesianBaseOptions, CHART_DEFAULT_COLORS, resolveChartColor, toScatterSeries } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
 
     const {
-        options = {},
+        advancedOptions = {},
         series
     } = defineProps<{
-        readonly options?: EChartsOption;
-        readonly series: readonly ScatterSeriesOption[];
+        readonly advancedOptions?: EChartsOption;
+        readonly series: readonly FluxStatisticsChartScatterSeries[];
     }>();
 
     const {t} = useI18n({useScope: 'parent'});
 
     const legendContext = inject(FluxStatisticsChartLegendInjectionKey, null);
 
-    const translatedSeries = computed<ScatterSeriesOption[]>(() =>
-        series.map(item => ({
-            ...SCATTER_SERIES_DEFAULTS,
-            ...item,
-            name: item.name ? t(String(item.name)) : undefined
-        }))
+    const palette = computed<readonly string[]>(() =>
+        series.map((s, i) => resolveChartColor(s.color) ?? CHART_DEFAULT_COLORS[i % CHART_DEFAULT_COLORS.length])
     );
 
-    const palette = computed<readonly string[]>(() => {
-        const userColors = (options as { color?: unknown }).color;
-        return Array.isArray(userColors) ? userColors as readonly string[] : CHART_DEFAULT_COLORS;
-    });
+    const echartsSeries = computed(() => series.map((s, i) =>
+        toScatterSeries({ ...s, name: s.name ? t(String(s.name)) : undefined }, palette.value[i])
+    ));
 
     const legendItems = computed<readonly ChartLegendItem[]>(() =>
-        translatedSeries.value.map((s, index) => ({
-            color: palette.value[index % palette.value.length],
-            label: s.name ?? ''
+        series.map((s, i) => ({
+            color: palette.value[i],
+            icon: s.icon,
+            label: s.name ? t(String(s.name)) : ''
         }))
     );
 
@@ -61,6 +57,6 @@
     });
 
     const mergedOptions = computed<EChartsOption>(() =>
-        merge({}, base, options, { series: translatedSeries.value })
+        merge({}, base, advancedOptions, { series: echartsSeries.value, color: palette.value })
     );
 </script>

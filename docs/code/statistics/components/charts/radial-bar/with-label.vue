@@ -10,17 +10,10 @@
 <script
     setup
     lang="ts">
+    import type { FluxStatisticsChartGaugeSeries } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsRadialBar } from '@flux-ui/statistics';
 
-    const series = [{
-        data: [{ value: 63, name: 'Average' }],
-        detail: {
-            formatter: (value: number) => `${value}%`
-        },
-        title: {
-            color: 'var(--foreground-secondary)',
-            fontSize: 13,
-            fontWeight: 500
-        }
-    }];
+    const series: FluxStatisticsChartGaugeSeries[] = [
+        { name: 'Average', value: 63 }
+    ];
 </script>

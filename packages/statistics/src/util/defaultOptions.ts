@@ -1,6 +1,8 @@
 import { formatNumber } from '@basmilius/utils';
+import type { FluxIconName } from '@flux-ui/types';
 import type { PieSeriesOption, RadarSeriesOption } from 'echarts/charts';
 import type { EChartsOption } from '~flux/statistics/composable';
+import { renderIconSvg } from './iconSvg';
 
 export interface TooltipParam {
     readonly seriesName?: string;
@@ -22,6 +24,7 @@ export type TooltipStyleClasses = {
     readonly statisticsChartTooltipSectionTitle: string;
     readonly statisticsChartTooltipSectionBody: string;
     readonly statisticsChartTooltipSeriesColor: string;
+    readonly statisticsChartTooltipSeriesIcon: string;
     readonly statisticsChartTooltipSeriesName: string;
     readonly statisticsChartTooltipSeriesValue: string;
     readonly isActive: string;
@@ -34,6 +37,7 @@ export interface SharedTooltipItem {
     readonly name: string;
     readonly value: number | string;
     readonly color: string;
+    readonly icon?: FluxIconName;
 }
 
 export const CHART_DEFAULT_COLORS = [
@@ -43,7 +47,11 @@ export const CHART_DEFAULT_COLORS = [
     'var(--chart-4)'
 ] as const;
 
-export function buildTooltipFormatter(t: Translator, styles: TooltipStyleClasses) {
+export function buildTooltipFormatter(
+    t: Translator,
+    styles: TooltipStyleClasses,
+    getSeriesIcons?: () => readonly (FluxIconName | undefined)[]
+) {
     return (params: TooltipParam | TooltipParam[]): string => {
         const items = Array.isArray(params) ? params : [params];
 
@@ -53,12 +61,28 @@ export function buildTooltipFormatter(t: Translator, styles: TooltipStyleClasses
 
         const rawTitle = items[0].axisValueLabel ?? items[0].axisValue ?? items[0].name ?? '';
         const title = rawTitle ? t(String(rawTitle)) : '';
+        const icons = getSeriesIcons?.();
 
         return renderTooltip(t, styles, title, items.map(param => ({
             name: param.seriesName ?? '',
             value: extractValue(param.value),
-            color: param.color
+            color: param.color,
+            icon: icons?.[param.seriesIndex]
         })));
+    };
+}
+
+export function buildCartesianTooltipOptions(
+    t: Translator,
+    styles: TooltipStyleClasses,
+    getSeriesIcons: () => readonly (FluxIconName | undefined)[]
+): EChartsOption {
+    return {
+        tooltip: {
+            show: true,
+            trigger: 'axis',
+            formatter: buildTooltipFormatter(t, styles, getSeriesIcons) as never
+        }
     };
 }
 
@@ -106,8 +130,12 @@ function renderTooltip(
         const activeClass = isActive ? ` ${styles.isActive}` : '';
         const translatedName = item.name ? t(String(item.name)) : '';
 
+        const marker = item.icon
+            ? `<div class="${styles.statisticsChartTooltipSeriesIcon}${activeClass}" style="color: ${item.color}">${renderIconSvg(item.icon, item.color, 14)}</div>`
+            : `<div class="${styles.statisticsChartTooltipSeriesColor}${activeClass}" style="background: ${item.color}"></div>`;
+
         return `
-            <div class="${styles.statisticsChartTooltipSeriesColor}${activeClass}" style="background: ${item.color}"></div>
+            ${marker}
             <div class="${styles.statisticsChartTooltipSeriesName}${activeClass}">${translatedName}</div>
             <div class="${styles.statisticsChartTooltipSeriesValue}${activeClass}">${formatValue(item.value)}</div>
         `;

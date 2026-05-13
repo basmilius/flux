@@ -14,11 +14,12 @@
 <script
     setup
     lang="ts">
+    import type { FluxStatisticsChartScatterSeries } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsLegend, FluxStatisticsScatterChart } from '@flux-ui/statistics';
 
-    const series = [
-        { name: 'New', data: [[10, 14], [20, 22], [30, 18], [40, 26], [50, 33]] },
-        { name: 'Returning', data: [[12, 30], [25, 38], [38, 41], [48, 47], [60, 55]] },
-        { name: 'VIP', data: [[18, 65], [32, 72], [44, 80], [56, 85], [70, 92]] }
+    const series: FluxStatisticsChartScatterSeries[] = [
+        { name: 'New', data: [{ x: 10, y: 14 }, { x: 20, y: 22 }, { x: 30, y: 18 }, { x: 40, y: 26 }, { x: 50, y: 33 }] },
+        { name: 'Returning', data: [{ x: 12, y: 30 }, { x: 25, y: 38 }, { x: 38, y: 41 }, { x: 48, y: 47 }, { x: 60, y: 55 }] },
+        { name: 'VIP', data: [{ x: 18, y: 65 }, { x: 32, y: 72 }, { x: 44, y: 80 }, { x: 56, y: 85 }, { x: 70, y: 92 }] }
     ];
 </script>

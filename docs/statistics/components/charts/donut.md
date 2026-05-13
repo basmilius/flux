@@ -2,17 +2,12 @@
 outline: deep
 
 props:
-    -   name: series
-        description: The data series for the chart, compatible with the ECharts series format.
-        type: EChartsOption['series']
+    -   name: slices
+        description: The donut slices to render.
+        type: FluxStatisticsChartPieSlice[]
 
-    -   name: aspect-ratio
-        description: The aspect ratio of the chart.
-        type: number
-        optional: true
-
-    -   name: options
-        description: Additional ECharts options to merge with the defaults.
+    -   name: advanced-options
+        description: Escape-hatch for raw ECharts options merged on top of the Flux defaults.
         type: EChartsOption
         optional: true
 ---
@@ -35,4 +30,12 @@ This component is best used inside a [Chart pane](../chart-pane).
 
 ::: example In a chart pane || A donut chart inside a chart pane with matching colors and a legend.
 example=../../../code/statistics/components/charts/donut/in-chart-pane.vue
+:::
+
+::: example With icons || A donut chart whose slices carry icons that surface in the legend and tooltip.
+example=../../../code/statistics/components/charts/donut/with-icons.vue
+:::
+
+::: example Minimal || A focused two-slice donut chart without a legend.
+example=../../../code/statistics/components/charts/donut/minimal.vue
 :::

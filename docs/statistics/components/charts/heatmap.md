@@ -3,16 +3,21 @@ outline: deep
 
 props:
     -   name: series
-        description: The data series for the chart, compatible with the ECharts series format.
-        type: EChartsOption['series']
+        description: The data series for the heatmap. Each point holds named `x`, `y`, and `value` fields.
+        type: FluxStatisticsChartHeatmapSeries[]
 
-    -   name: aspect-ratio
-        description: The aspect ratio of the chart.
-        type: number
+    -   name: x-labels
+        description: Category labels for the X-axis.
+        type: string[]
         optional: true
 
-    -   name: options
-        description: Additional ECharts options to merge with the defaults.
+    -   name: y-labels
+        description: Category labels for the Y-axis.
+        type: string[]
+        optional: true
+
+    -   name: advanced-options
+        description: Escape-hatch for raw ECharts options merged on top of the Flux defaults. Use for custom `visualMap` ranges.
         type: EChartsOption
         optional: true
 ---
@@ -43,4 +48,12 @@ example=../../../code/statistics/components/charts/heatmap/single-series.vue
 
 ::: example Custom colors || A heatmap configured with a custom color scale.
 example=../../../code/statistics/components/charts/heatmap/custom-colors.vue
+:::
+
+::: example Cohort retention || A retention heatmap that fades as cohorts decay over time.
+example=../../../code/statistics/components/charts/heatmap/sparse.vue
+:::
+
+::: example Punchcard || A weekly punchcard heatmap highlighting peak working hours.
+example=../../../code/statistics/components/charts/heatmap/punchcard.vue
 :::

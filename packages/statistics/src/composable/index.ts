@@ -1,12 +1,4 @@
-export {
-    type ChartLegendContext,
-    type ChartLegendItem,
-    createChartLegendContext,
-    FluxStatisticsChartLegendInjectionKey
-} from './useChartLegend';
-export {
-    type EChartsInstance,
-    type EChartsOption,
-    type UseEChartsReturn,
-    useECharts
-} from './useECharts';
+export type { ChartLegendContext, ChartLegendItem } from './useChartLegend';
+export { createChartLegendContext, FluxStatisticsChartLegendInjectionKey } from './useChartLegend';
+export type { EChartsInstance, EChartsOption, UseEChartsReturn } from './useECharts';
+export { useECharts } from './useECharts';

@@ -3,16 +3,11 @@ outline: deep
 
 props:
     -   name: series
-        description: The data series for the chart, compatible with the ECharts series format.
-        type: EChartsOption['series']
+        description: The data series for the chart.
+        type: FluxStatisticsChartScatterSeries[]
 
-    -   name: aspect-ratio
-        description: The aspect ratio of the chart.
-        type: number
-        optional: true
-
-    -   name: options
-        description: Additional ECharts options to merge with the defaults.
+    -   name: advanced-options
+        description: Escape-hatch for raw ECharts options merged on top of the Flux defaults.
         type: EChartsOption
         optional: true
 ---
@@ -43,4 +38,12 @@ example=../../../code/statistics/components/charts/scatter/multi-series.vue
 
 ::: example With markers || A scatter chart with larger, hollow markers for sparse data.
 example=../../../code/statistics/components/charts/scatter/with-markers.vue
+:::
+
+::: example Clustered || A scatter chart with three visually distinct clusters.
+example=../../../code/statistics/components/charts/scatter/clustered.vue
+:::
+
+::: example With icons || A scatter chart whose series carry icons in the legend.
+example=../../../code/statistics/components/charts/scatter/with-icons.vue
 :::

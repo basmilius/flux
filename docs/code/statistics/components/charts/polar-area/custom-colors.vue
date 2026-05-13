@@ -3,22 +3,20 @@
         icon="chart-pie"
         title="Operational status"
         :aspect-ratio="1.4">
-        <FluxStatisticsPolarAreaChart :series="series"/>
+        <FluxStatisticsPolarAreaChart :slices="slices"/>
     </FluxStatisticsChartPane>
 </template>
 
 <script
     setup
     lang="ts">
+    import type { FluxStatisticsChartPieSlice } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsPolarAreaChart } from '@flux-ui/statistics';
 
-    const series = [{
-        color: ['var(--success-500)', 'var(--warning-500)', 'var(--danger-500)', 'var(--gray-400)'],
-        data: [
-            { value: 62, name: 'Healthy' },
-            { value: 24, name: 'Degraded' },
-            { value: 10, name: 'Down' },
-            { value: 4, name: 'Unknown' }
-        ]
-    }];
+    const slices: FluxStatisticsChartPieSlice[] = [
+        { label: 'Healthy', value: 62, color: 'success' },
+        { label: 'Degraded', value: 24, color: 'warning' },
+        { label: 'Down', value: 10, color: 'danger' },
+        { label: 'Unknown', value: 4, color: 'gray' }
+    ];
 </script>

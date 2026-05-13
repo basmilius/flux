@@ -6,86 +6,42 @@
 <script
     lang="ts"
     setup>
-    import type { RadarSeriesOption } from 'echarts/charts';
+    import type { FluxStatisticsChartRadarIndicator, FluxStatisticsChartRadarSeries } from '@flux-ui/types';
     import { merge } from 'lodash-es';
     import { computed, inject, watchEffect } from 'vue';
     import { useI18n } from 'vue-i18n';
     import { type ChartLegendItem, FluxStatisticsChartLegendInjectionKey } from '~flux/statistics/composable';
     import type { EChartsOption } from '~flux/statistics/composable';
-    import { buildSharedRadarTooltipOptions, CHART_DEFAULT_COLORS, POLAR_BASE_OPTIONS, type RadarIndicator, RADAR_SERIES_DEFAULTS } from '~flux/statistics/util';
+    import { CHART_DEFAULT_COLORS, POLAR_BASE_OPTIONS, resolveChartColor, type SharedTooltipItem, toRadarSeries, type TooltipParam, type TooltipStyleClasses } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
     import $style from '~flux/statistics/css/Chart.module.scss';
 
     const {
-        options = {},
+        advancedOptions = {},
+        indicators,
         series
     } = defineProps<{
-        readonly options?: EChartsOption;
-        readonly series: readonly RadarSeriesOption[];
+        readonly advancedOptions?: EChartsOption;
+        readonly indicators: readonly FluxStatisticsChartRadarIndicator[];
+        readonly series: readonly FluxStatisticsChartRadarSeries[];
     }>();
 
     const {t} = useI18n({useScope: 'parent'});
 
     const legendContext = inject(FluxStatisticsChartLegendInjectionKey, null);
 
-    const translatedSeries = computed<RadarSeriesOption[]>(() =>
-        series.map(item => ({
-            ...RADAR_SERIES_DEFAULTS,
-            ...item,
-            name: item.name ? t(String(item.name)) : undefined
-        }))
+    const palette = computed<readonly string[]>(() =>
+        series.map((s, i) => resolveChartColor(s.color) ?? CHART_DEFAULT_COLORS[i % CHART_DEFAULT_COLORS.length])
     );
 
-    const palette = computed<readonly string[]>(() => {
-        const seriesColor = (series[0] as { color?: unknown })?.color;
-        if (Array.isArray(seriesColor)) {
-            return seriesColor as readonly string[];
-        }
+    const echartsSeries = computed(() => [toRadarSeries(
+        series.map(s => ({ ...s, name: s.name ? t(String(s.name)) : undefined })),
+        palette.value
+    )]);
 
-        const userColors = (options as { color?: unknown }).color;
-        if (Array.isArray(userColors)) {
-            return userColors as readonly string[];
-        }
-
-        return CHART_DEFAULT_COLORS;
-    });
-
-    const indicators = computed<readonly RadarIndicator[]>(() => {
-        const indicatorList = (options as { radar?: { indicator?: unknown } }).radar?.indicator;
-        return Array.isArray(indicatorList) ? indicatorList as readonly RadarIndicator[] : [];
-    });
-
-    const tooltipOptions = computed<EChartsOption>(() =>
-        buildSharedRadarTooltipOptions(
-            t,
-            $style as never,
-            () => indicators.value,
-            () => series,
-            () => palette.value
-        )
-    );
-
-    const legendItems = computed<readonly ChartLegendItem[]>(() => {
-        const data = series[0]?.data as readonly { value?: unknown; name?: string }[] | undefined;
-        if (!data) {
-            return [];
-        }
-
-        return data.map((ring, index) => ({
-            color: palette.value[index % palette.value.length],
-            label: ring.name ? t(String(ring.name)) : ''
-        }));
-    });
-
-    watchEffect(() => {
-        if (legendContext) {
-            legendContext.items.value = legendItems.value;
-        }
-    });
-
-    const base: EChartsOption = {
-        ...POLAR_BASE_OPTIONS,
+    const radarConfig = computed(() => ({
         radar: {
+            indicator: indicators.map(i => ({ name: t(String(i.name)), max: i.max })),
             splitLine: { lineStyle: { color: 'var(--gray-200)' } },
             splitArea: { show: false },
             axisLine: { lineStyle: { color: 'var(--gray-200)' } },
@@ -95,9 +51,71 @@
                 fontWeight: 500
             }
         }
+    } as EChartsOption));
+
+    const legendItems = computed<readonly ChartLegendItem[]>(() =>
+        series.map((s, i) => ({
+            color: palette.value[i],
+            icon: s.icon,
+            label: s.name ? t(String(s.name)) : ''
+        }))
+    );
+
+    watchEffect(() => {
+        if (legendContext) {
+            legendContext.items.value = legendItems.value;
+        }
+    });
+
+    const tooltipFormatter = (params: TooltipParam | TooltipParam[]): string => {
+        const param = Array.isArray(params) ? params[0] : params;
+
+        if (!param) {
+            return '';
+        }
+
+        const ringIndex = param.dataIndex ?? 0;
+        const ring = series[ringIndex];
+
+        if (!ring) {
+            return '';
+        }
+
+        const styles = $style as unknown as TooltipStyleClasses;
+        const color = palette.value[ringIndex % palette.value.length];
+        const title = ring.name ? t(String(ring.name)) : '';
+
+        const tooltipItems: SharedTooltipItem[] = indicators.map((indicator, idx) => ({
+            name: indicator.name,
+            value: ring.values[idx] ?? '',
+            color
+        }));
+
+        const titleHtml = title
+            ? `<div class="${styles.statisticsChartTooltipTitle}">${title}</div>`
+            : '';
+
+        const body = tooltipItems.map(item => {
+            const translatedName = item.name ? t(String(item.name)) : '';
+            return `
+                <div class="${styles.statisticsChartTooltipSeriesColor} ${styles.isActive}" style="background: ${item.color}"></div>
+                <div class="${styles.statisticsChartTooltipSeriesName} ${styles.isActive}">${translatedName}</div>
+                <div class="${styles.statisticsChartTooltipSeriesValue} ${styles.isActive}">${item.value}</div>
+            `;
+        }).join('');
+
+        return `${titleHtml}<div class="${styles.statisticsChartTooltipBody}">${body}</div>`;
+    };
+
+    const tooltipOptions: EChartsOption = {
+        tooltip: {
+            show: true,
+            trigger: 'item',
+            formatter: tooltipFormatter as never
+        }
     };
 
     const mergedOptions = computed<EChartsOption>(() =>
-        merge({}, base, tooltipOptions.value, options, { series: translatedSeries.value })
+        merge({}, POLAR_BASE_OPTIONS, radarConfig.value, tooltipOptions, advancedOptions, { series: echartsSeries.value, color: palette.value })
     );
 </script>

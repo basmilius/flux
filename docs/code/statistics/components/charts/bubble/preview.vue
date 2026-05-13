@@ -12,16 +12,23 @@
 <script
     setup
     lang="ts">
+    import type { FluxStatisticsChartBubbleSeries } from '@flux-ui/types';
     import { FluxStatisticsBubbleChart, FluxStatisticsChartPane } from '@flux-ui/statistics';
 
-    const series = [
+    const series: FluxStatisticsChartBubbleSeries[] = [
         {
             name: 'Group A',
-            data: [[10, 30, 12], [25, 45, 18], [40, 28, 26], [55, 60, 22], [70, 38, 30]]
+            data: [
+                { x: 10, y: 30, size: 12 }, { x: 25, y: 45, size: 18 }, { x: 40, y: 28, size: 26 },
+                { x: 55, y: 60, size: 22 }, { x: 70, y: 38, size: 30 }
+            ]
         },
         {
             name: 'Group B',
-            data: [[15, 22, 15], [30, 38, 12], [45, 50, 24], [60, 32, 18], [75, 55, 28]]
+            data: [
+                { x: 15, y: 22, size: 15 }, { x: 30, y: 38, size: 12 }, { x: 45, y: 50, size: 24 },
+                { x: 60, y: 32, size: 18 }, { x: 75, y: 55, size: 28 }
+            ]
         }
     ];
 </script>

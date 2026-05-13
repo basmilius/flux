@@ -14,11 +14,12 @@
 <script
     setup
     lang="ts">
+    import type { FluxStatisticsChartGaugeSeries } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsLegend, FluxStatisticsRadialBar } from '@flux-ui/statistics';
 
-    const series = [
-        { radius: '90%', data: [{ value: 92, name: 'API' }], title: { offsetCenter: [0, '-70%'] }, detail: { offsetCenter: [0, '-55%'] } },
-        { radius: '70%', data: [{ value: 78, name: 'DB' }], title: { offsetCenter: [0, '-25%'] }, detail: { offsetCenter: [0, '-10%'] } },
-        { radius: '50%', data: [{ value: 64, name: 'Workers' }], title: { offsetCenter: [0, '20%'] }, detail: { offsetCenter: [0, '35%'] } }
+    const series: FluxStatisticsChartGaugeSeries[] = [
+        { name: 'API', value: 92 },
+        { name: 'DB', value: 78 },
+        { name: 'Workers', value: 64 }
     ];
 </script>

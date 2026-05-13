@@ -6,44 +6,45 @@
 <script
     lang="ts"
     setup>
-    import type { BarSeriesOption } from 'echarts/charts';
+    import type { FluxStatisticsChartBarSeries } from '@flux-ui/types';
     import { merge } from 'lodash-es';
     import { computed, inject, watchEffect } from 'vue';
     import { useI18n } from 'vue-i18n';
     import { type ChartLegendItem, FluxStatisticsChartLegendInjectionKey } from '~flux/statistics/composable';
     import type { EChartsOption } from '~flux/statistics/composable';
-    import { BAR_SERIES_DEFAULTS, CHART_DEFAULT_COLORS } from '~flux/statistics/util';
+    import { buildCartesianTooltipOptions, cartesianFallbackLabels, CHART_DEFAULT_COLORS, extractLabels, resolveChartColor, toBarSeries } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
+    import $style from '~flux/statistics/css/Chart.module.scss';
 
     const {
-        options = {},
+        advancedOptions = {},
+        labels,
         series
     } = defineProps<{
-        readonly options?: EChartsOption;
-        readonly series: readonly BarSeriesOption[];
+        readonly advancedOptions?: EChartsOption;
+        readonly labels?: readonly string[];
+        readonly series: readonly FluxStatisticsChartBarSeries[];
     }>();
 
     const {t} = useI18n({useScope: 'parent'});
 
     const legendContext = inject(FluxStatisticsChartLegendInjectionKey, null);
 
-    const translatedSeries = computed<BarSeriesOption[]>(() =>
-        series.map(item => ({
-            ...BAR_SERIES_DEFAULTS,
-            ...item,
-            name: item.name ? t(String(item.name)) : undefined
-        }))
+    const palette = computed<readonly string[]>(() =>
+        series.map((s, i) => resolveChartColor(s.color) ?? CHART_DEFAULT_COLORS[i % CHART_DEFAULT_COLORS.length])
     );
 
-    const palette = computed<readonly string[]>(() => {
-        const userColors = (options as { color?: unknown }).color;
-        return Array.isArray(userColors) ? userColors as readonly string[] : CHART_DEFAULT_COLORS;
-    });
+    const xAxisLabels = computed<readonly string[]>(() => labels ?? extractLabels(series) ?? cartesianFallbackLabels(series));
+
+    const echartsSeries = computed(() => series.map((s, i) =>
+        toBarSeries({ ...s, name: s.name ? t(String(s.name)) : undefined }, palette.value[i])
+    ));
 
     const legendItems = computed<readonly ChartLegendItem[]>(() =>
-        translatedSeries.value.map((s, index) => ({
-            color: palette.value[index % palette.value.length],
-            label: s.name ?? ''
+        series.map((s, i) => ({
+            color: palette.value[i],
+            icon: s.icon,
+            label: s.name ? t(String(s.name)) : ''
         }))
     );
 
@@ -56,14 +57,17 @@
     const mergedOptions = computed<EChartsOption>(() => {
         const base: EChartsOption = {
             grid: { left: 9, right: 9, top: 18, bottom: 24 },
-            tooltip: { trigger: 'axis' },
             xAxis: {
+                type: 'category',
                 show: true,
+                data: xAxisLabels.value as string[],
                 axisLabel: { show: true, color: 'var(--foreground-secondary)' }
             },
             yAxis: { show: false }
         };
 
-        return merge({}, base, options, { series: translatedSeries.value });
+        const tooltipOptions = buildCartesianTooltipOptions(t, $style as never, () => series.map(s => s.icon));
+
+        return merge({}, base, tooltipOptions, advancedOptions, { series: echartsSeries.value, color: palette.value });
     });
 </script>

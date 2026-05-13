@@ -5,7 +5,7 @@
             title="Team performance"
             :aspect-ratio="1.4">
             <FluxStatisticsRadarChart
-                :options="options"
+                :indicators="indicators"
                 :series="series"/>
         </FluxStatisticsChartPane>
     </Preview>
@@ -14,26 +14,20 @@
 <script
     setup
     lang="ts">
-    import type { EChartsOption } from 'echarts/core';
+    import type { FluxStatisticsChartRadarIndicator, FluxStatisticsChartRadarSeries } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsRadarChart } from '@flux-ui/statistics';
 
-    const series = [{
-        data: [
-            { value: [82, 65, 73, 91, 70, 88], name: 'This quarter' },
-            { value: [70, 60, 64, 80, 65, 75], name: 'Last quarter' }
-        ]
-    }];
+    const series: FluxStatisticsChartRadarSeries[] = [
+        { name: 'This quarter', values: [82, 65, 73, 91, 70, 88] },
+        { name: 'Last quarter', values: [70, 60, 64, 80, 65, 75] }
+    ];
 
-    const options: EChartsOption = {
-        radar: {
-            indicator: [
-                { name: 'Speed', max: 100 },
-                { name: 'Quality', max: 100 },
-                { name: 'Volume', max: 100 },
-                { name: 'Accuracy', max: 100 },
-                { name: 'Focus', max: 100 },
-                { name: 'Collaboration', max: 100 }
-            ]
-        }
-    };
+    const indicators: FluxStatisticsChartRadarIndicator[] = [
+        { name: 'Speed', max: 100 },
+        { name: 'Quality', max: 100 },
+        { name: 'Volume', max: 100 },
+        { name: 'Accuracy', max: 100 },
+        { name: 'Focus', max: 100 },
+        { name: 'Collaboration', max: 100 }
+    ];
 </script>

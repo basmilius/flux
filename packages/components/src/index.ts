@@ -6,6 +6,7 @@ export * from './transition';
 
 export {
     fluxRegisterIcons,
+    iconRegistry,
     isFluxFormSelectGroup,
     isFluxFormSelectOption,
     showAlert,

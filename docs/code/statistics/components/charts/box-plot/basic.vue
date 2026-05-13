@@ -4,7 +4,7 @@
         title="Survey scores"
         :aspect-ratio="3">
         <FluxStatisticsBoxPlotChart
-            :options="options"
+            :labels="['Q1', 'Q2', 'Q3', 'Q4']"
             :series="series"/>
     </FluxStatisticsChartPane>
 </template>
@@ -12,20 +12,16 @@
 <script
     setup
     lang="ts">
-    import type { EChartsOption } from 'echarts/core';
+    import type { FluxStatisticsChartBoxPlotSeries } from '@flux-ui/types';
     import { FluxStatisticsBoxPlotChart, FluxStatisticsChartPane } from '@flux-ui/statistics';
 
-    const series = [{
+    const series: FluxStatisticsChartBoxPlotSeries[] = [{
         name: 'Score',
         data: [
-            [40, 55, 64, 72, 86],
-            [42, 58, 66, 74, 88],
-            [48, 60, 70, 78, 92],
-            [52, 64, 74, 82, 95]
+            { min: 40, q1: 55, median: 64, q3: 72, max: 86 },
+            { min: 42, q1: 58, median: 66, q3: 74, max: 88 },
+            { min: 48, q1: 60, median: 70, q3: 78, max: 92 },
+            { min: 52, q1: 64, median: 74, q3: 82, max: 95 }
         ]
     }];
-
-    const options: EChartsOption = {
-        xAxis: { data: ['Q1', 'Q2', 'Q3', 'Q4'] }
-    };
 </script>

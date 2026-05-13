@@ -3,16 +3,11 @@ outline: deep
 
 props:
     -   name: series
-        description: The percentage values to render, between 0 and 100. Use an array for multiple concentric rings.
-        type: number[]
+        description: The gauge rings to render. Each entry produces a concentric ring with its own value and color.
+        type: FluxStatisticsChartGaugeSeries[]
 
-    -   name: aspect-ratio
-        description: The aspect ratio of the chart.
-        type: number
-        optional: true
-
-    -   name: options
-        description: Additional ECharts options to merge with the defaults. Use `labels` to label each ring.
+    -   name: advanced-options
+        description: Escape-hatch for raw ECharts options merged on top of the Flux defaults.
         type: EChartsOption
         optional: true
 ---
@@ -43,4 +38,12 @@ example=../../../code/statistics/components/charts/radial-bar/multiple-values.vu
 
 ::: example Custom labels || A radial bar with a custom total label in the center.
 example=../../../code/statistics/components/charts/radial-bar/with-label.vue
+:::
+
+::: example With icons || A radial bar whose rings carry icons that surface in the legend.
+example=../../../code/statistics/components/charts/radial-bar/with-icons.vue
+:::
+
+::: example Two rings || A compact radial bar with two concentric rings.
+example=../../../code/statistics/components/charts/radial-bar/two-rings.vue
 :::

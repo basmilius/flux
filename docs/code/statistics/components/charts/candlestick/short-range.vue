@@ -3,36 +3,28 @@
         icon="chart-bar"
         title="Intraday"
         :aspect-ratio="3">
-        <FluxStatisticsCandlestickChart
-            :options="options"
-            :series="series"/>
+        <FluxStatisticsCandlestickChart :series="series"/>
     </FluxStatisticsChartPane>
 </template>
 
 <script
     setup
     lang="ts">
-    import type { EChartsOption } from 'echarts/core';
+    import type { FluxStatisticsChartCandlestickPoint, FluxStatisticsChartCandlestickSeries } from '@flux-ui/types';
     import { FluxStatisticsCandlestickChart, FluxStatisticsChartPane } from '@flux-ui/statistics';
 
-    const labels = Array.from({ length: 8 }, (_, i) => `${9 + i}:00`);
-
-    const data = labels.map((_, i) => {
+    const data: FluxStatisticsChartCandlestickPoint[] = Array.from({ length: 8 }, (_, i) => {
         const base = 200 + i * 3;
         const open = base + Math.round(Math.random() * 4);
         const close = open + Math.round((Math.random() - 0.5) * 6);
         const high = Math.max(open, close) + Math.round(Math.random() * 3);
         const low = Math.min(open, close) - Math.round(Math.random() * 3);
 
-        return [open, close, low, high];
+        return { label: `${9 + i}:00`, open, close, low, high };
     });
 
-    const series = [{
+    const series: FluxStatisticsChartCandlestickSeries[] = [{
         name: 'Intraday',
         data
     }];
-
-    const options: EChartsOption = {
-        xAxis: { data: labels }
-    };
 </script>

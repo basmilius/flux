@@ -2,17 +2,12 @@
 outline: deep
 
 props:
-    -   name: series
-        description: The data series for the chart, compatible with the ECharts series format.
-        type: EChartsOption['series']
+    -   name: slices
+        description: The pie slices to render.
+        type: FluxStatisticsChartPieSlice[]
 
-    -   name: aspect-ratio
-        description: The aspect ratio of the chart.
-        type: number
-        optional: true
-
-    -   name: options
-        description: Additional ECharts options to merge with the defaults.
+    -   name: advanced-options
+        description: Escape-hatch for raw ECharts options merged on top of the Flux defaults.
         type: EChartsOption
         optional: true
 ---
@@ -35,4 +30,12 @@ This component is best used inside a [Chart pane](../chart-pane).
 
 ::: example In a chart pane || A pie chart inside a chart pane with matching colors and a legend.
 example=../../../code/statistics/components/charts/pie/in-chart-pane.vue
+:::
+
+::: example Few slices || A focused pie chart with three categorical slices.
+example=../../../code/statistics/components/charts/pie/few-slices.vue
+:::
+
+::: example Minimal || A simple two-slice pie chart without a legend.
+example=../../../code/statistics/components/charts/pie/minimal.vue
 :::

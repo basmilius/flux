@@ -3,16 +3,16 @@ outline: deep
 
 props:
     -   name: series
-        description: The data series for the chart, compatible with the ECharts series format.
-        type: EChartsOption['series']
+        description: The data series for the chart.
+        type: FluxStatisticsChartAreaSeries[]
 
-    -   name: aspect-ratio
-        description: The aspect ratio of the chart.
-        type: number
+    -   name: labels
+        description: X-axis category labels.
+        type: string[]
         optional: true
 
-    -   name: options
-        description: Additional ECharts options to merge with the defaults.
+    -   name: advanced-options
+        description: Escape-hatch for raw ECharts options merged on top of the Flux defaults.
         type: EChartsOption
         optional: true
 ---
@@ -35,4 +35,12 @@ This component is best used inside a [Chart pane](../chart-pane).
 
 ::: example Multiple series || Comparing two data series in a single area chart.
 example=../../../code/statistics/components/charts/area/multi-series.vue
+:::
+
+::: example Single series || A single area series for tracking cumulative growth.
+example=../../../code/statistics/components/charts/area/single-series.vue
+:::
+
+::: example With icons || An area chart whose series carry icons that surface in the legend and tooltip.
+example=../../../code/statistics/components/charts/area/with-icons.vue
 :::

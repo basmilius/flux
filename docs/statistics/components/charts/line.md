@@ -3,16 +3,16 @@ outline: deep
 
 props:
     -   name: series
-        description: The data series for the chart, compatible with the ECharts series format.
-        type: EChartsOption['series']
+        description: The data series for the chart.
+        type: FluxStatisticsChartLineSeries[]
 
-    -   name: aspect-ratio
-        description: The aspect ratio of the chart.
-        type: number
+    -   name: labels
+        description: X-axis category labels.
+        type: string[]
         optional: true
 
-    -   name: options
-        description: Additional ECharts options to merge with the defaults.
+    -   name: advanced-options
+        description: Escape-hatch for raw ECharts options merged on top of the Flux defaults.
         type: EChartsOption
         optional: true
 ---
@@ -35,4 +35,12 @@ This component is best used inside a [Chart pane](../chart-pane).
 
 ::: example Single series || A single series line chart tracking one metric over time.
 example=../../../code/statistics/components/charts/line/single-series.vue
+:::
+
+::: example With labels || A line chart with month names on the X-axis through the `labels` prop.
+example=../../../code/statistics/components/charts/line/with-labels.vue
+:::
+
+::: example With icons || A line chart whose series carry icons that surface in the legend and tooltip.
+example=../../../code/statistics/components/charts/line/with-icons.vue
 :::

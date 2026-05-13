@@ -5,7 +5,7 @@
             title="Revenue and orders"
             :aspect-ratio="3">
             <FluxStatisticsMixedChart
-                :options="options"
+                :labels="['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']"
                 :series="series"/>
         </FluxStatisticsChartPane>
     </Preview>
@@ -14,10 +14,10 @@
 <script
     setup
     lang="ts">
-    import type { EChartsOption } from 'echarts/core';
+    import type { FluxStatisticsChartMixedSeries } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsMixedChart } from '@flux-ui/statistics';
 
-    const series = [
+    const series: FluxStatisticsChartMixedSeries[] = [
         {
             name: 'Revenue',
             type: 'bar',
@@ -29,8 +29,4 @@
             data: [120, 145, 132, 168, 158, 192, 184, 205]
         }
     ];
-
-    const options: EChartsOption = {
-        xAxis: { data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'] }
-    };
 </script>

@@ -3,16 +3,16 @@ outline: deep
 
 props:
     -   name: series
-        description: The data series for the chart, compatible with the ECharts series format.
-        type: EChartsOption['series']
+        description: The data series for the chart.
+        type: FluxStatisticsChartBarSeries[]
 
-    -   name: aspect-ratio
-        description: The aspect ratio of the chart.
-        type: number
+    -   name: labels
+        description: X-axis category labels.
+        type: string[]
         optional: true
 
-    -   name: options
-        description: Additional ECharts options to merge with the defaults.
+    -   name: advanced-options
+        description: Escape-hatch for raw ECharts options merged on top of the Flux defaults.
         type: EChartsOption
         optional: true
 ---
@@ -35,4 +35,12 @@ This component is best used inside a [Chart pane](../chart-pane).
 
 ::: example Multiple series || A grouped bar chart comparing two data series side by side.
 example=../../../code/statistics/components/charts/bar/multi-series.vue
+:::
+
+::: example Single series || A single series bar chart with a fixed color.
+example=../../../code/statistics/components/charts/bar/single-series.vue
+:::
+
+::: example Horizontal || A horizontal bar chart configured through `advancedOptions`.
+example=../../../code/statistics/components/charts/bar/horizontal.vue
 :::

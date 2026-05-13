@@ -3,16 +3,15 @@ outline: deep
 
 props:
     -   name: series
-        description: The data series for the chart, compatible with the ECharts series format.
-        type: EChartsOption['series']
+        description: The data rings to render. Each entry holds one value per indicator.
+        type: FluxStatisticsChartRadarSeries[]
 
-    -   name: aspect-ratio
-        description: The aspect ratio of the chart.
-        type: number
-        optional: true
+    -   name: indicators
+        description: The named axes of the radar chart. Order must match the order of values in each series.
+        type: FluxStatisticsChartRadarIndicator[]
 
-    -   name: options
-        description: Additional ECharts options to merge with the defaults.
+    -   name: advanced-options
+        description: Escape-hatch for raw ECharts options merged on top of the Flux defaults.
         type: EChartsOption
         optional: true
 ---
@@ -43,4 +42,12 @@ example=../../../code/statistics/components/charts/radar/multi-series.vue
 
 ::: example With fill || A radar chart with a more pronounced filled area.
 example=../../../code/statistics/components/charts/radar/with-fill.vue
+:::
+
+::: example With icons || A radar chart whose rings carry icons that surface in the legend.
+example=../../../code/statistics/components/charts/radar/with-icons.vue
+:::
+
+::: example Many axes || A radar chart with a wider scorecard spanning eight indicators.
+example=../../../code/statistics/components/charts/radar/many-axes.vue
 :::

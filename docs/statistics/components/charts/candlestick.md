@@ -3,16 +3,16 @@ outline: deep
 
 props:
     -   name: series
-        description: The OHLC data series. Each data point must contain `x` (date) and `y` as `[open, high, low, close]`.
-        type: EChartsOption['series']
+        description: The OHLC data series. Each point holds named `open`, `close`, `low`, and `high` values.
+        type: FluxStatisticsChartCandlestickSeries[]
 
-    -   name: aspect-ratio
-        description: The aspect ratio of the chart.
-        type: number
+    -   name: labels
+        description: X-axis category labels (typically dates). If omitted, the `label` field on each point is used.
+        type: string[]
         optional: true
 
-    -   name: options
-        description: Additional ECharts options to merge with the defaults.
+    -   name: advanced-options
+        description: Escape-hatch for raw ECharts options merged on top of the Flux defaults.
         type: EChartsOption
         optional: true
 ---
@@ -43,4 +43,12 @@ example=../../../code/statistics/components/charts/candlestick/short-range.vue
 
 ::: example Volatile || A candlestick chart showing a more volatile price series.
 example=../../../code/statistics/components/charts/candlestick/volatile.vue
+:::
+
+::: example Bull run || A predominantly green candlestick series trending upward.
+example=../../../code/statistics/components/charts/candlestick/bull-run.vue
+:::
+
+::: example Custom colors || A candlestick chart with branded up and down colors.
+example=../../../code/statistics/components/charts/candlestick/custom-colors.vue
 :::

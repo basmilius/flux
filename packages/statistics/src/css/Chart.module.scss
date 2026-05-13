@@ -55,6 +55,20 @@
     border-radius: 6px;
 }
 
+.statisticsChartTooltipSeriesIcon {
+    display: flex;
+    height: 14px;
+    width: 14px;
+    color: var(--danger-600);
+    align-items: center;
+    justify-content: center;
+
+    & > svg {
+        height: 100%;
+        width: 100%;
+    }
+}
+
 .statisticsChartTooltipSeriesName {
     color: var(--foreground-secondary);
     font-size: 14px;

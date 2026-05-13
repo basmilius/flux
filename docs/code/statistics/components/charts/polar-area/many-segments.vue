@@ -3,27 +3,26 @@
         icon="chart-pie"
         title="Country distribution"
         :aspect-ratio="1.4">
-        <FluxStatisticsPolarAreaChart :series="series"/>
+        <FluxStatisticsPolarAreaChart :slices="slices"/>
     </FluxStatisticsChartPane>
 </template>
 
 <script
     setup
     lang="ts">
+    import type { FluxStatisticsChartPieSlice } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsPolarAreaChart } from '@flux-ui/statistics';
 
-    const series = [{
-        data: [
-            { value: 42, name: 'NL' },
-            { value: 28, name: 'DE' },
-            { value: 22, name: 'BE' },
-            { value: 18, name: 'FR' },
-            { value: 14, name: 'UK' },
-            { value: 11, name: 'ES' },
-            { value: 9, name: 'IT' },
-            { value: 7, name: 'PL' },
-            { value: 5, name: 'SE' },
-            { value: 3, name: 'DK' }
-        ]
-    }];
+    const slices: FluxStatisticsChartPieSlice[] = [
+        { label: 'NL', value: 42 },
+        { label: 'DE', value: 28 },
+        { label: 'BE', value: 22 },
+        { label: 'FR', value: 18 },
+        { label: 'UK', value: 14 },
+        { label: 'ES', value: 11 },
+        { label: 'IT', value: 9 },
+        { label: 'PL', value: 7 },
+        { label: 'SE', value: 5 },
+        { label: 'DK', value: 3 }
+    ];
 </script>

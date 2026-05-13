@@ -3,16 +3,11 @@ outline: deep
 
 props:
     -   name: series
-        description: The data series for the chart, compatible with the ECharts series format.
-        type: EChartsOption['series']
+        description: The data series for the chart. Each point's `size` controls the marker radius.
+        type: FluxStatisticsChartBubbleSeries[]
 
-    -   name: aspect-ratio
-        description: The aspect ratio of the chart.
-        type: number
-        optional: true
-
-    -   name: options
-        description: Additional ECharts options to merge with the defaults.
+    -   name: advanced-options
+        description: Escape-hatch for raw ECharts options merged on top of the Flux defaults.
         type: EChartsOption
         optional: true
 ---
@@ -43,4 +38,12 @@ example=../../../code/statistics/components/charts/bubble/multi-series.vue
 
 ::: example Compact || A more compact bubble chart with smaller markers.
 example=../../../code/statistics/components/charts/bubble/compact.vue
+:::
+
+::: example With icons || A bubble chart whose series carry icons in the legend.
+example=../../../code/statistics/components/charts/bubble/with-icons.vue
+:::
+
+::: example Dense || A bubble chart with many randomly distributed points.
+example=../../../code/statistics/components/charts/bubble/dense.vue
 :::

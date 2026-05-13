@@ -6,55 +6,45 @@
 <script
     lang="ts"
     setup>
-    import type { BarSeriesOption, LineSeriesOption } from 'echarts/charts';
+    import type { FluxStatisticsChartMixedSeries } from '@flux-ui/types';
     import { merge } from 'lodash-es';
     import { computed, inject, watchEffect } from 'vue';
     import { useI18n } from 'vue-i18n';
     import { type ChartLegendItem, FluxStatisticsChartLegendInjectionKey } from '~flux/statistics/composable';
     import type { EChartsOption } from '~flux/statistics/composable';
-    import { buildCartesianBaseOptions, CHART_DEFAULT_COLORS } from '~flux/statistics/util';
+    import { buildCartesianBaseOptions, buildCartesianTooltipOptions, cartesianFallbackLabels, CHART_DEFAULT_COLORS, extractLabels, resolveChartColor, toMixedSeries } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
-
-    type MixedSeriesItem = LineSeriesOption | BarSeriesOption;
-
-    const LINE_DEFAULTS = { smooth: true, showSymbol: false, lineStyle: { width: 2 } };
-    const BAR_DEFAULTS = { itemStyle: { borderRadius: 6 }, barCategoryGap: '55%' };
-    const EMPHASIS_DISABLED = { emphasis: { disabled: true } };
+    import $style from '~flux/statistics/css/Chart.module.scss';
 
     const {
-        options = {},
+        advancedOptions = {},
+        labels,
         series
     } = defineProps<{
-        readonly options?: EChartsOption;
-        readonly series: readonly MixedSeriesItem[];
+        readonly advancedOptions?: EChartsOption;
+        readonly labels?: readonly string[];
+        readonly series: readonly FluxStatisticsChartMixedSeries[];
     }>();
 
     const {t} = useI18n({useScope: 'parent'});
 
     const legendContext = inject(FluxStatisticsChartLegendInjectionKey, null);
 
-    const translatedSeries = computed<MixedSeriesItem[]>(() =>
-        series.map(item => {
-            const typeDefaults = (item.type ?? 'line') === 'bar' ? BAR_DEFAULTS : LINE_DEFAULTS;
-
-            return {
-                ...EMPHASIS_DISABLED,
-                ...typeDefaults,
-                ...item,
-                name: item.name ? t(String(item.name)) : undefined
-            } as MixedSeriesItem;
-        })
+    const palette = computed<readonly string[]>(() =>
+        series.map((s, i) => resolveChartColor(s.color) ?? CHART_DEFAULT_COLORS[i % CHART_DEFAULT_COLORS.length])
     );
 
-    const palette = computed<readonly string[]>(() => {
-        const userColors = (options as { color?: unknown }).color;
-        return Array.isArray(userColors) ? userColors as readonly string[] : CHART_DEFAULT_COLORS;
-    });
+    const xAxisLabels = computed<readonly string[]>(() => labels ?? extractLabels(series) ?? cartesianFallbackLabels(series));
+
+    const echartsSeries = computed(() => series.map((s, i) =>
+        toMixedSeries({ ...s, name: s.name ? t(String(s.name)) : undefined }, palette.value[i])
+    ));
 
     const legendItems = computed<readonly ChartLegendItem[]>(() =>
-        translatedSeries.value.map((s, index) => ({
-            color: palette.value[index % palette.value.length],
-            label: s.name ?? ''
+        series.map((s, i) => ({
+            color: palette.value[i],
+            icon: s.icon,
+            label: s.name ? t(String(s.name)) : ''
         }))
     );
 
@@ -64,9 +54,11 @@
         }
     });
 
-    const base = buildCartesianBaseOptions({ tooltipTrigger: 'axis', dashedSplitLines: true });
+    const mergedOptions = computed<EChartsOption>(() => {
+        const base = buildCartesianBaseOptions({ tooltipTrigger: 'axis', dashedSplitLines: true });
+        const xAxisOverride: EChartsOption = { xAxis: { type: 'category', data: xAxisLabels.value as string[] } };
+        const tooltipOptions = buildCartesianTooltipOptions(t, $style as never, () => series.map(s => s.icon));
 
-    const mergedOptions = computed<EChartsOption>(() =>
-        merge({}, base, options, { series: translatedSeries.value })
-    );
+        return merge({}, base, xAxisOverride, tooltipOptions, advancedOptions, { series: echartsSeries.value, color: palette.value });
+    });
 </script>

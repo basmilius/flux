@@ -6,26 +6,24 @@
 <script
     lang="ts"
     setup>
-    import type { TreemapSeriesOption } from 'echarts/charts';
+    import type { FluxStatisticsChartTreemapNode } from '@flux-ui/types';
     import { merge } from 'lodash-es';
     import { computed } from 'vue';
     import type { EChartsOption } from '~flux/statistics/composable';
-    import { POLAR_BASE_OPTIONS, TREEMAP_SERIES_DEFAULTS } from '~flux/statistics/util';
+    import { CHART_DEFAULT_COLORS, POLAR_BASE_OPTIONS, toTreemapSeries } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
 
     const {
-        options = {},
-        series
+        advancedOptions = {},
+        nodes
     } = defineProps<{
-        readonly options?: EChartsOption;
-        readonly series: readonly TreemapSeriesOption[];
+        readonly advancedOptions?: EChartsOption;
+        readonly nodes: readonly FluxStatisticsChartTreemapNode[];
     }>();
 
-    const decoratedSeries = computed<TreemapSeriesOption[]>(() =>
-        series.map(item => ({ ...TREEMAP_SERIES_DEFAULTS, ...item }))
-    );
+    const echartsSeries = computed(() => [toTreemapSeries(nodes, CHART_DEFAULT_COLORS)]);
 
     const mergedOptions = computed<EChartsOption>(() =>
-        merge({}, POLAR_BASE_OPTIONS, options, { series: decoratedSeries.value })
+        merge({}, POLAR_BASE_OPTIONS, advancedOptions, { series: echartsSeries.value })
     );
 </script>

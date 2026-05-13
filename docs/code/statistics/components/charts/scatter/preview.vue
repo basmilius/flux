@@ -12,16 +12,23 @@
 <script
     setup
     lang="ts">
+    import type { FluxStatisticsChartScatterSeries } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsScatterChart } from '@flux-ui/statistics';
 
-    const series = [
+    const series: FluxStatisticsChartScatterSeries[] = [
         {
             name: 'Group A',
-            data: [[12, 32], [18, 45], [25, 38], [31, 52], [38, 41], [44, 60], [52, 49], [60, 65]]
+            data: [
+                { x: 12, y: 32 }, { x: 18, y: 45 }, { x: 25, y: 38 }, { x: 31, y: 52 },
+                { x: 38, y: 41 }, { x: 44, y: 60 }, { x: 52, y: 49 }, { x: 60, y: 65 }
+            ]
         },
         {
             name: 'Group B',
-            data: [[10, 22], [16, 30], [23, 27], [29, 38], [36, 33], [42, 45], [50, 39], [58, 52]]
+            data: [
+                { x: 10, y: 22 }, { x: 16, y: 30 }, { x: 23, y: 27 }, { x: 29, y: 38 },
+                { x: 36, y: 33 }, { x: 42, y: 45 }, { x: 50, y: 39 }, { x: 58, y: 52 }
+            ]
         }
     ];
 </script>

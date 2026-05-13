@@ -2,17 +2,12 @@
 outline: deep
 
 props:
-    -   name: series
-        description: The data series for the chart, compatible with the ECharts series format.
-        type: EChartsOption['series']
+    -   name: nodes
+        description: The (optionally nested) tiles to render.
+        type: FluxStatisticsChartTreemapNode[]
 
-    -   name: aspect-ratio
-        description: The aspect ratio of the chart.
-        type: number
-        optional: true
-
-    -   name: options
-        description: Additional ECharts options to merge with the defaults.
+    -   name: advanced-options
+        description: Escape-hatch for raw ECharts options merged on top of the Flux defaults.
         type: EChartsOption
         optional: true
 ---
@@ -43,4 +38,12 @@ example=../../../code/statistics/components/charts/treemap/custom-colors.vue
 
 ::: example Many categories || A treemap with a large number of small tiles.
 example=../../../code/statistics/components/charts/treemap/many-categories.vue
+:::
+
+::: example Nested || A two-level treemap showing parent categories and their children.
+example=../../../code/statistics/components/charts/treemap/nested.vue
+:::
+
+::: example Two categories || A simple two-tile split for a high-level breakdown.
+example=../../../code/statistics/components/charts/treemap/two-categories.vue
 :::

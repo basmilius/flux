@@ -2,17 +2,12 @@
 outline: deep
 
 props:
-    -   name: series
-        description: An array of numeric values for each polar segment.
-        type: number[]
+    -   name: slices
+        description: The polar slices to render. Each slice sweeps the same angle but its radius scales with `value`.
+        type: FluxStatisticsChartPieSlice[]
 
-    -   name: aspect-ratio
-        description: The aspect ratio of the chart.
-        type: number
-        optional: true
-
-    -   name: options
-        description: Additional ECharts options to merge with the defaults. Use `labels` to label each segment.
+    -   name: advanced-options
+        description: Escape-hatch for raw ECharts options merged on top of the Flux defaults.
         type: EChartsOption
         optional: true
 ---
@@ -43,4 +38,12 @@ example=../../../code/statistics/components/charts/polar-area/custom-colors.vue
 
 ::: example Many segments || A polar area chart with a larger set of segments.
 example=../../../code/statistics/components/charts/polar-area/many-segments.vue
+:::
+
+::: example With icons || A polar area chart whose slices carry icons that surface in the legend and tooltip.
+example=../../../code/statistics/components/charts/polar-area/with-icons.vue
+:::
+
+::: example Few segments || A focused polar area chart with three segments.
+example=../../../code/statistics/components/charts/polar-area/few-segments.vue
 :::

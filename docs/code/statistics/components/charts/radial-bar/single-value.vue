@@ -10,9 +10,10 @@
 <script
     setup
     lang="ts">
+    import type { FluxStatisticsChartGaugeSeries } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsRadialBar } from '@flux-ui/statistics';
 
-    const series = [{
-        data: [{ value: 84, name: 'Done' }]
-    }];
+    const series: FluxStatisticsChartGaugeSeries[] = [
+        { name: 'Done', value: 84 }
+    ];
 </script>
