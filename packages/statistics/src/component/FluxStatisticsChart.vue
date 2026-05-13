@@ -11,9 +11,8 @@
     setup>
     import { merge } from 'lodash-es';
     import { computed, useTemplateRef } from 'vue';
-    import { useI18n } from 'vue-i18n';
-    import { type EChartsOption, useECharts } from '~flux/statistics/composable';
-    import { buildDefaultOptions, buildTooltipFormatter, deepResolveCssVars } from '~flux/statistics/util';
+    import { useECharts, type EChartsOption } from '~flux/statistics/composable';
+    import { buildDefaultOptions, deepResolveCssVars } from '~flux/statistics/util';
     import $style from '~flux/statistics/css/Chart.module.scss';
 
     const {
@@ -23,10 +22,8 @@
     }>();
 
     const chart = useTemplateRef('chart');
-    const {t} = useI18n({useScope: 'parent'});
 
-    const tooltipFormatter = buildTooltipFormatter(t, $style as never);
-    const defaults = buildDefaultOptions({tooltipFormatter});
+    const defaults = buildDefaultOptions();
 
     const mergedOptions = computed<EChartsOption>(() => {
         const merged = merge({}, defaults, options) as EChartsOption & { color?: unknown; series?: unknown };

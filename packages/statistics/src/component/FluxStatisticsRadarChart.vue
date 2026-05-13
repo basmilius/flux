@@ -9,11 +9,9 @@
     setup>
     import type { FluxStatisticsChartRadarIndicator, FluxStatisticsChartRadarSeries } from '@flux-ui/types';
     import { merge } from 'lodash-es';
-    import { computed, inject, useTemplateRef, watchEffect } from 'vue';
-    import { useI18n } from 'vue-i18n';
-    import { type ChartLegendItem, FluxStatisticsChartLegendInjectionKey, useChartHoverSync } from '~flux/statistics/composable';
-    import type { EChartsInstance, EChartsOption } from '~flux/statistics/composable';
-    import { CHART_DEFAULT_COLORS, POLAR_BASE_OPTIONS, resolveChartColor, type SharedTooltipItem, toRadarSeries, type TooltipParam, type TooltipStyleClasses } from '~flux/statistics/util';
+    import { computed } from 'vue';
+    import { useChartSeriesSetup, type EChartsOption } from '~flux/statistics/composable';
+    import { POLAR_BASE_OPTIONS, type SharedTooltipItem, toRadarSeries, type TooltipParam, type TooltipStyleClasses } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
     import $style from '~flux/statistics/css/Chart.module.scss';
 
@@ -29,17 +27,7 @@
         readonly tooltip?: boolean;
     }>();
 
-    const {t} = useI18n({useScope: 'parent'});
-
-    const legendContext = inject(FluxStatisticsChartLegendInjectionKey, null);
-    const chartRef = useTemplateRef<InstanceType<typeof Chart>>('chartRef');
-    const chartInstance = computed<EChartsInstance | null>(() => chartRef.value?.chartInstance ?? null);
-
-    useChartHoverSync(chartInstance, legendContext, { mode: 'data' });
-
-    const palette = computed<readonly string[]>(() =>
-        series.map((s, i) => resolveChartColor(s.color) ?? CHART_DEFAULT_COLORS[i % CHART_DEFAULT_COLORS.length])
-    );
+    const { t, palette } = useChartSeriesSetup(() => series, { mode: 'data' });
 
     const echartsSeries = computed(() => [toRadarSeries(
         series.map(s => ({ ...s, name: s.name ? t(String(s.name)) : undefined })),
@@ -59,20 +47,6 @@
             }
         }
     } as EChartsOption));
-
-    const legendItems = computed<readonly ChartLegendItem[]>(() =>
-        series.map((s, i) => ({
-            color: palette.value[i],
-            icon: s.icon,
-            label: s.name ? t(String(s.name)) : ''
-        }))
-    );
-
-    watchEffect(() => {
-        if (legendContext) {
-            legendContext.items.value = legendItems.value;
-        }
-    });
 
     const tooltipFormatter = (params: TooltipParam | TooltipParam[]): string => {
         const param = Array.isArray(params) ? params[0] : params;

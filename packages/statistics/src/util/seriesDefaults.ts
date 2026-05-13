@@ -47,7 +47,7 @@ export const PIE_SERIES_DEFAULTS: Partial<PieSeriesOption> = {
     type: 'pie',
     radius: '75%',
     label: { show: false },
-    itemStyle: PIE_SLICE_BORDER,
+    itemStyle: { ...PIE_SLICE_BORDER, borderRadius: 6 },
     selectedMode: false,
     emphasis: PIE_EMPHASIS
 };

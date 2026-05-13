@@ -1,6 +1,5 @@
 import { formatNumber } from '@basmilius/utils';
 import type { FluxIconName } from '@flux-ui/types';
-import type { PieSeriesOption, RadarSeriesOption } from 'echarts/charts';
 import type { EChartsOption } from '~flux/statistics/composable';
 import { renderIconSvg } from './iconSvg';
 
@@ -142,109 +141,6 @@ function renderTooltip(
     }).join('');
 
     return `${titleHtml}<div class="${styles.statisticsChartTooltipBody}">${body}</div>`;
-}
-
-export function buildSharedPieTooltipOptions(
-    t: Translator,
-    styles: TooltipStyleClasses,
-    getSeries: () => readonly PieSeriesOption[],
-    getPalette?: () => readonly string[]
-): EChartsOption {
-    const formatter = buildSharedItemTooltipFormatter(
-        t,
-        styles,
-        () => extractPieItems(getSeries(), getPalette?.() ?? CHART_DEFAULT_COLORS)
-    );
-
-    return {
-        tooltip: {
-            show: true,
-            trigger: 'item',
-            formatter: formatter as never
-        }
-    };
-}
-
-export interface RadarIndicator {
-    readonly name?: string;
-}
-
-export function buildSharedRadarTooltipOptions(
-    t: Translator,
-    styles: TooltipStyleClasses,
-    getIndicators: () => readonly RadarIndicator[],
-    getSeries: () => readonly RadarSeriesOption[],
-    getPalette: () => readonly string[]
-): EChartsOption {
-    const formatter = (params: TooltipParam | TooltipParam[]): string => {
-        const param = Array.isArray(params) ? params[0] : params;
-
-        if (!param) {
-            return '';
-        }
-
-        const series = getSeries();
-        const data = series[0]?.data as readonly { value?: readonly number[]; name?: string }[] | undefined;
-
-        if (!data || data.length === 0) {
-            return '';
-        }
-
-        const ringIndex = param.dataIndex ?? 0;
-        const ring = data[ringIndex];
-
-        if (!ring) {
-            return '';
-        }
-
-        const indicators = getIndicators();
-        const palette = getPalette();
-        const color = palette[ringIndex % palette.length];
-        const title = ring.name ? t(String(ring.name)) : '';
-
-        const items: SharedTooltipItem[] = indicators.map((indicator, idx) => ({
-            name: indicator.name ?? '',
-            value: ring.value?.[idx] ?? '',
-            color
-        }));
-
-        return renderTooltip(t, styles, title, items);
-    };
-
-    return {
-        tooltip: {
-            show: true,
-            trigger: 'item',
-            formatter: formatter as never
-        }
-    };
-}
-
-function extractPieItems(series: readonly PieSeriesOption[], palette: readonly string[]): readonly SharedTooltipItem[] {
-    const first = series[0];
-
-    if (!first?.data) {
-        return [];
-    }
-
-    return (first.data as readonly unknown[]).map((item, idx) => {
-        const color = palette[idx % palette.length];
-
-        if (typeof item === 'number') {
-            return { name: '', value: item, color };
-        }
-
-        if (typeof item === 'object' && item !== null) {
-            const entry = item as { name?: string; value?: number | string; itemStyle?: { color?: string } };
-            return {
-                name: entry.name ?? '',
-                value: entry.value ?? '',
-                color: entry.itemStyle?.color ?? color
-            };
-        }
-
-        return { name: '', value: '', color };
-    });
 }
 
 function extractValue(value: TooltipParam['value']): number | string {
@@ -461,11 +357,7 @@ export function buildGaugeTooltipOptions(
     };
 }
 
-export interface DefaultOptionsConfig {
-    readonly tooltipFormatter: ReturnType<typeof buildTooltipFormatter>;
-}
-
-export function buildDefaultOptions({ tooltipFormatter }: DefaultOptionsConfig): EChartsOption {
+export function buildDefaultOptions(): EChartsOption {
     return {
         color: [
             'var(--chart-1)',
@@ -480,8 +372,6 @@ export function buildDefaultOptions({ tooltipFormatter }: DefaultOptionsConfig):
         animationEasingUpdate: 'cubicInOut',
         tooltip: {
             show: false,
-            trigger: 'axis',
-            formatter: tooltipFormatter as never,
             backgroundColor: 'transparent',
             borderWidth: 0,
             padding: 0,

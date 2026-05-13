@@ -11,8 +11,7 @@
     import { merge } from 'lodash-es';
     import { computed, inject, useTemplateRef, watchEffect } from 'vue';
     import { useI18n } from 'vue-i18n';
-    import { type ChartLegendItem, FluxStatisticsChartLegendInjectionKey, useChartHoverSync } from '~flux/statistics/composable';
-    import type { EChartsInstance, EChartsOption } from '~flux/statistics/composable';
+    import { FluxStatisticsChartLegendInjectionKey, useChartHoverSync, type ChartLegendItem, type EChartsInstance, type EChartsOption } from '~flux/statistics/composable';
     import { buildCartesianBaseOptions, buildCartesianTooltipOptions, resolveChartColor, toCandlestickSeries } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
     import $style from '~flux/statistics/css/Chart.module.scss';
