@@ -7,32 +7,7 @@
             <FluxStatisticsDonutChart :series="series"/>
 
             <template #legend>
-                <FluxStatisticsLegend>
-                    <FluxStatisticsLegendItem
-                        color="primary"
-                        label="Electronics"
-                        value="32%"/>
-                    <FluxStatisticsLegendItem
-                        color="#10b981"
-                        label="Clothing"
-                        value="24%"/>
-                    <FluxStatisticsLegendItem
-                        color="#3b82f6"
-                        label="Books"
-                        value="16%"/>
-                    <FluxStatisticsLegendItem
-                        color="#f59e0b"
-                        label="Home & Garden"
-                        value="12%"/>
-                    <FluxStatisticsLegendItem
-                        color="#8b5cf6"
-                        label="Sports"
-                        value="10%"/>
-                    <FluxStatisticsLegendItem
-                        color="#ec4899"
-                        label="Other"
-                        value="6%"/>
-                </FluxStatisticsLegend>
+                <FluxStatisticsLegend/>
             </template>
         </FluxStatisticsChartPane>
     </Preview>
@@ -41,7 +16,7 @@
 <script
     setup
     lang="ts">
-    import { FluxStatisticsChartPane, FluxStatisticsDonutChart, FluxStatisticsLegend, FluxStatisticsLegendItem } from '@flux-ui/statistics';
+    import { FluxStatisticsChartPane, FluxStatisticsDonutChart, FluxStatisticsLegend } from '@flux-ui/statistics';
 
     const series = [{
         color: ['var(--primary-600)', '#10b981', '#3b82f6', '#f59e0b', '#8b5cf6', '#ec4899'],

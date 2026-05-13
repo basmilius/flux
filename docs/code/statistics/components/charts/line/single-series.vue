@@ -6,11 +6,7 @@
         <FluxStatisticsLineChart :series="series"/>
 
         <template #legend>
-            <FluxStatisticsLegend>
-                <FluxStatisticsLegendItem
-                    color="primary"
-                    label="Page views"/>
-            </FluxStatisticsLegend>
+            <FluxStatisticsLegend/>
         </template>
     </FluxStatisticsChartPane>
 </template>
@@ -18,7 +14,7 @@
 <script
     setup
     lang="ts">
-    import { FluxStatisticsChartPane, FluxStatisticsLegend, FluxStatisticsLegendItem, FluxStatisticsLineChart } from '@flux-ui/statistics';
+    import { FluxStatisticsChartPane, FluxStatisticsLegend, FluxStatisticsLineChart } from '@flux-ui/statistics';
 
     const series = [{
         name: 'Page views',

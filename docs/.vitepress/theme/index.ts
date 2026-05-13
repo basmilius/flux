@@ -49,10 +49,11 @@ const theme: Theme = {
     Layout,
     enhanceApp: ({app}) => {
         app.use(createI18n({
+            fallbackLocale: 'en',
             legacy: false,
             fallbackWarn: false,
-            locale: 'en',
             missingWarn: false,
+            locale: 'en',
             messages: {
                 en: {
                     'flux': {
@@ -119,7 +120,7 @@ const theme: Theme = {
                     }
                 }
             }
-        }) as any);
+        }));
 
         app.component('Badge', VPBadge);
         app.component('ColorPalette', ColorPalette);

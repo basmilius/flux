@@ -12,14 +12,7 @@
             :series="series"/>
 
         <template #legend>
-            <FluxStatisticsLegend>
-                <FluxStatisticsLegendItem
-                    color="primary"
-                    label="This year"/>
-                <FluxStatisticsLegendItem
-                    color="#10b981"
-                    label="Last year"/>
-            </FluxStatisticsLegend>
+            <FluxStatisticsLegend/>
         </template>
     </FluxStatisticsChartPane>
 </template>
@@ -27,7 +20,7 @@
 <script
     setup
     lang="ts">
-    import { FluxStatisticsBarChart, FluxStatisticsChartPane, FluxStatisticsLegend, FluxStatisticsLegendItem } from '@flux-ui/statistics';
+    import { FluxStatisticsBarChart, FluxStatisticsChartPane, FluxStatisticsLegend } from '@flux-ui/statistics';
 
     const series = [
         {

@@ -11,6 +11,7 @@ import {
     TreemapChart
 } from 'echarts/charts';
 import {
+    AxisPointerComponent,
     GridComponent,
     LegendComponent,
     RadarComponent,
@@ -19,7 +20,7 @@ import {
     VisualMapComponent
 } from 'echarts/components';
 import { use } from 'echarts/core';
-import { LabelLayout } from 'echarts/features';
+import { LabelLayout, LegacyGridContainLabel } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 
 use([
@@ -33,6 +34,7 @@ use([
     RadarChart,
     ScatterChart,
     TreemapChart,
+    AxisPointerComponent,
     GridComponent,
     LegendComponent,
     RadarComponent,
@@ -40,5 +42,6 @@ use([
     TooltipComponent,
     VisualMapComponent,
     LabelLayout,
+    LegacyGridContainLabel,
     CanvasRenderer
 ]);

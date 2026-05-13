@@ -8,15 +8,7 @@
             :series="series"/>
 
         <template #legend>
-            <FluxStatisticsLegend>
-                <FluxStatisticsLegendItem
-                    color="primary"
-                    label="Alice"/>
-
-                <FluxStatisticsLegendItem
-                    color="info"
-                    label="Bob"/>
-            </FluxStatisticsLegend>
+            <FluxStatisticsLegend/>
         </template>
     </FluxStatisticsChartPane>
 </template>
@@ -25,7 +17,7 @@
     setup
     lang="ts">
     import type { EChartsOption } from 'echarts/core';
-    import { FluxStatisticsChartPane, FluxStatisticsLegend, FluxStatisticsLegendItem, FluxStatisticsRadarChart } from '@flux-ui/statistics';
+    import { FluxStatisticsChartPane, FluxStatisticsLegend, FluxStatisticsRadarChart } from '@flux-ui/statistics';
 
     const series = [{
         data: [

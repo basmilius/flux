@@ -6,24 +6,7 @@
         <FluxStatisticsDonutChart :series="series"/>
 
         <template #legend>
-            <FluxStatisticsLegend>
-                <FluxStatisticsLegendItem
-                    color="primary"
-                    label="Organic"
-                    value="44%"/>
-                <FluxStatisticsLegendItem
-                    color="#10b981"
-                    label="Direct"
-                    value="28%"/>
-                <FluxStatisticsLegendItem
-                    color="#3b82f6"
-                    label="Referral"
-                    value="18%"/>
-                <FluxStatisticsLegendItem
-                    color="#f59e0b"
-                    label="Social"
-                    value="10%"/>
-            </FluxStatisticsLegend>
+            <FluxStatisticsLegend/>
         </template>
     </FluxStatisticsChartPane>
 </template>
@@ -31,7 +14,7 @@
 <script
     setup
     lang="ts">
-    import { FluxStatisticsChartPane, FluxStatisticsDonutChart, FluxStatisticsLegend, FluxStatisticsLegendItem } from '@flux-ui/statistics';
+    import { FluxStatisticsChartPane, FluxStatisticsDonutChart, FluxStatisticsLegend } from '@flux-ui/statistics';
 
     const series = [{
         color: ['var(--primary-600)', '#10b981', '#3b82f6', '#f59e0b'],

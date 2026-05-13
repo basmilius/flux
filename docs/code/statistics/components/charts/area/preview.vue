@@ -4,7 +4,9 @@
             icon="chart-area"
             title="Monthly revenue"
             :aspect-ratio="3">
-            <FluxStatisticsAreaChart :series="series"/>
+            <FluxStatisticsAreaChart
+                :options="{ color: ['#10b981'] }"
+                :series="series"/>
         </FluxStatisticsChartPane>
     </Preview>
 </template>

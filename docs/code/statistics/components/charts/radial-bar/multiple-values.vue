@@ -6,19 +6,7 @@
         <FluxStatisticsRadialBar :series="series"/>
 
         <template #legend>
-            <FluxStatisticsLegend>
-                <FluxStatisticsLegendItem
-                    color="primary"
-                    label="API"/>
-
-                <FluxStatisticsLegendItem
-                    color="info"
-                    label="DB"/>
-
-                <FluxStatisticsLegendItem
-                    color="success"
-                    label="Workers"/>
-            </FluxStatisticsLegend>
+            <FluxStatisticsLegend/>
         </template>
     </FluxStatisticsChartPane>
 </template>
@@ -26,7 +14,7 @@
 <script
     setup
     lang="ts">
-    import { FluxStatisticsChartPane, FluxStatisticsLegend, FluxStatisticsLegendItem, FluxStatisticsRadialBar } from '@flux-ui/statistics';
+    import { FluxStatisticsChartPane, FluxStatisticsLegend, FluxStatisticsRadialBar } from '@flux-ui/statistics';
 
     const series = [
         { radius: '90%', data: [{ value: 92, name: 'API' }], title: { offsetCenter: [0, '-70%'] }, detail: { offsetCenter: [0, '-55%'] } },

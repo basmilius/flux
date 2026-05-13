@@ -6,11 +6,7 @@
         <FluxStatisticsAreaChart :series="series"/>
 
         <template #legend>
-            <FluxStatisticsLegend>
-                <FluxStatisticsLegendItem
-                    color="primary"
-                    label="Revenue"/>
-            </FluxStatisticsLegend>
+            <FluxStatisticsLegend/>
         </template>
 
         <template #toolbar>
@@ -25,7 +21,7 @@
     setup
     lang="ts">
     import { FluxAction, FluxToolbarGroup } from '@flux-ui/components';
-    import { FluxStatisticsAreaChart, FluxStatisticsChartPane, FluxStatisticsLegend, FluxStatisticsLegendItem } from '@flux-ui/statistics';
+    import { FluxStatisticsAreaChart, FluxStatisticsChartPane, FluxStatisticsLegend } from '@flux-ui/statistics';
 
     const series = [{
         name: 'Revenue',

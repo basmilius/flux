@@ -8,10 +8,11 @@
     setup>
     import type { BarSeriesOption } from 'echarts/charts';
     import { merge } from 'lodash-es';
-    import { computed } from 'vue';
+    import { computed, inject, watchEffect } from 'vue';
     import { useI18n } from 'vue-i18n';
+    import { type ChartLegendItem, FluxStatisticsChartLegendInjectionKey } from '~flux/statistics/composable';
     import type { EChartsOption } from '~flux/statistics/composable';
-    import { BAR_SERIES_DEFAULTS } from '~flux/statistics/util';
+    import { BAR_SERIES_DEFAULTS, CHART_DEFAULT_COLORS } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
 
     const {
@@ -24,6 +25,8 @@
 
     const {t} = useI18n({useScope: 'parent'});
 
+    const legendContext = inject(FluxStatisticsChartLegendInjectionKey, null);
+
     const translatedSeries = computed<BarSeriesOption[]>(() =>
         series.map(item => ({
             ...BAR_SERIES_DEFAULTS,
@@ -31,6 +34,24 @@
             name: item.name ? t(String(item.name)) : undefined
         }))
     );
+
+    const palette = computed<readonly string[]>(() => {
+        const userColors = (options as { color?: unknown }).color;
+        return Array.isArray(userColors) ? userColors as readonly string[] : CHART_DEFAULT_COLORS;
+    });
+
+    const legendItems = computed<readonly ChartLegendItem[]>(() =>
+        translatedSeries.value.map((s, index) => ({
+            color: palette.value[index % palette.value.length],
+            label: s.name ?? ''
+        }))
+    );
+
+    watchEffect(() => {
+        if (legendContext) {
+            legendContext.items.value = legendItems.value;
+        }
+    });
 
     const mergedOptions = computed<EChartsOption>(() => {
         const base: EChartsOption = {

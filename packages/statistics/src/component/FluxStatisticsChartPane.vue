@@ -28,6 +28,8 @@
     setup>
     import { FluxToolbar } from '@flux-ui/components';
     import type { FluxIconName } from '@flux-ui/types';
+    import { provide } from 'vue';
+    import { createChartLegendContext, FluxStatisticsChartLegendInjectionKey } from '~flux/statistics/composable';
     import Base from './FluxStatisticsBase.vue';
     import $style from '~flux/statistics/css/ChartPane.module.scss';
 
@@ -44,4 +46,6 @@
         legend?(): any;
         toolbar?(): any;
     }>();
+
+    provide(FluxStatisticsChartLegendInjectionKey, createChartLegendContext());
 </script>

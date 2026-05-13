@@ -4,7 +4,13 @@
             icon="chart-line"
             title="Active users"
             :aspect-ratio="3">
-            <FluxStatisticsLineChart :series="series"/>
+            <FluxStatisticsLineChart
+                :options="{ color: ['#f97316', '#0ea5e9'] }"
+                :series="series"/>
+
+            <template #legend>
+                <FluxStatisticsLegend/>
+            </template>
         </FluxStatisticsChartPane>
     </Preview>
 </template>
@@ -12,7 +18,7 @@
 <script
     setup
     lang="ts">
-    import { FluxStatisticsChartPane, FluxStatisticsLineChart } from '@flux-ui/statistics';
+    import { FluxStatisticsChartPane, FluxStatisticsLegend, FluxStatisticsLineChart } from '@flux-ui/statistics';
 
     const series = [
         {

@@ -6,19 +6,7 @@
         <FluxStatisticsScatterChart :series="series"/>
 
         <template #legend>
-            <FluxStatisticsLegend>
-                <FluxStatisticsLegendItem
-                    color="primary"
-                    label="New"/>
-
-                <FluxStatisticsLegendItem
-                    color="info"
-                    label="Returning"/>
-
-                <FluxStatisticsLegendItem
-                    color="warning"
-                    label="VIP"/>
-            </FluxStatisticsLegend>
+            <FluxStatisticsLegend/>
         </template>
     </FluxStatisticsChartPane>
 </template>
@@ -26,7 +14,7 @@
 <script
     setup
     lang="ts">
-    import { FluxStatisticsChartPane, FluxStatisticsLegend, FluxStatisticsLegendItem, FluxStatisticsScatterChart } from '@flux-ui/statistics';
+    import { FluxStatisticsChartPane, FluxStatisticsLegend, FluxStatisticsScatterChart } from '@flux-ui/statistics';
 
     const series = [
         { name: 'New', data: [[10, 14], [20, 22], [30, 18], [40, 26], [50, 33]] },

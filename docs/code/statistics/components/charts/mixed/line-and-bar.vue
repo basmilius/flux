@@ -8,15 +8,7 @@
             :series="series"/>
 
         <template #legend>
-            <FluxStatisticsLegend>
-                <FluxStatisticsLegendItem
-                    color="primary"
-                    label="Revenue"/>
-
-                <FluxStatisticsLegendItem
-                    color="info"
-                    label="Orders"/>
-            </FluxStatisticsLegend>
+            <FluxStatisticsLegend/>
         </template>
     </FluxStatisticsChartPane>
 </template>
@@ -25,7 +17,7 @@
     setup
     lang="ts">
     import type { EChartsOption } from 'echarts/core';
-    import { FluxStatisticsChartPane, FluxStatisticsLegend, FluxStatisticsLegendItem, FluxStatisticsMixedChart } from '@flux-ui/statistics';
+    import { FluxStatisticsChartPane, FluxStatisticsLegend, FluxStatisticsMixedChart } from '@flux-ui/statistics';
 
     const series = [
         { name: 'Revenue', type: 'bar', data: [3800, 4200, 4700, 5100, 5500, 6200, 6800] },

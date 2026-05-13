@@ -6,11 +6,7 @@
         <FluxStatisticsAreaChart :series="series"/>
 
         <template #legend>
-            <FluxStatisticsLegend>
-                <FluxStatisticsLegendItem
-                    color="primary"
-                    label="Revenue"/>
-            </FluxStatisticsLegend>
+            <FluxStatisticsLegend/>
         </template>
     </FluxStatisticsChartPane>
 </template>
@@ -18,7 +14,7 @@
 <script
     setup
     lang="ts">
-    import { FluxStatisticsAreaChart, FluxStatisticsChartPane, FluxStatisticsLegend, FluxStatisticsLegendItem } from '@flux-ui/statistics';
+    import { FluxStatisticsAreaChart, FluxStatisticsChartPane, FluxStatisticsLegend } from '@flux-ui/statistics';
 
     const series = [{
         name: 'Revenue',
