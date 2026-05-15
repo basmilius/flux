@@ -4,6 +4,8 @@
         title="Performance grid"
         :aspect-ratio="2.4">
         <FluxStatisticsHeatmapChart
+            x-axis-labels
+            y-axis-labels
             :advanced-options="advancedOptions"
             :series="series"
             :x-labels="slots"

@@ -21,6 +21,16 @@ props:
         type: boolean
         optional: true
 
+    -   name: x-axis-labels
+        description: Show the labels on the X-axis. Disabled by default.
+        type: boolean
+        optional: true
+
+    -   name: y-axis-labels
+        description: Show the labels on the Y-axis. Disabled by default.
+        type: boolean
+        optional: true
+
     -   name: advanced-options
         description: Escape-hatch for raw ECharts options merged on top of the Flux defaults. Use for custom `visualMap` ranges.
         type: EChartsOption

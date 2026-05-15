@@ -4,6 +4,8 @@
         title="Cohort retention"
         :aspect-ratio="2.4">
         <FluxStatisticsHeatmapChart
+            x-axis-labels
+            y-axis-labels
             :series="series"
             :x-labels="months"
             :y-labels="cohorts"/>

@@ -7,19 +7,26 @@
             '--aspect-ratio': aspectRatio,
             '--max-height': maxHeight && `${maxHeight}px`,
             '--min-height': minHeight && `${minHeight}px`
-        }"
-        #content>
-        <div :class="$style.statisticsChartPaneBody">
-            <div :class="$style.statisticsChartPaneContainer">
-                <slot/>
+        }">
+        <template
+            v-if="slots.info"
+            #info>
+            <slot name="info"/>
+        </template>
+
+        <template #content>
+            <div :class="$style.statisticsChartPaneBody">
+                <div :class="$style.statisticsChartPaneContainer">
+                    <slot/>
+                </div>
+
+                <slot name="legend"/>
             </div>
 
-            <slot name="legend"/>
-        </div>
-
-        <FluxToolbar v-if="slots.toolbar">
-            <slot name="toolbar"/>
-        </FluxToolbar>
+            <FluxToolbar v-if="slots.toolbar">
+                <slot name="toolbar"/>
+            </FluxToolbar>
+        </template>
     </Base>
 </template>
 
@@ -43,6 +50,7 @@
 
     const slots = defineSlots<{
         default(): any;
+        info?(): any;
         legend?(): any;
         toolbar?(): any;
     }>();

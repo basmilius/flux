@@ -2,11 +2,14 @@
 
 .statisticsLegend {
     display: flex;
+    max-height: 360px;
     min-width: 0;
     padding: 15px 18px 15px;
     align-self: center;
     flex-flow: column;
     flex-grow: 1;
+    overflow: auto;
+    user-select: none;
 }
 
 .statisticsLegendItem {
@@ -26,7 +29,7 @@
 }
 
 .statisticsLegendItem.isHovered {
-    background: var(--surface-hover);
+    background: var(--surface-active);
 }
 
 .statisticsLegendItemColor {

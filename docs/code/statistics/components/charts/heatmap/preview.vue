@@ -5,6 +5,8 @@
             title="Weekly activity"
             :aspect-ratio="2.4">
             <FluxStatisticsHeatmapChart
+                x-axis-labels
+                y-axis-labels
                 :series="series"
                 :x-labels="weeks"
                 :y-labels="days"/>

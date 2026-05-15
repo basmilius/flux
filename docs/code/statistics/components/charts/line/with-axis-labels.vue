@@ -1,10 +1,12 @@
 <template>
     <FluxStatisticsChartPane
         icon="chart-line"
-        title="Quarterly conversions"
+        title="Monthly revenue"
         :aspect-ratio="3">
         <FluxStatisticsLineChart
+            split-lines
             x-axis-labels
+            y-axis-labels
             :labels="['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']"
             :series="series"/>
     </FluxStatisticsChartPane>
@@ -17,7 +19,7 @@
     import { FluxStatisticsChartPane, FluxStatisticsLineChart } from '@flux-ui/statistics';
 
     const series: FluxStatisticsChartLineSeries[] = [{
-        name: 'Conversions',
-        data: [124, 168, 145, 192, 178, 218, 204, 256, 232, 284, 262, 312]
+        name: 'Revenue',
+        data: [4200, 5800, 4900, 7100, 6300, 8900, 7400, 9200, 8100, 10400, 9600, 11200]
     }];
 </script>

@@ -1,9 +1,7 @@
 <template>
-    <div :class="$style.statisticsChart">
-        <div
-            ref="chart"
-            :class="$style.statisticsChartElement"/>
-    </div>
+    <div
+        ref="chart"
+        :class="$style.statisticsChart"/>
 </template>
 
 <script
@@ -11,7 +9,7 @@
     setup>
     import { merge } from 'lodash-es';
     import { computed, useTemplateRef } from 'vue';
-    import { useECharts, type EChartsOption } from '~flux/statistics/composable';
+    import { type EChartsOption, useECharts } from '~flux/statistics/composable';
     import { buildDefaultOptions, deepResolveCssVars } from '~flux/statistics/util';
     import $style from '~flux/statistics/css/Chart.module.scss';
 
@@ -39,7 +37,7 @@
         return deepResolveCssVars(merged);
     });
 
-    const { chartInstance } = useECharts(chart, mergedOptions);
+    const {chartInstance} = useECharts(chart, mergedOptions);
 
-    defineExpose({ chartInstance });
+    defineExpose({chartInstance});
 </script>

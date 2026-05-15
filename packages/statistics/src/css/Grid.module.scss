@@ -10,6 +10,7 @@
 
 .statisticsGridContent {
     display: grid;
+    align-items: start;
     gap: var(--gap);
     grid-template-columns: repeat(var(--columns), 1fr);
 }

@@ -5,6 +5,8 @@
         :aspect-ratio="2.4">
         <FluxStatisticsHeatmapChart
             tooltip
+            x-axis-labels
+            y-axis-labels
             :series="series"
             :x-labels="weeks"
             :y-labels="days"/>

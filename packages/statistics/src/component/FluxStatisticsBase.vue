@@ -7,6 +7,18 @@
                 {{ title }}
             </span>
 
+            <FluxTooltip
+                v-if="slots.info"
+                direction="vertical">
+                <template #content>
+                    <slot name="info"/>
+                </template>
+
+                <FluxIcon
+                    :class="$style.statisticsBaseHeaderInfo"
+                    name="circle-info"/>
+            </FluxTooltip>
+
             <FluxIcon
                 v-if="icon"
                 :class="$style.statisticsBaseHeaderIcon"
@@ -26,7 +38,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxIcon, FluxPane } from '@flux-ui/components';
+    import { FluxIcon, FluxPane, FluxTooltip } from '@flux-ui/components';
     import type { FluxIconName } from '@flux-ui/types';
     import $style from '~flux/statistics/css/Base.module.scss';
 
@@ -39,5 +51,6 @@
     const slots = defineSlots<{
         content?(): any;
         default?(): any;
+        info?(): any;
     }>();
 </script>

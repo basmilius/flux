@@ -20,13 +20,17 @@
         advancedOptions = {},
         series,
         tooltip = false,
+        xAxisLabels = false,
         xLabels = [],
+        yAxisLabels = false,
         yLabels = []
     } = defineProps<{
         readonly advancedOptions?: EChartsOption;
         readonly series: readonly FluxStatisticsChartHeatmapSeries[];
         readonly tooltip?: boolean;
+        readonly xAxisLabels?: boolean;
         readonly xLabels?: readonly string[];
+        readonly yAxisLabels?: boolean;
         readonly yLabels?: readonly string[];
     }>();
 
@@ -41,9 +45,8 @@
 
     const mergedOptions = computed<EChartsOption>(() => {
         const base: EChartsOption = {
-            ...buildCartesianBaseOptions({ yAxisType: 'category' }),
+            ...buildCartesianBaseOptions({ yAxisType: 'category', xAxisLabels, yAxisLabels }),
             color: [blue500],
-            grid: { left: 6, right: 6, top: 6, bottom: 24, containLabel: true },
             visualMap: {
                 show: false,
                 min: 0,
@@ -53,7 +56,7 @@
             xAxis: {
                 type: 'category',
                 data: translatedXLabels.value as string[],
-                axisLabel: { show: true, color: 'var(--foreground-secondary)' },
+                axisLabel: { show: xAxisLabels, color: 'var(--foreground-secondary)' },
                 axisLine: { show: false },
                 axisTick: { show: false },
                 splitLine: { show: false }
@@ -61,7 +64,7 @@
             yAxis: {
                 type: 'category',
                 data: translatedYLabels.value as string[],
-                axisLabel: { show: true, color: 'var(--foreground-secondary)' },
+                axisLabel: { show: yAxisLabels, color: 'var(--foreground-secondary)' },
                 axisLine: { show: false },
                 axisTick: { show: false },
                 splitLine: { show: false }

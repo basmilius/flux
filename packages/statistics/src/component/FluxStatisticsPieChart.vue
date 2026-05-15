@@ -11,18 +11,22 @@
     import { merge } from 'lodash-es';
     import { computed } from 'vue';
     import { usePieSlicesSetup, type EChartsOption } from '~flux/statistics/composable';
-    import { buildSharedItemTooltipFormatter, POLAR_BASE_OPTIONS, toPieSeries } from '~flux/statistics/util';
+    import { buildSharedItemTooltipFormatter, type ChartTooltipValueFormatter, POLAR_BASE_OPTIONS, toPieSeries } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
     import $style from '~flux/statistics/css/Chart.module.scss';
 
     const {
         advancedOptions = {},
         slices,
-        tooltip = false
+        title,
+        tooltip = false,
+        tooltipValueFormatter
     } = defineProps<{
         readonly advancedOptions?: EChartsOption;
         readonly slices: readonly FluxStatisticsChartPieSlice[];
+        readonly title?: string;
         readonly tooltip?: boolean;
+        readonly tooltipValueFormatter?: ChartTooltipValueFormatter;
     }>();
 
     const { t, palette, tooltipItems } = usePieSlicesSetup(() => slices);
@@ -38,7 +42,7 @@
             tooltip: {
                 show: true,
                 trigger: 'item',
-                formatter: buildSharedItemTooltipFormatter(t, $style as never, () => tooltipItems.value) as never
+                formatter: buildSharedItemTooltipFormatter(t, $style as never, () => tooltipItems.value, () => title, tooltipValueFormatter) as never
             }
         };
     });

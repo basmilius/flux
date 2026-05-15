@@ -50,7 +50,7 @@ export function resolveChartColor(color?: FluxStatisticsChartColor): string | un
         return undefined;
     }
 
-    if (color.startsWith('#')) {
+    if (color.startsWith('#') || color.startsWith('var(')) {
         return color;
     }
 

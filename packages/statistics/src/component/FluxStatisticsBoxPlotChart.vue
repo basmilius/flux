@@ -19,17 +19,23 @@
         advancedOptions = {},
         labels,
         series,
-        tooltip = false
+        splitLines = false,
+        tooltip = false,
+        xAxisLabels = false,
+        yAxisLabels = false
     } = defineProps<{
         readonly advancedOptions?: EChartsOption;
         readonly labels?: readonly string[];
         readonly series: readonly FluxStatisticsChartBoxPlotSeries[];
+        readonly splitLines?: boolean;
         readonly tooltip?: boolean;
+        readonly xAxisLabels?: boolean;
+        readonly yAxisLabels?: boolean;
     }>();
 
     const { t, palette } = useChartSeriesSetup(() => series);
 
-    const xAxisLabels = computed<readonly string[] | undefined>(() => {
+    const xLabels = computed<readonly string[] | undefined>(() => {
         if (labels) {
             return labels;
         }
@@ -49,9 +55,9 @@
     ));
 
     const mergedOptions = computed<EChartsOption>(() => {
-        const base = buildCartesianBaseOptions({ dashedSplitLines: true });
-        const xAxisOverride: EChartsOption | undefined = xAxisLabels.value
-            ? { xAxis: { type: 'category', data: xAxisLabels.value as string[] } }
+        const base = buildCartesianBaseOptions({ xAxisLabels, yAxisLabels, splitLines });
+        const xAxisOverride: EChartsOption | undefined = xLabels.value
+            ? { xAxis: { type: 'category', data: xLabels.value as string[] } }
             : undefined;
 
         const tooltipOptions: EChartsOption = tooltip

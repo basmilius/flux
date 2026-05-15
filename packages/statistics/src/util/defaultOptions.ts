@@ -37,7 +37,11 @@ export interface SharedTooltipItem {
     readonly value: number | string;
     readonly color: string;
     readonly icon?: FluxIconName;
+    readonly seriesIndex?: number;
+    readonly dataIndex?: number;
 }
+
+export type ChartTooltipValueFormatter = (value: number | string, item: SharedTooltipItem) => string;
 
 export const CHART_DEFAULT_COLORS = [
     'var(--chart-1)',
@@ -49,7 +53,8 @@ export const CHART_DEFAULT_COLORS = [
 export function buildTooltipFormatter(
     t: Translator,
     styles: TooltipStyleClasses,
-    getSeriesIcons?: () => readonly (FluxIconName | undefined)[]
+    getSeriesIcons?: () => readonly (FluxIconName | undefined)[],
+    valueFormatter?: ChartTooltipValueFormatter
 ) {
     return (params: TooltipParam | TooltipParam[]): string => {
         const items = Array.isArray(params) ? params : [params];
@@ -66,21 +71,24 @@ export function buildTooltipFormatter(
             name: param.seriesName ?? '',
             value: extractValue(param.value),
             color: param.color,
-            icon: icons?.[param.seriesIndex]
-        })));
+            icon: icons?.[param.seriesIndex],
+            seriesIndex: param.seriesIndex,
+            dataIndex: param.dataIndex
+        })), -1, valueFormatter);
     };
 }
 
 export function buildCartesianTooltipOptions(
     t: Translator,
     styles: TooltipStyleClasses,
-    getSeriesIcons: () => readonly (FluxIconName | undefined)[]
+    getSeriesIcons: () => readonly (FluxIconName | undefined)[],
+    valueFormatter?: ChartTooltipValueFormatter
 ): EChartsOption {
     return {
         tooltip: {
             show: true,
             trigger: 'axis',
-            formatter: buildTooltipFormatter(t, styles, getSeriesIcons) as never
+            formatter: buildTooltipFormatter(t, styles, getSeriesIcons, valueFormatter) as never
         }
     };
 }
@@ -89,7 +97,8 @@ export function buildSharedItemTooltipFormatter(
     t: Translator,
     styles: TooltipStyleClasses,
     getItems: () => readonly SharedTooltipItem[],
-    getTitle?: () => string
+    getTitle?: () => string | undefined,
+    valueFormatter?: ChartTooltipValueFormatter
 ) {
     return (params: TooltipParam | TooltipParam[]): string => {
         const param = Array.isArray(params) ? params[0] : params;
@@ -100,10 +109,10 @@ export function buildSharedItemTooltipFormatter(
 
         const items = getItems();
         const activeIndex = param.dataIndex ?? -1;
-        const rawTitle = getTitle?.() ?? param.seriesName ?? '';
+        const rawTitle = getTitle?.() ?? '';
         const title = rawTitle ? t(String(rawTitle)) : '';
 
-        return renderTooltip(t, styles, title, items, activeIndex);
+        return renderTooltip(t, styles, title, items, activeIndex, valueFormatter);
     };
 }
 
@@ -112,7 +121,8 @@ function renderTooltip(
     styles: TooltipStyleClasses,
     title: string,
     items: readonly SharedTooltipItem[],
-    activeIndex: number = -1
+    activeIndex: number = -1,
+    valueFormatter?: ChartTooltipValueFormatter
 ): string {
     if (items.length === 0) {
         return '';
@@ -133,10 +143,12 @@ function renderTooltip(
             ? `<div class="${styles.statisticsChartTooltipSeriesIcon}${activeClass}" style="color: ${item.color}">${renderIconSvg(item.icon, item.color, 14)}</div>`
             : `<div class="${styles.statisticsChartTooltipSeriesColor}${activeClass}" style="background: ${item.color}"></div>`;
 
+        const display = valueFormatter ? valueFormatter(item.value, item) : formatValue(item.value);
+
         return `
             ${marker}
             <div class="${styles.statisticsChartTooltipSeriesName}${activeClass}">${translatedName}</div>
-            <div class="${styles.statisticsChartTooltipSeriesValue}${activeClass}">${formatValue(item.value)}</div>
+            <div class="${styles.statisticsChartTooltipSeriesValue}${activeClass}">${display}</div>
         `;
     }).join('');
 
@@ -229,6 +241,7 @@ export interface HeatmapTooltipPoint {
     readonly x: string | number;
     readonly y: string | number;
     readonly value: number;
+    readonly formatted?: string;
 }
 
 export function buildHeatmapTooltipOptions(
@@ -259,7 +272,7 @@ export function buildHeatmapTooltipOptions(
         const title = [seriesName, `${xLabel} · ${yLabel}`].filter(Boolean).join(' — ');
 
         const items: SharedTooltipItem[] = [
-            { name: '', value: point.value, color: 'var(--primary-600)' }
+            { name: '', value: point.formatted ?? point.value, color: 'var(--primary-600)' }
         ];
 
         return renderTooltip(t, styles, title, items);

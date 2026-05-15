@@ -4,6 +4,8 @@
         title="Contribution graph"
         :aspect-ratio="3">
         <FluxStatisticsHeatmapChart
+            x-axis-labels
+            y-axis-labels
             :advanced-options="advancedOptions"
             :series="series"
             :x-labels="weeks"

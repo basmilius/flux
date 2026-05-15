@@ -3,18 +3,32 @@
 .statisticsChartPane {
     --aspect-ratio: unset;
 
+    container: chart-pane / inline-size;
     max-width: 100%;
-    aspect-ratio: var(--aspect-ratio);
 }
 
 .statisticsChartPaneBody {
     display: grid;
+    align-content: start;
     flex-grow: 1;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
 
+    .statisticsChartPaneContainer {
+        height: calc(100cqw / var(--aspect-ratio, 1));
+    }
+
     &:has(.statisticsLegend) {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: .4fr .6fr;
+
+        @container chart-pane (max-width: 390px) {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto auto;
+        }
+
+        .statisticsChartPaneContainer {
+            height: calc(40cqw / var(--aspect-ratio, 1));
+        }
     }
 
     &:first-child :global(canvas) {
@@ -31,6 +45,7 @@
 .statisticsChartPaneContainer {
     position: relative;
     display: block;
+    align-self: center;
 }
 
 :local(.paneHeader) + .statisticsChartPaneContainer {

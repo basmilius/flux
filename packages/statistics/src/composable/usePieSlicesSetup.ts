@@ -31,9 +31,11 @@ export function usePieSlicesSetup(
     const tooltipItems = computed<readonly SharedTooltipItem[]>(() =>
         slicesGetter().map((slice, i) => ({
             name: slice.label,
-            value: slice.value,
+            value: slice.formatted ?? slice.value,
             color: palette.value[i],
-            icon: slice.icon
+            icon: slice.icon,
+            seriesIndex: 0,
+            dataIndex: i
         }))
     );
 
@@ -42,7 +44,7 @@ export function usePieSlicesSetup(
             color: palette.value[i],
             icon: slice.icon,
             label: slice.label ? t(String(slice.label)) : '',
-            value: slice.value
+            value: slice.formatted ?? slice.value
         }))
     );
 

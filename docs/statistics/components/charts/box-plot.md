@@ -16,6 +16,21 @@ props:
         type: boolean
         optional: true
 
+    -   name: x-axis-labels
+        description: Show labels on the X-axis. Disabled by default.
+        type: boolean
+        optional: true
+
+    -   name: y-axis-labels
+        description: Show labels on the Y-axis. Disabled by default.
+        type: boolean
+        optional: true
+
+    -   name: split-lines
+        description: Show dashed split lines along value axes. Disabled by default.
+        type: boolean
+        optional: true
+
     -   name: advanced-options
         description: Escape-hatch for raw ECharts options merged on top of the Flux defaults.
         type: EChartsOption
@@ -60,4 +75,8 @@ example=../../../code/statistics/components/charts/box-plot/single-category.vue
 
 ::: example With tooltip || Enable the hover tooltip listing min, quartiles, and max.
 example=../../../code/statistics/components/charts/box-plot/with-tooltip.vue
+:::
+
+::: example With axis labels || Show X/Y axis labels and dashed split lines.
+example=../../../code/statistics/components/charts/box-plot/with-axis-labels.vue
 :::

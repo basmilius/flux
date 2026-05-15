@@ -26,12 +26,6 @@
     --stroke: rgb(from var(--surface-stroke) r g b / .5);
 }
 
-.statisticsChartElement {
-    position: absolute;
-    display: block;
-    inset: 0;
-}
-
 .statisticsChartTooltipTitle {
     padding: 18px 18px 0;
     color: var(--foreground-prominent);
@@ -126,4 +120,8 @@
     box-shadow: var(--shadow-lg) !important;
     color: var(--foreground);
     contain: paint;
+
+    &:empty {
+        display: none;
+    }
 }

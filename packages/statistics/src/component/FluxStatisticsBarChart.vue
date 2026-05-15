@@ -11,7 +11,7 @@
     import { merge } from 'lodash-es';
     import { computed } from 'vue';
     import { useChartSeriesSetup, type EChartsOption } from '~flux/statistics/composable';
-    import { buildCartesianTooltipOptions, cartesianFallbackLabels, extractLabels, toBarSeries } from '~flux/statistics/util';
+    import { buildCartesianBaseOptions, buildCartesianTooltipOptions, cartesianFallbackLabels, type ChartTooltipValueFormatter, extractLabels, toBarSeries } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
     import $style from '~flux/statistics/css/Chart.module.scss';
 
@@ -19,38 +19,38 @@
         advancedOptions = {},
         labels,
         series,
-        tooltip = false
+        splitLines = false,
+        tooltip = false,
+        tooltipValueFormatter,
+        xAxisLabels = false,
+        yAxisLabels = false
     } = defineProps<{
         readonly advancedOptions?: EChartsOption;
         readonly labels?: readonly string[];
         readonly series: readonly FluxStatisticsChartBarSeries[];
+        readonly splitLines?: boolean;
         readonly tooltip?: boolean;
+        readonly tooltipValueFormatter?: ChartTooltipValueFormatter;
+        readonly xAxisLabels?: boolean;
+        readonly yAxisLabels?: boolean;
     }>();
 
     const { t, palette } = useChartSeriesSetup(() => series);
 
-    const xAxisLabels = computed<readonly string[]>(() => labels ?? extractLabels(series) ?? cartesianFallbackLabels(series));
+    const xLabels = computed<readonly string[]>(() => labels ?? extractLabels(series) ?? cartesianFallbackLabels(series));
 
     const echartsSeries = computed(() => series.map((s, i) =>
         toBarSeries({ ...s, name: s.name ? t(String(s.name)) : undefined }, palette.value[i])
     ));
 
     const mergedOptions = computed<EChartsOption>(() => {
-        const base: EChartsOption = {
-            grid: { left: 9, right: 9, top: 18, bottom: 24 },
-            xAxis: {
-                type: 'category',
-                show: true,
-                data: xAxisLabels.value as string[],
-                axisLabel: { show: true, color: 'var(--foreground-secondary)' }
-            },
-            yAxis: { show: false }
-        };
+        const base = buildCartesianBaseOptions({ xAxisLabels, yAxisLabels, splitLines });
+        const xAxisOverride: EChartsOption = { xAxis: { type: 'category', data: xLabels.value as string[] } };
 
         const tooltipOptions: EChartsOption = tooltip
-            ? buildCartesianTooltipOptions(t, $style as never, () => series.map(s => s.icon))
+            ? buildCartesianTooltipOptions(t, $style as never, () => series.map(s => s.icon), tooltipValueFormatter)
             : { tooltip: { show: false } };
 
-        return merge({}, base, tooltipOptions, advancedOptions, { series: echartsSeries.value, color: palette.value });
+        return merge({}, base, xAxisOverride, tooltipOptions, advancedOptions, { series: echartsSeries.value, color: palette.value });
     });
 </script>

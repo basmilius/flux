@@ -18,11 +18,17 @@
     const {
         advancedOptions = {},
         series,
-        tooltip = false
+        splitLines = false,
+        tooltip = false,
+        xAxisLabels = false,
+        yAxisLabels = false
     } = defineProps<{
         readonly advancedOptions?: EChartsOption;
         readonly series: readonly FluxStatisticsChartScatterSeries[];
+        readonly splitLines?: boolean;
         readonly tooltip?: boolean;
+        readonly xAxisLabels?: boolean;
+        readonly yAxisLabels?: boolean;
     }>();
 
     const { t, palette } = useChartSeriesSetup(() => series);
@@ -31,14 +37,16 @@
         toScatterSeries({ ...s, name: s.name ? t(String(s.name)) : undefined }, palette.value[i])
     ));
 
-    const base = buildCartesianBaseOptions({
-        xAxisType: 'value',
-        yAxisType: 'value',
-        scale: true,
-        dashedSplitLines: true
-    });
-
     const mergedOptions = computed<EChartsOption>(() => {
+        const base = buildCartesianBaseOptions({
+            xAxisType: 'value',
+            yAxisType: 'value',
+            scale: true,
+            xAxisLabels,
+            yAxisLabels,
+            splitLines
+        });
+
         const tooltipOptions: EChartsOption = tooltip
             ? buildCartesianTooltipOptions(t, $style as never, () => series.map(s => s.icon))
             : { tooltip: { show: false } };

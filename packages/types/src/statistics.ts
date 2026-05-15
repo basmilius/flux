@@ -6,7 +6,7 @@ export type FluxStatisticsChange = {
     readonly value: string | number;
 };
 
-export type FluxStatisticsChartColor = FluxColor | `#${string}`;
+export type FluxStatisticsChartColor = FluxColor | `#${string}` | `var(--${string})`;
 
 export interface FluxStatisticsChartCategoryPoint {
     readonly label?: string;
@@ -31,6 +31,7 @@ export interface FluxStatisticsChartMixedSeries extends FluxStatisticsChartCarte
 export interface FluxStatisticsChartPieSlice {
     readonly label: string;
     readonly value: number;
+    readonly formatted?: string;
     readonly color?: FluxStatisticsChartColor;
     readonly icon?: FluxIconName;
 }
@@ -106,6 +107,7 @@ export interface FluxStatisticsChartHeatmapPoint {
     readonly x: string | number;
     readonly y: string | number;
     readonly value: number;
+    readonly formatted?: string;
 }
 
 export interface FluxStatisticsChartHeatmapSeries {
