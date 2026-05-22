@@ -5,6 +5,7 @@
 
     container: chart-pane / inline-size;
     max-width: 100%;
+    contain: paint;
 }
 
 .statisticsChartPaneBody {
@@ -29,16 +30,6 @@
         .statisticsChartPaneContainer {
             height: calc(40cqw / var(--aspect-ratio, 1));
         }
-    }
-
-    &:first-child :global(canvas) {
-        border-top-left-radius: var(--radius);
-        border-top-right-radius: var(--radius);
-    }
-
-    &:last-child :global(canvas) {
-        border-bottom-left-radius: var(--radius);
-        border-bottom-right-radius: var(--radius);
     }
 }
 

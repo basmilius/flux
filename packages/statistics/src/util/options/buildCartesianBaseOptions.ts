@@ -4,7 +4,7 @@ const FOREGROUND_LABEL = { show: true, color: 'var(--foreground-secondary)' } as
 const HIDDEN_AXIS = { show: false } as const;
 const DASHED_SPLIT_LINE = { show: true, lineStyle: { type: 'dashed' as const, color: 'var(--gray-200)' } } as const;
 
-interface CartesianBaseConfig {
+export interface CartesianBaseConfig {
     readonly xAxisType?: 'category' | 'value';
     readonly yAxisType?: 'value' | 'category';
     readonly scale?: boolean;
@@ -20,10 +20,10 @@ export function buildCartesianGrid(xAxisLabels: boolean, yAxisLabels: boolean): 
     }
 
     return {
-        left: yAxisLabels ? 9 : 0,
-        right: 9,
-        top: 9,
-        bottom: xAxisLabels ? 9 : 0,
+        left: yAxisLabels ? 21 : 0,
+        right: 21,
+        top: 21,
+        bottom: xAxisLabels ? 21 : 0,
         containLabel: true
     };
 }
@@ -38,7 +38,11 @@ export function buildCartesianBaseOptions(config: CartesianBaseConfig = {}): ECh
 
     return {
         grid: buildCartesianGrid(xAxisLabels, yAxisLabels),
-        tooltip: { trigger: config.tooltipTrigger ?? 'item' },
+        tooltip: {
+            appendTo: 'body',
+            snap: true,
+            trigger: config.tooltipTrigger ?? 'item'
+        },
         xAxis: {
             type: config.xAxisType ?? 'category',
             show: true,
@@ -59,16 +63,3 @@ export function buildCartesianBaseOptions(config: CartesianBaseConfig = {}): ECh
         }
     };
 }
-
-export const POLAR_BASE_OPTIONS: EChartsOption = {
-    tooltip: { show: false },
-    xAxis: { show: false },
-    yAxis: { show: false },
-    grid: { show: false }
-};
-
-export const SPARKLINE_AXIS_BASE: EChartsOption = {
-    tooltip: { trigger: 'axis' },
-    xAxis: { show: false, boundaryGap: false },
-    yAxis: { show: false, min: 'dataMin', max: 'dataMax' }
-};

@@ -8,15 +8,14 @@
     lang="ts"
     setup>
     import type { FluxStatisticsChartGaugeSeries } from '@flux-ui/types';
-    import { merge } from 'lodash-es';
     import { computed } from 'vue';
     import { useChartSeriesSetup, type EChartsOption } from '~flux/statistics/composable';
-    import { buildGaugeTooltipOptions, POLAR_BASE_OPTIONS, toGaugeSeries } from '~flux/statistics/util';
+    import { buildGaugeChartOptions, gaugeLegendItemBuilder } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
     import $style from '~flux/statistics/css/Chart.module.scss';
 
     const {
-        advancedOptions = {},
+        advancedOptions,
         series,
         tooltip = false
     } = defineProps<{
@@ -26,23 +25,15 @@
     }>();
 
     const { t, palette } = useChartSeriesSetup(() => series, {
-        getLegendItem: (s, color, _, translate) => ({
-            color,
-            icon: s.icon,
-            label: s.name ? translate(String(s.name)) : '',
-            value: s.value
-        })
+        getLegendItem: gaugeLegendItemBuilder
     });
 
-    const echartsSeries = computed(() => series.map((s, i) =>
-        toGaugeSeries({ ...s, name: s.name ? t(String(s.name)) : s.name }, palette.value[i], i, series.length)
-    ));
-
-    const mergedOptions = computed<EChartsOption>(() => {
-        const tooltipOptions: EChartsOption = tooltip
-            ? buildGaugeTooltipOptions(t, $style as never, () => series, () => palette.value)
-            : { tooltip: { show: false } };
-
-        return merge({}, POLAR_BASE_OPTIONS, tooltipOptions, advancedOptions, { series: echartsSeries.value, color: palette.value });
-    });
+    const mergedOptions = computed(() => buildGaugeChartOptions({
+        series,
+        palette: palette.value,
+        t,
+        styles: $style,
+        tooltip,
+        advancedOptions
+    }));
 </script>

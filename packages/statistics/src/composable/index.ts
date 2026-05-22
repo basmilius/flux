@@ -1,10 +1,12 @@
+export type { UseChartBaseSetupReturn } from './useChartBaseSetup';
+export { useChartBaseSetup } from './useChartBaseSetup';
 export type { ChartLegendContext, ChartLegendItem } from './useChartLegend';
 export { createChartLegendContext, FluxStatisticsChartLegendInjectionKey } from './useChartLegend';
 export type { ChartHoverSyncMode, UseChartHoverSyncOptions } from './useChartHoverSync';
 export { useChartHoverSync } from './useChartHoverSync';
 export type { ChartLegendItemBuilder, ChartSeriesShape, UseChartSeriesSetupOptions, UseChartSeriesSetupReturn } from './useChartSeriesSetup';
 export { useChartSeriesSetup } from './useChartSeriesSetup';
-export type { UsePieSlicesSetupReturn } from './usePieSlicesSetup';
-export { usePieSlicesSetup } from './usePieSlicesSetup';
+export type { UseChartSlicesSetupReturn } from './useChartSlicesSetup';
+export { useChartSlicesSetup } from './useChartSlicesSetup';
 export type { EChartsInstance, EChartsOption, UseEChartsReturn } from './useECharts';
 export { useECharts } from './useECharts';

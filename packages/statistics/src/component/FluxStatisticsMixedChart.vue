@@ -8,15 +8,14 @@
     lang="ts"
     setup>
     import type { FluxStatisticsChartMixedSeries } from '@flux-ui/types';
-    import { merge } from 'lodash-es';
     import { computed } from 'vue';
     import { useChartSeriesSetup, type EChartsOption } from '~flux/statistics/composable';
-    import { buildCartesianBaseOptions, buildCartesianTooltipOptions, cartesianFallbackLabels, type ChartTooltipValueFormatter, extractLabels, toMixedSeries } from '~flux/statistics/util';
+    import { buildMixedChartOptions, type ChartTooltipValueFormatter } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
     import $style from '~flux/statistics/css/Chart.module.scss';
 
     const {
-        advancedOptions = {},
+        advancedOptions,
         labels,
         series,
         splitLines = false,
@@ -37,19 +36,17 @@
 
     const { t, palette } = useChartSeriesSetup(() => series);
 
-    const xLabels = computed<readonly string[]>(() => labels ?? extractLabels(series) ?? cartesianFallbackLabels(series));
-
-    const echartsSeries = computed(() => series.map((s, i) =>
-        toMixedSeries({ ...s, name: s.name ? t(String(s.name)) : undefined }, palette.value[i])
-    ));
-
-    const mergedOptions = computed<EChartsOption>(() => {
-        const base = buildCartesianBaseOptions({ tooltipTrigger: 'axis', xAxisLabels, yAxisLabels, splitLines });
-        const xAxisOverride: EChartsOption = { xAxis: { type: 'category', data: xLabels.value as string[] } };
-        const tooltipOptions: EChartsOption = tooltip
-            ? buildCartesianTooltipOptions(t, $style as never, () => series.map(s => s.icon), tooltipValueFormatter)
-            : { tooltip: { show: false } };
-
-        return merge({}, base, xAxisOverride, tooltipOptions, advancedOptions, { series: echartsSeries.value, color: palette.value });
-    });
+    const mergedOptions = computed(() => buildMixedChartOptions({
+        series,
+        labels,
+        palette: palette.value,
+        t,
+        styles: $style,
+        tooltip,
+        tooltipValueFormatter,
+        xAxisLabels,
+        yAxisLabels,
+        splitLines,
+        advancedOptions
+    }));
 </script>

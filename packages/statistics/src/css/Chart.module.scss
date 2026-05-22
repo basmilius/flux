@@ -26,6 +26,16 @@
     --stroke: rgb(from var(--surface-stroke) r g b / .5);
 }
 
+.statisticsChartTooltip {
+    background: rgb(from var(--surface) r g b / .975);
+    background-clip: padding-box;
+    backdrop-filter: blur(3px) saturate(180%);
+    border: 1px solid var(--surface-stroke-out-hover);
+    border-radius: var(--radius-double);
+    box-shadow: var(--shadow-lg);
+    color: var(--foreground);
+}
+
 .statisticsChartTooltipTitle {
     padding: 18px 18px 0;
     color: var(--foreground-prominent);
@@ -109,19 +119,4 @@
     align-items: center;
     gap: 6px 15px;
     grid-template-columns: repeat(3, auto);
-}
-
-:global(.flux-statistics-tooltip) {
-    background: rgb(from var(--surface) r g b / .975) !important;
-    background-clip: padding-box;
-    backdrop-filter: blur(3px) saturate(180%);
-    border: 1px solid var(--surface-stroke-out-hover) !important;
-    border-radius: var(--radius-double) !important;
-    box-shadow: var(--shadow-lg) !important;
-    color: var(--foreground);
-    contain: paint;
-
-    &:empty {
-        display: none;
-    }
 }

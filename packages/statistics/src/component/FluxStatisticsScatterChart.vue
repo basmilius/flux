@@ -8,15 +8,14 @@
     lang="ts"
     setup>
     import type { FluxStatisticsChartScatterSeries } from '@flux-ui/types';
-    import { merge } from 'lodash-es';
     import { computed } from 'vue';
     import { useChartSeriesSetup, type EChartsOption } from '~flux/statistics/composable';
-    import { buildCartesianBaseOptions, buildCartesianTooltipOptions, toScatterSeries } from '~flux/statistics/util';
+    import { buildScatterChartOptions } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
     import $style from '~flux/statistics/css/Chart.module.scss';
 
     const {
-        advancedOptions = {},
+        advancedOptions,
         series,
         splitLines = false,
         tooltip = false,
@@ -33,24 +32,15 @@
 
     const { t, palette } = useChartSeriesSetup(() => series);
 
-    const echartsSeries = computed(() => series.map((s, i) =>
-        toScatterSeries({ ...s, name: s.name ? t(String(s.name)) : undefined }, palette.value[i])
-    ));
-
-    const mergedOptions = computed<EChartsOption>(() => {
-        const base = buildCartesianBaseOptions({
-            xAxisType: 'value',
-            yAxisType: 'value',
-            scale: true,
-            xAxisLabels,
-            yAxisLabels,
-            splitLines
-        });
-
-        const tooltipOptions: EChartsOption = tooltip
-            ? buildCartesianTooltipOptions(t, $style as never, () => series.map(s => s.icon))
-            : { tooltip: { show: false } };
-
-        return merge({}, base, tooltipOptions, advancedOptions, { series: echartsSeries.value, color: palette.value });
-    });
+    const mergedOptions = computed(() => buildScatterChartOptions({
+        series,
+        palette: palette.value,
+        t,
+        styles: $style,
+        tooltip,
+        xAxisLabels,
+        yAxisLabels,
+        splitLines,
+        advancedOptions
+    }));
 </script>

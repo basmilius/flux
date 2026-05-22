@@ -4,9 +4,7 @@ import type {
     FluxStatisticsChartBoxPlotSeries,
     FluxStatisticsChartBubbleSeries,
     FluxStatisticsChartCandlestickSeries,
-    FluxStatisticsChartCartesianSeries,
     FluxStatisticsChartCategoryPoint,
-    FluxStatisticsChartColor,
     FluxStatisticsChartGaugeSeries,
     FluxStatisticsChartHeatmapSeries,
     FluxStatisticsChartLineSeries,
@@ -28,6 +26,7 @@ import type {
     ScatterSeriesOption,
     TreemapSeriesOption
 } from 'echarts/charts';
+import { resolveChartColor } from './chartColors';
 import {
     AREA_SERIES_DEFAULTS,
     BAR_SERIES_DEFAULTS,
@@ -43,43 +42,7 @@ import {
     RADAR_SERIES_DEFAULTS,
     SCATTER_SERIES_DEFAULTS,
     TREEMAP_SERIES_DEFAULTS
-} from './seriesDefaults';
-
-export function resolveChartColor(color?: FluxStatisticsChartColor): string | undefined {
-    if (!color) {
-        return undefined;
-    }
-
-    if (color.startsWith('#') || color.startsWith('var(')) {
-        return color;
-    }
-
-    return `var(--${color}-600)`;
-}
-
-export function extractLabels(
-    series: readonly { readonly data: readonly (number | FluxStatisticsChartCategoryPoint)[] }[]
-): readonly string[] | undefined {
-    for (const s of series) {
-        const labels: string[] = [];
-        let hasAny = false;
-
-        for (const point of s.data) {
-            if (typeof point === 'object' && point !== null && typeof point.label === 'string') {
-                labels.push(point.label);
-                hasAny = true;
-            } else {
-                labels.push('');
-            }
-        }
-
-        if (hasAny) {
-            return labels;
-        }
-    }
-
-    return undefined;
-}
+} from './defaults';
 
 function extractValues(data: readonly (number | FluxStatisticsChartCategoryPoint)[]): number[] {
     return data.map(point => typeof point === 'number' ? point : point.value);
@@ -352,9 +315,4 @@ export function toGaugeSeries(
             formatter: '{value}%'
         }
     } as GaugeSeriesOption;
-}
-
-export function cartesianFallbackLabels(series: readonly FluxStatisticsChartCartesianSeries[]): string[] {
-    const longest = series.reduce((max, s) => Math.max(max, s.data.length), 0);
-    return Array.from({ length: longest }, (_, i) => String(i + 1));
 }

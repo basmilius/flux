@@ -6,7 +6,7 @@ import { useChartHoverSync } from './useChartHoverSync';
 import { type ChartLegendContext, type ChartLegendItem, FluxStatisticsChartLegendInjectionKey } from './useChartLegend';
 import type { EChartsInstance } from './useECharts';
 
-export interface UsePieSlicesSetupReturn {
+export interface UseChartSlicesSetupReturn {
     readonly t: ReturnType<typeof useI18n>['t'];
     readonly palette: ComputedRef<readonly string[]>;
     readonly tooltipItems: ComputedRef<readonly SharedTooltipItem[]>;
@@ -14,9 +14,9 @@ export interface UsePieSlicesSetupReturn {
     readonly chartInstance: ComputedRef<EChartsInstance | null>;
 }
 
-export function usePieSlicesSetup(
+export function useChartSlicesSetup(
     slicesGetter: () => readonly FluxStatisticsChartPieSlice[]
-): UsePieSlicesSetupReturn {
+): UseChartSlicesSetupReturn {
     const { t } = useI18n({ useScope: 'parent' });
     const legendContext = inject(FluxStatisticsChartLegendInjectionKey, null);
     const chartRef = useTemplateRef<{ chartInstance: EChartsInstance | null } | null>('chartRef');

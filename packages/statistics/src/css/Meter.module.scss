@@ -19,6 +19,7 @@
     height: 6px;
     background: var(--gray-100);
     border-radius: var(--radius);
+    contain: paint;
 }
 
 .statisticsMeterBarValue {

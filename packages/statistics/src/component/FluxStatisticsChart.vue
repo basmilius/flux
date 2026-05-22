@@ -10,7 +10,7 @@
     import { merge } from 'lodash-es';
     import { computed, useTemplateRef } from 'vue';
     import { type EChartsOption, useECharts } from '~flux/statistics/composable';
-    import { buildDefaultOptions, deepResolveCssVars } from '~flux/statistics/util';
+    import { buildBaseOptions, deepResolveCssVars } from '~flux/statistics/util';
     import $style from '~flux/statistics/css/Chart.module.scss';
 
     const {
@@ -21,7 +21,7 @@
 
     const chart = useTemplateRef('chart');
 
-    const defaults = buildDefaultOptions();
+    const defaults = buildBaseOptions();
 
     const mergedOptions = computed<EChartsOption>(() => {
         const merged = merge({}, defaults, options) as EChartsOption & { color?: unknown; series?: unknown };
