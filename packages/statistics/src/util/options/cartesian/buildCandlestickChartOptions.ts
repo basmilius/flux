@@ -60,7 +60,7 @@ export function buildCandlestickChartOptions(input: CandlestickChartOptionsInput
     } = input;
 
     const xLabels = resolveCandlestickLabels(series, labels);
-    const base = buildCartesianBaseOptions({ scale: true, xAxisLabels, yAxisLabels, splitLines });
+    const base = buildCartesianBaseOptions({ scale: true, xAxisLabels, yAxisLabels, splitLines, minPadding: 12 });
     const xAxisOverride: EChartsOption | undefined = xLabels
         ? { xAxis: { type: 'category', data: xLabels as string[] } }
         : undefined;

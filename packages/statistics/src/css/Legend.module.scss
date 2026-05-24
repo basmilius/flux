@@ -2,21 +2,24 @@
 
 .statisticsLegend {
     display: flex;
-    max-height: 360px;
     min-width: 0;
-    padding: 15px 18px 15px;
-    align-self: center;
+    padding: 0 9px;
     flex-flow: column;
     flex-grow: 1;
-    overflow: auto;
+    gap: 3px;
     user-select: none;
+}
+
+:local(.statisticsChartPaneBody) .statisticsLegend {
+    padding: 9px 36px 9px 18px;
 }
 
 .statisticsLegendItem {
     --color: var(--primary-600);
 
+    position: relative;
     display: flex;
-    padding: 6px 9px;
+    padding: 6px;
     margin: 0 -9px;
     align-items: flex-start;
     flex-flow: row nowrap;
@@ -24,8 +27,8 @@
     font-size: 14px;
     line-height: 20px;
     white-space: nowrap;
-    border-radius: var(--radius-small);
-    transition: background var(--swift-out);
+    border-radius: var(--radius-half);
+    transition: background 120ms var(--swift-out);
 }
 
 .statisticsLegendItem.isHovered {
@@ -57,6 +60,11 @@
     text-align: right;
 }
 
-.statisticsLegendItem + .statisticsLegendItem {
+.statisticsLegendItem + .statisticsLegendItem::before {
+    position: absolute;
+    top: -2px;
+    left: 0;
+    right: 0;
+    content: '';
     border-top: 1px dashed var(--surface-stroke);
 }

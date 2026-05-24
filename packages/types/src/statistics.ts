@@ -8,6 +8,14 @@ export type FluxStatisticsChange = {
 
 export type FluxStatisticsChartColor = FluxColor | `#${string}` | `var(--${string})`;
 
+export interface FluxStatisticsPercentageBarItemObject {
+    readonly color?: FluxStatisticsChartColor;
+    readonly icon?: FluxIconName;
+    readonly label: string;
+    readonly value: number;
+    readonly displayValue?: string | number;
+}
+
 export interface FluxStatisticsChartCategoryPoint {
     readonly label?: string;
     readonly value: number;

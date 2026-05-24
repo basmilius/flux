@@ -68,6 +68,27 @@
                 margin-right: -2px;
             }
         }
+
+        &:has(.buttonIcon:only-child) {
+            padding-left: 0;
+            padding-right: 0;
+
+            &.isSmall {
+                width: 36px;
+            }
+
+            &.isMedium {
+                width: 42px;
+            }
+
+            &.isLarge {
+                width: 48px;
+            }
+
+            &.isXl {
+                width: 54px;
+            }
+        }
     }
 
     .buttonIcon {

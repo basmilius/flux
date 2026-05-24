@@ -34,7 +34,7 @@ export function buildHeatmapChartOptions(input: HeatmapChartOptionsInput): EChar
     const translatedYLabels = yLabels.map(label => t(String(label)));
 
     const base: EChartsOption = {
-        grid: buildCartesianGrid(xAxisLabels, yAxisLabels),
+        grid: buildCartesianGrid(xAxisLabels, yAxisLabels, 12),
         color: [blue500],
         visualMap: {
             show: false,

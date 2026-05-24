@@ -102,5 +102,6 @@ export type {
     FluxStatisticsChartScatterPoint,
     FluxStatisticsChartScatterSeries,
     FluxStatisticsChartTreemapNode,
-    FluxStatisticsChartTreemapSeries
+    FluxStatisticsChartTreemapSeries,
+    FluxStatisticsPercentageBarItemObject
 } from './statistics';

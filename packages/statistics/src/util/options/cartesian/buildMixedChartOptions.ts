@@ -29,7 +29,7 @@ export function buildMixedChartOptions(input: MixedChartOptionsInput): EChartsOp
     } = input;
 
     const xLabels = labels ?? extractLabels(series) ?? cartesianFallbackLabels(series);
-    const base = buildCartesianBaseOptions({ tooltipTrigger: 'axis', xAxisLabels, yAxisLabels, splitLines });
+    const base = buildCartesianBaseOptions({ tooltipTrigger: 'axis', xAxisLabels, yAxisLabels, splitLines, minPadding: 12 });
     const xAxisOverride: EChartsOption = { xAxis: { type: 'category', data: xLabels as string[] } };
 
     const tooltipOptions: EChartsOption = tooltip

@@ -32,7 +32,8 @@ export function buildBubbleChartOptions(input: BubbleChartOptionsInput): ECharts
         scale: true,
         xAxisLabels,
         yAxisLabels,
-        splitLines
+        splitLines,
+        minPadding: 12
     });
 
     const tooltipOptions: EChartsOption = tooltip

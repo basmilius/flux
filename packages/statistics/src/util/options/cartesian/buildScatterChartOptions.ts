@@ -32,7 +32,8 @@ export function buildScatterChartOptions(input: ScatterChartOptionsInput): EChar
         scale: true,
         xAxisLabels,
         yAxisLabels,
-        splitLines
+        splitLines,
+        minPadding: 12
     });
 
     const tooltipOptions: EChartsOption = tooltip

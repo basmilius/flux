@@ -336,8 +336,10 @@ export default defineConfig({
                                 {text: 'Item', link: '/statistics/components/legend/item'}
                             ]
                         },
+                        {text: 'Legend scope', link: '/statistics/components/legend-scope'},
                         {text: 'Meter', link: '/statistics/components/meter'},
                         {text: 'Metric', link: '/statistics/components/metric'},
+                        {text: 'Percentage bar', link: '/statistics/components/percentage-bar'},
                         {text: 'Sparkline', link: '/statistics/components/sparkline'}
                     ]
                 }

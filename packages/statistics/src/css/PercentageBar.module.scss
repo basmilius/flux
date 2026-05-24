@@ -1,0 +1,36 @@
+.statisticsPercentageBar {
+    display: flex;
+    flex-flow: column;
+    gap: 12px;
+}
+
+.statisticsPercentageBarTrack {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 3px;
+}
+
+.statisticsPercentageBarSegment {
+    height: 12px;
+    border-radius: calc(var(--radius) / 3);
+    transition: var(--transition-default);
+    transition-property: height, margin, flex-grow, opacity;
+}
+
+.statisticsPercentageBarSegment:hover,
+.statisticsPercentageBarSegment.isHovered {
+    height: 16px;
+    margin-top: -2px;
+    margin-bottom: -2px;
+}
+
+.statisticsPercentageBarTrack.isHoverActive .statisticsPercentageBarSegment:not(.isHovered):not(:hover) {
+    opacity: 0.5;
+}
+
+.statisticsPercentageBarTooltip {
+    display: flex;
+    align-items: center;
+    flex-flow: row nowrap;
+    gap: 9px;
+}

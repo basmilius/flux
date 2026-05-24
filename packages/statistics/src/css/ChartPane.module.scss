@@ -20,9 +20,11 @@
     }
 
     &:has(.statisticsLegend) {
+        align-items: center;
         grid-template-columns: .4fr .6fr;
 
         @container chart-pane (max-width: 390px) {
+            align-items: stretch;
             grid-template-columns: 1fr;
             grid-template-rows: auto auto;
         }

@@ -12,18 +12,19 @@ export interface CartesianBaseConfig {
     readonly xAxisLabels?: boolean;
     readonly yAxisLabels?: boolean;
     readonly splitLines?: boolean;
+    readonly minPadding?: number;
 }
 
-export function buildCartesianGrid(xAxisLabels: boolean, yAxisLabels: boolean): EChartsOption['grid'] {
+export function buildCartesianGrid(xAxisLabels: boolean, yAxisLabels: boolean, minPadding: number = 0): EChartsOption['grid'] {
     if (!xAxisLabels && !yAxisLabels) {
-        return { left: 0, right: 0, top: 0, bottom: 0, containLabel: false };
+        return { left: minPadding, right: minPadding, top: minPadding, bottom: minPadding, containLabel: false };
     }
 
     return {
-        left: yAxisLabels ? 21 : 0,
+        left: yAxisLabels ? 21 : minPadding,
         right: 21,
         top: 21,
-        bottom: xAxisLabels ? 21 : 0,
+        bottom: xAxisLabels ? 21 : minPadding,
         containLabel: true
     };
 }
@@ -32,12 +33,13 @@ export function buildCartesianBaseOptions(config: CartesianBaseConfig = {}): ECh
     const xAxisLabels = config.xAxisLabels ?? false;
     const yAxisLabels = config.yAxisLabels ?? false;
     const showSplitLines = config.splitLines ?? false;
+    const minPadding = config.minPadding ?? 0;
 
     const xSplitLine = showSplitLines && config.xAxisType === 'value' ? DASHED_SPLIT_LINE : HIDDEN_AXIS;
     const ySplitLine = showSplitLines && config.yAxisType !== 'category' ? DASHED_SPLIT_LINE : HIDDEN_AXIS;
 
     return {
-        grid: buildCartesianGrid(xAxisLabels, yAxisLabels),
+        grid: buildCartesianGrid(xAxisLabels, yAxisLabels, minPadding),
         tooltip: {
             appendTo: 'body',
             snap: true,

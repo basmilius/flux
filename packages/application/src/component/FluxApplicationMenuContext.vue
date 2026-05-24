@@ -9,7 +9,7 @@
             :target="target"
             :to="canSlide ? undefined : to"
             :type="canSlide ? 'button' : type"
-            @click="onBack"/>
+            @click="onBack()"/>
 
         <div :class="$style.applicationMenuContextContent">
             <strong>{{ title }}</strong>
@@ -49,6 +49,11 @@
         if (!injection) {
             return false;
         }
+
+        if (props.type && props.to) {
+            return false;
+        }
+
         return injection.viewIndex.value > 0;
     });
 

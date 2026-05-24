@@ -18,9 +18,11 @@ export { default as FluxStatisticsLineChart } from './FluxStatisticsLineChart.vu
 export { default as FluxStatisticsKpi } from './FluxStatisticsKpi.vue';
 export { default as FluxStatisticsLegend } from './FluxStatisticsLegend.vue';
 export { default as FluxStatisticsLegendItem } from './FluxStatisticsLegendItem.vue';
+export { default as FluxStatisticsLegendScope } from './FluxStatisticsLegendScope.vue';
 export { default as FluxStatisticsMeter } from './FluxStatisticsMeter.vue';
 export { default as FluxStatisticsMetric } from './FluxStatisticsMetric.vue';
 export { default as FluxStatisticsMixedChart } from './FluxStatisticsMixedChart.vue';
+export { default as FluxStatisticsPercentageBar } from './FluxStatisticsPercentageBar.vue';
 export { default as FluxStatisticsPieChart } from './FluxStatisticsPieChart.vue';
 export { default as FluxStatisticsPolarAreaChart } from './FluxStatisticsPolarAreaChart.vue';
 export { default as FluxStatisticsRadarChart } from './FluxStatisticsRadarChart.vue';

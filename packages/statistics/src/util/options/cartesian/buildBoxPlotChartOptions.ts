@@ -46,7 +46,7 @@ export function buildBoxPlotChartOptions(input: BoxPlotChartOptionsInput): EChar
     } = input;
 
     const xLabels = resolveBoxPlotLabels(series, labels);
-    const base = buildCartesianBaseOptions({ xAxisLabels, yAxisLabels, splitLines });
+    const base = buildCartesianBaseOptions({ xAxisLabels, yAxisLabels, splitLines, minPadding: 12 });
     const xAxisOverride: EChartsOption | undefined = xLabels
         ? { xAxis: { type: 'category', data: xLabels as string[] } }
         : undefined;

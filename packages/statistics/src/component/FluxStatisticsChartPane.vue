@@ -15,17 +15,19 @@
         </template>
 
         <template #content>
-            <div :class="$style.statisticsChartPaneBody">
-                <div :class="$style.statisticsChartPaneContainer">
-                    <slot/>
+            <FluxStatisticsLegendScope>
+                <div :class="$style.statisticsChartPaneBody">
+                    <div :class="$style.statisticsChartPaneContainer">
+                        <slot/>
+                    </div>
+
+                    <slot name="legend"/>
                 </div>
 
-                <slot name="legend"/>
-            </div>
-
-            <FluxToolbar v-if="slots.toolbar">
-                <slot name="toolbar"/>
-            </FluxToolbar>
+                <FluxToolbar v-if="slots.toolbar">
+                    <slot name="toolbar"/>
+                </FluxToolbar>
+            </FluxStatisticsLegendScope>
         </template>
     </Base>
 </template>
@@ -35,9 +37,8 @@
     setup>
     import { FluxToolbar } from '@flux-ui/components';
     import type { FluxIconName } from '@flux-ui/types';
-    import { provide } from 'vue';
-    import { createChartLegendContext, FluxStatisticsChartLegendInjectionKey } from '~flux/statistics/composable';
     import Base from './FluxStatisticsBase.vue';
+    import FluxStatisticsLegendScope from './FluxStatisticsLegendScope.vue';
     import $style from '~flux/statistics/css/ChartPane.module.scss';
 
     defineProps<{
@@ -54,6 +55,4 @@
         legend?(): any;
         toolbar?(): any;
     }>();
-
-    provide(FluxStatisticsChartLegendInjectionKey, createChartLegendContext());
 </script>
