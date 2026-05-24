@@ -58,7 +58,7 @@
         "vue": "^3.6.0-beta.12"
     },
     "devDependencies": {
-        "@basmilius/vite-preset": "^3.34.0",
+        "@basmilius/vite-preset": "^3.35.0",
         "@types/node": "^25.9.1",
         "@vitejs/plugin-vue": "^6.0.7",
         "@vue/tsconfig": "^0.9.1",
