@@ -44,6 +44,7 @@ jobs:
                     bun --cwd packages/application build
                     bun --cwd packages/dashboard build
                     bun --cwd packages/statistics build
+                    node scripts/transform-dts.mjs
                     bun --cwd docs build
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}

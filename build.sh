@@ -3,3 +3,4 @@ bun --cwd packages/components build
 bun --cwd packages/application build
 bun --cwd packages/dashboard build
 bun --cwd packages/statistics build
+node scripts/transform-dts.mjs
