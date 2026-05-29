@@ -4,7 +4,8 @@
         icon="code-branch"
         label="Flux GitHub"
         href="https://github.com/basmilius/flux"
-        target="_blank"/>
+        target="_blank"
+        rel="noopener noreferrer"/>
 </template>
 
 <script

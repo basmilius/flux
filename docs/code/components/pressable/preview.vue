@@ -14,7 +14,8 @@
             <FluxPressable
                 component-type="link"
                 href="https://flux-ui.dev"
-                target="_blank">
+                target="_blank"
+                rel="noopener noreferrer">
                 <FluxPane>
                     <FluxPaneBody>
                         External link

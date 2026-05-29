@@ -4,7 +4,7 @@
             type="link"
             href="https://flux-ui.dev"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
             style="width: 280px">
             <FluxPaneBody>
                 <FluxFlex
