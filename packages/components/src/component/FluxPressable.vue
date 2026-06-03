@@ -3,7 +3,7 @@
         v-if="componentType === 'route'"
         v-bind="$attrs"
         v-on="hoverListeners"
-        :rel="rel"
+        :rel="resolvedRel"
         :target="target"
         :to="to as any"
         @click="onClick($event)">
@@ -15,7 +15,7 @@
         v-bind="$attrs"
         v-on="hoverListeners"
         :href="sanitizeUrl(href)"
-        :rel="rel"
+        :rel="resolvedRel"
         :target="target"
         @click="onClick($event)">
         <slot/>
@@ -42,7 +42,7 @@
     lang="ts"
     setup>
     import type { FluxPressableType, FluxTo } from '@flux-ui/types';
-    import type { VNode } from 'vue';
+    import { computed, type VNode } from 'vue';
     import { sanitizeUrl } from '~flux/components/util';
 
     const emit = defineEmits<{
@@ -51,7 +51,7 @@
         mouseleave: [MouseEvent];
     }>();
 
-    defineProps<{
+    const {rel, target} = defineProps<{
         readonly componentType?: FluxPressableType;
         readonly href?: string;
         readonly rel?: string;
@@ -62,6 +62,14 @@
     defineSlots<{
         default(): VNode[];
     }>();
+
+    const resolvedRel = computed(() => {
+        if (rel) {
+            return rel;
+        }
+
+        return target === '_blank' ? 'noopener noreferrer' : undefined;
+    });
 
     const hoverListeners = {
         onMouseenter: (evt: MouseEvent) => emit('mouseenter', evt),
