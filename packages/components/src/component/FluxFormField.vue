@@ -3,7 +3,9 @@
         <label
             :for="id"
             :class="$style.formFieldHeader">
-            <span :class="$style.formFieldLabel">
+            <span
+                v-if="label"
+                :class="$style.formFieldLabel">
                 {{ label }}
             </span>
 
@@ -61,7 +63,7 @@
         readonly error?: string;
         readonly hint?: string;
         readonly isOptional?: boolean;
-        readonly label: string;
+        readonly label?: string;
         readonly maxLength?: number;
     }>();
 
