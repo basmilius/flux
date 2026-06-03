@@ -35,7 +35,7 @@
 
         <template v-else>
             <FluxPaginationButton
-                :class="$style.paginationCurrentZZ"
+                is-current
                 @click="prompt"
                 #before>
                 <strong>{{ page }}</strong>

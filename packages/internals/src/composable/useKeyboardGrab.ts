@@ -88,6 +88,7 @@ export default function useKeyboardGrab<TPos>(options: UseKeyboardGrabOptions<TP
             if (evt.key === ' ' || evt.key === 'Enter') {
                 evt.preventDefault();
                 origin.value = options.onGrab() as TPos;
+                announce('Grabbed, use arrow keys to move');
             }
 
             return;
@@ -97,21 +98,25 @@ export default function useKeyboardGrab<TPos>(options: UseKeyboardGrabOptions<TP
             case 'ArrowUp':
                 evt.preventDefault();
                 options.onMove('up');
+                announce('Moved up');
                 break;
 
             case 'ArrowDown':
                 evt.preventDefault();
                 options.onMove('down');
+                announce('Moved down');
                 break;
 
             case 'ArrowLeft':
                 evt.preventDefault();
                 options.onMove('left');
+                announce('Moved left');
                 break;
 
             case 'ArrowRight':
                 evt.preventDefault();
                 options.onMove('right');
+                announce('Moved right');
                 break;
 
             case ' ':
@@ -122,6 +127,7 @@ export default function useKeyboardGrab<TPos>(options: UseKeyboardGrabOptions<TP
 
                 if (originValue !== null) {
                     options.onCommit(originValue);
+                    announce('Dropped');
                 }
 
                 break;
@@ -134,14 +140,12 @@ export default function useKeyboardGrab<TPos>(options: UseKeyboardGrabOptions<TP
 
                 if (originValue !== null) {
                     options.onCancel(originValue);
+                    announce('Cancelled');
                 }
 
                 break;
             }
         }
-
-        // Suppress unused-warning when announce is unused inside the function.
-        void announce;
     }
 
     return {

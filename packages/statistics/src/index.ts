@@ -1,4 +1,4 @@
-import { amber500, blue500, cyan500, emerald500, fuchsia500, green500, indigo500, lime500, orange500, pink500, purple500, red500, rose50, sky500, teal500, violet500, yellow500 } from '@flux-ui/internals';
+import { amber500, blue500, cyan500, emerald500, fuchsia500, green500, indigo500, lime500, orange500, pink500, purple500, red500, rose500, sky500, teal500, violet500, yellow500 } from '@flux-ui/internals';
 import type { FluxStatisticsChartColor } from '@flux-ui/types';
 
 export * from './component';
@@ -30,5 +30,5 @@ export const CHART_COLORFUL_COLORS: readonly FluxStatisticsChartColor[] = [
     purple500,
     fuchsia500,
     pink500,
-    rose50
+    rose500
 ] as FluxStatisticsChartColor[];

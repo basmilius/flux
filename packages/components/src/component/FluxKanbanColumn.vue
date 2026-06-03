@@ -65,9 +65,7 @@
         <footer
             v-if="hasFooter"
             :class="$style.kanbanColumnFooter">
-            <slot
-                v-if="hasFooter"
-                name="footer"/>
+            <slot name="footer"/>
         </footer>
     </div>
 </template>
@@ -90,7 +88,7 @@
         label
     } = defineProps<{
         readonly columnId: string | number;
-        readonly count: string | number;
+        readonly count?: string | number;
         readonly disabled?: boolean;
         readonly icon?: FluxIconName;
         readonly label: string;

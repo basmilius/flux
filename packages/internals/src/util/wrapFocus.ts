@@ -3,7 +3,7 @@ export default function (elm: HTMLElement, targetElm: Element, forceFirst: boole
     const position = targetElm.compareDocumentPosition(elm);
     let wrappedTarget: HTMLElement | null;
 
-    if (position && Node.DOCUMENT_POSITION_PRECEDING || forceFirst) {
+    if ((position & Node.DOCUMENT_POSITION_PRECEDING) !== 0 || forceFirst) {
         wrappedTarget = walker.firstChild() as HTMLElement | null;
     } else {
         wrappedTarget = walker.lastChild() as HTMLElement | null;
