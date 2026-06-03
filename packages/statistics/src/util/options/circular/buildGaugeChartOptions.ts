@@ -1,7 +1,6 @@
 import type { FluxStatisticsChartGaugeSeries } from '@flux-ui/types';
 import { merge } from 'lodash-es';
-import type { ChartLegendItem } from '~flux/statistics/composable/useChartLegend';
-import type { EChartsOption } from '~flux/statistics/composable/useECharts';
+import type { ChartLegendItem, EChartsOption } from '~flux/statistics/composable';
 import { toGaugeSeries } from '../../series';
 import type { TooltipStyleClasses, Translator } from '../../tooltips';
 import { buildGaugeTooltip } from '../../tooltips';

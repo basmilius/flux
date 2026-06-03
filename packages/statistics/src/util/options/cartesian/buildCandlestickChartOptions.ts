@@ -1,7 +1,6 @@
 import type { FluxStatisticsChartCandlestickSeries } from '@flux-ui/types';
 import { merge } from 'lodash-es';
-import type { ChartLegendItem } from '~flux/statistics/composable/useChartLegend';
-import type { EChartsOption } from '~flux/statistics/composable/useECharts';
+import type { ChartLegendItem, EChartsOption } from '~flux/statistics/composable';
 import { resolveChartColor, toCandlestickSeries } from '../../series';
 import type { TooltipStyleClasses, Translator } from '../../tooltips';
 import { buildCartesianTooltip } from '../../tooltips';

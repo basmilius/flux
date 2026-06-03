@@ -14,8 +14,8 @@ export { default as FluxStatisticsDonutChart } from './FluxStatisticsDonutChart.
 export { default as FluxStatisticsEmpty } from './FluxStatisticsEmpty.vue';
 export { default as FluxStatisticsGrid } from './FluxStatisticsGrid.vue';
 export { default as FluxStatisticsHeatmapChart } from './FluxStatisticsHeatmapChart.vue';
-export { default as FluxStatisticsLineChart } from './FluxStatisticsLineChart.vue';
 export { default as FluxStatisticsKpi } from './FluxStatisticsKpi.vue';
+export { default as FluxStatisticsLineChart } from './FluxStatisticsLineChart.vue';
 export { default as FluxStatisticsLegend } from './FluxStatisticsLegend.vue';
 export { default as FluxStatisticsLegendItem } from './FluxStatisticsLegendItem.vue';
 export { default as FluxStatisticsLegendScope } from './FluxStatisticsLegendScope.vue';

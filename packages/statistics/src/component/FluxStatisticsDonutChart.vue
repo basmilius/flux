@@ -9,7 +9,7 @@
     setup>
     import type { FluxStatisticsChartPieSlice } from '@flux-ui/types';
     import { computed } from 'vue';
-    import { useChartSlicesSetup, type EChartsOption } from '~flux/statistics/composable';
+    import { type EChartsOption, useChartSlicesSetup } from '~flux/statistics/composable';
     import { buildDonutChartOptions, type ChartTooltipValueFormatter } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
     import $style from '~flux/statistics/css/Chart.module.scss';

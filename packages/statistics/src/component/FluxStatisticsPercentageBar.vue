@@ -36,7 +36,7 @@
     import type { FluxStatisticsChartColor, FluxStatisticsPercentageBarItemObject } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, inject, watchEffect } from 'vue';
-    import { FluxStatisticsChartLegendInjectionKey, type ChartLegendItem } from '~flux/statistics/composable';
+    import { type ChartLegendItem, FluxStatisticsChartLegendInjectionKey } from '~flux/statistics/composable';
     import $style from '~flux/statistics/css/PercentageBar.module.scss';
 
     const SEMANTIC_COLORS = ['gray', 'primary', 'danger', 'info', 'success', 'warning'] as const;

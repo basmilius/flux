@@ -9,7 +9,7 @@
     setup>
     import type { FluxStatisticsChartBubbleSeries } from '@flux-ui/types';
     import { computed } from 'vue';
-    import { useChartSeriesSetup, type EChartsOption } from '~flux/statistics/composable';
+    import { type EChartsOption, useChartSeriesSetup } from '~flux/statistics/composable';
     import { buildBubbleChartOptions } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
     import $style from '~flux/statistics/css/Chart.module.scss';

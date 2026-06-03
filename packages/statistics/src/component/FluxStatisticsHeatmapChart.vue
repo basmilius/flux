@@ -8,7 +8,7 @@
     setup>
     import type { FluxStatisticsChartHeatmapSeries } from '@flux-ui/types';
     import { computed } from 'vue';
-    import { useChartBaseSetup, type EChartsOption } from '~flux/statistics/composable';
+    import { type EChartsOption, useChartBaseSetup } from '~flux/statistics/composable';
     import { buildHeatmapChartOptions } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
     import $style from '~flux/statistics/css/Chart.module.scss';
