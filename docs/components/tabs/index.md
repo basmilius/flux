@@ -28,10 +28,7 @@ slots:
             activate: '(index: number): void'
             children: VNode[]
             modelValue: number
-            tabs: '{
-                icon?: FluxIconName;
-                label?: string
-            }[]'
+            tabs: '{ icon?: FluxIconName; label?: string }[]'
 
     -   name: content
         description: The content of the tabs.
@@ -39,10 +36,7 @@ slots:
             activate: '(index: number): void'
             children: VNode[]
             modelValue: number
-            tabs: '{
-                icon?: FluxIconName;
-                label?: string
-            }[]'
+            tabs: '{ icon?: FluxIconName; label?: string }[]'
 ---
 
 # Tabs
