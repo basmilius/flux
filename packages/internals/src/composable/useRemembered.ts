@@ -6,7 +6,11 @@ export default function <T>(key: string, initialValue: T): Ref<T> {
     const value = ref<T>(get() ?? initialValue);
 
     function get(): T | null {
-        if (realKey in localStorage) {
+        if (!(realKey in localStorage)) {
+            return null;
+        }
+
+        try {
             let storageValue = JSON.parse(localStorage.getItem(realKey)!);
 
             if (Array.isArray(storageValue) && storageValue[0] === 'DateTime') {
@@ -14,9 +18,9 @@ export default function <T>(key: string, initialValue: T): Ref<T> {
             }
 
             return storageValue;
+        } catch {
+            return null;
         }
-
-        return null;
     }
 
     watch(value, value => {

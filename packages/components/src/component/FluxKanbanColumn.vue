@@ -80,9 +80,9 @@
     import { Comment, computed, onBeforeUnmount, onMounted, provide, Text, toRef, unref, useSlots, useTemplateRef, watch } from 'vue';
     import { useDisabled, useKanbanInjection } from '~flux/components/composable';
     import { FluxDisabledInjectionKey } from '~flux/components/data';
-    import $style from '~flux/components/css/component/Kanban.module.scss';
     import FluxBadge from './FluxBadge.vue';
     import FluxIcon from './FluxIcon.vue';
+    import $style from '~flux/components/css/component/Kanban.module.scss';
 
     const {
         columnId,

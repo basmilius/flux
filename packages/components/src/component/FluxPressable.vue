@@ -14,7 +14,7 @@
         v-else-if="componentType === 'link'"
         v-bind="$attrs"
         v-on="hoverListeners"
-        :href="href"
+        :href="sanitizeUrl(href)"
         :rel="rel"
         :target="target"
         @click="onClick($event)">
@@ -43,6 +43,7 @@
     setup>
     import type { FluxPressableType, FluxTo } from '@flux-ui/types';
     import type { VNode } from 'vue';
+    import { sanitizeUrl } from '~flux/components/util';
 
     const emit = defineEmits<{
         click: [MouseEvent];

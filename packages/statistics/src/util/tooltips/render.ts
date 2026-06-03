@@ -1,4 +1,5 @@
 import { formatNumber } from '@basmilius/utils';
+import { escapeAttr, escapeHtml } from '../html';
 import { renderIconSvg } from '../icons';
 import type { ChartTooltipValueFormatter, SharedTooltipItem, TooltipParam, TooltipStyleClasses, Translator } from './types';
 
@@ -15,7 +16,7 @@ export function renderTooltip(
     }
 
     const titleHtml = title
-        ? `<div class="${styles.statisticsChartTooltipTitle}">${title}</div>`
+        ? `<div class="${styles.statisticsChartTooltipTitle}">${escapeHtml(title)}</div>`
         : '';
 
     const hasActive = activeIndex !== -1;
@@ -25,16 +26,17 @@ export function renderTooltip(
         const activeClass = isActive ? ` ${styles.isActive}` : '';
         const translatedName = item.name ? t(String(item.name)) : '';
 
+        const safeColor = escapeAttr(item.color);
         const marker = item.icon
-            ? `<div class="${styles.statisticsChartTooltipSeriesIcon}${activeClass}" style="color: ${item.color}">${renderIconSvg(item.icon, item.color, 14)}</div>`
-            : `<div class="${styles.statisticsChartTooltipSeriesColor}${activeClass}" style="background: ${item.color}"></div>`;
+            ? `<div class="${styles.statisticsChartTooltipSeriesIcon}${activeClass}" style="color: ${safeColor}">${renderIconSvg(item.icon, item.color, 14)}</div>`
+            : `<div class="${styles.statisticsChartTooltipSeriesColor}${activeClass}" style="background: ${safeColor}"></div>`;
 
         const display = valueFormatter ? valueFormatter(item.value, item) : formatValue(item.value);
 
         return `
             ${marker}
-            <div class="${styles.statisticsChartTooltipSeriesName}${activeClass}">${translatedName}</div>
-            <div class="${styles.statisticsChartTooltipSeriesValue}${activeClass}">${display}</div>
+            <div class="${styles.statisticsChartTooltipSeriesName}${activeClass}">${escapeHtml(translatedName)}</div>
+            <div class="${styles.statisticsChartTooltipSeriesValue}${activeClass}">${escapeHtml(display)}</div>
         `;
     }).join('');
 

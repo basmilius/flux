@@ -4,9 +4,9 @@
             :icon="icon"
             :title="title"/>
 
-        <FluxPaneBody
-            v-if="message"
-            v-html="message"/>
+        <FluxPaneBody v-if="message">
+            {{ message }}
+        </FluxPaneBody>
 
         <FluxPaneBody v-if="$slots.default">
             <slot/>
