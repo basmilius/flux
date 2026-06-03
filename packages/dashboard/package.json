@@ -55,16 +55,16 @@
     },
     "peerDependencies": {
         "luxon": "^3.7.2",
-        "vue": "^3.6.0-beta.12"
+        "vue": "^3.6.0-beta.13"
     },
     "devDependencies": {
-        "@basmilius/vite-preset": "^3.37.0",
+        "@basmilius/vite-preset": "^3.40.0",
         "@types/node": "^25.9.1",
         "@vitejs/plugin-vue": "^6.0.7",
         "@vue/tsconfig": "^0.9.1",
         "sass-embedded": "^1.100.0",
         "typescript": "^6.0.3",
-        "vite": "^8.0.14",
-        "vue-tsc": "^3.3.2"
+        "vite": "^8.0.16",
+        "vue-tsc": "^3.3.3"
     }
 }
