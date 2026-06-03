@@ -1,5 +1,5 @@
 import type { FluxFilterDefinition, FluxFilterValue } from '@flux-ui/types';
-import { defineComponent, h, isVNode, unref, type VNode } from 'vue';
+import { defineComponent, h, isVNode, type PropType, unref, type VNode } from 'vue';
 import { useFilterInjection } from '~flux/components/composable';
 import FluxMenuGroup from '../FluxMenuGroup.vue';
 import FluxSeparator from '../FluxSeparator.vue';
@@ -8,7 +8,7 @@ import FilterItem from './FilterItem.vue';
 export const FilterMenuRenderer = defineComponent({
     props: {
         menuItems: {required: true, type: Array},
-        navigate: {required: true, type: Function}
+        navigate: {required: true, type: Function as PropType<(name: string) => void>}
     },
 
     setup(props) {
@@ -18,7 +18,7 @@ export const FilterMenuRenderer = defineComponent({
     }
 });
 
-function renderFilterGroup(group: (FluxFilterDefinition | VNode)[], index: number, navigate: Function, state: Record<string, FluxFilterValue>): VNode[] {
+function renderFilterGroup(group: (FluxFilterDefinition | VNode)[], index: number, navigate: (name: string) => void, state: Record<string, FluxFilterValue>): VNode[] {
     const slot: VNode[] = [];
 
     if (index > 0) {
@@ -32,7 +32,7 @@ function renderFilterGroup(group: (FluxFilterDefinition | VNode)[], index: numbe
     return slot;
 }
 
-function renderFilterItem(item: FluxFilterDefinition | VNode, navigate: Function, state: Record<string, FluxFilterValue>): VNode {
+function renderFilterItem(item: FluxFilterDefinition | VNode, navigate: (name: string) => void, state: Record<string, FluxFilterValue>): VNode {
     if (isVNode(item)) {
         return item;
     }
