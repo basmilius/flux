@@ -41,7 +41,7 @@
     const flattenedFilters = computed(() => flattenVNodeTree(slots.filters?.() ?? []));
 
     const buttons = computed(() => {
-        const buttons: Record<string, FluxFilterDefinition> = {};
+        const result: Record<string, FluxFilterDefinition> = {};
         const items = unref(flattenedFilters);
 
         for (const item of items) {
@@ -51,14 +51,14 @@
                 continue;
             }
 
-            buttons[definition.name] = definition;
+            result[definition.name] = definition;
         }
 
-        return buttons;
+        return result;
     });
 
     const filters = computed<Record<string, VNode>>(() => {
-        const filters: { [key: string]: VNode; } = {};
+        const result: { [key: string]: VNode; } = {};
         const items = unref(flattenedFilters);
 
         for (const item of items) {
@@ -68,33 +68,33 @@
                 continue;
             }
 
-            filters[definition.name] = item;
+            result[definition.name] = item;
         }
 
-        return filters;
+        return result;
     });
 
     const menuItems = computed<(FluxFilterDefinition | VNode)[][]>(() => {
-        const menuItems: (FluxFilterDefinition | VNode)[][] = [[]];
+        const result: (FluxFilterDefinition | VNode)[][] = [[]];
         const items = unref(flattenedFilters);
 
         for (const item of items) {
             if (getComponentName(item) === 'FluxSeparator') {
-                menuItems.push([]);
+                result.push([]);
                 continue;
             }
 
             const definition = resolveDefinition(item);
 
             if (definition) {
-                menuItems[menuItems.length - 1].push(definition);
+                result[result.length - 1].push(definition);
                 continue;
             }
 
-            menuItems[menuItems.length - 1].push(item);
+            result[result.length - 1].push(item);
         }
 
-        return menuItems;
+        return result;
     });
 
     watchEffect(() => {

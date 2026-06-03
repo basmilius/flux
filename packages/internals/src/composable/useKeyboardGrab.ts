@@ -117,11 +117,11 @@ export default function useKeyboardGrab<TPos>(options: UseKeyboardGrabOptions<TP
             case ' ':
             case 'Enter': {
                 evt.preventDefault();
-                const o = origin.value;
+                const originValue = origin.value;
                 origin.value = null;
 
-                if (o !== null) {
-                    options.onCommit(o);
+                if (originValue !== null) {
+                    options.onCommit(originValue);
                 }
 
                 break;
@@ -129,11 +129,11 @@ export default function useKeyboardGrab<TPos>(options: UseKeyboardGrabOptions<TP
 
             case 'Escape': {
                 evt.preventDefault();
-                const o = origin.value;
+                const originValue = origin.value;
                 origin.value = null;
 
-                if (o !== null) {
-                    options.onCancel(o);
+                if (originValue !== null) {
+                    options.onCancel(originValue);
                 }
 
                 break;

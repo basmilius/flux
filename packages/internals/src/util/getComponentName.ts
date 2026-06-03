@@ -14,4 +14,4 @@ type ExtendedVNode = {
     readonly type: VNode['type'] & {
         readonly __name?: string;
     };
-}
+};

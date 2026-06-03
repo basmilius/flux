@@ -52,7 +52,7 @@
     import { FluxFadeTransition, FluxIcon, FluxRouteTransition, FluxSpacer, FluxTabBar } from '@flux-ui/components';
     import { useScrollPosition } from '@flux-ui/internals';
     import type { FluxIconName } from '@flux-ui/types';
-    import clsx from 'clsx';
+    import { clsx } from 'clsx';
     import type { VNode } from 'vue';
     import { useApplicationInjection } from '../composable';
     import FluxApplicationMenuToggle from './FluxApplicationMenuToggle.vue';

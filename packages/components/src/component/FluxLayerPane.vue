@@ -1,7 +1,7 @@
 <template>
     <div
         :class="clsx(
-        color === 'gray' && $style.layerPaneGray,
+            color === 'gray' && $style.layerPaneGray,
             color === 'primary' && $style.layerPanePrimary,
             color === 'danger' && $style.layerPaneDanger,
             color === 'info' && $style.layerPaneInfo,

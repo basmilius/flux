@@ -38,7 +38,7 @@
     });
 
     watch(isNavigationCollapsed, (_, __, onCleanup) => {
-        let timeout: any;
+        let timeout: ReturnType<typeof setTimeout> | undefined;
 
         function onResize(): void {
             clearTimeout(timeout);

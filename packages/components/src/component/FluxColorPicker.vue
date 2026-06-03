@@ -36,8 +36,8 @@
             <div
                 :class="$style.colorPickerPreview"
                 :style="{
-                '--color': rgb
-            }"
+                    '--color': rgb
+                }"
                 aria-hidden="true"/>
 
             <FluxFormField
@@ -180,9 +180,9 @@
 
     const saturationValue = computed({
         get: (): [number, number] => [unref(saturation), unref(value)],
-        set: ([s, v]: [number, number]) => {
-            saturation.value = s;
-            value.value = v;
+        set: ([nextSaturation, nextValue]: [number, number]) => {
+            saturation.value = nextSaturation;
+            value.value = nextValue;
         }
     });
 

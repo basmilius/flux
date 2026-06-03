@@ -90,8 +90,8 @@
 
 .formFieldHeader {
     display: flex;
-    margin-bottom: 0;
     width: 100%;
+    margin-bottom: 0;
     align-items: center;
     align-self: flex-start;
     gap: 6px;
@@ -274,9 +274,9 @@
     }
 
     &::-webkit-color-swatch-wrapper {
+        width: calc(100% + 24px);
         margin: 0 -12px;
         padding: 3px;
-        width: calc(100% + 24px);
     }
 }
 

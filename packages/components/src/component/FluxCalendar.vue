@@ -265,13 +265,13 @@
     });
 
     const timeGridDayCount = computed<1 | 2 | 7>(() => {
-        const v = unref(resolvedView);
+        const resolved = unref(resolvedView);
 
-        if (v === 'week') {
+        if (resolved === 'week') {
             return 7;
         }
 
-        if (v === 'two-days') {
+        if (resolved === 'two-days') {
             return 2;
         }
 
@@ -521,13 +521,13 @@
             return;
         }
 
-        const v = unref(resolvedView);
-        const delta = (v === 'month' ? MONTH_KEY_DELTAS : TIME_GRID_KEY_DELTAS)[direction];
+        const resolved = unref(resolvedView);
+        const delta = (resolved === 'month' ? MONTH_KEY_DELTAS : TIME_GRID_KEY_DELTAS)[direction];
         const newDate = currentDate.plus(delta);
 
         emit('reschedule', {id, fromDate: currentDate, toDate: newDate});
 
-        if (v === 'month') {
+        if (resolved === 'month') {
             monthFocusedDate.value = newDate.startOf('day');
 
             if (newDate.month !== unref(monthViewDate).month) {

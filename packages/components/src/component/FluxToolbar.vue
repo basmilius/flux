@@ -6,7 +6,7 @@
             floatingMode === 'top-end' && $style.isTopEnd,
             floatingMode === 'top-start' && $style.isTopStart,
             floatingMode === 'bottom-end' && $style.isBottomEnd,
-            floatingMode === 'bottom-start' && $style.isBottomStart,
+            floatingMode === 'bottom-start' && $style.isBottomStart
         )"
         :gap="6"
         tag="nav">

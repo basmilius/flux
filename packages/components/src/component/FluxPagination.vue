@@ -140,12 +140,12 @@
             fieldLabel: translate('flux.paginationNavigatePage')
         });
 
-        const page = Number(pageStr);
+        const target = Number(pageStr);
 
-        if (isNaN(page) || page > unref(pages) || page <= 0) {
+        if (isNaN(target) || target > unref(pages) || target <= 0) {
             return;
         }
 
-        navigate(page);
+        navigate(target);
     }
 </script>

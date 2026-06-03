@@ -20,8 +20,8 @@
 </template>
 
 <script
-    setup
-    lang="ts">
+    lang="ts"
+    setup>
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import FluxIcon from './FluxIcon.vue';

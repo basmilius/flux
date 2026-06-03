@@ -17,7 +17,7 @@ export function fluxRegisterIcons(icons: Icons): void {
         acc[iconName as FluxIconName] = icon;
 
         if (Array.isArray(icon[2])) {
-            icon[2].forEach((iconName: string) => acc[iconName as FluxIconName] = icon);
+            icon[2].forEach((alias: string) => acc[alias as FluxIconName] = icon);
         }
 
         return acc;

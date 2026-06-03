@@ -7,7 +7,7 @@
             color === 'danger' && $style.iconBoxedDanger,
             color === 'info' && $style.iconBoxedInfo,
             color === 'success' && $style.iconBoxedSuccess,
-            color === 'warning' && $style.iconBoxedWarning,
+            color === 'warning' && $style.iconBoxedWarning
         )"
         :style="{
             fontSize: size && `${size}px`

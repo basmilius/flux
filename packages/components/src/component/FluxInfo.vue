@@ -12,8 +12,8 @@
 </template>
 
 <script
-    setup
-    lang="ts">
+    lang="ts"
+    setup>
     import type { FluxIconName } from '@flux-ui/types';
     import type { VNode } from 'vue';
     import FluxIcon from './FluxIcon.vue';

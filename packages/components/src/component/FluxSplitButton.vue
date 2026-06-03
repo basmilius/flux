@@ -25,8 +25,8 @@
 </template>
 
 <script
-    setup
-    lang="ts">
+    lang="ts"
+    setup>
     import type { FluxDirection, FluxIconName } from '@flux-ui/types';
     import type { VNode } from 'vue';
     import FluxFlyout from './FluxFlyout.vue';

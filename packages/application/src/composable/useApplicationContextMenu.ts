@@ -5,7 +5,7 @@ export default function (name: string = 'menu'): UseApplicationContextMenu {
     const matches = useNamedRoutes(toRef(() => name));
 
     const hasContextMenu = computed(() => matches.value.length > 0);
-    const contextMenuKey = computed(() => matches.value.map(m => m.record.path).join('|') || undefined);
+    const contextMenuKey = computed(() => matches.value.map(match => match.record.path).join('|') || undefined);
 
     return {
         contextMenuKey,

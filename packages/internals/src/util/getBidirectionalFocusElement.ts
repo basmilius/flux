@@ -107,4 +107,4 @@ function getBidirectionalInfoForElements(elements: HTMLElement[]): Bidirectional
 type BidirectionalInfo = Omit<DOMRect, 'x' | 'y' | 'toJSON'> & {
     center: { x: number; y: number; };
     distance: number;
-}
+};

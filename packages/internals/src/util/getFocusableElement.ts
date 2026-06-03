@@ -5,8 +5,9 @@ export default function (container: HTMLElement, direction: number, activeElemen
     const elements = getFocusableElements(container);
     const focusedElement = activeElement || document.activeElement;
 
-    if (!focusedElement || !isHtmlElement(focusedElement))
+    if (!focusedElement || !isHtmlElement(focusedElement)) {
         return elements[0] || undefined;
+    }
 
     const currentIndex = elements.indexOf(focusedElement);
 

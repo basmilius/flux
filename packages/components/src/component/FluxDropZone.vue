@@ -213,4 +213,3 @@
         pathLength.value = roundStep(width * 2 + height * 2, 6);
     }, {immediate: true});
 </script>
-

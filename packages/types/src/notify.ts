@@ -5,7 +5,7 @@ type BaseAlertObject = {
     readonly icon?: FluxIconName;
     readonly message: string;
     readonly title: string;
-}
+};
 
 export type FluxAlertObject = BaseAlertObject & {
     onClose(): void;

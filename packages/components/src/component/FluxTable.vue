@@ -18,7 +18,9 @@
             <FluxTableRow
                 v-if="fillColumns"
                 :class="$style.tableFill">
-                <FluxTableCell v-for="_ of fillColumns"/>
+                <FluxTableCell
+                    v-for="n of fillColumns"
+                    :key="n"/>
             </FluxTableRow>
             </tbody>
 

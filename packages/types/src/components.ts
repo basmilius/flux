@@ -32,7 +32,7 @@ export type FluxButtonSlots = {
     iconLeading(): any;
     iconTrailing(): any;
     label(): any;
-}
+};
 
 export type FluxFocalPointObject = {
     readonly x: number;
@@ -42,7 +42,7 @@ export type FluxFocalPointObject = {
 export type FluxLegendObject = {
     readonly color: string;
     readonly label: string;
-}
+};
 
 export type FluxPercentageBarItemObject = FluxLegendObject & {
     readonly icon: FluxIconName;

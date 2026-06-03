@@ -14,7 +14,7 @@ let DIALOG_ID = 0;
 
 export default function (attrs: object, props: Props, emit: Emit, slots: Slots, className: string, transition: Component): RenderFunction {
     const dialogId = `flux-dialog:${DIALOG_ID++}`;
-    let unregister: Function | null = null;
+    let unregister: VoidFunction | null = null;
     let zIndex = 0;
 
     const dialogRef = ref<HTMLElement>();

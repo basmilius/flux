@@ -45,7 +45,7 @@
     });
 
     defineProps<{
-        logoLocation?: FluxTo
+        readonly logoLocation?: FluxTo;
     }>();
 
     const slots = defineSlots<{

@@ -7,8 +7,8 @@
 </template>
 
 <script
-    setup
-    lang="ts">
+    lang="ts"
+    setup>
     import type { VNode } from 'vue';
     import FluxFlex from './FluxFlex.vue';
 

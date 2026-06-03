@@ -18,7 +18,6 @@
         readonly isControlled?: boolean;
     }>();
 
-
     defineSlots<{
         default(): VNode[];
     }>();

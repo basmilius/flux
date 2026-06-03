@@ -15,7 +15,7 @@
 <script
     lang="ts"
     setup>
-    import clsx from 'clsx';
+    import { clsx } from 'clsx';
     import { watch } from 'vue';
     import { useApplicationInjection } from '../composable';
     import type { FluxApplicationLayout } from '../data';
