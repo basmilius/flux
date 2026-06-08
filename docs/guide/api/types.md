@@ -311,10 +311,6 @@ These types are exported from `@flux-ui/types` but are typically only referenced
             <FluxTableCell><a href="../../components/percentage-bar">Percentage bar</a></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
-            <FluxTableCell><code>FluxSegmentedControlItemObject</code></FluxTableCell>
-            <FluxTableCell><a href="../../components/segmented-control">Segmented control</a></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
             <FluxTableCell><code>FluxTreeViewOption</code></FluxTableCell>
             <FluxTableCell><a href="../../components/tree-view">Tree view</a></FluxTableCell>
         </FluxTableRow>

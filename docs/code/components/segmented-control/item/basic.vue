@@ -3,17 +3,12 @@
         <FluxSegmentedControlItem
             value="grid"
             icon="grid-2"
-            aria-label="Grid"/>
+            label="Grid"/>
 
         <FluxSegmentedControlItem
             value="list"
             icon="list"
-            aria-label="List"/>
-
-        <FluxSegmentedControlItem
-            value="stack"
-            icon="rectangle-history"
-            aria-label="Stack"/>
+            label="List"/>
     </FluxSegmentedControl>
 </template>
 

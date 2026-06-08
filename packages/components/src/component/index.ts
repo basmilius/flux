@@ -130,7 +130,7 @@ export { default as FluxScroller } from './FluxScroller.vue';
 export { default as FluxSecondaryButton } from './FluxSecondaryButton.vue';
 export { default as FluxSecondaryLinkButton } from './FluxSecondaryLinkButton.vue';
 export { default as FluxSegmentedControl } from './FluxSegmentedControl.vue';
-export { default as FluxSegmentedView } from './FluxSegmentedView.vue';
+export { default as FluxSegmentedControlItem } from './FluxSegmentedControlItem.vue';
 export { default as FluxSeparator } from './FluxSeparator.vue';
 export { default as FluxSlideOver } from './FluxSlideOver.vue';
 export { default as FluxSnackbar } from './FluxSnackbar.vue';

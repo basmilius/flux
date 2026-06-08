@@ -49,11 +49,6 @@ export type FluxPercentageBarItemObject = FluxLegendObject & {
     readonly value: number;
 };
 
-export type FluxSegmentedControlItemObject = {
-    readonly icon?: FluxIconName;
-    readonly label?: string;
-};
-
 export type FluxKanbanMoveEvent = {
     readonly itemId: string | number;
     readonly fromColumnId: string | number;

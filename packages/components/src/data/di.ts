@@ -1,4 +1,4 @@
-import type { FluxFilterDefinition, FluxFilterState, FluxFilterValue } from '@flux-ui/types';
+import type { FluxFilterDefinition, FluxFilterState, FluxFilterValue, FluxSize } from '@flux-ui/types';
 import type { DateTime } from 'luxon';
 import type { ComponentInternalInstance, ComputedRef, InjectionKey, Ref, VNode } from 'vue';
 
@@ -10,6 +10,7 @@ export const FluxExpandableGroupInjectionKey: InjectionKey<FluxExpandableGroupIn
 export const FluxFlyoutInjectionKey: InjectionKey<FluxFlyoutInjection> = Symbol();
 export const FluxFilterInjectionKey: InjectionKey<FluxFilterInjection> = Symbol();
 export const FluxFormFieldInjectionKey: InjectionKey<FluxFormFieldInjection> = Symbol();
+export const FluxSegmentedControlInjectionKey: InjectionKey<FluxSegmentedControlInjection> = Symbol();
 export const FluxSplitViewInjectionKey: InjectionKey<FluxSplitViewInjection> = Symbol();
 export const FluxTabBarInjectionKey: InjectionKey<FluxTabBarInjection> = Symbol();
 export const FluxTableInjectionKey: InjectionKey<FluxTableInjection> = Symbol();
@@ -166,6 +167,17 @@ export type FluxSplitViewInjection = {
     registerPane(spec: FluxSplitViewPaneSpec): void;
     unregisterPane(id: number): void;
     getPaneIndex(id: number): number;
+};
+
+export type FluxSegmentedControlValue = string | number;
+
+export type FluxSegmentedControlInjection = {
+    readonly modelValue: Ref<FluxSegmentedControlValue | undefined>;
+    readonly size: Ref<FluxSize>;
+
+    select(value: FluxSegmentedControlValue): void;
+    registerItem(element: HTMLElement, value: FluxSegmentedControlValue): void;
+    unregisterItem(element: HTMLElement): void;
 };
 
 export type FluxTabBarInjection = {

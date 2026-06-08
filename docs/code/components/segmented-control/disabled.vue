@@ -1,8 +1,6 @@
 <template>
-    <Preview>
-        <FluxSegmentedControl
-            v-model="view"
-            style="width: 390px">
+    <FluxDisabled disabled>
+        <FluxSegmentedControl v-model="view">
             <FluxSegmentedControlItem
                 value="grid"
                 icon="grid-2"
@@ -18,13 +16,13 @@
                 icon="rectangle-history"
                 label="Stack"/>
         </FluxSegmentedControl>
-    </Preview>
+    </FluxDisabled>
 </template>
 
 <script
-    setup
-    lang="ts">
-    import { FluxSegmentedControl, FluxSegmentedControlItem } from '@flux-ui/components';
+    lang="ts"
+    setup>
+    import { FluxDisabled, FluxSegmentedControl, FluxSegmentedControlItem } from '@flux-ui/components';
     import { ref } from 'vue';
 
     const view = ref('grid');

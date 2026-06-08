@@ -291,7 +291,7 @@ const navigation: SidebarItem = {
             link: '/components/segmented-control/',
             collapsed: true,
             items: [
-                {text: 'View', link: '/components/segmented-control/view'}
+                {text: 'Item', link: '/components/segmented-control/item'}
             ]
         },
         {text: 'Slide over', link: '/components/slide-over'},

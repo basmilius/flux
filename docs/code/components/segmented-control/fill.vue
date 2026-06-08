@@ -1,19 +1,21 @@
 <template>
-    <FluxSegmentedControl v-model="view">
+    <FluxSegmentedControl
+        v-model="view"
+        is-fill>
         <FluxSegmentedControlItem
             value="grid"
             icon="grid-2"
-            aria-label="Grid"/>
+            label="Grid"/>
 
         <FluxSegmentedControlItem
             value="list"
             icon="list"
-            aria-label="List"/>
+            label="List"/>
 
         <FluxSegmentedControlItem
             value="stack"
             icon="rectangle-history"
-            aria-label="Stack"/>
+            label="Stack"/>
     </FluxSegmentedControl>
 </template>
 

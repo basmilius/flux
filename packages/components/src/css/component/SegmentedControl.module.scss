@@ -3,10 +3,11 @@
 .segmentedControl {
     position: relative;
     align-items: center;
-    gap: 1px;
+    gap: 3px;
+    padding: 3px;
     background: var(--gray-50);
     border: 1px solid var(--surface-stroke);
-    border-radius: var(--radius);
+    border-radius: var(--radius-full);
 }
 
 .segmentedControlFill {
@@ -24,60 +25,88 @@
 
 .segmentedControlHighlight {
     position: absolute;
-    top: 0;
-    bottom: 0;
+    top: 3px;
+    bottom: 3px;
     background: var(--surface);
-    border-radius: calc(var(--radius) - 2px);
-    box-shadow: var(--shadow-sm);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-md);
     outline: 1px solid var(--surface-stroke);
     pointer-events: none;
     transition: 300ms var(--swift-out);
     transition-property: left, width;
-    translate: -1px 0;
 }
 
 .segmentedControlItem {
+    position: relative;
     display: flex;
-    height: 36px;
-    padding-left: 12px;
-    padding-right: 12px;
     align-items: center;
     flex: 1 1 0;
-    gap: 9px;
     justify-content: center;
     background: none;
     border: 0;
-    border-radius: var(--radius);
+    border-radius: var(--radius-full);
     color: var(--foreground);
     cursor: pointer;
     font-weight: 500;
     text-align: center;
-    transition: 300ms var(--swift-out);
-    transition-property: background, color;
+    transition: color 300ms var(--swift-out);
+    white-space: nowrap;
 
     @include mixin.hover {
-        background: var(--gray-100);
+        color: var(--foreground-prominent);
     }
 
+    @include mixin.focus-ring(3px);
+
     &.isActive {
-        background: none;
         color: var(--foreground-prominent);
         cursor: default;
     }
 
+    &:disabled {
+        opacity: .5;
+        pointer-events: none;
+    }
+
+    // Houd de inhoud boven de zwevende highlight.
     > * {
         position: relative;
+        z-index: 1;
+    }
+
+    // Verticale divider tussen twee aangrenzende inactieve items.
+    & + &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: -2px;
+        height: 15px;
+        width: 1px;
+        background: var(--surface-stroke);
+        transition: opacity 300ms var(--swift-out);
+        translate: 0 -50%;
+    }
+
+    &.isActive::before,
+    &.isActive + &::before {
+        opacity: 0;
     }
 }
 
-.segmentedControlSeparator {
-    height: 15px;
-    width: 1px;
-    flex-shrink: 0;
-    background: var(--surface-stroke);
-    transition: opacity 300ms var(--swift-out);
+.isSmall {
+    height: 30px;
+    padding: 0 12px;
+    gap: 9px;
+}
 
-    &.isActive {
-        opacity: 0;
-    }
+.isMedium {
+    height: 36px;
+    padding: 0 15px;
+    gap: 9px;
+}
+
+.isLarge {
+    height: 48px;
+    padding: 0 21px;
+    gap: 12px;
 }

@@ -28,7 +28,6 @@ export type {
     FluxKanbanMoveEvent,
     FluxLegendObject,
     FluxPercentageBarItemObject,
-    FluxSegmentedControlItemObject,
     FluxTreeViewOption
 } from './components';
 
