@@ -1,6 +1,9 @@
 <template>
     <div
-        :class="clsx($style.statisticsLegendItem, isHovered && $style.isHovered)"
+        :class="clsx(
+            variant === 'compact' ? $style.statisticsLegendItemCompact : $style.statisticsLegendItem,
+            variant !== 'compact' && isHovered && $style.isHovered
+        )"
         :style="{
             '--color': colorValue
         }">
@@ -34,7 +37,8 @@
     import { FluxIcon } from '@flux-ui/components';
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { computed } from 'vue';
+    import { computed, inject } from 'vue';
+    import { FluxStatisticsLegendVariantInjectionKey } from '~flux/statistics/composable';
     import $style from '~flux/statistics/css/Legend.module.scss';
 
     const {
@@ -46,6 +50,9 @@
         readonly label: string;
         readonly value?: string | number;
     }>();
+
+    const variantRef = inject(FluxStatisticsLegendVariantInjectionKey, null);
+    const variant = computed(() => variantRef?.value ?? 'detailed');
 
     const colorValue = computed(() => {
         if (!color) {

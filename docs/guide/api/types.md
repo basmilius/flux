@@ -303,14 +303,6 @@ These types are exported from `@flux-ui/types` but are typically only referenced
             <FluxTableCell><a href="../../components/focal-point">Focal point</a></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
-            <FluxTableCell><code>FluxLegendObject</code></FluxTableCell>
-            <FluxTableCell><a href="../../components/legend">Legend</a></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><code>FluxPercentageBarItemObject</code></FluxTableCell>
-            <FluxTableCell><a href="../../components/percentage-bar">Percentage bar</a></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
             <FluxTableCell><code>FluxTreeViewOption</code></FluxTableCell>
             <FluxTableCell><a href="../../components/tree-view">Tree view</a></FluxTableCell>
         </FluxTableRow>

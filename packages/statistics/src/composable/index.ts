@@ -10,3 +10,5 @@ export type { UseChartSlicesSetupReturn } from './useChartSlicesSetup';
 export { useChartSlicesSetup } from './useChartSlicesSetup';
 export type { EChartsInstance, EChartsOption, UseEChartsReturn } from './useECharts';
 export { useECharts } from './useECharts';
+export type { FluxStatisticsLegendVariant } from './useLegendVariant';
+export { FluxStatisticsLegendVariantInjectionKey } from './useLegendVariant';

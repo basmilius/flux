@@ -36,7 +36,6 @@ import {
     FluxSpacer,
     FluxSpinner,
     FluxFlex,
-    FluxStatistic,
     FluxTabBar,
     FluxTabBarItem,
     FluxTimeline,
@@ -387,15 +386,6 @@ const isOverlay2Open = ref(false);
     <FluxInfoStack>
         <FluxInfo icon="square-dashed"><strong>Age</strong><br><span>18-30</span></FluxInfo>
     </FluxInfoStack>
-</FluxView>
-
-## Statistic
-
-<FluxView>
-    <FluxFlex :gap="15">
-        <FluxStatistic change-color="success" change-icon="square-dashed" change-value="13%" color="primary" direction="horizontal" icon="square-dashed" label="Sales" value="456"/>
-        <FluxStatistic change-color="success" change-icon="square-dashed" change-value="13%" color="primary" direction="horizontal" icon="square-dashed" label="Customers" value="123"/>
-    </FluxFlex>
 </FluxView>
 
 ## Timeline

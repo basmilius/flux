@@ -39,16 +39,6 @@ export type FluxFocalPointObject = {
     readonly y: number;
 };
 
-export type FluxLegendObject = {
-    readonly color: string;
-    readonly label: string;
-};
-
-export type FluxPercentageBarItemObject = FluxLegendObject & {
-    readonly icon: FluxIconName;
-    readonly value: number;
-};
-
 export type FluxKanbanMoveEvent = {
     readonly itemId: string | number;
     readonly fromColumnId: string | number;

@@ -68,3 +68,48 @@
     content: '';
     border-top: 1px dashed var(--surface-stroke);
 }
+
+.statisticsLegendCompact {
+    display: flex;
+    user-select: none;
+
+    &.isHorizontal {
+        flex-flow: row wrap;
+        gap: 12px 18px;
+    }
+
+    &.isVertical {
+        flex-flow: column;
+        gap: 12px;
+    }
+}
+
+.statisticsLegendItemCompact {
+    --color: var(--primary-600);
+
+    display: flex;
+    align-items: center;
+    flex-flow: row nowrap;
+    gap: 6px;
+    font-size: 14px;
+    line-height: 1;
+    white-space: nowrap;
+
+    .statisticsLegendItemColor {
+        margin: 0;
+        border-radius: var(--radius-full);
+    }
+
+    .statisticsLegendItemIcon {
+        margin: 0;
+    }
+
+    .statisticsLegendItemLabel {
+        flex-grow: 0;
+        font-weight: 400;
+    }
+
+    .statisticsLegendItemValue {
+        margin-left: 0;
+    }
+}

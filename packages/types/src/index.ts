@@ -26,8 +26,6 @@ export type {
     FluxFocalPointObject,
     FluxKanbanMoveColumnEvent,
     FluxKanbanMoveEvent,
-    FluxLegendObject,
-    FluxPercentageBarItemObject,
     FluxTreeViewOption
 } from './components';
 

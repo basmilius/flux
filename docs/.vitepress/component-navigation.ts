@@ -240,7 +240,6 @@ const navigation: SidebarItem = {
                 {text: 'Sticky', link: '/components/layout/sticky'}
             ]
         },
-        {text: 'Legend', link: '/components/legend'},
         {text: 'Link', link: '/components/link', image: '/assets/components/link.svg'},
         {
             text: 'Menu',
@@ -279,7 +278,6 @@ const navigation: SidebarItem = {
                 {text: 'Media', link: '/components/pane/media'}
             ]
         },
-        {text: 'Percentage bar', link: '/components/percentage-bar'},
         {text: 'Persona', link: '/components/persona'},
         {text: 'Placeholder', link: '/components/placeholder'},
         {text: 'Pressable', link: '/components/pressable'},
@@ -296,7 +294,6 @@ const navigation: SidebarItem = {
         },
         {text: 'Slide over', link: '/components/slide-over'},
         {text: 'Spinner', link: '/components/spinner'},
-        {text: 'Statistic', link: '/components/statistic'},
         {
             text: 'Stepper',
             link: '/components/stepper/',
