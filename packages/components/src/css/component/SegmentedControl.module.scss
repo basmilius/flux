@@ -7,7 +7,7 @@
     padding: 3px;
     background: var(--gray-50);
     border: 1px solid var(--surface-stroke);
-    border-radius: var(--radius-full);
+    border-radius: var(--radius);
 }
 
 .segmentedControlFill {
@@ -28,7 +28,7 @@
     top: 3px;
     bottom: 3px;
     background: var(--surface);
-    border-radius: var(--radius-full);
+    border-radius: calc(var(--radius) - 3px);
     box-shadow: var(--shadow-md);
     outline: 1px solid var(--surface-stroke);
     pointer-events: none;
@@ -68,21 +68,20 @@
         pointer-events: none;
     }
 
-    // Houd de inhoud boven de zwevende highlight.
     > * {
         position: relative;
         z-index: 1;
     }
 
-    // Verticale divider tussen twee aangrenzende inactieve items.
     & + &::before {
         content: '';
         position: absolute;
         top: 50%;
         left: -2px;
         height: 15px;
-        width: 1px;
-        background: var(--surface-stroke);
+        width: 2px;
+        background: var(--gray-100);
+        border-radius: 1px;
         transition: opacity 300ms var(--swift-out);
         translate: 0 -50%;
     }
