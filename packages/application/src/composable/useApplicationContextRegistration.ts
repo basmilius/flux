@@ -15,8 +15,7 @@ export default function (info: () => Omit<FluxApplicationContextInfo, 'id'>): vo
     });
 
     watch(info, next => {
-        injection.removeContext(id);
-        injection.pushContext({id, ...next});
+        injection.updateContext(id, next);
     });
 
     onBeforeUnmount(() => {

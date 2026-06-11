@@ -2,7 +2,7 @@ import type { FluxAlertObject, FluxConfirmObject, FluxPromptObject, FluxSnackbar
 import { computed, reactive, type ComputedRef } from 'vue';
 
 export type FluxState = {
-    dialogCount: number;
+    readonly dialogs: number[];
     readonly alerts: FluxAlertObject[];
     readonly confirms: FluxConfirmObject[];
     readonly prompts: FluxPromptObject[];
@@ -10,7 +10,16 @@ export type FluxState = {
     readonly tooltips: FluxTooltipObject[];
 };
 
+export type FluxDialogRegistration = {
+    readonly id: number;
+
+    getPosition(): number;
+    isCurrent(): boolean;
+    unregister(): void;
+};
+
 export type FluxStore = FluxState & {
+    readonly dialogCount: number;
     readonly inertMain: ComputedRef<boolean>;
     readonly tooltip: ComputedRef<FluxTooltipObject | null>;
 
@@ -19,7 +28,7 @@ export type FluxStore = FluxState & {
     addPrompt(spec: Omit<FluxPromptObject, 'id'>): number;
     addSnackbar(spec: Omit<FluxSnackbarObject, 'id'>): number;
     addTooltip(spec: Omit<FluxTooltipObject, 'id'>): number;
-    registerDialog(): [number, VoidFunction];
+    registerDialog(): FluxDialogRegistration;
     removeAlert(id: number): void;
     removeConfirm(id: number): void;
     removePrompt(id: number): void;
@@ -37,7 +46,7 @@ export type FluxStore = FluxState & {
 const DEFAULT_SNACKBAR_DURATION = 6000;
 
 const state = reactive<FluxState>({
-    dialogCount: 0,
+    dialogs: [],
     alerts: [],
     confirms: [],
     prompts: [],
@@ -45,6 +54,7 @@ const state = reactive<FluxState>({
     tooltips: []
 });
 
+let nextDialogId: number = 0;
 let nextId: number = 0;
 
 export function addAlert(spec: Omit<FluxAlertObject, 'id'>): number {
@@ -102,11 +112,30 @@ export function addTooltip(spec: Omit<FluxTooltipObject, 'id'>): number {
     return id;
 }
 
-export function registerDialog(): [number, VoidFunction] {
-    return [
-        ++state.dialogCount,
-        () => --state.dialogCount
-    ];
+export function registerDialog(): FluxDialogRegistration {
+    const id = ++nextDialogId;
+
+    state.dialogs.push(id);
+
+    return {
+        id,
+
+        getPosition(): number {
+            return state.dialogs.indexOf(id);
+        },
+
+        isCurrent(): boolean {
+            return state.dialogs[state.dialogs.length - 1] === id;
+        },
+
+        unregister(): void {
+            const index = state.dialogs.indexOf(id);
+
+            if (index >= 0) {
+                state.dialogs.splice(index, 1);
+            }
+        }
+    };
 }
 
 export function removeAlert(id: number): void {
@@ -226,17 +255,57 @@ export async function showPrompt(spec: Omit<FluxPromptObject, 'id' | 'onCancel' 
 export function showSnackbar({duration, ...spec}: Omit<FluxSnackbarObject, 'id'> & { readonly duration?: number; }): void;
 
 export async function showSnackbar({duration, ...spec}: Omit<FluxSnackbarObject, 'id'> & { readonly duration?: number; }): Promise<void> {
-    const id = addSnackbar(spec);
-    await new Promise(resolve => setTimeout(() => requestAnimationFrame(resolve), duration ?? DEFAULT_SNACKBAR_DURATION));
-    removeSnackbar(id);
+    await new Promise<void>(resolve => {
+        let isResolved = false;
+
+        const finish = (): void => {
+            if (isResolved) {
+                return;
+            }
+
+            isResolved = true;
+            removeSnackbar(id);
+            resolve();
+        };
+
+        const id = addSnackbar({
+            ...spec,
+            onClose(): void {
+                spec.onClose?.();
+                finish();
+            }
+        });
+
+        setTimeout(finish, duration ?? DEFAULT_SNACKBAR_DURATION);
+    });
 }
 
 export function useFluxStore(): FluxStore {
-    const inertMain = computed(() => state.dialogCount > 0);
+    const inertMain = computed(() => state.dialogs.length > 0);
     const tooltip = computed(() => state.tooltips[state.tooltips.length - 1] || null);
 
     return {
-        ...state,
+        get dialogs() {
+            return state.dialogs;
+        },
+        get dialogCount() {
+            return state.dialogs.length;
+        },
+        get alerts() {
+            return state.alerts;
+        },
+        get confirms() {
+            return state.confirms;
+        },
+        get prompts() {
+            return state.prompts;
+        },
+        get snackbars() {
+            return state.snackbars;
+        },
+        get tooltips() {
+            return state.tooltips;
+        },
         inertMain,
         tooltip,
         addAlert,

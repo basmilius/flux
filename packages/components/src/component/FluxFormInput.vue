@@ -66,6 +66,7 @@
     import { unrefTemplateElement } from '@flux-ui/internals';
     import type { FluxAutoCompleteType, FluxFormInputBaseProps, FluxIconName, FluxInputMask, FluxInputType } from '@flux-ui/types';
     import { clsx } from 'clsx';
+    import type { InputMask } from 'imask';
     import { DateTime } from 'luxon';
     import { ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled, useFormFieldInjection } from '~flux/components/composable';
@@ -109,6 +110,8 @@
     const localValue = ref<string | null>(null);
     const nativeType = ref(type);
 
+    let activeMask: InputMask<{}> | null = null;
+
     function blur(): void {
         unrefTemplateElement(inputRef)?.blur();
     }
@@ -142,6 +145,11 @@
             case 'month':
             case 'time':
             case 'week':
+                if (value === '') {
+                    modelValue.value = null;
+                    break;
+                }
+
                 const dateTime = DateTime.fromISO(value);
 
                 if (!dateTime.isValid) {
@@ -152,10 +160,25 @@
                 break;
 
             case 'number':
-                modelValue.value = Number(value);
+                if (value === '') {
+                    modelValue.value = null;
+                    break;
+                }
+
+                const numericValue = Number(value);
+
+                if (Number.isNaN(numericValue)) {
+                    return;
+                }
+
+                modelValue.value = numericValue;
                 break;
 
             default:
+                if (activeMask) {
+                    return;
+                }
+
                 modelValue.value = value;
                 break;
         }
@@ -209,20 +232,41 @@
         localValue.value = modelValue.toString();
     }, {immediate: true});
 
-    watch([inputRef, () => pattern, localValue], ([input, pattern, value], __, onCleanup) => {
+    watch([inputRef, () => pattern], ([input, pattern], __, onCleanup) => {
         if (!input || !pattern) {
             return;
         }
 
         const mask = inputMask[pattern](input);
+        activeMask = mask;
+
+        const value = unref(localValue);
 
         if (value) {
             mask.value = value;
+            localValue.value = mask.value;
             modelValue.value = mask.value;
         }
 
-        onCleanup(() => mask.destroy());
+        mask.on('accept', () => {
+            localValue.value = mask.value;
+            modelValue.value = mask.value;
+        });
+
+        onCleanup(() => {
+            mask.destroy();
+
+            if (activeMask === mask) {
+                activeMask = null;
+            }
+        });
     }, {immediate: true});
+
+    watch(localValue, value => {
+        if (activeMask && activeMask.value !== (value ?? '')) {
+            activeMask.value = value ?? '';
+        }
+    });
 
     watch(() => type, type => nativeType.value = type);
 

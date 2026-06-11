@@ -1,5 +1,7 @@
 export type { BoxPlotTooltipInput, BoxPlotTooltipPoint } from './buildBoxPlotTooltip';
 export { buildBoxPlotTooltip } from './buildBoxPlotTooltip';
+export type { CandlestickTooltipInput, CandlestickTooltipPoint } from './buildCandlestickTooltip';
+export { buildCandlestickTooltip } from './buildCandlestickTooltip';
 export type { CartesianTooltipInput } from './buildCartesianTooltip';
 export { buildCartesianTooltip } from './buildCartesianTooltip';
 export type { GaugeTooltipInput } from './buildGaugeTooltip';

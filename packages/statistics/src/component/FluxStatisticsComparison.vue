@@ -73,12 +73,21 @@
     const formattedCurrent = computed(() => format ? format(current) : current);
     const formattedPrevious = computed(() => format ? format(previous) : previous);
 
+    const isDeltaIndeterminate = computed(() => previous === 0 && current !== 0);
+
     const deltaValue = computed(() => {
         if (previous === 0) {
             return 0;
         }
 
-        return ((current - previous) / Math.abs(previous)) * 100;
+        const delta = ((current - previous) / Math.abs(previous)) * 100;
+        const rounded = Math.round(delta * 10) / 10;
+
+        if (rounded === 0) {
+            return 0;
+        }
+
+        return delta;
     });
 
     const deltaColor = computed<FluxColor>(() => {
@@ -106,6 +115,10 @@
     });
 
     const formattedDelta = computed(() => {
+        if (isDeltaIndeterminate.value) {
+            return '—';
+        }
+
         const sign = deltaValue.value > 0 ? '+' : '';
 
         return `${sign}${deltaValue.value.toFixed(1)}%`;

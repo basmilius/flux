@@ -45,7 +45,7 @@
     setup>
     import { clampWithStepPrecision, countDecimals, formatNumber } from '@basmilius/utils';
     import type { FluxFormInputBaseProps } from '@flux-ui/types';
-    import { computed, ref, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { computed, onUnmounted, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';
     import { addTooltip, removeTooltip, updateTooltip } from '~flux/components/data';
@@ -182,6 +182,13 @@
                 origin: unref(isDraggingLower ? lowerThumbRef : upperThumbRef)?.$el
             });
         } else if (!is && tooltipId.value) {
+            removeTooltip(tooltipId.value);
+            tooltipId.value = null;
+        }
+    });
+
+    onUnmounted(() => {
+        if (tooltipId.value) {
             removeTooltip(tooltipId.value);
             tooltipId.value = null;
         }

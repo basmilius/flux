@@ -31,7 +31,7 @@
     setup>
     import { clampWithStepPrecision, countDecimals, formatNumber } from '@basmilius/utils';
     import type { FluxFormInputBaseProps } from '@flux-ui/types';
-    import { computed, ref, toRef, unref, useTemplateRef, watch, watchEffect } from 'vue';
+    import { computed, onUnmounted, ref, toRef, unref, useTemplateRef, watch, watchEffect } from 'vue';
     import { useDisabled } from '~flux/components/composable';
     import { addTooltip, removeTooltip, updateTooltip } from '~flux/components/data';
     import { SliderBase, SliderThumb, SliderTrack } from './primitive';
@@ -126,4 +126,11 @@
         modelValue.value = value;
         percentage.value = (value - min) / (max - min);
     }, {immediate: true});
+
+    onUnmounted(() => {
+        if (tooltipId.value) {
+            removeTooltip(tooltipId.value);
+            tooltipId.value = null;
+        }
+    });
 </script>

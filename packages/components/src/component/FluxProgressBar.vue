@@ -64,7 +64,13 @@
             return 0;
         }
 
-        return ((value ?? min) - min) / (max - min);
+        const current = value ?? min;
+
+        if (max <= min) {
+            return current >= max ? 1 : 0;
+        }
+
+        return Math.min(1, Math.max(0, (current - min) / (max - min)));
     });
 
     const progress = computed(() => new Intl

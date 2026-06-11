@@ -59,6 +59,22 @@
         (unref(modelValue)[1] - unref(min)[1]) / (unref(max)[1] - unref(min)[1])
     ]);
 
+    function getStepDecimals(stepValue: number): number {
+        const stepString = stepValue.toString();
+
+        if (stepString.includes('e-')) {
+            const [base, exponent] = stepString.split('e-');
+
+            return (base.split('.')[1]?.length ?? 0) + Number(exponent);
+        }
+
+        return stepString.split('.')[1]?.length ?? 0;
+    }
+
+    function roundToStep(value: number, stepValue: number): number {
+        return +roundStep(value, stepValue).toFixed(getStepDecimals(stepValue));
+    }
+
     function onDecrement(x: boolean, y: boolean): void {
         if (unref(disabled)) {
             return;
@@ -70,11 +86,11 @@
         const [stepX, stepY] = unref(step);
 
         if (x) {
-            valueX = +roundStep(Math.max(minX, Math.min(maxX, valueX - stepX)), stepX).toPrecision(4);
+            valueX = roundToStep(Math.max(minX, Math.min(maxX, valueX - stepX)), stepX);
         }
 
         if (y) {
-            valueY = +roundStep(Math.max(minY, Math.min(maxY, valueY - stepY)), stepY).toPrecision(4);
+            valueY = roundToStep(Math.max(minY, Math.min(maxY, valueY - stepY)), stepY);
         }
 
         modelValue.value = [valueX, valueY];
@@ -91,23 +107,24 @@
         const [stepX, stepY] = unref(step);
 
         if (x) {
-            valueX = +roundStep(Math.max(minX, Math.min(maxX, valueX + stepX)), stepX).toPrecision(4);
+            valueX = roundToStep(Math.max(minX, Math.min(maxX, valueX + stepX)), stepX);
         }
 
         if (y) {
-            valueY = +roundStep(Math.max(minY, Math.min(maxY, valueY + stepY)), stepY).toPrecision(4);
+            valueY = roundToStep(Math.max(minY, Math.min(maxY, valueY + stepY)), stepY);
         }
 
         modelValue.value = [valueX, valueY];
     }
 
     function onPointerDown(evt: PointerEvent): void {
-        if (unref(disabled)) {
+        if (unref(disabled) || evt.button !== 0) {
             return;
         }
 
         isDragging.value = true;
         document.addEventListener('pointermove', onPointerMove);
+        document.addEventListener('pointercancel', onPointerUp, {passive: true});
         document.addEventListener('pointerup', onPointerUp, {passive: true});
         requestAnimationFrame(() => onPointerMove(evt));
     }
@@ -133,8 +150,8 @@
         const y = Math.max(0, Math.min(1, (evt.clientY - top) / height));
 
         modelValue.value = [
-            +roundStep(x * (maxX - minX) + minX, stepX).toPrecision(4),
-            +roundStep(y * (maxY - minY) + minY, stepY).toPrecision(4)
+            roundToStep(x * (maxX - minX) + minX, stepX),
+            roundToStep(y * (maxY - minY) + minY, stepY)
         ];
 
         evt.preventDefault();
@@ -143,6 +160,7 @@
     function onPointerUp(): void {
         isDragging.value = false;
         document.removeEventListener('pointermove', onPointerMove);
+        document.removeEventListener('pointercancel', onPointerUp);
         document.removeEventListener('pointerup', onPointerUp);
     }
 
@@ -150,6 +168,7 @@
 
     onUnmounted(() => {
         document.removeEventListener('pointermove', onPointerMove);
+        document.removeEventListener('pointercancel', onPointerUp);
         document.removeEventListener('pointerup', onPointerUp);
     });
 </script>

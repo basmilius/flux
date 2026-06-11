@@ -23,7 +23,7 @@
     lang="ts"
     setup>
     import { flattenVNodeTree } from '@flux-ui/internals';
-    import { computed, ref, unref, type VNode, watch } from 'vue';
+    import { Comment, computed, ref, Text, unref, type VNode, watch } from 'vue';
     import { FluxWindowTransition } from '~flux/components/transition';
     import FluxDynamicView from './FluxDynamicView.vue';
     import FluxStepperSteps from './FluxStepperSteps.vue';
@@ -55,7 +55,8 @@
 
     const isTransitioningBack = ref(false);
 
-    const children = computed(() => flattenVNodeTree(slots.default?.() ?? []));
+    const children = computed(() => flattenVNodeTree(slots.default?.() ?? [])
+        .filter(child => child.type !== Comment && child.type !== Text));
     const steps = computed(() => unref(children).length);
     const view = computed(() => unref(children)[unref(modelValue)] ?? null);
 

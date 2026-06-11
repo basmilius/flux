@@ -131,6 +131,10 @@
     }
 
     function onDragEnter(evt: DragEvent): void {
+        if (unref(disabled)) {
+            return;
+        }
+
         isDraggingOver.value = true;
         evt.preventDefault();
     }
@@ -143,7 +147,7 @@
         isDragging.value = false;
         isDraggingOver.value = false;
 
-        if (!evt.dataTransfer) {
+        if (unref(disabled) || !evt.dataTransfer) {
             return;
         }
 

@@ -122,6 +122,13 @@ export function useSplitView(options: UseSplitViewOptions): UseSplitViewReturn {
         return {[property]: tracks.join(' ')};
     });
 
+    function isHandleResizable(handleIndex: number): boolean {
+        const leftPane = options.panes.value[handleIndex];
+        const rightPane = options.panes.value[handleIndex + 1];
+
+        return !!leftPane?.isResizable && !!rightPane?.isResizable;
+    }
+
     function applyDelta(handleIndex: number, delta: number): void {
         const next = [...sizes.value];
         const leftIndex = handleIndex;
@@ -164,7 +171,7 @@ export function useSplitView(options: UseSplitViewOptions): UseSplitViewReturn {
     }
 
     function onHandlePointerDown(evt: PointerEvent, handleIndex: number): void {
-        if (evt.button !== 0) {
+        if (evt.button !== 0 || !isHandleResizable(handleIndex)) {
             return;
         }
 
@@ -214,6 +221,10 @@ export function useSplitView(options: UseSplitViewOptions): UseSplitViewReturn {
     }
 
     function onHandleKeyDown(evt: KeyboardEvent, handleIndex: number): void {
+        if (!isHandleResizable(handleIndex)) {
+            return;
+        }
+
         const isHorizontal = options.direction.value === 'horizontal';
         const decreaseKey = isHorizontal ? 'ArrowLeft' : 'ArrowUp';
         const increaseKey = isHorizontal ? 'ArrowRight' : 'ArrowDown';

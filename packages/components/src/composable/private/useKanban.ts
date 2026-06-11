@@ -520,9 +520,9 @@ export function useKanban(options: UseKanbanOptions): FluxKanbanInjection {
     /* endregion */
 
     function cancelAll(): void {
+        cancelKeyboardDrop();
         endDrag();
         endColumnDrag();
-        cancelKeyboardDrop();
     }
 
     function onPointerMove(clientX: number, clientY: number): void {

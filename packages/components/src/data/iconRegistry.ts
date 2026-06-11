@@ -7,19 +7,21 @@ type Icons = Record<string, IconDefinition>;
 
 export let iconRegistry: IconRegistry = {};
 
-export function fluxRegisterIcons(icons: Icons): void {
-    iconRegistry = Object.keys(icons).reduce((acc: IconRegistry, key: string) => {
-        if (!icons[key]) {
-            return acc;
+export function fluxRegisterIcons(icons: Icons | readonly IconDefinition[]): void {
+    iconRegistry = Object.values(icons).reduce((registry: IconRegistry, definition: IconDefinition) => {
+        if (!definition) {
+            return registry;
         }
 
-        const {icon, iconName} = icons[key];
-        acc[iconName as FluxIconName] = icon;
+        const {icon, iconName} = definition;
+        registry[iconName as FluxIconName] = icon;
 
         if (Array.isArray(icon[2])) {
-            icon[2].forEach((alias: string) => acc[alias as FluxIconName] = icon);
+            icon[2].forEach((alias: string) => {
+                registry[alias as FluxIconName] = icon;
+            });
         }
 
-        return acc;
-    }, {});
+        return registry;
+    }, {...iconRegistry});
 }

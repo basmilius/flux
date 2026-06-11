@@ -1,5 +1,5 @@
-import { ref, type Ref, watch } from 'vue';
-import { getFocusableElements, isSSR, type TemplateRef, unrefTemplateElement, wrapFocus } from '../util';
+import { ref, type Ref, unref, watch } from 'vue';
+import { getFocusableElements, isActiveElement, isSSR, type TemplateRef, unrefTemplateElement, wrapFocus } from '../util';
 import useFocusTrapLock from './useFocusTrapLock';
 import useFocusTrapReturn from './useFocusTrapReturn';
 
@@ -9,7 +9,7 @@ export default function (containerRef: TemplateRef<HTMLElement>, options: UseFoc
     }
 
     const {disable = ref(false), disableReturn = ref(false), attachTo = null} = options;
-    const enabled = useFocusTrapLock(!disable);
+    const enabled = useFocusTrapLock(!unref(disable));
 
     useFocusTrapReturn(containerRef, disableReturn);
 
@@ -67,15 +67,13 @@ export default function (containerRef: TemplateRef<HTMLElement>, options: UseFoc
                 autofocusElement.focus();
             } else {
                 const elements = getFocusableElements(container);
-                const isActiveIndex = elements.findIndex(e => e.classList.contains('is-active'));
-                const notDisabledIndex = elements.findIndex(e => !e.hasAttribute('aria-disabled'));
+                const isActiveIndex = elements.findIndex(elm => isActiveElement(elm) && !elm.hasAttribute('aria-disabled'));
+                const notDisabledIndex = elements.findIndex(elm => !elm.hasAttribute('aria-disabled'));
                 let element = elements[0];
 
                 if (isActiveIndex > -1) {
                     element = elements[isActiveIndex];
-                }
-
-                if (notDisabledIndex > -1) {
+                } else if (notDisabledIndex > -1) {
                     element = elements[notDisabledIndex];
                 }
 
@@ -93,11 +91,11 @@ export default function (containerRef: TemplateRef<HTMLElement>, options: UseFoc
         });
     }, {immediate: true});
 
-    watch(() => disable, () => {
+    watch(disable, disabled => {
         const container = unrefTemplateElement(containerRef);
-        enabled.value = !disable;
+        enabled.value = !disabled;
 
-        if (disable || !container) {
+        if (disabled || !container) {
             return;
         }
 

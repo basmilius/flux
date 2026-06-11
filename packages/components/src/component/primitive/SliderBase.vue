@@ -47,12 +47,13 @@
     const rootRef = useTemplateRef('root');
 
     function onPointerDown(evt: PointerEvent): void {
-        if (unref(disabled)) {
+        if (unref(disabled) || evt.button !== 0) {
             return;
         }
 
         emit('dragging', true);
         document.addEventListener('pointermove', onPointerMove);
+        document.addEventListener('pointercancel', onPointerUp, {passive: true});
         document.addEventListener('pointerup', onPointerUp, {passive: true});
         requestAnimationFrame(() => onPointerMove(evt));
     }
@@ -75,11 +76,13 @@
     function onPointerUp(): void {
         emit('dragging', false);
         document.removeEventListener('pointermove', onPointerMove);
+        document.removeEventListener('pointercancel', onPointerUp);
         document.removeEventListener('pointerup', onPointerUp);
     }
 
     onUnmounted(() => {
         document.removeEventListener('pointermove', onPointerMove);
+        document.removeEventListener('pointercancel', onPointerUp);
         document.removeEventListener('pointerup', onPointerUp);
     });
 </script>

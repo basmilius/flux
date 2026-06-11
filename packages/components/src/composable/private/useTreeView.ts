@@ -97,6 +97,10 @@ export function useTreeView<TNode extends TreeFlatNode>(params: {
         const nodes = unref(params.visibleNodes);
         const current = unref(highlightedIndex);
 
+        if (nodes.length === 0) {
+            return false;
+        }
+
         switch (evt.key) {
             case 'ArrowDown':
                 evt.preventDefault();
@@ -146,7 +150,7 @@ export function useTreeView<TNode extends TreeFlatNode>(params: {
             case 'Enter':
             case ' ':
                 evt.preventDefault();
-                if (current >= 0) {
+                if (current >= 0 && nodes[current]) {
                     onActivate(nodes[current]);
                 }
                 return true;

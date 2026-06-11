@@ -23,7 +23,7 @@
             :autofocus="field === 1 && autoFocus"
             :disabled="disabled"
             :readonly="isReadonly"
-            :tabindex="(field - 1) === modelValue?.length ? 0 : -1"
+            :tabindex="(field - 1) === Math.min(modelValue.length, maxLength - 1) ? 0 : -1"
             :type="isPrivate ? 'password' : 'text'"
             :value="modelValue[field - 1]"
             @focus="onFocus"
@@ -72,8 +72,8 @@
     function onInput(): void {
         const fields = unref(fieldRefs) ?? [];
         const values = fields
-            .map(f => f.value.trim() === '' ? NaN : Number(f.value))
-            .filter(v => !isNaN(v));
+            .map(field => field.value.trim())
+            .filter(fieldValue => /^[0-9]$/.test(fieldValue));
 
         modelValue.value = values.join('');
     }
@@ -103,16 +103,12 @@
             case 'Tab':
                 break;
 
-            case 'v':
+            default:
                 if (evt.ctrlKey || evt.metaKey) {
                     break;
                 }
 
-                evt.preventDefault();
-                break;
-
-            default:
-                if (isNaN(Number(evt.key))) {
+                if (!/^[0-9]$/.test(evt.key)) {
                     evt.preventDefault();
                     break;
                 }

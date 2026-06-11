@@ -4,7 +4,7 @@
         <FluxStatisticsLegendItem
             v-else
             v-for="(item, index) in autoItems"
-            :key="item.label"
+            :key="`${index}-${item.label}`"
             :color="item.color as `#${string}` | undefined"
             :icon="item.icon"
             :is-hovered="legendContext?.hoveredIndex.value === index"

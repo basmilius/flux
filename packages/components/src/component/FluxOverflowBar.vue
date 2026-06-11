@@ -69,9 +69,13 @@
     const items = computed(() => flattenVNodeTree(slots.default?.()));
 
     const reflow = animationFrameDebounce(() => {
-        const bar = unref(barRef)!;
-        const measurer = unref(measurerRef)!;
+        const bar = unref(barRef);
+        const measurer = unref(measurerRef);
         const overflow = unrefTemplateElement(overflowRef);
+
+        if (!bar || !measurer) {
+            return;
+        }
 
         availableSize.value = direction === 'horizontal' ? bar.offsetWidth : bar.offsetHeight;
         itemSizes.value = Array.from(measurer.children)

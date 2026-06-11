@@ -19,7 +19,7 @@
                 :aria-orientation="direction === 'horizontal' ? 'vertical' : 'horizontal'"
                 :aria-valuemin="0"
                 :aria-valuenow="Math.round(sizes[index] ?? 0)"
-                :tabindex="pane.isResizable ? 0 : -1"
+                :tabindex="pane.isResizable && panes[index + 1].isResizable ? 0 : -1"
                 @pointerdown="onHandlePointerDown($event, index)"
                 @keydown="onHandleKeyDown($event, index)"/>
         </template>

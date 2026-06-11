@@ -281,7 +281,10 @@
 
             case 'Enter':
                 const id = unref(highlightedId);
-                id && select(id);
+
+                if (id !== undefined) {
+                    select(id);
+                }
                 break;
 
             default:

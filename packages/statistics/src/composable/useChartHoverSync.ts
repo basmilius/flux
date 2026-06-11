@@ -23,13 +23,22 @@ export function useChartHoverSync(
     let attached: EChartsInstance | null = null;
     let syncing = false;
 
+    const toSeriesIndex = (itemIndex: number): number => {
+        return legendContext.items.value[itemIndex]?.seriesIndex ?? itemIndex;
+    };
+
+    const toItemIndex = (seriesIndex: number): number => {
+        const mapped = legendContext.items.value.findIndex(item => item.seriesIndex === seriesIndex);
+        return mapped !== -1 ? mapped : seriesIndex;
+    };
+
     const onMouseOver = (params: { seriesIndex?: number; dataIndex?: number }) => {
         if (syncing) {
             return;
         }
 
         const index = mode === 'series'
-            ? params.seriesIndex ?? null
+            ? (params.seriesIndex !== undefined ? toItemIndex(params.seriesIndex) : null)
             : params.dataIndex ?? null;
 
         legendContext.hoveredIndex.value = index;
@@ -51,7 +60,7 @@ export function useChartHoverSync(
 
             if (index !== null) {
                 if (mode === 'series') {
-                    instance.dispatchAction({ type: 'highlight', seriesIndex: index });
+                    instance.dispatchAction({ type: 'highlight', seriesIndex: toSeriesIndex(index) });
                 } else {
                     instance.dispatchAction({ type: 'highlight', seriesIndex: forcedSeriesIndex, dataIndex: index });
                 }

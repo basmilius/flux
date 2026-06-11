@@ -20,21 +20,19 @@ export default function () {
         const width = window.innerWidth;
         let activeBreakpoint: Breakpoint | null = null;
 
-        for (const [key, value] of Object.entries(BREAKPOINTS).reverse() as [
+        for (const [key, value] of Object.entries(BREAKPOINTS) as [
             Breakpoint,
             number
         ][]) {
-            if (width >= value) {
+            const isActive = width >= value;
+            breakpointRefs[key].value = isActive;
+
+            if (isActive) {
                 activeBreakpoint = key;
-                break;
             }
         }
 
         currentBreakpoint.value = activeBreakpoint;
-
-        for (const key of Object.keys(BREAKPOINTS) as Breakpoint[]) {
-            breakpointRefs[key].value = key === activeBreakpoint;
-        }
     };
 
     onMounted(() => {

@@ -1,6 +1,6 @@
 <template>
     <FluxButton
-        :="{disabled, isLoading, label, href, rel, target, to, type}"
+        :="{disabled, isLoading, isSubmit, label, tabindex, href, rel, target, to, type}"
         :css-class="$style.action"
         :css-class-icon="$style.actionIcon"
         :css-class-label="$style.actionLabel"

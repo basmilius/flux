@@ -1,11 +1,12 @@
 import { isHtmlElement } from '@basmilius/utils';
 
 const FOCUSABLE_ELEMENTS = [
-    'a:not([disabled])',
+    'a[href]:not([disabled])',
     'button:not([disabled])',
-    'input[type=checkbox]:not([disabled])',
-    'input[type=radio]:not([disabled])',
-    'input[type=text]:not([disabled])',
+    'input:not([type=hidden]):not([disabled])',
+    'select:not([disabled])',
+    'textarea:not([disabled])',
+    '[contenteditable]:not([contenteditable=false])',
     '[tabindex]:not([disabled]):not([tabindex="-1"])'
 ].join(',');
 

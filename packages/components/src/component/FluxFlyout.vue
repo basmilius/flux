@@ -93,17 +93,39 @@
     !isSSR && useEventListener(ref(window), 'resize', () => unref(isOpen) && reposition());
     useFocusTrap(paneRef);
 
+    let closeAnimationEndListener: ((evt: AnimationEvent) => void) | null = null;
+    let openAnimationEndListener: ((evt: AnimationEvent) => void) | null = null;
+
     function close(): void {
         const pane = unrefTemplateElement(paneRef);
 
-        if (!pane) {
+        if (!pane || unref(isClosing)) {
             return;
         }
 
-        pane.addEventListener('animationend', () => {
+        if (openAnimationEndListener) {
+            pane.removeEventListener('animationend', openAnimationEndListener);
+            openAnimationEndListener = null;
+            isOpening.value = false;
+        }
+
+        const listener = (evt: AnimationEvent): void => {
+            if (evt.target !== pane) {
+                return;
+            }
+
+            pane.removeEventListener('animationend', listener);
+
+            if (closeAnimationEndListener === listener) {
+                closeAnimationEndListener = null;
+            }
+
             isClosing.value = false;
             isOpen.value = false;
-        }, {once: true});
+        };
+
+        closeAnimationEndListener = listener;
+        pane.addEventListener('animationend', listener);
 
         isClosing.value = true;
     }
@@ -112,6 +134,14 @@
         const mount = unref(mountRef)!;
         const {width, height} = mount.children[0].getBoundingClientRect();
 
+        const existingPane = unrefTemplateElement(paneRef);
+
+        if (existingPane && closeAnimationEndListener) {
+            existingPane.removeEventListener('animationend', closeAnimationEndListener);
+            closeAnimationEndListener = null;
+        }
+
+        isClosing.value = false;
         isOpen.value = true;
         openerWidth.value = width;
         openerHeight.value = height;
@@ -119,9 +149,26 @@
         requestAnimationFrame(() => {
             const pane = unrefTemplateElement(paneRef)!;
 
-            pane.addEventListener('animationend', () => {
+            if (openAnimationEndListener) {
+                pane.removeEventListener('animationend', openAnimationEndListener);
+            }
+
+            const listener = (evt: AnimationEvent): void => {
+                if (evt.target !== pane) {
+                    return;
+                }
+
+                pane.removeEventListener('animationend', listener);
+
+                if (openAnimationEndListener === listener) {
+                    openAnimationEndListener = null;
+                }
+
                 isOpening.value = false;
-            }, {once: true});
+            };
+
+            openAnimationEndListener = listener;
+            pane.addEventListener('animationend', listener);
 
             isOpening.value = true;
         });

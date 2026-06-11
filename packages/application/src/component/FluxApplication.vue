@@ -135,6 +135,18 @@
         contextStack.value = contextStack.value.filter(entry => entry.id !== id);
     }
 
+    function updateContext(id: symbol, info: Omit<FluxApplicationContextInfo, 'id'>): void {
+        const index = contextStack.value.findIndex(entry => entry.id === id);
+
+        if (index === -1) {
+            return;
+        }
+
+        const stack = [...contextStack.value];
+        stack[index] = {id, ...info};
+        contextStack.value = stack;
+    }
+
     watch(() => route.fullPath, () => {
         viewIndex.value = totalLevels.value - 1;
 
@@ -180,6 +192,7 @@
         goToMain,
         goToParent,
         pushContext,
-        removeContext
+        removeContext,
+        updateContext
     });
 </script>

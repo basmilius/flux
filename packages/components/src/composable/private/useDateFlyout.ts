@@ -16,11 +16,14 @@ export default function <T>(
 ): Ref<T | null> {
     const localValue = ref<T | null>(null) as Ref<T | null>;
 
-    watch(modelValue, value => {
-        localValue.value = options.transformIn ? options.transformIn(value) : value;
-    }, {immediate: true});
+    let isExternalUpdate = false;
 
     watch(localValue, value => {
+        if (isExternalUpdate) {
+            isExternalUpdate = false;
+            return;
+        }
+
         unref(flyoutRef)?.close();
 
         if (options.compareKey && options.compareKey(modelValue.value) === options.compareKey(value)) {
@@ -29,6 +32,17 @@ export default function <T>(
 
         modelValue.value = value;
     });
+
+    watch(modelValue, value => {
+        const next = options.transformIn ? options.transformIn(value) : value;
+
+        if (Object.is(next, unref(localValue))) {
+            return;
+        }
+
+        isExternalUpdate = true;
+        localValue.value = next;
+    }, {immediate: true});
 
     return localValue;
 }

@@ -37,7 +37,7 @@
     setup>
     import { flattenVNodeTree, getComponentProps } from '@flux-ui/internals';
     import type { FluxIconName } from '@flux-ui/types';
-    import { cloneVNode, computed, ref, unref, useId, type VNode, watch } from 'vue';
+    import { cloneVNode, Comment, computed, ref, Text, unref, useId, type VNode, watch } from 'vue';
     import { FluxWindowTransition } from '~flux/components/transition';
     import FluxTabBar from './FluxTabBar.vue';
     import FluxTabBarItem from './FluxTabBarItem.vue';
@@ -81,7 +81,8 @@
     const baseId = useId();
     const isTransitioningBack = ref(false);
 
-    const rawChildren = computed(() => flattenVNodeTree(slots.default?.() ?? []));
+    const rawChildren = computed(() => flattenVNodeTree(slots.default?.() ?? [])
+        .filter(child => child.type !== Comment && child.type !== Text));
 
     const children = computed(() => unref(rawChildren).map((child, index) => cloneVNode(child, {
         id: `${baseId}-panel-${index}`,
@@ -89,7 +90,6 @@
     })));
 
     const tabs = computed<{ icon?: FluxIconName; label?: string; }[]>(() => unref(rawChildren)
-        .filter((child: VNode) => getComponentProps<any>(child).icon || getComponentProps<any>(child).label)
         .map((child: VNode) => ({
             icon: getComponentProps<any>(child).icon,
             label: getComponentProps<any>(child).label

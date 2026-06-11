@@ -45,7 +45,7 @@
     background: var(--overlay);
     backdrop-filter: blur(3px) saturate(180%);
     transition: var(--application-duration) var(--swift-out);
-    transition-property: background, backdrop-filter, opacity;
+    transition-property: background, backdrop-filter, opacity, visibility;
     z-index: 1900;
 }
 
@@ -71,6 +71,7 @@
     }
 
     .application:has(> .applicationMenu[data-collapsed]) .applicationMenuBackdrop {
+        visibility: hidden;
         pointer-events: none;
         opacity: 0;
     }

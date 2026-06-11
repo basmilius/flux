@@ -10,7 +10,7 @@
     import { merge } from 'lodash-es';
     import { computed, useTemplateRef } from 'vue';
     import { type EChartsOption, useECharts } from '~flux/statistics/composable';
-    import { buildBaseOptions, deepResolveCssVars } from '~flux/statistics/util';
+    import { buildBaseOptions, deepResolveCssVars, useCssVarVersion } from '~flux/statistics/util';
     import $style from '~flux/statistics/css/Chart.module.scss';
 
     const {
@@ -23,7 +23,11 @@
 
     const defaults = buildBaseOptions();
 
+    const themeVersion = useCssVarVersion();
+
     const mergedOptions = computed<EChartsOption>(() => {
+        themeVersion.value;
+
         const merged = merge({}, defaults, options) as EChartsOption & { color?: unknown; series?: unknown };
 
         if (options && (options as { color?: unknown }).color !== undefined) {

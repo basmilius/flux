@@ -118,7 +118,7 @@
         let {width, height, columns, rows, squares, dpr} = setup(canvas);
 
         const animate = (time: number): void => {
-            const delta = (time - lastTime) / 1000;
+            const delta = lastTime > 0 ? (time - lastTime) / 1000 : 0;
             lastTime = time;
 
             tick(squares, delta);
@@ -131,7 +131,7 @@
         };
 
         window.addEventListener('resize', onResize, {passive: true});
-        requestAnimationFrame(animate);
+        frame = requestAnimationFrame(animate);
 
         onCleanup(() => {
             window.removeEventListener('resize', onResize);

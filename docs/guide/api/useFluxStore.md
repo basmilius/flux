@@ -29,6 +29,7 @@ interface FluxStore {
     readonly snackbars: FluxSnackbarObject[];
     readonly tooltips: FluxTooltipObject[];
 
+    readonly dialogs: number[];
     readonly dialogCount: number;
     readonly inertMain: ComputedRef<boolean>;
     readonly tooltip: ComputedRef<FluxTooltipObject | null>;
@@ -48,13 +49,21 @@ interface FluxStore {
     updateSnackbar(id: number, spec: Partial<FluxSnackbarObject>): void;
     updateTooltip(id: number, spec: Partial<FluxTooltipObject>): void;
 
-    registerDialog(): [number, VoidFunction];
+    registerDialog(): FluxDialogRegistration;
 
     showAlert(spec: Omit<FluxAlertObject, 'id' | 'onClose'>): Promise<void>;
     showConfirm(spec: Omit<FluxConfirmObject, 'id' | 'onCancel' | 'onConfirm'>): Promise<boolean>;
     showPrompt(spec: Omit<FluxPromptObject, 'id' | 'onCancel' | 'onConfirm'>): Promise<string | false>;
     showSnackbar(spec: Omit<FluxSnackbarObject, 'id'> & { duration?: number }): Promise<void>;
     showSnackbarSync(spec: Omit<FluxSnackbarObject, 'id'> & { duration?: number }): void;
+}
+
+interface FluxDialogRegistration {
+    readonly id: number;
+
+    getPosition(): number;
+    isCurrent(): boolean;
+    unregister(): void;
 }
 ```
 

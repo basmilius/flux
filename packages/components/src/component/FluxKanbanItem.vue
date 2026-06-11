@@ -69,6 +69,9 @@
         },
         onCancel() {
             kanban.cancelKeyboardDrop();
+        },
+        announce() {
+            // The kanban board announces grab, move, drop and cancel through its own live region.
         }
     });
 

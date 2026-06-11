@@ -5,7 +5,9 @@ import type { SharedTooltipItem, TooltipParam, TooltipStyleClasses, Translator }
 export interface TreemapTooltipNode {
     readonly name: string;
     readonly value?: number;
-    readonly color?: string;
+    readonly itemStyle?: {
+        readonly color?: string;
+    };
 }
 
 export interface TreemapTooltipInput {
@@ -29,7 +31,7 @@ export function buildTreemapTooltip(input: TreemapTooltipInput): EChartsOption {
             return '';
         }
 
-        const color = data.color ?? 'var(--primary-600)';
+        const color = data.itemStyle?.color ?? param.color ?? 'var(--primary-600)';
         const title = data.name ? t(String(data.name)) : '';
 
         const items: SharedTooltipItem[] = [

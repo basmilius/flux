@@ -267,8 +267,16 @@
         }
 
         // When searchable, don't intercept letter keys — let the search input handle them
-        if (isSearchable && evt.key.length === 1 && evt.key !== 'Enter' && evt.key !== ' ') {
-            return;
+        if (isSearchable && evt.key.length === 1 && evt.key !== 'Enter') {
+            if (evt.key !== ' ') {
+                return;
+            }
+
+            const searchElement = unrefTemplateElement(searchInputRef);
+
+            if (searchElement && evt.target instanceof Node && searchElement.contains(evt.target)) {
+                return;
+            }
         }
 
         onKeyNavigate(evt, onNodeClick);

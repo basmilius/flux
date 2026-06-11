@@ -1,17 +1,17 @@
 import { unwrapElement, useMutationObserver } from '@basmilius/common';
 import { type ComponentPublicInstance, type Ref, watch } from 'vue';
-import { getBidirectionalFocusElement, getFocusableElement, getFocusableElements } from '../util';
+import { getBidirectionalFocusElement, getFocusableElement, getFocusableElements, isActiveElement } from '../util';
 
 type EligibleElement = ComponentPublicInstance | HTMLElement;
 
 export default function <TElement extends EligibleElement>(containerRef: Ref<TElement>, {cycle = true, direction = 'bidirectional'}: UseFocusZoneOptions = {}): void {
-    useMutationObserver(containerRef, () => updateFocus(findInitialIndex(), false));
+    useMutationObserver(containerRef, () => updateFocus(findInitialIndex(), false), {childList: true, subtree: true});
 
     function findInitialIndex(): number {
         const container = unwrapElement(containerRef);
         const elements = getFocusableElements(container);
-        const isActiveIndex = elements.findIndex(e => e.classList.contains('is-active'));
-        const notDisabledIndex = elements.findIndex(e => !e.hasAttribute('aria-disabled'));
+        const isActiveIndex = elements.findIndex(elm => isActiveElement(elm) && !elm.hasAttribute('aria-disabled'));
+        const notDisabledIndex = elements.findIndex(elm => !elm.hasAttribute('aria-disabled'));
 
         if (isActiveIndex > -1) {
             return isActiveIndex;

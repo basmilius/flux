@@ -29,6 +29,7 @@ export type FluxApplicationInjection = {
     goToParent(): void;
     pushContext(info: FluxApplicationContextInfo): void;
     removeContext(id: symbol): void;
+    updateContext(id: symbol, info: Omit<FluxApplicationContextInfo, 'id'>): void;
 };
 
 export type FluxApplicationLayout =

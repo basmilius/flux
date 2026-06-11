@@ -38,7 +38,7 @@
         </span>
 
         <button
-            v-if="!isClickable && isDeletable"
+            v-if="type === 'none' && isDeletable"
             :class="$style.tagClose"
             type="button"
             :aria-label="translate('flux.delete')"
@@ -65,7 +65,7 @@
 
     const {
         color = 'gray',
-        isClickable
+        type = 'none'
     } = defineProps<{
         readonly color?: FluxColor;
         readonly dot?: boolean;

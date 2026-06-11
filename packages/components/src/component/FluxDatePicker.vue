@@ -278,7 +278,18 @@
         return date >= selectionStart && date <= selectionEnd;
     }
 
+    function clampRange(start: DateTime, end: DateTime): [DateTime, DateTime] {
+        return [
+            DateTime.max(start, unref(minDate)),
+            DateTime.min(end, unref(maxDate).endOf('day'))
+        ];
+    }
+
     function setDate(date: DateTime): void {
+        if (isDisabled(date)) {
+            return;
+        }
+
         switch (rangeMode) {
             case 'range':
                 const [start] = unref(selection);
@@ -297,11 +308,11 @@
                 break;
 
             case 'month':
-                modelValue.value = [date.startOf('month'), date.endOf('month')];
+                modelValue.value = clampRange(date.startOf('month'), date.endOf('month'));
                 break;
 
             case 'week':
-                modelValue.value = [date.startOf('week'), date.endOf('week')];
+                modelValue.value = clampRange(date.startOf('week'), date.endOf('week'));
                 break;
 
             default:

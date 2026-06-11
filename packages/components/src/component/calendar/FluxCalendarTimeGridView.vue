@@ -354,13 +354,45 @@
         return Math.round(minutes / snapMinutes) * snapMinutes;
     }
 
+    function dateAtMinutes(d: DateTime, minutes: number): DateTime {
+        return d.set({hour: Math.floor(minutes / 60), minute: minutes % 60, second: 0, millisecond: 0});
+    }
+
     let cachedDropTarget: HTMLElement | null = null;
     let cachedDropRect: DOMRect | null = null;
+    let scrollListenerElement: HTMLElement | null = null;
 
-    function getDropTargetRect(target: HTMLElement): DOMRect {
-        if (cachedDropTarget !== target || !cachedDropRect) {
+    function invalidateDropRect(): void {
+        cachedDropRect = null;
+    }
+
+    function attachScrollListener(target: HTMLElement): void {
+        const scrollContainer = target.closest<HTMLElement>(`.${$style.timeGridBody}`);
+
+        if (scrollListenerElement === scrollContainer) {
+            return;
+        }
+
+        detachScrollListener();
+
+        if (scrollContainer) {
+            scrollContainer.addEventListener('scroll', invalidateDropRect, {passive: true});
+            scrollListenerElement = scrollContainer;
+        }
+    }
+
+    function detachScrollListener(): void {
+        if (scrollListenerElement) {
+            scrollListenerElement.removeEventListener('scroll', invalidateDropRect);
+            scrollListenerElement = null;
+        }
+    }
+
+    function getDropTargetRect(target: HTMLElement, fresh: boolean = false): DOMRect {
+        if (fresh || cachedDropTarget !== target || !cachedDropRect) {
             cachedDropTarget = target;
             cachedDropRect = target.getBoundingClientRect();
+            attachScrollListener(target);
         }
 
         return cachedDropRect;
@@ -369,16 +401,17 @@
     function clearDropTargetCache(): void {
         cachedDropTarget = null;
         cachedDropRect = null;
+        detachScrollListener();
     }
 
-    function calculateDropMinutes(evt: DragEvent): number | null {
+    function calculateDropMinutes(evt: DragEvent, fresh: boolean = false): number | null {
         const target = evt.currentTarget as HTMLElement | null;
 
         if (!target) {
             return null;
         }
 
-        const rect = getDropTargetRect(target);
+        const rect = getDropTargetRect(target, fresh);
         const offsetY = evt.clientY - rect.top;
         const minuteFromTop = offsetY / pixelsPerMinute;
         const absoluteMinute = hourRange[0] * 60 + minuteFromTop;
@@ -414,8 +447,8 @@
     function onColumnDrop(d: DateTime, evt: DragEvent): void {
         evt.preventDefault();
 
-        const minutes = calculateDropMinutes(evt) ?? hourRange[0] * 60;
-        const toDate = d.startOf('day').plus({minutes});
+        const minutes = calculateDropMinutes(evt, true) ?? hourRange[0] * 60;
+        const toDate = dateAtMinutes(d, minutes);
         emit('timeGridDrop', toDate);
         dropTargetDay.value = null;
         dropTargetMinutes.value = null;
@@ -506,7 +539,7 @@
             let newStartMin = originalStartMin + snappedDelta;
             newStartMin = Math.max(rangeStartMin, Math.min(originalEndMin - minDuration, newStartMin));
             const newDuration = originalEndMin - newStartMin;
-            const newDate = state.originalDate.startOf('day').plus({minutes: newStartMin});
+            const newDate = dateAtMinutes(state.originalDate, newStartMin);
             resizePreview.value = {
                 id: state.id,
                 date: newDate,
@@ -546,5 +579,6 @@
     onBeforeUnmount(() => {
         document.removeEventListener('mousemove', onResizeMove);
         document.removeEventListener('mouseup', onResizeEnd);
+        clearDropTargetCache();
     });
 </script>

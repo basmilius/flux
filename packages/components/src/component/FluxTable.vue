@@ -54,7 +54,7 @@
     lang="ts"
     setup>
     import { useScrollPosition } from '@flux-ui/internals';
-    import { provide, useTemplateRef, type VNode } from 'vue';
+    import { provide, toRef, useTemplateRef, type VNode } from 'vue';
     import { FluxTableInjectionKey } from '~flux/components/data';
     import FluxPaneBody from './FluxPaneBody.vue';
     import FluxSpinner from './FluxSpinner.vue';
@@ -92,9 +92,9 @@
     const {x, y} = useScrollPosition(base);
 
     provide(FluxTableInjectionKey, {
-        isBordered,
-        isHoverable,
-        isSeparated,
-        isStriped
+        isBordered: toRef(() => isBordered),
+        isHoverable: toRef(() => isHoverable),
+        isSeparated: toRef(() => isSeparated),
+        isStriped: toRef(() => isStriped)
     });
 </script>

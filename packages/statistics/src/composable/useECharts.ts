@@ -1,6 +1,6 @@
 import { useResizeObserver } from '@basmilius/common';
 import { init, type EChartsCoreOption } from 'echarts/core';
-import { markRaw, onBeforeUnmount, onMounted, ref, toValue, type MaybeRefOrGetter, type Ref } from 'vue';
+import { markRaw, onBeforeUnmount, onMounted, ref, toValue, watch, type MaybeRefOrGetter, type Ref } from 'vue';
 import '~flux/statistics/echarts';
 
 export type EChartsOption = EChartsCoreOption;
@@ -25,6 +25,10 @@ export function useECharts(
 
         chartInstance.value = markRaw(init(target.value));
         chartInstance.value.setOption(toValue(options));
+    });
+
+    watch(() => toValue(options), value => {
+        chartInstance.value?.setOption(value, {notMerge: true});
     });
 
     onBeforeUnmount(() => {

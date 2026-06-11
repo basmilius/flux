@@ -5,6 +5,7 @@ export interface ChartLegendItem {
     readonly color?: string;
     readonly icon?: FluxIconName;
     readonly label: string;
+    readonly seriesIndex?: number;
     readonly value?: string | number;
 }
 

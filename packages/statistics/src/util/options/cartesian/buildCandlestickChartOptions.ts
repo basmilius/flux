@@ -3,7 +3,7 @@ import { merge } from 'lodash-es';
 import type { ChartLegendItem, EChartsOption } from '~flux/statistics/composable';
 import { resolveChartColor, toCandlestickSeries } from '../../series';
 import type { TooltipStyleClasses, Translator } from '../../tooltips';
-import { buildCartesianTooltip } from '../../tooltips';
+import { buildCandlestickTooltip } from '../../tooltips';
 import { buildCartesianBaseOptions } from '../buildCartesianBaseOptions';
 
 export interface CandlestickChartOptionsInput {
@@ -36,16 +36,18 @@ function resolveCandlestickLabels(
     return undefined;
 }
 
-export function candlestickLegendItemBuilder(s: FluxStatisticsChartCandlestickSeries): readonly ChartLegendItem[] {
+export function candlestickLegendItemBuilder(s: FluxStatisticsChartCandlestickSeries, _color: string, index: number): readonly ChartLegendItem[] {
     return [
         {
             color: resolveChartColor(s.positiveColor) ?? 'var(--success-500)',
             icon: s.icon,
-            label: 'Up'
+            label: 'Up',
+            seriesIndex: index
         },
         {
             color: resolveChartColor(s.negativeColor) ?? 'var(--danger-500)',
-            label: 'Down'
+            label: 'Down',
+            seriesIndex: index
         }
     ];
 }
@@ -65,7 +67,7 @@ export function buildCandlestickChartOptions(input: CandlestickChartOptionsInput
         : undefined;
 
     const tooltipOptions: EChartsOption = tooltip
-        ? buildCartesianTooltip({ t, styles, getSeriesIcons: () => series.map(s => s.icon) })
+        ? buildCandlestickTooltip({ t, styles, getSeries: () => series })
         : { tooltip: { show: false } };
 
     const echartsSeries = series.map(s =>

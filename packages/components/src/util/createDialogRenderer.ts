@@ -1,6 +1,6 @@
 import { flattenVNodeTree, useFocusTrap } from '@flux-ui/internals';
 import { Comment, h, onUnmounted, ref, Teleport, watch, type Component, type RenderFunction, type SetupContext, type Slots, type VNode } from 'vue';
-import { registerDialog, useFluxStore } from '~flux/components/data';
+import { registerDialog, type FluxDialogRegistration } from '~flux/components/data';
 import $style from '~flux/components/css/component/Overlay.module.scss';
 
 type Emit = SetupContext<['close']>['emit'];
@@ -14,15 +14,15 @@ let DIALOG_ID = 0;
 
 export default function (attrs: object, props: Props, emit: Emit, slots: Slots, className: string, transition: Component): RenderFunction {
     const dialogId = `flux-dialog:${DIALOG_ID++}`;
-    let unregister: VoidFunction | null = null;
-    let zIndex = 0;
+    let registration: FluxDialogRegistration | null = null;
 
     const dialogRef = ref<HTMLElement>();
 
     useFocusTrap(dialogRef);
 
     onUnmounted(() => {
-        unregister?.();
+        registration?.unregister();
+        registration = null;
     });
 
     watch(dialogRef, (dialog, _, onCleanup) => {
@@ -38,7 +38,7 @@ export default function (attrs: object, props: Props, emit: Emit, slots: Slots, 
     });
 
     function onKeyDown(evt: KeyboardEvent): void {
-        if (evt.key !== 'Escape' || !unregister || !props.isCloseable) {
+        if (evt.key !== 'Escape' || !registration || !props.isCloseable) {
             return;
         }
 
@@ -46,29 +46,25 @@ export default function (attrs: object, props: Props, emit: Emit, slots: Slots, 
     }
 
     return () => {
-        const {dialogCount} = useFluxStore();
-
         const children = flattenVNodeTree(slots.default?.() ?? []);
         const isVisible = children.length > 0 && children.some(child => child.type !== Comment);
         let content: VNode | undefined;
 
         if (isVisible) {
-            if (!unregister) {
-                [zIndex, unregister] = registerDialog();
-            }
+            registration ??= registerDialog();
 
             content = h('div', {
                 key: props.viewKey ?? dialogId,
                 ref: dialogRef,
-                class: [className, zIndex === dialogCount && $style.isCurrent],
+                class: [className, registration.isCurrent() && $style.isCurrent],
                 style: {
-                    zIndex: zIndex + 1000
+                    zIndex: registration.getPosition() + 1000
                 },
                 tabindex: 0
             }, children);
         } else {
-            unregister?.();
-            unregister = null;
+            registration?.unregister();
+            registration = null;
         }
 
         return h(Teleport, {defer: true, disabled: !content, to: TARGET_SELECTOR}, [

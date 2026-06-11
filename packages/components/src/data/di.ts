@@ -188,10 +188,10 @@ export type FluxTabBarInjection = {
 };
 
 export type FluxTableInjection = {
-    readonly isBordered: boolean;
-    readonly isHoverable: boolean;
-    readonly isSeparated: boolean;
-    readonly isStriped: boolean;
+    readonly isBordered: Ref<boolean>;
+    readonly isHoverable: Ref<boolean>;
+    readonly isSeparated: Ref<boolean>;
+    readonly isStriped: Ref<boolean>;
 };
 
 export type FluxTooltipInjection = {

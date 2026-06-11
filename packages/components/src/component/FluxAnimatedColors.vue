@@ -136,8 +136,8 @@
         })!;
     }, {immediate: true});
 
-    watch(polygons, () => {
+    watch([polygons, () => opacity], () => {
         cancel();
-        !isStatic && schedule();
+        schedule();
     });
 </script>

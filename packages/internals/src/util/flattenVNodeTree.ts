@@ -1,11 +1,11 @@
 import { Fragment, type VNode } from 'vue';
 
-export default function (vnodes: VNode[]): VNode[] {
+export default function flattenVNodeTree(vnodes: VNode[]): VNode[] {
     const flattened: VNode[] = [];
 
     for (const vnode of vnodes) {
         if (vnode.type === Fragment && Array.isArray(vnode.children)) {
-            flattened.push(...(vnode.children as VNode[]));
+            flattened.push(...flattenVNodeTree(vnode.children as VNode[]));
             continue;
         }
 

@@ -3,12 +3,15 @@
         <div
             v-if="isOpen || isClosing"
             :class="[$style.commandPaletteBackdrop, isClosing && $style.isClosing]"
+            :style="zIndexBase !== null ? {zIndex: zIndexBase} : undefined"
             @click="close"/>
 
         <div
             v-if="isOpen || isClosing"
             ref="dialogRef"
             :class="[$style.commandPaletteDialog, isClosing && $style.isClosing]"
+            :style="zIndexBase !== null ? {zIndex: zIndexBase + 1} : undefined"
+            tabindex="-1"
             @click.self="close"
             @keydown="onKeyDown">
             <div
@@ -147,10 +150,11 @@
 <script
     lang="ts"
     setup>
-    import { isSSR, vHeightTransition } from '@flux-ui/internals';
+    import { isSSR, useFocusTrap, vHeightTransition } from '@flux-ui/internals';
     import type { FluxCommandSource, FluxCommandSourceItem } from '@flux-ui/types';
-    import { onMounted, onUnmounted, ref, toRef, unref, useTemplateRef } from 'vue';
+    import { computed, onMounted, onUnmounted, ref, toRef, unref, useTemplateRef } from 'vue';
     import { useCommandPalette } from '~flux/components/composable/private';
+    import { registerDialog, type FluxDialogRegistration } from '~flux/components/data';
     import { FluxWindowTransition } from '~flux/components/transition';
     import FluxCommandPaletteGroup from './FluxCommandPaletteGroup.vue';
     import FluxCommandPaletteItem from './FluxCommandPaletteItem.vue';
@@ -176,6 +180,22 @@
     const isOpen = ref(false);
     const isClosing = ref(false);
 
+    let pendingClose: (() => void) | null = null;
+
+    const dialogRegistration = ref<FluxDialogRegistration | null>(null);
+
+    const zIndexBase = computed(() => {
+        const registration = unref(dialogRegistration);
+
+        if (!registration) {
+            return null;
+        }
+
+        return 10001 + registration.getPosition() * 2;
+    });
+
+    useFocusTrap(dialogRef);
+
     const {
         search,
         activeTab,
@@ -198,17 +218,20 @@
     });
 
     function open(): void {
+        pendingClose?.();
+
         if (unref(isOpen)) {
             return;
         }
 
+        dialogRegistration.value ??= registerDialog();
         isOpen.value = true;
 
         requestAnimationFrame(() => unref(inputRef)?.focus());
     }
 
     function close(): void {
-        if (!unref(isOpen)) {
+        if (!unref(isOpen) || unref(isClosing)) {
             return;
         }
 
@@ -221,17 +244,31 @@
         isClosing.value = true;
 
         const finishClose = () => {
+            pendingClose = null;
             isClosing.value = false;
             isOpen.value = false;
             reset();
+            dialogRegistration.value?.unregister();
+            dialogRegistration.value = null;
         };
 
-        const fallbackTimeout = setTimeout(finishClose, 250);
-
-        dialog.addEventListener('animationend', () => {
+        const onAnimationEnd = () => {
             clearTimeout(fallbackTimeout);
             finishClose();
-        }, {once: true});
+        };
+
+        const fallbackTimeout = setTimeout(() => {
+            dialog.removeEventListener('animationend', onAnimationEnd);
+            finishClose();
+        }, 250);
+
+        pendingClose = () => {
+            clearTimeout(fallbackTimeout);
+            dialog.removeEventListener('animationend', onAnimationEnd);
+            finishClose();
+        };
+
+        dialog.addEventListener('animationend', onAnimationEnd, {once: true});
     }
 
     function clearSubActionTarget(): void {
@@ -240,6 +277,10 @@
     }
 
     function activateItem(item: FluxCommandSourceItem): void {
+        if (unref(isClosing)) {
+            return;
+        }
+
         if (item.subActions?.length) {
             enterSubActions(item);
         } else {
@@ -250,11 +291,19 @@
     }
 
     function activateSubAction(action: { readonly onActivate: () => void; }): void {
+        if (unref(isClosing)) {
+            return;
+        }
+
         action.onActivate();
         close();
     }
 
     function onKeyDown(evt: KeyboardEvent): void {
+        if (unref(isClosing)) {
+            return;
+        }
+
         onKeyNavigate(evt, close, (item) => {
             emit('select', item);
             close();
@@ -265,13 +314,18 @@
         if (evt.key === 'k' && (evt.metaKey || evt.ctrlKey)) {
             evt.preventDefault();
 
-            if (unref(isOpen)) {
+            if (unref(isOpen) && !unref(isClosing)) {
                 close();
             } else {
                 open();
             }
         }
     }
+
+    onUnmounted(() => {
+        dialogRegistration.value?.unregister();
+        dialogRegistration.value = null;
+    });
 
     if (!isSSR && props.hasKeyboardShortcut) {
         onMounted(() => {

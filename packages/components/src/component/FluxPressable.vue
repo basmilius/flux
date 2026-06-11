@@ -1,13 +1,18 @@
 <template>
     <router-link
         v-if="componentType === 'route'"
-        v-bind="$attrs"
-        v-on="hoverListeners"
-        :rel="resolvedRel"
-        :target="target"
+        custom
         :to="to as any"
-        @click="onClick($event)">
-        <slot/>
+        #default="{href: routeHref, navigate}">
+        <a
+            v-bind="$attrs"
+            v-on="hoverListeners"
+            :href="routeHref"
+            :rel="resolvedRel"
+            :target="target"
+            @click="onClick($event, navigate)">
+            <slot/>
+        </a>
     </router-link>
 
     <a

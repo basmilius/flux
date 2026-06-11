@@ -27,11 +27,20 @@ function defineFilterMacro(): Plugin {
                     return match;
                 }
 
-                if (containsTopLevelCall(content, 'defineOptions')) {
-                    return match;
-                }
+                let wrapped: string;
 
-                const wrapped = wrapDefineFilter(content);
+                if (containsTopLevelCall(content, 'defineOptions')) {
+                    const merged = mergeIntoDefineOptions(content);
+
+                    if (merged === null) {
+                        this.warn(`defineFilter() could not be merged into the existing defineOptions() call in ${id}. The filter definition is ignored; pass the factory to defineOptions() manually via __filterDefinitionFactory.`);
+                        return match;
+                    }
+
+                    wrapped = merged;
+                } else {
+                    wrapped = wrapDefineFilter(content);
+                }
 
                 if (wrapped === content) {
                     return match;
@@ -66,6 +75,49 @@ function wrapDefineFilter(content: string): string {
     const replacement = `defineOptions({\n    __filterDefinitionFactory: ${callExpression}\n})`;
 
     return content.slice(0, range.callStart) + replacement + content.slice(range.callEnd);
+}
+
+function mergeIntoDefineOptions(content: string): string | null {
+    const filterRange = findTopLevelCall(content, 'defineFilter');
+
+    if (!filterRange) {
+        return null;
+    }
+
+    const callExpression = content.slice(filterRange.callStart, filterRange.callEnd);
+    const withoutFilter = content.slice(0, filterRange.callStart) + 'undefined' + content.slice(filterRange.callEnd);
+    const optionsRange = findTopLevelCall(withoutFilter, 'defineOptions');
+
+    if (!optionsRange) {
+        return null;
+    }
+
+    const openParen = skipGenericAndWhitespace(withoutFilter, optionsRange.callStart + 'defineOptions'.length);
+
+    if (withoutFilter[openParen] !== '(') {
+        return null;
+    }
+
+    let objectStart = openParen + 1;
+
+    while (objectStart < withoutFilter.length && /\s/.test(withoutFilter[objectStart])) {
+        objectStart++;
+    }
+
+    if (withoutFilter[objectStart] !== '{') {
+        return null;
+    }
+
+    let firstContentIndex = objectStart + 1;
+
+    while (firstContentIndex < withoutFilter.length && /\s/.test(withoutFilter[firstContentIndex])) {
+        firstContentIndex++;
+    }
+
+    const isEmptyObject = withoutFilter[firstContentIndex] === '}';
+    const insertion = `\n    __filterDefinitionFactory: ${callExpression}${isEmptyObject ? '\n' : ','}`;
+
+    return withoutFilter.slice(0, objectStart + 1) + insertion + withoutFilter.slice(objectStart + 1);
 }
 
 function containsTopLevelCall(content: string, name: string): boolean {

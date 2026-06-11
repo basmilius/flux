@@ -43,7 +43,9 @@
             <FluxFormField
                 v-if="type === 'hex'"
                 label="Hex">
-                <FluxFormInput v-model.lazy="modelValue"/>
+                <FluxFormInput
+                    v-model="hexInput"
+                    @blur="onHexBlur()"/>
             </FluxFormField>
 
             <template v-else-if="type === 'rgb'">
@@ -144,6 +146,10 @@
         default: blue500
     });
 
+    const alpha = defineModel<number>('alpha', {
+        default: 1
+    });
+
     const {
         type = 'hex'
     } = defineProps<{
@@ -153,7 +159,7 @@
 
     const translate = useTranslate();
 
-    const alpha = ref(1);
+    const hexInput = ref('');
     const hsv = ref<[number, number, number]>([0, 0, 0]);
     const isDragging = ref(false);
 
@@ -208,6 +214,16 @@
         isDragging.value = is;
     }
 
+    function onHexBlur(): void {
+        const hex = unref(hexInput).trim();
+
+        if (/^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/i.test(hex)) {
+            hsv.value = rgbToHSV(...hexToRGB(hex));
+        } else {
+            hexInput.value = rgbToHEX(...hsvToRGB(...unref(hsv)));
+        }
+    }
+
     function generateComputedInput(index: number, fromHSV?: (a: number, b: number, c: number) => [number, number, number], toHSV?: (a: number, b: number, c: number) => [number, number, number]): ComputedRef<number> {
         return computed({
             get: () => fromHSV?.(...unref(hsv))[index] ?? unref(hsv)[index],
@@ -249,6 +265,8 @@
                 break;
         }
     }, {immediate: true});
+
+    watch(hsv, hsv => hexInput.value = rgbToHEX(...hsvToRGB(...hsv)), {immediate: true});
 
     watch(hsv, hsv => {
         switch (type) {

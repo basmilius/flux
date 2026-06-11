@@ -1,6 +1,6 @@
 <template>
     <FluxButton
-        :="{type, disabled, iconLeading, iconTrailing, isFilled, isLoading, isSubmit, label, size, href, rel, target, to}"
+        :="{type, disabled, iconLeading, iconTrailing, isFilled, isLoading, isSubmit, label, size, tabindex, href, rel, target, to}"
         :css-class="$style.primaryLinkButton"
         :css-class-icon="$style.primaryLinkButtonIcon"
         :css-class-label="$style.primaryLinkButtonLabel"

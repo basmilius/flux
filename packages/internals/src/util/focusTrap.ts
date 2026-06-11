@@ -11,14 +11,17 @@ class FocusTrapLockStack {
     #traps: FocusTrap[] = [];
 
     add(id: FocusTrap['id'], setEnabled: FocusTrap['setEnabled'], autoFocus: boolean = true): void {
-        const trap: FocusTrap = {id, setEnabled, isEnabled: true};
-        this.current && this.toggle(this.current, false);
-        this.#traps.push(trap);
+        const trap: FocusTrap = {id, setEnabled, isEnabled: false};
 
         if (autoFocus) {
+            this.current && this.toggle(this.current, false);
+            this.#traps.push(trap);
             this.toggle(trap, true);
-            this.emit();
+        } else {
+            this.#traps.push(trap);
         }
+
+        this.emit();
     }
 
     remove(id: FocusTrap['id']): void {

@@ -1,17 +1,22 @@
-import { ref, type Ref, unref } from 'vue';
-import type { TemplateRef } from '../util';
+import { ref, type Ref, unref, watch } from 'vue';
+import { isSSR, type TemplateRef } from '../util';
 import useEventListener from './useEventListener';
 
 export default function <TElement extends HTMLElement>(elementRef?: TemplateRef<TElement>): UseScrollPositionReturn {
     const x = ref(0);
     const y = ref(0);
 
-    if (!elementRef) {
-        elementRef = ref(document);
+    if (isSSR) {
+        return {
+            x,
+            y
+        };
     }
 
-    useEventListener(elementRef, 'scroll', () => {
-        let element = unref(elementRef);
+    const targetRef = elementRef ?? ref(document);
+
+    const update = (): void => {
+        let element = unref(targetRef);
 
         if (element instanceof Document) {
             element = element.scrollingElement;
@@ -19,7 +24,11 @@ export default function <TElement extends HTMLElement>(elementRef?: TemplateRef<
 
         x.value = element?.scrollLeft ?? 0;
         y.value = element?.scrollTop ?? 0;
-    });
+    };
+
+    useEventListener(targetRef, 'scroll', update);
+
+    watch(targetRef, () => update(), {immediate: true});
 
     return {
         x,

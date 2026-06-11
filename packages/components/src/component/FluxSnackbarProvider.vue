@@ -12,23 +12,16 @@
             v-for="snackbar of snackbars.toReversed()"
             :key="snackbar.id"
             :="snackbar"
-            is-rendered
-            @action="onAction(snackbar)"
-            @close="() => snackbar.onClose?.()"/>
+            is-rendered/>
     </TransitionGroup>
 </template>
 
 <script
     lang="ts"
     setup>
-    import type { FluxSnackbarObject } from '@flux-ui/types';
     import { useFluxStore } from '~flux/components/data';
     import FluxSnackbar from './FluxSnackbar.vue';
     import $style from '~flux/components/css/component/Snackbar.module.scss';
 
     const {snackbars} = useFluxStore();
-
-    function onAction(snackbar: FluxSnackbarObject): (actionKey: string) => void {
-        return actionKey => snackbar.onAction?.(actionKey);
-    }
 </script>

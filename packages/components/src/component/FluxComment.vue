@@ -38,7 +38,7 @@
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import type { DateTime } from 'luxon';
-    import { computed, type VNode } from 'vue';
+    import { computed, onBeforeUnmount, onMounted, ref, type VNode } from 'vue';
     import { useTranslate } from '~flux/components/composable/private';
     import FluxAvatar from './FluxAvatar.vue';
     import $style from '~flux/components/css/component/Comment.module.scss';
@@ -65,7 +65,26 @@
 
     const translate = useTranslate();
 
-    const isJustNowVisible = computed(() => postedOn && Math.abs(postedOn.diffNow().as('seconds')) < 15);
+    const timeTick = ref(0);
+    let timeTickInterval: ReturnType<typeof setInterval> | undefined;
+
+    onMounted(() => {
+        timeTickInterval = setInterval(() => {
+            timeTick.value++;
+        }, 30000);
+    });
+
+    onBeforeUnmount(() => {
+        clearInterval(timeTickInterval);
+    });
+
+    const isJustNowVisible = computed(() => {
+        void timeTick.value;
+        return postedOn && Math.abs(postedOn.diffNow().as('seconds')) < 15;
+    });
     const iso = computed(() => postedOn?.toISO() ?? null);
-    const relative = computed(() => postedOn?.toRelative() ?? null);
+    const relative = computed(() => {
+        void timeTick.value;
+        return postedOn?.toRelative() ?? null;
+    });
 </script>

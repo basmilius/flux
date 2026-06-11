@@ -96,6 +96,11 @@
     watchEffect(() => {
         const value = unref(modelValue);
 
+        if (typeof value !== 'number' || isNaN(value)) {
+            modelValue.value = min;
+            return;
+        }
+
         if (value > max || value < min) {
             modelValue.value = Math.min(max, Math.max(min, value));
             return;

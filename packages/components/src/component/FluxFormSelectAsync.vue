@@ -88,6 +88,9 @@
     const fetchRelevant = computed(() => loaded(fetchRelevantProp));
     const fetchSearch = computed(() => loaded(fetchSearchProp));
 
+    let selectedGeneration = 0;
+    let visibleGeneration = 0;
+
     function onDeselect(id: string | number | null): void {
         if (isMultiple) {
             modelValue.value = unref(values).filter(v => v !== id);
@@ -95,7 +98,12 @@
     }
 
     async function onOpen(): Promise<void> {
-        visibleOptions.value = await unref(fetchRelevant)();
+        const generation = ++visibleGeneration;
+        const options = await unref(fetchRelevant)();
+
+        if (generation === visibleGeneration) {
+            visibleOptions.value = options;
+        }
     }
 
     function onSelect(id: string | number | null): void {
@@ -107,18 +115,30 @@
     }
 
     watch(values, async values => {
-        if (values.length === 0) {
+        const definedValues = values.filter(value => value !== null && value !== undefined);
+
+        if (definedValues.length === 0) {
+            ++selectedGeneration;
+            selectedOptions.value = [];
             return;
         }
 
-        selectedOptions.value = await unref(fetchOptions)(values);
+        const generation = ++selectedGeneration;
+        const options = await unref(fetchOptions)(definedValues);
+
+        if (generation === selectedGeneration) {
+            selectedOptions.value = options;
+        }
     }, {immediate: true});
 
     watch(debouncedModelSearch, async searchQuery => {
-        if (searchQuery.length > 0) {
-            visibleOptions.value = await unref(fetchSearch)(searchQuery);
-        } else {
-            visibleOptions.value = await unref(fetchRelevant)();
+        const generation = ++visibleGeneration;
+        const options = searchQuery.length > 0
+            ? await unref(fetchSearch)(searchQuery)
+            : await unref(fetchRelevant)();
+
+        if (generation === visibleGeneration) {
+            visibleOptions.value = options;
         }
     });
 </script>

@@ -29,16 +29,16 @@ example=../../code/guide/composables/useBreakpoints/responsive-layout.vue
 Targets the smallest viewports. Active when the viewport width is 0px or more.
 
 ### sm — 640px
-Targets small viewports such as large phones in landscape mode.
+Targets small viewports such as large phones in landscape mode. Active when the viewport width is 640px or more.
 
 ### md — 768px
-Targets medium viewports such as tablets in portrait mode.
+Targets medium viewports such as tablets in portrait mode. Active when the viewport width is 768px or more.
 
 ### lg — 1024px
-Targets large viewports such as tablets in landscape mode and small desktops.
+Targets large viewports such as tablets in landscape mode and small desktops. Active when the viewport width is 1024px or more.
 
 ### xl — 1280px
-Targets extra-large viewports such as full-size desktop screens.
+Targets extra-large viewports such as full-size desktop screens. Active when the viewport width is 1280px or more.
 
 ## Type declarations
 

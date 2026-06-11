@@ -44,19 +44,30 @@ export default function (params: UseAsyncFilterOptionsParams) {
         return options;
     });
 
+    let selectedGeneration = 0;
+    let visibleGeneration = 0;
+
     watch(params.currentValueIds, async ids => {
         if (ids.length === 0) {
             return;
         }
 
-        selectedOptions.value = await unref(fetchOptions)(ids);
+        const generation = ++selectedGeneration;
+        const options = await unref(fetchOptions)(ids);
+
+        if (generation === selectedGeneration) {
+            selectedOptions.value = options;
+        }
     }, {immediate: true});
 
     watch(debouncedModelSearch, async searchQuery => {
-        if (searchQuery.length > 0) {
-            visibleOptions.value = await unref(fetchSearch)(searchQuery);
-        } else {
-            visibleOptions.value = await unref(fetchRelevant)();
+        const generation = ++visibleGeneration;
+        const options = searchQuery.length > 0
+            ? await unref(fetchSearch)(searchQuery)
+            : await unref(fetchRelevant)();
+
+        if (generation === visibleGeneration) {
+            visibleOptions.value = options;
         }
     }, {immediate: true});
 
