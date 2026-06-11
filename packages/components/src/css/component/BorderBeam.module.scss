@@ -425,6 +425,11 @@ $pulse-outer-bloom: (
         $thin-w2: 14px;
         $thin-w3: 12px;
         $thin-w4: 10px;
+
+        // The light theme widens the last thin spike further for mono.
+        @if not $is-dark {
+            $thin-w4: 12px;
+        }
         $thin-h1: 42px;
         $thin-h2: 38px;
         $thin-h3: 40px;
@@ -487,6 +492,17 @@ $pulse-outer-bloom: (
     @return $grads;
 }
 
+// Gradients that reference animated custom properties (--beam-angle, --beam-x,
+// --beam-w, ...) must be declared directly on the layer that paints them.
+// Routing them through an intermediate custom property breaks per-frame
+// updates of the dependent value in Chromium and WebKit, which makes the
+// animation stutter.
+$rotate-highlight-light: string.unquote('conic-gradient(from var(--beam-angle), transparent 0%, transparent 54%, rgba(0, 0, 0, 0.08) 57%, rgba(0, 0, 0, 0.2) 60%, rgba(0, 0, 0, 0.4) 63%, rgba(0, 0, 0, 0.55) 66%, rgba(0, 0, 0, 0.4) 69%, rgba(0, 0, 0, 0.2) 72%, rgba(0, 0, 0, 0.08) 75%, transparent 78%, transparent 100%)');
+$rotate-highlight-dark: string.unquote('conic-gradient(from var(--beam-angle), transparent 0%, transparent 54%, rgba(255, 255, 255, 0.1) 57%, rgba(255, 255, 255, 0.3) 60%, rgba(255, 255, 255, 0.6) 63%, rgba(255, 255, 255, 0.75) 66%, rgba(255, 255, 255, 0.6) 69%, rgba(255, 255, 255, 0.3) 72%, rgba(255, 255, 255, 0.1) 75%, transparent 78%, transparent 100%)');
+$rotate-bloom-light: string.unquote('conic-gradient(from var(--beam-angle), transparent 0%, transparent 58%, rgba(0, 0, 0, 0.02) 62%, rgba(0, 0, 0, 0.08) 65%, rgba(0, 0, 0, 0.2) 67%, rgba(0, 0, 0, 0.4) 69%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0.6) 70.5%, rgba(0, 0, 0, 0.4) 71.5%, rgba(0, 0, 0, 0.2) 73%, rgba(0, 0, 0, 0.08) 75%, rgba(0, 0, 0, 0.02) 78%, transparent 82%)');
+$rotate-bloom-dark: string.unquote('conic-gradient(from var(--beam-angle), transparent 0%, transparent 58%, rgba(255, 255, 255, 0.03) 62%, rgba(255, 255, 255, 0.08) 65%, rgba(255, 255, 255, 0.2) 67%, rgba(255, 255, 255, 0.45) 69%, rgba(255, 255, 255, 0.85) 70%, rgba(255, 255, 255, 0.85) 70.5%, rgba(255, 255, 255, 0.45) 71.5%, rgba(255, 255, 255, 0.2) 73%, rgba(255, 255, 255, 0.08) 75%, rgba(255, 255, 255, 0.03) 78%, transparent 82%)');
+$line-highlight-light: string.unquote('radial-gradient(ellipse calc(35px * var(--beam-w)) calc(28px * var(--beam-h)) at calc(var(--beam-x) * 100%) calc(100% + 2px), rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.25) 35%, transparent 70%)');
+$line-highlight-dark: string.unquote('radial-gradient(ellipse calc(24px * var(--beam-w)) calc(28px * var(--beam-h)) at calc(var(--beam-x) * 100%) calc(100% + 2px), rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0.12) 30%, transparent 65%)');
 $ring-mask: string.unquote('linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)');
 $edge-fade-y: string.unquote('linear-gradient(white, transparent 28px, transparent calc(100% - 28px), white)');
 $edge-fade-x: string.unquote('linear-gradient(to right, white, transparent 28px, transparent calc(100% - 28px), white)');
@@ -532,18 +548,30 @@ $line-bloom-window: string.unquote('radial-gradient(ellipse calc(84px * var(--be
         --beam-rotate-inner: #{blobs(map.get($ring-colors, $palette), $ring-geometry, $inner-alpha, .9)};
         --beam-sm-blobs: #{blobs(map.get($sm-colors, $palette), $sm-geometry)};
         --beam-sm-inner: #{blobs(map.get($sm-colors, $palette), $sm-geometry, map.get($sm-inner-alphas, $palette))};
-        --beam-line-blobs: #{line-blobs(map.get($line-colors, $palette, light), $line-geometry-light)};
-        --beam-line-inner: #{line-blobs(map.get($line-inner-colors, $palette), $line-inner-geometry, $line-inner-alphas)};
-        --beam-line-bloom: #{line-bloom($palette, light)};
         --beam-pulse-ring: #{pulse-blobs(pulse-ring($palette))};
         --beam-pulse-inner-ring: #{pulse-blobs(pulse-ring-resized($palette))};
         --beam-pulse-inner-bloom: #{pulse-blobs-frozen(pulse-table($palette, $pulse-inner-bloom))};
         --beam-pulse-outer-core: #{pulse-blobs(pulse-table($palette, $pulse-outer-core))};
         --beam-pulse-outer-bloom: #{pulse-blobs-frozen(pulse-table($palette, $pulse-outer-bloom))};
 
-        [dark] & {
-            --beam-line-blobs: #{line-blobs(map.get($line-colors, $palette, dark), $line-geometry-dark)};
-            --beam-line-bloom: #{line-bloom($palette, dark)};
+        &.line::after {
+            background: #{$line-highlight-light}, #{line-blobs(map.get($line-colors, $palette, light), $line-geometry-light)};
+        }
+
+        &.line::before {
+            background: #{line-blobs(map.get($line-inner-colors, $palette), $line-inner-geometry, $line-inner-alphas)};
+        }
+
+        &.line > .bloom {
+            background: #{line-bloom($palette, light)};
+        }
+
+        [dark] &.line::after {
+            background: #{$line-highlight-dark}, #{line-blobs(map.get($line-colors, $palette, dark), $line-geometry-dark)};
+        }
+
+        [dark] &.line > .bloom {
+            background: #{line-bloom($palette, dark)};
         }
     }
 }
@@ -556,14 +584,6 @@ $line-bloom-window: string.unquote('radial-gradient(ellipse calc(84px * var(--be
 .md,
 .sm {
     overflow: hidden;
-
-    --beam-rotate-highlight: conic-gradient(from var(--beam-angle), transparent 0%, transparent 54%, rgba(0, 0, 0, 0.08) 57%, rgba(0, 0, 0, 0.2) 60%, rgba(0, 0, 0, 0.4) 63%, rgba(0, 0, 0, 0.55) 66%, rgba(0, 0, 0, 0.4) 69%, rgba(0, 0, 0, 0.2) 72%, rgba(0, 0, 0, 0.08) 75%, transparent 78%, transparent 100%);
-    --beam-rotate-bloom: conic-gradient(from var(--beam-angle), transparent 0%, transparent 58%, rgba(0, 0, 0, 0.02) 62%, rgba(0, 0, 0, 0.08) 65%, rgba(0, 0, 0, 0.2) 67%, rgba(0, 0, 0, 0.4) 69%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0.6) 70.5%, rgba(0, 0, 0, 0.4) 71.5%, rgba(0, 0, 0, 0.2) 73%, rgba(0, 0, 0, 0.08) 75%, rgba(0, 0, 0, 0.02) 78%, transparent 82%);
-
-    [dark] & {
-        --beam-rotate-highlight: conic-gradient(from var(--beam-angle), transparent 0%, transparent 54%, rgba(255, 255, 255, 0.1) 57%, rgba(255, 255, 255, 0.3) 60%, rgba(255, 255, 255, 0.6) 63%, rgba(255, 255, 255, 0.75) 66%, rgba(255, 255, 255, 0.6) 69%, rgba(255, 255, 255, 0.3) 72%, rgba(255, 255, 255, 0.1) 75%, transparent 78%, transparent 100%);
-        --beam-rotate-bloom: conic-gradient(from var(--beam-angle), transparent 0%, transparent 58%, rgba(255, 255, 255, 0.03) 62%, rgba(255, 255, 255, 0.08) 65%, rgba(255, 255, 255, 0.2) 67%, rgba(255, 255, 255, 0.45) 69%, rgba(255, 255, 255, 0.85) 70%, rgba(255, 255, 255, 0.85) 70.5%, rgba(255, 255, 255, 0.45) 71.5%, rgba(255, 255, 255, 0.2) 73%, rgba(255, 255, 255, 0.08) 75%, rgba(255, 255, 255, 0.03) 78%, transparent 82%);
-    }
 
     &.isActive {
         animation: borderBeamSpin calc(var(--beam-duration) * 1s) linear infinite, borderBeamFadeIn .6s ease forwards;
@@ -606,13 +626,17 @@ $line-bloom-window: string.unquote('radial-gradient(ellipse calc(84px * var(--be
         z-index: 3;
         inset: 0;
         padding: 1px;
-        background: var(--beam-rotate-bloom);
+        background: #{$rotate-bloom-light};
         border-radius: calc(var(--beam-radius) - 1px);
         opacity: 0;
         filter: blur(8px) brightness(var(--beam-brightness)) saturate(var(--beam-saturation));
         clip-path: inset(0 round var(--beam-radius));
         mask: #{$ring-mask};
         mask-composite: exclude;
+    }
+
+    [dark] & > .bloom {
+        background: #{$rotate-bloom-dark};
     }
 
     &.isActive > .bloom,
@@ -640,9 +664,14 @@ $line-bloom-window: string.unquote('radial-gradient(ellipse calc(84px * var(--be
 
     &.isActive::after,
     &.isFading::after {
-        background: var(--beam-rotate-highlight), var(--beam-rotate-blobs);
+        background: #{$rotate-highlight-light}, var(--beam-rotate-blobs);
         mask: #{$md-window}, #{$ring-mask};
         mask-composite: intersect, exclude;
+    }
+
+    [dark] &.isActive::after,
+    [dark] &.isFading::after {
+        background: #{$rotate-highlight-dark}, var(--beam-rotate-blobs);
     }
 
     &.isActive::before,
@@ -673,9 +702,14 @@ $line-bloom-window: string.unquote('radial-gradient(ellipse calc(84px * var(--be
 
     &.isActive::after,
     &.isFading::after {
-        background: var(--beam-rotate-highlight), var(--beam-sm-blobs);
+        background: #{$rotate-highlight-light}, var(--beam-sm-blobs);
         mask: #{$sm-window}, #{$ring-mask};
         mask-composite: intersect, exclude;
+    }
+
+    [dark] &.isActive::after,
+    [dark] &.isFading::after {
+        background: #{$rotate-highlight-dark}, var(--beam-sm-blobs);
     }
 
     &.isActive::before,
@@ -700,7 +734,6 @@ $line-bloom-window: string.unquote('radial-gradient(ellipse calc(84px * var(--be
     --beam-brightness: 1.3;
     --beam-inner-opacity: .32;
     --beam-inner-shadow: rgba(0, 0, 0, .14);
-    --beam-line-highlight: radial-gradient(ellipse calc(35px * var(--beam-w)) calc(28px * var(--beam-h)) at calc(var(--beam-x) * 100%) calc(100% + 2px), rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.25) 35%, transparent 70%);
     --beam-saturation: 1.95;
     --beam-stroke-opacity: .16;
 
@@ -708,7 +741,6 @@ $line-bloom-window: string.unquote('radial-gradient(ellipse calc(84px * var(--be
         --beam-bloom-opacity: .8;
         --beam-inner-opacity: .7;
         --beam-inner-shadow: rgba(255, 255, 255, .1);
-        --beam-line-highlight: radial-gradient(ellipse calc(24px * var(--beam-w)) calc(28px * var(--beam-h)) at calc(var(--beam-x) * 100%) calc(100% + 2px), rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0.12) 30%, transparent 65%);
         --beam-saturation: 1.2;
         --beam-stroke-opacity: 1.14;
     }
@@ -728,7 +760,6 @@ $line-bloom-window: string.unquote('radial-gradient(ellipse calc(84px * var(--be
         inset: 0;
         padding: 1px;
         content: '';
-        background: var(--beam-line-highlight), var(--beam-line-blobs);
         border-radius: calc(var(--beam-radius) - 1px);
         opacity: calc(var(--beam-opacity) * var(--beam-edge) * var(--beam-stroke-opacity) * var(--beam-strength));
         animation: borderBeamHueShift 12s ease-in-out infinite;
@@ -743,7 +774,6 @@ $line-bloom-window: string.unquote('radial-gradient(ellipse calc(84px * var(--be
         z-index: 1;
         inset: 0;
         content: '';
-        background: var(--beam-line-inner);
         border-radius: var(--beam-radius);
         box-shadow: inset 0 0 9px 1px var(--beam-inner-shadow);
         opacity: calc(var(--beam-opacity) * var(--beam-edge) * var(--beam-inner-opacity) * var(--beam-strength));
@@ -761,7 +791,6 @@ $line-bloom-window: string.unquote('radial-gradient(ellipse calc(84px * var(--be
     > .bloom {
         z-index: 3;
         inset: 0;
-        background: var(--beam-line-bloom);
         border-radius: calc(var(--beam-radius) - 1px);
         opacity: 0;
         clip-path: inset(0 round var(--beam-radius));
