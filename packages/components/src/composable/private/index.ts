@@ -1,4 +1,5 @@
 export { default as useAsyncFilterOptions } from './useAsyncFilterOptions';
+export { default as useBorderBeamPulse, type BorderBeamVariant } from './useBorderBeamPulse';
 export { default as useDateFlyout } from './useDateFlyout';
 export { default as useDropdownPopup, type UseDropdownPopupOptions, type UseDropdownPopupReturn } from './useDropdownPopup';
 export { default as useFormSelect } from './useFormSelect';

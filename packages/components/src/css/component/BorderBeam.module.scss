@@ -1,0 +1,1149 @@
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:string';
+
+@property --beam-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: true;
+}
+
+@property --beam-hue {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: true;
+}
+
+@property --beam-opacity {
+    syntax: '<number>';
+    initial-value: 0;
+    inherits: true;
+}
+
+@property --beam-x {
+    syntax: '<number>';
+    initial-value: 0;
+    inherits: true;
+}
+
+@property --beam-w {
+    syntax: '<number>';
+    initial-value: 1;
+    inherits: true;
+}
+
+@property --beam-h {
+    syntax: '<number>';
+    initial-value: 1;
+    inherits: true;
+}
+
+@property --beam-edge {
+    syntax: '<number>';
+    initial-value: 1;
+    inherits: true;
+}
+
+@property --beam-spike {
+    syntax: '<number>';
+    initial-value: 1;
+    inherits: true;
+}
+
+@property --beam-spike2 {
+    syntax: '<number>';
+    initial-value: 1;
+    inherits: true;
+}
+
+@each $name in (bw1, bh1, bw2, bh2, bw3, bh3, bgh, bop-tl, bop-tr, bop-bl, bop-br) {
+    @property --beam-#{$name} {
+        syntax: '<number>';
+        initial-value: 1;
+        inherits: true;
+    }
+}
+
+@each $name in (bx1, by1, bx2, by2, bx3, by3) {
+    @property --beam-#{$name} {
+        syntax: '<length>';
+        initial-value: 0px;
+        inherits: true;
+    }
+}
+
+/*
+ * Palette data, ported from github.com/Jakubantalik/border-beam. Geometry is
+ * shared between palettes; only the colors differ. The ring geometry doubles as
+ * the pulse perimeter, where each blob is assigned to a breathing size region
+ * (1-3) and an opacity quadrant (tl/tr/bl/br).
+ */
+
+$ring-geometry: (
+    (x: 33%, y: -7.4%, w: 70, h: 40, region: 1, quad: tl),
+    (x: 12%, y: -5%, w: 60, h: 35, region: 2, quad: tl),
+    (x: 2.1%, y: 68.3%, w: 40, h: 70, region: 3, quad: bl),
+    (x: 2.1%, y: 68.3%, w: 20, h: 35, region: 1, quad: bl),
+    (x: 74.4%, y: 100%, w: 180, h: 32, region: 2, quad: br),
+    (x: 55%, y: 100%, w: 85, h: 26, region: 3, quad: br),
+    (x: 93.9%, y: 0%, w: 74, h: 32, region: 1, quad: tr),
+    (x: 100%, y: 27.1%, w: 26, h: 42, region: 2, quad: tr),
+    (x: 100%, y: 27.1%, w: 52, h: 48, region: 3, quad: tr)
+);
+
+$ring-colors: (
+    colorful: ((255, 50, 100), (40, 140, 255), (50, 200, 80), (30, 185, 170), (100, 70, 255), (40, 140, 255), (255, 120, 40), (240, 50, 180), (180, 40, 240)),
+    mono: ((180, 180, 180), (140, 140, 140), (160, 160, 160), (130, 130, 130), (170, 170, 170), (150, 150, 150), (190, 190, 190), (145, 145, 145), (165, 165, 165)),
+    ocean: ((100, 80, 220), (60, 120, 255), (80, 100, 200), (50, 140, 220), (120, 80, 255), (70, 130, 255), (140, 100, 240), (90, 110, 230), (130, 70, 255)),
+    sunset: ((255, 80, 50), (255, 160, 40), (255, 120, 60), (255, 200, 50), (255, 100, 80), (255, 180, 60), (255, 60, 60), (255, 140, 50), (255, 90, 70))
+);
+
+$sm-geometry: (
+    (x: 2%, y: 68%, w: 9, h: 18),
+    (x: 2%, y: 68%, w: 4, h: 8),
+    (x: 72%, y: -3%, w: 59, h: 9),
+    (x: 74%, y: 100%, w: 42, h: 7),
+    (x: 100%, y: 27%, w: 10, h: 17),
+    (x: 100%, y: 27%, w: 10, h: 18),
+    (x: 100%, y: 27%, w: 5, h: 10),
+    (x: 100%, y: 27%, w: 11, h: 12)
+);
+
+$sm-colors: (
+    colorful: ((50, 200, 80), (30, 185, 170), (255, 120, 40), (100, 70, 255), (240, 50, 180), (180, 40, 240), (40, 140, 255), (255, 50, 100)),
+    mono: ((160, 160, 160), (140, 140, 140), (180, 180, 180), (150, 150, 150), (170, 170, 170), (155, 155, 155), (145, 145, 145), (165, 165, 165)),
+    ocean: ((60, 140, 200), (50, 120, 180), (100, 80, 220), (80, 100, 255), (120, 70, 240), (90, 80, 220), (70, 110, 255), (110, 90, 230)),
+    sunset: ((255, 180, 50), (255, 150, 40), (255, 80, 60), (255, 100, 80), (255, 60, 80), (255, 120, 60), (255, 200, 50), (255, 90, 70))
+);
+
+$sm-inner-alphas: (
+    colorful: (.5, .45, .35, .35, .3, .4, .3, .3),
+    mono: (.25, .22, .17, .17, .15, .2, .15, .15),
+    ocean: (.5, .45, .35, .35, .3, .4, .3, .3),
+    sunset: (.5, .45, .35, .35, .3, .4, .3, .3)
+);
+
+$line-geometry-dark: (
+    (w: 36, h: 36, ox: 0, oy: 2),
+    (w: 30, h: 32, ox: 39, oy: 0),
+    (w: 33, h: 28, ox: -36, oy: 2),
+    (w: 29, h: 34, ox: -54, oy: 0),
+    (w: 27, h: 30, ox: 51, oy: -1),
+    (w: 36, h: 24, ox: 21, oy: 1),
+    (w: 30, h: 22, ox: -21, oy: 0),
+    (w: 25, h: 28, ox: 66, oy: 1),
+    (w: 23, h: 30, ox: -66, oy: -1)
+);
+
+$line-geometry-light: (
+    (w: 45, h: 36, ox: 0, oy: 2),
+    (w: 35, h: 32, ox: 65, oy: 0),
+    (w: 40, h: 28, ox: -60, oy: 2),
+    (w: 35, h: 34, ox: -90, oy: 0),
+    (w: 38, h: 30, ox: 85, oy: -1),
+    (w: 50, h: 24, ox: 35, oy: 1),
+    (w: 40, h: 22, ox: -35, oy: 0),
+    (w: 35, h: 28, ox: 110, oy: 1),
+    (w: 30, h: 30, ox: -110, oy: -1)
+);
+
+$line-colors: (
+    colorful: (
+        dark: ((255, 50, 100), (40, 180, 220), (50, 200, 80), (180, 40, 240), (255, 160, 30), (100, 70, 255), (40, 140, 255), (240, 50, 180), (30, 185, 170)),
+        light: ((255, 50, 100), (40, 140, 255), (50, 200, 80), (180, 40, 240), (30, 185, 170), (100, 70, 255), (40, 140, 255), (255, 120, 40), (240, 50, 180))
+    ),
+    mono: (
+        dark: ((200, 200, 200), (170, 170, 170), (155, 155, 155), (185, 185, 185), (165, 165, 165), (180, 180, 180), (160, 160, 160), (175, 175, 175), (190, 190, 190)),
+        light: ((100, 100, 100), (80, 80, 80), (90, 90, 90), (70, 70, 70), (85, 85, 85), (95, 95, 95), (75, 75, 75), (105, 105, 105), (65, 65, 65))
+    ),
+    ocean: (
+        dark: ((100, 80, 220), (60, 120, 255), (80, 100, 200), (130, 70, 255), (70, 130, 255), (120, 80, 255), (90, 110, 230), (110, 90, 240), (140, 100, 255)),
+        light: ((80, 60, 200), (50, 100, 220), (70, 90, 190), (110, 60, 220), (60, 110, 230), (100, 70, 240), (80, 100, 210), (90, 80, 225), (120, 90, 245))
+    ),
+    sunset: (
+        dark: ((255, 100, 60), (255, 180, 50), (255, 140, 70), (255, 80, 80), (255, 200, 60), (255, 120, 50), (255, 160, 80), (255, 90, 60), (255, 70, 70)),
+        light: ((220, 80, 40), (230, 150, 30), (210, 110, 50), (200, 60, 60), (220, 170, 40), (210, 100, 30), (230, 130, 60), (190, 70, 50), (180, 50, 50))
+    )
+);
+
+$line-inner-geometry: (
+    (w: 33, h: 30, ox: 0, oy: 0),
+    (w: 24, h: 26, ox: 39, oy: -3),
+    (w: 27, h: 24, ox: -36, oy: 0),
+    (w: 23, h: 28, ox: -54, oy: -2),
+    (w: 24, h: 24, ox: 51, oy: -1),
+    (w: 30, h: 20, ox: 21, oy: 0),
+    (w: 25, h: 18, ox: -21, oy: -2),
+    (w: 21, h: 24, ox: 66, oy: 0),
+    (w: 18, h: 26, ox: -66, oy: -1)
+);
+
+$line-inner-colors: (
+    colorful: ((255, 50, 100), (40, 180, 220), (50, 200, 80), (180, 40, 240), (255, 160, 30), (100, 70, 255), (40, 140, 255), (240, 50, 180), (30, 185, 170)),
+    mono: ((200, 200, 200), (170, 170, 170), (155, 155, 155), (185, 185, 185), (165, 165, 165), (180, 180, 180), (160, 160, 160), (175, 175, 175), (190, 190, 190)),
+    ocean: ((100, 80, 220), (60, 120, 255), (80, 100, 200), (130, 70, 255), (70, 130, 255), (120, 80, 255), (90, 110, 230), (110, 90, 240), (140, 100, 255)),
+    sunset: ((255, 100, 60), (255, 180, 50), (255, 140, 70), (255, 80, 80), (255, 200, 60), (255, 120, 50), (255, 160, 80), (255, 90, 60), (255, 70, 70))
+);
+
+$line-inner-alphas: (.48, .42, .48, .42, .5, .45, .4, .45, .52);
+
+$line-spikes: (
+    colorful: (
+        dark: (primary: ((255, 60, 80), 1), secondary: ((40, 190, 180), .98)),
+        light: (primary: ((200, 30, 60), 1), secondary: ((20, 150, 140), 1))
+    ),
+    mono: (
+        dark: (primary: ((200, 200, 200), 1), secondary: ((170, 170, 170), 1)),
+        light: (primary: ((80, 80, 80), 1), secondary: ((120, 120, 120), 1))
+    ),
+    ocean: (
+        dark: (primary: ((100, 120, 255), 1), secondary: ((130, 100, 220), .98)),
+        light: (primary: ((60, 60, 180), 1), secondary: ((80, 100, 200), 1))
+    ),
+    sunset: (
+        dark: (primary: ((255, 140, 80), 1), secondary: ((255, 100, 60), .98)),
+        light: (primary: ((200, 80, 40), 1), secondary: ((220, 120, 30), 1))
+    )
+);
+
+$line-bloom-spikes: (
+    colorful: (
+        dark: ((((100, 70, 255), 1), ((100, 70, 255), 1)), (((255, 170, 40), .59), ((255, 170, 40), .29)), (((50, 200, 100), 1), ((50, 200, 100), 1)), (((200, 50, 240), .91), ((200, 50, 240), .45)), (((40, 140, 255), 1), ((40, 140, 255), 1))),
+        light: ((((80, 50, 200), 1), ((80, 50, 200), .8)), (((210, 130, 0), .7), ((210, 130, 0), .46)), (((30, 160, 70), 1), ((30, 160, 70), .82)), (((160, 30, 190), 1), ((160, 30, 190), .7)), (((30, 100, 200), 1), ((30, 100, 200), .78)))
+    ),
+    mono: (
+        dark: ((((200, 200, 200), 1), ((200, 200, 200), 1)), (((180, 180, 180), .59), ((180, 180, 180), .29)), (((190, 190, 190), 1), ((190, 190, 190), 1)), (((170, 170, 170), .91), ((170, 170, 170), .45)), (((185, 185, 185), 1), ((185, 185, 185), 1))),
+        light: ((((80, 80, 80), 1), ((80, 80, 80), .8)), (((100, 100, 100), .7), ((100, 100, 100), .46)), (((70, 70, 70), 1), ((70, 70, 70), .82)), (((90, 90, 90), 1), ((90, 90, 90), .7)), (((85, 85, 85), 1), ((85, 85, 85), .78)))
+    ),
+    ocean: (
+        dark: ((((100, 80, 255), 1), ((100, 80, 255), 1)), (((80, 130, 220), .59), ((80, 130, 220), .29)), (((60, 100, 255), 1), ((60, 100, 255), 1)), (((90, 120, 200), .91), ((90, 120, 200), .45)), (((120, 90, 255), 1), ((120, 90, 255), 1))),
+        light: ((((50, 40, 180), 1), ((50, 40, 180), .8)), (((40, 80, 200), .7), ((40, 80, 200), .46)), (((30, 50, 190), 1), ((30, 50, 190), .82)), (((60, 90, 180), 1), ((60, 90, 180), .7)), (((70, 60, 200), 1), ((70, 60, 200), .78)))
+    ),
+    sunset: (
+        dark: ((((255, 100, 80), 1), ((255, 100, 80), 1)), (((255, 150, 80), .59), ((255, 150, 80), .29)), (((255, 80, 60), 1), ((255, 80, 60), 1)), (((255, 120, 50), .91), ((255, 120, 50), .45)), (((255, 140, 70), 1), ((255, 140, 70), 1))),
+        light: ((((200, 60, 30), 1), ((200, 60, 30), .8)), (((220, 100, 20), .7), ((220, 100, 20), .46)), (((180, 40, 20), 1), ((180, 40, 20), .82)), (((210, 80, 10), 1), ((210, 80, 10), .7)), (((190, 70, 30), 1), ((190, 70, 30), .78)))
+    )
+);
+
+$pulse-inner-sizes: ((65, 35), (55, 30), (35, 65), (15, 30), (173, 28), (80, 22), (69, 28), (22, 38), (47, 44));
+
+$pulse-inner-bloom: (
+    (ci: 1, region: 1, quad: tl, w: 84, h: 48),
+    (ci: 2, region: 2, quad: tl, w: 72, h: 42),
+    (ci: 3, region: 3, quad: bl, w: 48, h: 84),
+    (ci: 5, region: 2, quad: br, w: 216, h: 38),
+    (ci: 6, region: 3, quad: br, w: 102, h: 31),
+    (ci: 7, region: 1, quad: tr, w: 89, h: 38),
+    (ci: 9, region: 3, quad: tr, w: 62, h: 58)
+);
+
+$pulse-outer-core: (
+    (ci: 1, region: 1, quad: tl, w: 80, h: 19, x: 27%, y: 0%),
+    (ci: 7, region: 2, quad: tr, w: 74, h: 11, x: 73%, y: -1%),
+    (ci: 8, region: 3, quad: tr, w: 15, h: 44, x: 100%, y: 33%),
+    (ci: 9, region: 1, quad: br, w: 19, h: 38, x: 101%, y: 72%),
+    (ci: 5, region: 2, quad: br, w: 84, h: 13, x: 67%, y: 100%),
+    (ci: 2, region: 3, quad: bl, w: 60, h: 21, x: 24%, y: 101%),
+    (ci: 3, region: 1, quad: bl, w: 17, h: 40, x: 0%, y: 60%),
+    (ci: 4, region: 2, quad: tl, w: 13, h: 32, x: -1%, y: 28%)
+);
+
+$pulse-outer-bloom: (
+    (ci: 1, region: 1, quad: tl, w: 110, h: 30, x: 27%, y: 3%),
+    (ci: 7, region: 2, quad: tr, w: 100, h: 20, x: 73%, y: 1%),
+    (ci: 8, region: 3, quad: tr, w: 26, h: 62, x: 100%, y: 33%),
+    (ci: 9, region: 1, quad: br, w: 30, h: 56, x: 101%, y: 72%),
+    (ci: 5, region: 2, quad: br, w: 120, h: 22, x: 67%, y: 99%),
+    (ci: 2, region: 3, quad: bl, w: 88, h: 32, x: 24%, y: 99%),
+    (ci: 3, region: 1, quad: bl, w: 28, h: 58, x: 0%, y: 60%)
+);
+
+@function rgb-str($c, $alpha: null) {
+    @if $alpha == null or $alpha == 1 {
+        @return string.unquote('rgb(#{list.nth($c, 1)}, #{list.nth($c, 2)}, #{list.nth($c, 3)})');
+    }
+    @return string.unquote('rgba(#{list.nth($c, 1)}, #{list.nth($c, 2)}, #{list.nth($c, 3)}, #{$alpha})');
+}
+
+@function spike-color($pair, $factor: 1) {
+    $alpha: math.div(math.round(list.nth($pair, 2) * $factor * 100), 100);
+    @return rgb-str(list.nth($pair, 1), $alpha);
+}
+
+@function offset-str($value) {
+    @if $value < 0 {
+        @return ' - #{math.abs($value)}px';
+    }
+    @return ' + #{$value}px';
+}
+
+// Static blobs around the perimeter (md & sm stroke/inner layers).
+@function blobs($colors, $geometry, $alphas: null, $scale: 1) {
+    $grads: ();
+    @for $i from 1 through list.length($geometry) {
+        $g: list.nth($geometry, $i);
+        $alpha: null;
+        @if $alphas != null {
+            @if list.length($alphas) > 1 {
+                $alpha: list.nth($alphas, $i);
+            } @else {
+                $alpha: $alphas;
+            }
+        }
+        $w: math.round(map.get($g, w) * $scale);
+        $h: math.round(map.get($g, h) * $scale);
+        $grads: list.append($grads, string.unquote('radial-gradient(ellipse #{$w}px #{$h}px at #{map.get($g, x)} #{map.get($g, y)}, #{rgb-str(list.nth($colors, $i), $alpha)}, transparent)'), comma);
+    }
+    @return $grads;
+}
+
+// Traveling blobs along the bottom edge (line stroke/inner layers).
+@function line-blobs($colors, $geometry, $alphas: null) {
+    $grads: ();
+    @for $i from 1 through list.length($geometry) {
+        $g: list.nth($geometry, $i);
+        $alpha: null;
+        @if $alphas != null {
+            $alpha: list.nth($alphas, $i);
+        }
+        $grads: list.append($grads, string.unquote('radial-gradient(ellipse calc(#{map.get($g, w)}px * var(--beam-w)) calc(#{map.get($g, h)}px * var(--beam-h)) at calc(var(--beam-x) * 100%#{offset-str(map.get($g, ox))}) calc(100%#{offset-str(map.get($g, oy))}), #{rgb-str(list.nth($colors, $i), $alpha)}, transparent)'), comma);
+    }
+    @return $grads;
+}
+
+// Breathing blobs whose size, drift and opacity are driven from JS (pulse layers).
+@function pulse-blobs($entries) {
+    $grads: ();
+    @each $e in $entries {
+        $r: map.get($e, region);
+        $size: 'calc(#{map.get($e, w)}px * var(--beam-bw#{$r}) * var(--beam-glow-sx, 1)) calc(#{map.get($e, h)}px * var(--beam-bh#{$r}) * var(--beam-bgh) * var(--beam-glow-sy, 1))';
+        $at: 'calc(#{map.get($e, x)} + var(--beam-bx#{$r})) calc(#{map.get($e, y)} + var(--beam-by#{$r}))';
+        $color: 'rgba(#{list.nth(map.get($e, c), 1)}, #{list.nth(map.get($e, c), 2)}, #{list.nth(map.get($e, c), 3)}, var(--beam-bop-#{map.get($e, quad)}))';
+        $grads: list.append($grads, string.unquote('radial-gradient(ellipse #{$size} at #{$at}, #{$color}, transparent)'), comma);
+    }
+    @return $grads;
+}
+
+// Frozen variant of the pulse blobs: literal sizes/positions with the time-average
+// alpha, so the heavily blurred bloom bitmap is painted once and cached instead of
+// being re-rasterized every frame.
+@function pulse-blobs-frozen($entries) {
+    $grads: ();
+    @each $e in $entries {
+        $size: 'calc(#{map.get($e, w)}px * var(--beam-glow-sx, 1)) calc(#{map.get($e, h)}px * var(--beam-glow-sy, 1))';
+        $color: 'rgba(#{list.nth(map.get($e, c), 1)}, #{list.nth(map.get($e, c), 2)}, #{list.nth(map.get($e, c), 3)}, var(--beam-pulse-frozen))';
+        $grads: list.append($grads, string.unquote('radial-gradient(ellipse #{$size} at #{map.get($e, x)} #{map.get($e, y)}, #{$color}, transparent)'), comma);
+    }
+    @return $grads;
+}
+
+// The 9-blob pulse perimeter, with palette geometry and colors.
+@function pulse-ring($palette) {
+    $entries: ();
+    @for $i from 1 through list.length($ring-geometry) {
+        $entries: list.append($entries, map.merge(list.nth($ring-geometry, $i), (c: list.nth(map.get($ring-colors, $palette), $i))), comma);
+    }
+    @return $entries;
+}
+
+// Same perimeter with the smaller inner sizes.
+@function pulse-ring-resized($palette) {
+    $ring: pulse-ring($palette);
+    $entries: ();
+    @for $i from 1 through list.length($ring) {
+        $size: list.nth($pulse-inner-sizes, $i);
+        $entries: list.append($entries, map.merge(list.nth($ring, $i), (w: list.nth($size, 1), h: list.nth($size, 2))), comma);
+    }
+    @return $entries;
+}
+
+// Resolve a gradient table (ci references the palette ring) to emit-ready entries.
+@function pulse-table($palette, $table) {
+    $ring: pulse-ring($palette);
+    $entries: ();
+    @each $t in $table {
+        $src: list.nth($ring, map.get($t, ci));
+        $x: map.get($src, x);
+        $y: map.get($src, y);
+        @if map.has-key($t, x) {
+            $x: map.get($t, x);
+        }
+        @if map.has-key($t, y) {
+            $y: map.get($t, y);
+        }
+        $entry: (
+            c: map.get($src, c),
+            x: $x,
+            y: $y,
+            w: map.get($t, w),
+            h: map.get($t, h),
+            region: map.get($t, region),
+            quad: map.get($t, quad)
+        );
+        $entries: list.append($entries, $entry, comma);
+    }
+    @return $entries;
+}
+
+// The desynced spike/glow stack at the bottom edge (line bloom layer).
+@function line-bloom($palette, $theme) {
+    $is-dark: $theme == dark;
+    $is-mono: $palette == mono;
+    $spikes-def: map.get($line-spikes, $palette, $theme);
+    $primary: map.get($spikes-def, primary);
+    $secondary: map.get($spikes-def, secondary);
+    $pairs: map.get($line-bloom-spikes, $palette, $theme);
+
+    // Mono uses uniform gray, so thin spikes at full opacity look like harsh
+    // bars. Attenuate the opacity and widen the thin gradients so they appear
+    // as soft glows instead.
+    $sc1: spike-color($primary);
+    $sc2: spike-color($secondary);
+    $sc1-mid: $sc1;
+    $sc2-mid: rgb-str(list.nth($secondary, 1), .49);
+    $thin-w1: .8px;
+    $thin-w2: 2px;
+    $thin-w3: 1.2px;
+    $thin-w4: .6px;
+    $thin-h1: 92px;
+    $thin-h2: 72px;
+    $thin-h3: 85px;
+    $thin-h4: 60px;
+    $att: 1;
+
+    @if not $is-dark {
+        $sc1-mid: rgb-str(list.nth($primary, 1), .85);
+        $sc2-mid: rgb-str(list.nth($secondary, 1), .7);
+        $thin-w4: 1px;
+    }
+
+    @if $is-mono {
+        $sc1: spike-color($primary, .14);
+        $sc2: spike-color($secondary, .12);
+        $thin-w1: 12px;
+        $thin-w2: 14px;
+        $thin-w3: 12px;
+        $thin-w4: 10px;
+        $thin-h1: 42px;
+        $thin-h2: 38px;
+        $thin-h3: 40px;
+        $thin-h4: 32px;
+        $att: .14;
+
+        @if $is-dark {
+            $sc1-mid: spike-color($primary, .09);
+            $sc2-mid: rgb-str(list.nth($secondary, 1), .06);
+        } @else {
+            $sc1-mid: spike-color($primary, .11);
+            $sc2-mid: spike-color($secondary, .09);
+        }
+    }
+
+    $att2: $att;
+    @if $is-mono {
+        $att2: $att * .7;
+    }
+
+    $colors1: ();
+    $colors2: ();
+    @each $pair in $pairs {
+        $colors1: list.append($colors1, spike-color(list.nth($pair, 1), $att), comma);
+        $colors2: list.append($colors2, spike-color(list.nth($pair, 2), $att2), comma);
+    }
+
+    $grads: (
+        string.unquote('radial-gradient(ellipse calc(#{$thin-w1} * var(--beam-spike)) calc(#{$thin-h1} * var(--beam-h)) at 8% calc(100% - 2px), #{$sc1}, #{$sc1-mid} 30%, transparent 88%)'),
+        string.unquote('radial-gradient(ellipse calc(10px * var(--beam-spike2)) calc(35px * var(--beam-h)) at 22% calc(100% - 4px), #{$sc2}, #{$sc2-mid} 50%, transparent 95%)'),
+        string.unquote('radial-gradient(ellipse calc(#{$thin-w2} * (2 - var(--beam-spike))) calc(#{$thin-h2} * var(--beam-h)) at 36% calc(100% - 3px), #{list.nth($colors1, 1)}, #{list.nth($colors2, 1)} 40%, transparent 90%)'),
+        string.unquote('radial-gradient(ellipse calc(14px * var(--beam-spike2)) calc(28px * var(--beam-h)) at 50% calc(100% - 2px), #{list.nth($colors1, 2)}, #{list.nth($colors2, 2)} 55%, transparent 96%)'),
+        string.unquote('radial-gradient(ellipse calc(#{$thin-w3} * (2 - var(--beam-spike2))) calc(#{$thin-h3} * var(--beam-h)) at 64% calc(100% - 4px), #{list.nth($colors1, 3)}, #{list.nth($colors2, 3)} 35%, transparent 89%)'),
+        string.unquote('radial-gradient(ellipse calc(7px * var(--beam-spike)) calc(45px * var(--beam-h)) at 78% calc(100% - 2px), #{list.nth($colors1, 4)}, #{list.nth($colors2, 4)} 48%, transparent 94%)'),
+        string.unquote('radial-gradient(ellipse calc(#{$thin-w4} * (2 - var(--beam-spike))) calc(#{$thin-h4} * var(--beam-h)) at 92% calc(100% - 3px), #{list.nth($colors1, 5)}, #{list.nth($colors2, 5)} 42%, transparent 91%)')
+    );
+
+    @if $is-dark {
+        $dot-c: 'rgba(255, 255, 255, 1)';
+        $dot-20: 'rgba(255, 255, 255, 0.9)';
+        $dot-50: 'rgba(255, 255, 255, 0.5)';
+        $amb-c: 'rgba(255, 255, 255, 0.3)';
+        $amb-25: 'rgba(255, 255, 255, 0.12)';
+        $amb-55: 'rgba(255, 255, 255, 0.03)';
+
+        @if $is-mono {
+            $dot-c: 'rgba(255, 255, 255, 0.5)';
+            $dot-20: 'rgba(255, 255, 255, 0.45)';
+            $dot-50: 'rgba(255, 255, 255, 0.25)';
+            $amb-c: 'rgba(255, 255, 255, 0.15)';
+            $amb-25: 'rgba(255, 255, 255, 0.06)';
+            $amb-55: 'rgba(255, 255, 255, 0.015)';
+        }
+        $grads: list.append($grads, string.unquote('radial-gradient(ellipse calc(21px * var(--beam-spike)) calc(15px * var(--beam-spike2)) at calc(var(--beam-x) * 100%) calc(100% + 1px), #{$dot-c} 0%, #{$dot-20} 20%, #{$dot-50} 50%, transparent 100%)'), comma);
+        $grads: list.append($grads, string.unquote('radial-gradient(ellipse calc(42px * var(--beam-w)) calc(40px * var(--beam-h)) at calc(var(--beam-x) * 100%) 100%, #{$amb-c} 0%, #{$amb-25} 25%, #{$amb-55} 55%, transparent 80%)'), comma);
+    } @else {
+        $grads: list.append($grads, string.unquote('radial-gradient(ellipse calc(50px * var(--beam-w)) calc(32px * var(--beam-h)) at calc(var(--beam-x) * 100%) 100%, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.18) 30%, rgba(0, 0, 0, 0.03) 60%, transparent 85%)'), comma);
+    }
+
+    @return $grads;
+}
+
+$ring-mask: string.unquote('linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)');
+$edge-fade-y: string.unquote('linear-gradient(white, transparent 28px, transparent calc(100% - 28px), white)');
+$edge-fade-x: string.unquote('linear-gradient(to right, white, transparent 28px, transparent calc(100% - 28px), white)');
+$md-window: string.unquote('conic-gradient(from var(--beam-angle), transparent 0%, transparent 30%, rgba(255, 255, 255, 0.1) 36%, rgba(255, 255, 255, 0.35) 44%, white 52%, white 80%, rgba(255, 255, 255, 0.35) 86%, rgba(255, 255, 255, 0.1) 92%, transparent 95%, transparent 100%)');
+$sm-window: string.unquote('conic-gradient(from var(--beam-angle), transparent 0%, transparent 22%, rgba(255, 255, 255, 0.12) 28%, rgba(255, 255, 255, 0.4) 36%, white 46%, white 82%, rgba(255, 255, 255, 0.4) 88%, rgba(255, 255, 255, 0.12) 94%, transparent 97%, transparent 100%)');
+$line-window: string.unquote('radial-gradient(ellipse calc(78px * var(--beam-w)) calc(60px * var(--beam-h)) at calc(var(--beam-x) * 100%) 100%, white 0%, rgba(255, 255, 255, 0.5) 45%, transparent 100%)');
+$line-bloom-window: string.unquote('radial-gradient(ellipse calc(84px * var(--beam-w)) calc(110px * var(--beam-h)) at calc(var(--beam-x) * 100%) 100%, white 0%, rgba(255, 255, 255, 0.5) 35%, transparent 100%)');
+
+.borderBeam {
+    position: relative;
+    width: fit-content;
+    border-radius: var(--beam-radius);
+
+    --beam-hue-range: 30;
+    --beam-mono: 1;
+    --beam-radius: var(--radius);
+    --beam-strength: 1;
+
+    &::before,
+    &::after {
+        pointer-events: none;
+    }
+}
+
+.bloom {
+    position: absolute;
+    display: none;
+    pointer-events: none;
+}
+
+.mono {
+    --beam-mono: .5;
+}
+
+@each $palette in (colorful, mono, ocean, sunset) {
+    $inner-alpha: .45;
+    @if $palette == mono {
+        $inner-alpha: .225;
+    }
+
+    .#{$palette} {
+        --beam-rotate-blobs: #{blobs(map.get($ring-colors, $palette), $ring-geometry)};
+        --beam-rotate-inner: #{blobs(map.get($ring-colors, $palette), $ring-geometry, $inner-alpha, .9)};
+        --beam-sm-blobs: #{blobs(map.get($sm-colors, $palette), $sm-geometry)};
+        --beam-sm-inner: #{blobs(map.get($sm-colors, $palette), $sm-geometry, map.get($sm-inner-alphas, $palette))};
+        --beam-line-blobs: #{line-blobs(map.get($line-colors, $palette, light), $line-geometry-light)};
+        --beam-line-inner: #{line-blobs(map.get($line-inner-colors, $palette), $line-inner-geometry, $line-inner-alphas)};
+        --beam-line-bloom: #{line-bloom($palette, light)};
+        --beam-pulse-ring: #{pulse-blobs(pulse-ring($palette))};
+        --beam-pulse-inner-ring: #{pulse-blobs(pulse-ring-resized($palette))};
+        --beam-pulse-inner-bloom: #{pulse-blobs-frozen(pulse-table($palette, $pulse-inner-bloom))};
+        --beam-pulse-outer-core: #{pulse-blobs(pulse-table($palette, $pulse-outer-core))};
+        --beam-pulse-outer-bloom: #{pulse-blobs-frozen(pulse-table($palette, $pulse-outer-bloom))};
+
+        [dark] & {
+            --beam-line-blobs: #{line-blobs(map.get($line-colors, $palette, dark), $line-geometry-dark)};
+            --beam-line-bloom: #{line-bloom($palette, dark)};
+        }
+    }
+}
+
+/*
+ * Rotate family — a soft conic window travels around the perimeter and reveals
+ * the colorful blobs, with a hot highlight inside the window.
+ */
+
+.md,
+.sm {
+    overflow: hidden;
+
+    --beam-rotate-highlight: conic-gradient(from var(--beam-angle), transparent 0%, transparent 54%, rgba(0, 0, 0, 0.08) 57%, rgba(0, 0, 0, 0.2) 60%, rgba(0, 0, 0, 0.4) 63%, rgba(0, 0, 0, 0.55) 66%, rgba(0, 0, 0, 0.4) 69%, rgba(0, 0, 0, 0.2) 72%, rgba(0, 0, 0, 0.08) 75%, transparent 78%, transparent 100%);
+    --beam-rotate-bloom: conic-gradient(from var(--beam-angle), transparent 0%, transparent 58%, rgba(0, 0, 0, 0.02) 62%, rgba(0, 0, 0, 0.08) 65%, rgba(0, 0, 0, 0.2) 67%, rgba(0, 0, 0, 0.4) 69%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0.6) 70.5%, rgba(0, 0, 0, 0.4) 71.5%, rgba(0, 0, 0, 0.2) 73%, rgba(0, 0, 0, 0.08) 75%, rgba(0, 0, 0, 0.02) 78%, transparent 82%);
+
+    [dark] & {
+        --beam-rotate-highlight: conic-gradient(from var(--beam-angle), transparent 0%, transparent 54%, rgba(255, 255, 255, 0.1) 57%, rgba(255, 255, 255, 0.3) 60%, rgba(255, 255, 255, 0.6) 63%, rgba(255, 255, 255, 0.75) 66%, rgba(255, 255, 255, 0.6) 69%, rgba(255, 255, 255, 0.3) 72%, rgba(255, 255, 255, 0.1) 75%, transparent 78%, transparent 100%);
+        --beam-rotate-bloom: conic-gradient(from var(--beam-angle), transparent 0%, transparent 58%, rgba(255, 255, 255, 0.03) 62%, rgba(255, 255, 255, 0.08) 65%, rgba(255, 255, 255, 0.2) 67%, rgba(255, 255, 255, 0.45) 69%, rgba(255, 255, 255, 0.85) 70%, rgba(255, 255, 255, 0.85) 70.5%, rgba(255, 255, 255, 0.45) 71.5%, rgba(255, 255, 255, 0.2) 73%, rgba(255, 255, 255, 0.08) 75%, rgba(255, 255, 255, 0.03) 78%, transparent 82%);
+    }
+
+    &.isActive {
+        animation: borderBeamSpin calc(var(--beam-duration) * 1s) linear infinite, borderBeamFadeIn .6s ease forwards;
+    }
+
+    &.isFading {
+        animation: borderBeamSpin calc(var(--beam-duration) * 1s) linear infinite, borderBeamFadeOut .5s ease forwards;
+    }
+
+    &.isActive::after,
+    &.isFading::after {
+        position: absolute;
+        z-index: 2;
+        inset: 0;
+        padding: 1px;
+        content: '';
+        border-radius: calc(var(--beam-radius) - 1px);
+        opacity: calc(var(--beam-opacity) * var(--beam-stroke-opacity) * var(--beam-mono) * var(--beam-strength));
+        animation: borderBeamHueShift 12s ease-in-out infinite;
+        clip-path: inset(0 round var(--beam-radius));
+    }
+
+    &.isActive::before,
+    &.isFading::before {
+        position: absolute;
+        z-index: 1;
+        inset: 0;
+        content: '';
+        opacity: calc(var(--beam-opacity) * var(--beam-inner-opacity) * var(--beam-mono) * var(--beam-strength));
+        animation: borderBeamHueShift 12s ease-in-out infinite;
+        clip-path: inset(0 round var(--beam-radius));
+    }
+
+    &.isStatic::before,
+    &.isStatic::after {
+        animation: none;
+    }
+
+    > .bloom {
+        z-index: 3;
+        inset: 0;
+        padding: 1px;
+        background: var(--beam-rotate-bloom);
+        border-radius: calc(var(--beam-radius) - 1px);
+        opacity: 0;
+        filter: blur(8px) brightness(var(--beam-brightness)) saturate(var(--beam-saturation));
+        clip-path: inset(0 round var(--beam-radius));
+        mask: #{$ring-mask};
+        mask-composite: exclude;
+    }
+
+    &.isActive > .bloom,
+    &.isFading > .bloom {
+        display: block;
+        opacity: calc(var(--beam-opacity) * var(--beam-bloom-opacity) * var(--beam-mono) * var(--beam-strength));
+    }
+}
+
+.md {
+    --beam-bloom-opacity: .34;
+    --beam-brightness: 1.3;
+    --beam-inner-opacity: .26;
+    --beam-inner-shadow: rgba(0, 0, 0, .14);
+    --beam-saturation: 1.5;
+    --beam-stroke-opacity: .12;
+
+    [dark] & {
+        --beam-bloom-opacity: .24;
+        --beam-inner-opacity: .42;
+        --beam-inner-shadow: rgba(255, 255, 255, .27);
+        --beam-saturation: 1.2;
+        --beam-stroke-opacity: .26;
+    }
+
+    &.isActive::after,
+    &.isFading::after {
+        background: var(--beam-rotate-highlight), var(--beam-rotate-blobs);
+        mask: #{$md-window}, #{$ring-mask};
+        mask-composite: intersect, exclude;
+    }
+
+    &.isActive::before,
+    &.isFading::before {
+        background: var(--beam-rotate-inner);
+        border-radius: var(--beam-radius);
+        box-shadow: inset 0 0 9px 1px var(--beam-inner-shadow);
+        mask: #{$md-window}, #{$edge-fade-y}, #{$edge-fade-x};
+        mask-composite: intersect, add;
+    }
+}
+
+.sm {
+    --beam-bloom-opacity: .16;
+    --beam-brightness: 1.3;
+    --beam-inner-opacity: .3;
+    --beam-inner-shadow: rgba(0, 0, 0, .14);
+    --beam-saturation: 1.8;
+    --beam-stroke-opacity: .12;
+
+    [dark] & {
+        --beam-bloom-opacity: .38;
+        --beam-inner-opacity: .24;
+        --beam-inner-shadow: rgba(255, 255, 255, .3);
+        --beam-saturation: 1.2;
+        --beam-stroke-opacity: .46;
+    }
+
+    &.isActive::after,
+    &.isFading::after {
+        background: var(--beam-rotate-highlight), var(--beam-sm-blobs);
+        mask: #{$sm-window}, #{$ring-mask};
+        mask-composite: intersect, exclude;
+    }
+
+    &.isActive::before,
+    &.isFading::before {
+        background: var(--beam-sm-inner);
+        border-radius: var(--beam-radius);
+        box-shadow: inset 0 0 5px 1px var(--beam-inner-shadow);
+        mask: #{$sm-window};
+        mask-composite: add;
+    }
+}
+
+/*
+ * Line — a glow that travels along the bottom edge, with breathing width/height
+ * and desynced bloom spikes.
+ */
+
+.line {
+    overflow: hidden;
+
+    --beam-bloom-opacity: .3;
+    --beam-brightness: 1.3;
+    --beam-inner-opacity: .32;
+    --beam-inner-shadow: rgba(0, 0, 0, .14);
+    --beam-line-highlight: radial-gradient(ellipse calc(35px * var(--beam-w)) calc(28px * var(--beam-h)) at calc(var(--beam-x) * 100%) calc(100% + 2px), rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.25) 35%, transparent 70%);
+    --beam-saturation: 1.95;
+    --beam-stroke-opacity: .16;
+
+    [dark] & {
+        --beam-bloom-opacity: .8;
+        --beam-inner-opacity: .7;
+        --beam-inner-shadow: rgba(255, 255, 255, .1);
+        --beam-line-highlight: radial-gradient(ellipse calc(24px * var(--beam-w)) calc(28px * var(--beam-h)) at calc(var(--beam-x) * 100%) calc(100% + 2px), rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0.12) 30%, transparent 65%);
+        --beam-saturation: 1.2;
+        --beam-stroke-opacity: 1.14;
+    }
+
+    &.isActive {
+        animation: borderBeamTravel calc(var(--beam-duration) * 1s) linear infinite, borderBeamEdgeFade calc(var(--beam-duration) * 1s) linear infinite, borderBeamBreathe calc(var(--beam-duration) * 1.3s) ease-in-out infinite, borderBeamSpike calc(var(--beam-duration) * 1.33s) ease-in-out infinite, borderBeamSpike2 calc(var(--beam-duration) * 1.7s) ease-in-out infinite, borderBeamFadeIn .6s ease forwards;
+    }
+
+    &.isFading {
+        animation: borderBeamTravel calc(var(--beam-duration) * 1s) linear infinite, borderBeamEdgeFade calc(var(--beam-duration) * 1s) linear infinite, borderBeamBreathe calc(var(--beam-duration) * 1.3s) ease-in-out infinite, borderBeamSpike calc(var(--beam-duration) * 1.33s) ease-in-out infinite, borderBeamSpike2 calc(var(--beam-duration) * 1.7s) ease-in-out infinite, borderBeamFadeOut .5s ease forwards;
+    }
+
+    &.isActive::after,
+    &.isFading::after {
+        position: absolute;
+        z-index: 2;
+        inset: 0;
+        padding: 1px;
+        content: '';
+        background: var(--beam-line-highlight), var(--beam-line-blobs);
+        border-radius: calc(var(--beam-radius) - 1px);
+        opacity: calc(var(--beam-opacity) * var(--beam-edge) * var(--beam-stroke-opacity) * var(--beam-strength));
+        animation: borderBeamHueShift 12s ease-in-out infinite;
+        clip-path: inset(0 round var(--beam-radius));
+        mask: #{$line-window}, #{$ring-mask};
+        mask-composite: intersect, exclude;
+    }
+
+    &.isActive::before,
+    &.isFading::before {
+        position: absolute;
+        z-index: 1;
+        inset: 0;
+        content: '';
+        background: var(--beam-line-inner);
+        border-radius: var(--beam-radius);
+        box-shadow: inset 0 0 9px 1px var(--beam-inner-shadow);
+        opacity: calc(var(--beam-opacity) * var(--beam-edge) * var(--beam-inner-opacity) * var(--beam-strength));
+        animation: borderBeamHueShift 12s ease-in-out infinite;
+        clip-path: inset(0 round var(--beam-radius));
+        mask: #{$line-window}, #{$edge-fade-y}, #{$edge-fade-x};
+        mask-composite: intersect, add;
+    }
+
+    &.isStatic::before,
+    &.isStatic::after {
+        animation: none;
+    }
+
+    > .bloom {
+        z-index: 3;
+        inset: 0;
+        background: var(--beam-line-bloom);
+        border-radius: calc(var(--beam-radius) - 1px);
+        opacity: 0;
+        clip-path: inset(0 round var(--beam-radius));
+        mask: #{$line-bloom-window};
+        mask-composite: add;
+    }
+
+    &.isActive > .bloom,
+    &.isFading > .bloom {
+        display: block;
+        opacity: calc(var(--beam-opacity) * var(--beam-edge) * var(--beam-bloom-opacity) * var(--beam-strength));
+        animation: borderBeamHueShiftBloom 8s ease-in-out infinite;
+    }
+
+    &.isStatic > .bloom {
+        animation: none;
+    }
+
+    &.mono > .bloom {
+        filter: blur(6px);
+    }
+}
+
+/*
+ * Pulse family — a breathing glow without rotation. The motion is driven from a
+ * shared, frame-rate-capped JS loop that writes the --beam-b* custom properties.
+ */
+
+.pulseInner,
+.pulseOutside {
+    isolation: isolate;
+
+    &.isActive {
+        animation: borderBeamFadeIn .6s ease forwards;
+    }
+
+    &.isFading {
+        animation: borderBeamFadeOut .5s ease forwards;
+    }
+}
+
+.pulseInner {
+    overflow: hidden;
+
+    --beam-bloom-opacity: .8;
+    --beam-brightness: 1.3;
+    --beam-inner-opacity: .4;
+    --beam-pulse-corner: 0, 0, 0;
+    --beam-pulse-corner-alpha: .08;
+    --beam-pulse-frozen: .775;
+    --beam-saturation: .75;
+    --beam-stroke-opacity: .32;
+
+    [dark] & {
+        --beam-bloom-opacity: .66;
+        --beam-brightness: .75;
+        --beam-inner-opacity: .44;
+        --beam-pulse-corner: 255, 255, 255;
+        --beam-pulse-corner-alpha: .18;
+        --beam-pulse-frozen: .76;
+        --beam-saturation: 1.2;
+        --beam-stroke-opacity: 1.54;
+    }
+
+    &.isActive::after,
+    &.isFading::after {
+        position: absolute;
+        z-index: 2;
+        inset: 0;
+        padding: 1px;
+        content: '';
+        background: var(--beam-pulse-ring);
+        border-radius: var(--beam-radius);
+        opacity: calc(var(--beam-opacity) * var(--beam-stroke-opacity) * var(--beam-mono) * var(--beam-strength));
+        will-change: opacity, filter;
+        filter: hue-rotate(var(--beam-hue)) brightness(var(--beam-brightness)) saturate(var(--beam-saturation));
+        clip-path: inset(0 round var(--beam-radius));
+        mask: #{$ring-mask};
+        mask-composite: exclude;
+    }
+
+    &.isActive::before,
+    &.isFading::before {
+        position: absolute;
+        z-index: 1;
+        inset: 0;
+        content: '';
+        background:
+            var(--beam-pulse-inner-ring),
+            radial-gradient(ellipse 60px 60px at 0% 0%, rgba(var(--beam-pulse-corner), calc(var(--beam-pulse-corner-alpha) * var(--beam-bop-tl))), transparent 70%),
+            radial-gradient(ellipse 60px 60px at 100% 0%, rgba(var(--beam-pulse-corner), calc(var(--beam-pulse-corner-alpha) * var(--beam-bop-tr))), transparent 70%),
+            radial-gradient(ellipse 60px 60px at 0% 100%, rgba(var(--beam-pulse-corner), calc(var(--beam-pulse-corner-alpha) * var(--beam-bop-bl))), transparent 70%),
+            radial-gradient(ellipse 60px 60px at 100% 100%, rgba(var(--beam-pulse-corner), calc(var(--beam-pulse-corner-alpha) * var(--beam-bop-br))), transparent 70%);
+        border-radius: var(--beam-radius);
+        opacity: calc(var(--beam-opacity) * var(--beam-inner-opacity) * var(--beam-mono) * var(--beam-strength));
+        will-change: opacity, filter;
+        filter: hue-rotate(var(--beam-hue)) brightness(var(--beam-brightness)) saturate(var(--beam-saturation));
+        clip-path: inset(0 round var(--beam-radius));
+        mask: #{$edge-fade-y}, #{$edge-fade-x};
+        mask-composite: add;
+    }
+
+    > .bloom {
+        z-index: 3;
+        inset: 0;
+        padding: 1px;
+        background: var(--beam-pulse-inner-bloom);
+        border-radius: var(--beam-radius);
+        opacity: 0;
+        will-change: opacity;
+        clip-path: inset(0 round var(--beam-radius));
+        mask: #{$ring-mask};
+        mask-composite: exclude;
+    }
+
+    &.isActive > .bloom,
+    &.isFading > .bloom {
+        display: block;
+        opacity: calc(var(--beam-opacity) * var(--beam-bloom-opacity) * var(--beam-mono) * var(--beam-strength));
+        filter: blur(8px) hue-rotate(var(--beam-hue)) brightness(var(--beam-brightness)) saturate(var(--beam-saturation));
+    }
+}
+
+.pulseOutside {
+    overflow: visible;
+
+    --beam-bloom-opacity: .42;
+    --beam-brightness: 1.7;
+    --beam-inner-opacity: 1.04;
+    --beam-pulse-bloom-blur: 15px;
+    --beam-pulse-frozen: 1;
+    --beam-pulse-glow-blur: 6px;
+    --beam-saturation: .6;
+    --beam-stroke-opacity: 1.96;
+
+    [dark] & {
+        --beam-bloom-opacity: .3;
+        --beam-brightness: 1.9;
+        --beam-inner-opacity: .34;
+        --beam-pulse-bloom-blur: 22.5px;
+        --beam-pulse-frozen: .77;
+        --beam-pulse-glow-blur: 3px;
+        --beam-saturation: 1.2;
+        --beam-stroke-opacity: .94;
+    }
+
+    &.isActive::after,
+    &.isFading::after {
+        position: absolute;
+        z-index: 2;
+        inset: 0;
+        padding: 1px;
+        content: '';
+        background: var(--beam-pulse-outer-core);
+        border-radius: var(--beam-radius);
+        opacity: calc(var(--beam-opacity) * var(--beam-stroke-opacity) * var(--beam-mono) * var(--beam-strength));
+        will-change: opacity, filter;
+        filter: hue-rotate(var(--beam-hue)) brightness(var(--beam-brightness)) saturate(var(--beam-saturation));
+        clip-path: inset(0 round var(--beam-radius));
+        mask: #{$ring-mask};
+        mask-composite: exclude;
+    }
+
+    &.isActive::before,
+    &.isFading::before {
+        position: absolute;
+        z-index: -1;
+        inset: -10px;
+        content: '';
+        background: var(--beam-pulse-outer-core);
+        border-radius: calc(var(--beam-radius) + 10px);
+        opacity: calc(var(--beam-opacity) * var(--beam-inner-opacity) * var(--beam-mono) * var(--beam-strength));
+        will-change: opacity, filter;
+        transform: scale(.95, .9);
+        filter: blur(var(--beam-pulse-glow-blur)) hue-rotate(var(--beam-hue)) brightness(var(--beam-brightness)) saturate(var(--beam-saturation));
+    }
+
+    > .bloom {
+        z-index: -1;
+        inset: -30px;
+        background: var(--beam-pulse-outer-bloom);
+        border-radius: calc(var(--beam-radius) + 30px);
+        opacity: 0;
+        will-change: transform;
+        transform: scale(.95, .9);
+    }
+
+    &.isActive > .bloom,
+    &.isFading > .bloom {
+        display: block;
+        opacity: calc(var(--beam-opacity) * var(--beam-bloom-opacity) * var(--beam-mono) * var(--beam-strength));
+        filter: blur(var(--beam-pulse-bloom-blur)) hue-rotate(var(--beam-hue)) brightness(var(--beam-brightness)) saturate(var(--beam-saturation));
+    }
+}
+
+.isPaused,
+.isPaused::before,
+.isPaused::after,
+.isPaused > .bloom {
+    animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pulseInner,
+    .pulseOutside,
+    .pulseInner::before,
+    .pulseInner::after,
+    .pulseOutside::before,
+    .pulseOutside::after,
+    .pulseInner > .bloom,
+    .pulseOutside > .bloom {
+        animation: none !important;
+    }
+}
+
+@keyframes borderBeamSpin {
+    to {
+        --beam-angle: 360deg;
+    }
+}
+
+@keyframes borderBeamFadeIn {
+    to {
+        --beam-opacity: 1;
+    }
+}
+
+@keyframes borderBeamFadeOut {
+    from {
+        --beam-opacity: 1;
+    }
+
+    to {
+        --beam-opacity: 0;
+    }
+}
+
+@keyframes borderBeamHueShift {
+    0%, 100% {
+        filter: hue-rotate(calc(var(--beam-hue-range) * -1deg)) brightness(var(--beam-brightness)) saturate(var(--beam-saturation));
+    }
+
+    50% {
+        filter: hue-rotate(calc(var(--beam-hue-range) * 1deg)) brightness(var(--beam-brightness)) saturate(var(--beam-saturation));
+    }
+}
+
+@keyframes borderBeamHueShiftBloom {
+    0%, 100% {
+        filter: blur(8px) hue-rotate(calc((var(--beam-hue-range) + 10) * -1deg)) brightness(var(--beam-brightness)) saturate(var(--beam-saturation));
+    }
+
+    50% {
+        filter: blur(8px) hue-rotate(calc((var(--beam-hue-range) + 10) * 1deg)) brightness(var(--beam-brightness)) saturate(var(--beam-saturation));
+    }
+}
+
+@keyframes borderBeamTravel {
+    0% {
+        --beam-x: .06;
+        --beam-w: .5;
+    }
+
+    10% {
+        --beam-x: .15;
+        --beam-w: .8;
+    }
+
+    20% {
+        --beam-x: .25;
+        --beam-w: 1.1;
+    }
+
+    30% {
+        --beam-x: .35;
+        --beam-w: 1.3;
+    }
+
+    40% {
+        --beam-x: .44;
+        --beam-w: 1.45;
+    }
+
+    50% {
+        --beam-x: .5;
+        --beam-w: 1.5;
+    }
+
+    60% {
+        --beam-x: .56;
+        --beam-w: 1.45;
+    }
+
+    70% {
+        --beam-x: .65;
+        --beam-w: 1.3;
+    }
+
+    80% {
+        --beam-x: .75;
+        --beam-w: 1.1;
+    }
+
+    90% {
+        --beam-x: .85;
+        --beam-w: .8;
+    }
+
+    100% {
+        --beam-x: .94;
+        --beam-w: .5;
+    }
+}
+
+@keyframes borderBeamEdgeFade {
+    0%, 100% {
+        --beam-edge: 0;
+    }
+
+    12.5% {
+        --beam-edge: 0;
+    }
+
+    32.5%, 67.5% {
+        --beam-edge: 1;
+    }
+
+    87.5% {
+        --beam-edge: 0;
+    }
+}
+
+@keyframes borderBeamBreathe {
+    0%, 100% {
+        --beam-h: .8;
+    }
+
+    25% {
+        --beam-h: 1.25;
+    }
+
+    55% {
+        --beam-h: .85;
+    }
+
+    80% {
+        --beam-h: 1.3;
+    }
+}
+
+@keyframes borderBeamSpike {
+    0%, 100% {
+        --beam-spike: .8;
+    }
+
+    25% {
+        --beam-spike: 1.3;
+    }
+
+    50% {
+        --beam-spike: .9;
+    }
+
+    75% {
+        --beam-spike: 1.4;
+    }
+}
+
+@keyframes borderBeamSpike2 {
+    0%, 100% {
+        --beam-spike2: 1.2;
+    }
+
+    25% {
+        --beam-spike2: .7;
+    }
+
+    50% {
+        --beam-spike2: 1.4;
+    }
+
+    75% {
+        --beam-spike2: .8;
+    }
+}
