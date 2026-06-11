@@ -12,7 +12,6 @@
         "@faker-js/faker": "^10.4.0",
         "@flux-ui/application": "workspace:*",
         "@flux-ui/components": "workspace:*",
-        "@flux-ui/dashboard": "workspace:*",
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/statistics": "workspace:*",
         "@fortawesome/fontawesome-common-types": "^7.2.0",
@@ -24,7 +23,8 @@
         "vitepress-plugin-group-icons": "^1.7.5",
         "vitepress-plugin-render": "^1.4.0",
         "vue": "^3.6.0-beta.13",
-        "vue-i18n": "^11.4.4"
+        "vue-i18n": "^11.4.4",
+        "vue-router": "^5.1.0"
     },
     "devDependencies": {
         "@basmilius/vite-preset": "^3.40.0",

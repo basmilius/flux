@@ -7,7 +7,6 @@ const ROOT = resolve(new URL('..', import.meta.url).pathname);
 const TARGET_DIRS = [
     'packages/components/dist',
     'packages/application/dist',
-    'packages/dashboard/dist',
     'packages/statistics/dist'
 ];
 

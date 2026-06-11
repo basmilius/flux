@@ -19,9 +19,6 @@
             "~flux/application/*": [
                 "/Users/bas/Development/Projects/flux/docs/node_modules/@flux-ui/application/src/*"
             ],
-            "~flux/dashboard/*": [
-                "../node_modules/@flux-ui/dashboard/src/*"
-            ],
             "~flux/statistics/*": [
                 "/Users/bas/Development/Projects/flux/docs/node_modules/@flux-ui/statistics/src/*"
             ],
@@ -36,9 +33,6 @@
             ],
             "~flux/components/application/*": [
                 "/Users/bas/Development/Projects/flux/docs/node_modules/@flux-ui/application/src/*"
-            ],
-            "~flux/components/dashboard/*": [
-                "/Users/bas/Development/Projects/flux/docs/node_modules/@flux-ui/dashboard/src/*"
             ],
             "~flux/components/statistics/*": [
                 "/Users/bas/Development/Projects/flux/docs/node_modules/@flux-ui/statistics/src/*"

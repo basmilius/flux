@@ -230,62 +230,6 @@
     }
 }
 
-.applicationMenuContextPill {
-    position: relative;
-    display: flex;
-    flex-flow: row nowrap;
-    gap: 9px;
-    align-items: center;
-    margin: -3px -6px 6px;
-    padding: 9px 12px;
-    cursor: pointer;
-    color: var(--foreground-secondary);
-    background: transparent;
-    border: 1px solid var(--application-menu-surface-stroke);
-    border-radius: var(--radius);
-    transition: background 200ms var(--swift-out);
-
-    @include mixin.hover {
-        background: var(--gray-200);
-    }
-
-    &:active {
-        background: var(--gray-300);
-    }
-
-    @include mixin.focus-ring;
-}
-
-.applicationMenuContextPillContent {
-    display: flex;
-    flex: 1 1 auto;
-    flex-flow: column;
-    min-width: 0;
-
-    :global(strong) {
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 1.2;
-        white-space: nowrap;
-        overflow: hidden;
-        color: var(--foreground-prominent);
-        text-overflow: ellipsis;
-        transition: var(--application-duration) var(--swift-out);
-        transition-property: filter, opacity, translate;
-    }
-
-    :global(span) {
-        font-size: 12px;
-        line-height: 1.2;
-        white-space: nowrap;
-        overflow: hidden;
-        color: var(--foreground-secondary);
-        text-overflow: ellipsis;
-        transition: var(--application-duration) var(--swift-out);
-        transition-property: filter, opacity, translate;
-    }
-}
-
 .applicationMenuPromo {
     display: flex;
     padding: 12px;

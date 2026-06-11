@@ -41,14 +41,12 @@ jobs:
                     bun pm version --cwd packages/internals "$RELEASE_VERSION"
                     bun pm version --cwd packages/components "$RELEASE_VERSION"
                     bun pm version --cwd packages/application "$RELEASE_VERSION"
-                    bun pm version --cwd packages/dashboard "$RELEASE_VERSION"
                     bun pm version --cwd packages/statistics "$RELEASE_VERSION"
 
                     sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/types/package.json
                     sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/internals/package.json
                     sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/components/package.json
                     sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/application/package.json
-                    sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/dashboard/package.json
                     sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/statistics/package.json
 
             -   name: 📦️ Install dependencies
@@ -61,7 +59,6 @@ jobs:
                     bun --cwd packages/internals build
                     bun --cwd packages/components build
                     bun --cwd packages/application build
-                    bun --cwd packages/dashboard build
                     bun --cwd packages/statistics build
                     node scripts/transform-dts.mjs
                     bun --cwd docs build
@@ -73,7 +70,6 @@ jobs:
                     (cd packages/internals && npm publish --access public --tag next)
                     (cd packages/components && npm publish --access public --tag next)
                     (cd packages/application && npm publish --access public --tag next)
-                    (cd packages/dashboard && npm publish --access public --tag next)
                     (cd packages/statistics && npm publish --access public --tag next)
 
             -   name: 🚀 Publish v${{ env.RELEASE_VERSION }}
@@ -83,7 +79,6 @@ jobs:
                     (cd packages/internals && npm publish --access public)
                     (cd packages/components && npm publish --access public)
                     (cd packages/application && npm publish --access public)
-                    (cd packages/dashboard && npm publish --access public)
                     (cd packages/statistics && npm publish --access public)
 
             -   name: 🚀 Publish Docs (Pre-release)

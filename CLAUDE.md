@@ -18,7 +18,6 @@ packages/
   types/        @flux-ui/types       — all public TypeScript types
   internals/    @flux-ui/internals   — shared internal utilities & composables
   statistics/   @flux-ui/statistics  — statistics / chart components (Apache ECharts)
-  dashboard/    @flux-ui/dashboard   — dashboard layout components
   application/  @flux-ui/application — application layout / navigation components
 docs/                                — VitePress documentation site
 ```
@@ -29,7 +28,6 @@ A unified `~flux/*` namespace is used across all packages, with each Flux packag
 
 - `~flux/components/*` → `packages/components/src/*`
 - `~flux/application/*` → `packages/application/src/*`
-- `~flux/dashboard/*` → `packages/dashboard/src/*`
 - `~flux/statistics/*` → `packages/statistics/src/*`
 
 The same alias is used for both TypeScript/Vue imports and Sass `@use` statements.
@@ -42,12 +40,11 @@ The same alias is used for both TypeScript/Vue imports and Sass `@use` statement
 |----------------|------------------------------------------------------|
 | components     | `bun run --cwd packages/components build`            |
 | statistics     | `bun run --cwd packages/statistics build`            |
-| dashboard      | `bun run --cwd packages/dashboard build`             |
 | internals      | `bun run --cwd packages/internals build` (tsdown)    |
 | docs (dev)     | `bun run --cwd docs dev`                             |
 | docs (build)   | `bun run --cwd docs build`                           |
 
-Build for `components`, `statistics`, `dashboard` runs `vue-tsc` (type-check) first, then `vite build`.
+Build for `components`, `statistics`, `application` runs `vue-tsc` (type-check) first, then `vite build`.
 Always run a build as the validation step before declaring an implementation done.
 
 ---
@@ -93,7 +90,6 @@ A single unified `~flux/*` namespace is used for both TypeScript/Vue imports and
 |--------------------------|-------------------------------|
 | `~flux/components/*`     | `packages/components/src/*`   |
 | `~flux/application/*`    | `packages/application/src/*`  |
-| `~flux/dashboard/*`      | `packages/dashboard/src/*`    |
 | `~flux/statistics/*`     | `packages/statistics/src/*`   |
 
 `packages/internals` and `packages/types` have no alias; they only use relative paths internally.
@@ -137,9 +133,9 @@ Known barrels in `packages/components/src/`: `composable/`, `composable/private/
 Four groups, **no** blank lines between groups, alphabetic within each group:
 
 1. **External (npm)** — `@`-scoped first (alphabetic), then unscoped (alphabetic)
-2. **Internal absolute / parent** — alias paths (`~flux/*`, `~fluxDashboard/*`, etc., excluding `/css/`) and `../...`
+2. **Internal absolute / parent** — alias paths (`~flux/*`, excluding `/css/`) and `../...`
 3. **Local siblings** — `./...`
-4. **Styles (last)** — `~flux/css/*`, `~fluxDashboard/css/*`, `*.module.scss`
+4. **Styles (last)** — `~flux/css/*`, `*.module.scss`
 
 Example:
 ```ts
@@ -194,7 +190,7 @@ All components use `<script lang="ts" setup>`. The Options API is disabled (`__V
 </script>
 ```
 
-Moving a type to `@flux-ui/types` is the **exception** and only appropriate when there is a clear cross-package or cross-component reuse need (e.g. a shared `FluxColor`, `FluxSize`, or a type consumed by multiple components in `@flux-ui/statistics` / `@flux-ui/dashboard`).
+Moving a type to `@flux-ui/types` is the **exception** and only appropriate when there is a clear cross-package or cross-component reuse need (e.g. a shared `FluxColor`, `FluxSize`, or a type consumed by multiple components in `@flux-ui/statistics`).
 
 Never propose migrating existing inline prop types to `@flux-ui/types` as a cleanup — treat inline definitions as intentional unless the component author explicitly asks to extract them.
 
@@ -221,7 +217,6 @@ Every component's styles live in a corresponding `.module.scss` file under:
 - `packages/components/src/css/component/base/` (shared base styles composed via `composes`)
 - `packages/components/src/css/component/primitive/` (primitive component styles)
 - `packages/statistics/src/css/`
-- `packages/dashboard/src/css/`
 
 CSS module class names are compiled in **kebab-case** for the library build (configured in `@basmilius/vite-preset`).
 
@@ -371,14 +366,6 @@ Configured in `.npmrc` with `@fortawesome:registry=https://npm.fontawesome.com/`
 ## Statistics package (`@flux-ui/statistics`)
 
 Wraps **Apache ECharts** (`echarts/core` modular imports + custom `useECharts` composable) with themed Flux components. Uses `vue-i18n` for locale-aware labels. Chart components follow the same CSS Modules and naming conventions.
-
----
-
-## Dashboard package (`@flux-ui/dashboard`)
-
-Layout components for building dashboards:
-- `FluxDashboard`, `FluxDashboardContent`, `FluxDashboardSide`
-- `FluxDashboardNavigation`, `FluxDashboardTopBar`, `FluxDashboardHeader`, `FluxDashboardMenu`
 
 ---
 

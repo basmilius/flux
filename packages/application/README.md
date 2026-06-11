@@ -33,4 +33,3 @@ Integrates with `vue-router` for navigation-aware behavior.
 - [`@flux-ui/types`](../types)
 - [`@flux-ui/internals`](../internals)
 - [`@flux-ui/statistics`](../statistics)
-- [`@flux-ui/dashboard`](../dashboard)

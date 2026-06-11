@@ -16,11 +16,6 @@ export const fluxApplication = composeLibrary({
     alias: '~flux/application'
 });
 
-export const fluxDashboard = composeLibrary({
-    name: '@flux-ui/dashboard',
-    alias: '~flux/dashboard'
-});
-
 export const fluxStatistics = composeLibrary({
     name: '@flux-ui/statistics',
     alias: '~flux/statistics'
@@ -58,7 +53,6 @@ export default defineConfig({
             }),
             flux(),
             fluxApplication(),
-            fluxDashboard(),
             fluxStatistics()
         ],
         server: {
@@ -94,10 +88,9 @@ export default defineConfig({
             },
             {
                 text: 'Packages',
-                activeMatch: '/(application|dashboard|internals|statistics)/',
+                activeMatch: '/(application|internals|statistics)/',
                 items: [
                     {text: 'Application', link: '/application/'},
-                    {text: 'Dashboard', link: '/dashboard/'},
                     {text: 'Internals', link: '/internals/'},
                     {text: 'Statistics', link: '/statistics/'}
                 ]
@@ -244,36 +237,6 @@ export default defineConfig({
                         {text: 'useApplicationContextMenu', link: '/application/composables/useApplicationContextMenu'},
                         {text: 'useApplicationInjection', link: '/application/composables/useApplicationInjection'},
                         {text: 'useApplicationMenu', link: '/application/composables/useApplicationMenu'}
-                    ]
-                }
-            ],
-            '/dashboard/': [
-                {
-                    text: 'Introduction',
-                    collapsed: false,
-                    items: [
-                        {text: 'What is Flux Dashboard?', link: '/dashboard/'},
-                        {text: 'Installation', link: '/dashboard/introduction/installation'}
-                    ]
-                },
-                {
-                    text: 'Components',
-                    collapsed: false,
-                    items: [
-                        {text: 'Dashboard', link: '/dashboard/components/dashboard'},
-                        {text: 'Content', link: '/dashboard/components/content'},
-                        {text: 'Header', link: '/dashboard/components/header'},
-                        {text: 'Menu', link: '/dashboard/components/menu'},
-                        {text: 'Navigation', link: '/dashboard/components/navigation'},
-                        {text: 'Side', link: '/dashboard/components/side'},
-                        {text: 'Top bar', link: '/dashboard/components/top-bar'}
-                    ]
-                },
-                {
-                    text: 'Composables',
-                    collapsed: false,
-                    items: [
-                        {text: 'useDashboardInjection', link: '/dashboard/composables/useDashboardInjection'}
                     ]
                 }
             ],

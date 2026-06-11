@@ -31,5 +31,4 @@ Documentation lives at [flux-ui.dev](https://flux-ui.dev). This readme covers bu
 - [`@flux-ui/types`](../types) — public TypeScript types.
 - [`@flux-ui/internals`](../internals) — shared composables, utilities, and directives.
 - [`@flux-ui/statistics`](../statistics) — chart components built on Apache ECharts.
-- [`@flux-ui/dashboard`](../dashboard) — dashboard layout components.
 - [`@flux-ui/application`](../application) — application shell components.

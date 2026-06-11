@@ -28,5 +28,4 @@ Built on top of [Apache ECharts](https://echarts.apache.org/), themed to match t
 - [`@flux-ui/components`](../components)
 - [`@flux-ui/types`](../types)
 - [`@flux-ui/internals`](../internals)
-- [`@flux-ui/dashboard`](../dashboard)
 - [`@flux-ui/application`](../application)
