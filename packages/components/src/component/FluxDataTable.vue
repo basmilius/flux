@@ -25,7 +25,7 @@
                     v-if="selectionMode"
                     is-shrinking
                     :class="$style.tableCellSelection">
-                    <FluxCheckbox
+                    <FluxFormCheckbox
                         v-if="selectionMode === 'multiple'"
                         :model-value="selectAllState"
                         @update:model-value="onSelectAll"/>
@@ -72,7 +72,7 @@
             <FluxTableCell
                 v-if="selectionMode"
                 :class="$style.tableCellSelection">
-                <FluxCheckbox
+                <FluxFormCheckbox
                     :model-value="isItemSelected(item)"
                     @update:model-value="onSelectRow(item)"/>
             </FluxTableCell>
@@ -93,7 +93,7 @@
     generic="T extends Record<string, any>">
     import { computed, unref, useTemplateRef, type VNode, watch } from 'vue';
     import { useDisabledInjection } from '~flux/components/composable';
-    import FluxCheckbox from './FluxCheckbox.vue';
+    import FluxFormCheckbox from './FluxFormCheckbox.vue';
     import FluxPaginationBar from './FluxPaginationBar.vue';
     import FluxTable from './FluxTable.vue';
     import FluxTableCell from './FluxTableCell.vue';

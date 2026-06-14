@@ -9,7 +9,9 @@ export const FluxKanbanInjectionKey: InjectionKey<FluxKanbanInjection> = Symbol(
 export const FluxExpandableGroupInjectionKey: InjectionKey<FluxExpandableGroupInjection> = Symbol();
 export const FluxFlyoutInjectionKey: InjectionKey<FluxFlyoutInjection> = Symbol();
 export const FluxFilterInjectionKey: InjectionKey<FluxFilterInjection> = Symbol();
+export const FluxFormCheckboxGroupInjectionKey: InjectionKey<FluxFormCheckboxGroupInjection> = Symbol();
 export const FluxFormFieldInjectionKey: InjectionKey<FluxFormFieldInjection> = Symbol();
+export const FluxFormRadioGroupInjectionKey: InjectionKey<FluxFormRadioGroupInjection> = Symbol();
 export const FluxSegmentedControlInjectionKey: InjectionKey<FluxSegmentedControlInjection> = Symbol();
 export const FluxSplitViewInjectionKey: InjectionKey<FluxSplitViewInjection> = Symbol();
 export const FluxTabBarInjectionKey: InjectionKey<FluxTabBarInjection> = Symbol();
@@ -150,6 +152,22 @@ export type FluxFlyoutInjection = {
 
 export type FluxFormFieldInjection = {
     readonly id?: string;
+    readonly labelId?: string;
+    readonly isGroup?: boolean;
+
+    registerControl?(): string;
+};
+
+export type FluxFormCheckboxGroupValue = string | number | boolean;
+
+export type FluxFormCheckboxGroupInjection = {
+    readonly modelValue: Ref<FluxFormCheckboxGroupValue[]>;
+    readonly disabled: Ref<boolean>;
+    readonly isReadonly: Ref<boolean>;
+    readonly error: Ref<string | null | undefined>;
+
+    has(value: FluxFormCheckboxGroupValue): boolean;
+    toggle(value: FluxFormCheckboxGroupValue): void;
 };
 
 export type FluxSplitViewPaneSpec = {
@@ -167,6 +185,18 @@ export type FluxSplitViewInjection = {
     registerPane(spec: FluxSplitViewPaneSpec): void;
     unregisterPane(id: number): void;
     getPaneIndex(id: number): number;
+};
+
+export type FluxFormRadioGroupValue = string | number | boolean;
+
+export type FluxFormRadioGroupInjection = {
+    readonly name: string;
+    readonly modelValue: Ref<FluxFormRadioGroupValue | undefined>;
+    readonly disabled: Ref<boolean>;
+    readonly isReadonly: Ref<boolean>;
+    readonly error: Ref<string | null | undefined>;
+
+    select(value: FluxFormRadioGroupValue): void;
 };
 
 export type FluxSegmentedControlValue = string | number;

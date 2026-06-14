@@ -1,7 +1,7 @@
 <template>
     <label
         :class="clsx(
-            $style.toggle,
+            $style.formToggle,
             modelValue && $style.isChecked,
             disabled && $style.isDisabled,
             isReadonly && $style.isReadonly,
@@ -14,18 +14,18 @@
         :aria-invalid="error ? true : undefined">
         <FluxIcon
             v-if="iconOff"
-            :class="$style.toggleIconOff"
+            :class="$style.formToggleIconOff"
             :name="iconOff"
             :size="14"/>
 
         <FluxIcon
             v-if="iconOn"
-            :class="$style.toggleIconOn"
+            :class="$style.formToggleIconOn"
             :name="iconOn"
             :size="14"/>
 
         <input
-            :class="$style.toggleInput"
+            :class="$style.formToggleInput"
             :id="id"
             :disabled="disabled"
             type="checkbox"

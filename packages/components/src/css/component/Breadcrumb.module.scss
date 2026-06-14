@@ -1,0 +1,86 @@
+@use '~flux/components/css/mixin';
+
+.breadcrumb {
+    display: block;
+    max-width: 100%;
+}
+
+.breadcrumbList {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    gap: 3px;
+    list-style: none;
+
+    .breadcrumbItem {
+        margin: 0;
+    }
+}
+
+.breadcrumbItem {
+    display: inline-flex;
+    min-width: 0;
+    align-items: center;
+    gap: 3px;
+
+    &:last-child .breadcrumbSeparator {
+        display: none;
+    }
+}
+
+.breadcrumbLink {
+    display: inline-flex;
+    height: 30px;
+    max-width: 100%;
+    padding: 0 9px;
+    align-items: center;
+    gap: 9px;
+    background: transparent;
+    border: 0;
+    border-radius: var(--radius);
+    color: var(--foreground-secondary);
+    font-size: 14px;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: var(--transition-default);
+    transition-property: background, color, mixin.focus-ring-transition-properties();
+
+    @include mixin.focus-ring(2px, true);
+
+    &:not(.isCurrent) {
+        @include mixin.hover {
+            background: var(--surface-hover);
+            color: var(--foreground);
+        }
+    }
+
+    &.isCurrent {
+        color: var(--foreground-prominent);
+        font-weight: 600;
+        cursor: default;
+        pointer-events: none;
+    }
+}
+
+.breadcrumbIcon {
+    margin-top: -1px;
+    margin-bottom: -1px;
+    flex-shrink: 0;
+}
+
+.breadcrumbLabel {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.breadcrumbSeparator {
+    flex-shrink: 0;
+    color: var(--foreground-secondary);
+    opacity: .5;
+    pointer-events: none;
+}

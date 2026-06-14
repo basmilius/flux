@@ -26,6 +26,7 @@ export {
     faCalendarRange,
     faChevronDown,
     faChevronRight,
+    faChevronUp,
     faCheck,
     faCircleArrowUp,
     faCircleCheck,
@@ -45,8 +46,10 @@ export {
     faEllipsisV,
     faEye,
     faEyeSlash,
+    faFile,
     faFileLines,
     faFilePlus,
+    faFolder,
     faFilter,
     faFloppyDisk,
     faGaugeHigh,
@@ -130,5 +133,6 @@ export {
     faPaste,
     faSidebar,
     faSidebarFlip,
+    faSlashForward,
     faRotateLeft
 } from '@fortawesome/pro-regular-svg-icons';

@@ -2,6 +2,12 @@
 outline: deep
 
 props:
+    -   name: as
+        description: Whether the field wraps a single control or a group of controls. In group mode the label is rendered as a group label (role="group" + aria-labelledby) instead of a <label for>, so multiple controls stay accessible without duplicate ids.
+        type: "'field' | 'group'"
+        optional: true
+        default: field
+
     -   name: current-length
         description: The current length of the value.
         type: number
@@ -64,7 +70,9 @@ requiredIcons:
 
 # Field
 
-The form field component is a base component that wraps a single form control, such as [FluxFormInput](../input/index.md). It provides a label, error and hint. Fields can also be marked optional.
+The form field component is a base component that wraps a form control, such as [FluxFormInput](../input/index.md). It provides a label, error and hint. Fields can also be marked optional.
+
+By default a field wraps a **single** control and associates its label with that control through `<label for>`. When a field hosts a **group** of controls — multiple [checkboxes](../checkbox), a [Checkbox group](../checkbox), or a [Radio group](../radio/) — set `as="group"`. The label is then rendered as a group label (`role="group"` + `aria-labelledby`), which keeps the markup accessible and avoids the duplicate `id`s that a single shared `for` would create.
 
 ::: render
 render=../../../code/components/form/field/preview.vue
@@ -88,6 +96,10 @@ example=../../../code/components/form/field/error-hint.vue
 
 ::: example Multiple hints or errors || A form field with multiple hints and errors.
 example=../../../code/components/form/field/error-hint-multiple.vue
+:::
+
+::: example Group || A field hosting a group of controls with `as="group"`.
+example=../../../code/components/form/field/group.vue
 :::
 
 ## Used components

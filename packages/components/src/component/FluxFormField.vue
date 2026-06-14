@@ -1,10 +1,15 @@
 <template>
-    <div :class="$style.formField">
-        <label
-            :for="id"
+    <div
+        :class="$style.formField"
+        :role="isGroup ? 'group' : undefined"
+        :aria-labelledby="isGroup && label ? labelId : undefined">
+        <component
+            :is="isGroup ? 'div' : 'label'"
+            :for="isGroup ? undefined : id"
             :class="$style.formFieldHeader">
             <span
                 v-if="label"
+                :id="isGroup ? labelId : undefined"
                 :class="$style.formFieldLabel">
                 {{ label }}
             </span>
@@ -22,7 +27,7 @@
                     name="value"
                     v-bind="{currentLength, error, hint, id, isOptional, label, maxLength}"/>
             </span>
-        </label>
+        </component>
 
         <slot v-bind="{id}"/>
 
@@ -52,13 +57,16 @@
 <script
     lang="ts"
     setup>
-    import { provide, useId, type VNode } from 'vue';
+    import { computed, provide, useId, type VNode } from 'vue';
     import { useTranslate } from '~flux/components/composable/private';
     import { FluxFormFieldInjectionKey } from '~flux/components/data';
     import FluxFormFieldAddition from './FluxFormFieldAddition.vue';
     import $style from '~flux/components/css/component/Form.module.scss';
 
-    defineProps<{
+    const {
+        as = 'field'
+    } = defineProps<{
+        readonly as?: 'field' | 'group';
         readonly currentLength?: number;
         readonly error?: string;
         readonly hint?: string;
@@ -92,9 +100,17 @@
     }>();
 
     const id = useId();
+    const labelId = useId();
     const translate = useTranslate();
 
+    const isGroup = computed(() => as === 'group');
+
+    let controlCount = 0;
+
     provide(FluxFormFieldInjectionKey, {
-        id
+        id,
+        labelId,
+        isGroup: as === 'group',
+        registerControl: () => controlCount++ === 0 ? id : `${id}-${controlCount - 1}`
     });
 </script>

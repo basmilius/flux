@@ -3,7 +3,7 @@
         <FluxForm>
             <FluxPaneBody>
                 <FluxFormField label="Newsletter">
-                    <FluxCheckbox
+                    <FluxFormCheckbox
                         :model-value="true"
                         label="I want to receive weekly updates."/>
                 </FluxFormField>
@@ -15,5 +15,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxCheckbox, FluxForm, FluxFormField, FluxPane, FluxPaneBody } from '@flux-ui/components';
+    import { FluxFormCheckbox, FluxForm, FluxFormField, FluxPane, FluxPaneBody } from '@flux-ui/components';
 </script>

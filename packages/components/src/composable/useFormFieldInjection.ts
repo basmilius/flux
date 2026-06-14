@@ -2,7 +2,11 @@ import { inject, useId } from 'vue';
 import { FluxFormFieldInjectionKey } from '~flux/components/data';
 
 export default function () {
-    return inject(FluxFormFieldInjectionKey, {
-        id: useId()
-    });
+    const field = inject(FluxFormFieldInjectionKey, null);
+
+    if (field?.registerControl) {
+        return {id: field.registerControl()};
+    }
+
+    return {id: field?.id ?? useId()};
 }

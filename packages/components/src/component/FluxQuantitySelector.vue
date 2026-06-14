@@ -1,9 +1,9 @@
 <template>
     <FluxButtonGroup
-        :class="$style.quantitySelector"
+        :class="$style.formQuantitySelector"
         :aria-disabled="disabled ? true : undefined">
         <FluxSecondaryButton
-            :class="$style.quantitySelectorButton"
+            :class="$style.formQuantitySelectorButton"
             :disabled="disabled || modelValue <= min"
             icon-leading="minus"
             tabindex="-1"
@@ -12,7 +12,7 @@
         <input
             ref="input"
             v-model="modelValue"
-            :class="$style.quantitySelectorInput"
+            :class="$style.formQuantitySelectorInput"
             :style="{
                 width: `${width}px`
             }"
@@ -24,7 +24,7 @@
             :step="step"/>
 
         <FluxSecondaryButton
-            :class="$style.quantitySelectorButton"
+            :class="$style.formQuantitySelectorButton"
             :disabled="disabled || modelValue >= max"
             icon-leading="plus"
             tabindex="-1"

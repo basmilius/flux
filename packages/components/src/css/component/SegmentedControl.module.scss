@@ -8,24 +8,6 @@
     background: var(--gray-50);
     border: 1px solid var(--surface-stroke);
     border-radius: var(--radius);
-
-    &.isSmall {
-        height: 30px;
-        padding: 0 12px;
-        gap: 9px;
-    }
-
-    &.isMedium {
-        height: 36px;
-        padding: 0 15px;
-        gap: 9px;
-    }
-
-    &.isLarge {
-        height: 48px;
-        padding: 0 21px;
-        gap: 12px;
-    }
 }
 
 .segmentedControlFill {
@@ -79,6 +61,24 @@
     &.isActive {
         color: var(--foreground-prominent);
         cursor: default;
+    }
+
+    &.isSmall {
+        height: 30px;
+        padding: 0 12px;
+        gap: 9px;
+    }
+
+    &.isMedium {
+        height: 36px;
+        padding: 0 15px;
+        gap: 9px;
+    }
+
+    &.isLarge {
+        height: 48px;
+        padding: 0 21px;
+        gap: 12px;
     }
 
     &:disabled {

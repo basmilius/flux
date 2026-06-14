@@ -22,6 +22,14 @@ const navigation: SidebarItem = {
         {text: 'Badge', link: '/components/badge'},
         {text: 'Boxed icon', link: '/components/boxed-icon', image: '/assets/components/boxed-icon.svg'},
         {
+            text: 'Breadcrumb',
+            link: '/components/breadcrumb/',
+            collapsed: true,
+            items: [
+                {text: 'Item', link: '/components/breadcrumb/item'},
+            ]
+        },
+        {
             text: 'Button',
             link: '/components/button/',
             collapsed: true,
@@ -107,7 +115,14 @@ const navigation: SidebarItem = {
             items: [
                 {text: 'Column', link: '/components/form/column'},
                 {text: 'Row', link: '/components/form/row'},
-                {text: 'Checkbox', link: '/components/form/checkbox'},
+                {
+                    text: 'Checkbox',
+                    link: '/components/form/checkbox/',
+                    collapsed: true,
+                    items: [
+                        {text: 'Group', link: '/components/form/checkbox/group'}
+                    ]
+                },
                 {text: 'Date', link: '/components/form/date'},
                 {text: 'Date range', link: '/components/form/date-range'},
                 {text: 'Date time', link: '/components/form/date-time'},
@@ -129,9 +144,18 @@ const navigation: SidebarItem = {
                         {text: 'Group', link: '/components/form/input/group'}
                     ]
                 },
+                {text: 'Number input', link: '/components/form/number-input'},
                 {text: 'PIN input', link: '/components/form/pin-input'},
                 {text: 'Section', link: '/components/form/section'},
                 {text: 'Quantity selector', link: '/components/form/quantity-selector'},
+                {
+                    text: 'Radio',
+                    link: '/components/form/radio/',
+                    collapsed: true,
+                    items: [
+                        {text: 'Item', link: '/components/form/radio/item'}
+                    ]
+                },
                 {
                     text: 'Select',
                     link: '/components/form/select/',
@@ -292,6 +316,7 @@ const navigation: SidebarItem = {
                 {text: 'Item', link: '/components/segmented-control/item'}
             ]
         },
+        {text: 'Skeleton', link: '/components/skeleton'},
         {text: 'Slide over', link: '/components/slide-over'},
         {text: 'Spinner', link: '/components/spinner'},
         {

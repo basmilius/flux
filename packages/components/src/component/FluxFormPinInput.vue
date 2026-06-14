@@ -1,7 +1,7 @@
 <template>
     <fieldset
         :class="clsx(
-            disabled ? $style.pinInputDisabled : $style.pinInputEnabled,
+            disabled ? $style.formPinInputDisabled : $style.formPinInputEnabled,
             error && $style.isInvalid
         )"
         :id="id"
@@ -16,7 +16,7 @@
             v-for="field of maxLength"
             :key="field"
             ref="fields"
-            :class="$style.pinInputField"
+            :class="$style.formPinInputField"
             maxlength="1"
             :aria-label="translate('flux.pinDigit', {index: field, total: maxLength})"
             :autocomplete="field === 1 ? autoComplete : undefined"
