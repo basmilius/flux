@@ -239,6 +239,15 @@ Semantic tokens: `--surface`, `--surface-hover`, `--surface-active`, `--surface-
 
 The `.editorconfig` defines a strict CSS property order (font → position → display → flex → box-sizing → dimensions → margin → padding → ... → background → box-shadow). Follow this order in new SCSS blocks.
 
+### Spacing & sizing (3px grid)
+
+All spacing and dimension values are based on a **3px grid** — use multiples of 3px for `width`, `height`, `padding`, `margin`, `gap`, and positional offsets (`top` / `right` / `bottom` / `left`). For example, use `321px`, not `320px`.
+
+These follow their own scale and are **not** bound to the 3px grid:
+- Hairline borders / outlines (`1px`, `2px`)
+- `border-radius`
+- `font-size` (type scale, e.g. `13px`, `14px`, `15px`)
+
 ---
 
 ## TypeScript types (`@flux-ui/types`)
