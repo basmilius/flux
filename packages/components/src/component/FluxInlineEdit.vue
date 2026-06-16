@@ -4,8 +4,8 @@
             <FluxFormTextArea
                 v-if="multiline"
                 v-model="draft"
+                ref="field"
                 :class="$style.inlineEditField"
-                auto-focus
                 :error="error"
                 :placeholder="placeholder"
                 @blur="onBlur"
@@ -14,8 +14,8 @@
             <FluxFormInput
                 v-else
                 v-model="draft"
+                ref="field"
                 :class="$style.inlineEditField"
-                auto-focus
                 :error="error"
                 :placeholder="placeholder"
                 @blur="onBlur"
@@ -102,6 +102,7 @@
 
     const disabled = useDisabled(toRef(() => componentDisabled));
     const displayRef = useTemplateRef<HTMLElement>('display');
+    const fieldRef = useTemplateRef<{focus(): void}>('field');
 
     const isEditing = ref(false);
     const draft = ref('');
@@ -116,6 +117,8 @@
         draft.value = modelValue.value;
         isEditing.value = true;
         emit('edit');
+
+        nextTick(() => fieldRef.value?.focus());
     }
 
     function close(): void {
