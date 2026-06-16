@@ -180,16 +180,6 @@
     }>();
 
     const slots = defineSlots<{
-        [key: string]: (props: {
-            readonly index: number;
-            readonly page: number;
-            readonly perPage: number;
-            readonly item: T;
-            readonly items: T[];
-            readonly total: number;
-            readonly isSelected: boolean;
-        }) => VNode;
-
         filter(props: {
             readonly page: number;
             readonly perPage: number;
@@ -227,6 +217,16 @@
 
             toggle(): void;
         }): VNode;
+    } & {
+        [key: string]: (props: {
+            readonly index: number;
+            readonly page: number;
+            readonly perPage: number;
+            readonly item: T;
+            readonly items: T[];
+            readonly total: number;
+            readonly isSelected: boolean;
+        }) => VNode;
     }>();
 
     const table = useTemplateRef('table');
