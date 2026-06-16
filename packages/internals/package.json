@@ -59,18 +59,18 @@
         }
     },
     "dependencies": {
-        "@basmilius/common": "^3.40.0",
-        "@basmilius/utils": "^3.40.0",
+        "@basmilius/common": "^3.41.0",
+        "@basmilius/utils": "^3.41.0",
         "@flux-ui/types": "workspace:*",
         "lodash-es": "^4.18.1"
     },
     "peerDependencies": {
         "luxon": "^3.7.2",
-        "vue": "^3.6.0-beta.13"
+        "vue": "^3.6.0-beta.15"
     },
     "devDependencies": {
         "@types/bun": "^1.3.14",
         "@types/luxon": "^3.7.1",
-        "tsdown": "^0.22.1"
+        "tsdown": "^0.22.2"
     }
 }
