@@ -207,6 +207,11 @@
         reposition();
     }
 
+    defineExpose({
+        reposition,
+        resize
+    });
+
     watchEffect(() => {
         if (!anchor || (!isHtmlElement(anchor) && !anchor.$el)) {
             return;

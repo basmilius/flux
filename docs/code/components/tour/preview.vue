@@ -1,5 +1,7 @@
 <template>
-    <div style="display: flex; flex-flow: column; gap: 18px; align-items: flex-start">
+    <div
+        ref="root"
+        style="display: flex; flex-flow: column; gap: 18px; align-items: flex-start">
         <div style="display: flex; gap: 9px">
             <span id="tour-create">
                 <FluxPrimaryButton label="Create"/>
@@ -21,24 +23,38 @@
         <FluxTour
             v-model:active="active"
             v-model:step="step"
-            :steps="steps"/>
+            :root="root">
+            <FluxTourItem
+                target="#tour-create"
+                title="Create">
+                Start by creating a new item here.
+            </FluxTourItem>
+
+            <FluxTourItem
+                target="#tour-search"
+                title="Search">
+                Quickly find anything in your workspace.
+            </FluxTourItem>
+
+            <FluxTourItem
+                target="#tour-settings"
+                title="Settings">
+                Tweak your preferences anytime.
+            </FluxTourItem>
+        </FluxTour>
     </div>
 </template>
 
 <script
     setup
     lang="ts">
-    import { FluxPrimaryButton, FluxSecondaryButton, FluxTour } from '@flux-ui/components';
+    import { FluxPrimaryButton, FluxSecondaryButton, FluxTour, FluxTourItem } from '@flux-ui/components';
     import { ref } from 'vue';
+
+    const root = ref<HTMLElement>();
 
     const active = ref(false);
     const step = ref(0);
-
-    const steps = [
-        {target: '#tour-create', title: 'Create', content: 'Start by creating a new item here.'},
-        {target: '#tour-search', title: 'Search', content: 'Quickly find anything in your workspace.'},
-        {target: '#tour-settings', title: 'Settings', content: 'Tweak your preferences anytime.'}
-    ];
 
     function start(): void {
         step.value = 0;

@@ -15,50 +15,71 @@
                     }"/>
 
                 <AnchorPopup
-                    v-if="targetRect && currentStep"
+                    v-if="targetRect && currentItem"
                     ref="popup"
                     :anchor="virtualAnchor"
-                    :class="$style.tourPopover"
-                    :position="currentStep.position ?? 'bottom'"
+                    :class="clsx($style.tourPopover, isStepping && $style.isStepping)"
+                    :position="currentItem.position ?? 'bottom'"
                     aria-modal="true"
                     role="dialog">
                     <FluxPane :class="$style.tourPane">
-                        <slot v-bind="{step: currentStep, index: step, total, next, previous, skip, finish}">
-                            <div :class="$style.tourBody">
-                                <strong
-                                    v-if="currentStep.title"
-                                    :class="$style.tourTitle">
-                                    {{ currentStep.title }}
-                                </strong>
+                        <div
+                            ref="bodyViewport"
+                            :class="$style.tourBodyViewport">
+                            <Transition
+                                @after-enter="onBodyAfterEnter"
+                                @enter="onBodyEnter">
+                                <div
+                                    :key="step"
+                                    :class="$style.tourBody">
+                                    <strong
+                                        v-if="currentItem.title"
+                                        :class="$style.tourTitle">
+                                        {{ currentItem.title }}
+                                    </strong>
 
-                                <p
-                                    v-if="currentStep.content"
-                                    :class="$style.tourContent">
-                                    {{ currentStep.content }}
-                                </p>
-                            </div>
+                                    <div :class="$style.tourContent">
+                                        <VNodeRenderer :vnode="currentContent"/>
+                                    </div>
+                                </div>
+                            </Transition>
+                        </div>
 
-                            <div :class="$style.tourFooter">
-                                <span :class="$style.tourProgress">
-                                    {{ step + 1 }} / {{ total }}
-                                </span>
+                        <div :class="$style.tourFooter">
+                            <span :class="$style.tourProgress">
+                                {{ step + 1 }} / {{ total }}
+                            </span>
 
-                                <FluxSpacer/>
+                            <FluxSpacer/>
 
-                                <FluxSecondaryButton
-                                    :label="translate('flux.skip')"
-                                    @click="skip"/>
+                            <button
+                                :class="$style.tourSkip"
+                                type="button"
+                                @click="skip">
+                                {{ translate('flux.skip') }}
+                            </button>
 
-                                <FluxSecondaryButton
-                                    v-if="step > 0"
-                                    :label="translate('flux.previous')"
-                                    @click="previous"/>
+                            <FluxSecondaryButton
+                                v-if="step > 0"
+                                :aria-label="translate('flux.previous')"
+                                icon-leading="angle-left"
+                                size="small"
+                                @click="previous"/>
 
-                                <FluxPrimaryButton
-                                    :label="step < total - 1 ? translate('flux.next') : translate('flux.done')"
-                                    @click="next"/>
-                            </div>
-                        </slot>
+                            <FluxPrimaryButton
+                                v-if="step < total - 1"
+                                :aria-label="translate('flux.next')"
+                                icon-leading="angle-right"
+                                size="small"
+                                @click="next"/>
+
+                            <FluxPrimaryButton
+                                v-else
+                                :aria-label="translate('flux.done')"
+                                icon-leading="check"
+                                size="small"
+                                @click="next"/>
+                        </div>
                     </FluxPane>
                 </AnchorPopup>
             </div>
@@ -69,15 +90,18 @@
 <script
     lang="ts"
     setup>
-    import { isSSR, useEventListener } from '@flux-ui/internals';
-    import { type ComponentPublicInstance, computed, nextTick, ref, watch, type VNode } from 'vue';
+    import { isHtmlElement } from '@basmilius/utils';
+    import { flattenVNodeTree, isSSR, useEventListener } from '@flux-ui/internals';
+    import { clsx } from 'clsx';
+    import { type ComponentPublicInstance, computed, Fragment, h, nextTick, ref, useTemplateRef, type VNode, watch } from 'vue';
+    import { AnchorPopup, VNodeRenderer } from '~flux/components/component/primitive';
     import { useTranslate } from '~flux/components/composable/private';
     import { FluxFadeTransition } from '~flux/components/transition';
-    import { AnchorPopup } from '~flux/components/component/primitive';
     import FluxPane from './FluxPane.vue';
     import FluxPrimaryButton from './FluxPrimaryButton.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import FluxSpacer from './FluxSpacer.vue';
+    import FluxTourItem from './FluxTourItem.vue';
     import $style from '~flux/components/css/component/Tour.module.scss';
 
     type FluxTourPosition =
@@ -86,11 +110,11 @@
         | 'right' | 'right-top' | 'right-bottom'
         | 'bottom' | 'bottom-left' | 'bottom-right';
 
-    type FluxTourStep = {
+    type TourItem = {
         readonly target: string | (() => HTMLElement | null);
         readonly title?: string;
-        readonly content?: string;
         readonly position?: FluxTourPosition;
+        readonly content?: () => VNode[];
     };
 
     const active = defineModel<boolean>('active', {
@@ -103,10 +127,10 @@
 
     const {
         maskPadding = 8,
-        steps
+        root
     } = defineProps<{
         readonly maskPadding?: number;
-        readonly steps: readonly FluxTourStep[];
+        readonly root?: string | HTMLElement | (() => HTMLElement | null);
     }>();
 
     const emit = defineEmits<{
@@ -116,25 +140,48 @@
         prev: [number];
     }>();
 
-    defineSlots<{
-        default(props: {
-            readonly step: FluxTourStep;
-            readonly index: number;
-            readonly total: number;
-
-            next(): void;
-            previous(): void;
-            skip(): void;
-            finish(): void;
-        }): VNode[];
+    const slots = defineSlots<{
+        default(): VNode[];
     }>();
 
     const translate = useTranslate();
 
+    const popup = useTemplateRef<{ reposition(): void; resize(): void }>('popup');
+    const bodyViewport = useTemplateRef<HTMLElement>('bodyViewport');
     const targetRect = ref<DOMRect | null>(null);
+    const isStepping = ref(false);
 
-    const total = computed(() => steps.length);
-    const currentStep = computed(() => steps[step.value]);
+    let steppingTimer: ReturnType<typeof setTimeout> | undefined;
+
+    const items = computed<readonly TourItem[]>(() => {
+        const vnodes = flattenVNodeTree(slots.default?.() ?? []);
+        const out: TourItem[] = [];
+
+        for (const vnode of vnodes) {
+            if (vnode.type !== FluxTourItem) {
+                continue;
+            }
+
+            const props = vnode.props ?? {};
+            const children = vnode.children as { default?: () => VNode[] } | null;
+
+            out.push({
+                target: props.target,
+                title: props.title,
+                position: props.position,
+                content: children?.default
+            });
+        }
+
+        return out;
+    });
+
+    const total = computed(() => items.value.length);
+    const currentItem = computed(() => items.value[step.value]);
+    const currentContent = computed(() => {
+        const content = currentItem.value?.content?.();
+        return content ? h(Fragment, content) : null;
+    });
 
     const virtualAnchor = {
         $el: {
@@ -150,14 +197,30 @@
         }
     } as unknown as ComponentPublicInstance;
 
+    function resolveScope(): ParentNode {
+        if (!root) {
+            return document;
+        }
+
+        if (typeof root === 'string') {
+            return document.querySelector(root) ?? document;
+        }
+
+        if (typeof root === 'function') {
+            return root() ?? document;
+        }
+
+        return root;
+    }
+
     function resolveTarget(): HTMLElement | null {
-        const current = steps[step.value];
+        const current = items.value[step.value];
 
         if (!current) {
             return null;
         }
 
-        return typeof current.target === 'function' ? current.target() : document.querySelector<HTMLElement>(current.target);
+        return typeof current.target === 'function' ? current.target() : resolveScope().querySelector<HTMLElement>(current.target);
     }
 
     function measure(): void {
@@ -173,6 +236,7 @@
         requestAnimationFrame(() => {
             const resolved = resolveTarget();
             targetRect.value = resolved ? resolved.getBoundingClientRect() : null;
+            popup.value?.reposition();
         });
     }
 
@@ -203,9 +267,45 @@
         emit('finish');
     }
 
+    function onBodyEnter(el: Element): void {
+        if (!isHtmlElement(el) || !bodyViewport.value) {
+            return;
+        }
+
+        const height = el.offsetHeight;
+
+        requestAnimationFrame(() => {
+            if (bodyViewport.value) {
+                bodyViewport.value.style.height = `${height}px`;
+            }
+        });
+    }
+
+    function onBodyAfterEnter(): void {
+        if (bodyViewport.value) {
+            bodyViewport.value.style.height = 'auto';
+        }
+    }
+
+    watch(step, (newStep, oldStep) => {
+        if (active.value && newStep !== oldStep) {
+            if (bodyViewport.value) {
+                bodyViewport.value.style.height = `${bodyViewport.value.offsetHeight}px`;
+            }
+
+            isStepping.value = true;
+            clearTimeout(steppingTimer);
+            steppingTimer = setTimeout(() => {
+                isStepping.value = false;
+            }, 300);
+        }
+    });
+
     watch([active, step], async () => {
         if (!active.value) {
             targetRect.value = null;
+            isStepping.value = false;
+            clearTimeout(steppingTimer);
             return;
         }
 

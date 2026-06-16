@@ -1,3 +1,5 @@
+@use '~flux/components/css/mixin';
+
 .tour {
     position: fixed;
     inset: 0;
@@ -22,14 +24,24 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 320px;
+    width: 321px;
     max-width: calc(100vw - 24px);
     translate: var(--x) var(--y);
     z-index: 1;
+
+    &.isStepping {
+        transition: translate .25s var(--swift-out);
+    }
 }
 
 .tourPane {
     overflow: hidden;
+}
+
+.tourBodyViewport {
+    position: relative;
+    overflow: hidden;
+    transition: height .25s var(--swift-out);
 }
 
 .tourBody {
@@ -37,6 +49,19 @@
     padding: 15px 18px;
     flex-flow: column;
     gap: 6px;
+    transition: opacity .15s var(--swift-out);
+
+    &:global(.v-leave-active) {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    &:global(.v-enter-from),
+    &:global(.v-leave-to) {
+        opacity: 0;
+    }
 }
 
 .tourTitle {
@@ -46,10 +71,9 @@
 }
 
 .tourContent {
-    margin: 0;
-    color: var(--foreground);
     font-size: 14px;
     line-height: 21px;
+    color: var(--foreground);
 }
 
 .tourFooter {
@@ -63,4 +87,22 @@
 .tourProgress {
     color: var(--foreground-secondary);
     font-size: 13px;
+}
+
+.tourSkip {
+    font: inherit;
+    font-size: 13px;
+    margin-right: 12px;
+    padding: 0;
+    cursor: pointer;
+    transition: color .15s var(--swift-out);
+    color: var(--foreground-secondary);
+    border: 0;
+    background: none;
+
+    @include mixin.hover {
+        color: var(--foreground);
+    }
+
+    @include mixin.focus-ring(2px);
 }

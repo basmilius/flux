@@ -181,6 +181,7 @@ export { default as FluxToolbarGroup } from './FluxToolbarGroup.vue';
 export { default as FluxTooltip } from './FluxTooltip.vue';
 export { default as FluxTooltipProvider } from './FluxTooltipProvider.vue';
 export { default as FluxTour } from './FluxTour.vue';
+export { default as FluxTourItem } from './FluxTourItem.vue';
 export { default as FluxTreeView } from './FluxTreeView.vue';
 export { default as FluxVirtualScroller } from './FluxVirtualScroller.vue';
 export { default as FluxWindow } from './FluxWindow.vue';
