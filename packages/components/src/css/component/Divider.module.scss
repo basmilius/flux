@@ -63,6 +63,7 @@
 }
 
 .separator {
+    flex-shrink: 0;
     background: var(--gray-200);
 }
 
