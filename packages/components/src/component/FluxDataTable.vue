@@ -14,7 +14,7 @@
         </template>
 
         <template
-            v-if="'header' in slots || selectionMode"
+            v-if="'header' in slots || selectionMode || hasExpandable"
             #header>
             <slot
                 name="filter"
@@ -30,6 +30,11 @@
                         :model-value="selectAllState"
                         @update:model-value="onSelectAll"/>
                 </FluxTableHeader>
+
+                <FluxTableHeader
+                    v-if="hasExpandable"
+                    is-shrinking
+                    :class="$style.tableCellExpand"/>
 
                 <slot
                     name="header"
@@ -63,27 +68,54 @@
             </slot>
         </template>
 
-        <FluxTableRow
+        <template
             v-for="(item, index) of limitedItems"
-            :key="uniqueKey ? item[uniqueKey] : index"
-            :class="selectionMode && !treeDisabled && $style.isSelectableRow"
-            :is-selected="selectionMode ? isItemSelected(item) : false"
-            @click="onRowClick(item, $event)">
-            <FluxTableCell
-                v-if="selectionMode"
-                :class="$style.tableCellSelection">
-                <FluxFormCheckbox
-                    :model-value="isItemSelected(item)"
-                    @update:model-value="onSelectRow(item)"/>
-            </FluxTableCell>
+            :key="uniqueKey ? item[uniqueKey] : index">
+            <FluxTableRow
+                :class="selectionMode && !treeDisabled && $style.isSelectableRow"
+                :is-selected="selectionMode ? isItemSelected(item) : false"
+                @click="onRowClick(item, $event)">
+                <FluxTableCell
+                    v-if="selectionMode"
+                    :class="$style.tableCellSelection">
+                    <FluxFormCheckbox
+                        :model-value="isItemSelected(item)"
+                        @update:model-value="onSelectRow(item)"/>
+                </FluxTableCell>
 
-            <template v-for="(_, name) of slots">
-                <slot
-                    v-if="!IGNORED_SLOTS.includes(name as string)"
-                    v-bind="{index, item, items: limitedItems, page, perPage, total, isSelected: isItemSelected(item)}"
-                    :name="name"/>
-            </template>
-        </FluxTableRow>
+                <FluxTableCell
+                    v-if="hasExpandable"
+                    :class="$style.tableCellExpand">
+                    <FluxAction
+                        :class="clsx($style.tableExpandToggle, isItemExpanded(item) && $style.isExpanded)"
+                        icon="chevron-right"
+                        :aria-expanded="isItemExpanded(item)"
+                        :aria-label="isItemExpanded(item) ? translate('flux.collapseRow') : translate('flux.expandRow')"
+                        @click="toggleExpand(item)"/>
+                </FluxTableCell>
+
+                <template v-for="(_, name) of slots">
+                    <slot
+                        v-if="!IGNORED_SLOTS.includes(name as string)"
+                        v-bind="{index, item, items: limitedItems, page, perPage, total, isSelected: isItemSelected(item)}"
+                        :name="name"/>
+                </template>
+            </FluxTableRow>
+
+            <FluxTableRow
+                v-if="hasExpandable && isItemExpanded(item)"
+                :class="$style.tableExpandRow">
+                <FluxTableCell :colspan="columnCount">
+                    <template #content>
+                        <div :class="$style.tableExpandContent">
+                            <slot
+                                name="expandable"
+                                v-bind="{index, item, isExpanded: true, toggle: () => toggleExpand(item)}"/>
+                        </div>
+                    </template>
+                </FluxTableCell>
+            </FluxTableRow>
+        </template>
     </FluxTable>
 </template>
 
@@ -91,8 +123,11 @@
     lang="ts"
     setup
     generic="T extends Record<string, any>">
+    import { clsx } from 'clsx';
     import { computed, unref, useTemplateRef, type VNode, watch } from 'vue';
     import { useDisabledInjection } from '~flux/components/composable';
+    import { useTranslate } from '~flux/components/composable/private';
+    import FluxAction from './FluxAction.vue';
     import FluxFormCheckbox from './FluxFormCheckbox.vue';
     import FluxPaginationBar from './FluxPaginationBar.vue';
     import FluxTable from './FluxTable.vue';
@@ -104,7 +139,7 @@
     type SelectionId = string | number;
     type SelectionValue = SelectionId | null | SelectionId[];
 
-    const IGNORED_SLOTS: string[] = ['filter', 'header', 'footer', 'colgroups', 'pagination'];
+    const IGNORED_SLOTS: string[] = ['filter', 'header', 'footer', 'colgroups', 'pagination', 'expandable'];
 
     const emit = defineEmits<{
         limit: [number];
@@ -112,8 +147,12 @@
     }>();
 
     const selected = defineModel<SelectionValue>('selected');
+    const expanded = defineModel<SelectionId[]>('expanded', {
+        default: () => []
+    });
 
     const {
+        expandMode = 'multiple',
         isBordered = true,
         isHoverable = false,
         isLoading = false,
@@ -124,6 +163,7 @@
         selectionMode,
         uniqueKey
     } = defineProps<{
+        readonly expandMode?: 'single' | 'multiple';
         readonly fillColumns?: number;
         readonly isBordered?: boolean;
         readonly isHoverable?: boolean;
@@ -179,12 +219,27 @@
         }): VNode;
 
         colgroups(): VNode;
+
+        expandable(props: {
+            readonly index: number;
+            readonly item: T;
+            readonly isExpanded: boolean;
+
+            toggle(): void;
+        }): VNode;
     }>();
 
     const table = useTemplateRef('table');
     const treeDisabled = useDisabledInjection();
+    const translate = useTranslate();
 
     const limitedItems = computed(() => items.slice(0, perPage));
+
+    const hasExpandable = computed(() => 'expandable' in slots);
+    const columnCount = computed(() => {
+        const userColumns = Object.keys(slots).filter(name => !IGNORED_SLOTS.includes(name)).length;
+        return userColumns + (selectionMode ? 1 : 0) + (unref(hasExpandable) ? 1 : 0);
+    });
 
     const currentPageIds = computed<SelectionId[]>(() => {
         if (!uniqueKey) {
@@ -294,8 +349,34 @@
         selected.value = current.filter(id => !ids.includes(id));
     }
 
+    function isItemExpanded(item: T): boolean {
+        const id = getItemId(item);
+        return id !== undefined && unref(expanded).includes(id);
+    }
+
+    function toggleExpand(item: T): void {
+        const id = getItemId(item);
+
+        if (id === undefined) {
+            return;
+        }
+
+        const current = unref(expanded);
+
+        if (current.includes(id)) {
+            expanded.value = current.filter(v => v !== id);
+            return;
+        }
+
+        expanded.value = expandMode === 'single' ? [id] : [...current, id];
+    }
+
     if (import.meta.env.DEV && selectionMode && !uniqueKey) {
         console.warn('[FluxDataTable] `uniqueKey` is required when `selectionMode` is set, otherwise rows cannot be tracked across renders.');
+    }
+
+    if (import.meta.env.DEV && unref(hasExpandable) && !uniqueKey) {
+        console.warn('[FluxDataTable] `uniqueKey` is required when the `expandable` slot is used, otherwise rows cannot be tracked across renders.');
     }
 
     watch(() => items, () => {

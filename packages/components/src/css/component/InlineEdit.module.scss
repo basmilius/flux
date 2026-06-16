@@ -1,0 +1,45 @@
+@use '~flux/components/css/mixin';
+
+.inlineEdit {
+    display: flex;
+    gap: 6px;
+    align-items: flex-start;
+}
+
+.inlineEditField {
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.inlineEditActions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.inlineEditDisplay {
+    display: inline-flex;
+    min-height: 30px;
+    padding: 3px 6px;
+    align-items: center;
+    border-radius: 6px;
+    color: var(--foreground);
+    line-height: 21px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+
+    &.isInteractive {
+        cursor: text;
+
+        @include mixin.focus-ring(2px);
+
+        @include mixin.hover {
+            background: var(--surface-hover);
+        }
+    }
+
+    &.isPlaceholder {
+        color: var(--foreground-secondary);
+    }
+}

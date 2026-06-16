@@ -80,11 +80,19 @@
                     :placeholder="translate('flux.search')"
                     @keydown="onKeyDown"/>
 
-                <FluxMenu v-if="!isLoading && options.length === 0">
+                <FluxMenu v-if="canCreate">
+                    <FluxMenuItem
+                        icon-leading="plus"
+                        :label="translate('flux.createOption', {value: trimmedSearch})"
+                        type="button"
+                        @click="create()"/>
+                </FluxMenu>
+
+                <FluxMenu v-if="!isLoading && options.length === 0 && !canCreate">
                     <FluxMenuSubHeader :label="translate('flux.noItems')"/>
                 </FluxMenu>
 
-                <FluxMenu v-else>
+                <FluxMenu v-else-if="options.length > 0">
                     <template
                         v-for="([item, subItems], index) of options"
                         :key="`group-${index}`">
@@ -162,6 +170,7 @@
         keyDown: [KeyboardEvent];
         deselect: [string | number | null];
         select: [string | number | null];
+        create: [string];
         search: [string];
         close: [];
         open: [];
@@ -177,11 +186,13 @@
 
     const {
         disabled: componentDisabled,
+        isCreatable,
         isMultiple,
         options,
         selected
     } = defineProps<{
         readonly disabled?: boolean;
+        readonly isCreatable?: boolean;
         readonly isLoading?: boolean;
         readonly isMultiple?: boolean;
         readonly isSearchable?: boolean;
@@ -205,6 +216,15 @@
     const focusElement = computed(() => unrefTemplateElement(searchInputElementRef) ?? unrefTemplateElement(anchorRef));
     const highlightedId = computed(() => unref(rawOptions)[unref(highlightedIndex)]?.value);
     const rawOptions = computed(() => options.map(group => group[1]).flat());
+    const trimmedSearch = computed(() => unref(modelSearch).trim());
+    const canCreate = computed(() => {
+        if (!isCreatable || trimmedSearch.value === '') {
+            return false;
+        }
+
+        const query = trimmedSearch.value.toLowerCase();
+        return !unref(rawOptions).some(o => o.label.toLowerCase() === query);
+    });
 
     const {
         isOpen: isPopupOpen,
@@ -225,6 +245,19 @@
 
     function select(id: string | number | null): void {
         emit('select', id);
+
+        if (!isMultiple) {
+            isPopupOpen.value = false;
+        }
+
+        highlightedIndex.value = INITIAL_HIGHLIGHTED_INDEX;
+        modelSearch.value = '';
+
+        nextTick(() => unref(focusElement)?.focus());
+    }
+
+    function create(): void {
+        emit('create', trimmedSearch.value);
 
         if (!isMultiple) {
             isPopupOpen.value = false;
@@ -284,6 +317,8 @@
 
                 if (id !== undefined) {
                     select(id);
+                } else if (unref(canCreate)) {
+                    create();
                 }
                 break;
 

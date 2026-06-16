@@ -7,6 +7,7 @@
             isSeparated && $style.isSeparated,
             isStriped && $style.isStriped
         )"
+        :colspan="colspan"
         role="cell">
         <slot name="content">
             <div
@@ -32,6 +33,7 @@
     const {
         contentDirection = 'row'
     } = defineProps<{
+        readonly colspan?: number;
         readonly contentDirection?: 'column' | 'row';
         readonly contentGap?: number;
     }>();

@@ -1,0 +1,47 @@
+@use '~flux/components/css/mixin';
+
+.formRating {
+    display: inline-flex;
+    gap: .15em;
+    font-size: 24px;
+    line-height: 1;
+    border-radius: 4px;
+
+    @include mixin.focus-ring(4px);
+
+    &.isDisabled {
+        opacity: .6;
+    }
+}
+
+.formRatingStar {
+    position: relative;
+    display: inline-flex;
+    padding: 0;
+    border: 0;
+    background: none;
+    line-height: 0;
+    cursor: pointer;
+
+    &:disabled {
+        cursor: default;
+    }
+}
+
+.formRatingStarEmpty {
+    color: var(--gray-300);
+}
+
+.formRatingStarFull {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    color: var(--warning-400);
+    clip-path: inset(0 calc((1 - var(--fill, 0)) * 100%) 0 0);
+    pointer-events: none;
+}
+
+.isInvalid .formRatingStarEmpty {
+    color: var(--danger-200);
+}

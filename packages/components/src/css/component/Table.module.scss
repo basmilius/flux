@@ -238,3 +238,19 @@ tfoot .tableCell {
 :not(.basePaneStructure) > .table .tableCell:not(.isBordered):last-child .tableCellContent {
     padding-right: 0;
 }
+
+.tableCellExpand {
+    width: 0;
+}
+
+.tableExpandToggle :global(svg) {
+    transition: rotate .2s var(--swift-out);
+}
+
+.tableExpandToggle.isExpanded :global(svg) {
+    rotate: 90deg;
+}
+
+.tableExpandContent {
+    padding: 12px 15px;
+}

@@ -1,0 +1,22 @@
+.avatarGroup {
+    display: inline-flex;
+    align-items: center;
+    flex-flow: row nowrap;
+}
+
+.avatarGroupItem {
+    position: relative;
+    display: inline-flex;
+    margin-left: calc(var(--overlap, .3) * -1em);
+    border-radius: .3em;
+    box-shadow: 0 0 0 .125em var(--gray-25);
+    transition: translate .2s var(--swift-out);
+
+    &:first-child {
+        margin-left: 0;
+    }
+
+    &:hover {
+        z-index: 1;
+    }
+}

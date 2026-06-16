@@ -14,6 +14,10 @@ emits:
         description: Triggered when the selection changes. The payload type matches `selection-mode` — a single id (or `null`) for `single`, an array of ids for `multiple`.
         type: [ "string | number | null | (string | number)[]" ]
 
+    -   name: update:expanded
+        description: Triggered when the set of expanded rows changes, with the array of expanded ids.
+        type: [ "(string | number)[]" ]
+
 props:
     -   name: items
         description: The data to show in the table. This should already be the current page's data — pagination is handled server-side. Pass the subset of items for the active page here.
@@ -60,6 +64,12 @@ props:
     -   name: per-page
         description: The number of rows to show per page.
         type: number
+
+    -   name: expand-mode
+        description: How expandable rows behave. Use `multiple` to allow several rows open at once, or `single` to keep only one open. Requires `unique-key` and the `expandable` slot.
+        type: "'single' | 'multiple'"
+        optional: true
+        default: multiple
 
     -   name: selection-mode
         description: Enables row selection. Use `single` for at most one selected row, or `multiple` for an array of selected rows. Requires `unique-key` to be set.
@@ -111,6 +121,14 @@ slots:
             items: T[]
             total: number
 
+    -   name: expandable
+        description: When provided, each row gets an expand toggle and this slot renders the expanded detail content spanning the full table width. Requires `unique-key`.
+        type:
+            index: number
+            item: T
+            is-expanded: boolean
+            toggle: () => void
+
     -   name: "[key: string]"
         description: A slot representing a cell for each visible row.
         type:
@@ -127,6 +145,7 @@ requiredIcons:
     - arrow-up-a-z
     - arrow-up-arrow-down
     - check
+    - chevron-right
     - circle-xmark
     - minus
 ---
@@ -159,6 +178,10 @@ example=../code/components/data-table/paginated.vue
 
 ::: example Selectable rows || A data table where multiple rows can be selected via checkboxes.
 example=../code/components/data-table/selection.vue
+:::
+
+::: example Expandable rows || A data table where each row can be expanded to reveal detail content.
+example=../code/components/data-table/expandable.vue
 :::
 
 ## Used components

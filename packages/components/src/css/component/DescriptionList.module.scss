@@ -1,0 +1,98 @@
+.descriptionList {
+    display: flex;
+    flex-flow: column;
+    gap: 12px;
+}
+
+.descriptionListHeader {
+    color: var(--foreground-secondary);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.descriptionListItems {
+    display: flex;
+    margin: 0;
+    flex-flow: column;
+    gap: 12px;
+}
+
+.descriptionItem {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.descriptionItem.isStacked {
+    gap: 2px;
+    align-items: stretch;
+    flex-flow: column;
+}
+
+.descriptionItem.isStacked .descriptionItemValue {
+    margin-left: 0;
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.descriptionItemTerm {
+    display: flex;
+    gap: 9px;
+    align-items: center;
+    color: var(--foreground);
+    font-size: 15px;
+}
+
+.descriptionItemIcon {
+    flex-shrink: 0;
+    color: var(--foreground);
+    font-size: 16px;
+}
+
+.descriptionItemLabel {
+    overflow-wrap: anywhere;
+}
+
+.descriptionItemValue {
+    display: flex;
+    margin: 0;
+    margin-left: auto;
+    gap: 6px;
+    align-items: center;
+    color: var(--foreground-prominent);
+    font-size: 15px;
+    font-weight: 600;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+.descriptionListItems.isHorizontal {
+    gap: 0;
+    flex-flow: row;
+
+    .descriptionItem {
+        gap: 6px;
+        align-items: stretch;
+        flex: 1 1 0;
+        flex-flow: column;
+        padding-right: 24px;
+        padding-left: 24px;
+        border-left: 1px solid var(--gray-100);
+    }
+
+    .descriptionItem:first-child {
+        padding-left: 0;
+        border-left: 0;
+    }
+
+    .descriptionItemTerm {
+        font-size: 14px;
+    }
+
+    .descriptionItemValue {
+        margin-left: 0;
+        justify-content: flex-start;
+        font-weight: 500;
+        text-align: left;
+    }
+}

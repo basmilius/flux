@@ -19,6 +19,7 @@ const navigation: SidebarItem = {
             ]
         },
         {text: 'Avatar', link: '/components/avatar', image: '/assets/components/avatar.svg'},
+        {text: 'Avatar group', link: '/components/avatar-group'},
         {text: 'Badge', link: '/components/badge'},
         {text: 'Boxed icon', link: '/components/boxed-icon', image: '/assets/components/boxed-icon.svg'},
         {
@@ -63,8 +64,17 @@ const navigation: SidebarItem = {
         },
         {text: 'Command palette', link: '/components/command-palette'},
         {text: 'Comment', link: '/components/comment', image: '/assets/components/comment.svg'},
+        {text: 'Context menu', link: '/components/context-menu'},
         {text: 'Data table', link: '/components/data-table'},
         {text: 'Date picker', link: '/components/date-picker'},
+        {
+            text: 'Description list',
+            link: '/components/description-list/',
+            collapsed: true,
+            items: [
+                {text: 'Item', link: '/components/description-list/item'}
+            ]
+        },
         {text: 'Disabled', link: '/components/disabled'},
         {text: 'Drop zone', link: '/components/drop-zone'},
         {text: 'Dynamic view', link: '/components/dynamic-view'},
@@ -123,6 +133,7 @@ const navigation: SidebarItem = {
                         {text: 'Group', link: '/components/form/checkbox/group'}
                     ]
                 },
+                {text: 'Combobox', link: '/components/form/combobox'},
                 {text: 'Date', link: '/components/form/date'},
                 {text: 'Date range', link: '/components/form/date-range'},
                 {text: 'Date time', link: '/components/form/date-time'},
@@ -156,6 +167,7 @@ const navigation: SidebarItem = {
                         {text: 'Item', link: '/components/form/radio/item'}
                     ]
                 },
+                {text: 'Rating', link: '/components/form/rating'},
                 {
                     text: 'Select',
                     link: '/components/form/select/',
@@ -172,6 +184,7 @@ const navigation: SidebarItem = {
                         {text: 'Ranged', link: '/components/form/slider/ranged'}
                     ]
                 },
+                {text: 'Tags input', link: '/components/form/tags-input'},
                 {text: 'Text area', link: '/components/form/text-area'},
                 {text: 'Time', link: '/components/form/time'},
                 {text: 'Time zone picker', link: '/components/form/time-zone-picker'},
@@ -189,6 +202,7 @@ const navigation: SidebarItem = {
         },
         {text: 'Icon', link: '/components/icon', image: '/assets/components/icon.svg'},
         {text: 'Info', link: '/components/info'},
+        {text: 'Inline edit', link: '/components/inline-edit'},
         {
             text: 'Item',
             link: '/components/item/',
@@ -376,7 +390,9 @@ const navigation: SidebarItem = {
             ]
         },
         {text: 'Tooltip', link: '/components/tooltip'},
+        {text: 'Tour', link: '/components/tour'},
         {text: 'Tree view', link: '/components/tree-view'},
+        {text: 'Virtual scroller', link: '/components/virtual-scroller'},
         {
             text: 'Visual',
             link: '/components/visual/',

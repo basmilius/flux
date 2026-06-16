@@ -1134,3 +1134,54 @@
     transition: 210ms var(--swift-out);
     transition-property: background, border-color, color, opacity, scale, translate, mixin.focus-ring-transition-properties();
 }
+
+.formTagsInput {
+    composes: formInput;
+
+    display: flex;
+    height: unset;
+    min-height: 42px;
+    padding: 4px 6px;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    cursor: text;
+
+    &:not(.formTagsInputDisabled) {
+        @include mixin.focus-ring(-1px, true);
+    }
+}
+
+.formTagsInputEnabled {
+    composes: formTagsInput;
+}
+
+.formTagsInputDisabled {
+    composes: formTagsInput;
+
+    background: var(--gray-100);
+    cursor: not-allowed;
+}
+
+.formTagsInputField {
+    height: 30px;
+    min-width: 60px;
+    flex: 1 1 60px;
+    background: none;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    outline: 0;
+
+    &::placeholder {
+        color: var(--foreground-secondary);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+}
+
+.formTagsInputPopup {
+    composes: formSelectPopup;
+}

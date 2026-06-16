@@ -1,0 +1,17 @@
+.contextMenu {
+    display: contents;
+}
+
+.contextMenuPopup {
+    composes: basePane from './base/Pane.module.scss';
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 200px;
+    max-height: max(330px, 50dvh);
+    overflow: auto;
+    box-shadow: var(--shadow-md);
+    translate: var(--x) var(--y);
+    z-index: 10000;
+}
