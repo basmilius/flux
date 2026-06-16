@@ -86,6 +86,7 @@ const theme: Theme = {
                         sortAscending: 'Ascending',
                         sortDescending: 'Descending',
                         sortRemove: 'Remove sorting',
+                        submenu: 'Submenu',
                         today: 'Today',
                         selectMonth: 'Select month',
                         selectYear: 'Select year',

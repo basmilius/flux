@@ -11,6 +11,7 @@
                     ref="popup"
                     :anchor="virtualAnchor"
                     :class="$style.contextMenuPopup"
+                    clamp-to-viewport
                     :margin="2"
                     :position="position"
                     role="menu"
@@ -27,18 +28,20 @@
 <script
     lang="ts"
     setup>
-    import { useClickOutside } from '@basmilius/common';
     import { isSSR, useEventListener, useFocusTrap } from '@flux-ui/internals';
-    import { type ComponentPublicInstance, reactive, ref, toRef, useTemplateRef, type VNode } from 'vue';
+    import { computed, type ComponentPublicInstance, reactive, ref, toRef, useTemplateRef, type VNode } from 'vue';
     import { useDisabled } from '~flux/components/composable';
+    import { useMenuFlyoutProvider } from '~flux/components/composable/private';
     import { FluxFadeTransition } from '~flux/components/transition';
     import { AnchorPopup } from '~flux/components/component/primitive';
     import $style from '~flux/components/css/component/ContextMenu.module.scss';
 
     const {
+        debugCone = false,
         disabled: componentDisabled,
         position = 'bottom-left'
     } = defineProps<{
+        readonly debugCone?: boolean;
         readonly disabled?: boolean;
         readonly position?:
             | 'top' | 'top-left' | 'top-right'
@@ -68,7 +71,14 @@
         }
     } as unknown as ComponentPublicInstance;
 
-    useFocusTrap(popupRef);
+    const menuFlyout = useMenuFlyoutProvider({
+        debugCone: toRef(() => debugCone),
+        onCloseAll: () => close()
+    });
+
+    useFocusTrap(popupRef, {
+        disable: computed(() => menuFlyout.keyboardStack.value.length > 0)
+    });
 
     function onContextMenu(evt: MouseEvent): void {
         if (disabled.value) {
@@ -94,7 +104,20 @@
     }
 
     if (!isSSR) {
-        useClickOutside(popupRef, isOpen, () => close());
+        useEventListener(ref(window), 'pointerdown', (evt: PointerEvent) => {
+            if (!isOpen.value) {
+                return;
+            }
+
+            const target = evt.target as Node | null;
+            const root = (popupRef.value?.$el ?? null) as HTMLElement | null;
+
+            if ((root && target && root.contains(target)) || menuFlyout.isInsidePopups(target)) {
+                return;
+            }
+
+            close();
+        }, {capture: true});
 
         useEventListener(ref(window), 'keydown', (evt: KeyboardEvent) => {
             if (isOpen.value && evt.key === 'Escape') {

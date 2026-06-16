@@ -132,6 +132,10 @@
     margin-left: 33px;
 }
 
+.menuConeActive .menuItem {
+    pointer-events: none;
+}
+
 .menuCollapsible {
     display: flex;
     flex-flow: column;

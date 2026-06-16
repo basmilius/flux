@@ -12,6 +12,7 @@ export const FluxFilterInjectionKey: InjectionKey<FluxFilterInjection> = Symbol(
 export const FluxFormCheckboxGroupInjectionKey: InjectionKey<FluxFormCheckboxGroupInjection> = Symbol();
 export const FluxFormFieldInjectionKey: InjectionKey<FluxFormFieldInjection> = Symbol();
 export const FluxFormRadioGroupInjectionKey: InjectionKey<FluxFormRadioGroupInjection> = Symbol();
+export const FluxMenuFlyoutInjectionKey: InjectionKey<FluxMenuFlyoutInjection> = Symbol();
 export const FluxSegmentedControlInjectionKey: InjectionKey<FluxSegmentedControlInjection> = Symbol();
 export const FluxSplitViewInjectionKey: InjectionKey<FluxSplitViewInjection> = Symbol();
 export const FluxTabBarInjectionKey: InjectionKey<FluxTabBarInjection> = Symbol();
@@ -148,6 +149,45 @@ export type FluxFlyoutInjection = {
     readonly isClosing: Ref<boolean>;
     readonly isOpen: Ref<boolean>;
     readonly isOpening: Ref<boolean>;
+};
+
+export type FluxMenuFlyoutPointer = {
+    readonly x: number;
+    readonly y: number;
+    readonly px: number;
+    readonly py: number;
+};
+
+export type FluxMenuFlyoutCone = {
+    readonly id: number;
+    readonly ax: number;
+    readonly ay: number;
+    readonly bx: number;
+    readonly by: number;
+    readonly cx: number;
+    readonly cy: number;
+};
+
+export type FluxMenuFlyoutEntry = {
+    getTrigger(): HTMLElement | null;
+    getPopup(): HTMLElement | null;
+    readonly isOpen: Ref<boolean>;
+    close(): void;
+};
+
+export type FluxMenuFlyoutInjection = {
+    readonly debugCone: Ref<boolean>;
+    readonly pointer: Readonly<Ref<FluxMenuFlyoutPointer>>;
+    readonly activeCone: Ref<FluxMenuFlyoutCone | null>;
+    readonly keyboardStack: Ref<number[]>;
+
+    register(entry: FluxMenuFlyoutEntry): void;
+    unregister(entry: FluxMenuFlyoutEntry): void;
+    closeOthers(self: FluxMenuFlyoutEntry): void;
+    hasOpenDescendant(self: FluxMenuFlyoutEntry): boolean;
+    isAimingAtOpenSubmenu(): boolean;
+    isInsidePopups(target: Node | null): boolean;
+    closeAll(): void;
 };
 
 export type FluxFormFieldInjection = {

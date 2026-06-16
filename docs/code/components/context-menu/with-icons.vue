@@ -6,25 +6,29 @@
 
         <template #menu="{close}">
             <FluxMenu>
-                <FluxMenuItem
-                    icon-leading="pen"
-                    label="Edit"
-                    type="button"
-                    @click="close"/>
+                <FluxMenuGroup>
+                    <FluxMenuItem
+                        icon-leading="pen"
+                        label="Edit"
+                        type="button"
+                        @click="close"/>
 
-                <FluxMenuItem
-                    icon-leading="copy"
-                    label="Duplicate"
-                    type="button"
-                    @click="close"/>
+                    <FluxMenuItem
+                        icon-leading="copy"
+                        label="Duplicate"
+                        type="button"
+                        @click="close"/>
+                </FluxMenuGroup>
 
                 <FluxSeparator/>
 
-                <FluxMenuItem
-                    icon-leading="trash"
-                    label="Delete"
-                    type="button"
-                    @click="close"/>
+                <FluxMenuGroup>
+                    <FluxMenuItem
+                        icon-leading="trash"
+                        label="Delete"
+                        type="button"
+                        @click="close"/>
+                </FluxMenuGroup>
             </FluxMenu>
         </template>
     </FluxContextMenu>
@@ -33,7 +37,7 @@
 <script
     setup
     lang="ts">
-    import { FluxContextMenu, FluxMenu, FluxMenuItem, FluxPane, FluxSeparator } from '@flux-ui/components';
+    import { FluxContextMenu, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxSeparator } from '@flux-ui/components';
 
     function onOpen(): void {
         // The menu opened at the cursor.

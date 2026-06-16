@@ -7,23 +7,25 @@
 
             <template #menu="{close}">
                 <FluxMenu>
-                    <FluxMenuItem
-                        icon-leading="pen"
-                        label="Rename"
-                        type="button"
-                        @click="close"/>
+                    <FluxMenuGroup>
+                        <FluxMenuItem
+                            icon-leading="pen"
+                            label="Rename"
+                            type="button"
+                            @click="close"/>
 
-                    <FluxMenuItem
-                        icon-leading="copy"
-                        label="Duplicate"
-                        type="button"
-                        @click="close"/>
+                        <FluxMenuItem
+                            icon-leading="copy"
+                            label="Duplicate"
+                            type="button"
+                            @click="close"/>
 
-                    <FluxMenuItem
-                        icon-leading="trash"
-                        label="Delete"
-                        type="button"
-                        @click="close"/>
+                        <FluxMenuItem
+                            icon-leading="trash"
+                            label="Delete"
+                            type="button"
+                            @click="close"/>
+                    </FluxMenuGroup>
                 </FluxMenu>
             </template>
         </FluxContextMenu>
@@ -33,5 +35,5 @@
 <script
     setup
     lang="ts">
-    import { FluxContextMenu, FluxMenu, FluxMenuItem, FluxPane } from '@flux-ui/components';
+    import { FluxContextMenu, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane } from '@flux-ui/components';
 </script>

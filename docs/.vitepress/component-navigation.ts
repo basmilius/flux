@@ -285,6 +285,7 @@ const navigation: SidebarItem = {
             collapsed: true,
             items: [
                 {text: 'Collapsible', link: '/components/menu/collapsible'},
+                {text: 'Flyout', link: '/components/menu/flyout'},
                 {text: 'Group', link: '/components/menu/group'},
                 {text: 'Item', link: '/components/menu/item'},
                 {text: 'Options', link: '/components/menu/options'},

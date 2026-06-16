@@ -4,6 +4,7 @@ export { default as useDateFlyout } from './useDateFlyout';
 export { default as useDropdownPopup, type UseDropdownPopupOptions, type UseDropdownPopupReturn } from './useDropdownPopup';
 export { default as useFormSelect } from './useFormSelect';
 export { useKanban } from './useKanban';
+export { default as useMenuFlyout, useMenuFlyoutContext, useMenuFlyoutProvider, type UseMenuFlyoutOptions, type UseMenuFlyoutProviderOptions, type UseMenuFlyoutReturn } from './useMenuFlyout';
 export { useSplitView, type SplitViewPane, type UseSplitViewOptions, type UseSplitViewReturn } from './useSplitView';
 export { default as useTranslate } from './useTranslate';
 export { useCommandPalette, type CommandPaletteGroup, type CommandPaletteResultItem } from './useCommandPalette';

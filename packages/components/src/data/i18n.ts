@@ -38,6 +38,7 @@ export const english = {
     'flux.sortAscending': 'Ascending',
     'flux.sortDescending': 'Descending',
     'flux.sortRemove': 'Remove sorting',
+    'flux.submenu': 'Submenu',
     'flux.today': 'Today',
     'flux.selectMonth': 'Select month',
     'flux.selectYear': 'Select year',

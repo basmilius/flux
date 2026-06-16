@@ -7,18 +7,23 @@
 
         <template #flyout>
             <FluxMenu>
-                <FluxMenuItem
-                    icon-leading="rectangle-sd"
-                    label="Download in SD"/>
-                <FluxMenuItem
-                    icon-leading="rectangle-hd"
-                    label="Download in HD"/>
+                <FluxMenuGroup>
+                    <FluxMenuItem
+                        icon-leading="rectangle-sd"
+                        label="Download in SD"/>
+
+                    <FluxMenuItem
+                        icon-leading="rectangle-hd"
+                        label="Download in HD"/>
+                </FluxMenuGroup>
 
                 <FluxSeparator/>
 
-                <FluxMenuItem
-                    icon-leading="rectangle-4k"
-                    label="Download in 4K"/>
+                <FluxMenuGroup>
+                    <FluxMenuItem
+                        icon-leading="rectangle-4k"
+                        label="Download in 4K"/>
+                </FluxMenuGroup>
             </FluxMenu>
         </template>
     </FluxSplitButton>
@@ -27,5 +32,5 @@
 <script
     setup
     lang="ts">
-    import { FluxMenu, FluxMenuItem, FluxSecondaryButton, FluxSeparator, FluxSplitButton } from '@flux-ui/components';
+    import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSecondaryButton, FluxSeparator, FluxSplitButton } from '@flux-ui/components';
 </script>

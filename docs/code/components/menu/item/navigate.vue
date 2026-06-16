@@ -1,10 +1,12 @@
 <template>
     <FluxPane style="width: 300px">
         <FluxMenu>
-            <FluxMenuItem
-                icon-leading="arrow-up-from-square"
-                icon-trailing="angle-right"
-                label="My uploads"/>
+            <FluxMenuGroup>
+                <FluxMenuItem
+                    icon-leading="arrow-up-from-square"
+                    icon-trailing="angle-right"
+                    label="My uploads"/>
+            </FluxMenuGroup>
         </FluxMenu>
     </FluxPane>
 </template>
@@ -12,5 +14,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxMenu, FluxMenuItem, FluxPane } from '@flux-ui/components';
+    import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane } from '@flux-ui/components';
 </script>

@@ -6,20 +6,22 @@
 
         <template #menu="{close}">
             <FluxMenu>
-                <FluxMenuItem
-                    label="Cut"
-                    type="button"
-                    @click="close"/>
+                <FluxMenuGroup>
+                    <FluxMenuItem
+                        label="Cut"
+                        type="button"
+                        @click="close"/>
 
-                <FluxMenuItem
-                    label="Copy"
-                    type="button"
-                    @click="close"/>
+                    <FluxMenuItem
+                        label="Copy"
+                        type="button"
+                        @click="close"/>
 
-                <FluxMenuItem
-                    label="Paste"
-                    type="button"
-                    @click="close"/>
+                    <FluxMenuItem
+                        label="Paste"
+                        type="button"
+                        @click="close"/>
+                </FluxMenuGroup>
             </FluxMenu>
         </template>
     </FluxContextMenu>
@@ -28,5 +30,5 @@
 <script
     setup
     lang="ts">
-    import { FluxContextMenu, FluxMenu, FluxMenuItem, FluxPane } from '@flux-ui/components';
+    import { FluxContextMenu, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane } from '@flux-ui/components';
 </script>

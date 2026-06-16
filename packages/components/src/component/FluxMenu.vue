@@ -1,7 +1,7 @@
 <template>
     <nav
         ref="element"
-        :class="isLarge ? $style.menuLarge : $style.menuNormal"
+        :class="[isLarge ? $style.menuLarge : $style.menuNormal, coneActive && $style.menuConeActive]"
         role="menu"
         aria-orientation="vertical">
         <slot/>
@@ -12,10 +12,14 @@
     lang="ts"
     setup>
     import { useFocusZone } from '@flux-ui/internals';
-    import { useTemplateRef, type VNode } from 'vue';
+    import { computed, toRef, useTemplateRef, type VNode } from 'vue';
+    import { useMenuFlyoutContext } from '~flux/components/composable/private';
     import $style from '~flux/components/css/component/Menu.module.scss';
 
-    defineProps<{
+    const {
+        debugCone = false
+    } = defineProps<{
+        readonly debugCone?: boolean;
         readonly isLarge?: boolean;
     }>();
 
@@ -28,4 +32,10 @@
     useFocusZone(elementRef, {
         direction: 'vertical'
     });
+
+    const menuFlyout = useMenuFlyoutContext({
+        debugCone: toRef(() => debugCone)
+    });
+
+    const coneActive = computed(() => !!menuFlyout.activeCone.value);
 </script>

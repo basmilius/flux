@@ -110,6 +110,7 @@ export { default as FluxLayerPaneSecondary } from './FluxLayerPaneSecondary.vue'
 export { default as FluxLink } from './FluxLink.vue';
 export { default as FluxMenu } from './FluxMenu.vue';
 export { default as FluxMenuCollapsible } from './FluxMenuCollapsible.vue';
+export { default as FluxMenuFlyout } from './FluxMenuFlyout.vue';
 export { default as FluxMenuGroup } from './FluxMenuGroup.vue';
 export { default as FluxMenuItem } from './FluxMenuItem.vue';
 export { default as FluxMenuOptions } from './FluxMenuOptions.vue';

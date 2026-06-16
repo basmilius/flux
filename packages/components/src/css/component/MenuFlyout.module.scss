@@ -1,0 +1,38 @@
+.menuFlyoutPopup {
+    composes: basePane from './base/Pane.module.scss';
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 270px;
+    max-height: max(330px, 50dvh);
+    overflow: auto;
+    box-shadow: var(--shadow-md);
+    translate: var(--x) var(--y);
+    z-index: 10000;
+}
+
+.menuFlyoutTriggerOpen {
+    background: var(--gray-100);
+}
+
+.menuFlyoutConeDebug {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 20000;
+
+    polygon {
+        fill: var(--primary-500);
+        fill-opacity: .15;
+        stroke: var(--primary-500);
+        stroke-width: 1.5;
+    }
+
+    circle {
+        fill: var(--danger-500);
+    }
+}

@@ -20,12 +20,14 @@
 
     const {
         anchor,
+        clampToViewport,
         direction = 'vertical',
         margin = 12,
         position,
         useAnchorWidth
     } = defineProps<{
         readonly anchor?: ComponentPublicInstance | HTMLElement | null;
+        readonly clampToViewport?: boolean;
         readonly direction?: FluxDirection;
         readonly margin?: number;
         readonly position?:
@@ -52,6 +54,9 @@
     onMounted(() => {
         window.addEventListener('resize', onResize, {passive: true});
         window.addEventListener('scroll', onScroll, {capture: true, passive: true});
+
+        resize();
+        reposition();
     });
 
     onUnmounted(() => {
@@ -159,6 +164,23 @@
                     py = innerHeight / 2 - popupHeight / 2;
                 }
                 break;
+        }
+
+        if (clampToViewport) {
+            if (position?.startsWith('right') && px + popupWidth > innerWidth - margin) {
+                px = x - popupWidth - margin;
+            } else if (position?.startsWith('left') && px < margin) {
+                px = x + width + margin;
+            }
+
+            if (position?.startsWith('bottom') && py + popupHeight > innerHeight - margin) {
+                py = y - popupHeight - margin;
+            } else if (position?.startsWith('top') && py < margin) {
+                py = y + height + margin;
+            }
+
+            px = Math.min(Math.max(px, margin), Math.max(margin, innerWidth - popupWidth - margin));
+            py = Math.min(Math.max(py, margin), Math.max(margin, innerHeight - popupHeight - margin));
         }
 
         state.x = px;

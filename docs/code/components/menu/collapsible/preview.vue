@@ -2,24 +2,26 @@
     <Preview>
         <FluxPane style="width: 300px">
             <FluxMenu>
-                <FluxMenuItem
-                    icon-leading="grid-2"
-                    label="Dashboard"/>
+                <FluxMenuGroup>
+                    <FluxMenuItem
+                        icon-leading="grid-2"
+                        label="Dashboard"/>
 
-                <FluxMenuCollapsible
-                    icon-leading="cubes"
-                    is-opened
-                    label="Projects">
-                    <FluxMenuItem label="Active"/>
+                    <FluxMenuCollapsible
+                        icon-leading="cubes"
+                        is-opened
+                        label="Projects">
+                        <FluxMenuItem label="Active"/>
 
-                    <FluxMenuItem label="Archived"/>
+                        <FluxMenuItem label="Archived"/>
 
-                    <FluxMenuItem label="Drafts"/>
-                </FluxMenuCollapsible>
+                        <FluxMenuItem label="Drafts"/>
+                    </FluxMenuCollapsible>
 
-                <FluxMenuItem
-                    icon-leading="gear"
-                    label="Settings"/>
+                    <FluxMenuItem
+                        icon-leading="gear"
+                        label="Settings"/>
+                </FluxMenuGroup>
             </FluxMenu>
         </FluxPane>
     </Preview>
@@ -28,5 +30,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxMenu, FluxMenuCollapsible, FluxMenuItem, FluxPane } from '@flux-ui/components';
+    import { FluxMenu, FluxMenuCollapsible, FluxMenuGroup, FluxMenuItem, FluxPane } from '@flux-ui/components';
 </script>
