@@ -60,7 +60,7 @@ class FocusTrap {
     }
 }
 
-export default {
+const focusTrapDirective: Directive = {
     beforeUnmount(elm: HTMLElement): void {
         const focusTrap = focusTraps.get(elm);
         focusTrap?.unregister();
@@ -76,6 +76,8 @@ export default {
     getSSRProps(): Record<string, unknown> {
         return {};
     }
-} satisfies Directive;
+};
+
+export default focusTrapDirective;
 
 const focusTraps: WeakMap<HTMLElement, FocusTrap> = new WeakMap();
