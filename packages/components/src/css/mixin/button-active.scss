@@ -1,6 +1,8 @@
 @mixin button-active($background) {
-    &:active {
+    &:active,
+    &.isActive {
         background: $background;
+        box-shadow: none;
         scale: .9875;
     }
 }

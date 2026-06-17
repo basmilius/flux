@@ -41,6 +41,11 @@ props:
         type: boolean
         optional: true
 
+    -   name: is-active
+        description: Shows the button in its active state, reusing the pressed appearance. Sets aria-pressed on button elements.
+        type: boolean
+        optional: true
+
     -   name: is-filled
         description: Let the button fill its parent container.
         type: boolean

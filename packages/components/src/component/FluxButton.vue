@@ -3,6 +3,7 @@
         :component-type="type"
         :class="clsx(
             cssClass,
+            isActive && cssClassActive,
             isFilled && $style.isFilled,
             size === 'small' && $style.isSmall,
             size === 'medium' && $style.isMedium,
@@ -11,6 +12,7 @@
         )"
         :type="isSubmit ? 'submit' : 'button'"
         :aria-disabled="disabled ? true : undefined"
+        :aria-pressed="isActive && type === 'button' ? true : undefined"
         :disabled="disabled ? true : undefined"
         :tabindex="disabled ? -1 : tabindex"
         :href="href"
@@ -82,6 +84,7 @@
         type = 'button'
     } = defineProps<FluxButtonProps & {
         readonly cssClass: string;
+        readonly cssClassActive?: string;
         readonly cssClassIcon: string;
         readonly cssClassLabel: string;
     }>();

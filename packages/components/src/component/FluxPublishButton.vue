@@ -1,12 +1,13 @@
 <template>
     <FluxButton
-        :="{type, disabled, iconTrailing, isFilled, isLoading, isSubmit, label, size, tabindex, href, rel, target, to}"
+        :="{type, disabled, iconTrailing, isActive, isFilled, isLoading, isSubmit, label, size, tabindex, href, rel, target, to}"
         :class="clsx(
             !isDone && !isLoading && $style.isIdle,
             isDone && $style.isDone,
             isLoading && $style.isLoading
         )"
         :css-class="$style.publishButton"
+        :css-class-active="$style.isActive"
         :css-class-icon="$style.publishButtonIcon"
         :css-class-label="$style.publishButtonLabel"
         @click="$emit('click', $event)"

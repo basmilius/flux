@@ -1,7 +1,8 @@
 <template>
     <FluxButton
-        :="{type, disabled, iconLeading, iconTrailing, isFilled, isLoading, isSubmit, label, size, tabindex, href, rel, target, to}"
+        :="{type, disabled, iconLeading, iconTrailing, isActive, isFilled, isLoading, isSubmit, label, size, tabindex, href, rel, target, to}"
         :css-class="$style.primaryLinkButton"
+        :css-class-active="$style.isActive"
         :css-class-icon="$style.primaryLinkButtonIcon"
         :css-class-label="$style.primaryLinkButtonLabel"
         @click="$emit('click', $event)"

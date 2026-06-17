@@ -13,6 +13,7 @@ export type FluxButtonProps = {
     readonly disabled?: boolean;
     readonly iconLeading?: FluxIconName | null;
     readonly iconTrailing?: FluxIconName | null;
+    readonly isActive?: boolean;
     readonly isFilled?: boolean;
     readonly isLoading?: boolean;
     readonly isSubmit?: boolean;

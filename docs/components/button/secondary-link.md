@@ -36,6 +36,11 @@ props:
         type: FluxIconName
         optional: true
 
+    -   name: is-active
+        description: Shows the button in its active state, reusing the pressed appearance. Sets aria-pressed on button elements.
+        type: boolean
+        optional: true
+
     -   name: is-filled
         description: Let the button fill its parent container.
         type: boolean
@@ -126,6 +131,10 @@ example=../../code/components/button/secondary-link/icon.vue
 
 ::: example Sizes || The secondary link button is available in four sizes.
 example=../../code/components/button/secondary-link/sizes.vue
+:::
+
+::: example Active || Use is-active to keep the button in its pressed state, for example as a toggle.
+example=../../code/components/button/secondary-link/active.vue
 :::
 
 ## Used components
