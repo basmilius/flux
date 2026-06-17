@@ -256,7 +256,8 @@
     provide(FluxFlyoutInjectionKey, {
         isClosing,
         isOpen,
-        isOpening
+        isOpening,
+        close
     });
 
     defineExpose({

@@ -5,6 +5,7 @@ export default function () {
     return inject(FluxFlyoutInjectionKey, {
         isClosing: ref(false),
         isOpen: ref(false),
-        isOpening: ref(false)
+        isOpening: ref(false),
+        close: () => {}
     });
 }

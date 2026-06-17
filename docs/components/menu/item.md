@@ -91,6 +91,11 @@ props:
         type: boolean
         optional: true
 
+    -   name: is-persistent
+        description: Keeps the surrounding menu (context menu or flyout) open when this item is clicked, instead of closing it. By default a menu item closes the menu on click.
+        type: boolean
+        optional: true
+
     -   name: is-selectable
         description: Indicates that the menu item is selectable.
         type: boolean
@@ -154,6 +159,10 @@ example=../../code/components/menu/item/basic.vue
 
 ::: example Selectable || Menu items can be selectable, mostly used within groups.
 example=../../code/components/menu/item/selectable.vue
+:::
+
+::: example Persistent || Mark items with is-persistent to keep the surrounding menu open on click — useful for toggles and multi-select actions. Items without it (like Done) still close the menu.
+example=../../code/components/menu/item/persistent.vue
 :::
 
 ::: example Keybind || Each menu item can have a keybind (command).

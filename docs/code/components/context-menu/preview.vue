@@ -5,26 +5,23 @@
                 Right-click anywhere in this area
             </FluxPane>
 
-            <template #menu="{close}">
+            <template #menu>
                 <FluxMenu>
                     <FluxMenuGroup>
                         <FluxMenuItem
                             icon-leading="pen"
                             label="Rename"
-                            type="button"
-                            @click="close"/>
+                            type="button"/>
 
                         <FluxMenuItem
                             icon-leading="copy"
                             label="Duplicate"
-                            type="button"
-                            @click="close"/>
+                            type="button"/>
 
                         <FluxMenuItem
                             icon-leading="trash"
                             label="Delete"
-                            type="button"
-                            @click="close"/>
+                            type="button"/>
                     </FluxMenuGroup>
                 </FluxMenu>
             </template>

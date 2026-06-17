@@ -7,6 +7,7 @@
         :icon-leading="icon"
         :is-active="isActive"
         :is-destructive="isDestructive"
+        is-persistent
         :label="label"
         aria-haspopup="menu"
         :aria-expanded="isOpen ? 'true' : 'false'"

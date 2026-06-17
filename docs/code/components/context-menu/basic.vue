@@ -4,23 +4,20 @@
             Right-click here
         </FluxPane>
 
-        <template #menu="{close}">
+        <template #menu>
             <FluxMenu>
                 <FluxMenuGroup>
                     <FluxMenuItem
                         label="Cut"
-                        type="button"
-                        @click="close"/>
+                        type="button"/>
 
                     <FluxMenuItem
                         label="Copy"
-                        type="button"
-                        @click="close"/>
+                        type="button"/>
 
                     <FluxMenuItem
                         label="Paste"
-                        type="button"
-                        @click="close"/>
+                        type="button"/>
                 </FluxMenuGroup>
             </FluxMenu>
         </template>

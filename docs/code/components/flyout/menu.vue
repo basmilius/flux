@@ -7,39 +7,33 @@
                 @click="open()"/>
         </template>
 
-        <template #default="{ close }">
-            <FluxMenu style="width: 210px">
-                <FluxMenuGroup>
-                    <FluxMenuItem
-                        icon-leading="grid-2"
-                        label="Overview"
-                        @click="close()"/>
-                </FluxMenuGroup>
+        <FluxMenu style="width: 210px">
+            <FluxMenuGroup>
+                <FluxMenuItem
+                    icon-leading="grid-2"
+                    label="Overview"/>
+            </FluxMenuGroup>
 
-                <FluxSeparator/>
+            <FluxSeparator/>
 
-                <FluxMenuGroup>
-                    <FluxMenuItem
-                        icon-leading="rocket"
-                        label="Releases"
-                        @click="close()"/>
+            <FluxMenuGroup>
+                <FluxMenuItem
+                    icon-leading="rocket"
+                    label="Releases"/>
 
-                    <FluxMenuItem
-                        icon-leading="rectangle-history"
-                        label="History"
-                        @click="close()"/>
-                </FluxMenuGroup>
+                <FluxMenuItem
+                    icon-leading="rectangle-history"
+                    label="History"/>
+            </FluxMenuGroup>
 
-                <FluxSeparator/>
+            <FluxSeparator/>
 
-                <FluxMenuGroup>
-                    <FluxMenuItem
-                        icon-leading="gear"
-                        label="Settings"
-                        @click="close()"/>
-                </FluxMenuGroup>
-            </FluxMenu>
-        </template>
+            <FluxMenuGroup>
+                <FluxMenuItem
+                    icon-leading="gear"
+                    label="Settings"/>
+            </FluxMenuGroup>
+        </FluxMenu>
     </FluxFlyout>
 </template>
 

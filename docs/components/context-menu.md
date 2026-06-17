@@ -21,6 +21,11 @@ props:
         type: boolean
         optional: true
 
+    -   name: is-persistent
+        description: When enabled, the context menu stays open after a menu item is clicked instead of closing. Defaults to false; individual items can also opt in via their own is-persistent.
+        type: boolean
+        optional: true
+
     -   name: position
         description: The position of the menu relative to the cursor.
         type: [ '"bottom-left"', '"bottom-right"', '"top-left"', '"…"' ]

@@ -13,6 +13,7 @@ export const FluxFormCheckboxGroupInjectionKey: InjectionKey<FluxFormCheckboxGro
 export const FluxFormFieldInjectionKey: InjectionKey<FluxFormFieldInjection> = Symbol();
 export const FluxFormRadioGroupInjectionKey: InjectionKey<FluxFormRadioGroupInjection> = Symbol();
 export const FluxMenuFlyoutInjectionKey: InjectionKey<FluxMenuFlyoutInjection> = Symbol();
+export const FluxMenuPersistentInjectionKey: InjectionKey<Readonly<Ref<boolean>>> = Symbol();
 export const FluxSegmentedControlInjectionKey: InjectionKey<FluxSegmentedControlInjection> = Symbol();
 export const FluxSplitViewInjectionKey: InjectionKey<FluxSplitViewInjection> = Symbol();
 export const FluxTabBarInjectionKey: InjectionKey<FluxTabBarInjection> = Symbol();
@@ -149,6 +150,8 @@ export type FluxFlyoutInjection = {
     readonly isClosing: Ref<boolean>;
     readonly isOpen: Ref<boolean>;
     readonly isOpening: Ref<boolean>;
+
+    close(): void;
 };
 
 export type FluxMenuFlyoutPointer = {

@@ -14,8 +14,7 @@
                     clamp-to-viewport
                     :margin="2"
                     :position="position"
-                    role="menu"
-                    @click="close()">
+                    role="menu">
                     <slot
                         name="menu"
                         v-bind="{close}"/>
@@ -29,9 +28,10 @@
     lang="ts"
     setup>
     import { isSSR, useEventListener, useFocusTrap } from '@flux-ui/internals';
-    import { computed, type ComponentPublicInstance, reactive, ref, toRef, useTemplateRef, type VNode } from 'vue';
+    import { computed, type ComponentPublicInstance, provide, reactive, ref, toRef, useTemplateRef, type VNode } from 'vue';
     import { useDisabled } from '~flux/components/composable';
     import { useMenuFlyoutProvider } from '~flux/components/composable/private';
+    import { FluxMenuPersistentInjectionKey } from '~flux/components/data';
     import { FluxFadeTransition } from '~flux/components/transition';
     import { AnchorPopup } from '~flux/components/component/primitive';
     import $style from '~flux/components/css/component/ContextMenu.module.scss';
@@ -39,10 +39,12 @@
     const {
         debugCone = false,
         disabled: componentDisabled,
+        isPersistent,
         position = 'bottom-left'
     } = defineProps<{
         readonly debugCone?: boolean;
         readonly disabled?: boolean;
+        readonly isPersistent?: boolean;
         readonly position?:
             | 'top' | 'top-left' | 'top-right'
             | 'left' | 'left-top' | 'left-bottom'
@@ -75,6 +77,8 @@
         debugCone: toRef(() => debugCone),
         onCloseAll: () => close()
     });
+
+    provide(FluxMenuPersistentInjectionKey, toRef(() => isPersistent ?? false));
 
     useFocusTrap(popupRef, {
         disable: computed(() => menuFlyout.keyboardStack.value.length > 0)

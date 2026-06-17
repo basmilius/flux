@@ -15,7 +15,7 @@
         }"
         :aria-checked="isSelectable ? isSelected : undefined"
         :tabindex="tabindex"
-        @click="$emit('click', $event)">
+        @click="onClick">
         <template
             v-if="isSelectable && (!iconLeading || isSelected)"
             #iconLeading>
@@ -69,13 +69,14 @@
     lang="ts"
     setup>
     import type { FluxButtonEmits, FluxButtonProps, FluxIconName } from '@flux-ui/types';
-    import type { VNode } from 'vue';
+    import { computed, inject, type VNode } from 'vue';
+    import { FluxMenuFlyoutInjectionKey, FluxMenuPersistentInjectionKey } from '~flux/components/data';
     import FluxButton from './FluxButton.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
     import $style from '~flux/components/css/component/Menu.module.scss';
 
-    defineEmits<FluxButtonEmits>();
+    const emit = defineEmits<FluxButtonEmits>();
 
     const slots = defineSlots<{
         after(): VNode[];
@@ -83,6 +84,7 @@
     }>();
 
     const {
+        isPersistent,
         type = 'button'
     } = defineProps<Omit<FluxButtonProps, 'isFilled' | 'isSubmit' | 'size'> & {
         readonly command?: string;
@@ -94,7 +96,24 @@
         readonly isDestructive?: boolean;
         readonly isHighlighted?: boolean;
         readonly isIndented?: boolean;
+        readonly isPersistent?: boolean;
         readonly isSelectable?: boolean;
         readonly isSelected?: boolean;
     }>();
+
+    const persistentPolicy = inject(FluxMenuPersistentInjectionKey, null);
+    const menu = inject(FluxMenuFlyoutInjectionKey, null);
+
+    // Boolean props coerce to false when absent (never undefined), so a `??` cascade can never reach
+    // the policy. Instead persistence flows down as an OR: the item stays open when its own prop is
+    // true or the nearest container (FluxMenu / FluxMenuOptions / FluxContextMenu) opts in.
+    const isPersistentResolved = computed(() => isPersistent || (persistentPolicy?.value ?? false));
+
+    function onClick(evt: MouseEvent): void {
+        emit('click', evt);
+
+        if (!isPersistentResolved.value) {
+            menu?.closeAll();
+        }
+    }
 </script>

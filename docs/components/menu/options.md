@@ -16,6 +16,12 @@ props:
         type: boolean
         optional: true
 
+    -   name: is-persistent
+        description: Keeps the surrounding menu open after an option is clicked. Defaults to true, since options menus are meant to stay open while selecting. Set to false to close the menu on selection.
+        type: boolean
+        optional: true
+        default: true
+
     -   name: mode
         description: The active mode of the option.
         type: [ '"highlight"', '"select"' ]
@@ -45,6 +51,10 @@ example=../../code/components/menu/options/alignment.vue
 
 ::: example Option || Vertical option menus can be used to allow the user to switch between different view modes.
 example=../../code/components/menu/options/option.vue
+:::
+
+::: example Inside a flyout || Option menus stay open while selecting, even inside a flyout. Pass :is-persistent="false" if you want the menu to close on selection instead.
+example=../../code/components/menu/options/persistent.vue
 :::
 
 ## Used components

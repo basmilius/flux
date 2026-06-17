@@ -5,6 +5,7 @@
             :href="href"
             :icon-leading="iconLeading"
             :icon-trailing="isOpen ? 'angle-down' : 'angle-right'"
+            is-persistent
             :label="label"
             :rel="rel"
             :target="target"

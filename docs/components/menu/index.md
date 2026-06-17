@@ -7,6 +7,11 @@ props:
         type: boolean
         optional: true
 
+    -   name: is-persistent
+        description: When enabled, clicking any item inside this menu keeps it (or its hosting flyout) open instead of closing it. Defaults to false; individual items can also opt in via their own is-persistent.
+        type: boolean
+        optional: true
+
 slots:
     -   name: default
         description: The content of the menu.
