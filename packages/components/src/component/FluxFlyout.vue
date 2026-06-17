@@ -16,8 +16,7 @@
         <dialog
             ref="dialog"
             :class="$style.flyoutDialog"
-            @click="onDialogBackdropClick"
-            @keydown.prevent.esc="close">
+            @click="onDialogBackdropClick">
             <FluxPane
                 v-if="isOpen"
                 ref="pane"
@@ -46,6 +45,12 @@
     import { FluxFlyoutInjectionKey } from '~flux/components/data';
     import FluxPane from './FluxPane.vue';
     import $style from '~flux/components/css/component/Flyout.module.scss';
+    import { useHotKey } from '@basmilius/common';
+
+    const emit = defineEmits<{
+        close: [];
+        open: [];
+    }>();
 
     const {
         direction = 'vertical',
@@ -92,6 +97,11 @@
 
     !isSSR && useEventListener(ref(window), 'resize', () => unref(isOpen) && reposition());
     useFocusTrap(paneRef);
+
+    useHotKey('esc', () => close(), {
+        enabled: isOpen,
+        target: dialogRef
+    });
 
     let closeAnimationEndListener: ((evt: AnimationEvent) => void) | null = null;
     let openAnimationEndListener: ((evt: AnimationEvent) => void) | null = null;
@@ -233,11 +243,13 @@
 
         if (isOpen && !dialog.open) {
             dialog.showModal();
+            emit('open');
 
             window.addEventListener('scroll', reposition, {passive: true});
             onCleanup(() => window.removeEventListener('scroll', reposition));
         } else if (!isOpen && dialog.open) {
             dialog.close();
+            emit('close');
         }
     });
 
@@ -250,6 +262,7 @@
     defineExpose({
         close,
         open,
-        toggle
+        toggle,
+        isOpen
     });
 </script>
