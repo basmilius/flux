@@ -122,6 +122,10 @@
         background: var(--gray-200);
     }
 
+    &.menuFlyoutTriggerOpen {
+        background: var(--gray-200);
+    }
+
     &:active {
         background: var(--gray-300);
     }
