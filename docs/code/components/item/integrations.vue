@@ -4,7 +4,8 @@
             <FluxItemStack>
                 <FluxItem
                     v-for="app in apps"
-                    :key="app.key">
+                    :key="app.key"
+                    is-control>
                     <FluxItemMedia
                         is-center
                         :size="40">

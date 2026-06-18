@@ -2,6 +2,12 @@
 
 A typical create/edit pattern: a list view, a router-driven overlay for the form, server-side validation surfaced as inline errors, and a save action that closes the overlay on success.
 
+::: render
+render=../../code/guide/patterns/crud-form/preview.vue
+:::
+
+The example above is the form in isolation — try saving with an empty name or a key that isn't 2–5 uppercase letters to see inline validation. The sections below wire it behind a route.
+
 ## Anatomy
 
 The form lives behind a named route (see [Overlay → Router-driven](../../components/overlay#router-driven)). The list view triggers it through `router.push`; the overlay reads the resource id from `route.params`.

@@ -159,7 +159,20 @@ export default defineConfig({
                         {text: 'CRUD form', link: '/guide/patterns/crud-form'},
                         {text: 'Filterable data table', link: '/guide/patterns/filterable-data-table'},
                         {text: 'Stepper wizard', link: '/guide/patterns/stepper-wizard'},
-                        {text: 'Programmatic dialogs', link: '/guide/patterns/programmatic-dialogs'}
+                        {text: 'Programmatic dialogs', link: '/guide/patterns/programmatic-dialogs'},
+                        {text: 'Application shell', link: '/guide/patterns/app-shell'},
+                        {text: 'Dashboard', link: '/guide/patterns/dashboard'},
+                        {text: 'Data management', link: '/guide/patterns/data-management'},
+                        {text: 'Project board', link: '/guide/patterns/project-board'},
+                        {text: 'Settings', link: '/guide/patterns/settings'},
+                        {text: 'Contact profile', link: '/guide/patterns/profile'},
+                        {text: 'Media library', link: '/guide/patterns/media-library'},
+                        {text: 'Inbox', link: '/guide/patterns/inbox'},
+                        {text: 'Command center', link: '/guide/patterns/command-center'},
+                        {text: 'Onboarding', link: '/guide/patterns/onboarding'},
+                        {text: 'Scheduling', link: '/guide/patterns/scheduling'},
+                        {text: 'Checkout', link: '/guide/patterns/checkout'},
+                        {text: 'States', link: '/guide/patterns/states'}
                     ]
                 }
             ],

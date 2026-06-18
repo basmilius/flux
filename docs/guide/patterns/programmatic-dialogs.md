@@ -11,6 +11,10 @@ Flux ships two distinct ways of showing dialogs:
 
 This recipe lays out when to reach for which.
 
+::: render
+render=../../code/guide/patterns/programmatic-dialogs/preview.vue
+:::
+
 ## When to use which
 
 <FluxPane>

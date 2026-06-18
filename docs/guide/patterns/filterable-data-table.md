@@ -2,6 +2,12 @@
 
 A `FluxDataTable` driven by a `FluxFilterBar`, with server-side pagination and persisted filter state. This is the recipe for any "list of entities with search and filters" view.
 
+::: render
+render=../../code/guide/patterns/filterable-data-table/preview.vue
+:::
+
+The example above filters client-side for demonstration; the sections below show how to wire the same components to a server.
+
 ## Anatomy
 
 Three building blocks:
@@ -15,8 +21,24 @@ Three building blocks:
 ```vue [Projects.vue]
 <template>
     <FluxFilterBar
-        v-model:state="filterState"
-        :filters="filters"/>
+        v-model="filterState"
+        v-model:search="search"
+        is-searchable
+        search-placeholder="Search projects...">
+        <FluxFilterOption
+            icon="circle-check"
+            label="Status"
+            name="status"
+            :options="[
+                {label: 'Active', value: 'active'},
+                {label: 'Inactive', value: 'inactive'}
+            ]"/>
+
+        <FluxFilterDateRange
+            icon="calendar"
+            label="Created on"
+            name="createdOn"/>
+    </FluxFilterBar>
 
     <FluxDataTable
         unique-key="id"
@@ -29,18 +51,24 @@ Three building blocks:
         @limit="onLimit"
         @navigate="onNavigate">
         <template #header>
-            <FluxTableHeader label="Name"/>
-            <FluxTableHeader label="Status"/>
-            <FluxTableHeader label="Created on"/>
+            <FluxTableHeader>Name</FluxTableHeader>
+            <FluxTableHeader>Status</FluxTableHeader>
+            <FluxTableHeader>Created on</FluxTableHeader>
         </template>
 
-        <template #default="{item}">
+        <template #name="{item}">
             <FluxTableCell>{{ item.name }}</FluxTableCell>
+        </template>
+
+        <template #status="{item}">
             <FluxTableCell>
                 <FluxBadge
                     :color="item.status === 'active' ? 'success' : 'gray'"
                     :label="item.status"/>
             </FluxTableCell>
+        </template>
+
+        <template #createdOn="{item}">
             <FluxTableCell>{{ item.createdOn.toFormat('dd LLL yyyy') }}</FluxTableCell>
         </template>
     </FluxDataTable>
@@ -49,28 +77,13 @@ Three building blocks:
 <script
     lang="ts"
     setup>
-    import { FluxBadge, FluxDataTable, FluxFilterBar, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
-    import type { FluxFilterItem, FluxFilterState } from '@flux-ui/types';
+    import { FluxBadge, FluxDataTable, FluxFilterBar, FluxFilterDateRange, FluxFilterOption, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
+    import type { FluxFilterState } from '@flux-ui/types';
     import { ref, watch } from 'vue';
     import { fetchProjects } from './api';
 
+    const search = ref('');
     const filterState = ref<FluxFilterState>({});
-    const filters: FluxFilterItem[] = [
-        {
-            type: 'options',
-            name: 'status',
-            label: 'Status',
-            icon: 'circle-dot',
-            getValueLabel: async value => Array.isArray(value) ? value.join(', ') : null
-        },
-        {
-            type: 'dateRange',
-            name: 'createdOn',
-            label: 'Created on',
-            icon: 'calendar',
-            getValueLabel: async () => null
-        }
-    ];
 
     const items = ref<Project[]>([]);
     const total = ref(0);
@@ -87,12 +100,13 @@ Three building blocks:
         page.value = next;
     }
 
-    watch([filterState, page, perPage], async () => {
+    watch([filterState, search, page, perPage], async () => {
         isLoading.value = true;
 
         try {
             const result = await fetchProjects({
                 filters: filterState.value,
+                search: search.value,
                 page: page.value,
                 perPage: perPage.value
             });
