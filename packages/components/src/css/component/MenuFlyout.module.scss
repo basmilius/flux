@@ -55,11 +55,3 @@
         stroke: var(--success-500);
     }
 }
-
-// While the grace window is counting down to a close, recolour the cone so the timing is obvious.
-.menuFlyoutConeDebugGrace {
-    polygon {
-        fill: var(--danger-500);
-        stroke: var(--danger-500);
-    }
-}

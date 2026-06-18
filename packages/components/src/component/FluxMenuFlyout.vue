@@ -37,18 +37,20 @@
 
         <svg
             v-if="showDebugCone"
-            :class="clsx($style.menuFlyoutConeDebug, cone?.back && $style.menuFlyoutConeDebugBack, cone?.grace && $style.menuFlyoutConeDebugGrace)">
+            :class="clsx($style.menuFlyoutConeDebug, cone?.back && $style.menuFlyoutConeDebugBack)">
             <polygon :points="conePoints"/>
-            <line
-                :x1="coneApex.x"
-                :y1="coneApex.y"
-                :x2="coneHead.x"
-                :y2="coneHead.y"/>
-            <circle
-                :class="$style.menuFlyoutConeDebugApex"
-                :cx="coneApex.x"
-                :cy="coneApex.y"
-                r="4"/>
+            <template v-if="!cone?.back">
+                <line
+                    :x1="coneApex.x"
+                    :y1="coneApex.y"
+                    :x2="coneHead.x"
+                    :y2="coneHead.y"/>
+                <circle
+                    :class="$style.menuFlyoutConeDebugApex"
+                    :cx="coneApex.x"
+                    :cy="coneApex.y"
+                    r="4"/>
+            </template>
             <circle
                 :class="$style.menuFlyoutConeDebugHead"
                 :cx="coneHead.x"
@@ -126,7 +128,17 @@
     } = useMenuFlyout({triggerRef, popupRef, disabled: toRef(() => disabled)});
 
     const showDebugCone = computed(() => !!context && context.debugCone.value && isOpen.value && !!cone.value);
-    const conePoints = computed(() => cone.value ? `${cone.value.ax},${cone.value.ay} ${cone.value.bx},${cone.value.by} ${cone.value.cx},${cone.value.cy}` : '');
+    const conePoints = computed(() => {
+        const value = cone.value;
+
+        if (!value) {
+            return '';
+        }
+
+        const points = `${value.ax},${value.ay} ${value.bx},${value.by} ${value.cx},${value.cy}`;
+
+        return value.dx !== undefined && value.dy !== undefined ? `${points} ${value.dx},${value.dy}` : points;
+    });
     const coneApex = computed(() => ({x: cone.value?.ax ?? 0, y: cone.value?.ay ?? 0}));
     const coneHead = computed(() => ({x: cone.value?.hx ?? 0, y: cone.value?.hy ?? 0}));
 </script>

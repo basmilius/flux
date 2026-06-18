@@ -176,19 +176,20 @@ export type FluxMenuFlyoutPointer = {
 
 export type FluxMenuFlyoutCone = {
     readonly id: number;
-    // Apex (the trailing anchor).
+    // Polygon corners. The forward cone is a triangle (a, b, c); the return cone is a trapezium
+    // corridor that also uses the optional fourth corner (d).
     readonly ax: number;
     readonly ay: number;
-    // Base corners on the popup's near edge (velocity-buffered).
     readonly bx: number;
     readonly by: number;
     readonly cx: number;
     readonly cy: number;
+    // Fourth corner, only present for the return corridor (absent → forward triangle).
+    readonly dx?: number;
+    readonly dy?: number;
     // Pointer "head" position, used to draw the velocity vector in the debug overlay.
     readonly hx: number;
     readonly hy: number;
-    // True while the cone no longer holds but a grace window keeps the submenu open a little longer.
-    readonly grace: boolean;
     // True for the return cone (aiming back from the submenu towards its opener) rather than the
     // forward cone (aiming from the opener into the submenu).
     readonly back: boolean;
