@@ -199,6 +199,10 @@ export type FluxMenuFlyoutEntry = {
     getTrigger(): HTMLElement | null;
     getPopup(): HTMLElement | null;
     readonly isOpen: Ref<boolean>;
+    // Whether the pointer was inside this submenu's popup (or an open descendant) within the return
+    // window — i.e. the pointer is genuinely travelling back from this submenu, not merely sweeping
+    // past its opener. Gates the return cone so a vertical sweep through the column never sticks.
+    wasRecentlyInside(): boolean;
     close(): void;
 };
 

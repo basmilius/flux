@@ -14,9 +14,11 @@ const CONE_EDGE_BUFFER = 9;
 // Extra base margin per px/ms of pointer speed, capped — faster moves get a wider, more forgiving cone.
 const VELOCITY_BUFFER_SCALE = 15;
 const MAX_VELOCITY_BUFFER = 30;
-// Minimum horizontal speed (px/ms) towards the opener before the return cone is allowed to hold the
-// submenu open — below it a (near-)vertical sweep through the menu column would get stuck on the cone.
-const SPEED_EPSILON = 0.02;
+// How long (ms) after the pointer was last inside a submenu's popup the return cone keeps holding it
+// open while travelling back towards the opener. A time window (rather than instantaneous velocity)
+// lets the return survive slow, curved or paused moves, while a pure column sweep — where the pointer
+// was never inside the popup — never qualifies.
+const RETURN_WINDOW = 400;
 // Grace window (ms) before a submenu closes once the pointer leaves the cone, to absorb overshoot.
 const CONE_GRACE_DURATION = 150;
 
@@ -280,9 +282,9 @@ export function useMenuFlyoutProvider(options: UseMenuFlyoutProviderOptions): Fl
 
                 // Aiming into the submenu (forward) or travelling back towards its opener (return) both
                 // count, so a sibling opener never steals the hover while the pointer is in transit. The
-                // return cone only holds while genuinely moving back (see isAimingBack), otherwise a fast
-                // vertical sweep through the column would keep siblings stuck open.
-                if (isAimingForward(pointerState, t, r) || isAimingBack(pointerState, t, r)) {
+                // return cone only counts while the pointer recently left this submenu's popup, otherwise
+                // a vertical sweep through the column would keep siblings stuck open.
+                if (isAimingForward(pointerState, t, r) || (entry.wasRecentlyInside() && isAimingReturn(pointerState, t, r))) {
                     return true;
                 }
             }
@@ -373,12 +375,16 @@ export default function useMenuFlyout(options: UseMenuFlyoutOptions): UseMenuFly
     const cone = ref<FluxMenuFlyoutCone | null>(null);
 
     let graceTimer = 0;
+    // performance.now() of the last tick where the pointer was inside this submenu's popup (or an open
+    // descendant). Drives the return cone's "did the pointer just leave this submenu" window.
+    let lastInsidePopupTime = 0;
 
     const entry: FluxMenuFlyoutEntry = {
         id,
         getTrigger: () => elementOf(triggerRef.value),
         getPopup: () => elementOf(popupRef.value),
         isOpen,
+        wasRecentlyInside: () => performance.now() - lastInsidePopupTime < RETURN_WINDOW,
         close: () => doClose()
     };
 
@@ -435,8 +441,8 @@ export default function useMenuFlyout(options: UseMenuFlyoutOptions): UseMenuFly
         }
     }
 
-    function buildCone(flags: {grace: boolean; back: boolean}, x: number, y: number, tx: number, ty: number, geom: FluxMenuFlyoutConeGeometry): FluxMenuFlyoutCone {
-        return {id, ax: tx, ay: ty, bx: geom.bx, by: geom.by, cx: geom.cx, cy: geom.cy, hx: x, hy: y, grace: flags.grace, back: flags.back};
+    function buildCone(flags: {grace: boolean; back: boolean}, ax: number, ay: number, hx: number, hy: number, basis: {bx: number; by: number; cx: number; cy: number}): FluxMenuFlyoutCone {
+        return {id, ax, ay, bx: basis.bx, by: basis.by, cx: basis.cx, cy: basis.cy, hx, hy, grace: flags.grace, back: flags.back};
     }
 
     // The cone no longer holds. Instead of closing instantly, keep the submenu open for a short grace
@@ -530,7 +536,8 @@ export default function useMenuFlyout(options: UseMenuFlyoutOptions): UseMenuFly
                 return;
             }
 
-            const {x, y, tx, ty, vx, speed} = context.pointer.value;
+            const {x, y, tx, ty, speed} = context.pointer.value;
+            const now = performance.now();
             const t = trigger.getBoundingClientRect();
             const overTrigger = x >= t.left && x <= t.right && y >= t.top && y <= t.bottom;
 
@@ -557,9 +564,16 @@ export default function useMenuFlyout(options: UseMenuFlyoutOptions): UseMenuFly
 
             const r = popup.getBoundingClientRect();
             const overPopup = x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+            const insidePopup = overPopup || context.hasOpenDescendant(entry);
 
-            // Over the trigger/popup or with an open descendant: nothing to predict, keep it open.
-            if (overTrigger || overPopup || context.hasOpenDescendant(entry)) {
+            // Over the trigger/popup or with an open descendant: nothing to predict, keep it open. Mark
+            // the popup-side presence so the return cone knows the pointer just left this submenu (being
+            // over the opener alone does not count — that is the ordinary column-hover a sweep produces).
+            if (overTrigger || insidePopup) {
+                if (insidePopup) {
+                    lastInsidePopupTime = now;
+                }
+
                 cancelGrace();
                 clearCone();
 
@@ -568,23 +582,25 @@ export default function useMenuFlyout(options: UseMenuFlyoutOptions): UseMenuFly
 
             const forwardGeom = computeConeGeometry(t, r, speed);
 
-            // Forward: aiming from the opener into the submenu.
+            // Forward: aiming from the opener into the submenu. Apex trails the pointer (recent direction),
+            // base on the popup's near edge.
             if (keepOpenByCone(x, y, tx, ty, forwardGeom)) {
                 cancelGrace();
-                cone.value = buildCone({grace: false, back: false}, x, y, tx, ty, forwardGeom);
+                cone.value = buildCone({grace: false, back: false}, tx, ty, x, y, forwardGeom);
                 context.activeCone.value = cone.value;
 
                 return;
             }
 
-            // Return: travelling back from the submenu towards its opener. Only holds while the pointer is
-            // actually moving back towards the opener, so a fast (near-)vertical sweep through the column
-            // does not keep this submenu — and its opener's hover state — stuck open.
-            const returnGeom = computeConeGeometry(r, t, speed);
+            // Return: travelling back from the submenu towards its opener. The corridor (apex pinned at the
+            // opener, base spanning the whole popup) keeps it open coming back from anywhere in the submenu.
+            // Gated on having recently left this popup, so a (near-)vertical column sweep — where the pointer
+            // was never inside the popup — does not keep this submenu (and its opener) stuck open.
+            const returnCone = computeReturnCone(t, r, speed);
 
-            if (isMovingTowardsOpener(vx, t, r) && keepOpenByCone(x, y, tx, ty, returnGeom)) {
+            if (now - lastInsidePopupTime < RETURN_WINDOW && pointInTriangle(x, y, returnCone.ax, returnCone.ay, returnCone.bx, returnCone.by, returnCone.cx, returnCone.cy)) {
                 cancelGrace();
-                cone.value = buildCone({grace: false, back: true}, x, y, tx, ty, returnGeom);
+                cone.value = buildCone({grace: false, back: true}, returnCone.ax, returnCone.ay, x, y, returnCone);
                 context.activeCone.value = cone.value;
 
                 return;
@@ -593,7 +609,7 @@ export default function useMenuFlyout(options: UseMenuFlyoutOptions): UseMenuFly
             // The pointer left both cones. Keep the overlay drawn (flagged grace) but release the active
             // cone so the owning menu's items become interactive again immediately — the parent should
             // not stay dimmed while the grace window decides whether this is overshoot or a real exit.
-            cone.value = buildCone({grace: true, back: false}, x, y, tx, ty, forwardGeom);
+            cone.value = buildCone({grace: true, back: false}, tx, ty, x, y, forwardGeom);
 
             if (context.activeCone.value?.id === id) {
                 context.activeCone.value = null;
@@ -685,24 +701,32 @@ function isAimingForward(pointer: FluxMenuFlyoutPointer, t: DOMRect, r: DOMRect)
 }
 
 /**
- * Whether the pointer is travelling back from the open submenu towards its opener (the return safe
- * triangle, gated on horizontal velocity so it only applies while genuinely heading back).
+ * Builds the return cone: the corridor between the opener and the submenu. Unlike the forward cone it
+ * does not trail the pointer — its apex is pinned at the opener centre and its base spans the whole
+ * popup (near edge, full height, velocity-buffered). This keeps the submenu open while the pointer
+ * travels back from anywhere inside it, and is drawn apex-at-opener (matching the green return overlay).
  */
-function isAimingBack(pointer: FluxMenuFlyoutPointer, t: DOMRect, r: DOMRect): boolean {
-    if (!isMovingTowardsOpener(pointer.vx, t, r)) {
-        return false;
-    }
+function computeReturnCone(t: DOMRect, r: DOMRect, speed: number): {ax: number; ay: number; bx: number; by: number; cx: number; cy: number} {
+    const edgeX = r.left >= t.right ? r.left : (r.right <= t.left ? r.right : r.left);
+    const buffer = CONE_EDGE_BUFFER + Math.min(speed * VELOCITY_BUFFER_SCALE, MAX_VELOCITY_BUFFER);
 
-    return keepOpenByCone(pointer.x, pointer.y, pointer.tx, pointer.ty, computeConeGeometry(r, t, pointer.speed));
+    return {
+        ax: (t.left + t.right) / 2,
+        ay: (t.top + t.bottom) / 2,
+        bx: edgeX,
+        by: r.top - buffer,
+        cx: edgeX,
+        cy: r.bottom + buffer
+    };
 }
 
 /**
- * Whether the horizontal velocity points from the popup back towards its opener. The return cone may
- * only hold the submenu open while genuinely heading back — a (near-)vertical sweep through the menu
- * column has ~zero horizontal velocity and must not get stuck on the return triangle.
+ * Whether the pointer sits inside the return corridor of an open submenu. The caller gates this on the
+ * pointer having recently left the popup (entry.wasRecentlyInside) so it only applies while genuinely
+ * heading back, not during a vertical sweep that merely grazes the opener.
  */
-function isMovingTowardsOpener(vx: number, t: DOMRect, r: DOMRect): boolean {
-    const towardOpener = Math.sign((t.left + t.right) - (r.left + r.right));
+function isAimingReturn(pointer: FluxMenuFlyoutPointer, t: DOMRect, r: DOMRect): boolean {
+    const cone = computeReturnCone(t, r, pointer.speed);
 
-    return vx * towardOpener > SPEED_EPSILON;
+    return pointInTriangle(pointer.x, pointer.y, cone.ax, cone.ay, cone.bx, cone.by, cone.cx, cone.cy);
 }
