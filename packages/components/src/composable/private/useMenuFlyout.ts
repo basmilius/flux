@@ -37,6 +37,7 @@ export function useMenuFlyoutProvider(options: UseMenuFlyoutProviderOptions): Fl
     const entries = new Set<FluxMenuFlyoutEntry>();
 
     const pointer = ref<FluxMenuFlyoutPointer>({x: 0, y: 0, px: 0, py: 0});
+    const pointerType = ref('');
     const activeCone = ref<FluxMenuFlyoutCone | null>(null);
     const keyboardStack = ref<number[]>([]);
 
@@ -57,12 +58,17 @@ export function useMenuFlyoutProvider(options: UseMenuFlyoutProviderOptions): Fl
         flushPointer();
     }
 
+    function onPointerDown(evt: PointerEvent): void {
+        pointerType.value = evt.pointerType;
+    }
+
     function startTracking(): void {
         if (isSSR) {
             return;
         }
 
         window.addEventListener('pointermove', onPointerMove, {capture: true, passive: true});
+        window.addEventListener('pointerdown', onPointerDown, {capture: true, passive: true});
     }
 
     function stopTracking(): void {
@@ -71,11 +77,13 @@ export function useMenuFlyoutProvider(options: UseMenuFlyoutProviderOptions): Fl
         }
 
         window.removeEventListener('pointermove', onPointerMove, {capture: true});
+        window.removeEventListener('pointerdown', onPointerDown, {capture: true});
     }
 
     const context: FluxMenuFlyoutInjection = {
         debugCone,
         pointer,
+        pointerType,
         activeCone,
         keyboardStack,
 
@@ -293,8 +301,25 @@ export default function useMenuFlyout(options: UseMenuFlyoutOptions): UseMenuFly
         evt.stopPropagation();
 
         // evt.detail === 0 means the click came from the keyboard (Enter/Space), in which case we
-        // move focus into the submenu. A real pointer click keeps focus where it is.
-        open(evt.detail === 0 ? 'keyboard' : 'pointer');
+        // move focus into the submenu.
+        if (evt.detail === 0) {
+            open('keyboard');
+            return;
+        }
+
+        // On touch there is no hover, so the trigger acts as a toggle: tap to open, tap again to close.
+        if (context?.pointerType.value === 'touch') {
+            if (isOpen.value) {
+                doClose();
+            } else {
+                open('pointer');
+            }
+
+            return;
+        }
+
+        // A real mouse click keeps focus where it is.
+        open('pointer');
     }
 
     function onTriggerKeydown(evt: KeyboardEvent): void {
@@ -316,6 +341,12 @@ export default function useMenuFlyout(options: UseMenuFlyoutOptions): UseMenuFly
 
     if (context && !isSSR) {
         watch(context.pointer, () => {
+            // On touch there is no hover: opening/closing is driven entirely by taps (onTriggerClick),
+            // so a swipe or scroll must not open submenus or trigger the prediction-cone close.
+            if (context.pointerType.value === 'touch') {
+                return;
+            }
+
             const trigger = elementOf(triggerRef.value);
 
             if (!trigger) {

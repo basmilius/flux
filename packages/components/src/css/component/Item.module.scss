@@ -69,6 +69,10 @@
     margin: 0;
 }
 
-.basePaneStructure:is(a, button):hover:has(> .item) {
-    background-color: color-mix(in srgb, rgb(from var(--surface-hover) r g b / .125), var(--surface));
+.basePaneStructure:is(a, button) {
+    @include mixin.hover {
+        &:has(> .item) {
+            background-color: color-mix(in srgb, rgb(from var(--surface-hover) r g b / .125), var(--surface));
+        }
+    }
 }

@@ -1,6 +1,7 @@
 .coordinatePicker {
     position: relative;
     aspect-ratio: 5 / 3;
+    touch-action: none;
     background: var(--gray-50);
     border: 1px solid var(--surface-stroke-out);
     border-radius: var(--radius-half);

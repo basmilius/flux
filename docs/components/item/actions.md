@@ -26,6 +26,12 @@ This component is best used within an [Item](./index).
 
 <FrontmatterDocs/>
 
+## Examples
+
+::: example Buttons || Actions are not limited to icon buttons — use regular buttons for primary choices.
+example=../../code/components/item/actions/buttons.vue
+:::
+
 ## Snippet
 
 ::: code-group

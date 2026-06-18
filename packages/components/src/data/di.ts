@@ -181,6 +181,7 @@ export type FluxMenuFlyoutEntry = {
 export type FluxMenuFlyoutInjection = {
     readonly debugCone: Ref<boolean>;
     readonly pointer: Readonly<Ref<FluxMenuFlyoutPointer>>;
+    readonly pointerType: Readonly<Ref<string>>;
     readonly activeCone: Ref<FluxMenuFlyoutCone | null>;
     readonly keyboardStack: Ref<number[]>;
 

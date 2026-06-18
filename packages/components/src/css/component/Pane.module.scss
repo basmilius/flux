@@ -38,7 +38,7 @@
     transition: 210ms var(--swift-out);
     transition-property: background, border-color, box-shadow;
 
-    &:hover {
+    @include mixin.hover {
         border-color: var(--surface-stroke-out-hover);
         box-shadow: var(--shadow-lg);
     }

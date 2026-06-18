@@ -19,7 +19,8 @@
         :aria-valuetext="`${modelValue ?? 0} / ${count}`"
         :tabindex="isInteractive ? 0 : undefined"
         @keydown="onKeyDown"
-        @mouseleave="hoverValue = null">
+        @pointerleave="hoverValue = null"
+        @pointercancel="hoverValue = null">
         <input
             v-if="name"
             type="hidden"
@@ -38,7 +39,7 @@
                 '--fill': fillFor(star)
             }"
             @click="onClick(star, $event)"
-            @mousemove="onMouseMove(star, $event)">
+            @pointermove="onMouseMove(star, $event)">
             <FluxIcon
                 :class="$style.formRatingStarEmpty"
                 :name="icon"/>

@@ -950,7 +950,7 @@
     font-weight: 700;
     text-align: center;
 
-    &:hover {
+    @include mixin.hover {
         border-color: var(--surface-stroke-hover);
     }
 

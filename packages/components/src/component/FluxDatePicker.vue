@@ -72,8 +72,8 @@
                                 tabindex="-1"
                                 type="button"
                                 @click="setDate(date)"
-                                @mouseover="onDateMouseOver(date)"
-                                @mouseout="onDateMouseOut">
+                                @pointerenter="onDateMouseOver(date)"
+                                @pointerleave="onDateMouseOut">
                                 {{ date.toLocaleString({day: 'numeric'}) }}
                             </button>
                         </template>

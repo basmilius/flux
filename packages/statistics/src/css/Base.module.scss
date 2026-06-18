@@ -1,3 +1,5 @@
+@use '~flux/components/css/mixin';
+
 .statisticsBase {
     display: flex;
     height: 100%;
@@ -43,7 +45,7 @@
     scale: .75;
     transition: color .2s var(--swift-out);
 
-    &:hover {
+    @include mixin.hover {
         color: var(--foreground-prominent);
     }
 }

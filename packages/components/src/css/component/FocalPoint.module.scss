@@ -9,6 +9,7 @@
     max-height: 210px;
     max-width: 100%;
     aspect-ratio: var(--aspect-ratio);
+    touch-action: none;
     user-select: none;
 }
 

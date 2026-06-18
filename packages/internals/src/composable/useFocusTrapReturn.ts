@@ -12,7 +12,7 @@ export default function (containerRef: TemplateRef<HTMLElement>, disabled: Ref<b
         const previousTarget = document.activeElement as HTMLElement | null;
 
         onCleanup(() => {
-            requestAnimationFrame(() => previousTarget?.focus());
+            requestAnimationFrame(() => previousTarget?.focus({preventScroll: true}));
         });
     });
 }

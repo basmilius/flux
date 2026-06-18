@@ -1,3 +1,5 @@
+@use '~flux/components/css/mixin';
+
 .splitView {
     display: grid;
     width: 100%;
@@ -36,6 +38,7 @@
     position: relative;
 
     display: block;
+    touch-action: none;
     border: 0;
     margin: 0;
     padding: 0;
@@ -54,9 +57,14 @@
         transition: background .15s var(--swift-out);
     }
 
-    &:hover::before,
     &:focus-visible::before {
         background: var(--primary-500);
+    }
+
+    @include mixin.hover {
+        &::before {
+            background: var(--primary-500);
+        }
     }
 
     &:focus-visible {

@@ -16,6 +16,12 @@ render=../../code/components/item/stack/preview.vue
 
 <FrontmatterDocs/>
 
+## Examples
+
+::: example Rich list || A stack of items with media, content and actions forms a cohesive list.
+example=../../code/components/item/stack/rich.vue
+:::
+
 ## Snippet
 
 ::: code-group

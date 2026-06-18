@@ -1,3 +1,5 @@
+@use '~flux/components/css/mixin';
+
 .statisticsPercentageBar {
     display: flex;
     flex-flow: column;
@@ -15,9 +17,14 @@
     border-radius: calc(var(--radius) / 3);
     transition: var(--transition-default);
     transition-property: height, margin, flex-grow, opacity;
+
+    @include mixin.hover {
+        height: 16px;
+        margin-top: -2px;
+        margin-bottom: -2px;
+    }
 }
 
-.statisticsPercentageBarSegment:hover,
 .statisticsPercentageBarSegment.isHovered {
     height: 16px;
     margin-top: -2px;

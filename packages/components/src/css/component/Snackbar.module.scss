@@ -73,7 +73,7 @@
     transition: var(--transition-default);
     transition-property: background, color;
 
-    &:hover {
+    @include mixin.hover {
         background: var(--surface-hover);
         color: var(--foreground-prominent);
     }

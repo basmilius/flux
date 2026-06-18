@@ -31,6 +31,12 @@ This component is best used within an [Item](./index).
 
 <FrontmatterDocs/>
 
+## Examples
+
+::: example Variants || The media area can hold an avatar, a boxed icon or a raw image.
+example=../../code/components/item/media/variants.vue
+:::
+
 ## Snippet
 
 ::: code-group

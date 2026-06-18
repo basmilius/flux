@@ -25,6 +25,7 @@
 <script
     lang="ts"
     setup>
+    import { isSSR } from '@flux-ui/internals';
     import type { FluxFocalPointObject } from '@flux-ui/types';
     import { ref } from 'vue';
     import FluxFocalPointImage from './FluxFocalPointImage.vue';
@@ -45,5 +46,7 @@
         readonly url: string;
     }>();
 
-    const isDeleteVisible = ref(false);
+    // The delete button reveals on hover, but touch devices can't hover, so show it from the start
+    // there (mouseenter/mouseout never fire on touch, keeping it visible).
+    const isDeleteVisible = ref(!isSSR && !matchMedia('(hover: hover)').matches);
 </script>

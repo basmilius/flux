@@ -26,6 +26,12 @@ This component is best used within an [Item](./index).
 
 <FrontmatterDocs/>
 
+## Examples
+
+::: example Rich content || Combine a title, description and inline metadata within the content area.
+example=../../code/components/item/content/rich.vue
+:::
+
 ## Snippet
 
 ::: code-group

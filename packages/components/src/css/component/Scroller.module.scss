@@ -1,3 +1,5 @@
+@use '~flux/components/css/mixin';
+
 .scroller {
     position: relative;
     overflow: auto;
@@ -19,7 +21,7 @@
         border-radius: 4px;
     }
 
-    &:hover {
+    @include mixin.hover {
         &::-webkit-scrollbar-thumb {
             background-color: var(--gray-400);
         }
