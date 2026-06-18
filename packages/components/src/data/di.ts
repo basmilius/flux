@@ -164,21 +164,38 @@ export type FluxItemControlInjection = {
 export type FluxMenuFlyoutPointer = {
     readonly x: number;
     readonly y: number;
-    readonly px: number;
-    readonly py: number;
+    // Trailing "anchor" point: the pointer position from roughly TRAIL_LAG ago. Used as the apex
+    // of the prediction cone so the safe triangle stays stable even when the pointer moves slowly.
+    readonly tx: number;
+    readonly ty: number;
+    // Smoothed pointer velocity in px/ms (EMA), with its precomputed magnitude.
+    readonly vx: number;
+    readonly vy: number;
+    readonly speed: number;
 };
 
 export type FluxMenuFlyoutCone = {
     readonly id: number;
+    // Apex (the trailing anchor).
     readonly ax: number;
     readonly ay: number;
+    // Base corners on the popup's near edge (velocity-buffered).
     readonly bx: number;
     readonly by: number;
     readonly cx: number;
     readonly cy: number;
+    // Pointer "head" position, used to draw the velocity vector in the debug overlay.
+    readonly hx: number;
+    readonly hy: number;
+    // True while the cone no longer holds but a grace window keeps the submenu open a little longer.
+    readonly grace: boolean;
+    // True for the return cone (aiming back from the submenu towards its opener) rather than the
+    // forward cone (aiming from the opener into the submenu).
+    readonly back: boolean;
 };
 
 export type FluxMenuFlyoutEntry = {
+    readonly id: number;
     getTrigger(): HTMLElement | null;
     getPopup(): HTMLElement | null;
     readonly isOpen: Ref<boolean>;
@@ -196,8 +213,11 @@ export type FluxMenuFlyoutInjection = {
     unregister(entry: FluxMenuFlyoutEntry): void;
     closeOthers(self: FluxMenuFlyoutEntry): void;
     hasOpenDescendant(self: FluxMenuFlyoutEntry): boolean;
-    isAimingAtOpenSubmenu(): boolean;
+    isAimingAtOpenSubmenu(askTrigger: HTMLElement | null): boolean;
     isInsidePopups(target: Node | null): boolean;
+    // Returns the trigger element of the flyout that currently owns the active cone, so a menu can tell
+    // whether that cone belongs to one of its own items (and should dim only that menu's siblings).
+    getActiveConeTrigger(): HTMLElement | null;
     closeAll(): void;
 };
 

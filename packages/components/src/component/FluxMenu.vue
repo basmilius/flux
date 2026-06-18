@@ -45,5 +45,16 @@
 
     provide(FluxMenuPersistentInjectionKey, computed(() => isPersistent || (parentPersistent?.value ?? false)));
 
-    const coneActive = computed(() => !!menuFlyout.activeCone.value);
+    // Dim sibling items only in the menu that actually owns the active cone's opener (the trigger lives
+    // in this nav), so ancestor menus stay interactive while a deeper submenu's cone is active.
+    const coneActive = computed(() => {
+        if (!menuFlyout.activeCone.value) {
+            return false;
+        }
+
+        const trigger = menuFlyout.getActiveConeTrigger();
+        const nav = elementRef.value;
+
+        return !!trigger && !!nav && nav.contains(trigger);
+    });
 </script>

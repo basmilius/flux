@@ -37,12 +37,23 @@
 
         <svg
             v-if="showDebugCone"
-            :class="$style.menuFlyoutConeDebug">
+            :class="clsx($style.menuFlyoutConeDebug, cone?.back && $style.menuFlyoutConeDebugBack, cone?.grace && $style.menuFlyoutConeDebugGrace)">
             <polygon :points="conePoints"/>
+            <line
+                :x1="coneApex.x"
+                :y1="coneApex.y"
+                :x2="coneHead.x"
+                :y2="coneHead.y"/>
             <circle
+                :class="$style.menuFlyoutConeDebugApex"
                 :cx="coneApex.x"
                 :cy="coneApex.y"
                 r="4"/>
+            <circle
+                :class="$style.menuFlyoutConeDebugHead"
+                :cx="coneHead.x"
+                :cy="coneHead.y"
+                r="3"/>
         </svg>
     </Teleport>
 </template>
@@ -51,6 +62,7 @@
     lang="ts"
     setup>
     import type { FluxIconName } from '@flux-ui/types';
+    import { clsx } from 'clsx';
     import { computed, type ComponentPublicInstance, toRef, useTemplateRef, type VNode } from 'vue';
     import { useMenuFlyout, useTranslate } from '~flux/components/composable/private';
     import { AnchorPopup } from '~flux/components/component/primitive';
@@ -116,4 +128,5 @@
     const showDebugCone = computed(() => !!context && context.debugCone.value && isOpen.value && !!cone.value);
     const conePoints = computed(() => cone.value ? `${cone.value.ax},${cone.value.ay} ${cone.value.bx},${cone.value.by} ${cone.value.cx},${cone.value.cy}` : '');
     const coneApex = computed(() => ({x: cone.value?.ax ?? 0, y: cone.value?.ay ?? 0}));
+    const coneHead = computed(() => ({x: cone.value?.hx ?? 0, y: cone.value?.hy ?? 0}));
 </script>

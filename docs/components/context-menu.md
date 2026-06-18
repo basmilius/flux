@@ -44,7 +44,7 @@ slots:
 
 The Context menu component opens a menu at the cursor when the user right-clicks its content. It is positioned at the pointer, traps focus while open, supports arrow-key navigation through the menu, and closes on Escape, scroll, or an outside click.
 
-Nest a [Menu flyout](./menu/flyout) inside the menu to add submenus. A prediction cone keeps a submenu open while the pointer moves diagonally towards it, even when the cursor briefly crosses another item. Set `debug-cone` to visualise that cone.
+Nest a [Menu flyout](./menu/flyout) inside the menu to add submenus. A prediction cone keeps a submenu open while the pointer moves diagonally towards it — and back out to its opener — even when the cursor briefly crosses another item. Set `debug-cone` to visualise that cone.
 
 ::: render
 render=../code/components/context-menu/preview.vue
@@ -64,6 +64,14 @@ example=../code/components/context-menu/with-icons.vue
 
 ::: example With submenus || Nest a Menu flyout to add a submenu that opens to the side.
 example=../code/components/context-menu/with-submenu.vue
+:::
+
+::: example Deep submenus || Menu flyouts nest arbitrarily deep. The prediction cone guides the pointer into a submenu and back out to its opener across every level.
+example=../code/components/context-menu/deep-submenus.vue
+:::
+
+::: example Nested formatting || A spreadsheet-style menu mixing several openers with two and three levels of nesting.
+example=../code/components/context-menu/nested-formatting.vue
 :::
 
 ::: example Real-world || A Finder-style menu with several submenu openers stacked under each other.

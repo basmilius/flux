@@ -32,7 +32,34 @@
         stroke-width: 1.5;
     }
 
-    circle {
+    line {
+        stroke: var(--gray-900);
+        stroke-width: 1.5;
+    }
+}
+
+// The trailing anchor that forms the cone apex.
+.menuFlyoutConeDebugApex {
+    fill: var(--warning-500);
+}
+
+// The live pointer position (head of the velocity vector).
+.menuFlyoutConeDebugHead {
+    fill: var(--gray-900);
+}
+
+// The return cone (aiming back from the submenu towards its opener) in a distinct hue.
+.menuFlyoutConeDebugBack {
+    polygon {
+        fill: var(--success-500);
+        stroke: var(--success-500);
+    }
+}
+
+// While the grace window is counting down to a close, recolour the cone so the timing is obvious.
+.menuFlyoutConeDebugGrace {
+    polygon {
         fill: var(--danger-500);
+        stroke: var(--danger-500);
     }
 }

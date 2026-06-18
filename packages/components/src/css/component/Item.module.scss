@@ -79,6 +79,27 @@
     margin: 0;
 }
 
+// An is-control item paints a hover background, so round its outer corners to follow the parent
+// pane. Content sits inside the pane's 1px border, hence `--radius - 1px`. A lone item rounds all
+// corners; within a stack only the first item's top and the last item's bottom round.
+.basePaneStructure > .item.isControl {
+    border-radius: calc(var(--radius) - 1px);
+}
+
+.basePaneStructure > .itemStack > .item.isControl {
+    border-radius: 0;
+
+    &:first-child {
+        border-top-left-radius: calc(var(--radius) - 1px);
+        border-top-right-radius: calc(var(--radius) - 1px);
+    }
+
+    &:last-child {
+        border-bottom-left-radius: calc(var(--radius) - 1px);
+        border-bottom-right-radius: calc(var(--radius) - 1px);
+    }
+}
+
 .basePaneStructure:is(a, button) {
     @include mixin.hover {
         &:has(> .item) {
