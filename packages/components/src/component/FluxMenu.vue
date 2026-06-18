@@ -35,7 +35,8 @@
     const parentPersistent = inject(FluxMenuPersistentInjectionKey, null);
 
     useFocusZone(elementRef, {
-        direction: 'vertical'
+        direction: 'vertical',
+        ignore: '[data-flux-menu-pane]'
     });
 
     const menuFlyout = useMenuFlyoutContext({

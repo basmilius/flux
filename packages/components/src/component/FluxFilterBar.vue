@@ -40,7 +40,7 @@
 
                             <template #default="{close}">
                                 <div :class="$style.filter">
-                                    <FluxMenu>
+                                    <FluxMenu is-persistent>
                                         <FluxMenuGroup
                                             :class="[$style.filterHeader, $style.filterHeaderActions]"
                                             is-horizontal>

@@ -86,12 +86,14 @@
                 <FluxTableCell
                     v-if="hasExpandable"
                     :class="$style.tableCellExpand">
-                    <FluxAction
-                        :class="clsx($style.tableExpandToggle, isItemExpanded(item) && $style.isExpanded)"
-                        icon="chevron-right"
-                        :aria-expanded="isItemExpanded(item)"
-                        :aria-label="isItemExpanded(item) ? translate('flux.collapseRow') : translate('flux.expandRow')"
-                        @click="toggleExpand(item)"/>
+                    <FluxTableActions>
+                        <FluxAction
+                            :class="clsx($style.tableExpandToggle, isItemExpanded(item) && $style.isExpanded)"
+                            icon="angle-right"
+                            :aria-expanded="isItemExpanded(item)"
+                            :aria-label="isItemExpanded(item) ? translate('flux.collapseRow') : translate('flux.expandRow')"
+                            @click="toggleExpand(item)"/>
+                    </FluxTableActions>
                 </FluxTableCell>
 
                 <template v-for="(_, name) of slots">
@@ -135,6 +137,7 @@
     import FluxTableHeader from './FluxTableHeader.vue';
     import FluxTableRow from './FluxTableRow.vue';
     import $style from '~flux/components/css/component/Table.module.scss';
+    import FluxTableActions from '~flux/components/component/FluxTableActions.vue';
 
     type SelectionId = string | number;
     type SelectionValue = SelectionId | null | SelectionId[];

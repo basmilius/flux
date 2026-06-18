@@ -11,11 +11,11 @@
         </template>
 
         <template #default>
-            <FluxPane style="width: 330px">
+            <FluxPaneBody style="width: 330px">
                 <FluxColorPicker
                     v-model="color"
                     type="rgb"/>
-            </FluxPane>
+            </FluxPaneBody>
         </template>
     </FluxFlyout>
 </template>
@@ -23,7 +23,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxColorPicker, FluxFlyout, FluxPane, FluxSecondaryButton } from '@flux-ui/components';
+    import { FluxColorPicker, FluxFlyout, FluxPaneBody, FluxSecondaryButton } from '@flux-ui/components';
     import { ref } from 'vue';
 
     const color = ref<[number, number, number]>([31, 75, 109]);

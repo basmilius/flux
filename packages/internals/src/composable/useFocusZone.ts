@@ -4,12 +4,12 @@ import { getBidirectionalFocusElement, getFocusableElement, getFocusableElements
 
 type EligibleElement = ComponentPublicInstance | HTMLElement;
 
-export default function <TElement extends EligibleElement>(containerRef: Ref<TElement>, {cycle = true, direction = 'bidirectional'}: UseFocusZoneOptions = {}): void {
+export default function <TElement extends EligibleElement>(containerRef: Ref<TElement>, {cycle = true, direction = 'bidirectional', ignore}: UseFocusZoneOptions = {}): void {
     useMutationObserver(containerRef, () => updateFocus(findInitialIndex(), false), {childList: true, subtree: true});
 
     function findInitialIndex(): number {
         const container = unwrapElement(containerRef);
-        const elements = getFocusableElements(container);
+        const elements = getFocusableElements(container, ignore);
         const isActiveIndex = elements.findIndex(elm => isActiveElement(elm) && !elm.hasAttribute('aria-disabled'));
         const notDisabledIndex = elements.findIndex(elm => !elm.hasAttribute('aria-disabled'));
 
@@ -26,7 +26,7 @@ export default function <TElement extends EligibleElement>(containerRef: Ref<TEl
 
     function updateFocus(elementIndex: number, doFocus: boolean = true): void {
         const container = unwrapElement(containerRef)!;
-        const elements = getFocusableElements(container);
+        const elements = getFocusableElements(container, ignore);
         elements.forEach((elm, index) => elm.tabIndex = index === elementIndex ? 0 : -1);
 
         doFocus && elements[elementIndex]?.focus();
@@ -34,7 +34,7 @@ export default function <TElement extends EligibleElement>(containerRef: Ref<TEl
 
     function onKeyDown(evt: KeyboardEvent): void {
         const container = unwrapElement(containerRef)!;
-        const elements = getFocusableElements(container);
+        const elements = getFocusableElements(container, ignore);
 
         if (['Enter', ' '].includes(evt.key)) {
             return;
@@ -42,12 +42,12 @@ export default function <TElement extends EligibleElement>(containerRef: Ref<TEl
 
         switch (direction) {
             case 'bidirectional':
-                handleBidirectionalFocus(evt, container, elements, updateFocus);
+                handleBidirectionalFocus(evt, container, elements, updateFocus, ignore);
                 break;
 
             case 'horizontal':
             case 'vertical':
-                handleDirectionalFocus(evt, container, cycle, direction, elements, updateFocus);
+                handleDirectionalFocus(evt, container, cycle, direction, elements, updateFocus, ignore);
                 break;
         }
     }
@@ -67,7 +67,7 @@ export default function <TElement extends EligibleElement>(containerRef: Ref<TEl
     }, {immediate: true});
 }
 
-function handleBidirectionalFocus(evt: KeyboardEvent, container: HTMLElement, elements: HTMLElement[], updateFocus: (index: number) => void): void {
+function handleBidirectionalFocus(evt: KeyboardEvent, container: HTMLElement, elements: HTMLElement[], updateFocus: (index: number) => void, ignore?: string): void {
     let dir: 'up' | 'down' | 'left' | 'right';
 
     switch (evt.key) {
@@ -91,7 +91,7 @@ function handleBidirectionalFocus(evt: KeyboardEvent, container: HTMLElement, el
             return;
     }
 
-    const element = getBidirectionalFocusElement(container, document.activeElement as HTMLElement, dir);
+    const element = getBidirectionalFocusElement(container, document.activeElement as HTMLElement, dir, ignore);
 
     if (element) {
         updateFocus(elements.indexOf(element));
@@ -100,7 +100,7 @@ function handleBidirectionalFocus(evt: KeyboardEvent, container: HTMLElement, el
     evt.preventDefault();
 }
 
-function handleDirectionalFocus(evt: KeyboardEvent, container: HTMLElement, cycle: boolean, direction: 'horizontal' | 'vertical', elements: HTMLElement[], updateFocus: (index: number) => void): void {
+function handleDirectionalFocus(evt: KeyboardEvent, container: HTMLElement, cycle: boolean, direction: 'horizontal' | 'vertical', elements: HTMLElement[], updateFocus: (index: number) => void, ignore?: string): void {
     let dir: number;
 
     if (evt.key === (direction === 'horizontal' ? 'ArrowLeft' : 'ArrowUp')) {
@@ -111,7 +111,7 @@ function handleDirectionalFocus(evt: KeyboardEvent, container: HTMLElement, cycl
         return;
     }
 
-    const element = getFocusableElement(container, dir);
+    const element = getFocusableElement(container, dir, undefined, ignore);
 
     if (element) {
         updateFocus(elements.indexOf(element));
@@ -125,4 +125,5 @@ function handleDirectionalFocus(evt: KeyboardEvent, container: HTMLElement, cycl
 type UseFocusZoneOptions = {
     readonly cycle?: boolean;
     readonly direction?: 'bidirectional' | 'horizontal' | 'vertical';
+    readonly ignore?: string;
 };

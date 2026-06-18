@@ -33,12 +33,6 @@ features:
         icon: ⭐️
         link: './guide/introduction/installation/manual'
         linkText: Get started
-
-    -   title: Why
-        details: Originally developed for a large SaaS application, Flux eventually evolved into its own standalone ui library.
-        icon: 🤔
-        link: './guide/patterns'
-        linkText: Browse patterns
 ---
 
 ::: code-group

@@ -1,8 +1,8 @@
 import { isHtmlElement } from '@basmilius/utils';
 import getFocusableElements from './getFocusableElements';
 
-export default function (container: HTMLElement, direction: number, activeElement: HTMLElement | undefined = undefined): HTMLElement | undefined {
-    const elements = getFocusableElements(container);
+export default function (container: HTMLElement, direction: number, activeElement: HTMLElement | undefined = undefined, ignore?: string): HTMLElement | undefined {
+    const elements = getFocusableElements(container, ignore);
     const focusedElement = activeElement || document.activeElement;
 
     if (!focusedElement || !isHtmlElement(focusedElement)) {

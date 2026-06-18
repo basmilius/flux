@@ -1,7 +1,7 @@
 import getFocusableElements from './getFocusableElements';
 
-export default function (container: HTMLElement, currentElement: HTMLElement, direction: 'up' | 'down' | 'left' | 'right'): HTMLElement | null {
-    const elements = getFocusableElements(container);
+export default function (container: HTMLElement, currentElement: HTMLElement, direction: 'up' | 'down' | 'left' | 'right', ignore?: string): HTMLElement | null {
+    const elements = getFocusableElements(container, ignore);
     const currentIndex = elements.indexOf(currentElement);
 
     if (currentIndex === -1) {

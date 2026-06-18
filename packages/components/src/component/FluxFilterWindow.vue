@@ -4,7 +4,7 @@
         :class="$style.filter">
         <FluxWindow ref="window">
             <template #default="{navigate}">
-                <FluxMenu>
+                <FluxMenu is-persistent>
                     <FilterMenuRenderer
                         :menu-items="menuItems"
                         :navigate="navigate"/>
@@ -14,7 +14,7 @@
             <template
                 v-for="(filter, name) of filters"
                 #[name]>
-                <FluxMenu>
+                <FluxMenu is-persistent>
                     <FluxMenuGroup
                         :class="$style.filterHeader"
                         is-horizontal>

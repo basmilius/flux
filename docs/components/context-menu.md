@@ -78,7 +78,12 @@ example=../code/components/context-menu/nested-formatting.vue
 example=../code/components/context-menu/finder.vue
 :::
 
+::: example With color picker || Embed a full component with a Menu pane. The picker stays interactive while the menu is open.
+example=../code/components/context-menu/with-color-picker.vue
+:::
+
 ## Used components
 
 - [Menu](./menu/)
 - [Menu flyout](./menu/flyout)
+- [Menu pane](./menu/pane)

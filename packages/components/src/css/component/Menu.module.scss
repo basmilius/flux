@@ -35,6 +35,13 @@
     flex-flow: column;
 }
 
+.menuPane {
+    display: flex;
+    flex-flow: column;
+    gap: 9px;
+    padding: 9px;
+}
+
 .menuItem {
     composes: button from './base/Button.module.scss';
 

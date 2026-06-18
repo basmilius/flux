@@ -114,6 +114,7 @@ export { default as FluxMenuFlyout } from './FluxMenuFlyout.vue';
 export { default as FluxMenuGroup } from './FluxMenuGroup.vue';
 export { default as FluxMenuItem } from './FluxMenuItem.vue';
 export { default as FluxMenuOptions } from './FluxMenuOptions.vue';
+export { default as FluxMenuPane } from './FluxMenuPane.vue';
 export { default as FluxMenuSubHeader } from './FluxMenuSubHeader.vue';
 export { default as FluxMenuTitle } from './FluxMenuTitle.vue';
 export { default as FluxNotice } from './FluxNotice.vue';

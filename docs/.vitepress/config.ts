@@ -25,6 +25,7 @@ export default defineConfig({
     title: 'Flux',
     titleTemplate: 'Flux — :title',
     description: 'Component library for Vue 3.',
+    appearance: false,
     ignoreDeadLinks: true,
     cleanUrls: true,
     head: [
@@ -77,8 +78,7 @@ export default defineConfig({
                 items: [
                     {text: 'Introduction', link: '/guide/introduction/what-is-flux'},
                     {text: 'Composables', link: '/guide/composables/useBreakpoints'},
-                    {text: 'API', link: '/guide/api/useFluxStore'},
-                    {text: 'Patterns', link: '/guide/patterns/'}
+                    {text: 'API', link: '/guide/api/useFluxStore'}
                 ]
             },
             {
@@ -149,30 +149,6 @@ export default defineConfig({
                         {text: 'useFluxStore', link: '/guide/api/useFluxStore'},
                         {text: 'Helpers', link: '/guide/api/helpers'},
                         {text: 'Types', link: '/guide/api/types'}
-                    ]
-                },
-                {
-                    text: 'Patterns',
-                    collapsed: false,
-                    items: [
-                        {text: 'Overview', link: '/guide/patterns/'},
-                        {text: 'CRUD form', link: '/guide/patterns/crud-form'},
-                        {text: 'Filterable data table', link: '/guide/patterns/filterable-data-table'},
-                        {text: 'Stepper wizard', link: '/guide/patterns/stepper-wizard'},
-                        {text: 'Programmatic dialogs', link: '/guide/patterns/programmatic-dialogs'},
-                        {text: 'Application shell', link: '/guide/patterns/app-shell'},
-                        {text: 'Dashboard', link: '/guide/patterns/dashboard'},
-                        {text: 'Data management', link: '/guide/patterns/data-management'},
-                        {text: 'Project board', link: '/guide/patterns/project-board'},
-                        {text: 'Settings', link: '/guide/patterns/settings'},
-                        {text: 'Contact profile', link: '/guide/patterns/profile'},
-                        {text: 'Media library', link: '/guide/patterns/media-library'},
-                        {text: 'Inbox', link: '/guide/patterns/inbox'},
-                        {text: 'Command center', link: '/guide/patterns/command-center'},
-                        {text: 'Onboarding', link: '/guide/patterns/onboarding'},
-                        {text: 'Scheduling', link: '/guide/patterns/scheduling'},
-                        {text: 'Checkout', link: '/guide/patterns/checkout'},
-                        {text: 'States', link: '/guide/patterns/states'}
                     ]
                 }
             ],

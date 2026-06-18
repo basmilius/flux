@@ -289,6 +289,7 @@ const navigation: SidebarItem = {
                 {text: 'Group', link: '/components/menu/group'},
                 {text: 'Item', link: '/components/menu/item'},
                 {text: 'Options', link: '/components/menu/options'},
+                {text: 'Pane', link: '/components/menu/pane'},
                 {text: 'Sub header', link: '/components/menu/sub-header'},
                 {text: 'Title', link: '/components/menu/title'}
             ]

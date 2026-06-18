@@ -10,8 +10,9 @@ const FOCUSABLE_ELEMENTS = [
     '[tabindex]:not([disabled]):not([tabindex="-1"])'
 ].join(',');
 
-export default function (container: HTMLElement): HTMLElement[] {
+export default function (container: HTMLElement, ignore?: string): HTMLElement[] {
     return Array.from(container.querySelectorAll(FOCUSABLE_ELEMENTS))
         .filter(isHtmlElement)
-        .filter(elm => elm.offsetWidth > 0 || elm.offsetHeight > 0 || elm === document.activeElement);
+        .filter(elm => elm.offsetWidth > 0 || elm.offsetHeight > 0 || elm === document.activeElement)
+        .filter(elm => !ignore || !elm.closest(ignore));
 }

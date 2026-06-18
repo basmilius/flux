@@ -1,13 +1,11 @@
 <template>
-    <FluxPane>
-        <FluxColorPicker
-            :model-value="[31, 75, 109]"
-            type="rgb"/>
-    </FluxPane>
+    <FluxColorPicker
+        :model-value="[31, 75, 109]"
+        type="rgb"/>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxColorPicker, FluxPane } from '@flux-ui/components';
+    import { FluxColorPicker } from '@flux-ui/components';
 </script>
