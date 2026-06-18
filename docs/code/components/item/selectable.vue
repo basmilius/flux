@@ -4,7 +4,8 @@
             <FluxItemStack>
                 <FluxItem
                     v-for="member in members"
-                    :key="member.key">
+                    :key="member.key"
+                    is-control>
                     <FluxItemMedia is-center>
                         <FluxFormCheckbox v-model="selected[member.key]"/>
                     </FluxItemMedia>

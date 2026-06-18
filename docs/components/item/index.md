@@ -1,6 +1,12 @@
 ---
 outline: deep
 
+props:
+    -   name: is-control
+        description: Renders the item as a label so that clicking anywhere in the row toggles the single form control (toggle, checkbox or radio) it contains.
+        type: boolean
+        optional: true
+
 slots:
     -   name: default
         description: The content of the item, typically composed of item sub-components.
@@ -34,7 +40,11 @@ example=../../code/components/item/notifications.vue
 example=../../code/components/item/settings.vue
 :::
 
-::: example Selectable || A multi-select list with a checkbox and avatar as media.
+::: example Control || With is-control the whole row becomes the label for its form control — click anywhere to toggle.
+example=../../code/components/item/control.vue
+:::
+
+::: example Selectable || A multi-select list where the whole row toggles the checkbox, thanks to is-control.
 example=../../code/components/item/selectable.vue
 :::
 

@@ -7,6 +7,16 @@
     text-align: left;
 }
 
+.item.isControl {
+    cursor: pointer;
+    user-select: none;
+    transition: background-color .15s var(--swift-out);
+
+    @include mixin.hover {
+        background-color: var(--surface-hover);
+    }
+}
+
 .itemActions {
     flex-shrink: 0;
 }

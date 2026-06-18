@@ -1,5 +1,6 @@
 <template>
-    <label
+    <component
+        :is="isBareControl ? 'span' : 'label'"
         :class="clsx(
             $style.formToggle,
             modelValue && $style.isChecked,
@@ -8,7 +9,7 @@
             error && $style.isInvalid,
             isSwitch && $style.isSwitch
         )"
-        :for="id"
+        :for="isBareControl ? undefined : id"
         :aria-disabled="disabled ? true : undefined"
         :aria-readonly="isReadonly ? true : undefined"
         :aria-invalid="error ? true : undefined">
@@ -34,7 +35,7 @@
             :aria-checked="modelValue"
             @click="onClick"
             @input="toggle"/>
-    </label>
+    </component>
 </template>
 
 <script
@@ -42,8 +43,9 @@
     setup>
     import type { FluxFormInputBaseProps, FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { toRef } from 'vue';
+    import { computed, inject, toRef } from 'vue';
     import { useDisabled, useFormFieldInjection } from '~flux/components/composable';
+    import { FluxItemControlInjectionKey } from '~flux/components/data';
     import FluxIcon from './FluxIcon.vue';
     import $style from '~flux/components/css/component/Form.module.scss';
 
@@ -60,8 +62,13 @@
         readonly isSwitch?: boolean;
     }>();
 
+    const itemControl = inject(FluxItemControlInjectionKey, null);
     const disabled = useDisabled(toRef(() => componentDisabled));
     const {id} = useFormFieldInjection();
+
+    const isBareControl = computed(() => itemControl?.isControl.value ?? false);
+
+    itemControl?.register(id);
 
     function onClick(evt: MouseEvent): void {
         if (isReadonly) {

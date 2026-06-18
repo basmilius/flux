@@ -1,12 +1,13 @@
 <template>
-    <label
+    <component
+        :is="isBareControl ? 'span' : 'label'"
         :class="clsx(
             $style.formCheckbox,
             disabled && $style.isDisabled,
             isReadonlyResolved && $style.isReadonly,
             errorResolved && $style.isInvalid
         )"
-        :for="id">
+        :for="isBareControl ? undefined : id">
         <input
             ref="input"
             type="checkbox"
@@ -50,7 +51,7 @@
                 {{ subLabel }}
             </span>
         </span>
-    </label>
+    </component>
 </template>
 
 <script
@@ -58,9 +59,9 @@
     setup>
     import type { FluxFormInputBaseProps } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { computed, toRef, unref, useTemplateRef, watchEffect } from 'vue';
+    import { computed, inject, toRef, unref, useTemplateRef, watchEffect } from 'vue';
     import { useDisabled, useFormCheckboxGroupInjection, useFormFieldInjection } from '~flux/components/composable';
-    import type { FluxFormCheckboxGroupValue } from '~flux/components/data';
+    import { FluxItemControlInjectionKey, type FluxFormCheckboxGroupValue } from '~flux/components/data';
     import FluxIcon from './FluxIcon.vue';
     import $style from '~flux/components/css/component/Form.module.scss';
 
@@ -80,8 +81,13 @@
     }>();
 
     const group = useFormCheckboxGroupInjection();
+    const itemControl = inject(FluxItemControlInjectionKey, null);
     const inputRef = useTemplateRef('input');
     const {id} = useFormFieldInjection();
+
+    const isBareControl = computed(() => itemControl?.isControl.value ?? false);
+
+    itemControl?.register(id);
 
     const isGrouped = computed(() => group !== null && value !== undefined);
 

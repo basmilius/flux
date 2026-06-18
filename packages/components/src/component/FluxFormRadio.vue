@@ -1,15 +1,18 @@
 <template>
-    <label
+    <component
+        :is="isBareControl ? 'span' : 'label'"
         :class="clsx(
             $style.formRadio,
             disabled && $style.isDisabled,
             isReadonly && $style.isReadonly,
             error && $style.isInvalid
-        )">
+        )"
+        :for="isBareControl ? undefined : id">
         <input
             ref="input"
             type="radio"
             :class="$style.formRadioNative"
+            :id="id"
             :name="group.name"
             :checked="isChecked"
             :disabled="disabled"
@@ -28,16 +31,16 @@
             :class="$style.formRadioLabel">
             <slot>{{ label }}</slot>
         </span>
-    </label>
+    </component>
 </template>
 
 <script
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { computed, toRef, unref } from 'vue';
-    import { useDisabled, useFormRadioGroupInjection } from '~flux/components/composable';
-    import type { FluxFormRadioGroupValue } from '~flux/components/data';
+    import { computed, inject, toRef, unref } from 'vue';
+    import { useDisabled, useFormFieldInjection, useFormRadioGroupInjection } from '~flux/components/composable';
+    import { FluxItemControlInjectionKey, type FluxFormRadioGroupValue } from '~flux/components/data';
     import $style from '~flux/components/css/component/Form.module.scss';
 
     const {
@@ -54,7 +57,13 @@
     }>();
 
     const group = useFormRadioGroupInjection();
+    const itemControl = inject(FluxItemControlInjectionKey, null);
+    const {id} = useFormFieldInjection();
     const disabled = useDisabled(toRef(() => componentDisabled || unref(group.disabled)));
+
+    const isBareControl = computed(() => itemControl?.isControl.value ?? false);
+
+    itemControl?.register(id);
 
     const isChecked = computed(() => unref(group.modelValue) === value);
     const isReadonly = computed(() => unref(group.isReadonly));
