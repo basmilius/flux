@@ -6,6 +6,7 @@ export default function () {
         isBordered: ref(false),
         isHoverable: ref(false),
         isSeparated: ref(false),
+        isSticky: ref(false),
         isStriped: ref(false)
     }), true);
 }

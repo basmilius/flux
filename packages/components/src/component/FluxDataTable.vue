@@ -6,6 +6,7 @@
         :is-hoverable="isHoverable"
         :is-loading="isLoading"
         :is-separated="isSeparated"
+        :is-sticky="isSticky"
         :is-striped="isStriped">
         <template
             v-if="'colgroups' in slots"
@@ -160,6 +161,7 @@
         isHoverable = false,
         isLoading = false,
         isSeparated = true,
+        isSticky = false,
         isStriped = false,
         items,
         perPage,
@@ -172,6 +174,7 @@
         readonly isHoverable?: boolean;
         readonly isLoading?: boolean;
         readonly isSeparated?: boolean;
+        readonly isSticky?: boolean;
         readonly isStriped?: boolean;
         readonly items: T[];
         readonly limits: number[];

@@ -86,7 +86,6 @@
     } = defineProps<{
         readonly isShrinking?: boolean;
         readonly isSortable?: boolean;
-        readonly isSticky?: boolean;
         readonly minWidth?: number;
         readonly sort?: 'ascending' | 'descending';
     }>();
@@ -95,7 +94,7 @@
         default(): VNode[];
     }>();
 
-    const {isBordered} = useTableInjection();
+    const {isBordered, isSticky} = useTableInjection();
     const translate = useTranslate();
 
     const sortingIcon = computed((): FluxIconName => {

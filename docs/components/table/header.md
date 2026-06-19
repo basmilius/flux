@@ -17,11 +17,6 @@ props:
         type: boolean
         optional: true
         
-    -   name: is-sticky
-        description: If the table header will stick to the top of the table.
-        type: boolean
-        optional: true
-        
     -   name: min-width
         description: The minimal width of the cell group.
         type: number

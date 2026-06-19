@@ -68,6 +68,7 @@
         isHoverable = false,
         isLoading = false,
         isSeparated = true,
+        isSticky = false,
         isStriped = false
     } = defineProps<{
         readonly captionSide?: 'top' | 'bottom';
@@ -76,6 +77,7 @@
         readonly isHoverable?: boolean;
         readonly isLoading?: boolean;
         readonly isSeparated?: boolean;
+        readonly isSticky?: boolean;
         readonly isStriped?: boolean;
     }>();
 
@@ -95,6 +97,7 @@
         isBordered: toRef(() => isBordered),
         isHoverable: toRef(() => isHoverable),
         isSeparated: toRef(() => isSeparated),
+        isSticky: toRef(() => isSticky),
         isStriped: toRef(() => isStriped)
     });
 </script>

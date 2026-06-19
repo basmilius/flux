@@ -35,6 +35,12 @@ props:
         optional: true
         default: true
 
+    -   name: is-sticky
+        description: If the table headers stick to the top while scrolling.
+        type: boolean
+        optional: true
+        default: false
+
     -   name: is-striped
         description: If alternated colors should be added to each row.
         type: boolean

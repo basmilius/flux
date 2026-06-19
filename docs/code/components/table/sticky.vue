@@ -1,9 +1,10 @@
 <template>
     <FluxPane>
-        <FluxTable style="max-height: 330px; overflow-x: hidden;">
+        <FluxTable
+            is-sticky
+            style="max-height: 330px">
             <template #header>
                 <FluxTableHeader
-                    is-sticky
                     is-shrinking
                     v-for="header in 3">
                     Header {{ header }}

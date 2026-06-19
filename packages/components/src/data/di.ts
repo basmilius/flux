@@ -297,6 +297,7 @@ export type FluxTableInjection = {
     readonly isBordered: Ref<boolean>;
     readonly isHoverable: Ref<boolean>;
     readonly isSeparated: Ref<boolean>;
+    readonly isSticky: Ref<boolean>;
     readonly isStriped: Ref<boolean>;
 };
 
