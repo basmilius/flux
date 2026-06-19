@@ -21,6 +21,7 @@
                     :class="clsx($style.tourPopover, isStepping && $style.isStepping)"
                     :position="currentItem.position ?? 'bottom'"
                     aria-modal="true"
+                    clamp-to-viewport
                     role="dialog">
                     <FluxPane :class="$style.tourPane">
                         <div

@@ -257,7 +257,7 @@
 
 .buttonGroup {
     display: inline-flex;
-    width: min-content;
+    width: max-content;
     flex-grow: 0;
     flex-shrink: 0;
     z-index: 0;

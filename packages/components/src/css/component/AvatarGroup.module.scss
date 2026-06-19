@@ -11,7 +11,7 @@
     display: inline-flex;
     margin-left: calc(var(--overlap, .3) * -1em);
     border-radius: .3em;
-    box-shadow: 0 0 0 .125em var(--gray-25);
+    box-shadow: 0 0 0 .09em var(--gray-25);
     transition: translate .2s var(--swift-out);
 
     &:first-child {
