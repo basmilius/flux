@@ -28,15 +28,13 @@
                             v-if="canReset(name)"
                             :class="$style.filterAction"
                             icon-leading="rotate-left"
-                            @click="reset(name)"
-                            style="flex-grow: 0"/>
+                            @click="reset(name)"/>
 
                         <FluxMenuItem
                             :class="$style.filterAction"
                             icon-leading="trash"
                             is-destructive
-                            @click="clear(name)"
-                            style="flex-grow: 0"/>
+                            @click="clear(name)"/>
                     </FluxMenuGroup>
 
                     <VNodeRenderer :vnode="filter"/>

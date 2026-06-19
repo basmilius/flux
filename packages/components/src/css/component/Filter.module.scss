@@ -85,8 +85,9 @@
     flex-grow: 1;
 }
 
-.filterAction {
-    width: 42px;
+.filterHeader.menuGroup .filterAction {
+    min-width: 42px;
+    flex: 0 0 42px;
     justify-content: center;
 }
 

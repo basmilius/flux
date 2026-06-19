@@ -2,9 +2,9 @@
     <FluxMenuItem
         ref="trigger"
         :class="isOpen && $style.menuFlyoutTriggerOpen"
-        command-icon="angle-right"
         :disabled="disabled"
         :icon-leading="icon"
+        icon-trailing="angle-right"
         :is-active="isActive"
         :is-destructive="isDestructive"
         is-persistent
