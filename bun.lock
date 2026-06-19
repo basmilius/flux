@@ -107,6 +107,41 @@
         "vue": "^3.6.0-beta.16",
       },
     },
+    "packages/nimbus": {
+      "name": "nimbus",
+      "version": "0.0.0",
+      "dependencies": {
+        "@basmilius/common": "^3.43.0",
+        "@faker-js/faker": "^10.4.0",
+        "@flux-ui/application": "workspace:*",
+        "@flux-ui/components": "workspace:*",
+        "@flux-ui/internals": "workspace:*",
+        "@flux-ui/statistics": "workspace:*",
+        "@flux-ui/types": "workspace:*",
+        "@fortawesome/fontawesome-common-types": "^7.2.0",
+        "@fortawesome/pro-regular-svg-icons": "^7.2.0",
+        "clsx": "^2.1.1",
+        "echarts": "^6.1.0",
+        "luxon": "^3.7.2",
+        "vue": "^3.6.0-beta.16",
+        "vue-i18n": "^11.4.5",
+        "vue-router": "^5.1.0",
+      },
+      "devDependencies": {
+        "@basmilius/vite-preset": "^3.43.0",
+        "@types/luxon": "^3.7.1",
+        "@types/node": "^25.9.3",
+        "@vitejs/plugin-vue": "^6.0.7",
+        "@vue/tsconfig": "^0.9.1",
+        "sass-embedded": "^1.100.0",
+        "vite": "^8.0.16",
+        "vue-tsc": "^3.3.5",
+      },
+    },
+    "packages/skill": {
+      "name": "@flux-ui/skill",
+      "version": "0.0.0",
+    },
     "packages/statistics": {
       "name": "@flux-ui/statistics",
       "version": "0.0.0",
@@ -251,6 +286,8 @@
     "@flux-ui/components": ["@flux-ui/components@workspace:packages/components"],
 
     "@flux-ui/internals": ["@flux-ui/internals@workspace:packages/internals"],
+
+    "@flux-ui/skill": ["@flux-ui/skill@workspace:packages/skill"],
 
     "@flux-ui/statistics": ["@flux-ui/statistics@workspace:packages/statistics"],
 
@@ -701,6 +738,8 @@
     "muggle-string": ["muggle-string@0.4.1", "", {}, "sha512-VNTrAak/KhO2i8dqqnqnAHOa3cYBwXEZe9h+D5h/1ZqFSTEFHdM65lR7RoIqq3tBBYavsOXV84NoHXZ0AkPyqQ=="],
 
     "nanoid": ["nanoid@3.3.12", "", { "bin": { "nanoid": "bin/nanoid.cjs" } }, "sha512-ZB9RH/39qpq5Vu6Y+NmUaFhQR6pp+M2Xt76XBnEwDaGcVAqhlvxrl3B2bKS5D3NH3QR76v3aSrKaF/Kiy7lEtQ=="],
+
+    "nimbus": ["nimbus@workspace:packages/nimbus"],
 
     "node-addon-api": ["node-addon-api@7.1.1", "", {}, "sha512-5m3bsyrjFWE1xf7nz7YXdN4udnVtXK6/Yfgn5qnahL6bCkf2yKt4k3nuTKAtT4r3IG8JNR2ncsIMdZuAzJjHQQ=="],
 

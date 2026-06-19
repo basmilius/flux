@@ -1,0 +1,35 @@
+{
+    "extends": "@vue/tsconfig/tsconfig.dom.json",
+    "compilerOptions": {
+        "lib": [
+            "ES2023",
+            "DOM",
+            "DOM.Iterable"
+        ],
+        "module": "esnext",
+        "moduleResolution": "bundler",
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true,
+        "verbatimModuleSyntax": false,
+        "paths": {
+            "@/*": [
+                "./src/*"
+            ],
+            "~flux/components/*": [
+                "../components/src/*"
+            ],
+            "~flux/application/*": [
+                "../application/src/*"
+            ],
+            "~flux/statistics/*": [
+                "../statistics/src/*"
+            ]
+        }
+    },
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.vue"
+    ]
+}
