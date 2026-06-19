@@ -1,5 +1,38 @@
 .progressBar {
+    --progress-fill: var(--primary-600);
+    --progress-fill-soft: var(--primary-500);
+
     position: relative;
+}
+
+.progressBarGray {
+    --progress-fill: var(--gray-500);
+    --progress-fill-soft: var(--gray-400);
+}
+
+.progressBarPrimary {
+    --progress-fill: var(--primary-600);
+    --progress-fill-soft: var(--primary-500);
+}
+
+.progressBarDanger {
+    --progress-fill: var(--danger-600);
+    --progress-fill-soft: var(--danger-500);
+}
+
+.progressBarInfo {
+    --progress-fill: var(--info-600);
+    --progress-fill-soft: var(--info-500);
+}
+
+.progressBarSuccess {
+    --progress-fill: var(--success-600);
+    --progress-fill-soft: var(--success-500);
+}
+
+.progressBarWarning {
+    --progress-fill: var(--warning-600);
+    --progress-fill-soft: var(--warning-500);
 }
 
 .progressBarTrack {
@@ -22,13 +55,13 @@
 .progressBarValueComplete {
     composes: progressBarValue;
 
-    background: var(--primary-600);
+    background: var(--progress-fill);
 }
 
 .progressBarValueIncomplete {
     composes: progressBarValue;
 
-    background: var(--primary-600) linear-gradient(-45deg, transparent 20%, rgb(from var(--primary-500) r g b / .5), transparent 80%);
+    background: var(--progress-fill) linear-gradient(-45deg, transparent 20%, rgb(from var(--progress-fill-soft) r g b / .5), transparent 80%);
     background-size: 150px 100%;
     animation: progressBarValue 1s linear infinite;
 }
@@ -37,7 +70,7 @@
     composes: progressBarTrack;
 
     .progressBarValue {
-        background: var(--primary-600) linear-gradient(-45deg, transparent 20%, rgb(from var(--primary-500) r g b / .5), transparent 80%);
+        background: var(--progress-fill) linear-gradient(-45deg, transparent 20%, rgb(from var(--progress-fill-soft) r g b / .5), transparent 80%);
         background-size: 90px 100%;
         animation: progressBarIndeterminate 1s linear infinite;
     }

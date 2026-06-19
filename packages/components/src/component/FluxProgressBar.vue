@@ -1,6 +1,14 @@
 <template>
     <FluxFlex
-        :class="$style.progressBar"
+        :class="clsx(
+            $style.progressBar,
+            color === 'gray' && $style.progressBarGray,
+            color === 'primary' && $style.progressBarPrimary,
+            color === 'danger' && $style.progressBarDanger,
+            color === 'info' && $style.progressBarInfo,
+            color === 'success' && $style.progressBarSuccess,
+            color === 'warning' && $style.progressBarWarning
+        )"
         direction="vertical"
         :gap="6"
         role="progressbar"
@@ -41,17 +49,21 @@
 <script
     lang="ts"
     setup>
+    import type { FluxColor } from '@flux-ui/types';
+    import { clsx } from 'clsx';
     import { computed, unref } from 'vue';
     import { FluxFadeTransition } from '~flux/components/transition';
     import FluxFlex from './FluxFlex.vue';
     import $style from '~flux/components/css/component/Progress.module.scss';
 
     const {
+        color = 'primary',
         isIndeterminate,
         max = 1,
         min = 0,
         value
     } = defineProps<{
+        readonly color?: FluxColor;
         readonly isIndeterminate?: boolean;
         readonly max?: number;
         readonly min?: number;

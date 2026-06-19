@@ -2,6 +2,12 @@
 outline: deep
 
 props:
+    -   name: color
+        description: The color of the progress bar fill.
+        type: FluxColor
+        optional: true
+        default: primary
+
     -   name: is-indeterminate
         description: If the progress bar is in an indeterminate state.
         type: boolean
@@ -44,6 +50,10 @@ render=../code/components/progress-bar/preview.vue
 
 ::: example Basic || A basic progress bar.
 example=../code/components/progress-bar/basic.vue
+:::
+
+::: example Colors || Progress bars in each of the available colors.
+example=../code/components/progress-bar/colors.vue
 :::
 
 ::: example Status || A progress bar with a status message.
