@@ -113,6 +113,24 @@
 
 .applicationMenu :local(.menuSubHeader) {
     --surface: var(--application-menu-surface);
+    height: auto;
+    overflow: hidden;
+    interpolate-size: allow-keywords;
+    transition: var(--application-duration) var(--swift-out);
+    transition-property: height, margin, opacity, padding, display;
+    transition-behavior: allow-discrete;
+
+    @starting-style {
+        height: 0;
+        /* Match the collapsed state's negative margins (sum -12px = one panel gap)
+           so the expand-in animation starts exactly where the collapsed sub-header
+           sat — no jump at the start of the expand. */
+        margin-top: -9px;
+        margin-bottom: -3px;
+        padding-top: 0;
+        padding-bottom: 0;
+        opacity: 0;
+    }
 }
 
 .applicationMenu :local(.menuItem) {
@@ -242,6 +260,7 @@
     background: var(--gray-25);
     border: 1px solid var(--application-menu-surface-stroke);
     border-radius: var(--radius);
+    transition: opacity var(--application-duration) var(--swift-out);
 }
 
 .applicationMenuPromo > :local(.icon) {
@@ -257,7 +276,7 @@
     font-size: 14px;
 }
 
-.applicationMenuPromoContent :global(a) {
+.applicationMenuPromoContent :global(a:not([class])) {
     color: var(--gray-700);
 }
 
@@ -283,6 +302,10 @@
 }
 
 @include mixin.breakpoint-up(lg) {
+    .applicationMenuPromo {
+        width: calc(var(--application-menu-width) - 25px);
+    }
+
     .applicationMenu[data-collapsed][data-collapsible] {
         width: var(--application-menu-width-collapsed);
 
@@ -290,6 +313,20 @@
             filter: blur(6px);
             opacity: 0;
             translate: -12px 0;
+        }
+
+        :local(.menuSubHeader) {
+            display: none;
+            height: 0;
+            /* Keep the sub-header's negative margins (sum -12px = one panel gap) while
+               it is a zero-height flex item, so the space it leaves equals the single
+               gap that remains after `display: none` removes it — avoiding a jump of
+               the group below at the end of the collapse. */
+            margin-top: -9px;
+            margin-bottom: -3px;
+            padding-top: 0;
+            padding-bottom: 0;
+            opacity: 0;
         }
 
         .applicationMenuPromo,
@@ -324,6 +361,8 @@ html[data-application-resizing] {
     .applicationMenuFooter::before,
     .applicationMenuHeader,
     .applicationMenuTrack,
+    .applicationMenuPromo,
+    .applicationMenu :local(.menuSubHeader),
     .applicationMenu :local(.menuItemLabel),
     .applicationMenuContextPillContent :global(strong),
     .applicationMenuContextPillContent :global(span) {
