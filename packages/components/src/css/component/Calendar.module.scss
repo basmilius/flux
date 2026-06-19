@@ -20,6 +20,10 @@
     align-items: center;
 }
 
+.layerPane .calendarActions {
+    border: 0;
+}
+
 .calendarLoader {
     composes: basePaneLoader from './base/Pane.module.scss';
 }

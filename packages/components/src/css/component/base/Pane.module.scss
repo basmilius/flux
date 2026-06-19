@@ -23,7 +23,7 @@
     position: relative;
 }
 
-.basePaneStructure > .basePaneStructure {
+.basePaneStructure:not(.layerPane) > .basePaneStructure {
     background: unset;
     border: 0;
     box-shadow: none;

@@ -105,6 +105,6 @@
     }
 }
 
-.applicationTop:has(+ .applicationContentFull > :local(.table)) {
+.applicationTop:has(+ .applicationContentFull > :is(:local(.calendar), :local(.table))) {
     border-bottom-color: var(--surface-stroke-out);
 }

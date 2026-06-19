@@ -1,14 +1,9 @@
 .layerPane {
+    composes: basePaneStructure from './base/Pane.module.scss';
+
     display: flex;
     flex-flow: column;
-    background-clip: padding-box;
-    border: 1px solid;
-    border-radius: var(--radius);
     contain: paint;
-
-    > :local(.basePaneStructure) {
-        border-color: inherit;
-    }
 }
 
 .layerPaneGray {

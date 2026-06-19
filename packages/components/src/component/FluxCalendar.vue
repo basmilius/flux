@@ -1,123 +1,121 @@
 <template>
     <FluxLayerPane :class="$style.calendar">
-        <FluxPaneBody>
-            <FluxActionBar :class="$style.calendarActions">
-                <template #primary>
-                    <div
-                        :class="$style.calendarCurrent"
-                        role="presentation">
-                        <template v-if="resolvedView === 'month'">
-                            <FluxFlyout :width="300">
-                                <template #opener="{open}">
-                                    <button
-                                        :class="$style.calendarCurrentMonth"
-                                        :aria-label="translate('flux.selectMonth')"
-                                        type="button"
-                                        @click="open">
-                                        {{ monthViewMonth }}
-                                    </button>
-                                </template>
+        <FluxActionBar :class="$style.calendarActions">
+            <template #primary>
+                <div
+                    :class="$style.calendarCurrent"
+                    role="presentation">
+                    <template v-if="resolvedView === 'month'">
+                        <FluxFlyout :width="300">
+                            <template #opener="{open}">
+                                <button
+                                    :class="$style.calendarCurrentMonth"
+                                    :aria-label="translate('flux.selectMonth')"
+                                    type="button"
+                                    @click="open">
+                                    {{ monthViewMonth }}
+                                </button>
+                            </template>
 
-                                <template #default="{close}">
-                                    <div :class="$styleDatePicker.datePickerMonths">
-                                        <template
-                                            v-for="month of months"
-                                            :key="month.label">
-                                            <FluxSecondaryButton
-                                                :label="month.label"
-                                                tabindex="-1"
-                                                @click="setMonthViewMonth(month.date, close)"/>
-                                        </template>
-                                    </div>
-                                </template>
-                            </FluxFlyout>
-
-                            <FluxFlyout :width="300">
-                                <template #opener="{open}">
-                                    <button
-                                        :class="$style.calendarCurrentYear"
-                                        :aria-label="translate('flux.selectYear')"
-                                        type="button"
-                                        @click="open">
-                                        {{ monthViewYear }}
-                                    </button>
-                                </template>
-
-                                <template #default="{close}">
-                                    <div :class="$styleDatePicker.datePickerYears">
+                            <template #default="{close}">
+                                <div :class="$styleDatePicker.datePickerMonths">
+                                    <template
+                                        v-for="month of months"
+                                        :key="month.label">
                                         <FluxSecondaryButton
-                                            :aria-label="translate('flux.previousYears')"
-                                            icon-leading="angle-left"
+                                            :label="month.label"
                                             tabindex="-1"
-                                            @click="previousYears"/>
+                                            @click="setMonthViewMonth(month.date, close)"/>
+                                    </template>
+                                </div>
+                            </template>
+                        </FluxFlyout>
 
-                                        <template
-                                            v-for="year of years"
-                                            :key="year">
-                                            <FluxSecondaryButton
-                                                :label="year.toString()"
-                                                tabindex="-1"
-                                                @click="setMonthViewYear(year, close)"/>
-                                        </template>
+                        <FluxFlyout :width="300">
+                            <template #opener="{open}">
+                                <button
+                                    :class="$style.calendarCurrentYear"
+                                    :aria-label="translate('flux.selectYear')"
+                                    type="button"
+                                    @click="open">
+                                    {{ monthViewYear }}
+                                </button>
+                            </template>
 
+                            <template #default="{close}">
+                                <div :class="$styleDatePicker.datePickerYears">
+                                    <FluxSecondaryButton
+                                        :aria-label="translate('flux.previousYears')"
+                                        icon-leading="angle-left"
+                                        tabindex="-1"
+                                        @click="previousYears"/>
+
+                                    <template
+                                        v-for="year of years"
+                                        :key="year">
                                         <FluxSecondaryButton
-                                            :aria-label="translate('flux.nextYears')"
-                                            icon-leading="angle-right"
+                                            :label="year.toString()"
                                             tabindex="-1"
-                                            @click="nextYears"/>
-                                    </div>
-                                </template>
-                            </FluxFlyout>
-                        </template>
+                                            @click="setMonthViewYear(year, close)"/>
+                                    </template>
 
-                        <template v-else>
-                            <FluxFlyout :width="320">
-                                <template #opener="{open}">
-                                    <button
-                                        :class="$style.calendarRangeLabel"
-                                        :aria-label="translate('flux.selectDate')"
-                                        type="button"
-                                        @click="open">
-                                        {{ rangeLabel }}
-                                    </button>
-                                </template>
+                                    <FluxSecondaryButton
+                                        :aria-label="translate('flux.nextYears')"
+                                        icon-leading="angle-right"
+                                        tabindex="-1"
+                                        @click="nextYears"/>
+                                </div>
+                            </template>
+                        </FluxFlyout>
+                    </template>
 
-                                <template #default="{close}">
-                                    <FluxDatePicker
-                                        :model-value="datePickerValue"
-                                        @update:model-value="onDatePicked($event); close();"/>
-                                </template>
-                            </FluxFlyout>
-                        </template>
-                    </div>
-                </template>
+                    <template v-else>
+                        <FluxFlyout :width="320">
+                            <template #opener="{open}">
+                                <button
+                                    :class="$style.calendarRangeLabel"
+                                    :aria-label="translate('flux.selectDate')"
+                                    type="button"
+                                    @click="open">
+                                    {{ rangeLabel }}
+                                </button>
+                            </template>
 
-                <template #actionsEnd>
+                            <template #default="{close}">
+                                <FluxDatePicker
+                                    :model-value="datePickerValue"
+                                    @update:model-value="onDatePicked($event); close();"/>
+                            </template>
+                        </FluxFlyout>
+                    </template>
+                </div>
+            </template>
+
+            <template #actionsEnd>
+                <FluxSecondaryButton
+                    :aria-label="translate('flux.today')"
+                    :label="translate('flux.today')"
+                    @click="setToday"/>
+
+                <FluxButtonGroup>
                     <FluxSecondaryButton
-                        :aria-label="translate('flux.today')"
-                        :label="translate('flux.today')"
-                        @click="setToday"/>
+                        :aria-label="translate('flux.previous')"
+                        icon-leading="angle-left"
+                        @click="navigatePrevious"
+                        @dragenter="onNavDragEnter('previous')"
+                        @dragover="onNavDragOver"
+                        @dragleave="onNavDragLeave"/>
 
-                    <FluxButtonGroup>
-                        <FluxSecondaryButton
-                            :aria-label="translate('flux.previous')"
-                            icon-leading="angle-left"
-                            @click="navigatePrevious"
-                            @dragenter="onNavDragEnter('previous')"
-                            @dragover="onNavDragOver"
-                            @dragleave="onNavDragLeave"/>
-
-                        <FluxSecondaryButton
-                            :aria-label="translate('flux.next')"
-                            icon-leading="angle-right"
-                            @click="navigateNext"
-                            @dragenter="onNavDragEnter('next')"
-                            @dragover="onNavDragOver"
-                            @dragleave="onNavDragLeave"/>
-                    </FluxButtonGroup>
-                </template>
-            </FluxActionBar>
-        </FluxPaneBody>
+                    <FluxSecondaryButton
+                        :aria-label="translate('flux.next')"
+                        icon-leading="angle-right"
+                        @click="navigateNext"
+                        @dragenter="onNavDragEnter('next')"
+                        @dragover="onNavDragOver"
+                        @dragleave="onNavDragLeave"/>
+                </FluxButtonGroup>
+            </template>
+        </FluxActionBar>
 
         <FluxPane :class="$style.calendarView">
             <FluxCalendarMonthView
@@ -178,7 +176,6 @@
     import FluxFlyout from './FluxFlyout.vue';
     import FluxLayerPane from './FluxLayerPane.vue';
     import FluxPane from './FluxPane.vue';
-    import FluxPaneBody from './FluxPaneBody.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import FluxSpinner from './FluxSpinner.vue';
     import $style from '~flux/components/css/component/Calendar.module.scss';
