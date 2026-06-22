@@ -1,14 +1,11 @@
 # Ecosystem: sibling packages
 
-Flux ships as a small family of packages under the `@flux-ui` scope. This skill
-is primarily about **`@flux-ui/components`**, but real Flux apps compose the
-application shell and data visualisations from two sibling packages. Install and
-import them separately (they are not re-exported from `@flux-ui/components`), and
-**add each one's `@basmilius/vite-preset` plugin** (`fluxApplication()` /
-`fluxStatistics()`) — without it the package loads from dist with unimported CSS
-and renders unstyled. See `references/conventions.md`.
-Export names below are **build-verified** against each package's
-`src/component/index.ts`; for props, read the matching doc pages.
+Flux ships as a small family of packages under the `@flux-ui` scope. This skill is
+primarily about **`@flux-ui/components`**, but real apps compose the application
+shell and data visualisations from two siblings. Install and import them separately
+(not re-exported from `@flux-ui/components`), and **add each one's
+`@basmilius/vite-preset` plugin** (`fluxApplication()` / `fluxStatistics()`) or it
+loads from dist unstyled — see `references/conventions.md`.
 
 ## `@flux-ui/application` — the app shell
 
@@ -71,9 +68,8 @@ Data-visualisation components: a grid system, KPI cards, a chart pane wrapper,
 and a wide set of chart types (the charts wrap **ECharts**).
 
 **Peer deps (required — charts won't install/run without them):** `echarts`,
-`lodash-es`, and **`vue-i18n`**. `vue-i18n` must also be **registered on the app**
-(`app.use(createI18n({ ... }))`) or the chart components throw at runtime. See
-`references/conventions.md`.
+`lodash-es`, and **`vue-i18n`** (must be registered on the app or charts throw at
+runtime; use `globalInjection: false` — see `references/conventions.md`).
 
 **Containers & summaries:** `FluxStatisticsGrid`, `FluxStatisticsChartPane`,
 `FluxStatisticsKpi`, `FluxStatisticsMetric`, `FluxStatisticsChange`,
@@ -119,8 +115,10 @@ See `references/patterns.md` §6 for the full dashboard skeleton.
 ## Other `@flux-ui` packages
 
 - **`@flux-ui/types`** — the shared TypeScript surface (`FluxIconName`,
-  `FluxColor`, `FluxTo`, the `*Object`/`*Injection` types, …). Re-exported from
-  `@flux-ui/components`, so you rarely import it directly.
+  `FluxColor`, `FluxTo`, the `*Object`/`*Injection` types, …). Type aliases are
+  **not** re-exported by `@flux-ui/components` (importing one from there is a type
+  error) — import them from `@flux-ui/types`. See `references/conventions.md` ›
+  TypeScript.
 - **`@flux-ui/internals`** — internal building blocks shared across packages; not
   intended for direct application use.
 - **`@basmilius/vite-preset`** — the build-time `preset()` + `flux()` Vite

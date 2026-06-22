@@ -21,8 +21,7 @@ Rule of thumb: **more than one input, or must survive a reload (deep-link) →
 dialog handler; route to the overlay and `router.push` from the handler instead.
 
 All `show*` specs share `title` (**required**), `message` (**required**) and an
-optional `icon` (registered FA name). Exact options are on each `attention/*`
-doc page.
+optional `icon` (registered FA name).
 
 ## showConfirm — `Promise<boolean>`
 

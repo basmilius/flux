@@ -58,11 +58,11 @@ For cards and grouped content, reach for `FluxPane` and its parts
 (+ `FluxLayerPaneSecondary`)). Most doc examples place real content inside a
 `FluxPaneBody`. For empty/loading states use `FluxPlaceholder` / `FluxSkeleton`.
 
-For **list rows** use the item family — `FluxItem` (+ `FluxItemMedia` /
-`FluxItemContent` / `FluxItemActions`) stacked in a `FluxItemStack`. Static rows go
-in a `FluxPane`; **navigating** rows are `FluxClickablePane` (one per row, not in a
-shared stack). A `FluxLayerPane` + `FluxPaneHeader` turns either into a titled,
-bordered block. Copy-ready skeletons: `references/patterns.md` §5.
+For **list rows** use the item family (`FluxItem` + `FluxItemMedia` /
+`FluxItemContent` / `FluxItemActions`, stacked in a `FluxItemStack`) — static rows
+in a `FluxPane`, navigating rows as `FluxClickablePane` (one per row, not in a
+shared stack). Copy-ready skeletons and the `FluxLayerPane` grouping:
+`references/patterns.md` §5.
 
 ## Responsive logic
 

@@ -1,14 +1,15 @@
 # Component index
 
 The complete public surface of `@flux-ui/components`, grouped as in the official
-docs. **Every export name here is verified against the package's build entry
-(`src/component/index.ts`)** — these are the exact named exports, not derived
-guesses. Doc URLs follow `https://flux-ui.dev/components/<path>`.
+docs. Doc URLs follow `https://flux-ui.dev/components/<path>`.
 
-> The library is actively evolving — assume the **latest** version (the 3.x line,
-> installed via `@latest`; published under the `@flux-ui` scope). Names are
-> stable; for exact **props/emits/slots** always read the component's doc page —
-> every page has the same `Props` / `Emits` / `Slots` / `Examples` layout.
+> **Two global rules for this whole skill** (stated here, not repeated per
+> section): (1) **Every export name is build-verified** against the package's
+> build entry (`src/component/index.ts`) — exact named exports, not guesses.
+> (2) Names are stable, but the library evolves — assume the **latest** 3.x
+> (installed via `@latest`) and for exact **props/emits/slots/`v-model`** always
+> read the component's doc page (each has the same `Props` / `Emits` / `Slots` /
+> `Examples` layout).
 
 Names look mechanical but several groups deviate from their doc path — those are
 called out in SKILL.md §3 and marked **⚠** below.
@@ -42,7 +43,7 @@ called out in SKILL.md §3 and marked **⚠** below.
 Button `type`: `"button" | "link" | "route" | "none"`. For `"link"` use
 `href`/`rel`/`target`; for `"route"` use `:to` (`FluxTo`, Vue Router). Common
 props: `label`, `icon-leading`, `icon-trailing`, `size`, `is-filled`,
-`is-loading`, `is-submit`, `disabled`. Confirm exact props on the doc page.
+`is-loading`, `is-submit`, `disabled`.
 
 > **Use the named variants, not bare `FluxButton`.** `FluxButton` is the internal
 > base and its public props type requires `cssClass`/`cssClassIcon`/`cssClassLabel`,
@@ -77,6 +78,8 @@ internal to `FluxRoot`. See `references/dialogs-and-feedback.md`.
 | `form/text-area`          | `FluxFormTextArea` | Multi-line text |
 | `form/select`             | `FluxFormSelect` | Select control |
 | `form/select/async`       | `FluxFormSelectAsync` | Async-loaded select |
+| `form/combobox`           | `FluxFormCombobox` | Combobox (input + filtered options) |
+| `form/tags-input`         | `FluxFormTagsInput` | Tag/token entry input |
 | `form/checkbox`           | `FluxFormCheckbox` | Single checkbox |
 | `form/checkbox/group`     | `FluxFormCheckboxGroup` | Group of checkboxes |
 | `form/radio/item`         | `FluxFormRadio` ⚠ | A single radio |
@@ -84,6 +87,7 @@ internal to `FluxRoot`. See `references/dialogs-and-feedback.md`.
 | `form/toggle`             | `FluxToggle` ⚠ | On/off switch (**no `Form`**) |
 | `form/slider`             | `FluxFormSlider` | Single-value slider |
 | `form/slider/ranged`      | `FluxFormRangeSlider` ⚠ | Range slider |
+| `form/rating`             | `FluxFormRating` | Star/rating input |
 | `form/quantity-selector`  | `FluxQuantitySelector` ⚠ | Stepper number input (**no `Form`**) |
 | `form/pin-input`          | `FluxFormPinInput` | PIN/OTP entry |
 | `form/date`               | `FluxFormDateInput` ⚠ | Date picker field |
@@ -112,6 +116,7 @@ The `Layout` path segment is **dropped** from the export name (⚠).
 | `layout/container`       | `FluxContainer` ⚠ | Max-width container |
 | `layout/aspect-ratio`    | `FluxAspectRatio` ⚠ | Aspect-ratio box |
 | `layout/scroller`        | `FluxScroller` ⚠ | Scroll container |
+| `virtual-scroller`       | `FluxVirtualScroller` | Virtualised scroll container (large lists; no `layout/` prefix) |
 | `layout/spacer`          | `FluxSpacer` ⚠ | Flexible space |
 | `layout/spacing`         | `FluxSpacing` ⚠ | Spacing helper |
 | `layout/sticky`          | `FluxSticky` ⚠ | Sticky positioning |
@@ -176,9 +181,13 @@ Flex "stack" helpers live under `layout/flex/*` but export as `Flux*Stack` (⚠)
 | `item/media`      | `FluxItemMedia` | Item media |
 | `item/actions`    | `FluxItemActions` | Item actions |
 | `item/stack`      | `FluxItemStack` | Stack of items |
+| `description-list`      | `FluxDescriptionList` | Description list (term/detail pairs) |
+| `description-list/item` | `FluxDescriptionItem` ⚠ | One entry (**`List` dropped**, not `…ListItem`) |
+| `inline-edit`     | `FluxInlineEdit` | Inline-editable value |
 | `comment`         | `FluxComment` | Comment block |
 | `persona`         | `FluxPersona` | Person summary |
 | `avatar`          | `FluxAvatar` | Avatar |
+| `avatar-group`    | `FluxAvatarGroup` | Group of overlapping avatars |
 | `progress-bar`    | `FluxProgressBar` | Progress bar |
 | `spinner`         | `FluxSpinner` | Loading spinner |
 | `ticks`           | `FluxTicks` | Tick marks |
@@ -196,6 +205,9 @@ Flex "stack" helpers live under `layout/flex/*` but export as `Flux*Stack` (⚠)
 | `menu/collapsible`    | `FluxMenuCollapsible` | Collapsible menu section |
 | `menu/title`          | `FluxMenuTitle` | Menu title |
 | `menu/sub-header`     | `FluxMenuSubHeader` | Menu sub-header |
+| `menu/flyout`         | `FluxMenuFlyout` | Menu in a flyout |
+| `menu/pane`           | `FluxMenuPane` | Pane/surface inside a menu |
+| `context-menu`        | `FluxContextMenu` | Right-click / context menu |
 | `tabs`                | `FluxTabs` | Tabs |
 | `tabs/tab`            | `FluxTab` | A tab |
 | `tab-bar`             | `FluxTabBar` | Tab bar |
@@ -219,6 +231,7 @@ Flex "stack" helpers live under `layout/flex/*` but export as `Flux*Stack` (⚠)
 | `flyout`     | `FluxFlyout` | Anchored popover/flyout |
 | `tooltip`    | `FluxTooltip` | Tooltip |
 | `window`     | `FluxWindow` | Multi-level popover/menu container — `#default="{ navigate }"` root + named sub-view slots (`#x="{ back }"`); used inside a `FluxFlyout` for drill-in menus (e.g. a profile menu) |
+| `tour`       | `FluxTour` / `FluxTourItem` | Guided product tour; each step is a `FluxTourItem` (targets an element via `target`, optional `title`, step content in the default slot) |
 
 ## Small UI bits
 
@@ -256,8 +269,8 @@ Flex "stack" helpers live under `layout/flex/*` but export as `Flux*Stack` (⚠)
 
 Custom filter controls read context via `useFilterInjection`; author reusable
 filters with `defineFilter` (and the `defineFilterMacro` compile macro from the
-`@flux-ui/components/vite` subpath). Helpers: `pickFilterCommon`,
-`generateMultiOptionsLabel`, `isFluxFilterOptionHeader`, `isFluxFilterOptionItem`.
+`@flux-ui/components/vite` subpath). Root-exported helpers: `pickFilterCommon`,
+`isFluxFilterOptionHeader`, `isFluxFilterOptionItem`.
 
 ## Visual (decorative — never load-bearing UI)
 

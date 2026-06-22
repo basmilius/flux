@@ -1,8 +1,7 @@
 # Data display & navigation
 
-Exact props for everything here live on the component doc pages
-(`references/component-index.md` has the URLs). This file covers *which*
-component and *how the pieces fit*.
+This file covers *which* component and *how the pieces fit*; exact props are on
+the doc pages (`references/component-index.md` has the URLs).
 
 ## Tables
 
@@ -46,25 +45,21 @@ headers, row actions) see `references/patterns.md` §3.
 
 ## Filtering
 
-`FluxFilterBar` hosts filter controls inside a `FluxFilter`: `FluxFilterOption`,
-`FluxFilterOptions`, `FluxFilterOptionAsync` ⚠, `FluxFilterOptionsAsync` ⚠,
-`FluxFilterDate`, `FluxFilterDateRange`, `FluxFilterRange`. (`FluxFilter` is the
-standalone version — `v-model` a `FluxFilterState` + the same controls in its
-default slot — for filtering a non-table list without the bar.) Custom filter
-controls read context via `useFilterInjection`; build reusable filters with
-`defineFilter` (or the `defineFilterMacro` compile macro from
-`@flux-ui/components/vite`).
+`FluxFilterBar` hosts the `Flux Filter*` controls (full list:
+`references/component-index.md` › Filter). `FluxFilter` is the standalone version —
+`v-model` a `FluxFilterState` + the same controls in its default slot — for
+filtering a non-table list without the bar. Custom controls read context via
+`useFilterInjection`; build reusable filters with `defineFilter` (or the
+`defineFilterMacro` compile macro from `@flux-ui/components/vite`).
 
-Each control takes `name` / `label` / `icon`; **`FluxFilterRange` additionally
-requires `min` and `max`** (+ optional `:formatter`), and `FluxFilterOption(s)`
-take `:options` (`FluxFilterOptionItem[]`, `{ label, value, icon? }`) while the
-async variants take `:fetch-options` / `:fetch-relevant` / `:fetch-search`
-(returning `FluxFilterOptionRow[]`). The value each writes into the `v-model`
-state (keyed by `name`) differs by type: **single option → a scalar; multi
-`Options` → an array; `Date` → a `DateTime`; `DateRange` / `Range` → a 2-tuple** —
-guard with `Array.isArray` when you apply them. Worked **filterable data-table** skeleton (the
-`#filter` slot, `v-model` filter state, option/async/date filters):
-`references/patterns.md` §3.
+Each control takes `name` / `label` / `icon`; **`FluxFilterRange` also requires
+`min` and `max`** (+ optional `:formatter`), `FluxFilterOption(s)` take `:options`
+(`FluxFilterOptionItem[]`, `{ label, value, icon? }`), and the async variants take
+`:fetch-options` / `:fetch-relevant` / `:fetch-search` (returning
+`FluxFilterOptionRow[]`). The value each writes into the `v-model` state (keyed by
+`name`) differs by type: **single option → scalar; multi `Options` → array;
+`Date` → `DateTime`; `DateRange` / `Range` → 2-tuple** — guard with `Array.isArray`
+when applying. Worked **filterable data-table** skeleton: `references/patterns.md` §3.
 
 ## Navigation
 

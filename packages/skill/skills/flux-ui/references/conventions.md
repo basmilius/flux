@@ -29,10 +29,8 @@ build fails / charts throw):
   `vue-i18n` must be **registered on the app** (`app.use(createI18n({...}))`) or
   the charts throw at runtime. TS: add `@types/lodash-es`.
 
-(Any package manager works — `npm install`, `pnpm install`, `yarn add`.)
-Icons come from Font Awesome, which you add **separately** — see the Icons
-section below: Flux works with **either Free or Pro**, so decide which before
-installing (Pro needs a paid npm auth token; Free does not).
+(Any package manager works.) Icons come from Font Awesome, added **separately** —
+see the Icons section below (Free or Pro; decide before installing).
 
 Add `preset()` **plus one plugin per Flux package you use** to your Vite config.
 `@basmilius/vite-preset` exports a separate plugin per package — `flux()` for
@@ -89,10 +87,10 @@ it, configure i18n so Flux keeps its own strings — set **`globalInjection: fal
 const i18n = createI18n({ legacy: false, globalInjection: false, locale: 'en' });
 ```
 
-Statistics still works (its components use `useI18n()`, not global `$t`).
-Alternatively, if you *want* a global `$t`, merge Flux's strings into your
-messages: `import { english } from '@flux-ui/components'` →
-`messages: { en: { ...english, ...yours } }`.
+Statistics still works (its components use `useI18n()`, not global `$t`), so
+`globalInjection: false` is the reliable fix. Flux's English strings live in an
+**internal** `english` map that is **not** exported from the package root, so you
+can't merge them into a global `$t` — keep `globalInjection: false` instead.
 
 Install guides exist for plain Vue, **Vue Router**, and **Nuxt** — follow the
 matching one (routing and SSR each need extra setup).
@@ -184,11 +182,10 @@ registered definition. Two traps make this easy to get wrong:
   arrays typed `FluxIconName`, `:name="item.icon"` — never appear as a literal in
   the template, so a template-only scan misses them. Resolve those maps/arrays to
   their concrete values and validate those too.
-- **`name=` is not always an icon.** When scanning a template for icon usage,
-  `name` is an icon prop **only** on `FluxIcon` / `FluxBoxedIcon`. On
-  `FluxFilterOption` (and form controls) `name` is a state/field key — treating
-  every `name="…"` as an icon yields false "missing icon" hits. Icons elsewhere
-  arrive via `icon` / `icon-leading` / `icon-trailing`.
+- **`name=` is not always an icon.** It's an icon prop only on `FluxIcon` /
+  `FluxBoxedIcon` (see the Prop-name trap below); on `FluxFilterOption` and form
+  controls `name` is a state/field key, so scanning every `name="…"` yields false
+  "missing icon" hits.
 
 When in doubt prefer an **already-registered** name over expanding the icon set
 (e.g. use `calendar-days` if it's registered rather than adding `calendar-day`).
@@ -280,10 +277,7 @@ appears in the script's imports.
 
 ## Layout primitive: Pane
 
-`FluxPane` is the standard surface/card. Compose it as
-`FluxPane` › `FluxPaneHeader` / `FluxPaneBody` / `FluxPaneFooter`. Most form and
-content examples in the docs put their content inside a `FluxPaneBody`. A
-`FluxLayerPane` only pads its *pane structures* and the `FluxPaneHeader` /
-`FluxLayerPaneSecondary` chrome — a **bare `FluxItem` placed directly in a
-`FluxLayerPane`** (e.g. as a custom tinted header) gets **no padding**; give it
-its own (`padding: 15px 18px`) or wrap it. See `references/patterns.md` §5.
+`FluxPane` is the standard surface/card (`FluxPane` › `FluxPaneHeader` /
+`FluxPaneBody` / `FluxPaneFooter`; most content sits in a `FluxPaneBody`).
+Composition, the `FluxLayerPane` grouping, and its padding caveats live in
+`references/layout.md` and `references/patterns.md` §5.

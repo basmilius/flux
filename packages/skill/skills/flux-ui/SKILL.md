@@ -23,11 +23,10 @@ and the full per-component API at **flux-ui.dev**. Real apps also use the siblin
 — see `references/ecosystem.md`.
 
 **Versioning:** install the Flux packages and `@basmilius/vite-preset` with the
-**`@latest`** dist-tag, *not* a guessed caret range — their majors don't follow
-naive assumptions (the preset is on 3.x), and a caret won't match a `-next`
-prerelease. flux-ui.dev tracks latest and is the source of truth for exact props;
-export names are listed in `references/component-index.md`. This skill encodes the
-durable judgment and defers exact prop/emit/slot tables to the docs.
+**`@latest`** dist-tag, *not* a guessed caret range (a caret won't match the
+`-next` prerelease — see `references/conventions.md`). flux-ui.dev is the source of
+truth for exact props; export names are in `references/component-index.md`. This
+skill encodes the durable judgment and defers prop/emit/slot tables to the docs.
 
 ## 1. Disambiguation — read first
 
@@ -60,29 +59,21 @@ component instead.
   ```
 - **Stylesheet:** import the global styles once (under the preset, the SCSS
   entry): `import '@flux-ui/components/css/index.scss';`.
-- **Peer deps:** the Flux packages don't bundle their peers. Flux 3.x needs
-  **Vue 3.6 (beta)** — install `vue@^3.6.0-beta.13`, **not `vue@latest`** (3.5.x
-  fails the peer). `@flux-ui/components` needs **`luxon`**; `@flux-ui/application`
-  adds **`vue-router`**;
-  `@flux-ui/statistics` adds **`echarts`**, **`lodash-es`** and **`vue-i18n`**
-  (register it via `app.use(createI18n(...))` or charts throw). When you add
-  vue-i18n, set **`globalInjection: false`** so Flux keeps its own English —
-  otherwise the UI shows raw keys like `(flux.optional)`. See
-  `references/conventions.md`.
+- **Peer deps** (not bundled): Flux 3.x needs **Vue 3.6 beta** —
+  `vue@^3.6.0-beta.13`, **not `vue@latest`** (3.5.x fails the peer). Plus `luxon`
+  (components), `vue-router` (application), and `echarts` + `lodash-es` +
+  `vue-i18n` (statistics — register it with **`globalInjection: false`** or the UI
+  shows raw `flux.*` keys / charts throw). Full matrix: `references/conventions.md`.
 - **Provider:** mount a single `FluxRoot` as the app's main wrapper. It renders
   the overlay/snackbar/tooltip providers internally, so `showAlert/showConfirm/
   showPrompt/showSnackbar`, `FluxOverlay`, and `FluxTooltip` all need it.
   The `show*` functions throw if no `FluxRoot` is mounted.
-- **Icons:** Flux uses **Font Awesome**, registered via `fluxRegisterIcons(...)`
-  before use; components then reference them by **name string** (e.g.
-  `icon-leading="circle-check"`, type `FluxIconName`). Flux works with Font
-  Awesome **Free or Pro** — `fluxRegisterIcons` takes any icon definition. When
-  scaffolding, **ask which tier the project uses** before adding a dependency
-  (Pro needs a paid npm token; Free needs none — default to Free). **Also register
-  each component's "Required icons"** from its flux-ui.dev doc page — components
-  use icons internally (sort arrows, pagination, checkmarks) that you never pass
-  as props; unregistered, those render blank. See §6 and
-  `references/conventions.md`.
+- **Icons:** **Font Awesome**, registered once via `fluxRegisterIcons(...)`, then
+  referenced by **name string** (`icon-leading="circle-check"`, `FluxIconName`).
+  Works with Free **or** Pro — **ask which tier** before adding the dep (Pro needs
+  a paid token; default Free). Also register each component's **"Required icons"**
+  from its doc page (internal sort/pagination/checkmark icons) or they render
+  blank. Depth: §6 + `references/conventions.md`.
 - **Routing:** Vue Router integration is opt-in. Components that link use
   `type="route"` + `:to` (type `FluxTo`). There's a dedicated **Nuxt** install
   page too.

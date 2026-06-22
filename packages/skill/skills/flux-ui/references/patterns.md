@@ -1,11 +1,9 @@
 # Idiomatic patterns (end-to-end)
 
-These skeletons are distilled from a **production Flux app** on the latest
-`@flux-ui/components` (3.x). They show how the pieces actually fit —
-the wrappers, the slot shapes, the common prop combinations — which matters more
-than any single prop. Every component used here is build-verified; confirm exact
-props on the doc page. (App-specific helpers — i18n, validation wrappers, data
-services — have been stripped to plain English and generic placeholders.)
+These skeletons are distilled from a **production Flux app** (latest 3.x). They
+show how the pieces fit — the wrappers, slot shapes, and common prop combinations,
+which matters more than any single prop. (App-specific helpers — i18n, validation
+wrappers, data services — are stripped to plain English placeholders.)
 
 ## 1. Application shell
 
@@ -208,33 +206,25 @@ a label over a sub-label. For an empty state, render an empty/placeholder splash
 with a `FluxPrimaryButton type="route"` instead of the table when there are no
 items.
 
-**Overview-page wrapper (real apps).** In an `@flux-ui/application` app, the
-*list/overview page* wraps the table in `FluxApplicationContent layout="full"`.
-`layout="full"` is **specifically for a table or calendar**: its CSS only kicks in
-(edge-to-edge, full-height, internally-scrolling so sticky headers work) when the
+**Overview-page wrapper (real apps).** In an `@flux-ui/application` app, wrap the
+*list/overview page* in `FluxApplicationContent layout="full"`. `layout="full"` is
+**specifically for a table or calendar**: its edge-to-edge, full-height,
+internally-scrolling CSS (so sticky headers work) only kicks in when the
 `FluxDataTable`/`FluxTable`/`FluxCalendar` is a **direct child**. So:
 
-- **Do not wrap the table** in `FluxApplicationSection` / `FluxPane` here — that
-  breaks the direct-child selector and you lose full-height + sticky. The table
-  goes straight inside `FluxApplicationContent`.
-- A dedicated table *component* works only if **its root element is the table**
-  (no wrapping `<div>`), otherwise the direct-child selector misses it.
+- **Don't wrap the table** in `FluxApplicationSection` / `FluxPane` — it breaks the
+  direct-child selector (you lose full-height + sticky). A dedicated table
+  *component* works only if **its root element is the table** (no wrapping `<div>`).
 - `layout="full"` is **not** for card grids or KPI dashboards — use
-  `layout="default"` / `"dashboard"` there (a card grid in `full` just goes
-  edge-to-edge without the table benefits).
-- **No hero on a full table page** (the hero has no horizontal padding and would
-  hug the edge). The page title comes from the top bar (`defineTitle` /
-  `FluxApplicationTop`); page actions (Create, Download) live in the **top bar**,
-  not the table — in Passly-style apps via a named `top` router-view rendered in
-  `FluxApplicationTop`'s `#end` slot, with each table page supplying its own
-  `Top.vue`.
-- **Set `:fill-columns` to the column count.** When a full-height table has fewer
-  rows than fill the viewport, `fill-columns` renders placeholder cells so the
-  column dividers run all the way to the bottom (no half-drawn grid). Pass the
-  table's total column count, e.g. a 7-column table → `:fill-columns="7"`.
+  `layout="default"` / `"dashboard"` there.
+- **No hero on a full table page** — the page title and actions come from the top
+  bar, not the page (see §6).
+- **Set `:fill-columns` to the column count.** On a full-height table with few
+  rows, `fill-columns` renders placeholder cells so the column dividers reach the
+  bottom (no half-drawn grid) — e.g. a 7-column table → `:fill-columns="7"`.
 
 ```vue
-<!-- OrdersPage.vue — table is the DIRECT child -->
+<!-- OrdersPage.vue — table is the DIRECT child of FluxApplicationContent -->
 <template>
   <FluxApplicationContent layout="full">
     <FluxDataTable is-sticky :items="items" :limits="[10, 25, 50]" :page="page"
@@ -243,14 +233,6 @@ items.
     </FluxDataTable>
   </FluxApplicationContent>
 </template>
-
-<!-- Layout.vue — page actions render in the top bar -->
-<FluxApplicationTop :icon="icon" :title="title">
-  <template #end>
-    <RouterView name="top" />  <!-- each table route supplies a Top.vue here -->
-    <!-- search, notifications, profile … -->
-  </template>
-</FluxApplicationTop>
 ```
 
 **Badge convention.** Real apps almost always give a `FluxBadge` a **`color`
@@ -305,11 +287,10 @@ const statusOptions: FluxFilterOptionItem[] = [
 async function fetchEventOptions(ids: FluxFilterValue[]) { /* … */ }
 ```
 
-Filter components: `FluxFilterOption` / `FluxFilterOptions` (single/multi sync),
-`FluxFilterOptionAsync` / `FluxFilterOptionsAsync`, `FluxFilterDate`,
-`FluxFilterDateRange`, `FluxFilterRange`. Build reusable filters with
-`defineFilter`; custom controls read context via `useFilterInjection`. The docs'
-worked example: `https://flux-ui.dev/guide/patterns/filterable-data-table`.
+Build reusable filters with `defineFilter`; custom controls read context via
+`useFilterInjection`. Full filter list + per-type `v-model` value shapes:
+`references/data-and-navigation.md`. Docs' worked example:
+`https://flux-ui.dev/guide/patterns/filterable-data-table`.
 
 ## 4. Destructive action (confirm → act → snackbar)
 
@@ -479,11 +460,10 @@ Reach for `@flux-ui/application` for the shell** — don't hand-roll it from bar
 KPIs and charts. (For a single-screen widget, the plain `FluxContainer`/`FluxFlex`
 layout of §1's alternatives is fine; the application shell is for real apps.)
 
-> **Setup first (or it renders broken):** add the `fluxApplication()` and
-> `fluxStatistics()` Vite plugins, install their peers (`vue-router`; `echarts` +
-> `lodash-es` + `vue-i18n`), and register vue-i18n with `globalInjection: false`.
-> See `references/conventions.md` — skipping these gives an unstyled shell and raw
-> `flux.*` i18n keys.
+> **Setup first (or it renders broken):** add the `fluxApplication()` /
+> `fluxStatistics()` Vite plugins, install their peers, and register vue-i18n with
+> `globalInjection: false` — see `references/conventions.md`. Skipping these gives
+> an unstyled shell and raw `flux.*` i18n keys.
 
 **Shell** — `FluxApplication` (inside `FluxRoot`, see §1) gets a `FluxApplicationMenu`
 in its `#menu` slot and a `FluxApplicationTop` for the bar:
@@ -605,9 +585,7 @@ gets `{ close }`. **`FluxWindow`** is the multi-level popover-menu container —
 `#default="{ navigate }"` is the root view and each named slot (`#workspace="{ back }"`,
 …) is a sub-view, so a profile menu can drill into "switch workspace" and back.
 `FluxAvatar` takes `fallback-initials`, `src`, `size`, `is-clickable`;
-`FluxMenuItem` supports a trailing `command-icon`. Page-specific top actions
-(Download/Create on a list page) are injected into `#end` too — passly does this
-through a named `<RouterView>` so each page contributes its own toolbar buttons.
+`FluxMenuItem` supports a trailing `command-icon`.
 
 **Search field → command palette.** That `#end` search field is usually a
 *non-typeable opener* for a `FluxCommandPalette`, not a live input: keep the

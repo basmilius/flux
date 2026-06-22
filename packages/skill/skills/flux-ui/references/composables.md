@@ -41,8 +41,8 @@ context. Pair with `useDisabledInjection` when authoring a custom control.
 ## Injection composables (for custom components)
 
 Use these only when building a custom component that must integrate with a Flux
-parent's context. Each returns the injected context; exact shape is on the doc
-page (several have an exported `Flux*Injection` type).
+parent's context. Each returns the injected context (several have an exported
+`Flux*Injection` type).
 
 - `useAdaptiveGroupInjection` — child inside a `FluxAdaptiveGroup`.
 - `useCalendarInjection` — custom cell/entry inside a `FluxCalendar`.
@@ -72,13 +72,17 @@ components wire it up for you.
   `references/dialogs-and-feedback.md`). For dialogs prefer the `show*` functions.
 - **Icons** — `fluxRegisterIcons(icons)` registers Font Awesome icons; the
   `iconRegistry` is the underlying registry.
-- **Filter helpers** — `defineFilter`, `pickFilterCommon`,
-  `generateMultiOptionsLabel`, and the type guards `isFluxFilterOptionHeader` /
-  `isFluxFilterOptionItem` / `isResettable`. The `defineFilterMacro` compile
-  macro lives at the `@flux-ui/components/vite` subpath.
-- **Other helpers** — `sanitizeUrl`, `createLabelForDateRange`,
-  `createDialogRenderer`, the `inputMask` namespace, and the select type guards
-  `isFluxFormSelectOption` / `isFluxFormSelectGroup`.
+- **Filter helpers** — `defineFilter`, `pickFilterCommon`, and the type guards
+  `isFluxFilterOptionHeader` / `isFluxFilterOptionItem`. The `defineFilterMacro`
+  compile macro lives at the `@flux-ui/components/vite` subpath.
+- **Select type guards** — `isFluxFormSelectOption` / `isFluxFormSelectGroup`
+  narrow option vs group entries.
+- ⚠ **Not on the package root.** Several source utilities are **not** re-exported
+  from `@flux-ui/components` (the root export of `./data` and `./util` is
+  selective) — `generateMultiOptionsLabel`, `isResettable`, `sanitizeUrl`,
+  `createLabelForDateRange`, `createDialogRenderer`, the `inputMask` namespace, and
+  the internal `english` strings. They exist in source but you can't
+  `import { … } from '@flux-ui/components'`.
 - **Types** (`guide/api/types`) — type-only aliases (`FluxIconName`, `FluxColor`,
   `FluxTo`, …) come from **`@flux-ui/types`**; `@flux-ui/components` only
   re-exports a subset (injection types, `FluxState`/`FluxStore`,

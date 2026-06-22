@@ -36,7 +36,6 @@ Content usually sits inside a `FluxPaneBody`.
 
 Slots: `default ({ id })` (the control — `id` is provided for wiring the label),
 `addition` (extra rows, see below), `value` (a value shown next to the label).
-Confirm the current set on the `form/field` doc page.
 
 ## Multiple hints / errors
 
@@ -60,14 +59,14 @@ For more than one message, use the field's `#addition` slot and one
 
 ## Controls (wrap each in a FluxFormField)
 
-Exact export names below are build-verified; confirm `v-model` type on each
-control's doc page. **Note the naming traps** (`FluxToggle`,
-`FluxQuantitySelector`, `FluxFormRangeSlider`, `Flux…Input` dates).
+**Note the naming traps** (`FluxToggle`, `FluxQuantitySelector`,
+`FluxFormRangeSlider`, `Flux…Input` dates).
 
 - Text: `FluxFormInput` (+ `FluxFormInputGroup`, `FluxFormInputAddition`).
 - Numeric: `FluxFormNumberInput`, `FluxQuantitySelector`.
 - Long text: `FluxFormTextArea`.
-- Choice: `FluxFormSelect`, `FluxFormSelectAsync` (async-loaded options).
+- Choice: `FluxFormSelect`, `FluxFormSelectAsync` (async-loaded options),
+  `FluxFormCombobox` (input + filtered options).
 - Boolean: `FluxToggle`, `FluxFormCheckbox` (+ `FluxFormCheckboxGroup`). Bind a
   plain boolean `v-model` — **do not set `is-switch`** by default; it's a rare
   stylistic variant, not the normal toggle (real apps use `<FluxToggle v-model />`
@@ -77,6 +76,8 @@ control's doc page. **Note the naming traps** (`FluxToggle`,
 - Date/time: `FluxFormDateInput`, `FluxFormDateRangeInput`,
   `FluxFormDateTimeInput`, `FluxFormTimeZonePicker`. (A time-only field is
   documented as "coming soon".)
+- Tags: `FluxFormTagsInput` (tag/token entry).
+- Rating: `FluxFormRating` (star/rating input).
 - Specialised: `FluxFormPinInput`, `FluxFormTreeViewSelect`, `FluxColorPicker`,
   `FluxColorSelect`.
 
