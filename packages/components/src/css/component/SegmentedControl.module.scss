@@ -4,7 +4,7 @@
     position: relative;
     align-items: center;
     gap: 3px;
-    padding: 3px;
+    padding: 2px;
     background: var(--gray-50);
     border: 1px solid var(--surface-stroke);
     border-radius: var(--radius);
@@ -25,8 +25,8 @@
 
 .segmentedControlHighlight {
     position: absolute;
-    top: 3px;
-    bottom: 3px;
+    top: 2px;
+    bottom: 2px;
     background: var(--surface);
     border-radius: calc(var(--radius) - 3px);
     box-shadow: var(--shadow-md);

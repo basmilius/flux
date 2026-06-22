@@ -239,7 +239,7 @@
     setup>
     import { FluxApplicationContent, FluxApplicationSection } from '@flux-ui/application';
     import { FluxBoxedIcon, FluxGrid, FluxGridColumn, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxItemStack, FluxLayerPane, FluxNotice, FluxNoticeStack, FluxPane, FluxPaneHeader, FluxSecondaryButton } from '@flux-ui/components';
-    import { FluxStatisticsAreaChart, FluxStatisticsChange, FluxStatisticsChartPane, FluxStatisticsDonutChart, FluxStatisticsGrid, FluxStatisticsKpi, FluxStatisticsLegend, FluxStatisticsMetric, FluxStatisticsSparkline } from '@flux-ui/statistics';
+    import { FluxStatisticsAreaChart, FluxStatisticsChange, FluxStatisticsChartPane, FluxStatisticsDonutChart, FluxStatisticsGrid, FluxStatisticsKpi, FluxStatisticsLegend, FluxStatisticsMetric, FluxStatisticsPercentageBar, FluxStatisticsSparkline } from '@flux-ui/statistics';
     import type { FluxColor, FluxIconName, FluxStatisticsChartAreaSeries, FluxStatisticsChartPieSlice, FluxStatisticsPercentageBarItemObject } from '@flux-ui/types';
     import { computed } from 'vue';
     import { defineTitle } from '@/composable';
