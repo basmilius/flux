@@ -27,12 +27,14 @@
         color: var(--foreground);
         font-size: 18px;
         font-weight: 600;
+        font-variant-numeric: tabular-nums;
     }
 
     :global(strong) {
         color: var(--foreground-prominent);
         font-size: 21px;
         font-weight: 800;
+        font-variant-numeric: tabular-nums;
         line-height: 36px;
     }
 
@@ -63,6 +65,7 @@
     color: var(--foreground-prominent);
     font-size: 18px;
     font-weight: 800;
+    font-variant-numeric: tabular-nums;
     line-height: 36px;
     text-transform: capitalize;
 }

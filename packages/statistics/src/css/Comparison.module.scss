@@ -28,6 +28,7 @@
     color: var(--foreground-prominent);
     font-size: 21px;
     font-weight: 800;
+    font-variant-numeric: tabular-nums;
     line-height: 28px;
 }
 
@@ -35,6 +36,7 @@
     color: var(--foreground-secondary);
     font-size: 18px;
     font-weight: 600;
+    font-variant-numeric: tabular-nums;
     line-height: 28px;
 }
 
