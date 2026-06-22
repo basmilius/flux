@@ -137,6 +137,8 @@ Match the user's need to a component; the **complete list with doc URLs** is
   (`FluxApplication` + `FluxApplicationMenu` + `FluxApplicationTop`,
   `FluxApplicationContent`), with **`@flux-ui/statistics`** for KPIs/charts — not
   hand-rolled layout. `references/patterns.md` §6, `references/ecosystem.md`.
+- **Typography / text** → `FluxText` (Flux type scale: size/weight/color, tabular
+  figures, truncate) instead of raw HTML + custom CSS. Detail on its doc page.
 - **Composables** → `useBreakpoints` (responsive), `useFluxStore` (global store),
   `use*Injection` (custom controls). `references/composables.md`.
 

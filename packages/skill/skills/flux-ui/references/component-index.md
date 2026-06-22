@@ -241,6 +241,7 @@ Flex "stack" helpers live under `layout/flex/*` but export as `Flux*Stack` (⚠)
 | `chip`         | `FluxChip` | Chip |
 | `tag`          | `FluxTag` / `FluxTagStack` ⚠ | Tag (+ stack) |
 | `info`         | `FluxInfo` / `FluxInfoStack` ⚠ | Info text (+ stack) |
+| `text`         | `FluxText` | Typography primitive — Flux type scale (size/weight/color/tabular/truncate) |
 | `icon`         | `FluxIcon` | Icon (Font Awesome name) |
 | `boxed-icon`   | `FluxBoxedIcon` | Icon in a box |
 | `disabled`     | `FluxDisabled` | Disabled-state wrapper |
@@ -252,6 +253,10 @@ Flex "stack" helpers live under `layout/flex/*` but export as `Flux*Stack` (⚠)
 | `fader-item`   | `FluxFaderItem` | Fade carousel item |
 | `focal-point/editor` | `FluxFocalPointEditor` | Focal-point editor |
 | `focal-point/image`  | `FluxFocalPointImage` | Focal-point image |
+
+`FluxText` extends two scales beyond the norm: `color` takes a `FluxColor` **plus**
+`muted`/`prominent`, and `size` is `small|medium|large|display` (its own scale,
+**not** `FluxSize`). Exact props on its doc page.
 
 ## Filter
 
