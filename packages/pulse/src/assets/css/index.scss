@@ -16,10 +16,13 @@
 }
 
 // Re-tint the Flux primary ramp to an indigo/violet accent (defined in OKLCH) so
-// Pulse reads distinctly from Nimbus. Primary tokens are not inverted in dark
-// mode (only the neutral gray ramp is), so a single definition covers both
-// themes. Every primary-derived token (links, focus rings, active states,
-// chart series via var(--primary-400)) follows automatically.
+// Pulse reads distinctly from Nimbus. The :root block is the light ramp; the [dark]
+// block below inverts it for dark mode (dark indigo tints at the low steps, bright
+// accents at the high steps), mirroring how Flux's own neutral ramp inverts. Both
+// rules are unlayered so they win over Flux's layered primary defaults, and [dark]
+// (same specificity as :root, applied on <html>) wins by source order in dark mode.
+// Every primary-derived token (links, focus rings, active states, chart series via
+// var(--primary-400)) follows automatically.
 
 :root {
     --primary-25: oklch(98.4% 0.008 286);
@@ -34,4 +37,19 @@
     --primary-800: oklch(42.4% 0.176 276);
     --primary-900: oklch(37.6% 0.138 277);
     --primary-950: oklch(27% 0.094 280);
+}
+
+[dark] {
+    --primary-25: oklch(29% 0.03 284);
+    --primary-50: oklch(32% 0.05 283);
+    --primary-100: oklch(36% 0.075 283);
+    --primary-200: oklch(41% 0.105 282);
+    --primary-300: oklch(46% 0.135 281);
+    --primary-400: oklch(51% 0.165 280);
+    --primary-500: oklch(55% 0.19 279);
+    --primary-600: oklch(58% 0.205 278);
+    --primary-700: oklch(65% 0.195 278);
+    --primary-800: oklch(72% 0.17 279);
+    --primary-900: oklch(78% 0.14 281);
+    --primary-950: oklch(84% 0.1 283);
 }

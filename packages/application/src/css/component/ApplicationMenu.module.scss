@@ -122,9 +122,6 @@
 
     @starting-style {
         height: 0;
-        /* Match the collapsed state's negative margins (sum -12px = one panel gap)
-           so the expand-in animation starts exactly where the collapsed sub-header
-           sat — no jump at the start of the expand. */
         margin-top: -9px;
         margin-bottom: -3px;
         padding-top: 0;

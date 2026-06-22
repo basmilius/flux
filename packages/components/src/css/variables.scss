@@ -88,18 +88,18 @@
 }
 
 @mixin color-dark {
-    --gray-25: #0c0d12;
-    --gray-50: #121419;
-    --gray-100: #1a1d24;
-    --gray-200: #23262f;
-    --gray-300: #363a45;
-    --gray-400: #494f61;
-    --gray-500: #5e657b;
-    --gray-600: #7f88a2;
-    --gray-700: #a4adc8;
-    --gray-800: #c0c7da;
-    --gray-900: #dae1f5;
-    --gray-950: #f4fbff;
+    --gray-25: #15171e;
+    --gray-50: #1b1f27;
+    --gray-100: #232732;
+    --gray-200: #2d323e;
+    --gray-300: #393f4f;
+    --gray-400: #485064;
+    --gray-500: #5b647e;
+    --gray-600: #717c9a;
+    --gray-700: #8f98b1;
+    --gray-800: #a8b0c5;
+    --gray-900: #bfc5d7;
+    --gray-950: #d8dbe4;
 
     --primary-25: #23262c;
     --primary-50: #262c39;
@@ -199,6 +199,9 @@
 }
 
 @mixin defaults-dark {
+    --surface-stroke-out: rgb(from var(--gray-400) r g b / .3);
+    --surface-stroke-out-hover: rgb(from var(--gray-500) r g b / .3);
+
     --overlay: rgb(0 0 0 / .6);
     --overlay-secondary: rgb(0 0 0 / .4);
     --overlay-strong: rgb(0 0 0 / .9);
@@ -216,10 +219,10 @@
 
 @mixin shadow-dark {
     --shadow-px: 0 1px 1px rgb(0 0 0 / 0.1);
-    --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.1);
-    --shadow-sm: 0 1px 3px rgb(0 0 0 / 0.15), 0 1px 2px -1px rgb(0 0 0 / 0.15);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.15), 0 2px 4px -2px rgb(0 0 0 / 0.15);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.15), 0 4px 6px -4px rgb(0 0 0 / 0.15);
-    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.15), 0 8px 10px -6px rgb(0 0 0 / 0.15);
-    --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    --shadow-xs: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+    --shadow-sm: 0 1px 5px rgb(0 0 0 / 0.15), 0 1px 3px -1px rgb(0 0 0 / 0.15);
+    --shadow-md: 0 4px 9px -1px rgb(0 0 0 / 0.15), 0 2px 6px -2px rgb(0 0 0 / 0.15);
+    --shadow-lg: 0 10px 22px -3px rgb(0 0 0 / 0.15), 0 4px 9px -4px rgb(0 0 0 / 0.15);
+    --shadow-xl: 0 20px 36px -5px rgb(0 0 0 / 0.15), 0 8px 15px -6px rgb(0 0 0 / 0.15);
+    --shadow-2xl: 0 25px 72px -12px rgb(0 0 0 / 0.25);
 }

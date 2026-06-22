@@ -9,9 +9,9 @@
         </template>
 
         <template #default="{close}">
-            <FluxWindow style="min-width: 240px">
+            <FluxWindow>
                 <template #default="{navigate}">
-                    <FluxMenu>
+                    <FluxMenu is-persistent>
                         <FluxMenuGroup>
                             <FluxPersona
                                 :avatar-fallback-initials="account.initials"
