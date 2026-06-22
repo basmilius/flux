@@ -42,12 +42,15 @@ jobs:
                     bun pm version --cwd packages/components "$RELEASE_VERSION"
                     bun pm version --cwd packages/application "$RELEASE_VERSION"
                     bun pm version --cwd packages/statistics "$RELEASE_VERSION"
+                    bun pm version --cwd packages/skill "$RELEASE_VERSION"
 
                     sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/types/package.json
                     sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/internals/package.json
                     sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/components/package.json
                     sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/application/package.json
                     sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/statistics/package.json
+
+                    sed -i "s/\"version\": \"[^\"]*\"/\"version\": \"$RELEASE_VERSION\"/" packages/skill/.claude-plugin/plugin.json
 
             -   name: 📦️ Install dependencies
                 run: bun install --frozen-lockfile
@@ -71,6 +74,7 @@ jobs:
                     (cd packages/components && npm publish --access public --tag next)
                     (cd packages/application && npm publish --access public --tag next)
                     (cd packages/statistics && npm publish --access public --tag next)
+                    (cd packages/skill && npm publish --access public --tag next)
 
             -   name: 🚀 Publish v${{ env.RELEASE_VERSION }}
                 if: ${{ !github.event.release.prerelease }}
@@ -80,6 +84,7 @@ jobs:
                     (cd packages/components && npm publish --access public)
                     (cd packages/application && npm publish --access public)
                     (cd packages/statistics && npm publish --access public)
+                    (cd packages/skill && npm publish --access public)
 
             -   name: 🚀 Publish Docs (Pre-release)
                 uses: cloudflare/wrangler-action@v3
