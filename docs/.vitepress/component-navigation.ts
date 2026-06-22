@@ -374,6 +374,7 @@ const navigation: SidebarItem = {
             ]
         },
         {text: 'Tag', link: '/components/tag'},
+        {text: 'Text', link: '/components/text'},
         {text: 'Ticks', link: '/components/ticks'},
         {
             text: 'Timeline',

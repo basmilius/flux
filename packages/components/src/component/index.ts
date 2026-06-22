@@ -173,6 +173,7 @@ export { default as FluxTableHeader } from './FluxTableHeader.vue';
 export { default as FluxTableRow } from './FluxTableRow.vue';
 export { default as FluxTag } from './FluxTag.vue';
 export { default as FluxTagStack } from './FluxTagStack.vue';
+export { default as FluxText } from './FluxText.vue';
 export { default as FluxTicks } from './FluxTicks.vue';
 export { default as FluxTimeline } from './FluxTimeline.vue';
 export { default as FluxTimelineItem } from './FluxTimelineItem.vue';

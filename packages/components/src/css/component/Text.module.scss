@@ -1,0 +1,75 @@
+.text {
+    color: var(--foreground);
+}
+
+.textSizeSmall {
+    font-size: 13px;
+}
+
+.textSizeMedium {
+    font-size: 15px;
+}
+
+.textSizeLarge {
+    font-size: 18px;
+}
+
+.textSizeDisplay {
+    font-size: 27px;
+    line-height: 1.2;
+}
+
+.textColorMuted {
+    color: var(--gray-500);
+}
+
+.textColorProminent {
+    color: var(--foreground-prominent);
+}
+
+.textColorGray {
+    color: var(--gray-600);
+}
+
+.textColorPrimary {
+    color: var(--primary-600);
+}
+
+.textColorDanger {
+    color: var(--danger-600);
+}
+
+.textColorInfo {
+    color: var(--info-600);
+}
+
+.textColorSuccess {
+    color: var(--success-600);
+}
+
+.textColorWarning {
+    color: var(--warning-600);
+}
+
+.textAlignStart {
+    text-align: start;
+}
+
+.textAlignCenter {
+    text-align: center;
+}
+
+.textAlignEnd {
+    text-align: end;
+}
+
+.textTabular {
+    font-variant-numeric: tabular-nums;
+}
+
+.textTruncate {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
