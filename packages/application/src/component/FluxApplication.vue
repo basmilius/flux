@@ -40,6 +40,7 @@
         side(): VNode[];
     }>();
 
+    let readyFrame: number | undefined;
     let resizeTimer: ReturnType<typeof setTimeout> | undefined;
 
     const isMenuCollapsed = useRemembered('application-menu-collapsed', true);
@@ -61,11 +62,26 @@
         }
 
         window.addEventListener('resize', onResize, {passive: true});
+
+        // Flag the app as ready one frame past the first paint so the menu
+        // sub-header's `@starting-style` transition does not play on page
+        // load — it should only animate on later collapse / expand.
+        readyFrame = requestAnimationFrame(() => {
+            readyFrame = requestAnimationFrame(() => {
+                readyFrame = undefined;
+                document.documentElement.dataset.applicationReady = '';
+            });
+        });
     });
 
     onUnmounted(() => {
         if (typeof window !== 'undefined') {
             window.removeEventListener('resize', onResize);
+        }
+
+        if (readyFrame !== undefined) {
+            cancelAnimationFrame(readyFrame);
+            readyFrame = undefined;
         }
 
         if (resizeTimer !== undefined) {
@@ -75,6 +91,7 @@
 
         if (typeof document !== 'undefined') {
             delete document.documentElement.dataset.applicationMenuOpen;
+            delete document.documentElement.dataset.applicationReady;
             delete document.documentElement.dataset.applicationResizing;
         }
     });

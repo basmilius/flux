@@ -352,6 +352,10 @@
     }
 }
 
+html:not([data-application-ready]) .applicationMenu :local(.menuSubHeader) {
+    transition: none;
+}
+
 html[data-application-resizing] {
     .applicationMenu,
     .applicationMenuFooter,
