@@ -81,10 +81,13 @@
 
             <template #device="{item}">
                 <FluxTableCell>
-                    <span class="device">
+                    <FluxFlex
+                        align="center"
+                        :gap="6"
+                        is-inline>
                         <FluxIcon :name="DEVICE[item.device].icon"/>
                         {{ DEVICE[item.device].label }}
-                    </span>
+                    </FluxFlex>
                 </FluxTableCell>
             </template>
 
@@ -99,7 +102,7 @@
     lang="ts"
     setup>
     import { FluxApplicationContent } from '@flux-ui/application';
-    import { FluxBadge, FluxDataTable, FluxFilterBar, FluxFilterOption, FluxFilterOptionAsync, FluxFilterOptions, FluxIcon, FluxTableBar, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
+    import { FluxBadge, FluxDataTable, FluxFilterBar, FluxFilterOption, FluxFilterOptionAsync, FluxFilterOptions, FluxFlex, FluxIcon, FluxTableBar, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
     import type { FluxFilterOptionItem, FluxFilterOptionRow, FluxFilterState, FluxFilterValue } from '@flux-ui/types';
     import { computed, ref } from 'vue';
     import { defineTitle } from '@/composable';
@@ -158,11 +161,3 @@
 
     const visibleRows = computed(() => filteredRows.value.slice((pageNumber.value - 1) * perPage.value, pageNumber.value * perPage.value));
 </script>
-
-<style scoped>
-    .device {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-    }
-</style>

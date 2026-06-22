@@ -38,35 +38,51 @@
             title="Conversion funnel">
             <FluxPane>
                 <FluxPaneBody>
-                    <div class="funnel">
-                        <div
+                    <FluxFlex
+                        direction="vertical"
+                        :gap="18">
+                        <FluxFlex
                             v-for="(step, index) of funnelSteps"
                             :key="step.name"
-                            class="step">
-                            <div class="step-head">
-                                <span class="step-name">
+                            direction="vertical"
+                            :gap="6">
+                            <FluxFlex
+                                align="center"
+                                :gap="12"
+                                justify="between">
+                                <FluxFlex
+                                    align="center"
+                                    :gap="9">
                                     <FluxBoxedIcon
                                         color="primary"
                                         name="filter"
                                         :size="24"/>
-                                    {{ step.name }}
-                                </span>
-                                <span class="step-stats">
-                                    <strong>{{ formatCompact(step.users) }}</strong>
-                                    <small>{{ formatPercent(step.pct) }}</small>
-                                </span>
-                            </div>
+                                    <FluxText :weight="500">{{ step.name }}</FluxText>
+                                </FluxFlex>
+                                <FluxFlex
+                                    align="baseline"
+                                    :gap="9">
+                                    <FluxText
+                                        tabular
+                                        :weight="600">{{ formatCompact(step.users) }}</FluxText>
+                                    <FluxText
+                                        color="muted"
+                                        size="small"
+                                        tabular>{{ formatPercent(step.pct) }}</FluxText>
+                                </FluxFlex>
+                            </FluxFlex>
                             <FluxProgressBar
                                 color="primary"
                                 :max="100"
                                 :value="step.pct"/>
-                            <small
+                            <FluxText
                                 v-if="index > 0"
-                                class="step-drop">
+                                color="muted"
+                                size="small">
                                 {{ formatPercent(step.fromPrevious) }} continued · {{ formatPercent(100 - step.fromPrevious) }} dropped off
-                            </small>
-                        </div>
-                    </div>
+                            </FluxText>
+                        </FluxFlex>
+                    </FluxFlex>
                 </FluxPaneBody>
             </FluxPane>
         </FluxApplicationSection>
@@ -165,14 +181,21 @@
                         </FluxPaneHeader>
                         <FluxPane>
                             <FluxPaneBody>
-                                <div class="goal">
-                                    <span class="goal-value">{{ formatNumber(goal.completions) }}</span>
-                                    <span class="goal-sub">completions · {{ formatCurrency(goal.value) }} value</span>
+                                <FluxFlex
+                                    direction="vertical"
+                                    :gap="6">
+                                    <FluxText
+                                        size="display"
+                                        tabular
+                                        :weight="600">{{ formatNumber(goal.completions) }}</FluxText>
+                                    <FluxText
+                                        color="muted"
+                                        size="small">completions · {{ formatCurrency(goal.value) }} value</FluxText>
                                     <FluxProgressBar
                                         :color="GOAL[goal.type].color"
                                         :max="100"
                                         :value="goalProgress(goal.conversionRate)"/>
-                                </div>
+                                </FluxFlex>
                             </FluxPaneBody>
                         </FluxPane>
                     </FluxLayerPane>
@@ -186,7 +209,7 @@
     lang="ts"
     setup>
     import { FluxApplicationContent, FluxApplicationSection } from '@flux-ui/application';
-    import { FluxBadge, FluxBoxedIcon, FluxGrid, FluxGridColumn, FluxLayerPane, FluxPane, FluxPaneBody, FluxPaneHeader, FluxProgressBar } from '@flux-ui/components';
+    import { FluxBadge, FluxBoxedIcon, FluxFlex, FluxGrid, FluxGridColumn, FluxLayerPane, FluxPane, FluxPaneBody, FluxPaneHeader, FluxProgressBar, FluxText } from '@flux-ui/components';
     import { FluxStatisticsAreaChart, FluxStatisticsBarChart, FluxStatisticsChartPane, FluxStatisticsGrid, FluxStatisticsKpi, FluxStatisticsLegend, FluxStatisticsLegendItem, FluxStatisticsLegendScope, FluxStatisticsLineChart, FluxStatisticsPieChart } from '@flux-ui/statistics';
     import type { FluxStatisticsChartAreaSeries, FluxStatisticsChartBarSeries, FluxStatisticsChartLineSeries, FluxStatisticsChartPieSlice } from '@flux-ui/types';
     import { computed } from 'vue';
@@ -242,66 +265,3 @@
         return Math.round((rate / maxGoalRate.value) * 100);
     }
 </script>
-
-<style scoped>
-    .funnel {
-        display: flex;
-        flex-flow: column;
-        gap: 18px;
-    }
-
-    .step {
-        display: flex;
-        flex-flow: column;
-        gap: 6px;
-    }
-
-    .step-head {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-    }
-
-    .step-name {
-        display: flex;
-        align-items: center;
-        gap: 9px;
-        font-size: 14px;
-        font-weight: 500;
-        color: var(--foreground);
-    }
-
-    .step-stats {
-        display: flex;
-        align-items: baseline;
-        gap: 9px;
-        font-variant-numeric: tabular-nums;
-    }
-
-    .step-stats small {
-        color: var(--gray-500);
-    }
-
-    .step-drop {
-        color: var(--gray-500);
-    }
-
-    .goal {
-        display: flex;
-        flex-flow: column;
-        gap: 6px;
-    }
-
-    .goal-value {
-        font-size: 27px;
-        font-weight: 600;
-        font-variant-numeric: tabular-nums;
-        color: var(--foreground);
-    }
-
-    .goal-sub {
-        font-size: 13px;
-        color: var(--gray-500);
-    }
-</style>

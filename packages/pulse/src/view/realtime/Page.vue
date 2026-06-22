@@ -60,7 +60,9 @@
                                     :key="page.path">
                                     <FluxItemContent is-center>
                                         <strong>{{ page.title }}</strong>
-                                        <span class="muted">{{ page.path }}</span>
+                                        <FluxText
+                                            color="muted"
+                                            tabular>{{ page.path }}</FluxText>
                                     </FluxItemContent>
                                     <FluxItemActions is-center>
                                         <FluxBadge
@@ -145,7 +147,7 @@
     lang="ts"
     setup>
     import { FluxApplicationContent, FluxApplicationSection } from '@flux-ui/application';
-    import { FluxBadge, FluxGrid, FluxGridColumn, FluxItem, FluxItemActions, FluxItemContent, FluxItemStack, FluxLayerPane, FluxNotice, FluxPane, FluxPaneBody, FluxPaneHeader, FluxTimeline, FluxTimelineItem } from '@flux-ui/components';
+    import { FluxBadge, FluxGrid, FluxGridColumn, FluxItem, FluxItemActions, FluxItemContent, FluxItemStack, FluxLayerPane, FluxNotice, FluxPane, FluxPaneBody, FluxPaneHeader, FluxText, FluxTimeline, FluxTimelineItem } from '@flux-ui/components';
     import { FluxStatisticsBarChart, FluxStatisticsChartPane, FluxStatisticsDetailsTable, FluxStatisticsDetailsTableRow, FluxStatisticsDonutChart, FluxStatisticsGrid, FluxStatisticsKpi, FluxStatisticsLegend } from '@flux-ui/statistics';
     import type { FluxStatisticsChartBarSeries, FluxStatisticsChartPieSlice } from '@flux-ui/types';
     import { computed, onMounted, onUnmounted } from 'vue';
@@ -175,10 +177,3 @@
         color: `var(--${CHANNEL[source.channel].color}-400)`
     })));
 </script>
-
-<style scoped>
-    .muted {
-        font-variant-numeric: tabular-nums;
-        color: var(--gray-500);
-    }
-</style>

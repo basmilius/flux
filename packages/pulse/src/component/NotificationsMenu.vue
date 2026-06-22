@@ -28,7 +28,9 @@
                 </FluxPaneHeader>
 
                 <FluxPaneBody v-if="alerts.length === 0">
-                    <p class="empty">No alerts right now.</p>
+                    <FluxText
+                        color="muted"
+                        size="small">No alerts right now.</FluxText>
                 </FluxPaneBody>
 
                 <div
@@ -80,7 +82,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxBoxedIcon, FluxClickablePane, FluxFlyout, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxSecondaryButton, FluxSecondaryLinkButton } from '@flux-ui/components';
+    import { FluxBoxedIcon, FluxClickablePane, FluxFlyout, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxSecondaryButton, FluxSecondaryLinkButton, FluxText } from '@flux-ui/components';
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { useRouter } from 'vue-router';
     import { useAnalyticsStore } from '@/store';
@@ -132,12 +134,6 @@
         border: 2px solid var(--surface);
         border-radius: 9px;
         pointer-events: none;
-    }
-
-    .empty {
-        margin: 0;
-        font-size: 13px;
-        color: var(--gray-500);
     }
 
     .list {

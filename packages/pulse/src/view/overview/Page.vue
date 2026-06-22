@@ -171,10 +171,14 @@
                                     </FluxItemMedia>
                                     <FluxItemContent is-center>
                                         <strong>{{ page.title }}</strong>
-                                        <span class="path">{{ page.path }}</span>
+                                        <FluxText
+                                            color="muted"
+                                            tabular>{{ page.path }}</FluxText>
                                     </FluxItemContent>
                                     <FluxItemActions is-center>
-                                        <span class="metric">{{ formatCompact(page.pageviews) }}</span>
+                                        <FluxText
+                                            tabular
+                                            :weight="600">{{ formatCompact(page.pageviews) }}</FluxText>
                                     </FluxItemActions>
                                 </FluxItem>
                             </FluxItemStack>
@@ -213,10 +217,14 @@
                                     </FluxItemMedia>
                                     <FluxItemContent is-center>
                                         <strong>{{ CHANNEL[entry.channel].label }}</strong>
-                                        <span class="path">{{ formatPercent(entry.share) }} of sessions</span>
+                                        <FluxText
+                                            color="muted"
+                                            tabular>{{ formatPercent(entry.share) }} of sessions</FluxText>
                                     </FluxItemContent>
                                     <FluxItemActions is-center>
-                                        <span class="metric">{{ formatCompact(entry.periodSessions) }}</span>
+                                        <FluxText
+                                            tabular
+                                            :weight="600">{{ formatCompact(entry.periodSessions) }}</FluxText>
                                     </FluxItemActions>
                                 </FluxItem>
                             </FluxItemStack>
@@ -238,7 +246,7 @@
     lang="ts"
     setup>
     import { FluxApplicationContent, FluxApplicationSection } from '@flux-ui/application';
-    import { FluxBoxedIcon, FluxGrid, FluxGridColumn, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxItemStack, FluxLayerPane, FluxNotice, FluxNoticeStack, FluxPane, FluxPaneHeader, FluxSecondaryButton } from '@flux-ui/components';
+    import { FluxBoxedIcon, FluxGrid, FluxGridColumn, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxItemStack, FluxLayerPane, FluxNotice, FluxNoticeStack, FluxPane, FluxPaneHeader, FluxSecondaryButton, FluxText } from '@flux-ui/components';
     import { FluxStatisticsAreaChart, FluxStatisticsChange, FluxStatisticsChartPane, FluxStatisticsDonutChart, FluxStatisticsGrid, FluxStatisticsKpi, FluxStatisticsLegend, FluxStatisticsMetric, FluxStatisticsPercentageBar, FluxStatisticsSparkline } from '@flux-ui/statistics';
     import type { FluxColor, FluxIconName, FluxStatisticsChartAreaSeries, FluxStatisticsChartPieSlice, FluxStatisticsPercentageBarItemObject } from '@flux-ui/types';
     import { computed } from 'vue';
@@ -295,16 +303,3 @@
         displayValue: formatCompact(country.sessions)
     })));
 </script>
-
-<style scoped>
-    .path {
-        font-variant-numeric: tabular-nums;
-        color: var(--gray-500);
-    }
-
-    .metric {
-        font-weight: 600;
-        font-variant-numeric: tabular-nums;
-        color: var(--foreground);
-    }
-</style>
