@@ -31,7 +31,10 @@
                 </FluxPaneHeader>
 
                 <FluxPaneBody v-if="recent.length === 0">
-                    <p class="notifications-empty">You're all caught up.</p>
+                    <FluxText
+                        color="muted"
+                        size="small"
+                        tag="div">You're all caught up.</FluxText>
                 </FluxPaneBody>
 
                 <div
@@ -83,7 +86,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxBoxedIcon, FluxClickablePane, FluxFlyout, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxSecondaryButton, FluxSecondaryLinkButton } from '@flux-ui/components';
+    import { FluxBoxedIcon, FluxClickablePane, FluxFlyout, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxSecondaryButton, FluxSecondaryLinkButton, FluxText } from '@flux-ui/components';
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { computed } from 'vue';
     import { useRouter } from 'vue-router';
@@ -150,12 +153,6 @@
         border: 2px solid var(--surface);
         border-radius: 9px;
         pointer-events: none;
-    }
-
-    .notifications-empty {
-        margin: 0;
-        font-size: 13px;
-        color: var(--gray-500);
     }
 
     .notifications-list {

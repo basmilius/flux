@@ -33,7 +33,10 @@
                                 <span>{{ entry.message }} · {{ projectName(entry.projectId) }}</span>
                             </FluxItemContent>
                             <FluxItemActions is-center>
-                                <span class="time">{{ entry.postedAt.toRelative() }}</span>
+                                <FluxText
+                                    class="time"
+                                    color="muted"
+                                    size="small">{{ entry.postedAt.toRelative() }}</FluxText>
                             </FluxItemActions>
                         </FluxItem>
                     </FluxItemStack>
@@ -57,7 +60,7 @@
     lang="ts"
     setup>
     import { FluxApplicationContent } from '@flux-ui/application';
-    import { FluxContainer, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxItemStack, FluxLayerPane, FluxPagination, FluxPaginationBar, FluxPane, FluxPaneFooter, FluxPaneHeader } from '@flux-ui/components';
+    import { FluxContainer, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxItemStack, FluxLayerPane, FluxPagination, FluxPaginationBar, FluxPane, FluxPaneFooter, FluxPaneHeader, FluxText } from '@flux-ui/components';
     import { computed, ref } from 'vue';
     import MemberAvatar from '@/component/MemberAvatar.vue';
     import { defineTitle } from '@/composable';
@@ -93,8 +96,6 @@
 
 <style scoped>
     .time {
-        font-size: 12px;
-        color: var(--gray-500);
         white-space: nowrap;
     }
 </style>

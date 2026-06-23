@@ -47,7 +47,9 @@
                     </FluxFormSection>
 
                     <FluxFormSection title="Line items">
-                        <div class="lines">
+                        <FluxFlex
+                            direction="vertical"
+                            :gap="9">
                             <FluxFormGrid
                                 v-for="(line, index) of form.lines"
                                 :key="index"
@@ -80,7 +82,7 @@
                                     </div>
                                 </FluxFormColumn>
                             </FluxFormGrid>
-                        </div>
+                        </FluxFlex>
 
                         <FluxFormField>
                             <FluxFormFieldAddition
@@ -149,7 +151,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxButtonStack, FluxDropZone, FluxForm, FluxFormColumn, FluxFormDateInput, FluxFormField, FluxFormFieldAddition, FluxFormGrid, FluxFormInput, FluxFormNumberInput, FluxFormSection, FluxFormSelect, FluxFormSelectAsync, FluxFormTagsInput, FluxFormTextArea, FluxOverlay, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPlaceholder, FluxPrimaryButton, FluxQuantitySelector, FluxRemove, FluxSecondaryButton, FluxSpacer, showSnackbar } from '@flux-ui/components';
+    import { FluxButtonStack, FluxDropZone, FluxFlex, FluxForm, FluxFormColumn, FluxFormDateInput, FluxFormField, FluxFormFieldAddition, FluxFormGrid, FluxFormInput, FluxFormNumberInput, FluxFormSection, FluxFormSelect, FluxFormSelectAsync, FluxFormTagsInput, FluxFormTextArea, FluxOverlay, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPlaceholder, FluxPrimaryButton, FluxQuantitySelector, FluxRemove, FluxSecondaryButton, FluxSpacer, showSnackbar } from '@flux-ui/components';
     import type { FluxFormSelectEntry, FluxFormSelectOption, FluxFormSelectValue, FluxFormSelectValueSingle } from '@flux-ui/types';
     import { DateTime } from 'luxon';
     import { computed, reactive, watch } from 'vue';
@@ -283,12 +285,6 @@
 </script>
 
 <style scoped>
-    .lines {
-        display: flex;
-        flex-flow: column;
-        gap: 9px;
-    }
-
     .line-remove {
         display: flex;
         align-items: center;

@@ -22,7 +22,10 @@
                 </FluxKanbanItem>
 
                 <template #empty>
-                    <span class="empty">No tasks here yet.</span>
+                    <FluxText
+                        class="empty"
+                        color="muted"
+                        size="small">No tasks here yet.</FluxText>
                 </template>
             </FluxKanbanColumn>
         </FluxKanban>
@@ -33,7 +36,7 @@
     lang="ts"
     setup>
     import { FluxApplicationContent } from '@flux-ui/application';
-    import { FluxAction, FluxKanban, FluxKanbanColumn, FluxKanbanItem, showPrompt } from '@flux-ui/components';
+    import { FluxAction, FluxKanban, FluxKanbanColumn, FluxKanbanItem, FluxText, showPrompt } from '@flux-ui/components';
     import type { FluxKanbanMoveEvent } from '@flux-ui/types';
     import { computed } from 'vue';
     import { useRoute } from 'vue-router';
@@ -77,7 +80,5 @@
     .empty {
         display: block;
         padding: 12px;
-        font-size: 13px;
-        color: var(--gray-500);
     }
 </style>

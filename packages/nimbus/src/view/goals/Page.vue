@@ -21,67 +21,93 @@
         </FluxApplicationSection>
 
         <FluxApplicationSection title="Objectives & key results">
-            <div class="toolbar">
-                <FluxFilter v-model="filterState">
-                    <FluxFilterOptions
-                        icon="circle-check"
-                        label="Status"
-                        name="status"
-                        :options="statusFilterOptions"/>
-                </FluxFilter>
-            </div>
+            <FluxFlex
+                direction="vertical"
+                :gap="18">
+                <FluxFlex justify="end">
+                    <FluxFilter v-model="filterState">
+                        <FluxFilterOptions
+                            icon="circle-check"
+                            label="Status"
+                            name="status"
+                            :options="statusFilterOptions"/>
+                    </FluxFilter>
+                </FluxFlex>
 
-            <FluxGrid>
-                <FluxGridColumn
-                    v-for="goal of visibleGoals"
-                    :key="goal.id"
-                    :lg="6"
-                    :xs="12">
-                    <FluxLayerPane>
-                        <FluxPaneHeader
-                            icon="bullseye"
-                            :subtitle="`${goal.category} · ${goal.quarter}`"
-                            :title="goal.title">
-                            <template #after>
-                                <StatusBadge :meta="GOAL_STATUS[goal.status]"/>
-                            </template>
-                        </FluxPaneHeader>
+                <FluxGrid>
+                    <FluxGridColumn
+                        v-for="goal of visibleGoals"
+                        :key="goal.id"
+                        :lg="6"
+                        :xs="12">
+                        <FluxLayerPane>
+                            <FluxPaneHeader
+                                icon="bullseye"
+                                :subtitle="`${goal.category} · ${goal.quarter}`"
+                                :title="goal.title">
+                                <template #after>
+                                    <StatusBadge :meta="GOAL_STATUS[goal.status]"/>
+                                </template>
+                            </FluxPaneHeader>
 
-                        <FluxPane>
-                            <FluxPaneBody>
-                                <div class="overall">
-                                    <div class="overall-head">
-                                        <span>Overall progress</span>
-                                        <span class="muted">{{ goal.progress }}%</span>
-                                    </div>
-                                    <FluxProgressBar
-                                        :color="goal.color"
-                                        :max="100"
-                                        :value="goal.progress"/>
-                                </div>
+                            <FluxPane>
+                                <FluxPaneBody>
+                                    <FluxFlex
+                                        direction="vertical"
+                                        :gap="18">
+                                        <FluxFlex
+                                            direction="vertical"
+                                            :gap="6">
+                                            <FluxFlex
+                                                align="center"
+                                                justify="between">
+                                                <FluxText
+                                                    size="small"
+                                                    :weight="500">Overall progress</FluxText>
+                                                <FluxText
+                                                    color="muted"
+                                                    size="small"
+                                                    :weight="500"
+                                                    tabular>{{ goal.progress }}%</FluxText>
+                                            </FluxFlex>
+                                            <FluxProgressBar
+                                                :color="goal.color"
+                                                :max="100"
+                                                :value="goal.progress"/>
+                                        </FluxFlex>
 
-                                <div class="krs">
-                                    <button
-                                        v-for="(kr, index) of goal.keyResults"
-                                        :key="index"
-                                        class="kr"
-                                        type="button"
-                                        @click="editKeyResult(goal.id, index, kr.progress)">
-                                        <div class="kr-head">
-                                            <span class="kr-label">{{ kr.label }}</span>
-                                            <span class="muted">{{ kr.progress }}%</span>
-                                        </div>
-                                        <FluxProgressBar
-                                            :color="krColor(kr.progress)"
-                                            :max="100"
-                                            :value="kr.progress"/>
-                                    </button>
-                                </div>
-                            </FluxPaneBody>
-                        </FluxPane>
-                    </FluxLayerPane>
-                </FluxGridColumn>
-            </FluxGrid>
+                                        <FluxFlex
+                                            direction="vertical"
+                                            :gap="12">
+                                            <button
+                                                v-for="(kr, index) of goal.keyResults"
+                                                :key="index"
+                                                class="kr"
+                                                type="button"
+                                                @click="editKeyResult(goal.id, index, kr.progress)">
+                                                <FluxFlex
+                                                    align="center"
+                                                    :gap="9"
+                                                    justify="between">
+                                                    <FluxText size="small">{{ kr.label }}</FluxText>
+                                                    <FluxText
+                                                        color="muted"
+                                                        size="small"
+                                                        tabular>{{ kr.progress }}%</FluxText>
+                                                </FluxFlex>
+                                                <FluxProgressBar
+                                                    :color="krColor(kr.progress)"
+                                                    :max="100"
+                                                    :value="kr.progress"/>
+                                            </button>
+                                        </FluxFlex>
+                                    </FluxFlex>
+                                </FluxPaneBody>
+                            </FluxPane>
+                        </FluxLayerPane>
+                    </FluxGridColumn>
+                </FluxGrid>
+            </FluxFlex>
         </FluxApplicationSection>
     </FluxApplicationContent>
 </template>
@@ -90,7 +116,7 @@
     lang="ts"
     setup>
     import { FluxApplicationContent, FluxApplicationSection } from '@flux-ui/application';
-    import { FluxFilter, FluxFilterOptions, FluxGrid, FluxGridColumn, FluxLayerPane, FluxPane, FluxPaneBody, FluxPaneHeader, FluxProgressBar, showPrompt } from '@flux-ui/components';
+    import { FluxFilter, FluxFilterOptions, FluxFlex, FluxGrid, FluxGridColumn, FluxLayerPane, FluxPane, FluxPaneBody, FluxPaneHeader, FluxProgressBar, FluxText, showPrompt } from '@flux-ui/components';
     import { FluxStatisticsGrid, FluxStatisticsKpi } from '@flux-ui/statistics';
     import type { FluxColor, FluxFilterOptionItem, FluxFilterState } from '@flux-ui/types';
     import { computed, ref } from 'vue';
@@ -143,33 +169,6 @@
 </script>
 
 <style scoped>
-    .toolbar {
-        display: flex;
-        justify-content: flex-end;
-        margin-bottom: 18px;
-    }
-
-    .overall {
-        display: flex;
-        flex-flow: column;
-        gap: 6px;
-    }
-
-    .overall-head {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-size: 13px;
-        font-weight: 500;
-    }
-
-    .krs {
-        display: flex;
-        flex-flow: column;
-        gap: 12px;
-        margin-top: 18px;
-    }
-
     .kr {
         display: flex;
         flex-flow: column;
@@ -187,22 +186,5 @@
     .kr:hover {
         border-color: var(--surface-stroke);
         background: var(--surface-hover);
-    }
-
-    .kr-head {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 9px;
-        font-size: 13px;
-    }
-
-    .kr-label {
-        color: var(--foreground);
-    }
-
-    .muted {
-        font-variant-numeric: tabular-nums;
-        color: var(--gray-500);
     }
 </style>

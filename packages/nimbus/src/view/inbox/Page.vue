@@ -1,6 +1,8 @@
 <template>
     <FluxApplicationContent layout="medium">
-        <div class="toolbar">
+        <FluxFlex
+            class="toolbar"
+            justify="end">
             <FluxSegmentedControl
                 v-model="filter"
                 aria-label="Filter notifications">
@@ -11,17 +13,18 @@
                     :label="`Unread (${unreadCount})`"
                     value="unread"/>
             </FluxSegmentedControl>
-        </div>
+        </FluxFlex>
 
-        <div
+        <FluxFlex
             v-if="isLoading"
-            class="skeletons">
+            direction="vertical"
+            :gap="9">
             <FluxSkeleton
                 v-for="n of 6"
                 :key="n"
                 height="60"
                 variant="rounded"/>
-        </div>
+        </FluxFlex>
 
         <FluxVirtualScroller
             v-else-if="visible.length > 0"
@@ -46,7 +49,10 @@
                             <span>{{ item.body }}</span>
                         </FluxItemContent>
                         <FluxItemActions is-center>
-                            <span class="time">{{ item.createdAt.toRelative() }}</span>
+                            <FluxText
+                                class="time"
+                                color="muted"
+                                size="small">{{ item.createdAt.toRelative() }}</FluxText>
                             <span
                                 v-if="!item.read"
                                 class="dot"/>
@@ -75,11 +81,21 @@
                     :icon="TYPE_ICON[selected.type]"
                     :title="selected.title"/>
                 <FluxPaneBody>
-                    <p class="detail-body">{{ selected.body }}</p>
-                    <p class="detail-meta">
-                        <FluxIcon name="clock"/>
-                        {{ selected.createdAt.toFormat('cccc, LLL d · HH:mm') }}
-                    </p>
+                    <FluxFlex
+                        direction="vertical"
+                        :gap="15">
+                        <FluxText
+                            size="medium"
+                            tag="p">{{ selected.body }}</FluxText>
+                        <FluxFlex
+                            align="center"
+                            :gap="6">
+                            <FluxIcon name="clock"/>
+                            <FluxText
+                                color="muted"
+                                size="small">{{ selected.createdAt.toFormat('cccc, LLL d · HH:mm') }}</FluxText>
+                        </FluxFlex>
+                    </FluxFlex>
                 </FluxPaneBody>
                 <FluxPaneFooter>
                     <FluxSecondaryButton
@@ -102,7 +118,7 @@
     lang="ts"
     setup>
     import { FluxApplicationContent } from '@flux-ui/application';
-    import { FluxBoxedIcon, FluxClickablePane, FluxIcon, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPlaceholder, FluxPrimaryButton, FluxSecondaryButton, FluxSegmentedControl, FluxSegmentedControlItem, FluxSkeleton, FluxSlideOver, FluxSpacer, FluxVirtualScroller } from '@flux-ui/components';
+    import { FluxBoxedIcon, FluxClickablePane, FluxFlex, FluxIcon, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPlaceholder, FluxPrimaryButton, FluxSecondaryButton, FluxSegmentedControl, FluxSegmentedControlItem, FluxSkeleton, FluxSlideOver, FluxSpacer, FluxText, FluxVirtualScroller } from '@flux-ui/components';
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { computed, onMounted, ref } from 'vue';
     import { useRouter } from 'vue-router';
@@ -171,15 +187,7 @@
 
 <style scoped>
     .toolbar {
-        display: flex;
-        justify-content: flex-end;
         margin-bottom: 18px;
-    }
-
-    .skeletons {
-        display: flex;
-        flex-flow: column;
-        gap: 9px;
     }
 
     .list {
@@ -191,8 +199,6 @@
     }
 
     .time {
-        font-size: 12px;
-        color: var(--gray-500);
         white-space: nowrap;
     }
 
@@ -205,21 +211,5 @@
 
     .detail {
         width: min(450px, 100dvw - 30px);
-    }
-
-    .detail-body {
-        margin: 0;
-        font-size: 14px;
-        line-height: 1.6;
-        color: var(--foreground);
-    }
-
-    .detail-meta {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        margin: 15px 0 0;
-        font-size: 13px;
-        color: var(--gray-500);
     }
 </style>

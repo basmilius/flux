@@ -29,15 +29,16 @@
                         :default-size="312"
                         :min-size="228">
                         <div class="tree-pane">
-                            <div
+                            <FluxFlex
                                 v-if="isLoading"
-                                class="skeletons">
+                                direction="vertical"
+                                :gap="12">
                                 <FluxSkeleton
                                     v-for="n of 6"
                                     :key="n"
                                     height="24"
                                     variant="rounded"/>
-                            </div>
+                            </FluxFlex>
                             <FluxTreeView
                                 v-else
                                 :options="files"
@@ -54,7 +55,10 @@
                             </div>
 
                             <template v-else>
-                                <strong class="preview-title">Recent assets</strong>
+                                <FluxText
+                                    color="muted"
+                                    size="small"
+                                    :weight="600">Recent assets</FluxText>
                                 <FluxGallery>
                                     <FluxGalleryItem
                                         v-for="asset of assets"
@@ -62,7 +66,10 @@
                                         :url="asset.url"/>
                                 </FluxGallery>
 
-                                <strong class="preview-title">Cover</strong>
+                                <FluxText
+                                    color="muted"
+                                    size="small"
+                                    :weight="600">Cover</FluxText>
                                 <FluxAspectRatio :aspect-ratio="16 / 9">
                                     <FluxFocalPointImage
                                         alt="Project cover"
@@ -81,7 +88,7 @@
     lang="ts"
     setup>
     import { FluxApplicationContent } from '@flux-ui/application';
-    import { FluxActionBar, FluxAspectRatio, FluxBreadcrumb, FluxBreadcrumbItem, FluxFocalPointImage, FluxGallery, FluxGalleryItem, FluxLayerPane, FluxPane, FluxSecondaryButton, FluxSkeleton, FluxSpinner, FluxSplitView, FluxSplitViewPane, FluxTreeView, showSnackbar } from '@flux-ui/components';
+    import { FluxActionBar, FluxAspectRatio, FluxBreadcrumb, FluxBreadcrumbItem, FluxFlex, FluxFocalPointImage, FluxGallery, FluxGalleryItem, FluxLayerPane, FluxPane, FluxSecondaryButton, FluxSkeleton, FluxSpinner, FluxSplitView, FluxSplitViewPane, FluxText, FluxTreeView, showSnackbar } from '@flux-ui/components';
     import type { FluxTreeViewOption } from '@flux-ui/types';
     import { computed, onMounted, ref } from 'vue';
     import { useRoute } from 'vue-router';
@@ -130,22 +137,11 @@
         padding: 12px;
     }
 
-    .skeletons {
-        display: flex;
-        flex-flow: column;
-        gap: 12px;
-    }
-
     .preview-pane {
         display: flex;
         flex-flow: column;
         gap: 12px;
         padding: 15px;
-    }
-
-    .preview-title {
-        font-size: 13px;
-        color: var(--gray-500);
     }
 
     .loading {

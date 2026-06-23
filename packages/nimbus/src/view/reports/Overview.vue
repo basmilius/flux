@@ -1,52 +1,56 @@
 <template>
     <FluxApplicationContent layout="dashboard">
         <FluxApplicationSection>
-            <div class="toolbar">
-                <FluxSegmentedControl
-                    v-model="period"
-                    aria-label="Reporting period">
-                    <FluxSegmentedControlItem
-                        label="This quarter"
-                        value="quarter"/>
-                    <FluxSegmentedControlItem
-                        label="This year"
-                        value="year"/>
-                    <FluxSegmentedControlItem
-                        label="All time"
-                        value="all"/>
-                </FluxSegmentedControl>
-            </div>
+            <FluxFlex
+                direction="vertical"
+                :gap="18">
+                <FluxFlex justify="end">
+                    <FluxSegmentedControl
+                        v-model="period"
+                        aria-label="Reporting period">
+                        <FluxSegmentedControlItem
+                            label="This quarter"
+                            value="quarter"/>
+                        <FluxSegmentedControlItem
+                            label="This year"
+                            value="year"/>
+                        <FluxSegmentedControlItem
+                            label="All time"
+                            value="all"/>
+                    </FluxSegmentedControl>
+                </FluxFlex>
 
-            <FluxStatisticsGrid
-                :gap="18"
-                :md="3"
-                :xs="1">
-                <FluxStatisticsComparison
-                    :current="revenueThisQuarter"
-                    current-label="This quarter"
-                    :format="formatCurrency"
-                    icon="sack-dollar"
-                    :previous="revenueLastQuarter"
-                    previous-label="Last quarter"
-                    show-delta
-                    title="Revenue"/>
-                <FluxStatisticsComparison
-                    :current="wonValue"
-                    current-label="Won"
-                    :format="formatCurrency"
-                    icon="handshake"
-                    :previous="openValue"
-                    previous-label="Open"
-                    show-delta
-                    title="Deals"/>
-                <FluxStatisticsMeter
-                    color="success"
-                    footer="Invoices collected"
-                    icon="file-invoice-dollar"
-                    sub-title="of invoiced revenue"
-                    title="Collection rate"
-                    :value="collectionRate"/>
-            </FluxStatisticsGrid>
+                <FluxStatisticsGrid
+                    :gap="18"
+                    :md="3"
+                    :xs="1">
+                    <FluxStatisticsComparison
+                        :current="revenueThisQuarter"
+                        current-label="This quarter"
+                        :format="formatCurrency"
+                        icon="sack-dollar"
+                        :previous="revenueLastQuarter"
+                        previous-label="Last quarter"
+                        show-delta
+                        title="Revenue"/>
+                    <FluxStatisticsComparison
+                        :current="wonValue"
+                        current-label="Won"
+                        :format="formatCurrency"
+                        icon="handshake"
+                        :previous="openValue"
+                        previous-label="Open"
+                        show-delta
+                        title="Deals"/>
+                    <FluxStatisticsMeter
+                        color="success"
+                        footer="Invoices collected"
+                        icon="file-invoice-dollar"
+                        sub-title="of invoiced revenue"
+                        title="Collection rate"
+                        :value="collectionRate"/>
+                </FluxStatisticsGrid>
+            </FluxFlex>
         </FluxApplicationSection>
 
         <FluxApplicationSection
@@ -73,7 +77,7 @@
     lang="ts"
     setup>
     import { FluxApplicationContent, FluxApplicationSection } from '@flux-ui/application';
-    import { FluxSegmentedControl, FluxSegmentedControlItem } from '@flux-ui/components';
+    import { FluxFlex, FluxSegmentedControl, FluxSegmentedControlItem } from '@flux-ui/components';
     import { FluxStatisticsComparison, FluxStatisticsDetailsTable, FluxStatisticsDetailsTableRow, FluxStatisticsGrid, FluxStatisticsMeter, FluxStatisticsPercentageBar } from '@flux-ui/statistics';
     import type { FluxStatisticsPercentageBarItemObject } from '@flux-ui/types';
     import { computed, ref } from 'vue';
@@ -118,11 +122,3 @@
             }));
     });
 </script>
-
-<style scoped>
-    .toolbar {
-        display: flex;
-        justify-content: flex-end;
-        margin-bottom: 18px;
-    }
-</style>

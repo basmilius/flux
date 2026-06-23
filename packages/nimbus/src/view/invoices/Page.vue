@@ -73,7 +73,9 @@
 
             <template #amount="{item}">
                 <FluxTableCell>
-                    <span class="amount">{{ formatCurrency(invoiceTotal(item)) }}</span>
+                    <FluxText
+                        tabular
+                        :weight="500">{{ formatCurrency(invoiceTotal(item)) }}</FluxText>
                 </FluxTableCell>
             </template>
 
@@ -110,7 +112,7 @@
     lang="ts"
     setup>
     import { FluxApplicationContent } from '@flux-ui/application';
-    import { FluxAction, FluxBoxedIcon, FluxDataTable, FluxFilterBar, FluxFilterDateRange, FluxFilterOptions, FluxFilterRange, FluxTableActions, FluxTableBar, FluxTableCell, FluxTableHeader, FluxTooltip, showSnackbar } from '@flux-ui/components';
+    import { FluxAction, FluxBoxedIcon, FluxDataTable, FluxFilterBar, FluxFilterDateRange, FluxFilterOptions, FluxFilterRange, FluxTableActions, FluxTableBar, FluxTableCell, FluxTableHeader, FluxText, FluxTooltip, showSnackbar } from '@flux-ui/components';
     import type { FluxFilterOptionItem, FluxFilterState } from '@flux-ui/types';
     import type { DateTime } from 'luxon';
     import { computed, ref } from 'vue';
@@ -177,10 +179,5 @@
         gap: 12px;
         color: inherit;
         text-decoration: none;
-    }
-
-    .amount {
-        font-variant-numeric: tabular-nums;
-        font-weight: 500;
     }
 </style>

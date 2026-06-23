@@ -94,7 +94,10 @@
                                     placeholder="Add people to this project"/>
                             </FluxFormField>
 
-                            <p class="wizard-hint">Pick who should have access. You can change this later in the project settings.</p>
+                            <FluxText
+                                color="muted"
+                                size="small"
+                                tag="div">Pick who should have access. You can change this later in the project settings.</FluxText>
                         </div>
                     </FluxStepperStep>
 
@@ -172,7 +175,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxButtonStack, FluxDescriptionItem, FluxDescriptionList, FluxFormField, FluxFormInput, FluxFormNumberInput, FluxFormRow, FluxFormSelect, FluxFormTagsInput, FluxFormTextArea, FluxOverlay, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStepper, FluxStepperStep, FluxStepperSteps, showSnackbar } from '@flux-ui/components';
+    import { FluxButtonStack, FluxDescriptionItem, FluxDescriptionList, FluxFormField, FluxFormInput, FluxFormNumberInput, FluxFormRow, FluxFormSelect, FluxFormTagsInput, FluxFormTextArea, FluxOverlay, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStepper, FluxStepperStep, FluxStepperSteps, FluxText, showSnackbar } from '@flux-ui/components';
     import type { FluxColor, FluxFormSelectOption, FluxFormSelectValue } from '@flux-ui/types';
     import { computed, reactive, ref } from 'vue';
     import { useRouter } from 'vue-router';
@@ -251,11 +254,5 @@
         gap: 15px;
         min-height: 213px;
         padding-top: 18px;
-    }
-
-    .wizard-hint {
-        margin: 0;
-        font-size: 13px;
-        color: var(--gray-500);
     }
 </style>

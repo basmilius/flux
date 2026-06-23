@@ -58,10 +58,14 @@
                         <FluxBoxedIcon
                             :color="item.color"
                             name="building"/>
-                        <div class="client-name-info">
+                        <FluxFlex
+                            direction="vertical"
+                            :gap="2">
                             <strong>{{ item.name }}</strong>
-                            <small>{{ item.contactName }}</small>
-                        </div>
+                            <FluxText
+                                color="muted"
+                                size="small">{{ item.contactName }}</FluxText>
+                        </FluxFlex>
                     </RouterLink>
                 </FluxTableCell>
             </template>
@@ -106,7 +110,7 @@
     lang="ts"
     setup>
     import { FluxApplicationContent } from '@flux-ui/application';
-    import { FluxAction, FluxBoxedIcon, FluxChip, FluxDataTable, FluxFilterBar, FluxFilterOption, FluxFilterOptionAsync, FluxFilterOptionsAsync, FluxTableActions, FluxTableBar, FluxTableCell, FluxTableHeader, FluxTooltip } from '@flux-ui/components';
+    import { FluxAction, FluxBoxedIcon, FluxChip, FluxDataTable, FluxFilterBar, FluxFilterOption, FluxFilterOptionAsync, FluxFilterOptionsAsync, FluxFlex, FluxTableActions, FluxTableBar, FluxTableCell, FluxTableHeader, FluxText, FluxTooltip } from '@flux-ui/components';
     import type { FluxFilterOptionRow, FluxFilterState, FluxFilterValue } from '@flux-ui/types';
     import { computed, ref } from 'vue';
     import { RouterLink } from 'vue-router';
@@ -188,15 +192,5 @@
         gap: 12px;
         color: inherit;
         text-decoration: none;
-    }
-
-    .client-name-info {
-        display: flex;
-        flex-flow: column;
-        gap: 2px;
-    }
-
-    .client-name-info small {
-        color: var(--gray-500);
     }
 </style>

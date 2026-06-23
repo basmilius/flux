@@ -212,7 +212,9 @@
 
                                 <FluxItemActions is-center>
                                     <StatusBadge :meta="PROJECT_STATUS[project.status]"/>
-                                    <span class="muted">{{ project.progress }}%</span>
+                                    <FluxText
+                                        color="muted"
+                                        tabular>{{ project.progress }}%</FluxText>
                                 </FluxItemActions>
                             </FluxItem>
                         </FluxClickablePane>
@@ -315,21 +317,31 @@
 
                         <FluxPane>
                             <FluxPaneBody>
-                                <div class="goals">
-                                    <div
+                                <FluxFlex
+                                    direction="vertical"
+                                    :gap="15">
+                                    <FluxFlex
                                         v-for="goal of goals"
                                         :key="goal.id"
-                                        class="goal">
-                                        <div class="goal-head">
-                                            <span class="goal-title">{{ goal.title }}</span>
-                                            <span class="muted">{{ goal.progress }}%</span>
-                                        </div>
+                                        direction="vertical"
+                                        :gap="6">
+                                        <FluxFlex
+                                            align="center"
+                                            justify="between">
+                                            <FluxText
+                                                size="small"
+                                                :weight="500">{{ goal.title }}</FluxText>
+                                            <FluxText
+                                                color="muted"
+                                                size="small"
+                                                tabular>{{ goal.progress }}%</FluxText>
+                                        </FluxFlex>
                                         <FluxProgressBar
                                             :color="goal.color"
                                             :max="100"
                                             :value="goal.progress"/>
-                                    </div>
-                                </div>
+                                    </FluxFlex>
+                                </FluxFlex>
                             </FluxPaneBody>
                         </FluxPane>
                     </FluxLayerPane>
@@ -343,7 +355,7 @@
     lang="ts"
     setup>
     import { FluxApplicationContent, FluxApplicationSection } from '@flux-ui/application';
-    import { FluxBoxedIcon, FluxClickablePane, FluxFlex, FluxFlexItem, FluxGrid, FluxGridColumn, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxItemStack, FluxLayerPane, FluxNotice, FluxNoticeStack, FluxPane, FluxPaneBody, FluxPaneHeader, FluxProgressBar, FluxScroller, FluxSecondaryButton, FluxTimeline, FluxTimelineItem } from '@flux-ui/components';
+    import { FluxBoxedIcon, FluxClickablePane, FluxFlex, FluxFlexItem, FluxGrid, FluxGridColumn, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxItemStack, FluxLayerPane, FluxNotice, FluxNoticeStack, FluxPane, FluxPaneBody, FluxPaneHeader, FluxProgressBar, FluxScroller, FluxSecondaryButton, FluxText, FluxTimeline, FluxTimelineItem } from '@flux-ui/components';
     import { FluxStatisticsAreaChart, FluxStatisticsChange, FluxStatisticsChartPane, FluxStatisticsDonutChart, FluxStatisticsGrid, FluxStatisticsKpi, FluxStatisticsLegend, FluxStatisticsMetric, FluxStatisticsSparkline } from '@flux-ui/statistics';
     import type { FluxColor, FluxStatisticsChartAreaSeries, FluxStatisticsChartPieSlice } from '@flux-ui/types';
     import { computed, onMounted } from 'vue';
@@ -429,34 +441,3 @@
         }
     });
 </script>
-
-<style scoped>
-    .muted {
-        font-variant-numeric: tabular-nums;
-        color: var(--gray-500);
-    }
-
-    .goals {
-        display: flex;
-        flex-flow: column;
-        gap: 15px;
-    }
-
-    .goal {
-        display: flex;
-        flex-flow: column;
-        gap: 6px;
-    }
-
-    .goal-head {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-size: 13px;
-    }
-
-    .goal-title {
-        font-weight: 500;
-        color: var(--foreground);
-    }
-</style>

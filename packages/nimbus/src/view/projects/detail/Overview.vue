@@ -18,42 +18,45 @@
                 </FluxFader>
             </FluxAspectRatio>
 
-            <FluxBreadcrumb>
-                <FluxBreadcrumbItem
-                    icon="diagram-project"
-                    label="Projects"
-                    :to="{name: 'projects'}"/>
-                <FluxBreadcrumbItem :label="project.name"/>
-            </FluxBreadcrumb>
+            <FluxFlex
+                direction="vertical"
+                :gap="9">
+                <FluxBreadcrumb>
+                    <FluxBreadcrumbItem
+                        icon="diagram-project"
+                        label="Projects"
+                        :to="{name: 'projects'}"/>
+                    <FluxBreadcrumbItem :label="project.name"/>
+                </FluxBreadcrumb>
 
-            <FluxInlineEdit
-                class="project-title"
-                :model-value="project.name"
-                placeholder="Project name"
-                @save="onRename"/>
+                <FluxInlineEdit
+                    class="project-title"
+                    :model-value="project.name"
+                    placeholder="Project name"
+                    @save="onRename"/>
 
-            <FluxBadgeStack class="badges">
-                <StatusBadge :meta="PROJECT_STATUS[project.status]"/>
-                <FluxBadge
-                    color="warning"
-                    icon="star"
-                    :label="`Health ${project.health}/5`"
-                    type="none"/>
-            </FluxBadgeStack>
+                <FluxBadgeStack>
+                    <StatusBadge :meta="PROJECT_STATUS[project.status]"/>
+                    <FluxBadge
+                        color="warning"
+                        icon="star"
+                        :label="`Health ${project.health}/5`"
+                        type="none"/>
+                </FluxBadgeStack>
 
-            <FluxOverflowBar
-                v-if="project.labels.length > 0"
-                class="labels"
-                :gap="6">
-                <FluxChip
-                    v-for="label of project.labels"
-                    :key="label"
-                    :label="label"/>
+                <FluxOverflowBar
+                    v-if="project.labels.length > 0"
+                    :gap="6">
+                    <FluxChip
+                        v-for="label of project.labels"
+                        :key="label"
+                        :label="label"/>
 
-                <template #overflow="{items}">
-                    <FluxChip :label="`+${items.length}`"/>
-                </template>
-            </FluxOverflowBar>
+                    <template #overflow="{items}">
+                        <FluxChip :label="`+${items.length}`"/>
+                    </template>
+                </FluxOverflowBar>
+            </FluxFlex>
         </FluxApplicationSection>
 
         <FluxApplicationSection>
@@ -86,149 +89,172 @@
                 <FluxGridColumn
                     :lg="8"
                     :xs="12">
-                    <FluxLayerPane>
-                        <FluxPaneHeader
-                            icon="circle-info"
-                            title="About this project"/>
-                        <FluxPane>
-                            <FluxPaneBody>
-                                <p class="about">{{ project.description }}</p>
-                            </FluxPaneBody>
-                        </FluxPane>
-                    </FluxLayerPane>
+                    <FluxFlex
+                        direction="vertical"
+                        :gap="18">
+                        <FluxLayerPane>
+                            <FluxPaneHeader
+                                icon="circle-info"
+                                title="About this project"/>
+                            <FluxPane>
+                                <FluxPaneBody>
+                                    <FluxText
+                                        color="gray"
+                                        size="medium"
+                                        tag="p">{{ project.description }}</FluxText>
+                                </FluxPaneBody>
+                            </FluxPane>
+                        </FluxLayerPane>
 
-                    <FluxLayerPane class="block">
-                        <FluxPaneHeader
-                            icon="list-check"
-                            title="Recent tasks">
-                            <template #after>
-                                <FluxSecondaryButton
-                                    icon-trailing="arrow-right"
-                                    label="Board"
-                                    type="route"
-                                    :to="{name: 'project-board', params: {id: project.id}}"/>
-                            </template>
-                        </FluxPaneHeader>
-                        <FluxPane>
-                            <FluxItemStack>
-                                <FluxItem
-                                    v-for="task of recentTasks"
-                                    :key="task.id">
-                                    <FluxItemMedia
-                                        is-center
-                                        :size="36">
-                                        <FluxBoxedIcon
-                                            :color="TASK_STATUS_COLORS[task.status]"
-                                            :name="TASK_STATUS_ICONS[task.status]"
-                                            :size="36"/>
-                                    </FluxItemMedia>
-                                    <FluxItemContent is-center>
-                                        <strong>{{ task.title }}</strong>
-                                        <span>{{ TASK_STATUS_LABELS[task.status] }}</span>
-                                    </FluxItemContent>
-                                    <FluxItemActions is-center>
-                                        <FluxBadge
-                                            :color="TASK_PRIORITY_COLORS[task.priority]"
-                                            :icon="TASK_PRIORITY_ICONS[task.priority]"
-                                            :label="TASK_PRIORITY_LABELS[task.priority]"
-                                            type="none"/>
-                                    </FluxItemActions>
-                                </FluxItem>
-                            </FluxItemStack>
-                        </FluxPane>
-                    </FluxLayerPane>
+                        <FluxLayerPane>
+                            <FluxPaneHeader
+                                icon="list-check"
+                                title="Recent tasks">
+                                <template #after>
+                                    <FluxSecondaryButton
+                                        icon-trailing="arrow-right"
+                                        label="Board"
+                                        type="route"
+                                        :to="{name: 'project-board', params: {id: project.id}}"/>
+                                </template>
+                            </FluxPaneHeader>
+                            <FluxPane>
+                                <FluxItemStack>
+                                    <FluxItem
+                                        v-for="task of recentTasks"
+                                        :key="task.id">
+                                        <FluxItemMedia
+                                            is-center
+                                            :size="36">
+                                            <FluxBoxedIcon
+                                                :color="TASK_STATUS_COLORS[task.status]"
+                                                :name="TASK_STATUS_ICONS[task.status]"
+                                                :size="36"/>
+                                        </FluxItemMedia>
+                                        <FluxItemContent is-center>
+                                            <strong>{{ task.title }}</strong>
+                                            <span>{{ TASK_STATUS_LABELS[task.status] }}</span>
+                                        </FluxItemContent>
+                                        <FluxItemActions is-center>
+                                            <FluxBadge
+                                                :color="TASK_PRIORITY_COLORS[task.priority]"
+                                                :icon="TASK_PRIORITY_ICONS[task.priority]"
+                                                :label="TASK_PRIORITY_LABELS[task.priority]"
+                                                type="none"/>
+                                        </FluxItemActions>
+                                    </FluxItem>
+                                </FluxItemStack>
+                            </FluxPane>
+                        </FluxLayerPane>
+                    </FluxFlex>
                 </FluxGridColumn>
 
                 <FluxGridColumn
                     :lg="4"
                     :xs="12">
                     <FluxSticky :offset="84">
-                        <FluxLayerPane>
-                            <FluxPaneMedia
-                                :aspect-ratio="21 / 9"
-                                image-alt="Project cover"
-                                :image-url="cover"/>
-                            <FluxPaneHeader
-                                icon="circle-info"
-                                title="Details"/>
-                            <FluxPane>
-                                <FluxPaneBody>
-                                    <FluxDescriptionList>
-                                        <FluxDescriptionItem
-                                            icon="handshake"
-                                            label="Client">
-                                            <RouterLink
-                                                v-if="client"
-                                                class="link"
-                                                :to="{name: 'client', params: {id: client.id}}">
-                                                {{ client.name }}
-                                            </RouterLink>
-                                            <span v-else>—</span>
-                                        </FluxDescriptionItem>
-                                        <FluxDescriptionItem
-                                            icon="bolt"
-                                            label="Status">
-                                            <StatusBadge :meta="PROJECT_STATUS[project.status]"/>
-                                        </FluxDescriptionItem>
-                                        <FluxDescriptionItem
-                                            icon="calendar"
-                                            label="Started">
-                                            {{ project.startDate.toFormat('LLL d, yyyy') }}
-                                        </FluxDescriptionItem>
-                                        <FluxDescriptionItem
-                                            icon="flag"
-                                            label="Due">
-                                            {{ project.dueDate.toFormat('LLL d, yyyy') }}
-                                        </FluxDescriptionItem>
-                                    </FluxDescriptionList>
+                        <FluxFlex
+                            direction="vertical"
+                            :gap="18">
+                            <FluxLayerPane>
+                                <FluxPaneMedia
+                                    :aspect-ratio="21 / 9"
+                                    image-alt="Project cover"
+                                    :image-url="cover"/>
+                                <FluxPaneHeader
+                                    icon="circle-info"
+                                    title="Details"/>
+                                <FluxPane>
+                                    <FluxPaneBody>
+                                        <FluxFlex
+                                            direction="vertical"
+                                            :gap="18">
+                                            <FluxDescriptionList>
+                                                <FluxDescriptionItem
+                                                    icon="handshake"
+                                                    label="Client">
+                                                    <FluxLink
+                                                        v-if="client"
+                                                        type="route"
+                                                        :to="{name: 'client', params: {id: client.id}}">
+                                                        {{ client.name }}
+                                                    </FluxLink>
+                                                    <span v-else>—</span>
+                                                </FluxDescriptionItem>
+                                                <FluxDescriptionItem
+                                                    icon="bolt"
+                                                    label="Status">
+                                                    <StatusBadge :meta="PROJECT_STATUS[project.status]"/>
+                                                </FluxDescriptionItem>
+                                                <FluxDescriptionItem
+                                                    icon="calendar"
+                                                    label="Started">
+                                                    {{ project.startDate.toFormat('LLL d, yyyy') }}
+                                                </FluxDescriptionItem>
+                                                <FluxDescriptionItem
+                                                    icon="flag"
+                                                    label="Due">
+                                                    {{ project.dueDate.toFormat('LLL d, yyyy') }}
+                                                </FluxDescriptionItem>
+                                            </FluxDescriptionList>
 
-                                    <div class="budget">
-                                        <div class="budget-head">
-                                            <span>Budget used</span>
-                                            <span class="muted">{{ formatCurrency(project.spent) }} / {{ formatCurrency(project.budget) }}</span>
-                                        </div>
-                                        <FluxProgressBar
-                                            :color="budgetColor"
-                                            :max="project.budget"
-                                            :value="project.spent"/>
-                                        <FluxTicks
-                                            class="ticks"
-                                            :lower="0"
-                                            :upper="100"/>
-                                    </div>
-                                </FluxPaneBody>
-                            </FluxPane>
-                            <FluxLayerPaneSecondary>
-                                <FluxPaneBody>
-                                    <span class="muted">{{ projectTasks.length }} tasks · {{ team.length }} members</span>
-                                </FluxPaneBody>
-                            </FluxLayerPaneSecondary>
-                        </FluxLayerPane>
+                                            <FluxFlex
+                                                direction="vertical"
+                                                :gap="6">
+                                                <FluxFlex
+                                                    align="center"
+                                                    justify="between">
+                                                    <FluxText size="small">Budget used</FluxText>
+                                                    <FluxText
+                                                        color="muted"
+                                                        size="small"
+                                                        tabular>{{ formatCurrency(project.spent) }} / {{ formatCurrency(project.budget) }}</FluxText>
+                                                </FluxFlex>
+                                                <FluxProgressBar
+                                                    :color="budgetColor"
+                                                    :max="project.budget"
+                                                    :value="project.spent"/>
+                                                <FluxTicks
+                                                    :lower="0"
+                                                    :upper="100"/>
+                                            </FluxFlex>
+                                        </FluxFlex>
+                                    </FluxPaneBody>
+                                </FluxPane>
+                                <FluxLayerPaneSecondary>
+                                    <FluxPaneBody>
+                                        <FluxText
+                                            color="muted"
+                                            tabular>{{ projectTasks.length }} tasks · {{ team.length }} members</FluxText>
+                                    </FluxPaneBody>
+                                </FluxLayerPaneSecondary>
+                            </FluxLayerPane>
 
-                        <FluxLayerPane class="block">
-                            <FluxPaneHeader
-                                icon="user-group"
-                                title="Team"/>
-                            <FluxPane>
-                                <FluxItemStack>
-                                    <FluxItem
-                                        v-for="member of team"
-                                        :key="member.id">
-                                        <FluxItemMedia
-                                            is-center
-                                            :size="36">
-                                            <MemberAvatar
-                                                :member="member"
-                                                :size="36"/>
-                                        </FluxItemMedia>
-                                        <FluxItemContent is-center>
-                                            <strong>{{ member.name }}</strong>
-                                            <span>{{ member.role }}</span>
-                                        </FluxItemContent>
-                                    </FluxItem>
-                                </FluxItemStack>
-                            </FluxPane>
-                        </FluxLayerPane>
+                            <FluxLayerPane>
+                                <FluxPaneHeader
+                                    icon="user-group"
+                                    title="Team"/>
+                                <FluxPane>
+                                    <FluxItemStack>
+                                        <FluxItem
+                                            v-for="member of team"
+                                            :key="member.id">
+                                            <FluxItemMedia
+                                                is-center
+                                                :size="36">
+                                                <MemberAvatar
+                                                    :member="member"
+                                                    :size="36"/>
+                                            </FluxItemMedia>
+                                            <FluxItemContent is-center>
+                                                <strong>{{ member.name }}</strong>
+                                                <span>{{ member.role }}</span>
+                                            </FluxItemContent>
+                                        </FluxItem>
+                                    </FluxItemStack>
+                                </FluxPane>
+                            </FluxLayerPane>
+                        </FluxFlex>
                     </FluxSticky>
                 </FluxGridColumn>
             </FluxGrid>
@@ -240,11 +266,11 @@
     lang="ts"
     setup>
     import { FluxApplicationContent, FluxApplicationSection } from '@flux-ui/application';
-    import { FluxAspectRatio, FluxBadge, FluxBadgeStack, FluxBoxedIcon, FluxBreadcrumb, FluxBreadcrumbItem, FluxChip, FluxDescriptionItem, FluxDescriptionList, FluxFader, FluxFaderItem, FluxGrid, FluxGridColumn, FluxInlineEdit, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxItemStack, FluxLayerPane, FluxLayerPaneSecondary, FluxOverflowBar, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPaneMedia, FluxProgressBar, FluxSecondaryButton, FluxSticky, FluxTicks } from '@flux-ui/components';
+    import { FluxAspectRatio, FluxBadge, FluxBadgeStack, FluxBoxedIcon, FluxBreadcrumb, FluxBreadcrumbItem, FluxChip, FluxDescriptionItem, FluxDescriptionList, FluxFader, FluxFaderItem, FluxFlex, FluxGrid, FluxGridColumn, FluxInlineEdit, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxItemStack, FluxLayerPane, FluxLayerPaneSecondary, FluxLink, FluxOverflowBar, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPaneMedia, FluxProgressBar, FluxSecondaryButton, FluxSticky, FluxText, FluxTicks } from '@flux-ui/components';
     import { FluxStatisticsGrid, FluxStatisticsKpi } from '@flux-ui/statistics';
     import type { FluxColor } from '@flux-ui/types';
     import { computed } from 'vue';
-    import { RouterLink, useRoute } from 'vue-router';
+    import { useRoute } from 'vue-router';
     import MemberAvatar from '@/component/MemberAvatar.vue';
     import StatusBadge from '@/component/StatusBadge.vue';
     import { useClientsStore, useProjectsStore, useTeamStore } from '@/store';
@@ -307,52 +333,5 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-    }
-
-    .badges {
-        margin-top: 9px;
-    }
-
-    .labels {
-        margin-top: 9px;
-    }
-
-    .ticks {
-        margin-top: 6px;
-    }
-
-    .about {
-        margin: 0;
-        font-size: 14px;
-        line-height: 1.6;
-        color: var(--gray-600);
-    }
-
-    .block {
-        margin-top: 18px;
-    }
-
-    .link {
-        color: var(--primary-500);
-        text-decoration: none;
-    }
-
-    .budget {
-        display: flex;
-        flex-flow: column;
-        gap: 6px;
-        margin-top: 18px;
-    }
-
-    .budget-head {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-size: 13px;
-    }
-
-    .muted {
-        font-variant-numeric: tabular-nums;
-        color: var(--gray-500);
     }
 </style>

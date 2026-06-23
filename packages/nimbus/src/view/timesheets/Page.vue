@@ -59,13 +59,16 @@
                             v-for="project of weekProjects"
                             :key="project.id">
                             <FluxTableCell>
-                                <div class="project">
+                                <FluxFlex
+                                    align="center"
+                                    class="project"
+                                    :gap="9">
                                     <FluxBoxedIcon
                                         :color="project.color"
                                         :name="project.icon"
                                         :size="27"/>
                                     <span>{{ project.name }}</span>
-                                </div>
+                                </FluxFlex>
                             </FluxTableCell>
                             <FluxTableCell
                                 v-for="day of days"
@@ -112,7 +115,7 @@
     lang="ts"
     setup>
     import { FluxApplicationContent, FluxApplicationSection } from '@flux-ui/application';
-    import { FluxBoxedIcon, FluxButtonGroup, FluxLayerPane, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPlaceholder, FluxSecondaryButton, FluxTable, FluxTableCell, FluxTableHeader, FluxTableRow, showPrompt } from '@flux-ui/components';
+    import { FluxBoxedIcon, FluxButtonGroup, FluxFlex, FluxLayerPane, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPlaceholder, FluxSecondaryButton, FluxTable, FluxTableCell, FluxTableHeader, FluxTableRow, showPrompt } from '@flux-ui/components';
     import { DateTime } from 'luxon';
     import { computed, ref } from 'vue';
     import { defineTitle } from '@/composable';
@@ -177,9 +180,6 @@
 
 <style scoped>
     .project {
-        display: flex;
-        align-items: center;
-        gap: 9px;
         white-space: nowrap;
     }
 

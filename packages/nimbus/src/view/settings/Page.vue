@@ -224,7 +224,11 @@
                         :animated-colors="['#5285f8', '#10b981', '#f59e0b']"
                         :aspect-ratio="3"
                         is-masked>
-                        <div class="promo">
+                        <FluxFlex
+                            align="start"
+                            class="promo"
+                            direction="vertical"
+                            :gap="9">
                             <strong>Need a hand?</strong>
                             <p>Read the Flux UI documentation to see how Nimbus is built.</p>
                             <FluxSecondaryButton
@@ -233,7 +237,7 @@
                                 label="Open docs"
                                 target="_blank"
                                 type="link"/>
-                        </div>
+                        </FluxFlex>
                     </FluxPaneIllustration>
                 </FluxContainer>
             </FluxTab>
@@ -245,7 +249,7 @@
     lang="ts"
     setup>
     import { FluxApplicationContent } from '@flux-ui/application';
-    import { FluxButtonStack, FluxColorPicker, FluxColorSelect, FluxContainer, FluxDatePicker, FluxDestructiveButton, FluxExpandable, FluxExpandableGroup, FluxForm, FluxFormCheckbox, FluxFormCheckboxGroup, FluxFormColumn, FluxFormField, FluxFormFieldAddition, FluxFormGrid, FluxFormInput, FluxFormPinInput, FluxFormRadio, FluxFormRadioGroup, FluxFormRangeSlider, FluxFormRating, FluxFormSection, FluxFormSelect, FluxFormSlider, FluxFormTimeZonePicker, FluxPaneIllustration, FluxPrimaryButton, FluxSecondaryButton, FluxSpacing, FluxTab, FluxTabs, FluxToggle, showConfirm, showSnackbar } from '@flux-ui/components';
+    import { FluxButtonStack, FluxColorPicker, FluxColorSelect, FluxContainer, FluxDatePicker, FluxDestructiveButton, FluxExpandable, FluxExpandableGroup, FluxFlex, FluxForm, FluxFormCheckbox, FluxFormCheckboxGroup, FluxFormColumn, FluxFormField, FluxFormFieldAddition, FluxFormGrid, FluxFormInput, FluxFormPinInput, FluxFormRadio, FluxFormRadioGroup, FluxFormRangeSlider, FluxFormRating, FluxFormSection, FluxFormSelect, FluxFormSlider, FluxFormTimeZonePicker, FluxPaneIllustration, FluxPrimaryButton, FluxSecondaryButton, FluxSpacing, FluxTab, FluxTabs, FluxToggle, showConfirm, showSnackbar } from '@flux-ui/components';
     import type { FluxFormSelectOption, FluxFormSelectValue } from '@flux-ui/types';
     import { DateTime } from 'luxon';
     import { reactive, ref } from 'vue';
@@ -321,16 +325,11 @@
 
 <style scoped>
     .promo {
-        display: flex;
-        flex-flow: column;
-        align-items: flex-start;
-        gap: 9px;
         padding: 18px;
         color: #fff;
     }
 
     .promo p {
-        margin: 0;
         font-size: 13px;
     }
 </style>

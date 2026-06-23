@@ -7,7 +7,9 @@
 
             <FluxPane>
                 <FluxPaneBody>
-                    <div class="thread">
+                    <FluxFlex
+                        direction="vertical"
+                        :gap="15">
                         <FluxComment
                             v-for="entry of entries"
                             :key="entry.id"
@@ -17,11 +19,14 @@
                             :posted-on="entry.postedAt">
                             {{ entry.message }}
                         </FluxComment>
-                    </div>
+                    </FluxFlex>
                 </FluxPaneBody>
 
                 <FluxPaneFooter>
-                    <div class="composer">
+                    <FluxFlex
+                        class="composer"
+                        direction="vertical"
+                        :gap="9">
                         <FluxToolbar>
                             <FluxToolbarGroup>
                                 <FluxAction
@@ -41,7 +46,9 @@
                             </FluxToolbarGroup>
                         </FluxToolbar>
 
-                        <div class="composer-row">
+                        <FluxFlex
+                            align="center"
+                            :gap="9">
                             <FluxFormInput
                                 v-model="draft"
                                 placeholder="Write a comment..."
@@ -52,8 +59,8 @@
                                 icon-leading="paper-plane"
                                 label="Send"
                                 @click="submit()"/>
-                        </div>
-                    </div>
+                        </FluxFlex>
+                    </FluxFlex>
                 </FluxPaneFooter>
             </FluxPane>
         </FluxLayerPane>
@@ -64,7 +71,7 @@
     lang="ts"
     setup>
     import { FluxApplicationContent } from '@flux-ui/application';
-    import { FluxAction, FluxComment, FluxFormInput, FluxLayerPane, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxToolbar, FluxToolbarGroup, showSnackbar } from '@flux-ui/components';
+    import { FluxAction, FluxComment, FluxFlex, FluxFormInput, FluxLayerPane, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPrimaryButton, FluxToolbar, FluxToolbarGroup, showSnackbar } from '@flux-ui/components';
     import { computed, ref } from 'vue';
     import { useRoute } from 'vue-router';
     import { useActivityStore, useTeamStore } from '@/store';
@@ -105,22 +112,7 @@
 </script>
 
 <style scoped>
-    .thread {
-        display: flex;
-        flex-flow: column;
-        gap: 15px;
-    }
-
     .composer {
-        display: flex;
-        flex-flow: column;
-        gap: 9px;
         width: 100%;
-    }
-
-    .composer-row {
-        display: flex;
-        align-items: center;
-        gap: 9px;
     }
 </style>

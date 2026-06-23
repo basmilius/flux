@@ -11,62 +11,86 @@
         </FluxApplicationHero>
 
         <FluxApplicationSection title="Choose a plan">
-            <div class="cycle">
-                <FluxSegmentedControl
-                    v-model="cycle"
-                    aria-label="Billing cycle">
-                    <FluxSegmentedControlItem
-                        label="Monthly"
-                        value="monthly"/>
-                    <FluxSegmentedControlItem
-                        label="Yearly"
-                        value="yearly"/>
-                </FluxSegmentedControl>
-            </div>
+            <FluxFlex
+                direction="vertical"
+                :gap="18">
+                <FluxFlex justify="center">
+                    <FluxSegmentedControl
+                        v-model="cycle"
+                        aria-label="Billing cycle">
+                        <FluxSegmentedControlItem
+                            label="Monthly"
+                            value="monthly"/>
+                        <FluxSegmentedControlItem
+                            label="Yearly"
+                            value="yearly"/>
+                    </FluxSegmentedControl>
+                </FluxFlex>
 
-            <FluxPaneGroup>
-                <FluxPane
-                    v-for="plan of plans"
-                    :key="plan.name"
-                    class="plan">
-                    <FluxBorderBeam
-                        v-if="plan.featured"
-                        color-variant="ocean"/>
-                    <FluxPaneBody>
-                        <div class="plan-body">
-                            <strong class="plan-name">{{ plan.name }}</strong>
-                            <FluxFadeTransition>
-                                <span
-                                    :key="String(cycle)"
-                                    class="plan-price">
-                                    {{ price(plan) }}
-                                </span>
-                            </FluxFadeTransition>
-                            <ul class="plan-features">
-                                <li
-                                    v-for="feature of plan.features"
-                                    :key="feature">
-                                    <FluxIcon name="circle-check"/>
-                                    {{ feature }}
-                                </li>
-                            </ul>
-                            <FluxPrimaryButton
-                                is-fluid
-                                :label="plan.price === 0 ? 'Current plan' : `Choose ${plan.name}`"
-                                @click="onChoose(plan.name)"/>
-                        </div>
-                    </FluxPaneBody>
-                </FluxPane>
-            </FluxPaneGroup>
+                <FluxPaneGroup>
+                    <FluxPane
+                        v-for="plan of plans"
+                        :key="plan.name"
+                        class="plan">
+                        <FluxBorderBeam
+                            v-if="plan.featured"
+                            color-variant="ocean"/>
+                        <FluxPaneBody>
+                            <FluxFlex
+                                align="start"
+                                direction="vertical"
+                                :gap="12">
+                                <FluxText
+                                    color="muted"
+                                    size="medium"
+                                    tag="strong">{{ plan.name }}</FluxText>
+                                <FluxFadeTransition>
+                                    <FluxText
+                                        :key="String(cycle)"
+                                        size="display"
+                                        :weight="700">
+                                        {{ price(plan) }}
+                                    </FluxText>
+                                </FluxFadeTransition>
+                                <FluxFlex
+                                    class="plan-features"
+                                    direction="vertical"
+                                    :gap="6"
+                                    tag="ul">
+                                    <FluxFlex
+                                        v-for="feature of plan.features"
+                                        :key="feature"
+                                        align="center"
+                                        :gap="9"
+                                        tag="li">
+                                        <FluxIcon name="circle-check"/>
+                                        <FluxText
+                                            color="gray"
+                                            size="small">{{ feature }}</FluxText>
+                                    </FluxFlex>
+                                </FluxFlex>
+                                <FluxPrimaryButton
+                                    is-fluid
+                                    :label="plan.price === 0 ? 'Current plan' : `Choose ${plan.name}`"
+                                    @click="onChoose(plan.name)"/>
+                            </FluxFlex>
+                        </FluxPaneBody>
+                    </FluxPane>
+                </FluxPaneGroup>
 
-            <p class="fineprint">
-                All paid plans include a 14-day trial.
-                <FluxLink
-                    href="https://flux-ui.dev"
-                    label="Compare all features"
-                    target="_blank"
-                    type="link"/>
-            </p>
+                <FluxFlex
+                    align="center"
+                    :gap="6">
+                    <FluxText
+                        color="muted"
+                        size="small">All paid plans include a 14-day trial.</FluxText>
+                    <FluxLink
+                        href="https://flux-ui.dev"
+                        label="Compare all features"
+                        target="_blank"
+                        type="link"/>
+                </FluxFlex>
+            </FluxFlex>
         </FluxApplicationSection>
 
         <FluxApplicationSection title="Built with Flux visuals">
@@ -87,7 +111,10 @@
                             v-else-if="visual.id === 'colors'"
                             :colors="['#5285f8', '#10b981', '#f59e0b']"/>
                         <FluxBorderShine v-else/>
-                        <span class="visual-label">{{ visual.label }}</span>
+                        <FluxText
+                            class="visual-label"
+                            size="small"
+                            :weight="500">{{ visual.label }}</FluxText>
                     </div>
                 </FluxGridColumn>
             </FluxGrid>
@@ -99,7 +126,7 @@
     lang="ts"
     setup>
     import { FluxApplicationContent, FluxApplicationHero, FluxApplicationSection } from '@flux-ui/application';
-    import { FluxAnimatedColors, FluxBorderBeam, FluxBorderShine, FluxDotPattern, FluxFadeTransition, FluxFlickeringGrid, FluxGrid, FluxGridColumn, FluxGridPattern, FluxIcon, FluxLink, FluxPane, FluxPaneBody, FluxPaneGroup, FluxPrimaryButton, FluxPublishButton, FluxSegmentedControl, FluxSegmentedControlItem, showSnackbar } from '@flux-ui/components';
+    import { FluxAnimatedColors, FluxBorderBeam, FluxBorderShine, FluxDotPattern, FluxFadeTransition, FluxFlex, FluxFlickeringGrid, FluxGrid, FluxGridColumn, FluxGridPattern, FluxIcon, FluxLink, FluxPane, FluxPaneBody, FluxPaneGroup, FluxPrimaryButton, FluxPublishButton, FluxSegmentedControl, FluxSegmentedControlItem, FluxText, showSnackbar } from '@flux-ui/components';
     import { ref } from 'vue';
     import { defineTitle } from '@/composable';
 
@@ -146,58 +173,14 @@
 </script>
 
 <style scoped>
-    .cycle {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 18px;
-    }
-
-    .fineprint {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        margin: 18px 0 0;
-        font-size: 13px;
-        color: var(--gray-500);
-    }
-
     .plan {
         position: relative;
     }
 
-    .plan-body {
-        display: flex;
-        flex-flow: column;
-        gap: 12px;
-        align-items: flex-start;
-    }
-
-    .plan-name {
-        font-size: 15px;
-        color: var(--gray-500);
-    }
-
-    .plan-price {
-        font-size: 27px;
-        font-weight: 700;
-        color: var(--foreground);
-    }
-
     .plan-features {
-        display: flex;
-        flex-flow: column;
-        gap: 6px;
         margin: 0;
         padding: 0;
         list-style: none;
-        font-size: 13px;
-        color: var(--gray-600);
-    }
-
-    .plan-features li {
-        display: flex;
-        align-items: center;
-        gap: 9px;
     }
 
     .visual {
@@ -214,8 +197,5 @@
 
     .visual-label {
         position: relative;
-        font-size: 13px;
-        font-weight: 500;
-        color: var(--foreground);
     }
 </style>

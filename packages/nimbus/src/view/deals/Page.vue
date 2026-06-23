@@ -19,25 +19,47 @@
                     :key="deal.id"
                     :column-id="stage"
                     :item-id="deal.id">
-                    <div class="deal">
-                        <div class="deal-top">
-                            <span class="deal-title">{{ deal.title }}</span>
-                            <MemberAvatar
-                                :member="getMember(deal.ownerId)"
-                                :size="24"/>
-                        </div>
+                    <FluxPane variant="flat">
+                        <FluxPaneBody>
+                            <FluxFlex
+                                direction="vertical"
+                                :gap="9">
+                                <FluxFlex
+                                    align="center"
+                                    :gap="9"
+                                    justify="between">
+                                    <FluxText
+                                        size="medium"
+                                        :weight="500">{{ deal.title }}</FluxText>
+                                    <MemberAvatar
+                                        :member="getMember(deal.ownerId)"
+                                        :size="24"/>
+                                </FluxFlex>
 
-                        <span class="deal-client">{{ clientName(deal.clientId) }}</span>
+                                <FluxText
+                                    color="muted"
+                                    size="small">{{ clientName(deal.clientId) }}</FluxText>
 
-                        <div class="deal-footer">
-                            <strong class="deal-value">{{ formatCurrency(deal.value) }}</strong>
-                            <FluxChip :label="`${deal.probability}%`"/>
-                        </div>
-                    </div>
+                                <FluxFlex
+                                    align="center"
+                                    :gap="6"
+                                    justify="between">
+                                    <FluxText
+                                        tabular
+                                        tag="strong"
+                                        :weight="700">{{ formatCurrency(deal.value) }}</FluxText>
+                                    <FluxChip :label="`${deal.probability}%`"/>
+                                </FluxFlex>
+                            </FluxFlex>
+                        </FluxPaneBody>
+                    </FluxPane>
                 </FluxKanbanItem>
 
                 <template #empty>
-                    <span class="empty">No deals.</span>
+                    <FluxText
+                        class="empty"
+                        color="muted"
+                        size="small">No deals.</FluxText>
                 </template>
             </FluxKanbanColumn>
         </FluxKanban>
@@ -48,7 +70,7 @@
     lang="ts"
     setup>
     import { FluxApplicationContent } from '@flux-ui/application';
-    import { FluxBadge, FluxChip, FluxKanban, FluxKanbanColumn, FluxKanbanItem } from '@flux-ui/components';
+    import { FluxBadge, FluxChip, FluxFlex, FluxKanban, FluxKanbanColumn, FluxKanbanItem, FluxPane, FluxPaneBody, FluxText } from '@flux-ui/components';
     import type { FluxKanbanMoveEvent } from '@flux-ui/types';
     import MemberAvatar from '@/component/MemberAvatar.vue';
     import { defineTitle } from '@/composable';
@@ -74,51 +96,8 @@
 </script>
 
 <style scoped>
-    .deal {
-        display: flex;
-        flex-flow: column;
-        gap: 9px;
-        padding: 12px;
-        background: var(--surface);
-        border: 1px solid var(--surface-stroke);
-        border-radius: var(--radius);
-    }
-
-    .deal-top {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 9px;
-    }
-
-    .deal-title {
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 1.4;
-        color: var(--foreground);
-    }
-
-    .deal-client {
-        font-size: 13px;
-        color: var(--gray-500);
-    }
-
-    .deal-footer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 6px;
-    }
-
-    .deal-value {
-        font-variant-numeric: tabular-nums;
-        color: var(--foreground);
-    }
-
     .empty {
         display: block;
         padding: 12px;
-        font-size: 13px;
-        color: var(--gray-500);
     }
 </style>

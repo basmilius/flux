@@ -31,20 +31,43 @@
 
                     <FluxPane>
                         <FluxPaneBody>
-                            <div class="stats">
-                                <div class="stat">
-                                    <span class="stat-value">{{ projectCount(member.id) }}</span>
-                                    <span class="stat-label">Projects</span>
-                                </div>
-                                <div class="stat">
-                                    <span class="stat-value">{{ formatHours(weekTotal(member.id, weekStart)) }}</span>
-                                    <span class="stat-label">This week</span>
-                                </div>
-                                <div class="stat">
-                                    <span class="stat-value">{{ member.capacity }}h</span>
-                                    <span class="stat-label">Capacity</span>
-                                </div>
-                            </div>
+                            <FluxFlex
+                                :gap="9"
+                                justify="between">
+                                <FluxFlex
+                                    align="center"
+                                    direction="vertical"
+                                    :gap="3">
+                                    <FluxText
+                                        size="large"
+                                        :weight="600">{{ projectCount(member.id) }}</FluxText>
+                                    <FluxText
+                                        color="muted"
+                                        size="small">Projects</FluxText>
+                                </FluxFlex>
+                                <FluxFlex
+                                    align="center"
+                                    direction="vertical"
+                                    :gap="3">
+                                    <FluxText
+                                        size="large"
+                                        :weight="600">{{ formatHours(weekTotal(member.id, weekStart)) }}</FluxText>
+                                    <FluxText
+                                        color="muted"
+                                        size="small">This week</FluxText>
+                                </FluxFlex>
+                                <FluxFlex
+                                    align="center"
+                                    direction="vertical"
+                                    :gap="3">
+                                    <FluxText
+                                        size="large"
+                                        :weight="600">{{ member.capacity }}h</FluxText>
+                                    <FluxText
+                                        color="muted"
+                                        size="small">Capacity</FluxText>
+                                </FluxFlex>
+                            </FluxFlex>
                         </FluxPaneBody>
                     </FluxPane>
 
@@ -67,7 +90,7 @@
     lang="ts"
     setup>
     import { FluxApplicationContent } from '@flux-ui/application';
-    import { FluxBadge, FluxButtonStack, FluxGrid, FluxGridColumn, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxLayerPane, FluxPane, FluxPaneBody, FluxPaneFooter, FluxSecondaryButton } from '@flux-ui/components';
+    import { FluxBadge, FluxButtonStack, FluxFlex, FluxGrid, FluxGridColumn, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxLayerPane, FluxPane, FluxPaneBody, FluxPaneFooter, FluxSecondaryButton, FluxText } from '@flux-ui/components';
     import type { FluxColor } from '@flux-ui/types';
     import { DateTime } from 'luxon';
     import MemberAvatar from '@/component/MemberAvatar.vue';
@@ -104,29 +127,5 @@
 <style scoped>
     .card-header {
         padding: 15px 18px;
-    }
-
-    .stats {
-        display: flex;
-        justify-content: space-between;
-        gap: 9px;
-    }
-
-    .stat {
-        display: flex;
-        flex-flow: column;
-        gap: 3px;
-        text-align: center;
-    }
-
-    .stat-value {
-        font-size: 18px;
-        font-weight: 600;
-        color: var(--foreground);
-    }
-
-    .stat-label {
-        font-size: 12px;
-        color: var(--gray-500);
     }
 </style>

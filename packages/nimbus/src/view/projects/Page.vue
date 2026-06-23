@@ -67,10 +67,12 @@
                             <FluxBoxedIcon
                                 :color="item.color"
                                 :name="item.icon"/>
-                            <div class="project-name-info">
+                            <FluxFlex
+                                direction="vertical"
+                                :gap="2">
                                 <strong>{{ item.name }}</strong>
-                                <small>{{ item.key }}</small>
-                            </div>
+                                <FluxText color="muted" size="small">{{ item.key }}</FluxText>
+                            </FluxFlex>
                         </RouterLink>
 
                         <template #menu="{close}">
@@ -122,13 +124,19 @@
 
             <template #progress="{item}">
                 <FluxTableCell>
-                    <div class="progress">
+                    <FluxFlex
+                        align="center"
+                        class="progress"
+                        :gap="9">
                         <FluxProgressBar
                             :color="item.color"
                             :max="100"
                             :value="item.progress"/>
-                        <span>{{ item.progress }}%</span>
-                    </div>
+                        <FluxText
+                            class="progress-value"
+                            color="muted"
+                            tabular>{{ item.progress }}%</FluxText>
+                    </FluxFlex>
                 </FluxTableCell>
             </template>
 
@@ -156,7 +164,7 @@
     lang="ts"
     setup>
     import { FluxApplicationContent } from '@flux-ui/application';
-    import { FluxAction, FluxBoxedIcon, FluxContextMenu, FluxDataTable, FluxFilterBar, FluxFilterDate, FluxFilterOptions, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxProgressBar, FluxTableActions, FluxTableBar, FluxTableCell, FluxTableHeader, FluxTooltip } from '@flux-ui/components';
+    import { FluxAction, FluxBoxedIcon, FluxContextMenu, FluxDataTable, FluxFilterBar, FluxFilterDate, FluxFilterOptions, FluxFlex, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxProgressBar, FluxTableActions, FluxTableBar, FluxTableCell, FluxTableHeader, FluxText, FluxTooltip } from '@flux-ui/components';
     import type { FluxFilterOptionItem, FluxFilterState } from '@flux-ui/types';
     import type { DateTime } from 'luxon';
     import { computed, ref } from 'vue';
@@ -235,20 +243,7 @@
         text-decoration: none;
     }
 
-    .project-name-info {
-        display: flex;
-        flex-flow: column;
-        gap: 2px;
-    }
-
-    .project-name-info small {
-        color: var(--gray-500);
-    }
-
     .progress {
-        display: flex;
-        align-items: center;
-        gap: 9px;
         min-width: 144px;
     }
 
@@ -256,10 +251,8 @@
         flex: 1;
     }
 
-    .progress span {
+    .progress-value {
         width: 39px;
-        font-variant-numeric: tabular-nums;
         text-align: right;
-        color: var(--gray-500);
     }
 </style>
