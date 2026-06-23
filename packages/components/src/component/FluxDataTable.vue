@@ -2,12 +2,9 @@
     <FluxTable
         ref="table"
         :fill-columns="fillColumns"
-        :is-bordered="isBordered"
         :is-hoverable="isHoverable"
         :is-loading="isLoading"
-        :is-separated="isSeparated"
-        :is-sticky="isSticky"
-        :is-striped="isStriped">
+        :is-sticky="isSticky">
         <template
             v-if="'colgroups' in slots"
             #colgroups>
@@ -177,12 +174,9 @@
     const {
         expandMode = 'multiple',
         groupBy,
-        isBordered = true,
         isHoverable = false,
         isLoading = false,
-        isSeparated = true,
         isSticky = false,
-        isStriped = false,
         items,
         perPage,
         selectionMode,
@@ -191,12 +185,9 @@
         readonly expandMode?: 'single' | 'multiple';
         readonly fillColumns?: number;
         readonly groupBy?: (item: T) => SelectionId;
-        readonly isBordered?: boolean;
         readonly isHoverable?: boolean;
         readonly isLoading?: boolean;
-        readonly isSeparated?: boolean;
         readonly isSticky?: boolean;
-        readonly isStriped?: boolean;
         readonly items: T[];
         readonly limits: number[];
         readonly page: number;

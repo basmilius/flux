@@ -13,12 +13,6 @@ props:
         type: number
         optional: true
 
-    -   name: is-bordered
-        description: If borders should be applied to all sides of the table.
-        type: boolean
-        optional: true
-        default: true
-
     -   name: is-hoverable
         description: If each row should be highlighted on hover.
         type: boolean
@@ -29,22 +23,11 @@ props:
         type: boolean
         optional: true
 
-    -   name: is-separated
-        description: If a border should be added between each row.
-        type: boolean
-        optional: true
-        default: true
-
     -   name: is-sticky
         description: If the table headers stick to the top while scrolling.
         type: boolean
         optional: true
         default: false
-
-    -   name: is-striped
-        description: If alternated colors should be added to each row.
-        type: boolean
-        optional: true
 
 slots:
     -   name: default

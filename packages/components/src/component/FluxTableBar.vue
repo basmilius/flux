@@ -3,10 +3,7 @@
         <td
             :class="clsx(
                 $style.tableBar,
-                isBordered && $style.isBordered,
-                isHoverable && $style.isHoverable,
-                isSeparated && $style.isSeparated,
-                isStriped && $style.isStriped
+                isHoverable && $style.isHoverable
             )"
             colspan="100%"
             role="cell">
@@ -30,9 +27,6 @@
     }>();
 
     const {
-        isBordered,
-        isHoverable,
-        isSeparated,
-        isStriped
+        isHoverable
     } = useTableInjection();
 </script>

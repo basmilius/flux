@@ -2,7 +2,6 @@
     <th
         :class="clsx(
             $style.tableHeader,
-            isBordered && $style.isBordered,
             isShrinking && $style.isShrinking,
             isSticky && $style.isSticky
         )"
@@ -94,7 +93,7 @@
         default(): VNode[];
     }>();
 
-    const {isBordered, isSticky} = useTableInjection();
+    const {isSticky} = useTableInjection();
     const translate = useTranslate();
 
     const sortingIcon = computed((): FluxIconName => {

@@ -19,6 +19,7 @@
 .tableBase {
     min-width: 100cqw;
     bottom: 0;
+    border-collapse: separate;
     border-spacing: 0;
     text-align: left;
 
@@ -88,10 +89,6 @@
     font-size: 14px;
 }
 
-tbody .tableRow:nth-child(even) .tableCell.isStriped {
-    background: rgb(from var(--gray-50) r g b / .5);
-}
-
 tbody .tableRow.isSelected .tableCell {
     background: var(--primary-50);
     border-color: var(--primary-100);
@@ -117,12 +114,16 @@ tfoot .tableCell {
     border-top: 1px solid var(--gray-100);
 }
 
-.tableCell + .tableCell.isBordered {
+.tableCell + .tableCell {
     border-left-width: 1px;
 }
 
-.tableRow + .tableRow .tableCell.isSeparated {
+tbody .tableRow + .tableRow .tableCell {
     border-top-width: 1px;
+}
+
+tbody .tableGroupRow + .tableRow .tableCell {
+    border-top-width: 0;
 }
 
 .tableActions {
@@ -171,6 +172,8 @@ tfoot .tableCell {
 
 .tableGroup {
     composes: tableCell;
+
+    border-bottom-width: 1px;
 }
 
 .tableGroupContent {
@@ -284,14 +287,6 @@ tfoot .tableCell {
 
 .basePaneStructure > .table .tableLoader {
     border-radius: var(--radius);
-}
-
-:not(.basePaneStructure) > .table .tableCell:not(.isBordered):first-child .tableCellContent {
-    padding-left: 0;
-}
-
-:not(.basePaneStructure) > .table .tableCell:not(.isBordered):last-child .tableCellContent {
-    padding-right: 0;
 }
 
 .tableCellExpand {

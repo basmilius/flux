@@ -1,10 +1,7 @@
 <template>
     <div
         ref="base"
-        :class="[
-            $style.table,
-            isBordered && $style.isBordered
-        ]">
+        :class="$style.table">
         <table :class="$style.tableBase">
             <slot name="colgroups"/>
 
@@ -64,21 +61,15 @@
 
     const {
         captionSide = 'bottom',
-        isBordered = true,
         isHoverable = false,
         isLoading = false,
-        isSeparated = true,
-        isSticky = false,
-        isStriped = false
+        isSticky = false
     } = defineProps<{
         readonly captionSide?: 'top' | 'bottom';
         readonly fillColumns?: number;
-        readonly isBordered?: boolean;
         readonly isHoverable?: boolean;
         readonly isLoading?: boolean;
-        readonly isSeparated?: boolean;
         readonly isSticky?: boolean;
-        readonly isStriped?: boolean;
     }>();
 
     const slots = defineSlots<{
@@ -94,10 +85,7 @@
     const {x, y} = useScrollPosition(base);
 
     provide(FluxTableInjectionKey, {
-        isBordered: toRef(() => isBordered),
         isHoverable: toRef(() => isHoverable),
-        isSeparated: toRef(() => isSeparated),
-        isSticky: toRef(() => isSticky),
-        isStriped: toRef(() => isStriped)
+        isSticky: toRef(() => isSticky)
     });
 </script>

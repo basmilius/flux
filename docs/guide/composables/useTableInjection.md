@@ -7,17 +7,14 @@ This composable provides access to the [Table](../../components/table/) styling 
 ```ts
 import { useTableInjection } from '@flux-ui/components';
 
-const { isBordered, isHoverable, isSeparated, isStriped } = useTableInjection();
+const { isHoverable } = useTableInjection();
 ```
 
 ## Type declarations
 
 ```ts
 declare function useTableInjection(): {
-    readonly isBordered: boolean;
     readonly isHoverable: boolean;
-    readonly isSeparated: boolean;
-    readonly isStriped: boolean;
 };
 ```
 

@@ -36,9 +36,6 @@ slots:
 
 requiredIcons:
     - angle-right
-    - palette
-    - plus
-    - users
 ---
 
 # Table group

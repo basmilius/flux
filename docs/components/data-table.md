@@ -37,11 +37,6 @@ props:
         type: "(item: T) => string | number"
         optional: true
 
-    -   name: is-bordered
-        description: Show borders between cells.
-        type: boolean
-        optional: true
-
     -   name: is-hoverable
         description: Enable a hover state for each row.
         type: boolean
@@ -52,21 +47,11 @@ props:
         type: boolean
         optional: true
 
-    -   name: is-separated
-        description: Show borders between rows.
-        type: boolean
-        optional: true
-
     -   name: is-sticky
         description: If the table headers stick to the top while scrolling.
         type: boolean
         optional: true
         default: false
-
-    -   name: is-striped
-        description: Show alternating backgrounds for each row.
-        type: boolean
-        optional: true
 
     -   name: limits
         description: The available options for the pagination limit.

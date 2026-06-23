@@ -1,12 +1,9 @@
 <template>
-    <tr :class="$style.tableRow">
+    <tr :class="clsx($style.tableRow, $style.tableGroupRow)">
         <td
             :class="clsx(
                 $style.tableGroup,
-                isBordered && $style.isBordered,
-                isHoverable && $style.isHoverable,
-                isSeparated && $style.isSeparated,
-                isStriped && $style.isStriped
+                isHoverable && $style.isHoverable
             )"
             colspan="100%"
             role="cell">
@@ -76,10 +73,7 @@
     }>();
 
     const {
-        isBordered,
-        isHoverable,
-        isSeparated,
-        isStriped
+        isHoverable
     } = useTableInjection();
 
     const translate = useTranslate();
