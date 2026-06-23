@@ -18,6 +18,10 @@ emits:
         description: Triggered when the set of expanded rows changes, with the array of expanded ids.
         type: [ "(string | number)[]" ]
 
+    -   name: update:collapsed-groups
+        description: Triggered when a group is collapsed or expanded, with the array of collapsed group ids.
+        type: [ "(string | number)[]" ]
+
 props:
     -   name: items
         description: The data to show in the table. This should already be the current page's data — pagination is handled server-side. Pass the subset of items for the active page here.
@@ -26,6 +30,11 @@ props:
     -   name: fill-columns
         description: The number of columns to render placeholder cells for when the page has fewer items than `per-page`.
         type: number
+        optional: true
+
+    -   name: group-by
+        description: An accessor that returns the group id for each item. When set, rows are grouped and the `group` slot is rendered as the header for each group.
+        type: "(item: T) => string | number"
         optional: true
 
     -   name: is-bordered
@@ -135,6 +144,15 @@ slots:
             is-expanded: boolean
             toggle: () => void
 
+    -   name: group
+        description: Renders the header row for each group. Only used when `group-by` is set — render a `FluxTableGroup` here, wiring `is-expanded` and `toggle` to make the group collapsible.
+        type:
+            id: string | number
+            index: number
+            items: T[]
+            is-expanded: boolean
+            toggle: () => void
+
     -   name: "[key: string]"
         description: A slot representing a cell for each visible row.
         type:
@@ -190,10 +208,19 @@ example=../code/components/data-table/selection.vue
 example=../code/components/data-table/expandable.vue
 :::
 
+::: example Grouped rows || A data table whose rows are grouped under collapsible headers.
+example=../code/components/data-table/grouped.vue
+:::
+
+::: example Static groups || A data table whose rows are grouped under plain, non-collapsible headers.
+example=../code/components/data-table/grouped-static.vue
+:::
+
 ## Used components
 
 - [Table](./table)
     - [Actions](./table/actions)
     - [Cell](./table/cell)
+    - [Group](./table/group)
     - [Header](./table/header)
     - [Row](./table/row)

@@ -70,54 +70,67 @@
         </template>
 
         <template
-            v-for="(item, index) of limitedItems"
-            :key="uniqueKey ? item[uniqueKey] : index">
-            <FluxTableRow
-                :class="selectionMode && !treeDisabled && $style.isSelectableRow"
-                :is-selected="selectionMode ? isItemSelected(item) : false"
-                @click="onRowClick(item, $event)">
-                <FluxTableCell
-                    v-if="selectionMode"
-                    :class="$style.tableCellSelection">
-                    <FluxFormCheckbox
-                        :model-value="isItemSelected(item)"
-                        @update:model-value="onSelectRow(item)"/>
-                </FluxTableCell>
+            v-for="entry of renderEntries"
+            :key="entry.key">
+            <slot
+                v-if="entry.kind === 'group'"
+                name="group"
+                v-bind="{
+                    id: entry.id,
+                    index: entry.index,
+                    items: entry.items,
+                    isExpanded: !isGroupCollapsed(entry.id),
+                    toggle: () => toggleGroup(entry.id)
+                }"/>
 
-                <FluxTableCell
-                    v-if="hasExpandable"
-                    :class="$style.tableCellExpand">
-                    <FluxTableActions>
-                        <FluxAction
-                            :class="clsx($style.tableExpandToggle, isItemExpanded(item) && $style.isExpanded)"
-                            icon="angle-right"
-                            :aria-expanded="isItemExpanded(item)"
-                            :aria-label="isItemExpanded(item) ? translate('flux.collapseRow') : translate('flux.expandRow')"
-                            @click="toggleExpand(item)"/>
-                    </FluxTableActions>
-                </FluxTableCell>
+            <template v-if="entry.kind === 'item'">
+                <FluxTableRow
+                    :class="selectionMode && !treeDisabled && $style.isSelectableRow"
+                    :is-selected="selectionMode ? isItemSelected(entry.item) : false"
+                    @click="onRowClick(entry.item, $event)">
+                    <FluxTableCell
+                        v-if="selectionMode"
+                        :class="$style.tableCellSelection">
+                        <FluxFormCheckbox
+                            :model-value="isItemSelected(entry.item)"
+                            @update:model-value="onSelectRow(entry.item)"/>
+                    </FluxTableCell>
 
-                <template v-for="(_, name) of slots">
-                    <slot
-                        v-if="!IGNORED_SLOTS.includes(name as string)"
-                        v-bind="{index, item, items: limitedItems, page, perPage, total, isSelected: isItemSelected(item)}"
-                        :name="name"/>
-                </template>
-            </FluxTableRow>
+                    <FluxTableCell
+                        v-if="hasExpandable"
+                        :class="$style.tableCellExpand">
+                        <FluxTableActions>
+                            <FluxAction
+                                :class="clsx($style.tableExpandToggle, isItemExpanded(entry.item) && $style.isExpanded)"
+                                icon="angle-right"
+                                :aria-expanded="isItemExpanded(entry.item)"
+                                :aria-label="isItemExpanded(entry.item) ? translate('flux.collapseRow') : translate('flux.expandRow')"
+                                @click="toggleExpand(entry.item)"/>
+                        </FluxTableActions>
+                    </FluxTableCell>
 
-            <FluxTableRow
-                v-if="hasExpandable && isItemExpanded(item)"
-                :class="$style.tableExpandRow">
-                <FluxTableCell :colspan="columnCount">
-                    <template #content>
-                        <div :class="$style.tableExpandContent">
-                            <slot
-                                name="expandable"
-                                v-bind="{index, item, isExpanded: true, toggle: () => toggleExpand(item)}"/>
-                        </div>
+                    <template v-for="(_, name) of slots">
+                        <slot
+                            v-if="!IGNORED_SLOTS.includes(name as string)"
+                            v-bind="{index: entry.index, item: entry.item, items: limitedItems, page, perPage, total, isSelected: isItemSelected(entry.item)}"
+                            :name="name"/>
                     </template>
-                </FluxTableCell>
-            </FluxTableRow>
+                </FluxTableRow>
+
+                <FluxTableRow
+                    v-if="hasExpandable && isItemExpanded(entry.item)"
+                    :class="$style.tableExpandRow">
+                    <FluxTableCell :colspan="columnCount">
+                        <template #content>
+                            <div :class="$style.tableExpandContent">
+                                <slot
+                                    name="expandable"
+                                    v-bind="{index: entry.index, item: entry.item, isExpanded: true, toggle: () => toggleExpand(entry.item)}"/>
+                            </div>
+                        </template>
+                    </FluxTableCell>
+                </FluxTableRow>
+            </template>
         </template>
     </FluxTable>
 </template>
@@ -142,8 +155,11 @@
 
     type SelectionId = string | number;
     type SelectionValue = SelectionId | null | SelectionId[];
+    type RenderEntry =
+        | { kind: 'group'; key: SelectionId; id: SelectionId; index: number; items: T[] }
+        | { kind: 'item'; key: SelectionId; index: number; item: T };
 
-    const IGNORED_SLOTS: string[] = ['filter', 'header', 'footer', 'colgroups', 'pagination', 'expandable'];
+    const IGNORED_SLOTS: string[] = ['filter', 'header', 'footer', 'colgroups', 'pagination', 'expandable', 'group'];
 
     const emit = defineEmits<{
         limit: [number];
@@ -154,9 +170,13 @@
     const expanded = defineModel<SelectionId[]>('expanded', {
         default: () => []
     });
+    const collapsedGroups = defineModel<SelectionId[]>('collapsedGroups', {
+        default: () => []
+    });
 
     const {
         expandMode = 'multiple',
+        groupBy,
         isBordered = true,
         isHoverable = false,
         isLoading = false,
@@ -170,6 +190,7 @@
     } = defineProps<{
         readonly expandMode?: 'single' | 'multiple';
         readonly fillColumns?: number;
+        readonly groupBy?: (item: T) => SelectionId;
         readonly isBordered?: boolean;
         readonly isHoverable?: boolean;
         readonly isLoading?: boolean;
@@ -223,6 +244,15 @@
 
             toggle(): void;
         }): VNode;
+
+        group(props: {
+            readonly id: SelectionId;
+            readonly index: number;
+            readonly items: T[];
+            readonly isExpanded: boolean;
+
+            toggle(): void;
+        }): VNode;
     } & {
         [key: string]: (props: {
             readonly index: number;
@@ -245,6 +275,60 @@
     const columnCount = computed(() => {
         const userColumns = Object.keys(slots).filter(name => !IGNORED_SLOTS.includes(name)).length;
         return userColumns + (selectionMode ? 1 : 0) + (unref(hasExpandable) ? 1 : 0);
+    });
+
+    const renderEntries = computed<RenderEntry[]>(() => {
+        const list = unref(limitedItems);
+
+        if (!groupBy) {
+            return list.map((item, index) => ({
+                kind: 'item',
+                key: uniqueKey ? item[uniqueKey] as SelectionId : index,
+                index,
+                item
+            }));
+        }
+
+        const resolveGroup = groupBy;
+        const buckets = new Map<SelectionId, { index: number; item: T }[]>();
+
+        list.forEach((item, index) => {
+            const id = resolveGroup(item);
+            const bucket = buckets.get(id);
+
+            if (bucket) {
+                bucket.push({index, item});
+            } else {
+                buckets.set(id, [{index, item}]);
+            }
+        });
+
+        const entries: RenderEntry[] = [];
+
+        for (const [id, bucket] of buckets) {
+            entries.push({
+                kind: 'group',
+                key: `group:${id}`,
+                id,
+                index: bucket[0].index,
+                items: bucket.map(({item}) => item)
+            });
+
+            if (unref(collapsedGroups).includes(id)) {
+                continue;
+            }
+
+            for (const {index, item} of bucket) {
+                entries.push({
+                    kind: 'item',
+                    key: uniqueKey ? item[uniqueKey] as SelectionId : `item:${index}`,
+                    index,
+                    item
+                });
+            }
+        }
+
+        return entries;
     });
 
     const currentPageIds = computed<SelectionId[]>(() => {
@@ -375,6 +459,18 @@
         }
 
         expanded.value = expandMode === 'single' ? [id] : [...current, id];
+    }
+
+    function isGroupCollapsed(id: SelectionId): boolean {
+        return unref(collapsedGroups).includes(id);
+    }
+
+    function toggleGroup(id: SelectionId): void {
+        const current = unref(collapsedGroups);
+
+        collapsedGroups.value = current.includes(id)
+            ? current.filter(v => v !== id)
+            : [...current, id];
     }
 
     if (import.meta.env.DEV && selectionMode && !uniqueKey) {

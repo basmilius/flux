@@ -169,6 +169,61 @@ tfoot .tableCell {
     gap: 15px;
 }
 
+.tableGroup {
+    composes: tableCell;
+}
+
+.tableGroupContent {
+    composes: tableBarContent;
+
+    align-items: center;
+    gap: 12px;
+
+    &:is(button) {
+        width: 100%;
+        background: unset;
+        border: 0;
+        color: inherit;
+        font: inherit;
+        text-align: left;
+        cursor: pointer;
+        transition: background var(--transition-default);
+        transition-property: background, mixin.focus-ring-transition-properties();
+
+        @include mixin.focus-ring(-2px);
+
+        @include mixin.hover {
+            background: var(--gray-50);
+        }
+    }
+}
+
+.tableGroupChevron {
+    color: var(--foreground-secondary);
+    transition: rotate .2s var(--swift-out);
+}
+
+.tableGroupChevron.isExpanded {
+    rotate: 90deg;
+}
+
+.tableGroupIcon {
+    color: var(--foreground);
+}
+
+.tableGroupLabel {
+    flex-grow: 1;
+    color: var(--foreground-prominent);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.tableGroupAfter {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
 .tablePagination {
     position: sticky;
     left: 0;

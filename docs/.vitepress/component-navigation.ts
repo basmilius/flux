@@ -369,6 +369,7 @@ const navigation: SidebarItem = {
                 {text: 'Actions', link: '/components/table/actions'},
                 {text: 'Bar', link: '/components/table/bar'},
                 {text: 'Cell', link: '/components/table/cell'},
+                {text: 'Group', link: '/components/table/group'},
                 {text: 'Header', link: '/components/table/header'},
                 {text: 'Row', link: '/components/table/row'}
             ]

@@ -169,6 +169,7 @@ export { default as FluxTable } from './FluxTable.vue';
 export { default as FluxTableActions } from './FluxTableActions.vue';
 export { default as FluxTableBar } from './FluxTableBar.vue';
 export { default as FluxTableCell } from './FluxTableCell.vue';
+export { default as FluxTableGroup } from './FluxTableGroup.vue';
 export { default as FluxTableHeader } from './FluxTableHeader.vue';
 export { default as FluxTableRow } from './FluxTableRow.vue';
 export { default as FluxTag } from './FluxTag.vue';
