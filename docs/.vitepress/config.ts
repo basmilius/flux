@@ -4,6 +4,7 @@ import { defineConfig } from 'vitepress';
 import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons';
 import examplePlugin from 'vitepress-plugin-example';
 import renderPlugin from 'vitepress-plugin-render';
+import llmstxt from 'vitepress-plugin-llms';
 import componentNavigation from './component-navigation';
 
 export const flux = composeLibrary({
@@ -54,7 +55,14 @@ export default defineConfig({
             }),
             flux(),
             fluxApplication(),
-            fluxStatistics()
+            fluxStatistics(),
+            llmstxt({
+                domain: 'https://flux-ui.dev',
+                generateLLMsTxt: true,
+                generateLLMsFullTxt: true,
+                generateLLMFriendlyDocsForEachPage: true,
+                injectLLMHint: true
+            })
         ],
         server: {
             port: 5174

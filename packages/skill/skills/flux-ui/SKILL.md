@@ -155,6 +155,9 @@ in `references/patterns.md`. The nesting rules:
 - **Pane (card):** `FluxPane` › `FluxPaneHeader` / `FluxPaneBody` / `FluxPaneFooter`.
 - **Flex:** `FluxFlex` (`direction`, `:gap` in **px**) wrapping children or
   `FluxFlexItem`.
+- **Split button:** both halves must be the **same** variant — the dropdown arrow
+  is a `FluxSecondaryButton` internally, so the `#button` slot must also hold a
+  `FluxSecondaryButton`, never a `FluxPrimaryButton`. `references/patterns.md`.
 - **Programmatic dialog** (needs `FluxRoot` mounted): `showConfirm` returns a
   boolean — `if (await showConfirm({...})) { … showSnackbar({...}) }`. See
   `references/dialogs-and-feedback.md`.
