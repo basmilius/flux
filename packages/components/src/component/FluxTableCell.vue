@@ -2,7 +2,9 @@
     <td
         :class="clsx(
             $style.tableCell,
-            isHoverable && $style.isHoverable
+            isHoverable && $style.isHoverable,
+            noWrap && $style.isNoWrap,
+            pinned && $style.isPinned
         )"
         :colspan="colspan"
         role="cell">
@@ -11,7 +13,9 @@
                 :class="$style.tableCellContent"
                 :style="{
                     flexFlow: contentDirection,
-                    gap: contentGap != null ? `${contentGap}px` : undefined
+                    gap: contentGap != null ? `${contentGap}px` : undefined,
+                    justifyContent: align,
+                    textAlign: align
                 }">
                 <slot/>
             </div>
@@ -30,9 +34,12 @@
     const {
         contentDirection = 'row'
     } = defineProps<{
+        readonly align?: 'start' | 'center' | 'end';
         readonly colspan?: number;
         readonly contentDirection?: 'column' | 'row';
         readonly contentGap?: number;
+        readonly noWrap?: boolean;
+        readonly pinned?: boolean;
     }>();
 
     defineSlots<{

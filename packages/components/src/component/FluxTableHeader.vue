@@ -3,14 +3,20 @@
         :class="clsx(
             $style.tableHeader,
             isShrinking && $style.isShrinking,
-            isSticky && $style.isSticky
+            isSticky && $style.isSticky,
+            pinned && $style.isPinned
         )"
         scope="col"
         :aria-sort="isSortable ? (sort ?? 'none') : undefined"
         :style="{
             minWidth: `${minWidth}px`
         }">
-        <div :class="$style.tableHeaderContent">
+        <div
+            :class="$style.tableHeaderContent"
+            :style="{
+                justifyContent: align,
+                textAlign: align
+            }">
             <slot/>
 
             <FluxFlyout v-if="isSortable">
@@ -83,9 +89,11 @@
         minWidth = 0,
         sort
     } = defineProps<{
+        readonly align?: 'start' | 'center' | 'end';
         readonly isShrinking?: boolean;
         readonly isSortable?: boolean;
         readonly minWidth?: number;
+        readonly pinned?: boolean;
         readonly sort?: 'ascending' | 'descending';
     }>();
 

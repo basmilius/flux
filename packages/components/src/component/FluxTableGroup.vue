@@ -3,7 +3,7 @@
         <td
             :class="clsx(
                 $style.tableGroup,
-                isHoverable && $style.isHoverable
+                isHoverable && isExpandable && $style.isHoverable
             )"
             colspan="100%"
             role="cell">
@@ -18,7 +18,7 @@
                     v-if="isExpandable"
                     :class="clsx($style.tableGroupChevron, isExpanded && $style.isExpanded)"
                     name="angle-right"
-                    :size="14"/>
+                    :size="16"/>
 
                 <FluxIcon
                     v-if="icon"

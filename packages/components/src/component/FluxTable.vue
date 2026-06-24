@@ -1,7 +1,10 @@
 <template>
     <div
         ref="base"
-        :class="$style.table">
+        :class="[
+            $style.table,
+            x > 0 && $style.isScrolledStart
+        ]">
         <table :class="$style.tableBase">
             <slot name="colgroups"/>
 

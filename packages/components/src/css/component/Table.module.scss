@@ -57,6 +57,7 @@
 }
 
 .tableCellContent {
+    font-variant-numeric: tabular-nums;
     display: flex;
     height: 100%;
     padding: 12px 15px;
@@ -78,7 +79,7 @@
         position: sticky;
         top: 0;
         background: var(--gray-50);
-        z-index: 1;
+        z-index: 2;
     }
 }
 
@@ -126,12 +127,50 @@ tbody .tableGroupRow + .tableRow .tableCell {
     border-top-width: 0;
 }
 
+tbody .tableGroupRow:first-child .tableGroup {
+    border-top-width: 0;
+}
+
+tbody .tableGroupRow:last-child .tableGroup,
+tbody .tableGroupRow:has(+ .tableFill) .tableGroup {
+    border-bottom-width: 0;
+}
+
 .tableActions {
     margin: -4px 0 -4px -3px;
 }
 
 .tableCellSelection {
     width: 0;
+}
+
+.tableCell.isNoWrap {
+    white-space: nowrap;
+}
+
+.tableCell.isPinned,
+.tableHeader.isPinned {
+    position: sticky;
+    left: 0;
+    background: var(--surface);
+    transition: box-shadow .2s var(--swift-out);
+}
+
+.tableCell.isPinned {
+    z-index: 1;
+}
+
+.tableHeader.isPinned {
+    z-index: 3;
+}
+
+.tableHeader.isSticky.isPinned {
+    background: var(--gray-50);
+}
+
+.table.isScrolledStart .tableCell.isPinned,
+.table.isScrolledStart .tableHeader.isPinned {
+    box-shadow: 1px 0 0 var(--gray-100), 6px 0 10px -6px rgb(0 0 0 / .15);
 }
 
 .tableFill {
@@ -147,17 +186,23 @@ tbody .tableGroupRow + .tableRow .tableCell {
 }
 
 .tableBar {
+    --bg: var(--surface);
+
     composes: tableCell;
 
     position: relative;
-    background: var(--gray-50);
-    box-shadow: 0 0 24px var(--gray-50),
-    0 0 24px var(--gray-50),
-    0 0 24px var(--gray-50),
-    0 0 24px var(--gray-50),
-    0 0 24px var(--gray-50),
-    0 0 24px var(--gray-50);
+    background: var(--bg);
+    box-shadow: 0 0 18px var(--bg),
+                0 0 18px var(--bg),
+                0 0 18px var(--bg),
+                0 0 18px var(--bg),
+                0 0 18px var(--bg),
+                0 0 18px var(--bg);
     z-index: 2;
+}
+
+.tableRow:has(+ .tableRow > .isSticky) .tableBar {
+    --bg: var(--gray-50);
 }
 
 .tableBarContent {
@@ -181,10 +226,10 @@ tbody .tableGroupRow + .tableRow .tableCell {
 
     align-items: center;
     gap: 12px;
+    background: color-mix(in srgb, var(--surface), var(--gray-50));
 
     &:is(button) {
         width: 100%;
-        background: unset;
         border: 0;
         color: inherit;
         font: inherit;
@@ -303,4 +348,13 @@ tbody .tableGroupRow + .tableRow .tableCell {
 
 .tableExpandContent {
     padding: 12px 15px;
+}
+
+.tableEmpty {
+    display: flex;
+    padding: 45px 15px;
+    align-items: center;
+    justify-content: center;
+    color: var(--foreground-secondary);
+    text-align: center;
 }

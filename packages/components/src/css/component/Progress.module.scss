@@ -105,6 +105,10 @@
     margin: 0 9px 9px;
 }
 
+.tableCellContent > .progressBar {
+    width: 100%;
+}
+
 @keyframes progressBarIndeterminate {
     from {
         background-position-x: 90px;

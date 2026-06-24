@@ -7,6 +7,11 @@ emits:
         type: [ 'ascending | descending | null' ]
 
 props:
+    -   name: align
+        description: Horizontal alignment of the header content. Use `end` to match a numeric column.
+        type: [ '"start"', '"center"', '"end"' ]
+        optional: true
+
     -   name: is-shrinking
         description: If the header will shrink to fit its cell group.
         type: boolean
@@ -23,6 +28,11 @@ props:
         optional: true
         default: 0
         
+    -   name: pinned
+        description: Pins the header to the left while scrolling horizontally. Use together with a pinned cell on the same column.
+        type: boolean
+        optional: true
+
     -   name: sort
         description: The current sorting that is applied to the header.
         type: [ '"ascending"', '"descending"' ]

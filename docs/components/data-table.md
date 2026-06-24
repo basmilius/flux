@@ -89,6 +89,9 @@ slots:
     -   name: colgroups
         description: A slot to render `<colgroup>` elements that control column sizing.
 
+    -   name: empty
+        description: Renders in place of the rows when there is no data and the table is not loading. Defaults to a centered message.
+
     -   name: filter
         description: Renders above the table header — typically a `FluxFilterBar` for filtering the data set.
         type:
@@ -189,6 +192,18 @@ example=../code/components/data-table/paginated.vue
 example=../code/components/data-table/selection.vue
 :::
 
+::: example Sortable columns || A data table whose columns drive a single, coordinated client-side sort.
+example=../code/components/data-table/sortable.vue
+:::
+
+::: example Filtering and search || A data table with a filter bar, client-side filtering, pagination and selection.
+example=../code/components/data-table/filterable.vue
+:::
+
+::: example Rich cells and row actions || A data table with avatars, badges, progress bars and a per-row actions menu.
+example=../code/components/data-table/rich.vue
+:::
+
 ::: example Expandable rows || A data table where each row can be expanded to reveal detail content.
 example=../code/components/data-table/expandable.vue
 :::
@@ -199,6 +214,14 @@ example=../code/components/data-table/grouped.vue
 
 ::: example Static groups || A data table whose rows are grouped under plain, non-collapsible headers.
 example=../code/components/data-table/grouped-static.vue
+:::
+
+::: example Wide table || A wide data table with a pinned first column and right-aligned numeric columns.
+example=../code/components/data-table/wide.vue
+:::
+
+::: example Empty || A data table that shows a custom message when there is no data.
+example=../code/components/data-table/empty.vue
 :::
 
 ## Used components

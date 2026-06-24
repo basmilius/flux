@@ -129,6 +129,16 @@
                 </FluxTableRow>
             </template>
         </template>
+
+        <FluxTableRow v-if="!isLoading && limitedItems.length === 0">
+            <FluxTableCell :colspan="columnCount">
+                <template #content>
+                    <slot name="empty">
+                        <div :class="$style.tableEmpty">{{ translate('flux.noItems') }}</div>
+                    </slot>
+                </template>
+            </FluxTableCell>
+        </FluxTableRow>
     </FluxTable>
 </template>
 
@@ -156,7 +166,7 @@
         | { kind: 'group'; key: SelectionId; id: SelectionId; index: number; items: T[] }
         | { kind: 'item'; key: SelectionId; index: number; item: T };
 
-    const IGNORED_SLOTS: string[] = ['filter', 'header', 'footer', 'colgroups', 'pagination', 'expandable', 'group'];
+    const IGNORED_SLOTS: string[] = ['filter', 'header', 'footer', 'colgroups', 'pagination', 'expandable', 'group', 'empty'];
 
     const emit = defineEmits<{
         limit: [number];
@@ -227,6 +237,8 @@
         }): VNode;
 
         colgroups(): VNode;
+
+        empty(): VNode;
 
         expandable(props: {
             readonly index: number;
