@@ -15,13 +15,17 @@
             disabledState && $style.isDisabled
         ]">
         <header
+            ref="header"
             :class="$style.kanbanColumnHeader"
-            :draggable="isReorderable && !disabledState"
-            :tabindex="isReorderable && !disabledState ? 0 : undefined"
+            :draggable="isReorderable"
+            :tabindex="isReorderable ? 0 : undefined"
+            :aria-roledescription="isReorderable ? 'Draggable column' : undefined"
+            :aria-keyshortcuts="isReorderable ? 'ArrowLeft ArrowRight' : undefined"
             @dragstart="onColumnDragStart"
             @dragend="onColumnDragEnd"
             @dragover="onColumnDragOver"
-            @drop="onColumnDrop">
+            @drop="onColumnDrop"
+            @keydown="onColumnKeyDown">
             <div :class="$style.kanbanColumnHeaderCaption">
                 <FluxIcon
                     v-if="icon"
@@ -30,7 +34,7 @@
                 <span>{{ label }}</span>
 
                 <FluxBadge
-                    v-if="count"
+                    v-if="count != null"
                     :label="String(count)"/>
             </div>
 
@@ -96,7 +100,6 @@
 
     defineSlots<{
         default?(): any;
-        header?(): any;
         actions?(): any;
         empty?(): any;
         footer?(): any;
@@ -104,6 +107,7 @@
 
     const kanban = useKanbanInjection();
     const root = useTemplateRef('root');
+    const header = useTemplateRef('header');
     const body = useTemplateRef('body');
     const slots = useSlots();
 
@@ -251,6 +255,59 @@
 
         evt.preventDefault();
         kanban.commitColumnDrop();
+    }
+
+    function getSiblingColumnElement(from: Element, direction: 'previous' | 'next'): Element | null {
+        const key = direction === 'previous' ? 'previousElementSibling' : 'nextElementSibling';
+
+        let sibling = from[key];
+
+        while (sibling) {
+            if (kanban.getColumnInfo(sibling)) {
+                return sibling;
+            }
+
+            sibling = sibling[key];
+        }
+
+        return null;
+    }
+
+    function reorderColumn(beforeColumnId: string | number | null): void {
+        kanban.startColumnDrag(columnId);
+        kanban.updateColumnDropTarget(beforeColumnId);
+        kanban.commitColumnDrop();
+        requestAnimationFrame(() => header.value?.focus());
+    }
+
+    function onColumnKeyDown(evt: KeyboardEvent): void {
+        if (!unref(isReorderable) || (evt.key !== 'ArrowLeft' && evt.key !== 'ArrowRight')) {
+            return;
+        }
+
+        const self = root.value;
+
+        if (!self) {
+            return;
+        }
+
+        evt.preventDefault();
+
+        if (evt.key === 'ArrowLeft') {
+            const previous = getSiblingColumnElement(self, 'previous');
+
+            if (previous) {
+                reorderColumn(kanban.getColumnInfo(previous)!.columnId);
+            }
+        } else {
+            const next = getSiblingColumnElement(self, 'next');
+
+            if (next) {
+                // Land after the next column: drop before the column following it, or at the end (null).
+                const afterNext = getSiblingColumnElement(next, 'next');
+                reorderColumn(afterNext ? kanban.getColumnInfo(afterNext)!.columnId : null);
+            }
+        }
     }
 
     onMounted(() => {

@@ -52,6 +52,8 @@ render=../../code/components/kanban/preview.vue
 
 ::: tip Keyboard support
 Tab to an item, press <kbd>Space</kbd> or <kbd>Enter</kbd> to grab it, use the arrow keys to move, <kbd>Enter</kbd>/<kbd>Space</kbd> to drop and <kbd>Escape</kbd> to cancel.
+
+When `reorderable-columns` is enabled, Tab to a column header and use <kbd>←</kbd>/<kbd>→</kbd> to move the column left or right.
 :::
 
 <FrontmatterDocs/>
@@ -110,7 +112,7 @@ example=../../code/components/kanban/disabled.vue
 example=../../code/components/kanban/validation.vue
 :::
 
-::: example Reorderable columns || Drag the column header to change column order.
+::: example Reorderable columns || Drag a column header — or focus it and press the left/right arrow keys — to change column order.
 example=../../code/components/kanban/reorder-columns.vue
 :::
 

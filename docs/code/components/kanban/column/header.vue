@@ -2,17 +2,9 @@
     <FluxKanban style="max-width: 100%">
         <FluxKanbanColumn
             column-id="todo"
-            label="To do">
-            <template #header>
-                <div class="custom-header">
-                    <FluxBadge
-                        color="primary"
-                        label="3"
-                        type="none"/>
-                    <span class="custom-header-label">To do</span>
-                </div>
-            </template>
-
+            icon="list"
+            label="To do"
+            :count="3">
             <FluxKanbanItem
                 item-id="1"
                 column-id="todo">
@@ -43,22 +35,10 @@
 <script
     lang="ts"
     setup>
-    import { FluxBadge, FluxKanban, FluxKanbanItem, FluxKanbanColumn } from '@flux-ui/components';
+    import { FluxKanban, FluxKanbanItem, FluxKanbanColumn } from '@flux-ui/components';
 </script>
 
 <style scoped>
-    .custom-header {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .custom-header-label {
-        font-size: .875rem;
-        font-weight: 600;
-        color: var(--foreground);
-    }
-
     .card {
         padding: 12px;
         background: var(--gray-25);

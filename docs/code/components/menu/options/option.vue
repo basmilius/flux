@@ -8,17 +8,19 @@
                     v-model="view"
                     mode="select">
                     <FluxMenuItem
+                        key="list"
                         icon-leading="list"
                         label="List"/>
 
                     <FluxMenuItem
+                        key="grid"
                         icon-leading="grid-2"
                         label="Grid"/>
                 </FluxMenuOptions>
             </FluxMenu>
         </FluxPane>
 
-        <small><kbd>Result = {{ VIEWS[view] }}</kbd></small>
+        <small><kbd>Result = {{ view }}</kbd></small>
     </FluxFlex>
 </template>
 
@@ -28,10 +30,5 @@
     import { FluxFlex, FluxMenu, FluxMenuItem, FluxMenuOptions, FluxPane } from '@flux-ui/components';
     import { ref } from 'vue';
 
-    const VIEWS = {
-        0: 'list',
-        1: 'grid'
-    } as const;
-
-    const view = ref<keyof typeof VIEWS>(0);
+    const view = ref<'list' | 'grid'>('list');
 </script>

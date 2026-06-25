@@ -39,7 +39,7 @@
     setup>
     import { flattenVNodeTree } from '@flux-ui/internals';
     import type { FluxIconName, FluxTo } from '@flux-ui/types';
-    import { computed, getCurrentInstance, ref, useId, type VNode, watch } from 'vue';
+    import { computed, getCurrentInstance, useId, type VNode, watch } from 'vue';
     import { FluxAutoHeightTransition } from '~flux/components/transition';
     import FluxMenuItem from './FluxMenuItem.vue';
     import $style from '~flux/components/css/component/Menu.module.scss';
@@ -59,18 +59,19 @@
 
     const emit = defineEmits<{
         toggle: [boolean];
-        'update:isOpened': [boolean];
     }>();
+
+    const isOpen = defineModel<boolean>('isOpened', {
+        default: false
+    });
 
     const {
         href,
-        isOpened,
         to
     } = defineProps<{
         readonly disabled?: boolean;
         readonly href?: string;
         readonly iconLeading?: FluxIconName | null;
-        readonly isOpened?: boolean;
         readonly label?: string;
         readonly rel?: string;
         readonly target?: string;
@@ -84,7 +85,6 @@
 
     const bodyId = useId();
     const instance = getCurrentInstance();
-    const isOpen = ref(!!isOpened);
     const route = computed<RouteLike | undefined>(() => (instance?.proxy as RouteAwareInstance | null)?.$route);
 
     function open(): void {
@@ -94,7 +94,6 @@
 
         isOpen.value = true;
         emit('toggle', true);
-        emit('update:isOpened', true);
     }
 
     function close(): void {
@@ -104,7 +103,6 @@
 
         isOpen.value = false;
         emit('toggle', false);
-        emit('update:isOpened', false);
     }
 
     function toggle(): void {
@@ -146,18 +144,6 @@
 
         return false;
     }
-
-    watch(() => isOpened, value => {
-        if (value === undefined) {
-            return;
-        }
-
-        if (value) {
-            open();
-        } else {
-            close();
-        }
-    });
 
     watch(route, currentRoute => {
         if (!currentRoute) {

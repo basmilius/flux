@@ -3,13 +3,13 @@ outline: deep
 
 emits:
     -   name: update:model-value
-        description: Triggered when the active option changes.
-        type: [ number ]
+        description: Triggered when the active option changes. Emits the option's vnode key when it has one, otherwise its index.
+        type: [ 'string', 'number' ]
 
 props:
     -   name: model-value
-        description: The index of the highlighted or selected option.
-        type: number
+        description: Identifies the highlighted or selected option. Matches the option's vnode key (:key) when present, falling back to its position for keyless static lists.
+        type: [ 'string', 'number' ]
 
     -   name: is-horizontal
         description: Indicates that the items should flow horizontally.
@@ -36,6 +36,8 @@ slots:
 # Menu options
 
 This component provides a container for grouping menu items that behave like options, allowing only one to be selected at a time. Its layout can be adjusted based on the `isHorizontal` prop. When set to horizontal, it applies a specific style; otherwise, it defaults to a vertical layout.
+
+Selection is tracked by identity rather than position: each item is matched on its vnode `:key` when it has one, falling back to its index for keyless static lists. Give items an explicit `:key` so the selection survives conditional or reordered items.
 
 ::: render
 render=../../code/components/menu/options/preview.vue
