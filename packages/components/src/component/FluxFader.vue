@@ -1,17 +1,31 @@
 <template>
     <div
-        ref="fader"
-        :class="$style.fader">
+        :class="$style.fader"
+        role="group"
+        aria-roledescription="carousel"
+        aria-label="Slides"
+        @mouseenter="isHovering = true"
+        @mouseleave="isHovering = false">
         <slot v-bind="{current, next, previous}"/>
     </div>
 </template>
 
+<script lang="ts">
+    import type { InjectionKey, Ref } from 'vue';
+
+    export type FluxFaderContext = {
+        readonly current: Ref<number>;
+        register(): number;
+        unregister(): void;
+    };
+
+    export const FluxFaderInjectionKey: InjectionKey<FluxFaderContext> = Symbol('FluxFader');
+</script>
+
 <script
     lang="ts"
     setup>
-    import { useInterval } from '@basmilius/common';
-    import { unrefTemplateElement } from '@flux-ui/internals';
-    import { ref, unref, useTemplateRef, type VNode, watch } from 'vue';
+    import { computed, onScopeDispose, provide, ref, unref, watch } from 'vue';
     import $style from '~flux/components/css/component/Fader.module.scss';
 
     const emit = defineEmits<{
@@ -19,9 +33,15 @@
     }>();
 
     const {
-        interval = 9000
+        autoplay = true,
+        interval = 9000,
+        isPaused = false,
+        pauseOnHover = true
     } = defineProps<{
+        readonly autoplay?: boolean;
         readonly interval?: number;
+        readonly isPaused?: boolean;
+        readonly pauseOnHover?: boolean;
     }>();
 
     defineSlots<{
@@ -30,53 +50,71 @@
             previous(): void;
 
             readonly current: number;
-        }): VNode[];
+        }): any;
     }>();
 
-    const faderRef = useTemplateRef('fader');
-    useInterval(interval, () => next());
+    const current = ref(0);
+    const count = ref(0);
+    const isHovering = ref(false);
 
-    const current = ref(-1);
+    let timer: ReturnType<typeof setInterval> | null = null;
 
-    function getItems(): Element[] {
-        const fader = unrefTemplateElement(faderRef);
+    const isActive = computed(() => autoplay && !isPaused && !(pauseOnHover && unref(isHovering)) && unref(count) > 1);
 
-        if (!fader) {
-            return [];
+    provide(FluxFaderInjectionKey, {
+        current,
+        register(): number {
+            const index = count.value;
+            count.value += 1;
+            return index;
+        },
+        unregister(): void {
+            count.value = Math.max(0, count.value - 1);
         }
-
-        return Array.from(fader.children).filter(child => child.classList.contains($style.faderItem));
-    }
+    });
 
     function next(): void {
-        const count = getItems().length;
-
-        if (count === 0) {
+        if (count.value === 0) {
             return;
         }
 
-        current.value = unref(current) + 1 >= count ? 0 : unref(current) + 1;
+        current.value = unref(current) + 1 >= count.value ? 0 : unref(current) + 1;
     }
 
     function previous(): void {
-        const count = getItems().length;
-
-        if (count === 0) {
+        if (count.value === 0) {
             return;
         }
 
-        current.value = unref(current) - 1 <= -1 ? count - 1 : unref(current) - 1;
+        current.value = unref(current) - 1 <= -1 ? count.value - 1 : unref(current) - 1;
     }
 
-    watch(current, current => {
-        const items = getItems();
+    function stop(): void {
+        if (timer !== null) {
+            clearInterval(timer);
+            timer = null;
+        }
+    }
 
-        if (current < 0 || current >= items.length) {
+    function start(): void {
+        stop();
+
+        if (!isActive.value) {
             return;
         }
 
-        items.forEach(item => item.classList.remove($style.isCurrent));
-        items[current].classList.add($style.isCurrent);
-        emit('update', current);
-    }, {immediate: true});
+        timer = setInterval(() => next(), interval);
+    }
+
+    watch([isActive, () => interval], start, {immediate: true});
+
+    watch(current, value => {
+        if (value < 0 || value >= count.value) {
+            return;
+        }
+
+        emit('update', value);
+    });
+
+    onScopeDispose(stop);
 </script>

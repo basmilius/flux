@@ -4,9 +4,7 @@
             contentPlacement === 'start' && $style.dividerContentStart,
             contentPlacement === 'center' && $style.dividerContentCenter,
             contentPlacement === 'end' && $style.dividerContentEnd
-        )"
-        role="separator"
-        :aria-orientation="direction">
+        )">
         <div
             v-if="slots.default"
             :class="$style.dividerContent">
@@ -22,17 +20,14 @@
 <script
     lang="ts"
     setup>
-    import type { FluxDirection } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import type { VNode } from 'vue';
     import $style from '~flux/components/css/component/Divider.module.scss';
 
     const {
-        contentPlacement = 'center',
-        direction = 'horizontal'
+        contentPlacement = 'center'
     } = defineProps<{
         readonly contentPlacement?: 'start' | 'center' | 'end';
-        readonly direction?: FluxDirection;
     }>();
 
     const slots = defineSlots<{

@@ -1,6 +1,6 @@
 <template>
     <FluxFlex
-        :class="isFill ? $style.flexFill : undefined"
+        :class="isFilled ? $style.flexFill : undefined"
         :direction="direction"
         :gap="gap"
         wrap="wrap">
@@ -22,7 +22,7 @@
     } = defineProps<{
         readonly direction?: FluxDirection;
         readonly gap?: number;
-        readonly isFill?: boolean;
+        readonly isFilled?: boolean;
     }>();
 
     defineSlots<{

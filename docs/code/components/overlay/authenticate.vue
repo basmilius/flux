@@ -30,7 +30,7 @@
 
                 <FluxPaneFooter>
                     <FluxButtonStack
-                        is-fill
+                        is-filled
                         direction="vertical">
                         <FluxPrimaryButton
                             icon-trailing="user-key"

@@ -8,12 +8,6 @@ props:
         optional: true
         default: center
 
-    -   name: direction
-        description: The orientation of the divider.
-        type: FluxDirection
-        optional: true
-        default: horizontal
-
 slots:
     -   name: default
         description: The content shown within the divider.
@@ -22,6 +16,8 @@ slots:
 # Divider
 
 This component serves as a horizontal content divider, offering the flexibility to include custom content or default to displaying a simple line. The content alignment can be adjusted to the start, center, or end based on the configuration.
+
+For a plain vertical separation between inline elements, use [Separator](./separator) instead.
 
 ::: render
 render=../code/components/divider/preview.vue

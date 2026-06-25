@@ -2,7 +2,7 @@
     <FluxAspectRatio
         :aspect-ratio="16 / 9"
         style="width: 100%; position: relative;">
-        <FluxFader :interval="9999999">
+        <FluxFader :autoplay="false">
             <template #default="{next, previous}">
                 <FluxFaderItem>
                     <img

@@ -18,6 +18,10 @@ render=../code/components/fader-item/preview.vue
 This component is best used within a [Fader](./fader).
 :::
 
+::: tip Accessibility
+Each item is exposed as a slide (`aria-roledescription="slide"`). Items that are not currently visible are automatically marked `aria-hidden`, so assistive technology only announces the active slide.
+:::
+
 <FrontmatterDocs/>
 
 ## Snippet
