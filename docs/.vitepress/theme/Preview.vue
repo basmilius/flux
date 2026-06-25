@@ -50,14 +50,14 @@
     .preview {
         position: relative;
         margin: 16px 0;
-        background: var(--vp-c-bg-soft);
+        background: color-mix(in srgb, var(--vp-c-bg), var(--vp-c-bg-soft));
         border: 1px solid var(--vp-c-gutter);
         border-radius: var(--radius);
         font-size: 15px;
         line-height: 1.6;
 
         > :global(svg) {
-            stroke: var(--gray-100);
+            stroke: color-mix(in srgb, var(--gray-50), var(--gray-100));
         }
     }
 
