@@ -8,6 +8,11 @@
     flex: 0 0 1em;
     border-radius: .3em;
     user-select: none;
+
+    &:is(button) {
+        padding: 0;
+        border: 0;
+    }
 }
 
 .avatarImage {
