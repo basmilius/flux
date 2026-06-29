@@ -1,7 +1,7 @@
 <template>
-    <div
+    <button
+        type="button"
         role="listitem"
-        tabindex="0"
         :class="clsx(
             variant === 'compact' ? $style.statisticsLegendItemCompact : $style.statisticsLegendItem,
             variant !== 'compact' && isHovered && $style.isHovered
@@ -30,7 +30,7 @@
             :class="$style.statisticsLegendItemValue">
             {{ value }}
         </span>
-    </div>
+    </button>
 </template>
 
 <script

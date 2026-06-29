@@ -18,17 +18,27 @@
     --color: var(--primary-600);
 
     position: relative;
+    appearance: none;
     display: flex;
     padding: 6px;
     margin: 0 -9px;
     align-items: flex-start;
     flex-flow: row nowrap;
     gap: 9px;
+    color: inherit;
+    font: inherit;
     font-size: 14px;
     line-height: 20px;
+    text-align: inherit;
     white-space: nowrap;
+    background: none;
+    border: 0;
     border-radius: var(--radius-half);
+    cursor: default;
     transition: background 120ms var(--swift-out);
+    z-index: 0;
+
+    @include mixin.focus-ring();
 }
 
 .statisticsLegendItem.isHovered {
@@ -61,13 +71,14 @@
     text-align: right;
 }
 
-.statisticsLegendItem + .statisticsLegendItem::before {
+.statisticsLegendItem:not(:focus-visible) + .statisticsLegendItem:not(:focus-visible)::before {
     position: absolute;
     top: -2px;
     left: 0;
     right: 0;
     content: '';
     border-top: 1px dashed var(--surface-stroke);
+    z-index: -1;
 }
 
 .statisticsLegendCompact {
@@ -88,13 +99,23 @@
 .statisticsLegendItemCompact {
     --color: var(--primary-600);
 
+    appearance: none;
     display: flex;
+    padding: 0;
     align-items: center;
     flex-flow: row nowrap;
     gap: 6px;
+    color: inherit;
+    font: inherit;
     font-size: 14px;
     line-height: 1;
+    text-align: inherit;
     white-space: nowrap;
+    background: none;
+    border: 0;
+    cursor: default;
+
+    @include mixin.focus-ring();
 
     .statisticsLegendItemColor {
         margin: 0;

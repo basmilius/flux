@@ -32,7 +32,7 @@ This component is best used within a [Chart pane](../chart-pane) via the `legend
 :::
 
 ::: info
-The legend exposes the ARIA `list` role and its items are `listitem`s. Items are keyboard focusable, and moving focus onto an item drives the same hover synchronization as the mouse — so the linked chart or percentage bar highlights when a legend item is focused with the keyboard.
+The legend exposes the ARIA `list` role and its items are `listitem`s. The legend is a single tab stop: <kbd>Tab</kbd> moves focus into it, and the arrow keys move between items. Focusing an item drives the same hover synchronization as the mouse — so the linked chart or percentage bar highlights when a legend item is focused with the keyboard.
 :::
 
 <FrontmatterDocs/>

@@ -35,7 +35,7 @@ This component is best used within a [Legend](./index).
 :::
 
 ::: info
-The item exposes the ARIA `listitem` role and is keyboard focusable (`tabindex="0"`). Focusing an item triggers the same hover synchronization as the mouse, highlighting the matching series in the linked visualization.
+The item exposes the ARIA `listitem` role and is keyboard focusable. Within a [Legend](./index) it is reached through the legend's single tab stop and arrow-key navigation — its tab order is managed automatically, so you do not set `tabindex` yourself. Focusing an item triggers the same hover synchronization as the mouse, highlighting the matching series in the linked visualization.
 :::
 
 <FrontmatterDocs/>

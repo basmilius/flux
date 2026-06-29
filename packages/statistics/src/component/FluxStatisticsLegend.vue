@@ -1,5 +1,6 @@
 <template>
     <div
+        ref="list"
         role="list"
         :class="containerClass">
         <slot v-if="hasSlot"/>
@@ -22,9 +23,10 @@
 <script
     lang="ts"
     setup>
+    import { useFocusZone } from '@flux-ui/internals';
     import type { FluxDirection } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { computed, inject, provide, toRef, useSlots } from 'vue';
+    import { computed, inject, provide, toRef, useSlots, useTemplateRef } from 'vue';
     import { FluxStatisticsChartLegendInjectionKey, type FluxStatisticsLegendVariant, FluxStatisticsLegendVariantInjectionKey } from '~flux/statistics/composable';
     import FluxStatisticsLegendItem from './FluxStatisticsLegendItem.vue';
     import $style from '~flux/statistics/css/Legend.module.scss';
@@ -39,6 +41,12 @@
 
     const slots = useSlots();
     const legendContext = inject(FluxStatisticsChartLegendInjectionKey, null);
+    const listRef = useTemplateRef('list');
+
+    // One tab stop for the whole legend; arrow keys move focus between items. Bidirectional handles
+    // every layout (detailed column, compact row/wrap/column) since it resolves the next item
+    // geometrically. Focusing an item drives the same hover sync as the mouse.
+    useFocusZone(listRef, {direction: 'bidirectional'});
 
     const hasSlot = computed(() => !!slots.default);
     const autoItems = computed(() => legendContext?.items.value ?? []);
