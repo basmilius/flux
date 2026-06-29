@@ -1,7 +1,8 @@
 <template>
     <FluxFlex
         :gap="3"
-        tag="nav">
+        role="group"
+        :aria-label="ariaLabel">
         <slot/>
     </FluxFlex>
 </template>
@@ -11,6 +12,10 @@
     setup>
     import type { VNode } from 'vue';
     import FluxFlex from './FluxFlex.vue';
+
+    defineProps<{
+        readonly ariaLabel?: string;
+    }>();
 
     defineSlots<{
         default(): VNode[];

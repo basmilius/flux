@@ -1,5 +1,5 @@
 import type { FluxColor, FluxIconName } from '@flux-ui/types';
-import { nextTick, ref, unref, watch, type ComputedRef, type Ref } from 'vue';
+import { computed, nextTick, ref, unref, watch, type ComputedRef, type Ref } from 'vue';
 
 export type TreeBaseOption = {
     readonly id: string | number;
@@ -66,11 +66,16 @@ export function useTreeView<TNode extends TreeFlatNode>(params: {
     readonly visibleNodes: ComputedRef<TNode[]>;
 }): {
     readonly highlightedIndex: Ref<number>;
+    readonly highlightedId: ComputedRef<string | number | null>;
     toggleExpand: (nodeId: string | number) => void;
     onExpandClick: (node: TNode, evt: MouseEvent) => void;
     onKeyNavigate: (evt: KeyboardEvent, onActivate: (node: TNode) => void) => boolean;
 } {
     const highlightedIndex = ref(INITIAL_HIGHLIGHTED_INDEX);
+    const highlightedId = computed(() => {
+        const index = unref(highlightedIndex);
+        return index >= 0 ? (unref(params.visibleNodes)[index]?.id ?? null) : null;
+    });
 
     function toggleExpand(nodeId: string | number): void {
         const ids = new Set(unref(params.expandedIds));
@@ -179,12 +184,31 @@ export function useTreeView<TNode extends TreeFlatNode>(params: {
         nextTick(() => unref(params.nodeElementRefs)?.[index]?.scrollIntoView({block: 'nearest'}));
     });
 
-    watch(params.visibleNodes, nodes => {
+    // Keep the highlight pinned to the same node by identity. When the visible set changes (e.g. a
+    // node above the highlight collapses) the positional index would otherwise jump to an unrelated
+    // node, so we re-derive the index from the previously highlighted node's id.
+    watch(params.visibleNodes, (nodes, previousNodes) => {
         const current = unref(highlightedIndex);
+
+        if (current < 0) {
+            return;
+        }
+
+        const previousId = previousNodes?.[current]?.id;
+
+        if (previousId !== undefined) {
+            const nextIndex = nodes.findIndex(node => node.id === previousId);
+
+            if (nextIndex >= 0) {
+                highlightedIndex.value = nextIndex;
+                return;
+            }
+        }
+
         if (current >= nodes.length) {
             highlightedIndex.value = Math.max(INITIAL_HIGHLIGHTED_INDEX, nodes.length - 1);
         }
     });
 
-    return {highlightedIndex, toggleExpand, onExpandClick, onKeyNavigate};
+    return {highlightedIndex, highlightedId, toggleExpand, onExpandClick, onKeyNavigate};
 }

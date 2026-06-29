@@ -11,6 +11,12 @@ emits:
         type: [ FluxTreeViewOption ]
 
 props:
+    -   name: aria-label
+        description: Accessible label for the tree, exposed on the `role="tree"` container.
+        type: string
+        optional: true
+        default: Tree
+
     -   name: level-colors
         description: An array of colors per depth level. Index 0 = root level, index 1 = first child level, etc. Each entry can be a `FluxColor` name (e.g. `primary`, `danger`) or any CSS color string (e.g. `#6366f1`). Levels without an entry show no color dot.
         type: (FluxColor | string)[]
@@ -19,6 +25,10 @@ props:
     -   name: options
         description: The tree structure of nodes to display.
         type: FluxTreeViewOption[]
+
+slots:
+    -   name: trailing
+        description: Content rendered after the label of every node, e.g. a badge or action. Receives the flattened node via the `node` slot prop.
 
 requiredIcons:
     - angle-down
@@ -112,6 +122,12 @@ Each entry in the `options` array (and nested `children` arrays) is a `FluxTreeV
     </FluxTable>
 </FluxPane>
 
+## Accessibility
+
+The tree is a single composite widget: the `role="tree"` container is the only tab stop and exposes the highlighted node through `aria-activedescendant`, while each node carries `role="treeitem"` with `aria-level`, `aria-selected` and (when it has children) `aria-expanded`. Parent → child grouping is conveyed with `aria-owns` rather than nested `role="group"` wrappers, so the flat DOM stays valid for assistive tech. Set a descriptive `aria-label` to name the tree.
+
+The highlight is tracked by node identity: when the visible set changes — for example a node above the highlight collapses — the highlight stays on the same node instead of jumping to whatever now occupies that position.
+
 ## Examples
 
 ::: example Basic || A tree view with per-level colors.
@@ -120,6 +136,10 @@ example=../code/components/tree-view/basic.vue
 
 ::: example Events || Responding to click and double-click events.
 example=../code/components/tree-view/events.vue
+:::
+
+::: example Trailing || Rendering a badge after each node label with the `trailing` slot.
+example=../code/components/tree-view/trailing.vue
 :::
 
 ## Used components
