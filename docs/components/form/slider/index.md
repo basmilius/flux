@@ -79,6 +79,10 @@ Sliders are a type of user interface component that allows users to select a sin
 render=../../../code/components/form/slider/preview.vue
 :::
 
+::: tip
+Clicking anywhere on the track jumps the thumb to that position, and dragging keeps tracking the pointer even when it leaves the slider. The thumb can also be moved with the arrow keys for keyboard users.
+:::
+
 <FrontmatterDocs/>
 
 ## Examples

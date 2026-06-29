@@ -1,7 +1,6 @@
 <template>
     <SliderBase
         :disabled="disabled"
-        :is-dragging="isDragging"
         :is-ticks-visible="isTicksVisible"
         :max="max"
         :min="min"
@@ -29,9 +28,9 @@
 <script
     lang="ts"
     setup>
-    import { clampWithStepPrecision, countDecimals, formatNumber } from '@basmilius/utils';
+    import { countDecimals, formatNumber, roundStep } from '@basmilius/utils';
     import type { FluxFormInputBaseProps } from '@flux-ui/types';
-    import { computed, onUnmounted, ref, toRef, unref, useTemplateRef, watch, watchEffect } from 'vue';
+    import { computed, onUnmounted, ref, toRef, unref, useTemplateRef } from 'vue';
     import { useDisabled } from '~flux/components/composable';
     import { addTooltip, removeTooltip, updateTooltip } from '~flux/components/data';
     import { SliderBase, SliderThumb, SliderTrack } from './primitive';
@@ -63,11 +62,21 @@
     const thumbRef = useTemplateRef('thumb');
 
     const isDragging = ref(false);
-    const localValue = ref(0);
-    const percentage = ref(0);
     const tooltipId = ref<number | null>(null);
 
-    const tooltipContent = computed(() => formatter(modelValue.value, countDecimals(step)));
+    const span = computed(() => max - min);
+    const isRangeValid = computed(() => unref(span) > 0);
+    const decimals = computed(() => countDecimals(step));
+
+    const percentage = computed(() => unref(isRangeValid) ? (unref(modelValue) - min) / unref(span) : 0);
+
+    const tooltipContent = computed(() => formatter(modelValue.value, unref(decimals)));
+
+    function snap(value: number): number {
+        const stepped = step > 0 ? roundStep(value, step) : value;
+
+        return +Math.max(min, Math.min(max, stepped)).toFixed(unref(decimals));
+    }
 
     function onDragging(is: boolean): void {
         isDragging.value = is;
@@ -85,18 +94,18 @@
     }
 
     function onUpdate(value: number): void {
-        localValue.value = value;
+        if (unref(disabled) || !unref(isRangeValid)) {
+            return;
+        }
 
-        requestAnimationFrame(() => {
-            if (!tooltipId.value) {
-                return;
-            }
+        modelValue.value = snap(value * unref(span) + min);
 
+        if (tooltipId.value) {
             updateTooltip(tooltipId.value, {
-                content: formatter(modelValue.value, countDecimals(step)),
+                content: unref(tooltipContent),
                 origin: unref(thumbRef)?.$el
             });
-        });
+        }
     }
 
     function onDecrement(): void {
@@ -104,8 +113,7 @@
             return;
         }
 
-        const value = clampWithStepPrecision(localValue.value, min, max, step);
-        modelValue.value = Math.max(min, value - step);
+        modelValue.value = snap(unref(modelValue) - step);
     }
 
     function onIncrement(): void {
@@ -113,19 +121,8 @@
             return;
         }
 
-        const value = clampWithStepPrecision(localValue.value, min, max, step);
-        modelValue.value = Math.min(max, value + step);
+        modelValue.value = snap(unref(modelValue) + step);
     }
-
-    watchEffect(() => {
-        localValue.value = (unref(modelValue) - min) / (max - min);
-    });
-
-    watch([() => max, () => min, localValue, () => step], () => {
-        const value = clampWithStepPrecision(unref(localValue), min, max, step);
-        modelValue.value = value;
-        percentage.value = (value - min) / (max - min);
-    }, {immediate: true});
 
     onUnmounted(() => {
         if (tooltipId.value) {

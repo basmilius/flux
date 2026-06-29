@@ -5,7 +5,8 @@
             isInline && $style.isInline
         )"
         role="radiogroup"
-        :aria-label="ariaLabel">
+        :aria-label="ariaLabel"
+        :aria-invalid="error ? true : undefined">
         <slot/>
     </div>
 </template>

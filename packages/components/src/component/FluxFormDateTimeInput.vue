@@ -85,7 +85,7 @@
             return;
         }
 
-        const value: DateTime = (localValue.value ?? DateTime.now());
+        const value: DateTime = (localValue.value ?? DateTime.now().startOf('day'));
         localValue.value = value.set({
             day: dateTime.day,
             month: dateTime.month,
@@ -98,7 +98,7 @@
             return;
         }
 
-        const value: DateTime = (localValue.value ?? DateTime.now());
+        const value: DateTime = (localValue.value ?? DateTime.now().startOf('day'));
         localValue.value = value.set({
             hour: dateTime.hour,
             minute: isHourOnly ? 0 : dateTime.minute,

@@ -20,6 +20,10 @@ When it comes to designing forms on a website, the layout is just as important a
 render=../../code/components/form/preview.vue
 :::
 
+::: info
+The form renders with `novalidate`, so the browser's native bubble validation is suppressed. Flux components surface validation through their own `error` prop and the [Form field](./field/) instead.
+:::
+
 <FrontmatterDocs/>
 
 ## Examples

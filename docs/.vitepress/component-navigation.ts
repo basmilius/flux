@@ -123,8 +123,6 @@ const navigation: SidebarItem = {
             link: '/components/form/',
             collapsed: true,
             items: [
-                {text: 'Column', link: '/components/form/column'},
-                {text: 'Row', link: '/components/form/row'},
                 {
                     text: 'Checkbox',
                     link: '/components/form/checkbox/',
@@ -133,6 +131,7 @@ const navigation: SidebarItem = {
                         {text: 'Group', link: '/components/form/checkbox/group'}
                     ]
                 },
+                {text: 'Column', link: '/components/form/column'},
                 {text: 'Combobox', link: '/components/form/combobox'},
                 {text: 'Date', link: '/components/form/date'},
                 {text: 'Date range', link: '/components/form/date-range'},
@@ -157,17 +156,18 @@ const navigation: SidebarItem = {
                 },
                 {text: 'Number input', link: '/components/form/number-input'},
                 {text: 'PIN input', link: '/components/form/pin-input'},
-                {text: 'Section', link: '/components/form/section'},
                 {text: 'Quantity selector', link: '/components/form/quantity-selector'},
                 {
                     text: 'Radio',
                     link: '/components/form/radio/',
                     collapsed: true,
                     items: [
-                        {text: 'Item', link: '/components/form/radio/item'}
+                        {text: 'Group', link: '/components/form/radio/group'}
                     ]
                 },
                 {text: 'Rating', link: '/components/form/rating'},
+                {text: 'Row', link: '/components/form/row'},
+                {text: 'Section', link: '/components/form/section'},
                 {
                     text: 'Select',
                     link: '/components/form/select/',

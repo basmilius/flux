@@ -48,7 +48,9 @@
 
         for (const timeZone of TIME_ZONES) {
             const timeZoneOptions = Intl.DateTimeFormat(navigator.language, {timeZone}).resolvedOptions();
-            const timeZoneOffset = new Intl.DateTimeFormat(navigator.language, {timeZone, timeZoneName: 'longOffset'}).formatToParts().find(p => p.type === 'timeZoneName')!.value.substring(3);
+            const offsetPart = new Intl.DateTimeFormat(navigator.language, {timeZone, timeZoneName: 'longOffset'}).formatToParts().find(p => p.type === 'timeZoneName')?.value ?? '';
+            // Strip a leading GMT/UTC prefix when present; some Intl implementations omit it entirely.
+            const timeZoneOffset = offsetPart.replace(/^(GMT|UTC)/, '');
             const label = timeZoneOptions.timeZone
                 .replaceAll('_', ' ')
                 .replaceAll('/', ' / ');

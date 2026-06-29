@@ -57,6 +57,12 @@ props:
         type: number
         optional: true
         default: 100
+
+    -   name: min-distance
+        description: The minimum distance (in value units) kept between the lower and upper thumb.
+        type: number
+        optional: true
+        default: 0
         
     -   name: step
         description: The step size of the range slider.
@@ -79,12 +85,20 @@ A range slider is a user interface component that allows users to select two val
 render=../../../code/components/form/slider/ranged/preview.vue
 :::
 
+::: tip
+Clicking anywhere on the track moves the thumb closest to the pointer, so the range can be adjusted without grabbing a handle first. Use `min-distance` to keep a minimum gap between the two thumbs.
+:::
+
 <FrontmatterDocs/>
 
 ## Examples
 
 ::: example Basic || A basic range slider from 0 to 100.
 example=../../../code/components/form/slider/ranged/basic.vue
+:::
+
+::: example Minimum distance || A range slider that keeps at least 20 units between both thumbs.
+example=../../../code/components/form/slider/ranged/min-distance.vue
 :::
 
 ::: example Ticks || A range slider where the ticks are visible.

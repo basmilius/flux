@@ -6,7 +6,12 @@ props:
         description: The icon of the form field addition
         type: FluxIconName
         optional: true
-        
+
+    -   name: id
+        description: The id of the addition element. The Form field uses this to link the message to its control through aria-describedby.
+        type: string
+        optional: true
+
     -   name: message
         description: The message to display
         type: string

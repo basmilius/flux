@@ -19,6 +19,7 @@
         :style="{
             '--rows': rows
         }"
+        :aria-describedby="describedBy"
         :aria-disabled="disabled ? true : undefined"
         :aria-readonly="isReadonly || undefined"
         :aria-invalid="error ? true : undefined"
@@ -57,7 +58,7 @@
 
     const disabled = useDisabled(toRef(() => componentDisabled));
     const inputRef = useTemplateRef<HTMLTextAreaElement>('input');
-    const {id} = useFormFieldInjection();
+    const {id, describedBy} = useFormFieldInjection();
 
     function blur(): void {
         unrefTemplateElement(inputRef)?.blur();

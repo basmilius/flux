@@ -1,17 +1,13 @@
 <template>
     <Preview>
-        <FluxFormRadioGroup v-model="plan">
+        <FluxFormRadioGroup v-model="value">
             <FluxFormRadio
-                value="free"
-                label="Free"/>
+                value="a"
+                label="Option A"/>
 
-            <FluxFormRadio
-                value="pro"
-                label="Pro"/>
-
-            <FluxFormRadio
-                value="enterprise"
-                label="Enterprise"/>
+            <FluxFormRadio value="b">
+                <strong>Option B</strong>&nbsp;&mdash; with custom content
+            </FluxFormRadio>
         </FluxFormRadioGroup>
     </Preview>
 </template>
@@ -22,5 +18,5 @@
     import { FluxFormRadio, FluxFormRadioGroup } from '@flux-ui/components';
     import { ref } from 'vue';
 
-    const plan = ref('pro');
+    const value = ref('a');
 </script>

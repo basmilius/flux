@@ -10,10 +10,14 @@
         )"
         :id="id"
         role="combobox"
+        :aria-activedescendant="isPopupOpen && activeDescendant ? activeDescendant : undefined"
+        :aria-controls="isPopupOpen ? popupId : undefined"
+        :aria-describedby="describedBy"
         :aria-disabled="disabled ? true : undefined"
         :aria-expanded="isPopupOpen"
-        aria-haspopup="listbox"
-        tabindex="0"
+        aria-haspopup="menu"
+        :aria-readonly="isReadonly ? true : undefined"
+        :tabindex="disabled ? -1 : 0"
         tag-name="div"
         @click="toggle()"
         @keydown="onKeyDown"
@@ -61,6 +65,7 @@
             <AnchorPopup
                 v-if="isPopupOpen && !disabled"
                 ref="anchorPopup"
+                :id="popupId"
                 :class="clsx(
                     $style.formSelectPopup,
                     isKeyboardAction && $style.isKeyboardAction,
@@ -78,6 +83,8 @@
                     type="search"
                     icon-trailing="magnifying-glass"
                     :placeholder="translate('flux.search')"
+                    :aria-activedescendant="activeDescendant || undefined"
+                    :aria-controls="popupId"
                     @keydown="onKeyDown"/>
 
                 <FluxMenu v-if="canCreate">
@@ -107,6 +114,7 @@
                                     v-if="isFluxFormSelectOption(subItem)"
                                     ref="optionElements"
                                     :key="index"
+                                    :id="optionId(subItem.value)"
                                     :command="subItem.command"
                                     :command-icon="subItem.commandIcon"
                                     :icon-leading="subItem.icon"
@@ -124,6 +132,7 @@
                             v-if="isFluxFormSelectOption(item)"
                             ref="optionElements"
                             :key="`item-${index}`"
+                            :id="optionId(item.value)"
                             :command="item.command"
                             :command-icon="item.commandIcon"
                             :icon-leading="item.icon"
@@ -147,9 +156,9 @@
     import { unrefTemplateElement } from '@flux-ui/internals';
     import type { FluxFormSelectOption, FluxFormSelectOptions } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { type ComponentPublicInstance, computed, nextTick, ref, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { type ComponentPublicInstance, computed, nextTick, onMounted, ref, toRef, unref, useId, useTemplateRef, watch } from 'vue';
     import { useDisabled, useFormFieldInjection } from '~flux/components/composable';
-    import { useDropdownPopup, useTranslate } from '~flux/components/composable/private';
+    import { INITIAL_HIGHLIGHTED_INDEX, useDropdownPopup, useTranslate } from '~flux/components/composable/private';
     import { isFluxFormSelectGroup, isFluxFormSelectOption } from '~flux/components/data';
     import { FluxFadeTransition } from '~flux/components/transition';
     import FluxFormInput from '../FluxFormInput.vue';
@@ -163,8 +172,6 @@
     import Anchor from './Anchor.vue';
     import AnchorPopup from './AnchorPopup.vue';
     import $style from '~flux/components/css/component/Form.module.scss';
-
-    const INITIAL_HIGHLIGHTED_INDEX = -1;
 
     const emit = defineEmits<{
         keyDown: [KeyboardEvent];
@@ -185,16 +192,20 @@
     });
 
     const {
+        autoFocus,
         disabled: componentDisabled,
         isCreatable,
         isMultiple,
+        isReadonly,
         options,
         selected
     } = defineProps<{
+        readonly autoFocus?: boolean;
         readonly disabled?: boolean;
         readonly isCreatable?: boolean;
         readonly isLoading?: boolean;
         readonly isMultiple?: boolean;
+        readonly isReadonly?: boolean;
         readonly isSearchable?: boolean;
         readonly options: FluxFormSelectOptions[];
         readonly placeholder?: string;
@@ -202,8 +213,9 @@
     }>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));
-    const {id} = useFormFieldInjection();
+    const {id, describedBy} = useFormFieldInjection();
     const translate = useTranslate();
+    const popupId = useId();
 
     const anchorRef = useTemplateRef<ComponentPublicInstance>('anchor');
     const anchorPopupRef = useTemplateRef<ComponentPublicInstance>('anchorPopup');
@@ -213,8 +225,15 @@
     const highlightedIndex = ref(INITIAL_HIGHLIGHTED_INDEX);
     const isKeyboardAction = ref(false);
 
-    const focusElement = computed(() => unrefTemplateElement(searchInputElementRef) ?? unrefTemplateElement(anchorRef));
+    const focusElement = computed(() => {
+        // The search input's template ref resolves to FluxFormInput's wrapper element, which is not
+        // focusable. Reach for the inner <input> so opening the popup focuses the search box.
+        const searchInput = unrefTemplateElement(searchInputElementRef);
+
+        return searchInput?.querySelector<HTMLElement>('input') ?? unrefTemplateElement(anchorRef);
+    });
     const highlightedId = computed(() => unref(rawOptions)[unref(highlightedIndex)]?.value);
+    const activeDescendant = computed(() => unref(highlightedId) !== undefined ? optionId(unref(highlightedId)) : '');
     const rawOptions = computed(() => options.map(group => group[1]).flat());
     const trimmedSearch = computed(() => unref(modelSearch).trim());
     const canCreate = computed(() => {
@@ -234,8 +253,13 @@
         anchorRef,
         popupRef: anchorPopupRef,
         focusElement,
-        disabled
+        disabled,
+        readonly: toRef(() => !!isReadonly)
     });
+
+    function optionId(value: string | number | null): string {
+        return `${popupId}-option-${value ?? 'null'}`;
+    }
 
     function deselect(id: string | number | null): void {
         emit('deselect', id);
@@ -376,4 +400,10 @@
     watch(modelSearch, searchQuery => emit('search', searchQuery));
 
     watch([() => options, isPopupOpen], () => highlightedIndex.value = INITIAL_HIGHLIGHTED_INDEX);
+
+    onMounted(() => {
+        if (autoFocus) {
+            nextTick(() => unrefTemplateElement(anchorRef)?.focus());
+        }
+    });
 </script>

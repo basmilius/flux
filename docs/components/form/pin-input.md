@@ -11,6 +11,11 @@ props:
         description: The value of the input.
         type: string
 
+    -   name: aria-label
+        description: An accessible label for the group of pin fields, announced by assistive technology.
+        type: string
+        optional: true
+
     -   name: auto-complete
         description: Please refer to the HTMLInputElement documentation for examples of values that can be given here.
         type: FluxAutoCompleteType
@@ -67,6 +72,10 @@ A pin input displays a given number of boxes where the user can type a pin-like 
 render=../../code/components/form/pin-input/preview.vue
 :::
 
+::: tip
+Pasting a code fills the fields automatically. Non-digit characters are stripped and longer values are truncated to `max-length`, so a partial or padded paste still lands the cursor on the last filled field.
+:::
+
 <FrontmatterDocs/>
 
 ## Examples
@@ -81,4 +90,8 @@ example=../../code/components/form/pin-input/toggle.vue
 
 ::: example Custom || A pin input with a different amount of numbers.
 example=../../code/components/form/pin-input/longer.vue
+:::
+
+::: example Accessible label || An accessible label for screen readers; pasted codes are truncated to the length and partial pastes are supported.
+example=../../code/components/form/pin-input/accessible.vue
 :::

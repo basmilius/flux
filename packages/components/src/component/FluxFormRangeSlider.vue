@@ -1,7 +1,6 @@
 <template>
     <SliderBase
         :disabled="disabled"
-        :is-dragging="isDraggingLower || isDraggingUpper"
         :is-ticks-visible="isTicksVisible"
         :max="max"
         :min="min"
@@ -43,7 +42,7 @@
 <script
     lang="ts"
     setup>
-    import { clampWithStepPrecision, countDecimals, formatNumber } from '@basmilius/utils';
+    import { countDecimals, formatNumber, roundStep } from '@basmilius/utils';
     import type { FluxFormInputBaseProps } from '@flux-ui/types';
     import { computed, onUnmounted, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '~flux/components/composable';
@@ -61,6 +60,7 @@
         isTooltipDisabled,
         max = 100,
         min = 0,
+        minDistance = 0,
         step = 1
     } = defineProps<Pick<FluxFormInputBaseProps, 'disabled' | 'error' | 'isLoading' | 'isReadonly' | 'name'> & {
         formatter?(value: number, decimals?: number): string;
@@ -69,6 +69,7 @@
         readonly isTooltipDisabled?: boolean;
         readonly max?: number;
         readonly min?: number;
+        readonly minDistance?: number;
         readonly step?: number;
     }>();
 
@@ -79,37 +80,58 @@
 
     const isDraggingLower = ref(false);
     const isDraggingUpper = ref(false);
-    const percentageLower = ref(0);
-    const percentageUpper = ref(0);
-    const lowerValue = ref(0);
-    const upperValue = ref(0);
     const tooltipId = ref<number | null>(null);
 
-    const tooltipContent = computed(() => formatter(modelValue.value[isDraggingLower.value ? 0 : 1], countDecimals(step)));
+    const span = computed(() => max - min);
+    const isRangeValid = computed(() => unref(span) > 0);
+    const distance = computed(() => Math.max(0, minDistance, step));
+    const decimals = computed(() => countDecimals(step));
+
+    const percentageLower = computed(() => unref(isRangeValid) ? (unref(modelValue)[0] - min) / unref(span) : 0);
+    const percentageUpper = computed(() => unref(isRangeValid) ? (unref(modelValue)[1] - min) / unref(span) : 0);
+
+    const tooltipContent = computed(() => formatter(modelValue.value[isDraggingLower.value ? 0 : 1], unref(decimals)));
+
+    function snap(value: number): number {
+        const stepped = step > 0 ? roundStep(value, step) : value;
+
+        return +Math.max(min, Math.min(max, stepped)).toFixed(unref(decimals));
+    }
 
     function onDragging(is: boolean): void {
         if (is) {
             return;
         }
 
-        isDraggingLower.value = is;
-        isDraggingUpper.value = is;
+        isDraggingLower.value = false;
+        isDraggingUpper.value = false;
     }
 
     function onUpdate(value: number): void {
-        let lower = clampWithStepPrecision(lowerValue.value, min, max, step);
-        let upper = clampWithStepPrecision(upperValue.value, min, max, step);
+        if (unref(disabled) || !unref(isRangeValid)) {
+            return;
+        }
+
+        const target = snap(value * unref(span) + min);
+
+        // When the track is clicked (no thumb is being dragged yet) start
+        // dragging the thumb closest to the pointer.
+        if (!isDraggingLower.value && !isDraggingUpper.value) {
+            const [lower, upper] = unref(modelValue);
+
+            if (Math.abs(target - lower) <= Math.abs(target - upper)) {
+                isDraggingLower.value = true;
+            } else {
+                isDraggingUpper.value = true;
+            }
+        }
+
+        let [lower, upper] = unref(modelValue);
 
         if (isDraggingLower.value) {
-            lower = clampWithStepPrecision(value, min, max, step);
-        }
-
-        if (isDraggingUpper.value) {
-            upper = clampWithStepPrecision(value, min, max, step);
-        }
-
-        if (lower >= upper) {
-            return;
+            lower = Math.min(target, upper - unref(distance));
+        } else {
+            upper = Math.max(target, lower + unref(distance));
         }
 
         if (tooltipId.value) {
@@ -119,58 +141,40 @@
             });
         }
 
-        lowerValue.value = (lower - min) / (max - min);
-        upperValue.value = (upper - min) / (max - min);
+        modelValue.value = [snap(lower), snap(upper)];
     }
 
     function onDecrement(which: 'lower' | 'upper'): void {
-        let lower = clampWithStepPrecision(lowerValue.value, min, max, step);
-        let upper = clampWithStepPrecision(upperValue.value, min, max, step);
-
-        if (which === 'lower') {
-            lower = Math.max(min, lower - step);
-        } else {
-            upper = Math.max(min, upper - step);
-        }
-
-        if (lower >= upper) {
+        if (unref(disabled) || !unref(isRangeValid)) {
             return;
         }
 
-        modelValue.value = [lower, upper];
+        let [lower, upper] = unref(modelValue);
+
+        if (which === 'lower') {
+            lower = Math.max(min, Math.min(upper - unref(distance), lower - step));
+        } else {
+            upper = Math.max(lower + unref(distance), upper - step);
+        }
+
+        modelValue.value = [snap(lower), snap(upper)];
     }
 
     function onIncrement(which: 'lower' | 'upper'): void {
-        let lower = clampWithStepPrecision(lowerValue.value, min, max, step);
-        let upper = clampWithStepPrecision(upperValue.value, min, max, step);
-
-        if (which === 'lower') {
-            lower = Math.min(max, lower + step);
-        } else {
-            upper = Math.min(max, upper + step);
-        }
-
-        if (lower >= upper) {
+        if (unref(disabled) || !unref(isRangeValid)) {
             return;
         }
 
-        modelValue.value = [lower, upper];
+        let [lower, upper] = unref(modelValue);
+
+        if (which === 'lower') {
+            lower = Math.min(upper - unref(distance), lower + step);
+        } else {
+            upper = Math.min(max, Math.max(lower + unref(distance), upper + step));
+        }
+
+        modelValue.value = [snap(lower), snap(upper)];
     }
-
-    watch(modelValue, modelValue => {
-        lowerValue.value = (modelValue[0] - min) / (max - min);
-        upperValue.value = (modelValue[1] - min) / (max - min);
-    }, {immediate: true});
-
-    watch(([() => max, () => min, () => step, lowerValue, upperValue]), () => {
-        const lower = clampWithStepPrecision(unref(lowerValue), min, max, step);
-        const upper = clampWithStepPrecision(unref(upperValue), min, max, step);
-
-        percentageLower.value = (lower - min) / (max - min);
-        percentageUpper.value = (upper - min) / (max - min);
-
-        modelValue.value = [lower, upper];
-    }, {immediate: true});
 
     watch(([isDraggingLower, isDraggingUpper]), ([isDraggingLower, isDraggingUpper]) => {
         const is = isDraggingLower || isDraggingUpper;

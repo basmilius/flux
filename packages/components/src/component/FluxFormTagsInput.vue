@@ -28,7 +28,13 @@
             :disabled="disabled"
             :placeholder="modelValue.length === 0 ? placeholder : undefined"
             :readonly="isReadonly"
+            role="combobox"
             type="text"
+            :aria-activedescendant="isOpen && highlightedIndex >= 0 ? optionId(highlightedIndex) : undefined"
+            :aria-controls="isOpen ? popupId : undefined"
+            :aria-describedby="describedBy"
+            :aria-expanded="isOpen"
+            aria-haspopup="menu"
             @input="onInput"
             @keydown="onKeyDown"
             @paste="onPaste">
@@ -39,6 +45,7 @@
             <AnchorPopup
                 v-if="isOpen && filteredSuggestions.length > 0"
                 ref="popup"
+                :id="popupId"
                 :class="$style.formTagsInputPopup"
                 :anchor="anchorRef"
                 direction="vertical"
@@ -47,6 +54,7 @@
                     <FluxMenuItem
                         v-for="(suggestion, index) of filteredSuggestions"
                         :key="suggestion.value ?? index"
+                        :id="optionId(index)"
                         :icon-leading="suggestion.icon"
                         :is-highlighted="highlightedIndex === index"
                         :label="suggestion.label"
@@ -64,7 +72,7 @@
     import { useClickOutside } from '@basmilius/common';
     import type { FluxColor, FluxFormInputBaseProps, FluxFormSelectOption } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { type ComponentPublicInstance, computed, nextTick, ref, toRef, useTemplateRef } from 'vue';
+    import { type ComponentPublicInstance, computed, nextTick, ref, toRef, useId, useTemplateRef } from 'vue';
     import { useDisabled, useFormFieldInjection } from '~flux/components/composable';
     import { FluxFadeTransition } from '~flux/components/transition';
     import { Anchor, AnchorPopup } from '~flux/components/component/primitive';
@@ -104,7 +112,8 @@
     }>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));
-    const {id} = useFormFieldInjection();
+    const {id, describedBy} = useFormFieldInjection();
+    const popupId = useId();
 
     const anchorRef = useTemplateRef<ComponentPublicInstance>('anchor');
     const popupRef = useTemplateRef<ComponentPublicInstance>('popup');
@@ -123,8 +132,13 @@
 
         return suggestions.filter(suggestion =>
             !modelValue.value.includes(suggestion.label) &&
+            !(suggestion.value != null && modelValue.value.includes(String(suggestion.value))) &&
             (search === '' || suggestion.label.toLowerCase().includes(search)));
     });
+
+    function optionId(index: number): string {
+        return `${popupId}-option-${index}`;
+    }
 
     function focusInput(): void {
         inputElementRef.value?.focus();
@@ -161,7 +175,7 @@
     }
 
     function addSuggestion(suggestion: FluxFormSelectOption): void {
-        addTag(suggestion.label);
+        addTag(suggestion.value != null ? String(suggestion.value) : suggestion.label);
         nextTick(() => focusInput());
     }
 

@@ -21,10 +21,9 @@
             @change="onChange"
             @click="onClick"/>
 
-        <button
+        <span
             aria-hidden="true"
-            :class="$style.formCheckboxElement"
-            tabindex="-1">
+            :class="$style.formCheckboxElement">
             <FluxIcon
                 v-if="isIndeterminate"
                 name="minus"
@@ -34,7 +33,7 @@
                 v-else
                 name="check"
                 :size="12"/>
-        </button>
+        </span>
 
         <span
             v-if="label || subLabel"

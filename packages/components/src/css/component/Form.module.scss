@@ -235,11 +235,23 @@
 .formInputIconPasswordToggle {
     composes: formInputIconTrailing;
 
+    display: inline-flex;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    background: unset;
+    border: 0;
+    color: var(--foreground-secondary);
     pointer-events: unset;
     cursor: pointer;
 
     @include mixin.hover {
         color: var(--foreground);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: .5;
     }
 }
 

@@ -72,10 +72,14 @@ requiredIcons:
 
 The form field component is a base component that wraps a form control, such as [FluxFormInput](../input/index.md). It provides a label, error and hint. Fields can also be marked optional.
 
-By default a field wraps a **single** control and associates its label with that control through `<label for>`. When a field hosts a **group** of controls — multiple [checkboxes](../checkbox), a [Checkbox group](../checkbox), or a [Radio group](../radio/) — set `as="group"`. The label is then rendered as a group label (`role="group"` + `aria-labelledby`), which keeps the markup accessible and avoids the duplicate `id`s that a single shared `for` would create.
+By default a field wraps a **single** control and associates its label with that control through `<label for>`. When a field hosts a **group** of controls — multiple [checkboxes](../checkbox), a [Checkbox group](../checkbox), or a [Radio group](../radio/group) — set `as="group"`. The label is then rendered as a group label (`role="group"` + `aria-labelledby`), which keeps the markup accessible and avoids the duplicate `id`s that a single shared `for` would create.
 
 ::: render
 render=../../../code/components/form/field/preview.vue
+:::
+
+::: info Accessibility
+The `error` and `hint` messages are linked to the control through `aria-describedby`, so assistive technology announces them when the control is focused. The error message also carries `role="alert"` so it is announced as soon as it appears.
 :::
 
 <FrontmatterDocs/>

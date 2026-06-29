@@ -229,6 +229,8 @@ export type FluxMenuFlyoutInjection = {
 export type FluxFormFieldInjection = {
     readonly id?: string;
     readonly labelId?: string;
+    readonly errorId?: Readonly<Ref<string | undefined>>;
+    readonly hintId?: Readonly<Ref<string | undefined>>;
     readonly isGroup?: boolean;
 
     registerControl?(): string;

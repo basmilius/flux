@@ -11,10 +11,16 @@
             error && $formStyle.isInvalid
         )"
         :id="id"
+        role="combobox"
+        :aria-activedescendant="isPopupOpen && highlightedIndex >= 0 ? optionId(highlightedIndex) : undefined"
+        :aria-controls="isPopupOpen ? listId : undefined"
         :aria-disabled="disabled ? true : undefined"
+        :aria-expanded="isPopupOpen"
+        aria-haspopup="tree"
         :aria-readonly="isReadonly ? true : undefined"
         :aria-invalid="error ? true : undefined"
-        tabindex="0"
+        :aria-describedby="describedBy"
+        :tabindex="disabled ? -1 : 0"
         tag-name="div"
         @click="toggle()"
         @keydown="onKeyDown">
@@ -62,7 +68,11 @@
                     :placeholder="translate('flux.search')"
                     @keydown="onKeyDown"/>
 
-                <div :class="$style.treeViewSelectList">
+                <div
+                    :id="listId"
+                    :class="$style.treeViewSelectList"
+                    role="listbox"
+                    :aria-multiselectable="isMultiple ? true : undefined">
                     <div
                         v-if="visibleNodes.length === 0"
                         :class="$style.treeViewSelectEmpty">
@@ -74,6 +84,7 @@
                             v-for="(node, nodeIndex) in visibleNodes"
                             ref="nodeElements"
                             :key="node.id"
+                            :id="optionId(nodeIndex)"
                             :class="clsx(
                                 $style.treeNode,
                                 node.selectable !== false && $style.isSelectable,
@@ -81,8 +92,8 @@
                                 selectedIds.has(node.id) && $style.isSelected,
                                 nodeIndex === highlightedIndex && $style.isHighlighted
                             )"
-                            :role="node.selectable !== false ? 'option' : undefined"
-                            :tabindex="node.selectable !== false ? 0 : undefined"
+                            :role="node.selectable !== false ? 'option' : 'presentation'"
+                            :tabindex="node.selectable !== false ? -1 : undefined"
                             :aria-selected="node.selectable !== false ? selectedIds.has(node.id) : undefined"
                             @click="onNodeClick(node)"
                             @keydown.enter.prevent="onNodeClick(node)"
@@ -115,7 +126,7 @@
     import { unrefTemplateElement } from '@flux-ui/internals';
     import type { FluxColor, FluxFormInputBaseProps, FluxFormTreeViewSelectOption, FluxFormTreeViewSelectValue } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { type ComponentPublicInstance, computed, nextTick, ref, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { type ComponentPublicInstance, computed, nextTick, ref, toRef, unref, useId, useTemplateRef, watch } from 'vue';
     import { useDisabled, useFormFieldInjection } from '~flux/components/composable';
     import { flattenAll, flattenVisible, INITIAL_HIGHLIGHTED_INDEX, type TreeFlatNode, useDropdownPopup, useTranslate, useTreeView } from '~flux/components/composable/private';
     import { FluxFadeTransition } from '~flux/components/transition';
@@ -150,8 +161,13 @@
     }>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));
-    const {id} = useFormFieldInjection();
+    const {id, describedBy} = useFormFieldInjection();
     const translate = useTranslate();
+    const listId = useId();
+
+    function optionId(index: number): string {
+        return `${listId}-option-${index}`;
+    }
 
     const anchorRef = useTemplateRef<ComponentPublicInstance>('anchor');
     const anchorPopupRef = useTemplateRef<ComponentPublicInstance>('anchorPopup');

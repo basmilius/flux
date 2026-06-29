@@ -90,6 +90,10 @@ An input element designed for selecting dates and times, incorporating a dropdow
 render=../../code/components/form/date-time/preview.vue
 :::
 
+::: info
+When the field is still empty, picking a date or time starts from midnight rather than the current wall-clock time, so only the part you actually entered is applied. The complementary part defaults to `00:00` (or today's date) until you set it.
+:::
+
 <FrontmatterDocs/>
 
 ## Examples

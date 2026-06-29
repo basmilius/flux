@@ -7,9 +7,11 @@
             isSecondary && $formStyle.isSecondary,
             error && $formStyle.isInvalid
         )"
+        :auto-focus="autoFocus"
         :disabled="disabled"
         :is-loading="isLoading"
         :is-multiple="isMultiple"
+        :is-readonly="isReadonly"
         :is-searchable="isSearchable"
         :options="groups"
         :placeholder="placeholder"

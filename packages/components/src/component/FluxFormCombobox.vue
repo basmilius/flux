@@ -7,11 +7,13 @@
             isSecondary && $formStyle.isSecondary,
             error && $formStyle.isInvalid
         )"
+        :auto-focus="autoFocus"
         :disabled="disabled"
         is-searchable
         :is-creatable="isCreatable"
         :is-loading="isLoading"
         :is-multiple="isMultiple"
+        :is-readonly="isReadonly"
         :options="groups"
         :placeholder="placeholder"
         :selected="selected"
@@ -76,6 +78,8 @@
         if (isMultiple) {
             modelValue.value = unref(values).filter(v => v !== id);
         }
+
+        createdOptions.value = createdOptions.value.filter(o => o.value !== id);
     }
 
     function onSelect(id: string | number | null): void {

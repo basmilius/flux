@@ -5,7 +5,8 @@
             isInline && $style.isInline
         )"
         :role="field?.isGroup ? undefined : 'group'"
-        :aria-label="field?.isGroup ? undefined : ariaLabel">
+        :aria-label="field?.isGroup ? undefined : ariaLabel"
+        :aria-invalid="error ? true : undefined">
         <slot/>
     </div>
 </template>
@@ -39,6 +40,7 @@
 
     const field = inject(FluxFormFieldInjectionKey, null);
     const disabled = useDisabled(toRef(() => componentDisabled));
+
 
     provide(FluxFormCheckboxGroupInjectionKey, {
         modelValue,

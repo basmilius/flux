@@ -3,9 +3,10 @@ outline: deep
 
 props:
     -   name: columns
-        description: The number of columns in the grid.
+        description: The number of columns in the grid. Values are floored and clamped to a minimum of 1.
         type: number
         optional: true
+        default: "2"
 
 slots:
     -   name: default

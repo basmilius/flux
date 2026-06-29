@@ -10,8 +10,10 @@
             '--max-length': maxLength
         }"
         :autofocus="autoFocus"
+        :aria-describedby="describedBy"
         :aria-disabled="disabled ? true : undefined"
-        :aria-invalid="error ? true : undefined">
+        :aria-invalid="error ? true : undefined"
+        :aria-label="ariaLabel">
         <input
             v-for="field of maxLength"
             :key="field"
@@ -53,13 +55,14 @@
         disabled: componentDisabled,
         maxLength = 6
     } = defineProps<Pick<FluxFormInputBaseProps, 'autoFocus' | 'disabled' | 'error' | 'isLoading' | 'isReadonly' | 'name'> & {
+        readonly ariaLabel?: string;
         readonly autoComplete?: FluxAutoCompleteType;
         readonly isPrivate?: boolean;
         readonly maxLength?: number;
     }>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));
-    const {id} = useFormFieldInjection();
+    const {id, describedBy} = useFormFieldInjection();
     const translate = useTranslate();
 
     const fieldRefs = useTemplateRef<HTMLInputElement[]>('fields');
@@ -71,11 +74,19 @@
 
     function onInput(): void {
         const fields = unref(fieldRefs) ?? [];
-        const values = fields
-            .map(field => field.value.trim())
-            .filter(fieldValue => /^[0-9]$/.test(fieldValue));
+        const digits = fields.map(field => {
+            const value = field.value.trim();
 
-        modelValue.value = values.join('');
+            return /^[0-9]$/.test(value) ? value : '';
+        });
+
+        // Trim only trailing empties so a cleared middle digit becomes a gap instead of shifting
+        // the trailing digits to the left (which would corrupt the entered code).
+        while (digits.length > 0 && digits[digits.length - 1] === '') {
+            digits.pop();
+        }
+
+        modelValue.value = digits.join('');
     }
 
     function onKeyDown(evt: KeyboardEvent): void {
@@ -123,17 +134,18 @@
             return;
         }
 
-        const value = evt.clipboardData.getData('text').replace(/\D/g, '');
+        const value = evt.clipboardData.getData('text').replace(/\D/g, '').substring(0, maxLength);
 
-        if (value.length !== maxLength) {
+        if (value.length === 0) {
             return;
         }
 
+        evt.preventDefault();
         modelValue.value = value;
 
         requestAnimationFrame(() => {
             const fields = unref(fieldRefs) ?? [];
-            fields[maxLength - 1].focus();
+            fields[Math.min(value.length, maxLength) - 1]?.focus();
         });
     }
 </script>

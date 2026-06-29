@@ -10,6 +10,7 @@
             fontSize: size && `${size}px`
         }"
         role="slider"
+        :aria-describedby="describedBy"
         :aria-disabled="disabled ? true : undefined"
         :aria-invalid="error ? true : undefined"
         :aria-readonly="isReadonly ? true : undefined"
@@ -85,7 +86,7 @@
     }>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));
-    const {id} = useFormFieldInjection();
+    const {id, describedBy} = useFormFieldInjection();
 
     const hoverValue = ref<number | null>(null);
 
@@ -156,6 +157,14 @@
             case 'End':
                 evt.preventDefault();
                 commit(count);
+                break;
+
+            case 'Delete':
+            case 'Backspace':
+                if (clearable) {
+                    evt.preventDefault();
+                    commit(null);
+                }
                 break;
 
             default:

@@ -51,7 +51,7 @@ render=../../../code/components/form/checkbox/group/preview.vue
 :::
 
 ::: tip
-Wrap the group in a [Form field](../field/) with `as="group"` to attach an accessible group label. Used standalone, pass an `aria-label` instead.
+Wrap the group in a [Form field](../field/) with `as="group"` to attach an accessible group label. Used standalone, pass an `aria-label` instead. When the surrounding field is `required`, the group automatically receives `aria-required`, and setting `error` exposes `aria-invalid` on the group container.
 :::
 
 <FrontmatterDocs/>

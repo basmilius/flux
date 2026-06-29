@@ -2,6 +2,11 @@
 outline: deep
 
 props:
+    -   name: auto-focus
+        description: Focus the combobox when the form is mounted.
+        type: boolean
+        optional: true
+
     -   name: disabled
         description: Whether the combobox is disabled.
         type: boolean
@@ -12,14 +17,39 @@ props:
         type: [ 'string | null' ]
         optional: true
 
+    -   name: is-condensed
+        description: Renders the combobox in a compact style with reduced padding.
+        type: boolean
+        optional: true
+
     -   name: is-creatable
         description: Whether the user can create new entries by typing a value that does not match an existing option.
+        type: boolean
+        optional: true
+
+    -   name: is-loading
+        description: Shows a loading spinner inside the combobox.
         type: boolean
         optional: true
 
     -   name: is-multiple
         description: Whether multiple values can be selected.
         type: boolean
+        optional: true
+
+    -   name: is-readonly
+        description: If the combobox is read-only. Blocks opening the popup.
+        type: boolean
+        optional: true
+
+    -   name: is-secondary
+        description: If the field is secondary and is rendered in an alternative style.
+        type: boolean
+        optional: true
+
+    -   name: name
+        description: The name attribute passed to a hidden form control.
+        type: string
         optional: true
 
     -   name: options

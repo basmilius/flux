@@ -136,7 +136,7 @@ example=../../../code/components/form/input/basic.vue
 example=../../../code/components/form/input/icon.vue
 :::
 
-::: example Password || A password form input.
+::: example Password || A password form input. The visibility toggle is a real button with an accessible label and `aria-pressed` state, so it is reachable and operable by keyboard.
 example=../../../code/components/form/input/password.vue
 :::
 

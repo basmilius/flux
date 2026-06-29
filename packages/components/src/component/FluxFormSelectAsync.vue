@@ -7,9 +7,11 @@
             isSecondary && $formStyle.isSecondary,
             error && $formStyle.isInvalid
         )"
+        :auto-focus="autoFocus"
         :disabled="disabled"
         :is-loading="isLoading || isFetchingLoading"
         :is-multiple="isMultiple"
+        :is-readonly="isReadonly"
         is-searchable
         :options="groups"
         :placeholder="placeholder"
@@ -99,7 +101,10 @@
 
     async function onOpen(): Promise<void> {
         const generation = ++visibleGeneration;
-        const options = await unref(fetchRelevant)();
+        const search = unref(modelSearch).trim();
+        const options = search.length > 0
+            ? await unref(fetchSearch)(search)
+            : await unref(fetchRelevant)();
 
         if (generation === visibleGeneration) {
             visibleOptions.value = options;

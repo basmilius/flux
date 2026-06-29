@@ -2,8 +2,13 @@
 outline: deep
 
 props:
+    -   name: aria-label
+        description: An accessible label for the group. When set, the group is exposed with role="group" and this label; otherwise no group role is applied.
+        type: string
+        optional: true
+
     -   name: is-condensed
-        description: ??
+        description: Renders the group in a compact style with reduced padding.
         type: boolean
         optional: true
 
@@ -31,4 +36,8 @@ render=../../../code/components/form/input/group/preview.vue
 
 ::: example Basic || A basic and simple input group.
 example=../../../code/components/form/input/group/basic.vue
+:::
+
+::: example Labelled || An accessible group label via `aria-label`; the group only takes `role="group"` when labelled.
+example=../../../code/components/form/input/group/labelled.vue
 :::

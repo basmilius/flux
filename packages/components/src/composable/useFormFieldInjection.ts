@@ -1,12 +1,23 @@
-import { inject, useId } from 'vue';
+import { computed, inject, useId, type Ref } from 'vue';
 import { FluxFormFieldInjectionKey } from '~flux/components/data';
 
-export default function () {
+type UseFormFieldInjectionReturn = {
+    readonly id: string;
+    readonly describedBy: Readonly<Ref<string | undefined>>;
+};
+
+export default function (): UseFormFieldInjectionReturn {
     const field = inject(FluxFormFieldInjectionKey, null);
 
-    if (field?.registerControl) {
-        return {id: field.registerControl()};
-    }
+    const id = field?.registerControl
+        ? field.registerControl()
+        : field?.id ?? useId();
 
-    return {id: field?.id ?? useId()};
+    const describedBy = computed(() => {
+        const ids = [field?.errorId?.value, field?.hintId?.value].filter(Boolean);
+
+        return ids.length > 0 ? ids.join(' ') : undefined;
+    });
+
+    return {id, describedBy};
 }

@@ -5,7 +5,8 @@
             isCondensed && $style.isCondensed,
             isSecondary && $style.isSecondary
         )"
-        role="group">
+        :role="ariaLabel ? 'group' : undefined"
+        :aria-label="ariaLabel">
         <slot/>
     </div>
 </template>
@@ -18,6 +19,7 @@
     import $style from '~flux/components/css/component/Form.module.scss';
 
     defineProps<{
+        readonly ariaLabel?: string;
         readonly isSecondary?: boolean;
         readonly isCondensed?: boolean;
     }>();

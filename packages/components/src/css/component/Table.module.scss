@@ -66,6 +66,10 @@
     height: 100%;
     padding: 12px 15px;
     align-items: flex-start;
+
+    :global(p):only-child {
+        margin: 0;
+    }
 }
 
 .tableHeader {

@@ -87,6 +87,10 @@ This is a dynamic form select element that retrieves options dynamically, allowi
 render=../../../code/components/form/select/async/preview.vue
 :::
 
+::: tip
+When the popup opens with an active search query, `fetch-search` is called with that query; otherwise `fetch-relevant` is used. This keeps a previously typed search reflected in the initial result set.
+:::
+
 <FrontmatterDocs/>
 
 ## Examples

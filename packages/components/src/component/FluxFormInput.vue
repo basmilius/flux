@@ -18,6 +18,7 @@
             :name="name"
             :autocomplete="autoComplete"
             :autofocus="autoFocus"
+            :aria-describedby="describedBy"
             :aria-disabled="disabled ? true : undefined"
             :aria-invalid="error ? true : undefined"
             :disabled="disabled"
@@ -40,12 +41,18 @@
             :name="iconLeading"
             :size="18"/>
 
-        <FluxIcon
+        <button
             v-if="type === 'password'"
+            type="button"
             :class="$style.formInputIconPasswordToggle"
-            :name="nativeType === 'password' ? 'eye' : 'eye-slash'"
-            :size="18"
-            @click="passwordTypeToggle()"/>
+            aria-label="Toggle password visibility"
+            :aria-pressed="nativeType !== 'password'"
+            :disabled="disabled"
+            @click="passwordTypeToggle()">
+            <FluxIcon
+                :name="nativeType === 'password' ? 'eye' : 'eye-slash'"
+                :size="18"/>
+        </button>
 
         <FluxIcon
             v-else-if="iconTrailing"
@@ -105,7 +112,7 @@
 
     const disabled = useDisabled(toRef(() => componentDisabled));
     const inputRef = useTemplateRef<HTMLInputElement>('input');
-    const {id} = useFormFieldInjection();
+    const {id, describedBy} = useFormFieldInjection();
 
     const localValue = ref<string | null>(null);
     const nativeType = ref(type);
@@ -144,7 +151,7 @@
             case 'datetime-local':
             case 'month':
             case 'time':
-            case 'week':
+            case 'week': {
                 if (value === '') {
                     modelValue.value = null;
                     break;
@@ -158,8 +165,9 @@
 
                 modelValue.value = dateTime;
                 break;
+            }
 
-            case 'number':
+            case 'number': {
                 if (value === '') {
                     modelValue.value = null;
                     break;
@@ -173,6 +181,7 @@
 
                 modelValue.value = numericValue;
                 break;
+            }
 
             default:
                 if (activeMask) {

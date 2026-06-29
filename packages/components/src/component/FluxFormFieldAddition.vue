@@ -4,7 +4,8 @@
             mode === 'error' && $style.formFieldAdditionError,
             mode === 'hint' && $style.formFieldAdditionHint
         )"
-        role="alert">
+        :id="id"
+        :role="mode === 'error' ? 'alert' : undefined">
         <FluxIcon
             v-if="icon"
             :class="$style.formFieldAdditionIcon"
@@ -31,6 +32,7 @@
         mode = 'hint'
     } = defineProps<{
         readonly icon?: FluxIconName;
+        readonly id?: string;
         readonly message?: string;
         readonly mode?: 'error' | 'hint';
     }>();

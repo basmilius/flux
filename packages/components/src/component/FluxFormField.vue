@@ -32,19 +32,21 @@
         <slot v-bind="{id}"/>
 
         <span
-            v-if="currentLength && maxLength && maxLength > 0"
+            v-if="currentLength != null && maxLength != null && maxLength > 0"
             :class="$style.formFieldCounter">
             {{ currentLength }} / {{ maxLength }}
         </span>
 
         <FluxFormFieldAddition
             v-if="error"
+            :id="errorId"
             icon="circle-exclamation"
             mode="error"
             :message="error"/>
 
         <FluxFormFieldAddition
             v-if="hint"
+            :id="hintId"
             icon="circle-info"
             :message="hint"/>
 
@@ -64,7 +66,9 @@
     import $style from '~flux/components/css/component/Form.module.scss';
 
     const {
-        as = 'field'
+        as = 'field',
+        error,
+        hint
     } = defineProps<{
         readonly as?: 'field' | 'group';
         readonly currentLength?: number;
@@ -101,15 +105,21 @@
 
     const id = useId();
     const labelId = useId();
+    const errorBaseId = useId();
+    const hintBaseId = useId();
     const translate = useTranslate();
 
     const isGroup = computed(() => as === 'group');
+    const errorId = computed(() => error ? errorBaseId : undefined);
+    const hintId = computed(() => hint ? hintBaseId : undefined);
 
     let controlCount = 0;
 
     provide(FluxFormFieldInjectionKey, {
         id,
         labelId,
+        errorId,
+        hintId,
         isGroup: as === 'group',
         registerControl: () => controlCount++ === 0 ? id : `${id}-${controlCount - 1}`
     });

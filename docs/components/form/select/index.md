@@ -84,6 +84,10 @@ This is a form select element that allows the user to choose from a list of opti
 render=../../../code/components/form/select/preview.vue
 :::
 
+::: info Accessibility
+The control is exposed as a `role="combobox"` and tracks the highlighted option through `aria-activedescendant` and `aria-controls` while the popup is open. When `name` is set, the selected values are mirrored into a hidden input so the select participates in native form submission.
+:::
+
 <FrontmatterDocs/>
 
 ## Examples
@@ -98,6 +102,10 @@ example=../../../code/components/form/select/searchable.vue
 
 ::: example Multiple || A form select in where you can select multiple options.
 example=../../../code/components/form/select/multiple.vue
+:::
+
+::: example Read-only || A read-only select that shows its value but cannot be opened or changed.
+example=../../../code/components/form/select/readonly.vue
 :::
 
 ## Used components

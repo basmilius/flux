@@ -15,6 +15,7 @@
             :autofocus="autoFocus"
             inputmode="decimal"
             type="number"
+            :aria-describedby="describedBy"
             :aria-disabled="disabled ? true : undefined"
             :aria-invalid="error ? true : undefined"
             :disabled="disabled"
@@ -91,7 +92,7 @@
 
     const disabled = useDisabled(toRef(() => componentDisabled));
     const inputRef = useTemplateRef<HTMLInputElement>('input');
-    const {id} = useFormFieldInjection();
+    const {id, describedBy} = useFormFieldInjection();
 
     const atMax = computed(() => max !== undefined && modelValue.value !== null && modelValue.value >= max);
     const atMin = computed(() => min !== undefined && modelValue.value !== null && modelValue.value <= min);
@@ -124,6 +125,16 @@
         return decimals > 0 ? Number(value.toFixed(decimals)) : value;
     }
 
+    function snap(value: number): number {
+        if (step <= 0) {
+            return value;
+        }
+
+        const base = min ?? 0;
+
+        return round(base + Math.round((value - base) / step) * step);
+    }
+
     function stepValue(direction: 1 | -1): void {
         if (unref(disabled) || isReadonly) {
             return;
@@ -136,7 +147,7 @@
 
     function onBlur(): void {
         if (modelValue.value !== null) {
-            modelValue.value = clamp(modelValue.value);
+            modelValue.value = clamp(snap(modelValue.value));
         }
 
         emit('blur');
