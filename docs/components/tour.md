@@ -47,6 +47,10 @@ render=../code/components/tour/preview.vue
 Each step's `target` is a CSS selector or a function returning an element. Make sure the target exists in the DOM when its step becomes active.
 :::
 
+::: tip
+While a tour is active the popover acts as a `role="dialog"` and traps focus, so keyboard users stay within the current step. The step body is announced through an `aria-live` region and the title is linked via `aria-labelledby`.
+:::
+
 <FrontmatterDocs/>
 
 ## Tour Item

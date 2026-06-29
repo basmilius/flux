@@ -1,5 +1,7 @@
 <template>
-    <div :class="containerClass">
+    <div
+        role="list"
+        :class="containerClass">
         <slot v-if="hasSlot"/>
         <FluxStatisticsLegendItem
             v-else
@@ -11,7 +13,9 @@
             :label="item.label"
             :value="item.value"
             @mouseenter="onItemMouseEnter(index)"
-            @mouseleave="onItemMouseLeave"/>
+            @mouseleave="onItemMouseLeave"
+            @focus="onItemMouseEnter(index)"
+            @blur="onItemMouseLeave"/>
     </div>
 </template>
 

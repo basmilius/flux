@@ -1,6 +1,7 @@
 <template>
     <canvas
         ref="canvas"
+        aria-hidden="true"
         :class="$style.flickeringGrid"/>
 </template>
 
@@ -117,6 +118,28 @@
         let lastTime = 0;
         let {width, height, columns, rows, squares, dpr} = setup(canvas);
 
+        const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+
+        const onResize = () => {
+            ({width, height, columns, rows, squares, dpr} = setup(canvas));
+
+            if (reducedMotion) {
+                draw(context, width, height, columns, rows, squares, dpr);
+            }
+        };
+
+        window.addEventListener('resize', onResize, {passive: true});
+
+        if (reducedMotion) {
+            draw(context, width, height, columns, rows, squares, dpr);
+
+            onCleanup(() => {
+                window.removeEventListener('resize', onResize);
+            });
+
+            return;
+        }
+
         const animate = (time: number): void => {
             const delta = lastTime > 0 ? (time - lastTime) / 1000 : 0;
             lastTime = time;
@@ -126,11 +149,6 @@
             frame = requestAnimationFrame(animate);
         };
 
-        const onResize = () => {
-            ({width, height, columns, rows, squares, dpr} = setup(canvas));
-        };
-
-        window.addEventListener('resize', onResize, {passive: true});
         frame = requestAnimationFrame(animate);
 
         onCleanup(() => {

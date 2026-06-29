@@ -41,7 +41,7 @@ props:
         optional: true
 
     -   name: tabindex
-        description: The tabindex of the tab, works exactly the same as HTML.
+        description: The tabindex of the tab, works exactly the same as HTML. When set it overrides the automatic roving tab stop; otherwise the tab is tabbable when it is the active tab, or the first enabled tab when none is selected.
         type: [ string, number ]
         optional: true
 

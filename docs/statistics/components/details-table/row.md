@@ -23,6 +23,10 @@ render=../../../code/statistics/components/details-table/row/preview.vue
 This component is best used within a [Details table](./index).
 :::
 
+::: info
+The row exposes the ARIA `row` role; its label is a `rowheader` and its value is a `cell`, so the pair is announced as a labelled table row.
+:::
+
 <FrontmatterDocs/>
 
 ## Snippet

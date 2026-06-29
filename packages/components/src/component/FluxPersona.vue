@@ -2,6 +2,7 @@
     <button
         :class="$style.persona"
         type="button"
+        :aria-label="isCompact ? name : undefined"
         @click="$emit('click', $event)">
         <FluxAvatar
             :alt="avatarAlt"

@@ -9,10 +9,7 @@
             error && $style.isInvalid,
             isSwitch && $style.isSwitch
         )"
-        :for="isBareControl ? undefined : id"
-        :aria-disabled="disabled ? true : undefined"
-        :aria-readonly="isReadonly ? true : undefined"
-        :aria-invalid="error ? true : undefined">
+        :for="isBareControl ? undefined : id">
         <FluxIcon
             v-if="iconOff"
             :class="$style.formToggleIconOff"
@@ -29,10 +26,15 @@
             :class="$style.formToggleInput"
             :id="id"
             :disabled="disabled"
+            :readonly="isReadonly"
             type="checkbox"
             :checked="modelValue"
             role="switch"
             :aria-checked="modelValue"
+            :aria-describedby="describedBy"
+            :aria-disabled="disabled ? true : undefined"
+            :aria-invalid="error ? true : undefined"
+            :aria-readonly="isReadonly ? true : undefined"
             @click="onClick"
             @input="toggle"/>
     </component>
@@ -64,7 +66,7 @@
 
     const itemControl = inject(FluxItemControlInjectionKey, null);
     const disabled = useDisabled(toRef(() => componentDisabled));
-    const {id} = useFormFieldInjection();
+    const {id, describedBy} = useFormFieldInjection();
 
     const isBareControl = computed(() => itemControl?.isControl.value ?? false);
 

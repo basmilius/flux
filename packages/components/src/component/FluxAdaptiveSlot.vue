@@ -98,6 +98,13 @@
         });
     } else {
         // Standalone: self-measurement with parent-observer hysteresis.
+        //
+        // Re-expansion requires the parent to be meaningfully wider than the
+        // width at which we last collapsed. The threshold (in px) keeps tiny
+        // sub-pixel ResizeObserver deltas from toggling default/fallback back
+        // and forth (oscillation).
+        const REEXPAND_THRESHOLD = 3;
+
         let lastFailedParentWidth = -1;
 
         const reflow = animationFrameDebounce(() => {
@@ -128,7 +135,7 @@
             const observer = new ResizeObserver(entries => {
                 for (const entry of entries) {
                     if (entry.target === parent && !isDefaultVisible.value) {
-                        if (parent.clientWidth > lastFailedParentWidth) {
+                        if (parent.clientWidth > lastFailedParentWidth + REEXPAND_THRESHOLD) {
                             isDefaultVisible.value = true;
                         }
                     }
@@ -150,10 +157,14 @@
             });
         }, {immediate: true});
 
-        // Default content size changed: forget failure history and retry.
-        watch(desiredDefaultWidth, () => {
-            lastFailedParentWidth = -1;
-            isDefaultVisible.value = true;
+        // Default content shrank: it may now fit again, so forget the failure
+        // history and retry. Growth while collapsed is ignored — re-expanding
+        // then would immediately collapse again (oscillation).
+        watch(desiredDefaultWidth, (width, previous) => {
+            if (width < previous) {
+                lastFailedParentWidth = -1;
+                isDefaultVisible.value = true;
+            }
         });
     }
 </script>

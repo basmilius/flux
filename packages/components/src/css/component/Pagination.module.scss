@@ -39,8 +39,20 @@
     border-color: var(--primary-200);
 }
 
-.paginationButtonSpacer {
+.paginationDots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 36px;
+    min-width: 36px;
+    padding: 0 6px;
+
+    color: var(--foreground-secondary);
+    font-size: 12px;
+
     pointer-events: none;
+    user-select: none;
 }
 
 .paginationButtonIcon {

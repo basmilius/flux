@@ -12,7 +12,7 @@
         direction="vertical"
         :gap="6"
         role="progressbar"
-        :aria-valuenow="value"
+        :aria-valuenow="isIndeterminate ? undefined : ariaValueNow"
         :aria-valuemax="max"
         :aria-valuemin="min"
         :aria-valuetext="status ? `${status}: ${progress}` : undefined">
@@ -26,7 +26,7 @@
 
         <div
             v-if="status"
-            :class="$style.progressBarInfo">
+            :class="$style.progressBarStatusRow">
             <FluxFadeTransition>
                 <span
                     :key="status"
@@ -70,6 +70,12 @@
         readonly status?: string;
         readonly value?: number;
     }>();
+
+    const ariaValueNow = computed(() => {
+        const current = value ?? min;
+
+        return Math.min(max, Math.max(min, current));
+    });
 
     const position = computed(() => {
         if (isIndeterminate) {

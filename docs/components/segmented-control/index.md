@@ -12,11 +12,6 @@ props:
         type: [ string, number ]
         optional: true
 
-    -   name: aria-label
-        description: The accessible label of the segmented control.
-        type: string
-        optional: true
-
     -   name: is-fill
         description: Allows the segmented control to fill in its parent.
         type: boolean

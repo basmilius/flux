@@ -2,11 +2,13 @@
     <nav
         :class="isPills ? $style.tabBarPills : $style.tabBarDefault"
         role="tablist"
-        aria-orientation="horizontal">
+        aria-orientation="horizontal"
+        @keydown="onKeyDown">
         <FluxFadeTransition>
             <button
                 v-if="isStartArrowVisible"
                 :class="$style.tabBarArrowStart"
+                aria-hidden="true"
                 tabindex="-1"
                 type="button"
                 @click="scrollToStart">
@@ -35,6 +37,7 @@
             <button
                 v-if="isEndArrowVisible"
                 :class="$style.tabBarArrowEnd"
+                aria-hidden="true"
                 tabindex="-1"
                 type="button"
                 @click="scrollToEnd">
@@ -99,6 +102,54 @@
         }
     });
 
+    function onKeyDown(evt: KeyboardEvent): void {
+        const tabBar = unrefTemplateElement(tabBarRef);
+
+        if (!tabBar) {
+            return;
+        }
+
+        const tabs = Array.from(tabBar.querySelectorAll<HTMLElement>('[role=tab]:not([aria-disabled=true])'));
+
+        if (tabs.length === 0) {
+            return;
+        }
+
+        const activeElement = tabBar.querySelector<HTMLElement>('[role=tab][aria-selected=true]');
+        const currentIndex = activeElement ? tabs.indexOf(activeElement) : tabs.indexOf(document.activeElement as HTMLElement);
+
+        let newIndex: number;
+
+        switch (evt.key) {
+            case 'ArrowLeft':
+            case 'ArrowUp':
+                newIndex = currentIndex <= 0 ? tabs.length - 1 : currentIndex - 1;
+                break;
+
+            case 'ArrowRight':
+            case 'ArrowDown':
+                newIndex = currentIndex === tabs.length - 1 ? 0 : currentIndex + 1;
+                break;
+
+            case 'Home':
+                newIndex = 0;
+                break;
+
+            case 'End':
+                newIndex = tabs.length - 1;
+                break;
+
+            default:
+                return;
+        }
+
+        const target = tabs[newIndex];
+
+        target.focus();
+        target.click();
+        evt.preventDefault();
+    }
+
     function checkScroll(): void {
         const tabBar = unrefTemplateElement(tabBarRef)!;
 
@@ -136,6 +187,7 @@
         const width = activeElement.offsetWidth;
 
         if (width === 0) {
+            activeItemWidth.value = 0;
             return;
         }
 

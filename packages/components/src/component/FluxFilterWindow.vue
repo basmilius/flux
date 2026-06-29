@@ -1,5 +1,6 @@
 <template>
     <div
+        ref="root"
         v-height-transition
         :class="$style.filter">
         <FluxWindow ref="window">
@@ -7,7 +8,7 @@
                 <FluxMenu is-persistent>
                     <FilterMenuRenderer
                         :menu-items="menuItems"
-                        :navigate="navigate"/>
+                        :navigate="to => onNavigate(navigate, to)"/>
                 </FluxMenu>
             </template>
 
@@ -47,9 +48,9 @@
 <script
     lang="ts"
     setup>
-    import { vHeightTransition } from '@flux-ui/internals';
+    import { getFocusableElement, vHeightTransition } from '@flux-ui/internals';
     import type { FluxFilterDefinition } from '@flux-ui/types';
-    import { unref, useTemplateRef, type VNode } from 'vue';
+    import { nextTick, unref, useTemplateRef, type VNode } from 'vue';
     import { useFilterInjection } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';
     import { isResettable } from '~flux/components/util';
@@ -65,18 +66,33 @@
         readonly menuItems: (FluxFilterDefinition | VNode)[][];
     }>();
 
-    defineSlots<{
-        default(): VNode[];
-    }>();
-
     const {clear: clearFilter, getDefinition, getValue, reset: resetFilter} = useFilterInjection();
 
     const translate = useTranslate();
 
+    const rootRef = useTemplateRef<HTMLDivElement>('root');
     const windowRef = useTemplateRef<{ back(to: string): void; }>('window');
+
+    async function focusPanel(): Promise<void> {
+        await nextTick();
+
+        const root = unref(rootRef);
+
+        if (!root) {
+            return;
+        }
+
+        getFocusableElement(root, 1, undefined)?.focus();
+    }
+
+    function onNavigate(navigate: (to: string) => void, to: string): void {
+        navigate(to);
+        focusPanel();
+    }
 
     function back(): void {
         unref(windowRef)?.back('default');
+        focusPanel();
     }
 
     function clear(name: string): void {

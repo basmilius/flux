@@ -2,7 +2,6 @@
     <div
         :class="$style.treeView"
         role="tree"
-        :aria-label="ariaLabel"
         tabindex="0"
         :aria-activedescendant="activeDescendant"
         @keydown="onKeyDown">
@@ -61,11 +60,9 @@
     }>();
 
     const {
-        ariaLabel = 'Tree',
         levelColors,
         options
     } = defineProps<{
-        readonly ariaLabel?: string;
         readonly levelColors?: (FluxColor | string)[];
         readonly options: FluxTreeViewOption[];
     }>();

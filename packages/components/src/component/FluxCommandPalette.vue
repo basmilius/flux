@@ -12,6 +12,9 @@
             :class="[$style.commandPaletteDialog, isClosing && $style.isClosing]"
             :style="zIndexBase !== null ? {zIndex: zIndexBase + 1} : undefined"
             tabindex="-1"
+            role="dialog"
+            aria-modal="true"
+            :aria-label="translate('flux.search')"
             @click.self="close"
             @keydown="onKeyDown">
             <div
@@ -51,9 +54,15 @@
                     <input
                         ref="inputRef"
                         :class="$style.commandPaletteSearchInput"
-                        :placeholder="placeholder ?? 'Search...'"
+                        :placeholder="placeholder ?? translate('flux.search')"
                         :value="search"
                         type="text"
+                        role="combobox"
+                        aria-autocomplete="list"
+                        :aria-label="translate('flux.search')"
+                        :aria-controls="listboxId"
+                        :aria-expanded="isExpanded"
+                        :aria-activedescendant="activeDescendant"
                         @input="setSearch(($event.target as HTMLInputElement).value)"/>
 
                     <FluxTag
@@ -92,11 +101,15 @@
 
                 <FluxWindowTransition :is-back="isTransitioningBack">
                     <div
+                        :id="listboxId"
                         :key="activeTab"
-                        :class="$style.commandPaletteResults">
+                        :class="$style.commandPaletteResults"
+                        role="listbox"
+                        :aria-label="translate('flux.search')">
                         <template v-if="subActionTarget">
                             <FluxCommandPaletteItem
                                 v-for="(action, index) of subActions"
+                                :id="optionId(index)"
                                 :key="index"
                                 ref="itemRefs"
                                 :icon="action.icon"
@@ -116,6 +129,7 @@
 
                                 <FluxCommandPaletteItem
                                     v-for="result of group.items"
+                                    :id="optionId(result.globalIndex)"
                                     :key="result.item.id"
                                     ref="itemRefs"
                                     :command="result.item.command"
@@ -138,7 +152,7 @@
                         <div
                             v-else
                             :class="$style.commandPaletteEmpty">
-                            No results found.
+                            {{ translate('flux.noItems') }}
                         </div>
                     </div>
                 </FluxWindowTransition>
@@ -150,10 +164,11 @@
 <script
     lang="ts"
     setup>
-    import { isSSR, useFocusTrap, vHeightTransition } from '@flux-ui/internals';
+    import { useHotKey } from '@basmilius/common';
+    import { useFocusTrap, vHeightTransition } from '@flux-ui/internals';
     import type { FluxCommandSource, FluxCommandSourceItem } from '@flux-ui/types';
-    import { computed, onMounted, onUnmounted, ref, toRef, unref, useTemplateRef } from 'vue';
-    import { useCommandPalette } from '~flux/components/composable/private';
+    import { computed, onUnmounted, ref, toRef, unref, useId, useTemplateRef } from 'vue';
+    import { useCommandPalette, useTranslate } from '~flux/components/composable/private';
     import { registerDialog, type FluxDialogRegistration } from '~flux/components/data';
     import { FluxWindowTransition } from '~flux/components/transition';
     import FluxCommandPaletteGroup from './FluxCommandPaletteGroup.vue';
@@ -173,9 +188,16 @@
         select: [item: FluxCommandSourceItem];
     }>();
 
+    const translate = useTranslate();
+
     const dialogRef = useTemplateRef<HTMLDivElement>('dialogRef');
     const inputRef = useTemplateRef<HTMLInputElement>('inputRef');
     const itemRefs = ref<InstanceType<typeof FluxCommandPaletteItem>[]>();
+
+    // Combobox wiring: the input owns the focus and points at the active option through
+    // aria-activedescendant, so each rendered option needs a stable, unique id derived from this base.
+    const listboxId = useId();
+    const optionId = (index: number) => `${listboxId}-option-${index}`;
 
     const isOpen = ref(false);
     const isClosing = ref(false);
@@ -207,6 +229,7 @@
         groupedItems,
         subActions,
         tabs,
+        totalItems,
         setSearch,
         setActiveTab,
         enterSubActions,
@@ -215,6 +238,13 @@
     } = useCommandPalette({
         sources: toRef(() => props.sources),
         itemRefs
+    });
+
+    const isExpanded = computed(() => unref(totalItems) > 0);
+    const activeDescendant = computed(() => {
+        const index = unref(highlightedIndex);
+
+        return isExpanded.value && index >= 0 ? optionId(index) : undefined;
     });
 
     function open(): void {
@@ -310,32 +340,20 @@
         });
     }
 
-    function onGlobalKeyDown(evt: KeyboardEvent): void {
-        if (evt.key === 'k' && (evt.metaKey || evt.ctrlKey)) {
-            evt.preventDefault();
-
-            if (unref(isOpen) && !unref(isClosing)) {
-                close();
-            } else {
-                open();
-            }
-        }
-    }
-
     onUnmounted(() => {
         dialogRegistration.value?.unregister();
         dialogRegistration.value = null;
     });
 
-    if (!isSSR && props.hasKeyboardShortcut) {
-        onMounted(() => {
-            window.addEventListener('keydown', onGlobalKeyDown);
-        });
-
-        onUnmounted(() => {
-            window.removeEventListener('keydown', onGlobalKeyDown);
-        });
-    }
+    useHotKey('mod+k', () => {
+        if (unref(isOpen) && !unref(isClosing)) {
+            close();
+        } else {
+            open();
+        }
+    }, {
+        enabled: () => props.hasKeyboardShortcut
+    });
 
     defineExpose({
         close,

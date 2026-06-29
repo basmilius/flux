@@ -8,7 +8,7 @@
             isDragging && $style.splitViewDragging
         )"
         :style="templateStyle">
-        <template v-for="(pane, index) in panes" :key="pane.id">
+        <template v-for="(pane, index) in panes" :key="pane.key">
             <component :is="pane.vnode"/>
 
             <button
@@ -16,9 +16,12 @@
                 :class="direction === 'horizontal' ? $style.splitViewHandle : $style.splitViewHandleVertical"
                 type="button"
                 role="separator"
+                :aria-label="`Resize ${direction === 'horizontal' ? 'columns' : 'rows'} ${index + 1} and ${index + 2}`"
                 :aria-orientation="direction === 'horizontal' ? 'vertical' : 'horizontal'"
                 :aria-valuemin="0"
-                :aria-valuenow="Math.round(sizes[index] ?? 0)"
+                :aria-valuemax="100"
+                :aria-valuenow="handleValueNow(index)"
+                :aria-valuetext="`${handleValueNow(index)}%`"
                 :tabindex="pane.isResizable && panes[index + 1].isResizable ? 0 : -1"
                 @pointerdown="onHandlePointerDown($event, index)"
                 @keydown="onHandleKeyDown($event, index)"/>
@@ -29,7 +32,7 @@
 <script
     lang="ts"
     setup>
-    import { flattenVNodeTree } from '@flux-ui/internals';
+    import { flattenVNodeTree, getComponentProps } from '@flux-ui/internals';
     import type { FluxDirection } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, toRef, useTemplateRef, type VNode } from 'vue';
@@ -65,16 +68,21 @@
                 continue;
             }
 
-            const props = vnode.props ?? {};
-            const defaultSize = props.defaultSize ?? props['default-size'];
-            const minSize = props.minSize ?? props['min-size'];
-            const maxSize = props.maxSize ?? props['max-size'];
-            const isResizable = props.isResizable ?? props['is-resizable'];
+            const props = getComponentProps<{
+                defaultSize?: number | string;
+                minSize?: number;
+                maxSize?: number;
+                isResizable?: boolean | string;
+            }>(vnode);
+            const {defaultSize, minSize, maxSize, isResizable} = props;
+
+            const vnodeKey = vnode.key;
 
             out.push({
                 id: out.length,
+                key: typeof vnodeKey === 'string' || typeof vnodeKey === 'number' ? vnodeKey : out.length,
                 vnode,
-                defaultSize: defaultSize as number | string | undefined,
+                defaultSize,
                 minSize: typeof minSize === 'number' ? minSize : 64,
                 maxSize: typeof maxSize === 'number' ? maxSize : undefined,
                 isResizable: isResizable !== false && isResizable !== 'false'
@@ -98,4 +106,16 @@
         panes: paneSpecs,
         rememberKey
     });
+
+    function handleValueNow(index: number): number {
+        const left = sizes.value[index] ?? 0;
+        const right = sizes.value[index + 1] ?? 0;
+        const total = left + right;
+
+        if (total <= 0) {
+            return 0;
+        }
+
+        return Math.round((left / total) * 100);
+    }
 </script>

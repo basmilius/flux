@@ -24,6 +24,10 @@ This component allows users to interact with an image by setting a focal point a
 render=../../code/components/focal-point/editor/preview.vue
 :::
 
+::: tip Accessibility
+The editor is focusable and exposed as a 2D slider. Once focused, the focal point can be moved with the arrow keys (hold <kbd>Shift</kbd> for larger steps), and <kbd>Home</kbd> / <kbd>End</kbd> jump to the top-left and bottom-right corners. The current position is announced through `aria-valuetext`.
+:::
+
 <FrontmatterDocs/>
 
 ## Examples

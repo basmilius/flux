@@ -71,10 +71,14 @@ Initial value applied when state is <code>undefined</code>. Reset returns to thi
 Filter is shown but not interactive.</p>
 
 <p><code><strong>on-change</strong>?: (value: FluxFilterValue) =&gt; void</code><br>
-Called after the filter's value mutates.</p>
+Called after the filter's value mutates. Also called by reset when a <code>default-value</code> is set, receiving that default value.</p>
 
 <p><code><strong>on-clear</strong>?: () =&gt; void</code><br>
-Called when the filter is reset.</p>
+Called when the filter is cleared, and when reset has no <code>default-value</code> to fall back to.</p>
+
+::: tip Clear vs. reset
+Clearing a filter removes its key from the state entirely and calls <code>on-clear</code>. Resetting a filter that has a <code>default-value</code> writes that value back and calls <code>on-change</code>; resetting a filter without a <code>default-value</code> behaves like clear and removes the key while calling <code>on-clear</code>.
+:::
 
 ## Custom filter types
 

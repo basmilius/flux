@@ -19,9 +19,11 @@
         v-else-if="componentType === 'link'"
         v-bind="$attrs"
         v-on="hoverListeners"
-        :href="sanitizeUrl(href)"
+        :href="safeHref"
         :rel="resolvedRel"
         :target="target"
+        :tabindex="isHrefBlocked ? -1 : undefined"
+        :aria-disabled="isHrefBlocked ? true : undefined"
         @click="onClick($event)">
         <slot/>
     </a>
@@ -36,9 +38,12 @@
 
     <div
         v-else
+        role="button"
+        :tabindex="noneTabindex"
         v-bind="$attrs"
         v-on="hoverListeners"
-        @click="onClick">
+        @click="onClick($event)"
+        @keydown="onKeyDown">
         <slot/>
     </div>
 </template>
@@ -47,7 +52,7 @@
     lang="ts"
     setup>
     import type { FluxPressableType, FluxTo } from '@flux-ui/types';
-    import { computed, type VNode } from 'vue';
+    import { computed, useAttrs, type VNode } from 'vue';
     import { sanitizeUrl } from '~flux/components/util';
 
     const emit = defineEmits<{
@@ -56,7 +61,7 @@
         mouseleave: [MouseEvent];
     }>();
 
-    const {rel, target} = defineProps<{
+    const {href, rel, target} = defineProps<{
         readonly componentType?: FluxPressableType;
         readonly href?: string;
         readonly rel?: string;
@@ -67,6 +72,12 @@
     defineSlots<{
         default(): VNode[];
     }>();
+
+    const attrs = useAttrs();
+
+    const safeHref = computed(() => sanitizeUrl(href));
+    const isHrefBlocked = computed(() => href != null && href !== '' && safeHref.value === undefined);
+    const noneTabindex = computed(() => (attrs.tabindex as number | string | undefined) ?? 0);
 
     const resolvedRel = computed(() => {
         if (rel) {
@@ -82,6 +93,12 @@
     };
 
     function onClick(evt: MouseEvent, navigate?: (evt: MouseEvent) => void): void {
+        if (isHrefBlocked.value) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            return;
+        }
+
         emit('click', evt);
 
         if (evt.defaultPrevented) {
@@ -89,5 +106,14 @@
         }
 
         navigate?.(evt);
+    }
+
+    function onKeyDown(evt: KeyboardEvent): void {
+        if (evt.key !== 'Enter' && evt.key !== ' ') {
+            return;
+        }
+
+        evt.preventDefault();
+        (evt.currentTarget as HTMLElement).click();
     }
 </script>

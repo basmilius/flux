@@ -1,6 +1,6 @@
 <template>
     <svg
-        ref="svg"
+        aria-hidden="true"
         :class="$style.dotPattern">
         <defs>
             <pattern
@@ -29,7 +29,7 @@
 <script
     lang="ts"
     setup>
-    import { ref, useId, useTemplateRef, watch } from 'vue';
+    import { useId } from 'vue';
     import $style from '~flux/components/css/component/Visual.module.scss';
 
     const {
@@ -46,27 +46,5 @@
         readonly cy?: number;
     }>();
 
-    const svgRef = useTemplateRef<HTMLElement>('svg');
     const id = useId();
-
-    const svgWidth = ref(0);
-    const svgHeight = ref(0);
-
-    watch(svgRef, (svg, _, onCleanup) => {
-        if (!svg) {
-            return;
-        }
-
-        const onResize = () => {
-            svgWidth.value = svg.clientWidth;
-            svgHeight.value = svg.clientHeight;
-        };
-
-        window.addEventListener('resize', onResize, {passive: true});
-        onResize();
-
-        onCleanup(() => {
-            window.removeEventListener('resize', onResize);
-        });
-    }, {immediate: true});
 </script>

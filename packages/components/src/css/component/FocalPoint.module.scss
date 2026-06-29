@@ -1,3 +1,5 @@
+@use '~flux/components/css/mixin';
+
 .focalPointImage {
     object-fit: cover;
 }
@@ -9,8 +11,11 @@
     max-height: 210px;
     max-width: 100%;
     aspect-ratio: var(--aspect-ratio);
+    border-radius: var(--radius);
     touch-action: none;
     user-select: none;
+
+    @include mixin.focus-ring(3px);
 }
 
 .focalPointEditorArea {

@@ -3,7 +3,6 @@
         ref="control"
         :class="isFill ? $style.segmentedControlFill : $style.segmentedControlInline"
         role="radiogroup"
-        :aria-label="ariaLabel"
         @keydown="onKeyDown">
         <div
             v-if="activeItemWidth > 0"
@@ -29,7 +28,6 @@
     const modelValue = defineModel<FluxSegmentedControlValue>();
 
     const { size = 'medium' } = defineProps<{
-        readonly ariaLabel?: string;
         readonly isFill?: boolean;
         readonly size?: FluxSize;
     }>();

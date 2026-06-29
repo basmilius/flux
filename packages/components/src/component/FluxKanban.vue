@@ -1,9 +1,8 @@
 <template>
     <div
         ref="root"
-        role="application"
+        role="group"
         aria-roledescription="Kanban board"
-        :aria-label="ariaLabel"
         :class="[$style.kanban, isDragging && $style.isBoardDragging]">
         <slot/>
 
@@ -26,12 +25,10 @@
     import $style from '~flux/components/css/component/Kanban.module.scss';
 
     const {
-        ariaLabel,
         canMove,
         disabled = false,
         reorderableColumns = false
     } = defineProps<{
-        readonly ariaLabel?: string;
         readonly canMove?: (event: FluxKanbanMoveEvent) => boolean;
         readonly disabled?: boolean;
         readonly reorderableColumns?: boolean;
@@ -75,13 +72,13 @@
 
     onMounted(() => {
         kanban.setBoardElement(root.value);
-        window.addEventListener('drag', onPointerMove);
+        window.addEventListener('dragover', onPointerMove);
         window.addEventListener('dragend', kanban.cancelAll);
     });
 
     onBeforeUnmount(() => {
         kanban.setBoardElement(null);
-        window.removeEventListener('drag', onPointerMove);
+        window.removeEventListener('dragover', onPointerMove);
         window.removeEventListener('dragend', kanban.cancelAll);
     });
 

@@ -18,14 +18,19 @@
                     v-if="targetRect && currentItem"
                     ref="popup"
                     :anchor="virtualAnchor"
+                    aria-modal="true"
+                    :aria-labelledby="currentItem.title ? titleId : undefined"
                     :class="clsx($style.tourPopover, isStepping && $style.isStepping)"
                     :position="currentItem.position ?? 'bottom'"
-                    aria-modal="true"
                     clamp-to-viewport
                     role="dialog">
-                    <FluxPane :class="$style.tourPane">
+                    <FluxPane
+                        ref="popover"
+                        :class="$style.tourPane">
                         <div
                             ref="bodyViewport"
+                            aria-atomic="true"
+                            aria-live="polite"
                             :class="$style.tourBodyViewport">
                             <Transition
                                 @after-enter="onBodyAfterEnter"
@@ -35,6 +40,7 @@
                                     :class="$style.tourBody">
                                     <strong
                                         v-if="currentItem.title"
+                                        :id="titleId"
                                         :class="$style.tourTitle">
                                         {{ currentItem.title }}
                                     </strong>
@@ -92,9 +98,9 @@
     lang="ts"
     setup>
     import { isHtmlElement } from '@basmilius/utils';
-    import { flattenVNodeTree, isSSR, useEventListener } from '@flux-ui/internals';
+    import { flattenVNodeTree, isSSR, useEventListener, useFocusTrap } from '@flux-ui/internals';
     import { clsx } from 'clsx';
-    import { type ComponentPublicInstance, computed, Fragment, h, nextTick, ref, useTemplateRef, type VNode, watch } from 'vue';
+    import { type ComponentPublicInstance, computed, Fragment, h, nextTick, ref, useId, useTemplateRef, type VNode, watch } from 'vue';
     import { AnchorPopup, VNodeRenderer } from '~flux/components/component/primitive';
     import { useTranslate } from '~flux/components/composable/private';
     import { FluxFadeTransition } from '~flux/components/transition';
@@ -148,9 +154,13 @@
     const translate = useTranslate();
 
     const popup = useTemplateRef<{ reposition(): void; resize(): void }>('popup');
+    const popover = useTemplateRef<HTMLElement>('popover');
     const bodyViewport = useTemplateRef<HTMLElement>('bodyViewport');
     const targetRect = ref<DOMRect | null>(null);
     const isStepping = ref(false);
+    const titleId = useId();
+
+    useFocusTrap(popover, {disable: computed(() => !active.value)});
 
     let steppingTimer: ReturnType<typeof setTimeout> | undefined;
 

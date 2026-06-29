@@ -3,8 +3,7 @@
         ref="element"
         :class="[isLarge ? $style.menuLarge : $style.menuNormal, coneActive && $style.menuConeActive]"
         role="menu"
-        aria-orientation="vertical"
-        :aria-label="label">
+        aria-orientation="vertical">
         <slot/>
     </nav>
 </template>
@@ -25,7 +24,6 @@
         readonly debugCone?: boolean;
         readonly isLarge?: boolean;
         readonly isPersistent?: boolean;
-        readonly label?: string;
     }>();
 
     defineSlots<{

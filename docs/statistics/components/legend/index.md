@@ -31,6 +31,10 @@ render=../../../code/statistics/components/legend/preview.vue
 This component is best used within a [Chart pane](../chart-pane) via the `legend` slot.
 :::
 
+::: info
+The legend exposes the ARIA `list` role and its items are `listitem`s. Items are keyboard focusable, and moving focus onto an item drives the same hover synchronization as the mouse — so the linked chart or percentage bar highlights when a legend item is focused with the keyboard.
+:::
+
 <FrontmatterDocs/>
 
 ## Examples

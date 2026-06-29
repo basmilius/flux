@@ -34,7 +34,6 @@ the export name (`layout/flex` → `FluxFlex`).
 - `FluxContainer` — constrains content to a max width.
 - `FluxSpacer` — flexible space that pushes siblings apart.
 - `FluxSpacing` — explicit spacing helper.
-- `FluxSticky` — sticky positioning within a scroll area.
 - `FluxAspectRatio` — fixed aspect-ratio box (media).
 - `FluxScroller` — managed scroll container.
 - `FluxDivider` / `FluxSeparator` — visual separation.

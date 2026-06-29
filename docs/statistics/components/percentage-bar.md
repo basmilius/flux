@@ -15,6 +15,14 @@ The percentage bar visualizes the proportional breakdown of a collection of item
 render=../../code/statistics/components/percentage-bar/preview.vue
 :::
 
+::: tip
+Negative item values are clamped to `0`, so a malformed data point never renders as a reversed or overlapping segment.
+:::
+
+::: info
+The bar exposes the ARIA `img` role with an `aria-label` summarizing each segment as a percentage and label, so the breakdown is available to assistive technologies without relying on the visual segments.
+:::
+
 <FrontmatterDocs/>
 
 ## Examples

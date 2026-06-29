@@ -26,7 +26,7 @@
                         '--shine-colors': props.colors.join(', '),
                         '--shine-duration': props.duration,
                         '--shine-offset': props.offset,
-                        '--shine-radius': props.radius,
+                        '--shine-radius': typeof props.radius === 'number' ? `${props.radius}px` : props.radius,
                         '--shine-width': props.width
                     }
                 }))

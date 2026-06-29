@@ -11,9 +11,11 @@
             size === 'xl' && $style.isXl
         )"
         :type="isSubmit ? 'submit' : 'button'"
+        :aria-busy="isLoading ? true : undefined"
         :aria-disabled="disabled ? true : undefined"
         :aria-pressed="isActive && type === 'button' ? true : undefined"
-        :disabled="disabled ? true : undefined"
+        :aria-current="isActive && (type === 'link' || type === 'route') ? 'page' : undefined"
+        :disabled="disabled && type === 'button' ? true : undefined"
         :tabindex="disabled ? -1 : tabindex"
         :href="href"
         :rel="rel"
@@ -45,7 +47,7 @@
 
         <slot name="iconTrailing">
             <FluxSpinner
-                v-if="isLoading && (!iconLeading && iconTrailing)"
+                v-if="isLoading && iconTrailing && !iconLeading"
                 :size="20"/>
 
             <FluxIcon

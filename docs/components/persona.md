@@ -67,6 +67,10 @@ render=../code/components/persona/preview.vue
 
 <FrontmatterDocs/>
 
+::: tip
+In compact mode the name and title are hidden, so the persona button exposes the `name` as its `aria-label` to keep it accessible.
+:::
+
 ## Examples
 
 ::: example Basic || A basic persona.

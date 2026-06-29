@@ -105,6 +105,10 @@ render=../code/components/avatar/preview.vue
 To display a person's name and title along with their avatar, consider using the [Persona](./persona) component.
 :::
 
+::: tip Accessibility
+When a `src` fails to load, the avatar automatically falls back to its initials or icon, so a broken image is never shown. The `role="img"` attribute is only applied when `type` is `none`; for interactive avatars (`button`, `link`, `route`) the underlying element keeps its native role.
+:::
+
 <FrontmatterDocs/>
 
 ## Examples

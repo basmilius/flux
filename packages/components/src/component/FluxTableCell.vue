@@ -6,15 +6,15 @@
             noWrap && $style.isNoWrap,
             pinned && $style.isPinned
         )"
-        :colspan="colspan"
-        role="cell">
+        :colspan="colspan">
         <slot name="content">
             <div
                 :class="$style.tableCellContent"
                 :style="{
                     flexFlow: contentDirection,
                     gap: contentGap != null ? `${contentGap}px` : undefined,
-                    justifyContent: align,
+                    alignItems: contentDirection === 'column' ? align : undefined,
+                    justifyContent: contentDirection === 'column' ? undefined : align,
                     textAlign: align
                 }">
                 <slot/>

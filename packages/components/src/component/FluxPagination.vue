@@ -14,11 +14,10 @@
         <template
             v-if="!isCompact"
             v-for="p of visiblePages">
-            <FluxPaginationButton
+            <span
                 v-if="p === 'dots'"
-                disabled
-                icon-leading="ellipsis-h"
-                is-spacer/>
+                :class="$style.paginationDots"
+                aria-hidden="true">…</span>
 
             <FluxPaginationButton
                 v-else-if="p === page"
@@ -36,6 +35,7 @@
         <template v-else>
             <FluxPaginationButton
                 is-current
+                :aria-label="translate('flux.goToPage', {page})"
                 @click="prompt"
                 #before>
                 <strong>{{ page }}</strong>
@@ -86,7 +86,9 @@
     const isPreviousDisabled = computed(() => page <= 1);
 
     const visiblePages = computed(() => {
-        if (unref(pages) === 0) {
+        const totalPages = unref(pages);
+
+        if (totalPages === 0) {
             return [];
         }
 
@@ -95,26 +97,29 @@
             middle: 2
         } as const;
 
-        let dots = false;
-        let visible: (number | 'dots')[] = [];
+        const shouldShow = (n: number): boolean =>
+            n <= sizes.end ||
+            n > totalPages - sizes.end ||
+            (n >= page - sizes.middle && n <= page + sizes.middle);
 
-        if (unref(pages) === (sizes.end + sizes.middle + 2)) {
-            for (let n = 1; n <= unref(pages); ++n) {
-                visible.push(n);
+        const visible: (number | 'dots')[] = [];
+        let previous = 0;
+
+        for (let n = 1; n <= totalPages; ++n) {
+            if (!shouldShow(n)) {
+                continue;
             }
-        } else {
-            for (let n = 1; n <= unref(pages); ++n) {
-                if (page === n) {
-                    dots = true;
-                    visible.push(n);
-                } else if (n <= sizes.end || (n >= page - sizes.middle && n <= page + sizes.middle) || n > unref(pages) - sizes.end) {
-                    dots = true;
-                    visible.push(n);
-                } else if (dots) {
-                    dots = false;
-                    visible.push('dots');
-                }
+
+            const gap = n - previous - 1;
+
+            if (gap === 1) {
+                visible.push(n - 1);
+            } else if (gap > 1) {
+                visible.push('dots');
             }
+
+            visible.push(n);
+            previous = n;
         }
 
         return visible;

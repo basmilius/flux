@@ -1,8 +1,11 @@
 <template>
-    <div :class="$style.statisticsPercentageBar">
+    <div
+        role="img"
+        :aria-label="ariaLabel"
+        :class="$style.statisticsPercentageBar">
         <div :class="clsx($style.statisticsPercentageBarTrack, hoveredIndex !== null && $style.isHoverActive)">
             <FluxTooltip
-                v-for="(item, index) of items"
+                v-for="(item, index) of normalizedItems"
                 :key="index">
                 <template #content>
                     <div :class="$style.statisticsPercentageBarTooltip">
@@ -37,15 +40,21 @@
     import { clsx } from 'clsx';
     import { computed, inject, watchEffect } from 'vue';
     import { type ChartLegendItem, FluxStatisticsChartLegendInjectionKey } from '~flux/statistics/composable';
+    import { resolveChartColor } from '~flux/statistics/util';
     import $style from '~flux/statistics/css/PercentageBar.module.scss';
-
-    const SEMANTIC_COLORS = ['gray', 'primary', 'danger', 'info', 'success', 'warning'] as const;
 
     const props = defineProps<{
         readonly items: FluxStatisticsPercentageBarItemObject[];
     }>();
 
     const legendContext = inject(FluxStatisticsChartLegendInjectionKey, null);
+
+    const normalizedItems = computed(() =>
+        props.items.map(item => ({
+            ...item,
+            value: Math.max(0, item.value)
+        }))
+    );
 
     const legendItems = computed<ChartLegendItem[]>(() =>
         props.items.map(item => ({
@@ -54,6 +63,10 @@
             label: item.label,
             value: item.displayValue
         }))
+    );
+
+    const ariaLabel = computed(() =>
+        props.items.map(item => `${formatPercentage(Math.max(0, item.value))} ${item.label}`).join(', ')
     );
 
     const hoveredIndex = computed<number | null>(() => legendContext?.hoveredIndex.value ?? null);
@@ -65,15 +78,7 @@
     });
 
     function resolveColor(color?: FluxStatisticsChartColor): string | undefined {
-        if (!color) {
-            return;
-        }
-
-        if (SEMANTIC_COLORS.includes(color as typeof SEMANTIC_COLORS[number])) {
-            return `var(--${color}-600)`;
-        }
-
-        return color;
+        return resolveChartColor(color);
     }
 
     function onSegmentEnter(index: number): void {

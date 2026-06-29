@@ -160,7 +160,6 @@ export { default as FluxSplitViewPane } from './FluxSplitViewPane.vue';
 export { default as FluxStepper } from './FluxStepper.vue';
 export { default as FluxStepperStep } from './FluxStepperStep.vue';
 export { default as FluxStepperSteps } from './FluxStepperSteps.vue';
-export { default as FluxSticky } from './FluxSticky.vue';
 export { default as FluxTab } from './FluxTab.vue';
 export { default as FluxTabBar } from './FluxTabBar.vue';
 export { default as FluxTabBarItem } from './FluxTabBarItem.vue';

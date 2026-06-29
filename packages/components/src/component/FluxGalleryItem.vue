@@ -1,8 +1,10 @@
 <template>
     <div
         :class="$style.galleryItem"
-        @mouseenter.capture="isDeleteVisible = true"
-        @mouseout.capture="isDeleteVisible = false">
+        @mouseenter="isDeleteVisible = true"
+        @mouseleave="isDeleteVisible = false"
+        @focusin="isDeleteVisible = true"
+        @focusout="isDeleteVisible = false">
         <FluxFocalPointImage
             :class="$style.galleryItemImage"
             :focal-point="focalPoint"
@@ -11,7 +13,6 @@
         <FluxRemove
             v-if="isDeletable"
             :is-hidden="!isDeleteVisible"
-            tabindex="-1"
             @click="emit('delete')"/>
 
         <div
@@ -46,7 +47,7 @@
         readonly url: string;
     }>();
 
-    // The delete button reveals on hover, but touch devices can't hover, so show it from the start
-    // there (mouseenter/mouseout never fire on touch, keeping it visible).
+    // The delete button reveals on hover/focus, but touch devices can't hover, so show it from the
+    // start there (mouseenter/mouseleave never fire on touch, keeping it visible).
     const isDeleteVisible = ref(!isSSR && !matchMedia('(hover: hover)').matches);
 </script>

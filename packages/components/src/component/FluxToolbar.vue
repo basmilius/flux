@@ -10,8 +10,7 @@
             floatingMode === 'bottom-start' && $style.isBottomStart
         )"
         :gap="6"
-        role="toolbar"
-        :aria-label="ariaLabel ?? 'Toolbar'">
+        role="toolbar">
         <slot/>
     </FluxFlex>
 </template>
@@ -26,7 +25,6 @@
     import $style from '~flux/components/css/component/Toolbar.module.scss';
 
     defineProps<{
-        readonly ariaLabel?: string;
         readonly floatingMode?: 'free' | 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end';
     }>();
 

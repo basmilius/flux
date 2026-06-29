@@ -1,6 +1,6 @@
 <template>
     <svg
-        ref="svg"
+        aria-hidden="true"
         :class="$style.gridPattern">
         <defs>
             <pattern
@@ -24,7 +24,7 @@
             :fill="`url(#${id})`"/>
 
         <svg
-            v-if="squares"
+            v-if="squares?.length"
             style="overflow: visible;">
             <rect
                 v-for="[x, y] of squares"

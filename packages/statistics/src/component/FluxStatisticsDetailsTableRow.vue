@@ -1,10 +1,16 @@
 <template>
-    <div :class="$style.detailsTableRow">
-        <span :class="$style.detailsTableRowLabel">
+    <div
+        role="row"
+        :class="$style.detailsTableRow">
+        <span
+            role="rowheader"
+            :class="$style.detailsTableRowLabel">
             {{ label }}
         </span>
 
-        <span :class="$style.detailsTableRowValue">
+        <span
+            role="cell"
+            :class="$style.detailsTableRowValue">
             {{ value }}
         </span>
     </div>

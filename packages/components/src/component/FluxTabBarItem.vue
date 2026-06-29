@@ -8,7 +8,7 @@
         :aria-disabled="disabled ? true : undefined"
         :aria-selected="isActive"
         :disabled="disabled ? true : undefined"
-        :tabindex="disabled ? -1 : tabindex"
+        :tabindex="resolvedTabindex"
         :href="href"
         :rel="rel"
         :target="target"
@@ -28,8 +28,9 @@
 <script
     lang="ts"
     setup>
+    import { useMutationObserver } from '@basmilius/common';
     import type { FluxIconName, FluxPressableType, FluxTo } from '@flux-ui/types';
-    import { type ComponentPublicInstance, computed, onBeforeUnmount, onMounted, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { type ComponentPublicInstance, computed, onBeforeUnmount, onMounted, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled, useTabBarInjection } from '~flux/components/composable';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
@@ -43,7 +44,8 @@
 
     const {
         disabled: componentDisabled,
-        isActive
+        isActive,
+        tabindex
     } = defineProps<{
         readonly type?: FluxPressableType;
         readonly disabled?: boolean;
@@ -69,7 +71,29 @@
         return isActive ? $style.tabBarItemDefaultActive : $style.tabBarItemDefault;
     });
 
+    const isFirstEnabled = ref(false);
+
+    const resolvedTabindex = computed(() => {
+        if (componentDisabled || unref(disabled)) {
+            return -1;
+        }
+
+        if (tabindex !== undefined) {
+            return tabindex;
+        }
+
+        if (isActive || isFirstEnabled.value) {
+            return 0;
+        }
+
+        return -1;
+    });
+
     let registeredElement: Element | null = null;
+
+    const tabListRef = computed(() => (unref(tabRef)?.$el as Element | undefined)?.parentElement ?? null);
+
+    useMutationObserver(tabListRef, () => updateFirstEnabled(), {attributeFilter: ['aria-disabled', 'aria-selected'], attributes: true, childList: true, subtree: true});
 
     onMounted(() => {
         const tab = unref(tabRef);
@@ -80,6 +104,7 @@
 
         registeredElement = tab.$el;
         tabBar.registerItem(registeredElement!, toRef(() => !!isActive));
+        updateFirstEnabled();
     });
 
     onBeforeUnmount(() => {
@@ -90,6 +115,23 @@
         tabBar.unregisterItem(registeredElement);
         registeredElement = null;
     });
+
+    function updateFirstEnabled(): void {
+        const parent = registeredElement?.parentElement;
+
+        if (!registeredElement || !parent) {
+            isFirstEnabled.value = false;
+            return;
+        }
+
+        if (parent.querySelector('[role=tab][aria-selected=true]')) {
+            isFirstEnabled.value = false;
+            return;
+        }
+
+        const firstEnabled = parent.querySelector<HTMLElement>('[role=tab]:not([aria-disabled=true])');
+        isFirstEnabled.value = firstEnabled === registeredElement;
+    }
 
     function onClick(evt: MouseEvent): void {
         if (unref(disabled)) {

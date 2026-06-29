@@ -11,12 +11,6 @@ emits:
         type: [ FluxTreeViewOption ]
 
 props:
-    -   name: aria-label
-        description: Accessible label for the tree, exposed on the `role="tree"` container.
-        type: string
-        optional: true
-        default: Tree
-
     -   name: level-colors
         description: An array of colors per depth level. Index 0 = root level, index 1 = first child level, etc. Each entry can be a `FluxColor` name (e.g. `primary`, `danger`) or any CSS color string (e.g. `#6366f1`). Levels without an entry show no color dot.
         type: (FluxColor | string)[]

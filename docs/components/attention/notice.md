@@ -82,7 +82,7 @@ example=../../code/components/attention/notice/basic.vue
 example=../../code/components/attention/notice/loading.vue
 :::
 
-## Serverty examples
+## Severity examples
 
 Colors such as `success`, `error`, `warning`, `info`, and `gray` help convey the severity of the message. For example:
 
@@ -91,6 +91,10 @@ Colors such as `success`, `error`, `warning`, `info`, and `gray` help convey the
 - `success` — Data saved successfully.
 - `warning` — You have unsaved changes.
 - `gray` — We've updated the invoice filter, see what's new.
+
+## Accessibility
+
+The notice exposes its severity to assistive technology. A `danger` or `warning` notice uses `role="alert"` with `aria-live="assertive"` so it is announced immediately, while all other colors use `role="status"` with `aria-live="polite"`.
 
 ## Used components
 

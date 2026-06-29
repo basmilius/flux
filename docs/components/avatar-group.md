@@ -2,11 +2,6 @@
 outline: deep
 
 props:
-    -   name: aria-label
-        description: An accessible label for the group, exposed via role="group".
-        type: string
-        optional: true
-
     -   name: max
         description: The maximum number of avatars to display. Remaining avatars are summarized in a "+N" overflow chip.
         type: number

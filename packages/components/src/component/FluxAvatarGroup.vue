@@ -5,8 +5,7 @@
             fontSize: `${size}px`,
             '--overlap': overlap
         }"
-        role="group"
-        :aria-label="ariaLabel">
+        role="group">
         <component :is="renderVisible"/>
 
         <FluxTooltip
@@ -33,12 +32,10 @@
     import $style from '~flux/components/css/component/AvatarGroup.module.scss';
 
     const {
-        ariaLabel,
         max,
         overlap = 0.3,
         size = 32
     } = defineProps<{
-        readonly ariaLabel?: string;
         readonly max?: number;
         readonly overlap?: number;
         readonly size?: number;

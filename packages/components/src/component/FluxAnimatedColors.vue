@@ -1,6 +1,7 @@
 <template>
     <canvas
         ref="canvas"
+        aria-hidden="true"
         :class="$style.animatedColors"/>
 </template>
 
@@ -9,7 +10,8 @@
     setup>
     import { useComponentId } from '@basmilius/common';
     import { mulberry32 } from '@basmilius/utils';
-    import { computed, onBeforeUnmount, onMounted, ref, unref, useTemplateRef, watch } from 'vue';
+    import { useInView } from '@flux-ui/internals';
+    import { computed, onBeforeUnmount, ref, unref, useTemplateRef, watch } from 'vue';
     import $style from '~flux/components/css/component/Visual.module.scss';
 
     type Polygon = [number, number, string, PolygonPoint[]];
@@ -31,10 +33,14 @@
 
     const canvasRef = useTemplateRef('canvas');
     const componentId = useComponentId();
+    const inView = useInView(canvasRef, {initial: true});
 
     const contextRef = ref<CanvasRenderingContext2D>();
     const animationFrame = ref(0);
     const tick = ref(0);
+    const size = ref<{ width: number; height: number; } | null>(null);
+
+    const reducedMotion = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
     const polygons = computed(() => {
         if (!colors || colors.length === 0) {
@@ -66,11 +72,11 @@
         return polygons;
     });
 
-    onMounted(() => schedule());
     onBeforeUnmount(() => cancel());
 
     function cancel(): void {
         cancelAnimationFrame(animationFrame.value);
+        animationFrame.value = 0;
     }
 
     function schedule(): void {
@@ -79,18 +85,25 @@
     }
 
     function update(): void {
+        render();
+
+        if (!isStatic && !reducedMotion && unref(inView)) {
+            schedule();
+        } else {
+            animationFrame.value = 0;
+        }
+    }
+
+    function render(): void {
         const context = unref(contextRef);
         const shapes = unref(polygons);
+        const dimensions = unref(size);
 
-        if (!context || shapes.length === 0) {
+        if (!context || shapes.length === 0 || !dimensions) {
             return;
         }
 
-        const width = context.canvas.offsetWidth;
-        const height = context.canvas.offsetHeight;
-        context.canvas.width = width;
-        context.canvas.height = height;
-
+        const {width, height} = dimensions;
         const widthBasedOpacity = Math.min(1, Math.max(.15, 360 / width));
 
         context.globalAlpha = opacity * widthBasedOpacity;
@@ -120,13 +133,23 @@
             context.fill();
             context.restore();
         }
-
-        !isStatic && schedule();
     }
 
-    watch(canvasRef, canvas => {
+    function restart(): void {
+        cancel();
+
+        if (isStatic || reducedMotion || !unref(inView)) {
+            render();
+            return;
+        }
+
+        schedule();
+    }
+
+    watch(canvasRef, (canvas, _, onCleanup) => {
         if (!canvas) {
             contextRef.value = undefined;
+            size.value = null;
             return;
         }
 
@@ -134,10 +157,31 @@
             alpha: true,
             colorSpace: 'display-p3'
         })!;
+
+        if (typeof ResizeObserver === 'undefined') {
+            size.value = {width: canvas.offsetWidth, height: canvas.offsetHeight};
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            return;
+        }
+
+        const observer = new ResizeObserver(() => {
+            const width = canvas.offsetWidth;
+            const height = canvas.offsetHeight;
+
+            if (!width || !height || (size.value?.width === width && size.value?.height === height)) {
+                return;
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            size.value = {width, height};
+        });
+
+        observer.observe(canvas);
+
+        onCleanup(() => observer.disconnect());
     }, {immediate: true});
 
-    watch([polygons, () => opacity], () => {
-        cancel();
-        schedule();
-    });
+    watch([polygons, () => opacity, size, inView], () => restart());
 </script>

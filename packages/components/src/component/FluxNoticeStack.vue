@@ -1,7 +1,8 @@
 <template>
     <FluxFlex
         direction="vertical"
-        :gap="6">
+        :gap="6"
+        role="group">
         <slot/>
     </FluxFlex>
 </template>

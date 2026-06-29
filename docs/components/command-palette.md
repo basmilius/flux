@@ -57,6 +57,8 @@ A searchable command palette that provides quick access to navigation, actions, 
 
 Items are organized through sources, where each source represents a group of related items. Sources can optionally appear as horizontal tabs for scoped filtering. Items within a source can have sub-actions, which are shown after selecting the item.
 
+The palette follows the ARIA combobox pattern: the search input owns focus and points at the active result through `aria-activedescendant`, while the results render as a `listbox` of `option`s. The placeholder, empty-state text and accessible labels are localized through the Flux translation keys, so they follow the active locale automatically.
+
 ::: render
 render=../code/components/command-palette/preview.vue
 :::

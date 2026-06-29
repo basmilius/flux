@@ -16,6 +16,8 @@ slots:
 
 The tab bar displays a row of navigation tabs, allowing users to switch between different sections or views within the interface. It groups multiple tab items together in a single bar and provides a consistent, easy-to-scan structure for navigating related content areas.
 
+The bar is exposed as a `role="tablist"` and is fully keyboard navigable: <kbd>ArrowLeft</kbd>/<kbd>ArrowUp</kbd> and <kbd>ArrowRight</kbd>/<kbd>ArrowDown</kbd> move between tabs (wrapping around the ends), while <kbd>Home</kbd> and <kbd>End</kbd> jump to the first and last tab. Disabled tabs are skipped, and the overflow scroll arrows are hidden from assistive technologies. A single roving tab stop keeps the bar reachable with <kbd>Tab</kbd>: the selected tab is tabbable, or the first enabled tab when none is selected.
+
 ::: render
 render=../../code/components/tab-bar/preview.vue
 :::

@@ -6,8 +6,7 @@
             layout === 'full' && $style.applicationContentFull,
             layout === 'medium' && $style.applicationContentMedium,
             layout === 'narrow' && $style.applicationContentNarrow
-        )"
-        aria-label="Application Content">
+        )">
         <slot/>
     </main>
 </template>

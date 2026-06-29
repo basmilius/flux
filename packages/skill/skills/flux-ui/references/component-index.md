@@ -119,7 +119,6 @@ The `Layout` path segment is **dropped** from the export name (⚠).
 | `virtual-scroller`       | `FluxVirtualScroller` | Virtualised scroll container (large lists; no `layout/` prefix) |
 | `layout/spacer`          | `FluxSpacer` ⚠ | Flexible space |
 | `layout/spacing`         | `FluxSpacing` ⚠ | Spacing helper |
-| `layout/sticky`          | `FluxSticky` ⚠ | Sticky positioning |
 | `layout/split-view`      | `FluxSplitView` ⚠ | Resizable split view |
 | `layout/split-view/pane` | `FluxSplitViewPane` ⚠ | Split-view pane |
 | `divider`                | `FluxDivider` | Divider |

@@ -12,11 +12,6 @@ props:
         type: boolean
         optional: true
 
-    -   name: label
-        description: An accessible label for the menu, applied as aria-label on the menu element. Use it to name the menu for screen readers when there is no visible heading.
-        type: string
-        optional: true
-
 slots:
     -   name: default
         description: The content of the menu.

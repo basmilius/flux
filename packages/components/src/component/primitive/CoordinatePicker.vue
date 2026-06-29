@@ -2,10 +2,12 @@
     <div
         ref="root"
         :class="$style.coordinatePicker"
+        role="group"
         :aria-disabled="disabled ? true : undefined"
         :aria-label="ariaLabel"
         @pointerdown="onPointerDown">
         <CoordinatePickerThumb
+            :aria-label="ariaLabel"
             :disabled="disabled"
             :is-dragging="isDragging"
             :position="thumbPosition"
@@ -54,9 +56,21 @@
     const min = computed(() => Array.isArray(minProp) ? minProp : [minProp, minProp]);
     const step = computed(() => Array.isArray(stepProp) ? stepProp : [stepProp, stepProp]);
 
+    const pointerId = ref<number | null>(null);
+
+    function normalize(value: number, axisMin: number, axisMax: number): number {
+        const span = axisMax - axisMin;
+
+        if (span <= 0) {
+            return 0;
+        }
+
+        return Math.max(0, Math.min(1, (value - axisMin) / span));
+    }
+
     const thumbPosition = computed<[number, number]>(() => [
-        (unref(modelValue)[0] - unref(min)[0]) / (unref(max)[0] - unref(min)[0]),
-        (unref(modelValue)[1] - unref(min)[1]) / (unref(max)[1] - unref(min)[1])
+        normalize(unref(modelValue)[0], unref(min)[0], unref(max)[0]),
+        normalize(unref(modelValue)[1], unref(min)[1], unref(max)[1])
     ]);
 
     function getStepDecimals(stepValue: number): number {
@@ -72,6 +86,10 @@
     }
 
     function roundToStep(value: number, stepValue: number): number {
+        if (stepValue <= 0) {
+            return value;
+        }
+
         return +roundStep(value, stepValue).toFixed(getStepDecimals(stepValue));
     }
 
@@ -122,11 +140,15 @@
             return;
         }
 
+        const root = unrefTemplateElement(rootRef);
+
         isDragging.value = true;
+        pointerId.value = evt.pointerId;
+        root?.setPointerCapture?.(evt.pointerId);
         document.addEventListener('pointermove', onPointerMove);
         document.addEventListener('pointercancel', onPointerUp, {passive: true});
         document.addEventListener('pointerup', onPointerUp, {passive: true});
-        requestAnimationFrame(() => onPointerMove(evt));
+        onPointerMove(evt);
     }
 
     function onPointerMove(evt: PointerEvent): void {
@@ -146,6 +168,10 @@
         width -= 12;
         height -= 12;
 
+        if (width <= 0 || height <= 0) {
+            return;
+        }
+
         const x = Math.max(0, Math.min(1, (evt.clientX - left) / width));
         const y = Math.max(0, Math.min(1, (evt.clientY - top) / height));
 
@@ -158,6 +184,13 @@
     }
 
     function onPointerUp(): void {
+        const root = unrefTemplateElement(rootRef);
+
+        if (pointerId.value !== null) {
+            root?.releasePointerCapture?.(pointerId.value);
+            pointerId.value = null;
+        }
+
         isDragging.value = false;
         document.removeEventListener('pointermove', onPointerMove);
         document.removeEventListener('pointercancel', onPointerUp);

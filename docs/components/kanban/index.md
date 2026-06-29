@@ -2,11 +2,6 @@
 outline: deep
 
 props:
-    -   name: aria-label
-        description: Accessible label for the board, announced by screen readers.
-        type: string
-        optional: true
-
     -   name: can-move
         description: Optional validator. Return false to reject a drop. Called for both pointer and keyboard moves.
         type: '(event: FluxKanbanMoveEvent) => boolean'

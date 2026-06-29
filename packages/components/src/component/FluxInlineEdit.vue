@@ -1,5 +1,8 @@
 <template>
-    <div :class="$style.inlineEdit">
+    <div
+        ref="root"
+        :class="$style.inlineEdit"
+        tabindex="-1">
         <template v-if="isEditing">
             <FluxFormTextArea
                 v-if="multiline"
@@ -101,10 +104,12 @@
     }>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));
+    const rootRef = useTemplateRef<HTMLElement>('root');
     const displayRef = useTemplateRef<HTMLElement>('display');
     const fieldRef = useTemplateRef<{focus(): void}>('field');
 
     const isEditing = ref(false);
+    const isCancelling = ref(false);
     const draft = ref('');
 
     const isInteractive = computed(() => !disabled.value && !isReadonly);
@@ -115,6 +120,7 @@
         }
 
         draft.value = modelValue.value;
+        isCancelling.value = false;
         isEditing.value = true;
         emit('edit');
 
@@ -123,7 +129,14 @@
 
     function close(): void {
         isEditing.value = false;
-        nextTick(() => displayRef.value?.focus());
+
+        nextTick(() => {
+            if (isInteractive.value && displayRef.value) {
+                displayRef.value.focus();
+            } else {
+                rootRef.value?.focus();
+            }
+        });
     }
 
     function save(): void {
@@ -133,14 +146,27 @@
     }
 
     function cancel(): void {
+        isCancelling.value = true;
         emit('cancel');
         close();
     }
 
     function onBlur(): void {
-        if (saveOnBlur && isEditing.value) {
-            save();
+        if (!saveOnBlur || !isEditing.value || isCancelling.value) {
+            return;
         }
+
+        requestAnimationFrame(() => {
+            if (!saveOnBlur || !isEditing.value || isCancelling.value) {
+                return;
+            }
+
+            if (rootRef.value?.contains(document.activeElement)) {
+                return;
+            }
+
+            save();
+        });
     }
 
     function onKeyDown(evt: KeyboardEvent): void {

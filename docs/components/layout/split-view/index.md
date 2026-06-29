@@ -36,6 +36,10 @@ render=../../../code/components/layout/split-view/preview.vue
 Each pane is configured via props on `FluxSplitViewPane` — see the [pane reference](./pane).
 :::
 
+::: tip
+Each resize handle is exposed as a focusable `role="separator"` with a descriptive `aria-label` and a percentage-based `aria-valuenow` / `aria-valuetext`, so the split ratio is announced to assistive technologies. Give each pane a stable `:key` when toggling panes with `v-if` so the remaining panes keep their sizes.
+:::
+
 <FrontmatterDocs/>
 
 ## Examples

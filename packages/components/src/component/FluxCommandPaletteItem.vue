@@ -1,8 +1,8 @@
 <template>
-    <button
+    <div
         :class="isHighlighted ? $style.commandPaletteItemHighlighted : $style.commandPaletteItem"
-        tabindex="-1"
-        type="button"
+        role="option"
+        :aria-selected="isHighlighted ?? false"
         @click="$emit('activate')"
         @mousedown.prevent
         @mouseenter="$emit('highlight')">
@@ -33,7 +33,7 @@
             v-if="hasSubActions"
             :class="$style.commandPaletteItemSubActionIndicator"
             name="chevron-right"/>
-    </button>
+    </div>
 </template>
 
 <script

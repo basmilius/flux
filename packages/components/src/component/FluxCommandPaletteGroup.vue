@@ -1,5 +1,7 @@
 <template>
-    <div :class="$style.commandPaletteGroup">
+    <div
+        :class="$style.commandPaletteGroup"
+        role="presentation">
         <FluxIcon
             v-if="icon"
             :class="$style.commandPaletteGroupIcon"

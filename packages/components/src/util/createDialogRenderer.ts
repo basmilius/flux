@@ -1,5 +1,5 @@
 import { flattenVNodeTree, useFocusTrap } from '@flux-ui/internals';
-import { Comment, h, onUnmounted, ref, Teleport, watch, type Component, type RenderFunction, type SetupContext, type Slots, type VNode } from 'vue';
+import { Comment, type Component, h, type InjectionKey, onUnmounted, provide, type Ref, ref, type RenderFunction, type SetupContext, type Slots, Teleport, type VNode, watch } from 'vue';
 import { registerDialog, type FluxDialogRegistration } from '~flux/components/data';
 import $style from '~flux/components/css/component/Overlay.module.scss';
 
@@ -9,6 +9,13 @@ type Props = {
     readonly viewKey?: string;
 };
 
+export type FluxDialogContext = {
+    readonly labelledBy: Ref<string | undefined>;
+    readonly label: Ref<string | undefined>;
+};
+
+export const FluxDialogInjectionKey: InjectionKey<FluxDialogContext> = Symbol('flux:dialog');
+
 const TARGET_SELECTOR = `.${$style.overlayProvider.replaceAll(' ', '.')}`;
 let DIALOG_ID = 0;
 
@@ -17,6 +24,10 @@ export default function (attrs: object, props: Props, emit: Emit, slots: Slots, 
     let registration: FluxDialogRegistration | null = null;
 
     const dialogRef = ref<HTMLElement>();
+    const labelledBy = ref<string>();
+    const label = ref<string>();
+
+    provide(FluxDialogInjectionKey, {labelledBy, label});
 
     useFocusTrap(dialogRef);
 
@@ -30,7 +41,7 @@ export default function (attrs: object, props: Props, emit: Emit, slots: Slots, 
             return;
         }
 
-        dialog.addEventListener('keydown', onKeyDown, {passive: true});
+        dialog.addEventListener('keydown', onKeyDown);
 
         onCleanup(() => {
             dialog.removeEventListener('keydown', onKeyDown);
@@ -38,10 +49,12 @@ export default function (attrs: object, props: Props, emit: Emit, slots: Slots, 
     });
 
     function onKeyDown(evt: KeyboardEvent): void {
-        if (evt.key !== 'Escape' || !registration || !props.isCloseable) {
+        if (evt.key !== 'Escape' || !registration || !props.isCloseable || !registration.isCurrent()) {
             return;
         }
 
+        evt.preventDefault();
+        evt.stopPropagation();
         emit('close');
     }
 
@@ -60,6 +73,10 @@ export default function (attrs: object, props: Props, emit: Emit, slots: Slots, 
                 style: {
                     zIndex: registration.getPosition() + 1000
                 },
+                role: 'dialog',
+                'aria-modal': 'true',
+                'aria-labelledby': labelledBy.value,
+                'aria-label': labelledBy.value ? undefined : label.value,
                 tabindex: 0
             }, children);
         } else {

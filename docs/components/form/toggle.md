@@ -50,6 +50,10 @@ A toggle component is a type of user interface element that allows the user to s
 render=../../code/components/form/toggle/preview.vue
 :::
 
+::: info Accessibility
+The toggle is exposed as a native `role="switch"` checkbox. State and validation attributes (`aria-checked`, `aria-disabled`, `aria-readonly`, `aria-invalid`) sit on that control, and when wrapped in a required [Form field](./field/) it also receives `aria-required`.
+:::
+
 <FrontmatterDocs/>
 
 ## Examples

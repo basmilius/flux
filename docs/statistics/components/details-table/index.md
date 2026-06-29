@@ -19,6 +19,10 @@ The details table displays a structured list of label–value pairs under a head
 render=../../../code/statistics/components/details-table/preview.vue
 :::
 
+::: info
+The table is built from plain elements but exposes semantic ARIA table roles: the wrapper is a `table` labelled by its `title` (announced as the `caption`), and the rows are grouped in a `rowgroup` so assistive technologies present it as a real table.
+:::
+
 <FrontmatterDocs/>
 
 ## Examples

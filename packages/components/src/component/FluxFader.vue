@@ -3,7 +3,6 @@
         :class="$style.fader"
         role="group"
         aria-roledescription="carousel"
-        aria-label="Slides"
         @mouseenter="isHovering = true"
         @mouseleave="isHovering = false">
         <slot v-bind="{current, next, previous}"/>

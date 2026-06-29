@@ -10,10 +10,12 @@
             isCenter && $style.isCenter,
             isFluid && $style.isFluid
         )"
-        role="alert">
+        :role="role"
+        :aria-live="role === 'alert' ? 'assertive' : 'polite'">
         <FluxSpinner
             v-if="isLoading"
-            :class="$style.noticePrefix"/>
+            :class="$style.noticePrefix"
+            :color="color"/>
 
         <FluxIcon
             v-if="icon && !isLoading"
@@ -52,7 +54,7 @@
     setup>
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import type { VNode } from 'vue';
+    import { computed, type VNode } from 'vue';
     import { useTranslate } from '~flux/components/composable/private';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
@@ -81,4 +83,6 @@
     }>();
 
     const translate = useTranslate();
+
+    const role = computed(() => color === 'danger' || color === 'warning' ? 'alert' : 'status');
 </script>

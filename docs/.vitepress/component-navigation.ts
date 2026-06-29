@@ -274,8 +274,7 @@ const navigation: SidebarItem = {
                     items: [
                         {text: 'Pane', link: '/components/layout/split-view/pane'}
                     ]
-                },
-                {text: 'Sticky', link: '/components/layout/sticky'}
+                }
             ]
         },
         {text: 'Link', link: '/components/link', image: '/assets/components/link.svg'},

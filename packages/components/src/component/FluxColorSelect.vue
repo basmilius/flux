@@ -3,8 +3,9 @@
         :class="$style.colorSelect"
         role="radiogroup">
         <button
-            v-for="color of colors"
+            v-for="(color, index) of colors"
             :key="color"
+            ref="swatches"
             :class="modelValue === color ? $style.colorSelectColorSelected : $style.colorSelectColorDeselected"
             :style="{
                 '--color': color
@@ -14,8 +15,9 @@
             :aria-checked="modelValue === color"
             :aria-label="color"
             :disabled="disabled"
-            :tabindex="disabled ? -1 : 0"
-            @click="select(color)">
+            :tabindex="disabled || index !== focusedIndex ? -1 : 0"
+            @click="select(color)"
+            @keydown="onKeyDown($event, index)">
             <FluxIcon
                 :class="$style.colorSelectCheck"
                 name="check"
@@ -60,7 +62,7 @@
     lang="ts"
     setup>
     import { amber500, blue500, cyan500, emerald500, fuchsia500, green500, indigo500, lime500, orange500, pink500, purple500, red500, rose500, sky500, teal500, violet500, yellow500 } from '@flux-ui/internals';
-    import { ref, toRef, unref, watch } from 'vue';
+    import { ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';
     import FluxColorPicker from './FluxColorPicker.vue';
@@ -85,9 +87,11 @@
     }>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));
+    const swatchesRef = useTemplateRef<HTMLButtonElement[]>('swatches');
     const translate = useTranslate();
 
     const customColor = ref('#000000');
+    const focusedIndex = ref(0);
 
     function select(color: string, close?: () => void): void {
         if (unref(disabled)) {
@@ -98,5 +102,51 @@
         close?.();
     }
 
-    watch(modelValue, value => customColor.value = value, {immediate: true});
+    function focusSwatch(index: number): void {
+        focusedIndex.value = index;
+        unref(swatchesRef)?.[index]?.focus();
+    }
+
+    function onKeyDown(evt: KeyboardEvent, index: number): void {
+        if (unref(disabled)) {
+            return;
+        }
+
+        const last = colors.length - 1;
+
+        switch (evt.key) {
+            case 'ArrowDown':
+            case 'ArrowRight':
+                focusSwatch(index >= last ? 0 : index + 1);
+                break;
+
+            case 'ArrowUp':
+            case 'ArrowLeft':
+                focusSwatch(index <= 0 ? last : index - 1);
+                break;
+
+            case 'Home':
+                focusSwatch(0);
+                break;
+
+            case 'End':
+                focusSwatch(last);
+                break;
+
+            default:
+                return;
+        }
+
+        evt.preventDefault();
+    }
+
+    watch(modelValue, value => {
+        customColor.value = value;
+
+        const selectedIndex = colors.indexOf(value);
+
+        if (selectedIndex !== -1) {
+            focusedIndex.value = selectedIndex;
+        }
+    }, {immediate: true});
 </script>

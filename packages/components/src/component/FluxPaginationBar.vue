@@ -14,7 +14,7 @@
             <span :class="$style.paginationBarLimitDisplayingOf">
                 {{
                     translate('flux.displayingOf', {
-                        from: (page - 1) * perPage + 1,
+                        from: total === 0 ? 0 : (page - 1) * perPage + 1,
                         to: Math.min(total, page * perPage),
                         total: total
                     })
@@ -64,7 +64,13 @@
         value: n
     })));
 
-    watch(limit, limit => emit('limit', limit));
+    watch(limit, value => {
+        if (value === perPage) {
+            return;
+        }
 
-    watch(() => perPage, perPage => limit.value = perPage, {immediate: true});
+        emit('limit', value);
+    });
+
+    watch(() => perPage, value => limit.value = value, {immediate: true});
 </script>

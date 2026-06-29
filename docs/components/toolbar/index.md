@@ -2,12 +2,6 @@
 outline: deep
 
 props:
-    -   name: aria-label
-        description: An accessible label for the toolbar, exposed as aria-label on the role="toolbar" container.
-        type: string
-        optional: true
-        default: Toolbar
-
     -   name: floating-mode
         description: The placement of the toolbar.
         type: [ '"free"', '"top-start"', '"top-end"', '"bottom-start"', '"bottom-end"' ]

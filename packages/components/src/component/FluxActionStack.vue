@@ -3,7 +3,7 @@
         ref="element"
         direction="horizontal"
         :gap="1"
-        tag="nav">
+        role="toolbar">
         <slot/>
     </FluxFlex>
 </template>

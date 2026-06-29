@@ -1,10 +1,15 @@
 <template>
-    <div :class="$style.detailsTable">
+    <div
+        role="table"
+        :aria-label="title"
+        :class="$style.detailsTable">
         <div :class="$style.detailsTableTitle">
             {{ title }}
         </div>
 
-        <div :class="$style.detailsTableRows">
+        <div
+            role="rowgroup"
+            :class="$style.detailsTableRows">
             <slot/>
         </div>
     </div>

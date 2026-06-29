@@ -11,6 +11,7 @@
         :label="label"
         aria-haspopup="menu"
         :aria-expanded="isOpen ? 'true' : 'false'"
+        :aria-controls="isOpen ? popupId : undefined"
         @click="onTriggerClick"
         @keydown="onTriggerKeydown">
         <template
@@ -23,6 +24,7 @@
     <Teleport to="body">
         <AnchorPopup
             v-if="isOpen"
+            :id="popupId"
             ref="popup"
             :anchor="popupAnchor"
             :class="$style.menuFlyoutPopup"
@@ -65,9 +67,9 @@
     setup>
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { computed, type ComponentPublicInstance, toRef, useTemplateRef, type VNode } from 'vue';
-    import { useMenuFlyout, useTranslate } from '~flux/components/composable/private';
+    import { computed, type ComponentPublicInstance, toRef, useId, useTemplateRef, type VNode } from 'vue';
     import { AnchorPopup } from '~flux/components/component/primitive';
+    import { useMenuFlyout, useTranslate } from '~flux/components/composable/private';
     import FluxMenuItem from './FluxMenuItem.vue';
     import $style from '~flux/components/css/component/MenuFlyout.module.scss';
 
@@ -98,6 +100,7 @@
     const MENU_CHROME_TOP = 10;
 
     const translate = useTranslate();
+    const popupId = useId();
 
     const triggerRef = useTemplateRef<ComponentPublicInstance>('trigger');
     const popupRef = useTemplateRef<ComponentPublicInstance>('popup');

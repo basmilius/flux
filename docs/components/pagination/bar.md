@@ -38,6 +38,10 @@ The pagination bar displays information about the current page of data and allow
 render=../../code/components/pagination/bar/preview.vue
 :::
 
+::: tip Empty data sets
+When `total` is `0` the range readout shows `0` as its lower bound instead of `1`, so an empty result reads as `0–0 of 0` rather than implying a first item that does not exist.
+:::
+
 <FrontmatterDocs/>
 
 ## Examples

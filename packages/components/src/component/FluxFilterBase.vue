@@ -7,7 +7,7 @@
     setup>
     import { flattenVNodeTree, getComponentName, getComponentProps } from '@flux-ui/internals';
     import type { FluxFilterDefinition, FluxFilterState, FluxFilterValue } from '@flux-ui/types';
-    import { computed, provide, unref, watchEffect, type VNode } from 'vue';
+    import { computed, provide, unref, watch, type VNode } from 'vue';
     import { FluxFilterInjectionKey } from '~flux/components/data';
 
     const emit = defineEmits<{
@@ -97,15 +97,15 @@
         return result.filter(group => group.length > 0);
     });
 
-    watchEffect(() => {
+    watch(buttons, definitions => {
         const state = unref(modelValue);
 
-        for (const definition of Object.values(unref(buttons))) {
+        for (const definition of Object.values(definitions)) {
             if (definition.defaultValue !== undefined && state[definition.name] === undefined) {
                 modelValue.value[definition.name] = definition.defaultValue as FluxFilterValue;
             }
         }
-    });
+    }, {immediate: true});
 
     function back(): void {
         emit('back');
@@ -115,7 +115,7 @@
         const definition = unref(buttons)[name];
 
         back();
-        modelValue.value[name] = null;
+        delete modelValue.value[name];
         definition?.onClear?.();
         emit('clear', name);
     }
@@ -124,8 +124,17 @@
         const definition = unref(buttons)[name];
 
         back();
-        modelValue.value[name] = (definition?.defaultValue ?? null) as FluxFilterValue;
-        definition?.onClear?.();
+
+        if (definition?.defaultValue !== undefined) {
+            const defaultValue = definition.defaultValue as FluxFilterValue;
+
+            modelValue.value[name] = defaultValue;
+            definition.onChange?.(defaultValue);
+        } else {
+            delete modelValue.value[name];
+            definition?.onClear?.();
+        }
+
         emit('reset', name);
     }
 
@@ -142,7 +151,9 @@
     }
 
     function hasValue(name: string): boolean {
-        return name in unref(modelValue);
+        const value = unref(modelValue)[name];
+
+        return value !== null && value !== undefined;
     }
 
     function setValue(name: string, value: FluxFilterValue): void {

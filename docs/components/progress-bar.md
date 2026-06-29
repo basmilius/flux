@@ -44,6 +44,10 @@ A progress bar serves as a visual indicator that communicates the ongoing status
 render=../code/components/progress-bar/preview.vue
 :::
 
+::: tip Accessibility
+The reported `aria-valuenow` is always clamped to the `min`/`max` range, so out-of-bounds values never confuse assistive technology. When `is-indeterminate` is set, `aria-valuenow` is omitted entirely so screen readers announce an in-progress state of unknown duration.
+:::
+
 <FrontmatterDocs/>
 
 ## Examples

@@ -1,12 +1,6 @@
 ---
 outline: deep
 
-props:
-    -   name: aria-label
-        description: An accessible label for the group, exposed as aria-label on the role="group" container.
-        type: string
-        optional: true
-
 slots:
     -   name: default
         description: The content of the toolbar group.

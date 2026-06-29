@@ -24,14 +24,17 @@
     lang="ts"
     setup>
     import type { FluxIconName } from '@flux-ui/types';
-    import type { VNode } from 'vue';
+    import { inject, type VNode, watchEffect } from 'vue';
+    import { FluxDialogInjectionKey } from '~flux/components/util';
     import FluxPane from '../FluxPane.vue';
     import FluxPaneBody from '../FluxPaneBody.vue';
     import FluxPaneFooter from '../FluxPaneFooter.vue';
     import FluxPaneHeader from '../FluxPaneHeader.vue';
     import FluxSpacer from '../FluxSpacer.vue';
 
-    defineProps<{
+    const {
+        title
+    } = defineProps<{
         readonly icon?: FluxIconName;
         readonly message?: string;
         readonly title: string;
@@ -41,4 +44,12 @@
         default?(): VNode[];
         footer(): VNode[];
     }>();
+
+    const dialog = inject(FluxDialogInjectionKey, null);
+
+    watchEffect(() => {
+        if (dialog) {
+            dialog.label.value = title;
+        }
+    });
 </script>

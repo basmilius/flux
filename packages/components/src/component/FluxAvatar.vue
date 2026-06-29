@@ -10,7 +10,7 @@
             fontSize: size && `${size}px`
         }"
         :component-type="type"
-        role="img"
+        :role="type === 'none' ? 'img' : undefined"
         :aria-label="alt"
         :tabindex="tabindex"
         :href="href"
@@ -21,10 +21,11 @@
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)">
         <img
-            v-if="src"
+            v-if="src && !hasError"
             :class="$style.avatarImage"
             :alt="alt"
-            :src="src"/>
+            :src="src"
+            @error="hasError = true"/>
 
         <div
             v-else
@@ -58,7 +59,7 @@
     import { amber600, blue600, cyan600, emerald600, fuchsia600, green600, indigo600, lime600, orange600, pink600, purple600, red600, rose600, sky600, teal600, violet600, yellow600 } from '@flux-ui/internals';
     import type { FluxButtonEmits, FluxColor, FluxIconName, FluxPressableType, FluxTo } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { computed, unref } from 'vue';
+    import { computed, ref, unref, watch } from 'vue';
     import { FluxFadeTransition } from '~flux/components/transition';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
@@ -81,6 +82,7 @@
         fallbackColors = [lime600, green600, emerald600, teal600, cyan600, sky600, blue600, indigo600, violet600, purple600, fuchsia600, pink600, rose600, red600, orange600, amber600, yellow600],
         fallbackIcon = 'user',
         fallbackInitials,
+        src,
         type = 'none'
     } = defineProps<{
         readonly alt?: string;
@@ -99,6 +101,10 @@
         readonly target?: string;
         readonly to?: FluxTo;
     }>();
+
+    const hasError = ref(false);
+
+    watch(() => src, () => hasError.value = false);
 
     const color = computed(() => fallbackColors[unref(colorSeed) % fallbackColors.length]);
     const colorSeed = computed(() => {
