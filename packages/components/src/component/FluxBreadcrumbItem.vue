@@ -45,9 +45,10 @@
         click: [MouseEvent];
     }>();
 
-    const {href, to} = defineProps<{
+    const {href, isCurrent: isCurrentProp, to} = defineProps<{
         readonly href?: string;
         readonly icon?: FluxIconName;
+        readonly isCurrent?: boolean;
         readonly label?: string;
         readonly to?: FluxTo;
     }>();
@@ -68,5 +69,8 @@
         return 'none';
     });
 
-    const isCurrent = computed(() => componentType.value === 'none');
+    // Defaults to "current" when the item has no link, but can be set explicitly
+    // so a linked last item can still be the current page, and a non-linked
+    // intermediate item is not wrongly marked as current.
+    const isCurrent = computed(() => isCurrentProp ?? componentType.value === 'none');
 </script>

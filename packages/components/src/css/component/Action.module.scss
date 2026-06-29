@@ -19,6 +19,10 @@
         background: var(--gray-200);
     }
 
+    &.isActive {
+        background: var(--gray-200);
+    }
+
     .spinner {
         font-size: 24px;
     }

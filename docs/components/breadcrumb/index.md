@@ -18,7 +18,7 @@ requiredIcons:
 
 # Breadcrumb
 
-A breadcrumb shows users where they are within a hierarchy and lets them navigate back to any ancestor. Each step is a [Breadcrumb item](./item); the last item represents the current page and is rendered as plain, non-interactive text with `aria-current="page"`. Separators are inserted automatically between items.
+A breadcrumb shows users where they are within a hierarchy and lets them navigate back to any ancestor. Each step is a [Breadcrumb item](./item); a non-linked item represents the current page and is rendered as plain, non-interactive text with `aria-current="page"`. Use the item's `is-current` prop to override which item is treated as current. Separators are inserted automatically between items.
 
 ::: render
 render=../../code/components/breadcrumb/preview.vue

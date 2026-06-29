@@ -2,6 +2,11 @@
 outline: deep
 
 props:
+    -   name: aria-label
+        description: An accessible label for the group, exposed via role="group".
+        type: string
+        optional: true
+
     -   name: max
         description: The maximum number of avatars to display. Remaining avatars are summarized in a "+N" overflow chip.
         type: number
@@ -32,6 +37,10 @@ The Avatar group component stacks multiple avatars into an overlapping row, opti
 render=../code/components/avatar-group/preview.vue
 :::
 
+::: tip Accessibility
+The group is exposed with `role="group"`; pass `aria-label` to describe it for assistive technology. When avatars overflow, the "+N" indicator carries a tooltip listing the names of the hidden avatars (taken from their `alt` or `fallback-initials`), so the collapsed members remain discoverable.
+:::
+
 <FrontmatterDocs/>
 
 ## Examples
@@ -42,6 +51,10 @@ example=../code/components/avatar-group/basic.vue
 
 ::: example Overflow || A stack that collapses the overflow into a "+N" chip.
 example=../code/components/avatar-group/overflow.vue
+:::
+
+::: example Labelled || A labelled group whose "+N" indicator reveals the names of the hidden members on hover.
+example=../code/components/avatar-group/labelled.vue
 :::
 
 ## Used components

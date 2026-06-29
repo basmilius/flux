@@ -31,8 +31,13 @@ props:
         type: FluxIconName
         optional: true
 
+    -   name: is-active
+        description: Shows the action in its active state, reusing the pressed appearance. Sets aria-pressed on button-type actions.
+        type: boolean
+        optional: true
+
     -   name: is-destructive
-        description: Indicates that the action is a destructive action.
+        description: Indicates that the action is a destructive action. Adds an aria-description announcing the destructive intent.
         type: boolean
         optional: true
 
@@ -91,6 +96,10 @@ render=../code/components/action/preview.vue
 
 ::: example Basic || A simple action.
 example=../code/components/action/basic.vue
+:::
+
+::: example Active || Use `is-active` to highlight the selected action, for example in a toolbar where one option is currently chosen.
+example=../code/components/action/active.vue
 :::
 
 ::: example Destructive || A destructive action can be used for destructive actions such as deleting something.

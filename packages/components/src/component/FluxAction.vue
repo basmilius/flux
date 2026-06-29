@@ -1,11 +1,13 @@
 <template>
     <FluxButton
-        :="{disabled, isLoading, isSubmit, label, tabindex, href, rel, target, to, type}"
+        :="{disabled, isActive, isLoading, isSubmit, label, tabindex, href, rel, target, to, type}"
         :css-class="$style.action"
+        :css-class-active="$style.isActive"
         :css-class-icon="$style.actionIcon"
         :css-class-label="$style.actionLabel"
         :class="isDestructive && $style.isDestructive"
         :icon-leading="icon"
+        :aria-description="isDestructive ? 'Destructive action' : undefined"
         @click="$emit('click', $event)"
         @mouseenter="$emit('mouseenter', $event)"
         @mouseleave="$emit('mouseleave', $event)"/>
