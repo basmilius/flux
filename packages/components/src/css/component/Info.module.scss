@@ -1,14 +1,42 @@
 .info {
+    --info-icon-color: var(--primary-600);
+
     display: flex;
     gap: 15px;
 
     > .icon {
         margin-top: 3px;
         flex-shrink: 0;
-        color: var(--primary-600);
+        color: var(--info-icon-color);
     }
 }
 
+.infoGray {
+    --info-icon-color: var(--gray-500);
+}
+
+.infoPrimary {
+    --info-icon-color: var(--primary-600);
+}
+
+.infoDanger {
+    --info-icon-color: var(--danger-600);
+}
+
+.infoInfo {
+    --info-icon-color: var(--info-600);
+}
+
+.infoSuccess {
+    --info-icon-color: var(--success-600);
+}
+
+.infoWarning {
+    --info-icon-color: var(--warning-600);
+}
+
 .infoBody {
-    align-items: center;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
 }

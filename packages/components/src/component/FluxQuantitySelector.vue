@@ -1,9 +1,12 @@
 <template>
     <FluxButtonGroup
         :class="$style.formQuantitySelector"
+        role="group"
+        :aria-label="ariaLabel"
         :aria-disabled="disabled ? true : undefined">
         <FluxSecondaryButton
             :class="$style.formQuantitySelectorButton"
+            :aria-label="translate('flux.min')"
             :disabled="disabled || modelValue <= min"
             icon-leading="minus"
             tabindex="-1"
@@ -11,7 +14,6 @@
 
         <input
             ref="input"
-            v-model="modelValue"
             :class="$style.formQuantitySelectorInput"
             :style="{
                 width: `${width}px`
@@ -19,12 +21,17 @@
             :disabled="disabled"
             tabindex="0"
             type="number"
+            :aria-label="ariaLabel"
             :max="max"
             :min="min"
-            :step="step"/>
+            :step="step"
+            :value="modelValue"
+            @change="onChange"
+            @input="onInput"/>
 
         <FluxSecondaryButton
             :class="$style.formQuantitySelectorButton"
+            :aria-label="translate('flux.max')"
             :disabled="disabled || modelValue >= max"
             icon-leading="plus"
             tabindex="-1"
@@ -36,8 +43,9 @@
     lang="ts"
     setup>
     import { unrefTemplateElement } from '@flux-ui/internals';
-    import { ref, toRef, unref, useTemplateRef, watchEffect } from 'vue';
+    import { ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '~flux/components/composable';
+    import { useTranslate } from '~flux/components/composable/private';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import $style from '~flux/components/css/component/Form.module.scss';
@@ -52,6 +60,7 @@
         min = 0,
         step = 1
     } = defineProps<{
+        readonly ariaLabel?: string;
         readonly disabled?: boolean;
         readonly max?: number;
         readonly min?: number;
@@ -60,15 +69,31 @@
 
     const disabled = useDisabled(toRef(() => componentDisabled));
     const inputRef = useTemplateRef('input');
+    const translate = useTranslate();
 
     const width = ref(0);
+
+    function clamp(value: number): number {
+        return Math.min(max, Math.max(min, value));
+    }
+
+    function snap(value: number): number {
+        if (step <= 0) {
+            return value;
+        }
+
+        const decimals = (step.toString().split('.')[1] ?? '').length;
+        const snapped = min + Math.round((value - min) / step) * step;
+
+        return decimals > 0 ? Number(snapped.toFixed(decimals)) : snapped;
+    }
 
     function decrement(): void {
         if (unref(disabled)) {
             return;
         }
 
-        modelValue.value = Math.max(min, unref(modelValue) - step);
+        modelValue.value = clamp(unref(modelValue) - step);
     }
 
     function increment(): void {
@@ -76,7 +101,17 @@
             return;
         }
 
-        modelValue.value = Math.min(max, unref(modelValue) + step);
+        modelValue.value = clamp(unref(modelValue) + step);
+    }
+
+    function onInput(): void {
+        sizeToContent();
+    }
+
+    function onChange(evt: Event): void {
+        const value = (evt.target as HTMLInputElement).valueAsNumber;
+
+        modelValue.value = Number.isNaN(value) ? min : clamp(snap(value));
     }
 
     function sizeToContent(): void {
@@ -93,19 +128,19 @@
         });
     }
 
-    watchEffect(() => {
-        const value = unref(modelValue);
-
+    watch(modelValue, value => {
         if (typeof value !== 'number' || isNaN(value)) {
             modelValue.value = min;
             return;
         }
 
-        if (value > max || value < min) {
-            modelValue.value = Math.min(max, Math.max(min, value));
+        const clamped = clamp(value);
+
+        if (clamped !== value) {
+            modelValue.value = clamped;
             return;
         }
 
         sizeToContent();
-    });
+    }, {immediate: true});
 </script>
