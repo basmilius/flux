@@ -11,6 +11,11 @@ props:
         type: string
         optional: true
 
+    -   name: sub-label
+        description: A secondary line of text shown below the label. The radio stays aligned with the label.
+        type: string
+        optional: true
+
     -   name: disabled
         description: If the radio is disabled.
         type: boolean
@@ -39,6 +44,10 @@ This component is best used within a [Radio group](./group).
 
 ::: example Custom content || A radio with custom label content.
 example=../../../code/components/form/radio/content.vue
+:::
+
+::: example Sub-label || A radio with a secondary line of text below the label.
+example=../../../code/components/form/radio/sub-label.vue
 :::
 
 ## Used components

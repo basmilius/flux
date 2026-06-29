@@ -6,6 +6,7 @@ export {
     faAngleDown,
     faAngleLeft,
     faAngleRight,
+    faAnglesUpDown,
     faArrowDown19,
     faArrowDownAZ,
     faArrowDownShortWide,

@@ -128,7 +128,8 @@ const navigation: SidebarItem = {
                     link: '/components/form/checkbox/',
                     collapsed: true,
                     items: [
-                        {text: 'Group', link: '/components/form/checkbox/group'}
+                        {text: 'Group', link: '/components/form/checkbox/group'},
+                        {text: 'Tile', link: '/components/form/checkbox/tile'}
                     ]
                 },
                 {text: 'Column', link: '/components/form/column'},
@@ -162,7 +163,8 @@ const navigation: SidebarItem = {
                     link: '/components/form/radio/',
                     collapsed: true,
                     items: [
-                        {text: 'Group', link: '/components/form/radio/group'}
+                        {text: 'Group', link: '/components/form/radio/group'},
+                        {text: 'Tile', link: '/components/form/radio/tile'}
                     ]
                 },
                 {text: 'Rating', link: '/components/form/rating'},
@@ -184,6 +186,7 @@ const navigation: SidebarItem = {
                         {text: 'Ranged', link: '/components/form/slider/ranged'}
                     ]
                 },
+                {text: 'Step', link: '/components/form/step'},
                 {text: 'Tags input', link: '/components/form/tags-input'},
                 {text: 'Text area', link: '/components/form/text-area'},
                 {text: 'Time', link: '/components/form/time'},

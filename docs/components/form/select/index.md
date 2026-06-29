@@ -72,7 +72,7 @@ props:
         type: FluxFormSelectOption[]
 
 requiredIcons:
-    - angle-down
+    - angles-up-down
     - magnifying-glass
 ---
 

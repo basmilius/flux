@@ -27,6 +27,7 @@
 .form {
     composes: formStructureElement;
 
+    counter-reset: flux-step;
     gap: 42px;
 }
 
@@ -68,6 +69,69 @@
     color: var(--foreground-prominent);
     font-size: 18px;
     font-weight: 800;
+}
+
+.formStep {
+    composes: formStructureElement;
+
+    counter-increment: flux-step;
+    gap: 12px;
+}
+
+.formStepHeader {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.formStepNumber {
+    display: inline-flex;
+    height: 27px;
+    width: 27px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-50);
+    border-radius: var(--radius);
+    color: var(--primary-600);
+    font-size: 13px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+
+    &::before {
+        content: counter(flux-step);
+    }
+}
+
+.formStepHeading {
+    display: flex;
+    min-width: 0;
+    flex-flow: column;
+    gap: 3px;
+}
+
+.formStepTitle {
+    color: var(--foreground-prominent);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 27px;
+}
+
+.formStepSubtitle {
+    color: var(--foreground-secondary);
+}
+
+.formStepEnd {
+    display: inline-flex;
+    margin-left: auto;
+    align-items: center;
+}
+
+.formStepContent {
+    display: flex;
+    margin-left: 39px;
+    flex-flow: column;
+    gap: 12px;
 }
 
 @include mixin.breakpoint-down(sm) {
@@ -540,6 +604,7 @@
     position: absolute;
     top: 50%;
     right: 12px;
+    color: var(--foreground-secondary);
     translate: 0 -50%;
 }
 
@@ -663,6 +728,77 @@
         flex-direction: row;
         flex-wrap: wrap;
         gap: 8px 20px;
+    }
+
+    // Tiles stretch to the full width on their own. When laid out inline, let them
+    // share the row in equal columns. Plain checkboxes mixed in keep their natural size.
+    &.isInline:has(> .formCheckboxTile) {
+        align-items: stretch;
+        flex-wrap: nowrap;
+        gap: 9px;
+
+        > .formCheckboxTile {
+            flex: 1 1 0;
+            min-width: 0;
+        }
+    }
+
+    // Connected tiles form a single block: shared borders, rounded outer corners only.
+    &.isConnected {
+        align-items: stretch;
+        gap: 0;
+
+        > .formCheckboxTile {
+            position: relative;
+            border-radius: 0;
+
+            &:not(:first-child) {
+                margin-top: -1px;
+            }
+
+            &:first-child {
+                border-top-left-radius: var(--radius);
+                border-top-right-radius: var(--radius);
+            }
+
+            &:last-child {
+                border-bottom-left-radius: var(--radius);
+                border-bottom-right-radius: var(--radius);
+            }
+
+            @include mixin.hover {
+                z-index: 1;
+            }
+
+            &:has(.formCheckboxNative:is(:checked, :indeterminate)),
+            &:has(.formCheckboxNative:focus-visible) {
+                z-index: 1;
+            }
+        }
+
+        &.isInline {
+            flex-direction: row;
+            flex-wrap: nowrap;
+            gap: 0;
+
+            > .formCheckboxTile {
+                flex: 1 1 0;
+                min-width: 0;
+
+                &:not(:first-child) {
+                    margin-top: 0;
+                    margin-left: -1px;
+                }
+
+                &:first-child {
+                    border-radius: var(--radius) 0 0 var(--radius);
+                }
+
+                &:last-child {
+                    border-radius: 0 var(--radius) var(--radius) 0;
+                }
+            }
+        }
     }
 }
 
@@ -792,6 +928,61 @@
     }
 }
 
+.formCheckboxTile {
+    composes: formCheckbox;
+
+    width: 100%;
+    align-items: flex-start;
+    padding: 15px 18px;
+    background: var(--surface);
+    border: 1px solid var(--surface-stroke);
+    border-radius: var(--radius);
+    color: var(--foreground);
+    cursor: pointer;
+    transition: 210ms var(--swift-out);
+    transition-property: background, border-color, color, mixin.focus-ring-transition-properties();
+
+    @include mixin.focus-outline;
+
+    @include mixin.hover {
+        background: var(--surface-hover);
+    }
+
+    &:has(.formCheckboxNative:focus-visible) {
+        @include mixin.focus-outline-visible(2px);
+    }
+
+    &:has(.formCheckboxNative:is(:checked, :indeterminate)) {
+        background: var(--primary-50);
+        border-color: var(--primary-200);
+        color: var(--primary-600);
+    }
+
+    &.isInvalid {
+        border-color: var(--danger-500);
+    }
+
+    > .formCheckboxElement {
+        order: 3;
+    }
+
+    > .formCheckboxIcon {
+        order: 1;
+        flex-shrink: 0;
+        margin-top: 1px;
+        color: var(--primary-600);
+    }
+
+    > .formCheckboxText {
+        order: 2;
+        flex: 1;
+    }
+
+    .formCheckboxLabel {
+        font-weight: 500;
+    }
+}
+
 .formRadioGroup {
     display: flex;
     flex-direction: column;
@@ -803,11 +994,83 @@
         flex-wrap: wrap;
         gap: 9px 21px;
     }
+
+    // Tiles stretch to the full width on their own. When laid out inline, let them
+    // share the row in equal columns. Plain radios mixed in keep their natural size.
+    &.isInline:has(> .formRadioTile) {
+        align-items: stretch;
+        flex-wrap: nowrap;
+        gap: 9px;
+
+        > .formRadioTile {
+            flex: 1 1 0;
+            min-width: 0;
+        }
+    }
+
+    // Connected tiles form a single block: shared borders, rounded outer corners only.
+    &.isConnected {
+        align-items: stretch;
+        gap: 0;
+
+        > .formRadioTile {
+            position: relative;
+            border-radius: 0;
+
+            &:not(:first-child) {
+                margin-top: -1px;
+            }
+
+            &:first-child {
+                border-top-left-radius: var(--radius);
+                border-top-right-radius: var(--radius);
+            }
+
+            &:last-child {
+                border-bottom-left-radius: var(--radius);
+                border-bottom-right-radius: var(--radius);
+            }
+
+            @include mixin.hover {
+                z-index: 1;
+            }
+
+            &:has(.formRadioNative:checked),
+            &:has(.formRadioNative:focus-visible) {
+                z-index: 1;
+            }
+        }
+
+        &.isInline {
+            flex-direction: row;
+            flex-wrap: nowrap;
+            gap: 0;
+
+            > .formRadioTile {
+                flex: 1 1 0;
+                min-width: 0;
+
+                &:not(:first-child) {
+                    margin-top: 0;
+                    margin-left: -1px;
+                }
+
+                &:first-child {
+                    border-radius: var(--radius) 0 0 var(--radius);
+                }
+
+                &:last-child {
+                    border-radius: 0 var(--radius) var(--radius) 0;
+                }
+            }
+        }
+    }
 }
 
 .formRadio {
     display: inline-flex;
     flex-shrink: 0;
+    align-items: flex-start;
     gap: 12px;
     line-height: 21px;
     outline: 0;
@@ -877,7 +1140,7 @@
 }
 
 .formRadioLabel {
-    align-self: center;
+    line-height: 21px;
 }
 
 .formRadioNative {
@@ -911,6 +1174,73 @@
     &:disabled + .formRadioElement {
         background: var(--gray-100);
         border-color: var(--gray-200);
+    }
+}
+
+.formRadioText {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.formRadioSubLabel {
+    color: var(--foreground-secondary);
+    font-size: 14px;
+}
+
+.formRadioTile {
+    composes: formRadio;
+
+    width: 100%;
+    align-items: flex-start;
+    padding: 15px 18px;
+    background: var(--surface);
+    border: 1px solid var(--surface-stroke);
+    border-radius: var(--radius);
+    color: var(--foreground);
+    cursor: pointer;
+    transition: 210ms var(--swift-out);
+    transition-property: background, border-color, color, mixin.focus-ring-transition-properties();
+
+    @include mixin.focus-outline;
+
+    @include mixin.hover {
+        background: var(--surface-hover);
+    }
+
+    &:has(.formRadioNative:focus-visible) {
+        @include mixin.focus-outline-visible(2px);
+    }
+
+    &:has(.formRadioNative:checked) {
+        background: var(--primary-50);
+        border-color: var(--primary-200);
+        color: var(--primary-600);
+    }
+
+    &.isInvalid {
+        border-color: var(--danger-500);
+    }
+
+    > .formRadioElement {
+        order: 3;
+    }
+
+    > .formRadioIcon {
+        order: 1;
+        flex-shrink: 0;
+        margin-top: 1px;
+        color: var(--primary-600);
+    }
+
+    > .formRadioText {
+        order: 2;
+        flex: 1;
+    }
+
+    .formRadioLabel {
+        font-weight: 500;
     }
 }
 

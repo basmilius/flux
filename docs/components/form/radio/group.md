@@ -27,6 +27,11 @@ props:
         type: boolean
         optional: true
 
+    -   name: is-connected
+        description: Joins [Radio tiles](./tile) into a single block with shared borders and rounded outer corners. Not meant to be mixed with regular radios.
+        type: boolean
+        optional: true
+
     -   name: disabled
         description: If the entire radio group is disabled.
         type: boolean
@@ -75,6 +80,19 @@ example=../../../code/components/form/radio/group/inline.vue
 example=../../../code/components/form/radio/group/disabled.vue
 :::
 
+::: example Tile || Card-style options through [Radio tile](./tile), with an icon and description.
+example=../../../code/components/form/radio/tile/stacked.vue
+:::
+
+::: example Mixed || Combine tiles with a regular radio for a less prominent option.
+example=../../../code/components/form/radio/tile/mixed.vue
+:::
+
+::: example Connected || Join the tiles into a single block with is-connected.
+example=../../../code/components/form/radio/tile/connected.vue
+:::
+
 ## Used components
 
 - [Radio](./)
+- [Radio tile](./tile)

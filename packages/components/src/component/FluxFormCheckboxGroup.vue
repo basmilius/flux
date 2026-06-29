@@ -2,7 +2,8 @@
     <div
         :class="clsx(
             $style.formCheckboxGroup,
-            isInline && $style.isInline
+            isInline && $style.isInline,
+            isConnected && $style.isConnected
         )"
         :role="field?.isGroup ? undefined : 'group'"
         :aria-label="field?.isGroup ? undefined : ariaLabel"
@@ -31,6 +32,7 @@
         isReadonly
     } = defineProps<Pick<FluxFormInputBaseProps, 'disabled' | 'error' | 'isReadonly'> & {
         readonly ariaLabel?: string;
+        readonly isConnected?: boolean;
         readonly isInline?: boolean;
     }>();
 

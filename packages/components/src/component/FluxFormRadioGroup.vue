@@ -2,7 +2,8 @@
     <div
         :class="clsx(
             $style.formRadioGroup,
-            isInline && $style.isInline
+            isInline && $style.isInline,
+            isConnected && $style.isConnected
         )"
         role="radiogroup"
         :aria-label="ariaLabel"
@@ -30,6 +31,7 @@
         name
     } = defineProps<Pick<FluxFormInputBaseProps, 'disabled' | 'error' | 'isReadonly'> & {
         readonly ariaLabel?: string;
+        readonly isConnected?: boolean;
         readonly isInline?: boolean;
         readonly name?: string;
     }>();

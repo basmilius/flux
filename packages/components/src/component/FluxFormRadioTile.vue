@@ -1,15 +1,13 @@
 <template>
-    <component
-        :is="isBareControl ? 'span' : 'label'"
+    <label
         :class="clsx(
-            $style.formRadio,
+            $style.formRadioTile,
             disabled && $style.isDisabled,
             isReadonly && $style.isReadonly,
             error && $style.isInvalid
         )"
-        :for="isBareControl ? undefined : id">
+        :for="id">
         <input
-            ref="input"
             type="radio"
             :class="$style.formRadioNative"
             :id="id"
@@ -26,31 +24,35 @@
             aria-hidden="true"
             :class="$style.formRadioElement"/>
 
-        <span
-            v-if="subLabel"
-            :class="$style.formRadioText">
+        <FluxIcon
+            v-if="icon"
+            :class="$style.formRadioIcon"
+            :name="icon"
+            :size="20"/>
+
+        <span :class="$style.formRadioText">
             <span :class="$style.formRadioLabel">
                 <slot>{{ label }}</slot>
             </span>
 
-            <span :class="$style.formRadioSubLabel">{{ subLabel }}</span>
+            <span
+                v-if="subLabel"
+                :class="$style.formRadioSubLabel">
+                {{ subLabel }}
+            </span>
         </span>
-
-        <span
-            v-else-if="label || $slots.default"
-            :class="$style.formRadioLabel">
-            <slot>{{ label }}</slot>
-        </span>
-    </component>
+    </label>
 </template>
 
 <script
     lang="ts"
     setup>
+    import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { computed, inject, toRef, unref } from 'vue';
+    import { computed, toRef, unref } from 'vue';
     import { useDisabled, useFormFieldInjection, useFormRadioGroupInjection } from '~flux/components/composable';
-    import { FluxItemControlInjectionKey, type FluxFormRadioGroupValue } from '~flux/components/data';
+    import type { FluxFormRadioGroupValue } from '~flux/components/data';
+    import FluxIcon from './FluxIcon.vue';
     import $style from '~flux/components/css/component/Form.module.scss';
 
     const {
@@ -59,6 +61,7 @@
     } = defineProps<{
         readonly value: FluxFormRadioGroupValue;
         readonly disabled?: boolean;
+        readonly icon?: FluxIconName;
         readonly label?: string;
         readonly subLabel?: string;
     }>();
@@ -68,13 +71,8 @@
     }>();
 
     const group = useFormRadioGroupInjection();
-    const itemControl = inject(FluxItemControlInjectionKey, null);
     const {id} = useFormFieldInjection();
     const disabled = useDisabled(toRef(() => componentDisabled || unref(group.disabled)));
-
-    const isBareControl = computed(() => itemControl?.isControl.value ?? false);
-
-    itemControl?.register(id);
 
     const isChecked = computed(() => unref(group.modelValue) === value);
     const isReadonly = computed(() => unref(group.isReadonly));

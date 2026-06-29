@@ -75,7 +75,7 @@ props:
         type: [ 'fetchSearch(searchQuery: string): Promise<FluxFormSelectEntry[]>' ]
 
 requiredIcons:
-    - angle-down
+    - angles-up-down
     - magnifying-glass
 ---
 

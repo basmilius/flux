@@ -57,7 +57,8 @@
         <FluxIcon
             v-else
             :class="$style.formSelectIcon"
-            name="angle-down"/>
+            name="angles-up-down"
+            :size="16"/>
     </Anchor>
 
     <Teleport to="body">

@@ -67,7 +67,7 @@ emits:
         type: [ FluxFormSelectValue ]
 
 requiredIcons:
-    - angle-down
+    - angles-up-down
     - magnifying-glass
     - plus
 ---

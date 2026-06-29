@@ -58,7 +58,7 @@ props:
         optional: true
 
 requiredIcons:
-    - angle-down
+    - angles-up-down
     - magnifying-glass
 ---
 

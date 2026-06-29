@@ -22,6 +22,11 @@ props:
         type: boolean
         optional: true
 
+    -   name: is-connected
+        description: Joins [Checkbox tiles](./tile) into a single block with shared borders and rounded outer corners. Not meant to be mixed with regular checkboxes.
+        type: boolean
+        optional: true
+
     -   name: disabled
         description: If the entire group is disabled.
         type: boolean
@@ -70,6 +75,19 @@ example=../../../code/components/form/checkbox/group/inline.vue
 example=../../../code/components/form/checkbox/group/disabled.vue
 :::
 
+::: example Tile || Card-style options through [Checkbox tile](./tile), with an icon and description.
+example=../../../code/components/form/checkbox/tile/stacked.vue
+:::
+
+::: example Mixed || Combine tiles with a regular checkbox for a less prominent option.
+example=../../../code/components/form/checkbox/tile/mixed.vue
+:::
+
+::: example Connected || Join the tiles into a single block with is-connected.
+example=../../../code/components/form/checkbox/tile/connected.vue
+:::
+
 ## Used components
 
 - [Checkbox](./)
+- [Checkbox tile](./tile)
