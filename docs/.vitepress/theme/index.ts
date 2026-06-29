@@ -63,6 +63,7 @@ const theme: Theme = {
                         continue: 'Continue',
                         customPeriod: 'Custom period',
                         filter: 'Filter',
+                        filterRemove: 'Remove filter',
                         filterReset: 'Reset filters',
                         justNow: 'Just now',
                         max: 'Max',

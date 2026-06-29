@@ -16,6 +16,7 @@ export const english = {
     'flux.delete': 'Delete',
     'flux.done': 'Done',
     'flux.filter': 'Filter',
+    'flux.filterRemove': 'Remove filter',
     'flux.filterReset': 'Reset filters',
     'flux.justNow': 'Just now',
     'flux.max': 'Max',

@@ -45,6 +45,7 @@
     padding-right: 6px;
     background: var(--primary-50);
     border: 1px dashed var(--primary-300);
+    border-radius: var(--radius-half);
     font-weight: 500;
 
     :local(.badgeLabel) {
@@ -53,12 +54,7 @@
 }
 
 .filterButton {
-    border: 1px solid var(--surface-stroke);
     box-shadow: none;
-
-    :local(.badge) {
-        border-radius: var(--radius-half);
-    }
 
     :local(.buttonIcon) {
         color: var(--primary-700);

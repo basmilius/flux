@@ -94,7 +94,7 @@
             result[result.length - 1].push(item);
         }
 
-        return result;
+        return result.filter(group => group.length > 0);
     });
 
     watchEffect(() => {

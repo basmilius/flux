@@ -41,25 +41,24 @@
                             <template #default="{close}">
                                 <div :class="$style.filter">
                                     <FluxMenu is-persistent>
-                                        <FluxMenuGroup
-                                            :class="[$style.filterHeader, $style.filterHeaderActions]"
-                                            is-horizontal>
+                                        <VNodeRenderer :vnode="filters[button.name]"/>
+
+                                        <FluxSeparator/>
+
+                                        <FluxMenuGroup>
                                             <FluxMenuItem
                                                 v-if="isResettable(button, modelValue[button.name])"
                                                 :class="$style.filterAction"
                                                 icon-leading="rotate-left"
-                                                @click="onResetClick(close, reset, button.name)"
-                                                style="flex-grow: 0"/>
+                                                :label="translate('flux.filterReset')"
+                                                @click="onResetClick(close, reset, button.name)"/>
 
                                             <FluxMenuItem
-                                                :class="$style.filterAction"
                                                 icon-leading="trash"
                                                 is-destructive
-                                                @click="onClearClick(close, clear, button.name)"
-                                                style="flex-grow: 0"/>
+                                                :label="translate('flux.filterRemove')"
+                                                @click="onClearClick(close, clear, button.name)"/>
                                         </FluxMenuGroup>
-
-                                        <VNodeRenderer :vnode="filters[button.name]"/>
                                     </FluxMenu>
                                 </div>
                             </template>
@@ -68,7 +67,7 @@
 
                     <template #overflow>
                         <FluxSeparator
-                            v-if="isFiltered"
+                            v-if="countActiveFilters(buttons) > 0"
                             direction="vertical"
                             style="margin-top: 9px; margin-bottom: 9px"/>
 
@@ -79,9 +78,9 @@
                                     label="Filter"
                                     @click="open()">
                                     <template
-                                        v-if="filterCount > 0"
+                                        v-if="countActiveFilters(buttons) > 0"
                                         #after>
-                                        <FluxBadge :label="String(filterCount)"/>
+                                        <FluxBadge :label="String(countActiveFilters(buttons))"/>
                                     </template>
                                 </FluxSecondaryButton>
                             </template>
@@ -100,9 +99,10 @@
 <script
     lang="ts"
     setup>
-    import type { FluxFilterState } from '@flux-ui/types';
-    import { computed, unref, type VNode } from 'vue';
+    import type { FluxFilterDefinition, FluxFilterState, FluxFilterValue } from '@flux-ui/types';
+    import { unref, type VNode } from 'vue';
     import { FilterBadge, VNodeRenderer } from '~flux/components/component/primitive';
+    import { useTranslate } from '~flux/components/composable/private';
     import { isResettable } from '~flux/components/util';
     import FluxBadge from './FluxBadge.vue';
     import FluxFilterBase from './FluxFilterBase.vue';
@@ -139,20 +139,25 @@
         default?(): VNode[];
     }>();
 
-    const filterCount = computed(() => Object.entries(unref(modelValue))
-        .filter(([, val]) => {
-            if (val === null || val === undefined) {
-                return false;
-            }
+    const translate = useTranslate();
 
-            if (Array.isArray(val)) {
-                return val.length > 0;
-            }
+    function isFilterActive(value: FluxFilterValue | null | undefined): boolean {
+        if (value === null || value === undefined) {
+            return false;
+        }
 
-            return true;
-        }).length);
+        if (Array.isArray(value)) {
+            return value.length > 0;
+        }
 
-    const isFiltered = computed(() => unref(filterCount) > 0);
+        return true;
+    }
+
+    function countActiveFilters(buttons: Record<string, FluxFilterDefinition>): number {
+        const state = unref(modelValue);
+
+        return Object.keys(buttons).filter(name => isFilterActive(state[name])).length;
+    }
 
     function onClear(name: string): void {
         emit('clear', name);
