@@ -43,7 +43,7 @@
     lang="ts"
     setup>
     import { unrefTemplateElement } from '@flux-ui/internals';
-    import { ref, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { onMounted, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';
     import FluxButtonGroup from './FluxButtonGroup.vue';
@@ -143,4 +143,10 @@
 
         sizeToContent();
     }, {immediate: true});
+
+    // The immediate watch above runs during setup, before the <input> is mounted, so its sizeToContent()
+    // call bails on a null ref. Size once more after mount so the input has the correct width on pageload.
+    onMounted(() => {
+        sizeToContent();
+    });
 </script>

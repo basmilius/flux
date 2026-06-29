@@ -11,6 +11,11 @@ props:
         description: The value of the input.
         type: number
 
+    -   name: aria-label
+        description: An accessible label for the quantity selector and its input, announced by assistive technology.
+        type: string
+        optional: true
+
     -   name: disabled
         description: If the input is disabled.
         type: boolean
@@ -29,7 +34,7 @@ props:
         default: 100
         
     -   name: step
-        description: The step that is used when going up or down in the quantity selector.
+        description: The step that is used when going up or down in the quantity selector. A typed value is snapped to the nearest multiple of this step and clamped to min/max on change.
         type: number
         optional: true
         default: 1
