@@ -9,9 +9,9 @@
             top: `${position[1] * 100}%`,
             left: `${position[0] * 100}%`
         }"
-        role="slider"
         :aria-disabled="disabled ? true : undefined"
-        :aria-valuetext="`X: ${Math.round(position[0] * 100)}%, Y: ${Math.round(position[1] * 100)}%`"
+        :aria-label="label"
+        aria-roledescription="2D slider"
         :tabindex="disabled ? -1 : 0"
         type="button"
         @keydown="onKeyDown"
@@ -22,7 +22,7 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { toRef, unref } from 'vue';
+    import { computed, toRef, unref } from 'vue';
     import { useDisabled } from '~flux/components/composable';
     import $style from '~flux/components/css/component/primitive/CoordinatePicker.module.scss';
 
@@ -33,14 +33,23 @@
     }>();
 
     const {
-        disabled: componentDisabled
+        ariaLabel,
+        disabled: componentDisabled,
+        position
     } = defineProps<{
+        readonly ariaLabel?: string;
         readonly disabled?: boolean;
         readonly isDragging?: boolean;
         readonly position: [number, number];
     }>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));
+
+    const label = computed(() => {
+        const coordinates = `X: ${Math.round(position[0] * 100)}%, Y: ${Math.round(position[1] * 100)}%`;
+
+        return ariaLabel ? `${ariaLabel}, ${coordinates}` : coordinates;
+    });
 
     function onKeyDown(evt: KeyboardEvent): void {
         if (unref(disabled)) {

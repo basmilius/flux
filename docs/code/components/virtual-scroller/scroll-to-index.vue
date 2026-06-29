@@ -1,7 +1,20 @@
 <template>
-    <Preview>
+    <div style="display: flex; flex-direction: column; gap: 12px">
+        <FluxButtonGroup>
+            <FluxSecondaryButton
+                label="Scroll to top"
+                @click="scroller?.scrollToIndex(0, 'smooth')"/>
+            <FluxSecondaryButton
+                label="Scroll to #5000"
+                @click="scroller?.scrollToIndex(4999, 'smooth')"/>
+            <FluxSecondaryButton
+                label="Scroll to end"
+                @click="scroller?.scrollToIndex(items.length - 1, 'smooth')"/>
+        </FluxButtonGroup>
+
         <div style="width: 100%; height: 320px; background: var(--surface); border: 1px solid var(--surface-stroke); border-radius: var(--radius)">
             <FluxVirtualScroller
+                ref="scroller"
                 :item-size="44"
                 :items="items">
                 <template #default="{item, index}">
@@ -12,13 +25,16 @@
                 </template>
             </FluxVirtualScroller>
         </div>
-    </Preview>
+    </div>
 </template>
 
 <script
     setup
     lang="ts">
-    import { FluxVirtualScroller } from '@flux-ui/components';
+    import { FluxButtonGroup, FluxSecondaryButton, FluxVirtualScroller } from '@flux-ui/components';
+    import { useTemplateRef } from 'vue';
+
+    const scroller = useTemplateRef<InstanceType<typeof FluxVirtualScroller>>('scroller');
 
     const items = Array.from({length: 10000}, (_, index) => `Item number ${index + 1}`);
 </script>

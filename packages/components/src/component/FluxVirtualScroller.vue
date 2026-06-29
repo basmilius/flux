@@ -1,7 +1,9 @@
 <template>
     <div
         ref="viewport"
-        :class="$style.virtualScroller">
+        :class="$style.virtualScroller"
+        role="list"
+        :aria-rowcount="items.length">
         <div
             :class="$style.virtualScrollerSpacer"
             :style="{
@@ -15,8 +17,11 @@
                 <div
                     v-for="entry of visibleEntries"
                     :key="entry.index"
+                    role="listitem"
+                    :aria-setsize="items.length"
+                    :aria-posinset="entry.index + 1"
                     :style="{
-                        height: `${estimatedItemHeight}px`
+                        height: `${itemSize}px`
                     }">
                     <slot
                         :index="entry.index"
@@ -31,16 +36,16 @@
     lang="ts"
     setup
     generic="T">
-    import { computed, onMounted, onUnmounted, ref, useTemplateRef, type VNode } from 'vue';
+    import { computed, onMounted, onUnmounted, ref, useTemplateRef, type VNode, watch } from 'vue';
     import { useScrollPosition } from '@flux-ui/internals';
     import $style from '~flux/components/css/component/VirtualScroller.module.scss';
 
     const {
-        estimatedItemHeight = 40,
+        itemSize = 40,
         items,
         overscan = 4
     } = defineProps<{
-        readonly estimatedItemHeight?: number;
+        readonly itemSize?: number;
         readonly items: T[];
         readonly overscan?: number;
     }>();
@@ -54,10 +59,10 @@
 
     const viewportHeight = ref(0);
 
-    const totalHeight = computed(() => items.length * estimatedItemHeight);
-    const startIndex = computed(() => Math.max(0, Math.floor(y.value / estimatedItemHeight) - overscan));
-    const endIndex = computed(() => Math.min(items.length, Math.ceil((y.value + viewportHeight.value) / estimatedItemHeight) + overscan));
-    const offsetY = computed(() => startIndex.value * estimatedItemHeight);
+    const totalHeight = computed(() => items.length * itemSize);
+    const startIndex = computed(() => Math.max(0, Math.floor(y.value / itemSize) - overscan));
+    const endIndex = computed(() => Math.min(items.length, Math.ceil((y.value + viewportHeight.value) / itemSize) + overscan));
+    const offsetY = computed(() => startIndex.value * itemSize);
 
     const visibleEntries = computed(() => {
         const entries: {index: number; item: T}[] = [];
@@ -92,5 +97,40 @@
     onUnmounted(() => {
         observer?.disconnect();
         observer = null;
+    });
+
+    // Clamp the scroll position when the item count shrinks so the viewport
+    // doesn't end up scrolled past the (now smaller) content.
+    watch(() => items.length, () => {
+        const element = viewport.value;
+
+        if (!element) {
+            return;
+        }
+
+        const maxScroll = Math.max(0, totalHeight.value - element.clientHeight);
+
+        if (element.scrollTop > maxScroll) {
+            element.scrollTop = maxScroll;
+        }
+    });
+
+    function scrollToIndex(index: number, behavior: ScrollBehavior = 'auto'): void {
+        const element = viewport.value;
+
+        if (!element) {
+            return;
+        }
+
+        const clamped = Math.max(0, Math.min(index, items.length - 1));
+
+        element.scrollTo({
+            top: clamped * itemSize,
+            behavior
+        });
+    }
+
+    defineExpose({
+        scrollToIndex
     });
 </script>

@@ -21,7 +21,7 @@
     setup>
     import { unrefTemplateElement } from '@flux-ui/internals';
     import { clsx } from 'clsx';
-    import { onUnmounted, toRef, unref, useTemplateRef } from 'vue';
+    import { onUnmounted, ref, toRef, unref, useTemplateRef } from 'vue';
     import { useDisabled } from '~flux/components/composable';
     import FluxTicks from '../FluxTicks.vue';
     import $style from '~flux/components/css/component/primitive/Slider.module.scss';
@@ -32,11 +32,9 @@
     }>();
 
     const {
-        disabled: componentDisabled,
-        isDragging
+        disabled: componentDisabled
     } = defineProps<{
         readonly disabled?: boolean;
-        readonly isDragging?: boolean;
         readonly isTicksVisible?: boolean;
         readonly max: number;
         readonly min: number;
@@ -46,22 +44,30 @@
     const disabled = useDisabled(toRef(() => componentDisabled));
     const rootRef = useTemplateRef('root');
 
+    const isDragging = ref(false);
+    const pointerId = ref<number | null>(null);
+
     function onPointerDown(evt: PointerEvent): void {
         if (unref(disabled) || evt.button !== 0) {
             return;
         }
 
+        const root = unrefTemplateElement(rootRef);
+
+        isDragging.value = true;
+        pointerId.value = evt.pointerId;
         emit('dragging', true);
+        root?.setPointerCapture?.(evt.pointerId);
         document.addEventListener('pointermove', onPointerMove);
         document.addEventListener('pointercancel', onPointerUp, {passive: true});
         document.addEventListener('pointerup', onPointerUp, {passive: true});
-        requestAnimationFrame(() => onPointerMove(evt));
+        onPointerMove(evt);
     }
 
     function onPointerMove(evt: PointerEvent): void {
         const root = unrefTemplateElement(rootRef);
 
-        if (!isDragging || !root) {
+        if (!unref(isDragging) || !root) {
             return;
         }
 
@@ -69,11 +75,23 @@
         left += 6; // margin.
         width -= 12; // margin times two.
 
+        if (width <= 0) {
+            return;
+        }
+
         emit('update', Math.max(0, Math.min(1, (evt.clientX - left) / width)));
         evt.preventDefault();
     }
 
     function onPointerUp(): void {
+        const root = unrefTemplateElement(rootRef);
+
+        if (pointerId.value !== null) {
+            root?.releasePointerCapture?.(pointerId.value);
+            pointerId.value = null;
+        }
+
+        isDragging.value = false;
         emit('dragging', false);
         document.removeEventListener('pointermove', onPointerMove);
         document.removeEventListener('pointercancel', onPointerUp);
