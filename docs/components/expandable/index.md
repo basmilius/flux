@@ -29,6 +29,8 @@ slots:
     -   name: header
         description: A custom header for the expandable.
         type:
+            contentId: string
+            headerId: string
             label: string
             isOpen: boolean
             close: "(): void"
@@ -38,6 +40,8 @@ slots:
     -   name: body
         description: A custom body for the expandable.
         type:
+            contentId: string
+            headerId: string
             label: string
             close: "(): void"
 
@@ -56,6 +60,10 @@ render=../../code/components/expandable/preview.vue
 
 ::: tip
 Multiple expandables can be grouped together using [Expandable Groups](./group).
+:::
+
+::: tip
+The default header renders an accessible disclosure button with `aria-controls` and `aria-expanded` wired to the body region. When you provide a custom `header` slot, use the `headerId` and `contentId` slot props (also available on the `body` slot) to recreate this relationship on your own trigger element.
 :::
 
 <FrontmatterDocs/>

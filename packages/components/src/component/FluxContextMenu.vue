@@ -15,7 +15,8 @@
                     clamp-to-viewport
                     :margin="2"
                     :position="position"
-                    role="menu">
+                    role="menu"
+                    :aria-label="label">
                     <slot
                         name="menu"
                         v-bind="{close}"/>
@@ -30,11 +31,11 @@
     setup>
     import { isSSR, useEventListener, useFocusTrap } from '@flux-ui/internals';
     import { computed, type ComponentPublicInstance, onUnmounted, provide, reactive, ref, toRef, useTemplateRef, type VNode } from 'vue';
+    import { AnchorPopup } from '~flux/components/component/primitive';
     import { useDisabled } from '~flux/components/composable';
     import { useMenuFlyoutProvider } from '~flux/components/composable/private';
     import { FluxMenuPersistentInjectionKey } from '~flux/components/data';
     import { FluxFadeTransition } from '~flux/components/transition';
-    import { AnchorPopup } from '~flux/components/component/primitive';
     import $style from '~flux/components/css/component/ContextMenu.module.scss';
 
     const {
@@ -46,6 +47,7 @@
         readonly debugCone?: boolean;
         readonly disabled?: boolean;
         readonly isPersistent?: boolean;
+        readonly label?: string;
         readonly position?:
             | 'top' | 'top-left' | 'top-right'
             | 'left' | 'left-top' | 'left-bottom'
@@ -177,23 +179,25 @@
         return (!!root && !!target && root.contains(target)) || menuFlyout.isInsidePopups(target);
     }
 
+    const dismissTarget = computed(() => isOpen.value ? window : null);
+
     if (!isSSR) {
-        useEventListener(ref(window), 'pointerdown', (evt: PointerEvent) => {
-            if (isOpen.value && !isInsideMenu(evt.target as Node | null)) {
+        useEventListener(dismissTarget, 'pointerdown', (evt: PointerEvent) => {
+            if (!isInsideMenu(evt.target as Node | null)) {
                 close();
             }
         }, {capture: true});
 
-        useEventListener(ref(window), 'keydown', (evt: KeyboardEvent) => {
-            if (isOpen.value && evt.key === 'Escape') {
+        useEventListener(dismissTarget, 'keydown', (evt: KeyboardEvent) => {
+            if (evt.key === 'Escape') {
                 close();
             }
         });
 
         // Scroll closes the menu, except when scrolling inside the menu itself (the popup has its own
         // overflow), so a long list can be scrolled without dismissing the menu.
-        useEventListener(ref(window), 'scroll', (evt: Event) => {
-            if (isOpen.value && !isInsideMenu(evt.target as Node | null)) {
+        useEventListener(dismissTarget, 'scroll', (evt: Event) => {
+            if (!isInsideMenu(evt.target as Node | null)) {
                 close();
             }
         }, {capture: true});

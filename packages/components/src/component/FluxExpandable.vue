@@ -1,15 +1,14 @@
 <template>
-    <div
-        :class="isOpen ? $style.expandableOpened : $style.expandable"
-        :id="headerId"
-        :aria-controls="contentId"
-        :aria-expanded="isOpen">
+    <div :class="isOpen ? $style.expandableOpened : $style.expandable">
         <slot
-            v-bind="{label, isOpen, close, open, toggle}"
+            v-bind="{contentId, headerId, label, isOpen, close, open, toggle}"
             name="header">
             <button
                 :class="$style.expandableHeader"
+                :id="headerId"
                 type="button"
+                :aria-controls="contentId"
+                :aria-expanded="isOpen"
                 @click="toggle">
                 <FluxFadeTransition>
                     <FluxIcon
@@ -37,10 +36,10 @@
                 role="region"
                 :aria-labelledby="headerId">
                 <slot
-                    v-bind="{label, close}"
+                    v-bind="{contentId, headerId, label, close}"
                     name="body">
                     <div :class="$style.expandableContent">
-                        <slot v-bind="{label, close}"/>
+                        <slot v-bind="{contentId, headerId, label, close}"/>
                     </div>
                 </slot>
             </div>
@@ -53,7 +52,7 @@
     setup>
     import { useComponentId } from '@basmilius/common';
     import type { FluxIconName } from '@flux-ui/types';
-    import { computed, getCurrentInstance, onBeforeMount, onUnmounted, ref, unref, useId, watch } from 'vue';
+    import { computed, getCurrentInstance, onBeforeMount, onUnmounted, ref, unref, useId, type VNode, watch } from 'vue';
     import { useExpandableGroupInjection } from '~flux/components/composable';
     import { FluxAutoHeightTransition, FluxFadeTransition } from '~flux/components/transition';
     import FluxIcon from './FluxIcon.vue';
@@ -71,6 +70,28 @@
         readonly label?: string;
     }>();
 
+    defineSlots<{
+        body(props: {
+            readonly contentId: string;
+            readonly headerId: string;
+            readonly label?: string;
+            close(): void; }): VNode[];
+
+        default(props: {
+            readonly label?: string;
+            close(): void; }): VNode[];
+
+        header(props: {
+            readonly contentId: string;
+            readonly headerId: string;
+            readonly label?: string;
+            readonly isOpen: boolean;
+            close(): void;
+            open(): void;
+            toggle(): void;
+        }): VNode[];
+    }>();
+
     const componentId = useComponentId();
     const contentId = useId();
     const headerId = useId();
@@ -85,11 +106,19 @@
     onUnmounted(() => unregister?.(componentId.value));
 
     function close(): void {
+        if (!isOpen.value) {
+            return;
+        }
+
         isOpen.value = false;
         emit('toggle', isOpen.value);
     }
 
     function open(): void {
+        if (isOpen.value) {
+            return;
+        }
+
         closeAll?.();
         isOpen.value = true;
         emit('toggle', isOpen.value);
@@ -112,6 +141,8 @@
     }, {immediate: true});
 
     defineExpose({
+        contentId,
+        headerId,
         isOpen,
         close,
         open,

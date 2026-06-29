@@ -26,6 +26,11 @@ props:
         type: boolean
         optional: true
 
+    -   name: label
+        description: An accessible label for the menu popup, applied as aria-label. Use it to name the menu for screen readers.
+        type: string
+        optional: true
+
     -   name: position
         description: The position of the menu relative to the cursor.
         type: [ '"bottom-left"', '"bottom-right"', '"top-left"', '"…"' ]
