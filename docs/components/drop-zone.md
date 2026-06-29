@@ -2,6 +2,10 @@
 outline: deep
 
 emits:
+    -   name: reject
+        description: Triggered when one or more files are rejected — either because they do not match `accept`, or because extra files were provided while `is-multiple` is off. Receives the rejected files.
+        type: [ 'File[]' ]
+
     -   name: select
         description: Triggered when a file is selected.
         type: [ File ]
@@ -12,7 +16,7 @@ emits:
 
 props:
     -   name: accept
-        description: Configure which file types the drop zone accepts.
+        description: 'Configure which file types the drop zone accepts, as a comma-separated list of extensions (`.png`), MIME types (`image/png`) or wildcards (`image/*`). Enforced on both drop and picker — non-matching files are emitted through `reject` instead of `select`.'
         type: string
         optional: true
 
@@ -58,6 +62,10 @@ Allows files to be dropped on the contents of the drop zone. This is mainly used
 
 ::: render
 render=../code/components/drop-zone/preview.vue
+:::
+
+::: tip Accept handling and rejected files
+The `accept` filter is enforced on both dropped and picked files, not just the native file picker. Files that do not match `accept` are emitted through the `reject` event instead of `select` / `select-multiple`. When `is-multiple` is off and several files are provided, only the first match is selected and the remaining files are reported as rejected too — listen to `reject` to give the user feedback about what was skipped.
 :::
 
 <FrontmatterDocs/>

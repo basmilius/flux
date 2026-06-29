@@ -15,11 +15,14 @@
 
         <dialog
             ref="dialog"
+            :aria-label="label"
             :class="$style.flyoutDialog"
             @click="onDialogBackdropClick">
             <FluxPane
                 v-if="isOpen"
                 ref="pane"
+                :aria-label="label"
+                role="dialog"
                 :class="clsx(
                     $style.flyoutPane,
                     isAutoWidth && $style.isAutoWidth,
@@ -38,14 +41,14 @@
 <script
     lang="ts"
     setup>
+    import { useHotKey } from '@basmilius/common';
     import { isSSR, unrefTemplateElement, useEventListener, useFocusTrap } from '@flux-ui/internals';
     import type { FluxDirection } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { provide, ref, unref, useTemplateRef, type VNode, watch } from 'vue';
+    import { onUnmounted, provide, ref, unref, useTemplateRef, type VNode, watch } from 'vue';
     import { FluxFlyoutInjectionKey } from '~flux/components/data';
     import FluxPane from './FluxPane.vue';
     import $style from '~flux/components/css/component/Flyout.module.scss';
-    import { useHotKey } from '@basmilius/common';
 
     const emit = defineEmits<{
         close: [];
@@ -58,6 +61,7 @@
     } = defineProps<{
         readonly direction?: FluxDirection;
         readonly isAutoWidth?: boolean;
+        readonly label?: string;
         readonly margin?: number;
         readonly width?: number | string;
     }>();
@@ -105,6 +109,24 @@
 
     let closeAnimationEndListener: ((evt: AnimationEvent) => void) | null = null;
     let openAnimationEndListener: ((evt: AnimationEvent) => void) | null = null;
+
+    onUnmounted(() => {
+        const pane = unrefTemplateElement(paneRef);
+
+        if (!pane) {
+            return;
+        }
+
+        if (closeAnimationEndListener) {
+            pane.removeEventListener('animationend', closeAnimationEndListener);
+            closeAnimationEndListener = null;
+        }
+
+        if (openAnimationEndListener) {
+            pane.removeEventListener('animationend', openAnimationEndListener);
+            openAnimationEndListener = null;
+        }
+    });
 
     function close(): void {
         const pane = unrefTemplateElement(paneRef);

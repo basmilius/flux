@@ -5,14 +5,16 @@
             isDragging && $style.isDragging,
             isDraggingOver && $style.isDraggingOver
         ]"
+        role="button"
         :aria-disabled="disabled ? true : undefined"
         :aria-label="ariaLabel ?? translate('flux.dropFilesOrClick')"
         :tabindex="disabled ? -1 : 0"
         @keydown.self="onKeyDown">
         <div
             :class="$style.dropZoneContent"
+            @dragenter.capture="onDragEnter"
             @dragleave.capture="onDragLeave"
-            @dragover.capture="onDragEnter"
+            @dragover.capture="onDragOver"
             @drop="onDrop">
             <svg
                 ref="content"
@@ -63,6 +65,7 @@
     import $style from '~flux/components/css/component/DropZone.module.scss';
 
     const emit = defineEmits<{
+        reject: [File[]];
         select: [File];
         selectMultiple: [FileList];
     }>();
@@ -111,6 +114,8 @@
     const isDraggingOver = ref(false);
     const pathLength = ref(0);
 
+    let dragDepth = 0;
+
     onMounted(() => {
         window.addEventListener('dragleave', onWindowDragEnd, {capture: true});
         window.addEventListener('dragover', onWindowDragStart, {capture: true});
@@ -135,15 +140,33 @@
             return;
         }
 
+        // Count enter/leave pairs so dragging across child element boundaries
+        // doesn't toggle the over-state (which would make the border flicker).
+        ++dragDepth;
         isDraggingOver.value = true;
         evt.preventDefault();
     }
 
+    function onDragOver(evt: DragEvent): void {
+        if (unref(disabled)) {
+            return;
+        }
+
+        evt.preventDefault();
+    }
+
     function onDragLeave(): void {
-        isDraggingOver.value = false;
+        // Each dragenter on a child increments the depth; only when every
+        // matching leave has fired (depth back to zero) do we leave the zone.
+        dragDepth = Math.max(0, dragDepth - 1);
+
+        if (dragDepth === 0) {
+            isDraggingOver.value = false;
+        }
     }
 
     function onDrop(evt: DragEvent): void {
+        dragDepth = 0;
         isDragging.value = false;
         isDraggingOver.value = false;
 
@@ -151,24 +174,16 @@
             return;
         }
 
-        const files = evt.dataTransfer.files;
-
-        if (files.length === 0) {
-            return;
-        }
-
-        if (isMultiple) {
-            emit('selectMultiple', files);
-        } else {
-            emit('select', files[0]);
-        }
-
         evt.preventDefault();
         evt.stopPropagation();
+
+        emitFiles(evt.dataTransfer.files);
     }
 
     function onWindowDragEnd(): void {
+        dragDepth = 0;
         isDragging.value = false;
+        isDraggingOver.value = false;
     }
 
     function onWindowDragStart(): void {
@@ -176,21 +191,70 @@
     }
 
     function onWindowDrop(): void {
+        dragDepth = 0;
         isDragging.value = false;
         isDraggingOver.value = false;
     }
 
     function onFileSelected(evt: Event): void {
-        const files = (evt.target as HTMLInputElement).files;
+        emitFiles((evt.target as HTMLInputElement).files);
+    }
 
-        if (!files || files.length === 0) {
+    function matchesAccept(file: File): boolean {
+        if (!accept) {
+            return true;
+        }
+
+        const patterns = accept.split(',').map(pattern => pattern.trim().toLowerCase()).filter(Boolean);
+
+        if (patterns.length === 0) {
+            return true;
+        }
+
+        const name = file.name.toLowerCase();
+        const type = file.type.toLowerCase();
+
+        return patterns.some(pattern => {
+            if (pattern.startsWith('.')) {
+                return name.endsWith(pattern);
+            }
+
+            if (pattern.endsWith('/*')) {
+                return type.startsWith(`${pattern.slice(0, -1)}`);
+            }
+
+            return type === pattern;
+        });
+    }
+
+    function emitFiles(fileList: FileList | null): void {
+        if (!fileList || fileList.length === 0) {
+            return;
+        }
+
+        const all = Array.from(fileList);
+        const accepted = all.filter(matchesAccept);
+        const rejected = all.filter(file => !accepted.includes(file));
+
+        // Surface files that don't match `accept`, or extras that were dropped
+        // when only a single file is allowed, so the consumer can give feedback.
+        const extras = isMultiple ? [] : accepted.slice(1);
+        const allRejected = [...rejected, ...extras];
+
+        if (allRejected.length > 0) {
+            emit('reject', allRejected);
+        }
+
+        if (accepted.length === 0) {
             return;
         }
 
         if (isMultiple) {
-            emit('selectMultiple', files);
+            const dataTransfer = new DataTransfer();
+            accepted.forEach(file => dataTransfer.items.add(file));
+            emit('selectMultiple', dataTransfer.files);
         } else {
-            emit('select', files[0]);
+            emit('select', accepted[0]);
         }
     }
 

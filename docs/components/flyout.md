@@ -8,6 +8,11 @@ props:
         default: vertical
         optional: true
 
+    -   name: label
+        description: An accessible label for the flyout pane, exposed as aria-label on the dialog.
+        type: string
+        optional: true
+
     -   name: margin
         description: A margin from the opener element.
         type: number
@@ -48,6 +53,10 @@ A flyout provides a hidden interactable pane that can be toggled open or closed 
 
 ::: render
 render=../code/components/flyout/preview.vue
+:::
+
+::: tip
+The flyout pane is exposed as a `role="dialog"` and traps focus while open. Provide a `label` so assistive technology can announce the pane.
 :::
 
 <FrontmatterDocs/>

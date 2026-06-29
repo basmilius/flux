@@ -54,6 +54,7 @@
                         v-model.lazy="rgbInputR"
                         :max="255"
                         :min="0"
+                        :step="1"
                         type="number"/>
                 </FluxFormField>
 
@@ -62,6 +63,7 @@
                         v-model.lazy="rgbInputG"
                         :max="255"
                         :min="0"
+                        :step="1"
                         type="number"/>
                 </FluxFormField>
 
@@ -70,6 +72,7 @@
                         v-model.lazy="rgbInputB"
                         :max="255"
                         :min="0"
+                        :step="1"
                         type="number"/>
                 </FluxFormField>
             </template>
@@ -80,6 +83,7 @@
                         v-model.lazy="hsvInputH"
                         :max="1"
                         :min="0"
+                        :step="0.01"
                         type="number"/>
                 </FluxFormField>
 
@@ -88,6 +92,7 @@
                         v-model.lazy="hsvInputS"
                         :max="1"
                         :min="0"
+                        :step="0.01"
                         type="number"/>
                 </FluxFormField>
 
@@ -96,6 +101,7 @@
                         v-model.lazy="hsvInputV"
                         :max="1"
                         :min="0"
+                        :step="0.01"
                         type="number"/>
                 </FluxFormField>
             </template>
@@ -106,6 +112,7 @@
                         v-model.lazy="hslInputH"
                         :max="360"
                         :min="0"
+                        :step="1"
                         type="number"/>
                 </FluxFormField>
 
@@ -114,6 +121,7 @@
                         v-model.lazy="hslInputS"
                         :max="100"
                         :min="0"
+                        :step="1"
                         type="number"/>
                 </FluxFormField>
 
@@ -122,6 +130,7 @@
                         v-model.lazy="hslInputL"
                         :max="100"
                         :min="0"
+                        :step="1"
                         type="number"/>
                 </FluxFormField>
             </template>
@@ -151,6 +160,7 @@
     });
 
     const {
+        isAlphaEnabled = false,
         type = 'hex'
     } = defineProps<{
         readonly isAlphaEnabled?: boolean;
@@ -163,11 +173,39 @@
     const hsv = ref<[number, number, number]>([0, 0, 0]);
     const isDragging = ref(false);
 
+    // Tracks the last value emitted from the outgoing hsv watcher so the
+    // incoming modelValue watcher can ignore its own echo, preventing a
+    // feedback loop with rounding drift.
+    let lastEmitted: string | null = null;
+
     const rgb = computed(() => {
         const [r, g, b] = hsvToRGB(...unref(hsv));
 
         return `rgb(${r} ${g} ${b} / ${unref(alpha)})`;
     });
+
+    function clampByte(value: number): number {
+        return Math.max(0, Math.min(255, Math.round(value)));
+    }
+
+    function alphaToHex(value: number): string {
+        return clampByte(value * 255).toString(16).padStart(2, '0');
+    }
+
+    function hsvToHex(hsv: [number, number, number]): string {
+        const hex = rgbToHEX(...hsvToRGB(...hsv));
+
+        return isAlphaEnabled ? hex + alphaToHex(unref(alpha)) : hex;
+    }
+
+    function expandHex(hex: string): string {
+        // Expand shorthand (#rgb / #rgba) to full form (#rrggbb / #rrggbbaa).
+        if (hex.length === 4 || hex.length === 5) {
+            return '#' + hex.slice(1).split('').map(char => char + char).join('');
+        }
+
+        return hex;
+    }
 
     const hue = computed({
         get: () => unref(hsv)[0] * 360,
@@ -217,10 +255,18 @@
     function onHexBlur(): void {
         const hex = unref(hexInput).trim();
 
-        if (/^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/i.test(hex)) {
-            hsv.value = rgbToHSV(...hexToRGB(hex));
+        if (/^#(?:[0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(hex)) {
+            const expanded = expandHex(hex);
+
+            hsv.value = rgbToHSV(...hexToRGB(expanded.slice(0, 7)));
+
+            if (isAlphaEnabled && expanded.length === 9) {
+                alpha.value = parseInt(expanded.slice(7, 9), 16) / 255;
+            }
+
+            hexInput.value = hsvToHex(unref(hsv));
         } else {
-            hexInput.value = rgbToHEX(...hsvToRGB(...unref(hsv)));
+            hexInput.value = hsvToHex(unref(hsv));
         }
     }
 
@@ -240,6 +286,10 @@
             return;
         }
 
+        if (JSON.stringify(modelValue) === lastEmitted) {
+            return;
+        }
+
         if (JSON.stringify(modelValue) === JSON.stringify(oldModelValue)) {
             return;
         }
@@ -248,9 +298,15 @@
         const values: [number, number, number] = type !== 'hex' ? modelValue as [number, number, number] : [0, 0, 0];
 
         switch (type) {
-            case 'hex':
-                hsv.value = rgbToHSV(...hexToRGB(hex));
+            case 'hex': {
+                const expanded = expandHex(hex.trim());
+                hsv.value = rgbToHSV(...hexToRGB(expanded.slice(0, 7)));
+
+                if (isAlphaEnabled && expanded.length === 9) {
+                    alpha.value = parseInt(expanded.slice(7, 9), 16) / 255;
+                }
                 break;
+            }
 
             case 'rgb':
                 hsv.value = rgbToHSV(...values);
@@ -266,25 +322,31 @@
         }
     }, {immediate: true});
 
-    watch(hsv, hsv => hexInput.value = rgbToHEX(...hsvToRGB(...hsv)), {immediate: true});
+    watch([hsv, alpha], () => hexInput.value = hsvToHex(unref(hsv)), {immediate: true});
 
-    watch(hsv, hsv => {
+    watch([hsv, alpha], () => {
+        const currentHsv = unref(hsv);
+        let next: string | [number, number, number] = hsvToHex(currentHsv);
+
         switch (type) {
             case 'hex':
-                modelValue.value = rgbToHEX(...hsvToRGB(...hsv));
+                next = hsvToHex(currentHsv);
                 break;
 
             case 'rgb':
-                modelValue.value = hsvToRGB(...hsv);
+                next = hsvToRGB(...currentHsv);
                 break;
 
             case 'hsl':
-                modelValue.value = rgbToHSL(...hsvToRGB(...hsv));
+                next = rgbToHSL(...hsvToRGB(...currentHsv));
                 break;
 
             case 'hsv':
-                modelValue.value = [...hsv];
+                next = [...currentHsv];
                 break;
         }
+
+        lastEmitted = JSON.stringify(next);
+        modelValue.value = next;
     });
 </script>
