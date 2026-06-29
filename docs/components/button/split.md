@@ -8,6 +8,11 @@ props:
         optional: true
         default: ellipsis-h
 
+    -   name: disabled
+        description: Disables the split button. The more button is disabled and its flyout can no longer be opened.
+        type: boolean
+        optional: true
+
     -   name: flyout-direction
         description: The direction of the flyout.
         type: FluxDirection
@@ -52,6 +57,8 @@ requiredIcons:
 
 Split buttons are buttons that have one primary action and multiple secondary actions. A common usecase for this component is a download button with more options for that download.
 
+The more button carries `aria-haspopup="menu"` and reflects the flyout state through `aria-expanded`. Setting `disabled` disables the more button and prevents the flyout from opening.
+
 ::: render
 render=../../code/components/button/split/preview.vue
 :::
@@ -66,6 +73,10 @@ example=../../code/components/button/split/basic.vue
 
 ::: example Save options || A primary save button with secondary save variants.
 example=../../code/components/button/split/save-options.vue
+:::
+
+::: example Disabled || Set disabled to disable the more button and prevent the flyout from opening.
+example=../../code/components/button/split/disabled.vue
 :::
 
 ## Used components

@@ -1,6 +1,7 @@
 <template>
     <div
         v-if="isRendered"
+        :aria-live="color === 'danger' ? 'assertive' : 'polite'"
         :class="clsx(
             color === 'gray' && $style.snackbarGray,
             color === 'primary' && $style.snackbarPrimary,
@@ -8,7 +9,10 @@
             color === 'info' && $style.snackbarInfo,
             color === 'success' && $style.snackbarSuccess,
             color === 'warning' && $style.snackbarWarning
-        )">
+        )"
+        :role="color === 'danger' ? 'alert' : 'status'"
+        @mouseenter="onMouseEnter"
+        @mouseleave="onMouseLeave">
         <div :class="$style.snackbarContent">
             <FluxSpinner
                 v-if="isLoading"
@@ -33,7 +37,7 @@
                 </div>
 
                 <FluxProgressBar
-                    v-if="progressIndeterminate || progressValue"
+                    v-if="progressIndeterminate || progressValue != null"
                     :is-indeterminate="progressIndeterminate"
                     :max="progressMax"
                     :min="progressMin"
@@ -55,7 +59,6 @@
                 v-for="(actionLabel, actionKey) of actions"
                 :key="actionKey"
                 :class="$style.snackbarAction"
-                tabindex="-1"
                 type="button"
                 @click="onAction(actionKey)">
                 <span>{{ actionLabel }}</span>
@@ -75,7 +78,7 @@
     import type { FluxColor, FluxIconName, FluxSnackbarObject } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, onBeforeUnmount, ref, watch, watchEffect } from 'vue';
-    import { addSnackbar, removeSnackbar, updateSnackbar } from '~flux/components/data';
+    import { addSnackbar, pauseSnackbar, removeSnackbar, resumeSnackbar, updateSnackbar } from '~flux/components/data';
     import FluxAction from './FluxAction.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxProgressBar from './FluxProgressBar.vue';
@@ -91,6 +94,7 @@
         actions,
         color = 'gray',
         icon,
+        id: storeId,
         isCloseable,
         isLoading,
         isRendered,
@@ -106,6 +110,7 @@
         readonly actions?: Record<string, string>;
         readonly color?: FluxColor;
         readonly icon?: FluxIconName;
+        readonly id?: number;
         readonly isCloseable?: boolean;
         readonly isLoading?: boolean;
         readonly isRendered?: boolean;
@@ -122,6 +127,18 @@
     const id = ref<number | null>(null);
 
     const hasActions = computed(() => actions && Object.entries(actions).length > 0);
+
+    function onMouseEnter(): void {
+        if (storeId != null) {
+            pauseSnackbar(storeId);
+        }
+    }
+
+    function onMouseLeave(): void {
+        if (storeId != null) {
+            resumeSnackbar(storeId);
+        }
+    }
 
     onBeforeUnmount(() => {
         if (id.value) {

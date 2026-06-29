@@ -4,14 +4,17 @@
         :is-auto-width="flyoutIsAutoWidth"
         :margin="flyoutMargin"
         :width="flyoutWidth">
-        <template #opener="{close, open, toggle}">
+        <template #opener="{close, isOpen, open, toggle}">
             <div :class="$style.buttonGroup">
                 <slot
                     v-bind="{close, open, toggle}"
                     name="button"/>
 
                 <FluxSecondaryButton
+                    :disabled="disabled"
                     :icon-leading="buttonIcon"
+                    aria-haspopup="menu"
+                    :aria-expanded="isOpen"
                     @click="open"/>
             </div>
         </template>
@@ -37,6 +40,7 @@
         buttonIcon = 'ellipsis-h'
     } = defineProps<{
         readonly buttonIcon?: FluxIconName;
+        readonly disabled?: boolean;
         readonly flyoutDirection?: FluxDirection;
         readonly flyoutIsAutoWidth?: boolean;
         readonly flyoutMargin?: number;

@@ -5,7 +5,9 @@
             $style.table,
             x > 0 && $style.isScrolledStart
         ]">
-        <table :class="$style.tableBase">
+        <table
+            :class="$style.tableBase"
+            :aria-busy="isLoading || undefined">
             <slot name="colgroups"/>
 
             <thead v-if="slots.header">

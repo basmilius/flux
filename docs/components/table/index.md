@@ -57,6 +57,10 @@ Tables are a popular and effective way to display information in a clear and con
 render=../../code/components/table/preview.vue
 :::
 
+::: info Accessible loading
+While `is-loading` is set the table exposes `aria-busy` on the underlying `<table>`, so assistive technologies announce that the data is updating.
+:::
+
 <FrontmatterDocs/>
 
 ## Examples

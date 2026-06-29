@@ -28,12 +28,14 @@ export type FluxStore = FluxState & {
     addPrompt(spec: Omit<FluxPromptObject, 'id'>): number;
     addSnackbar(spec: Omit<FluxSnackbarObject, 'id'>): number;
     addTooltip(spec: Omit<FluxTooltipObject, 'id'>): number;
+    pauseSnackbar(id: number): void;
     registerDialog(): FluxDialogRegistration;
     removeAlert(id: number): void;
     removeConfirm(id: number): void;
     removePrompt(id: number): void;
     removeSnackbar(id: number): void;
     removeTooltip(id: number): void;
+    resumeSnackbar(id: number): void;
     showAlert(spec: Omit<FluxAlertObject, 'id' | 'onClose'>): Promise<void>;
     showConfirm(spec: Omit<FluxConfirmObject, 'id' | 'onCancel' | 'onConfirm'>): Promise<boolean>;
     showPrompt(spec: Omit<FluxPromptObject, 'id' | 'onCancel' | 'onConfirm'>): Promise<string | false>;
@@ -44,6 +46,15 @@ export type FluxStore = FluxState & {
 };
 
 const DEFAULT_SNACKBAR_DURATION = 6000;
+
+type SnackbarTimer = {
+    finish(): void;
+    remaining: number;
+    startedAt: number;
+    timeout: ReturnType<typeof setTimeout> | null;
+};
+
+const snackbarTimers = new Map<number, SnackbarTimer>();
 
 const state = reactive<FluxState>({
     dialogs: [],
@@ -169,6 +180,14 @@ export function removePrompt(id: number): void {
 }
 
 export function removeSnackbar(id: number): void {
+    const timer = snackbarTimers.get(id);
+
+    if (timer?.timeout != null) {
+        clearTimeout(timer.timeout);
+    }
+
+    snackbarTimers.delete(id);
+
     const index = state.snackbars.findIndex(s => s.id === id);
 
     if (index < 0) {
@@ -252,6 +271,29 @@ export async function showPrompt(spec: Omit<FluxPromptObject, 'id' | 'onCancel' 
     });
 }
 
+export function pauseSnackbar(id: number): void {
+    const timer = snackbarTimers.get(id);
+
+    if (!timer || timer.timeout === null) {
+        return;
+    }
+
+    clearTimeout(timer.timeout);
+    timer.timeout = null;
+    timer.remaining = Math.max(0, timer.remaining - (Date.now() - timer.startedAt));
+}
+
+export function resumeSnackbar(id: number): void {
+    const timer = snackbarTimers.get(id);
+
+    if (!timer || timer.timeout !== null) {
+        return;
+    }
+
+    timer.startedAt = Date.now();
+    timer.timeout = setTimeout(timer.finish, timer.remaining);
+}
+
 export function showSnackbar({duration, ...spec}: Omit<FluxSnackbarObject, 'id'> & { readonly duration?: number; }): void;
 
 export async function showSnackbar({duration, ...spec}: Omit<FluxSnackbarObject, 'id'> & { readonly duration?: number; }): Promise<void> {
@@ -264,6 +306,7 @@ export async function showSnackbar({duration, ...spec}: Omit<FluxSnackbarObject,
             }
 
             isResolved = true;
+            snackbarTimers.delete(id);
             removeSnackbar(id);
             resolve();
         };
@@ -276,7 +319,17 @@ export async function showSnackbar({duration, ...spec}: Omit<FluxSnackbarObject,
             }
         });
 
-        setTimeout(finish, duration ?? DEFAULT_SNACKBAR_DURATION);
+        const totalDuration = duration ?? DEFAULT_SNACKBAR_DURATION;
+
+        const timer: SnackbarTimer = {
+            finish,
+            remaining: totalDuration,
+            startedAt: Date.now(),
+            timeout: null
+        };
+
+        snackbarTimers.set(id, timer);
+        timer.timeout = setTimeout(finish, totalDuration);
     });
 }
 
@@ -313,12 +366,14 @@ export function useFluxStore(): FluxStore {
         addPrompt,
         addSnackbar,
         addTooltip,
+        pauseSnackbar,
         registerDialog,
         removeAlert,
         removeConfirm,
         removePrompt,
         removeSnackbar,
         removeTooltip,
+        resumeSnackbar,
         showAlert,
         showConfirm,
         showPrompt,

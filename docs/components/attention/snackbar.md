@@ -148,6 +148,12 @@ export type FluxSnackbarObject = {
 
 :::
 
+By default a snackbar dismisses itself after `duration` milliseconds (6000 by default). Hovering the snackbar pauses this timer and moving the pointer away resumes it, so the message stays readable while the user is interacting with it.
+
+## Accessibility
+
+Snackbars are announced to assistive technology through a live region. A `danger` snackbar uses `role="alert"` with `aria-live="assertive"` so it is announced immediately; all other colors use `role="status"` with `aria-live="polite"` to avoid interrupting the user.
+
 ## Examples
 
 ::: example Global || Snackbars render globally by-default.

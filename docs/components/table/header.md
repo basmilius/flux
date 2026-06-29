@@ -12,6 +12,12 @@ props:
         type: [ '"start"', '"center"', '"end"' ]
         optional: true
 
+    -   name: data-type
+        description: The kind of data in the column. Switches the sort flyout icons to match — alphabetical (`text`), numeric (`numeric`) or chronological (`date`).
+        type: [ '"text"', '"numeric"', '"date"' ]
+        optional: true
+        default: text
+
     -   name: is-shrinking
         description: If the header will shrink to fit its cell group.
         type: boolean
@@ -43,9 +49,13 @@ slots:
         description: The content of the header.
 
 requiredIcons:
+    - arrow-down-1-9
     - arrow-down-a-z
+    - arrow-down-short-wide
+    - arrow-up-9-1
     - arrow-up-a-z
     - arrow-up-arrow-down
+    - arrow-up-wide-short
     - circle-xmark
 ---
 
@@ -59,6 +69,10 @@ render=../../code/components/table/header/preview.vue
 
 ::: warning
 This component is best used within a [Table](../table).
+:::
+
+::: info Accessible sorting
+When `is-sortable` is set, the sort trigger is reachable with the keyboard and opens the sort flyout like any other [Menu](../menu). Set `data-type` to `numeric` or `date` so the flyout shows ordering icons that match the column's data instead of the alphabetical default.
 :::
 
 <FrontmatterDocs/>
@@ -75,6 +89,10 @@ example=../../code/components/table/header/shrinking.vue
 
 ::: example Sortable || A table header that can be sorted.
 example=../../code/components/table/header/sortable.vue
+:::
+
+::: example Data type || Sortable headers whose flyout icons match the column's data type.
+example=../../code/components/table/header/data-type.vue
 :::
 
 ::: example Width || A table header with a custom width.

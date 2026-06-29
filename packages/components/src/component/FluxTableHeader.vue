@@ -24,7 +24,6 @@
                     <button
                         :class="$style.tableSort"
                         :aria-label="translate('flux.sort')"
-                        tabindex="-1"
                         type="button"
                         @click="open">
                         <FluxIcon
@@ -37,13 +36,13 @@
                     <FluxMenuGroup>
                         <FluxMenuItem
                             :is-highlighted="sort === 'ascending'"
-                            icon-leading="arrow-down-a-z"
+                            :icon-leading="ascendingIcon"
                             :label="translate('flux.sortAscending')"
                             @click="$emit('sort', 'ascending')"/>
 
                         <FluxMenuItem
                             :is-highlighted="sort === 'descending'"
-                            icon-leading="arrow-up-a-z"
+                            :icon-leading="descendingIcon"
                             :label="translate('flux.sortDescending')"
                             @click="$emit('sort', 'descending')"/>
                     </FluxMenuGroup>
@@ -70,7 +69,7 @@
     setup>
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { computed, type VNode } from 'vue';
+    import { computed, unref, type VNode } from 'vue';
     import { useTableInjection } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';
     import FluxFlyout from './FluxFlyout.vue';
@@ -86,10 +85,12 @@
     }>();
 
     const {
+        dataType = 'text',
         minWidth = 0,
         sort
     } = defineProps<{
         readonly align?: 'start' | 'center' | 'end';
+        readonly dataType?: 'text' | 'numeric' | 'date';
         readonly isShrinking?: boolean;
         readonly isSortable?: boolean;
         readonly minWidth?: number;
@@ -104,13 +105,39 @@
     const {isSticky} = useTableInjection();
     const translate = useTranslate();
 
+    const ascendingIcon = computed((): FluxIconName => {
+        switch (dataType) {
+            case 'numeric':
+                return 'arrow-down-1-9';
+
+            case 'date':
+                return 'arrow-down-short-wide';
+
+            default:
+                return 'arrow-down-a-z';
+        }
+    });
+
+    const descendingIcon = computed((): FluxIconName => {
+        switch (dataType) {
+            case 'numeric':
+                return 'arrow-up-9-1';
+
+            case 'date':
+                return 'arrow-up-wide-short';
+
+            default:
+                return 'arrow-up-a-z';
+        }
+    });
+
     const sortingIcon = computed((): FluxIconName => {
         switch (sort) {
             case 'ascending':
-                return 'arrow-down-a-z';
+                return unref(ascendingIcon);
 
             case 'descending':
-                return 'arrow-up-a-z';
+                return unref(descendingIcon);
 
             default:
                 return 'arrow-up-arrow-down';
