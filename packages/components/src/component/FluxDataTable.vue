@@ -1,7 +1,7 @@
 <template>
     <FluxTable
         ref="table"
-        :fill-columns="fillColumns"
+        :fill-columns="limitedItems.length === 0 ? undefined : fillColumns"
         :is-hoverable="isHoverable"
         :is-loading="isLoading"
         :is-sticky="isSticky">
@@ -130,14 +130,16 @@
             </template>
         </template>
 
-        <FluxTableRow v-if="!isLoading && limitedItems.length === 0">
-            <FluxTableCell :colspan="columnCount">
-                <template #content>
-                    <slot name="empty">
-                        <div :class="$style.tableEmpty">{{ translate('flux.noItems') }}</div>
-                    </slot>
-                </template>
-            </FluxTableCell>
+        <FluxTableRow
+            v-if="!isLoading && limitedItems.length === 0"
+            :class="fillColumns && $style.tableEmptyFill">
+            <td
+                :class="$style.tableCellBase"
+                :colspan="columnCount">
+                <slot name="empty">
+                    <div :class="$style.tableEmpty">{{ translate('flux.noItems') }}</div>
+                </slot>
+            </td>
         </FluxTableRow>
     </FluxTable>
 </template>

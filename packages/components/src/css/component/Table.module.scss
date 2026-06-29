@@ -46,7 +46,7 @@
     }
 }
 
-.tableCell {
+.tableCellBase {
     height: 0;
     padding: 0;
     border: 0 solid var(--gray-100);
@@ -54,6 +54,10 @@
     @-moz-document url-prefix() {
         height: 100%;
     }
+}
+
+.tableCell {
+    composes: tableCellBase;
 }
 
 .tableCellContent {
@@ -183,6 +187,15 @@ tbody .tableGroupRow:has(+ .tableFill) .tableGroup {
     .tableCellContent {
         padding: 0;
     }
+}
+
+.tableBase:has(.tableEmptyFill) {
+    flex-grow: 1;
+}
+
+.tableEmptyFill .tableCellBase {
+    height: 100%;
+    vertical-align: middle;
 }
 
 .tableBar {
