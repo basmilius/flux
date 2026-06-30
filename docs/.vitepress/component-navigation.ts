@@ -409,7 +409,8 @@ const navigation: SidebarItem = {
                 {text: 'Border shine', link: '/components/visual/border-shine', image: '/assets/components/visual-border-shine.svg'},
                 {text: 'Dot pattern', link: '/components/visual/dot-pattern', image: '/assets/components/visual-dot-pattern.svg'},
                 {text: 'Flickering grid', link: '/components/visual/flickering-grid', image: '/assets/components/visual-flickering-grid.svg'},
-                {text: 'Grid pattern', link: '/components/visual/grid-pattern', image: '/assets/components/visual-grid-pattern.svg'}
+                {text: 'Grid pattern', link: '/components/visual/grid-pattern', image: '/assets/components/visual-grid-pattern.svg'},
+                {text: 'Slot text', link: '/components/visual/slot-text'}
             ]
         },
         {text: 'Window', link: '/components/window'}

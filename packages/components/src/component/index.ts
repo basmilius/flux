@@ -152,6 +152,7 @@ export { default as FluxSegmentedControlItem } from './FluxSegmentedControlItem.
 export { default as FluxSeparator } from './FluxSeparator.vue';
 export { default as FluxSkeleton } from './FluxSkeleton.vue';
 export { default as FluxSlideOver } from './FluxSlideOver.vue';
+export { default as FluxSlotText } from './FluxSlotText.vue';
 export { default as FluxSnackbar } from './FluxSnackbar.vue';
 export { default as FluxSnackbarProvider } from './FluxSnackbarProvider.vue';
 export { default as FluxSpacer } from './FluxSpacer.vue';
