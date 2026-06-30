@@ -26,18 +26,23 @@ props:
         type: boolean
         optional: true
 
-    -   name: icon
+    -   name: icon-leading
         description: The icon at the start of the link.
         type: FluxIconName
         optional: true
 
-    -   name: is-filled
-        description: Let the link fill its parent container.
+    -   name: icon-trailing
+        description: The icon at the end of the link.
+        type: FluxIconName
+        optional: true
+
+    -   name: is-primary
+        description: Use the primary color instead of the default foreground color.
         type: boolean
         optional: true
 
     -   name: label
-        description: The label that is shown in the link.
+        description: The label that is shown in the link. Used as a fallback for the default slot.
         type: string
         optional: true
 
@@ -62,28 +67,19 @@ props:
         optional: true
 
 slots:
-    -   name: after
-        description: Content that is shown at the end of the button.
-
-    -   name: before
-        description: Content that is shown at the start of the button.
+    -   name: default
+        description: The content of the link. Used instead of the label prop.
 
     -   name: icon-leading
         description: Slot for overriding the icon at the start.
 
     -   name: icon-trailing
         description: Slot for overriding the icon at the end.
-
-    -   name: label
-        description: Slot for overriding the label.
-
-requiredIcons:
-    - arrow-right-long
 ---
 
 # Link
 
-The link component is used to navigate to another page within the application or to open one in a new tab.
+The link component is an inline link used to navigate to another page within the application or to open one in a new tab. It scales with the surrounding text and supports a leading and trailing icon.
 
 ::: render
 render=../code/components/link/preview.vue
@@ -97,8 +93,12 @@ render=../code/components/link/preview.vue
 example=../code/components/link/basic.vue
 :::
 
-::: example Icon || A link with an icon in the front.
+::: example Icon || A link with a leading and trailing icon.
 example=../code/components/link/icon.vue
+:::
+
+::: example Primary || A link that uses the primary color.
+example=../code/components/link/primary.vue
 :::
 
 ::: example New tab || A link that opens a new tab.
@@ -107,4 +107,5 @@ example=../code/components/link/outside.vue
 
 ## Used components
 
-- [Button](./button)
+- [Icon](./icon)
+- [Pressable](./pressable)

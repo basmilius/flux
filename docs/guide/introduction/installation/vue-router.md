@@ -106,6 +106,7 @@ Every Flux component that accepts a `to` prop hands it off to Vue Router's `<Rou
         direction="vertical"
         :gap="18">
         <FluxLink
+            type="route"
             label="Home"
             :to="{name: 'home'}"/>
 

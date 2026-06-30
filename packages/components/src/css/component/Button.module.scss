@@ -138,46 +138,6 @@
     composes: buttonLabel from './base/Button.module.scss';
 }
 
-.linkButton {
-    composes: button from './base/Button.module.scss';
-
-    display: inline-flex;
-    height: unset;
-    padding: 0;
-    border: 0;
-    box-shadow: unset;
-    color: var(--primary-600);
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 4px;
-
-    @include mixin.focus-ring(6px);
-
-    @include mixin.hover {
-        color: var(--primary-900);
-
-        .linkButtonIcon {
-            transform: translate3d(6px, 0, 0);
-        }
-    }
-}
-
-.linkButtonIcon {
-    composes: buttonIcon from './base/Button.module.scss';
-
-    color: var(--primary-600);
-    transition: inherit;
-    transition-property: transform;
-
-    &.icon {
-        font-size: 16px;
-    }
-}
-
-.linkButtonLabel {
-    composes: buttonLabel from './base/Button.module.scss';
-}
-
 .publishButton {
     composes: primaryButton;
 

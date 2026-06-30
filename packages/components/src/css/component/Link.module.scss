@@ -1,0 +1,37 @@
+@use '~flux/components/css/mixin';
+
+.link {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    box-sizing: border-box;
+    color: var(--foreground);
+    cursor: pointer;
+    font: inherit;
+    text-decoration: underline;
+    text-decoration-color: rgb(from currentColor r g b / .35);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: var(--transition-default);
+    transition-property: color, text-decoration-color;
+
+    @include mixin.focus-ring(3px);
+
+    @include mixin.hover {
+        text-decoration-color: currentColor;
+    }
+
+    &.isPrimary {
+        color: var(--primary-600);
+    }
+
+    &[aria-disabled='true'] {
+        opacity: .5;
+        pointer-events: none;
+    }
+}
+
+.linkIcon {
+    flex-shrink: 0;
+    font-size: 1em;
+}

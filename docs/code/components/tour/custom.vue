@@ -72,8 +72,9 @@
                     <span>Bring your teammates on board to work together in real time.</span>
 
                     <FluxLink
+                        type="link"
                         href="#"
-                        icon="circle-info"
+                        icon-leading="circle-info"
                         label="Learn about roles"/>
                 </div>
             </FluxTourItem>

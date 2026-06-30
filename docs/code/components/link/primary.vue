@@ -1,8 +1,7 @@
 <template>
     <FluxLink
-        icon-leading="store"
-        icon-trailing="arrow-right-long"
-        label="View store"/>
+        is-primary
+        label="Open link"/>
 </template>
 
 <script

@@ -35,6 +35,7 @@
                         icon="arrow-up-right-from-square"
                         label="Portal">
                         <FluxLink
+                            type="link"
                             href="#"
                             label="View in portal"/>
                     </FluxDescriptionItem>

@@ -1,7 +1,7 @@
 <template>
     <FluxLink
         type="link"
-        icon="code-branch"
+        icon-leading="code-branch"
         label="Flux GitHub"
         href="https://github.com/basmilius/flux"
         target="_blank"
