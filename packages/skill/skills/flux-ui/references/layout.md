@@ -35,7 +35,6 @@ the export name (`layout/flex` → `FluxFlex`).
 - `FluxSpacer` — flexible space that pushes siblings apart.
 - `FluxSpacing` — explicit spacing helper.
 - `FluxAspectRatio` — fixed aspect-ratio box (media).
-- `FluxScroller` — managed scroll container.
 - `FluxDivider` / `FluxSeparator` — visual separation.
 
 ## Split view

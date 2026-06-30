@@ -6,7 +6,6 @@ export { default as useKeyboardGrab, defaultAnnounce as defaultKeyboardGrabAnnou
 export { default as useEventListener } from './useEventListener';
 export { default as useInView } from './useInView';
 export { default as useRemembered } from './useRemembered';
-export { default as useScrollEdges } from './useScrollEdges';
 export { default as useScrollPosition } from './useScrollPosition';
 
 export { default as useFocusTrap } from './useFocusTrap';

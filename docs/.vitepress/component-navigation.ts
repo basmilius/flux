@@ -266,7 +266,6 @@ const navigation: SidebarItem = {
                     ]
                 },
                 {text: 'Overflow bar', link: '/components/overflow-bar'},
-                {text: 'Scroller', link: '/components/layout/scroller'},
                 {text: 'Separator', link: '/components/separator'},
                 {text: 'Spacer', link: '/components/layout/spacer', image: '/assets/components/layout-spacer.svg'},
                 {text: 'Spacing', link: '/components/layout/spacing', image: '/assets/components/layout-spacing.svg'},
@@ -398,7 +397,6 @@ const navigation: SidebarItem = {
         {text: 'Tooltip', link: '/components/tooltip'},
         {text: 'Tour', link: '/components/tour'},
         {text: 'Tree view', link: '/components/tree-view'},
-        {text: 'Virtual scroller', link: '/components/virtual-scroller'},
         {
             text: 'Visual',
             link: '/components/visual/',

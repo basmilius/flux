@@ -115,8 +115,6 @@ The `Layout` path segment is **dropped** from the export name (⚠).
 | `layout/grid/column`     | `FluxGridColumn` ⚠ | Grid column |
 | `layout/container`       | `FluxContainer` ⚠ | Max-width container |
 | `layout/aspect-ratio`    | `FluxAspectRatio` ⚠ | Aspect-ratio box |
-| `layout/scroller`        | `FluxScroller` ⚠ | Scroll container |
-| `virtual-scroller`       | `FluxVirtualScroller` | Virtualised scroll container (large lists; no `layout/` prefix) |
 | `layout/spacer`          | `FluxSpacer` ⚠ | Flexible space |
 | `layout/spacing`         | `FluxSpacing` ⚠ | Spacing helper |
 | `layout/split-view`      | `FluxSplitView` ⚠ | Resizable split view |
