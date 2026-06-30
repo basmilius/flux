@@ -3,7 +3,6 @@ import { FluxTableInjectionKey } from '~flux/components/data';
 
 export default function () {
     return inject(FluxTableInjectionKey, () => ({
-        isHoverable: ref(false),
-        isSticky: ref(false)
+        isHoverable: ref(false)
     }), true);
 }

@@ -297,7 +297,6 @@ export type FluxTabBarInjection = {
 
 export type FluxTableInjection = {
     readonly isHoverable: Ref<boolean>;
-    readonly isSticky: Ref<boolean>;
 };
 
 export type FluxTooltipInjection = {

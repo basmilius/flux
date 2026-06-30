@@ -3,7 +3,6 @@
         :class="clsx(
             $style.tableHeader,
             isShrinking && $style.isShrinking,
-            isSticky && $style.isSticky,
             pinned && $style.isPinned
         )"
         scope="col"
@@ -70,7 +69,6 @@
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, unref, type VNode } from 'vue';
-    import { useTableInjection } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxIcon from './FluxIcon.vue';
@@ -102,7 +100,6 @@
         default(): VNode[];
     }>();
 
-    const {isSticky} = useTableInjection();
     const translate = useTranslate();
 
     const ascendingIcon = computed((): FluxIconName => {

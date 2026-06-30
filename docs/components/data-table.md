@@ -52,7 +52,7 @@ props:
         optional: true
 
     -   name: is-sticky
-        description: If the table headers stick to the top while scrolling.
+        description: If the table header, including the filter bar, sticks to the top while scrolling.
         type: boolean
         optional: true
         default: false

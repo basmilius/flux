@@ -10,7 +10,9 @@
             :aria-busy="isLoading || undefined">
             <slot name="colgroups"/>
 
-            <thead v-if="slots.header">
+            <thead
+                v-if="slots.header"
+                :class="isSticky && $style.tableHeadSticky">
             <slot name="header"/>
             </thead>
 
@@ -90,7 +92,6 @@
     const {x, y} = useScrollPosition(base);
 
     provide(FluxTableInjectionKey, {
-        isHoverable: toRef(() => isHoverable),
-        isSticky: toRef(() => isSticky)
+        isHoverable: toRef(() => isHoverable)
     });
 </script>

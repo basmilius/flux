@@ -24,7 +24,7 @@ props:
         optional: true
 
     -   name: is-sticky
-        description: If the table headers stick to the top while scrolling.
+        description: If the table header, including a table bar in the header, sticks to the top while scrolling.
         type: boolean
         optional: true
         default: false
@@ -79,6 +79,10 @@ example=../../code/components/table/caption.vue
 
 ::: example Sticky || A table with sticky headers.
 example=../../code/components/table/sticky.vue
+:::
+
+::: example Sticky with bar || A table where the bar and headers stick together.
+example=../../code/components/table/sticky-bar.vue
 :::
 
 ::: example Actions || A table with actions.

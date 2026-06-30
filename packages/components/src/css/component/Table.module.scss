@@ -73,6 +73,12 @@
     }
 }
 
+.tableHeadSticky {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
 .tableHeader {
     composes: tableCell;
 
@@ -83,13 +89,10 @@
         width: 0;
         white-space: nowrap;
     }
+}
 
-    &.isSticky {
-        position: sticky;
-        top: 0;
-        background: var(--gray-50);
-        z-index: 2;
-    }
+.tableHeadSticky .tableHeader {
+    background: var(--gray-50);
 }
 
 .tableHeaderContent {
@@ -177,13 +180,13 @@ tbody .tableGroupRow:has(+ .tableFill) .tableGroup {
     z-index: 3;
 }
 
-.tableHeader.isSticky.isPinned {
+.tableHeadSticky .tableHeader.isPinned {
     background: var(--gray-50);
 }
 
 .table.isScrolledStart .tableCell.isPinned,
 .table.isScrolledStart .tableHeader.isPinned {
-    box-shadow: 1px 0 0 var(--gray-100), 6px 0 10px -6px rgb(0 0 0 / .15);
+    box-shadow: 1px 0 0 var(--surface-stroke-out), 6px 0 10px -6px rgb(from var(--gray-800) r g b / 0.15);
 }
 
 .tableFill {
@@ -223,7 +226,7 @@ tbody .tableGroupRow:has(+ .tableFill) .tableGroup {
     z-index: 2;
 }
 
-.tableRow:has(+ .tableRow > .isSticky) .tableBar {
+.tableHeadSticky .tableBar {
     --bg: var(--gray-50);
 }
 
