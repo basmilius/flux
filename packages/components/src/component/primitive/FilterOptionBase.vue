@@ -4,6 +4,7 @@
             v-if="isSearchable"
             :class="$style.filterSearch">
             <FluxFormInput
+                ref="search"
                 v-model="modelSearch"
                 auto-complete="off"
                 is-secondary
@@ -38,6 +39,7 @@
     lang="ts"
     setup>
     import type { FluxFilterOptionItem, FluxFilterOptionRow, FluxFilterValueSingle } from '@flux-ui/types';
+    import { onMounted, useTemplateRef } from 'vue';
     import { isFluxFilterOptionHeader, isFluxFilterOptionItem } from '~flux/components/util';
     import FluxFormInput from '../FluxFormInput.vue';
     import FluxMenuGroup from '../FluxMenuGroup.vue';
@@ -53,6 +55,8 @@
         default: ''
     });
 
+    const searchInputRef = useTemplateRef<{ focus(): void }>('search');
+
     defineProps<{
         readonly isLoading?: boolean;
         readonly isSearchable?: boolean;
@@ -64,4 +68,8 @@
     function select(option: FluxFilterOptionItem): void {
         emit('select', option.value);
     }
+
+    onMounted(() => {
+        requestAnimationFrame(() => searchInputRef.value?.focus());
+    });
 </script>
