@@ -3,6 +3,7 @@
         :class="clsx(
             $style.tableCell,
             isHoverable && $style.isHoverable,
+            isNumeric && $style.isNumeric,
             noWrap && $style.isNoWrap,
             pinned && $style.isPinned
         )"
@@ -38,6 +39,7 @@
         readonly colspan?: number;
         readonly contentDirection?: 'column' | 'row';
         readonly contentGap?: number;
+        readonly isNumeric?: boolean;
         readonly noWrap?: boolean;
         readonly pinned?: boolean;
     }>();

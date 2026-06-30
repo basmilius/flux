@@ -27,7 +27,9 @@
             </template>
 
             <template #total="{item}">
-                <FluxTableCell no-wrap>
+                <FluxTableCell
+                    is-numeric
+                    no-wrap>
                     {{ item.total }}
                 </FluxTableCell>
             </template>

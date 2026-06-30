@@ -50,11 +50,19 @@
             </template>
 
             <template #stock="{item}">
-                <FluxTableCell align="end">{{ item.stock }}</FluxTableCell>
+                <FluxTableCell
+                    align="end"
+                    is-numeric>
+                    {{ item.stock }}
+                </FluxTableCell>
             </template>
 
             <template #price="{item}">
-                <FluxTableCell align="end">{{ item.price }}</FluxTableCell>
+                <FluxTableCell
+                    align="end"
+                    is-numeric>
+                    {{ item.price }}
+                </FluxTableCell>
             </template>
         </FluxDataTable>
     </FluxPane>

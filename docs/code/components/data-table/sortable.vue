@@ -42,7 +42,11 @@
             </template>
 
             <template #commits="{item}">
-                <FluxTableCell align="end">{{ item.commits.toLocaleString() }}</FluxTableCell>
+                <FluxTableCell
+                    align="end"
+                    is-numeric>
+                    {{ item.commits.toLocaleString() }}
+                </FluxTableCell>
             </template>
         </FluxDataTable>
     </FluxPane>

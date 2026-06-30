@@ -30,7 +30,11 @@
 
             <FluxTableRow>
                 <FluxTableCell>Ada Lovelace</FluxTableCell>
-                <FluxTableCell align="end">1,287</FluxTableCell>
+                <FluxTableCell
+                    align="end"
+                    is-numeric>
+                    1,287
+                </FluxTableCell>
                 <FluxTableCell>2021-04-08</FluxTableCell>
             </FluxTableRow>
         </FluxTable>

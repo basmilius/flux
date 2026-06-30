@@ -64,6 +64,7 @@
             <template #price="{item}">
                 <FluxTableCell
                     align="end"
+                    is-numeric
                     no-wrap>
                     {{ priceLabel(item.price) }}
                 </FluxTableCell>

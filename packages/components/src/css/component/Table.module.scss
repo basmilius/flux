@@ -61,7 +61,6 @@
 }
 
 .tableCellContent {
-    font-variant-numeric: tabular-nums;
     display: flex;
     height: 100%;
     padding: 12px 15px;
@@ -154,6 +153,10 @@ tbody .tableGroupRow:has(+ .tableFill) .tableGroup {
 
 .tableCell.isNoWrap {
     white-space: nowrap;
+}
+
+.tableCell.isNumeric {
+    font-variant-numeric: tabular-nums;
 }
 
 .tableCell.isPinned,

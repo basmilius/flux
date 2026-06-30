@@ -18,6 +18,11 @@ props:
         type: number
         optional: true
 
+    -   name: is-numeric
+        description: Renders the cell content with tabular (monospaced) figures. Use for numeric columns so digits align vertically. Combine with `align` set to `end` for right-aligned numbers.
+        type: boolean
+        optional: true
+
     -   name: no-wrap
         description: Keeps the cell content on a single line. Useful for cells in an `is-shrinking` column whose value would otherwise wrap.
         type: boolean
