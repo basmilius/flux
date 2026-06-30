@@ -31,11 +31,11 @@
     "typings": "./src/index.ts",
     "sideEffects": false,
     "peerDependencies": {
-        "@fortawesome/fontawesome-common-types": "^7.2.0",
+        "@fortawesome/fontawesome-common-types": "^7.3.0",
         "luxon": "^3.7.2"
     },
     "devDependencies": {
-        "@fortawesome/fontawesome-common-types": "^7.2.0",
+        "@fortawesome/fontawesome-common-types": "^7.3.0",
         "@types/luxon": "^3.7.2",
         "luxon": "^3.7.2"
     }
