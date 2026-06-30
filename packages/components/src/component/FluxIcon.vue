@@ -2,7 +2,15 @@
     <svg
         v-if="definition"
         :viewBox="`0 0 ${definition.width} ${definition.height}`"
-        :class="$style.fontAwesomeIcon"
+        :class="clsx(
+            $style.fontAwesomeIcon,
+            color === 'gray' && $style.iconGray,
+            color === 'primary' && $style.iconPrimary,
+            color === 'danger' && $style.iconDanger,
+            color === 'info' && $style.iconInfo,
+            color === 'success' && $style.iconSuccess,
+            color === 'warning' && $style.iconWarning
+        )"
         :style="{
             fontSize: size && `${size}px`,
             scale: definition.scale > 1 ? definition.scale : undefined
@@ -27,7 +35,8 @@
     lang="ts"
     setup>
     import { warn } from '@flux-ui/internals';
-    import type { FluxIconName } from '@flux-ui/types';
+    import type { FluxColor, FluxIconName } from '@flux-ui/types';
+    import { clsx } from 'clsx';
     import { computed } from 'vue';
     import { iconRegistry } from '~flux/components/data';
     import $style from '~flux/components/css/component/Icon.module.scss';
@@ -40,6 +49,7 @@
         name
     } = defineProps<{
         readonly ariaLabel?: string;
+        readonly color?: FluxColor;
         readonly size?: number | string;
         readonly name?: FluxIconName;
     }>();

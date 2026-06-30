@@ -12,6 +12,11 @@ props:
         type: FluxIconName
         optional: true
 
+    -   name: color
+        description: Colors the icon using the palette's 600 shade. When omitted, the icon inherits its color from the parent.
+        type: FluxColor
+        optional: true
+
     -   name: size
         description: The size of the icon.
         type: [ number, string ]
@@ -36,6 +41,12 @@ render=../code/components/icon/preview.vue
 :::
 
 <FrontmatterDocs/>
+
+## Examples
+
+::: example Colored
+example=../code/components/icon/colored.vue
+:::
 
 ## Snippet
 

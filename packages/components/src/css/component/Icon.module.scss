@@ -35,6 +35,30 @@
     }
 }
 
+.iconGray {
+    color: var(--gray-600);
+}
+
+.iconPrimary {
+    color: var(--primary-600);
+}
+
+.iconDanger {
+    color: var(--danger-600);
+}
+
+.iconInfo {
+    color: var(--info-600);
+}
+
+.iconSuccess {
+    color: var(--success-600);
+}
+
+.iconWarning {
+    color: var(--warning-600);
+}
+
 .iconBoxedDefault {
     composes: iconBoxed;
 
