@@ -99,12 +99,12 @@
     transition: background 180ms var(--swift-out);
 }
 
-.isOver.isDropDisallowed .kanbanColumnBody {
+.kanbanColumn.isOver.isDropDisallowed .kanbanColumnBody {
     background: rgb(from var(--danger-500) r g b / .06);
     cursor: not-allowed;
 }
 
-.isBoardDragging .kanbanColumn:not(.isOver):not(.isDisabled) .kanbanColumnBody {
+.kanban.isBoardDragging .kanbanColumn:not(.isOver):not(.isDisabled) .kanbanColumnBody {
     background: rgb(from var(--primary-500) r g b / .02);
 }
 

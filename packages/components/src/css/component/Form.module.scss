@@ -686,11 +686,11 @@
     }
 }
 
-.isDisabled .formSelectIcon {
+.formSelect.isDisabled .formSelectIcon {
     opacity: .5;
 }
 
-.isDisabled .formSelectSelected {
+.formSelect.isDisabled .formSelectSelected {
     background: var(--surface-disabled);
     border: 1px solid var(--surface-stroke);
     color: var(--foreground-secondary);

@@ -42,6 +42,6 @@
     pointer-events: none;
 }
 
-.isInvalid .formRatingStarEmpty {
+.formRating.isInvalid .formRatingStarEmpty {
     color: var(--danger-200);
 }

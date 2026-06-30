@@ -59,7 +59,7 @@
         padding: 18px;
     }
 
-    &:has(+ :not(.paneBody)) {
+    &:not(:has(+ .paneBody)) {
         padding: 18px;
     }
 }

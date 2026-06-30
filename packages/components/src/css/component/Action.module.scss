@@ -15,10 +15,7 @@
         background: var(--gray-100);
     }
 
-    &:active {
-        background: var(--gray-200);
-    }
-
+    &:active,
     &.isActive {
         background: var(--gray-200);
     }

@@ -27,25 +27,25 @@
     }
 }
 
-.isText {
+.skeleton.isText {
     height: 1em;
     border-radius: var(--radius-half);
     vertical-align: middle;
 }
 
-.isCircle {
+.skeleton.isCircle {
     height: 40px;
     width: 40px;
     flex-shrink: 0;
     border-radius: 50%;
 }
 
-.isRectangle {
+.skeleton.isRectangle {
     height: 120px;
     border-radius: 0;
 }
 
-.isRounded {
+.skeleton.isRounded {
     height: 120px;
     border-radius: calc(var(--radius) * 2);
 }

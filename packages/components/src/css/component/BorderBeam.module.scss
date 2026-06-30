@@ -986,10 +986,10 @@ $line-bloom-window: string.unquote('radial-gradient(ellipse calc(84px * var(--be
     }
 }
 
-.isPaused,
-.isPaused::before,
-.isPaused::after,
-.isPaused > .bloom {
+.borderBeam.isPaused,
+.borderBeam.isPaused::before,
+.borderBeam.isPaused::after,
+.borderBeam.isPaused > .bloom {
     animation-play-state: paused !important;
 }
 

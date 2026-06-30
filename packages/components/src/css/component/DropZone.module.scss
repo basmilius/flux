@@ -70,11 +70,11 @@
     }
 }
 
-.isDragging .dropZoneContent {
+.dropZone.isDragging .dropZoneContent {
     --dz-stroke: var(--primary-600);
 }
 
-.isDraggingOver .dropZoneContent {
+.dropZone.isDraggingOver .dropZoneContent {
     &:has(.placeholder) {
         --dz-fill: var(--primary-100);
     }
