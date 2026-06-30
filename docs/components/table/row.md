@@ -1,6 +1,22 @@
 ---
 outline: deep
 
+emits:
+    -   name: row-click
+        description: Triggered when the row is activated by a click, or by pressing `Enter`/`Space` while the row is focused. Clicks and key presses that originate from an interactive element within the row (buttons, links, inputs) are ignored.
+        type: [ MouseEvent ]
+
+props:
+    -   name: is-clickable
+        description: Makes the row interactive — shows a pointer cursor and makes it focusable so it can be activated with `Enter`/`Space`. Pair it with a `row-click` listener.
+        type: boolean
+        optional: true
+
+    -   name: is-selected
+        description: Marks the row as selected, applying the selected styling.
+        type: boolean
+        optional: true
+
 slots:
     -   name: default
         description: The content of the table row.
@@ -24,4 +40,8 @@ This component is best used within a [Table](../table).
 
 ::: example Basic || A basic table row.
 example=../../code/components/table/row/basic.vue
+:::
+
+::: example Clickable || A clickable row that emits `row-click`, while ignoring clicks on the button inside a cell.
+example=../../code/components/table/row/clickable.vue
 :::

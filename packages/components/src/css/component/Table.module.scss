@@ -41,8 +41,10 @@
     margin: 0;
     padding: 0;
 
-    &.isSelectableRow {
+    &.isClickable {
         cursor: pointer;
+
+        @include mixin.focus-ring(-2px);
     }
 }
 

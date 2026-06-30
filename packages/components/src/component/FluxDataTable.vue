@@ -82,9 +82,9 @@
 
             <template v-if="entry.kind === 'item'">
                 <FluxTableRow
-                    :class="selectionMode && !treeDisabled && $style.isSelectableRow"
+                    :is-clickable="isRowInteractive"
                     :is-selected="selectionMode ? isItemSelected(entry.item) : false"
-                    @click="onRowClick(entry.item, $event)">
+                    @row-click="onRowClick(entry.item, $event)">
                     <FluxTableCell
                         v-if="selectionMode"
                         :class="$style.tableCellSelection">
@@ -149,7 +149,7 @@
     setup
     generic="T extends Record<string, any>">
     import { clsx } from 'clsx';
-    import { computed, unref, useTemplateRef, type VNode, watch } from 'vue';
+    import { computed, getCurrentInstance, unref, useTemplateRef, type VNode, watch } from 'vue';
     import { useDisabledInjection } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';
     import FluxAction from './FluxAction.vue';
@@ -173,6 +173,7 @@
     const emit = defineEmits<{
         limit: [number];
         navigate: [number];
+        rowClick: [item: T, event: MouseEvent];
     }>();
 
     const selected = defineModel<SelectionValue>('selected');
@@ -270,9 +271,13 @@
         }) => VNode;
     }>();
 
+    const instance = getCurrentInstance();
     const table = useTemplateRef('table');
     const treeDisabled = useDisabledInjection();
     const translate = useTranslate();
+
+    const hasRowClickListener = computed(() => !!instance?.vnode?.props?.onRowClick);
+    const isRowInteractive = computed(() => (!!selectionMode && !unref(treeDisabled)) || unref(hasRowClickListener));
 
     const limitedItems = computed(() => items.slice(0, perPage));
 
@@ -394,17 +399,16 @@
     }
 
     function onRowClick(item: T, event: MouseEvent): void {
-        if (!selectionMode || unref(treeDisabled)) {
+        if (unref(treeDisabled)) {
             return;
         }
 
-        const target = event.target as HTMLElement | null;
-
-        if (target?.closest('a, button, input, label, select, textarea, [role="button"]')) {
+        if (selectionMode) {
+            onSelectRow(item);
             return;
         }
 
-        onSelectRow(item);
+        emit('rowClick', item, event);
     }
 
     function onSelectRow(item: T): void {

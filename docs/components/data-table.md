@@ -10,6 +10,10 @@ emits:
         description: Triggered when the user navigates to a different page.
         type: [ number ]
 
+    -   name: row-click
+        description: Triggered when a row is activated by a click, or by pressing `Enter`/`Space` while the row is focused, with the row's item and the original event. Activations from interactive elements within the row (buttons, links, inputs) are ignored. Not triggered when `selection-mode` is set — there the row activation toggles the selection instead.
+        type: [ "T", "MouseEvent" ]
+
     -   name: update:selected
         description: Triggered when the selection changes. The payload type matches `selection-mode` — a single id (or `null`) for `single`, an array of ids for `multiple`.
         type: [ "string | number | null | (string | number)[]" ]
@@ -186,6 +190,10 @@ example=../code/components/data-table/file-manager.vue
 
 ::: example Paginated || A data table that is split into pages.
 example=../code/components/data-table/paginated.vue
+:::
+
+::: example Clickable rows || A data table that emits `row-click` per row, while ignoring clicks on the action button inside a cell.
+example=../code/components/data-table/clickable.vue
 :::
 
 ::: example Selectable rows || A data table where multiple rows can be selected via checkboxes.
