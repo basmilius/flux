@@ -5,6 +5,7 @@ export { default as FluxApplicationMenu } from './FluxApplicationMenu.vue';
 export { default as FluxApplicationMenuAccount } from './FluxApplicationMenuAccount.vue';
 export { default as FluxApplicationMenuContext } from './FluxApplicationMenuContext.vue';
 export { default as FluxApplicationMenuContextStack } from './FluxApplicationMenuContextStack.vue';
+export { default as FluxApplicationMenuContextSwitcher } from './FluxApplicationMenuContextSwitcher.vue';
 export { default as FluxApplicationMenuPromo } from './FluxApplicationMenuPromo.vue';
 export { default as FluxApplicationMenuToggle } from './FluxApplicationMenuToggle.vue';
 export { default as FluxApplicationSection } from './FluxApplicationSection.vue';
