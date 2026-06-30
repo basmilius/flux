@@ -12,8 +12,10 @@
             @click="onBack()"/>
 
         <div :class="$style.applicationMenuContextContent">
-            <strong>{{ title }}</strong>
-            <span v-if="subtitle">{{ subtitle }}</span>
+            <div :class="$style.applicationMenuContextContentInner">
+                <strong>{{ title }}</strong>
+                <span v-if="subtitle">{{ subtitle }}</span>
+            </div>
         </div>
     </div>
 </template>

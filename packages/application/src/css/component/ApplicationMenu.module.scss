@@ -225,19 +225,26 @@
     margin-top: -12px;
     margin-left: -12px;
     margin-right: -12px;
-    padding: 15px;
+    padding: 15px 16px;
     flex-flow: row nowrap;
     gap: 15px;
-    border: 1px solid var(--application-menu-surface-stroke);
-    border-top: 0;
-    border-left: 0;
-    border-right: 0;
+    border-bottom: 1px solid var(--application-menu-surface-stroke);
 }
 
 .applicationMenuContextContent {
-    display: flex;
+    display: grid;
     align-self: center;
+    grid-template-rows: 1fr;
+    transition: var(--application-duration) var(--swift-out);
+    transition-property: filter, grid-template-rows, opacity, translate;
+}
+
+.applicationMenuContextContentInner {
+    display: flex;
     flex-flow: column;
+    min-height: 0;
+    white-space: nowrap;
+    overflow: hidden;
 
     :global(strong) {
         color: var(--foreground-prominent);
@@ -315,10 +322,6 @@
         :local(.menuSubHeader) {
             display: none;
             height: 0;
-            /* Keep the sub-header's negative margins (sum -12px = one panel gap) while
-               it is a zero-height flex item, so the space it leaves equals the single
-               gap that remains after `display: none` removes it — avoiding a jump of
-               the group below at the end of the collapse. */
             margin-top: -9px;
             margin-bottom: -3px;
             padding-top: 0;
@@ -326,17 +329,17 @@
             opacity: 0;
         }
 
-        .applicationMenuPromo,
-        .applicationMenuContext {
+        .applicationMenuPromo {
             opacity: 0;
             pointer-events: none;
         }
 
-        .applicationMenuContextPillContent :global(strong),
-        .applicationMenuContextPillContent :global(span) {
+        .applicationMenuContextContent {
+            grid-template-rows: 0fr;
             filter: blur(6px);
             opacity: 0;
             translate: -12px 0;
+            pointer-events: none;
         }
     }
 }
@@ -365,8 +368,7 @@ html[data-application-resizing] {
     .applicationMenuPromo,
     .applicationMenu :local(.menuSubHeader),
     .applicationMenu :local(.menuItemLabel),
-    .applicationMenuContextPillContent :global(strong),
-    .applicationMenuContextPillContent :global(span) {
+    .applicationMenuContextContent {
         transition: none;
     }
 }
