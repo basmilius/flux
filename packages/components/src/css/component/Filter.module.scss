@@ -98,6 +98,7 @@
 
 .filterSearch {
     position: sticky;
+    top: -9px;
     margin: -9px -9px 0;
     padding: 9px;
     background: linear-gradient(to bottom, var(--surface) 75%, transparent);
