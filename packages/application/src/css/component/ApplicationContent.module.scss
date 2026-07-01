@@ -55,6 +55,7 @@
     > :is(:local(.calendar), :local(.table)) {
         max-height: 100%;
         flex-grow: 1;
+        background: var(--surface);
     }
 
     > :local(.calendar) {
