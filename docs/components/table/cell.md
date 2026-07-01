@@ -29,8 +29,8 @@ props:
         optional: true
 
     -   name: pinned
-        description: Pins the cell to the left while scrolling horizontally. Intended for a single leading column.
-        type: boolean
+        description: Pins the cell while scrolling horizontally. Use `start` (or `true`) to pin it to the left edge and `end` to pin it to the right edge. Multiple leading or trailing columns can be pinned; they stack side by side. Pin the same side on the matching header.
+        type: [ 'boolean', '"start"', '"end"' ]
         optional: true
 
 slots:

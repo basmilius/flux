@@ -1,12 +1,15 @@
 <template>
     <td
+        ref="cell"
         :class="clsx(
             $style.tableCell,
             isHoverable && $style.isHoverable,
             isNumeric && $style.isNumeric,
             noWrap && $style.isNoWrap,
-            pinned && $style.isPinned
+            pinnedSide === 'start' && $style.isPinnedStart,
+            pinnedSide === 'end' && $style.isPinnedEnd
         )"
+        :style="pinnedStyle"
         :colspan="colspan">
         <slot name="content">
             <div
@@ -28,12 +31,13 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { VNode } from 'vue';
+    import { computed, useTemplateRef, type VNode } from 'vue';
     import { useTableInjection } from '~flux/components/composable';
     import $style from '~flux/components/css/component/Table.module.scss';
 
     const {
-        contentDirection = 'row'
+        contentDirection = 'row',
+        pinned
     } = defineProps<{
         readonly align?: 'start' | 'center' | 'end';
         readonly colspan?: number;
@@ -41,7 +45,7 @@
         readonly contentGap?: number;
         readonly isNumeric?: boolean;
         readonly noWrap?: boolean;
-        readonly pinned?: boolean;
+        readonly pinned?: boolean | 'start' | 'end';
     }>();
 
     defineSlots<{
@@ -49,7 +53,34 @@
         content(): VNode[];
     }>();
 
+    const cell = useTemplateRef('cell');
+
     const {
-        isHoverable
+        isHoverable,
+        pinnedOffsets
     } = useTableInjection();
+
+    const pinnedSide = computed<'start' | 'end' | null>(() => {
+        if (pinned === true || pinned === 'start') {
+            return 'start';
+        }
+
+        if (pinned === 'end') {
+            return 'end';
+        }
+
+        return null;
+    });
+
+    const pinnedStyle = computed(() => {
+        if (!pinnedSide.value) {
+            return undefined;
+        }
+
+        const offset = pinnedOffsets.value.get(cell.value?.cellIndex ?? -1) ?? 0;
+
+        return pinnedSide.value === 'start'
+            ? {left: `${offset}px`}
+            : {right: `${offset}px`};
+    });
 </script>

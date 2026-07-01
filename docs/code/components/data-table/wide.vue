@@ -14,7 +14,12 @@
                     Product
                 </FluxTableHeader>
 
-                <FluxTableHeader :min-width="150">SKU</FluxTableHeader>
+                <FluxTableHeader
+                    pinned
+                    :min-width="150">
+                    SKU
+                </FluxTableHeader>
+
                 <FluxTableHeader :min-width="150">Category</FluxTableHeader>
                 <FluxTableHeader :min-width="180">Supplier</FluxTableHeader>
 
@@ -26,6 +31,7 @@
 
                 <FluxTableHeader
                     align="end"
+                    pinned="end"
                     :min-width="120">
                     Price
                 </FluxTableHeader>
@@ -38,7 +44,7 @@
             </template>
 
             <template #sku="{item}">
-                <FluxTableCell>{{ item.sku }}</FluxTableCell>
+                <FluxTableCell pinned>{{ item.sku }}</FluxTableCell>
             </template>
 
             <template #category="{item}">
@@ -60,6 +66,7 @@
             <template #price="{item}">
                 <FluxTableCell
                     align="end"
+                    pinned="end"
                     is-numeric>
                     {{ item.price }}
                 </FluxTableCell>

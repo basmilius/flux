@@ -85,6 +85,10 @@ example=../../code/components/table/sticky.vue
 example=../../code/components/table/sticky-bar.vue
 :::
 
+::: example Pinned columns || A wide table with multiple columns pinned to the left and right edges.
+example=../../code/components/table/pinned-columns.vue
+:::
+
 ::: example Actions || A table with actions.
 example=../../code/components/table/actions.vue
 :::

@@ -224,8 +224,12 @@ example=../code/components/data-table/grouped.vue
 example=../code/components/data-table/grouped-static.vue
 :::
 
-::: example Wide table || A wide data table with a pinned first column and right-aligned numeric columns.
+::: example Wide table || A wide data table with multiple pinned columns on the left and right edges.
 example=../code/components/data-table/wide.vue
+:::
+
+::: example Pinned with selection || A data table where pinning the first column keeps the selection column pinned alongside it.
+example=../code/components/data-table/pinned.vue
 :::
 
 ::: example Empty || A data table that shows a custom message when there is no data.

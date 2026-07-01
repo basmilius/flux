@@ -297,6 +297,7 @@ export type FluxTabBarInjection = {
 
 export type FluxTableInjection = {
     readonly isHoverable: Ref<boolean>;
+    readonly pinnedOffsets: Ref<Map<number, number>>;
 };
 
 export type FluxTooltipInjection = {

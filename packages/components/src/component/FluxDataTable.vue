@@ -22,6 +22,7 @@
                 <FluxTableHeader
                     v-if="selectionMode"
                     is-shrinking
+                    :pinned="leadingPinned ? 'start' : undefined"
                     :class="$style.tableCellSelection">
                     <FluxFormCheckbox
                         v-if="selectionMode === 'multiple'"
@@ -32,6 +33,7 @@
                 <FluxTableHeader
                     v-if="hasExpandable"
                     is-shrinking
+                    :pinned="leadingPinned ? 'start' : undefined"
                     :class="$style.tableCellExpand"/>
 
                 <slot
@@ -87,6 +89,7 @@
                     @row-click="(columnIndex, event) => onRowClick(entry.item, columnIndex, event)">
                     <FluxTableCell
                         v-if="selectionMode"
+                        :pinned="leadingPinned ? 'start' : undefined"
                         :class="$style.tableCellSelection">
                         <FluxFormCheckbox
                             :model-value="isItemSelected(entry.item)"
@@ -95,6 +98,7 @@
 
                     <FluxTableCell
                         v-if="hasExpandable"
+                        :pinned="leadingPinned ? 'start' : undefined"
                         :class="$style.tableCellExpand">
                         <FluxTableActions>
                             <FluxAction
@@ -148,6 +152,7 @@
     lang="ts"
     setup
     generic="T extends Record<string, any>">
+    import { flattenVNodeTree, getComponentProps } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { computed, getCurrentInstance, unref, useTemplateRef, type VNode, watch } from 'vue';
     import { useDisabledInjection } from '~flux/components/composable';
@@ -191,8 +196,10 @@
         isLoading = false,
         isSticky = false,
         items,
+        page,
         perPage,
         selectionMode,
+        total,
         uniqueKey
     } = defineProps<{
         readonly expandMode?: 'single' | 'multiple';
@@ -282,6 +289,14 @@
     const limitedItems = computed(() => items.slice(0, perPage));
 
     const hasExpandable = computed(() => 'expandable' in slots);
+
+    const leadingPinned = computed(() => {
+        const nodes = slots.header?.({page, perPage, items: unref(limitedItems), total}) ?? [];
+        const first = flattenVNodeTree(nodes as VNode[])[0];
+        const pinned = first ? (getComponentProps(first) as { pinned?: unknown }).pinned : undefined;
+
+        return pinned === '' || pinned === true || pinned === 'start';
+    });
     const columnCount = computed(() => {
         const userColumns = Object.keys(slots).filter(name => !IGNORED_SLOTS.includes(name)).length;
         return userColumns + (selectionMode ? 1 : 0) + (unref(hasExpandable) ? 1 : 0);

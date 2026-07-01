@@ -164,29 +164,39 @@ tbody .tableGroupRow:has(+ .tableFill) .tableGroup {
     font-variant-numeric: tabular-nums;
 }
 
-.tableCell.isPinned,
-.tableHeader.isPinned {
+.tableCell.isPinnedStart,
+.tableCell.isPinnedEnd {
     position: sticky;
-    left: 0;
     background: var(--surface);
     transition: box-shadow .2s var(--swift-out);
-}
-
-.tableCell.isPinned {
     z-index: 1;
 }
 
-.tableHeader.isPinned {
+.tableCell.isPinnedStart {
+    left: 0;
+}
+
+.tableCell.isPinnedEnd {
+    right: 0;
+}
+
+.tableHeader.isPinnedStart,
+.tableHeader.isPinnedEnd {
     z-index: 3;
 }
 
-.tableHeadSticky .tableHeader.isPinned {
+.tableHeadSticky .tableHeader.isPinnedStart,
+.tableHeadSticky .tableHeader.isPinnedEnd {
     background: var(--gray-50);
 }
 
-.table.isScrolledStart .tableCell.isPinned,
-.table.isScrolledStart .tableHeader.isPinned {
+.table.isScrolledStart .tableCell.isPinnedStart:not(:has(+ .tableCell.isPinnedStart)) {
     box-shadow: 1px 0 0 var(--surface-stroke-out), 6px 0 10px -6px rgb(from var(--gray-800) r g b / 0.15);
+}
+
+.table.isScrollableEnd .tableCell:not(.isPinnedEnd) + .tableCell.isPinnedEnd {
+    border-left-color: var(--surface-stroke-out);
+    box-shadow: -6px 0 10px -6px rgb(from var(--gray-800) r g b / 0.15);
 }
 
 .tableFill {

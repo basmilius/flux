@@ -1,14 +1,17 @@
 <template>
     <th
+        ref="header"
         :class="clsx(
             $style.tableHeader,
             isShrinking && $style.isShrinking,
-            pinned && $style.isPinned
+            pinnedSide === 'start' && $style.isPinnedStart,
+            pinnedSide === 'end' && $style.isPinnedEnd
         )"
         scope="col"
         :aria-sort="isSortable ? (sort ?? 'none') : undefined"
         :style="{
-            minWidth: `${minWidth}px`
+            minWidth: `${minWidth}px`,
+            ...pinnedStyle
         }">
         <div
             :class="$style.tableHeaderContent"
@@ -68,7 +71,8 @@
     setup>
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { computed, unref, type VNode } from 'vue';
+    import { computed, unref, useTemplateRef, type VNode } from 'vue';
+    import { useTableInjection } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxIcon from './FluxIcon.vue';
@@ -85,6 +89,7 @@
     const {
         dataType = 'text',
         minWidth = 0,
+        pinned,
         sort
     } = defineProps<{
         readonly align?: 'start' | 'center' | 'end';
@@ -92,7 +97,7 @@
         readonly isShrinking?: boolean;
         readonly isSortable?: boolean;
         readonly minWidth?: number;
-        readonly pinned?: boolean;
+        readonly pinned?: boolean | 'start' | 'end';
         readonly sort?: 'ascending' | 'descending';
     }>();
 
@@ -100,7 +105,37 @@
         default(): VNode[];
     }>();
 
+    const header = useTemplateRef('header');
+
+    const {
+        pinnedOffsets
+    } = useTableInjection();
+
     const translate = useTranslate();
+
+    const pinnedSide = computed<'start' | 'end' | null>(() => {
+        if (pinned === true || pinned === 'start') {
+            return 'start';
+        }
+
+        if (pinned === 'end') {
+            return 'end';
+        }
+
+        return null;
+    });
+
+    const pinnedStyle = computed(() => {
+        if (!pinnedSide.value) {
+            return undefined;
+        }
+
+        const offset = pinnedOffsets.value.get(header.value?.cellIndex ?? -1) ?? 0;
+
+        return pinnedSide.value === 'start'
+            ? {left: `${offset}px`}
+            : {right: `${offset}px`};
+    });
 
     const ascendingIcon = computed((): FluxIconName => {
         switch (dataType) {
