@@ -719,6 +719,7 @@
 }
 
 .formCheckboxGroup {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -1068,6 +1069,7 @@
 }
 
 .formRadio {
+    position: relative;
     display: inline-flex;
     flex-shrink: 0;
     align-items: flex-start;
