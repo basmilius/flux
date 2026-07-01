@@ -2,6 +2,11 @@
 outline: deep
 
 props:
+    -   name: disabled
+        description: If the pane is disabled, blocking interaction and dimming its content.
+        type: boolean
+        optional: true
+
     -   name: is-loading
         description: If the pane is in a loading state.
         type: boolean
@@ -74,6 +79,10 @@ This component is best used within a [Pane group](./group).
 
 ::: example As link || A clickable pane that opens an external URL in a new tab.
 example=../../code/components/pane/clickable/with-link.vue
+:::
+
+::: example Disabled || A disabled clickable pane blocks interaction and dims its content.
+example=../../code/components/pane/clickable/disabled.vue
 :::
 
 ## Used components

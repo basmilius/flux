@@ -48,6 +48,16 @@
     }
 }
 
+:is(.paneDefault, .paneFlat, .paneWell):is(:disabled, [aria-disabled=true]) {
+    background-color: var(--surface-disabled);
+    box-shadow: none;
+    pointer-events: none;
+
+    & > * {
+        opacity: .5;
+    }
+}
+
 .paneHeader {
     composes: basePaneElement from './base/Pane.module.scss';
 

@@ -3,11 +3,14 @@
         :component-type="type"
         :class="CLASS_MAP[variant]"
         type="button"
-        :tabindex="tabindex"
+        :aria-disabled="disabled ? true : undefined"
+        :disabled="disabled && type === 'button' ? true : undefined"
+        :tabindex="disabled ? -1 : tabindex"
         :href="href"
         :rel="rel"
         :target="target"
-        :to="to">
+        :to="to"
+        @click="onClick">
         <slot/>
 
         <slot
@@ -30,7 +33,8 @@
     lang="ts"
     setup>
     import type { FluxPressableType, FluxTo } from '@flux-ui/types';
-    import type { VNode } from 'vue';
+    import { toRef, unref, type VNode } from 'vue';
+    import { useDisabled } from '~flux/components/composable';
     import FluxPressable from './FluxPressable.vue';
     import FluxSpinner from './FluxSpinner.vue';
     import $style from '~flux/components/css/component/Pane.module.scss';
@@ -41,9 +45,16 @@
         well: $style.paneWell
     } as const;
 
+    const emit = defineEmits<{
+        click: [MouseEvent];
+    }>();
+
     const {
+        disabled: componentDisabled,
+        isLoading,
         variant = 'default'
     } = defineProps<{
+        readonly disabled?: boolean;
         readonly isLoading?: boolean;
         readonly tag?: string;
         readonly variant?: 'default' | 'flat' | 'well';
@@ -59,4 +70,16 @@
         default(): VNode[];
         loader(): VNode[];
     }>();
+
+    const disabled = useDisabled(toRef(() => componentDisabled));
+
+    function onClick(evt: MouseEvent): void {
+        if (unref(disabled) || isLoading) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            return;
+        }
+
+        emit('click', evt);
+    }
 </script>
