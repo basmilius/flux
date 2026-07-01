@@ -4,6 +4,7 @@
     padding: 9px;
     width: 300px;
     overflow: auto;
+    overscroll-behavior: contain;
     scrollbar-width: none;
     transition: height 150ms var(--deceleration-curve);
     z-index: 0;
