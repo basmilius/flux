@@ -60,7 +60,7 @@ requiredIcons:
 
 # Rating
 
-The Rating component lets a user pick a score by selecting stars. It supports half-step selection, a read-only mode for displaying an existing rating, and full keyboard control — arrow keys adjust the value, number keys jump to a score, Home/End select the extremes, and Delete/Backspace clear it when `clearable`. The model value is a number, or `null` when no rating is set.
+The Rating component lets a user pick a score by selecting stars. It supports half-step selection, a read-only mode for displaying an existing rating, and full keyboard control: arrow keys adjust the value, number keys jump to a score, Home/End select the extremes, and Delete/Backspace clear it when `clearable`. The model value is a number, or `null` when no rating is set.
 
 ::: render
 render=../../code/components/form/rating/preview.vue

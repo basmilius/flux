@@ -3,7 +3,7 @@ outline: deep
 
 emits:
     -   name: reject
-        description: Triggered when one or more files are rejected — either because they do not match `accept`, or because extra files were provided while `is-multiple` is off. Receives the rejected files.
+        description: Triggered when one or more files are rejected, either because they do not match `accept`, or because extra files were provided while `is-multiple` is off. Receives the rejected files.
         type: [ 'File[]' ]
 
     -   name: select
@@ -16,7 +16,7 @@ emits:
 
 props:
     -   name: accept
-        description: 'Configure which file types the drop zone accepts, as a comma-separated list of extensions (`.png`), MIME types (`image/png`) or wildcards (`image/*`). Enforced on both drop and picker — non-matching files are emitted through `reject` instead of `select`.'
+        description: 'Configure which file types the drop zone accepts, as a comma-separated list of extensions (`.png`), MIME types (`image/png`) or wildcards (`image/*`). Enforced on both drop and picker. Non-matching files are emitted through `reject` instead of `select`.'
         type: string
         optional: true
 
@@ -65,7 +65,7 @@ render=../code/components/drop-zone/preview.vue
 :::
 
 ::: tip Accept handling and rejected files
-The `accept` filter is enforced on both dropped and picked files, not just the native file picker. Files that do not match `accept` are emitted through the `reject` event instead of `select` / `select-multiple`. When `is-multiple` is off and several files are provided, only the first match is selected and the remaining files are reported as rejected too — listen to `reject` to give the user feedback about what was skipped.
+The `accept` filter is enforced on both dropped and picked files, not just the native file picker. Files that do not match `accept` are emitted through the `reject` event instead of `select` / `select-multiple`. When `is-multiple` is off and several files are provided, only the first match is selected and the remaining files are reported as rejected too. Listen to `reject` to give the user feedback about what was skipped.
 :::
 
 <FrontmatterDocs/>
@@ -76,7 +76,7 @@ The `accept` filter is enforced on both dropped and picked files, not just the n
 example=../code/components/drop-zone/basic.vue
 :::
 
-::: example Avatar || A circular drop zone wrapped around an avatar — useful for profile picture uploads.
+::: example Avatar || A circular drop zone wrapped around an avatar, useful for profile picture uploads.
 example=../code/components/drop-zone/avatar.vue
 :::
 

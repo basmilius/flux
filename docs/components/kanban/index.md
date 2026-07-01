@@ -39,7 +39,7 @@ slots:
 
 # Kanban
 
-A kanban board for organizing items across draggable columns. Items can be moved between columns and reordered within a column using drag and drop, or with the keyboard. The component is fully controlled — the parent is responsible for updating the data after a `move` event.
+A kanban board for organizing items across draggable columns. Items can be moved between columns and reordered within a column using drag and drop, or with the keyboard. The component is fully controlled. The parent is responsible for updating the data after a `move` event.
 
 ::: render
 render=../../code/components/kanban/preview.vue
@@ -99,7 +99,7 @@ example=../../code/components/kanban/basic.vue
 example=../../code/components/kanban/custom-item.vue
 :::
 
-::: example Disabled || A read-only board — drag-and-drop is disabled.
+::: example Disabled || A read-only board. Drag-and-drop is disabled.
 example=../../code/components/kanban/disabled.vue
 :::
 
@@ -107,7 +107,7 @@ example=../../code/components/kanban/disabled.vue
 example=../../code/components/kanban/validation.vue
 :::
 
-::: example Reorderable columns || Drag a column header — or focus it and press the left/right arrow keys — to change column order.
+::: example Reorderable columns || Drag a column header (or focus it and press the left/right arrow keys) to change column order.
 example=../../code/components/kanban/reorder-columns.vue
 :::
 

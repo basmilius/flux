@@ -3,7 +3,7 @@
         remember-key="docs-persisted-example"
         style="height: 240px; width: 100%; border: 1px solid var(--surface-stroke); border-radius: 6px">
         <FluxSplitViewPane :default-size="180">
-            <div style="padding: 12px">Resize me — your size persists.</div>
+            <div style="padding: 12px">Resize me, your size persists.</div>
         </FluxSplitViewPane>
 
         <FluxSplitViewPane>

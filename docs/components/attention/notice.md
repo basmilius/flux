@@ -86,11 +86,11 @@ example=../../code/components/attention/notice/loading.vue
 
 Colors such as `success`, `error`, `warning`, `info`, and `gray` help convey the severity of the message. For example:
 
-- `danger` — Failed to save data. Please try again.
-- `info` — New updates are available.
-- `success` — Data saved successfully.
-- `warning` — You have unsaved changes.
-- `gray` — We've updated the invoice filter, see what's new.
+- `danger`: Failed to save data. Please try again.
+- `info`: New updates are available.
+- `success`: Data saved successfully.
+- `warning`: You have unsaved changes.
+- `gray`: We've updated the invoice filter, see what's new.
 
 ## Accessibility
 

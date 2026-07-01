@@ -19,7 +19,7 @@ props:
 
 # Change
 
-The change component displays a value indicator — typically used to show a trend or delta compared to a previous period. It supports a color and optional icon to convey direction at a glance.
+The change component displays a value indicator, typically used to show a trend or delta compared to a previous period. It supports a color and optional icon to convey direction at a glance.
 
 ::: render
 render=../../code/statistics/components/change/preview.vue

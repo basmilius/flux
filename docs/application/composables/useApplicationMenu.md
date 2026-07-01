@@ -1,6 +1,6 @@
 # useApplicationMenu
 
-This composable is a higher-level wrapper around [`useApplicationInjection`](./useApplicationInjection) that exposes convenience methods and computed properties for working with the application menu — opening and closing it, navigating between menu levels, and inspecting the current state.
+This composable is a higher-level wrapper around [`useApplicationInjection`](./useApplicationInjection) that exposes convenience methods and computed properties for working with the application menu: opening and closing it, navigating between menu levels, and inspecting the current state.
 
 ::: warning
 This composable will throw an error if used outside of a [`FluxApplication`](../components/application) component.

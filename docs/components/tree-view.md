@@ -120,7 +120,7 @@ Each entry in the `options` array (and nested `children` arrays) is a `FluxTreeV
 
 The tree is a single composite widget: the `role="tree"` container is the only tab stop and exposes the highlighted node through `aria-activedescendant`, while each node carries `role="treeitem"` with `aria-level`, `aria-selected` and (when it has children) `aria-expanded`. Parent → child grouping is conveyed with `aria-owns` rather than nested `role="group"` wrappers, so the flat DOM stays valid for assistive tech. Set a descriptive `aria-label` to name the tree.
 
-The highlight is tracked by node identity: when the visible set changes — for example a node above the highlight collapses — the highlight stays on the same node instead of jumping to whatever now occupies that position.
+The highlight is tracked by node identity: when the visible set changes (for example a node above the highlight collapses), the highlight stays on the same node instead of jumping to whatever now occupies that position.
 
 ## Examples
 

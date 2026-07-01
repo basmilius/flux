@@ -9,7 +9,7 @@ props:
 
 slots:
     -   name: default
-        description: The content of the promo block — typically a heading and a paragraph.
+        description: The content of the promo block, typically a heading and a paragraph.
 ---
 
 # Application menu promo

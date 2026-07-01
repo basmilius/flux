@@ -1,6 +1,6 @@
 # Chart types
 
-Flux Statistics exposes a set of library-agnostic TypeScript types in `@flux-ui/types`. Each chart component accepts data shaped to its own Flux type rather than ECharts options — that lets the visual layer change underneath without touching consumer code.
+Flux Statistics exposes a set of library-agnostic TypeScript types in `@flux-ui/types`. Each chart component accepts data shaped to its own Flux type rather than ECharts options, which lets the visual layer change underneath without touching consumer code.
 
 This page lists every public type with a short description and a minimal example.
 
@@ -44,7 +44,7 @@ const dataB: FluxStatisticsChartCategoryPoint[] = [
 
 ## Cartesian series
 
-Used by [Line](../components/charts/line), [Area](../components/charts/area), and [Bar](../components/charts/bar) charts. The three series types are aliases of the same shape — each chart applies its own visual defaults.
+Used by [Line](../components/charts/line), [Area](../components/charts/area), and [Bar](../components/charts/bar) charts. The three series types are aliases of the same shape; each chart applies its own visual defaults.
 
 ### `FluxStatisticsChartCartesianSeries`
 
@@ -365,7 +365,7 @@ const series: FluxStatisticsChartHeatmapSeries[] = [{
 
 ## Treemap nodes
 
-Used by the [Treemap chart](../components/charts/treemap). Nodes are recursive — pass the root level via the `nodes` prop and nest deeper levels through `children`.
+Used by the [Treemap chart](../components/charts/treemap). Nodes are recursive. Pass the root level via the `nodes` prop and nest deeper levels through `children`.
 
 ### `FluxStatisticsChartTreemapNode`
 
@@ -401,7 +401,7 @@ const nodes: FluxStatisticsChartTreemapNode[] = [
 
 ## Gauge series
 
-Used by the [Radial bar chart](../components/charts/radial-bar). Each entry produces a concentric gauge ring. `radius` is optional — the chart spreads rings automatically when omitted.
+Used by the [Radial bar chart](../components/charts/radial-bar). Each entry produces a concentric gauge ring. `radius` is optional. The chart spreads rings automatically when omitted.
 
 ### `FluxStatisticsChartGaugeSeries`
 
@@ -427,7 +427,7 @@ const series: FluxStatisticsChartGaugeSeries[] = [
 
 ## Escape-hatch: `advancedOptions`
 
-Every chart component exposes an optional `advancedOptions: EChartsOption` prop. The Flux types cover the common cases — when you need something the typed surface doesn't expose (a custom `visualMap`, a non-standard `axisPointer`, a swapped axis), reach for `advancedOptions`. The object is deep-merged on top of the Flux defaults, while series and palette overrides always win.
+Every chart component exposes an optional `advancedOptions: EChartsOption` prop. The Flux types cover the common cases. When you need something the typed surface doesn't expose (a custom `visualMap`, a non-standard `axisPointer`, a swapped axis), reach for `advancedOptions`. The object is deep-merged on top of the Flux defaults, while series and palette overrides always win.
 
 ```vue
 <template>
@@ -473,4 +473,4 @@ When a `color` is set on a series, slice, or node, Flux resolves it as follows:
 | `'#10b981'` (any hex) | `'#10b981'` |
 | omitted | next color from `CHART_COLORS` (see [Chart colors](./colors)) |
 
-The same color flows into the rendered chart, the [Legend](../components/legend/) (whether manual or auto-generated), and the tooltip — so series stay visually consistent across all three surfaces.
+The same color flows into the rendered chart, the [Legend](../components/legend/) (whether manual or auto-generated), and the tooltip, so series stay visually consistent across all three surfaces.

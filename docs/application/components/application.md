@@ -16,7 +16,7 @@ props:
 
 slots:
     -   name: default
-        description: The main content of the application — typically a top bar followed by content.
+        description: The main content of the application, typically a top bar followed by content.
 
     -   name: menu
         description: The menu sidebar of the application.

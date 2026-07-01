@@ -18,14 +18,14 @@ props:
 
 slots:
     -   name: default
-        description: The content of the item. The component is unstyled — render whatever markup (and styling) you want here.
+        description: The content of the item. The component is unstyled. Render whatever markup (and styling) you want here.
 ---
 
 # Kanban item
 
-A draggable item inside a [`FluxKanbanColumn`](./column). The `item-id` uniquely identifies the item and the `column-id` must match the parent column — the kanban board uses both to compute drop targets and to populate the `move` event.
+A draggable item inside a [`FluxKanbanColumn`](./column). The `item-id` uniquely identifies the item and the `column-id` must match the parent column. The kanban board uses both to compute drop targets and to populate the `move` event.
 
-The component itself is intentionally unstyled — it only adds the interaction layer (drag handle, focus ring, drop indicator). The visual surface (padding, background, border, shadows) is up to you. Render any markup inside the default slot; the examples below all wrap their content in a `<div class="card">` with a `<style scoped>` block.
+The component itself is intentionally unstyled. It only adds the interaction layer (drag handle, focus ring, drop indicator). The visual surface (padding, background, border, shadows) is up to you. Render any markup inside the default slot; the examples below all wrap their content in a `<div class="card">` with a `<style scoped>` block.
 
 ::: tip Keyboard support
 An item is focusable. Press <kbd>Space</kbd> or <kbd>Enter</kbd> to pick it up, use <kbd>↑</kbd>/<kbd>↓</kbd> to reposition within the column, <kbd>←</kbd>/<kbd>→</kbd> to move to a sibling column, <kbd>Enter</kbd>/<kbd>Space</kbd> to drop and <kbd>Escape</kbd> to cancel.

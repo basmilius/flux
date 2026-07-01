@@ -13,7 +13,7 @@ slots:
         description: The preferred content. Rendered whenever it fits within the space allocated to the component.
 
     -   name: fallback
-        description: The content rendered when the default slot does not fit. Optional — leave it out to hide the component entirely when default does not fit.
+        description: The content rendered when the default slot does not fit. Optional. Leave it out to hide the component entirely when default does not fit.
 ---
 
 # Adaptive slot
@@ -27,7 +27,7 @@ render=../code/components/adaptive-slot/preview.vue
 :::
 
 ::: tip
-When used standalone (without a `FluxAdaptiveGroup`), the component measures its own allocated width. Multiple standalone slots in the same parent each decide independently — the one with the widest default content typically collapses first.
+When used standalone (without a `FluxAdaptiveGroup`), the component measures its own allocated width. Multiple standalone slots in the same parent each decide independently; the one with the widest default content typically collapses first.
 :::
 
 ::: warning

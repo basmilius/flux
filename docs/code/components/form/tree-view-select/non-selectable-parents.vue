@@ -20,7 +20,7 @@
 
     const selectedValue = ref<number | null>(null);
 
-    // Parent nodes have `selectable: false` — only leaves can be selected.
+    // Parent nodes have `selectable: false`; only leaves can be selected.
     const options = [
         {
             id: 1,

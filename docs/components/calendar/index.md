@@ -147,7 +147,7 @@ render=../../code/components/calendar/day-view.vue
 ## Draggable items
 
 Set `draggable` on the calendar to let users move items between day-cells (and time-slots in time-grid views).
-The calendar is fully controlled — listen for the `reschedule` event and update your own state. While dragging,
+The calendar is fully controlled. Listen for the `reschedule` event and update your own state. While dragging,
 hovering the previous/next month buttons advances the view so items can be moved across months.
 
 ::: render
@@ -194,7 +194,7 @@ render=../../code/components/calendar/keyboard.vue
 
 ## Plain items
 
-An item without custom styling — just text in the slot. Useful for lightweight calendars where the day's
+An item without custom styling, just text in the slot. Useful for lightweight calendars where the day's
 events are simply listed.
 
 ::: render

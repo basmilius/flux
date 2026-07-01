@@ -24,7 +24,7 @@ render=../code/components/adaptive-slot/preview.vue
 :::
 
 ::: tip
-The ordering is strict: if two items have the same priority, the one declared first in the template collapses first. Changing a priority at runtime is reactive — the group re-evaluates immediately.
+The ordering is strict: if two items have the same priority, the one declared first in the template collapses first. Changing a priority at runtime is reactive; the group re-evaluates immediately.
 :::
 
 <FrontmatterDocs/>

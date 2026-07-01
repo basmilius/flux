@@ -1,6 +1,6 @@
 # Vue Router
 
-Flux is built to work hand-in-hand with [Vue Router](https://router.vuejs.org). All components that accept a `to` prop — such as `FluxLink`, `FluxPressable`, `FluxPrimaryLinkButton`, `FluxSecondaryLinkButton`, `FluxMenuItem` and `FluxMenuCollapsible` — forward it directly to a `<RouterLink>`. The same applies to the menu and navigation components inside `@flux-ui/application`.
+Flux is built to work hand-in-hand with [Vue Router](https://router.vuejs.org). All components that accept a `to` prop (such as `FluxLink`, `FluxPressable`, `FluxPrimaryLinkButton`, `FluxSecondaryLinkButton`, `FluxMenuItem` and `FluxMenuCollapsible`) forward it directly to a `<RouterLink>`. The same applies to the menu and navigation components inside `@flux-ui/application`.
 
 This guide walks you through installing Vue Router and integrating it with Flux.
 

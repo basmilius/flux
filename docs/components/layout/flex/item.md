@@ -19,7 +19,7 @@ props:
 
 slots:
     -   name: default
-        description: The content of the flex item. When a single child is provided, no wrapper element is rendered — the flex styles are applied directly to that child. When multiple children are provided, they are wrapped in a `div`.
+        description: The content of the flex item. When a single child is provided, no wrapper element is rendered and the flex styles are applied directly to that child. When multiple children are provided, they are wrapped in a `div`.
 ---
 
 # Flex item

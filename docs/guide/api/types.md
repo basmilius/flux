@@ -4,7 +4,7 @@
 
 # Types
 
-All public TypeScript types are exported from `@flux-ui/types`. This page lists the types you'll most commonly run into when consuming the components — the ones that show up in component props, slot bindings and store helpers.
+All public TypeScript types are exported from `@flux-ui/types`. This page lists the types you'll most commonly run into when consuming the components (the ones that show up in component props, slot bindings and store helpers).
 
 ```ts
 import type { FluxColor, FluxIconName, FluxSize } from '@flux-ui/types';
@@ -76,7 +76,7 @@ type FluxInputType =
 type FluxPressableType = 'button' | 'link' | 'route' | 'none';
 ```
 
-Determines how a pressable component renders — as a `<button>`, an `<a>` link, a Vue Router `<RouterLink>`, or as a non-interactive element.
+Determines how a pressable component renders: as a `<button>`, an `<a>` link, a Vue Router `<RouterLink>`, or as a non-interactive element.
 
 ### `FluxSize`
 

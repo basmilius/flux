@@ -17,7 +17,7 @@ slots:
         description: The content of the section.
 
     -   name: end
-        description: Content rendered at the end of the section header — typically a single action button.
+        description: Content rendered at the end of the section header, typically a single action button.
 ---
 
 # Application section

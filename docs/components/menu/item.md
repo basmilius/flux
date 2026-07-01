@@ -161,7 +161,7 @@ example=../../code/components/menu/item/basic.vue
 example=../../code/components/menu/item/selectable.vue
 :::
 
-::: example Persistent || Mark items with is-persistent to keep the surrounding menu open on click — useful for toggles and multi-select actions. Items without it (like Done) still close the menu.
+::: example Persistent || Mark items with is-persistent to keep the surrounding menu open on click, useful for toggles and multi-select actions. Items without it (like Done) still close the menu.
 example=../../code/components/menu/item/persistent.vue
 :::
 

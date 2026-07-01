@@ -10,10 +10,10 @@ props:
 
 slots:
     -   name: default
-        description: The main menu content — typically a list of `FluxMenuItem` and `FluxMenuGroup` components.
+        description: The main menu content, typically a list of `FluxMenuItem` and `FluxMenuGroup` components.
 
     -   name: context
-        description: The slot used to render context menu panels — typically a single `FluxApplicationMenuContextStack`.
+        description: The slot used to render context menu panels, typically a single `FluxApplicationMenuContextStack`.
 
     -   name: header
         description: The header of the menu, rendered above all panels (e.g. a logo).

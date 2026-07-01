@@ -9,7 +9,7 @@
         </FluxPaneBody>
         <FluxPaneBody v-if="lastEvent">
             <p style="font-size: 14px; margin: 0;">
-                <strong>{{ lastEvent.type }}</strong> — {{ lastEvent.label }}
+                <strong>{{ lastEvent.type }}</strong>: {{ lastEvent.label }}
                 <span style="color: var(--foreground-secondary);">(id: {{ lastEvent.id }})</span>
             </p>
         </FluxPaneBody>

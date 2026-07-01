@@ -39,7 +39,7 @@ This component is best used within a [Form](../form), which resets the numbering
 
 ## Examples
 
-::: example End slot || Add trailing content — like a status badge — to the step header through the `end` slot.
+::: example End slot || Add trailing content, like a status badge, to the step header through the `end` slot.
 example=../../code/components/form/step/end-slot.vue
 :::
 

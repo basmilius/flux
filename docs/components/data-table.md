@@ -11,11 +11,11 @@ emits:
         type: [ number ]
 
     -   name: row-click
-        description: Triggered when a row is activated by a click, or by pressing `Enter`/`Space` while the row is focused, with the row's item, the index of the clicked column and the original event. Activations from interactive elements within the row (buttons, links, inputs) are ignored. Not triggered when `selection-mode` is set — there the row activation toggles the selection instead. The column index is the raw cell index — the selection and expand cells are counted — or `-1` when the row is activated by keyboard.
+        description: Triggered when a row is activated by a click, or by pressing `Enter`/`Space` while the row is focused, with the row's item, the index of the clicked column and the original event. Activations from interactive elements within the row (buttons, links, inputs) are ignored. Not triggered when `selection-mode` is set, since there the row activation toggles the selection instead. The column index is the raw cell index (the selection and expand cells are counted), or `-1` when the row is activated by keyboard.
         type: [ "T", "number", "MouseEvent" ]
 
     -   name: update:selected
-        description: Triggered when the selection changes. The payload type matches `selection-mode` — a single id (or `null`) for `single`, an array of ids for `multiple`.
+        description: Triggered when the selection changes. The payload type matches `selection-mode`, so it is a single id (or `null`) for `single` and an array of ids for `multiple`.
         type: [ "string | number | null | (string | number)[]" ]
 
     -   name: update:expanded
@@ -28,7 +28,7 @@ emits:
 
 props:
     -   name: items
-        description: The data to show in the table. This should already be the current page's data — pagination is handled server-side. Pass the subset of items for the active page here.
+        description: The data to show in the table. This should already be the current page's data. Pagination is handled server-side. Pass the subset of items for the active page here.
         type: T[]
 
     -   name: fill-columns
@@ -62,7 +62,7 @@ props:
         type: number[]
 
     -   name: page
-        description: The currently active page, starting from 1. Used for slot bindings and the pagination bar display only — it does not slice the items array.
+        description: The currently active page, starting from 1. Used for slot bindings and the pagination bar display only; it does not slice the items array.
         type: number
 
     -   name: per-page
@@ -97,7 +97,7 @@ slots:
         description: Renders in place of the rows when there is no data and the table is not loading. Defaults to a centered message.
 
     -   name: filter
-        description: Renders above the table header — typically a `FluxFilterBar` for filtering the data set.
+        description: Renders above the table header, typically a `FluxFilterBar` for filtering the data set.
         type:
             page: number
             per-page: number
@@ -121,7 +121,7 @@ slots:
             total: number
 
     -   name: pagination
-        description: Replaces the default pagination bar — useful when you want to render a custom paginator.
+        description: Replaces the default pagination bar, useful when you want to render a custom paginator.
         type:
             page: number
             per-page: number
@@ -137,7 +137,7 @@ slots:
             toggle: () => void
 
     -   name: group
-        description: Renders the header row for each group. Only used when `group-by` is set — render a `FluxTableGroup` here, wiring `is-expanded` and `toggle` to make the group collapsible.
+        description: Renders the header row for each group. Only used when `group-by` is set. Render a `FluxTableGroup` here, wiring `is-expanded` and `toggle` to make the group collapsible.
         type:
             id: string | number
             index: number

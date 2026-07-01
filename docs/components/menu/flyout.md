@@ -46,11 +46,11 @@ requiredIcons:
 
 # Menu flyout
 
-A menu item that opens a submenu in a flyout next to it, rather than expanding inline like a [Collapsible](./collapsible). Use it inside any [Menu](./) — a [Context menu](../context-menu), a dropdown, or a plain menu in a pane. Submenus may be nested arbitrarily deep.
+A menu item that opens a submenu in a flyout next to it, rather than expanding inline like a [Collapsible](./collapsible). Use it inside any [Menu](./), such as a [Context menu](../context-menu), a dropdown, or a plain menu in a pane. Submenus may be nested arbitrarily deep.
 
 The flyout opens on hover and on `ArrowRight`, `Enter` or click, and keeps itself within the browser window: when there is no room on the chosen side it flips to the opposite side and is clamped to the viewport.
 
-A **prediction cone** keeps the submenu open while the pointer moves diagonally towards it, even when the cursor briefly passes over a sibling item — so reaching a submenu no longer requires a perfectly straight path. A matching return cone does the same on the way back, so heading from the submenu to its opener does not drop the submenu or activate the items in between. The cone can be visualised for debugging with the `debug-cone` prop on the surrounding [Context menu](../context-menu) or [Menu](./).
+A **prediction cone** keeps the submenu open while the pointer moves diagonally towards it, even when the cursor briefly passes over a sibling item, so reaching a submenu no longer requires a perfectly straight path. A matching return cone does the same on the way back, so heading from the submenu to its opener does not drop the submenu or activate the items in between. The cone can be visualised for debugging with the `debug-cone` prop on the surrounding [Context menu](../context-menu) or [Menu](./).
 
 ::: render
 render=../../code/components/menu/flyout/preview.vue

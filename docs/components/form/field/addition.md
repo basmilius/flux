@@ -25,7 +25,7 @@ props:
 
 slots:
     -   name: default
-        description: Additional content rendered after the message — typically rich content such as a link.
+        description: Additional content rendered after the message, typically rich content such as a link.
 ---
 
 # Field addition

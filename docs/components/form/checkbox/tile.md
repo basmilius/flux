@@ -36,14 +36,14 @@ requiredIcons:
 
 # Checkbox tile
 
-A checkbox tile is a card-style [Checkbox](./) for prominent, multi-select choices — each option carries an icon, a label and a short description. Place the tiles inside a [Checkbox group](./group); the group binds the selected values to an array.
+A checkbox tile is a card-style [Checkbox](./) for prominent, multi-select choices. Each option carries an icon, a label and a short description. Place the tiles inside a [Checkbox group](./group); the group binds the selected values to an array.
 
 ::: render
 render=../../../code/components/form/checkbox/tile/preview.vue
 :::
 
 ::: tip
-Tiles fill the group's width when stacked. Add `is-inline` to the [Checkbox group](./group) to lay them out in equal columns — best for two or three options. You can mix tiles and regular [Checkboxes](./) in the same group.
+Tiles fill the group's width when stacked. Add `is-inline` to the [Checkbox group](./group) to lay them out in equal columns, best for two or three options. You can mix tiles and regular [Checkboxes](./) in the same group.
 :::
 
 <FrontmatterDocs/>

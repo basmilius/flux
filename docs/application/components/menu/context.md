@@ -3,7 +3,7 @@ outline: deep
 
 props:
     -   name: title
-        description: The title of the context — typically the name of the resource the user is viewing.
+        description: The title of the context, typically the name of the resource the user is viewing.
         type: string
 
     -   name: subtitle
@@ -51,7 +51,7 @@ props:
 
 The application menu context is the header of a context menu panel. It renders the title and subtitle of the current context together with a back button that either navigates to the parent level (when the user has drilled down through the context stack) or follows the route passed via `to`/`href` (when the user opened the context directly).
 
-The component automatically registers its title and subtitle in the parent `FluxApplication`, so other components — such as the breadcrumbs in the top bar — can reflect the current context.
+The component automatically registers its title and subtitle in the parent `FluxApplication`, so other components, such as the breadcrumbs in the top bar, can reflect the current context.
 
 <FrontmatterDocs/>
 

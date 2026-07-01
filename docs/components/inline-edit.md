@@ -62,7 +62,7 @@ requiredIcons:
 
 The Inline edit component displays a value that turns into an input when clicked, letting users edit it in place. It is well suited for editable fields in detail panels and tables. Editing commits on Enter (or ⌘/Ctrl + Enter in multi-line mode) and reverts on Escape.
 
-Cancelling — through Escape or the cancel control — takes precedence over `save-on-blur`, so the draft is never persisted when the user explicitly cancels, even though leaving the field moves focus. After editing closes, focus stays within the component rather than dropping to the document body.
+Cancelling (through Escape or the cancel control) takes precedence over `save-on-blur`, so the draft is never persisted when the user explicitly cancels, even though leaving the field moves focus. After editing closes, focus stays within the component rather than dropping to the document body.
 
 ::: render
 render=../code/components/inline-edit/preview.vue

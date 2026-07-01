@@ -19,7 +19,7 @@ slots:
 
 # Input addition
 
-The input addition is a small element placed visually inside a form input — typically used to display a unit, currency symbol, or icon. It can be placed before or after the input when combined with an [Input group](./group).
+The input addition is a small element placed visually inside a form input, typically used to display a unit, currency symbol, or icon. It can be placed before or after the input when combined with an [Input group](./group).
 
 ::: render
 render=../../../code/components/form/input/addition/preview.vue

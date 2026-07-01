@@ -42,7 +42,7 @@ requiredIcons:
 
 # Breadcrumb item
 
-A breadcrumb item is a single step in a [Breadcrumb](../breadcrumb/) trail. Provide a `to` to render it as a router link, an `href` to render it as an external anchor, or neither to mark it as the current page — in which case it becomes plain text with `aria-current="page"`.
+A breadcrumb item is a single step in a [Breadcrumb](../breadcrumb/) trail. Provide a `to` to render it as a router link, an `href` to render it as an external anchor, or neither to mark it as the current page, in which case it becomes plain text with `aria-current="page"`.
 
 By default an item is treated as the current page exactly when it has no link. Use the `is-current` prop to override this: set it on a linked last item to mark it as the current page, or set it to `false` on a non-linked item so it is not wrongly announced as current.
 

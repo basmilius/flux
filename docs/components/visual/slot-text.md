@@ -54,7 +54,7 @@ props:
         optional: true
 
     -   name: interrupt
-        description: When true, a new roll interrupts any roll in flight and starts fresh. When false, the current roll finishes and the latest request plays after it lands, dropping duplicates — ideal for spam-prone triggers.
+        description: When true, a new roll interrupts any roll in flight and starts fresh. When false, the current roll finishes and the latest request plays after it lands, dropping duplicates, ideal for spam-prone triggers.
         type: boolean
         default: true
         optional: true
@@ -74,7 +74,7 @@ props:
 
 # Slot text
 
-Slot text renders a single `<span>` that animates with a tactile per-character "roll": each character sits in its own clipped cell, and whenever the `text` changes the old glyph slides out while the new one chases it in with a springy overshoot. It is ideal for short labels, statuses, numbers and commands — the classic `Copy → Copied → Copy` button, a live status word or a changing counter.
+Slot text renders a single `<span>` that animates with a tactile per-character "roll": each character sits in its own clipped cell, and whenever the `text` changes the old glyph slides out while the new one chases it in with a springy overshoot. It is ideal for short labels, statuses, numbers and commands, such as the classic `Copy → Copied → Copy` button, a live status word or a changing counter.
 
 ::: render
 render=../../code/components/visual/slot-text/preview.vue
@@ -84,7 +84,7 @@ render=../../code/components/visual/slot-text/preview.vue
 The roll respects `prefers-reduced-motion`: when reduced motion is requested the text simply swaps instead of rolling. The current `text` is always exposed as the accessible label, so screen readers read the value rather than the individual glyph cells.
 :::
 
-The component also exposes two imperative methods through a template ref: `set(text, options?)` rolls to new text permanently, and `flash(text, options?)` rolls to temporary text and automatically rolls back — the spam-safe `Copy → Copied → Copy` pattern in one call.
+The component also exposes two imperative methods through a template ref: `set(text, options?)` rolls to new text permanently, and `flash(text, options?)` rolls to temporary text and automatically rolls back, the spam-safe `Copy → Copied → Copy` pattern in one call.
 
 <FrontmatterDocs/>
 
@@ -106,7 +106,7 @@ example=../../code/components/visual/slot-text/metric.vue
 example=../../code/components/visual/slot-text/trend.vue
 :::
 
-::: example Status || Tint each new status as it rolls in with the color prop, fading back to the resting color — ideal for job, order or deployment states.
+::: example Status || Tint each new status as it rolls in with the color prop, fading back to the resting color, ideal for job, order or deployment states.
 example=../../code/components/visual/slot-text/status.vue
 :::
 

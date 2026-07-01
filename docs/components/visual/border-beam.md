@@ -76,7 +76,7 @@ slots:
 
 # Border beam
 
-This component adds a traveling or breathing glow animation around any element — cards, buttons, inputs or panes. The wrapped element is clipped to the beam's radius and three layers are rendered on top of it: the beam stroke, an inner glow and a soft bloom. Colors adapt to light and dark mode and slowly shift hue over time.
+This component adds a traveling or breathing glow animation around any element, such as cards, buttons, inputs or panes. The wrapped element is clipped to the beam's radius and three layers are rendered on top of it: the beam stroke, an inner glow and a soft bloom. Colors adapt to light and dark mode and slowly shift hue over time.
 
 ::: render
 render=../../code/components/visual/border-beam/preview.vue

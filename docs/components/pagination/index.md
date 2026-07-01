@@ -43,7 +43,7 @@ render=../../code/components/pagination/preview.vue
 :::
 
 ::: info Ellipsis behaviour
-Hidden pages are collapsed into a non-interactive ellipsis (`…`), which is hidden from assistive technologies via `aria-hidden`. A gap is only collapsed when at least two pages are hidden — a single hidden page is rendered directly, since an ellipsis would take up the same space as the page it replaces. In compact mode the current page button is labelled for screen readers so its purpose stays clear.
+Hidden pages are collapsed into a non-interactive ellipsis (`…`), which is hidden from assistive technologies via `aria-hidden`. A gap is only collapsed when at least two pages are hidden; a single hidden page is rendered directly, since an ellipsis would take up the same space as the page it replaces. In compact mode the current page button is labelled for screen readers so its purpose stays clear.
 :::
 
 <FrontmatterDocs/>

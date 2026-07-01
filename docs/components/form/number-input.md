@@ -78,7 +78,7 @@ render=../../code/components/form/number-input/preview.vue
 :::
 
 ::: tip
-For a standalone amount picker outside of a form — such as a quantity in a shopping cart — consider the [Quantity selector](./quantity-selector) instead.
+For a standalone amount picker outside of a form (such as a quantity in a shopping cart), consider the [Quantity selector](./quantity-selector) instead.
 :::
 
 <FrontmatterDocs/>

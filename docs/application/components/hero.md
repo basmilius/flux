@@ -27,7 +27,7 @@ slots:
 
 # Application hero
 
-The application hero introduces a page with a clear title and optional subtitle. It is the recommended starting point of any [Application content](./content) area and supports four positional slots — `start`, `before`, `after` and `end` — for adding contextual elements like back buttons, badges, breadcrumbs, or actions.
+The application hero introduces a page with a clear title and optional subtitle. It is the recommended starting point of any [Application content](./content) area and supports four positional slots (`start`, `before`, `after` and `end`) for adding contextual elements like back buttons, badges, breadcrumbs, or actions.
 
 ::: render
 render=../../code/application/hero/preview.vue

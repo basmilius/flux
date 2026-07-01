@@ -3,7 +3,7 @@ outline: deep
 
 props:
     -   name: label
-        description: The label of the account item — typically the user's name.
+        description: The label of the account item, typically the user's name.
         type: string
 
     -   name: icon
@@ -31,7 +31,7 @@ slots:
 
 # Application menu account
 
-The application menu account renders the current user as the last item of the menu footer. Provide a `label` and optionally an avatar through `image-src` or the `avatar` slot. When the `switcher` slot is provided, the item becomes clickable and reveals a flyout with the slot content — a perfect place for an account switcher.
+The application menu account renders the current user as the last item of the menu footer. Provide a `label` and optionally an avatar through `image-src` or the `avatar` slot. When the `switcher` slot is provided, the item becomes clickable and reveals a flyout with the slot content, a perfect place for an account switcher.
 
 <FrontmatterDocs/>
 

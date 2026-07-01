@@ -32,7 +32,7 @@ The form renders with `novalidate`, so the browser's native bubble validation is
 example=../../code/components/form/login.vue
 :::
 
-::: example Contact || A contact form combining a `FluxFormGrid`, single fields, and a textarea — all wrapped inside a single `FluxForm`.
+::: example Contact || A contact form combining a `FluxFormGrid`, single fields, and a textarea, all wrapped inside a single `FluxForm`.
 example=../../code/components/form/contact.vue
 :::
 

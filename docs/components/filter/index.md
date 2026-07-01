@@ -82,10 +82,10 @@ Clearing a filter removes its key from the state entirely and calls <code>on-cle
 
 ## Custom filter types
 
-Build your own filter component by calling `defineFilter()` on the top level of `<script setup>`. The macro registers a factory that `FluxFilter` and `FluxFilterBar` invoke to obtain the filter's runtime metadata (label, icon, badge text, lifecycle, …). The component name does not matter — any component that calls `defineFilter()` is accepted.
+Build your own filter component by calling `defineFilter()` on the top level of `<script setup>`. The macro registers a factory that `FluxFilter` and `FluxFilterBar` invoke to obtain the filter's runtime metadata (label, icon, badge text, lifecycle, …). The component name does not matter. Any component that calls `defineFilter()` is accepted.
 
 ::: warning Vite plugin required
-`defineFilter()` is a compile-time macro. Add the plugin from `@flux-ui/components/vite` to your Vite config — without it the call is left as a no-op and the filter will not register.
+`defineFilter()` is a compile-time macro. Add the plugin from `@flux-ui/components/vite` to your Vite config. Without it the call is left as a no-op and the filter will not register.
 
 ```ts [vite.config.ts]
 import { defineFilterMacro } from '@flux-ui/components/vite';

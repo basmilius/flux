@@ -36,7 +36,7 @@ slots:
 # Calendar item
 
 This component is used within the [Calendar](../calendar) component to render a single calendar entry. The
-`default` slot is yours to fill — render any content (icons, labels, badges, copy) you like. When the parent
+`default` slot is yours to fill. Render any content (icons, labels, badges, copy) you like. When the parent
 calendar has `draggable` enabled, items with an `id` can be dragged between day-cells (in month view) or between
 day-cells and time-slots (in time-grid views).
 

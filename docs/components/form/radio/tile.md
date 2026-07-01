@@ -33,14 +33,14 @@ slots:
 
 # Radio tile
 
-A radio tile is a card-style [Radio](./) for prominent, fully visible choices — each option carries an icon, a label and a short description. Place the tiles inside a [Radio group](./group) just like regular radios; the group handles selection and state.
+A radio tile is a card-style [Radio](./) for prominent, fully visible choices. Each option carries an icon, a label and a short description. Place the tiles inside a [Radio group](./group) just like regular radios; the group handles selection and state.
 
 ::: render
 render=../../../code/components/form/radio/tile/preview.vue
 :::
 
 ::: tip
-Tiles fill the group's width when stacked. Add `is-inline` to the [Radio group](./group) to lay them out in equal columns — best for two or three options. You can mix tiles and regular [Radios](./) in the same group when one option is less prominent.
+Tiles fill the group's width when stacked. Add `is-inline` to the [Radio group](./group) to lay them out in equal columns, best for two or three options. You can mix tiles and regular [Radios](./) in the same group when one option is less prominent.
 :::
 
 <FrontmatterDocs/>

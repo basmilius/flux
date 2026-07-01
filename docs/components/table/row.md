@@ -8,7 +8,7 @@ emits:
 
 props:
     -   name: is-clickable
-        description: Makes the row interactive — shows a pointer cursor and makes it focusable so it can be activated with `Enter`/`Space`. Pair it with a `row-click` listener.
+        description: Makes the row interactive by showing a pointer cursor and making it focusable so it can be activated with `Enter`/`Space`. Pair it with a `row-click` listener.
         type: boolean
         optional: true
 

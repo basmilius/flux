@@ -132,7 +132,7 @@ Each entry in the `options` array (and nested `children` arrays) is a `FluxFormT
         <FluxTableRow>
             <FluxTableCell><code>selectable</code></FluxTableCell>
             <FluxTableCell><code>boolean</code></FluxTableCell>
-            <FluxTableCell><p>Whether this node can be selected. Defaults to <code>true</code>. Set to <code>false</code> on parent nodes to make them act as group headers — clicking them only expands or collapses their children.</p></FluxTableCell>
+            <FluxTableCell><p>Whether this node can be selected. Defaults to <code>true</code>. Set to <code>false</code> on parent nodes to make them act as group headers. Clicking them only expands or collapses their children.</p></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell><code>children</code></FluxTableCell>

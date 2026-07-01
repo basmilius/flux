@@ -33,7 +33,7 @@ render=../../../code/components/layout/split-view/preview.vue
 :::
 
 ::: tip
-Each pane is configured via props on `FluxSplitViewPane` — see the [pane reference](./pane).
+Each pane is configured via props on `FluxSplitViewPane`. See the [pane reference](./pane).
 :::
 
 ::: tip

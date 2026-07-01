@@ -48,21 +48,21 @@ slots:
 
 # Flex
 
-A primitive layout component that maps directly to CSS flexbox. Use it to compose any flex layout — horizontal or vertical, wrapping or not, with full control over alignment and justification.
+A primitive layout component that maps directly to CSS flexbox. Use it to compose any flex layout (horizontal or vertical, wrapping or not) with full control over alignment and justification.
 
 ::: render
 render=../../../code/components/layout/flex/preview.vue
 :::
 
 ::: tip
-For controlling individual children inside a `FluxFlex` container — like making one child grow or shrink — use [`FluxFlexItem`](./item).
+For controlling individual children inside a `FluxFlex` container (like making one child grow or shrink), use [`FluxFlexItem`](./item).
 :::
 
 <FrontmatterDocs/>
 
 ## Available variants
 
-- [Item](./item) — for controlling individual children inside a flex container
+- [Item](./item) (for controlling individual children inside a flex container)
 
 ### Stack
 

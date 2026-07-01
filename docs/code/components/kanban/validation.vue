@@ -44,7 +44,7 @@
         return cards.value.filter(card => card.columnId === columnId);
     }
 
-    // Disallow moving cards directly from "todo" to "done" — they have to pass through "in-progress" first.
+    // Disallow moving cards directly from "todo" to "done". They have to pass through "in-progress" first.
     function canMove({fromColumnId, toColumnId}: FluxKanbanMoveEvent): boolean {
         return !(fromColumnId === 'todo' && toColumnId === 'done');
     }

@@ -10,7 +10,7 @@ For the colour palette tokens (`--gray-*`, `--primary-*`, `--danger-*`, `--info-
 
 ## Surface
 
-Semantic tokens for backgrounds, borders and disabled states. These are the tokens you should reach for first when styling new UI — they automatically follow the active theme.
+Semantic tokens for backgrounds, borders and disabled states. These are the tokens you should reach for first when styling new UI. They automatically follow the active theme.
 
 <FluxPane>
     <FluxTable>
@@ -146,11 +146,11 @@ A scale of seven shadow levels. Each level uses a slightly different opacity in 
         </template>
         <FluxTableRow>
             <FluxTableCell><kbd>--shadow-px</kbd></FluxTableCell>
-            <FluxTableCell>Hairline elevation — used to separate adjacent surfaces.</FluxTableCell>
+            <FluxTableCell>Hairline elevation, used to separate adjacent surfaces.</FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell><kbd>--shadow-xs</kbd></FluxTableCell>
-            <FluxTableCell>Slight elevation — buttons, chips.</FluxTableCell>
+            <FluxTableCell>Slight elevation (buttons, chips).</FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell><kbd>--shadow-sm</kbd></FluxTableCell>
@@ -194,12 +194,12 @@ A scale of seven shadow levels. Each level uses a slightly different opacity in 
         <FluxTableRow>
             <FluxTableCell><kbd>--radius-half</kbd></FluxTableCell>
             <FluxTableCell><code>6px</code></FluxTableCell>
-            <FluxTableCell>Tight rounding — used inside chips and small inputs.</FluxTableCell>
+            <FluxTableCell>Tight rounding, used inside chips and small inputs.</FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell><kbd>--radius-double</kbd></FluxTableCell>
             <FluxTableCell><code>24px</code></FluxTableCell>
-            <FluxTableCell>Larger rounding — heroes, illustrations.</FluxTableCell>
+            <FluxTableCell>Larger rounding (heroes, illustrations).</FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell><kbd>--radius-full</kbd></FluxTableCell>
@@ -275,7 +275,7 @@ The motion tokens drive every Flux transition. Use them when you build custom an
 
 ## Overriding tokens
 
-All tokens are regular CSS custom properties, so you can override them at any level — globally, on a single component, or even inline.
+All tokens are regular CSS custom properties, so you can override them at any level: globally, on a single component, or even inline.
 
 ```scss
 :root {

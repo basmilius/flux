@@ -28,7 +28,7 @@ props:
 
 slots:
     -   name: default
-        description: Item content — place FluxKanbanItem components here.
+        description: Item content. Place FluxKanbanItem components here.
 
     -   name: actions
         description: Extra content rendered at the end of the column header (e.g. an add button).

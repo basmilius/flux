@@ -24,7 +24,7 @@ render=../../code/components/item/preview.vue
 
 ## Examples
 
-::: example Clickable || Wrap an item in a clickable pane to turn it into an interactive list entry — the whole row highlights on hover.
+::: example Clickable || Wrap an item in a clickable pane to turn it into an interactive list entry. The whole row highlights on hover.
 example=../../code/components/item/clickable.vue
 :::
 
@@ -40,7 +40,7 @@ example=../../code/components/item/notifications.vue
 example=../../code/components/item/settings.vue
 :::
 
-::: example Control || With is-control the whole row becomes the label for its form control — click anywhere to toggle.
+::: example Control || With is-control the whole row becomes the label for its form control. Click anywhere to toggle.
 example=../../code/components/item/control.vue
 :::
 

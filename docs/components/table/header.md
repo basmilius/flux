@@ -13,7 +13,7 @@ props:
         optional: true
 
     -   name: data-type
-        description: The kind of data in the column. Switches the sort flyout icons to match — alphabetical (`text`), numeric (`numeric`) or chronological (`date`).
+        description: The kind of data in the column. Switches the sort flyout icons to match. The options are alphabetical (`text`), numeric (`numeric`) or chronological (`date`).
         type: [ '"text"', '"numeric"', '"date"' ]
         optional: true
         default: text

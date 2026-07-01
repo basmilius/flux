@@ -4,7 +4,7 @@
 
 # useApplicationContextMenu
 
-This composable inspects the current route tree for routes that expose a named view and reports whether a context menu should be rendered. Use it to conditionally render UI that depends on whether the current route has its own context menu — for example a back button in a custom top bar.
+This composable inspects the current route tree for routes that expose a named view and reports whether a context menu should be rendered. Use it to conditionally render UI that depends on whether the current route has its own context menu, for example a back button in a custom top bar.
 
 ## Usage
 
