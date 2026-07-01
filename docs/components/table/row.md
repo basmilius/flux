@@ -3,8 +3,8 @@ outline: deep
 
 emits:
     -   name: row-click
-        description: Triggered when the row is activated by a click, or by pressing `Enter`/`Space` while the row is focused. Clicks and key presses that originate from an interactive element within the row (buttons, links, inputs) are ignored.
-        type: [ MouseEvent ]
+        description: Triggered when the row is activated by a click, or by pressing `Enter`/`Space` while the row is focused. Clicks and key presses that originate from an interactive element within the row (buttons, links, inputs) are ignored. The first argument is the index of the clicked cell (`cellIndex` of the `<td>`), or `-1` when the row is activated by keyboard.
+        type: [ number, MouseEvent ]
 
 props:
     -   name: is-clickable

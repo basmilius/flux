@@ -6,7 +6,7 @@
                     v-for="person in dataSet"
                     :key="person.id"
                     is-clickable
-                    @row-click="onRowClick(person)">
+                    @row-click="columnIndex => onRowClick(person, columnIndex)">
                     <FluxTableCell content-direction="column">
                         <strong>{{ person.name }}</strong>
                         <small>{{ person.email }}</small>
@@ -46,10 +46,10 @@
             email: faker.internet.email()
         })));
 
-    function onRowClick(person: Person): void {
+    function onRowClick(person: Person, columnIndex: number): void {
         showSnackbar({
             icon: 'user',
-            message: `You clicked ${person.name}.`
+            message: `You clicked ${person.name} in column ${columnIndex}.`
         });
     }
 

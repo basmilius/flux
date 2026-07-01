@@ -71,10 +71,10 @@
             role: faker.person.jobTitle()
         })));
 
-    function onRowClick(item: Person): void {
+    function onRowClick(item: Person, columnIndex: number): void {
         showSnackbar({
             icon: 'user',
-            message: `You clicked ${item.name}.`
+            message: `You clicked ${item.name} in column ${columnIndex}.`
         });
     }
 

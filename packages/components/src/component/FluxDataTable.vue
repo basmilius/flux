@@ -84,7 +84,7 @@
                 <FluxTableRow
                     :is-clickable="isRowInteractive"
                     :is-selected="selectionMode ? isItemSelected(entry.item) : false"
-                    @row-click="onRowClick(entry.item, $event)">
+                    @row-click="(columnIndex, event) => onRowClick(entry.item, columnIndex, event)">
                     <FluxTableCell
                         v-if="selectionMode"
                         :class="$style.tableCellSelection">
@@ -173,7 +173,7 @@
     const emit = defineEmits<{
         limit: [number];
         navigate: [number];
-        rowClick: [item: T, event: MouseEvent];
+        rowClick: [item: T, columnIndex: number, event: MouseEvent];
     }>();
 
     const selected = defineModel<SelectionValue>('selected');
@@ -398,7 +398,7 @@
         return value === id;
     }
 
-    function onRowClick(item: T, event: MouseEvent): void {
+    function onRowClick(item: T, columnIndex: number, event: MouseEvent): void {
         if (unref(treeDisabled)) {
             return;
         }
@@ -408,7 +408,7 @@
             return;
         }
 
-        emit('rowClick', item, event);
+        emit('rowClick', item, columnIndex, event);
     }
 
     function onSelectRow(item: T): void {

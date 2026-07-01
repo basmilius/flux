@@ -18,7 +18,7 @@
     const INTERACTIVE_SELECTOR = 'a, button, input, label, select, textarea, [role="button"]';
 
     const emit = defineEmits<{
-        rowClick: [MouseEvent];
+        rowClick: [columnIndex: number, event: MouseEvent];
     }>();
 
     defineProps<{
@@ -37,7 +37,9 @@
             return;
         }
 
-        emit('rowClick', event);
+        const columnIndex = target?.closest('td')?.cellIndex ?? -1;
+
+        emit('rowClick', columnIndex, event);
     }
 
     function onKeydown(event: KeyboardEvent): void {

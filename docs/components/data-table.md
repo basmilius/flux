@@ -11,8 +11,8 @@ emits:
         type: [ number ]
 
     -   name: row-click
-        description: Triggered when a row is activated by a click, or by pressing `Enter`/`Space` while the row is focused, with the row's item and the original event. Activations from interactive elements within the row (buttons, links, inputs) are ignored. Not triggered when `selection-mode` is set — there the row activation toggles the selection instead.
-        type: [ "T", "MouseEvent" ]
+        description: Triggered when a row is activated by a click, or by pressing `Enter`/`Space` while the row is focused, with the row's item, the index of the clicked column and the original event. Activations from interactive elements within the row (buttons, links, inputs) are ignored. Not triggered when `selection-mode` is set — there the row activation toggles the selection instead. The column index is the raw cell index — the selection and expand cells are counted — or `-1` when the row is activated by keyboard.
+        type: [ "T", "number", "MouseEvent" ]
 
     -   name: update:selected
         description: Triggered when the selection changes. The payload type matches `selection-mode` — a single id (or `null`) for `single`, an array of ids for `multiple`.
