@@ -10,7 +10,7 @@
             <template #header>
                 <FluxTableHeader>Member</FluxTableHeader>
                 <FluxTableHeader is-shrinking>Status</FluxTableHeader>
-                <FluxTableHeader :width="180">Onboarding</FluxTableHeader>
+                <FluxTableHeader :min-width="180">Onboarding</FluxTableHeader>
                 <FluxTableHeader is-shrinking/>
             </template>
 

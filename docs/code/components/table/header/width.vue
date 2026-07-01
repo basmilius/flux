@@ -2,24 +2,17 @@
     <FluxPane>
         <FluxTable>
             <template #header>
-                <FluxTableHeader :width="120">Code</FluxTableHeader>
-                <FluxTableHeader>Description</FluxTableHeader>
                 <FluxTableHeader
-                    align="end"
-                    :width="150">
-                    Amount
+                    v-for="header in 3"
+                    :min-width="header * 100">
+                    Header {{ header }}
                 </FluxTableHeader>
             </template>
 
-            <FluxTableRow
-                v-for="row in rows"
-                :key="row.code">
-                <FluxTableCell no-wrap>{{ row.code }}</FluxTableCell>
-                <FluxTableCell>{{ row.description }}</FluxTableCell>
+            <FluxTableRow>
                 <FluxTableCell
-                    align="end"
-                    is-numeric>
-                    {{ row.amount }}
+                    v-for="cell in 3">
+                    Cell 1&times;{{ cell }}
                 </FluxTableCell>
             </FluxTableRow>
         </FluxTable>
@@ -30,10 +23,4 @@
     setup
     lang="ts">
     import { FluxPane, FluxTable, FluxTableCell, FluxTableHeader, FluxTableRow } from '@flux-ui/components';
-
-    const rows = [
-        {code: 'INV-001', description: 'Aurora Lamp — matte black finish', amount: '€ 49.00'},
-        {code: 'INV-002', description: 'Borealis Desk with adjustable legs', amount: '€ 329.00'},
-        {code: 'INV-003', description: 'Cinder Mug, set of four', amount: '€ 58.00'}
-    ];
 </script>

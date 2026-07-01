@@ -28,10 +28,11 @@ props:
         type: boolean
         optional: true
         
-    -   name: width
-        description: The width of the column. Sits alongside flexible columns as a target width.
+    -   name: min-width
+        description: The minimal width of the cell group.
         type: number
         optional: true
+        default: 0
         
     -   name: pinned
         description: Pins the header while scrolling horizontally. Use `start` (or `true`) to pin it to the left edge and `end` to pin it to the right edge. Multiple leading or trailing columns can be pinned; they stack side by side. Pin the same side on the matching cells.

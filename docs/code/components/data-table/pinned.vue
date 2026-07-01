@@ -13,19 +13,19 @@
             <template #header>
                 <FluxTableHeader
                     pinned
-                    :width="200">
+                    :min-width="200">
                     Person
                 </FluxTableHeader>
 
-                <FluxTableHeader :width="160">Role</FluxTableHeader>
-                <FluxTableHeader :width="170">Department</FluxTableHeader>
-                <FluxTableHeader :width="170">Location</FluxTableHeader>
-                <FluxTableHeader :width="150">Start date</FluxTableHeader>
+                <FluxTableHeader :min-width="160">Role</FluxTableHeader>
+                <FluxTableHeader :min-width="170">Department</FluxTableHeader>
+                <FluxTableHeader :min-width="170">Location</FluxTableHeader>
+                <FluxTableHeader :min-width="150">Start date</FluxTableHeader>
 
                 <FluxTableHeader
                     align="end"
                     pinned="end"
-                    :width="150">
+                    :min-width="150">
                     Salary
                 </FluxTableHeader>
             </template>
