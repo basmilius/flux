@@ -10,7 +10,8 @@
         scope="col"
         :aria-sort="isSortable ? (sort ?? 'none') : undefined"
         :style="{
-            minWidth: `${minWidth}px`,
+            width: width != null ? `${width}px` : undefined,
+            minWidth: width != null ? `${width}px` : undefined,
             ...pinnedStyle
         }">
         <div
@@ -88,7 +89,6 @@
 
     const {
         dataType = 'text',
-        minWidth = 0,
         pinned,
         sort
     } = defineProps<{
@@ -96,9 +96,9 @@
         readonly dataType?: 'text' | 'numeric' | 'date';
         readonly isShrinking?: boolean;
         readonly isSortable?: boolean;
-        readonly minWidth?: number;
         readonly pinned?: boolean | 'start' | 'end';
         readonly sort?: 'ascending' | 'descending';
+        readonly width?: number;
     }>();
 
     defineSlots<{

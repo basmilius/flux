@@ -4,26 +4,26 @@
             <template #header>
                 <FluxTableHeader
                     pinned
-                    :min-width="180">
+                    :width="180">
                     Project
                 </FluxTableHeader>
 
                 <FluxTableHeader
                     pinned
-                    :min-width="150">
+                    :width="150">
                     Owner
                 </FluxTableHeader>
 
-                <FluxTableHeader :min-width="150">Status</FluxTableHeader>
-                <FluxTableHeader :min-width="150">Priority</FluxTableHeader>
-                <FluxTableHeader :min-width="150">Start</FluxTableHeader>
-                <FluxTableHeader :min-width="150">Due</FluxTableHeader>
-                <FluxTableHeader :min-width="180">Client</FluxTableHeader>
+                <FluxTableHeader :width="150">Status</FluxTableHeader>
+                <FluxTableHeader :width="150">Priority</FluxTableHeader>
+                <FluxTableHeader :width="150">Start</FluxTableHeader>
+                <FluxTableHeader :width="150">Due</FluxTableHeader>
+                <FluxTableHeader :width="180">Client</FluxTableHeader>
 
                 <FluxTableHeader
                     align="end"
                     pinned="end"
-                    :min-width="140">
+                    :width="140">
                     Budget
                 </FluxTableHeader>
             </template>

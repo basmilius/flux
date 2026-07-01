@@ -10,29 +10,29 @@
             <template #header>
                 <FluxTableHeader
                     pinned
-                    :min-width="180">
+                    :width="180">
                     Product
                 </FluxTableHeader>
 
                 <FluxTableHeader
                     pinned
-                    :min-width="150">
+                    :width="150">
                     SKU
                 </FluxTableHeader>
 
-                <FluxTableHeader :min-width="150">Category</FluxTableHeader>
-                <FluxTableHeader :min-width="180">Supplier</FluxTableHeader>
+                <FluxTableHeader :width="150">Category</FluxTableHeader>
+                <FluxTableHeader :width="180">Supplier</FluxTableHeader>
 
                 <FluxTableHeader
                     align="end"
-                    :min-width="120">
+                    :width="120">
                     Stock
                 </FluxTableHeader>
 
                 <FluxTableHeader
                     align="end"
                     pinned="end"
-                    :min-width="120">
+                    :width="120">
                     Price
                 </FluxTableHeader>
             </template>
