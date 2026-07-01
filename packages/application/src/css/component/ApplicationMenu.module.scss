@@ -314,7 +314,7 @@
         width: var(--application-menu-width-collapsed);
 
         :local(.menuItemLabel) {
-            filter: blur(6px);
+            filter: blur(3px);
             opacity: 0;
             translate: -12px 0;
         }
@@ -336,7 +336,7 @@
 
         .applicationMenuContextContent {
             grid-template-rows: 0fr;
-            filter: blur(6px);
+            filter: blur(3px);
             opacity: 0;
             translate: -12px 0;
             pointer-events: none;
