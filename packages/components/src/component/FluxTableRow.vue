@@ -1,11 +1,12 @@
 <template>
-    <tr
+    <div
         :class="clsx($style.tableRow, isClickable && $style.isClickable, isSelected && $style.isSelected)"
+        role="row"
         :tabindex="isClickable ? 0 : undefined"
         @click="onClick"
         @keydown="onKeydown">
         <slot/>
-    </tr>
+    </div>
 </template>
 
 <script
@@ -37,7 +38,8 @@
             return;
         }
 
-        const columnIndex = target?.closest('td')?.cellIndex ?? -1;
+        const cell = target?.closest('[role="cell"], [role="columnheader"]');
+        const columnIndex = cell?.parentElement ? Array.prototype.indexOf.call(cell.parentElement.children, cell) : -1;
 
         emit('rowClick', columnIndex, event);
     }

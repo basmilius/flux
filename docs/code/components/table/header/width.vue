@@ -2,10 +2,16 @@
     <FluxPane>
         <FluxTable>
             <template #header>
-                <FluxTableHeader
-                    v-for="header in 3"
-                    :min-width="header * 100">
-                    Header {{ header }}
+                <FluxTableHeader :width="150">
+                    Fixed 150
+                </FluxTableHeader>
+
+                <FluxTableHeader :min-width="210">
+                    Min 210
+                </FluxTableHeader>
+
+                <FluxTableHeader :max-width="240">
+                    Max 240
                 </FluxTableHeader>
             </template>
 

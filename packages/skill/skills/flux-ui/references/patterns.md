@@ -201,7 +201,8 @@ is a type error. **Sticky headers are a table-level prop:** set `is-sticky` on
 — do **not** put `is-sticky` on individual `FluxTableHeader`s (older code did; this
 version moved it to the table). Common `FluxTableHeader` props: `is-shrinking`
 (size to content — use for icon/status/action columns), `is-sortable` (+ `:sort` /
-`@sort`), `:min-width`. `FluxTableCell` takes `content-direction="column"` to stack
+`@sort`), and column sizing via `:width` (fixed px), `:min-width` (grows from a
+floor) and `:max-width` (capped). `FluxTableCell` takes `content-direction="column"` to stack
 a label over a sub-label. For an empty state, render an empty/placeholder splash
 with a `FluxPrimaryButton type="route"` instead of the table when there are no
 items.

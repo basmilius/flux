@@ -137,13 +137,14 @@
         <FluxTableRow
             v-if="!isLoading && limitedItems.length === 0"
             :class="fillColumns && $style.tableEmptyFill">
-            <td
+            <div
                 :class="$style.tableCellBase"
-                :colspan="columnCount">
+                role="cell"
+                :style="{gridColumn: '1 / -1'}">
                 <slot name="empty">
                     <div :class="$style.tableEmpty">{{ translate('flux.noItems') }}</div>
                 </slot>
-            </td>
+            </div>
         </FluxTableRow>
     </FluxTable>
 </template>

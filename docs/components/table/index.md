@@ -34,7 +34,7 @@ slots:
         description: The slot for the table content.
 
     -   name: colgroups
-        description: The slot for the colgroups.
+        description: Deprecated. The table renders with CSS Grid; use the sizing props on the table headers instead. The slot is kept for API compatibility and renders nothing.
 
     -   name: caption
         description: The slot for the table caption.

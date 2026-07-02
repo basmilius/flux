@@ -1,17 +1,18 @@
 <template>
-    <tr :class="$style.tableRow">
-        <td
+    <div
+        :class="$style.tableRow"
+        role="row">
+        <div
             :class="clsx(
                 $style.tableBar,
                 isHoverable && $style.isHoverable
             )"
-            colspan="100%"
             role="cell">
             <div :class="$style.tableBarContent">
                 <slot/>
             </div>
-        </td>
-    </tr>
+        </div>
+    </div>
 </template>
 
 <script

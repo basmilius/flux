@@ -1,30 +1,21 @@
 <template>
-    <td
+    <div
         ref="cell"
         :class="clsx(
             $style.tableCell,
+            isRaw && $style.isRaw,
             isHoverable && $style.isHoverable,
             isNumeric && $style.isNumeric,
             noWrap && $style.isNoWrap,
             pinnedSide === 'start' && $style.isPinnedStart,
             pinnedSide === 'end' && $style.isPinnedEnd
         )"
-        :style="pinnedStyle"
-        :colspan="colspan">
+        role="cell"
+        :style="cellStyle">
         <slot name="content">
-            <div
-                :class="$style.tableCellContent"
-                :style="{
-                    flexFlow: contentDirection,
-                    gap: contentGap != null ? `${contentGap}px` : undefined,
-                    alignItems: contentDirection === 'column' ? align : undefined,
-                    justifyContent: contentDirection === 'column' ? undefined : align,
-                    textAlign: align
-                }">
-                <slot/>
-            </div>
+            <slot/>
         </slot>
-    </td>
+    </div>
 </template>
 
 <script
@@ -36,7 +27,10 @@
     import $style from '~flux/components/css/component/Table.module.scss';
 
     const {
+        align,
+        colspan,
         contentDirection = 'row',
+        contentGap,
         pinned
     } = defineProps<{
         readonly align?: 'start' | 'center' | 'end';
@@ -48,7 +42,7 @@
         readonly pinned?: boolean | 'start' | 'end';
     }>();
 
-    defineSlots<{
+    const slots = defineSlots<{
         default(): VNode[];
         content(): VNode[];
     }>();
@@ -59,6 +53,8 @@
         isHoverable,
         pinnedOffsets
     } = useTableInjection();
+
+    const isRaw = computed(() => 'content' in slots);
 
     const pinnedSide = computed<'start' | 'end' | null>(() => {
         if (pinned === true || pinned === 'start') {
@@ -72,15 +68,43 @@
         return null;
     });
 
-    const pinnedStyle = computed(() => {
-        if (!pinnedSide.value) {
-            return undefined;
+    const cellStyle = computed(() => {
+        const style: Record<string, string> = {};
+
+        if (!isRaw.value) {
+            style.flexFlow = contentDirection;
+
+            if (contentGap != null) {
+                style.gap = `${contentGap}px`;
+            }
+
+            if (align) {
+                if (contentDirection === 'column') {
+                    style.alignItems = align;
+                } else {
+                    style.justifyContent = align;
+                }
+
+                style.textAlign = align;
+            }
         }
 
-        const offset = pinnedOffsets.value.get(cell.value?.cellIndex ?? -1) ?? 0;
+        if (colspan) {
+            style.gridColumn = `span ${colspan}`;
+        }
 
-        return pinnedSide.value === 'start'
-            ? {left: `${offset}px`}
-            : {right: `${offset}px`};
+        if (pinnedSide.value) {
+            const element = cell.value;
+            const columnIndex = element?.parentElement ? Array.prototype.indexOf.call(element.parentElement.children, element) : -1;
+            const offset = pinnedOffsets.value.get(columnIndex) ?? 0;
+
+            if (pinnedSide.value === 'start') {
+                style.left = `${offset}px`;
+            } else {
+                style.right = `${offset}px`;
+            }
+        }
+
+        return style;
     });
 </script>

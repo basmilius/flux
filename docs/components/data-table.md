@@ -91,7 +91,7 @@ props:
 
 slots:
     -   name: colgroups
-        description: A slot to render `<colgroup>` elements that control column sizing.
+        description: Deprecated. The table renders with CSS Grid; use the sizing props on the table headers instead. The slot is kept for API compatibility and renders nothing.
 
     -   name: empty
         description: Renders in place of the rows when there is no data and the table is not loading. Defaults to a centered message.

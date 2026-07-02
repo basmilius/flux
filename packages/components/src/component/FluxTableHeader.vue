@@ -1,5 +1,5 @@
 <template>
-    <th
+    <div
         ref="header"
         :class="clsx(
             $style.tableHeader,
@@ -7,63 +7,53 @@
             pinnedSide === 'start' && $style.isPinnedStart,
             pinnedSide === 'end' && $style.isPinnedEnd
         )"
-        scope="col"
+        role="columnheader"
         :aria-sort="isSortable ? (sort ?? 'none') : undefined"
-        :style="{
-            minWidth: `${minWidth}px`,
-            ...pinnedStyle
-        }">
-        <div
-            :class="$style.tableHeaderContent"
-            :style="{
-                justifyContent: align,
-                textAlign: align
-            }">
-            <slot/>
+        :style="headerStyle">
+        <slot/>
 
-            <FluxFlyout v-if="isSortable">
-                <template #opener="{open}">
-                    <button
-                        :class="$style.tableSort"
-                        :aria-label="translate('flux.sort')"
-                        type="button"
-                        @click="open">
-                        <FluxIcon
-                            :size="16"
-                            :name="sortingIcon"/>
-                    </button>
-                </template>
+        <FluxFlyout v-if="isSortable">
+            <template #opener="{open}">
+                <button
+                    :class="$style.tableSort"
+                    :aria-label="translate('flux.sort')"
+                    type="button"
+                    @click="open">
+                    <FluxIcon
+                        :size="16"
+                        :name="sortingIcon"/>
+                </button>
+            </template>
 
-                <FluxMenu>
+            <FluxMenu>
+                <FluxMenuGroup>
+                    <FluxMenuItem
+                        :is-highlighted="sort === 'ascending'"
+                        :icon-leading="ascendingIcon"
+                        :label="translate('flux.sortAscending')"
+                        @click="$emit('sort', 'ascending')"/>
+
+                    <FluxMenuItem
+                        :is-highlighted="sort === 'descending'"
+                        :icon-leading="descendingIcon"
+                        :label="translate('flux.sortDescending')"
+                        @click="$emit('sort', 'descending')"/>
+                </FluxMenuGroup>
+
+                <template v-if="sort">
+                    <FluxSeparator/>
+
                     <FluxMenuGroup>
                         <FluxMenuItem
-                            :is-highlighted="sort === 'ascending'"
-                            :icon-leading="ascendingIcon"
-                            :label="translate('flux.sortAscending')"
-                            @click="$emit('sort', 'ascending')"/>
-
-                        <FluxMenuItem
-                            :is-highlighted="sort === 'descending'"
-                            :icon-leading="descendingIcon"
-                            :label="translate('flux.sortDescending')"
-                            @click="$emit('sort', 'descending')"/>
+                            icon-leading="circle-xmark"
+                            is-destructive
+                            :label="translate('flux.sortRemove')"
+                            @click="$emit('sort', null)"/>
                     </FluxMenuGroup>
-
-                    <template v-if="sort">
-                        <FluxSeparator/>
-
-                        <FluxMenuGroup>
-                            <FluxMenuItem
-                                icon-leading="circle-xmark"
-                                is-destructive
-                                :label="translate('flux.sortRemove')"
-                                @click="$emit('sort', null)"/>
-                        </FluxMenuGroup>
-                    </template>
-                </FluxMenu>
-            </FluxFlyout>
-        </div>
-    </th>
+                </template>
+            </FluxMenu>
+        </FluxFlyout>
+    </div>
 </template>
 
 <script
@@ -71,9 +61,10 @@
     setup>
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { computed, unref, useTemplateRef, type VNode } from 'vue';
+    import { computed, onUnmounted, unref, useTemplateRef, type VNode } from 'vue';
     import { useTableInjection } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';
+    import type { FluxTableColumnDef } from '~flux/components/data';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxMenu from './FluxMenu.vue';
@@ -87,18 +78,24 @@
     }>();
 
     const {
+        align,
         dataType = 'text',
-        minWidth = 0,
+        isShrinking,
+        maxWidth,
+        minWidth,
         pinned,
-        sort
+        sort,
+        width
     } = defineProps<{
         readonly align?: 'start' | 'center' | 'end';
         readonly dataType?: 'text' | 'numeric' | 'date';
         readonly isShrinking?: boolean;
         readonly isSortable?: boolean;
+        readonly maxWidth?: number;
         readonly minWidth?: number;
         readonly pinned?: boolean | 'start' | 'end';
         readonly sort?: 'ascending' | 'descending';
+        readonly width?: number;
     }>();
 
     defineSlots<{
@@ -108,7 +105,8 @@
     const header = useTemplateRef('header');
 
     const {
-        pinnedOffsets
+        pinnedOffsets,
+        registerColumn
     } = useTableInjection();
 
     const translate = useTranslate();
@@ -125,16 +123,38 @@
         return null;
     });
 
-    const pinnedStyle = computed(() => {
-        if (!pinnedSide.value) {
-            return undefined;
+    const columnDef = computed<FluxTableColumnDef>(() => ({
+        isShrinking,
+        maxWidth,
+        minWidth,
+        pinned: pinnedSide.value,
+        width
+    }));
+
+    const unregisterColumn = registerColumn(header, columnDef);
+    onUnmounted(unregisterColumn);
+
+    const headerStyle = computed(() => {
+        const style: Record<string, string> = {};
+
+        if (align) {
+            style.justifyContent = align;
+            style.textAlign = align;
         }
 
-        const offset = pinnedOffsets.value.get(header.value?.cellIndex ?? -1) ?? 0;
+        if (pinnedSide.value) {
+            const element = header.value;
+            const columnIndex = element?.parentElement ? Array.prototype.indexOf.call(element.parentElement.children, element) : -1;
+            const offset = pinnedOffsets.value.get(columnIndex) ?? 0;
 
-        return pinnedSide.value === 'start'
-            ? {left: `${offset}px`}
-            : {right: `${offset}px`};
+            if (pinnedSide.value === 'start') {
+                style.left = `${offset}px`;
+            } else {
+                style.right = `${offset}px`;
+            }
+        }
+
+        return style;
     });
 
     const ascendingIcon = computed((): FluxIconName => {

@@ -1,51 +1,49 @@
 <template>
-    <Preview>
-        <FluxPane>
-            <FluxDataTable
-                :items="dataSet"
-                :limits="[]"
-                :page="1"
-                :per-page="5"
-                :total="dataSet.length"
-                is-hoverable
-                @row-click="onRowClick">
-                <template #header>
-                    <FluxTableHeader>
-                        Person
-                    </FluxTableHeader>
+    <FluxPane>
+        <FluxDataTable
+            :items="dataSet"
+            :limits="[]"
+            :page="1"
+            :per-page="5"
+            :total="dataSet.length"
+            is-hoverable
+            @row-click="onRowClick">
+            <template #header>
+                <FluxTableHeader>
+                    Person
+                </FluxTableHeader>
 
-                    <FluxTableHeader>
-                        Role
-                    </FluxTableHeader>
+                <FluxTableHeader>
+                    Role
+                </FluxTableHeader>
 
-                    <FluxTableHeader is-shrinking/>
-                </template>
+                <FluxTableHeader is-shrinking/>
+            </template>
 
-                <template #name="{item: {name, email}}">
-                    <FluxTableCell content-direction="column">
-                        <strong>{{ name }}</strong>
-                        <small>{{ email }}</small>
-                    </FluxTableCell>
-                </template>
+            <template #name="{item: {name, email}}">
+                <FluxTableCell content-direction="column">
+                    <strong>{{ name }}</strong>
+                    <small>{{ email }}</small>
+                </FluxTableCell>
+            </template>
 
-                <template #role="{item: {role}}">
-                    <FluxTableCell>
-                        {{ role }}
-                    </FluxTableCell>
-                </template>
+            <template #role="{item: {role}}">
+                <FluxTableCell>
+                    {{ role }}
+                </FluxTableCell>
+            </template>
 
-                <template #actions="{item}">
-                    <FluxTableCell>
-                        <FluxTableActions>
-                            <FluxSecondaryButton
-                                label="Email"
-                                @click="onEmail(item)"/>
-                        </FluxTableActions>
-                    </FluxTableCell>
-                </template>
-            </FluxDataTable>
-        </FluxPane>
-    </Preview>
+            <template #actions="{item}">
+                <FluxTableCell>
+                    <FluxTableActions>
+                        <FluxSecondaryButton
+                            label="Email"
+                            @click="onEmail(item)"/>
+                    </FluxTableActions>
+                </FluxTableCell>
+            </template>
+        </FluxDataTable>
+    </FluxPane>
 </template>
 
 <script

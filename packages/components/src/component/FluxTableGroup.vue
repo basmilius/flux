@@ -1,11 +1,12 @@
 <template>
-    <tr :class="clsx($style.tableRow, $style.tableGroupRow)">
-        <td
+    <div
+        :class="clsx($style.tableRow, $style.tableGroupRow)"
+        role="row">
+        <div
             :class="clsx(
                 $style.tableGroup,
                 isHoverable && isExpandable && $style.isHoverable
             )"
-            colspan="100%"
             role="cell">
             <component
                 :is="isExpandable ? 'button' : 'div'"
@@ -34,8 +35,8 @@
                     <slot name="after"/>
                 </span>
             </component>
-        </td>
-    </tr>
+        </div>
+    </div>
 
     <template v-if="!isExpandable || isExpanded">
         <slot/>

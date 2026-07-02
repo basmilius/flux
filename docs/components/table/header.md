@@ -27,13 +27,17 @@ props:
         description: If the table header will render a sorting flyout.
         type: boolean
         optional: true
-        
-    -   name: min-width
-        description: The minimal width of the cell group.
+
+    -   name: max-width
+        description: The maximum width of the column in pixels. The column shrinks below this value when needed.
         type: number
         optional: true
-        default: 0
-        
+
+    -   name: min-width
+        description: The minimum width of the column in pixels. The column still grows to fill available space.
+        type: number
+        optional: true
+
     -   name: pinned
         description: Pins the header while scrolling horizontally. Use `start` (or `true`) to pin it to the left edge and `end` to pin it to the right edge. Multiple leading or trailing columns can be pinned; they stack side by side. Pin the same side on the matching cells.
         type: [ 'boolean', '"start"', '"end"' ]
@@ -42,6 +46,11 @@ props:
     -   name: sort
         description: The current sorting that is applied to the header.
         type: [ '"ascending"', '"descending"' ]
+        optional: true
+
+    -   name: width
+        description: Fixed column width in pixels. Takes precedence over `is-shrinking`, `min-width` and `max-width`.
+        type: number
         optional: true
 
 slots:
@@ -75,6 +84,10 @@ This component is best used within a [Table](../table).
 When `is-sortable` is set, the sort trigger is reachable with the keyboard and opens the sort flyout like any other [Menu](../menu). Set `data-type` to `numeric` or `date` so the flyout shows ordering icons that match the column's data instead of the alphabetical default.
 :::
 
+::: info Column sizing
+Headers define the width of their column. A column with `width` gets that exact width. A column with `is-shrinking` hugs its content. Otherwise the column shares the available space, optionally bounded by `min-width` and/or `max-width`. When the combined minimum widths exceed the table width, the table scrolls horizontally.
+:::
+
 <FrontmatterDocs/>
 
 ## Examples
@@ -95,7 +108,7 @@ example=../../code/components/table/header/sortable.vue
 example=../../code/components/table/header/data-type.vue
 :::
 
-::: example Width || A table header with a custom width.
+::: example Width || Columns with a fixed, minimum and maximum width.
 example=../../code/components/table/header/width.vue
 :::
 

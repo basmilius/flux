@@ -295,9 +295,19 @@ export type FluxTabBarInjection = {
     unregisterItem(element: Element): void;
 };
 
+export type FluxTableColumnDef = {
+    readonly isShrinking?: boolean;
+    readonly maxWidth?: number;
+    readonly minWidth?: number;
+    readonly pinned: 'start' | 'end' | null;
+    readonly width?: number;
+};
+
 export type FluxTableInjection = {
     readonly isHoverable: Ref<boolean>;
     readonly pinnedOffsets: Ref<Map<number, number>>;
+
+    registerColumn(element: Readonly<Ref<HTMLElement | null>>, column: Readonly<Ref<FluxTableColumnDef>>): () => void;
 };
 
 export type FluxTooltipInjection = {

@@ -71,11 +71,16 @@
     }
 
     > :local(.table) {
-        :local(.tableCell):first-child :local(.tableCellContent) {
+        :local(.tableCell):not(:local(.tableBar)):not(:local(.tableGroup)):not(:local(.isRaw)):first-child {
             padding-left: 21px;
         }
 
-        :local(.tableCell):last-child :local(.tableCellContent) {
+        :local(.tableCell):not(:local(.tableBar)):not(:local(.tableGroup)):not(:local(.isRaw)):last-child {
+            padding-right: 21px;
+        }
+
+        :is(:local(.tableBarContent), :local(.tableGroupContent)) {
+            padding-left: 21px;
             padding-right: 21px;
         }
     }
@@ -109,11 +114,16 @@
         }
 
         > .table {
-            .tableCell:first-child .tableCellContent {
+            .tableCell:not(.tableBar):not(.tableGroup):not(.isRaw):first-child {
                 padding-left: 12px;
             }
 
-            .tableCell:last-child .tableCellContent {
+            .tableCell:not(.tableBar):not(.tableGroup):not(.isRaw):last-child {
+                padding-right: 12px;
+            }
+
+            :is(.tableBarContent, .tableGroupContent) {
+                padding-left: 12px;
                 padding-right: 12px;
             }
         }

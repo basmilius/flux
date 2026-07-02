@@ -8,28 +8,19 @@
     container: table / inline-size;
     flex-flow: column;
     overflow: auto;
-
-    :is(caption) {
-        color: var(--foreground-secondary);
-        font-size: 14px;
-        text-align: left;
-    }
 }
 
 .tableBase {
-    height: 1px;
+    display: grid;
+    align-content: start;
+    width: fit-content;
     min-width: 100cqw;
-    bottom: 0;
-    border-collapse: separate;
-    border-spacing: 0;
+    grid-template-columns: var(--flux-table-columns, none);
     text-align: left;
 
-    &:has(.tableFill) {
+    &:has(.tableFill),
+    &:has(.tableEmptyFill) {
         flex-grow: 1;
-    }
-
-    &:has(.tableFill):has(.tablePagination) {
-        margin-bottom: -1px;
     }
 }
 
@@ -37,10 +28,18 @@
     composes: basePaneLoader from './base/Pane.module.scss';
 }
 
+.tableHead,
+.tableBody,
+.tableFoot {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+}
+
 .tableRow {
-    height: 0;
-    margin: 0;
-    padding: 0;
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
 
     &.isClickable {
         cursor: pointer;
@@ -50,24 +49,25 @@
 }
 
 .tableCellBase {
-    min-height: 100%;
     padding: 0;
     border: 0 solid var(--gray-100);
 }
 
 .tableCell {
     composes: tableCellBase;
-}
 
-.tableCellContent {
     display: flex;
-    height: 100%;
-    padding: 12px 15px;
     align-items: flex-start;
+    padding: 12px 15px;
     word-break: break-word;
 
     :global(p):only-child {
         margin: 0;
+    }
+
+    &.isRaw {
+        display: block;
+        padding: 0;
     }
 }
 
@@ -80,11 +80,13 @@
 .tableHeader {
     composes: tableCell;
 
-    border-bottom: 2px solid var(--gray-100);
+    font-size: 14px;
+    font-weight: 700;
+    align-items: center;
     color: var(--foreground-prominent);
+    border-bottom: 2px solid var(--gray-100);
 
     &.isShrinking {
-        width: 0;
         white-space: nowrap;
     }
 }
@@ -93,35 +95,28 @@
     background: var(--gray-50);
 }
 
-.tableHeaderContent {
-    composes: tableCellContent;
-
-    align-items: center;
-    font-size: 14px;
-}
-
-tbody .tableRow.isSelected .tableCell {
+.tableBody .tableRow.isSelected .tableCell {
     background: var(--primary-50);
     border-color: var(--primary-100);
 }
 
-tbody .tableRow.isSelected + .tableRow .tableCell {
+.tableBody .tableRow.isSelected + .tableRow .tableCell {
     border-top-color: var(--primary-100);
 }
 
 @media (hover: hover) {
-    tbody .tableRow:hover .tableCell.isHoverable,
-    tbody .tableRow:has(:focus-visible) .tableCell.isHoverable {
+    .tableBody .tableRow:hover .tableCell.isHoverable,
+    .tableBody .tableRow:has(:focus-visible) .tableCell.isHoverable {
         background: var(--gray-50);
     }
 
-    tbody .tableRow.isSelected:hover .tableCell.isHoverable,
-    tbody .tableRow.isSelected:has(:focus-visible) .tableCell.isHoverable {
+    .tableBody .tableRow.isSelected:hover .tableCell.isHoverable,
+    .tableBody .tableRow.isSelected:has(:focus-visible) .tableCell.isHoverable {
         background: var(--primary-50);
     }
 }
 
-tfoot .tableCell {
+.tableFoot .tableCell {
     border-top: 1px solid var(--gray-100);
 }
 
@@ -129,20 +124,20 @@ tfoot .tableCell {
     border-left-width: 1px;
 }
 
-tbody .tableRow + .tableRow .tableCell {
+.tableBody .tableRow + .tableRow .tableCell {
     border-top-width: 1px;
 }
 
-tbody .tableGroupRow + .tableRow .tableCell {
+.tableBody .tableGroupRow + .tableRow .tableCell {
     border-top-width: 0;
 }
 
-tbody .tableGroupRow:first-child .tableGroup {
+.tableBody .tableGroupRow:first-child .tableGroup {
     border-top-width: 0;
 }
 
-tbody .tableGroupRow:last-child .tableGroup,
-tbody .tableGroupRow:has(+ .tableFill) .tableGroup {
+.tableBody .tableGroupRow:last-child .tableGroup,
+.tableBody .tableGroupRow:has(+ .tableFill) .tableGroup {
     border-bottom-width: 0;
 }
 
@@ -151,7 +146,7 @@ tbody .tableGroupRow:has(+ .tableFill) .tableGroup {
 }
 
 .tableCellSelection {
-    width: 0;
+    white-space: nowrap;
 }
 
 .tableCell.isNoWrap {
@@ -198,24 +193,22 @@ tbody .tableGroupRow:has(+ .tableFill) .tableGroup {
 }
 
 .tableFill {
+    min-height: var(--flux-table-fill-height, 0px);
     pointer-events: none;
 
     .tableCell {
-        height: 100%;
-    }
-
-    .tableCellContent {
         padding: 0;
     }
 }
 
-.tableBase:has(.tableEmptyFill) {
-    flex-grow: 1;
+.tableEmptyFill {
+    min-height: var(--flux-table-fill-height, 0px);
 }
 
 .tableEmptyFill .tableCellBase {
-    height: 100%;
-    vertical-align: middle;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
 }
 
 .tableBar {
@@ -224,6 +217,8 @@ tbody .tableGroupRow:has(+ .tableFill) .tableGroup {
     composes: tableCell;
 
     position: relative;
+    grid-column: 1 / -1;
+    padding: 0;
     background: var(--bg);
     box-shadow: 0 0 18px var(--bg),
                 0 0 18px var(--bg),
@@ -239,18 +234,23 @@ tbody .tableGroupRow:has(+ .tableFill) .tableGroup {
 }
 
 .tableBarContent {
-    composes: tableCellContent;
-
     position: sticky;
     left: 0;
-    max-width: 100cqw;
+    display: flex;
+    align-items: flex-start;
     flex-flow: row nowrap;
+    flex-grow: 1;
     gap: 15px;
+    max-width: 100cqw;
+    padding: 12px 15px;
+    word-break: break-word;
 }
 
 .tableGroup {
     composes: tableCell;
 
+    grid-column: 1 / -1;
+    padding: 0;
     border-bottom-width: 1px;
 }
 
@@ -305,6 +305,19 @@ tbody .tableGroupRow:has(+ .tableFill) .tableGroup {
     gap: 9px;
 }
 
+.tableCaption {
+    position: sticky;
+    left: 0;
+    max-width: 100cqw;
+    color: var(--foreground-secondary);
+    font-size: 14px;
+    text-align: left;
+
+    &.isTop {
+        order: -1;
+    }
+}
+
 .tablePagination {
     position: sticky;
     left: 0;
@@ -346,11 +359,16 @@ tbody .tableGroupRow:has(+ .tableFill) .tableGroup {
     --table-spacing: 15px;
 }
 
-.basePaneStructure > .table .tableCell:first-child .tableCellContent {
+.basePaneStructure > .table .tableCell:not(.tableBar):not(.tableGroup):not(.isRaw):first-child {
     padding-left: var(--table-spacing);
 }
 
-.basePaneStructure > .table .tableCell:last-child .tableCellContent {
+.basePaneStructure > .table .tableCell:not(.tableBar):not(.tableGroup):not(.isRaw):last-child {
+    padding-right: var(--table-spacing);
+}
+
+.basePaneStructure > .table :is(.tableBarContent, .tableGroupContent) {
+    padding-left: var(--table-spacing);
     padding-right: var(--table-spacing);
 }
 
@@ -358,7 +376,7 @@ tbody .tableGroupRow:has(+ .tableFill) .tableGroup {
     margin-right: -3px;
 }
 
-.basePaneStructure > .table :is(caption) {
+.basePaneStructure > .table .tableCaption {
     padding: 12px var(--table-spacing);
     border-top: 1px solid var(--gray-100);
 }
@@ -368,7 +386,7 @@ tbody .tableGroupRow:has(+ .tableFill) .tableGroup {
 }
 
 .tableCellExpand {
-    width: 0;
+    white-space: nowrap;
 }
 
 .tableExpandToggle :global(svg) {
