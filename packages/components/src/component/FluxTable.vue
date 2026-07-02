@@ -3,19 +3,16 @@
         ref="base"
         :class="[
             $style.table,
-            isScrolledStart && $style.isScrolledStart,
-            isScrollableEnd && $style.isScrollableEnd
-        ]"
-        :style="{
-            '--flux-table-columns': gridTemplateColumns,
-            '--flux-table-fill-height': `${fillHeight}px`
-        }">
+            isHoverable && $style.isHoverable,
+            isSticky && $style.isSticky
+        ]">
         <div
             ref="grid"
             :class="$style.tableBase"
             role="table"
             :aria-busy="isLoading || undefined"
-            :aria-describedby="slots.caption ? captionId : undefined">
+            :aria-describedby="slots.caption ? captionId : undefined"
+            :aria-rowcount="ariaRowcount">
             <div
                 v-if="slots.header"
                 ref="head"
@@ -32,10 +29,10 @@
                 <slot/>
 
                 <FluxTableRow
-                    v-if="fillColumns"
+                    v-if="isFilled"
                     :class="$style.tableFill">
                     <FluxTableCell
-                        v-for="n of fillColumns"
+                        v-for="n of fillCellCount"
                         :key="n"/>
                 </FluxTableRow>
             </div>
@@ -58,8 +55,8 @@
 
         <div
             v-if="isLoading"
-            :class="$style.tableLoader"
-            :style="loaderStyle">
+            ref="loader"
+            :class="$style.tableLoader">
             <FluxSpinner/>
         </div>
 
@@ -75,8 +72,8 @@
     lang="ts"
     setup>
     import { animationFrameDebounce, useScrollPosition } from '@flux-ui/internals';
-    import { computed, provide, type Ref, ref, shallowReactive, toRef, unref, useId, useTemplateRef, type VNode, watch } from 'vue';
-    import { type FluxTableColumnDef, FluxTableInjectionKey } from '~flux/components/data';
+    import { computed, provide, type Ref, ref, shallowReactive, unref, useId, useTemplateRef, type VNode, watch, watchEffect } from 'vue';
+    import { type FluxTableColumnDef, FluxTableInjectionKey, type FluxTablePinnedEdges } from '~flux/components/data';
     import FluxPaneBody from './FluxPaneBody.vue';
     import FluxSpinner from './FluxSpinner.vue';
     import FluxTableCell from './FluxTableCell.vue';
@@ -90,12 +87,14 @@
 
     const {
         captionSide = 'bottom',
+        isFilled = false,
         isHoverable = false,
         isLoading = false,
         isSticky = false
     } = defineProps<{
+        readonly ariaRowcount?: number;
         readonly captionSide?: 'top' | 'bottom';
-        readonly fillColumns?: number;
+        readonly isFilled?: boolean;
         readonly isHoverable?: boolean;
         readonly isLoading?: boolean;
         readonly isSticky?: boolean;
@@ -103,7 +102,6 @@
 
     const slots = defineSlots<{
         default?(): VNode;
-        colgroups?(): VNode;
         caption?(): VNode;
         footer?(): VNode;
         header?(): VNode;
@@ -115,15 +113,16 @@
     const headRef = useTemplateRef('head');
     const bodyRef = useTemplateRef('body');
     const footRef = useTemplateRef('foot');
+    const loaderRef = useTemplateRef('loader');
     const {x, y} = useScrollPosition(base);
 
     const captionId = useId();
 
     const headHeight = ref(0);
     const footHeight = ref(0);
-    const fillHeight = ref(0);
     const maxScrollLeft = ref(0);
     const fallbackColumnCount = ref(0);
+    const pinnedEdges = ref<FluxTablePinnedEdges>({end: -1, start: -1});
     const pinnedOffsets = ref(new Map<number, number>());
     const columnRegistrations = shallowReactive(new Set<ColumnRegistration>());
 
@@ -134,6 +133,8 @@
         .filter(registration => registration.element.value !== null)
         .sort((a, b) => a.element.value!.compareDocumentPosition(b.element.value!) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1)
         .map(registration => registration.column.value));
+
+    const fillCellCount = computed(() => unref(sortedColumns).length || fallbackColumnCount.value);
 
     const gridTemplateColumns = computed(() => {
         const columns = unref(sortedColumns);
@@ -164,25 +165,13 @@
             .join(' ');
     });
 
-    const loaderStyle = computed(() => ({
-        transform: `translate(${x.value}px, ${y.value}px)`,
-        top: `${headHeight.value}px`,
-        bottom: `${footHeight.value}px`,
-        borderTopLeftRadius: headHeight.value > 0 ? '0' : undefined,
-        borderTopRightRadius: headHeight.value > 0 ? '0' : undefined,
-        borderBottomLeftRadius: footHeight.value > 0 ? '0' : undefined,
-        borderBottomRightRadius: footHeight.value > 0 ? '0' : undefined
-    }));
-
     function registerColumn(element: Readonly<Ref<HTMLElement | null>>, column: Readonly<Ref<FluxTableColumnDef>>): () => void {
         const registration: ColumnRegistration = {column, element};
 
         columnRegistrations.add(registration);
-        measure();
 
         return () => {
             columnRegistrations.delete(registration);
-            measure();
         };
     }
 
@@ -196,60 +185,96 @@
         fallbackColumnCount.value = firstRow?.children.length ?? 0;
     }
 
-    function measurePinned(): void {
-        const baseEl = unref(base);
-        const gridEl = unref(gridRef);
-        const offsets = new Map<number, number>();
+    function areOffsetsEqual(a: Map<number, number>, b: Map<number, number>): boolean {
+        if (a.size !== b.size) {
+            return false;
+        }
 
-        if (baseEl && gridEl) {
-            maxScrollLeft.value = baseEl.scrollWidth - baseEl.clientWidth;
-
-            const widths = getComputedStyle(gridEl).gridTemplateColumns
-                .split(' ')
-                .map(track => Number.parseFloat(track))
-                .filter(width => !Number.isNaN(width));
-
-            const lefts: number[] = [];
-            let acc = 0;
-
-            for (const width of widths) {
-                lefts.push(acc);
-                acc += width;
-            }
-
-            const totalWidth = acc;
-            const rights = lefts.map((left, index) => totalWidth - left - widths[index]);
-
-            const columns = unref(sortedColumns);
-            let startIndices = columns.map((column, index) => column.pinned === 'start' ? index : -1).filter(index => index >= 0);
-            let endIndices = columns.map((column, index) => column.pinned === 'end' ? index : -1).filter(index => index >= 0);
-
-            if (columns.length === 0) {
-                const cells = Array.from(unref(bodyRef)?.querySelector(`:scope > .${$style.tableRow}`)?.children ?? []);
-
-                startIndices = cells.map((cell, index) => cell.classList.contains($style.isPinnedStart) ? index : -1).filter(index => index >= 0);
-                endIndices = cells.map((cell, index) => cell.classList.contains($style.isPinnedEnd) ? index : -1).filter(index => index >= 0);
-            }
-
-            if (startIndices.length > 0) {
-                const first = lefts[startIndices[0]];
-
-                for (const index of startIndices) {
-                    offsets.set(index, lefts[index] - first);
-                }
-            }
-
-            if (endIndices.length > 0) {
-                const last = rights[endIndices[endIndices.length - 1]];
-
-                for (const index of endIndices) {
-                    offsets.set(index, rights[index] - last);
-                }
+        for (const [index, offset] of a) {
+            if (b.get(index) !== offset) {
+                return false;
             }
         }
 
-        pinnedOffsets.value = offsets;
+        return true;
     }
+
+    function measurePinned(resolvedTemplate: string): void {
+        const baseEl = unref(base);
+
+        if (!baseEl) {
+            return;
+        }
+
+        maxScrollLeft.value = baseEl.scrollWidth - baseEl.clientWidth;
+
+        const columns = unref(sortedColumns);
+        let startIndices = columns.map((column, index) => column.pinned === 'start' ? index : -1).filter(index => index >= 0);
+        let endIndices = columns.map((column, index) => column.pinned === 'end' ? index : -1).filter(index => index >= 0);
+
+        if (columns.length === 0) {
+            const cells = Array.from(unref(bodyRef)?.querySelector(`:scope > .${$style.tableRow}`)?.children ?? []);
+
+            startIndices = cells.map((cell, index) => cell.classList.contains($style.isPinnedStart) ? index : -1).filter(index => index >= 0);
+            endIndices = cells.map((cell, index) => cell.classList.contains($style.isPinnedEnd) ? index : -1).filter(index => index >= 0);
+        }
+
+        const edges: FluxTablePinnedEdges = {
+            end: endIndices[0] ?? -1,
+            start: startIndices[startIndices.length - 1] ?? -1
+        };
+
+        if (edges.end !== pinnedEdges.value.end || edges.start !== pinnedEdges.value.start) {
+            pinnedEdges.value = edges;
+        }
+
+        if (startIndices.length === 0 && endIndices.length === 0) {
+            if (pinnedOffsets.value.size > 0) {
+                pinnedOffsets.value = new Map();
+            }
+
+            return;
+        }
+
+        const widths = resolvedTemplate
+            .split(' ')
+            .map(track => Number.parseFloat(track))
+            .filter(width => !Number.isNaN(width));
+
+        const lefts: number[] = [];
+        let acc = 0;
+
+        for (const width of widths) {
+            lefts.push(acc);
+            acc += width;
+        }
+
+        const totalWidth = acc;
+        const rights = lefts.map((left, index) => totalWidth - left - widths[index]);
+        const offsets = new Map<number, number>();
+
+        if (startIndices.length > 0) {
+            const first = lefts[startIndices[0]];
+
+            for (const index of startIndices) {
+                offsets.set(index, lefts[index] - first);
+            }
+        }
+
+        if (endIndices.length > 0) {
+            const last = rights[endIndices[endIndices.length - 1]];
+
+            for (const index of endIndices) {
+                offsets.set(index, rights[index] - last);
+            }
+        }
+
+        if (!areOffsetsEqual(offsets, pinnedOffsets.value)) {
+            pinnedOffsets.value = offsets;
+        }
+    }
+
+    let appliedFillHeight: number | null = null;
 
     function measureFill(): void {
         const baseEl = unref(base);
@@ -257,22 +282,30 @@
         const bodyEl = unref(bodyRef);
         const fillEl = bodyEl?.querySelector<HTMLElement>(`:scope > .${$style.tableFill}, :scope > .${$style.tableEmptyFill}`);
 
-        if (!baseEl || !gridEl || !bodyEl || !fillEl) {
-            fillHeight.value = 0;
+        if (!baseEl || !gridEl || !bodyEl) {
             return;
         }
 
-        let siblingsHeight = 0;
+        let fillHeight = 0;
 
-        for (const child of baseEl.children) {
-            if (child !== gridEl && child instanceof HTMLElement && !child.classList.contains($style.tableLoader)) {
-                siblingsHeight += child.offsetHeight;
+        if (fillEl) {
+            let siblingsHeight = 0;
+
+            for (const child of baseEl.children) {
+                if (child !== gridEl && child instanceof HTMLElement && !child.classList.contains($style.tableLoader)) {
+                    siblingsHeight += child.offsetHeight;
+                }
             }
+
+            const contentHeight = headHeight.value + bodyEl.offsetHeight - fillEl.offsetHeight + footHeight.value;
+
+            fillHeight = Math.max(0, baseEl.clientHeight - siblingsHeight - contentHeight);
         }
 
-        const contentHeight = headHeight.value + bodyEl.offsetHeight - fillEl.offsetHeight + footHeight.value;
-
-        fillHeight.value = Math.max(0, baseEl.clientHeight - siblingsHeight - contentHeight);
+        if (fillHeight !== appliedFillHeight) {
+            appliedFillHeight = fillHeight;
+            baseEl.style.setProperty('--flux-table-fill-height', `${fillHeight}px`);
+        }
     }
 
     let measuredTemplate: string | null = null;
@@ -280,20 +313,12 @@
     // WebKit does not recompute subgrid row heights after the resolved column
     // template changes; touching the rowgroup style after layout forces that
     // recomputation.
-    function nudgeSubgridRows(): void {
-        const gridEl = unref(gridRef);
-
-        if (!gridEl) {
+    function nudgeSubgridRows(resolvedTemplate: string): void {
+        if (resolvedTemplate === measuredTemplate) {
             return;
         }
 
-        const template = getComputedStyle(gridEl).gridTemplateColumns;
-
-        if (template === measuredTemplate) {
-            return;
-        }
-
-        measuredTemplate = template;
+        measuredTemplate = resolvedTemplate;
 
         for (const rowGroup of [unref(headRef), unref(bodyRef), unref(footRef)]) {
             if (rowGroup) {
@@ -302,18 +327,76 @@
         }
     }
 
+    let appliedHeadHeight: number | null = null;
+
     const measure = animationFrameDebounce(() => {
+        const gridEl = unref(gridRef);
+
         headHeight.value = unref(headRef)?.offsetHeight ?? 0;
         footHeight.value = unref(footRef)?.offsetHeight ?? 0;
         measureFallbackColumns();
-        measurePinned();
+
+        if (headHeight.value !== appliedHeadHeight) {
+            appliedHeadHeight = headHeight.value;
+            unref(base)?.style.setProperty('--flux-table-head-height', `${headHeight.value}px`);
+        }
+
+        const resolvedTemplate = gridEl ? getComputedStyle(gridEl).gridTemplateColumns : '';
+
+        measurePinned(resolvedTemplate);
         measureFill();
-        nudgeSubgridRows();
+        nudgeSubgridRows(resolvedTemplate);
     });
 
-    watch(gridTemplateColumns, () => measure(), {flush: 'post'});
+    watchEffect(() => {
+        unref(base)?.style.setProperty('--flux-table-columns', gridTemplateColumns.value);
+    });
+
+    watchEffect(() => {
+        const baseEl = unref(base);
+
+        if (!baseEl) {
+            return;
+        }
+
+        if (isScrolledStart.value) {
+            baseEl.setAttribute('data-scrolled-start', '');
+        } else {
+            baseEl.removeAttribute('data-scrolled-start');
+        }
+
+        if (isScrollableEnd.value) {
+            baseEl.setAttribute('data-scrollable-end', '');
+        } else {
+            baseEl.removeAttribute('data-scrollable-end');
+        }
+    });
+
+    watchEffect(() => {
+        const loaderEl = unref(loaderRef);
+
+        if (!loaderEl) {
+            return;
+        }
+
+        const {style} = loaderEl;
+
+        style.transform = `translate(${x.value}px, ${y.value}px)`;
+        style.top = `${headHeight.value}px`;
+        style.bottom = `${footHeight.value}px`;
+        style.borderTopLeftRadius = headHeight.value > 0 ? '0' : '';
+        style.borderTopRightRadius = headHeight.value > 0 ? '0' : '';
+        style.borderBottomLeftRadius = footHeight.value > 0 ? '0' : '';
+        style.borderBottomRightRadius = footHeight.value > 0 ? '0' : '';
+    });
+
+    watch(sortedColumns, () => measure());
 
     watch([base, headRef, bodyRef, footRef], ([baseEl, head, bodyEl, foot], _, onCleanup) => {
+        if (typeof ResizeObserver === 'undefined') {
+            return;
+        }
+
         const observer = new ResizeObserver(measure);
 
         if (baseEl) {
@@ -338,8 +421,13 @@
     }, {immediate: true});
 
     provide(FluxTableInjectionKey, {
-        isHoverable: toRef(() => isHoverable),
+        columns: sortedColumns,
+        pinnedEdges,
         pinnedOffsets,
         registerColumn
+    });
+
+    defineExpose({
+        columns: sortedColumns
     });
 </script>

@@ -137,7 +137,7 @@ an `#actions` slot via `FluxTableActions` › `FluxTooltip` › `FluxAction`.
 ```vue
 <template>
   <FluxDataTable
-    :fill-columns="4"
+    is-filled
     is-hoverable
     is-sticky
     :is-loading="isLoading"
@@ -220,9 +220,9 @@ internally-scrolling CSS (so sticky headers work) only kicks in when the
   `layout="default"` / `"dashboard"` there.
 - **No hero on a full table page** — the page title and actions come from the top
   bar, not the page (see §6).
-- **Set `:fill-columns` to the column count.** On a full-height table with few
-  rows, `fill-columns` renders placeholder cells so the column dividers reach the
-  bottom (no half-drawn grid) — e.g. a 7-column table → `:fill-columns="7"`.
+- **Set `is-filled` on full-height tables.** With few rows, `is-filled` renders a
+  filler row so the column dividers reach the bottom (no half-drawn grid). It
+  replaces the old `fill-columns` prop — the table knows its own column count.
 
 ```vue
 <!-- OrdersPage.vue — table is the DIRECT child of FluxApplicationContent -->

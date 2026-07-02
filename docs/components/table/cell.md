@@ -29,7 +29,7 @@ props:
         optional: true
 
     -   name: pinned
-        description: Pins the cell while scrolling horizontally. Use `start` (or `true`) to pin it to the left edge and `end` to pin it to the right edge. Multiple leading or trailing columns can be pinned; they stack side by side. Pin the same side on the matching header.
+        description: Overrides the pinning of the cell. By default the cell follows the `pinned` prop of its column's header, so this is only needed for spanning cells or when the table has no headers. Spanning cells (`colspan`) never derive pinning from their column.
         type: [ 'boolean', '"start"', '"end"' ]
         optional: true
 

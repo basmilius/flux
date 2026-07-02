@@ -31,10 +31,11 @@ props:
         description: The data to show in the table. This should already be the current page's data. Pagination is handled server-side. Pass the subset of items for the active page here.
         type: T[]
 
-    -   name: fill-columns
-        description: The number of columns to render placeholder cells for when the page has fewer items than `per-page`.
-        type: number
+    -   name: is-filled
+        description: Renders a filler row that stretches to the bottom of the table when the page has fewer items than `per-page`.
+        type: boolean
         optional: true
+        default: false
 
     -   name: group-by
         description: An accessor that returns the group id for each item. When set, rows are grouped and the `group` slot is rendered as the header for each group.
@@ -90,9 +91,6 @@ props:
         optional: true
 
 slots:
-    -   name: colgroups
-        description: Deprecated. The table renders with CSS Grid; use the sizing props on the table headers instead. The slot is kept for API compatibility and renders nothing.
-
     -   name: empty
         description: Renders in place of the rows when there is no data and the table is not loading. Defaults to a centered message.
 
@@ -230,6 +228,42 @@ example=../code/components/data-table/wide.vue
 
 ::: example Pinned with selection || A data table where pinning the first column keeps the selection column pinned alongside it.
 example=../code/components/data-table/pinned.vue
+:::
+
+::: example Column sizing || Headers mixing a fixed width, a min/max range and a shrinking column.
+example=../code/components/data-table/column-sizing.vue
+:::
+
+::: example Numeric columns || Right-aligned numeric columns with sortable numeric and date headers.
+example=../code/components/data-table/numeric.vue
+:::
+
+::: example Summary footer || A footer row that sums the page across spanning cells.
+example=../code/components/data-table/footer.vue
+:::
+
+::: example Fixed-width columns || A weekly timesheet with fixed-width day columns and a total.
+example=../code/components/data-table/timesheet.vue
+:::
+
+::: example Stacked cells || Cells that stack a primary and secondary line of content.
+example=../code/components/data-table/stacked.vue
+:::
+
+::: example Wrapping content || A wrapping subject column whose meta columns stay on a single line.
+example=../code/components/data-table/wrapping.vue
+:::
+
+::: example Consistent height || A partial page that keeps a fixed height with filler rows.
+example=../code/components/data-table/fill.vue
+:::
+
+::: example Sticky header || A long list whose header and bar stick while scrolling.
+example=../code/components/data-table/sticky.vue
+:::
+
+::: example Sticky groups || Grouped rows whose header sticks while scrolling through the groups.
+example=../code/components/data-table/sticky-groups.vue
 :::
 
 ::: example Empty || A data table that shows a custom message when there is no data.

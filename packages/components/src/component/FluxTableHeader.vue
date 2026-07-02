@@ -5,7 +5,8 @@
             $style.tableHeader,
             isShrinking && $style.isShrinking,
             pinnedSide === 'start' && $style.isPinnedStart,
-            pinnedSide === 'end' && $style.isPinnedEnd
+            pinnedSide === 'end' && $style.isPinnedEnd,
+            isPinnedEdge && $style.isPinnedEdge
         )"
         role="columnheader"
         :aria-sort="isSortable ? (sort ?? 'none') : undefined"
@@ -20,7 +21,7 @@
                     type="button"
                     @click="open">
                     <FluxIcon
-                        :size="16"
+                        :size="12"
                         :name="sortingIcon"/>
                 </button>
             </template>
@@ -105,6 +106,7 @@
     const header = useTemplateRef('header');
 
     const {
+        pinnedEdges,
         pinnedOffsets,
         registerColumn
     } = useTableInjection();
@@ -134,6 +136,24 @@
     const unregisterColumn = registerColumn(header, columnDef);
     onUnmounted(unregisterColumn);
 
+    function getColumnIndex(): number {
+        const element = header.value;
+
+        return element?.parentElement ? Array.prototype.indexOf.call(element.parentElement.children, element) : -1;
+    }
+
+    const isPinnedEdge = computed(() => {
+        if (!pinnedSide.value) {
+            return false;
+        }
+
+        const columnIndex = getColumnIndex();
+
+        return pinnedSide.value === 'start'
+            ? columnIndex === pinnedEdges.value.start
+            : columnIndex === pinnedEdges.value.end;
+    });
+
     const headerStyle = computed(() => {
         const style: Record<string, string> = {};
 
@@ -143,9 +163,7 @@
         }
 
         if (pinnedSide.value) {
-            const element = header.value;
-            const columnIndex = element?.parentElement ? Array.prototype.indexOf.call(element.parentElement.children, element) : -1;
-            const offset = pinnedOffsets.value.get(columnIndex) ?? 0;
+            const offset = pinnedOffsets.value.get(getColumnIndex()) ?? 0;
 
             if (pinnedSide.value === 'start') {
                 style.left = `${offset}px`;

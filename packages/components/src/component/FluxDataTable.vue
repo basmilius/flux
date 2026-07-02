@@ -1,16 +1,11 @@
 <template>
     <FluxTable
         ref="table"
-        :fill-columns="limitedItems.length === 0 ? undefined : fillColumns"
+        :aria-rowcount="total + 1"
+        :is-filled="limitedItems.length !== 0 && isFilled"
         :is-hoverable="isHoverable"
         :is-loading="isLoading"
         :is-sticky="isSticky">
-        <template
-            v-if="'colgroups' in slots"
-            #colgroups>
-            <slot name="colgroups"/>
-        </template>
-
         <template
             v-if="'header' in slots || selectionMode || hasExpandable"
             #header>
@@ -18,7 +13,7 @@
                 name="filter"
                 v-bind="{page, perPage, items: limitedItems, total}"/>
 
-            <FluxTableRow>
+            <FluxTableRow aria-rowindex="1">
                 <FluxTableHeader
                     v-if="selectionMode"
                     is-shrinking
@@ -68,28 +63,33 @@
             </slot>
         </template>
 
-        <template
-            v-for="entry of renderEntries"
-            :key="entry.key">
+        <component
+            :is="chunk.kind === 'group' ? 'div' : PassThrough"
+            v-for="chunk of renderChunks"
+            :key="chunk.key"
+            :class="chunk.kind === 'group' ? $style.tableGroupSection : undefined"
+            :role="chunk.kind === 'group' ? 'presentation' : undefined">
             <slot
-                v-if="entry.kind === 'group'"
+                v-if="chunk.kind === 'group'"
                 name="group"
                 v-bind="{
-                    id: entry.id,
-                    index: entry.index,
-                    items: entry.items,
-                    isExpanded: !isGroupCollapsed(entry.id),
-                    toggle: () => toggleGroup(entry.id)
+                    id: chunk.id!,
+                    index: chunk.index!,
+                    items: chunk.items!,
+                    isExpanded: !isGroupCollapsed(chunk.id!),
+                    toggle: () => toggleGroup(chunk.id!)
                 }"/>
 
-            <template v-if="entry.kind === 'item'">
+            <template
+                v-for="entry of chunk.entries"
+                :key="entry.key">
                 <FluxTableRow
+                    :aria-rowindex="(page - 1) * perPage + entry.index + 2"
                     :is-clickable="isRowInteractive"
                     :is-selected="selectionMode ? isItemSelected(entry.item) : false"
                     @row-click="(columnIndex, event) => onRowClick(entry.item, columnIndex, event)">
                     <FluxTableCell
                         v-if="selectionMode"
-                        :pinned="leadingPinned ? 'start' : undefined"
                         :class="$style.tableCellSelection">
                         <FluxFormCheckbox
                             :model-value="isItemSelected(entry.item)"
@@ -98,7 +98,6 @@
 
                     <FluxTableCell
                         v-if="hasExpandable"
-                        :pinned="leadingPinned ? 'start' : undefined"
                         :class="$style.tableCellExpand">
                         <FluxTableActions>
                             <FluxAction
@@ -132,11 +131,11 @@
                     </FluxTableCell>
                 </FluxTableRow>
             </template>
-        </template>
+        </component>
 
         <FluxTableRow
             v-if="!isLoading && limitedItems.length === 0"
-            :class="fillColumns && $style.tableEmptyFill">
+            :class="isFilled && $style.tableEmptyFill">
             <div
                 :class="$style.tableCellBase"
                 role="cell"
@@ -153,7 +152,6 @@
     lang="ts"
     setup
     generic="T extends Record<string, any>">
-    import { flattenVNodeTree, getComponentProps } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { computed, getCurrentInstance, unref, useTemplateRef, type VNode, watch } from 'vue';
     import { useDisabledInjection } from '~flux/components/composable';
@@ -165,16 +163,27 @@
     import FluxTableCell from './FluxTableCell.vue';
     import FluxTableHeader from './FluxTableHeader.vue';
     import FluxTableRow from './FluxTableRow.vue';
+    import { PassThrough } from './primitive';
     import $style from '~flux/components/css/component/Table.module.scss';
     import FluxTableActions from '~flux/components/component/FluxTableActions.vue';
 
     type SelectionId = string | number;
     type SelectionValue = SelectionId | null | SelectionId[];
-    type RenderEntry =
-        | { kind: 'group'; key: SelectionId; id: SelectionId; index: number; items: T[] }
-        | { kind: 'item'; key: SelectionId; index: number; item: T };
+    type ItemEntry = {
+        readonly key: SelectionId;
+        readonly index: number;
+        readonly item: T;
+    };
+    type RenderChunk = {
+        readonly kind: 'group' | 'plain';
+        readonly key: SelectionId;
+        readonly entries: ItemEntry[];
+        readonly id?: SelectionId;
+        readonly index?: number;
+        readonly items?: T[];
+    };
 
-    const IGNORED_SLOTS: string[] = ['filter', 'header', 'footer', 'colgroups', 'pagination', 'expandable', 'group', 'empty'];
+    const IGNORED_SLOTS: string[] = ['filter', 'header', 'footer', 'pagination', 'expandable', 'group', 'empty'];
 
     const emit = defineEmits<{
         limit: [number];
@@ -193,6 +202,7 @@
     const {
         expandMode = 'multiple',
         groupBy,
+        isFilled = false,
         isHoverable = false,
         isLoading = false,
         isSticky = false,
@@ -204,8 +214,8 @@
         uniqueKey
     } = defineProps<{
         readonly expandMode?: 'single' | 'multiple';
-        readonly fillColumns?: number;
         readonly groupBy?: (item: T) => SelectionId;
+        readonly isFilled?: boolean;
         readonly isHoverable?: boolean;
         readonly isLoading?: boolean;
         readonly isSticky?: boolean;
@@ -246,8 +256,6 @@
             readonly items: T[];
             readonly total: number;
         }): VNode;
-
-        colgroups(): VNode;
 
         empty(): VNode;
 
@@ -291,28 +299,33 @@
 
     const hasExpandable = computed(() => 'expandable' in slots);
 
-    const leadingPinned = computed(() => {
-        const nodes = slots.header?.({page, perPage, items: unref(limitedItems), total}) ?? [];
-        const first = flattenVNodeTree(nodes as VNode[])[0];
-        const pinned = first ? (getComponentProps(first) as { pinned?: unknown }).pinned : undefined;
+    const leadingColumnCount = computed(() => (selectionMode ? 1 : 0) + (unref(hasExpandable) ? 1 : 0));
 
-        return pinned === '' || pinned === true || pinned === 'start';
+    const leadingPinned = computed(() => {
+        const columns = unref(table)?.columns;
+
+        return columns?.[unref(leadingColumnCount)]?.pinned === 'start';
     });
     const columnCount = computed(() => {
         const userColumns = Object.keys(slots).filter(name => !IGNORED_SLOTS.includes(name)).length;
         return userColumns + (selectionMode ? 1 : 0) + (unref(hasExpandable) ? 1 : 0);
     });
 
-    const renderEntries = computed<RenderEntry[]>(() => {
+    const renderChunks = computed<RenderChunk[]>(() => {
         const list = unref(limitedItems);
 
+        const toEntry = (item: T, index: number): ItemEntry => ({
+            key: uniqueKey ? item[uniqueKey] as SelectionId : index,
+            index,
+            item
+        });
+
         if (!groupBy) {
-            return list.map((item, index) => ({
-                kind: 'item',
-                key: uniqueKey ? item[uniqueKey] as SelectionId : index,
-                index,
-                item
-            }));
+            return [{
+                kind: 'plain',
+                key: 'plain',
+                entries: list.map(toEntry)
+            }];
         }
 
         const resolveGroup = groupBy;
@@ -329,32 +342,20 @@
             }
         });
 
-        const entries: RenderEntry[] = [];
+        const chunks: RenderChunk[] = [];
 
         for (const [id, bucket] of buckets) {
-            entries.push({
+            chunks.push({
                 kind: 'group',
                 key: `group:${id}`,
                 id,
                 index: bucket[0].index,
-                items: bucket.map(({item}) => item)
+                items: bucket.map(({item}) => item),
+                entries: unref(collapsedGroupSet).has(id) ? [] : bucket.map(({item, index}) => toEntry(item, index))
             });
-
-            if (unref(collapsedGroups).includes(id)) {
-                continue;
-            }
-
-            for (const {index, item} of bucket) {
-                entries.push({
-                    kind: 'item',
-                    key: uniqueKey ? item[uniqueKey] as SelectionId : `item:${index}`,
-                    index,
-                    item
-                });
-            }
         }
 
-        return entries;
+        return chunks;
     });
 
     const currentPageIds = computed<SelectionId[]>(() => {
@@ -365,6 +366,19 @@
         return unref(limitedItems).map(item => item[uniqueKey] as SelectionId);
     });
 
+    const selectedSet = computed<ReadonlySet<SelectionId>>(() => {
+        const value = unref(selected);
+
+        if (Array.isArray(value)) {
+            return new Set(value);
+        }
+
+        return new Set(value != null ? [value] : []);
+    });
+
+    const expandedSet = computed<ReadonlySet<SelectionId>>(() => new Set(unref(expanded)));
+    const collapsedGroupSet = computed<ReadonlySet<SelectionId>>(() => new Set(unref(collapsedGroups)));
+
     const selectAllState = computed<boolean | null>(() => {
         const ids = unref(currentPageIds);
         const value = unref(selected);
@@ -373,7 +387,8 @@
             return false;
         }
 
-        const selectedOnPage = ids.filter(id => value.includes(id)).length;
+        const set = unref(selectedSet);
+        const selectedOnPage = ids.filter(id => set.has(id)).length;
 
         if (selectedOnPage === 0) {
             return false;
@@ -405,13 +420,7 @@
             return false;
         }
 
-        const value = unref(selected);
-
-        if (Array.isArray(value)) {
-            return value.includes(id);
-        }
-
-        return value === id;
+        return unref(selectedSet).has(id);
     }
 
     function onRowClick(item: T, columnIndex: number, event: MouseEvent): void {
@@ -466,7 +475,7 @@
 
     function isItemExpanded(item: T): boolean {
         const id = getItemId(item);
-        return id !== undefined && unref(expanded).includes(id);
+        return id !== undefined && unref(expandedSet).has(id);
     }
 
     function toggleExpand(item: T): void {
@@ -487,7 +496,7 @@
     }
 
     function isGroupCollapsed(id: SelectionId): boolean {
-        return unref(collapsedGroups).includes(id);
+        return unref(collapsedGroupSet).has(id);
     }
 
     function toggleGroup(id: SelectionId): void {

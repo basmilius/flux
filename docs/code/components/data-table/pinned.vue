@@ -31,9 +31,7 @@
             </template>
 
             <template #name="{item: {name, email}}">
-                <FluxTableCell
-                    pinned
-                    content-direction="column">
+                <FluxTableCell content-direction="column">
                     <strong>{{ name }}</strong>
                     <small>{{ email }}</small>
                 </FluxTableCell>
@@ -58,7 +56,6 @@
             <template #salary="{item: {salary}}">
                 <FluxTableCell
                     align="end"
-                    pinned="end"
                     is-numeric>
                     {{ salary }}
                 </FluxTableCell>

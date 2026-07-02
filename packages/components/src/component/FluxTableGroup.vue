@@ -1,46 +1,51 @@
 <template>
-    <div
-        :class="clsx($style.tableRow, $style.tableGroupRow)"
-        role="row">
+    <component
+        :is="hasRows ? 'div' : PassThrough"
+        :class="hasRows ? $style.tableGroupSection : undefined"
+        :role="hasRows ? 'presentation' : undefined">
         <div
-            :class="clsx(
-                $style.tableGroup,
-                isHoverable && isExpandable && $style.isHoverable
-            )"
-            role="cell">
-            <component
-                :is="isExpandable ? 'button' : 'div'"
-                :class="$style.tableGroupContent"
-                :type="isExpandable ? 'button' : undefined"
-                :aria-expanded="isExpandable ? isExpanded : undefined"
-                :aria-label="ariaLabel"
-                @click="onToggle">
-                <FluxIcon
-                    v-if="isExpandable"
-                    :class="clsx($style.tableGroupChevron, isExpanded && $style.isExpanded)"
-                    name="angle-right"
-                    :size="16"/>
+            :class="clsx($style.tableRow, $style.tableGroupRow)"
+            role="row">
+            <div
+                :class="clsx(
+                    $style.tableGroup,
+                    isExpandable && $style.isHoverable
+                )"
+                role="cell">
+                <component
+                    :is="isExpandable ? 'button' : 'div'"
+                    :class="$style.tableGroupContent"
+                    :type="isExpandable ? 'button' : undefined"
+                    :aria-expanded="isExpandable ? isExpanded : undefined"
+                    :aria-label="ariaLabel"
+                    @click="onToggle">
+                    <FluxIcon
+                        v-if="isExpandable"
+                        :class="clsx($style.tableGroupChevron, isExpanded && $style.isExpanded)"
+                        name="angle-right"
+                        :size="16"/>
 
-                <FluxIcon
-                    v-if="icon"
-                    :class="$style.tableGroupIcon"
-                    :name="icon"
-                    :size="16"/>
+                    <FluxIcon
+                        v-if="icon"
+                        :class="$style.tableGroupIcon"
+                        :name="icon"
+                        :size="16"/>
 
-                <span :class="$style.tableGroupLabel">{{ label }}</span>
+                    <span :class="$style.tableGroupLabel">{{ label }}</span>
 
-                <span
-                    v-if="'after' in slots"
-                    :class="$style.tableGroupAfter">
-                    <slot name="after"/>
-                </span>
-            </component>
+                    <span
+                        v-if="'after' in slots"
+                        :class="$style.tableGroupAfter">
+                        <slot name="after"/>
+                    </span>
+                </component>
+            </div>
         </div>
-    </div>
 
-    <template v-if="!isExpandable || isExpanded">
-        <slot/>
-    </template>
+        <template v-if="!isExpandable || isExpanded">
+            <slot/>
+        </template>
+    </component>
 </template>
 
 <script
@@ -49,9 +54,9 @@
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, type VNode } from 'vue';
-    import { useTableInjection } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';
     import FluxIcon from './FluxIcon.vue';
+    import { PassThrough } from './primitive';
     import $style from '~flux/components/css/component/Table.module.scss';
 
     const isExpanded = defineModel<boolean>('isExpanded', {
@@ -73,11 +78,9 @@
         after?(): VNode[];
     }>();
 
-    const {
-        isHoverable
-    } = useTableInjection();
-
     const translate = useTranslate();
+
+    const hasRows = computed(() => 'default' in slots);
 
     const ariaLabel = computed(() => {
         if (!isExpandable) {

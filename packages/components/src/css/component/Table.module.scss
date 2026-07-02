@@ -13,15 +13,11 @@
 .tableBase {
     display: grid;
     align-content: start;
+    flex-grow: 1;
     width: fit-content;
     min-width: 100cqw;
     grid-template-columns: var(--flux-table-columns, none);
     text-align: left;
-
-    &:has(.tableFill),
-    &:has(.tableEmptyFill) {
-        flex-grow: 1;
-    }
 }
 
 .tableLoader {
@@ -74,7 +70,7 @@
 .tableHeadSticky {
     position: sticky;
     top: 0;
-    z-index: 2;
+    z-index: 3;
 }
 
 .tableHeader {
@@ -105,13 +101,15 @@
 }
 
 @media (hover: hover) {
-    .tableBody .tableRow:hover .tableCell.isHoverable,
-    .tableBody .tableRow:has(:focus-visible) .tableCell.isHoverable {
+    .table.isHoverable .tableBody .tableRow:hover .tableCell:not(.tableGroup),
+    .table.isHoverable .tableBody .tableRow:has(:focus-visible) .tableCell:not(.tableGroup),
+    .table.isHoverable .tableBody .tableRow:hover .tableGroup.isHoverable,
+    .table.isHoverable .tableBody .tableRow:has(:focus-visible) .tableGroup.isHoverable {
         background: var(--gray-50);
     }
 
-    .tableBody .tableRow.isSelected:hover .tableCell.isHoverable,
-    .tableBody .tableRow.isSelected:has(:focus-visible) .tableCell.isHoverable {
+    .table.isHoverable .tableBody .tableRow.isSelected:hover .tableCell,
+    .table.isHoverable .tableBody .tableRow.isSelected:has(:focus-visible) .tableCell {
         background: var(--primary-50);
     }
 }
@@ -132,12 +130,16 @@
     border-top-width: 0;
 }
 
-.tableBody .tableGroupRow:first-child .tableGroup {
-    border-top-width: 0;
+.tableBody .tableGroupSection:not(:first-child) .tableGroup {
+    border-top-width: 1px;
 }
 
-.tableBody .tableGroupRow:last-child .tableGroup,
-.tableBody .tableGroupRow:has(+ .tableFill) .tableGroup {
+.tableBody .tableGroupSection + .tableRow .tableCell {
+    border-top-width: 1px;
+}
+
+.tableBody .tableGroupSection:last-child .tableGroupRow:last-child .tableGroup,
+.tableBody .tableGroupSection:has(+ .tableFill) .tableGroupRow:last-child .tableGroup {
     border-bottom-width: 0;
 }
 
@@ -175,7 +177,7 @@
 
 .tableHeader.isPinnedStart,
 .tableHeader.isPinnedEnd {
-    z-index: 3;
+    z-index: 4;
 }
 
 .tableHeadSticky .tableHeader.isPinnedStart,
@@ -183,11 +185,11 @@
     background: var(--gray-50);
 }
 
-.table.isScrolledStart .tableCell.isPinnedStart:not(:has(+ .tableCell.isPinnedStart)) {
+.table[data-scrolled-start] .tableCell.isPinnedStart.isPinnedEdge {
     box-shadow: 1px 0 0 var(--surface-stroke-out), 6px 0 10px -6px rgb(from var(--gray-800) r g b / 0.15);
 }
 
-.table.isScrollableEnd .tableCell:not(.isPinnedEnd) + .tableCell.isPinnedEnd {
+.table[data-scrollable-end] .tableCell.isPinnedEnd.isPinnedEdge {
     border-left-color: var(--surface-stroke-out);
     box-shadow: -6px 0 10px -6px rgb(from var(--gray-800) r g b / 0.15);
 }
@@ -246,12 +248,27 @@
     word-break: break-word;
 }
 
+.tableGroupSection {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+}
+
 .tableGroup {
     composes: tableCell;
 
     grid-column: 1 / -1;
     padding: 0;
     border-bottom-width: 1px;
+    background: var(--surface);
+}
+
+.table.isSticky .tableBody .tableGroupRow {
+    position: sticky;
+    top: calc(var(--flux-table-head-height, 0px) - 1px);
+    margin-top: -1px;
+    border-top-width: 1px;
+    z-index: 2;
 }
 
 .tableGroupContent {

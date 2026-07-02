@@ -38,13 +38,13 @@
             </template>
 
             <template #name="{item}">
-                <FluxTableCell pinned>
+                <FluxTableCell>
                     <strong>{{ item.name }}</strong>
                 </FluxTableCell>
             </template>
 
             <template #sku="{item}">
-                <FluxTableCell pinned>{{ item.sku }}</FluxTableCell>
+                <FluxTableCell>{{ item.sku }}</FluxTableCell>
             </template>
 
             <template #category="{item}">
@@ -66,7 +66,6 @@
             <template #price="{item}">
                 <FluxTableCell
                     align="end"
-                    pinned="end"
                     is-numeric>
                     {{ item.price }}
                 </FluxTableCell>

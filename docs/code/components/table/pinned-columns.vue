@@ -31,11 +31,11 @@
             <FluxTableRow
                 v-for="project in projects"
                 :key="project.id">
-                <FluxTableCell pinned>
+                <FluxTableCell>
                     <strong>{{ project.name }}</strong>
                 </FluxTableCell>
 
-                <FluxTableCell pinned>{{ project.owner }}</FluxTableCell>
+                <FluxTableCell>{{ project.owner }}</FluxTableCell>
                 <FluxTableCell>{{ project.status }}</FluxTableCell>
                 <FluxTableCell>{{ project.priority }}</FluxTableCell>
                 <FluxTableCell>{{ project.start }}</FluxTableCell>
@@ -44,7 +44,6 @@
 
                 <FluxTableCell
                     align="end"
-                    pinned="end"
                     is-numeric>
                     {{ project.budget }}
                 </FluxTableCell>

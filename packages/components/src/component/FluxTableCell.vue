@@ -4,11 +4,11 @@
         :class="clsx(
             $style.tableCell,
             isRaw && $style.isRaw,
-            isHoverable && $style.isHoverable,
             isNumeric && $style.isNumeric,
             noWrap && $style.isNoWrap,
             pinnedSide === 'start' && $style.isPinnedStart,
-            pinnedSide === 'end' && $style.isPinnedEnd
+            pinnedSide === 'end' && $style.isPinnedEnd,
+            isPinnedEdge && $style.isPinnedEdge
         )"
         role="cell"
         :style="cellStyle">
@@ -22,7 +22,7 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { computed, useTemplateRef, type VNode } from 'vue';
+    import { computed, unref, useTemplateRef, type VNode } from 'vue';
     import { useTableInjection } from '~flux/components/composable';
     import $style from '~flux/components/css/component/Table.module.scss';
 
@@ -50,7 +50,8 @@
     const cell = useTemplateRef('cell');
 
     const {
-        isHoverable,
+        columns,
+        pinnedEdges,
         pinnedOffsets
     } = useTableInjection();
 
@@ -65,7 +66,31 @@
             return 'end';
         }
 
-        return null;
+        // Spanning cells cover multiple columns, so their own column's pinning
+        // does not apply to them.
+        if (colspan) {
+            return null;
+        }
+
+        return unref(columns)[getColumnIndex()]?.pinned ?? null;
+    });
+
+    function getColumnIndex(): number {
+        const element = cell.value;
+
+        return element?.parentElement ? Array.prototype.indexOf.call(element.parentElement.children, element) : -1;
+    }
+
+    const isPinnedEdge = computed(() => {
+        if (!pinnedSide.value) {
+            return false;
+        }
+
+        const columnIndex = getColumnIndex();
+
+        return pinnedSide.value === 'start'
+            ? columnIndex === pinnedEdges.value.start
+            : columnIndex === pinnedEdges.value.end;
     });
 
     const cellStyle = computed(() => {
@@ -94,9 +119,7 @@
         }
 
         if (pinnedSide.value) {
-            const element = cell.value;
-            const columnIndex = element?.parentElement ? Array.prototype.indexOf.call(element.parentElement.children, element) : -1;
-            const offset = pinnedOffsets.value.get(columnIndex) ?? 0;
+            const offset = pinnedOffsets.value.get(getColumnIndex()) ?? 0;
 
             if (pinnedSide.value === 'start') {
                 style.left = `${offset}px`;

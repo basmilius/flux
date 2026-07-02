@@ -11,4 +11,5 @@ export { default as SliderTrack } from './SliderTrack.vue';
 export { default as TreeNodeRenderer } from './TreeNodeRenderer.vue';
 
 export { FilterMenuRenderer } from './FilterMenuRenderer';
+export { PassThrough } from './PassThrough';
 export { VNodeRenderer } from './VNodeRenderer';

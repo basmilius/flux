@@ -8,10 +8,11 @@ props:
         optional: true
         default: bottom
 
-    -   name: fill-columns
-        description: The number of columns that should be filled.
-        type: number
+    -   name: is-filled
+        description: Renders a filler row that stretches to the bottom of the table, so the column dividers reach the bottom on full-height tables.
+        type: boolean
         optional: true
+        default: false
 
     -   name: is-hoverable
         description: If each row should be highlighted on hover.
@@ -32,9 +33,6 @@ props:
 slots:
     -   name: default
         description: The slot for the table content.
-
-    -   name: colgroups
-        description: Deprecated. The table renders with CSS Grid; use the sizing props on the table headers instead. The slot is kept for API compatibility and renders nothing.
 
     -   name: caption
         description: The slot for the table caption.
@@ -87,6 +85,42 @@ example=../../code/components/table/sticky-bar.vue
 
 ::: example Pinned columns || A wide table with multiple columns pinned to the left and right edges.
 example=../../code/components/table/pinned-columns.vue
+:::
+
+::: example Column sizing || Columns mixing a fixed width, a min/max range and a shrinking column.
+example=../../code/components/table/column-sizing.vue
+:::
+
+::: example Numeric alignment || Right-aligned numeric columns with sortable numeric headers.
+example=../../code/components/table/numeric.vue
+:::
+
+::: example Spanning cells || Section rows whose single cell spans every column.
+example=../../code/components/table/spanning.vue
+:::
+
+::: example Footer totals || Line items with a footer that sums the amounts across spanning cells.
+example=../../code/components/table/invoice.vue
+:::
+
+::: example Grouped rows || Rows organized under collapsible groups.
+example=../../code/components/table/groups.vue
+:::
+
+::: example Sticky groups || Collapsible groups whose column header sticks while scrolling.
+example=../../code/components/table/sticky-groups.vue
+:::
+
+::: example Stacked content || Cells that stack a primary and secondary line of content.
+example=../../code/components/table/stacked.vue
+:::
+
+::: example Wrapping rows || A wrapping column whose siblings stay aligned and on a single line.
+example=../../code/components/table/wrapping.vue
+:::
+
+::: example Consistent height || A short table that keeps a fixed height with filler rows.
+example=../../code/components/table/fill.vue
 :::
 
 ::: example Actions || A table with actions.

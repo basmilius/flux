@@ -303,8 +303,14 @@ export type FluxTableColumnDef = {
     readonly width?: number;
 };
 
+export type FluxTablePinnedEdges = {
+    readonly end: number;
+    readonly start: number;
+};
+
 export type FluxTableInjection = {
-    readonly isHoverable: Ref<boolean>;
+    readonly columns: Readonly<Ref<readonly FluxTableColumnDef[]>>;
+    readonly pinnedEdges: Ref<FluxTablePinnedEdges>;
     readonly pinnedOffsets: Ref<Map<number, number>>;
 
     registerColumn(element: Readonly<Ref<HTMLElement | null>>, column: Readonly<Ref<FluxTableColumnDef>>): () => void;
