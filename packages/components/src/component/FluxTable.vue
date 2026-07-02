@@ -13,7 +13,8 @@
             role="table"
             :aria-busy="isLoading || undefined"
             :aria-describedby="slots.caption ? captionId : undefined"
-            :aria-rowcount="ariaRowcount">
+            :aria-rowcount="ariaRowcount"
+            :style="{gridTemplateRows}">
             <div
                 v-if="slots.header"
                 ref="head"
@@ -28,15 +29,22 @@
                 :class="$style.tableBody"
                 role="rowgroup">
                 <slot/>
-
-                <FluxTableRow
-                    v-if="isFilled"
-                    :class="$style.tableFill">
-                    <FluxTableCell
-                        v-for="n of fillCellCount"
-                        :key="n"/>
-                </FluxTableRow>
             </div>
+
+            <FluxTableRow
+                v-if="isFilled"
+                :class="$style.tableFill"
+                aria-hidden="true">
+                <FluxTableCell
+                    v-for="n of fillCellCount"
+                    :key="n"/>
+            </FluxTableRow>
+
+            <FluxTableRow
+                v-if="slots.empty"
+                :class="$style.tableEmptyFill">
+                <slot name="empty"/>
+            </FluxTableRow>
 
             <div
                 v-if="slots.footer"
@@ -104,6 +112,7 @@
     const slots = defineSlots<{
         default?(): VNode;
         caption?(): VNode;
+        empty?(): VNode;
         footer?(): VNode;
         header?(): VNode;
         pagination?(): VNode;
@@ -146,6 +155,35 @@
     });
 
     const fillCellCount = computed(() => unref(sortedColumns).length || fallbackColumnCount.value);
+
+    // The filler and empty rows are their own 1fr row tracks, so the layout
+    // engine hands them the remaining height synchronously instead of a
+    // measurement pass doing so a frame later.
+    const gridTemplateRows = computed(() => {
+        const rows: string[] = [];
+
+        if (slots.header) {
+            rows.push('auto');
+        }
+
+        if (slots.default) {
+            rows.push('auto');
+        }
+
+        if (isFilled) {
+            rows.push('1fr');
+        }
+
+        if (slots.empty) {
+            rows.push('1fr');
+        }
+
+        if (slots.footer) {
+            rows.push('auto');
+        }
+
+        return rows.length > 0 ? rows.join(' ') : undefined;
+    });
 
     const gridTemplateColumns = computed(() => {
         const columns = unref(sortedColumns);
@@ -285,40 +323,6 @@
         }
     }
 
-    let appliedFillHeight: number | null = null;
-
-    function measureFill(): void {
-        const baseEl = unref(base);
-        const gridEl = unref(gridRef);
-        const bodyEl = unref(bodyRef);
-        const fillEl = bodyEl?.querySelector<HTMLElement>(`:scope > .${$style.tableFill}, :scope > .${$style.tableEmptyFill}`);
-
-        if (!baseEl || !gridEl || !bodyEl) {
-            return;
-        }
-
-        let fillHeight = 0;
-
-        if (fillEl) {
-            let siblingsHeight = 0;
-
-            for (const child of baseEl.children) {
-                if (child !== gridEl && child instanceof HTMLElement && !child.classList.contains($style.tableLoader)) {
-                    siblingsHeight += child.offsetHeight;
-                }
-            }
-
-            const contentHeight = headHeight.value + bodyEl.offsetHeight - fillEl.offsetHeight + footHeight.value;
-
-            fillHeight = Math.max(0, baseEl.clientHeight - siblingsHeight - contentHeight);
-        }
-
-        if (fillHeight !== appliedFillHeight) {
-            appliedFillHeight = fillHeight;
-            baseEl.style.setProperty('--flux-table-fill-height', `${fillHeight}px`);
-        }
-    }
-
     let measuredTemplate: string | null = null;
 
     // WebKit does not recompute subgrid row heights after the resolved column
@@ -355,7 +359,6 @@
         const resolvedTemplate = gridEl ? getComputedStyle(gridEl).gridTemplateColumns : '';
 
         measurePinned(resolvedTemplate);
-        measureFill();
         nudgeSubgridRows(resolvedTemplate);
     });
 

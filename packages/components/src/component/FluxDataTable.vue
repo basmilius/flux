@@ -133,9 +133,9 @@
             </template>
         </component>
 
-        <FluxTableRow
+        <template
             v-if="!isLoading && limitedItems.length === 0"
-            :class="isFilled && $style.tableEmptyFill">
+            #empty>
             <div
                 :class="$style.tableCellBase"
                 role="cell"
@@ -144,7 +144,7 @@
                     <div :class="$style.tableEmpty">{{ translate('flux.noItems') }}</div>
                 </slot>
             </div>
-        </FluxTableRow>
+        </template>
     </FluxTable>
 </template>
 

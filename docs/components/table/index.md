@@ -37,6 +37,9 @@ slots:
     -   name: caption
         description: The slot for the table caption.
 
+    -   name: empty
+        description: Renders a full-width row that stretches to the remaining height of the table, typically for an empty state. The content is vertically centered.
+
     -   name: footer
         description: The slot for the table footer.
 
