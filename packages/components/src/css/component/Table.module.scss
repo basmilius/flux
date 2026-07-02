@@ -17,6 +17,7 @@
 }
 
 .tableBase {
+    height: 1px;
     min-width: 100cqw;
     bottom: 0;
     border-collapse: separate;
@@ -49,13 +50,9 @@
 }
 
 .tableCellBase {
-    height: 0;
+    min-height: 100%;
     padding: 0;
     border: 0 solid var(--gray-100);
-
-    @-moz-document url-prefix() {
-        height: 100%;
-    }
 }
 
 .tableCell {
@@ -67,6 +64,7 @@
     height: 100%;
     padding: 12px 15px;
     align-items: flex-start;
+    word-break: break-word;
 
     :global(p):only-child {
         margin: 0;
