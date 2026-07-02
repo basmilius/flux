@@ -5,7 +5,8 @@
             $style.table,
             isHoverable && $style.isHoverable,
             isSticky && $style.isSticky
-        ]">
+        ]"
+        :style="{'--flux-table-columns': gridTemplateColumns}">
         <div
             ref="grid"
             :class="$style.tableBase"
@@ -72,7 +73,7 @@
     lang="ts"
     setup>
     import { animationFrameDebounce, useScrollPosition } from '@flux-ui/internals';
-    import { computed, provide, type Ref, ref, shallowReactive, unref, useId, useTemplateRef, type VNode, watch, watchEffect } from 'vue';
+    import { computed, onMounted, provide, type Ref, ref, shallowReactive, unref, useId, useTemplateRef, type VNode, watch, watchEffect } from 'vue';
     import { type FluxTableColumnDef, FluxTableInjectionKey, type FluxTablePinnedEdges } from '~flux/components/data';
     import FluxPaneBody from './FluxPaneBody.vue';
     import FluxSpinner from './FluxSpinner.vue';
@@ -129,10 +130,20 @@
     const isScrolledStart = computed(() => x.value > 0);
     const isScrollableEnd = computed(() => x.value < maxScrollLeft.value - 1);
 
-    const sortedColumns = computed(() => Array.from(columnRegistrations)
-        .filter(registration => registration.element.value !== null)
-        .sort((a, b) => a.element.value!.compareDocumentPosition(b.element.value!) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1)
-        .map(registration => registration.column.value));
+    const sortedColumns = computed(() => {
+        const registrations = Array.from(columnRegistrations);
+
+        // Headers register during setup, before their element mounts. At that
+        // point registration order matches render order, which keeps the
+        // column template correct from the very first frame.
+        if (registrations.some(registration => registration.element.value === null)) {
+            return registrations.map(registration => registration.column.value);
+        }
+
+        return registrations
+            .sort((a, b) => a.element.value!.compareDocumentPosition(b.element.value!) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1)
+            .map(registration => registration.column.value);
+    });
 
     const fillCellCount = computed(() => unref(sortedColumns).length || fallbackColumnCount.value);
 
@@ -349,10 +360,6 @@
     });
 
     watchEffect(() => {
-        unref(base)?.style.setProperty('--flux-table-columns', gridTemplateColumns.value);
-    });
-
-    watchEffect(() => {
         const baseEl = unref(base);
 
         if (!baseEl) {
@@ -388,6 +395,13 @@
         style.borderTopRightRadius = headHeight.value > 0 ? '0' : '';
         style.borderBottomLeftRadius = footHeight.value > 0 ? '0' : '';
         style.borderBottomRightRadius = footHeight.value > 0 ? '0' : '';
+    });
+
+    // The columns registered during setup only reach the DOM with the next
+    // template patch, which lands after ancestors' mounted hooks. Write the
+    // template immediately so mounted-time measurements see the real layout.
+    onMounted(() => {
+        unref(base)?.style.setProperty('--flux-table-columns', gridTemplateColumns.value);
     });
 
     watch(sortedColumns, () => measure());
