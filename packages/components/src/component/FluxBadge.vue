@@ -6,7 +6,9 @@
             color === 'danger' && $style.badgeDanger,
             color === 'info' && $style.badgeInfo,
             color === 'success' && $style.badgeSuccess,
-            color === 'warning' && $style.badgeWarning
+            color === 'warning' && $style.badgeWarning,
+            size === 'small' && $style.isSmall,
+            size === 'large' && $style.isLarge
         )"
         :component-type="type"
         :tabindex="tabindex"
@@ -20,7 +22,7 @@
         <FluxSpinner
             v-if="isLoading"
             :class="$style.badgeIcon"
-            :size="16"/>
+            :size="iconSize"/>
 
         <span
             v-else-if="dot"
@@ -29,7 +31,7 @@
         <FluxIcon
             v-else-if="icon"
             :class="$style.badgeIcon"
-            :size="16"
+            :size="iconSize"
             :name="icon"/>
 
         <span :class="$style.badgeLabel">
@@ -50,8 +52,9 @@
 <script
     lang="ts"
     setup>
-    import type { FluxButtonEmits, FluxColor, FluxIconName, FluxPressableType, FluxTo } from '@flux-ui/types';
+    import type { FluxButtonEmits, FluxColor, FluxIconName, FluxPressableType, FluxSize, FluxTo } from '@flux-ui/types';
     import { clsx } from 'clsx';
+    import { computed } from 'vue';
     import { useTranslate } from '~flux/components/composable/private';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
@@ -64,6 +67,7 @@
 
     const {
         color = 'gray',
+        size = 'medium',
         type = 'none'
     } = defineProps<{
         readonly color?: FluxColor;
@@ -72,6 +76,7 @@
         readonly isDeletable?: boolean;
         readonly isLoading?: boolean;
         readonly label: string;
+        readonly size?: FluxSize;
         readonly type?: FluxPressableType;
         readonly tabindex?: string | number;
         readonly href?: string;
@@ -81,6 +86,14 @@
     }>();
 
     const translate = useTranslate();
+
+    const iconSizes = {
+        small: 12,
+        medium: 16,
+        large: 18
+    } as const;
+
+    const iconSize = computed(() => iconSizes[size]);
 
     function onDeleteClick(): void {
         emit('delete');

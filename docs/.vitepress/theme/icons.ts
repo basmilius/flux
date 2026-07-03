@@ -11,6 +11,7 @@ export {
     faArrowDownAZ,
     faArrowDownShortWide,
     faArrowDownToLine,
+    faArrowRight,
     faArrowRightArrowLeft,
     faArrowUpArrowDown,
     faArrowRightFromBracket,

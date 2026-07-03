@@ -21,6 +21,7 @@ const navigation: SidebarItem = {
         {text: 'Avatar', link: '/components/avatar', image: '/assets/components/avatar.svg'},
         {text: 'Avatar group', link: '/components/avatar-group'},
         {text: 'Badge', link: '/components/badge'},
+        {text: 'Badge group', link: '/components/badge-group'},
         {text: 'Boxed icon', link: '/components/boxed-icon', image: '/assets/components/boxed-icon.svg'},
         {
             text: 'Breadcrumb',

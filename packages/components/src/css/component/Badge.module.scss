@@ -30,6 +30,45 @@
         }
     }
 
+    &.isSmall {
+        height: 21px;
+        padding-left: 6px;
+        padding-right: 6px;
+        font-size: 12px;
+
+        .badgeClose {
+            height: 15px;
+            width: 15px;
+            margin-right: -3px;
+            padding: 3px;
+
+            .icon {
+                font-size: 12px;
+            }
+        }
+
+        .badgeDot {
+            height: 6px;
+            width: 6px;
+        }
+    }
+
+    &.isLarge {
+        height: 33px;
+        padding-left: 12px;
+        padding-right: 12px;
+        font-size: 14px;
+
+        .badgeClose {
+            height: 24px;
+            width: 24px;
+
+            .icon {
+                font-size: 18px;
+            }
+        }
+    }
+
     .spinner {
         --value: var(--color);
     }
@@ -85,7 +124,7 @@
     &:only-child {
         margin-left: 3px;
         margin-right: 3px;
-        color: var(--color);
+        color: var(--color-text);
     }
 }
 
@@ -93,6 +132,7 @@
     composes: badge;
 
     --color: var(--foreground);
+    --color-text: var(--foreground-prominent);
 
     .badgeLabel {
         color: var(--foreground-prominent);
@@ -107,30 +147,35 @@
     composes: badge;
 
     --color: var(--primary-600);
+    --color-text: var(--primary-700);
 }
 
 .badgeDanger {
     composes: badge;
 
     --color: var(--danger-600);
+    --color-text: var(--danger-700);
 }
 
 .badgeInfo {
     composes: badge;
 
     --color: var(--info-600);
+    --color-text: var(--info-700);
 }
 
 .badgeSuccess {
     composes: badge;
 
     --color: var(--success-600);
+    --color-text: var(--success-700);
 }
 
 .badgeWarning {
     composes: badge;
 
     --color: var(--warning-600);
+    --color-text: var(--warning-700);
 }
 
 .tag {
@@ -165,6 +210,143 @@
 
 .tagLabel {
     composes: badgeLabel;
+}
+
+.badgeGroup {
+    composes: badge;
+
+    --badge-group-padding: 12px;
+
+    height: auto;
+    padding: 3px;
+    padding-right: var(--badge-group-padding);
+    gap: 9px;
+    border-color: var(--badge-group-border);
+
+    .badge {
+        margin-top: 0;
+        margin-bottom: 0;
+        border-color: var(--badge-group-border);
+    }
+}
+
+.badgeGroupSmall {
+    --badge-group-padding: 9px;
+
+    gap: 6px;
+    font-size: 12px;
+}
+
+.badgeGroupLarge {
+    --badge-group-padding: 15px;
+
+    font-size: 14px;
+}
+
+.badgeGroupTrailing {
+    padding-left: var(--badge-group-padding);
+    padding-right: 3px;
+}
+
+.badgeGroupIcon {
+    margin-right: -3px;
+    color: var(--color);
+}
+
+.badgeGroupLabel {
+    composes: badgeLabel;
+
+    color: var(--color-text);
+}
+
+.badgeGroupGray {
+    composes: badgeGray;
+    composes: badgeGroup;
+
+    --badge-group-border: var(--gray-200);
+
+    background: var(--gray-100);
+
+    &:is(a, button) {
+        @include mixin.hover {
+            background: var(--gray-200);
+        }
+    }
+}
+
+.badgeGroupPrimary {
+    composes: badgePrimary;
+    composes: badgeGroup;
+
+    --badge-group-border: var(--primary-200);
+
+    background: var(--primary-100);
+
+    &:is(a, button) {
+        @include mixin.hover {
+            background: var(--primary-200);
+        }
+    }
+}
+
+.badgeGroupDanger {
+    composes: badgeDanger;
+    composes: badgeGroup;
+
+    --badge-group-border: var(--danger-200);
+
+    background: var(--danger-100);
+
+    &:is(a, button) {
+        @include mixin.hover {
+            background: var(--danger-200);
+        }
+    }
+}
+
+.badgeGroupInfo {
+    composes: badgeInfo;
+    composes: badgeGroup;
+
+    --badge-group-border: var(--info-200);
+
+    background: var(--info-100);
+
+    &:is(a, button) {
+        @include mixin.hover {
+            background: var(--info-200);
+        }
+    }
+}
+
+.badgeGroupSuccess {
+    composes: badgeSuccess;
+    composes: badgeGroup;
+
+    --badge-group-border: var(--success-200);
+
+    background: var(--success-100);
+
+    &:is(a, button) {
+        @include mixin.hover {
+            background: var(--success-200);
+        }
+    }
+}
+
+.badgeGroupWarning {
+    composes: badgeWarning;
+    composes: badgeGroup;
+
+    --badge-group-border: var(--warning-200);
+
+    background: var(--warning-100);
+
+    &:is(a, button) {
+        @include mixin.hover {
+            background: var(--warning-200);
+        }
+    }
 }
 
 .tagGray {

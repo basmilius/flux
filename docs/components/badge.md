@@ -48,6 +48,12 @@ props:
         description: The label that is shown in the badge.
         type: string
 
+    -   name: size
+        description: The size of the badge.
+        type: FluxSize
+        default: medium
+        optional: true
+
     -   name: type
         description: The pressable type of the badge. Defaults to a non-interactive label.
         type: [ '"button"', '"link"', '"route"', '"none"' ]
@@ -113,6 +119,18 @@ example=../code/components/badge/icon.vue
 
 ::: example Loading || A loading state badge can signify that a table row is processing, for instance, retrieving data.
 example=../code/components/badge/loading.vue
+:::
+
+::: example Sizes || Badges are available in three sizes. The default size is medium.
+example=../code/components/badge/size.vue
+:::
+
+::: example Statuses || Combining colors and icons makes states scannable at a glance, for instance, the payment status of an order.
+example=../code/components/badge/status.vue
+:::
+
+::: example Deletable || Deletable badges work well for active filters that the user can remove again, for instance, in search results.
+example=../code/components/badge/deletable.vue
 :::
 
 ## Used components

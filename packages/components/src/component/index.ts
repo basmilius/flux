@@ -9,6 +9,7 @@ export { default as FluxAspectRatio } from './FluxAspectRatio.vue';
 export { default as FluxAvatar } from './FluxAvatar.vue';
 export { default as FluxAvatarGroup } from './FluxAvatarGroup.vue';
 export { default as FluxBadge } from './FluxBadge.vue';
+export { default as FluxBadgeGroup } from './FluxBadgeGroup.vue';
 export { default as FluxBadgeStack } from './FluxBadgeStack.vue';
 export { default as FluxBorderBeam } from './FluxBorderBeam.vue';
 export { default as FluxBorderShine } from './FluxBorderShine.vue';
