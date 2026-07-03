@@ -1,59 +1,57 @@
 <template>
-    <Preview>
-        <FluxPane style="width: min(100%, 540px)">
-            <FluxTable>
-                <template #header>
-                    <FluxTableRow>
-                        <FluxTableHeader>Name</FluxTableHeader>
-                        <FluxTableHeader is-shrinking>Role</FluxTableHeader>
-                    </FluxTableRow>
+    <FluxPane>
+        <FluxTable>
+            <template #header>
+                <FluxTableRow>
+                    <FluxTableHeader>Name</FluxTableHeader>
+                    <FluxTableHeader is-shrinking>Role</FluxTableHeader>
+                </FluxTableRow>
+            </template>
+
+            <FluxTableGroup
+                icon="users"
+                label="Engineering">
+                <template #after>
+                    <FluxBadge
+                        color="primary"
+                        label="2 members"/>
+
+                    <FluxSecondaryButton
+                        icon-leading="plus"
+                        size="small"/>
                 </template>
 
-                <FluxTableGroup
-                    icon="users"
-                    label="Engineering">
-                    <template #after>
-                        <FluxBadge
-                            color="primary"
-                            label="2 members"/>
+                <FluxTableRow>
+                    <FluxTableCell>Ada Lovelace</FluxTableCell>
+                    <FluxTableCell>Lead</FluxTableCell>
+                </FluxTableRow>
 
-                        <FluxSecondaryButton
-                            icon-leading="plus"
-                            size="small"/>
-                    </template>
+                <FluxTableRow>
+                    <FluxTableCell>Alan Turing</FluxTableCell>
+                    <FluxTableCell>Engineer</FluxTableCell>
+                </FluxTableRow>
+            </FluxTableGroup>
 
-                    <FluxTableRow>
-                        <FluxTableCell>Ada Lovelace</FluxTableCell>
-                        <FluxTableCell>Lead</FluxTableCell>
-                    </FluxTableRow>
+            <FluxTableGroup
+                icon="palette"
+                label="Design">
+                <template #after>
+                    <FluxBadge
+                        color="primary"
+                        label="1 member"/>
 
-                    <FluxTableRow>
-                        <FluxTableCell>Alan Turing</FluxTableCell>
-                        <FluxTableCell>Engineer</FluxTableCell>
-                    </FluxTableRow>
-                </FluxTableGroup>
+                    <FluxSecondaryButton
+                        icon-leading="plus"
+                        size="small"/>
+                </template>
 
-                <FluxTableGroup
-                    icon="palette"
-                    label="Design">
-                    <template #after>
-                        <FluxBadge
-                            color="primary"
-                            label="1 member"/>
-
-                        <FluxSecondaryButton
-                            icon-leading="plus"
-                            size="small"/>
-                    </template>
-
-                    <FluxTableRow>
-                        <FluxTableCell>Grace Hopper</FluxTableCell>
-                        <FluxTableCell>Designer</FluxTableCell>
-                    </FluxTableRow>
-                </FluxTableGroup>
-            </FluxTable>
-        </FluxPane>
-    </Preview>
+                <FluxTableRow>
+                    <FluxTableCell>Grace Hopper</FluxTableCell>
+                    <FluxTableCell>Designer</FluxTableCell>
+                </FluxTableRow>
+            </FluxTableGroup>
+        </FluxTable>
+    </FluxPane>
 </template>
 
 <script

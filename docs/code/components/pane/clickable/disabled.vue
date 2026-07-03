@@ -1,23 +1,21 @@
 <template>
-    <Preview>
-        <FluxFlex :gap="9">
-            <FluxClickablePane
-                v-for="item in items"
-                :key="item.title"
-                type="button"
-                :disabled="item.disabled"
-                style="width: 200px">
-                <FluxPaneBody>
-                    <FluxFlex
-                        direction="vertical"
-                        :gap="3">
-                        <strong>{{ item.title }}</strong>
-                        <span style="font-size: .875rem; opacity: .6">{{ item.description }}</span>
-                    </FluxFlex>
-                </FluxPaneBody>
-            </FluxClickablePane>
-        </FluxFlex>
-    </Preview>
+    <FluxFlex :gap="9">
+        <FluxClickablePane
+            v-for="item in items"
+            :key="item.title"
+            type="button"
+            :disabled="item.disabled"
+            style="width: 200px">
+            <FluxPaneBody>
+                <FluxFlex
+                    direction="vertical"
+                    :gap="3">
+                    <strong>{{ item.title }}</strong>
+                    <span style="font-size: .875rem; opacity: .6">{{ item.description }}</span>
+                </FluxFlex>
+            </FluxPaneBody>
+        </FluxClickablePane>
+    </FluxFlex>
 </template>
 
 <script

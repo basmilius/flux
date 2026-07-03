@@ -1,23 +1,21 @@
 <template>
-    <Preview>
-        <FluxPane style="width: min(100%, 480px)">
-            <FluxItemStack>
-                <FluxItem
-                    v-for="option in options"
-                    :key="option.key"
-                    is-control>
-                    <FluxItemContent is-center>
-                        <strong>{{ option.label }}</strong>
-                        <span style="font-size: .875rem; opacity: .6">{{ option.description }}</span>
-                    </FluxItemContent>
+    <FluxPane style="width: min(100%, 480px)">
+        <FluxItemStack>
+            <FluxItem
+                v-for="option in options"
+                :key="option.key"
+                is-control>
+                <FluxItemContent is-center>
+                    <strong>{{ option.label }}</strong>
+                    <span style="font-size: .875rem; opacity: .6">{{ option.description }}</span>
+                </FluxItemContent>
 
-                    <FluxItemActions is-center>
-                        <FluxToggle v-model="enabled[option.key]"/>
-                    </FluxItemActions>
-                </FluxItem>
-            </FluxItemStack>
-        </FluxPane>
-    </Preview>
+                <FluxItemActions is-center>
+                    <FluxToggle v-model="enabled[option.key]"/>
+                </FluxItemActions>
+            </FluxItem>
+        </FluxItemStack>
+    </FluxPane>
 </template>
 
 <script

@@ -1,22 +1,20 @@
 <template>
-    <Preview>
-        <FluxFormCheckboxGroup
-            v-model="channels"
-            aria-label="Notification channels">
-            <FluxFormCheckbox
-                value="email"
-                label="Email"/>
+    <FluxFormCheckboxGroup
+        v-model="channels"
+        aria-label="Notification channels">
+        <FluxFormCheckbox
+            value="email"
+            label="Email"/>
 
-            <FluxFormCheckbox
-                value="sms"
-                label="SMS"/>
+        <FluxFormCheckbox
+            value="sms"
+            label="SMS"/>
 
-            <FluxFormCheckbox
-                value="push"
-                label="Push"
-                disabled/>
-        </FluxFormCheckboxGroup>
-    </Preview>
+        <FluxFormCheckbox
+            value="push"
+            label="Push"
+            disabled/>
+    </FluxFormCheckboxGroup>
 </template>
 
 <script

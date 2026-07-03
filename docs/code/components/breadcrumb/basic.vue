@@ -1,17 +1,15 @@
 <template>
-    <Preview>
-        <FluxBreadcrumb>
-            <FluxBreadcrumbItem
-                href="#"
-                label="Documents"/>
+    <FluxBreadcrumb>
+        <FluxBreadcrumbItem
+            href="#"
+            label="Documents"/>
 
-            <FluxBreadcrumbItem
-                href="#"
-                label="Invoices"/>
+        <FluxBreadcrumbItem
+            href="#"
+            label="Invoices"/>
 
-            <FluxBreadcrumbItem label="2026"/>
-        </FluxBreadcrumb>
-    </Preview>
+        <FluxBreadcrumbItem label="2026"/>
+    </FluxBreadcrumb>
 </template>
 
 <script

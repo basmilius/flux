@@ -1,21 +1,19 @@
 <template>
-    <Preview>
-        <FluxPane style="width: max-content; align-self: start">
-            <FluxFilter
-                v-model="filterState">
-                <MyToggleFilter
-                    icon="bell"
-                    label="Notifications"
-                    name="notifications"
-                    :default-value="true"/>
+    <FluxPane style="width: max-content; align-self: start">
+        <FluxFilter
+            v-model="filterState">
+            <MyToggleFilter
+                icon="bell"
+                label="Notifications"
+                name="notifications"
+                :default-value="true"/>
 
-                <MyToggleFilter
-                    icon="moon"
-                    label="Dark mode"
-                    name="darkMode"/>
-            </FluxFilter>
-        </FluxPane>
-    </Preview>
+            <MyToggleFilter
+                icon="moon"
+                label="Dark mode"
+                name="darkMode"/>
+        </FluxFilter>
+    </FluxPane>
 </template>
 
 <script

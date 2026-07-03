@@ -1,28 +1,26 @@
 <template>
-    <Preview>
-        <FluxFlex
-            direction="vertical"
-            :gap="9">
-            <FluxToggle v-model="parentDisabled">
-                Disable everything below
-            </FluxToggle>
+    <FluxFlex
+        direction="vertical"
+        :gap="9">
+        <FluxToggle v-model="parentDisabled">
+            Disable everything below
+        </FluxToggle>
 
-            <FluxDisabled :disabled="parentDisabled">
-                <FluxFormField label="First name">
-                    <FluxFormInput placeholder="E.g. John"/>
-                </FluxFormField>
+        <FluxDisabled :disabled="parentDisabled">
+            <FluxFormField label="First name">
+                <FluxFormInput placeholder="E.g. John"/>
+            </FluxFormField>
 
-                <FluxFormField label="Last name">
-                    <FluxFormInput placeholder="E.g. Doe"/>
-                </FluxFormField>
+            <FluxFormField label="Last name">
+                <FluxFormInput placeholder="E.g. Doe"/>
+            </FluxFormField>
 
-                <FluxFlex :gap="9">
-                    <FluxSecondaryButton label="Cancel"/>
-                    <FluxPrimaryButton label="Save"/>
-                </FluxFlex>
-            </FluxDisabled>
-        </FluxFlex>
-    </Preview>
+            <FluxFlex :gap="9">
+                <FluxSecondaryButton label="Cancel"/>
+                <FluxPrimaryButton label="Save"/>
+            </FluxFlex>
+        </FluxDisabled>
+    </FluxFlex>
 </template>
 
 <script

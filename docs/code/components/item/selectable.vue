@@ -1,32 +1,30 @@
 <template>
-    <Preview>
-        <FluxPane style="width: min(100%, 480px)">
-            <FluxItemStack>
-                <FluxItem
-                    v-for="member in members"
-                    :key="member.key"
-                    is-control>
-                    <FluxItemMedia is-center>
-                        <FluxFormCheckbox v-model="selected[member.key]"/>
-                    </FluxItemMedia>
+    <FluxPane style="width: min(100%, 480px)">
+        <FluxItemStack>
+            <FluxItem
+                v-for="member in members"
+                :key="member.key"
+                is-control>
+                <FluxItemMedia is-center>
+                    <FluxFormCheckbox v-model="selected[member.key]"/>
+                </FluxItemMedia>
 
-                    <FluxItemMedia
-                        is-center
-                        :size="40">
-                        <FluxAvatar
-                            :alt="member.name"
-                            fallback-icon="user"
-                            :size="40"/>
-                    </FluxItemMedia>
+                <FluxItemMedia
+                    is-center
+                    :size="40">
+                    <FluxAvatar
+                        :alt="member.name"
+                        fallback-icon="user"
+                        :size="40"/>
+                </FluxItemMedia>
 
-                    <FluxItemContent is-center>
-                        <strong>{{ member.name }}</strong>
-                        <span style="font-size: .875rem; opacity: .6">{{ member.email }}</span>
-                    </FluxItemContent>
-                </FluxItem>
-            </FluxItemStack>
-        </FluxPane>
-    </Preview>
+                <FluxItemContent is-center>
+                    <strong>{{ member.name }}</strong>
+                    <span style="font-size: .875rem; opacity: .6">{{ member.email }}</span>
+                </FluxItemContent>
+            </FluxItem>
+        </FluxItemStack>
+    </FluxPane>
 </template>
 
 <script

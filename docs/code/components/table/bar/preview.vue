@@ -1,6 +1,6 @@
 <template>
     <Preview>
-        <FluxPane style="width: min(100%, 540px)">
+        <FluxPane>
             <FluxTable>
                 <template #header>
                     <FluxTableRow>

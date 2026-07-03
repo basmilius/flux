@@ -1,21 +1,19 @@
 <template>
-    <Preview>
-        <FluxBreadcrumb>
-            <FluxBreadcrumbItem
-                href="#"
-                icon="house"
-                label="Home"/>
+    <FluxBreadcrumb>
+        <FluxBreadcrumbItem
+            href="#"
+            icon="house"
+            label="Home"/>
 
-            <FluxBreadcrumbItem
-                href="#"
-                icon="folder"
-                label="Projects"/>
+        <FluxBreadcrumbItem
+            href="#"
+            icon="folder"
+            label="Projects"/>
 
-            <FluxBreadcrumbItem
-                icon="file"
-                label="Report"/>
-        </FluxBreadcrumb>
-    </Preview>
+        <FluxBreadcrumbItem
+            icon="file"
+            label="Report"/>
+    </FluxBreadcrumb>
 </template>
 
 <script

@@ -1,34 +1,32 @@
 <template>
-    <Preview>
-        <div style="display: flex; flex-flow: column; gap: 9px; width: min(100%, 420px)">
-            <FluxClickablePane
-                v-for="project in projects"
-                :key="project.name"
-                type="button">
-                <FluxItem>
-                    <FluxItemMedia
-                        is-center
-                        :size="40">
-                        <FluxBoxedIcon
-                            :color="project.color"
-                            :name="project.icon"
-                            :size="40"/>
-                    </FluxItemMedia>
+    <div style="display: flex; flex-flow: column; gap: 9px; width: min(100%, 420px)">
+        <FluxClickablePane
+            v-for="project in projects"
+            :key="project.name"
+            type="button">
+            <FluxItem>
+                <FluxItemMedia
+                    is-center
+                    :size="40">
+                    <FluxBoxedIcon
+                        :color="project.color"
+                        :name="project.icon"
+                        :size="40"/>
+                </FluxItemMedia>
 
-                    <FluxItemContent is-center>
-                        <strong>{{ project.name }}</strong>
-                        <span style="font-size: .875rem; opacity: .6">{{ project.description }}</span>
-                    </FluxItemContent>
+                <FluxItemContent is-center>
+                    <strong>{{ project.name }}</strong>
+                    <span style="font-size: .875rem; opacity: .6">{{ project.description }}</span>
+                </FluxItemContent>
 
-                    <FluxItemMedia is-center>
-                        <FluxIcon
-                            name="chevron-right"
-                            style="opacity: .4"/>
-                    </FluxItemMedia>
-                </FluxItem>
-            </FluxClickablePane>
-        </div>
-    </Preview>
+                <FluxItemMedia is-center>
+                    <FluxIcon
+                        name="chevron-right"
+                        style="opacity: .4"/>
+                </FluxItemMedia>
+            </FluxItem>
+        </FluxClickablePane>
+    </div>
 </template>
 
 <script

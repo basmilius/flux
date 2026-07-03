@@ -1,35 +1,33 @@
 <template>
-    <Preview>
-        <FluxPane style="width: min(100%, 540px)">
-            <FluxTable>
-                <template #header>
-                    <FluxTableRow>
-                        <FluxTableHeader>Name</FluxTableHeader>
-                        <FluxTableHeader is-shrinking>Role</FluxTableHeader>
-                    </FluxTableRow>
-                </template>
+    <FluxPane>
+        <FluxTable>
+            <template #header>
+                <FluxTableRow>
+                    <FluxTableHeader>Name</FluxTableHeader>
+                    <FluxTableHeader is-shrinking>Role</FluxTableHeader>
+                </FluxTableRow>
+            </template>
 
-                <FluxTableGroup label="Engineering">
-                    <FluxTableRow>
-                        <FluxTableCell>Ada Lovelace</FluxTableCell>
-                        <FluxTableCell>Lead</FluxTableCell>
-                    </FluxTableRow>
+            <FluxTableGroup label="Engineering">
+                <FluxTableRow>
+                    <FluxTableCell>Ada Lovelace</FluxTableCell>
+                    <FluxTableCell>Lead</FluxTableCell>
+                </FluxTableRow>
 
-                    <FluxTableRow>
-                        <FluxTableCell>Alan Turing</FluxTableCell>
-                        <FluxTableCell>Engineer</FluxTableCell>
-                    </FluxTableRow>
-                </FluxTableGroup>
+                <FluxTableRow>
+                    <FluxTableCell>Alan Turing</FluxTableCell>
+                    <FluxTableCell>Engineer</FluxTableCell>
+                </FluxTableRow>
+            </FluxTableGroup>
 
-                <FluxTableGroup label="Design">
-                    <FluxTableRow>
-                        <FluxTableCell>Grace Hopper</FluxTableCell>
-                        <FluxTableCell>Designer</FluxTableCell>
-                    </FluxTableRow>
-                </FluxTableGroup>
-            </FluxTable>
-        </FluxPane>
-    </Preview>
+            <FluxTableGroup label="Design">
+                <FluxTableRow>
+                    <FluxTableCell>Grace Hopper</FluxTableCell>
+                    <FluxTableCell>Designer</FluxTableCell>
+                </FluxTableRow>
+            </FluxTableGroup>
+        </FluxTable>
+    </FluxPane>
 </template>
 
 <script

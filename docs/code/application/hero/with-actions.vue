@@ -1,15 +1,13 @@
 <template>
-    <Preview>
-        <FluxApplicationHero
-            title="Projects"
-            subtitle="All projects you're a member of.">
-            <template #end>
-                <FluxPrimaryButton
-                    icon-leading="plus"
-                    label="New project"/>
-            </template>
-        </FluxApplicationHero>
-    </Preview>
+    <FluxApplicationHero
+        title="Projects"
+        subtitle="All projects you're a member of.">
+        <template #end>
+            <FluxPrimaryButton
+                icon-leading="plus"
+                label="New project"/>
+        </template>
+    </FluxApplicationHero>
 </template>
 
 <script

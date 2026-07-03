@@ -1,36 +1,34 @@
 <template>
-    <Preview>
-        <FluxPane style="width: min(100%, 520px)">
-            <FluxItemStack>
-                <FluxItem
-                    v-for="app in apps"
-                    :key="app.key"
-                    is-control>
-                    <FluxItemMedia
-                        is-center
-                        :size="40">
-                        <FluxBoxedIcon
-                            :color="app.color"
-                            :name="app.icon"
-                            :size="40"/>
-                    </FluxItemMedia>
+    <FluxPane style="width: min(100%, 520px)">
+        <FluxItemStack>
+            <FluxItem
+                v-for="app in apps"
+                :key="app.key"
+                is-control>
+                <FluxItemMedia
+                    is-center
+                    :size="40">
+                    <FluxBoxedIcon
+                        :color="app.color"
+                        :name="app.icon"
+                        :size="40"/>
+                </FluxItemMedia>
 
-                    <FluxItemContent is-center>
-                        <strong>{{ app.name }}</strong>
-                        <span style="font-size: .875rem; opacity: .6">{{ app.description }}</span>
-                    </FluxItemContent>
+                <FluxItemContent is-center>
+                    <strong>{{ app.name }}</strong>
+                    <span style="font-size: .875rem; opacity: .6">{{ app.description }}</span>
+                </FluxItemContent>
 
-                    <FluxItemActions is-center>
-                        <FluxBadge
-                            :color="connected[app.key] ? 'success' : 'gray'"
-                            :label="connected[app.key] ? 'Connected' : 'Disconnected'"/>
+                <FluxItemActions is-center>
+                    <FluxBadge
+                        :color="connected[app.key] ? 'success' : 'gray'"
+                        :label="connected[app.key] ? 'Connected' : 'Disconnected'"/>
 
-                        <FluxToggle v-model="connected[app.key]"/>
-                    </FluxItemActions>
-                </FluxItem>
-            </FluxItemStack>
-        </FluxPane>
-    </Preview>
+                    <FluxToggle v-model="connected[app.key]"/>
+                </FluxItemActions>
+            </FluxItem>
+        </FluxItemStack>
+    </FluxPane>
 </template>
 
 <script

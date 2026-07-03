@@ -1,33 +1,31 @@
 <template>
-    <Preview>
-        <FluxPane style="width: min(100%, 480px)">
-            <FluxItemStack>
-                <FluxItem
-                    v-for="notification in notifications"
-                    :key="notification.title">
-                    <FluxItemMedia
-                        is-center
-                        :size="40">
-                        <FluxBoxedIcon
-                            :color="notification.color"
-                            :name="notification.icon"
-                            :size="40"/>
-                    </FluxItemMedia>
+    <FluxPane style="width: min(100%, 480px)">
+        <FluxItemStack>
+            <FluxItem
+                v-for="notification in notifications"
+                :key="notification.title">
+                <FluxItemMedia
+                    is-center
+                    :size="40">
+                    <FluxBoxedIcon
+                        :color="notification.color"
+                        :name="notification.icon"
+                        :size="40"/>
+                </FluxItemMedia>
 
-                    <FluxItemContent is-center>
-                        <strong>{{ notification.title }}</strong>
-                        <span style="font-size: .875rem; opacity: .6">{{ notification.time }}</span>
-                    </FluxItemContent>
+                <FluxItemContent is-center>
+                    <strong>{{ notification.title }}</strong>
+                    <span style="font-size: .875rem; opacity: .6">{{ notification.time }}</span>
+                </FluxItemContent>
 
-                    <FluxItemActions is-center>
-                        <FluxAction
-                            icon="xmark"
-                            aria-label="Dismiss"/>
-                    </FluxItemActions>
-                </FluxItem>
-            </FluxItemStack>
-        </FluxPane>
-    </Preview>
+                <FluxItemActions is-center>
+                    <FluxAction
+                        icon="xmark"
+                        aria-label="Dismiss"/>
+                </FluxItemActions>
+            </FluxItem>
+        </FluxItemStack>
+    </FluxPane>
 </template>
 
 <script

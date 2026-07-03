@@ -1,28 +1,26 @@
 <template>
-    <Preview>
-        <FluxPane>
-            <FluxTable is-hoverable>
-                <FluxTableRow
-                    v-for="person in dataSet"
-                    :key="person.id"
-                    is-clickable
-                    @row-click="columnIndex => onRowClick(person, columnIndex)">
-                    <FluxTableCell content-direction="column">
-                        <strong>{{ person.name }}</strong>
-                        <small>{{ person.email }}</small>
-                    </FluxTableCell>
+    <FluxPane>
+        <FluxTable is-hoverable>
+            <FluxTableRow
+                v-for="person in dataSet"
+                :key="person.id"
+                is-clickable
+                @row-click="columnIndex => onRowClick(person, columnIndex)">
+                <FluxTableCell content-direction="column">
+                    <strong>{{ person.name }}</strong>
+                    <small>{{ person.email }}</small>
+                </FluxTableCell>
 
-                    <FluxTableCell>
-                        <FluxTableActions>
-                            <FluxSecondaryButton
-                                label="Email"
-                                @click="onEmail(person)"/>
-                        </FluxTableActions>
-                    </FluxTableCell>
-                </FluxTableRow>
-            </FluxTable>
-        </FluxPane>
-    </Preview>
+                <FluxTableCell>
+                    <FluxTableActions>
+                        <FluxSecondaryButton
+                            label="Email"
+                            @click="onEmail(person)"/>
+                    </FluxTableActions>
+                </FluxTableCell>
+            </FluxTableRow>
+        </FluxTable>
+    </FluxPane>
 </template>
 
 <script

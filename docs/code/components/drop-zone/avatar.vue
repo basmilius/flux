@@ -1,11 +1,9 @@
 <template>
-    <Preview>
-        <FluxDropZone style="display: inline-flex; --dz-radius: calc(96px * 0.3)">
-            <FluxAvatar
-                :size="96"
-                fallback-initials="JD"/>
-        </FluxDropZone>
-    </Preview>
+    <FluxDropZone style="display: inline-flex; --dz-radius: calc(96px * 0.3)">
+        <FluxAvatar
+            :size="96"
+            fallback-initials="JD"/>
+    </FluxDropZone>
 </template>
 
 <script

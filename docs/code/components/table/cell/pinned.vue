@@ -1,5 +1,5 @@
 <template>
-    <FluxPane style="width: min(100%, 420px)">
+    <FluxPane>
         <FluxTable>
             <FluxTableRow
                 v-for="row in 3"

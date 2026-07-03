@@ -1,20 +1,18 @@
 <template>
-    <Preview>
-        <FluxFormRadioGroup v-model="plan">
-            <FluxFormRadio
-                value="free"
-                label="Free"/>
+    <FluxFormRadioGroup v-model="plan">
+        <FluxFormRadio
+            value="free"
+            label="Free"/>
 
-            <FluxFormRadio
-                value="pro"
-                label="Pro"/>
+        <FluxFormRadio
+            value="pro"
+            label="Pro"/>
 
-            <FluxFormRadio
-                value="enterprise"
-                label="Enterprise"
-                disabled/>
-        </FluxFormRadioGroup>
-    </Preview>
+        <FluxFormRadio
+            value="enterprise"
+            label="Enterprise"
+            disabled/>
+    </FluxFormRadioGroup>
 </template>
 
 <script

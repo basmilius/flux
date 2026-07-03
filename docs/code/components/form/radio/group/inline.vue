@@ -1,21 +1,19 @@
 <template>
-    <Preview>
-        <FluxFormRadioGroup
-            v-model="size"
-            is-inline>
-            <FluxFormRadio
-                value="s"
-                label="Small"/>
+    <FluxFormRadioGroup
+        v-model="size"
+        is-inline>
+        <FluxFormRadio
+            value="s"
+            label="Small"/>
 
-            <FluxFormRadio
-                value="m"
-                label="Medium"/>
+        <FluxFormRadio
+            value="m"
+            label="Medium"/>
 
-            <FluxFormRadio
-                value="l"
-                label="Large"/>
-        </FluxFormRadioGroup>
-    </Preview>
+        <FluxFormRadio
+            value="l"
+            label="Large"/>
+    </FluxFormRadioGroup>
 </template>
 
 <script
