@@ -14,7 +14,7 @@
             :aria-busy="isLoading || undefined"
             :aria-describedby="slots.caption ? captionId : undefined"
             :aria-rowcount="ariaRowcount"
-            :style="{gridTemplateRows}">
+            :style="{gridTemplateRows: resolveGridTemplateRows()}">
             <div
                 v-if="slots.header"
                 ref="head"
@@ -158,8 +158,10 @@
 
     // The filler and empty rows are their own 1fr row tracks, so the layout
     // engine hands them the remaining height synchronously instead of a
-    // measurement pass doing so a frame later.
-    const gridTemplateRows = computed(() => {
+    // measurement pass doing so a frame later. Slot presence is not reactive,
+    // so this resolves during render instead of in a cached computed; a
+    // late-appearing empty slot would otherwise never get its 1fr track.
+    function resolveGridTemplateRows(): string | undefined {
         const rows: string[] = [];
 
         if (slots.header) {
@@ -183,7 +185,7 @@
         }
 
         return rows.length > 0 ? rows.join(' ') : undefined;
-    });
+    }
 
     const gridTemplateColumns = computed(() => {
         const columns = unref(sortedColumns);
