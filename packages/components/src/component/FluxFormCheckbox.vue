@@ -15,6 +15,7 @@
             :id="id"
             :checked="isChecked"
             :disabled="disabled"
+            :aria-describedby="describedBy"
             :aria-disabled="disabled ? true : undefined"
             :aria-readonly="isReadonlyResolved ? true : undefined"
             :aria-invalid="errorResolved ? true : undefined"
@@ -82,7 +83,7 @@
     const group = useFormCheckboxGroupInjection();
     const itemControl = inject(FluxItemControlInjectionKey, null);
     const inputRef = useTemplateRef('input');
-    const {id} = useFormFieldInjection();
+    const {id, describedBy} = useFormFieldInjection();
 
     const isBareControl = computed(() => itemControl?.isControl.value ?? false);
 

@@ -6,6 +6,8 @@
         )"
         type="button"
         :aria-label="translate('flux.delete')"
+        :aria-hidden="isHidden ? true : undefined"
+        :tabindex="isHidden ? -1 : undefined"
         @click="emit('click', $event)">
         <FluxIcon
             v-if="icon"

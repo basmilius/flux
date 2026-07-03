@@ -16,6 +16,7 @@
             :name="group.name"
             :checked="isChecked"
             :disabled="disabled"
+            :aria-describedby="describedBy"
             :aria-disabled="disabled ? true : undefined"
             :aria-readonly="isReadonly ? true : undefined"
             :aria-invalid="error ? true : undefined"
@@ -69,7 +70,7 @@
 
     const group = useFormRadioGroupInjection();
     const itemControl = inject(FluxItemControlInjectionKey, null);
-    const {id} = useFormFieldInjection();
+    const {id, describedBy} = useFormFieldInjection();
     const disabled = useDisabled(toRef(() => componentDisabled || unref(group.disabled)));
 
     const isBareControl = computed(() => itemControl?.isControl.value ?? false);

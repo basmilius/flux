@@ -16,7 +16,7 @@
         :aria-controls="isPopupOpen ? listId : undefined"
         :aria-disabled="disabled ? true : undefined"
         :aria-expanded="isPopupOpen"
-        aria-haspopup="tree"
+        aria-haspopup="listbox"
         :aria-readonly="isReadonly ? true : undefined"
         :aria-invalid="error ? true : undefined"
         :aria-describedby="describedBy"
@@ -259,7 +259,7 @@
 
     function onKeyDown(evt: KeyboardEvent): void {
         if (!unref(isPopupOpen)) {
-            if (evt.key === 'Enter' || evt.key === ' ') {
+            if ((evt.key === 'Enter' || evt.key === ' ') && !unref(disabled) && !isReadonly) {
                 evt.preventDefault();
                 isPopupOpen.value = true;
             }

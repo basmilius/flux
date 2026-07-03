@@ -74,7 +74,10 @@
         checkScroll();
         updateHighlight();
     }, {childList: true});
-    useResizeObserver(tabBarRef, () => updateHighlight());
+    useResizeObserver(tabBarRef, () => {
+        checkScroll();
+        updateHighlight();
+    });
 
     const isEndArrowVisible = ref(false);
     const isStartArrowVisible = ref(false);

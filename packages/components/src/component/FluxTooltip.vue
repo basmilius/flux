@@ -49,6 +49,7 @@
             function onLeave(): void {
                 if (tooltipId.value) {
                     removeTooltip(tooltipId.value);
+                    tooltipId.value = null;
                 }
             }
 

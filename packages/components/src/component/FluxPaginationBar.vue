@@ -8,7 +8,7 @@
             :total="total"
             @navigate="$emit('navigate', $event)"/>
 
-        <FluxSpacer :class="$style.paginationBarSpacer"/>
+        <FluxSpacer/>
 
         <div :class="$style.paginationBarLimit">
             <span :class="$style.paginationBarLimitDisplayingOf">

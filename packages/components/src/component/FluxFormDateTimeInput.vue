@@ -9,7 +9,7 @@
             <template #opener="{open}">
                 <FluxFormInputGroup>
                     <FluxFormInput
-                        :="{autoFocus, error, isCondensed, isLoading, isReadonly, isSecondary, name, placeholder}"
+                        :="{autoComplete, autoFocus, error, isCondensed, isLoading, isReadonly, isSecondary, name, placeholder}"
                         :class="$style.formDateInput"
                         :disabled="disabled"
                         :model-value="localValue"

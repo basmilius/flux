@@ -10,7 +10,7 @@
     import type { FluxStatisticsChartScatterSeries } from '@flux-ui/types';
     import { computed } from 'vue';
     import { type EChartsOption, useChartSeriesSetup } from '~flux/statistics/composable';
-    import { buildScatterChartOptions } from '~flux/statistics/util';
+    import { buildScatterChartOptions, type ChartTooltipValueFormatter } from '~flux/statistics/util';
     import Chart from './FluxStatisticsChart.vue';
     import $style from '~flux/statistics/css/Chart.module.scss';
 
@@ -19,6 +19,7 @@
         series,
         splitLines = false,
         tooltip = false,
+        tooltipValueFormatter,
         xAxisLabels = false,
         yAxisLabels = false
     } = defineProps<{
@@ -26,6 +27,7 @@
         readonly series: readonly FluxStatisticsChartScatterSeries[];
         readonly splitLines?: boolean;
         readonly tooltip?: boolean;
+        readonly tooltipValueFormatter?: ChartTooltipValueFormatter;
         readonly xAxisLabels?: boolean;
         readonly yAxisLabels?: boolean;
     }>();
@@ -38,6 +40,7 @@
         t,
         styles: $style,
         tooltip,
+        tooltipValueFormatter,
         xAxisLabels,
         yAxisLabels,
         splitLines,

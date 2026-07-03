@@ -1,9 +1,10 @@
 <template>
     <div
         role="table"
-        :aria-label="title"
         :class="$style.detailsTable">
-        <div :class="$style.detailsTableTitle">
+        <div
+            role="caption"
+            :class="$style.detailsTableTitle">
             {{ title }}
         </div>
 

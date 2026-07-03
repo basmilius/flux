@@ -49,6 +49,10 @@ export default function (params: UseAsyncFilterOptionsParams) {
 
     watch(params.currentValueIds, async ids => {
         if (ids.length === 0) {
+            // Invalidate any in-flight fetch and drop the previous selection, otherwise
+            // deselected options linger in the list (or get written back by a stale fetch).
+            ++selectedGeneration;
+            selectedOptions.value = [];
             return;
         }
 

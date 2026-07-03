@@ -9,6 +9,7 @@
         :aria-disabled="disabled ? true : undefined"
         :aria-label="ariaLabel ?? translate('flux.dropFilesOrClick')"
         :tabindex="disabled ? -1 : 0"
+        @click="onClick"
         @keydown.self="onKeyDown">
         <div
             :class="$style.dropZoneContent"
@@ -127,6 +128,21 @@
         window.removeEventListener('dragover', onWindowDragStart, {capture: true});
         window.removeEventListener('drop', onWindowDrop, {capture: true});
     });
+
+    // The zone is announced as a button, so a plain click should open the picker just like
+    // Enter/Space does. Clicks on interactive slot content (e.g. action buttons that call
+    // showPicker themselves) are left alone.
+    function onClick(evt: MouseEvent): void {
+        const interactive = evt.target instanceof Element
+            ? evt.target.closest('a, button, input, select, textarea, [role="button"]')
+            : null;
+
+        if (interactive && interactive !== evt.currentTarget) {
+            return;
+        }
+
+        showPicker();
+    }
 
     function onKeyDown(evt: KeyboardEvent): void {
         if (evt.key === 'Enter' || evt.key === ' ') {

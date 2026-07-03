@@ -70,7 +70,6 @@
         readonly color?: FluxColor;
         readonly dot?: boolean;
         readonly icon?: FluxIconName;
-        readonly isClickable?: boolean;
         readonly isDeletable?: boolean;
         readonly isKeyboardShortcut?: boolean;
         readonly isLoading?: boolean;

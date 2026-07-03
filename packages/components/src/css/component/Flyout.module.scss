@@ -48,17 +48,3 @@
         transform: translate3d(0, 0, 0)
     }
 }
-
-@keyframes mobileClose {
-    to {
-        opacity: 0;
-        transform: translate3d(0, 100%, 0)
-    }
-}
-
-@keyframes mobileOpen {
-    from {
-        opacity: 0;
-        transform: translate3d(0, 100%, 0)
-    }
-}

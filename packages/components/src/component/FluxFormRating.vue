@@ -6,6 +6,7 @@
             error && $style.isInvalid
         )"
         :id="id"
+        ref="root"
         :style="{
             fontSize: size && `${size}px`
         }"
@@ -40,6 +41,7 @@
                 '--fill': fillFor(star)
             }"
             @click="onClick(star, $event)"
+            @mousedown="onStarMouseDown"
             @pointermove="onMouseMove(star, $event)">
             <FluxIcon
                 :class="$style.formRatingStarEmpty"
@@ -57,7 +59,7 @@
     setup>
     import type { FluxFormInputBaseProps, FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { computed, ref, toRef } from 'vue';
+    import { computed, ref, toRef, useTemplateRef } from 'vue';
     import { useDisabled, useFormFieldInjection } from '~flux/components/composable';
     import FluxIcon from './FluxIcon.vue';
     import $style from '~flux/components/css/component/FormRating.module.scss';
@@ -86,6 +88,7 @@
     }>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));
+    const rootRef = useTemplateRef('root');
     const {id, describedBy} = useFormFieldInjection();
 
     const hoverValue = ref<number | null>(null);
@@ -109,6 +112,13 @@
     function commit(value: number | null): void {
         modelValue.value = value;
         emit('change', value);
+    }
+
+    // The stars are aria-hidden mouse targets; keep focus on the role="slider" root so
+    // assistive technology and the focus ring stay on the slider after a click.
+    function onStarMouseDown(evt: MouseEvent): void {
+        evt.preventDefault();
+        rootRef.value?.focus();
     }
 
     function onMouseMove(star: number, evt: MouseEvent): void {

@@ -54,7 +54,7 @@
         readonly current: number;
     }>();
 
-    const progress = computed(() => (current - 1) / (amount - 1));
+    const progress = computed(() => amount <= 1 ? 1 : (current - 1) / (amount - 1));
 
     function activate(index: number): void {
         emit('activate', index);

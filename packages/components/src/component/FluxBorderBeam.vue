@@ -102,9 +102,12 @@
     });
 
     watch(() => active, value => {
-        if (value && !isActive.value && !isFading.value) {
+        if (value) {
+            // Also covers re-activating while the fade-out is still running: cancel the
+            // fade, otherwise its animationend would turn the beam off for good.
+            isFading.value = false;
             isActive.value = true;
-        } else if (!value && isActive.value && !isFading.value) {
+        } else if (isActive.value && !isFading.value) {
             isFading.value = true;
         }
     });

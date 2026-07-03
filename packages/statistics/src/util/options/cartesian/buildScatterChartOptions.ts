@@ -2,7 +2,7 @@ import type { FluxStatisticsChartScatterSeries } from '@flux-ui/types';
 import { merge } from 'lodash-es';
 import type { EChartsOption } from '~flux/statistics/composable';
 import { toScatterSeries } from '../../series';
-import type { TooltipStyleClasses, Translator } from '../../tooltips';
+import type { ChartTooltipValueFormatter, TooltipStyleClasses, Translator } from '../../tooltips';
 import { buildCartesianTooltip } from '../../tooltips';
 import { buildCartesianBaseOptions } from '../buildCartesianBaseOptions';
 
@@ -12,6 +12,7 @@ export interface ScatterChartOptionsInput {
     readonly t: Translator;
     readonly styles: TooltipStyleClasses;
     readonly tooltip?: boolean;
+    readonly tooltipValueFormatter?: ChartTooltipValueFormatter;
     readonly xAxisLabels?: boolean;
     readonly yAxisLabels?: boolean;
     readonly splitLines?: boolean;
@@ -21,7 +22,7 @@ export interface ScatterChartOptionsInput {
 export function buildScatterChartOptions(input: ScatterChartOptionsInput): EChartsOption {
     const {
         series, palette, t, styles,
-        tooltip = false,
+        tooltip = false, tooltipValueFormatter,
         xAxisLabels = false, yAxisLabels = false, splitLines = false,
         advancedOptions = {}
     } = input;
@@ -37,7 +38,7 @@ export function buildScatterChartOptions(input: ScatterChartOptionsInput): EChar
     });
 
     const tooltipOptions: EChartsOption = tooltip
-        ? buildCartesianTooltip({ t, styles, getSeriesIcons: () => series.map(s => s.icon) })
+        ? buildCartesianTooltip({ t, styles, getSeriesIcons: () => series.map(s => s.icon), valueFormatter: tooltipValueFormatter })
         : { tooltip: { show: false } };
 
     const echartsSeries = series.map((s, i) =>

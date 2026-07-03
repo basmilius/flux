@@ -1,9 +1,11 @@
 <template>
     <FluxPane :class="isSmall ? $style.statisticsBaseSmall : $style.statisticsBase">
         <div
-            v-if="title"
+            v-if="title || icon || slots.info"
             :class="$style.statisticsBaseHeader">
-            <span :class="$style.statisticsBaseHeaderTitle">
+            <span
+                v-if="title"
+                :class="$style.statisticsBaseHeaderTitle">
                 {{ title }}
             </span>
 

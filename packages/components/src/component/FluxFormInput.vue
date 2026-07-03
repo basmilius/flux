@@ -45,7 +45,7 @@
             v-if="type === 'password'"
             type="button"
             :class="$style.formInputIconPasswordToggle"
-            aria-label="Toggle password visibility"
+            :aria-label="translate('flux.togglePasswordVisibility')"
             :aria-pressed="nativeType !== 'password'"
             :disabled="disabled"
             @click="passwordTypeToggle()">
@@ -75,8 +75,9 @@
     import { clsx } from 'clsx';
     import type { InputMask } from 'imask';
     import { DateTime } from 'luxon';
-    import { ref, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { getCurrentInstance, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled, useFormFieldInjection } from '~flux/components/composable';
+    import { useTranslate } from '~flux/components/composable/private';
     import { inputMask } from '~flux/components/data';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
@@ -112,6 +113,8 @@
 
     const disabled = useDisabled(toRef(() => componentDisabled));
     const inputRef = useTemplateRef<HTMLInputElement>('input');
+    const instance = getCurrentInstance();
+    const translate = useTranslate();
     const {id, describedBy} = useFormFieldInjection();
 
     const localValue = ref<string | null>(null);
@@ -203,8 +206,13 @@
         }
 
         if (evt.key === ' ') {
-            emit('showPicker');
             evt.preventDefault();
+
+            if (instance?.vnode.props?.onShowPicker) {
+                emit('showPicker');
+            } else {
+                unrefTemplateElement(inputRef)?.showPicker();
+            }
         }
     }
 

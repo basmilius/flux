@@ -57,6 +57,7 @@
     const {
         formatter = formatNumber,
         disabled: componentDisabled,
+        isReadonly,
         isTooltipDisabled,
         max = 100,
         min = 0,
@@ -108,7 +109,7 @@
     }
 
     function onUpdate(value: number): void {
-        if (unref(disabled) || !unref(isRangeValid)) {
+        if (unref(disabled) || isReadonly || !unref(isRangeValid)) {
             return;
         }
 
@@ -134,18 +135,18 @@
             upper = Math.max(target, lower + unref(distance));
         }
 
+        modelValue.value = [snap(lower), snap(upper)];
+
         if (tooltipId.value) {
             updateTooltip(tooltipId.value, {
                 content: unref(tooltipContent),
                 origin: unref(isDraggingLower.value ? lowerThumbRef : upperThumbRef)?.$el
             });
         }
-
-        modelValue.value = [snap(lower), snap(upper)];
     }
 
     function onDecrement(which: 'lower' | 'upper'): void {
-        if (unref(disabled) || !unref(isRangeValid)) {
+        if (unref(disabled) || isReadonly || !unref(isRangeValid)) {
             return;
         }
 
@@ -161,7 +162,7 @@
     }
 
     function onIncrement(which: 'lower' | 'upper'): void {
-        if (unref(disabled) || !unref(isRangeValid)) {
+        if (unref(disabled) || isReadonly || !unref(isRangeValid)) {
             return;
         }
 

@@ -298,7 +298,7 @@
         emit('keyDown', evt);
 
         if (!unref(isPopupOpen)) {
-            if (evt.key === 'Enter') {
+            if (evt.key === 'Enter' && !unref(disabled) && !isReadonly) {
                 isPopupOpen.value = true;
             }
 

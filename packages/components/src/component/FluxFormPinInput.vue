@@ -25,9 +25,9 @@
             :autofocus="field === 1 && autoFocus"
             :disabled="disabled"
             :readonly="isReadonly"
-            :tabindex="(field - 1) === Math.min(modelValue.length, maxLength - 1) ? 0 : -1"
+            :tabindex="(field - 1) === firstEmptyIndex ? 0 : -1"
             :type="isPrivate ? 'password' : 'text'"
-            :value="modelValue[field - 1]"
+            :value="digits[field - 1] ?? ''"
             @focus="onFocus"
             @input="onInput"
             @keydown="onKeyDown"
@@ -40,7 +40,7 @@
     setup>
     import type { FluxAutoCompleteType, FluxFormInputBaseProps } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { toRef, unref, useTemplateRef } from 'vue';
+    import { computed, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled, useFormFieldInjection } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';
     import $style from '~flux/components/css/component/Form.module.scss';
@@ -67,6 +67,27 @@
 
     const fieldRefs = useTemplateRef<HTMLInputElement[]>('fields');
 
+    // The fields render from this buffer instead of from the model, so a cleared middle digit
+    // stays a gap instead of shifting the trailing digits to the left (which would corrupt the
+    // entered code). The model itself is a gapless string and cannot represent that gap.
+    const digits = ref<string[]>([]);
+
+    const firstEmptyIndex = computed(() => {
+        for (let i = 0; i < maxLength; i++) {
+            if (!digits.value[i]) {
+                return i;
+            }
+        }
+
+        return maxLength - 1;
+    });
+
+    watch(modelValue, value => {
+        if (value !== digits.value.join('')) {
+            digits.value = value.split('').slice(0, maxLength);
+        }
+    }, {immediate: true});
+
     function onFocus(evt: FocusEvent): void {
         const input = evt.target as HTMLInputElement;
         requestAnimationFrame(() => input.select());
@@ -74,19 +95,14 @@
 
     function onInput(): void {
         const fields = unref(fieldRefs) ?? [];
-        const digits = fields.map(field => {
+
+        digits.value = fields.map(field => {
             const value = field.value.trim();
 
             return /^[0-9]$/.test(value) ? value : '';
         });
 
-        // Trim only trailing empties so a cleared middle digit becomes a gap instead of shifting
-        // the trailing digits to the left (which would corrupt the entered code).
-        while (digits.length > 0 && digits[digits.length - 1] === '') {
-            digits.pop();
-        }
-
-        modelValue.value = digits.join('');
+        modelValue.value = digits.value.join('');
     }
 
     function onKeyDown(evt: KeyboardEvent): void {

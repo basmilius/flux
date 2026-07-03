@@ -39,6 +39,8 @@
     position: relative;
     display: block;
     align-self: center;
+    min-height: var(--min-height, auto);
+    max-height: var(--max-height, none);
 }
 
 :local(.paneHeader) + .statisticsChartPaneContainer {

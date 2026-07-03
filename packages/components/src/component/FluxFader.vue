@@ -14,8 +14,9 @@
 
     export type FluxFaderContext = {
         readonly current: Ref<number>;
-        register(): number;
-        unregister(): void;
+        getIndex(id: symbol): number;
+        register(id: symbol): void;
+        unregister(id: symbol): void;
     };
 
     export const FluxFaderInjectionKey: InjectionKey<FluxFaderContext> = Symbol('FluxFader');
@@ -24,7 +25,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, onScopeDispose, provide, ref, unref, watch } from 'vue';
+    import { computed, onScopeDispose, provide, ref, shallowReactive, unref, watch } from 'vue';
     import $style from '~flux/components/css/component/Fader.module.scss';
 
     const emit = defineEmits<{
@@ -53,22 +54,37 @@
     }>();
 
     const current = ref(0);
-    const count = ref(0);
     const isHovering = ref(false);
+
+    // Track items by id so removing a middle slide re-indexes the remaining ones,
+    // keeping the current <-> slide mapping intact.
+    const itemIds = shallowReactive<symbol[]>([]);
 
     let timer: ReturnType<typeof setInterval> | null = null;
 
+    const count = computed(() => itemIds.length);
     const isActive = computed(() => autoplay && !isPaused && !(pauseOnHover && unref(isHovering)) && unref(count) > 1);
 
     provide(FluxFaderInjectionKey, {
         current,
-        register(): number {
-            const index = count.value;
-            count.value += 1;
-            return index;
+        getIndex(id: symbol): number {
+            return itemIds.indexOf(id);
         },
-        unregister(): void {
-            count.value = Math.max(0, count.value - 1);
+        register(id: symbol): void {
+            itemIds.push(id);
+        },
+        unregister(id: symbol): void {
+            const index = itemIds.indexOf(id);
+
+            if (index === -1) {
+                return;
+            }
+
+            itemIds.splice(index, 1);
+
+            if (current.value >= itemIds.length) {
+                current.value = Math.max(0, itemIds.length - 1);
+            }
         }
     });
 

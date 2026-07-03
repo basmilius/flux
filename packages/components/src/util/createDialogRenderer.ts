@@ -19,7 +19,7 @@ export const FluxDialogInjectionKey: InjectionKey<FluxDialogContext> = Symbol('f
 const TARGET_SELECTOR = `.${$style.overlayProvider.replaceAll(' ', '.')}`;
 let DIALOG_ID = 0;
 
-export default function (attrs: object, props: Props, emit: Emit, slots: Slots, className: string, transition: Component): RenderFunction {
+export default function (attrs: object, props: Props, emit: Emit, slots: Slots, className: string | (() => string), transition: Component): RenderFunction {
     const dialogId = `flux-dialog:${DIALOG_ID++}`;
     let registration: FluxDialogRegistration | null = null;
 
@@ -69,7 +69,7 @@ export default function (attrs: object, props: Props, emit: Emit, slots: Slots, 
             content = h('div', {
                 key: props.viewKey ?? dialogId,
                 ref: dialogRef,
-                class: [className, registration.isCurrent() && $style.isCurrent],
+                class: [typeof className === 'function' ? className() : className, registration.isCurrent() && $style.isCurrent],
                 style: {
                     zIndex: registration.getPosition() + 1000
                 },

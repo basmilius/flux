@@ -46,6 +46,7 @@
                     key="gallery-add"
                     :class="$style.galleryAdd"
                     type="button"
+                    :aria-label="translate('flux.galleryPlaceholderButton')"
                     @click="showPicker()">
                     <FluxIcon name="plus"/>
                 </button>

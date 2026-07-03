@@ -77,8 +77,10 @@
     });
 
     watchEffect(() => {
+        // Touch reactive values so this effect tracks them.
+        void gap;
+
         for (const child of children.values()) {
-            // Touch reactive refs so this effect tracks them.
             void child.priority.value;
             void child.desiredDefaultWidth.value;
             void child.desiredFallbackWidth.value;

@@ -19,7 +19,7 @@
                 props,
                 emit,
                 slots,
-                clsx(
+                () => clsx(
                     props.size === 'small' && $style.overlaySmall,
                     props.size === 'medium' && $style.overlayMedium,
                     props.size === 'large' && $style.overlayLarge

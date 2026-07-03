@@ -48,7 +48,7 @@
                 :aria-labelledby="id">
                 <FluxWindowTransition :is-back="isTransitioningToPast">
                     <div
-                        :key="viewDate.month"
+                        :key="`${viewDate.year}-${viewDate.month}`"
                         :class="$style.datePickerDatesGrid">
                         <template
                             v-for="day of days"
@@ -56,7 +56,9 @@
                             <span :class="$style.datePickerDay">{{ day }}</span>
                         </template>
 
-                        <template v-for="date of dates">
+                        <template
+                            v-for="date of dates"
+                            :key="date.toISODate()">
                             <button
                                 :class="clsx(
                                     $style.datePickerDate,

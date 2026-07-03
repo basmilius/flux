@@ -14,8 +14,7 @@
         aria-roledescription="2D slider"
         :tabindex="disabled ? -1 : 0"
         type="button"
-        @keydown="onKeyDown"
-        @pointerdown="$emit('grab', $event)"/>
+        @keydown="onKeyDown"/>
 </template>
 
 <script
@@ -28,7 +27,6 @@
 
     const emit = defineEmits<{
         decrement: [boolean, boolean];
-        grab: [PointerEvent];
         increment: [boolean, boolean];
     }>();
 

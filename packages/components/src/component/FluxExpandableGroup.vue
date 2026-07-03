@@ -7,7 +7,6 @@
 <script
     lang="ts"
     setup>
-    import { getExposedRef } from '@flux-ui/internals';
     import { type ComponentInternalInstance, provide, type VNode } from 'vue';
     import { FluxExpandableGroupInjectionKey } from '~flux/components/data';
     import $style from '~flux/components/css/component/Expandable.module.scss';
@@ -24,10 +23,11 @@
 
     const expandables: { [key: number]: ComponentInternalInstance; } = {};
 
+    // Go through the exposed close()/open() functions instead of writing to the exposed
+    // isOpen ref, so the expandable's own toggle emit fires when the group changes it.
     function closeAll(): void {
         Object.values(expandables).forEach(expandable => {
-            const isOpenRef = getExposedRef<boolean>(expandable, 'isOpen');
-            isOpenRef.value = false;
+            (expandable.exposed?.close as (() => void) | undefined)?.();
         });
     }
 
@@ -35,8 +35,7 @@
         expandables[uid] = expandable;
 
         if (!isControlled && Object.values(expandables).length === 1) {
-            const isOpenRef = getExposedRef<boolean>(expandable, 'isOpen');
-            isOpenRef.value = true;
+            (expandable.exposed?.open as (() => void) | undefined)?.();
         }
     }
 

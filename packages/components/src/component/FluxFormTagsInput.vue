@@ -202,7 +202,7 @@
 
             highlightedIndex.value = evt.key === 'ArrowDown'
                 ? (highlightedIndex.value + 1) % count
-                : (highlightedIndex.value - 1 + count) % count;
+                : highlightedIndex.value <= 0 ? count - 1 : highlightedIndex.value - 1;
 
             return;
         }

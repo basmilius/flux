@@ -45,6 +45,8 @@
             </span>
         </slot>
 
+        <slot/>
+
         <slot name="iconTrailing">
             <FluxSpinner
                 v-if="isLoading && iconTrailing && !iconLeading"

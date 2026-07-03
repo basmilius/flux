@@ -21,6 +21,7 @@
     composes: basePane;
 
     position: relative;
+    display: block;
 }
 
 .basePaneStructure:not(.layerPane) > .basePaneStructure {

@@ -6,7 +6,7 @@
         :aria-disabled="disabled ? true : undefined">
         <FluxSecondaryButton
             :class="$style.formQuantitySelectorButton"
-            :aria-label="translate('flux.min')"
+            :aria-label="translate('flux.decrease')"
             :disabled="disabled || modelValue <= min"
             icon-leading="minus"
             tabindex="-1"
@@ -31,7 +31,7 @@
 
         <FluxSecondaryButton
             :class="$style.formQuantitySelectorButton"
-            :aria-label="translate('flux.max')"
+            :aria-label="translate('flux.increase')"
             :disabled="disabled || modelValue >= max"
             icon-leading="plus"
             tabindex="-1"

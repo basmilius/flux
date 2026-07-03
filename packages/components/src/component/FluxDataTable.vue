@@ -7,7 +7,7 @@
         :is-loading="isLoading"
         :is-sticky="isSticky">
         <template
-            v-if="'header' in slots || selectionMode || hasExpandable"
+            v-if="'header' in slots || 'filter' in slots || selectionMode || hasExpandable"
             #header>
             <FluxTableBar v-if="hasSelectionBar">
                 <slot
@@ -124,9 +124,7 @@
                     </template>
                 </FluxTableRow>
 
-                <FluxTableRow
-                    v-if="hasExpandable && isItemExpanded(entry.item)"
-                    :class="$style.tableExpandRow">
+                <FluxTableRow v-if="hasExpandable && isItemExpanded(entry.item)">
                     <FluxTableCell :colspan="columnCount">
                         <template #content>
                             <div :class="$style.tableExpandContent">

@@ -219,7 +219,23 @@
         return items.filter(item => item.allDay && item.date.toSQLDate() === dStr);
     }
 
+    // Precompute the positioned items per day so re-renders caused by drag-hover state
+    // (dropTargetMinutes updates on every dragover) don't redo the lane layout for all columns.
+    const timedItemsByDay = computed(() => {
+        const map = new Map<string | null, Positioned[]>();
+
+        for (const d of viewDates) {
+            map.set(d.toSQLDate(), computeTimedItems(d));
+        }
+
+        return map;
+    });
+
     function getTimedItems(d: DateTime): Positioned[] {
+        return unref(timedItemsByDay).get(d.toSQLDate()) ?? [];
+    }
+
+    function computeTimedItems(d: DateTime): Positioned[] {
         const dStr = d.toSQLDate();
         const matching = items
             .map(item => {

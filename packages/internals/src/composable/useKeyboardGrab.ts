@@ -8,8 +8,8 @@ export type UseKeyboardGrabOptions<TPos> = {
     readonly grabbedId: Ref<string | number | null>;
     onGrab(): TPos;
     onMove(direction: KeyboardGrabDirection): void;
-    onCommit(origin: TPos): void;
-    onCancel(origin: TPos): void;
+    onCommit(origin: TPos | null): void;
+    onCancel(origin: TPos | null): void;
     announce?(message: string): void;
 };
 
@@ -119,17 +119,18 @@ export default function useKeyboardGrab<TPos>(options: UseKeyboardGrabOptions<TP
                 announce('Moved right');
                 break;
 
+            // The grabbed state is owned by the shared `grabbedId` ref (already checked
+            // above); `origin` is instance-local and is lost when the host component
+            // remounts mid-grab (e.g. a calendar item that moved to another cell), so it
+            // must not gate the commit/cancel — it's passed along as best-effort data.
             case ' ':
             case 'Enter': {
                 evt.preventDefault();
                 const originValue = origin.value;
                 origin.value = null;
 
-                if (originValue !== null) {
-                    options.onCommit(originValue);
-                    announce('Dropped');
-                }
-
+                options.onCommit(originValue);
+                announce('Dropped');
                 break;
             }
 
@@ -138,11 +139,8 @@ export default function useKeyboardGrab<TPos>(options: UseKeyboardGrabOptions<TP
                 const originValue = origin.value;
                 origin.value = null;
 
-                if (originValue !== null) {
-                    options.onCancel(originValue);
-                    announce('Cancelled');
-                }
-
+                options.onCancel(originValue);
+                announce('Cancelled');
                 break;
             }
         }

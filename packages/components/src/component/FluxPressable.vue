@@ -22,8 +22,8 @@
         :href="safeHref"
         :rel="resolvedRel"
         :target="target"
-        :tabindex="isHrefBlocked ? -1 : undefined"
-        :aria-disabled="isHrefBlocked ? true : undefined"
+        :tabindex="linkTabindex"
+        :aria-disabled="linkAriaDisabled"
         @click="onClick($event)">
         <slot/>
     </a>
@@ -78,6 +78,8 @@
     const safeHref = computed(() => sanitizeUrl(href));
     const isHrefBlocked = computed(() => href != null && href !== '' && safeHref.value === undefined);
     const noneTabindex = computed(() => (attrs.tabindex as number | string | undefined) ?? 0);
+    const linkTabindex = computed(() => isHrefBlocked.value ? -1 : attrs.tabindex as number | string | undefined);
+    const linkAriaDisabled = computed(() => isHrefBlocked.value ? true : attrs['aria-disabled'] as boolean | 'true' | 'false' | undefined);
 
     const resolvedRel = computed(() => {
         if (rel) {

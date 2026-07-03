@@ -24,7 +24,7 @@
                         <FluxFlyout>
                             <template #opener="{open}">
                                 <FluxSecondaryButton
-                                    v-if="modelValue[button.name]"
+                                    v-if="isFilterActive(modelValue[button.name])"
                                     :class="$style.filterButton"
                                     :disabled="button.disabled"
                                     :icon-leading="button.icon"
@@ -75,7 +75,7 @@
                             <template #opener="{open}">
                                 <FluxSecondaryButton
                                     icon-leading="sliders-simple"
-                                    label="Filter"
+                                    :label="translate('flux.filter')"
                                     @click="open()">
                                     <template
                                         v-if="countActiveFilters(buttons) > 0"

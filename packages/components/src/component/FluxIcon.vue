@@ -12,7 +12,7 @@
             color === 'warning' && $style.iconWarning
         )"
         :style="{
-            fontSize: size && `${size}px`,
+            fontSize: typeof size === 'number' ? `${size}px` : size,
             scale: definition.scale > 1 ? definition.scale : undefined
         }"
         focusable="false"

@@ -43,6 +43,7 @@
         ariaLabel,
         formatter = formatNumber,
         disabled: componentDisabled = false,
+        isReadonly,
         isTooltipDisabled,
         max = 100,
         min = 0,
@@ -94,7 +95,7 @@
     }
 
     function onUpdate(value: number): void {
-        if (unref(disabled) || !unref(isRangeValid)) {
+        if (unref(disabled) || isReadonly || !unref(isRangeValid)) {
             return;
         }
 
@@ -109,7 +110,7 @@
     }
 
     function onDecrement(): void {
-        if (unref(disabled)) {
+        if (unref(disabled) || isReadonly) {
             return;
         }
 
@@ -117,7 +118,7 @@
     }
 
     function onIncrement(): void {
-        if (unref(disabled)) {
+        if (unref(disabled) || isReadonly) {
             return;
         }
 

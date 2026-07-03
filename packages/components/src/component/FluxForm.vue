@@ -31,6 +31,10 @@
     }>();
 
     function onSubmit(): void {
+        if (disabled) {
+            return;
+        }
+
         emit('submit');
     }
 </script>

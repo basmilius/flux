@@ -206,6 +206,7 @@
         dragStart: [{ id: string | number; fromDate: DateTime }];
         dragEnd: [{ id: string | number }];
         keyboardGrab: [{ id: string | number; fromDate: DateTime }];
+        keyboardCommit: [{ id: string | number }];
         keyboardCancel: [{ id: string | number }];
     }>();
 
@@ -363,7 +364,10 @@
         unregisterItemElement(element) {
             const info = itemElementRegistry.get(element);
 
-            if (info) {
+            // When an item moves to an earlier cell, the replacement element registers
+            // before this unmount runs; only drop the id mapping if it still points here,
+            // otherwise focus restoration loses the freshly mounted element.
+            if (info && itemElementsById.get(info.id) === element) {
                 itemElementsById.delete(info.id);
             }
 
@@ -468,6 +472,7 @@
         }
 
         emit('reschedule', {id: drag.id, fromDate: drag.fromDate, toDate});
+        emit('dragEnd', {id: drag.id});
         dragState.value = null;
         cancelNavHoverTimer();
     }
@@ -480,6 +485,7 @@
         }
 
         emit('reschedule', {id: drag.id, fromDate: drag.fromDate, toDate});
+        emit('dragEnd', {id: drag.id});
         dragState.value = null;
         cancelNavHoverTimer();
     }
@@ -492,6 +498,7 @@
         }
 
         emit('reschedule', {id: drag.id, fromDate: drag.fromDate, toDate});
+        emit('dragEnd', {id: drag.id});
         dragState.value = null;
         cancelNavHoverTimer();
     }
@@ -553,6 +560,7 @@
 
         grabbedId.value = null;
         monthFocusedDate.value = null;
+        emit('keyboardCommit', {id});
         defaultKeyboardGrabAnnounce(translate('flux.releasedAnnounce'));
     }
 

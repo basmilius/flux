@@ -16,7 +16,6 @@ export const FluxItemControlInjectionKey: InjectionKey<FluxItemControlInjection>
 export const FluxMenuFlyoutInjectionKey: InjectionKey<FluxMenuFlyoutInjection> = Symbol();
 export const FluxMenuPersistentInjectionKey: InjectionKey<Readonly<Ref<boolean>>> = Symbol();
 export const FluxSegmentedControlInjectionKey: InjectionKey<FluxSegmentedControlInjection> = Symbol();
-export const FluxSplitViewInjectionKey: InjectionKey<FluxSplitViewInjection> = Symbol();
 export const FluxTabBarInjectionKey: InjectionKey<FluxTabBarInjection> = Symbol();
 export const FluxTableInjectionKey: InjectionKey<FluxTableInjection> = Symbol();
 export const FluxTooltipInjectionKey: InjectionKey<FluxTooltipInjection> = Symbol();
@@ -246,23 +245,6 @@ export type FluxFormCheckboxGroupInjection = {
 
     has(value: FluxFormCheckboxGroupValue): boolean;
     toggle(value: FluxFormCheckboxGroupValue): void;
-};
-
-export type FluxSplitViewPaneSpec = {
-    readonly id: number;
-    readonly defaultSize: Ref<number | string | undefined>;
-    readonly minSize: Ref<number>;
-    readonly maxSize: Ref<number | undefined>;
-    readonly isResizable: Ref<boolean>;
-};
-
-export type FluxSplitViewInjection = {
-    readonly direction: Ref<'horizontal' | 'vertical'>;
-    readonly panes: Ref<readonly FluxSplitViewPaneSpec[]>;
-
-    registerPane(spec: FluxSplitViewPaneSpec): void;
-    unregisterPane(id: number): void;
-    getPaneIndex(id: number): number;
 };
 
 export type FluxFormRadioGroupValue = string | number | boolean;

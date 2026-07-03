@@ -120,7 +120,9 @@
         labelId,
         errorId,
         hintId,
-        isGroup: as === 'group',
+        get isGroup() {
+            return isGroup.value;
+        },
         registerControl: () => controlCount++ === 0 ? id : `${id}-${controlCount - 1}`
     });
 </script>

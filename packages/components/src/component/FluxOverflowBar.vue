@@ -62,7 +62,6 @@
 
     const availableSize = ref(0);
     const itemSizes = ref<number[]>([]);
-    const usedSize = ref(0);
     const visibleItems = ref(0);
 
     const hiddenItems = computed(() => unref(items).slice(unref(visibleItems)));
@@ -114,7 +113,6 @@
             size = newSize;
         }
 
-        usedSize.value = size;
         visibleItems.value = visible;
     });
 
@@ -133,5 +131,5 @@
         });
     }, {immediate: true});
 
-    watch(items, reflow);
+    watch([items, () => gap, () => direction], reflow);
 </script>

@@ -3,7 +3,7 @@
         ref="list"
         role="list"
         :class="containerClass">
-        <slot v-if="hasSlot"/>
+        <slot v-if="slots.default"/>
         <FluxStatisticsLegendItem
             v-else
             v-for="(item, index) in autoItems"
@@ -48,7 +48,6 @@
     // geometrically. Focusing an item drives the same hover sync as the mouse.
     useFocusZone(listRef, {direction: 'bidirectional'});
 
-    const hasSlot = computed(() => !!slots.default);
     const autoItems = computed(() => legendContext?.items.value ?? []);
 
     const containerClass = computed(() => {

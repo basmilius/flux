@@ -13,6 +13,7 @@
                 <FluxSecondaryButton
                     :disabled="disabled"
                     :icon-leading="buttonIcon"
+                    :aria-label="translate('flux.moreActions')"
                     aria-haspopup="menu"
                     :aria-expanded="isOpen"
                     @click="open"/>
@@ -32,9 +33,12 @@
     setup>
     import type { FluxDirection, FluxIconName } from '@flux-ui/types';
     import type { VNode } from 'vue';
+    import { useTranslate } from '~flux/components/composable/private';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import $style from '~flux/components/css/component/Button.module.scss';
+
+    const translate = useTranslate();
 
     const {
         buttonIcon = 'ellipsis-h'

@@ -19,7 +19,7 @@
     lang="ts"
     setup>
     import { FluxMenu } from '@flux-ui/components';
-    import { defineComponent, h, provide, ref, toRef, type VNode } from 'vue';
+    import { computed, defineComponent, h, provide, toRef, type VNode } from 'vue';
     import { RouterView, viewDepthKey } from 'vue-router';
     import { useNamedRoutes } from '../routing';
     import $style from '~flux/application/css/component/ApplicationMenu.module.scss';
@@ -45,7 +45,7 @@
             }
         },
         setup(props): () => VNode {
-            provide(viewDepthKey, ref(props.depth));
+            provide(viewDepthKey, computed(() => props.depth));
 
             return () => h(RouterView, {name: props.viewName});
         }

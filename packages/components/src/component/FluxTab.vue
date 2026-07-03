@@ -1,7 +1,8 @@
 <template>
     <div
         :class="$style.tab"
-        role="tabpanel">
+        role="tabpanel"
+        tabindex="0">
         <slot/>
     </div>
 </template>

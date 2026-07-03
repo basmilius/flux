@@ -44,7 +44,9 @@
     const generatedName = useId();
 
     provide(FluxFormRadioGroupInjectionKey, {
-        name: name ?? generatedName,
+        get name() {
+            return name ?? generatedName;
+        },
         modelValue,
         disabled,
         isReadonly: toRef(() => isReadonly ?? false),

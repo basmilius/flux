@@ -23,10 +23,11 @@
         default(): any;
     }>();
 
+    const id = Symbol('FluxFaderItem');
     const fader = inject(FluxFaderInjectionKey, null);
-    const index = fader ? fader.register() : 0;
+    fader?.register(id);
 
-    const isCurrent = computed(() => !!fader && unref(fader.current) === index);
+    const isCurrent = computed(() => !!fader && unref(fader.current) === fader.getIndex(id));
 
-    onUnmounted(() => fader?.unregister());
+    onUnmounted(() => fader?.unregister(id));
 </script>

@@ -57,7 +57,7 @@
     });
 
     function onKeyDown(evt: KeyboardEvent): void {
-        if (!unref(hasValue) || evt.key !== 'Enter') {
+        if (!unref(hasValue) || evt.key !== 'Enter' || evt.isComposing) {
             return;
         }
 

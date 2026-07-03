@@ -7,8 +7,10 @@
             variant === 'simple' && $style.isSimple,
             variant === 'small' && $style.isSmall
         )"
-        role="presentation"
-        @click="onClick">
+        :role="isButton ? 'button' : 'presentation'"
+        :tabindex="isButton ? 0 : undefined"
+        @click="onClick"
+        @keydown="onKeyDown">
         <FluxIcon
             v-if="icon"
             :class="$style.placeholderIcon"
@@ -41,6 +43,7 @@
     }>();
 
     const {
+        isButton,
         variant = 'extended'
     } = defineProps<{
         readonly icon?: FluxIconName;
@@ -52,5 +55,14 @@
 
     function onClick(evt: MouseEvent): void {
         emit('click', evt);
+    }
+
+    function onKeyDown(evt: KeyboardEvent): void {
+        if (!isButton || (evt.key !== 'Enter' && evt.key !== ' ')) {
+            return;
+        }
+
+        evt.preventDefault();
+        (evt.currentTarget as HTMLElement).click();
     }
 </script>

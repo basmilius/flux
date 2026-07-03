@@ -13,13 +13,15 @@
         @click="onClick">
         <slot/>
 
-        <slot
-            v-if="isLoading"
-            name="loader">
-            <div :class="$style.paneLoader">
-                <FluxSpinner/>
-            </div>
-        </slot>
+        <FluxFadeTransition>
+            <slot
+                v-if="isLoading"
+                name="loader">
+                <div :class="$style.paneLoader">
+                    <FluxSpinner/>
+                </div>
+            </slot>
+        </FluxFadeTransition>
 
         <div
             v-if="tag"
@@ -35,6 +37,7 @@
     import type { FluxPressableType, FluxTo } from '@flux-ui/types';
     import { toRef, unref, type VNode } from 'vue';
     import { useDisabled } from '~flux/components/composable';
+    import { FluxFadeTransition } from '~flux/components/transition';
     import FluxPressable from './FluxPressable.vue';
     import FluxSpinner from './FluxSpinner.vue';
     import $style from '~flux/components/css/component/Pane.module.scss';
@@ -52,6 +55,7 @@
     const {
         disabled: componentDisabled,
         isLoading,
+        type = 'button',
         variant = 'default'
     } = defineProps<{
         readonly disabled?: boolean;

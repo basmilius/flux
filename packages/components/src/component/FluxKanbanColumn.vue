@@ -41,7 +41,7 @@
             <slot name="actions"/>
         </header>
 
-        <main
+        <div
             ref="body"
             :class="$style.kanbanColumnBody"
             @dragenter="onDragEnter"
@@ -64,7 +64,7 @@
                     dropIndicator !== null && !kanban.isDropAllowed.value && $style.isDisallowed
                 ]"
                 :style="dropIndicator !== null ? { transform: `translateY(${dropIndicator}px)` } : undefined"/>
-        </main>
+        </div>
 
         <footer
             v-if="hasFooter"

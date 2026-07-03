@@ -15,7 +15,7 @@
         :aria-valuenow="isIndeterminate ? undefined : ariaValueNow"
         :aria-valuemax="max"
         :aria-valuemin="min"
-        :aria-valuetext="status ? `${status}: ${progress}` : undefined">
+        :aria-valuetext="status ? (isIndeterminate ? status : `${status}: ${progress}`) : undefined">
         <div :class="isIndeterminate ? $style.progressBarTrackIndeterminate : $style.progressBarTrack">
             <div
                 :class="position >= 1 ? $style.progressBarValueComplete : $style.progressBarValueIncomplete"

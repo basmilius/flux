@@ -28,6 +28,7 @@
                     @pointerdown="onPointerDown"
                     @pointermove="onPointerMove"
                     @pointerup="onPointerUp"
+                    @pointercancel="onPointerCancel"
                     @keydown="onKeyDown">
                     <img
                         ref="image"
@@ -97,10 +98,14 @@
 
     onMounted(() => {
         window.addEventListener('pointerup', onPointerUp, {passive: true});
+        window.addEventListener('pointercancel', onPointerCancel, {passive: true});
         updateAspectRatio();
     });
 
-    onUnmounted(() => window.removeEventListener('pointerup', onPointerUp));
+    onUnmounted(() => {
+        window.removeEventListener('pointerup', onPointerUp);
+        window.removeEventListener('pointercancel', onPointerCancel);
+    });
 
     function updateAspectRatio(): void {
         const image = unref(imageRef);
@@ -154,6 +159,19 @@
         }
 
         modelValue.value = dragging.value!;
+        dragging.value = null;
+    }
+
+    // A cancelled drag (OS interruption, second touch point, context menu) never fires
+    // pointerup; discard the in-progress value so the editor keeps following the model.
+    function onPointerCancel(): void {
+        const editor = unref(editorRef);
+
+        if (pointerId.value !== null) {
+            editor?.releasePointerCapture?.(pointerId.value);
+            pointerId.value = null;
+        }
+
         dragging.value = null;
     }
 

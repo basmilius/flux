@@ -1,6 +1,8 @@
 <template>
     <FluxMenuItem
         :class="$style.applicationMenuToggle"
+        aria-label="Toggle menu"
+        :aria-expanded="!isMenuCollapsed"
         @click="isMenuCollapsed = !isMenuCollapsed">
         <template #before>
             <svg
