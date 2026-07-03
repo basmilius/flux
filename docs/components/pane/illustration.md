@@ -37,7 +37,7 @@ slots:
 
 # Pane illustration
 
-The pane illustration is used to place a visual illustration within a pane, often in feature or onboarding-style cards. Illustrations are created outside of Flux and brought into the pane to add personality
+The pane illustration places a visual illustration within a pane, often in feature or onboarding-style cards. Illustrations are created outside of Flux and brought into the pane to add personality.
 
 ::: render
 render=../../code/components/pane/illustration/preview.vue
@@ -45,7 +45,7 @@ render=../../code/components/pane/illustration/preview.vue
 
 <FrontmatterDocs/>
 
-## Examples 
+## Examples
 
 ::: example Basic || A basic pane illustration.
 example=../../code/components/pane/illustration/basic.vue

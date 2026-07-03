@@ -31,6 +31,10 @@ npm install @flux-ui/components
 
 :::
 
+::: tip Date and calendar components
+Components such as the [Date picker](../../../components/date-picker) and [Calendar](../../../components/calendar) rely on [luxon](https://moment.github.io/luxon/). Most package managers install it automatically as a peer dependency; add it explicitly with `bun add luxon` if yours does not.
+:::
+
 ### Step 2
 Once the installation is completed, you need to add the following to your `main.ts` file.
 
@@ -42,23 +46,29 @@ import '@flux-ui/components/style.css'
 For setting up icons, please refer to [Font Awesome](../font-awesome).
 
 ### Step 4
-Import the components you want to use, like this:
+Wrap your application in `<FluxRoot>` once, at the top level, and import the components you want to use:
 
 ```vue [App.vue]
 <template>
-    <FluxPane> <!-- [!code focus:5] -->
-        <FluxSecondaryButton
-            href="https://flux-ui.dev"
-            label="Button"/>
-    </FluxPane>
+    <FluxRoot> <!-- [!code focus:7] -->
+        <FluxPane>
+            <FluxSecondaryButton
+                href="https://flux-ui.dev"
+                label="Button"/>
+        </FluxPane>
+    </FluxRoot>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxSecondaryButton } from '@flux-ui/components'; // [!code focus]
+    import { FluxPane, FluxRoot, FluxSecondaryButton } from '@flux-ui/components'; // [!code focus]
 </script>
 ```
+
+::: tip FluxRoot
+`<FluxRoot>` gives programmatic overlays such as [`showAlert`](../../../components/attention/alert), [`showConfirm`](../../../components/attention/confirm) and [`showSnackbar`](../../../components/attention/snackbar) a mounting point. Add it once around your app.
+:::
 
 
 ## Vite-preset installation
@@ -119,20 +129,22 @@ For setting up icons, please refer to [Font Awesome](../font-awesome).
 
 ### Step 4
 
-Import the components you want to use, like this:
+Wrap your application in `<FluxRoot>` once, at the top level, and import the components you want to use:
 
 ```vue [App.vue]
 <template>
-    <FluxPane> <!-- [!code focus:5] -->
-        <FluxSecondaryButton
-            href="https://flux-ui.dev"
-            label="Button"/>
-    </FluxPane>
+    <FluxRoot> <!-- [!code focus:7] -->
+        <FluxPane>
+            <FluxSecondaryButton
+                href="https://flux-ui.dev"
+                label="Button"/>
+        </FluxPane>
+    </FluxRoot>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxSecondaryButton } from '@flux-ui/components'; // [!code focus]
+    import { FluxPane, FluxRoot, FluxSecondaryButton } from '@flux-ui/components'; // [!code focus]
 </script>
 ```

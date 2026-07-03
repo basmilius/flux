@@ -59,7 +59,7 @@ requiredIcons:
 
 # Persona
 
-The Persona component is a versatile Vue component that combines an avatar, name, and title to provide a complete representation of a user or other entity. With the ability to display an image, initials, or an icon, the avatar portion of the component is fully customizable and can be adapted to suit your specific needs. The name and title fields are also customizable and can be used to display any relevant information about the entity being represented.
+The persona combines an avatar with a name and title to represent a user or entity. The avatar can show an image, initials, or an icon.
 
 ::: render
 render=../code/components/persona/preview.vue

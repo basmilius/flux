@@ -14,6 +14,10 @@ emits:
         description: Triggered when the input receives focus.
         type: [ ]
 
+    -   name: show-picker
+        description: Triggered when the input's native picker is opened, for example on date or time inputs.
+        type: [ ]
+
 props:
     -   name: model-value
         description: The value of the input.
@@ -118,7 +122,7 @@ requiredIcons:
 
 # Input
 
-A form input is a text field that consists of a single line. It accepts various data types that can be specified using the type prop.
+The input is a single-line text field. It accepts various data types, set through the `type` prop.
 
 ::: render
 render=../../../code/components/form/input/preview.vue

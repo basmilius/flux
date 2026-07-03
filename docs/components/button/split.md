@@ -55,7 +55,7 @@ requiredIcons:
 
 # Split button
 
-Split buttons are buttons that have one primary action and multiple secondary actions. A common usecase for this component is a download button with more options for that download.
+The split button pairs one primary action with a menu of secondary actions. A common use case is a download button that offers additional download options.
 
 The more button carries `aria-haspopup="menu"` and reflects the flyout state through `aria-expanded`. Setting `disabled` disables the more button and prevents the flyout from opening.
 

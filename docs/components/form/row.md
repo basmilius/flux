@@ -8,7 +8,7 @@ slots:
 
 # Row
 
-The row places fields in a horizontal stack. It’s ideal for grouping related inputs side-by-side, such as first and last name fields. This layout keeps the form compact and visually aligned while maintaining a clear relationship between the fields.
+The row places fields in a horizontal stack. It's ideal for grouping related inputs side-by-side, such as first and last name fields. This layout keeps the form compact and visually aligned while maintaining a clear relationship between the fields.
 
 ::: render
 render=../../code/components/form/row/preview.vue

@@ -13,7 +13,7 @@ props:
 
 # Ticks
 
-The ticks component displays visual tick marks along a slider track to help users understand the scale and spacing of values. It generates both major and minor ticks based on the slider’s lower and upper bounds, placing them proportionally along the track.
+The ticks component displays visual tick marks along a slider track to help users understand the scale and spacing of values. It generates both major and minor ticks based on the slider's lower and upper bounds, placing them proportionally along the track.
 
 ::: render
 render=../code/components/ticks/preview.vue

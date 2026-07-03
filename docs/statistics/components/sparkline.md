@@ -4,7 +4,7 @@ outline: deep
 props:
     -   name: series
         description: The data series for the sparkline.
-        type: EChartsOption['series']
+        type: SparklineSeriesItem[]
 
     -   name: variant
         description: The visual style of the sparkline.

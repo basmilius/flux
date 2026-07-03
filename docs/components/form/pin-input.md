@@ -66,7 +66,7 @@ props:
 
 # PIN input
 
-A pin input displays a given number of boxes where the user can type a pin-like value. This can, for example, be a TOTP code generated in a authenticator app.
+The PIN input renders a fixed number of single-character boxes for entering a PIN-like value, such as a TOTP code from an authenticator app.
 
 ::: render
 render=../../code/components/form/pin-input/preview.vue

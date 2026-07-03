@@ -6,7 +6,7 @@
 
 Flux exposes its visual language as CSS custom properties. Use them to theme your application, build new components that fit in seamlessly, or override individual values for a single element. All tokens are defined on `:root` and adjust automatically when [Dark mode](./dark-mode) is active.
 
-For the colour palette tokens (`--gray-*`, `--primary-*`, `--danger-*`, `--info-*`, `--success-*`, `--warning-*`) see [Colors](./colors).
+For the color palette tokens (`--gray-*`, `--primary-*`, `--danger-*`, `--info-*`, `--success-*`, `--warning-*`) see [Colors](./colors).
 
 ## Surface
 
@@ -58,13 +58,13 @@ Semantic tokens for backgrounds, borders and disabled states. These are the toke
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell><kbd>--surface-stroke-out</kbd></FluxTableCell>
-            <FluxTableCell><code>rgb(from var(--gray-900) r g b / .1)</code></FluxTableCell>
-            <FluxTableCell><code>rgb(from var(--gray-900) r g b / .1)</code></FluxTableCell>
+            <FluxTableCell><code>rgb(from var(--gray-800) r g b / .1)</code></FluxTableCell>
+            <FluxTableCell><code>rgb(from var(--gray-800) r g b / .15)</code></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell><kbd>--surface-stroke-out-hover</kbd></FluxTableCell>
-            <FluxTableCell><code>rgb(from var(--gray-950) r g b / .1)</code></FluxTableCell>
-            <FluxTableCell><code>rgb(from var(--gray-950) r g b / .1)</code></FluxTableCell>
+            <FluxTableCell><code>rgb(from var(--gray-900) r g b / .15)</code></FluxTableCell>
+            <FluxTableCell><code>rgb(from var(--gray-900) r g b / .2)</code></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell><kbd>--surface-loader</kbd></FluxTableCell>

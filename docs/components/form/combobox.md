@@ -2,6 +2,15 @@
 outline: deep
 
 props:
+    -   name: model-value
+        description: The selected value(s) of the combobox.
+        type: FluxFormSelectValue
+
+    -   name: search-query
+        description: The current search query. Use `v-model:search-query` to control or observe the search input.
+        type: string
+        optional: true
+
     -   name: auto-focus
         description: Focus the combobox when the form is mounted.
         type: boolean
@@ -62,9 +71,13 @@ props:
         optional: true
 
 emits:
-    -   name: "update:modelValue"
+    -   name: update:model-value
         description: Triggered when the selection changes.
         type: [ FluxFormSelectValue ]
+
+    -   name: update:search-query
+        description: Triggered when the search query changes. Use `v-model:search-query` to control or observe the search input.
+        type: [ string ]
 
 requiredIcons:
     - angles-up-down

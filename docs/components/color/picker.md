@@ -6,11 +6,21 @@ emits:
         description: The updated selected color.
         type: [ "string | [number, number, number]" ]
 
+    -   name: update:alpha
+        description: The updated alpha value, from 0 to 1.
+        type: [ number ]
+
 props:
     -   name: model-value
         description: The selected color.
         type: [ "string", "[number, number, number]" ]
         optional: true
+
+    -   name: alpha
+        description: The alpha (opacity) value, from 0 to 1. Use `v-model:alpha` to control it, together with `is-alpha-enabled`.
+        type: number
+        optional: true
+        default: 1
 
     -   name: is-alpha-enabled
         description: Enables the alpha slider.
@@ -26,7 +36,7 @@ props:
 
 # Color picker
 
-This component allows users to select and adjust colors in various formats, including HEX, RGB, HSV, and HSL. It features a hue and saturation slider, an optional alpha slider for transparency control, and input fields for precise value adjustments.
+The color picker lets users select and adjust a color in HEX, RGB, HSV, or HSL. It offers a hue and saturation area, an optional alpha slider for transparency, and input fields for precise values.
 
 ::: render
 render=../../code/components/color-picker/preview.vue

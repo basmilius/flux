@@ -42,7 +42,7 @@ props:
 
 # Filter range
 
-This component provides an option select functionality, allowing users to select multiple options from a set of predefined options. It handles state updates automatically.
+The range filter constrains a data set to a numeric range with a pair of sliders, one for the lower bound and one for the upper. It writes the selected range to the filter state automatically.
 
 ::: render
 render=../../code/components/filter/range/preview.vue

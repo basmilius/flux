@@ -95,7 +95,7 @@ requiredIcons:
 
 # Tag
 
-Tags are used as labels for a more specific element in the UI. This, for example, may be used to display the status of an order.
+The tag is a label for a specific element in the UI, for example to show the status of an order.
 
 ::: render
 render=../code/components/tag/preview.vue

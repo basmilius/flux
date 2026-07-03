@@ -49,9 +49,9 @@ props:
         type: string
 
     -   name: type
-        description: The type of button.
+        description: The pressable type of the badge. Defaults to a non-interactive label.
         type: [ '"button"', '"link"', '"route"', '"none"' ]
-        default: button
+        default: none
         optional: true
 
     -   name: tabindex
@@ -85,7 +85,7 @@ requiredIcons:
 
 # Badge
 
-The Badge component serves as a label for specific elements in the UI. It can be used, for example, to display the status of an order or highlight important information.
+The badge is a label for elements in the UI. Use it, for example, to show the status of an order or highlight important information.
 
 ::: render
 render=../code/components/badge/preview.vue

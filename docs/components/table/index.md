@@ -55,7 +55,7 @@ slots:
 
 # Table
 
-Tables are a popular and effective way to display information in a clear and concise manner. They offer a structured way to present data, making it easy for users to scan through and locate the information they need. By using rows and columns to organize information, tables provide a systematic approach to displaying data that can help users identify patterns and insights.
+The table presents data in rows and columns, giving users a structured way to scan and compare information. It is the low-level building block behind the [Data table](../data-table) and can be composed by hand for full control over headers, cells, groups and rows.
 
 ::: render
 render=../../code/components/table/preview.vue

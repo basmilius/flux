@@ -87,7 +87,7 @@ requiredIcons:
 
 # Snackbar
 
-Snackbars are used to notify the user about tasks that have been or will be performed by the system. They can also include actions that the user can select.
+The snackbar notifies the user about a task the system has performed or will perform. It can also include actions the user can select.
 
 ::: render
 render=../../code/components/attention/snackbar/preview.vue

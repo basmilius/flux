@@ -1,6 +1,6 @@
 # Colors
 
-Flux offers a versatile color palette that includes six essential colors: **gray**, **primary**, **danger**, **info**, **success**, and **warning**. Each color is available in 12 different shades, from 0 to 11, allowing for detailed and nuanced design choices in your projects.
+Flux ships a color palette of six colors: **gray**, **primary**, **danger**, **info**, **success**, and **warning**. Each color is available in 12 shades, from 25 to 950, so you can make fine-grained design choices.
 
 ## Gray
 

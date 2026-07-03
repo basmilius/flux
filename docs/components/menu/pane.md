@@ -10,7 +10,7 @@ slots:
 
 A container that lets you drop a full interactive component (a [Color picker](../color/picker), a slider or a small form) into a [Menu](./), a [Menu flyout](./flyout) submenu or a [Context menu](../context-menu).
 
-A plain [Menu](./) runs a roving focus zone: arrow keys move between its items and only one item sits in the tab order at a time. Wrapping custom content in a Menu pane opts that subtree out of the focus zone, so the embedded component keeps its own keyboard behaviour. Arrow keys drive its sliders and steppers and `Tab` reaches every control. Arrow navigation across the surrounding menu items simply skips over the pane; reach it with `Tab`.
+A plain [Menu](./) runs a roving focus zone: arrow keys move between its items and only one item sits in the tab order at a time. Wrapping custom content in a Menu pane opts that subtree out of the focus zone, so the embedded component keeps its own keyboard behavior. Arrow keys drive its sliders and steppers and `Tab` reaches every control. Arrow navigation across the surrounding menu items simply skips over the pane; reach it with `Tab`.
 
 Clicking inside a pane never closes the menu, so the embedded component stays usable while the menu is open.
 

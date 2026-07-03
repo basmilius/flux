@@ -9,7 +9,7 @@ import { english } from '../../../packages/components/src/data/i18n';
 
 # Translations
 
-Flux uses a bunch of strings in its library, and the cool part is that they can be easily translated when you use them. To make this translation process smoother, Flux works seamlessly with [vue-i18n](https://vue-i18n.intlify.dev/){target="_blank"}, allowing you to use its translate function. This integration makes the Flux library even easier and more flexible to work with.
+Flux uses a set of built-in strings throughout its components, all of which can be translated. Flux integrates with [vue-i18n](https://vue-i18n.intlify.dev/){target="_blank"} and uses its translate function, so you can localize these strings alongside the rest of your application.
 
 ## Strings
 

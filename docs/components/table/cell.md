@@ -43,7 +43,7 @@ slots:
 
 # Table cell
 
-The table cell represents a single cell within the table. It holds individual pieces of data, ensuring information is displayed clearly and consistently across the table’s layout.
+The table cell represents a single cell within the table. It holds individual pieces of data, ensuring information is displayed clearly and consistently across the table's layout.
 
 ::: render
 render=../../code/components/table/cell/preview.vue

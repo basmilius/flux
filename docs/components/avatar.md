@@ -67,9 +67,9 @@ props:
         optional: true
         
     -   name: type
-        description: The type of button.
+        description: The pressable type of the avatar. Defaults to a non-interactive image.
         type: [ '"button"', '"link"', '"route"', '"none"' ]
-        default: button
+        default: none
         optional: true
 
     -   name: href
@@ -95,7 +95,7 @@ props:
 
 # Avatar
 
-The Avatar component is a versatile UI element designed to display an image, initials, or an icon. It accepts various props to dynamically render the appropriate content based on the provided input. This component is perfect for representing users or any entities that require a visual identifier.
+The avatar displays an image, initials, or an icon to represent a user or entity. It renders the appropriate content based on the props you provide.
 
 ::: render
 render=../code/components/avatar/preview.vue

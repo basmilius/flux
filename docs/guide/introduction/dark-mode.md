@@ -1,5 +1,6 @@
 # Dark mode
-Color plays a vital role in shaping the look and feel of any interface, and in Flux, we recognize the importance of providing a flexible and accessible color system that adapts to different environments. That’s why Flux includes full support for both light and dark mode, ensuring your application looks great no matter the user’s preference.
+
+Flux includes full support for both light and dark mode, with a color system that adapts to each. Toggle dark mode by setting the `dark` attribute on the document element, as shown below.
 
 ## Functional API
 

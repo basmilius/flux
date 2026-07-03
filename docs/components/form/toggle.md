@@ -44,7 +44,7 @@ props:
 
 # Toggle
 
-A toggle component is a type of user interface element that allows the user to switch between two states, such as "on" and "off." It is often represented as a switch or button that can be flipped to change the state. Toggles are commonly used in settings menus or options pages, allowing users to enable or disable specific features or settings. They provide a simple and intuitive way for users to interact with the interface and control the behavior of the application.
+The toggle switches between two states, on and off. Use it in settings and option panels to enable or disable a feature.
 
 ::: render
 render=../../code/components/form/toggle/preview.vue

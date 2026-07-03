@@ -32,7 +32,7 @@ requiredIcons:
 
 # Filter
 
-This component enables the creation of nested filter menus with support for state management, navigation, and optional reset functionality. It uses height transitions for smooth visual changes and dynamically organizes filter content based on provided slots, making it adaptable to varying needs.
+The filter builds nested filter menus with state management, navigation, and optional reset support. It organizes its content from the slots you provide and animates height changes as users move between views.
 
 ::: render
 render=../../code/components/filter/preview.vue

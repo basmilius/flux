@@ -39,7 +39,7 @@ requiredIcons:
 
 # Filter option (async)
 
-This component provides an option select functionality, allowing users to select a single option from a set of options fetched remotely. It handles state updates automatically.
+The async option filter lets users pick a single option from a set that is fetched on demand. It writes the selection to the filter state automatically.
 
 ::: render
 render=../../code/components/filter/async-option/preview.vue

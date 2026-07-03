@@ -21,6 +21,7 @@ props:
         description: The size of the segmented control.
         type: FluxSize
         optional: true
+        default: medium
 
 slots:
     -   name: default
@@ -29,7 +30,7 @@ slots:
 
 # Segmented control
 
-This component is a UI element that allows users to choose between multiple options by selecting one of the multiple segments. Each segment is represented as a [Segmented control item](./item) with a distinct label and/or icon, and the currently selected segment is visually indicated by a highlighted background. It is commonly used in navigation, forms, or settings, providing a compact and intuitive way for users to make a choice.
+The segmented control lets users choose one option from a small set of segments. Each segment is a [Segmented control item](./item) with a label and/or icon, and the selected segment is highlighted. Use it in navigation, forms, or settings where a compact choice fits.
 
 The selected segment is bound through `v-model` and reflects the `value` of the active [Segmented control item](./item).
 

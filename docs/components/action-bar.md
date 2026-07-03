@@ -54,7 +54,7 @@ requiredIcons:
 
 # Action bar
 
-Action bars are toolbars commonly used alongside data tables. They can display a primary action, a search bar, and a filter button. Filters are typically displayed within a flyout containing a window.
+The action bar is a toolbar commonly used alongside data tables. It can display a primary action, a search bar, and a filter button, with the filters shown in a flyout.
 
 ::: render
 render=../code/components/action-bar/preview.vue

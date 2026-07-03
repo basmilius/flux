@@ -2,6 +2,10 @@
 outline: deep
 
 emits:
+    -   name: update:model-value
+        description: Triggered when the edited value changes.
+        type: [ string ]
+
     -   name: cancel
         description: Triggered when editing is cancelled.
         type: []
@@ -15,6 +19,10 @@ emits:
         type: [ string ]
 
 props:
+    -   name: model-value
+        description: The value being edited.
+        type: string
+
     -   name: disabled
         description: Whether editing is disabled.
         type: boolean
@@ -60,7 +68,7 @@ requiredIcons:
 
 # Inline edit
 
-The Inline edit component displays a value that turns into an input when clicked, letting users edit it in place. It is well suited for editable fields in detail panels and tables. Editing commits on Enter (or ⌘/Ctrl + Enter in multi-line mode) and reverts on Escape.
+The inline edit displays a value that turns into an input when clicked, letting users edit it in place. It is well suited for editable fields in detail panels and tables. Editing commits on Enter (or ⌘/Ctrl + Enter in multi-line mode) and reverts on Escape.
 
 Cancelling (through Escape or the cancel control) takes precedence over `save-on-blur`, so the draft is never persisted when the user explicitly cancels, even though leaving the field moves focus. After editing closes, focus stays within the component rather than dropping to the document body.
 

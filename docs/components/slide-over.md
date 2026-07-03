@@ -23,7 +23,7 @@ slots:
 
 # Slide over
 
-A slide over is a modal-like interface that slides in from the side of the view to display additional content or options. It typically allows users to easily access important information without disrupting their current workflow. Slide overs are mostly used to reveal opions for an entity.
+The slide over is a modal-like surface that slides in from the edge of the view to show additional content without disrupting the current workflow. It is often used to reveal the details or options for an entity.
 
 ::: render
 render=../code/components/slide-over/preview.vue

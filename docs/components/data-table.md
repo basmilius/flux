@@ -184,9 +184,7 @@ requiredIcons:
 
 # Data table
 
-Data tables are a powerful tool for organizing and presenting large sets of data in a structured and easy-to-read format. Like traditional tables, data tables use rows and columns to organize data, but they also offer additional functionality and features that are specifically designed for working with large datasets.
-
-One of the key benefits of using data tables is their ability to handle large amounts of data, making them an ideal choice for applications that require data visualization and analysis. Data tables often include advanced sorting and filtering capabilities, allowing users to quickly search and analyze data based on specific criteria.
+The data table organizes large sets of data into rows and columns, layering sorting, filtering, pagination, selection, grouping and expandable rows on top of a plain [Table](./table). It is built for server-driven data, so you feed it one page of rows at a time.
 
 ::: render
 render=../code/components/data-table/preview.vue

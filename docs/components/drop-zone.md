@@ -58,7 +58,7 @@ slots:
 
 # Drop zone
 
-Allows files to be dropped on the contents of the drop zone. This is mainly used in ui elements that allow users to upload files. It can be used in combination with FluxGallery for example.
+The drop zone lets users drop files onto its contents, typically for file uploads. It can be combined with other components, such as the [Gallery](./gallery), to build richer upload experiences.
 
 ::: render
 render=../code/components/drop-zone/preview.vue

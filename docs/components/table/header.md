@@ -80,7 +80,7 @@ requiredIcons:
 
 # Table header
 
-The table header defines the label for a column within the table. It helps users understand the meaning of the data below it and provides structure and clarity to the table’s content.
+The table header defines the label for a column within the table. It helps users understand the meaning of the data below it and provides structure and clarity to the table's content.
 
 ::: render
 render=../../code/components/table/header/preview.vue

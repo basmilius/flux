@@ -19,9 +19,9 @@ slots:
 
 # Menu
 
-This component serves as the base structure for creating menus. It displays its child elements vertically, making it perfect for side navigations or flyout menus. It offers basic accessibility features to ensure better user interaction.
+The menu is the base structure for building menus. It stacks its child elements vertically, which suits side navigations and flyout menus, and provides basic accessibility features.
 
-It allows you to easily insert custom content and handles keyboard navigation to enhance functionality. With this component, you can build structured and flexible navigation menus without much hassle.
+Insert custom content freely; the menu handles keyboard navigation for you.
 
 ::: render
 render=../../code/components/menu/container/preview.vue

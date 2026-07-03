@@ -21,9 +21,9 @@ declare function useTableInjection(): {
 };
 ```
 
-- `pinnedEdges` — the column index of the last start-pinned column and the first end-pinned column (`-1` when there is none). Used to render the scroll shadow on the outermost pinned column.
-- `pinnedOffsets` — the sticky offset in pixels for each pinned column, keyed by column index.
-- `registerColumn` — registers a column definition (sizing and pinning) for the table's `grid-template-columns`. Returns an unregister function.
+- `pinnedEdges`: the column index of the last start-pinned column and the first end-pinned column (`-1` when there is none). Used to render the scroll shadow on the outermost pinned column.
+- `pinnedOffsets`: the sticky offset in pixels for each pinned column, keyed by column index.
+- `registerColumn`: registers a column definition (sizing and pinning) for the table's `grid-template-columns`. Returns an unregister function.
 
 ## Used by
 

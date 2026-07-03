@@ -28,7 +28,7 @@ props:
 
 # Filter date
 
-This component provides a date-filtering functionality, allowing users to select a single date while ensuring compatibility with defined minimum and maximum constraints. It handles state updates automatically.
+The date filter lets users pick a single date, honoring the configured minimum and maximum. It writes the selection to the filter state automatically.
 
 ::: render
 render=../../code/components/filter/date/preview.vue

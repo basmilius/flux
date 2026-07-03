@@ -42,7 +42,7 @@ slots:
 
 # Fader
 
-Faders are used to fade between multiple items using a particular interval. They can be used in headers to fade between multiple image slides.
+The fader fades between multiple items on a set interval, for example to cycle through image slides in a header.
 
 ::: render
 render=../code/components/fader/preview.vue

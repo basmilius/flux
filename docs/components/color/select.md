@@ -34,7 +34,7 @@ requiredIcons:
 
 # Color select
 
-This component allows users to select a color from a predefined set or choose a custom color using a color picker. It includes visual indications for selected and unselected colors, and supports additional actions in a flyout pane for advanced color selection.
+The color select lets users pick a color from a predefined set, or choose a custom color with the [Color picker](./picker) when `is-custom-allowed` is set.
 
 ::: render
 render=../../code/components/color-select/preview.vue
@@ -58,7 +58,7 @@ example=../../code/components/color-select/custom.vue
     - [Primary](../button/primary)
     - [Secondary](../button/secondary)
 - Color
-    - [Color picker](../color/picker.md)
+    - [Color picker](./picker)
 - [Flyout](../flyout)
 - [Icon](../icon)
 - [Pane](../pane)

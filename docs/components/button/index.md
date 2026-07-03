@@ -4,7 +4,7 @@ outline: deep
 
 # Buttons
 
-Buttons are clickable elements designed to trigger actions. They can start new processes, modify existing ones, or perform specific tasks. When designing your interface, ensure primary buttons are prominently placed and clearly indicate their purpose to make them easy to find and use.
+The button is a clickable element that triggers an action, such as starting a new process, modifying an existing one, or performing a specific task. Place primary buttons prominently and label them clearly so they are easy to find and use.
 
 ## Available buttons
 

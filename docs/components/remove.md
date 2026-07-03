@@ -24,7 +24,7 @@ requiredIcons:
 
 # Remove
 
-The remove component is a simple and intuitive Vue component that allows users to easily remove other components within a larger system. With a single button and a clear "X" icon, users can quickly and easily remove components with a single click.
+The remove component renders a small button with an X icon to remove an item from a larger set with a single click.
 
 ::: render
 render=../code/components/remove/preview.vue

@@ -6,10 +6,19 @@ emits:
         description: Triggered when the value is changed.
         type: [ FluxFormSelectValue ]
 
+    -   name: update:search-query
+        description: Triggered when the search query changes. Use `v-model:search-query` to control or observe the search input.
+        type: [ string ]
+
 props:
     -   name: model-value
         description: The selected value(s) of the select element.
         type: FluxFormSelectValue
+
+    -   name: search-query
+        description: The current search query. Use `v-model:search-query` to control or observe the search input.
+        type: string
+        optional: true
 
     -   name: auto-focus
         description: Focus the select when the form is mounted.
@@ -68,8 +77,8 @@ props:
         optional: true
 
     -   name: options
-        description: The options to display in the select element.
-        type: FluxFormSelectOption[]
+        description: The options to display in the select element. Options can be grouped.
+        type: FluxFormSelectEntry[]
 
 requiredIcons:
     - angles-up-down
@@ -79,7 +88,7 @@ requiredIcons:
 
 # Select
 
-This is a form select element that allows the user to choose from a list of options. It is similar to a drop-down menu, but with more advanced functionality. The select element can be configured to allow for the selection of multiple values, which is useful when the user needs to select more than one option. It's a great option for forms that require multiple selections, such as when a user needs to choose multiple interests, hobbies, or preferences.
+The select lets users choose one or more options from a list. Enable `is-searchable` to filter long lists and `is-multiple` to allow several values at once. Options can be grouped.
 
 ::: render
 render=../../../code/components/form/select/preview.vue

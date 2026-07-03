@@ -28,7 +28,7 @@ render=../../code/components/menu/group/preview.vue
 example=../../code/components/menu/group/vertical.vue
 :::
 
-::: example Horizontal || Horizontal groups are perfect for menu items that together form a single state, such as the alignment of text.
+::: example Horizontal || Horizontal groups suit menu items that together form a single state, such as text alignment.
 example=../../code/components/menu/group/horizontal.vue
 :::
 

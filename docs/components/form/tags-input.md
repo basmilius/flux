@@ -2,6 +2,14 @@
 outline: deep
 
 emits:
+    -   name: update:model-value
+        description: Triggered when the list of tags changes.
+        type: [ 'string[]' ]
+
+    -   name: update:search-query
+        description: Triggered when the input text changes. Use `v-model:search-query` to control or observe it.
+        type: [ string ]
+
     -   name: add
         description: Triggered when a tag is added, with the tag value.
         type: [ string ]
@@ -11,6 +19,15 @@ emits:
         type: [ string ]
 
 props:
+    -   name: model-value
+        description: The list of tags.
+        type: string[]
+
+    -   name: search-query
+        description: The current input text. Use `v-model:search-query` to control or observe it.
+        type: string
+        optional: true
+
     -   name: allow-duplicates
         description: Whether duplicate tags are allowed.
         type: boolean
@@ -60,7 +77,7 @@ props:
 
 # Tags input
 
-The Tags input component lets users build a list of tags by typing and committing each value, for example to assign keywords or labels. Values are committed on Enter or a comma (configurable), pasted text is split into multiple tags, and Backspace on an empty input removes the last tag. When `suggestions` are provided, a filtered dropdown is shown while typing.
+The tags input lets users build a list of tags by typing and committing each value, for example to assign keywords or labels. Values are committed on Enter or a comma (configurable), pasted text is split into multiple tags, and Backspace on an empty input removes the last tag. When `suggestions` are provided, a filtered dropdown is shown while typing.
 
 ::: info
 Picking a suggestion stores its `value` (as a string) when one is set, falling back to the `label` otherwise. This keeps the bound `v-model` made up of stable identifiers rather than display text. The input is exposed as a `role="combobox"` and links the highlighted suggestion through `aria-activedescendant`.

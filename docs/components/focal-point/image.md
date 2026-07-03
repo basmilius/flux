@@ -19,7 +19,7 @@ props:
 
 # Focal point image
 
-This component allows users to interact with an image by setting a focal point and viewing the result. It provides an editing mode to adjust the focal point's position and a preview mode to reflect the changes visually.
+The focal point image renders an image positioned around a given focal point, so the most important part stays visible when the image is cropped to its container.
 
 ::: render
 render=../../code/components/focal-point/image/preview.vue

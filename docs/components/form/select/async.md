@@ -6,10 +6,19 @@ emits:
         description: Triggered when the value is changed.
         type: [ FluxFormSelectValue ]
 
+    -   name: update:search-query
+        description: Triggered when the search query changes. Use `v-model:search-query` to control or observe the search input.
+        type: [ string ]
+
 props:
     -   name: model-value
         description: The selected value(s) of the select element.
         type: FluxFormSelectValue
+
+    -   name: search-query
+        description: The current search query. Use `v-model:search-query` to control or observe the search input.
+        type: string
+        optional: true
 
     -   name: auto-focus
         description: Focus the select when the form is mounted.
@@ -82,7 +91,7 @@ requiredIcons:
 
 # Select async
 
-This is a dynamic form select element that retrieves options dynamically, allowing the user to choose from a list of selections. It resembles a drop-down menu but offers enhanced functionality. The select element can be tailored to permit the selection of multiple values, making it convenient for users who need to choose more than one option. It's particularly beneficial for forms requiring multiple selections, such as selecting multiple interests, hobbies, or preferences.
+The async select fetches its options on demand instead of receiving them up front. Provide `fetch-relevant`, `fetch-search` and `fetch-options` to load the initial set, respond to the search query, and resolve selected values by their id. Enable `is-multiple` to allow several values at once.
 
 ::: render
 render=../../../code/components/form/select/async/preview.vue

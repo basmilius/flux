@@ -6,7 +6,7 @@ titleTemplate: ":title"
 
 hero:
     name: "Flux"
-    text: "An opiniated component library"
+    text: "An opinionated component library"
     tagline: "Created for Vue 3"
     actions:
         -   theme: brand

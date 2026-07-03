@@ -12,7 +12,7 @@ emits:
 
 props:
     -   name: debug-cone
-        description: Visualises the submenu prediction cone for debugging. Draws the safe triangle and the pointer.
+        description: Visualizes the submenu prediction cone for debugging. Draws the safe triangle and the pointer.
         type: boolean
         optional: true
 
@@ -49,7 +49,7 @@ slots:
 
 The Context menu component opens a menu at the cursor when the user right-clicks its content. It is positioned at the pointer, traps focus while open, supports arrow-key navigation through the menu, and closes on Escape, scroll, or an outside click.
 
-Nest a [Menu flyout](./menu/flyout) inside the menu to add submenus. A prediction cone keeps a submenu open while the pointer moves diagonally towards it, and back out to its opener, even when the cursor briefly crosses another item. Set `debug-cone` to visualise that cone.
+Nest a [Menu flyout](./menu/flyout) inside the menu to add submenus. A prediction cone keeps a submenu open while the pointer moves diagonally towards it, and back out to its opener, even when the cursor briefly crosses another item. Set `debug-cone` to visualize that cone.
 
 ::: render
 render=../code/components/context-menu/preview.vue

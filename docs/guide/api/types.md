@@ -26,7 +26,7 @@ Used by layout components such as [Overflow bar](../../components/overflow-bar) 
 type FluxColor = 'gray' | 'primary' | 'danger' | 'info' | 'success' | 'warning';
 ```
 
-The six semantic colours that drive everything from [Badge](../../components/badge) and [Notice](../../components/attention/notice) to [Avatar](../../components/avatar) status dots.
+The six semantic colors that drive everything from [Badge](../../components/badge) and [Notice](../../components/attention/notice) to [Avatar](../../components/avatar) status dots.
 
 ### `FluxDirection`
 

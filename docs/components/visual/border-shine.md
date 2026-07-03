@@ -53,6 +53,6 @@ render=../../code/components/visual/border-shine/preview.vue
 example=../../code/components/visual/border-shine/button.vue
 :::
 
-::: example Pane || Use it on panes to apply a vibrant shine, perfect for highlighting prominent features.
+::: example Pane || Use it on panes to apply a shine that highlights prominent features.
 example=../../code/components/visual/border-shine/pane.vue
 :::

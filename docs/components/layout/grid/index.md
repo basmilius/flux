@@ -27,7 +27,7 @@ slots:
 
 # Grid
 
-Our grid component is a powerful tool for creating responsive layouts that adapt to any screen size. With 12 equal-width columns, it provides maximum flexibility for building complex page designs. You can combine and rearrange the columns to create custom layouts that suit your specific needs.
+The grid creates responsive layouts that adapt to any screen size. Its equal-width columns can be combined and rearranged to build complex page designs.
 
 ::: render
 render=../../../code/components/layout/grid/preview.vue

@@ -8,7 +8,7 @@ slots:
 
 # Column
 
-The column arranges fields in a vertical stack. It’s useful when you want inputs to appear one above the other in a clear, linear flow. This layout helps guide the user downward through the form, making it easy to read and complete each field step-by-step.
+The column arranges fields in a vertical stack. It's useful when you want inputs to appear one above the other in a clear, linear flow. This layout helps guide the user downward through the form, making it easy to read and complete each field step-by-step.
 
 ::: render
 render=../../code/components/form/column/preview.vue

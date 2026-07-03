@@ -79,7 +79,7 @@ props:
 
 # Range slider
 
-A range slider is a user interface component that allows users to select two values within a predefined range. It is similar to a single-value slider, but instead of selecting a single value, a range slider allows the user to select a range of values between two endpoints. The two endpoints of the slider represent the minimum and maximum values of the range, and the user can adjust the position of each endpoint to select the desired range.
+The range slider lets users select a range of values between a lower and an upper bound. It works like the [Slider](../slider/), but with two thumbs, one for each end of the range.
 
 ::: render
 render=../../../code/components/form/slider/ranged/preview.vue

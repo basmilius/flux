@@ -36,7 +36,7 @@ requiredIcons:
 
 # Filter option
 
-This component provides an option select functionality, allowing users to select a single option from a set of predefined options. It handles state updates automatically.
+The option filter lets users pick a single option from a predefined set. It writes the selection to the filter state automatically.
 
 ::: render
 render=../../code/components/filter/option/preview.vue

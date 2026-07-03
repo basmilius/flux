@@ -38,7 +38,7 @@ props:
 
 # Progress bar
 
-A progress bar serves as a visual indicator that communicates the ongoing status and advancement of a task, particularly those that require a significant amount of time to complete. It functions by providing a graphical representation of the task's progress, offering users a clear insight into both the current activity and the overall completion status.
+The progress bar is a visual indicator of a task's status and completion, useful for operations that take a noticeable amount of time.
 
 ::: render
 render=../code/components/progress-bar/preview.vue

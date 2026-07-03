@@ -64,7 +64,7 @@ requiredIcons:
 
 # Time zone picker
 
-This is a time zone select component designed to help users easily choose their preferred time zone from a comprehensive list of options. Users can efficiently set their time zone, ensuring that date and time-related information is accurate and synchronized with their location, making it ideal for platforms where precise time tracking and coordination are essential, such as global event scheduling, travel booking, or remote team collaboration.
+The time zone picker lets users choose a time zone from a comprehensive list, so date and time information stays accurate for their location.
 
 ::: render
 render=../../code/components/form/time-zone-picker/preview.vue

@@ -14,7 +14,7 @@ props:
 
 # Form
 
-When it comes to designing forms on a website, the layout is just as important as the individual form components themselves. The way that input fields, dropdown menus, checkboxes, and other form elements are arranged can impact how easily users can navigate and complete the form. That's why it's important to have a set of components specifically designed for form layout.
+Form layout components arrange inputs, selects, checkboxes and other controls into a clear, consistent structure, making forms easier to scan and complete.
 
 ::: render
 render=../../code/components/form/preview.vue

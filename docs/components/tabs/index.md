@@ -41,7 +41,7 @@ slots:
 
 # Tabs
 
-Tabs are a user interface element used for organizing and navigating content within an application. It consists of clickable tabs that correspond to different content areas, and a content area that displays relevant content based on the selected tab.
+The tabs component organizes content into separate views, showing one at a time. Each tab switches to its matching content area, keeping related content grouped without crowding the interface.
 
 ::: render
 render=../../code/components/tabs/preview.vue

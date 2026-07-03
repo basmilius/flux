@@ -37,7 +37,7 @@ slots:
 
 # Stepper
 
-Steppers serve as a user-friendly navigation tool, expertly guiding individuals through a process via clearly marked numbered steps, fostering a seamless and intuitive progression.
+The stepper guides users through a process in clearly numbered steps, showing where they are and what remains.
 
 ::: render
 render=../../code/components/stepper/preview.vue

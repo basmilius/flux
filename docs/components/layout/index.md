@@ -4,8 +4,6 @@ outline: deep
 
 # Layout
 
-These components are designed to simplify the process of organizing and aligning content in a clear and structured way. They support creating responsive and adaptable layouts, ensuring consistency across various screen sizes and content types.
-
-With a focus on flexibility and balance, they enable seamless arrangement of elements, making it easy to build user interfaces that are both functional and visually cohesive.
+The layout components organize and align content in a clear, structured way. Use them to build responsive layouts that stay consistent across screen sizes and content types.
 
 <ComponentGridIndex category="Layout"/>

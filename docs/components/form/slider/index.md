@@ -36,6 +36,11 @@ props:
         type: string
         optional: true
 
+    -   name: aria-label
+        description: An accessible label for the slider, announced by assistive technology.
+        type: string
+        optional: true
+
     -   name: is-ticks-visible
         description: If the ticks are visible.
         type: boolean
@@ -73,7 +78,7 @@ props:
 
 # Slider
 
-Sliders are a type of user interface component that allows users to select a single value from a specific range. They are widely used in various digital applications such as mobile apps, web applications, and desktop software. The main advantage of using a slider component is its ability to allow users to easily and quickly choose a desired value within a predefined range, without the need for any manual input.
+The slider lets users pick a single value from a range by dragging a thumb. Set `min`, `max` and `step` to define the range, and provide a `formatter` to control how the value is displayed.
 
 ::: render
 render=../../../code/components/form/slider/preview.vue

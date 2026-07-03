@@ -18,7 +18,7 @@ props:
 
 # Focal point editor
 
-This component allows users to interact with an image by setting a focal point and viewing the result. It provides an editing mode to adjust the focal point's position and a preview mode to reflect the changes visually.
+The focal point editor lets users set the focal point of an image by dragging or using the keyboard, with a live preview of the result. The chosen point is exposed through `v-model`.
 
 ::: render
 render=../../code/components/focal-point/editor/preview.vue

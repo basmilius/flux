@@ -31,7 +31,3 @@ type UseScrollPositionReturn = {
     readonly y: Ref<number>;
 };
 ```
-
-## Used by
-
-- [Dashboard](../../dashboard/components/dashboard)
