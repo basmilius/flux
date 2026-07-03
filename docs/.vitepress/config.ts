@@ -160,40 +160,7 @@ export default defineConfig({
                     ]
                 }
             ],
-            '/components/transitions/': [
-                componentNavigation,
-                {
-                    text: 'Transitions',
-                    collapsed: false,
-                    items: [
-                        {text: 'Breakthrough', link: '/components/transitions/breakthrough'},
-                        {text: 'Fade', link: '/components/transitions/fade'},
-                        {text: 'Overlay', link: '/components/transitions/overlay'},
-                        {text: 'Route', link: '/components/transitions/route'},
-                        {text: 'Slide over', link: '/components/transitions/slide-over'},
-                        {text: 'Tooltip', link: '/components/transitions/tooltip'},
-                        {text: 'Vertical window', link: '/components/transitions/vertical-window'},
-                        {text: 'Window', link: '/components/transitions/window'}
-                    ]
-                }
-            ],
-            '/components/': [
-                componentNavigation,
-                {
-                    text: 'Transitions',
-                    collapsed: true,
-                    items: [
-                        {text: 'Breakthrough', link: '/components/transitions/breakthrough'},
-                        {text: 'Fade', link: '/components/transitions/fade'},
-                        {text: 'Overlay', link: '/components/transitions/overlay'},
-                        {text: 'Route', link: '/components/transitions/route'},
-                        {text: 'Slide over', link: '/components/transitions/slide-over'},
-                        {text: 'Tooltip', link: '/components/transitions/tooltip'},
-                        {text: 'Vertical window', link: '/components/transitions/vertical-window'},
-                        {text: 'Window', link: '/components/transitions/window'}
-                    ]
-                }
-            ],
+            '/components/': componentNavigation,
             '/application/': [
                 {
                     text: 'Introduction',

@@ -14,30 +14,41 @@
     import { computed } from 'vue';
     import ComponentGrid from './ComponentGrid.vue';
     import ComponentGridItem from './ComponentGridItem.vue';
-    import navigation from '../component-navigation';
+    import navigation, { type SidebarItem } from '../component-navigation';
+
+    type Card = {
+        readonly text: string;
+        readonly link?: string;
+        readonly image?: string;
+    };
 
     const {category} = defineProps<{
         readonly category?: string;
     }>();
 
-    const components = computed(() => navigation.items
-        .reduce((acc, curr) => {
-            if (curr.items) {
-                if ('image' in curr && (!category || curr.text === category)) {
-                    acc.push(curr);
+    function collect(items: SidebarItem[], matched: boolean, parent?: SidebarItem): Card[] {
+        const cards: Card[] = [];
+
+        for (const item of items) {
+            const isMatch = matched || item.text === category;
+
+            if (item.items) {
+                if (item.image && (!category || isMatch)) {
+                    cards.push({text: item.text ?? '', link: item.link, image: item.image});
                 }
 
-                curr.items
-                    .filter(item => !item.link.endsWith('/') && (!category || curr.text === category))
-                    .forEach(item => acc.push({
-                        ...item,
-                        text: category === curr.text ? item.text : `${curr.text} / ${item.text}`
-                    }));
-            } else if (!curr.link.endsWith('/') && (!category || curr.text === category)) {
-                acc.push(curr);
-            }
+                cards.push(...collect(item.items, isMatch, item));
+            } else if (item.link && !item.link.endsWith('/') && (!category || matched)) {
+                const prefixed = !!parent && parent.text !== category;
+                const text = prefixed ? `${parent!.text} / ${item.text}` : item.text ?? '';
 
-            return acc;
-        }, [])
+                cards.push({text, link: item.link, image: item.image});
+            }
+        }
+
+        return cards;
+    }
+
+    const components = computed(() => collect(navigation, !category)
         .toSorted((a, b) => a.text.localeCompare(b.text)));
 </script>
