@@ -36,6 +36,9 @@
             ],
             "~flux/components/statistics/*": [
                 "/Users/bas/Development/Projects/flux/docs/node_modules/@flux-ui/statistics/src/*"
+            ],
+            "~flux/visuals/*": [
+                "/Users/bas/Development/Projects/flux/docs/node_modules/@flux-ui/visuals/src/*"
             ]
         }
     },

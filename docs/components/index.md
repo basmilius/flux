@@ -6,7 +6,7 @@ outline: deep
 
 Flux provides a wide range of pre-built components that serve various purposes in web development. These components are designed to be consistent and reusable, helping developers efficiently build and customize user interfaces. From basic elements like buttons and input fields to more complex structures like modals and data tables, Flux's component library covers many common needs in application development.
 
-The components are grouped by what you reach for them to do, from the foundational building blocks up to complete data displays, overlays and visual effects. Use the categories below to find your way around.
+The components are grouped by what you reach for them to do, from the foundational building blocks up to complete data displays and overlays. Use the categories below to find your way around.
 
 ## Foundations
 
@@ -61,12 +61,6 @@ Panels, overlays and floating surfaces that layer content above the page.
 Structure and align content into responsive, consistent layouts.
 
 <ComponentGridIndex category="Layout"/>
-
-## Visual effects
-
-Decorative effects that bring subtle movement and focus to a design.
-
-<ComponentGridIndex category="Visual effects"/>
 
 ## Transitions
 

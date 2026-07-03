@@ -1,0 +1,70 @@
+{
+    "name": "@flux-ui/visuals",
+    "description": "Visual effect components for the Flux UI library.",
+    "version": "0.0.0",
+    "type": "module",
+    "license": "MIT",
+    "funding": "https://github.com/sponsors/basmilius",
+    "homepage": "https://flux-ui.dev",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/basmilius/flux.git",
+        "directory": "packages/visuals"
+    },
+    "keywords": [
+        "ui library",
+        "component library",
+        "design system",
+        "vue",
+        "vue 3",
+        "ui",
+        "components",
+        "flux",
+        "visuals"
+    ],
+    "scripts": {
+        "build": "vue-tsc && vite build",
+        "dev": "vite build --watch --mode development"
+    },
+    "engines": {
+        "node": ">=23"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        },
+        "./style.css": "./dist/index.css"
+    },
+    "publishConfig": {
+        "access": "public",
+        "provenance": true
+    },
+    "files": [
+        "dist",
+        "src"
+    ],
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "sideEffects": false,
+    "dependencies": {
+        "@basmilius/common": "^3.45.0",
+        "@basmilius/utils": "^3.45.0",
+        "@flux-ui/internals": "workspace:*",
+        "clsx": "^2.1.1"
+    },
+    "peerDependencies": {
+        "vue": "^3.6.0-beta.17"
+    },
+    "devDependencies": {
+        "@basmilius/vite-preset": "^3.45.0",
+        "@types/node": "^26.0.1",
+        "@vitejs/plugin-vue": "^6.0.7",
+        "@vue/tsconfig": "^0.9.1",
+        "sass-embedded": "^1.100.0",
+        "typescript": "^6.0.3",
+        "vite": "^8.1.0",
+        "vue-tsc": "^3.3.5"
+    }
+}

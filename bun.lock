@@ -14,6 +14,7 @@
         "@flux-ui/components": "workspace:*",
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/statistics": "workspace:*",
+        "@flux-ui/visuals": "workspace:*",
         "@fortawesome/fontawesome-common-types": "^7.3.0",
         "@fortawesome/pro-regular-svg-icons": "^7.3.0",
         "echarts": "^6.1.0",
@@ -67,6 +68,7 @@
         "@basmilius/utils": "^3.45.0",
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/types": "workspace:*",
+        "@flux-ui/visuals": "workspace:*",
         "@fortawesome/fontawesome-common-types": "^7.3.0",
         "clsx": "^2.1.1",
         "imask": "^7.6.1",
@@ -152,6 +154,29 @@
       "peerDependencies": {
         "@fortawesome/fontawesome-common-types": "^7.3.0",
         "luxon": "^3.7.2",
+      },
+    },
+    "packages/visuals": {
+      "name": "@flux-ui/visuals",
+      "version": "0.0.0",
+      "dependencies": {
+        "@basmilius/common": "^3.45.0",
+        "@basmilius/utils": "^3.45.0",
+        "@flux-ui/internals": "workspace:*",
+        "clsx": "^2.1.1",
+      },
+      "devDependencies": {
+        "@basmilius/vite-preset": "^3.45.0",
+        "@types/node": "^26.0.1",
+        "@vitejs/plugin-vue": "^6.0.7",
+        "@vue/tsconfig": "^0.9.1",
+        "sass-embedded": "^1.100.0",
+        "typescript": "^6.0.3",
+        "vite": "^8.1.0",
+        "vue-tsc": "^3.3.5",
+      },
+      "peerDependencies": {
+        "vue": "^3.6.0-beta.17",
       },
     },
   },
@@ -262,6 +287,8 @@
     "@flux-ui/statistics": ["@flux-ui/statistics@workspace:packages/statistics"],
 
     "@flux-ui/types": ["@flux-ui/types@workspace:packages/types"],
+
+    "@flux-ui/visuals": ["@flux-ui/visuals@workspace:packages/visuals"],
 
     "@fortawesome/fontawesome-common-types": ["@fortawesome/fontawesome-common-types@7.3.0", "https://npm.fontawesome.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-7.3.0.tgz", {}, "sha512-X/vND0Y1l9fVJ9O79UgtZnXSpz4aNF3bXlDxiJAEAm6kgeSftp9wjjBPgqzazJV8YlmxfRoeXNfSCJ48sf/Hhw=="],
 

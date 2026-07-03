@@ -277,14 +277,17 @@ filters with `defineFilter` (and the `defineFilterMacro` compile macro from the
 
 ## Visual (decorative — never load-bearing UI)
 
-| Doc path                  | Export |
-| ------------------------- | ------ |
-| `visual/animated-colors`  | `FluxAnimatedColors` |
-| `visual/border-beam`      | `FluxBorderBeam` |
-| `visual/border-shine`     | `FluxBorderShine` |
-| `visual/dot-pattern`      | `FluxDotPattern` |
-| `visual/flickering-grid`  | `FluxFlickeringGrid` |
-| `visual/grid-pattern`     | `FluxGridPattern` |
+These live in the separate **`@flux-ui/visuals`** package, not `@flux-ui/components`. Import them from `@flux-ui/visuals`; they reuse the `@flux-ui/components` theme tokens, so load its stylesheet alongside `@flux-ui/visuals/style.css`.
+
+| Doc path                              | Export |
+| ------------------------------------- | ------ |
+| `visuals/components/animated-colors`  | `FluxAnimatedColors` |
+| `visuals/components/border-beam`      | `FluxBorderBeam` |
+| `visuals/components/border-shine`     | `FluxBorderShine` |
+| `visuals/components/dot-pattern`      | `FluxDotPattern` |
+| `visuals/components/flickering-grid`  | `FluxFlickeringGrid` |
+| `visuals/components/grid-pattern`     | `FluxGridPattern` |
+| `visuals/components/slot-text`        | `FluxSlotText` |
 
 Use sparingly for hero/empty states; never as functional UI.
 

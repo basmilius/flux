@@ -53,6 +53,6 @@ example=../../code/components/pane/illustration/basic.vue
 
 ## Used components
 
-- [Visual](../visual)
-    - [Grid pattern](../visual/grid-pattern)
-    - [Animated colors](../visual/animated-colors)
+- [Visuals](../../visuals/)
+    - [Grid pattern](../../visuals/components/grid-pattern)
+    - [Animated colors](../../visuals/components/animated-colors)

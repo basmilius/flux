@@ -1,0 +1,49 @@
+import { closeBundle, preset } from '@basmilius/vite-preset';
+import { resolve } from 'node:path';
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+
+export default defineConfig(({mode}) => ({
+    plugins: [
+        preset({
+            cssModules: {
+                classNames: 'kebab'
+            },
+            isLibrary: true,
+            tsconfigPath: resolve(import.meta.dirname, 'tsconfig.app.json')
+        }),
+        vue(),
+        mode !== 'development' && closeBundle()
+    ],
+    build: {
+        assetsDir: '',
+        emptyOutDir: true,
+        outDir: resolve(import.meta.dirname, 'dist'),
+        sourcemap: true,
+        lib: {
+            entry: resolve(import.meta.dirname, 'src/index.ts'),
+            fileName: 'index',
+            formats: ['es'],
+            name: 'fluxVisuals'
+        },
+        rolldownOptions: {
+            experimental: {
+                lazyBarrel: true
+            },
+            external: ['vue'],
+            output: {
+                exports: 'named',
+                globals: {vue: 'vue'},
+                sourcemapIgnoreList: path => path.includes('node_modules')
+            }
+        }
+    },
+    define: {
+        __VUE_OPTIONS_API__: 'false'
+    },
+    resolve: {
+        alias: {
+            '~flux/visuals': resolve(import.meta.dirname, 'src')
+        }
+    }
+}));

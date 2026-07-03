@@ -33,5 +33,5 @@ type UseInViewOptions = IntersectionObserverInit & {
 
 ## Used by
 
-- [Visual](../../components/visual)
-    - [Flickering grid](../../components/visual/flickering-grid)
+- [Visuals](../../visuals/)
+    - [Flickering grid](../../visuals/components/flickering-grid)

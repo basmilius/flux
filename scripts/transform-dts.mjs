@@ -7,7 +7,8 @@ const ROOT = resolve(new URL('..', import.meta.url).pathname);
 const TARGET_DIRS = [
     'packages/components/dist',
     'packages/application/dist',
-    'packages/statistics/dist'
+    'packages/statistics/dist',
+    'packages/visuals/dist'
 ];
 
 function walk(dir) {

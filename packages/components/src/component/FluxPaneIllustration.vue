@@ -35,9 +35,8 @@
     lang="ts"
     setup>
     import { hexToRGB } from '@basmilius/utils';
+    import { FluxAnimatedColors, FluxGridPattern } from '@flux-ui/visuals';
     import { computed, type VNode } from 'vue';
-    import FluxAnimatedColors from './FluxAnimatedColors.vue';
-    import FluxGridPattern from './FluxGridPattern.vue';
     import $style from '~flux/components/css/component/Pane.module.scss';
 
     const {

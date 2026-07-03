@@ -39,6 +39,7 @@ jobs:
                 run: |
                     bun pm version --cwd packages/types "$RELEASE_VERSION"
                     bun pm version --cwd packages/internals "$RELEASE_VERSION"
+                    bun pm version --cwd packages/visuals "$RELEASE_VERSION"
                     bun pm version --cwd packages/components "$RELEASE_VERSION"
                     bun pm version --cwd packages/application "$RELEASE_VERSION"
                     bun pm version --cwd packages/statistics "$RELEASE_VERSION"
@@ -46,6 +47,7 @@ jobs:
 
                     sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/types/package.json
                     sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/internals/package.json
+                    sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/visuals/package.json
                     sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/components/package.json
                     sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/application/package.json
                     sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/statistics/package.json
@@ -60,6 +62,7 @@ jobs:
             -   name: 🔨 Build
                 run: |
                     bun --cwd packages/internals build
+                    bun --cwd packages/visuals build
                     bun --cwd packages/components build
                     bun --cwd packages/application build
                     bun --cwd packages/statistics build
@@ -71,6 +74,7 @@ jobs:
                 run: |
                     (cd packages/types && npm publish --access public --tag next)
                     (cd packages/internals && npm publish --access public --tag next)
+                    (cd packages/visuals && npm publish --access public --tag next)
                     (cd packages/components && npm publish --access public --tag next)
                     (cd packages/application && npm publish --access public --tag next)
                     (cd packages/statistics && npm publish --access public --tag next)
@@ -81,6 +85,7 @@ jobs:
                 run: |
                     (cd packages/types && npm publish --access public)
                     (cd packages/internals && npm publish --access public)
+                    (cd packages/visuals && npm publish --access public)
                     (cd packages/components && npm publish --access public)
                     (cd packages/application && npm publish --access public)
                     (cd packages/statistics && npm publish --access public)

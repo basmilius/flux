@@ -15,7 +15,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxGridPattern } from '@flux-ui/components';
+    import { FluxGridPattern } from '@flux-ui/visuals';
     import { onMounted, ref, unref } from 'vue';
     import FluxView from './FluxView.vue';
 

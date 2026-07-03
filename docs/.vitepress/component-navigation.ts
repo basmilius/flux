@@ -415,20 +415,6 @@ const navigation: SidebarItem[] = [
         ]
     },
     {
-        text: 'Visual effects',
-        link: '/components/visual/',
-        collapsed: false,
-        items: [
-            {text: 'Animated colors', link: '/components/visual/animated-colors', image: '/assets/components/visual-animated-colors.svg'},
-            {text: 'Border beam', link: '/components/visual/border-beam', image: '/assets/components/visual-border-beam.svg'},
-            {text: 'Border shine', link: '/components/visual/border-shine', image: '/assets/components/visual-border-shine.svg'},
-            {text: 'Dot pattern', link: '/components/visual/dot-pattern', image: '/assets/components/visual-dot-pattern.svg'},
-            {text: 'Flickering grid', link: '/components/visual/flickering-grid', image: '/assets/components/visual-flickering-grid.svg'},
-            {text: 'Grid pattern', link: '/components/visual/grid-pattern', image: '/assets/components/visual-grid-pattern.svg'},
-            {text: 'Slot text', link: '/components/visual/slot-text'}
-        ]
-    },
-    {
         text: 'Transitions',
         link: '/components/transitions/',
         collapsed: false,

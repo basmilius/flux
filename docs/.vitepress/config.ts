@@ -22,6 +22,11 @@ export const fluxStatistics = composeLibrary({
     alias: '~flux/statistics'
 });
 
+export const fluxVisuals = composeLibrary({
+    name: '@flux-ui/visuals',
+    alias: '~flux/visuals'
+});
+
 export default defineConfig({
     title: 'Flux',
     titleTemplate: 'Flux — :title',
@@ -56,6 +61,7 @@ export default defineConfig({
             flux(),
             fluxApplication(),
             fluxStatistics(),
+            fluxVisuals(),
             llmstxt({
                 domain: 'https://flux-ui.dev',
                 generateLLMsTxt: true,
@@ -96,11 +102,12 @@ export default defineConfig({
             },
             {
                 text: 'Packages',
-                activeMatch: '/(application|internals|statistics)/',
+                activeMatch: '/(application|internals|statistics|visuals)/',
                 items: [
                     {text: 'Application', link: '/application/'},
                     {text: 'Internals', link: '/internals/'},
-                    {text: 'Statistics', link: '/statistics/'}
+                    {text: 'Statistics', link: '/statistics/'},
+                    {text: 'Visuals', link: '/visuals/'}
                 ]
             }
         ],
@@ -268,6 +275,29 @@ export default defineConfig({
                         {text: 'Metric', link: '/statistics/components/metric'},
                         {text: 'Percentage bar', link: '/statistics/components/percentage-bar'},
                         {text: 'Sparkline', link: '/statistics/components/sparkline'}
+                    ]
+                }
+            ],
+            '/visuals/': [
+                {
+                    text: 'Introduction',
+                    collapsed: false,
+                    items: [
+                        {text: 'What is Flux Visuals?', link: '/visuals/'},
+                        {text: 'Installation', link: '/visuals/introduction/installation'}
+                    ]
+                },
+                {
+                    text: 'Components',
+                    collapsed: false,
+                    items: [
+                        {text: 'Animated colors', link: '/visuals/components/animated-colors'},
+                        {text: 'Border beam', link: '/visuals/components/border-beam'},
+                        {text: 'Border shine', link: '/visuals/components/border-shine'},
+                        {text: 'Dot pattern', link: '/visuals/components/dot-pattern'},
+                        {text: 'Flickering grid', link: '/visuals/components/flickering-grid'},
+                        {text: 'Grid pattern', link: '/visuals/components/grid-pattern'},
+                        {text: 'Slot text', link: '/visuals/components/slot-text'}
                     ]
                 }
             ],
