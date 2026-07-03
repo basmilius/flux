@@ -74,6 +74,7 @@ props:
 requiredIcons:
     - angles-up-down
     - magnifying-glass
+    - xmark
 ---
 
 # Select

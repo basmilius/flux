@@ -81,6 +81,7 @@ requiredIcons:
     - angle-right
     - check
     - magnifying-glass
+    - xmark
 ---
 
 <script setup>

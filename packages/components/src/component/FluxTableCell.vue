@@ -4,8 +4,8 @@
         :class="clsx(
             $style.tableCell,
             isRaw && $style.isRaw,
-            isNumeric && $style.isNumeric,
-            noWrap && $style.isNoWrap,
+            effectiveIsNumeric && $style.isNumeric,
+            effectiveNoWrap && $style.isNoWrap,
             pinnedSide === 'start' && $style.isPinnedStart,
             pinnedSide === 'end' && $style.isPinnedEnd,
             isPinnedEdge && $style.isPinnedEdge
@@ -31,6 +31,8 @@
         colspan,
         contentDirection = 'row',
         contentGap,
+        isNumeric,
+        noWrap,
         pinned
     } = defineProps<{
         readonly align?: 'start' | 'center' | 'end';
@@ -57,6 +59,14 @@
 
     const isRaw = computed(() => 'content' in slots);
 
+    // Spanning cells cover multiple columns, so their column's definition
+    // (pinning, alignment, formatting) does not apply to them.
+    const column = computed(() => colspan ? undefined : unref(columns)[getColumnIndex()]);
+
+    const effectiveAlign = computed(() => align ?? column.value?.align);
+    const effectiveIsNumeric = computed(() => isNumeric || (column.value?.isNumeric ?? false));
+    const effectiveNoWrap = computed(() => noWrap || (column.value?.noWrap ?? false));
+
     const pinnedSide = computed<'start' | 'end' | null>(() => {
         if (pinned === true || pinned === 'start') {
             return 'start';
@@ -66,13 +76,7 @@
             return 'end';
         }
 
-        // Spanning cells cover multiple columns, so their own column's pinning
-        // does not apply to them.
-        if (colspan) {
-            return null;
-        }
-
-        return unref(columns)[getColumnIndex()]?.pinned ?? null;
+        return column.value?.pinned ?? null;
     });
 
     function getColumnIndex(): number {
@@ -103,14 +107,14 @@
                 style.gap = `${contentGap}px`;
             }
 
-            if (align) {
+            if (effectiveAlign.value) {
                 if (contentDirection === 'column') {
-                    style.alignItems = align;
+                    style.alignItems = effectiveAlign.value;
                 } else {
-                    style.justifyContent = align;
+                    style.justifyContent = effectiveAlign.value;
                 }
 
-                style.textAlign = align;
+                style.textAlign = effectiveAlign.value;
             }
         }
 

@@ -70,6 +70,7 @@ requiredIcons:
     - angles-up-down
     - magnifying-glass
     - plus
+    - xmark
 ---
 
 # Combobox

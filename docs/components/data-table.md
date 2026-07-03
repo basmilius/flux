@@ -94,6 +94,20 @@ slots:
     -   name: empty
         description: Renders in place of the rows when there is no data and the table is not loading. Defaults to a centered message.
 
+    -   name: loading
+        description: Replaces the default spinner overlay while `is-loading` is set. Renders inside the table body on the table's column grid, typically with skeleton rows. Use `per-page` to render the expected number of rows. The regular rows are not rendered while this slot shows.
+        type:
+            page: number
+            per-page: number
+            total: number
+
+    -   name: selection
+        description: Renders as a full-width bar in place of the `filter` row while at least one row is selected, typically with the selection count and bulk actions. Requires `selection-mode`.
+        type:
+            selected: (string | number)[]
+            count: number
+            clear: () => void
+
     -   name: filter
         description: Renders above the table header, typically a `FluxFilterBar` for filtering the data set.
         type:
@@ -155,11 +169,15 @@ slots:
             is-selected: boolean
 
 requiredIcons:
+    - angle-right
+    - arrow-down-1-9
     - arrow-down-a-z
+    - arrow-down-short-wide
+    - arrow-up-9-1
     - arrow-up-a-z
     - arrow-up-arrow-down
+    - arrow-up-wide-short
     - check
-    - chevron-right
     - circle-xmark
     - minus
 ---
@@ -190,12 +208,24 @@ example=../code/components/data-table/file-manager.vue
 example=../code/components/data-table/paginated.vue
 :::
 
-::: example Clickable rows || A data table that emits `row-click` per row, while ignoring clicks on the action button inside a cell.
+::: example Custom pagination || A data table whose `pagination` slot renders a compact pager instead of the default bar.
+example=../code/components/data-table/pagination-slot.vue
+:::
+
+::: example Clickable rows || A data table that emits `row-click` per row, while ignoring clicks on the action button inside a cell. Focused rows can be walked with the arrow keys and activated with `Enter`/`Space`.
 example=../code/components/data-table/clickable.vue
 :::
 
 ::: example Selectable rows || A data table where multiple rows can be selected via checkboxes.
 example=../code/components/data-table/selection.vue
+:::
+
+::: example Single selection || A data table where at most one row can be selected.
+example=../code/components/data-table/selection-single.vue
+:::
+
+::: example Selection toolbar || A bar with bulk actions that takes the place of the filter bar while rows are selected.
+example=../code/components/data-table/selection-toolbar.vue
 :::
 
 ::: example Sortable columns || A data table whose columns drive a single, coordinated client-side sort.
@@ -212,6 +242,10 @@ example=../code/components/data-table/rich.vue
 
 ::: example Expandable rows || A data table where each row can be expanded to reveal detail content.
 example=../code/components/data-table/expandable.vue
+:::
+
+::: example Single expansion || A data table where opening a row collapses the previously opened one.
+example=../code/components/data-table/expand-single.vue
 :::
 
 ::: example Grouped rows || A data table whose rows are grouped under collapsible headers.
@@ -264,6 +298,10 @@ example=../code/components/data-table/sticky.vue
 
 ::: example Sticky groups || Grouped rows whose header sticks while scrolling through the groups.
 example=../code/components/data-table/sticky-groups.vue
+:::
+
+::: example Skeleton loading || A data table whose `loading` slot replaces the spinner with skeleton rows.
+example=../code/components/data-table/skeleton.vue
 :::
 
 ::: example Empty || A data table that shows a custom message when there is no data.

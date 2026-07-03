@@ -3,8 +3,7 @@
         :="{type, disabled, iconLeading, iconTrailing, isFilled, isLoading, isSubmit, label, size, href, rel, target, to}"
         :class="[
             isArrow && $style.paginationButtonArrow,
-            isCurrent && $style.paginationButtonCurrent,
-            isSpacer && $style.paginationButtonSpacer
+            isCurrent && $style.paginationButtonCurrent
         ]"
         :css-class="$style.paginationButton"
         :css-class-icon="$style.paginationButtonIcon"
@@ -32,7 +31,6 @@
     defineProps<FluxButtonProps & {
         readonly isArrow?: boolean;
         readonly isCurrent?: boolean;
-        readonly isSpacer?: boolean;
     }>();
 
     defineSlots<FluxButtonSlots>();

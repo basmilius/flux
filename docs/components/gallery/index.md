@@ -32,6 +32,7 @@ slots:
 
 requiredIcons:
     - plus
+    - xmark
 ---
 
 # Gallery

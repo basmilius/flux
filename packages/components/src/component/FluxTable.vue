@@ -24,11 +24,15 @@
             </div>
 
             <div
-                v-if="slots.default"
+                v-if="slots.default || slots.loading"
                 ref="body"
                 :class="$style.tableBody"
                 role="rowgroup">
-                <slot/>
+                <slot
+                    v-if="isLoading && slots.loading"
+                    name="loading"/>
+
+                <slot v-else/>
             </div>
 
             <FluxTableRow
@@ -63,7 +67,7 @@
         </div>
 
         <div
-            v-if="isLoading"
+            v-if="isLoading && !slots.loading"
             ref="loader"
             :class="$style.tableLoader">
             <FluxSpinner/>
@@ -115,6 +119,7 @@
         empty?(): VNode;
         footer?(): VNode;
         header?(): VNode;
+        loading?(): VNode;
         pagination?(): VNode;
     }>();
 
@@ -128,6 +133,7 @@
 
     const captionId = useId();
 
+    const activeRow = ref<HTMLElement | null>(null);
     const headHeight = ref(0);
     const footHeight = ref(0);
     const maxScrollLeft = ref(0);
@@ -168,7 +174,7 @@
             rows.push('auto');
         }
 
-        if (slots.default) {
+        if (slots.default || slots.loading) {
             rows.push('auto');
         }
 
@@ -440,6 +446,7 @@
     }, {immediate: true});
 
     provide(FluxTableInjectionKey, {
+        activeRow,
         columns: sortedColumns,
         pinnedEdges,
         pinnedOffsets,

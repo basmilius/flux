@@ -43,8 +43,12 @@ slots:
         description: This slot should contain filter components.
 
 requiredIcons:
+    - angle-left
+    - angle-right
     - magnifying-glass
+    - rotate-left
     - sliders-simple
+    - trash
 ---
 
 # Filter bar

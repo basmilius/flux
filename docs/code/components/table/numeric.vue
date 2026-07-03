@@ -7,6 +7,7 @@
                 <FluxTableHeader
                     align="end"
                     data-type="numeric"
+                    is-numeric
                     is-sortable
                     :sort="sortColumn === 'requests' ? sortDirection : undefined"
                     @sort="setSort('requests', $event)">
@@ -16,6 +17,7 @@
                 <FluxTableHeader
                     align="end"
                     data-type="numeric"
+                    is-numeric
                     is-sortable
                     :sort="sortColumn === 'latency' ? sortDirection : undefined"
                     @sort="setSort('latency', $event)">
@@ -25,6 +27,7 @@
                 <FluxTableHeader
                     align="end"
                     data-type="numeric"
+                    is-numeric
                     is-sortable
                     :sort="sortColumn === 'errorRate' ? sortDirection : undefined"
                     @sort="setSort('errorRate', $event)">
@@ -36,24 +39,9 @@
                 v-for="row in sortedRows"
                 :key="row.endpoint">
                 <FluxTableCell>{{ row.endpoint }}</FluxTableCell>
-
-                <FluxTableCell
-                    align="end"
-                    is-numeric>
-                    {{ row.requests.toLocaleString('en') }}
-                </FluxTableCell>
-
-                <FluxTableCell
-                    align="end"
-                    is-numeric>
-                    {{ row.latency }} ms
-                </FluxTableCell>
-
-                <FluxTableCell
-                    align="end"
-                    is-numeric>
-                    {{ row.errorRate.toFixed(2) }}%
-                </FluxTableCell>
+                <FluxTableCell>{{ row.requests.toLocaleString('en') }}</FluxTableCell>
+                <FluxTableCell>{{ row.latency }} ms</FluxTableCell>
+                <FluxTableCell>{{ row.errorRate.toFixed(2) }}%</FluxTableCell>
             </FluxTableRow>
         </FluxTable>
     </FluxPane>

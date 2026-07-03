@@ -9,7 +9,14 @@
         <template
             v-if="'header' in slots || selectionMode || hasExpandable"
             #header>
+            <FluxTableBar v-if="hasSelectionBar">
+                <slot
+                    name="selection"
+                    v-bind="{selected: selectedIds, count: selectedCount, clear: clearSelection}"/>
+            </FluxTableBar>
+
             <slot
+                v-else
                 name="filter"
                 v-bind="{page, perPage, items: limitedItems, total}"/>
 
@@ -134,6 +141,14 @@
         </component>
 
         <template
+            v-if="'loading' in slots"
+            #loading>
+            <slot
+                name="loading"
+                v-bind="{page, perPage, total}"/>
+        </template>
+
+        <template
             v-if="!isLoading && limitedItems.length === 0"
             #empty>
             <div
@@ -160,6 +175,7 @@
     import FluxFormCheckbox from './FluxFormCheckbox.vue';
     import FluxPaginationBar from './FluxPaginationBar.vue';
     import FluxTable from './FluxTable.vue';
+    import FluxTableBar from './FluxTableBar.vue';
     import FluxTableCell from './FluxTableCell.vue';
     import FluxTableHeader from './FluxTableHeader.vue';
     import FluxTableRow from './FluxTableRow.vue';
@@ -183,7 +199,7 @@
         readonly items?: T[];
     };
 
-    const IGNORED_SLOTS: string[] = ['filter', 'header', 'footer', 'pagination', 'expandable', 'group', 'empty'];
+    const IGNORED_SLOTS: string[] = ['filter', 'header', 'footer', 'pagination', 'expandable', 'group', 'empty', 'loading', 'selection'];
 
     const emit = defineEmits<{
         limit: [number];
@@ -258,6 +274,19 @@
         }): VNode;
 
         empty(): VNode;
+
+        loading(props: {
+            readonly page: number;
+            readonly perPage: number;
+            readonly total: number;
+        }): VNode;
+
+        selection(props: {
+            readonly selected: SelectionId[];
+            readonly count: number;
+
+            clear(): void;
+        }): VNode;
 
         expandable(props: {
             readonly index: number;
@@ -378,6 +407,14 @@
 
     const expandedSet = computed<ReadonlySet<SelectionId>>(() => new Set(unref(expanded)));
     const collapsedGroupSet = computed<ReadonlySet<SelectionId>>(() => new Set(unref(collapsedGroups)));
+
+    const selectedIds = computed<SelectionId[]>(() => Array.from(unref(selectedSet)));
+    const selectedCount = computed(() => unref(selectedIds).length);
+    const hasSelectionBar = computed(() => 'selection' in slots && unref(selectedCount) > 0);
+
+    function clearSelection(): void {
+        selected.value = selectionMode === 'multiple' ? [] : null;
+    }
 
     const selectAllState = computed<boolean | null>(() => {
         const ids = unref(currentPageIds);

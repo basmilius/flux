@@ -46,6 +46,9 @@ slots:
     -   name: header
         description: The slot for the table headers.
 
+    -   name: loading
+        description: Replaces the default spinner overlay while `is-loading` is set. Renders inside the table body on the table's column grid, so skeleton rows built from `FluxTableRow` and `FluxTableCell` align with the columns. The regular rows are not rendered while this slot shows.
+
     -   name: pagination
         description: The slot for pagination.
 ---
@@ -76,6 +79,10 @@ example=../../code/components/table/pane.vue
 
 ::: example Caption || A table with an caption.
 example=../../code/components/table/caption.vue
+:::
+
+::: example Caption on top || A table whose caption renders above the table instead of below it.
+example=../../code/components/table/caption-top.vue
 :::
 
 ::: example Sticky || A table with sticky headers.
@@ -132,6 +139,10 @@ example=../../code/components/table/actions.vue
 
 ::: example Loading || A table with a loading state.
 example=../../code/components/table/loading.vue
+:::
+
+::: example Skeleton loading || A table whose `loading` slot replaces the spinner with skeleton rows.
+example=../../code/components/table/loading-skeleton.vue
 :::
 
 ::: example Hoverable || A table with rows that have a hoverable state.

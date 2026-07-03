@@ -10,8 +10,10 @@
             <template #header>
                 <FluxTableHeader
                     data-type="date"
+                    is-numeric
                     is-shrinking
                     is-sortable
+                    no-wrap
                     :sort="sortColumn === 'date' ? sortDirection : undefined"
                     @sort="setSort('date', $event)">
                     Date
@@ -23,7 +25,9 @@
                 <FluxTableHeader
                     align="end"
                     data-type="numeric"
+                    is-numeric
                     is-sortable
+                    no-wrap
                     :sort="sortColumn === 'amount' ? sortDirection : undefined"
                     @sort="setSort('amount', $event)">
                     Amount
@@ -31,11 +35,7 @@
             </template>
 
             <template #date="{item}">
-                <FluxTableCell
-                    is-numeric
-                    no-wrap>
-                    {{ item.date }}
-                </FluxTableCell>
+                <FluxTableCell>{{ item.date }}</FluxTableCell>
             </template>
 
             <template #description="{item}">
@@ -51,12 +51,7 @@
             </template>
 
             <template #amount="{item}">
-                <FluxTableCell
-                    align="end"
-                    is-numeric
-                    no-wrap>
-                    {{ formatCurrency(item.amount) }}
-                </FluxTableCell>
+                <FluxTableCell>{{ formatCurrency(item.amount) }}</FluxTableCell>
             </template>
         </FluxDataTable>
     </FluxPane>

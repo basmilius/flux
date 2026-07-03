@@ -28,6 +28,7 @@ props:
         optional: true
 
 requiredIcons:
+    - check
     - ellipsis-h
 ---
 

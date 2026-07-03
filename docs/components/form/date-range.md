@@ -79,6 +79,8 @@ props:
         optional: true
 
 requiredIcons:
+    - angle-left
+    - angle-right
     - calendar
 ---
 

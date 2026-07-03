@@ -8,15 +8,20 @@ emits:
 
 props:
     -   name: align
-        description: Horizontal alignment of the header content. Use `end` to match a numeric column.
+        description: Horizontal alignment of the header content. Cells in the column without their own `align` inherit this value, so `align="end"` on the header aligns the whole column.
         type: [ '"start"', '"center"', '"end"' ]
         optional: true
 
     -   name: data-type
-        description: The kind of data in the column. Switches the sort flyout icons to match. The options are alphabetical (`text`), numeric (`numeric`) or chronological (`date`).
+        description: The kind of data in the column. Switches the sort flyout icons to match. The options are alphabetical (`text`), numeric (`numeric`) or chronological (`date`). This only affects the sort flyout; pair it with `is-numeric` for tabular figures in the cells.
         type: [ '"text"', '"numeric"', '"date"' ]
         optional: true
         default: text
+
+    -   name: is-numeric
+        description: Renders every cell in the column with tabular figures. Column metadata only; the header label itself is unaffected.
+        type: boolean
+        optional: true
 
     -   name: is-shrinking
         description: If the header will shrink to fit its cell group.
@@ -36,6 +41,11 @@ props:
     -   name: min-width
         description: The minimum width of the column in pixels. The column still grows to fill available space.
         type: number
+        optional: true
+
+    -   name: no-wrap
+        description: Prevents the content of every cell in the column from wrapping. Column metadata only; the header label itself is unaffected.
+        type: boolean
         optional: true
 
     -   name: pinned
@@ -86,6 +96,10 @@ When `is-sortable` is set, the sort trigger is reachable with the keyboard and o
 
 ::: info Column sizing
 Headers define the width of their column. A column with `width` gets that exact width. A column with `is-shrinking` hugs its content. Otherwise the column shares the available space, optionally bounded by `min-width` and/or `max-width`. When the combined minimum widths exceed the table width, the table scrolls horizontally.
+:::
+
+::: info Column formatting
+`align`, `is-numeric` and `no-wrap` on the header apply to every cell in the column, so there is no need to repeat them per cell. A cell's own `align` overrides the header's; `is-numeric` and `no-wrap` can only be turned on per cell, not off. Spanning cells (`colspan`) never inherit column formatting.
 :::
 
 <FrontmatterDocs/>

@@ -39,6 +39,7 @@
 
     &.isClickable {
         cursor: pointer;
+        scroll-margin-top: var(--flux-table-head-height, 0px);
 
         @include mixin.focus-ring(-2px);
     }

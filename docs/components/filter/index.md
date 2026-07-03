@@ -26,8 +26,6 @@ slots:
 requiredIcons:
     - angle-left
     - angle-right
-    - circle-check
-    - magnifying-glass
     - rotate-left
     - trash
 ---

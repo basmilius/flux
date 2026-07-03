@@ -81,19 +81,23 @@
     const {
         align,
         dataType = 'text',
+        isNumeric,
         isShrinking,
         maxWidth,
         minWidth,
+        noWrap,
         pinned,
         sort,
         width
     } = defineProps<{
         readonly align?: 'start' | 'center' | 'end';
         readonly dataType?: 'text' | 'numeric' | 'date';
+        readonly isNumeric?: boolean;
         readonly isShrinking?: boolean;
         readonly isSortable?: boolean;
         readonly maxWidth?: number;
         readonly minWidth?: number;
+        readonly noWrap?: boolean;
         readonly pinned?: boolean | 'start' | 'end';
         readonly sort?: 'ascending' | 'descending';
         readonly width?: number;
@@ -126,9 +130,12 @@
     });
 
     const columnDef = computed<FluxTableColumnDef>(() => ({
+        align,
+        isNumeric,
         isShrinking,
         maxWidth,
         minWidth,
+        noWrap,
         pinned: pinnedSide.value,
         width
     }));

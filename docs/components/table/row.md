@@ -34,6 +34,10 @@ render=../../code/components/table/row/preview.vue
 This component is best used within a [Table](../table).
 :::
 
+::: info Keyboard
+Clickable rows form a single roving tab stop: `Tab` reaches the last-focused row, `ArrowUp`/`ArrowDown` move between clickable rows, `Home`/`End` jump to the first or last one, and `Enter`/`Space` activate the focused row. Interactive elements inside a row (buttons, links, inputs) keep their own place in the tab order.
+:::
+
 <FrontmatterDocs/>
 
 ## Examples

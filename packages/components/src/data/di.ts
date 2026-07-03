@@ -296,9 +296,12 @@ export type FluxTabBarInjection = {
 };
 
 export type FluxTableColumnDef = {
+    readonly align?: 'start' | 'center' | 'end';
+    readonly isNumeric?: boolean;
     readonly isShrinking?: boolean;
     readonly maxWidth?: number;
     readonly minWidth?: number;
+    readonly noWrap?: boolean;
     readonly pinned: 'start' | 'end' | null;
     readonly width?: number;
 };
@@ -309,6 +312,7 @@ export type FluxTablePinnedEdges = {
 };
 
 export type FluxTableInjection = {
+    readonly activeRow: Ref<HTMLElement | null>;
     readonly columns: Readonly<Ref<readonly FluxTableColumnDef[]>>;
     readonly pinnedEdges: Ref<FluxTablePinnedEdges>;
     readonly pinnedOffsets: Ref<Map<number, number>>;

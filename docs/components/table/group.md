@@ -58,6 +58,10 @@ This component is best used within a [Table](./index). For dynamic data, combine
 example=../../code/components/table/group/plain.vue
 :::
 
+::: example Icon || Group headers with an icon before their label.
+example=../../code/components/table/group/icon.vue
+:::
+
 ::: example Expandable || Collapsible groups with their open state bound through `v-model:is-expanded`.
 example=../../code/components/table/group/expandable.vue
 :::
