@@ -86,6 +86,11 @@
     &.isShrinking {
         white-space: nowrap;
     }
+
+    > * {
+        position: relative;
+        z-index: 2;
+    }
 }
 
 .tableHeadSticky .tableHeader {
