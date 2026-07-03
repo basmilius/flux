@@ -1,26 +1,37 @@
 <template>
-    <FluxBadgeStack>
+    <FluxFlex
+        direction="vertical"
+        :gap="9">
         <FluxBadgeGroup
-            badge-label="Small"
             color="primary"
             label="A compact badge group"
-            size="small"/>
+            size="small">
+            <template #start>
+                <FluxBadge label="Small"/>
+            </template>
+        </FluxBadgeGroup>
 
         <FluxBadgeGroup
-            badge-label="Medium"
             color="primary"
-            label="The default badge group"/>
+            label="The default badge group">
+            <template #start>
+                <FluxBadge label="Medium"/>
+            </template>
+        </FluxBadgeGroup>
 
         <FluxBadgeGroup
-            badge-label="Large"
             color="primary"
             label="A more prominent badge group"
-            size="large"/>
-    </FluxBadgeStack>
+            size="large">
+            <template #start>
+                <FluxBadge label="Large"/>
+            </template>
+        </FluxBadgeGroup>
+    </FluxFlex>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxBadgeGroup, FluxBadgeStack } from '@flux-ui/components';
+    import { FluxBadge, FluxBadgeGroup, FluxFlex } from '@flux-ui/components';
 </script>

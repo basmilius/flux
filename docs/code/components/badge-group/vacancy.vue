@@ -3,30 +3,39 @@
         direction="vertical"
         :gap="9">
         <FluxBadgeGroup
-            badge-label="Engineering"
-            icon="arrow-right"
+            icon-trailing="arrow-right"
             label="Senior Frontend Developer"
             type="link"
-            href="#"/>
+            href="#">
+            <template #start>
+                <FluxBadge label="Engineering"/>
+            </template>
+        </FluxBadgeGroup>
 
         <FluxBadgeGroup
-            badge-label="Design"
-            icon="arrow-right"
+            icon-trailing="arrow-right"
             label="Product Designer"
             type="link"
-            href="#"/>
+            href="#">
+            <template #start>
+                <FluxBadge label="Design"/>
+            </template>
+        </FluxBadgeGroup>
 
         <FluxBadgeGroup
-            badge-label="Marketing"
-            icon="arrow-right"
+            icon-trailing="arrow-right"
             label="Content Strategist"
             type="link"
-            href="#"/>
+            href="#">
+            <template #start>
+                <FluxBadge label="Marketing"/>
+            </template>
+        </FluxBadgeGroup>
     </FluxFlex>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxBadgeGroup, FluxFlex } from '@flux-ui/components';
+    import { FluxBadge, FluxBadgeGroup, FluxFlex } from '@flux-ui/components';
 </script>

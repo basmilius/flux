@@ -218,8 +218,7 @@
     --badge-group-padding: 12px;
 
     height: auto;
-    padding: 3px;
-    padding-right: var(--badge-group-padding);
+    padding: 3px var(--badge-group-padding);
     gap: 9px;
     border-color: var(--badge-group-border);
 
@@ -228,6 +227,14 @@
         margin-bottom: 0;
         border-color: var(--badge-group-border);
     }
+}
+
+.badgeGroupHasStart {
+    padding-left: 3px;
+}
+
+.badgeGroupHasEnd {
+    padding-right: 3px;
 }
 
 .badgeGroupSmall {
@@ -243,13 +250,7 @@
     font-size: 14px;
 }
 
-.badgeGroupTrailing {
-    padding-left: var(--badge-group-padding);
-    padding-right: 3px;
-}
-
 .badgeGroupIcon {
-    margin-right: -3px;
     color: var(--color);
 }
 
@@ -265,11 +266,11 @@
 
     --badge-group-border: var(--gray-200);
 
-    background: var(--gray-100);
+    background: var(--gray-50);
 
     &:is(a, button) {
         @include mixin.hover {
-            background: var(--gray-200);
+            background: var(--gray-100);
         }
     }
 }
@@ -280,11 +281,11 @@
 
     --badge-group-border: var(--primary-200);
 
-    background: var(--primary-100);
+    background: var(--primary-50);
 
     &:is(a, button) {
         @include mixin.hover {
-            background: var(--primary-200);
+            background: var(--primary-100);
         }
     }
 }
@@ -295,11 +296,11 @@
 
     --badge-group-border: var(--danger-200);
 
-    background: var(--danger-100);
+    background: var(--danger-50);
 
     &:is(a, button) {
         @include mixin.hover {
-            background: var(--danger-200);
+            background: var(--danger-100);
         }
     }
 }
@@ -310,11 +311,11 @@
 
     --badge-group-border: var(--info-200);
 
-    background: var(--info-100);
+    background: var(--info-50);
 
     &:is(a, button) {
         @include mixin.hover {
-            background: var(--info-200);
+            background: var(--info-100);
         }
     }
 }
@@ -325,11 +326,11 @@
 
     --badge-group-border: var(--success-200);
 
-    background: var(--success-100);
+    background: var(--success-50);
 
     &:is(a, button) {
         @include mixin.hover {
-            background: var(--success-200);
+            background: var(--success-100);
         }
     }
 }
@@ -340,11 +341,11 @@
 
     --badge-group-border: var(--warning-200);
 
-    background: var(--warning-100);
+    background: var(--warning-50);
 
     &:is(a, button) {
         @include mixin.hover {
-            background: var(--warning-200);
+            background: var(--warning-100);
         }
     }
 }

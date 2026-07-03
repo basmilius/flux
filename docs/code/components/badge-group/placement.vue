@@ -1,16 +1,18 @@
 <template>
     <FluxBadgeStack>
-        <FluxBadgeGroup label="We've just released the new dashboard">
+        <FluxBadgeGroup
+            color="primary"
+            label="We've just released the new dashboard">
             <template #start>
                 <FluxBadge label="New feature"/>
             </template>
         </FluxBadgeGroup>
 
         <FluxBadgeGroup
-            color="success"
-            label="Version 2.4 is now available">
-            <template #start>
-                <FluxBadge label="Update"/>
+            color="primary"
+            label="We've just released the new dashboard">
+            <template #end>
+                <FluxBadge label="New feature"/>
             </template>
         </FluxBadgeGroup>
     </FluxBadgeStack>

@@ -3,24 +3,33 @@
         direction="vertical"
         :gap="9">
         <FluxBadgeGroup
-            badge-label="Resolved"
             color="success"
-            label="All systems are operational again"/>
+            label="All systems are operational again">
+            <template #start>
+                <FluxBadge label="Resolved"/>
+            </template>
+        </FluxBadgeGroup>
 
         <FluxBadgeGroup
-            badge-label="Maintenance"
             color="warning"
-            label="Scheduled downtime on Sunday at 02:00 UTC"/>
+            label="Scheduled downtime on Sunday at 02:00 UTC">
+            <template #start>
+                <FluxBadge label="Maintenance"/>
+            </template>
+        </FluxBadgeGroup>
 
         <FluxBadgeGroup
-            badge-label="Incident"
             color="danger"
-            label="We're investigating degraded API performance"/>
+            label="We're investigating degraded API performance">
+            <template #start>
+                <FluxBadge label="Incident"/>
+            </template>
+        </FluxBadgeGroup>
     </FluxFlex>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxBadgeGroup, FluxFlex } from '@flux-ui/components';
+    import { FluxBadge, FluxBadgeGroup, FluxFlex } from '@flux-ui/components';
 </script>

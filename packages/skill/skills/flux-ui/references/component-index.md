@@ -235,7 +235,7 @@ Flex "stack" helpers live under `layout/flex/*` but export as `Flux*Stack` (⚠)
 | Doc path       | Export | Purpose |
 | -------------- | ------ | ------- |
 | `badge`        | `FluxBadge` / `FluxBadgeStack` ⚠ | Badge (+ stack) |
-| `badge-group`  | `FluxBadgeGroup` | Badge-in-a-pill with a message (`badge-label` + `label`, optional `icon`, `align`, `size`) |
+| `badge-group`  | `FluxBadgeGroup` | Badge-in-a-pill with a message (`label` + a `FluxBadge` in the `#start`/`#end` slot, which inherits the group's `color`/`size`; optional `icon-leading`/`icon-trailing`) |
 | `chip`         | `FluxChip` | Chip |
 | `tag`          | `FluxTag` / `FluxTagStack` ⚠ | Tag (+ stack) |
 | `info`         | `FluxInfo` / `FluxInfoStack` ⚠ | Info text (+ stack) |

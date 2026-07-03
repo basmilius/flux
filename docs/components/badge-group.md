@@ -15,23 +15,18 @@ emits:
         type: [ MouseEvent ]
 
 props:
-    -   name: align
-        description: The position of the inner badge, either before or after the label.
-        type: [ '"leading"', '"trailing"' ]
-        default: leading
-        optional: true
-
-    -   name: badge-label
-        description: The label that is shown in the inner badge.
-        type: string
-
     -   name: color
         description: The color of the badge group.
         type: FluxColor
         optional: true
 
-    -   name: icon
-        description: The icon that is shown at the end of the badge group.
+    -   name: icon-leading
+        description: The icon that is shown before the label.
+        type: FluxIconName
+        optional: true
+
+    -   name: icon-trailing
+        description: The icon that is shown after the label.
         type: FluxIconName
         optional: true
 
@@ -40,7 +35,7 @@ props:
         type: string
 
     -   name: size
-        description: The size of the badge group. The inner badge scales along.
+        description: The size of the badge group. Badges in the start and end slots scale along.
         type: FluxSize
         default: medium
         optional: true
@@ -76,13 +71,17 @@ props:
         type: FluxTo
         optional: true
 
-requiredIcons:
-    - arrow-right
+slots:
+    -   name: start
+        description: The badge that is shown before the label. Place a FluxBadge here; it inherits the group's color and size.
+
+    -   name: end
+        description: The badge that is shown after the label. Place a FluxBadge here; it inherits the group's color and size.
 ---
 
 # Badge group
 
-The badge group combines a small badge with a message in a single pill. Use it, for example, to announce a new feature or to link to release notes.
+The badge group combines a badge with a message in a single pill. Place a badge in the start or end slot; it inherits the group's color and size automatically. Use it, for example, to announce a new feature or to link to release notes.
 
 ::: render
 render=../code/components/badge-group/preview.vue
@@ -100,8 +99,8 @@ Use a [Badge](./badge) when a single label is enough.
 example=../code/components/badge-group/basic.vue
 :::
 
-::: example Align || The inner badge can be placed before or after the message.
-example=../code/components/badge-group/align.vue
+::: example Placement || The badge can be placed before or after the message using the start and end slots.
+example=../code/components/badge-group/placement.vue
 :::
 
 ::: example Icon || An icon at the end hints that the badge group is interactive, for instance, linking to release notes.

@@ -1,15 +1,18 @@
 <template>
     <Preview>
         <FluxBadgeGroup
-            badge-label="New feature"
             color="primary"
-            icon="arrow-right"
-            label="Check out the new dashboard"/>
+            icon-trailing="arrow-right"
+            label="Check out the new dashboard">
+            <template #start>
+                <FluxBadge label="New feature"/>
+            </template>
+        </FluxBadgeGroup>
     </Preview>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxBadgeGroup } from '@flux-ui/components';
+    import { FluxBadge, FluxBadgeGroup } from '@flux-ui/components';
 </script>
