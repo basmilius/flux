@@ -1,7 +1,7 @@
 <template>
     <svg
         v-if="definition"
-        :viewBox="`0 0 ${definition.width} ${definition.height}`"
+        :viewBox.attr="`0 0 ${definition.width} ${definition.height}`"
         :class="clsx(
             $style.fontAwesomeIcon,
             color === 'gray' && $style.iconGray,
