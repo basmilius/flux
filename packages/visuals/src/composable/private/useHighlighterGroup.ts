@@ -1,20 +1,8 @@
+import type { HighlighterGroupProps } from '@flux-ui/types';
 import { annotationGroup } from 'rough-notation';
 import { inject, onScopeDispose, provide, type InjectionKey } from 'vue';
 
 type Annotation = Parameters<typeof annotationGroup>[0][number];
-
-export type HighlighterVariant = 'highlight' | 'box' | 'circle' | 'underline' | 'strike-through' | 'crossed-off' | 'bracket';
-
-export type HighlighterGroupProps = {
-    readonly variant?: HighlighterVariant;
-    readonly color?: string;
-    readonly strokeWidth?: number;
-    readonly animationDuration?: number;
-    readonly iterations?: number;
-    readonly padding?: number;
-    readonly multiline?: boolean;
-    readonly whenInView?: boolean;
-};
 
 export type HighlighterGroupEntry = {
     readonly element: HTMLElement;

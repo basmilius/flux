@@ -7,7 +7,8 @@
 <script
     lang="ts"
     setup>
-    import { useHighlighterGroup, type HighlighterGroupProps } from '~flux/visuals/composable/private';
+    import type { HighlighterGroupProps } from '@flux-ui/types';
+    import { useHighlighterGroup } from '~flux/visuals/composable/private';
     import $style from '~flux/visuals/css/component/Highlighter.module.scss';
 
     const props = defineProps<HighlighterGroupProps>();

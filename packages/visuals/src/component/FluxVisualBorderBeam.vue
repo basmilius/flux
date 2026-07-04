@@ -24,9 +24,10 @@
     lang="ts"
     setup>
     import { useInView } from '@flux-ui/internals';
+    import type { BorderBeamVariant } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, ref, unref, useTemplateRef, watch } from 'vue';
-    import { useBorderBeamPulse, type BorderBeamVariant } from '~flux/visuals/composable/private';
+    import { useBorderBeamPulse } from '~flux/visuals/composable/private';
     import $style from '~flux/visuals/css/component/BorderBeam.module.scss';
 
     const emit = defineEmits<{

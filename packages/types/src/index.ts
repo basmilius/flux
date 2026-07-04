@@ -102,3 +102,9 @@ export type {
     FluxStatisticsChartTreemapSeries,
     FluxStatisticsPercentageBarItemObject
 } from './statistics';
+
+export type {
+    BorderBeamVariant,
+    HighlighterGroupProps,
+    HighlighterVariant
+} from './visuals';

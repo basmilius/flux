@@ -1,7 +1,6 @@
 import { prefersReducedMotion } from '@flux-ui/internals';
+import type { BorderBeamVariant } from '@flux-ui/types';
 import { unref, watchEffect, type Ref } from 'vue';
-
-export type BorderBeamVariant = 'sm' | 'md' | 'line' | 'pulse-inner' | 'pulse-outside';
 
 type PulseOscillator = {
     readonly prop: string;
