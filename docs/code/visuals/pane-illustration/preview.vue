@@ -3,7 +3,7 @@
         <FluxPane
             tag="New"
             style="max-width: 360px">
-            <FluxPaneIllustration
+            <FluxVisualPaneIllustration
                 :animated-colors="['#6071b5', '#f07db7']"
                 :animated-seed="130496"
                 is-masked>
@@ -20,7 +20,7 @@
                             stroke-width="3"/>
                     </svg>
                 </template>
-            </FluxPaneIllustration>
+            </FluxVisualPaneIllustration>
 
             <FluxPaneHeader title="Manage even more"/>
 
@@ -40,5 +40,6 @@
 <script
     setup
     lang="ts">
-    import { FluxPane, FluxPaneBody, FluxPaneHeader, FluxPaneIllustration, FluxSecondaryButton } from '@flux-ui/components';
+    import { FluxPane, FluxPaneBody, FluxPaneHeader, FluxSecondaryButton } from '@flux-ui/components';
+    import { FluxVisualPaneIllustration } from '@flux-ui/visuals';
 </script>

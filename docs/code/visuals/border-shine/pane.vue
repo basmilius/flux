@@ -6,7 +6,7 @@
         <FluxPane
             tag="New"
             style="max-width: 360px; border-color: transparent">
-            <FluxPaneIllustration
+            <FluxVisualPaneIllustration
                 :animated-colors="['#6071b5', '#f07db7']"
                 :animated-seed="130496"
                 is-masked
@@ -21,7 +21,7 @@
                         stroke="rgb(0 0 0 / .15)"
                         stroke-width="3"/>
                 </svg>
-            </FluxPaneIllustration>
+            </FluxVisualPaneIllustration>
 
             <FluxPaneHeader title="Manage even more"/>
 
@@ -41,6 +41,6 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneBody, FluxPaneHeader, FluxPaneIllustration, FluxSecondaryButton } from '@flux-ui/components';
-    import { FluxVisualBorderShine } from '@flux-ui/visuals';
+    import { FluxPane, FluxPaneBody, FluxPaneHeader, FluxSecondaryButton } from '@flux-ui/components';
+    import { FluxVisualBorderShine, FluxVisualPaneIllustration } from '@flux-ui/visuals';
 </script>

@@ -40,7 +40,7 @@ slots:
 The pane illustration places a visual illustration within a pane, often in feature or onboarding-style cards. Illustrations are created outside of Flux and brought into the pane to add personality.
 
 ::: render
-render=../../code/components/pane/illustration/preview.vue
+render=../../code/visuals/pane-illustration/preview.vue
 :::
 
 <FrontmatterDocs/>
@@ -48,11 +48,11 @@ render=../../code/components/pane/illustration/preview.vue
 ## Examples
 
 ::: example Basic || A basic pane illustration.
-example=../../code/components/pane/illustration/basic.vue
+example=../../code/visuals/pane-illustration/basic.vue
 :::
 
 ## Used components
 
-- [Visuals](../../visuals/)
-    - [Grid pattern](../../visuals/components/grid-pattern)
-    - [Animated colors](../../visuals/components/animated-colors)
+- [Visuals](../)
+    - [Grid pattern](./grid-pattern)
+    - [Animated colors](./animated-colors)

@@ -127,7 +127,6 @@ export { default as FluxPaneBody } from './FluxPaneBody.vue';
 export { default as FluxPaneFooter } from './FluxPaneFooter.vue';
 export { default as FluxPaneGroup } from './FluxPaneGroup.vue';
 export { default as FluxPaneHeader } from './FluxPaneHeader.vue';
-export { default as FluxPaneIllustration } from './FluxPaneIllustration.vue';
 export { default as FluxPaneMedia } from './FluxPaneMedia.vue';
 export { default as FluxPersona } from './FluxPersona.vue';
 export { default as FluxPlaceholder } from './FluxPlaceholder.vue';

@@ -26,7 +26,7 @@ props:
 
 # Animated colors
 
-The animated colors component presents an array of colors with a blurred animation effect, often used in the [Pane Illustration](../pane/illustration) component.
+The animated colors component presents an array of colors with a blurred animation effect, often used in the [Pane Illustration](./pane-illustration) component.
 
 ::: render
 render=../../code/visuals/animated-colors/preview.vue

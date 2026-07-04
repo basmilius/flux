@@ -9,6 +9,7 @@ export { default as FluxVisualHighlighter } from './FluxVisualHighlighter.vue';
 export { default as FluxVisualHighlighterGroup } from './FluxVisualHighlighterGroup.vue';
 export { default as FluxVisualNoise } from './FluxVisualNoise.vue';
 export { default as FluxVisualNumberFlow } from './FluxVisualNumberFlow.vue';
+export { default as FluxVisualPaneIllustration } from './FluxVisualPaneIllustration.vue';
 export { default as FluxVisualPing } from './FluxVisualPing.vue';
 export { default as FluxVisualSlotText } from './FluxVisualSlotText.vue';
 export { default as FluxVisualTextScramble } from './FluxVisualTextScramble.vue';

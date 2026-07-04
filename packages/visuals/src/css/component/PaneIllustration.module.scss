@@ -1,0 +1,49 @@
+.paneIllustration {
+    --mask: linear-gradient(to bottom, black, transparent);
+    --mask-content: linear-gradient(to bottom, black, rgb(0 0 0 / .75), transparent);
+
+    position: relative;
+    border-radius: calc(var(--radius) - 1px);
+
+    &:not(:first-child) {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    &:not(:last-child) {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+}
+
+.paneIllustrationContent {
+    position: relative;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.paneIllustrationContentControlled {
+    composes: paneIllustrationContent;
+
+    overflow: hidden;
+
+    -webkit-mask-image: var(--mask-content);
+    mask-image: var(--mask-content);
+}
+
+.paneIllustrationMagic {
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+}
+
+.paneIllustrationMasked {
+    composes: paneIllustration;
+
+    .paneIllustrationMagic {
+        -webkit-mask-image: var(--mask);
+        mask-image: var(--mask);
+    }
+}

@@ -140,7 +140,6 @@ Flex "stack" helpers live under `layout/flex/*` but export as `Flux*Stack` (⚠)
 | `pane/group`         | `FluxPaneGroup` | Group of panes |
 | `pane/clickable`     | `FluxClickablePane` ⚠ | Clickable pane (**variant to front**) |
 | `pane/media`         | `FluxPaneMedia` | Media area in a pane |
-| `pane/illustration`  | `FluxPaneIllustration` | Illustration area |
 | `pane/layer-pane`    | `FluxLayerPane` / `FluxLayerPaneSecondary` | Layered pane (+ secondary layer) |
 | `placeholder`        | `FluxPlaceholder` | Empty/placeholder state |
 | `skeleton`           | `FluxSkeleton` | Loading skeleton |
@@ -289,6 +288,7 @@ These live in the separate **`@flux-ui/visuals`** package, not `@flux-ui/compone
 | `visuals/components/grid-pattern`     | `FluxVisualGridPattern` |
 | `visuals/components/highlighter`      | `FluxVisualHighlighter` |
 | `visuals/components/highlighter-group` | `FluxVisualHighlighterGroup` |
+| `visuals/components/pane-illustration` | `FluxVisualPaneIllustration` |
 | `visuals/components/slot-text`        | `FluxVisualSlotText` |
 
 Use sparingly for hero/empty states; never as functional UI.

@@ -302,6 +302,7 @@ export default defineConfig({
                         {text: 'Highlighter group', link: '/visuals/components/highlighter-group'},
                         {text: 'Noise', link: '/visuals/components/noise'},
                         {text: 'Number flow', link: '/visuals/components/number-flow'},
+                        {text: 'Pane illustration', link: '/visuals/components/pane-illustration'},
                         {text: 'Ping', link: '/visuals/components/ping'},
                         {text: 'Slot text', link: '/visuals/components/slot-text'},
                         {text: 'Text scramble', link: '/visuals/components/text-scramble'},

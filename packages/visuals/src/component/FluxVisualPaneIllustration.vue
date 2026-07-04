@@ -1,5 +1,6 @@
 <template>
     <div
+        data-flux-pane-illustration
         :class="isMasked ? $style.paneIllustrationMasked : $style.paneIllustration"
         :style="{
             aspectRatio
@@ -35,9 +36,10 @@
     lang="ts"
     setup>
     import { hexToRGB } from '@basmilius/utils';
-    import { FluxVisualAnimatedColors, FluxVisualGridPattern } from '@flux-ui/visuals';
     import { computed, type VNode } from 'vue';
-    import $style from '~flux/components/css/component/Pane.module.scss';
+    import FluxVisualAnimatedColors from './FluxVisualAnimatedColors.vue';
+    import FluxVisualGridPattern from './FluxVisualGridPattern.vue';
+    import $style from '~flux/visuals/css/component/PaneIllustration.module.scss';
 
     const {
         animatedColors,
