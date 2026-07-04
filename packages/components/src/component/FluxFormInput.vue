@@ -208,10 +208,12 @@
         if (evt.key === ' ') {
             evt.preventDefault();
 
+            const input = unrefTemplateElement(inputRef);
+
             if (instance?.vnode.props?.onShowPicker) {
                 emit('showPicker');
-            } else {
-                unrefTemplateElement(inputRef)?.showPicker();
+            } else if (input && input instanceof HTMLInputElement) {
+                input.showPicker();
             }
         }
     }
