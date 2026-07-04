@@ -1,5 +1,5 @@
 <template>
-    <FluxSlotText
+    <FluxVisualSlotText
         direction="up"
         :text="time"
         style="font-size: 39px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: 0.02em;"/>
@@ -8,7 +8,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxSlotText } from '@flux-ui/visuals';
+    import { FluxVisualSlotText } from '@flux-ui/visuals';
     import { onBeforeUnmount, onMounted, ref } from 'vue';
 
     const time = ref('00:00:00');

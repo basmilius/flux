@@ -3,7 +3,7 @@
         align="start"
         direction="vertical"
         :gap="21">
-        <FluxSlotText
+        <FluxVisualSlotText
             chromatic
             :text="values[index]"
             style="font-size: 33px; font-weight: 700;"/>
@@ -19,7 +19,7 @@
     lang="ts"
     setup>
     import { FluxFlex, FluxSecondaryButton } from '@flux-ui/components';
-    import { FluxSlotText } from '@flux-ui/visuals';
+    import { FluxVisualSlotText } from '@flux-ui/visuals';
     import { ref } from 'vue';
 
     const values = ['Rainbow', 'Spectrum', 'Chromatic', 'Vibrant'];

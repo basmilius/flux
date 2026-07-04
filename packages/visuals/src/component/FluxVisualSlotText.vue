@@ -7,6 +7,7 @@
 <script
     lang="ts"
     setup>
+    import { prefersReducedMotion } from '@flux-ui/internals';
     import { onBeforeUnmount, onMounted, useTemplateRef, watch } from 'vue';
     import $style from '~flux/visuals/css/component/SlotText.module.scss';
 
@@ -88,10 +89,6 @@
         const t = total <= 1 ? 0 : index / (total - 1);
         return `hsl(${(t * 320) % 360} 92% 60%)`;
     };
-
-    function prefersReducedMotion(): boolean {
-        return typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches === true;
-    }
 
     function baseOptions(): AnimateOptions {
         return {

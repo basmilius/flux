@@ -1,6 +1,6 @@
 <template>
     <Preview>
-        <FluxBorderBeam>
+        <FluxVisualBorderBeam>
             <FluxPane style="max-width: 360px;">
                 <FluxPaneHeader title="Introducing AI assist"/>
 
@@ -14,7 +14,7 @@
                         label="Try it out"/>
                 </FluxPaneBody>
             </FluxPane>
-        </FluxBorderBeam>
+        </FluxVisualBorderBeam>
     </Preview>
 </template>
 
@@ -22,5 +22,5 @@
     lang="ts"
     setup>
     import { FluxPane, FluxPaneBody, FluxPaneHeader, FluxSecondaryButton } from '@flux-ui/components';
-    import { FluxBorderBeam } from '@flux-ui/visuals';
+    import { FluxVisualBorderBeam } from '@flux-ui/visuals';
 </script>

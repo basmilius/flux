@@ -3,7 +3,7 @@
         align="start"
         direction="vertical"
         :gap="12">
-        <FluxSlotText
+        <FluxVisualSlotText
             :text="greetings[index]"
             style="font-size: 24px; font-weight: 600;"/>
 
@@ -17,7 +17,7 @@
     lang="ts"
     setup>
     import { FluxFlex, FluxSecondaryButton } from '@flux-ui/components';
-    import { FluxSlotText } from '@flux-ui/visuals';
+    import { FluxVisualSlotText } from '@flux-ui/visuals';
     import { ref } from 'vue';
 
     const greetings = ['Hello', 'Bonjour', 'Hola', 'Ciao', 'Hallo', 'Olá'];

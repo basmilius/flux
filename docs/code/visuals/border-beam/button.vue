@@ -1,14 +1,14 @@
 <template>
-    <FluxBorderBeam variant="sm">
+    <FluxVisualBorderBeam variant="sm">
         <FluxSecondaryButton
             icon-leading="sparkles"
             label="Generate"/>
-    </FluxBorderBeam>
+    </FluxVisualBorderBeam>
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxSecondaryButton } from '@flux-ui/components';
-    import { FluxBorderBeam } from '@flux-ui/visuals';
+    import { FluxVisualBorderBeam } from '@flux-ui/visuals';
 </script>

@@ -52,7 +52,8 @@
         "@basmilius/common": "^3.45.0",
         "@basmilius/utils": "^3.45.0",
         "@flux-ui/internals": "workspace:*",
-        "clsx": "^2.1.1"
+        "clsx": "^2.1.1",
+        "rough-notation": "^0.5.1"
     },
     "peerDependencies": {
         "vue": "^3.6.0-beta.17"

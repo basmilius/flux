@@ -1,24 +1,24 @@
 <template>
-    <FluxBorderShine
+    <FluxVisualBorderShine
         :colors="['transparent', 'transparent', 'transparent', '#2563eb', 'transparent', 'transparent', 'transparent']"
         :duration="12"
         :width="1">
         <Preview>
-            <FluxBorderShine
+            <FluxVisualBorderShine
                 :colors="['transparent', 'transparent', 'transparent', '#10b981', 'transparent', 'transparent', 'transparent']"
                 :duration="3"
                 :width="1">
                 <FluxSecondaryButton
                     icon-leading="circle-arrow-up"
                     label="Upgrade now"/>
-            </FluxBorderShine>
+            </FluxVisualBorderShine>
         </Preview>
-    </FluxBorderShine>
+    </FluxVisualBorderShine>
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxSecondaryButton } from '@flux-ui/components';
-    import { FluxBorderShine } from '@flux-ui/visuals';
+    import { FluxVisualBorderShine } from '@flux-ui/visuals';
 </script>

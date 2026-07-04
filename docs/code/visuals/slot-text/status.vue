@@ -3,7 +3,7 @@
         align="start"
         direction="vertical"
         :gap="15">
-        <FluxSlotText
+        <FluxVisualSlotText
             :color="current.color"
             direction="up"
             :text="current.label"
@@ -20,7 +20,7 @@
     lang="ts"
     setup>
     import { FluxFlex, FluxSecondaryButton } from '@flux-ui/components';
-    import { FluxSlotText } from '@flux-ui/visuals';
+    import { FluxVisualSlotText } from '@flux-ui/visuals';
     import { computed, ref } from 'vue';
 
     const statuses = [

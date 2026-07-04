@@ -10,7 +10,7 @@
     setup>
     import { useComponentId } from '@basmilius/common';
     import { mulberry32 } from '@basmilius/utils';
-    import { useInView } from '@flux-ui/internals';
+    import { prefersReducedMotion, useInView } from '@flux-ui/internals';
     import { computed, onBeforeUnmount, ref, unref, useTemplateRef, watch } from 'vue';
     import $style from '~flux/visuals/css/component/Visual.module.scss';
 
@@ -40,7 +40,7 @@
     const tick = ref(0);
     const size = ref<{ width: number; height: number; } | null>(null);
 
-    const reducedMotion = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    const reducedMotion = prefersReducedMotion();
 
     const polygons = computed(() => {
         if (!colors || colors.length === 0) {

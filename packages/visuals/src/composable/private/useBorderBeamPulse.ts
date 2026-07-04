@@ -1,3 +1,4 @@
+import { prefersReducedMotion } from '@flux-ui/internals';
 import { unref, watchEffect, type Ref } from 'vue';
 
 export type BorderBeamVariant = 'sm' | 'md' | 'line' | 'pulse-inner' | 'pulse-outside';
@@ -190,7 +191,7 @@ export default function useBorderBeamPulse(options: UseBorderBeamPulseOptions): 
             return;
         }
 
-        if (typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+        if (prefersReducedMotion()) {
             return;
         }
 

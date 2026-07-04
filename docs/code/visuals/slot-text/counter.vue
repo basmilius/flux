@@ -7,7 +7,7 @@
             icon-leading="minus"
             @click="step(-1)"/>
 
-        <FluxSlotText
+        <FluxVisualSlotText
             :direction="direction"
             :text="`${count}`"
             style="min-width: 48px; font-size: 33px; font-weight: 700; justify-content: center;"/>
@@ -22,7 +22,7 @@
     lang="ts"
     setup>
     import { FluxFlex, FluxSecondaryButton } from '@flux-ui/components';
-    import { FluxSlotText } from '@flux-ui/visuals';
+    import { FluxVisualSlotText } from '@flux-ui/visuals';
     import { ref } from 'vue';
 
     const count = ref(42);

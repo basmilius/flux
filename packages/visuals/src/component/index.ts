@@ -1,7 +1,9 @@
-export { default as FluxAnimatedColors } from './FluxAnimatedColors.vue';
-export { default as FluxBorderBeam } from './FluxBorderBeam.vue';
-export { default as FluxBorderShine } from './FluxBorderShine.vue';
-export { default as FluxDotPattern } from './FluxDotPattern.vue';
-export { default as FluxFlickeringGrid } from './FluxFlickeringGrid.vue';
-export { default as FluxGridPattern } from './FluxGridPattern.vue';
-export { default as FluxSlotText } from './FluxSlotText.vue';
+export { default as FluxVisualAnimatedColors } from './FluxVisualAnimatedColors.vue';
+export { default as FluxVisualBorderBeam } from './FluxVisualBorderBeam.vue';
+export { default as FluxVisualBorderShine } from './FluxVisualBorderShine.vue';
+export { default as FluxVisualDotPattern } from './FluxVisualDotPattern.vue';
+export { default as FluxVisualFlickeringGrid } from './FluxVisualFlickeringGrid.vue';
+export { default as FluxVisualGridPattern } from './FluxVisualGridPattern.vue';
+export { default as FluxVisualHighlighter } from './FluxVisualHighlighter.vue';
+export { default as FluxVisualHighlighterGroup } from './FluxVisualHighlighterGroup.vue';
+export { default as FluxVisualSlotText } from './FluxVisualSlotText.vue';

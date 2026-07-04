@@ -1,6 +1,6 @@
 <template>
     <FluxAspectRatio :aspect-ratio="21 / 9">
-        <FluxAnimatedColors
+        <FluxVisualAnimatedColors
             :colors="['#2d5cf2', '#3ea34b']"
             :incrementor=".5"
             :opacity="1"
@@ -12,5 +12,5 @@
     lang="ts"
     setup>
     import { FluxAspectRatio } from '@flux-ui/components';
-    import { FluxAnimatedColors } from '@flux-ui/visuals';
+    import { FluxVisualAnimatedColors } from '@flux-ui/visuals';
 </script>

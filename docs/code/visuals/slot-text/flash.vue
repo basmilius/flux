@@ -3,7 +3,7 @@
         icon-leading="copy"
         @click="copy">
         <template #label>
-            <FluxSlotText
+            <FluxVisualSlotText
                 ref="label"
                 text="Copy"/>
         </template>
@@ -14,10 +14,10 @@
     lang="ts"
     setup>
     import { FluxSecondaryButton } from '@flux-ui/components';
-    import { FluxSlotText } from '@flux-ui/visuals';
+    import { FluxVisualSlotText } from '@flux-ui/visuals';
     import { useTemplateRef } from 'vue';
 
-    const labelRef = useTemplateRef<InstanceType<typeof FluxSlotText>>('label');
+    const labelRef = useTemplateRef<InstanceType<typeof FluxVisualSlotText>>('label');
 
     function copy(): void {
         labelRef.value?.flash('Copied', {enter: {direction: 'up'}});

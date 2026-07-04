@@ -9,9 +9,9 @@
             :style="{
                 border: `1px solid ${borderColor}`
             }">
-            <FluxGridPattern :stroke-dasharray="3"/>
+            <FluxVisualGridPattern :stroke-dasharray="3"/>
 
-            <FluxAnimatedColors
+            <FluxVisualAnimatedColors
                 :colors="animatedColors"
                 :opacity="animatedOpacity"
                 :seed="animatedSeed"/>
@@ -35,7 +35,7 @@
     lang="ts"
     setup>
     import { hexToRGB } from '@basmilius/utils';
-    import { FluxAnimatedColors, FluxGridPattern } from '@flux-ui/visuals';
+    import { FluxVisualAnimatedColors, FluxVisualGridPattern } from '@flux-ui/visuals';
     import { computed, type VNode } from 'vue';
     import $style from '~flux/components/css/component/Pane.module.scss';
 

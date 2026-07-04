@@ -1,5 +1,5 @@
 <template>
-    <FluxBorderBeam variant="pulse-inner">
+    <FluxVisualBorderBeam variant="pulse-inner">
         <FluxPane style="width: 280px;">
             <FluxPaneHeader title="Pulse inner"/>
 
@@ -7,9 +7,9 @@
                 A breathing glow that stays contained within the element.
             </FluxPaneBody>
         </FluxPane>
-    </FluxBorderBeam>
+    </FluxVisualBorderBeam>
 
-    <FluxBorderBeam variant="pulse-outside">
+    <FluxVisualBorderBeam variant="pulse-outside">
         <FluxPane style="width: 280px;">
             <FluxPaneHeader title="Pulse outside"/>
 
@@ -17,12 +17,12 @@
                 A breathing halo that blooms outward, behind the element.
             </FluxPaneBody>
         </FluxPane>
-    </FluxBorderBeam>
+    </FluxVisualBorderBeam>
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxPane, FluxPaneBody, FluxPaneHeader } from '@flux-ui/components';
-    import { FluxBorderBeam } from '@flux-ui/visuals';
+    import { FluxVisualBorderBeam } from '@flux-ui/visuals';
 </script>

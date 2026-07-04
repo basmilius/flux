@@ -297,6 +297,8 @@ export default defineConfig({
                         {text: 'Dot pattern', link: '/visuals/components/dot-pattern'},
                         {text: 'Flickering grid', link: '/visuals/components/flickering-grid'},
                         {text: 'Grid pattern', link: '/visuals/components/grid-pattern'},
+                        {text: 'Highlighter', link: '/visuals/components/highlighter'},
+                        {text: 'Highlighter group', link: '/visuals/components/highlighter-group'},
                         {text: 'Slot text', link: '/visuals/components/slot-text'}
                     ]
                 }

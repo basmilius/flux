@@ -7,7 +7,7 @@
                 :gap="3">
                 <span style="color: var(--gray-500); font-size: 13px; font-weight: 500;">Active users</span>
 
-                <FluxSlotText
+                <FluxVisualSlotText
                     direction="up"
                     :text="value"
                     style="font-size: 33px; font-weight: 700; font-variant-numeric: tabular-nums;"/>
@@ -20,7 +20,7 @@
     lang="ts"
     setup>
     import { FluxFlex, FluxPane, FluxPaneBody } from '@flux-ui/components';
-    import { FluxSlotText } from '@flux-ui/visuals';
+    import { FluxVisualSlotText } from '@flux-ui/visuals';
     import { onBeforeUnmount, onMounted, ref } from 'vue';
 
     const count = ref(12483);

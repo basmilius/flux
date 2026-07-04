@@ -8,6 +8,7 @@ export { default as getFocusableElement } from './getFocusableElement';
 export { default as getFocusableElements } from './getFocusableElements';
 export { default as getKeyboardFocusableElements } from './getKeyboardFocusableElements';
 export { default as isActiveElement } from './isActiveElement';
+export { default as prefersReducedMotion } from './prefersReducedMotion';
 export { default as unrefTemplateElement, type TemplateElement, type TemplateRef } from './unrefTemplateElement';
 export { default as warn } from './warn';
 export { default as wrapFocus } from './wrapFocus';

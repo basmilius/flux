@@ -1,5 +1,5 @@
 <template>
-    <FluxBorderShine
+    <FluxVisualBorderShine
         :offset="2"
         radius="calc(var(--radius) + 3px)"
         :width="2">
@@ -35,12 +35,12 @@
                     label="Manage"/>
             </FluxPaneBody>
         </FluxPane>
-    </FluxBorderShine>
+    </FluxVisualBorderShine>
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxPane, FluxPaneBody, FluxPaneHeader, FluxPaneIllustration, FluxSecondaryButton } from '@flux-ui/components';
-    import { FluxBorderShine } from '@flux-ui/visuals';
+    import { FluxVisualBorderShine } from '@flux-ui/visuals';
 </script>

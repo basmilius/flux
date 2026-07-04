@@ -3,7 +3,7 @@
         tag="New"
         style="max-width: 360px; contain: paint">
         <FluxAspectRatio :aspect-ratio="21 / 9">
-            <FluxAnimatedColors
+            <FluxVisualAnimatedColors
                 :colors="['#d37709', '#d32475', '#6615de']"
                 :incrementor=".5"
                 :opacity="1"
@@ -28,5 +28,5 @@
     lang="ts"
     setup>
     import { FluxAspectRatio, FluxPane, FluxPaneBody, FluxPaneHeader, FluxSecondaryButton } from '@flux-ui/components';
-    import { FluxAnimatedColors } from '@flux-ui/visuals';
+    import { FluxVisualAnimatedColors } from '@flux-ui/visuals';
 </script>

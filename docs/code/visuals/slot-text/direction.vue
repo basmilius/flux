@@ -7,12 +7,12 @@
             align="center"
             direction="horizontal"
             :gap="24">
-            <FluxSlotText
+            <FluxVisualSlotText
                 direction="up"
                 :text="`Up ${count}`"
                 style="font-size: 21px; font-weight: 600;"/>
 
-            <FluxSlotText
+            <FluxVisualSlotText
                 direction="down"
                 :text="`Down ${count}`"
                 style="font-size: 21px; font-weight: 600;"/>
@@ -29,7 +29,7 @@
     lang="ts"
     setup>
     import { FluxFlex, FluxSecondaryButton } from '@flux-ui/components';
-    import { FluxSlotText } from '@flux-ui/visuals';
+    import { FluxVisualSlotText } from '@flux-ui/visuals';
     import { ref } from 'vue';
 
     const count = ref(0);

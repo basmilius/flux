@@ -9,7 +9,7 @@
             :gap="9">
             <span style="color: var(--gray-500); font-size: 13px; font-weight: 500;">Revenue MoM</span>
 
-            <FluxSlotText
+            <FluxVisualSlotText
                 :color="trend.color"
                 :direction="trend.direction"
                 :text="trend.label"
@@ -27,7 +27,7 @@
     lang="ts"
     setup>
     import { FluxFlex, FluxSecondaryButton } from '@flux-ui/components';
-    import { FluxSlotText } from '@flux-ui/visuals';
+    import { FluxVisualSlotText } from '@flux-ui/visuals';
     import { computed, ref } from 'vue';
 
     const readings = [4.2, -1.1, 8.7, -3.4, 2.6, -0.8];

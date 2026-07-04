@@ -1,5 +1,5 @@
 <template>
-    <FluxBorderBeam>
+    <FluxVisualBorderBeam>
         <FluxPane
             tag="New"
             style="max-width: 360px;">
@@ -15,12 +15,12 @@
                     label="Manage"/>
             </FluxPaneBody>
         </FluxPane>
-    </FluxBorderBeam>
+    </FluxVisualBorderBeam>
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxPane, FluxPaneBody, FluxPaneHeader, FluxSecondaryButton } from '@flux-ui/components';
-    import { FluxBorderBeam } from '@flux-ui/visuals';
+    import { FluxVisualBorderBeam } from '@flux-ui/visuals';
 </script>

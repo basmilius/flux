@@ -1,7 +1,7 @@
 <template>
     <FluxPane variant="well">
         <FluxAspectRatio :aspect-ratio="21 / 9">
-            <FluxGridPattern
+            <FluxVisualGridPattern
                 :height="30"
                 :width="30"
                 :stroke-dasharray="3"/>
@@ -13,5 +13,5 @@
     lang="ts"
     setup>
     import { FluxAspectRatio, FluxPane } from '@flux-ui/components';
-    import { FluxGridPattern } from '@flux-ui/visuals';
+    import { FluxVisualGridPattern } from '@flux-ui/visuals';
 </script>

@@ -281,13 +281,15 @@ These live in the separate **`@flux-ui/visuals`** package, not `@flux-ui/compone
 
 | Doc path                              | Export |
 | ------------------------------------- | ------ |
-| `visuals/components/animated-colors`  | `FluxAnimatedColors` |
-| `visuals/components/border-beam`      | `FluxBorderBeam` |
-| `visuals/components/border-shine`     | `FluxBorderShine` |
-| `visuals/components/dot-pattern`      | `FluxDotPattern` |
-| `visuals/components/flickering-grid`  | `FluxFlickeringGrid` |
-| `visuals/components/grid-pattern`     | `FluxGridPattern` |
-| `visuals/components/slot-text`        | `FluxSlotText` |
+| `visuals/components/animated-colors`  | `FluxVisualAnimatedColors` |
+| `visuals/components/border-beam`      | `FluxVisualBorderBeam` |
+| `visuals/components/border-shine`     | `FluxVisualBorderShine` |
+| `visuals/components/dot-pattern`      | `FluxVisualDotPattern` |
+| `visuals/components/flickering-grid`  | `FluxVisualFlickeringGrid` |
+| `visuals/components/grid-pattern`     | `FluxVisualGridPattern` |
+| `visuals/components/highlighter`      | `FluxVisualHighlighter` |
+| `visuals/components/highlighter-group` | `FluxVisualHighlighterGroup` |
+| `visuals/components/slot-text`        | `FluxVisualSlotText` |
 
 Use sparingly for hero/empty states; never as functional UI.
 

@@ -4,7 +4,7 @@
             align="center"
             direction="vertical"
             :gap="21">
-            <FluxSlotText
+            <FluxVisualSlotText
                 chromatic
                 :text="words[index]"
                 style="font-size: 39px; font-weight: 700; letter-spacing: -0.02em;"/>
@@ -21,7 +21,7 @@
     lang="ts"
     setup>
     import { FluxFlex, FluxSecondaryButton } from '@flux-ui/components';
-    import { FluxSlotText } from '@flux-ui/visuals';
+    import { FluxVisualSlotText } from '@flux-ui/visuals';
     import { ref } from 'vue';
 
     const words = ['Delightful', 'Tactile', 'Playful', 'Smooth', 'Snappy'];

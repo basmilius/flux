@@ -9,7 +9,7 @@
     lang="ts"
     setup>
     import { mulberry32 } from '@basmilius/utils';
-    import { useInView } from '@flux-ui/internals';
+    import { prefersReducedMotion, useInView } from '@flux-ui/internals';
     import { computed, unref, useTemplateRef, watch } from 'vue';
     import $style from '~flux/visuals/css/component/Visual.module.scss';
 
@@ -118,7 +118,7 @@
         let lastTime = 0;
         let {width, height, columns, rows, squares, dpr} = setup(canvas);
 
-        const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+        const reducedMotion = prefersReducedMotion();
 
         const onResize = () => {
             ({width, height, columns, rows, squares, dpr} = setup(canvas));

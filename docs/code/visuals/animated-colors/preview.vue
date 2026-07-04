@@ -1,6 +1,6 @@
 <template>
     <Preview>
-        <FluxAnimatedColors
+        <FluxVisualAnimatedColors
             :colors="['#6071b5', '#f07db7', '#0284c7']"
             :incrementor=".5"
             :opacity="1"
@@ -11,5 +11,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxAnimatedColors } from '@flux-ui/visuals';
+    import { FluxVisualAnimatedColors } from '@flux-ui/visuals';
 </script>

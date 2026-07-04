@@ -51,16 +51,16 @@ Import the components you want to use, like this:
 
 ```vue [Hero.vue]
 <template>
-    <FluxBorderBeam variant="md"> <!-- [!code focus:3] -->
+    <FluxVisualBorderBeam variant="md"> <!-- [!code focus:3] -->
         <FluxPane>...</FluxPane>
-    </FluxBorderBeam>
+    </FluxVisualBorderBeam>
 </template>
 
 <script
     setup
     lang="ts">
     import { FluxPane } from '@flux-ui/components'
-    import { FluxBorderBeam } from '@flux-ui/visuals' // [!code focus]
+    import { FluxVisualBorderBeam } from '@flux-ui/visuals' // [!code focus]
 </script>
 ```
 
