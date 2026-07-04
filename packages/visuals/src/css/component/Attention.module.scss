@@ -1,0 +1,104 @@
+.pulse {
+    animation: visualAttentionPulse calc(var(--attention-duration) * 1ms) ease-in-out;
+}
+
+.shake {
+    animation: visualAttentionShake calc(var(--attention-duration) * 1ms) ease-in-out;
+}
+
+.bounce {
+    animation: visualAttentionBounce calc(var(--attention-duration) * 1ms) ease;
+}
+
+.tada {
+    animation: visualAttentionTada calc(var(--attention-duration) * 1ms) ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pulse,
+    .shake,
+    .bounce,
+    .tada {
+        animation: none;
+    }
+}
+
+@keyframes visualAttentionPulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.06);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes visualAttentionShake {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-6px);
+    }
+
+    40% {
+        transform: translateX(6px);
+    }
+
+    60% {
+        transform: translateX(-3px);
+    }
+
+    80% {
+        transform: translateX(3px);
+    }
+}
+
+@keyframes visualAttentionBounce {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    30% {
+        transform: translateY(-9px);
+    }
+
+    60% {
+        transform: translateY(-3px);
+    }
+}
+
+@keyframes visualAttentionTada {
+    0% {
+        transform: scale(1) rotate(0);
+    }
+
+    10%,
+    20% {
+        transform: scale(.94) rotate(-3deg);
+    }
+
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: scale(1.06) rotate(3deg);
+    }
+
+    40%,
+    60%,
+    80% {
+        transform: scale(1.06) rotate(-3deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0);
+    }
+}

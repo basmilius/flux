@@ -25,6 +25,12 @@ props:
         type: "Array<[x: number, y: number]>"
         default: [ ]
         optional: true
+
+    -   name: glow
+        description: Light up the grid lines with the primary color around the cursor.
+        type: boolean
+        default: false
+        optional: true
 ---
 
 # Grid pattern
@@ -41,4 +47,8 @@ render=../../code/visuals/grid-pattern/preview.vue
 
 ::: example Free || When used freely, the grid pattern fills its parent container.
 example=../../code/visuals/grid-pattern/free.vue
+:::
+
+::: example Glow || With `glow` enabled, the grid lines light up around the cursor as it moves across the container, while the rest stays dimmed.
+example=../../code/visuals/grid-pattern/glow.vue
 :::

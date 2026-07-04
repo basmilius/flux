@@ -1,4 +1,5 @@
 export { default as FluxVisualAnimatedColors } from './FluxVisualAnimatedColors.vue';
+export { default as FluxVisualAttention } from './FluxVisualAttention.vue';
 export { default as FluxVisualBorderBeam } from './FluxVisualBorderBeam.vue';
 export { default as FluxVisualBorderShine } from './FluxVisualBorderShine.vue';
 export { default as FluxVisualDotPattern } from './FluxVisualDotPattern.vue';
@@ -6,4 +7,9 @@ export { default as FluxVisualFlickeringGrid } from './FluxVisualFlickeringGrid.
 export { default as FluxVisualGridPattern } from './FluxVisualGridPattern.vue';
 export { default as FluxVisualHighlighter } from './FluxVisualHighlighter.vue';
 export { default as FluxVisualHighlighterGroup } from './FluxVisualHighlighterGroup.vue';
+export { default as FluxVisualNoise } from './FluxVisualNoise.vue';
+export { default as FluxVisualNumberFlow } from './FluxVisualNumberFlow.vue';
+export { default as FluxVisualPing } from './FluxVisualPing.vue';
 export { default as FluxVisualSlotText } from './FluxVisualSlotText.vue';
+export { default as FluxVisualTextScramble } from './FluxVisualTextScramble.vue';
+export { default as FluxVisualTextShimmer } from './FluxVisualTextShimmer.vue';

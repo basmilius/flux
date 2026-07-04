@@ -1,0 +1,19 @@
+.glowLayer {
+    transition: opacity .25s ease;
+    pointer-events: none;
+    opacity: 0;
+    -webkit-mask: radial-gradient(circle var(--pattern-glow-size, 120px) at var(--pattern-glow-x, 50%) var(--pattern-glow-y, 50%), #000 0%, transparent 100%);
+    mask: radial-gradient(circle var(--pattern-glow-size, 120px) at var(--pattern-glow-x, 50%) var(--pattern-glow-y, 50%), #000 0%, transparent 100%);
+}
+
+.isActive {
+    opacity: 1;
+}
+
+.glowDot {
+    fill: var(--primary-500);
+}
+
+.glowLine {
+    stroke: var(--primary-500);
+}

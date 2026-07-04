@@ -31,6 +31,12 @@ props:
         type: number
         default: 1
         optional: true
+
+    -   name: glow
+        description: Light up the pattern with the primary color around the cursor.
+        type: boolean
+        default: false
+        optional: true
 ---
 
 # Dot pattern
@@ -47,4 +53,8 @@ render=../../code/visuals/dot-pattern/preview.vue
 
 ::: example Free || When used freely, the dot pattern fills the parent container.
 example=../../code/visuals/dot-pattern/free.vue
+:::
+
+::: example Glow || With `glow` enabled, the pattern lights up around the cursor as it moves across the container, while the rest stays dimmed.
+example=../../code/visuals/dot-pattern/glow.vue
 :::

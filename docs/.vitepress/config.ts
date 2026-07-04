@@ -292,6 +292,7 @@ export default defineConfig({
                     collapsed: false,
                     items: [
                         {text: 'Animated colors', link: '/visuals/components/animated-colors'},
+                        {text: 'Attention', link: '/visuals/components/attention'},
                         {text: 'Border beam', link: '/visuals/components/border-beam'},
                         {text: 'Border shine', link: '/visuals/components/border-shine'},
                         {text: 'Dot pattern', link: '/visuals/components/dot-pattern'},
@@ -299,7 +300,12 @@ export default defineConfig({
                         {text: 'Grid pattern', link: '/visuals/components/grid-pattern'},
                         {text: 'Highlighter', link: '/visuals/components/highlighter'},
                         {text: 'Highlighter group', link: '/visuals/components/highlighter-group'},
-                        {text: 'Slot text', link: '/visuals/components/slot-text'}
+                        {text: 'Noise', link: '/visuals/components/noise'},
+                        {text: 'Number flow', link: '/visuals/components/number-flow'},
+                        {text: 'Ping', link: '/visuals/components/ping'},
+                        {text: 'Slot text', link: '/visuals/components/slot-text'},
+                        {text: 'Text scramble', link: '/visuals/components/text-scramble'},
+                        {text: 'Text shimmer', link: '/visuals/components/text-shimmer'}
                     ]
                 }
             ],

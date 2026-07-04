@@ -1,0 +1,54 @@
+.textShimmer {
+    display: inline-block;
+    animation: textShimmerSweep var(--shimmer-duration, 2s) linear infinite;
+    color: transparent;
+    background-image: linear-gradient(
+        90deg,
+        var(--shimmer-base, var(--gray-400)) calc(50% - var(--shimmer-spread, 15) * 1%),
+        var(--shimmer-color, var(--gray-950)) 50%,
+        var(--shimmer-base, var(--gray-400)) calc(50% + var(--shimmer-spread, 15) * 1%)
+    );
+    // Both edges of the gradient are the base color, so tiling it seamlessly
+    // keeps the text fully painted at every step: outside the moving highlight
+    // band the text is always covered by the base color instead of falling off
+    // the single tile into a transparent (clipped) gap. A no-repeat background
+    // only covers the text for background-position 0%..100%; past that the tile
+    // slides off and the text vanishes.
+    background-repeat: repeat;
+    background-position: 100% center;
+    background-clip: text;
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    [dark] & {
+        background-image: linear-gradient(
+            90deg,
+            var(--shimmer-base, var(--gray-500)) calc(50% - var(--shimmer-spread, 15) * 1%),
+            var(--shimmer-color, var(--gray-50)) 50%,
+            var(--shimmer-base, var(--gray-500)) calc(50% + var(--shimmer-spread, 15) * 1%)
+        );
+    }
+
+    // No sweep when reduced motion is requested: fall back to a plain, solid
+    // text color so the label stays legible without animating.
+    @media (prefers-reduced-motion: reduce) {
+        animation: none;
+        color: var(--shimmer-base, var(--gray-500));
+        background: none;
+        -webkit-text-fill-color: currentColor;
+    }
+}
+
+// The 100% to -100% travel shifts the background by exactly one tile width
+// (background-size is 200%), so the repeated pattern lands back on itself and
+// the loop restarts without a jump.
+@keyframes textShimmerSweep {
+    from {
+        background-position: 100% center;
+    }
+
+    to {
+        background-position: -100% center;
+    }
+}

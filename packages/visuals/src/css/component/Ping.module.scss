@@ -1,0 +1,44 @@
+.ping {
+    position: relative;
+    display: inline-block;
+    width: var(--ping-size);
+    height: var(--ping-size);
+    pointer-events: none;
+    color: var(--ping-color);
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.ping::before,
+.ping::after {
+    position: absolute;
+    inset: 0;
+    content: '';
+    animation: visualPing calc(var(--ping-duration) * 1s) cubic-bezier(0, 0, .2, 1) infinite;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.ping::after {
+    animation-delay: calc(var(--ping-duration) * -.5s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ping::before,
+    .ping::after {
+        content: none;
+    }
+}
+
+@keyframes visualPing {
+    0% {
+        transform: scale(1);
+        opacity: .5;
+    }
+
+    75%,
+    100% {
+        transform: scale(2.5);
+        opacity: 0;
+    }
+}
