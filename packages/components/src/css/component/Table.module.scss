@@ -15,7 +15,7 @@
     align-content: start;
     flex-grow: 1;
     width: fit-content;
-    min-width: 100cqw;
+    min-width: 100%;
     grid-template-columns: var(--flux-table-columns, none);
     text-align: left;
 }
