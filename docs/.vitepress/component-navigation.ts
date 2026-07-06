@@ -16,6 +16,149 @@ const navigation: SidebarItem[] = [
         ]
     },
     {
+        text: 'Layout',
+        link: '/components/layout/',
+        collapsed: false,
+        items: [
+            {text: 'Adaptive group', link: '/components/adaptive-group'},
+            {text: 'Adaptive slot', link: '/components/adaptive-slot'},
+            {text: 'Aspect ratio', link: '/components/layout/aspect-ratio', image: '/assets/components/layout-aspect-ratio.svg'},
+            {text: 'Container', link: '/components/layout/container', image: '/assets/components/layout-container.svg'},
+            {text: 'Divider', link: '/components/divider'},
+            {
+                text: 'Fader',
+                link: '/components/fader',
+                items: [
+                    {text: 'Item', link: '/components/fader-item'}
+                ]
+            },
+            {
+                text: 'Flex',
+                link: '/components/layout/flex/',
+                collapsed: true,
+                items: [
+                    {text: 'Item', link: '/components/layout/flex/item'},
+                    {
+                        text: 'Stack',
+                        collapsed: true,
+                        items: [
+                            {text: 'Action', link: '/components/layout/flex/action'},
+                            {text: 'Badge', link: '/components/layout/flex/badge'},
+                            {text: 'Button', link: '/components/layout/flex/button'},
+                            {text: 'Info', link: '/components/layout/flex/info'},
+                            {text: 'Notice', link: '/components/layout/flex/notice'},
+                            {text: 'Tag', link: '/components/layout/flex/tag'}
+                        ]
+                    }
+                ]
+            },
+            {
+                text: 'Grid',
+                link: '/components/layout/grid/',
+                image: '/assets/components/layout-grid.svg',
+                items: [
+                    {text: 'Column', link: '/components/layout/grid/column'}
+                ]
+            },
+            {
+                text: 'Item',
+                link: '/components/item/',
+                items: [
+                    {text: 'Actions', link: '/components/item/actions'},
+                    {text: 'Content', link: '/components/item/content'},
+                    {text: 'Media', link: '/components/item/media'},
+                    {text: 'Stack', link: '/components/item/stack'}
+                ]
+            },
+            {text: 'Overflow bar', link: '/components/overflow-bar'},
+            {text: 'Separator', link: '/components/separator'},
+            {text: 'Spacer', link: '/components/layout/spacer', image: '/assets/components/layout-spacer.svg'},
+            {text: 'Spacing', link: '/components/layout/spacing', image: '/assets/components/layout-spacing.svg'},
+            {
+                text: 'Split view',
+                link: '/components/layout/split-view/',
+                items: [
+                    {text: 'Pane', link: '/components/layout/split-view/pane'}
+                ]
+            }
+        ]
+    },
+    {
+        text: 'Navigation',
+        link: '/components/navigation/',
+        collapsed: false,
+        items: [
+            {
+                text: 'Breadcrumb',
+                link: '/components/breadcrumb/',
+                items: [
+                    {text: 'Item', link: '/components/breadcrumb/item'}
+                ]
+            },
+            {text: 'Command palette', link: '/components/command-palette'},
+            {text: 'Context menu', link: '/components/context-menu'},
+            {
+                text: 'Expandable',
+                link: '/components/expandable/',
+                items: [
+                    {text: 'Group', link: '/components/expandable/group'}
+                ]
+            },
+            {
+                text: 'Menu',
+                link: '/components/menu/',
+                collapsed: true,
+                items: [
+                    {text: 'Collapsible', link: '/components/menu/collapsible'},
+                    {text: 'Flyout', link: '/components/menu/flyout'},
+                    {text: 'Group', link: '/components/menu/group'},
+                    {text: 'Item', link: '/components/menu/item'},
+                    {text: 'Options', link: '/components/menu/options'},
+                    {text: 'Pane', link: '/components/menu/pane'},
+                    {text: 'Sub header', link: '/components/menu/sub-header'},
+                    {text: 'Title', link: '/components/menu/title'}
+                ]
+            },
+            {
+                text: 'Pagination',
+                link: '/components/pagination/',
+                items: [
+                    {text: 'Bar', link: '/components/pagination/bar'}
+                ]
+            },
+            {
+                text: 'Segmented control',
+                link: '/components/segmented-control/',
+                items: [
+                    {text: 'Item', link: '/components/segmented-control/item'}
+                ]
+            },
+            {
+                text: 'Stepper',
+                link: '/components/stepper/',
+                image: '/assets/components/stepper.svg',
+                items: [
+                    {text: 'Steps', link: '/components/stepper/steps'},
+                    {text: 'Step', link: '/components/stepper/step'}
+                ]
+            },
+            {
+                text: 'Tab bar',
+                link: '/components/tab-bar/',
+                items: [
+                    {text: 'Item', link: '/components/tab-bar/item'}
+                ]
+            },
+            {
+                text: 'Tabs',
+                link: '/components/tabs/',
+                items: [
+                    {text: 'Tab', link: '/components/tabs/tab'}
+                ]
+            }
+        ]
+    },
+    {
         text: 'Actions',
         link: '/components/actions/',
         collapsed: false,
@@ -132,81 +275,6 @@ const navigation: SidebarItem[] = [
         ]
     },
     {
-        text: 'Navigation',
-        link: '/components/navigation/',
-        collapsed: false,
-        items: [
-            {
-                text: 'Breadcrumb',
-                link: '/components/breadcrumb/',
-                items: [
-                    {text: 'Item', link: '/components/breadcrumb/item'}
-                ]
-            },
-            {text: 'Command palette', link: '/components/command-palette'},
-            {text: 'Context menu', link: '/components/context-menu'},
-            {
-                text: 'Expandable',
-                link: '/components/expandable/',
-                items: [
-                    {text: 'Group', link: '/components/expandable/group'}
-                ]
-            },
-            {
-                text: 'Menu',
-                link: '/components/menu/',
-                collapsed: true,
-                items: [
-                    {text: 'Collapsible', link: '/components/menu/collapsible'},
-                    {text: 'Flyout', link: '/components/menu/flyout'},
-                    {text: 'Group', link: '/components/menu/group'},
-                    {text: 'Item', link: '/components/menu/item'},
-                    {text: 'Options', link: '/components/menu/options'},
-                    {text: 'Pane', link: '/components/menu/pane'},
-                    {text: 'Sub header', link: '/components/menu/sub-header'},
-                    {text: 'Title', link: '/components/menu/title'}
-                ]
-            },
-            {
-                text: 'Pagination',
-                link: '/components/pagination/',
-                items: [
-                    {text: 'Bar', link: '/components/pagination/bar'}
-                ]
-            },
-            {
-                text: 'Segmented control',
-                link: '/components/segmented-control/',
-                items: [
-                    {text: 'Item', link: '/components/segmented-control/item'}
-                ]
-            },
-            {
-                text: 'Stepper',
-                link: '/components/stepper/',
-                image: '/assets/components/stepper.svg',
-                items: [
-                    {text: 'Steps', link: '/components/stepper/steps'},
-                    {text: 'Step', link: '/components/stepper/step'}
-                ]
-            },
-            {
-                text: 'Tab bar',
-                link: '/components/tab-bar/',
-                items: [
-                    {text: 'Item', link: '/components/tab-bar/item'}
-                ]
-            },
-            {
-                text: 'Tabs',
-                link: '/components/tabs/',
-                items: [
-                    {text: 'Tab', link: '/components/tabs/tab'}
-                ]
-            }
-        ]
-    },
-    {
         text: 'Data display',
         link: '/components/data-display/',
         collapsed: false,
@@ -299,28 +367,6 @@ const navigation: SidebarItem[] = [
         ]
     },
     {
-        text: 'Status & feedback',
-        link: '/components/feedback/',
-        collapsed: false,
-        items: [
-            {text: 'Alert', link: '/components/attention/alert', image: '/assets/components/attention-alert.svg'},
-            {text: 'Badge', link: '/components/badge'},
-            {text: 'Badge group', link: '/components/badge-group'},
-            {text: 'Confirm', link: '/components/attention/confirm', image: '/assets/components/attention-confirm.svg'},
-            {text: 'Info', link: '/components/info'},
-            {text: 'Notice', link: '/components/attention/notice', image: '/assets/components/attention-notice.svg'},
-            {text: 'Placeholder', link: '/components/placeholder'},
-            {text: 'Progress bar', link: '/components/progress-bar'},
-            {text: 'Prompt', link: '/components/attention/prompt', image: '/assets/components/attention-prompt.svg'},
-            {text: 'Skeleton', link: '/components/skeleton'},
-            {text: 'Snackbar', link: '/components/attention/snackbar', image: '/assets/components/attention-snackbar.svg'},
-            {text: 'Spinner', link: '/components/spinner'},
-            {text: 'Tag', link: '/components/tag'},
-            {text: 'Tooltip', link: '/components/tooltip'},
-            {text: 'Tour', link: '/components/tour'}
-        ]
-    },
-    {
         text: 'Overlays & surfaces',
         link: '/components/surfaces/',
         collapsed: false,
@@ -346,71 +392,25 @@ const navigation: SidebarItem[] = [
         ]
     },
     {
-        text: 'Layout',
-        link: '/components/layout/',
+        text: 'Status & feedback',
+        link: '/components/feedback/',
         collapsed: false,
         items: [
-            {text: 'Adaptive group', link: '/components/adaptive-group'},
-            {text: 'Adaptive slot', link: '/components/adaptive-slot'},
-            {text: 'Aspect ratio', link: '/components/layout/aspect-ratio', image: '/assets/components/layout-aspect-ratio.svg'},
-            {text: 'Container', link: '/components/layout/container', image: '/assets/components/layout-container.svg'},
-            {text: 'Divider', link: '/components/divider'},
-            {
-                text: 'Fader',
-                link: '/components/fader',
-                items: [
-                    {text: 'Item', link: '/components/fader-item'}
-                ]
-            },
-            {
-                text: 'Flex',
-                link: '/components/layout/flex/',
-                collapsed: true,
-                items: [
-                    {text: 'Item', link: '/components/layout/flex/item'},
-                    {
-                        text: 'Stack',
-                        collapsed: true,
-                        items: [
-                            {text: 'Action', link: '/components/layout/flex/action'},
-                            {text: 'Badge', link: '/components/layout/flex/badge'},
-                            {text: 'Button', link: '/components/layout/flex/button'},
-                            {text: 'Info', link: '/components/layout/flex/info'},
-                            {text: 'Notice', link: '/components/layout/flex/notice'},
-                            {text: 'Tag', link: '/components/layout/flex/tag'}
-                        ]
-                    }
-                ]
-            },
-            {
-                text: 'Grid',
-                link: '/components/layout/grid/',
-                image: '/assets/components/layout-grid.svg',
-                items: [
-                    {text: 'Column', link: '/components/layout/grid/column'}
-                ]
-            },
-            {
-                text: 'Item',
-                link: '/components/item/',
-                items: [
-                    {text: 'Actions', link: '/components/item/actions'},
-                    {text: 'Content', link: '/components/item/content'},
-                    {text: 'Media', link: '/components/item/media'},
-                    {text: 'Stack', link: '/components/item/stack'}
-                ]
-            },
-            {text: 'Overflow bar', link: '/components/overflow-bar'},
-            {text: 'Separator', link: '/components/separator'},
-            {text: 'Spacer', link: '/components/layout/spacer', image: '/assets/components/layout-spacer.svg'},
-            {text: 'Spacing', link: '/components/layout/spacing', image: '/assets/components/layout-spacing.svg'},
-            {
-                text: 'Split view',
-                link: '/components/layout/split-view/',
-                items: [
-                    {text: 'Pane', link: '/components/layout/split-view/pane'}
-                ]
-            }
+            {text: 'Alert', link: '/components/attention/alert', image: '/assets/components/attention-alert.svg'},
+            {text: 'Badge', link: '/components/badge'},
+            {text: 'Badge group', link: '/components/badge-group'},
+            {text: 'Confirm', link: '/components/attention/confirm', image: '/assets/components/attention-confirm.svg'},
+            {text: 'Info', link: '/components/info'},
+            {text: 'Notice', link: '/components/attention/notice', image: '/assets/components/attention-notice.svg'},
+            {text: 'Placeholder', link: '/components/placeholder'},
+            {text: 'Progress bar', link: '/components/progress-bar'},
+            {text: 'Prompt', link: '/components/attention/prompt', image: '/assets/components/attention-prompt.svg'},
+            {text: 'Skeleton', link: '/components/skeleton'},
+            {text: 'Snackbar', link: '/components/attention/snackbar', image: '/assets/components/attention-snackbar.svg'},
+            {text: 'Spinner', link: '/components/spinner'},
+            {text: 'Tag', link: '/components/tag'},
+            {text: 'Tooltip', link: '/components/tooltip'},
+            {text: 'Tour', link: '/components/tour'}
         ]
     },
     {
