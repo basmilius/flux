@@ -103,6 +103,11 @@
     }
 }
 
+.badgeColored {
+    background: var(--background);
+    border-color: var(--border);
+}
+
 .badgeDot {
     display: block;
     height: 9px;
@@ -124,15 +129,17 @@
     &:only-child {
         margin-left: 3px;
         margin-right: 3px;
-        color: var(--color-text);
+        color: var(--text);
     }
 }
 
 .badgeGray {
     composes: badge;
 
+    --background: var(--gray-50);
+    --border: var(--gray-200);
     --color: var(--foreground);
-    --color-text: var(--foreground-prominent);
+    --text: var(--foreground-prominent);
 
     .badgeLabel {
         color: var(--foreground-prominent);
@@ -146,36 +153,46 @@
 .badgePrimary {
     composes: badge;
 
+    --background: var(--primary-50);
+    --border: var(--primary-200);
     --color: var(--primary-600);
-    --color-text: var(--primary-700);
+    --text: var(--primary-700);
 }
 
 .badgeDanger {
     composes: badge;
 
+    --background: var(--danger-50);
+    --border: var(--danger-200);
     --color: var(--danger-600);
-    --color-text: var(--danger-700);
+    --text: var(--danger-700);
 }
 
 .badgeInfo {
     composes: badge;
 
+    --background: var(--info-50);
+    --border: var(--info-200);
     --color: var(--info-600);
-    --color-text: var(--info-700);
+    --text: var(--info-700);
 }
 
 .badgeSuccess {
     composes: badge;
 
+    --background: var(--success-50);
+    --border: var(--success-200);
     --color: var(--success-600);
-    --color-text: var(--success-700);
+    --text: var(--success-700);
 }
 
 .badgeWarning {
     composes: badge;
 
+    --background: var(--warning-50);
+    --border: var(--warning-200);
     --color: var(--warning-600);
-    --color-text: var(--warning-700);
+    --text: var(--warning-700);
 }
 
 .tag {
@@ -257,7 +274,7 @@
 .badgeGroupLabel {
     composes: badgeLabel;
 
-    color: var(--color-text);
+    color: var(--text);
 }
 
 .badgeGroupGray {

@@ -14,6 +14,11 @@
                 label="Completed"/>
 
             <FluxBadge
+                color="primary"
+                colored
+                label="Featured"/>
+
+            <FluxBadge
                 is-loading
                 label="Running"/>
         </FluxBadgeStack>

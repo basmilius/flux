@@ -24,6 +24,11 @@ props:
         type: FluxColor
         optional: true
 
+    -   name: colored
+        description: Fills the badge with a tinted background matching its color.
+        type: boolean
+        optional: true
+
     -   name: dot
         description: Shows a dot instead of an icon at the start of the badge.
         type: boolean
@@ -107,6 +112,14 @@ Flux also has [Tags](./tag), which look similar to badges.
 
 ::: example Basic || A simple badge can deliver additional insights about an entity.
 example=../code/components/badge/basic.vue
+:::
+
+::: example Colors || Badges come in six colors, so you can map them to the meaning that fits your context.
+example=../code/components/badge/colors.vue
+:::
+
+::: example Colored || The colored variant fills the badge with a tinted background, making it stand out more.
+example=../code/components/badge/colored.vue
 :::
 
 ::: example Dot || A dot badge is useful for indicating statuses, for instance, the status of a server.

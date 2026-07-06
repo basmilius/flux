@@ -7,6 +7,7 @@
             color === 'info' && $style.badgeInfo,
             color === 'success' && $style.badgeSuccess,
             color === 'warning' && $style.badgeWarning,
+            colored && $style.badgeColored,
             size === 'small' && $style.isSmall,
             size === 'large' && $style.isLarge
         )"
@@ -71,6 +72,7 @@
         type = 'none'
     } = defineProps<{
         readonly color?: FluxColor;
+        readonly colored?: boolean;
         readonly dot?: boolean;
         readonly icon?: FluxIconName;
         readonly isDeletable?: boolean;
