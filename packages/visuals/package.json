@@ -47,7 +47,6 @@
     "main": "./dist/index.js",
     "module": "./dist/index.js",
     "types": "./dist/index.d.ts",
-    "sideEffects": false,
     "dependencies": {
         "@basmilius/common": "^3.50.0",
         "@basmilius/utils": "^3.50.0",
