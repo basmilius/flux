@@ -251,6 +251,8 @@
     }
 
     function onDialogBackdropClick(evt: Event): void {
+        evt.stopPropagation();
+
         const target = evt.target as HTMLElement;
 
         if (target.tagName !== 'DIALOG') {
