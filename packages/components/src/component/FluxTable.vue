@@ -33,6 +33,13 @@
                     name="loading"/>
 
                 <slot v-else/>
+
+                <svg
+                    v-if="treeLines"
+                    :class="$style.tableTreeLines"
+                    aria-hidden="true">
+                    <path :d="treeLines"/>
+                </svg>
             </div>
 
             <FluxTableRow
@@ -86,6 +93,7 @@
     setup>
     import { animationFrameDebounce, useScrollPosition } from '@flux-ui/internals';
     import { computed, onMounted, provide, type Ref, ref, shallowReactive, unref, useId, useTemplateRef, type VNode, watch, watchEffect } from 'vue';
+    import { useTableTree } from '~flux/components/composable/private';
     import { type FluxTableColumnDef, FluxTableInjectionKey, type FluxTablePinnedEdges } from '~flux/components/data';
     import FluxPaneBody from './FluxPaneBody.vue';
     import FluxSpinner from './FluxSpinner.vue';
@@ -141,6 +149,8 @@
     const pinnedEdges = ref<FluxTablePinnedEdges>({end: -1, start: -1});
     const pinnedOffsets = ref(new Map<number, number>());
     const columnRegistrations = shallowReactive(new Set<ColumnRegistration>());
+
+    const {registerTreeNode, treeLines} = useTableTree(bodyRef);
 
     const isScrolledStart = computed(() => x.value > 0);
     const isScrollableEnd = computed(() => x.value < maxScrollLeft.value - 1);
@@ -450,7 +460,8 @@
         columns: sortedColumns,
         pinnedEdges,
         pinnedOffsets,
-        registerColumn
+        registerColumn,
+        registerTreeNode
     });
 
     defineExpose({

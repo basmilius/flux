@@ -32,6 +32,10 @@
     grid-template-columns: subgrid;
 }
 
+.tableBody {
+    position: relative;
+}
+
 .tableRow {
     display: grid;
     grid-column: 1 / -1;
@@ -417,6 +421,115 @@
 
 .tableExpandContent {
     padding: 12px 15px;
+}
+
+.tableTreeCell {
+    composes: tableCell;
+
+    align-items: center;
+    padding-block: 0;
+}
+
+.treeBranch {
+    position: relative;
+    align-self: stretch;
+    flex-shrink: 0;
+    margin-right: 12px;
+}
+
+.tableTreeLines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: var(--surface-active);
+    stroke-width: 2;
+    stroke-linecap: round;
+    pointer-events: none;
+}
+
+.treeMarker {
+    --tree-marker-fill: var(--gray-100);
+    --tree-marker-stroke: var(--gray-200);
+    --tree-marker-foreground: var(--foreground-prominent);
+
+    position: absolute;
+    top: 50%;
+    display: flex;
+    box-sizing: border-box;
+    width: 22px;
+    height: 22px;
+    align-items: center;
+    justify-content: center;
+    background: var(--tree-marker-fill);
+    border: 1px solid var(--tree-marker-stroke);
+    border-radius: 50%;
+    color: var(--tree-marker-foreground);
+    translate: 0 -50%;
+    z-index: 1;
+}
+
+.treeMarker.isToggle {
+    padding: 0;
+    cursor: pointer;
+    outline: 0;
+
+    @include mixin.focus-ring(2px);
+
+    @include mixin.hover {
+        opacity: .75;
+    }
+}
+
+.treeMarker.isToggle :global(svg) {
+    transition: rotate .2s var(--swift-out);
+}
+
+.treeMarker.isToggle.isExpanded :global(svg) {
+    rotate: 90deg;
+}
+
+.treeMarkerGray {
+    --tree-marker-fill: var(--gray-100);
+    --tree-marker-stroke: var(--gray-300);
+    --tree-marker-foreground: var(--foreground-prominent);
+}
+
+.treeMarkerPrimary {
+    --tree-marker-fill: var(--primary-100);
+    --tree-marker-stroke: var(--primary-300);
+    --tree-marker-foreground: var(--primary-800);
+}
+
+.treeMarkerDanger {
+    --tree-marker-fill: var(--danger-100);
+    --tree-marker-stroke: var(--danger-300);
+    --tree-marker-foreground: var(--danger-800);
+}
+
+.treeMarkerInfo {
+    --tree-marker-fill: var(--info-100);
+    --tree-marker-stroke: var(--info-300);
+    --tree-marker-foreground: var(--info-800);
+}
+
+.treeMarkerSuccess {
+    --tree-marker-fill: var(--success-100);
+    --tree-marker-stroke: var(--success-300);
+    --tree-marker-foreground: var(--success-800);
+}
+
+.treeMarkerWarning {
+    --tree-marker-fill: var(--warning-100);
+    --tree-marker-stroke: var(--warning-300);
+    --tree-marker-foreground: var(--warning-800);
+}
+
+.treeMarkerCustom {
+    --tree-marker-fill: color-mix(in srgb, var(--tree-marker-color) 15%, var(--surface));
+    --tree-marker-stroke: color-mix(in srgb, var(--tree-marker-color) 35%, var(--surface));
+    --tree-marker-foreground: color-mix(in srgb, var(--tree-marker-color) 75%, var(--foreground));
 }
 
 .tableEmpty {

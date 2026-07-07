@@ -328,7 +328,8 @@ const navigation: SidebarItem[] = [
                     {text: 'Cell', link: '/components/table/cell'},
                     {text: 'Group', link: '/components/table/group'},
                     {text: 'Header', link: '/components/table/header'},
-                    {text: 'Row', link: '/components/table/row'}
+                    {text: 'Row', link: '/components/table/row'},
+                    {text: 'Tree cell', link: '/components/table/tree-cell'}
                 ]
             },
             {text: 'Ticks', link: '/components/ticks'},
