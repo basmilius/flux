@@ -9,10 +9,12 @@
     padding: 30px;
     background: unset;
     border: 0;
+    cursor: default;
     font-size: 1rem;
 
     &::backdrop {
         background: unset;
+        cursor: default;
     }
 }
 
