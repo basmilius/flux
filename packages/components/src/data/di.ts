@@ -18,6 +18,7 @@ export const FluxMenuPersistentInjectionKey: InjectionKey<Readonly<Ref<boolean>>
 export const FluxSegmentedControlInjectionKey: InjectionKey<FluxSegmentedControlInjection> = Symbol();
 export const FluxTabBarInjectionKey: InjectionKey<FluxTabBarInjection> = Symbol();
 export const FluxTableInjectionKey: InjectionKey<FluxTableInjection> = Symbol();
+export const FluxTimelineInjectionKey: InjectionKey<FluxTimelineInjection> = Symbol();
 export const FluxTooltipInjectionKey: InjectionKey<FluxTooltipInjection> = Symbol();
 
 export type FluxKanbanDragMode = 'pointer' | 'keyboard';
@@ -310,6 +311,10 @@ export type FluxTableRowInjection = {
     readonly treeColumnIndex: Readonly<Ref<number>>;
 
     toggle(): void;
+};
+
+export type FluxTimelineInjection = {
+    registerMarker(element: Readonly<Ref<HTMLElement | null>>): () => void;
 };
 
 export type FluxTooltipInjection = {

@@ -1,7 +1,20 @@
 .timeline {
+    position: relative;
     display: flex;
     flex-flow: column;
     gap: 15px;
+}
+
+.timelineLine {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    fill: none;
+    stroke: var(--gray-200);
+    stroke-width: 2;
+    stroke-linecap: round;
+    pointer-events: none;
 }
 
 .timelineItem {
@@ -18,13 +31,22 @@
     align-items: center;
     justify-content: center;
     border-radius: var(--radius-full);
-    outline: 6px solid var(--surface);
 }
 
 .timelineItemIcon {
     margin: 3px;
     height: 36px;
     width: 36px;
+}
+
+.timelineItemDot {
+    grid-column: 1;
+    justify-self: center;
+    margin-top: 15px;
+    height: 12px;
+    width: 12px;
+    background: var(--gray-300);
+    border-radius: var(--radius-full);
 }
 
 .timelineItemPhoto {
@@ -64,6 +86,7 @@
     align-self: center;
     flex-flow: column;
     gap: 15px;
+    grid-column: 2;
 }
 
 .timelineItemHeader {
@@ -81,19 +104,6 @@
     }
 }
 
-.timelineItemLine {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    height: 100%;
-    width: 2px;
-    background: var(--gray-100);
-}
-
-.timeline .timelineItem:last-of-type .timelineItemLine {
-    display: none;
-}
-
 .timelineItemGray {
     composes: timelineItem;
 
@@ -104,6 +114,10 @@
 
     .timelineItemIcon {
         background: var(--gray-100);
+    }
+
+    .timelineItemDot {
+        background: var(--gray-400);
     }
 }
 
@@ -118,6 +132,10 @@
     .timelineItemIcon {
         background: var(--primary-100);
     }
+
+    .timelineItemDot {
+        background: var(--primary-600);
+    }
 }
 
 .timelineItemDanger {
@@ -130,6 +148,10 @@
 
     .timelineItemIcon {
         background: var(--danger-100);
+    }
+
+    .timelineItemDot {
+        background: var(--danger-600);
     }
 }
 
@@ -144,6 +166,10 @@
     .timelineItemIcon {
         background: var(--info-100);
     }
+
+    .timelineItemDot {
+        background: var(--info-600);
+    }
 }
 
 .timelineItemSuccess {
@@ -157,6 +183,10 @@
     .timelineItemIcon {
         background: var(--success-100);
     }
+
+    .timelineItemDot {
+        background: var(--success-600);
+    }
 }
 
 .timelineItemWarning {
@@ -169,5 +199,9 @@
 
     .timelineItemIcon {
         background: var(--warning-100);
+    }
+
+    .timelineItemDot {
+        background: var(--warning-600);
     }
 }

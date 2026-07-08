@@ -9,10 +9,9 @@
             color === 'warning' && $style.timelineItemWarning
         )"
         role="article">
-        <div :class="$style.timelineItemLine"/>
-
         <div
             v-if="photo"
+            ref="marker"
             :class="$style.timelineItemPhoto">
             <img
                 :class="$style.timelineItemPhotoImage"
@@ -30,11 +29,17 @@
 
         <div
             v-else-if="icon"
+            ref="marker"
             :class="$style.timelineItemIcon">
             <FluxIcon
                 :name="icon"
                 :size="20"/>
         </div>
+
+        <span
+            v-else
+            ref="marker"
+            :class="$style.timelineItemDot"/>
 
         <div :class="$style.timelineItemBody">
             <div
@@ -54,7 +59,8 @@
     setup>
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import type { VNode } from 'vue';
+    import { inject, onUnmounted, useTemplateRef, type VNode } from 'vue';
+    import { FluxTimelineInjectionKey } from '~flux/components/data';
     import FluxIcon from './FluxIcon.vue';
     import $style from '~flux/components/css/component/Timeline.module.scss';
 
@@ -71,4 +77,11 @@
     defineSlots<{
         default(): VNode[];
     }>();
+
+    const timeline = inject(FluxTimelineInjectionKey, null);
+    const markerRef = useTemplateRef<HTMLElement>('marker');
+
+    const cleanup = timeline?.registerMarker(markerRef);
+
+    onUnmounted(() => cleanup?.());
 </script>

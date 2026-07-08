@@ -6,6 +6,7 @@ export { useKanban } from './useKanban';
 export { default as useMenuFlyout, useMenuFlyoutContext, useMenuFlyoutProvider, type UseMenuFlyoutOptions, type UseMenuFlyoutProviderOptions, type UseMenuFlyoutReturn } from './useMenuFlyout';
 export { useSplitView, type SplitViewPane, type UseSplitViewOptions, type UseSplitViewReturn } from './useSplitView';
 export { useTableTree, TREE_STEP, TREE_MARKER_SIZE } from './useTableTree';
+export { useTimeline } from './useTimeline';
 export { default as useTranslate } from './useTranslate';
 export { FLUX_COLORS } from './useTreeView';
 export { useCommandPalette, type CommandPaletteGroup, type CommandPaletteResultItem } from './useCommandPalette';
