@@ -42,6 +42,12 @@ slots:
     -   name: default
         description: This slot should contain filter components.
 
+    -   name: start
+        description: Content rendered before the search input, at the start of the bar.
+
+    -   name: end
+        description: Content rendered after the filter button, at the end of the bar.
+
 requiredIcons:
     - angle-left
     - angle-right
@@ -69,6 +75,10 @@ Don't make your view too complex. Limit yourself to one filter bar per view.
 
 ::: example Basic || A basic filter bar with a search input and filters.
 example=../../code/components/filter/bar.vue
+:::
+
+::: example Start and end slots || Adding custom content before the search input and after the filter button.
+example=../../code/components/filter/bar/slots.vue
 :::
 
 ## Used components

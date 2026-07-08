@@ -9,6 +9,8 @@
 
         <template #default="{ buttons, filters, menuItems, clear, reset }">
             <div :class="$style.filterBar">
+                <slot name="start"/>
+
                 <FluxFormInput
                     v-if="isSearchable"
                     v-model="modelSearch"
@@ -91,6 +93,8 @@
                         </FluxFlyout>
                     </template>
                 </FluxOverflowBar>
+
+                <slot name="end"/>
             </div>
         </template>
     </FluxFilterBase>
@@ -137,6 +141,8 @@
 
     defineSlots<{
         default?(): VNode[];
+        start?(): VNode[];
+        end?(): VNode[];
     }>();
 
     const translate = useTranslate();
