@@ -59,6 +59,12 @@ props:
         description: The label of the tag.
         type: string
 
+    -   name: size
+        description: The size of the tag.
+        type: FluxSize
+        default: medium
+        optional: true
+
     -   name: type
         description: The type of the tag.
         type: FluxPressableType
