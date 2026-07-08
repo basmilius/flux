@@ -306,15 +306,6 @@ export type FluxTableInjection = {
     registerTreeNode(element: Readonly<Ref<HTMLElement | null>>, level: Readonly<Ref<number>>): () => void;
 };
 
-export type FluxTableRowInjection = {
-    readonly tree: Readonly<Ref<FluxTableRowTree | null>>;
-    readonly isExpandable: Readonly<Ref<boolean>>;
-    readonly isExpanded: Readonly<Ref<boolean>>;
-    readonly treeColumnIndex: Readonly<Ref<number>>;
-
-    toggle(): void;
-};
-
 export type FluxTimelineInjection = {
     registerMarker(element: Readonly<Ref<HTMLElement | null>>): () => void;
 };
