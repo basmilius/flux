@@ -1485,7 +1485,7 @@
     display: flex;
     height: unset;
     min-height: 42px;
-    padding: 4px 6px;
+    padding: 3px 6px;
     align-items: center;
     flex-wrap: wrap;
     gap: 6px;
@@ -1516,6 +1516,11 @@
     color: inherit;
     font: inherit;
     outline: 0;
+
+    // Align the placeholder with FluxFormInput (12px) when no tags precede the field.
+    &:first-child {
+        padding-left: 6px;
+    }
 
     &::placeholder {
         color: var(--foreground-secondary);

@@ -15,8 +15,9 @@
             v-for="(tag, index) of modelValue"
             :key="`${tag}-${index}`"
             :color="tagColor"
+            :dot="!!tagColor"
             :label="tag"
-            is-deletable
+            :is-deletable="!disabled && !isReadonly"
             @delete="removeAt(index)"/>
 
         <input
@@ -93,6 +94,7 @@
         allowDuplicates,
         delimiters = ['Enter', ','],
         disabled: componentDisabled,
+        isReadonly,
         max,
         suggestions,
         tagColor,
@@ -169,6 +171,10 @@
     }
 
     function removeAt(index: number): void {
+        if (disabled.value || isReadonly) {
+            return;
+        }
+
         const removed = modelValue.value[index];
         modelValue.value = modelValue.value.filter((_, i) => i !== index);
         emit('remove', removed);
