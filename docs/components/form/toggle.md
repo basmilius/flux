@@ -35,11 +35,6 @@ props:
         description: If the toggle is readonly. Blocks toggling via mouse or keyboard.
         type: boolean
         optional: true
-
-    -   name: is-switch
-        description: Applies a switch style to the toggle. This means that the toggle won't change color when it's activated.
-        type: boolean
-        optional: true
 ---
 
 # Toggle
@@ -66,12 +61,20 @@ example=../../code/components/form/toggle/basic.vue
 example=../../code/components/form/toggle/icon.vue
 :::
 
-::: example Switch || A toggle that serves as a switch.
-example=../../code/components/form/toggle/switch.vue
-:::
-
 ::: example Form || A toggle used in a form.
 example=../../code/components/form/toggle/form.vue
+:::
+
+::: example Disabled || A disabled toggle in both the off and on state.
+example=../../code/components/form/toggle/disabled.vue
+:::
+
+::: example Invalid || A toggle with an error message.
+example=../../code/components/form/toggle/invalid.vue
+:::
+
+::: example Read-only || A read-only toggle that cannot be changed.
+example=../../code/components/form/toggle/readonly.vue
 :::
 
 ## Used components

@@ -54,11 +54,6 @@ props:
         type: boolean
         optional: true
 
-    -   name: is-condensed
-        description: If the input uses the condensed height.
-        type: boolean
-        optional: true
-
     -   name: is-secondary
         description: If the input uses the secondary styling.
         type: boolean

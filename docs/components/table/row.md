@@ -49,3 +49,7 @@ example=../../code/components/table/row/basic.vue
 ::: example Clickable || A clickable row that emits `row-click`, while ignoring clicks on the button inside a cell.
 example=../../code/components/table/row/clickable.vue
 :::
+
+::: example Selected || Use `is-selected` to highlight a row as selected.
+example=../../code/components/table/row/selected.vue
+:::

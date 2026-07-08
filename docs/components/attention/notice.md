@@ -82,6 +82,22 @@ example=../../code/components/attention/notice/basic.vue
 example=../../code/components/attention/notice/loading.vue
 :::
 
+::: example Closeable || Add `is-closeable` to let users dismiss a notice. The `close` event fires when the close button is clicked.
+example=../../code/components/attention/notice/closeable.vue
+:::
+
+::: example With action || Use the `end` slot to render trailing content such as a button next to the message.
+example=../../code/components/attention/notice/action.vue
+:::
+
+::: example Centered || The `is-center` prop horizontally centers the contents of the notice.
+example=../../code/components/attention/notice/centered.vue
+:::
+
+::: example Severity colors || The `color` prop conveys the severity of the message.
+example=../../code/components/attention/notice/colors.vue
+:::
+
 ## Severity examples
 
 Colors such as `success`, `error`, `warning`, `info`, and `gray` help convey the severity of the message. For example:

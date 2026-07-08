@@ -31,11 +31,6 @@ props:
         type: [ string, null ]
         optional: true
 
-    -   name: is-condensed
-        description: Renders the input in a compact style with reduced padding.
-        type: boolean
-        optional: true
-
     -   name: is-hour-only
         description: Always round the time to whole hours.
         type: boolean
@@ -104,6 +99,18 @@ example=../../code/components/form/date-time/basic.vue
 
 ::: example Hour only || A date time input where the time is always rounded to whole hours.
 example=../../code/components/form/date-time/hour-only.vue
+:::
+
+::: example Limited || A date time input constrained by a minimum and maximum value.
+example=../../code/components/form/date-time/limited.vue
+:::
+
+::: example Disabled || A disabled date time input.
+example=../../code/components/form/date-time/disabled.vue
+:::
+
+::: example Invalid || A date time input with an error message.
+example=../../code/components/form/date-time/invalid.vue
 :::
 
 ## Used components

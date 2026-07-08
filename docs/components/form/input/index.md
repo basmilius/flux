@@ -54,11 +54,6 @@ props:
         type: [ string, null ]
         optional: true
 
-    -   name: is-condensed
-        description: Renders the input in a compact style with reduced padding.
-        type: boolean
-        optional: true
-
     -   name: is-loading
         description: Shows a loading spinner inside the input.
         type: boolean

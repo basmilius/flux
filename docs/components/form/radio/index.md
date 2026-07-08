@@ -50,6 +50,14 @@ example=../../../code/components/form/radio/content.vue
 example=../../../code/components/form/radio/sub-label.vue
 :::
 
+::: example Disabled option || A radio group where a single option is disabled.
+example=../../../code/components/form/radio/disabled-option.vue
+:::
+
+::: example Label only || A minimal radio group using just the `label` prop.
+example=../../../code/components/form/radio/label-only.vue
+:::
+
 ## Used components
 
 - [Radio group](./group)

@@ -66,6 +66,14 @@ example=../../code/components/breadcrumb/item/basic.vue
 example=../../code/components/breadcrumb/item/current.vue
 :::
 
+::: example With icons || Add an `icon` to each item to make the trail easier to scan.
+example=../../code/components/breadcrumb/item/icons.vue
+:::
+
+::: example Custom label || Use the default slot to render custom markup instead of the `label` prop.
+example=../../code/components/breadcrumb/item/slot.vue
+:::
+
 ## Used components
 
 - [Icon](../icon)

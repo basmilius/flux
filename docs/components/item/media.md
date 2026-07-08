@@ -37,6 +37,14 @@ This component is best used within an [Item](./index).
 example=../../code/components/item/media/variants.vue
 :::
 
+::: example Sizes || Control the size of the media area with the `size` prop.
+example=../../code/components/item/media/sizes.vue
+:::
+
+::: example Alignment || Use `is-center` to vertically center the media next to multi-line content.
+example=../../code/components/item/media/alignment.vue
+:::
+
 ## Snippet
 
 ::: code-group

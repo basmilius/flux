@@ -74,6 +74,18 @@ example=../../../code/components/form/checkbox/indeterminate.vue
 example=../../../code/components/form/checkbox/sub-label.vue
 :::
 
+::: example Disabled || A disabled checkbox in both the checked and unchecked state.
+example=../../../code/components/form/checkbox/disabled.vue
+:::
+
+::: example Invalid || A checkbox with an error message.
+example=../../../code/components/form/checkbox/invalid.vue
+:::
+
+::: example Read-only || A read-only checkbox that cannot be toggled.
+example=../../../code/components/form/checkbox/readonly.vue
+:::
+
 ## Used components
 
 - [Checkbox group](./group)

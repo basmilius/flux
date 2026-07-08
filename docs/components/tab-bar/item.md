@@ -90,6 +90,18 @@ example=../../code/components/tab-bar/item/basic.vue
 example=../../code/components/tab-bar/item/pills.vue
 :::
 
+::: example Active tab || Mark the selected tab with `is-active`.
+example=../../code/components/tab-bar/item/active.vue
+:::
+
+::: example Disabled tab || A tab bar with a disabled item that cannot be selected.
+example=../../code/components/tab-bar/item/disabled.vue
+:::
+
+::: example Label only || Tab bar items can render just a `label` without an icon.
+example=../../code/components/tab-bar/item/label-only.vue
+:::
+
 ## Used components
 
 - [Icon](../icon)

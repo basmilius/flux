@@ -27,11 +27,6 @@ props:
         type: [ string, null ]
         optional: true
 
-    -   name: is-condensed
-        description: Renders the picker in a compact style with reduced padding.
-        type: boolean
-        optional: true
-
     -   name: is-loading
         description: Shows a loading spinner inside the picker.
         type: boolean
@@ -72,10 +67,22 @@ render=../../code/components/form/time-zone-picker/preview.vue
 
 <FrontmatterDocs/>
 
-## Example
+## Examples
 
 ::: example Basic || A basic time zone picker.
 example=../../code/components/form/time-zone-picker/basic.vue
+:::
+
+::: example Preselected || A time zone picker with a value already selected.
+example=../../code/components/form/time-zone-picker/preselected.vue
+:::
+
+::: example Disabled || A disabled time zone picker.
+example=../../code/components/form/time-zone-picker/disabled.vue
+:::
+
+::: example Invalid || A time zone picker with an error message.
+example=../../code/components/form/time-zone-picker/invalid.vue
 :::
 
 ## Used components

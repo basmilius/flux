@@ -34,6 +34,14 @@ render=../../code/components/stepper/steps/preview.vue
 example=../../code/components/stepper/steps/basic.vue
 :::
 
+::: example Progress states || The `current` prop drives the active step; completed steps show a check.
+example=../../code/components/stepper/steps/progress.vue
+:::
+
+::: example Two steps || A minimal stepper with only two steps.
+example=../../code/components/stepper/steps/two-steps.vue
+:::
+
 ## Used components
 
 - [Icon](../icon)

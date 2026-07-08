@@ -26,11 +26,6 @@ props:
         type: [ 'string | null' ]
         optional: true
 
-    -   name: is-condensed
-        description: Renders the combobox in a compact style with reduced padding.
-        type: boolean
-        optional: true
-
     -   name: is-creatable
         description: Whether the user can create new entries by typing a value that does not match an existing option.
         type: boolean

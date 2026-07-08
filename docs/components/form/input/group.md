@@ -7,11 +7,6 @@ props:
         type: string
         optional: true
 
-    -   name: is-condensed
-        description: Renders the group in a compact style with reduced padding.
-        type: boolean
-        optional: true
-
     -   name: is-secondary
         description: If the fields are secondary and are rendered in an alternative style.
         type: boolean

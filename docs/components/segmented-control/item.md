@@ -50,6 +50,18 @@ example=../../code/components/segmented-control/item/basic.vue
 example=../../code/components/segmented-control/item/disabled.vue
 :::
 
+::: example Icon only || Omit the `label` to render compact, icon-only segments.
+example=../../code/components/segmented-control/item/icon-only.vue
+:::
+
+::: example Labels only || Omit the `icon` to render text-only segments.
+example=../../code/components/segmented-control/item/labels-only.vue
+:::
+
+::: example Custom content || Use the default slot to render custom content such as an icon with a badge.
+example=../../code/components/segmented-control/item/custom.vue
+:::
+
 ## Used components
 
 - [Icon](../icon)

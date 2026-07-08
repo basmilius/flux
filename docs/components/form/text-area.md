@@ -40,11 +40,6 @@ props:
         type: [ string, null ]
         optional: true
 
-    -   name: is-condensed
-        description: Renders the textarea in a compact style with reduced padding.
-        type: boolean
-        optional: true
-
     -   name: is-loading
         description: Marks the textarea as loading.
         type: boolean
@@ -100,4 +95,20 @@ example=../../code/components/form/text-area/basic.vue
 
 ::: example Multiple rows || A text area with multiple rows
 example=../../code/components/form/text-area/rows.vue
+:::
+
+::: example Max length || A text area capped with `max-length`.
+example=../../code/components/form/text-area/max-length.vue
+:::
+
+::: example Disabled || A disabled text area.
+example=../../code/components/form/text-area/disabled.vue
+:::
+
+::: example Invalid || A text area with an error message.
+example=../../code/components/form/text-area/invalid.vue
+:::
+
+::: example Read-only || A read-only text area showing prefilled content.
+example=../../code/components/form/text-area/readonly.vue
 :::

@@ -41,6 +41,18 @@ render=../../code/components/description-list/item/preview.vue
 example=../../code/components/description-list/item/basic.vue
 :::
 
+::: example Multiple pairs || A typical list of several term and value pairs.
+example=../../code/components/description-list/item/multiple.vue
+:::
+
+::: example Stacked || Use `is-stacked` to place the value below the label instead of beside it.
+example=../../code/components/description-list/item/stacked.vue
+:::
+
+::: example Custom label || Use the `label` slot to render custom markup for the term.
+example=../../code/components/description-list/item/custom-label.vue
+:::
+
 ## Used components
 
 - [Description list](./)

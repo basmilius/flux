@@ -27,11 +27,6 @@ props:
         type: [ string, null ]
         optional: true
 
-    -   name: is-condensed
-        description: Renders the trigger in a compact style with reduced padding.
-        type: boolean
-        optional: true
-
     -   name: is-loading
         description: Marks the tree view select as loading.
         type: boolean

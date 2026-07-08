@@ -99,6 +99,22 @@ example=../../code/components/form/tags-input/basic.vue
 example=../../code/components/form/tags-input/suggestions.vue
 :::
 
+::: example Tag color || Render the tags in a chosen color with `tag-color`.
+example=../../code/components/form/tags-input/tag-color.vue
+:::
+
+::: example Validation || Only accept valid entries by passing a `validate` function.
+example=../../code/components/form/tags-input/validation.vue
+:::
+
+::: example Custom delimiters || Commit tags on a space or comma in addition to Enter.
+example=../../code/components/form/tags-input/delimiters.vue
+:::
+
+::: example Disabled || A disabled tags input with existing tags.
+example=../../code/components/form/tags-input/disabled.vue
+:::
+
 ## Used components
 
 - [Tag](../tag)

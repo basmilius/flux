@@ -2,6 +2,11 @@
 outline: deep
 
 props:
+    -   name: aspect-ratio
+        description: The aspect ratio of the media, e.g. 16 / 9.
+        type: number
+        optional: true
+
     -   name: image-alt
         description: The alt tag for the image.
         type: string
@@ -41,4 +46,12 @@ example=../../code/components/pane/media/full.vue
 
 ::: example Inset || A media pane with whitespace around the media.
 example=../../code/components/pane/media/inset.vue
+:::
+
+::: example Aspect ratio || Use `aspect-ratio` to control the shape of the media area.
+example=../../code/components/pane/media/aspect-ratio.vue
+:::
+
+::: example Focal point || Use `image-focal-point` to keep the subject in frame when the media is cropped.
+example=../../code/components/pane/media/focal-point.vue
 :::

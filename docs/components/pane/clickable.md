@@ -85,6 +85,18 @@ example=../../code/components/pane/clickable/with-link.vue
 example=../../code/components/pane/clickable/disabled.vue
 :::
 
+::: example Variants || The `variant` prop switches between the default, flat and well styles.
+example=../../code/components/pane/clickable/variants.vue
+:::
+
+::: example With tag || Use the `tag` prop to render a corner label on the pane.
+example=../../code/components/pane/clickable/tag.vue
+:::
+
+::: example Loading || Add `is-loading` to show a spinner while an action is in progress.
+example=../../code/components/pane/clickable/loading.vue
+:::
+
 ## Used components
 
 - [Spinner](../spinner)

@@ -39,11 +39,6 @@ props:
         type: [ string, null ]
         optional: true
 
-    -   name: is-condensed
-        description: Renders the input in a compact style with reduced padding.
-        type: boolean
-        optional: true
-
     -   name: is-loading
         description: Shows a loading spinner inside the input.
         type: boolean
@@ -103,6 +98,14 @@ example=../../code/components/form/date/basic.vue
 
 ::: example Limited || A date input with a minimal and maximum value.
 example=../../code/components/form/date/limited.vue
+:::
+
+::: example Disabled || A disabled date input.
+example=../../code/components/form/date/disabled.vue
+:::
+
+::: example Invalid || A date input with an error message.
+example=../../code/components/form/date/invalid.vue
 :::
 
 ## Used components

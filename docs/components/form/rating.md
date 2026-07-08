@@ -95,6 +95,22 @@ example=../../code/components/form/rating/readonly.vue
 example=../../code/components/form/rating/clearable.vue
 :::
 
+::: example Custom count || A rating out of ten stars using `count`.
+example=../../code/components/form/rating/count.vue
+:::
+
+::: example Custom icon || A rating using a different icon.
+example=../../code/components/form/rating/icon.vue
+:::
+
+::: example Custom size || Larger stars using the `size` prop.
+example=../../code/components/form/rating/size.vue
+:::
+
+::: example Disabled || A disabled rating showing a fixed value.
+example=../../code/components/form/rating/disabled.vue
+:::
+
 ## Used components
 
 - [Icon](../icon)

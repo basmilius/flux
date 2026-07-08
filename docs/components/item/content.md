@@ -32,6 +32,14 @@ This component is best used within an [Item](./index).
 example=../../code/components/item/content/rich.vue
 :::
 
+::: example Title variations || Content can be just a title, or a title with a supporting description.
+example=../../code/components/item/content/states.vue
+:::
+
+::: example Centered || Use `is-center` to vertically center the content next to a taller media element.
+example=../../code/components/item/content/centered.vue
+:::
+
 ## Snippet
 
 ::: code-group

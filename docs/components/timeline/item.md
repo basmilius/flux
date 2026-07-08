@@ -57,6 +57,22 @@ example=../../code/components/timeline/item/basic.vue
 example=../../code/components/timeline/item/pane.vue
 :::
 
+::: example Colored markers || Use the `color` prop to convey the meaning of each event.
+example=../../code/components/timeline/item/colored.vue
+:::
+
+::: example With photo || Set `photo` to render an avatar as the marker instead of an icon.
+example=../../code/components/timeline/item/photo.vue
+:::
+
+::: example Photo with icon || Combine `photo` and `icon` to overlay an activity icon on top of the avatar.
+example=../../code/components/timeline/item/photo-icon.vue
+:::
+
+::: example Plain markers || Without `icon` or `photo` the item renders a minimal marker on the line.
+example=../../code/components/timeline/item/plain.vue
+:::
+
 ## Used components
 
 - [Icon](../icon)

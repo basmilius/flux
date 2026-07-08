@@ -64,6 +64,14 @@ example=../../code/components/form/quantity-selector/basic.vue
 example=../../code/components/form/quantity-selector/step.vue
 :::
 
+::: example Fractional step || A quantity selector with a decimal step; values snap to the step.
+example=../../code/components/form/quantity-selector/fractional.vue
+:::
+
+::: example Disabled || A disabled quantity selector.
+example=../../code/components/form/quantity-selector/disabled.vue
+:::
+
 ## Used components
 
 - [Button](../button)
