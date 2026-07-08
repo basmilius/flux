@@ -6,8 +6,7 @@
             modelValue && $style.isChecked,
             disabled && $style.isDisabled,
             isReadonly && $style.isReadonly,
-            error && $style.isInvalid,
-            isSwitch && $style.isSwitch
+            error && $style.isInvalid
         )"
         :for="isBareControl ? undefined : id">
         <FluxIcon
@@ -61,7 +60,6 @@
     } = defineProps<Pick<FluxFormInputBaseProps, 'disabled' | 'error' | 'isReadonly'> & {
         readonly iconOff?: FluxIconName;
         readonly iconOn?: FluxIconName;
-        readonly isSwitch?: boolean;
     }>();
 
     const itemControl = inject(FluxItemControlInjectionKey, null);

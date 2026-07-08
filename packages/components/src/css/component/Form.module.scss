@@ -1382,20 +1382,15 @@
     &.isChecked {
         border-color: transparent;
 
+        background: var(--primary-600);
+
         .formToggleInput::after {
             translate: 24px 0;
+            border-color: transparent;
         }
 
-        &:not(.isSwitch) {
-            background: var(--primary-600);
-
-            .formToggleIcon {
-                color: var(--primary-25);
-            }
-
-            .formToggleInput::after {
-                border-color: transparent;
-            }
+        .formToggleIcon {
+            color: var(--primary-25);
         }
 
         .formToggleIconOn {
@@ -1455,6 +1450,10 @@
     border-radius: inherit;
     cursor: pointer;
     outline: 0;
+
+    &:disabled {
+        cursor: not-allowed;
+    }
 
     &::after {
         position: absolute;

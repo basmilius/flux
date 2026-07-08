@@ -68,9 +68,7 @@ For more than one message, use the field's `#addition` slot and one
 - Choice: `FluxFormSelect`, `FluxFormSelectAsync` (async-loaded options),
   `FluxFormCombobox` (input + filtered options).
 - Boolean: `FluxToggle`, `FluxFormCheckbox` (+ `FluxFormCheckboxGroup`). Bind a
-  plain boolean `v-model` — **do not set `is-switch`** by default; it's a rare
-  stylistic variant, not the normal toggle (real apps use `<FluxToggle v-model />`
-  with no extra props).
+  plain boolean `v-model` (real apps use `<FluxToggle v-model />` with no extra props).
 - Pick-one: `FluxFormRadioGroup` wrapping `FluxFormRadio` items.
 - Range: `FluxFormSlider`, `FluxFormRangeSlider`.
 - Date/time: `FluxFormDateInput`, `FluxFormDateRangeInput`,
