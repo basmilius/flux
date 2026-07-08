@@ -11,6 +11,10 @@
 
     &.isDisabled {
         opacity: .6;
+
+        .formRatingStar {
+            cursor: not-allowed;
+        }
     }
 }
 

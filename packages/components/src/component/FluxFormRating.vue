@@ -45,11 +45,13 @@
             @pointermove="onMouseMove(star, $event)">
             <FluxIcon
                 :class="$style.formRatingStarEmpty"
-                :name="icon"/>
+                :name="icon"
+                :size="size"/>
 
             <FluxIcon
                 :class="$style.formRatingStarFull"
-                :name="icon"/>
+                :name="icon"
+                :size="size"/>
         </button>
     </div>
 </template>
