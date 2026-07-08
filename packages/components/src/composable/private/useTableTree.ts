@@ -53,6 +53,19 @@ export function useTableTree(container: Readonly<Ref<HTMLElement | null>>) {
 
         const rootRect = root.getBoundingClientRect();
 
+        // getBoundingClientRect() reports transformed coordinates, so measuring
+        // while the table sits inside a CSS scale transition would bake the scaled
+        // sizes into the path. offsetWidth/offsetHeight ignore transforms, so their
+        // ratio gives the effective scale, letting us normalise back to layout px.
+        const scaleX = rootRect.width / root.offsetWidth;
+        const scaleY = rootRect.height / root.offsetHeight;
+
+        if (!Number.isFinite(scaleX) || !Number.isFinite(scaleY) || scaleX <= 0 || scaleY <= 0) {
+            // Degenerate scale (e.g. a scale(0) enter frame); keep the previous path
+            // and let the next, non-degenerate measure produce the correct geometry.
+            return;
+        }
+
         const nodes = Array.from(registrations)
             .map((registration): MeasuredNode | null => {
                 const element = registration.element.value;
@@ -62,13 +75,14 @@ export function useTableTree(container: Readonly<Ref<HTMLElement | null>>) {
                 }
 
                 const rect = element.getBoundingClientRect();
-                const top = rect.top - rootRect.top;
+                const top = (rect.top - rootRect.top) / scaleY;
+                const height = rect.height / scaleY;
 
                 return {
-                    x: rect.left - rootRect.left,
+                    x: (rect.left - rootRect.left) / scaleX,
                     top,
-                    bottom: top + rect.height,
-                    centerY: top + rect.height / 2,
+                    bottom: top + height,
+                    centerY: top + height / 2,
                     level: registration.level.value
                 };
             })
