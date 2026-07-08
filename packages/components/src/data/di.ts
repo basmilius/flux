@@ -1,8 +1,10 @@
-import type { FluxFilterDefinition, FluxFilterState, FluxFilterValue, FluxSize } from '@flux-ui/types';
+import type { FluxFilterDefinition, FluxFilterState, FluxFilterValue, FluxIconName, FluxSize } from '@flux-ui/types';
 import type { DateTime } from 'luxon';
 import type { ComponentInternalInstance, ComputedRef, InjectionKey, Ref, VNode } from 'vue';
 
 export const FluxAdaptiveGroupInjectionKey: InjectionKey<FluxAdaptiveGroupInjection> = Symbol();
+export const FluxBreadcrumbCollapsedInjectionKey: InjectionKey<Ref<boolean>> = Symbol();
+export const FluxBreadcrumbSeparatorInjectionKey: InjectionKey<Ref<FluxIconName>> = Symbol();
 export const FluxCalendarInjectionKey: InjectionKey<FluxCalendarInjection> = Symbol();
 export const FluxDisabledInjectionKey: InjectionKey<Ref<boolean>> = Symbol();
 export const FluxKanbanInjectionKey: InjectionKey<FluxKanbanInjection> = Symbol();

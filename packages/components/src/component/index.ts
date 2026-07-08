@@ -12,6 +12,7 @@ export { default as FluxBadgeGroup } from './FluxBadgeGroup.vue';
 export { default as FluxBadgeStack } from './FluxBadgeStack.vue';
 export { default as FluxBoxedIcon } from './FluxBoxedIcon.vue';
 export { default as FluxBreadcrumb } from './FluxBreadcrumb.vue';
+export { default as FluxBreadcrumbFlyout } from './FluxBreadcrumbFlyout.vue';
 export { default as FluxBreadcrumbItem } from './FluxBreadcrumbItem.vue';
 export { default as FluxButton } from './FluxButton.vue';
 export { default as FluxButtonGroup } from './FluxButtonGroup.vue';

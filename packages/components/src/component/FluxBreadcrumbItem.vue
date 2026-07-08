@@ -1,5 +1,21 @@
 <template>
-    <li :class="$style.breadcrumbItem">
+    <FluxMenuItem
+        v-if="isCollapsed"
+        :href="href"
+        :icon-leading="icon"
+        :label="label"
+        :to="to"
+        @click="emit('click', $event)">
+        <template
+            v-if="$slots.leading"
+            #before>
+            <slot name="leading"/>
+        </template>
+    </FluxMenuItem>
+
+    <li
+        v-else
+        :class="$style.breadcrumbItem">
         <FluxPressable
             :class="clsx(
                 $style.breadcrumbLink,
@@ -10,6 +26,8 @@
             :to="to"
             :aria-current="isCurrent ? 'page' : undefined"
             @click="emit('click', $event)">
+            <slot name="leading"/>
+
             <FluxIcon
                 v-if="icon"
                 :class="$style.breadcrumbIcon"
@@ -21,12 +39,14 @@
                 :class="$style.breadcrumbLabel">
                 <slot>{{ label }}</slot>
             </span>
+
+            <slot name="trailing"/>
         </FluxPressable>
 
         <FluxIcon
             aria-hidden="true"
             :class="$style.breadcrumbSeparator"
-            name="slash-forward"
+            :name="separator"
             :size="12"/>
     </li>
 </template>
@@ -36,8 +56,10 @@
     setup>
     import type { FluxIconName, FluxPressableType, FluxTo } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { computed, type VNode } from 'vue';
+    import { computed, inject, ref, type VNode } from 'vue';
+    import { FluxBreadcrumbCollapsedInjectionKey, FluxBreadcrumbSeparatorInjectionKey } from '~flux/components/data';
     import FluxIcon from './FluxIcon.vue';
+    import FluxMenuItem from './FluxMenuItem.vue';
     import FluxPressable from './FluxPressable.vue';
     import $style from '~flux/components/css/component/Breadcrumb.module.scss';
 
@@ -55,7 +77,12 @@
 
     defineSlots<{
         default(): VNode[];
+        leading(): VNode[];
+        trailing(): VNode[];
     }>();
+
+    const isCollapsed = inject(FluxBreadcrumbCollapsedInjectionKey, ref(false));
+    const separator = inject(FluxBreadcrumbSeparatorInjectionKey, ref<FluxIconName>('angle-right'));
 
     const componentType = computed<FluxPressableType>(() => {
         if (to) {

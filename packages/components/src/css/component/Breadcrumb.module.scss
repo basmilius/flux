@@ -19,6 +19,12 @@
     }
 }
 
+.isCollapsible {
+    flex-wrap: nowrap;
+    min-width: 0;
+    overflow: hidden;
+}
+
 .breadcrumbItem {
     display: inline-flex;
     min-width: 0;
@@ -40,7 +46,7 @@
     background: transparent;
     border: 0;
     border-radius: var(--radius);
-    color: var(--foreground-secondary);
+    color: var(--foreground);
     font-size: 14px;
     line-height: 1;
     text-decoration: none;
@@ -64,6 +70,26 @@
         cursor: default;
         pointer-events: none;
     }
+
+    &.isOpen {
+        background: var(--surface-active);
+        color: var(--foreground);
+    }
+}
+
+.breadcrumbCollapse {
+    padding: 0 6px;
+}
+
+.breadcrumbFlyoutTrigger {
+    cursor: pointer;
+}
+
+.breadcrumbChevron {
+    flex-shrink: 0;
+    margin-left: -3px;
+    color: var(--foreground-secondary);
+    opacity: .7;
 }
 
 .breadcrumbIcon {
@@ -83,4 +109,16 @@
     color: var(--foreground-secondary);
     opacity: .5;
     pointer-events: none;
+}
+
+.breadcrumbMeasurer {
+    position: absolute;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    flex-flow: row nowrap;
+    align-items: center;
+    list-style: none;
+    pointer-events: none;
+    visibility: hidden;
 }

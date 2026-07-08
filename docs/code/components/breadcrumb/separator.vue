@@ -1,14 +1,14 @@
 <template>
-    <FluxBreadcrumb>
+    <FluxBreadcrumb separator="slash-forward">
         <FluxBreadcrumbItem
             href="#"
-            label="Library"/>
+            label="Documents"/>
 
         <FluxBreadcrumbItem
             href="#"
-            label="Components"/>
+            label="Invoices"/>
 
-        <FluxBreadcrumbItem label="Breadcrumb" />
+        <FluxBreadcrumbItem label="2026"/>
     </FluxBreadcrumb>
 </template>
 

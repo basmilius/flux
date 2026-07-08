@@ -92,7 +92,8 @@ const navigation: SidebarItem[] = [
                 text: 'Breadcrumb',
                 link: '/components/breadcrumb/',
                 items: [
-                    {text: 'Item', link: '/components/breadcrumb/item'}
+                    {text: 'Item', link: '/components/breadcrumb/item'},
+                    {text: 'Flyout', link: '/components/breadcrumb/flyout'}
                 ]
             },
             {text: 'Command palette', link: '/components/command-palette'},
