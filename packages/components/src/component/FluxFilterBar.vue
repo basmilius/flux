@@ -73,7 +73,7 @@
                             direction="vertical"
                             style="margin-top: 9px; margin-bottom: 9px"/>
 
-                        <FluxFlyout>
+                        <FluxFlyout v-if="Object.keys(buttons).length > 0">
                             <template #opener="{open}">
                                 <FluxSecondaryButton
                                     icon-leading="sliders-simple"
