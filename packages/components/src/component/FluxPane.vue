@@ -1,5 +1,8 @@
 <template>
-    <div :class="CLASS_MAP[variant]">
+    <div
+        ref="pane"
+        :class="CLASS_MAP[variant]"
+        :style="headerHeight !== null ? {'--flux-pane-header-height': `${headerHeight}px`} : undefined">
         <slot/>
 
         <FluxFadeTransition>
@@ -23,7 +26,8 @@
 <script
     lang="ts"
     setup>
-    import type { VNode } from 'vue';
+    import { useMutationObserver, useResizeObserver } from '@basmilius/common';
+    import { onMounted, ref, shallowRef, useTemplateRef, type VNode } from 'vue';
     import { FluxFadeTransition } from '~flux/components/transition';
     import FluxSpinner from './FluxSpinner.vue';
     import $style from '~flux/components/css/component/Pane.module.scss';
@@ -33,6 +37,8 @@
         flat: $style.paneFlat,
         well: $style.paneWell
     } as const;
+
+    const HEADER_SELECTOR = `:scope > .${$style.paneHeader.trim().split(/\s+/).join('.')}`;
 
     const {
         variant = 'default'
@@ -46,4 +52,26 @@
         default(): VNode[];
         loader(): VNode[];
     }>();
+
+    const paneRef = useTemplateRef<HTMLElement>('pane');
+    const headerRef = shallowRef<HTMLElement | null>(null);
+    const headerHeight = ref<number | null>(null);
+
+    useResizeObserver(headerRef, ([entry]) => {
+        headerHeight.value = entry.borderBoxSize?.[0]?.blockSize ?? (entry.target as HTMLElement).offsetHeight;
+    });
+
+    useMutationObserver(paneRef, () => syncHeader(), {childList: true});
+
+    onMounted(() => syncHeader());
+
+    function syncHeader(): void {
+        const header = paneRef.value?.querySelector<HTMLElement>(HEADER_SELECTOR) ?? null;
+
+        headerRef.value = header;
+
+        if (header === null) {
+            headerHeight.value = null;
+        }
+    }
 </script>

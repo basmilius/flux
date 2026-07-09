@@ -44,8 +44,37 @@
         transition: 420ms var(--swift-out);
         transition-property: filter, scale;
 
-        .paneFooter {
+        > .paneHeader,
+        > .paneFooter {
             position: sticky;
+            z-index: 100;
+        }
+
+        > .paneHeader {
+            top: 0;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--gray-100);
+            box-shadow: var(--shadow-xs);
+
+            &:has(+ :where(.tabs, .tabBarDefault)) {
+                padding-bottom: 0;
+                border-bottom: 0;
+                box-shadow: none;
+            }
+
+            &:not(:has(+ :where(.tabs, .tabBarDefault))) {
+                background: inherit;
+            }
+        }
+
+        > .paneHeader + .tabBarDefault,
+        > .paneHeader + .tabs > .tabBarDefault {
+            position: sticky;
+            top: var(--flux-pane-header-height, 60px);
+            z-index: 100;
+        }
+
+        > .paneFooter {
             bottom: 0;
             margin-top: auto;
         }
@@ -113,43 +142,6 @@
         contain: paint;
         transition-duration: 600ms;
         overflow: auto;
-
-        > .paneHeader,
-        > .paneFooter {
-            position: sticky;
-            z-index: 100;
-        }
-
-        > .paneHeader {
-            top: 0;
-            padding-bottom: 18px;
-            border-bottom: 1px solid var(--gray-100);
-            box-shadow: var(--shadow-xs);
-
-            &:has(+ :where(.tabs, .tabBarDefault)) {
-                padding-bottom: 0;
-                border-bottom: 0;
-                box-shadow: none;
-            }
-
-            &:not(:has(+ :where(.tabs, .tabBarDefault))) {
-                background: inherit;
-            }
-        }
-
-        > .paneHeader + .tabBarDefault {
-            position: sticky;
-            top: 60px;
-            z-index: 100;
-        }
-
-        > .paneHeader:has(.paneHeaderCaption > :is(span)) + .tabBarDefault {
-            top: 66px;
-        }
-
-        > .paneFooter {
-            bottom: 0;
-        }
     }
 }
 

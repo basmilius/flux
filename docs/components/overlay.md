@@ -39,6 +39,10 @@ render=../code/components/overlay/preview.vue
 example=../code/components/overlay/basic.vue
 :::
 
+::: example Tabs || An overlay with a sticky header and tab bar.
+example=../code/components/overlay/tabs.vue
+:::
+
 ::: example Re-authenticatie || A re-authentication overlay.
 example=../code/components/overlay/authenticate.vue
 :::
