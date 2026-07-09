@@ -36,17 +36,38 @@
     position: relative;
 }
 
+// Rows render as display: contents so their cells become direct grid items of
+// the row group, sharing one grid across every row. That is what lets a cell
+// span rows (grid-row: span N); with each row as its own grid container a cell
+// could never reach into the next row. display: contents keeps the DOM intact,
+// so sibling/descendant selectors and DOM measurements are unaffected — only
+// styling that needs the row's own box (focus ring, sticky group row,
+// scroll-margin) moves onto the cells or the spanning cell.
 .tableRow {
+    display: contents;
+}
+
+// The filler and empty rows are direct children of .tableBase, each occupying
+// its own 1fr row track, so they stay real grid rows instead of display: contents.
+.tableFill,
+.tableEmptyFill {
     display: grid;
     grid-column: 1 / -1;
     grid-template-columns: subgrid;
+}
 
-    &.isClickable {
-        cursor: pointer;
-        scroll-margin-top: var(--flux-table-head-height, 0px);
+// A clickable row keeps its own box: a display: contents element is not keyboard
+// focusable, so the roving tabindex and the focus ring both need the row box.
+// Such a row is a single grid row and therefore cannot hold a rowspan cell —
+// rowspan lives in the (display: contents) rows of non-clickable tables.
+.tableRow.isClickable {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+    scroll-margin-top: var(--flux-table-head-height, 0px);
+    cursor: pointer;
 
-        @include mixin.focus-ring(-2px);
-    }
+    @include mixin.focus-ring(-2px);
 }
 
 .tableCellBase {
@@ -110,16 +131,22 @@
     border-top-color: var(--primary-100);
 }
 
+// Row hover keys off :has(:hover) rather than .tableRow:hover: under
+// display: contents the row has no box, so :hover on the row itself is
+// unreliable, while :hover on the cells (which do have boxes) is not.
+// A rowspan cell belongs to the first row it covers but stretches across the
+// rest, so it is excluded from the hover highlight (like .tableGroup): otherwise
+// hovering the first row would light up the full-height cell on its own.
 @media (hover: hover) {
-    .table.isHoverable .tableBody .tableRow:hover .tableCell:not(.tableGroup),
-    .table.isHoverable .tableBody .tableRow:has(:focus-visible) .tableCell:not(.tableGroup),
-    .table.isHoverable .tableBody .tableRow:hover .tableGroup.isHoverable,
+    .table.isHoverable .tableBody .tableRow:has(:hover) .tableCell:not(.tableGroup):not(.hasRowspan),
+    .table.isHoverable .tableBody .tableRow:has(:focus-visible) .tableCell:not(.tableGroup):not(.hasRowspan),
+    .table.isHoverable .tableBody .tableRow:has(:hover) .tableGroup.isHoverable,
     .table.isHoverable .tableBody .tableRow:has(:focus-visible) .tableGroup.isHoverable {
         background: var(--gray-50);
     }
 
-    .table.isHoverable .tableBody .tableRow.isSelected:hover .tableCell,
-    .table.isHoverable .tableBody .tableRow.isSelected:has(:focus-visible) .tableCell {
+    .table.isHoverable .tableBody .tableRow.isSelected:has(:hover) .tableCell:not(.hasRowspan),
+    .table.isHoverable .tableBody .tableRow.isSelected:has(:focus-visible) .tableCell:not(.hasRowspan) {
         background: var(--primary-50);
     }
 }
@@ -130,6 +157,19 @@
 
 .tableCell + .tableCell {
     border-left-width: 1px;
+}
+
+// A cell that is the first in its row's markup but sits after a rowspan cell
+// from a previous row has no preceding sibling, so it never gets the left
+// border above. The spanning cell instead draws its own right border across
+// every row it covers, and its immediate sibling drops the now-doubled left
+// border so the first covered row keeps a single 1px separator.
+.tableCell.hasRowspan {
+    border-right-width: 1px;
+}
+
+.tableCell.hasRowspan + .tableCell {
+    border-left-width: 0;
 }
 
 .tableBody .tableRow + .tableRow .tableCell {
@@ -268,7 +308,9 @@
     background: var(--surface);
 }
 
-.table.isSticky .tableBody .tableGroupRow {
+// Under display: contents the group row has no box, so stickiness lives on the
+// group cell, which is the full-width (grid-column: 1 / -1) box that remains.
+.table.isSticky .tableBody .tableGroupRow .tableGroup {
     position: sticky;
     top: calc(var(--flux-table-head-height, 0px) - 1px);
     margin-top: -1px;

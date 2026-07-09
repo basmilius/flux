@@ -109,6 +109,10 @@ example=../../code/components/table/numeric.vue
 example=../../code/components/table/spanning.vue
 :::
 
+::: example Spanning rows || A first column whose cell spans every row of its track through `rowspan`.
+example=../../code/components/table/rowspan.vue
+:::
+
 ::: example Footer totals || Line items with a footer that sums the amounts across spanning cells.
 example=../../code/components/table/invoice.vue
 :::

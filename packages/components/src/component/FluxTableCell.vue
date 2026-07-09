@@ -6,6 +6,7 @@
             isRaw && $style.isRaw,
             effectiveIsNumeric && $style.isNumeric,
             effectiveNoWrap && $style.isNoWrap,
+            rowspan && $style.hasRowspan,
             pinnedSide === 'start' && $style.isPinnedStart,
             pinnedSide === 'end' && $style.isPinnedEnd,
             isPinnedEdge && $style.isPinnedEdge
@@ -33,7 +34,8 @@
         contentGap,
         isNumeric,
         noWrap,
-        pinned
+        pinned,
+        rowspan
     } = defineProps<{
         readonly align?: 'start' | 'center' | 'end';
         readonly colspan?: number;
@@ -42,6 +44,7 @@
         readonly isNumeric?: boolean;
         readonly noWrap?: boolean;
         readonly pinned?: boolean | 'start' | 'end';
+        readonly rowspan?: number;
     }>();
 
     const slots = defineSlots<{
@@ -120,6 +123,10 @@
 
         if (colspan) {
             style.gridColumn = `span ${colspan}`;
+        }
+
+        if (rowspan) {
+            style.gridRow = `span ${rowspan}`;
         }
 
         if (pinnedSide.value) {

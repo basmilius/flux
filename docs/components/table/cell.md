@@ -7,6 +7,11 @@ props:
         type: [ '"start"', '"center"', '"end"' ]
         optional: true
 
+    -   name: colspan
+        description: Number of columns the cell spans. A spanning cell does not derive formatting or pinning from a column.
+        type: number
+        optional: true
+
     -   name: content-direction
         description: The direction of the content.
         type: [ '"column"', '"row"' ]
@@ -33,6 +38,11 @@ props:
         type: [ 'boolean', '"start"', '"end"' ]
         optional: true
 
+    -   name: rowspan
+        description: Number of rows the cell spans. Omit the covered cells in the following rows, like a spanning `<td rowspan>`. Not supported in tables with clickable rows, whose focusable row keeps a single-row box. Cells in the rows below a rowspan may not resolve their column's formatting or pinning; set `align` or `pinned` on them explicitly when needed.
+        type: number
+        optional: true
+
 slots:
     -   name: default
         description: The slot for the cell content.
@@ -54,7 +64,7 @@ This component is best used within a [Row](../table/row).
 :::
 
 ::: info Column formatting
-`align`, `is-numeric` and `no-wrap` set on the column's [Header](./header) apply to every cell in that column. A cell's own `align` overrides the inherited value. Spanning cells (`colspan`) never inherit column formatting.
+`align`, `is-numeric` and `no-wrap` set on the column's [Header](./header) apply to every cell in that column. A cell's own `align` overrides the inherited value. Spanning cells (`colspan`) never inherit column formatting, and cells in the rows below a `rowspan` may resolve the wrong column, so set their formatting explicitly when it matters.
 :::
 
 <FrontmatterDocs/>
