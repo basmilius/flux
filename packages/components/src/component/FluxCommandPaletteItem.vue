@@ -32,7 +32,7 @@
         <FluxIcon
             v-if="hasSubActions"
             :class="$style.commandPaletteItemSubActionIndicator"
-            name="chevron-right"/>
+            name="angle-right"/>
     </div>
 </template>
 

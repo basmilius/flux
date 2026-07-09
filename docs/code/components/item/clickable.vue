@@ -21,7 +21,7 @@
 
                 <FluxItemMedia is-center>
                     <FluxIcon
-                        name="chevron-right"
+                        name="angle-right"
                         style="opacity: .4"/>
                 </FluxItemMedia>
             </FluxItem>

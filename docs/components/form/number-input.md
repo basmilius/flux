@@ -60,8 +60,8 @@ props:
         optional: true
 
 requiredIcons:
-    - chevron-up
-    - chevron-down
+    - angle-up
+    - angle-down
 ---
 
 # Number input

@@ -40,7 +40,7 @@
                 :disabled="disabled || isReadonly || atMax"
                 @click="stepValue(1)">
                 <FluxIcon
-                    name="chevron-up"
+                    name="angle-up"
                     :size="12"/>
             </button>
 
@@ -51,7 +51,7 @@
                 :disabled="disabled || isReadonly || atMin"
                 @click="stepValue(-1)">
                 <FluxIcon
-                    name="chevron-down"
+                    name="angle-down"
                     :size="12"/>
             </button>
         </span>
