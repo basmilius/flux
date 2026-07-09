@@ -1,6 +1,6 @@
 <template>
     <FluxLayerPane>
-        <FluxLayerPaneSecondary>Resources</FluxLayerPaneSecondary>
+        <FluxPaneHeader title="Resources"/>
 
         <FluxPane>
             <FluxPaneBody>Documentation</FluxPaneBody>
@@ -10,12 +10,12 @@
             <FluxPaneBody>Changelog</FluxPaneBody>
         </FluxPane>
 
-        <FluxLayerPaneSecondary>v2.4.0</FluxLayerPaneSecondary>
+        <FluxPaneFooter>v2.4.0</FluxPaneFooter>
     </FluxLayerPane>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxLayerPane, FluxLayerPaneSecondary, FluxPane, FluxPaneBody } from '@flux-ui/components';
+    import { FluxLayerPane, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader } from '@flux-ui/components';
 </script>

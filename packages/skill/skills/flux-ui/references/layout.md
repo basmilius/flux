@@ -52,8 +52,7 @@ list/detail). See the `layout/split-view` doc page.
 
 For cards and grouped content, reach for `FluxPane` and its parts
 (`FluxPaneHeader` / `FluxPaneBody` / `FluxPaneFooter`, plus `FluxPaneGroup`,
-`FluxClickablePane` ⚠, `FluxPaneMedia`, `FluxLayerPane`
-(+ `FluxLayerPaneSecondary`)). For a decorative illustration area at the top of a
+`FluxClickablePane` ⚠, `FluxPaneMedia`, `FluxLayerPane`). For a decorative illustration area at the top of a
 pane, use `FluxVisualPaneIllustration` from `@flux-ui/visuals`. Most doc examples
 place real content inside a `FluxPaneBody`. For empty/loading states use
 `FluxPlaceholder` / `FluxSkeleton`.

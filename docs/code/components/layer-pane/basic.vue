@@ -1,6 +1,6 @@
 <template>
     <FluxLayerPane>
-        <FluxLayerPaneSecondary>Getting Started</FluxLayerPaneSecondary>
+        <FluxPaneHeader title="Getting Started"/>
 
         <FluxPane>
             <FluxPaneBody>Quick start guide for new users</FluxPaneBody>
@@ -11,5 +11,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxLayerPane, FluxLayerPaneSecondary, FluxPane, FluxPaneBody } from '@flux-ui/components';
+    import { FluxLayerPane, FluxPane, FluxPaneBody, FluxPaneHeader } from '@flux-ui/components';
 </script>

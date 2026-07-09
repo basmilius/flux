@@ -1,6 +1,12 @@
 <template>
     <FluxLayerPane>
-        <FluxLayerPaneSecondary>Team members</FluxLayerPaneSecondary>
+        <FluxPaneHeader title="Team members">
+            <template #after>
+                <FluxSecondaryButton
+                    icon-leading="user-plus"
+                    label="Invite"/>
+            </template>
+        </FluxPaneHeader>
 
         <FluxPane>
             <FluxItemStack>
@@ -36,7 +42,7 @@
     lang="ts"
     setup>
     import type { FluxColor } from '@flux-ui/types';
-    import { FluxAvatar, FluxBadge, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxItemStack, FluxLayerPane, FluxLayerPaneSecondary, FluxPane } from '@flux-ui/components';
+    import { FluxAvatar, FluxBadge, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxItemStack, FluxLayerPane, FluxPane, FluxPaneHeader, FluxSecondaryButton } from '@flux-ui/components';
 
     const members: { name: string; role: string; status: string; color: FluxColor }[] = [
         {name: 'Bas Milius', role: 'Engineer', status: 'Active', color: 'success'},

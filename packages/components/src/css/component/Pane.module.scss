@@ -99,6 +99,46 @@
     color: var(--primary-600);
 }
 
+.paneHeaderClickable {
+    color: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 210ms var(--swift-out);
+    transition-property: background, mixin.focus-ring-transition-properties();
+
+    @include mixin.focus-ring(-2px);
+
+    @include mixin.hover {
+        background: var(--surface-hover);
+
+        .paneHeaderChevron {
+            color: var(--foreground);
+            transform: translateX(3px);
+        }
+    }
+
+    &:active {
+        background: var(--surface-active);
+    }
+
+    &:is(:disabled, [aria-disabled=true]) {
+        cursor: default;
+        pointer-events: none;
+
+        & > * {
+            opacity: .5;
+        }
+    }
+}
+
+.paneHeaderChevron {
+    margin-top: 2px;
+    flex-shrink: 0;
+    color: var(--foreground-secondary);
+    transition: 210ms var(--swift-out);
+    transition-property: color, transform;
+}
+
 .paneBody {
     composes: basePaneElement from './base/Pane.module.scss';
 

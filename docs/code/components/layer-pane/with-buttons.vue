@@ -1,6 +1,6 @@
 <template>
     <FluxLayerPane>
-        <FluxLayerPaneSecondary>Quick Actions</FluxLayerPaneSecondary>
+        <FluxPaneHeader title="Quick Actions"/>
 
         <FluxPane>
             <FluxPaneBody>
@@ -28,5 +28,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxButtonStack, FluxDestructiveButton, FluxLayerPane, FluxLayerPaneSecondary, FluxPane, FluxPaneBody, FluxSecondaryButton } from '@flux-ui/components';
+    import { FluxButtonStack, FluxDestructiveButton, FluxLayerPane, FluxPane, FluxPaneBody, FluxPaneHeader, FluxSecondaryButton } from '@flux-ui/components';
 </script>

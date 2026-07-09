@@ -382,6 +382,7 @@ const navigation: SidebarItem[] = [
                 items: [
                     {text: 'Body', link: '/components/pane/body'},
                     {text: 'Clickable', link: '/components/pane/clickable'},
+                    {text: 'Clickable header', link: '/components/pane/clickable-header'},
                     {text: 'Footer', link: '/components/pane/footer'},
                     {text: 'Group', link: '/components/pane/group'},
                     {text: 'Header', link: '/components/pane/header'},

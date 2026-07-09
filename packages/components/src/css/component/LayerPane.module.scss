@@ -1,9 +1,13 @@
+@use '../../css/mixin';
+
 .layerPane {
     composes: basePaneStructure from './base/Pane.module.scss';
 
     display: flex;
     flex-flow: column;
     contain: paint;
+    transition: 210ms var(--swift-out);
+    transition-property: background, border;
 }
 
 .layerPaneGray {
@@ -11,6 +15,11 @@
 
     background-color: var(--gray-50);
     border-color: var(--surface-stroke-out);
+
+    &:has(> .paneHeaderClickable:hover) {
+        background-color: var(--gray-100);
+        border-color: var(--surface-stroke-out-hover);
+    }
 }
 
 .layerPanePrimary {
@@ -18,6 +27,11 @@
 
     background-color: var(--primary-100);
     border-color: var(--primary-200);
+
+    &:has(> .paneHeaderClickable:hover) {
+        background-color: var(--primary-200);
+        border-color: var(--primary-300);
+    }
 }
 
 .layerPaneDanger {
@@ -25,6 +39,11 @@
 
     background-color: var(--danger-100);
     border-color: var(--danger-200);
+
+    &:has(> .paneHeaderClickable:hover) {
+        background-color: var(--danger-200);
+        border-color: var(--danger-300);
+    }
 
     :local(.paneHeaderIcon) {
         color: var(--danger-600);
@@ -37,6 +56,11 @@
     background-color: var(--info-100);
     border-color: var(--info-200);
 
+    &:has(> .paneHeaderClickable:hover) {
+        background-color: var(--info-200);
+        border-color: var(--info-300);
+    }
+
     :local(.paneHeaderIcon) {
         color: var(--info-600);
     }
@@ -48,6 +72,11 @@
     background-color: var(--success-100);
     border-color: var(--success-200);
 
+    &:has(> .paneHeaderClickable:hover) {
+        background-color: var(--success-200);
+        border-color: var(--success-300);
+    }
+
     :local(.paneHeaderIcon) {
         color: var(--success-600);
     }
@@ -58,6 +87,11 @@
 
     background-color: var(--warning-100);
     border-color: var(--warning-200);
+
+    &:has(> .paneHeaderClickable:hover) {
+        background-color: var(--warning-200);
+        border-color: var(--warning-300);
+    }
 
     :local(.paneHeaderIcon) {
         color: var(--warning-600);
@@ -93,14 +127,10 @@
     border: 0;
 }
 
-.layerPane > .paneHeader .button {
-    margin: -9px -9px -9px 0;
+.layerPane > .paneHeader {
+    background: unset;
 }
 
-.layerPaneSecondary {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    padding: 12px 18px;
-    color: var(--foreground-prominent);
+.layerPane > .paneHeader > :is(.button, .buttonGroup) {
+    margin: -9px -9px -9px 0;
 }

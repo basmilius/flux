@@ -430,7 +430,7 @@ a `FluxItem` (avatar + name + status) as the tinted top, a `FluxPane` for the
 details, and a `FluxPaneFooter` for actions. Two LayerPane details:
 
 - ⚠ A `FluxLayerPane` only pads its pane structures / `FluxPaneHeader` /
-  `FluxLayerPaneSecondary` — a bare `FluxItem` placed directly in it gets **no
+  `FluxPaneFooter` — a bare `FluxItem` placed directly in it gets **no
   padding**, so give it its own (e.g. `15px 18px`).
 - Put the **`FluxPaneFooter` as a direct child of the `FluxLayerPane`** (a sibling
   of the `FluxPane`), not inside it: as a direct layer-pane child the footer loses

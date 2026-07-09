@@ -11,17 +11,11 @@ props:
 slots:
     -   name: default
         description: The content of the layer pane.
-
-components:
-    -   name: FluxLayerPaneSecondary
-        slots:
-            -   name: default
-                description: The content of the secondary section.
 ---
 
 # Layer pane
 
-A layer pane groups related content in a structured panel. Secondary sections provide a contrasting gray header or footer around the primary content.
+A layer pane groups related content in a structured panel. Place a [Pane header](./header) or [Pane footer](./footer) directly inside it to frame the primary content with a contrasting tinted band.
 
 ::: render
 render=../../code/components/layer-pane/preview.vue
@@ -31,7 +25,7 @@ render=../../code/components/layer-pane/preview.vue
 
 ## Examples
 
-::: example Basic || A layer pane with a secondary header and a single pane.
+::: example Basic || A layer pane with a header and a single pane.
 example=../../code/components/layer-pane/basic.vue
 :::
 
@@ -39,7 +33,7 @@ example=../../code/components/layer-pane/basic.vue
 example=../../code/components/layer-pane/colors.vue
 :::
 
-::: example With footer || Secondary sections can be placed at the top, bottom, or both.
+::: example With footer || A header at the top and a footer at the bottom of the layer pane.
 example=../../code/components/layer-pane/with-footer.vue
 :::
 
@@ -47,19 +41,15 @@ example=../../code/components/layer-pane/with-footer.vue
 example=../../code/components/layer-pane/with-buttons.vue
 :::
 
-::: example With items || A layer pane with a list of items, avatars, and badges.
+::: example With button group || A segmented button group as a view switcher in the pane header.
+example=../../code/components/layer-pane/with-button-group.vue
+:::
+
+::: example With items || A header with a trailing action, above a list of items with avatars and badges.
 example=../../code/components/layer-pane/with-items.vue
 :::
 
-::: example Secondary with button || A button inside the secondary section to trigger an action.
-example=../../code/components/layer-pane/with-secondary-button.vue
-:::
-
-::: example Secondary with badge || A badge inside the secondary section to show a count.
-example=../../code/components/layer-pane/with-secondary-badge.vue
-:::
-
-::: example With pane header || Use a [Pane header](./header) instead of a secondary section when you need a prominent title with an icon and optional subtitle.
+::: example With icon || A [Pane header](./header) with an icon for a prominent section heading.
 example=../../code/components/layer-pane/with-pane-header.vue
 :::
 
@@ -68,3 +58,4 @@ example=../../code/components/layer-pane/with-pane-header.vue
 - [Pane](../)
     - [Body](./body)
     - [Header](./header)
+    - [Footer](./footer)
