@@ -2,6 +2,7 @@
     <Preview>
         <FluxLayerPane style="max-width: 390px">
             <FluxClickablePaneHeader
+                type="link"
                 icon="chart-line"
                 title="Performance"
                 sub-title="View detailed analytics"

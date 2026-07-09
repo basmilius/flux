@@ -4,6 +4,7 @@
         :gap="9">
         <FluxLayerPane>
             <FluxClickablePaneHeader
+                type="link"
                 icon="file-lines"
                 title="Resources"
                 href="#"/>
@@ -15,6 +16,7 @@
 
         <FluxLayerPane color="primary">
             <FluxClickablePaneHeader
+                type="link"
                 icon="sparkles"
                 title="Upgrade to Pro"
                 href="#"/>
@@ -26,6 +28,7 @@
 
         <FluxLayerPane color="info">
             <FluxClickablePaneHeader
+                type="link"
                 icon="circle-info"
                 title="Update available"
                 href="#"/>
@@ -37,6 +40,7 @@
 
         <FluxLayerPane color="success">
             <FluxClickablePaneHeader
+                type="link"
                 icon="circle-check"
                 title="Backup completed"
                 href="#"/>
@@ -48,6 +52,7 @@
 
         <FluxLayerPane color="warning">
             <FluxClickablePaneHeader
+                type="link"
                 icon="hourglass-clock"
                 title="Scheduled maintenance"
                 href="#"/>
@@ -59,6 +64,7 @@
 
         <FluxLayerPane color="danger">
             <FluxClickablePaneHeader
+                type="link"
                 icon="circle-exclamation"
                 title="Payment failed"
                 href="#"/>

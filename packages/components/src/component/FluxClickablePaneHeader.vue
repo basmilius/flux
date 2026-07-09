@@ -1,9 +1,9 @@
 <template>
     <FluxPressable
-        :component-type="componentType"
         :class="clsx($style.paneHeader, $style.paneHeaderClickable)"
         :aria-disabled="disabled ? true : undefined"
         :tabindex="disabled ? -1 : tabindex"
+        :component-type="type"
         :href="href"
         :rel="rel"
         :target="target"
@@ -41,7 +41,7 @@
     setup>
     import type { FluxIconName, FluxPressableType, FluxTo } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { computed, toRef, unref, type VNode } from 'vue';
+    import { toRef, unref, type VNode } from 'vue';
     import { useDisabled } from '~flux/components/composable';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
@@ -53,8 +53,7 @@
 
     const {
         disabled: componentDisabled,
-        href,
-        to
+        type = 'button'
     } = defineProps<{
         readonly disabled?: boolean;
         readonly href?: string;
@@ -65,6 +64,7 @@
         readonly target?: string;
         readonly title?: string;
         readonly to?: FluxTo;
+        readonly type?: FluxPressableType;
     }>();
 
     defineSlots<{
@@ -72,18 +72,6 @@
     }>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));
-
-    const componentType = computed<FluxPressableType>(() => {
-        if (to) {
-            return 'route';
-        }
-
-        if (href) {
-            return 'link';
-        }
-
-        return 'none';
-    });
 
     function onClick(evt: MouseEvent): void {
         if (unref(disabled)) {

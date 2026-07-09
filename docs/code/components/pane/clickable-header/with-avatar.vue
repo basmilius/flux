@@ -1,6 +1,7 @@
 <template>
     <FluxLayerPane style="max-width: 390px">
         <FluxClickablePaneHeader
+            type="link"
             title="Bas Milius"
             sub-title="View your profile"
             href="#">

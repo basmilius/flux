@@ -1,6 +1,7 @@
 <template>
     <FluxLayerPane style="max-width: 390px">
         <FluxClickablePaneHeader
+            type="link"
             icon="folder"
             title="Documents"
             sub-title="24 files"

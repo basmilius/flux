@@ -27,8 +27,13 @@ props:
         type: [ 'string', 'number' ]
         optional: true
 
+    -   name: type
+        description: The rendering type of the header, determining the underlying element (button, link, route or none).
+        type: FluxPressableType
+        optional: true
+
     -   name: href
-        description: Renders the header as a link. It's the same as the <a> HTML element.
+        description: The URL of the header when type is link. It's the same as the <a> HTML element.
         type: string
         optional: true
 
@@ -43,7 +48,7 @@ props:
         optional: true
 
     -   name: to
-        description: Renders the header as a router link. This integrates with Vue Router.
+        description: The router link target when type is route. This integrates with Vue Router.
         type: FluxTo
         optional: true
 
@@ -62,14 +67,14 @@ requiredIcons:
 
 # Clickable pane header
 
-The clickable pane header is a pressable variant of the [Pane header](./header). The entire header acts as a link or router link, making it ideal for a [Layer pane](./layer-pane) section that navigates to a detail view. A trailing chevron signals that the header is navigable.
+The clickable pane header is a pressable variant of the [Pane header](./header). The entire header acts as a button, link or router link depending on the `type` prop, making it ideal for a [Layer pane](./layer-pane) section that navigates to a detail view. A trailing chevron signals that the header is navigable.
 
 ::: render
 render=../../code/components/pane/clickable-header/preview.vue
 :::
 
 ::: tip
-Because the whole header is a single link, it can't contain interactive elements such as buttons. If you need trailing actions, use the regular [Pane header](./header) instead.
+Because the whole header is a single interactive element, it can't contain interactive elements such as buttons. If you need trailing actions, use the regular [Pane header](./header) instead.
 :::
 
 <FrontmatterDocs/>

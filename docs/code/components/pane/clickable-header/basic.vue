@@ -1,6 +1,7 @@
 <template>
     <FluxPane style="max-width: 390px">
         <FluxClickablePaneHeader
+            type="link"
             icon="book-sparkles"
             title="Flux documentation"
             sub-title="Browse the component guide"

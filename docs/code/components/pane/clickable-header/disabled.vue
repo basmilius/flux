@@ -1,6 +1,7 @@
 <template>
     <FluxPane style="max-width: 390px">
         <FluxClickablePaneHeader
+            type="link"
             disabled
             icon="lock"
             title="Restricted section"
