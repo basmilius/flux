@@ -3,9 +3,21 @@ name: 🚀 Release packages
 on:
     release:
         types: [ prereleased, released ]
+    workflow_dispatch:
+        inputs:
+            version:
+                description: 'Version to publish (e.g. 3.4.0 or 3.4.0-beta.1)'
+                required: true
+                type: string
+            prerelease:
+                description: 'Publish under the "next" dist-tag'
+                required: false
+                default: false
+                type: boolean
 
 env:
-    RELEASE_VERSION: ${{ github.event.release.tag_name }}
+    RELEASE_VERSION: ${{ github.event.release.tag_name || inputs.version }}
+    IS_PRERELEASE: ${{ github.event.release.prerelease || inputs.prerelease }}
 
 permissions:
     contents: read
@@ -69,31 +81,34 @@ jobs:
                     node scripts/transform-dts.mjs
                     bun --cwd docs build
 
-            -   name: 🚀 Publish v${{ env.RELEASE_VERSION }} (Pre-release)
-                if: ${{ github.event.release.prerelease }}
-                run: |
-                    (cd packages/types && npm publish --access public --tag next)
-                    (cd packages/internals && npm publish --access public --tag next)
-                    (cd packages/visuals && npm publish --access public --tag next)
-                    (cd packages/components && npm publish --access public --tag next)
-                    (cd packages/application && npm publish --access public --tag next)
-                    (cd packages/statistics && npm publish --access public --tag next)
-                    (cd packages/skill && npm publish --access public --tag next)
-
             -   name: 🚀 Publish v${{ env.RELEASE_VERSION }}
-                if: ${{ !github.event.release.prerelease }}
                 run: |
-                    (cd packages/types && npm publish --access public)
-                    (cd packages/internals && npm publish --access public)
-                    (cd packages/visuals && npm publish --access public)
-                    (cd packages/components && npm publish --access public)
-                    (cd packages/application && npm publish --access public)
-                    (cd packages/statistics && npm publish --access public)
-                    (cd packages/skill && npm publish --access public)
+                    tag_args=()
+                    if [[ "$IS_PRERELEASE" == "true" ]]; then
+                        tag_args=(--tag next)
+                    fi
+
+                    publish() {
+                        local dir="packages/$1"
+                        local name version
+                        name=$(node -p "require('./$dir/package.json').name")
+                        version=$(node -p "require('./$dir/package.json').version")
+
+                        if npm view "$name@$version" version >/dev/null 2>&1; then
+                            echo "::notice::$name@$version is already published, skipping."
+                            return 0
+                        fi
+
+                        (cd "$dir" && npm publish --access public "${tag_args[@]}")
+                    }
+
+                    for pkg in types internals visuals components application statistics skill; do
+                        publish "$pkg"
+                    done
 
             -   name: 🚀 Publish Docs (Pre-release)
                 uses: cloudflare/wrangler-action@v3
-                if: ${{ github.event.release.prerelease }}
+                if: ${{ env.IS_PRERELEASE == 'true' }}
                 with:
                     accountId: 5e565cf9fa55b0eae1f8131903da2ca9
                     apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -103,7 +118,7 @@ jobs:
 
             -   name: 🚀 Publish Docs
                 uses: cloudflare/wrangler-action@v3
-                if: ${{ !github.event.release.prerelease }}
+                if: ${{ env.IS_PRERELEASE != 'true' }}
                 with:
                     accountId: 5e565cf9fa55b0eae1f8131903da2ca9
                     apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
