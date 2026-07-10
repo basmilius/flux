@@ -17,8 +17,6 @@
                 tabindex="-1"
                 type="button"
                 @click="activate(step - 1)">
-                <span :class="$style.stepperStepsItemParticles"/>
-
                 <FluxFadeTransition>
                     <FluxIcon
                         v-if="current > step"

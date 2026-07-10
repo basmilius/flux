@@ -40,8 +40,6 @@
 }
 
 .stepperStepsItem {
-    composes: sparklesContainer from './base/Effect.module.scss';
-
     position: relative;
     display: flex;
     height: 33px;
@@ -72,7 +70,6 @@
 }
 
 .stepperStepsItemComplete {
-    composes: sparklesContainerActive from './base/Effect.module.scss';
     composes: stepperStepsItem;
 
     background: var(--primary-600);
@@ -94,8 +91,4 @@
     composes: stepperStepsItem;
 
     outline-color: var(--gray-25);
-}
-
-.stepperStepsItemParticles {
-    composes: sparklesParticles from './base/Effect.module.scss';
 }
