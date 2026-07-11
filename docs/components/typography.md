@@ -36,7 +36,7 @@ Outside of Typography, Flux keeps only light element defaults (heading sizes, li
 
 By default Typography renders a `div`. Set `tag` to render a different wrapper such as an `article`, or use `as-child` to merge the styling onto the single child element without any wrapper at all.
 
-For long form reading, add the `container` prop to cap the content at a comfortable measure and center it. The width is driven by the `--flux-typography-container` custom property (default `90ch`), so you can set it to `72ch`, `78ch`, `84ch` or any value you like.
+For long-form reading, add the `container` prop to cap the content at a comfortable measure and center it. The width is driven by the `--flux-typography-container` custom property (default `90ch`), so you can set it to `72ch`, `78ch`, `84ch` or any value you like.
 
 Use [Text](/components/text) instead when you need a single styled piece of inline text, such as a label, a metric or a caption. Typography is for flowing document content, Text is for individual strings.
 

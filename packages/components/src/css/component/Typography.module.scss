@@ -121,7 +121,7 @@ $rhythm: ':where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, pre, ta
     :where(th, td)#{$guard} {
         padding: 12px 15px;
         text-align: start;
-        word-break: break-word;
+        overflow-wrap: break-word;
     }
 
     :where(th, td) + :where(th, td)#{$guard} {
