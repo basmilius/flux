@@ -1,0 +1,150 @@
+// Prose styling is skipped inside a FluxTypographyReset boundary so foreign
+// components dropped into an article keep their own styling.
+$guard: ':not(:where([data-flux-prose-reset], [data-flux-prose-reset] *))';
+$rhythm: ':where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, pre, table, [data-typography-aware])';
+
+.container {
+    max-width: var(--flux-typography-container, 90ch);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.typography {
+    line-height: 1.6;
+    color: var(--foreground);
+
+    // Vertical rhythm between flow elements.
+    #{$rhythm} + :where(h1, h2, h3)#{$guard} {
+        margin-top: 33px;
+    }
+
+    #{$rhythm} + :where(h4, h5, h6, p, ul, ol, blockquote, img, pre, table)#{$guard} {
+        margin-top: 12px;
+    }
+
+    #{$rhythm} + :where([data-typography-aware]) {
+        margin-top: 21px;
+    }
+
+    // Headings.
+    :where(h1, h2)#{$guard} {
+        letter-spacing: -.01em;
+    }
+
+    h2#{$guard} {
+        padding-bottom: 9px;
+        border-bottom: 1px solid var(--surface-stroke);
+    }
+
+    // Lists.
+    :where(ul, ol)#{$guard} {
+        padding-left: 24px;
+    }
+
+    ul#{$guard} {
+        list-style: disc;
+    }
+
+    ol#{$guard} {
+        list-style: decimal;
+    }
+
+    :where(ul, ol) ul#{$guard} {
+        list-style-type: circle;
+    }
+
+    :where(ul, ol) ol#{$guard} {
+        list-style-type: lower-alpha;
+    }
+
+    li + li#{$guard} {
+        margin-top: 6px;
+    }
+
+    li > :where(ul, ol)#{$guard} {
+        margin-top: 6px;
+    }
+
+    // Blockquote.
+    blockquote#{$guard} {
+        font-style: italic;
+        padding-left: 18px;
+        color: var(--gray-600);
+        border-left: 3px solid var(--surface-stroke);
+    }
+
+    // Inline code and sample output.
+    :where(code, samp):not(pre code)#{$guard} {
+        font-size: .875em;
+        padding: 3px 6px;
+        border-radius: var(--radius-half);
+        background: var(--gray-100);
+    }
+
+    // Code block.
+    pre#{$guard} {
+        overflow-x: auto;
+        padding: 15px 18px;
+        border-radius: var(--radius);
+        background: var(--gray-100);
+    }
+
+    pre code {
+        font-size: inherit;
+        padding: 0;
+        background: none;
+    }
+
+    // Keyboard key.
+    kbd#{$guard} {
+        font-size: .8125em;
+        padding: 3px 6px;
+        border: 1px solid var(--surface-stroke);
+        border-radius: var(--radius-half);
+        box-shadow: 0 1px 0 var(--surface-stroke);
+    }
+
+    // Divider.
+    hr#{$guard} {
+        margin: 33px 0;
+        border: 0;
+        border-top: 1px solid var(--surface-stroke);
+    }
+
+    // Table, matching the FluxTable component.
+    table#{$guard} {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: start;
+    }
+
+    :where(th, td)#{$guard} {
+        padding: 12px 15px;
+        text-align: start;
+        word-break: break-word;
+    }
+
+    :where(th, td) + :where(th, td)#{$guard} {
+        border-left: 1px solid var(--gray-100);
+    }
+
+    tr + tr > :where(th, td)#{$guard} {
+        border-top: 1px solid var(--gray-100);
+    }
+
+    thead th#{$guard} {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--foreground-prominent);
+        border-bottom: 2px solid var(--gray-100);
+        background: var(--gray-50);
+    }
+
+    // Image.
+    img#{$guard} {
+        height: unset;
+        border-radius: var(--radius-half);
+        outline: 1px solid rgb(0 0 0 / .025);
+        outline-offset: -1px;
+    }
+}

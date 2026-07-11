@@ -7,7 +7,7 @@
 </template>
 
 <script
-    setup
-    lang="ts">
+    lang="ts"
+    setup>
     import { FluxTypography } from '@flux-ui/components';
 </script>

@@ -6,6 +6,8 @@ outline: deep
 
 Flux ships a consistent typographic system covering font families, sizes, weights, and spacing. This page documents how typography works in Flux and how to apply it to text throughout your application.
 
+Outside of any container, Flux applies only light element defaults: heading sizes and weights, link styling and a monospace font for code. Rich prose, with vertical rhythm, decorated blockquotes, list markers and styled tables, lives inside the [Typography](/components/typography) component. Every example below is wrapped in `FluxTypography`.
+
 ::: tip
 Flux uses the [Inter Variable](https://rsms.me/inter/) font family by default, you will need to include the font in your application for it to work.
 :::

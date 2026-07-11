@@ -183,4 +183,6 @@ export { default as FluxTooltipProvider } from './FluxTooltipProvider.vue';
 export { default as FluxTour } from './FluxTour.vue';
 export { default as FluxTourItem } from './FluxTourItem.vue';
 export { default as FluxTreeView } from './FluxTreeView.vue';
+export { default as FluxTypography } from './FluxTypography.vue';
+export { default as FluxTypographyReset } from './FluxTypographyReset.vue';
 export { default as FluxWindow } from './FluxWindow.vue';

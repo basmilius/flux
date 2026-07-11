@@ -12,7 +12,8 @@ const navigation: SidebarItem[] = [
             {text: 'Link', link: '/components/link', image: '/assets/components/link.svg'},
             {text: 'Pressable', link: '/components/pressable'},
             {text: 'Root', link: '/components/root'},
-            {text: 'Text', link: '/components/text'}
+            {text: 'Text', link: '/components/text'},
+            {text: 'Typography', link: '/components/typography'}
         ]
     },
     {

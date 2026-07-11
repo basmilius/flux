@@ -37,7 +37,7 @@ button {
     padding: 18px;
 }
 
-.vp-adaptive-theme p {
+.vp-adaptive-theme p:not(:where([data-flux-typography] *)) {
     margin: unset;
 }
 
@@ -101,12 +101,12 @@ button {
     z-index: 0;
 }
 
-.vp-code-group .blocks :where(h1, h2, h3, h4, h5, h6) {
+.vp-code-group .blocks :where(h1, h2, h3, h4, h5, h6):not(:where([data-flux-typography] *)) {
     margin: unset;
     line-height: 1.6;
 }
 
-.vp-code-group .blocks p {
+.vp-code-group .blocks p:not(:where([data-flux-typography] *)) {
     margin: unset;
     line-height: 1.6;
 }
