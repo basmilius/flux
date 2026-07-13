@@ -2,8 +2,8 @@
 outline: deep
 ---
 
-# Status & feedback
+# Feedback
 
-The status and feedback components keep people informed about what is happening, from badges, tags and progress indicators to alerts, tooltips and guided tours.
+The feedback components keep people informed about what is happening, from alerts, notices and snackbars to tooltips and guided tours.
 
-<ComponentGridIndex category="Status & feedback"/>
+<ComponentGridIndex category="Feedback"/>

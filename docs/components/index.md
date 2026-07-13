@@ -14,29 +14,29 @@ The low-level building blocks and app-level primitives that everything else buil
 
 <ComponentGridIndex category="Foundations"/>
 
-## Layout
-
-Structure and align content into responsive, consistent layouts.
-
-<ComponentGridIndex category="Layout"/>
-
-## Navigation
-
-Wayfinding and view-switching, so people can move around and change what they see.
-
-<ComponentGridIndex category="Navigation"/>
-
-## Actions
+## Buttons & actions
 
 Buttons and clickable triggers that let people perform an action.
 
-<ComponentGridIndex category="Actions"/>
+<ComponentGridIndex category="Buttons & actions"/>
+
+## Indicators
+
+Badges, tags and loading states that communicate status at a glance.
+
+<ComponentGridIndex category="Indicators"/>
 
 ## Forms & input
 
 Everything you need to capture and edit user input, from single fields to complete forms.
 
 <ComponentGridIndex category="Forms & input"/>
+
+## Navigation
+
+Wayfinding and view-switching, so people can move around and change what they see.
+
+<ComponentGridIndex category="Navigation"/>
 
 ## Data display
 
@@ -50,17 +50,23 @@ Avatars, personas and media so faces and imagery feel at home.
 
 <ComponentGridIndex category="Media & people"/>
 
+## Layout
+
+Structure and align content into responsive, consistent layouts.
+
+<ComponentGridIndex category="Layout"/>
+
 ## Overlays & surfaces
 
 Panels, overlays and floating surfaces that layer content above the page.
 
 <ComponentGridIndex category="Overlays & surfaces"/>
 
-## Status & feedback
+## Feedback
 
-Messages, indicators and prompts that keep people informed about what is happening.
+Alerts, notices, snackbars and tooltips that keep people informed about what is happening.
 
-<ComponentGridIndex category="Status & feedback"/>
+<ComponentGridIndex category="Feedback"/>
 
 ## Transitions
 
