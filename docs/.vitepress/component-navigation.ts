@@ -1,21 +1,6 @@
 const navigation: SidebarItem[] = [
     {text: 'Overview', link: '/components/'},
     {
-        text: 'Foundations',
-        link: '/components/foundations/',
-        collapsed: false,
-        items: [
-            {text: 'Boxed icon', link: '/components/boxed-icon', image: '/assets/components/boxed-icon.svg'},
-            {text: 'Disabled', link: '/components/disabled'},
-            {text: 'Dynamic view', link: '/components/dynamic-view'},
-            {text: 'Icon', link: '/components/icon', image: '/assets/components/icon.svg'},
-            {text: 'Link', link: '/components/link', image: '/assets/components/link.svg'},
-            {text: 'Pressable', link: '/components/pressable'},
-            {text: 'Root', link: '/components/root'},
-            {text: 'Text', link: '/components/text'}
-        ]
-    },
-    {
         text: 'Buttons & actions',
         link: '/components/buttons-actions/',
         collapsed: false,
@@ -43,6 +28,7 @@ const navigation: SidebarItem[] = [
             {
                 text: 'Toolbar',
                 link: '/components/toolbar/',
+                collapsed: true,
                 items: [
                     {text: 'Group', link: '/components/toolbar/group'}
                 ]
@@ -71,6 +57,7 @@ const navigation: SidebarItem[] = [
             {
                 text: 'Checkbox',
                 link: '/components/form/checkbox/',
+                collapsed: true,
                 items: [
                     {text: 'Group', link: '/components/form/checkbox/group'},
                     {text: 'Tile', link: '/components/form/checkbox/tile'}
@@ -78,6 +65,7 @@ const navigation: SidebarItem[] = [
             },
             {
                 text: 'Color',
+                collapsed: true,
                 items: [
                     {text: 'Picker', link: '/components/color/picker'},
                     {text: 'Select', link: '/components/color/select'}
@@ -93,6 +81,7 @@ const navigation: SidebarItem[] = [
             {
                 text: 'Field',
                 link: '/components/form/field/',
+                collapsed: true,
                 items: [
                     {text: 'Addition', link: '/components/form/field/addition'}
                 ]
@@ -103,6 +92,7 @@ const navigation: SidebarItem[] = [
             {
                 text: 'Input',
                 link: '/components/form/input/',
+                collapsed: true,
                 items: [
                     {text: 'Addition', link: '/components/form/input/addition'},
                     {text: 'Group', link: '/components/form/input/group'}
@@ -114,6 +104,7 @@ const navigation: SidebarItem[] = [
             {
                 text: 'Radio',
                 link: '/components/form/radio/',
+                collapsed: true,
                 items: [
                     {text: 'Group', link: '/components/form/radio/group'},
                     {text: 'Tile', link: '/components/form/radio/tile'}
@@ -125,6 +116,7 @@ const navigation: SidebarItem[] = [
             {
                 text: 'Select',
                 link: '/components/form/select/',
+                collapsed: true,
                 items: [
                     {text: 'Async', link: '/components/form/select/async'}
                 ]
@@ -132,6 +124,7 @@ const navigation: SidebarItem[] = [
             {
                 text: 'Slider',
                 link: '/components/form/slider/',
+                collapsed: true,
                 items: [
                     {text: 'Ranged', link: '/components/form/slider/ranged'}
                 ]
@@ -153,6 +146,7 @@ const navigation: SidebarItem[] = [
             {
                 text: 'Breadcrumb',
                 link: '/components/breadcrumb/',
+                collapsed: true,
                 items: [
                     {text: 'Item', link: '/components/breadcrumb/item'},
                     {text: 'Flyout', link: '/components/breadcrumb/flyout'}
@@ -163,6 +157,7 @@ const navigation: SidebarItem[] = [
             {
                 text: 'Expandable',
                 link: '/components/expandable/',
+                collapsed: true,
                 items: [
                     {text: 'Group', link: '/components/expandable/group'}
                 ]
@@ -185,6 +180,7 @@ const navigation: SidebarItem[] = [
             {
                 text: 'Pagination',
                 link: '/components/pagination/',
+                collapsed: true,
                 items: [
                     {text: 'Bar', link: '/components/pagination/bar'}
                 ]
@@ -192,6 +188,7 @@ const navigation: SidebarItem[] = [
             {
                 text: 'Segmented control',
                 link: '/components/segmented-control/',
+                collapsed: true,
                 items: [
                     {text: 'Item', link: '/components/segmented-control/item'}
                 ]
@@ -200,6 +197,7 @@ const navigation: SidebarItem[] = [
                 text: 'Stepper',
                 link: '/components/stepper/',
                 image: '/assets/components/stepper.svg',
+                collapsed: true,
                 items: [
                     {text: 'Steps', link: '/components/stepper/steps'},
                     {text: 'Step', link: '/components/stepper/step'}
@@ -208,6 +206,7 @@ const navigation: SidebarItem[] = [
             {
                 text: 'Tab bar',
                 link: '/components/tab-bar/',
+                collapsed: true,
                 items: [
                     {text: 'Item', link: '/components/tab-bar/item'}
                 ]
@@ -215,6 +214,7 @@ const navigation: SidebarItem[] = [
             {
                 text: 'Tabs',
                 link: '/components/tabs/',
+                collapsed: true,
                 items: [
                     {text: 'Tab', link: '/components/tabs/tab'}
                 ]
@@ -229,6 +229,7 @@ const navigation: SidebarItem[] = [
             {
                 text: 'Calendar',
                 link: '/components/calendar/',
+                collapsed: true,
                 items: [
                     {text: 'Item', link: '/components/calendar/item'}
                 ]
@@ -238,6 +239,7 @@ const navigation: SidebarItem[] = [
             {
                 text: 'Description list',
                 link: '/components/description-list/',
+                collapsed: true,
                 items: [
                     {text: 'Item', link: '/components/description-list/item'}
                 ]
@@ -260,6 +262,7 @@ const navigation: SidebarItem[] = [
             {
                 text: 'Kanban',
                 link: '/components/kanban/',
+                collapsed: true,
                 items: [
                     {text: 'Column', link: '/components/kanban/column'},
                     {text: 'Item', link: '/components/kanban/item'}
@@ -283,6 +286,7 @@ const navigation: SidebarItem[] = [
             {
                 text: 'Timeline',
                 link: '/components/timeline/',
+                collapsed: true,
                 items: [
                     {text: 'Item', link: '/components/timeline/item'}
                 ]
@@ -299,6 +303,7 @@ const navigation: SidebarItem[] = [
             {text: 'Avatar group', link: '/components/avatar-group'},
             {
                 text: 'Focal point',
+                collapsed: true,
                 items: [
                     {text: 'Editor', link: '/components/focal-point/editor'},
                     {text: 'Image', link: '/components/focal-point/image'}
@@ -307,6 +312,7 @@ const navigation: SidebarItem[] = [
             {
                 text: 'Gallery',
                 link: '/components/gallery/',
+                collapsed: true,
                 items: [
                     {text: 'Item', link: '/components/gallery/item'}
                 ]
@@ -327,6 +333,7 @@ const navigation: SidebarItem[] = [
             {
                 text: 'Fader',
                 link: '/components/fader',
+                collapsed: true,
                 items: [
                     {text: 'Item', link: '/components/fader-item'}
                 ]
@@ -355,6 +362,7 @@ const navigation: SidebarItem[] = [
                 text: 'Grid',
                 link: '/components/layout/grid/',
                 image: '/assets/components/layout-grid.svg',
+                collapsed: true,
                 items: [
                     {text: 'Column', link: '/components/layout/grid/column'}
                 ]
@@ -362,6 +370,7 @@ const navigation: SidebarItem[] = [
             {
                 text: 'Item',
                 link: '/components/item/',
+                collapsed: true,
                 items: [
                     {text: 'Actions', link: '/components/item/actions'},
                     {text: 'Content', link: '/components/item/content'},
@@ -376,6 +385,7 @@ const navigation: SidebarItem[] = [
             {
                 text: 'Split view',
                 link: '/components/layout/split-view/',
+                collapsed: true,
                 items: [
                     {text: 'Pane', link: '/components/layout/split-view/pane'}
                 ]
@@ -421,6 +431,28 @@ const navigation: SidebarItem[] = [
             {text: 'Snackbar', link: '/components/attention/snackbar', image: '/assets/components/attention-snackbar.svg'},
             {text: 'Tooltip', link: '/components/tooltip'},
             {text: 'Tour', link: '/components/tour'}
+        ]
+    },
+    {
+        text: 'Primitives',
+        link: '/components/primitives/',
+        collapsed: false,
+        items: [
+            {text: 'Boxed icon', link: '/components/boxed-icon', image: '/assets/components/boxed-icon.svg'},
+            {text: 'Icon', link: '/components/icon', image: '/assets/components/icon.svg'},
+            {text: 'Link', link: '/components/link', image: '/assets/components/link.svg'},
+            {text: 'Pressable', link: '/components/pressable'},
+            {text: 'Root', link: '/components/root'},
+            {text: 'Text', link: '/components/text'}
+        ]
+    },
+    {
+        text: 'Utilities',
+        link: '/components/utilities/',
+        collapsed: false,
+        items: [
+            {text: 'Disabled', link: '/components/disabled'},
+            {text: 'Dynamic view', link: '/components/dynamic-view'}
         ]
     },
     {
