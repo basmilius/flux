@@ -13,8 +13,8 @@ This function displays a prompt with the specified properties and waits for the 
 render=../../code/components/attention/prompt/preview.vue
 :::
 
-::: warning
-This feature requires a parent [Root](../root) component to function correctly, as it is responsible for rendering the prompt.
+::: warning Requires FluxRoot
+Prompts render through a parent [`<FluxRoot>`](../root). Without one in your app, nothing appears and no error is thrown.
 :::
 
 <FrontmatterDocs/>

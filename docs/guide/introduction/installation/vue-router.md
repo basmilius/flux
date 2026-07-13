@@ -72,29 +72,36 @@ createApp(App)
 
 ## Step 4
 
-Add a `<RouterView/>` to your root component. When using `@flux-ui/application`, place the `<RouterView/>` inside the content slot of the layout:
+Add a `<RouterView/>` to your root component, wrapped in a single `<FluxRoot>`. When using `@flux-ui/application`, place the `<RouterView/>` inside the content slot of the layout:
 
 ```vue [App.vue]
 <template>
-    <FluxApplication>
-        <template #menu>
-            <FluxApplicationMenu>
-                <!-- Menu items. -->
-            </FluxApplicationMenu>
-        </template>
+    <FluxRoot> <!-- [!code focus] -->
+        <FluxApplication>
+            <template #menu>
+                <FluxApplicationMenu>
+                    <!-- Menu items. -->
+                </FluxApplicationMenu>
+            </template>
 
-        <FluxApplicationContent>
-            <RouterView/> <!-- [!code focus] -->
-        </FluxApplicationContent>
-    </FluxApplication>
+            <FluxApplicationContent>
+                <RouterView/>
+            </FluxApplicationContent>
+        </FluxApplication>
+    </FluxRoot> <!-- [!code focus] -->
 </template>
 
 <script
     lang="ts"
     setup>
     import { FluxApplication, FluxApplicationContent, FluxApplicationMenu } from '@flux-ui/application';
+    import { FluxRoot } from '@flux-ui/components'; // [!code focus]
 </script>
 ```
+
+::: tip FluxRoot
+`<FluxApplication>` does not include a [`<FluxRoot>`](../../../components/root), so add one at the top yourself. It is the mounting point for tooltips, overlays, slide-overs, snackbars and the programmatic alerts, confirms and prompts; without it those features silently render nothing.
+:::
 
 ## Linking to routes
 

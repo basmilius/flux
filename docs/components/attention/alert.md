@@ -17,8 +17,8 @@ render=../../code/components/attention/alert/preview.vue
 Alerts can interrupt the user by taking over the entire screen. Consider using a [Notice](./notice) or [Snackbar](./snackbar) for less intrusive notifications.
 :::
 
-::: warning
-This feature requires a parent [Root](../root) component to function correctly, as it is responsible for rendering the alert.
+::: warning Requires FluxRoot
+Alerts render through a parent [`<FluxRoot>`](../root). Without one in your app, nothing appears and no error is thrown.
 :::
 
 <FrontmatterDocs/>

@@ -13,8 +13,8 @@ This function displays a confirm with the specified properties and waits for the
 render=../../code/components/attention/confirm/preview.vue
 :::
 
-::: warning
-This feature requires a parent [Root](../root) component to function correctly, as it is responsible for rendering the confirm.
+::: warning Requires FluxRoot
+Confirms render through a parent [`<FluxRoot>`](../root). Without one in your app, nothing appears and no error is thrown.
 :::
 
 <FrontmatterDocs/>

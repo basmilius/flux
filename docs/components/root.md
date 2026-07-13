@@ -8,9 +8,11 @@ slots:
 
 # Root
 
-Some functionality of Flux require a root element where other elements can be injected into. This component should be used as the main component of your application.
+Some Flux features render into a shared root element instead of inline where you use them. `<FluxRoot>` provides that element and hosts the providers for [tooltips](./tooltip), [overlays](./overlay), [slide-overs](./slide-over), [snackbars](./attention/snackbar) and the programmatic [alerts](./attention/alert), [confirms](./attention/confirm) and [prompts](./attention/prompt). Wrap your application in a single `<FluxRoot>` near its entry point.
 
-Alerts, confirms and snackbars are all rendered here for example.
+::: warning
+Without a `<FluxRoot>` in your app these features silently do nothing: the call succeeds and the component mounts, but nothing is rendered and no error is thrown.
+:::
 
 <FrontmatterDocs/>
 
@@ -18,7 +20,7 @@ Alerts, confirms and snackbars are all rendered here for example.
 
 FluxRoot internally renders the following provider components. These are not used directly, but are required for certain features to work:
 
-- **FluxOverlayProvider** renders stacked [alerts](./attention/alert), [confirms](./attention/confirm) and [prompts](./attention/prompt) from the global store.
+- **FluxOverlayProvider** renders stacked [alerts](./attention/alert), [confirms](./attention/confirm) and [prompts](./attention/prompt) from the global store, and is the mount target that [overlays](./overlay) and [slide-overs](./slide-over) teleport into.
 - **FluxSnackbarProvider** renders [snackbars](./attention/snackbar) with transition animations.
 - **FluxTooltipProvider** renders [tooltips](./tooltip) with intelligent positioning relative to their trigger element.
 

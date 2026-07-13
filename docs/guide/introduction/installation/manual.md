@@ -67,7 +67,7 @@ Wrap your application in `<FluxRoot>` once, at the top level, and import the com
 ```
 
 ::: tip FluxRoot
-`<FluxRoot>` gives programmatic overlays such as [`showAlert`](../../../components/attention/alert), [`showConfirm`](../../../components/attention/confirm) and [`showSnackbar`](../../../components/attention/snackbar) a mounting point. Add it once around your app.
+`<FluxRoot>` is the mounting point for [tooltips](../../../components/tooltip), [overlays](../../../components/overlay), [slide-overs](../../../components/slide-over), [snackbars](../../../components/attention/snackbar) and the programmatic [`showAlert`](../../../components/attention/alert), [`showConfirm`](../../../components/attention/confirm) and [`showPrompt`](../../../components/attention/prompt). Add it once around your app; without it these features silently render nothing.
 :::
 
 

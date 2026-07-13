@@ -29,6 +29,10 @@ The slide over is a modal-like surface that slides in from the edge of the view 
 render=../code/components/slide-over/preview.vue
 :::
 
+::: warning Requires FluxRoot
+This slide over renders through a parent [`<FluxRoot>`](./root). Without one in your app, nothing appears and no error is thrown.
+:::
+
 <FrontmatterDocs/>
 
 ## Examples

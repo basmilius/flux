@@ -29,6 +29,10 @@ The tooltip component can be used to display additional information when the use
 render=../code/components/tooltip/preview.vue
 :::
 
+::: warning Requires FluxRoot
+This tooltip renders through a parent [`<FluxRoot>`](./root). Without one in your app, nothing appears and no error is thrown.
+:::
+
 <FrontmatterDocs/>
 
 ## Examples

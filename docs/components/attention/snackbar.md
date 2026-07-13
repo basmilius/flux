@@ -97,6 +97,10 @@ render=../../code/components/attention/snackbar/preview.vue
 For notifications that need prominence, consider using the [Notice](./notice) component.
 :::
 
+::: warning Requires FluxRoot
+By default snackbars render through a parent [`<FluxRoot>`](../root). Without one in your app, nothing appears and no error is thrown. Set `is-rendered` to render a snackbar inline instead.
+:::
+
 <FrontmatterDocs/>
 
 ## Functional API

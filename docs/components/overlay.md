@@ -31,6 +31,10 @@ Overlays can be used to reveal larger contents or options that are hidden behind
 render=../code/components/overlay/preview.vue
 :::
 
+::: warning Requires FluxRoot
+This overlay renders through a parent [`<FluxRoot>`](./root). Without one in your app, nothing appears and no error is thrown.
+:::
+
 <FrontmatterDocs/>
 
 ## Examples
