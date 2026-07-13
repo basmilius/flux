@@ -20,10 +20,10 @@
         "echarts": "^6.1.0",
         "luxon": "^3.7.2",
         "vitepress": "^2.0.0-alpha.18",
-        "vitepress-plugin-example": "^1.5.0",
+        "vitepress-plugin-example": "^1.6.0",
         "vitepress-plugin-group-icons": "^1.7.5",
-        "vitepress-plugin-llms": "^1.13.2",
-        "vitepress-plugin-render": "^1.5.0",
+        "vitepress-plugin-llms": "^1.13.3",
+        "vitepress-plugin-render": "^1.6.0",
         "vue": "^3.6.0-beta.17",
         "vue-i18n": "^11.4.6",
         "vue-router": "^5.1.0"
