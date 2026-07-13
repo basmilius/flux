@@ -79,17 +79,14 @@
 
 .tooltipTransitionEnterActive,
 .tooltipTransitionLeaveActive {
-    transition: 210ms var(--swift-out);
+    transition: 180ms var(--swift-out);
     transition-property: opacity, scale;
-}
-
-.tooltipTransitionEnterFrom {
-    scale: .975;
 }
 
 .tooltipTransitionEnterFrom,
 .tooltipTransitionLeaveTo {
     opacity: 0;
+    scale: .975;
 }
 
 .verticalWindowTransitionEnterActive,
