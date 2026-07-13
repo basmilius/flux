@@ -13,6 +13,10 @@
 }
 
 .tooltip {
+    --foreground: var(--gray-200);
+    --foreground-prominent: var(--gray-50);
+    --foreground-secondary: var(--gray-400);
+
     position: fixed;
     display: flex;
     top: 0;
@@ -23,7 +27,7 @@
     background: var(--overlay-strong);
     backdrop-filter: blur(3px) saturate(180%);
     border-radius: var(--radius);
-    color: var(--gray-25);
+    color: var(--foreground);
     font-size: 14px;
     font-variant-numeric: tabular-nums;
     pointer-events: none;
@@ -49,7 +53,9 @@
 }
 
 [dark] .tooltip {
-    color: var(--gray-700);
+    --foreground: var(--gray-700);
+    --foreground-prominent: var(--gray-900);
+    --foreground-secondary: var(--gray-500);
 }
 
 .tooltipAbove {
