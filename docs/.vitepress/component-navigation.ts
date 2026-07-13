@@ -24,7 +24,6 @@ const navigation: SidebarItem[] = [
                 ]
             },
             {text: 'Chip', link: '/components/chip'},
-            {text: 'Remove', link: '/components/remove', image: '/assets/components/remove.svg'},
             {
                 text: 'Toolbar',
                 link: '/components/toolbar/',
