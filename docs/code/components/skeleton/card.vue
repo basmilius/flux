@@ -5,7 +5,7 @@
             :height="160"/>
 
         <FluxPaneBody>
-            <div style="display: flex; flex-direction: column; gap: 12px">
+            <div style="display: flex; flex-direction: column">
                 <FluxSkeleton
                     variant="text"
                     width="60%"

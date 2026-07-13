@@ -34,6 +34,10 @@ example=../../code/components/toolbar/basic.vue
 example=../../code/components/toolbar/standalone.vue
 :::
 
+::: example In a pane || A flat toolbar placed between a pane header and its body acts as a context bar for the content below.
+example=../../code/components/toolbar/in-pane.vue
+:::
+
 ## Used components
 
 - [Layout](../layout)

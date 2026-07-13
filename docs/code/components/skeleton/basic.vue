@@ -1,5 +1,5 @@
 <template>
-    <div style="display: flex; flex-direction: column; gap: 10px; width: 320px">
+    <div style="display: flex; flex-direction: column; width: 320px">
         <FluxSkeleton/>
         <FluxSkeleton/>
         <FluxSkeleton width="70%"/>

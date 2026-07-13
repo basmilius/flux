@@ -52,3 +52,7 @@ example=../code/components/skeleton/variants.vue
 ::: example Card || A skeleton mirroring a media card layout.
 example=../code/components/skeleton/card.vue
 :::
+
+::: example Table || A table renders skeleton rows through its `loading` slot while its data is loading.
+example=../code/components/skeleton/table.vue
+:::

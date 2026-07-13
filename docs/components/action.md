@@ -114,6 +114,10 @@ example=../code/components/action/loading.vue
 example=../code/components/action/grouped.vue
 :::
 
+::: example Table || Actions are commonly placed in the last column of a data table to operate on a single row.
+example=../code/components/action/table.vue
+:::
+
 ## Used components
 
 - [Icon](./icon)
