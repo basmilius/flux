@@ -97,8 +97,8 @@
     }
 
     &:not(.isCurrent) > .basePaneStructure {
-        filter: blur(3px);
-        scale: .95;
+        filter: brightness(.75) blur(3px) grayscale(.5) saturate(180%);
+        scale: .975;
 
         &::after {
             opacity: 1;
