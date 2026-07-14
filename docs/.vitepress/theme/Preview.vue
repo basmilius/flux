@@ -5,7 +5,7 @@
         <FluxVisualGridPattern :stroke-dasharray="3"/>
 
         <slot name="body">
-            <FluxView :class="$style.previewBody">
+            <FluxView :class="[$style.previewBody, flush && $style.isFlush]">
                 <slot/>
             </FluxView>
         </slot>
@@ -18,6 +18,10 @@
     import { FluxVisualGridPattern } from '@flux-ui/visuals';
     import { onMounted, ref, unref } from 'vue';
     import FluxView from './FluxView.vue';
+
+    defineProps<{
+        readonly flush?: boolean;
+    }>();
 
     const minHeight = ref(0);
     const previewRef = ref<HTMLDivElement>();
@@ -59,6 +63,12 @@
         > :global(svg) {
             stroke: color-mix(in srgb, var(--gray-50), var(--gray-100));
         }
+    }
+
+    .previewBody.isFlush {
+        display: block;
+        min-height: 0;
+        padding: 0;
     }
 
     .previewBody {

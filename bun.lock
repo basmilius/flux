@@ -12,6 +12,7 @@
         "@faker-js/faker": "^10.5.0",
         "@flux-ui/application": "workspace:*",
         "@flux-ui/components": "workspace:*",
+        "@flux-ui/flow": "workspace:*",
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/statistics": "workspace:*",
         "@flux-ui/visuals": "workspace:*",
@@ -87,6 +88,28 @@
       },
       "peerDependencies": {
         "luxon": "^3.7.2",
+        "vue": "^3.6.0-beta.17",
+      },
+    },
+    "packages/flow": {
+      "name": "@flux-ui/flow",
+      "version": "0.0.0",
+      "dependencies": {
+        "@flux-ui/components": "workspace:*",
+        "@flux-ui/types": "workspace:*",
+        "clsx": "^2.1.1",
+      },
+      "devDependencies": {
+        "@basmilius/vite-preset": "^3.52.0",
+        "@types/node": "^26.1.1",
+        "@vitejs/plugin-vue": "^6.0.7",
+        "@vue/tsconfig": "^0.9.1",
+        "sass-embedded": "^1.100.0",
+        "typescript": "6.0.3",
+        "vite": "^8.1.4",
+        "vue-tsc": "^3.3.7",
+      },
+      "peerDependencies": {
         "vue": "^3.6.0-beta.17",
       },
     },
@@ -280,6 +303,8 @@
     "@flux-ui/application": ["@flux-ui/application@workspace:packages/application"],
 
     "@flux-ui/components": ["@flux-ui/components@workspace:packages/components"],
+
+    "@flux-ui/flow": ["@flux-ui/flow@workspace:packages/flow"],
 
     "@flux-ui/internals": ["@flux-ui/internals@workspace:packages/internals"],
 

@@ -8,6 +8,7 @@ const TARGET_DIRS = [
     'packages/components/dist',
     'packages/application/dist',
     'packages/statistics/dist',
+    'packages/flow/dist',
     'packages/visuals/dist'
 ];
 

@@ -1,0 +1,68 @@
+{
+    "name": "@flux-ui/flow",
+    "description": "Flow building blocks for the Flux UI library.",
+    "version": "0.0.0",
+    "type": "module",
+    "license": "MIT",
+    "funding": "https://github.com/sponsors/basmilius",
+    "homepage": "https://flux-ui.dev",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/basmilius/flux.git",
+        "directory": "packages/flow"
+    },
+    "keywords": [
+        "ui library",
+        "component library",
+        "design system",
+        "vue",
+        "vue 3",
+        "ui",
+        "components",
+        "flux",
+        "flow"
+    ],
+    "scripts": {
+        "build": "vue-tsc && vite build",
+        "dev": "vite build --watch --mode development"
+    },
+    "engines": {
+        "node": ">=23"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        },
+        "./style.css": "./dist/index.css"
+    },
+    "publishConfig": {
+        "access": "public",
+        "provenance": true
+    },
+    "files": [
+        "dist",
+        "src"
+    ],
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "dependencies": {
+        "@flux-ui/components": "workspace:*",
+        "@flux-ui/types": "workspace:*",
+        "clsx": "^2.1.1"
+    },
+    "peerDependencies": {
+        "vue": "^3.6.0-beta.17"
+    },
+    "devDependencies": {
+        "@basmilius/vite-preset": "^3.52.0",
+        "@types/node": "^26.1.1",
+        "@vitejs/plugin-vue": "^6.0.7",
+        "@vue/tsconfig": "^0.9.1",
+        "sass-embedded": "^1.100.0",
+        "typescript": "6.0.3",
+        "vite": "^8.1.4",
+        "vue-tsc": "^3.3.7"
+    }
+}

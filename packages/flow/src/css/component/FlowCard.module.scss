@@ -1,0 +1,33 @@
+.flowCard {
+    position: relative;
+    width: max-content;
+}
+
+.flowCardBadge {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    margin-bottom: 9px;
+}
+
+.flowCardSurface {
+    width: 300px;
+    transition: border-color 240ms var(--swift-out), box-shadow 240ms var(--swift-out);
+}
+
+.flowCardSurface.isActive {
+    border-color: var(--primary-500);
+    box-shadow: 0 0 0 1px var(--primary-500), var(--shadow-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .flowCardSurface {
+        transition: none;
+    }
+}
+
+.flowCardBody {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
