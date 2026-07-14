@@ -76,6 +76,11 @@ props:
         optional: true
         default: multiple
 
+    -   name: can-expand
+        description: A predicate that decides whether a row shows its expand toggle. Return `false` to hide the toggle for rows without detail content. Requires the `expandable` slot.
+        type: "(item: T) => boolean"
+        optional: true
+
     -   name: selection-mode
         description: Enables row selection. Use `single` for at most one selected row, or `multiple` for an array of selected rows. Requires `unique-key` to be set.
         type: "'single' | 'multiple'"
@@ -244,6 +249,10 @@ example=../code/components/data-table/expandable.vue
 
 ::: example Single expansion || A data table where opening a row collapses the previously opened one.
 example=../code/components/data-table/expand-single.vue
+:::
+
+::: example Conditional expansion || A data table where only rows with detail content show an expand toggle.
+example=../code/components/data-table/expand-conditional.vue
 :::
 
 ::: example Grouped rows || A data table whose rows are grouped under collapsible headers.

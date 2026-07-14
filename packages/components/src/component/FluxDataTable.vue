@@ -106,7 +106,7 @@
                     <FluxTableCell
                         v-if="hasExpandable"
                         :class="$style.tableCellExpand">
-                        <FluxTableActions>
+                        <FluxTableActions v-if="isRowExpandable(entry.item)">
                             <FluxAction
                                 :class="clsx($style.tableExpandToggle, isItemExpanded(entry.item) && $style.isExpanded)"
                                 icon="angle-right"
@@ -214,6 +214,7 @@
     });
 
     const {
+        canExpand,
         expandMode = 'multiple',
         groupBy,
         isFilled = false,
@@ -227,6 +228,7 @@
         total,
         uniqueKey
     } = defineProps<{
+        readonly canExpand?: (item: T) => boolean;
         readonly expandMode?: 'single' | 'multiple';
         readonly groupBy?: (item: T) => SelectionId;
         readonly isFilled?: boolean;
@@ -508,12 +510,28 @@
         selected.value = current.filter(id => !ids.includes(id));
     }
 
+    function isRowExpandable(item: T): boolean {
+        if (!unref(hasExpandable)) {
+            return false;
+        }
+
+        return canExpand ? canExpand(item) : true;
+    }
+
     function isItemExpanded(item: T): boolean {
+        if (!isRowExpandable(item)) {
+            return false;
+        }
+
         const id = getItemId(item);
         return id !== undefined && unref(expandedSet).has(id);
     }
 
     function toggleExpand(item: T): void {
+        if (!isRowExpandable(item)) {
+            return;
+        }
+
         const id = getItemId(item);
 
         if (id === undefined) {
