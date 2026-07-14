@@ -134,7 +134,6 @@
     const isPanning = ref(false);
     const isReady = ref(false);
     const hoveredEdge = ref<number | null>(null);
-    const panOffset = ref({x: 0, y: 0});
 
     let lastPointer: { x: number; y: number } | null = null;
 
@@ -213,9 +212,12 @@
 
     const backgroundStyle = computed(() => ({
         backgroundSize: `${gridSize}px ${gridSize}px`,
-        // The backdrop lives outside the scroll: it only follows an interactive pan,
-        // never the content scroll or a zoom.
-        backgroundPosition: interactive ? `${panOffset.value.x}px ${panOffset.value.y}px` : '0 0'
+        // The backdrop lives outside the scroll: it follows the viewport pan so it
+        // stays aligned with the content (centering, zoom-at-point, fitView, …),
+        // but never scales with the zoom.
+        backgroundPosition: interactive
+            ? `${controller.viewport.value.x}px ${controller.viewport.value.y}px`
+            : '0 0'
     }));
 
     const sameViewport = (a: FluxFlowViewport | undefined, b: FluxFlowViewport | undefined): boolean =>
@@ -239,7 +241,6 @@
         const dx = event.clientX - lastPointer.x;
         const dy = event.clientY - lastPointer.y;
         controller.panBy(dx, dy);
-        panOffset.value = {x: panOffset.value.x + dx, y: panOffset.value.y + dy};
         lastPointer = {x: event.clientX, y: event.clientY};
     }
 
