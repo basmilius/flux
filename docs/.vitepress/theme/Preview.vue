@@ -5,7 +5,7 @@
         <FluxVisualGridPattern :stroke-dasharray="3"/>
 
         <slot name="body">
-            <FluxView :class="clsx($style.previewBody, flush && $style.isFlush)">
+            <FluxView :class="[$style.previewBody, flush && $style.isFlush]">
                 <slot/>
             </FluxView>
         </slot>
@@ -16,7 +16,6 @@
     lang="ts"
     setup>
     import { FluxVisualGridPattern } from '@flux-ui/visuals';
-    import { clsx } from 'clsx';
     import { onMounted, ref, unref } from 'vue';
     import FluxView from './FluxView.vue';
 
