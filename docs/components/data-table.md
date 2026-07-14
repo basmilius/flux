@@ -42,6 +42,12 @@ props:
         type: "(item: T) => string | number"
         optional: true
 
+    -   name: collapse-mode
+        description: How a collapsed group's rows are handled. Use `unmount` to drop them from the DOM, or `hide` to keep them mounted and hidden so toggling groups with many rich rows stays instant. Only applies when `group-by` is set.
+        type: "'unmount' | 'hide'"
+        optional: true
+        default: unmount
+
     -   name: is-hoverable
         description: Enable a hover state for each row.
         type: boolean
@@ -199,6 +205,10 @@ render=../code/components/data-table/preview.vue
 
 ::: info Server-side pagination
 The data table does **not** paginate `items` internally. The `items` prop should contain only the rows for the currently active page, fetched from your server or API. The `page` and `per-page` props are used to drive the pagination bar and are exposed through slot bindings so you can display them, but the component never slices or filters the `items` array itself.
+:::
+
+::: tip Fast group toggling
+By default a collapsed group unmounts its rows, so re-expanding a group of rich rows (per-row flyouts, links, indicators) re-mounts all of them. Set `collapse-mode="hide"` to keep the rows mounted and hide them instead, making every toggle instant. Hidden rows are excluded from keyboard navigation and assistive technology, so there is no visible or behavioural change beyond the speed.
 :::
 
 ## Examples

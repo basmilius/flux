@@ -93,6 +93,7 @@
                 <FluxTableRow
                     :aria-rowindex="(page - 1) * perPage + entry.index + 2"
                     :is-clickable="isRowInteractive"
+                    :is-hidden="chunk.isCollapsed"
                     :is-selected="selectionMode ? isItemSelected(entry.item) : false"
                     @row-click="(columnIndex, event) => onRowClick(entry.item, columnIndex, event)">
                     <FluxTableCell
@@ -124,7 +125,9 @@
                     </template>
                 </FluxTableRow>
 
-                <FluxTableRow v-if="hasExpandable && isItemExpanded(entry.item)">
+                <FluxTableRow
+                    v-if="hasExpandable && isItemExpanded(entry.item)"
+                    :is-hidden="chunk.isCollapsed">
                     <FluxTableCell :colspan="columnCount">
                         <template #content>
                             <div :class="$style.tableExpandContent">
@@ -192,6 +195,7 @@
         readonly kind: 'group' | 'plain';
         readonly key: SelectionId;
         readonly entries: ItemEntry[];
+        readonly isCollapsed?: boolean;
         readonly id?: SelectionId;
         readonly index?: number;
         readonly items?: T[];
@@ -215,6 +219,7 @@
 
     const {
         canExpand,
+        collapseMode = 'unmount',
         expandMode = 'multiple',
         groupBy,
         isFilled = false,
@@ -229,6 +234,7 @@
         uniqueKey
     } = defineProps<{
         readonly canExpand?: (item: T) => boolean;
+        readonly collapseMode?: 'hide' | 'unmount';
         readonly expandMode?: 'single' | 'multiple';
         readonly groupBy?: (item: T) => SelectionId;
         readonly isFilled?: boolean;
@@ -374,13 +380,19 @@
         const chunks: RenderChunk[] = [];
 
         for (const [id, bucket] of buckets) {
+            // In 'hide' mode the rows of a collapsed group stay mounted and are
+            // hidden by FluxTableRow; in the default 'unmount' mode they are
+            // dropped entirely so the group re-mounts on every toggle.
+            const isCollapsed = unref(collapsedGroupSet).has(id);
+
             chunks.push({
                 kind: 'group',
                 key: `group:${id}`,
                 id,
                 index: bucket[0].index,
                 items: bucket.map(({item}) => item),
-                entries: unref(collapsedGroupSet).has(id) ? [] : bucket.map(({item, index}) => toEntry(item, index))
+                isCollapsed,
+                entries: isCollapsed && collapseMode === 'unmount' ? [] : bucket.map(({item, index}) => toEntry(item, index))
             });
         }
 

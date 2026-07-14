@@ -1,6 +1,7 @@
 <template>
     <div
         ref="row"
+        v-show="!isHidden"
         :class="clsx($style.tableRow, isClickable && $style.isClickable, isSelected && $style.isSelected)"
         role="row"
         :tabindex="tabindex"
@@ -15,7 +16,7 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import { computed, onUnmounted, useTemplateRef, type VNode } from 'vue';
+    import { computed, onUnmounted, useTemplateRef, type VNode, watch } from 'vue';
     import { useTableInjection } from '~flux/components/composable';
     import $style from '~flux/components/css/component/Table.module.scss';
 
@@ -26,9 +27,11 @@
     }>();
 
     const {
-        isClickable
+        isClickable,
+        isHidden
     } = defineProps<{
         readonly isClickable?: boolean;
+        readonly isHidden?: boolean;
         readonly isSelected?: boolean;
     }>();
 
@@ -42,9 +45,10 @@
 
     // Roving tabindex: before any row is focused, every clickable row is a
     // tab stop; afterwards only the last-focused row is, so Tab leaves the
-    // table instead of walking every row.
+    // table instead of walking every row. A hidden row (collapsed group kept
+    // mounted) drops its tabindex so the roving query and Tab both skip it.
     const tabindex = computed(() => {
-        if (!isClickable) {
+        if (!isClickable || isHidden) {
             return undefined;
         }
 
@@ -53,6 +57,15 @@
 
     onUnmounted(() => {
         if (activeRow.value === row.value) {
+            activeRow.value = null;
+        }
+    });
+
+    // Hiding the active row would leave every remaining row at tabindex -1,
+    // making the table unreachable by Tab; release the roving anchor so the
+    // visible rows become tab stops again (mirrors onUnmounted).
+    watch(() => isHidden, hidden => {
+        if (hidden && activeRow.value === row.value) {
             activeRow.value = null;
         }
     });
