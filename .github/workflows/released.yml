@@ -55,6 +55,7 @@ jobs:
                     bun pm version --cwd packages/components "$RELEASE_VERSION"
                     bun pm version --cwd packages/application "$RELEASE_VERSION"
                     bun pm version --cwd packages/statistics "$RELEASE_VERSION"
+                    bun pm version --cwd packages/flow "$RELEASE_VERSION"
                     bun pm version --cwd packages/skill "$RELEASE_VERSION"
 
                     sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/types/package.json
@@ -63,6 +64,7 @@ jobs:
                     sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/components/package.json
                     sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/application/package.json
                     sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/statistics/package.json
+                    sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/flow/package.json
 
                     sed -i "s/\"version\": \"[^\"]*\"/\"version\": \"$RELEASE_VERSION\"/" packages/skill/.claude-plugin/plugin.json
 
@@ -78,6 +80,7 @@ jobs:
                     bun --cwd packages/components build
                     bun --cwd packages/application build
                     bun --cwd packages/statistics build
+                    bun --cwd packages/flow build
                     node scripts/transform-dts.mjs
                     bun --cwd docs build
 
@@ -102,7 +105,7 @@ jobs:
                         (cd "$dir" && npm publish --access public "${tag_args[@]}")
                     }
 
-                    for pkg in types internals visuals components application statistics skill; do
+                    for pkg in types internals visuals components application statistics flow skill; do
                         publish "$pkg"
                     done
 
