@@ -51,6 +51,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .flowConnectionMarker,
     .flowConnectionProgress {
         transition: none;
     }

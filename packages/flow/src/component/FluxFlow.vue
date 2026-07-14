@@ -79,11 +79,11 @@
     setup>
     import { FluxBadge } from '@flux-ui/components';
     import { clsx } from 'clsx';
-    import { computed, onMounted, provide, ref, toRef, watch } from 'vue';
+    import { computed, onMounted, provide, ref, toRef, watch, type CSSProperties } from 'vue';
     import { useFlowController } from '~flux/flow/composable/private';
     import { FluxFlowInjectionKey, type FluxFlowViewport } from '~flux/flow/data';
-    import $edge from '~flux/flow/css/component/FlowConnection.module.scss';
     import $style from '~flux/flow/css/component/Flow.module.scss';
+    import $edge from '~flux/flow/css/component/FlowConnection.module.scss';
 
     const {
         background = 'none',
@@ -173,15 +173,15 @@
         return {minX, minY, width: maxX - minX, height: maxY - minY};
     });
 
-    const flowStyle = computed(() => (interactive ? {height: '100%'} : undefined));
+    const flowStyle = computed<CSSProperties | undefined>(() => (interactive ? {height: '100%'} : undefined));
 
-    const scrollStyle = computed(() => (interactive
+    const scrollStyle = computed<CSSProperties>(() => (interactive
         ? {height: '100%', overflow: 'hidden'}
         // Centre the flow when the container is wider than it, but fall back to
         // the start (scrollable) when it overflows.
         : {display: 'flex', justifyContent: 'safe center', overflowX: 'auto', overflowY: 'hidden'}));
 
-    const worldStyle = computed(() => {
+    const worldStyle = computed<CSSProperties>(() => {
         if (interactive) {
             const {x, y, zoom} = controller.viewport.value;
             return {
@@ -210,7 +210,7 @@
         };
     });
 
-    const backgroundStyle = computed(() => ({
+    const backgroundStyle = computed<CSSProperties>(() => ({
         backgroundSize: `${gridSize}px ${gridSize}px`,
         // The backdrop lives outside the scroll: it follows the viewport pan so it
         // stays aligned with the content (centering, zoom-at-point, fitView, …),

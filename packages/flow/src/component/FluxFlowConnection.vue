@@ -7,9 +7,9 @@
     setup>
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { computed, getCurrentInstance, onBeforeUnmount } from 'vue';
-    import { anchorPoint, autoSides, getBezierPath, getSmoothStepPath, getStraightPath } from '~flux/flow/util';
     import { useFluxFlowInjection } from '~flux/flow/composable';
     import type { FluxFlowConnectionType, FluxFlowEdgeSpec, FluxFlowMarkers, FluxFlowSide } from '~flux/flow/data';
+    import { anchorPoint, autoSides, getBezierPath, getSmoothStepPath, getStraightPath } from '~flux/flow/util';
 
     const props = defineProps<{
         readonly from: string;
