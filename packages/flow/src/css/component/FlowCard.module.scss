@@ -12,6 +12,7 @@
 
 .flowCardSurface {
     width: 300px;
+    transition: border-color 240ms var(--swift-out), box-shadow 240ms var(--swift-out);
 }
 
 .flowCardSurface.isActive {
@@ -19,58 +20,14 @@
     box-shadow: 0 0 0 1px var(--primary-500), var(--shadow-sm);
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .flowCardSurface {
+        transition: none;
+    }
+}
+
 .flowCardBody {
     display: flex;
     flex-direction: column;
     gap: 9px;
-}
-
-.flowCardSection {
-    display: flex;
-    flex-direction: column;
-    padding: 12px;
-    gap: 6px;
-    background: var(--gray-50);
-    border: 1px solid var(--gray-100);
-    border-radius: var(--radius-half);
-}
-
-.flowCardSectionLabel {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: .04em;
-    color: var(--foreground-secondary);
-    text-transform: uppercase;
-}
-
-.flowCardSectionBody {
-    font-size: 13px;
-    color: var(--foreground);
-}
-
-.flowCardRow {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    font-size: 13px;
-}
-
-.flowCardRowLabel {
-    color: var(--foreground-secondary);
-}
-
-.flowCardRowSpacer {
-    flex: 1 1 auto;
-}
-
-.flowCardRowLeader {
-    align-self: end;
-    height: 1px;
-    margin-bottom: 3px;
-    border-bottom: 1px dashed var(--surface-stroke);
-}
-
-.flowCardRowValue {
-    font-weight: 500;
-    color: var(--foreground);
 }

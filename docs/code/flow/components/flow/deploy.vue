@@ -8,8 +8,10 @@
 
         <FluxFlowNode id="build" :x="360" :y="120">
             <FluxFlowActionCard title="Build Image" label="Job" icon="server" color="primary">
-                <FluxFlowCardRow label="Runner" leader>ubuntu-latest</FluxFlowCardRow>
-                <FluxFlowCardRow label="Duration" leader>2m 14s</FluxFlowCardRow>
+                <FluxDescriptionList>
+                    <FluxDescriptionItem label="Runner">ubuntu-latest</FluxDescriptionItem>
+                    <FluxDescriptionItem label="Duration">2m 14s</FluxDescriptionItem>
+                </FluxDescriptionList>
             </FluxFlowActionCard>
         </FluxFlowNode>
 
@@ -39,5 +41,6 @@
 <script
     setup
     lang="ts">
-    import { FluxFlow, FluxFlowActionCard, FluxFlowCardRow, FluxFlowConditionCard, FluxFlowConnection, FluxFlowNode, FluxFlowTriggerCard } from '@flux-ui/flow';
+    import { FluxDescriptionItem, FluxDescriptionList } from '@flux-ui/components';
+    import { FluxFlow, FluxFlowActionCard, FluxFlowConditionCard, FluxFlowConnection, FluxFlowNode, FluxFlowTriggerCard } from '@flux-ui/flow';
 </script>

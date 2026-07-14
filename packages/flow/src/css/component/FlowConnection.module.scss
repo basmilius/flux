@@ -11,13 +11,17 @@
 .flowConnectionLine {
     fill: none;
     stroke: var(--connection-color);
-    stroke-width: 3px;
+    stroke-width: 2px;
     stroke-linecap: round;
     stroke-linejoin: round;
+    // A zero gap renders solid, but expresses the solid state as a dash pattern so
+    // toggling to isDashed/isDotted morphs the gaps instead of snapping.
+    stroke-dasharray: 6 0;
+    transition: stroke 360ms var(--swift-out), stroke-dasharray 360ms var(--swift-out);
 }
 
 .isHovered :is(.flowConnectionLine, .flowConnectionProgress) {
-    filter: brightness(.82);
+    stroke-width: 4px;
 }
 
 .flowConnectionLine.isDashed {
@@ -36,21 +40,21 @@
 }
 
 .flowConnectionMarker.isActive {
-    fill: var(--connection-progress-color);
     stroke: var(--connection-progress-color);
 }
 
 .flowConnectionProgress {
     fill: none;
     stroke: var(--connection-progress-color);
-    stroke-width: 3px;
+    stroke-width: 2px;
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-dasharray: var(--connection-progress) calc(1 - var(--connection-progress));
-    transition: stroke-dasharray 360ms var(--swift-out);
+    transition: stroke 360ms var(--swift-out), stroke-dasharray 360ms var(--swift-out);
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .flowConnectionLine,
     .flowConnectionMarker,
     .flowConnectionProgress {
         transition: none;

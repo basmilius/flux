@@ -8,17 +8,13 @@
 
         <FluxFlowNode id="analyze" :x="0" :y="330">
             <FluxFlowActionCard title="Analyze Market" label="AI Agent" icon="robot" color="primary" :active="progress >= 0.5">
-                <FluxFlowCardSection label="Prompt">
-                    Collects competitor insights and analyzes market trends.
-                </FluxFlowCardSection>
+                Collects competitor insights and analyzes market trends.
             </FluxFlowActionCard>
         </FluxFlowNode>
 
         <FluxFlowNode id="draft" :x="330" :y="330">
             <FluxFlowActionCard title="Draft Content" label="AI Agent" icon="wand-magic-sparkles" color="warning" :active="progress >= 0.5">
-                <FluxFlowCardSection label="Prompt">
-                    Generates campaign copy variations from the strategy brief.
-                </FluxFlowCardSection>
+                Generates campaign copy variations from the strategy brief.
             </FluxFlowActionCard>
         </FluxFlowNode>
 
@@ -38,7 +34,7 @@
 <script
     setup
     lang="ts">
-    import { FluxFlow, FluxFlowActionCard, FluxFlowCardSection, FluxFlowConnection, FluxFlowNode, FluxFlowTriggerCard } from '@flux-ui/flow';
+    import { FluxFlow, FluxFlowActionCard, FluxFlowConnection, FluxFlowNode, FluxFlowTriggerCard } from '@flux-ui/flow';
     import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 
     const progress = ref(0);

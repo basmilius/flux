@@ -1,13 +1,16 @@
 <template>
     <div :class="$style.flowCard">
-        <div
-            v-if="effectiveLabel"
-            :class="$style.flowCardBadge">
-            <FluxBadge
-                :color="effectiveColor"
-                :icon="effectiveIcon"
-                :label="effectiveLabel"/>
-        </div>
+        <FluxVerticalWindowTransition>
+            <div
+                v-if="effectiveLabel"
+                :key="badgeKey"
+                :class="$style.flowCardBadge">
+                <FluxBadge
+                    :color="effectiveColor"
+                    :icon="effectiveIcon"
+                    :label="effectiveLabel"/>
+            </div>
+        </FluxVerticalWindowTransition>
 
         <FluxPane :class="clsx($style.flowCardSurface, active && $style.isActive)">
             <FluxPaneHeader
@@ -36,7 +39,7 @@
     lang="ts"
     setup>
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
-    import { FluxBadge, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader } from '@flux-ui/components';
+    import { FluxBadge, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxVerticalWindowTransition } from '@flux-ui/components';
     import { clsx } from 'clsx';
     import { computed } from 'vue';
     import $style from '~flux/flow/css/component/FlowCard.module.scss';
@@ -67,4 +70,8 @@
     const effectiveColor = computed<FluxColor>(() => props.color ?? defaults.value.color);
     const effectiveIcon = computed<FluxIconName | undefined>(() => props.icon ?? defaults.value.icon);
     const effectiveLabel = computed<string | undefined>(() => props.label ?? defaults.value.label);
+
+    // Re-key the badge on icon or label change so it transitions; a color change
+    // recolors in place without re-running the transition.
+    const badgeKey = computed(() => `${effectiveIcon.value}-${effectiveLabel.value}`);
 </script>

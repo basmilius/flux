@@ -18,31 +18,35 @@
 
         <FluxFlowNode id="refund" :x="480" :y="30">
             <FluxFlowCard title="Refund handling" active>
-                <FluxFlowCardRow label="Status">
-                    <FluxBadge label="Current" color="success" dot/>
-                </FluxFlowCardRow>
-                <FluxFlowCardRow label="Sources" leader>4</FluxFlowCardRow>
-                <FluxFlowCardRow label="Used by" leader>3 agents</FluxFlowCardRow>
+                <FluxDescriptionList>
+                    <FluxDescriptionItem label="Status">
+                        <FluxBadge label="Current" color="success" dot/>
+                    </FluxDescriptionItem>
+                    <FluxDescriptionItem label="Sources">4</FluxDescriptionItem>
+                    <FluxDescriptionItem label="Used by">3 agents</FluxDescriptionItem>
+                </FluxDescriptionList>
             </FluxFlowCard>
         </FluxFlowNode>
 
         <FluxFlowNode id="pricing" :x="480" :y="420">
             <FluxFlowCard title="Pricing exceptions">
-                <FluxFlowCardRow label="Status">
-                    <FluxBadge label="Needs review" color="warning" dot/>
-                </FluxFlowCardRow>
-                <FluxFlowCardRow label="Sources" leader>2</FluxFlowCardRow>
-                <FluxFlowCardRow label="Used by" leader>4 agents</FluxFlowCardRow>
+                <FluxDescriptionList>
+                    <FluxDescriptionItem label="Status">
+                        <FluxBadge label="Needs review" color="warning" dot/>
+                    </FluxDescriptionItem>
+                    <FluxDescriptionItem label="Sources">2</FluxDescriptionItem>
+                    <FluxDescriptionItem label="Used by">4 agents</FluxDescriptionItem>
+                </FluxDescriptionList>
             </FluxFlowCard>
         </FluxFlowNode>
 
         <FluxFlowNode id="output" :x="960" :y="210">
             <FluxFlowCard title="Skills file">
-                <FluxFlowCardSection label="Consumed by">
-                    <div>Support agent</div>
-                    <div>Billing ops bot</div>
-                    <div>On-call copilot</div>
-                </FluxFlowCardSection>
+                <FluxStatisticsLegend direction="vertical">
+                    <FluxStatisticsLegendItem color="primary" label="Support agent"/>
+                    <FluxStatisticsLegendItem color="info" label="Billing ops bot"/>
+                    <FluxStatisticsLegendItem color="success" label="On-call copilot"/>
+                </FluxStatisticsLegend>
             </FluxFlowCard>
         </FluxFlowNode>
 
@@ -60,6 +64,7 @@
 <script
     setup
     lang="ts">
-    import { FluxBadge } from '@flux-ui/components';
-    import { FluxFlow, FluxFlowCard, FluxFlowCardRow, FluxFlowCardSection, FluxFlowConnection, FluxFlowNode } from '@flux-ui/flow';
+    import { FluxBadge, FluxDescriptionItem, FluxDescriptionList } from '@flux-ui/components';
+    import { FluxFlow, FluxFlowCard, FluxFlowConnection, FluxFlowNode } from '@flux-ui/flow';
+    import { FluxStatisticsLegend, FluxStatisticsLegendItem } from '@flux-ui/statistics';
 </script>

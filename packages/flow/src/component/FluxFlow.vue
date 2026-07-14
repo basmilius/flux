@@ -137,6 +137,11 @@
 
     let lastPointer: { x: number; y: number } | null = null;
 
+    // A press that lands on an interactive control inside a card must keep its own
+    // click: starting a pan captures the pointer and would swallow it. Opt any other
+    // content out of panning with a `data-nopan` attribute.
+    const NO_PAN_SELECTOR = 'a, button, input, select, textarea, label, [role="button"], [role="switch"], [contenteditable], [data-nopan]';
+
     const edgeList = computed(() => Array.from(controller.edges.values()));
 
     // Render the hovered edge last so it sits above the other lines.
@@ -187,7 +192,7 @@
             return {
                 transform: `translate(${x}px, ${y}px) scale(${zoom})`,
                 // Animate zooming, but never lag behind a live pan or the initial view.
-                transition: isReady.value && !isPanning.value ? 'transform 200ms var(--swift-out)' : 'none'
+                transition: isReady.value && !isPanning.value ? 'transform 210ms var(--swift-out)' : 'none'
             };
         }
 
@@ -225,6 +230,10 @@
 
     function onPointerDown(event: PointerEvent): void {
         if (!interactive || event.button !== 0) {
+            return;
+        }
+
+        if (event.target instanceof Element && event.target.closest(NO_PAN_SELECTOR)) {
             return;
         }
 

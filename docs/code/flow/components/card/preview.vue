@@ -1,9 +1,7 @@
 <template>
     <Preview>
         <FluxFlowActionCard title="Analyze Market" label="AI Agent" icon="robot" color="primary">
-            <FluxFlowCardSection label="Prompt">
-                Collects competitor insights and analyzes market trends.
-            </FluxFlowCardSection>
+            Collects competitor insights and analyzes market trends.
 
             <template #footer>
                 <FluxTag icon="brain" label="Opus 4.8"/>
@@ -17,5 +15,5 @@
     setup
     lang="ts">
     import { FluxBadge, FluxTag } from '@flux-ui/components';
-    import { FluxFlowActionCard, FluxFlowCardSection } from '@flux-ui/flow';
+    import { FluxFlowActionCard } from '@flux-ui/flow';
 </script>

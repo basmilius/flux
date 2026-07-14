@@ -13,9 +13,7 @@
 
             <FluxFlowNode id="analyze" :x="0" :y="330">
                 <FluxFlowActionCard title="Analyze Market" label="AI Agent" icon="robot" color="primary">
-                    <FluxFlowCardSection label="Prompt">
-                        Collects competitor insights and analyzes market trends.
-                    </FluxFlowCardSection>
+                    Collects competitor insights and analyzes market trends.
 
                     <template #footer>
                         <FluxTag icon="brain" label="Opus 4.8"/>
@@ -26,9 +24,7 @@
 
             <FluxFlowNode id="draft" :x="330" :y="330">
                 <FluxFlowActionCard title="Draft Content" label="AI Agent" icon="wand-magic-sparkles" color="warning">
-                    <FluxFlowCardSection label="Prompt">
-                        Generates campaign copy variations from the strategy brief.
-                    </FluxFlowCardSection>
+                    Generates campaign copy variations from the strategy brief.
 
                     <template #footer>
                         <FluxTag icon="brain" label="Opus 4.8"/>
@@ -59,5 +55,5 @@
     setup
     lang="ts">
     import { FluxBadge, FluxTag } from '@flux-ui/components';
-    import { FluxFlow, FluxFlowActionCard, FluxFlowCardSection, FluxFlowConnection, FluxFlowNode, FluxFlowTriggerCard } from '@flux-ui/flow';
+    import { FluxFlow, FluxFlowActionCard, FluxFlowConnection, FluxFlowNode, FluxFlowTriggerCard } from '@flux-ui/flow';
 </script>

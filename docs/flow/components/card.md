@@ -39,7 +39,7 @@ props:
 
 slots:
     -   name: default
-        description: The body of the card. Place text, a FluxFlowCardSection or FluxFlowCardRow components here.
+        description: The body of the card. Place plain text or any Flux component here, for example a FluxDescriptionList for compact key/value data.
 
     -   name: footer
         description: The footer of the card, typically a row of FluxTag and FluxBadge chips.
@@ -71,12 +71,28 @@ example=../../code/flow/components/card/variants.vue
 example=../../code/flow/components/card/colors.vue
 :::
 
-## Sections and rows
+## Rich content
 
-Two helpers structure a card's body. `FluxFlowCardSection` is a labeled box, useful for a prompt or a block of configuration. `FluxFlowCardRow` is a label/value row with an optional dashed `leader`, useful for compact key/value data.
+The card body is a plain vertical stack, so you are not limited to text. Drop in any component from Flux or Flux Statistics: a [`FluxDescriptionList`](../../components/description-list/) for compact key/value data, a `FluxStatisticsLegend` for a color coded breakdown, a chart, badges, anything you need.
 
-::: example Sections and rows || A card combining a labeled section with several leader rows.
-example=../../code/flow/components/card/section-row.vue
+::: example Rich content || A card mixing plain text, a FluxDescriptionList and a FluxStatisticsLegend.
+example=../../code/flow/components/card/content.vue
+:::
+
+## Interactive content
+
+Nothing about the body is read only. Because it is plain markup, interactive controls, buttons and animated values work exactly as they would anywhere else, so a card can double as a small control surface for its node.
+
+::: example Toggle || A FluxToggle drives the node's state; the badge and accent border follow it.
+example=../../code/flow/components/card/toggle.vue
+:::
+
+::: example Approval || A FluxAvatar identifies the reviewer and a FluxSecondaryButton in the footer resolves the step.
+example=../../code/flow/components/card/approval.vue
+:::
+
+::: example Live progress || A FluxStatisticsMeter reflects a running job by animating its value while the card stays active.
+example=../../code/flow/components/card/progress.vue
 :::
 
 ## Used components

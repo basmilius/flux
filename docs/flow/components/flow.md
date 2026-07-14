@@ -109,6 +109,22 @@ example=../../code/flow/components/flow/interactive.vue
 example=../../code/flow/components/flow/start.vue
 :::
 
+::: example Enable and disable || Because cards are plain markup, they stay interactive on the canvas. A FluxToggle in the trigger card switches the automation on and off; the downstream cards and connectors follow its state.
+example=../../code/flow/components/flow/enable.vue
+:::
+
+::: example Approval step || A FluxSecondaryButton in a card footer resolves an approval, which activates the next node and fills its connector.
+example=../../code/flow/components/flow/approval.vue
+:::
+
+::: example Run on demand || A FluxPrimaryButton kicks off a run: a FluxStatisticsMeter animates the build while the connectors fill from stage to stage.
+example=../../code/flow/components/flow/live.vue
+:::
+
+::: tip
+On an interactive canvas, controls inside a card (a toggle, a button, a link, a text field) keep working: a press that starts on one never begins a pan. Add `data-nopan` to any other element that should grab the pointer for itself instead of panning the canvas.
+:::
+
 ## Used components
 
 - [Node](./node)
