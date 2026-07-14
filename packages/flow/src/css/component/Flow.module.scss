@@ -8,13 +8,13 @@
     width: 100%;
 }
 
-.isInteractive {
+.flow.isInteractive {
     cursor: grab;
     touch-action: none;
     user-select: none;
 }
 
-.isPanning {
+.flow.isPanning {
     cursor: grabbing;
 }
 

@@ -20,7 +20,7 @@
     transition: stroke 360ms var(--swift-out), stroke-dasharray 360ms var(--swift-out);
 }
 
-.isHovered :is(.flowConnectionLine, .flowConnectionProgress) {
+.flowConnectionGroup.isHovered :is(.flowConnectionLine, .flowConnectionProgress) {
     stroke-width: 4px;
 }
 

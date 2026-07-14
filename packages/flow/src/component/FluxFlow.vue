@@ -25,7 +25,7 @@
                     <g
                         v-for="edge of orderedEdges"
                         :key="edge.id"
-                        :class="edge.id === hoveredEdge && $edge.isHovered"
+                        :class="clsx($edge.flowConnectionGroup, edge.id === hoveredEdge && $edge.isHovered)"
                         :style="edge.spec.value?.styleVars">
                         <path
                             v-if="edge.spec.value"
