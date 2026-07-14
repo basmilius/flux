@@ -12,6 +12,7 @@
         "@faker-js/faker": "^10.5.0",
         "@flux-ui/application": "workspace:*",
         "@flux-ui/components": "workspace:*",
+        "@flux-ui/flow": "workspace:*",
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/statistics": "workspace:*",
         "@flux-ui/visuals": "workspace:*",

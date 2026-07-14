@@ -1,0 +1,34 @@
+<template>
+    <FluxFlow :padding="45">
+        <FluxFlowNode id="smooth-top" :x="0" :y="0">
+            <FluxFlowCard title="Smoothstep"/>
+        </FluxFlowNode>
+        <FluxFlowNode id="smooth-bottom" :x="120" :y="270">
+            <FluxFlowCard title="Target"/>
+        </FluxFlowNode>
+
+        <FluxFlowNode id="bezier-top" :x="450" :y="0">
+            <FluxFlowCard title="Bezier"/>
+        </FluxFlowNode>
+        <FluxFlowNode id="bezier-bottom" :x="570" :y="270">
+            <FluxFlowCard title="Target"/>
+        </FluxFlowNode>
+
+        <FluxFlowNode id="straight-top" :x="900" :y="0">
+            <FluxFlowCard title="Straight"/>
+        </FluxFlowNode>
+        <FluxFlowNode id="straight-bottom" :x="1020" :y="270">
+            <FluxFlowCard title="Target"/>
+        </FluxFlowNode>
+
+        <FluxFlowConnection from="smooth-top" to="smooth-bottom" type="smoothstep"/>
+        <FluxFlowConnection from="bezier-top" to="bezier-bottom" type="bezier"/>
+        <FluxFlowConnection from="straight-top" to="straight-bottom" type="straight"/>
+    </FluxFlow>
+</template>
+
+<script
+    setup
+    lang="ts">
+    import { FluxFlow, FluxFlowCard, FluxFlowConnection, FluxFlowNode } from '@flux-ui/flow';
+</script>

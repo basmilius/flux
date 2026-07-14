@@ -1,0 +1,62 @@
+.flowConnectionHit {
+    fill: none;
+    stroke: transparent;
+    stroke-width: 16px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    cursor: pointer;
+    pointer-events: stroke;
+}
+
+.flowConnectionLine {
+    fill: none;
+    stroke: var(--connection-color);
+    stroke-width: 3px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.isHovered :is(.flowConnectionLine, .flowConnectionProgress) {
+    filter: brightness(.82);
+}
+
+.flowConnectionLine.isDashed {
+    stroke-dasharray: 6 9;
+}
+
+.flowConnectionLine.isDotted {
+    stroke-dasharray: 1 9;
+}
+
+.flowConnectionMarker {
+    fill: var(--surface);
+    stroke: var(--connection-marker);
+    stroke-width: 2px;
+    transition: fill 360ms var(--swift-out), stroke 360ms var(--swift-out);
+}
+
+.flowConnectionMarker.isActive {
+    fill: var(--connection-progress-color);
+    stroke: var(--connection-progress-color);
+}
+
+.flowConnectionProgress {
+    fill: none;
+    stroke: var(--connection-progress-color);
+    stroke-width: 3px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: var(--connection-progress) calc(1 - var(--connection-progress));
+    transition: stroke-dasharray 360ms var(--swift-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .flowConnectionProgress {
+        transition: none;
+    }
+}
+
+.flowConnectionBadge {
+    position: absolute;
+    transform: translate(-50%, -50%);
+}

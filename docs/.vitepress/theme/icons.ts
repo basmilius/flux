@@ -137,5 +137,12 @@ export {
     faSidebar,
     faSidebarFlip,
     faSlashForward,
-    faRotateLeft
+    faRotateLeft,
+    faRobot,
+    faEnvelope,
+    faGauge,
+    faWandMagicSparkles,
+    faStopwatch,
+    faHashtag,
+    faBrain
 } from '@fortawesome/pro-regular-svg-icons';

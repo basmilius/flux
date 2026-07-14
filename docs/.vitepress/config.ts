@@ -27,6 +27,11 @@ export const fluxVisuals = composeLibrary({
     alias: '~flux/visuals'
 });
 
+export const fluxFlow = composeLibrary({
+    name: '@flux-ui/flow',
+    alias: '~flux/flow'
+});
+
 export default defineConfig({
     title: 'Flux',
     titleTemplate: 'Flux — :title',
@@ -62,6 +67,7 @@ export default defineConfig({
             fluxApplication(),
             fluxStatistics(),
             fluxVisuals(),
+            fluxFlow(),
             llmstxt({
                 domain: 'https://flux-ui.dev',
                 generateLLMsTxt: true,
@@ -102,9 +108,10 @@ export default defineConfig({
             },
             {
                 text: 'Packages',
-                activeMatch: '/(application|internals|statistics|visuals)/',
+                activeMatch: '/(application|flow|internals|statistics|visuals)/',
                 items: [
                     {text: 'Application', link: '/application/'},
+                    {text: 'Flow', link: '/flow/'},
                     {text: 'Internals', link: '/internals/'},
                     {text: 'Statistics', link: '/statistics/'},
                     {text: 'Visuals', link: '/visuals/'}
@@ -168,6 +175,26 @@ export default defineConfig({
                 }
             ],
             '/components/': componentNavigation,
+            '/flow/': [
+                {
+                    text: 'Introduction',
+                    collapsed: false,
+                    items: [
+                        {text: 'What is Flux Flow?', link: '/flow/'},
+                        {text: 'Installation', link: '/flow/introduction/installation'}
+                    ]
+                },
+                {
+                    text: 'Components',
+                    collapsed: false,
+                    items: [
+                        {text: 'Flow', link: '/flow/components/flow'},
+                        {text: 'Node', link: '/flow/components/node'},
+                        {text: 'Connection', link: '/flow/components/connection'},
+                        {text: 'Card', link: '/flow/components/card'}
+                    ]
+                }
+            ],
             '/application/': [
                 {
                     text: 'Introduction',

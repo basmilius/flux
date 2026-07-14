@@ -22,6 +22,9 @@
             "~flux/statistics/*": [
                 "/Users/bas/Development/Projects/flux/docs/node_modules/@flux-ui/statistics/src/*"
             ],
+            "~flux/flow/*": [
+                "/Users/bas/Development/Projects/flux/docs/node_modules/@flux-ui/flow/src/*"
+            ],
             "~flux/*": [
                 "../node_modules/@flux-ui/components/src/*"
             ],
@@ -37,8 +40,14 @@
             "~flux/components/statistics/*": [
                 "/Users/bas/Development/Projects/flux/docs/node_modules/@flux-ui/statistics/src/*"
             ],
+            "~flux/components/flow/*": [
+                "/Users/bas/Development/Projects/flux/docs/node_modules/@flux-ui/flow/src/*"
+            ],
             "~flux/visuals/*": [
                 "/Users/bas/Development/Projects/flux/docs/node_modules/@flux-ui/visuals/src/*"
+            ],
+            "~flux/flow/*": [
+                "/Users/bas/Development/Projects/flux/docs/node_modules/@flux-ui/flow/src/*"
             ]
         }
     },
