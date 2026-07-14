@@ -55,6 +55,19 @@
     transform-origin: 0 0;
 }
 
+// Hover hit-testing sits below the nodes (z-index 1) so connectors can never
+// steal a pointer press meant for interactive card content.
+.flowEdgesHit {
+    position: absolute;
+    display: block;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+    z-index: 0;
+}
+
 .flowEdges {
     position: absolute;
     display: block;

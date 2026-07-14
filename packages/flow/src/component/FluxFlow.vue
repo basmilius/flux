@@ -19,6 +19,22 @@
             <div
                 :class="$style.flowWorld"
                 :style="worldStyle">
+                <!-- Transparent hit layer beneath the nodes: it captures hover for the
+                     edge highlight, but never shadows the interactive card content that
+                     sits above it, so a press on a control is never stolen for a pan. -->
+                <svg :class="$style.flowEdgesHit">
+                    <template
+                        v-for="edge of edgeList"
+                        :key="edge.id">
+                        <path
+                            v-if="edge.spec.value"
+                            :class="$edge.flowConnectionHit"
+                            :d="edge.spec.value.path"
+                            @pointerenter="hoveredEdge = edge.id"
+                            @pointerleave="hoveredEdge = null"/>
+                    </template>
+                </svg>
+
                 <slot/>
 
                 <svg :class="$style.flowEdges">
@@ -27,12 +43,6 @@
                         :key="edge.id"
                         :class="clsx($edge.flowConnectionGroup, edge.id === hoveredEdge && $edge.isHovered)"
                         :style="edge.spec.value?.styleVars">
-                        <path
-                            v-if="edge.spec.value"
-                            :class="$edge.flowConnectionHit"
-                            :d="edge.spec.value.path"
-                            @pointerenter="hoveredEdge = edge.id"
-                            @pointerleave="hoveredEdge = null"/>
                         <path
                             v-if="edge.spec.value"
                             :class="clsx($edge.flowConnectionLine, edge.spec.value.dashed && $edge.isDashed, edge.spec.value.dotted && $edge.isDotted)"
@@ -79,7 +89,7 @@
     setup>
     import { FluxBadge } from '@flux-ui/components';
     import { clsx } from 'clsx';
-    import { computed, onMounted, provide, ref, toRef, watch, type CSSProperties } from 'vue';
+    import { computed, onBeforeUnmount, onMounted, provide, ref, toRef, watch, type CSSProperties } from 'vue';
     import { useFlowController } from '~flux/flow/composable/private';
     import { FluxFlowInjectionKey, type FluxFlowViewport } from '~flux/flow/data';
     import $style from '~flux/flow/css/component/Flow.module.scss';
@@ -136,6 +146,7 @@
     const hoveredEdge = ref<number | null>(null);
 
     let lastPointer: { x: number; y: number } | null = null;
+    let initialFrame = 0;
 
     // A press that lands on an interactive control inside a card must keep its own
     // click: starting a pan captures the pointer and would swallow it. Opt any other
@@ -156,28 +167,6 @@
         ];
     });
 
-    const contentBounds = computed(() => {
-        if (controller.nodes.size === 0) {
-            return null;
-        }
-
-        let minX = Infinity;
-        let minY = Infinity;
-        let maxX = -Infinity;
-        let maxY = -Infinity;
-
-        for (const node of controller.nodes.values()) {
-            const {x, y} = node.position.value;
-            const {width, height} = node.size.value;
-            minX = Math.min(minX, x);
-            minY = Math.min(minY, y);
-            maxX = Math.max(maxX, x + width);
-            maxY = Math.max(maxY, y + height);
-        }
-
-        return {minX, minY, width: maxX - minX, height: maxY - minY};
-    });
-
     const flowStyle = computed<CSSProperties | undefined>(() => (interactive ? {height: '100%'} : undefined));
 
     const scrollStyle = computed<CSSProperties>(() => (interactive
@@ -196,7 +185,7 @@
             };
         }
 
-        const bounds = contentBounds.value;
+        const bounds = controller.bounds.value;
 
         if (!bounds) {
             return {position: 'relative'};
@@ -209,8 +198,8 @@
 
         return {
             position: 'relative',
-            width: `${Math.ceil(bounds.width + padding * 2)}px`,
-            height: `${Math.ceil(bounds.height + padding + top)}px`,
+            width: `${Math.ceil(bounds.maxX - bounds.minX + padding * 2)}px`,
+            height: `${Math.ceil(bounds.maxY - bounds.minY + padding + top)}px`,
             transform: `translate(${padding - bounds.minX}px, ${top - bounds.minY}px)`
         };
     });
@@ -298,11 +287,11 @@
 
         if (viewportProp) {
             controller.setViewport(viewportProp);
-            requestAnimationFrame(() => (isReady.value = true));
+            initialFrame = requestAnimationFrame(() => (isReady.value = true));
             return;
         }
 
-        requestAnimationFrame(() => requestAnimationFrame(() => {
+        initialFrame = requestAnimationFrame(() => (initialFrame = requestAnimationFrame(() => {
             const startNode = start ? controller.getNode(start) : undefined;
             const rect = clip.value?.getBoundingClientRect();
 
@@ -317,16 +306,18 @@
                 });
             } else {
                 // Start at 100% zoom, aligned to the flow's top-left start point.
-                const bounds = contentBounds.value;
+                const bounds = controller.bounds.value;
 
                 if (bounds) {
                     controller.setViewport({x: padding - bounds.minX, y: topPadding() - bounds.minY, zoom: 1});
                 }
             }
 
-            requestAnimationFrame(() => (isReady.value = true));
-        }));
+            initialFrame = requestAnimationFrame(() => (isReady.value = true));
+        })));
     });
+
+    onBeforeUnmount(() => cancelAnimationFrame(initialFrame));
 
     defineExpose({
         controller,

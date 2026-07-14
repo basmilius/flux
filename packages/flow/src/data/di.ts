@@ -17,6 +17,13 @@ export type FluxFlowViewport = {
     readonly zoom: number;
 };
 
+export type FluxFlowBounds = {
+    readonly minX: number;
+    readonly minY: number;
+    readonly maxX: number;
+    readonly maxY: number;
+};
+
 export type FluxFlowSide = 'top' | 'right' | 'bottom' | 'left';
 
 export type FluxFlowConnectionType = 'bezier' | 'smoothstep' | 'straight';
@@ -60,6 +67,7 @@ export type FluxFlowController = {
     readonly isStatic: Readonly<Ref<boolean>>;
     readonly nodes: ShallowReactive<Map<string, FluxFlowNodeRecord>>;
     readonly edges: ShallowReactive<Map<number, FluxFlowEdgeRecord>>;
+    readonly bounds: Readonly<Ref<FluxFlowBounds | null>>;
     readonly clipElement: Readonly<Ref<HTMLElement | null>>;
     registerNode(record: FluxFlowNodeRecord): void;
     unregisterNode(id: string): void;

@@ -27,13 +27,22 @@
         readonly progressValue?: number;
     }>();
 
-    const FLUX_COLORS = ['gray', 'primary', 'danger', 'info', 'success', 'warning'];
+    // A lookup keyed by FluxColor rather than a loose array, so adding a color to
+    // FluxColor is a compile error here until the CSS-var mapping handles it.
+    const FLUX_COLORS: Record<FluxColor, true> = {
+        gray: true,
+        primary: true,
+        danger: true,
+        info: true,
+        success: true,
+        warning: true
+    };
 
     const controller = useFluxFlowInjection();
     const uid = getCurrentInstance()!.uid;
 
     const resolveColor = (value: string | undefined, fallback: string): string =>
-        value ? (FLUX_COLORS.includes(value) ? `var(--${value}-500)` : value) : fallback;
+        value ? (Object.hasOwn(FLUX_COLORS, value) ? `var(--${value}-500)` : value) : fallback;
 
     const hasProgress = computed(() => props.progressValue !== undefined && props.progressValue !== null);
 

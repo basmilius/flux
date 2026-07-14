@@ -49,7 +49,6 @@
     "types": "./dist/index.d.ts",
     "dependencies": {
         "@flux-ui/components": "workspace:*",
-        "@flux-ui/internals": "workspace:*",
         "@flux-ui/types": "workspace:*",
         "clsx": "^2.1.1"
     },

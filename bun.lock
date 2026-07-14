@@ -96,7 +96,6 @@
       "version": "0.0.0",
       "dependencies": {
         "@flux-ui/components": "workspace:*",
-        "@flux-ui/internals": "workspace:*",
         "@flux-ui/types": "workspace:*",
         "clsx": "^2.1.1",
       },

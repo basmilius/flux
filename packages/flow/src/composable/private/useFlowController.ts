@@ -1,5 +1,5 @@
-import { shallowReactive, shallowRef, type Ref } from 'vue';
-import type { FluxFlowController, FluxFlowEdgeRecord, FluxFlowNodeRecord, FluxFlowPosition, FluxFlowViewport } from '~flux/flow/data';
+import { computed, shallowReactive, shallowRef, type Ref } from 'vue';
+import type { FluxFlowBounds, FluxFlowController, FluxFlowEdgeRecord, FluxFlowNodeRecord, FluxFlowPosition, FluxFlowViewport } from '~flux/flow/data';
 
 type FlowControllerOptions = {
     readonly isStatic: Readonly<Ref<boolean>>;
@@ -84,7 +84,7 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
         zoomAt(centerX, centerY, factor);
     }
 
-    function computeBounds(): {minX: number; minY: number; maxX: number; maxY: number} | null {
+    const bounds = computed<FluxFlowBounds | null>(() => {
         if (nodes.size === 0) {
             return null;
         }
@@ -104,11 +104,11 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
         }
 
         return {minX, minY, maxX, maxY};
-    }
+    });
 
-    function centerBounds(rect: DOMRect, bounds: {minX: number; minY: number; maxX: number; maxY: number}, zoom: number): void {
-        const centerX = bounds.minX + (bounds.maxX - bounds.minX) / 2;
-        const centerY = bounds.minY + (bounds.maxY - bounds.minY) / 2;
+    function centerBounds(rect: DOMRect, box: FluxFlowBounds, zoom: number): void {
+        const centerX = box.minX + (box.maxX - box.minX) / 2;
+        const centerY = box.minY + (box.maxY - box.minY) / 2;
 
         viewport.value = {
             x: rect.width / 2 - centerX * zoom,
@@ -119,15 +119,15 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
 
     function fitView(padding: number = options.fitPadding()): void {
         const rect = getRect();
-        const bounds = computeBounds();
+        const box = bounds.value;
 
-        if (!rect || !bounds) {
+        if (!rect || !box) {
             viewport.value = {x: 0, y: 0, zoom: 1};
             return;
         }
 
-        const boundsWidth = Math.max(bounds.maxX - bounds.minX, 1);
-        const boundsHeight = Math.max(bounds.maxY - bounds.minY, 1);
+        const boundsWidth = Math.max(box.maxX - box.minX, 1);
+        const boundsHeight = Math.max(box.maxY - box.minY, 1);
         const availableWidth = Math.max(rect.width - padding * 2, 1);
         const availableHeight = Math.max(rect.height - padding * 2, 1);
 
@@ -139,23 +139,23 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
 
         // Align the content to the top-left (with padding) rather than centering it.
         viewport.value = {
-            x: padding - bounds.minX * zoom,
-            y: padding - bounds.minY * zoom,
+            x: padding - box.minX * zoom,
+            y: padding - box.minY * zoom,
             zoom
         };
     }
 
     function centerView(zoom: number): void {
         const rect = getRect();
-        const bounds = computeBounds();
+        const box = bounds.value;
         const clamped = clamp(zoom, options.minZoom(), options.maxZoom());
 
-        if (!rect || !bounds) {
+        if (!rect || !box) {
             viewport.value = {x: 0, y: 0, zoom: clamped};
             return;
         }
 
-        centerBounds(rect, bounds, clamped);
+        centerBounds(rect, box, clamped);
     }
 
     return {
@@ -163,6 +163,7 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
         isStatic: options.isStatic,
         nodes,
         edges,
+        bounds,
         clipElement,
         registerNode: record => void nodes.set(record.id, record),
         unregisterNode: id => void nodes.delete(id),
