@@ -78,6 +78,14 @@ const navigation: SidebarItem[] = [
             {text: 'Date time', link: '/components/form/date-time'},
             {text: 'Drop zone', link: '/components/drop-zone'},
             {
+                text: 'Fader',
+                link: '/components/form/fader/',
+                collapsed: true,
+                items: [
+                    {text: 'Ranged', link: '/components/form/fader/ranged'}
+                ]
+            },
+            {
                 text: 'Field',
                 link: '/components/form/field/',
                 collapsed: true,

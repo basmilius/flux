@@ -132,10 +132,6 @@
         "vue": "^3.6.0-beta.17",
       },
     },
-    "packages/skill": {
-      "name": "@flux-ui/skill",
-      "version": "0.0.0",
-    },
     "packages/statistics": {
       "name": "@flux-ui/statistics",
       "version": "0.0.0",
@@ -307,8 +303,6 @@
     "@flux-ui/flow": ["@flux-ui/flow@workspace:packages/flow"],
 
     "@flux-ui/internals": ["@flux-ui/internals@workspace:packages/internals"],
-
-    "@flux-ui/skill": ["@flux-ui/skill@workspace:packages/skill"],
 
     "@flux-ui/statistics": ["@flux-ui/statistics@workspace:packages/statistics"],
 
