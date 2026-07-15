@@ -46,6 +46,12 @@ props:
         type: boolean
         optional: true
         
+    -   name: direction
+        description: The direction of the range slider. A vertical range slider defaults to 210px tall, overridable with CSS.
+        type: FluxDirection
+        optional: true
+        default: horizontal
+
     -   name: min
         description: The minimum value of the range slider.
         type: number
@@ -95,6 +101,10 @@ Clicking anywhere on the track moves the thumb closest to the pointer, so the ra
 
 ::: example Basic || A basic range slider from 0 to 100.
 example=../../../code/components/form/slider/ranged/basic.vue
+:::
+
+::: example Vertical || A vertical range slider. It defaults to 210px tall and can be resized with CSS.
+example=../../../code/components/form/slider/ranged/vertical.vue
 :::
 
 ::: example Minimum distance || A range slider that keeps at least 20 units between both thumbs.

@@ -3,6 +3,7 @@
         ref="root"
         :class="clsx(
             $style.slider,
+            direction === 'vertical' && $style.isVertical,
             disabled && $style.isDisabled,
             isDragging && $style.isDragging
         )"
@@ -20,6 +21,7 @@
     lang="ts"
     setup>
     import { unrefTemplateElement } from '@flux-ui/internals';
+    import type { FluxDirection } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { onUnmounted, ref, toRef, unref, useTemplateRef } from 'vue';
     import { useDisabled } from '~flux/components/composable';
@@ -32,8 +34,10 @@
     }>();
 
     const {
+        direction = 'horizontal',
         disabled: componentDisabled
     } = defineProps<{
+        readonly direction?: FluxDirection;
         readonly disabled?: boolean;
         readonly isTicksVisible?: boolean;
         readonly max: number;
@@ -71,15 +75,31 @@
             return;
         }
 
-        let {left, width} = root.getBoundingClientRect();
-        left += 6; // margin.
-        width -= 12; // margin times two.
+        const rect = root.getBoundingClientRect();
+        let fraction: number;
 
-        if (width <= 0) {
-            return;
+        if (direction === 'vertical') {
+            const top = rect.top + 6; // margin.
+            const height = rect.height - 12; // margin times two.
+
+            if (height <= 0) {
+                return;
+            }
+
+            // Bottom is the minimum, so invert: dragging up raises the value.
+            fraction = 1 - (evt.clientY - top) / height;
+        } else {
+            const left = rect.left + 6; // margin.
+            const width = rect.width - 12; // margin times two.
+
+            if (width <= 0) {
+                return;
+            }
+
+            fraction = (evt.clientX - left) / width;
         }
 
-        emit('update', Math.max(0, Math.min(1, (evt.clientX - left) / width)));
+        emit('update', Math.max(0, Math.min(1, fraction)));
         evt.preventDefault();
     }
 

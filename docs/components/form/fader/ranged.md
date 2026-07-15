@@ -67,6 +67,12 @@ props:
         type: boolean
         optional: true
 
+    -   name: direction
+        description: The direction of the range fader. A vertical range fader is a slim column with rotated text and defaults to 210px tall, overridable with CSS.
+        type: FluxDirection
+        optional: true
+        default: horizontal
+
     -   name: min
         description: The minimum value of the range fader.
         type: number
@@ -116,6 +122,10 @@ Clicking anywhere on the track moves the thumb closest to the pointer, so the ra
 
 ::: example Basic || A basic range fader from 0 to 100.
 example=../../../code/components/form/fader/ranged/basic.vue
+:::
+
+::: example Vertical || A vertical range fader: a slim column with rotated text, 210px tall by default and resizable with CSS.
+example=../../../code/components/form/fader/ranged/vertical.vue
 :::
 
 ::: example Minimum distance || A range fader that keeps at least 20 units between both thumbs.

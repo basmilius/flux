@@ -5,9 +5,7 @@
             disabled && $style.isDisabled,
             isDragging && $style.isDragging
         )"
-        :style="{
-            left: `${position * 100}%`
-        }"
+        :style="style"
         role="slider"
         :aria-disabled="disabled ? true : undefined"
         :aria-label="ariaLabel"
@@ -23,8 +21,9 @@
 <script
     lang="ts"
     setup>
+    import type { FluxDirection } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { toRef, unref } from 'vue';
+    import { computed, type CSSProperties, toRef, unref } from 'vue';
     import { useDisabled } from '~flux/components/composable';
     import $style from '~flux/components/css/component/primitive/Slider.module.scss';
 
@@ -35,18 +34,25 @@
     }>();
 
     const {
-        disabled: componentDisabled
+        direction = 'horizontal',
+        disabled: componentDisabled,
+        position
     } = defineProps<{
         readonly ariaLabel?: string;
         readonly ariaValuemax?: number;
         readonly ariaValuemin?: number;
         readonly ariaValuenow?: number;
+        readonly direction?: FluxDirection;
         readonly disabled?: boolean;
         readonly isDragging?: boolean;
         readonly position: number;
     }>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));
+
+    const style = computed<CSSProperties>(() => direction === 'vertical'
+        ? {bottom: `${position * 100}%`}
+        : {left: `${position * 100}%`});
 
     function onKeyDown(evt: KeyboardEvent): void {
         if (unref(disabled)) {

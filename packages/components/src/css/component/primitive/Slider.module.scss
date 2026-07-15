@@ -108,3 +108,51 @@
     display: block;
     height: 21px;
 }
+
+// Vertical variant: the track runs bottom (min) to top (max). The cross-axis
+// stays the horizontal one, so fills, thumbs and ticks position via `bottom`.
+.slider.isVertical {
+    flex-flow: row;
+    height: var(--flux-form-slider-length, 210px);
+    width: max-content;
+    touch-action: pan-x;
+
+    .sliderTrack {
+        height: auto;
+        width: 12px;
+    }
+
+    .sliderThumb {
+        top: auto;
+        left: 50%;
+        translate: -50% 50%;
+    }
+
+    .sliderTrackValue {
+        top: auto;
+        left: 0;
+        right: 0;
+    }
+
+    .ticks {
+        height: auto;
+        width: 21px;
+    }
+
+    .tick {
+        left: auto;
+        right: 0;
+        bottom: calc(var(--position) * 100% - 1px);
+        height: 2px;
+        width: 9px;
+    }
+
+    .tickSmall {
+        height: 2px;
+        width: 6px;
+    }
+
+    .tickLarge :is(span) {
+        translate: -100% -50%;
+    }
+}
