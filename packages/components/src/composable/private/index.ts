@@ -1,6 +1,8 @@
 export { default as useAsyncFilterOptions } from './useAsyncFilterOptions';
 export { default as useDateFlyout } from './useDateFlyout';
 export { default as useDropdownPopup, type UseDropdownPopupOptions, type UseDropdownPopupReturn } from './useDropdownPopup';
+export { useElasticOverdrag } from './useElasticOverdrag';
+export { createFaderAnimator, faderBarLeft, faderBarStateClass, FADER_BAR_INSET, faderClampPark, type FaderBarState, faderFillEdgePx, faderRoundToDecimals, useFormFader } from './useFormFader';
 export { default as useFormSelect } from './useFormSelect';
 export { useKanban } from './useKanban';
 export { default as useMenuFlyout, useMenuFlyoutContext, useMenuFlyoutProvider, type UseMenuFlyoutOptions, type UseMenuFlyoutProviderOptions, type UseMenuFlyoutReturn } from './useMenuFlyout';
