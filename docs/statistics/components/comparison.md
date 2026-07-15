@@ -69,6 +69,10 @@ example=../../code/statistics/components/comparison/formatted-currency.vue
 example=../../code/statistics/components/comparison/negative-trend.vue
 :::
 
+::: example Custom labels || A comparison with custom period labels and a formatter.
+example=../../code/statistics/components/comparison/custom-labels.vue
+:::
+
 ## Used components
 
 - [Change](./change)

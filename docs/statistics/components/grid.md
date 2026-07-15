@@ -52,3 +52,7 @@ render=../../code/statistics/components/grid/preview.vue
 ::: example Responsive || A grid that collapses to one column on small screens and expands to four on large screens.
 example=../../code/statistics/components/grid/responsive.vue
 :::
+
+::: example Mixed widgets || A grid combining KPI, metric, and meter widgets in a single row.
+example=../../code/statistics/components/grid/mixed-widgets.vue
+:::

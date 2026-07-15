@@ -41,6 +41,10 @@ example=../../code/statistics/components/change/positive.vue
 example=../../code/statistics/components/change/negative.vue
 :::
 
+::: example Neutral || A neutral change indicator without an upward or downward trend.
+example=../../code/statistics/components/change/neutral.vue
+:::
+
 ## Used components
 
 - [Icon](../../components/icon)

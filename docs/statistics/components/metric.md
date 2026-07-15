@@ -48,8 +48,16 @@ render=../../code/statistics/components/metric/preview.vue
 
 ## Examples
 
+::: example Simple || A metric widget without any content in the default slot.
+example=../../code/statistics/components/metric/simple.vue
+:::
+
 ::: example With a breakdown || A metric widget using the default slot to display a breakdown of values.
 example=../../code/statistics/components/metric/with-sparkline.vue
+:::
+
+::: example With a meter || A metric widget embedding a blocks meter in the default slot.
+example=../../code/statistics/components/metric/with-meter.vue
 :::
 
 ## Used components

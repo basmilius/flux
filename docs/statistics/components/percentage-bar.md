@@ -27,6 +27,10 @@ The bar exposes the ARIA `img` role with an `aria-label` summarizing each segmen
 
 ## Examples
 
+::: example Basic || A standalone percentage bar using semantic Flux color tokens.
+example=../../code/statistics/components/percentage-bar/basic.vue
+:::
+
 ::: example Scoped with legend || A percentage bar wrapped in a legend scope together with a statistics legend, demonstrating bidirectional hover sync.
 example=../../code/statistics/components/percentage-bar/scoped.vue
 :::

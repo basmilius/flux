@@ -31,6 +31,10 @@ The table is built from plain elements but exposes semantic ARIA table roles: th
 example=../../../code/statistics/components/details-table/standalone.vue
 :::
 
+::: example Inside a pane || A details table placed inside a statistics base widget.
+example=../../../code/statistics/components/details-table/in-base.vue
+:::
+
 ## Used components
 
 - [Row](./row)
