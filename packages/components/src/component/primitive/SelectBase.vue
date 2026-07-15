@@ -110,11 +110,12 @@
                                 :icon-leading="item.icon"
                                 :label="item.label"/>
 
-                            <template v-for="subItem of subItems">
+                            <template
+                                v-for="subItem of subItems"
+                                :key="subItem.value ?? 'null option'">
                                 <FluxMenuItem
                                     v-if="isFluxFormSelectOption(subItem)"
                                     ref="optionElements"
-                                    :key="subItem.value ?? 'null option'"
                                     :id="optionId(subItem.value)"
                                     :command="subItem.command"
                                     :command-icon="subItem.commandIcon"

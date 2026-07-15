@@ -269,6 +269,10 @@
     }
 
     function sameViewport(a: FluxFlowViewport | undefined, b: FluxFlowViewport | undefined): boolean {
+        if (a === b) {
+            return true;
+        }
+
         return !!a && !!b && a.x === b.x && a.y === b.y && a.zoom === b.zoom;
     }
 

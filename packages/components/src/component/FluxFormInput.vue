@@ -129,7 +129,12 @@
         }
 
         if (DateTime.isDateTime(modelValue)) {
-            const iso = modelValue.toISO()!;
+            const iso = modelValue.toISO();
+
+            if (!iso) {
+                localValue.value = null;
+                return;
+            }
 
             switch (type) {
                 case 'date':

@@ -170,7 +170,7 @@
     generic="T extends Record<string, any>">
     import { clsx } from 'clsx';
     import { computed, getCurrentInstance, unref, useTemplateRef, type VNode, watch } from 'vue';
-    import FluxTableActions from '~flux/components/component/FluxTableActions.vue';
+    import FluxTableActions from './FluxTableActions.vue';
     import { useDisabledInjection } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';
     import FluxAction from './FluxAction.vue';

@@ -94,14 +94,14 @@
 
     const tooltipContent = computed(() => formatter(modelValue.value[isDraggingLower.value ? 0 : 1], unref(decimals)));
 
-    watch(([isDraggingLower, isDraggingUpper]), ([isDraggingLower, isDraggingUpper]) => {
-        const is = isDraggingLower || isDraggingUpper;
+    watch([isDraggingLower, isDraggingUpper], ([lower, upper]) => {
+        const is = lower || upper;
 
         if (is && !tooltipId.value && !isTooltipDisabled) {
             tooltipId.value = addTooltip({
                 content: unref(tooltipContent),
                 direction: 'vertical',
-                origin: unref(isDraggingLower ? lowerThumbRef : upperThumbRef)?.$el
+                origin: unref(lower ? lowerThumbRef : upperThumbRef)?.$el
             });
         } else if (!is && tooltipId.value) {
             removeTooltip(tooltipId.value);
