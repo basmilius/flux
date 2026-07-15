@@ -9,6 +9,7 @@
         role="slider"
         :aria-disabled="disabled ? true : undefined"
         :aria-label="ariaLabel"
+        :aria-orientation="direction"
         :aria-valuemax="ariaValuemax"
         :aria-valuemin="ariaValuemin"
         :aria-valuenow="ariaValuenow"

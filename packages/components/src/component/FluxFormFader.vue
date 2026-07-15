@@ -13,6 +13,7 @@
         :style="colorVars"
         :aria-disabled="disabled ? true : undefined"
         :aria-label="label ?? ariaLabel"
+        :aria-orientation="direction"
         :aria-readonly="isReadonly ? true : undefined"
         :aria-valuemax="max"
         :aria-valuemin="min"
