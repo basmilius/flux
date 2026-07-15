@@ -1,6 +1,6 @@
 <template>
     <FluxMenuGroup :is-horizontal="isHorizontal">
-        <template v-for="item in items">
+        <template v-for="(item, index) in items" :key="identityOf(item, index)">
             <component :is="item"/>
         </template>
     </FluxMenuGroup>
@@ -30,15 +30,6 @@
         default(): VNode[];
     }>();
 
-    // Each item is identified by its vnode key when it is a string or number, falling back to its
-    // position. Keying the items makes the selection survive conditional or reordered items — without a
-    // usable key the index is the only stable handle, so it keeps working for simple static lists.
-    function identityOf(item: VNode, index: number): string | number {
-        const key = item.key;
-
-        return typeof key === 'string' || typeof key === 'number' ? key : index;
-    }
-
     // Options menus stay open while selecting by default (isPersistent defaults to true). The behaviour
     // is injected directly as a prop on each item rather than via the FluxMenuPersistentInjectionKey
     // provider, because the cloned option vnodes do not resolve a provide from this component.
@@ -54,4 +45,13 @@
                 onClick: () => modelValue.value = identity
             });
         }));
+
+    // Each item is identified by its vnode key when it is a string or number, falling back to its
+    // position. Keying the items makes the selection survive conditional or reordered items — without a
+    // usable key the index is the only stable handle, so it keeps working for simple static lists.
+    function identityOf(item: VNode, index: number): string | number {
+        const key = item.key;
+
+        return typeof key === 'string' || typeof key === 'number' ? key : index;
+    }
 </script>

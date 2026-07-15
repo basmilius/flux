@@ -124,6 +124,13 @@
         readonly content?: () => VNode[];
     };
 
+    const emit = defineEmits<{
+        finish: [];
+        skip: [];
+        next: [number];
+        prev: [number];
+    }>();
+
     const active = defineModel<boolean>('active', {
         required: true
     });
@@ -140,18 +147,9 @@
         readonly root?: string | HTMLElement | (() => HTMLElement | null);
     }>();
 
-    const emit = defineEmits<{
-        finish: [];
-        skip: [];
-        next: [number];
-        prev: [number];
-    }>();
-
     const slots = defineSlots<{
         default(): VNode[];
     }>();
-
-    const translate = useTranslate();
 
     const popup = useTemplateRef<{ reposition(): void; resize(): void }>('popup');
     const popover = useTemplateRef<HTMLElement>('popover');
@@ -160,9 +158,11 @@
     const isStepping = ref(false);
     const titleId = useId();
 
-    useFocusTrap(popover, {disable: computed(() => !active.value)});
-
     let steppingTimer: ReturnType<typeof setTimeout> | undefined;
+
+    const translate = useTranslate();
+
+    useFocusTrap(popover, {disable: computed(() => !active.value)});
 
     const items = computed<readonly TourItem[]>(() => {
         const vnodes = flattenVNodeTree(slots.default?.() ?? []);
@@ -207,6 +207,32 @@
             }
         }
     } as unknown as ComponentPublicInstance;
+
+    watch(step, (newStep, oldStep) => {
+        if (active.value && newStep !== oldStep) {
+            if (bodyViewport.value) {
+                bodyViewport.value.style.height = `${bodyViewport.value.offsetHeight}px`;
+            }
+
+            isStepping.value = true;
+            clearTimeout(steppingTimer);
+            steppingTimer = setTimeout(() => {
+                isStepping.value = false;
+            }, 300);
+        }
+    });
+
+    watch([active, step], async () => {
+        if (!active.value) {
+            targetRect.value = null;
+            isStepping.value = false;
+            clearTimeout(steppingTimer);
+            return;
+        }
+
+        await nextTick();
+        measure();
+    }, {immediate: true});
 
     function resolveScope(): ParentNode {
         if (!root) {
@@ -298,39 +324,13 @@
         }
     }
 
-    watch(step, (newStep, oldStep) => {
-        if (active.value && newStep !== oldStep) {
-            if (bodyViewport.value) {
-                bodyViewport.value.style.height = `${bodyViewport.value.offsetHeight}px`;
-            }
-
-            isStepping.value = true;
-            clearTimeout(steppingTimer);
-            steppingTimer = setTimeout(() => {
-                isStepping.value = false;
-            }, 300);
-        }
-    });
-
-    watch([active, step], async () => {
-        if (!active.value) {
-            targetRect.value = null;
-            isStepping.value = false;
-            clearTimeout(steppingTimer);
-            return;
-        }
-
-        await nextTick();
-        measure();
-    }, {immediate: true});
-
     if (!isSSR) {
-        const onRemeasure = () => {
+        function onRemeasure(): void {
             if (active.value && targetRect.value) {
                 const resolved = resolveTarget();
                 targetRect.value = resolved ? resolved.getBoundingClientRect() : null;
             }
-        };
+        }
 
         useEventListener(ref(window), 'resize', onRemeasure);
         useEventListener(ref(window), 'scroll', onRemeasure, {capture: true, passive: true});

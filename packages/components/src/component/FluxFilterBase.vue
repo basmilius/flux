@@ -32,12 +32,6 @@
         filters(): VNode[];
     }>();
 
-    function resolveDefinition(vnode: VNode): FluxFilterDefinition | null {
-        const factory = (vnode.type as { __filterDefinitionFactory?: (props: unknown) => FluxFilterDefinition })?.__filterDefinitionFactory;
-
-        return typeof factory === 'function' ? factory(getComponentProps(vnode)) : null;
-    }
-
     const flattenedFilters = computed(() => flattenVNodeTree(slots.filters?.() ?? []));
 
     const buttons = computed(() => {
@@ -106,6 +100,12 @@
             }
         }
     }, {immediate: true});
+
+    function resolveDefinition(vnode: VNode): FluxFilterDefinition | null {
+        const factory = (vnode.type as { __filterDefinitionFactory?: (props: unknown) => FluxFilterDefinition })?.__filterDefinitionFactory;
+
+        return typeof factory === 'function' ? factory(getComponentProps(vnode)) : null;
+    }
 
     function back(): void {
         emit('back');

@@ -1,3 +1,9 @@
+<template>
+    <span
+        aria-hidden="true"
+        style="display: none"/>
+</template>
+
 <script
     lang="ts"
     setup>
@@ -19,9 +25,3 @@
         default(): VNode[];
     }>();
 </script>
-
-<template>
-    <span
-        aria-hidden="true"
-        style="display: none"/>
-</template>

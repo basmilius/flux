@@ -38,6 +38,11 @@
     import { FluxFadeTransition } from '~flux/components/transition';
     import $style from '~flux/components/css/component/ContextMenu.module.scss';
 
+    const emit = defineEmits<{
+        open: [MouseEvent];
+        close: [];
+    }>();
+
     const {
         debugCone = false,
         disabled: componentDisabled,
@@ -55,11 +60,6 @@
             | 'bottom' | 'bottom-left' | 'bottom-right';
     }>();
 
-    const emit = defineEmits<{
-        open: [MouseEvent];
-        close: [];
-    }>();
-
     defineSlots<{
         default(): VNode[];
         menu(props: {close(): void}): VNode[];
@@ -70,7 +70,6 @@
     const LONG_PRESS_DURATION = 500;
     const MOVE_TOLERANCE = 10;
 
-    const disabled = useDisabled(toRef(() => componentDisabled));
     const popupRef = useTemplateRef<ComponentPublicInstance>('popup');
 
     const isOpen = ref(false);
@@ -86,6 +85,8 @@
         }
     } as unknown as ComponentPublicInstance;
 
+    const disabled = useDisabled(toRef(() => componentDisabled));
+
     const menuFlyout = useMenuFlyoutProvider({
         debugCone: toRef(() => debugCone),
         onCloseAll: () => close()
@@ -96,6 +97,10 @@
     useFocusTrap(popupRef, {
         disable: computed(() => menuFlyout.keyboardStack.value.length > 0)
     });
+
+    const dismissTarget = computed(() => isOpen.value ? window : null);
+
+    onUnmounted(cancelLongPress);
 
     function onContextMenu(evt: MouseEvent): void {
         if (disabled.value) {
@@ -162,8 +167,6 @@
         }, LONG_PRESS_DURATION);
     }
 
-    onUnmounted(cancelLongPress);
-
     function close(): void {
         if (!isOpen.value) {
             return;
@@ -178,8 +181,6 @@
 
         return (!!root && !!target && root.contains(target)) || menuFlyout.isInsidePopups(target);
     }
-
-    const dismissTarget = computed(() => isOpen.value ? window : null);
 
     if (!isSSR) {
         useEventListener(dismissTarget, 'pointerdown', (evt: PointerEvent) => {

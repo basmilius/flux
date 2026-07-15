@@ -1,3 +1,9 @@
+<template>
+    <span
+        aria-hidden="true"
+        style="display: none"/>
+</template>
+
 <script
     lang="ts"
     setup>
@@ -24,30 +30,6 @@
     const instance = getCurrentInstance();
     const isClickable = computed(() => !!instance?.vnode?.props?.onClick);
 
-    function buildData() {
-        return {
-            id: props.id as string | number,
-            date: props.date,
-            duration: props.duration,
-            allDay: props.allDay ?? false,
-            isClickable: isClickable.value,
-            renderContent: () => slots.default?.() ?? [],
-            handleClick: (evt: MouseEvent) => emit('click', evt)
-        };
-    }
-
-    onMounted(() => {
-        if (dragContext && props.id != null) {
-            dragContext.registerItem(props.id, buildData());
-        }
-    });
-
-    onBeforeUnmount(() => {
-        if (dragContext && props.id != null) {
-            dragContext.unregisterItem(props.id);
-        }
-    });
-
     watch(() => props.id, (newId, oldId) => {
         if (!dragContext) {
             return;
@@ -70,10 +52,28 @@
             }
         }
     );
-</script>
 
-<template>
-    <span
-        aria-hidden="true"
-        style="display: none"/>
-</template>
+    onMounted(() => {
+        if (dragContext && props.id != null) {
+            dragContext.registerItem(props.id, buildData());
+        }
+    });
+
+    onBeforeUnmount(() => {
+        if (dragContext && props.id != null) {
+            dragContext.unregisterItem(props.id);
+        }
+    });
+
+    function buildData() {
+        return {
+            id: props.id as string | number,
+            date: props.date,
+            duration: props.duration,
+            allDay: props.allDay ?? false,
+            isClickable: isClickable.value,
+            renderContent: () => slots.default?.() ?? [],
+            handleClick: (evt: MouseEvent) => emit('click', evt)
+        };
+    }
+</script>

@@ -4,13 +4,13 @@
             :key="viewDate.month"
             :class="$style.calendarCells"
             role="grid">
-            <template v-for="day of days">
+            <template v-for="day of days" :key="day">
                 <div :class="$style.calendarDay">
                     {{ day }}
                 </div>
             </template>
 
-            <template v-for="date of dates">
+            <template v-for="date of dates" :key="date.toSQLDate()">
                 <div
                     :class="clsx(
                         $style.calendarEntry,
@@ -75,10 +75,6 @@
 
     const dropTargetDate = ref<string | null>(null);
 
-    function isToday(date: DateTime): boolean {
-        return date.hasSame(DateTime.now(), 'day');
-    }
-
     const itemsByDate = computed(() => {
         const map = new Map<string, FluxCalendarItemData[]>();
 
@@ -100,6 +96,10 @@
 
         return map;
     });
+
+    function isToday(date: DateTime): boolean {
+        return date.hasSame(DateTime.now(), 'day');
+    }
 
     function getItemsForDate(forDate: DateTime): FluxCalendarItemData[] {
         const key = forDate.toSQLDate();

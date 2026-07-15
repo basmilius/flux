@@ -63,20 +63,10 @@
         default(): VNode[];
     }>();
 
-    const translate = useTranslate();
-
     const timeTick = ref(0);
     let timeTickInterval: ReturnType<typeof setInterval> | undefined;
 
-    onMounted(() => {
-        timeTickInterval = setInterval(() => {
-            timeTick.value++;
-        }, 30000);
-    });
-
-    onBeforeUnmount(() => {
-        clearInterval(timeTickInterval);
-    });
+    const translate = useTranslate();
 
     const isJustNowVisible = computed(() => {
         void timeTick.value;
@@ -86,5 +76,15 @@
     const relative = computed(() => {
         void timeTick.value;
         return postedOn?.toRelative() ?? null;
+    });
+
+    onMounted(() => {
+        timeTickInterval = setInterval(() => {
+            timeTick.value++;
+        }, 30000);
+    });
+
+    onBeforeUnmount(() => {
+        clearInterval(timeTickInterval);
     });
 </script>

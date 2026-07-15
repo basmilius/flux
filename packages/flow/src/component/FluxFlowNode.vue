@@ -10,7 +10,7 @@
 <script
     lang="ts"
     setup>
-    import { computed, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue';
+    import { computed, onBeforeUnmount, onMounted, shallowRef, useTemplateRef, watch } from 'vue';
     import { useFluxFlowInjection } from '~flux/flow/composable';
     import type { FluxFlowSize } from '~flux/flow/data';
     import $style from '~flux/flow/css/component/FlowNode.module.scss';
@@ -21,21 +21,19 @@
         readonly y: number;
     }>();
 
-    const controller = useFluxFlowInjection();
-
-    const el = ref<HTMLElement | null>(null);
+    const el = useTemplateRef<HTMLElement>('el');
     const size = shallowRef<FluxFlowSize>({width: 0, height: 0});
-    const position = computed(() => ({x: props.x, y: props.y}));
 
     let observer: ResizeObserver | null = null;
 
-    function measure(): void {
-        const node = el.value;
+    const controller = useFluxFlowInjection();
 
-        if (node) {
-            size.value = {width: node.offsetWidth, height: node.offsetHeight};
-        }
-    }
+    const position = computed(() => ({x: props.x, y: props.y}));
+
+    watch(() => props.id, (next, previous) => {
+        controller.unregisterNode(previous);
+        controller.registerNode({id: next, position, size, element: el});
+    });
 
     onMounted(() => {
         controller.registerNode({id: props.id, position, size, element: el});
@@ -53,8 +51,11 @@
         controller.unregisterNode(props.id);
     });
 
-    watch(() => props.id, (next, previous) => {
-        controller.unregisterNode(previous);
-        controller.registerNode({id: next, position, size, element: el});
-    });
+    function measure(): void {
+        const node = el.value;
+
+        if (node) {
+            size.value = {width: node.offsetWidth, height: node.offsetHeight};
+        }
+    }
 </script>

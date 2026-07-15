@@ -38,11 +38,8 @@
         warning: true
     };
 
-    const controller = useFluxFlowInjection();
     const uid = getCurrentInstance()!.uid;
-
-    const resolveColor = (value: string | undefined, fallback: string): string =>
-        value ? (Object.hasOwn(FLUX_COLORS, value) ? `var(--${value}-500)` : value) : fallback;
+    const controller = useFluxFlowInjection();
 
     const hasProgress = computed(() => props.progressValue !== undefined && props.progressValue !== null);
 
@@ -123,4 +120,8 @@
     controller.registerEdge({id: uid, spec});
 
     onBeforeUnmount(() => controller.unregisterEdge(uid));
+
+    function resolveColor(value: string | undefined, fallback: string): string {
+        return value ? (Object.hasOwn(FLUX_COLORS, value) ? `var(--${value}-500)` : value) : fallback;
+    }
 </script>

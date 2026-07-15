@@ -1,6 +1,6 @@
 <template>
     <FluxWindowTransition :is-back="isBack">
-        <template v-for="(_, slot) of slots">
+        <template v-for="(_, slot) of slots" :key="slot">
             <slot
                 v-if="slot === view"
                 v-bind="{back, navigate}"

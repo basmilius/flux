@@ -1,9 +1,24 @@
+<template>
+    <button
+        ref="root"
+        :class="itemClasses"
+        :draggable="canDrag"
+        :tabindex="canDrag ? 0 : undefined"
+        type="button"
+        @click="onClick"
+        @dragstart="onDragStart"
+        @dragend="onDragEnd"
+        @keydown="handleKeyDown">
+        <RenderItemContent :render="data.renderContent"/>
+    </button>
+</template>
+
 <script
     lang="ts"
     setup>
     import { useKeyboardGrab } from '@flux-ui/internals';
     import { clsx } from 'clsx';
-    import { computed, defineComponent, onBeforeUnmount, onMounted, ref, toRef, watch } from 'vue';
+    import { computed, defineComponent, onBeforeUnmount, onMounted, ref, toRef, useTemplateRef, watch } from 'vue';
     import { useCalendarInjection } from '~flux/components/composable';
     import type { FluxCalendarItemData } from '~flux/components/data';
     import $style from '~flux/components/css/component/Calendar.module.scss';
@@ -13,7 +28,7 @@
     }>();
 
     const dragContext = useCalendarInjection();
-    const root = ref<HTMLButtonElement | null>(null);
+    const root = useTemplateRef<HTMLButtonElement>('root');
 
     const canDrag = computed(() => dragContext?.isDraggable.value === true);
 
@@ -58,6 +73,27 @@
         data.allDay && $style.isAllDay
     ));
 
+    watch(() => data.id, (_newId, _oldId) => {
+        if (!root.value) {
+            return;
+        }
+
+        dragContext?.unregisterItemElement(root.value);
+        dragContext?.registerItemElement(root.value, data.id);
+    });
+
+    onMounted(() => {
+        if (root.value) {
+            dragContext?.registerItemElement(root.value, data.id);
+        }
+    });
+
+    onBeforeUnmount(() => {
+        if (root.value) {
+            dragContext?.unregisterItemElement(root.value);
+        }
+    });
+
     function onClick(evt: MouseEvent): void {
         data.handleClick(evt);
     }
@@ -78,40 +114,4 @@
     function onDragEnd(): void {
         dragContext?.onItemDragEnd(data.id);
     }
-
-    onMounted(() => {
-        if (root.value) {
-            dragContext?.registerItemElement(root.value, data.id);
-        }
-    });
-
-    onBeforeUnmount(() => {
-        if (root.value) {
-            dragContext?.unregisterItemElement(root.value);
-        }
-    });
-
-    watch(() => data.id, (_newId, _oldId) => {
-        if (!root.value) {
-            return;
-        }
-
-        dragContext?.unregisterItemElement(root.value);
-        dragContext?.registerItemElement(root.value, data.id);
-    });
 </script>
-
-<template>
-    <button
-        ref="root"
-        :class="itemClasses"
-        :draggable="canDrag"
-        :tabindex="canDrag ? 0 : undefined"
-        type="button"
-        @click="onClick"
-        @dragstart="onDragStart"
-        @dragend="onDragEnd"
-        @keydown="handleKeyDown">
-        <RenderItemContent :render="data.renderContent"/>
-    </button>
-</template>

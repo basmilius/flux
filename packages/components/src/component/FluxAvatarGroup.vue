@@ -66,8 +66,10 @@
         return names.length > 0 ? names.join(', ') : overflowLabel.value;
     });
 
-    const renderVisible = () => visibleChildren.value.map((vnode, index) => h('span', {
-        class: $style.avatarGroupItem,
-        key: vnode.key ?? index
-    }, [vnode]));
+    function renderVisible(): VNode[] {
+        return visibleChildren.value.map((vnode, index) => h('span', {
+            class: $style.avatarGroupItem,
+            key: vnode.key ?? index
+        }, [vnode]));
+    }
 </script>

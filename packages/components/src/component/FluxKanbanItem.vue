@@ -44,14 +44,9 @@
         default?(): any;
     }>();
 
-    const kanban = useKanbanInjection();
     const root = useTemplateRef('root');
+    const kanban = useKanbanInjection();
     const disabledState = useDisabled(toRef(() => disabled));
-
-    const isDragging = computed(() => {
-        const state = unref(kanban.dragState);
-        return state?.itemId === itemId && state?.mode === 'pointer';
-    });
 
     const {isGrabbed, handleKeyDown, release} = useKeyboardGrab<true>({
         isDraggable: computed(() => !unref(disabledState)),
@@ -75,6 +70,18 @@
         }
     });
 
+    const isDragging = computed(() => {
+        const state = unref(kanban.dragState);
+        return state?.itemId === itemId && state?.mode === 'pointer';
+    });
+
+    watch(() => itemId, (newId, oldId) => {
+        if (root.value && oldId !== undefined) {
+            kanban.unregisterItem(root.value);
+            kanban.registerItem(root.value, newId);
+        }
+    });
+
     onMounted(() => {
         if (root.value) {
             kanban.registerItem(root.value, itemId);
@@ -88,13 +95,6 @@
     onBeforeUnmount(() => {
         if (root.value) {
             kanban.unregisterItem(root.value);
-        }
-    });
-
-    watch(() => itemId, (newId, oldId) => {
-        if (root.value && oldId !== undefined) {
-            kanban.unregisterItem(root.value);
-            kanban.registerItem(root.value, newId);
         }
     });
 

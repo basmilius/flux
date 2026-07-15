@@ -12,13 +12,7 @@
 
         <div :class="$style.paginationBarLimit">
             <span :class="$style.paginationBarLimitDisplayingOf">
-                {{
-                    translate('flux.displayingOf', {
-                        from: total === 0 ? 0 : (page - 1) * perPage + 1,
-                        to: Math.min(total, page * perPage),
-                        total: total
-                    })
-                }}
+                {{ translate('flux.displayingOf', displayRange) }}
             </span>
 
             <FluxFormSelect
@@ -47,7 +41,9 @@
 
     const {
         limits = [5, 10, 25, 50, 100],
-        perPage
+        page,
+        perPage,
+        total
     } = defineProps<{
         readonly limits?: number[];
         readonly page: number;
@@ -63,6 +59,12 @@
         label: translate('flux.showN', {n}),
         value: n
     })));
+
+    const displayRange = computed(() => ({
+        from: total === 0 ? 0 : (page - 1) * perPage + 1,
+        to: Math.min(total, page * perPage),
+        total
+    }));
 
     watch(limit, value => {
         if (value === perPage) {

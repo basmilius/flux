@@ -80,23 +80,31 @@
         readonly value?: FluxFormCheckboxGroupValue;
     }>();
 
+    const inputRef = useTemplateRef('input');
+
     const group = useFormCheckboxGroupInjection();
     const itemControl = inject(FluxItemControlInjectionKey, null);
-    const inputRef = useTemplateRef('input');
     const {id, describedBy} = useFormFieldInjection();
-
-    const isBareControl = computed(() => itemControl?.isControl.value ?? false);
+    const disabled = useDisabled(toRef(() => componentDisabled || (group?.disabled.value ?? false)));
 
     itemControl?.register(id);
 
+    const isBareControl = computed(() => itemControl?.isControl.value ?? false);
     const isGrouped = computed(() => group !== null && value !== undefined);
-
-    const disabled = useDisabled(toRef(() => componentDisabled || (group?.disabled.value ?? false)));
     const isReadonlyResolved = computed(() => isReadonly || (group?.isReadonly.value ?? false));
     const errorResolved = computed(() => unref(isGrouped) ? group?.error.value : error);
-
     const isChecked = computed(() => unref(isGrouped) ? group!.has(value!) : unref(modelValue) === true);
     const isIndeterminate = computed(() => !unref(isGrouped) && unref(modelValue) === null);
+
+    watchEffect(() => {
+        const input = unref(inputRef);
+
+        if (!input) {
+            return;
+        }
+
+        input.indeterminate = unref(isIndeterminate);
+    });
 
     function onChange(): void {
         if (unref(isReadonlyResolved) || unref(disabled)) {
@@ -116,14 +124,4 @@
             evt.preventDefault();
         }
     }
-
-    watchEffect(() => {
-        const input = unref(inputRef);
-
-        if (!input) {
-            return;
-        }
-
-        input.indeterminate = unref(isIndeterminate);
-    });
 </script>

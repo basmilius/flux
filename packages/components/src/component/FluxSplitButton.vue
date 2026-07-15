@@ -38,8 +38,6 @@
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import $style from '~flux/components/css/component/Button.module.scss';
 
-    const translate = useTranslate();
-
     const {
         buttonIcon = 'ellipsis-h'
     } = defineProps<{
@@ -67,4 +65,6 @@
             readonly openerHeight: number;
         }): VNode[];
     }>();
+
+    const translate = useTranslate();
 </script>

@@ -90,8 +90,8 @@
         readonly step?: number;
     }>();
 
-    const disabled = useDisabled(toRef(() => componentDisabled));
     const inputRef = useTemplateRef<HTMLInputElement>('input');
+    const disabled = useDisabled(toRef(() => componentDisabled));
     const {id, describedBy} = useFormFieldInjection();
 
     const atMax = computed(() => max !== undefined && modelValue.value !== null && modelValue.value >= max);

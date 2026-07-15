@@ -11,25 +11,27 @@
             :aria-label="translate('flux.previous')"
             @click="previous"/>
 
-        <template
-            v-if="!isCompact"
-            v-for="p of visiblePages">
-            <span
-                v-if="p === 'dots'"
-                :class="$style.paginationDots"
-                aria-hidden="true">…</span>
+        <template v-if="!isCompact">
+            <template
+                v-for="(p, index) of visiblePages"
+                :key="index">
+                <span
+                    v-if="p === 'dots'"
+                    :class="$style.paginationDots"
+                    aria-hidden="true">…</span>
 
-            <FluxPaginationButton
-                v-else-if="p === page"
-                is-current
-                :label="`${p}`"
-                aria-current="page"/>
+                <FluxPaginationButton
+                    v-else-if="p === page"
+                    is-current
+                    :label="`${p}`"
+                    aria-current="page"/>
 
-            <FluxPaginationButton
-                v-else
-                :aria-label="translate('flux.goToPage', {page: p})"
-                :label="`${p}`"
-                @click="navigate(p)"/>
+                <FluxPaginationButton
+                    v-else
+                    :aria-label="translate('flux.goToPage', {page: p})"
+                    :label="`${p}`"
+                    @click="navigate(p)"/>
+            </template>
         </template>
 
         <template v-else>

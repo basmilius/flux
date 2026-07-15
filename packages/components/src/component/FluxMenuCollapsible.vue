@@ -87,6 +87,26 @@
     const instance = getCurrentInstance();
     const route = computed<RouteLike | undefined>(() => (instance?.proxy as RouteAwareInstance | null)?.$route);
 
+    watch(route, currentRoute => {
+        if (!currentRoute) {
+            return;
+        }
+
+        const vnodes = flattenVNodeTree(slots.default?.() ?? []);
+
+        for (const vnode of vnodes) {
+            const childTo = vnode.props?.to;
+            const childHref = vnode.props?.href;
+
+            if (matchesRoute(childTo, currentRoute) || matchesRoute(childHref, currentRoute)) {
+                open();
+                return;
+            }
+        }
+    }, {
+        immediate: true
+    });
+
     function open(): void {
         if (isOpen.value) {
             return;
@@ -144,26 +164,6 @@
 
         return false;
     }
-
-    watch(route, currentRoute => {
-        if (!currentRoute) {
-            return;
-        }
-
-        const vnodes = flattenVNodeTree(slots.default?.() ?? []);
-
-        for (const vnode of vnodes) {
-            const childTo = vnode.props?.to;
-            const childHref = vnode.props?.href;
-
-            if (matchesRoute(childTo, currentRoute) || matchesRoute(childHref, currentRoute)) {
-                open();
-                return;
-            }
-        }
-    }, {
-        immediate: true
-    });
 
     defineExpose({
         isOpen,

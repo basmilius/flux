@@ -164,13 +164,14 @@
         readonly dayCount: 1 | 2 | 7;
     }>();
 
-    const translate = useTranslate();
     const dropTargetDay = ref<string | null>(null);
     const dropTargetMinutes = ref<number | null>(null);
     const dropTargetAllDay = ref<string | null>(null);
 
     const resizeState = ref<ResizeState | null>(null);
     const resizePreview = ref<{ id: string | number; date: DateTime; duration: number } | null>(null);
+
+    const translate = useTranslate();
 
     const hours = computed<number[]>(() => {
         const [from, to] = hourRange;
@@ -192,6 +193,18 @@
     } as Record<string, string>));
 
     const viewKey = computed<string>(() => `${dayCount}-${viewDates[0].toISODate() ?? ''}`);
+
+    // Precompute the positioned items per day so re-renders caused by drag-hover state
+    // (dropTargetMinutes updates on every dragover) don't redo the lane layout for all columns.
+    const timedItemsByDay = computed(() => {
+        const map = new Map<string | null, Positioned[]>();
+
+        for (const d of viewDates) {
+            map.set(d.toSQLDate(), computeTimedItems(d));
+        }
+
+        return map;
+    });
 
     function isToday(d: DateTime): boolean {
         return d.hasSame(DateTime.now(), 'day');
@@ -218,18 +231,6 @@
 
         return items.filter(item => item.allDay && item.date.toSQLDate() === dStr);
     }
-
-    // Precompute the positioned items per day so re-renders caused by drag-hover state
-    // (dropTargetMinutes updates on every dragover) don't redo the lane layout for all columns.
-    const timedItemsByDay = computed(() => {
-        const map = new Map<string | null, Positioned[]>();
-
-        for (const d of viewDates) {
-            map.set(d.toSQLDate(), computeTimedItems(d));
-        }
-
-        return map;
-    });
 
     function getTimedItems(d: DateTime): Positioned[] {
         return unref(timedItemsByDay).get(d.toSQLDate()) ?? [];

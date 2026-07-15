@@ -102,6 +102,14 @@
 
     const expandIcon = computed<FluxIconName>(() => unref(isOpen) ? 'minus' : 'plus');
 
+    watch(() => isOpened, () => {
+        if (isOpened) {
+            open();
+        } else {
+            close();
+        }
+    }, {immediate: true});
+
     onBeforeMount(() => register?.(componentId.value, instance));
     onUnmounted(() => unregister?.(componentId.value));
 
@@ -131,14 +139,6 @@
             open();
         }
     }
-
-    watch(() => isOpened, () => {
-        if (isOpened) {
-            open();
-        } else {
-            close();
-        }
-    }, {immediate: true});
 
     defineExpose({
         contentId,

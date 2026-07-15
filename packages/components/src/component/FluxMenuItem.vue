@@ -78,11 +78,6 @@
 
     const emit = defineEmits<FluxButtonEmits>();
 
-    const slots = defineSlots<{
-        after(): VNode[];
-        before(): VNode[];
-    }>();
-
     const {
         isPersistent,
         type = 'button'
@@ -99,6 +94,11 @@
         readonly isPersistent?: boolean;
         readonly isSelectable?: boolean;
         readonly isSelected?: boolean;
+    }>();
+
+    const slots = defineSlots<{
+        after(): VNode[];
+        before(): VNode[];
     }>();
 
     const persistentPolicy = inject(FluxMenuPersistentInjectionKey, null);

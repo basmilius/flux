@@ -111,16 +111,92 @@
         readonly type?: FluxInputType;
     }>();
 
-    const disabled = useDisabled(toRef(() => componentDisabled));
     const inputRef = useTemplateRef<HTMLInputElement>('input');
-    const instance = getCurrentInstance();
-    const translate = useTranslate();
-    const {id, describedBy} = useFormFieldInjection();
-
     const localValue = ref<string | null>(null);
     const nativeType = ref(type);
 
     let activeMask: InputMask<{}> | null = null;
+
+    const disabled = useDisabled(toRef(() => componentDisabled));
+    const instance = getCurrentInstance();
+    const translate = useTranslate();
+    const {id, describedBy} = useFormFieldInjection();
+
+    watch([modelValue, () => type], ([modelValue, type]) => {
+        if (!modelValue && modelValue !== 0) {
+            localValue.value = null;
+            return;
+        }
+
+        if (DateTime.isDateTime(modelValue)) {
+            const iso = modelValue.toISO();
+
+            if (!iso) {
+                localValue.value = null;
+                return;
+            }
+
+            switch (type) {
+                case 'date':
+                    localValue.value = iso.substring(0, 10);
+                    break;
+
+                case 'datetime-local':
+                    localValue.value = iso.substring(0, 16);
+                    break;
+
+                case 'time':
+                    localValue.value = iso.substring(11, 16);
+                    break;
+
+                default:
+                    localValue.value = iso;
+                    break;
+            }
+
+            return;
+        }
+
+        localValue.value = modelValue.toString();
+    }, {immediate: true});
+
+    watch([inputRef, () => pattern], ([input, pattern], __, onCleanup) => {
+        if (!input || !pattern) {
+            return;
+        }
+
+        const mask = inputMask[pattern](input);
+        activeMask = mask;
+
+        const value = unref(localValue);
+
+        if (value) {
+            mask.value = value;
+            localValue.value = mask.value;
+            modelValue.value = mask.value;
+        }
+
+        mask.on('accept', () => {
+            localValue.value = mask.value;
+            modelValue.value = mask.value;
+        });
+
+        onCleanup(() => {
+            mask.destroy();
+
+            if (activeMask === mask) {
+                activeMask = null;
+            }
+        });
+    }, {immediate: true});
+
+    watch(localValue, value => {
+        if (activeMask && activeMask.value !== (value ?? '')) {
+            activeMask.value = value ?? '';
+        }
+    });
+
+    watch(() => type, type => nativeType.value = type);
 
     function blur(): void {
         unrefTemplateElement(inputRef)?.blur();
@@ -217,77 +293,6 @@
             }
         }
     }
-
-    watch([modelValue, () => type], ([modelValue, type]) => {
-        if (!modelValue && modelValue !== 0) {
-            localValue.value = null;
-            return;
-        }
-
-        if (DateTime.isDateTime(modelValue)) {
-            const iso = modelValue.toISO()!;
-
-            switch (type) {
-                case 'date':
-                    localValue.value = iso.substring(0, 10);
-                    break;
-
-                case 'datetime-local':
-                    localValue.value = iso.substring(0, 16);
-                    break;
-
-                case 'time':
-                    localValue.value = iso.substring(11, 16);
-                    break;
-
-                default:
-                    localValue.value = iso;
-                    break;
-            }
-
-            return;
-        }
-
-        localValue.value = modelValue.toString();
-    }, {immediate: true});
-
-    watch([inputRef, () => pattern], ([input, pattern], __, onCleanup) => {
-        if (!input || !pattern) {
-            return;
-        }
-
-        const mask = inputMask[pattern](input);
-        activeMask = mask;
-
-        const value = unref(localValue);
-
-        if (value) {
-            mask.value = value;
-            localValue.value = mask.value;
-            modelValue.value = mask.value;
-        }
-
-        mask.on('accept', () => {
-            localValue.value = mask.value;
-            modelValue.value = mask.value;
-        });
-
-        onCleanup(() => {
-            mask.destroy();
-
-            if (activeMask === mask) {
-                activeMask = null;
-            }
-        });
-    }, {immediate: true});
-
-    watch(localValue, value => {
-        if (activeMask && activeMask.value !== (value ?? '')) {
-            activeMask.value = value ?? '';
-        }
-    });
-
-    watch(() => type, type => nativeType.value = type);
 
     defineExpose({
         blur,

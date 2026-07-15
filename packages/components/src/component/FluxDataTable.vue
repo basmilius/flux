@@ -117,7 +117,7 @@
                         </FluxTableActions>
                     </FluxTableCell>
 
-                    <template v-for="(_, name) of slots">
+                    <template v-for="(_, name) of slots" :key="name">
                         <slot
                             v-if="!IGNORED_SLOTS.includes(name as string)"
                             v-bind="{index: entry.index, item: entry.item, items: limitedItems, page, perPage, total, isSelected: isItemSelected(entry.item)}"
@@ -170,6 +170,7 @@
     generic="T extends Record<string, any>">
     import { clsx } from 'clsx';
     import { computed, getCurrentInstance, unref, useTemplateRef, type VNode, watch } from 'vue';
+    import FluxTableActions from './FluxTableActions.vue';
     import { useDisabledInjection } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';
     import FluxAction from './FluxAction.vue';
@@ -182,7 +183,6 @@
     import FluxTableRow from './FluxTableRow.vue';
     import { PassThrough } from './primitive';
     import $style from '~flux/components/css/component/Table.module.scss';
-    import FluxTableActions from '~flux/components/component/FluxTableActions.vue';
 
     type SelectionId = string | number;
     type SelectionValue = SelectionId | null | SelectionId[];
@@ -424,10 +424,6 @@
     const selectedCount = computed(() => unref(selectedIds).length);
     const hasSelectionBar = computed(() => 'selection' in slots && unref(selectedCount) > 0);
 
-    function clearSelection(): void {
-        selected.value = selectionMode === 'multiple' ? [] : null;
-    }
-
     const selectAllState = computed<boolean | null>(() => {
         const ids = unref(currentPageIds);
         const value = unref(selected);
@@ -449,6 +445,14 @@
 
         return null;
     });
+
+    watch(() => items, () => {
+        unref(table)?.$el.scrollTo(0, 0);
+    });
+
+    function clearSelection(): void {
+        selected.value = selectionMode === 'multiple' ? [] : null;
+    }
 
     function getItemId(item: T): SelectionId | undefined {
         if (!uniqueKey) {
@@ -579,8 +583,4 @@
     if (import.meta.env.DEV && unref(hasExpandable) && !uniqueKey) {
         console.warn('[FluxDataTable] `uniqueKey` is required when the `expandable` slot is used, otherwise rows cannot be tracked across renders.');
     }
-
-    watch(() => items, () => {
-        unref(table)?.$el.scrollTo(0, 0);
-    });
 </script>

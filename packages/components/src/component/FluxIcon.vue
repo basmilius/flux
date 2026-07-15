@@ -21,7 +21,8 @@
         :aria-label="ariaLabel"
         @click="onClick">
         <path
-            v-for="path in definition.paths"
+            v-for="(path, index) in definition.paths"
+            :key="index"
             :d="path"
             fill="currentColor"/>
     </svg>
@@ -75,5 +76,7 @@
         };
     });
 
-    const onClick = (evt: MouseEvent) => emit('click', evt);
+    function onClick(evt: MouseEvent): void {
+        emit('click', evt);
+    }
 </script>

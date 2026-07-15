@@ -47,16 +47,27 @@
         readonly step?: number | [number, number];
     }>();
 
-    const disabled = useDisabled(toRef(() => componentDisabled));
     const rootRef = useTemplateRef('root');
-
     const isDragging = ref(false);
+    const pointerId = ref<number | null>(null);
+
+    const disabled = useDisabled(toRef(() => componentDisabled));
 
     const max = computed(() => Array.isArray(maxProp) ? maxProp : [maxProp, maxProp]);
     const min = computed(() => Array.isArray(minProp) ? minProp : [minProp, minProp]);
     const step = computed(() => Array.isArray(stepProp) ? stepProp : [stepProp, stepProp]);
+    const thumbPosition = computed<[number, number]>(() => [
+        normalize(unref(modelValue)[0], unref(min)[0], unref(max)[0]),
+        normalize(unref(modelValue)[1], unref(min)[1], unref(max)[1])
+    ]);
 
-    const pointerId = ref<number | null>(null);
+    watch(isDragging, isDragging => emit('dragging', isDragging));
+
+    onUnmounted(() => {
+        document.removeEventListener('pointermove', onPointerMove);
+        document.removeEventListener('pointercancel', onPointerUp);
+        document.removeEventListener('pointerup', onPointerUp);
+    });
 
     function normalize(value: number, axisMin: number, axisMax: number): number {
         const span = axisMax - axisMin;
@@ -67,11 +78,6 @@
 
         return Math.max(0, Math.min(1, (value - axisMin) / span));
     }
-
-    const thumbPosition = computed<[number, number]>(() => [
-        normalize(unref(modelValue)[0], unref(min)[0], unref(max)[0]),
-        normalize(unref(modelValue)[1], unref(min)[1], unref(max)[1])
-    ]);
 
     function getStepDecimals(stepValue: number): number {
         const stepString = stepValue.toString();
@@ -196,12 +202,4 @@
         document.removeEventListener('pointercancel', onPointerUp);
         document.removeEventListener('pointerup', onPointerUp);
     }
-
-    watch(isDragging, isDragging => emit('dragging', isDragging));
-
-    onUnmounted(() => {
-        document.removeEventListener('pointermove', onPointerMove);
-        document.removeEventListener('pointercancel', onPointerUp);
-        document.removeEventListener('pointerup', onPointerUp);
-    });
 </script>

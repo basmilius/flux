@@ -49,16 +49,20 @@
         disabled: componentDisabled,
         isMultiple
     } = defineProps<Pick<FluxFormInputBaseProps, 'autoFocus' | 'disabled' | 'error' | 'isCondensed' | 'isLoading' | 'isReadonly' | 'isSecondary' | 'name' | 'placeholder'> & {
-        fetchOptions(ids: FluxFormSelectValueSingle[]): Promise<FluxFormSelectEntry[]>;
-        fetchRelevant(): Promise<FluxFormSelectEntry[]>;
-        fetchSearch(searchQuery: string): Promise<FluxFormSelectEntry[]>;
+        readonly fetchOptions: (ids: FluxFormSelectValueSingle[]) => Promise<FluxFormSelectEntry[]>;
+        readonly fetchRelevant: () => Promise<FluxFormSelectEntry[]>;
+        readonly fetchSearch: (searchQuery: string) => Promise<FluxFormSelectEntry[]>;
 
         readonly isMultiple?: boolean;
     }>();
 
-    const disabled = useDisabled(toRef(() => componentDisabled));
     const selectedOptions = ref<FluxFormSelectEntry[]>([]);
     const visibleOptions = ref<FluxFormSelectEntry[]>([]);
+
+    let selectedGeneration = 0;
+    let visibleGeneration = 0;
+
+    const disabled = useDisabled(toRef(() => componentDisabled));
 
     const options = computed(() => {
         const options: FluxFormSelectEntry[] = [];
@@ -86,38 +90,10 @@
     const {groups, selected, values} = useFormSelect(modelValue, isMultiple, options);
     const {isLoading: isFetchingLoading, loaded} = useLoaded();
     const debouncedModelSearch = useDebouncedRef(modelSearch, 300) as unknown as Ref<string>;
+
     const fetchOptions = computed(() => loaded(fetchOptionsProp));
     const fetchRelevant = computed(() => loaded(fetchRelevantProp));
     const fetchSearch = computed(() => loaded(fetchSearchProp));
-
-    let selectedGeneration = 0;
-    let visibleGeneration = 0;
-
-    function onDeselect(id: string | number | null): void {
-        if (isMultiple) {
-            modelValue.value = unref(values).filter(v => v !== id);
-        }
-    }
-
-    async function onOpen(): Promise<void> {
-        const generation = ++visibleGeneration;
-        const search = unref(modelSearch).trim();
-        const options = search.length > 0
-            ? await unref(fetchSearch)(search)
-            : await unref(fetchRelevant)();
-
-        if (generation === visibleGeneration) {
-            visibleOptions.value = options;
-        }
-    }
-
-    function onSelect(id: string | number | null): void {
-        if (isMultiple) {
-            modelValue.value = [...unref(values), id];
-        } else {
-            modelValue.value = id;
-        }
-    }
 
     watch(values, async values => {
         const definedValues = values.filter(value => value !== null && value !== undefined);
@@ -146,4 +122,30 @@
             visibleOptions.value = options;
         }
     });
+
+    function onDeselect(id: string | number | null): void {
+        if (isMultiple) {
+            modelValue.value = unref(values).filter(v => v !== id);
+        }
+    }
+
+    async function onOpen(): Promise<void> {
+        const generation = ++visibleGeneration;
+        const search = unref(modelSearch).trim();
+        const options = search.length > 0
+            ? await unref(fetchSearch)(search)
+            : await unref(fetchRelevant)();
+
+        if (generation === visibleGeneration) {
+            visibleOptions.value = options;
+        }
+    }
+
+    function onSelect(id: string | number | null): void {
+        if (isMultiple) {
+            modelValue.value = [...unref(values), id];
+        } else {
+            modelValue.value = id;
+        }
+    }
 </script>

@@ -24,6 +24,11 @@
     import { FluxDisabledInjectionKey, FluxKanbanInjectionKey } from '~flux/components/data';
     import $style from '~flux/components/css/component/Kanban.module.scss';
 
+    const emit = defineEmits<{
+        move: [FluxKanbanMoveEvent];
+        moveColumn: [FluxKanbanMoveColumnEvent];
+    }>();
+
     const {
         canMove,
         disabled = false,
@@ -32,11 +37,6 @@
         readonly canMove?: (event: FluxKanbanMoveEvent) => boolean;
         readonly disabled?: boolean;
         readonly reorderableColumns?: boolean;
-    }>();
-
-    const emit = defineEmits<{
-        move: [FluxKanbanMoveEvent];
-        moveColumn: [FluxKanbanMoveColumnEvent];
     }>();
 
     defineSlots<{
@@ -66,9 +66,11 @@
 
     const isDragging = computed(() => kanban.dragState.value !== null || kanban.columnDragState.value !== null);
 
-    function onPointerMove(evt: DragEvent | PointerEvent): void {
-        kanban.onPointerMove(evt.clientX, evt.clientY);
-    }
+    watch(() => disabled, value => {
+        if (value) {
+            kanban.cancelAll();
+        }
+    });
 
     onMounted(() => {
         kanban.setBoardElement(root.value);
@@ -82,11 +84,9 @@
         window.removeEventListener('dragend', kanban.cancelAll);
     });
 
-    watch(() => disabled, value => {
-        if (value) {
-            kanban.cancelAll();
-        }
-    });
+    function onPointerMove(evt: DragEvent | PointerEvent): void {
+        kanban.onPointerMove(evt.clientX, evt.clientY);
+    }
 
     provide(FluxKanbanInjectionKey, kanban);
     provide(FluxDisabledInjectionKey, disabledRef);

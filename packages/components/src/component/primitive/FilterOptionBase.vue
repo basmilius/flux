@@ -20,7 +20,8 @@
 
         <template
             v-else
-            v-for="option of options">
+            v-for="option of options"
+            :key="isFluxFilterOptionItem(option) ? String(option.value) : option.title">
             <FluxMenuSubHeader
                 v-if="isFluxFilterOptionHeader(option)"
                 :label="option.title"/>
@@ -55,8 +56,6 @@
         default: ''
     });
 
-    const searchInputRef = useTemplateRef<{ focus(): void }>('search');
-
     defineProps<{
         readonly isLoading?: boolean;
         readonly isSearchable?: boolean;
@@ -65,11 +64,13 @@
         readonly searchPlaceholder?: string;
     }>();
 
-    function select(option: FluxFilterOptionItem): void {
-        emit('select', option.value);
-    }
+    const searchInputRef = useTemplateRef<{ focus(): void }>('search');
 
     onMounted(() => {
         requestAnimationFrame(() => searchInputRef.value?.focus());
     });
+
+    function select(option: FluxFilterOptionItem): void {
+        emit('select', option.value);
+    }
 </script>
