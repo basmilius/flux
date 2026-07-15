@@ -122,31 +122,34 @@
     background: var(--gray-50);
 }
 
-.tableBody .tableRow.isSelected .tableCell {
+.tableBody .tableRow.isSelected > .tableCell {
     background: var(--primary-50);
     border-color: var(--primary-100);
 }
 
-.tableBody .tableRow.isSelected + .tableRow .tableCell {
+.tableBody .tableRow.isSelected + .tableRow > .tableCell {
     border-top-color: var(--primary-100);
 }
 
 // Row hover keys off :has(:hover) rather than .tableRow:hover: under
 // display: contents the row has no box, so :hover on the row itself is
 // unreliable, while :hover on the cells (which do have boxes) is not.
+// The cells are matched with a child combinator so the highlight stays within
+// one table: a nested table lives deep inside a cell, never as a direct child
+// of the parent row, so hovering the parent row cannot light up its sub-rows.
 // A rowspan cell belongs to the first row it covers but stretches across the
 // rest, so it is excluded from the hover highlight (like .tableGroup): otherwise
 // hovering the first row would light up the full-height cell on its own.
 @media (hover: hover) {
-    .table.isHoverable .tableBody .tableRow:has(:hover) .tableCell:not(.tableGroup):not(.hasRowspan),
-    .table.isHoverable .tableBody .tableRow:has(:focus-visible) .tableCell:not(.tableGroup):not(.hasRowspan),
-    .table.isHoverable .tableBody .tableRow:has(:hover) .tableGroup.isHoverable,
-    .table.isHoverable .tableBody .tableRow:has(:focus-visible) .tableGroup.isHoverable {
+    .table.isHoverable .tableBody .tableRow:has(:hover) > .tableCell:not(.tableGroup):not(.hasRowspan),
+    .table.isHoverable .tableBody .tableRow:has(:focus-visible) > .tableCell:not(.tableGroup):not(.hasRowspan),
+    .table.isHoverable .tableBody .tableRow:has(:hover) > .tableGroup.isHoverable,
+    .table.isHoverable .tableBody .tableRow:has(:focus-visible) > .tableGroup.isHoverable {
         background: var(--gray-50);
     }
 
-    .table.isHoverable .tableBody .tableRow.isSelected:has(:hover) .tableCell:not(.hasRowspan),
-    .table.isHoverable .tableBody .tableRow.isSelected:has(:focus-visible) .tableCell:not(.hasRowspan) {
+    .table.isHoverable .tableBody .tableRow.isSelected:has(:hover) > .tableCell:not(.hasRowspan),
+    .table.isHoverable .tableBody .tableRow.isSelected:has(:focus-visible) > .tableCell:not(.hasRowspan) {
         background: var(--primary-50);
     }
 }
@@ -172,11 +175,11 @@
     border-left-width: 0;
 }
 
-.tableBody .tableRow + .tableRow .tableCell {
+.tableBody .tableRow + .tableRow > .tableCell {
     border-top-width: 1px;
 }
 
-.tableBody .tableGroupRow + .tableRow .tableCell {
+.tableBody .tableGroupRow + .tableRow > .tableCell {
     border-top-width: 0;
 }
 
@@ -184,7 +187,7 @@
     border-top-width: 1px;
 }
 
-.tableBody .tableGroupSection + .tableRow .tableCell {
+.tableBody .tableGroupSection + .tableRow > .tableCell {
     border-top-width: 1px;
 }
 
