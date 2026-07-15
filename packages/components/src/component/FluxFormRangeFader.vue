@@ -156,7 +156,7 @@
         minDistance = 0,
         step = 1
     } = defineProps<Pick<FluxFormInputBaseProps, 'disabled' | 'error' | 'isLoading' | 'isReadonly' | 'name'> & {
-        formatter?(value: number, decimals?: number): string;
+        readonly formatter?: (value: number, decimals?: number) => string;
 
         readonly ariaLabel?: string;
         readonly color?: FluxColor;
@@ -171,10 +171,27 @@
         readonly step?: number;
     }>();
 
-    const disabled = useDisabled(toRef(() => componentDisabled));
     const rootRef = useTemplateRef<HTMLElement>('root');
     const labelRef = useTemplateRef<HTMLElement>('label');
     const valueRef = useTemplateRef<HTMLElement>('value');
+
+    const isDraggingLower = ref(false);
+    const isDraggingUpper = ref(false);
+    const isScrubbing = ref(false);
+    const focusVisibleLower = ref(false);
+    const focusVisibleUpper = ref(false);
+    const pointerId = ref<number | null>(null);
+
+    let dragStartX = 0;
+
+    // Each bound eases toward its committed value so the fill and the value
+    // read glide together on a snap; a live scrub feeds them instantly.
+    const animatedLower = ref(unref(modelValue)[0]);
+    const animatedUpper = ref(unref(modelValue)[1]);
+    const lowerAnimator = createFaderAnimator(animatedLower);
+    const upperAnimator = createFaderAnimator(animatedUpper);
+
+    const disabled = useDisabled(toRef(() => componentDisabled));
     const translate = useTranslate();
 
     const {
@@ -205,20 +222,6 @@
         update: updateOverdrag,
         reset: resetOverdrag
     } = overdrag;
-
-    const isDraggingLower = ref(false);
-    const isDraggingUpper = ref(false);
-    const isScrubbing = ref(false);
-    const focusVisibleLower = ref(false);
-    const focusVisibleUpper = ref(false);
-    const pointerId = ref<number | null>(null);
-
-    // Each bound eases toward its committed value so the fill and the value
-    // read glide together on a snap; a live scrub feeds them instantly.
-    const animatedLower = ref(unref(modelValue)[0]);
-    const animatedUpper = ref(unref(modelValue)[1]);
-    const lowerAnimator = createFaderAnimator(animatedLower);
-    const upperAnimator = createFaderAnimator(animatedUpper);
 
     const distance = computed(() => Math.max(0, minDistance, step));
     const showMarks = computed(() => isTicksVisible || unref(isSnappy));
@@ -278,13 +281,30 @@
                 filledOpacity = Math.min(Math.min(1, Math.max(0, (markPx - lowerEdge) / 8)), Math.min(1, Math.max(0, (upperEdge - markPx) / 8)));
                 const hideLower = Math.min(1, Math.max(0, (Math.abs(markPx - lowerCenter) - 10) / 6));
                 const hideUpper = Math.min(1, Math.max(0, (Math.abs(markPx - upperCenter) - 10) / 6));
-                visibility = Math.min(hideLower, hideUpper);
+                // Hide marks under a bar or under the label/value text.
+                visibility = isDodging(markPx) ? 0 : Math.min(hideLower, hideUpper);
             }
 
             marks.push({filledOpacity, percent, value, visibility});
         }
 
         return marks;
+    });
+
+    watch(modelValue, ([lower, upper]) => {
+        const immediate = unref(isScrubbing) && !unref(isSnappy);
+
+        lowerAnimator.animate(lower, immediate);
+        upperAnimator.animate(upper, immediate);
+    });
+    watch([() => unref(modelValue)[0], () => unref(modelValue)[1], () => label], () => nextTick(measureZones));
+
+    onBeforeUnmount(() => {
+        lowerAnimator.stop();
+        upperAnimator.stop();
+        document.removeEventListener('pointermove', onPointerMove);
+        document.removeEventListener('pointercancel', onPointerUp);
+        document.removeEventListener('pointerup', onPointerUp);
     });
 
     function nudge(which: 'lower' | 'upper', delta: number): void {
@@ -447,22 +467,4 @@
         document.removeEventListener('pointercancel', onPointerUp);
         document.removeEventListener('pointerup', onPointerUp);
     }
-
-    let dragStartX = 0;
-
-    onBeforeUnmount(() => {
-        lowerAnimator.stop();
-        upperAnimator.stop();
-        document.removeEventListener('pointermove', onPointerMove);
-        document.removeEventListener('pointercancel', onPointerUp);
-        document.removeEventListener('pointerup', onPointerUp);
-    });
-
-    watch(modelValue, ([lower, upper]) => {
-        const immediate = unref(isScrubbing) && !unref(isSnappy);
-
-        lowerAnimator.animate(lower, immediate);
-        upperAnimator.animate(upper, immediate);
-    });
-    watch([() => unref(modelValue)[0], () => unref(modelValue)[1], () => label], () => nextTick(measureZones));
 </script>

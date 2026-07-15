@@ -26,10 +26,12 @@
             :class="$style.formFaderTrack"
             :style="{transform: `scaleX(${overdragScaleX})`, transformOrigin: overdragOrigin}">
             <div
+                v-show="percentage > 0"
                 :class="$style.formFaderFill"
                 :style="{width: `${percentage * 100}%`}"/>
 
             <span
+                v-show="percentage > 0"
                 :class="clsx($style.formFaderBar, barState && $style[barState])"
                 :style="{left: barLeft}"/>
 
@@ -126,7 +128,7 @@
         min = 0,
         step = 1
     } = defineProps<Pick<FluxFormInputBaseProps, 'disabled' | 'error' | 'isLoading' | 'isReadonly' | 'name'> & {
-        formatter?(value: number, decimals?: number): string;
+        readonly formatter?: (value: number, decimals?: number) => string;
 
         readonly ariaLabel?: string;
         readonly color?: FluxColor;
@@ -178,6 +180,7 @@
     const isScrubbing = ref(false);
     const focusVisible = ref(false);
     const pointerId = ref<number | null>(null);
+    let dragStartX = 0;
 
     // `animated` eases toward the committed value so the fill and the value
     // read glide together on a snap; a live scrub feeds it instantly.
@@ -230,13 +233,24 @@
             } else {
                 const markPx = (percent / 100) * width;
                 filledOpacity = Math.min(1, Math.max(0, (fillEdge - markPx) / 8));
-                visibility = Math.min(1, Math.max(0, (Math.abs(markPx - center) - 10) / 6));
+                // Hide marks that sit under the bar or under the label/value text.
+                visibility = isDodging(markPx) ? 0 : Math.min(1, Math.max(0, (Math.abs(markPx - center) - 10) / 6));
             }
 
             marks.push({filledOpacity, percent, value, visibility});
         }
 
         return marks;
+    });
+
+    watch(modelValue, value => animator.animate(value, unref(isScrubbing) && !unref(isSnappy)));
+    watch([ariaValueText, () => label], () => nextTick(measureZones));
+
+    onBeforeUnmount(() => {
+        animator.stop();
+        document.removeEventListener('pointermove', onPointerMove);
+        document.removeEventListener('pointercancel', onPointerUp);
+        document.removeEventListener('pointerup', onPointerUp);
     });
 
     function setFromFraction(fraction: number): void {
@@ -362,15 +376,4 @@
         document.removeEventListener('pointerup', onPointerUp);
     }
 
-    let dragStartX = 0;
-
-    onBeforeUnmount(() => {
-        animator.stop();
-        document.removeEventListener('pointermove', onPointerMove);
-        document.removeEventListener('pointercancel', onPointerUp);
-        document.removeEventListener('pointerup', onPointerUp);
-    });
-
-    watch(modelValue, value => animator.animate(value, unref(isScrubbing) && !unref(isSnappy)));
-    watch([ariaValueText, () => label], () => nextTick(measureZones));
 </script>
