@@ -56,7 +56,6 @@ jobs:
                     bun pm version --cwd packages/application "$RELEASE_VERSION"
                     bun pm version --cwd packages/statistics "$RELEASE_VERSION"
                     bun pm version --cwd packages/flow "$RELEASE_VERSION"
-                    bun pm version --cwd packages/skill "$RELEASE_VERSION"
 
                     sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/types/package.json
                     sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/internals/package.json
@@ -65,8 +64,6 @@ jobs:
                     sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/application/package.json
                     sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/statistics/package.json
                     sed -i "s/workspace:\*/$RELEASE_VERSION/g" packages/flow/package.json
-
-                    sed -i "s/\"version\": \"[^\"]*\"/\"version\": \"$RELEASE_VERSION\"/" packages/skill/.claude-plugin/plugin.json
 
             -   name: 📦️ Install dependencies
                 run: bun install --frozen-lockfile
@@ -105,7 +102,7 @@ jobs:
                         (cd "$dir" && npm publish --access public "${tag_args[@]}")
                     }
 
-                    for pkg in types internals visuals components application statistics flow skill; do
+                    for pkg in types internals visuals components application statistics flow; do
                         publish "$pkg"
                     done
 
