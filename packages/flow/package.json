@@ -56,9 +56,9 @@
         "vue": "^3.6.0-beta.17"
     },
     "devDependencies": {
-        "@basmilius/vite-preset": "^3.52.0",
+        "@basmilius/vite-preset": "^3.53.0",
         "@types/node": "^26.1.1",
-        "@vitejs/plugin-vue": "^6.0.7",
+        "@vitejs/plugin-vue": "^6.0.8",
         "@vue/tsconfig": "^0.9.1",
         "sass-embedded": "^1.100.0",
         "typescript": "6.0.3",

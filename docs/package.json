@@ -8,7 +8,7 @@
         "preview": "vitepress preview"
     },
     "dependencies": {
-        "@basmilius/common": "^3.52.0",
+        "@basmilius/common": "^3.53.0",
         "@faker-js/faker": "^10.5.0",
         "@flux-ui/application": "workspace:*",
         "@flux-ui/components": "workspace:*",
@@ -27,10 +27,10 @@
         "vitepress-plugin-render": "^1.6.0",
         "vue": "^3.6.0-beta.17",
         "vue-i18n": "^11.4.6",
-        "vue-router": "^5.1.0"
+        "vue-router": "^5.2.0"
     },
     "devDependencies": {
-        "@basmilius/vite-preset": "^3.52.0",
+        "@basmilius/vite-preset": "^3.53.0",
         "@flux-ui/types": "workspace:*",
         "@types/luxon": "^3.7.2",
         "vite": "^8.1.4"
