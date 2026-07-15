@@ -1,5 +1,6 @@
 <template>
     <SliderBase
+        :direction="direction"
         :disabled="disabled"
         :is-ticks-visible="isTicksVisible"
         :max="max"
@@ -8,6 +9,7 @@
         @dragging="onDragging"
         @update="onUpdate">
         <SliderTrack
+            :direction="direction"
             :percentage-lower="0"
             :percentage-upper="percentage">
             <SliderThumb
@@ -16,6 +18,7 @@
                 :aria-valuemax="max"
                 :aria-valuemin="min"
                 :aria-valuenow="modelValue"
+                :direction="direction"
                 :disabled="disabled"
                 :is-dragging="isDragging"
                 :position="percentage"
@@ -29,7 +32,7 @@
     lang="ts"
     setup>
     import { countDecimals, formatNumber, roundStep } from '@basmilius/utils';
-    import type { FluxFormInputBaseProps } from '@flux-ui/types';
+    import type { FluxDirection, FluxFormInputBaseProps } from '@flux-ui/types';
     import { computed, onUnmounted, ref, toRef, unref, useTemplateRef } from 'vue';
     import { useDisabled } from '~flux/components/composable';
     import { addTooltip, removeTooltip, updateTooltip } from '~flux/components/data';
@@ -41,6 +44,7 @@
 
     const {
         ariaLabel,
+        direction = 'horizontal',
         formatter = formatNumber,
         disabled: componentDisabled = false,
         isReadonly,
@@ -52,6 +56,7 @@
         formatter?(value: number, decimals?: number): string;
 
         readonly ariaLabel?: string;
+        readonly direction?: FluxDirection;
         readonly isTicksVisible?: boolean;
         readonly isTooltipDisabled?: boolean;
         readonly max?: number;
@@ -85,7 +90,7 @@
         if (is && !tooltipId.value && !isTooltipDisabled) {
             tooltipId.value = addTooltip({
                 content: unref(tooltipContent),
-                direction: 'vertical',
+                direction: direction === 'vertical' ? 'horizontal' : 'vertical',
                 origin: unref(thumbRef)?.$el
             });
         } else if (!is && tooltipId.value) {

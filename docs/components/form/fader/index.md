@@ -72,6 +72,12 @@ props:
         type: boolean
         optional: true
 
+    -   name: direction
+        description: The direction of the fader. A vertical fader is a slim column with rotated text and defaults to 210px tall, overridable with CSS.
+        type: FluxDirection
+        optional: true
+        default: horizontal
+
     -   name: min
         description: The minimum value of the fader.
         type: number
@@ -115,6 +121,14 @@ Clicking anywhere on the fader jumps to that position, and dragging keeps tracki
 
 ::: example Basic || A basic fader from 0 to 100.
 example=../../../code/components/form/fader/basic.vue
+:::
+
+::: example Vertical || A vertical fader: a slim column with rotated text, 210px tall by default and resizable with CSS.
+example=../../../code/components/form/fader/vertical.vue
+:::
+
+::: example Vertical with icons || Vertical faders with a leading icon on top and a trailing icon at the bottom.
+example=../../../code/components/form/fader/vertical-icons.vue
 :::
 
 ::: example Steps || A stepped fader that snaps to detents and shows their marks automatically.

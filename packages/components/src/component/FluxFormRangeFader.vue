@@ -3,6 +3,7 @@
         ref="root"
         :class="clsx(
             $style.formFader,
+            direction === 'vertical' && $style.isVertical,
             (isDraggingLower || isDraggingUpper) && $style.isDragging,
             disabled && $style.isDisabled,
             isReadonly && $style.isReadonly
@@ -14,24 +15,24 @@
         @pointerdown="onPointerDown">
         <div
             :class="$style.formFaderTrack"
-            :style="{transform: `scaleX(${overdragScaleX})`, transformOrigin: overdragOrigin}">
+            :style="{transform: overdragTransform, transformOrigin: overdragOrigin}">
             <div
                 :class="$style.formFaderFill"
-                :style="{left: `${percentageLower * 100}%`, width: `${(percentageUpper - percentageLower) * 100}%`}"/>
+                :style="fillStyle"/>
 
             <span
                 :class="clsx($style.formFaderBar, lowerState && $style[lowerState])"
-                :style="{left: barLeftLower}"/>
+                :style="barStyleLower"/>
 
             <span
                 :class="clsx($style.formFaderBar, upperState && $style[upperState])"
-                :style="{left: barLeftUpper}"/>
+                :style="barStyleUpper"/>
 
             <span
                 v-for="tick of ticks"
                 :key="tick.value"
                 :class="$style.formFaderTick"
-                :style="{left: `${tick.percent}%`, opacity: tick.visibility}">
+                :style="tickStyle(tick)">
                 <span :class="$style.formFaderTickBase"/>
                 <span
                     :class="$style.formFaderTickFill"
@@ -41,10 +42,11 @@
 
         <button
             :class="$style.formFaderThumb"
-            :style="{left: `${percentageLower * 100}%`}"
+            :style="thumbStyleLower"
             role="slider"
             :aria-disabled="disabled ? true : undefined"
             :aria-label="translate('flux.lowerBound')"
+            :aria-orientation="direction"
             :aria-readonly="isReadonly ? true : undefined"
             :aria-valuemax="modelValue[1] - distance"
             :aria-valuemin="min"
@@ -59,10 +61,11 @@
 
         <button
             :class="$style.formFaderThumb"
-            :style="{left: `${percentageUpper * 100}%`}"
+            :style="thumbStyleUpper"
             role="slider"
             :aria-disabled="disabled ? true : undefined"
             :aria-label="translate('flux.upperBound')"
+            :aria-orientation="direction"
             :aria-readonly="isReadonly ? true : undefined"
             :aria-valuemax="max"
             :aria-valuemin="modelValue[0] + distance"
@@ -131,9 +134,9 @@
     setup>
     import { formatNumber } from '@basmilius/utils';
     import { unrefTemplateElement } from '@flux-ui/internals';
-    import type { FluxColor, FluxFormInputBaseProps, FluxIconName } from '@flux-ui/types';
+    import type { FluxColor, FluxDirection, FluxFormInputBaseProps, FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { computed, nextTick, onBeforeUnmount, ref, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { computed, type CSSProperties, nextTick, onBeforeUnmount, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '~flux/components/composable';
     import { createFaderAnimator, FADER_BAR_INSET, faderBarLeft, faderBarStateClass, faderClampPark, faderRoundToDecimals, useFormFader, useTranslate } from '~flux/components/composable/private';
     import FluxIcon from './FluxIcon.vue';
@@ -145,6 +148,7 @@
 
     const {
         color = 'primary',
+        direction = 'horizontal',
         formatter = formatNumber,
         disabled: componentDisabled = false,
         isReadonly,
@@ -160,6 +164,7 @@
 
         readonly ariaLabel?: string;
         readonly color?: FluxColor;
+        readonly direction?: FluxDirection;
         readonly iconLeading?: FluxIconName;
         readonly iconTrailing?: FluxIconName;
         readonly isTicksVisible?: boolean;
@@ -182,7 +187,7 @@
     const focusVisibleUpper = ref(false);
     const pointerId = ref<number | null>(null);
 
-    let dragStartX = 0;
+    let dragStart = 0;
 
     // Each bound eases toward its committed value so the fill and the value
     // read glide together on a snap; a live scrub feeds them instantly.
@@ -196,7 +201,7 @@
 
     const {
         overdrag,
-        trackWidth,
+        trackLength,
         span,
         isRangeValid,
         decimals,
@@ -213,11 +218,12 @@
         min: () => min,
         max: () => max,
         step: () => step,
-        color: () => color
+        color: () => color,
+        direction: () => direction
     });
 
     const {
-        scaleX: overdragScaleX,
+        transform: overdragTransform,
         transformOrigin: overdragOrigin,
         update: updateOverdrag,
         reset: resetOverdrag
@@ -230,16 +236,44 @@
     const percentageUpper = computed(() => unref(isRangeValid) ? (unref(animatedUpper) - min) / unref(span) : 0);
 
     const displayValue = computed(() => `${formatter(faderRoundToDecimals(unref(animatedLower), unref(decimals)), unref(decimals))} - ${formatter(faderRoundToDecimals(unref(animatedUpper), unref(decimals)), unref(decimals))}`);
-    const fillClip = computed(() => `inset(0 calc(100% - ${unref(percentageUpper) * 100}%) 0 ${unref(percentageLower) * 100}%)`);
+    const fillClip = computed(() => direction === 'vertical'
+        ? `inset(calc(100% - ${unref(percentageUpper) * 100}%) 0 ${unref(percentageLower) * 100}% 0)`
+        : `inset(0 calc(100% - ${unref(percentageUpper) * 100}%) 0 ${unref(percentageLower) * 100}%)`);
 
-    const lowerBarCenter = computed(() => faderClampPark(unref(percentageLower) * unref(trackWidth) + FADER_BAR_INSET, unref(trackWidth)));
-    const upperBarCenter = computed(() => faderClampPark(unref(percentageUpper) * unref(trackWidth) - FADER_BAR_INSET, unref(trackWidth)));
+    const fillStyle = computed<CSSProperties>(() => direction === 'vertical'
+        ? {bottom: `${unref(percentageLower) * 100}%`, height: `${(unref(percentageUpper) - unref(percentageLower)) * 100}%`}
+        : {left: `${unref(percentageLower) * 100}%`, width: `${(unref(percentageUpper) - unref(percentageLower)) * 100}%`});
 
     const barLeftLower = computed(() => faderBarLeft(unref(percentageLower) * 100, FADER_BAR_INSET));
     const barLeftUpper = computed(() => faderBarLeft(unref(percentageUpper) * 100, -FADER_BAR_INSET));
 
+    const barStyleLower = computed<CSSProperties>(() => direction === 'vertical' ? {bottom: unref(barLeftLower)} : {left: unref(barLeftLower)});
+    const barStyleUpper = computed<CSSProperties>(() => direction === 'vertical' ? {bottom: unref(barLeftUpper)} : {left: unref(barLeftUpper)});
+
+    const thumbStyleLower = computed<CSSProperties>(() => direction === 'vertical' ? {bottom: `${unref(percentageLower) * 100}%`} : {left: `${unref(percentageLower) * 100}%`});
+    const thumbStyleUpper = computed<CSSProperties>(() => direction === 'vertical' ? {bottom: `${unref(percentageUpper) * 100}%`} : {left: `${unref(percentageUpper) * 100}%`});
+
+    // Bar centers along the track for the dodge test, in the axis `isDodging`
+    // expects (px from left when horizontal, px from top when vertical).
+    const lowerBarCenter = computed(() => {
+        const edge = faderClampPark(unref(percentageLower) * unref(trackLength) + FADER_BAR_INSET, unref(trackLength));
+
+        return direction === 'vertical' ? unref(trackLength) - edge : edge;
+    });
+    const upperBarCenter = computed(() => {
+        const edge = faderClampPark(unref(percentageUpper) * unref(trackLength) - FADER_BAR_INSET, unref(trackLength));
+
+        return direction === 'vertical' ? unref(trackLength) - edge : edge;
+    });
+
     const lowerState = computed(() => faderBarStateClass(isDodging(unref(lowerBarCenter)), unref(isDraggingLower), unref(focusVisibleLower)));
     const upperState = computed(() => faderBarStateClass(isDodging(unref(upperBarCenter)), unref(isDraggingUpper), unref(focusVisibleUpper)));
+
+    function tickStyle(tick: {readonly percent: number; readonly visibility: number}): CSSProperties {
+        return direction === 'vertical'
+            ? {bottom: `${tick.percent}%`, opacity: tick.visibility}
+            : {left: `${tick.percent}%`, opacity: tick.visibility};
+    }
 
     const ticks = computed(() => {
         if (!unref(showMarks) || step <= 0 || !unref(isRangeValid)) {
@@ -250,12 +284,15 @@
             return [];
         }
 
-        const width = unref(trackWidth);
+        const vertical = direction === 'vertical';
+        const length = unref(trackLength);
         const [lower, upper] = unref(modelValue);
-        const lowerEdge = unref(percentageLower) * width;
-        const upperEdge = unref(percentageUpper) * width;
-        const lowerCenter = unref(lowerBarCenter);
-        const upperCenter = unref(upperBarCenter);
+        const lowerEdge = unref(percentageLower) * length;
+        const upperEdge = unref(percentageUpper) * length;
+        // Bar centers measured from the fill start (bottom when vertical), to
+        // match markPx below; the dodge test flips to top-relative separately.
+        const lowerCenter = faderClampPark(unref(percentageLower) * length + FADER_BAR_INSET, length);
+        const upperCenter = faderClampPark(unref(percentageUpper) * length - FADER_BAR_INSET, length);
 
         const marks = [];
 
@@ -273,16 +310,17 @@
             let filledOpacity: number;
             let visibility: number;
 
-            if (width <= 0) {
+            if (length <= 0) {
                 filledOpacity = value >= lower && value <= upper ? 1 : 0;
                 visibility = Math.abs(value - lower) < 1e-9 || Math.abs(value - upper) < 1e-9 ? 0 : 1;
             } else {
-                const markPx = (percent / 100) * width;
+                const markPx = (percent / 100) * length;
+                const dodgePx = vertical ? length - markPx : markPx;
                 filledOpacity = Math.min(Math.min(1, Math.max(0, (markPx - lowerEdge) / 8)), Math.min(1, Math.max(0, (upperEdge - markPx) / 8)));
                 const hideLower = Math.min(1, Math.max(0, (Math.abs(markPx - lowerCenter) - 10) / 6));
                 const hideUpper = Math.min(1, Math.max(0, (Math.abs(markPx - upperCenter) - 10) / 6));
                 // Hide marks under a bar or under the label/value text.
-                visibility = isDodging(markPx) ? 0 : Math.min(hideLower, hideUpper);
+                visibility = isDodging(dodgePx) ? 0 : Math.min(hideLower, hideUpper);
             }
 
             marks.push({filledOpacity, percent, value, visibility});
@@ -396,7 +434,7 @@
         const root = unrefTemplateElement(rootRef);
 
         isScrubbing.value = false;
-        dragStartX = evt.clientX;
+        dragStart = direction === 'vertical' ? evt.clientY : evt.clientX;
         pointerId.value = evt.pointerId;
         root?.setPointerCapture?.(evt.pointerId);
         document.addEventListener('pointermove', onPointerMove);
@@ -413,18 +451,25 @@
         }
 
         const rect = root.getBoundingClientRect();
+        const vertical = direction === 'vertical';
+        const size = vertical ? rect.height : rect.width;
 
-        if (rect.width <= 0) {
+        if (size <= 0) {
             return;
         }
 
-        if (Math.abs(evt.clientX - dragStartX) > 3) {
+        const coord = vertical ? evt.clientY : evt.clientX;
+
+        if (Math.abs(coord - dragStart) > 3) {
             isScrubbing.value = true;
         }
 
-        updateOverdrag(evt.clientX, rect);
+        updateOverdrag(coord, rect);
 
-        const fraction = Math.max(0, Math.min(1, (evt.clientX - rect.left) / rect.width));
+        // Bottom is the minimum when vertical, so invert the fraction.
+        const fraction = vertical
+            ? Math.max(0, Math.min(1, 1 - (coord - rect.top) / size))
+            : Math.max(0, Math.min(1, (coord - rect.left) / size));
         const target = snap(fraction * unref(span) + min);
 
         // When the track is pressed without grabbing a thumb, start dragging

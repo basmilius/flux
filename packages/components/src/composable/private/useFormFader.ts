@@ -1,6 +1,6 @@
 import { countDecimals, roundStep } from '@basmilius/utils';
 import { unrefTemplateElement } from '@flux-ui/internals';
-import type { FluxColor } from '@flux-ui/types';
+import type { FluxColor, FluxDirection } from '@flux-ui/types';
 import { computed, type CSSProperties, onBeforeUnmount, onMounted, ref, type Ref, type ShallowRef, unref } from 'vue';
 import { useElasticOverdrag } from './useElasticOverdrag';
 
@@ -127,6 +127,7 @@ type UseFaderOptions = {
     max(): number;
     step(): number;
     color(): FluxColor;
+    direction(): FluxDirection;
 };
 
 /**
@@ -136,9 +137,9 @@ type UseFaderOptions = {
  * owns its model, percentages, bars, pointer and keyboard.
  */
 export function useFormFader(options: UseFaderOptions) {
-    const overdrag = useElasticOverdrag();
+    const overdrag = useElasticOverdrag({direction: options.direction});
 
-    const trackWidth = ref(0);
+    const trackLength = ref(0);
     const labelStart = ref(0);
     const labelEnd = ref(0);
     const valueStart = ref(0);
@@ -177,7 +178,7 @@ export function useFormFader(options: UseFaderOptions) {
     }
 
     function isDodging(center: number): boolean {
-        if (unref(trackWidth) <= 0) {
+        if (unref(trackLength) <= 0) {
             return false;
         }
 
@@ -192,15 +193,30 @@ export function useFormFader(options: UseFaderOptions) {
         }
 
         const rootRect = root.getBoundingClientRect();
+        const labelRect = unrefTemplateElement(options.labelRef)?.getBoundingClientRect();
+        const valueRect = unrefTemplateElement(options.valueRef)?.getBoundingClientRect();
+
+        // Vertical measures along Y, from the top: the label sits at the top
+        // (low px) and the value at the bottom (high px), so the label-low /
+        // value-high `isDodging` logic reads the same on both axes.
+        if (options.direction() === 'vertical') {
+            if (rootRect.height === 0) {
+                return;
+            }
+
+            trackLength.value = rootRect.height;
+            labelStart.value = labelRect ? labelRect.top - rootRect.top : 0;
+            labelEnd.value = labelRect ? labelRect.bottom - rootRect.top : 0;
+            valueStart.value = valueRect ? valueRect.top - rootRect.top : rootRect.height;
+
+            return;
+        }
 
         if (rootRect.width === 0) {
             return;
         }
 
-        const labelRect = unrefTemplateElement(options.labelRef)?.getBoundingClientRect();
-        const valueRect = unrefTemplateElement(options.valueRef)?.getBoundingClientRect();
-
-        trackWidth.value = rootRect.width;
+        trackLength.value = rootRect.width;
         labelStart.value = labelRect ? labelRect.left - rootRect.left : 0;
         labelEnd.value = labelRect ? labelRect.right - rootRect.left : 0;
         valueStart.value = valueRect ? valueRect.left - rootRect.left : rootRect.width;
@@ -227,7 +243,7 @@ export function useFormFader(options: UseFaderOptions) {
 
     return {
         overdrag,
-        trackWidth,
+        trackLength,
         span,
         isRangeValid,
         decimals,

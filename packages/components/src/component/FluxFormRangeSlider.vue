@@ -1,5 +1,6 @@
 <template>
     <SliderBase
+        :direction="direction"
         :disabled="disabled"
         :is-ticks-visible="isTicksVisible"
         :max="max"
@@ -8,6 +9,7 @@
         @dragging="onDragging"
         @update="onUpdate">
         <SliderTrack
+            :direction="direction"
             :percentage-lower="percentageLower"
             :percentage-upper="percentageUpper">
             <SliderThumb
@@ -16,6 +18,7 @@
                 :aria-valuemax="max"
                 :aria-valuemin="min"
                 :aria-valuenow="modelValue[0]"
+                :direction="direction"
                 :disabled="disabled"
                 :is-dragging="isDraggingLower"
                 :position="percentageLower"
@@ -29,6 +32,7 @@
                 :aria-valuemax="max"
                 :aria-valuemin="min"
                 :aria-valuenow="modelValue[1]"
+                :direction="direction"
                 :disabled="disabled"
                 :is-dragging="isDraggingUpper"
                 :position="percentageUpper"
@@ -43,7 +47,7 @@
     lang="ts"
     setup>
     import { countDecimals, formatNumber, roundStep } from '@basmilius/utils';
-    import type { FluxFormInputBaseProps } from '@flux-ui/types';
+    import type { FluxDirection, FluxFormInputBaseProps } from '@flux-ui/types';
     import { computed, onUnmounted, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';
@@ -55,6 +59,7 @@
     });
 
     const {
+        direction = 'horizontal',
         formatter = formatNumber,
         disabled: componentDisabled,
         isReadonly,
@@ -66,6 +71,7 @@
     } = defineProps<Pick<FluxFormInputBaseProps, 'disabled' | 'error' | 'isLoading' | 'isReadonly' | 'name'> & {
         readonly formatter?: (value: number, decimals?: number) => string;
 
+        readonly direction?: FluxDirection;
         readonly isTicksVisible?: boolean;
         readonly isTooltipDisabled?: boolean;
         readonly max?: number;
@@ -100,7 +106,7 @@
         if (is && !tooltipId.value && !isTooltipDisabled) {
             tooltipId.value = addTooltip({
                 content: unref(tooltipContent),
-                direction: 'vertical',
+                direction: direction === 'vertical' ? 'horizontal' : 'vertical',
                 origin: unref(lower ? lowerThumbRef : upperThumbRef)?.$el
             });
         } else if (!is && tooltipId.value) {

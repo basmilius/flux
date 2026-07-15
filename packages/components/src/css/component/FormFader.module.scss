@@ -194,3 +194,78 @@
     line-height: 1.4;
     white-space: nowrap;
 }
+
+// Vertical variant: a slim column that fills bottom (min) to top (max). Fills,
+// bars, thumbs and ticks position via `bottom`; the label/value read rotated.
+.formFader.isVertical {
+    height: var(--flux-form-fader-length, 210px);
+    width: 39px;
+    touch-action: pan-x;
+
+    .formFaderFill {
+        top: auto;
+        bottom: 0;
+        width: 100%;
+    }
+
+    .formFaderBar {
+        top: auto;
+        left: 50%;
+        height: 4px;
+        width: 21px;
+        translate: -50% 50%;
+
+        &.isDodge {
+            scale: .75 1;
+        }
+
+        &.isGrabbed {
+            scale: 1.2 1;
+        }
+
+        &.isFocus {
+            scale: 1.35 1;
+        }
+    }
+
+    .formFaderThumb {
+        top: auto;
+        left: 0;
+        height: 21px;
+        width: 100%;
+        translate: 0 50%;
+    }
+
+    .formFaderTick {
+        top: auto;
+        left: 50%;
+        translate: -50% 50%;
+    }
+
+    .formFaderOverlay {
+        flex-flow: column;
+        padding: 12px 0;
+    }
+
+    .formFaderIconLeading {
+        margin-right: 0;
+        margin-bottom: 9px;
+    }
+
+    .formFaderIconTrailing {
+        margin-left: 0;
+        margin-top: 9px;
+    }
+
+    .formFaderLabel {
+        writing-mode: vertical-rl;
+    }
+
+    .formFaderValue {
+        margin-top: auto;
+        margin-left: 0;
+        padding-top: 12px;
+        padding-left: 0;
+        writing-mode: vertical-rl;
+    }
+}

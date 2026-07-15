@@ -51,6 +51,12 @@ props:
         type: boolean
         optional: true
 
+    -   name: direction
+        description: The direction of the slider. A vertical slider defaults to 210px tall, overridable with CSS.
+        type: FluxDirection
+        optional: true
+        default: horizontal
+
     -   name: min
         description: The minimum value of the slider.
         type: number
@@ -94,6 +100,10 @@ Clicking anywhere on the track jumps the thumb to that position, and dragging ke
 
 ::: example Basic || A basic slider from 0 to 100.
 example=../../../code/components/form/slider/basic.vue
+:::
+
+::: example Vertical || A vertical slider. It defaults to 210px tall and can be resized with CSS.
+example=../../../code/components/form/slider/vertical.vue
 :::
 
 ::: example Ticks || A slider where the ticks are visible.
