@@ -29,6 +29,25 @@
     border-radius: inherit;
 }
 
+.statisticsMeterBlocks {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 3px;
+    contain: paint;
+}
+
+.statisticsMeterBlock {
+    flex: 0 0 auto;
+    width: 6px;
+    height: 21px;
+    background: var(--gray-100);
+    border-radius: 3px;
+
+    &.isFilled {
+        background: var(--color);
+    }
+}
+
 .statisticsMeterFooter {
     color: var(--foreground-secondary);
     font-size: 14px;

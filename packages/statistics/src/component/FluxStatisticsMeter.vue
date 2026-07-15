@@ -35,7 +35,19 @@
             </span>
         </div>
 
-        <div :class="$style.statisticsMeterBar">
+        <div
+            v-if="variant === 'blocks'"
+            ref="blocks"
+            :class="$style.statisticsMeterBlocks">
+            <div
+                v-for="index of blockCount"
+                :key="index"
+                :class="clsx($style.statisticsMeterBlock, index <= filledCount && $style.isFilled)"/>
+        </div>
+
+        <div
+            v-else
+            :class="$style.statisticsMeterBar">
             <div :class="$style.statisticsMeterBarValue"/>
         </div>
 
@@ -50,16 +62,24 @@
 <script
     lang="ts"
     setup>
+    import { useResizeObserver } from '@basmilius/common';
     import { formatPercentage } from '@basmilius/utils';
     import { FluxIcon } from '@flux-ui/components';
-    import type { FluxColor, FluxIconName } from '@flux-ui/types';
-    import { computed } from 'vue';
+    import type { FluxIconName, FluxStatisticsChartColor } from '@flux-ui/types';
+    import { clsx } from 'clsx';
+    import { computed, ref, useTemplateRef } from 'vue';
+    import { resolveChartColor } from '~flux/statistics/util';
     import $style from '~flux/statistics/css/Meter.module.scss';
 
+    const BLOCK_WIDTH = 6;
+    const BLOCK_GAP = 3;
+
     const {
-        color
+        color,
+        value,
+        variant = 'bar'
     } = defineProps<{
-        readonly color?: FluxColor | `#${string}`;
+        readonly color?: FluxStatisticsChartColor;
         readonly icon?: FluxIconName;
         readonly isSmall?: boolean;
         readonly footer?: string;
@@ -67,17 +87,19 @@
         readonly tip?: string;
         readonly title?: string;
         readonly value: number;
+        readonly variant?: 'bar' | 'blocks';
     }>();
 
-    const colorValue = computed(() => {
-        if (!color) {
-            return;
-        }
+    const blocksRef = useTemplateRef('blocks');
+    const trackWidth = ref(0);
 
-        if (['gray', 'primary', 'danger', 'info', 'success', 'warning'].includes(color)) {
-            return `var(--${color}-600)`;
-        }
+    const colorValue = computed(() => resolveChartColor(color));
 
-        return color;
+    const blockCount = computed(() => Math.max(1, Math.floor((trackWidth.value + BLOCK_GAP) / (BLOCK_WIDTH + BLOCK_GAP))));
+
+    const filledCount = computed(() => Math.max(0, Math.min(blockCount.value, Math.round(value * blockCount.value))));
+
+    useResizeObserver(blocksRef, entries => {
+        trackWidth.value = entries[0].contentRect.width;
     });
 </script>

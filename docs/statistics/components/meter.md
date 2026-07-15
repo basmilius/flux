@@ -40,6 +40,12 @@ props:
         description: The title of the meter.
         type: string
         optional: true
+
+    -   name: variant
+        description: The visual style of the meter. `bar` renders a continuous bar, `blocks` renders discrete blocks that fill the available width.
+        type: [ 'bar', 'blocks' ]
+        optional: true
+        default: bar
 ---
 
 # Meter
@@ -53,6 +59,10 @@ render=../../code/statistics/components/meter/preview.vue
 <FrontmatterDocs/>
 
 ## Examples
+
+::: example Blocks || The `blocks` variant splits the bar into discrete blocks that fill the available width.
+example=../../code/statistics/components/meter/blocks.vue
+:::
 
 ::: example Compact || Multiple compact meters grouped inside a statistics base widget.
 example=../../code/statistics/components/meter/compact.vue
