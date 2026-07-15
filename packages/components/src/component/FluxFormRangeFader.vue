@@ -7,8 +7,10 @@
             disabled && $style.isDisabled,
             isReadonly && $style.isReadonly
         )"
+        role="group"
         :style="colorVars"
         :aria-disabled="disabled ? true : undefined"
+        :aria-label="label ?? ariaLabel"
         @pointerdown="onPointerDown">
         <div
             :class="$style.formFaderTrack"
@@ -44,7 +46,7 @@
             :aria-disabled="disabled ? true : undefined"
             :aria-label="translate('flux.lowerBound')"
             :aria-readonly="isReadonly ? true : undefined"
-            :aria-valuemax="max"
+            :aria-valuemax="modelValue[1] - distance"
             :aria-valuemin="min"
             :aria-valuenow="modelValue[0]"
             :aria-valuetext="formatter(modelValue[0], decimals)"
@@ -63,7 +65,7 @@
             :aria-label="translate('flux.upperBound')"
             :aria-readonly="isReadonly ? true : undefined"
             :aria-valuemax="max"
-            :aria-valuemin="min"
+            :aria-valuemin="modelValue[0] + distance"
             :aria-valuenow="modelValue[1]"
             :aria-valuetext="formatter(modelValue[1], decimals)"
             :tabindex="disabled ? -1 : 0"
@@ -156,6 +158,7 @@
     } = defineProps<Pick<FluxFormInputBaseProps, 'disabled' | 'error' | 'isLoading' | 'isReadonly' | 'name'> & {
         formatter?(value: number, decimals?: number): string;
 
+        readonly ariaLabel?: string;
         readonly color?: FluxColor;
         readonly iconLeading?: FluxIconName;
         readonly iconTrailing?: FluxIconName;
@@ -240,9 +243,7 @@
             return [];
         }
 
-        const count = Math.round(unref(span) / step);
-
-        if (count <= 0 || count > 100) {
+        if (unref(span) / step > 100) {
             return [];
         }
 
@@ -255,9 +256,16 @@
 
         const marks = [];
 
-        for (let index = 1; index < count; ++index) {
+        // Walk the real step values between min and max, so a non-divisible
+        // range still places its detents at their true positions.
+        for (let index = 1; ; ++index) {
             const value = min + index * step;
-            const percent = (index / count) * 100;
+
+            if (value >= max - 1e-9) {
+                break;
+            }
+
+            const percent = ((value - min) / unref(span)) * 100;
 
             let filledOpacity: number;
             let visibility: number;

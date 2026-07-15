@@ -200,9 +200,7 @@
             return [];
         }
 
-        const count = Math.round(unref(span) / step);
-
-        if (count <= 0 || count > 100) {
+        if (unref(span) / step > 100) {
             return [];
         }
 
@@ -212,9 +210,16 @@
 
         const marks = [];
 
-        for (let index = 1; index < count; ++index) {
+        // Walk the real step values between min and max, so a non-divisible
+        // range still places its detents at their true positions.
+        for (let index = 1; ; ++index) {
             const value = min + index * step;
-            const percent = (index / count) * 100;
+
+            if (value >= max - 1e-9) {
+                break;
+            }
+
+            const percent = ((value - min) / unref(span)) * 100;
 
             let filledOpacity: number;
             let visibility: number;

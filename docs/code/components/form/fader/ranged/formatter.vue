@@ -16,13 +16,13 @@
 
     const range = ref<[number, number]>([200, 800]);
 
-    function euro(value: number): string {
-        const formatter = new Intl.NumberFormat(navigator.language, {
-            currency: 'EUR',
-            maximumFractionDigits: 0,
-            style: 'currency'
-        });
+    const formatter = new Intl.NumberFormat(navigator.language, {
+        currency: 'EUR',
+        maximumFractionDigits: 0,
+        style: 'currency'
+    });
 
+    function euro(value: number): string {
         return formatter.format(value);
     }
 </script>

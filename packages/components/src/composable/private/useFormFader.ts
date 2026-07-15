@@ -168,9 +168,12 @@ export function useFormFader(options: UseFaderOptions) {
 
     function snap(value: number): number {
         const step = options.step();
-        const stepped = step > 0 ? roundStep(value, step) : value;
+        const min = options.min();
+        // Anchor the step grid at `min` so a non-zero, non-step-aligned lower
+        // bound keeps its own valid values reachable.
+        const stepped = step > 0 ? min + roundStep(value - min, step) : value;
 
-        return +Math.max(options.min(), Math.min(options.max(), stepped)).toFixed(unref(decimals));
+        return +Math.max(min, Math.min(options.max(), stepped)).toFixed(unref(decimals));
     }
 
     function isDodging(center: number): boolean {

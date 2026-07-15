@@ -85,10 +85,10 @@ export function useElasticOverdrag(options: UseElasticOverdragOptions = {}) {
             return;
         }
 
-        if (!outside) {
-            outside = true;
-            transformOrigin.value = past > 0 ? '0% 50%' : '100% 50%';
-        }
+        // Refresh the origin on every overdrag frame, not only on entry, so a
+        // jump from one edge straight to the other re-anchors to the right side.
+        outside = true;
+        transformOrigin.value = past > 0 ? '0% 50%' : '100% 50%';
 
         stop();
 

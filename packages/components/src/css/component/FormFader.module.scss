@@ -53,9 +53,11 @@
     transition: background-color 150ms var(--standard-curve);
 }
 
-@media (hover: hover) {
-    .formFader:not(.isDisabled):not(.isDragging):hover .formFaderFill {
-        background: rgb(from var(--fader-accent) r g b / .2);
+.formFader:not(.isDisabled):not(.isDragging) {
+    @include mixin.hover {
+        .formFaderFill {
+            background: rgb(from var(--fader-accent) r g b / .2);
+        }
     }
 }
 
@@ -118,7 +120,7 @@
     position: absolute;
     top: 0;
     height: 100%;
-    width: 20px;
+    width: 21px;
     padding: 0;
     background: none;
     border: 0;
