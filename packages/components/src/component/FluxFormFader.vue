@@ -116,7 +116,6 @@
     });
 
     const {
-        ariaLabel,
         color = 'primary',
         formatter = formatNumber,
         disabled: componentDisabled = false,
@@ -142,10 +141,23 @@
         readonly step?: number;
     }>();
 
-    const disabled = useDisabled(toRef(() => componentDisabled));
     const rootRef = useTemplateRef<HTMLElement>('root');
     const labelRef = useTemplateRef<HTMLElement>('label');
     const valueRef = useTemplateRef<HTMLElement>('value');
+
+    const isDragging = ref(false);
+    const isScrubbing = ref(false);
+    const focusVisible = ref(false);
+    const pointerId = ref<number | null>(null);
+
+    let dragStartX = 0;
+
+    // `animated` eases toward the committed value so the fill and the value
+    // read glide together on a snap; a live scrub feeds it instantly.
+    const animated = ref(unref(modelValue));
+    const animator = createFaderAnimator(animated);
+
+    const disabled = useDisabled(toRef(() => componentDisabled));
 
     const {
         overdrag,
@@ -175,17 +187,6 @@
         update: updateOverdrag,
         reset: resetOverdrag
     } = overdrag;
-
-    const isDragging = ref(false);
-    const isScrubbing = ref(false);
-    const focusVisible = ref(false);
-    const pointerId = ref<number | null>(null);
-    let dragStartX = 0;
-
-    // `animated` eases toward the committed value so the fill and the value
-    // read glide together on a snap; a live scrub feeds it instantly.
-    const animated = ref(unref(modelValue));
-    const animator = createFaderAnimator(animated);
 
     const showMarks = computed(() => isTicksVisible || unref(isSnappy));
 
@@ -375,5 +376,4 @@
         document.removeEventListener('pointercancel', onPointerUp);
         document.removeEventListener('pointerup', onPointerUp);
     }
-
 </script>
