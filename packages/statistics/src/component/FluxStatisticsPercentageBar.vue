@@ -6,7 +6,7 @@
         <div :class="clsx($style.statisticsPercentageBarTrack, hoveredIndex !== null && $style.isHoverActive)">
             <FluxTooltip
                 v-for="(item, index) of normalizedItems"
-                :key="index">
+                :key="item.label">
                 <template #content>
                     <div :class="$style.statisticsPercentageBarTooltip">
                         <FluxIcon

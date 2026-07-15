@@ -64,7 +64,7 @@
         minDistance = 0,
         step = 1
     } = defineProps<Pick<FluxFormInputBaseProps, 'disabled' | 'error' | 'isLoading' | 'isReadonly' | 'name'> & {
-        formatter?(value: number, decimals?: number): string;
+        readonly formatter?: (value: number, decimals?: number) => string;
 
         readonly isTicksVisible?: boolean;
         readonly isTooltipDisabled?: boolean;
@@ -74,14 +74,15 @@
         readonly step?: number;
     }>();
 
-    const disabled = useDisabled(toRef(() => componentDisabled));
     const lowerThumbRef = useTemplateRef('lowerThumb');
     const upperThumbRef = useTemplateRef('upperThumb');
-    const translate = useTranslate();
 
     const isDraggingLower = ref(false);
     const isDraggingUpper = ref(false);
     const tooltipId = ref<number | null>(null);
+
+    const disabled = useDisabled(toRef(() => componentDisabled));
+    const translate = useTranslate();
 
     const span = computed(() => max - min);
     const isRangeValid = computed(() => unref(span) > 0);
@@ -92,6 +93,28 @@
     const percentageUpper = computed(() => unref(isRangeValid) ? (unref(modelValue)[1] - min) / unref(span) : 0);
 
     const tooltipContent = computed(() => formatter(modelValue.value[isDraggingLower.value ? 0 : 1], unref(decimals)));
+
+    watch(([isDraggingLower, isDraggingUpper]), ([isDraggingLower, isDraggingUpper]) => {
+        const is = isDraggingLower || isDraggingUpper;
+
+        if (is && !tooltipId.value && !isTooltipDisabled) {
+            tooltipId.value = addTooltip({
+                content: unref(tooltipContent),
+                direction: 'vertical',
+                origin: unref(isDraggingLower ? lowerThumbRef : upperThumbRef)?.$el
+            });
+        } else if (!is && tooltipId.value) {
+            removeTooltip(tooltipId.value);
+            tooltipId.value = null;
+        }
+    });
+
+    onUnmounted(() => {
+        if (tooltipId.value) {
+            removeTooltip(tooltipId.value);
+            tooltipId.value = null;
+        }
+    });
 
     function snap(value: number): number {
         const stepped = step > 0 ? roundStep(value, step) : value;
@@ -176,26 +199,4 @@
 
         modelValue.value = [snap(lower), snap(upper)];
     }
-
-    watch(([isDraggingLower, isDraggingUpper]), ([isDraggingLower, isDraggingUpper]) => {
-        const is = isDraggingLower || isDraggingUpper;
-
-        if (is && !tooltipId.value && !isTooltipDisabled) {
-            tooltipId.value = addTooltip({
-                content: unref(tooltipContent),
-                direction: 'vertical',
-                origin: unref(isDraggingLower ? lowerThumbRef : upperThumbRef)?.$el
-            });
-        } else if (!is && tooltipId.value) {
-            removeTooltip(tooltipId.value);
-            tooltipId.value = null;
-        }
-    });
-
-    onUnmounted(() => {
-        if (tooltipId.value) {
-            removeTooltip(tooltipId.value);
-            tooltipId.value = null;
-        }
-    });
 </script>

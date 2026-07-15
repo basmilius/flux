@@ -43,10 +43,6 @@
         default(): any;
     }>();
 
-    const control = useSegmentedControlInjection();
-    const disabled = useDisabled(toRef(() => componentDisabled));
-    const itemRef = useTemplateRef<HTMLButtonElement>('item');
-
     const sizeClasses = {
         small: $style.isSmall,
         medium: $style.isMedium,
@@ -58,7 +54,11 @@
         large: 18
     };
 
+    const itemRef = useTemplateRef<HTMLButtonElement>('item');
     const isFirstEnabled = ref(false);
+
+    const control = useSegmentedControlInjection();
+    const disabled = useDisabled(toRef(() => componentDisabled));
 
     const isActive = computed(() => control.modelValue.value === value);
     const iconSize = computed(() => iconSizes[unref(control.size)]);

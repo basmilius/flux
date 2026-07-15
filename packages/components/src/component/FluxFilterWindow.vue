@@ -66,12 +66,12 @@
         readonly menuItems: (FluxFilterDefinition | VNode)[][];
     }>();
 
+    const rootRef = useTemplateRef<HTMLDivElement>('root');
+    const windowRef = useTemplateRef<{ back(to: string): void; }>('window');
+
     const {clear: clearFilter, getDefinition, getValue, reset: resetFilter} = useFilterInjection();
 
     const translate = useTranslate();
-
-    const rootRef = useTemplateRef<HTMLDivElement>('root');
-    const windowRef = useTemplateRef<{ back(to: string): void; }>('window');
 
     async function focusPanel(): Promise<void> {
         await nextTick();

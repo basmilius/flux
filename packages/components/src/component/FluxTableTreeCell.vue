@@ -40,15 +40,6 @@
     import FluxIcon from './FluxIcon.vue';
     import $style from '~flux/components/css/component/Table.module.scss';
 
-    const MARKER_COLOR_CLASS = {
-        gray: $style.treeMarkerGray,
-        primary: $style.treeMarkerPrimary,
-        danger: $style.treeMarkerDanger,
-        info: $style.treeMarkerInfo,
-        success: $style.treeMarkerSuccess,
-        warning: $style.treeMarkerWarning
-    } as const;
-
     const emit = defineEmits<{
         toggle: [];
     }>();
@@ -69,16 +60,19 @@
         default(): VNode[];
     }>();
 
+    const MARKER_COLOR_CLASS = {
+        gray: $style.treeMarkerGray,
+        primary: $style.treeMarkerPrimary,
+        danger: $style.treeMarkerDanger,
+        info: $style.treeMarkerInfo,
+        success: $style.treeMarkerSuccess,
+        warning: $style.treeMarkerWarning
+    } as const;
+
     const branch = useTemplateRef('branch');
     const translate = useTranslate();
 
     const {registerTreeNode} = useTableInjection();
-
-    // Register the branch so the table can measure it and draw this node's guide
-    // lines. Expansion state stays with the consuming application, which decides
-    // which rows are rendered.
-    const cleanup = registerTreeNode(branch, toRef(() => level));
-    onUnmounted(cleanup);
 
     const isFluxColor = computed(() => FLUX_COLORS.includes(color as FluxColor));
     const markerColorClass = computed(() => isFluxColor.value ? MARKER_COLOR_CLASS[color as FluxColor] : $style.treeMarkerCustom);
@@ -89,4 +83,10 @@
         left: `${level * TREE_STEP + (TREE_STEP - TREE_MARKER_SIZE) / 2}px`,
         ...(isFluxColor.value ? {} : {'--tree-marker-color': color})
     }));
+
+    // Register the branch so the table can measure it and draw this node's guide
+    // lines. Expansion state stays with the consuming application, which decides
+    // which rows are rendered.
+    const cleanup = registerTreeNode(branch, toRef(() => level));
+    onUnmounted(cleanup);
 </script>

@@ -140,15 +140,6 @@
         width
     }));
 
-    const unregisterColumn = registerColumn(header, columnDef);
-    onUnmounted(unregisterColumn);
-
-    function getColumnIndex(): number {
-        const element = header.value;
-
-        return element?.parentElement ? Array.prototype.indexOf.call(element.parentElement.children, element) : -1;
-    }
-
     const isPinnedEdge = computed(() => {
         if (!pinnedSide.value) {
             return false;
@@ -220,4 +211,13 @@
                 return 'arrow-up-arrow-down';
         }
     });
+
+    const unregisterColumn = registerColumn(header, columnDef);
+    onUnmounted(unregisterColumn);
+
+    function getColumnIndex(): number {
+        const element = header.value;
+
+        return element?.parentElement ? Array.prototype.indexOf.call(element.parentElement.children, element) : -1;
+    }
 </script>

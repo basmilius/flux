@@ -181,24 +181,6 @@
     import $style from '~flux/components/css/component/Calendar.module.scss';
     import $styleDatePicker from '~flux/components/css/component/DatePicker.module.scss';
 
-    const SNAP_MINUTES = 30;
-    const NAV_HOVER_INITIAL_DELAY_MS = 700;
-    const NAV_HOVER_REPEAT_DELAY_MS = 450;
-
-    const MONTH_KEY_DELTAS = {
-        left: {day: -1},
-        right: {day: 1},
-        up: {day: -7},
-        down: {day: 7}
-    } as const;
-
-    const TIME_GRID_KEY_DELTAS = {
-        left: {day: -1},
-        right: {day: 1},
-        up: {minute: -SNAP_MINUTES},
-        down: {minute: SNAP_MINUTES}
-    } as const;
-
     const emit = defineEmits<{
         navigate: [DateTime, DateTime, DateTime];
         reschedule: [{ id: string | number; fromDate: DateTime; toDate: DateTime }];
@@ -228,6 +210,35 @@
     const slots = defineSlots<{
         default?(): VNode[];
     }>();
+
+    const SNAP_MINUTES = 30;
+    const NAV_HOVER_INITIAL_DELAY_MS = 700;
+    const NAV_HOVER_REPEAT_DELAY_MS = 450;
+
+    const MONTH_KEY_DELTAS = {
+        left: {day: -1},
+        right: {day: 1},
+        up: {day: -7},
+        down: {day: 7}
+    } as const;
+
+    const TIME_GRID_KEY_DELTAS = {
+        left: {day: -1},
+        right: {day: 1},
+        up: {minute: -SNAP_MINUTES},
+        down: {minute: SNAP_MINUTES}
+    } as const;
+
+    // Items registry — items registreren zichzelf via inject.
+    const items = shallowRef<FluxCalendarItemData[]>([]);
+
+    // Drag-state.
+    const dragState = ref<{ readonly id: string | number; readonly fromDate: DateTime } | null>(null);
+    const grabbedId = ref<string | number | null>(null);
+    const monthFocusedDate = ref<DateTime | null>(null);
+    const itemElementRegistry = new WeakMap<Element, { readonly id: string | number }>();
+    const itemElementsById = new Map<string | number, Element>();
+    let navHoverTimer: ReturnType<typeof setTimeout> | null = null;
 
     const translate = useTranslate();
     const {md, lg, xl} = useBreakpoints();
@@ -306,17 +317,6 @@
         next: nextTimeGrid,
         previous: previousTimeGrid
     } = useCalendarTimeGrid(initialDate, timeGridDayCount);
-
-    // Items registry — items registreren zichzelf via inject.
-    const items = shallowRef<FluxCalendarItemData[]>([]);
-
-    // Drag-state.
-    const dragState = ref<{ readonly id: string | number; readonly fromDate: DateTime } | null>(null);
-    const grabbedId = ref<string | number | null>(null);
-    const monthFocusedDate = ref<DateTime | null>(null);
-    const itemElementRegistry = new WeakMap<Element, { readonly id: string | number }>();
-    const itemElementsById = new Map<string | number, Element>();
-    let navHoverTimer: ReturnType<typeof setTimeout> | null = null;
 
     function restoreItemFocus(id: string | number): void {
         requestAnimationFrame(() => {
@@ -648,15 +648,6 @@
         emit('dragEnd', {id: drag.id});
     }
 
-    onMounted(() => {
-        document.addEventListener('dragend', onDocumentDragEnd);
-    });
-
-    onBeforeUnmount(() => {
-        document.removeEventListener('dragend', onDocumentDragEnd);
-        cancelNavHoverTimer();
-    });
-
     // Navigate-event aggregation.
     watch([
         () => unref(resolvedView),
@@ -675,5 +666,14 @@
     watch(() => initialDate, (d) => {
         setMonthViewDateRaw(d);
         setTimeGridViewDate(d);
+    });
+
+    onMounted(() => {
+        document.addEventListener('dragend', onDocumentDragEnd);
+    });
+
+    onBeforeUnmount(() => {
+        document.removeEventListener('dragend', onDocumentDragEnd);
+        cancelNavHoverTimer();
     });
 </script>

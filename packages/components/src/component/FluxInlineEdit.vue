@@ -74,6 +74,12 @@
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import $style from '~flux/components/css/component/InlineEdit.module.scss';
 
+    const emit = defineEmits<{
+        cancel: [];
+        edit: [];
+        save: [string];
+    }>();
+
     const modelValue = defineModel<string>({
         default: ''
     });
@@ -92,18 +98,11 @@
         readonly saveOnBlur?: boolean;
     }>();
 
-    const emit = defineEmits<{
-        cancel: [];
-        edit: [];
-        save: [string];
-    }>();
-
     defineSlots<{
         actions?(props: {save(): void; cancel(): void}): VNode[];
         default?(props: {value: string; edit(): void}): VNode[];
     }>();
 
-    const disabled = useDisabled(toRef(() => componentDisabled));
     const rootRef = useTemplateRef<HTMLElement>('root');
     const displayRef = useTemplateRef<HTMLElement>('display');
     const fieldRef = useTemplateRef<{focus(): void}>('field');
@@ -111,6 +110,8 @@
     const isEditing = ref(false);
     const isCancelling = ref(false);
     const draft = ref('');
+
+    const disabled = useDisabled(toRef(() => componentDisabled));
 
     const isInteractive = computed(() => !disabled.value && !isReadonly);
 

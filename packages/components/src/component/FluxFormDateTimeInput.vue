@@ -72,13 +72,21 @@
         readonly min?: DateTime;
     }>();
 
-    const disabled = useDisabled(toRef(() => componentDisabled));
     const flyoutRef = useTemplateRef<{ close(): void; }>('flyout');
+    const disabled = useDisabled(toRef(() => componentDisabled));
 
     const localValue = useDateFlyout(modelValue, flyoutRef, {
         compareKey: value => value?.toISO(),
         transformIn: value => isHourOnly ? value?.startOf('hour') ?? null : value
     });
+
+    watch(() => isHourOnly, () => {
+        if (!isHourOnly) {
+            return;
+        }
+
+        localValue.value = unref(localValue)?.startOf('hour') ?? null;
+    }, {immediate: true});
 
     function setDate(dateTime: DateTime | object | string | number | null): void {
         if (!DateTime.isDateTime(dateTime)) {
@@ -105,12 +113,4 @@
             second: isHourOnly ? 0 : dateTime.second
         });
     }
-
-    watch(() => isHourOnly, () => {
-        if (!isHourOnly) {
-            return;
-        }
-
-        localValue.value = unref(localValue)?.startOf('hour') ?? null;
-    }, {immediate: true});
 </script>

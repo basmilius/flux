@@ -110,6 +110,21 @@
     let closeAnimationEndListener: ((evt: AnimationEvent) => void) | null = null;
     let openAnimationEndListener: ((evt: AnimationEvent) => void) | null = null;
 
+    watch(isOpen, (isOpen, _, onCleanup) => {
+        const dialog = unref(dialogRef)!;
+
+        if (isOpen && !dialog.open) {
+            dialog.showModal();
+            emit('open');
+
+            window.addEventListener('scroll', reposition, {passive: true});
+            onCleanup(() => window.removeEventListener('scroll', reposition));
+        } else if (!isOpen && dialog.open) {
+            dialog.close();
+            emit('close');
+        }
+    });
+
     onUnmounted(() => {
         const pane = unrefTemplateElement(paneRef);
 
@@ -261,21 +276,6 @@
 
         close();
     }
-
-    watch(isOpen, (isOpen, _, onCleanup) => {
-        const dialog = unref(dialogRef)!;
-
-        if (isOpen && !dialog.open) {
-            dialog.showModal();
-            emit('open');
-
-            window.addEventListener('scroll', reposition, {passive: true});
-            onCleanup(() => window.removeEventListener('scroll', reposition));
-        } else if (!isOpen && dialog.open) {
-            dialog.close();
-            emit('close');
-        }
-    });
 
     provide(FluxFlyoutInjectionKey, {
         isClosing,

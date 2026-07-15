@@ -57,12 +57,12 @@
         }
     });
 
-    onMounted(() => updateHighlight());
+    useMutationObserver(controlRef, () => updateHighlight(), {childList: true, subtree: true});
+    useResizeObserver(controlRef, () => updateHighlight());
 
     watch(modelValue, () => updateHighlight(), {flush: 'post'});
 
-    useMutationObserver(controlRef, () => updateHighlight(), {childList: true, subtree: true});
-    useResizeObserver(controlRef, () => updateHighlight());
+    onMounted(() => updateHighlight());
 
     function select(value: FluxSegmentedControlValue): void {
         modelValue.value = value;

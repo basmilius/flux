@@ -94,12 +94,25 @@
 
     // Re-read the slot on every access rather than memoising: a route-driven trail
     // swaps its items reactively and a cached VNode list would go stale.
-    const collectItems = (): VNode[] => flattenVNodeTree(slots.default?.() ?? []);
-    const startCount = (): number => collapse === 'middle' ? 1 : 0;
+    function collectItems(): VNode[] {
+        return flattenVNodeTree(slots.default?.() ?? []);
+    }
 
-    const visibleStartItems = (): VNode[] => hasCollapse.value ? collectItems().slice(0, startCount()) : collectItems();
-    const collapsedItems = (): VNode[] => hasCollapse.value ? collectItems().slice(startCount(), tailStart.value) : [];
-    const visibleEndItems = (): VNode[] => hasCollapse.value ? collectItems().slice(tailStart.value) : [];
+    function startCount(): number {
+        return collapse === 'middle' ? 1 : 0;
+    }
+
+    function visibleStartItems(): VNode[] {
+        return hasCollapse.value ? collectItems().slice(0, startCount()) : collectItems();
+    }
+
+    function collapsedItems(): VNode[] {
+        return hasCollapse.value ? collectItems().slice(startCount(), tailStart.value) : [];
+    }
+
+    function visibleEndItems(): VNode[] {
+        return hasCollapse.value ? collectItems().slice(tailStart.value) : [];
+    }
 
     const reflow = animationFrameDebounce(() => {
         if (collapse === 'none') {
@@ -181,9 +194,9 @@
         });
     }, {immediate: true});
 
+    watch(() => collapse, reflow);
+
     // A changed trail (added/removed/reordered items) re-renders the hidden measurer
     // without necessarily resizing it, so re-run the fit after every update too.
     onUpdated(reflow);
-
-    watch(() => collapse, reflow);
 </script>

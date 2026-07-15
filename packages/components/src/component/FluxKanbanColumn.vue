@@ -105,10 +105,10 @@
         footer?(): any;
     }>();
 
-    const kanban = useKanbanInjection();
     const root = useTemplateRef('root');
     const header = useTemplateRef('header');
     const body = useTemplateRef('body');
+    const kanban = useKanbanInjection();
     const slots = useSlots();
 
     const disabledState = useDisabled(toRef(() => disabled));
@@ -166,6 +166,39 @@
     });
 
     const hasFooter = computed(() => !!slots.footer);
+
+    watch(() => columnId, (newId, oldId) => {
+        if (oldId !== undefined) {
+            kanban.setColumnBodyElement(oldId, null);
+        }
+
+        if (root.value) {
+            kanban.unregisterColumn(root.value);
+            kanban.registerColumn(root.value, newId);
+        }
+
+        if (body.value) {
+            kanban.setColumnBodyElement(newId, body.value);
+        }
+    });
+
+    onMounted(() => {
+        if (root.value) {
+            kanban.registerColumn(root.value, columnId);
+        }
+
+        if (body.value) {
+            kanban.setColumnBodyElement(columnId, body.value);
+        }
+    });
+
+    onBeforeUnmount(() => {
+        if (root.value) {
+            kanban.unregisterColumn(root.value);
+        }
+
+        kanban.setColumnBodyElement(columnId, null);
+    });
 
     function onDragEnter(): void {
         kanban.enterColumn(columnId);
@@ -309,37 +342,4 @@
             }
         }
     }
-
-    onMounted(() => {
-        if (root.value) {
-            kanban.registerColumn(root.value, columnId);
-        }
-
-        if (body.value) {
-            kanban.setColumnBodyElement(columnId, body.value);
-        }
-    });
-
-    onBeforeUnmount(() => {
-        if (root.value) {
-            kanban.unregisterColumn(root.value);
-        }
-
-        kanban.setColumnBodyElement(columnId, null);
-    });
-
-    watch(() => columnId, (newId, oldId) => {
-        if (oldId !== undefined) {
-            kanban.setColumnBodyElement(oldId, null);
-        }
-
-        if (root.value) {
-            kanban.unregisterColumn(root.value);
-            kanban.registerColumn(root.value, newId);
-        }
-
-        if (body.value) {
-            kanban.setColumnBodyElement(newId, body.value);
-        }
-    });
 </script>

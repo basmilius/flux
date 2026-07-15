@@ -128,6 +128,32 @@
 
     const hasActions = computed(() => actions && Object.entries(actions).length > 0);
 
+    watchEffect(() => {
+        if (!id.value) {
+            return;
+        }
+
+        updateSnackbar(id.value, buildSpec());
+    });
+
+    watch(() => isRendered, () => {
+        if (isRendered) {
+            if (id.value) {
+                removeSnackbar(id.value);
+            }
+
+            return;
+        }
+
+        id.value = addSnackbar(buildSpec());
+    }, {immediate: true});
+
+    onBeforeUnmount(() => {
+        if (id.value) {
+            removeSnackbar(id.value);
+        }
+    });
+
     function onMouseEnter(): void {
         if (storeId != null) {
             pauseSnackbar(storeId);
@@ -139,12 +165,6 @@
             resumeSnackbar(storeId);
         }
     }
-
-    onBeforeUnmount(() => {
-        if (id.value) {
-            removeSnackbar(id.value);
-        }
-    });
 
     function onAction(actionKey: string): void {
         emit('action', actionKey);
@@ -174,24 +194,4 @@
             onClose
         };
     }
-
-    watchEffect(() => {
-        if (!id.value) {
-            return;
-        }
-
-        updateSnackbar(id.value, buildSpec());
-    });
-
-    watch(() => isRendered, () => {
-        if (isRendered) {
-            if (id.value) {
-                removeSnackbar(id.value);
-            }
-
-            return;
-        }
-
-        id.value = addSnackbar(buildSpec());
-    }, {immediate: true});
 </script>

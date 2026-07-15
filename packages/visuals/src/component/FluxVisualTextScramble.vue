@@ -22,6 +22,10 @@
         fixed: boolean;
     };
 
+    const emit = defineEmits<{
+        finished: [];
+    }>();
+
     const {
         text,
         characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
@@ -38,10 +42,6 @@
         readonly stagger?: number;
     }>();
 
-    const emit = defineEmits<{
-        finished: [];
-    }>();
-
     // Rendered once for SSR / first paint only. The engine owns the span's text
     // after mount, so this must NOT be reactive - a reactive {{ text }} would make
     // Vue re-patch the text node every frame and wipe the scramble. The accessible
@@ -52,6 +52,10 @@
 
     let frame = 0;
     let currentText = text;
+
+    watch(() => text, value => set(value));
+
+    onBeforeUnmount(cancel);
 
     function cancel(): void {
         if (frame) {
@@ -156,10 +160,6 @@
 
         scramble(element, currentText, currentText, true);
     }
-
-    watch(() => text, value => set(value));
-
-    onBeforeUnmount(cancel);
 
     defineExpose({
         replay,

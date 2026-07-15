@@ -48,6 +48,62 @@
 
     const CUBIC_BEZIER_PATTERN = /^cubic-bezier\(\s*([-\d.]+)\s*,\s*([-\d.]+)\s*,\s*([-\d.]+)\s*,\s*([-\d.]+)\s*\)$/;
 
+    // Fallback for an unrecognised easing value, matching the --swift-out default.
+    const swiftOutEasing = cubicBezier(0.55, 0, 0.1, 1);
+
+    const labelRef = useTemplateRef('label');
+
+    let frame = 0;
+    let current = animateOnMount ? 0 : value;
+
+    // Resolve the easing prop to a plain (t) => number function the tween can
+    // sample: functions pass through, keywords map to the table above and a
+    // cubic-bezier(...) string is parsed into a solver, falling back to swift-out.
+    const easingFunction = computed<NumberFlowEasingFunction>(() => {
+        if (typeof easing === 'function') {
+            return easing;
+        }
+
+        const keyword = EASINGS[easing as NumberFlowEasingKeyword];
+
+        if (keyword) {
+            return keyword;
+        }
+
+        return parseCubicBezier(easing) ?? swiftOutEasing;
+    });
+
+    // Default to whole numbers so a mid-tween value never sprouts stray decimals.
+    // Currency, percentage and fractional displays opt in through `format`.
+    const formatter = computed(() => new Intl.NumberFormat(locale, format ?? {maximumFractionDigits: 0}));
+
+    // Rendered once for SSR / first paint only. The engine owns the span's text
+    // after mount, so this must NOT be reactive - a reactive {{ value }} would make
+    // Vue re-patch the text node every frame and wipe the tween. The accessible
+    // name stays current through the reactive :aria-label binding.
+    const initialText = formatter.value.format(animateOnMount ? 0 : value);
+
+    // Screen readers always read the final, settled value rather than the
+    // intermediate frames streaming past on screen.
+    const accessibleValue = computed(() => formatter.value.format(value));
+
+    // Tween from wherever the display currently sits, so a value that changes
+    // mid-tween keeps rolling smoothly instead of jumping.
+    watch(() => value, next => tween(current, next));
+
+    // Re-render in place when the locale or format changes.
+    watch(formatter, () => render(current));
+
+    onMounted(() => {
+        if (animateOnMount) {
+            tween(0, value);
+        } else {
+            render(value);
+        }
+    });
+
+    onBeforeUnmount(cancel);
+
     // Evaluate a cubic-bezier(x1, y1, x2, y2) timing function in JS. The control
     // points describe x(t) and y(t); for a given progress we need y at the t where
     // x(t) === progress. x is solved with Newton-Raphson and a bisection fallback,
@@ -132,45 +188,6 @@
         return cubicBezier(Number(match[1]), Number(match[2]), Number(match[3]), Number(match[4]));
     }
 
-    // Fallback for an unrecognised easing value, matching the --swift-out default.
-    const swiftOutEasing = cubicBezier(0.55, 0, 0.1, 1);
-
-    // Resolve the easing prop to a plain (t) => number function the tween can
-    // sample: functions pass through, keywords map to the table above and a
-    // cubic-bezier(...) string is parsed into a solver, falling back to swift-out.
-    const easingFunction = computed<NumberFlowEasingFunction>(() => {
-        if (typeof easing === 'function') {
-            return easing;
-        }
-
-        const keyword = EASINGS[easing as NumberFlowEasingKeyword];
-
-        if (keyword) {
-            return keyword;
-        }
-
-        return parseCubicBezier(easing) ?? swiftOutEasing;
-    });
-
-    // Default to whole numbers so a mid-tween value never sprouts stray decimals.
-    // Currency, percentage and fractional displays opt in through `format`.
-    const formatter = computed(() => new Intl.NumberFormat(locale, format ?? {maximumFractionDigits: 0}));
-
-    // Rendered once for SSR / first paint only. The engine owns the span's text
-    // after mount, so this must NOT be reactive - a reactive {{ value }} would make
-    // Vue re-patch the text node every frame and wipe the tween. The accessible
-    // name stays current through the reactive :aria-label binding.
-    const initialText = formatter.value.format(animateOnMount ? 0 : value);
-
-    // Screen readers always read the final, settled value rather than the
-    // intermediate frames streaming past on screen.
-    const accessibleValue = computed(() => formatter.value.format(value));
-
-    const labelRef = useTemplateRef('label');
-
-    let frame = 0;
-    let current = animateOnMount ? 0 : value;
-
     function render(next: number): void {
         current = next;
 
@@ -215,21 +232,4 @@
 
         frame = requestAnimationFrame(step);
     }
-
-    onMounted(() => {
-        if (animateOnMount) {
-            tween(0, value);
-        } else {
-            render(value);
-        }
-    });
-
-    // Tween from wherever the display currently sits, so a value that changes
-    // mid-tween keeps rolling smoothly instead of jumping.
-    watch(() => value, next => tween(current, next));
-
-    // Re-render in place when the locale or format changes.
-    watch(formatter, () => render(current));
-
-    onBeforeUnmount(cancel);
 </script>

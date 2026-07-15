@@ -89,11 +89,13 @@
     setup>
     import { FluxBadge } from '@flux-ui/components';
     import { clsx } from 'clsx';
-    import { computed, onBeforeUnmount, onMounted, provide, ref, toRef, watch, type CSSProperties } from 'vue';
+    import { computed, onBeforeUnmount, onMounted, provide, ref, toRef, useTemplateRef, watch, type CSSProperties } from 'vue';
     import { useFlowController } from '~flux/flow/composable/private';
     import { FluxFlowInjectionKey, type FluxFlowViewport } from '~flux/flow/data';
     import $style from '~flux/flow/css/component/Flow.module.scss';
     import $edge from '~flux/flow/css/component/FlowConnection.module.scss';
+
+    const viewport = defineModel<FluxFlowViewport>('viewport');
 
     const {
         background = 'none',
@@ -103,8 +105,7 @@
         minZoom = 0.4,
         maxZoom = 2,
         zoomStep = 0.2,
-        gridSize = 24,
-        viewport: viewportProp
+        gridSize = 24
     } = defineProps<{
         readonly background?: 'dots' | 'grid' | 'none';
         readonly interactive?: boolean;
@@ -114,11 +115,6 @@
         readonly maxZoom?: number;
         readonly zoomStep?: number;
         readonly gridSize?: number;
-        readonly viewport?: FluxFlowViewport;
-    }>();
-
-    const emit = defineEmits<{
-        'update:viewport': [FluxFlowViewport];
     }>();
 
     defineSlots<{
@@ -128,7 +124,19 @@
     // Room reserved above the top row for a card's floating badge, so `padding`
     // can default to 0 without clipping badges.
     const BADGE_ROOM = 42;
-    const topPadding = () => Math.max(padding, BADGE_ROOM);
+
+    // A press that lands on an interactive control inside a card must keep its own
+    // click: starting a pan captures the pointer and would swallow it. Opt any other
+    // content out of panning with a `data-nopan` attribute.
+    const NO_PAN_SELECTOR = 'a, button, input, select, textarea, label, [role="button"], [role="switch"], [contenteditable], [data-nopan]';
+
+    const clip = useTemplateRef<HTMLElement>('clip');
+    const isPanning = ref(false);
+    const isReady = ref(false);
+    const hoveredEdge = ref<number | null>(null);
+
+    let lastPointer: { x: number; y: number } | null = null;
+    let initialFrame = 0;
 
     const controller = useFlowController({
         isStatic: toRef(() => !interactive),
@@ -139,19 +147,6 @@
     });
 
     provide(FluxFlowInjectionKey, controller);
-
-    const clip = ref<HTMLElement | null>(null);
-    const isPanning = ref(false);
-    const isReady = ref(false);
-    const hoveredEdge = ref<number | null>(null);
-
-    let lastPointer: { x: number; y: number } | null = null;
-    let initialFrame = 0;
-
-    // A press that lands on an interactive control inside a card must keep its own
-    // click: starting a pan captures the pointer and would swallow it. Opt any other
-    // content out of panning with a `data-nopan` attribute.
-    const NO_PAN_SELECTOR = 'a, button, input, select, textarea, label, [role="button"], [role="switch"], [contenteditable], [data-nopan]';
 
     const edgeList = computed(() => Array.from(controller.edges.values()));
 
@@ -214,8 +209,68 @@
             : '0 0'
     }));
 
-    const sameViewport = (a: FluxFlowViewport | undefined, b: FluxFlowViewport | undefined): boolean =>
-        !!a && !!b && a.x === b.x && a.y === b.y && a.zoom === b.zoom;
+    watch(viewport, value => {
+        if (value && !sameViewport(value, controller.viewport.value)) {
+            controller.setViewport(value);
+        }
+    }, {deep: true});
+
+    watch(controller.viewport, value => {
+        if (!sameViewport(value, viewport.value)) {
+            viewport.value = value;
+        }
+    });
+
+    onMounted(() => {
+        controller.setClipElement(clip.value);
+
+        // Natural layout drives its own view through worldStyle; only an interactive
+        // viewport needs an initial view.
+        if (!interactive) {
+            return;
+        }
+
+        if (viewport.value) {
+            controller.setViewport(viewport.value);
+            initialFrame = requestAnimationFrame(() => (isReady.value = true));
+            return;
+        }
+
+        initialFrame = requestAnimationFrame(() => (initialFrame = requestAnimationFrame(() => {
+            const startNode = start ? controller.getNode(start) : undefined;
+            const rect = clip.value?.getBoundingClientRect();
+
+            if (startNode && rect) {
+                // Centre the viewport on the designated start card, at 100% zoom.
+                const {x, y} = startNode.position.value;
+                const {width, height} = startNode.size.value;
+                controller.setViewport({
+                    x: rect.width / 2 - (x + width / 2),
+                    y: rect.height / 2 - (y + height / 2),
+                    zoom: 1
+                });
+            } else {
+                // Start at 100% zoom, aligned to the flow's top-left start point.
+                const bounds = controller.bounds.value;
+
+                if (bounds) {
+                    controller.setViewport({x: padding - bounds.minX, y: topPadding() - bounds.minY, zoom: 1});
+                }
+            }
+
+            initialFrame = requestAnimationFrame(() => (isReady.value = true));
+        })));
+    });
+
+    onBeforeUnmount(() => cancelAnimationFrame(initialFrame));
+
+    function topPadding(): number {
+        return Math.max(padding, BADGE_ROOM);
+    }
+
+    function sameViewport(a: FluxFlowViewport | undefined, b: FluxFlowViewport | undefined): boolean {
+        return !!a && !!b && a.x === b.x && a.y === b.y && a.zoom === b.zoom;
+    }
 
     function onPointerDown(event: PointerEvent): void {
         if (!interactive || event.button !== 0) {
@@ -263,61 +318,6 @@
         const factor = event.deltaY < 0 ? 1 + zoomStep : 1 / (1 + zoomStep);
         controller.zoomAt(event.clientX, event.clientY, factor);
     }
-
-    watch(() => viewportProp, value => {
-        if (value && !sameViewport(value, controller.viewport.value)) {
-            controller.setViewport(value);
-        }
-    }, {deep: true});
-
-    watch(controller.viewport, value => {
-        if (!sameViewport(value, viewportProp)) {
-            emit('update:viewport', value);
-        }
-    });
-
-    onMounted(() => {
-        controller.setClipElement(clip.value);
-
-        // Natural layout drives its own view through worldStyle; only an interactive
-        // viewport needs an initial view.
-        if (!interactive) {
-            return;
-        }
-
-        if (viewportProp) {
-            controller.setViewport(viewportProp);
-            initialFrame = requestAnimationFrame(() => (isReady.value = true));
-            return;
-        }
-
-        initialFrame = requestAnimationFrame(() => (initialFrame = requestAnimationFrame(() => {
-            const startNode = start ? controller.getNode(start) : undefined;
-            const rect = clip.value?.getBoundingClientRect();
-
-            if (startNode && rect) {
-                // Centre the viewport on the designated start card, at 100% zoom.
-                const {x, y} = startNode.position.value;
-                const {width, height} = startNode.size.value;
-                controller.setViewport({
-                    x: rect.width / 2 - (x + width / 2),
-                    y: rect.height / 2 - (y + height / 2),
-                    zoom: 1
-                });
-            } else {
-                // Start at 100% zoom, aligned to the flow's top-left start point.
-                const bounds = controller.bounds.value;
-
-                if (bounds) {
-                    controller.setViewport({x: padding - bounds.minX, y: topPadding() - bounds.minY, zoom: 1});
-                }
-            }
-
-            initialFrame = requestAnimationFrame(() => (isReady.value = true));
-        })));
-    });
-
-    onBeforeUnmount(() => cancelAnimationFrame(initialFrame));
 
     defineExpose({
         controller,

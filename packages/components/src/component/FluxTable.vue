@@ -172,6 +172,35 @@
 
     const fillCellCount = computed(() => unref(sortedColumns).length || fallbackColumnCount.value);
 
+    const gridTemplateColumns = computed(() => {
+        const columns = unref(sortedColumns);
+
+        if (columns.length === 0) {
+            return fallbackColumnCount.value > 0 ? `repeat(${fallbackColumnCount.value}, auto)` : 'none';
+        }
+
+        return columns
+            .map(column => {
+                if (column.width !== undefined) {
+                    return `${column.width}px`;
+                }
+
+                if (column.isShrinking) {
+                    return 'auto';
+                }
+
+                if (column.minWidth === undefined && column.maxWidth === undefined) {
+                    return '1fr';
+                }
+
+                const min = column.minWidth !== undefined ? `${column.minWidth}px` : 'auto';
+                const max = column.maxWidth !== undefined ? `${column.maxWidth}px` : '1fr';
+
+                return `minmax(${min}, ${max})`;
+            })
+            .join(' ');
+    });
+
     // The filler and empty rows are their own 1fr row tracks, so the layout
     // engine hands them the remaining height synchronously instead of a
     // measurement pass doing so a frame later. Slot presence is not reactive,
@@ -202,35 +231,6 @@
 
         return rows.length > 0 ? rows.join(' ') : undefined;
     }
-
-    const gridTemplateColumns = computed(() => {
-        const columns = unref(sortedColumns);
-
-        if (columns.length === 0) {
-            return fallbackColumnCount.value > 0 ? `repeat(${fallbackColumnCount.value}, auto)` : 'none';
-        }
-
-        return columns
-            .map(column => {
-                if (column.width !== undefined) {
-                    return `${column.width}px`;
-                }
-
-                if (column.isShrinking) {
-                    return 'auto';
-                }
-
-                if (column.minWidth === undefined && column.maxWidth === undefined) {
-                    return '1fr';
-                }
-
-                const min = column.minWidth !== undefined ? `${column.minWidth}px` : 'auto';
-                const max = column.maxWidth !== undefined ? `${column.maxWidth}px` : '1fr';
-
-                return `minmax(${min}, ${max})`;
-            })
-            .join(' ');
-    });
 
     function registerColumn(element: Readonly<Ref<HTMLElement | null>>, column: Readonly<Ref<FluxTableColumnDef>>): () => void {
         const registration: ColumnRegistration = {column, element};
@@ -418,13 +418,6 @@
         style.borderBottomRightRadius = footHeight.value > 0 ? '0' : '';
     });
 
-    // The columns registered during setup only reach the DOM with the next
-    // template patch, which lands after ancestors' mounted hooks. Write the
-    // template immediately so mounted-time measurements see the real layout.
-    onMounted(() => {
-        unref(base)?.style.setProperty('--flux-table-columns', gridTemplateColumns.value);
-    });
-
     watch(sortedColumns, () => measure());
 
     watch([base, headRef, bodyRef, footRef], ([baseEl, head, bodyEl, foot], _, onCleanup) => {
@@ -454,6 +447,13 @@
 
         onCleanup(() => observer.disconnect());
     }, {immediate: true});
+
+    // The columns registered during setup only reach the DOM with the next
+    // template patch, which lands after ancestors' mounted hooks. Write the
+    // template immediately so mounted-time measurements see the real layout.
+    onMounted(() => {
+        unref(base)?.style.setProperty('--flux-table-columns', gridTemplateColumns.value);
+    });
 
     provide(FluxTableInjectionKey, {
         activeRow,

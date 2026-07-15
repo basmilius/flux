@@ -47,6 +47,10 @@
     import FluxIcon from '../FluxIcon.vue';
     import $style from '~flux/components/css/component/primitive/TreeNode.module.scss';
 
+    defineOptions({
+        inheritAttrs: false
+    });
+
     const emit = defineEmits<{
         expandClick: [MouseEvent];
     }>();
@@ -63,10 +67,6 @@
     defineSlots<{
         trailing?(props: { node: TreeFlatNode<TOption> }): any;
     }>();
-
-    defineOptions({
-        inheritAttrs: false
-    });
 
     const dotColor = computed(() => getLevelColor(node.depth, levelColors));
 

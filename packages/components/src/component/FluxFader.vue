@@ -88,6 +88,18 @@
         }
     });
 
+    watch([isActive, () => interval], start, {immediate: true});
+
+    watch(current, value => {
+        if (value < 0 || value >= count.value) {
+            return;
+        }
+
+        emit('update', value);
+    });
+
+    onScopeDispose(stop);
+
     function next(): void {
         if (count.value === 0) {
             return;
@@ -120,16 +132,4 @@
 
         timer = setInterval(() => next(), interval);
     }
-
-    watch([isActive, () => interval], start, {immediate: true});
-
-    watch(current, value => {
-        if (value < 0 || value >= count.value) {
-            return;
-        }
-
-        emit('update', value);
-    });
-
-    onScopeDispose(stop);
 </script>

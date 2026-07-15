@@ -110,7 +110,7 @@
                             <FluxCommandPaletteItem
                                 v-for="(action, index) of subActions"
                                 :id="optionId(index)"
-                                :key="index"
+                                :key="action.label"
                                 ref="itemRefs"
                                 :icon="action.icon"
                                 :is-highlighted="highlightedIndex === index"
@@ -178,26 +178,23 @@
     import FluxTag from './FluxTag.vue';
     import $style from '~flux/components/css/component/CommandPalette.module.scss';
 
+    const emit = defineEmits<{
+        select: [item: FluxCommandSourceItem];
+    }>();
+
     const props = defineProps<{
         readonly hasKeyboardShortcut?: boolean;
         readonly placeholder?: string;
         readonly sources: FluxCommandSource[];
     }>();
 
-    const emit = defineEmits<{
-        select: [item: FluxCommandSourceItem];
-    }>();
-
-    const translate = useTranslate();
-
     const dialogRef = useTemplateRef<HTMLDivElement>('dialogRef');
     const inputRef = useTemplateRef<HTMLInputElement>('inputRef');
-    const itemRefs = ref<InstanceType<typeof FluxCommandPaletteItem>[]>();
+    const itemRefs = useTemplateRef<InstanceType<typeof FluxCommandPaletteItem>[]>('itemRefs');
 
     // Combobox wiring: the input owns the focus and points at the active option through
     // aria-activedescendant, so each rendered option needs a stable, unique id derived from this base.
     const listboxId = useId();
-    const optionId = (index: number) => `${listboxId}-option-${index}`;
 
     const isOpen = ref(false);
     const isClosing = ref(false);
@@ -206,15 +203,7 @@
 
     const dialogRegistration = ref<FluxDialogRegistration | null>(null);
 
-    const zIndexBase = computed(() => {
-        const registration = unref(dialogRegistration);
-
-        if (!registration) {
-            return null;
-        }
-
-        return 10001 + registration.getPosition() * 2;
-    });
+    const translate = useTranslate();
 
     useFocusTrap(dialogRef);
 
@@ -240,12 +229,41 @@
         itemRefs
     });
 
+    useHotKey('mod+k', () => {
+        if (unref(isOpen) && !unref(isClosing)) {
+            close();
+        } else {
+            open();
+        }
+    }, {
+        enabled: () => props.hasKeyboardShortcut
+    });
+
+    const zIndexBase = computed(() => {
+        const registration = unref(dialogRegistration);
+
+        if (!registration) {
+            return null;
+        }
+
+        return 10001 + registration.getPosition() * 2;
+    });
+
     const isExpanded = computed(() => unref(totalItems) > 0);
     const activeDescendant = computed(() => {
         const index = unref(highlightedIndex);
 
         return isExpanded.value && index >= 0 ? optionId(index) : undefined;
     });
+
+    onUnmounted(() => {
+        dialogRegistration.value?.unregister();
+        dialogRegistration.value = null;
+    });
+
+    function optionId(index: number): string {
+        return `${listboxId}-option-${index}`;
+    }
 
     function open(): void {
         pendingClose?.();
@@ -339,21 +357,6 @@
             close();
         });
     }
-
-    onUnmounted(() => {
-        dialogRegistration.value?.unregister();
-        dialogRegistration.value = null;
-    });
-
-    useHotKey('mod+k', () => {
-        if (unref(isOpen) && !unref(isClosing)) {
-            close();
-        } else {
-            open();
-        }
-    }, {
-        enabled: () => props.hasKeyboardShortcut
-    });
 
     defineExpose({
         close,

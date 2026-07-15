@@ -48,9 +48,9 @@
         default(): any;
     }>();
 
-    const group = useHighlighterGroupInjection();
-
     const targetRef = useTemplateRef('target');
+
+    const group = useHighlighterGroupInjection();
 
     // Standalone in-view tracking. In a group the parent owns the reveal timing,
     // so no observer is set up at all.
@@ -70,6 +70,39 @@
     let settleTimer: number | undefined;
     let shownTimer: number | undefined;
     let revealed = false;
+
+    // The annotation type is immutable, so any prop change rebuilds it from scratch.
+    watch([effectiveVariant, effectiveColor, effectiveStrokeWidth, effectiveAnimationDuration, effectiveIterations, effectivePadding, effectiveMultiline], () => build());
+
+    // Standalone reveal once the element scrolls into view (whenInView).
+    watch(inView, () => {
+        if (!group) {
+            reveal();
+        }
+    });
+
+    onMounted(() => {
+        const element = targetRef.value;
+
+        if (group && element) {
+            entry = {element, getAnnotation: () => annotation};
+            group.add(entry);
+        }
+
+        build();
+    });
+
+    onBeforeUnmount(() => {
+        if (group && entry) {
+            group.remove(entry);
+            entry = null;
+        }
+
+        window.clearTimeout(shownTimer);
+        stopSettleWatch();
+        annotation?.remove();
+        annotation = null;
+    });
 
     // rough-notation has no completion callback, so shown is emitted after the
     // draw animation's duration, or immediately when it draws without animation.
@@ -176,39 +209,6 @@
         observer.observe(element);
         observer.observe(document.body);
     }
-
-    onMounted(() => {
-        const element = targetRef.value;
-
-        if (group && element) {
-            entry = {element, getAnnotation: () => annotation};
-            group.add(entry);
-        }
-
-        build();
-    });
-
-    // The annotation type is immutable, so any prop change rebuilds it from scratch.
-    watch([effectiveVariant, effectiveColor, effectiveStrokeWidth, effectiveAnimationDuration, effectiveIterations, effectivePadding, effectiveMultiline], () => build());
-
-    // Standalone reveal once the element scrolls into view (whenInView).
-    watch(inView, () => {
-        if (!group) {
-            reveal();
-        }
-    });
-
-    onBeforeUnmount(() => {
-        if (group && entry) {
-            group.remove(entry);
-            entry = null;
-        }
-
-        window.clearTimeout(shownTimer);
-        stopSettleWatch();
-        annotation?.remove();
-        annotation = null;
-    });
 
     defineExpose({
         hide,

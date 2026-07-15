@@ -20,8 +20,6 @@
     import { useTableInjection } from '~flux/components/composable';
     import $style from '~flux/components/css/component/Table.module.scss';
 
-    const INTERACTIVE_SELECTOR = 'a, button, input, label, select, textarea, [role="button"]';
-
     const emit = defineEmits<{
         rowClick: [columnIndex: number, event: MouseEvent];
     }>();
@@ -39,6 +37,8 @@
         default(): VNode[];
     }>();
 
+    const INTERACTIVE_SELECTOR = 'a, button, input, label, select, textarea, [role="button"]';
+
     const row = useTemplateRef('row');
 
     const {activeRow} = useTableInjection();
@@ -55,17 +55,17 @@
         return activeRow.value === null || activeRow.value === row.value ? 0 : -1;
     });
 
-    onUnmounted(() => {
-        if (activeRow.value === row.value) {
-            activeRow.value = null;
-        }
-    });
-
     // Hiding the active row would leave every remaining row at tabindex -1,
     // making the table unreachable by Tab; release the roving anchor so the
     // visible rows become tab stops again (mirrors onUnmounted).
     watch(() => isHidden, hidden => {
         if (hidden && activeRow.value === row.value) {
+            activeRow.value = null;
+        }
+    });
+
+    onUnmounted(() => {
+        if (activeRow.value === row.value) {
             activeRow.value = null;
         }
     });

@@ -82,12 +82,6 @@
         return column.value?.pinned ?? null;
     });
 
-    function getColumnIndex(): number {
-        const element = cell.value;
-
-        return element?.parentElement ? Array.prototype.indexOf.call(element.parentElement.children, element) : -1;
-    }
-
     const isPinnedEdge = computed(() => {
         if (!pinnedSide.value) {
             return false;
@@ -141,4 +135,10 @@
 
         return style;
     });
+
+    function getColumnIndex(): number {
+        const element = cell.value;
+
+        return element?.parentElement ? Array.prototype.indexOf.call(element.parentElement.children, element) : -1;
+    }
 </script>

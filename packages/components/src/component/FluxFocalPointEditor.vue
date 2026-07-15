@@ -86,15 +86,29 @@
 
     const editorRef = useTemplateRef('editor');
     const imageRef = useTemplateRef('image');
-    const translate = useTranslate();
 
     const aspectRatio = ref(1);
     const dragging = ref<[number, number] | null>(null);
     const isPreviewing = ref(false);
     const pointerId = ref<number | null>(null);
 
+    const translate = useTranslate();
+
     const focalPointX = computed(() => unref(dragging) ? unref(dragging)![0] : unref(modelValue)[0]);
     const focalPointY = computed(() => unref(dragging) ? unref(dragging)![1] : unref(modelValue)[1]);
+
+    watch(() => src, async () => {
+        isPreviewing.value = false;
+        aspectRatio.value = 1;
+
+        await nextTick();
+
+        const image = unref(imageRef);
+
+        if (image?.complete) {
+            updateAspectRatio();
+        }
+    });
 
     onMounted(() => {
         window.addEventListener('pointerup', onPointerUp, {passive: true});
@@ -221,17 +235,4 @@
     function onShowPreviewClicked(): void {
         isPreviewing.value = !isPreviewing.value;
     }
-
-    watch(() => src, async () => {
-        isPreviewing.value = false;
-        aspectRatio.value = 1;
-
-        await nextTick();
-
-        const image = unref(imageRef);
-
-        if (image?.complete) {
-            updateAspectRatio();
-        }
-    });
 </script>

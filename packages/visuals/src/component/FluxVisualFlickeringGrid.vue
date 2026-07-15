@@ -49,60 +49,6 @@
         return context.getImageData(0, 0, 1, 1).data;
     });
 
-    function draw(context: CanvasRenderingContext2D, width: number, height: number, columns: number, rows: number, squares: Float32Array, dpr: number): void {
-        context.clearRect(0, 0, width * dpr, height * dpr);
-
-        const [r, g, b] = unref(rgb);
-
-        for (let i = 0; i < columns; ++i) {
-            for (let j = 0; j < rows; ++j) {
-                const opacity = squares[i * rows + j];
-                context.fillStyle = `rgb(${r} ${g} ${b} / ${opacity})`;
-                context.fillRect(
-                    (i * (size + gap) + width / 2 - (columns / 2 * (size + gap) - gap / 2)) * dpr,
-                    (j * (size + gap) + height / 2 - (rows / 2 * (size + gap) - gap / 2)) * dpr,
-                    size * dpr,
-                    size * dpr
-                );
-            }
-        }
-    }
-
-    function setup(canvas: HTMLCanvasElement) {
-        const width = canvas.clientWidth;
-        const height = canvas.clientHeight;
-        const dpr = window.devicePixelRatio || 1;
-        canvas.width = width * dpr;
-        canvas.height = height * dpr;
-        canvas.style.width = `${width}px`;
-        canvas.style.height = `${height}px`;
-
-        const columns = Math.ceil(width / (size + gap));
-        const rows = Math.ceil(height / (size + gap));
-        const squares = new Float32Array(columns * rows);
-
-        for (let i = 0; i < squares.length; ++i) {
-            squares[i] = mulberry.next() * maxOpacity;
-        }
-
-        return {
-            width,
-            height,
-            columns,
-            rows,
-            squares,
-            dpr
-        };
-    }
-
-    function tick(squares: Float32Array, delta: number): void {
-        for (let i = 0; i < squares.length; ++i) {
-            if (mulberry.next() < flickerChance * delta) {
-                squares[i] = mulberry.next() * maxOpacity;
-            }
-        }
-    }
-
     watch([canvasRef, inView], ([canvas, inView], _, onCleanup) => {
         if (!canvas || !inView) {
             return;
@@ -156,4 +102,58 @@
             cancelAnimationFrame(frame);
         });
     }, {immediate: true});
+
+    function draw(context: CanvasRenderingContext2D, width: number, height: number, columns: number, rows: number, squares: Float32Array, dpr: number): void {
+        context.clearRect(0, 0, width * dpr, height * dpr);
+
+        const [r, g, b] = unref(rgb);
+
+        for (let i = 0; i < columns; ++i) {
+            for (let j = 0; j < rows; ++j) {
+                const opacity = squares[i * rows + j];
+                context.fillStyle = `rgb(${r} ${g} ${b} / ${opacity})`;
+                context.fillRect(
+                    (i * (size + gap) + width / 2 - (columns / 2 * (size + gap) - gap / 2)) * dpr,
+                    (j * (size + gap) + height / 2 - (rows / 2 * (size + gap) - gap / 2)) * dpr,
+                    size * dpr,
+                    size * dpr
+                );
+            }
+        }
+    }
+
+    function setup(canvas: HTMLCanvasElement) {
+        const width = canvas.clientWidth;
+        const height = canvas.clientHeight;
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+
+        const columns = Math.ceil(width / (size + gap));
+        const rows = Math.ceil(height / (size + gap));
+        const squares = new Float32Array(columns * rows);
+
+        for (let i = 0; i < squares.length; ++i) {
+            squares[i] = mulberry.next() * maxOpacity;
+        }
+
+        return {
+            width,
+            height,
+            columns,
+            rows,
+            squares,
+            dpr
+        };
+    }
+
+    function tick(squares: Float32Array, delta: number): void {
+        for (let i = 0; i < squares.length; ++i) {
+            if (mulberry.next() < flickerChance * delta) {
+                squares[i] = mulberry.next() * maxOpacity;
+            }
+        }
+    }
 </script>

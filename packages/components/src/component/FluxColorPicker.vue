@@ -167,8 +167,6 @@
         readonly type?: 'hex' | 'rgb' | 'hsl' | 'hsv';
     }>();
 
-    const translate = useTranslate();
-
     const hexInput = ref('');
     const hsv = ref<[number, number, number]>([0, 0, 0]);
     const isDragging = ref(false);
@@ -178,34 +176,13 @@
     // feedback loop with rounding drift.
     let lastEmitted: string | null = null;
 
+    const translate = useTranslate();
+
     const rgb = computed(() => {
         const [r, g, b] = hsvToRGB(...unref(hsv));
 
         return `rgb(${r} ${g} ${b} / ${unref(alpha)})`;
     });
-
-    function clampByte(value: number): number {
-        return Math.max(0, Math.min(255, Math.round(value)));
-    }
-
-    function alphaToHex(value: number): string {
-        return clampByte(value * 255).toString(16).padStart(2, '0');
-    }
-
-    function hsvToHex(hsv: [number, number, number]): string {
-        const hex = rgbToHEX(...hsvToRGB(...hsv));
-
-        return isAlphaEnabled ? hex + alphaToHex(unref(alpha)) : hex;
-    }
-
-    function expandHex(hex: string): string {
-        // Expand shorthand (#rgb / #rgba) to full form (#rrggbb / #rrggbbaa).
-        if (hex.length === 4 || hex.length === 5) {
-            return '#' + hex.slice(1).split('').map(char => char + char).join('');
-        }
-
-        return hex;
-    }
 
     const hue = computed({
         get: () => unref(hsv)[0] * 360,
@@ -247,39 +224,6 @@
     const rgbInputR = generateComputedInput(0, hsvToRGB, rgbToHSV);
     const rgbInputG = generateComputedInput(1, hsvToRGB, rgbToHSV);
     const rgbInputB = generateComputedInput(2, hsvToRGB, rgbToHSV);
-
-    function onDragging(is: boolean): void {
-        isDragging.value = is;
-    }
-
-    function onHexBlur(): void {
-        const hex = unref(hexInput).trim();
-
-        if (/^#(?:[0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(hex)) {
-            const expanded = expandHex(hex);
-
-            hsv.value = rgbToHSV(...hexToRGB(expanded.slice(0, 7)));
-
-            if (isAlphaEnabled && expanded.length === 9) {
-                alpha.value = parseInt(expanded.slice(7, 9), 16) / 255;
-            }
-
-            hexInput.value = hsvToHex(unref(hsv));
-        } else {
-            hexInput.value = hsvToHex(unref(hsv));
-        }
-    }
-
-    function generateComputedInput(index: number, fromHSV?: (a: number, b: number, c: number) => [number, number, number], toHSV?: (a: number, b: number, c: number) => [number, number, number]): ComputedRef<number> {
-        return computed({
-            get: () => fromHSV?.(...unref(hsv))[index] ?? unref(hsv)[index],
-            set: value => {
-                const values: [number, number, number] = [...(fromHSV?.(...unref(hsv)) ?? unref(hsv))];
-                values[index] = value;
-                hsv.value = toHSV?.(...values) ?? values;
-            }
-        });
-    }
 
     watch(modelValue, (modelValue, oldModelValue) => {
         if (unref(isDragging)) {
@@ -349,4 +293,60 @@
         lastEmitted = JSON.stringify(next);
         modelValue.value = next;
     });
+
+    function clampByte(value: number): number {
+        return Math.max(0, Math.min(255, Math.round(value)));
+    }
+
+    function alphaToHex(value: number): string {
+        return clampByte(value * 255).toString(16).padStart(2, '0');
+    }
+
+    function hsvToHex(hsv: [number, number, number]): string {
+        const hex = rgbToHEX(...hsvToRGB(...hsv));
+
+        return isAlphaEnabled ? hex + alphaToHex(unref(alpha)) : hex;
+    }
+
+    function expandHex(hex: string): string {
+        // Expand shorthand (#rgb / #rgba) to full form (#rrggbb / #rrggbbaa).
+        if (hex.length === 4 || hex.length === 5) {
+            return '#' + hex.slice(1).split('').map(char => char + char).join('');
+        }
+
+        return hex;
+    }
+
+    function onDragging(is: boolean): void {
+        isDragging.value = is;
+    }
+
+    function onHexBlur(): void {
+        const hex = unref(hexInput).trim();
+
+        if (/^#(?:[0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(hex)) {
+            const expanded = expandHex(hex);
+
+            hsv.value = rgbToHSV(...hexToRGB(expanded.slice(0, 7)));
+
+            if (isAlphaEnabled && expanded.length === 9) {
+                alpha.value = parseInt(expanded.slice(7, 9), 16) / 255;
+            }
+
+            hexInput.value = hsvToHex(unref(hsv));
+        } else {
+            hexInput.value = hsvToHex(unref(hsv));
+        }
+    }
+
+    function generateComputedInput(index: number, fromHSV?: (a: number, b: number, c: number) => [number, number, number], toHSV?: (a: number, b: number, c: number) => [number, number, number]): ComputedRef<number> {
+        return computed({
+            get: () => fromHSV?.(...unref(hsv))[index] ?? unref(hsv)[index],
+            set: value => {
+                const values: [number, number, number] = [...(fromHSV?.(...unref(hsv)) ?? unref(hsv))];
+                values[index] = value;
+                hsv.value = toHSV?.(...values) ?? values;
+            }
+        });
+    }
 </script>

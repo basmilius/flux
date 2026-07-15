@@ -108,14 +108,24 @@
     }>();
 
     const contentRef = useTemplateRef('content');
-    const disabled = useDisabled(toRef(() => componentDisabled));
-    const translate = useTranslate();
 
     const isDragging = ref(false);
     const isDraggingOver = ref(false);
     const pathLength = ref(0);
 
     let dragDepth = 0;
+
+    const disabled = useDisabled(toRef(() => componentDisabled));
+    const translate = useTranslate();
+
+    watch(contentRef, content => {
+        if (!content) {
+            return;
+        }
+
+        const {width, height} = content.getBoundingClientRect();
+        pathLength.value = roundStep(width * 2 + height * 2, 6);
+    }, {immediate: true});
 
     onMounted(() => {
         window.addEventListener('dragleave', onWindowDragEnd, {capture: true});
@@ -287,13 +297,4 @@
         input.addEventListener('change', onFileSelected, {once: true});
         input.showPicker();
     }
-
-    watch(contentRef, content => {
-        if (!content) {
-            return;
-        }
-
-        const {width, height} = content.getBoundingClientRect();
-        pathLength.value = roundStep(width * 2 + height * 2, 6);
-    }, {immediate: true});
 </script>

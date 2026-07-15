@@ -67,11 +67,33 @@
         readonly step?: number;
     }>();
 
-    const disabled = useDisabled(toRef(() => componentDisabled));
     const inputRef = useTemplateRef('input');
+    const width = ref(0);
+
+    const disabled = useDisabled(toRef(() => componentDisabled));
     const translate = useTranslate();
 
-    const width = ref(0);
+    watch(modelValue, value => {
+        if (typeof value !== 'number' || isNaN(value)) {
+            modelValue.value = min;
+            return;
+        }
+
+        const clamped = clamp(value);
+
+        if (clamped !== value) {
+            modelValue.value = clamped;
+            return;
+        }
+
+        sizeToContent();
+    }, {immediate: true});
+
+    // The immediate watch above runs during setup, before the <input> is mounted, so its sizeToContent()
+    // call bails on a null ref. Size once more after mount so the input has the correct width on pageload.
+    onMounted(() => {
+        sizeToContent();
+    });
 
     function clamp(value: number): number {
         return Math.min(max, Math.max(min, value));
@@ -127,26 +149,4 @@
             width.value = Math.max(51, input.scrollWidth + 30);
         });
     }
-
-    watch(modelValue, value => {
-        if (typeof value !== 'number' || isNaN(value)) {
-            modelValue.value = min;
-            return;
-        }
-
-        const clamped = clamp(value);
-
-        if (clamped !== value) {
-            modelValue.value = clamped;
-            return;
-        }
-
-        sizeToContent();
-    }, {immediate: true});
-
-    // The immediate watch above runs during setup, before the <input> is mounted, so its sizeToContent()
-    // call bails on a null ref. Size once more after mount so the input has the correct width on pageload.
-    onMounted(() => {
-        sizeToContent();
-    });
 </script>

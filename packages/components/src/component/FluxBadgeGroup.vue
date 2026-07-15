@@ -100,6 +100,11 @@
             });
     }
 
-    const renderStart = () => renderBadges(slots.start?.());
-    const renderEnd = () => renderBadges(slots.end?.());
+    function renderStart(): VNode[] {
+        return renderBadges(slots.start?.());
+    }
+
+    function renderEnd(): VNode[] {
+        return renderBadges(slots.end?.());
+    }
 </script>

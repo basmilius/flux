@@ -51,6 +51,23 @@
         width: null as number | null
     });
 
+    useMutationObserver(popupRef, () => {
+        reposition();
+    }, {childList: true, subtree: true});
+
+    watchEffect(() => {
+        if (!anchor || (!isHtmlElement(anchor) && !anchor.$el)) {
+            return;
+        }
+
+        anchorRef.value = isHtmlElement(anchor) ? anchor : anchor.$el;
+
+        requestAnimationFrame(() => {
+            requestAnimationFrame(resize);
+            requestAnimationFrame(reposition);
+        });
+    });
+
     onMounted(() => {
         window.addEventListener('resize', onResize, {passive: true});
         window.addEventListener('scroll', onScroll, {capture: true, passive: true});
@@ -63,10 +80,6 @@
         window.removeEventListener('resize', onResize);
         window.removeEventListener('scroll', onScroll, {capture: true});
     });
-
-    useMutationObserver(popupRef, () => {
-        reposition();
-    }, {childList: true, subtree: true});
 
     function reposition(): void {
         const anchor = unref(anchorRef);
@@ -210,18 +223,5 @@
     defineExpose({
         reposition,
         resize
-    });
-
-    watchEffect(() => {
-        if (!anchor || (!isHtmlElement(anchor) && !anchor.$el)) {
-            return;
-        }
-
-        anchorRef.value = isHtmlElement(anchor) ? anchor : anchor.$el;
-
-        requestAnimationFrame(() => {
-            requestAnimationFrame(resize);
-            requestAnimationFrame(reposition);
-        });
     });
 </script>

@@ -32,14 +32,13 @@
     }>();
 
     const canvasRef = useTemplateRef('canvas');
-    const componentId = useComponentId();
-    const inView = useInView(canvasRef, {initial: true});
-
     const contextRef = ref<CanvasRenderingContext2D>();
     const animationFrame = ref(0);
     const tick = ref(0);
     const size = ref<{ width: number; height: number; } | null>(null);
 
+    const componentId = useComponentId();
+    const inView = useInView(canvasRef, {initial: true});
     const reducedMotion = prefersReducedMotion();
 
     const polygons = computed(() => {
@@ -71,6 +70,45 @@
 
         return polygons;
     });
+
+    watch(canvasRef, (canvas, _, onCleanup) => {
+        if (!canvas) {
+            contextRef.value = undefined;
+            size.value = null;
+            return;
+        }
+
+        contextRef.value = canvas.getContext('2d', {
+            alpha: true,
+            colorSpace: 'display-p3'
+        })!;
+
+        if (typeof ResizeObserver === 'undefined') {
+            size.value = {width: canvas.offsetWidth, height: canvas.offsetHeight};
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            return;
+        }
+
+        const observer = new ResizeObserver(() => {
+            const width = canvas.offsetWidth;
+            const height = canvas.offsetHeight;
+
+            if (!width || !height || (size.value?.width === width && size.value?.height === height)) {
+                return;
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            size.value = {width, height};
+        });
+
+        observer.observe(canvas);
+
+        onCleanup(() => observer.disconnect());
+    }, {immediate: true});
+
+    watch([polygons, () => opacity, size, inView], () => restart());
 
     onBeforeUnmount(() => cancel());
 
@@ -145,43 +183,4 @@
 
         schedule();
     }
-
-    watch(canvasRef, (canvas, _, onCleanup) => {
-        if (!canvas) {
-            contextRef.value = undefined;
-            size.value = null;
-            return;
-        }
-
-        contextRef.value = canvas.getContext('2d', {
-            alpha: true,
-            colorSpace: 'display-p3'
-        })!;
-
-        if (typeof ResizeObserver === 'undefined') {
-            size.value = {width: canvas.offsetWidth, height: canvas.offsetHeight};
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-            return;
-        }
-
-        const observer = new ResizeObserver(() => {
-            const width = canvas.offsetWidth;
-            const height = canvas.offsetHeight;
-
-            if (!width || !height || (size.value?.width === width && size.value?.height === height)) {
-                return;
-            }
-
-            canvas.width = width;
-            canvas.height = height;
-            size.value = {width, height};
-        });
-
-        observer.observe(canvas);
-
-        onCleanup(() => observer.disconnect());
-    }, {immediate: true});
-
-    watch([polygons, () => opacity, size, inView], () => restart());
 </script>

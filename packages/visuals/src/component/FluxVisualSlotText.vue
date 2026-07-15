@@ -82,13 +82,35 @@
     let revertTimeout: number | undefined;
     let restingText: string | undefined;
 
-    const glyph = (char: string): string => char === ' ' ? NBSP : char;
+    watch(() => text, value => set(value));
+
+    onMounted(() => {
+        const element = labelRef.value;
+
+        if (element) {
+            buildSlotText(element, text);
+        }
+    });
+
+    onBeforeUnmount(() => {
+        window.clearTimeout(revertTimeout);
+
+        const element = labelRef.value;
+
+        if (element) {
+            clearSlotText(element, text);
+        }
+    });
+
+    function glyph(char: string): string {
+        return char === ' ' ? NBSP : char;
+    }
 
     // Sweep the hue across the line so the roll lands as a chromatic spectrum.
-    const chromaticColor = (index: number, total: number): string => {
+    function chromaticColor(index: number, total: number): string {
         const t = total <= 1 ? 0 : index / (total - 1);
         return `hsl(${(t * 320) % 360} 92% 60%)`;
-    };
+    }
 
     function baseOptions(): AnimateOptions {
         return {
@@ -429,26 +451,6 @@
             }
         }, revertAfter);
     }
-
-    onMounted(() => {
-        const element = labelRef.value;
-
-        if (element) {
-            buildSlotText(element, text);
-        }
-    });
-
-    watch(() => text, value => set(value));
-
-    onBeforeUnmount(() => {
-        window.clearTimeout(revertTimeout);
-
-        const element = labelRef.value;
-
-        if (element) {
-            clearSlotText(element, text);
-        }
-    });
 
     defineExpose({
         flash,

@@ -39,14 +39,17 @@
         readonly variant?: FluxStatisticsLegendVariant;
     }>();
 
+    const listRef = useTemplateRef('list');
+
     const slots = useSlots();
     const legendContext = inject(FluxStatisticsChartLegendInjectionKey, null);
-    const listRef = useTemplateRef('list');
 
     // One tab stop for the whole legend; arrow keys move focus between items. Bidirectional handles
     // every layout (detailed column, compact row/wrap/column) since it resolves the next item
     // geometrically. Focusing an item drives the same hover sync as the mouse.
     useFocusZone(listRef, {direction: 'bidirectional'});
+
+    provide(FluxStatisticsLegendVariantInjectionKey, toRef(() => variant));
 
     const autoItems = computed(() => legendContext?.items.value ?? []);
 
@@ -57,8 +60,6 @@
 
         return $style.statisticsLegend;
     });
-
-    provide(FluxStatisticsLegendVariantInjectionKey, toRef(() => variant));
 
     function onItemMouseEnter(index: number): void {
         if (legendContext) {

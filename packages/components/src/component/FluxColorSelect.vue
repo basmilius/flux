@@ -86,12 +86,22 @@
         readonly isCustomAllowed?: boolean;
     }>();
 
-    const disabled = useDisabled(toRef(() => componentDisabled));
     const swatchesRef = useTemplateRef<HTMLButtonElement[]>('swatches');
-    const translate = useTranslate();
-
     const customColor = ref('#000000');
     const focusedIndex = ref(0);
+
+    const disabled = useDisabled(toRef(() => componentDisabled));
+    const translate = useTranslate();
+
+    watch(modelValue, value => {
+        customColor.value = value;
+
+        const selectedIndex = colors.indexOf(value);
+
+        if (selectedIndex !== -1) {
+            focusedIndex.value = selectedIndex;
+        }
+    }, {immediate: true});
 
     function select(color: string, close?: () => void): void {
         if (unref(disabled)) {
@@ -139,14 +149,4 @@
 
         evt.preventDefault();
     }
-
-    watch(modelValue, value => {
-        customColor.value = value;
-
-        const selectedIndex = colors.indexOf(value);
-
-        if (selectedIndex !== -1) {
-            focusedIndex.value = selectedIndex;
-        }
-    }, {immediate: true});
 </script>

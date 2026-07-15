@@ -66,6 +66,10 @@
     import FluxIcon from './FluxIcon.vue';
     import $style from '~flux/components/css/component/FormRating.module.scss';
 
+    const emit = defineEmits<{
+        change: [number | null];
+    }>();
+
     const modelValue = defineModel<number | null>({
         default: null
     });
@@ -85,15 +89,11 @@
         readonly size?: number;
     }>();
 
-    const emit = defineEmits<{
-        change: [number | null];
-    }>();
+    const rootRef = useTemplateRef('root');
+    const hoverValue = ref<number | null>(null);
 
     const disabled = useDisabled(toRef(() => componentDisabled));
-    const rootRef = useTemplateRef('root');
     const {id, describedBy} = useFormFieldInjection();
-
-    const hoverValue = ref<number | null>(null);
 
     const isInteractive = computed(() => !disabled.value && !isReadonly);
     const displayValue = computed(() => hoverValue.value ?? modelValue.value ?? 0);

@@ -160,15 +160,6 @@
         readonly options: FluxFormTreeViewSelectOption[];
     }>();
 
-    const disabled = useDisabled(toRef(() => componentDisabled));
-    const {id, describedBy} = useFormFieldInjection();
-    const translate = useTranslate();
-    const listId = useId();
-
-    function optionId(index: number): string {
-        return `${listId}-option-${index}`;
-    }
-
     const anchorRef = useTemplateRef<ComponentPublicInstance>('anchor');
     const anchorPopupRef = useTemplateRef<ComponentPublicInstance>('anchorPopup');
     const nodeElementRefs = useTemplateRef<HTMLDivElement[]>('nodeElements');
@@ -176,6 +167,11 @@
 
     const expandedIds = ref(new Set<string | number>());
     const searchQuery = ref('');
+
+    const disabled = useDisabled(toRef(() => componentDisabled));
+    const {id, describedBy} = useFormFieldInjection();
+    const translate = useTranslate();
+    const listId = useId();
 
     const focusElement = computed(() => unrefTemplateElement(searchInputRef) ?? unrefTemplateElement(anchorRef));
 
@@ -223,6 +219,34 @@
         nodeElementRefs,
         visibleNodes
     });
+
+    watch(isPopupOpen, isOpen => {
+        if (!isOpen) {
+            searchQuery.value = '';
+            highlightedIndex.value = INITIAL_HIGHLIGHTED_INDEX;
+            return;
+        }
+
+        autoExpandSelected();
+
+        nextTick(() => {
+            const ids = unref(selectedIds);
+            if (ids.size > 0) {
+                const firstSelectedIndex = unref(visibleNodes).findIndex(n => ids.has(n.id));
+                if (firstSelectedIndex >= 0) {
+                    highlightedIndex.value = firstSelectedIndex;
+                }
+            }
+        });
+    });
+
+    watch(searchQuery, () => {
+        highlightedIndex.value = INITIAL_HIGHLIGHTED_INDEX;
+    });
+
+    function optionId(index: number): string {
+        return `${listId}-option-${index}`;
+    }
 
     function select(nodeId: string | number): void {
         if (unref(isMultiple)) {
@@ -297,30 +321,6 @@
 
         onKeyNavigate(evt, onNodeClick);
     }
-
-    watch(isPopupOpen, isOpen => {
-        if (!isOpen) {
-            searchQuery.value = '';
-            highlightedIndex.value = INITIAL_HIGHLIGHTED_INDEX;
-            return;
-        }
-
-        autoExpandSelected();
-
-        nextTick(() => {
-            const ids = unref(selectedIds);
-            if (ids.size > 0) {
-                const firstSelectedIndex = unref(visibleNodes).findIndex(n => ids.has(n.id));
-                if (firstSelectedIndex >= 0) {
-                    highlightedIndex.value = firstSelectedIndex;
-                }
-            }
-        });
-    });
-
-    watch(searchQuery, () => {
-        highlightedIndex.value = INITIAL_HIGHLIGHTED_INDEX;
-    });
 
     function autoExpandSelected(): void {
         const ids = unref(selectedIds);

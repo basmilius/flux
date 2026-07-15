@@ -60,11 +60,11 @@
     const steps = computed(() => unref(children).length);
     const view = computed(() => unref(children)[unref(modelValue)] ?? null);
 
-    function activate(index: number): void {
-        modelValue.value = index;
-    }
-
     watch(modelValue, (newIndex, oldIndex) => {
         isTransitioningBack.value = newIndex < oldIndex;
     });
+
+    function activate(index: number): void {
+        modelValue.value = index;
+    }
 </script>

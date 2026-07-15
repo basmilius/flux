@@ -82,6 +82,11 @@
     import FluxTag from './FluxTag.vue';
     import $style from '~flux/components/css/component/Form.module.scss';
 
+    const emit = defineEmits<{
+        add: [string];
+        remove: [string];
+    }>();
+
     const modelValue = defineModel<string[]>({
         default: () => []
     });
@@ -108,21 +113,20 @@
         readonly validate?: (value: string) => boolean;
     }>();
 
-    const emit = defineEmits<{
-        add: [string];
-        remove: [string];
-    }>();
-
-    const disabled = useDisabled(toRef(() => componentDisabled));
-    const {id, describedBy} = useFormFieldInjection();
-    const popupId = useId();
-
     const anchorRef = useTemplateRef<ComponentPublicInstance>('anchor');
     const popupRef = useTemplateRef<ComponentPublicInstance>('popup');
     const inputElementRef = useTemplateRef<HTMLInputElement>('input');
 
     const isOpen = ref(false);
     const highlightedIndex = ref(-1);
+
+    const disabled = useDisabled(toRef(() => componentDisabled));
+    const {id, describedBy} = useFormFieldInjection();
+    const popupId = useId();
+
+    if (typeof window !== 'undefined') {
+        useClickOutside([anchorRef, popupRef], isOpen, () => isOpen.value = false);
+    }
 
     const isMaxReached = computed(() => max !== undefined && modelValue.value.length >= max);
     const filteredSuggestions = computed(() => {
@@ -261,9 +265,5 @@
 
         evt.preventDefault();
         parts.forEach(addTag);
-    }
-
-    if (typeof window !== 'undefined') {
-        useClickOutside([anchorRef, popupRef], isOpen, () => isOpen.value = false);
     }
 </script>

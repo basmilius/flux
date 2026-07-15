@@ -13,7 +13,8 @@
 
         <template
             v-if="!isCompact"
-            v-for="p of visiblePages">
+            v-for="(p, index) of visiblePages"
+            :key="index">
             <span
                 v-if="p === 'dots'"
                 :class="$style.paginationDots"

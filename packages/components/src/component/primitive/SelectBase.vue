@@ -110,11 +110,11 @@
                                 :icon-leading="item.icon"
                                 :label="item.label"/>
 
-                            <template v-for="(subItem, index) of subItems">
+                            <template v-for="subItem of subItems">
                                 <FluxMenuItem
                                     v-if="isFluxFormSelectOption(subItem)"
                                     ref="optionElements"
-                                    :key="index"
+                                    :key="subItem.value ?? 'null option'"
                                     :id="optionId(subItem.value)"
                                     :command="subItem.command"
                                     :command-icon="subItem.commandIcon"
@@ -132,7 +132,7 @@
                         <FluxMenuItem
                             v-if="isFluxFormSelectOption(item)"
                             ref="optionElements"
-                            :key="`item-${index}`"
+                            :key="item.value ?? 'null option'"
                             :id="optionId(item.value)"
                             :command="item.command"
                             :command-icon="item.commandIcon"
@@ -174,6 +174,10 @@
     import AnchorPopup from './AnchorPopup.vue';
     import $style from '~flux/components/css/component/Form.module.scss';
 
+    defineOptions({
+        inheritAttrs: false
+    });
+
     const emit = defineEmits<{
         keyDown: [KeyboardEvent];
         deselect: [string | number | null];
@@ -186,10 +190,6 @@
 
     const modelSearch = defineModel<string>('searchQuery', {
         default: ''
-    });
-
-    defineOptions({
-        inheritAttrs: false
     });
 
     const {
@@ -213,11 +213,6 @@
         readonly selected: FluxFormSelectOption[];
     }>();
 
-    const disabled = useDisabled(toRef(() => componentDisabled));
-    const {id, describedBy} = useFormFieldInjection();
-    const translate = useTranslate();
-    const popupId = useId();
-
     const anchorRef = useTemplateRef<ComponentPublicInstance>('anchor');
     const anchorPopupRef = useTemplateRef<ComponentPublicInstance>('anchorPopup');
     const optionElementRefs = useTemplateRef<typeof FluxMenuItem[]>('optionElements');
@@ -225,6 +220,11 @@
 
     const highlightedIndex = ref(INITIAL_HIGHLIGHTED_INDEX);
     const isKeyboardAction = ref(false);
+
+    const disabled = useDisabled(toRef(() => componentDisabled));
+    const {id, describedBy} = useFormFieldInjection();
+    const translate = useTranslate();
+    const popupId = useId();
 
     const focusElement = computed(() => {
         // The search input's template ref resolves to FluxFormInput's wrapper element, which is not
@@ -256,6 +256,51 @@
         focusElement,
         disabled,
         readonly: toRef(() => !!isReadonly)
+    });
+
+    watch(highlightedIndex, highlightedIndex => {
+        const options = unref(optionElementRefs)!;
+        options[highlightedIndex]?.$el.scrollIntoView({
+            block: 'center'
+        });
+    });
+
+    watch(isPopupOpen, isPopupOpen => {
+        if (!isPopupOpen) {
+            emit('close');
+            return;
+        }
+
+        nextTick(() => {
+            const options = unref(optionElementRefs);
+
+            if (!options || isMultiple) {
+                return;
+            }
+
+            const selectedIndex = options.findIndex(o => 'isActive' in o.$props && o.$props.isActive);
+            const option = options[selectedIndex];
+
+            if (!option) {
+                return;
+            }
+
+            option.$el.scrollIntoView({
+                block: 'center'
+            });
+        });
+
+        emit('open');
+    });
+
+    watch(modelSearch, searchQuery => emit('search', searchQuery));
+
+    watch([() => options, isPopupOpen], () => highlightedIndex.value = INITIAL_HIGHLIGHTED_INDEX);
+
+    onMounted(() => {
+        if (autoFocus) {
+            nextTick(() => unrefTemplateElement(anchorRef)?.focus());
+        }
     });
 
     function optionId(value: string | number | null): string {
@@ -362,49 +407,4 @@
     function onKeyUp(): void {
         isKeyboardAction.value = false;
     }
-
-    watch(highlightedIndex, highlightedIndex => {
-        const options = unref(optionElementRefs)!;
-        options[highlightedIndex]?.$el.scrollIntoView({
-            block: 'center'
-        });
-    });
-
-    watch(isPopupOpen, isPopupOpen => {
-        if (!isPopupOpen) {
-            emit('close');
-            return;
-        }
-
-        nextTick(() => {
-            const options = unref(optionElementRefs);
-
-            if (!options || isMultiple) {
-                return;
-            }
-
-            const selectedIndex = options.findIndex(o => 'isActive' in o.$props && o.$props.isActive);
-            const option = options[selectedIndex];
-
-            if (!option) {
-                return;
-            }
-
-            option.$el.scrollIntoView({
-                block: 'center'
-            });
-        });
-
-        emit('open');
-    });
-
-    watch(modelSearch, searchQuery => emit('search', searchQuery));
-
-    watch([() => options, isPopupOpen], () => highlightedIndex.value = INITIAL_HIGHLIGHTED_INDEX);
-
-    onMounted(() => {
-        if (autoFocus) {
-            nextTick(() => unrefTemplateElement(anchorRef)?.focus());
-        }
-    });
 </script>

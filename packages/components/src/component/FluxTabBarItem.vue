@@ -59,9 +59,13 @@
         readonly to?: FluxTo;
     }>();
 
+    const tabRef = useTemplateRef<ComponentPublicInstance>('tab');
+    const isFirstEnabled = ref(false);
+
+    let registeredElement: Element | null = null;
+
     const disabled = useDisabled(toRef(() => componentDisabled));
     const tabBar = useTabBarInjection();
-    const tabRef = useTemplateRef<ComponentPublicInstance>('tab');
 
     const itemClass = computed(() => {
         if (tabBar.isPills.value) {
@@ -70,8 +74,6 @@
 
         return isActive ? $style.tabBarItemDefaultActive : $style.tabBarItemDefault;
     });
-
-    const isFirstEnabled = ref(false);
 
     const resolvedTabindex = computed(() => {
         if (componentDisabled || unref(disabled)) {
@@ -89,11 +91,33 @@
         return -1;
     });
 
-    let registeredElement: Element | null = null;
-
     const tabListRef = computed(() => (unref(tabRef)?.$el as Element | undefined)?.parentElement ?? null);
 
     useMutationObserver(tabListRef, () => updateFirstEnabled(), {attributeFilter: ['aria-disabled', 'aria-selected'], attributes: true, childList: true, subtree: true});
+
+    watch(() => isActive, () => {
+        if (!isActive) {
+            return;
+        }
+
+        const tab = unref(tabRef);
+
+        if (!tab) {
+            return;
+        }
+
+        const el = tab.$el;
+
+        if (el.parentElement?.offsetWidth === el.parentElement?.scrollWidth) {
+            return;
+        }
+
+        el.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+            inline: 'center'
+        });
+    }, {immediate: true});
 
     onMounted(() => {
         const tab = unref(tabRef);
@@ -150,28 +174,4 @@
     function onMouseLeave(evt: MouseEvent): void {
         emit('mouseleave', evt);
     }
-
-    watch(() => isActive, () => {
-        if (!isActive) {
-            return;
-        }
-
-        const tab = unref(tabRef);
-
-        if (!tab) {
-            return;
-        }
-
-        const el = tab.$el;
-
-        if (el.parentElement?.offsetWidth === el.parentElement?.scrollWidth) {
-            return;
-        }
-
-        el.scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest',
-            inline: 'center'
-        });
-    }, {immediate: true});
 </script>

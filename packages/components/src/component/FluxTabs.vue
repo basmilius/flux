@@ -78,8 +78,8 @@
         }): VNode[];
     }>();
 
-    const baseId = useId();
     const isTransitioningBack = ref(false);
+    const baseId = useId();
 
     const rawChildren = computed(() => flattenVNodeTree(slots.default?.() ?? [])
         .filter(child => child.type !== Comment && child.type !== Text));
@@ -96,11 +96,11 @@
         }))
     );
 
-    function activate(index: number): void {
-        modelValue.value = index;
-    }
-
     watch(modelValue, (newIndex, oldIndex) => {
         isTransitioningBack.value = newIndex < oldIndex;
     });
+
+    function activate(index: number): void {
+        modelValue.value = index;
+    }
 </script>

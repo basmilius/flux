@@ -43,18 +43,49 @@
     let readyFrame: number | undefined;
     let resizeTimer: ReturnType<typeof setTimeout> | undefined;
 
+    const contextStack = shallowRef<FluxApplicationContextInfo[]>([]);
+    const layout = ref<FluxApplicationLayout>('default');
+    const viewIndex = ref(0);
+
     const isMenuCollapsed = useRemembered('application-menu-collapsed', true);
     const matchedMenuRoutes = useNamedRoutes(toRef(() => contextMenuName));
     const route = useRoute();
     const {lg, xl} = useBreakpoints();
 
-    const contextStack = shallowRef<FluxApplicationContextInfo[]>([]);
-    const layout = ref<FluxApplicationLayout>('default');
-    const viewIndex = ref(0);
-
     const activeContext = computed(() => contextStack.value.at(-1));
     const contexts = computed(() => contextStack.value);
     const totalLevels = computed(() => 1 + matchedMenuRoutes.value.length);
+
+    watch(() => route.fullPath, () => {
+        viewIndex.value = totalLevels.value - 1;
+
+        if (!lg.value && !xl.value) {
+            isMenuCollapsed.value = true;
+        }
+    });
+
+    watch(totalLevels, (next) => {
+        viewIndex.value = clampViewIndex(viewIndex.value);
+
+        // On initial route resolve, totalLevels jumps from 1 to its
+        // real value. Snap to the deepest level so the user lands on
+        // the right context without seeing a slide animation.
+        if (viewIndex.value === 0 && next > 1) {
+            viewIndex.value = next - 1;
+        }
+    }, {immediate: true});
+
+    watch(isMenuCollapsed, collapsed => {
+        if (typeof document === 'undefined') {
+            return;
+        }
+
+        if (collapsed) {
+            delete document.documentElement.dataset.applicationMenuOpen;
+        } else {
+            document.documentElement.dataset.applicationMenuOpen = '';
+        }
+    }, {immediate: true});
 
     onMounted(() => {
         if (typeof window === 'undefined') {
@@ -163,37 +194,6 @@
         stack[index] = {id, ...info};
         contextStack.value = stack;
     }
-
-    watch(() => route.fullPath, () => {
-        viewIndex.value = totalLevels.value - 1;
-
-        if (!lg.value && !xl.value) {
-            isMenuCollapsed.value = true;
-        }
-    });
-
-    watch(totalLevels, (next) => {
-        viewIndex.value = clampViewIndex(viewIndex.value);
-
-        // On initial route resolve, totalLevels jumps from 1 to its
-        // real value. Snap to the deepest level so the user lands on
-        // the right context without seeing a slide animation.
-        if (viewIndex.value === 0 && next > 1) {
-            viewIndex.value = next - 1;
-        }
-    }, {immediate: true});
-
-    watch(isMenuCollapsed, collapsed => {
-        if (typeof document === 'undefined') {
-            return;
-        }
-
-        if (collapsed) {
-            delete document.documentElement.dataset.applicationMenuOpen;
-        } else {
-            document.documentElement.dataset.applicationMenuOpen = '';
-        }
-    }, {immediate: true});
 
     provide(FluxApplicationInjectionKey, {
         activeContext,
