@@ -16,8 +16,8 @@
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/statistics": "workspace:*",
         "@flux-ui/visuals": "workspace:*",
-        "@fortawesome/fontawesome-common-types": "^7.3.0",
-        "@fortawesome/pro-regular-svg-icons": "^7.3.0",
+        "@fortawesome/fontawesome-common-types": "^7.3.1",
+        "@fortawesome/pro-regular-svg-icons": "^7.3.1",
         "echarts": "^6.1.0",
         "luxon": "^3.7.2",
         "vitepress": "^2.0.0-alpha.18",
@@ -33,6 +33,6 @@
         "@basmilius/vite-preset": "^3.55.0",
         "@flux-ui/types": "workspace:*",
         "@types/luxon": "^3.7.2",
-        "vite": "^8.1.4"
+        "vite": "^8.1.5"
     }
 }
