@@ -116,7 +116,7 @@ export function useTableTree(container: Readonly<Ref<HTMLElement | null>>) {
             observer.observe(container.value);
         }
 
-        nextTick(measure);
+        scheduleMeasure();
     });
 
     onUnmounted(() => observer?.disconnect());
