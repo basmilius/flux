@@ -35,7 +35,7 @@ export default defineConfig(({mode}) => ({
             experimental: {
                 lazyBarrel: true
             },
-            external: ['@flux-ui/visuals', 'luxon', 'vite', 'vue'],
+            external: ['luxon', 'vite', 'vue'],
             output: {
                 assetFileNames: assetInfo => {
                     if (assetInfo.name?.endsWith('.css')) {

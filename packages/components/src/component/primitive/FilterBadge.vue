@@ -10,9 +10,8 @@
 <script
     lang="ts"
     setup>
-    import { useLoaded } from '@basmilius/common';
     import type { FluxFilterDefinition, FluxFilterValue } from '@flux-ui/types';
-    import { computed, ref, unref, watch } from 'vue';
+    import { useFilterValueLabel } from '~flux/components/composable/private';
     import FluxBadge from '../FluxBadge.vue';
     import $style from '~flux/components/css/component/Filter.module.scss';
 
@@ -28,25 +27,9 @@
         readonly value: FluxFilterValue;
     }>();
 
-    const {isLoading, loaded} = useLoaded();
-    const getValueLabel = computed(() => loaded(item.getValueLabel));
-
-    const valueLabel = ref<string>();
+    const {isLoading, valueLabel} = useFilterValueLabel(() => item, () => value);
 
     function onClick(evt: MouseEvent): void {
         emit('click', evt);
     }
-
-    watch([() => item, () => value], async ([, nextValue], _prev, onCleanup) => {
-        let cancelled = false;
-        onCleanup(() => {
-            cancelled = true;
-        });
-
-        const nextLabel = await unref(getValueLabel)(nextValue);
-
-        if (!cancelled) {
-            valueLabel.value = nextLabel ?? undefined;
-        }
-    }, {deep: true, immediate: true});
 </script>

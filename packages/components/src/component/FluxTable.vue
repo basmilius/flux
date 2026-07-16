@@ -92,9 +92,10 @@
     lang="ts"
     setup>
     import { animationFrameDebounce, useScrollPosition } from '@flux-ui/internals';
-    import { computed, onMounted, provide, type Ref, ref, shallowReactive, unref, useId, useTemplateRef, type VNode, watch, watchEffect } from 'vue';
+    import { computed, onMounted, onScopeDispose, provide, type Ref, ref, shallowReactive, shallowRef, unref, useId, useTemplateRef, type VNode, watch, watchEffect } from 'vue';
     import { useTableTree } from '~flux/components/composable/private';
     import { type FluxTableColumnDef, FluxTableInjectionKey, type FluxTablePinnedEdges } from '~flux/components/data';
+    import { subscribeToRootFontSize } from '~flux/components/util';
     import FluxPaneBody from './FluxPaneBody.vue';
     import FluxSpinner from './FluxSpinner.vue';
     import FluxTableCell from './FluxTableCell.vue';
@@ -146,8 +147,8 @@
     const footHeight = ref(0);
     const maxScrollLeft = ref(0);
     const fallbackColumnCount = ref(0);
-    const pinnedEdges = ref<FluxTablePinnedEdges>({end: -1, start: -1});
-    const pinnedOffsets = ref(new Map<number, number>());
+    const pinnedEdges = shallowRef<FluxTablePinnedEdges>({end: -1, start: -1});
+    const pinnedOffsets = shallowRef(new Map<number, number>());
     const columnRegistrations = shallowReactive(new Set<ColumnRegistration>());
 
     const {registerTreeNode, treeLines} = useTableTree(bodyRef);
@@ -443,10 +444,10 @@
             observer.observe(foot);
         }
 
-        observer.observe(document.documentElement); // observe font-size changes.
-
         onCleanup(() => observer.disconnect());
     }, {immediate: true});
+
+    onScopeDispose(subscribeToRootFontSize(measure));
 
     // The columns registered during setup only reach the DOM with the next
     // template patch, which lands after ancestors' mounted hooks. Write the

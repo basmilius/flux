@@ -110,12 +110,21 @@
     const header = useTemplateRef('header');
 
     const {
+        columns,
         pinnedEdges,
         pinnedOffsets,
         registerColumn
     } = useTableInjection();
 
     const translate = useTranslate();
+
+    const columnIndex = computed(() => {
+        void columns.value;
+
+        const element = header.value;
+
+        return element?.parentElement ? Array.prototype.indexOf.call(element.parentElement.children, element) : -1;
+    });
 
     const pinnedSide = computed<'start' | 'end' | null>(() => {
         if (pinned === true || pinned === 'start') {
@@ -145,11 +154,9 @@
             return false;
         }
 
-        const columnIndex = getColumnIndex();
-
         return pinnedSide.value === 'start'
-            ? columnIndex === pinnedEdges.value.start
-            : columnIndex === pinnedEdges.value.end;
+            ? columnIndex.value === pinnedEdges.value.start
+            : columnIndex.value === pinnedEdges.value.end;
     });
 
     const headerStyle = computed(() => {
@@ -161,7 +168,7 @@
         }
 
         if (pinnedSide.value) {
-            const offset = pinnedOffsets.value.get(getColumnIndex()) ?? 0;
+            const offset = pinnedOffsets.value.get(columnIndex.value) ?? 0;
 
             if (pinnedSide.value === 'start') {
                 style.left = `${offset}px`;
@@ -214,10 +221,4 @@
 
     const unregisterColumn = registerColumn(header, columnDef);
     onUnmounted(unregisterColumn);
-
-    function getColumnIndex(): number {
-        const element = header.value;
-
-        return element?.parentElement ? Array.prototype.indexOf.call(element.parentElement.children, element) : -1;
-    }
 </script>

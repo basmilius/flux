@@ -15,6 +15,7 @@
     setup>
     import { useMutationObserver } from '@basmilius/common';
     import { isHtmlElement } from '@basmilius/utils';
+    import { animationFrameDebounce } from '@flux-ui/internals';
     import type { FluxDirection } from '@flux-ui/types';
     import { type ComponentPublicInstance, onMounted, onUnmounted, reactive, ref, unref, useTemplateRef, type VNode, watchEffect } from 'vue';
 
@@ -216,9 +217,7 @@
         reposition();
     }
 
-    function onScroll(): void {
-        reposition();
-    }
+    const onScroll = animationFrameDebounce(reposition);
 
     defineExpose({
         reposition,

@@ -68,6 +68,9 @@ const state = reactive<FluxState>({
 let nextDialogId: number = 0;
 let nextId: number = 0;
 
+const inertMain = computed(() => state.dialogs.length > 0);
+const tooltip = computed(() => state.tooltips[state.tooltips.length - 1] || null);
+
 export function addAlert(spec: Omit<FluxAlertObject, 'id'>): number {
     const id = ++nextId;
 
@@ -334,9 +337,6 @@ export async function showSnackbar({duration, ...spec}: Omit<FluxSnackbarObject,
 }
 
 export function useFluxStore(): FluxStore {
-    const inertMain = computed(() => state.dialogs.length > 0);
-    const tooltip = computed(() => state.tooltips[state.tooltips.length - 1] || null);
-
     return {
         get dialogs() {
             return state.dialogs;

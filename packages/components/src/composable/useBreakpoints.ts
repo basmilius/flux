@@ -10,38 +10,45 @@ const BREAKPOINTS = {
 
 type Breakpoint = keyof typeof BREAKPOINTS;
 
-export default function () {
-    const currentBreakpoint = ref<Breakpoint | null>(null);
-    const breakpointRefs = Object.fromEntries(
-        Object.keys(BREAKPOINTS).map((key) => [key, ref(false)])
-    ) as Record<Breakpoint, Ref<boolean>>;
+const currentBreakpoint = ref<Breakpoint | null>(null);
+const breakpointRefs = Object.fromEntries(
+    Object.keys(BREAKPOINTS).map((key) => [key, ref(false)])
+) as Record<Breakpoint, Ref<boolean>>;
 
-    const updateBreakpoints = () => {
-        const width = window.innerWidth;
-        let activeBreakpoint: Breakpoint | null = null;
+let listenerCount = 0;
 
-        for (const [key, value] of Object.entries(BREAKPOINTS) as [
-            Breakpoint,
-            number
-        ][]) {
-            const isActive = width >= value;
-            breakpointRefs[key].value = isActive;
+function updateBreakpoints(): void {
+    const width = window.innerWidth;
+    let activeBreakpoint: Breakpoint | null = null;
 
-            if (isActive) {
-                activeBreakpoint = key;
-            }
+    for (const [key, value] of Object.entries(BREAKPOINTS) as [
+        Breakpoint,
+        number
+    ][]) {
+        const isActive = width >= value;
+        breakpointRefs[key].value = isActive;
+
+        if (isActive) {
+            activeBreakpoint = key;
         }
+    }
 
-        currentBreakpoint.value = activeBreakpoint;
-    };
+    currentBreakpoint.value = activeBreakpoint;
+}
 
+export default function () {
     onMounted(() => {
         updateBreakpoints();
-        window.addEventListener('resize', updateBreakpoints, {passive: true});
+
+        if (++listenerCount === 1) {
+            window.addEventListener('resize', updateBreakpoints, {passive: true});
+        }
     });
 
     onUnmounted(() => {
-        window.removeEventListener('resize', updateBreakpoints);
+        if (--listenerCount === 0) {
+            window.removeEventListener('resize', updateBreakpoints);
+        }
     });
 
     return {

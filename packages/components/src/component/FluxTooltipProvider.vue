@@ -2,7 +2,7 @@
     import { unrefTemplateElement } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { computed, defineComponent, h, provide, ref, unref, watch } from 'vue';
-    import { FluxTooltipInjectionKey, useFluxStore } from '~flux/components/data';
+    import { FluxTooltipInjectionKey, removeTooltip, useFluxStore } from '~flux/components/data';
     import { FluxTooltipTransition } from '~flux/components/transition';
     import $style from '~flux/components/css/component/Tooltip.module.scss';
 
@@ -77,6 +77,26 @@
             if (host && !host.matches(':popover-open')) {
                 host.showPopover();
             }
+        });
+
+        watch(has, (isVisible, _, onCleanup) => {
+            if (!isVisible) {
+                return;
+            }
+
+            function dismiss(): void {
+                const spec = unref(tooltip);
+
+                if (spec) {
+                    removeTooltip(spec.id);
+                }
+            }
+
+            window.addEventListener('scroll', dismiss, {capture: true, passive: true});
+
+            onCleanup(() => {
+                window.removeEventListener('scroll', dismiss, {capture: true});
+            });
         });
 
         return () => h('div', {

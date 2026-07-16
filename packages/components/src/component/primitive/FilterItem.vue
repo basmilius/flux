@@ -13,9 +13,8 @@
 <script
     lang="ts"
     setup>
-    import { useLoaded } from '@basmilius/common';
     import type { FluxFilterDefinition, FluxFilterValue } from '@flux-ui/types';
-    import { computed, ref, unref, watch } from 'vue';
+    import { useFilterValueLabel } from '~flux/components/composable/private';
     import FluxMenuItem from '../FluxMenuItem.vue';
 
     const emit = defineEmits<{
@@ -31,25 +30,9 @@
         readonly disabled?: boolean;
     }>();
 
-    const {isLoading, loaded} = useLoaded();
-    const getValueLabel = computed(() => loaded(item.getValueLabel));
-
-    const valueLabel = ref<string>();
+    const {isLoading, valueLabel} = useFilterValueLabel(() => item, () => value);
 
     function onClick(evt: MouseEvent): void {
         emit('click', evt);
     }
-
-    watch([() => item, () => value], async ([, nextValue], _prev, onCleanup) => {
-        let cancelled = false;
-        onCleanup(() => {
-            cancelled = true;
-        });
-
-        const nextLabel = await unref(getValueLabel)(nextValue);
-
-        if (!cancelled) {
-            valueLabel.value = nextLabel ?? undefined;
-        }
-    }, {deep: true, immediate: true});
 </script>

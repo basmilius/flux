@@ -94,25 +94,25 @@
                     :aria-rowindex="(page - 1) * perPage + entry.index + 2"
                     :is-clickable="isRowInteractive"
                     :is-hidden="chunk.isCollapsed"
-                    :is-selected="selectionMode ? isItemSelected(entry.item) : false"
+                    :is-selected="rowStates.get(entry.key)?.isSelected"
                     @row-click="(columnIndex, event) => onRowClick(entry.item, columnIndex, event)">
                     <FluxTableCell
                         v-if="selectionMode"
                         :class="$style.tableCellSelection">
                         <FluxFormCheckbox
-                            :model-value="isItemSelected(entry.item)"
+                            :model-value="rowStates.get(entry.key)?.isSelected"
                             @update:model-value="onSelectRow(entry.item)"/>
                     </FluxTableCell>
 
                     <FluxTableCell
                         v-if="hasExpandable"
                         :class="$style.tableCellExpand">
-                        <FluxTableActions v-if="isRowExpandable(entry.item)">
+                        <FluxTableActions v-if="rowStates.get(entry.key)?.isExpandable">
                             <FluxAction
-                                :class="clsx($style.tableExpandToggle, isItemExpanded(entry.item) && $style.isExpanded)"
+                                :class="clsx($style.tableExpandToggle, rowStates.get(entry.key)?.isExpanded && $style.isExpanded)"
                                 icon="angle-right"
-                                :aria-expanded="isItemExpanded(entry.item)"
-                                :aria-label="isItemExpanded(entry.item) ? translate('flux.collapseRow') : translate('flux.expandRow')"
+                                :aria-expanded="rowStates.get(entry.key)?.isExpanded"
+                                :aria-label="rowStates.get(entry.key)?.isExpanded ? translate('flux.collapseRow') : translate('flux.expandRow')"
                                 @click="toggleExpand(entry.item)"/>
                         </FluxTableActions>
                     </FluxTableCell>
@@ -120,13 +120,13 @@
                     <template v-for="(_, name) of slots" :key="name">
                         <slot
                             v-if="!IGNORED_SLOTS.includes(name as string)"
-                            v-bind="{index: entry.index, item: entry.item, items: limitedItems, page, perPage, total, isSelected: isItemSelected(entry.item)}"
+                            v-bind="{index: entry.index, item: entry.item, items: limitedItems, page, perPage, total, isSelected: rowStates.get(entry.key)?.isSelected ?? false}"
                             :name="name"/>
                     </template>
                 </FluxTableRow>
 
                 <FluxTableRow
-                    v-if="hasExpandable && isItemExpanded(entry.item)"
+                    v-if="hasExpandable && rowStates.get(entry.key)?.isExpanded"
                     :is-hidden="chunk.isCollapsed">
                     <FluxTableCell :colspan="columnCount">
                         <template #content>
@@ -419,6 +419,22 @@
 
     const expandedSet = computed<ReadonlySet<SelectionId>>(() => new Set(unref(expanded)));
     const collapsedGroupSet = computed<ReadonlySet<SelectionId>>(() => new Set(unref(collapsedGroups)));
+
+    const rowStates = computed(() => {
+        const states = new Map<SelectionId, { isExpandable: boolean; isExpanded: boolean; isSelected: boolean }>();
+
+        for (const chunk of unref(renderChunks)) {
+            for (const entry of chunk.entries) {
+                states.set(entry.key, {
+                    isExpandable: isRowExpandable(entry.item),
+                    isExpanded: isItemExpanded(entry.item),
+                    isSelected: isItemSelected(entry.item)
+                });
+            }
+        }
+
+        return states;
+    });
 
     const selectedIds = computed<SelectionId[]>(() => Array.from(unref(selectedSet)));
     const selectedCount = computed(() => unref(selectedIds).length);

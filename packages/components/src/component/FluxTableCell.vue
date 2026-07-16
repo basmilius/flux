@@ -62,9 +62,17 @@
 
     const isRaw = computed(() => 'content' in slots);
 
+    const columnIndex = computed(() => {
+        void columns.value;
+
+        const element = cell.value;
+
+        return element?.parentElement ? Array.prototype.indexOf.call(element.parentElement.children, element) : -1;
+    });
+
     // Spanning cells cover multiple columns, so their column's definition
     // (pinning, alignment, formatting) does not apply to them.
-    const column = computed(() => colspan ? undefined : unref(columns)[getColumnIndex()]);
+    const column = computed(() => colspan ? undefined : unref(columns)[columnIndex.value]);
 
     const effectiveAlign = computed(() => align ?? column.value?.align);
     const effectiveIsNumeric = computed(() => isNumeric || (column.value?.isNumeric ?? false));
@@ -87,11 +95,9 @@
             return false;
         }
 
-        const columnIndex = getColumnIndex();
-
         return pinnedSide.value === 'start'
-            ? columnIndex === pinnedEdges.value.start
-            : columnIndex === pinnedEdges.value.end;
+            ? columnIndex.value === pinnedEdges.value.start
+            : columnIndex.value === pinnedEdges.value.end;
     });
 
     const cellStyle = computed(() => {
@@ -124,7 +130,7 @@
         }
 
         if (pinnedSide.value) {
-            const offset = pinnedOffsets.value.get(getColumnIndex()) ?? 0;
+            const offset = pinnedOffsets.value.get(columnIndex.value) ?? 0;
 
             if (pinnedSide.value === 'start') {
                 style.left = `${offset}px`;
@@ -135,10 +141,4 @@
 
         return style;
     });
-
-    function getColumnIndex(): number {
-        const element = cell.value;
-
-        return element?.parentElement ? Array.prototype.indexOf.call(element.parentElement.children, element) : -1;
-    }
 </script>

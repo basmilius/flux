@@ -4,12 +4,7 @@
         :viewBox.attr="`0 0 ${definition.width} ${definition.height}`"
         :class="clsx(
             $style.fontAwesomeIcon,
-            color === 'gray' && $style.iconGray,
-            color === 'primary' && $style.iconPrimary,
-            color === 'danger' && $style.iconDanger,
-            color === 'info' && $style.iconInfo,
-            color === 'success' && $style.iconSuccess,
-            color === 'warning' && $style.iconWarning
+            color && ICON_COLOR_CLASS[color]
         )"
         :style="{
             fontSize: typeof size === 'number' ? `${size}px` : size,
@@ -54,6 +49,15 @@
         readonly size?: number | string;
         readonly name?: FluxIconName;
     }>();
+
+    const ICON_COLOR_CLASS: Readonly<Record<FluxColor, string>> = Object.freeze({
+        gray: $style.iconGray,
+        primary: $style.iconPrimary,
+        danger: $style.iconDanger,
+        info: $style.iconInfo,
+        success: $style.iconSuccess,
+        warning: $style.iconWarning
+    });
 
     const definition = computed(() => {
         if (!name) {

@@ -46,7 +46,7 @@
                             <div
                                 :class="$style.timeGridHourLabel"
                                 :style="{height: `${pixelsPerMinute * 60}px`}">
-                                <span :class="$style.timeGridHourLabelText">{{ formatHour(hour) }}</span>
+                                <span :class="$style.timeGridHourLabelText">{{ hourLabels.get(hour) }}</span>
                             </div>
                         </template>
                     </div>
@@ -206,6 +206,29 @@
         return map;
     });
 
+    // Precompute the all-day items per day, depending only on items + viewDates, so drag-hover
+    // state changes (which update resizePreview / dropTargetMinutes) don't refilter every column.
+    const allDayItemsByDay = computed(() => {
+        const map = new Map<string | null, FluxCalendarItemData[]>();
+
+        for (const d of viewDates) {
+            const dStr = d.toSQLDate();
+            map.set(dStr, items.filter(item => item.allDay && item.date.toSQLDate() === dStr));
+        }
+
+        return map;
+    });
+
+    const hourLabels = computed<Map<number, string>>(() => {
+        const map = new Map<number, string>();
+
+        for (const hour of unref(hours)) {
+            map.set(hour, DateTime.fromObject({hour}).toFormat('HH:mm'));
+        }
+
+        return map;
+    });
+
     function isToday(d: DateTime): boolean {
         return d.hasSame(DateTime.now(), 'day');
     }
@@ -222,14 +245,8 @@
         return d.toLocaleString({weekday: 'short', day: 'numeric'});
     }
 
-    function formatHour(hour: number): string {
-        return DateTime.fromObject({hour}).toFormat('HH:mm');
-    }
-
     function getAllDayItems(d: DateTime): FluxCalendarItemData[] {
-        const dStr = d.toSQLDate();
-
-        return items.filter(item => item.allDay && item.date.toSQLDate() === dStr);
+        return unref(allDayItemsByDay).get(d.toSQLDate()) ?? [];
     }
 
     function getTimedItems(d: DateTime): Positioned[] {

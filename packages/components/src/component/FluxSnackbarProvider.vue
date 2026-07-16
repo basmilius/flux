@@ -9,7 +9,7 @@
         :leave-to-class="$style.snackbarsLeaveTo"
         :move-class="$style.snackbarsMove">
         <FluxSnackbar
-            v-for="snackbar of snackbars.toReversed()"
+            v-for="snackbar of reversedSnackbars"
             :key="snackbar.id"
             :="snackbar"
             is-rendered/>
@@ -19,9 +19,11 @@
 <script
     lang="ts"
     setup>
+    import { computed } from 'vue';
     import { useFluxStore } from '~flux/components/data';
     import FluxSnackbar from './FluxSnackbar.vue';
     import $style from '~flux/components/css/component/Snackbar.module.scss';
 
     const {snackbars} = useFluxStore();
+    const reversedSnackbars = computed(() => snackbars.toReversed());
 </script>
