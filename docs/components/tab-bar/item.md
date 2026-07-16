@@ -64,6 +64,13 @@ props:
         description: This prop is enabled if the button's type is set to route. This integrates with Vue Router.
         type: FluxTo
         optional: true
+
+slots:
+    -   name: start
+        description: Content rendered before the icon and the label, such as an avatar or a status indicator.
+
+    -   name: end
+        description: Content rendered after the label, such as a badge with an unread count.
 ---
 
 # Tab bar item
@@ -100,6 +107,22 @@ example=../../code/components/tab-bar/item/disabled.vue
 
 ::: example Label only || Tab bar items can render just a `label` without an icon.
 example=../../code/components/tab-bar/item/label-only.vue
+:::
+
+::: example Count badge || Show an unread or item count after the label using the `end` slot.
+example=../../code/components/tab-bar/item/count.vue
+:::
+
+::: example Avatar and status || Render an avatar with a status indicator before the label using the `start` slot.
+example=../../code/components/tab-bar/item/avatar.vue
+:::
+
+::: example Validation state || Flag a tab that contains errors. The slot may be filled conditionally.
+example=../../code/components/tab-bar/item/validation.vue
+:::
+
+::: example Start and end slots || Both slots combined in a single tab.
+example=../../code/components/tab-bar/item/slots.vue
 :::
 
 ## Used components

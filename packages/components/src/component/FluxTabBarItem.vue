@@ -16,12 +16,16 @@
         @click="onClick"
         @mouseenter="onMouseEnter"
         @mouseleave="onMouseLeave">
+        <slot name="start"/>
+
         <FluxIcon
             v-if="icon"
             :name="icon"
             :size="16"/>
 
         <span v-if="label">{{ label }}</span>
+
+        <slot name="end"/>
     </FluxPressable>
 </template>
 
@@ -30,7 +34,7 @@
     setup>
     import { useMutationObserver } from '@basmilius/common';
     import type { FluxIconName, FluxPressableType, FluxTo } from '@flux-ui/types';
-    import { type ComponentPublicInstance, computed, onBeforeUnmount, onMounted, ref, toRef, unref, useTemplateRef, watch } from 'vue';
+    import { type ComponentPublicInstance, computed, onBeforeUnmount, onMounted, ref, toRef, unref, useTemplateRef, type VNode, watch } from 'vue';
     import { useDisabled, useTabBarInjection } from '~flux/components/composable';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
@@ -57,6 +61,11 @@
         readonly rel?: string;
         readonly target?: string;
         readonly to?: FluxTo;
+    }>();
+
+    defineSlots<{
+        start?(): VNode[];
+        end?(): VNode[];
     }>();
 
     const tabRef = useTemplateRef<ComponentPublicInstance>('tab');

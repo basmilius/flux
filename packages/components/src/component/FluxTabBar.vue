@@ -73,7 +73,7 @@
     useMutationObserver(tabBarRef, () => {
         checkScroll();
         updateHighlight();
-    }, {childList: true});
+    }, {characterData: true, childList: true, subtree: true});
     useResizeObserver(tabBarRef, () => {
         checkScroll();
         updateHighlight();
