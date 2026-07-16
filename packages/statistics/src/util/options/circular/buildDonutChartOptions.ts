@@ -19,13 +19,13 @@ export interface DonutChartOptionsInput {
 }
 
 export function buildDonutChartOptions(input: DonutChartOptionsInput): EChartsOption {
-    const { slices, palette, tooltipItems, title, t, styles, tooltip = false, tooltipValueFormatter, advancedOptions = {} } = input;
+    const {slices, palette, tooltipItems, title, t, styles, tooltip = false, tooltipValueFormatter, advancedOptions = {}} = input;
 
     const tooltipOptions: EChartsOption = tooltip
-        ? buildSharedItemTooltip({ t, styles, getItems: () => tooltipItems, getTitle: () => title, valueFormatter: tooltipValueFormatter })
-        : { tooltip: { show: false } };
+        ? buildSharedItemTooltip({t, styles, getItems: () => tooltipItems, getTitle: () => title, valueFormatter: tooltipValueFormatter})
+        : {tooltip: {show: false}};
 
     const echartsSeries = [toDonutSeries(slices, palette)];
 
-    return merge({}, buildCircularBaseOptions(), tooltipOptions, advancedOptions, { series: echartsSeries, color: palette });
+    return merge({}, buildCircularBaseOptions(), tooltipOptions, advancedOptions, {series: echartsSeries, color: palette});
 }

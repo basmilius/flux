@@ -1,7 +1,7 @@
 <script lang="ts">
     import { flattenVNodeTree, prefersReducedMotion } from '@flux-ui/internals';
     import { clsx } from 'clsx';
-    import { cloneVNode, defineComponent, Fragment, h, onBeforeUnmount, ref, watch, type PropType } from 'vue';
+    import { cloneVNode, defineComponent, Fragment, h, onBeforeUnmount, type PropType, ref, watch } from 'vue';
     import $style from '~flux/visuals/css/component/Attention.module.scss';
 
     type AttentionEffect = 'pulse' | 'shake' | 'bounce' | 'tada';

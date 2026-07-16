@@ -1,48 +1,7 @@
-import type {
-    FluxStatisticsChartAreaSeries,
-    FluxStatisticsChartBarSeries,
-    FluxStatisticsChartBoxPlotSeries,
-    FluxStatisticsChartBubbleSeries,
-    FluxStatisticsChartCandlestickSeries,
-    FluxStatisticsChartCategoryPoint,
-    FluxStatisticsChartGaugeSeries,
-    FluxStatisticsChartHeatmapSeries,
-    FluxStatisticsChartLineSeries,
-    FluxStatisticsChartMixedSeries,
-    FluxStatisticsChartPieSlice,
-    FluxStatisticsChartRadarSeries,
-    FluxStatisticsChartScatterSeries,
-    FluxStatisticsChartTreemapNode
-} from '@flux-ui/types';
-import type {
-    BarSeriesOption,
-    BoxplotSeriesOption,
-    CandlestickSeriesOption,
-    GaugeSeriesOption,
-    HeatmapSeriesOption,
-    LineSeriesOption,
-    PieSeriesOption,
-    RadarSeriesOption,
-    ScatterSeriesOption,
-    TreemapSeriesOption
-} from 'echarts/charts';
+import type { FluxStatisticsChartAreaSeries, FluxStatisticsChartBarSeries, FluxStatisticsChartBoxPlotSeries, FluxStatisticsChartBubbleSeries, FluxStatisticsChartCandlestickSeries, FluxStatisticsChartCategoryPoint, FluxStatisticsChartGaugeSeries, FluxStatisticsChartHeatmapSeries, FluxStatisticsChartLineSeries, FluxStatisticsChartMixedSeries, FluxStatisticsChartPieSlice, FluxStatisticsChartRadarSeries, FluxStatisticsChartScatterSeries, FluxStatisticsChartTreemapNode } from '@flux-ui/types';
+import type { BarSeriesOption, BoxplotSeriesOption, CandlestickSeriesOption, GaugeSeriesOption, HeatmapSeriesOption, LineSeriesOption, PieSeriesOption, RadarSeriesOption, ScatterSeriesOption, TreemapSeriesOption } from 'echarts/charts';
 import { resolveChartColor } from './chartColors';
-import {
-    AREA_SERIES_DEFAULTS,
-    BAR_SERIES_DEFAULTS,
-    BOXPLOT_SERIES_DEFAULTS,
-    BUBBLE_SERIES_DEFAULTS,
-    CANDLESTICK_SERIES_DEFAULTS,
-    DONUT_SERIES_DEFAULTS,
-    GAUGE_SERIES_DEFAULTS,
-    HEATMAP_SERIES_DEFAULTS,
-    LINE_SERIES_DEFAULTS,
-    PIE_SERIES_DEFAULTS,
-    POLAR_AREA_SERIES_DEFAULTS,
-    RADAR_SERIES_DEFAULTS,
-    SCATTER_SERIES_DEFAULTS,
-    TREEMAP_SERIES_DEFAULTS
-} from './defaults';
+import { AREA_SERIES_DEFAULTS, BAR_SERIES_DEFAULTS, BOXPLOT_SERIES_DEFAULTS, BUBBLE_SERIES_DEFAULTS, CANDLESTICK_SERIES_DEFAULTS, DONUT_SERIES_DEFAULTS, GAUGE_SERIES_DEFAULTS, HEATMAP_SERIES_DEFAULTS, LINE_SERIES_DEFAULTS, PIE_SERIES_DEFAULTS, POLAR_AREA_SERIES_DEFAULTS, RADAR_SERIES_DEFAULTS, SCATTER_SERIES_DEFAULTS, TREEMAP_SERIES_DEFAULTS } from './defaults';
 
 function extractValues(data: readonly (number | FluxStatisticsChartCategoryPoint)[]): number[] {
     return data.map(point => typeof point === 'number' ? point : point.value);
@@ -100,7 +59,7 @@ export function toMixedSeries(s: FluxStatisticsChartMixedSeries, fallbackColor: 
 
     return {
         ...LINE_SERIES_DEFAULTS,
-        lineStyle: { width: 2 },
+        lineStyle: {width: 2},
         name: s.name,
         data: values,
         color
@@ -120,7 +79,7 @@ function buildPieData(slices: readonly FluxStatisticsChartPieSlice[], palette: r
         return {
             name: slice.label,
             value: slice.value,
-            itemStyle: { color }
+            itemStyle: {color}
         };
     });
 }
@@ -254,7 +213,7 @@ function mapTreemapNode(node: FluxStatisticsChartTreemapNode, palette: readonly 
     return {
         name: node.name,
         value: node.value,
-        itemStyle: { color },
+        itemStyle: {color},
         children: node.children?.map((child, idx) => mapTreemapNode(child, palette, idx))
     };
 }
@@ -267,11 +226,11 @@ export function toTreemapSeries(
         ...TREEMAP_SERIES_DEFAULTS,
         data: nodes.map((node, idx) => mapTreemapNode(node, palette, idx)),
         levels: [{
-            itemStyle: { borderColor: 'var(--surface)', borderWidth: 3, gapWidth: 0 }
+            itemStyle: {borderColor: 'var(--surface)', borderWidth: 3, gapWidth: 0}
         }, {
-            itemStyle: { gapWidth: 1 }
+            itemStyle: {gapWidth: 1}
         }, {
-            itemStyle: { gapWidth: 1 }
+            itemStyle: {gapWidth: 1}
         }]
     } as TreemapSeriesOption;
 }
@@ -290,12 +249,12 @@ export function toGaugeSeries(
     return {
         ...GAUGE_SERIES_DEFAULTS,
         radius: `${baseRadius}%`,
-        data: [{ value: s.value, name: s.name, itemStyle: { color } }],
+        data: [{value: s.value, name: s.name, itemStyle: {color}}],
         progress: {
             show: true,
             width: 14,
             roundCap: true,
-            itemStyle: { color }
+            itemStyle: {color}
         },
         title: {
             show: true,

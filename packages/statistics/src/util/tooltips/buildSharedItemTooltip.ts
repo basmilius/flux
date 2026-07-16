@@ -11,7 +11,7 @@ export interface SharedItemTooltipInput {
 }
 
 export function buildSharedItemTooltip(input: SharedItemTooltipInput): EChartsOption {
-    const { t, styles, getItems, getTitle, valueFormatter } = input;
+    const {t, styles, getItems, getTitle, valueFormatter} = input;
 
     const formatter = (params: TooltipParam | TooltipParam[]): string => {
         const param = Array.isArray(params) ? params[0] : params;

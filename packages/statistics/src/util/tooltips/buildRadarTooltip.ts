@@ -12,7 +12,7 @@ export interface RadarTooltipInput {
 }
 
 export function buildRadarTooltip(input: RadarTooltipInput): EChartsOption {
-    const { t, styles, getSeries, getIndicators, getPalette } = input;
+    const {t, styles, getSeries, getIndicators, getPalette} = input;
 
     const formatter = (params: TooltipParam | TooltipParam[]): string => {
         const param = Array.isArray(params) ? params[0] : params;

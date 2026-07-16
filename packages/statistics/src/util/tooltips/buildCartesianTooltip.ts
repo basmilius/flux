@@ -11,7 +11,7 @@ export interface CartesianTooltipInput {
 }
 
 export function buildCartesianTooltip(input: CartesianTooltipInput): EChartsOption {
-    const { t, styles, getSeriesIcons, valueFormatter } = input;
+    const {t, styles, getSeriesIcons, valueFormatter} = input;
 
     const formatter = (params: TooltipParam | TooltipParam[]): string => {
         const items = Array.isArray(params) ? params : [params];

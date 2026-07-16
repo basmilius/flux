@@ -1,6 +1,8 @@
 <template>
     <FluxMenuGroup :is-horizontal="isHorizontal">
-        <template v-for="(item, index) in items" :key="identityOf(item, index)">
+        <template
+            v-for="(item, index) in items"
+            :key="identityOf(item, index)">
             <component :is="item"/>
         </template>
     </FluxMenuGroup>

@@ -29,16 +29,16 @@ export function buildMixedChartOptions(input: MixedChartOptionsInput): EChartsOp
     } = input;
 
     const xLabels = labels ?? extractLabels(series) ?? cartesianFallbackLabels(series);
-    const base = buildCartesianBaseOptions({ tooltipTrigger: 'axis', xAxisLabels, yAxisLabels, splitLines, minPadding: 12 });
-    const xAxisOverride: EChartsOption = { xAxis: { type: 'category', data: xLabels as string[] } };
+    const base = buildCartesianBaseOptions({tooltipTrigger: 'axis', xAxisLabels, yAxisLabels, splitLines, minPadding: 12});
+    const xAxisOverride: EChartsOption = {xAxis: {type: 'category', data: xLabels as string[]}};
 
     const tooltipOptions: EChartsOption = tooltip
-        ? buildCartesianTooltip({ t, styles, getSeriesIcons: () => series.map(s => s.icon), valueFormatter: tooltipValueFormatter })
-        : { tooltip: { show: false } };
+        ? buildCartesianTooltip({t, styles, getSeriesIcons: () => series.map(s => s.icon), valueFormatter: tooltipValueFormatter})
+        : {tooltip: {show: false}};
 
     const echartsSeries = series.map((s, i) =>
-        toMixedSeries({ ...s, name: s.name ? t(String(s.name)) : undefined }, palette[i])
+        toMixedSeries({...s, name: s.name ? t(String(s.name)) : undefined}, palette[i])
     );
 
-    return merge({}, base, xAxisOverride, tooltipOptions, advancedOptions, { series: echartsSeries, color: palette });
+    return merge({}, base, xAxisOverride, tooltipOptions, advancedOptions, {series: echartsSeries, color: palette});
 }

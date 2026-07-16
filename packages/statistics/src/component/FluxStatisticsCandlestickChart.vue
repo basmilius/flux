@@ -32,7 +32,7 @@
         readonly yAxisLabels?: boolean;
     }>();
 
-    const { t } = useChartSeriesSetup(() => series, {
+    const {t} = useChartSeriesSetup(() => series, {
         getLegendItem: candlestickLegendItemBuilder
     });
 

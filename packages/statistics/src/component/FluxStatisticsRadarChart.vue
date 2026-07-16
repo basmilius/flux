@@ -26,7 +26,7 @@
         readonly tooltip?: boolean;
     }>();
 
-    const { t, palette } = useChartSeriesSetup(() => series, { mode: 'data' });
+    const {t, palette} = useChartSeriesSetup(() => series, {mode: 'data'});
 
     const mergedOptions = computed(() => buildRadarChartOptions({
         series,

@@ -1,4 +1,4 @@
-import { computed, inject, useId, type Ref } from 'vue';
+import { computed, inject, type Ref, useId } from 'vue';
 import { FluxFormFieldInjectionKey } from '~flux/components/data';
 
 type UseFormFieldInjectionReturn = {

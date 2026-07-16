@@ -1,20 +1,9 @@
-import type {
-    BarSeriesOption,
-    BoxplotSeriesOption,
-    CandlestickSeriesOption,
-    GaugeSeriesOption,
-    HeatmapSeriesOption,
-    LineSeriesOption,
-    PieSeriesOption,
-    RadarSeriesOption,
-    ScatterSeriesOption,
-    TreemapSeriesOption
-} from 'echarts/charts';
+import type { BarSeriesOption, BoxplotSeriesOption, CandlestickSeriesOption, GaugeSeriesOption, HeatmapSeriesOption, LineSeriesOption, PieSeriesOption, RadarSeriesOption, ScatterSeriesOption, TreemapSeriesOption } from 'echarts/charts';
 
-const SOFT_EMPHASIS = { focus: 'none' } as const;
-const PIE_EMPHASIS = { focus: 'none', scale: true, scaleSize: 6 } as const;
-const NO_EMPHASIS = { disabled: true } as const;
-const PIE_SLICE_BORDER = { borderColor: 'var(--surface)', borderWidth: 2 };
+const SOFT_EMPHASIS = {focus: 'none'} as const;
+const PIE_EMPHASIS = {focus: 'none', scale: true, scaleSize: 6} as const;
+const NO_EMPHASIS = {disabled: true} as const;
+const PIE_SLICE_BORDER = {borderColor: 'var(--surface)', borderWidth: 2};
 
 const stagger = (step: number) => (idx: number) => idx * step;
 
@@ -29,14 +18,14 @@ export const AREA_SERIES_DEFAULTS: Partial<LineSeriesOption> = {
     type: 'line',
     smooth: true,
     showSymbol: false,
-    areaStyle: { opacity: 0.25 },
-    lineStyle: { width: 2 },
+    areaStyle: {opacity: 0.25},
+    lineStyle: {width: 2},
     emphasis: SOFT_EMPHASIS
 };
 
 export const BAR_SERIES_DEFAULTS: Partial<BarSeriesOption> = {
     type: 'bar',
-    itemStyle: { borderRadius: 6 },
+    itemStyle: {borderRadius: 6},
     barCategoryGap: '25%',
     emphasis: SOFT_EMPHASIS,
     animationDelay: stagger(40),
@@ -46,8 +35,8 @@ export const BAR_SERIES_DEFAULTS: Partial<BarSeriesOption> = {
 export const PIE_SERIES_DEFAULTS: Partial<PieSeriesOption> = {
     type: 'pie',
     radius: '75%',
-    label: { show: false },
-    itemStyle: { ...PIE_SLICE_BORDER, borderRadius: 6 },
+    label: {show: false},
+    itemStyle: {...PIE_SLICE_BORDER, borderRadius: 6},
     selectedMode: false,
     emphasis: PIE_EMPHASIS
 };
@@ -56,8 +45,8 @@ export const DONUT_SERIES_DEFAULTS: Partial<PieSeriesOption> = {
     type: 'pie',
     radius: ['55%', '75%'],
     padAngle: 1,
-    label: { show: false },
-    itemStyle: { ...PIE_SLICE_BORDER, borderRadius: 6 },
+    label: {show: false},
+    itemStyle: {...PIE_SLICE_BORDER, borderRadius: 6},
     selectedMode: false,
     emphasis: PIE_EMPHASIS
 };
@@ -67,16 +56,16 @@ export const POLAR_AREA_SERIES_DEFAULTS: Partial<PieSeriesOption> = {
     roseType: 'area',
     radius: ['10%', '75%'],
     padAngle: 1,
-    label: { show: false },
-    itemStyle: { ...PIE_SLICE_BORDER, opacity: 0.85, borderRadius: 6 },
+    label: {show: false},
+    itemStyle: {...PIE_SLICE_BORDER, opacity: 0.85, borderRadius: 6},
     selectedMode: false,
     emphasis: PIE_EMPHASIS
 };
 
 export const RADAR_SERIES_DEFAULTS: Partial<RadarSeriesOption> = {
     type: 'radar',
-    areaStyle: { opacity: 0.25 },
-    lineStyle: { width: 2.5 },
+    areaStyle: {opacity: 0.25},
+    lineStyle: {width: 2.5},
     symbolSize: 6,
     emphasis: SOFT_EMPHASIS
 };
@@ -88,7 +77,7 @@ export const HEATMAP_SERIES_DEFAULTS: Partial<HeatmapSeriesOption> = {
         borderWidth: 2,
         borderRadius: 6
     },
-    label: { show: false },
+    label: {show: false},
     emphasis: SOFT_EMPHASIS,
     animationDelay: stagger(8),
     animationDelayUpdate: stagger(4)
@@ -148,7 +137,7 @@ export const TREEMAP_SERIES_DEFAULTS: Partial<TreemapSeriesOption> = {
     type: 'treemap',
     roam: false,
     nodeClick: false,
-    breadcrumb: { show: false },
+    breadcrumb: {show: false},
     itemStyle: {
         borderColor: 'var(--surface)',
         borderWidth: 3,
@@ -185,11 +174,11 @@ export const GAUGE_SERIES_DEFAULTS: Partial<GaugeSeriesOption> = {
         },
         roundCap: true
     },
-    axisTick: { show: false },
-    splitLine: { show: false },
-    axisLabel: { show: false },
-    pointer: { show: false },
-    anchor: { show: false },
+    axisTick: {show: false},
+    splitLine: {show: false},
+    axisLabel: {show: false},
+    pointer: {show: false},
+    anchor: {show: false},
     title: {
         show: true,
         color: 'var(--foreground-secondary)',

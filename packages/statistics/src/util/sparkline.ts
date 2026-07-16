@@ -23,7 +23,7 @@ export function buildSparklineOptions(
             bottom: 0,
             containLabel: false
         },
-        tooltip: { show: false },
+        tooltip: {show: false},
         xAxis: {
             type: 'category',
             show: false,
@@ -43,9 +43,9 @@ export function buildSparklineOptions(
             series: [{
                 type: 'bar',
                 data: data as never,
-                itemStyle: { borderRadius: 2 },
+                itemStyle: {borderRadius: 2},
                 barCategoryGap: '40%',
-                emphasis: { disabled: true },
+                emphasis: {disabled: true},
                 silent: true
             }]
         };
@@ -58,9 +58,9 @@ export function buildSparklineOptions(
             data: data as never,
             smooth: true,
             showSymbol: false,
-            lineStyle: { width: 2 },
-            areaStyle: variant === 'area' ? { opacity: 0.25 } : undefined,
-            emphasis: { disabled: true },
+            lineStyle: {width: 2},
+            areaStyle: variant === 'area' ? {opacity: 0.25} : undefined,
+            emphasis: {disabled: true},
             silent: true
         }]
     };

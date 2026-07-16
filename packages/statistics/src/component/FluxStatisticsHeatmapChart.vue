@@ -31,7 +31,7 @@
         readonly yLabels?: readonly string[];
     }>();
 
-    const { t } = useChartBaseSetup();
+    const {t} = useChartBaseSetup();
 
     const mergedOptions = computed(() => buildHeatmapChartOptions({
         series,

@@ -9,7 +9,9 @@
                 <div :class="$style.timeGridHeader">
                     <div :class="$style.timeGridHeaderGutter"/>
                     <div :class="$style.timeGridHeaderDays">
-                        <template v-for="d of viewDates" :key="d.toISODate()">
+                        <template
+                            v-for="d of viewDates"
+                            :key="d.toISODate()">
                             <div :class="clsx($style.timeGridHeaderDay, isToday(d) && $style.isToday)">
                                 {{ formatDayHeader(d) }}
                             </div>
@@ -22,7 +24,9 @@
                         {{ translate('flux.allDay') }}
                     </div>
                     <div :class="$style.timeGridAllDayDays">
-                        <template v-for="d of viewDates" :key="d.toISODate()">
+                        <template
+                            v-for="d of viewDates"
+                            :key="d.toISODate()">
                             <div
                                 :class="clsx(
                                     $style.timeGridAllDayCell,
@@ -42,7 +46,9 @@
 
                 <div :class="$style.timeGridBody">
                     <div :class="$style.timeGridHours">
-                        <template v-for="hour of hours" :key="hour">
+                        <template
+                            v-for="hour of hours"
+                            :key="hour">
                             <div
                                 :class="$style.timeGridHourLabel"
                                 :style="{height: `${pixelsPerMinute * 60}px`}">
@@ -52,7 +58,9 @@
                     </div>
 
                     <div :class="$style.timeGridDays">
-                        <template v-for="d of viewDates" :key="d.toISODate()">
+                        <template
+                            v-for="d of viewDates"
+                            :key="d.toISODate()">
                             <div
                                 :class="clsx(
                                     $style.timeGridDay,
@@ -62,7 +70,9 @@
                                 @dragover="draggable ? onColumnDragOver(d, $event) : undefined"
                                 @dragleave="draggable ? onColumnDragLeave(d) : undefined"
                                 @drop="draggable ? onColumnDrop(d, $event) : undefined">
-                                <template v-for="positioned of getTimedItems(d)" :key="positioned.id">
+                                <template
+                                    v-for="positioned of getTimedItems(d)"
+                                    :key="positioned.id">
                                     <div
                                         :class="clsx(
                                             $style.timeGridDayItem,

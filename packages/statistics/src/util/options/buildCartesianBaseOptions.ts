@@ -1,8 +1,8 @@
 import type { EChartsOption } from '~flux/statistics/composable';
 
-const FOREGROUND_LABEL = { show: true, color: 'var(--foreground-secondary)' } as const;
-const HIDDEN_AXIS = { show: false } as const;
-const DASHED_SPLIT_LINE = { show: true, lineStyle: { type: 'dashed' as const, color: 'var(--gray-200)' } } as const;
+const FOREGROUND_LABEL = {show: true, color: 'var(--foreground-secondary)'} as const;
+const HIDDEN_AXIS = {show: false} as const;
+const DASHED_SPLIT_LINE = {show: true, lineStyle: {type: 'dashed' as const, color: 'var(--gray-200)'}} as const;
 
 export interface CartesianBaseConfig {
     readonly xAxisType?: 'category' | 'value';
@@ -17,7 +17,7 @@ export interface CartesianBaseConfig {
 
 export function buildCartesianGrid(xAxisLabels: boolean, yAxisLabels: boolean, minPadding: number = 0): EChartsOption['grid'] {
     if (!xAxisLabels && !yAxisLabels) {
-        return { left: minPadding, right: minPadding, top: minPadding, bottom: minPadding, containLabel: false };
+        return {left: minPadding, right: minPadding, top: minPadding, bottom: minPadding, containLabel: false};
     }
 
     return {

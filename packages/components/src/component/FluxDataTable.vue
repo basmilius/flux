@@ -117,7 +117,9 @@
                         </FluxTableActions>
                     </FluxTableCell>
 
-                    <template v-for="(_, name) of slots" :key="name">
+                    <template
+                        v-for="(_, name) of slots"
+                        :key="name">
                         <slot
                             v-if="!IGNORED_SLOTS.includes(name as string)"
                             v-bind="{index: entry.index, item: entry.item, items: limitedItems, page, perPage, total, isSelected: rowStates.get(entry.key)?.isSelected ?? false}"

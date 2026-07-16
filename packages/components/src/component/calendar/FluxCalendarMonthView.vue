@@ -4,13 +4,17 @@
             :key="viewDate.month"
             :class="$style.calendarCells"
             role="grid">
-            <template v-for="day of days" :key="day">
+            <template
+                v-for="day of days"
+                :key="day">
                 <div :class="$style.calendarDay">
                     {{ day }}
                 </div>
             </template>
 
-            <template v-for="date of dates" :key="date.toSQLDate()">
+            <template
+                v-for="date of dates"
+                :key="date.toSQLDate()">
                 <div
                     :class="clsx(
                         $style.calendarEntry,

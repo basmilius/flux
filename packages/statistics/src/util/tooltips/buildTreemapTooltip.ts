@@ -16,7 +16,7 @@ export interface TreemapTooltipInput {
 }
 
 export function buildTreemapTooltip(input: TreemapTooltipInput): EChartsOption {
-    const { t, styles } = input;
+    const {t, styles} = input;
 
     const formatter = (params: TooltipParam | TooltipParam[]): string => {
         const param = Array.isArray(params) ? params[0] : params;
@@ -35,7 +35,7 @@ export function buildTreemapTooltip(input: TreemapTooltipInput): EChartsOption {
         const title = data.name ? t(String(data.name)) : '';
 
         const items: SharedTooltipItem[] = [
-            { name: '', value: data.value ?? '', color }
+            {name: '', value: data.value ?? '', color}
         ];
 
         return renderTooltip(t, styles, title, items);

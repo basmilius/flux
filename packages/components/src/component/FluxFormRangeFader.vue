@@ -269,7 +269,7 @@
     const lowerState = computed(() => faderBarStateClass(isDodging(unref(lowerBarCenter)), unref(isDraggingLower), unref(focusVisibleLower)));
     const upperState = computed(() => faderBarStateClass(isDodging(unref(upperBarCenter)), unref(isDraggingUpper), unref(focusVisibleUpper)));
 
-    function tickStyle(tick: {readonly percent: number; readonly visibility: number}): CSSProperties {
+    function tickStyle(tick: { readonly percent: number; readonly visibility: number }): CSSProperties {
         return direction === 'vertical'
             ? {bottom: `${tick.percent}%`, opacity: tick.visibility}
             : {left: `${tick.percent}%`, opacity: tick.visibility};

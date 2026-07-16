@@ -169,7 +169,7 @@
     import type { FluxCommandSource, FluxCommandSourceItem } from '@flux-ui/types';
     import { computed, onUnmounted, ref, toRef, unref, useId, useTemplateRef } from 'vue';
     import { useCommandPalette, useTranslate } from '~flux/components/composable/private';
-    import { registerDialog, type FluxDialogRegistration } from '~flux/components/data';
+    import { type FluxDialogRegistration, registerDialog } from '~flux/components/data';
     import { FluxWindowTransition } from '~flux/components/transition';
     import FluxCommandPaletteGroup from './FluxCommandPaletteGroup.vue';
     import FluxCommandPaletteItem from './FluxCommandPaletteItem.vue';

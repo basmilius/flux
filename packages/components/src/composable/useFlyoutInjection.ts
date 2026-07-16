@@ -6,6 +6,7 @@ export default function () {
         isClosing: ref(false),
         isOpen: ref(false),
         isOpening: ref(false),
-        close: () => {}
+        close: () => {
+        }
     });
 }

@@ -1,6 +1,6 @@
 import { useResizeObserver } from '@basmilius/common';
-import { init, type EChartsCoreOption } from 'echarts/core';
-import { markRaw, onBeforeUnmount, onMounted, ref, toValue, watch, type MaybeRefOrGetter, type Ref } from 'vue';
+import { type EChartsCoreOption, init } from 'echarts/core';
+import { markRaw, type MaybeRefOrGetter, onBeforeUnmount, onMounted, ref, type Ref, toValue, watch } from 'vue';
 import '~flux/statistics/echarts';
 
 export type EChartsOption = EChartsCoreOption;
@@ -8,6 +8,7 @@ export type EChartsInstance = ReturnType<typeof init>;
 
 export interface UseEChartsReturn {
     readonly chartInstance: Ref<EChartsInstance | null>;
+
     resize(): void;
 }
 

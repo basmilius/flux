@@ -19,8 +19,8 @@ export interface HeatmapChartOptionsInput {
     readonly advancedOptions?: EChartsOption;
 }
 
-const HIDDEN = { show: false } as const;
-const labelStyle = (show: boolean) => ({ show, color: 'var(--foreground-secondary)' });
+const HIDDEN = {show: false} as const;
+const labelStyle = (show: boolean) => ({show, color: 'var(--foreground-secondary)'});
 
 export function buildHeatmapChartOptions(input: HeatmapChartOptionsInput): EChartsOption {
     const {
@@ -40,7 +40,7 @@ export function buildHeatmapChartOptions(input: HeatmapChartOptionsInput): EChar
             show: false,
             min: 0,
             max: 100,
-            inRange: { color: [blue100, blue300, blue500, blue700] }
+            inRange: {color: [blue100, blue300, blue500, blue700]}
         },
         xAxis: {
             type: 'category',
@@ -61,12 +61,12 @@ export function buildHeatmapChartOptions(input: HeatmapChartOptionsInput): EChar
     };
 
     const tooltipOptions: EChartsOption = tooltip
-        ? buildHeatmapTooltip({ t, styles, getSeries: () => series })
-        : { tooltip: { show: false } };
+        ? buildHeatmapTooltip({t, styles, getSeries: () => series})
+        : {tooltip: {show: false}};
 
     const echartsSeries = series.map(s =>
-        toHeatmapSeries({ ...s, name: s.name ? t(String(s.name)) : undefined }, xLabels, yLabels)
+        toHeatmapSeries({...s, name: s.name ? t(String(s.name)) : undefined}, xLabels, yLabels)
     );
 
-    return merge({}, base, tooltipOptions, advancedOptions, { series: echartsSeries });
+    return merge({}, base, tooltipOptions, advancedOptions, {series: echartsSeries});
 }

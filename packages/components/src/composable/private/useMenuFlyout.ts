@@ -1,6 +1,6 @@
 import { animationFrameDebounce, isSSR } from '@flux-ui/internals';
-import { inject, nextTick, onMounted, onUnmounted, provide, ref, type ComponentPublicInstance, type Ref, watch } from 'vue';
-import { FluxMenuFlyoutInjectionKey, type FluxMenuFlyoutCone, type FluxMenuFlyoutEntry, type FluxMenuFlyoutInjection, type FluxMenuFlyoutPointer } from '~flux/components/data';
+import { type ComponentPublicInstance, inject, nextTick, onMounted, onUnmounted, provide, ref, type Ref, watch } from 'vue';
+import { type FluxMenuFlyoutCone, type FluxMenuFlyoutEntry, type FluxMenuFlyoutInjection, FluxMenuFlyoutInjectionKey, type FluxMenuFlyoutPointer } from '~flux/components/data';
 
 // How far back (ms) the cone apex trails the live pointer. A lagged anchor keeps the safe triangle
 // stable and meaningfully sized even during slow diagonal moves, where a single-frame apex collapses.
@@ -72,7 +72,7 @@ export function useMenuFlyoutProvider(options: UseMenuFlyoutProviderOptions): Fl
 
     // Timestamped trail of recent pointer samples, used to read the position from ~TRAIL_LAG ago, plus
     // the EMA velocity state. Reset whenever tracking (re)starts or the pointer goes idle.
-    const trail: {t: number; x: number; y: number}[] = [];
+    const trail: { t: number; x: number; y: number }[] = [];
     let lastFlushTime = 0;
     let emaVx = 0;
     let emaVy = 0;
@@ -434,7 +434,7 @@ export default function useMenuFlyout(options: UseMenuFlyoutOptions): UseMenuFly
         }
     }
 
-    function buildCone(back: boolean, ax: number, ay: number, hx: number, hy: number, basis: {bx: number; by: number; cx: number; cy: number}): FluxMenuFlyoutCone {
+    function buildCone(back: boolean, ax: number, ay: number, hx: number, hy: number, basis: { bx: number; by: number; cx: number; cy: number }): FluxMenuFlyoutCone {
         return {id, ax, ay, bx: basis.bx, by: basis.by, cx: basis.cx, cy: basis.cy, hx, hy, back};
     }
 
@@ -669,7 +669,7 @@ function isAimingForward(pointer: FluxMenuFlyoutPointer, t: DOMRect, r: DOMRect)
  * edge, velocity-buffered) — so travelling back from anywhere inside the submenu stays covered without
  * the triangle pinching to a single point. Works for both right- and left-opening submenus.
  */
-function computeReturnCone(t: DOMRect, r: DOMRect, speed: number): {ax: number; ay: number; bx: number; by: number; cx: number; cy: number; dx: number; dy: number} {
+function computeReturnCone(t: DOMRect, r: DOMRect, speed: number): { ax: number; ay: number; bx: number; by: number; cx: number; cy: number; dx: number; dy: number } {
     const opensRight = r.left >= t.right;
     const opensLeft = r.right <= t.left;
     const nearPopupX = opensRight ? r.left : (opensLeft ? r.right : r.left);

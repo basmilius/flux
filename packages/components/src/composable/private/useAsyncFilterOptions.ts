@@ -1,6 +1,6 @@
 import { useDebouncedRef, useLoaded } from '@basmilius/common';
 import type { FluxFilterOptionRow, FluxFilterValue } from '@flux-ui/types';
-import { computed, ref, unref, watch, type ComputedRef, type ModelRef, type Ref } from 'vue';
+import { computed, type ComputedRef, type ModelRef, ref, type Ref, unref, watch } from 'vue';
 import { isFluxFilterOptionItem } from '~flux/components/util';
 
 type UseAsyncFilterOptionsParams = {

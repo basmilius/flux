@@ -51,7 +51,7 @@
     import { clsx } from 'clsx';
     import { computed, inject, toRef, unref } from 'vue';
     import { useDisabled, useFormFieldInjection, useFormRadioGroupInjection } from '~flux/components/composable';
-    import { FluxItemControlInjectionKey, type FluxFormRadioGroupValue } from '~flux/components/data';
+    import { type FluxFormRadioGroupValue, FluxItemControlInjectionKey } from '~flux/components/data';
     import $style from '~flux/components/css/component/Form.module.scss';
 
     const {

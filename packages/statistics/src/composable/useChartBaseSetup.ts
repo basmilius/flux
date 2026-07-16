@@ -5,7 +5,7 @@ export interface UseChartBaseSetupReturn {
 }
 
 export function useChartBaseSetup(): UseChartBaseSetupReturn {
-    const { t } = useI18n({ useScope: 'parent' });
+    const {t} = useI18n({useScope: 'parent'});
 
-    return { t };
+    return {t};
 }

@@ -61,7 +61,7 @@
     import { clsx } from 'clsx';
     import { computed, inject, toRef, unref, useTemplateRef, watchEffect } from 'vue';
     import { useDisabled, useFormCheckboxGroupInjection, useFormFieldInjection } from '~flux/components/composable';
-    import { FluxItemControlInjectionKey, type FluxFormCheckboxGroupValue } from '~flux/components/data';
+    import { type FluxFormCheckboxGroupValue, FluxItemControlInjectionKey } from '~flux/components/data';
     import FluxIcon from './FluxIcon.vue';
     import $style from '~flux/components/css/component/Form.module.scss';
 

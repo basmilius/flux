@@ -7,7 +7,7 @@
     setup>
     import { flattenVNodeTree, getComponentName, getComponentProps } from '@flux-ui/internals';
     import type { FluxFilterDefinition, FluxFilterState, FluxFilterValue } from '@flux-ui/types';
-    import { computed, provide, unref, watch, type VNode } from 'vue';
+    import { computed, provide, unref, type VNode, watch } from 'vue';
     import { FluxFilterInjectionKey } from '~flux/components/data';
 
     const emit = defineEmits<{

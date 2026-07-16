@@ -75,11 +75,13 @@
             readonly contentId: string;
             readonly headerId: string;
             readonly label?: string;
-            close(): void; }): VNode[];
+            close(): void;
+        }): VNode[];
 
         default(props: {
             readonly label?: string;
-            close(): void; }): VNode[];
+            close(): void;
+        }): VNode[];
 
         header(props: {
             readonly contentId: string;

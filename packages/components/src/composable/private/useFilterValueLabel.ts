@@ -1,6 +1,6 @@
 import { useLoaded } from '@basmilius/common';
 import type { FluxFilterDefinition, FluxFilterValue } from '@flux-ui/types';
-import { computed, ref, unref, watch, type ComputedRef, type Ref } from 'vue';
+import { computed, type ComputedRef, ref, type Ref, unref, watch } from 'vue';
 
 export function useFilterValueLabel(
     getItem: () => FluxFilterDefinition,

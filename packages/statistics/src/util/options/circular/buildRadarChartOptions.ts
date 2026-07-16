@@ -17,14 +17,14 @@ export interface RadarChartOptionsInput {
 }
 
 export function buildRadarChartOptions(input: RadarChartOptionsInput): EChartsOption {
-    const { series, indicators, palette, t, styles, tooltip = false, advancedOptions = {} } = input;
+    const {series, indicators, palette, t, styles, tooltip = false, advancedOptions = {}} = input;
 
     const radarConfig: EChartsOption = {
         radar: {
-            indicator: indicators.map(i => ({ name: t(String(i.name)), max: i.max })),
-            splitLine: { lineStyle: { color: 'var(--gray-200)' } },
-            splitArea: { show: false },
-            axisLine: { lineStyle: { color: 'var(--gray-200)' } },
+            indicator: indicators.map(i => ({name: t(String(i.name)), max: i.max})),
+            splitLine: {lineStyle: {color: 'var(--gray-200)'}},
+            splitArea: {show: false},
+            axisLine: {lineStyle: {color: 'var(--gray-200)'}},
             axisName: {
                 color: 'var(--foreground-secondary)',
                 fontSize: 12,
@@ -41,12 +41,12 @@ export function buildRadarChartOptions(input: RadarChartOptionsInput): EChartsOp
             getIndicators: () => indicators,
             getPalette: () => palette
         })
-        : { tooltip: { show: false } };
+        : {tooltip: {show: false}};
 
     const echartsSeries = [toRadarSeries(
-        series.map(s => ({ ...s, name: s.name ? t(String(s.name)) : undefined })),
+        series.map(s => ({...s, name: s.name ? t(String(s.name)) : undefined})),
         palette
     )];
 
-    return merge({}, buildCircularBaseOptions(), radarConfig, tooltipOptions, advancedOptions, { series: echartsSeries, color: palette });
+    return merge({}, buildCircularBaseOptions(), radarConfig, tooltipOptions, advancedOptions, {series: echartsSeries, color: palette});
 }

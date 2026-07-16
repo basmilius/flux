@@ -1,6 +1,6 @@
 import { useDebouncedRef } from '@basmilius/common';
 import type { FluxCommandSource, FluxCommandSourceItem, FluxCommandSubAction } from '@flux-ui/types';
-import { computed, nextTick, ref, shallowRef, unref, watch, type Ref } from 'vue';
+import { computed, nextTick, ref, type Ref, shallowRef, unref, watch } from 'vue';
 
 export type CommandPaletteResultItem = {
     readonly globalIndex: number;

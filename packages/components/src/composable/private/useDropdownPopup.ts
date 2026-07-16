@@ -1,6 +1,6 @@
 import { useClickOutside } from '@basmilius/common';
 import { unrefTemplateElement } from '@flux-ui/internals';
-import { nextTick, ref, unref, watch, type ComponentPublicInstance, type Ref } from 'vue';
+import { type ComponentPublicInstance, nextTick, ref, type Ref, unref, watch } from 'vue';
 
 export type UseDropdownPopupOptions = {
     readonly anchorRef: Readonly<Ref<ComponentPublicInstance | null | undefined>>;

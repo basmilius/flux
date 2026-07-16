@@ -46,18 +46,18 @@ export function buildBoxPlotChartOptions(input: BoxPlotChartOptionsInput): EChar
     } = input;
 
     const xLabels = resolveBoxPlotLabels(series, labels);
-    const base = buildCartesianBaseOptions({ xAxisLabels, yAxisLabels, splitLines, minPadding: 12 });
+    const base = buildCartesianBaseOptions({xAxisLabels, yAxisLabels, splitLines, minPadding: 12});
     const xAxisOverride: EChartsOption | undefined = xLabels
-        ? { xAxis: { type: 'category', data: xLabels as string[] } }
+        ? {xAxis: {type: 'category', data: xLabels as string[]}}
         : undefined;
 
     const tooltipOptions: EChartsOption = tooltip
-        ? buildBoxPlotTooltip({ t, styles, getSeries: () => series, getPalette: () => palette })
-        : { tooltip: { show: false } };
+        ? buildBoxPlotTooltip({t, styles, getSeries: () => series, getPalette: () => palette})
+        : {tooltip: {show: false}};
 
     const echartsSeries = series.map((s, i) =>
-        toBoxPlotSeries({ ...s, name: s.name ? t(String(s.name)) : undefined }, palette[i])
+        toBoxPlotSeries({...s, name: s.name ? t(String(s.name)) : undefined}, palette[i])
     );
 
-    return merge({}, base, xAxisOverride ?? {}, tooltipOptions, advancedOptions, { series: echartsSeries, color: palette });
+    return merge({}, base, xAxisOverride ?? {}, tooltipOptions, advancedOptions, {series: echartsSeries, color: palette});
 }

@@ -30,7 +30,7 @@
     lang="ts"
     setup>
     import { isSSR, useEventListener, useFocusTrap } from '@flux-ui/internals';
-    import { computed, type ComponentPublicInstance, onUnmounted, provide, reactive, ref, toRef, useTemplateRef, type VNode } from 'vue';
+    import { type ComponentPublicInstance, computed, onUnmounted, provide, reactive, ref, toRef, useTemplateRef, type VNode } from 'vue';
     import { AnchorPopup } from '~flux/components/component/primitive';
     import { useDisabled } from '~flux/components/composable';
     import { useMenuFlyoutProvider } from '~flux/components/composable/private';
@@ -62,7 +62,7 @@
 
     defineSlots<{
         default(): VNode[];
-        menu(props: {close(): void}): VNode[];
+        menu(props: { close(): void }): VNode[];
     }>();
 
     // A touch long-press opens the menu after this delay, as long as the finger stays within

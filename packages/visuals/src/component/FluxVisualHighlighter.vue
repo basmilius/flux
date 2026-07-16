@@ -13,7 +13,7 @@
     import type { HighlighterVariant } from '@flux-ui/types';
     import { annotate } from 'rough-notation';
     import { computed, onBeforeUnmount, onMounted, shallowRef, useTemplateRef, watch } from 'vue';
-    import { useHighlighterGroupInjection, type HighlighterGroupEntry } from '~flux/visuals/composable/private';
+    import { type HighlighterGroupEntry, useHighlighterGroupInjection } from '~flux/visuals/composable/private';
     import $style from '~flux/visuals/css/component/Highlighter.module.scss';
 
     const emit = defineEmits<{

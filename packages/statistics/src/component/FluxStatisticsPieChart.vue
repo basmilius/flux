@@ -28,7 +28,7 @@
         readonly tooltipValueFormatter?: ChartTooltipValueFormatter;
     }>();
 
-    const { t, palette, tooltipItems } = useChartSlicesSetup(() => slices);
+    const {t, palette, tooltipItems} = useChartSlicesSetup(() => slices);
 
     const mergedOptions = computed(() => buildPieChartOptions({
         slices,

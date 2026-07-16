@@ -1,5 +1,5 @@
 import { inject } from 'vue';
-import { FluxFlowInjectionKey, type FluxFlowController } from '~flux/flow/data';
+import { type FluxFlowController, FluxFlowInjectionKey } from '~flux/flow/data';
 
 /**
  * Reads the FluxFlow controller from the surrounding `FluxFlow`. Exposes the

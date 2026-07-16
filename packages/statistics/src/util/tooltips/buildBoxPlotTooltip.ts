@@ -20,7 +20,7 @@ export interface BoxPlotTooltipInput {
 }
 
 export function buildBoxPlotTooltip(input: BoxPlotTooltipInput): EChartsOption {
-    const { t, styles, getSeries, getPalette } = input;
+    const {t, styles, getSeries, getPalette} = input;
 
     const formatter = (params: TooltipParam | TooltipParam[]): string => {
         const param = Array.isArray(params) ? params[0] : params;
@@ -46,11 +46,11 @@ export function buildBoxPlotTooltip(input: BoxPlotTooltipInput): EChartsOption {
         const title = [seriesName, pointLabel].filter(Boolean).join(' — ');
 
         const items: SharedTooltipItem[] = [
-            { name: 'Min', value: point.min, color },
-            { name: 'Q1', value: point.q1, color },
-            { name: 'Median', value: point.median, color },
-            { name: 'Q3', value: point.q3, color },
-            { name: 'Max', value: point.max, color }
+            {name: 'Min', value: point.min, color},
+            {name: 'Q1', value: point.q1, color},
+            {name: 'Median', value: point.median, color},
+            {name: 'Q3', value: point.q3, color},
+            {name: 'Max', value: point.max, color}
         ];
 
         return renderTooltip(t, styles, title, items);

@@ -1,6 +1,6 @@
 import { flattenVNodeTree, useFocusTrap } from '@flux-ui/internals';
 import { Comment, type Component, h, type InjectionKey, onUnmounted, provide, type Ref, ref, type RenderFunction, type SetupContext, type Slots, Teleport, type VNode, watch } from 'vue';
-import { registerDialog, type FluxDialogRegistration } from '~flux/components/data';
+import { type FluxDialogRegistration, registerDialog } from '~flux/components/data';
 import $style from '~flux/components/css/component/Overlay.module.scss';
 
 type Emit = SetupContext<['close']>['emit'];

@@ -99,13 +99,13 @@
     }>();
 
     defineSlots<{
-        actions?(props: {save(): void; cancel(): void}): VNode[];
-        default?(props: {value: string; edit(): void}): VNode[];
+        actions?(props: { save(): void; cancel(): void }): VNode[];
+        default?(props: { value: string; edit(): void }): VNode[];
     }>();
 
     const rootRef = useTemplateRef<HTMLElement>('root');
     const displayRef = useTemplateRef<HTMLElement>('display');
-    const fieldRef = useTemplateRef<{focus(): void}>('field');
+    const fieldRef = useTemplateRef<{ focus(): void }>('field');
 
     const isEditing = ref(false);
     const isCancelling = ref(false);

@@ -29,16 +29,16 @@ export function buildLineChartOptions(input: LineChartOptionsInput): EChartsOpti
     } = input;
 
     const xLabels = labels ?? extractLabels(series) ?? cartesianFallbackLabels(series);
-    const base = buildCartesianBaseOptions({ xAxisLabels, yAxisLabels, splitLines });
-    const xAxisOverride: EChartsOption = { xAxis: { type: 'category', data: xLabels as string[], boundaryGap: false } };
+    const base = buildCartesianBaseOptions({xAxisLabels, yAxisLabels, splitLines});
+    const xAxisOverride: EChartsOption = {xAxis: {type: 'category', data: xLabels as string[], boundaryGap: false}};
 
     const tooltipOptions: EChartsOption = tooltip
-        ? buildCartesianTooltip({ t, styles, getSeriesIcons: () => series.map(s => s.icon), valueFormatter: tooltipValueFormatter })
-        : { tooltip: { show: false } };
+        ? buildCartesianTooltip({t, styles, getSeriesIcons: () => series.map(s => s.icon), valueFormatter: tooltipValueFormatter})
+        : {tooltip: {show: false}};
 
     const echartsSeries = series.map((s, i) =>
-        toLineSeries({ ...s, name: s.name ? t(String(s.name)) : undefined }, palette[i])
+        toLineSeries({...s, name: s.name ? t(String(s.name)) : undefined}, palette[i])
     );
 
-    return merge({}, base, xAxisOverride, tooltipOptions, advancedOptions, { series: echartsSeries, color: palette });
+    return merge({}, base, xAxisOverride, tooltipOptions, advancedOptions, {series: echartsSeries, color: palette});
 }

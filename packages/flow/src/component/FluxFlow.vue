@@ -89,7 +89,7 @@
     setup>
     import { FluxBadge } from '@flux-ui/components';
     import { clsx } from 'clsx';
-    import { computed, onBeforeUnmount, onMounted, provide, ref, toRef, useTemplateRef, watch, type CSSProperties } from 'vue';
+    import { computed, type CSSProperties, onBeforeUnmount, onMounted, provide, ref, toRef, useTemplateRef, watch } from 'vue';
     import { useFlowController } from '~flux/flow/composable/private';
     import { FluxFlowInjectionKey, type FluxFlowViewport } from '~flux/flow/data';
     import $style from '~flux/flow/css/component/Flow.module.scss';

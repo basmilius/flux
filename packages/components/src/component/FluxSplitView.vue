@@ -8,7 +8,9 @@
             isDragging && $style.splitViewDragging
         )"
         :style="templateStyle">
-        <template v-for="(pane, index) in panes" :key="pane.key">
+        <template
+            v-for="(pane, index) in panes"
+            :key="pane.key">
             <component :is="pane.vnode"/>
 
             <button

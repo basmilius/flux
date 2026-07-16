@@ -1,4 +1,4 @@
-import { computed, shallowReactive, shallowRef, type Ref } from 'vue';
+import { computed, type Ref, shallowReactive, shallowRef } from 'vue';
 import type { FluxFlowBounds, FluxFlowController, FluxFlowEdgeRecord, FluxFlowNodeRecord, FluxFlowPosition, FluxFlowViewport } from '~flux/flow/data';
 
 type FlowControllerOptions = {

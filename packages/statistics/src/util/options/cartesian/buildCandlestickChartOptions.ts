@@ -61,18 +61,18 @@ export function buildCandlestickChartOptions(input: CandlestickChartOptionsInput
     } = input;
 
     const xLabels = resolveCandlestickLabels(series, labels);
-    const base = buildCartesianBaseOptions({ scale: true, xAxisLabels, yAxisLabels, splitLines, minPadding: 12 });
+    const base = buildCartesianBaseOptions({scale: true, xAxisLabels, yAxisLabels, splitLines, minPadding: 12});
     const xAxisOverride: EChartsOption | undefined = xLabels
-        ? { xAxis: { type: 'category', data: xLabels as string[] } }
+        ? {xAxis: {type: 'category', data: xLabels as string[]}}
         : undefined;
 
     const tooltipOptions: EChartsOption = tooltip
-        ? buildCandlestickTooltip({ t, styles, getSeries: () => series })
-        : { tooltip: { show: false } };
+        ? buildCandlestickTooltip({t, styles, getSeries: () => series})
+        : {tooltip: {show: false}};
 
     const echartsSeries = series.map(s =>
-        toCandlestickSeries({ ...s, name: s.name ? t(String(s.name)) : undefined })
+        toCandlestickSeries({...s, name: s.name ? t(String(s.name)) : undefined})
     );
 
-    return merge({}, base, xAxisOverride ?? {}, tooltipOptions, advancedOptions, { series: echartsSeries });
+    return merge({}, base, xAxisOverride ?? {}, tooltipOptions, advancedOptions, {series: echartsSeries});
 }

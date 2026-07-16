@@ -1,4 +1,4 @@
-import { ref, unref, watch, type ModelRef, type Ref } from 'vue';
+import { type ModelRef, ref, type Ref, unref, watch } from 'vue';
 
 type FlyoutLike = {
     close(): void;

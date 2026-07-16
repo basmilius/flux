@@ -1,4 +1,4 @@
-import { computed, unref, type Ref } from 'vue';
+import { computed, type Ref, unref } from 'vue';
 import useDisabledInjection from './useDisabledInjection';
 
 export default function (componentDisabled: Ref<boolean>) {

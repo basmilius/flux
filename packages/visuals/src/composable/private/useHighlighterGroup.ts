@@ -1,6 +1,6 @@
 import type { HighlighterGroupProps } from '@flux-ui/types';
 import { annotationGroup } from 'rough-notation';
-import { inject, onScopeDispose, provide, type InjectionKey } from 'vue';
+import { inject, type InjectionKey, onScopeDispose, provide } from 'vue';
 
 type Annotation = Parameters<typeof annotationGroup>[0][number];
 

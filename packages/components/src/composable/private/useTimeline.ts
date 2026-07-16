@@ -1,4 +1,4 @@
-import { nextTick, onMounted, onUnmounted, ref, shallowReactive, watch, type Ref } from 'vue';
+import { nextTick, onMounted, onUnmounted, ref, type Ref, shallowReactive, watch } from 'vue';
 
 const MARKER_GAP = 6;
 

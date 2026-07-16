@@ -11,7 +11,9 @@
         :style="{
             gap: `${gap}px`
         }">
-        <template v-for="(item, index) of items.slice(0, visibleItems)" :key="index">
+        <template
+            v-for="(item, index) of items.slice(0, visibleItems)"
+            :key="index">
             <FluxDynamicView :vnode="item"/>
         </template>
 

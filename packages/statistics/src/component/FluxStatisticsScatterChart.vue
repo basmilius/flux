@@ -32,7 +32,7 @@
         readonly yAxisLabels?: boolean;
     }>();
 
-    const { t, palette } = useChartSeriesSetup(() => series);
+    const {t, palette} = useChartSeriesSetup(() => series);
 
     const mergedOptions = computed(() => buildScatterChartOptions({
         series,

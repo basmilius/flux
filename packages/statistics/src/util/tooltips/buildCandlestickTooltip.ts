@@ -19,7 +19,7 @@ export interface CandlestickTooltipInput {
 }
 
 export function buildCandlestickTooltip(input: CandlestickTooltipInput): EChartsOption {
-    const { t, styles, getSeries } = input;
+    const {t, styles, getSeries} = input;
 
     const formatter = (params: TooltipParam | TooltipParam[]): string => {
         const param = Array.isArray(params) ? params[0] : params;
@@ -46,10 +46,10 @@ export function buildCandlestickTooltip(input: CandlestickTooltipInput): ECharts
         const title = [seriesName, pointLabel].filter(Boolean).join(' — ');
 
         const items: SharedTooltipItem[] = [
-            { name: 'Open', value: point.open, color },
-            { name: 'Close', value: point.close, color },
-            { name: 'Lowest', value: point.low, color },
-            { name: 'Highest', value: point.high, color }
+            {name: 'Open', value: point.open, color},
+            {name: 'Close', value: point.close, color},
+            {name: 'Lowest', value: point.low, color},
+            {name: 'Highest', value: point.high, color}
         ];
 
         return renderTooltip(t, styles, title, items);

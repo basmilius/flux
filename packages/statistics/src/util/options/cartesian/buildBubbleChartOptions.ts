@@ -38,12 +38,12 @@ export function buildBubbleChartOptions(input: BubbleChartOptionsInput): ECharts
     });
 
     const tooltipOptions: EChartsOption = tooltip
-        ? buildCartesianTooltip({ t, styles, getSeriesIcons: () => series.map(s => s.icon), valueFormatter: tooltipValueFormatter })
-        : { tooltip: { show: false } };
+        ? buildCartesianTooltip({t, styles, getSeriesIcons: () => series.map(s => s.icon), valueFormatter: tooltipValueFormatter})
+        : {tooltip: {show: false}};
 
     const echartsSeries = series.map((s, i) =>
-        toBubbleSeries({ ...s, name: s.name ? t(String(s.name)) : undefined }, palette[i])
+        toBubbleSeries({...s, name: s.name ? t(String(s.name)) : undefined}, palette[i])
     );
 
-    return merge({}, base, tooltipOptions, advancedOptions, { series: echartsSeries, color: palette });
+    return merge({}, base, tooltipOptions, advancedOptions, {series: echartsSeries, color: palette});
 }

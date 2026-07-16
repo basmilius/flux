@@ -1,5 +1,5 @@
 import type { FluxIconName, FluxStatisticsChartColor } from '@flux-ui/types';
-import { computed, inject, useTemplateRef, watchEffect, type ComputedRef } from 'vue';
+import { computed, type ComputedRef, inject, useTemplateRef, watchEffect } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { CHART_DEFAULT_COLORS, resolveChartColor } from '~flux/statistics/util';
 import { type ChartHoverSyncMode, useChartHoverSync } from './useChartHoverSync';
@@ -46,13 +46,13 @@ export function useChartSeriesSetup<S extends ChartSeriesShape>(
     seriesGetter: () => readonly S[],
     options: UseChartSeriesSetupOptions<S> = {}
 ): UseChartSeriesSetupReturn {
-    const { mode = 'series', getLegendItem = defaultLegendItem } = options;
-    const { t } = useI18n({ useScope: 'parent' });
+    const {mode = 'series', getLegendItem = defaultLegendItem} = options;
+    const {t} = useI18n({useScope: 'parent'});
     const legendContext = inject(FluxStatisticsChartLegendInjectionKey, null);
     const chartRef = useTemplateRef<{ chartInstance: EChartsInstance | null } | null>('chartRef');
     const chartInstance = computed<EChartsInstance | null>(() => chartRef.value?.chartInstance ?? null);
 
-    useChartHoverSync(chartInstance, legendContext, { mode });
+    useChartHoverSync(chartInstance, legendContext, {mode});
 
     const palette = computed<readonly string[]>(() =>
         seriesGetter().map((s, i) => resolveChartColor(s.color) ?? CHART_DEFAULT_COLORS[i % CHART_DEFAULT_COLORS.length])
@@ -71,5 +71,5 @@ export function useChartSeriesSetup<S extends ChartSeriesShape>(
         }
     });
 
-    return { t, palette, legendContext, chartInstance };
+    return {t, palette, legendContext, chartInstance};
 }

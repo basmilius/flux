@@ -1,4 +1,4 @@
-import { onBeforeUnmount, watch, type Ref } from 'vue';
+import { onBeforeUnmount, type Ref, watch } from 'vue';
 import type { ChartLegendContext } from './useChartLegend';
 import type { EChartsInstance } from './useECharts';
 
@@ -18,7 +18,7 @@ export function useChartHoverSync(
         return;
     }
 
-    const { mode, seriesIndex: forcedSeriesIndex = 0 } = options;
+    const {mode, seriesIndex: forcedSeriesIndex = 0} = options;
 
     let attached: EChartsInstance | null = null;
     let syncing = false;
@@ -56,13 +56,13 @@ export function useChartHoverSync(
         syncing = true;
 
         try {
-            instance.dispatchAction({ type: 'downplay' });
+            instance.dispatchAction({type: 'downplay'});
 
             if (index !== null) {
                 if (mode === 'series') {
-                    instance.dispatchAction({ type: 'highlight', seriesIndex: toSeriesIndex(index) });
+                    instance.dispatchAction({type: 'highlight', seriesIndex: toSeriesIndex(index)});
                 } else {
-                    instance.dispatchAction({ type: 'highlight', seriesIndex: forcedSeriesIndex, dataIndex: index });
+                    instance.dispatchAction({type: 'highlight', seriesIndex: forcedSeriesIndex, dataIndex: index});
                 }
             }
         } finally {
@@ -83,7 +83,7 @@ export function useChartHoverSync(
             attached = instance;
             dispatchHighlight(instance, legendContext.hoveredIndex.value);
         }
-    }, { immediate: true });
+    }, {immediate: true});
 
     watch(() => legendContext.hoveredIndex.value, index => {
         if (chartInstance.value) {

@@ -11,7 +11,7 @@ export interface GaugeTooltipInput {
 }
 
 export function buildGaugeTooltip(input: GaugeTooltipInput): EChartsOption {
-    const { t, styles, getSeries, getPalette } = input;
+    const {t, styles, getSeries, getPalette} = input;
 
     const formatter = (params: TooltipParam | TooltipParam[]): string => {
         const param = Array.isArray(params) ? params[0] : params;
@@ -33,7 +33,7 @@ export function buildGaugeTooltip(input: GaugeTooltipInput): EChartsOption {
         const title = s.name ? t(String(s.name)) : '';
 
         const items: SharedTooltipItem[] = [
-            { name: '', value: s.value, color, icon: s.icon }
+            {name: '', value: s.value, color, icon: s.icon}
         ];
 
         return renderTooltip(t, styles, title, items);

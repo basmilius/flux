@@ -67,7 +67,7 @@
     setup>
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { computed, type ComponentPublicInstance, toRef, useId, useTemplateRef, type VNode } from 'vue';
+    import { type ComponentPublicInstance, computed, toRef, useId, useTemplateRef, type VNode } from 'vue';
     import { AnchorPopup } from '~flux/components/component/primitive';
     import { useMenuFlyout, useTranslate } from '~flux/components/composable/private';
     import FluxMenuItem from './FluxMenuItem.vue';

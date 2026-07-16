@@ -53,13 +53,13 @@
     import { useMutationObserver, useResizeObserver } from '@basmilius/common';
     import { unrefTemplateElement, useEventListener } from '@flux-ui/internals';
     import { clsx } from 'clsx';
-    import { onMounted, provide, ref, toRef, useTemplateRef, watch, type Ref, type VNode } from 'vue';
+    import { onMounted, provide, ref, type Ref, toRef, useTemplateRef, type VNode, watch } from 'vue';
     import { FluxTabBarInjectionKey } from '~flux/components/data';
     import { FluxFadeTransition } from '~flux/components/transition';
     import FluxIcon from './FluxIcon.vue';
     import $style from '~flux/components/css/component/Tab.module.scss';
 
-    const { isPills } = defineProps<{
+    const {isPills} = defineProps<{
         readonly isPills?: boolean;
     }>();
 

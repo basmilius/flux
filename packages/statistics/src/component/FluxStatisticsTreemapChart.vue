@@ -23,7 +23,7 @@
         readonly tooltip?: boolean;
     }>();
 
-    const { t } = useChartBaseSetup();
+    const {t} = useChartBaseSetup();
 
     const mergedOptions = computed(() => buildTreemapChartOptions({
         nodes,

@@ -19,7 +19,7 @@
     import { clsx } from 'clsx';
     import { inject, provide, toRef, unref, type VNode } from 'vue';
     import { useDisabled } from '~flux/components/composable';
-    import { FluxFormCheckboxGroupInjectionKey, FluxFormFieldInjectionKey, type FluxFormCheckboxGroupValue } from '~flux/components/data';
+    import { FluxFormCheckboxGroupInjectionKey, type FluxFormCheckboxGroupValue, FluxFormFieldInjectionKey } from '~flux/components/data';
     import $style from '~flux/components/css/component/Form.module.scss';
 
     const modelValue = defineModel<FluxFormCheckboxGroupValue[]>({

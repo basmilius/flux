@@ -1,5 +1,5 @@
 import type { FluxStatisticsChartPieSlice } from '@flux-ui/types';
-import { computed, inject, useTemplateRef, watchEffect, type ComputedRef } from 'vue';
+import { computed, type ComputedRef, inject, useTemplateRef, watchEffect } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { CHART_DEFAULT_COLORS, resolveChartColor, type SharedTooltipItem } from '~flux/statistics/util';
 import { useChartHoverSync } from './useChartHoverSync';
@@ -17,12 +17,12 @@ export interface UseChartSlicesSetupReturn {
 export function useChartSlicesSetup(
     slicesGetter: () => readonly FluxStatisticsChartPieSlice[]
 ): UseChartSlicesSetupReturn {
-    const { t } = useI18n({ useScope: 'parent' });
+    const {t} = useI18n({useScope: 'parent'});
     const legendContext = inject(FluxStatisticsChartLegendInjectionKey, null);
     const chartRef = useTemplateRef<{ chartInstance: EChartsInstance | null } | null>('chartRef');
     const chartInstance = computed<EChartsInstance | null>(() => chartRef.value?.chartInstance ?? null);
 
-    useChartHoverSync(chartInstance, legendContext, { mode: 'data' });
+    useChartHoverSync(chartInstance, legendContext, {mode: 'data'});
 
     const palette = computed<readonly string[]>(() =>
         slicesGetter().map((slice, i) => resolveChartColor(slice.color) ?? CHART_DEFAULT_COLORS[i % CHART_DEFAULT_COLORS.length])
@@ -54,5 +54,5 @@ export function useChartSlicesSetup(
         }
     });
 
-    return { t, palette, tooltipItems, legendContext, chartInstance };
+    return {t, palette, tooltipItems, legendContext, chartInstance};
 }

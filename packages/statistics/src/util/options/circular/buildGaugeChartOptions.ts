@@ -30,15 +30,15 @@ export function gaugeLegendItemBuilder(
 }
 
 export function buildGaugeChartOptions(input: GaugeChartOptionsInput): EChartsOption {
-    const { series, palette, t, styles, tooltip = false, advancedOptions = {} } = input;
+    const {series, palette, t, styles, tooltip = false, advancedOptions = {}} = input;
 
     const tooltipOptions: EChartsOption = tooltip
-        ? buildGaugeTooltip({ t, styles, getSeries: () => series, getPalette: () => palette })
-        : { tooltip: { show: false } };
+        ? buildGaugeTooltip({t, styles, getSeries: () => series, getPalette: () => palette})
+        : {tooltip: {show: false}};
 
     const echartsSeries = series.map((s, i) =>
-        toGaugeSeries({ ...s, name: s.name ? t(String(s.name)) : s.name }, palette[i], i, series.length)
+        toGaugeSeries({...s, name: s.name ? t(String(s.name)) : s.name}, palette[i], i, series.length)
     );
 
-    return merge({}, buildCircularBaseOptions(), tooltipOptions, advancedOptions, { series: echartsSeries, color: palette });
+    return merge({}, buildCircularBaseOptions(), tooltipOptions, advancedOptions, {series: echartsSeries, color: palette});
 }

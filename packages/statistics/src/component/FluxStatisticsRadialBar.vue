@@ -24,7 +24,7 @@
         readonly tooltip?: boolean;
     }>();
 
-    const { t, palette } = useChartSeriesSetup(() => series, {
+    const {t, palette} = useChartSeriesSetup(() => series, {
         getLegendItem: gaugeLegendItemBuilder
     });
 

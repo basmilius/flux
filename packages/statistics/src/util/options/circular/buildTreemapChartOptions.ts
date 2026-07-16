@@ -16,13 +16,13 @@ export interface TreemapChartOptionsInput {
 }
 
 export function buildTreemapChartOptions(input: TreemapChartOptionsInput): EChartsOption {
-    const { nodes, palette = CHART_DEFAULT_COLORS, t, styles, tooltip = false, advancedOptions = {} } = input;
+    const {nodes, palette = CHART_DEFAULT_COLORS, t, styles, tooltip = false, advancedOptions = {}} = input;
 
     const tooltipOptions: EChartsOption = tooltip
-        ? buildTreemapTooltip({ t, styles })
-        : { tooltip: { show: false } };
+        ? buildTreemapTooltip({t, styles})
+        : {tooltip: {show: false}};
 
     const echartsSeries = [toTreemapSeries(nodes, palette)];
 
-    return merge({}, buildCircularBaseOptions(), tooltipOptions, advancedOptions, { series: echartsSeries });
+    return merge({}, buildCircularBaseOptions(), tooltipOptions, advancedOptions, {series: echartsSeries});
 }

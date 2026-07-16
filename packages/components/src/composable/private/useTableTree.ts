@@ -1,4 +1,4 @@
-import { nextTick, onMounted, onUnmounted, ref, shallowReactive, watch, type Ref } from 'vue';
+import { nextTick, onMounted, onUnmounted, ref, type Ref, shallowReactive, watch } from 'vue';
 
 export const TREE_STEP = 24;
 export const TREE_MARKER_SIZE = 22;

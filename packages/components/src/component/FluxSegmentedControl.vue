@@ -21,13 +21,13 @@
     setup>
     import { useMutationObserver, useResizeObserver } from '@basmilius/common';
     import type { FluxSize } from '@flux-ui/types';
-    import { onMounted, provide, ref, toRef, useTemplateRef, watch, type VNode } from 'vue';
+    import { onMounted, provide, ref, toRef, useTemplateRef, type VNode, watch } from 'vue';
     import { FluxSegmentedControlInjectionKey, type FluxSegmentedControlValue } from '~flux/components/data';
     import $style from '~flux/components/css/component/SegmentedControl.module.scss';
 
     const modelValue = defineModel<FluxSegmentedControlValue>();
 
-    const { size = 'medium' } = defineProps<{
+    const {size = 'medium'} = defineProps<{
         readonly isFill?: boolean;
         readonly size?: FluxSize;
     }>();

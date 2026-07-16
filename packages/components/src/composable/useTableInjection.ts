@@ -7,7 +7,9 @@ export default function () {
         columns: ref([]),
         pinnedEdges: ref({end: -1, start: -1}),
         pinnedOffsets: ref(new Map<number, number>()),
-        registerColumn: () => () => {},
-        registerTreeNode: () => () => {}
+        registerColumn: () => () => {
+        },
+        registerTreeNode: () => () => {
+        }
     }), true);
 }

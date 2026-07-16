@@ -26,5 +26,5 @@ export function extractLabels(
 
 export function cartesianFallbackLabels(series: readonly FluxStatisticsChartCartesianSeries[]): string[] {
     const longest = series.reduce((max, s) => Math.max(max, s.data.length), 0);
-    return Array.from({ length: longest }, (_, i) => String(i + 1));
+    return Array.from({length: longest}, (_, i) => String(i + 1));
 }

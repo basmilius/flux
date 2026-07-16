@@ -32,7 +32,7 @@
     import FluxIcon from './FluxIcon.vue';
     import $style from '~flux/components/css/component/SegmentedControl.module.scss';
 
-    const { value, disabled: componentDisabled } = defineProps<{
+    const {value, disabled: componentDisabled} = defineProps<{
         readonly value: FluxSegmentedControlValue;
         readonly disabled?: boolean;
         readonly icon?: FluxIconName;
