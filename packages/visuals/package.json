@@ -48,8 +48,8 @@
     "module": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "dependencies": {
-        "@basmilius/common": "^3.53.0",
-        "@basmilius/utils": "^3.53.0",
+        "@basmilius/common": "^3.55.0",
+        "@basmilius/utils": "^3.55.0",
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/types": "workspace:*",
         "clsx": "^2.1.1",
@@ -59,7 +59,7 @@
         "vue": "^3.6.0-beta.17"
     },
     "devDependencies": {
-        "@basmilius/vite-preset": "^3.53.0",
+        "@basmilius/vite-preset": "^3.55.0",
         "@types/node": "^26.1.1",
         "@vitejs/plugin-vue": "^6.0.8",
         "@vue/tsconfig": "^0.9.1",

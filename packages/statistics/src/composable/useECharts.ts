@@ -41,7 +41,7 @@ export function useECharts(
         chartInstance.value = null;
     });
 
-    useResizeObserver(target as any, () => {
+    useResizeObserver(target, () => {
         if (pendingResize !== null) {
             return;
         }

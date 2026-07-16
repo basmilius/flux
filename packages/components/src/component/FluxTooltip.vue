@@ -20,14 +20,12 @@
                 const elm = instance.proxy!.$el;
                 elm.addEventListener('mouseenter', onHover, {passive: true});
                 elm.addEventListener('mouseleave', onLeave, {passive: true});
-                window.addEventListener('scroll', onLeave, {capture: true});
             });
 
             onUnmounted(() => {
                 const elm = instance.proxy!.$el;
                 elm.removeEventListener('mouseenter', onHover);
                 elm.removeEventListener('mouseleave', onLeave);
-                window.removeEventListener('scroll', onLeave, {capture: true});
                 onLeave();
             });
 

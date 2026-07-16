@@ -35,12 +35,27 @@ export function useTableTree(container: Readonly<Ref<HTMLElement | null>>) {
         const registration: TreeNodeRegistration = {element, level};
 
         registrations.add(registration);
-        nextTick(measure);
+        scheduleMeasure();
 
         return () => {
             registrations.delete(registration);
-            nextTick(measure);
+            scheduleMeasure();
         };
+    }
+
+    let scheduled = false;
+
+    function scheduleMeasure(): void {
+        if (scheduled) {
+            return;
+        }
+
+        scheduled = true;
+
+        nextTick(() => {
+            measure();
+            scheduled = false;
+        });
     }
 
     function measure(): void {
@@ -101,7 +116,7 @@ export function useTableTree(container: Readonly<Ref<HTMLElement | null>>) {
             observer.observe(container.value);
         }
 
-        nextTick(measure);
+        scheduleMeasure();
     });
 
     onUnmounted(() => observer?.disconnect());

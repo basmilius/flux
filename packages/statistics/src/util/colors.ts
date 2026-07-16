@@ -15,6 +15,18 @@ export function useCssVarVersion() {
     return themeVersion;
 }
 
+function resolveWithStyle(input: string, style: CSSStyleDeclaration): string {
+    return input.replace(CSS_VAR_PATTERN, (match, name: string, fallback?: string) => {
+        const value = style.getPropertyValue(name).trim();
+
+        if (value) {
+            return value;
+        }
+
+        return fallback ? resolveWithStyle(fallback.trim(), style) : match;
+    });
+}
+
 export function resolveCssVar(input: string, root?: HTMLElement): string {
     if (typeof document === 'undefined' || !input.includes('var(')) {
         return input;
@@ -22,15 +34,7 @@ export function resolveCssVar(input: string, root?: HTMLElement): string {
 
     const target = root ?? document.documentElement;
 
-    return input.replace(CSS_VAR_PATTERN, (match, name: string, fallback?: string) => {
-        const value = getComputedStyle(target).getPropertyValue(name).trim();
-
-        if (value) {
-            return value;
-        }
-
-        return fallback ? resolveCssVar(fallback.trim(), target) : match;
-    });
+    return resolveWithStyle(input, getComputedStyle(target));
 }
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {
@@ -42,9 +46,9 @@ function isPlainObject(value: unknown): value is Record<string, unknown> {
     return proto === Object.prototype || proto === null;
 }
 
-export function deepResolveCssVars<T>(value: T, root?: HTMLElement): T {
+function deepResolveWithStyle<T>(value: T, style: CSSStyleDeclaration): T {
     if (typeof value === 'string') {
-        return (value.includes('var(') ? resolveCssVar(value, root) : value) as T;
+        return (value.includes('var(') ? resolveWithStyle(value, style) : value) as T;
     }
 
     if (Array.isArray(value)) {
@@ -52,7 +56,7 @@ export function deepResolveCssVars<T>(value: T, root?: HTMLElement): T {
         const out: unknown[] = new Array(value.length);
 
         for (let i = 0; i < value.length; i++) {
-            const resolved = deepResolveCssVars(value[i], root);
+            const resolved = deepResolveWithStyle(value[i], style);
 
             if (resolved !== value[i]) {
                 changed = true;
@@ -73,7 +77,7 @@ export function deepResolveCssVars<T>(value: T, root?: HTMLElement): T {
 
     for (const key of Object.keys(value)) {
         const original = value[key];
-        const resolved = deepResolveCssVars(original, root);
+        const resolved = deepResolveWithStyle(original, style);
 
         if (resolved !== original) {
             changed = true;
@@ -83,4 +87,14 @@ export function deepResolveCssVars<T>(value: T, root?: HTMLElement): T {
     }
 
     return (changed ? out : value) as T;
+}
+
+export function deepResolveCssVars<T>(value: T, root?: HTMLElement): T {
+    if (typeof document === 'undefined') {
+        return value;
+    }
+
+    const target = root ?? document.documentElement;
+
+    return deepResolveWithStyle(value, getComputedStyle(target));
 }

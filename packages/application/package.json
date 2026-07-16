@@ -61,7 +61,7 @@
         "vue-router": "^5.2.0"
     },
     "devDependencies": {
-        "@basmilius/vite-preset": "^3.53.0",
+        "@basmilius/vite-preset": "^3.55.0",
         "@types/node": "^26.1.1",
         "@vitejs/plugin-vue": "^6.0.8",
         "@vue/tsconfig": "^0.9.1",

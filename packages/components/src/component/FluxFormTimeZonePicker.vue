@@ -19,12 +19,12 @@
     setup>
     import { isSSR } from '@flux-ui/internals';
     import type { FluxFormInputBaseProps, FluxFormSelectEntry } from '@flux-ui/types';
-    import { upperFirst } from 'lodash-es';
     import { computed, toRef } from 'vue';
     import { useDisabled } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';
     import type { FluxTranslation } from '~flux/components/data';
     import { TIME_ZONE_GROUP_ORDER, TIME_ZONES } from '~flux/components/data/timeZones';
+    import { upperFirst } from '~flux/components/util';
     import FluxFormSelect from './FluxFormSelect.vue';
 
     const modelValue = defineModel<string | null>({

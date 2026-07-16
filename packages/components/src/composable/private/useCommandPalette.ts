@@ -1,6 +1,6 @@
 import { useDebouncedRef } from '@basmilius/common';
 import type { FluxCommandSource, FluxCommandSourceItem, FluxCommandSubAction } from '@flux-ui/types';
-import { computed, nextTick, ref, unref, watch, type Ref } from 'vue';
+import { computed, nextTick, ref, shallowRef, unref, watch, type Ref } from 'vue';
 
 export type CommandPaletteResultItem = {
     readonly globalIndex: number;
@@ -46,7 +46,7 @@ export function useCommandPalette(params: {
     const isLoading = ref(false);
     const isTransitioningBack = ref(false);
     const savedState = ref<{ readonly search: string; readonly highlightedIndex: number; } | null>(null);
-    const asyncResults = ref<Map<string, FluxCommandSourceItem[]>>(new Map());
+    const asyncResults = shallowRef<Map<string, FluxCommandSourceItem[]>>(new Map());
     const debouncedSearch = useDebouncedRef(search, 300) as unknown as Ref<string>;
     let fetchGeneration = 0;
 
