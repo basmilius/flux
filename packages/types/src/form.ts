@@ -21,7 +21,7 @@ export type FluxFormTreeViewSelectOption = {
 };
 
 export type FluxFormTreeViewSelectValue = FluxFormTreeViewSelectValueSingle | FluxFormTreeViewSelectValueSingle[];
-export type FluxFormTreeViewSelectValueSingle = string | number;
+export type FluxFormTreeViewSelectValueSingle = string | number | null;
 
 export type FluxFormSelectGroup = {
     readonly icon?: FluxIconName;

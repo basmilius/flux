@@ -35,16 +35,27 @@
         </template>
 
         <template v-else-if="!isMultiple && selectedOptions[0]">
-            <span :class="$style.treeViewSelectValue">{{ selectedOptions[0].label }}</span>
+            <FluxMenuItem
+                :class="$formStyle.formSelectSelected"
+                :icon-leading="selectedOptions[0].icon"
+                :label="selectedOptions[0].label"
+                tabindex="-1"/>
         </template>
 
         <template v-else-if="placeholder">
             <span :class="$formStyle.formSelectPlaceholder">{{ placeholder }}</span>
         </template>
 
-        <FluxIcon
+        <FluxSpinner
+            v-if="isLoading"
             :class="$formStyle.formSelectIcon"
-            name="angle-down"/>
+            :size="16"/>
+
+        <FluxIcon
+            v-else
+            :class="$formStyle.formSelectIcon"
+            name="angles-up-down"
+            :size="16"/>
     </Anchor>
 
     <Teleport to="body">
@@ -132,6 +143,8 @@
     import { FluxFadeTransition } from '~flux/components/transition';
     import FluxFormInput from './FluxFormInput.vue';
     import FluxIcon from './FluxIcon.vue';
+    import FluxMenuItem from './FluxMenuItem.vue';
+    import FluxSpinner from './FluxSpinner.vue';
     import FluxTag from './FluxTag.vue';
     import { Anchor, AnchorPopup, TreeNodeRenderer } from './primitive';
     import $formStyle from '~flux/components/css/component/Form.module.scss';
@@ -193,7 +206,7 @@
         if (Array.isArray(value)) {
             return new Set(value);
         }
-        return new Set<string | number>(value !== undefined ? [value] : []);
+        return new Set<string | number>(value != null ? [value] : []);
     });
 
     const selectedOptions = computed(() => {

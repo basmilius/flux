@@ -72,8 +72,8 @@ props:
         optional: true
 
 requiredIcons:
-    - angle-down
     - angle-right
+    - angles-up-down
     - check
     - magnifying-glass
     - xmark

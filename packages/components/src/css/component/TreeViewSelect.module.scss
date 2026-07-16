@@ -1,12 +1,5 @@
 @use '~flux/components/css/mixin';
 
-.treeViewSelectValue {
-    margin-left: 6px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
 .treeViewSelectList {
     display: flex;
     flex-flow: column;
