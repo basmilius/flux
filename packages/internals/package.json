@@ -58,8 +58,8 @@
         }
     },
     "dependencies": {
-        "@basmilius/common": "^3.53.0",
-        "@basmilius/utils": "^3.53.0",
+        "@basmilius/common": "^3.55.0",
+        "@basmilius/utils": "^3.55.0",
         "@flux-ui/types": "workspace:*",
         "lodash-es": "^4.18.1"
     },
