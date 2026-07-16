@@ -98,29 +98,41 @@
                             :id="optionId(nodeIndex)"
                             :class="clsx(
                                 $style.treeNode,
-                                node.selectable !== false && $style.isSelectable,
-                                node.selectable === false && !!node.children?.length && $style.isExpandable,
-                                selectedIds.has(node.id) && $style.isSelected,
+                                node.selectable !== false && !isNodeDisabled(node) && $style.isSelectable,
+                                node.selectable === false && !isNodeDisabled(node) && node.hasChildren && $style.isExpandable,
+                                isNodeDisabled(node) && $style.isDisabled,
                                 nodeIndex === highlightedIndex && $style.isHighlighted
                             )"
                             :role="node.selectable !== false ? 'option' : 'presentation'"
                             :tabindex="node.selectable !== false ? -1 : undefined"
-                            :aria-selected="node.selectable !== false ? selectedIds.has(node.id) : undefined"
+                            :aria-selected="node.selectable !== false ? selectedIds.has(node.id) || isLocked(node) : undefined"
+                            :aria-disabled="isNodeDisabled(node) ? true : undefined"
                             @click="onNodeClick(node)"
                             @keydown.enter.prevent="onNodeClick(node)"
                             @keydown.space.prevent="onNodeClick(node)">
 
                             <TreeNodeRenderer
                                 :node="node"
-                                :expanded="expandedIds.has(node.id)"
+                                :expanded="isSearching || expandedIds.has(node.id)"
                                 :level-colors="levelColors"
                                 @expand-click="onExpandClick(node, $event)">
                                 <template #trailing>
-                                    <FluxIcon
-                                        v-if="selectedIds.has(node.id)"
-                                        :class="$style.treeNodeCheck"
-                                        name="check"
-                                        :size="14"/>
+                                    <template v-if="node.selectable !== false">
+                                        <FluxFormCheckbox
+                                            v-if="isMultiple"
+                                            :class="$style.treeNodeControl"
+                                            :disabled="isNodeDisabled(node)"
+                                            :model-value="selectedIds.has(node.id) || isLocked(node)"
+                                            aria-hidden="true"
+                                            is-readonly/>
+
+                                        <FluxFormRadio
+                                            v-else
+                                            :class="$style.treeNodeControl"
+                                            :disabled="isNodeDisabled(node)"
+                                            :value="node.id"
+                                            aria-hidden="true"/>
+                                    </template>
                                 </template>
                             </TreeNodeRenderer>
                         </div>
@@ -137,11 +149,14 @@
     import { unrefTemplateElement } from '@flux-ui/internals';
     import type { FluxColor, FluxFormInputBaseProps, FluxFormTreeViewSelectOption, FluxFormTreeViewSelectValue } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { type ComponentPublicInstance, computed, nextTick, ref, toRef, unref, useId, useTemplateRef, watch } from 'vue';
+    import { type ComponentPublicInstance, computed, nextTick, provide, ref, toRef, unref, useId, useTemplateRef, watch } from 'vue';
     import { useDisabled, useFormFieldInjection } from '~flux/components/composable';
-    import { flattenAll, flattenVisible, INITIAL_HIGHLIGHTED_INDEX, type TreeFlatNode, useDropdownPopup, useTranslate, useTreeView } from '~flux/components/composable/private';
+    import { flattenAll, flattenSearch, flattenVisible, INITIAL_HIGHLIGHTED_INDEX, type TreeFlatNode, useDropdownPopup, useTranslate, useTreeView } from '~flux/components/composable/private';
+    import { type FluxFormRadioGroupValue, FluxFormRadioGroupInjectionKey, FluxItemControlInjectionKey } from '~flux/components/data';
     import { FluxFadeTransition } from '~flux/components/transition';
+    import FluxFormCheckbox from './FluxFormCheckbox.vue';
     import FluxFormInput from './FluxFormInput.vue';
+    import FluxFormRadio from './FluxFormRadio.vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxMenuItem from './FluxMenuItem.vue';
     import FluxSpinner from './FluxSpinner.vue';
@@ -160,6 +175,7 @@
 
     const {
         disabled: componentDisabled,
+        isCascading,
         isMultiple,
         isReadonly,
         isSearchable,
@@ -167,6 +183,7 @@
         options,
         placeholder
     } = defineProps<Pick<FluxFormInputBaseProps, 'autoFocus' | 'disabled' | 'error' | 'isCondensed' | 'isLoading' | 'isReadonly' | 'isSecondary' | 'name' | 'placeholder'> & {
+        readonly isCascading?: boolean;
         readonly isMultiple?: boolean;
         readonly isSearchable?: boolean;
         readonly levelColors?: (FluxColor | string)[];
@@ -185,6 +202,35 @@
     const {id, describedBy} = useFormFieldInjection();
     const translate = useTranslate();
     const listId = useId();
+    const radioName = useId();
+
+    // The checkbox / radio only visualises the selection — the option row itself stays the control,
+    // keeping the listbox semantics intact. Marking them as this item's control drops their own
+    // label wrapper, and providing the radio group contract here gives the radios their context
+    // without a role="radiogroup" element inside the listbox.
+    provide(FluxItemControlInjectionKey, {
+        isControl: toRef(() => true),
+        register: () => undefined
+    });
+
+    provide(FluxFormRadioGroupInjectionKey, {
+        get name() {
+            return radioName;
+        },
+        modelValue: computed({
+            get: () => {
+                const value = unref(modelValue);
+                const single = Array.isArray(value) ? value[0] : value;
+
+                return (single ?? undefined) as FluxFormRadioGroupValue | undefined;
+            },
+            set: () => undefined
+        }),
+        disabled,
+        isReadonly: toRef(() => true),
+        error: toRef(() => undefined),
+        select: () => undefined
+    });
 
     const focusElement = computed(() => unrefTemplateElement(searchInputRef) ?? unrefTemplateElement(anchorRef));
 
@@ -217,12 +263,12 @@
         return flattenAll(options).filter(node => ids.has(node.id));
     });
 
+    const isSearching = computed(() => unref(searchQuery).trim() !== '');
+
     const visibleNodes = computed((): FlatNode[] => {
         const query = unref(searchQuery).toLowerCase().trim();
         if (query) {
-            return flattenAll(options)
-                .filter(node => node.label.toLowerCase().includes(query))
-                .map(node => ({...node, depth: 0, isLast: false, lineGuides: [] as boolean[]}));
+            return flattenSearch(options, query);
         }
         return flattenVisible(options, 0, unref(expandedIds));
     });
@@ -283,13 +329,34 @@
         focusAnchor();
     }
 
+    // Selecting a parent implicitly covers its whole subtree, so its descendants are locked — but
+    // only in multi-select mode, since single-select nodes stay independently selectable. Locked
+    // nodes render as checked without entering the model value; only explicit picks do.
+    function isLocked(node: FlatNode): boolean {
+        if (!isCascading || !isMultiple) {
+            return false;
+        }
+
+        const ids = unref(selectedIds);
+
+        return node.ancestorIds.some(ancestorId => ids.has(ancestorId));
+    }
+
+    function isNodeDisabled(node: FlatNode): boolean {
+        return node.disabled === true || isLocked(node);
+    }
+
     function onNodeClick(node: FlatNode): void {
+        if (isNodeDisabled(node)) {
+            return;
+        }
+
         if (node.selectable !== false) {
             select(node.id);
-            if (node.children?.length && !unref(expandedIds).has(node.id)) {
+            if (node.hasChildren && !unref(expandedIds).has(node.id)) {
                 toggleExpand(node.id);
             }
-        } else if (node.children?.length) {
+        } else if (node.hasChildren) {
             toggleExpand(node.id);
         }
     }

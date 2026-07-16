@@ -1,15 +1,39 @@
+@use 'focus-ring' as focus;
+@use 'hover' as hover;
+
 @mixin tree-node-classes() {
-    // Wrapper for guide lines + expand button — no internal gap so lines align perfectly
+    // Wrapper for guide lines + marker — no internal gap so lines align perfectly
     .treeNodeLineArea {
+        position: relative;
         display: flex;
         align-self: stretch;
+        align-items: center;
         flex-shrink: 0;
     }
 
-    // Vertical guide line for each ancestor level
+    // Line dropping from an expanded node's marker to its children, mirroring the table's
+    // `M{x} {centerY + MARKER_RADIUS + MARKER_GAP}V{bottom}` segment: it starts the same 3px gap
+    // below the marker as the connector stops before it. --tree-marker-column is the marker's
+    // column index, set by the renderer.
+    .treeNodeLineArea.hasDropLine::after {
+        position: absolute;
+        top: calc(50% + 14px);
+        bottom: 0;
+        left: calc(var(--tree-marker-column) * 24px + 11px);
+        width: 2px;
+        content: '';
+        background: var(--surface-active);
+    }
+
+    // Geometry mirrors the table tree (see useTableTree.ts): every level is a 24px column
+    // (TREE_STEP) whose center carries the guide line, and the 22px marker (TREE_MARKER_SIZE) is
+    // centered in its own column. Lines stop 3px short of the marker (MARKER_GAP), matching the
+    // gap the table leaves before its dot.
+
+    // Vertical guide line for each ancestor level above the direct parent
     .treeIndent {
         position: relative;
-        width: 20px;
+        width: 24px;
         align-self: stretch;
         flex-shrink: 0;
         pointer-events: none;
@@ -18,17 +42,18 @@
             position: absolute;
             top: 0;
             bottom: 0;
-            left: 9px;
-            width: 1px;
+            left: 11px;
+            width: 2px;
             content: '';
-            background: var(--surface-stroke);
+            background: var(--surface-active);
         }
     }
 
-    // Connector from parent to current node, with rounded elbow
+    // Connector from parent to current node, with rounded elbow. Its vertical segment sits at the
+    // same x as the parent's marker center, so the elbow lands exactly on the parent.
     .treeConnector {
         position: relative;
-        width: 20px;
+        width: 24px;
         align-self: stretch;
         flex-shrink: 0;
         pointer-events: none;
@@ -38,50 +63,114 @@
             position: absolute;
             top: 0;
             bottom: 0;
-            left: 9px;
-            width: 1px;
+            left: 11px;
+            width: 2px;
             content: '';
-            background: var(--surface-stroke);
+            background: var(--surface-active);
         }
 
-        // Rounded elbow: vertical segment from top to midpoint, curves right to expand area
+        // Rounded elbow: vertical segment from top to midpoint, curves right towards the marker
         // Overlaps the ::before vertical line for non-last nodes (same position, same color)
         &::after {
             position: absolute;
             top: 0;
             bottom: 50%;
-            left: 9px;
-            right: 0;
+            left: 11px;
+            right: 2px;
             content: '';
-            border-left: 1px solid var(--surface-stroke);
-            border-bottom: 1px solid var(--surface-stroke);
-            border-bottom-left-radius: 6px;
+            border-left: 2px solid var(--surface-active);
+            border-bottom: 2px solid var(--surface-active);
+            border-bottom-left-radius: 9px;
         }
     }
 
-    .treeNodeExpand {
+    // Marker: closes the line area. Every node gets the same circle regardless of depth — nodes with
+    // children render it as the expand toggle holding the chevron, leaves as a plain circle. Colors
+    // resolve through the --tree-marker-* vars, fed either by a FluxColor variant class or by
+    // --tree-marker-color for a custom color.
+    .treeNodeMarker {
+        --tree-marker-fill: var(--gray-100);
+        --tree-marker-stroke: var(--gray-200);
+        --tree-marker-foreground: var(--foreground-prominent);
+
         display: flex;
-        width: 16px;
+        box-sizing: border-box;
+        width: 22px;
+        height: 22px;
         flex-shrink: 0;
         align-items: center;
         justify-content: center;
-        color: var(--foreground-secondary);
+        margin-inline: 1px;
+        background: var(--tree-marker-fill);
+        border: 1px solid var(--tree-marker-stroke);
+        border-radius: 50%;
+        color: var(--tree-marker-foreground);
+    }
 
-        &:not(:empty) {
-            cursor: pointer;
+    .treeNodeMarker.isToggle {
+        padding: 0;
+        cursor: pointer;
+        outline: 0;
+
+        @include focus.focus-ring(2px);
+
+        @include hover.hover {
+            opacity: .75;
         }
     }
 
-    .treeNodeColorDot {
-        display: block;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        flex-shrink: 0;
+    .treeNodeMarker.isToggle :global(svg) {
+        transition: rotate .2s var(--swift-out);
     }
 
+    .treeNodeMarker.isToggle.isExpanded :global(svg) {
+        rotate: 90deg;
+    }
+
+    .treeNodeMarkerGray {
+        --tree-marker-fill: var(--gray-100);
+        --tree-marker-stroke: var(--gray-300);
+        --tree-marker-foreground: var(--foreground-prominent);
+    }
+
+    .treeNodeMarkerPrimary {
+        --tree-marker-fill: var(--primary-100);
+        --tree-marker-stroke: var(--primary-300);
+        --tree-marker-foreground: var(--primary-900);
+    }
+
+    .treeNodeMarkerDanger {
+        --tree-marker-fill: var(--danger-100);
+        --tree-marker-stroke: var(--danger-300);
+        --tree-marker-foreground: var(--danger-900);
+    }
+
+    .treeNodeMarkerInfo {
+        --tree-marker-fill: var(--info-100);
+        --tree-marker-stroke: var(--info-300);
+        --tree-marker-foreground: var(--info-900);
+    }
+
+    .treeNodeMarkerSuccess {
+        --tree-marker-fill: var(--success-100);
+        --tree-marker-stroke: var(--success-300);
+        --tree-marker-foreground: var(--success-900);
+    }
+
+    .treeNodeMarkerWarning {
+        --tree-marker-fill: var(--warning-100);
+        --tree-marker-stroke: var(--warning-300);
+        --tree-marker-foreground: var(--warning-900);
+    }
+
+    .treeNodeMarkerCustom {
+        --tree-marker-fill: color-mix(in srgb, var(--tree-marker-color) 15%, var(--surface));
+        --tree-marker-stroke: color-mix(in srgb, var(--tree-marker-color) 35%, var(--surface));
+        --tree-marker-foreground: color-mix(in srgb, var(--tree-marker-color) 75%, var(--foreground));
+    }
+
+    // No own color: inherits the node's, like .menuItemIcon inherits .menuItem's
     .treeNodeIcon {
-        color: var(--foreground-secondary);
         flex-shrink: 0;
     }
 

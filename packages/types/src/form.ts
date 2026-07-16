@@ -1,4 +1,4 @@
-import type { FluxIconName } from './common';
+import type { FluxColor, FluxIconName } from './common';
 
 export type FluxFormInputBaseProps = {
     readonly autoFocus?: boolean;
@@ -16,6 +16,8 @@ export type FluxFormTreeViewSelectOption = {
     readonly id: string | number;
     readonly label: string;
     readonly icon?: FluxIconName;
+    readonly color?: FluxColor | string;
+    readonly disabled?: boolean;
     readonly selectable?: boolean;
     readonly children?: FluxFormTreeViewSelectOption[];
 };

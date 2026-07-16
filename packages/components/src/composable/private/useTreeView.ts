@@ -5,31 +5,43 @@ export type TreeBaseOption = {
     readonly id: string | number;
     readonly label: string;
     readonly icon?: FluxIconName;
+    readonly color?: FluxColor | string;
+    readonly disabled?: boolean;
     readonly children?: TreeBaseOption[];
 };
 
 export type TreeFlatNode<TOption extends TreeBaseOption = TreeBaseOption> = TOption & {
     readonly depth: number;
     readonly isLast: boolean;
+    readonly hasChildren: boolean;
     readonly lineGuides: boolean[];
+    readonly ancestorIds: (string | number)[];
 };
 
 export const FLUX_COLORS: FluxColor[] = ['gray', 'primary', 'danger', 'info', 'success', 'warning'];
 export const INITIAL_HIGHLIGHTED_INDEX = -1;
 
+// Guides cover the levels *above* a node's direct parent — the parent link itself is drawn by the
+// connector. Root children therefore get no guide, which keeps every connector elbow aligned with
+// its parent's marker instead of one indent step to the right.
+function childGuides(depth: number, parentGuides: boolean[], isLast: boolean): boolean[] {
+    return depth === 0 ? [] : [...parentGuides, !isLast];
+}
+
 export function flattenVisible<TOption extends TreeBaseOption>(
     nodes: TOption[],
     depth: number,
     expanded: Set<string | number>,
-    parentGuides: boolean[] = []
+    parentGuides: boolean[] = [],
+    ancestorIds: (string | number)[] = []
 ): TreeFlatNode<TOption>[] {
     return nodes.flatMap((node, index) => {
         const isLast = index === nodes.length - 1;
-        const flatNode = {...node, depth, isLast, lineGuides: parentGuides} as TreeFlatNode<TOption>;
+        const hasChildren = !!node.children?.length;
+        const flatNode = {...node, depth, isLast, hasChildren, lineGuides: parentGuides, ancestorIds} as TreeFlatNode<TOption>;
 
-        if (node.children?.length && expanded.has(node.id)) {
-            const childGuides = [...parentGuides, !isLast];
-            return [flatNode, ...flattenVisible(node.children as TOption[], depth + 1, expanded, childGuides)];
+        if (hasChildren && expanded.has(node.id)) {
+            return [flatNode, ...flattenVisible(node.children as TOption[], depth + 1, expanded, childGuides(depth, parentGuides, isLast), [...ancestorIds, node.id])];
         }
 
         return [flatNode];
@@ -38,26 +50,45 @@ export function flattenVisible<TOption extends TreeBaseOption>(
 
 export function flattenAll<TOption extends TreeBaseOption>(
     nodes: TOption[],
-    depth = 0
+    depth = 0,
+    ancestorIds: (string | number)[] = []
 ): TreeFlatNode<TOption>[] {
     return nodes.flatMap(node => [
-        {...node, depth, isLast: false, lineGuides: [] as boolean[]} as TreeFlatNode<TOption>,
-        ...(node.children ? flattenAll(node.children as TOption[], depth + 1) : [])
+        {...node, depth, isLast: false, hasChildren: !!node.children?.length, lineGuides: [] as boolean[], ancestorIds} as TreeFlatNode<TOption>,
+        ...(node.children ? flattenAll(node.children as TOption[], depth + 1, [...ancestorIds, node.id]) : [])
     ]);
 }
 
-export function getLevelColor(depth: number, levelColors?: (FluxColor | string)[]): string | undefined {
-    if (!levelColors || depth >= levelColors.length) {
-        return undefined;
+function subtreeMatches(node: TreeBaseOption, query: string): boolean {
+    if (node.label.toLowerCase().includes(query)) {
+        return true;
     }
 
-    const color = levelColors[depth];
+    return (node.children ?? []).some(child => subtreeMatches(child, query));
+}
 
-    if (FLUX_COLORS.includes(color as FluxColor)) {
-        return `var(--${color}-600)`;
-    }
+// Ancestor-preserving search: keep a node when it (or a descendant) matches, so a match and its
+// ancestors stay visible while the hierarchy is preserved. Non-matching branches are pruned, and a
+// match's subtree is shown expanded without touching the expand state. `hasChildren` reflects the
+// remaining visible children, so a matched leaf shows a dot rather than a stray chevron.
+export function flattenSearch<TOption extends TreeBaseOption>(
+    nodes: TOption[],
+    query: string,
+    depth = 0,
+    parentGuides: boolean[] = [],
+    ancestorIds: (string | number)[] = []
+): TreeFlatNode<TOption>[] {
+    const kept = nodes.filter(node => subtreeMatches(node, query));
 
-    return color;
+    return kept.flatMap((node, index) => {
+        const isLast = index === kept.length - 1;
+        const children = node.children?.length
+            ? flattenSearch(node.children as TOption[], query, depth + 1, childGuides(depth, parentGuides, isLast), [...ancestorIds, node.id])
+            : [];
+        const flatNode = {...node, depth, isLast, hasChildren: children.length > 0, lineGuides: parentGuides, ancestorIds} as TreeFlatNode<TOption>;
+
+        return [flatNode, ...children];
+    });
 }
 
 export function useTreeView<TNode extends TreeFlatNode>(params: {

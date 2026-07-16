@@ -13,13 +13,15 @@
             :key="node.id"
             :class="clsx(
                 $style.treeNode,
+                node.disabled && $style.isDisabled,
                 nodeIndex === highlightedIndex && $style.isHighlighted
             )"
             role="treeitem"
             tabindex="-1"
             :aria-level="node.depth + 1"
             :aria-selected="nodeIndex === highlightedIndex"
-            :aria-expanded="node.children?.length ? expandedIds.has(node.id) : undefined"
+            :aria-expanded="node.hasChildren ? expandedIds.has(node.id) : undefined"
+            :aria-disabled="node.disabled ? true : undefined"
             :aria-owns="ownedIds(node)"
             @click="onNodeClick(node)"
             @dblclick="onNodeDblClick(node)">
@@ -105,21 +107,34 @@
         return node.children.map(child => nodeId(child.id)).join(' ');
     }
 
+    // Strip the flattening-only fields so consumers get their own option back.
+    function toOption(node: FlatNode): FluxTreeViewOption {
+        const {ancestorIds: _ancestorIds, depth: _depth, hasChildren: _hasChildren, isLast: _isLast, lineGuides: _lineGuides, ...option} = node;
+
+        return option as FluxTreeViewOption;
+    }
+
     function onNodeClick(node: FlatNode): void {
+        if (node.disabled) {
+            return;
+        }
+
         const index = unref(visibleNodes).findIndex(n => n.id === node.id);
         highlightedIndex.value = index;
 
-        const {depth: _depth, isLast: _isLast, lineGuides: _lineGuides, ...option} = node;
-        emit('click', option as FluxTreeViewOption);
+        emit('click', toOption(node));
     }
 
     function onNodeDblClick(node: FlatNode): void {
-        if (node.children?.length) {
+        if (node.disabled) {
+            return;
+        }
+
+        if (node.hasChildren) {
             toggleExpand(node.id);
         }
 
-        const {depth: _depth, isLast: _isLast, lineGuides: _lineGuides, ...option} = node;
-        emit('dblclick', option as FluxTreeViewOption);
+        emit('dblclick', toOption(node));
     }
 
     function onKeyDown(evt: KeyboardEvent): void {

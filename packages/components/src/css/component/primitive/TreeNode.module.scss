@@ -1,15 +1,19 @@
 @use '~flux/components/css/mixin';
 
+// Sizing, spacing and typography deliberately match .menuItem (Menu.module.scss) so a tree node and
+// a menu item — as used by the form select — look identical. The values are mirrored rather than
+// composed: .menuItem builds on the base button, whose `&[aria-disabled=true] { pointer-events: none }`
+// would kill the expand marker on disabled nodes, and whose padding comes from a FluxButton size class.
 .treeNode {
     display: flex;
     width: 100%;
-    min-height: 36px;
-    padding: 0 8px;
+    min-height: 42px;
+    padding: 0 12px;
     align-items: center;
-    border-radius: var(--radius-half);
+    border-radius: var(--radius);
     color: var(--foreground);
-    font-size: 14px;
-    gap: 8px;
+    font: inherit;
+    gap: 15px;
     outline: 0;
     transition: 150ms var(--swift-out);
     transition-property: background, color;

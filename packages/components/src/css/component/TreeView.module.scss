@@ -6,16 +6,41 @@
     outline: 0;
 }
 
+// States mirror .menuItem / .menuItemHighlighted (Menu.module.scss) so tree nodes match the rest of
+// the library's list-like items.
 .treeNode {
     composes: treeNode from './primitive/TreeNode.module.scss';
 
     cursor: pointer;
 
     @include mixin.hover {
-        background: var(--surface-hover);
+        background: var(--gray-50);
+    }
+
+    &:active {
+        background: var(--gray-100);
     }
 
     &.isHighlighted {
-        background: var(--surface-hover);
+        background: var(--primary-100);
+        color: var(--primary-600);
+
+        @include mixin.hover {
+            background: var(--primary-100);
+        }
+    }
+
+    // Dimmed through a class rather than the disabled attribute, so the expand toggle keeps working.
+    &.isDisabled {
+        color: var(--foreground-secondary);
+        cursor: default;
+
+        @include mixin.hover {
+            background: transparent;
+        }
+
+        &:active {
+            background: transparent;
+        }
     }
 }

@@ -12,7 +12,7 @@ emits:
 
 props:
     -   name: level-colors
-        description: An array of colors per depth level. Index 0 = root level, index 1 = first child level, etc. Each entry can be a `FluxColor` name (e.g. `primary`, `danger`) or any CSS color string (e.g. `#6366f1`). Levels without an entry show no color dot.
+        description: An array of colors per depth level, used as a fallback for nodes that have no `color` of their own. Index 0 = root level, index 1 = first child level, etc. Each entry can be a `FluxColor` name (e.g. `primary`, `danger`) or any CSS color string (e.g. `#6366f1`). Levels without an entry keep the neutral marker.
         type: (FluxColor | string)[]
         optional: true
 
@@ -25,7 +25,6 @@ slots:
         description: Content rendered after the label of every node, e.g. a badge or action. Receives the flattened node via the `node` slot prop.
 
 requiredIcons:
-    - angle-down
     - angle-right
 ---
 
@@ -35,7 +34,7 @@ requiredIcons:
 
 # Tree view
 
-A standalone tree view component that renders a hierarchical list of nodes with expand/collapse support. Nodes emit `click` and `dblclick` events so the parent can react to user interaction. The tree is rendered inline (not in a popup) and includes connecting lines and per-level color indicators.
+A standalone tree view component that renders a hierarchical list of nodes with expand/collapse support. Nodes emit `click` and `dblclick` events so the parent can react to user interaction. The tree is rendered inline (not in a popup) and includes connecting lines. Every node ends its guide line with a marker of the same size: nodes with children render it as the expand toggle holding the chevron, leaf nodes as a plain circle. Markers can be colored per node or per depth level.
 
 ::: render
 render=../code/components/tree-view/preview.vue
@@ -70,6 +69,16 @@ Each entry in the `options` array (and nested `children` arrays) is a `FluxTreeV
             <FluxTableCell><code>icon</code></FluxTableCell>
             <FluxTableCell><code>FluxIconName</code></FluxTableCell>
             <FluxTableCell>Optional icon shown before the label.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><code>color</code></FluxTableCell>
+            <FluxTableCell><code>FluxColor | string</code></FluxTableCell>
+            <FluxTableCell>Color of this node's marker, either a <code>FluxColor</code> name or any CSS color string. Takes precedence over <code>level-colors</code>.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><code>disabled</code></FluxTableCell>
+            <FluxTableCell><code>boolean</code></FluxTableCell>
+            <FluxTableCell>Dims the node and stops it emitting <code>click</code> and <code>dblclick</code>. Its marker stays clickable, so a disabled branch can still be expanded.</FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell><code>children</code></FluxTableCell>

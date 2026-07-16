@@ -13,6 +13,9 @@
     text-align: center;
 }
 
+// Hover and highlight mirror .menuItem / .menuItemHighlighted (Menu.module.scss), so options here
+// look identical to the menu items the form select renders. There is deliberately no selected
+// state: the checkbox / radio carries that, the same way the Solvidi filter tree does it.
 .treeNode {
     composes: treeNode from './primitive/TreeNode.module.scss';
 
@@ -21,32 +24,41 @@
         cursor: pointer;
 
         @include mixin.hover {
-            background: var(--surface-hover);
+            background: var(--gray-50);
+        }
+
+        &:active {
+            background: var(--gray-100);
         }
     }
 
-    &.isSelected {
-        background: var(--primary-50);
-        color: var(--primary-700);
-        font-weight: 600;
-    }
+    &.isHighlighted {
+        background: var(--primary-100);
+        color: var(--primary-600);
 
-    &.isSelected.isSelectable {
         @include mixin.hover {
             background: var(--primary-100);
         }
     }
 
-    &.isHighlighted:not(.isSelected) {
-        background: var(--surface-hover);
-    }
+    // Disabled and cascade-locked nodes stay dimmed but keep their marker clickable, so the look
+    // comes from this class rather than the disabled attribute — pointer-events: none would kill
+    // the expand toggle.
+    &.isDisabled {
+        color: var(--foreground-secondary);
+        cursor: default;
 
-    &.isHighlighted.isSelected {
-        background: var(--primary-100);
+        @include mixin.hover {
+            background: transparent;
+        }
+
+        &:active {
+            background: transparent;
+        }
     }
 }
 
-.treeNodeCheck {
-    color: var(--primary-600);
-    flex-shrink: 0;
+// The row is the control, so its checkbox / radio must not claim a cursor of its own.
+.treeNodeControl {
+    cursor: inherit;
 }

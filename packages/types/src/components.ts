@@ -1,4 +1,4 @@
-import type { FluxIconName, FluxPressableType, FluxSize, FluxTo } from './common';
+import type { FluxColor, FluxIconName, FluxPressableType, FluxSize, FluxTo } from './common';
 
 export type FluxButtonSize = FluxSize | 'xl';
 
@@ -56,6 +56,8 @@ export type FluxTreeViewOption = {
     readonly id: string | number;
     readonly label: string;
     readonly icon?: FluxIconName;
+    readonly color?: FluxColor | string;
+    readonly disabled?: boolean;
     readonly children?: FluxTreeViewOption[];
 };
 
