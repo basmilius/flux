@@ -34,7 +34,7 @@ export const fluxFlow = composeLibrary({
 
 export default defineConfig({
     title: 'Flux',
-    titleTemplate: 'Flux — :title',
+    titleTemplate: ':title — Flux',
     description: 'Component library for Vue 3.',
     appearance: false,
     ignoreDeadLinks: true,
@@ -47,6 +47,21 @@ export default defineConfig({
             md.use(examplePlugin);
             md.use(renderPlugin);
             md.use(groupIconMdPlugin);
+
+            // VitePress derives env.title inside md.renderer.render, which md.renderInline also calls.
+            // Restore it so rendering an example description does not wipe the resolved page title.
+            const renderInline = md.renderInline.bind(md);
+
+            md.renderInline = (src, env) => {
+                const title = env?.title;
+                const html = renderInline(src, env);
+
+                if (env) {
+                    env.title = title;
+                }
+
+                return html;
+            };
         }
     },
     vite: {
