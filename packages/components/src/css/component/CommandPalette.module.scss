@@ -60,13 +60,13 @@
 }
 
 .commandPaletteSearchInput {
+    @include mixin.text(large);
+
     height: 100%;
     flex-grow: 1;
     background: transparent;
     border: 0;
     color: var(--foreground);
-    font: inherit;
-    font-size: 16px;
     outline: 0;
 
     &::placeholder {
@@ -75,14 +75,14 @@
 }
 
 .commandPaletteBreadcrumb {
+    @include mixin.text(default);
+
     padding: 0;
     flex-shrink: 0;
     background: transparent;
     border: 0;
     cursor: pointer;
     color: var(--foreground-secondary);
-    font: inherit;
-    font-size: 15px;
     font-weight: 500;
     white-space: nowrap;
     transition: color 150ms;
@@ -93,10 +93,11 @@
 }
 
 .commandPaletteBreadcrumbSeparator {
+    @include mixin.text(small);
+
     flex-shrink: 0;
     opacity: .5;
     color: var(--foreground-secondary);
-    font-size: 14px;
 }
 
 
@@ -115,6 +116,8 @@
 }
 
 .commandPaletteTab {
+    @include mixin.text(xsmall);
+
     display: flex;
     height: 30px;
     padding: 0 10px;
@@ -125,8 +128,6 @@
     border-radius: var(--radius-half);
     cursor: pointer;
     color: var(--foreground-secondary);
-    font: inherit;
-    font-size: 13px;
     font-weight: 500;
     white-space: nowrap;
     transition: background 150ms, color 150ms;
@@ -170,21 +171,23 @@
 }
 
 .commandPaletteEmpty {
+    @include mixin.text(small);
+
     display: flex;
     padding: 24px;
     align-items: center;
     justify-content: center;
     color: var(--foreground-secondary);
-    font-size: 14px;
 }
 
 .commandPaletteGroup {
+    @include mixin.text(2xsmall);
+
     display: flex;
     padding: 9px 10px 3px;
     align-items: center;
     gap: 6px;
     color: var(--foreground-secondary);
-    font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -196,6 +199,8 @@
 }
 
 .commandPaletteItem {
+    @include mixin.text(small);
+
     display: flex;
     width: 100%;
     padding: 8px 10px;
@@ -206,8 +211,6 @@
     border-radius: var(--radius-half);
     cursor: pointer;
     color: var(--foreground);
-    font: inherit;
-    font-size: 14px;
     text-align: left;
     transition: background 100ms;
 
@@ -264,10 +267,11 @@
 }
 
 .commandPaletteItemSubLabel {
+    @include mixin.text(2xsmall);
+
     overflow: hidden;
     margin-top: 1px;
     color: var(--foreground-secondary);
-    font-size: 12px;
     white-space: nowrap;
     text-overflow: ellipsis;
     transition: color 100ms;

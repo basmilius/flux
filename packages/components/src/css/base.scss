@@ -18,12 +18,13 @@
     }
 
     html {
-        font-size: var(--font-size);
+        font-size: var(--font-size-default);
     }
 
     body {
         background: var(--background);
         font-family: var(--font-sans), system-ui;
+        line-height: var(--line-height-default);
     }
 
     body, dialog {

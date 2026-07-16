@@ -35,8 +35,9 @@
     }
 
     &.isSmall {
+        @include mixin.text(2xsmall);
+
         padding: 12px;
-        font-size: 12px;
 
         .placeholderCaption :is(strong) {
             color: var(--foreground-secondary);
@@ -59,10 +60,11 @@
     flex-flow: column;
 
     :is(p) {
+        @include mixin.text(small);
+
         margin: 0;
         max-width: 510px;
         color: var(--foreground-secondary);
-        font-size: 14px;
     }
 }
 

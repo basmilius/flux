@@ -66,8 +66,9 @@
 }
 
 .formSectionTitle {
+    @include mixin.text(xlarge);
+
     color: var(--foreground-prominent);
-    font-size: 18px;
     font-weight: 800;
 }
 
@@ -85,6 +86,8 @@
 }
 
 .formStepNumber {
+    @include mixin.text(xsmall);
+
     display: inline-flex;
     height: 27px;
     width: 27px;
@@ -94,7 +97,6 @@
     background: var(--primary-50);
     border-radius: var(--radius);
     color: var(--primary-600);
-    font-size: 13px;
     font-weight: 700;
     font-variant-numeric: tabular-nums;
 
@@ -111,10 +113,11 @@
 }
 
 .formStepTitle {
+    // Matches the 27px .formStepNumber circle it sits next to.
+    @include mixin.text(large, $line-height: 27px);
+
     color: var(--foreground-prominent);
-    font-size: 16px;
     font-weight: 700;
-    line-height: 27px;
 }
 
 .formStepSubtitle {
@@ -159,44 +162,49 @@
     align-items: center;
     align-self: flex-start;
     gap: 6px;
-    font-size: unset;
 }
 
 .formFieldLabel {
-    min-height: 1.6em;
+    // Reserves one line even when the label wraps to nothing, so fields with and
+    // without a label keep the same header height.
+    min-height: var(--line-height-default);
     color: var(--foreground-prominent);
     font-weight: 600;
 }
 
 .formFieldOptional {
+    @include mixin.text(xsmall);
+
     color: var(--foreground-secondary);
-    font-size: .85em;
 }
 
 .formFieldValue {
+    @include mixin.text(xsmall);
+
     margin-left: auto;
     color: var(--foreground-secondary);
-    font-size: .85em;
 }
 
 .formFieldCounter {
+    @include mixin.text(xsmall);
+
     margin-left: auto;
     color: var(--foreground-secondary);
-    font-size: .85em;
     white-space: nowrap;
 }
 
 .formFieldAddition {
+    @include mixin.text(small);
+
     display: flex;
     margin-top: 3px;
     margin-bottom: 3px;
     gap: 9px;
-    font-size: 14px;
-    line-height: 24px;
 }
 
 .formFieldAdditionIcon {
-    margin-top: 4px;
+    // Centres the 16px icon on the first line box.
+    margin-top: calc((var(--line-height-small) - 16px) / 2);
 }
 
 .formFieldAdditionError {
@@ -216,6 +224,11 @@
 }
 
 .formInput {
+    // An input owns its text: its height is fixed, so the value must not follow
+    // the font-size of whatever it happens to sit in. The native input inherits
+    // this pair through its own font: inherit.
+    @include mixin.text(default);
+
     position: relative;
     display: block;
     height: 42px;
@@ -808,6 +821,9 @@
     flex-shrink: 0;
     align-items: flex-start;
     gap: 12px;
+
+    // The 20px box plus its 1px top margin is a 21px margin-box; the label's first
+    // line box has to match it or the two stop lining up.
     line-height: 21px;
     outline: 0;
 
@@ -886,12 +902,14 @@
 }
 
 .formCheckboxLabel {
-    line-height: 21px;
+    // Aligns with the 21px checkbox margin-box, not with the default 24px line.
+    @include mixin.text(default, $line-height: 21px);
 }
 
 .formCheckboxSubLabel {
+    @include mixin.text(small);
+
     color: var(--foreground-secondary);
-    font-size: 14px;
 }
 
 .formCheckboxNative {
@@ -1074,6 +1092,9 @@
     flex-shrink: 0;
     align-items: flex-start;
     gap: 12px;
+
+    // The 20px element plus its 1px top margin is a 21px margin-box; the label's
+    // first line box has to match it or the two stop lining up.
     line-height: 21px;
     outline: 0;
     cursor: pointer;
@@ -1142,7 +1163,8 @@
 }
 
 .formRadioLabel {
-    line-height: 21px;
+    // Aligns with the 21px radio margin-box, not with the default 24px line.
+    @include mixin.text(default, $line-height: 21px);
 }
 
 .formRadioNative {
@@ -1187,8 +1209,9 @@
 }
 
 .formRadioSubLabel {
+    @include mixin.text(small);
+
     color: var(--foreground-secondary);
-    font-size: 14px;
 }
 
 .formRadioTile {

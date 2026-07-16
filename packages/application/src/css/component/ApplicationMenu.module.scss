@@ -177,7 +177,8 @@
     color: var(--foreground-prominent);
 
     &::before {
-        height: 1.6em;
+        // The active marker spans exactly one line.
+        height: var(--line-height-default);
         opacity: 1;
     }
 }
@@ -251,8 +252,9 @@
     }
 
     :global(span) {
+        @include mixin.text(small);
+
         color: var(--foreground-secondary);
-        font-size: 14px;
     }
 }
 
@@ -274,10 +276,11 @@
 }
 
 .applicationMenuPromoContent {
+    @include mixin.text(small);
+
     display: flex;
     flex-flow: column;
     gap: 6px;
-    font-size: 14px;
 }
 
 .applicationMenuPromoContent :global(a:not([class])) {

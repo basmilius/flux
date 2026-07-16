@@ -9,12 +9,13 @@
 }
 
 .detailsTableRow {
+    // 24px keeps the row a 30px hover target; small's own 21px would shrink it.
+    @include mixin.text(small, $line-height: var(--line-height-default));
+
     display: flex;
     margin: -3px -6px;
     padding: 3px 6px;
     color: var(--foreground-secondary);
-    font-size: 14px;
-    line-height: 24px;
     border-radius: var(--radius-half);
 
     @include mixin.hover {
@@ -39,6 +40,7 @@
 }
 
 .detailsTableTitle {
-    font-size: 15px;
+    @include mixin.text(default);
+
     font-weight: 600;
 }

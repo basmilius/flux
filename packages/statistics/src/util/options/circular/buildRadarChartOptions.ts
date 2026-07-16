@@ -4,6 +4,7 @@ import type { EChartsOption } from '~flux/statistics/composable';
 import { toRadarSeries } from '../../series';
 import type { TooltipStyleClasses, Translator } from '../../tooltips';
 import { buildRadarTooltip } from '../../tooltips';
+import { CHART_TEXT_2XSMALL } from '../../typography';
 import { buildCircularBaseOptions } from '../buildCircularBaseOptions';
 
 export interface RadarChartOptionsInput {
@@ -27,7 +28,7 @@ export function buildRadarChartOptions(input: RadarChartOptionsInput): EChartsOp
             axisLine: {lineStyle: {color: 'var(--gray-200)'}},
             axisName: {
                 color: 'var(--foreground-secondary)',
-                fontSize: 12,
+                ...CHART_TEXT_2XSMALL,
                 fontWeight: 500
             }
         }

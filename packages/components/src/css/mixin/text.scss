@@ -1,0 +1,22 @@
+@use 'sass:list';
+
+$-sizes: 2xsmall, xsmall, small, default, large, xlarge;
+
+// Sets a font-size and its line-height together. The pairing is what keeps every
+// line box on the 3px grid, so the two are never set separately.
+//
+// Pass $line-height only where an element has to match a line box it does not own,
+// such as a label aligning against a fixed-size control.
+@mixin text($size, $line-height: null) {
+    @if not list.index($-sizes, $size) {
+        @error 'Text size "#{$size}" not found in "#{$-sizes}".';
+    }
+
+    font-size: var(--font-size-#{$size});
+
+    @if $line-height == null {
+        line-height: var(--line-height-#{$size});
+    } @else {
+        line-height: $line-height;
+    }
+}

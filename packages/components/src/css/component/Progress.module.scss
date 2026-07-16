@@ -1,3 +1,5 @@
+@use '~flux/components/css/mixin';
+
 .progressBar {
     --progress-fill: var(--primary-600);
     --progress-fill-soft: var(--primary-500);
@@ -77,10 +79,11 @@
 }
 
 .progressBarStatusRow {
+    @include mixin.text(small);
+
     display: flex;
     gap: 21px;
     justify-content: flex-end;
-    font-size: 14px;
 }
 
 .progressBarProgress {

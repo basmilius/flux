@@ -1,6 +1,8 @@
+@use '~flux/components/css/mixin';
+
 .statisticsMetricBottom {
     margin-top: 3px;
-    line-height: 24px;
+    line-height: var(--line-height-default);
 
     :local(.statisticsChange) {
         margin-right: .3em;
@@ -8,7 +10,7 @@
 
     :local(.statisticsChangeIcon),
     :local(.statisticsChangeValue) {
-        font-size: 14px;
+        font-size: var(--font-size-small);
         font-weight: 600;
     }
 }
@@ -18,14 +20,16 @@
     flex-flow: column;
 
     :global(small) {
+        @include mixin.text(small);
+
         color: var(--foreground-secondary);
-        font-size: 14px;
         font-weight: 500;
     }
 
     :global(span) {
+        @include mixin.text(xlarge);
+
         color: var(--foreground);
-        font-size: 18px;
         font-weight: 600;
         font-variant-numeric: tabular-nums;
     }
@@ -51,22 +55,23 @@
 
 .statisticsMetricFooter {
     color: var(--foreground-secondary);
-    font-size: 14px;
+    font-size: var(--font-size-small);
 }
 
 .statisticsMetricLabel {
+    @include mixin.text(default);
+
     padding-top: 18px;
     color: var(--foreground-secondary);
-    font-size: 15px;
     font-weight: 500;
 }
 
 .statisticsMetricValue {
+    @include mixin.text(xlarge, $line-height: 36px);
+
     color: var(--foreground-prominent);
-    font-size: 18px;
     font-weight: 800;
     font-variant-numeric: tabular-nums;
-    line-height: 36px;
     text-transform: capitalize;
 }
 

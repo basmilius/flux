@@ -73,6 +73,8 @@
 }
 
 .tick {
+    @include mixin.text(2xsmall);
+
     position: absolute;
     left: calc(var(--position) * 100% - 1px);
     bottom: 0;
@@ -81,7 +83,6 @@
     background: var(--gray-300);
     border-radius: var(--radius-full);
     color: var(--foreground-prominent);
-    font-size: 10px;
     font-weight: 600;
     pointer-events: none;
 }

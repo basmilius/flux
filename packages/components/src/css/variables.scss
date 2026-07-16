@@ -171,11 +171,23 @@
     --font-monospace: jetbrains-mono, monospace;
     --font-sans: inter-variable, sans-serif;
     --font-serif: serif;
-    --font-size: 15px;
     --radius: 12px;
     --radius-double: 24px;
     --radius-full: 9999px;
     --radius-half: 6px;
+
+    --font-size-2xsmall: 12px;
+    --line-height-2xsmall: 18px;
+    --font-size-xsmall: 13px;
+    --line-height-xsmall: 18px;
+    --font-size-small: 14px;
+    --line-height-small: 21px;
+    --font-size-default: 15px;
+    --line-height-default: 24px;
+    --font-size-large: 16px;
+    --line-height-large: 24px;
+    --font-size-xlarge: 18px;
+    --line-height-xlarge: 27px;
 
     --transition-default: 180ms var(--swift-out);
 

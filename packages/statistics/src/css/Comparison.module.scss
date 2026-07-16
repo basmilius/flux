@@ -1,3 +1,5 @@
+@use '~flux/components/css/mixin';
+
 .statisticsComparison {
     display: grid;
     margin-top: 18px;
@@ -19,8 +21,9 @@
 }
 
 .statisticsComparisonItemLabel {
+    @include mixin.text(xsmall);
+
     color: var(--foreground-secondary);
-    font-size: 13px;
     font-weight: 500;
 }
 
@@ -29,15 +32,16 @@
     font-size: 21px;
     font-weight: 800;
     font-variant-numeric: tabular-nums;
-    line-height: 28px;
+    // 27px keeps this on the 3px grid and matches the muted sibling.
+    line-height: 27px;
 }
 
 .statisticsComparisonItemValueMuted {
+    @include mixin.text(xlarge);
+
     color: var(--foreground-secondary);
-    font-size: 18px;
     font-weight: 600;
     font-variant-numeric: tabular-nums;
-    line-height: 28px;
 }
 
 .statisticsComparisonBottom {
@@ -45,10 +49,10 @@
     margin-top: 9px;
     align-items: center;
     gap: 9px;
-    line-height: 18px;
+    line-height: var(--line-height-xsmall);
 }
 
 .statisticsComparisonFooter {
     color: var(--foreground-secondary);
-    font-size: 14px;
+    font-size: var(--font-size-small);
 }

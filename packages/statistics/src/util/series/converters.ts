@@ -257,21 +257,12 @@ export function toGaugeSeries(
             itemStyle: {color}
         },
         title: {
-            show: true,
-            color: 'var(--foreground-secondary)',
-            fontSize: 12,
-            fontWeight: 500,
-            fontFamily: 'inherit',
+            ...GAUGE_SERIES_DEFAULTS.title,
             offsetCenter: [0, `${labelOffset}%`]
         },
         detail: {
-            show: total === 1,
-            color: 'var(--foreground-prominent)',
-            fontSize: 28,
-            fontWeight: 800,
-            fontFamily: 'inherit',
-            offsetCenter: [0, '10%'],
-            formatter: '{value}%'
+            ...GAUGE_SERIES_DEFAULTS.detail,
+            show: total === 1
         }
     } as GaugeSeriesOption;
 }

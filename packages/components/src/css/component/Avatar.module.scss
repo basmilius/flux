@@ -167,15 +167,18 @@
     margin-right: 9px;
     flex-flow: column;
     gap: 3px;
-    line-height: 1.2;
 
     :is(strong) {
+        @include mixin.text(default, $line-height: 18px);
+
         width: max-content;
         color: var(--foreground-prominent);
     }
 
     :is(span) {
+        // Matches the sibling strong; .personaDetails owns the 18px rhythm.
+        @include mixin.text(small, $line-height: 18px);
+
         color: var(--foreground);
-        font-size: 14px;
     }
 }

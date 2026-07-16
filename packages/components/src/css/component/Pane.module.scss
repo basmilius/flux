@@ -77,21 +77,22 @@
 
 .paneHeaderCaption {
     display: flex;
+    align-self: center;
     flex-flow: column;
     flex-grow: 1;
-    line-height: 24px;
 
     :is(strong) {
         color: var(--foreground-prominent);
         font-weight: 600;
 
         &:has(+ :is(span)) {
-            font-size: 16px;
+            @include mixin.text(large);
         }
     }
 
     :is(span) {
-        font-size: 14px;
+        // Keeps the caption at 48px; small's own 21px would shrink it.
+        @include mixin.text(small, $line-height: 24px);
     }
 }
 
@@ -165,6 +166,8 @@
 }
 
 .paneTag {
+    @include mixin.text(2xsmall, $line-height: 1);
+
     position: absolute;
     top: 15px;
     right: 15px;
@@ -172,10 +175,8 @@
     background: var(--gray-900);
     border-radius: var(--radius-half);
     color: var(--gray-25);
-    font-size: 11px;
     font-weight: 700;
     letter-spacing: 1px;
-    line-height: 1;
     text-transform: uppercase;
 }
 

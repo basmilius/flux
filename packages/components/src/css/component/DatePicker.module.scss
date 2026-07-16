@@ -28,13 +28,14 @@
 }
 
 .datePickerHeaderView {
+    @include mixin.text(large);
+
     display: flex;
     height: 42px;
     margin-left: auto;
     margin-right: auto;
     align-items: center;
     gap: 9px;
-    font-size: 16px;
     font-weight: 600;
 }
 
@@ -59,6 +60,8 @@
 }
 
 .datePickerDate {
+    @include mixin.text(small);
+
     display: flex;
     padding: 0;
     align-items: center;
@@ -69,7 +72,6 @@
     border-radius: var(--radius);
     color: var(--foreground-prominent);
     cursor: pointer;
-    font-size: 14px;
     outline: 0;
     transition: var(--transition-default);
     transition-property: background, border-radius, color, opacity;
@@ -155,9 +157,10 @@
 }
 
 .datePickerDay {
+    @include mixin.text(2xsmall);
+
     margin-bottom: 6px;
     color: var(--foreground-secondary);
-    font-size: 12px;
     font-weight: 500;
     text-align: center;
     text-transform: uppercase;

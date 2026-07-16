@@ -26,9 +26,11 @@
     flex-flow: row nowrap;
     gap: 9px;
     color: inherit;
+    // font: inherit must stay ahead of the mixin; the shorthand resets the pair.
     font: inherit;
-    font-size: 14px;
-    line-height: 20px;
+
+    @include mixin.text(small);
+
     text-align: inherit;
     white-space: nowrap;
     background: none;
@@ -106,9 +108,11 @@
     flex-flow: row nowrap;
     gap: 6px;
     color: inherit;
+    // font: inherit must stay ahead of the mixin; the shorthand resets the pair.
     font: inherit;
-    font-size: 14px;
-    line-height: 1;
+
+    @include mixin.text(small, $line-height: 1);
+
     text-align: inherit;
     white-space: nowrap;
     background: none;

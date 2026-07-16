@@ -88,9 +88,9 @@
     gap: 9px;
 
     .formFieldLabel {
+        @include mixin.text(2xsmall);
+
         min-height: unset;
-        font-size: 12px;
-        line-height: 15px;
     }
 
     .formInput {

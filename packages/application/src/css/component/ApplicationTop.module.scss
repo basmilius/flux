@@ -31,7 +31,8 @@
 }
 
 .applicationTopBarTitle {
-    font-size: 16px;
+    @include mixin.text(large);
+
     font-weight: 700;
     overflow: hidden;
     text-overflow: ellipsis;

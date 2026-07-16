@@ -1,3 +1,5 @@
+@use '~flux/components/css/mixin';
+
 .descriptionList {
     display: flex;
     flex-flow: column;
@@ -5,8 +7,9 @@
 }
 
 .descriptionListHeader {
+    @include mixin.text(small);
+
     color: var(--foreground-secondary);
-    font-size: 14px;
     font-weight: 500;
 }
 
@@ -36,11 +39,12 @@
 }
 
 .descriptionItemTerm {
+    @include mixin.text(default);
+
     display: flex;
     gap: 9px;
     align-items: center;
     color: var(--foreground);
-    font-size: 15px;
 }
 
 .descriptionItemIcon {
@@ -57,13 +61,14 @@
 }
 
 .descriptionItemValue {
+    @include mixin.text(default);
+
     display: flex;
     margin: 0;
     margin-left: auto;
     gap: 6px;
     align-items: center;
     color: var(--foreground-prominent);
-    font-size: 15px;
     font-weight: 600;
     text-align: right;
     overflow-wrap: anywhere;
@@ -89,7 +94,7 @@
     }
 
     .descriptionItemTerm {
-        font-size: 14px;
+        @include mixin.text(small);
     }
 
     .descriptionItemValue {

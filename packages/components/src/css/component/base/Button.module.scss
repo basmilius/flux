@@ -2,6 +2,10 @@
 
 @layer flux-base {
     .button {
+        // A button owns its text: its height is fixed, so the label must not
+        // follow the font-size of whatever it happens to sit in.
+        @include mixin.text(default);
+
         display: inline-flex;
         align-items: center;
         flex-grow: 0;
@@ -13,7 +17,6 @@
         border-radius: var(--radius);
         box-shadow: var(--shadow-px);
         cursor: pointer;
-        font: inherit;
         text-decoration: none;
         transition: var(--transition-default);
         transition-property: background, border, box-shadow, color, scale, mixin.focus-ring-transition-properties();

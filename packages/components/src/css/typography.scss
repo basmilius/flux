@@ -3,35 +3,38 @@
 @layer flux-base {
     h1, h2, h3, h4, h5, h6 {
         font-weight: 600;
-        line-height: 1.5;
         text-wrap: balance;
     }
 
+    // h1 and h2 sit above the text scale and carry their own pair.
     h1 {
         color: var(--foreground-prominent);
         font-size: 27px;
+        line-height: 42px;
     }
 
     h2 {
         color: var(--foreground-prominent);
         font-size: 21px;
+        line-height: 33px;
     }
 
     h3 {
+        @include mixin.text(xlarge);
+
         color: var(--foreground);
-        font-size: 18px;
     }
 
     h4 {
-        font-size: 16px;
+        @include mixin.text(large);
     }
 
     h5 {
-        font-size: 15px;
+        @include mixin.text(default);
     }
 
     h6 {
-        font-size: 14px;
+        @include mixin.text(small);
     }
 
     a:not([class]), a[class=""] {
@@ -48,12 +51,8 @@
         }
     }
 
-    p {
-        line-height: 1.5;
-    }
-
     small {
-        font-size: 14px;
+        @include mixin.text(small);
     }
 
     blockquote {

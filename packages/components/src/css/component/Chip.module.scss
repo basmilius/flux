@@ -35,7 +35,8 @@
     }
 
     :is(span) {
-        font-size: 14px;
+        @include mixin.text(small);
+
         font-weight: 500;
         white-space: nowrap;
     }

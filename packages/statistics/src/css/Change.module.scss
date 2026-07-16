@@ -1,3 +1,5 @@
+@use '~flux/components/css/mixin';
+
 .statisticsChange {
     display: inline-flex;
     align-items: baseline;
@@ -36,8 +38,10 @@
 }
 
 .statisticsChangeValue {
+    // Explicit: Change renders in containers with an 18px or 24px line box.
+    @include mixin.text(2xsmall);
+
     color: var(--color);
-    font-size: 12px;
     font-weight: 500;
     font-variant-numeric: tabular-nums;
 }

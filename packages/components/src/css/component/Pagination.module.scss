@@ -14,13 +14,14 @@
     background: unset;
 
     &:local(.secondaryButton) {
-        width: 36px;
         border-color: transparent;
         box-shadow: none;
     }
 }
 
 .paginationButtonArrow {
+    width: 36px;
+
     &:local(.secondaryButton) {
         border-color: var(--surface-stroke);
     }
@@ -40,6 +41,8 @@
 }
 
 .paginationDots {
+    @include mixin.text(2xsmall);
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -49,7 +52,6 @@
     padding: 0 6px;
 
     color: var(--foreground-secondary);
-    font-size: 12px;
 
     pointer-events: none;
     user-select: none;
@@ -64,9 +66,10 @@
 .paginationButtonLabel {
     composes: secondaryButtonLabel from './Button.module.scss';
 
+    @include mixin.text(2xsmall);
+
     margin: 0;
     min-width: unset;
-    font-size: 12px;
 }
 
 .paginationBar {
@@ -83,7 +86,8 @@
 }
 
 .paginationBarLimitDisplayingOf {
-    font-size: 12px;
+    @include mixin.text(2xsmall);
+
     font-weight: 600;
 }
 
@@ -96,7 +100,8 @@
     }
 
     .menuItemLabel {
-        font-size: 12px;
+        @include mixin.text(2xsmall);
+
         font-weight: 600;
     }
 }

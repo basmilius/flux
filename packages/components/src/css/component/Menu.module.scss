@@ -201,12 +201,13 @@
 }
 
 .menuItemCommand {
+    @include mixin.text(small);
+
     margin-top: 1px;
     margin-left: auto;
     padding-left: 6px;
     color: var(--foreground-secondary);
-    font: inherit;
-    font-size: 14px;
+    font-family: inherit;
     white-space: nowrap;
 }
 
@@ -251,9 +252,10 @@
 }
 
 .menuTitle {
+    @include mixin.text(xlarge);
+
     padding: 0 12px;
     color: var(--foreground-prominent);
-    font-size: 18px;
     font-weight: 700;
 }
 
@@ -281,8 +283,9 @@
 }
 
 .menuSubHeaderLabel {
+    @include mixin.text(small);
+
     flex-grow: 1;
-    font-size: 14px;
 }
 
 .menuItem + .menuSubHeader {

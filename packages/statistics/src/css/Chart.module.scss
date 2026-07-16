@@ -1,3 +1,5 @@
+@use '~flux/components/css/mixin';
+
 :root {
     --chart-primary: var(--primary-700);
     --chart-positive: var(--success-500);
@@ -37,11 +39,11 @@
 }
 
 .statisticsChartTooltipTitle {
+    @include mixin.text(default, $line-height: 1);
+
     padding: 18px 18px 0;
     color: var(--foreground-prominent);
-    font-size: 15px;
     font-weight: 700;
-    line-height: 1;
 }
 
 .statisticsChartTooltipBody {
@@ -74,15 +76,17 @@
 }
 
 .statisticsChartTooltipSeriesName {
+    @include mixin.text(small);
+
     color: var(--foreground-secondary);
-    font-size: 14px;
     font-weight: 700;
     transition: color .15s ease-out;
 }
 
 .statisticsChartTooltipSeriesValue {
+    @include mixin.text(small);
+
     color: var(--foreground-secondary);
-    font-size: 14px;
     font-weight: 500;
     text-align: right;
     transition: color .15s ease-out;
@@ -107,10 +111,10 @@
 }
 
 .statisticsChartTooltipSectionTitle {
+    @include mixin.text(small, $line-height: 1);
+
     color: var(--foreground-prominent);
-    font-size: 14px;
     font-weight: 700;
-    line-height: 1;
     margin-bottom: 9px;
 }
 

@@ -1,22 +1,25 @@
+@use '~flux/components/css/mixin';
+
 .text {
     color: var(--foreground);
 }
 
 .textSizeSmall {
-    font-size: 13px;
+    @include mixin.text(xsmall);
 }
 
 .textSizeMedium {
-    font-size: 15px;
+    @include mixin.text(default);
 }
 
 .textSizeLarge {
-    font-size: 18px;
+    @include mixin.text(xlarge);
 }
 
+// Display sits above the text scale and carries its own pair.
 .textSizeDisplay {
     font-size: 27px;
-    line-height: 1.2;
+    line-height: 33px;
 }
 
 .textColorMuted {

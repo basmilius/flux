@@ -105,7 +105,8 @@
                 <FluxSecondaryButton
                     icon-leading="angle-left"
                     tabindex="-1"
-                    @click="previousYears"/>
+                    @click="previousYears"
+                    style="width: 100%"/>
 
                 <template
                     v-for="year of years"
@@ -119,7 +120,8 @@
                 <FluxSecondaryButton
                     icon-leading="angle-right"
                     tabindex="-1"
-                    @click="nextYears"/>
+                    @click="nextYears"
+                    style="width: 100%"/>
             </div>
         </FluxVerticalWindowTransition>
     </div>

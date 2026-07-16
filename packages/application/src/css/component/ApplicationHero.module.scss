@@ -1,3 +1,5 @@
+@use '~flux/components/css/mixin';
+
 .applicationHero {
     display: flex;
     align-items: center;
@@ -13,7 +15,8 @@
 }
 
 .applicationHeroSubtitle {
+    @include mixin.text(xlarge);
+
     margin: 0;
     color: var(--foreground-secondary);
-    font-size: 18px;
 }

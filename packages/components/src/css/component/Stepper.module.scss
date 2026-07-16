@@ -1,3 +1,5 @@
+@use '~flux/components/css/mixin';
+
 .stepperStep {
     position: relative;
 }
@@ -40,6 +42,8 @@
 }
 
 .stepperStepsItem {
+    @include mixin.text(small);
+
     position: relative;
     display: flex;
     height: 33px;
@@ -51,7 +55,6 @@
     border-radius: var(--radius-full);
     color: var(--foreground);
     cursor: default;
-    font-size: 14px;
     font-weight: 700;
     outline: 6px solid transparent;
     outline-offset: -2px;

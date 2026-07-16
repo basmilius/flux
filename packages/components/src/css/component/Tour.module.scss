@@ -65,14 +65,15 @@
 }
 
 .tourTitle {
+    @include mixin.text(default);
+
     color: var(--foreground-prominent);
-    font-size: 15px;
     font-weight: 600;
 }
 
 .tourContent {
-    font-size: 14px;
-    line-height: 21px;
+    @include mixin.text(small);
+
     color: var(--foreground);
 }
 
@@ -85,13 +86,14 @@
 }
 
 .tourProgress {
+    @include mixin.text(xsmall);
+
     color: var(--foreground-secondary);
-    font-size: 13px;
 }
 
 .tourSkip {
-    font: inherit;
-    font-size: 13px;
+    @include mixin.text(xsmall);
+
     margin-right: 12px;
     padding: 0;
     cursor: pointer;

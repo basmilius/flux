@@ -231,12 +231,60 @@ A scale of seven shadow levels. Each level uses a slightly different opacity in 
             <FluxTableCell><kbd>--font-serif</kbd></FluxTableCell>
             <FluxTableCell><code>serif</code></FluxTableCell>
         </FluxTableRow>
+    </FluxTable>
+</FluxPane>
+
+### Text scale
+
+Every size is paired with a line-height, and the two are always set together. The pairing is what keeps line boxes on the 3px grid: a font-size on its own would derive its line box from a ratio and land on fractional pixels.
+
+<FluxPane>
+    <FluxTable>
+        <template #header>
+            <FluxTableRow>
+                <FluxTableHeader>Token</FluxTableHeader>
+                <FluxTableHeader>Value</FluxTableHeader>
+                <FluxTableHeader>Usage</FluxTableHeader>
+            </FluxTableRow>
+        </template>
         <FluxTableRow>
-            <FluxTableCell><kbd>--font-size</kbd></FluxTableCell>
-            <FluxTableCell><code>15px</code></FluxTableCell>
+            <FluxTableCell><kbd>--font-size-2xsmall</kbd><br/><kbd>--line-height-2xsmall</kbd></FluxTableCell>
+            <FluxTableCell><code>12px</code><br/><code>18px</code></FluxTableCell>
+            <FluxTableCell>Fine print: pagination, meta rows, calendar entries.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>--font-size-xsmall</kbd><br/><kbd>--line-height-xsmall</kbd></FluxTableCell>
+            <FluxTableCell><code>13px</code><br/><code>18px</code></FluxTableCell>
+            <FluxTableCell>Compact labels, such as <code>FluxBadge</code> and <code>FluxText</code> at <code>small</code>.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>--font-size-small</kbd><br/><kbd>--line-height-small</kbd></FluxTableCell>
+            <FluxTableCell><code>14px</code><br/><code>21px</code></FluxTableCell>
+            <FluxTableCell>Interface text: tables, menus, tooltips, snackbars.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>--font-size-default</kbd><br/><kbd>--line-height-default</kbd></FluxTableCell>
+            <FluxTableCell><code>15px</code><br/><code>24px</code></FluxTableCell>
+            <FluxTableCell>Body text. Inherited from <code>body</code>, so this is what you get when nothing is set.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>--font-size-large</kbd><br/><kbd>--line-height-large</kbd></FluxTableCell>
+            <FluxTableCell><code>16px</code><br/><code>24px</code></FluxTableCell>
+            <FluxTableCell>Prominent single lines: pane captions, section headers.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>--font-size-xlarge</kbd><br/><kbd>--line-height-xlarge</kbd></FluxTableCell>
+            <FluxTableCell><code>18px</code><br/><code>27px</code></FluxTableCell>
+            <FluxTableCell>Titles below heading level, such as <code>FluxText</code> at <code>large</code>.</FluxTableCell>
         </FluxTableRow>
     </FluxTable>
 </FluxPane>
+
+Headings sit outside this scale and carry their own pair: `h1` is 27/42, `h2` is 21/33. The remaining levels line up with the scale, so `h3` is `xlarge`, `h4` is `large`, `h5` is `default` and `h6` is `small`.
+
+::: tip Changing the base size
+`--font-size-default` also sets the root font-size, so it is the basis for every `rem` in your own code. Override it on `:root` to rescale the interface, and override `--line-height-default` along with it to keep the rhythm on the grid.
+:::
 
 ## Motion
 

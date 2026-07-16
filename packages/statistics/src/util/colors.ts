@@ -7,7 +7,7 @@ const themeVersion = ref(0);
 if (typeof document !== 'undefined') {
     new MutationObserver(() => themeVersion.value++).observe(
         document.documentElement,
-        {attributes: true, attributeFilter: ['class', 'data-theme']}
+        {attributes: true, attributeFilter: ['class', 'data-theme', 'dark', 'light']}
     );
 }
 

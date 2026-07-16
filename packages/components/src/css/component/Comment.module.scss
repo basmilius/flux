@@ -1,3 +1,5 @@
+@use '~flux/components/css/mixin';
+
 .comment {
     display: grid;
     max-width: 100%;
@@ -71,11 +73,12 @@
 }
 
 .commentFooter {
+    @include mixin.text(2xsmall);
+
     display: flex;
     align-items: center;
     gap: 12px;
     justify-content: flex-end;
-    font-size: 12px;
     font-weight: 500;
 
     :global(span) {

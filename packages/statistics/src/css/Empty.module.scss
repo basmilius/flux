@@ -1,3 +1,5 @@
+@use '~flux/components/css/mixin';
+
 .statisticsEmpty {
     display: flex;
     width: 100%;
@@ -17,18 +19,18 @@
 }
 
 .statisticsEmptyTitle {
+    @include mixin.text(large);
+
     color: var(--foreground-prominent);
-    font-size: 16px;
     font-weight: 700;
-    line-height: 24px;
 }
 
 .statisticsEmptyDescription {
+    @include mixin.text(small);
+
     max-width: 320px;
     color: var(--foreground-secondary);
-    font-size: 14px;
     font-weight: 400;
-    line-height: 20px;
 }
 
 .statisticsEmptyActions {

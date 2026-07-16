@@ -1,3 +1,5 @@
+@use '~flux/components/css/mixin';
+
 .timeline {
     position: relative;
     display: flex;
@@ -99,8 +101,9 @@
     }
 
     :is(span) {
+        @include mixin.text(small);
+
         color: var(--foreground-secondary);
-        font-size: 14px;
     }
 }
 

@@ -19,7 +19,8 @@
 }
 
 .applicationSectionInfo {
-    font-size: 14px;
+    @include mixin.text(small);
+
     color: var(--foreground-secondary);
 }
 

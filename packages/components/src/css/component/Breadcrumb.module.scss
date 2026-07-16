@@ -37,6 +37,8 @@
 }
 
 .breadcrumbLink {
+    @include mixin.text(small, $line-height: 1);
+
     display: inline-flex;
     height: 30px;
     max-width: 100%;
@@ -47,8 +49,6 @@
     border: 0;
     border-radius: var(--radius);
     color: var(--foreground);
-    font-size: 14px;
-    line-height: 1;
     text-decoration: none;
     white-space: nowrap;
     cursor: pointer;

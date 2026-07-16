@@ -1,9 +1,14 @@
 @use '~flux/components/css/mixin';
 
 .badge {
+    @include mixin.text(xsmall);
+
     display: inline-flex;
     height: 28px;
     width: max-content;
+
+    // Pulls the 28px margin-box back to exactly one 24px line, so a badge never
+    // stretches the line it sits in.
     margin-top: -2px;
     margin-bottom: -2px;
     padding-left: 9px;
@@ -14,7 +19,6 @@
     border: 1px solid var(--surface-stroke);
     border-radius: var(--radius-full);
     color: var(--foreground-prominent);
-    font-size: 13px;
     font-weight: 500;
     font-variant-numeric: tabular-nums;
 
@@ -31,10 +35,11 @@
     }
 
     &.isSmall {
+        @include mixin.text(2xsmall);
+
         height: 21px;
         padding-left: 6px;
         padding-right: 6px;
-        font-size: 12px;
 
         .badgeClose {
             height: 15px;
@@ -54,10 +59,11 @@
     }
 
     &.isLarge {
+        @include mixin.text(small);
+
         height: 33px;
         padding-left: 12px;
         padding-right: 12px;
-        font-size: 14px;
 
         .badgeClose {
             height: 24px;
@@ -255,16 +261,17 @@
 }
 
 .badgeGroupSmall {
+    @include mixin.text(2xsmall);
+
     --badge-group-padding: 9px;
 
     gap: 6px;
-    font-size: 12px;
 }
 
 .badgeGroupLarge {
-    --badge-group-padding: 15px;
+    @include mixin.text(small);
 
-    font-size: 14px;
+    --badge-group-padding: 15px;
 }
 
 .badgeGroupIcon {

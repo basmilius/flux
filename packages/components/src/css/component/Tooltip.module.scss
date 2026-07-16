@@ -1,3 +1,5 @@
+@use '~flux/components/css/mixin';
+
 .tooltipHost {
     position: fixed;
     inset: 0;
@@ -17,6 +19,8 @@
     --foreground-prominent: var(--gray-50);
     --foreground-secondary: var(--gray-400);
 
+    @include mixin.text(small);
+
     position: fixed;
     display: flex;
     top: 0;
@@ -28,7 +32,6 @@
     backdrop-filter: blur(3px) saturate(180%);
     border-radius: var(--radius);
     color: var(--foreground);
-    font-size: 14px;
     font-variant-numeric: tabular-nums;
     pointer-events: none;
     translate: calc(var(--x) * 1px) calc(var(--y) * 1px);

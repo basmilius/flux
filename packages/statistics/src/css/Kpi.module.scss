@@ -1,6 +1,6 @@
 .statisticsKpiBottom {
     margin-top: 3px;
-    line-height: 18px;
+    line-height: var(--line-height-xsmall);
 
     :local(.statisticsChange) {
         margin-right: .3em;
@@ -9,7 +9,7 @@
 
 .statisticsKpiFooter {
     color: var(--foreground-secondary);
-    font-size: 14px;
+    font-size: var(--font-size-small);
 }
 
 .statisticsKpiValue {

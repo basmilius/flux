@@ -1,4 +1,5 @@
 import type { BarSeriesOption, BoxplotSeriesOption, CandlestickSeriesOption, GaugeSeriesOption, HeatmapSeriesOption, LineSeriesOption, PieSeriesOption, RadarSeriesOption, ScatterSeriesOption, TreemapSeriesOption } from 'echarts/charts';
+import { CHART_FONT_FAMILY, CHART_TEXT_2XSMALL, CHART_TEXT_XSMALL } from '../typography';
 
 const SOFT_EMPHASIS = {focus: 'none'} as const;
 const PIE_EMPHASIS = {focus: 'none', scale: true, scaleSize: 6} as const;
@@ -147,9 +148,8 @@ export const TREEMAP_SERIES_DEFAULTS: Partial<TreemapSeriesOption> = {
     label: {
         show: true,
         color: 'var(--white)',
-        fontSize: 13,
-        fontWeight: 600,
-        fontFamily: 'inherit'
+        ...CHART_TEXT_XSMALL,
+        fontWeight: 600
     },
     emphasis: SOFT_EMPHASIS
 };
@@ -182,9 +182,8 @@ export const GAUGE_SERIES_DEFAULTS: Partial<GaugeSeriesOption> = {
     title: {
         show: true,
         color: 'var(--foreground-secondary)',
-        fontSize: 12,
+        ...CHART_TEXT_2XSMALL,
         fontWeight: 500,
-        fontFamily: 'inherit',
         offsetCenter: [0, '-30%']
     },
     detail: {
@@ -192,7 +191,7 @@ export const GAUGE_SERIES_DEFAULTS: Partial<GaugeSeriesOption> = {
         color: 'var(--foreground-prominent)',
         fontSize: 28,
         fontWeight: 800,
-        fontFamily: 'inherit',
+        fontFamily: CHART_FONT_FAMILY,
         offsetCenter: [0, '10%'],
         formatter: '{value}%'
     }

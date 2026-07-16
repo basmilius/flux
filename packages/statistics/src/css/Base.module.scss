@@ -25,10 +25,10 @@
 }
 
 .statisticsBaseHeaderTitle {
+    @include mixin.text(default);
+
     color: var(--foreground-prominent);
-    font-size: 15px;
     font-weight: 600;
-    line-height: 24px;
     word-break: break-word;
 }
 
@@ -60,9 +60,10 @@
 }
 
 .statisticsBaseSmall .statisticsBaseHeaderTitle {
+    // Deliberately compact: 18px, not small's own 21px.
+    @include mixin.text(small, $line-height: var(--line-height-xsmall));
+
     color: var(--foreground);
-    font-size: 14px;
-    line-height: 18px;
 }
 
 .statisticsBaseSmall .statisticsBaseHeaderInfo {

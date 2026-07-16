@@ -173,25 +173,25 @@
 }
 
 .formFaderLabel {
+    @include mixin.text(small);
+
     flex: 0 1 auto;
     min-width: 0;
     color: var(--foreground);
-    font-size: 14px;
     font-weight: 500;
-    line-height: 1.4;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 .formFaderValue {
+    @include mixin.text(xsmall);
+
     flex: 0 0 auto;
     margin-left: auto;
     padding-left: 12px;
     color: var(--foreground);
-    font-size: 13px;
     font-variant-numeric: tabular-nums;
-    line-height: 1.4;
     white-space: nowrap;
 }
 
