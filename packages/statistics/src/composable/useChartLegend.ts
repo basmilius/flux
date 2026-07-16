@@ -1,5 +1,5 @@
 import type { FluxIconName } from '@flux-ui/types';
-import { ref, type InjectionKey, type Ref } from 'vue';
+import { ref, shallowRef, type InjectionKey, type Ref } from 'vue';
 
 export interface ChartLegendItem {
     readonly color?: string;
@@ -18,7 +18,7 @@ export const FluxStatisticsChartLegendInjectionKey: InjectionKey<ChartLegendCont
 
 export function createChartLegendContext(): ChartLegendContext {
     return {
-        items: ref<readonly ChartLegendItem[]>([]),
+        items: shallowRef<readonly ChartLegendItem[]>([]),
         hoveredIndex: ref<number | null>(null)
     };
 }

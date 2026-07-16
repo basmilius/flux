@@ -1,5 +1,5 @@
 <template>
-    <header :class="y > 1 ? $style.applicationTopScrolled : $style.applicationTop">
+    <header :class="isScrolled ? $style.applicationTopScrolled : $style.applicationTop">
         <div :class="$style.applicationTopBar">
             <FluxApplicationMenuToggle :class="!showDesktopMenuToggle && $style.applicationTopMenuToggleHidden"/>
 
@@ -53,7 +53,7 @@
     import { useScrollPosition } from '@flux-ui/internals';
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import type { VNode } from 'vue';
+    import { computed, type VNode } from 'vue';
     import { useApplicationInjection } from '../composable';
     import FluxApplicationMenuToggle from './FluxApplicationMenuToggle.vue';
     import $style from '~flux/application/css/component/ApplicationTop.module.scss';
@@ -71,4 +71,6 @@
 
     const {layout, showDesktopMenuToggle} = useApplicationInjection();
     const {y} = useScrollPosition();
+
+    const isScrolled = computed(() => y.value > 1);
 </script>
