@@ -65,11 +65,11 @@
     },
     "peerDependencies": {
         "luxon": "^3.7.2",
-        "vue": "^3.6.0-beta.17"
+        "vue": "^3.6.0-rc.1"
     },
     "devDependencies": {
         "@types/bun": "^1.3.14",
         "@types/luxon": "^3.7.2",
-        "tsdown": "^0.22.9"
+        "tsdown": "^0.22.12"
     }
 }
