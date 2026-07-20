@@ -2,7 +2,8 @@
     <FluxPressable
         :class="clsx(
             !status && $style.avatar,
-            !!status && $style.statusAvatar,
+            !!status && !statusIcon && $style.statusAvatar,
+            !!status && !!statusIcon && $style.statusIconAvatar,
             type !== 'none' && $style.avatarClickable
         )"
         :style="{
@@ -47,9 +48,18 @@
             </div>
         </FluxFadeTransition>
 
-        <div
-            v-if="status"
-            :class="STATUS_CLASS_MAP[status]"/>
+        <template v-if="status">
+            <FluxIcon
+                v-if="statusIcon"
+                :class="$style.avatarStatusIcon"
+                :color="status"
+                :name="statusIcon"
+                size="0.36em"/>
+
+            <div
+                v-else
+                :class="STATUS_CLASS_MAP[status]"/>
+        </template>
     </FluxPressable>
 </template>
 
@@ -94,6 +104,7 @@
         readonly size?: number;
         readonly src?: string;
         readonly status?: FluxColor;
+        readonly statusIcon?: FluxIconName;
         readonly type?: FluxPressableType;
         readonly tabindex?: string | number;
         readonly href?: string;

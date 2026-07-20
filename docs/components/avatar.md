@@ -61,6 +61,11 @@ props:
         type: FluxColor
         optional: true
 
+    -   name: status-icon
+        description: An icon shown instead of the status dot, colored by the status. Requires status to be set.
+        type: FluxIconName
+        optional: true
+
     -   name: tabindex
         description: The tabindex of the button, works exactly the same as html.
         type: [ 'string', 'number' ]
@@ -105,6 +110,10 @@ render=../code/components/avatar/preview.vue
 To display a person's name and title along with their avatar, consider using the [Persona](./persona) component.
 :::
 
+::: tip
+The `status-icon` prop works together with `status`: the icon replaces the status dot and takes the status color, so `status` must be set for the icon to appear.
+:::
+
 ::: tip Accessibility
 When a `src` fails to load, the avatar automatically falls back to its initials or icon, so a broken image is never shown. The `role="img"` attribute is only applied when `type` is `none`; for interactive avatars (`button`, `link`, `route`) the underlying element keeps its native role.
 :::
@@ -115,6 +124,10 @@ When a `src` fails to load, the avatar automatically falls back to its initials 
 
 ::: example Image with status || Avatars can include statuses to indicate conditions such as online status.
 example=../code/components/avatar/image-with-status.vue
+:::
+
+::: example Status icon || Set a `status-icon` to replace the status dot with an icon, colored by the status, to convey richer presence states.
+example=../code/components/avatar/status-with-icon.vue
 :::
 
 ::: example Initials || In the absence of an image, avatars can default to using initials.

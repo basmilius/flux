@@ -123,6 +123,12 @@
     background: var(--warning-600);
 }
 
+.avatarStatusIcon {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
 .avatarClickable {
     cursor: pointer;
     transition: filter 150ms var(--swift-out);
@@ -140,6 +146,16 @@
 .statusAvatar .avatarImage {
     mask: radial-gradient(circle .18em at calc(100% - 0.16em) calc(100% - 0.16em), transparent 100%, #000 100%);
     -webkit-mask: radial-gradient(circle .18em at calc(100% - 0.16em) calc(100% - 0.16em), transparent 100%, #000 100%);
+}
+
+.statusIconAvatar {
+    composes: avatar;
+}
+
+.statusIconAvatar .avatarFallback,
+.statusIconAvatar .avatarImage {
+    mask: radial-gradient(circle .28em at calc(100% - 0.18em) calc(100% - 0.18em), transparent 100%, #000 100%);
+    -webkit-mask: radial-gradient(circle .28em at calc(100% - 0.18em) calc(100% - 0.18em), transparent 100%, #000 100%);
 }
 
 .persona {
