@@ -145,5 +145,6 @@ export {
     faWandMagicSparkles,
     faStopwatch,
     faHashtag,
-    faBrain
+    faBrain,
+    faUserCheck
 } from '@fortawesome/pro-regular-svg-icons';
