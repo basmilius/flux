@@ -126,8 +126,14 @@
     // FluxBadge pulls itself onto a 24px text line with a negative block margin,
     // which here would offset it inside the hole cut for it.
     margin: 0;
-    background: rgb(from var(--gray-200) r g b / .75);
-    backdrop-filter: blur(3px);
+    background: var(--connection-badge-background);
     border: 0;
+    color: var(--connection-badge-foreground);
     transform: translate(-50%, -50%);
+}
+
+// FluxBadge paints its own label and icon, which here follow the connector. The
+// doubled class outranks the badge's own `.badgeGray .badgeLabel` rule.
+.flowConnectionBadge.flowConnectionBadge :is(span, svg) {
+    color: inherit;
 }

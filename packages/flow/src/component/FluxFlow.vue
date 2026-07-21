@@ -41,17 +41,17 @@
 
                 <svg :class="$style.flowEdges">
                     <defs>
-                        <!-- Cuts the label out of its own connector, so the line ends
-                             flush against the badge instead of running behind it.
+                        <!-- Cuts every label out of every connector, so a line ends
+                             flush against a badge instead of running behind it,
+                             whether the badge is its own or a crossing one's.
 
                              The region is spelled out rather than left to default:
                              a mask defaults to 120% of the element's bounding box,
                              which under userSpaceOnUse resolves against the SVG
                              viewport an interactive flow pans its world out from. -->
                         <mask
-                            v-for="[id, label] of labelBoxes"
-                            :key="id"
-                            :id="`${uid}-${id}`"
+                            v-if="labelBoxes.size > 0"
+                            :id="`${uid}-labels`"
                             maskUnits="userSpaceOnUse"
                             x="-99999"
                             y="-99999"
@@ -64,6 +64,8 @@
                                 height="199998"
                                 fill="#fff"/>
                             <rect
+                                v-for="[id, label] of labelBoxes"
+                                :key="id"
                                 :x="label.x"
                                 :y="label.y"
                                 :width="label.width"
@@ -78,7 +80,7 @@
                         :key="edge.id"
                         :class="clsx($edge.flowConnectionGroup, edge.id === hoveredEdge && $edge.isHovered)"
                         :style="edge.spec.styleVars"
-                        :mask="labelBoxes.has(edge.id) ? `url(#${uid}-${edge.id})` : undefined">
+                        :mask="labelBoxes.size > 0 ? `url(#${uid}-labels)` : undefined">
                         <path
                             :class="clsx($edge.flowConnectionLine, edge.spec.animated && $edge.isAnimated, edge.spec.dashed && $edge.isDashed, edge.spec.dotted && $edge.isDotted)"
                             :d="edge.spec.path"/>
@@ -104,7 +106,7 @@
                         :key="edge.id"
                         :ref="element => setLabelElement(edge.id, element)"
                         :class="$edge.flowConnectionBadge"
-                        :style="{left: `${edge.spec.labelX}px`, top: `${edge.spec.labelY}px`}"
+                        :style="{...edge.spec.styleVars, left: `${edge.spec.labelX}px`, top: `${edge.spec.labelY}px`}"
                         :icon="edge.spec.icon"
                         :label="edge.spec.label ?? ''"/>
                 </div>

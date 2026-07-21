@@ -14,9 +14,9 @@
             <FluxFlowCard title="Push"/>
         </FluxFlowNode>
 
-        <FluxFlowConnection from="dispatch" to="email" from-side="bottom" to-side="top" color="info"/>
-        <FluxFlowConnection from="dispatch" to="sms" from-side="bottom" to-side="top" color="success"/>
-        <FluxFlowConnection from="dispatch" to="push" from-side="bottom" to-side="top" color="danger"/>
+        <FluxFlowConnection from="dispatch" to="email" from-side="bottom" to-side="top" color="info" label="email"/>
+        <FluxFlowConnection from="dispatch" to="sms" from-side="bottom" to-side="top" color="success" label="sms"/>
+        <FluxFlowConnection from="dispatch" to="push" from-side="bottom" to-side="top" color="danger" label="push"/>
     </FluxFlow>
 </template>
 
