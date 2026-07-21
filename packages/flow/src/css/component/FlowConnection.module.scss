@@ -21,7 +21,7 @@
 }
 
 .flowConnectionGroup.isHovered :is(.flowConnectionLine, .flowConnectionMarkerOutline, .flowConnectionMarkerStroke, .flowConnectionProgress) {
-    stroke-width: 4px;
+    stroke-width: 3px;
 }
 
 .flowConnectionLine.isDashed {
@@ -94,6 +94,10 @@
 
 .flowConnectionProgress {
     fill: none;
+    // The round cap still paints a dot on a dash of length zero, which would
+    // leave a stray mark at the start of every unfilled connector. Opacity
+    // clamps to 1, so anything above zero progress draws at full strength.
+    opacity: calc(var(--connection-progress) * 1000);
     stroke: var(--connection-progress-color);
     stroke-width: 2px;
     stroke-linecap: round;

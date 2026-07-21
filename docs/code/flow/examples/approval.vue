@@ -41,7 +41,7 @@
                 </FluxFlowActionCard>
             </FluxFlowNode>
 
-            <FluxFlowConnection from="request" to="review" from-side="right" to-side="left"/>
+            <FluxFlowConnection from="request" to="review" from-side="right" to-side="left" :progress-value="1"/>
             <FluxFlowConnection from="review" to="pay" from-side="right" to-side="left" progress-color="success" :progress-value="approved ? 1 : 0"/>
         </FluxFlow>
     </div>
