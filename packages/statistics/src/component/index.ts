@@ -29,4 +29,11 @@ export { default as FluxStatisticsRadarChart } from './FluxStatisticsRadarChart.
 export { default as FluxStatisticsRadialBar } from './FluxStatisticsRadialBar.vue';
 export { default as FluxStatisticsScatterChart } from './FluxStatisticsScatterChart.vue';
 export { default as FluxStatisticsSparkline } from './FluxStatisticsSparkline.vue';
+export { default as FluxStatisticsTracker } from './FluxStatisticsTracker.vue';
+export { default as FluxStatisticsTrackerCard } from './FluxStatisticsTrackerCard.vue';
+export { default as FluxStatisticsTrackerCardSegment } from './FluxStatisticsTrackerCardSegment.vue';
+export { default as FluxStatisticsTrackerEntry } from './FluxStatisticsTrackerEntry.vue';
+export { default as FluxStatisticsTrackerLabel } from './FluxStatisticsTrackerLabel.vue';
+export { default as FluxStatisticsTrackerStep } from './FluxStatisticsTrackerStep.vue';
+export { default as FluxStatisticsTrackerSteps } from './FluxStatisticsTrackerSteps.vue';
 export { default as FluxStatisticsTreemapChart } from './FluxStatisticsTreemapChart.vue';

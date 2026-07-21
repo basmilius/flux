@@ -12,3 +12,5 @@ export type { EChartsInstance, EChartsOption, UseEChartsReturn } from './useECha
 export { useECharts } from './useECharts';
 export type { FluxStatisticsLegendVariant } from './useLegendVariant';
 export { FluxStatisticsLegendVariantInjectionKey } from './useLegendVariant';
+export type { TrackerContext, TrackerGroupContext } from './useTracker';
+export { FluxStatisticsTrackerGroupInjectionKey, FluxStatisticsTrackerInjectionKey, useTracker } from './useTracker';

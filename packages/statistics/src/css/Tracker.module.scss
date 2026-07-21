@@ -1,0 +1,274 @@
+@use '~flux/components/css/mixin';
+
+.tracker {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    gap: 15px;
+}
+
+// Every line of the tracker lives in this one overlay, drawn between the markers
+// that are actually rendered. Nothing is masked, so it works on any surface.
+.trackerLine {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    fill: none;
+    stroke: var(--gray-200);
+    stroke-width: 2;
+    stroke-linecap: round;
+    pointer-events: none;
+}
+
+.trackerLineDashed {
+    stroke-dasharray: 4 4;
+    stroke-linecap: butt;
+}
+
+.trackerRow {
+    position: relative;
+    display: grid;
+    gap: 21px;
+    grid-template-columns: 42px minmax(0, 1fr);
+}
+
+// The marker follows the palette of a boxed icon: a soft tint with a deep glyph.
+.trackerEntry {
+    --color: var(--gray-600);
+    --color-deep: var(--foreground);
+    --color-soft: var(--gray-100);
+
+    composes: trackerRow;
+}
+
+.trackerEntryMarker {
+    display: flex;
+    margin: 3px;
+    height: 36px;
+    width: 36px;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-soft);
+    border-radius: var(--radius-full);
+    color: var(--color-deep);
+    grid-column: 1;
+}
+
+.trackerEntryDot {
+    margin-top: 15px;
+    height: 12px;
+    width: 12px;
+    justify-self: center;
+    background: var(--color);
+    border-radius: var(--radius-full);
+    grid-column: 1;
+}
+
+// Padded so the title lines up with the centre of the marker, whatever follows it.
+.trackerEntryBody {
+    display: flex;
+    padding: 9px 0;
+    flex-flow: column;
+    gap: 12px;
+    grid-column: 2;
+}
+
+.trackerEntryHeader {
+    display: flex;
+    flex-flow: column;
+    gap: 3px;
+}
+
+.trackerEntryHeading {
+    display: flex;
+    align-items: center;
+    flex-flow: row wrap;
+    gap: 6px 9px;
+}
+
+.trackerEntryTitle {
+    color: var(--foreground-prominent);
+    font-weight: 600;
+}
+
+.trackerEntryDescription {
+    color: var(--foreground);
+}
+
+.trackerEntryWhen {
+    @include mixin.text(small);
+
+    color: var(--foreground-secondary);
+}
+
+.trackerLabel {
+    --color: var(--gray-300);
+
+    composes: trackerRow;
+
+    align-items: center;
+    grid-template-columns: 42px minmax(0, auto) minmax(0, 1fr);
+}
+
+.trackerLabelDot {
+    height: 9px;
+    width: 9px;
+    justify-self: center;
+    background: var(--color);
+    border-radius: var(--radius-full);
+    grid-column: 1;
+}
+
+.trackerLabelText {
+    @include mixin.text(xsmall);
+
+    color: var(--foreground-secondary);
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+// The branches leaving and rejoining the rail need room above and below; their
+// height is the block margin.
+.trackerSteps {
+    display: flex;
+    margin: 24px 0 24px 3px;
+    flex-flow: column;
+    gap: 12px;
+}
+
+.trackerStep {
+    display: grid;
+    gap: 12px;
+    align-items: center;
+    grid-template-columns: 18px minmax(0, auto) minmax(0, 1fr);
+}
+
+.trackerStepMarker {
+    display: flex;
+    height: 18px;
+    align-items: center;
+    justify-content: center;
+    color: var(--gray-300);
+}
+
+.trackerStepDot {
+    height: 9px;
+    width: 9px;
+    background: currentColor;
+    border-radius: var(--radius-full);
+}
+
+.trackerStepLabel {
+    color: var(--foreground-secondary);
+}
+
+.trackerStepDone {
+    composes: trackerStep;
+
+    .trackerStepMarker {
+        color: var(--success-600);
+    }
+
+    .trackerStepLabel {
+        text-decoration: line-through;
+    }
+}
+
+.trackerStepActive {
+    composes: trackerStep;
+
+    .trackerStepMarker {
+        color: var(--color, var(--primary-600));
+    }
+
+    .trackerStepLabel {
+        color: var(--foreground-prominent);
+        font-weight: 600;
+    }
+}
+
+.trackerEntryGray {
+    composes: trackerEntry;
+
+    --color: var(--gray-600);
+    --color-deep: var(--foreground);
+    --color-soft: var(--gray-100);
+}
+
+.trackerEntryPrimary {
+    composes: trackerEntry;
+
+    --color: var(--primary-600);
+    --color-deep: var(--primary-900);
+    --color-soft: var(--primary-100);
+}
+
+.trackerEntryDanger {
+    composes: trackerEntry;
+
+    --color: var(--danger-600);
+    --color-deep: var(--danger-900);
+    --color-soft: var(--danger-100);
+}
+
+.trackerEntryInfo {
+    composes: trackerEntry;
+
+    --color: var(--info-600);
+    --color-deep: var(--info-900);
+    --color-soft: var(--info-100);
+}
+
+.trackerEntrySuccess {
+    composes: trackerEntry;
+
+    --color: var(--success-600);
+    --color-deep: var(--success-900);
+    --color-soft: var(--success-100);
+}
+
+.trackerEntryWarning {
+    composes: trackerEntry;
+
+    --color: var(--warning-600);
+    --color-deep: var(--warning-900);
+    --color-soft: var(--warning-100);
+}
+
+.trackerLabelGray {
+    composes: trackerLabel;
+
+    --color: var(--gray-300);
+}
+
+.trackerLabelPrimary {
+    composes: trackerLabel;
+
+    --color: var(--primary-600);
+}
+
+.trackerLabelDanger {
+    composes: trackerLabel;
+
+    --color: var(--danger-600);
+}
+
+.trackerLabelInfo {
+    composes: trackerLabel;
+
+    --color: var(--info-600);
+}
+
+.trackerLabelSuccess {
+    composes: trackerLabel;
+
+    --color: var(--success-600);
+}
+
+.trackerLabelWarning {
+    composes: trackerLabel;
+
+    --color: var(--warning-600);
+}

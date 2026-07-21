@@ -325,7 +325,25 @@ export default defineConfig({
                         {text: 'Meter', link: '/statistics/components/meter'},
                         {text: 'Metric', link: '/statistics/components/metric'},
                         {text: 'Percentage bar', link: '/statistics/components/percentage-bar'},
-                        {text: 'Sparkline', link: '/statistics/components/sparkline'}
+                        {text: 'Sparkline', link: '/statistics/components/sparkline'},
+                        {
+                            text: 'Tracker',
+                            link: '/statistics/components/tracker/',
+                            collapsed: true,
+                            items: [
+                                {text: 'Entry', link: '/statistics/components/tracker/entry'},
+                                {text: 'Label', link: '/statistics/components/tracker/label'},
+                                {text: 'Step', link: '/statistics/components/tracker/step'}
+                            ]
+                        },
+                        {
+                            text: 'Tracker card',
+                            link: '/statistics/components/tracker-card/',
+                            collapsed: true,
+                            items: [
+                                {text: 'Segment', link: '/statistics/components/tracker-card/segment'}
+                            ]
+                        }
                     ]
                 }
             ],

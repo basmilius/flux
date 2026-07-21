@@ -1,0 +1,87 @@
+@use '~flux/components/css/mixin';
+
+.trackerCard {
+    display: flex;
+    padding: 18px;
+    flex-flow: column;
+    gap: 18px;
+}
+
+.trackerCardHeader {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.trackerCardHeaderText {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-flow: column;
+    gap: 3px;
+}
+
+.trackerCardTitle {
+    @include mixin.text(large);
+
+    color: var(--foreground-prominent);
+    font-weight: 700;
+}
+
+.trackerCardSubtitle {
+    @include mixin.text(small);
+
+    color: var(--foreground-secondary);
+}
+
+// Dense packing, so a segment that renders its label before its bar still lands
+// in the column of its own bar.
+.trackerCardSegments {
+    display: grid;
+    gap: 6px;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column dense;
+}
+
+.trackerCardSegment {
+    display: contents;
+}
+
+.trackerCardSegmentBar {
+    --color: var(--primary-600);
+    --progress: 50%;
+
+    height: 6px;
+    background: var(--gray-100);
+    border-radius: var(--radius-full);
+    grid-row: 1;
+
+    &.isDone {
+        background: var(--color);
+    }
+
+    // The running step fills up to its own progress, so it reads as more than
+    // just started or done.
+    &.isActive {
+        background: linear-gradient(to right, var(--color) var(--progress), var(--gray-100) var(--progress));
+    }
+}
+
+.trackerCardSegmentLabel {
+    @include mixin.text(xsmall);
+
+    color: var(--foreground-secondary);
+    grid-row: 2;
+}
+
+.trackerCardLabelsTop {
+    composes: trackerCardSegments;
+
+    .trackerCardSegmentBar {
+        grid-row: 2;
+    }
+
+    .trackerCardSegmentLabel {
+        grid-row: 1;
+    }
+}
