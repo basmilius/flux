@@ -18,13 +18,29 @@
     cursor: grabbing;
 }
 
-.flowBackground {
+// The layers stacked inside the world, plus the background behind it.
+.flowBackground,
+.flowBackdrop,
+.flowEdgesHit,
+.flowEdges,
+.flowEdgeLabels {
     position: absolute;
     display: block;
     inset: 0;
+    pointer-events: none;
+}
+
+// The two SVG layers paint outside their own box, so they may not clip.
+.flowEdgesHit,
+.flowEdges {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.flowBackground {
     background-color: var(--gray-50);
     background-position: 0 0;
-    pointer-events: none;
     z-index: 0;
 }
 
@@ -55,44 +71,21 @@
     transform-origin: 0 0;
 }
 
-// Group frames and lane bands, below the nodes (z-index 1) and above the
-// canvas backdrop.
+// Group frames and lane bands, below the nodes (z-index 1).
 .flowBackdrop {
-    position: absolute;
-    display: block;
-    inset: 0;
-    pointer-events: none;
     z-index: 0;
 }
 
-// Hover hit-testing sits below the nodes (z-index 1) so connectors can never
-// steal a pointer press meant for interactive card content.
+// Hover hit-testing sits below the nodes too, so a connector can never steal a
+// pointer press meant for interactive card content.
 .flowEdgesHit {
-    position: absolute;
-    display: block;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-    pointer-events: none;
     z-index: 0;
 }
 
 .flowEdges {
-    position: absolute;
-    display: block;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-    pointer-events: none;
     z-index: 2;
 }
 
 .flowEdgeLabels {
-    position: absolute;
-    display: block;
-    inset: 0;
-    pointer-events: none;
     z-index: 3;
 }

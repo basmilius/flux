@@ -67,7 +67,6 @@
     const effectiveColor = computed<FluxColor>(() => props.color ?? defaults.value.color);
     const effectiveIcon = computed<FluxIconName>(() => props.icon ?? defaults.value.icon);
 
-    // Without a title the card falls back to the name of its type, so a bare
-    // <FluxFlowConditionCard/> still reads as "Condition".
+    // A bare <FluxFlowConditionCard/> still reads as "Condition".
     const effectiveTitle = computed<string>(() => props.title ?? props.label ?? defaults.value.label);
 </script>

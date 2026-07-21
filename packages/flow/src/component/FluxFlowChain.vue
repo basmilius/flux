@@ -38,11 +38,10 @@
     }>();
 
     /**
-     * The room a segment gets when its connector carries a label. A badge is
-     * 28px tall and the canvas cuts 6px of air around it, on top of the 9px
-     * each end keeps from a node, so both of those plus a visible stretch of
-     * line have to fit. A horizontal chain leaves more, because there a badge
-     * is as wide as its text.
+     * The room a segment gets when its connector carries a label: a 28px badge
+     * plus 6px of cut air, the 9px each end keeps from a node and a visible
+     * stretch of line. A horizontal chain leaves more, since a badge there is as
+     * wide as its text.
      */
     const LABEL_GAP: Record<FluxFlowDirection, number> = {
         vertical: 105,
@@ -94,9 +93,8 @@
     });
 
     /**
-     * The `from` / `to` pairs of the `FluxFlowConnection` components written
-     * inside the chain, against whether that connector carries a badge. A
-     * connector of your own between two links replaces the automatic one
+     * The `from` / `to` pairs written inside the chain, against whether that
+     * connector carries a badge: one of your own replaces the automatic one
      * instead of doubling it, and a labelled one also widens its segment.
      */
     const claimedPairs = computed(() => {
@@ -126,8 +124,8 @@
     });
 
     /**
-     * The space after the link at `index`: the wider one once its connector
-     * carries a badge, since the standard gap leaves no room for one.
+     * The space after the link at `index`, widened once its connector carries a
+     * badge: the standard gap leaves no room for one.
      */
     function gapAfter(index: number): number {
         const next = links[index + 1];
@@ -140,9 +138,8 @@
     }
 
     /**
-     * Where a link of `extent` sits across the run of the chain. Centring is
-     * what keeps the connectors straight when a 300px card and a `max-content`
-     * pill share a chain.
+     * Where a link of `extent` sits across the run. Centring keeps the
+     * connectors straight when a 300px card and a pill share a chain.
      */
     function crossOffset(widest: number, extent: number): number {
         switch (align) {

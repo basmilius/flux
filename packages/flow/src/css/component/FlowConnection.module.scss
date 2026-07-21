@@ -32,8 +32,7 @@
     stroke-dasharray: 1 9;
 }
 
-// One full pattern cycle per iteration, so the dashes travel towards the target
-// without the pattern ever visibly jumping.
+// One full pattern cycle per iteration, so the dashes never visibly jump.
 @keyframes flowConnectionDashed {
     to {
         stroke-dashoffset: -15px;
@@ -94,9 +93,9 @@
 
 .flowConnectionProgress {
     fill: none;
-    // The round cap still paints a dot on a dash of length zero, which would
-    // leave a stray mark at the start of every unfilled connector. Opacity
-    // clamps to 1, so anything above zero progress draws at full strength.
+    // The round cap paints a dot even on a zero-length dash, which would mark
+    // every unfilled connector. Opacity clamps to 1, so any progress above zero
+    // still draws at full strength.
     opacity: calc(var(--connection-progress) * 1000);
     stroke: var(--connection-progress-color);
     stroke-width: 2px;
@@ -121,13 +120,11 @@
 }
 
 // The badge is cut out of its own connector, so the line already ends flush
-// against it. A border would only draw an edge the canvas behind it cannot
-// match, so the label sits on a plain fill.
+// against it: a border would draw an edge the canvas cannot match.
 .flowConnectionBadge {
     position: absolute;
-    // FluxBadge pulls itself onto a 24px text line with a negative block margin.
-    // Here it floats on a canvas, and that pull would offset it inside the hole
-    // cut for it, leaving more air below the badge than above.
+    // FluxBadge pulls itself onto a 24px text line with a negative block margin,
+    // which here would offset it inside the hole cut for it.
     margin: 0;
     background: rgb(from var(--gray-200) r g b / .75);
     backdrop-filter: blur(3px);

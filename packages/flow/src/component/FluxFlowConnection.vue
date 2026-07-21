@@ -9,7 +9,7 @@
     import { computed, getCurrentInstance, onBeforeUnmount } from 'vue';
     import { useFluxFlowInjection } from '~flux/flow/composable';
     import type { FluxFlowAlign, FluxFlowConnectionType, FluxFlowEdgeSpec, FluxFlowLabelPlacement, FluxFlowMarker, FluxFlowMarkerFill, FluxFlowNodeRecord, FluxFlowPortRecord, FluxFlowPosition, FluxFlowSide } from '~flux/flow/data';
-    import { anchorPoint, autoSides, getBezierPath, getSmoothStepPath, getStraightPath, markerPath, offsetPoint, portPoint, portSide } from '~flux/flow/util';
+    import { anchorPoint, autoSides, clamp, getBezierPath, getSmoothStepPath, getStraightPath, markerPath, offsetPoint, portPoint, portSide } from '~flux/flow/util';
 
     const props = defineProps<{
         readonly from: string;
@@ -125,26 +125,18 @@
         const progress = props.progressValue ?? 0;
 
         return {
-            path: value.path,
-            labelX: value.labelX,
-            labelY: value.labelY,
-            fromX: value.fromX,
-            fromY: value.fromY,
-            toX: value.toX,
-            toY: value.toY,
+            ...value,
             waypoints: props.waypoints ?? [],
             styleVars: {
                 '--connection-color': resolveColor(props.color, 'var(--flow-line)'),
                 '--connection-marker': resolveColor(props.color, 'var(--flow-line)'),
                 '--connection-progress-color': resolveColor(props.progressColor, 'var(--primary-500)'),
-                '--connection-progress': String(Math.min(Math.max(props.progressValue ?? 0, 0), 1))
+                '--connection-progress': String(clamp(progress, 0, 1))
             },
             animated: !!props.animated,
             dashed: !!props.dashed,
             dotted: !!props.dotted,
-            fromMarkerPath: value.fromMarkerPath,
             fromMarkerFill: MARKER_FILLS[markerStart.value],
-            toMarkerPath: value.toMarkerPath,
             toMarkerFill: MARKER_FILLS[markerEnd.value],
             fromActive: hasProgress.value && progress > 0,
             toActive: hasProgress.value && progress >= 1,

@@ -1,4 +1,4 @@
-import type { FluxFlowAlign, FluxFlowDirection, FluxFlowPortRecord, FluxFlowPosition, FluxFlowSide, FluxFlowSize } from '~flux/flow/data';
+import type { FluxFlowAlign, FluxFlowBounds, FluxFlowDirection, FluxFlowNodeRecord, FluxFlowPortRecord, FluxFlowPosition, FluxFlowSide, FluxFlowSize } from '~flux/flow/data';
 
 // Where a `start` connector lands on a node that publishes no anchor of its
 // own. Matches the icon of a FluxFlowCard: 15px header padding + 30px icon / 2.
@@ -8,15 +8,35 @@ function center(position: FluxFlowPosition, size: FluxFlowSize): FluxFlowPositio
     return {x: position.x + size.width / 2, y: position.y + size.height / 2};
 }
 
-function clamp(value: number, max: number): number {
-    return Math.min(Math.max(value, 0), max);
+export function clamp(value: number, min: number, max: number): number {
+    return Math.min(Math.max(value, min), max);
 }
 
 /**
- * Where along a side of `extent` a connector lands. `inset` is how far the
- * node's own anchor sits from its corner on that axis. A node narrower than
- * twice the inset has no room for both ends, so `start` and `end` collapse onto
- * the centre rather than reaching past it.
+ * The box around a set of nodes, or `null` when there are none.
+ */
+export function boundsOfNodes(nodes: Iterable<FluxFlowNodeRecord>): FluxFlowBounds | null {
+    let minX = Infinity;
+    let minY = Infinity;
+    let maxX = -Infinity;
+    let maxY = -Infinity;
+
+    for (const node of nodes) {
+        const {x, y} = node.position.value;
+        const {width, height} = node.size.value;
+        minX = Math.min(minX, x);
+        minY = Math.min(minY, y);
+        maxX = Math.max(maxX, x + width);
+        maxY = Math.max(maxY, y + height);
+    }
+
+    return Number.isFinite(minX) ? {minX, minY, maxX, maxY} : null;
+}
+
+/**
+ * Where along a side of `extent` a connector lands, with `inset` the distance
+ * from the corner to the node's own anchor. A node narrower than twice that has
+ * no room for both ends, so `start` and `end` collapse onto the centre.
  */
 function alignOffset(extent: number, align: FluxFlowAlign, inset: number): number {
     const clamped = Math.min(inset, extent / 2);
@@ -77,26 +97,25 @@ export function portSide(port: FluxFlowPortRecord, size: FluxFlowSize): FluxFlow
 export function portPoint(position: FluxFlowPosition, size: FluxFlowSize, side: FluxFlowSide, offset: FluxFlowPosition): FluxFlowPosition {
     if (isVerticalSide(side)) {
         return {
-            x: position.x + clamp(offset.x, size.width),
+            x: position.x + clamp(offset.x, 0, size.width),
             y: side === 'top' ? position.y : position.y + size.height
         };
     }
 
     return {
         x: side === 'left' ? position.x : position.x + size.width,
-        y: position.y + clamp(offset.y, size.height)
+        y: position.y + clamp(offset.y, 0, size.height)
     };
 }
 
 /**
- * Picks the most natural pair of sides for a connection based on the relative
- * position of the two nodes: vertical stacks connect bottom -> top, horizontal
- * stacks connect right -> left.
+ * The most natural pair of sides for a connection: a vertical stack connects
+ * bottom -> top, a horizontal one right -> left.
  *
  * With an `axis` that axis wins, however the two nodes happen to lie. Picking
- * the shorter one is right for a loose pair of nodes, but wrong the moment a
- * row is wider than the gap between two rows: the line then leaves sideways and
- * crosses back over the nodes it was meant to run between.
+ * the shorter one is right for a loose pair, but wrong once a row is wider than
+ * the gap between two rows: the line then crosses back over the nodes it runs
+ * between.
  */
 export function autoSides(sourcePosition: FluxFlowPosition, sourceSize: FluxFlowSize, targetPosition: FluxFlowPosition, targetSize: FluxFlowSize, axis?: FluxFlowDirection): readonly [FluxFlowSide, FluxFlowSide] {
     const source = center(sourcePosition, sourceSize);

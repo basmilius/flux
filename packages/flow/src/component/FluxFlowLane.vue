@@ -6,7 +6,7 @@
             :class="$style.flowLane"
             :data-color="color"
             :data-orientation="isRow ? 'row' : 'column'"
-            :style="bandStyle">
+            :style="style">
             <span
                 v-if="title"
                 :class="$style.flowLaneTitle">{{ title }}</span>
@@ -18,9 +18,9 @@
     lang="ts"
     setup>
     import type { FluxColor } from '@flux-ui/types';
-    import { computed, type CSSProperties, getCurrentInstance, onBeforeUnmount } from 'vue';
+    import { computed } from 'vue';
     import { useFluxFlowInjection } from '~flux/flow/composable';
-    import type { FluxFlowBounds } from '~flux/flow/data';
+    import { useFlowBox } from '~flux/flow/composable/private';
     import $style from '~flux/flow/css/component/FlowLane.module.scss';
 
     const {
@@ -44,7 +44,6 @@
     // The strip the title rides in, at the head of the lane.
     const GUTTER = 30;
 
-    const uid = getCurrentInstance()!.uid;
     const controller = useFluxFlowInjection();
 
     const backdrop = controller.backdropElement;
@@ -81,28 +80,5 @@
         };
     });
 
-    const bounds = computed<FluxFlowBounds | null>(() => {
-        const value = band.value;
-
-        if (!value) {
-            return null;
-        }
-
-        return {
-            minX: value.x,
-            minY: value.y,
-            maxX: value.x + value.width,
-            maxY: value.y + value.height
-        };
-    });
-
-    const bandStyle = computed<CSSProperties>(() => ({
-        transform: `translate(${band.value?.x ?? 0}px, ${band.value?.y ?? 0}px)`,
-        width: `${band.value?.width ?? 0}px`,
-        height: `${band.value?.height ?? 0}px`
-    }));
-
-    controller.registerBox({id: uid, bounds});
-
-    onBeforeUnmount(() => controller.unregisterBox(uid));
+    const {style} = useFlowBox(() => band.value);
 </script>

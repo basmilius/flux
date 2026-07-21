@@ -5,7 +5,7 @@
         <div
             :class="$style.flowGroup"
             :data-color="color"
-            :style="frameStyle">
+            :style="style">
             <span
                 v-if="title"
                 :class="$style.flowGroupTitle"
@@ -18,9 +18,10 @@
     lang="ts"
     setup>
     import type { FluxColor } from '@flux-ui/types';
-    import { computed, type CSSProperties, getCurrentInstance, onBeforeUnmount } from 'vue';
+    import { computed, type CSSProperties } from 'vue';
     import { useFluxFlowInjection } from '~flux/flow/composable';
-    import type { FluxFlowBounds } from '~flux/flow/data';
+    import { useFlowBox } from '~flux/flow/composable/private';
+    import { boundsOfNodes } from '~flux/flow/util';
     import $style from '~flux/flow/css/component/FlowGroup.module.scss';
 
     const {
@@ -40,7 +41,6 @@
     // title is set in by, so that is not counted twice.
     const TITLE_BAND = 45;
 
-    const uid = getCurrentInstance()!.uid;
     const controller = useFluxFlowInjection();
 
     const backdrop = controller.backdropElement;
@@ -48,27 +48,11 @@
     // An unknown id is skipped rather than reported: a group is decoration, and
     // a frame around the nodes that do exist is the useful outcome.
     const box = computed(() => {
-        let minX = Infinity;
-        let minY = Infinity;
-        let maxX = -Infinity;
-        let maxY = -Infinity;
+        const bounds = boundsOfNodes(nodes
+            .map(id => controller.getNode(id))
+            .filter(node => node !== undefined));
 
-        for (const id of nodes) {
-            const node = controller.getNode(id);
-
-            if (!node) {
-                continue;
-            }
-
-            const {x, y} = node.position.value;
-            const {width, height} = node.size.value;
-            minX = Math.min(minX, x);
-            minY = Math.min(minY, y);
-            maxX = Math.max(maxX, x + width);
-            maxY = Math.max(maxY, y + height);
-        }
-
-        if (!Number.isFinite(minX)) {
+        if (!bounds) {
             return null;
         }
 
@@ -77,42 +61,18 @@
         const band = title ? TITLE_BAND : 0;
 
         return {
-            x: minX - padding,
-            y: minY - padding - band,
-            width: maxX - minX + padding * 2,
-            height: maxY - minY + padding * 2 + band
+            x: bounds.minX - padding,
+            y: bounds.minY - padding - band,
+            width: bounds.maxX - bounds.minX + padding * 2,
+            height: bounds.maxY - bounds.minY + padding * 2 + band
         };
     });
 
-    const bounds = computed<FluxFlowBounds | null>(() => {
-        const value = box.value;
+    const {style} = useFlowBox(() => box.value);
 
-        if (!value) {
-            return null;
-        }
-
-        return {
-            minX: value.x,
-            minY: value.y,
-            maxX: value.x + value.width,
-            maxY: value.y + value.height
-        };
-    });
-
-    // Set in by the group's own padding, so the label and the cards inside the
-    // frame share a left edge.
+    // Set in by the group's own padding, so the label lines up with the cards.
     const titleStyle = computed<CSSProperties>(() => ({
         top: `${padding}px`,
         left: `${padding}px`
     }));
-
-    const frameStyle = computed<CSSProperties>(() => ({
-        transform: `translate(${box.value?.x ?? 0}px, ${box.value?.y ?? 0}px)`,
-        width: `${box.value?.width ?? 0}px`,
-        height: `${box.value?.height ?? 0}px`
-    }));
-
-    controller.registerBox({id: uid, bounds});
-
-    onBeforeUnmount(() => controller.unregisterBox(uid));
 </script>

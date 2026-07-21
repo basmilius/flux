@@ -127,9 +127,8 @@ export default function useFlowLayout(nodes: readonly FluxFlowLayoutNode[], edge
 
 /**
  * The node ids grouped per layer, in the order they were given, plus the edges
- * that were cut to get there. A node sits one layer past its furthest source;
- * an edge that reaches back into the layers already settled is a cycle and is
- * cut instead of followed.
+ * cut to get there: a node sits one layer past its furthest source, and an edge
+ * reaching back into the settled layers closes a cycle and is cut.
  */
 function layerNodes(order: readonly string[], edges: readonly FluxFlowLayoutEdge[]): { layers: string[][]; cut: Set<FluxFlowLayoutEdge> } {
     const outgoing = new Map<string, FluxFlowLayoutEdge[]>(order.map(id => [id, []]));

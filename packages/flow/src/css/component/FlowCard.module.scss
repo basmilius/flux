@@ -14,9 +14,8 @@
     }
 }
 
-// A card sits on a canvas next to its neighbours rather than in a page, so it
-// runs on tighter padding than a regular pane. Scoped under the surface to
-// outrank the pane's own single-class rules.
+// A card on a canvas runs on tighter padding than a pane in a page. Scoped
+// under the surface to outrank the pane's own single-class rules.
 .flowCardSurface .flowCardHeader {
     padding: 15px 15px 0;
 

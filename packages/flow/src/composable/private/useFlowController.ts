@@ -1,5 +1,6 @@
 import { computed, type ComputedRef, type Ref, shallowReactive, shallowRef } from 'vue';
 import type { FluxFlowBounds, FluxFlowBoxRecord, FluxFlowController, FluxFlowDirection, FluxFlowEdgeRecord, FluxFlowNodeRecord, FluxFlowPosition, FluxFlowViewport } from '~flux/flow/data';
+import { boundsOfNodes, clamp } from '~flux/flow/util';
 
 type FlowControllerOptions = {
     readonly axis: Readonly<Ref<FluxFlowDirection | undefined>>;
@@ -10,21 +11,16 @@ type FlowControllerOptions = {
     fitPadding(): number;
 };
 
-// How far past the viewport the world may be dragged before it refuses to move
-// any further. Without that slack the flow would stop dead the moment its last
-// card touches the viewport, which reads as a snag rather than as an edge, and
-// a flow smaller than its viewport could not be moved at all.
+// Slack past the viewport edge, so resting against it reads as an edge rather
+// than a snag and a flow smaller than its viewport can still be moved.
 const PAN_OVERSCROLL = 300;
-
-const clamp = (value: number, min: number, max: number): number => Math.min(Math.max(value, min), max);
 
 const sameBounds = (a: FluxFlowBounds | null, b: FluxFlowBounds | null): boolean => a === b
     || (!!a && !!b && a.minX === b.minX && a.minY === b.minY && a.maxX === b.maxX && a.maxY === b.maxY);
 
 /**
- * A box measured from props is rebuilt on every render, equal but not the same
- * object. Handing the previous one back keeps the world from re-rendering on a
- * box that never moved, which would otherwise measure and render forever.
+ * Hands the previous box back when nothing moved, so a box that is rebuilt on
+ * every render does not measure and render forever.
  */
 function stableBounds(measure: () => FluxFlowBounds | null): ComputedRef<FluxFlowBounds | null> {
     let previous: FluxFlowBounds | null = null;
@@ -98,11 +94,9 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
         const view = viewport.value;
 
         const axis = (offset: number, delta: number, min: number, max: number, extent: number): number => {
-            // The two positions where the world rests flush against the viewport:
-            // its own start against the viewport's start, and its end against the
-            // viewport's end. Whichever way round those two sit, the room between
-            // them plus the overscroll on either side is where the world may go,
-            // so a flow smaller than its viewport still has slack to move through.
+            // The two positions where the world rests flush against the viewport;
+            // whichever way round they sit, the room between them plus the
+            // overscroll on either side is where the world may go.
             const start = -min * view.zoom;
             const end = extent - max * view.zoom;
 
@@ -155,27 +149,7 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
         zoomAt(centerX, centerY, factor);
     }
 
-    const nodeBounds = stableBounds(() => {
-        if (nodes.size === 0) {
-            return null;
-        }
-
-        let minX = Infinity;
-        let minY = Infinity;
-        let maxX = -Infinity;
-        let maxY = -Infinity;
-
-        for (const node of nodes.values()) {
-            const {x, y} = node.position.value;
-            const {width, height} = node.size.value;
-            minX = Math.min(minX, x);
-            minY = Math.min(minY, y);
-            maxX = Math.max(maxX, x + width);
-            maxY = Math.max(maxY, y + height);
-        }
-
-        return {minX, minY, maxX, maxY};
-    });
+    const nodeBounds = stableBounds(() => boundsOfNodes(nodes.values()));
 
     const bounds = stableBounds(() => {
         let {minX, minY, maxX, maxY} = nodeBounds.value ?? {minX: Infinity, minY: Infinity, maxX: -Infinity, maxY: -Infinity};

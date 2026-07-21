@@ -32,17 +32,15 @@ export function offsetPoint(point: FluxFlowPosition, side: FluxFlowSide, offset:
 }
 
 /**
- * Builds the shape of an endpoint marker. `direction` is the unit vector along
- * the line, pointing away from the endpoint. Markers are plain paths rather
- * than SVG markers, so they inherit the connector's color without needing a
- * marker definition per edge.
+ * Builds the shape of an endpoint marker, where `direction` is the unit vector
+ * along the line pointing away from the endpoint. Plain paths rather than SVG
+ * markers, so they inherit the connector's color without a definition per edge.
  *
  * `arrow` and `chevron` sit at the tip; the rest centre on the endpoint.
  */
 export function markerPath(marker: FluxFlowMarker, point: FluxFlowPosition, direction: readonly [number, number]): string {
     const [nx, ny] = direction;
-    // The perpendicular of `direction`, so a marker can be laid out across the
-    // line as well as along it.
+    // The perpendicular, to lay a marker out across the line as well as along it.
     const [px, py] = [ny, nx];
 
     const along = (distance: number): FluxFlowPosition => ({x: point.x + nx * distance, y: point.y + ny * distance});
@@ -89,13 +87,9 @@ export function markerPath(marker: FluxFlowMarker, point: FluxFlowPosition, dire
 }
 
 /**
- * Where a connector's label rides. A run without a bend has a single leg, so
- * its label always takes the middle of the line; a bent one follows
- * `placement`.
- *
- * `first-leg` and `last-leg` skip anything no longer than `stub`, the short
- * piece a routed connector uses to leave its node, so the label lands on a leg
- * that actually carries the line.
+ * Where a connector's label rides. A run without a bend has a single leg, so it
+ * always takes the middle of the line; a bent one follows `placement`, skipping
+ * any leg no longer than `stub` (the piece it uses to leave its node).
  */
 function labelPoint(points: readonly FluxFlowPosition[], placement: FluxFlowLabelPlacement, stub: number): FluxFlowPosition {
     if (placement === 'center') {
@@ -132,9 +126,8 @@ function unitVector(from: FluxFlowPosition, to: FluxFlowPosition): readonly [num
 }
 
 /**
- * The middle of a route measured along its length, so a label on a routed
- * connector rides the halfway point of the whole run instead of the middle of
- * its first leg.
+ * The middle of a route measured along its length, so a label rides the halfway
+ * point of the whole run instead of the middle of its first leg.
  */
 function pointAtHalfLength(points: readonly FluxFlowPosition[]): FluxFlowPosition {
     const lengths = points.slice(1).map((point, index) => Math.hypot(point.x - points[index].x, point.y - points[index].y));
@@ -227,9 +220,8 @@ export function getStraightPath(source: FluxFlowPosition, target: FluxFlowPositi
 }
 
 /**
- * A Catmull-Rom spline through the points, expressed as cubic segments. Only
- * used for a routed bezier: a plain one has a control point per side normal,
- * which is a nicer curve than a spline through two points.
+ * A Catmull-Rom spline through the points, as cubic segments. Only for a routed
+ * bezier: a plain one curves nicer off a control point per side normal.
  */
 function getSplinePath(points: readonly FluxFlowPosition[], placement: FluxFlowLabelPlacement): FluxFlowPath {
     let path = `M ${points[0].x} ${points[0].y}`;
