@@ -40,12 +40,23 @@
                 <svg :class="$style.flowEdges">
                     <defs>
                         <!-- Cuts the label out of its own connector, so the line ends
-                             flush against the badge instead of running behind it. -->
+                             flush against the badge instead of running behind it.
+
+                             The region is spelled out rather than left to default:
+                             a mask defaults to 120% of the element's bounding box,
+                             which under userSpaceOnUse resolves against the SVG
+                             viewport. An interactive flow pans its world out from
+                             under that viewport, which would mask away every
+                             labelled connector that scrolls past it. -->
                         <mask
                             v-for="[id, label] of labelBoxes"
                             :key="id"
                             :id="`${uid}-${id}`"
-                            maskUnits="userSpaceOnUse">
+                            maskUnits="userSpaceOnUse"
+                            x="-99999"
+                            y="-99999"
+                            width="199998"
+                            height="199998">
                             <rect
                                 x="-99999"
                                 y="-99999"
