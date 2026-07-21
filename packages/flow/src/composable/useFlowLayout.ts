@@ -1,4 +1,4 @@
-import type { FluxFlowDirection, FluxFlowPosition } from '~flux/flow/data';
+import type { FluxFlowDirection, FluxFlowPosition, FluxFlowSide } from '~flux/flow/data';
 
 export type FluxFlowLayoutNode = {
     readonly id: string;
@@ -13,6 +13,22 @@ export type FluxFlowLayoutNode = {
 export type FluxFlowLayoutEdge = {
     readonly from: string;
     readonly to: string;
+};
+
+/**
+ * One edge, with the sides that suit the layout it was placed in. Spread it
+ * straight onto a `FluxFlowConnection`.
+ */
+export type FluxFlowLayoutConnection = {
+    readonly from: string;
+    readonly to: string;
+    readonly fromSide: FluxFlowSide;
+    readonly toSide: FluxFlowSide;
+};
+
+export type FluxFlowLayoutResult = {
+    readonly positions: Record<string, FluxFlowPosition>;
+    readonly connections: readonly FluxFlowLayoutConnection[];
 };
 
 export type FluxFlowLayoutOptions = {
@@ -30,23 +46,29 @@ export type FluxFlowLayoutOptions = {
 };
 
 /**
- * Lays out a directed graph in layers and returns a position per node id, ready
- * to hand to `FluxFlowNode`. It is a plain function: no component, no DOM and
- * no reactivity, so it also runs on the server or in a build step.
+ * Lays out a directed graph in layers and returns a position per node id plus
+ * the connections between them, ready to hand to `FluxFlowNode` and
+ * `FluxFlowConnection`. It is a plain function: no component, no DOM and no
+ * reactivity, so it also runs on the server or in a build step.
  *
  * A node lands one layer past its furthest source, and every layer is centred
  * against the widest one, so a run of single nodes lines up dead straight.
- * Edges to unknown nodes are dropped, and an edge that would close a cycle is
- * cut rather than followed, so a graph that is not a DAG still lays out.
+ * Edges to unknown nodes and edges from a node to itself are dropped, and an
+ * edge that would close a cycle is cut rather than followed, so a graph that is
+ * not a DAG still lays out.
+ *
+ * Each connection carries the sides that suit the layout. A cut edge runs back
+ * against the flow, so it leaves and enters on the off axis and loops around
+ * the diagram instead of cutting across it.
  *
  * ```ts
- * const positions = useFlowLayout(
+ * const {positions, connections} = useFlowLayout(
  *     [{id: 'trigger'}, {id: 'charge'}],
  *     [{from: 'trigger', to: 'charge'}]
  * );
  * ```
  */
-export default function useFlowLayout(nodes: readonly FluxFlowLayoutNode[], edges: readonly FluxFlowLayoutEdge[], options: FluxFlowLayoutOptions = {}): Record<string, FluxFlowPosition> {
+export default function useFlowLayout(nodes: readonly FluxFlowLayoutNode[], edges: readonly FluxFlowLayoutEdge[], options: FluxFlowLayoutOptions = {}): FluxFlowLayoutResult {
     const {
         x = 0,
         y = 0,
@@ -69,7 +91,7 @@ export default function useFlowLayout(nodes: readonly FluxFlowLayoutNode[], edge
     const across = (id: string): number => (isVertical ? sizes.get(id)!.width : sizes.get(id)!.height);
     const along = (id: string): number => (isVertical ? sizes.get(id)!.height : sizes.get(id)!.width);
 
-    const layers = layerNodes(order, links);
+    const {layers, cut} = layerNodes(order, links);
     const extents = layers.map(layer => layer.reduce((total, id, index) => total + across(id) + (index > 0 ? nodeGap : 0), 0));
     const widest = Math.max(0, ...extents);
     const positions: Record<string, FluxFlowPosition> = {};
@@ -90,22 +112,34 @@ export default function useFlowLayout(nodes: readonly FluxFlowLayoutNode[], edge
         main += Math.max(0, ...layer.map(along)) + layerGap;
     });
 
-    return positions;
+    // Along the flow: out of the trailing side into the leading one. Against it:
+    // out of and into the same off-axis side, so the line loops around the
+    // diagram rather than back through it.
+    const [forwardFrom, forwardTo]: readonly [FluxFlowSide, FluxFlowSide] = isVertical ? ['bottom', 'top'] : ['right', 'left'];
+    const backSide: FluxFlowSide = isVertical ? 'right' : 'bottom';
+
+    const connections = links.map(edge => (cut.has(edge)
+        ? {from: edge.from, to: edge.to, fromSide: backSide, toSide: backSide}
+        : {from: edge.from, to: edge.to, fromSide: forwardFrom, toSide: forwardTo}));
+
+    return {positions, connections};
 }
 
 /**
- * The node ids grouped per layer, in the order they were given. A node sits one
- * layer past its furthest source; an edge that reaches back into the layers
- * already settled is a cycle and is cut instead of followed.
+ * The node ids grouped per layer, in the order they were given, plus the edges
+ * that were cut to get there. A node sits one layer past its furthest source;
+ * an edge that reaches back into the layers already settled is a cycle and is
+ * cut instead of followed.
  */
-function layerNodes(order: readonly string[], edges: readonly FluxFlowLayoutEdge[]): string[][] {
-    const outgoing = new Map<string, string[]>(order.map(id => [id, []]));
+function layerNodes(order: readonly string[], edges: readonly FluxFlowLayoutEdge[]): { layers: string[][]; cut: Set<FluxFlowLayoutEdge> } {
+    const outgoing = new Map<string, FluxFlowLayoutEdge[]>(order.map(id => [id, []]));
     const indegree = new Map<string, number>(order.map(id => [id, 0]));
     const layer = new Map<string, number>(order.map(id => [id, 0]));
+    const cut = new Set<FluxFlowLayoutEdge>();
 
-    for (const {from, to} of edges) {
-        outgoing.get(from)!.push(to);
-        indegree.set(to, indegree.get(to)! + 1);
+    for (const edge of edges) {
+        outgoing.get(edge.from)!.push(edge);
+        indegree.set(edge.to, indegree.get(edge.to)! + 1);
     }
 
     const settled = new Set<string>();
@@ -128,10 +162,13 @@ function layerNodes(order: readonly string[], edges: readonly FluxFlowLayoutEdge
 
         settled.add(id);
 
-        for (const to of outgoing.get(id)!) {
+        for (const edge of outgoing.get(id)!) {
+            const to = edge.to;
+
             // An edge back into a layer that is already settled closes a cycle.
             // Cutting it here is what keeps the run finite.
             if (settled.has(to)) {
+                cut.add(edge);
                 continue;
             }
 
@@ -151,7 +188,9 @@ function layerNodes(order: readonly string[], edges: readonly FluxFlowLayoutEdge
         grouped.set(index, [...(grouped.get(index) ?? []), id]);
     }
 
-    return [...grouped.keys()]
+    const layers = [...grouped.keys()]
         .sort((a, b) => a - b)
         .map(index => grouped.get(index)!);
+
+    return {layers, cut};
 }

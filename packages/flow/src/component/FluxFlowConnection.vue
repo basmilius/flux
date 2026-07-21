@@ -84,7 +84,7 @@
         const sourcePort = portOf(source, props.fromPort);
         const targetPort = portOf(target, props.toPort);
 
-        const [autoSource, autoTarget] = autoSides(sourcePosition, sourceSize, targetPosition, targetSize);
+        const [autoSource, autoTarget] = autoSides(sourcePosition, sourceSize, targetPosition, targetSize, controller.axis.value);
         const sourceSide = props.fromSide ?? (sourcePort ? portSide(sourcePort, sourceSize) : autoSource);
         const targetSide = props.toSide ?? (targetPort ? portSide(targetPort, targetSize) : autoTarget);
 

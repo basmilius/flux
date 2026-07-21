@@ -1,4 +1,4 @@
-import type { FluxFlowAlign, FluxFlowPortRecord, FluxFlowPosition, FluxFlowSide, FluxFlowSize } from '~flux/flow/data';
+import type { FluxFlowAlign, FluxFlowDirection, FluxFlowPortRecord, FluxFlowPosition, FluxFlowSide, FluxFlowSize } from '~flux/flow/data';
 
 // Where a `start` connector lands on a node that publishes no anchor of its
 // own. Matches the icon of a FluxFlowCard: 15px header padding + 30px icon / 2.
@@ -92,14 +92,20 @@ export function portPoint(position: FluxFlowPosition, size: FluxFlowSize, side: 
  * Picks the most natural pair of sides for a connection based on the relative
  * position of the two nodes: vertical stacks connect bottom -> top, horizontal
  * stacks connect right -> left.
+ *
+ * With an `axis` that axis wins, however the two nodes happen to lie. Picking
+ * the shorter one is right for a loose pair of nodes, but wrong the moment a
+ * row is wider than the gap between two rows: the line then leaves sideways and
+ * crosses back over the nodes it was meant to run between.
  */
-export function autoSides(sourcePosition: FluxFlowPosition, sourceSize: FluxFlowSize, targetPosition: FluxFlowPosition, targetSize: FluxFlowSize): readonly [FluxFlowSide, FluxFlowSide] {
+export function autoSides(sourcePosition: FluxFlowPosition, sourceSize: FluxFlowSize, targetPosition: FluxFlowPosition, targetSize: FluxFlowSize, axis?: FluxFlowDirection): readonly [FluxFlowSide, FluxFlowSide] {
     const source = center(sourcePosition, sourceSize);
     const target = center(targetPosition, targetSize);
     const dx = target.x - source.x;
     const dy = target.y - source.y;
+    const vertical = axis ? axis === 'vertical' : Math.abs(dy) >= Math.abs(dx);
 
-    if (Math.abs(dy) >= Math.abs(dx)) {
+    if (vertical) {
         return dy >= 0 ? ['bottom', 'top'] : ['top', 'bottom'];
     }
 

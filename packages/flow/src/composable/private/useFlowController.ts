@@ -1,7 +1,8 @@
 import { computed, type ComputedRef, type Ref, shallowReactive, shallowRef } from 'vue';
-import type { FluxFlowBounds, FluxFlowBoxRecord, FluxFlowController, FluxFlowEdgeRecord, FluxFlowNodeRecord, FluxFlowPosition, FluxFlowViewport } from '~flux/flow/data';
+import type { FluxFlowBounds, FluxFlowBoxRecord, FluxFlowController, FluxFlowDirection, FluxFlowEdgeRecord, FluxFlowNodeRecord, FluxFlowPosition, FluxFlowViewport } from '~flux/flow/data';
 
 type FlowControllerOptions = {
+    readonly axis: Readonly<Ref<FluxFlowDirection | undefined>>;
     readonly isStatic: Readonly<Ref<boolean>>;
     minZoom(): number;
     maxZoom(): number;
@@ -260,6 +261,7 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
 
     return {
         viewport,
+        axis: options.axis,
         isStatic: options.isStatic,
         nodes,
         edges,

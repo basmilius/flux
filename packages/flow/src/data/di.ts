@@ -143,6 +143,11 @@ export type FluxFlowBoxRecord = {
 
 export type FluxFlowController = {
     readonly viewport: Ref<FluxFlowViewport>;
+    /**
+     * The axis connectors leave and enter their nodes on, or `undefined` to let
+     * each connector pick the shorter of the two.
+     */
+    readonly axis: Readonly<Ref<FluxFlowDirection | undefined>>;
     readonly isStatic: Readonly<Ref<boolean>>;
     readonly nodes: ShallowReactive<Map<string, FluxFlowNodeRecord>>;
     readonly edges: ShallowReactive<Map<number, FluxFlowEdgeRecord>>;

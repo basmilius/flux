@@ -131,7 +131,7 @@
     import { clsx } from 'clsx';
     import { type ComponentPublicInstance, computed, type CSSProperties, onBeforeUnmount, onMounted, provide, ref, shallowRef, toRef, useId, useTemplateRef, watch } from 'vue';
     import { useFlowController } from '~flux/flow/composable/private';
-    import { FluxFlowInjectionKey, type FluxFlowMarkerFill, type FluxFlowPosition, type FluxFlowSize, type FluxFlowViewport } from '~flux/flow/data';
+    import { type FluxFlowDirection, FluxFlowInjectionKey, type FluxFlowMarkerFill, type FluxFlowPosition, type FluxFlowSize, type FluxFlowViewport } from '~flux/flow/data';
     import $style from '~flux/flow/css/component/Flow.module.scss';
     import $edge from '~flux/flow/css/component/FlowConnection.module.scss';
 
@@ -147,6 +147,7 @@
 
     const {
         align = 'start',
+        axis,
         background = 'none',
         interactive = false,
         start,
@@ -157,6 +158,12 @@
         gridSize = 24
     } = defineProps<{
         readonly align?: 'start' | 'center';
+        /**
+         * The axis connectors leave and enter their nodes on. Without one every
+         * connector picks the shorter of the two, which is the wrong one as soon
+         * as a row of nodes is wider than the gap between two rows.
+         */
+        readonly axis?: FluxFlowDirection;
         readonly background?: 'dots' | 'grid' | 'none';
         readonly interactive?: boolean;
         readonly start?: string;
@@ -209,6 +216,7 @@
     let gestureScale = 1;
 
     const controller = useFlowController({
+        axis: toRef(() => axis),
         isStatic: toRef(() => !interactive),
         minZoom: () => minZoom,
         maxZoom: () => maxZoom,

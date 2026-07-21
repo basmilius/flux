@@ -5,18 +5,14 @@
                 v-for="node of nodes"
                 :key="node.id"
                 :id="node.id"
-                :x="positions[node.id].x"
-                :y="positions[node.id].y">
+                v-bind="positions[node.id]">
                 <FluxFlowActionCard :title="node.title" :icon="node.icon"/>
             </FluxFlowNode>
 
             <FluxFlowConnection
-                v-for="edge of edges"
-                :key="`${edge.from} ${edge.to}`"
-                from-side="bottom"
-                to-side="top"
-                :from="edge.from"
-                :to="edge.to"/>
+                v-for="wire of connections"
+                :key="`${wire.from} ${wire.to}`"
+                v-bind="wire"/>
         </FluxFlow>
     </Preview>
 </template>
@@ -41,5 +37,5 @@
         {from: 'enrich', to: 'score'}
     ];
 
-    const positions = useFlowLayout(nodes, edges, {nodeHeight: 62});
+    const {positions, connections} = useFlowLayout(nodes, edges, {nodeHeight: 62});
 </script>

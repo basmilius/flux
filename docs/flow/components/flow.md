@@ -13,6 +13,11 @@ props:
         optional: true
         default: start
 
+    -   name: axis
+        description: The axis every connector leaves and enters its nodes on. Without one each connector picks the shorter of the two, which is the wrong one as soon as a row of nodes is wider than the gap between two rows. A connector that names its own from-side or to-side still wins.
+        type: "'horizontal' | 'vertical'"
+        optional: true
+
     -   name: background
         description: The backdrop behind the flow. `dots` and `grid` pan with the content at a fixed size; `none` is transparent. Opt in by setting it.
         type: "'dots' | 'grid' | 'none'"
@@ -89,6 +94,10 @@ Everything inside a flow, both `FluxFlowNode` and `FluxFlowConnection`, is writt
 
 ::: example Branching || A condition that fans out to two labeled branches. Branching is just more connectors, each referencing a node by id.
 example=../../code/flow/components/flow/branching.vue
+:::
+
+::: example Axis || Two branches sitting further apart than the row below them is deep. Without `axis` each connector would take the shorter way out, leaving the card sideways and crossing back over it; naming the axis keeps every line running with the flow.
+example=../../code/flow/components/flow/axis.vue
 :::
 
 ::: example Background || Opt into a `dots` or `grid` backdrop with the `background` prop; it is transparent by default.
