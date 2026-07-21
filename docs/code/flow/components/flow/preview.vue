@@ -11,7 +11,7 @@
                 </FluxFlowTriggerCard>
             </FluxFlowNode>
 
-            <FluxFlowNode id="analyze" :x="0" :y="330">
+            <FluxFlowNode id="analyze" :x="0" :y="276">
                 <FluxFlowActionCard title="Analyze Market" icon="robot" color="primary">
                     Collects competitor insights and analyzes market trends.
 
@@ -22,7 +22,7 @@
                 </FluxFlowActionCard>
             </FluxFlowNode>
 
-            <FluxFlowNode id="draft" :x="330" :y="330">
+            <FluxFlowNode id="draft" :x="330" :y="276">
                 <FluxFlowActionCard title="Draft Content" icon="wand-magic-sparkles" color="warning">
                     Generates campaign copy variations from the strategy brief.
 
@@ -33,12 +33,12 @@
                 </FluxFlowActionCard>
             </FluxFlowNode>
 
-            <FluxFlowNode id="send" :x="165" :y="680">
+            <FluxFlowNode id="send" :x="165" :y="570">
                 <FluxFlowActionCard title="Send Campaign" icon="envelope" color="info">
                     Delivers the finished campaign to the marketing distribution list.
 
                     <template #footer>
-                        <FluxTag icon="envelope"/>
+                        <FluxTag icon="envelope" label="Email"/>
                     </template>
                 </FluxFlowActionCard>
             </FluxFlowNode>

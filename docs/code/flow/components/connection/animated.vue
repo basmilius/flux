@@ -3,14 +3,14 @@
         <FluxFlowNode id="dashed-top" :x="0" :y="0">
             <FluxFlowCard title="Dashed"/>
         </FluxFlowNode>
-        <FluxFlowNode id="dashed-bottom" :x="0" :y="270">
+        <FluxFlowNode id="dashed-bottom" :x="0" :y="210">
             <FluxFlowCard title="Target"/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="dotted-top" :x="390" :y="0">
+        <FluxFlowNode id="dotted-top" :x="360" :y="0">
             <FluxFlowCard title="Dotted"/>
         </FluxFlowNode>
-        <FluxFlowNode id="dotted-bottom" :x="390" :y="270">
+        <FluxFlowNode id="dotted-bottom" :x="360" :y="210">
             <FluxFlowCard title="Target"/>
         </FluxFlowNode>
 

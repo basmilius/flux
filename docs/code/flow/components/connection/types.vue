@@ -3,21 +3,21 @@
         <FluxFlowNode id="smooth-top" :x="0" :y="0">
             <FluxFlowCard title="Smoothstep"/>
         </FluxFlowNode>
-        <FluxFlowNode id="smooth-bottom" :x="120" :y="270">
+        <FluxFlowNode id="smooth-bottom" :x="120" :y="210">
             <FluxFlowCard title="Target"/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="bezier-top" :x="450" :y="0">
+        <FluxFlowNode id="bezier-top" :x="420" :y="0">
             <FluxFlowCard title="Bezier"/>
         </FluxFlowNode>
-        <FluxFlowNode id="bezier-bottom" :x="570" :y="270">
+        <FluxFlowNode id="bezier-bottom" :x="540" :y="210">
             <FluxFlowCard title="Target"/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="straight-top" :x="900" :y="0">
+        <FluxFlowNode id="straight-top" :x="840" :y="0">
             <FluxFlowCard title="Straight"/>
         </FluxFlowNode>
-        <FluxFlowNode id="straight-bottom" :x="1020" :y="270">
+        <FluxFlowNode id="straight-bottom" :x="960" :y="210">
             <FluxFlowCard title="Target"/>
         </FluxFlowNode>
 

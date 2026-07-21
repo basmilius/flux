@@ -3,20 +3,20 @@
         <FluxFlowNode id="slack" :x="0" :y="0">
             <FluxFlowCard title="Slack" subtitle="1,204 threads"/>
         </FluxFlowNode>
-        <FluxFlowNode id="gmail" :x="0" :y="150">
+        <FluxFlowNode id="gmail" :x="0" :y="120">
             <FluxFlowCard title="Gmail" subtitle="Support inbox"/>
         </FluxFlowNode>
-        <FluxFlowNode id="zendesk" :x="0" :y="300">
+        <FluxFlowNode id="zendesk" :x="0" :y="240">
             <FluxFlowCard title="Zendesk" subtitle="8,612 tickets"/>
         </FluxFlowNode>
-        <FluxFlowNode id="postgres" :x="0" :y="450">
+        <FluxFlowNode id="postgres" :x="0" :y="360">
             <FluxFlowCard title="Postgres" subtitle="pricing_db"/>
         </FluxFlowNode>
-        <FluxFlowNode id="notion" :x="0" :y="600">
+        <FluxFlowNode id="notion" :x="0" :y="480">
             <FluxFlowCard title="Notion" subtitle="Stale · 38d"/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="refund" :x="480" :y="30">
+        <FluxFlowNode id="refund" :x="390" :y="24">
             <FluxFlowCard title="Refund handling" active>
                 <FluxDescriptionList>
                     <FluxDescriptionItem label="Status">
@@ -28,7 +28,7 @@
             </FluxFlowCard>
         </FluxFlowNode>
 
-        <FluxFlowNode id="pricing" :x="480" :y="420">
+        <FluxFlowNode id="pricing" :x="390" :y="336">
             <FluxFlowCard title="Pricing exceptions">
                 <FluxDescriptionList>
                     <FluxDescriptionItem label="Status">
@@ -40,7 +40,7 @@
             </FluxFlowCard>
         </FluxFlowNode>
 
-        <FluxFlowNode id="output" :x="960" :y="210">
+        <FluxFlowNode id="output" :x="780" :y="168">
             <FluxFlowCard title="Skills file">
                 <FluxStatisticsLegend direction="vertical">
                     <FluxStatisticsLegendItem color="primary" label="Support agent"/>

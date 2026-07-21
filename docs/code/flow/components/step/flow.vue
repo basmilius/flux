@@ -8,19 +8,19 @@
             <FluxFlowActionCard title="Pull new orders"/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="step-2" :x="0" :y="193">
+        <FluxFlowNode id="step-2" :x="0" :y="163">
             <FluxFlowStep :value="2"/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="route" :x="90" :y="180">
+        <FluxFlowNode id="route" :x="90" :y="150">
             <FluxFlowConditionCard title="Ships from the EU"/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="step-3" :x="0" :y="373">
+        <FluxFlowNode id="step-3" :x="0" :y="313">
             <FluxFlowStep :value="3"/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="notify" :x="90" :y="360">
+        <FluxFlowNode id="notify" :x="90" :y="300">
             <FluxFlowActionCard title="Notify the warehouse"/>
         </FluxFlowNode>
 

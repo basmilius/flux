@@ -4,7 +4,7 @@
             <FluxFlowActionCard title="Extract" label="Running" icon="gauge" color="primary" active/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="load" :x="0" :y="240">
+        <FluxFlowNode id="load" :x="0" :y="180">
             <FluxFlowActionCard title="Load"/>
         </FluxFlowNode>
 

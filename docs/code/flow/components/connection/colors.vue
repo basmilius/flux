@@ -1,16 +1,16 @@
 <template>
     <FluxFlow :padding="21">
-        <FluxFlowNode id="dispatch" :x="390" :y="0">
+        <FluxFlowNode id="dispatch" :x="360" :y="0">
             <FluxFlowCard title="Dispatch"/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="email" :x="0" :y="300">
+        <FluxFlowNode id="email" :x="0" :y="240">
             <FluxFlowCard title="Email"/>
         </FluxFlowNode>
-        <FluxFlowNode id="sms" :x="390" :y="300">
+        <FluxFlowNode id="sms" :x="360" :y="240">
             <FluxFlowCard title="SMS"/>
         </FluxFlowNode>
-        <FluxFlowNode id="push" :x="780" :y="300">
+        <FluxFlowNode id="push" :x="720" :y="240">
             <FluxFlowCard title="Push"/>
         </FluxFlowNode>
 

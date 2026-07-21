@@ -3,21 +3,21 @@
         <FluxFlowNode id="default-top" :x="0" :y="0">
             <FluxFlowCard title="Default"/>
         </FluxFlowNode>
-        <FluxFlowNode id="default-bottom" :x="0" :y="240">
+        <FluxFlowNode id="default-bottom" :x="0" :y="180">
             <FluxFlowCard title="Target"/>
         </FluxFlowNode>
 
         <FluxFlowNode id="both-top" :x="330" :y="0">
             <FluxFlowCard title="Two-way"/>
         </FluxFlowNode>
-        <FluxFlowNode id="both-bottom" :x="330" :y="240">
+        <FluxFlowNode id="both-bottom" :x="330" :y="180">
             <FluxFlowCard title="Target"/>
         </FluxFlowNode>
 
         <FluxFlowNode id="bare-top" :x="660" :y="0">
             <FluxFlowCard title="Bare"/>
         </FluxFlowNode>
-        <FluxFlowNode id="bare-bottom" :x="660" :y="240">
+        <FluxFlowNode id="bare-bottom" :x="660" :y="180">
             <FluxFlowCard title="Target"/>
         </FluxFlowNode>
 

@@ -3,21 +3,21 @@
         <FluxFlowNode id="solid-top" :x="0" :y="0">
             <FluxFlowCard title="Solid"/>
         </FluxFlowNode>
-        <FluxFlowNode id="solid-bottom" :x="0" :y="240">
+        <FluxFlowNode id="solid-bottom" :x="0" :y="180">
             <FluxFlowCard title="Target"/>
         </FluxFlowNode>
 
         <FluxFlowNode id="dashed-top" :x="330" :y="0">
             <FluxFlowCard title="Dashed"/>
         </FluxFlowNode>
-        <FluxFlowNode id="dashed-bottom" :x="330" :y="240">
+        <FluxFlowNode id="dashed-bottom" :x="330" :y="180">
             <FluxFlowCard title="Target"/>
         </FluxFlowNode>
 
         <FluxFlowNode id="dotted-top" :x="660" :y="0">
             <FluxFlowCard title="Dotted"/>
         </FluxFlowNode>
-        <FluxFlowNode id="dotted-bottom" :x="660" :y="240">
+        <FluxFlowNode id="dotted-bottom" :x="660" :y="180">
             <FluxFlowCard title="Target"/>
         </FluxFlowNode>
 

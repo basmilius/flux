@@ -5,7 +5,7 @@
                 <FluxFlowTriggerCard title="Form Submitted"/>
             </FluxFlowNode>
 
-            <FluxFlowNode id="target" :x="0" :y="240">
+            <FluxFlowNode id="target" :x="0" :y="180">
                 <FluxFlowActionCard title="Store Lead"/>
             </FluxFlowNode>
 

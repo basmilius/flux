@@ -4,7 +4,7 @@
             <FluxFlowPill color="info" icon="bolt" label="Order Released"/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="check" :x="0" :y="150">
+        <FluxFlowNode id="check" :x="0" :y="120">
             <FluxFlowConditionCard title="Ships from the EU"/>
         </FluxFlowNode>
 

@@ -4,15 +4,15 @@
             <FluxFlowTriggerCard title="Payment Received"/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="check" :x="210" :y="270">
+        <FluxFlowNode id="check" :x="210" :y="216">
             <FluxFlowConditionCard title="Amount over €1,000?"/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="review" :x="0" :y="540">
+        <FluxFlowNode id="review" :x="0" :y="426">
             <FluxFlowActionCard title="Manual Review" icon="gauge" color="warning"/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="approve" :x="420" :y="540">
+        <FluxFlowNode id="approve" :x="420" :y="426">
             <FluxFlowActionCard title="Auto-approve" icon="circle-check" color="success"/>
         </FluxFlowNode>
 

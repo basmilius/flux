@@ -7,7 +7,7 @@
                 </FluxFlowCard>
             </FluxFlowNode>
 
-            <FluxFlowNode id="b" :x="360" :y="120">
+            <FluxFlowNode id="b" :x="330" :y="90">
                 <FluxFlowCard title="Node B">
                     Positioned at (360, 120) in flow coordinates.
                 </FluxFlowCard>

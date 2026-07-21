@@ -4,11 +4,11 @@
             <FluxFlowConditionCard title="Is Valid?"/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="process" :x="720" :y="90">
+        <FluxFlowNode id="process" :x="690" :y="90">
             <FluxFlowActionCard title="Process"/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="reject" :x="300" :y="390">
+        <FluxFlowNode id="reject" :x="300" :y="300">
             <FluxFlowActionCard title="Reject" icon="stopwatch" color="danger"/>
         </FluxFlowNode>
 

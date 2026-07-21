@@ -25,7 +25,7 @@
             </FluxFlowActionCard>
         </FluxFlowNode>
 
-        <FluxFlowNode id="notify" :x="1080" :y="270">
+        <FluxFlowNode id="notify" :x="1080" :y="210">
             <FluxFlowActionCard title="Notify Team" icon="envelope" color="danger">
                 Posts the failure to the on-call channel.
             </FluxFlowActionCard>

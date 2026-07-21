@@ -15,13 +15,13 @@
                 </FluxFlowTriggerCard>
             </FluxFlowNode>
 
-            <FluxFlowNode id="charge" :x="390" :y="0">
+            <FluxFlowNode id="charge" :x="360" :y="0">
                 <FluxFlowActionCard title="Charge card" icon="money-bill" :color="enabled ? 'primary' : 'gray'">
                     Captures the payment for the order total.
                 </FluxFlowActionCard>
             </FluxFlowNode>
 
-            <FluxFlowNode id="email" :x="390" :y="270">
+            <FluxFlowNode id="email" :x="360" :y="216">
                 <FluxFlowActionCard title="Send receipt" icon="envelope" :color="enabled ? 'info' : 'gray'">
                     Emails the customer their order confirmation.
                 </FluxFlowActionCard>
