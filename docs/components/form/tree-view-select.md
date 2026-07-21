@@ -27,6 +27,12 @@ props:
         type: [ string, null ]
         optional: true
 
+    -   name: expanded-depth
+        description: The number of levels that are visible without interaction whenever the popup opens. `1` shows the roots only, `2` the roots and their children, `Infinity` expands the whole tree. Ancestors of the current selection are expanded on top of this, and a manual collapse keeps working while the popup stays open.
+        type: number
+        optional: true
+        default: 1
+
     -   name: is-cascading
         description: If selecting a node implicitly covers its whole subtree. Descendants of a selected node are then shown as checked and locked. Only applies together with `is-multiple`. The model value still holds only the explicitly selected ids.
         type: boolean
@@ -217,6 +223,10 @@ example=../../code/components/form/tree-view-select/searchable.vue
 
 ::: example Non-selectable parents || Parent nodes can have `selectable: false` so they act as group headers. Only leaf nodes can be selected.
 example=../../code/components/form/tree-view-select/non-selectable-parents.vue
+:::
+
+::: example Expanded depth || With `expanded-depth`, the popup opens with more than just its roots visible. Handy when the top level only groups the options that can actually be picked.
+example=../../code/components/form/tree-view-select/expanded-depth.vue
 :::
 
 ::: example Cascading || With `is-cascading`, selecting a parent covers its whole subtree. Its descendants are shown as checked and locked, while the model value keeps only the explicitly selected ids.

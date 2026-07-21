@@ -59,6 +59,22 @@ export function flattenAll<TOption extends TreeBaseOption>(
     ]);
 }
 
+// `depth` counts the levels that are visible without interaction: 1 = roots only, so every node
+// with children above `depth - 1` is expanded. `Infinity` expands the whole tree.
+export function collectExpandedIds<TOption extends TreeBaseOption>(
+    nodes: TOption[],
+    depth: number,
+    currentDepth = 0
+): (string | number)[] {
+    if (currentDepth >= depth - 1) {
+        return [];
+    }
+
+    return nodes.flatMap(node => node.children?.length
+        ? [node.id, ...collectExpandedIds(node.children as TOption[], depth, currentDepth + 1)]
+        : []);
+}
+
 function subtreeMatches(node: TreeBaseOption, query: string): boolean {
     if (node.label.toLowerCase().includes(query)) {
         return true;

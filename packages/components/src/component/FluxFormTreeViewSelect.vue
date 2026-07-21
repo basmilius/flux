@@ -151,7 +151,7 @@
     import { clsx } from 'clsx';
     import { type ComponentPublicInstance, computed, nextTick, provide, ref, toRef, unref, useId, useTemplateRef, watch } from 'vue';
     import { useDisabled, useFormFieldInjection } from '~flux/components/composable';
-    import { flattenAll, flattenSearch, flattenVisible, INITIAL_HIGHLIGHTED_INDEX, type TreeFlatNode, useDropdownPopup, useTranslate, useTreeView } from '~flux/components/composable/private';
+    import { collectExpandedIds, flattenAll, flattenSearch, flattenVisible, INITIAL_HIGHLIGHTED_INDEX, type TreeFlatNode, useDropdownPopup, useTranslate, useTreeView } from '~flux/components/composable/private';
     import { type FluxFormRadioGroupValue, FluxFormRadioGroupInjectionKey, FluxItemControlInjectionKey } from '~flux/components/data';
     import { FluxFadeTransition } from '~flux/components/transition';
     import FluxFormCheckbox from './FluxFormCheckbox.vue';
@@ -175,6 +175,7 @@
 
     const {
         disabled: componentDisabled,
+        expandedDepth = 1,
         isCascading,
         isMultiple,
         isReadonly,
@@ -183,6 +184,7 @@
         options,
         placeholder
     } = defineProps<Pick<FluxFormInputBaseProps, 'autoFocus' | 'disabled' | 'error' | 'isCondensed' | 'isLoading' | 'isReadonly' | 'isSecondary' | 'name' | 'placeholder'> & {
+        readonly expandedDepth?: number;
         readonly isCascading?: boolean;
         readonly isMultiple?: boolean;
         readonly isSearchable?: boolean;
@@ -285,6 +287,10 @@
             highlightedIndex.value = INITIAL_HIGHLIGHTED_INDEX;
             return;
         }
+
+        // Seed the default expansion before the selection is expanded, so a deeper selection opens
+        // on top of it. Merging keeps expansion from an earlier open intact.
+        expandedIds.value = new Set([...unref(expandedIds), ...collectExpandedIds(options, expandedDepth)]);
 
         autoExpandSelected();
 

@@ -49,8 +49,8 @@
     setup>
     import type { FluxColor, FluxTreeViewOption } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { computed, ref, unref, useId, useTemplateRef } from 'vue';
-    import { flattenVisible, type TreeFlatNode, useTreeView } from '~flux/components/composable/private';
+    import { computed, ref, unref, useId, useTemplateRef, watch } from 'vue';
+    import { collectExpandedIds, flattenVisible, type TreeFlatNode, useTreeView } from '~flux/components/composable/private';
     import { TreeNodeRenderer } from './primitive';
     import $style from '~flux/components/css/component/TreeView.module.scss';
 
@@ -62,9 +62,11 @@
     }>();
 
     const {
+        expandedDepth = 1,
         levelColors,
         options
     } = defineProps<{
+        readonly expandedDepth?: number;
         readonly levelColors?: (FluxColor | string)[];
         readonly options: FluxTreeViewOption[];
     }>();
@@ -79,7 +81,15 @@
 
     const expandedIds = ref(new Set<string | number>());
 
+    const expandedSeed = computed(() => collectExpandedIds(options, expandedDepth));
+
     const visibleNodes = computed(() => flattenVisible(options, 0, unref(expandedIds)));
+
+    // Compare the seed by content: a re-render that hands over a new but equal options array must
+    // not wipe a manual expand or collapse.
+    watch(() => unref(expandedSeed).join(' '), () => {
+        expandedIds.value = new Set(unref(expandedSeed));
+    }, {immediate: true});
 
     const {highlightedIndex, highlightedId, toggleExpand, onExpandClick, onKeyNavigate} = useTreeView({
         expandedIds,

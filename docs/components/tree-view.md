@@ -11,6 +11,12 @@ emits:
         type: [ FluxTreeViewOption ]
 
 props:
+    -   name: expanded-depth
+        description: The number of levels that are visible without interaction. `1` shows the roots only, `2` the roots and their children, `Infinity` expands the whole tree. Nodes expanded or collapsed by the user keep their state until the options change.
+        type: number
+        optional: true
+        default: 1
+
     -   name: level-colors
         description: An array of colors per depth level, used as a fallback for nodes that have no `color` of their own. Index 0 = root level, index 1 = first child level, etc. Each entry can be a `FluxColor` name (e.g. `primary`, `danger`) or any CSS color string (e.g. `#6366f1`). Levels without an entry keep the neutral marker.
         type: (FluxColor | string)[]
@@ -135,6 +141,10 @@ The highlight is tracked by node identity: when the visible set changes (for exa
 
 ::: example Basic || A tree view with per-level colors.
 example=../code/components/tree-view/basic.vue
+:::
+
+::: example Expanded depth || With `expanded-depth`, the tree opens with more than just its roots visible. `2` shows the roots and their children.
+example=../code/components/tree-view/expanded-depth.vue
 :::
 
 ::: example Events || Responding to click and double-click events.

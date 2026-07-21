@@ -14,4 +14,4 @@ export { FLUX_COLORS } from './useTreeView';
 export { useCommandPalette, type CommandPaletteGroup, type CommandPaletteResultItem } from './useCommandPalette';
 export { useFilterOptionMulti, useFilterOptionSingle, type FilterOptionMulti, type FilterOptionSingle } from './useFilterOption';
 export { useFilterValueLabel } from './useFilterValueLabel';
-export { flattenAll, flattenSearch, flattenVisible, INITIAL_HIGHLIGHTED_INDEX, useTreeView, type TreeBaseOption, type TreeFlatNode } from './useTreeView';
+export { collectExpandedIds, flattenAll, flattenSearch, flattenVisible, INITIAL_HIGHLIGHTED_INDEX, useTreeView, type TreeBaseOption, type TreeFlatNode } from './useTreeView';
