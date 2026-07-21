@@ -1,6 +1,7 @@
 <template>
     <div :class="$style.flowPill">
         <FluxBoxedIcon
+            data-flow-anchor
             rounded
             :color="color"
             :name="icon"

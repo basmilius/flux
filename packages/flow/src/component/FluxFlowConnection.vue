@@ -8,7 +8,7 @@
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { computed, getCurrentInstance, onBeforeUnmount } from 'vue';
     import { useFluxFlowInjection } from '~flux/flow/composable';
-    import type { FluxFlowConnectionType, FluxFlowEdgeSpec, FluxFlowMarker, FluxFlowMarkerFill, FluxFlowPosition, FluxFlowSide } from '~flux/flow/data';
+    import type { FluxFlowAlign, FluxFlowConnectionType, FluxFlowEdgeSpec, FluxFlowMarker, FluxFlowMarkerFill, FluxFlowPosition, FluxFlowSide } from '~flux/flow/data';
     import { anchorPoint, autoSides, getBezierPath, getSmoothStepPath, getStraightPath, markerPath, offsetPoint, sideNormal } from '~flux/flow/util';
 
     const props = defineProps<{
@@ -16,6 +16,8 @@
         readonly to: string;
         readonly fromSide?: FluxFlowSide;
         readonly toSide?: FluxFlowSide;
+        readonly fromAlign?: FluxFlowAlign;
+        readonly toAlign?: FluxFlowAlign;
         readonly type?: FluxFlowConnectionType;
         readonly color?: FluxColor | string;
         readonly label?: string;
@@ -81,8 +83,8 @@
 
         // The endpoints sit a gap away from the node, so a line never touches the
         // card it points at.
-        const fromPoint = offsetPoint(anchorPoint(sourcePosition, sourceSize, sourceSide), sourceSide, NODE_GAP);
-        const toPoint = offsetPoint(anchorPoint(targetPosition, targetSize, targetSide), targetSide, NODE_GAP);
+        const fromPoint = offsetPoint(anchorPoint(sourcePosition, sourceSize, sourceSide, props.fromAlign, source.anchor.value), sourceSide, NODE_GAP);
+        const toPoint = offsetPoint(anchorPoint(targetPosition, targetSize, targetSide, props.toAlign, target.anchor.value), targetSide, NODE_GAP);
 
         const type = props.type ?? 'smoothstep';
         const path = type === 'straight'

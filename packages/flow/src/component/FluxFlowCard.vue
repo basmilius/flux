@@ -6,6 +6,7 @@
             :subtitle="subtitle">
             <template #before>
                 <FluxBoxedIcon
+                    data-flow-anchor
                     rounded
                     :color="effectiveColor"
                     :name="effectiveIcon"

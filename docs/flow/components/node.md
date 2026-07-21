@@ -25,6 +25,8 @@ slots:
 
 A node renders whatever you place in its default slot. In practice that is a [Card](./card), but any markup works.
 
+A card and a pill each mark their icon with a `data-flow-anchor` attribute, which is what a connector with `from-align="start"` or `to-align="start"` lands on. Put the attribute on an element of your own to give custom node content the same anchor; without one, a `start` connector falls back to 30px from the corner.
+
 ::: render
 render=../../code/flow/components/node/preview.vue
 :::

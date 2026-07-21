@@ -20,6 +20,18 @@ props:
         type: "'top' | 'right' | 'bottom' | 'left'"
         optional: true
 
+    -   name: fromAlign
+        description: Where along its side the connector leaves the source node. `start` lands on the node's own icon, `end` mirrors it.
+        type: "'start' | 'center' | 'end'"
+        optional: true
+        default: center
+
+    -   name: toAlign
+        description: Where along its side the connector enters the target node. `start` lands on the node's own icon, `end` mirrors it.
+        type: "'start' | 'center' | 'end'"
+        optional: true
+        default: center
+
     -   name: type
         description: The shape of the connector.
         type: "'smoothstep' | 'bezier' | 'straight'"
@@ -84,7 +96,7 @@ props:
 
 `FluxFlowConnection` draws a line between two nodes. It references them by `from` and `to`, resolves their positions from the flow, and routes a path between the nearest edges. Because connectors are declared separately from the nodes, all of a flow's wiring lives in one place.
 
-By default the connector picks the most natural pair of sides based on where the nodes sit: stacked nodes connect bottom to top, side by side nodes connect right to left. Override `from-side` / `to-side` when you need an explicit route, for example the two branches out of a condition.
+By default the connector picks the most natural pair of sides based on where the nodes sit: stacked nodes connect bottom to top, side by side nodes connect right to left. Override `from-side` / `to-side` when you need an explicit route, for example the two branches out of a condition. Both branches then leave the same edge in the same spot; `from-align` / `to-align` move either end to the start or the end of its side to pull them apart, aligned on the icon of the node they touch.
 
 ::: render
 render=../../code/flow/components/connection/preview.vue
@@ -108,6 +120,10 @@ example=../../code/flow/components/connection/colors.vue
 
 ::: example Explicit sides || Override `from-side` and `to-side` to route a connector out of a specific edge, for example the two branches of a condition.
 example=../../code/flow/components/connection/sides.vue
+:::
+
+::: example Alignment || A side is not one point: `from-align` and `to-align` move a connector to the `start` or `end` of the side it uses, which pulls two branches out of the same edge apart. `start` lands on the node's own icon, wherever that sits, so a card and a pill each anchor on their own; `end` mirrors that margin to the far corner. A node too narrow for the margin keeps its connector centered.
+example=../../code/flow/components/connection/alignment.vue
 :::
 
 ::: example Line styles || Connectors are solid by default; set `dashed` or `dotted` for other styles. A connector leaves its source with a port dot and reaches its target with an arrow head; `marker-start` and `marker-end` swap either for the other shape, or drop it entirely.

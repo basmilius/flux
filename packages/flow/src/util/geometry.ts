@@ -1,24 +1,48 @@
-import type { FluxFlowPosition, FluxFlowSide, FluxFlowSize } from '~flux/flow/data';
+import type { FluxFlowAlign, FluxFlowPosition, FluxFlowSide, FluxFlowSize } from '~flux/flow/data';
+
+// Where a `start` connector lands on a node that publishes no anchor of its
+// own. Matches the icon of a FluxFlowCard: 15px header padding + 30px icon / 2.
+const FALLBACK_INSET = 30;
 
 function center(position: FluxFlowPosition, size: FluxFlowSize): FluxFlowPosition {
     return {x: position.x + size.width / 2, y: position.y + size.height / 2};
+}
+
+/**
+ * Where along a side of `extent` a connector lands. `inset` is how far the
+ * node's own anchor sits from its corner on that axis. A node narrower than
+ * twice the inset has no room for both ends, so `start` and `end` collapse onto
+ * the centre rather than reaching past it.
+ */
+function alignOffset(extent: number, align: FluxFlowAlign, inset: number): number {
+    const clamped = Math.min(inset, extent / 2);
+
+    switch (align) {
+        case 'start':
+            return clamped;
+        case 'center':
+            return extent / 2;
+        case 'end':
+            return extent - clamped;
+    }
 }
 
 export function isVerticalSide(side: FluxFlowSide): boolean {
     return side === 'top' || side === 'bottom';
 }
 
-export function anchorPoint(position: FluxFlowPosition, size: FluxFlowSize, side: FluxFlowSide): FluxFlowPosition {
-    switch (side) {
-        case 'top':
-            return {x: position.x + size.width / 2, y: position.y};
-        case 'bottom':
-            return {x: position.x + size.width / 2, y: position.y + size.height};
-        case 'left':
-            return {x: position.x, y: position.y + size.height / 2};
-        case 'right':
-            return {x: position.x + size.width, y: position.y + size.height / 2};
+export function anchorPoint(position: FluxFlowPosition, size: FluxFlowSize, side: FluxFlowSide, align: FluxFlowAlign = 'center', anchor: FluxFlowPosition | null = null): FluxFlowPosition {
+    if (isVerticalSide(side)) {
+        return {
+            x: position.x + alignOffset(size.width, align, anchor?.x ?? FALLBACK_INSET),
+            y: side === 'top' ? position.y : position.y + size.height
+        };
     }
+
+    return {
+        x: side === 'left' ? position.x : position.x + size.width,
+        y: position.y + alignOffset(size.height, align, anchor?.y ?? FALLBACK_INSET)
+    };
 }
 
 /**

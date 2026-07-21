@@ -12,7 +12,7 @@
     setup>
     import { computed, onBeforeUnmount, onMounted, shallowRef, useTemplateRef, watch } from 'vue';
     import { useFluxFlowInjection } from '~flux/flow/composable';
-    import type { FluxFlowSize } from '~flux/flow/data';
+    import type { FluxFlowPosition, FluxFlowSize } from '~flux/flow/data';
     import $style from '~flux/flow/css/component/FlowNode.module.scss';
 
     const props = defineProps<{
@@ -23,6 +23,7 @@
 
     const el = useTemplateRef<HTMLElement>('el');
     const size = shallowRef<FluxFlowSize>({width: 0, height: 0});
+    const anchor = shallowRef<FluxFlowPosition | null>(null);
 
     let observer: ResizeObserver | null = null;
 
@@ -32,11 +33,11 @@
 
     watch(() => props.id, (next, previous) => {
         controller.unregisterNode(previous);
-        controller.registerNode({id: next, position, size, element: el});
+        controller.registerNode({id: next, position, size, element: el, anchor});
     });
 
     onMounted(() => {
-        controller.registerNode({id: props.id, position, size, element: el});
+        controller.registerNode({id: props.id, position, size, element: el, anchor});
         measure();
         observer = new ResizeObserver(measure);
 
@@ -54,8 +55,33 @@
     function measure(): void {
         const node = el.value;
 
-        if (node) {
-            size.value = {width: node.offsetWidth, height: node.offsetHeight};
+        if (!node) {
+            return;
         }
+
+        size.value = {width: node.offsetWidth, height: node.offsetHeight};
+        anchor.value = measureAnchor(node);
+    }
+
+    /**
+     * The centre of the node's anchor element, in the node's own layout pixels.
+     * Rects are read through the live zoom rather than through offsetLeft, which
+     * would be relative to whatever ancestor happens to be positioned.
+     */
+    function measureAnchor(node: HTMLElement): FluxFlowPosition | null {
+        const element = node.querySelector('[data-flow-anchor]');
+
+        if (!element || node.offsetWidth === 0) {
+            return null;
+        }
+
+        const nodeRect = node.getBoundingClientRect();
+        const rect = element.getBoundingClientRect();
+        const zoom = nodeRect.width / node.offsetWidth;
+
+        return {
+            x: (rect.left + rect.width / 2 - nodeRect.left) / zoom,
+            y: (rect.top + rect.height / 2 - nodeRect.top) / zoom
+        };
     }
 </script>

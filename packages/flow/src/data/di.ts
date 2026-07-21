@@ -26,6 +26,13 @@ export type FluxFlowBounds = {
 
 export type FluxFlowSide = 'top' | 'right' | 'bottom' | 'left';
 
+/**
+ * Where along a side a connector attaches. `start` and `end` are meant in
+ * reading direction: left and right on a horizontal side, top and bottom on a
+ * vertical one.
+ */
+export type FluxFlowAlign = 'start' | 'center' | 'end';
+
 export type FluxFlowConnectionType = 'bezier' | 'smoothstep' | 'straight';
 
 export type FluxFlowNodeRecord = {
@@ -33,6 +40,13 @@ export type FluxFlowNodeRecord = {
     readonly position: Readonly<Ref<FluxFlowPosition>>;
     readonly size: Readonly<Ref<FluxFlowSize>>;
     readonly element: Readonly<Ref<HTMLElement | null>>;
+    /**
+     * The centre of the node's `[data-flow-anchor]` element, relative to its own
+     * top-left, or `null` when it has none. A `start` connector lands on it, so
+     * a card and a pill each anchor on their own icon rather than on a shared
+     * guess at where an icon sits.
+     */
+    readonly anchor: Readonly<Ref<FluxFlowPosition | null>>;
 };
 
 export type FluxFlowMarker = 'arrow' | 'bar' | 'chevron' | 'diamond' | 'dot' | 'square' | 'none';
