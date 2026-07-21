@@ -6,7 +6,7 @@
     height: 1em;
     width: 1em;
     flex: 0 0 1em;
-    border-radius: .3em;
+    border-radius: var(--radius-full);
     user-select: none;
 
     &:is(button) {
@@ -80,8 +80,8 @@
 .avatarStatus {
     position: absolute;
     display: block;
-    right: .021em;
-    bottom: .021em;
+    right: .03em;
+    bottom: .03em;
     height: .27em;
     width: .27em;
     border-radius: var(--radius-full);
@@ -144,8 +144,8 @@
 
 .statusAvatar .avatarFallback,
 .statusAvatar .avatarImage {
-    mask: radial-gradient(circle .18em at calc(100% - 0.16em) calc(100% - 0.16em), transparent 100%, #000 100%);
-    -webkit-mask: radial-gradient(circle .18em at calc(100% - 0.16em) calc(100% - 0.16em), transparent 100%, #000 100%);
+    mask: radial-gradient(circle .18em at calc(100% - 0.17em) calc(100% - 0.17em), transparent 100%, #000 100%);
+    -webkit-mask: radial-gradient(circle .18em at calc(100% - 0.17em) calc(100% - 0.17em), transparent 100%, #000 100%);
 }
 
 .statusIconAvatar {
@@ -154,8 +154,8 @@
 
 .statusIconAvatar .avatarFallback,
 .statusIconAvatar .avatarImage {
-    mask: radial-gradient(circle .28em at calc(100% - 0.18em) calc(100% - 0.18em), transparent 100%, #000 100%);
-    -webkit-mask: radial-gradient(circle .28em at calc(100% - 0.18em) calc(100% - 0.18em), transparent 100%, #000 100%);
+    mask: radial-gradient(circle .3em at calc(100% - 0.195em) calc(100% - 0.195em), transparent 100%, #000 100%);
+    -webkit-mask: radial-gradient(circle .3em at calc(100% - 0.195em) calc(100% - 0.195em), transparent 100%, #000 100%);
 }
 
 .persona {

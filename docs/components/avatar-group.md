@@ -26,7 +26,7 @@ slots:
 
 # Avatar group
 
-The Avatar group component stacks multiple avatars into an overlapping row, optionally collapsing the overflow into a "+N" chip. It is useful for showing the members of a team, the participants of a conversation, or the assignees of a task. Avatars placed in the default slot inherit the group's `size`, so they are sized uniformly without extra configuration.
+The Avatar group component stacks multiple avatars into an overlapping row, optionally collapsing the overflow into a "+N" chip. It is useful for showing the members of a team, the participants of a conversation, or the assignees of a task. Avatars placed in the default slot inherit the group's `size`, so they are sized uniformly without extra configuration. Avatars stack from left to right, and the gap between them is cut out rather than painted, so the group blends into any background.
 
 ::: render
 render=../code/components/avatar-group/preview.vue
@@ -50,6 +50,10 @@ example=../code/components/avatar-group/overflow.vue
 
 ::: example Labelled || A labelled group whose "+N" indicator reveals the names of the hidden members on hover.
 example=../code/components/avatar-group/labelled.vue
+:::
+
+::: example On a background || The gap between avatars is cut out, so the group works on any background colour.
+example=../code/components/avatar-group/on-background.vue
 :::
 
 ## Used components

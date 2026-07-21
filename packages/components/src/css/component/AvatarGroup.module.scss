@@ -1,24 +1,27 @@
-@use '~flux/components/css/mixin';
+$gap: .12;
+$cut-out-size: 1 + $gap * 2;
+
+$cut-out: radial-gradient(circle closest-side, #000 99%, transparent 100%);
 
 .avatarGroup {
     display: inline-flex;
     align-items: center;
     flex-flow: row nowrap;
-}
 
-.avatarGroupItem {
-    position: relative;
-    display: inline-flex;
-    margin-left: calc(var(--overlap, .3) * -1em);
-    border-radius: .3em;
-    box-shadow: 0 0 0 .09em var(--gray-25);
-    transition: translate .2s var(--swift-out);
+    :local(.avatar) {
+        position: relative;
+        margin-left: calc(var(--overlap, .21) * -1em);
 
-    &:first-child {
-        margin-left: 0;
-    }
+        &:first-child {
+            margin-left: 0;
+        }
 
-    @include mixin.hover {
-        z-index: 1;
+        &:not(:first-child) {
+            mask-image: linear-gradient(#000, #000), $cut-out;
+            mask-repeat: no-repeat;
+            mask-size: 100% 100%, #{$cut-out-size}em #{$cut-out-size}em;
+            mask-position: 0 0, left calc(var(--overlap, .3) * 1em - 1em - #{$gap}em) top -#{$gap}em;
+            mask-composite: exclude;
+        }
     }
 }

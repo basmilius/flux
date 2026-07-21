@@ -11,12 +11,10 @@
         <FluxTooltip
             v-if="overflowCount > 0"
             :content="overflowTooltip">
-            <span :class="$style.avatarGroupItem">
-                <FluxAvatar
-                    :alt="overflowLabel"
-                    fallback="neutral"
-                    :fallback-initials="`+${overflowCount}`"/>
-            </span>
+            <FluxAvatar
+                :alt="overflowLabel"
+                fallback="neutral"
+                :fallback-initials="`+${overflowCount}`"/>
         </FluxTooltip>
     </div>
 </template>
@@ -25,7 +23,7 @@
     lang="ts"
     setup>
     import { flattenVNodeTree, getComponentProps } from '@flux-ui/internals';
-    import { computed, h, type VNode } from 'vue';
+    import { computed, type VNode } from 'vue';
     import { useTranslate } from '~flux/components/composable/private';
     import FluxAvatar from './FluxAvatar.vue';
     import FluxTooltip from './FluxTooltip.vue';
@@ -33,8 +31,8 @@
 
     const {
         max,
-        overlap = 0.3,
-        size = 32
+        overlap = .21,
+        size = 30
     } = defineProps<{
         readonly max?: number;
         readonly overlap?: number;
@@ -67,9 +65,6 @@
     });
 
     function renderVisible(): VNode[] {
-        return visibleChildren.value.map((vnode, index) => h('span', {
-            class: $style.avatarGroupItem,
-            key: vnode.key ?? index
-        }, [vnode]));
+        return visibleChildren.value;
     }
 </script>
