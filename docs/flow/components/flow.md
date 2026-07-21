@@ -73,7 +73,7 @@ slots:
 
 `FluxFlow` is the root of a flow: a shared coordinate space that connectors use to route between nodes. By default it lays its content out naturally, sizes its own height, and scrolls horizontally when the content is wider than its container, so it drops inline without a fixed-height wrapper.
 
-Add `interactive` to opt into a pannable and zoomable viewport that fills its container instead: drag to pan, and hold `ctrl` or `cmd` while scrolling to zoom towards the cursor.
+Add `interactive` to opt into a pannable and zoomable viewport that fills its container instead: drag or scroll with two fingers to pan, and pinch or hold `ctrl`/`cmd` while scrolling to zoom towards the cursor.
 
 ::: render
 render=../../code/flow/components/flow/preview.vue
@@ -95,7 +95,7 @@ example=../../code/flow/components/flow/branching.vue
 example=../../code/flow/components/flow/background.vue
 :::
 
-::: example Interactive || With `interactive` the flow fills its container as a pannable, zoomable canvas, starting at 100% from the top-left. Drag to pan, and hold `ctrl`/`cmd` while scrolling to zoom.
+::: example Interactive || With `interactive` the flow fills its container as a pannable, zoomable canvas, starting at 100% from the top-left. Drag or scroll with two fingers to pan, and pinch or hold `ctrl`/`cmd` while scrolling to zoom.
 example=../../code/flow/components/flow/interactive.vue
 :::
 
@@ -105,6 +105,10 @@ example=../../code/flow/components/flow/start.vue
 
 ::: tip
 On an interactive canvas, controls inside a card (a toggle, a button, a link, a text field) keep working: a press that starts on one never begins a pan. Add `data-nopan` to any other element that should grab the pointer for itself instead of panning the canvas.
+:::
+
+::: tip
+An interactive canvas pans up to 300px past its own edge and then stops. A two-finger scroll that runs into that edge hands the page its scroll back, so a flow embedded halfway down a page never traps it.
 :::
 
 For flows built out in full, from routing rules to a running deploy pipeline, see [Examples](../examples).

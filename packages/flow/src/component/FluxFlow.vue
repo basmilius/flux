@@ -135,6 +135,14 @@
     import $style from '~flux/flow/css/component/Flow.module.scss';
     import $edge from '~flux/flow/css/component/FlowConnection.module.scss';
 
+    // WebKit-only: Safari reports a trackpad pinch as a gesture instead of the
+    // ctrl + wheel every other browser sends, so it is missing from the DOM lib.
+    type GestureEvent = Event & {
+        readonly scale: number;
+        readonly clientX: number;
+        readonly clientY: number;
+    };
+
     const viewport = defineModel<FluxFlowViewport>('viewport');
 
     const {
@@ -171,10 +179,23 @@
     // content out of panning with a `data-nopan` attribute.
     const NO_PAN_SELECTOR = 'a, button, input, select, textarea, label, [role="button"], [role="switch"], [contenteditable], [data-nopan]';
 
+    // How long after the last wheel or gesture event the flow keeps claiming the
+    // gesture. macOS keeps sending events through its momentum tail, and letting
+    // the page take those over mid-glide is what makes a nested canvas feel like
+    // it slips out from under you.
+    const GESTURE_TAIL = 140;
+
+    // A wheel event in line or page mode carries steps, not pixels.
+    const LINE_HEIGHT = 16;
+
+    // Turns a pinch (or ctrl + wheel) delta into a zoom factor.
+    const ZOOM_INTENSITY = 0.0075;
+
     const uid = useId();
     const clip = useTemplateRef<HTMLElement>('clip');
     const backdrop = useTemplateRef<HTMLElement>('backdrop');
     const isPanning = ref(false);
+    const isGesturing = ref(false);
     const isReady = ref(false);
     const hoveredEdge = ref<number | null>(null);
     const labelSizes = shallowRef(new Map<number, FluxFlowSize>());
@@ -184,6 +205,8 @@
     let lastPointer: { x: number; y: number } | null = null;
     let labelObserver: ResizeObserver | null = null;
     let initialFrame = 0;
+    let gestureTimer = 0;
+    let gestureScale = 1;
 
     const controller = useFlowController({
         isStatic: toRef(() => !interactive),
@@ -244,8 +267,9 @@
             const {x, y, zoom} = controller.viewport.value;
             return {
                 transform: `translate(${x}px, ${y}px) scale(${zoom})`,
-                // Animate zooming, but never lag behind a live pan or the initial view.
-                transition: isReady.value && !isPanning.value ? 'transform 210ms var(--swift-out)' : 'none'
+                // Animate a stepped zoom, but never lag behind a live pan, a
+                // running trackpad gesture or the initial view.
+                transition: isReady.value && !isPanning.value && !isGesturing.value ? 'transform 210ms var(--swift-out)' : 'none'
             };
         }
 
@@ -291,6 +315,12 @@
         controller.setClipElement(clip.value);
         controller.setBackdropElement(backdrop.value);
         labelObserver = new ResizeObserver(measureLabels);
+
+        // Bound by hand: gesture events are WebKit-only, so Vue has no template
+        // listener for them, and they must not be passive to keep Safari from
+        // zooming the page instead of the flow.
+        clip.value?.addEventListener('gesturestart', onGestureStart, {passive: false});
+        clip.value?.addEventListener('gesturechange', onGestureChange, {passive: false});
 
         for (const element of labelElements.values()) {
             labelObserver.observe(element);
@@ -345,6 +375,9 @@
 
     onBeforeUnmount(() => {
         cancelAnimationFrame(initialFrame);
+        window.clearTimeout(gestureTimer);
+        clip.value?.removeEventListener('gesturestart', onGestureStart);
+        clip.value?.removeEventListener('gesturechange', onGestureChange);
         labelObserver?.disconnect();
         labelObserver = null;
     });
@@ -421,7 +454,7 @@
 
         const dx = event.clientX - lastPointer.x;
         const dy = event.clientY - lastPointer.y;
-        controller.panBy(dx, dy);
+        controller.panBounded(dx, dy);
         lastPointer = {x: event.clientX, y: event.clientY};
     }
 
@@ -436,15 +469,87 @@
     }
 
     function onWheel(event: WheelEvent): void {
-        // Only zoom on ctrl/cmd + wheel; a plain wheel keeps scrolling the page.
-        if (!interactive || !(event.ctrlKey || event.metaKey)) {
+        if (!interactive) {
+            return;
+        }
+
+        const scale = wheelScale(event.deltaMode);
+        const deltaX = event.deltaX * scale;
+        const deltaY = event.deltaY * scale;
+
+        // A trackpad pinch arrives as a wheel with ctrl held, the same shape as
+        // ctrl/cmd + wheel on a mouse, so both zoom towards the pointer.
+        if (event.ctrlKey || event.metaKey) {
+            event.preventDefault();
+            keepGesture();
+
+            // A mouse notch reports a far coarser delta than a trackpad does, so
+            // it is capped at a single `zoomStep`: one notch then moves exactly as
+            // far as the zoom buttons, while a pinch stays continuous.
+            const limit = Math.log(1 + zoomStep) / ZOOM_INTENSITY;
+            const clamped = clamp(deltaY, -limit, limit);
+            controller.zoomAt(event.clientX, event.clientY, Math.exp(-clamped * ZOOM_INTENSITY));
+
+            return;
+        }
+
+        const {x, y} = controller.panBounded(-deltaX, -deltaY);
+
+        // Two fingers pan the canvas, but only for as long as it has somewhere to
+        // go. Once it rests against its own edge the event is left alone and the
+        // page scrolls on, unless this gesture already started out panning.
+        if (x === 0 && y === 0 && !isGesturing.value) {
             return;
         }
 
         event.preventDefault();
+        keepGesture();
+    }
 
-        const factor = event.deltaY < 0 ? 1 + zoomStep : 1 / (1 + zoomStep);
-        controller.zoomAt(event.clientX, event.clientY, factor);
+    function onGestureStart(event: Event): void {
+        if (!interactive) {
+            return;
+        }
+
+        event.preventDefault();
+        gestureScale = 1;
+        keepGesture();
+    }
+
+    function onGestureChange(event: Event): void {
+        if (!interactive) {
+            return;
+        }
+
+        event.preventDefault();
+        keepGesture();
+
+        // Safari reports the scale of the whole gesture, so each step is what it
+        // grew by since the previous one.
+        const {scale, clientX, clientY} = event as GestureEvent;
+        controller.zoomAt(clientX, clientY, scale / gestureScale);
+        gestureScale = scale;
+    }
+
+    function clamp(value: number, min: number, max: number): number {
+        return Math.min(Math.max(value, min), max);
+    }
+
+    function wheelScale(deltaMode: number): number {
+        switch (deltaMode) {
+            case WheelEvent.DOM_DELTA_LINE:
+                return LINE_HEIGHT;
+            case WheelEvent.DOM_DELTA_PAGE:
+                return clip.value?.clientHeight ?? 0;
+            default:
+                return 1;
+        }
+    }
+
+    function keepGesture(): void {
+        isGesturing.value = true;
+        window.clearTimeout(gestureTimer);
+        gestureTimer = window.setTimeout(() => (isGesturing.value = false), GESTURE_TAIL);
     }
 
     defineExpose({

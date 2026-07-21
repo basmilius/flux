@@ -173,6 +173,13 @@ export type FluxFlowController = {
     screenToFlow(clientX: number, clientY: number): FluxFlowPosition;
     flowToScreen(x: number, y: number): FluxFlowPosition;
     panBy(dx: number, dy: number): void;
+    /**
+     * Pans within the bounds of the world and returns the delta it actually
+     * applied, which is zero on an axis that has nowhere left to go. A trackpad
+     * gesture pans through this, so it can hand the scroll back to the page once
+     * the flow sits against its own edge.
+     */
+    panBounded(dx: number, dy: number): FluxFlowPosition;
     zoomAt(clientX: number, clientY: number, factor: number): void;
     zoomIn(): void;
     zoomOut(): void;

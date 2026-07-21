@@ -9,6 +9,11 @@ type FlowControllerOptions = {
     fitPadding(): number;
 };
 
+// How far past its own edge the world may be dragged before it refuses to move
+// any further. Without that slack the flow would stop dead the moment its last
+// card touches the viewport, which reads as a snag rather than as an edge.
+const PAN_OVERSCROLL = 300;
+
 const clamp = (value: number, min: number, max: number): number => Math.min(Math.max(value, min), max);
 
 const sameBounds = (a: FluxFlowBounds | null, b: FluxFlowBounds | null): boolean => a === b
@@ -73,6 +78,47 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
     function panBy(dx: number, dy: number): void {
         const {x, y, zoom} = viewport.value;
         viewport.value = {x: x + dx, y: y + dy, zoom};
+    }
+
+    /**
+     * Pans, but never past the point where the world leaves the viewport, and
+     * reports how far it actually moved. A wheel gesture uses that to hand the
+     * scroll back to the page once the flow sits against its own edge.
+     */
+    function panBounded(dx: number, dy: number): FluxFlowPosition {
+        const rect = getRect();
+        const box = bounds.value;
+
+        if (!rect || !box) {
+            return {x: 0, y: 0};
+        }
+
+        const view = viewport.value;
+
+        const axis = (offset: number, delta: number, min: number, max: number, extent: number): number => {
+            // The room the world may travel through: from its far edge resting
+            // against the near edge of the viewport, to the other way around,
+            // plus the overscroll slack on either side.
+            const lower = extent - max * view.zoom - PAN_OVERSCROLL;
+            const upper = PAN_OVERSCROLL - min * view.zoom;
+
+            if (lower > upper) {
+                return offset;
+            }
+
+            return clamp(offset + delta, lower, upper);
+        };
+
+        const x = axis(view.x, dx, box.minX, box.maxX, rect.width);
+        const y = axis(view.y, dy, box.minY, box.maxY, rect.height);
+
+        if (x === view.x && y === view.y) {
+            return {x: 0, y: 0};
+        }
+
+        viewport.value = {x, y, zoom: view.zoom};
+
+        return {x: x - view.x, y: y - view.y};
     }
 
     function zoomAt(clientX: number, clientY: number, factor: number): void {
@@ -231,6 +277,7 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
         screenToFlow,
         flowToScreen,
         panBy,
+        panBounded,
         zoomAt,
         zoomIn: () => zoomByStep(1),
         zoomOut: () => zoomByStep(-1),
