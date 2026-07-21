@@ -129,7 +129,8 @@
     // Here it floats on a canvas, and that pull would offset it inside the hole
     // cut for it, leaving more air below the badge than above.
     margin: 0;
-    background: var(--gray-100);
+    background: rgb(from var(--gray-200) r g b / .75);
+    backdrop-filter: blur(3px);
     border: 0;
     transform: translate(-50%, -50%);
 }
