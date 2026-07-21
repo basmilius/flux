@@ -1,0 +1,10 @@
+// A port marks a point, it does not take one: the element itself is a zero
+// sized marker riding the middle of the row it sits in, so adding one never
+// moves the content around it.
+.flowPort {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    vertical-align: middle;
+    align-self: center;
+}

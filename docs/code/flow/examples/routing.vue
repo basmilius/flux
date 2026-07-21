@@ -47,9 +47,9 @@
         <FluxFlowConnection from="step-1" to="step-2"/>
         <FluxFlowConnection from="step-2" to="condition-2" to-align="start"/>
 
-        <FluxFlowConnection from="condition-1" to="fulfilment-1" from-side="bottom" from-align="start" to-side="left" to-align="start" label="If true"/>
-        <FluxFlowConnection from="condition-1" to="hold-1" from-side="bottom" from-align="start" to-side="left" to-align="start" label="If false"/>
-        <FluxFlowConnection from="condition-2" to="fulfilment-2" from-side="bottom" from-align="start" to-side="left" to-align="start" label="If true"/>
+        <FluxFlowConnection from="condition-1" to="fulfilment-1" from-side="bottom" from-align="start" to-side="left" to-align="start" label="If true" label-placement="last-leg"/>
+        <FluxFlowConnection from="condition-1" to="hold-1" from-side="bottom" from-align="start" to-side="left" to-align="start" label="If false" label-placement="last-leg"/>
+        <FluxFlowConnection from="condition-2" to="fulfilment-2" from-side="bottom" from-align="start" to-side="left" to-align="start" label="If true" label-placement="last-leg"/>
     </FluxFlow>
 </template>
 

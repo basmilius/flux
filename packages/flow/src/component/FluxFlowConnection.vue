@@ -8,8 +8,8 @@
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { computed, getCurrentInstance, onBeforeUnmount } from 'vue';
     import { useFluxFlowInjection } from '~flux/flow/composable';
-    import type { FluxFlowAlign, FluxFlowConnectionType, FluxFlowEdgeSpec, FluxFlowMarker, FluxFlowMarkerFill, FluxFlowPosition, FluxFlowSide } from '~flux/flow/data';
-    import { anchorPoint, autoSides, getBezierPath, getSmoothStepPath, getStraightPath, markerPath, offsetPoint, sideNormal } from '~flux/flow/util';
+    import type { FluxFlowAlign, FluxFlowConnectionType, FluxFlowEdgeSpec, FluxFlowLabelPlacement, FluxFlowMarker, FluxFlowMarkerFill, FluxFlowNodeRecord, FluxFlowPortRecord, FluxFlowPosition, FluxFlowSide } from '~flux/flow/data';
+    import { anchorPoint, autoSides, getBezierPath, getSmoothStepPath, getStraightPath, markerPath, offsetPoint, portPoint, portSide } from '~flux/flow/util';
 
     const props = defineProps<{
         readonly from: string;
@@ -18,9 +18,13 @@
         readonly toSide?: FluxFlowSide;
         readonly fromAlign?: FluxFlowAlign;
         readonly toAlign?: FluxFlowAlign;
+        readonly fromPort?: string;
+        readonly toPort?: string;
+        readonly waypoints?: readonly FluxFlowPosition[];
         readonly type?: FluxFlowConnectionType;
         readonly color?: FluxColor | string;
         readonly label?: string;
+        readonly labelPlacement?: FluxFlowLabelPlacement;
         readonly icon?: FluxIconName;
         readonly animated?: boolean;
         readonly dashed?: boolean;
@@ -77,21 +81,26 @@
         const targetPosition = target.position.value;
         const targetSize = target.size.value;
 
+        const sourcePort = portOf(source, props.fromPort);
+        const targetPort = portOf(target, props.toPort);
+
         const [autoSource, autoTarget] = autoSides(sourcePosition, sourceSize, targetPosition, targetSize);
-        const sourceSide = props.fromSide ?? autoSource;
-        const targetSide = props.toSide ?? autoTarget;
+        const sourceSide = props.fromSide ?? (sourcePort ? portSide(sourcePort, sourceSize) : autoSource);
+        const targetSide = props.toSide ?? (targetPort ? portSide(targetPort, targetSize) : autoTarget);
 
         // The endpoints sit a gap away from the node, so a line never touches the
         // card it points at.
-        const fromPoint = offsetPoint(anchorPoint(sourcePosition, sourceSize, sourceSide, props.fromAlign, source.anchor.value), sourceSide, NODE_GAP);
-        const toPoint = offsetPoint(anchorPoint(targetPosition, targetSize, targetSide, props.toAlign, target.anchor.value), targetSide, NODE_GAP);
+        const fromPoint = offsetPoint(endpoint(source, sourcePort, sourceSide, props.fromAlign), sourceSide, NODE_GAP);
+        const toPoint = offsetPoint(endpoint(target, targetPort, targetSide, props.toAlign), targetSide, NODE_GAP);
 
         const type = props.type ?? 'smoothstep';
+        const waypoints = props.waypoints ?? [];
+        const placement = props.labelPlacement ?? 'center';
         const path = type === 'straight'
-            ? getStraightPath(fromPoint, toPoint)
+            ? getStraightPath(fromPoint, toPoint, waypoints, placement)
             : type === 'bezier'
-                ? getBezierPath(fromPoint, sourceSide, toPoint, targetSide)
-                : getSmoothStepPath(fromPoint, sourceSide, toPoint, targetSide);
+                ? getBezierPath(fromPoint, sourceSide, toPoint, targetSide, waypoints, placement)
+                : getSmoothStepPath(fromPoint, sourceSide, toPoint, targetSide, waypoints, placement);
 
         return {
             path: path.path,
@@ -101,10 +110,8 @@
             fromY: fromPoint.y,
             toX: toPoint.x,
             toY: toPoint.y,
-            // A straight connector rarely leaves along the side normal, so its
-            // markers follow the line itself instead.
-            fromMarkerPath: markerPath(markerStart.value, fromPoint, type === 'straight' ? unitVector(fromPoint, toPoint) : sideNormal(sourceSide)),
-            toMarkerPath: markerPath(markerEnd.value, toPoint, type === 'straight' ? unitVector(toPoint, fromPoint) : sideNormal(targetSide))
+            fromMarkerPath: markerPath(markerStart.value, fromPoint, path.fromDirection),
+            toMarkerPath: markerPath(markerEnd.value, toPoint, path.toDirection)
         };
     });
 
@@ -125,6 +132,7 @@
             fromY: value.fromY,
             toX: value.toX,
             toY: value.toY,
+            waypoints: props.waypoints ?? [],
             styleVars: {
                 '--connection-color': resolveColor(props.color, 'var(--flow-line)'),
                 '--connection-marker': resolveColor(props.color, 'var(--flow-line)'),
@@ -150,10 +158,21 @@
 
     onBeforeUnmount(() => controller.unregisterEdge(uid));
 
-    function unitVector(from: FluxFlowPosition, to: FluxFlowPosition): readonly [number, number] {
-        const length = Math.hypot(to.x - from.x, to.y - from.y);
+    // An unknown port id falls back to the node's own anchor, so a typo drops a
+    // connector back onto the card rather than off the canvas.
+    function portOf(node: FluxFlowNodeRecord, id: string | undefined): FluxFlowPortRecord | undefined {
+        return id === undefined ? undefined : node.ports.value.get(id);
+    }
 
-        return length === 0 ? [0, 0] : [(to.x - from.x) / length, (to.y - from.y) / length];
+    // A port fixes where along the side the connector lands, which is what
+    // `align` does for a node without one.
+    function endpoint(node: FluxFlowNodeRecord, port: FluxFlowPortRecord | undefined, side: FluxFlowSide, align: FluxFlowAlign | undefined): FluxFlowPosition {
+        const position = node.position.value;
+        const size = node.size.value;
+
+        return port
+            ? portPoint(position, size, side, port.offset)
+            : anchorPoint(position, size, side, align, node.anchor.value);
     }
 
     function resolveColor(value: string | undefined, fallback: string): string {

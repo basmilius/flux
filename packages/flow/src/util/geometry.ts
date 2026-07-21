@@ -1,4 +1,4 @@
-import type { FluxFlowAlign, FluxFlowPosition, FluxFlowSide, FluxFlowSize } from '~flux/flow/data';
+import type { FluxFlowAlign, FluxFlowPortRecord, FluxFlowPosition, FluxFlowSide, FluxFlowSize } from '~flux/flow/data';
 
 // Where a `start` connector lands on a node that publishes no anchor of its
 // own. Matches the icon of a FluxFlowCard: 15px header padding + 30px icon / 2.
@@ -6,6 +6,10 @@ const FALLBACK_INSET = 30;
 
 function center(position: FluxFlowPosition, size: FluxFlowSize): FluxFlowPosition {
     return {x: position.x + size.width / 2, y: position.y + size.height / 2};
+}
+
+function clamp(value: number, max: number): number {
+    return Math.min(Math.max(value, 0), max);
 }
 
 /**
@@ -42,6 +46,45 @@ export function anchorPoint(position: FluxFlowPosition, size: FluxFlowSize, side
     return {
         x: side === 'left' ? position.x : position.x + size.width,
         y: position.y + alignOffset(size.height, align, anchor?.y ?? FALLBACK_INSET)
+    };
+}
+
+/**
+ * The edge of a node an offset inside it sits closest to.
+ */
+export function nearestSide(size: FluxFlowSize, offset: FluxFlowPosition): FluxFlowSide {
+    const distances: readonly (readonly [FluxFlowSide, number])[] = [
+        ['left', offset.x],
+        ['right', size.width - offset.x],
+        ['top', offset.y],
+        ['bottom', size.height - offset.y]
+    ];
+
+    return distances.reduce((nearest, candidate) => candidate[1] < nearest[1] ? candidate : nearest)[0];
+}
+
+/**
+ * The side a port attaches to: the one it names, or the edge it sits closest to.
+ */
+export function portSide(port: FluxFlowPortRecord, size: FluxFlowSize): FluxFlowSide {
+    return port.side ?? nearestSide(size, port.offset);
+}
+
+/**
+ * Where a connector lands on a node through one of its ports. The port fixes
+ * the position along the side, the side fixes which edge it lands on.
+ */
+export function portPoint(position: FluxFlowPosition, size: FluxFlowSize, side: FluxFlowSide, offset: FluxFlowPosition): FluxFlowPosition {
+    if (isVerticalSide(side)) {
+        return {
+            x: position.x + clamp(offset.x, size.width),
+            y: side === 'top' ? position.y : position.y + size.height
+        };
+    }
+
+    return {
+        x: side === 'left' ? position.x : position.x + size.width,
+        y: position.y + clamp(offset.y, size.height)
     };
 }
 

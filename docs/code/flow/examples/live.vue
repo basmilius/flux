@@ -14,7 +14,7 @@
                 </FluxFlowTriggerCard>
             </FluxFlowNode>
 
-            <FluxFlowNode id="build" :x="360" :y="60">
+            <FluxFlowNode id="build" :x="360" :y="78">
                 <FluxFlowActionCard title="Build image" icon="server" color="primary" :active="building">
                     <FluxStatisticsMeter
                         color="primary"
@@ -24,7 +24,7 @@
                 </FluxFlowActionCard>
             </FluxFlowNode>
 
-            <FluxFlowNode id="ship" :x="720" :y="60">
+            <FluxFlowNode id="ship" :x="720" :y="74">
                 <FluxFlowActionCard title="Ship to production" icon="circle-check" color="success" :active="done">
                     Rolls the new image out to production.
                 </FluxFlowActionCard>

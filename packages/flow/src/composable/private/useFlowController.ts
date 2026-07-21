@@ -103,6 +103,17 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
             maxY = Math.max(maxY, y + height);
         }
 
+        // A routed connector may swing wide of every node, so its waypoints
+        // stretch the world too instead of being clipped off it.
+        for (const edge of edges.values()) {
+            for (const {x, y} of edge.spec.value?.waypoints ?? []) {
+                minX = Math.min(minX, x);
+                minY = Math.min(minY, y);
+                maxX = Math.max(maxX, x);
+                maxY = Math.max(maxY, y);
+            }
+        }
+
         return {minX, minY, maxX, maxY};
     });
 

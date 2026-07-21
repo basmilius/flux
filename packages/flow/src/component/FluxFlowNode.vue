@@ -10,9 +10,9 @@
 <script
     lang="ts"
     setup>
-    import { computed, onBeforeUnmount, onMounted, shallowRef, useTemplateRef, watch } from 'vue';
+    import { computed, onBeforeUnmount, onMounted, provide, shallowRef, useTemplateRef, watch } from 'vue';
     import { useFluxFlowInjection } from '~flux/flow/composable';
-    import type { FluxFlowPosition, FluxFlowSize } from '~flux/flow/data';
+    import { FluxFlowNodeInjectionKey, type FluxFlowPortRecord, type FluxFlowPortRegistration, type FluxFlowPosition, type FluxFlowSize } from '~flux/flow/data';
     import $style from '~flux/flow/css/component/FlowNode.module.scss';
 
     const props = defineProps<{
@@ -24,6 +24,9 @@
     const el = useTemplateRef<HTMLElement>('el');
     const size = shallowRef<FluxFlowSize>({width: 0, height: 0});
     const anchor = shallowRef<FluxFlowPosition | null>(null);
+    const ports = shallowRef<ReadonlyMap<string, FluxFlowPortRecord>>(new Map());
+
+    const registrations = new Map<string, FluxFlowPortRegistration>();
 
     let observer: ResizeObserver | null = null;
 
@@ -31,13 +34,24 @@
 
     const position = computed(() => ({x: props.x, y: props.y}));
 
+    provide(FluxFlowNodeInjectionKey, {
+        registerPort(port: FluxFlowPortRegistration): void {
+            registrations.set(port.id, port);
+            measure();
+        },
+        unregisterPort(id: string): void {
+            registrations.delete(id);
+            measure();
+        }
+    });
+
     watch(() => props.id, (next, previous) => {
         controller.unregisterNode(previous);
-        controller.registerNode({id: next, position, size, element: el, anchor});
+        controller.registerNode({id: next, position, size, element: el, anchor, ports});
     });
 
     onMounted(() => {
-        controller.registerNode({id: props.id, position, size, element: el, anchor});
+        controller.registerNode({id: props.id, position, size, element: el, anchor, ports});
         measure();
         observer = new ResizeObserver(measure);
 
@@ -61,20 +75,15 @@
 
         size.value = {width: node.offsetWidth, height: node.offsetHeight};
         anchor.value = measureAnchor(node);
+        ports.value = measurePorts(node);
     }
 
     /**
-     * The centre of the node's anchor element, in the node's own layout pixels.
+     * The centre of an element inside the node, in the node's own layout pixels.
      * Rects are read through the live zoom rather than through offsetLeft, which
      * would be relative to whatever ancestor happens to be positioned.
      */
-    function measureAnchor(node: HTMLElement): FluxFlowPosition | null {
-        const element = node.querySelector('[data-flow-anchor]');
-
-        if (!element || node.offsetWidth === 0) {
-            return null;
-        }
-
+    function measureOffset(node: HTMLElement, element: Element): FluxFlowPosition {
         const nodeRect = node.getBoundingClientRect();
         const rect = element.getBoundingClientRect();
         const zoom = nodeRect.width / node.offsetWidth;
@@ -83,5 +92,31 @@
             x: (rect.left + rect.width / 2 - nodeRect.left) / zoom,
             y: (rect.top + rect.height / 2 - nodeRect.top) / zoom
         };
+    }
+
+    function measureAnchor(node: HTMLElement): FluxFlowPosition | null {
+        const element = node.querySelector('[data-flow-anchor]');
+
+        if (!element || node.offsetWidth === 0) {
+            return null;
+        }
+
+        return measureOffset(node, element);
+    }
+
+    function measurePorts(node: HTMLElement): ReadonlyMap<string, FluxFlowPortRecord> {
+        const measured = new Map<string, FluxFlowPortRecord>();
+
+        if (node.offsetWidth === 0) {
+            return measured;
+        }
+
+        for (const {id, side, element} of registrations.values()) {
+            if (element.value) {
+                measured.set(id, {id, side, offset: measureOffset(node, element.value)});
+            }
+        }
+
+        return measured;
     }
 </script>

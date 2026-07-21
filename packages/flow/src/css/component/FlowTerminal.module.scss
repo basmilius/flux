@@ -1,0 +1,25 @@
+@use '~flux/components/css/mixin';
+
+// Where a flow starts or stops. A pill names a step on a raised surface; a
+// terminal is the end of the line, so it reads as one solid tinted capsule.
+.flowTerminal {
+    @include mixin.text(small);
+
+    display: flex;
+    height: 36px;
+    padding: 0 18px;
+    align-items: center;
+    gap: 6px;
+    background: var(--gray-100);
+    border-radius: var(--radius-full);
+    color: var(--foreground-prominent);
+    font-weight: 600;
+    white-space: nowrap;
+
+    @each $-color in (primary, danger, info, success, warning) {
+        &[data-color="#{$-color}"] {
+            background: var(--#{$-color}-100);
+            color: var(--#{$-color}-900);
+        }
+    }
+}

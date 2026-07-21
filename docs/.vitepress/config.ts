@@ -206,9 +206,13 @@ export default defineConfig({
                         {text: 'Flow', link: '/flow/components/flow'},
                         {text: 'Node', link: '/flow/components/node'},
                         {text: 'Connection', link: '/flow/components/connection'},
+                        {text: 'Port', link: '/flow/components/port'},
                         {text: 'Card', link: '/flow/components/card'},
                         {text: 'Pill', link: '/flow/components/pill'},
-                        {text: 'Step', link: '/flow/components/step'}
+                        {text: 'Step', link: '/flow/components/step'},
+                        {text: 'Terminal', link: '/flow/components/terminal'},
+                        {text: 'Junction', link: '/flow/components/junction'},
+                        {text: 'Note', link: '/flow/components/note'}
                     ]
                 },
                 {

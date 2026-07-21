@@ -32,6 +32,21 @@ props:
         optional: true
         default: center
 
+    -   name: fromPort
+        description: The id of a FluxFlowPort inside the source node. The port fixes where along the side the connector leaves, which takes the place of fromAlign. An id that no port answers to falls back to the node's own anchor.
+        type: string
+        optional: true
+
+    -   name: toPort
+        description: The id of a FluxFlowPort inside the target node. The port fixes where along the side the connector enters, which takes the place of toAlign. An id that no port answers to falls back to the node's own anchor.
+        type: string
+        optional: true
+
+    -   name: waypoints
+        description: Points the connector runs through, in flow coordinates, the same space as the x / y of a node.
+        type: "{x: number, y: number}[]"
+        optional: true
+
     -   name: type
         description: The shape of the connector.
         type: "'smoothstep' | 'bezier' | 'straight'"
@@ -47,6 +62,12 @@ props:
         description: A label rendered in a badge at the midpoint of the connector.
         type: string
         optional: true
+
+    -   name: labelPlacement
+        description: Where the badge rides on a connector that bends. `center` is halfway along the run, `first-leg` and `last-leg` move it to the leg leaving the source or entering the target. A connector without a bend always keeps its badge in the middle.
+        type: "'center' | 'first-leg' | 'last-leg'"
+        optional: true
+        default: center
 
     -   name: icon
         description: An icon rendered in a badge at the midpoint of the connector, breaking the line. Combines with a label.
@@ -98,6 +119,8 @@ props:
 
 By default the connector picks the most natural pair of sides based on where the nodes sit: stacked nodes connect bottom to top, side by side nodes connect right to left. Override `from-side` / `to-side` when you need an explicit route, for example the two branches out of a condition. Both branches then leave the same edge in the same spot; `from-align` / `to-align` move either end to the start or the end of its side to pull them apart, aligned on the icon of the node they touch.
 
+For a branch that belongs to something written inside the node, a [Port](./port) is the sharper tool: `from-port` / `to-port` land the connector on the row that names the outcome.
+
 ::: render
 render=../../code/flow/components/connection/preview.vue
 :::
@@ -126,6 +149,10 @@ example=../../code/flow/components/connection/sides.vue
 example=../../code/flow/components/connection/alignment.vue
 :::
 
+::: example Label placement || A badge rides the middle of the connector. On a connector that bends that middle can land on a bend, or on the leg two branches share, so `label-placement` moves it to the leg leaving the source or the leg entering the target instead.
+example=../../code/flow/components/connection/label-placement.vue
+:::
+
 ::: example Line styles || Connectors are solid by default; set `dashed` or `dotted` for other styles. A connector leaves its source with a port dot and reaches its target with an arrow head; `marker-start` and `marker-end` swap either for the other shape, or drop it entirely.
 example=../../code/flow/components/connection/dashed.vue
 :::
@@ -142,7 +169,22 @@ example=../../code/flow/components/connection/markers.vue
 example=../../code/flow/components/connection/marker-shapes.vue
 :::
 
+## Waypoints
+
+A connector routes itself, which is what you want until it runs straight over the card between its two ends. Give it `waypoints` and it runs through the points you name instead. They are plain flow coordinates, the same space as the `x` / `y` of a node, so a route is written where you can read it off the canvas.
+
+Every shape honours them: `straight` becomes a polyline, `smoothstep` rounds each corner the way it rounds its own, and `bezier` becomes a single smooth curve through the points. The label rides the middle of the whole route, and both endpoints still leave and reach their node along the side they use.
+
+::: example Three shapes, one detour || The same two waypoints in all three shapes. The endpoints are unaffected: waypoints only shape the run between them, and the label rides the middle of that run.
+example=../../code/flow/components/connection/waypoints.vue
+:::
+
+::: tip
+The canvas sizes itself to the nodes it holds, not to the connectors. Keep waypoints inside that area, or give the [Flow](./flow) enough `padding` to cover the detour.
+:::
+
 ## Used components
 
 - [Flow](./flow)
 - [Node](./node)
+- [Port](./port)

@@ -1,0 +1,19 @@
+// A knot in the wiring rather than a step: the same hollow shape the connectors
+// end in, sized so a line reads as passing through it.
+.flowJunction {
+    display: block;
+    box-sizing: border-box;
+    width: 18px;
+    height: 18px;
+    background: var(--surface);
+    background-clip: padding-box;
+    border: 2px solid var(--flow-line);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-sm);
+
+    @each $-color in ("gray", "primary", "danger", "info", "success", "warning") {
+        &[data-color="#{$-color}"] {
+            border-color: var(--#{$-color}-500);
+        }
+    }
+}

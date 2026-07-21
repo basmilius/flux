@@ -1,0 +1,32 @@
+@use '~flux/components/css/mixin';
+
+// An annotation, not a step: a flat tinted slip without the stroke and the
+// shadow every other node on the canvas carries.
+.flowNote {
+    @include mixin.text(small);
+
+    display: flex;
+    width: 210px;
+    padding: 12px 15px;
+    flex-direction: column;
+    gap: 3px;
+    background: var(--gray-100);
+    border-radius: var(--radius);
+    color: var(--foreground);
+
+    :is(strong) {
+        color: var(--foreground-prominent);
+        font-weight: 600;
+    }
+
+    @each $-color in (primary, danger, info, success, warning) {
+        &[data-color="#{$-color}"] {
+            background: var(--#{$-color}-100);
+            color: var(--#{$-color}-900);
+
+            :is(strong) {
+                color: var(--#{$-color}-900);
+            }
+        }
+    }
+}

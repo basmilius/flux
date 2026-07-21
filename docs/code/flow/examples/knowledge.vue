@@ -16,7 +16,7 @@
             <FluxFlowCard title="Notion" subtitle="Stale · 38d"/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="refund" :x="390" :y="24">
+        <FluxFlowNode id="refund" :x="390" :y="74">
             <FluxFlowCard title="Refund handling" active>
                 <FluxDescriptionList>
                     <FluxDescriptionItem label="Status">
@@ -28,7 +28,7 @@
             </FluxFlowCard>
         </FluxFlowNode>
 
-        <FluxFlowNode id="pricing" :x="390" :y="336">
+        <FluxFlowNode id="pricing" :x="390" :y="374">
             <FluxFlowCard title="Pricing exceptions">
                 <FluxDescriptionList>
                     <FluxDescriptionItem label="Status">
@@ -40,7 +40,7 @@
             </FluxFlowCard>
         </FluxFlowNode>
 
-        <FluxFlowNode id="output" :x="780" :y="168">
+        <FluxFlowNode id="output" :x="780" :y="219">
             <FluxFlowCard title="Skills file">
                 <FluxStatisticsLegend direction="vertical">
                     <FluxStatisticsLegendItem color="primary" label="Support agent"/>

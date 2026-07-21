@@ -5,7 +5,7 @@
                 <FluxFlowTriggerCard title="Expense submitted" subtitle="€ 640 · Travel"/>
             </FluxFlowNode>
 
-            <FluxFlowNode id="review" :x="360" :y="0">
+            <FluxFlowNode id="review" :x="360" :y="13">
                 <FluxFlowConditionCard
                     title="Manager approval"
                     :icon="approved ? 'circle-check' : 'hourglass-clock'"
@@ -35,7 +35,7 @@
                 </FluxFlowConditionCard>
             </FluxFlowNode>
 
-            <FluxFlowNode id="pay" :x="720" :y="90">
+            <FluxFlowNode id="pay" :x="720" :y="38">
                 <FluxFlowActionCard title="Reimburse" icon="money-bill" :color="approved ? 'success' : 'gray'" :active="approved">
                     Transfers the amount to the employee.
                 </FluxFlowActionCard>

@@ -1,10 +1,16 @@
-import type { FluxFlowMarker, FluxFlowPosition, FluxFlowSide } from '~flux/flow/data';
+import type { FluxFlowLabelPlacement, FluxFlowMarker, FluxFlowPosition, FluxFlowSide } from '~flux/flow/data';
 import { isVerticalSide } from './geometry';
 
 export type FluxFlowPath = {
     readonly path: string;
     readonly labelX: number;
     readonly labelY: number;
+    /**
+     * The unit vectors along the first and the last leg of the route, pointing
+     * away from the endpoint they belong to. The endpoint markers follow them.
+     */
+    readonly fromDirection: readonly [number, number];
+    readonly toDirection: readonly [number, number];
 };
 
 export function sideNormal(side: FluxFlowSide): readonly [number, number] {
@@ -83,36 +89,73 @@ export function markerPath(marker: FluxFlowMarker, point: FluxFlowPosition, dire
 }
 
 /**
- * Where a connector's label rides.
+ * Where a connector's label rides. A run without a bend has a single leg, so
+ * its label always takes the middle of the line; a bent one follows
+ * `placement`.
  *
- * A straight run has only one leg, so the label takes the middle of the line.
- * A routed one does not: two branches leaving the same node share their first
- * leg, and a label halfway along the path can land on that shared stretch, or
- * on a bend. There the label takes the middle of the last real leg, the one
- * carrying the connector into its target, which is always the branch's own.
+ * `first-leg` and `last-leg` skip anything no longer than `stub`, the short
+ * piece a routed connector uses to leave its node, so the label lands on a leg
+ * that actually carries the line.
  */
-function labelPoint(points: readonly FluxFlowPosition[], stub: number): FluxFlowPosition {
-    const first = points[0];
-    const last = points[points.length - 1];
-    const middle = {x: (first.x + last.x) / 2, y: (first.y + last.y) / 2};
+function labelPoint(points: readonly FluxFlowPosition[], placement: FluxFlowLabelPlacement, stub: number): FluxFlowPosition {
+    if (placement === 'center') {
+        return pointAtHalfLength(points);
+    }
 
+    const first = points[0];
     const straight = points.every(point => Math.abs(point.x - first.x) < 0.5)
         || points.every(point => Math.abs(point.y - first.y) < 0.5);
 
     if (straight) {
-        return middle;
+        return pointAtHalfLength(points);
     }
 
-    for (let i = points.length - 1; i > 0; i--) {
-        const from = points[i - 1];
-        const to = points[i];
+    const legs = points.map((_, index) => index).slice(1);
+    const order = placement === 'first-leg' ? legs : legs.reverse();
+
+    for (const index of order) {
+        const from = points[index - 1];
+        const to = points[index];
 
         if (Math.hypot(to.x - from.x, to.y - from.y) > stub) {
             return {x: (from.x + to.x) / 2, y: (from.y + to.y) / 2};
         }
     }
 
-    return middle;
+    return pointAtHalfLength(points);
+}
+
+function unitVector(from: FluxFlowPosition, to: FluxFlowPosition): readonly [number, number] {
+    const length = Math.hypot(to.x - from.x, to.y - from.y);
+
+    return length === 0 ? [0, 0] : [(to.x - from.x) / length, (to.y - from.y) / length];
+}
+
+/**
+ * The middle of a route measured along its length, so a label on a routed
+ * connector rides the halfway point of the whole run instead of the middle of
+ * its first leg.
+ */
+function pointAtHalfLength(points: readonly FluxFlowPosition[]): FluxFlowPosition {
+    const lengths = points.slice(1).map((point, index) => Math.hypot(point.x - points[index].x, point.y - points[index].y));
+    const half = lengths.reduce((total, length) => total + length, 0) / 2;
+
+    let travelled = 0;
+
+    for (let i = 0; i < lengths.length; i++) {
+        if (travelled + lengths[i] >= half) {
+            const ratio = lengths[i] === 0 ? 0 : (half - travelled) / lengths[i];
+
+            return {
+                x: points[i].x + (points[i + 1].x - points[i].x) * ratio,
+                y: points[i].y + (points[i + 1].y - points[i].y) * ratio
+            };
+        }
+
+        travelled += lengths[i];
+    }
+
+    return points[points.length - 1];
 }
 
 function dedupe(points: readonly FluxFlowPosition[]): FluxFlowPosition[] {
@@ -165,15 +208,60 @@ function roundedPath(rawPoints: readonly FluxFlowPosition[], radius: number): st
     return path;
 }
 
-export function getStraightPath(source: FluxFlowPosition, target: FluxFlowPosition): FluxFlowPath {
+/**
+ * A run of straight legs through the waypoints. A straight connector rarely
+ * leaves along the side normal, so its markers follow the line itself.
+ */
+export function getStraightPath(source: FluxFlowPosition, target: FluxFlowPosition, waypoints: readonly FluxFlowPosition[] = [], placement: FluxFlowLabelPlacement = 'center'): FluxFlowPath {
+    const points = [source, ...waypoints, target];
+    // A straight run has no stub to skip: every leg is one the caller drew.
+    const label = labelPoint(points, placement, 0);
+
     return {
-        path: `M ${source.x} ${source.y} L ${target.x} ${target.y}`,
-        labelX: (source.x + target.x) / 2,
-        labelY: (source.y + target.y) / 2
+        path: points.map((point, index) => `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`).join(' '),
+        labelX: label.x,
+        labelY: label.y,
+        fromDirection: unitVector(source, points[1]),
+        toDirection: unitVector(target, points[points.length - 2])
     };
 }
 
-export function getBezierPath(source: FluxFlowPosition, sourceSide: FluxFlowSide, target: FluxFlowPosition, targetSide: FluxFlowSide, curvature: number = 0.25): FluxFlowPath {
+/**
+ * A Catmull-Rom spline through the points, expressed as cubic segments. Only
+ * used for a routed bezier: a plain one has a control point per side normal,
+ * which is a nicer curve than a spline through two points.
+ */
+function getSplinePath(points: readonly FluxFlowPosition[], placement: FluxFlowLabelPlacement): FluxFlowPath {
+    let path = `M ${points[0].x} ${points[0].y}`;
+
+    for (let i = 0; i < points.length - 1; i++) {
+        const previous = points[i - 1] ?? points[i];
+        const current = points[i];
+        const next = points[i + 1];
+        const after = points[i + 2] ?? next;
+
+        const c1 = {x: current.x + (next.x - previous.x) / 6, y: current.y + (next.y - previous.y) / 6};
+        const c2 = {x: next.x - (after.x - current.x) / 6, y: next.y - (after.y - current.y) / 6};
+
+        path += ` C ${c1.x} ${c1.y}, ${c2.x} ${c2.y}, ${next.x} ${next.y}`;
+    }
+
+    const label = labelPoint(points, placement, 0);
+
+    return {
+        path,
+        labelX: label.x,
+        labelY: label.y,
+        fromDirection: unitVector(points[0], points[1]),
+        toDirection: unitVector(points[points.length - 1], points[points.length - 2])
+    };
+}
+
+export function getBezierPath(source: FluxFlowPosition, sourceSide: FluxFlowSide, target: FluxFlowPosition, targetSide: FluxFlowSide, waypoints: readonly FluxFlowPosition[] = [], placement: FluxFlowLabelPlacement = 'center', curvature: number = 0.25): FluxFlowPath {
+    if (waypoints.length > 0) {
+        return getSplinePath([source, ...waypoints, target], placement);
+    }
+
     const [snx, sny] = sideNormal(sourceSide);
     const [tnx, tny] = sideNormal(targetSide);
     const distance = Math.hypot(target.x - source.x, target.y - source.y);
@@ -182,20 +270,26 @@ export function getBezierPath(source: FluxFlowPosition, sourceSide: FluxFlowSide
     const c1 = {x: source.x + snx * offset, y: source.y + sny * offset};
     const c2 = {x: target.x + tnx * offset, y: target.y + tny * offset};
 
+    // A single curve has no legs to choose between, so its label always rides
+    // the middle of the curve itself.
     return {
         path: `M ${source.x} ${source.y} C ${c1.x} ${c1.y}, ${c2.x} ${c2.y}, ${target.x} ${target.y}`,
         labelX: 0.125 * source.x + 0.375 * c1.x + 0.375 * c2.x + 0.125 * target.x,
-        labelY: 0.125 * source.y + 0.375 * c1.y + 0.375 * c2.y + 0.125 * target.y
+        labelY: 0.125 * source.y + 0.375 * c1.y + 0.375 * c2.y + 0.125 * target.y,
+        fromDirection: sideNormal(sourceSide),
+        toDirection: sideNormal(targetSide)
     };
 }
 
-export function getSmoothStepPath(source: FluxFlowPosition, sourceSide: FluxFlowSide, target: FluxFlowPosition, targetSide: FluxFlowSide, radius: number = 15, offset: number = 15): FluxFlowPath {
+export function getSmoothStepPath(source: FluxFlowPosition, sourceSide: FluxFlowSide, target: FluxFlowPosition, targetSide: FluxFlowSide, waypoints: readonly FluxFlowPosition[] = [], placement: FluxFlowLabelPlacement = 'center', radius: number = 15, offset: number = 15): FluxFlowPath {
     const sourceStub = offsetPoint(source, sourceSide, offset);
     const targetStub = offsetPoint(target, targetSide, offset);
 
     const points: FluxFlowPosition[] = [source, sourceStub];
 
-    if (isVerticalSide(sourceSide) && isVerticalSide(targetSide)) {
+    if (waypoints.length > 0) {
+        points.push(...waypoints);
+    } else if (isVerticalSide(sourceSide) && isVerticalSide(targetSide)) {
         const midY = (sourceStub.y + targetStub.y) / 2;
         points.push({x: sourceStub.x, y: midY}, {x: targetStub.x, y: midY});
     } else if (!isVerticalSide(sourceSide) && !isVerticalSide(targetSide)) {
@@ -209,11 +303,13 @@ export function getSmoothStepPath(source: FluxFlowPosition, sourceSide: FluxFlow
 
     points.push(targetStub, target);
 
-    const label = labelPoint(points, offset);
+    const label = labelPoint(points, placement, offset);
 
     return {
         path: roundedPath(points, radius),
         labelX: label.x,
-        labelY: label.y
+        labelY: label.y,
+        fromDirection: sideNormal(sourceSide),
+        toDirection: sideNormal(targetSide)
     };
 }

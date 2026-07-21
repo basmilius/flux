@@ -20,6 +20,10 @@ example=../code/flow/examples/deploy.vue
 example=../code/flow/examples/knowledge.vue
 :::
 
+::: example Branching on ports || A fraud check whose two outcomes each carry their own port, so a branch leaves the card at the answer it belongs to. Terminals open and close the run, and a note explains the manual step.
+example=../code/flow/examples/ports.vue
+:::
+
 ## Live flows
 
 Nothing about a card is read only. Because the body is plain markup, controls inside it keep working on the canvas, which lets a flow double as the control surface for the process it draws.
@@ -45,6 +49,9 @@ example=../code/flow/examples/running.vue
 - [Flow](./components/flow)
 - [Node](./components/node)
 - [Connection](./components/connection)
+- [Port](./components/port)
 - [Card](./components/card)
 - [Pill](./components/pill)
 - [Step](./components/step)
+- [Terminal](./components/terminal)
+- [Note](./components/note)

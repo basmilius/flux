@@ -35,6 +35,36 @@ export type FluxFlowAlign = 'start' | 'center' | 'end';
 
 export type FluxFlowConnectionType = 'bezier' | 'smoothstep' | 'straight';
 
+/**
+ * Where the label of a bent connector rides. `center` puts it halfway along the
+ * run, `first-leg` and `last-leg` put it on the middle of the leg leaving the
+ * source or entering the target, which is how two branches out of the same node
+ * keep their labels apart instead of stacking them on the leg they share.
+ */
+export type FluxFlowLabelPlacement = 'center' | 'first-leg' | 'last-leg';
+
+/**
+ * A `FluxFlowPort` signing itself up with the node that contains it. The node
+ * measures the element and republishes it as a `FluxFlowPortRecord`.
+ */
+export type FluxFlowPortRegistration = {
+    readonly id: string;
+    readonly element: Readonly<Ref<HTMLElement | null>>;
+    readonly side?: FluxFlowSide;
+};
+
+/**
+ * A named point on a node. `offset` is the centre of the port relative to the
+ * node's top-left, in the node's own layout pixels; it fixes where along a side
+ * a connector lands. `side` names the edge it lands on, or is left out to take
+ * the edge the port sits closest to.
+ */
+export type FluxFlowPortRecord = {
+    readonly id: string;
+    readonly offset: FluxFlowPosition;
+    readonly side?: FluxFlowSide;
+};
+
 export type FluxFlowNodeRecord = {
     readonly id: string;
     readonly position: Readonly<Ref<FluxFlowPosition>>;
@@ -47,6 +77,15 @@ export type FluxFlowNodeRecord = {
      * guess at where an icon sits.
      */
     readonly anchor: Readonly<Ref<FluxFlowPosition | null>>;
+    /**
+     * The measured `FluxFlowPort` elements inside the node, keyed by their id.
+     */
+    readonly ports: Readonly<Ref<ReadonlyMap<string, FluxFlowPortRecord>>>;
+};
+
+export type FluxFlowNodeContext = {
+    registerPort(port: FluxFlowPortRegistration): void;
+    unregisterPort(id: string): void;
 };
 
 export type FluxFlowMarker = 'arrow' | 'bar' | 'chevron' | 'diamond' | 'dot' | 'square' | 'none';
@@ -66,6 +105,12 @@ export type FluxFlowEdgeSpec = {
     readonly fromY: number;
     readonly toX: number;
     readonly toY: number;
+    /**
+     * The points the connector is routed through, in world coordinates. The
+     * canvas sizes itself on these too, so a connector that swings wide of
+     * every node is not clipped away.
+     */
+    readonly waypoints: readonly FluxFlowPosition[];
     readonly styleVars: Record<string, string>;
     readonly animated: boolean;
     readonly dashed: boolean;
@@ -112,3 +157,4 @@ export type FluxFlowController = {
 };
 
 export const FluxFlowInjectionKey: InjectionKey<FluxFlowController> = Symbol('flux.flow');
+export const FluxFlowNodeInjectionKey: InjectionKey<FluxFlowNodeContext> = Symbol('flux.flow.node');
