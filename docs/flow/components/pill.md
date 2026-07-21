@@ -14,6 +14,11 @@ props:
         description: The tint of the leading icon.
         type: FluxColor
         optional: true
+
+    -   name: isLoading
+        description: Replaces the leading icon with a spinner in the same tinted tile, for a node that is currently running.
+        type: boolean
+        optional: true
 ---
 
 # Pill
@@ -30,6 +35,10 @@ render=../../code/flow/components/pill/preview.vue
 
 ::: example In a flow || A pill starts the flow and connects to the rest of the canvas like any other node.
 example=../../code/flow/components/pill/flow.vue
+:::
+
+::: example Loading || Set `isLoading` to swap the leading icon for a spinner in the same tinted tile. A chain of pills walks itself: the running stage spins, finished ones flip to a check.
+example=../../code/flow/components/pill/loading.vue
 :::
 
 ## Used components

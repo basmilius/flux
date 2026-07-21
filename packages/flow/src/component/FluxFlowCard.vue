@@ -5,12 +5,10 @@
             :title="effectiveTitle"
             :subtitle="subtitle">
             <template #before>
-                <FluxBoxedIcon
-                    data-flow-anchor
-                    rounded
+                <FluxFlowIcon
                     :color="effectiveColor"
                     :name="effectiveIcon"
-                    :size="30"/>
+                    :is-loading="isLoading"/>
             </template>
         </FluxPaneHeader>
 
@@ -36,9 +34,10 @@
     lang="ts"
     setup>
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
-    import { FluxBoxedIcon, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader } from '@flux-ui/components';
+    import { FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader } from '@flux-ui/components';
     import { clsx } from 'clsx';
     import { computed } from 'vue';
+    import FluxFlowIcon from './FluxFlowIcon.vue';
     import $style from '~flux/flow/css/component/FlowCard.module.scss';
 
     const props = defineProps<{
@@ -48,6 +47,7 @@
         readonly icon?: FluxIconName;
         readonly color?: FluxColor;
         readonly active?: boolean;
+        readonly isLoading?: boolean;
         readonly variant?: 'default' | 'trigger' | 'condition' | 'action';
     }>();
 

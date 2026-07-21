@@ -1,0 +1,34 @@
+// A loading node keeps the exact 30x30 footprint of the boxed icon it replaces,
+// so the node's cached [data-flow-anchor] measurement stays valid. The element
+// selector outranks the spinner's own 1em sizing regardless of stylesheet order.
+svg.flowIconSpinner {
+    --value: currentColor;
+    --track: rgb(from currentColor r g b / .1);
+
+    flex: 0 0 auto;
+    box-sizing: border-box;
+    height: 30px;
+    width: 30px;
+    padding: 6px;
+    background: var(--surface);
+    background-clip: padding-box;
+    border: 1px solid var(--surface-stroke-out);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-sm);
+    color: var(--foreground);
+
+    &[data-color='gray'] {
+        background: var(--gray-100);
+        border-color: transparent;
+        box-shadow: none;
+    }
+
+    @each $-color in (primary, danger, info, success, warning) {
+        &[data-color='#{$-color}'] {
+            background: var(--#{$-color}-100);
+            border-color: transparent;
+            box-shadow: none;
+            color: var(--#{$-color}-900);
+        }
+    }
+}

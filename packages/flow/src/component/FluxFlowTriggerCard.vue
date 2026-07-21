@@ -1,6 +1,6 @@
 <template>
     <FluxFlowCard
-        :="{title, subtitle, label, icon, color, active}"
+        :="{title, subtitle, label, icon, color, active, isLoading}"
         variant="trigger">
         <template
             v-for="slot of forwardedSlots"
@@ -24,6 +24,7 @@
         readonly icon?: FluxIconName;
         readonly color?: FluxColor;
         readonly active?: boolean;
+        readonly isLoading?: boolean;
     }>();
 
     defineSlots<{

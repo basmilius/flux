@@ -36,6 +36,10 @@ example=../code/flow/examples/approval.vue
 example=../code/flow/examples/live.vue
 :::
 
+::: example Running pipeline || A nightly sync walks its own stages: the step that is busy carries a spinner in place of its icon, its connector fills while it runs, and a finished stage flips to a check and a Done badge.
+example=../code/flow/examples/running.vue
+:::
+
 ## Used components
 
 - [Flow](./components/flow)

@@ -1,11 +1,9 @@
 <template>
     <div :class="$style.flowPill">
-        <FluxBoxedIcon
-            data-flow-anchor
-            rounded
+        <FluxFlowIcon
             :color="color"
             :name="icon"
-            :size="30"/>
+            :is-loading="isLoading"/>
 
         <span>{{ label }}</span>
     </div>
@@ -15,12 +13,13 @@
     lang="ts"
     setup>
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
-    import { FluxBoxedIcon } from '@flux-ui/components';
+    import FluxFlowIcon from './FluxFlowIcon.vue';
     import $style from '~flux/flow/css/component/FlowPill.module.scss';
 
     defineProps<{
         readonly color?: FluxColor;
         readonly icon: FluxIconName;
         readonly label: string;
+        readonly isLoading?: boolean;
     }>();
 </script>

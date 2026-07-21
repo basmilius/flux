@@ -38,6 +38,11 @@ props:
         type: boolean
         optional: true
 
+    -   name: isLoading
+        description: Replaces the header icon with a spinner in the same tinted tile, for a step that is currently running.
+        type: boolean
+        optional: true
+
 slots:
     -   name: default
         description: The body of the card. Place plain text or any Flux component here, for example a FluxDescriptionList for compact key/value data.
@@ -96,6 +101,10 @@ example=../../code/flow/components/card/approval.vue
 
 ::: example Live progress || A FluxStatisticsMeter reflects a running job by animating its value while the card stays active.
 example=../../code/flow/components/card/progress.vue
+:::
+
+::: example Loading || Set `isLoading` to swap the type icon for a spinner in the same tinted tile, so a running step reads as busy without moving anything on the canvas.
+example=../../code/flow/components/card/loading.vue
 :::
 
 ## Used components
