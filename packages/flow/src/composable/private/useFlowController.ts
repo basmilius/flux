@@ -9,9 +9,10 @@ type FlowControllerOptions = {
     fitPadding(): number;
 };
 
-// How far past its own edge the world may be dragged before it refuses to move
+// How far past the viewport the world may be dragged before it refuses to move
 // any further. Without that slack the flow would stop dead the moment its last
-// card touches the viewport, which reads as a snag rather than as an edge.
+// card touches the viewport, which reads as a snag rather than as an edge, and
+// a flow smaller than its viewport could not be moved at all.
 const PAN_OVERSCROLL = 300;
 
 const clamp = (value: number, min: number, max: number): number => Math.min(Math.max(value, min), max);
@@ -81,7 +82,7 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
     }
 
     /**
-     * Pans, but never past the point where the world leaves the viewport, and
+     * Pans, but never so far that the world leaves the viewport behind, and
      * reports how far it actually moved. A wheel gesture uses that to hand the
      * scroll back to the page once the flow sits against its own edge.
      */
@@ -96,17 +97,19 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
         const view = viewport.value;
 
         const axis = (offset: number, delta: number, min: number, max: number, extent: number): number => {
-            // The room the world may travel through: from its far edge resting
-            // against the near edge of the viewport, to the other way around,
-            // plus the overscroll slack on either side.
-            const lower = extent - max * view.zoom - PAN_OVERSCROLL;
-            const upper = PAN_OVERSCROLL - min * view.zoom;
+            // The two positions where the world rests flush against the viewport:
+            // its own start against the viewport's start, and its end against the
+            // viewport's end. Whichever way round those two sit, the room between
+            // them plus the overscroll on either side is where the world may go,
+            // so a flow smaller than its viewport still has slack to move through.
+            const start = -min * view.zoom;
+            const end = extent - max * view.zoom;
 
-            if (lower > upper) {
-                return offset;
-            }
-
-            return clamp(offset + delta, lower, upper);
+            return clamp(
+                offset + delta,
+                Math.min(start, end) - PAN_OVERSCROLL,
+                Math.max(start, end) + PAN_OVERSCROLL
+            );
         };
 
         const x = axis(view.x, dx, box.minX, box.maxX, rect.width);

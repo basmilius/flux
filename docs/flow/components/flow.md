@@ -108,7 +108,7 @@ On an interactive canvas, controls inside a card (a toggle, a button, a link, a 
 :::
 
 ::: tip
-An interactive canvas pans up to 300px past its own edge and then stops. A two-finger scroll that runs into that edge hands the page its scroll back, so a flow embedded halfway down a page never traps it.
+An interactive canvas pans up to 300px past the viewport and then stops, so it always has room to move, even when the flow is smaller than its container. A two-finger scroll that runs into that edge hands the page its scroll back, so a flow embedded halfway down a page never traps it.
 :::
 
 For flows built out in full, from routing rules to a running deploy pipeline, see [Examples](../examples).
