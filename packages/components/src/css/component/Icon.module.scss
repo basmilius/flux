@@ -30,7 +30,7 @@
         font-size: 42px;
 
         .icon {
-            font-size: .45em;
+            font-size: .5em;
         }
     }
 }
@@ -69,6 +69,10 @@
     composes: iconBoxed;
 
     border: 0;
+}
+
+.isRounded {
+    border-radius: var(--radius-full);
 }
 
 .iconBoxedGray {

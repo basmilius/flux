@@ -35,7 +35,14 @@ export type FluxFlowNodeRecord = {
     readonly element: Readonly<Ref<HTMLElement | null>>;
 };
 
-export type FluxFlowMarkers = 'both' | 'from' | 'to' | 'none';
+export type FluxFlowMarker = 'arrow' | 'bar' | 'chevron' | 'diamond' | 'dot' | 'square' | 'none';
+
+/**
+ * How a marker is painted. `outline` shapes read as ports: a hole in the
+ * surface with a colored rim. `solid` shapes are filled arrow heads. `stroke`
+ * shapes are open lines that continue the connector.
+ */
+export type FluxFlowMarkerFill = 'outline' | 'solid' | 'stroke';
 
 export type FluxFlowEdgeSpec = {
     readonly path: string;
@@ -46,10 +53,13 @@ export type FluxFlowEdgeSpec = {
     readonly toX: number;
     readonly toY: number;
     readonly styleVars: Record<string, string>;
+    readonly animated: boolean;
     readonly dashed: boolean;
     readonly dotted: boolean;
-    readonly showFrom: boolean;
-    readonly showTo: boolean;
+    readonly fromMarkerPath: string;
+    readonly fromMarkerFill: FluxFlowMarkerFill;
+    readonly toMarkerPath: string;
+    readonly toMarkerFill: FluxFlowMarkerFill;
     readonly fromActive: boolean;
     readonly toActive: boolean;
     readonly hasProgress: boolean;

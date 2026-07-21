@@ -4,6 +4,10 @@ function center(position: FluxFlowPosition, size: FluxFlowSize): FluxFlowPositio
     return {x: position.x + size.width / 2, y: position.y + size.height / 2};
 }
 
+export function isVerticalSide(side: FluxFlowSide): boolean {
+    return side === 'top' || side === 'bottom';
+}
+
 export function anchorPoint(position: FluxFlowPosition, size: FluxFlowSize, side: FluxFlowSide): FluxFlowPosition {
     switch (side) {
         case 'top':

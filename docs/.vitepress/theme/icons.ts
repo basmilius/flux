@@ -33,6 +33,7 @@ export {
     faCheck,
     faCircleArrowUp,
     faCircleCheck,
+    faCircleDot,
     faCircleEllipsis,
     faCircleExclamation,
     faCircleInfo,

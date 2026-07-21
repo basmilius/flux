@@ -8,8 +8,8 @@
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { computed, getCurrentInstance, onBeforeUnmount } from 'vue';
     import { useFluxFlowInjection } from '~flux/flow/composable';
-    import type { FluxFlowConnectionType, FluxFlowEdgeSpec, FluxFlowMarkers, FluxFlowSide } from '~flux/flow/data';
-    import { anchorPoint, autoSides, getBezierPath, getSmoothStepPath, getStraightPath } from '~flux/flow/util';
+    import type { FluxFlowConnectionType, FluxFlowEdgeSpec, FluxFlowMarker, FluxFlowMarkerFill, FluxFlowPosition, FluxFlowSide } from '~flux/flow/data';
+    import { anchorPoint, autoSides, getBezierPath, getSmoothStepPath, getStraightPath, markerPath, offsetPoint, sideNormal } from '~flux/flow/util';
 
     const props = defineProps<{
         readonly from: string;
@@ -20,9 +20,11 @@
         readonly color?: FluxColor | string;
         readonly label?: string;
         readonly icon?: FluxIconName;
+        readonly animated?: boolean;
         readonly dashed?: boolean;
         readonly dotted?: boolean;
-        readonly markers?: FluxFlowMarkers;
+        readonly markerStart?: FluxFlowMarker;
+        readonly markerEnd?: FluxFlowMarker;
         readonly progressColor?: FluxColor | string;
         readonly progressValue?: number;
     }>();
@@ -38,10 +40,27 @@
         warning: true
     };
 
+    // Breathing room between a node and the connector touching it.
+    const NODE_GAP = 9;
+
+    // Keyed by FluxFlowMarker rather than a loose lookup, so a new marker is a
+    // compile error here until it declares how it is painted.
+    const MARKER_FILLS: Record<FluxFlowMarker, FluxFlowMarkerFill> = {
+        arrow: 'solid',
+        bar: 'stroke',
+        chevron: 'stroke',
+        diamond: 'outline',
+        dot: 'outline',
+        square: 'outline',
+        none: 'stroke'
+    };
+
     const uid = getCurrentInstance()!.uid;
     const controller = useFluxFlowInjection();
 
     const hasProgress = computed(() => props.progressValue !== undefined && props.progressValue !== null);
+    const markerStart = computed<FluxFlowMarker>(() => props.markerStart ?? 'dot');
+    const markerEnd = computed<FluxFlowMarker>(() => props.markerEnd ?? 'chevron');
 
     const geometry = computed(() => {
         const source = controller.getNode(props.from);
@@ -60,8 +79,10 @@
         const sourceSide = props.fromSide ?? autoSource;
         const targetSide = props.toSide ?? autoTarget;
 
-        const fromPoint = anchorPoint(sourcePosition, sourceSize, sourceSide);
-        const toPoint = anchorPoint(targetPosition, targetSize, targetSide);
+        // The endpoints sit a gap away from the node, so a line never touches the
+        // card it points at.
+        const fromPoint = offsetPoint(anchorPoint(sourcePosition, sourceSize, sourceSide), sourceSide, NODE_GAP);
+        const toPoint = offsetPoint(anchorPoint(targetPosition, targetSize, targetSide), targetSide, NODE_GAP);
 
         const type = props.type ?? 'smoothstep';
         const path = type === 'straight'
@@ -77,7 +98,11 @@
             fromX: fromPoint.x,
             fromY: fromPoint.y,
             toX: toPoint.x,
-            toY: toPoint.y
+            toY: toPoint.y,
+            // A straight connector rarely leaves along the side normal, so its
+            // markers follow the line itself instead.
+            fromMarkerPath: markerPath(markerStart.value, fromPoint, type === 'straight' ? unitVector(fromPoint, toPoint) : sideNormal(sourceSide)),
+            toMarkerPath: markerPath(markerEnd.value, toPoint, type === 'straight' ? unitVector(toPoint, fromPoint) : sideNormal(targetSide))
         };
     });
 
@@ -88,7 +113,6 @@
             return null;
         }
 
-        const markers = props.markers ?? 'both';
         const progress = props.progressValue ?? 0;
 
         return {
@@ -101,14 +125,17 @@
             toY: value.toY,
             styleVars: {
                 '--connection-color': resolveColor(props.color, 'var(--flow-line)'),
-                '--connection-marker': resolveColor(props.color, 'var(--gray-300)'),
+                '--connection-marker': resolveColor(props.color, 'var(--flow-line)'),
                 '--connection-progress-color': resolveColor(props.progressColor, 'var(--primary-500)'),
                 '--connection-progress': String(Math.min(Math.max(props.progressValue ?? 0, 0), 1))
             },
+            animated: !!props.animated,
             dashed: !!props.dashed,
             dotted: !!props.dotted,
-            showFrom: markers === 'both' || markers === 'from',
-            showTo: markers === 'both' || markers === 'to',
+            fromMarkerPath: value.fromMarkerPath,
+            fromMarkerFill: MARKER_FILLS[markerStart.value],
+            toMarkerPath: value.toMarkerPath,
+            toMarkerFill: MARKER_FILLS[markerEnd.value],
             fromActive: hasProgress.value && progress > 0,
             toActive: hasProgress.value && progress >= 1,
             hasProgress: hasProgress.value,
@@ -120,6 +147,12 @@
     controller.registerEdge({id: uid, spec});
 
     onBeforeUnmount(() => controller.unregisterEdge(uid));
+
+    function unitVector(from: FluxFlowPosition, to: FluxFlowPosition): readonly [number, number] {
+        const length = Math.hypot(to.x - from.x, to.y - from.y);
+
+        return length === 0 ? [0, 0] : [(to.x - from.x) / length, (to.y - from.y) / length];
+    }
 
     function resolveColor(value: string | undefined, fallback: string): string {
         return value ? (Object.hasOwn(FLUX_COLORS, value) ? `var(--${value}-500)` : value) : fallback;

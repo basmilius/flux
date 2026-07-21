@@ -11,6 +11,11 @@ props:
         type: FluxColor
         optional: true
 
+    -   name: rounded
+        description: Renders the box as a circle instead of a rounded square.
+        type: boolean
+        optional: true
+
     -   name: size
         description: The size of the icon.
         type: number
@@ -31,6 +36,10 @@ render=../code/components/boxed-icon/preview.vue
 
 ::: example Standalone
 example=../code/components/boxed-icon/standalone.vue
+:::
+
+::: example Rounded || Set `rounded` to draw the box as a circle.
+example=../code/components/boxed-icon/rounded.vue
 :::
 
 ::: example Pane

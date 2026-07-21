@@ -1,7 +1,7 @@
 <template>
     <FluxFlex
         :gap="48"
-        style="flex-wrap: wrap; align-items: flex-start; justify-content: center; padding: 42px 0 12px">
+        style="flex-wrap: wrap; align-items: flex-start; justify-content: center; padding: 12px 0">
         <FluxFlowTriggerCard title="Webhook Received">
             Fires whenever a request hits the endpoint.
         </FluxFlowTriggerCard>

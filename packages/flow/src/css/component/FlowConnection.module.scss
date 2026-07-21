@@ -20,7 +20,7 @@
     transition: stroke 360ms var(--swift-out), stroke-dasharray 360ms var(--swift-out);
 }
 
-.flowConnectionGroup.isHovered :is(.flowConnectionLine, .flowConnectionProgress) {
+.flowConnectionGroup.isHovered :is(.flowConnectionLine, .flowConnectionMarkerOutline, .flowConnectionMarkerStroke, .flowConnectionProgress) {
     stroke-width: 4px;
 }
 
@@ -32,14 +32,63 @@
     stroke-dasharray: 1 9;
 }
 
-.flowConnectionMarker {
+// One full pattern cycle per iteration, so the dashes travel towards the target
+// without the pattern ever visibly jumping.
+@keyframes flowConnectionDashed {
+    to {
+        stroke-dashoffset: -15px;
+    }
+}
+
+@keyframes flowConnectionDotted {
+    to {
+        stroke-dashoffset: -10px;
+    }
+}
+
+.flowConnectionLine.isDashed.isAnimated {
+    animation: flowConnectionDashed 750ms linear infinite;
+}
+
+.flowConnectionLine.isDotted.isAnimated {
+    animation: flowConnectionDotted 750ms linear infinite;
+}
+
+// A hollow port: the canvas shows through the shape, with a colored rim.
+.flowConnectionMarkerOutline {
     fill: var(--surface);
     stroke: var(--connection-marker);
     stroke-width: 2px;
+    stroke-linejoin: round;
     transition: fill 360ms var(--swift-out), stroke 360ms var(--swift-out);
 }
 
-.flowConnectionMarker.isActive {
+.flowConnectionMarkerOutline.isActive {
+    stroke: var(--connection-progress-color);
+}
+
+// A filled head, painted in the line's own color.
+.flowConnectionMarkerSolid {
+    fill: var(--connection-color);
+    stroke: none;
+    transition: fill 360ms var(--swift-out);
+}
+
+.flowConnectionMarkerSolid.isActive {
+    fill: var(--connection-progress-color);
+}
+
+// An open shape drawn with the same stroke as the line it caps.
+.flowConnectionMarkerStroke {
+    fill: none;
+    stroke: var(--connection-color);
+    stroke-width: 2px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 360ms var(--swift-out);
+}
+
+.flowConnectionMarkerStroke.isActive {
     stroke: var(--connection-progress-color);
 }
 
@@ -55,13 +104,28 @@
 
 @media (prefers-reduced-motion: reduce) {
     .flowConnectionLine,
-    .flowConnectionMarker,
+    .flowConnectionMarkerOutline,
+    .flowConnectionMarkerSolid,
+    .flowConnectionMarkerStroke,
     .flowConnectionProgress {
         transition: none;
     }
+
+    .flowConnectionLine.isAnimated {
+        animation: none;
+    }
 }
 
+// The badge is cut out of its own connector, so the line already ends flush
+// against it. A border would only draw an edge the canvas behind it cannot
+// match, so the label sits on a plain fill.
 .flowConnectionBadge {
     position: absolute;
+    // FluxBadge pulls itself onto a 24px text line with a negative block margin.
+    // Here it floats on a canvas, and that pull would offset it inside the hole
+    // cut for it, leaving more air below the badge than above.
+    margin: 0;
+    background: var(--gray-100);
+    border: 0;
     transform: translate(-50%, -50%);
 }

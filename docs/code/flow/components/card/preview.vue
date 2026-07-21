@@ -1,6 +1,6 @@
 <template>
     <Preview>
-        <FluxFlowActionCard title="Analyze Market" label="AI Agent" icon="robot" color="primary">
+        <FluxFlowActionCard title="Analyze Market" icon="robot" color="primary">
             Collects competitor insights and analyzes market trends.
 
             <template #footer>

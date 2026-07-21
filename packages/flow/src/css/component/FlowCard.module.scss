@@ -1,15 +1,3 @@
-.flowCard {
-    position: relative;
-    width: max-content;
-}
-
-.flowCardBadge {
-    position: absolute;
-    bottom: 100%;
-    left: 0;
-    margin-bottom: 9px;
-}
-
 .flowCardSurface {
     width: 300px;
     transition: border-color 240ms var(--swift-out), box-shadow 240ms var(--swift-out);
@@ -26,8 +14,24 @@
     }
 }
 
-.flowCardBody {
+// A card sits on a canvas next to its neighbours rather than in a page, so it
+// runs on tighter padding than a regular pane. Scoped under the surface to
+// outrank the pane's own single-class rules.
+.flowCardSurface .flowCardHeader {
+    padding: 15px 15px 0;
+
+    &:not(:has(+ .flowCardBody)) {
+        padding: 15px;
+    }
+}
+
+.flowCardSurface .flowCardBody {
     display: flex;
+    padding: 15px;
     flex-direction: column;
     gap: 9px;
+}
+
+.flowCardSurface .flowCardFooter {
+    padding: 15px;
 }

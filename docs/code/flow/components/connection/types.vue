@@ -1,5 +1,5 @@
 <template>
-    <FluxFlow :padding="45">
+    <FluxFlow :padding="21">
         <FluxFlowNode id="smooth-top" :x="0" :y="0">
             <FluxFlowCard title="Smoothstep"/>
         </FluxFlowNode>

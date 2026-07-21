@@ -1,5 +1,5 @@
 <template>
-    <FluxFlow :padding="45">
+    <FluxFlow :padding="21">
         <FluxFlowNode id="extract" :x="0" :y="0">
             <FluxFlowActionCard title="Extract" label="Running" icon="gauge" color="primary" active/>
         </FluxFlowNode>

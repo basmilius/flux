@@ -1,6 +1,6 @@
 <template>
     <Preview flush>
-        <FluxFlow :padding="45">
+        <FluxFlow :padding="21">
             <FluxFlowNode id="trigger" :x="165" :y="0">
                 <FluxFlowTriggerCard title="New Campaign Request">
                     Starts automatically when a marketing campaign brief is submitted.
@@ -12,7 +12,7 @@
             </FluxFlowNode>
 
             <FluxFlowNode id="analyze" :x="0" :y="330">
-                <FluxFlowActionCard title="Analyze Market" label="AI Agent" icon="robot" color="primary">
+                <FluxFlowActionCard title="Analyze Market" icon="robot" color="primary">
                     Collects competitor insights and analyzes market trends.
 
                     <template #footer>
@@ -23,7 +23,7 @@
             </FluxFlowNode>
 
             <FluxFlowNode id="draft" :x="330" :y="330">
-                <FluxFlowActionCard title="Draft Content" label="AI Agent" icon="wand-magic-sparkles" color="warning">
+                <FluxFlowActionCard title="Draft Content" icon="wand-magic-sparkles" color="warning">
                     Generates campaign copy variations from the strategy brief.
 
                     <template #footer>
@@ -34,11 +34,11 @@
             </FluxFlowNode>
 
             <FluxFlowNode id="send" :x="165" :y="680">
-                <FluxFlowActionCard title="Send Campaign" label="Send Email" icon="envelope" color="info">
+                <FluxFlowActionCard title="Send Campaign" icon="envelope" color="info">
                     Delivers the finished campaign to the marketing distribution list.
 
                     <template #footer>
-                        <FluxTag icon="envelope" label="Email"/>
+                        <FluxTag icon="envelope"/>
                     </template>
                 </FluxFlowActionCard>
             </FluxFlowNode>

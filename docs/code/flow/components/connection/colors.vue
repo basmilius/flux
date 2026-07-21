@@ -1,22 +1,22 @@
 <template>
-    <FluxFlow :padding="45">
-        <FluxFlowNode id="dispatch" :x="330" :y="0">
+    <FluxFlow :padding="21">
+        <FluxFlowNode id="dispatch" :x="390" :y="0">
             <FluxFlowCard title="Dispatch"/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="email" :x="0" :y="280">
+        <FluxFlowNode id="email" :x="0" :y="300">
             <FluxFlowCard title="Email"/>
         </FluxFlowNode>
-        <FluxFlowNode id="sms" :x="330" :y="280">
+        <FluxFlowNode id="sms" :x="390" :y="300">
             <FluxFlowCard title="SMS"/>
         </FluxFlowNode>
-        <FluxFlowNode id="push" :x="660" :y="280">
+        <FluxFlowNode id="push" :x="780" :y="300">
             <FluxFlowCard title="Push"/>
         </FluxFlowNode>
 
-        <FluxFlowConnection from="dispatch" to="email" color="info"/>
-        <FluxFlowConnection from="dispatch" to="sms" color="success"/>
-        <FluxFlowConnection from="dispatch" to="push" color="danger"/>
+        <FluxFlowConnection from="dispatch" to="email" from-side="bottom" to-side="top" color="info"/>
+        <FluxFlowConnection from="dispatch" to="sms" from-side="bottom" to-side="top" color="success"/>
+        <FluxFlowConnection from="dispatch" to="push" from-side="bottom" to-side="top" color="danger"/>
     </FluxFlow>
 </template>
 

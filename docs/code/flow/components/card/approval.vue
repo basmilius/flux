@@ -1,9 +1,8 @@
 <template>
-    <div style="display: flex; justify-content: center; padding: 42px 0 12px">
+    <div style="display: flex; justify-content: center; padding: 12px 0">
         <FluxFlowCard
             title="Manager approval"
             subtitle="Expense over € 500"
-            :label="approved ? 'Approved' : 'Awaiting'"
             :icon="approved ? 'circle-check' : 'hourglass-clock'"
             :color="approved ? 'success' : 'warning'"
             :active="!approved">

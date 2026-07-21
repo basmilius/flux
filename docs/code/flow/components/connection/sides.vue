@@ -1,5 +1,5 @@
 <template>
-    <FluxFlow :padding="45">
+    <FluxFlow :padding="21">
         <FluxFlowNode id="check" :x="300" :y="90">
             <FluxFlowConditionCard title="Is Valid?"/>
         </FluxFlowNode>
@@ -9,7 +9,7 @@
         </FluxFlowNode>
 
         <FluxFlowNode id="reject" :x="300" :y="390">
-            <FluxFlowActionCard title="Reject" label="Action" icon="stopwatch" color="danger"/>
+            <FluxFlowActionCard title="Reject" icon="stopwatch" color="danger"/>
         </FluxFlowNode>
 
         <FluxFlowConnection from="check" to="process" from-side="right" to-side="left" label="yes"/>

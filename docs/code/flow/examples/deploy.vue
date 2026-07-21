@@ -1,5 +1,5 @@
 <template>
-    <FluxFlow :padding="45">
+    <FluxFlow :padding="21">
         <FluxFlowNode id="push" :x="0" :y="120">
             <FluxFlowTriggerCard title="Code Pushed" icon="code-branch">
                 Triggered on every push to the main branch.
@@ -7,7 +7,7 @@
         </FluxFlowNode>
 
         <FluxFlowNode id="build" :x="360" :y="120">
-            <FluxFlowActionCard title="Build Image" label="Job" icon="server" color="primary">
+            <FluxFlowActionCard title="Build Image" icon="server" color="primary">
                 <FluxDescriptionList>
                     <FluxDescriptionItem label="Runner">ubuntu-latest</FluxDescriptionItem>
                     <FluxDescriptionItem label="Duration">2m 14s</FluxDescriptionItem>
@@ -20,13 +20,13 @@
         </FluxFlowNode>
 
         <FluxFlowNode id="deploy" :x="1080" :y="0">
-            <FluxFlowActionCard title="Deploy" label="Release" icon="circle-check" color="success">
+            <FluxFlowActionCard title="Deploy" icon="circle-check" color="success">
                 Ships the image to production.
             </FluxFlowActionCard>
         </FluxFlowNode>
 
         <FluxFlowNode id="notify" :x="1080" :y="270">
-            <FluxFlowActionCard title="Notify Team" label="Alert" icon="envelope" color="danger">
+            <FluxFlowActionCard title="Notify Team" icon="envelope" color="danger">
                 Posts the failure to the on-call channel.
             </FluxFlowActionCard>
         </FluxFlowNode>

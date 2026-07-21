@@ -38,32 +38,53 @@
                 <slot/>
 
                 <svg :class="$style.flowEdges">
+                    <defs>
+                        <!-- Cuts the label out of its own connector, so the line ends
+                             flush against the badge instead of running behind it. -->
+                        <mask
+                            v-for="[id, label] of labelBoxes"
+                            :key="id"
+                            :id="`${uid}-${id}`"
+                            maskUnits="userSpaceOnUse">
+                            <rect
+                                x="-99999"
+                                y="-99999"
+                                width="199998"
+                                height="199998"
+                                fill="#fff"/>
+                            <rect
+                                :x="label.x"
+                                :y="label.y"
+                                :width="label.width"
+                                :height="label.height"
+                                :rx="label.height / 2"
+                                fill="#000"/>
+                        </mask>
+                    </defs>
+
                     <g
                         v-for="edge of orderedEdges"
                         :key="edge.id"
                         :class="clsx($edge.flowConnectionGroup, edge.id === hoveredEdge && $edge.isHovered)"
-                        :style="edge.spec.value?.styleVars">
+                        :style="edge.spec.value?.styleVars"
+                        :mask="labelBoxes.has(edge.id) ? `url(#${uid}-${edge.id})` : undefined">
                         <path
                             v-if="edge.spec.value"
-                            :class="clsx($edge.flowConnectionLine, edge.spec.value.dashed && $edge.isDashed, edge.spec.value.dotted && $edge.isDotted)"
+                            :class="clsx($edge.flowConnectionLine, edge.spec.value.animated && $edge.isAnimated, edge.spec.value.dashed && $edge.isDashed, edge.spec.value.dotted && $edge.isDotted)"
                             :d="edge.spec.value.path"/>
                         <path
                             v-if="edge.spec.value?.hasProgress"
                             :class="$edge.flowConnectionProgress"
                             :d="edge.spec.value.path"
                             pathLength="1"/>
-                        <circle
-                            v-if="edge.spec.value?.showFrom"
-                            :class="clsx($edge.flowConnectionMarker, edge.spec.value.fromActive && $edge.isActive)"
-                            :cx="edge.spec.value.fromX"
-                            :cy="edge.spec.value.fromY"
-                            r="5"/>
-                        <circle
-                            v-if="edge.spec.value?.showTo"
-                            :class="clsx($edge.flowConnectionMarker, edge.spec.value.toActive && $edge.isActive)"
-                            :cx="edge.spec.value.toX"
-                            :cy="edge.spec.value.toY"
-                            r="5"/>
+                        <path
+                            v-if="edge.spec.value?.fromMarkerPath"
+                            :class="clsx($edge[markerClass(edge.spec.value.fromMarkerFill)], edge.spec.value.fromActive && $edge.isActive)"
+                            :d="edge.spec.value.fromMarkerPath"/>
+                        <path
+                            v-if="edge.spec.value?.toMarkerPath"
+                            :class="clsx($edge[markerClass(edge.spec.value.toMarkerFill)], edge.spec.value.toActive && $edge.isActive)"
+                            :d="edge.spec.value.toMarkerPath"/>
                     </g>
                 </svg>
 
@@ -73,6 +94,7 @@
                         :key="edge.id">
                         <FluxBadge
                             v-if="edge.spec.value && (edge.spec.value.label || edge.spec.value.icon)"
+                            :ref="element => setLabelElement(edge.id, element)"
                             :class="$edge.flowConnectionBadge"
                             :style="{left: `${edge.spec.value.labelX}px`, top: `${edge.spec.value.labelY}px`}"
                             :icon="edge.spec.value.icon"
@@ -89,9 +111,9 @@
     setup>
     import { FluxBadge } from '@flux-ui/components';
     import { clsx } from 'clsx';
-    import { computed, type CSSProperties, onBeforeUnmount, onMounted, provide, ref, toRef, useTemplateRef, watch } from 'vue';
+    import { type ComponentPublicInstance, computed, type CSSProperties, onBeforeUnmount, onMounted, provide, ref, shallowRef, toRef, useId, useTemplateRef, watch } from 'vue';
     import { useFlowController } from '~flux/flow/composable/private';
-    import { FluxFlowInjectionKey, type FluxFlowViewport } from '~flux/flow/data';
+    import { FluxFlowInjectionKey, type FluxFlowMarkerFill, type FluxFlowPosition, type FluxFlowSize, type FluxFlowViewport } from '~flux/flow/data';
     import $style from '~flux/flow/css/component/Flow.module.scss';
     import $edge from '~flux/flow/css/component/FlowConnection.module.scss';
 
@@ -121,21 +143,25 @@
         default(): any;
     }>();
 
-    // Room reserved above the top row for a card's floating badge, so `padding`
-    // can default to 0 without clipping badges.
-    const BADGE_ROOM = 42;
+    // Air between a connector label and the two line ends it separates.
+    const LABEL_GAP = 6;
 
     // A press that lands on an interactive control inside a card must keep its own
     // click: starting a pan captures the pointer and would swallow it. Opt any other
     // content out of panning with a `data-nopan` attribute.
     const NO_PAN_SELECTOR = 'a, button, input, select, textarea, label, [role="button"], [role="switch"], [contenteditable], [data-nopan]';
 
+    const uid = useId();
     const clip = useTemplateRef<HTMLElement>('clip');
     const isPanning = ref(false);
     const isReady = ref(false);
     const hoveredEdge = ref<number | null>(null);
+    const labelSizes = shallowRef(new Map<number, FluxFlowSize>());
+
+    const labelElements = new Map<number, HTMLElement>();
 
     let lastPointer: { x: number; y: number } | null = null;
+    let labelObserver: ResizeObserver | null = null;
     let initialFrame = 0;
 
     const controller = useFlowController({
@@ -160,6 +186,28 @@
             ...edgeList.value.filter(edge => edge.id !== hoveredEdge.value),
             ...edgeList.value.filter(edge => edge.id === hoveredEdge.value)
         ];
+    });
+
+    // The hole each label punches in its own connector: its own box, widened so
+    // the line visibly breaks around it instead of ending under its edge.
+    const labelBoxes = computed(() => {
+        const boxes = new Map<number, FluxFlowSize & FluxFlowPosition>();
+
+        for (const edge of edgeList.value) {
+            const spec = edge.spec.value;
+            const size = labelSizes.value.get(edge.id);
+
+            if (spec && size) {
+                boxes.set(edge.id, {
+                    x: spec.labelX - size.width / 2 - LABEL_GAP,
+                    y: spec.labelY - size.height / 2 - LABEL_GAP,
+                    width: size.width + LABEL_GAP * 2,
+                    height: size.height + LABEL_GAP * 2
+                });
+            }
+        }
+
+        return boxes;
     });
 
     const flowStyle = computed<CSSProperties | undefined>(() => (interactive ? {height: '100%'} : undefined));
@@ -187,15 +235,12 @@
         }
 
         // Natural layout: the world sizes to its content (so the flow scrolls when
-        // it overflows) and starts at the top-left, offset by the padding. The top
-        // keeps room for a card badge.
-        const top = topPadding();
-
+        // it overflows) and starts at the top-left, offset by the padding.
         return {
             position: 'relative',
             width: `${Math.ceil(bounds.maxX - bounds.minX + padding * 2)}px`,
-            height: `${Math.ceil(bounds.maxY - bounds.minY + padding + top)}px`,
-            transform: `translate(${padding - bounds.minX}px, ${top - bounds.minY}px)`
+            height: `${Math.ceil(bounds.maxY - bounds.minY + padding * 2)}px`,
+            transform: `translate(${padding - bounds.minX}px, ${padding - bounds.minY}px)`
         };
     });
 
@@ -223,6 +268,13 @@
 
     onMounted(() => {
         controller.setClipElement(clip.value);
+        labelObserver = new ResizeObserver(measureLabels);
+
+        for (const element of labelElements.values()) {
+            labelObserver.observe(element);
+        }
+
+        measureLabels();
 
         // Natural layout drives its own view through worldStyle; only an interactive
         // viewport needs an initial view.
@@ -254,7 +306,7 @@
                 const bounds = controller.bounds.value;
 
                 if (bounds) {
-                    controller.setViewport({x: padding - bounds.minX, y: topPadding() - bounds.minY, zoom: 1});
+                    controller.setViewport({x: padding - bounds.minX, y: padding - bounds.minY, zoom: 1});
                 }
             }
 
@@ -262,10 +314,53 @@
         })));
     });
 
-    onBeforeUnmount(() => cancelAnimationFrame(initialFrame));
+    onBeforeUnmount(() => {
+        cancelAnimationFrame(initialFrame);
+        labelObserver?.disconnect();
+        labelObserver = null;
+    });
 
-    function topPadding(): number {
-        return Math.max(padding, BADGE_ROOM);
+    function markerClass(fill: FluxFlowMarkerFill): 'flowConnectionMarkerOutline' | 'flowConnectionMarkerSolid' | 'flowConnectionMarkerStroke' {
+        switch (fill) {
+            case 'outline':
+                return 'flowConnectionMarkerOutline';
+            case 'solid':
+                return 'flowConnectionMarkerSolid';
+            case 'stroke':
+                return 'flowConnectionMarkerStroke';
+        }
+    }
+
+    function setLabelElement(id: number, instance: Element | ComponentPublicInstance | null): void {
+        const element = (instance as ComponentPublicInstance | null)?.$el as HTMLElement | undefined;
+        const previous = labelElements.get(id);
+
+        if (previous === element) {
+            return;
+        }
+
+        if (previous) {
+            labelObserver?.unobserve(previous);
+        }
+
+        if (element) {
+            labelElements.set(id, element);
+            labelObserver?.observe(element);
+        } else {
+            labelElements.delete(id);
+        }
+
+        measureLabels();
+    }
+
+    function measureLabels(): void {
+        const sizes = new Map<number, FluxFlowSize>();
+
+        for (const [id, element] of labelElements) {
+            sizes.set(id, {width: element.offsetWidth, height: element.offsetHeight});
+        }
+
+        labelSizes.value = sizes;
     }
 
     function sameViewport(a: FluxFlowViewport | undefined, b: FluxFlowViewport | undefined): boolean {

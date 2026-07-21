@@ -1,11 +1,10 @@
 <template>
-    <div style="height: 480px">
-        <FluxFlow :padding="45" interactive background="dots">
+    <div style="height: 390px">
+        <FluxFlow :padding="21" interactive background="dots">
             <FluxFlowNode id="trigger" :x="0" :y="90">
                 <FluxFlowTriggerCard
                     title="New order"
                     subtitle="Shopify webhook"
-                    :label="enabled ? 'Live' : 'Paused'"
                     :color="enabled ? 'info' : 'gray'"
                     :active="enabled">
                     <FluxDescriptionList>
@@ -17,13 +16,13 @@
             </FluxFlowNode>
 
             <FluxFlowNode id="charge" :x="390" :y="0">
-                <FluxFlowActionCard title="Charge card" label="Payment" icon="money-bill" :color="enabled ? 'primary' : 'gray'">
+                <FluxFlowActionCard title="Charge card" icon="money-bill" :color="enabled ? 'primary' : 'gray'">
                     Captures the payment for the order total.
                 </FluxFlowActionCard>
             </FluxFlowNode>
 
             <FluxFlowNode id="email" :x="390" :y="270">
-                <FluxFlowActionCard title="Send receipt" label="Email" icon="envelope" :color="enabled ? 'info' : 'gray'">
+                <FluxFlowActionCard title="Send receipt" icon="envelope" :color="enabled ? 'info' : 'gray'">
                     Emails the customer their order confirmation.
                 </FluxFlowActionCard>
             </FluxFlowNode>

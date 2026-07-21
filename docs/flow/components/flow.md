@@ -24,7 +24,7 @@ props:
         optional: true
 
     -   name: padding
-        description: The padding, in pixels, kept around the content. Room for a card's badge is always reserved on top.
+        description: The padding, in pixels, kept around the content.
         type: number
         optional: true
         default: 0
@@ -81,20 +81,8 @@ Everything inside a flow, both `FluxFlowNode` and `FluxFlowConnection`, is writt
 
 ## Examples
 
-::: example Running a flow || Connectors carry a progress fill so you can visualize a flow while it runs. Bind `progress-value` to your own run state.
-example=../../code/flow/components/flow/run.vue
-:::
-
 ::: example Branching || A condition that fans out to two labeled branches. Branching is just more connectors, each referencing a node by id.
 example=../../code/flow/components/flow/branching.vue
-:::
-
-::: example Deploy pipeline || A real-world CI/CD flow: a push builds an image, tests gate the release, and the outcome branches to a deploy or an alert.
-example=../../code/flow/components/flow/deploy.vue
-:::
-
-::: example Knowledge graph || A richer, real-world flow: data sources feeding structured skills that compile into an output. It combines card rows, colored and dashed connectors, and endpoint markers.
-example=../../code/flow/components/flow/knowledge.vue
 :::
 
 ::: example Background || Opt into a `dots` or `grid` backdrop with the `background` prop; it is transparent by default.
@@ -109,21 +97,11 @@ example=../../code/flow/components/flow/interactive.vue
 example=../../code/flow/components/flow/start.vue
 :::
 
-::: example Enable and disable || Because cards are plain markup, they stay interactive on the canvas. A FluxToggle in the trigger card switches the automation on and off; the downstream cards and connectors follow its state.
-example=../../code/flow/components/flow/enable.vue
-:::
-
-::: example Approval step || A FluxSecondaryButton in a card footer resolves an approval, which activates the next node and fills its connector.
-example=../../code/flow/components/flow/approval.vue
-:::
-
-::: example Run on demand || A FluxPrimaryButton kicks off a run: a FluxStatisticsMeter animates the build while the connectors fill from stage to stage.
-example=../../code/flow/components/flow/live.vue
-:::
-
 ::: tip
 On an interactive canvas, controls inside a card (a toggle, a button, a link, a text field) keep working: a press that starts on one never begins a pan. Add `data-nopan` to any other element that should grab the pointer for itself instead of panning the canvas.
 :::
+
+For flows built out in full, from routing rules to a running deploy pipeline, see [Examples](../examples).
 
 ## Used components
 

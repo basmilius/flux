@@ -1,5 +1,5 @@
 <template>
-    <FluxFlow :padding="45">
+    <FluxFlow :padding="21">
         <FluxFlowNode id="slack" :x="0" :y="0">
             <FluxFlowCard title="Slack" subtitle="1,204 threads"/>
         </FluxFlowNode>

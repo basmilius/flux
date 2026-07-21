@@ -7,7 +7,8 @@
             color === 'danger' && $style.iconBoxedDanger,
             color === 'info' && $style.iconBoxedInfo,
             color === 'success' && $style.iconBoxedSuccess,
-            color === 'warning' && $style.iconBoxedWarning
+            color === 'warning' && $style.iconBoxedWarning,
+            rounded && $style.isRounded
         )"
         :style="{
             fontSize: size && `${size}px`
@@ -27,6 +28,7 @@
     defineProps<{
         readonly color?: FluxColor;
         readonly name: FluxIconName;
+        readonly rounded?: boolean;
         readonly size?: number;
     }>();
 </script>

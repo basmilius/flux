@@ -51,11 +51,22 @@ props:
         type: boolean
         optional: true
 
-    -   name: markers
-        description: Which endpoint port circles to show. Markers are on by default; opt out per side.
-        type: "'both' | 'from' | 'to' | 'none'"
+    -   name: animated
+        description: Travels the dashes or dots along the line, towards the target. Only affects a dashed or dotted connector.
+        type: boolean
         optional: true
-        default: both
+
+    -   name: markerStart
+        description: What the connector renders where it leaves the source node.
+        type: "'arrow' | 'bar' | 'chevron' | 'diamond' | 'dot' | 'square' | 'none'"
+        optional: true
+        default: dot
+
+    -   name: markerEnd
+        description: What the connector renders where it reaches the target node.
+        type: "'arrow' | 'bar' | 'chevron' | 'diamond' | 'dot' | 'square' | 'none'"
+        optional: true
+        default: chevron
 
     -   name: progressColor
         description: The color of the progress overlay. Accepts a FluxColor or any CSS color.
@@ -99,8 +110,20 @@ example=../../code/flow/components/connection/colors.vue
 example=../../code/flow/components/connection/sides.vue
 :::
 
-::: example Line styles || Connectors are solid by default; set `dashed` or `dotted` for other styles. Every connector shows port markers at its endpoints, which you can opt out of per side with `markers`.
+::: example Line styles || Connectors are solid by default; set `dashed` or `dotted` for other styles. A connector leaves its source with a port dot and reaches its target with an arrow head; `marker-start` and `marker-end` swap either for the other shape, or drop it entirely.
 example=../../code/flow/components/connection/dashed.vue
+:::
+
+::: example Animated || Add `animated` to a dashed or dotted connector to travel its pattern towards the target, which reads as work in flight. It respects reduced motion.
+example=../../code/flow/components/connection/animated.vue
+:::
+
+::: example Markers || Both ends carry their own marker. Give a two-way connector a head on each end, or strip them both for a bare line.
+example=../../code/flow/components/connection/markers.vue
+:::
+
+::: example Marker shapes || Six shapes to end a connector with. `chevron` and `arrow` point at the target; `dot`, `diamond` and `square` read as ports; `bar` caps the line off.
+example=../../code/flow/components/connection/marker-shapes.vue
 :::
 
 ## Used components

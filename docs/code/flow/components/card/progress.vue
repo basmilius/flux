@@ -1,6 +1,6 @@
 <template>
-    <div style="display: flex; justify-content: center; padding: 42px 0 12px">
-        <FluxFlowActionCard title="Build image" label="Job" icon="server" color="primary" active>
+    <div style="display: flex; justify-content: center; padding: 12px 0">
+        <FluxFlowActionCard title="Build image" icon="server" color="primary" active>
             <FluxStatisticsMeter
                 color="primary"
                 icon="gauge-high"

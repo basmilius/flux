@@ -3,12 +3,13 @@ outline: deep
 
 requiredIcons:
     - bolt
+    - circle-dot
     - code-branch
     - play
 
 props:
     -   name: title
-        description: The title shown in the header of the card.
+        description: The title shown in the header of the card. Without one the card falls back to the name of its type.
         type: string
         optional: true
 
@@ -18,17 +19,17 @@ props:
         optional: true
 
     -   name: label
-        description: The text of the floating type badge above the card. Without a label the badge is hidden.
+        description: The name of the card's type, used as the header text when no title is given.
         type: string
         optional: true
 
     -   name: icon
-        description: The icon shown in the badge.
+        description: The icon shown in the header. A card always renders one; each variant brings its own default.
         type: FluxIconName
         optional: true
 
     -   name: color
-        description: The color of the badge.
+        description: The tint of the header icon.
         type: FluxColor
         optional: true
 
@@ -47,7 +48,9 @@ slots:
 
 # Card
 
-`FluxFlowCard` is the node surface: a floating type badge, a header, a body and an optional footer. It is a plain element, so it renders inside a [Node](./node) or on its own.
+`FluxFlowCard` is the node surface: a header carrying the type icon and title, a body and an optional footer. It is a plain element, so it renders inside a [Node](./node) or on its own.
+
+A card always shows an icon, so every node on the canvas reads as a type at a glance. Each variant brings its own icon, tint and type name; `icon`, `color` and `label` override them.
 
 ::: render
 render=../../code/flow/components/card/preview.vue
@@ -57,11 +60,11 @@ render=../../code/flow/components/card/preview.vue
 
 ## Variants
 
-`FluxFlowTriggerCard`, `FluxFlowConditionCard` and `FluxFlowActionCard` are thin wrappers around `FluxFlowCard` that preset the badge for the three common automation node types. Each default is overridable with the `label`, `icon` and `color` props.
+`FluxFlowTriggerCard`, `FluxFlowConditionCard` and `FluxFlowActionCard` are thin wrappers around `FluxFlowCard` that preset the three common automation node types. Each default is overridable with the `label`, `icon` and `color` props.
 
-- **`FluxFlowTriggerCard`** — badge "Trigger", icon `bolt`, color `info`.
-- **`FluxFlowConditionCard`** — badge "Condition", icon `code-branch`, color `warning`.
-- **`FluxFlowActionCard`** — badge "Action", icon `play`, color `primary`.
+- **`FluxFlowTriggerCard`** — type "Trigger", icon `bolt`, color `info`.
+- **`FluxFlowConditionCard`** — type "Condition", icon `code-branch`, color `warning`.
+- **`FluxFlowActionCard`** — type "Action", icon `play`, color `primary`.
 
 ::: example Variants || The three node variants. Override `label`, `icon` and `color` to fit your own node types.
 example=../../code/flow/components/card/variants.vue

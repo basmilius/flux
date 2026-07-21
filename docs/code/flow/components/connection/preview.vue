@@ -1,6 +1,6 @@
 <template>
     <Preview flush>
-        <FluxFlow :padding="45">
+        <FluxFlow :padding="21">
             <FluxFlowNode id="source" :x="0" :y="0">
                 <FluxFlowTriggerCard title="Form Submitted"/>
             </FluxFlowNode>

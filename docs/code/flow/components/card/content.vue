@@ -1,6 +1,6 @@
 <template>
-    <div style="display: flex; justify-content: center; padding: 42px 0 12px">
-        <FluxFlowActionCard title="Generate Report" label="AI Agent" icon="brain" color="primary">
+    <div style="display: flex; justify-content: center; padding: 12px 0">
+        <FluxFlowActionCard title="Generate Report" icon="brain" color="primary">
             Summarizes the quarter's numbers into an executive brief.
 
             <FluxDescriptionList>
