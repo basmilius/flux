@@ -7,6 +7,12 @@ emits:
         type: [ FluxFlowViewport ]
 
 props:
+    -   name: align
+        description: Where an interactive viewport opens horizontally. `start` sits against the flow's left edge; `center` centres it when the container is wider than the flow, and falls back to `start` when it is not. Both open at the top.
+        type: "'start' | 'center'"
+        optional: true
+        default: start
+
     -   name: background
         description: The backdrop behind the flow. `dots` and `grid` pan with the content at a fixed size; `none` is transparent. Opt in by setting it.
         type: "'dots' | 'grid' | 'none'"

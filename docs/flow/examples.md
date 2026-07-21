@@ -12,6 +12,10 @@ The component pages each cover one building block in isolation. This page does t
 example=../code/flow/examples/routing.vue
 :::
 
+::: example Onboarding || A chain places the run of steps and wires it up, and a group frames the two that belong together. Only the branch that leaves the chain carries a coordinate of its own.
+example=../code/flow/examples/onboarding.vue
+:::
+
 ::: example Deploy pipeline || A CI/CD flow: a push builds an image, tests gate the release, and the outcome branches to a deploy or an alert. Colored and dashed connectors separate the happy path from the failure path.
 example=../code/flow/examples/deploy.vue
 :::
@@ -48,7 +52,9 @@ example=../code/flow/examples/running.vue
 
 - [Flow](./components/flow)
 - [Node](./components/node)
+- [Chain](./components/chain)
 - [Connection](./components/connection)
+- [Group](./components/group)
 - [Port](./components/port)
 - [Card](./components/card)
 - [Pill](./components/pill)

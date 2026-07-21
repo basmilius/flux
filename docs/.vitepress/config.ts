@@ -205,6 +205,7 @@ export default defineConfig({
                     items: [
                         {text: 'Flow', link: '/flow/components/flow'},
                         {text: 'Node', link: '/flow/components/node'},
+                        {text: 'Chain', link: '/flow/components/chain'},
                         {text: 'Connection', link: '/flow/components/connection'},
                         {text: 'Port', link: '/flow/components/port'},
                         {text: 'Card', link: '/flow/components/card'},
@@ -212,7 +213,17 @@ export default defineConfig({
                         {text: 'Step', link: '/flow/components/step'},
                         {text: 'Terminal', link: '/flow/components/terminal'},
                         {text: 'Junction', link: '/flow/components/junction'},
+                        {text: 'Gate', link: '/flow/components/gate'},
+                        {text: 'Group', link: '/flow/components/group'},
+                        {text: 'Lane', link: '/flow/components/lane'},
                         {text: 'Note', link: '/flow/components/note'}
+                    ]
+                },
+                {
+                    text: 'Composables',
+                    collapsed: false,
+                    items: [
+                        {text: 'useFlowLayout', link: '/flow/composables/useFlowLayout'}
                     ]
                 },
                 {

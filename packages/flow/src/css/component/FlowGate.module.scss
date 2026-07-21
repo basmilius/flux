@@ -1,0 +1,46 @@
+@use '~flux/components/css/mixin';
+
+// A diamond, drawn as a rotated square in a 60px box so its centre lands on a
+// whole pixel and its four points touch the sides a connector attaches to.
+.flowGate {
+    position: relative;
+    display: flex;
+    box-sizing: border-box;
+    width: 60px;
+    height: 60px;
+    align-items: center;
+    justify-content: center;
+
+    &::before {
+        content: "";
+
+        position: absolute;
+        display: block;
+        inset: 9px;
+        transform: rotate(45deg);
+        background: var(--surface);
+        background-clip: padding-box;
+        border: 2px solid var(--flow-line);
+        border-radius: var(--radius-half);
+        box-shadow: var(--shadow-sm);
+    }
+
+    :is(span) {
+        @include mixin.text(2xsmall);
+
+        position: relative;
+        color: var(--foreground-prominent);
+        font-weight: 700;
+        letter-spacing: 0.02em;
+    }
+
+    @each $-color in ("gray", "primary", "danger", "info", "success", "warning") {
+        &[data-color="#{$-color}"]::before {
+            border-color: var(--#{$-color}-500);
+        }
+
+        &[data-color="#{$-color}"] :is(span) {
+            color: var(--#{$-color}-700);
+        }
+    }
+}

@@ -1,0 +1,56 @@
+@use '~flux/components/css/mixin';
+
+// A band across the canvas: a flat tinted field with a titled gutter at its
+// head. It only groups what happens to stand on it, so it carries no outline.
+.flowLane {
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    background: var(--gray-50);
+    border-radius: var(--radius);
+
+    @each $-color in (primary, danger, info, success, warning) {
+        &[data-color="#{$-color}"] {
+            background: var(--#{$-color}-50);
+        }
+    }
+}
+
+.flowLaneTitle {
+    @include mixin.text(small);
+
+    position: absolute;
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    background: var(--gray-100);
+    color: var(--foreground);
+    font-weight: 600;
+    white-space: nowrap;
+
+    @each $-color in (primary, danger, info, success, warning) {
+        [data-color="#{$-color}"] & {
+            background: var(--#{$-color}-100);
+            color: var(--#{$-color}-900);
+        }
+    }
+}
+
+.flowLane[data-orientation="row"] .flowLaneTitle {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    border-radius: var(--radius) 0 0 var(--radius);
+    writing-mode: vertical-rl;
+}
+
+.flowLane[data-orientation="column"] .flowLaneTitle {
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 30px;
+    border-radius: var(--radius) var(--radius) 0 0;
+}

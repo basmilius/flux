@@ -35,6 +35,13 @@
                     </template>
                 </svg>
 
+                <!-- The layer a FluxFlowGroup and a FluxFlowLane draw in, so a
+                     backdrop written between the nodes still renders behind
+                     every one of them. -->
+                <div
+                    ref="backdrop"
+                    :class="$style.flowBackdrop"/>
+
                 <slot/>
 
                 <svg :class="$style.flowEdges">
@@ -131,6 +138,7 @@
     const viewport = defineModel<FluxFlowViewport>('viewport');
 
     const {
+        align = 'start',
         background = 'none',
         interactive = false,
         start,
@@ -140,6 +148,7 @@
         zoomStep = 0.2,
         gridSize = 24
     } = defineProps<{
+        readonly align?: 'start' | 'center';
         readonly background?: 'dots' | 'grid' | 'none';
         readonly interactive?: boolean;
         readonly start?: string;
@@ -164,6 +173,7 @@
 
     const uid = useId();
     const clip = useTemplateRef<HTMLElement>('clip');
+    const backdrop = useTemplateRef<HTMLElement>('backdrop');
     const isPanning = ref(false);
     const isReady = ref(false);
     const hoveredEdge = ref<number | null>(null);
@@ -279,6 +289,7 @@
 
     onMounted(() => {
         controller.setClipElement(clip.value);
+        controller.setBackdropElement(backdrop.value);
         labelObserver = new ResizeObserver(measureLabels);
 
         for (const element of labelElements.values()) {
@@ -313,11 +324,18 @@
                     zoom: 1
                 });
             } else {
-                // Start at 100% zoom, aligned to the flow's top-left start point.
+                // Start at 100% zoom, at the top of the flow: aligned to its left
+                // edge, or centred horizontally when there is room to spare.
                 const bounds = controller.bounds.value;
 
                 if (bounds) {
-                    controller.setViewport({x: padding - bounds.minX, y: padding - bounds.minY, zoom: 1});
+                    const spare = rect ? rect.width - (bounds.maxX - bounds.minX) : 0;
+
+                    controller.setViewport({
+                        x: (align === 'center' ? Math.max(spare / 2, padding) : padding) - bounds.minX,
+                        y: padding - bounds.minY,
+                        zoom: 1
+                    });
                 }
             }
 

@@ -1,5 +1,5 @@
-import { computed, type Ref, shallowReactive, shallowRef } from 'vue';
-import type { FluxFlowBounds, FluxFlowController, FluxFlowEdgeRecord, FluxFlowNodeRecord, FluxFlowPosition, FluxFlowViewport } from '~flux/flow/data';
+import { computed, type ComputedRef, type Ref, shallowReactive, shallowRef } from 'vue';
+import type { FluxFlowBounds, FluxFlowBoxRecord, FluxFlowController, FluxFlowEdgeRecord, FluxFlowNodeRecord, FluxFlowPosition, FluxFlowViewport } from '~flux/flow/data';
 
 type FlowControllerOptions = {
     readonly isStatic: Readonly<Ref<boolean>>;
@@ -11,10 +11,31 @@ type FlowControllerOptions = {
 
 const clamp = (value: number, min: number, max: number): number => Math.min(Math.max(value, min), max);
 
+const sameBounds = (a: FluxFlowBounds | null, b: FluxFlowBounds | null): boolean => a === b
+    || (!!a && !!b && a.minX === b.minX && a.minY === b.minY && a.maxX === b.maxX && a.maxY === b.maxY);
+
+/**
+ * A box measured from props is rebuilt on every render, equal but not the same
+ * object. Handing the previous one back keeps the world from re-rendering on a
+ * box that never moved, which would otherwise measure and render forever.
+ */
+function stableBounds(measure: () => FluxFlowBounds | null): ComputedRef<FluxFlowBounds | null> {
+    let previous: FluxFlowBounds | null = null;
+
+    return computed(() => {
+        const next = measure();
+        previous = sameBounds(previous, next) ? previous : next;
+
+        return previous;
+    });
+}
+
 export default function useFlowController(options: FlowControllerOptions): FluxFlowController {
     const nodes = shallowReactive(new Map<string, FluxFlowNodeRecord>());
     const edges = shallowReactive(new Map<number, FluxFlowEdgeRecord>());
+    const boxes = shallowReactive(new Map<number, FluxFlowBoxRecord>());
     const clipElement = shallowRef<HTMLElement | null>(null);
+    const backdropElement = shallowRef<HTMLElement | null>(null);
     const viewport = shallowRef<FluxFlowViewport>({x: 0, y: 0, zoom: 1});
 
     function getRect(): DOMRect | null {
@@ -84,7 +105,7 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
         zoomAt(centerX, centerY, factor);
     }
 
-    const bounds = computed<FluxFlowBounds | null>(() => {
+    const nodeBounds = stableBounds(() => {
         if (nodes.size === 0) {
             return null;
         }
@@ -103,6 +124,12 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
             maxY = Math.max(maxY, y + height);
         }
 
+        return {minX, minY, maxX, maxY};
+    });
+
+    const bounds = stableBounds(() => {
+        let {minX, minY, maxX, maxY} = nodeBounds.value ?? {minX: Infinity, minY: Infinity, maxX: -Infinity, maxY: -Infinity};
+
         // A routed connector may swing wide of every node, so its waypoints
         // stretch the world too instead of being clipped off it.
         for (const edge of edges.values()) {
@@ -114,7 +141,20 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
             }
         }
 
-        return {minX, minY, maxX, maxY};
+        // The same for a group frame or a lane band: it is drawn behind the
+        // nodes, but it still belongs to the world.
+        for (const box of boxes.values()) {
+            const value = box.bounds.value;
+
+            if (value) {
+                minX = Math.min(minX, value.minX);
+                minY = Math.min(minY, value.minY);
+                maxX = Math.max(maxX, value.maxX);
+                maxY = Math.max(maxY, value.maxY);
+            }
+        }
+
+        return Number.isFinite(minX) ? {minX, minY, maxX, maxY} : null;
     });
 
     function centerBounds(rect: DOMRect, box: FluxFlowBounds, zoom: number): void {
@@ -174,14 +214,20 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
         isStatic: options.isStatic,
         nodes,
         edges,
+        boxes,
         bounds,
+        nodeBounds,
         clipElement,
+        backdropElement,
         registerNode: record => void nodes.set(record.id, record),
         unregisterNode: id => void nodes.delete(id),
         getNode: id => nodes.get(id),
         registerEdge: record => void edges.set(record.id, record),
         unregisterEdge: id => void edges.delete(id),
+        registerBox: record => void boxes.set(record.id, record),
+        unregisterBox: id => void boxes.delete(id),
         setClipElement: element => void (clipElement.value = element),
+        setBackdropElement: element => void (backdropElement.value = element),
         screenToFlow,
         flowToScreen,
         panBy,

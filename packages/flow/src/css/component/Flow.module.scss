@@ -55,6 +55,16 @@
     transform-origin: 0 0;
 }
 
+// Group frames and lane bands, below the nodes (z-index 1) and above the
+// canvas backdrop.
+.flowBackdrop {
+    position: absolute;
+    display: block;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
 // Hover hit-testing sits below the nodes (z-index 1) so connectors can never
 // steal a pointer press meant for interactive card content.
 .flowEdgesHit {

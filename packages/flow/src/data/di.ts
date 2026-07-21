@@ -131,19 +131,45 @@ export type FluxFlowEdgeRecord = {
     readonly spec: Readonly<Ref<FluxFlowEdgeSpec | null>>;
 };
 
+/**
+ * A rectangle drawn behind the nodes, such as a `FluxFlowGroup` frame or a
+ * `FluxFlowLane` band. It only contributes to the world it is drawn in: the
+ * canvas sizes itself on it, but nothing anchors to it.
+ */
+export type FluxFlowBoxRecord = {
+    readonly id: number;
+    readonly bounds: Readonly<Ref<FluxFlowBounds | null>>;
+};
+
 export type FluxFlowController = {
     readonly viewport: Ref<FluxFlowViewport>;
     readonly isStatic: Readonly<Ref<boolean>>;
     readonly nodes: ShallowReactive<Map<string, FluxFlowNodeRecord>>;
     readonly edges: ShallowReactive<Map<number, FluxFlowEdgeRecord>>;
+    readonly boxes: ShallowReactive<Map<number, FluxFlowBoxRecord>>;
     readonly bounds: Readonly<Ref<FluxFlowBounds | null>>;
+    /**
+     * The box around the nodes alone. A backdrop that spans the flow, such as a
+     * lane, measures itself against this rather than against `bounds`, which
+     * counts the backdrops themselves.
+     */
+    readonly nodeBounds: Readonly<Ref<FluxFlowBounds | null>>;
     readonly clipElement: Readonly<Ref<HTMLElement | null>>;
+    /**
+     * The layer behind the nodes. A `FluxFlowGroup` and a `FluxFlowLane`
+     * teleport their rectangle into it, so a backdrop written between the nodes
+     * still renders underneath every one of them.
+     */
+    readonly backdropElement: Readonly<Ref<HTMLElement | null>>;
     registerNode(record: FluxFlowNodeRecord): void;
     unregisterNode(id: string): void;
     getNode(id: string): FluxFlowNodeRecord | undefined;
     registerEdge(record: FluxFlowEdgeRecord): void;
     unregisterEdge(id: number): void;
+    registerBox(record: FluxFlowBoxRecord): void;
+    unregisterBox(id: number): void;
     setClipElement(element: HTMLElement | null): void;
+    setBackdropElement(element: HTMLElement | null): void;
     screenToFlow(clientX: number, clientY: number): FluxFlowPosition;
     flowToScreen(x: number, y: number): FluxFlowPosition;
     panBy(dx: number, dy: number): void;
@@ -156,5 +182,27 @@ export type FluxFlowController = {
     setViewport(viewport: FluxFlowViewport): void;
 };
 
+export type FluxFlowDirection = 'horizontal' | 'vertical';
+
+/**
+ * A node inside a `FluxFlowChain`. It publishes its own measured size, the
+ * chain hands back the position it lays out for it.
+ */
+export type FluxFlowChainLink = {
+    readonly id: Readonly<Ref<string>>;
+    readonly size: Readonly<Ref<FluxFlowSize>>;
+};
+
+export type FluxFlowChainContext = {
+    /**
+     * The position the chain lays out for one of its links, or `null` while the
+     * link is unknown to it.
+     */
+    positionOf(id: string): FluxFlowPosition | null;
+    registerLink(link: FluxFlowChainLink): void;
+    unregisterLink(link: FluxFlowChainLink): void;
+};
+
 export const FluxFlowInjectionKey: InjectionKey<FluxFlowController> = Symbol('flux.flow');
 export const FluxFlowNodeInjectionKey: InjectionKey<FluxFlowNodeContext> = Symbol('flux.flow.node');
+export const FluxFlowChainInjectionKey: InjectionKey<FluxFlowChainContext> = Symbol('flux.flow.chain');

@@ -1,0 +1,47 @@
+@use '~flux/components/css/mixin';
+
+// A frame around a set of nodes rather than a node of its own: a tinted field
+// with a dashed outline, so it never competes with the cards standing on it.
+.flowGroup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    background: var(--gray-50);
+    border: 1px dashed var(--gray-300);
+    border-radius: var(--radius-double);
+
+    @each $-color in (primary, danger, info, success, warning) {
+        &[data-color="#{$-color}"] {
+            background: var(--#{$-color}-50);
+            border-color: var(--#{$-color}-300);
+        }
+    }
+}
+
+// A label on the surface rather than loose text on the tint: one 24px text line
+// with air around it. It is set in by the group's own padding, so its left edge
+// lines up with the cards standing inside the frame.
+.flowGroupTitle {
+    @include mixin.text(default);
+
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    height: 30px;
+    padding: 0 12px;
+    white-space: nowrap;
+    color: var(--foreground-prominent);
+    border: 1px solid var(--surface-stroke);
+    border-radius: var(--radius-half);
+    background: var(--surface);
+    font-weight: 600;
+
+    @each $-color in (primary, danger, info, success, warning) {
+        [data-color="#{$-color}"] & {
+            color: var(--#{$-color}-700);
+            border-color: var(--#{$-color}-300);
+        }
+    }
+}

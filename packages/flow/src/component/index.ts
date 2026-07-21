@@ -1,9 +1,13 @@
 export { default as FluxFlow } from './FluxFlow.vue';
 export { default as FluxFlowActionCard } from './FluxFlowActionCard.vue';
 export { default as FluxFlowCard } from './FluxFlowCard.vue';
+export { default as FluxFlowChain } from './FluxFlowChain.vue';
 export { default as FluxFlowConditionCard } from './FluxFlowConditionCard.vue';
 export { default as FluxFlowConnection } from './FluxFlowConnection.vue';
+export { default as FluxFlowGate } from './FluxFlowGate.vue';
+export { default as FluxFlowGroup } from './FluxFlowGroup.vue';
 export { default as FluxFlowJunction } from './FluxFlowJunction.vue';
+export { default as FluxFlowLane } from './FluxFlowLane.vue';
 export { default as FluxFlowNode } from './FluxFlowNode.vue';
 export { default as FluxFlowNote } from './FluxFlowNote.vue';
 export { default as FluxFlowPill } from './FluxFlowPill.vue';

@@ -2,7 +2,7 @@
     <div
         ref="el"
         :class="$style.flowNode"
-        :style="{transform: `translate(${x}px, ${y}px)`}">
+        :style="{transform: `translate(${position.x}px, ${position.y}px)`}">
         <slot/>
     </div>
 </template>
@@ -10,15 +10,15 @@
 <script
     lang="ts"
     setup>
-    import { computed, onBeforeUnmount, onMounted, provide, shallowRef, useTemplateRef, watch } from 'vue';
+    import { computed, inject, onBeforeUnmount, onMounted, provide, shallowRef, toRef, useTemplateRef, watch } from 'vue';
     import { useFluxFlowInjection } from '~flux/flow/composable';
-    import { FluxFlowNodeInjectionKey, type FluxFlowPortRecord, type FluxFlowPortRegistration, type FluxFlowPosition, type FluxFlowSize } from '~flux/flow/data';
+    import { FluxFlowChainInjectionKey, type FluxFlowChainLink, FluxFlowNodeInjectionKey, type FluxFlowPortRecord, type FluxFlowPortRegistration, type FluxFlowPosition, type FluxFlowSize } from '~flux/flow/data';
     import $style from '~flux/flow/css/component/FlowNode.module.scss';
 
     const props = defineProps<{
         readonly id: string;
-        readonly x: number;
-        readonly y: number;
+        readonly x?: number;
+        readonly y?: number;
     }>();
 
     const el = useTemplateRef<HTMLElement>('el');
@@ -31,8 +31,23 @@
     let observer: ResizeObserver | null = null;
 
     const controller = useFluxFlowInjection();
+    const chain = inject(FluxFlowChainInjectionKey, null);
 
-    const position = computed(() => ({x: props.x, y: props.y}));
+    // A node that carries its own coordinates keeps them, chain or not, so a
+    // single link can be lifted out of the run without leaving the chain.
+    const link: FluxFlowChainLink | null = chain && props.x === undefined && props.y === undefined
+        ? {id: toRef(() => props.id), size}
+        : null;
+
+    const position = computed<FluxFlowPosition>(() => {
+        const placed = link ? chain?.positionOf(props.id) : null;
+
+        return placed ?? {x: props.x ?? 0, y: props.y ?? 0};
+    });
+
+    if (link) {
+        chain?.registerLink(link);
+    }
 
     provide(FluxFlowNodeInjectionKey, {
         registerPort(port: FluxFlowPortRegistration): void {
@@ -64,6 +79,10 @@
         observer?.disconnect();
         observer = null;
         controller.unregisterNode(props.id);
+
+        if (link) {
+            chain?.unregisterLink(link);
+        }
     });
 
     function measure(): void {
