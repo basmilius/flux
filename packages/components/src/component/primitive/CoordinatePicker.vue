@@ -31,7 +31,7 @@
     }>();
 
     const modelValue = defineModel<[number, number]>({
-        default: [0, 0]
+        required: true
     });
 
     const {
