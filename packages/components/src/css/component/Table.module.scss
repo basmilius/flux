@@ -124,44 +124,51 @@
 }
 
 .tableRowGray {
-    --table-row-fill: var(--gray-50);
-    --table-row-fill-hover: var(--gray-100);
+    --table-row-fill: var(--gray-25);
+    --table-row-fill-hover: var(--gray-50);
+    --table-row-foreground: var(--gray-800);
     --table-row-stroke: var(--gray-100);
 }
 
 .tableRowPrimary {
-    --table-row-fill: var(--primary-50);
-    --table-row-fill-hover: var(--primary-100);
+    --table-row-fill: var(--primary-25);
+    --table-row-fill-hover: var(--primary-50);
+    --table-row-foreground: var(--primary-800);
     --table-row-stroke: var(--primary-100);
 }
 
 .tableRowDanger {
-    --table-row-fill: var(--danger-50);
-    --table-row-fill-hover: var(--danger-100);
+    --table-row-fill: var(--danger-25);
+    --table-row-fill-hover: var(--danger-50);
+    --table-row-foreground: var(--danger-800);
     --table-row-stroke: var(--danger-100);
 }
 
 .tableRowInfo {
-    --table-row-fill: var(--info-50);
-    --table-row-fill-hover: var(--info-100);
+    --table-row-fill: var(--info-25);
+    --table-row-fill-hover: var(--info-50);
+    --table-row-foreground: var(--info-800);
     --table-row-stroke: var(--info-100);
 }
 
 .tableRowSuccess {
-    --table-row-fill: var(--success-50);
-    --table-row-fill-hover: var(--success-100);
+    --table-row-fill: var(--success-25);
+    --table-row-fill-hover: var(--success-50);
+    --table-row-foreground: var(--success-800);
     --table-row-stroke: var(--success-100);
 }
 
 .tableRowWarning {
-    --table-row-fill: var(--warning-50);
-    --table-row-fill-hover: var(--warning-100);
+    --table-row-fill: var(--warning-25);
+    --table-row-fill-hover: var(--warning-50);
+    --table-row-foreground: var(--warning-800);
     --table-row-stroke: var(--warning-100);
 }
 
 .tableBody .tableRow.isColored > .tableCell {
     background: var(--table-row-fill);
     border-color: var(--table-row-stroke);
+    color: var(--table-row-foreground);
 }
 
 // The separator below a row is drawn by the next row's top border, so every
@@ -190,9 +197,13 @@
     border-top-color: var(--warning-100);
 }
 
+.tableRow.isSelected {
+    --table-row-stroke: var(--primary-100);
+}
+
 .tableBody .tableRow.isSelected > .tableCell {
     background: var(--primary-50);
-    border-color: var(--primary-100);
+    border-color: var(--table-row-stroke);
 }
 
 .tableBody .tableRow.isSelected + .tableRow > .tableCell {
@@ -224,6 +235,14 @@
     .table.isHoverable .tableBody .tableRow.isSelected:has(:hover) > .tableCell:not(.hasRowspan),
     .table.isHoverable .tableBody .tableRow.isSelected:has(:focus-visible) > .tableCell:not(.hasRowspan) {
         background: var(--primary-50);
+    }
+
+    // The top border of a row is drawn by the row itself, but its color comes
+    // from the row above. While a row is highlighted it takes its own stroke,
+    // so the highlight is bounded by its own color instead of its neighbour's.
+    .table.isHoverable .tableBody .tableRow:has(:hover) > .tableCell:not(.hasRowspan),
+    .table.isHoverable .tableBody .tableRow:has(:focus-visible) > .tableCell:not(.hasRowspan) {
+        border-top-color: var(--table-row-stroke, var(--gray-100));
     }
 }
 
