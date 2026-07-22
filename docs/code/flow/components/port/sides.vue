@@ -8,7 +8,7 @@
                 </div>
 
                 <template #footer>
-                    <FluxTag icon="check" label="Cached"/>
+                    <FluxTag icon="circle-check" label="Cached"/>
                     <FluxFlowPort id="done" side="bottom" style="margin-left: auto"/>
                 </template>
             </FluxFlowActionCard>
@@ -22,8 +22,8 @@
             <FluxFlowActionCard title="Report the build" icon="envelope" color="info"/>
         </FluxFlowNode>
 
-        <FluxFlowConnection from="build" from-port="artifact" to="publish" label="nearest edge"/>
-        <FluxFlowConnection from="build" from-port="done" to="report" to-side="left" label="bottom"/>
+        <FluxFlowConnection from="build" from-port="artifact" to="publish" label="Nearest edge"/>
+        <FluxFlowConnection from="build" from-port="done" to="report" to-side="left" label="Bottom"/>
     </FluxFlow>
 </template>
 

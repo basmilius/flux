@@ -9,7 +9,7 @@
                 <FluxFlowActionCard title="Store Lead"/>
             </FluxFlowNode>
 
-            <FluxFlowConnection from="source" to="target" label="always"/>
+            <FluxFlowConnection from="source" to="target" label="Always"/>
         </FluxFlow>
     </Preview>
 </template>

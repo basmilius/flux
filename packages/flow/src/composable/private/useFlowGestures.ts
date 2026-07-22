@@ -1,4 +1,4 @@
-import { onBeforeUnmount, onMounted, type Ref, ref, type ShallowRef } from 'vue';
+import { onBeforeUnmount, onMounted, type Ref, ref, type ShallowRef, watchEffect } from 'vue';
 import type { FluxFlowController } from '~flux/flow/data';
 import { clamp } from '~flux/flow/util';
 
@@ -19,7 +19,6 @@ type FlowGesturesOptions = {
 
 type FlowGestures = {
     readonly isPanning: Readonly<Ref<boolean>>;
-    readonly isGesturing: Readonly<Ref<boolean>>;
     onPointerDown(event: PointerEvent): void;
     onPointerMove(event: PointerEvent): void;
     onPointerUp(event: PointerEvent): void;
@@ -56,6 +55,10 @@ export default function useFlowGestures(options: FlowGesturesOptions): FlowGestu
     let lastPointer: { x: number; y: number } | null = null;
     let gestureTimer = 0;
     let gestureScale = 1;
+
+    // A pan and a pinch both steer the viewport by hand, which is what the canvas
+    // reads to drop its animation and follow along instead.
+    watchEffect(() => controller.setTracking(isPanning.value || isGesturing.value));
 
     onMounted(() => {
         // Bound by hand: gesture events are WebKit-only, so Vue has no template
@@ -185,7 +188,6 @@ export default function useFlowGestures(options: FlowGesturesOptions): FlowGestu
 
     return {
         isPanning,
-        isGesturing,
         onPointerDown,
         onPointerMove,
         onPointerUp,

@@ -9,7 +9,7 @@
                 from="push"
                 to="build"
                 color="primary"
-                label="on main"/>
+                label="On main"/>
 
             <FluxFlowNode id="build">
                 <FluxFlowActionCard title="Build the image" icon="box"/>
@@ -30,7 +30,7 @@
             to="alert"
             from-side="right"
             color="danger"
-            label="build failed"/>
+            label="Build failed"/>
     </FluxFlow>
 </template>
 

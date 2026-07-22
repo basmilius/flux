@@ -10,6 +10,12 @@
                     :name="effectiveIcon"
                     :is-loading="isLoading"/>
             </template>
+
+            <template
+                v-if="$slots.header"
+                #after>
+                <slot name="header"/>
+            </template>
         </FluxPaneHeader>
 
         <FluxPaneBody
@@ -27,7 +33,7 @@
 </template>
 
 <script lang="ts">
-    export const SLOTS = ['default', 'footer'] as const;
+    export const SLOTS = ['default', 'footer', 'header'] as const;
 </script>
 
 <script
@@ -54,6 +60,7 @@
     defineSlots<{
         default(): any;
         footer(): any;
+        header(): any;
     }>();
 
     const VARIANT_DEFAULTS = {

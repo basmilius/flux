@@ -27,6 +27,11 @@ export type FluxFlowBounds = {
 export type FluxFlowSide = 'top' | 'right' | 'bottom' | 'left';
 
 /**
+ * The corner of the viewport a `FluxFlowPanel` hangs in.
+ */
+export type FluxFlowPanelPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+
+/**
  * Where along a side a connector attaches. `start` and `end` are meant in
  * reading direction: left and right on a horizontal side, top and bottom on a
  * vertical one.
@@ -149,6 +154,12 @@ export type FluxFlowController = {
      */
     readonly axis: Readonly<Ref<FluxFlowDirection | undefined>>;
     readonly isStatic: Readonly<Ref<boolean>>;
+    /**
+     * Whether the viewport is being driven live, by a pan, a trackpad gesture or
+     * a drag on the minimap. The canvas then follows the pointer instead of
+     * easing after it.
+     */
+    readonly isTracking: Readonly<Ref<boolean>>;
     readonly nodes: ShallowReactive<Map<string, FluxFlowNodeRecord>>;
     readonly edges: ShallowReactive<Map<number, FluxFlowEdgeRecord>>;
     readonly boxes: ShallowReactive<Map<number, FluxFlowBoxRecord>>;
@@ -166,6 +177,12 @@ export type FluxFlowController = {
      * still renders underneath every one of them.
      */
     readonly backdropElement: Readonly<Ref<HTMLElement | null>>;
+    /**
+     * The layer above the world. A `FluxFlowPanel` teleports itself into it, so
+     * what it holds stays pinned to the viewport instead of panning and zooming
+     * along with the nodes.
+     */
+    readonly overlayElement: Readonly<Ref<HTMLElement | null>>;
     registerNode(record: FluxFlowNodeRecord): void;
     unregisterNode(id: string): void;
     getNode(id: string): FluxFlowNodeRecord | undefined;
@@ -175,6 +192,8 @@ export type FluxFlowController = {
     unregisterBox(id: number): void;
     setClipElement(element: HTMLElement | null): void;
     setBackdropElement(element: HTMLElement | null): void;
+    setOverlayElement(element: HTMLElement | null): void;
+    setTracking(value: boolean): void;
     screenToFlow(clientX: number, clientY: number): FluxFlowPosition;
     flowToScreen(x: number, y: number): FluxFlowPosition;
     panBy(dx: number, dy: number): void;
@@ -197,24 +216,30 @@ export type FluxFlowController = {
 export type FluxFlowDirection = 'horizontal' | 'vertical';
 
 /**
- * A node inside a `FluxFlowChain`. It publishes its own measured size, the
- * chain hands back the position it lays out for it.
+ * A node inside something that places it, such as a `FluxFlowChain` or a
+ * `FluxFlowGraph`. It publishes its own measured size, and the placer hands back
+ * the position it lays out for it.
  */
-export type FluxFlowChainLink = {
+export type FluxFlowPlacementLink = {
     readonly id: Readonly<Ref<string>>;
     readonly size: Readonly<Ref<FluxFlowSize>>;
+    /**
+     * The node's own anchor, so a placer can line one node's icon up with
+     * another's rather than guess at where a connector will attach.
+     */
+    readonly anchor: Readonly<Ref<FluxFlowPosition | null>>;
 };
 
-export type FluxFlowChainContext = {
+export type FluxFlowPlacementContext = {
     /**
-     * The position the chain lays out for one of its links, or `null` while the
-     * link is unknown to it.
+     * The position laid out for one of the links, or `null` while the link is
+     * unknown.
      */
     positionOf(id: string): FluxFlowPosition | null;
-    registerLink(link: FluxFlowChainLink): void;
-    unregisterLink(link: FluxFlowChainLink): void;
+    registerLink(link: FluxFlowPlacementLink): void;
+    unregisterLink(link: FluxFlowPlacementLink): void;
 };
 
 export const FluxFlowInjectionKey: InjectionKey<FluxFlowController> = Symbol('flux.flow');
 export const FluxFlowNodeInjectionKey: InjectionKey<FluxFlowNodeContext> = Symbol('flux.flow.node');
-export const FluxFlowChainInjectionKey: InjectionKey<FluxFlowChainContext> = Symbol('flux.flow.chain');
+export const FluxFlowPlacementInjectionKey: InjectionKey<FluxFlowPlacementContext> = Symbol('flux.flow.placement');

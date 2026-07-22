@@ -23,7 +23,7 @@
                     <template #footer>
                         <FluxSecondaryButton
                             v-if="!approved"
-                            icon-leading="check"
+                            icon-leading="circle-check"
                             label="Approve"
                             @click="approved = true"/>
                         <FluxBadge

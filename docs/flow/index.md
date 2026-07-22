@@ -14,8 +14,9 @@ render=../code/flow/components/flow/preview.vue
 - **Opinionated cards.** A base `FluxFlowCard` plus `Trigger`, `Condition` and `Action` variants give you a Flux styled node surface in a single line, always headed by its type icon.
 - **Small nodes too.** A `FluxFlowPill` heads a flow with a single named trigger, a `FluxFlowTerminal` opens and closes it, a `FluxFlowStep` marks the steps running down its trunk, a `FluxFlowJunction` knots lines together and a `FluxFlowNote` annotates the canvas.
 - **Named branches.** A `FluxFlowPort` marks a point inside a card, so the branches of a condition leave it at the outcome they belong to, and a `FluxFlowGate` says out loud whether they meet on `and`, `or` or `xor`.
-- **Layout that is not yours to do by hand.** A `FluxFlowChain` places a run of steps and wires it up, `useFlowLayout` turns a branching graph into coordinates, and a `FluxFlowGroup` or a `FluxFlowLane` frames the part of the canvas that belongs together.
+- **Layout that is not yours to do by hand.** A `FluxFlowChain` places a run of steps and wires it up, a `FluxFlowGraph` does the same for a flow that forks and merges, `useFlowLayout` turns a branching graph into coordinates, and a `FluxFlowGroup` or a `FluxFlowLane` frames the part of the canvas that belongs together.
 - **Runnable.** Connectors accept a `progress-color` and `progress-value`, so you can visualize a flow while it runs.
 - **Read only viewport.** Drag to pan, `ctrl`/`cmd` + scroll to zoom, and the canvas fits its content on mount.
+- **Controls that stay put.** A `FluxFlowPanel` pins anything to a corner of the viewport, `FluxFlowControls` puts zoom, fit and fullscreen buttons there, and a `FluxFlowMinimap` maps the whole flow with the viewport drawn on it.
 
 Head straight for [Examples](./examples) to see complete flows, or start with [Flow](./components/flow) for the canvas itself.

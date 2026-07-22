@@ -33,8 +33,8 @@
 
         <FluxFlowConnection from="push" to="build" from-side="right" to-side="left"/>
         <FluxFlowConnection from="build" to="test" from-side="right" to-side="left"/>
-        <FluxFlowConnection from="test" to="deploy" from-side="right" to-side="left" label="pass" color="success"/>
-        <FluxFlowConnection from="test" to="notify" from-side="right" to-side="left" label="fail" color="danger" dashed/>
+        <FluxFlowConnection from="test" to="deploy" from-side="right" to-side="left" label="Pass" color="success"/>
+        <FluxFlowConnection from="test" to="notify" from-side="right" to-side="left" label="Fail" color="danger" dashed/>
     </FluxFlow>
 </template>
 

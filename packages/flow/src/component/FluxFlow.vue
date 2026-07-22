@@ -3,6 +3,8 @@
         ref="clip"
         :class="clsx($style.flow, interactive && $style.isInteractive, isPanning && $style.isPanning)"
         :style="flowStyle"
+        :tabindex="interactive ? 0 : undefined"
+        @keydown="onKeyDown"
         @pointerdown="onPointerDown"
         @pointermove="onPointerMove"
         @pointerup="onPointerUp"
@@ -112,6 +114,12 @@
                 </div>
             </div>
         </div>
+
+        <!-- The layer a FluxFlowPanel draws in: above the world, but outside it,
+             so what it holds stays put while the flow pans and zooms below. -->
+        <div
+            ref="overlay"
+            :class="$style.flowOverlay"/>
     </div>
 </template>
 
@@ -121,7 +129,7 @@
     import { FluxBadge } from '@flux-ui/components';
     import { clsx } from 'clsx';
     import { computed, type CSSProperties, onBeforeUnmount, onMounted, provide, ref, toRef, useId, useTemplateRef, watch } from 'vue';
-    import { useFlowController, useFlowGestures, useFlowLabels } from '~flux/flow/composable/private';
+    import { useFlowController, useFlowGestures, useFlowKeyboard, useFlowLabels } from '~flux/flow/composable/private';
     import { type FluxFlowDirection, type FluxFlowEdgeRecord, type FluxFlowEdgeSpec, FluxFlowInjectionKey, type FluxFlowMarkerFill, type FluxFlowViewport } from '~flux/flow/data';
     import $style from '~flux/flow/css/component/Flow.module.scss';
     import $edge from '~flux/flow/css/component/FlowConnection.module.scss';
@@ -134,7 +142,7 @@
     const viewport = defineModel<FluxFlowViewport>('viewport');
 
     const {
-        align = 'start',
+        align = 'center',
         axis,
         background = 'none',
         interactive = false,
@@ -175,6 +183,7 @@
     const uid = useId();
     const clip = useTemplateRef<HTMLElement>('clip');
     const backdrop = useTemplateRef<HTMLElement>('backdrop');
+    const overlay = useTemplateRef<HTMLElement>('overlay');
     const isReady = ref(false);
     const hoveredEdge = ref<number | null>(null);
 
@@ -191,11 +200,16 @@
 
     provide(FluxFlowInjectionKey, controller);
 
-    const {isPanning, isGesturing, onPointerDown, onPointerMove, onPointerUp, onWheel} = useFlowGestures({
+    const {isPanning, onPointerDown, onPointerMove, onPointerUp, onWheel} = useFlowGestures({
         clip,
         controller,
         isInteractive: () => interactive,
         zoomStep: () => zoomStep
+    });
+
+    const {onKeyDown} = useFlowKeyboard({
+        controller,
+        isInteractive: () => interactive
     });
 
     const edgeList = computed(() => Array.from(controller.edges.values()));
@@ -231,9 +245,9 @@
             const {x, y, zoom} = controller.viewport.value;
             return {
                 transform: `translate(${x}px, ${y}px) scale(${zoom})`,
-                // Animate a stepped zoom, but never lag behind a live pan, a
-                // running trackpad gesture or the initial view.
-                transition: isReady.value && !isPanning.value && !isGesturing.value ? 'transform 210ms var(--swift-out)' : 'none'
+                // Animate a stepped zoom, but never lag behind a viewport that is
+                // being steered by hand, or behind the initial view.
+                transition: isReady.value && !controller.isTracking.value ? 'transform 210ms var(--swift-out)' : 'none'
             };
         }
 
@@ -277,6 +291,7 @@
     onMounted(() => {
         controller.setClipElement(clip.value);
         controller.setBackdropElement(backdrop.value);
+        controller.setOverlayElement(overlay.value);
 
         // Natural layout drives its own view through worldStyle; only an interactive
         // viewport needs an initial view.
@@ -304,8 +319,8 @@
                     zoom: 1
                 });
             } else {
-                // Start at 100% zoom, at the top of the flow: aligned to its left
-                // edge, or centred horizontally when there is room to spare.
+                // Start at 100% zoom, at the top of the flow: centred horizontally
+                // when there is room to spare, against its left edge when not.
                 const bounds = controller.bounds.value;
 
                 if (bounds) {

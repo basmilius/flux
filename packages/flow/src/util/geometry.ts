@@ -1,8 +1,10 @@
 import type { FluxFlowAlign, FluxFlowBounds, FluxFlowDirection, FluxFlowNodeRecord, FluxFlowPortRecord, FluxFlowPosition, FluxFlowSide, FluxFlowSize } from '~flux/flow/data';
 
-// Where a `start` connector lands on a node that publishes no anchor of its
-// own. Matches the icon of a FluxFlowCard: 15px header padding + 30px icon / 2.
-const FALLBACK_INSET = 30;
+/**
+ * Where a `start` connector lands on a node that publishes no anchor of its own.
+ * Matches the icon of a FluxFlowCard: 15px header padding + 30px icon / 2.
+ */
+export const FALLBACK_INSET = 30;
 
 function center(position: FluxFlowPosition, size: FluxFlowSize): FluxFlowPosition {
     return {x: position.x + size.width / 2, y: position.y + size.height / 2};
@@ -38,7 +40,7 @@ export function boundsOfNodes(nodes: Iterable<FluxFlowNodeRecord>): FluxFlowBoun
  * from the corner to the node's own anchor. A node narrower than twice that has
  * no room for both ends, so `start` and `end` collapse onto the centre.
  */
-function alignOffset(extent: number, align: FluxFlowAlign, inset: number): number {
+export function alignOffset(extent: number, align: FluxFlowAlign, inset: number): number {
     const clamped = Math.min(inset, extent / 2);
 
     switch (align) {
@@ -67,6 +69,41 @@ export function anchorPoint(position: FluxFlowPosition, size: FluxFlowSize, side
         x: side === 'left' ? position.x : position.x + size.width,
         y: position.y + alignOffset(size.height, align, anchor?.y ?? FALLBACK_INSET)
     };
+}
+
+/**
+ * Where a connector leaves and re-enters the same node.
+ *
+ * Looping on one side, the two points sit a quarter in from either end of it, so
+ * the loop spans half the side and reads as a run back rather than as a line
+ * doubling over itself. It leaves at the far point and comes back in at the near
+ * one. Looping between two different sides, each end takes the middle of the
+ * side it uses: they are distinct points already, and the middle keeps the route
+ * around the node symmetrical.
+ */
+export function selfLoopPoints(position: FluxFlowPosition, size: FluxFlowSize, fromSide: FluxFlowSide, toSide: FluxFlowSide): readonly [FluxFlowPosition, FluxFlowPosition] {
+    if (fromSide !== toSide) {
+        return [
+            anchorPoint(position, size, fromSide, 'center'),
+            anchorPoint(position, size, toSide, 'center')
+        ];
+    }
+
+    if (isVerticalSide(fromSide)) {
+        const y = fromSide === 'top' ? position.y : position.y + size.height;
+
+        return [
+            {x: position.x + (size.width / 4) * 3, y},
+            {x: position.x + size.width / 4, y}
+        ];
+    }
+
+    const x = fromSide === 'left' ? position.x : position.x + size.width;
+
+    return [
+        {x, y: position.y + (size.height / 4) * 3},
+        {x, y: position.y + size.height / 4}
+    ];
 }
 
 /**

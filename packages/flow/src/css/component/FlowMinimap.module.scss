@@ -1,0 +1,19 @@
+// An overview of the flow rather than a second canvas: flat blocks on a plain
+// surface, with only the viewport frame carrying a color.
+.flowMinimap {
+    display: block;
+    cursor: pointer;
+    background: var(--surface);
+    border: 1px solid var(--surface-stroke);
+    border-radius: var(--radius);
+}
+
+.flowMinimapNode {
+    fill: var(--gray-300);
+}
+
+.flowMinimapFrame {
+    fill: color-mix(in oklab, var(--primary-500) 12%, transparent);
+    stroke: var(--primary-500);
+    stroke-width: 1;
+}

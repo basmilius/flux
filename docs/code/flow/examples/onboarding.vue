@@ -34,7 +34,7 @@
             to="bounce"
             from-side="right"
             color="danger"
-            label="bounced"/>
+            label="Bounced"/>
     </FluxFlow>
 </template>
 

@@ -9,7 +9,7 @@
             </FluxFlowNode>
 
             <FluxFlowNode id="api" :x="0" :y="224">
-                <FluxFlowActionCard title="Validate the payload" icon="check"/>
+                <FluxFlowActionCard title="Validate the payload" icon="circle-check"/>
             </FluxFlowNode>
 
             <FluxFlowNode id="store" :x="411" :y="224">

@@ -9,7 +9,7 @@
     import { computed, getCurrentInstance, onBeforeUnmount } from 'vue';
     import { useFluxFlowInjection } from '~flux/flow/composable';
     import type { FluxFlowAlign, FluxFlowConnectionType, FluxFlowEdgeSpec, FluxFlowLabelPlacement, FluxFlowMarker, FluxFlowMarkerFill, FluxFlowNodeRecord, FluxFlowPortRecord, FluxFlowPosition, FluxFlowSide } from '~flux/flow/data';
-    import { anchorPoint, autoSides, clamp, getBezierPath, getSmoothStepPath, getStraightPath, markerPath, offsetPoint, portPoint, portSide } from '~flux/flow/util';
+    import { anchorPoint, autoSides, clamp, getBezierPath, getSelfLoopPath, getSmoothStepPath, getStraightPath, markerPath, offsetPoint, portPoint, portSide, selfLoopPoints } from '~flux/flow/util';
 
     const props = defineProps<{
         readonly from: string;
@@ -77,6 +77,10 @@
             return null;
         }
 
+        if (source === target) {
+            return selfLoop(source);
+        }
+
         const sourcePosition = source.position.value;
         const sourceSize = source.size.value;
         const targetPosition = target.position.value;
@@ -111,6 +115,7 @@
             fromY: fromPoint.y,
             toX: toPoint.x,
             toY: toPoint.y,
+            waypoints,
             fromMarkerPath: markerPath(markerStart.value, fromPoint, path.fromDirection),
             toMarkerPath: markerPath(markerEnd.value, toPoint, path.toDirection)
         };
@@ -127,7 +132,6 @@
 
         return {
             ...value,
-            waypoints: props.waypoints ?? [],
             styleVars: {
                 '--connection-color': resolveColor(props.color, 'var(--flow-line)'),
                 '--connection-marker': resolveColor(props.color, 'var(--flow-line)'),
@@ -152,6 +156,50 @@
     controller.registerEdge({id: uid, spec});
 
     onBeforeUnmount(() => controller.unregisterEdge(uid));
+
+    /**
+     * A connector onto its own node is not a route between two cards: it leaves
+     * a side and comes back into that same side. It loops on the side a
+     * connector running against the flow would take, so a retry and a step back
+     * read alike.
+     */
+    function selfLoop(node: FluxFlowNodeRecord) {
+        const position = node.position.value;
+        const size = node.size.value;
+
+        // Naming one side loops on that side; naming both routes around the node
+        // from one to the other.
+        const fallback: FluxFlowSide = controller.axis.value === 'horizontal' ? 'bottom' : 'right';
+        const fromSide = props.fromSide ?? props.toSide ?? fallback;
+        const toSide = props.toSide ?? props.fromSide ?? fallback;
+
+        const [from, to] = selfLoopPoints(position, size, fromSide, toSide);
+
+        const fromPoint = offsetPoint(from, fromSide, NODE_GAP);
+        const toPoint = offsetPoint(to, toSide, NODE_GAP);
+
+        const path = getSelfLoopPath(fromPoint, fromSide, toPoint, toSide, {
+            minX: position.x - NODE_GAP,
+            minY: position.y - NODE_GAP,
+            maxX: position.x + size.width + NODE_GAP,
+            maxY: position.y + size.height + NODE_GAP
+        });
+
+        return {
+            path: path.path,
+            labelX: path.labelX,
+            labelY: path.labelY,
+            fromX: fromPoint.x,
+            fromY: fromPoint.y,
+            toX: toPoint.x,
+            toY: toPoint.y,
+            // The loop reaches past the node it belongs to, so every point of the
+            // route stretches the world rather than being clipped off the edge.
+            waypoints: path.points,
+            fromMarkerPath: markerPath(markerStart.value, fromPoint, path.fromDirection),
+            toMarkerPath: markerPath(markerEnd.value, toPoint, path.toDirection)
+        };
+    }
 
     // An unknown port id falls back to the node's own anchor, so a typo drops a
     // connector back onto the card rather than off the canvas.

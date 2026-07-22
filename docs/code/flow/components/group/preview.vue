@@ -7,7 +7,7 @@
                 </FluxFlowNode>
 
                 <FluxFlowNode id="verify">
-                    <FluxFlowActionCard title="Verify the totals" icon="check"/>
+                    <FluxFlowActionCard title="Verify the totals" icon="circle-check"/>
                 </FluxFlowNode>
             </FluxFlowChain>
 

@@ -9,7 +9,7 @@
                 from="review"
                 to="sign"
                 color="success"
-                label="approved"/>
+                label="Approved"/>
 
             <FluxFlowNode id="sign">
                 <FluxFlowActionCard title="Collect the signatures" icon="user-check"/>
@@ -19,8 +19,8 @@
                 from="sign"
                 to="archive"
                 color="primary"
-                icon="check"
-                label="signed"/>
+                icon="circle-check"
+                label="Signed"/>
 
             <FluxFlowNode id="archive">
                 <FluxFlowActionCard title="Archive the contract" icon="database"/>

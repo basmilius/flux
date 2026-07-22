@@ -21,8 +21,7 @@
         background: var(--surface);
         background-clip: padding-box;
         border: 2px solid var(--flow-line);
-        border-radius: var(--radius-half);
-        box-shadow: var(--shadow-sm);
+        border-radius: var(--radius);
     }
 
     :is(span) {

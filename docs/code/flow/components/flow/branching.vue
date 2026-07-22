@@ -17,8 +17,8 @@
         </FluxFlowNode>
 
         <FluxFlowConnection from="trigger" to="check"/>
-        <FluxFlowConnection from="check" to="review" label="yes"/>
-        <FluxFlowConnection from="check" to="approve" label="no"/>
+        <FluxFlowConnection from="check" to="review" label="Yes"/>
+        <FluxFlowConnection from="check" to="approve" label="No"/>
     </FluxFlow>
 </template>
 

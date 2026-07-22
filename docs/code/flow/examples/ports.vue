@@ -7,12 +7,12 @@
         <FluxFlowNode id="check" :x="0" :y="120">
             <FluxFlowConditionCard title="Fraud check" subtitle="Score above 0.8">
                 <div style="display: flex; align-items: center; justify-content: space-between">
-                    <FluxBadge color="success" icon="check" label="Clean"/>
+                    <FluxBadge color="success" icon="circle-check" label="Clean"/>
                     <FluxFlowPort id="true" side="right"/>
                 </div>
 
                 <div style="display: flex; align-items: center; justify-content: space-between">
-                    <FluxBadge color="danger" icon="xmark" label="Suspicious"/>
+                    <FluxBadge color="danger" icon="circle-xmark" label="Suspicious"/>
                     <FluxFlowPort id="false" side="right"/>
                 </div>
             </FluxFlowConditionCard>

@@ -30,6 +30,7 @@
     defineSlots<{
         default(): any;
         footer(): any;
+        header(): any;
     }>();
 
     const slots = useSlots();

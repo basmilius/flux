@@ -49,6 +49,9 @@ slots:
 
     -   name: footer
         description: The footer of the card, typically a row of FluxTag and FluxBadge chips.
+
+    -   name: header
+        description: The trailing end of the header, beside the title. Meant for one small thing that qualifies the node, such as a status badge or a counter.
 ---
 
 # Card
@@ -85,6 +88,10 @@ The card body is a plain vertical stack, so you are not limited to text. Drop in
 
 ::: example Rich content || A card mixing plain text, a FluxDescriptionList and a FluxStatisticsLegend.
 example=../../code/flow/components/card/content.vue
+:::
+
+::: example Header || The `header` slot fills the trailing end of the header, beside the title. Keep it to one small thing that qualifies the node; anything larger belongs in the body or the footer.
+example=../../code/flow/components/card/header.vue
 :::
 
 ## Interactive content

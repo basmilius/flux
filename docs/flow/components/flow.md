@@ -8,10 +8,10 @@ emits:
 
 props:
     -   name: align
-        description: Where an interactive viewport opens horizontally. `start` sits against the flow's left edge; `center` centres it when the container is wider than the flow, and falls back to `start` when it is not. Both open at the top.
+        description: Where an interactive viewport opens horizontally. `center` centres the flow when the container is wider than it, and falls back to `start` when it is not; `start` always sits against the flow's left edge. Both open at the top.
         type: "'start' | 'center'"
         optional: true
-        default: start
+        default: center
 
     -   name: axis
         description: The axis every connector leaves and enters its nodes on. Without one each connector picks the shorter of the two, which is the wrong one as soon as a row of nodes is wider than the gap between two rows. A connector that names its own from-side or to-side still wins.
@@ -25,12 +25,12 @@ props:
         default: none
 
     -   name: interactive
-        description: Fills its container with a pannable and zoomable viewport, starting at 100% zoom from the flow's top-left. Without it the flow sizes its own height to its content and scrolls when wider than its container.
+        description: Fills its container with a pannable and zoomable viewport, starting at 100% zoom from the top of the flow. Without it the flow sizes its own height to its content and scrolls when wider than its container.
         type: boolean
         optional: true
 
     -   name: start
-        description: The id of a node to centre the interactive viewport on at 100% zoom, instead of starting at the top-left.
+        description: The id of a node to centre the interactive viewport on at 100% zoom, instead of starting at the top of the flow.
         type: string
         optional: true
 
@@ -104,16 +104,20 @@ example=../../code/flow/components/flow/axis.vue
 example=../../code/flow/components/flow/background.vue
 :::
 
-::: example Interactive || With `interactive` the flow fills its container as a pannable, zoomable canvas, starting at 100% from the top-left. Drag or scroll with two fingers to pan, and pinch or hold `ctrl`/`cmd` while scrolling to zoom.
+::: example Interactive || With `interactive` the flow fills its container as a pannable, zoomable canvas, starting at 100% from the top of the flow. Drag or scroll with two fingers to pan, and pinch or hold `ctrl`/`cmd` while scrolling to zoom.
 example=../../code/flow/components/flow/interactive.vue
 :::
 
-::: example Start point || Point `start` at a node id to open the interactive viewport centered on that card instead of the top-left.
+::: example Start point || Point `start` at a node id to open the interactive viewport centered on that card instead of the top of the flow.
 example=../../code/flow/components/flow/start.vue
 :::
 
 ::: tip
 On an interactive canvas, controls inside a card (a toggle, a button, a link, a text field) keep working: a press that starts on one never begins a pan. Add `data-nopan` to any other element that should grab the pointer for itself instead of panning the canvas.
+:::
+
+::: tip
+An interactive canvas is reachable with the keyboard: tab to it, then pan with the arrow keys (hold `shift` to cover three times the ground), zoom with `+` and `-`, and press `0` to fit the whole flow in view. A field or a button inside a card keeps every key it is given.
 :::
 
 ::: tip
@@ -127,3 +131,5 @@ For flows built out in full, from routing rules to a running deploy pipeline, se
 - [Node](./node)
 - [Connection](./connection)
 - [Card](./card)
+- [Controls](./controls)
+- [Minimap](./minimap)

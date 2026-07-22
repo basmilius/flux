@@ -12,8 +12,8 @@
             <FluxFlowActionCard title="Reject" icon="stopwatch" color="danger"/>
         </FluxFlowNode>
 
-        <FluxFlowConnection from="check" to="approve" from-side="bottom" from-align="start" to-side="top" to-align="end" label="yes"/>
-        <FluxFlowConnection from="check" to="reject" from-side="bottom" from-align="end" to-side="top" to-align="start" label="no"/>
+        <FluxFlowConnection from="check" to="approve" from-side="bottom" from-align="start" to-side="top" to-align="end" label="Yes"/>
+        <FluxFlowConnection from="check" to="reject" from-side="bottom" from-align="end" to-side="top" to-align="start" label="No"/>
     </FluxFlow>
 </template>
 

@@ -12,7 +12,7 @@
             </FluxFlowNode>
 
             <FluxFlowNode id="approved">
-                <FluxFlowPill icon="check" label="Approved" color="success"/>
+                <FluxFlowPill icon="circle-check" label="Approved" color="success"/>
             </FluxFlowNode>
 
             <FluxFlowNode id="published">

@@ -4,21 +4,21 @@
             <FluxFlowConditionCard title="Payment method"/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="gate" :x="411" :y="91">
+        <FluxFlowNode id="gate" :x="330" :y="91">
             <FluxFlowGate type="xor" color="warning"/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="card" :x="600" :y="0">
+        <FluxFlowNode id="card" :x="510" :y="0">
             <FluxFlowActionCard title="Charge the card" icon="money-bill"/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="invoice" :x="600" :y="180">
+        <FluxFlowNode id="invoice" :x="510" :y="180">
             <FluxFlowActionCard title="Send an invoice" icon="envelope"/>
         </FluxFlowNode>
 
         <FluxFlowConnection from="check" to="gate" marker-end="none"/>
-        <FluxFlowConnection from="gate" to="card" marker-start="none" label="card"/>
-        <FluxFlowConnection from="gate" to="invoice" marker-start="none" label="transfer"/>
+        <FluxFlowConnection from="gate" to="card" from-side="top" marker-start="none" color="warning" label="Card"/>
+        <FluxFlowConnection from="gate" to="invoice" from-side="bottom" marker-start="none" color="warning" label="Bank transfer"/>
     </FluxFlow>
 </template>
 

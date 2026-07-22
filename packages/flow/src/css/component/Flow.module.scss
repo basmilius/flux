@@ -1,5 +1,7 @@
+@use '~flux/components/css/mixin';
+
 .flow {
-    --flow-dot: var(--gray-200);
+    --flow-dot: var(--gray-100);
     --flow-line: var(--gray-200);
 
     position: relative;
@@ -8,7 +10,16 @@
     width: 100%;
 }
 
+// The backdrop behind a fullscreen element is black, so the flow paints its own
+// surface: a flow without a background would otherwise sit on it.
+.flow:fullscreen {
+    height: 100%;
+    background-color: var(--surface);
+}
+
 .flow.isInteractive {
+    @include mixin.focus-ring;
+
     cursor: grab;
     touch-action: none;
     user-select: none;
@@ -18,12 +29,14 @@
     cursor: grabbing;
 }
 
-// The layers stacked inside the world, plus the background behind it.
+// The layers stacked inside the world, plus the background behind it and the
+// panel overlay above it.
 .flowBackground,
 .flowBackdrop,
 .flowEdgesHit,
 .flowEdges,
-.flowEdgeLabels {
+.flowEdgeLabels,
+.flowOverlay {
     position: absolute;
     display: block;
     inset: 0;
@@ -51,7 +64,7 @@
 .flowBackgroundGrid {
     background-image:
         linear-gradient(to right, var(--flow-dot) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--flow-dot) 1px, transparent 1px);
+        linear-gradient(to bottom, var(--flow-dot) 1px, transparent 0.5px);
 }
 
 .flowScroll {
@@ -88,4 +101,11 @@
 
 .flowEdgeLabels {
     z-index: 3;
+}
+
+// Panels, above the scrolling world (z-index 1). It stays transparent to the
+// pointer, so the empty layer never blocks a pan; a panel inside it takes its
+// own presses back.
+.flowOverlay {
+    z-index: 2;
 }

@@ -11,8 +11,9 @@
 <script
     lang="ts"
     setup>
-    import { computed, Fragment, provide, shallowReactive, useSlots, type VNode } from 'vue';
-    import { type FluxFlowAlign, FluxFlowChainInjectionKey, type FluxFlowChainLink, type FluxFlowDirection, type FluxFlowPosition } from '~flux/flow/data';
+    import { computed, provide, shallowReactive, useSlots } from 'vue';
+    import { type FluxFlowAlign, type FluxFlowDirection, FluxFlowPlacementInjectionKey, type FluxFlowPlacementLink, type FluxFlowPosition } from '~flux/flow/data';
+    import { flattenFragments, LABELLED_GAP } from '~flux/flow/util';
     import FluxFlowConnection from './FluxFlowConnection.vue';
 
     const {
@@ -37,20 +38,9 @@
         default(): any;
     }>();
 
-    /**
-     * The room a segment gets when its connector carries a label: a 28px badge
-     * plus 6px of cut air, the 9px each end keeps from a node and a visible
-     * stretch of line. A horizontal chain leaves more, since a badge there is as
-     * wide as its text.
-     */
-    const LABEL_GAP: Record<FluxFlowDirection, number> = {
-        vertical: 105,
-        horizontal: 210
-    };
-
     const slots = useSlots();
 
-    const links = shallowReactive<FluxFlowChainLink[]>([]);
+    const links = shallowReactive<FluxFlowPlacementLink[]>([]);
 
     const positions = computed(() => {
         const placed = new Map<string, FluxFlowPosition>();
@@ -100,7 +90,7 @@
     const claimedPairs = computed(() => {
         const claimed = new Map<string, boolean>();
 
-        for (const vnode of flatten(slots.default?.() ?? [])) {
+        for (const vnode of flattenFragments(slots.default?.() ?? [])) {
             const {from, to, label, icon} = vnode.props ?? {};
 
             if (vnode.type === FluxFlowConnection && typeof from === 'string' && typeof to === 'string') {
@@ -111,7 +101,7 @@
         return claimed;
     });
 
-    provide(FluxFlowChainInjectionKey, {
+    provide(FluxFlowPlacementInjectionKey, {
         positionOf: (id: string) => positions.value.get(id) ?? null,
         registerLink: link => void links.push(link),
         unregisterLink: link => {
@@ -134,7 +124,7 @@
             return gap;
         }
 
-        return Math.max(labelGap ?? LABEL_GAP[direction], gap);
+        return Math.max(labelGap ?? LABELLED_GAP[direction], gap);
     }
 
     /**
@@ -150,11 +140,5 @@
             case 'end':
                 return widest - extent;
         }
-    }
-
-    function flatten(vnodes: readonly VNode[]): VNode[] {
-        return vnodes.flatMap(vnode => (vnode.type === Fragment && Array.isArray(vnode.children)
-            ? flatten(vnode.children as VNode[])
-            : [vnode]));
     }
 </script>

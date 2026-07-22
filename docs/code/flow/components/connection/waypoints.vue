@@ -21,9 +21,9 @@
             <FluxFlowCard title="Target"/>
         </FluxFlowNode>
 
-        <FluxFlowConnection from="smooth-top" to="smooth-bottom" type="smoothstep" :waypoints="[{x: 45, y: 165}, {x: 45, y: 255}]" label="detour"/>
-        <FluxFlowConnection from="bezier-top" to="bezier-bottom" type="bezier" :waypoints="[{x: 465, y: 165}, {x: 465, y: 255}]" label="detour"/>
-        <FluxFlowConnection from="straight-top" to="straight-bottom" type="straight" :waypoints="[{x: 885, y: 165}, {x: 885, y: 255}]" label="detour"/>
+        <FluxFlowConnection from="smooth-top" to="smooth-bottom" type="smoothstep" :waypoints="[{x: 45, y: 165}, {x: 45, y: 255}]" label="Detour"/>
+        <FluxFlowConnection from="bezier-top" to="bezier-bottom" type="bezier" :waypoints="[{x: 465, y: 165}, {x: 465, y: 255}]" label="Detour"/>
+        <FluxFlowConnection from="straight-top" to="straight-bottom" type="straight" :waypoints="[{x: 885, y: 165}, {x: 885, y: 255}]" label="Detour"/>
     </FluxFlow>
 </template>
 

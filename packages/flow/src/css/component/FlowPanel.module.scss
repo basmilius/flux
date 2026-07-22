@@ -1,0 +1,9 @@
+// Pinned to a corner of the viewport by the inline style the component writes,
+// and clickable again inside the transparent overlay layer it hangs in.
+.flowPanel {
+    position: absolute;
+    display: flex;
+    flex-flow: column;
+    gap: 9px;
+    pointer-events: auto;
+}

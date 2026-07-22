@@ -121,6 +121,8 @@ By default the connector picks the most natural pair of sides based on where the
 
 For a branch that belongs to something written inside the node, a [Port](./port) is the sharper tool: `from-port` / `to-port` land the connector on the row that names the outcome.
 
+A connector may also point at the node it left. Give `from` and `to` the same id and it loops out of one side and back into that same side, which is how a retry says it runs the step again. Name both `from-side` and `to-side` and the loop routes around the node from the one to the other instead.
+
 ::: render
 render=../../code/flow/components/connection/preview.vue
 :::
@@ -143,6 +145,14 @@ example=../../code/flow/components/connection/colors.vue
 
 ::: example Explicit sides || Override `from-side` and `to-side` to route a connector out of a specific edge, for example the two branches of a condition.
 example=../../code/flow/components/connection/sides.vue
+:::
+
+::: example Loop || Point `from` and `to` at the same node and the connector loops out of one side and back into it. It uses the side a connector running against the flow would take, so a retry and a step back read alike; `from-side` moves it elsewhere.
+example=../../code/flow/components/connection/loop.vue
+:::
+
+::: example Loop between two sides || Name both `from-side` and `to-side` and the loop travels from the one to the other: two adjacent sides turn a corner, two opposite ones wrap the node along the axis they do not use.
+example=../../code/flow/components/connection/loop-sides.vue
 :::
 
 ::: example Alignment || A side is not one point: `from-align` and `to-align` move a connector to the `start` or `end` of the side it uses, which pulls two branches out of the same edge apart. `start` lands on the node's own icon, wherever that sits, so a card and a pill each anchor on their own; `end` mirrors that margin to the far corner. A node too narrow for the margin keeps its connector centered.

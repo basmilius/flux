@@ -39,7 +39,9 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
     const boxes = shallowReactive(new Map<number, FluxFlowBoxRecord>());
     const clipElement = shallowRef<HTMLElement | null>(null);
     const backdropElement = shallowRef<HTMLElement | null>(null);
+    const overlayElement = shallowRef<HTMLElement | null>(null);
     const viewport = shallowRef<FluxFlowViewport>({x: 0, y: 0, zoom: 1});
+    const isTracking = shallowRef(false);
 
     function getRect(): DOMRect | null {
         return clipElement.value?.getBoundingClientRect() ?? null;
@@ -212,12 +214,9 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
             options.maxZoom()
         );
 
-        // Align the content to the top-left (with padding) rather than centering it.
-        viewport.value = {
-            x: padding - box.minX * zoom,
-            y: padding - box.minY * zoom,
-            zoom
-        };
+        // The padding has done its work in the zoom above; what is left over is
+        // shared evenly, so the flow sits in the middle of its viewport.
+        centerBounds(rect, box, zoom);
     }
 
     function centerView(zoom: number): void {
@@ -237,6 +236,7 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
         viewport,
         axis: options.axis,
         isStatic: options.isStatic,
+        isTracking,
         nodes,
         edges,
         boxes,
@@ -244,6 +244,7 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
         nodeBounds,
         clipElement,
         backdropElement,
+        overlayElement,
         registerNode: record => void nodes.set(record.id, record),
         unregisterNode: id => void nodes.delete(id),
         getNode: id => nodes.get(id),
@@ -253,6 +254,8 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
         unregisterBox: id => void boxes.delete(id),
         setClipElement: element => void (clipElement.value = element),
         setBackdropElement: element => void (backdropElement.value = element),
+        setOverlayElement: element => void (overlayElement.value = element),
+        setTracking: value => void (isTracking.value = value),
         screenToFlow,
         flowToScreen,
         panBy,

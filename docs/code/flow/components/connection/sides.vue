@@ -4,16 +4,16 @@
             <FluxFlowConditionCard title="Is Valid?"/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="process" :x="690" :y="90">
+        <FluxFlowNode id="process" :x="720" :y="90">
             <FluxFlowActionCard title="Process"/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="reject" :x="300" :y="300">
+        <FluxFlowNode id="reject" :x="300" :y="240">
             <FluxFlowActionCard title="Reject" icon="stopwatch" color="danger"/>
         </FluxFlowNode>
 
-        <FluxFlowConnection from="check" to="process" from-side="right" to-side="left" label="yes"/>
-        <FluxFlowConnection from="check" to="reject" from-side="bottom" to-side="top" label="no"/>
+        <FluxFlowConnection from="check" to="process" from-side="right" to-side="left" label="Yes"/>
+        <FluxFlowConnection from="check" to="reject" from-side="bottom" to-side="top" label="No"/>
     </FluxFlow>
 </template>
 

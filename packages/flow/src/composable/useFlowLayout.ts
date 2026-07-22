@@ -8,6 +8,12 @@ export type FluxFlowLayoutNode = {
      */
     readonly width?: number;
     readonly height?: number;
+    /**
+     * The measured centre of the node's anchor, relative to its own top-left.
+     * Only a trunk uses it, to line one node's icon up with another's; without
+     * one it falls back to the same inset a `start` connector does.
+     */
+    readonly anchor?: FluxFlowPosition | null;
 };
 
 export type FluxFlowLayoutEdge = {

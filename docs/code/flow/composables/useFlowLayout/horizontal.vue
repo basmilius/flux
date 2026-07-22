@@ -40,7 +40,7 @@
 
     // How a connector looks is yours; where it attaches comes from the layout.
     const style: Record<string, { dashed?: boolean; label?: string }> = {
-        'released->building': {dashed: true, label: 'retry'}
+        'released->building': {dashed: true, label: 'Retry'}
     };
 
     const {positions, connections} = useFlowLayout(nodes, edges, {

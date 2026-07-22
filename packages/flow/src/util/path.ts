@@ -1,4 +1,4 @@
-import type { FluxFlowLabelPlacement, FluxFlowMarker, FluxFlowPosition, FluxFlowSide } from '~flux/flow/data';
+import type { FluxFlowBounds, FluxFlowLabelPlacement, FluxFlowMarker, FluxFlowPosition, FluxFlowSide } from '~flux/flow/data';
 import { isVerticalSide } from './geometry';
 
 export type FluxFlowPath = {
@@ -271,6 +271,75 @@ export function getBezierPath(source: FluxFlowPosition, sourceSide: FluxFlowSide
         fromDirection: sideNormal(sourceSide),
         toDirection: sideNormal(targetSide)
     };
+}
+
+/**
+ * How far a self loop bulges out past the side it leaves on. Wide enough to
+ * clear a badge riding the outer leg.
+ */
+export const SELF_LOOP_REACH = 45;
+
+/**
+ * A connector onto the node it left: out of one side and back into a side of the
+ * same node. Both ends leave along their side normal, so the markers point out
+ * of and into the card the way they do on any other connector.
+ *
+ * The two sides decide how far around the node the route travels: the same side
+ * is a plain ear, two adjacent sides turn a corner, and two opposite sides wrap
+ * the node along the axis they do not use. `bounds` is the node the route has to
+ * clear, already grown by the gap the connector keeps from it.
+ *
+ * The points are handed back along with the path, since they are what the canvas
+ * has to size itself on: the route reaches well past the node it belongs to.
+ */
+export function getSelfLoopPath(source: FluxFlowPosition, sourceSide: FluxFlowSide, target: FluxFlowPosition, targetSide: FluxFlowSide, bounds: FluxFlowBounds, reach: number = SELF_LOOP_REACH, radius: number = 15): FluxFlowPath & { readonly points: readonly FluxFlowPosition[] } {
+    const outSource = offsetPoint(source, sourceSide, reach);
+    const outTarget = offsetPoint(target, targetSide, reach);
+    const points = [source, outSource, ...bridge(outSource, sourceSide, outTarget, targetSide, bounds, reach), outTarget, target];
+
+    // Every leg out and back is the same length, so the halfway point of the run
+    // lands on the stretch furthest from the node: where a label belongs.
+    const label = pointAtHalfLength(points);
+
+    return {
+        path: roundedPath(points, radius),
+        labelX: label.x,
+        labelY: label.y,
+        fromDirection: sideNormal(sourceSide),
+        toDirection: sideNormal(targetSide),
+        points
+    };
+}
+
+/**
+ * The corners a self loop needs between the two points it stands off the node
+ * on. None on one side, since those two already face each other; one to turn
+ * between two adjacent sides; and two to carry the route around the node when it
+ * leaves and enters on opposite ones.
+ */
+function bridge(outSource: FluxFlowPosition, sourceSide: FluxFlowSide, outTarget: FluxFlowPosition, targetSide: FluxFlowSide, bounds: FluxFlowBounds, reach: number): FluxFlowPosition[] {
+    if (sourceSide === targetSide) {
+        return [];
+    }
+
+    if (isVerticalSide(sourceSide) === isVerticalSide(targetSide)) {
+        // Opposite sides: pass the node on the off axis, clearing the near edge
+        // by the same reach the two ends stand off their own side.
+        if (isVerticalSide(sourceSide)) {
+            const x = bounds.minX - reach;
+
+            return [{x, y: outSource.y}, {x, y: outTarget.y}];
+        }
+
+        const y = bounds.minY - reach;
+
+        return [{x: outSource.x, y}, {x: outTarget.x, y}];
+    }
+
+    // Adjacent sides: a single corner, taking the outward coordinate of each.
+    return [isVerticalSide(sourceSide)
+        ? {x: outTarget.x, y: outSource.y}
+        : {x: outSource.x, y: outTarget.y}];
 }
 
 export function getSmoothStepPath(source: FluxFlowPosition, sourceSide: FluxFlowSide, target: FluxFlowPosition, targetSide: FluxFlowSide, waypoints: readonly FluxFlowPosition[] = [], placement: FluxFlowLabelPlacement = 'center', radius: number = 15, offset: number = 15): FluxFlowPath {

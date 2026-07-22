@@ -12,7 +12,7 @@
     setup>
     import { computed, inject, onBeforeUnmount, onMounted, provide, shallowRef, toRef, useTemplateRef, watch } from 'vue';
     import { useFluxFlowInjection } from '~flux/flow/composable';
-    import { FluxFlowChainInjectionKey, type FluxFlowChainLink, FluxFlowNodeInjectionKey, type FluxFlowPortRecord, type FluxFlowPortRegistration, type FluxFlowPosition, type FluxFlowSize } from '~flux/flow/data';
+    import { FluxFlowPlacementInjectionKey, type FluxFlowPlacementLink, FluxFlowNodeInjectionKey, type FluxFlowPortRecord, type FluxFlowPortRegistration, type FluxFlowPosition, type FluxFlowSize } from '~flux/flow/data';
     import $style from '~flux/flow/css/component/FlowNode.module.scss';
 
     const props = defineProps<{
@@ -31,22 +31,22 @@
     let observer: ResizeObserver | null = null;
 
     const controller = useFluxFlowInjection();
-    const chain = inject(FluxFlowChainInjectionKey, null);
+    const placement = inject(FluxFlowPlacementInjectionKey, null);
 
-    // A node that carries its own coordinates keeps them, chain or not, so a
-    // single link can be lifted out of the run without leaving the chain.
-    const link: FluxFlowChainLink | null = chain && props.x === undefined && props.y === undefined
-        ? {id: toRef(() => props.id), size}
+    // A node that carries its own coordinates keeps them, placed or not, so a
+    // single card can be lifted out of a chain or a graph without leaving it.
+    const link: FluxFlowPlacementLink | null = placement && props.x === undefined && props.y === undefined
+        ? {id: toRef(() => props.id), size, anchor}
         : null;
 
     const position = computed<FluxFlowPosition>(() => {
-        const placed = link ? chain?.positionOf(props.id) : null;
+        const placed = link ? placement?.positionOf(props.id) : null;
 
         return placed ?? {x: props.x ?? 0, y: props.y ?? 0};
     });
 
     if (link) {
-        chain?.registerLink(link);
+        placement?.registerLink(link);
     }
 
     provide(FluxFlowNodeInjectionKey, {
@@ -81,7 +81,7 @@
         controller.unregisterNode(props.id);
 
         if (link) {
-            chain?.unregisterLink(link);
+            placement?.unregisterLink(link);
         }
     });
 

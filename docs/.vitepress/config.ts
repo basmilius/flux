@@ -206,6 +206,7 @@ export default defineConfig({
                         {text: 'Flow', link: '/flow/components/flow'},
                         {text: 'Node', link: '/flow/components/node'},
                         {text: 'Chain', link: '/flow/components/chain'},
+                        {text: 'Graph', link: '/flow/components/graph'},
                         {text: 'Connection', link: '/flow/components/connection'},
                         {text: 'Port', link: '/flow/components/port'},
                         {text: 'Card', link: '/flow/components/card'},
@@ -216,7 +217,10 @@ export default defineConfig({
                         {text: 'Gate', link: '/flow/components/gate'},
                         {text: 'Group', link: '/flow/components/group'},
                         {text: 'Lane', link: '/flow/components/lane'},
-                        {text: 'Note', link: '/flow/components/note'}
+                        {text: 'Note', link: '/flow/components/note'},
+                        {text: 'Panel', link: '/flow/components/panel'},
+                        {text: 'Controls', link: '/flow/components/controls'},
+                        {text: 'Minimap', link: '/flow/components/minimap'}
                     ]
                 },
                 {
