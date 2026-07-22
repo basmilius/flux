@@ -142,13 +142,16 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
         };
     }
 
-    function zoomByStep(direction: 1 | -1): void {
+    function zoomAtCenter(factor: number): void {
         const rect = getRect();
-        const step = options.zoomStep();
-        const factor = direction === 1 ? 1 + step : 1 / (1 + step);
         const centerX = (rect?.left ?? 0) + (rect?.width ?? 0) / 2;
         const centerY = (rect?.top ?? 0) + (rect?.height ?? 0) / 2;
         zoomAt(centerX, centerY, factor);
+    }
+
+    function zoomByStep(direction: 1 | -1): void {
+        const step = options.zoomStep();
+        zoomAtCenter(direction === 1 ? 1 + step : 1 / (1 + step));
     }
 
     const nodeBounds = stableBounds(() => boundsOfNodes(nodes.values()));
@@ -236,6 +239,8 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
         viewport,
         axis: options.axis,
         isStatic: options.isStatic,
+        minZoom: computed(() => options.minZoom()),
+        maxZoom: computed(() => options.maxZoom()),
         isTracking,
         nodes,
         edges,
@@ -263,6 +268,7 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
         zoomAt,
         zoomIn: () => zoomByStep(1),
         zoomOut: () => zoomByStep(-1),
+        zoomTo: zoom => zoomAtCenter(zoom / viewport.value.zoom),
         resetZoom: () => fitView(),
         fitView,
         centerView,

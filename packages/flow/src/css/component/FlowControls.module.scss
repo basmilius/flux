@@ -1,0 +1,6 @@
+.flowControlsZoom {
+    // The zoom level is the only button in the bar that changes its text, so it
+    // is held to one width: the group must not resize while the flow zooms.
+    font-variant-numeric: tabular-nums;
+    min-width: 60px;
+}

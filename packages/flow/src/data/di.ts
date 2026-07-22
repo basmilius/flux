@@ -154,6 +154,8 @@ export type FluxFlowController = {
      */
     readonly axis: Readonly<Ref<FluxFlowDirection | undefined>>;
     readonly isStatic: Readonly<Ref<boolean>>;
+    readonly minZoom: Readonly<Ref<number>>;
+    readonly maxZoom: Readonly<Ref<number>>;
     /**
      * Whether the viewport is being driven live, by a pan, a trackpad gesture or
      * a drag on the minimap. The canvas then follows the pointer instead of
@@ -207,6 +209,12 @@ export type FluxFlowController = {
     zoomAt(clientX: number, clientY: number, factor: number): void;
     zoomIn(): void;
     zoomOut(): void;
+    /**
+     * Zooms to an absolute level about the middle of the viewport, so what is
+     * being looked at stays where it is instead of the world jumping back to
+     * its own centre.
+     */
+    zoomTo(zoom: number): void;
     resetZoom(): void;
     fitView(padding?: number): void;
     centerView(zoom: number): void;

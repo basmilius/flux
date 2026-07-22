@@ -1,7 +1,7 @@
 ---
 outline: deep
 
-requiredIcons: [ arrows-to-dot, compress, expand, minus, plus ]
+requiredIcons: [ arrows-to-dot, circle-check, compress, expand, minus, plus ]
 
 props:
     -   name: position
@@ -17,7 +17,7 @@ props:
         default: 15
 
     -   name: fitLabel
-        description: The accessible name of the fit button.
+        description: The name of the fit view item in the zoom flyout.
         type: string
         optional: true
         default: Fit view
@@ -40,6 +40,12 @@ props:
         optional: true
         default: Zoom in
 
+    -   name: zoomLabel
+        description: The accessible name of the flyout the zoom level opens.
+        type: string
+        optional: true
+        default: Zoom
+
     -   name: zoomOutLabel
         description: The accessible name of the zoom out button.
         type: string
@@ -49,9 +55,11 @@ props:
 
 # Controls
 
-`FluxFlowControls` is the button bar of an interactive canvas: zoom out, zoom in, fit the whole flow in view, and take it fullscreen. Write it anywhere inside a [Flow](./flow) and it pins itself to a corner of the viewport, so it stays put while the flow pans and zooms behind it.
+`FluxFlowControls` is the button bar of an interactive canvas: zoom out, the current zoom level, zoom in, and take the flow fullscreen. Write it anywhere inside a [Flow](./flow) and it pins itself to a corner of the viewport, so it stays put while the flow pans and zooms behind it.
 
 It renders nothing on a flow without `interactive`, since there is nothing there to zoom.
+
+The zoom level sits between the two zoom buttons and is a button of its own: it opens a flyout holding 200%, 150%, 100%, 75%, 50% and fit view. A level zooms about the middle of the viewport, so what is being looked at stays where it is, and a level the flow cannot reach is left out of the list: a canvas capped with `max-zoom` never offers one.
 
 Fullscreen hands the whole screen to the flow, panels and all, and leaves the zoom and the position alone: the flow only gains room. The button sits apart from the zoom buttons, and it is left out entirely on a browser that does not allow fullscreen.
 
@@ -60,7 +68,7 @@ render=../../code/flow/components/controls/preview.vue
 :::
 
 ::: tip
-The buttons carry an icon and no text, so their names are props rather than fixed strings: set `fit-label`, `fullscreen-label`, `exit-fullscreen-label`, `zoom-in-label` and `zoom-out-label` to the language of your application.
+The buttons carry an icon and no text of their own, so every name the bar holds is a prop rather than a fixed string: set `fit-label`, `fullscreen-label`, `exit-fullscreen-label`, `zoom-in-label`, `zoom-label` and `zoom-out-label` to the language of your application. The zoom levels are percentages, which need no translating.
 :::
 
 <FrontmatterDocs/>

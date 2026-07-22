@@ -17,6 +17,6 @@ render=../code/flow/components/flow/preview.vue
 - **Layout that is not yours to do by hand.** A `FluxFlowChain` places a run of steps and wires it up, a `FluxFlowGraph` does the same for a flow that forks and merges, `useFlowLayout` turns a branching graph into coordinates, and a `FluxFlowGroup` or a `FluxFlowLane` frames the part of the canvas that belongs together.
 - **Runnable.** Connectors accept a `progress-color` and `progress-value`, so you can visualize a flow while it runs.
 - **Read only viewport.** Drag to pan, `ctrl`/`cmd` + scroll to zoom, and the canvas fits its content on mount.
-- **Controls that stay put.** A `FluxFlowPanel` pins anything to a corner of the viewport, `FluxFlowControls` puts zoom, fit and fullscreen buttons there, and a `FluxFlowMinimap` maps the whole flow with the viewport drawn on it.
+- **Controls that stay put.** A `FluxFlowPanel` pins anything to a corner of the viewport, `FluxFlowControls` puts the zoom and fullscreen buttons there, and a `FluxFlowMinimap` maps the whole flow with the viewport drawn on it.
 
 Head straight for [Examples](./examples) to see complete flows, or start with [Flow](./components/flow) for the canvas itself.

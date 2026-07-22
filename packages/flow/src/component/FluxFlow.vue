@@ -360,6 +360,7 @@
         centerView: controller.centerView,
         zoomIn: controller.zoomIn,
         zoomOut: controller.zoomOut,
+        zoomTo: controller.zoomTo,
         resetZoom: controller.resetZoom
     });
 </script>
