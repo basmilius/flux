@@ -342,6 +342,14 @@ function bridge(outSource: FluxFlowPosition, sourceSide: FluxFlowSide, outTarget
         : {x: outSource.x, y: outTarget.y}];
 }
 
+/**
+ * A step path is a smoothstep with its corners left sharp: the same orthogonal
+ * route, radius zero.
+ */
+export function getStepPath(source: FluxFlowPosition, sourceSide: FluxFlowSide, target: FluxFlowPosition, targetSide: FluxFlowSide, waypoints: readonly FluxFlowPosition[] = [], placement: FluxFlowLabelPlacement = 'center', offset: number = 15): FluxFlowPath {
+    return getSmoothStepPath(source, sourceSide, target, targetSide, waypoints, placement, 0, offset);
+}
+
 export function getSmoothStepPath(source: FluxFlowPosition, sourceSide: FluxFlowSide, target: FluxFlowPosition, targetSide: FluxFlowSide, waypoints: readonly FluxFlowPosition[] = [], placement: FluxFlowLabelPlacement = 'center', radius: number = 15, offset: number = 15): FluxFlowPath {
     const sourceStub = offsetPoint(source, sourceSide, offset);
     const targetStub = offsetPoint(target, targetSide, offset);

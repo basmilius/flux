@@ -38,7 +38,7 @@ export type FluxFlowPanelPosition = 'top-left' | 'top-right' | 'bottom-left' | '
  */
 export type FluxFlowAlign = 'start' | 'center' | 'end';
 
-export type FluxFlowConnectionType = 'bezier' | 'smoothstep' | 'straight';
+export type FluxFlowConnectionType = 'bezier' | 'smoothstep' | 'step' | 'straight';
 
 /**
  * Where the label of a bent connector rides. `center` puts it halfway along the

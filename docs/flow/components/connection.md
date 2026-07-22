@@ -49,7 +49,7 @@ props:
 
     -   name: type
         description: The shape of the connector.
-        type: "'smoothstep' | 'bezier' | 'straight'"
+        type: "'smoothstep' | 'step' | 'bezier' | 'straight'"
         optional: true
         default: smoothstep
 
@@ -131,7 +131,7 @@ render=../../code/flow/components/connection/preview.vue
 
 ## Examples
 
-::: example Types || Three connector shapes: `smoothstep` (the default, orthogonal with rounded corners), `bezier` and `straight`.
+::: example Types || Four connector shapes: `smoothstep` (the default, orthogonal with rounded corners), `step` (the same route with sharp corners), `bezier` and `straight`.
 example=../../code/flow/components/connection/types.vue
 :::
 
@@ -187,7 +187,7 @@ example=../../code/flow/components/connection/marker-shapes.vue
 
 A connector routes itself, which is what you want until it runs straight over the card between its two ends. Give it `waypoints` and it runs through the points you name instead. They are plain flow coordinates, the same space as the `x` / `y` of a node, so a route is written where you can read it off the canvas.
 
-Every shape honours them: `straight` becomes a polyline, `smoothstep` rounds each corner the way it rounds its own, and `bezier` becomes a single smooth curve through the points. The label rides the middle of the whole route, and both endpoints still leave and reach their node along the side they use.
+Every shape honours them: `straight` becomes a polyline, `smoothstep` rounds each corner the way it rounds its own, `step` turns those same corners sharply, and `bezier` becomes a single smooth curve through the points. The label rides the middle of the whole route, and both endpoints still leave and reach their node along the side they use.
 
 ::: example Three shapes, one detour || The same two waypoints in all three shapes. The endpoints are unaffected: waypoints only shape the run between them, and the label rides the middle of that run.
 example=../../code/flow/components/connection/waypoints.vue

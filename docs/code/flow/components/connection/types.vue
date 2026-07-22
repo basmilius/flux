@@ -14,15 +14,23 @@
             <FluxFlowCard title="Target"/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="straight-top" :x="840" :y="0">
+        <FluxFlowNode id="step-top" :x="840" :y="0">
+            <FluxFlowCard title="Step"/>
+        </FluxFlowNode>
+        <FluxFlowNode id="step-bottom" :x="960" :y="210">
+            <FluxFlowCard title="Target"/>
+        </FluxFlowNode>
+
+        <FluxFlowNode id="straight-top" :x="1260" :y="0">
             <FluxFlowCard title="Straight"/>
         </FluxFlowNode>
-        <FluxFlowNode id="straight-bottom" :x="960" :y="210">
+        <FluxFlowNode id="straight-bottom" :x="1380" :y="210">
             <FluxFlowCard title="Target"/>
         </FluxFlowNode>
 
         <FluxFlowConnection from="smooth-top" to="smooth-bottom" type="smoothstep"/>
         <FluxFlowConnection from="bezier-top" to="bezier-bottom" type="bezier"/>
+        <FluxFlowConnection from="step-top" to="step-bottom" type="step"/>
         <FluxFlowConnection from="straight-top" to="straight-bottom" type="straight"/>
     </FluxFlow>
 </template>

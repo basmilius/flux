@@ -9,7 +9,7 @@
     import { computed, getCurrentInstance, onBeforeUnmount } from 'vue';
     import { useFluxFlowInjection } from '~flux/flow/composable';
     import type { FluxFlowAlign, FluxFlowConnectionType, FluxFlowEdgeSpec, FluxFlowLabelPlacement, FluxFlowMarker, FluxFlowMarkerFill, FluxFlowNodeRecord, FluxFlowPortRecord, FluxFlowPosition, FluxFlowSide } from '~flux/flow/data';
-    import { anchorPoint, autoSides, clamp, getBezierPath, getSelfLoopPath, getSmoothStepPath, getStraightPath, markerPath, offsetPoint, portPoint, portSide, selfLoopPoints } from '~flux/flow/util';
+    import { anchorPoint, autoSides, clamp, getBezierPath, getSelfLoopPath, getSmoothStepPath, getStepPath, getStraightPath, markerPath, offsetPoint, portPoint, portSide, selfLoopPoints } from '~flux/flow/util';
 
     const props = defineProps<{
         readonly from: string;
@@ -105,7 +105,9 @@
             ? getStraightPath(fromPoint, toPoint, waypoints, placement)
             : type === 'bezier'
                 ? getBezierPath(fromPoint, sourceSide, toPoint, targetSide, waypoints, placement)
-                : getSmoothStepPath(fromPoint, sourceSide, toPoint, targetSide, waypoints, placement);
+                : type === 'step'
+                    ? getStepPath(fromPoint, sourceSide, toPoint, targetSide, waypoints, placement)
+                    : getSmoothStepPath(fromPoint, sourceSide, toPoint, targetSide, waypoints, placement);
 
         return {
             path: path.path,

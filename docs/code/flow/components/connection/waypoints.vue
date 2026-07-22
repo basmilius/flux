@@ -14,16 +14,24 @@
             <FluxFlowCard title="Target"/>
         </FluxFlowNode>
 
-        <FluxFlowNode id="straight-top" :x="840" :y="0">
+        <FluxFlowNode id="step-top" :x="840" :y="0">
+            <FluxFlowCard title="Step"/>
+        </FluxFlowNode>
+        <FluxFlowNode id="step-bottom" :x="840" :y="330">
+            <FluxFlowCard title="Target"/>
+        </FluxFlowNode>
+
+        <FluxFlowNode id="straight-top" :x="1260" :y="0">
             <FluxFlowCard title="Straight"/>
         </FluxFlowNode>
-        <FluxFlowNode id="straight-bottom" :x="840" :y="330">
+        <FluxFlowNode id="straight-bottom" :x="1260" :y="330">
             <FluxFlowCard title="Target"/>
         </FluxFlowNode>
 
         <FluxFlowConnection from="smooth-top" to="smooth-bottom" type="smoothstep" :waypoints="[{x: 45, y: 165}, {x: 45, y: 255}]" label="Detour"/>
         <FluxFlowConnection from="bezier-top" to="bezier-bottom" type="bezier" :waypoints="[{x: 465, y: 165}, {x: 465, y: 255}]" label="Detour"/>
-        <FluxFlowConnection from="straight-top" to="straight-bottom" type="straight" :waypoints="[{x: 885, y: 165}, {x: 885, y: 255}]" label="Detour"/>
+        <FluxFlowConnection from="step-top" to="step-bottom" type="step" :waypoints="[{x: 885, y: 165}, {x: 885, y: 255}]" label="Detour"/>
+        <FluxFlowConnection from="straight-top" to="straight-bottom" type="straight" :waypoints="[{x: 1305, y: 165}, {x: 1305, y: 255}]" label="Detour"/>
     </FluxFlow>
 </template>
 
