@@ -87,6 +87,11 @@ props:
         type: "(item: T) => boolean"
         optional: true
 
+    -   name: row-color
+        description: An accessor that returns the color for each row, for example `danger` for a row that failed. Return `undefined` to leave a row untinted. A selected row keeps its selected styling.
+        type: "(item: T) => FluxColor | undefined"
+        optional: true
+
     -   name: selection-mode
         description: Enables row selection. Use `single` for at most one selected row, or `multiple` for an array of selected rows. Requires `unique-key` to be set.
         type: "'single' | 'multiple'"
@@ -227,6 +232,10 @@ example=../code/components/data-table/pagination-slot.vue
 
 ::: example Clickable rows || A data table that emits `row-click` per row, while ignoring clicks on the action button inside a cell. Focused rows can be walked with the arrow keys and activated with `Enter`/`Space`.
 example=../code/components/data-table/clickable.vue
+:::
+
+::: example Row colors || A data table that tints rows based on their status.
+example=../code/components/data-table/row-colors.vue
 :::
 
 ::: example Selectable rows || A data table where multiple rows can be selected via checkboxes.

@@ -2,7 +2,18 @@
     <div
         ref="row"
         v-show="!isHidden"
-        :class="clsx($style.tableRow, isClickable && $style.isClickable, isSelected && $style.isSelected)"
+        :class="clsx(
+            $style.tableRow,
+            isClickable && $style.isClickable,
+            isSelected && $style.isSelected,
+            color && $style.isColored,
+            color === 'gray' && $style.tableRowGray,
+            color === 'primary' && $style.tableRowPrimary,
+            color === 'danger' && $style.tableRowDanger,
+            color === 'info' && $style.tableRowInfo,
+            color === 'success' && $style.tableRowSuccess,
+            color === 'warning' && $style.tableRowWarning
+        )"
         role="row"
         :tabindex="tabindex"
         @click="onClick"
@@ -15,6 +26,7 @@
 <script
     lang="ts"
     setup>
+    import type { FluxColor } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, onUnmounted, useTemplateRef, type VNode, watch } from 'vue';
     import { useTableInjection } from '~flux/components/composable';
@@ -28,6 +40,7 @@
         isClickable,
         isHidden
     } = defineProps<{
+        readonly color?: FluxColor;
         readonly isClickable?: boolean;
         readonly isHidden?: boolean;
         readonly isSelected?: boolean;

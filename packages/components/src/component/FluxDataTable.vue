@@ -92,6 +92,7 @@
                 :key="entry.key">
                 <FluxTableRow
                     :aria-rowindex="(page - 1) * perPage + entry.index + 2"
+                    :color="rowStates.get(entry.key)?.color"
                     :is-clickable="isRowInteractive"
                     :is-hidden="chunk.isCollapsed"
                     :is-selected="rowStates.get(entry.key)?.isSelected"
@@ -129,6 +130,7 @@
 
                 <FluxTableRow
                     v-if="hasExpandable && rowStates.get(entry.key)?.isExpanded"
+                    :color="rowStates.get(entry.key)?.color"
                     :is-hidden="chunk.isCollapsed">
                     <FluxTableCell :colspan="columnCount">
                         <template #content>
@@ -170,6 +172,7 @@
     lang="ts"
     setup
     generic="T extends Record<string, any>">
+    import type { FluxColor } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, getCurrentInstance, unref, useTemplateRef, type VNode, watch } from 'vue';
     import FluxTableActions from './FluxTableActions.vue';
@@ -231,6 +234,7 @@
         items,
         page,
         perPage,
+        rowColor,
         selectionMode,
         total,
         uniqueKey
@@ -247,6 +251,7 @@
         readonly limits: number[];
         readonly page: number;
         readonly perPage: number;
+        readonly rowColor?: (item: T) => FluxColor | undefined;
         readonly selectionMode?: 'single' | 'multiple';
         readonly total: number;
         readonly uniqueKey?: string;
@@ -423,11 +428,12 @@
     const collapsedGroupSet = computed<ReadonlySet<SelectionId>>(() => new Set(unref(collapsedGroups)));
 
     const rowStates = computed(() => {
-        const states = new Map<SelectionId, { isExpandable: boolean; isExpanded: boolean; isSelected: boolean }>();
+        const states = new Map<SelectionId, { color: FluxColor | undefined; isExpandable: boolean; isExpanded: boolean; isSelected: boolean }>();
 
         for (const chunk of unref(renderChunks)) {
             for (const entry of chunk.entries) {
                 states.set(entry.key, {
+                    color: rowColor?.(entry.item),
                     isExpandable: isRowExpandable(entry.item),
                     isExpanded: isItemExpanded(entry.item),
                     isSelected: isItemSelected(entry.item)

@@ -7,6 +7,11 @@ emits:
         type: [ number, MouseEvent ]
 
 props:
+    -   name: color
+        description: Tints the row to mark it, for example a row that failed (`danger`) or needs attention (`warning`). A row is not tinted by default. A selected row keeps its selected styling, even when a color is set.
+        type: FluxColor
+        optional: true
+
     -   name: is-clickable
         description: Makes the row interactive by showing a pointer cursor and making it focusable so it can be activated with `Enter`/`Space`. Pair it with a `row-click` listener.
         type: boolean
@@ -52,4 +57,8 @@ example=../../code/components/table/row/clickable.vue
 
 ::: example Selected || Use `is-selected` to highlight a row as selected.
 example=../../code/components/table/row/selected.vue
+:::
+
+::: example Colors || Use `color` to tint a row.
+example=../../code/components/table/row/colors.vue
 :::

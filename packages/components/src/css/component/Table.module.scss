@@ -123,6 +123,73 @@
     background: var(--gray-50);
 }
 
+.tableRowGray {
+    --table-row-fill: var(--gray-50);
+    --table-row-fill-hover: var(--gray-100);
+    --table-row-stroke: var(--gray-100);
+}
+
+.tableRowPrimary {
+    --table-row-fill: var(--primary-50);
+    --table-row-fill-hover: var(--primary-100);
+    --table-row-stroke: var(--primary-100);
+}
+
+.tableRowDanger {
+    --table-row-fill: var(--danger-50);
+    --table-row-fill-hover: var(--danger-100);
+    --table-row-stroke: var(--danger-100);
+}
+
+.tableRowInfo {
+    --table-row-fill: var(--info-50);
+    --table-row-fill-hover: var(--info-100);
+    --table-row-stroke: var(--info-100);
+}
+
+.tableRowSuccess {
+    --table-row-fill: var(--success-50);
+    --table-row-fill-hover: var(--success-100);
+    --table-row-stroke: var(--success-100);
+}
+
+.tableRowWarning {
+    --table-row-fill: var(--warning-50);
+    --table-row-fill-hover: var(--warning-100);
+    --table-row-stroke: var(--warning-100);
+}
+
+.tableBody .tableRow.isColored > .tableCell {
+    background: var(--table-row-fill);
+    border-color: var(--table-row-stroke);
+}
+
+// The separator below a row is drawn by the next row's top border, so every
+// variant tints that too (the same trick as the .isSelected rule below).
+.tableBody .tableRowGray + .tableRow > .tableCell {
+    border-top-color: var(--gray-100);
+}
+
+.tableBody .tableRowPrimary + .tableRow > .tableCell {
+    border-top-color: var(--primary-100);
+}
+
+.tableBody .tableRowDanger + .tableRow > .tableCell {
+    border-top-color: var(--danger-100);
+}
+
+.tableBody .tableRowInfo + .tableRow > .tableCell {
+    border-top-color: var(--info-100);
+}
+
+.tableBody .tableRowSuccess + .tableRow > .tableCell {
+    border-top-color: var(--success-100);
+}
+
+.tableBody .tableRowWarning + .tableRow > .tableCell {
+    border-top-color: var(--warning-100);
+}
+
 .tableBody .tableRow.isSelected > .tableCell {
     background: var(--primary-50);
     border-color: var(--primary-100);
@@ -147,6 +214,11 @@
     .table.isHoverable .tableBody .tableRow:has(:hover) > .tableGroup.isHoverable,
     .table.isHoverable .tableBody .tableRow:has(:focus-visible) > .tableGroup.isHoverable {
         background: var(--gray-50);
+    }
+
+    .table.isHoverable .tableBody .tableRow.isColored:has(:hover) > .tableCell:not(.hasRowspan),
+    .table.isHoverable .tableBody .tableRow.isColored:has(:focus-visible) > .tableCell:not(.hasRowspan) {
+        background: var(--table-row-fill-hover);
     }
 
     .table.isHoverable .tableBody .tableRow.isSelected:has(:hover) > .tableCell:not(.hasRowspan),
