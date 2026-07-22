@@ -137,3 +137,25 @@
 .flowConnectionBadge.flowConnectionBadge :is(span, svg) {
     color: inherit;
 }
+
+// An icon without a label stands on the line itself: the badge keeps measuring
+// and positioning it, but paints nothing around it.
+.flowConnectionBadge.isBare {
+    height: auto;
+    padding: 0;
+    background: none;
+    border: 0;
+}
+
+// The empty label FluxBadge always renders. Out of the flex flow, so the badge's
+// own gap never widens the icon's box either.
+.flowConnectionBadge.isBare span {
+    display: none;
+}
+
+// FluxBadge sizes its icon for a pill and pulls it into the padding, neither of
+// which applies to an icon that is the whole element.
+.flowConnectionBadge.isBare svg {
+    margin: 0;
+    font-size: 20px;
+}

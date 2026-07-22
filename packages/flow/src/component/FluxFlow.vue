@@ -105,7 +105,7 @@
                         v-for="edge of labelledEdges"
                         :key="edge.id"
                         :ref="element => setLabelElement(edge.id, element)"
-                        :class="$edge.flowConnectionBadge"
+                        :class="clsx($edge.flowConnectionBadge, !edge.spec.label && $edge.isBare)"
                         :style="{...edge.spec.styleVars, left: `${edge.spec.labelX}px`, top: `${edge.spec.labelY}px`}"
                         :icon="edge.spec.icon"
                         :label="edge.spec.label ?? ''"/>

@@ -70,7 +70,7 @@ props:
         default: center
 
     -   name: icon
-        description: An icon rendered in a badge at the midpoint of the connector, breaking the line. Combines with a label.
+        description: An icon rendered at the midpoint of the connector, breaking the line. Next to a label it sits in the same badge; on its own it renders standalone on the line, without a badge background.
         type: FluxIconName
         optional: true
 
@@ -151,6 +151,10 @@ example=../../code/flow/components/connection/alignment.vue
 
 ::: example Label placement || A badge rides the middle of the connector. On a connector that bends that middle can land on a bend, or on the leg two branches share, so `label-placement` moves it to the leg leaving the source or the leg entering the target instead.
 example=../../code/flow/components/connection/label-placement.vue
+:::
+
+::: example Icons || An `icon` next to a `label` rides along in the badge. An `icon` on its own drops the badge and stands on the line itself, which keeps a connector that only needs a symbol light. Both break the line the same way, and both follow the connector's `color`.
+example=../../code/flow/components/connection/icons.vue
 :::
 
 ::: example Line styles || Connectors are solid by default; set `dashed` or `dotted` for other styles. A connector leaves its source with a port dot and reaches its target with an arrow head; `marker-start` and `marker-end` swap either for the other shape, or drop it entirely.
