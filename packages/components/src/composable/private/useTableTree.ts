@@ -1,4 +1,5 @@
-import { nextTick, onMounted, onUnmounted, ref, type Ref, shallowReactive, watch } from 'vue';
+import { animationFrameDebounce } from '@flux-ui/internals';
+import { onMounted, onUnmounted, ref, type Ref, watch } from 'vue';
 
 export const TREE_STEP = 24;
 export const TREE_MARKER_SIZE = 22;
@@ -16,7 +17,6 @@ type MeasuredNode = {
     readonly x: number;
     readonly top: number;
     readonly bottom: number;
-    readonly centerY: number;
     readonly level: number;
 };
 
@@ -26,97 +26,99 @@ type MeasuredNode = {
  * from the cells that are actually rendered, so collapsing a branch — rendering
  * fewer cells — keeps the lines correct on its own. Because the geometry is
  * measured, the connectors can bend into their marker with a real rounded corner.
+ *
+ * Measuring is the expensive half: it reads the layout of every registered cell.
+ * Every trigger therefore runs through one animation-frame debounce, so a table
+ * mounting a thousand rows measures once instead of once per mount or resize.
  */
 export function useTableTree(container: Readonly<Ref<HTMLElement | null>>) {
-    const registrations = shallowReactive(new Set<TreeNodeRegistration>());
+    // A plain Set: the registrations are only ever read from `measure`, which is
+    // driven by explicit calls rather than by an effect. A reactive proxy would
+    // only tax the mount, where every tree cell adds one entry.
+    const registrations = new Set<TreeNodeRegistration>();
     const treeLines = ref('');
+
+    let measured: MeasuredNode[] = [];
+
+    // Nothing about the path changes unless a cell moved, resized or (un)registered.
+    // Bailing out here keeps a resize that only nudged the row group from rebuilding
+    // a path string that runs into the tens of thousands of characters.
+    function isUnchanged(nodes: MeasuredNode[]): boolean {
+        if (nodes.length !== measured.length) {
+            return false;
+        }
+
+        for (let index = 0; index < nodes.length; index++) {
+            const node = nodes[index];
+            const previous = measured[index];
+
+            if (node.level !== previous.level || node.top !== previous.top || node.bottom !== previous.bottom || node.x !== previous.x) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    const measure = animationFrameDebounce(() => {
+        const root = container.value;
+
+        if (!root || registrations.size === 0) {
+            measured = [];
+            treeLines.value = '';
+            return;
+        }
+
+        // A hidden table has no layout to read. Keep the previous path so the lines
+        // are already correct the moment it becomes visible again.
+        if (root.offsetParent === null || root.offsetHeight === 0) {
+            return;
+        }
+
+        const nodes: MeasuredNode[] = [];
+
+        for (const registration of registrations) {
+            const node = measureNode(registration, root);
+
+            if (node) {
+                nodes.push(node);
+            }
+        }
+
+        nodes.sort((a, b) => a.top - b.top);
+
+        if (isUnchanged(nodes)) {
+            return;
+        }
+
+        measured = nodes;
+        treeLines.value = buildPath(nodes);
+    });
 
     function registerTreeNode(element: Readonly<Ref<HTMLElement | null>>, level: Readonly<Ref<number>>): () => void {
         const registration: TreeNodeRegistration = {element, level};
 
         registrations.add(registration);
-        scheduleMeasure();
+        measure();
 
         return () => {
             registrations.delete(registration);
-            scheduleMeasure();
-        };
-    }
-
-    let scheduled = false;
-
-    function scheduleMeasure(): void {
-        if (scheduled) {
-            return;
-        }
-
-        scheduled = true;
-
-        nextTick(() => {
             measure();
-            scheduled = false;
-        });
-    }
-
-    function measure(): void {
-        const root = container.value;
-
-        if (!root) {
-            treeLines.value = '';
-            return;
-        }
-
-        const rootRect = root.getBoundingClientRect();
-
-        // getBoundingClientRect() reports transformed coordinates, so measuring
-        // while the table sits inside a CSS scale transition would bake the scaled
-        // sizes into the path. offsetWidth/offsetHeight ignore transforms, so their
-        // ratio gives the effective scale, letting us normalise back to layout px.
-        const scaleX = rootRect.width / root.offsetWidth;
-        const scaleY = rootRect.height / root.offsetHeight;
-
-        if (!Number.isFinite(scaleX) || !Number.isFinite(scaleY) || scaleX <= 0 || scaleY <= 0) {
-            // Degenerate scale (e.g. a scale(0) enter frame); keep the previous path
-            // and let the next, non-degenerate measure produce the correct geometry.
-            return;
-        }
-
-        const nodes = Array.from(registrations)
-            .map((registration): MeasuredNode | null => {
-                const element = registration.element.value;
-
-                if (!element) {
-                    return null;
-                }
-
-                const rect = element.getBoundingClientRect();
-                const top = (rect.top - rootRect.top) / scaleY;
-                const height = rect.height / scaleY;
-
-                return {
-                    x: (rect.left - rootRect.left) / scaleX,
-                    top,
-                    bottom: top + height,
-                    centerY: top + height / 2,
-                    level: registration.level.value
-                };
-            })
-            .filter((node): node is MeasuredNode => node !== null)
-            .sort((a, b) => a.top - b.top);
-
-        treeLines.value = buildPath(nodes);
+        };
     }
 
     let observer: ResizeObserver | null = null;
 
     onMounted(() => {
-        observer = new ResizeObserver(() => measure());
+        if (typeof ResizeObserver !== 'undefined') {
+            observer = new ResizeObserver(measure);
 
-        if (container.value) {
-            observer.observe(container.value);
+            if (container.value) {
+                observer.observe(container.value);
+            }
         }
 
-        scheduleMeasure();
+        measure();
     });
 
     onUnmounted(() => observer?.disconnect());
@@ -132,56 +134,88 @@ export function useTableTree(container: Readonly<Ref<HTMLElement | null>>) {
     return {registerTreeNode, treeLines};
 }
 
+// offsetTop/offsetLeft are relative to the offsetParent, which is normally the row
+// group itself. A pinned cell is sticky and therefore becomes the offsetParent of
+// its own branch, so walk up until the container is reached. Unlike
+// getBoundingClientRect() these ignore transforms — the path stays correct inside a
+// scale transition — and they report the layout position rather than the
+// sticky-shifted one, which is what the path, absolutely positioned in the row
+// group, is drawn against.
+function measureNode(registration: TreeNodeRegistration, root: HTMLElement): MeasuredNode | null {
+    const element = registration.element.value;
+
+    if (!element) {
+        return null;
+    }
+
+    let left = 0;
+    let top = 0;
+    let current: HTMLElement | null = element;
+
+    while (current && current !== root) {
+        left += current.offsetLeft;
+        top += current.offsetTop;
+        current = current.offsetParent as HTMLElement | null;
+    }
+
+    if (current !== root) {
+        return null;
+    }
+
+    return {
+        x: left,
+        top,
+        bottom: top + element.offsetHeight,
+        level: registration.level.value
+    };
+}
+
+function columnX(node: MeasuredNode, column: number): number {
+    return node.x + column * TREE_STEP + TREE_STEP / 2;
+}
+
+// Walk bottom-up: at any index `open` still describes the nodes below it, which is
+// exactly what decides whether that node is the last of its siblings and which
+// ancestor branches still need a guide line. Segments come out bottom-up, which is
+// harmless — each one starts with its own move command.
 function buildPath(nodes: MeasuredNode[]): string {
-    // Walk bottom-up so each node knows which ancestor branches are still open
-    // below it (guide lines to draw) and whether it is the last of its siblings.
     const open: boolean[] = [];
-    const guides = nodes.map(() => ({isLast: true, lineGuides: [] as boolean[]}));
+    const segments: string[] = [];
 
     for (let index = nodes.length - 1; index >= 0; index--) {
-        const {level} = nodes[index];
+        const node = nodes[index];
+        const {bottom, level, top} = node;
+        const centerY = (top + bottom) / 2;
+        const isLast = !open[level];
+        const hasChildren = index + 1 < nodes.length && nodes[index + 1].level === level + 1;
 
-        guides[index] = {
-            isLast: !open[level],
-            lineGuides: Array.from({length: level}, (_, depth) => open[depth] ?? false)
-        };
+        for (let depth = 1; depth < level; depth++) {
+            if (open[depth]) {
+                const x = columnX(node, depth - 1);
+                segments.push(`M${x} ${top}V${bottom}`);
+            }
+        }
+
+        if (level > 0) {
+            const x = columnX(node, level - 1);
+            // Stop the connector a small gap short of the marker; the rounded
+            // stroke cap then gives the line end a soft finish next to the dot.
+            const endX = columnX(node, level) - MARKER_RADIUS - MARKER_GAP;
+            segments.push(`M${x} ${top}V${isLast ? centerY - CORNER_RADIUS : bottom}`);
+            segments.push(`M${x} ${centerY - CORNER_RADIUS}Q${x} ${centerY} ${x + CORNER_RADIUS} ${centerY}H${endX}`);
+        }
+
+        if (hasChildren) {
+            const x = columnX(node, level);
+            // Same gap below the marker before the line drops to its children.
+            segments.push(`M${x} ${centerY + MARKER_RADIUS + MARKER_GAP}V${bottom}`);
+        }
 
         for (let depth = level + 1; depth < open.length; depth++) {
             open[depth] = false;
         }
 
         open[level] = true;
-    }
-
-    const segments: string[] = [];
-
-    for (let index = 0; index < nodes.length; index++) {
-        const node = nodes[index];
-        const {isLast, lineGuides} = guides[index];
-        const columnX = (column: number) => node.x + column * TREE_STEP + TREE_STEP / 2;
-        const hasChildren = index + 1 < nodes.length && nodes[index + 1].level === node.level + 1;
-
-        for (let depth = 1; depth < node.level; depth++) {
-            if (lineGuides[depth]) {
-                const x = columnX(depth - 1);
-                segments.push(`M${x} ${node.top}V${node.bottom}`);
-            }
-        }
-
-        if (node.level > 0) {
-            const x = columnX(node.level - 1);
-            // Stop the connector a small gap short of the marker; the rounded
-            // stroke cap then gives the line end a soft finish next to the dot.
-            const endX = columnX(node.level) - MARKER_RADIUS - MARKER_GAP;
-            segments.push(`M${x} ${node.top}V${isLast ? node.centerY - CORNER_RADIUS : node.bottom}`);
-            segments.push(`M${x} ${node.centerY - CORNER_RADIUS}Q${x} ${node.centerY} ${x + CORNER_RADIUS} ${node.centerY}H${endX}`);
-        }
-
-        if (hasChildren) {
-            const x = columnX(node.level);
-            // Same gap below the marker before the line drops to its children.
-            segments.push(`M${x} ${node.centerY + MARKER_RADIUS + MARKER_GAP}V${node.bottom}`);
-        }
     }
 
     return segments.join(' ');
