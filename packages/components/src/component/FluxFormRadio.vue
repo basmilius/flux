@@ -28,13 +28,19 @@
             :class="$style.formRadioElement"/>
 
         <span
-            v-if="subLabel"
+            v-if="subLabel || $slots.label"
             :class="$style.formRadioText">
-            <span :class="$style.formRadioLabel">
-                <slot>{{ label }}</slot>
-            </span>
+            <slot name="label">
+                <span :class="$style.formRadioLabel">
+                    <slot>{{ label }}</slot>
+                </span>
 
-            <span :class="$style.formRadioSubLabel">{{ subLabel }}</span>
+                <span
+                    v-if="subLabel"
+                    :class="$style.formRadioSubLabel">
+                    {{ subLabel }}
+                </span>
+            </slot>
         </span>
 
         <span
@@ -66,6 +72,7 @@
 
     defineSlots<{
         default(): any;
+        label?(): any;
     }>();
 
     const group = useFormRadioGroupInjection();

@@ -24,6 +24,9 @@ props:
 slots:
     -   name: default
         description: The label content of the radio. Falls back to the label prop.
+
+    -   name: label
+        description: Replaces the label and sub-label with custom content, allowing HTML inside the text area of the radio. Takes precedence over the default slot.
 ---
 
 # Radio
