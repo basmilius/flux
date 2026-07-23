@@ -76,8 +76,9 @@
         </FluxTagStack>
         <FluxNotice
             color="warning"
-            icon="circle-exclamation"
-            message="Please note that this is a warning message rendered inside the prose flow."/>
+            icon="circle-exclamation">
+            <p>Heads up: mark an element with <code>data-prose-full</code> and it spans the whole container. Inside a notice, inline <code>code</code> keeps the notice's own styling rather than the prose chip.</p>
+        </FluxNotice>
         <FluxButtonStack>
             <FluxSecondaryButton
                 icon-leading="circle-arrow-up"
