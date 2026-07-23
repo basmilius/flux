@@ -5,7 +5,9 @@ export * from './composable';
 export * from './transition';
 
 export {
+    configureIcons,
     fluxRegisterIcons,
+    iconConfig,
     iconRegistry,
     isFluxFormSelectGroup,
     isFluxFormSelectOption,

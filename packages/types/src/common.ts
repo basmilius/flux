@@ -2,6 +2,14 @@ import type { IconName as FontAwesome } from '@fortawesome/fontawesome-common-ty
 
 export type FluxIconName = FontAwesome;
 
+export type FluxIconStyle =
+    | 'solid'
+    | 'regular'
+    | 'light'
+    | 'thin'
+    | 'duotone'
+    | 'brands';
+
 export type FluxAlignment =
     | 'start'
     | 'center'

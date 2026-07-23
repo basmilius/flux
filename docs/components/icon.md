@@ -22,6 +22,11 @@ props:
         type: [ number, string ]
         optional: true
 
+    -   name: icon-style
+        description: Overrides the Font Awesome family/style for this icon in font mode (for example brands). Ignored in the default SVG mode.
+        type: FluxIconStyle
+        optional: true
+
     -   name: aria-label
         description: An accessible label for the icon. When omitted, the icon is hidden from assistive technology.
         type: string
@@ -30,7 +35,7 @@ props:
 
 # Icon
 
-This component displays a single customizable Font Awesome icon, rendered as SVG. It is commonly used in various Flux components, including [Buttons](./button), and can be easily styled with CSS.
+This component displays a single customizable Font Awesome icon, rendered as SVG by default. It is commonly used in various Flux components, including [Buttons](./button), and can be easily styled with CSS. It can also render icons with the Font Awesome webfont. See [Font Awesome](../guide/introduction/font-awesome#using-the-icon-font).
 
 Please refer to [Font Awesome](../guide/introduction/font-awesome) to read more about the usage of icons.
 

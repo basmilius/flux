@@ -6,6 +6,7 @@ export type {
     FluxDirection,
     FluxFlexWrap,
     FluxIconName,
+    FluxIconStyle,
     FluxInputMask,
     FluxInputType,
     FluxJustify,
