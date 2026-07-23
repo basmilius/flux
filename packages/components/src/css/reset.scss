@@ -9,6 +9,12 @@
         margin: 0;
     }
 
+    // Remove default list styling; rich prose re-adds it inside FluxProse.
+    ul, ol {
+        padding: 0;
+        list-style: none;
+    }
+
     body {
         // Improved text rendering.
         -webkit-font-smoothing: antialiased;

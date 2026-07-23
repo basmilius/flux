@@ -7,7 +7,7 @@
 </template>
 
 <script
-    setup
-    lang="ts">
+    lang="ts"
+    setup>
     import { FluxProse } from '@flux-ui/components';
 </script>

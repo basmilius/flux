@@ -37,19 +37,21 @@
         </span>
 
         <span
-            v-if="label || subLabel"
+            v-if="label || subLabel || $slots.label"
             :class="$style.formCheckboxText">
-            <span
-                v-if="label"
-                :class="$style.formCheckboxLabel">
-                {{ label }}
-            </span>
+            <slot name="label">
+                <span
+                    v-if="label"
+                    :class="$style.formCheckboxLabel">
+                    {{ label }}
+                </span>
 
-            <span
-                v-if="subLabel"
-                :class="$style.formCheckboxSubLabel">
-                {{ subLabel }}
-            </span>
+                <span
+                    v-if="subLabel"
+                    :class="$style.formCheckboxSubLabel">
+                    {{ subLabel }}
+                </span>
+            </slot>
         </span>
     </component>
 </template>
@@ -78,6 +80,10 @@
         readonly label?: string;
         readonly subLabel?: string;
         readonly value?: FluxFormCheckboxGroupValue;
+    }>();
+
+    defineSlots<{
+        label?(): any;
     }>();
 
     const inputRef = useTemplateRef('input');

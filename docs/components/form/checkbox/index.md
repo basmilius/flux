@@ -41,6 +41,10 @@ props:
         type: boolean
         optional: true
 
+slots:
+    -   name: label
+        description: Replaces the label and sub-label with custom content, allowing HTML inside the text area of the checkbox.
+
 requiredIcons:
     - check
     - minus
@@ -72,6 +76,10 @@ example=../../../code/components/form/checkbox/indeterminate.vue
 
 ::: example Sub-label || A checkbox with a secondary line of text below the label.
 example=../../../code/components/form/checkbox/sub-label.vue
+:::
+
+::: example Custom label || A checkbox that uses the label slot to render HTML inside its label.
+example=../../../code/components/form/checkbox/custom-label.vue
 :::
 
 ::: example Disabled || A disabled checkbox in both the checked and unchecked state.
