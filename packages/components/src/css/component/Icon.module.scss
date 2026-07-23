@@ -41,14 +41,16 @@
     }
 
     .iconBoxed {
-        composes: basePane from './base/Pane.module.scss';
-
         display: flex;
         height: 1em;
         width: 1em;
         align-items: center;
         flex-shrink: 0;
         justify-content: center;
+        background: var(--surface);
+        background-clip: padding-box;
+        border: 1px solid var(--surface-stroke-out);
+        border-radius: var(--radius);
         font-size: 42px;
 
         .icon {
