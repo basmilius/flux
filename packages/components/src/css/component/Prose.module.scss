@@ -5,8 +5,10 @@
 $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
 
 // Break-out grid: content sits at a readable measure, while elements marked
-// with data-prose-wide or data-prose-full break out to wider tracks.
-.container {
+// with data-prose-wide or data-prose-full break out to wider tracks. Named
+// proseContainer rather than container: Layout.module.scss already owns that
+// name, and the two must not collide in a flat class namespace.
+.proseContainer {
     --_gutter: var(--flux-prose-gutter, 24px);
     --_measure: var(--flux-prose-container, 90ch);
     --_wide: var(--flux-prose-wide, 12ch);

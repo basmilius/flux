@@ -29,7 +29,7 @@
     const rendered = computed(() => {
         const children = flattenVNodeTree(slots.default?.() ?? []);
         const extra = {
-            class: clsx($style.prose, container && $style.container),
+            class: clsx($style.prose, container && $style.proseContainer),
             'data-prose': ''
         };
 
