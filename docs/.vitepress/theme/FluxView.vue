@@ -14,7 +14,7 @@
             line-height: 1.6;
         }
 
-        :global(p) {
+        :global(p:not(:where([data-flux-prose] *))) {
             margin: unset;
             line-height: 1.6;
         }

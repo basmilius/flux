@@ -11,12 +11,14 @@
             <template #default="{ close }">
                 <FluxPane style="max-width: 420px">
                     <FluxPaneBody>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A asperiores cum debitis dolor, explicabo facere illo ipsa iste labore, maiores molestias odit optio qui quo reprehenderit ut veniam veritatis. Saepe.</p>
+                        <FluxProse>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A asperiores cum debitis dolor, explicabo facere illo ipsa iste labore, maiores molestias odit optio qui quo reprehenderit ut veniam veritatis. Saepe.</p>
 
-                        <FluxSecondaryButton
-                            data-typography-aware
-                            label="Close"
-                            @click="close()"/>
+                            <FluxSecondaryButton
+                                data-flux-prose-aware
+                                label="Close"
+                                @click="close()"/>
+                        </FluxProse>
                     </FluxPaneBody>
                 </FluxPane>
             </template>
@@ -27,5 +29,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxFlyout, FluxPane, FluxPaneBody, FluxSecondaryButton } from '@flux-ui/components';
+    import { FluxFlyout, FluxPane, FluxPaneBody, FluxProse, FluxSecondaryButton } from '@flux-ui/components';
 </script>

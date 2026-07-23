@@ -1,0 +1,36 @@
+<template>
+    <FluxProse>
+        <table>
+            <thead>
+                <tr>
+                    <th>Roast</th>
+                    <th>Body</th>
+                    <th>Acidity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Light</td>
+                    <td>Delicate</td>
+                    <td>High</td>
+                </tr>
+                <tr>
+                    <td>Medium</td>
+                    <td>Balanced</td>
+                    <td>Medium</td>
+                </tr>
+                <tr>
+                    <td>Dark</td>
+                    <td>Full</td>
+                    <td>Low</td>
+                </tr>
+            </tbody>
+        </table>
+    </FluxProse>
+</template>
+
+<script
+    lang="ts"
+    setup>
+    import { FluxProse } from '@flux-ui/components';
+</script>
