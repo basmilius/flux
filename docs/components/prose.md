@@ -26,14 +26,6 @@ slots:
 
 The Prose component turns plain HTML into rich, readable prose. Everything you drop inside it, headings, paragraphs, lists, blockquotes, code, tables and images, is styled with a consistent type scale and vertical rhythm, so you can write an article without reaching for custom CSS.
 
-::: render
-render=../code/components/prose/preview.vue
-:::
-
-::: tip
-Outside of Prose, Flux keeps only light element defaults (heading sizes, link and monospace styling). The rich prose styling, vertical rhythm, decorated blockquotes, list markers and table borders, applies only within `FluxProse`.
-:::
-
 By default Prose renders a `div`. Set `tag` to render a different wrapper such as an `article`, or use `as-child` to merge the styling onto the single child element without any wrapper at all.
 
 For long-form reading, add the `container` prop to cap the content at a comfortable measure and center it. The width is driven by the `--flux-prose-container` custom property (default `90ch`), so you can set it to `72ch`, `78ch`, `84ch` or any value you like.
@@ -43,6 +35,14 @@ In container mode the content is laid out on a break-out grid, so individual ele
 Because Prose only styles its own HTML elements, you can drop a Flux component straight into an article without a wrapper: it keeps its own styling and still flows in the vertical rhythm.
 
 Use [Text](/components/text) instead when you need a single styled piece of inline text, such as a label, a metric or a caption. Prose is for flowing document content, Text is for individual strings.
+
+::: render
+render=../code/components/prose/preview.vue
+:::
+
+::: tip
+Outside of Prose, Flux keeps only light element defaults (heading sizes, link and monospace styling). The rich prose styling, vertical rhythm, decorated blockquotes, list markers and table borders, applies only within `FluxProse`.
+:::
 
 <FrontmatterDocs/>
 

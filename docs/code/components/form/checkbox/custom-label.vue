@@ -17,7 +17,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxFormCheckbox, FluxForm, FluxFormField, FluxPane, FluxPaneBody } from '@flux-ui/components';
+    import { FluxForm, FluxFormCheckbox, FluxFormField, FluxPane, FluxPaneBody } from '@flux-ui/components';
     import { ref } from 'vue';
 
     const isAccepted = ref(false);
