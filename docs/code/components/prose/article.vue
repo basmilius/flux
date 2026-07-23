@@ -35,17 +35,15 @@
 }</code></pre>
         <p>Document shortcuts with the keyboard element: press <kbd>Cmd</kbd> + <kbd>B</kbd> to toggle bold.</p>
 
-        <FluxProseReset>
-            <FluxPane>
-                <FluxPaneHeader
-                    icon="circle-info"
-                    subtitle="Rendered inside FluxProseReset"
-                    title="Embedded component"/>
-                <FluxPaneBody>
-                    This pane keeps its own styling. Prose Reset stops the prose rules from reaching in, yet the block still flows in the article rhythm just like a paragraph or a heading.
-                </FluxPaneBody>
-            </FluxPane>
-        </FluxProseReset>
+        <FluxPane>
+            <FluxPaneHeader
+                icon="circle-info"
+                subtitle="Dropped straight into the article"
+                title="Embedded component"/>
+            <FluxPaneBody>
+                This pane keeps its own styling. Prose only styles its own HTML elements, so an embedded component is left untouched, yet it still flows in the article rhythm just like a paragraph or a heading.
+            </FluxPaneBody>
+        </FluxPane>
 
         <h2>A quick reference</h2>
         <p>The scale below summarises the default roles.</p>
@@ -87,5 +85,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxPaneBody, FluxPaneHeader, FluxProse, FluxProseReset } from '@flux-ui/components';
+    import { FluxPane, FluxPaneBody, FluxPaneHeader, FluxProse } from '@flux-ui/components';
 </script>

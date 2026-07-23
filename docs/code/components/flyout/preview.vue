@@ -15,7 +15,6 @@
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A asperiores cum debitis dolor, explicabo facere illo ipsa iste labore, maiores molestias odit optio qui quo reprehenderit ut veniam veritatis. Saepe.</p>
 
                             <FluxSecondaryButton
-                                data-flux-prose-aware
                                 label="Close"
                                 @click="close()"/>
                         </FluxProse>

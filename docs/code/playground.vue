@@ -1,70 +1,109 @@
 <template>
-    <div :class="$style.playground">
-        <FluxProse
-            :class="$style.intro"
-            container
-            tag="header">
-            <h1>Flux playground</h1>
-            <p>A single page that puts many Flux components next to each other. Use it to eyeball how the pieces look together, and to see how the light element defaults and the rich <a href="/components/prose">Prose</a> styling coexist on one page.</p>
-        </FluxProse>
+    <FluxProse
+        :class="$style.playground"
+        container
+        tag="article">
+        <h1>Flux playground</h1>
+        <p>This whole page is a single <code>FluxProse</code> container. The headings, paragraphs, lists and tables sit at a readable measure and flow in the prose rhythm, while Flux components are dropped straight in between them. No wrappers, no resets: prose only styles its own HTML elements, so every component keeps its own look and still lines up in the vertical rhythm.</p>
+        <p>Use it to eyeball how the pieces look together and how the light element defaults and the rich prose styling coexist on one page.</p>
 
-        <div :class="$style.grid">
-            <FluxPane>
-                <FluxPaneHeader
-                    icon="circle-check"
-                    subtitle="Primary, secondary and destructive"
-                    title="Buttons"/>
-                <FluxPaneBody>
-                    <FluxFlex
-                        :gap="15"
-                        direction="vertical">
-                        <FluxButtonStack>
-                            <FluxPrimaryButton
-                                icon-leading="circle-check"
-                                label="Save"/>
-                            <FluxSecondaryButton
-                                icon-leading="copy"
-                                label="Copy"/>
-                            <FluxDestructiveButton
-                                icon-leading="xmark"
-                                label="Delete"/>
-                        </FluxButtonStack>
+        <h2>Buttons and actions</h2>
+        <p>Buttons come in a few variants and can be grouped in a stack, or combined with a menu in a split button.</p>
+        <FluxButtonStack>
+            <FluxPrimaryButton
+                icon-leading="circle-check"
+                label="Save"/>
+            <FluxSecondaryButton
+                icon-leading="copy"
+                label="Duplicate"/>
+            <FluxDestructiveButton
+                icon-leading="xmark"
+                label="Delete"/>
+            <FluxSplitButton>
+                <template #button>
+                    <FluxSecondaryButton label="Download"/>
+                </template>
 
-                        <FluxSplitButton>
-                            <template #button>
-                                <FluxSecondaryButton label="Download"/>
-                            </template>
+                <template #flyout>
+                    <FluxMenu>
+                        <FluxMenuGroup>
+                            <FluxMenuItem
+                                icon-leading="rectangle-sd"
+                                label="Download in SD"/>
+                            <FluxMenuItem
+                                icon-leading="rectangle-hd"
+                                label="Download in HD"/>
+                        </FluxMenuGroup>
 
-                            <template #flyout>
-                                <FluxMenu>
-                                    <FluxMenuGroup>
-                                        <FluxMenuItem
-                                            icon-leading="rectangle-sd"
-                                            label="Download in SD"/>
-                                        <FluxMenuItem
-                                            icon-leading="rectangle-hd"
-                                            label="Download in HD"/>
-                                    </FluxMenuGroup>
+                        <FluxSeparator/>
 
-                                    <FluxSeparator/>
+                        <FluxMenuGroup>
+                            <FluxMenuItem
+                                icon-leading="rectangle-4k"
+                                label="Download in 4K"/>
+                        </FluxMenuGroup>
+                    </FluxMenu>
+                </template>
+            </FluxSplitButton>
+        </FluxButtonStack>
 
-                                    <FluxMenuGroup>
-                                        <FluxMenuItem
-                                            icon-leading="rectangle-4k"
-                                            label="Download in 4K"/>
-                                    </FluxMenuGroup>
-                                </FluxMenu>
-                            </template>
-                        </FluxSplitButton>
-                    </FluxFlex>
-                </FluxPaneBody>
-            </FluxPane>
+        <h2>Status and feedback</h2>
+        <p>Badges, tags and notices carry status, while snackbars and dialogs are triggered programmatically.</p>
+        <FluxBadgeStack>
+            <FluxBadge label="Help wanted"/>
+            <FluxBadge
+                color="success"
+                icon="circle-check"
+                label="Completed"/>
+            <FluxBadge
+                color="danger"
+                dot
+                label="Attention"/>
+            <FluxBadge
+                color="primary"
+                colored
+                label="Featured"/>
+        </FluxBadgeStack>
+        <FluxTagStack>
+            <FluxTag label="Design"/>
+            <FluxTag
+                color="success"
+                icon="check-circle"
+                label="Shipped"/>
+            <FluxTag
+                is-deletable
+                label="Draft"/>
+        </FluxTagStack>
+        <FluxNotice
+            color="warning"
+            icon="circle-exclamation"
+            message="Please note that this is a warning message rendered inside the prose flow."/>
+        <FluxButtonStack>
+            <FluxSecondaryButton
+                icon-leading="circle-arrow-up"
+                label="Snackbar"
+                @click="onSnackbar"/>
+            <FluxSecondaryButton
+                icon-leading="circle-exclamation"
+                label="Confirm"
+                @click="onConfirm"/>
+            <FluxTooltip content="A helpful tooltip">
+                <FluxSecondaryButton
+                    icon-leading="copy"
+                    label="Tooltip"/>
+            </FluxTooltip>
+        </FluxButtonStack>
 
+        <h2>A grid of panes</h2>
+        <p>The grid below is marked <code>data-flux-prose-full</code>, so it breaks out of the reading measure to span the whole container, while the text keeps its width.</p>
+        <div
+            :class="$style.grid"
+            data-flux-prose-full>
             <FluxPane>
                 <FluxPaneHeader
                     icon="pen"
                     subtitle="Fields, toggles and choices"
-                    title="Form controls"/>
+                    title="Form"/>
                 <FluxForm>
                     <FluxPaneBody>
                         <FluxFormColumn>
@@ -93,51 +132,6 @@
                         </FluxFormColumn>
                     </FluxPaneBody>
                 </FluxForm>
-            </FluxPane>
-
-            <FluxPane>
-                <FluxPaneHeader
-                    icon="circle-exclamation"
-                    subtitle="Badges, notices and dialogs"
-                    title="Feedback"/>
-                <FluxPaneBody>
-                    <FluxFlex
-                        :gap="15"
-                        direction="vertical">
-                        <FluxBadgeStack>
-                            <FluxBadge label="Help wanted"/>
-                            <FluxBadge
-                                color="success"
-                                icon="circle-check"
-                                label="Completed"/>
-                            <FluxBadge
-                                color="danger"
-                                dot
-                                label="Attention"/>
-                        </FluxBadgeStack>
-
-                        <FluxNotice
-                            color="warning"
-                            icon="circle-exclamation"
-                            message="Please note that this is a warning message."/>
-
-                        <FluxButtonStack>
-                            <FluxSecondaryButton
-                                icon-leading="circle-arrow-up"
-                                label="Snackbar"
-                                @click="onSnackbar"/>
-                            <FluxSecondaryButton
-                                icon-leading="circle-exclamation"
-                                label="Confirm"
-                                @click="onConfirm"/>
-                            <FluxTooltip content="A helpful tooltip">
-                                <FluxSecondaryButton
-                                    icon-leading="copy"
-                                    label="Tooltip"/>
-                            </FluxTooltip>
-                        </FluxButtonStack>
-                    </FluxFlex>
-                </FluxPaneBody>
             </FluxPane>
 
             <FluxPane>
@@ -173,139 +167,328 @@
                 </FluxTabs>
             </FluxPane>
 
-            <FluxPane :class="$style.span2">
+            <FluxPane>
                 <FluxPaneHeader
-                    icon="clone"
-                    subtitle="Avatars, chips and a table"
-                    title="Data"/>
+                    icon="user"
+                    subtitle="People and avatars"
+                    title="Persona"/>
+                <FluxPaneBody>
+                    <FluxFlex
+                        :gap="15"
+                        direction="vertical">
+                        <FluxPersona
+                            :avatar-size="42"
+                            avatar-src="https://avatars.githubusercontent.com/u/978257?v=4"
+                            name="Bas Milius"
+                            title="Flux engineer"/>
+                        <FluxAvatarGroup :max="4">
+                            <FluxAvatar src="https://i.pravatar.cc/64?img=1"/>
+                            <FluxAvatar src="https://i.pravatar.cc/64?img=2"/>
+                            <FluxAvatar src="https://i.pravatar.cc/64?img=3"/>
+                            <FluxAvatar fallback-initials="BM"/>
+                            <FluxAvatar fallback-initials="JD"/>
+                        </FluxAvatarGroup>
+                        <FluxBadgeStack>
+                            <FluxChip
+                                icon-leading="sparkles"
+                                label="New user"/>
+                            <FluxChip
+                                icon-leading="location-dot"
+                                label="Groenlo"/>
+                        </FluxBadgeStack>
+                    </FluxFlex>
+                </FluxPaneBody>
+            </FluxPane>
+
+            <FluxPane>
+                <FluxPaneHeader
+                    icon="cubes"
+                    subtitle="A sequence of events"
+                    title="Timeline"/>
+                <FluxPaneBody>
+                    <FluxTimeline>
+                        <FluxTimelineItem
+                            icon="cubes"
+                            title="Project created"
+                            when="13 March, 1 PM">
+                            A new project was created and the first components were added.
+                        </FluxTimelineItem>
+
+                        <FluxTimelineItem
+                            photo="https://avatars.githubusercontent.com/u/978257?v=4"
+                            title="Bas Milius commented"
+                            when="13 March, 1:30 PM">
+                            Looks great, let us ship it.
+                        </FluxTimelineItem>
+                    </FluxTimeline>
+                </FluxPaneBody>
+            </FluxPane>
+
+            <FluxPane>
+                <FluxPaneHeader
+                    icon="file-lines"
+                    subtitle="Key and value pairs"
+                    title="Details"/>
+                <FluxPaneBody>
+                    <FluxDescriptionList title="Invoice detail">
+                        <FluxDescriptionItem
+                            icon="file-lines"
+                            label="Invoice number">
+                            9087XY4521
+                        </FluxDescriptionItem>
+
+                        <FluxDescriptionItem
+                            icon="circle-check"
+                            label="Status">
+                            <FluxBadge
+                                color="success"
+                                label="Paid"/>
+                        </FluxDescriptionItem>
+
+                        <FluxDescriptionItem
+                            icon="arrow-up-right-from-square"
+                            label="Portal">
+                            <FluxLink
+                                href="#"
+                                label="View in portal"
+                                type="link"/>
+                        </FluxDescriptionItem>
+                    </FluxDescriptionList>
+                </FluxPaneBody>
+            </FluxPane>
+
+            <FluxPane>
+                <FluxPaneHeader
+                    icon="folder"
+                    subtitle="Nested, expandable options"
+                    title="Tree view"/>
+                <FluxPaneBody>
+                    <FluxTreeView
+                        :level-colors="['primary', 'info', 'success']"
+                        :options="treeOptions"/>
+                </FluxPaneBody>
+            </FluxPane>
+
+            <FluxPane>
+                <FluxPaneHeader
+                    icon="pen"
+                    subtitle="Progress and inline editing"
+                    title="Controls"/>
                 <FluxPaneBody>
                     <FluxFlex
                         :gap="18"
-                        align="center"
-                        wrap="wrap">
-                        <FluxAvatar
-                            :size="42"
-                            alt="Bas"
-                            src="https://avatars.githubusercontent.com/u/978257?v=4"
-                            status="success"/>
-                        <FluxAvatar
-                            :size="42"
-                            alt="Ann"
-                            fallback-initials="AB"
-                            status="danger"/>
-                        <FluxChip
-                            icon-leading="sparkles"
-                            label="New user"/>
-                        <FluxChip
-                            icon-leading="location-dot"
-                            label="Groenlo"/>
+                        direction="vertical">
+                        <FluxFormField label="Downloading">
+                            <FluxProgressBar
+                                status="Flux UI - components"
+                                :value="0.75"/>
+                        </FluxFormField>
+
+                        <FluxFormField label="Project name">
+                            <FluxInlineEdit
+                                v-model="inlineValue"
+                                placeholder="Click to edit"/>
+                        </FluxFormField>
                     </FluxFlex>
                 </FluxPaneBody>
-
-                <FluxTable>
-                    <template #header>
-                        <FluxTableHeader
-                            v-for="header in 3"
-                            :key="header"
-                            :is-sortable="header === 2">
-                            Header {{ header }}
-                        </FluxTableHeader>
-                        <FluxTableHeader is-shrinking/>
-                    </template>
-
-                    <FluxTableRow
-                        v-for="row in 3"
-                        :key="row">
-                        <FluxTableCell
-                            v-for="cell in 3"
-                            :key="cell">
-                            Cell {{ cell }}&times;{{ row }}
-                        </FluxTableCell>
-
-                        <FluxTableCell>
-                            <FluxTableActions>
-                                <FluxAction icon="pen"/>
-                                <FluxAction icon="ellipsis-h"/>
-                            </FluxTableActions>
-                        </FluxTableCell>
-                    </FluxTableRow>
-                </FluxTable>
             </FluxPane>
 
-            <FluxPane :class="$style.span2">
+            <FluxPane>
+                <FluxItemStack>
+                    <FluxItem
+                        v-for="person in people"
+                        :key="person.name">
+                        <FluxItemMedia
+                            is-center
+                            :size="40">
+                            <FluxAvatar
+                                :alt="person.name"
+                                :fallback-icon="person.avatar ? undefined : 'user'"
+                                :size="40"
+                                :src="person.avatar ?? undefined"/>
+                        </FluxItemMedia>
+
+                        <FluxItemContent is-center>
+                            <strong>{{ person.name }}</strong>
+                            <FluxText
+                                color="muted"
+                                size="small">{{ person.role }}</FluxText>
+                        </FluxItemContent>
+                    </FluxItem>
+                </FluxItemStack>
+            </FluxPane>
+
+            <FluxPane>
                 <FluxPaneHeader
-                    icon="circle-info"
-                    subtitle="Light defaults versus rich prose"
-                    title="Typography &amp; Prose"/>
+                    icon="list"
+                    subtitle="Paging through results"
+                    title="Pagination"/>
                 <FluxPaneBody>
-                    <FluxProse
-                        container
-                        tag="article">
-                        <p>Outside of any container, Flux keeps only light element defaults: heading sizes, links and a monospace font. Everything below flows inside <code>FluxProse</code>, which adds the vertical rhythm, list markers, decorated blockquotes, code blocks and styled tables. In container mode, elements can break out of the reading measure.</p>
-
-                        <h2>The vertical rhythm</h2>
-                        <p>Each block sits on a consistent baseline, and the spacing scales with the weight of the element, so a new section gets more room above it than the next paragraph does.</p>
-
-                        <blockquote>Typography exists to honor content. Its purpose is to serve the reader, not to draw attention to itself.</blockquote>
-
-                        <h3>Working with lists</h3>
-                        <ul>
-                            <li>Keep the measure between 45 and 75 characters.
-                                <ul>
-                                    <li>Narrower for captions.</li>
-                                    <li>Wider for long form reading.</li>
-                                </ul>
-                            </li>
-                            <li>Set a generous line height for body copy.</li>
-                        </ul>
-
-                        <p>Wrap identifiers such as <code>--flux-prose-container</code> in inline code, and press <kbd>Cmd</kbd> + <kbd>K</kbd> to open the command palette.</p>
-
-                        <FluxProseReset data-flux-prose-full>
-                            <FluxNotice
-                                color="info"
-                                icon="circle-info"
-                                message="This notice is wrapped in FluxProseReset and marked data-flux-prose-full, so it breaks out to the full width while keeping its own styling and flowing in the article rhythm."/>
-                        </FluxProseReset>
-
-                        <table data-flux-prose-wide>
-                            <thead>
-                                <tr>
-                                    <th>Element</th>
-                                    <th>Size</th>
-                                    <th>Role</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Heading 1</td>
-                                    <td>27px</td>
-                                    <td>Page title</td>
-                                </tr>
-                                <tr>
-                                    <td>Body</td>
-                                    <td>15px</td>
-                                    <td>Paragraphs and lists</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </FluxProse>
+                    <FluxPagination
+                        arrows
+                        :page="13"
+                        :per-page="10"
+                        :total="200"/>
                 </FluxPaneBody>
             </FluxPane>
         </div>
-    </div>
+
+        <h2>Navigation and disclosure</h2>
+        <p>Breadcrumbs and expandables help the reader move around and reveal detail on demand.</p>
+        <FluxBreadcrumb>
+            <FluxBreadcrumbItem
+                href="#"
+                label="Home"/>
+            <FluxBreadcrumbItem
+                href="#"
+                label="Components"/>
+            <FluxBreadcrumbItem label="Playground"/>
+        </FluxBreadcrumb>
+        <FluxPane>
+            <FluxExpandable
+                icon="circle-ellipsis"
+                label="More options...">
+                Everything inside an expandable stays hidden until the reader opens it, which keeps a long page scannable.
+            </FluxExpandable>
+        </FluxPane>
+
+        <h2>Primitives</h2>
+        <p>The smallest building blocks: boxed icons, dividers and loading skeletons.</p>
+        <FluxFlex :gap="15">
+            <FluxBoxedIcon
+                name="circle-check"
+                :size="60"/>
+            <FluxBoxedIcon
+                name="lock"
+                :size="60"/>
+            <FluxBoxedIcon
+                name="rocket"
+                :size="60"/>
+            <FluxBoxedIcon
+                name="bolt"
+                :size="60"/>
+        </FluxFlex>
+        <FluxFlex
+            :gap="15"
+            style="width: 100%">
+            <FluxSkeleton
+                :height="48"
+                :width="48"
+                variant="circle"/>
+            <FluxFlex
+                :gap="6"
+                direction="vertical"
+                style="flex: 1">
+                <FluxSkeleton width="55%"/>
+                <FluxSkeleton/>
+                <FluxSkeleton width="80%"/>
+            </FluxFlex>
+        </FluxFlex>
+
+        <h2>Typography</h2>
+        <p>Back in the prose flow, the text scale, lists, quotes, code and tables all come from <code>FluxProse</code>. Press <kbd>Cmd</kbd> + <kbd>K</kbd> to open a command palette.</p>
+
+        <blockquote>Typography exists to honor content. Its purpose is to serve the reader, not to draw attention to itself.</blockquote>
+
+        <h3>Working with lists</h3>
+        <ul>
+            <li>Keep the measure between 45 and 75 characters.
+                <ul>
+                    <li>Narrower for captions.</li>
+                    <li>Wider for long form reading.</li>
+                </ul>
+            </li>
+            <li>Set a generous line height for body copy.</li>
+        </ul>
+
+        <pre><code>import { FluxProse } from '@flux-ui/components';
+
+const article = FluxProse;</code></pre>
+
+        <p>A table can break out to a wider track when the data needs the room:</p>
+        <table data-flux-prose-wide>
+            <thead>
+                <tr>
+                    <th>Element</th>
+                    <th>Size</th>
+                    <th>Line height</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Heading 1</td>
+                    <td>27px</td>
+                    <td>42px</td>
+                    <td>Page title</td>
+                </tr>
+                <tr>
+                    <td>Heading 2</td>
+                    <td>21px</td>
+                    <td>33px</td>
+                    <td>Section heading</td>
+                </tr>
+                <tr>
+                    <td>Body</td>
+                    <td>15px</td>
+                    <td>24px</td>
+                    <td>Paragraphs and lists</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>And imagery breaks out just the same, giving the eye a place to rest.</p>
+        <img
+            alt=""
+            data-flux-prose-wide
+            src="https://images.pexels.com/photos/33688/delicate-arch-night-stars-landscape.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"/>
+    </FluxProse>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxAction, FluxAvatar, FluxBadge, FluxBadgeStack, FluxButtonStack, FluxChip, FluxDestructiveButton, FluxFlex, FluxForm, FluxFormCheckbox, FluxFormColumn, FluxFormField, FluxFormInput, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxNotice, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPrimaryButton, FluxProse, FluxProseReset, FluxSecondaryButton, FluxSegmentedControl, FluxSegmentedControlItem, FluxSeparator, FluxSplitButton, FluxStepper, FluxStepperStep, FluxTab, FluxTable, FluxTableActions, FluxTableCell, FluxTableHeader, FluxTableRow, FluxTabs, FluxToggle, FluxTooltip, showConfirm, showSnackbar } from '@flux-ui/components';
+    import { FluxAvatar, FluxAvatarGroup, FluxBadge, FluxBadgeStack, FluxBoxedIcon, FluxBreadcrumb, FluxBreadcrumbItem, FluxButtonStack, FluxChip, FluxDescriptionItem, FluxDescriptionList, FluxDestructiveButton, FluxExpandable, FluxFlex, FluxForm, FluxFormCheckbox, FluxFormColumn, FluxFormField, FluxFormInput, FluxInlineEdit, FluxItem, FluxItemContent, FluxItemMedia, FluxItemStack, FluxLink, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxNotice, FluxPagination, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPersona, FluxPrimaryButton, FluxProgressBar, FluxProse, FluxSecondaryButton, FluxSegmentedControl, FluxSegmentedControlItem, FluxSeparator, FluxSkeleton, FluxSplitButton, FluxStepper, FluxStepperStep, FluxTab, FluxTabs, FluxTag, FluxTagStack, FluxText, FluxTimeline, FluxTimelineItem, FluxToggle, FluxTooltip, FluxTreeView, showConfirm, showSnackbar } from '@flux-ui/components';
+    import type { FluxTreeViewOption } from '@flux-ui/types';
     import { ref } from 'vue';
 
     const step = ref(0);
     const toggle = ref(true);
     const toggleIcon = ref(false);
     const view = ref('grid');
+    const inlineValue = ref('Project Apollo');
+
+    const people = [
+        {name: 'Bas Milius', role: 'Engineer', avatar: 'https://avatars.githubusercontent.com/u/978257?v=4'},
+        {name: 'Jane Doe', role: 'Designer', avatar: null},
+        {name: 'John Doe', role: 'Product manager', avatar: null}
+    ];
+
+    const treeOptions: FluxTreeViewOption[] = [
+        {
+            id: 1,
+            label: 'Electronics',
+            children: [
+                {
+                    id: 2,
+                    label: 'Computers',
+                    children: [
+                        {id: 3, label: 'Laptops'},
+                        {id: 4, label: 'Desktops'}
+                    ]
+                },
+                {id: 5, label: 'Phones'}
+            ]
+        },
+        {
+            id: 6,
+            label: 'Clothing',
+            children: [
+                {id: 7, label: 'Men'},
+                {id: 8, label: 'Women'}
+            ]
+        }
+    ];
 
     function onSnackbar(): void {
         showSnackbar({
@@ -332,28 +515,13 @@
     lang="scss"
     module>
     .playground {
-        padding: 45px 24px 90px;
-    }
-
-    .intro {
-        margin-bottom: 45px;
+        padding-block: 60px;
     }
 
     .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 24px;
-        max-width: 1200px;
-        margin-inline: auto;
-    }
-
-    .span2 {
-        grid-column: 1 / -1;
-    }
-
-    @media (max-width: 767px) {
-        .grid {
-            grid-template-columns: 1fr;
-        }
+        align-items: start;
     }
 </style>

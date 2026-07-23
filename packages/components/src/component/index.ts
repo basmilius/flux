@@ -138,7 +138,6 @@ export { default as FluxPrimaryButton } from './FluxPrimaryButton.vue';
 export { default as FluxPrimaryLinkButton } from './FluxPrimaryLinkButton.vue';
 export { default as FluxProgressBar } from './FluxProgressBar.vue';
 export { default as FluxProse } from './FluxProse.vue';
-export { default as FluxProseReset } from './FluxProseReset.vue';
 export { default as FluxPublishButton } from './FluxPublishButton.vue';
 export { default as FluxQuantitySelector } from './FluxQuantitySelector.vue';
 export { default as FluxRemove } from './FluxRemove.vue';

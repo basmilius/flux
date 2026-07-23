@@ -1,7 +1,8 @@
-// Prose styling is skipped inside a FluxProseReset boundary so foreign
-// components dropped into an article keep their own styling.
-$guard: ':not(:where([data-flux-prose-reset], [data-flux-prose-reset] *))';
-$rhythm: ':where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, pre, table, [data-flux-prose-aware])';
+// FluxProse styles its own HTML content only. Every rule is anchored to a direct
+// child of .prose (or a descendant of one of its own blocks), so a foreign
+// component dropped into an article is never matched and keeps its own styling,
+// while still flowing in the vertical rhythm.
+$text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
 
 // Break-out grid: content sits at a readable measure, while elements marked
 // with data-flux-prose-wide or data-flux-prose-full break out to wider tracks.
@@ -42,90 +43,71 @@ $rhythm: ':where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, pre, ta
     line-height: 1.6;
     color: var(--foreground);
 
-    // Vertical rhythm between flow elements.
-    #{$rhythm} + :where(h1, h2, h3)#{$guard} {
-        margin-top: 33px;
-    }
-
-    #{$rhythm} + :where(h4, h5, h6, p, ul, ol, blockquote, img, pre, table)#{$guard} {
+    // Vertical rhythm. Every direct child, including an embedded component, is
+    // spaced from its predecessor; a new heading gets more room.
+    > * + * {
         margin-top: 12px;
     }
 
-    #{$rhythm} + :where([data-flux-prose-aware]) {
-        margin-top: 21px;
+    > * + :where(h1, h2, h3) {
+        margin-top: 33px;
     }
 
     // Headings.
-    :where(h1, h2)#{$guard} {
+    > :where(h1, h2) {
         letter-spacing: -.01em;
     }
 
-    h2#{$guard} {
+    > h2 {
         padding-bottom: 9px;
         border-bottom: 1px solid var(--surface-stroke);
     }
 
     // Lists.
-    :where(ul, ol)#{$guard} {
+    > :where(ul, ol),
+    > :where(ul, ol) :where(ul, ol) {
         padding-left: 24px;
     }
 
-    ul#{$guard} {
+    > ul {
         list-style: disc;
     }
 
-    ol#{$guard} {
+    > ol {
         list-style: decimal;
     }
 
-    :where(ul, ol) ul#{$guard} {
-        list-style-type: circle;
+    > :where(ul, ol) ul {
+        list-style: circle;
     }
 
-    :where(ul, ol) ol#{$guard} {
-        list-style-type: lower-alpha;
+    > :where(ul, ol) ol {
+        list-style: lower-alpha;
     }
 
-    li + li#{$guard} {
-        margin-top: 6px;
-    }
-
-    li > :where(ul, ol)#{$guard} {
+    > :where(ul, ol) li + li,
+    > :where(ul, ol) li > :where(ul, ol) {
         margin-top: 6px;
     }
 
     // Blockquote.
-    blockquote#{$guard} {
+    > blockquote {
         font-style: italic;
         padding-left: 18px;
         color: var(--gray-600);
         border-left: 3px solid var(--surface-stroke);
     }
 
-    // Inline code and sample output.
-    :where(code, samp):not(pre code)#{$guard} {
+    // Inline code and sample output inside prose text.
+    > #{$text} :where(code, samp) {
         font-size: .875em;
         padding: 3px 6px;
         border-radius: var(--radius-half);
         background: var(--gray-100);
     }
 
-    // Code block.
-    pre#{$guard} {
-        overflow-x: auto;
-        padding: 15px 18px;
-        border-radius: var(--radius);
-        background: var(--gray-100);
-    }
-
-    pre code {
-        font-size: inherit;
-        padding: 0;
-        background: none;
-    }
-
-    // Keyboard key.
-    kbd#{$guard} {
+    // Keyboard key inside prose text.
+    > #{$text} kbd {
         font-size: .8125em;
         padding: 3px 6px;
         border: 1px solid var(--surface-stroke);
@@ -133,35 +115,53 @@ $rhythm: ':where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, pre, ta
         box-shadow: 0 1px 0 var(--surface-stroke);
     }
 
+    // Code block.
+    > pre {
+        overflow-x: auto;
+        padding: 15px 18px;
+        border-radius: var(--radius);
+        background: var(--gray-100);
+    }
+
+    > pre code {
+        font-size: inherit;
+        padding: 0;
+        background: none;
+    }
+
     // Divider.
-    hr#{$guard} {
-        margin: 33px 0;
+    > * + hr,
+    > hr + * {
+        margin-top: 33px;
+    }
+
+    > hr {
         border: 0;
         border-top: 1px solid var(--surface-stroke);
     }
 
     // Table, matching the FluxTable component.
-    table#{$guard} {
+    > table {
         width: 100%;
         border-collapse: collapse;
         text-align: start;
     }
 
-    :where(th, td)#{$guard} {
+    > table :where(th, td) {
         padding: 12px 15px;
         text-align: start;
         overflow-wrap: break-word;
     }
 
-    :where(th, td) + :where(th, td)#{$guard} {
+    > table :where(th, td) + :where(th, td) {
         border-left: 1px solid var(--gray-100);
     }
 
-    tr + tr > :where(th, td)#{$guard} {
+    > table tr + tr > :where(th, td) {
         border-top: 1px solid var(--gray-100);
     }
 
-    thead th#{$guard} {
+    > table thead th {
         font-size: 14px;
         font-weight: 700;
         color: var(--foreground-prominent);
@@ -170,7 +170,7 @@ $rhythm: ':where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, img, pre, ta
     }
 
     // Image.
-    img#{$guard} {
+    > img {
         height: unset;
         border-radius: var(--radius-half);
         outline: 1px solid rgb(0 0 0 / .025);

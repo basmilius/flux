@@ -40,6 +40,8 @@ For long-form reading, add the `container` prop to cap the content at a comforta
 
 In container mode the content is laid out on a break-out grid, so individual elements can reach past the measure. Mark an element with `data-flux-prose-wide` to break out to a wider track, or `data-flux-prose-full` for a full-bleed element that spans the whole container. The gutter and the extra width of the wide track are set through the `--flux-prose-gutter` (default `24px`) and `--flux-prose-wide` (default `12ch`) custom properties.
 
+Because Prose only styles its own HTML elements, you can drop a Flux component straight into an article without a wrapper: it keeps its own styling and still flows in the vertical rhythm.
+
 Use [Text](/components/text) instead when you need a single styled piece of inline text, such as a label, a metric or a caption. Prose is for flowing document content, Text is for individual strings.
 
 <FrontmatterDocs/>
@@ -74,11 +76,11 @@ example=../code/components/prose/table.vue
 example=../code/components/prose/breakout.vue
 :::
 
-::: example Reset || Wrap a foreign component in Prose Reset to keep it out of the prose styling while it still flows in the vertical rhythm.
-example=../code/components/prose/reset.vue
+::: example Embedded component || Drop a Flux component straight into an article. Prose only styles its own HTML elements, so the component keeps its own styling while flowing in the vertical rhythm.
+example=../code/components/prose/embed.vue
 :::
 
-::: example Full article || Everything together: headings, body copy, lists, a blockquote, inline and block code, a keyboard shortcut, a table, an image, and a Flux pane embedded through Prose Reset.
+::: example Full article || Everything together: headings, body copy, lists, a blockquote, inline and block code, a keyboard shortcut, a table, an image, and an embedded Flux pane.
 example=../code/components/prose/article.vue
 :::
 

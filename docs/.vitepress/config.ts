@@ -122,11 +122,6 @@ export default defineConfig({
                 link: '/components/'
             },
             {
-                text: 'Playground',
-                activeMatch: '^/playground',
-                link: '/playground'
-            },
-            {
                 text: 'Packages',
                 activeMatch: '/(application|flow|internals|statistics|visuals)/',
                 items: [
