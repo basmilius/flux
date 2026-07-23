@@ -74,6 +74,23 @@
     overflow-wrap: anywhere;
 }
 
+.descriptionListItems.hasLabelWidth {
+    display: grid;
+    align-items: center;
+    gap: 12px 24px;
+    grid-template-columns: fit-content(var(--label-width)) 1fr;
+
+    .descriptionItem {
+        display: contents;
+    }
+
+    .descriptionItemValue {
+        margin-left: 0;
+        justify-content: flex-start;
+        text-align: left;
+    }
+}
+
 .descriptionListItems.isHorizontal {
     gap: 0;
     flex-flow: row;

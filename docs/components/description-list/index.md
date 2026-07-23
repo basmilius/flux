@@ -8,6 +8,11 @@ props:
         optional: true
         default: vertical
 
+    -   name: labelWidth
+        description: The maximum width of the label column. Setting this switches the vertical layout to aligned columns, where the label column shrinks to fit the widest label and values are aligned to the leading edge. A number is interpreted as pixels. Only applies when `direction` is `vertical`; `is-stacked` on items has no effect in this layout.
+        type: [ number, string ]
+        optional: true
+
     -   name: title
         description: An optional heading shown above the list.
         type: string
@@ -43,6 +48,10 @@ example=../../code/components/description-list/account.vue
 
 ::: example Order summary || An order panel with a copy action, a badge, and a stacked address.
 example=../../code/components/description-list/order.vue
+:::
+
+::: example Aligned labels || Values aligned to the leading edge next to a label column, using `label-width`.
+example=../../code/components/description-list/aligned.vue
 :::
 
 ::: example Columns || Items laid out as columns separated by dividers, using `direction="horizontal"`.

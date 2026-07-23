@@ -9,8 +9,10 @@
         <dl
             :class="clsx(
                 $style.descriptionListItems,
-                direction === 'horizontal' && $style.isHorizontal
-            )">
+                direction === 'horizontal' && $style.isHorizontal,
+                isAligned && $style.hasLabelWidth
+            )"
+            :style="isAligned ? {'--label-width': typeof labelWidth === 'number' ? `${labelWidth}px` : labelWidth} : undefined">
             <slot/>
         </dl>
     </div>
@@ -20,13 +22,15 @@
     lang="ts"
     setup>
     import { clsx } from 'clsx';
-    import type { VNode } from 'vue';
+    import { computed, type VNode } from 'vue';
     import $style from '~flux/components/css/component/DescriptionList.module.scss';
 
     const {
-        direction = 'vertical'
+        direction = 'vertical',
+        labelWidth
     } = defineProps<{
         readonly direction?: 'horizontal' | 'vertical';
+        readonly labelWidth?: number | string;
         readonly title?: string;
     }>();
 
@@ -34,4 +38,6 @@
         default(): VNode[];
         header(): VNode[];
     }>();
+
+    const isAligned = computed(() => direction === 'vertical' && labelWidth !== undefined);
 </script>
