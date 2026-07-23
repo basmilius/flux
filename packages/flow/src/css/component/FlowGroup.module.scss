@@ -2,8 +2,14 @@
 
 // A frame around a set of nodes rather than a node of its own: a tinted field
 // with a dashed outline, so it never competes with the cards standing on it.
+//
+// A group and a lane share the .flowBackdrop stacking context; the frame sits
+// above every lane band, so a group placed inside a lane is never painted over.
+// The whole backdrop rides at z-index 0 in the world, so this stays below the
+// nodes (z-index 1) all the same.
 .flowGroup {
     position: absolute;
+    z-index: 1;
     top: 0;
     left: 0;
     box-sizing: border-box;

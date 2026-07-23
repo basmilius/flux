@@ -2,8 +2,13 @@
 
 // A band across the canvas: a flat tinted field with a titled gutter at its
 // head. It only groups what happens to stand on it, so it carries no outline.
+//
+// A lane and a group share the .flowBackdrop stacking context; the lane is the
+// backmost band, so a group frame drawn over the same nodes stays on top of it
+// regardless of the order the two teleport into the backdrop.
 .flowLane {
     position: absolute;
+    z-index: 0;
     top: 0;
     left: 0;
     box-sizing: border-box;
