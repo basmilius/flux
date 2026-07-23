@@ -1,6 +1,6 @@
 <template>
     <svg
-        v-if="definition"
+        v-if="renderMode === 'svg' && definition"
         :viewBox.attr="`0 0 ${definition.width} ${definition.height}`"
         :class="clsx(
             $style.fontAwesomeIcon,
@@ -23,6 +23,21 @@
     </svg>
 
     <i
+        v-else-if="renderMode === 'font' && name"
+        :class="clsx(
+            $style.iconFont,
+            FONT_STYLE_CLASS[resolvedStyle],
+            color && ICON_COLOR_CLASS[color]
+        )"
+        :style="{
+            fontSize: typeof size === 'number' ? `${size}px` : size
+        }"
+        :role="ariaLabel ? 'img' : undefined"
+        :aria-hidden="ariaLabel ? undefined : true"
+        :aria-label="ariaLabel"
+        @click="onClick"><template v-if="resolvedStyle === 'duotone'"><span :class="$style.iconFontSecondary">{{ `${name}##` }}</span><span :class="$style.iconFontPrimary">{{ `${name}#` }}</span></template><template v-else>{{ name }}</template></i>
+
+    <i
         v-else
         :class="$style.icon"/>
 </template>
@@ -31,10 +46,10 @@
     lang="ts"
     setup>
     import { warn } from '@flux-ui/internals';
-    import type { FluxColor, FluxIconName } from '@flux-ui/types';
+    import type { FluxColor, FluxIconName, FluxIconStyle } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed } from 'vue';
-    import { iconRegistry } from '~flux/components/data';
+    import { iconConfig, iconRegistry } from '~flux/components/data';
     import $style from '~flux/components/css/component/Icon.module.scss';
 
     const emit = defineEmits<{
@@ -42,10 +57,12 @@
     }>();
 
     const {
+        iconStyle,
         name
     } = defineProps<{
         readonly ariaLabel?: string;
         readonly color?: FluxColor;
+        readonly iconStyle?: FluxIconStyle;
         readonly size?: number | string;
         readonly name?: FluxIconName;
     }>();
@@ -58,6 +75,19 @@
         success: $style.iconSuccess,
         warning: $style.iconWarning
     });
+
+    const FONT_STYLE_CLASS: Readonly<Record<FluxIconStyle, string>> = Object.freeze({
+        solid: 'fa-solid',
+        regular: 'fa-regular',
+        light: 'fa-light',
+        thin: 'fa-thin',
+        duotone: 'fa-duotone',
+        brands: 'fa-brands'
+    });
+
+    const renderMode = computed(() => iconConfig.renderMode);
+
+    const resolvedStyle = computed(() => iconStyle ?? (name && iconConfig.styleOverrides[name]) ?? iconConfig.defaultStyle);
 
     const definition = computed(() => {
         if (!name) {

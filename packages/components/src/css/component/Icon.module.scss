@@ -18,6 +18,30 @@
         }
     }
 
+    .iconFont {
+        display: inline-grid;
+        height: 1em;
+        flex-shrink: 0;
+        place-items: center;
+        font-size: 20px;
+        font-style: normal;
+        font-variant-ligatures: normal;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    // A duotone glyph is drawn as two stacked layers: the primary shape over the
+    // dimmed secondary. Both sit in the same grid cell so they overlap exactly.
+    .iconFontPrimary,
+    .iconFontSecondary {
+        grid-area: 1 / 1;
+    }
+
+    .iconFontSecondary {
+        // Match the SVG duotone rendering, which dims the secondary path to .2.
+        opacity: var(--fa-secondary-opacity, .2);
+    }
+
     .iconBoxed {
         composes: basePane from './base/Pane.module.scss';
 
