@@ -20,9 +20,9 @@
     }
 
     code {
-        font-family: var(--font-monospace), monospace;
-        font-size: 13px;
-        padding: 0 3px;
+        padding: 3px 6px;
+        font-size: var(--font-size-xsmall);
+        background: var(--gray-100);
         border-radius: var(--radius-half);
     }
 
