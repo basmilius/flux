@@ -8,12 +8,12 @@
 
         <img
             alt=""
-            data-flux-prose-wide
+            data-prose-wide
             src="https://images.pexels.com/photos/33688/delicate-arch-night-stars-landscape.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"/>
 
-        <p>Mark an element with <code>data-flux-prose-wide</code> and it reaches past the measure on both sides, while the paragraphs around it keep their reading width.</p>
+        <p>Mark an element with <code>data-prose-wide</code> and it reaches past the measure on both sides, while the paragraphs around it keep their reading width.</p>
 
-        <blockquote data-flux-prose-full>A full-bleed quote, marked with data-flux-prose-full, spans the entire width of the container.</blockquote>
+        <blockquote data-prose-full>A full-bleed quote, marked with data-prose-full, spans the entire width of the container.</blockquote>
 
         <p>After the break-out, the text returns to the measure on its own, so long-form reading stays comfortable throughout.</p>
     </FluxProse>

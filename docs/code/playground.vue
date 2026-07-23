@@ -95,10 +95,10 @@
         </FluxButtonStack>
 
         <h2>A grid of panes</h2>
-        <p>The grid below is marked <code>data-flux-prose-full</code>, so it breaks out of the reading measure to span the whole container, while the text keeps its width.</p>
+        <p>The grid below is marked <code>data-prose-full</code>, so it breaks out of the reading measure to span the whole container, while the text keeps its width.</p>
         <div
             :class="$style.grid"
-            data-flux-prose-full>
+            data-prose-full>
             <FluxPane>
                 <FluxPaneHeader
                     icon="pen"
@@ -406,7 +406,7 @@
 const article = FluxProse;</code></pre>
 
         <p>A table can break out to a wider track when the data needs the room:</p>
-        <table data-flux-prose-wide>
+        <table data-prose-wide>
             <thead>
                 <tr>
                     <th>Element</th>
@@ -440,7 +440,7 @@ const article = FluxProse;</code></pre>
         <p>And imagery breaks out just the same, giving the eye a place to rest.</p>
         <img
             alt=""
-            data-flux-prose-wide
+            data-prose-wide
             src="https://images.pexels.com/photos/33688/delicate-arch-night-stars-landscape.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"/>
     </FluxProse>
 </template>

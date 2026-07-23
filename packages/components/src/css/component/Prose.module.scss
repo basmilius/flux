@@ -5,7 +5,7 @@
 $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
 
 // Break-out grid: content sits at a readable measure, while elements marked
-// with data-flux-prose-wide or data-flux-prose-full break out to wider tracks.
+// with data-prose-wide or data-prose-full break out to wider tracks.
 .container {
     --_gutter: var(--flux-prose-gutter, 24px);
     --_measure: var(--flux-prose-container, 90ch);
@@ -23,18 +23,18 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
         grid-column: content;
     }
 
-    > [data-flux-prose-wide] {
+    > [data-prose-wide] {
         grid-column: wide;
     }
 
-    > [data-flux-prose-full] {
+    > [data-prose-full] {
         grid-column: full;
     }
 
     // A break-out element reads as a section break, so it and the element that
     // follows it get more room than the regular inter-block rhythm.
-    > :is([data-flux-prose-wide], [data-flux-prose-full]):not(:first-child),
-    > :is([data-flux-prose-wide], [data-flux-prose-full]) + * {
+    > :is([data-prose-wide], [data-prose-full]):not(:first-child),
+    > :is([data-prose-wide], [data-prose-full]) + * {
         margin-top: 33px;
     }
 }

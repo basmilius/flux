@@ -38,7 +38,7 @@ By default Prose renders a `div`. Set `tag` to render a different wrapper such a
 
 For long-form reading, add the `container` prop to cap the content at a comfortable measure and center it. The width is driven by the `--flux-prose-container` custom property (default `90ch`), so you can set it to `72ch`, `78ch`, `84ch` or any value you like.
 
-In container mode the content is laid out on a break-out grid, so individual elements can reach past the measure. Mark an element with `data-flux-prose-wide` to break out to a wider track, or `data-flux-prose-full` for a full-bleed element that spans the whole container. The gutter and the extra width of the wide track are set through the `--flux-prose-gutter` (default `24px`) and `--flux-prose-wide` (default `12ch`) custom properties.
+In container mode the content is laid out on a break-out grid, so individual elements can reach past the measure. Mark an element with `data-prose-wide` to break out to a wider track, or `data-prose-full` for a full-bleed element that spans the whole container. The gutter and the extra width of the wide track are set through the `--flux-prose-gutter` (default `24px`) and `--flux-prose-wide` (default `12ch`) custom properties.
 
 Because Prose only styles its own HTML elements, you can drop a Flux component straight into an article without a wrapper: it keeps its own styling and still flows in the vertical rhythm.
 
@@ -72,7 +72,7 @@ example=../code/components/prose/code.vue
 example=../code/components/prose/table.vue
 :::
 
-::: example Break-out || In container mode, mark an element with data-flux-prose-wide or data-flux-prose-full to break it out of the reading measure.
+::: example Break-out || In container mode, mark an element with data-prose-wide or data-prose-full to break it out of the reading measure.
 example=../code/components/prose/breakout.vue
 :::
 

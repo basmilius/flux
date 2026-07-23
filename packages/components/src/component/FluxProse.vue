@@ -30,7 +30,7 @@
         const children = flattenVNodeTree(slots.default?.() ?? []);
         const extra = {
             class: clsx($style.prose, container && $style.container),
-            'data-flux-prose': ''
+            'data-prose': ''
         };
 
         if (asChild && children.length === 1) {
