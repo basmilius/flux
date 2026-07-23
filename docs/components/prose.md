@@ -41,7 +41,7 @@ render=../code/components/prose/preview.vue
 :::
 
 ::: tip
-Outside of Prose, Flux keeps only light element defaults (heading sizes, link and monospace styling). The rich prose styling, vertical rhythm, decorated blockquotes, list markers and table borders, applies only within `FluxProse`.
+Outside of Prose, Flux keeps only light element defaults (heading sizes, link and monospace styling). The rich prose styling (vertical rhythm, decorated blockquotes, list markers and table borders) applies only within `FluxProse`.
 :::
 
 <FrontmatterDocs/>
