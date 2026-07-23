@@ -134,7 +134,7 @@
 
 // FluxBadge paints its own label and icon, which here follow the connector. The
 // doubled class outranks the badge's own `.badgeGray .badgeLabel` rule.
-.flowConnectionBadge.flowConnectionBadge :is(span, svg) {
+.flowConnectionBadge.flowConnectionBadge :is(span, svg, i) {
     color: inherit;
 }
 
@@ -148,14 +148,15 @@
 }
 
 // The empty label FluxBadge always renders. Out of the flex flow, so the badge's
-// own gap never widens the icon's box either.
-.flowConnectionBadge.isBare span {
+// own gap never widens the icon's box either. Direct child only: an icon font
+// draws its duotone layers with spans of its own.
+.flowConnectionBadge.isBare > span {
     display: none;
 }
 
 // FluxBadge sizes its icon for a pill and pulls it into the padding, neither of
 // which applies to an icon that is the whole element.
-.flowConnectionBadge.isBare svg {
+.flowConnectionBadge.isBare :is(svg, i) {
     margin: 0;
     font-size: 20px;
 }
