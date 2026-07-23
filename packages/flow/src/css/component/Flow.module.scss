@@ -2,7 +2,11 @@
 
 .flow {
     --flow-dot: var(--gray-100);
-    --flow-line: var(--gray-200);
+    // A shade deeper than it reads: a plain connector dims its whole group to a
+    // fraction of this (see FlowConnection isNeutral), so the darker base lands
+    // back near a mid gray on the canvas while a colored group tint shows
+    // through it.
+    --flow-line: var(--gray-300);
 
     position: relative;
     display: block;
@@ -98,6 +102,12 @@
 
 .flowEdges {
     z-index: 2;
+}
+
+// PROTOTYPE: draws the connectors below the nodes (z-index 1). Level 0 keeps
+// them above the backdrop, which shares that level but sits earlier in the DOM.
+.flowEdges.isUnder {
+    z-index: 0;
 }
 
 // Group titles, above the connectors. It shares its level with the edge labels

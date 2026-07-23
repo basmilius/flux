@@ -43,9 +43,9 @@
         </FluxFlowNode>
 
         <FluxFlowConnection from="trigger" to="step-1" from-align="start"/>
-        <FluxFlowConnection from="step-1" to="condition-1" to-align="start"/>
-        <FluxFlowConnection from="step-1" to="step-2"/>
-        <FluxFlowConnection from="step-2" to="condition-2" to-align="start"/>
+        <FluxFlowConnection from="step-1" to="condition-1" to-align="start" marker-start="none"/>
+        <FluxFlowConnection from="step-1" to="step-2" marker-start="none"/>
+        <FluxFlowConnection from="step-2" to="condition-2" to-align="start" marker-start="none"/>
 
         <FluxFlowConnection from="condition-1" to="fulfilment-1" from-side="bottom" from-align="start" to-side="left" to-align="start" label="If true" label-placement="last-leg"/>
         <FluxFlowConnection from="condition-1" to="hold-1" from-side="bottom" from-align="start" to-side="left" to-align="start" label="If false" label-placement="last-leg"/>

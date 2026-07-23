@@ -20,6 +20,14 @@
     transition: stroke 360ms var(--swift-out), stroke-dasharray 360ms var(--swift-out);
 }
 
+// A plain gray connector fades its whole group as one, so a colored group frame
+// it runs across shows through instead of being cut by a hard gray line. The
+// opacity sits on the group rather than the stroke, so overlapping legs of the
+// same connector never double up into a darker seam.
+.flowConnectionGroup.isNeutral {
+    opacity: 0.75;
+}
+
 .flowConnectionGroup.isHovered :is(.flowConnectionLine, .flowConnectionMarkerOutline, .flowConnectionMarkerStroke, .flowConnectionProgress) {
     stroke-width: 3px;
 }

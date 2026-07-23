@@ -127,6 +127,12 @@ export type FluxFlowEdgeSpec = {
     readonly fromActive: boolean;
     readonly toActive: boolean;
     readonly hasProgress: boolean;
+    /**
+     * Whether the connector carries a color of its own. A colored line draws
+     * above the plain gray ones, so a highlighted path is never buried under the
+     * default connectors it crosses.
+     */
+    readonly isColored: boolean;
     readonly label?: string;
     readonly icon?: FluxIconName;
 };
@@ -255,6 +261,15 @@ export type FluxFlowPlacementContext = {
     unregisterLink(link: FluxFlowPlacementLink): void;
 };
 
+/**
+ * Whether the drawn connectors sit over or under the cards. They draw under by
+ * default, so a line that still crosses a card tucks behind it. An enclosing
+ * element can flip that for the flows inside it by providing this key; the docs
+ * playground uses it to compare, and it is the only supported override.
+ */
+export type FluxFlowEdgeLayer = 'over' | 'under';
+
 export const FluxFlowInjectionKey: InjectionKey<FluxFlowController> = Symbol('flux.flow');
+export const FluxFlowEdgeLayerInjectionKey: InjectionKey<Readonly<Ref<FluxFlowEdgeLayer>>> = Symbol('flux.flow.edge-layer');
 export const FluxFlowNodeInjectionKey: InjectionKey<FluxFlowNodeContext> = Symbol('flux.flow.node');
 export const FluxFlowPlacementInjectionKey: InjectionKey<FluxFlowPlacementContext> = Symbol('flux.flow.placement');

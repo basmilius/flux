@@ -143,6 +143,8 @@ export {
     faSlashForward,
     faRotateLeft,
     faRobot,
+    faBan,
+    faBoxArchive,
     faEnvelope,
     faGauge,
     faWandMagicSparkles,

@@ -91,7 +91,7 @@ export function markerPath(marker: FluxFlowMarker, point: FluxFlowPosition, dire
  * always takes the middle of the line; a bent one follows `placement`, skipping
  * any leg no longer than `stub` (the piece it uses to leave its node).
  */
-function labelPoint(points: readonly FluxFlowPosition[], placement: FluxFlowLabelPlacement, stub: number): FluxFlowPosition {
+export function labelPoint(points: readonly FluxFlowPosition[], placement: FluxFlowLabelPlacement, stub: number): FluxFlowPosition {
     if (placement === 'center') {
         return pointAtHalfLength(points);
     }
@@ -119,7 +119,7 @@ function labelPoint(points: readonly FluxFlowPosition[], placement: FluxFlowLabe
     return pointAtHalfLength(points);
 }
 
-function unitVector(from: FluxFlowPosition, to: FluxFlowPosition): readonly [number, number] {
+export function unitVector(from: FluxFlowPosition, to: FluxFlowPosition): readonly [number, number] {
     const length = Math.hypot(to.x - from.x, to.y - from.y);
 
     return length === 0 ? [0, 0] : [(to.x - from.x) / length, (to.y - from.y) / length];
@@ -162,7 +162,7 @@ function dedupe(points: readonly FluxFlowPosition[]): FluxFlowPosition[] {
     return out;
 }
 
-function roundedPath(rawPoints: readonly FluxFlowPosition[], radius: number): string {
+export function roundedPath(rawPoints: readonly FluxFlowPosition[], radius: number): string {
     const points = dedupe(rawPoints);
 
     if (points.length < 2) {

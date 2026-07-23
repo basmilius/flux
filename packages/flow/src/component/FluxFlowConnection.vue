@@ -9,7 +9,7 @@
     import { computed, getCurrentInstance, onBeforeUnmount } from 'vue';
     import { useFluxFlowInjection } from '~flux/flow/composable';
     import type { FluxFlowAlign, FluxFlowConnectionType, FluxFlowEdgeSpec, FluxFlowLabelPlacement, FluxFlowMarker, FluxFlowMarkerFill, FluxFlowNodeRecord, FluxFlowPortRecord, FluxFlowPosition, FluxFlowSide } from '~flux/flow/data';
-    import { anchorPoint, autoSides, clamp, getBezierPath, getSelfLoopPath, getSmoothStepPath, getStepPath, getStraightPath, markerPath, offsetPoint, portPoint, portSide, selfLoopPoints } from '~flux/flow/util';
+    import { anchorPoint, autoSides, clamp, collectObstacles, getBezierPath, getSelfLoopPath, getSmoothStepPath, getStepPath, getStraightPath, markerPath, offsetPoint, portPoint, portSide, routeAvoid, selfLoopPoints } from '~flux/flow/util';
 
     const props = defineProps<{
         readonly from: string;
@@ -101,13 +101,22 @@
         const type = props.type ?? 'smoothstep';
         const waypoints = props.waypoints ?? [];
         const placement = props.labelPlacement ?? 'center';
-        const path = type === 'straight'
-            ? getStraightPath(fromPoint, toPoint, waypoints, placement)
-            : type === 'bezier'
-                ? getBezierPath(fromPoint, sourceSide, toPoint, targetSide, waypoints, placement)
-                : type === 'step'
-                    ? getStepPath(fromPoint, sourceSide, toPoint, targetSide, waypoints, placement)
-                    : getSmoothStepPath(fromPoint, sourceSide, toPoint, targetSide, waypoints, placement);
+
+        // The orthogonal types route around the cards they would otherwise cross,
+        // unless the author already drew the waypoints by hand.
+        const routed = waypoints.length === 0 && (type === 'smoothstep' || type === 'step');
+        const radius = type === 'step' ? 0 : 15;
+        const obstacles = routed ? collectObstacles(controller.nodes.values(), props.from, props.to) : [];
+
+        const path = routed
+            ? routeAvoid(fromPoint, sourceSide, toPoint, targetSide, obstacles, placement, 15, radius)
+            : type === 'straight'
+                ? getStraightPath(fromPoint, toPoint, waypoints, placement)
+                : type === 'bezier'
+                    ? getBezierPath(fromPoint, sourceSide, toPoint, targetSide, waypoints, placement)
+                    : type === 'step'
+                        ? getStepPath(fromPoint, sourceSide, toPoint, targetSide, waypoints, placement)
+                        : getSmoothStepPath(fromPoint, sourceSide, toPoint, targetSide, waypoints, placement);
 
         return {
             path: path.path,
@@ -150,6 +159,7 @@
             fromActive: hasProgress.value && progress > 0,
             toActive: hasProgress.value && progress >= 1,
             hasProgress: hasProgress.value,
+            isColored: !!props.color,
             label: props.label,
             icon: props.icon
         };
@@ -225,10 +235,12 @@
     }
 
     // The badge sits in the hole its own connector leaves, so it wears a light
-    // tint of the line's color rather than the line color itself.
+    // tint of the line's color rather than the line color itself. A plain badge
+    // keeps the lighter gray the line had before it was darkened, so the pill
+    // does not deepen along with the connector.
     function resolveBadgeBackground(value: string | undefined): string {
         if (!value) {
-            return 'var(--flow-line)';
+            return 'var(--gray-200)';
         }
 
         return isFluxColor(value)

@@ -41,7 +41,7 @@
 
                 <slot/>
 
-                <svg :class="$style.flowEdges">
+                <svg :class="clsx($style.flowEdges, resolvedEdgeLayer === 'under' && $style.isUnder)">
                     <defs>
                         <!-- Cuts every label out of every connector, so a line ends
                              flush against a badge instead of running behind it,
@@ -80,7 +80,7 @@
                     <g
                         v-for="edge of drawnEdges"
                         :key="edge.id"
-                        :class="clsx($edge.flowConnectionGroup, edge.id === hoveredEdge && $edge.isHovered)"
+                        :class="clsx($edge.flowConnectionGroup, edge.id === hoveredEdge && $edge.isHovered, !edge.spec.isColored && $edge.isNeutral)"
                         :style="edge.spec.styleVars"
                         :mask="labelBoxes.size > 0 ? `url(#${uid}-labels)` : undefined">
                         <path
@@ -135,9 +135,9 @@
     setup>
     import { FluxBadge } from '@flux-ui/components';
     import { clsx } from 'clsx';
-    import { computed, type CSSProperties, onBeforeUnmount, onMounted, provide, ref, toRef, useId, useTemplateRef, watch } from 'vue';
+    import { computed, type CSSProperties, inject, onBeforeUnmount, onMounted, provide, ref, toRef, useId, useTemplateRef, watch } from 'vue';
     import { useFlowController, useFlowGestures, useFlowKeyboard, useFlowLabels } from '~flux/flow/composable/private';
-    import { type FluxFlowDirection, type FluxFlowEdgeRecord, type FluxFlowEdgeSpec, FluxFlowInjectionKey, type FluxFlowMarkerFill, type FluxFlowViewport } from '~flux/flow/data';
+    import { type FluxFlowDirection, FluxFlowEdgeLayerInjectionKey, type FluxFlowEdgeRecord, type FluxFlowEdgeSpec, FluxFlowInjectionKey, type FluxFlowMarkerFill, type FluxFlowViewport } from '~flux/flow/data';
     import $style from '~flux/flow/css/component/Flow.module.scss';
     import $edge from '~flux/flow/css/component/FlowConnection.module.scss';
 
@@ -208,6 +208,13 @@
 
     provide(FluxFlowInjectionKey, controller);
 
+    // Connectors draw under the cards. An enclosing element (the docs playground)
+    // can flip that for the flows inside it by providing the edge-layer key.
+    const parentEdgeLayer = inject(FluxFlowEdgeLayerInjectionKey, null);
+    const resolvedEdgeLayer = computed(() => parentEdgeLayer?.value ?? 'under');
+
+    provide(FluxFlowEdgeLayerInjectionKey, resolvedEdgeLayer);
+
     const {isPanning, onPointerDown, onPointerMove, onPointerUp, onWheel} = useFlowGestures({
         clip,
         controller,
@@ -224,16 +231,19 @@
 
     const {boxes: labelBoxes, setElement: setLabelElement} = useFlowLabels(() => edgeList.value);
 
-    // SVG has no z-index, so the hovered edge is drawn last to sit on top.
+    // SVG has no z-index, so paint order is stacking order: plain gray lines
+    // first, colored ones over them, and the hovered edge last of all. A stable
+    // sort keeps each band in registration order.
     const orderedEdges = computed(() => {
-        if (hoveredEdge.value === null) {
-            return edgeList.value;
-        }
+        const rank = (edge: FluxFlowEdgeRecord): number => {
+            if (edge.id === hoveredEdge.value) {
+                return 2;
+            }
 
-        return [
-            ...edgeList.value.filter(edge => edge.id !== hoveredEdge.value),
-            ...edgeList.value.filter(edge => edge.id === hoveredEdge.value)
-        ];
+            return edge.spec.value?.isColored ? 1 : 0;
+        };
+
+        return [...edgeList.value].sort((first, second) => rank(first) - rank(second));
     });
 
     const hitEdges = computed(() => drawable(edgeList.value));
