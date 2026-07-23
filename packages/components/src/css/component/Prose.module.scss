@@ -42,24 +42,21 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
 }
 
 .prose {
-    line-height: 1.6;
+    font-size: var(--font-size-default);
+    line-height: var(--line-height-default);
     color: var(--foreground);
 
     // Vertical rhythm. Every direct child, including an embedded component, is
     // spaced from its predecessor; a new heading gets more room.
     > * + * {
-        margin-top: 12px;
+        margin-top: 18px;
     }
 
     > * + :where(h1, h2, h3) {
-        margin-top: 33px;
+        margin-top: 42px;
     }
 
     // Headings.
-    > :where(h1, h2) {
-        letter-spacing: -.01em;
-    }
-
     > h2 {
         padding-bottom: 9px;
         border-bottom: 1px solid var(--surface-stroke);
@@ -102,7 +99,7 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
 
     // Inline code and sample output inside prose text.
     > #{$text} :where(code, samp) {
-        font-size: .875em;
+        font-size: var(--font-size-xsmall);
         padding: 3px 6px;
         border-radius: var(--radius-half);
         background: var(--gray-100);
@@ -110,11 +107,16 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
 
     // Keyboard key inside prose text.
     > #{$text} kbd {
-        font-size: .8125em;
+        font-size: var(--font-size-2xsmall);
         padding: 3px 6px;
         border: 1px solid var(--surface-stroke);
         border-radius: var(--radius-half);
         box-shadow: 0 1px 0 var(--surface-stroke);
+    }
+
+    // Badges and tags sit inline in prose text; center them on the line.
+    > #{$text} :local(.badge) {
+        vertical-align: middle;
     }
 
     // Code block.
@@ -165,7 +167,7 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
     }
 
     > table thead th {
-        font-size: 14px;
+        font-size: var(--font-size-small);
         font-weight: 700;
         color: var(--foreground-prominent);
         border-bottom: 2px solid var(--gray-100);
