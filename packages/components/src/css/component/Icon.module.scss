@@ -19,14 +19,12 @@
     }
 
     .iconFont {
+        composes: icon;
+
         display: inline-grid;
-        height: 1em;
-        flex-shrink: 0;
         place-items: center;
-        font-size: 20px;
         font-style: normal;
         font-variant-ligatures: normal;
-        line-height: 1;
         white-space: nowrap;
     }
 
@@ -55,6 +53,10 @@
 
         .icon {
             font-size: .5em;
+        }
+
+        &.isRounded {
+            border-radius: var(--radius-full);
         }
     }
 }
@@ -93,10 +95,6 @@
     composes: iconBoxed;
 
     border: 0;
-}
-
-.isRounded {
-    border-radius: var(--radius-full);
 }
 
 .iconBoxedGray {
