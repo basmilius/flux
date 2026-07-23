@@ -26,6 +26,8 @@
     @include mixin.text(default);
 
     position: absolute;
+    top: 0;
+    left: 0;
     display: inline-flex;
     align-items: center;
     box-sizing: border-box;
@@ -39,7 +41,7 @@
     font-weight: 600;
 
     @each $-color in (primary, danger, info, success, warning) {
-        [data-color="#{$-color}"] & {
+        &[data-color="#{$-color}"] {
             color: var(--#{$-color}-700);
             border-color: var(--#{$-color}-300);
         }

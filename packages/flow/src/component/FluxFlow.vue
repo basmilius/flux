@@ -102,6 +102,13 @@
                     </g>
                 </svg>
 
+                <!-- The layer a FluxFlowGroup teleports its title into, above the
+                     connectors, so a line drawn through the group never paints
+                     over the label. -->
+                <div
+                    ref="foreground"
+                    :class="$style.flowForeground"/>
+
                 <div :class="$style.flowEdgeLabels">
                     <FluxBadge
                         v-for="edge of labelledEdges"
@@ -183,6 +190,7 @@
     const uid = useId();
     const clip = useTemplateRef<HTMLElement>('clip');
     const backdrop = useTemplateRef<HTMLElement>('backdrop');
+    const foreground = useTemplateRef<HTMLElement>('foreground');
     const overlay = useTemplateRef<HTMLElement>('overlay');
     const isReady = ref(false);
     const hoveredEdge = ref<number | null>(null);
@@ -291,6 +299,7 @@
     onMounted(() => {
         controller.setClipElement(clip.value);
         controller.setBackdropElement(backdrop.value);
+        controller.setForegroundElement(foreground.value);
         controller.setOverlayElement(overlay.value);
 
         // Natural layout drives its own view through worldStyle; only an interactive

@@ -39,6 +39,7 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
     const boxes = shallowReactive(new Map<number, FluxFlowBoxRecord>());
     const clipElement = shallowRef<HTMLElement | null>(null);
     const backdropElement = shallowRef<HTMLElement | null>(null);
+    const foregroundElement = shallowRef<HTMLElement | null>(null);
     const overlayElement = shallowRef<HTMLElement | null>(null);
     const viewport = shallowRef<FluxFlowViewport>({x: 0, y: 0, zoom: 1});
     const isTracking = shallowRef(false);
@@ -249,6 +250,7 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
         nodeBounds,
         clipElement,
         backdropElement,
+        foregroundElement,
         overlayElement,
         registerNode: record => void nodes.set(record.id, record),
         unregisterNode: id => void nodes.delete(id),
@@ -259,6 +261,7 @@ export default function useFlowController(options: FlowControllerOptions): FluxF
         unregisterBox: id => void boxes.delete(id),
         setClipElement: element => void (clipElement.value = element),
         setBackdropElement: element => void (backdropElement.value = element),
+        setForegroundElement: element => void (foregroundElement.value = element),
         setOverlayElement: element => void (overlayElement.value = element),
         setTracking: value => void (isTracking.value = value),
         screenToFlow,

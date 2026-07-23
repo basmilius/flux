@@ -180,6 +180,12 @@ export type FluxFlowController = {
      */
     readonly backdropElement: Readonly<Ref<HTMLElement | null>>;
     /**
+     * The layer above the connectors, inside the world. A `FluxFlowGroup`
+     * teleports its title into it, so a connector drawn through the group never
+     * paints over the label.
+     */
+    readonly foregroundElement: Readonly<Ref<HTMLElement | null>>;
+    /**
      * The layer above the world. A `FluxFlowPanel` teleports itself into it, so
      * what it holds stays pinned to the viewport instead of panning and zooming
      * along with the nodes.
@@ -194,6 +200,7 @@ export type FluxFlowController = {
     unregisterBox(id: number): void;
     setClipElement(element: HTMLElement | null): void;
     setBackdropElement(element: HTMLElement | null): void;
+    setForegroundElement(element: HTMLElement | null): void;
     setOverlayElement(element: HTMLElement | null): void;
     setTracking(value: boolean): void;
     screenToFlow(clientX: number, clientY: number): FluxFlowPosition;

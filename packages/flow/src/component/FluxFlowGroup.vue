@@ -5,12 +5,18 @@
         <div
             :class="$style.flowGroup"
             :data-color="color"
-            :style="style">
-            <span
-                v-if="title"
-                :class="$style.flowGroupTitle"
-                :style="titleStyle">{{ title }}</span>
-        </div>
+            :style="style"/>
+    </Teleport>
+
+    <!-- The title rides in the foreground layer, above the connectors, so a line
+         drawn through the group never paints over it. -->
+    <Teleport
+        v-if="foreground && box && title"
+        :to="foreground">
+        <span
+            :class="$style.flowGroupTitle"
+            :data-color="color"
+            :style="titleStyle">{{ title }}</span>
     </Teleport>
 </template>
 
@@ -37,13 +43,15 @@
     }>();
 
     // The strip the title rides in, at the top of the frame: its own 30px and
-    // air before the first node. The frame already reserves the padding the
-    // title is set in by, so that is not counted twice.
-    const TITLE_BAND = 45;
+    // 30px of air before the first node, so the connector stays visible below the
+    // label. The frame already reserves the padding the title is set in by, so
+    // that is not counted twice.
+    const TITLE_BAND = 60;
 
     const controller = useFluxFlowInjection();
 
     const backdrop = controller.backdropElement;
+    const foreground = controller.foregroundElement;
 
     // An unknown id is skipped rather than reported: a group is decoration, and
     // a frame around the nodes that do exist is the useful outcome.
@@ -70,9 +78,9 @@
 
     const {style} = useFlowBox(() => box.value);
 
-    // Set in by the group's own padding, so the label lines up with the cards.
+    // Placed in world coordinates, set in by the group's own padding so the label
+    // lines up with the cards standing inside the frame.
     const titleStyle = computed<CSSProperties>(() => ({
-        top: `${padding}px`,
-        left: `${padding}px`
+        transform: `translate(${(box.value?.x ?? 0) + padding}px, ${(box.value?.y ?? 0) + padding}px)`
     }));
 </script>
