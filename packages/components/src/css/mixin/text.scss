@@ -20,3 +20,11 @@ $-sizes: 2xsmall, xsmall, small, default, large, xlarge;
         line-height: $line-height;
     }
 }
+
+// Clips a single line to its box with an ellipsis. All three declarations are needed: without
+// nowrap the text wraps instead of overflowing, and without overflow there is nothing to ellide.
+@mixin truncate {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

@@ -1,0 +1,9 @@
+// Hides the scrollbar while keeping the element scrollable. scrollbar-width covers Firefox and
+// Chromium 121+; the pseudo-element is still needed for Safari and older Chromium.
+@mixin hide-scrollbar {
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}

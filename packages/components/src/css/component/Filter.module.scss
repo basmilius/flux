@@ -1,19 +1,16 @@
+@use '~flux/components/css/mixin';
+
 .filter {
+    @include mixin.hide-scrollbar;
+
     max-height: 50dvh;
     max-width: 100%;
     padding: 9px;
     width: 300px;
     overflow: auto;
     overscroll-behavior: contain;
-    scrollbar-width: none;
     transition: height 150ms var(--deceleration-curve);
     z-index: 0;
-
-    &::-webkit-scrollbar {
-        display: none;
-        height: 0;
-        width: 0;
-    }
 
     .menu {
         > :where(.divider, .separator) {
@@ -29,10 +26,9 @@
         }
 
         .menuItemLabel {
+            @include mixin.truncate;
+
             min-width: 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
         }
     }
 
@@ -42,8 +38,7 @@
 }
 
 .filterBadge {
-    padding-left: 6px;
-    padding-right: 6px;
+    padding-inline: 6px;
     background: var(--primary-50);
     border: 1px dashed var(--primary-300);
     border-radius: var(--radius-half);

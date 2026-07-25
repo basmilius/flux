@@ -3,6 +3,7 @@
 // Square on a single character, growing into a lozenge once a word is used.
 .flowStep {
     @include mixin.text(small);
+    @include mixin.surface;
 
     display: flex;
     height: 36px;
@@ -10,10 +11,6 @@
     padding: 0 9px;
     align-items: center;
     justify-content: center;
-    background: var(--surface);
-    background-clip: padding-box;
-    border: 1px solid var(--surface-stroke-out);
-    border-radius: var(--radius);
     box-shadow: var(--shadow-sm);
     color: var(--foreground-prominent);
     font-weight: 600;

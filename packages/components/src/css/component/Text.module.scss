@@ -30,28 +30,8 @@
     color: var(--foreground-prominent);
 }
 
-.textColorGray {
-    color: var(--gray-600);
-}
-
-.textColorPrimary {
-    color: var(--primary-600);
-}
-
-.textColorDanger {
-    color: var(--danger-600);
-}
-
-.textColorInfo {
-    color: var(--info-600);
-}
-
-.textColorSuccess {
-    color: var(--success-600);
-}
-
-.textColorWarning {
-    color: var(--warning-600);
+@include mixin.color-variants(textColor) using ($color) {
+    color: var(--#{$color}-600);
 }
 
 .textAlignStart {
@@ -71,8 +51,7 @@
 }
 
 .textTruncate {
+    @include mixin.truncate;
+
     display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }

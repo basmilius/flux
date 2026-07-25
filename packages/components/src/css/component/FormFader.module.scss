@@ -174,14 +174,12 @@
 
 .formFaderLabel {
     @include mixin.text(small);
+    @include mixin.truncate;
 
     flex: 0 1 auto;
     min-width: 0;
     color: var(--foreground);
     font-weight: 500;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .formFaderValue {
@@ -203,8 +201,7 @@
     touch-action: pan-x;
 
     .formFaderFill {
-        top: auto;
-        bottom: 0;
+        inset-block: auto 0;
         width: 100%;
     }
 

@@ -93,15 +93,12 @@
 }
 
 .breadcrumbIcon {
-    margin-top: -1px;
-    margin-bottom: -1px;
+    margin-block: -1px;
     flex-shrink: 0;
 }
 
 .breadcrumbLabel {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    @include mixin.truncate;
 }
 
 .breadcrumbSeparator {

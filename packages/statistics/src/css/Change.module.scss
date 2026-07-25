@@ -6,28 +6,14 @@
     flex-flow: row nowrap;
     gap: 6px;
 
+    @each $color in mixin.$colors {
+        &.is#{mixin.color-suffix($color)} {
+            --color: var(--#{$color}-600);
+        }
+    }
+
     &.isGray {
         --color: var(--foreground-prominent);
-    }
-
-    &.isPrimary {
-        --color: var(--primary-600);
-    }
-
-    &.isDanger {
-        --color: var(--danger-600);
-    }
-
-    &.isInfo {
-        --color: var(--info-600);
-    }
-
-    &.isSuccess {
-        --color: var(--success-600);
-    }
-
-    &.isWarning {
-        --color: var(--warning-600);
     }
 }
 

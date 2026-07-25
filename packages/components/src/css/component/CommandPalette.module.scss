@@ -30,15 +30,13 @@
 }
 
 .commandPalette {
+    @include mixin.surface;
+
     display: flex;
     overflow: hidden;
     width: min(600px, calc(100dvw - 48px));
     max-height: min(480px, calc(100dvh - 120px - clamp(60px, 15vh, 160px)));
     flex-flow: column nowrap;
-    background: var(--surface);
-    background-clip: padding-box;
-    border: 1px solid var(--surface-stroke-out);
-    border-radius: var(--radius);
     box-shadow: var(--shadow-lg);
     transition: height 120ms var(--deceleration-curve);
 }
@@ -102,17 +100,14 @@
 
 
 .commandPaletteTabs {
+    @include mixin.hide-scrollbar;
+
     display: flex;
     overflow-x: auto;
-    scrollbar-width: none;
     padding: 6px 15px;
     flex-shrink: 0;
     gap: 3px;
     border-bottom: 1px solid var(--gray-100);
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
 }
 
 .commandPaletteTab {
@@ -261,19 +256,15 @@
 }
 
 .commandPaletteItemLabel {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    @include mixin.truncate;
 }
 
 .commandPaletteItemSubLabel {
     @include mixin.text(2xsmall);
+    @include mixin.truncate;
 
-    overflow: hidden;
     margin-top: 1px;
     color: var(--foreground-secondary);
-    white-space: nowrap;
-    text-overflow: ellipsis;
     transition: color 100ms;
 }
 

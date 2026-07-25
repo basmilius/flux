@@ -38,8 +38,7 @@
 
 .formRatingStarFull {
     position: absolute;
-    top: 0;
-    bottom: 0;
+    inset-block: 0;
     left: 0;
     color: var(--warning-400);
     clip-path: inset(0 calc((1 - var(--fill, 0)) * 100%) 0 0);

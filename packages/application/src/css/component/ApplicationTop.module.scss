@@ -22,8 +22,7 @@
 .applicationTopBar {
     display: flex;
     height: var(--application-top-height);
-    padding-left: 21px;
-    padding-right: 21px;
+    padding-inline: 21px;
     align-items: center;
     flex-flow: row;
     gap: 15px;
@@ -52,8 +51,7 @@
     position: relative;
     display: flex;
     margin-top: -6px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-inline: auto;
     flex-flow: row;
     gap: 21px;
 
@@ -101,8 +99,7 @@
     }
 
     .applicationMenuToggle {
-        margin-left: -12px;
-        margin-right: -15px;
+        margin-inline: -12px -15px;
     }
 }
 

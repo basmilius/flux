@@ -1,4 +1,14 @@
+@use 'sass:map';
 @use '~flux/components/css/mixin';
+
+// Every step is 6px taller and carries 3px more inline padding. An icon-only button drops that
+// padding and takes its height as its width instead, so it stays square.
+$-sizes: (
+    isSmall: (height: 36px, padding: 9px),
+    isMedium: (height: 42px, padding: 12px),
+    isLarge: (height: 48px, padding: 15px),
+    isXl: (height: 54px, padding: 18px)
+);
 
 @layer flux-base {
     .button {
@@ -39,24 +49,11 @@
             pointer-events: none;
         }
 
-        &.isSmall {
-            height: 36px;
-            padding: 0 9px;
-        }
-
-        &.isMedium {
-            height: 42px;
-            padding: 0 12px;
-        }
-
-        &.isLarge {
-            height: 48px;
-            padding: 0 15px;
-        }
-
-        &.isXl {
-            height: 54px;
-            padding: 0 18px;
+        @each $-class, $-size in $-sizes {
+            &.#{$-class} {
+                height: map.get($-size, height);
+                padding: 0 map.get($-size, padding);
+            }
         }
 
         &.isFilled {
@@ -67,29 +64,17 @@
             flex-shrink: 0;
 
             &:only-child {
-                margin-left: -2px;
-                margin-right: -2px;
+                margin-inline: -2px;
             }
         }
 
         &:has(.buttonIcon:only-child) {
-            padding-left: 0;
-            padding-right: 0;
+            padding-inline: 0;
 
-            &.isSmall {
-                width: 36px;
-            }
-
-            &.isMedium {
-                width: 42px;
-            }
-
-            &.isLarge {
-                width: 48px;
-            }
-
-            &.isXl {
-                width: 54px;
+            @each $-class, $-size in $-sizes {
+                &.#{$-class} {
+                    width: map.get($-size, height);
+                }
             }
         }
     }
@@ -100,8 +85,7 @@
         font-size: 18px;
 
         &:only-child {
-            margin-left: -1px;
-            margin-right: -1px;
+            margin-inline: -1px;
         }
     }
 
@@ -111,8 +95,7 @@
         text-align: center;
 
         &:only-child {
-            margin-left: 6px;
-            margin-right: 6px;
+            margin-inline: 6px;
             min-width: 42px;
         }
     }

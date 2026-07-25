@@ -1,0 +1,12 @@
+// A raised surface with the shared translucent stroke. The padding-box clip belongs to that stroke:
+// without it the background paints underneath the border and shows through it.
+//
+// For an element that really is a pane, compose `basePane` instead: that shares one class rather
+// than repeating the declarations. This mixin is for everything else, including the sibling
+// packages, which cannot compose across a package boundary.
+@mixin surface($radius: var(--radius)) {
+    background: var(--surface);
+    background-clip: padding-box;
+    border: 1px solid var(--surface-stroke-out);
+    border-radius: $radius;
+}

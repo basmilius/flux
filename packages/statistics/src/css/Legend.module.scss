@@ -76,8 +76,7 @@
 .statisticsLegendItem:not(:focus-visible) + .statisticsLegendItem:not(:focus-visible)::before {
     position: absolute;
     top: -2px;
-    left: 0;
-    right: 0;
+    inset-inline: 0;
     content: '';
     border-top: 1px dashed var(--surface-stroke);
     z-index: -1;

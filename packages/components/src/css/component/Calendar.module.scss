@@ -117,8 +117,7 @@
     // The 30px line box is the cell height.
     @include mixin.text(xsmall, $line-height: 30px);
 
-    padding-left: 0;
-    padding-right: 0;
+    padding-inline: 0;
     color: var(--foreground-secondary);
     font-weight: 500;
     text-align: center;
@@ -365,8 +364,7 @@
 
 .timeGridDayItemHandle {
     position: absolute;
-    left: 0;
-    right: 0;
+    inset-inline: 0;
     height: 6px;
     cursor: ns-resize;
     z-index: 2;
@@ -387,8 +385,7 @@
 
 .timeGridDropIndicator {
     position: absolute;
-    left: 0;
-    right: 0;
+    inset-inline: 0;
     height: 2px;
     background: var(--primary-500);
     z-index: 5;

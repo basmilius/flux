@@ -4,10 +4,8 @@
     position: relative;
     display: flex;
     container: applicationContent / inline-size;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 21px;
-    padding-bottom: 42px;
+    margin-inline: auto;
+    padding-block: 21px 42px;
     flex-flow: column;
     flex-grow: 1;
     gap: 21px;
@@ -27,8 +25,7 @@
 .applicationContentFull {
     composes: applicationContent;
 
-    padding-top: 0;
-    padding-bottom: 0;
+    padding-block: 0;
     width: calc(100% - 42px);
 }
 
@@ -65,8 +62,7 @@
         border-radius: 0;
 
         :local(.calendarActions) {
-            padding-left: 21px;
-            padding-right: 21px;
+            padding-inline: 21px;
         }
     }
 
@@ -80,8 +76,7 @@
         }
 
         :is(:local(.tableBarContent), :local(.tableGroupContent)) {
-            padding-left: 21px;
-            padding-right: 21px;
+            padding-inline: 21px;
         }
     }
 }
@@ -103,14 +98,12 @@
 
     .applicationContentFull {
         > :is(.calendar, .table) {
-            margin-left: 0;
-            margin-right: 0;
+            margin-inline: 0;
             height: auto;
         }
 
         > .calendar .calendarActions {
-            padding-left: 12px;
-            padding-right: 12px;
+            padding-inline: 12px;
         }
 
         > .table {
@@ -123,8 +116,7 @@
             }
 
             :is(.tableBarContent, .tableGroupContent) {
-                padding-left: 12px;
-                padding-right: 12px;
+                padding-inline: 12px;
             }
         }
     }

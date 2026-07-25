@@ -5,8 +5,7 @@
 
     height: 30px;
     width: 30px;
-    padding-left: 6px;
-    padding-right: 6px;
+    padding-inline: 6px;
     border: 0;
     border-radius: var(--radius-half);
     box-shadow: none;
@@ -42,8 +41,7 @@
     flex-wrap: wrap;
 
     .separator {
-        margin-top: 9px;
-        margin-bottom: 9px;
+        margin-block: 9px;
     }
 
     @include mixin.breakpoint-up(sm) {

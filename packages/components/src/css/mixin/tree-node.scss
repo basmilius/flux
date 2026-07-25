@@ -1,5 +1,7 @@
+@use 'color' as color;
 @use 'focus-ring' as focus;
 @use 'hover' as hover;
+@use 'text' as text;
 
 @mixin tree-node-classes() {
     // Wrapper for guide lines + marker — no internal gap so lines align perfectly
@@ -17,8 +19,7 @@
     // column index, set by the renderer.
     .treeNodeLineArea.hasDropLine::after {
         position: absolute;
-        top: calc(50% + 14px);
-        bottom: 0;
+        inset-block: calc(50% + 14px) 0;
         left: calc(var(--tree-marker-column) * 24px + 11px);
         width: 2px;
         content: '';
@@ -40,8 +41,7 @@
 
         &.hasLine::before {
             position: absolute;
-            top: 0;
-            bottom: 0;
+            inset-block: 0;
             left: 11px;
             width: 2px;
             content: '';
@@ -61,8 +61,7 @@
         // Non-last siblings: full-height vertical continuation line
         &:not(.isLast)::before {
             position: absolute;
-            top: 0;
-            bottom: 0;
+            inset-block: 0;
             left: 11px;
             width: 2px;
             content: '';
@@ -73,10 +72,8 @@
         // Overlaps the ::before vertical line for non-last nodes (same position, same color)
         &::after {
             position: absolute;
-            top: 0;
-            bottom: 50%;
-            left: 11px;
-            right: 2px;
+            inset-block: 0 50%;
+            inset-inline: 11px 2px;
             content: '';
             border-left: 2px solid var(--surface-active);
             border-bottom: 2px solid var(--surface-active);
@@ -127,40 +124,14 @@
         rotate: 90deg;
     }
 
+    @include color.color-variants(treeNodeMarker) using ($color) {
+        --tree-marker-fill: var(--#{$color}-100);
+        --tree-marker-stroke: var(--#{$color}-300);
+        --tree-marker-foreground: var(--#{$color}-900);
+    }
+
     .treeNodeMarkerGray {
-        --tree-marker-fill: var(--gray-100);
-        --tree-marker-stroke: var(--gray-300);
         --tree-marker-foreground: var(--foreground-prominent);
-    }
-
-    .treeNodeMarkerPrimary {
-        --tree-marker-fill: var(--primary-100);
-        --tree-marker-stroke: var(--primary-300);
-        --tree-marker-foreground: var(--primary-900);
-    }
-
-    .treeNodeMarkerDanger {
-        --tree-marker-fill: var(--danger-100);
-        --tree-marker-stroke: var(--danger-300);
-        --tree-marker-foreground: var(--danger-900);
-    }
-
-    .treeNodeMarkerInfo {
-        --tree-marker-fill: var(--info-100);
-        --tree-marker-stroke: var(--info-300);
-        --tree-marker-foreground: var(--info-900);
-    }
-
-    .treeNodeMarkerSuccess {
-        --tree-marker-fill: var(--success-100);
-        --tree-marker-stroke: var(--success-300);
-        --tree-marker-foreground: var(--success-900);
-    }
-
-    .treeNodeMarkerWarning {
-        --tree-marker-fill: var(--warning-100);
-        --tree-marker-stroke: var(--warning-300);
-        --tree-marker-foreground: var(--warning-900);
     }
 
     .treeNodeMarkerCustom {
@@ -175,9 +146,8 @@
     }
 
     .treeNodeLabel {
+        @include text.truncate;
+
         flex: 1;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
     }
 }
