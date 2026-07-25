@@ -1,0 +1,298 @@
+/*
+ * The source of truth for ij_css_properties_order and ij_scss_properties_order in .editorconfig.
+ * Not imported anywhere and not part of any build: it exists so the order can be read and reordered
+ * as CSS rather than as one 4000-character line.
+ *
+ * WHERE THE ORDER COMES FROM. Every rule in the built CSS of all five packages was parsed, counting
+ * for each pair of properties sharing a rule which of the two was written first. That measurement
+ * decides where the groups sit; the order inside a group is convention, being shorthand, then
+ * longhands, then per-side variants. Two results worth keeping in mind, because they are the
+ * opposite of what IntelliJ's stock order assumes:
+ *
+ *   background comes before border, and border before color (141:8, 57:12)
+ *   the flex properties come after margin and padding, not before box-sizing (88:27)
+ *
+ * WHERE THE MEASUREMENT IS IGNORED. font-size and line-height measure as though they belong at the
+ * very top, but 120 of their 186 occurrences come from an @include of mixin.text(), which injects
+ * them wherever the include happens to sit. That says where the mixin is called, not how a property
+ * is written by hand, and the IDE does not reorder @include lines anyway. So both stay with the font
+ * family. z-index does move: its position is written, not injected, and it lands last in three out
+ * of four rules.
+ *
+ * HOW TO CHANGE IT. Move lines here, then regenerate the two .editorconfig keys from this file; the
+ * two must stay identical to each other. Do not reformat this file in the IDE while working on it,
+ * since that would sort it back into whatever .editorconfig currently says.
+ *
+ * ONE HARD INVARIANT. background-clip has to stay after background. The shorthand resets it to
+ * border-box, so an order that puts the clip first silently breaks every surface in the library.
+ */
+.flux-property-order {
+    position: relative;
+    display: flex;
+    content: '';
+
+    counter-reset: item;
+    counter-increment: item;
+    quotes: auto;
+
+    isolation: isolate;
+    clip: auto;
+    contain: paint;
+    contain-intrinsic-size: auto 300px;
+    content-visibility: auto;
+    container: sidebar / inline-size;
+    float: none;
+    clear: both;
+    zoom: 1;
+
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    aspect-ratio: 16 / 9;
+    box-sizing: border-box;
+    inset: 0;
+    inset-block: 0;
+    inset-inline: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 42px;
+    min-height: 42px;
+    max-height: 50dvh;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    margin: 0;
+    margin-block: 0;
+    margin-inline: auto;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding: 0;
+    padding-block: 9px;
+    padding-inline: 12px;
+    padding-top: 9px;
+    padding-right: 12px;
+    padding-bottom: 9px;
+    padding-left: 12px;
+
+    align-content: center;
+    align-items: center;
+    align-self: stretch;
+    flex: 1 1 auto;
+    flex-flow: row nowrap;
+    flex-basis: auto;
+    flex-direction: row;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    gap: 9px;
+    row-gap: 9px;
+    column-gap: 9px;
+    justify-content: center;
+    justify-items: center;
+    justify-self: end;
+    grid-area: 1 / 1;
+    grid-column: span 2;
+    grid-row: span 2;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas: 'header header';
+    grid-auto-flow: row;
+    grid-auto-columns: min-content;
+    grid-auto-rows: auto;
+    order: 1;
+    place-content: center;
+    place-items: center;
+    place-self: center;
+
+    accent-color: var(--primary-600);
+    backdrop-filter: blur(9px);
+    background: var(--surface);
+    background-attachment: scroll;
+    background-clip: padding-box;
+    -webkit-background-clip: text;
+    background-color: var(--surface);
+    background-image: none;
+    background-origin: padding-box;
+    background-position: center;
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 1px solid var(--surface-stroke);
+    border-collapse: collapse;
+    border-color: var(--surface-stroke);
+    border-spacing: 0;
+    border-style: solid;
+    border-width: 1px;
+    border-top: 1px solid var(--surface-stroke);
+    border-top-color: var(--surface-stroke);
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-left: 1px solid var(--surface-stroke);
+    border-left-color: var(--surface-stroke);
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-right: 1px solid var(--surface-stroke);
+    border-right-color: var(--surface-stroke);
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-bottom: 1px solid var(--surface-stroke);
+    border-bottom-color: var(--surface-stroke);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-radius: var(--radius);
+    border-start-start-radius: var(--radius);
+    border-start-end-radius: var(--radius);
+    border-end-end-radius: var(--radius);
+    border-end-start-radius: var(--radius);
+    border-top-left-radius: var(--radius);
+    border-top-right-radius: var(--radius);
+    border-bottom-left-radius: var(--radius);
+    border-bottom-right-radius: var(--radius);
+    border-image: none;
+    border-image-source: none;
+    border-image-slice: 100%;
+    border-image-width: 1;
+    border-image-outset: 0;
+    border-image-repeat: stretch;
+    box-decoration-break: clone;
+    box-shadow: var(--shadow-sm);
+    caret-color: var(--foreground);
+    clip-path: inset(0);
+    color: var(--foreground);
+    -webkit-text-fill-color: transparent;
+    color-scheme: light dark;
+    cursor: pointer;
+    field-sizing: content;
+    fill: currentColor;
+    fill-opacity: 1;
+    filter: blur(3px);
+    font: 400 15px/1.6 system-ui;
+    font-family: system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    font-size-adjust: none;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-variant-ligatures: normal;
+    font-variant-numeric: tabular-nums;
+    -webkit-font-smoothing: antialiased;
+    interpolate-size: allow-keywords;
+    letter-spacing: normal;
+    line-height: 1.6;
+    list-style: none;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: disc;
+    mix-blend-mode: overlay;
+    nav-index: auto;
+    nav-up: auto;
+    nav-right: auto;
+    nav-down: auto;
+    nav-left: auto;
+    object-fit: cover;
+    object-position: center;
+    opacity: 1;
+    outline: 2px solid var(--primary-600);
+    outline-color: var(--primary-600);
+    outline-style: solid;
+    outline-offset: 2px;
+    outline-width: 2px;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+    overflow-x: auto;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    pointer-events: none;
+    resize: vertical;
+    scrollbar-color: var(--gray-300) transparent;
+    scrollbar-width: none;
+    scroll-margin: 9px;
+    scroll-margin-top: 9px;
+    scroll-padding-block: 9px;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 4 2;
+    stroke-dashoffset: 0;
+    tab-size: 4;
+    -moz-tab-size: 4;
+    text-align: left;
+    text-align-last: auto;
+    text-indent: 0;
+    text-justify: auto;
+    text-decoration: none;
+    text-decoration-color: currentColor;
+    text-decoration-thickness: 1px;
+    text-decoration-skip: none;
+    text-underline-offset: 2px;
+    text-emphasis: none;
+    text-emphasis-color: currentColor;
+    text-emphasis-style: none;
+    text-emphasis-position: over right;
+    text-outline: none;
+    text-overflow: ellipsis;
+    text-overflow-ellipsis: ellipsis;
+    text-overflow-mode: ellipsis;
+    text-shadow: none;
+    text-transform: uppercase;
+    text-wrap: balance;
+    touch-action: pan-y;
+    user-select: none;
+    vertical-align: middle;
+    visibility: visible;
+    white-space: nowrap;
+    will-change: transform;
+    word-break: break-word;
+    word-spacing: normal;
+    word-wrap: break-word;
+    hyphens: auto;
+    writing-mode: vertical-rl;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    z-index: 1;
+
+    caption-side: top;
+    empty-cells: show;
+    table-layout: fixed;
+
+    rotate: 90deg;
+    scale: 1;
+    transform: none;
+    transform-origin: center;
+    translate: 0 -50%;
+
+    mask: linear-gradient(black, transparent);
+    mask-image: linear-gradient(black, transparent);
+    mask-composite: exclude;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: cover;
+    -webkit-mask: linear-gradient(black, transparent);
+    -webkit-mask-image: linear-gradient(black, transparent);
+    -webkit-mask-composite: xor;
+
+    animation: none;
+    animation-play-state: running;
+    animation-delay: 0ms;
+    animation-name: none;
+    animation-duration: 300ms;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    transition: 150ms var(--swift-out);
+    transition-delay: 0ms;
+    transition-timing-function: var(--swift-out);
+    transition-duration: 150ms;
+    transition-property: background, border;
+    transition-behavior: allow-discrete;
+    view-transition-name: pane;
+    anchor-name: --trigger;
+    position-anchor: --trigger;
+}
