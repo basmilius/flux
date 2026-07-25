@@ -81,8 +81,7 @@
     text-align: left;
 
     &:only-child {
-        margin-left: 0;
-        margin-right: 0;
+        margin-inline: 0;
         min-width: unset;
     }
 }
@@ -160,8 +159,7 @@
     &::before {
         content: '';
         position: absolute;
-        top: 3px;
-        bottom: 3px;
+        inset-block: 3px;
         left: 21px;
         width: 2px;
         background: var(--surface-stroke);
@@ -185,8 +183,7 @@
 
 .menuCollapsibleContent {
     display: flex;
-    padding-top: 3px;
-    padding-bottom: 3px;
+    padding-block: 3px;
     padding-left: 35px;
     flex-flow: column;
     gap: 3px;
@@ -230,8 +227,7 @@
 }
 
 .menuItemImage {
-    margin-left: -2px;
-    margin-right: -2px;
+    margin-inline: -2px;
     height: 24px;
     width: 24px;
     border-radius: 3px;
@@ -263,8 +259,7 @@
     position: sticky;
     display: flex;
     top: 0;
-    margin-top: -9px;
-    margin-bottom: -3px;
+    margin-block: -9px -3px;
     padding: 12px 12px 6px;
     align-items: center;
     gap: 9px;
@@ -294,15 +289,13 @@
 
 .menuLarge .menuItem {
     position: relative;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-inline: 15px;
 
     &::after {
         position: absolute;
         display: block;
-        top: 12px;
+        inset-block: 12px;
         right: 12px;
-        bottom: 12px;
         width: 4px;
         content: '';
         background: var(--primary-600);
@@ -336,8 +329,7 @@
 }
 
 .basePane > .menu {
-    margin-left: 9px;
-    margin-right: 9px;
+    margin-inline: 9px;
 
     &:first-child {
         margin-top: 9px;
@@ -353,15 +345,13 @@
 }
 
 .expandableBody > .menu {
-    margin-left: 9px;
-    margin-right: 9px;
+    margin-inline: 9px;
 
     &:last-child {
         margin-bottom: 9px;
     }
 
     > :where(.divider, .separator) {
-        margin-left: 18px;
-        margin-right: 18px;
+        margin-inline: 18px;
     }
 }

@@ -1,7 +1,11 @@
+@use '~flux/components/css/mixin';
+
 // A loading node keeps the exact 30x30 footprint of the boxed icon it replaces,
 // so the node's cached [data-flow-anchor] measurement stays valid. The element
 // selector outranks the spinner's own 1em sizing regardless of stylesheet order.
 svg.flowIconSpinner {
+    @include mixin.surface(var(--radius-full));
+
     --value: currentColor;
     --track: rgb(from currentColor r g b / .1);
 
@@ -10,10 +14,6 @@ svg.flowIconSpinner {
     height: 30px;
     width: 30px;
     padding: 6px;
-    background: var(--surface);
-    background-clip: padding-box;
-    border: 1px solid var(--surface-stroke-out);
-    border-radius: var(--radius-full);
     box-shadow: var(--shadow-sm);
     color: var(--foreground);
 

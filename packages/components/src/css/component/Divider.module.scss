@@ -2,8 +2,7 @@
     position: relative;
     display: grid;
     contain: paint;
-    margin-top: 18px;
-    margin-bottom: 18px;
+    margin-block: 18px;
     align-items: center;
     flex-shrink: 0;
 }
@@ -39,13 +38,11 @@
     }
 
     &::before {
-        left: -100dvh;
-        right: calc(100% + 15px);
+        inset-inline: -100dvh calc(100% + 15px);
     }
 
     &::after {
-        left: calc(100% + 15px);
-        right: -100dvh;
+        inset-inline: calc(100% + 15px) -100dvh;
     }
 }
 

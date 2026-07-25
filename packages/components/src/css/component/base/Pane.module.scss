@@ -1,8 +1,7 @@
+@use '~flux/components/css/mixin';
+
 .basePane {
-    background: var(--surface);
-    background-clip: padding-box;
-    border: 1px solid var(--surface-stroke-out);
-    border-radius: var(--radius);
+    @include mixin.surface;
 }
 
 .basePaneLoader {

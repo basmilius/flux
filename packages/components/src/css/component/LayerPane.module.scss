@@ -10,9 +10,27 @@
     transition-property: background, border;
 }
 
-.layerPaneGray {
+@include mixin.color-variants(layerPane) using ($color) {
     composes: layerPane;
 
+    background-color: var(--#{$color}-100);
+    border-color: var(--#{$color}-200);
+
+    &:has(> .paneHeaderClickable:hover) {
+        background-color: var(--#{$color}-200);
+        border-color: var(--#{$color}-300);
+    }
+
+    // Only the alerting colors tint the header icon; gray and primary let it inherit.
+    @if $color != 'gray' and $color != 'primary' {
+        :local(.paneHeaderIcon) {
+            color: var(--#{$color}-600);
+        }
+    }
+}
+
+// Gray leans on the neutral stroke tokens instead of on its own scale.
+.layerPaneGray {
     background-color: var(--gray-50);
     border-color: var(--surface-stroke-out);
 
@@ -22,85 +40,8 @@
     }
 }
 
-.layerPanePrimary {
-    composes: layerPane;
-
-    background-color: var(--primary-100);
-    border-color: var(--primary-200);
-
-    &:has(> .paneHeaderClickable:hover) {
-        background-color: var(--primary-200);
-        border-color: var(--primary-300);
-    }
-}
-
-.layerPaneDanger {
-    composes: layerPane;
-
-    background-color: var(--danger-100);
-    border-color: var(--danger-200);
-
-    &:has(> .paneHeaderClickable:hover) {
-        background-color: var(--danger-200);
-        border-color: var(--danger-300);
-    }
-
-    :local(.paneHeaderIcon) {
-        color: var(--danger-600);
-    }
-}
-
-.layerPaneInfo {
-    composes: layerPane;
-
-    background-color: var(--info-100);
-    border-color: var(--info-200);
-
-    &:has(> .paneHeaderClickable:hover) {
-        background-color: var(--info-200);
-        border-color: var(--info-300);
-    }
-
-    :local(.paneHeaderIcon) {
-        color: var(--info-600);
-    }
-}
-
-.layerPaneSuccess {
-    composes: layerPane;
-
-    background-color: var(--success-100);
-    border-color: var(--success-200);
-
-    &:has(> .paneHeaderClickable:hover) {
-        background-color: var(--success-200);
-        border-color: var(--success-300);
-    }
-
-    :local(.paneHeaderIcon) {
-        color: var(--success-600);
-    }
-}
-
-.layerPaneWarning {
-    composes: layerPane;
-
-    background-color: var(--warning-100);
-    border-color: var(--warning-200);
-
-    &:has(> .paneHeaderClickable:hover) {
-        background-color: var(--warning-200);
-        border-color: var(--warning-300);
-    }
-
-    :local(.paneHeaderIcon) {
-        color: var(--warning-600);
-    }
-}
-
 .layerPane > .basePaneStructure {
-    margin-left: -1px;
-    margin-right: -1px;
+    margin-inline: -1px;
 }
 
 .layerPane > .basePaneStructure:first-child {

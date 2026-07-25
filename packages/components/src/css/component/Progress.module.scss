@@ -7,34 +7,14 @@
     position: relative;
 }
 
+@include mixin.color-variants(progressBar) using ($color) {
+    --progress-fill: var(--#{$color}-600);
+    --progress-fill-soft: var(--#{$color}-500);
+}
+
 .progressBarGray {
     --progress-fill: var(--gray-500);
     --progress-fill-soft: var(--gray-400);
-}
-
-.progressBarPrimary {
-    --progress-fill: var(--primary-600);
-    --progress-fill-soft: var(--primary-500);
-}
-
-.progressBarDanger {
-    --progress-fill: var(--danger-600);
-    --progress-fill-soft: var(--danger-500);
-}
-
-.progressBarInfo {
-    --progress-fill: var(--info-600);
-    --progress-fill-soft: var(--info-500);
-}
-
-.progressBarSuccess {
-    --progress-fill: var(--success-600);
-    --progress-fill-soft: var(--success-500);
-}
-
-.progressBarWarning {
-    --progress-fill: var(--warning-600);
-    --progress-fill-soft: var(--warning-500);
 }
 
 .progressBarTrack {
@@ -93,11 +73,10 @@
 }
 
 .progressBarStatus {
+    @include mixin.truncate;
+
     margin-right: auto;
     color: var(--foreground-secondary);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .basePaneStructure > .progressBar:first-child {

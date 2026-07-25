@@ -1,3 +1,5 @@
+@use '~flux/components/css/mixin';
+
 .spinner {
     --track: var(--gray-100);
     --value: var(--primary-600);
@@ -10,28 +12,12 @@
     font-size: 20px;
 }
 
+@include mixin.color-variants(spinner) using ($color) {
+    --value: var(--#{$color}-600);
+}
+
 .spinnerGray {
     --value: var(--gray-500);
-}
-
-.spinnerPrimary {
-    --value: var(--primary-600);
-}
-
-.spinnerDanger {
-    --value: var(--danger-600);
-}
-
-.spinnerInfo {
-    --value: var(--info-600);
-}
-
-.spinnerSuccess {
-    --value: var(--success-600);
-}
-
-.spinnerWarning {
-    --value: var(--warning-600);
 }
 
 .spinnerTrack {

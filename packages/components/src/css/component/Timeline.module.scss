@@ -82,8 +82,7 @@
 .timelineItemBody {
     position: relative;
     display: flex;
-    padding-top: 9px;
-    padding-bottom: 9px;
+    padding-block: 9px;
     align-items: flex-start;
     align-self: center;
     flex-flow: column;
@@ -107,104 +106,31 @@
     }
 }
 
-.timelineItemGray {
+@include mixin.color-variants(timelineItem) using ($color) {
     composes: timelineItem;
 
+    .timelineItemIcon,
+    .timelineItemPhotoIcon {
+        color: var(--#{$color}-600);
+    }
+
+    .timelineItemIcon {
+        background: var(--#{$color}-100);
+    }
+
+    .timelineItemDot {
+        background: var(--#{$color}-600);
+    }
+}
+
+.timelineItemGray {
     .timelineItemIcon,
     .timelineItemPhotoIcon {
         color: var(--foreground-prominent);
     }
 
-    .timelineItemIcon {
-        background: var(--gray-100);
-    }
-
+    // A lighter dot than the other colors: gray-600 would read as a filled bullet next to the text.
     .timelineItemDot {
         background: var(--gray-400);
-    }
-}
-
-.timelineItemPrimary {
-    composes: timelineItem;
-
-    .timelineItemIcon,
-    .timelineItemPhotoIcon {
-        color: var(--primary-600);
-    }
-
-    .timelineItemIcon {
-        background: var(--primary-100);
-    }
-
-    .timelineItemDot {
-        background: var(--primary-600);
-    }
-}
-
-.timelineItemDanger {
-    composes: timelineItem;
-
-    .timelineItemIcon,
-    .timelineItemPhotoIcon {
-        color: var(--danger-600);
-    }
-
-    .timelineItemIcon {
-        background: var(--danger-100);
-    }
-
-    .timelineItemDot {
-        background: var(--danger-600);
-    }
-}
-
-.timelineItemInfo {
-    composes: timelineItem;
-
-    .timelineItemIcon,
-    .timelineItemPhotoIcon {
-        color: var(--info-600);
-    }
-
-    .timelineItemIcon {
-        background: var(--info-100);
-    }
-
-    .timelineItemDot {
-        background: var(--info-600);
-    }
-}
-
-.timelineItemSuccess {
-    composes: timelineItem;
-
-    .timelineItemIcon,
-    .timelineItemPhotoIcon {
-        color: var(--success-600);
-    }
-
-    .timelineItemIcon {
-        background: var(--success-100);
-    }
-
-    .timelineItemDot {
-        background: var(--success-600);
-    }
-}
-
-.timelineItemWarning {
-    composes: timelineItem;
-
-    .timelineItemIcon,
-    .timelineItemPhotoIcon {
-        color: var(--warning-600);
-    }
-
-    .timelineItemIcon {
-        background: var(--warning-100);
-    }
-
-    .timelineItemDot {
-        background: var(--warning-600);
     }
 }

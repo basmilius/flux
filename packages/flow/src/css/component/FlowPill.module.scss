@@ -1,15 +1,13 @@
 @use '~flux/components/css/mixin';
 
 .flowPill {
+    @include mixin.surface(var(--radius-full));
+
     display: flex;
     width: max-content;
     padding: 6px 15px 6px 6px;
     align-items: center;
     gap: 6px;
-    background: var(--surface);
-    background-clip: padding-box;
-    border: 1px solid var(--surface-stroke-out);
-    border-radius: var(--radius-full);
     box-shadow: var(--shadow-sm);
 
     > span {

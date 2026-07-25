@@ -31,8 +31,7 @@
 
     &::before {
         position: absolute;
-        left: 0;
-        right: 0;
+        inset-inline: 0;
         height: 18px;
         width: 100%;
         content: '';
@@ -122,10 +121,8 @@
 
     @starting-style {
         height: 0;
-        margin-top: -9px;
-        margin-bottom: -3px;
-        padding-top: 0;
-        padding-bottom: 0;
+        margin-block: -9px -3px;
+        padding-block: 0;
         opacity: 0;
     }
 }
@@ -224,8 +221,7 @@
 .applicationMenuContext {
     display: flex;
     margin-top: -12px;
-    margin-left: -12px;
-    margin-right: -12px;
+    margin-inline: -12px;
     padding: 15px 16px;
     flex-flow: row nowrap;
     gap: 15px;
@@ -325,10 +321,8 @@
         :local(.menuSubHeader) {
             display: none;
             height: 0;
-            margin-top: -9px;
-            margin-bottom: -3px;
-            padding-top: 0;
-            padding-bottom: 0;
+            margin-block: -9px -3px;
+            padding-block: 0;
             opacity: 0;
         }
 

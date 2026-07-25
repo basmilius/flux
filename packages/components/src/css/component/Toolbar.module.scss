@@ -3,8 +3,7 @@
     contain: paint;
 
     :local(.separatorVertical) {
-        margin-top: 6px;
-        margin-bottom: 6px;
+        margin-block: 6px;
         align-self: stretch;
     }
 }

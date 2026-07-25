@@ -131,8 +131,7 @@
 
     .sliderTrackValue {
         top: auto;
-        left: 0;
-        right: 0;
+        inset-inline: 0;
     }
 
     .ticks {
@@ -141,8 +140,7 @@
     }
 
     .tick {
-        left: auto;
-        right: 0;
+        inset-inline: auto 0;
         bottom: calc(var(--position) * 100% - 1px);
         height: 2px;
         width: 9px;

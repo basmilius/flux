@@ -22,8 +22,7 @@
         display: block;
         top: calc(50% - 2px);
         left: 0;
-        margin-left: var(--margin);
-        margin-right: var(--margin);
+        margin-inline: var(--margin);
         height: 4px;
         content: '';
         z-index: -1;

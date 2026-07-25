@@ -43,6 +43,9 @@
     }
 }
 
+// Physical offsets on purpose: the title turns its own text, and a logical inset resolves against
+// that writing mode, so inset-block would land on the horizontal axis instead of stretching the
+// title over the height of its lane.
 .flowLane[data-orientation="row"] .flowLaneTitle {
     top: 0;
     bottom: 0;
@@ -54,8 +57,7 @@
 
 .flowLane[data-orientation="column"] .flowLaneTitle {
     top: 0;
-    right: 0;
-    left: 0;
+    inset-inline: 0;
     height: 30px;
     border-radius: var(--radius) var(--radius) 0 0;
 }

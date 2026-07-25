@@ -189,86 +189,24 @@
     }
 }
 
+@include mixin.color-variants(trackerEntry) using ($color) {
+    composes: trackerEntry;
+
+    --color: var(--#{$color}-600);
+    --color-deep: var(--#{$color}-900);
+    --color-soft: var(--#{$color}-100);
+}
+
 .trackerEntryGray {
-    composes: trackerEntry;
-
-    --color: var(--gray-600);
     --color-deep: var(--foreground);
-    --color-soft: var(--gray-100);
 }
 
-.trackerEntryPrimary {
-    composes: trackerEntry;
+@include mixin.color-variants(trackerLabel) using ($color) {
+    composes: trackerLabel;
 
-    --color: var(--primary-600);
-    --color-deep: var(--primary-900);
-    --color-soft: var(--primary-100);
-}
-
-.trackerEntryDanger {
-    composes: trackerEntry;
-
-    --color: var(--danger-600);
-    --color-deep: var(--danger-900);
-    --color-soft: var(--danger-100);
-}
-
-.trackerEntryInfo {
-    composes: trackerEntry;
-
-    --color: var(--info-600);
-    --color-deep: var(--info-900);
-    --color-soft: var(--info-100);
-}
-
-.trackerEntrySuccess {
-    composes: trackerEntry;
-
-    --color: var(--success-600);
-    --color-deep: var(--success-900);
-    --color-soft: var(--success-100);
-}
-
-.trackerEntryWarning {
-    composes: trackerEntry;
-
-    --color: var(--warning-600);
-    --color-deep: var(--warning-900);
-    --color-soft: var(--warning-100);
+    --color: var(--#{$color}-600);
 }
 
 .trackerLabelGray {
-    composes: trackerLabel;
-
     --color: var(--gray-300);
-}
-
-.trackerLabelPrimary {
-    composes: trackerLabel;
-
-    --color: var(--primary-600);
-}
-
-.trackerLabelDanger {
-    composes: trackerLabel;
-
-    --color: var(--danger-600);
-}
-
-.trackerLabelInfo {
-    composes: trackerLabel;
-
-    --color: var(--info-600);
-}
-
-.trackerLabelSuccess {
-    composes: trackerLabel;
-
-    --color: var(--success-600);
-}
-
-.trackerLabelWarning {
-    composes: trackerLabel;
-
-    --color: var(--warning-600);
 }

@@ -1,3 +1,5 @@
+@use '~flux/components/css/mixin';
+
 @layer flux-base {
     .icon {
         height: 1em;
@@ -42,16 +44,14 @@
     }
 
     .iconBoxed {
+        @include mixin.surface;
+
         display: flex;
         height: 1em;
         width: 1em;
         align-items: center;
         flex-shrink: 0;
         justify-content: center;
-        background: var(--surface);
-        background-clip: padding-box;
-        border: 1px solid var(--surface-stroke-out);
-        border-radius: var(--radius);
         font-size: 42px;
 
         .icon {
@@ -64,28 +64,8 @@
     }
 }
 
-.iconGray {
-    color: var(--gray-600);
-}
-
-.iconPrimary {
-    color: var(--primary-600);
-}
-
-.iconDanger {
-    color: var(--danger-600);
-}
-
-.iconInfo {
-    color: var(--info-600);
-}
-
-.iconSuccess {
-    color: var(--success-600);
-}
-
-.iconWarning {
-    color: var(--warning-600);
+@include mixin.color-variants(icon) using ($color) {
+    color: var(--#{$color}-600);
 }
 
 .iconBoxedDefault {
@@ -100,44 +80,13 @@
     border: 0;
 }
 
+@include mixin.color-variants(iconBoxed) using ($color) {
+    composes: iconBoxedColored;
+
+    background: var(--#{$color}-100);
+    color: var(--#{$color}-900);
+}
+
 .iconBoxedGray {
-    composes: iconBoxedColored;
-
-    background: var(--gray-100);
     color: var(--foreground);
-}
-
-.iconBoxedPrimary {
-    composes: iconBoxedColored;
-
-    background: var(--primary-100);
-    color: var(--primary-900);
-}
-
-.iconBoxedDanger {
-    composes: iconBoxedColored;
-
-    background: var(--danger-100);
-    color: var(--danger-900);
-}
-
-.iconBoxedInfo {
-    composes: iconBoxedColored;
-
-    background: var(--info-100);
-    color: var(--info-900);
-}
-
-.iconBoxedSuccess {
-    composes: iconBoxedColored;
-
-    background: var(--success-100);
-    color: var(--success-900);
-}
-
-.iconBoxedWarning {
-    composes: iconBoxedColored;
-
-    background: var(--warning-100);
-    color: var(--warning-900);
 }

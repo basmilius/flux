@@ -77,10 +77,8 @@
     --mask-end: 100%;
     --mask: linear-gradient(to right, transparent, black var(--mask-start), black, black var(--mask-end), transparent);
 
-    margin-left: -3px;
-    margin-right: -3px;
-    padding-left: 3px;
-    padding-right: 3px;
+    margin-inline: -3px;
+    padding-inline: 3px;
     gap: 27px;
 
     -webkit-mask-image: var(--mask);
@@ -211,8 +209,7 @@
 .tabBarHighlightPills {
     composes: baseTabBarHighlight;
 
-    top: 0;
-    bottom: 0;
+    inset-block: 0;
     background: var(--gray-100);
     border-radius: calc(var(--radius) - 2px);
     z-index: 0;
@@ -235,8 +232,7 @@
 .basePaneStructure > .form > .tabs > .tabBarDefault {
     --tab-padding: 18px;
 
-    padding-left: 18px;
-    padding-right: 18px;
+    padding-inline: 18px;
     background: var(--gray-50);
 
     &:first-child {
@@ -266,8 +262,7 @@
 .basePaneStructure > .tabs > .tabBarPills,
 .basePaneStructure > .form > .tabBarPills,
 .basePaneStructure > .form > .tabs > .tabBarPills {
-    padding-left: 6px;
-    padding-right: 6px;
+    padding-inline: 6px;
 
     &:first-child {
         padding-top: 6px;

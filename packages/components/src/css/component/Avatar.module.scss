@@ -87,40 +87,14 @@
     border-radius: var(--radius-full);
 }
 
+@include mixin.color-variants(avatarStatus) using ($color) {
+    composes: avatarStatus;
+
+    background: var(--#{$color}-600);
+}
+
 .avatarStatusGray {
-    composes: avatarStatus;
-
     background: var(--gray-500);
-}
-
-.avatarStatusPrimary {
-    composes: avatarStatus;
-
-    background: var(--primary-600);
-}
-
-.avatarStatusDanger {
-    composes: avatarStatus;
-
-    background: var(--danger-600);
-}
-
-.avatarStatusInfo {
-    composes: avatarStatus;
-
-    background: var(--info-600);
-}
-
-.avatarStatusSuccess {
-    composes: avatarStatus;
-
-    background: var(--success-600);
-}
-
-.avatarStatusWarning {
-    composes: avatarStatus;
-
-    background: var(--warning-600);
 }
 
 .avatarStatusIcon {

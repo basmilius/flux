@@ -123,46 +123,11 @@
     background: var(--gray-50);
 }
 
-.tableRowGray {
-    --table-row-fill: var(--gray-25);
-    --table-row-fill-hover: var(--gray-50);
-    --table-row-foreground: var(--gray-800);
-    --table-row-stroke: var(--gray-100);
-}
-
-.tableRowPrimary {
-    --table-row-fill: var(--primary-25);
-    --table-row-fill-hover: var(--primary-50);
-    --table-row-foreground: var(--primary-800);
-    --table-row-stroke: var(--primary-100);
-}
-
-.tableRowDanger {
-    --table-row-fill: var(--danger-25);
-    --table-row-fill-hover: var(--danger-50);
-    --table-row-foreground: var(--danger-800);
-    --table-row-stroke: var(--danger-100);
-}
-
-.tableRowInfo {
-    --table-row-fill: var(--info-25);
-    --table-row-fill-hover: var(--info-50);
-    --table-row-foreground: var(--info-800);
-    --table-row-stroke: var(--info-100);
-}
-
-.tableRowSuccess {
-    --table-row-fill: var(--success-25);
-    --table-row-fill-hover: var(--success-50);
-    --table-row-foreground: var(--success-800);
-    --table-row-stroke: var(--success-100);
-}
-
-.tableRowWarning {
-    --table-row-fill: var(--warning-25);
-    --table-row-fill-hover: var(--warning-50);
-    --table-row-foreground: var(--warning-800);
-    --table-row-stroke: var(--warning-100);
+@include mixin.color-variants(tableRow) using ($color) {
+    --table-row-fill: var(--#{$color}-25);
+    --table-row-fill-hover: var(--#{$color}-50);
+    --table-row-foreground: var(--#{$color}-800);
+    --table-row-stroke: var(--#{$color}-100);
 }
 
 .tableBody .tableRow.isColored > .tableCell {
@@ -173,28 +138,10 @@
 
 // The separator below a row is drawn by the next row's top border, so every
 // variant tints that too (the same trick as the .isSelected rule below).
-.tableBody .tableRowGray + .tableRow > .tableCell {
-    border-top-color: var(--gray-100);
-}
-
-.tableBody .tableRowPrimary + .tableRow > .tableCell {
-    border-top-color: var(--primary-100);
-}
-
-.tableBody .tableRowDanger + .tableRow > .tableCell {
-    border-top-color: var(--danger-100);
-}
-
-.tableBody .tableRowInfo + .tableRow > .tableCell {
-    border-top-color: var(--info-100);
-}
-
-.tableBody .tableRowSuccess + .tableRow > .tableCell {
-    border-top-color: var(--success-100);
-}
-
-.tableBody .tableRowWarning + .tableRow > .tableCell {
-    border-top-color: var(--warning-100);
+@each $color in mixin.$colors {
+    .tableBody .tableRow#{mixin.color-suffix($color)} + .tableRow > .tableCell {
+        border-top-color: var(--#{$color}-100);
+    }
 }
 
 .tableRow.isSelected {
@@ -219,6 +166,9 @@
 // A rowspan cell belongs to the first row it covers but stretches across the
 // rest, so it is excluded from the hover highlight (like .tableGroup): otherwise
 // hovering the first row would light up the full-height cell on its own.
+//
+// Written as a bare media query rather than mixin.hover: that mixin nests &:hover onto a single
+// selector, while the highlight needs several unrelated selectors under one condition.
 @media (hover: hover) {
     .table.isHoverable .tableBody .tableRow:has(:hover) > .tableCell:not(.tableGroup):not(.hasRowspan),
     .table.isHoverable .tableBody .tableRow:has(:focus-visible) > .tableCell:not(.tableGroup):not(.hasRowspan),
@@ -483,8 +433,7 @@
     position: sticky;
     left: 0;
     bottom: 0;
-    margin-top: auto;
-    margin-bottom: -1px;
+    margin-block: auto -1px;
     background: var(--surface);
     border-top: 1px solid var(--gray-100);
     translate: 0 -1px;
@@ -529,8 +478,7 @@
 }
 
 .basePaneStructure > .table :is(.tableBarContent, .tableGroupContent) {
-    padding-left: var(--table-spacing);
-    padding-right: var(--table-spacing);
+    padding-inline: var(--table-spacing);
 }
 
 .basePaneStructure > .table .tableActions {
@@ -629,40 +577,14 @@
     rotate: 90deg;
 }
 
+@include mixin.color-variants(treeMarker) using ($color) {
+    --tree-marker-fill: var(--#{$color}-100);
+    --tree-marker-stroke: var(--#{$color}-300);
+    --tree-marker-foreground: var(--#{$color}-900);
+}
+
 .treeMarkerGray {
-    --tree-marker-fill: var(--gray-100);
-    --tree-marker-stroke: var(--gray-300);
     --tree-marker-foreground: var(--foreground-prominent);
-}
-
-.treeMarkerPrimary {
-    --tree-marker-fill: var(--primary-100);
-    --tree-marker-stroke: var(--primary-300);
-    --tree-marker-foreground: var(--primary-900);
-}
-
-.treeMarkerDanger {
-    --tree-marker-fill: var(--danger-100);
-    --tree-marker-stroke: var(--danger-300);
-    --tree-marker-foreground: var(--danger-900);
-}
-
-.treeMarkerInfo {
-    --tree-marker-fill: var(--info-100);
-    --tree-marker-stroke: var(--info-300);
-    --tree-marker-foreground: var(--info-900);
-}
-
-.treeMarkerSuccess {
-    --tree-marker-fill: var(--success-100);
-    --tree-marker-stroke: var(--success-300);
-    --tree-marker-foreground: var(--success-900);
-}
-
-.treeMarkerWarning {
-    --tree-marker-fill: var(--warning-100);
-    --tree-marker-stroke: var(--warning-300);
-    --tree-marker-foreground: var(--warning-900);
 }
 
 .treeMarkerCustom {

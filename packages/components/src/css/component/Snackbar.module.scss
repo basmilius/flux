@@ -99,88 +99,29 @@
     background: var(--surface-stroke);
 }
 
-.snackbarGray {
+@include mixin.color-variants(snackbar) using ($color) {
     composes: snackbar;
 
+    .snackbarAction:first-child,
+    .snackbarContent > .icon,
+    .snackbarTitle {
+        color: var(--#{$color}-600);
+    }
+
+    // A gray snackbar leaves the spinner on its default color.
+    @if $color != 'gray' {
+        .spinnerEffect,
+        .spinnerValue {
+            stroke: var(--#{$color}-700);
+        }
+    }
+}
+
+.snackbarGray {
     .snackbarAction:first-child,
     .snackbarContent > .icon,
     .snackbarTitle {
         color: var(--foreground-prominent);
-    }
-}
-
-.snackbarPrimary {
-    composes: snackbar;
-
-    .snackbarAction:first-child,
-    .snackbarContent > .icon,
-    .snackbarTitle {
-        color: var(--primary-600);
-    }
-
-    .spinnerEffect,
-    .spinnerValue {
-        stroke: var(--primary-700);
-    }
-}
-
-.snackbarDanger {
-    composes: snackbar;
-
-    .snackbarAction:first-child,
-    .snackbarContent > .icon,
-    .snackbarTitle {
-        color: var(--danger-600);
-    }
-
-    .spinnerEffect,
-    .spinnerValue {
-        stroke: var(--danger-700);
-    }
-}
-
-.snackbarInfo {
-    composes: snackbar;
-
-    .snackbarAction:first-child,
-    .snackbarContent > .icon,
-    .snackbarTitle {
-        color: var(--info-600);
-    }
-
-    .spinnerEffect,
-    .spinnerValue {
-        stroke: var(--info-700);
-    }
-}
-
-.snackbarSuccess {
-    composes: snackbar;
-
-    .snackbarAction:first-child,
-    .snackbarContent > .icon,
-    .snackbarTitle {
-        color: var(--success-600);
-    }
-
-    .spinnerEffect,
-    .spinnerValue {
-        stroke: var(--success-700);
-    }
-}
-
-.snackbarWarning {
-    composes: snackbar;
-
-    .snackbarAction:first-child,
-    .snackbarContent > .icon,
-    .snackbarTitle {
-        color: var(--warning-600);
-    }
-
-    .spinnerEffect,
-    .spinnerValue {
-        stroke: var(--warning-700);
     }
 }
 
@@ -192,8 +133,7 @@
     z-index: 100000;
 
     @include mixin.breakpoint-down(sm) {
-        left: 15px;
-        right: 15px;
+        inset-inline: 15px;
         bottom: 15px;
     }
 

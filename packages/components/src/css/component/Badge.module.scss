@@ -9,10 +9,8 @@
 
     // Pulls the 28px margin-box back to exactly one 24px line, so a badge never
     // stretches the line it sits in.
-    margin-top: -2px;
-    margin-bottom: -2px;
-    padding-left: 9px;
-    padding-right: 9px;
+    margin-block: -2px;
+    padding-inline: 9px;
     align-items: center;
     gap: 6px;
     background: var(--surface);
@@ -38,8 +36,7 @@
         @include mixin.text(2xsmall);
 
         height: 21px;
-        padding-left: 6px;
-        padding-right: 6px;
+        padding-inline: 6px;
 
         .badgeClose {
             height: 15px;
@@ -62,8 +59,7 @@
         @include mixin.text(small);
 
         height: 33px;
-        padding-left: 12px;
-        padding-right: 12px;
+        padding-inline: 12px;
 
         .badgeClose {
             height: 24px;
@@ -128,22 +124,26 @@
 }
 
 .badgeLabel {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    @include mixin.truncate;
 
     &:only-child {
-        margin-left: 3px;
-        margin-right: 3px;
+        margin-inline: 3px;
         color: var(--text);
     }
 }
 
-.badgeGray {
+@include mixin.color-variants(badge) using ($color) {
     composes: badge;
 
-    --background: var(--gray-50);
-    --border: var(--gray-200);
+    --background: var(--#{$color}-50);
+    --border: var(--#{$color}-200);
+    --color: var(--#{$color}-600);
+    --text: var(--#{$color}-700);
+}
+
+// Gray has no accent of its own: icon and label fall back on the foreground tokens, and its spinner
+// keeps the primary color it would otherwise inherit from --color.
+.badgeGray {
     --color: var(--foreground);
     --text: var(--foreground-prominent);
 
@@ -154,51 +154,6 @@
     .spinner {
         --value: var(--primary-600);
     }
-}
-
-.badgePrimary {
-    composes: badge;
-
-    --background: var(--primary-50);
-    --border: var(--primary-200);
-    --color: var(--primary-600);
-    --text: var(--primary-700);
-}
-
-.badgeDanger {
-    composes: badge;
-
-    --background: var(--danger-50);
-    --border: var(--danger-200);
-    --color: var(--danger-600);
-    --text: var(--danger-700);
-}
-
-.badgeInfo {
-    composes: badge;
-
-    --background: var(--info-50);
-    --border: var(--info-200);
-    --color: var(--info-600);
-    --text: var(--info-700);
-}
-
-.badgeSuccess {
-    composes: badge;
-
-    --background: var(--success-50);
-    --border: var(--success-200);
-    --color: var(--success-600);
-    --text: var(--success-700);
-}
-
-.badgeWarning {
-    composes: badge;
-
-    --background: var(--warning-50);
-    --border: var(--warning-200);
-    --color: var(--warning-600);
-    --text: var(--warning-700);
 }
 
 .tag {
@@ -213,8 +168,7 @@
 .tagKeyboardShortcut {
     composes: tag;
 
-    padding-left: 3px;
-    padding-right: 3px;
+    padding-inline: 3px;
 }
 
 .tagClose {
@@ -246,8 +200,7 @@
     border-color: var(--badge-group-border);
 
     .badge {
-        margin-top: 0;
-        margin-bottom: 0;
+        margin-block: 0;
         border-color: var(--badge-group-border);
     }
 }
@@ -284,122 +237,22 @@
     color: var(--text);
 }
 
-.badgeGroupGray {
-    composes: badgeGray;
+@include mixin.color-variants(badgeGroup) using ($color) {
+    composes: badge#{mixin.color-suffix($color)};
     composes: badgeGroup;
 
-    --badge-group-border: var(--gray-200);
+    --badge-group-border: var(--#{$color}-200);
 
-    background: var(--gray-50);
+    background: var(--#{$color}-50);
 
     &:is(a, button) {
         @include mixin.hover {
-            background: var(--gray-100);
+            background: var(--#{$color}-100);
         }
     }
 }
 
-.badgeGroupPrimary {
-    composes: badgePrimary;
-    composes: badgeGroup;
-
-    --badge-group-border: var(--primary-200);
-
-    background: var(--primary-50);
-
-    &:is(a, button) {
-        @include mixin.hover {
-            background: var(--primary-100);
-        }
-    }
-}
-
-.badgeGroupDanger {
-    composes: badgeDanger;
-    composes: badgeGroup;
-
-    --badge-group-border: var(--danger-200);
-
-    background: var(--danger-50);
-
-    &:is(a, button) {
-        @include mixin.hover {
-            background: var(--danger-100);
-        }
-    }
-}
-
-.badgeGroupInfo {
-    composes: badgeInfo;
-    composes: badgeGroup;
-
-    --badge-group-border: var(--info-200);
-
-    background: var(--info-50);
-
-    &:is(a, button) {
-        @include mixin.hover {
-            background: var(--info-100);
-        }
-    }
-}
-
-.badgeGroupSuccess {
-    composes: badgeSuccess;
-    composes: badgeGroup;
-
-    --badge-group-border: var(--success-200);
-
-    background: var(--success-50);
-
-    &:is(a, button) {
-        @include mixin.hover {
-            background: var(--success-100);
-        }
-    }
-}
-
-.badgeGroupWarning {
-    composes: badgeWarning;
-    composes: badgeGroup;
-
-    --badge-group-border: var(--warning-200);
-
-    background: var(--warning-50);
-
-    &:is(a, button) {
-        @include mixin.hover {
-            background: var(--warning-100);
-        }
-    }
-}
-
-.tagGray {
-    composes: badgeGray;
-    composes: tag;
-}
-
-.tagPrimary {
-    composes: badgePrimary;
-    composes: tag;
-}
-
-.tagDanger {
-    composes: badgeDanger;
-    composes: tag;
-}
-
-.tagInfo {
-    composes: badgeInfo;
-    composes: tag;
-}
-
-.tagSuccess {
-    composes: badgeSuccess;
-    composes: tag;
-}
-
-.tagWarning {
-    composes: badgeWarning;
+@include mixin.color-variants(tag) using ($color) {
+    composes: badge#{mixin.color-suffix($color)};
     composes: tag;
 }
