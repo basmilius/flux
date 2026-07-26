@@ -132,13 +132,19 @@
 // A tinted row moves one rung up the scale compared to before: stop 25 was the
 // old fill and it disappeared entirely once the palette stopped flipping, since
 // nothing that pale reads as a tint on a dark surface.
+//
+// The stroke is `soft-hover`, the same value the loop below puts on the next
+// row's top border: the divider between two cells and the divider between two
+// rows are one line and have to read as one. On `--intent-border` the vertical
+// rule was three times the step of the horizontal one in dark (.120 L against
+// .040) and the tinted row read as a caged grid instead of a tint.
 @include mixin.color-variants(tableRow) using ($color) {
     @include mixin.intent($color);
 
     --table-row-fill: var(--intent-soft);
     --table-row-fill-hover: var(--intent-soft-hover);
     --table-row-foreground: var(--intent-text);
-    --table-row-stroke: var(--intent-border);
+    --table-row-stroke: var(--intent-soft-hover);
 }
 
 .tableBody .tableRow.isColored > .tableCell {
@@ -190,13 +196,25 @@
         background: var(--surface-hover);
     }
 
+    // The fill of a tinted row moves up a rung on hover and lands on the very
+    // value its stroke rests at, so a stroke that stayed put would dissolve into
+    // the row it is supposed to divide. It moves up with the fill, onto the next
+    // rung, which is what the resting row drew before this rule existed.
     .table.isHoverable .tableBody .tableRow.isColored:has(:hover) > .tableCell:not(.hasRowspan),
     .table.isHoverable .tableBody .tableRow.isColored:has(:focus-visible) > .tableCell:not(.hasRowspan) {
+        --table-row-stroke: var(--intent-border);
+
         background: var(--table-row-fill-hover);
     }
 
+    // A selected row keeps its resting fill on hover, so its stroke stays put as
+    // well. Spelled out because a row that is both selected and coloured would
+    // otherwise pick up the tinted hover stroke above and draw a danger edge
+    // around a primary fill.
     .table.isHoverable .tableBody .tableRow.isSelected:has(:hover) > .tableCell:not(.hasRowspan),
     .table.isHoverable .tableBody .tableRow.isSelected:has(:focus-visible) > .tableCell:not(.hasRowspan) {
+        --table-row-stroke: var(--primary-soft-hover);
+
         background: var(--primary-soft);
     }
 
