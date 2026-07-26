@@ -50,7 +50,7 @@ Two things break this, so avoid them when you build tokens of your own:
 
 ## Intents
 
-Every intent carries the same ten roles, gray included. A component that takes a `color` prop maps them once and then styles against the result, so it never picks a shade itself.
+Every intent carries the same nine roles, gray included. A component that takes a `color` prop maps them once and then styles against the result, so it never picks a shade itself.
 
 | Role | What it is |
 |---|---|
@@ -61,16 +61,15 @@ Every intent carries the same ten roles, gray included. A component that takes a
 | `soft` | A tinted background: a badge, a highlighted table row |
 | `soft-hover` | The same tint under interaction |
 | `border` | The edge around a soft area |
-| `text-prominent` | The stronger of the two text rungs: a notice title over its body |
 | `text` | Text in this intent, on a plain or a soft background |
 
-The two text rungs sit where the two neutral ones do: `text` where `--foreground` sits on the gray ramp, `text-prominent` where `--foreground-prominent` sits. That is two stops apart in both themes, which is what keeps a title over its body from being carried by `font-weight` alone.
+`text` is one rung, not two. There was a second, stronger one for a title over its body, placed where `--foreground-prominent` sits on the gray ramp. On the neutral scale that reads as more emphasis; on a colored one it walks out of the color, because chroma peaks in the middle of a scale and falls away at both ends. In dark it cost four fifths of the hue, so a danger notice and an info notice were told apart by their icon and nothing else. A title is set off by weight and by being colored at all, which is what it was before.
 
 `muted` exists next to `solid` because a dot and a button are not the same request. All six intents put `muted` the same perceptual distance from `--surface`, which `solid` cannot do: a gray `solid` is the strongest ink on the page, so a gray dot drawn with it outweighs a red one.
 
 `on-solid` is not the same choice for every intent. At the shade the fill uses in light mode, green and orange are too light to carry white text, so they take dark text instead. Because of that, `solid-hover` moves *away* from the foreground rather than always darkening: under white text it gets darker, under dark text it gets lighter.
 
-Each of these pairs is held to a contrast target rather than picked by eye: `on-solid` on `solid` at least 4.5, both text rungs at least 4.5 on `surface`, `soft` and `soft-hover`, and `focus-ring` at least 3 on every elevation level. The two text rungs are also held a measured distance apart, so they cannot drift back into one.
+Each of these pairs is held to a contrast target rather than picked by eye: `on-solid` on `solid` at least 4.5, `text` at least 4.5 on `surface`, `soft` and `soft-hover`, and `focus-ring` at least 3 on every elevation level.
 
 In your own code, read the roles straight off the intent you need. They are ordinary custom properties, so plain CSS is enough:
 
@@ -83,7 +82,7 @@ In your own code, read the roles straight off the intent you need. They are ordi
 ```
 
 ::: info Inside the library
-Flux itself never writes an intent out per color. A component with a `color` prop runs one Sass loop that maps the ten roles onto a local `--intent-*` contract and then styles against that. Those mixins live in this repository under `~flux/components/css/mixin`; the alias is a monorepo path and `@flux-ui/components` publishes no `./css/*` entry, so the snippet below is for contributors to Flux, not for consumers.
+Flux itself never writes an intent out per color. A component with a `color` prop runs one Sass loop that maps the nine roles onto a local `--intent-*` contract and then styles against that. Those mixins live in this repository under `~flux/components/css/mixin`; the alias is a monorepo path and `@flux-ui/components` publishes no `./css/*` entry, so the snippet below is for contributors to Flux, not for consumers.
 
 ```scss
 @use '~flux/components/css/mixin';

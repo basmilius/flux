@@ -113,7 +113,7 @@
     .snackbarAction:first-child,
     .snackbarContent > .icon,
     .snackbarTitle {
-        color: var(--intent-text-prominent);
+        color: var(--intent-text);
     }
 
     // The spinner is a filled arc rather than ink, so it takes the solid role.

@@ -60,7 +60,7 @@
 
     const SCHEMES: Scheme[] = ['light', 'dark'];
 
-    const INTENT_ROLES = ['solid', 'solid-hover', 'solid-active', 'on-solid', 'muted', 'soft', 'soft-hover', 'border', 'text-prominent', 'text'];
+    const INTENT_ROLES = ['solid', 'solid-hover', 'solid-active', 'on-solid', 'muted', 'soft', 'soft-hover', 'border', 'text'];
     const INTENTS = ['gray', 'primary', 'danger', 'info', 'success', 'warning'];
 
     function colors(...names: string[]): Token[] {

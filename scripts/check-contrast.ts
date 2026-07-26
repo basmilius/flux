@@ -517,7 +517,7 @@ function buildChecks(): Check[] {
             add(`${intent}: on-solid over ${fill}`, `--${intent}-on-solid`, [`--${intent}-${fill}`], 4.5);
         }
 
-        for (const rung of ['text-prominent', 'text']) {
+        for (const rung of ['text']) {
             add(`${intent}: ${rung} on surface`, `--${intent}-${rung}`, ['--surface'], 4.5);
             add(`${intent}: ${rung} on soft`, `--${intent}-${rung}`, [`--${intent}-soft`], 4.5);
             add(`${intent}: ${rung} on soft-hover`, `--${intent}-${rung}`, [`--${intent}-soft-hover`], 4.5);
@@ -623,7 +623,6 @@ const MUTED_BAND = 0.06;
 // point where a rung stops being a rung rather than a target anything aims at.
 // One stop reaches .046 to .085 and lands under it almost everywhere, which is
 // exactly the collapse this catches.
-const TEXT_RUNG_FLOOR = 0.08;
 
 function buildSteps(): Step[] {
     const steps: Step[] = [];
@@ -672,8 +671,6 @@ function buildSteps(): Step[] {
         // the direction is half of the contract. Prominent goes towards the ink end
         // of the theme, which is down in light and up in dark, so a rung that is
         // merely far away is not enough.
-        add(`${intent}: text to text-prominent`, [`--${intent}-text`], [`--${intent}-text-prominent`], TEXT_RUNG_FLOOR, 'darker', 'light');
-        add(`${intent}: text to text-prominent`, [`--${intent}-text`], [`--${intent}-text-prominent`], TEXT_RUNG_FLOOR, 'lighter', 'dark');
 
         // Pressing happens while hovering, so the step that has to read is the one
         // from hover to active, not the one from rest.

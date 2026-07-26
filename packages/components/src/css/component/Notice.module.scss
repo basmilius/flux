@@ -115,13 +115,6 @@
     border-color: var(--intent-border);
     color: var(--intent-text);
 
-    // The title takes the second text rung, which is what gray had before the
-    // contract: `--foreground-prominent` over `--foreground` for the body. On one
-    // rung the two land on the same color and only the weight tells them apart.
-    .noticeTitle {
-        color: var(--intent-text-prominent);
-    }
-
     // A chip sitting on the notice's own fill takes the rung above it.
     code {
         background: var(--intent-soft-hover);
