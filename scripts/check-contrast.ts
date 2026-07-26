@@ -20,11 +20,6 @@ import { readFileSync } from 'node:fs';
 // `chart.scss` stayed outside the gate.
 const CSS_PATHS = ['packages/components/dist/index.css', 'packages/statistics/dist/index.css'] as const;
 
-// The precision the chroma search stops at, and the OKLab distance below which two
-// colors are the same color to a person. Both are the values CSS Color 4 names.
-const GAMUT_EPSILON = 0.0001;
-const JND = 0.02;
-
 const COLORED = ['primary', 'danger', 'info', 'success', 'warning'] as const;
 const INTENTS = [...COLORED, 'gray'] as const;
 const ELEVATIONS = ['--surface-canvas', '--background', '--surface-sunken', '--surface', '--surface-raised'] as const;
@@ -214,6 +209,22 @@ function resolve(value: string, scheme: Scheme, tokens: Map<string, string>, see
 // Color
 // ---------------------------------------------------------------------------
 
+/**
+ * Refuses what `Number` cannot read instead of handing NaN on. Every comparison in this
+ * file is `false` for NaN, so an unreadable value passes every check by being unreadable:
+ * `oklch(99% 0 0)`, `oklch(.99 0 0deg)` and `oklch(.99 none 0)` are all legal CSS, and all
+ * three used to slip through where the same color written plainly failed thirteen checks.
+ */
+function readNumber(input: string, label: string): number {
+    const value = input.trim() === '' ? Number.NaN : Number(input);
+
+    if (Number.isNaN(value)) {
+        throw new Error(`unsupported ${label} "${input}"`);
+    }
+
+    return value;
+}
+
 function parseColor(input: string): Rgba {
     const value = input.trim();
 
@@ -225,6 +236,11 @@ function parseColor(input: string): Rgba {
     // decoded on the way in.
     if (value.startsWith('#')) {
         const hex = value.slice(1);
+
+        if (!/^(?:[\da-f]{3,4}|[\da-f]{6}|[\da-f]{8})$/i.test(hex)) {
+            throw new Error(`unsupported color "${input}"`);
+        }
+
         const size = hex.length <= 4 ? 1 : 2;
         const channel = (index: number) => {
             const part = hex.slice(index * size, index * size + size);
@@ -237,7 +253,10 @@ function parseColor(input: string): Rgba {
 
     const oklch = findCall(value, 'oklch');
 
-    if (oklch === null) {
+    // The call has to be the whole value, not one found somewhere inside it: a
+    // `color-mix(in srgb, oklch(...) 15%, transparent)` would otherwise read back as the
+    // fully opaque color it mixes from.
+    if (oklch === null || oklch.start !== 0 || oklch.end !== value.length) {
         throw new Error(`unsupported color "${input}"`);
     }
 
@@ -250,7 +269,13 @@ function toRgba(lightness: number, chroma: number, hue: number, alphaPart: strin
 
 function parseAbsolute(args: string): Rgba {
     const [components, alphaPart] = splitAlpha(args);
-    const [lightness, chroma, hue] = components.split(/\s+/).map(Number);
+    const channels = components.trim().split(/\s+/);
+
+    if (channels.length !== 3) {
+        throw new Error(`expected three channels in "oklch(${args})"`);
+    }
+
+    const [lightness, chroma, hue] = channels.map(channel => readNumber(channel, 'channel'));
 
     return toRgba(lightness, chroma, hue, alphaPart);
 }
@@ -298,14 +323,10 @@ function evaluateChannel(channel: string, origin: readonly [number, number, numb
             throw new Error(`unsupported calc channel "${trimmed}"`);
         }
 
-        return origin[index] * Number(right);
+        return origin[index] * readNumber(right, 'factor');
     }
 
-    if (Number.isNaN(Number(trimmed))) {
-        throw new Error(`unsupported channel "${trimmed}"`);
-    }
-
-    return Number(trimmed);
+    return readNumber(trimmed, 'channel');
 }
 
 /** Splits off a trailing `/ <alpha>`, ignoring slashes nested in parentheses. */
@@ -349,16 +370,16 @@ function findColorEnd(input: string): number {
 }
 
 function parseAlpha(input: string): number {
-    return input.endsWith('%') ? Number(input.slice(0, -1)) / 100 : Number(input);
+    return input.endsWith('%') ? readNumber(input.slice(0, -1), 'alpha') / 100 : readNumber(input, 'alpha');
 }
 
 /**
- * OKLCH -> OKLab -> LMS -> linear sRGB, then clipped into gamut. Browsers gamut map by
- * reducing chroma rather than clipping, but every value here sits inside sRGB, so the
- * two agree.
+ * OKLCH -> OKLab -> LMS -> linear sRGB, then clipped per channel. Not what CSS Color 4
+ * specifies, which reduces chroma instead, but what Chrome, Safari and Firefox all three
+ * paint: measured byte for byte on the ten chart tokens where the two answers differ.
  */
 function oklchToLinearSrgb(lightness: number, chroma: number, hue: number): [number, number, number] {
-    return gamutMap(lightness, chroma, hue);
+    return clipAll(oklchToUnbounded(lightness, chroma, hue));
 }
 
 /** The conversion itself, which happily returns channels outside 0..1. */
@@ -384,72 +405,6 @@ function clip(value: number): number {
 
 function clipAll([red, green, blue]: [number, number, number]): [number, number, number] {
     return [clip(red), clip(green), clip(blue)];
-}
-
-function inGamut([red, green, blue]: [number, number, number]): boolean {
-    return red >= -GAMUT_EPSILON && red <= 1 + GAMUT_EPSILON
-        && green >= -GAMUT_EPSILON && green <= 1 + GAMUT_EPSILON
-        && blue >= -GAMUT_EPSILON && blue <= 1 + GAMUT_EPSILON;
-}
-
-/**
- * CSS Color 4 gamut mapping: hold lightness and hue, binary search the chroma down until
- * the color fits, and clip only once the clipped and unclipped versions are closer than
- * a just noticeable difference.
- *
- * Clipping each channel on its own is the alternative, and it is what a naive conversion
- * does. It moves lightness and hue as well as chroma, so a wide gamut color lands
- * somewhere a browser would never put it. The chart palette deliberately sits outside
- * sRGB on the hues that cannot reach its chroma, so this is the difference between
- * measuring what ships and measuring an artifact of the conversion.
- */
-function gamutMap(lightness: number, chroma: number, hue: number): [number, number, number] {
-    const origin = oklchToUnbounded(lightness, chroma, hue);
-
-    if (inGamut(origin)) {
-        return clipAll(origin);
-    }
-
-    if (lightness >= 1) {
-        return [1, 1, 1];
-    }
-
-    if (lightness <= 0) {
-        return [0, 0, 0];
-    }
-
-    let low = 0;
-    let high = chroma;
-    let lowInGamut = true;
-    let current = origin;
-
-    while (high - low > GAMUT_EPSILON) {
-        const middle = (low + high) / 2;
-
-        current = oklchToUnbounded(lightness, middle, hue);
-
-        if (lowInGamut && inGamut(current)) {
-            low = middle;
-            continue;
-        }
-
-        const clipped = clipAll(current);
-        const deviation = distance([...clipped, 1], [...current, 1]);
-
-        if (deviation >= JND) {
-            high = middle;
-            continue;
-        }
-
-        if (JND - deviation < GAMUT_EPSILON) {
-            return clipped;
-        }
-
-        lowInGamut = false;
-        low = middle;
-    }
-
-    return clipAll(current);
 }
 
 function encode(value: number): number {
