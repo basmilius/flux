@@ -2021,12 +2021,14 @@
         </FluxFilterBar>
         <p>A pagination bar closes off a list with a page size selector and a page navigator.</p>
         <FluxPane>
-            <FluxPaginationBar
-                :limits="[10, 25, 50]"
-                :page="invoicePage"
-                :per-page="10"
-                :total="240"
-                @navigate="invoicePage = $event"/>
+            <FluxPaneBody>
+                <FluxPaginationBar
+                    :limits="[10, 25, 50]"
+                    :page="invoicePage"
+                    :per-page="10"
+                    :total="240"
+                    @navigate="invoicePage = $event"/>
+            </FluxPaneBody>
         </FluxPane>
 
         <h2>Data and collections</h2>

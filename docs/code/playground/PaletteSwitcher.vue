@@ -202,6 +202,58 @@
                 'oklch(.8392 .0207 65)', 'oklch(.7196 .0391 65)', 'oklch(.6411 .0445 65)', 'oklch(.5199 .0530 65)',
                 'oklch(.4004 .0524 65)', 'oklch(.3188 .0360 65)', 'oklch(.2411 .0363 65)', 'oklch(.1587 .0365 65)'
             ]
+        },
+
+        // The five Tailwind neutrals, verbatim from packages/internals/src/data/color.ts.
+        // They stop at 50 where Flux starts at 25, and unlike a coloured scale that
+        // stop is read: it is what --surface and --surface-raised resolve to. Every
+        // scale that ships puts pure white there, Flux, Passly and Solvidi alike, so
+        // borrowing Tailwind's 50 would tint every card in the library. They take
+        // #ffffff instead, which is also what a Tailwind UI paints a card.
+        {
+            id: 'slate',
+            label: 'Slate',
+            description: 'Tailwind slate: the coolest of the five, close to what Flux already ships. Its 950 is near-black with a blue cast, so dark surfaces sit deeper than the Flux scale puts them.',
+            values: [
+                '#ffffff', '#f8fafc', '#f1f5f9', '#e2e8f0', '#cbd5e1', '#94a3b8',
+                '#64748b', '#475569', '#334155', '#1e293b', '#0f172a', '#020617'
+            ]
+        },
+        {
+            id: 'tailwind-gray',
+            label: 'Gray',
+            description: 'Tailwind gray. A slight blue cast, less than slate, and the scale most interfaces reach for by default.',
+            values: [
+                '#ffffff', '#f9fafb', '#f3f4f6', '#e5e7eb', '#d1d5db', '#9ca3af',
+                '#6b7280', '#4b5563', '#374151', '#1f2937', '#111827', '#030712'
+            ]
+        },
+        {
+            id: 'zinc',
+            label: 'Zinc',
+            description: 'Tailwind zinc: almost hueless, a trace of violet. The closest of the five to a true neutral without reading as flat.',
+            values: [
+                '#ffffff', '#fafafa', '#f4f4f5', '#e4e4e7', '#d4d4d8', '#a1a1aa',
+                '#71717a', '#52525b', '#3f3f46', '#27272a', '#18181b', '#09090b'
+            ]
+        },
+        {
+            id: 'tailwind-neutral',
+            label: 'Neutral',
+            description: 'Tailwind neutral: chroma zero at every stop. Worth switching to once, because it shows how much of the character of an interface comes from a hue you were never quite aware of.',
+            values: [
+                '#ffffff', '#fafafa', '#f5f5f5', '#e5e5e5', '#d4d4d4', '#a3a3a3',
+                '#737373', '#525252', '#404040', '#262626', '#171717', '#0a0a0a'
+            ]
+        },
+        {
+            id: 'stone',
+            label: 'Stone',
+            description: 'Tailwind stone: warm, the counterpart to slate. Nearest of the five to what Solvidi picked by hand.',
+            values: [
+                '#ffffff', '#fafaf9', '#f5f5f4', '#e7e5e4', '#d6d3d1', '#a8a29e',
+                '#78716c', '#57534e', '#44403c', '#292524', '#1c1917', '#0c0a09'
+            ]
         }
     ];
 
