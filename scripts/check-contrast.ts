@@ -6,13 +6,24 @@
  * that produced it. Every token is resolved twice, once per scheme, by taking the
  * matching branch of every `light-dark()` it passes through.
  *
- * Run after building @flux-ui/components:
- *   bun run --cwd packages/components build && bun scripts/check-contrast.ts
+ * Run after building both packages it reads, or it measures the previous values
+ * without saying so:
+ *   bun run --cwd packages/components build
+ *   bun run --cwd packages/statistics build
+ *   bun scripts/check-contrast.ts
  */
 
 import { readFileSync } from 'node:fs';
 
-const CSS_PATH = 'packages/components/dist/index.css';
+// Two bundles, because the chart tokens ship from their own package while every ground
+// and every alias they read sits in the components one. Reading only the first is how
+// `chart.scss` stayed outside the gate.
+const CSS_PATHS = ['packages/components/dist/index.css', 'packages/statistics/dist/index.css'] as const;
+
+// The precision the chroma search stops at, and the OKLab distance below which two
+// colors are the same color to a person. Both are the values CSS Color 4 names.
+const GAMUT_EPSILON = 0.0001;
+const JND = 0.02;
 
 const COLORED = ['primary', 'danger', 'info', 'success', 'warning'] as const;
 const INTENTS = [...COLORED, 'gray'] as const;
@@ -32,11 +43,11 @@ type Rgba = readonly [number, number, number, number];
  * block is found by matching braces: everything sits inside `@layer flux-base`, so the
  * first `}` in the first column closes the layer and not the block.
  */
-function readTokens(css: string): Map<string, string> {
+function readTokens(css: string, path: string): Map<string, string> {
     const start = css.indexOf(':root {');
 
     if (start === -1) {
-        throw new Error(`no :root block in ${CSS_PATH}`);
+        throw new Error(`no :root block in ${path}`);
     }
 
     const open = css.indexOf('{', start);
@@ -54,7 +65,7 @@ function readTokens(css: string): Map<string, string> {
     }
 
     if (end === -1) {
-        throw new Error(`unterminated :root block in ${CSS_PATH}`);
+        throw new Error(`unterminated :root block in ${path}`);
     }
 
     for (const line of css.slice(open + 1, end).split('\n')) {
@@ -73,6 +84,27 @@ function readTokens(css: string): Map<string, string> {
         }
 
         tokens.set(name, trimmed.slice(colon + 1).trim());
+    }
+
+    return tokens;
+}
+
+/**
+ * Every bundle's tokens in one map. A name that arrives twice is refused rather than
+ * merged: whichever bundle a page loads last would win, so the two would have to be read
+ * in load order to be measured honestly, and nothing here knows that order.
+ */
+function readAllTokens(): Map<string, string> {
+    const tokens = new Map<string, string>();
+
+    for (const path of CSS_PATHS) {
+        for (const [name, value] of readTokens(readFileSync(path, 'utf8'), path)) {
+            if (tokens.has(name)) {
+                throw new Error(`${name} is declared in more than one bundle, last in ${path}`);
+            }
+
+            tokens.set(name, value);
+        }
     }
 
     return tokens;
@@ -326,6 +358,11 @@ function parseAlpha(input: string): number {
  * two agree.
  */
 function oklchToLinearSrgb(lightness: number, chroma: number, hue: number): [number, number, number] {
+    return gamutMap(lightness, chroma, hue);
+}
+
+/** The conversion itself, which happily returns channels outside 0..1. */
+function oklchToUnbounded(lightness: number, chroma: number, hue: number): [number, number, number] {
     const radians = (hue * Math.PI) / 180;
     const labA = chroma * Math.cos(radians);
     const labB = chroma * Math.sin(radians);
@@ -335,14 +372,84 @@ function oklchToLinearSrgb(lightness: number, chroma: number, hue: number): [num
     const short = (lightness - 0.0894841775 * labA - 1.291485548 * labB) ** 3;
 
     return [
-        clip(4.0767416621 * long - 3.3077115913 * medium + 0.2309699292 * short),
-        clip(-1.2684380046 * long + 2.6097574011 * medium - 0.3413193965 * short),
-        clip(-0.0041960863 * long - 0.7034186147 * medium + 1.707614701 * short)
+        4.0767416621 * long - 3.3077115913 * medium + 0.2309699292 * short,
+        -1.2684380046 * long + 2.6097574011 * medium - 0.3413193965 * short,
+        -0.0041960863 * long - 0.7034186147 * medium + 1.707614701 * short
     ];
 }
 
 function clip(value: number): number {
     return Math.min(1, Math.max(0, value));
+}
+
+function clipAll([red, green, blue]: [number, number, number]): [number, number, number] {
+    return [clip(red), clip(green), clip(blue)];
+}
+
+function inGamut([red, green, blue]: [number, number, number]): boolean {
+    return red >= -GAMUT_EPSILON && red <= 1 + GAMUT_EPSILON
+        && green >= -GAMUT_EPSILON && green <= 1 + GAMUT_EPSILON
+        && blue >= -GAMUT_EPSILON && blue <= 1 + GAMUT_EPSILON;
+}
+
+/**
+ * CSS Color 4 gamut mapping: hold lightness and hue, binary search the chroma down until
+ * the color fits, and clip only once the clipped and unclipped versions are closer than
+ * a just noticeable difference.
+ *
+ * Clipping each channel on its own is the alternative, and it is what a naive conversion
+ * does. It moves lightness and hue as well as chroma, so a wide gamut color lands
+ * somewhere a browser would never put it. The chart palette deliberately sits outside
+ * sRGB on the hues that cannot reach its chroma, so this is the difference between
+ * measuring what ships and measuring an artifact of the conversion.
+ */
+function gamutMap(lightness: number, chroma: number, hue: number): [number, number, number] {
+    const origin = oklchToUnbounded(lightness, chroma, hue);
+
+    if (inGamut(origin)) {
+        return clipAll(origin);
+    }
+
+    if (lightness >= 1) {
+        return [1, 1, 1];
+    }
+
+    if (lightness <= 0) {
+        return [0, 0, 0];
+    }
+
+    let low = 0;
+    let high = chroma;
+    let lowInGamut = true;
+    let current = origin;
+
+    while (high - low > GAMUT_EPSILON) {
+        const middle = (low + high) / 2;
+
+        current = oklchToUnbounded(lightness, middle, hue);
+
+        if (lowInGamut && inGamut(current)) {
+            low = middle;
+            continue;
+        }
+
+        const clipped = clipAll(current);
+        const deviation = distance([...clipped, 1], [...current, 1]);
+
+        if (deviation >= JND) {
+            high = middle;
+            continue;
+        }
+
+        if (JND - deviation < GAMUT_EPSILON) {
+            return clipped;
+        }
+
+        lowInGamut = false;
+        low = middle;
+    }
+
+    return clipAll(current);
 }
 
 function encode(value: number): number {
@@ -447,7 +554,7 @@ type Stack = readonly string[];
 
 /** Resolves every token on demand, once per scheme. */
 function loadColors(): (token: string, scheme: Scheme) => Rgba {
-    const tokens = readTokens(readFileSync(CSS_PATH, 'utf8'));
+    const tokens = readAllTokens();
     const colors = new Map<string, Rgba>();
 
     return (token: string, scheme: Scheme): Rgba => {
@@ -885,6 +992,133 @@ function checkTransparent(gate: Gate): void {
     }
 }
 
+// --- Charts: the one set that hands its colors to a canvas ------------------
+
+// A chart draws inside a `FluxPane`, so the ground is `--surface` in both themes.
+const CHART_CATEGORICAL = Array.from({length: 8}, (_, index) => `--chart-${index + 1}`);
+const CHART_RAMP = Array.from({length: 4}, (_, index) => `--chart-ramp-${index + 1}`);
+const CHART_WIDE = Array.from({length: 17}, (_, index) => `--chart-colorful-${index + 1}`);
+
+// The graphical-object floor rather than the text one, because that is what these are.
+const CHART_FLOOR = 3;
+
+// What an area series paints under its line. The floor sits above the tint one so the
+// check can fail on its own: a fill faint enough to trip that would already have failed
+// the ratio next to it.
+const CHART_AREA_ALPHA = 0.25;
+const CHART_AREA_FLOOR = 0.08;
+
+// A distance rather than a ratio, because the wide set separates on hue alone. Per set,
+// because that set trades distance for count by design.
+const CHART_APART = {categorical: 0.08, wide: 0.04} as const;
+
+function checkCharts(gate: Gate): void {
+    for (const scheme of SCHEMES) {
+        const surface = gate.paint(['--surface'], scheme);
+
+        // Painted rather than read raw: a token carrying its own alpha measures further
+        // from the ground the fainter it gets.
+        const onSurface = (token: string) => gate.paint(['--surface', token], scheme);
+
+        // Keyed by name, not by color. Two chart tokens resolving to one color is the
+        // regression this set exists to catch, and a color keyed dedup would drop it.
+        const against = (label: string, token: string, target: number) => {
+            if (!gate.once(`chart|${scheme}|${token}|${target}`)) {
+                return;
+            }
+
+            const ratio = contrast(gate.colorOf(token, scheme), surface);
+
+            if (ratio + 0.005 < target) {
+                gate.fail(scheme, `${label} — ${ratio.toFixed(2)}, needs ${target}`);
+            }
+        };
+
+        const apart = (label: string, first: string, second: string, floor: number) => {
+            const measured = distance(onSurface(first), onSurface(second));
+
+            if (measured + 0.0005 < floor) {
+                gate.fail(scheme, `${label} — ${measured.toFixed(4)} apart, needs ${floor}`);
+            }
+        };
+
+        for (const token of [...CHART_CATEGORICAL, ...CHART_WIDE, '--chart-positive', '--chart-negative']) {
+            against(`${token.slice(2)} on surface`, token, CHART_FLOOR);
+        }
+
+        against('chart-label on surface', '--chart-label', 4.5);
+
+        if (gate.once(`chart-grid|${scheme}`)) {
+            apart('chart-grid on surface', '--chart-grid', '--surface', TINT_FLOOR);
+        }
+
+        // Nothing else measures these two against each other, and a candlestick that
+        // paints both the same reads as neither.
+        if (gate.once(`chart-direction|${scheme}`)) {
+            apart('chart-positive against chart-negative', '--chart-positive', '--chart-negative', CHART_APART.categorical);
+        }
+
+        // A scale rather than a set: only the top has to carry, but every step has to
+        // move the same direction or a heatmap stops reading as an order.
+        if (gate.once(`chart-ramp|${scheme}`)) {
+            const ratios = CHART_RAMP.map(token => contrast(gate.colorOf(token, scheme), surface));
+
+            for (let index = 1; index < ratios.length; index++) {
+                if (ratios[index] <= ratios[index - 1]) {
+                    gate.fail(scheme, `chart-ramp-${index + 1} — ${ratios[index].toFixed(2)}, not above chart-ramp-${index} at ${ratios[index - 1].toFixed(2)}`);
+                }
+            }
+
+            const top = ratios[ratios.length - 1];
+
+            if (top + 0.005 < CHART_FLOOR) {
+                gate.fail(scheme, `chart-ramp top — ${top.toFixed(2)}, needs ${CHART_FLOOR}`);
+            }
+
+            // Deliberately faint, but a cell holding a value still has to differ from
+            // one holding none.
+            apart('chart-ramp-1 on surface', CHART_RAMP[0], '--surface', TINT_FLOOR);
+        }
+
+        // The largest thing a line chart paints, and the only part a ratio never sees.
+        // A translucent series fades twice, so its own alpha carries through.
+        for (const token of CHART_CATEGORICAL) {
+            if (!gate.once(`chart-area|${scheme}|${token}`)) {
+                continue;
+            }
+
+            const [red, green, blue, alpha] = gate.colorOf(token, scheme);
+            const filled = over([red, green, blue, alpha * CHART_AREA_ALPHA], surface);
+            const measured = distance(filled, surface);
+
+            if (measured + 0.0005 < CHART_AREA_FLOOR) {
+                gate.fail(scheme, `${token.slice(2)} area fill — ${measured.toFixed(4)} apart, needs ${CHART_AREA_FLOOR}`);
+            }
+        }
+
+        // Only the closest pair: every other one is further apart by definition.
+        for (const [set, tokens, floor] of [['categorical', CHART_CATEGORICAL, CHART_APART.categorical], ['wide', CHART_WIDE, CHART_APART.wide]] as const) {
+            if (!gate.once(`chart-apart|${scheme}|${set}`)) {
+                continue;
+            }
+
+            let closest = {first: tokens[0], second: tokens[1], measured: Infinity};
+
+            for (let first = 0; first < tokens.length; first++) {
+                for (let second = first + 1; second < tokens.length; second++) {
+                    const measured = distance(onSurface(tokens[first]), onSurface(tokens[second]));
+
+                    if (measured < closest.measured) {
+                        closest = {first: tokens[first], second: tokens[second], measured};
+                    }
+                }
+            }
+
+            apart(`${set} ${closest.first.slice(2)} against ${closest.second.slice(2)}`, closest.first, closest.second, floor);
+        }
+    }
+}
+
 // --- Anchors: what says the script itself is right --------------------------
 
 // The three numbers the proof of concept published. If the script cannot reproduce
@@ -951,6 +1185,7 @@ function main(): number {
     checkMuted(gate);
     checkRamps(gate);
     checkTransparent(gate);
+    checkCharts(gate);
 
     const drift = checkAnchors(colorOf);
 
