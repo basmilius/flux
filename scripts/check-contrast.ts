@@ -781,15 +781,14 @@ function buildSteps(): Step[] {
 
     add('selection against surface', ['--surface'], ['--surface', '--selection'], STATE_FLOOR);
 
-    // A scrim darkens what is behind it, and the three of them are a ladder.
+    // A scrim darkens what is behind it, and the two of them are a ladder.
     for (const ground of ['--surface', '--surface-canvas']) {
-        for (const overlay of ['--overlay-secondary', '--overlay', '--overlay-strong']) {
+        for (const overlay of ['--overlay-secondary', '--overlay']) {
             add(`${overlay} over ${ground}`, [ground], [ground, overlay], STATE_FLOOR, 'darker');
         }
     }
 
     add('overlay is deeper than overlay-secondary', ['--surface', '--overlay-secondary'], ['--surface', '--overlay'], 0, 'darker');
-    add('overlay-strong is deeper than overlay', ['--surface', '--overlay'], ['--surface', '--overlay-strong'], 0, 'darker');
 
     // The skeleton sweep, over the one ground it has: `FluxSkeleton` fills itself with
     // `--surface-sunken` and moves the shimmer across that. Its contract is a direction

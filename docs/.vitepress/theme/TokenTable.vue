@@ -94,7 +94,7 @@
         },
         {
             title: 'Lines',
-            description: 'Stroke is the opaque separator and input border. Stroke-out is the translucent hairline around a floating surface, and highlight the inset sheen that makes a dark raised layer read as raised.',
+            description: 'Stroke is the opaque separator and input border. Stroke-out is the translucent hairline around a floating surface.',
             tokens: colors('surface-stroke-muted', 'surface-stroke', 'surface-stroke-hover', 'surface-stroke-out', 'surface-stroke-out-hover')
         },
         {
@@ -104,7 +104,7 @@
         },
         {
             title: 'Scrims and effects',
-            tokens: colors('overlay', 'overlay-secondary', 'overlay-strong', 'shimmer')
+            tokens: colors('overlay', 'overlay-secondary', 'shimmer')
         },
         ...INTENTS.map(intent => ({
             title: `Intent: ${intent}`,

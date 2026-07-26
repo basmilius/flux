@@ -14,9 +14,6 @@
 // global tokens, which is what keeps a component from shadowing a global name.
 @mixin intent($color) {
     --intent-solid: var(--#{$color}-solid);
-    --intent-solid-hover: var(--#{$color}-solid-hover);
-    --intent-solid-active: var(--#{$color}-solid-active);
-    --intent-on-solid: var(--#{$color}-on-solid);
     --intent-muted: var(--#{$color}-muted);
     --intent-soft: var(--#{$color}-soft);
     --intent-soft-hover: var(--#{$color}-soft-hover);
