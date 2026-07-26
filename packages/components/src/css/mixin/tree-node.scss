@@ -1,6 +1,7 @@
 @use 'color' as color;
 @use 'focus-ring' as focus;
 @use 'hover' as hover;
+@use 'intent' as intent;
 @use 'text' as text;
 
 @mixin tree-node-classes() {
@@ -125,13 +126,11 @@
     }
 
     @include color.color-variants(treeNodeMarker) using ($color) {
-        --tree-marker-fill: var(--#{$color}-100);
-        --tree-marker-stroke: var(--#{$color}-300);
-        --tree-marker-foreground: var(--#{$color}-900);
-    }
+        @include intent.intent($color);
 
-    .treeNodeMarkerGray {
-        --tree-marker-foreground: var(--foreground-prominent);
+        --tree-marker-fill: var(--intent-soft-hover);
+        --tree-marker-stroke: var(--intent-border);
+        --tree-marker-foreground: var(--intent-text);
     }
 
     .treeNodeMarkerCustom {

@@ -583,13 +583,11 @@
 }
 
 @include mixin.color-variants(treeMarker) using ($color) {
-    --tree-marker-fill: var(--#{$color}-100);
-    --tree-marker-stroke: var(--#{$color}-300);
-    --tree-marker-foreground: var(--#{$color}-900);
-}
+    @include mixin.intent($color);
 
-.treeMarkerGray {
-    --tree-marker-foreground: var(--foreground-prominent);
+    --tree-marker-fill: var(--intent-soft-hover);
+    --tree-marker-stroke: var(--intent-border);
+    --tree-marker-foreground: var(--intent-text);
 }
 
 .treeMarkerCustom {

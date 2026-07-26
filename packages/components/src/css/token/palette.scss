@@ -105,8 +105,17 @@ $palette: (
 
 // A stop as a literal colour, for the rare spot that needs the value rather than
 // the `var()` reference: inside a gradient stop list, or as a `color-mix()` operand.
-@function stop($scale, $stop) {
+//
+// `$alpha` exists for the tokens that need the same colour at reduced opacity.
+// Deriving that at use site with relative colour syntax is only safe over a
+// palette stop, never over a token holding a `light-dark()`, so a translucent
+// variant of a semantic token has to be written out here instead.
+@function stop($scale, $stop, $alpha: 1) {
     $value: map.get($palette, $scale, $stop);
+
+    @if $alpha < 1 {
+        @return #{'oklch(#{list.nth($value, 1)} #{list.nth($value, 2)} #{list.nth($value, 3)} / #{$alpha})'};
+    }
 
     @return #{'oklch(#{list.nth($value, 1)} #{list.nth($value, 2)} #{list.nth($value, 3)})'};
 }

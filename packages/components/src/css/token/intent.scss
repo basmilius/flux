@@ -1,4 +1,5 @@
 @use 'sass:list';
+@use 'sass:map';
 @use 'palette';
 @use 'theme';
 
@@ -34,6 +35,12 @@ $ladder-dark: (500, 400, 300);
 $soft-lightness: (.265, .305, .385);
 $soft-chroma: (.22, .3, .5);
 
+// The `-text` role targets a lightness, not a stop number, and warning's stops
+// do not line up with the rest: its 700 sits at L .5596 where every other scale
+// puts that rung between .40 and .53. Reading text off it scores 4.42 on its own
+// soft-hover, under AA. Stop 800 lands at L .4773, back in the pack.
+$text-stop-light: ('warning': 800);
+
 @mixin intents {
     @each $intent in ('primary', 'danger', 'info', 'success', 'warning') {
         $ladder: $ladder-on-dark;
@@ -52,7 +59,7 @@ $soft-chroma: (.22, .3, .5);
         --#{$intent}-soft: #{theme.theme(palette.stop($intent, 50), palette.tint($intent, list.nth($soft-lightness, 1), list.nth($soft-chroma, 1)))};
         --#{$intent}-soft-hover: #{theme.theme(palette.stop($intent, 100), palette.tint($intent, list.nth($soft-lightness, 2), list.nth($soft-chroma, 2)))};
         --#{$intent}-border: #{theme.theme(palette.stop($intent, 200), palette.tint($intent, list.nth($soft-lightness, 3), list.nth($soft-chroma, 3)))};
-        --#{$intent}-text: #{theme.theme(palette.stop($intent, 700), palette.stop($intent, 300))};
+        --#{$intent}-text: #{theme.theme(palette.stop($intent, map.get($text-stop-light, $intent) or 700), palette.stop($intent, 300))};
     }
 
     // Gray is an intent like the other five, not the exception every component had

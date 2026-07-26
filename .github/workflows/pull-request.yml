@@ -43,10 +43,16 @@ jobs:
                     bun --cwd packages/components build
                     bun --cwd packages/application build
                     bun --cwd packages/statistics build
+                    bun --cwd packages/flow build
                     node scripts/transform-dts.mjs
                     bun --cwd docs build
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+
+            -   name: 🎨 Check colour contract
+                run: |
+                    bun scripts/check-contrast.ts
+                    bun scripts/check-palette-refs.ts
 
             -   name: 🚀 Publish Docs
                 uses: cloudflare/wrangler-action@v3

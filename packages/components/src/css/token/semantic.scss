@@ -64,6 +64,11 @@
     // Focus. Dark takes a lighter stop on purpose: primary-600 against the dark
     // surface scored 3.64, below the 3:1 a focus indicator needs.
     --focus-ring: #{theme.theme(palette.stop('primary', 600), palette.stop('primary', 400))};
+
+    // The ring at zero alpha, so the outline can fade in on its own hue. Starting
+    // the transition from `transparent` fades through grey instead, and deriving
+    // this from `--focus-ring` is the relative-colour-syntax trap.
+    --focus-ring-transparent: #{theme.theme(palette.stop('primary', 600, 0), palette.stop('primary', 400, 0))};
     --selection: #{theme.theme(palette.tint('primary', .639, 1, .25), palette.tint('primary', .639, 1, .35))};
 
     // Scrims.
