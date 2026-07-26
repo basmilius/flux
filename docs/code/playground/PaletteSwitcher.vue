@@ -8,9 +8,9 @@
             <div :class="$style.paletteSwitcherLauncher">
                 <FluxTooltip :content="tooltip">
                     <FluxSecondaryButton
-                        aria-label="Palette"
                         icon-leading="palette"
                         :is-active="isOpen"
+                        :label="active"
                         @click="toggle()"/>
                 </FluxTooltip>
             </div>
@@ -173,22 +173,13 @@
         readonly value: string;
     };
 
-    // Gamma encoded sRGB, the way a canvas hands it back, plus alpha.
+    // Gamma encoded sRGB, plus alpha.
     type Rgba = readonly [number, number, number, number];
 
     const STOPS = [25, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950] as const;
 
     const TARGET = 4.5;
 
-    // Mint and taupe reuse the lightness of the Flux gray scale verbatim, stop for
-    // stop, and change nothing but hue and chroma. That is deliberate: it makes the
-    // switcher show what a palette override can and cannot reach. The ramp above
-    // changes character in both themes, while the dark values in the readout keep
-    // the lightness they had, because dark solves its neutrals against a contrast
-    // target instead of against the scale.
-    //
-    // Chroma is the Flux ramp scaled by a single factor, 1.4 for mint and 1.3 for
-    // taupe, so a green and a brown read as neutral rather than as a tint.
     const GRAY_SCALES: readonly PaletteScale[] = [
         {
             id: 'flux',
@@ -235,12 +226,9 @@
             ]
         },
 
-        // The five Tailwind neutrals, verbatim from packages/internals/src/data/color.ts.
-        // They stop at 50 where Flux starts at 25, and unlike a colored scale that
-        // stop is read: it is what --surface and --surface-raised resolve to. Every
-        // scale that ships puts pure white there, Flux, Passly and Solvidi alike, so
-        // borrowing Tailwind's 50 would tint every card in the library. They take
-        // #ffffff instead, which is also what a Tailwind UI paints a card.
+        // Tailwind's scales start at 50, so stop 25 is invented. On the neutral that
+        // stop is what --surface and --surface-raised resolve to, so it takes pure
+        // white; Tailwind's own 50 would tint every card in the library.
         {
             id: 'slate',
             label: 'Slate',
@@ -288,12 +276,8 @@
         }
     ];
 
-    // The four Tailwind scales are eleven stops where Flux has twelve, so stop 25
-    // has to be invented. Nothing in the token layer reads stop 25 of a colored
-    // scale: only the neutral uses it, as --surface and --surface-raised. So they
-    // borrow the value Flux gives its own primary-25, #fcfcfc, a near-white with no
-    // tint left in it, rather than extrapolating a twelfth tint that is never
-    // painted anyway.
+    // Stop 25 is invented here too. Nothing in the token layer reads it on a colored
+    // scale, so these take the value Flux gives its own primary-25.
     const PRIMARY_SCALES: readonly PaletteScale[] = [
         {
             id: 'flux',
@@ -465,9 +449,6 @@
         }
     ];
 
-    // Derived tokens rather than stops. A stop only proves that the override
-    // landed; these prove that the semantic layer picked it up, and for the neutral
-    // that the dark ladder moved in hue without moving in lightness.
     const ROWS: readonly PaletteRow[] = [
         {
             scale: 'gray',
@@ -487,9 +468,6 @@
         }
     ];
 
-    // Both pairs are measured on the sample that renders them, so what is reported
-    // is the color the engine actually painted in the current theme, not a value
-    // recomputed from the scale.
     const CHECKS: readonly ContrastCheck[] = [
         {
             id: 'button',
@@ -505,8 +483,6 @@
         }
     ];
 
-    // A shortcut nobody can see is a shortcut nobody uses, so the launcher spells both
-    // of them out and every row repeats its own next to the label.
     const SHORTCUTS = ROWS.map(row => `Shift + ${row.key} cycles ${row.title.toLowerCase()}`).join(', ');
 
     const isOpen = ref(false);
@@ -520,12 +496,7 @@
     let observer: MutationObserver | null = null;
 
     // Shift plus a letter, because Cmd and Ctrl + K belong to the VitePress search
-    // and Option on a Mac rewrites the character of the key it is held with, which
-    // would leave the handler comparing against a dead key. The listener sits on the
-    // window and keeps working while the panel is closed, which is the point: cycle a
-    // scale at the bottom of the page and watch the components next to you follow.
-    // `useHotKey` drops a keystroke while a field has focus, and this page is mostly
-    // fields.
+    // and Option on a Mac rewrites the character of the key it is held with.
     for (const row of ROWS) {
         useHotKey(`shift+${row.key}`, () => cycle(row));
     }
@@ -549,21 +520,18 @@
 
     const hasFailure = computed(() => CHECKS.some(check => (ratios[check.id] ?? TARGET) < TARGET));
 
-    // With the panel closed the launcher is the only place left that can name the two
-    // scales in play, which is what a hotkey cycled blind needs most.
-    const tooltip = computed(() => `${ROWS.map(row => `${row.title}: ${activeScale(row).label}`).join(', ')}. ${SHORTCUTS}.`);
+    const active = computed(() => ROWS.map(row => activeScale(row).label).join(' / '));
+    const tooltip = `${SHORTCUTS}.`;
 
-    // Post flush, so the ramp has been repainted with the new stops before the
-    // readout measures the tokens that were built on top of them.
+    // Post flush, so the ramp is repainted with the new stops before the readout
+    // measures the tokens built on top of them.
     watch(selected, () => {
         apply();
         read();
     }, {flush: 'post'});
 
-    // The panel only exists while the flyout is open, so the probes it measures come
-    // and go with it. Post flush again, so they are in the document before they are
-    // measured, and a scale cycled by hotkey while the panel was closed still lands
-    // in the readout when it opens.
+    // Post flush again: the probes only exist while the panel is open, so they have
+    // to be in the document before they are measured.
     watch(isOpen, isOpen => {
         if (isOpen) {
             read();
@@ -573,8 +541,7 @@
     onMounted(() => {
         apply();
 
-        // The docs site flips themes by putting a `dark` attribute on the root
-        // element, which changes every resolved value without changing the scale.
+        // The docs site flips theme with a `dark` attribute on the root element.
         observer = new MutationObserver(read);
         observer.observe(document.documentElement, {attributeFilter: ['class', 'dark']});
     });
@@ -583,8 +550,7 @@
         observer?.disconnect();
         observer = null;
 
-        // An inline override on the root element outlives this page, so leaving one
-        // behind would recolor the rest of the site after navigating away.
+        // The override sits on the root element and would outlive this page.
         reset();
     });
 
@@ -598,9 +564,9 @@
         }
     }
 
-    // The override has to sit on the root element itself. `--surface` and friends
+    // The override has to sit on the root element itself: `--surface` and friends
     // are declared on `:root` and substitute their `var(--palette-*)` there, so a
-    // scale set on a wrapper is read after the fact and changes nothing.
+    // scale set on a wrapper arrives too late and changes nothing.
     function applyScale(scale: string, values: readonly string[] | null): void {
         STOPS.forEach((stop, index) => {
             const property = `--palette-${scale}-${stop}`;
@@ -620,8 +586,6 @@
         return (Math.max(composited, base) + 0.05) / (Math.min(composited, base) + 0.05);
     }
 
-    // Wraps around, so the shortcut walks the whole row and comes back to where it
-    // started rather than stopping at the last scale.
     function cycle(row: PaletteRow): void {
         const index = row.scales.findIndex(scale => scale.id === selected[row.scale]);
 
@@ -637,11 +601,9 @@
     }
 
     /**
-     * Composites a possibly translucent color over an opaque backdrop, on the
-     * gamma encoded channels, because that is where a browser does it:
-     * `rgb(0 0 0 / .5)` over white renders #808080, not the #bcbcbc that blending
-     * in linear light would give. On a dark ground that is a factor of five, not a
-     * rounding difference.
+     * Composites a translucent color over an opaque backdrop on the gamma encoded
+     * channels, because that is where a browser does it: `rgb(0 0 0 / .5)` over
+     * white renders #808080, not the #bcbcbc of a blend in linear light.
      */
     function over(foreground: Rgba, background: Rgba): Rgba {
         const alpha = foreground[3];
@@ -656,9 +618,8 @@
 
     /**
      * A computed color comes back in whatever space it was written in, `oklch()`
-     * included. A canvas parses every one of those with the engine's own parser and
-     * serializes its fill back as `#rrggbb` or `rgba(...)`, which beats carrying a
-     * converter per color space around in a demo.
+     * included. A canvas parses all of them with the engine's own parser and
+     * serializes its fill back as `#rrggbb` or `rgba(...)`.
      */
     function parseColor(value: string): Rgba {
         context ??= document.createElement('canvas').getContext('2d')!;
@@ -678,8 +639,7 @@
     }
 
     // A custom property holding a `light-dark()` reads back verbatim through
-    // getPropertyValue, so the resolved color has to come off a real property that
-    // the engine has already computed for the current theme.
+    // getPropertyValue, so the resolved color has to come off a real property.
     function read(): void {
         for (const [token, element] of swatches) {
             resolved[token] = getComputedStyle(element).backgroundColor;
@@ -718,10 +678,8 @@
 <style
     lang="scss"
     module>
-    // Pinned to the viewport, so a scale can be switched from anywhere on the page.
-    // This is also why the component sits outside the prose article in the page: a
-    // `container-type` makes an element the containing block of its fixed
-    // descendants, which would pin the button to the article and scroll it away.
+    // Fixed, so the component has to stay outside any element with a
+    // `container-type`: that would become its containing block.
     .paletteSwitcherLauncher {
         position: fixed;
         right: 24px;
@@ -729,8 +687,6 @@
         z-index: 100;
     }
 
-    // The same key as prose paints, so the shortcut reads the same in the panel as it
-    // does in the paragraph on the page that points at it.
     .paletteSwitcherKeys {
         display: inline-flex;
         gap: 3px;
@@ -781,8 +737,6 @@
         gap: 6px 12px;
     }
 
-    /* On a surface of its own, so a token that resolves to something translucent
-       shows what it does instead of blending into the pane. */
     .paletteSwitcherSwatch {
         height: 24px;
         width: 24px;
@@ -798,8 +752,6 @@
         gap: 9px 15px;
     }
 
-    /* The sample is the probe: the pair that is measured is the pair that is
-       painted here, so a red badge always has the box next to it to explain it. */
     .paletteSwitcherSample {
         display: flex;
         align-items: center;

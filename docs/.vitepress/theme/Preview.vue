@@ -60,13 +60,10 @@
         font-size: 15px;
         line-height: 1.6;
 
-        /* The grid needs the same faint presence in both themes, and the neutral
-           steps are not evenly spaced in luminance, so each theme takes the token
-           that lands there: 1.18 against the preview background in light, 1.34 in
-           dark. One token for both would be invisible on one side or heavy on the
-           other. */
+        /* The ground is a mix of two tokens, so no stroke token lands on it in both
+           themes. Translucent ink flips direction by itself. */
         > :global(svg) {
-            stroke: light-dark(var(--surface-stroke), var(--surface-stroke-muted));
+            stroke: color-mix(in oklab, var(--foreground) 10%, transparent);
         }
     }
 
