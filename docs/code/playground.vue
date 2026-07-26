@@ -7,9 +7,9 @@
         <p>This whole page is a single <code>FluxProse</code> container. The headings, paragraphs, lists and tables sit at a readable measure and flow in the prose rhythm, while Flux components are dropped straight in between them. No wrappers, no resets: prose only styles its own HTML elements, so every component keeps its own look and still lines up in the vertical rhythm.</p>
         <p>Use it to eyeball how the pieces look together and how the light element defaults and the rich prose styling coexist on one page. It is also the sheet used to review the colour tokens, so most components appear in every intent and in every state that changes their surface, border or text colour. Switch the site between light and dark and scroll through once.</p>
 
-        <h2>Grey scale</h2>
-        <p>The neutral scale is a control surface rather than a lookup table: the semantic tokens refer to <code>--palette-gray-*</code> instead of holding a colour of their own. Pick a scale below and the whole page follows, in both themes.</p>
-        <GraySwitcher data-prose-full/>
+        <h2>Palette</h2>
+        <p>The palette is a control surface rather than a lookup table: the semantic and intent tokens refer to <code>--palette-*</code> instead of holding a colour of their own. Pick a scale below and the whole page follows, in both themes. The two rows combine, so a brand can be checked as it would actually ship.</p>
+        <PaletteSwitcher data-prose-full/>
 
         <h2>Buttons and actions</h2>
         <p>Buttons come in a few variants and can be grouped in a stack, or combined with a menu in a split button.</p>
@@ -2410,7 +2410,7 @@ const article = FluxProse;</code></pre>
     import { DateTime } from 'luxon';
     import { computed, reactive, ref } from 'vue';
     import ApplicationDemo from './playground/ApplicationDemo.vue';
-    import GraySwitcher from './playground/GraySwitcher.vue';
+    import PaletteSwitcher from './playground/PaletteSwitcher.vue';
 
     type Deployment = {
         readonly id: number;
