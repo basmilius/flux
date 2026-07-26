@@ -13,8 +13,18 @@
     //
     // `--background` is no longer equal to `--surface`. That equality is the reason
     // a menu, a modal and the page underneath them were the same colour.
+    //
+    // `--surface-sunken` is the shallowest rung the ladder allows, not the deepest.
+    // It used to be a full stop below `--background` in both themes, which put a
+    // table head, a code block and the skeleton base further from the card they sit
+    // in (.051 L in light, .073 L in dark) than the card is from the page. Sunken is
+    // a recess, not a hole, so each theme takes the lightest value that still clears
+    // the level beneath it: in light .018 L under `--background`, the same step the
+    // interaction states are held to, and in dark the 1.05 contrast the elevation
+    // ladder is checked on. Light also breaks the exact tie with
+    // `--surface-stroke-muted`, which made a muted border on a sunken fill invisible.
     --background: #{theme.theme(palette.stop('gray', 50), theme.neutral(.195, .014))};
-    --surface-sunken: #{theme.theme(palette.stop('gray', 100), theme.neutral(.156, .012))};
+    --surface-sunken: #{theme.theme(theme.neutral(.9615, .007), theme.neutral(.166, .0125))};
     --surface: #{theme.theme(palette.stop('gray', 25), theme.neutral(.229, .016))};
     --surface-raised: #{theme.theme(palette.stop('gray', 25), theme.neutral(.268, .018))};
     --surface-loader: #{theme.theme(theme.neutral(1, 0, .75), theme.neutral(.229, .016, .75))};
@@ -37,13 +47,22 @@
     // calibrated against `--surface` alone, so on any other ground it lands
     // somewhere between too weak and invisible.
     //
-    // The alphas are solved, not picked: each one reproduces the perceptual step
-    // its opaque counterpart makes on `--surface` (hover .046 L, active .086 L in
-    // dark). Ink on a dark ground is far more potent than the same alpha on a
-    // light one, because lightness compresses towards black; the dark values used
-    // to mirror the light ones and landed four times too strong.
-    --ink-hover: #{theme.theme(theme.neutral(.28, .02, .06), theme.neutral(.93, .01, .011))};
-    --ink-active: #{theme.theme(theme.neutral(.28, .02, .11), theme.neutral(.93, .01, .024))};
+    // The alphas do not mirror the opaque pair, and they are not a mirror of each
+    // other either. They are set against the state the library drew before these
+    // tokens existed: a menu item hovered to gray-100 and pressed to gray-200 on a
+    // gray-25 ground, which is .051 / .090 L in light and .068 / .112 L in dark.
+    // Both themes land on roughly four fifths of that on `--surface-raised`, where
+    // the menus actually sit: .038 / .071 in light, .055 / .092 in dark.
+    //
+    // Dark needs the larger alpha for that, and the reason is not that ink behaves
+    // differently there. A browser composites alpha on the gamma encoded channels,
+    // which keeps the step nearly flat across the elevations: the same alpha varies
+    // by a fifth between `--surface-sunken` and `--surface-raised`, not by a factor.
+    // What differs is the eye. Dark needed a wider step in the mirrored palette too,
+    // where the identical pair of stops measured .068 L in dark against .051 in
+    // light, and that is the ratio these alphas keep.
+    --ink-hover: #{theme.theme(theme.neutral(.28, .02, .06), theme.neutral(.93, .01, .07))};
+    --ink-active: #{theme.theme(theme.neutral(.28, .02, .11), theme.neutral(.93, .01, .12))};
 
     // Text. `--foreground-secondary` moves from gray-500 to gray-600: on white it
     // scored 3.36, under AA, while carrying most of the secondary copy in the
@@ -62,7 +81,15 @@
     // Lines. `stroke` is the opaque separator and input border, `stroke-out` the
     // translucent hairline around a floating surface, `highlight` the inset sheen
     // that makes a dark raised layer read as raised.
-    --surface-stroke-muted: #{theme.theme(palette.stop('gray', 100), theme.neutral(.29, .016))};
+    //
+    // The muted stroke has to survive being drawn on a hovered row, and dark packs
+    // `--surface-raised`, `--surface-hover` and this token into .022 L. At .29 it
+    // sat .015 L from `--surface-hover`, under the step that reads at all, which is
+    // what made the inner edge of a table group head disappear on hover. It cannot
+    // go much further either: `--surface-active` is at .315, and a border has to
+    // stay visible on a pressed row as well, so .295 is the one value that clears
+    // both by .020 L. Light has room and keeps the stop it always had.
+    --surface-stroke-muted: #{theme.theme(palette.stop('gray', 100), theme.neutral(.295, .016))};
     --surface-stroke: #{theme.theme(palette.stop('gray', 200), theme.neutral(.34, .018))};
     --surface-stroke-hover: #{theme.theme(palette.stop('gray', 300), theme.neutral(.42, .02))};
     --surface-stroke-out: #{theme.theme(theme.neutral(.36, .02, .1), theme.neutral(1, 0, .1))};

@@ -329,18 +329,36 @@ function oklchOf([red, green, blue]: Rgba): readonly [number, number, number] {
     return [lightness, Math.hypot(labA, labB), ((Math.atan2(labB, labA) * 180) / Math.PI + 360) % 360];
 }
 
+function encode(value: number): number {
+    return value <= 0.0031308 ? 12.92 * value : 1.055 * Math.pow(value, 1 / 2.4) - 0.055;
+}
+
+function decode(value: number): number {
+    return value <= 0.04045 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
+}
+
 /**
- * Composites a possibly translucent colour over an opaque backdrop. A token
- * like `--ink-hover` or `--foreground-disabled` only has a contrast at all once
- * it sits on something.
+ * Composites a possibly translucent colour over an opaque backdrop. A token like
+ * `--ink-hover` or `--foreground-disabled` only has a contrast at all once it
+ * sits on something.
+ *
+ * The blend happens on the gamma encoded values, because that is where a browser
+ * does it: `rgba(0 0 0 / .5)` over white renders `#808080`, not the `#bcbcbc`
+ * that blending in linear light would give. Getting this wrong does not shift a
+ * number slightly, it shifts it by a factor of five on a dark ground, which is
+ * exactly where the translucent tokens live.
  */
 function over(foreground: Rgba, background: Rgba): Rgba {
     const alpha = foreground[3];
 
+    if (alpha === 1) {
+        return background === foreground ? foreground : [foreground[0], foreground[1], foreground[2], 1];
+    }
+
     return [
-        foreground[0] * alpha + background[0] * (1 - alpha),
-        foreground[1] * alpha + background[1] * (1 - alpha),
-        foreground[2] * alpha + background[2] * (1 - alpha),
+        decode(encode(foreground[0]) * alpha + encode(background[0]) * (1 - alpha)),
+        decode(encode(foreground[1]) * alpha + encode(background[1]) * (1 - alpha)),
+        decode(encode(foreground[2]) * alpha + encode(background[2]) * (1 - alpha)),
         1
     ];
 }

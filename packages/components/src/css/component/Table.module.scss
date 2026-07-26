@@ -119,8 +119,14 @@
     }
 }
 
+// The head paints itself with `--surface-sunken`, and `--surface-stroke-muted`
+// sits .012 L from it in light: not the exact tie it used to be, but still under
+// the step that reads, so a 2px rule and a column divider drawn in it have almost
+// nothing to show. Every border inside the head takes the next rung up instead,
+// which keeps it legible whatever value the sunken tint settles on.
 .tableHeadSticky .tableHeader {
     background: var(--surface-sunken);
+    border-color: var(--surface-stroke);
 }
 
 // A tinted row moves one rung up the scale compared to before: stop 25 was the

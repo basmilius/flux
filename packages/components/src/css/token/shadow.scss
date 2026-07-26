@@ -1,9 +1,22 @@
 @use 'theme';
 
-// One geometry for both themes; only the colour differs. Dark used to redefine
-// every step with its own blur radii, but now that elevation is carried by surface
-// lightness and the light edge, the shadow is the tertiary signal there and the
-// extra blur bought nothing.
+// One geometry for both themes; only the colour differs. That is a constraint
+// as much as a choice: `light-dark()` carries colours, not lengths, so a
+// per-theme blur radius would need a theme selector, and the `color-scheme:
+// light dark` setup base.scss documents has none to hang it on.
+//
+// Dark used to redefine every step with a wider blur, which softened an edge
+// that carried three times the contrast it does now. Lowering the alpha softens
+// that edge by the same factor, so the wider blur is no longer worth a shadow
+// list with a transparent copy of the other theme's geometry in it.
+//
+// The dark alphas are solved, not picked: each one reproduces the perceptual
+// weight the old dark step had on the old near-black page (.017 L for the middle
+// steps), landing at that level on `--surface` and just under it on
+// `--background`. They are lower than the old ones because the dark surfaces are
+// lighter now, and the same black ink darkens a lighter ground more. Dark keeps
+// the flat-within-a-tier shape light has: the geometry already makes the taller
+// steps read stronger, so an alpha ramp on top of it only adds weight.
 //
 // Light tints its shadow with the neutral hue rather than pure black, which keeps
 // it from reading as soot on a coloured surface.
@@ -15,13 +28,17 @@
     // For a component composing its own shadow. Reaching for a palette stop here
     // is what turned the pinned table column's shadow into a glow: gray-800 was
     // dark in light mode and light in dark mode.
-    --shadow-color: #{color(.15, .4)};
+    //
+    // Both alphas sit well above the steps because the only caller spreads its
+    // shadow by -6px, which halves the peak. At these values it lands on the
+    // weight of `--shadow-md` in either theme.
+    --shadow-color: #{color(.15, .3)};
 
-    --shadow-px: 0 1px 1px #{color(.02, .3)};
-    --shadow-xs: 0 1px 2px 0 #{color(.02, .3)};
-    --shadow-sm: 0 1px 3px #{color(.05, .32)}, 0 1px 2px -1px #{color(.05, .32)};
-    --shadow-md: 0 4px 6px -1px #{color(.05, .35)}, 0 2px 4px -2px #{color(.05, .35)};
-    --shadow-lg: 0 10px 15px -3px #{color(.05, .38)}, 0 4px 6px -4px #{color(.05, .38)};
-    --shadow-xl: 0 20px 25px -5px #{color(.05, .42)}, 0 8px 10px -6px #{color(.05, .42)};
-    --shadow-2xl: 0 25px 50px -12px #{color(.12, .5)};
+    --shadow-px: 0 1px 1px #{color(.02, .08)};
+    --shadow-xs: 0 1px 2px 0 #{color(.02, .08)};
+    --shadow-sm: 0 1px 3px #{color(.05, .12)}, 0 1px 2px -1px #{color(.05, .12)};
+    --shadow-md: 0 4px 6px -1px #{color(.05, .12)}, 0 2px 4px -2px #{color(.05, .12)};
+    --shadow-lg: 0 10px 15px -3px #{color(.05, .12)}, 0 4px 6px -4px #{color(.05, .12)};
+    --shadow-xl: 0 20px 25px -5px #{color(.05, .12)}, 0 8px 10px -6px #{color(.05, .12)};
+    --shadow-2xl: 0 25px 50px -12px #{color(.12, .2)};
 }
