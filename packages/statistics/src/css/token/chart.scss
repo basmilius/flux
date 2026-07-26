@@ -1,5 +1,4 @@
 @use 'sass:list';
-@use 'sass:math';
 @use '~flux/components/css/token/theme';
 
 // The chart palette. Every stop is solved against `--surface` rather than picked, which
@@ -44,8 +43,13 @@ $ramp-dark:
 // The wide categorical set, for the charts that need more series than the eight have
 // hues. Chroma sits above the sRGB boundary on the hues that cannot reach it, so a
 // wide-gamut display gets the full color and sRGB clips back to its own edge.
-$colorful-count: 17;
-$colorful-start: 17.1;
+//
+// The hues are solved for equal perceptual distance rather than spaced evenly in
+// degrees: OKLab is not uniform around the wheel, so even degrees leave the yellows
+// crowded and the blues spread out. Solved on light, which is the tighter of the two.
+$colorful-hues:
+    17.1 37.2 66.4 89.2 108.3 126.8 146.6 168.2 188.7
+    209.1 231.7 256.8 276.9 296.9 317 337 357.1;
 $colorful-light: .55 .16;
 $colorful-dark: .74 .16;
 
@@ -62,8 +66,8 @@ $colorful-dark: .74 .16;
         --chart-ramp-#{$i}: #{theme.theme(to-oklch(list.nth($ramp-light, $i)), to-oklch(list.nth($ramp-dark, $i)))};
     }
 
-    @for $i from 1 through $colorful-count {
-        $hue: math.div(math.round(($colorful-start + math.div(($i - 1) * 360, $colorful-count)) * 10), 10);
+    @for $i from 1 through list.length($colorful-hues) {
+        $hue: list.nth($colorful-hues, $i);
 
         --chart-colorful-#{$i}: #{theme.theme(to-oklch(list.append($colorful-light, $hue)), to-oklch(list.append($colorful-dark, $hue)))};
     }
