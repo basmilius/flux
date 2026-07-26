@@ -2323,6 +2323,10 @@
             <FluxPaneBody>This text sits behind the loading layer, which is a translucent copy of the pane surface.</FluxPaneBody>
         </FluxPane>
 
+        <h2>Application shell</h2>
+        <p>The shell from <code>@flux-ui/application</code>, embedded in a 600px frame rather than the viewport it normally fills. The rail sits on <code>--surface-canvas</code> and the top bar on the page, so this is where the two page level neutrals have to hold apart. Use the toggle in the top bar to switch the rail between collapsed and expanded.</p>
+        <ApplicationDemo/>
+
         <h2>Typography</h2>
         <p>Back in the prose flow, the text scale, lists, quotes, code and tables all come from <code>FluxProse</code>.</p>
         <p>Text itself has a scale and a set of colours of its own.</p>
@@ -2355,7 +2359,6 @@
         </ul>
 
         <pre><code>import { FluxProse } from '@flux-ui/components';
-    import GraySwitcher from './playground/GraySwitcher.vue';
 
 const article = FluxProse;</code></pre>
 
@@ -2406,6 +2409,8 @@ const article = FluxProse;</code></pre>
     import type { FluxColor, FluxCommandSource, FluxFilterState, FluxFormSelectOption, FluxIconName, FluxTreeViewOption } from '@flux-ui/types';
     import { DateTime } from 'luxon';
     import { computed, reactive, ref } from 'vue';
+    import ApplicationDemo from './playground/ApplicationDemo.vue';
+    import GraySwitcher from './playground/GraySwitcher.vue';
 
     type Deployment = {
         readonly id: number;
