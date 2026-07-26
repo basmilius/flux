@@ -80,9 +80,19 @@ Each of these pairs is held to a contrast target rather than picked by eye: `on-
 
 ## Elevation
 
-There are four levels: `--surface-sunken`, `--background`, `--surface` and `--surface-raised`.
+There are five levels: `--surface-canvas`, `--background`, `--surface-sunken`, `--surface` and `--surface-raised`.
 
 The two themes signal height differently, which is why this is a token and not a shadow. In light every raised level stays white and the shadow does the work. In dark a shadow on a near-black surface separates nothing, so there the lightness of the layer carries the height, the light edge (`--surface-stroke-out`, white at a low alpha) backs it up, and the shadow is only tertiary.
+
+That difference is also why the order is not the same in both themes. `--surface-canvas` is the ground a board, a canvas or a well is drawn on, and it stays below everything in both. `--surface-sunken` is not a level of its own but a strip that has to read against the card it sits in: a table head, a pane footer, a tab bar. In light it does that by going darker than the card, in dark by going lighter, because a strip that moves further towards black stops holding its borders and its text.
+
+| Token | Light | Dark |
+|---|---|---|
+| `--surface-canvas` | below the page | below the page |
+| `--background` | the page | the page |
+| `--surface-sunken` | below the card | **above** the card |
+| `--surface` | the card | the card |
+| `--surface-raised` | the card, lifted by shadow | above the card |
 
 Reach for the mixin rather than the individual declarations:
 

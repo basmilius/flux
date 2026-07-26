@@ -258,6 +258,9 @@
     font-weight: 700;
 }
 
+// The sticky header fades out into the surface it is stuck to, which is not always
+// `--surface`: a menu sits inline on a page as well as inside a raised flyout. The
+// fallback covers a menu that is not inside a pane at all.
 .menuSubHeader {
     position: sticky;
     display: flex;
@@ -266,7 +269,7 @@
     padding: 12px 12px 6px;
     align-items: center;
     gap: 9px;
-    background: linear-gradient(to bottom, var(--surface) 75%, transparent);
+    background: linear-gradient(to bottom, var(--surface-current, var(--surface)) 75%, transparent);
     pointer-events: none;
     z-index: 1;
 }

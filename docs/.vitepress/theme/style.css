@@ -10,9 +10,9 @@
     --vp-c-gray-3: var(--surface-stroke-muted);
 
     --vp-c-bg: var(--background);
-    --vp-c-bg-alt: var(--surface-sunken);
+    --vp-c-bg-alt: var(--surface-canvas);
     --vp-c-bg-elv: var(--surface-raised);
-    --vp-c-bg-soft: var(--surface-sunken);
+    --vp-c-bg-soft: var(--surface-canvas);
 
     --vp-c-border: var(--surface-stroke-muted);
     --vp-c-divider: var(--surface-stroke-muted);

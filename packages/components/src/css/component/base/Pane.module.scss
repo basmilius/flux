@@ -12,7 +12,9 @@
 .basePaneRaised {
     composes: basePane;
 
-    background: var(--surface-raised);
+    --surface-current: var(--surface-raised);
+
+    background: var(--surface-current);
 }
 
 .basePaneLoader {

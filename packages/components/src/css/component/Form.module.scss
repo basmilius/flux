@@ -617,12 +617,16 @@
     translate: 0 -50%;
 }
 
+// The search field is a sticky band inside the popup, not an input well: it has to
+// disappear into the popup and only leave its bottom rule, which is what it did
+// while every surface was white. The popup is raised, so a fixed `--surface` reads
+// as a darker strip in dark mode.
 .formSelectInput {
     position: sticky;
     top: 0;
     height: 48px;
     margin-bottom: 9px;
-    background: var(--surface);
+    background: var(--surface-current, var(--surface));
     border-top: 0;
     border-left: 0;
     border-right: 0;

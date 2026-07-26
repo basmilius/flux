@@ -23,7 +23,14 @@
         $background: var(--surface-sunken);
     }
 
-    background: #{$background};
+    // The level publishes what it painted, so its contents can read the surface they
+    // actually sit on instead of naming one. A sticky header that fades out, a mask
+    // over a scrolling list and a knockout ring all need that: the same menu renders
+    // inline on a page and inside a raised flyout. Light hid the difference because
+    // every level there is white; dark does not.
+    --surface-current: #{$background};
+
+    background: var(--surface-current);
     background-clip: padding-box;
     border: 1px solid var(--surface-stroke-out);
     border-radius: $radius;

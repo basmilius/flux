@@ -14,17 +14,42 @@
     // `--background` is no longer equal to `--surface`. That equality is the reason
     // a menu, a modal and the page underneath them were the same colour.
     //
-    // `--surface-sunken` is the shallowest rung the ladder allows, not the deepest.
-    // It used to be a full stop below `--background` in both themes, which put a
-    // table head, a code block and the skeleton base further from the card they sit
-    // in (.051 L in light, .073 L in dark) than the card is from the page. Sunken is
-    // a recess, not a hole, so each theme takes the lightest value that still clears
-    // the level beneath it: in light .018 L under `--background`, the same step the
-    // interaction states are held to, and in dark the 1.05 contrast the elevation
-    // ladder is checked on. Light also breaks the exact tie with
-    // `--surface-stroke-muted`, which made a muted border on a sunken fill invisible.
+    // `--surface-sunken` is the strip that sets itself off from the card it lies
+    // in: a sticky table head, a pane footer, a tab bar in a pane, a code block,
+    // the skeleton base, a segmented control track. Which way it moves to do that
+    // is a per theme decision, not something the name settles. Light moves down,
+    // because the card is white and down is the only direction there is. Dark moves
+    // up, because under `--surface` there is only the page and then black, where a
+    // fill loses its edges and the text on it loses its footing. The old mirrored
+    // palette already worked this way without saying so: the same pair of stops,
+    // `gray-50` on `gray-25`, was .021 L darker than the card in light and .033 L
+    // lighter in dark.
+    //
+    // Light lands on the value `--background` also has. The band between the page
+    // and a white card is .021 L wide and two readable steps do not fit in it, so
+    // the step that carries the meaning wins: sunken is measured against the card
+    // it sits in, not against the page. The page level users (`paneWell`, a kanban
+    // column, the application menu rail, the flow canvas) each draw their own
+    // border or grid and still read there, they just stop being recessed. Giving
+    // them their own token is the real fix, and it needs those components to move
+    // with it.
+    //
+    // Dark lands between `--surface` and `--surface-raised`: .020 L over the card
+    // and .019 L under a floating menu, so a table head and a flyout above it stay
+    // two surfaces rather than one.
     --background: #{theme.theme(palette.stop('gray', 50), theme.neutral(.195, .014))};
-    --surface-sunken: #{theme.theme(theme.neutral(.9615, .007), theme.neutral(.166, .0125))};
+
+    // The ground a board, a canvas or a well is drawn on, as opposed to a strip
+    // inside a card. These used to share `--surface-sunken`, which only worked
+    // while the page was white: once `--background` took `gray-50`, the value that
+    // reads as a recess inside a card is the same one the page already has, and a
+    // kanban column sitting on the page had nothing left to be recessed against.
+    //
+    // So the two ideas split. This one goes below the page in both themes, which
+    // keeps a column behind its cards and a canvas behind its nodes. It is the only
+    // neutral that stays darker than everything in dark as well.
+    --surface-canvas: #{theme.theme(palette.stop('gray', 100), theme.neutral(.166, .0125))};
+    --surface-sunken: #{theme.theme(palette.stop('gray', 50), theme.neutral(.249, .017))};
     --surface: #{theme.theme(palette.stop('gray', 25), theme.neutral(.229, .016))};
     --surface-raised: #{theme.theme(palette.stop('gray', 25), theme.neutral(.268, .018))};
     --surface-loader: #{theme.theme(theme.neutral(1, 0, .75), theme.neutral(.229, .016, .75))};
@@ -57,7 +82,7 @@
     // Dark needs the larger alpha for that, and the reason is not that ink behaves
     // differently there. A browser composites alpha on the gamma encoded channels,
     // which keeps the step nearly flat across the elevations: the same alpha varies
-    // by a fifth between `--surface-sunken` and `--surface-raised`, not by a factor.
+    // by under a twentieth over the whole ladder, not by a factor.
     // What differs is the eye. Dark needed a wider step in the mirrored palette too,
     // where the identical pair of stops measured .068 L in dark against .051 in
     // light, and that is the ratio these alphas keep.

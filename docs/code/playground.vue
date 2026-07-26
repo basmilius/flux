@@ -325,15 +325,15 @@
         </FluxButtonStack>
 
         <h2>Forms</h2>
-        <p>Form controls share one input surface, so a change to the well, the border or the focus ring shows up on every field at once. The first pane holds the text-like controls, the second their states, and the third everything that is picked rather than typed.</p>
+        <p>Form controls share one input surface, so a change to the well, the border or the focus ring shows up on every field at once. The panes below split them by kind: what is typed, what is picked, what is counted, and the states each of them can end up in.</p>
         <div
             :class="$style.grid"
             data-prose-full>
             <FluxPane>
                 <FluxPaneHeader
                     icon="pen"
-                    subtitle="Text, numbers and pickers"
-                    title="Fields"/>
+                    subtitle="Everything that is typed"
+                    title="Text fields"/>
                 <FluxForm>
                     <FluxPaneBody>
                         <FluxFormColumn>
@@ -361,87 +361,145 @@
                                     type="search"/>
                             </FluxFormField>
 
-                            <FluxFormField label="Website">
-                                <FluxFormInputGroup>
-                                    <FluxFormInputAddition label="https://"/>
-                                    <FluxFormInput
-                                        v-model="form.website"
-                                        placeholder="example.com"/>
-                                </FluxFormInputGroup>
-                            </FluxFormField>
-
-                            <FluxFormField label="Country">
-                                <FluxFormSelect
-                                    v-model="form.country"
-                                    is-searchable
-                                    :options="countries"
-                                    placeholder="Select a country..."/>
-                            </FluxFormField>
-
-                            <FluxFormField label="Teams">
-                                <FluxFormSelect
-                                    v-model="form.teams"
-                                    is-multiple
-                                    :options="teams"
-                                    placeholder="Select one or more teams..."/>
-                            </FluxFormField>
-
-                            <FluxFormField label="City">
-                                <FluxFormCombobox
-                                    v-model="form.city"
-                                    is-creatable
-                                    :options="cities"
-                                    placeholder="Pick or create a city..."/>
-                            </FluxFormField>
-
-                            <FluxFormField label="Category">
-                                <FluxFormTreeViewSelect
-                                    v-model="form.category"
-                                    :level-colors="['primary', 'info', 'success']"
-                                    :options="treeOptions"
-                                    placeholder="Select a category..."/>
-                            </FluxFormField>
-
-                            <FluxFormField label="Budget">
-                                <FluxFormNumberInput
-                                    v-model="form.budget"
-                                    :min="0"
-                                    :step="50"/>
-                            </FluxFormField>
-
-                            <FluxFormField label="Start date">
-                                <FluxFormDateInput v-model="startDate"/>
-                            </FluxFormField>
-
-                            <FluxFormField label="Verification code">
-                                <FluxFormPinInput
-                                    v-model="form.pin"
-                                    :max-length="6"/>
-                            </FluxFormField>
-
-                            <FluxFormField label="Labels">
-                                <FluxFormTagsInput
-                                    v-model="form.tags"
-                                    placeholder="Add a label..."
-                                    tag-color="primary"/>
-                            </FluxFormField>
-
                             <FluxFormField label="Notes">
                                 <FluxFormTextArea
                                     v-model="form.notes"
                                     placeholder="Anything worth writing down..."
                                     :rows="3"/>
                             </FluxFormField>
-
-                            <FluxFormField label="Quantity">
-                                <FluxQuantitySelector
-                                    v-model="form.quantity"
-                                    :max="10"
-                                    :min="1"/>
-                            </FluxFormField>
                         </FluxFormColumn>
                     </FluxPaneBody>
                 </FluxForm>
+            </FluxPane>
+
+            <FluxPane>
+                <FluxPaneHeader
+                    icon="list"
+                    subtitle="Everything that opens a flyout"
+                    title="Pickers"/>
+                <FluxPaneBody>
+                    <FluxFormColumn>
+                        <FluxFormField label="Country">
+                            <FluxFormSelect
+                                v-model="form.country"
+                                is-searchable
+                                :options="countries"
+                                placeholder="Select a country..."/>
+                        </FluxFormField>
+
+                        <FluxFormField label="Teams">
+                            <FluxFormSelect
+                                v-model="form.teams"
+                                is-multiple
+                                :options="teams"
+                                placeholder="Select one or more teams..."/>
+                        </FluxFormField>
+
+                        <FluxFormField label="City">
+                            <FluxFormCombobox
+                                v-model="form.city"
+                                is-creatable
+                                :options="cities"
+                                placeholder="Pick or create a city..."/>
+                        </FluxFormField>
+
+                        <FluxFormField label="Category">
+                            <FluxFormTreeViewSelect
+                                v-model="form.category"
+                                :level-colors="['primary', 'info', 'success']"
+                                :options="treeOptions"
+                                placeholder="Select a category..."/>
+                        </FluxFormField>
+                    </FluxFormColumn>
+                </FluxPaneBody>
+            </FluxPane>
+
+            <FluxPane>
+                <FluxPaneHeader
+                    icon="hashtag"
+                    subtitle="Numbers, dates, codes and labels"
+                    title="Structured input"/>
+                <FluxPaneBody>
+                    <FluxFormColumn>
+                        <FluxFormField label="Budget">
+                            <FluxFormNumberInput
+                                v-model="form.budget"
+                                :min="0"
+                                :step="50"/>
+                        </FluxFormField>
+
+                        <FluxFormField label="Start date">
+                            <FluxFormDateInput v-model="startDate"/>
+                        </FluxFormField>
+
+                        <FluxFormField label="Verification code">
+                            <FluxFormPinInput
+                                v-model="form.pin"
+                                :max-length="6"/>
+                        </FluxFormField>
+
+                        <FluxFormField label="Labels">
+                            <FluxFormTagsInput
+                                v-model="form.tags"
+                                placeholder="Add a label..."
+                                tag-color="primary"/>
+                        </FluxFormField>
+
+                        <FluxFormField label="Quantity">
+                            <FluxQuantitySelector
+                                v-model="form.quantity"
+                                :max="10"
+                                :min="1"/>
+                        </FluxFormField>
+                    </FluxFormColumn>
+                </FluxPaneBody>
+            </FluxPane>
+
+            <FluxPane>
+                <FluxPaneHeader
+                    icon="grip"
+                    subtitle="Additions attached to a field"
+                    title="Input groups"/>
+                <FluxPaneBody>
+                    <FluxFormColumn>
+                        <FluxFormField label="Website">
+                            <FluxFormInputGroup>
+                                <FluxFormInputAddition label="https://"/>
+                                <FluxFormInput
+                                    v-model="form.website"
+                                    placeholder="example.com"/>
+                            </FluxFormInputGroup>
+                        </FluxFormField>
+
+                        <FluxFormField label="Amount">
+                            <FluxFormInputGroup>
+                                <FluxFormInputAddition icon="coin"/>
+                                <FluxFormNumberInput
+                                    v-model="form.budget"
+                                    :min="0"/>
+                                <FluxFormInputAddition label="EUR"/>
+                            </FluxFormInputGroup>
+                        </FluxFormField>
+
+                        <FluxFormField label="Secondary group">
+                            <FluxFormInputGroup is-secondary>
+                                <FluxFormInputAddition icon="magnifying-glass"/>
+                                <FluxFormInput
+                                    v-model="form.search"
+                                    placeholder="Search..."/>
+                            </FluxFormInputGroup>
+                        </FluxFormField>
+
+                        <FluxFormField label="Condensed group">
+                            <FluxFormInputGroup is-condensed>
+                                <FluxFormInputAddition icon="envelope"/>
+                                <FluxFormInput
+                                    v-model="form.email"
+                                    placeholder="email@example.com"/>
+                            </FluxFormInputGroup>
+                        </FluxFormField>
+                    </FluxFormColumn>
+                </FluxPaneBody>
             </FluxPane>
 
             <FluxPane>
@@ -956,6 +1014,41 @@
                     <FluxPrimaryButton label="Save"/>
                 </FluxPaneFooter>
             </FluxPane>
+
+            <FluxClickablePane type="button">
+                <FluxPaneHeader
+                    icon="rocket"
+                    subtitle="The whole pane reacts to the pointer"
+                    title="Clickable pane"/>
+                <FluxPaneBody>A clickable pane keeps the pane surface but adds the hover and active states of a button to it.</FluxPaneBody>
+            </FluxClickablePane>
+
+            <FluxPane>
+                <FluxPaneMedia
+                    :aspect-ratio="16 / 9"
+                    image-alt=""
+                    image-url="/assets/demo/image-2.jpg"/>
+                <FluxClickablePaneHeader
+                    href="#"
+                    icon="image"
+                    subtitle="Media above a clickable header"
+                    title="Pane media"
+                    type="link"/>
+                <FluxPaneBody>Media sits flush against the top of the pane and picks up its corner radius.</FluxPaneBody>
+            </FluxPane>
+
+            <FluxActionPane>
+                <FluxPaneHeader
+                    icon="floppy-disk"
+                    subtitle="Buttons pinned to the bottom"
+                    title="Action pane"/>
+                <FluxPaneBody>An action pane keeps its buttons on their own band, separated from the content above them.</FluxPaneBody>
+
+                <template #buttons>
+                    <FluxSecondaryButton label="Cancel"/>
+                    <FluxPrimaryButton label="Confirm"/>
+                </template>
+            </FluxActionPane>
         </div>
 
         <h2>Tables</h2>
@@ -1248,6 +1341,28 @@
                     </FluxFlex>
                 </FluxPaneBody>
             </FluxPane>
+
+            <FluxPane variant="well">
+                <FluxTabs v-model="wellTab">
+                    <FluxTab
+                        icon="sun"
+                        label="Light">
+                        <FluxPaneBody>The same tab bar on a well pane, where its own recessed track has to stay readable against an already recessed surface.</FluxPaneBody>
+                    </FluxTab>
+
+                    <FluxTab
+                        icon="moon"
+                        label="Dark">
+                        <FluxPaneBody>Switch the site theme and compare the two tracks again.</FluxPaneBody>
+                    </FluxTab>
+
+                    <FluxTab
+                        icon="palette"
+                        label="Auto">
+                        <FluxPaneBody>Follows the operating system.</FluxPaneBody>
+                    </FluxTab>
+                </FluxTabs>
+            </FluxPane>
         </div>
 
         <h2>Menus and floating surfaces</h2>
@@ -1497,10 +1612,24 @@
                     title="Well"/>
                 <FluxPaneBody>The well variant reads as a hole in the page rather than a card on top of it.</FluxPaneBody>
             </FluxPane>
+
+            <FluxPaneGroup>
+                <FluxPane>
+                    <FluxPaneHeader
+                        icon="box"
+                        subtitle="Panes stacked in a group"
+                        title="Pane group"/>
+                    <FluxPaneBody>A pane group joins panes into one block, so only the outer edge keeps a border and the seams between them stay hairlines.</FluxPaneBody>
+                </FluxPane>
+
+                <FluxPane>
+                    <FluxPaneBody>The second pane in the same group.</FluxPaneBody>
+                </FluxPane>
+            </FluxPaneGroup>
         </div>
         <p>Layer panes wrap a pane in a coloured band, which is the widest coloured surface in the library and the fastest way to spot a tint that drifted.</p>
         <div
-            :class="$style.grid"
+            :class="$style.gridIntents"
             data-prose-full>
             <FluxLayerPane
                 v-for="notice of notices"
@@ -2111,7 +2240,7 @@ const article = FluxProse;</code></pre>
 <script
     lang="ts"
     setup>
-    import { FluxAction, FluxActionBar, FluxActionStack, FluxAvatar, FluxAvatarGroup, FluxBadge, FluxBadgeStack, FluxBoxedIcon, FluxBreadcrumb, FluxBreadcrumbFlyout, FluxBreadcrumbItem, FluxButtonGroup, FluxButtonStack, FluxCalendar, FluxCalendarItem, FluxChip, FluxColorPicker, FluxColorSelect, FluxCommandPalette, FluxComment, FluxContextMenu, FluxDataTable, FluxDatePicker, FluxDescriptionItem, FluxDescriptionList, FluxDestructiveButton, FluxDisabled, FluxDivider, FluxDropZone, FluxExpandable, FluxExpandableGroup, FluxFilterBar, FluxFilterDate, FluxFilterOption, FluxFilterOptions, FluxFilterRange, FluxFlex, FluxFlyout, FluxForm, FluxFormCheckbox, FluxFormCheckboxGroup, FluxFormCheckboxTile, FluxFormColumn, FluxFormCombobox, FluxFormDateInput, FluxFormFader, FluxFormField, FluxFormInput, FluxFormInputAddition, FluxFormInputGroup, FluxFormNumberInput, FluxFormPinInput, FluxFormRadio, FluxFormRadioGroup, FluxFormRadioTile, FluxFormRangeSlider, FluxFormRating, FluxFormSelect, FluxFormSlider, FluxFormTagsInput, FluxFormTextArea, FluxFormTreeViewSelect, FluxGallery, FluxIcon, FluxInfo, FluxInfoStack, FluxInlineEdit, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxItemStack, FluxKanban, FluxKanbanColumn, FluxKanbanItem, FluxLayerPane, FluxLink, FluxMenu, FluxMenuCollapsible, FluxMenuFlyout, FluxMenuGroup, FluxMenuItem, FluxMenuOptions, FluxMenuPane, FluxMenuSubHeader, FluxMenuTitle, FluxNotice, FluxNoticeStack, FluxOverlay, FluxPagination, FluxPaginationBar, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPersona, FluxPlaceholder, FluxPrimaryButton, FluxProgressBar, FluxProse, FluxPublishButton, FluxQuantitySelector, FluxSecondaryButton, FluxSegmentedControl, FluxSegmentedControlItem, FluxSeparator, FluxSkeleton, FluxSlideOver, FluxSnackbar, FluxSpacer, FluxSpinner, FluxSplitButton, FluxStepper, FluxStepperStep, FluxTab, FluxTabBar, FluxTabBarItem, FluxTable, FluxTableActions, FluxTableBar, FluxTableCell, FluxTableGroup, FluxTableHeader, FluxTableRow, FluxTabs, FluxTag, FluxTagStack, FluxText, FluxTicks, FluxTimeline, FluxTimelineItem, FluxToggle, FluxToolbar, FluxToolbarGroup, FluxTooltip, FluxTreeView, showAlert, showConfirm, showPrompt, showSnackbar } from '@flux-ui/components';
+    import { FluxAction, FluxActionBar, FluxActionPane, FluxActionStack, FluxAvatar, FluxAvatarGroup, FluxBadge, FluxBadgeStack, FluxBoxedIcon, FluxBreadcrumb, FluxBreadcrumbFlyout, FluxBreadcrumbItem, FluxButtonGroup, FluxButtonStack, FluxCalendar, FluxCalendarItem, FluxChip, FluxClickablePane, FluxClickablePaneHeader, FluxColorPicker, FluxColorSelect, FluxCommandPalette, FluxComment, FluxContextMenu, FluxDataTable, FluxDatePicker, FluxDescriptionItem, FluxDescriptionList, FluxDestructiveButton, FluxDisabled, FluxDivider, FluxDropZone, FluxExpandable, FluxExpandableGroup, FluxFilterBar, FluxFilterDate, FluxFilterOption, FluxFilterOptions, FluxFilterRange, FluxFlex, FluxFlyout, FluxForm, FluxFormCheckbox, FluxFormCheckboxGroup, FluxFormCheckboxTile, FluxFormColumn, FluxFormCombobox, FluxFormDateInput, FluxFormFader, FluxFormField, FluxFormInput, FluxFormInputAddition, FluxFormInputGroup, FluxFormNumberInput, FluxFormPinInput, FluxFormRadio, FluxFormRadioGroup, FluxFormRadioTile, FluxFormRangeSlider, FluxFormRating, FluxFormSelect, FluxFormSlider, FluxFormTagsInput, FluxFormTextArea, FluxFormTreeViewSelect, FluxGallery, FluxIcon, FluxInfo, FluxInfoStack, FluxInlineEdit, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxItemStack, FluxKanban, FluxKanbanColumn, FluxKanbanItem, FluxLayerPane, FluxLink, FluxMenu, FluxMenuCollapsible, FluxMenuFlyout, FluxMenuGroup, FluxMenuItem, FluxMenuOptions, FluxMenuPane, FluxMenuSubHeader, FluxMenuTitle, FluxNotice, FluxNoticeStack, FluxOverlay, FluxPagination, FluxPaginationBar, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneGroup, FluxPaneHeader, FluxPaneMedia, FluxPersona, FluxPlaceholder, FluxPrimaryButton, FluxProgressBar, FluxProse, FluxPublishButton, FluxQuantitySelector, FluxSecondaryButton, FluxSegmentedControl, FluxSegmentedControlItem, FluxSeparator, FluxSkeleton, FluxSlideOver, FluxSnackbar, FluxSpacer, FluxSpinner, FluxSplitButton, FluxStepper, FluxStepperStep, FluxTab, FluxTabBar, FluxTabBarItem, FluxTable, FluxTableActions, FluxTableBar, FluxTableCell, FluxTableGroup, FluxTableHeader, FluxTableRow, FluxTabs, FluxTag, FluxTagStack, FluxText, FluxTicks, FluxTimeline, FluxTimelineItem, FluxToggle, FluxToolbar, FluxToolbarGroup, FluxTooltip, FluxTreeView, showAlert, showConfirm, showPrompt, showSnackbar } from '@flux-ui/components';
     import type { FluxColor, FluxCommandSource, FluxFilterState, FluxFormSelectOption, FluxIconName, FluxTreeViewOption } from '@flux-ui/types';
     import { DateTime } from 'luxon';
     import { computed, reactive, ref } from 'vue';
@@ -2151,6 +2280,7 @@ const article = FluxProse;</code></pre>
     const step = ref(0);
     const tab = ref(0);
     const pillTab = ref(0);
+    const wellTab = ref(0);
     const toggle = ref(true);
     const toggleIcon = ref(false);
     const view = ref('grid');
@@ -2487,13 +2617,11 @@ const article = FluxProse;</code></pre>
         align-items: start;
     }
 
+    // Four, two, one. Three is deliberately not a step: every grid here holds a
+    // multiple of four cards, so a three column row would leave a gap at the end
+    // that four and two never do. Two columns still keeps a card above 300px all
+    // the way down to the single column fallback.
     @container playground (width < 1320px) {
-        .grid {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
-    }
-
-    @container playground (width < 1008px) {
         .grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
@@ -2505,10 +2633,41 @@ const article = FluxProse;</code></pre>
         }
     }
 
+    // The six intents get their own track count. Six cards in the four column
+    // grid would leave a half empty second row, while three columns fills two
+    // rows exactly and keeps doing so at the two and one column fallbacks.
+    .gridIntents {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+        align-items: start;
+    }
+
+    @container playground (width < 1008px) {
+        .gridIntents {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @container playground (width < 690px) {
+        .gridIntents {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+
+    // One column per step, so the whole scale reads as a single row in order.
+    // Seven has no useful intermediate factor, so the fallback goes straight to
+    // one column rather than leaving a partial row at some middle width.
     .shadows {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-template-columns: repeat(7, minmax(0, 1fr));
         gap: 24px;
+    }
+
+    @container playground (width < 690px) {
+        .shadows {
+            grid-template-columns: minmax(0, 1fr);
+        }
     }
 
     .shadow {

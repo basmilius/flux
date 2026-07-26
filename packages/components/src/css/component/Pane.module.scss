@@ -17,7 +17,7 @@
 .paneWell {
     composes: pane;
 
-    background-color: var(--surface-sunken);
+    background-color: var(--surface-canvas);
 }
 
 :is(.paneDefault, .paneFlat, .paneWell):is(a) {

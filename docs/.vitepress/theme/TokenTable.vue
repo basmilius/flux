@@ -59,7 +59,7 @@
             title: 'Elevation',
             description: 'How high a layer sits. Light keeps every raised level white and lets the shadow carry the height; dark cannot, so there the lightness of the layer does the work.',
             kind: 'color',
-            tokens: ['background', 'surface-sunken', 'surface', 'surface-raised', 'surface-inverse', 'surface-loader']
+            tokens: ['surface-canvas', 'background', 'surface-sunken', 'surface', 'surface-raised', 'surface-inverse', 'surface-loader']
         },
         {
             title: 'Interaction',

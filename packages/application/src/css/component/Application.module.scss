@@ -3,8 +3,10 @@
 :root {
     --application-duration: 360ms;
     // The menu rail reads as recessed next to the page it frames, so it takes the
-    // sunken level rather than the surface the content sits on.
-    --application-menu-surface: var(--surface-sunken);
+    // canvas level rather than the surface the content sits on. Not the sunken
+    // level: that one is a strip inside a card, and in dark it sits above the card
+    // rather than below it, which would put the rail in front of the page.
+    --application-menu-surface: var(--surface-canvas);
     --application-menu-surface-stroke: var(--surface-stroke);
     --application-menu-width: 300px;
     --application-menu-width-collapsed: 69px;

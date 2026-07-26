@@ -1,6 +1,11 @@
 @use '~flux/components/css/mixin';
 
+// The rail is a surface of its own, so it announces the level it paints. Anything
+// inside it that fades into or knocks out its ground, such as the sticky menu sub
+// header, then lands on the rail colour without naming it.
 .applicationMenu {
+    --surface-current: var(--application-menu-surface);
+
     position: fixed;
     display: flex;
     top: 0;
@@ -10,7 +15,7 @@
     flex-flow: column;
     transition: var(--application-duration) var(--swift-out);
     transition-property: translate, width;
-    background: var(--application-menu-surface);
+    background: var(--surface-current);
     border-right: 1px solid var(--application-menu-surface-stroke);
     overflow: hidden;
     z-index: 500;
@@ -111,7 +116,6 @@
 }
 
 .applicationMenu :local(.menuSubHeader) {
-    --surface: var(--application-menu-surface);
     height: auto;
     overflow: hidden;
     interpolate-size: allow-keywords;

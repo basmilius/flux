@@ -13,7 +13,7 @@
 const CSS_PATH = 'packages/components/dist/index.css';
 
 const INTENTS = ['primary', 'danger', 'info', 'success', 'warning', 'gray'] as const;
-const ELEVATIONS = ['--background', '--surface-sunken', '--surface', '--surface-raised'] as const;
+const ELEVATIONS = ['--surface-canvas', '--background', '--surface-sunken', '--surface', '--surface-raised'] as const;
 const SCHEMES = ['light', 'dark'] as const;
 
 type Scheme = (typeof SCHEMES)[number];
@@ -435,14 +435,33 @@ function buildChecks(): Check[] {
     return checks;
 }
 
-// Dark carries elevation in the lightness of the layer, so each level has to be
-// measurably lighter than the one below it. Light keeps every raised layer white
-// and lets the shadow do the work, which is why this is dark only.
-const DARK_ELEVATION: readonly (readonly [string, string])[] = [
-    ['--surface-sunken', '--background'],
+// Two neighbouring levels must not read as one surface. The pairs say "these are
+// apart", not "this one is darker": `--surface-sunken` moves down from the card in
+// light and up from it in dark, and a ratio has no direction, so the same check
+// holds either way.
+//
+// `--surface-sunken` is checked against `--surface` because that is the ground it
+// actually lies on, and against `--surface-raised` because in dark it sits between
+// the two: a table head and a menu floating over it must not land on the same
+// colour.
+const SEPARATION: readonly (readonly [string, string])[] = [
+    ['--surface-sunken', '--surface'],
+    ['--surface-sunken', '--surface-raised'],
     ['--surface', '--background'],
+    ['--surface-canvas', '--background'],
+    ['--surface-canvas', '--surface']
+];
+
+// Dark additionally carries elevation in the lightness of the layer, so a raised
+// layer has to be measurably apart from the one under it. Light keeps every raised
+// layer white and lets the shadow do the work, and deliberately gives
+// `--surface-sunken` the value `--background` has, so both pairs only hold in dark.
+const DARK_SEPARATION: readonly (readonly [string, string])[] = [
+    ['--surface-sunken', '--background'],
     ['--surface-raised', '--surface']
 ];
+
+const SEPARATION_FLOOR = 1.05;
 
 // An interaction state has to be noticeable on every ground it can land on, and
 // the opaque pair is calibrated against `--surface` alone. Menus, flyouts and the
@@ -496,13 +515,23 @@ function main(): number {
         }
     }
 
-    for (const [layer, beneath] of DARK_ELEVATION) {
+    const separates = (layer: string, other: string, scheme: Scheme) => {
         total++;
-        const ratio = contrast(colorOf(layer, 'dark'), colorOf(beneath, 'dark'));
+        const ratio = contrast(colorOf(layer, scheme), colorOf(other, scheme));
 
-        if (ratio + 0.005 < 1.05) {
-            failures.push(`dark  ${layer} against ${beneath} — ${ratio.toFixed(2)}, needs 1.05`);
+        if (ratio + 0.005 < SEPARATION_FLOOR) {
+            failures.push(`${scheme.padEnd(5)} ${layer} does not separate from ${other} — ${ratio.toFixed(3)}, needs ${SEPARATION_FLOOR}`);
         }
+    };
+
+    for (const scheme of SCHEMES) {
+        for (const [layer, other] of SEPARATION) {
+            separates(layer, other, scheme);
+        }
+    }
+
+    for (const [layer, other] of DARK_SEPARATION) {
+        separates(layer, other, 'dark');
     }
 
     for (const scheme of SCHEMES) {
