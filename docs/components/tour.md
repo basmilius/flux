@@ -83,7 +83,7 @@ Each step of the tour is a `FluxTourItem`. It targets an element through the `ta
         <FluxTableRow>
             <FluxTableCell><kbd>position</kbd></FluxTableCell>
             <FluxTableCell><code>FluxTourPosition</code></FluxTableCell>
-            <FluxTableCell>The optional position of the popover relative to the target. Defaults to <code>bottom</code>.</FluxTableCell>
+            <FluxTableCell><p>The optional position of the popover relative to the target. Defaults to <code>bottom</code>.</p></FluxTableCell>
         </FluxTableRow>
     </FluxTable>
 </FluxPane>

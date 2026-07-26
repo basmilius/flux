@@ -169,7 +169,7 @@ Each entry in the `options` array (and nested `children` arrays) is a `FluxFormT
             </FluxTableRow>
         </template>
         <FluxTableRow>
-            <FluxTableCell><kbd>Enter</kbd> / <kbd>Space</kbd></FluxTableCell>
+            <FluxTableCell><p><kbd>Enter</kbd> / <kbd>Space</kbd></p></FluxTableCell>
             <FluxTableCell><p>Open the popup (when closed) or select/activate the highlighted node.</p></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>

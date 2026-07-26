@@ -483,20 +483,20 @@ When a `color` is set on a series, slice, or node, Flux resolves it as follows:
             </FluxTableRow>
         </template>
         <FluxTableRow>
-            <FluxTableCell><code>'primary'</code> (any <code>FluxColor</code>)</FluxTableCell>
+            <FluxTableCell><p><code>'primary'</code> (any <code>FluxColor</code>)</p></FluxTableCell>
             <FluxTableCell><kbd>--primary-solid</kbd></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
-            <FluxTableCell><code>'var(--chart-3)'</code> (any <code>var(--…)</code>)</FluxTableCell>
+            <FluxTableCell><p><code>'var(--chart-3)'</code> (any <code>var(--…)</code>)</p></FluxTableCell>
             <FluxTableCell><code>'var(--chart-3)'</code></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
-            <FluxTableCell><code>'#10b981'</code> (any hex)</FluxTableCell>
+            <FluxTableCell><p><code>'#10b981'</code> (any hex)</p></FluxTableCell>
             <FluxTableCell><code>'#10b981'</code></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell>Omitted</FluxTableCell>
-            <FluxTableCell>Next of the eight colors in <code>CHART_COLORS</code>, see <a href="./colors">Chart colors</a>.</FluxTableCell>
+            <FluxTableCell><p>Next of the eight colors in <code>CHART_COLORS</code>, see <a href="./colors">Chart colors</a>.</p></FluxTableCell>
         </FluxTableRow>
     </FluxTable>
 </FluxPane>

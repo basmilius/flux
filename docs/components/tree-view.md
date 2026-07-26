@@ -79,12 +79,12 @@ Each entry in the `options` array (and nested `children` arrays) is a `FluxTreeV
         <FluxTableRow>
             <FluxTableCell><code>color</code></FluxTableCell>
             <FluxTableCell><code>FluxColor | string</code></FluxTableCell>
-            <FluxTableCell>Color of this node's marker, either a <code>FluxColor</code> name or any CSS color string. Takes precedence over <code>level-colors</code>.</FluxTableCell>
+            <FluxTableCell><p>Color of this node's marker, either a <code>FluxColor</code> name or any CSS color string. Takes precedence over <code>level-colors</code>.</p></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell><code>disabled</code></FluxTableCell>
             <FluxTableCell><code>boolean</code></FluxTableCell>
-            <FluxTableCell>Dims the node and stops it emitting <code>click</code> and <code>dblclick</code>. Its marker stays clickable, so a disabled branch can still be expanded.</FluxTableCell>
+            <FluxTableCell><p>Dims the node and stops it emitting <code>click</code> and <code>dblclick</code>. Its marker stays clickable, so a disabled branch can still be expanded.</p></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell><code>children</code></FluxTableCell>
@@ -121,8 +121,8 @@ Each entry in the `options` array (and nested `children` arrays) is a `FluxTreeV
             <FluxTableCell>Collapse the highlighted node (if expanded). If already collapsed, moves to its parent.</FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
-            <FluxTableCell><kbd>Enter</kbd> / <kbd>Space</kbd></FluxTableCell>
-            <FluxTableCell>Emit <code>click</code> for the highlighted node.</FluxTableCell>
+            <FluxTableCell><p><kbd>Enter</kbd> / <kbd>Space</kbd></p></FluxTableCell>
+            <FluxTableCell><p>Emit <code>click</code> for the highlighted node.</p></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell>Any letter</FluxTableCell>

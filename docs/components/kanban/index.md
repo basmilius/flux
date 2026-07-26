@@ -84,7 +84,7 @@ The `move` event contains everything needed to update the data:
         <FluxTableRow>
             <FluxTableCell><code>beforeItemId</code></FluxTableCell>
             <FluxTableCell><code>string | number | undefined</code></FluxTableCell>
-            <FluxTableCell>The item before which the moved item should be inserted. <code>undefined</code> means append at the end of the column.</FluxTableCell>
+            <FluxTableCell><p>The item before which the moved item should be inserted. <code>undefined</code> means append at the end of the column.</p></FluxTableCell>
         </FluxTableRow>
     </FluxTable>
 </FluxPane>

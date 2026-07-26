@@ -19,12 +19,12 @@ The color tokens come in three layers, and which one you reach for matters:
         </template>
         <FluxTableRow>
             <FluxTableCell><strong>Semantic</strong></FluxTableCell>
-            <FluxTableCell><kbd>--surface</kbd>, <kbd>--foreground</kbd>, <kbd>--surface-stroke</kbd></FluxTableCell>
+            <FluxTableCell><p><kbd>--surface</kbd>, <kbd>--foreground</kbd>, <kbd>--surface-stroke</kbd></p></FluxTableCell>
             <FluxTableCell>Always, unless one of the other two applies.</FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell><strong>Intent</strong></FluxTableCell>
-            <FluxTableCell><kbd>--danger-solid</kbd>, <kbd>--primary-text</kbd></FluxTableCell>
+            <FluxTableCell><p><kbd>--danger-solid</kbd>, <kbd>--primary-text</kbd></p></FluxTableCell>
             <FluxTableCell>When something carries a meaning: primary, danger, info, success or warning.</FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
@@ -86,7 +86,7 @@ Every intent carries the same nine roles, gray included. A component that takes 
             <FluxTableCell>A filled surface in this intent: a button, a status pill.</FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
-            <FluxTableCell><kbd>solid-hover</kbd>, <kbd>solid-active</kbd></FluxTableCell>
+            <FluxTableCell><p><kbd>solid-hover</kbd>, <kbd>solid-active</kbd></p></FluxTableCell>
             <FluxTableCell>The same fill under interaction.</FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
@@ -180,7 +180,7 @@ That difference is also why the order is not the same in both themes. `--surface
         <FluxTableRow>
             <FluxTableCell><kbd>--surface-sunken</kbd></FluxTableCell>
             <FluxTableCell>Below the card.</FluxTableCell>
-            <FluxTableCell><strong>Above</strong> the card.</FluxTableCell>
+            <FluxTableCell><p><strong>Above</strong> the card.</p></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell><kbd>--surface</kbd></FluxTableCell>
@@ -259,7 +259,7 @@ Both themes are shown side by side. The value under each swatch is what the brow
         <FluxTableRow>
             <FluxTableCell><kbd>--radius-full</kbd></FluxTableCell>
             <FluxTableCell><code>9999px</code></FluxTableCell>
-            <FluxTableCell>Pill-shaped components such as <code>FluxBadge</code>.</FluxTableCell>
+            <FluxTableCell><p>Pill-shaped components such as <code>FluxBadge</code>.</p></FluxTableCell>
         </FluxTableRow>
     </FluxTable>
 </FluxPane>
@@ -303,34 +303,34 @@ Every size is paired with a line-height, and the two are always set together. Th
             </FluxTableRow>
         </template>
         <FluxTableRow>
-            <FluxTableCell><kbd>--font-size-2xsmall</kbd><br/><kbd>--line-height-2xsmall</kbd></FluxTableCell>
-            <FluxTableCell><code>12px</code><br/><code>18px</code></FluxTableCell>
+            <FluxTableCell><p><kbd>--font-size-2xsmall</kbd><br/><kbd>--line-height-2xsmall</kbd></p></FluxTableCell>
+            <FluxTableCell><p><code>12px</code><br/><code>18px</code></p></FluxTableCell>
             <FluxTableCell>Fine print: pagination, meta rows, calendar entries.</FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
-            <FluxTableCell><kbd>--font-size-xsmall</kbd><br/><kbd>--line-height-xsmall</kbd></FluxTableCell>
-            <FluxTableCell><code>13px</code><br/><code>18px</code></FluxTableCell>
-            <FluxTableCell>Compact labels, such as <code>FluxBadge</code> and <code>FluxText</code> at <code>small</code>.</FluxTableCell>
+            <FluxTableCell><p><kbd>--font-size-xsmall</kbd><br/><kbd>--line-height-xsmall</kbd></p></FluxTableCell>
+            <FluxTableCell><p><code>13px</code><br/><code>18px</code></p></FluxTableCell>
+            <FluxTableCell><p>Compact labels, such as <code>FluxBadge</code> and <code>FluxText</code> at <code>small</code>.</p></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
-            <FluxTableCell><kbd>--font-size-small</kbd><br/><kbd>--line-height-small</kbd></FluxTableCell>
-            <FluxTableCell><code>14px</code><br/><code>21px</code></FluxTableCell>
+            <FluxTableCell><p><kbd>--font-size-small</kbd><br/><kbd>--line-height-small</kbd></p></FluxTableCell>
+            <FluxTableCell><p><code>14px</code><br/><code>21px</code></p></FluxTableCell>
             <FluxTableCell>Interface text: tables, menus, tooltips, snackbars.</FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
-            <FluxTableCell><kbd>--font-size-default</kbd><br/><kbd>--line-height-default</kbd></FluxTableCell>
-            <FluxTableCell><code>15px</code><br/><code>24px</code></FluxTableCell>
-            <FluxTableCell>Body text. Inherited from <code>body</code>, so this is what you get when nothing is set.</FluxTableCell>
+            <FluxTableCell><p><kbd>--font-size-default</kbd><br/><kbd>--line-height-default</kbd></p></FluxTableCell>
+            <FluxTableCell><p><code>15px</code><br/><code>24px</code></p></FluxTableCell>
+            <FluxTableCell><p>Body text. Inherited from <code>body</code>, so this is what you get when nothing is set.</p></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
-            <FluxTableCell><kbd>--font-size-large</kbd><br/><kbd>--line-height-large</kbd></FluxTableCell>
-            <FluxTableCell><code>16px</code><br/><code>24px</code></FluxTableCell>
+            <FluxTableCell><p><kbd>--font-size-large</kbd><br/><kbd>--line-height-large</kbd></p></FluxTableCell>
+            <FluxTableCell><p><code>16px</code><br/><code>24px</code></p></FluxTableCell>
             <FluxTableCell>Prominent single lines: pane captions, section headers.</FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
-            <FluxTableCell><kbd>--font-size-xlarge</kbd><br/><kbd>--line-height-xlarge</kbd></FluxTableCell>
-            <FluxTableCell><code>18px</code><br/><code>27px</code></FluxTableCell>
-            <FluxTableCell>Titles below heading level, such as <code>FluxText</code> at <code>large</code>.</FluxTableCell>
+            <FluxTableCell><p><kbd>--font-size-xlarge</kbd><br/><kbd>--line-height-xlarge</kbd></p></FluxTableCell>
+            <FluxTableCell><p><code>18px</code><br/><code>27px</code></p></FluxTableCell>
+            <FluxTableCell><p>Titles below heading level, such as <code>FluxText</code> at <code>large</code>.</p></FluxTableCell>
         </FluxTableRow>
     </FluxTable>
 </FluxPane>

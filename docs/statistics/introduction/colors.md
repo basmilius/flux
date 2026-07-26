@@ -19,15 +19,15 @@ Every token is declared once and takes its own value per theme, the same way the
             </FluxTableRow>
         </template>
         <FluxTableRow>
-            <FluxTableCell><kbd>--chart-1</kbd> … <kbd>--chart-8</kbd></FluxTableCell>
+            <FluxTableCell><p><kbd>--chart-1</kbd> … <kbd>--chart-8</kbd></p></FluxTableCell>
             <FluxTableCell>The series colors, ordered by prominence.</FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
-            <FluxTableCell><kbd>--chart-ramp-1</kbd> … <kbd>--chart-ramp-4</kbd></FluxTableCell>
+            <FluxTableCell><p><kbd>--chart-ramp-1</kbd> … <kbd>--chart-ramp-4</kbd></p></FluxTableCell>
             <FluxTableCell>A sequential ramp, light to dark, for heatmaps and choropleths.</FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
-            <FluxTableCell><kbd>--chart-colorful-1</kbd> … <kbd>--chart-colorful-17</kbd></FluxTableCell>
+            <FluxTableCell><p><kbd>--chart-colorful-1</kbd> … <kbd>--chart-colorful-17</kbd></p></FluxTableCell>
             <FluxTableCell>The categorical set, for more categories than eight.</FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
