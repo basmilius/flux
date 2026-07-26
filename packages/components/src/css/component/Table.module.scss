@@ -225,6 +225,23 @@
     .table.isHoverable .tableBody .tableRow:has(:focus-visible) > .tableCell:not(.hasRowspan) {
         border-top-color: var(--table-row-stroke, var(--surface-stroke-muted));
     }
+
+    // The rule above only reaches the top of the highlighted row. Its bottom edge
+    // belongs to the row underneath, which is a sibling and never sees
+    // `--table-row-stroke`, so the colour has to be named again per intent. Without
+    // this a hovered tinted row draws a firm line above itself and a soft one below,
+    // and the highlight reads as sliding out of its own band.
+    //
+    // A plain row needs nothing: its stroke and the line below it are the same token
+    // already. A selected row needs nothing either, and is excluded on purpose,
+    // since it keeps its resting stroke on hover and would otherwise take a tinted
+    // edge under a primary fill.
+    @each $color in mixin.$colors {
+        .table.isHoverable .tableBody .tableRow#{mixin.color-suffix($color)}:not(.isSelected):has(:hover) + .tableRow > .tableCell,
+        .table.isHoverable .tableBody .tableRow#{mixin.color-suffix($color)}:not(.isSelected):has(:focus-visible) + .tableRow > .tableCell {
+            border-top-color: var(--#{$color}-border);
+        }
+    }
 }
 
 .tableFoot .tableCell {
