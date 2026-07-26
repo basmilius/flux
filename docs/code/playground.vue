@@ -7,6 +7,10 @@
         <p>This whole page is a single <code>FluxProse</code> container. The headings, paragraphs, lists and tables sit at a readable measure and flow in the prose rhythm, while Flux components are dropped straight in between them. No wrappers, no resets: prose only styles its own HTML elements, so every component keeps its own look and still lines up in the vertical rhythm.</p>
         <p>Use it to eyeball how the pieces look together and how the light element defaults and the rich prose styling coexist on one page. It is also the sheet used to review the colour tokens, so most components appear in every intent and in every state that changes their surface, border or text colour. Switch the site between light and dark and scroll through once.</p>
 
+        <h2>Grey scale</h2>
+        <p>The neutral scale is a control surface rather than a lookup table: the semantic tokens refer to <code>--palette-gray-*</code> instead of holding a colour of their own. Pick a scale below and the whole page follows, in both themes.</p>
+        <GraySwitcher data-prose-full/>
+
         <h2>Buttons and actions</h2>
         <p>Buttons come in a few variants and can be grouped in a stack, or combined with a menu in a split button.</p>
         <FluxButtonStack>
@@ -1494,25 +1498,60 @@
                 </FluxMenu>
             </FluxPane>
 
-            <FluxContextMenu>
+            <!-- The Finder menu from the docs: four levels of nesting is what actually
+                 exercises the prediction cone, and the cone stays visible here. -->
+            <FluxContextMenu debug-cone>
                 <FluxPane>
                     <FluxPaneHeader
                         icon="grip"
                         subtitle="Right click anywhere in this pane"
                         title="Context menu"/>
-                    <FluxPaneBody>The menu opens at the cursor on its own raised surface, which is where the hover state has to hold up against the shadow behind it.</FluxPaneBody>
+                    <FluxPaneBody>The menu opens at the cursor on its own raised surface, which is where the hover state has to hold up against the shadow behind it. Submenus draw their prediction cone, so the safe triangle and the pointer are visible while you move.</FluxPaneBody>
                 </FluxPane>
 
                 <template #menu="{close}">
                     <FluxMenu>
                         <FluxMenuGroup>
                             <FluxMenuItem
-                                icon-leading="pen"
-                                label="Edit"
+                                icon-leading="arrow-up-right-from-square"
+                                label="Open"
+                                type="button"
                                 @click="close"/>
+
+                            <FluxMenuFlyout
+                                icon="image"
+                                label="Open With">
+                                <FluxMenu>
+                                    <FluxMenuGroup>
+                                        <FluxMenuItem
+                                            icon-leading="eye"
+                                            label="Preview"
+                                            type="button"
+                                            @click="close"/>
+
+                                        <FluxMenuItem
+                                            icon-leading="image"
+                                            label="Photos"
+                                            type="button"
+                                            @click="close"/>
+                                    </FluxMenuGroup>
+
+                                    <FluxSeparator/>
+
+                                    <FluxMenuGroup>
+                                        <FluxMenuItem
+                                            label="App Store…"
+                                            type="button"
+                                            @click="close"/>
+                                    </FluxMenuGroup>
+                                </FluxMenu>
+                            </FluxMenuFlyout>
+
                             <FluxMenuItem
-                                icon-leading="copy"
-                                label="Duplicate"
+                                icon-leading="trash"
+                                is-destructive
+                                label="Move to Trash"
+                                type="button"
                                 @click="close"/>
                         </FluxMenuGroup>
 
@@ -1520,10 +1559,132 @@
 
                         <FluxMenuGroup>
                             <FluxMenuItem
-                                icon-leading="trash"
-                                is-destructive
-                                label="Delete"
+                                icon-leading="circle-info"
+                                label="Get Info"
+                                type="button"
                                 @click="close"/>
+
+                            <FluxMenuItem
+                                icon-leading="pen"
+                                label="Rename"
+                                type="button"
+                                @click="close"/>
+
+                            <FluxMenuItem
+                                icon-leading="clone"
+                                label="Duplicate"
+                                type="button"
+                                @click="close"/>
+
+                            <FluxMenuItem
+                                icon-leading="eye"
+                                label="Quick Look"
+                                type="button"
+                                @click="close"/>
+                        </FluxMenuGroup>
+
+                        <FluxSeparator/>
+
+                        <FluxMenuGroup>
+                            <FluxMenuItem
+                                icon-leading="copy"
+                                label="Copy"
+                                type="button"
+                                @click="close"/>
+
+                            <FluxMenuFlyout
+                                icon="arrow-up-from-square"
+                                label="Share">
+                                <FluxMenu>
+                                    <FluxMenuGroup>
+                                        <FluxMenuItem
+                                            icon-leading="paper-plane"
+                                            label="Mail"
+                                            type="button"
+                                            @click="close"/>
+
+                                        <FluxMenuItem
+                                            icon-leading="copy"
+                                            label="Copy Link"
+                                            type="button"
+                                            @click="close"/>
+                                    </FluxMenuGroup>
+                                </FluxMenu>
+                            </FluxMenuFlyout>
+
+                            <FluxMenuFlyout
+                                icon="bolt"
+                                label="Quick Actions">
+                                <FluxMenu>
+                                    <FluxMenuGroup>
+                                        <FluxMenuItem
+                                            icon-leading="rotate-left"
+                                            label="Rotate Left"
+                                            type="button"
+                                            @click="close"/>
+
+                                        <FluxMenuItem
+                                            icon-leading="pen"
+                                            label="Markup"
+                                            type="button"
+                                            @click="close"/>
+
+                                        <FluxMenuItem
+                                            icon-leading="image"
+                                            label="Convert Image"
+                                            type="button"
+                                            @click="close"/>
+                                    </FluxMenuGroup>
+                                </FluxMenu>
+                            </FluxMenuFlyout>
+                        </FluxMenuGroup>
+
+                        <FluxSeparator/>
+
+                        <FluxMenuGroup>
+                            <FluxMenuFlyout
+                                icon="palette"
+                                label="Tags">
+                                <FluxMenu>
+                                    <FluxMenuGroup>
+                                        <FluxMenuItem
+                                            icon-leading="circle"
+                                            label="Red"
+                                            type="button"
+                                            @click="close"/>
+
+                                        <FluxMenuItem
+                                            icon-leading="circle"
+                                            label="Orange"
+                                            type="button"
+                                            @click="close"/>
+
+                                        <FluxMenuItem
+                                            icon-leading="circle"
+                                            label="Green"
+                                            type="button"
+                                            @click="close"/>
+                                    </FluxMenuGroup>
+                                </FluxMenu>
+                            </FluxMenuFlyout>
+
+                            <FluxMenuFlyout
+                                icon="gear"
+                                label="Services">
+                                <FluxMenu>
+                                    <FluxMenuGroup>
+                                        <FluxMenuItem
+                                            label="Show in Enclosing Folder"
+                                            type="button"
+                                            @click="close"/>
+
+                                        <FluxMenuItem
+                                            label="New Terminal at Folder"
+                                            type="button"
+                                            @click="close"/>
+                                    </FluxMenuGroup>
+                                </FluxMenu>
+                            </FluxMenuFlyout>
                         </FluxMenuGroup>
                     </FluxMenu>
                 </template>
@@ -2194,6 +2355,7 @@
         </ul>
 
         <pre><code>import { FluxProse } from '@flux-ui/components';
+    import GraySwitcher from './playground/GraySwitcher.vue';
 
 const article = FluxProse;</code></pre>
 

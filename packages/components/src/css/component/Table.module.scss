@@ -381,7 +381,13 @@
 
     align-items: center;
     gap: 12px;
-    background: var(--surface-hover);
+
+    // Half a step, not a whole one. A group head marks a band that is always
+    // there, while a row hover is a state that comes and goes; giving the head
+    // the hover value itself makes a resting head and a pointed-at row the same
+    // colour, and the band stops reading as a heading. Half of the step keeps it
+    // the lightest tint in the body and still under the row it can sit next to.
+    background: color-mix(in srgb, var(--surface), var(--surface-hover));
 
     &:is(button) {
         width: 100%;
@@ -395,8 +401,12 @@
 
         @include mixin.focus-ring(-2px);
 
+        // An expandable head lands on the row hover rather than a rung past it,
+        // which is the same value the cell under it takes from the row hover
+        // rule above. Moving to `--surface-active` instead made a pointed-at
+        // head darker than any row in the table, so the group read as pressed.
         @include mixin.hover {
-            background: var(--surface-active);
+            background: var(--surface-hover);
         }
     }
 }
