@@ -163,8 +163,8 @@ export function useFormFader(options: UseFaderOptions) {
     });
 
     const colorVars = computed(() => ({
-        '--fader-accent': `var(--${options.color()}-500)`,
-        '--fader-strong': `var(--${options.color()}-900)`
+        '--fader-accent': `var(--${options.color()}-solid)`,
+        '--fader-strong': `var(--${options.color()}-text)`
     }) as CSSProperties);
 
     function snap(value: number): number {

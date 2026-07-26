@@ -13,14 +13,14 @@
     top: 0;
     left: 0;
     box-sizing: border-box;
-    background: var(--gray-50);
-    border: 1px dashed var(--gray-300);
+    background: var(--gray-soft);
+    border: 1px dashed var(--gray-border);
     border-radius: var(--radius-double);
 
     @each $-color in (primary, danger, info, success, warning) {
         &[data-color="#{$-color}"] {
-            background: var(--#{$-color}-50);
-            border-color: var(--#{$-color}-300);
+            background: var(--#{$-color}-soft);
+            border-color: var(--#{$-color}-border);
         }
     }
 }
@@ -48,8 +48,8 @@
 
     @each $-color in (primary, danger, info, success, warning) {
         &[data-color="#{$-color}"] {
-            color: var(--#{$-color}-700);
-            border-color: var(--#{$-color}-300);
+            color: var(--#{$-color}-text);
+            border-color: var(--#{$-color}-border);
         }
     }
 }

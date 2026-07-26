@@ -37,8 +37,8 @@
 <style scoped>
     .card {
         padding: 12px;
-        background: var(--gray-25);
-        border: 1px solid var(--gray-200);
+        background: var(--surface);
+        border: 1px solid var(--surface-stroke);
         border-radius: var(--radius);
         transition: box-shadow 180ms var(--swift-out);
     }
@@ -64,7 +64,7 @@
     .card-description {
         margin: 6px 0 0;
         font-size: .8125rem;
-        color: var(--gray-500);
+        color: var(--foreground-secondary);
         line-height: 1.5;
     }
 
@@ -73,11 +73,11 @@
         align-items: center;
         margin-top: 10px;
         padding-top: 10px;
-        border-top: 1px solid var(--gray-100);
+        border-top: 1px solid var(--surface-stroke-muted);
     }
 
     .card-assignee {
         font-size: .8125rem;
-        color: var(--gray-500);
+        color: var(--foreground-secondary);
     }
 </style>

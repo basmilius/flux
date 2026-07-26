@@ -23,8 +23,8 @@
     color: var(--foreground-secondary);
 
     @include mixin.hover {
-        background: var(--gray-100);
-        border-color: var(--gray-200);
+        background: var(--gray-soft-hover);
+        border-color: var(--gray-border);
     }
 }
 
@@ -50,7 +50,7 @@
     border-radius: var(--radius);
     object-fit: cover;
     object-position: center;
-    outline: 1px solid rgb(0 0 0 / .025);
+    outline: 1px solid var(--surface-stroke-out);
     outline-offset: -1px;
 }
 
@@ -61,10 +61,13 @@
     align-items: center;
     justify-content: center;
     backdrop-filter: blur(3px) saturate(180%);
-    background: rgb(0 0 0 / .25);
+    background: var(--overlay-secondary);
     border-radius: calc(var(--radius) - 1px);
     z-index: 0;
 
+    // The scrim darkens a photo, not a surface, so it stays black in both themes
+    // and the spinner on top of it has to stay white. `--foreground-inverse`
+    // follows the theme and would turn the spinner dark on a dark scrim.
     .spinner {
         --track: rgb(255 255 255 / .25);
         --value: rgb(255 255 255);

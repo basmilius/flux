@@ -21,7 +21,7 @@
     code {
         padding: 3px 6px;
         font-size: var(--font-size-xsmall);
-        background: var(--gray-100);
+        background: var(--surface-sunken);
         border-radius: var(--radius-half);
     }
 
@@ -60,11 +60,7 @@
     border-radius: 12px;
     color: currentColor;
     cursor: pointer;
-    transition: opacity 150ms var(--swift-out);
-
-    @include mixin.hover {
-        opacity: .75;
-    }
+    transition: background 150ms var(--swift-out);
 
     > .icon {
         font-size: 12px;
@@ -107,49 +103,50 @@
     }
 }
 
+// Every variant fills the same contract, gray included. That removed both the
+// `@if $color != 'gray'` guard inside this loop and the `.noticeGray` override
+// that used to follow it: `--gray-*` already resolves to the neutral tokens.
 @include mixin.color-variants(notice) using ($color) {
     composes: notice;
 
-    background: var(--#{$color}-100);
-    border-color: var(--#{$color}-200);
-    color: var(--#{$color}-950);
+    @include mixin.intent($color);
 
+    background: var(--intent-soft);
+    border-color: var(--intent-border);
+    color: var(--intent-text);
+
+    // A chip sitting on the notice's own fill takes the rung above it.
     code {
-        background: var(--#{$color}-200);
+        background: var(--intent-soft-hover);
     }
 
+    // Deepens one more rung on hover instead of going translucent, which used to
+    // dim the glyph along with the chip behind it.
     .noticeClose {
-        background: var(--#{$color}-200);
-    }
+        background: var(--intent-soft-hover);
 
-    .noticePrefix,
-    .noticeTitle {
-        color: var(--#{$color}-800);
-    }
-
-    // A gray notice is the neutral one: its button and spinner keep their own chrome.
-    @if $color != 'gray' {
-        :local(.button) {
-            border-color: var(--#{$color}-300);
-        }
-
-        :local(.spinnerTrack) {
-            stroke: var(--#{$color}-200);
-        }
-
-        :local(.spinnerEffect),
-        :local(.spinnerValue) {
-            stroke: var(--#{$color}-600);
+        @include mixin.hover {
+            background: var(--intent-border);
         }
     }
-}
 
-.noticeGray {
-    color: var(--foreground);
+    // The icon and the spinner are the same mark in two forms, so they share one
+    // accent rather than sitting a rung apart.
+    .noticePrefix {
+        color: var(--intent-solid);
+    }
 
-    .noticePrefix,
-    .noticeTitle {
-        color: var(--foreground-prominent);
+    :local(.button) {
+        border-color: var(--intent-border);
+    }
+
+    :local(.spinnerTrack) {
+        stroke: var(--intent-border);
+    }
+
+    :local(.spinnerEffect),
+    :local(.spinnerValue) {
+        stroke: var(--intent-solid);
     }
 }
 

@@ -65,7 +65,9 @@
 }
 
 @include mixin.color-variants(icon) using ($color) {
-    color: var(--#{$color}-600);
+    @include mixin.intent($color);
+
+    color: var(--intent-text);
 }
 
 .iconBoxedDefault {
@@ -83,10 +85,8 @@
 @include mixin.color-variants(iconBoxed) using ($color) {
     composes: iconBoxedColored;
 
-    background: var(--#{$color}-100);
-    color: var(--#{$color}-900);
-}
+    @include mixin.intent($color);
 
-.iconBoxedGray {
-    color: var(--foreground);
+    background: var(--intent-soft-hover);
+    color: var(--intent-text);
 }

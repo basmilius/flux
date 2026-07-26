@@ -3,7 +3,7 @@
 To start using Flux Visuals in your Vue application, you'll need to add it to your project. This section provides step-by-step instructions on how to install Flux Visuals, ensuring you can quickly integrate its components into your development workflow.
 
 ::: tip
-Flux Visuals relies on the Flux design tokens (`--gray-*`, `--radius`, …) for its colors and radii. Always install and load `@flux-ui/components` alongside it, otherwise the effects render without a theme.
+Flux Visuals relies on the Flux [design tokens](../../guide/introduction/design-tokens) for its colors and radii: semantic tokens such as `--surface` and `--foreground`, intent tokens such as `--primary-solid`, and `--radius`. Always install and load `@flux-ui/components` alongside it, otherwise the effects render without a theme.
 :::
 
 ## Plain installation

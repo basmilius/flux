@@ -87,8 +87,8 @@
     // resolve through the --tree-marker-* vars, fed either by a FluxColor variant class or by
     // --tree-marker-color for a custom color.
     .treeNodeMarker {
-        --tree-marker-fill: var(--gray-100);
-        --tree-marker-stroke: var(--gray-200);
+        --tree-marker-fill: var(--surface-sunken);
+        --tree-marker-stroke: var(--surface-stroke);
         --tree-marker-foreground: var(--foreground-prominent);
 
         display: flex;

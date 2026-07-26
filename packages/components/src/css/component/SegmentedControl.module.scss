@@ -5,7 +5,7 @@
     align-items: center;
     gap: 3px;
     padding: 2px 3px;
-    background: var(--gray-50);
+    background: var(--surface-sunken);
     border: 1px solid var(--surface-stroke);
     border-radius: var(--radius);
 }
@@ -81,7 +81,7 @@
     }
 
     &:disabled {
-        opacity: .5;
+        color: var(--foreground-disabled);
         pointer-events: none;
     }
 
@@ -97,7 +97,7 @@
         left: -2px;
         height: 15px;
         width: 2px;
-        background: var(--gray-100);
+        background: var(--surface-stroke);
         border-radius: 1px;
         transition: opacity 300ms var(--swift-out);
         translate: 0 -50%;

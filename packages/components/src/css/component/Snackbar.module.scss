@@ -102,26 +102,21 @@
 @include mixin.color-variants(snackbar) using ($color) {
     composes: snackbar;
 
+    @include mixin.intent($color);
+
     .snackbarAction:first-child,
     .snackbarContent > .icon,
     .snackbarTitle {
-        color: var(--#{$color}-600);
+        color: var(--intent-text);
     }
 
-    // A gray snackbar leaves the spinner on its default color.
-    @if $color != 'gray' {
-        .spinnerEffect,
-        .spinnerValue {
-            stroke: var(--#{$color}-700);
-        }
-    }
-}
-
-.snackbarGray {
-    .snackbarAction:first-child,
-    .snackbarContent > .icon,
-    .snackbarTitle {
-        color: var(--foreground-prominent);
+    // The spinner is a filled arc rather than ink, so it takes the solid role.
+    // Gray used to be skipped here to keep the spinner on its own default; the
+    // contract covers it, so the exception and the .snackbarGray block below it
+    // both go.
+    .spinnerEffect,
+    .spinnerValue {
+        stroke: var(--intent-solid);
     }
 }
 

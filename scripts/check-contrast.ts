@@ -240,6 +240,23 @@ function luminance([red, green, blue]: Rgba): number {
     return 0.2126 * red + 0.7152 * green + 0.0722 * blue;
 }
 
+/**
+ * OKLab lightness. A contrast ratio answers "can this be read"; an interaction
+ * state is not read, it is noticed, and at the dark end a ratio exaggerates what
+ * the eye barely registers. Perceptual lightness is the honest measure there.
+ */
+function lightness([red, green, blue]: Rgba): number {
+    const long = Math.cbrt(0.4122214708 * red + 0.5363325363 * green + 0.0514459929 * blue);
+    const medium = Math.cbrt(0.2119034982 * red + 0.6806995451 * green + 0.1073969566 * blue);
+    const short = Math.cbrt(0.0883024619 * red + 0.2817188376 * green + 0.6299787005 * blue);
+
+    return 0.2104542553 * long + 0.793617785 * medium - 0.0040720468 * short;
+}
+
+function step(state: Rgba, background: Rgba): number {
+    return Math.abs(lightness(over(state, background)) - lightness(background));
+}
+
 function contrast(foreground: Rgba, background: Rgba): number {
     const composited = luminance(over(foreground, background));
     const base = luminance(background);
@@ -300,6 +317,19 @@ const DARK_ELEVATION: readonly (readonly [string, string])[] = [
     ['--surface-raised', '--surface']
 ];
 
+// An interaction state has to be noticeable on every ground it can land on, and
+// the opaque pair is calibrated against `--surface` alone. Menus, flyouts and the
+// command palette sit on `--surface-raised`, where `--surface-hover` used to move
+// .007 in dark: no hover at all. .018 is the floor at which the step reads.
+const STATES: readonly (readonly [string, readonly string[]])[] = [
+    ['--surface-hover', ['--surface']],
+    ['--surface-active', ['--surface']],
+    ['--ink-hover', ['--surface', '--surface-raised', '--surface-sunken']],
+    ['--ink-active', ['--surface', '--surface-raised', '--surface-sunken']]
+];
+
+const STATE_FLOOR = 0.018;
+
 // The three numbers the proof of concept published. If the script cannot
 // reproduce these, the script is wrong, not the tokens.
 const ANCHORS: readonly (readonly [string, Scheme, string, string, number])[] = [
@@ -345,6 +375,19 @@ function main(): number {
 
         if (ratio + 0.005 < 1.05) {
             failures.push(`dark  ${layer} against ${beneath} — ${ratio.toFixed(2)}, needs 1.05`);
+        }
+    }
+
+    for (const scheme of SCHEMES) {
+        for (const [state, grounds] of STATES) {
+            for (const ground of grounds) {
+                total++;
+                const moved = step(colorOf(state, scheme), colorOf(ground, scheme));
+
+                if (moved + 0.0005 < STATE_FLOOR) {
+                    failures.push(`${scheme.padEnd(5)} ${state} on ${ground} — moves ${moved.toFixed(3)} L, needs ${STATE_FLOOR}`);
+                }
+            }
         }
     }
 

@@ -130,16 +130,19 @@
 .applicationMenu :local(.menuItem) {
     position: relative;
 
+    // Translucent ink rather than a `--surface-*` fill: the menu rail is sunken,
+    // not the plain surface those states are cut for, so a solid fill would land
+    // lighter than the rail it sits on instead of deepening it.
     @include mixin.hover {
-        background: var(--gray-200);
+        background: var(--ink-hover);
     }
 
     &.menuFlyoutTriggerOpen {
-        background: var(--gray-200);
+        background: var(--ink-hover);
     }
 
     &:active {
-        background: var(--gray-300);
+        background: var(--ink-active);
     }
 
     &::before {
@@ -170,7 +173,7 @@
 }
 
 .applicationMenu :local(.menuItemActive) {
-    background: var(--gray-200);
+    background: var(--ink-hover);
     color: var(--foreground-prominent);
 
     &::before {
@@ -189,7 +192,7 @@
 }
 
 .applicationMenu :local(.menuItemHighlighted) {
-    background: var(--gray-200);
+    background: var(--ink-hover);
     color: var(--foreground-prominent);
 }
 
@@ -259,7 +262,7 @@
     padding: 12px;
     flex-flow: row;
     gap: 12px;
-    background: var(--gray-25);
+    background: var(--surface);
     border: 1px solid var(--application-menu-surface-stroke);
     border-radius: var(--radius);
     transition: opacity var(--application-duration) var(--swift-out);
@@ -267,7 +270,7 @@
 
 .applicationMenuPromo > :local(.icon) {
     margin: 2px;
-    color: var(--gray-600);
+    color: var(--foreground-secondary);
     font-size: 16px;
 }
 
@@ -280,7 +283,7 @@
 }
 
 .applicationMenuPromoContent :global(a:not([class])) {
-    color: var(--gray-700);
+    color: var(--foreground);
 }
 
 .applicationMenuToggle:local(.menuItem) {

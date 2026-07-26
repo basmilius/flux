@@ -7,8 +7,8 @@
     align-items: center;
     flex-grow: 0;
     gap: 9px;
-    background: var(--gray-50);
-    border: 1px solid var(--gray-200);
+    background: var(--gray-soft);
+    border: 1px solid var(--gray-border);
     border-radius: var(--radius-full);
     color: var(--foreground);
     transition: var(--transition-default);
@@ -20,17 +20,17 @@
         @include mixin.focus-ring(2px);
 
         @include mixin.hover {
-            background: var(--gray-100);
+            background: var(--gray-soft-hover);
         }
     }
 
     &.isSelected {
-        background: var(--primary-50);
-        border-color: var(--primary-200);
-        color: var(--primary-600);
+        background: var(--primary-soft);
+        border-color: var(--primary-border);
+        color: var(--primary-text);
 
         @include mixin.hover {
-            background: var(--primary-100);
+            background: var(--primary-soft-hover);
         }
     }
 

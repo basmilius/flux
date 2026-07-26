@@ -22,11 +22,11 @@
     }
 
     &.isPrimary {
-        color: var(--primary-600);
+        color: var(--primary-text);
     }
 
     &[aria-disabled='true'] {
-        opacity: .5;
+        color: var(--foreground-disabled);
         pointer-events: none;
     }
 }

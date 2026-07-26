@@ -1,8 +1,8 @@
 @use '~flux/components/css/mixin';
 
 .spinner {
-    --track: var(--gray-100);
-    --value: var(--primary-600);
+    --track: var(--surface-stroke-muted);
+    --value: var(--primary-solid);
 
     display: inline-block;
     height: 1em;
@@ -13,11 +13,9 @@
 }
 
 @include mixin.color-variants(spinner) using ($color) {
-    --value: var(--#{$color}-600);
-}
+    @include mixin.intent($color);
 
-.spinnerGray {
-    --value: var(--gray-500);
+    --value: var(--intent-solid);
 }
 
 .spinnerTrack {

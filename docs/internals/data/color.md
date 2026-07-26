@@ -4,7 +4,13 @@
 
 # Color palette
 
-The `@flux-ui/internals` package exports a comprehensive color palette based on the Tailwind CSS color system. Each color is available in 12 shades, from `50` (lightest) to `950` (darkest).
+The `@flux-ui/internals` package exports a comprehensive color palette based on the Tailwind CSS color system. Each color is available in 11 shades, from `50` (lightest) to `950` (darkest).
+
+::: warning Not the Flux design tokens
+These are plain hex strings, meant to be picked from: a color picker's swatches, a categorical chart palette, a user-chosen label color. They are fixed values, so they do not follow the light or dark theme and they are not held to a contrast target.
+
+Anything you style with belongs on the [design tokens](../../guide/introduction/design-tokens) instead.
+:::
 
 ## Usage
 

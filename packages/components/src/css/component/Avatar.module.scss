@@ -19,9 +19,9 @@
     display: block;
     height: inherit;
     width: inherit;
-    background: var(--gray-50);
+    background: var(--gray-soft);
     border-radius: inherit;
-    box-shadow: inset 0 0 0 1px var(--gray-100);
+    box-shadow: inset 0 0 0 1px var(--surface-stroke-muted);
 }
 
 .avatarFallback {
@@ -43,21 +43,26 @@
     }
 }
 
+// `--color` is a colour the consumer picked, not a token, so the tint is mixed
+// against the surface instead of derived from it. `color-mix()` is safe over a
+// `light-dark()`, unlike relative colour syntax.
 .avatarFallbackColorized {
     composes: avatarFallback;
 
-    background: color-mix(in srgb, var(--color), var(--gray-25) 80%);
+    background: color-mix(in srgb, var(--color), var(--surface) 80%);
     color: var(--color);
 }
 
+// Dark keeps more of the chosen colour: the same 80% against a dark surface
+// leaves too little of it to read as coloured at all.
 [dark] .avatarFallbackColorized {
-    background: color-mix(in srgb, var(--color), var(--gray-25) 70%);
+    background: color-mix(in srgb, var(--color), var(--surface) 70%);
 }
 
 .avatarFallbackNeutral {
     composes: avatarFallback;
 
-    background: var(--gray-100);
+    background: var(--gray-soft-hover);
     color: var(--foreground-secondary);
 }
 
@@ -67,13 +72,16 @@
     inset: 0;
     align-items: center;
     justify-content: center;
-    background: rgb(from var(--gray-50) r g b / .84);
-    box-shadow: inset 0 0 0 1px var(--gray-100);
+    background: var(--surface-loader);
+    box-shadow: inset 0 0 0 1px var(--surface-stroke-muted);
     border-radius: inherit;
     backdrop-filter: blur(3px) saturate(180%);
 
+    // The track reads over the blurred veil rather than over a surface, so it is
+    // translucent ink. Mixed, not derived: the foreground tokens hold a
+    // `light-dark()` that relative colour syntax would freeze.
     :local(.spinner) {
-        --track: rgb(from var(--gray-950) r g b / .12);
+        --track: color-mix(in srgb, var(--foreground-prominent) 12%, transparent);
     }
 }
 
@@ -90,11 +98,9 @@
 @include mixin.color-variants(avatarStatus) using ($color) {
     composes: avatarStatus;
 
-    background: var(--#{$color}-600);
-}
+    @include mixin.intent($color);
 
-.avatarStatusGray {
-    background: var(--gray-500);
+    background: var(--intent-solid);
 }
 
 .avatarStatusIcon {
@@ -148,7 +154,7 @@
     @include mixin.focus-ring(2px);
 
     @include mixin.hover {
-        background: var(--gray-100);
+        background: var(--surface-hover);
     }
 }
 

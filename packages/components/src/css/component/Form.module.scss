@@ -94,9 +94,9 @@
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    background: var(--primary-50);
+    background: var(--primary-soft);
     border-radius: var(--radius);
-    color: var(--primary-600);
+    color: var(--primary-text);
     font-weight: 700;
     font-variant-numeric: tabular-nums;
 
@@ -209,7 +209,7 @@
 .formFieldAdditionError {
     composes: formFieldAddition;
 
-    color: var(--danger-600);
+    color: var(--danger-text);
 }
 
 .formFieldAdditionHint {
@@ -248,7 +248,7 @@
     }
 
     &.isSecondary {
-        background: var(--gray-100);
+        background: var(--surface-sunken);
         border-color: transparent;
         box-shadow: none;
     }
@@ -258,7 +258,7 @@
     }
 
     &.isInvalid {
-        border-color: var(--danger-500);
+        border-color: var(--danger-solid);
     }
 }
 
@@ -325,8 +325,8 @@
     }
 
     &:disabled {
+        color: var(--foreground-disabled);
         cursor: not-allowed;
-        opacity: .5;
     }
 }
 
@@ -691,7 +691,7 @@
 }
 
 .formSelect.isDisabled .formSelectIcon {
-    opacity: .5;
+    color: var(--foreground-disabled);
 }
 
 .formSelect.isDisabled .formSelectSelected {
@@ -840,7 +840,7 @@
     }
 
     &.isInvalid .formCheckboxElement {
-        border-color: var(--danger-500);
+        border-color: var(--danger-solid);
     }
 }
 
@@ -860,10 +860,10 @@
     align-items: center;
     flex-shrink: 0;
     justify-content: center;
-    background: var(--gray-50);
-    border: 1px solid var(--gray-200);
+    background: var(--surface-hover);
+    border: 1px solid var(--surface-stroke);
     border-radius: var(--radius-half);
-    color: var(--primary-25);
+    color: var(--primary-on-solid);
     cursor: pointer;
     pointer-events: none;
     transition: 210ms var(--swift-out);
@@ -909,13 +909,13 @@
 
     @include mixin.hover {
         + .formCheckboxElement {
-            background: var(--gray-100);
+            background: var(--surface-active);
         }
     }
 
     &:is(:checked, :indeterminate) + .formCheckboxElement {
-        background: var(--primary-600);
-        border-color: var(--primary-600);
+        background: var(--primary-solid);
+        border-color: var(--primary-solid);
 
         .icon {
             opacity: 1;
@@ -931,8 +931,8 @@
     }
 
     &:disabled + .formCheckboxElement {
-        background: var(--gray-100);
-        border-color: var(--gray-200);
+        background: var(--surface-disabled);
+        border-color: var(--surface-stroke);
         color: var(--foreground-secondary);
     }
 }
@@ -962,13 +962,13 @@
     }
 
     &:has(.formCheckboxNative:is(:checked, :indeterminate)) {
-        background: var(--primary-50);
-        border-color: var(--primary-200);
-        color: var(--primary-600);
+        background: var(--primary-soft);
+        border-color: var(--primary-border);
+        color: var(--primary-text);
     }
 
     &.isInvalid {
-        border-color: var(--danger-500);
+        border-color: var(--danger-solid);
     }
 
     > .formCheckboxElement {
@@ -979,7 +979,7 @@
         order: 1;
         flex-shrink: 0;
         margin-top: 1px;
-        color: var(--primary-600);
+        color: var(--primary-text);
     }
 
     > .formCheckboxText {
@@ -1111,7 +1111,7 @@
     }
 
     &.isInvalid .formRadioElement {
-        border-color: var(--danger-500);
+        border-color: var(--danger-solid);
     }
 }
 
@@ -1130,8 +1130,8 @@
     width: 20px;
     align-items: center;
     justify-content: center;
-    background: var(--gray-50);
-    border: 1px solid var(--gray-200);
+    background: var(--surface-hover);
+    border: 1px solid var(--surface-stroke);
     border-radius: 50%;
     cursor: pointer;
     pointer-events: none;
@@ -1144,7 +1144,7 @@
         content: '';
         height: 8px;
         width: 8px;
-        background: var(--primary-25);
+        background: var(--primary-on-solid);
         border-radius: 50%;
         scale: 0;
         transition: inherit;
@@ -1164,13 +1164,13 @@
 
     @include mixin.hover {
         + .formRadioElement {
-            background: var(--gray-100);
+            background: var(--surface-active);
         }
     }
 
     &:checked + .formRadioElement {
-        background: var(--primary-600);
-        border-color: var(--primary-600);
+        background: var(--primary-solid);
+        border-color: var(--primary-solid);
 
         &::after {
             scale: 1;
@@ -1186,8 +1186,8 @@
     }
 
     &:disabled + .formRadioElement {
-        background: var(--gray-100);
-        border-color: var(--gray-200);
+        background: var(--surface-disabled);
+        border-color: var(--surface-stroke);
     }
 }
 
@@ -1229,13 +1229,13 @@
     }
 
     &:has(.formRadioNative:checked) {
-        background: var(--primary-50);
-        border-color: var(--primary-200);
-        color: var(--primary-600);
+        background: var(--primary-soft);
+        border-color: var(--primary-border);
+        color: var(--primary-text);
     }
 
     &.isInvalid {
-        border-color: var(--danger-500);
+        border-color: var(--danger-solid);
     }
 
     > .formRadioElement {
@@ -1246,7 +1246,7 @@
         order: 1;
         flex-shrink: 0;
         margin-top: 1px;
-        color: var(--primary-600);
+        color: var(--primary-text);
     }
 
     > .formRadioText {
@@ -1380,8 +1380,8 @@
     width: 54px;
     height: 30px;
     flex: 0 0 auto;
-    background: var(--gray-50);
-    border: 1px solid var(--gray-200);
+    background: var(--surface-hover);
+    border: 1px solid var(--surface-stroke);
     border-radius: var(--radius-full);
     contain: paint;
 
@@ -1394,7 +1394,7 @@
     &.isChecked {
         border-color: transparent;
 
-        background: var(--primary-600);
+        background: var(--primary-solid);
 
         .formToggleInput::after {
             translate: 24px 0;
@@ -1402,7 +1402,7 @@
         }
 
         .formToggleIcon {
-            color: var(--primary-25);
+            color: var(--primary-on-solid);
         }
 
         .formToggleIconOn {
@@ -1424,7 +1424,7 @@
     }
 
     &.isInvalid {
-        border-color: var(--danger-500);
+        border-color: var(--danger-solid);
     }
 }
 
@@ -1514,7 +1514,7 @@
 .formTagsInputDisabled {
     composes: formTagsInput;
 
-    background: var(--gray-100);
+    background: var(--surface-disabled);
     cursor: not-allowed;
 }
 

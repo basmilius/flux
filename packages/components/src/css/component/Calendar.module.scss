@@ -44,7 +44,7 @@
     text-transform: capitalize;
 
     @include mixin.hover {
-        color: var(--primary-600);
+        color: var(--primary-text);
     }
 }
 
@@ -91,24 +91,26 @@
     }
 
     &.isGrabbed {
-        outline: 2px solid var(--primary-500);
+        outline: 2px solid var(--primary-solid);
         outline-offset: 2px;
     }
 }
 
+// The cells paint themselves and the 1px gap between them shows this through, so
+// the grid background is a separator colour rather than a surface.
 .calendarCells {
     display: grid;
     flex-grow: 1;
     gap: 1px;
     grid-template-columns: repeat(7, minmax(180px, 1fr));
     grid-template-rows: min-content repeat(6, auto);
-    background: var(--gray-100);
+    background: var(--surface-stroke-muted);
     overflow-x: auto;
 }
 
 .calendarCell {
     padding: 9px;
-    background: var(--gray-25);
+    background: var(--surface);
 }
 
 .calendarDay {
@@ -136,14 +138,19 @@
     transition-property: background, outline-color, z-index;
     z-index: 0;
 
+    // A day outside the viewed month: recessed rather than dimmed, so the cell
+    // keeps its own colour instead of fading whatever it contains.
     &.isDisabled {
-        background: var(--gray-50);
+        background: var(--surface-sunken);
         color: var(--foreground-secondary);
 
         .calendarEntryDate {
-            opacity: .25;
+            color: var(--foreground-disabled);
         }
 
+        // Holds whatever `renderContent` returned, usually a badge carrying its
+        // own colour. A token only reaches what inherits `color`, so dimming the
+        // group is the one case where opacity is the tool rather than the hack.
         .calendarEvents {
             opacity: .75;
             pointer-events: none;
@@ -156,16 +163,16 @@
     }
 
     &.isFocused {
-        box-shadow: inset 0 0 0 2px var(--primary-200);
+        box-shadow: inset 0 0 0 2px var(--primary-border);
     }
 
     &.isDropTarget {
-        background: var(--primary-50);
-        outline-color: var(--primary-600);
+        background: var(--primary-soft);
+        outline-color: var(--primary-solid);
     }
 
     &.isToday .calendarEntryDate {
-        color: var(--primary-600);
+        color: var(--primary-text);
     }
 }
 
@@ -190,7 +197,7 @@
     flex-flow: column;
     flex-grow: 1;
     overflow: hidden;
-    background: var(--gray-25);
+    background: var(--surface);
 }
 
 .timeGridInner {
@@ -203,12 +210,12 @@
 .timeGridHeader {
     display: grid;
     grid-template-columns: 64px 1fr;
-    background: var(--gray-25);
-    border-bottom: 1px solid var(--gray-100);
+    background: var(--surface);
+    border-bottom: 1px solid var(--surface-stroke-muted);
 }
 
 .timeGridHeaderGutter {
-    background: var(--gray-25);
+    background: var(--surface);
 }
 
 .timeGridHeaderDays {
@@ -216,29 +223,29 @@
     grid-auto-flow: column;
     grid-auto-columns: minmax(0, 1fr);
     gap: 1px;
-    background: var(--gray-100);
+    background: var(--surface-stroke-muted);
 }
 
 .timeGridHeaderDay {
     @include mixin.text(2xsmall, $line-height: 1em);
 
     padding: 9px 12px;
-    background: var(--gray-25);
+    background: var(--surface);
     color: var(--foreground-secondary);
     font-weight: 600;
     text-align: center;
     text-transform: capitalize;
 
     &.isToday {
-        color: var(--primary-600);
+        color: var(--primary-text);
     }
 }
 
 .timeGridAllDay {
     display: grid;
     grid-template-columns: 64px 1fr;
-    background: var(--gray-25);
-    border-bottom: 1px solid var(--gray-100);
+    background: var(--surface);
+    border-bottom: 1px solid var(--surface-stroke-muted);
 }
 
 .timeGridAllDayLabel {
@@ -257,7 +264,7 @@
     grid-auto-columns: minmax(0, 1fr);
     gap: 1px;
     min-height: 36px;
-    background: var(--gray-100);
+    background: var(--surface-stroke-muted);
 }
 
 .timeGridAllDayCell {
@@ -265,10 +272,12 @@
     flex-flow: column;
     gap: 3px;
     padding: 6px;
-    background: var(--gray-25);
+    background: var(--surface);
 
+    // The same accent as the month view's drop target, so the affordance reads
+    // the same in both views.
     &.isDropTarget {
-        box-shadow: inset 0 0 0 2px var(--primary-300);
+        box-shadow: inset 0 0 0 2px var(--primary-solid);
     }
 }
 
@@ -284,7 +293,7 @@
 .timeGridHours {
     display: flex;
     flex-flow: column;
-    background: var(--gray-25);
+    background: var(--surface);
 }
 
 .timeGridHourLabel {
@@ -303,7 +312,7 @@
     top: 0;
     right: 9px;
     transform: translateY(-50%);
-    background: var(--gray-25);
+    background: var(--surface);
     padding: 0 2px;
 }
 
@@ -312,22 +321,22 @@
     grid-auto-flow: column;
     grid-auto-columns: minmax(0, 1fr);
     gap: 1px;
-    background: var(--gray-100);
+    background: var(--surface-stroke-muted);
 }
 
 .timeGridDay {
     position: relative;
-    background: var(--gray-25);
+    background: var(--surface);
     background-image: repeating-linear-gradient(
         to bottom,
         transparent,
         transparent calc(var(--hour-height, 48px) - 1px),
-        var(--gray-100) calc(var(--hour-height, 48px) - 1px),
-        var(--gray-100) var(--hour-height, 48px)
+        var(--surface-stroke-muted) calc(var(--hour-height, 48px) - 1px),
+        var(--surface-stroke-muted) var(--hour-height, 48px)
     );
 
     &.isDropTarget {
-        box-shadow: inset 0 0 0 2px var(--primary-300);
+        box-shadow: inset 0 0 0 2px var(--primary-solid);
     }
 }
 
@@ -337,12 +346,15 @@
     overflow: hidden;
     padding: 2px;
 
+    // The clipped edge is a marker on the day column, not the edge of a warning
+    // fill, so it takes the solid role: the border role disappears against the
+    // surface it is drawn on.
     &.isClippedTop {
-        border-top: 2px dashed var(--warning-300);
+        border-top: 2px dashed var(--warning-solid);
     }
 
     &.isClippedBottom {
-        border-bottom: 2px dashed var(--warning-300);
+        border-bottom: 2px dashed var(--warning-solid);
     }
 
     &.isResizing {
@@ -371,7 +383,7 @@
     background: transparent;
 
     @include mixin.hover {
-        background: var(--primary-300);
+        background: var(--primary-solid);
     }
 
     &.isTop {
@@ -387,7 +399,7 @@
     position: absolute;
     inset-inline: 0;
     height: 2px;
-    background: var(--primary-500);
+    background: var(--primary-solid);
     z-index: 5;
     pointer-events: none;
 }

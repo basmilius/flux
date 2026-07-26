@@ -142,10 +142,12 @@
 }
 
 // The separator below a row is drawn by the next row's top border, so every
-// variant tints that too (the same trick as the .isSelected rule below).
+// variant tints that too (the same trick as the .isSelected rule below). It
+// reads the global intent token rather than the local contract: the border sits
+// on the *next* row, which is a sibling and never inherits `--intent-*`.
 @each $color in mixin.$colors {
     .tableBody .tableRow#{mixin.color-suffix($color)} + .tableRow > .tableCell {
-        border-top-color: var(--#{$color}-100);
+        border-top-color: var(--#{$color}-soft-hover);
     }
 }
 

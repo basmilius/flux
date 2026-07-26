@@ -7,8 +7,11 @@
     flex: 1 0 auto;
     flex-flow: column;
     justify-content: center;
-    background: var(--gray-50);
-    border: 2px dashed var(--gray-200);
+    // A neutral panel with an edge of its own, which is what the gray intent is
+    // for: the sunken surface paired with the plain stroke leaves barely any
+    // difference between the fill and the dashes.
+    background: var(--gray-soft);
+    border: 2px dashed var(--gray-border);
     border-radius: var(--radius);
     text-align: center;
     user-select: none;
@@ -17,7 +20,7 @@
         cursor: pointer;
 
         @include mixin.hover {
-            background: var(--gray-100);
+            background: var(--gray-soft-hover);
         }
     }
 
@@ -69,6 +72,6 @@
 }
 
 .placeholderIcon {
-    color: var(--primary-600);
+    color: var(--primary-text);
     font-size: 20px;
 }

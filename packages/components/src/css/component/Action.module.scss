@@ -11,12 +11,12 @@
     box-shadow: none;
 
     @include mixin.hover {
-        background: var(--gray-100);
+        background: var(--surface-hover);
     }
 
     &:active,
     &.isActive {
-        background: var(--gray-200);
+        background: var(--surface-active);
     }
 }
 
@@ -28,7 +28,7 @@
 }
 
 .action.isDestructive .actionIcon {
-    color: var(--danger-600);
+    color: var(--danger-text);
 }
 
 .actionLabel {
@@ -53,8 +53,8 @@
 
 .basePaneStructure > .actionBar {
     padding: 12px 18px;
-    background: var(--gray-50);
-    border: 1px solid var(--gray-100);
+    background: var(--surface-sunken);
+    border: 1px solid var(--surface-stroke-muted);
     border-left: 0;
     border-right: 0;
 

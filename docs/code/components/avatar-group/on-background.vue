@@ -1,5 +1,5 @@
 <template>
-    <div style="padding: 15px; background: var(--gray-100); border-radius: var(--radius)">
+    <div style="padding: 15px; background: var(--surface-sunken); border-radius: var(--radius)">
         <FluxAvatarGroup :max="4">
             <FluxAvatar src="https://i.pravatar.cc/64?img=11"/>
             <FluxAvatar src="https://i.pravatar.cc/64?img=12"/>

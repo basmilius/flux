@@ -39,13 +39,13 @@
 
 .filterBadge {
     padding-inline: 6px;
-    background: var(--primary-50);
-    border: 1px dashed var(--primary-300);
+    background: var(--primary-soft);
+    border: 1px dashed var(--primary-border);
     border-radius: var(--radius-half);
     font-weight: 500;
 
     :local(.badgeLabel) {
-        color: var(--primary-900);
+        color: var(--primary-text);
     }
 }
 
@@ -53,7 +53,7 @@
     box-shadow: none;
 
     :local(.buttonIcon) {
-        color: var(--primary-700);
+        color: var(--primary-text);
         font-size: 16px;
     }
 }

@@ -93,7 +93,7 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
     > blockquote {
         font-style: italic;
         padding-left: 18px;
-        color: var(--gray-600);
+        color: var(--foreground-secondary);
         border-left: 3px solid var(--surface-stroke);
     }
 
@@ -102,7 +102,7 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
         font-size: var(--font-size-xsmall);
         padding: 3px 6px;
         border-radius: var(--radius-half);
-        background: var(--gray-100);
+        background: var(--surface-sunken);
     }
 
     // Keyboard key inside prose text.
@@ -124,7 +124,7 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
         overflow-x: auto;
         padding: 15px 18px;
         border-radius: var(--radius);
-        background: var(--gray-100);
+        background: var(--surface-sunken);
     }
 
     > pre code {
@@ -159,26 +159,26 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
     }
 
     > table :where(th, td) + :where(th, td) {
-        border-left: 1px solid var(--gray-100);
+        border-left: 1px solid var(--surface-stroke-muted);
     }
 
     > table tr + tr > :where(th, td) {
-        border-top: 1px solid var(--gray-100);
+        border-top: 1px solid var(--surface-stroke-muted);
     }
 
     > table thead th {
         font-size: var(--font-size-small);
         font-weight: 700;
         color: var(--foreground-prominent);
-        border-bottom: 2px solid var(--gray-100);
-        background: var(--gray-50);
+        border-bottom: 2px solid var(--surface-stroke-muted);
+        background: var(--surface-sunken);
     }
 
     // Image.
     > img {
         height: unset;
         border-radius: var(--radius-half);
-        outline: 1px solid rgb(0 0 0 / .025);
+        outline: 1px solid var(--surface-stroke-out);
         outline-offset: -1px;
     }
 }

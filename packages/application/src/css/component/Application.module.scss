@@ -2,8 +2,10 @@
 
 :root {
     --application-duration: 360ms;
-    --application-menu-surface: var(--gray-100);
-    --application-menu-surface-stroke: var(--gray-200);
+    // The menu rail reads as recessed next to the page it frames, so it takes the
+    // sunken level rather than the surface the content sits on.
+    --application-menu-surface: var(--surface-sunken);
+    --application-menu-surface-stroke: var(--surface-stroke);
     --application-menu-width: 300px;
     --application-menu-width-collapsed: 69px;
     --application-side-width: 300px;

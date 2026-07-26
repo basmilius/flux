@@ -35,11 +35,11 @@
 
     @each $-color in ("gray", "primary", "danger", "info", "success", "warning") {
         &[data-color="#{$-color}"]::before {
-            border-color: var(--#{$-color}-500);
+            border-color: var(--#{$-color}-solid);
         }
 
         &[data-color="#{$-color}"] > span {
-            color: var(--#{$-color}-700);
+            color: var(--#{$-color}-text);
         }
     }
 }

@@ -5,7 +5,7 @@
                 align="start"
                 direction="vertical"
                 :gap="3">
-                <span style="color: var(--gray-500); font-size: 13px; font-weight: 500;">Monthly revenue</span>
+                <span style="color: var(--foreground-secondary); font-size: 13px; font-weight: 500;">Monthly revenue</span>
 
                 <FluxVisualNumberFlow
                     :format="format"

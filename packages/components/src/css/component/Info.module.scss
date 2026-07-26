@@ -1,7 +1,7 @@
 @use '~flux/components/css/mixin';
 
 .info {
-    --info-icon-color: var(--primary-600);
+    --info-icon-color: var(--primary-text);
 
     display: flex;
     gap: 15px;
@@ -14,11 +14,9 @@
 }
 
 @include mixin.color-variants(info) using ($color) {
-    --info-icon-color: var(--#{$color}-600);
-}
+    @include mixin.intent($color);
 
-.infoGray {
-    --info-icon-color: var(--gray-500);
+    --info-icon-color: var(--intent-text);
 }
 
 .infoBody {

@@ -23,7 +23,7 @@
 }
 
 .textColorMuted {
-    color: var(--gray-500);
+    color: var(--foreground-secondary);
 }
 
 .textColorProminent {
@@ -31,7 +31,9 @@
 }
 
 @include mixin.color-variants(textColor) using ($color) {
-    color: var(--#{$color}-600);
+    @include mixin.intent($color);
+
+    color: var(--intent-text);
 }
 
 .textAlignStart {

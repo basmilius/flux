@@ -8,7 +8,7 @@ This page lists every public type with a short description and a minimal example
 
 ### `FluxStatisticsChartColor`
 
-A color specifier accepted by every series, slice, and node. Use one of the named Flux colors (resolved against the active theme) or any hex value.
+A color specifier accepted by every series, slice, and node. Use one of the named Flux intents, which resolves to that intent's `solid` role and therefore follows the theme, or any hex value, which is used exactly as given.
 
 ```ts
 type FluxStatisticsChartColor = FluxColor | `#${string}`;
@@ -16,7 +16,7 @@ type FluxStatisticsChartColor = FluxColor | `#${string}`;
 ```
 
 ```ts
-const themed: FluxStatisticsChartColor = 'success';   // var(--success-600)
+const themed: FluxStatisticsChartColor = 'success';   // var(--success-solid)
 const branded: FluxStatisticsChartColor = '#10b981';  // raw hex
 ```
 
@@ -469,8 +469,10 @@ When a `color` is set on a series, slice, or node, Flux resolves it as follows:
 
 | Input | Resolved to |
 |---|---|
-| `'primary'` (any `FluxColor`) | `var(--primary-600)` |
+| `'primary'` (any `FluxColor`) | `var(--primary-solid)` |
 | `'#10b981'` (any hex) | `'#10b981'` |
 | omitted | next color from `CHART_COLORS` (see [Chart colors](./colors)) |
+
+A named intent lands on the `solid` role, the filled-surface colour of that intent, so it takes the value that holds up against the chart surface in each theme. A hex value is passed through untouched and stays the same in both themes.
 
 The same color flows into the rendered chart, the [Legend](../components/legend/) (whether manual or auto-generated), and the tooltip, so series stay visually consistent across all three surfaces.

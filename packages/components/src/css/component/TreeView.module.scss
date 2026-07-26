@@ -14,19 +14,19 @@
     cursor: pointer;
 
     @include mixin.hover {
-        background: var(--gray-50);
+        background: var(--surface-hover);
     }
 
     &:active {
-        background: var(--gray-100);
+        background: var(--surface-active);
     }
 
     &.isHighlighted {
-        background: var(--primary-100);
-        color: var(--primary-600);
+        background: var(--primary-soft-hover);
+        color: var(--primary-text);
 
         @include mixin.hover {
-            background: var(--primary-100);
+            background: var(--primary-soft-hover);
         }
     }
 

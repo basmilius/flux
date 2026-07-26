@@ -134,7 +134,7 @@
     &:disabled,
     &[aria-disabled=true] {
         box-shadow: none;
-        opacity: .5;
+        color: var(--foreground-disabled);
         pointer-events: none;
     }
 }
@@ -202,7 +202,7 @@
 
     bottom: 0;
     height: 2px;
-    background: var(--primary-600);
+    background: var(--primary-solid);
     z-index: 1;
 }
 
@@ -210,7 +210,7 @@
     composes: baseTabBarHighlight;
 
     inset-block: 0;
-    background: var(--gray-100);
+    background: var(--surface-active);
     border-radius: calc(var(--radius) - 2px);
     z-index: 0;
 }
@@ -233,7 +233,7 @@
     --tab-padding: 18px;
 
     padding-inline: 18px;
-    background: var(--gray-50);
+    background: var(--surface-sunken);
 
     &:first-child {
         border-radius: var(--radius) var(--radius) 0 0;
@@ -255,7 +255,7 @@
 
 .paneHeader:has(+ .tabBarDefault),
 .paneHeader:has(+ .tabs > .tabBarDefault) {
-    background: var(--gray-50);
+    background: var(--surface-sunken);
 }
 
 .basePaneStructure > .tabBarPills,

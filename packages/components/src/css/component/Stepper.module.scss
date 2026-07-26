@@ -28,14 +28,16 @@
         z-index: -1;
     }
 
+    // The neutral track and the step chips read off the gray intent, the same way
+    // the progress bar does: they are fills under a coloured fill, not elevation.
     &::before {
         width: var(--max);
-        background: var(--gray-100);
+        background: var(--gray-soft-hover);
     }
 
     &::after {
         width: calc(min(1, var(--progress)) * var(--max));
-        background: var(--primary-600);
+        background: var(--primary-solid);
         transition: width 300ms var(--swift-out);
     }
 }
@@ -49,7 +51,7 @@
     width: 33px;
     align-items: center;
     justify-content: center;
-    background: var(--gray-100);
+    background: var(--gray-soft-hover);
     border: 0;
     border-radius: var(--radius-full);
     color: var(--foreground);
@@ -74,23 +76,25 @@
 .stepperStepsItemComplete {
     composes: stepperStepsItem;
 
-    background: var(--primary-600);
-    border-color: var(--primary-600);
-    color: var(--primary-25);
+    background: var(--primary-solid);
+    border-color: var(--primary-solid);
+    color: var(--primary-on-solid);
 }
 
 .stepperStepsItemCurrent {
     composes: stepperStepsItem;
 
-    background: var(--gray-100);
+    background: var(--gray-soft-hover);
     color: var(--foreground-prominent);
-    outline-color: var(--primary-600);
+    outline-color: var(--primary-solid);
     outline-width: 2px;
     transition-delay: 75ms;
 }
 
+// The outline masks the track running behind the steps, so it carries the colour
+// of the surface the stepper sits on rather than a colour of its own.
 .stepperStepsItemIdle {
     composes: stepperStepsItem;
 
-    outline-color: var(--gray-25);
+    outline-color: var(--surface);
 }

@@ -24,10 +24,10 @@
     import { computed, ref } from 'vue';
 
     const statuses = [
-        {label: 'Queued', color: 'var(--gray-500)'},
-        {label: 'Running', color: 'var(--info-500)'},
-        {label: 'Succeeded', color: 'var(--success-500)'},
-        {label: 'Failed', color: 'var(--danger-500)'}
+        {label: 'Queued', color: 'var(--gray-text)'},
+        {label: 'Running', color: 'var(--info-text)'},
+        {label: 'Succeeded', color: 'var(--success-text)'},
+        {label: 'Failed', color: 'var(--danger-text)'}
     ];
 
     const index = ref(0);

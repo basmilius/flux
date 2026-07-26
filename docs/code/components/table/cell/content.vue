@@ -31,8 +31,8 @@
         font-weight: bolder;
 
         &:hover {
-            color: white;
-            background: var(--primary-800);
+            background: var(--primary-solid);
+            color: var(--primary-on-solid);
         }
     }
 </style>

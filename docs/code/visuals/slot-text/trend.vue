@@ -7,7 +7,7 @@
             align="baseline"
             direction="horizontal"
             :gap="9">
-            <span style="color: var(--gray-500); font-size: 13px; font-weight: 500;">Revenue MoM</span>
+            <span style="color: var(--foreground-secondary); font-size: 13px; font-weight: 500;">Revenue MoM</span>
 
             <FluxVisualSlotText
                 :color="trend.color"
@@ -39,7 +39,7 @@
 
         return {
             label: `${up ? '+' : ''}${current.value.toFixed(1)}%`,
-            color: up ? 'var(--success-500)' : 'var(--danger-500)',
+            color: up ? 'var(--success-text)' : 'var(--danger-text)',
             direction: (up ? 'up' : 'down') as 'up' | 'down'
         };
     });

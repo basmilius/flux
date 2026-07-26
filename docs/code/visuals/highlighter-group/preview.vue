@@ -7,11 +7,11 @@
                 stay
                 <FluxVisualHighlighter
                     variant="underline"
-                    color="var(--primary-400)">consistent</FluxVisualHighlighter>,
+                    color="var(--primary-solid)">consistent</FluxVisualHighlighter>,
                 and delight your
                 <FluxVisualHighlighter
                     variant="circle"
-                    color="var(--danger-400)">users</FluxVisualHighlighter>.
+                    color="var(--danger-solid)">users</FluxVisualHighlighter>.
             </FluxVisualHighlighterGroup>
         </p>
     </Preview>

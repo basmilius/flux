@@ -32,10 +32,18 @@
 
     // The same two states as translucent ink, for a control whose background is
     // not the plain surface: the close button on a coloured badge, a row on an
-    // already tinted table. Painting `--surface-active` there covers the tint
-    // instead of deepening it.
-    --ink-hover: #{theme.theme(theme.neutral(.28, .02, .06), theme.neutral(.93, .01, .07))};
-    --ink-active: #{theme.theme(theme.neutral(.28, .02, .11), theme.neutral(.93, .01, .12))};
+    // already tinted table, an item on a raised pane. Painting `--surface-active`
+    // there covers the tint instead of deepening it, and the opaque pair is
+    // calibrated against `--surface` alone, so on any other ground it lands
+    // somewhere between too weak and invisible.
+    //
+    // The alphas are solved, not picked: each one reproduces the perceptual step
+    // its opaque counterpart makes on `--surface` (hover .046 L, active .086 L in
+    // dark). Ink on a dark ground is far more potent than the same alpha on a
+    // light one, because lightness compresses towards black; the dark values used
+    // to mirror the light ones and landed four times too strong.
+    --ink-hover: #{theme.theme(theme.neutral(.28, .02, .06), theme.neutral(.93, .01, .011))};
+    --ink-active: #{theme.theme(theme.neutral(.28, .02, .11), theme.neutral(.93, .01, .024))};
 
     // Text. `--foreground-secondary` moves from gray-500 to gray-600: on white it
     // scored 3.36, under AA, while carrying most of the secondary copy in the

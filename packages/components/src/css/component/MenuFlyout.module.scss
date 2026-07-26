@@ -12,8 +12,9 @@
     z-index: 10000;
 }
 
+// An open trigger stays on its hover state for as long as its flyout is up.
 .menuFlyoutTriggerOpen {
-    background: var(--gray-100);
+    background: var(--surface-hover);
 }
 
 .menuFlyoutConeDebug {
@@ -26,32 +27,32 @@
     z-index: 20000;
 
     polygon {
-        fill: var(--primary-500);
+        fill: var(--primary-solid);
         fill-opacity: .15;
-        stroke: var(--primary-500);
+        stroke: var(--primary-solid);
         stroke-width: 1.5;
     }
 
     line {
-        stroke: var(--gray-900);
+        stroke: var(--foreground-prominent);
         stroke-width: 1.5;
     }
 }
 
 // The trailing anchor that forms the cone apex.
 .menuFlyoutConeDebugApex {
-    fill: var(--warning-500);
+    fill: var(--warning-solid);
 }
 
 // The live pointer position (head of the velocity vector).
 .menuFlyoutConeDebugHead {
-    fill: var(--gray-900);
+    fill: var(--foreground-prominent);
 }
 
 // The return cone (aiming back from the submenu towards its opener) in a distinct hue.
 .menuFlyoutConeDebugBack {
     polygon {
-        fill: var(--success-500);
-        stroke: var(--success-500);
+        fill: var(--success-solid);
+        stroke: var(--success-solid);
     }
 }

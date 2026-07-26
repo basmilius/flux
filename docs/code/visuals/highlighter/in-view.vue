@@ -3,7 +3,7 @@
         This
         <FluxVisualHighlighter
             when-in-view
-            color="var(--success-200)">annotation</FluxVisualHighlighter>
+            color="var(--success-soft-hover)">annotation</FluxVisualHighlighter>
         is drawn only once it scrolls into view.
     </p>
 </template>

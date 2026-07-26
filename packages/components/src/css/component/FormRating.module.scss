@@ -1,6 +1,13 @@
 @use '~flux/components/css/mixin';
 
 .formRating {
+    // A rating star is gold by convention, not because it warns about anything,
+    // so it reaches for the stop rather than the warning intent: --warning-solid
+    // is orange and moves with the intent scale. This is what an absolute palette
+    // is for. The old --warning-400 was gold in light and a muddy brown in dark,
+    // because the scale flipped underneath it.
+    --rating-star: var(--palette-warning-400);
+
     display: inline-flex;
     gap: .15em;
     font-size: 24px;
@@ -9,11 +16,20 @@
 
     @include mixin.focus-ring(4px);
 
+    // Both star layers take their own muted tone instead of a blanket opacity:
+    // dimming the whole component also dimmed the fill, and a disabled rating
+    // still has to show which value it holds.
     &.isDisabled {
-        opacity: .6;
-
         .formRatingStar {
             cursor: not-allowed;
+        }
+
+        .formRatingStarEmpty {
+            color: var(--surface-stroke);
+        }
+
+        .formRatingStarFull {
+            color: color-mix(in srgb, var(--rating-star) 40%, var(--surface));
         }
     }
 }
@@ -33,18 +49,18 @@
 }
 
 .formRatingStarEmpty {
-    color: var(--gray-300);
+    color: var(--surface-stroke-hover);
 }
 
 .formRatingStarFull {
     position: absolute;
     inset-block: 0;
     left: 0;
-    color: var(--warning-400);
+    color: var(--rating-star);
     clip-path: inset(0 calc((1 - var(--fill, 0)) * 100%) 0 0);
     pointer-events: none;
 }
 
 .formRating.isInvalid .formRatingStarEmpty {
-    color: var(--danger-200);
+    color: var(--danger-border);
 }

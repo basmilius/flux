@@ -56,12 +56,12 @@
 .dividerLine {
     height: 1px;
     content: '';
-    background: var(--gray-100);
+    background: var(--surface-stroke-muted);
 }
 
 .separator {
     flex-shrink: 0;
-    background: var(--gray-200);
+    background: var(--surface-stroke);
 }
 
 .separatorHorizontal {

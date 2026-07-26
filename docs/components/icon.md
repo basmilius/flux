@@ -13,7 +13,7 @@ props:
         optional: true
 
     -   name: color
-        description: Colors the icon using the palette's 600 shade. When omitted, the icon inherits its color from the parent.
+        description: Colors the icon with the chosen intent's text role, so it stays legible on a plain or a soft background in both themes. When omitted, the icon inherits its color from the parent.
         type: FluxColor
         optional: true
 
@@ -43,6 +43,10 @@ There is also a [Boxed icon](./boxed-icon) component available.
 
 ::: render
 render=../code/components/icon/preview.vue
+:::
+
+::: tip
+The `color` prop names an intent, not a shade. Flux resolves it to that intent's `text` role and holds it to a contrast target against both `--surface` and the matching soft background. See [Intents](../guide/introduction/design-tokens#intents).
 :::
 
 <FrontmatterDocs/>

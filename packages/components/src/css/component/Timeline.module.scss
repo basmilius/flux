@@ -13,7 +13,7 @@
     height: 100%;
     width: 100%;
     fill: none;
-    stroke: var(--gray-200);
+    stroke: var(--surface-stroke);
     stroke-width: 2;
     stroke-linecap: round;
     pointer-events: none;
@@ -47,7 +47,7 @@
     margin-top: 15px;
     height: 12px;
     width: 12px;
-    background: var(--gray-300);
+    background: var(--surface-stroke-hover);
     border-radius: var(--radius-full);
 }
 
@@ -65,7 +65,7 @@
     width: 30px;
     align-items: center;
     justify-content: center;
-    background: var(--gray-25);
+    background: var(--surface);
     border-radius: var(--radius-full);
 }
 
@@ -106,31 +106,24 @@
     }
 }
 
+// Gray fills the same contract as the other five, so the `.timelineItemGray`
+// override that used to follow this loop is gone: its dot now reads off
+// `--gray-solid` like every other bullet in the library.
 @include mixin.color-variants(timelineItem) using ($color) {
     composes: timelineItem;
 
+    @include mixin.intent($color);
+
     .timelineItemIcon,
     .timelineItemPhotoIcon {
-        color: var(--#{$color}-600);
+        color: var(--intent-text);
     }
 
     .timelineItemIcon {
-        background: var(--#{$color}-100);
+        background: var(--intent-soft-hover);
     }
 
     .timelineItemDot {
-        background: var(--#{$color}-600);
-    }
-}
-
-.timelineItemGray {
-    .timelineItemIcon,
-    .timelineItemPhotoIcon {
-        color: var(--foreground-prominent);
-    }
-
-    // A lighter dot than the other colors: gray-600 would read as a filled bullet next to the text.
-    .timelineItemDot {
-        background: var(--gray-400);
+        background: var(--intent-solid);
     }
 }
