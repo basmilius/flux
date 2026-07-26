@@ -152,5 +152,8 @@ export {
     faHashtag,
     faBrain,
     faUserCheck,
-    faReceipt
+    faReceipt,
+    faClockRotateLeft,
+    faScrewdriverWrench,
+    faTriangleExclamation
 } from '@fortawesome/pro-regular-svg-icons';

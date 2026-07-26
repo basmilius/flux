@@ -2329,6 +2329,8 @@
         <p>The shell from <code>@flux-ui/application</code>, embedded in a 600px frame rather than the viewport it normally fills. The rail sits on <code>--surface-canvas</code> and the top bar on the page, so this is where the two page level neutrals have to hold apart. Use the toggle in the top bar to switch the rail between collapsed and expanded.</p>
         <ApplicationDemo/>
 
+        <Patterns/>
+
         <h2>Typography</h2>
         <p>Back in the prose flow, the text scale, lists, quotes, code and tables all come from <code>FluxProse</code>.</p>
         <p>Text itself has a scale and a set of colours of its own.</p>
@@ -2413,6 +2415,7 @@ const article = FluxProse;</code></pre>
     import { computed, reactive, ref } from 'vue';
     import ApplicationDemo from './playground/ApplicationDemo.vue';
     import PaletteSwitcher from './playground/PaletteSwitcher.vue';
+    import Patterns from './playground/Patterns.vue';
 
     type Deployment = {
         readonly id: number;
