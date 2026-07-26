@@ -21,6 +21,11 @@
     --surface-sunken: #{theme.theme(palette.stop('gray', 50), theme.neutral(.249, .017))};
     --surface: #{theme.theme(palette.stop('gray', 25), theme.neutral(.229, .016))};
     --surface-raised: #{theme.theme(palette.stop('gray', 25), theme.neutral(.268, .018))};
+
+    // Which of the three a component is actually sitting on. `mixin/elevation` overrides
+    // it per level; the default is here so it resolves outside one as well.
+    --surface-current: var(--surface);
+
     --surface-loader: #{theme.theme(theme.neutral(1, 0, .75), theme.neutral(.229, .016, .75))};
 
     --surface-inverse: #{theme.theme(theme.neutral(.21, .02, .92), theme.neutral(.95, .008, .95))};

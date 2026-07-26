@@ -93,5 +93,5 @@
 .stepperStepsItemIdle {
     composes: stepperStepsItem;
 
-    outline-color: var(--surface-current, var(--surface));
+    outline-color: var(--surface-current);
 }

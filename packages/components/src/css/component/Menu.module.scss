@@ -267,7 +267,7 @@
     padding: 12px 12px 6px;
     align-items: center;
     gap: 9px;
-    background: linear-gradient(to bottom, var(--surface-current, var(--surface)) 75%, transparent);
+    background: linear-gradient(to bottom, var(--surface-current) 75%, transparent);
     pointer-events: none;
     z-index: 1;
 }

@@ -105,7 +105,7 @@
 .basePaneStructure:is(a, button) {
     @include mixin.hover {
         &:has(> .item) {
-            background-color: color-mix(in srgb, var(--foreground) 4.5%, var(--surface-current, var(--surface)));
+            background-color: color-mix(in srgb, var(--foreground) 4.5%, var(--surface-current));
         }
     }
 }

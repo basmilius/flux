@@ -30,8 +30,8 @@
                                 :ref="element => register(element, token, scheme)"
                                 :class="token.kind === 'shadow' ? $style.tokenTableShadowChip : $style.tokenTableSwatchInk"
                                 :style="token.kind === 'shadow'
-                                    ? {boxShadow: reference(token)}
-                                    : {background: reference(token)}"/>
+                                    ? {boxShadow: `var(--${token.name})`}
+                                    : {background: `var(--${token.name})`}"/>
                         </div>
                         <span :class="$style.tokenTableValue">{{ resolved[`${scheme}:${token.name}`] ?? '' }}</span>
                     </div>
@@ -49,12 +49,9 @@
     type Kind = 'color' | 'shadow';
     type Scheme = 'light' | 'dark';
 
-    // `fallback` is for a token that is not declared on `:root`, such as the
-    // `--surface-current` an elevation level publishes about itself.
     type Token = {
         readonly name: string;
         readonly kind: Kind;
-        readonly fallback?: string;
     };
 
     const SCHEMES: Scheme[] = ['light', 'dark'];
@@ -73,11 +70,8 @@
     const GROUPS: { title: string; description?: string; tokens: Token[] }[] = [
         {
             title: 'Elevation',
-            description: 'How high a layer sits. Light keeps every raised level white and lets the shadow carry the height; dark cannot, so there the lightness of the layer does the work. The last one is the odd one out: it is not a value on its own but what a layer publishes about itself, so its contents can read the surface they actually sit on. Outside a layer it has nothing to report, so the swatch here shows the fallback a consumer would write.',
-            tokens: [
-                ...colors('surface-canvas', 'background', 'surface-sunken', 'surface', 'surface-raised', 'surface-inverse', 'surface-loader'),
-                {name: 'surface-current', kind: 'color', fallback: 'var(--surface)'}
-            ]
+            description: 'How high a layer sits. Light keeps every raised level white and lets the shadow carry the height; dark cannot, so there the lightness of the layer does the work. The last one is the odd one out: it is not a value on its own but what a layer publishes about itself, so its contents can read the surface they actually sit on. Outside a layer it falls back to the plain surface, which is what the swatch here shows.',
+            tokens: colors('surface-canvas', 'background', 'surface-sunken', 'surface', 'surface-raised', 'surface-inverse', 'surface-loader', 'surface-current')
         },
         {
             title: 'Interaction',
@@ -122,10 +116,6 @@
 
     const resolved = reactive<Record<string, string>>({});
     const probes: { element: HTMLElement; key: string; kind: Kind }[] = [];
-
-    function reference(token: Token): string {
-        return token.fallback ? `var(--${token.name}, ${token.fallback})` : `var(--${token.name})`;
-    }
 
     function register(element: unknown, token: Token, scheme: Scheme): void {
         if (element instanceof HTMLElement) {
