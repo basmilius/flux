@@ -1,9 +1,7 @@
 @use '~flux/components/css/mixin';
 
-// The border and the spinner track sit one rung further along the solid ladder
-// than the fill, so they stay a shade apart from it in both themes: darker in
-// light, lighter in dark. The label reads off `--primary-on-solid`, the role the
-// contrast gate holds past AA on every fill state.
+// The border and the spinner track sit one rung further along the solid ladder than the
+// fill, so they stay a shade apart from it in both themes.
 .primaryButton {
     composes: button from './base/Button.module.scss';
 
@@ -91,10 +89,8 @@
     }
 }
 
-// The inset bottom edge is a hint of depth, not a second border: the button's own
-// border color at a fraction of its strength. `--surface-stroke-out` in its place
-// lands heavy enough to read as a border. color-mix, not relative color syntax:
-// the token holds a `light-dark()` (see token/theme.scss).
+// The inset bottom edge is a hint of depth, not a second border: `--surface-stroke-out`
+// in its place lands heavy enough to read as one.
 .secondaryButton,
 .destructiveButton {
     box-shadow: var(--shadow-px), inset 0 -1px color-mix(in srgb, var(--surface-stroke) 15%, transparent);

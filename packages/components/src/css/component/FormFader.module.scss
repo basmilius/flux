@@ -1,7 +1,5 @@
 @use '~flux/components/css/mixin';
 
-// The accent is a semantic token, so it holds a `light-dark()` and every tint below
-// goes through color-mix rather than relative color syntax (see token/theme.scss).
 .formFader {
     --fader-accent: var(--primary-solid);
     --fader-strong: var(--primary-text);
@@ -142,9 +140,8 @@
     pointer-events: none;
 }
 
-// A clipped copy of the text on top of the base overlay: it is masked to the
-// filled region, so wherever the value sits under the text the label/value
-// read in the accent's text tone instead of the neutral foreground.
+// A clipped copy of the text on top of the base overlay, masked to the filled region, so
+// the part of the label sitting over the value reads in the accent's text tone.
 .formFaderOverlayFill {
     composes: formFaderOverlay;
 
@@ -195,8 +192,7 @@
     white-space: nowrap;
 }
 
-// Vertical variant: a slim column that fills bottom (min) to top (max). Fills,
-// bars, thumbs and ticks position via `bottom`; the label/value read rotated.
+// Vertical variant: a slim column that fills bottom (min) to top (max).
 .formFader.isVertical {
     height: var(--flux-form-fader-length, 210px);
     width: 39px;

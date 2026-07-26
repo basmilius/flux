@@ -12,7 +12,6 @@
     z-index: 10000;
 }
 
-// An open trigger stays on its hover state for as long as its flyout is up.
 .menuFlyoutTriggerOpen {
     background: var(--surface-hover);
 }
@@ -39,17 +38,14 @@
     }
 }
 
-// The trailing anchor that forms the cone apex.
 .menuFlyoutConeDebugApex {
     fill: var(--warning-solid);
 }
 
-// The live pointer position (head of the velocity vector).
 .menuFlyoutConeDebugHead {
     fill: var(--foreground-prominent);
 }
 
-// The return cone (aiming back from the submenu towards its opener) in a distinct hue.
 .menuFlyoutConeDebugBack {
     polygon {
         fill: var(--success-solid);

@@ -34,10 +34,6 @@
 }
 
 // The marker follows the palette of a boxed icon: a soft tint with a deep glyph.
-// Gray is the default intent, so an uncoloured entry resolves the same three
-// roles a colored one does. The dot takes `muted` rather than `solid`, the role
-// that weighs the same for all six; on `solid` the gray dot was the darkest thing
-// in the rail.
 .trackerEntry {
     --color: var(--gray-muted);
     --color-deep: var(--gray-text);
@@ -193,8 +189,6 @@
     }
 }
 
-// Every variant fills the same contract, gray included, which is what removed the
-// two `.xxxGray` overrides that used to follow these loops.
 @include mixin.color-variants(trackerEntry) using ($color) {
     composes: trackerEntry;
 

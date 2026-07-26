@@ -6,9 +6,6 @@
     flex-flow: row nowrap;
     gap: 6px;
 
-    // Text, so the variants read the text role rather than the fill. Gray fills
-    // the contract like the other five, which is what removed the `.isGray`
-    // override that used to follow this loop.
     @each $color in mixin.$colors {
         &.is#{mixin.color-suffix($color)} {
             --color: var(--#{$color}-text);

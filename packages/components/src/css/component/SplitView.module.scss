@@ -57,9 +57,7 @@
         transition: background .15s var(--swift-out);
     }
 
-    // The bar is the focus indicator here, since the handle drops its outline
-    // below, so it takes the ring token. Hover is an accent rather than an
-    // indicator and takes the solid fill.
+    // The bar is the focus indicator, since the handle drops its own outline below.
     &:focus-visible::before {
         background: var(--focus-ring);
     }

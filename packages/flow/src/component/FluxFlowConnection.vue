@@ -36,9 +36,7 @@
     }>();
 
     // Keyed by FluxColor rather than a loose array, so adding a color to FluxColor
-    // is a compile error here until it is listed. Every intent now reaches for the
-    // same role, gray included: it used to need a deeper stop than the rest only
-    // because the neutral scale carried no role of its own.
+    // is a compile error here until it is listed.
     const FLUX_COLORS: Record<FluxColor, true> = {
         gray: true,
         primary: true,

@@ -49,9 +49,8 @@
     type Kind = 'color' | 'shadow';
     type Scheme = 'light' | 'dark';
 
-    // `fallback` is for the one token that is not declared on `:root`: an elevation
-    // level publishes `--surface-current` itself, so outside a level it has no value
-    // at all and the swatch would render as nothing.
+    // `fallback` is for a token that is not declared on `:root`, such as the
+    // `--surface-current` an elevation level publishes about itself.
     type Token = {
         readonly name: string;
         readonly kind: Kind;
@@ -135,8 +134,7 @@
     }
 
     // A custom property holding a `light-dark()` reads back verbatim through
-    // getPropertyValue, so the resolved color has to come off a real property
-    // that the engine has already computed for this scheme.
+    // getPropertyValue, so the resolved color has to come off a real property.
     onMounted(() => {
         for (const {element, key, kind} of probes) {
             const style = getComputedStyle(element);
@@ -183,8 +181,6 @@
         text-transform: uppercase;
     }
 
-    /* No box of its own, so the two theme scopes drop straight into the grid
-       while still handing their color-scheme down to the swatches. */
     .tokenTableScope {
         display: contents;
     }
@@ -205,8 +201,7 @@
         border-radius: var(--radius-half);
     }
 
-    /* The swatch sits on a surface so translucent tokens show what they actually
-       do rather than blending into the page. */
+    /* The swatch sits on a surface, so a translucent token shows what it does. */
     .tokenTableSwatch {
         flex-shrink: 0;
         height: 24px;
@@ -238,8 +233,6 @@
         border-radius: var(--radius-half);
     }
 
-    /* Wraps rather than truncates: an alpha value cut off at the closing paren
-       reads as a different color than it is. */
     .tokenTableValue {
         min-width: 0;
         color: var(--foreground-secondary);

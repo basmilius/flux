@@ -2,9 +2,6 @@
     display: inline-block;
     animation: textShimmerSweep var(--shimmer-duration, 2s) linear infinite;
     color: transparent;
-    // The band that sweeps through is the text at full strength and the rest is the
-    // text muted, so both stops are foreground tokens and the gradient needs no dark
-    // counterpart.
     background-image: linear-gradient(
         90deg,
         var(--shimmer-base, var(--foreground-subtle)) calc(50% - var(--shimmer-spread, 15) * 1%),

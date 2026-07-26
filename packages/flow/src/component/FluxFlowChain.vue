@@ -66,7 +66,7 @@
     });
 
     /**
-     * The pairs the chain wires up itself: every two neighbouring links, minus
+     * The pairs the chain wires up itself: every two neighboring links, minus
      * the ones a connector of your own already covers.
      */
     const autoConnections = computed(() => {

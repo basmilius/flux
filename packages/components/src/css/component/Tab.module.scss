@@ -100,8 +100,8 @@
 }
 
 .baseTabBarItem {
-    // A tab owns its text, so a badge or an icon in a slot lands on a known 24px
-    // line box instead of one derived from whatever the tab bar sits in.
+    // A tab owns its text, so a slotted badge or icon lands on a known line box instead
+    // of one derived from whatever the tab bar sits in.
     @include mixin.text(default);
 
     display: inline-flex;
@@ -125,8 +125,7 @@
 
     @include mixin.focus-ring-pseudo(before, -2px);
 
-    // Inset, so the focus ring is not clipped away by the `overflow: auto` on
-    // .tabBarTabs.
+    // Inset, so the focus ring is not clipped away by the `overflow: auto` on .tabBarTabs.
     &::before {
         outline-offset: -2px;
     }

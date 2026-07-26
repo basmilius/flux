@@ -3,16 +3,15 @@
 .badge {
     @include mixin.text(xsmall);
 
-    // Gray is the default intent, so an uncolored badge still fills the contract
-    // instead of leaving `--intent-*` empty.
+    // The default intent, so an uncolored badge still fills the `--intent-*` contract.
     @include mixin.intent('gray');
 
     display: inline-flex;
     height: 28px;
     width: max-content;
 
-    // Pulls the 28px margin-box back to exactly one 24px line, so a badge never
-    // stretches the line it sits in.
+    // Pulls the margin-box back to exactly one line, so a badge never stretches the line
+    // it sits in.
     margin-block: -2px;
     padding-inline: 9px;
     align-items: center;
@@ -94,8 +93,6 @@
     color: var(--foreground-secondary);
     cursor: pointer;
 
-    // Ink, so the state deepens the badge's own tint instead of covering it with
-    // the gray a `--surface-*` fill would bring.
     @include mixin.hover {
         background: var(--ink-hover);
         color: var(--foreground);
@@ -116,8 +113,6 @@
     border-color: var(--intent-border);
 }
 
-// The dot is the quiet mark and the label the loud one, so the dot takes `muted`
-// and the label `--intent-text`.
 .badgeDot {
     display: block;
     height: 9px;
@@ -228,9 +223,8 @@
     color: var(--intent-text);
 }
 
-// The group reads the intent tokens directly rather than through `--intent-*`:
-// its border has to stay uniform across child badges, which each rebind the
-// local contract to their own color.
+// Reads the intent tokens directly rather than through `--intent-*`: the group border has
+// to stay uniform across child badges, which each rebind the local contract.
 @include mixin.color-variants(badgeGroup) using ($color) {
     composes: badge#{mixin.color-suffix($color)};
     composes: badgeGroup;

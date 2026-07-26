@@ -14,9 +14,8 @@
     pointer-events: none;
 }
 
-// A tooltip deliberately reads as the opposite of the page, so it remaps the
-// foreground tokens for everything inside it. The inverse tokens already carry
-// their own value per theme, so the remap needs no dark counterpart.
+// A tooltip reads as the opposite of the page, so it remaps the foreground tokens for
+// everything inside it. The inverse tokens are per theme already, so there is no dark twin.
 .tooltip {
     --foreground: var(--foreground-inverse);
     --foreground-prominent: var(--foreground-inverse-prominent);

@@ -1,9 +1,8 @@
 @use '~flux/components/css/mixin';
 
 .formRating {
-    // A rating star is gold by convention, not because it warns about anything, so
-    // it reaches for the absolute palette stop rather than the warning intent,
-    // which is orange and moves with the theme.
+    // Gold by convention, not a warning, so it takes the absolute palette stop rather than
+    // the warning intent, which is orange and moves with the theme.
     --rating-star: var(--palette-warning-400);
 
     display: inline-flex;
@@ -14,8 +13,7 @@
 
     @include mixin.focus-ring(4px);
 
-    // Both star layers take their own muted tone instead of a blanket opacity: a
-    // disabled rating still has to show which value it holds.
+    // Muted tones rather than a blanket opacity: a disabled rating still has to show its value.
     &.isDisabled {
         .formRatingStar {
             cursor: not-allowed;

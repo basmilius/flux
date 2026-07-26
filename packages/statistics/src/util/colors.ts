@@ -1,9 +1,8 @@
 import { animationFrameDebounce } from '@flux-ui/internals';
 import { onScopeDispose, ref, type Ref } from 'vue';
 
-// CSS function names are case-insensitive and a custom property keeps the token
-// stream exactly as it was authored, so `getComputedStyle` can hand back
-// `LIGHT-DARK(a, b)` and these cannot be an `indexOf`.
+// Case-insensitive: a custom property keeps the token stream exactly as it was
+// authored, so `getComputedStyle` can hand back `LIGHT-DARK(a, b)`.
 const LIGHT_DARK_PATTERN = /light-dark\(/gi;
 const VAR_PATTERN = /var\(/gi;
 const RESOLVABLE_PATTERN = /(?:var|light-dark)\(/i;
@@ -20,20 +19,16 @@ function subscribe(): void {
         return;
     }
 
-    // Every chart on the page re-runs its options on a bump, and a theme switch
-    // touches more than one element, so the bumps are coalesced into one frame.
     const bump = animationFrameDebounce(() => {
         themeVersion.value++;
     });
 
-    // The theme is an attribute on any element, not only on the root: a pane can carry
-    // `[dark]` inside a light page, so the whole subtree has to be watched. The filter
-    // is what keeps that affordable.
+    // A pane can carry `[dark]` inside a light page, so the whole subtree is watched
+    // rather than the root alone.
     const observer = new MutationObserver(bump);
     observer.observe(document.documentElement, {attributes: true, attributeFilter: ['dark', 'light'], subtree: true});
 
-    // An app that sets `color-scheme: light dark` follows the OS, and that flip
-    // changes no attribute at all.
+    // An app on `color-scheme: light dark` follows the OS, and that flip changes no attribute.
     const query = typeof window !== 'undefined'
         ? window.matchMedia('(prefers-color-scheme: dark)')
         : null;
@@ -57,9 +52,8 @@ function unsubscribe(): void {
     teardown = null;
 }
 
-// The observers belong to the charts that read this ref, not to the module: a hot reload
-// replaces the module and the old instance would keep observing on behalf of components
-// that have moved on. Counting also keeps a page without charts off the document.
+// Refcounted rather than subscribed once per module: a hot reload replaces the module
+// and the old instance would keep observing for components that have moved on.
 export function useCssVarVersion(): Ref<number> {
     subscribe();
     onScopeDispose(unsubscribe, true);
@@ -67,10 +61,8 @@ export function useCssVarVersion(): Ref<number> {
     return themeVersion;
 }
 
-// Splits the arguments of the call whose `(` sits at `open`, leaving nested calls alone:
-// a comma inside `oklch(...)` does not separate arguments and the `)` that closes it does
-// not end the call. Null when the call is never closed. The slices are raw, so joining
-// them back with a comma reproduces the original text.
+// Splits the arguments of the call whose `(` sits at `open`, leaving nested calls alone.
+// Null when the call is never closed; the slices are raw, so a comma join is lossless.
 function readArguments(input: string, open: number): { args: string[]; end: number } | null {
     const args: string[] = [];
     let depth = 0;
@@ -127,9 +119,8 @@ function replaceCalls(input: string, pattern: RegExp, replace: (args: string[], 
     return output + input.slice(cursor);
 }
 
-// A fallback holds whatever the author put there, including a call with its own
-// parentheses and commas, which is why this walks the string rather than matching a
-// pattern: `var(--x, oklch(.5 .1 200))` has to come back as the whole `oklch()`.
+// A fallback can hold a call of its own, so `var(--x, oklch(.5 .1 200))` has to come back
+// as the whole `oklch()`. That is why this walks the string instead of matching a pattern.
 function resolveVars(input: string, style: CSSStyleDeclaration): string {
     return replaceCalls(input, VAR_PATTERN, (args, original) => {
         const name = args[0].trim();
@@ -144,19 +135,17 @@ function resolveVars(input: string, style: CSSStyleDeclaration): string {
     });
 }
 
-// A color token is an unregistered custom property, so its computed value is the
-// token stream with `var()` substituted and nothing else: `light-dark()` comes out
-// verbatim and a canvas cannot parse it. Registering the properties would resolve
-// it, but eagerly on `:root`, which freezes the whole page to one theme. So the
-// pair is picked here instead, from the `color-scheme` in force at the chart.
+// A color token is an unregistered custom property, so its computed value still holds a
+// verbatim `light-dark()` that a canvas cannot parse. Registering the property would
+// resolve it, but eagerly on `:root`, which freezes the whole page to one theme; the pair
+// is therefore picked here, from the `color-scheme` in force at the chart.
 function resolveLightDark(input: string, isDark: boolean): string {
     return replaceCalls(input, LIGHT_DARK_PATTERN, args => {
         if (args.length < 2) {
             return null;
         }
 
-        // The side that wins can hold a `light-dark()` of its own, once a token that has
-        // one was substituted into it.
+        // The winning side can hold a `light-dark()` of its own, substituted in from a token.
         return resolveLightDark(args[isDark ? 1 : 0].trim(), isDark);
     });
 }
@@ -189,8 +178,7 @@ function isPlainObject(value: unknown): value is Record<string, unknown> {
 
 function deepResolveWithStyle<T>(value: T, style: CSSStyleDeclaration, isDark: boolean): T {
     if (typeof value === 'string') {
-        // A token that only holds a `light-dark()` never goes through `var()`, so the
-        // test cannot be for that alone.
+        // A token that only holds a `light-dark()` never goes through `var()`.
         return (RESOLVABLE_PATTERN.test(value) ? resolveWithStyle(value, style, isDark) : value) as T;
     }
 
@@ -233,8 +221,7 @@ function deepResolveWithStyle<T>(value: T, style: CSSStyleDeclaration, isDark: b
 }
 
 // `root` is the element the chart renders in, so a chart inside a `[dark]` subtree
-// resolves against that subtree instead of the light document. It is null until the
-// component mounts, and the document is the right answer until then.
+// resolves against that subtree. It is null until mount; the document holds until then.
 export function deepResolveCssVars<T>(value: T, root?: HTMLElement | null): T {
     if (typeof document === 'undefined') {
         return value;

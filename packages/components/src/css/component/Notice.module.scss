@@ -102,8 +102,8 @@
     }
 }
 
-// A notice always carries a color, gray included, so the fills below are the only
-// ones `code` and `.noticeClose` ever get.
+// A notice always carries a color, gray included, so these are the only fills `code` and
+// `.noticeClose` ever get.
 @include mixin.color-variants(notice) using ($color) {
     composes: notice;
 
@@ -113,13 +113,11 @@
     border-color: var(--intent-border);
     color: var(--intent-text);
 
-    // A chip sitting on the notice's own fill takes the rung above it.
     code {
         background: var(--intent-soft-hover);
     }
 
-    // Deepens one more rung on hover instead of going translucent, which would dim
-    // the glyph along with the chip behind it.
+    // Deepens a rung on hover rather than going translucent, which would dim the glyph too.
     .noticeClose {
         background: var(--intent-soft-hover);
 
@@ -128,8 +126,6 @@
         }
     }
 
-    // The icon and the spinner are the same mark in two forms, so they share one
-    // accent.
     .noticePrefix {
         color: var(--intent-solid);
     }

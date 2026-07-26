@@ -27,7 +27,7 @@
                 </FluxFlowNode>
 
                 <FluxFlowNode id="transform" :x="300" :y="210">
-                    <FluxFlowActionCard title="Normalise" icon="code-branch">
+                    <FluxFlowActionCard title="Normalize" icon="code-branch">
                         Maps the payload to the internal schema.
                     </FluxFlowActionCard>
                 </FluxFlowNode>

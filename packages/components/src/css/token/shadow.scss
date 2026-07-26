@@ -1,29 +1,20 @@
 @use 'theme';
 
-// One geometry for both themes; only the color differs. That is a constraint as
-// much as a choice: `light-dark()` carries colors, not lengths, so a per-theme
-// blur radius would need a theme selector, and the `color-scheme: light dark`
-// setup base.scss documents has none to hang it on.
+// One geometry for both themes; only the color differs. That is a constraint as much
+// as a choice: `light-dark()` carries colors, not lengths, so a per-theme blur radius
+// would need a theme selector, and the `color-scheme` setup has none to hang it on.
 //
-// The dark alphas are solved against the perceptual weight each step has to land
-// on, not picked, so they are not free to be rounded. They stay flat within a
-// tier: the geometry already makes the taller steps read stronger, and an alpha
-// ramp on top of that only adds weight.
-//
-// Light tints its shadow with the neutral hue rather than pure black, which keeps
-// it from reading as soot on a colored surface.
+// Light tints its shadow with the neutral hue rather than pure black, which keeps it
+// from reading as soot on a colored surface.
 @function color($light-alpha, $dark-alpha) {
     @return theme.theme(theme.neutral(.36, .02, $light-alpha), 'oklch(0 0 0 / #{$dark-alpha})');
 }
 
 @mixin shadows {
-    // For a component composing its own shadow, so that it takes a themed ink
-    // rather than a palette stop: a stop means the same color in both themes and
-    // turns a shadow into a glow in one of them.
-    //
-    // Both alphas sit well above the steps because the only caller pulls its shadow
-    // back with a negative spread, which halves the peak. At these values it lands
-    // on the weight of `--shadow-md` in either theme.
+    // For a component composing its own shadow, so that it takes a themed ink rather
+    // than a palette stop, which would be the same color in both themes and turn the
+    // shadow into a glow in one of them. Its alphas run well above the steps below
+    // because the only caller pulls its shadow back with a negative spread.
     --shadow-color: #{color(.15, .3)};
 
     --shadow-px: 0 1px 1px #{color(.02, .08)};

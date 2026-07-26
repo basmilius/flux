@@ -90,9 +90,8 @@
     }
 }
 
-// The dots carry no text, so they sit at hairline weight: the stroke pair keeps
-// the resting dot and the lifted one a rung apart, where a foreground token would
-// make a typing indicator shout.
+// The dots carry no text, so they sit at stroke weight: a foreground token would make
+// the typing indicator shout.
 @keyframes commentTyping {
     0%,
     80%,

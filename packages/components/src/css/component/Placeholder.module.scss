@@ -7,8 +7,7 @@
     flex: 1 0 auto;
     flex-flow: column;
     justify-content: center;
-    // The gray intent rather than the elevation pair: a sunken surface inside the
-    // plain stroke leaves barely any difference between the fill and the dashes.
+    // The gray intent rather than the elevation pair, which leaves the dashes invisible in dark.
     background: var(--gray-soft);
     border: 2px dashed var(--gray-border);
     border-radius: var(--radius);

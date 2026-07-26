@@ -43,8 +43,8 @@
     }
 }
 
-// `--color` is a color the consumer picked, not a token, so the tint is mixed
-// against the surface instead of derived from it.
+// `--color` is a color the consumer picked, not a token, so the tint is mixed against
+// the surface instead of derived from it.
 .avatarFallbackColorized {
     composes: avatarFallback;
 
@@ -52,8 +52,7 @@
     color: var(--color);
 }
 
-// Dark keeps more of the chosen color: the same mix against a dark surface
-// leaves too little of it to read as colored at all.
+// Dark keeps more of the chosen color: the same mix leaves too little of it to read.
 [dark] .avatarFallbackColorized {
     background: color-mix(in srgb, var(--color), var(--surface) 70%);
 }
@@ -76,8 +75,7 @@
     border-radius: inherit;
     backdrop-filter: blur(3px) saturate(180%);
 
-    // The track reads over the blurred veil rather than over a surface, so it is
-    // translucent ink. Mixed, not derived: see token/theme.scss.
+    // The track reads over the blurred veil rather than over a surface, so it is ink.
     :local(.spinner) {
         --track: color-mix(in srgb, var(--foreground-prominent) 12%, transparent);
     }
@@ -170,7 +168,7 @@
     }
 
     :is(span) {
-        // Matches the sibling strong; .personaDetails owns the 18px rhythm.
+        // Matches the sibling strong; .personaDetails owns the rhythm.
         @include mixin.text(small, $line-height: 18px);
 
         color: var(--foreground);

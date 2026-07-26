@@ -1,8 +1,7 @@
 @use '~flux/components/css/mixin';
 
-// The stripe is the fill shifted a quarter of the way towards the surface. The
-// solid ladder cannot supply a step that small here: gray's next rung is
-// near-black in light and near-white in dark.
+// The stripe is the fill shifted a quarter of the way towards the surface: the solid
+// ladder has no step that small.
 .progressBar {
     @include mixin.intent('primary');
 
@@ -16,8 +15,7 @@
     @include mixin.intent($color);
 }
 
-// The neutral fill and its own edge, rather than the elevation pair: a sunken
-// surface inside its own stroke leaves the track edge barely visible in dark.
+// The gray intent rather than the elevation pair, which leaves no visible edge in dark.
 .progressBarTrack {
     position: relative;
     height: 9px;
@@ -41,8 +39,6 @@
     background: var(--progress-fill);
 }
 
-// Mixed rather than derived with relative color syntax: the source is a semantic
-// token holding a `light-dark()` (see token/theme.scss).
 .progressBarValueIncomplete {
     composes: progressBarValue;
 

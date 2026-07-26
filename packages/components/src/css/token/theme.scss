@@ -1,7 +1,7 @@
 // How a token picks its value per theme. `light-dark()` resolves against the
 // `color-scheme` of the element the token is *used* on, not the one it was
 // declared on, so a single declaration on `:root` still flips inside a `[dark]`
-// subtree. That is what lets the whole color layer live in one block.
+// subtree.
 //
 // Two things break that and must be avoided:
 //
@@ -23,17 +23,13 @@
     @return #{'light-dark(#{$light}, #{$dark})'};
 }
 
-// A neutral at an arbitrary lightness. Dark mode needs far more steps through the
-// dark end than the gray scale has stops there, so these cannot be stops. The
-// lightness is given here because it was solved against a contrast target and must
-// not drift; hue and chroma are read off `gray-500` at use time.
-//
-// That anchoring is the whole point: recolor the gray scale and the dark surfaces,
-// text and strokes move with it, while the lightness ramp that carries the contrast
-// guarantees stays put.
+// A neutral at an arbitrary lightness, for the dark end where the gray scale has no
+// stops. The lightness is solved against a contrast target and must not drift; hue and
+// chroma are read off `gray-500`, so recoloring the gray scale carries the dark
+// surfaces, text and strokes with it.
 @function neutral($lightness, $chroma, $alpha: 1) {
-    // Rounded to keep the emitted expression short; the error lands far below a
-    // perceptible step at these chromas.
+    // Rounded to keep the emitted expression short; the error stays below a
+    // perceptible step.
     $factor: math.div(math.round(math.div($chroma, palette.chroma('gray', 500)) * 10000), 10000);
     $expression: 'calc(c * #{$factor})';
     $suffix: '';

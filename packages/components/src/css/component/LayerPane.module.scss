@@ -10,8 +10,7 @@
     transition-property: background, border;
 }
 
-// The edge keeps one color across both states: the contract has a single border
-// role, and the tint carries the hover on its own.
+// The edge keeps one color across both states: the tint carries the hover on its own.
 @include mixin.color-variants(layerPane) using ($color) {
     composes: layerPane;
 
@@ -24,8 +23,7 @@
         background-color: var(--intent-soft-hover);
     }
 
-    // A pane header icon is already `--primary-text` (Pane.module.scss), so only the
-    // intents that differ from it restate the color.
+    // A pane header icon is already `--primary-text` (Pane.module.scss).
     @if $color != 'primary' {
         :local(.paneHeaderIcon) {
             color: var(--intent-text);

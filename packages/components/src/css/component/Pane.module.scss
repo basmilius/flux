@@ -91,7 +91,7 @@
     }
 
     :is(span) {
-        // Keeps the caption at 48px; small's own 21px would shrink it.
+        // Keeps the caption on the header line box; small's own line height would shrink it.
         @include mixin.text(small, $line-height: 24px);
     }
 }

@@ -31,15 +31,14 @@
         white-space: nowrap;
     }
 
-    // A duotone glyph is drawn as two stacked layers: the primary shape over the
-    // dimmed secondary. Both sit in the same grid cell so they overlap exactly.
+    // A duotone glyph is two stacked layers, so both sit in the same grid cell to overlap.
     .iconFontPrimary,
     .iconFontSecondary {
         grid-area: 1 / 1;
     }
 
     .iconFontSecondary {
-        // Match the SVG duotone rendering, which dims the secondary path to .2.
+        // Matches the SVG duotone rendering, which dims the secondary path.
         opacity: var(--fa-secondary-opacity, .2);
     }
 

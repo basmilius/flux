@@ -1,6 +1,4 @@
-// Everything that is not a color. The color tokens moved to token/: palette for
-// the absolute scales, semantic for the per-theme layer, intent for the six intents
-// and shadow for the elevation steps.
+// Everything that is not a color; the color tokens live in token/.
 
 @mixin animation {
     --acceleration-curve: cubic-bezier(0.4, 0, 1, 1);

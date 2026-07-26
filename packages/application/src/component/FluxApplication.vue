@@ -56,9 +56,7 @@
     const contexts = computed(() => contextStack.value);
     const totalLevels = computed(() => 1 + matchedMenuRoutes.value.length);
 
-    // Navigation is the only thing that snaps the menu back to the deepest
-    // context and closes it again on small screens. Without a router there
-    // is nothing to navigate, so the shell just keeps its current level.
+    // Without a router there is nothing to navigate, so the shell keeps its level.
     if (route) {
         watch(() => route.fullPath, () => {
             viewIndex.value = totalLevels.value - 1;

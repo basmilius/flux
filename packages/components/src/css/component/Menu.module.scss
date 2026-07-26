@@ -221,9 +221,8 @@
     margin-left: -9px;
 }
 
-// The shortcut has to stay quieter than the label without leaving the fill's own
-// foreground, which is white in light and near-black in dark, so it fades that
-// token rather than picking a stop.
+// Fades the fill's own foreground rather than picking a stop, so the shortcut stays
+// quieter than the label on both themes.
 .menuItemActive .menuItemCommand,
 .menuItemActive .menuItemCommandIcon {
     color: color-mix(in srgb, var(--primary-on-solid) 70%, transparent);
@@ -258,9 +257,8 @@
     font-weight: 700;
 }
 
-// The sticky header fades out into the surface it is stuck to, which is not always
-// `--surface`: a menu sits inline on a page as well as inside a raised flyout. The
-// fallback covers a menu that is not inside a pane at all.
+// The header fades out into the surface it is stuck to, which is not always `--surface`:
+// a menu sits inline on a page as well as inside a raised flyout.
 .menuSubHeader {
     position: sticky;
     display: flex;
@@ -311,8 +309,8 @@
     }
 }
 
-// A top level item is filled with `--primary-solid` when active, so its marker
-// reads off that fill instead of the surface underneath it.
+// A top level item is filled when active, so its marker reads off that fill instead of
+// the surface underneath it.
 .menuLarge .menuItem:not(.menuItemIndented) {
     min-height: 48px;
 
@@ -327,8 +325,7 @@
     }
 
     // The resting fill outranks `.menuItem`'s own hover and press, so those states are
-    // restated here. They stack a second ink over the fill instead of replacing it,
-    // which is the only way two ink levels yield three distinct steps.
+    // restated, stacking a second ink over the fill instead of replacing it.
     &.menuItemIndented {
         background-color: var(--ink-active);
 

@@ -110,8 +110,7 @@
     height: 21px;
 }
 
-// Vertical variant: the track runs bottom (min) to top (max). The cross-axis
-// stays the horizontal one, so fills, thumbs and ticks position via `bottom`.
+// Vertical variant: the track runs bottom (min) to top (max).
 .slider.isVertical {
     flex-flow: row;
     height: var(--flux-form-slider-length, 210px);

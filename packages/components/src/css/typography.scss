@@ -55,8 +55,7 @@
         @include mixin.text(small);
     }
 
-    // Only the monospace font is a light default; the rich prose treatment of
-    // code, blockquotes, images, lists and the vertical rhythm lives in FluxProse.
+    // Only the font is set here; the rich prose treatment lives in FluxProse.
     code, kbd, samp, pre {
         font-family: var(--font-monospace), monospace;
     }

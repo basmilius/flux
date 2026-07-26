@@ -96,8 +96,8 @@
     }
 }
 
-// The cells paint themselves and the 1px gap between them shows this through, so
-// the grid background is a separator color rather than a surface.
+// The cells paint themselves and the gap between them shows this through, so the grid
+// background is a separator color rather than a surface.
 .calendarCells {
     display: grid;
     flex-grow: 1;
@@ -116,7 +116,7 @@
 .calendarDay {
     composes: calendarCell;
 
-    // The 30px line box is the cell height.
+    // The line box is the cell height.
     @include mixin.text(xsmall, $line-height: 30px);
 
     padding-inline: 0;
@@ -138,8 +138,7 @@
     transition-property: background, outline-color, z-index;
     z-index: 0;
 
-    // A day outside the viewed month: recessed rather than dimmed, so the cell
-    // keeps its own color instead of fading whatever it contains.
+    // A day outside the viewed month: recessed rather than dimmed, so the cell keeps its color.
     &.isDisabled {
         background: var(--surface-sunken);
         color: var(--foreground-secondary);
@@ -148,9 +147,7 @@
             color: var(--foreground-disabled);
         }
 
-        // Holds whatever `renderContent` returned, usually a badge carrying its
-        // own color. A token only reaches what inherits `color`, so dimming the
-        // group is the one case where opacity is the tool rather than the hack.
+        // Holds a badge carrying its own color, which no token reaches: hence opacity.
         .calendarEvents {
             opacity: .75;
             pointer-events: none;
@@ -344,8 +341,7 @@
     overflow: hidden;
     padding: 2px;
 
-    // A marker on the day column, not the edge of a warning fill, so it takes the
-    // solid role: the border role disappears against the surface behind it.
+    // A marker on the day column, not the edge of a fill, so it takes the solid role.
     &.isClippedTop {
         border-top: 2px dashed var(--warning-solid);
     }

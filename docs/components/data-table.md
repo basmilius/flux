@@ -213,7 +213,7 @@ The data table does **not** paginate `items` internally. The `items` prop should
 :::
 
 ::: tip Fast group toggling
-By default a collapsed group unmounts its rows, so re-expanding a group of rich rows (per-row flyouts, links, indicators) re-mounts all of them. Set `collapse-mode="hide"` to keep the rows mounted and hide them instead, making every toggle instant. Hidden rows are excluded from keyboard navigation and assistive technology, so there is no visible or behavioural change beyond the speed.
+By default a collapsed group unmounts its rows, so re-expanding a group of rich rows (per-row flyouts, links, indicators) re-mounts all of them. Set `collapse-mode="hide"` to keep the rows mounted and hide them instead, making every toggle instant. Hidden rows are excluded from keyboard navigation and assistive technology, so there is no visible or behavioral change beyond the speed.
 :::
 
 ## Examples

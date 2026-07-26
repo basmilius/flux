@@ -49,8 +49,7 @@
     grid-template-columns: repeat(3, auto);
 }
 
-// The swatch and the icon are painted over with the series color inline; these
-// are only what shows when a tooltip item carries none.
+// Only shows when a tooltip item carries no series color of its own.
 .statisticsChartTooltipSeriesColor {
     height: 12px;
     width: 12px;

@@ -49,7 +49,7 @@ jobs:
                 env:
                     FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
 
-            -   name: 🎨 Check colour contract
+            -   name: 🎨 Check color contract
                 run: |
                     bun scripts/check-contrast.ts
                     bun scripts/check-palette-refs.ts

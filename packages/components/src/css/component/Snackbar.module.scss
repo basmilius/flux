@@ -104,16 +104,13 @@
 
     @include mixin.intent($color);
 
-    // The three marks that carry the intent, against a message on `--foreground`
-    // and a sub message a rung below it. The text rung rather than solid, so all
-    // six stay readable on the raised pane a snackbar is.
+    // The text rung rather than solid, so the marks stay readable on a raised pane.
     .snackbarAction:first-child,
     .snackbarContent > .icon,
     .snackbarTitle {
         color: var(--intent-text);
     }
 
-    // The spinner is a filled arc rather than ink, so it takes the solid role.
     .spinnerEffect,
     .spinnerValue {
         stroke: var(--intent-solid);

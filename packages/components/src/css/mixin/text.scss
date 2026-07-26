@@ -2,11 +2,9 @@
 
 $-sizes: 2xsmall, xsmall, small, default, large, xlarge;
 
-// Sets a font-size and its line-height together. The pairing is what keeps every
-// line box on the 3px grid, so the two are never set separately.
-//
-// Pass $line-height only where an element has to match a line box it does not own,
-// such as a label aligning against a fixed-size control.
+// Sets a font-size and its line-height together; the pairing is what keeps every line
+// box on the 3px grid. Pass $line-height only where an element has to match a line box
+// it does not own, such as a label aligning against a fixed-size control.
 @mixin text($size, $line-height: null) {
     @if not list.index($-sizes, $size) {
         @error 'Text size "#{$size}" not found in "#{$-sizes}".';
@@ -21,8 +19,6 @@ $-sizes: 2xsmall, xsmall, small, default, large, xlarge;
     }
 }
 
-// Clips a single line to its box with an ellipsis. All three declarations are needed: without
-// nowrap the text wraps instead of overflowing, and without overflow there is nothing to ellide.
 @mixin truncate {
     overflow: hidden;
     white-space: nowrap;

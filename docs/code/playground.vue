@@ -1499,8 +1499,6 @@
                 </FluxMenu>
             </FluxPane>
 
-            <!-- The Finder menu from the docs: four levels of nesting is what actually
-                 exercises the prediction cone, and the cone stays visible here. -->
             <FluxContextMenu debug-cone>
                 <FluxPane>
                     <FluxPaneHeader
@@ -2406,10 +2404,8 @@ const article = FluxProse;</code></pre>
             src="https://images.pexels.com/photos/33688/delicate-arch-night-stars-landscape.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"/>
     </FluxProse>
 
-    <!-- Outside the article on purpose. The prose container declares a
-         `container-type`, which makes it the containing block for fixed positioned
-         descendants, and the launcher would scroll away with the page instead of
-         staying pinned to the corner of the viewport. -->
+    <!-- Outside the prose container on purpose: its `container-type` would become
+         the containing block and the fixed launcher would scroll away. -->
     <PaletteSwitcher/>
 </template>
 
@@ -2773,22 +2769,16 @@ const article = FluxProse;</code></pre>
     .playground {
         container: playground / inline-size;
         padding-block: 60px;
+        max-width: 1800px;
+        margin-inline: auto;
     }
 
-    // A full-bleed block spans the prose gutters as well, so without an inset it
-    // sits flush against the page edge. Margin rather than padding: several of
-    // these are components that paint their own surface, where padding would push
-    // the content inward instead of moving the block off the edge.
     .playground > :global([data-prose-full]) {
         margin-inline: 30px;
     }
 
-    // Fixed column counts, not `auto-fill`. This page exists to put components
-    // side by side, and with `auto-fill` the column count followed whatever room a
-    // section happened to have, so one grid rendered three columns and the next
-    // four and a card was never the same width twice. The breakpoints are the
-    // widths at which a card would drop under 300px, measured on the container
-    // rather than the viewport so the page chrome cannot shift them.
+    // Fixed column counts rather than `auto-fill`, so a card is the same width in
+    // every section of the page.
     .grid {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -2796,10 +2786,6 @@ const article = FluxProse;</code></pre>
         align-items: start;
     }
 
-    // Four, two, one. Three is deliberately not a step: every grid here holds a
-    // multiple of four cards, so a three column row would leave a gap at the end
-    // that four and two never do. Two columns still keeps a card above 300px all
-    // the way down to the single column fallback.
     @container playground (width < 1320px) {
         .grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2812,9 +2798,6 @@ const article = FluxProse;</code></pre>
         }
     }
 
-    // The six intents get their own track count. Six cards in the four column
-    // grid would leave a half empty second row, while three columns fills two
-    // rows exactly and keeps doing so at the two and one column fallbacks.
     .gridIntents {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -2834,9 +2817,6 @@ const article = FluxProse;</code></pre>
         }
     }
 
-    // One column per step, so the whole scale reads as a single row in order.
-    // Seven has no useful intermediate factor, so the fallback goes straight to
-    // one column rather than leaving a partial row at some middle width.
     .shadows {
         display: grid;
         grid-template-columns: repeat(7, minmax(0, 1fr));

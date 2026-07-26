@@ -9,8 +9,6 @@
     border-radius: var(--radius);
     overflow: hidden;
 
-    // `--shimmer` has to stay lighter than what it sweeps across in both themes,
-    // which is the direction the contrast gate holds it to.
     &::after {
         content: '';
         position: absolute;

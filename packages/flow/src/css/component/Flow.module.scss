@@ -1,8 +1,6 @@
 @use '~flux/components/css/mixin';
 
 .flow {
-    // One rung above the sunken canvas it is drawn on, so the grid stays a hint
-    // rather than a pattern.
     --flow-dot: var(--surface-stroke);
     // A shade deeper than it reads: a plain connector dims its whole group to a
     // fraction of this (see FlowConnection isNeutral), so the darker base lands

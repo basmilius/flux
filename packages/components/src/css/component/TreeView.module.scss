@@ -6,9 +6,8 @@
     outline: 0;
 }
 
-// States mirror .menuItem / .menuItemHighlighted (Menu.module.scss) so tree nodes match the rest of
-// the library's list-like items. Ink rather than the opaque pair, because a tree can sit in a
-// flyout, and the opaque pair is only calibrated against `--surface`.
+// States mirror .menuItem (Menu.module.scss) so tree nodes match the library's other list-like
+// items. Ink rather than the opaque pair, which is only calibrated against `--surface`.
 .treeNode {
     composes: treeNode from './primitive/TreeNode.module.scss';
 

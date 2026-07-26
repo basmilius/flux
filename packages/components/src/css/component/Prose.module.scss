@@ -1,13 +1,10 @@
-// FluxProse styles its own HTML content only. Every rule is anchored to a direct
-// child of .prose (or a descendant of one of its own blocks), so a foreign
-// component dropped into an article is never matched and keeps its own styling,
-// while still flowing in the vertical rhythm.
+// Every rule is anchored to a direct child of .prose (or a descendant of one of its own
+// blocks), so a foreign component dropped into an article keeps its own styling while
+// still flowing in the vertical rhythm.
 $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
 
-// Break-out grid: content sits at a readable measure, while elements marked
-// with data-prose-wide or data-prose-full break out to wider tracks. Named
-// proseContainer rather than container: Layout.module.scss already owns that
-// name, and the two must not collide in a flat class namespace.
+// Named proseContainer rather than container: Layout.module.scss already owns that name,
+// and the two must not collide in a flat class namespace.
 .proseContainer {
     --_gutter: var(--flux-prose-gutter, 24px);
     --_measure: var(--flux-prose-container, 90ch);
@@ -33,8 +30,7 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
         grid-column: full;
     }
 
-    // A break-out element reads as a section break, so it and the element that
-    // follows it get more room than the regular inter-block rhythm.
+    // A break-out element reads as a section break, so it gets more room than the rhythm.
     > :is([data-prose-wide], [data-prose-full]):not(:first-child),
     > :is([data-prose-wide], [data-prose-full]) + * {
         margin-top: 33px;
@@ -46,8 +42,6 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
     line-height: var(--line-height-default);
     color: var(--foreground);
 
-    // Vertical rhythm. Every direct child, including an embedded component, is
-    // spaced from its predecessor; a new heading gets more room.
     > * + * {
         margin-top: 18px;
     }
@@ -56,13 +50,11 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
         margin-top: 42px;
     }
 
-    // Headings.
     > h2 {
         padding-bottom: 9px;
         border-bottom: 1px solid var(--surface-stroke);
     }
 
-    // Lists.
     > :where(ul, ol),
     > :where(ul, ol) :where(ul, ol) {
         padding-left: 24px;
@@ -89,7 +81,6 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
         margin-top: 6px;
     }
 
-    // Blockquote.
     > blockquote {
         font-style: italic;
         padding-left: 18px;
@@ -97,7 +88,6 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
         border-left: 3px solid var(--surface-stroke);
     }
 
-    // Inline code and sample output inside prose text.
     > #{$text} :where(code, samp) {
         font-size: var(--font-size-xsmall);
         padding: 3px 6px;
@@ -105,7 +95,6 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
         background: var(--surface-sunken);
     }
 
-    // Keyboard key inside prose text.
     > #{$text} kbd {
         font-size: var(--font-size-2xsmall);
         padding: 3px 6px;
@@ -114,12 +103,10 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
         box-shadow: 0 1px 0 var(--surface-stroke);
     }
 
-    // Badges and tags sit inline in prose text; center them on the line.
     > #{$text} :local(.badge) {
         vertical-align: middle;
     }
 
-    // Code block.
     > pre {
         overflow-x: auto;
         padding: 15px 18px;
@@ -133,7 +120,6 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
         background: none;
     }
 
-    // Divider.
     > * + hr,
     > hr + * {
         margin-top: 33px;
@@ -144,7 +130,6 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
         border-top: 1px solid var(--surface-stroke);
     }
 
-    // Table, matching the FluxTable component.
     > table {
         width: 100%;
         border-collapse: collapse;
@@ -166,8 +151,6 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
         border-top: 1px solid var(--surface-stroke-muted);
     }
 
-    // The head pairs the sunken fill with the muted stroke, the same way FluxTable
-    // does.
     > table thead th {
         font-size: var(--font-size-small);
         font-weight: 700;
@@ -176,7 +159,6 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
         background: var(--surface-sunken);
     }
 
-    // Image.
     > img {
         height: unset;
         border-radius: var(--radius-half);

@@ -13,8 +13,7 @@
         --dz-width: calc(100% + 6px);
     }
 
-    // The neutral fill and its own edge, rather than the elevation pair: a sunken
-    // surface inside its own stroke leaves the dashes barely visible in dark.
+    // The gray intent rather than the elevation pair, which leaves the dashes invisible in dark.
     &:has(.dropZoneContent > .placeholder) {
         --dz-fill: var(--gray-soft);
         --dz-stroke: var(--gray-border);

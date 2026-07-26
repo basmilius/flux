@@ -9,12 +9,9 @@
 //       border-color: var(--intent-border);
 //   }
 //
-// Two things follow from this. Gray no longer needs the override every component
-// used to write right after its color loop, because `--gray-*` already resolves to
-// the neutral tokens. And the contract is deliberately unprefixed: these are local
-// variables, unlike the global tokens they read from, which is what keeps a
-// component from shadowing a global name the way Badge used to shadow
-// `--background`.
+// Gray fills the contract like the other five, so it does not need an override after
+// the color loop. The names are deliberately unprefixed: these are local variables, not
+// global tokens, which is what keeps a component from shadowing a global name.
 @mixin intent($color) {
     --intent-solid: var(--#{$color}-solid);
     --intent-solid-hover: var(--#{$color}-solid-hover);

@@ -1,17 +1,13 @@
 @use 'sass:list';
 @use 'sass:map';
 
-// The palette is absolute: a stop means the same color in both themes, so
-// `gray-950` is always near-black and a shadow cannot come out as a glow. Themes
-// differ in the semantic layer instead, through `light-dark()`.
+// The palette is absolute: a stop is the same color in both themes, so a shadow
+// cannot come out as a glow. Themes differ in the semantic layer, through
+// `light-dark()`.
 //
-// The hex beside each stop is the sRGB value it converts to. The six scales are
-// deliberately not normalized onto one shared lightness ramp: warning runs higher
-// and turns further in hue than the rest, so flattening it is a visible design
-// change, not plumbing. token/intent.scss carries the exceptions that follow.
-//
-// Prefer a semantic token over a palette stop. These exist to build the semantic
-// layer out of, not to reach for from a component.
+// The hex beside each stop is the sRGB value it converts to, not a source of truth.
+// Prefer a semantic token over a stop: these exist to build the semantic layer out
+// of, not to reach for from a component.
 $palette: (
     'gray': (
         25:  (1 0 0),                 // #ffffff
@@ -99,14 +95,12 @@ $palette: (
     )
 );
 
-// The chroma of a stop, for the callers that scale it rather than take it whole.
 @function chroma($scale, $stop) {
     @return list.nth(map.get($palette, $scale, $stop), 2);
 }
 
-// A stop as a literal color. Only `@mixin palette` below needs this: everything
-// else refers to the stop rather than inlining it, so that overriding
-// `--palette-gray-600` still reshades what is built on top of it.
+// A stop as a literal color. Only `@mixin palette` below needs it: everything else
+// refers to the stop, so overriding `--palette-gray-600` reshades what is built on it.
 @function literal($scale, $stop) {
     $value: map.get($palette, $scale, $stop);
 
@@ -114,12 +108,10 @@ $palette: (
 }
 
 // A stop as a reference. The semantic and intent layers are built out of these,
-// which is what keeps the palette a control surface rather than a lookup table
-// that happens to be shipped.
+// which keeps the palette a control surface rather than a lookup table.
 //
-// `$alpha` exists for the tokens that need the same color at reduced opacity. It
-// goes through relative color syntax, which is safe here precisely because a stop
-// holds a plain color; over a themed token it is the trap theme.scss documents.
+// `$alpha` goes through relative color syntax, which is safe over a stop because a
+// stop holds a plain color. Over a themed token it is the trap theme.scss documents.
 @function stop($scale, $stop, $alpha: 1) {
     @if $alpha < 1 {
         @return #{'oklch(from var(--palette-#{$scale}-#{$stop}) l c h / #{$alpha})'};
@@ -128,14 +120,11 @@ $palette: (
     @return #{'var(--palette-#{$scale}-#{$stop})'};
 }
 
-// A color on the hue of `$scale` at an arbitrary lightness. The scales are weighted
-// towards the light end, so the dark surfaces and the dark soft tints have no stop
-// to land on; this keeps them tied to the scale they belong to anyway.
+// A color on the hue of `$scale` at an arbitrary lightness, for the dark surfaces and
+// tints that have no stop to land on.
 //
-// The lightness is fixed because it was solved against a contrast target, but hue
-// and chroma are read off stop 500 through relative color syntax rather than baked
-// in. Reshade the scale and these follow, which is the only reason a dark theme can
-// track a palette override at all.
+// The lightness is solved against a contrast target and does not move; hue and chroma
+// are read off stop 500, so reshading the scale carries these along.
 @function tint($scale, $lightness, $chroma-factor: 1, $alpha: 1) {
     $chroma: 'calc(c * #{$chroma-factor})';
     $suffix: '';

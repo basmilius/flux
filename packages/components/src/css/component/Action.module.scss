@@ -10,9 +10,8 @@
     border-radius: var(--radius-half);
     box-shadow: none;
 
-    // An action usually sits in an action bar, which paints itself sunken. Ink
-    // deepens whatever it lands on; the opaque hover pair is calibrated against
-    // `--surface` and would lift the button off its own strip instead.
+    // Ink rather than the opaque hover pair, which is calibrated against `--surface` and
+    // would lift the button off the sunken bar it sits on.
     @include mixin.hover {
         background: var(--ink-hover);
     }

@@ -28,8 +28,7 @@
         z-index: -1;
     }
 
-    // The neutral track and the step chips read off the gray intent, the same way
-    // the progress bar does: they are fills under a colored fill, not elevation.
+    // A fill under a colored fill, not elevation, so it reads off the gray intent.
     &::before {
         width: var(--max);
         background: var(--gray-soft-hover);
@@ -89,10 +88,8 @@
     transition-delay: 75ms;
 }
 
-// The outline masks the track running behind the steps, so it carries the color
-// of the surface the stepper sits on rather than a color of its own: the level the
-// stepper is in published that as `--surface-current`. The fallback covers a stepper
-// that is not inside a pane at all.
+// The outline masks the track running behind the steps, so it carries the color of the
+// surface the stepper sits on, which the level it is in published as `--surface-current`.
 .stepperStepsItemIdle {
     composes: stepperStepsItem;
 

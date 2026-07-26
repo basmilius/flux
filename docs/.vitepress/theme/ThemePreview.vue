@@ -17,9 +17,6 @@
 <script
     lang="ts"
     setup>
-    // Both themes on one page. `light` and `dark` set color-scheme, and every Flux
-    // token resolves against the scheme of the element it is used on, so the same
-    // markup renders twice without a second stylesheet or a page reload.
     const SCHEMES = ['light', 'dark'] as const;
 
     defineSlots<{ default(): any }>();

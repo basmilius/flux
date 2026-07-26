@@ -70,7 +70,7 @@ The low-level building blocks and app-level primitives that everything else buil
 
 ## Utilities
 
-Behavioural helpers with no visual output of their own, from sharing a disabled state to rendering a dynamic view.
+Behavioral helpers with no visual output of their own, from sharing a disabled state to rendering a dynamic view.
 
 <ComponentGridIndex category="Utilities"/>
 

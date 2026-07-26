@@ -8,7 +8,7 @@ emits:
 
 props:
     -   name: align
-        description: Where an interactive viewport opens horizontally. `center` centres the flow when the container is wider than it, and falls back to `start` when it is not; `start` always sits against the flow's left edge. Both open at the top.
+        description: Where an interactive viewport opens horizontally. `center` centers the flow when the container is wider than it, and falls back to `start` when it is not; `start` always sits against the flow's left edge. Both open at the top.
         type: "'start' | 'center'"
         optional: true
         default: center

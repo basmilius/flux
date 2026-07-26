@@ -310,7 +310,7 @@ The semantic and intent layers are built out of `var(--palette-*)` references, s
 }
 ```
 
-That reaches **both themes**. Light mode maps its surfaces and text straight onto the stops. Dark mode needs about ten neutral steps between `L .15` and `L .42` where the scale has four, so those are not stops; they take their lightness from a ramp solved against a contrast target, and their hue and chroma off `--palette-gray-500`. Recolour the scale and dark follows. Move a stop's lightness and dark keeps its own, which is deliberate: that ramp is what carries the contrast guarantees.
+That reaches **both themes**. Light mode maps its surfaces and text straight onto the stops. Dark mode needs about ten neutral steps between `L .15` and `L .42` where the scale has four, so those are not stops; they take their lightness from a ramp solved against a contrast target, and their hue and chroma off `--palette-gray-500`. Recolor the scale and dark follows. Move a stop's lightness and dark keeps its own, which is deliberate: that ramp is what carries the contrast guarantees.
 
 The same holds for the five colored intents, where `soft`, `soft-hover` and `border` are anchored to stop 500 of their own scale in dark.
 

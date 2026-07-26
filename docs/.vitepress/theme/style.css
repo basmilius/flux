@@ -1,6 +1,5 @@
-/* VitePress reads these on every element, so mapping them onto the semantic Flux
-   tokens is enough to make the whole site follow the theme: the tokens resolve
-   themselves per color-scheme, which is why this block needs no dark variant. */
+/* The Flux tokens resolve per color-scheme, so this mapping needs no dark
+   variant. */
 :root {
     --vp-font-family-base: inter-variable;
     --vp-font-family-mono: jetbrains-mono;

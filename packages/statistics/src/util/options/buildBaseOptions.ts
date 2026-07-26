@@ -3,7 +3,6 @@ import { CHART_DEFAULT_COLORS } from '../series';
 
 export function buildBaseOptions(): EChartsOption {
     return {
-        // A copy: the shared list is readonly and ECharts owns what it is handed.
         color: [...CHART_DEFAULT_COLORS],
         animation: true,
         animationDuration: 1000,

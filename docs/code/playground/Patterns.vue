@@ -821,9 +821,6 @@
         readonly hours: number;
     };
 
-    // A dash rather than an empty cell. Both applications render one in the muted
-    // foreground for a value that was never filled in, so a field keeps its row and
-    // an unfilled record never reads as a rendering failure.
     const EMPTY = '-';
 
     const STATUS_COLOR: Record<WorkOrderStatus, FluxColor> = {
@@ -958,11 +955,8 @@
         template: 'none' as string | number | null
     });
 
-    // A badge only takes one of the six intents, so a color that comes from the
-    // data has to be mixed into the intent contract a `colored` badge styles
-    // against: `--intent-soft` for the fill, `--intent-border` for the edge and
-    // `--intent-text` for the label. Both applications carry a helper shaped
-    // exactly like this one.
+    // A badge only takes one of the six intents, so a color that comes from the data
+    // has to be mixed into the intent contract a `colored` badge styles against.
     function customBadgeColor(color: string): Record<string, string> {
         return {
             '--intent-soft': `color-mix(in oklab, ${color} 18%, var(--surface))`,
@@ -1057,10 +1051,8 @@
 <style
     lang="scss"
     module>
-    // Neither application uses FluxPlaceholder for an empty screen. Both write this
-    // block by hand instead, because the placeholder has no boxed icon, no slot for
-    // an action and no way to span the columns of a table grid. Reproduced here
-    // rather than replaced, so the tokens are reviewed in the shape that ships.
+    // Not FluxPlaceholder: it has no boxed icon, no slot for an action and no way to
+    // span the columns of a table grid.
     .emptyView {
         display: flex;
         max-width: 450px;

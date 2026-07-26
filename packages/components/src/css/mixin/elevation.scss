@@ -1,15 +1,13 @@
 // Elevation is a level, not a set of declarations, so a component says how high it
-// sits instead of picking a background and a border by hand. Both themes go through
-// the same tokens, so this is one rule rather than a themed pair.
+// sits instead of picking a background and a border by hand.
 //
-// Do not add an inset edge here. A floating layer sets its own `box-shadow` for its
-// drop shadow, which replaces the inset outright, so it would land on every card,
-// boxed icon and flow pill instead of on the layers it was meant for.
-//
-// Levels:
 //   sunken   a recessed area inside a surface (input wells, canvases, table heads)
 //   surface  a card or panel sitting on the page
 //   raised   something floating over the page (menu, flyout, modal, snackbar)
+//
+// Do not add an inset edge here. A floating layer sets its own `box-shadow`, which
+// replaces the inset outright, so it would land on every card, boxed icon and flow
+// pill instead of on the layers it was meant for.
 //
 // The padding-box clip belongs to the border: without it the background paints
 // underneath the translucent stroke and shows through it.
@@ -23,9 +21,8 @@
     }
 
     // The level publishes what it painted, so its contents can read the surface they
-    // actually sit on instead of naming one. A sticky header that fades out, a mask
-    // over a scrolling list and a knockout ring all need that: the same menu renders
-    // inline on a page and inside a raised flyout, which in dark are two colors.
+    // actually sit on instead of naming one: the same menu renders inline on a page and
+    // inside a raised flyout, which in dark are two colors.
     --surface-current: #{$background};
 
     background-color: var(--surface-current);
@@ -34,10 +31,9 @@
     border-radius: $radius;
 }
 
-// The former name for `elevation('surface')`. An element that really is a pane
-// composes `basePane` instead, which shares one class rather than repeating these
-// declarations; this is for everything else, including the sibling packages, which
-// cannot compose across a package boundary.
+// The former name for `elevation('surface')`. An element that really is a pane composes
+// `basePane` instead; this is for everything else, including the sibling packages,
+// which cannot compose across a package boundary.
 @mixin surface($radius: var(--radius)) {
     @include elevation('surface', $radius);
 }
