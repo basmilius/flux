@@ -379,16 +379,11 @@
 <style
     lang="scss"
     module>
-    // FluxApplication owns the viewport by default, and `--application-height` is the
-    // one number that says so. Handing it the frame's height is the whole embed: the
-    // rail, the body column, the side rail and the mobile backdrop all measure against
-    // this box instead of the screen.
-    //
-    // Containment does the rest. It makes the frame the containing block for the rail
-    // and the backdrop, which are `position: fixed`, the stacking context for both, and
-    // the clip that keeps them inside the border radius.
+    // `--application-height` is what the shell measures against instead of the
+    // viewport, and containment makes this the containing block for its
+    // `position: fixed` rail and backdrop, clipped to the radius.
     .frame {
-        --application-height: 600px;
+        --application-height: 1080px;
 
         position: relative;
         height: var(--application-height);
@@ -397,8 +392,7 @@
         border-radius: var(--radius);
     }
 
-    // The shell's top bar is sticky against its scroll container, so it needs one that
-    // is not the page.
+    // The shell's top bar is sticky, so it needs a scroll container that is not the page.
     .scroller {
         height: 100%;
         overscroll-behavior: contain;
