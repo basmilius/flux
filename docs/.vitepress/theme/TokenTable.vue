@@ -15,8 +15,8 @@
 
             <template
                 v-for="token of group.tokens"
-                :key="token">
-                <code :class="$style.tokenTableName">--{{ token }}</code>
+                :key="token.name">
+                <code :class="$style.tokenTableName">--{{ token.name }}</code>
 
                 <div
                     v-for="scheme of SCHEMES"
@@ -25,15 +25,15 @@
                     :dark="scheme === 'dark' || undefined"
                     :class="$style.tokenTableScope">
                     <div :class="$style.tokenTableCell">
-                        <div :class="group.kind === 'shadow' ? $style.tokenTableShadowSwatch : $style.tokenTableSwatch">
+                        <div :class="token.kind === 'shadow' ? $style.tokenTableShadowSwatch : $style.tokenTableSwatch">
                             <div
-                                :ref="element => register(element, token, scheme, group.kind)"
-                                :class="group.kind === 'shadow' ? $style.tokenTableShadowChip : $style.tokenTableSwatchInk"
-                                :style="group.kind === 'shadow'
-                                    ? {boxShadow: `var(--${token})`}
-                                    : {background: `var(--${token})`}"/>
+                                :ref="element => register(element, token, scheme)"
+                                :class="token.kind === 'shadow' ? $style.tokenTableShadowChip : $style.tokenTableSwatchInk"
+                                :style="token.kind === 'shadow'
+                                    ? {boxShadow: reference(token)}
+                                    : {background: reference(token)}"/>
                         </div>
-                        <span :class="$style.tokenTableValue">{{ resolved[`${scheme}:${token}`] ?? '' }}</span>
+                        <span :class="$style.tokenTableValue">{{ resolved[`${scheme}:${token.name}`] ?? '' }}</span>
                     </div>
                 </div>
             </template>
@@ -49,68 +49,88 @@
     type Kind = 'color' | 'shadow';
     type Scheme = 'light' | 'dark';
 
+    // `fallback` is for the one token that is not declared on `:root`: an elevation
+    // level publishes `--surface-current` itself, so outside a level it has no value
+    // at all and the swatch would render as nothing.
+    type Token = {
+        readonly name: string;
+        readonly kind: Kind;
+        readonly fallback?: string;
+    };
+
     const SCHEMES: Scheme[] = ['light', 'dark'];
 
     const INTENT_ROLES = ['solid', 'solid-hover', 'solid-active', 'on-solid', 'soft', 'soft-hover', 'border', 'text'];
     const INTENTS = ['gray', 'primary', 'danger', 'info', 'success', 'warning'];
 
-    const GROUPS: { title: string; description?: string; kind: Kind; tokens: string[] }[] = [
+    function colors(...names: string[]): Token[] {
+        return names.map(name => ({name, kind: 'color'}));
+    }
+
+    function shadows(...names: string[]): Token[] {
+        return names.map(name => ({name, kind: 'shadow'}));
+    }
+
+    const GROUPS: { title: string; description?: string; tokens: Token[] }[] = [
         {
             title: 'Elevation',
-            description: 'How high a layer sits. Light keeps every raised level white and lets the shadow carry the height; dark cannot, so there the lightness of the layer does the work.',
-            kind: 'color',
-            tokens: ['surface-canvas', 'background', 'surface-sunken', 'surface', 'surface-raised', 'surface-inverse', 'surface-loader']
+            description: 'How high a layer sits. Light keeps every raised level white and lets the shadow carry the height; dark cannot, so there the lightness of the layer does the work. The last one is the odd one out: it is not a value on its own but what a layer publishes about itself, so its contents can read the surface they actually sit on. Outside a layer it has nothing to report, so the swatch here shows the fallback a consumer would write.',
+            tokens: [
+                ...colors('surface-canvas', 'background', 'surface-sunken', 'surface', 'surface-raised', 'surface-inverse', 'surface-loader'),
+                {name: 'surface-current', kind: 'color', fallback: 'var(--surface)'}
+            ]
         },
         {
             title: 'Interaction',
             description: 'The opaque states are for a control on the plain surface. The ink pair is translucent, for a control whose background is already tinted.',
-            kind: 'color',
-            tokens: ['surface-hover', 'surface-active', 'surface-disabled', 'ink-hover', 'ink-active']
+            tokens: colors('surface-hover', 'surface-active', 'surface-disabled', 'ink-hover', 'ink-active')
         },
         {
             title: 'Text',
             description: 'Subtle is decoration only: chevrons, separators, the places that used to reach for opacity. Body copy uses secondary or stronger.',
-            kind: 'color',
-            tokens: [
+            tokens: colors(
                 'foreground-prominent', 'foreground', 'foreground-secondary', 'foreground-subtle', 'foreground-disabled',
                 'foreground-inverse-prominent', 'foreground-inverse', 'foreground-inverse-secondary'
-            ]
+            )
         },
         {
             title: 'Lines',
             description: 'Stroke is the opaque separator and input border. Stroke-out is the translucent hairline around a floating surface, and highlight the inset sheen that makes a dark raised layer read as raised.',
-            kind: 'color',
-            tokens: ['surface-stroke-muted', 'surface-stroke', 'surface-stroke-hover', 'surface-stroke-out', 'surface-stroke-out-hover', 'surface-highlight']
+            tokens: colors('surface-stroke-muted', 'surface-stroke', 'surface-stroke-hover', 'surface-stroke-out', 'surface-stroke-out-hover', 'surface-highlight')
         },
         {
             title: 'Focus and selection',
-            kind: 'color',
-            tokens: ['focus-ring', 'selection']
+            description: 'The transparent ring is the focus ring at zero alpha, so an outline can fade in on its own hue instead of through grey. It is invisible by design, which is why its swatch reads empty.',
+            tokens: colors('focus-ring', 'focus-ring-transparent', 'selection')
         },
         {
             title: 'Scrims and effects',
-            kind: 'color',
-            tokens: ['overlay', 'overlay-secondary', 'overlay-strong', 'shimmer']
+            tokens: colors('overlay', 'overlay-secondary', 'overlay-strong', 'shimmer')
         },
         ...INTENTS.map(intent => ({
             title: `Intent: ${intent}`,
-            kind: 'color' as const,
-            tokens: INTENT_ROLES.map(role => `${intent}-${role}`)
+            tokens: colors(...INTENT_ROLES.map(role => `${intent}-${role}`))
         })),
         {
             title: 'Shadow',
-            description: 'One geometry for both themes; only the colour differs.',
-            kind: 'shadow',
-            tokens: ['shadow-px', 'shadow-xs', 'shadow-sm', 'shadow-md', 'shadow-lg', 'shadow-xl', 'shadow-2xl']
+            description: 'One geometry for both themes; only the colour differs. The first one is a bare colour rather than a shadow, for a component that composes a shadow of its own.',
+            tokens: [
+                ...colors('shadow-color'),
+                ...shadows('shadow-px', 'shadow-xs', 'shadow-sm', 'shadow-md', 'shadow-lg', 'shadow-xl', 'shadow-2xl')
+            ]
         }
     ];
 
     const resolved = reactive<Record<string, string>>({});
     const probes: { element: HTMLElement; key: string; kind: Kind }[] = [];
 
-    function register(element: unknown, token: string, scheme: Scheme, kind: Kind): void {
+    function reference(token: Token): string {
+        return token.fallback ? `var(--${token.name}, ${token.fallback})` : `var(--${token.name})`;
+    }
+
+    function register(element: unknown, token: Token, scheme: Scheme): void {
         if (element instanceof HTMLElement) {
-            probes.push({element, key: `${scheme}:${token}`, kind});
+            probes.push({element, key: `${scheme}:${token.name}`, kind: token.kind});
         }
     }
 

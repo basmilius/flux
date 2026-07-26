@@ -99,9 +99,15 @@
     --foreground-subtle: #{theme.theme(palette.stop('gray', 500), theme.neutral(.6, .016))};
     --foreground-disabled: #{theme.theme(theme.neutral(.44, .02, .45), theme.neutral(.845, .012, .45))};
 
+    // The inverse surface is translucent, so the text on it is read over whatever
+    // the tooltip or toast happens to float above, not over the token itself. At
+    // stop 600 the secondary rung scored 4.32 that way in dark, under AA, while the
+    // same measurement taken against an opaque `--surface-inverse` said 4.78. It
+    // takes a solved lightness instead, for the same reason `--foreground-secondary`
+    // does: no stop sits between 600 and 700, and 700 is what the rung above uses.
     --foreground-inverse-prominent: #{theme.theme(theme.neutral(1, 0), palette.stop('gray', 900))};
     --foreground-inverse: #{theme.theme(theme.neutral(.9, .008), palette.stop('gray', 700))};
-    --foreground-inverse-secondary: #{theme.theme(theme.neutral(.72, .012), palette.stop('gray', 600))};
+    --foreground-inverse-secondary: #{theme.theme(theme.neutral(.72, .012), theme.neutral(.5, .0408))};
 
     // Lines. `stroke` is the opaque separator and input border, `stroke-out` the
     // translucent hairline around a floating surface, `highlight` the inset sheen

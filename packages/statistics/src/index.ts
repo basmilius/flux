@@ -1,20 +1,15 @@
 import type { FluxStatisticsChartColor } from '@flux-ui/types';
+import { CHART_DEFAULT_COLORS } from './util';
 
 export * from './component';
 export * from './composable';
 
 export type { ChartTooltipValueFormatter, SharedTooltipItem, Translator } from './util';
 
-export const CHART_COLORS: readonly FluxStatisticsChartColor[] = [
-    'var(--chart-1)',
-    'var(--chart-2)',
-    'var(--chart-3)',
-    'var(--chart-4)',
-    'var(--chart-5)',
-    'var(--chart-6)',
-    'var(--chart-7)',
-    'var(--chart-8)'
-];
+// The public name for the one list a chart cycles through, so the default of a bare
+// chart cannot drift from the colours the series setup hands out. The list itself is
+// `CHART_DEFAULT_COLORS`, which stays internal.
+export const CHART_COLORS: readonly FluxStatisticsChartColor[] = CHART_DEFAULT_COLORS;
 
 // Seventeen hues around the wheel, in the same order the fixed Tailwind stops
 // walked it. They are tokens now, so the set follows the theme instead of

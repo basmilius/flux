@@ -26,8 +26,13 @@
         background-color: var(--intent-soft-hover);
     }
 
-    :local(.paneHeaderIcon) {
-        color: var(--intent-text);
+    // A pane header icon is already `--primary-text` (Pane.module.scss), so only the
+    // intents that differ from that restate it. Gray is not one of them any more: an
+    // icon that stays primary on a gray pane is exactly what the intent contract drops.
+    @if $color != 'primary' {
+        :local(.paneHeaderIcon) {
+            color: var(--intent-text);
+        }
     }
 }
 

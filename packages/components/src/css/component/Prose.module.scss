@@ -166,16 +166,15 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
         border-top: 1px solid var(--surface-stroke-muted);
     }
 
-    // Every border inside the head takes the next rung up, the same way FluxTable
-    // does it: `--surface-stroke-muted` sits .012 L from the `--surface-sunken`
-    // the head paints itself with, so both the rule under the head and the
-    // dividers between its cells would have almost nothing to show.
+    // The head keeps the muted stroke, the same way FluxTable does: against the
+    // sunken fill it paints itself with, that is the .014 L step this table always
+    // drew. Both take the rung above only while `--surface-sunken` sits off its
+    // stop, which it no longer does.
     > table thead th {
         font-size: var(--font-size-small);
         font-weight: 700;
         color: var(--foreground-prominent);
-        border-bottom: 2px solid var(--surface-stroke);
-        border-left-color: var(--surface-stroke);
+        border-bottom: 2px solid var(--surface-stroke-muted);
         background: var(--surface-sunken);
     }
 

@@ -119,14 +119,15 @@
     }
 }
 
-// The head paints itself with `--surface-sunken`, and `--surface-stroke-muted`
-// sits .012 L from it in light: not the exact tie it used to be, but still under
-// the step that reads, so a 2px rule and a column divider drawn in it have almost
-// nothing to show. Every border inside the head takes the next rung up instead,
-// which keeps it legible whatever value the sunken tint settles on.
+// The head paints itself one step off the card, and the borders inside it stay on
+// the muted stroke, which is the pair the table always drew: gray-50 under
+// gray-100, .014 L apart in light and .041 in dark. It briefly took the next rung
+// up, correctly, during the window where `--surface-sunken` sat between the two
+// stops and the muted stroke landed .012 L away, close enough to vanish. Sunken
+// went back to its stop and that reason went with it; the rung above is 2.3x the
+// weight this rule ever had.
 .tableHeadSticky .tableHeader {
     background: var(--surface-sunken);
-    border-color: var(--surface-stroke);
 }
 
 // A tinted row moves one rung up the scale compared to before: stop 25 was the

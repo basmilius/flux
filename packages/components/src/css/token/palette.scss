@@ -132,9 +132,10 @@ $palette: (
     @return #{'var(--palette-#{$scale}-#{$stop})'};
 }
 
-// A colour on the hue of `$scale` at an arbitrary lightness. Eight of the twelve
-// stops sit above L .8, so the dark surfaces and the dark soft tints have no stop
-// to land on; this keeps them tied to the scale they belong to anyway.
+// A colour on the hue of `$scale` at an arbitrary lightness. Eight or nine of the
+// twelve stops sit above L .5 and only three or four below it, so the dark surfaces
+// and the dark soft tints have no stop to land on; this keeps them tied to the
+// scale they belong to anyway.
 //
 // The lightness is fixed because it was solved against a contrast target, but hue
 // and chroma are read off stop 500 through relative colour syntax rather than

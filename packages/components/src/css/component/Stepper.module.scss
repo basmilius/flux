@@ -92,9 +92,11 @@
 }
 
 // The outline masks the track running behind the steps, so it carries the colour
-// of the surface the stepper sits on rather than a colour of its own.
+// of the surface the stepper sits on rather than a colour of its own: the level the
+// stepper is in published that as `--surface-current`. The fallback covers a stepper
+// that is not inside a pane at all.
 .stepperStepsItemIdle {
     composes: stepperStepsItem;
 
-    outline-color: var(--surface);
+    outline-color: var(--surface-current, var(--surface));
 }

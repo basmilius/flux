@@ -34,8 +34,10 @@ Both panes below are on this same page, and neither of them cares what the page 
     <FluxPane>
         <FluxTable>
             <template #header>
-                <FluxTableHeader>Item</FluxTableHeader>
-                <FluxTableHeader>State</FluxTableHeader>
+                <FluxTableRow>
+                    <FluxTableHeader>Item</FluxTableHeader>
+                    <FluxTableHeader>State</FluxTableHeader>
+                </FluxTableRow>
             </template>
             <FluxTableRow>
                 <FluxTableCell>Ordinary row</FluxTableCell>

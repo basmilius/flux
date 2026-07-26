@@ -72,7 +72,10 @@ $text-stop-light: ('warning': 800);
     // colour in light and the lightest in dark, so it reads off the foreground
     // tokens instead of a stop.
     --gray-solid: var(--foreground-prominent);
-    --gray-solid-hover: #{theme.theme(palette.stop('gray', 950), theme.neutral(.99, .004))};
+    // Dark runs out of room at the top: solid is already the lightest foreground at
+    // L .945 and active is white, so a hover at .99 left .045 L for the first step
+    // and .010 for the second. .975 splits the gap evenly instead.
+    --gray-solid-hover: #{theme.theme(palette.stop('gray', 950), theme.neutral(.975, .004))};
     --gray-solid-active: #{theme.theme(theme.neutral(.09, .025), theme.neutral(1, 0))};
     --gray-on-solid: var(--surface);
     --gray-soft: #{theme.theme(palette.stop('gray', 50), theme.neutral(.265, .017))};

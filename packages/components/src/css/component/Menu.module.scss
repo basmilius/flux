@@ -326,8 +326,19 @@
         opacity: 1;
     }
 
+    // The resting fill outranks `.menuItem`'s own hover and press, so those states are
+    // restated here. They stack a second ink over the fill instead of replacing it,
+    // which is the only way two ink levels yield three distinct steps.
     &.menuItemIndented {
-        background: var(--ink-active);
+        background-color: var(--ink-active);
+
+        @include mixin.hover {
+            background-image: linear-gradient(var(--ink-hover), var(--ink-hover));
+        }
+
+        &:active {
+            background-image: linear-gradient(var(--ink-active), var(--ink-active));
+        }
 
         .menuItemIcon,
         .menuItemLabel {

@@ -8,17 +8,20 @@ This page lists every public type with a short description and a minimal example
 
 ### `FluxStatisticsChartColor`
 
-A color specifier accepted by every series, slice, and node. Use one of the named Flux intents, which resolves to that intent's `solid` role and therefore follows the theme, or any hex value, which is used exactly as given.
+A color specifier accepted by every series, slice, and node. Use one of the named Flux intents, which resolves to that intent's `solid` role and therefore follows the theme, a `var(--…)` reference to a token of your own or to one of the [chart tokens](./colors), or any hex value, which is used exactly as given.
 
 ```ts
-type FluxStatisticsChartColor = FluxColor | `#${string}`;
+type FluxStatisticsChartColor = FluxColor | `#${string}` | `var(--${string})`;
 // FluxColor = 'gray' | 'primary' | 'danger' | 'info' | 'success' | 'warning'
 ```
 
 ```ts
-const themed: FluxStatisticsChartColor = 'success';   // var(--success-solid)
-const branded: FluxStatisticsChartColor = '#10b981';  // raw hex
+const themed: FluxStatisticsChartColor = 'success';       // var(--success-solid)
+const token: FluxStatisticsChartColor = 'var(--chart-3)'; // passed through
+const branded: FluxStatisticsChartColor = '#10b981';      // raw hex
 ```
+
+`CHART_COLORS` is typed as `readonly FluxStatisticsChartColor[]` and holds `var(--chart-1)` through `var(--chart-8)`, so the default cycle uses the same variant.
 
 ### `FluxStatisticsChartCategoryPoint`
 
@@ -470,9 +473,10 @@ When a `color` is set on a series, slice, or node, Flux resolves it as follows:
 | Input | Resolved to |
 |---|---|
 | `'primary'` (any `FluxColor`) | `var(--primary-solid)` |
+| `'var(--chart-3)'` (any `var(--…)`) | `'var(--chart-3)'` |
 | `'#10b981'` (any hex) | `'#10b981'` |
-| omitted | next color from `CHART_COLORS` (see [Chart colors](./colors)) |
+| omitted | next of the eight colors in `CHART_COLORS` (see [Chart colors](./colors)) |
 
-A named intent lands on the `solid` role, the filled-surface colour of that intent, so it takes the value that holds up against the chart surface in each theme. A hex value is passed through untouched and stays the same in both themes.
+A named intent lands on the `solid` role, the filled-surface colour of that intent, so it takes the value that holds up against the chart surface in each theme. A `var(--…)` reference and a hex value are both passed through untouched; the reference still follows the theme because the token behind it does, while the hex stays the same in both themes.
 
 The same color flows into the rendered chart, the [Legend](../components/legend/) (whether manual or auto-generated), and the tooltip, so series stay visually consistent across all three surfaces.

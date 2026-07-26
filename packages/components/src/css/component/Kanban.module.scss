@@ -99,6 +99,10 @@
     transition: background 180ms var(--swift-out);
 }
 
+// This marks the one column the pointer is on, so it pairs with `.isOver` above and
+// not with the whisper below: both are a full soft fill, and the palette puts the two
+// on the same lightness in dark. The whisper lights up every other column at once,
+// which is the reason that one, and only that one, stays translucent.
 .kanbanColumn.isOver.isDropDisallowed .kanbanColumnBody {
     background: var(--danger-soft);
     cursor: not-allowed;

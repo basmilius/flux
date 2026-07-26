@@ -725,7 +725,7 @@
             </FluxTableRow>
         </FluxTable>
     </FluxPane>
-    <p>Colours that come from the data rather than from a meaning are the one place this breaks down. A label picked by a user is an arbitrary hue, and a badge only takes one of the six intents, so both applications mix the hue into a set of custom properties and hand it to the badge as an inline style.</p>
+    <p>Colours that come from the data rather than from a meaning are the one place this breaks down. A label picked by a user is an arbitrary hue, and a badge only takes one of the six intents, so both applications mix the hue into the <code>--intent-*</code> properties a coloured badge styles against and hand those to it as an inline style. It works, but it writes to a contract the library fills through a mixin and treats as internal, so this is the one pattern on this page that a future version could break. A badge that accepts a colour of its own is the real fix.</p>
     <FluxBadgeStack>
         <FluxBadge
             v-for="label of labels"
@@ -957,13 +957,15 @@
     });
 
     // A badge only takes one of the six intents, so a colour that comes from the
-    // data has to be mixed into the tokens the badge already reads. Both
-    // applications carry a helper shaped exactly like this one.
+    // data has to be mixed into the intent contract a `colored` badge styles
+    // against: `--intent-soft` for the fill, `--intent-border` for the edge and
+    // `--intent-text` for the label. Both applications carry a helper shaped
+    // exactly like this one.
     function customBadgeColor(color: string): Record<string, string> {
         return {
-            '--color': color,
-            '--background': `color-mix(in oklab, ${color} 18%, var(--surface))`,
-            '--border': `color-mix(in oklab, ${color} 45%, var(--surface-stroke))`
+            '--intent-soft': `color-mix(in oklab, ${color} 18%, var(--surface))`,
+            '--intent-border': `color-mix(in oklab, ${color} 45%, var(--surface-stroke))`,
+            '--intent-text': color
         };
     }
 

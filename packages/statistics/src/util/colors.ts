@@ -1,27 +1,146 @@
-import { ref } from 'vue';
+import { animationFrameDebounce } from '@flux-ui/internals';
+import { onScopeDispose, ref, type Ref } from 'vue';
 
-const CSS_VAR_PATTERN = /var\((--[^,)]+)(?:,\s*([^)]+))?\)/g;
-const LIGHT_DARK = 'light-dark(';
+// CSS function names are case-insensitive and a custom property keeps the token
+// stream exactly as it was authored, so `getComputedStyle` can hand back
+// `LIGHT-DARK(a, b)` and these cannot be an `indexOf`.
+const LIGHT_DARK_PATTERN = /light-dark\(/gi;
+const VAR_PATTERN = /var\(/gi;
+const RESOLVABLE_PATTERN = /(?:var|light-dark)\(/i;
+
+const LIGHT_DARK_LENGTH = 'light-dark('.length;
+const VAR_LENGTH = 'var('.length;
 
 const themeVersion = ref(0);
 
-if (typeof document !== 'undefined') {
+let subscribers = 0;
+let teardown: (() => void) | null = null;
+
+function subscribe(): void {
+    subscribers++;
+
+    if (teardown !== null || typeof document === 'undefined') {
+        return;
+    }
+
+    // Every chart on the page re-runs its options on a bump, and a theme switch
+    // touches more than one element, so the bumps are coalesced into one frame.
+    const bump = animationFrameDebounce(() => {
+        themeVersion.value++;
+    });
+
     // The theme is an attribute on any element, not only on the root: a pane can
     // carry `[dark]` inside a light page. Without `subtree` a chart in such a pane
     // never learned that its colours had changed. The filter keeps the cost down;
     // `class` and `data-theme` are gone because nothing in the library keys on them.
-    new MutationObserver(() => themeVersion.value++).observe(
-        document.documentElement,
-        {attributes: true, attributeFilter: ['dark', 'light'], subtree: true}
-    );
+    const observer = new MutationObserver(bump);
+    observer.observe(document.documentElement, {attributes: true, attributeFilter: ['dark', 'light'], subtree: true});
 
     // An app that sets `color-scheme: light dark` follows the OS, and that flip
     // changes no attribute at all.
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => themeVersion.value++);
+    const query = typeof window !== 'undefined'
+        ? window.matchMedia('(prefers-color-scheme: dark)')
+        : null;
+
+    query?.addEventListener('change', bump);
+
+    teardown = () => {
+        observer.disconnect();
+        query?.removeEventListener('change', bump);
+    };
 }
 
-export function useCssVarVersion() {
+function unsubscribe(): void {
+    subscribers--;
+
+    if (subscribers > 0 || teardown === null) {
+        return;
+    }
+
+    teardown();
+    teardown = null;
+}
+
+// The observers belong to the charts that read this ref, not to the module: a hot
+// reload replaces the module and the old instance would keep observing on behalf of
+// components that have moved to the new one. Counting subscribers also keeps a page
+// without charts from watching the document at all.
+export function useCssVarVersion(): Ref<number> {
+    subscribe();
+    onScopeDispose(unsubscribe, true);
+
     return themeVersion;
+}
+
+function findFunction(pattern: RegExp, input: string, from: number): number {
+    pattern.lastIndex = from;
+
+    return pattern.exec(input)?.index ?? -1;
+}
+
+// Splits the arguments of the call whose `(` sits at `open`, leaving nested calls
+// alone: a comma inside `oklch(...)` does not separate arguments and the `)` that
+// closes it does not end the call. Null when the call is never closed. The slices
+// are raw, so joining them back with a comma reproduces the original text.
+function readArguments(input: string, open: number): { args: string[]; end: number } | null {
+    const args: string[] = [];
+    let depth = 0;
+    let from = open + 1;
+
+    for (let i = open; i < input.length; i++) {
+        const character = input[i];
+
+        if (character === '(') {
+            depth++;
+        } else if (character === ')') {
+            depth--;
+
+            if (depth === 0) {
+                args.push(input.slice(from, i));
+
+                return {args, end: i};
+            }
+        } else if (character === ',' && depth === 1) {
+            args.push(input.slice(from, i));
+            from = i + 1;
+        }
+    }
+
+    return null;
+}
+
+// A fallback holds whatever the author put there, including a call with its own
+// parentheses and commas, so this walks the string rather than matching a pattern:
+// `var(--x, oklch(.5 .1 200))` has to come back as the whole `oklch()`.
+function resolveVars(input: string, style: CSSStyleDeclaration): string {
+    let output = '';
+    let cursor = 0;
+    let start = findFunction(VAR_PATTERN, input, cursor);
+
+    while (start !== -1) {
+        const call = readArguments(input, start + VAR_LENGTH - 1);
+
+        if (call === null) {
+            break;
+        }
+
+        const name = call.args[0].trim();
+        const fallback = call.args.slice(1).join(',').trim();
+        const value = name.startsWith('--') ? style.getPropertyValue(name).trim() : '';
+        let replacement = input.slice(start, call.end + 1);
+
+        if (value) {
+            replacement = value;
+        } else if (fallback) {
+            replacement = resolveVars(fallback, style);
+        }
+
+        output += input.slice(cursor, start) + replacement;
+        cursor = call.end + 1;
+        start = findFunction(VAR_PATTERN, input, cursor);
+    }
+
+    return output + input.slice(cursor);
 }
 
 // A colour token is an unregistered custom property, so its computed value is the
@@ -30,44 +149,27 @@ export function useCssVarVersion() {
 // it, but eagerly on `:root`, which freezes the whole page to one theme. So the
 // pair is picked here instead, from the `color-scheme` in force at the chart.
 function resolveLightDark(input: string, isDark: boolean): string {
-    let result = input;
-    let start = result.indexOf(LIGHT_DARK);
+    let output = '';
+    let cursor = 0;
+    let start = findFunction(LIGHT_DARK_PATTERN, input, cursor);
 
     while (start !== -1) {
-        let depth = 0;
-        let comma = -1;
-        let end = -1;
+        const call = readArguments(input, start + LIGHT_DARK_LENGTH - 1);
 
-        for (let i = start + LIGHT_DARK.length - 1; i < result.length; i++) {
-            const character = result[i];
-
-            if (character === '(') {
-                depth++;
-            } else if (character === ')') {
-                depth--;
-
-                if (depth === 0) {
-                    end = i;
-                    break;
-                }
-            } else if (character === ',' && depth === 1 && comma === -1) {
-                comma = i;
-            }
+        if (call === null || call.args.length < 2) {
+            break;
         }
 
-        if (comma === -1 || end === -1) {
-            return result;
-        }
+        // The side that wins can hold a `light-dark()` of its own, once a token that
+        // has one was substituted into it.
+        const chosen = resolveLightDark(call.args[isDark ? 1 : 0].trim(), isDark);
 
-        const chosen = isDark
-            ? result.slice(comma + 1, end).trim()
-            : result.slice(start + LIGHT_DARK.length, comma).trim();
-
-        result = result.slice(0, start) + chosen + result.slice(end + 1);
-        start = result.indexOf(LIGHT_DARK);
+        output += input.slice(cursor, start) + chosen;
+        cursor = call.end + 1;
+        start = findFunction(LIGHT_DARK_PATTERN, input, cursor);
     }
 
-    return result;
+    return output + input.slice(cursor);
 }
 
 function isDarkScheme(style: CSSStyleDeclaration): boolean {
@@ -83,27 +185,7 @@ function isDarkScheme(style: CSSStyleDeclaration): boolean {
 }
 
 function resolveWithStyle(input: string, style: CSSStyleDeclaration, isDark: boolean): string {
-    const substituted = input.replace(CSS_VAR_PATTERN, (match, name: string, fallback?: string) => {
-        const value = style.getPropertyValue(name).trim();
-
-        if (value) {
-            return value;
-        }
-
-        return fallback ? resolveWithStyle(fallback.trim(), style, isDark) : match;
-    });
-
-    return substituted.includes(LIGHT_DARK) ? resolveLightDark(substituted, isDark) : substituted;
-}
-
-export function resolveCssVar(input: string, root?: HTMLElement | null): string {
-    if (typeof document === 'undefined' || !input.includes('var(')) {
-        return input;
-    }
-
-    const style = getComputedStyle(root ?? document.documentElement);
-
-    return resolveWithStyle(input, style, isDarkScheme(style));
+    return resolveLightDark(resolveVars(input, style), isDark);
 }
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {
@@ -117,7 +199,9 @@ function isPlainObject(value: unknown): value is Record<string, unknown> {
 
 function deepResolveWithStyle<T>(value: T, style: CSSStyleDeclaration, isDark: boolean): T {
     if (typeof value === 'string') {
-        return (value.includes('var(') ? resolveWithStyle(value, style, isDark) : value) as T;
+        // A token that only holds a `light-dark()` never goes through `var()`, so the
+        // test cannot be for that alone.
+        return (RESOLVABLE_PATTERN.test(value) ? resolveWithStyle(value, style, isDark) : value) as T;
     }
 
     if (Array.isArray(value)) {

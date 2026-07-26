@@ -20,7 +20,7 @@ props:
     -   name: color
         description: The color of the annotation. Accepts any CSS color.
         type: string
-        default: var(--warning-soft-hover)
+        default: var(--warning-border)
         optional: true
 
     -   name: stroke-width

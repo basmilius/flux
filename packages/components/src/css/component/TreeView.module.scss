@@ -7,18 +7,19 @@
 }
 
 // States mirror .menuItem / .menuItemHighlighted (Menu.module.scss) so tree nodes match the rest of
-// the library's list-like items.
+// the library's list-like items. Ink rather than the opaque pair, because a tree can sit in a
+// flyout, where the opaque hover moves .007 L in dark and reads as no hover at all.
 .treeNode {
     composes: treeNode from './primitive/TreeNode.module.scss';
 
     cursor: pointer;
 
     @include mixin.hover {
-        background: var(--surface-hover);
+        background: var(--ink-hover);
     }
 
     &:active {
-        background: var(--surface-active);
+        background: var(--ink-active);
     }
 
     &.isHighlighted {

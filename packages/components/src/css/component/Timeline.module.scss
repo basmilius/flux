@@ -107,8 +107,11 @@
 }
 
 // Gray fills the same contract as the other five, so the `.timelineItemGray`
-// override that used to follow this loop is gone: its dot now reads off
-// `--gray-solid` like every other bullet in the library.
+// override that used to follow this loop is gone. Note what that costs: the five
+// coloured dots land on stop 600, around L .52 in light, while `--gray-solid` is
+// `--foreground-prominent` at L .24. The grey dot used to be the quiet one at
+// gray-400 and is now the heaviest of the six. That is the contract working as
+// written, not a slip, but it is the contract worth revisiting.
 @include mixin.color-variants(timelineItem) using ($color) {
     composes: timelineItem;
 

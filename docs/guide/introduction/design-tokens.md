@@ -66,6 +66,19 @@ Every intent carries the same eight roles, gray included. A component that takes
 
 Each of these pairs is held to a contrast target rather than picked by eye: `on-solid` on `solid` at least 4.5, `text` on both `surface` and `soft` at least 4.5, and `focus-ring` at least 3 on every elevation level.
 
+In your own code, read the roles straight off the intent you need. They are ordinary custom properties, so plain CSS is enough:
+
+```css
+.my-chip {
+    background: var(--primary-soft);
+    border: 1px solid var(--primary-border);
+    color: var(--primary-text);
+}
+```
+
+::: info Inside the library
+Flux itself never writes an intent out per colour. A component with a `color` prop runs one Sass loop that maps the eight roles onto a local `--intent-*` contract and then styles against that. Those mixins live in this repository under `~flux/components/css/mixin`; the alias is a monorepo path and `@flux-ui/components` publishes no `./css/*` entry, so the snippet below is for contributors to Flux, not for consumers.
+
 ```scss
 @use '~flux/components/css/mixin';
 
@@ -77,6 +90,7 @@ Each of these pairs is held to a contrast target rather than picked by eye: `on-
     color: var(--intent-text);
 }
 ```
+:::
 
 ## Elevation
 
@@ -94,7 +108,24 @@ That difference is also why the order is not the same in both themes. `--surface
 | `--surface` | the card | the card |
 | `--surface-raised` | the card, lifted by shadow | above the card |
 
-Reach for the mixin rather than the individual declarations:
+A level is more than a background. Set the hairline and the inset sheen along with it, and publish what you painted as `--surface-current` so anything inside can read the surface it is actually sitting on rather than naming one:
+
+```css
+.my-flyout {
+    --surface-current: var(--surface-raised);
+
+    background: var(--surface-current);
+    background-clip: padding-box;
+    border: 1px solid var(--surface-stroke-out);
+    border-radius: var(--radius);
+    box-shadow: inset 0 1px 0 var(--surface-highlight);
+}
+```
+
+`background-clip` belongs to that border: `--surface-stroke-out` is translucent, so without it the background paints underneath the hairline and shows through it. A drop shadow is yours to add on top; the block above deliberately carries none.
+
+::: info Inside the library
+Contributors have `mixin.elevation($level, $radius)` for exactly this block. It knows three levels: `'sunken'`, `'surface'` (the default) and `'raised'`. `--surface-canvas` and `--background` are grounds a page, a board or a canvas is drawn on rather than levels a component lifts itself to, so those are set by hand. The same alias caveat as above applies, so this is not available to consumers.
 
 ```scss
 @use '~flux/components/css/mixin';
@@ -103,6 +134,7 @@ Reach for the mixin rather than the individual declarations:
     @include mixin.elevation('raised');
 }
 ```
+:::
 
 ## The tokens
 
@@ -292,8 +324,11 @@ To change a single role rather than a whole scale, override the token itself. `-
 
 .my-card {
     --surface: var(--primary-soft);
+    --surface-stroke-out: var(--primary-border);
     --surface-stroke: var(--primary-border);
 }
 ```
 
 Overriding a semantic token on a subtree is how a section gets its own surface without touching anything global.
+
+Note which line does the edge. An elevation level draws its border with `--surface-stroke-out`, the translucent hairline that comes with the level, so a pane keeps its ordinary edge until that one is overridden. `--surface-stroke` is the opaque line *inside* it: separators, table rules, input borders. Change whichever you mean, or both, as above.
