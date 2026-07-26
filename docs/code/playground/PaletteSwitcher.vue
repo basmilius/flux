@@ -84,7 +84,7 @@
                                 title="Overriding the palette in your own app">
                                 <p>Set the twelve stops of <code>--palette-gray-*</code> on <code>:root</code>. A semantic token such as <code>--surface</code> is declared and substituted there, so an override further down the tree arrives too late and does nothing at all.</p>
                                 <p>Light follows the scale completely, because every neutral in light is a stop. Dark has nothing to land on: it needs about ten steps between L .15 and L .42 where the scale has four, so its neutrals carry their own lightness ladder and read only hue and chroma off <code>--palette-gray-500</code>. Dark therefore takes on the character of the scale while keeping the lightness that carries its contrast guarantees. Switch the site theme and compare the values above.</p>
-                                <p>Overriding <code>--gray-*</code> has no effect any more. That is the frozen legacy scale, kept only so components that have not moved onto the semantic layer keep rendering, and nothing reads it after the token refactor. Rename those declarations to <code>--palette-gray-*</code>.</p>
+                                <p>Overriding <code>--gray-*</code> does nothing. That scale was removed in this major, so those declarations now name a token that does not exist. Rename them to <code>--palette-gray-*</code>.</p>
                                 <p>The palette is absolute, so a scale picks one hue and dark takes it over. A separate <code>[dark]</code> block that swaps a warm light scale for a cool dark one cannot be expressed this way. Override the semantic tokens with <code>light-dark()</code> when a theme really needs two different hues.</p>
                             </FluxNotice>
 
@@ -93,7 +93,7 @@
                                     color="info"
                                     icon="circle-info"
                                     title="How far a colored scale reaches">
-                                    <p>The neutral stops at hue and chroma in dark mode. Primary does not. <code>--primary-solid</code>, its hover and its active state take stops 500, 400 and 300 there, and <code>--primary-text</code> takes stop 300, so a colored intent follows the scale in lightness as well. Only <code>--primary-soft</code>, its hover and <code>--primary-border</code> stay behind: dark has nothing usable between L .24 and L .40 on these hues, so those three are tints over <code>--palette-primary-500</code> that read hue and chroma off it at a fixed lightness, exactly as the neutrals do.</p>
+                                    <p>The neutral stops at hue and chroma in dark mode. Primary does not. <code>--primary-solid</code>, its hover and its active state take stops 500, 400 and 300 there, and <code>--primary-text</code> takes stop 400, so a colored intent follows the scale in lightness as well. Only <code>--primary-soft</code>, its hover and <code>--primary-border</code> stay behind: dark has nothing usable between L .24 and L .40 on these hues, so those three are tints over <code>--palette-primary-500</code> that read hue and chroma off it at a fixed lightness, exactly as the neutrals do.</p>
                                     <p>More follows than the five roles above. <code>--focus-ring</code> is stop 600 in light and stop 400 in dark, <code>--selection</code> is a tint on primary, and <code>base.scss</code> hands <code>accent-color</code> to <code>--primary-solid</code>, so a native checkbox and a range input come along.</p>
                                     <p>What does not follow is the label on the fill. <code>--primary-on-solid</code> is plain white in light and a near-black neutral in dark, and that neutral is anchored to <code>--palette-gray-500</code> rather than to primary: swap the neutral above and the button label moves, swap primary and it stays exactly where it was. Which is why the two checks below are measured rather than assumed.</p>
                                 </FluxNotice>
@@ -190,7 +190,7 @@
         {
             id: 'passly',
             label: 'Passly',
-            description: 'Cool and blueish, as Passly declares it. Written in hex, exactly as that project has it today, except that it overrides --gray-* there and so no longer reaches anything.',
+            description: 'Cool and blueish, as Passly declares it. Written in hex, exactly as that project has it today, except that it overrides --gray-* there, which this major removed.',
             values: [
                 '#ffffff', '#fafafc', '#f3f3f7', '#e5e4eb', '#d2d1da', '#a09eaf',
                 '#71707f', '#52515f', '#3e3d49', '#26262e', '#16161d', '#08080f'

@@ -1,8 +1,9 @@
 /**
- * Fails on any reference to the deprecated mirrored palette.
+ * Fails on any reference to the mirrored palette this library used to ship.
  *
- * `token/legacy.scss` holds the old scale frozen so nothing breaks mid migration,
- * which also means nothing stops a new `var(--gray-100)` from being written.
+ * Those names are gone, so a `var(--gray-100)` now resolves to nothing at all and
+ * paints as if the declaration were absent. That fails quietly, which is what this
+ * catches.
  *
  *   bun scripts/check-palette-refs.ts
  */
@@ -21,10 +22,6 @@ function isSkipped(path: string): boolean {
     return SKIP_DIRECTORIES.some(skip => path === skip || path.startsWith(`${skip}/`) || path.includes(`/${skip}/`) || path.endsWith(`/${skip}`));
 }
 
-// The one file that is allowed to name the old scale: it is the definition, and
-// it goes away in the next major together with its two includes in base.scss.
-const ALLOWED = ['packages/components/src/css/token/legacy.scss'];
-
 const SCALES = 'gray|primary|danger|info|success|warning';
 const STOPS = '25|50|100|200|300|400|500|600|700|800|900|950';
 
@@ -37,8 +34,8 @@ const PATTERNS: readonly RegExp[] = [
     new RegExp(`var\\(\\s*--\\$\\{[^}]+\\}-(?:${STOPS})\\b`, 'g')
 ];
 
-// A non-zero entry would mean a package knowingly carries legacy references. The
-// sweep is done, so there is no such package and this reads as a hard gate.
+// A non-zero entry would mean a package knowingly carries references to a scale that
+// no longer exists. There is no such package, so this reads as a hard gate.
 const BUDGET: Record<string, number> = {
     'packages/components': 0,
     'packages/statistics': 0,
@@ -77,11 +74,6 @@ function walk(directory: string, files: string[] = []): string[] {
 
 function scan(file: string): Hit[] {
     const relativePath = relative('.', file);
-
-    if (ALLOWED.includes(relativePath)) {
-        return [];
-    }
-
     const hits: Hit[] = [];
     const lines = readFileSync(file, 'utf8').split('\n');
 

@@ -1,6 +1,5 @@
 @use 'variables';
 @use 'token/intent';
-@use 'token/legacy';
 @use 'token/palette';
 @use 'token/semantic';
 @use 'token/shadow';
@@ -27,15 +26,6 @@
 
     [dark] {
         color-scheme: dark;
-    }
-
-    // Deprecated: the flipped palette. See token/legacy.scss.
-    :root, [light] {
-        @include legacy.color-light;
-    }
-
-    [dark] {
-        @include legacy.color-dark;
     }
 
     ::selection {
