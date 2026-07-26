@@ -1,15 +1,8 @@
 @use '~flux/components/css/mixin';
+@use '~flux/statistics/css/token/chart';
 
 :root {
-    --chart-primary: var(--primary-700);
-    --chart-positive: var(--success-500);
-    --chart-negative: var(--danger-500);
-    --chart-1: var(--chart-primary);
-    --chart-2: var(--primary-500);
-    --chart-3: var(--primary-300);
-    --chart-4: var(--primary-100);
-    --chart-secondary-1: var(--gray-300);
-    --chart-secondary-2: var(--gray-200);
+    @include chart.chart;
 }
 
 :local(.pane):has(.statisticsChart) {
@@ -25,11 +18,13 @@
     height: unset;
     width: unset;
 
-    --stroke: rgb(from var(--surface-stroke) r g b / .5);
+    // color-mix, not relative colour syntax: the token holds a light-dark() pair,
+    // which `rgb(from ...)` would resolve once on :root and freeze to one theme.
+    --stroke: color-mix(in srgb, var(--surface-stroke) 50%, transparent);
 }
 
 .statisticsChartTooltip {
-    background: rgb(from var(--surface) r g b / .975);
+    background: color-mix(in srgb, var(--surface) 97.5%, transparent);
     background-clip: padding-box;
     backdrop-filter: blur(3px) saturate(180%);
     border: 1px solid var(--surface-stroke-out-hover);
@@ -54,10 +49,12 @@
     grid-template-columns: repeat(3, auto);
 }
 
+// The swatch and the icon are painted over with the series colour inline; these
+// are only what shows when a tooltip item carries none.
 .statisticsChartTooltipSeriesColor {
     height: 12px;
     width: 12px;
-    background: var(--danger-600);
+    background: var(--chart-1);
     border-radius: 6px;
 }
 
@@ -65,7 +62,7 @@
     display: flex;
     height: 14px;
     width: 14px;
-    color: var(--danger-600);
+    color: var(--chart-1);
     align-items: center;
     justify-content: center;
 

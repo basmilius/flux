@@ -1,0 +1,113 @@
+@use 'sass:list';
+@use 'sass:math';
+@use '~flux/components/css/token/theme';
+
+// The chart palette. Unlike the rest of the library a chart hands its colours to
+// a canvas, so nothing here can lean on a border, a shadow or a hover state to
+// stay legible: the fill against `--surface` is the whole signal.
+//
+// Prominence is therefore expressed as contrast order. `--chart-1` carries the
+// most contrast against `--surface`, `--chart-8` the least, and no stop drops
+// below 3:1 in either theme. That is the rule the old ramp broke: it walked four
+// stops of one blue, and because the palette used to flip in dark mode the ramp
+// ran backwards there, leaving `--chart-4` at 1.43 against the dark surface.
+//
+// Every value is solved rather than picked: the lightness on each hue is the one
+// that lands on the target ratio, which is why the numbers look irregular. WCAG
+// luminance is not perceptual lightness, so a yellow and a blue that measure the
+// same ratio sit at very different OKLCH lightness.
+
+// blue, red, purple, teal, green, magenta, orange, yellow. Four of the hues are
+// the library's own (primary 264, danger 17.1, success 137, warning 62.4); the
+// other four fill the gaps around the wheel, no two closer than 35 degrees.
+//
+// Measured against `--surface`: 7.21 6.40 5.71 5.00 4.40 3.90 3.46 3.05.
+$categorical-light:
+    (.468 .19 264)
+    (.508 .184 17.1)
+    (.534 .19 305)
+    (.533 .083 190)
+    (.56 .153 137)
+    (.628 .19 340)
+    (.642 .133 62.4)
+    (.663 .124 100);
+
+// The same eight hues, lighter, because contrast against the dark surface runs
+// the other way. Measured: 9.61 8.79 8.11 7.50 6.99 6.51 6.21 5.90. Each one is
+// also lighter than its light-mode counterpart, so a series keeps its identity
+// when the theme flips instead of swapping ends of the ramp.
+$categorical-dark:
+    (.818 .082 264)
+    (.803 .102 17.1)
+    (.78 .126 305)
+    (.732 .114 190)
+    (.711 .17 137)
+    (.729 .17 340)
+    (.704 .146 62.4)
+    (.679 .127 100);
+
+// The sequential ramp, for a heatmap or any value-to-colour mapping. It runs on
+// the primary hue and always puts the contrast at the high end: 1.35 to 6.99 in
+// light, 1.40 to 7.90 in dark. The ramp it replaces was four fixed Tailwind
+// blues, so in dark mode its low end out-shouted its high end.
+$ramp-light:
+    (.9 .043 264)
+    (.755 .113 264)
+    (.605 .19 264)
+    (.475 .19 264);
+
+$ramp-dark:
+    (.345 .17 264)
+    (.47 .17 264)
+    (.612 .17 264)
+    (.762 .109 264);
+
+// The wide categorical set, for the charts that need more series than the eight
+// have hues. Seventeen hues at even spacing on one lightness per theme, which is
+// what the seventeen fixed Tailwind stops it replaces were approximating. Here
+// prominence is deliberately flat: these are peers, not a ranking.
+//
+// Chroma sits above the sRGB boundary on the hues that cannot reach it, so a
+// wide-gamut display gets the full colour and sRGB clips back to its own edge.
+// Worst case after clipping is 4.54 in light and 6.81 in dark.
+$colorful-count: 17;
+$colorful-start: 17.1;
+$colorful-light: .55 .16;
+$colorful-dark: .74 .16;
+
+@function to-oklch($value) {
+    @return #{'oklch(#{list.nth($value, 1)} #{list.nth($value, 2)} #{list.nth($value, 3)})'};
+}
+
+@mixin chart {
+    @for $i from 1 through list.length($categorical-light) {
+        --chart-#{$i}: #{theme.theme(to-oklch(list.nth($categorical-light, $i)), to-oklch(list.nth($categorical-dark, $i)))};
+    }
+
+    @for $i from 1 through list.length($ramp-light) {
+        --chart-ramp-#{$i}: #{theme.theme(to-oklch(list.nth($ramp-light, $i)), to-oklch(list.nth($ramp-dark, $i)))};
+    }
+
+    @for $i from 1 through $colorful-count {
+        $hue: math.div(math.round(($colorful-start + math.div(($i - 1) * 360, $colorful-count)) * 10), 10);
+
+        --chart-colorful-#{$i}: #{theme.theme(to-oklch(list.append($colorful-light, $hue)), to-oklch(list.append($colorful-dark, $hue)))};
+    }
+
+    // Gain and loss read off the intents rather than a hue of their own, so a
+    // candlestick and a success badge cannot drift apart. Both clear 3:1 in both
+    // themes: positive 4.22 and 5.69, negative 4.53 and 4.51.
+    --chart-positive: var(--success-solid);
+    --chart-negative: var(--danger-solid);
+
+    // Grid lines have to sit under the data, not compete with it: 1.16 in light
+    // and 1.20 in dark, the same line the library draws its muted separators
+    // with. Axis labels are ordinary secondary copy.
+    --chart-grid: var(--surface-stroke-muted);
+    --chart-label: var(--foreground-secondary);
+
+    // A label printed on top of a chart fill. The ramp is dark on a light surface
+    // and light on a dark one, so the text that survives on it is the inverse of
+    // the page, whichever way round that is.
+    --chart-on-fill: var(--foreground-inverse-prominent);
+}

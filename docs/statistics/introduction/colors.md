@@ -9,10 +9,13 @@ Every token is declared once and takes its own value per theme, the same way the
 | Token | What it is |
 |---|---|
 | `--chart-1` … `--chart-8` | The series colors, ordered by prominence |
+| `--chart-ramp-1` … `--chart-ramp-4` | A sequential ramp, light to dark, for heatmaps and choropleths |
+| `--chart-colorful-1` … `--chart-colorful-17` | The categorical set, for more categories than eight |
 | `--chart-positive` | Growth, gain, an upward change |
 | `--chart-negative` | Loss, decline, a downward change |
 | `--chart-grid` | Axis and grid lines |
 | `--chart-label` | Axis labels, ticks and legend text |
+| `--chart-on-fill` | Text drawn on top of a filled series, as in a treemap |
 
 The order of the eight is the order in which to spend them. `--chart-1` carries the most contrast against the chart surface and each next one steps down, so a two-series chart separates without anyone picking colors by hand, and an eight-series chart still separates at the bottom of the list.
 
@@ -25,22 +28,23 @@ The default cycle, in the order a chart assigns them to series that carry no `co
 ```ts
 import { CHART_COLORS } from '@flux-ui/statistics';
 
-// ['var(--chart-1)', 'var(--chart-2)', 'var(--chart-3)', 'var(--chart-4)']
+// ['var(--chart-1)', 'var(--chart-2)', 'var(--chart-3)', 'var(--chart-4)',
+//  'var(--chart-5)', 'var(--chart-6)', 'var(--chart-7)', 'var(--chart-8)']
 ```
+
+A chart cycles through this list, so a ninth series starts again at `--chart-1`.
 
 ## CHART_COLORFUL_COLORS
 
-A vibrant palette of 17 colors spanning the full spectrum.
+Seventeen hues at one lightness, evenly spaced around the wheel, for a chart with more categories than the themed set covers. Where `CHART_COLORS` separates by contrast, this one separates by hue.
 
 ```ts
 import { CHART_COLORFUL_COLORS } from '@flux-ui/statistics';
 
-// [red500, orange500, amber500, yellow500, lime500, green500, emerald500,
-//  teal500, cyan500, sky500, blue500, indigo500, violet500, purple500,
-//  fuchsia500, pink500, rose500]
+// ['var(--chart-colorful-1)', … 'var(--chart-colorful-17)']
 ```
 
-These are fixed hex values from the [color palette](../../internals/data/color) in `@flux-ui/internals`, not design tokens. They stay the same in both themes and they are not held to a contrast target, so reach for them when a chart has more categories than the themed set covers and the categories matter more than the theme does.
+These are tokens, not fixed hex values, so they take their own lightness per theme and every one of them clears its contrast target against the chart surface. The [color palette](../../internals/data/color) in `@flux-ui/internals` still exports fixed hexes, but those are values a user picks in a color input, not colors a chart draws with.
 
 ## Usage
 

@@ -38,6 +38,6 @@
     ];
 
     function cardStyle(color: Color): string {
-        return `padding: 4px 8px; background: var(--${color}-100); color: var(--${color}-800); border-radius: var(--radius-half); font-size: 12px; line-height: 1.2; height: 100%; box-sizing: border-box;`;
+        return `padding: 4px 8px; background: var(--${color}-soft-hover); color: var(--${color}-text); border-radius: var(--radius-half); font-size: 12px; line-height: 1.2; height: 100%; box-sizing: border-box;`;
     }
 </script>

@@ -124,10 +124,10 @@ export const BOXPLOT_SERIES_DEFAULTS: Partial<BoxplotSeriesOption> = {
 export const CANDLESTICK_SERIES_DEFAULTS: Partial<CandlestickSeriesOption> = {
     type: 'candlestick',
     itemStyle: {
-        color: 'var(--success-500)',
-        color0: 'var(--danger-500)',
-        borderColor: 'var(--success-500)',
-        borderColor0: 'var(--danger-500)'
+        color: 'var(--chart-positive)',
+        color0: 'var(--chart-negative)',
+        borderColor: 'var(--chart-positive)',
+        borderColor0: 'var(--chart-negative)'
     },
     emphasis: SOFT_EMPHASIS,
     animationDelay: stagger(30),
@@ -147,7 +147,7 @@ export const TREEMAP_SERIES_DEFAULTS: Partial<TreemapSeriesOption> = {
     },
     label: {
         show: true,
-        color: 'var(--white)',
+        color: 'var(--chart-on-fill)',
         ...CHART_TEXT_XSMALL,
         fontWeight: 600
     },
@@ -170,7 +170,7 @@ export const GAUGE_SERIES_DEFAULTS: Partial<GaugeSeriesOption> = {
     axisLine: {
         lineStyle: {
             width: 14,
-            color: [[1, 'var(--gray-100)']]
+            color: [[1, 'var(--chart-grid)']]
         },
         roundCap: true
     },

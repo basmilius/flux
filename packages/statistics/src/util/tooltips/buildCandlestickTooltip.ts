@@ -38,8 +38,8 @@ export function buildCandlestickTooltip(input: CandlestickTooltipInput): ECharts
             return '';
         }
 
-        const positive = resolveChartColor(s.positiveColor) ?? 'var(--success-500)';
-        const negative = resolveChartColor(s.negativeColor) ?? 'var(--danger-500)';
+        const positive = resolveChartColor(s.positiveColor) ?? 'var(--chart-positive)';
+        const negative = resolveChartColor(s.negativeColor) ?? 'var(--chart-negative)';
         const color = point.close >= point.open ? positive : negative;
         const seriesName = s.name ? t(String(s.name)) : '';
         const pointLabel = point.label ? t(String(point.label)) : '';

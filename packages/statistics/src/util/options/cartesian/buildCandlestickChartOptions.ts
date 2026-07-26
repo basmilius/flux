@@ -39,13 +39,13 @@ function resolveCandlestickLabels(
 export function candlestickLegendItemBuilder(s: FluxStatisticsChartCandlestickSeries, _color: string, index: number): readonly ChartLegendItem[] {
     return [
         {
-            color: resolveChartColor(s.positiveColor) ?? 'var(--success-500)',
+            color: resolveChartColor(s.positiveColor) ?? 'var(--chart-positive)',
             icon: s.icon,
             label: 'Up',
             seriesIndex: index
         },
         {
-            color: resolveChartColor(s.negativeColor) ?? 'var(--danger-500)',
+            color: resolveChartColor(s.negativeColor) ?? 'var(--chart-negative)',
             label: 'Down',
             seriesIndex: index
         }

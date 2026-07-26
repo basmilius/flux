@@ -149,8 +149,8 @@ export function toBubbleSeries(s: FluxStatisticsChartBubbleSeries, fallbackColor
 }
 
 export function toCandlestickSeries(s: FluxStatisticsChartCandlestickSeries): CandlestickSeriesOption {
-    const positive = resolveChartColor(s.positiveColor) ?? 'var(--success-500)';
-    const negative = resolveChartColor(s.negativeColor) ?? 'var(--danger-500)';
+    const positive = resolveChartColor(s.positiveColor) ?? 'var(--chart-positive)';
+    const negative = resolveChartColor(s.negativeColor) ?? 'var(--chart-negative)';
 
     return {
         ...CANDLESTICK_SERIES_DEFAULTS,

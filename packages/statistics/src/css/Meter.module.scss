@@ -1,7 +1,7 @@
 @use '~flux/components/css/mixin';
 
 .statisticsMeter {
-    --color: var(--primary-600);
+    --color: var(--primary-solid);
     --percentage: 0%;
 
     composes: statisticsStackable from './Core.module.scss';
@@ -19,7 +19,7 @@
 
 .statisticsMeterBar {
     height: 6px;
-    background: var(--gray-100);
+    background: var(--surface-sunken);
     border-radius: var(--radius);
     contain: paint;
 }
@@ -42,7 +42,7 @@
     flex: 0 0 auto;
     width: 6px;
     height: 21px;
-    background: var(--gray-100);
+    background: var(--surface-sunken);
     border-radius: 3px;
 
     &.isFilled {

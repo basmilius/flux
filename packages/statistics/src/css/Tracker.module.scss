@@ -15,7 +15,7 @@
     height: 100%;
     width: 100%;
     fill: none;
-    stroke: var(--gray-200);
+    stroke: var(--surface-stroke);
     stroke-width: 2;
     stroke-linecap: round;
     pointer-events: none;
@@ -34,10 +34,12 @@
 }
 
 // The marker follows the palette of a boxed icon: a soft tint with a deep glyph.
+// Gray is the default intent, so an uncoloured entry resolves the same three
+// roles a coloured one does.
 .trackerEntry {
-    --color: var(--gray-600);
-    --color-deep: var(--foreground);
-    --color-soft: var(--gray-100);
+    --color: var(--gray-solid);
+    --color-deep: var(--gray-text);
+    --color-soft: var(--gray-soft-hover);
 
     composes: trackerRow;
 }
@@ -103,7 +105,7 @@
 }
 
 .trackerLabel {
-    --color: var(--gray-300);
+    --color: var(--gray-solid);
 
     composes: trackerRow;
 
@@ -150,7 +152,7 @@
     height: 18px;
     align-items: center;
     justify-content: center;
-    color: var(--gray-300);
+    color: var(--surface-stroke-hover);
 }
 
 .trackerStepDot {
@@ -168,7 +170,7 @@
     composes: trackerStep;
 
     .trackerStepMarker {
-        color: var(--success-600);
+        color: var(--success-solid);
     }
 
     .trackerStepLabel {
@@ -180,7 +182,7 @@
     composes: trackerStep;
 
     .trackerStepMarker {
-        color: var(--color, var(--primary-600));
+        color: var(--color, var(--primary-solid));
     }
 
     .trackerStepLabel {
@@ -189,24 +191,22 @@
     }
 }
 
+// Every variant fills the same contract, gray included, which is what removed the
+// two `.xxxGray` overrides that used to follow these loops.
 @include mixin.color-variants(trackerEntry) using ($color) {
     composes: trackerEntry;
 
-    --color: var(--#{$color}-600);
-    --color-deep: var(--#{$color}-900);
-    --color-soft: var(--#{$color}-100);
-}
+    @include mixin.intent($color);
 
-.trackerEntryGray {
-    --color-deep: var(--foreground);
+    --color: var(--intent-solid);
+    --color-deep: var(--intent-text);
+    --color-soft: var(--intent-soft-hover);
 }
 
 @include mixin.color-variants(trackerLabel) using ($color) {
     composes: trackerLabel;
 
-    --color: var(--#{$color}-600);
-}
+    @include mixin.intent($color);
 
-.trackerLabelGray {
-    --color: var(--gray-300);
+    --color: var(--intent-solid);
 }

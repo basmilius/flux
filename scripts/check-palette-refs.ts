@@ -3,8 +3,8 @@
  *
  * `token/legacy.scss` holds the old scale frozen so nothing breaks mid
  * migration, which also means nothing stops a new `var(--gray-100)` from being
- * written. This turns the remaining references into a number that can only go
- * down: lower BUDGET as the sweep lands, never raise it.
+ * written. Every budget is zero, so this is now a hard gate rather than a
+ * ratchet: nothing may reach into the old scale again.
  *
  *   bun scripts/check-palette-refs.ts
  */
@@ -33,14 +33,15 @@ const PATTERNS: readonly (readonly [string, RegExp])[] = [
     ['template', new RegExp(`var\\(\\s*--\\$\\{[^}]+\\}-(?:${STOPS})\\b`, 'g')]
 ];
 
-// Everything still outstanding, per package. Drive these to zero; never raise one.
+// The sweep is done, so every budget is zero. A non-zero entry here would mean
+// a package is knowingly carrying legacy references; there is no such package.
 const BUDGET: Record<string, number> = {
-    'packages/components': 316,
-    'packages/statistics': 51,
-    'packages/flow': 36,
-    'packages/visuals': 14,
-    'packages/application': 10,
-    docs: 100
+    'packages/components': 0,
+    'packages/statistics': 0,
+    'packages/flow': 0,
+    'packages/visuals': 0,
+    'packages/application': 0,
+    docs: 0
 };
 
 type Hit = {
