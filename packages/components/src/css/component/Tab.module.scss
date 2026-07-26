@@ -125,8 +125,8 @@
 
     @include mixin.focus-ring-pseudo(before, -2px);
 
-    // Inset offset zodat de focus-ring niet wordt weggeclipt
-    // door de overflow: auto op .tabBarTabs.
+    // Inset, so the focus ring is not clipped away by the `overflow: auto` on
+    // .tabBarTabs.
     &::before {
         outline-offset: -2px;
     }

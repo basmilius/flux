@@ -222,8 +222,8 @@
 }
 
 // The shortcut has to stay quieter than the label without leaving the fill's own
-// foreground, which is white in light and near-black in dark. A mix keeps that
-// flip; a fixed stop only worked while the palette flipped with it.
+// foreground, which is white in light and near-black in dark, so it fades that
+// token rather than picking a stop.
 .menuItemActive .menuItemCommand,
 .menuItemActive .menuItemCommandIcon {
     color: color-mix(in srgb, var(--primary-on-solid) 70%, transparent);

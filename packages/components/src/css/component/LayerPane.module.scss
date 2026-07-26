@@ -10,10 +10,8 @@
     transition-property: background, border;
 }
 
-// Every variant fills the same contract, gray included, so the hover step is the
-// soft pair rather than a rung of the raw scale. The edge keeps one color across
-// both states: the contract has a single border role, and the tint carries the
-// hover on its own.
+// The edge keeps one color across both states: the contract has a single border
+// role, and the tint carries the hover on its own.
 @include mixin.color-variants(layerPane) using ($color) {
     composes: layerPane;
 
@@ -27,8 +25,7 @@
     }
 
     // A pane header icon is already `--primary-text` (Pane.module.scss), so only the
-    // intents that differ from that restate it. Gray is not one of them any more: an
-    // icon that stays primary on a gray pane is exactly what the intent contract drops.
+    // intents that differ from it restate the color.
     @if $color != 'primary' {
         :local(.paneHeaderIcon) {
             color: var(--intent-text);

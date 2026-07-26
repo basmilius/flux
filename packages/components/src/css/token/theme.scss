@@ -23,21 +23,17 @@
     @return #{'light-dark(#{$light}, #{$dark})'};
 }
 
-// A neutral at an arbitrary lightness. Dark mode needs about ten steps between
-// L .15 and L .42 where the gray scale has four, so these cannot be stops. They
-// are still anchored to the scale: lightness is given here, because it was solved
-// against a contrast target and must not drift, while hue and chroma are read off
-// `gray-500` at use time.
+// A neutral at an arbitrary lightness. Dark mode needs far more steps through the
+// dark end than the gray scale has stops there, so these cannot be stops. The
+// lightness is given here because it was solved against a contrast target and must
+// not drift; hue and chroma are read off `gray-500` at use time.
 //
-// That anchoring is the whole point. Recolour the gray scale and the dark
-// surfaces, text and strokes move with it, exactly as they did when every token
-// went through `var(--gray-N)`. Only the lightness ramp stays put, which is the
-// part that carries the contrast guarantees rather than the character of the
-// gray.
+// That anchoring is the whole point: recolor the gray scale and the dark surfaces,
+// text and strokes move with it, while the lightness ramp that carries the contrast
+// guarantees stays put.
 @function neutral($lightness, $chroma, $alpha: 1) {
-    // Four decimals puts the rounding error at 1e-6 of a chroma that never
-    // exceeds .03, which is orders of magnitude below a perceptible step and
-    // keeps the expression short enough to repeat forty times.
+    // Rounded to keep the emitted expression short; the error lands far below a
+    // perceptible step at these chromas.
     $factor: math.div(math.round(math.div($chroma, palette.chroma('gray', 500)) * 10000), 10000);
     $expression: 'calc(c * #{$factor})';
     $suffix: '';

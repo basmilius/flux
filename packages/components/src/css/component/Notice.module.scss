@@ -21,7 +21,6 @@
     code {
         padding: 3px 6px;
         font-size: var(--font-size-xsmall);
-        background: var(--surface-sunken);
         border-radius: var(--radius-half);
     }
 
@@ -103,9 +102,8 @@
     }
 }
 
-// Every variant fills the same contract, gray included. That removed both the
-// `@if $color != 'gray'` guard inside this loop and the `.noticeGray` override
-// that used to follow it: `--gray-*` already resolves to the neutral tokens.
+// A notice always carries a color, gray included, so the fills below are the only
+// ones `code` and `.noticeClose` ever get.
 @include mixin.color-variants(notice) using ($color) {
     composes: notice;
 
@@ -120,8 +118,8 @@
         background: var(--intent-soft-hover);
     }
 
-    // Deepens one more rung on hover instead of going translucent, which used to
-    // dim the glyph along with the chip behind it.
+    // Deepens one more rung on hover instead of going translucent, which would dim
+    // the glyph along with the chip behind it.
     .noticeClose {
         background: var(--intent-soft-hover);
 
@@ -131,7 +129,7 @@
     }
 
     // The icon and the spinner are the same mark in two forms, so they share one
-    // accent rather than sitting a rung apart.
+    // accent.
     .noticePrefix {
         color: var(--intent-solid);
     }

@@ -166,10 +166,8 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
         border-top: 1px solid var(--surface-stroke-muted);
     }
 
-    // The head keeps the muted stroke, the same way FluxTable does: against the
-    // sunken fill it paints itself with, that is the .014 L step this table always
-    // drew. Both take the rung above only while `--surface-sunken` sits off its
-    // stop, which it no longer does.
+    // The head pairs the sunken fill with the muted stroke, the same way FluxTable
+    // does.
     > table thead th {
         font-size: var(--font-size-small);
         font-weight: 700;

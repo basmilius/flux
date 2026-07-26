@@ -4,10 +4,9 @@
     @include mixin.elevation('surface');
 }
 
-// Anything floating over the page: a menu, a flyout, a context menu, a snackbar.
-// In light the shadow already separates it and this changes nothing. In dark a
-// shadow on a near-black surface separates nothing, so the layer has to carry the
-// height itself; without this a context menu is exactly the color of the page
+// Anything floating over the page: a menu, a flyout, a context menu, a snackbar. In
+// dark a shadow on a near-black surface separates nothing, so the layer has to carry
+// the height itself; without this a context menu is exactly the color of the page
 // behind it. Longhand on purpose: the `background` shorthand also resets the
 // padding-box clip the level painted with, and the fill then runs under the
 // translucent stroke.

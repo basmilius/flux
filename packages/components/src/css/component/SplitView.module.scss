@@ -58,8 +58,8 @@
     }
 
     // The bar is the focus indicator here, since the handle drops its outline
-    // below, so it takes the ring token and its measured contrast. Hover is an
-    // accent rather than an indicator and takes the solid fill.
+    // below, so it takes the ring token. Hover is an accent rather than an
+    // indicator and takes the solid fill.
     &:focus-visible::before {
         background: var(--focus-ring);
     }

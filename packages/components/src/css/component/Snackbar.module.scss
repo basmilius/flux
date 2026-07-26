@@ -105,11 +105,8 @@
     @include mixin.intent($color);
 
     // The three marks that carry the intent, against a message on `--foreground`
-    // and a sub message a rung below that. They were `--{color}-600` before the
-    // contract, which scored 3.17 for warning and 4.22 for success on the raised
-    // pane a snackbar is, and gray took `--foreground-prominent` here. The second
-    // text rung is the role that is both: prominent for gray again, and past AA on
-    // that pane for all six.
+    // and a sub message a rung below it. The text rung rather than solid, so all
+    // six stay readable on the raised pane a snackbar is.
     .snackbarAction:first-child,
     .snackbarContent > .icon,
     .snackbarTitle {
@@ -117,9 +114,6 @@
     }
 
     // The spinner is a filled arc rather than ink, so it takes the solid role.
-    // Gray used to be skipped here to keep the spinner on its own default; the
-    // contract covers it, so the exception and the .snackbarGray block below it
-    // both go.
     .spinnerEffect,
     .spinnerValue {
         stroke: var(--intent-solid);

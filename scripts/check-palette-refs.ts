@@ -1,10 +1,8 @@
 /**
  * Fails on any reference to the deprecated mirrored palette.
  *
- * `token/legacy.scss` holds the old scale frozen so nothing breaks mid
- * migration, which also means nothing stops a new `var(--gray-100)` from being
- * written. Every budget is zero, so this is now a hard gate rather than a
- * ratchet: nothing may reach into the old scale again.
+ * `token/legacy.scss` holds the old scale frozen so nothing breaks mid migration,
+ * which also means nothing stops a new `var(--gray-100)` from being written.
  *
  *   bun scripts/check-palette-refs.ts
  */
@@ -17,6 +15,12 @@ const EXTENSIONS = ['.scss', '.css', '.ts', '.tsx', '.js', '.vue', '.md'];
 
 const SKIP_DIRECTORIES = ['node_modules', 'dist', '.vitepress/cache', '.vitepress/dist', '.git'];
 
+// Matched as whole path segments. A substring test also skips `distance.ts`, which
+// is the kind of hole that only shows up once something in it is wrong.
+function isSkipped(path: string): boolean {
+    return SKIP_DIRECTORIES.some(skip => path === skip || path.startsWith(`${skip}/`) || path.includes(`/${skip}/`) || path.endsWith(`/${skip}`));
+}
+
 // The one file that is allowed to name the old scale: it is the definition, and
 // it goes away in the next major together with its two includes in base.scss.
 const ALLOWED = ['packages/components/src/css/token/legacy.scss'];
@@ -24,30 +28,32 @@ const ALLOWED = ['packages/components/src/css/token/legacy.scss'];
 const SCALES = 'gray|primary|danger|info|success|warning';
 const STOPS = '25|50|100|200|300|400|500|600|700|800|900|950';
 
-const PATTERNS: readonly (readonly [string, RegExp])[] = [
+const PATTERNS: readonly RegExp[] = [
     // var(--gray-100)
-    ['literal', new RegExp(`var\\(\\s*--(?:${SCALES})-(?:${STOPS})\\b`, 'g')],
+    new RegExp(`var\\(\\s*--(?:${SCALES})-(?:${STOPS})\\b`, 'g'),
     // var(--#{$color}-600) in a Sass loop
-    ['sass', new RegExp(`var\\(\\s*--#\\{\\$[\\w-]+\\}-(?:${STOPS})\\b`, 'g')],
+    new RegExp(`var\\(\\s*--#\\{\\$[\\w-]+\\}-(?:${STOPS})\\b`, 'g'),
     // `var(--${color}-600)` in a template literal
-    ['template', new RegExp(`var\\(\\s*--\\$\\{[^}]+\\}-(?:${STOPS})\\b`, 'g')]
+    new RegExp(`var\\(\\s*--\\$\\{[^}]+\\}-(?:${STOPS})\\b`, 'g')
 ];
 
-// The sweep is done, so every budget is zero. A non-zero entry here would mean
-// a package is knowingly carrying legacy references; there is no such package.
+// A non-zero entry would mean a package knowingly carries legacy references. The
+// sweep is done, so there is no such package and this reads as a hard gate.
 const BUDGET: Record<string, number> = {
     'packages/components': 0,
     'packages/statistics': 0,
     'packages/flow': 0,
     'packages/visuals': 0,
     'packages/application': 0,
-    docs: 0
+    docs: 0,
+    // Anything the buckets above do not name. Without it a hit in `packages/types`
+    // or `packages/internals` lands in a bucket with no budget and passes.
+    other: 0
 };
 
 type Hit = {
     readonly file: string;
     readonly line: number;
-    readonly kind: string;
     readonly text: string;
 };
 
@@ -55,7 +61,7 @@ function walk(directory: string, files: string[] = []): string[] {
     for (const entry of readdirSync(directory)) {
         const path = join(directory, entry);
 
-        if (SKIP_DIRECTORIES.some(skip => path.includes(skip))) {
+        if (isSkipped(path)) {
             continue;
         }
 
@@ -80,9 +86,9 @@ function scan(file: string): Hit[] {
     const lines = readFileSync(file, 'utf8').split('\n');
 
     lines.forEach((line, index) => {
-        for (const [kind, pattern] of PATTERNS) {
+        for (const pattern of PATTERNS) {
             for (const match of line.matchAll(pattern)) {
-                hits.push({file: relativePath, line: index + 1, kind, text: match[0].replace('var(', '').trim()});
+                hits.push({file: relativePath, line: index + 1, text: match[0].replace('var(', '').trim()});
             }
         }
     });

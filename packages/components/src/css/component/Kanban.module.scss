@@ -99,18 +99,16 @@
     transition: background 180ms var(--swift-out);
 }
 
-// This marks the one column the pointer is on, so it pairs with `.isOver` above and
-// not with the whisper below: both are a full soft fill, and the palette puts the two
-// on the same lightness in dark. The whisper lights up every other column at once,
-// which is the reason that one, and only that one, stays translucent.
+// The one column the pointer is on, so it takes a full soft fill like `.isOver`
+// above rather than the whisper below.
 .kanbanColumn.isOver.isDropDisallowed .kanbanColumnBody {
     background: var(--danger-soft);
     cursor: not-allowed;
 }
 
-// A whisper instead of the full tint: every column that can take the card lights
-// up at once while one is in flight, so this has to stay well under the column
-// the pointer is actually over.
+// A whisper instead of the full tint: every column that can take the card lights up
+// at once while one is in flight, so it has to stay well under the column the
+// pointer is actually over.
 .kanban.isBoardDragging .kanbanColumn:not(.isOver):not(.isDisabled) .kanbanColumnBody {
     background: color-mix(in srgb, var(--primary-soft) 30%, transparent);
 }

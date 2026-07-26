@@ -7,9 +7,8 @@
     flex: 1 0 auto;
     flex-flow: column;
     justify-content: center;
-    // A neutral panel with an edge of its own, which is what the gray intent is
-    // for: the sunken surface paired with the plain stroke leaves barely any
-    // difference between the fill and the dashes.
+    // The gray intent rather than the elevation pair: a sunken surface inside the
+    // plain stroke leaves barely any difference between the fill and the dashes.
     background: var(--gray-soft);
     border: 2px dashed var(--gray-border);
     border-radius: var(--radius);

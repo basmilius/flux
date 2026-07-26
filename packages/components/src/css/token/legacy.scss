@@ -1,11 +1,9 @@
-// Deprecated. The palette as it was before it became absolute, frozen verbatim,
-// including the flip that made a stop mean one color in light and the opposite
-// in dark. It is kept only so components that still reach for `var(--gray-100)`
-// keep rendering while they are migrated onto the semantic layer.
+// Deprecated. The old flipped palette, where a stop means one color in light and
+// its opposite in dark, kept only so components that still reach for
+// `var(--gray-100)` keep rendering until they move onto the semantic layer.
 //
-// The new palette lives under `--palette-*` in token/palette.scss. These two
-// cannot be aliased onto each other: one flips and the other does not, so they
-// hold different values by definition.
+// It cannot be aliased onto `--palette-*` in token/palette.scss: that scale does
+// not flip, so the two hold different values by definition.
 //
 // Remove this file, and its two includes in base.scss, in the next major.
 @mixin color-light {

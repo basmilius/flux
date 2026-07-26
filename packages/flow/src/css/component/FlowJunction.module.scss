@@ -11,8 +11,6 @@
     border-radius: var(--radius-full);
     box-shadow: var(--shadow-sm);
 
-    // The same marking the gate draws its edge with, and the same reason for
-    // `muted` over `solid`: gray's solid is the darkest ink on the canvas.
     @each $-color in ("gray", "primary", "danger", "info", "success", "warning") {
         &[data-color="#{$-color}"] {
             border-color: var(--#{$-color}-muted);

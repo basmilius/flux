@@ -106,11 +106,6 @@
     }
 }
 
-// Gray fills the same contract as the other five, so the `.timelineItemGray`
-// override that used to follow this loop is gone. The dot takes `muted` rather
-// than `solid`, which is the role that carries one weight across all six: a
-// filled marking read out of the corner of the eye. On `solid` the gray dot was
-// `--foreground-prominent`, the heaviest of the six instead of the quietest.
 @include mixin.color-variants(timelineItem) using ($color) {
     composes: timelineItem;
 

@@ -16,8 +16,7 @@
 
 // A tooltip deliberately reads as the opposite of the page, so it remaps the
 // foreground tokens for everything inside it. The inverse tokens already carry
-// their own value per theme, which is what removed the `[dark] .tooltip` block
-// that used to undo this remap by hand.
+// their own value per theme, so the remap needs no dark counterpart.
 .tooltip {
     --foreground: var(--foreground-inverse);
     --foreground-prominent: var(--foreground-inverse-prominent);

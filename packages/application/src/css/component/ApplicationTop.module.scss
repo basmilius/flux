@@ -1,11 +1,8 @@
 @use '~flux/components/css/mixin';
 
-// The raised level, not the surface one: the page scrolls underneath this bar, so
-// in dark it has to stay lighter than the cards passing behind it. Light paints
-// both levels white, so nothing changes there.
-//
-// color-mix, not relative color syntax: the token holds a light-dark() pair,
-// which `rgb(from ...)` would resolve once on :root and freeze to one theme.
+// The raised level, not the surface one: the page scrolls underneath this bar, so in
+// dark it has to stay lighter than the cards passing behind it. color-mix, not
+// relative color syntax: the token holds a `light-dark()` (see token/theme.scss).
 .applicationTop {
     position: sticky;
     top: 0;

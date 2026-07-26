@@ -44,8 +44,7 @@
 }
 
 // `--color` is a color the consumer picked, not a token, so the tint is mixed
-// against the surface instead of derived from it. `color-mix()` is safe over a
-// `light-dark()`, unlike relative color syntax.
+// against the surface instead of derived from it.
 .avatarFallbackColorized {
     composes: avatarFallback;
 
@@ -53,7 +52,7 @@
     color: var(--color);
 }
 
-// Dark keeps more of the chosen color: the same 80% against a dark surface
+// Dark keeps more of the chosen color: the same mix against a dark surface
 // leaves too little of it to read as colored at all.
 [dark] .avatarFallbackColorized {
     background: color-mix(in srgb, var(--color), var(--surface) 70%);
@@ -78,8 +77,7 @@
     backdrop-filter: blur(3px) saturate(180%);
 
     // The track reads over the blurred veil rather than over a surface, so it is
-    // translucent ink. Mixed, not derived: the foreground tokens hold a
-    // `light-dark()` that relative color syntax would freeze.
+    // translucent ink. Mixed, not derived: see token/theme.scss.
     :local(.spinner) {
         --track: color-mix(in srgb, var(--foreground-prominent) 12%, transparent);
     }
@@ -95,9 +93,6 @@
     border-radius: var(--radius-full);
 }
 
-// The status dot is a marking, not a fill: `muted` is the role that weighs the
-// same for all six, where `solid` turns the gray one into the darkest thing on
-// the avatar.
 @include mixin.color-variants(avatarStatus) using ($color) {
     composes: avatarStatus;
 

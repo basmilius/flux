@@ -17,8 +17,6 @@ svg.flowIconSpinner {
     box-shadow: var(--shadow-sm);
     color: var(--foreground);
 
-    // Gray walks the same rungs as the other five, so it no longer needs a branch
-    // of its own: `--gray-text` resolves to the foreground the base already sets.
     @each $-color in ('gray', 'primary', 'danger', 'info', 'success', 'warning') {
         &[data-color='#{$-color}'] {
             background: var(--#{$-color}-soft-hover);

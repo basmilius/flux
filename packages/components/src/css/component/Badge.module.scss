@@ -3,8 +3,8 @@
 .badge {
     @include mixin.text(xsmall);
 
-    // Gray is the default intent, so an uncoloured badge resolves the same
-    // contract as a colored one instead of leaving `--intent-*` empty.
+    // Gray is the default intent, so an uncolored badge still fills the contract
+    // instead of leaving `--intent-*` empty.
     @include mixin.intent('gray');
 
     display: inline-flex;
@@ -94,8 +94,8 @@
     color: var(--foreground-secondary);
     cursor: pointer;
 
-    // Translucent, so the state deepens the badge's own tint instead of covering
-    // it with a gray the way a `--surface-*` fill would.
+    // Ink, so the state deepens the badge's own tint instead of covering it with
+    // the gray a `--surface-*` fill would bring.
     @include mixin.hover {
         background: var(--ink-hover);
         color: var(--foreground);
@@ -116,11 +116,8 @@
     border-color: var(--intent-border);
 }
 
-// The dot is the quiet mark and the label the loud one, which is the order the
-// badge always drew them in: gray put its dot on `--foreground` and its label on
-// `--foreground-prominent`. On `solid` that order flipped, because gray's solid
-// is `--foreground-prominent`. `muted` puts it back and gives all six dots one
-// weight.
+// The dot is the quiet mark and the label the loud one, so the dot takes `muted`
+// and the label `--intent-text`.
 .badgeDot {
     display: block;
     height: 9px;
@@ -143,9 +140,6 @@
     }
 }
 
-// Every variant fills the same contract, gray included. That removed the
-// `.badgeGray` override that used to follow this block, and the four local
-// tokens it set, two of which shadowed globals of the same name.
 @include mixin.color-variants(badge) using ($color) {
     composes: badge;
 

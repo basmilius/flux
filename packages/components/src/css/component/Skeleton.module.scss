@@ -9,9 +9,8 @@
     border-radius: var(--radius);
     overflow: hidden;
 
-    // `--shimmer` is lighter than whatever it sweeps across in both themes. The
-    // sweep used to be gray-50 over gray-100, which the flipped scale turned into
-    // a dark smear moving across an already dark block.
+    // `--shimmer` has to stay lighter than what it sweeps across in both themes,
+    // which is the direction the contrast gate holds it to.
     &::after {
         content: '';
         position: absolute;

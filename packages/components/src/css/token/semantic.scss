@@ -2,102 +2,62 @@
 @use 'theme';
 
 // Every token is declared once and picks its own value per theme through
-// `theme()`. That replaces the old arrangement where dark mode re-declared the
-// entire palette: a token can now take the value that meets its contrast target
-// in each theme, instead of inheriting whatever the mirrored scale produced.
+// `theme()`, so it can take the value that meets its contrast target in each
+// theme instead of inheriting whatever a mirrored palette produced.
 @mixin semantic {
-    // Elevation. Light keeps every raised layer white and lets the shadow carry
-    // the height; dark cannot, because a shadow on a near-black surface separates
-    // nothing. There lightness is the primary signal, the light edge the secondary
-    // one, and the shadow only tertiary.
-    //
-    // `--background` is no longer equal to `--surface`. That equality is the reason
-    // a menu and the page underneath it were the same color.
-    //
-    // A modal deliberately stays on `--surface` rather than moving up with the
-    // menus. It is the one floating surface that arrives with a scrim, and the
-    // scrim already does the separating; lifting it as well would make it the
-    // brightest thing on a darkened page for no reason a reader could name.
-    //
-    // `--surface-sunken` is the strip that sets itself off from the card it lies
-    // in: a sticky table head, a pane footer, a tab bar in a pane, a code block,
-    // the skeleton base, a segmented control track. Which way it moves to do that
-    // is a per theme decision, not something the name settles. Light moves down,
-    // because the card is white and down is the only direction there is. Dark moves
-    // up, because under `--surface` there is only the page and then black, where a
-    // fill loses its edges and the text on it loses its footing. The old mirrored
-    // palette already worked this way without saying so: the same pair of stops,
-    // `gray-50` on `gray-25`, was .021 L darker than the card in light and .033 L
-    // lighter in dark.
-    //
-    // Light lands on the value `--background` also has. The band between the page
-    // and a white card is .021 L wide and two readable steps do not fit in it, so
-    // the step that carries the meaning wins: sunken is measured against the card
-    // it sits in, not against the page. The page level users (`paneWell`, a kanban
-    // column, the application menu rail, the flow canvas) each draw their own
-    // border or grid and still read there, they just stop being recessed. Giving
-    // them their own token is the real fix, and it needs those components to move
-    // with it.
-    //
-    // Dark lands between `--surface` and `--surface-raised`: .020 L over the card
-    // and .019 L under a floating menu, so a table head and a flyout above it stay
-    // two surfaces rather than one.
+    // Elevation. Light keeps every level white and lets the shadow carry the
+    // height; dark climbs in lightness, because a shadow on a near-black surface
+    // separates nothing. A modal is the one floating surface that stays on
+    // `--surface`: it arrives with a scrim, and the scrim already separates it.
     --background: #{theme.theme(palette.stop('gray', 50), theme.neutral(.195, .014))};
 
     // The ground a board, a canvas or a well is drawn on, as opposed to a strip
-    // inside a card. These used to share `--surface-sunken`, which only worked
-    // while the page was white: once `--background` took `gray-50`, the value that
-    // reads as a recess inside a card is the same one the page already has, and a
-    // kanban column sitting on the page had nothing left to be recessed against.
-    //
-    // So the two ideas split. This one goes below the page in both themes, which
-    // keeps a column behind its cards and a canvas behind its nodes. It is the only
-    // neutral that stays darker than everything in dark as well.
+    // inside a card. It sits below the page in both themes, which keeps a kanban
+    // column behind its cards and a canvas behind its nodes, and makes it the one
+    // neutral that stays darker than everything else in dark.
     --surface-canvas: #{theme.theme(palette.stop('gray', 100), theme.neutral(.166, .0125))};
+
+    // The strip that sets itself off from the card it lies in: a sticky table
+    // head, a pane footer, a tab bar in a pane, a code block, the skeleton base,
+    // a segmented control track. Which way it moves to do that is a per theme
+    // decision, not something the name settles. Light moves down, dark moves up,
+    // because under `--surface` there is only the page and then black, where a
+    // fill loses its edges and the text on it loses its footing.
+    //
+    // In light it lands on the value `--background` also has: two readable steps
+    // do not fit between the page and a white card, and sunken is measured against
+    // the card it sits in, not against the page. The page level users (`paneWell`,
+    // a kanban column, the application menu rail, the flow canvas) draw their own
+    // border or grid and still read there, they just stop being recessed. A token
+    // of their own is the real fix, and it needs those components to move with it.
     --surface-sunken: #{theme.theme(palette.stop('gray', 50), theme.neutral(.249, .017))};
     --surface: #{theme.theme(palette.stop('gray', 25), theme.neutral(.229, .016))};
     --surface-raised: #{theme.theme(palette.stop('gray', 25), theme.neutral(.268, .018))};
     --surface-loader: #{theme.theme(theme.neutral(1, 0, .75), theme.neutral(.229, .016, .75))};
 
     // An inverted surface, for the few components that deliberately read as the
-    // opposite of the page. Tooltip used to remap the foreground tokens by hand
-    // and undo that again inside a `[dark]` block.
+    // opposite of the page.
     --surface-inverse: #{theme.theme(theme.neutral(.21, .02, .92), theme.neutral(.95, .008, .95))};
 
-    // Interaction states stay opaque and keep the meaning they had, so components
-    // that have not moved onto this layer yet render unchanged.
     --surface-hover: #{theme.theme(palette.stop('gray', 50), theme.neutral(.275, .018))};
     --surface-active: #{theme.theme(palette.stop('gray', 100), theme.neutral(.315, .019))};
     --surface-disabled: #{theme.theme(palette.stop('gray', 100), theme.neutral(.265, .017))};
 
-    // The same two states as translucent ink, for a control whose background is
-    // not the plain surface: the close button on a colored badge, a row on an
-    // already tinted table, an item on a raised pane. Painting `--surface-active`
-    // there covers the tint instead of deepening it, and the opaque pair is
-    // calibrated against `--surface` alone, so on any other ground it lands
-    // somewhere between too weak and invisible.
+    // The same two states as translucent ink, for a control whose background is not
+    // the plain surface: the close button on a colored badge, a row on an already
+    // tinted table, an item on a raised pane. Painting the opaque pair there covers
+    // the tint instead of deepening it, and it is calibrated against `--surface`
+    // alone, so on any other ground it lands between too weak and invisible.
     //
-    // The alphas do not mirror the opaque pair, and they are not a mirror of each
-    // other either. They are set against the state the library drew before these
-    // tokens existed: a menu item hovered to gray-100 and pressed to gray-200 on a
-    // gray-25 ground, which is .051 / .090 L in light and .068 / .112 L in dark.
-    // Both themes land on roughly four fifths of that on `--surface-raised`, where
-    // the menus actually sit: .038 / .071 in light, .055 / .092 in dark.
-    //
-    // Dark needs the larger alpha for that, and the reason is not that ink behaves
-    // differently there. A browser composites alpha on the gamma encoded channels,
-    // which keeps the step nearly flat across the elevations: the same alpha varies
-    // by under a twentieth over the whole ladder, not by a factor.
-    // What differs is the eye. Dark needed a wider step in the mirrored palette too,
-    // where the identical pair of stops measured .068 L in dark against .051 in
-    // light, and that is the ratio these alphas keep.
+    // Dark carries the larger alpha because the eye needs a wider step there, not
+    // because ink composites differently, so the two are deliberately not a mirror
+    // of each other or of the opaque pair.
     --ink-hover: #{theme.theme(theme.neutral(.28, .02, .06), theme.neutral(.93, .01, .07))};
     --ink-active: #{theme.theme(theme.neutral(.28, .02, .11), theme.neutral(.93, .01, .12))};
 
-    // Text. `--foreground-secondary` moves from gray-500 to gray-600: on white it
-    // scored 3.36, under AA, while carrying most of the secondary copy in the
-    // library. Its old value lives on as `--foreground-subtle`, which is decoration
-    // only (chevrons, separators) and replaces the `opacity: .5` hacks.
+    // Text. `--foreground-subtle` is decoration only (chevrons, separators) and
+    // replaces the `opacity: .5` hacks: it is the one rung the gate does not hold
+    // to AA, so it is not a place to put copy.
     --foreground-prominent: #{theme.theme(palette.stop('gray', 900), theme.neutral(.945, .008))};
     --foreground: #{theme.theme(palette.stop('gray', 700), theme.neutral(.845, .012))};
     --foreground-secondary: #{theme.theme(palette.stop('gray', 600), theme.neutral(.7, .016))};
@@ -105,11 +65,9 @@
     --foreground-disabled: #{theme.theme(theme.neutral(.44, .02, .45), theme.neutral(.845, .012, .45))};
 
     // The inverse surface is translucent, so the text on it is read over whatever
-    // the tooltip or toast happens to float above, not over the token itself. At
-    // stop 600 the secondary rung scored 4.32 that way in dark, under AA, while the
-    // same measurement taken against an opaque `--surface-inverse` said 4.78. It
-    // takes a solved lightness instead, for the same reason `--foreground-secondary`
-    // does: no stop sits between 600 and 700, and 700 is what the rung above uses.
+    // the tooltip or toast happens to float above, not over the token itself. That
+    // is what the gate measures, and it is why the secondary rung takes a solved
+    // lightness: no stop sits between 600 and 700, and 700 is the rung above.
     --foreground-inverse-prominent: #{theme.theme(theme.neutral(1, 0), palette.stop('gray', 900))};
     --foreground-inverse: #{theme.theme(theme.neutral(.9, .008), palette.stop('gray', 700))};
     --foreground-inverse-secondary: #{theme.theme(theme.neutral(.72, .012), theme.neutral(.5, .0408))};
@@ -117,26 +75,23 @@
     // Lines. `stroke` is the opaque separator and input border, `stroke-out` the
     // translucent hairline around a floating surface.
     //
-    // The muted stroke has to survive being drawn on a hovered row, and dark packs
-    // `--surface-raised`, `--surface-hover` and this token into .022 L. At .29 it
-    // sat .015 L from `--surface-hover`, under the step that reads at all, which is
-    // what made the inner edge of a table group head disappear on hover. It cannot
-    // go much further either: `--surface-active` is at .315, and a border has to
-    // stay visible on a pressed row as well, so .295 is the one value that clears
-    // both by .020 L. Light has room and keeps the stop it always had.
+    // The muted stroke has to survive the row under it changing state, which in
+    // dark boxes it in between `--surface-hover` and `--surface-active`. That value
+    // is solved, not chosen: it is the tightest pair of steps in the contract, so
+    // there is no room to round it. Light has room and takes a stop.
     --surface-stroke-muted: #{theme.theme(palette.stop('gray', 100), theme.neutral(.295, .016))};
     --surface-stroke: #{theme.theme(palette.stop('gray', 200), theme.neutral(.34, .018))};
     --surface-stroke-hover: #{theme.theme(palette.stop('gray', 300), theme.neutral(.42, .02))};
     --surface-stroke-out: #{theme.theme(theme.neutral(.36, .02, .1), theme.neutral(1, 0, .1))};
     --surface-stroke-out-hover: #{theme.theme(theme.neutral(.28, .02, .15), theme.neutral(1, 0, .16))};
 
-    // Focus. Dark takes a lighter stop on purpose: primary-600 against the dark
-    // surface scored 3.64, below the 3:1 a focus indicator needs.
+    // Focus. Dark takes a lighter stop on purpose: primary-600 does not make the
+    // 3:1 a focus indicator needs against the dark surfaces.
     --focus-ring: #{theme.theme(palette.stop('primary', 600), palette.stop('primary', 400))};
 
-    // The ring at zero alpha, so the outline can fade in on its own hue. Starting
-    // the transition from `transparent` fades through gray instead, and deriving
-    // this from `--focus-ring` is the relative-color-syntax trap.
+    // The ring at zero alpha, so the outline can fade in on its own hue instead of
+    // through gray. Deriving it from `--focus-ring` is the relative color syntax
+    // trap theme.scss documents.
     --focus-ring-transparent: #{theme.theme(palette.stop('primary', 600, 0), palette.stop('primary', 400, 0))};
     --selection: #{theme.theme(palette.tint('primary', .639, 1, .25), palette.tint('primary', .639, 1, .35))};
 
@@ -145,7 +100,6 @@
     --overlay-secondary: #{theme.theme(theme.neutral(.19, .02, .15), 'oklch(0 0 0 / .4)')};
     --overlay-strong: #{theme.theme(theme.neutral(.19, .02, .9), 'oklch(0 0 0 / .9)')};
 
-    // Lighter than whatever it sweeps across, in both themes. The skeleton used
-    // gray-50 over gray-100, which the flipped scale turned into a dark smear.
+    // Lighter than whatever it sweeps across, in both themes.
     --shimmer: #{theme.theme(theme.neutral(1, 0, .6), theme.neutral(1, 0, .05))};
 }

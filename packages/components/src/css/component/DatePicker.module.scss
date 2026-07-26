@@ -73,7 +73,7 @@
     cursor: pointer;
     outline: 0;
     transition: var(--transition-default);
-    transition-property: background, border-radius, color, opacity;
+    transition-property: background, border-radius, color;
 
     @include mixin.hover {
         background: var(--surface-active);

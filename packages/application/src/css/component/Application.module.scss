@@ -6,9 +6,8 @@
     // something else, such as a demo frame that clips it to a fixed block.
     --application-height: 100dvh;
     // The menu rail reads as recessed next to the page it frames, so it takes the
-    // canvas level rather than the surface the content sits on. Not the sunken
-    // level: that one is a strip inside a card, and in dark it sits above the card
-    // rather than below it, which would put the rail in front of the page.
+    // canvas level. Not the sunken level: that one is a strip inside a card and in
+    // dark it sits above the card, which would put the rail in front of the page.
     --application-menu-surface: var(--surface-canvas);
     --application-menu-surface-stroke: var(--surface-stroke);
     --application-menu-width: 300px;

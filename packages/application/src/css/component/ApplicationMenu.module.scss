@@ -134,9 +134,9 @@
 .applicationMenu :local(.menuItem) {
     position: relative;
 
-    // Translucent ink rather than a `--surface-*` fill: the menu rail is sunken,
-    // not the plain surface those states are cut for, so a solid fill would land
-    // lighter than the rail it sits on instead of deepening it.
+    // Ink rather than a `--surface-*` fill: the opaque pair is calibrated against
+    // `--surface`, and on the recessed rail it lands lighter than its ground
+    // instead of deepening it.
     @include mixin.hover {
         background: var(--ink-hover);
     }

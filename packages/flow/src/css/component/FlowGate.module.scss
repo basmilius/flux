@@ -1,7 +1,7 @@
 @use '~flux/components/css/mixin';
 
-// A diamond, drawn as a rotated square in a 60px box so its center lands on a
-// whole pixel and its four points touch the sides a connector attaches to.
+// A diamond, drawn as a rotated square in an even-sized box so its center lands on
+// a whole pixel and its four points touch the sides a connector attaches to.
 .flowGate {
     position: relative;
     display: flex;
@@ -33,8 +33,6 @@
         letter-spacing: 0.02em;
     }
 
-    // The edge is a marking, not a fill, so it takes `muted`: one weight for all
-    // six. On `solid` the gray diamond was outlined in the darkest ink there is.
     @each $-color in ("gray", "primary", "danger", "info", "success", "warning") {
         &[data-color="#{$-color}"]::before {
             border-color: var(--#{$-color}-muted);

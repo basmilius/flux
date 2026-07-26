@@ -8,7 +8,7 @@
 
 // States mirror .menuItem / .menuItemHighlighted (Menu.module.scss) so tree nodes match the rest of
 // the library's list-like items. Ink rather than the opaque pair, because a tree can sit in a
-// flyout, where the opaque hover moves .007 L in dark and reads as no hover at all.
+// flyout, and the opaque pair is only calibrated against `--surface`.
 .treeNode {
     composes: treeNode from './primitive/TreeNode.module.scss';
 

@@ -274,8 +274,6 @@
     padding: 6px;
     background: var(--surface);
 
-    // The same accent as the month view's drop target, so the affordance reads
-    // the same in both views.
     &.isDropTarget {
         box-shadow: inset 0 0 0 2px var(--primary-solid);
     }
@@ -346,9 +344,8 @@
     overflow: hidden;
     padding: 2px;
 
-    // The clipped edge is a marker on the day column, not the edge of a warning
-    // fill, so it takes the solid role: the border role disappears against the
-    // surface it is drawn on.
+    // A marker on the day column, not the edge of a warning fill, so it takes the
+    // solid role: the border role disappears against the surface behind it.
     &.isClippedTop {
         border-top: 2px dashed var(--warning-solid);
     }

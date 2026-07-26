@@ -119,26 +119,15 @@
     }
 }
 
-// The head paints itself one step off the card, and the borders inside it stay on
-// the muted stroke, which is the pair the table always drew: gray-50 under
-// gray-100, .014 L apart in light and .041 in dark. It briefly took the next rung
-// up, correctly, during the window where `--surface-sunken` sat between the two
-// stops and the muted stroke landed .012 L away, close enough to vanish. Sunken
-// went back to its stop and that reason went with it; the rung above is 2.3x the
-// weight this rule ever had.
 .tableHeadSticky .tableHeader {
     background: var(--surface-sunken);
 }
 
-// A tinted row moves one rung up the scale compared to before: stop 25 was the
-// old fill and it disappeared entirely once the palette stopped flipping, since
-// nothing that pale reads as a tint on a dark surface.
-//
-// The stroke is `soft-hover`, the same value the loop below puts on the next
-// row's top border: the divider between two cells and the divider between two
-// rows are one line and have to read as one. On `--intent-border` the vertical
-// rule was three times the step of the horizontal one in dark (.120 L against
-// .040) and the tinted row read as a caged grid instead of a tint.
+// The stroke is `soft-hover`, the same value the loop below puts on the next row's
+// top border: the divider between two cells and the divider between two rows are one
+// line and have to read as one. On `--intent-border` the vertical rule runs far
+// heavier than the horizontal one in dark, and the tinted row reads as a caged grid
+// instead of a tint.
 @include mixin.color-variants(tableRow) using ($color) {
     @include mixin.intent($color);
 
@@ -197,10 +186,9 @@
         background: var(--surface-hover);
     }
 
-    // The fill of a tinted row moves up a rung on hover and lands on the very
-    // value its stroke rests at, so a stroke that stayed put would dissolve into
-    // the row it is supposed to divide. It moves up with the fill, onto the next
-    // rung, which is what the resting row drew before this rule existed.
+    // A tinted row's fill moves up a rung on hover and lands on the value its stroke
+    // rests at, so the stroke has to move up with it or it dissolves into the row it
+    // is supposed to divide.
     .table.isHoverable .tableBody .tableRow.isColored:has(:hover) > .tableCell:not(.hasRowspan),
     .table.isHoverable .tableBody .tableRow.isColored:has(:focus-visible) > .tableCell:not(.hasRowspan) {
         --table-row-stroke: var(--intent-border);
@@ -227,16 +215,13 @@
         border-top-color: var(--table-row-stroke, var(--surface-stroke-muted));
     }
 
-    // The rule above only reaches the top of the highlighted row. Its bottom edge
-    // belongs to the row underneath, which is a sibling and never sees
-    // `--table-row-stroke`, so the color has to be named again per intent. Without
-    // this a hovered tinted row draws a firm line above itself and a soft one below,
-    // and the highlight reads as sliding out of its own band.
+    // The rule above only reaches the top of the highlighted row; its bottom edge
+    // belongs to the row underneath, so the color is named again per intent. Without
+    // this a hovered tinted row draws a firm line above itself and a soft one below.
     //
-    // A plain row needs nothing: its stroke and the line below it are the same token
-    // already. A selected row needs nothing either, and is excluded on purpose,
-    // since it keeps its resting stroke on hover and would otherwise take a tinted
-    // edge under a primary fill.
+    // A plain row needs nothing: its stroke and the line below it are already the
+    // same token. A selected row is excluded on purpose, since it keeps its resting
+    // stroke on hover and would otherwise take a tinted edge under a primary fill.
     @each $color in mixin.$colors {
         .table.isHoverable .tableBody .tableRow#{mixin.color-suffix($color)}:not(.isSelected):has(:hover) + .tableRow > .tableCell,
         .table.isHoverable .tableBody .tableRow#{mixin.color-suffix($color)}:not(.isSelected):has(:focus-visible) + .tableRow > .tableCell {
@@ -418,11 +403,9 @@
     align-items: center;
     gap: 12px;
 
-    // Half a step, not a whole one. A group head marks a band that is always
-    // there, while a row hover is a state that comes and goes; giving the head
-    // the hover value itself makes a resting head and a pointed-at row the same
-    // color, and the band stops reading as a heading. Half of the step keeps it
-    // the lightest tint in the body and still under the row it can sit next to.
+    // Half a step, not the hover value itself: a group head marks a band that is
+    // always there, and giving it the hover color makes a resting head and a
+    // pointed-at row the same color.
     background: color-mix(in srgb, var(--surface), var(--surface-hover));
 
     &:is(button) {
@@ -437,10 +420,8 @@
 
         @include mixin.focus-ring(-2px);
 
-        // An expandable head lands on the row hover rather than a rung past it,
-        // which is the same value the cell under it takes from the row hover
-        // rule above. Moving to `--surface-active` instead made a pointed-at
-        // head darker than any row in the table, so the group read as pressed.
+        // The row hover value, not `--surface-active`: a head darker than any row in
+        // the table reads as pressed.
         @include mixin.hover {
             background: var(--surface-hover);
         }

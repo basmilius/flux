@@ -60,7 +60,7 @@
     outline: 6px solid transparent;
     outline-offset: -2px;
     transition: 300ms var(--swift-out);
-    transition-property: background, border, color, outline;
+    transition-property: background, color, outline;
 
     .icon {
         overflow: visible;
@@ -77,14 +77,12 @@
     composes: stepperStepsItem;
 
     background: var(--primary-solid);
-    border-color: var(--primary-solid);
     color: var(--primary-on-solid);
 }
 
 .stepperStepsItemCurrent {
     composes: stepperStepsItem;
 
-    background: var(--gray-soft-hover);
     color: var(--foreground-prominent);
     outline-color: var(--primary-solid);
     outline-width: 2px;

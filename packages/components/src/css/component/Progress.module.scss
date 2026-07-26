@@ -1,11 +1,7 @@
 @use '~flux/components/css/mixin';
 
-// A filled marking rather than a control, so the bar takes `muted`: on `solid`
-// the gray bar was drawn in the darkest ink on the page.
-//
-// The stripe is the fill shifted a quarter of the way towards the surface, which
-// keeps it .04 to .06 L off the fill in both themes, the distance the old pair of
-// stops kept. The solid ladder cannot give that here: gray's next rung is
+// The stripe is the fill shifted a quarter of the way towards the surface. The
+// solid ladder cannot supply a step that small here: gray's next rung is
 // near-black in light and near-white in dark.
 .progressBar {
     @include mixin.intent('primary');
@@ -45,8 +41,8 @@
     background: var(--progress-fill);
 }
 
-// The stripe is mixed rather than derived with relative color syntax: its source
-// is a semantic token holding a `light-dark()`, which `rgb(from ...)` freezes.
+// Mixed rather than derived with relative color syntax: the source is a semantic
+// token holding a `light-dark()` (see token/theme.scss).
 .progressBarValueIncomplete {
     composes: progressBarValue;
 

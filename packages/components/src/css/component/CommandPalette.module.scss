@@ -133,8 +133,8 @@
 }
 
 // The soft-hover rung, not soft: the palette floats on `--surface-raised`, and in
-// dark the two sit .003 apart in lightness, so a selected tab on `--primary-soft`
-// would not read as filled at all.
+// dark `--primary-soft` sits close enough to that ground that a selected tab stops
+// reading as filled.
 .commandPaletteTabActive {
     composes: commandPaletteTab;
 

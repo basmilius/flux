@@ -1,18 +1,10 @@
 // Elevation is a level, not a set of declarations, so a component says how high it
-// sits instead of picking a background and a border by hand.
+// sits instead of picking a background and a border by hand. Both themes go through
+// the same tokens, so this is one rule rather than a themed pair.
 //
-// The two themes signal height differently. Light keeps every level white and lets
-// the shadow do the work. Dark cannot: a shadow on a near-black surface separates
-// nothing, so there the background lightness carries the height and the shadow is
-// only secondary. Both are expressed by the same tokens, which is why this reads as
-// one rule rather than a themed pair.
-//
-// There was an inset light edge here as a third signal, and it is gone because it
-// only ever landed where it was not meant to. A floating layer sets its own
-// `box-shadow` for the drop shadow, which replaced the inset outright, so the three
-// components it was written for never drew it. What did draw it was every card, every
-// boxed icon and every flow pill, none of which needs an edge: they are set off from
-// the page by their own lightness already.
+// Do not add an inset edge here. A floating layer sets its own `box-shadow` for its
+// drop shadow, which replaces the inset outright, so it would land on every card,
+// boxed icon and flow pill instead of on the layers it was meant for.
 //
 // Levels:
 //   sunken   a recessed area inside a surface (input wells, canvases, table heads)
@@ -33,8 +25,7 @@
     // The level publishes what it painted, so its contents can read the surface they
     // actually sit on instead of naming one. A sticky header that fades out, a mask
     // over a scrolling list and a knockout ring all need that: the same menu renders
-    // inline on a page and inside a raised flyout. Light hid the difference because
-    // every level there is white; dark does not.
+    // inline on a page and inside a raised flyout, which in dark are two colors.
     --surface-current: #{$background};
 
     background-color: var(--surface-current);
@@ -43,9 +34,9 @@
     border-radius: $radius;
 }
 
-// The former name for `elevation('surface')`. For an element that really is a pane,
-// compose `basePane` instead: that shares one class rather than repeating the
-// declarations. This is for everything else, including the sibling packages, which
+// The former name for `elevation('surface')`. An element that really is a pane
+// composes `basePane` instead, which shares one class rather than repeating these
+// declarations; this is for everything else, including the sibling packages, which
 // cannot compose across a package boundary.
 @mixin surface($radius: var(--radius)) {
     @include elevation('surface', $radius);

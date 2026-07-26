@@ -1,22 +1,14 @@
 @use 'theme';
 
-// One geometry for both themes; only the color differs. That is a constraint
-// as much as a choice: `light-dark()` carries colors, not lengths, so a
-// per-theme blur radius would need a theme selector, and the `color-scheme:
-// light dark` setup base.scss documents has none to hang it on.
+// One geometry for both themes; only the color differs. That is a constraint as
+// much as a choice: `light-dark()` carries colors, not lengths, so a per-theme
+// blur radius would need a theme selector, and the `color-scheme: light dark`
+// setup base.scss documents has none to hang it on.
 //
-// Dark used to redefine every step with a wider blur, which softened an edge
-// that carried three times the contrast it does now. Lowering the alpha softens
-// that edge by the same factor, so the wider blur is no longer worth a shadow
-// list with a transparent copy of the other theme's geometry in it.
-//
-// The dark alphas are solved, not picked: each one reproduces the perceptual
-// weight the old dark step had on the old near-black page (.017 L for the middle
-// steps), landing at that level on `--surface` and just under it on
-// `--background`. They are lower than the old ones because the dark surfaces are
-// lighter now, and the same black ink darkens a lighter ground more. Dark keeps
-// the flat-within-a-tier shape light has: the geometry already makes the taller
-// steps read stronger, so an alpha ramp on top of it only adds weight.
+// The dark alphas are solved against the perceptual weight each step has to land
+// on, not picked, so they are not free to be rounded. They stay flat within a
+// tier: the geometry already makes the taller steps read stronger, and an alpha
+// ramp on top of that only adds weight.
 //
 // Light tints its shadow with the neutral hue rather than pure black, which keeps
 // it from reading as soot on a colored surface.
@@ -25,13 +17,13 @@
 }
 
 @mixin shadows {
-    // For a component composing its own shadow. Reaching for a palette stop here
-    // is what turned the pinned table column's shadow into a glow: gray-800 was
-    // dark in light mode and light in dark mode.
+    // For a component composing its own shadow, so that it takes a themed ink
+    // rather than a palette stop: a stop means the same color in both themes and
+    // turns a shadow into a glow in one of them.
     //
-    // Both alphas sit well above the steps because the only caller spreads its
-    // shadow by -6px, which halves the peak. At these values it lands on the
-    // weight of `--shadow-md` in either theme.
+    // Both alphas sit well above the steps because the only caller pulls its shadow
+    // back with a negative spread, which halves the peak. At these values it lands
+    // on the weight of `--shadow-md` in either theme.
     --shadow-color: #{color(.15, .3)};
 
     --shadow-px: 0 1px 1px #{color(.02, .08)};
