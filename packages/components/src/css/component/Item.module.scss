@@ -100,16 +100,17 @@
     }
 }
 
-// A whole pane acting as one link. The ink is translucent, so it is layered over the
-// pane's own fill instead of put in `background-color`, which replaces that fill and
-// leaves the card all but transparent. It carries three fifths of a menu item's step,
-// since the surface being tinted here is the whole card. Relative color syntax is not
-// an option either: it resolves eagerly and freezes the hover on the light value
-// inside a dark subtree.
+// A whole pane acting as one link, so the hover is fainter than a menu item's: the
+// surface being tinted is the whole card. It mixes the foreground into the surface the
+// pane painted rather than reaching for `--ink-hover`, because ink is translucent and
+// `background-color` replaces the fill rather than layering over it, which left the
+// card all but transparent. `--foreground` is opaque and already flips per theme, so
+// the same declaration darkens in light and lightens in dark, and `--surface-current`
+// keeps it correct on a raised pane as well.
 .basePaneStructure:is(a, button) {
     @include mixin.hover {
         &:has(> .item) {
-            background-image: linear-gradient(color-mix(in srgb, var(--ink-hover) 60%, transparent), color-mix(in srgb, var(--ink-hover) 60%, transparent));
+            background-color: color-mix(in srgb, var(--foreground) 4.5%, var(--surface-current, var(--surface)));
         }
     }
 }

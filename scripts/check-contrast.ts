@@ -517,11 +517,13 @@ function buildChecks(): Check[] {
             add(`${intent}: on-solid over ${fill}`, `--${intent}-on-solid`, [`--${intent}-${fill}`], 4.5);
         }
 
-        add(`${intent}: text on surface`, `--${intent}-text`, ['--surface'], 4.5);
-        add(`${intent}: text on soft`, `--${intent}-text`, [`--${intent}-soft`], 4.5);
-        add(`${intent}: text on soft-hover`, `--${intent}-text`, [`--${intent}-soft-hover`], 4.5);
+        for (const rung of ['text-prominent', 'text']) {
+            add(`${intent}: ${rung} on surface`, `--${intent}-${rung}`, ['--surface'], 4.5);
+            add(`${intent}: ${rung} on soft`, `--${intent}-${rung}`, [`--${intent}-soft`], 4.5);
+            add(`${intent}: ${rung} on soft-hover`, `--${intent}-${rung}`, [`--${intent}-soft-hover`], 4.5);
+        }
+
         add(`${intent}: foreground on soft`, '--foreground', [`--${intent}-soft`], 4.5);
-        add(`${intent}: border against soft`, `--${intent}-border`, [`--${intent}-soft`], 1.05);
     }
 
     for (const elevation of ELEVATIONS) {
@@ -609,6 +611,20 @@ const TINT_FLOOR = STATE_FLOOR;
 // idea, which is what happened when gray was given `solid` and came out .3 off.
 const MUTED_BAND = 0.06;
 
+// How far the prominent text rung has to sit from the plain one before the two
+// stop being two rungs. The aim is the step gray already shipped before the
+// contract had a second rung, `--foreground-prominent` over `--foreground`: .159 L
+// in light and .100 L in dark.
+//
+// The colored scales are not normalized to the neutral ramp, so the two stops that
+// span that step there do not span one distance: from .084 L for warning in dark,
+// whose ramp compresses above stop 300, to .197 L for that same warning in light.
+// The floor is the round number under the tightest of those, which makes it the
+// point where a rung stops being a rung rather than a target anything aims at.
+// One stop reaches .046 to .085 and lands under it almost everywhere, which is
+// exactly the collapse this catches.
+const TEXT_RUNG_FLOOR = 0.08;
+
 function buildSteps(): Step[] {
     const steps: Step[] = [];
     const add = (label: string, from: Stack, to: Stack, floor: number, direction?: 'lighter' | 'darker', scheme?: Scheme) => steps.push({label, from, to, floor, direction, scheme});
@@ -647,10 +663,17 @@ function buildSteps(): Step[] {
     // The inset sheen that makes a dark raised layer read as raised. Light sets it
     // to `transparent` on purpose and lets the shadow carry the height there, so
     // there is nothing to measure.
-    add('surface-highlight on a raised layer', ['--surface-raised'], ['--surface-raised', '--surface-highlight'], STATE_FLOOR, undefined, 'dark');
 
     for (const intent of INTENTS) {
         add(`${intent}: soft to soft-hover`, [`--${intent}-soft`], [`--${intent}-soft-hover`], STATE_FLOOR);
+
+        // The second text rung, measured as a step rather than as a ratio: whether
+        // a title reads as stronger than its body is something the eye notices, and
+        // the direction is half of the contract. Prominent goes towards the ink end
+        // of the theme, which is down in light and up in dark, so a rung that is
+        // merely far away is not enough.
+        add(`${intent}: text to text-prominent`, [`--${intent}-text`], [`--${intent}-text-prominent`], TEXT_RUNG_FLOOR, 'darker', 'light');
+        add(`${intent}: text to text-prominent`, [`--${intent}-text`], [`--${intent}-text-prominent`], TEXT_RUNG_FLOOR, 'lighter', 'dark');
 
         // Pressing happens while hovering, so the step that has to read is the one
         // from hover to active, not the one from rest.
@@ -691,6 +714,12 @@ function buildDistances(): Distance[] {
         for (const ground of ['--surface', '--surface-raised']) {
             distances.push({label: `${intent}: soft against ${ground}`, from: [ground], to: [`--${intent}-soft`], floor: TINT_FLOOR});
         }
+
+        // The edge around a tinted area, measured the same way and for the same reason
+        // as the tint itself. A ratio read this as a failure whenever the border and
+        // the fill shared a lightness, which is most of what a colored edge does: it
+        // separates on hue, and a luminance ratio is blind to hue by construction.
+        distances.push({label: `${intent}: border against soft`, from: [`--${intent}-soft`], to: [`--${intent}-border`], floor: TINT_FLOOR});
     }
 
     return distances;

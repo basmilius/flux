@@ -2,6 +2,9 @@
 
 :root {
     --application-duration: 360ms;
+    // The shell owns the viewport by default. Override this to size it against
+    // something else, such as a demo frame that clips it to a fixed block.
+    --application-height: 100dvh;
     // The menu rail reads as recessed next to the page it frames, so it takes the
     // canvas level rather than the surface the content sits on. Not the sunken
     // level: that one is a strip inside a card, and in dark it sits above the card
@@ -29,21 +32,23 @@
     position: relative;
     display: flex;
     min-width: 0;
-    min-height: 100dvh;
+    min-height: var(--application-height);
     flex-flow: column;
     flex-grow: 1;
 
     &:has(> .applicationContentFull > :is(.calendar, .table)) {
-        max-height: 100dvh;
+        max-height: var(--application-height);
     }
 }
 
+// The backdrop has no width of its own: it covers whatever box the shell was
+// given, and `inset` already spans that box on both axes. Only the height is
+// pinned, so it keeps matching the rail it dims when the shell is boxed in.
 .applicationMenuBackdrop {
     position: fixed;
     display: none;
     inset: 0;
-    width: 100dvw;
-    height: 100dvh;
+    height: var(--application-height);
     padding: 0;
     border: 0;
     background: var(--overlay);

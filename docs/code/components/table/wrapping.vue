@@ -2,9 +2,11 @@
     <FluxPane>
         <FluxTable>
             <template #header>
-                <FluxTableHeader :width="96">Version</FluxTableHeader>
-                <FluxTableHeader is-shrinking>Date</FluxTableHeader>
-                <FluxTableHeader :min-width="280">Change</FluxTableHeader>
+                <FluxTableRow>
+                    <FluxTableHeader :width="96">Version</FluxTableHeader>
+                    <FluxTableHeader is-shrinking>Date</FluxTableHeader>
+                    <FluxTableHeader :min-width="280">Change</FluxTableHeader>
+                </FluxTableRow>
             </template>
 
             <FluxTableRow

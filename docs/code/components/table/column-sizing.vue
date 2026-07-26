@@ -2,22 +2,24 @@
     <FluxPane>
         <FluxTable is-hoverable>
             <template #header>
-                <FluxTableHeader :width="120">SKU</FluxTableHeader>
-                <FluxTableHeader>Product</FluxTableHeader>
+                <FluxTableRow>
+                    <FluxTableHeader :width="120">SKU</FluxTableHeader>
+                    <FluxTableHeader>Product</FluxTableHeader>
 
-                <FluxTableHeader
-                    :min-width="120"
-                    :max-width="220">
-                    Category
-                </FluxTableHeader>
+                    <FluxTableHeader
+                        :min-width="120"
+                        :max-width="220">
+                        Category
+                    </FluxTableHeader>
 
-                <FluxTableHeader
-                    align="end"
-                    is-shrinking>
-                    Stock
-                </FluxTableHeader>
+                    <FluxTableHeader
+                        align="end"
+                        is-shrinking>
+                        Stock
+                    </FluxTableHeader>
 
-                <FluxTableHeader is-shrinking>Status</FluxTableHeader>
+                    <FluxTableHeader is-shrinking>Status</FluxTableHeader>
+                </FluxTableRow>
             </template>
 
             <FluxTableRow

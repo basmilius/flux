@@ -115,8 +115,7 @@
     --foreground-inverse-secondary: #{theme.theme(theme.neutral(.72, .012), theme.neutral(.5, .0408))};
 
     // Lines. `stroke` is the opaque separator and input border, `stroke-out` the
-    // translucent hairline around a floating surface, `highlight` the inset sheen
-    // that makes a dark raised layer read as raised.
+    // translucent hairline around a floating surface.
     //
     // The muted stroke has to survive being drawn on a hovered row, and dark packs
     // `--surface-raised`, `--surface-hover` and this token into .022 L. At .29 it
@@ -130,7 +129,6 @@
     --surface-stroke-hover: #{theme.theme(palette.stop('gray', 300), theme.neutral(.42, .02))};
     --surface-stroke-out: #{theme.theme(theme.neutral(.36, .02, .1), theme.neutral(1, 0, .1))};
     --surface-stroke-out-hover: #{theme.theme(theme.neutral(.28, .02, .15), theme.neutral(1, 0, .16))};
-    --surface-highlight: #{theme.theme(transparent, theme.neutral(1, 0, .06))};
 
     // Focus. Dark takes a lighter stop on purpose: primary-600 against the dark
     // surface scored 3.64, below the 3:1 a focus indicator needs.

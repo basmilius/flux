@@ -3,9 +3,16 @@
 //
 // The two themes signal height differently. Light keeps every level white and lets
 // the shadow do the work. Dark cannot: a shadow on a near-black surface separates
-// nothing, so there the background lightness carries the height, the light edge
-// backs it up, and the shadow is only tertiary. Both are expressed by the same
-// three tokens, which is why this reads as one rule rather than a themed pair.
+// nothing, so there the background lightness carries the height and the shadow is
+// only secondary. Both are expressed by the same tokens, which is why this reads as
+// one rule rather than a themed pair.
+//
+// There was an inset light edge here as a third signal, and it is gone because it
+// only ever landed where it was not meant to. A floating layer sets its own
+// `box-shadow` for the drop shadow, which replaced the inset outright, so the three
+// components it was written for never drew it. What did draw it was every card, every
+// boxed icon and every flow pill, none of which needs an edge: they are set off from
+// the page by their own lightness already.
 //
 // Levels:
 //   sunken   a recessed area inside a surface (input wells, canvases, table heads)
@@ -30,11 +37,10 @@
     // every level there is white; dark does not.
     --surface-current: #{$background};
 
-    background: var(--surface-current);
+    background-color: var(--surface-current);
     background-clip: padding-box;
     border: 1px solid var(--surface-stroke-out);
     border-radius: $radius;
-    box-shadow: inset 0 1px 0 var(--surface-highlight);
 }
 
 // The former name for `elevation('surface')`. For an element that really is a pane,

@@ -41,6 +41,24 @@ $soft-chroma: (.22, .3, .5);
 // soft-hover, under AA. Stop 800 lands at L .4773, back in the pack.
 $text-stop-light: ('warning': 800);
 
+// The second text rung, for the title over its body. It sits where
+// `--foreground-prominent` sits, exactly as `-text` sits where `--foreground`
+// does, and on the neutral ramp that is two stops in both themes: gray-700 to
+// gray-900 in light, and in dark the solved lightnesses .845 and .945, which are
+// where gray-300 and gray-100 land. So every colored scale takes two stops as
+// well, warning carrying the offset its own text already has: 800 to 950 in
+// light, 300 to 100 in dark.
+//
+// Two stops is not one distance, because the scales are not normalized to the
+// neutral ramp. It runs from .084 L in dark, where warning's ramp compresses
+// above stop 300, to .197 L for that same warning in light, against the .159 and
+// .100 gray ships. One stop reaches .046 to .085, under gray in both themes and
+// under half of it in light, which is two rungs doing the same thing.
+//
+// Going back to `-solid` for this is not available: on the soft fill it scores
+// 3.06 for warning and 3.89 for success, both under AA.
+$prominent-stop-light: ('warning': 950);
+
 // A filled marking that has to be seen without being looked at: the dot on a
 // timeline, the ring on an avatar, a spinner, a progress bar, the edge of a node.
 // Solid is the loudest fill there is, and gray is where that shows, because gray's
@@ -74,6 +92,7 @@ $muted-stop-dark: ('warning': 600);
         --#{$intent}-soft: #{theme.theme(palette.stop($intent, 50), palette.tint($intent, list.nth($soft-lightness, 1), list.nth($soft-chroma, 1)))};
         --#{$intent}-soft-hover: #{theme.theme(palette.stop($intent, 100), palette.tint($intent, list.nth($soft-lightness, 2), list.nth($soft-chroma, 2)))};
         --#{$intent}-border: #{theme.theme(palette.stop($intent, 200), palette.tint($intent, list.nth($soft-lightness, 3), list.nth($soft-chroma, 3)))};
+        --#{$intent}-text-prominent: #{theme.theme(palette.stop($intent, map.get($prominent-stop-light, $intent) or 900), palette.stop($intent, 100))};
         --#{$intent}-text: #{theme.theme(palette.stop($intent, map.get($text-stop-light, $intent) or 700), palette.stop($intent, 300))};
     }
 
@@ -106,5 +125,6 @@ $muted-stop-dark: ('warning': 600);
     --gray-soft: #{theme.theme(palette.stop('gray', 50), theme.neutral(.3, .017))};
     --gray-soft-hover: #{theme.theme(palette.stop('gray', 100), theme.neutral(.34, .018))};
     --gray-border: #{theme.theme(palette.stop('gray', 200), theme.neutral(.385, .019))};
+    --gray-text-prominent: var(--foreground-prominent);
     --gray-text: var(--foreground);
 }

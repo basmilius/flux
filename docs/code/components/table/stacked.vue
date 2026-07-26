@@ -2,9 +2,11 @@
     <FluxPane>
         <FluxTable is-hoverable>
             <template #header>
-                <FluxTableHeader :min-width="220">Member</FluxTableHeader>
-                <FluxTableHeader :min-width="160">Role</FluxTableHeader>
-                <FluxTableHeader is-shrinking>Location</FluxTableHeader>
+                <FluxTableRow>
+                    <FluxTableHeader :min-width="220">Member</FluxTableHeader>
+                    <FluxTableHeader :min-width="160">Role</FluxTableHeader>
+                    <FluxTableHeader is-shrinking>Location</FluxTableHeader>
+                </FluxTableRow>
             </template>
 
             <FluxTableRow

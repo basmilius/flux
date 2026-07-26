@@ -5,16 +5,18 @@
             is-hoverable
             style="min-height: 360px">
             <template #header>
-                <FluxTableHeader :width="96">Time</FluxTableHeader>
-                <FluxTableHeader :min-width="180">Guest</FluxTableHeader>
+                <FluxTableRow>
+                    <FluxTableHeader :width="96">Time</FluxTableHeader>
+                    <FluxTableHeader :min-width="180">Guest</FluxTableHeader>
 
-                <FluxTableHeader
-                    align="end"
-                    is-shrinking>
-                    Party
-                </FluxTableHeader>
+                    <FluxTableHeader
+                        align="end"
+                        is-shrinking>
+                        Party
+                    </FluxTableHeader>
 
-                <FluxTableHeader is-shrinking>Table</FluxTableHeader>
+                    <FluxTableHeader is-shrinking>Table</FluxTableHeader>
+                </FluxTableRow>
             </template>
 
             <FluxTableRow

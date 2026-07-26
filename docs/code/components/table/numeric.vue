@@ -2,37 +2,39 @@
     <FluxPane>
         <FluxTable is-hoverable>
             <template #header>
-                <FluxTableHeader :min-width="200">Endpoint</FluxTableHeader>
+                <FluxTableRow>
+                    <FluxTableHeader :min-width="200">Endpoint</FluxTableHeader>
 
-                <FluxTableHeader
-                    align="end"
-                    data-type="numeric"
-                    is-numeric
-                    is-sortable
-                    :sort="sortColumn === 'requests' ? sortDirection : undefined"
-                    @sort="setSort('requests', $event)">
-                    Requests
-                </FluxTableHeader>
+                    <FluxTableHeader
+                        align="end"
+                        data-type="numeric"
+                        is-numeric
+                        is-sortable
+                        :sort="sortColumn === 'requests' ? sortDirection : undefined"
+                        @sort="setSort('requests', $event)">
+                        Requests
+                    </FluxTableHeader>
 
-                <FluxTableHeader
-                    align="end"
-                    data-type="numeric"
-                    is-numeric
-                    is-sortable
-                    :sort="sortColumn === 'latency' ? sortDirection : undefined"
-                    @sort="setSort('latency', $event)">
-                    Avg latency
-                </FluxTableHeader>
+                    <FluxTableHeader
+                        align="end"
+                        data-type="numeric"
+                        is-numeric
+                        is-sortable
+                        :sort="sortColumn === 'latency' ? sortDirection : undefined"
+                        @sort="setSort('latency', $event)">
+                        Avg latency
+                    </FluxTableHeader>
 
-                <FluxTableHeader
-                    align="end"
-                    data-type="numeric"
-                    is-numeric
-                    is-sortable
-                    :sort="sortColumn === 'errorRate' ? sortDirection : undefined"
-                    @sort="setSort('errorRate', $event)">
-                    Error rate
-                </FluxTableHeader>
+                    <FluxTableHeader
+                        align="end"
+                        data-type="numeric"
+                        is-numeric
+                        is-sortable
+                        :sort="sortColumn === 'errorRate' ? sortDirection : undefined"
+                        @sort="setSort('errorRate', $event)">
+                        Error rate
+                    </FluxTableHeader>
+                </FluxTableRow>
             </template>
 
             <FluxTableRow

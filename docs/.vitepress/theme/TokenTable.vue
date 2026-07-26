@@ -60,7 +60,7 @@
 
     const SCHEMES: Scheme[] = ['light', 'dark'];
 
-    const INTENT_ROLES = ['solid', 'solid-hover', 'solid-active', 'on-solid', 'muted', 'soft', 'soft-hover', 'border', 'text'];
+    const INTENT_ROLES = ['solid', 'solid-hover', 'solid-active', 'on-solid', 'muted', 'soft', 'soft-hover', 'border', 'text-prominent', 'text'];
     const INTENTS = ['gray', 'primary', 'danger', 'info', 'success', 'warning'];
 
     function colors(...names: string[]): Token[] {
@@ -96,7 +96,7 @@
         {
             title: 'Lines',
             description: 'Stroke is the opaque separator and input border. Stroke-out is the translucent hairline around a floating surface, and highlight the inset sheen that makes a dark raised layer read as raised.',
-            tokens: colors('surface-stroke-muted', 'surface-stroke', 'surface-stroke-hover', 'surface-stroke-out', 'surface-stroke-out-hover', 'surface-highlight')
+            tokens: colors('surface-stroke-muted', 'surface-stroke', 'surface-stroke-hover', 'surface-stroke-out', 'surface-stroke-out-hover')
         },
         {
             title: 'Focus and selection',

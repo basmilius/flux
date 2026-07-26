@@ -300,8 +300,7 @@
     import { FluxApplication, FluxApplicationContent, FluxApplicationHero, FluxApplicationMenu, FluxApplicationMenuAccount, FluxApplicationMenuPromo, FluxApplicationSection, FluxApplicationTop } from '@flux-ui/application';
     import { FluxAction, FluxAdaptiveSlot, FluxAvatar, FluxBadge, FluxButtonStack, FluxDivider, FluxFlex, FluxFlyout, FluxFormInput, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSecondaryLinkButton, FluxSeparator, FluxSpacer, FluxTabBarItem, FluxTable, FluxTableActions, FluxTableBar, FluxTableCell, FluxTableHeader, FluxTableRow, FluxTooltip } from '@flux-ui/components';
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
-    import { computed, provide, ref } from 'vue';
-    import { routeLocationKey, START_LOCATION } from 'vue-router';
+    import { computed, ref } from 'vue';
 
     type NavigationItem = {
         readonly icon: FluxIconName;
@@ -375,57 +374,35 @@
 
     const activeNavigationItem = computed(() => navigation.find(item => item.id === activePage.value) ?? primaryNavigation[0]);
 
-    // FluxApplication reads vue-router's route to build its context menu levels, and
-    // VitePress ships its own router. A start location keeps `matched` empty, so the
-    // shell renders its single menu level instead of throwing on an absent injection.
-    provide(routeLocationKey, START_LOCATION);
 </script>
 
 <style
     lang="scss"
     module>
-    // FluxApplication is built to own the viewport: the menu rail is `position: fixed`
-    // at `100dvh` and the body column carries `min-height: 100dvh`. Containment makes
-    // this frame the containing block for those fixed children, the stacking context for
-    // the rail (z-index 500) and the mobile backdrop (z-index 1900), and the clip that
-    // keeps both inside the border radius, so the shell stays a block in the page. The
-    // scroller below re-homes the sticky top bar.
+    // FluxApplication owns the viewport by default, and `--application-height` is the
+    // one number that says so. Handing it the frame's height is the whole embed: the
+    // rail, the body column, the side rail and the mobile backdrop all measure against
+    // this box instead of the screen.
+    //
+    // Containment does the rest. It makes the frame the containing block for the rail
+    // and the backdrop, which are `position: fixed`, the stacking context for both, and
+    // the clip that keeps them inside the border radius.
     .frame {
+        --application-height: 600px;
+
         position: relative;
-        height: 600px;
+        height: var(--application-height);
         contain: layout paint;
         border: 1px solid var(--surface-stroke);
         border-radius: var(--radius);
     }
 
+    // The shell's top bar is sticky against its scroll container, so it needs one that
+    // is not the page.
     .scroller {
         height: 100%;
         overscroll-behavior: contain;
         overflow-y: auto;
-    }
-
-    // The shell's own boxes are sized against the viewport, which is not this frame.
-    // They are reached structurally because the library's CSS module class names are
-    // mangled in the docs build: the shell root is the only child of the scroller, and
-    // it holds the menu rail (aside), the body column (div) and the menu backdrop
-    // (button).
-    .scroller > div {
-        min-height: 100%;
-    }
-
-    .scroller > div > aside {
-        height: 100%;
-    }
-
-    // Zero rather than 100%: the body is a flex item that already stretches to the
-    // shell root, and a percentage against an auto height would resolve to nothing.
-    .scroller > div > div {
-        min-height: 0;
-    }
-
-    .scroller > div > button {
-        height: 100%;
-        width: 100%;
     }
 
     .search {

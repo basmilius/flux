@@ -2,10 +2,12 @@
     <FluxPane>
         <FluxTable is-hoverable>
             <template #header>
-                <FluxTableHeader is-shrinking>Track</FluxTableHeader>
-                <FluxTableHeader :width="96">Time</FluxTableHeader>
-                <FluxTableHeader :min-width="220">Session</FluxTableHeader>
-                <FluxTableHeader :min-width="160">Speaker</FluxTableHeader>
+                <FluxTableRow>
+                    <FluxTableHeader is-shrinking>Track</FluxTableHeader>
+                    <FluxTableHeader :width="96">Time</FluxTableHeader>
+                    <FluxTableHeader :min-width="220">Session</FluxTableHeader>
+                    <FluxTableHeader :min-width="160">Speaker</FluxTableHeader>
+                </FluxTableRow>
             </template>
 
             <template

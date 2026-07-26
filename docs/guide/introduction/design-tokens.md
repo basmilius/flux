@@ -50,7 +50,7 @@ Two things break this, so avoid them when you build tokens of your own:
 
 ## Intents
 
-Every intent carries the same nine roles, gray included. A component that takes a `color` prop maps them once and then styles against the result, so it never picks a shade itself.
+Every intent carries the same ten roles, gray included. A component that takes a `color` prop maps them once and then styles against the result, so it never picks a shade itself.
 
 | Role | What it is |
 |---|---|
@@ -61,13 +61,16 @@ Every intent carries the same nine roles, gray included. A component that takes 
 | `soft` | A tinted background: a badge, a highlighted table row |
 | `soft-hover` | The same tint under interaction |
 | `border` | The edge around a soft area |
+| `text-prominent` | The stronger of the two text rungs: a notice title over its body |
 | `text` | Text in this intent, on a plain or a soft background |
+
+The two text rungs sit where the two neutral ones do: `text` where `--foreground` sits on the gray ramp, `text-prominent` where `--foreground-prominent` sits. That is two stops apart in both themes, which is what keeps a title over its body from being carried by `font-weight` alone.
 
 `muted` exists next to `solid` because a dot and a button are not the same request. All six intents put `muted` the same perceptual distance from `--surface`, which `solid` cannot do: a gray `solid` is the strongest ink on the page, so a gray dot drawn with it outweighs a red one.
 
 `on-solid` is not the same choice for every intent. At the shade the fill uses in light mode, green and orange are too light to carry white text, so they take dark text instead. Because of that, `solid-hover` moves *away* from the foreground rather than always darkening: under white text it gets darker, under dark text it gets lighter.
 
-Each of these pairs is held to a contrast target rather than picked by eye: `on-solid` on `solid` at least 4.5, `text` on both `surface` and `soft` at least 4.5, and `focus-ring` at least 3 on every elevation level.
+Each of these pairs is held to a contrast target rather than picked by eye: `on-solid` on `solid` at least 4.5, both text rungs at least 4.5 on `surface`, `soft` and `soft-hover`, and `focus-ring` at least 3 on every elevation level. The two text rungs are also held a measured distance apart, so they cannot drift back into one.
 
 In your own code, read the roles straight off the intent you need. They are ordinary custom properties, so plain CSS is enough:
 
@@ -80,7 +83,7 @@ In your own code, read the roles straight off the intent you need. They are ordi
 ```
 
 ::: info Inside the library
-Flux itself never writes an intent out per color. A component with a `color` prop runs one Sass loop that maps the nine roles onto a local `--intent-*` contract and then styles against that. Those mixins live in this repository under `~flux/components/css/mixin`; the alias is a monorepo path and `@flux-ui/components` publishes no `./css/*` entry, so the snippet below is for contributors to Flux, not for consumers.
+Flux itself never writes an intent out per color. A component with a `color` prop runs one Sass loop that maps the ten roles onto a local `--intent-*` contract and then styles against that. Those mixins live in this repository under `~flux/components/css/mixin`; the alias is a monorepo path and `@flux-ui/components` publishes no `./css/*` entry, so the snippet below is for contributors to Flux, not for consumers.
 
 ```scss
 @use '~flux/components/css/mixin';
@@ -111,21 +114,22 @@ That difference is also why the order is not the same in both themes. `--surface
 | `--surface` | the card | the card |
 | `--surface-raised` | the card, lifted by shadow | above the card |
 
-A level is more than a background. Set the hairline and the inset sheen along with it, and publish what you painted as `--surface-current` so anything inside can read the surface it is actually sitting on rather than naming one:
+A level is more than a background. Set the hairline along with it, and publish what you painted as `--surface-current` so anything inside can read the surface it is actually sitting on rather than naming one:
 
 ```css
 .my-flyout {
     --surface-current: var(--surface-raised);
 
-    background: var(--surface-current);
+    background-color: var(--surface-current);
     background-clip: padding-box;
     border: 1px solid var(--surface-stroke-out);
     border-radius: var(--radius);
-    box-shadow: inset 0 1px 0 var(--surface-highlight);
 }
 ```
 
-`background-clip` belongs to that border: `--surface-stroke-out` is translucent, so without it the background paints underneath the hairline and shows through it. A drop shadow is yours to add on top; the block above deliberately carries none.
+`background-clip` belongs to that border: `--surface-stroke-out` is translucent, so without it the background paints underneath the hairline and shows through it. Longhand rather than the `background` shorthand for the same reason, since the shorthand resets the clip.
+
+A drop shadow is yours to add on top; the block above deliberately carries none.
 
 ::: info Inside the library
 Contributors have `mixin.elevation($level, $radius)` for exactly this block. It knows three levels: `'sunken'`, `'surface'` (the default) and `'raised'`. `--surface-canvas` and `--background` are grounds a page, a board or a canvas is drawn on rather than levels a component lifts itself to, so those are set by hand. The same alias caveat as above applies, so this is not available to consumers.

@@ -56,13 +56,18 @@
     const contexts = computed(() => contextStack.value);
     const totalLevels = computed(() => 1 + matchedMenuRoutes.value.length);
 
-    watch(() => route.fullPath, () => {
-        viewIndex.value = totalLevels.value - 1;
+    // Navigation is the only thing that snaps the menu back to the deepest
+    // context and closes it again on small screens. Without a router there
+    // is nothing to navigate, so the shell just keeps its current level.
+    if (route) {
+        watch(() => route.fullPath, () => {
+            viewIndex.value = totalLevels.value - 1;
 
-        if (!lg.value && !xl.value) {
-            isMenuCollapsed.value = true;
-        }
-    });
+            if (!lg.value && !xl.value) {
+                isMenuCollapsed.value = true;
+            }
+        });
+    }
 
     watch(totalLevels, (next) => {
         viewIndex.value = clampViewIndex(viewIndex.value);

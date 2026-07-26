@@ -2,12 +2,14 @@
     <FluxPane>
         <FluxTable>
             <template #header>
-                <FluxTableHeader>
-                    Name
-                </FluxTableHeader>
-                <FluxTableHeader is-shrinking>
-                    Actions
-                </FluxTableHeader>
+                <FluxTableRow>
+                    <FluxTableHeader>
+                        Name
+                    </FluxTableHeader>
+                    <FluxTableHeader is-shrinking>
+                        Actions
+                    </FluxTableHeader>
+                </FluxTableRow>
             </template>
 
             <FluxTableRow

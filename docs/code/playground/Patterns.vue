@@ -692,10 +692,12 @@
     <FluxPane data-prose-full>
         <FluxTable is-hoverable>
             <template #header>
-                <FluxTableHeader :min-width="150">Intent</FluxTableHeader>
-                <FluxTableHeader :min-width="180">Badge</FluxTableHeader>
-                <FluxTableHeader is-shrinking>Icon</FluxTableHeader>
-                <FluxTableHeader :min-width="330">Reads as</FluxTableHeader>
+                <FluxTableRow>
+                    <FluxTableHeader :min-width="150">Intent</FluxTableHeader>
+                    <FluxTableHeader :min-width="180">Badge</FluxTableHeader>
+                    <FluxTableHeader is-shrinking>Icon</FluxTableHeader>
+                    <FluxTableHeader :min-width="330">Reads as</FluxTableHeader>
+                </FluxTableRow>
             </template>
 
             <FluxTableRow

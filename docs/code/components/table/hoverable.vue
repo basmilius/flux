@@ -3,10 +3,12 @@
         <FluxTable
             is-hoverable>
             <template #header>
-                <FluxTableHeader
-                    v-for="header in 3">
-                    Header {{ header }}
-                </FluxTableHeader>
+                <FluxTableRow>
+                    <FluxTableHeader
+                        v-for="header in 3">
+                        Header {{ header }}
+                    </FluxTableHeader>
+                </FluxTableRow>
             </template>
 
             <FluxTableRow
