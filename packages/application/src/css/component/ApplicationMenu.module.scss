@@ -2,7 +2,7 @@
 
 // The rail is a surface of its own, so it announces the level it paints. Anything
 // inside it that fades into or knocks out its ground, such as the sticky menu sub
-// header, then lands on the rail colour without naming it.
+// header, then lands on the rail color without naming it.
 .applicationMenu {
     --surface-current: var(--application-menu-surface);
 

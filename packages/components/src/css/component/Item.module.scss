@@ -103,7 +103,7 @@
 // A whole pane acting as one link. The ink is translucent, so it is layered over the
 // pane's own fill instead of put in `background-color`, which replaces that fill and
 // leaves the card all but transparent. It carries three fifths of a menu item's step,
-// since the surface being tinted here is the whole card. Relative colour syntax is not
+// since the surface being tinted here is the whole card. Relative color syntax is not
 // an option either: it resolves eagerly and freezes the hover on the light value
 // inside a dark subtree.
 .basePaneStructure:is(a, button) {

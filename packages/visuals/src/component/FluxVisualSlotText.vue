@@ -276,7 +276,7 @@
 
             // Resize the cell to the new glyph — but ease the width instead of
             // snapping it, so a wide outgoing glyph is never cropped by a
-            // suddenly-narrow cell and neighbours glide rather than jump.
+            // suddenly-narrow cell and neighbors glide rather than jump.
             const oldW = slot.getBoundingClientRect().width;
             sizer.textContent = glyph(toChar);
             const newW = sizer.getBoundingClientRect().width;
@@ -288,7 +288,7 @@
 
             // A cell growing from or collapsing to empty changes width
             // drastically — clip it horizontally while it resizes so its glyph
-            // wipes in/out with the cell instead of stacking onto the neighbours.
+            // wipes in/out with the cell instead of stacking onto the neighbors.
             if (fromChar === '' || toChar === '') {
                 slot.classList.add($style.isResizing);
             }
@@ -366,7 +366,7 @@
 
                 const done = (event: TransitionEvent): void => {
                     if (event.propertyName !== 'transform') {
-                        return; // ignore the colour fade
+                        return; // ignore the color fade
                     }
 
                     newFace.removeEventListener('transitionend', done);

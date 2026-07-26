@@ -2,7 +2,7 @@
 
 Flux ships a color palette of six colors: **gray**, **primary**, **danger**, **info**, **success**, and **warning**. Each color is available in 12 shades, from 25 to 950, so you can make fine-grained design choices.
 
-The palette is absolute: a shade is the same colour in both themes, so `--palette-gray-950` is always near-black. It is also the layer you should reach for last. Styling against a shade means answering for both themes yourself, which is what the [semantic and intent tokens](./design-tokens) already do. They are what components are built on.
+The palette is absolute: a shade is the same color in both themes, so `--palette-gray-950` is always near-black. It is also the layer you should reach for last. Styling against a shade means answering for both themes yourself, which is what the [semantic and intent tokens](./design-tokens) already do. They are what components are built on.
 
 Shades are written in [OKLCH](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/oklch), so lightness is perceptual and a shade can be mixed or tinted without the hue drifting.
 

@@ -71,7 +71,7 @@ A trunk places the nodes; the connectors are still yours. Give the ones that run
 :::
 
 ::: tip
-A node lands one layer past its furthest source, and every layer is centred against the widest one. An edge that would close a cycle is cut rather than followed, so a graph that is not a tree still lays out; give such a connector its own `from-side` and `to-side` to send it around the diagram.
+A node lands one layer past its furthest source, and every layer is centered against the widest one. An edge that would close a cycle is cut rather than followed, so a graph that is not a tree still lays out; give such a connector its own `from-side` and `to-side` to send it around the diagram.
 :::
 
 <FrontmatterDocs/>
@@ -82,7 +82,7 @@ A node lands one layer past its furthest source, and every layer is centred agai
 example=../../code/flow/components/graph/horizontal.vue
 :::
 
-::: example Fanning out and merging || Three checks run off one trigger and come back together on the step that needs all of them. The layer is laid out on what each node actually measures, so pills of three different widths sit evenly spaced and the layers above and below stay centred on them.
+::: example Fanning out and merging || Three checks run off one trigger and come back together on the step that needs all of them. The layer is laid out on what each node actually measures, so pills of three different widths sit evenly spaced and the layers above and below stay centered on them.
 example=../../code/flow/components/graph/branches.vue
 :::
 

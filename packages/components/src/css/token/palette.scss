@@ -1,9 +1,9 @@
 @use 'sass:list';
 @use 'sass:map';
 
-// The palette is absolute: a stop means the same colour in both themes, so
+// The palette is absolute: a stop means the same color in both themes, so
 // `gray-950` is always near-black. Dark mode used to flip the whole scale, which
-// kept the semantic layer theme-agnostic but broke every place where a colour
+// kept the semantic layer theme-agnostic but broke every place where a color
 // carries an absolute meaning: shadows turned into glows, the skeleton shimmer
 // became a dark smear, and the chart ramp ran backwards. Themes now differ in
 // the semantic layer instead, through `light-dark()`.
@@ -108,7 +108,7 @@ $palette: (
     @return list.nth(map.get($palette, $scale, $stop), 2);
 }
 
-// A stop as a literal colour. Only `@mixin palette` below needs this: everything
+// A stop as a literal color. Only `@mixin palette` below needs this: everything
 // else refers to the stop rather than inlining it, so that overriding
 // `--palette-gray-600` still reshades what is built on top of it.
 @function literal($scale, $stop) {
@@ -121,9 +121,9 @@ $palette: (
 // which is what keeps the palette a control surface rather than a lookup table
 // that happens to be shipped.
 //
-// `$alpha` exists for the tokens that need the same colour at reduced opacity.
-// It goes through relative colour syntax, which is safe here precisely because a
-// stop holds a plain colour; over a token carrying a `light-dark()` it is not.
+// `$alpha` exists for the tokens that need the same color at reduced opacity.
+// It goes through relative color syntax, which is safe here precisely because a
+// stop holds a plain color; over a token carrying a `light-dark()` it is not.
 @function stop($scale, $stop, $alpha: 1) {
     @if $alpha < 1 {
         @return #{'oklch(from var(--palette-#{$scale}-#{$stop}) l c h / #{$alpha})'};
@@ -132,13 +132,13 @@ $palette: (
     @return #{'var(--palette-#{$scale}-#{$stop})'};
 }
 
-// A colour on the hue of `$scale` at an arbitrary lightness. Eight or nine of the
+// A color on the hue of `$scale` at an arbitrary lightness. Eight or nine of the
 // twelve stops sit above L .5 and only three or four below it, so the dark surfaces
 // and the dark soft tints have no stop to land on; this keeps them tied to the
 // scale they belong to anyway.
 //
 // The lightness is fixed because it was solved against a contrast target, but hue
-// and chroma are read off stop 500 through relative colour syntax rather than
+// and chroma are read off stop 500 through relative color syntax rather than
 // baked in. Reshade the scale and these follow, which is the only reason a dark
 // theme can track a palette override at all.
 @function tint($scale, $lightness, $chroma-factor: 1, $alpha: 1) {

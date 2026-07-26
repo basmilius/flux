@@ -38,7 +38,7 @@ export function boundsOfNodes(nodes: Iterable<FluxFlowNodeRecord>): FluxFlowBoun
 /**
  * Where along a side of `extent` a connector lands, with `inset` the distance
  * from the corner to the node's own anchor. A node narrower than twice that has
- * no room for both ends, so `start` and `end` collapse onto the centre.
+ * no room for both ends, so `start` and `end` collapse onto the center.
  */
 export function alignOffset(extent: number, align: FluxFlowAlign, inset: number): number {
     const clamped = Math.min(inset, extent / 2);

@@ -254,7 +254,7 @@
 
     const scrollStyle = computed<CSSProperties>(() => (interactive
         ? {height: '100%', overflow: 'hidden'}
-        // Centre the flow when the container is wider than it, but fall back to
+        // Center the flow when the container is wider than it, but fall back to
         // the start (scrollable) when it overflows.
         : {display: 'flex', justifyContent: 'safe center', overflowX: 'auto', overflowY: 'hidden'}));
 
@@ -329,7 +329,7 @@
             const rect = clip.value?.getBoundingClientRect();
 
             if (startNode && rect) {
-                // Centre the viewport on the designated start card, at 100% zoom.
+                // Center the viewport on the designated start card, at 100% zoom.
                 const {x, y} = startNode.position.value;
                 const {width, height} = startNode.size.value;
                 controller.setViewport({
@@ -338,7 +338,7 @@
                     zoom: 1
                 });
             } else {
-                // Start at 100% zoom, at the top of the flow: centred horizontally
+                // Start at 100% zoom, at the top of the flow: centered horizontally
                 // when there is room to spare, against its left edge when not.
                 const bounds = controller.bounds.value;
 

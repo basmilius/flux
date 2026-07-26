@@ -59,7 +59,7 @@ export type FluxFlowPortRegistration = {
 };
 
 /**
- * A named point on a node. `offset` is the centre of the port relative to the
+ * A named point on a node. `offset` is the center of the port relative to the
  * node's top-left, in the node's own layout pixels; it fixes where along a side
  * a connector lands. `side` names the edge it lands on, or is left out to take
  * the edge the port sits closest to.
@@ -76,7 +76,7 @@ export type FluxFlowNodeRecord = {
     readonly size: Readonly<Ref<FluxFlowSize>>;
     readonly element: Readonly<Ref<HTMLElement | null>>;
     /**
-     * The centre of the node's `[data-flow-anchor]` element, relative to its own
+     * The center of the node's `[data-flow-anchor]` element, relative to its own
      * top-left, or `null` when it has none. A `start` connector lands on it, so
      * a card and a pill each anchor on their own icon rather than on a shared
      * guess at where an icon sits.
@@ -225,7 +225,7 @@ export type FluxFlowController = {
     /**
      * Zooms to an absolute level about the middle of the viewport, so what is
      * being looked at stays where it is instead of the world jumping back to
-     * its own centre.
+     * its own center.
      */
     zoomTo(zoom: number): void;
     resetZoom(): void;

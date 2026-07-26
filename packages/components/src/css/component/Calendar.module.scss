@@ -97,7 +97,7 @@
 }
 
 // The cells paint themselves and the 1px gap between them shows this through, so
-// the grid background is a separator colour rather than a surface.
+// the grid background is a separator color rather than a surface.
 .calendarCells {
     display: grid;
     flex-grow: 1;
@@ -139,7 +139,7 @@
     z-index: 0;
 
     // A day outside the viewed month: recessed rather than dimmed, so the cell
-    // keeps its own colour instead of fading whatever it contains.
+    // keeps its own color instead of fading whatever it contains.
     &.isDisabled {
         background: var(--surface-sunken);
         color: var(--foreground-secondary);
@@ -149,7 +149,7 @@
         }
 
         // Holds whatever `renderContent` returned, usually a badge carrying its
-        // own colour. A token only reaches what inherits `color`, so dimming the
+        // own color. A token only reaches what inherits `color`, so dimming the
         // group is the one case where opacity is the tool rather than the hack.
         .calendarEvents {
             opacity: .75;

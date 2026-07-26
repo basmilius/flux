@@ -6,7 +6,7 @@
 
 Flux exposes its visual language as CSS custom properties. Use them to theme your application, build new components that fit in seamlessly, or override individual values for a single element.
 
-The colour tokens come in three layers, and which one you reach for matters:
+The color tokens come in three layers, and which one you reach for matters:
 
 | Layer | Example | Use it |
 |---|---|---|
@@ -45,22 +45,25 @@ And an application that wants to follow the operating system can skip the JavaSc
 
 Two things break this, so avoid them when you build tokens of your own:
 
-- Registering a colour token with `@property` and `syntax: '<color>'`. That computes the value eagerly on `:root` and freezes the theme there.
-- Deriving an alpha variant with relative colour syntax over a token that holds a `light-dark()`, as in `oklch(from var(--surface) l c h / .5)`. Write the variant out per theme instead. Relative colour syntax over a *palette* stop is fine, since those hold a plain colour.
+- Registering a color token with `@property` and `syntax: '<color>'`. That computes the value eagerly on `:root` and freezes the theme there.
+- Deriving an alpha variant with relative color syntax over a token that holds a `light-dark()`, as in `oklch(from var(--surface) l c h / .5)`. Write the variant out per theme instead. Relative color syntax over a *palette* stop is fine, since those hold a plain color.
 
 ## Intents
 
-Every intent carries the same eight roles, gray included. A component that takes a `color` prop maps them once and then styles against the result, so it never picks a shade itself.
+Every intent carries the same nine roles, gray included. A component that takes a `color` prop maps them once and then styles against the result, so it never picks a shade itself.
 
 | Role | What it is |
 |---|---|
-| `solid` | A filled surface in this intent: a button, a dot |
+| `solid` | A filled surface in this intent: a button, a status pill |
 | `solid-hover`, `solid-active` | The same fill under interaction |
 | `on-solid` | Text and icons on that fill |
+| `muted` | A filled marking that carries information without asking for attention: a dot, a spinner, a progress bar |
 | `soft` | A tinted background: a badge, a highlighted table row |
 | `soft-hover` | The same tint under interaction |
 | `border` | The edge around a soft area |
 | `text` | Text in this intent, on a plain or a soft background |
+
+`muted` exists next to `solid` because a dot and a button are not the same request. All six intents put `muted` the same perceptual distance from `--surface`, which `solid` cannot do: a gray `solid` is the strongest ink on the page, so a gray dot drawn with it outweighs a red one.
 
 `on-solid` is not the same choice for every intent. At the shade the fill uses in light mode, green and orange are too light to carry white text, so they take dark text instead. Because of that, `solid-hover` moves *away* from the foreground rather than always darkening: under white text it gets darker, under dark text it gets lighter.
 
@@ -77,7 +80,7 @@ In your own code, read the roles straight off the intent you need. They are ordi
 ```
 
 ::: info Inside the library
-Flux itself never writes an intent out per colour. A component with a `color` prop runs one Sass loop that maps the eight roles onto a local `--intent-*` contract and then styles against that. Those mixins live in this repository under `~flux/components/css/mixin`; the alias is a monorepo path and `@flux-ui/components` publishes no `./css/*` entry, so the snippet below is for contributors to Flux, not for consumers.
+Flux itself never writes an intent out per color. A component with a `color` prop runs one Sass loop that maps the nine roles onto a local `--intent-*` contract and then styles against that. Those mixins live in this repository under `~flux/components/css/mixin`; the alias is a monorepo path and `@flux-ui/components` publishes no `./css/*` entry, so the snippet below is for contributors to Flux, not for consumers.
 
 ```scss
 @use '~flux/components/css/mixin';
@@ -298,7 +301,7 @@ The semantic and intent layers are built out of `var(--palette-*)` references, s
 
 ```scss
 :root {
-    --palette-gray-500: oklch(.6411 .0342 60);   /* A warm grey instead of a cool one. */
+    --palette-gray-500: oklch(.6411 .0342 60);   /* A warm gray instead of a cool one. */
     --palette-gray-600: oklch(.5199 .0408 60);
     /* ...and so on for the rest of the scale. */
 }
@@ -306,7 +309,7 @@ The semantic and intent layers are built out of `var(--palette-*)` references, s
 
 That reaches **both themes**. Light mode maps its surfaces and text straight onto the stops. Dark mode needs about ten neutral steps between `L .15` and `L .42` where the scale has four, so those are not stops; they take their lightness from a ramp solved against a contrast target, and their hue and chroma off `--palette-gray-500`. Recolour the scale and dark follows. Move a stop's lightness and dark keeps its own, which is deliberate: that ramp is what carries the contrast guarantees.
 
-The same holds for the five coloured intents, where `soft`, `soft-hover` and `border` are anchored to stop 500 of their own scale in dark.
+The same holds for the five colored intents, where `soft`, `soft-hover` and `border` are anchored to stop 500 of their own scale in dark.
 
 > [!NOTE]
 > Palette overrides belong on `:root`. A semantic token is declared there too, so it is substituted at that point and a palette override further down the tree arrives too late. Overriding a *semantic* token on a subtree does work, because those are read at the point of use.

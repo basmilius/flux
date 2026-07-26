@@ -13,7 +13,7 @@
     // An action usually sits in an action bar, which paints itself sunken. The
     // opaque pair is calibrated against `--surface`, and in light it is lighter
     // than that bar, so hovering used to lift the button off its own strip instead
-    // of pressing it in. Ink deepens whatever it lands on, which is the behaviour
+    // of pressing it in. Ink deepens whatever it lands on, which is the behavior
     // the original had when it stepped from gray-100 to gray-200 on a gray-50 bar.
     @include mixin.hover {
         background: var(--ink-hover);

@@ -55,7 +55,7 @@ Both panes below are on this same page, and neither of them cares what the page 
     </FluxPane>
 </ThemePreview>
 
-The attribute sets `color-scheme`, which every colour token resolves against. That has two useful consequences.
+The attribute sets `color-scheme`, which every color token resolves against. That has two useful consequences.
 
 The attribute works on any element, not just the document, and it nests. A `dark` section on a light page flips every Flux component inside it:
 

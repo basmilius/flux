@@ -107,11 +107,10 @@
 }
 
 // Gray fills the same contract as the other five, so the `.timelineItemGray`
-// override that used to follow this loop is gone. Note what that costs: the five
-// coloured dots land on stop 600, around L .52 in light, while `--gray-solid` is
-// `--foreground-prominent` at L .24. The grey dot used to be the quiet one at
-// gray-400 and is now the heaviest of the six. That is the contract working as
-// written, not a slip, but it is the contract worth revisiting.
+// override that used to follow this loop is gone. The dot takes `muted` rather
+// than `solid`, which is the role that carries one weight across all six: a
+// filled marking read out of the corner of the eye. On `solid` the gray dot was
+// `--foreground-prominent`, the heaviest of the six instead of the quietest.
 @include mixin.color-variants(timelineItem) using ($color) {
     composes: timelineItem;
 
@@ -127,6 +126,6 @@
     }
 
     .timelineItemDot {
-        background: var(--intent-solid);
+        background: var(--intent-muted);
     }
 }

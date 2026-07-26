@@ -12,7 +12,7 @@ props:
         type: number
 
     -   name: color
-        description: The colour of the marker. Accepts a `FluxColor` or any custom CSS colour string. Defaults to gray, with no distinction between expandable and leaf markers.
+        description: The color of the marker. Accepts a `FluxColor` or any custom CSS color string. Defaults to gray, with no distinction between expandable and leaf markers.
         type: "FluxColor | string"
         optional: true
         default: gray
@@ -60,11 +60,11 @@ This component is best used within a [Row](./row), as the first cell of a column
 example=../../code/components/table/tree-cell/preview.vue
 :::
 
-::: example Coloured markers || The same tree with a `color` per level, mixing `FluxColor` names with your own palette.
+::: example Colored markers || The same tree with a `color` per level, mixing `FluxColor` names with your own palette.
 example=../../code/components/table/tree-cell/colored.vue
 :::
 
-::: example Custom colours || Passing arbitrary CSS colour strings, so each node carries its own hex value.
+::: example Custom colors || Passing arbitrary CSS color strings, so each node carries its own hex value.
 example=../../code/components/table/tree-cell/custom-color.vue
 :::
 

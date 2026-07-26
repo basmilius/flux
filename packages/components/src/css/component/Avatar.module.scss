@@ -43,9 +43,9 @@
     }
 }
 
-// `--color` is a colour the consumer picked, not a token, so the tint is mixed
+// `--color` is a color the consumer picked, not a token, so the tint is mixed
 // against the surface instead of derived from it. `color-mix()` is safe over a
-// `light-dark()`, unlike relative colour syntax.
+// `light-dark()`, unlike relative color syntax.
 .avatarFallbackColorized {
     composes: avatarFallback;
 
@@ -53,8 +53,8 @@
     color: var(--color);
 }
 
-// Dark keeps more of the chosen colour: the same 80% against a dark surface
-// leaves too little of it to read as coloured at all.
+// Dark keeps more of the chosen color: the same 80% against a dark surface
+// leaves too little of it to read as colored at all.
 [dark] .avatarFallbackColorized {
     background: color-mix(in srgb, var(--color), var(--surface) 70%);
 }
@@ -79,7 +79,7 @@
 
     // The track reads over the blurred veil rather than over a surface, so it is
     // translucent ink. Mixed, not derived: the foreground tokens hold a
-    // `light-dark()` that relative colour syntax would freeze.
+    // `light-dark()` that relative color syntax would freeze.
     :local(.spinner) {
         --track: color-mix(in srgb, var(--foreground-prominent) 12%, transparent);
     }
@@ -95,12 +95,15 @@
     border-radius: var(--radius-full);
 }
 
+// The status dot is a marking, not a fill: `muted` is the role that weighs the
+// same for all six, where `solid` turns the gray one into the darkest thing on
+// the avatar.
 @include mixin.color-variants(avatarStatus) using ($color) {
     composes: avatarStatus;
 
     @include mixin.intent($color);
 
-    background: var(--intent-solid);
+    background: var(--intent-muted);
 }
 
 .avatarStatusIcon {

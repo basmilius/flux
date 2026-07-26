@@ -1,8 +1,11 @@
 @use '~flux/components/css/mixin';
 
+// The arc is a marking that spins in the corner of a button, a badge or an
+// avatar, so it takes `muted` rather than `solid`: one weight for all six, where
+// `solid` made the gray spinner the heaviest of them.
 .spinner {
     --track: var(--surface-stroke-muted);
-    --value: var(--primary-solid);
+    --value: var(--primary-muted);
 
     display: inline-block;
     height: 1em;
@@ -15,7 +18,7 @@
 @include mixin.color-variants(spinner) using ($color) {
     @include mixin.intent($color);
 
-    --value: var(--intent-solid);
+    --value: var(--intent-muted);
 }
 
 .spinnerTrack {

@@ -6,7 +6,7 @@
 @use 'token/shadow';
 
 @layer flux-base {
-    // Every colour token is declared once here and resolves per theme through
+    // Every color token is declared once here and resolves per theme through
     // `light-dark()`. The theme itself is `color-scheme`, so a `[dark]` subtree
     // inside a light page flips its tokens, its scrollbars, its native select
     // popups and its autofill styling together, and an app that wants to follow

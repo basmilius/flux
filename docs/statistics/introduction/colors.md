@@ -1,6 +1,6 @@
 # Chart colors
 
-A chart has a colour problem of its own. A button needs to stand out against the surface behind it, but a series needs to stay apart from the other series as well, and it has to keep doing that when the theme flips. Flux Statistics therefore has its own token layer on top of the [design tokens](../../guide/introduction/design-tokens), plus one fixed palette for charts that need more categories than the themed set covers.
+A chart has a color problem of its own. A button needs to stand out against the surface behind it, but a series needs to stay apart from the other series as well, and it has to keep doing that when the theme flips. Flux Statistics therefore has its own token layer on top of the [design tokens](../../guide/introduction/design-tokens), plus one fixed palette for charts that need more categories than the themed set covers.
 
 ## Chart tokens
 
@@ -19,7 +19,7 @@ Every token is declared once and takes its own value per theme, the same way the
 
 The order of the eight is the order in which to spend them. `--chart-1` carries the most contrast against the chart surface and each next one steps down, so a two-series chart separates without anyone picking colors by hand, and an eight-series chart still separates at the bottom of the list.
 
-Both themes get their own values instead of a mirrored scale. A series colour has to hold its contrast against the chart surface it is actually drawn on, and in dark mode that is not the same problem as in light.
+Both themes get their own values instead of a mirrored scale. A series color has to hold its contrast against the chart surface it is actually drawn on, and in dark mode that is not the same problem as in light.
 
 ## CHART_COLORS
 

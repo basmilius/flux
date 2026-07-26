@@ -1,5 +1,5 @@
 /**
- * Asserts the colour contract against what actually shipped.
+ * Asserts the color contract against what actually shipped.
  *
  * The tokens are read back from the built `dist/index.css` rather than from the
  * Sass source, because the thing that can regress is the emitted value, not the
@@ -14,7 +14,8 @@ import { readFileSync } from 'node:fs';
 
 const CSS_PATH = 'packages/components/dist/index.css';
 
-const INTENTS = ['primary', 'danger', 'info', 'success', 'warning', 'gray'] as const;
+const COLORED = ['primary', 'danger', 'info', 'success', 'warning'] as const;
+const INTENTS = [...COLORED, 'gray'] as const;
 const ELEVATIONS = ['--surface-canvas', '--background', '--surface-sunken', '--surface', '--surface-raised'] as const;
 const SCHEMES = ['light', 'dark'] as const;
 
@@ -147,7 +148,7 @@ function findCall(value: string, name: string): {args: string; start: number; en
 }
 
 /**
- * Resolves a token to a literal colour for one scheme: every `light-dark()`
+ * Resolves a token to a literal color for one scheme: every `light-dark()`
  * collapses to its own branch and every `var()` is followed, depth first.
  */
 function resolve(value: string, scheme: Scheme, tokens: Map<string, string>, seen: string[] = []): string {
@@ -187,7 +188,7 @@ function resolve(value: string, scheme: Scheme, tokens: Map<string, string>, see
 }
 
 // ---------------------------------------------------------------------------
-// Colour
+// Color
 // ---------------------------------------------------------------------------
 
 function parseColor(input: string): Rgba {
@@ -200,7 +201,7 @@ function parseColor(input: string): Rgba {
     // Every channel in this file is linear sRGB: `luminance`, `lightness` and
     // `oklchOf` all assume it. A hex is gamma encoded, so it has to be decoded on
     // the way in. Skipping that reads `#808080` as luminance .502 instead of .216,
-    // which is not a rounding difference, it is a different colour.
+    // which is not a rounding difference, it is a different color.
     if (value.startsWith('#')) {
         const hex = value.slice(1);
         const size = hex.length <= 4 ? 1 : 2;
@@ -216,7 +217,7 @@ function parseColor(input: string): Rgba {
     const oklch = findCall(value, 'oklch');
 
     if (oklch === null) {
-        throw new Error(`unsupported colour "${input}"`);
+        throw new Error(`unsupported color "${input}"`);
     }
 
     return oklch.args.trimStart().startsWith('from ') ? parseRelative(oklch.args) : parseAbsolute(oklch.args);
@@ -230,7 +231,7 @@ function parseAbsolute(args: string): Rgba {
 }
 
 /**
- * `oklch(from <colour> <l> <c> <h> [/ <a>])`. The token layer emits this so that
+ * `oklch(from <color> <l> <c> <h> [/ <a>])`. The token layer emits this so that
  * a dark neutral keeps its solved lightness while taking hue and chroma off the
  * palette stop it is anchored to, which is what lets a palette override reshade
  * a theme that has no stops to land on.
@@ -301,7 +302,7 @@ function splitAlpha(input: string): [string, string | null] {
     return [input.trim(), null];
 }
 
-/** Where the origin colour ends: after its closing parenthesis, or at whitespace. */
+/** Where the origin color ends: after its closing parenthesis, or at whitespace. */
 function findColorEnd(input: string): number {
     const open = input.indexOf('(');
 
@@ -319,7 +320,7 @@ function findColorEnd(input: string): number {
         }
     }
 
-    throw new Error(`unbalanced origin colour in "${input}"`);
+    throw new Error(`unbalanced origin color in "${input}"`);
 }
 
 function parseAlpha(input: string): number {
@@ -351,15 +352,22 @@ function clip(value: number): number {
     return Math.min(1, Math.max(0, value));
 }
 
-/** The inverse, so a relative colour can read the channels of its origin. */
-function oklchOf([red, green, blue]: Rgba): readonly [number, number, number] {
+/** Linear sRGB -> OKLab. The one place the matrix lives; everything below reads it. */
+export function oklab([red, green, blue]: Rgba): readonly [number, number, number] {
     const long = Math.cbrt(0.4122214708 * red + 0.5363325363 * green + 0.0514459929 * blue);
     const medium = Math.cbrt(0.2119034982 * red + 0.6806995451 * green + 0.1073969566 * blue);
     const short = Math.cbrt(0.0883024619 * red + 0.2817188376 * green + 0.6299787005 * blue);
 
-    const lightness = 0.2104542553 * long + 0.793617785 * medium - 0.0040720468 * short;
-    const labA = 1.9779984951 * long - 2.428592205 * medium + 0.4505937099 * short;
-    const labB = 0.0259040371 * long + 0.7827717662 * medium - 0.808675766 * short;
+    return [
+        0.2104542553 * long + 0.793617785 * medium - 0.0040720468 * short,
+        1.9779984951 * long - 2.428592205 * medium + 0.4505937099 * short,
+        0.0259040371 * long + 0.7827717662 * medium - 0.808675766 * short
+    ];
+}
+
+/** The inverse of `oklchToLinearSrgb`, so a relative color can read its origin. */
+function oklchOf(color: Rgba): readonly [number, number, number] {
+    const [lightness, labA, labB] = oklab(color);
 
     return [lightness, Math.hypot(labA, labB), ((Math.atan2(labB, labA) * 180) / Math.PI + 360) % 360];
 }
@@ -373,7 +381,7 @@ function decode(value: number): number {
 }
 
 /**
- * Composites a possibly translucent colour over an opaque backdrop. A token like
+ * Composites a possibly translucent color over an opaque backdrop. A token like
  * `--ink-hover` or `--foreground-disabled` only has a contrast at all once it
  * sits on something.
  *
@@ -384,7 +392,7 @@ function decode(value: number): number {
  * exactly where the translucent tokens live.
  */
 export function over(foreground: Rgba, background: Rgba): Rgba {
-    // A backdrop that is itself translucent has no colour yet, and compositing
+    // A backdrop that is itself translucent has no color yet, and compositing
     // onto it silently answers for the wrong one: `--surface-inverse` carries
     // alpha .92 / .95, and reading it as opaque overstated the contrast of the
     // text on it by up to 1.4. Every translucent ground has to be composited onto
@@ -416,12 +424,22 @@ export function luminance([red, green, blue]: Rgba): number {
  * state is not read, it is noticed, and at the dark end a ratio exaggerates what
  * the eye barely registers. Perceptual lightness is the honest measure there.
  */
-export function lightness([red, green, blue]: Rgba): number {
-    const long = Math.cbrt(0.4122214708 * red + 0.5363325363 * green + 0.0514459929 * blue);
-    const medium = Math.cbrt(0.2119034982 * red + 0.6806995451 * green + 0.1073969566 * blue);
-    const short = Math.cbrt(0.0883024619 * red + 0.2817188376 * green + 0.6299787005 * blue);
+export function lightness(color: Rgba): number {
+    return oklab(color)[0];
+}
 
-    return 0.2104542553 * long + 0.793617785 * medium - 0.0040720468 * short;
+/**
+ * How far apart two colors are, as a distance in OKLab rather than along one of
+ * its axes. This is the measure for a fill against the ground it lies on: those
+ * separate themselves on hue as much as on brightness, and a luminance ratio is
+ * blind to hue by construction. In dark, `--success-soft` on a raised layer scores
+ * 1.004 as a ratio and is plainly green on gray.
+ */
+export function distance(first: Rgba, second: Rgba): number {
+    const [firstL, firstA, firstB] = oklab(first);
+    const [secondL, secondA, secondB] = oklab(second);
+
+    return Math.hypot(firstL - secondL, firstA - secondA, firstB - secondB);
 }
 
 export function contrast(foreground: Rgba, background: Rgba): number {
@@ -436,12 +454,12 @@ export function contrast(foreground: Rgba, background: Rgba): number {
 // ---------------------------------------------------------------------------
 
 /**
- * The layers under a colour, painted bottom up: the first is opaque and each next
+ * The layers under a color, painted bottom up: the first is opaque and each next
  * one is composited onto what is below it. An opaque token is a stack of one.
  *
  * Writing the ground as a stack is what keeps a translucent token honest.
  * `--surface-inverse` carries alpha .92 in light and .95 in dark, so it has no
- * colour at all until it lands on something, and measuring against it as if it
+ * color at all until it lands on something, and measuring against it as if it
  * were opaque flattered the text on it by up to 1.4.
  */
 type Stack = readonly string[];
@@ -469,6 +487,20 @@ type Step = {
     readonly scheme?: Scheme;
 };
 
+/**
+ * Two stacks that have to be a visible distance apart in color, whichever axis
+ * carries it. A `Step` asks how far something moved in lightness, which is the
+ * right question for a state; this asks how far apart two colors are, which is
+ * the right question for a tinted fill on a surface.
+ */
+type Distance = {
+    readonly label: string;
+    readonly from: Stack;
+    readonly to: Stack;
+    readonly floor: number;
+    readonly scheme?: Scheme;
+};
+
 /** Tokens that have to keep their order on one ground, strongest first. */
 type Ramp = {
     readonly label: string;
@@ -490,14 +522,6 @@ function buildChecks(): Check[] {
         add(`${intent}: text on soft-hover`, `--${intent}-text`, [`--${intent}-soft-hover`], 4.5);
         add(`${intent}: foreground on soft`, '--foreground', [`--${intent}-soft`], 4.5);
         add(`${intent}: border against soft`, `--${intent}-border`, [`--${intent}-soft`], 1.05);
-
-        // A soft fill is a badge, a chip, a notice or a tinted table row, and every
-        // one of those turns up inside a menu, a modal or a snackbar as readily as
-        // on a card. `--surface-raised` is a ground it lands on, so it is one it has
-        // to separate from.
-        for (const ground of ['--surface', '--surface-raised']) {
-            add(`${intent}: soft against ${ground}`, `--${intent}-soft`, [ground], 1.02);
-        }
     }
 
     for (const elevation of ELEVATIONS) {
@@ -538,7 +562,7 @@ function buildChecks(): Check[] {
 // `--surface-sunken` is checked against `--surface` because that is the ground it
 // actually lies on, and against `--surface-raised` because in dark it sits between
 // the two: a table head and a menu floating over it must not land on the same
-// colour.
+// color.
 const SEPARATION: readonly (readonly [string, string])[] = [
     ['--surface-sunken', '--surface'],
     ['--surface-sunken', '--surface-raised'],
@@ -562,6 +586,28 @@ const SEPARATION_FLOOR = 1.05;
 // .020 L from both `--surface-hover` and `--surface-active` in dark, which is the
 // tightest thing in the contract and what this number is set against.
 const STATE_FLOOR = 0.018;
+
+// What "apart" means for a fill against the surface it lies on. Deliberately the
+// same number as the step above: both answer whether the eye registers a difference
+// at all, only along a different axis, so there is no reason for them to disagree.
+//
+// Measured back against the quietest pairing the library already ships and nobody
+// has ever called invisible — a gray badge on a white card, `gray-50` on `gray-25`
+// — which sits at .021. The dark colored tints run from .022 to .062 on a raised
+// layer, so this passes the ones that separate on hue and only fails a fill that
+// has nothing to separate with.
+const TINT_FLOOR = STATE_FLOOR;
+
+// The muted fill is one weight shared by all six intents, and the weight is read
+// off the colored solids at run time rather than written down here, so that
+// reshading the palette moves the target with it.
+//
+// The band is what the scale can reach. Gray and primary run the same lightness
+// ramp and it steps .12 L straight across the target, so stop 600 lands .05 off it
+// in light and nothing on the scale gets closer. Inside the band a neighbouring
+// stop is a matter of taste; outside it the role has been pointed at the wrong
+// idea, which is what happened when gray was given `solid` and came out .3 off.
+const MUTED_BAND = 0.06;
 
 function buildSteps(): Step[] {
     const steps: Step[] = [];
@@ -634,9 +680,37 @@ function buildSteps(): Step[] {
     return steps;
 }
 
+function buildDistances(): Distance[] {
+    const distances: Distance[] = [];
+
+    for (const intent of INTENTS) {
+        // A soft fill is a badge, a chip, a notice or a tinted table row, and every
+        // one of those turns up inside a menu, a modal or a snackbar as readily as
+        // on a card. `--surface-raised` is a ground it lands on, so it is one it has
+        // to separate from.
+        for (const ground of ['--surface', '--surface-raised']) {
+            distances.push({label: `${intent}: soft against ${ground}`, from: [ground], to: [`--${intent}-soft`], floor: TINT_FLOOR});
+        }
+    }
+
+    return distances;
+}
+
+/**
+ * The weight the muted role has to carry: how far the colored solids sit from
+ * `--surface`. The median, because warning's ramp runs up to .18 L above the rest
+ * of the palette and drags a mean along with it.
+ */
+function mutedWeight(colorOf: (token: string, scheme: Scheme) => Rgba, scheme: Scheme): number {
+    const surface = lightness(paintStack(colorOf, ['--surface'], scheme));
+    const weights = COLORED.map(intent => Math.abs(lightness(colorOf(`--${intent}-solid`, scheme)) - surface)).sort((first, second) => first - second);
+
+    return weights[(weights.length - 1) / 2];
+}
+
 // Three ladders that carry meaning through their order. Nothing here needs a
 // threshold: the failure they catch is two values swapped, or one edited until it
-// passes its own target and overtakes its neighbour.
+// passes its own target and overtakes its neighbor.
 const RAMPS: readonly Ramp[] = [
     {
         label: 'text ramp',
@@ -656,7 +730,7 @@ const RAMPS: readonly Ramp[] = [
 ];
 
 // A ring that fades in has to start on its own hue. `transparent` is black at zero
-// alpha and fades through grey, and deriving the pair with relative colour syntax
+// alpha and fades through gray, and deriving the pair with relative color syntax
 // over a token holding a `light-dark()` resolves eagerly and freezes the theme.
 const TRANSPARENT_PAIRS: readonly (readonly [string, string])[] = [
     ['--focus-ring-transparent', '--focus-ring']
@@ -671,9 +745,9 @@ const ANCHORS: readonly (readonly [string, Scheme, string, string, number])[] = 
 ];
 
 // `--surface-loader` is deliberately absent from all of the above. It is
-// `--surface` at .75 alpha painted over `--surface`, so every colour measurement
+// `--surface` at .75 alpha painted over `--surface`, so every color measurement
 // of it is zero by construction: what hides the content under it is the
-// `backdrop-filter` blur next to it, which no colour check can see.
+// `backdrop-filter` blur next to it, which no color check can see.
 
 // ---------------------------------------------------------------------------
 
@@ -713,9 +787,9 @@ function main(): number {
 
     // In light `--surface` and `--surface-raised` hold the same value, and so do
     // `--background` and `--surface-sunken`, so a good part of the grid collapses
-    // onto pairs of identical colours there. Counting those twice makes the total
+    // onto pairs of identical colors there. Counting those twice makes the total
     // claim more than it measures, so a check is counted once per distinct pair of
-    // colours and target.
+    // colors and target.
     const once = (key: string): boolean => {
         if (seen.has(key)) {
             return false;
@@ -729,6 +803,7 @@ function main(): number {
 
     const checks = buildChecks();
     const steps = buildSteps();
+    const distances = buildDistances();
 
     for (const scheme of SCHEMES) {
         for (const check of checks) {
@@ -795,6 +870,44 @@ function main(): number {
                 failures.push(`${scheme.padEnd(5)} ${measure.label} — moves ${moved.toFixed(3)} L, has to be ${measure.direction}`);
             } else if (Math.abs(moved) + 0.0005 < measure.floor) {
                 failures.push(`${scheme.padEnd(5)} ${measure.label} — moves ${Math.abs(moved).toFixed(3)} L, needs ${measure.floor}`);
+            }
+        }
+    }
+
+    for (const scheme of SCHEMES) {
+        for (const measure of distances) {
+            if (measure.scheme !== undefined && measure.scheme !== scheme) {
+                continue;
+            }
+
+            const from = paint(measure.from, scheme);
+            const to = paint(measure.to, scheme);
+
+            if (!once(`distance|${scheme}|${from}|${to}|${measure.floor}`)) {
+                continue;
+            }
+
+            const apart = distance(from, to);
+
+            if (apart + 0.0005 < measure.floor) {
+                failures.push(`${scheme.padEnd(5)} ${measure.label} — ${apart.toFixed(4)} apart, needs ${measure.floor}`);
+            }
+        }
+    }
+
+    for (const scheme of SCHEMES) {
+        const target = mutedWeight(colorOf, scheme);
+        const surface = lightness(paint(['--surface'], scheme));
+
+        for (const intent of INTENTS) {
+            if (!once(`muted|${scheme}|${intent}`)) {
+                continue;
+            }
+
+            const weight = Math.abs(lightness(colorOf(`--${intent}-muted`, scheme)) - surface);
+
+            if (Math.abs(weight - target) - 0.0005 > MUTED_BAND) {
+                failures.push(`${scheme.padEnd(5)} ${intent}: muted does not carry the weight of the contract — ${weight.toFixed(3)} L from --surface, the colored solids carry ${target.toFixed(3)}`);
             }
         }
     }

@@ -5,10 +5,10 @@
         tag="article">
         <h1>Flux playground</h1>
         <p>This whole page is a single <code>FluxProse</code> container. The headings, paragraphs, lists and tables sit at a readable measure and flow in the prose rhythm, while Flux components are dropped straight in between them. No wrappers, no resets: prose only styles its own HTML elements, so every component keeps its own look and still lines up in the vertical rhythm.</p>
-        <p>Use it to eyeball how the pieces look together and how the light element defaults and the rich prose styling coexist on one page. It is also the sheet used to review the colour tokens, so most components appear in every intent and in every state that changes their surface, border or text colour. Switch the site between light and dark and scroll through once.</p>
+        <p>Use it to eyeball how the pieces look together and how the light element defaults and the rich prose styling coexist on one page. It is also the sheet used to review the color tokens, so most components appear in every intent and in every state that changes their surface, border or text color. Switch the site between light and dark and scroll through once.</p>
 
         <h2>Palette</h2>
-        <p>The palette is a control surface rather than a lookup table: the semantic and intent tokens refer to <code>--palette-*</code> instead of holding a colour of their own. Pick a scale below and the whole page follows, in both themes. The two rows combine, so a brand can be checked as it would actually ship.</p>
+        <p>The palette is a control surface rather than a lookup table: the semantic and intent tokens refer to <code>--palette-*</code> instead of holding a color of their own. Pick a scale below and the whole page follows, in both themes. The two rows combine, so a brand can be checked as it would actually ship.</p>
         <PaletteSwitcher data-prose-full/>
 
         <h2>Buttons and actions</h2>
@@ -178,7 +178,7 @@
                 colored
                 label="Featured"/>
         </FluxBadgeStack>
-        <p>The same badge in all six intents, first with a tinted dot on a neutral surface and then fully coloured.</p>
+        <p>The same badge in all six intents, first with a tinted dot on a neutral surface and then fully colored.</p>
         <FluxBadgeStack>
             <FluxBadge
                 v-for="color of colors"
@@ -233,7 +233,7 @@
             icon="circle-exclamation">
             <p>Heads up: mark an element with <code>data-prose-full</code> and it spans the whole container. Inside a notice, inline <code>code</code> keeps the notice's own styling rather than the prose chip.</p>
         </FluxNotice>
-        <p>Notices repeat the intent contract at full width, which makes the tinted surface, the border and the icon colour easy to compare.</p>
+        <p>Notices repeat the intent contract at full width, which makes the tinted surface, the border and the icon color easy to compare.</p>
         <FluxNoticeStack>
             <FluxNotice
                 v-for="notice of notices"
@@ -258,7 +258,7 @@
                 </FluxInfoStack>
             </FluxPaneBody>
         </FluxPane>
-        <p>Spinners and progress bars pick up the intent colour on a neutral track.</p>
+        <p>Spinners and progress bars pick up the intent color on a neutral track.</p>
         <FluxFlex
             :gap="18"
             align="center"
@@ -717,7 +717,7 @@
             <FluxPane>
                 <FluxPaneHeader
                     icon="sliders-simple"
-                    subtitle="Sliders, faders and colours"
+                    subtitle="Sliders, faders and colors"
                     title="Ranges"/>
                 <FluxPaneBody>
                     <FluxFormColumn>
@@ -745,7 +745,7 @@
                                 is-custom-allowed/>
                         </FluxFormField>
 
-                        <FluxFormField label="Colour picker">
+                        <FluxFormField label="Color picker">
                             <FluxColorPicker
                                 v-model="form.color"
                                 is-alpha-enabled
@@ -1056,7 +1056,7 @@
         </div>
 
         <h2>Tables</h2>
-        <p>The table below carries everything at once: a sticky header, a sticky footer, a pinned column on both edges, coloured rows, a selected row and hover feedback. The border under the header and the seam above the footer are the lines to watch.</p>
+        <p>The table below carries everything at once: a sticky header, a sticky footer, a pinned column on both edges, colored rows, a selected row and hover feedback. The border under the header and the seam above the footer are the lines to watch.</p>
         <FluxPane data-prose-full>
             <FluxPaneHeader
                 icon="server"
@@ -1200,7 +1200,7 @@
                 </FluxTableGroup>
             </FluxTable>
         </FluxPane>
-        <p>The data table wires the same parts to a data set: selection, coloured rows, a pagination bar and an empty state.</p>
+        <p>The data table wires the same parts to a data set: selection, colored rows, a pagination bar and an empty state.</p>
         <FluxPane data-prose-full>
             <FluxDataTable
                 v-model:selected="selectedInvoices"
@@ -1788,7 +1788,7 @@
                 </FluxPane>
             </FluxPaneGroup>
         </div>
-        <p>Layer panes wrap a pane in a coloured band, which is the widest coloured surface in the library and the fastest way to spot a tint that drifted.</p>
+        <p>Layer panes wrap a pane in a colored band, which is the widest colored surface in the library and the fastest way to spot a tint that drifted.</p>
         <div
             :class="$style.gridIntents"
             data-prose-full>
@@ -1805,7 +1805,7 @@
                 </FluxPane>
             </FluxLayerPane>
         </div>
-        <p>The raw shadow scale, painted on a raised surface. Every step shares one geometry across both themes and differs only in colour.</p>
+        <p>The raw shadow scale, painted on a raised surface. Every step shares one geometry across both themes and differs only in color.</p>
         <div
             :class="$style.shadows"
             data-prose-full>
@@ -1852,7 +1852,7 @@
                     subtitle="Anchored to the edge"
                     title="Slide over"/>
                 <FluxPaneBody>
-                    <p>A slide over uses the same surface, anchored to the edge of the viewport instead of centred.</p>
+                    <p>A slide over uses the same surface, anchored to the edge of the viewport instead of centered.</p>
                 </FluxPaneBody>
                 <FluxPaneFooter>
                     <FluxSpacer/>
@@ -1887,19 +1887,19 @@
                 <FluxExpandable
                     icon="circle-info"
                     label="What is a design token?">
-                    A named value that stands in for a raw colour, size or duration, so the same decision can be changed in one place.
+                    A named value that stands in for a raw color, size or duration, so the same decision can be changed in one place.
                 </FluxExpandable>
 
                 <FluxExpandable
                     icon="palette"
                     label="Why two themes?">
-                    Light and dark signal elevation differently. Light keeps every level the same colour and lets the shadow do the work, dark cannot.
+                    Light and dark signal elevation differently. Light keeps every level the same color and lets the shadow do the work, dark cannot.
                 </FluxExpandable>
 
                 <FluxExpandable
                     icon="circle-question"
                     label="Where do intents come from?">
-                    Every component with a colour prop resolves it to the same set of intent tokens, which is why they can all be compared side by side.
+                    Every component with a color prop resolves it to the same set of intent tokens, which is why they can all be compared side by side.
                 </FluxExpandable>
             </FluxExpandableGroup>
         </FluxPane>
@@ -2064,7 +2064,7 @@
                 </FluxKanbanItem>
             </FluxKanbanColumn>
         </FluxKanban>
-        <p>The calendar draws a grid of day cells with today highlighted, plus items that carry their own colour.</p>
+        <p>The calendar draws a grid of day cells with today highlighted, plus items that carry their own color.</p>
         <div data-prose-full>
             <FluxCalendar :initial-date="anchorDate">
                 <template
@@ -2107,7 +2107,7 @@
                             is-received
                             posted-by="Assistant"
                             :posted-on="commentTime">
-                            The colour tokens have been regenerated for both themes.
+                            The color tokens have been regenerated for both themes.
                         </FluxComment>
 
                         <FluxComment
@@ -2333,7 +2333,7 @@
 
         <h2>Typography</h2>
         <p>Back in the prose flow, the text scale, lists, quotes, code and tables all come from <code>FluxProse</code>.</p>
-        <p>Text itself has a scale and a set of colours of its own.</p>
+        <p>Text itself has a scale and a set of colors of its own.</p>
         <FluxFlex
             :gap="6"
             direction="vertical">
@@ -2727,7 +2727,7 @@ const article = FluxProse;</code></pre>
         await showAlert({
             icon: 'circle-info',
             title: 'Heads up',
-            message: 'The colour tokens were regenerated for both themes.'
+            message: 'The color tokens were regenerated for both themes.'
         });
     }
 

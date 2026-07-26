@@ -35,9 +35,11 @@
 
 // The marker follows the palette of a boxed icon: a soft tint with a deep glyph.
 // Gray is the default intent, so an uncoloured entry resolves the same three
-// roles a coloured one does.
+// roles a colored one does. The dot takes `muted` rather than `solid`, the role
+// that weighs the same for all six; on `solid` the gray dot was the darkest thing
+// in the rail.
 .trackerEntry {
-    --color: var(--gray-solid);
+    --color: var(--gray-muted);
     --color-deep: var(--gray-text);
     --color-soft: var(--gray-soft-hover);
 
@@ -67,7 +69,7 @@
     grid-column: 1;
 }
 
-// Padded so the title lines up with the centre of the marker, whatever follows it.
+// Padded so the title lines up with the center of the marker, whatever follows it.
 .trackerEntryBody {
     display: flex;
     padding: 9px 0;
@@ -105,7 +107,7 @@
 }
 
 .trackerLabel {
-    --color: var(--gray-solid);
+    --color: var(--gray-muted);
 
     composes: trackerRow;
 
@@ -170,7 +172,7 @@
     composes: trackerStep;
 
     .trackerStepMarker {
-        color: var(--success-solid);
+        color: var(--success-muted);
     }
 
     .trackerStepLabel {
@@ -182,7 +184,7 @@
     composes: trackerStep;
 
     .trackerStepMarker {
-        color: var(--color, var(--primary-solid));
+        color: var(--color, var(--primary-muted));
     }
 
     .trackerStepLabel {
@@ -198,7 +200,7 @@
 
     @include mixin.intent($color);
 
-    --color: var(--intent-solid);
+    --color: var(--intent-muted);
     --color-deep: var(--intent-text);
     --color-soft: var(--intent-soft-hover);
 }
@@ -208,5 +210,5 @@
 
     @include mixin.intent($color);
 
-    --color: var(--intent-solid);
+    --color: var(--intent-muted);
 }

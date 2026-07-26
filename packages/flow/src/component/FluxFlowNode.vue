@@ -98,7 +98,7 @@
     }
 
     /**
-     * The centre of an element inside the node, in the node's own layout pixels.
+     * The center of an element inside the node, in the node's own layout pixels.
      * Rects are divided by the live zoom rather than read through offsetLeft,
      * which would be relative to whichever ancestor happens to be positioned.
      */

@@ -30,7 +30,7 @@ props:
         optional: true
 
     -   name: start
-        description: The id of a node to centre the interactive viewport on at 100% zoom, instead of starting at the top of the flow.
+        description: The id of a node to center the interactive viewport on at 100% zoom, instead of starting at the top of the flow.
         type: string
         optional: true
 

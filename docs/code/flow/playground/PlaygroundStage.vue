@@ -31,7 +31,7 @@
         readonly tall?: boolean;
     }>();
 
-    // On by default (the real behaviour); toggle off to see the lines drawn over
+    // On by default (the real behavior); toggle off to see the lines drawn over
     // the cards. Each stage drives only the flow in its own slot.
     const under = ref(true);
 

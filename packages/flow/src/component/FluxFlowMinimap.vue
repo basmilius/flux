@@ -88,7 +88,7 @@
         return {
             scale,
             // What is left over after the flow is drawn, split evenly, so the
-            // map sits centred on the axis that did not decide the scale.
+            // map sits centered on the axis that did not decide the scale.
             x: (width - (bounds.maxX - bounds.minX) * scale) / 2 - bounds.minX * scale,
             y: (height - (bounds.maxY - bounds.minY) * scale) / 2 - bounds.minY * scale
         };

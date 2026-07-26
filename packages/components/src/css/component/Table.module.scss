@@ -209,7 +209,7 @@
     }
 
     // A selected row keeps its resting fill on hover, so its stroke stays put as
-    // well. Spelled out because a row that is both selected and coloured would
+    // well. Spelled out because a row that is both selected and colored would
     // otherwise pick up the tinted hover stroke above and draw a danger edge
     // around a primary fill.
     .table.isHoverable .tableBody .tableRow.isSelected:has(:hover) > .tableCell:not(.hasRowspan),
@@ -221,7 +221,7 @@
 
     // The top border of a row is drawn by the row itself, but its color comes
     // from the row above. While a row is highlighted it takes its own stroke,
-    // so the highlight is bounded by its own color instead of its neighbour's.
+    // so the highlight is bounded by its own color instead of its neighbor's.
     .table.isHoverable .tableBody .tableRow:has(:hover) > .tableCell:not(.hasRowspan),
     .table.isHoverable .tableBody .tableRow:has(:focus-visible) > .tableCell:not(.hasRowspan) {
         border-top-color: var(--table-row-stroke, var(--surface-stroke-muted));
@@ -229,7 +229,7 @@
 
     // The rule above only reaches the top of the highlighted row. Its bottom edge
     // belongs to the row underneath, which is a sibling and never sees
-    // `--table-row-stroke`, so the colour has to be named again per intent. Without
+    // `--table-row-stroke`, so the color has to be named again per intent. Without
     // this a hovered tinted row draws a firm line above itself and a soft one below,
     // and the highlight reads as sliding out of its own band.
     //
@@ -421,7 +421,7 @@
     // Half a step, not a whole one. A group head marks a band that is always
     // there, while a row hover is a state that comes and goes; giving the head
     // the hover value itself makes a resting head and a pointed-at row the same
-    // colour, and the band stops reading as a heading. Half of the step keeps it
+    // color, and the band stops reading as a heading. Half of the step keeps it
     // the lightest tint in the body and still under the row it can sit next to.
     background: color-mix(in srgb, var(--surface), var(--surface-hover));
 

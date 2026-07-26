@@ -25,13 +25,13 @@ $ladder-dark: (500, 400, 300);
 // nothing usable between L .24 and L .40 on these hues. They are tints on the
 // intent's own hue instead.
 //
-// Chroma is dialled well back for the two fills. Measured against stop 500, the
+// Chroma is dialed well back for the two fills. Measured against stop 500, the
 // light stops these mirror carry a fraction of its chroma: stop 50 sits between
 // .06 and .15, stop 100 between .12 and .35, stop 200 between .24 and .70. Give a
 // dark fill the same chroma as its edge and a tinted table row stops reading as a
-// tint and starts reading as a block of colour. The values run slightly above
+// tint and starts reading as a block of color. The values run slightly above
 // their light counterparts because a dark ground needs a little more chroma to
-// register as coloured at all.
+// register as colored at all.
 $soft-lightness: (.265, .305, .385);
 $soft-chroma: (.22, .3, .5);
 
@@ -40,6 +40,20 @@ $soft-chroma: (.22, .3, .5);
 // puts that rung between .40 and .53. Reading text off it scores 4.42 on its own
 // soft-hover, under AA. Stop 800 lands at L .4773, back in the pack.
 $text-stop-light: ('warning': 800);
+
+// A filled marking that has to be seen without being looked at: the dot on a
+// timeline, the ring on an avatar, a spinner, a progress bar, the edge of a node.
+// Solid is the loudest fill there is, and gray is where that shows, because gray's
+// solid is the darkest ink on the page in light and the lightest in dark. A gray
+// dot drawn with it came out heavier than a red one.
+//
+// So all six carry one weight here, and it is the weight the colored solids
+// already carry against `--surface`: .43 L in light and .41 in dark, taken as the
+// median of the five because warning's ramp runs high enough to drag a mean. Stop
+// 600 lands on that in light and stop 500 in dark, warning a rung further in both,
+// the same outlier that pushes its text to 800.
+$muted-stop-light: ('warning': 700);
+$muted-stop-dark: ('warning': 600);
 
 @mixin intents {
     @each $intent in ('primary', 'danger', 'info', 'success', 'warning') {
@@ -55,6 +69,7 @@ $text-stop-light: ('warning': 800);
         --#{$intent}-solid-hover: #{theme.theme(palette.stop($intent, list.nth($ladder, 2)), palette.stop($intent, list.nth($ladder-dark, 2)))};
         --#{$intent}-solid-active: #{theme.theme(palette.stop($intent, list.nth($ladder, 3)), palette.stop($intent, list.nth($ladder-dark, 3)))};
         --#{$intent}-on-solid: #{theme.theme($on-solid, $on-solid-dark)};
+        --#{$intent}-muted: #{theme.theme(palette.stop($intent, map.get($muted-stop-light, $intent) or 600), palette.stop($intent, map.get($muted-stop-dark, $intent) or 500))};
 
         --#{$intent}-soft: #{theme.theme(palette.stop($intent, 50), palette.tint($intent, list.nth($soft-lightness, 1), list.nth($soft-chroma, 1)))};
         --#{$intent}-soft-hover: #{theme.theme(palette.stop($intent, 100), palette.tint($intent, list.nth($soft-lightness, 2), list.nth($soft-chroma, 2)))};
@@ -63,13 +78,13 @@ $text-stop-light: ('warning': 800);
     }
 
     // Gray is an intent like the other five, not the exception every component had
-    // to write out by hand right after its colour loop. Its soft, border and text
+    // to write out by hand right after its color loop. Its soft, border and text
     // roles walk the same rungs as the rest, which is why they are spelled out
     // rather than pointed at the elevation tokens: `--surface-sunken` paired with
-    // `--surface-stroke` puts only 1.13 between a grey chip and its own edge.
+    // `--surface-stroke` puts only 1.13 between a gray chip and its own edge.
     //
     // Solid is the exception that is real. A filled neutral is the darkest text
-    // colour in light and the lightest in dark, so it reads off the foreground
+    // color in light and the lightest in dark, so it reads off the foreground
     // tokens instead of a stop.
     --gray-solid: var(--foreground-prominent);
     // Dark runs out of room at the top: solid is already the lightest foreground at
@@ -78,8 +93,18 @@ $text-stop-light: ('warning': 800);
     --gray-solid-hover: #{theme.theme(palette.stop('gray', 950), theme.neutral(.975, .004))};
     --gray-solid-active: #{theme.theme(theme.neutral(.09, .025), theme.neutral(1, 0))};
     --gray-on-solid: var(--surface);
-    --gray-soft: #{theme.theme(palette.stop('gray', 50), theme.neutral(.265, .017))};
-    --gray-soft-hover: #{theme.theme(palette.stop('gray', 100), theme.neutral(.305, .018))};
+    // Muted is not one of gray's exceptions, and that is the point of the role: the
+    // same rungs as the other five, so a gray dot weighs what a red one does.
+    --gray-muted: #{theme.theme(palette.stop('gray', 600), palette.stop('gray', 500))};
+
+    // The five colored tints buy most of their distance from the card in chroma,
+    // and in dark that is nearly all of it. Gray has none to spend, so it has to buy
+    // the whole distance in lightness, which lifts it off the shared ramp: at .265
+    // it sat .003 from `--surface-raised` and a gray badge in a menu or a flyout was
+    // down to its border alone. At .3 it clears the card, the sunken strip and the
+    // raised layer, and threads between `--surface-hover` and `--surface-active`.
+    --gray-soft: #{theme.theme(palette.stop('gray', 50), theme.neutral(.3, .017))};
+    --gray-soft-hover: #{theme.theme(palette.stop('gray', 100), theme.neutral(.34, .018))};
     --gray-border: #{theme.theme(palette.stop('gray', 200), theme.neutral(.385, .019))};
     --gray-text: var(--foreground);
 }

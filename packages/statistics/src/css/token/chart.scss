@@ -2,7 +2,7 @@
 @use 'sass:math';
 @use '~flux/components/css/token/theme';
 
-// The chart palette. Unlike the rest of the library a chart hands its colours to
+// The chart palette. Unlike the rest of the library a chart hands its colors to
 // a canvas, so nothing here can lean on a border, a shadow or a hover state to
 // stay legible: the fill against `--surface` is the whole signal.
 //
@@ -46,7 +46,7 @@ $categorical-dark:
     (.704 .146 62.4)
     (.679 .127 100);
 
-// The sequential ramp, for a heatmap or any value-to-colour mapping. It runs on
+// The sequential ramp, for a heatmap or any value-to-color mapping. It runs on
 // the primary hue and always puts the contrast at the high end: 1.35 to 6.99 in
 // light, 1.40 to 7.90 in dark. The ramp it replaces was four fixed Tailwind
 // blues, so in dark mode its low end out-shouted its high end.
@@ -68,7 +68,7 @@ $ramp-dark:
 // prominence is deliberately flat: these are peers, not a ranking.
 //
 // Chroma sits above the sRGB boundary on the hues that cannot reach it, so a
-// wide-gamut display gets the full colour and sRGB clips back to its own edge.
+// wide-gamut display gets the full color and sRGB clips back to its own edge.
 // Worst case after clipping is 4.54 in light and 6.81 in dark.
 $colorful-count: 17;
 $colorful-start: 17.1;

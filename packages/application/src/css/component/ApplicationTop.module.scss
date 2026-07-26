@@ -4,7 +4,7 @@
 // in dark it has to stay lighter than the cards passing behind it. Light paints
 // both levels white, so nothing changes there.
 //
-// color-mix, not relative colour syntax: the token holds a light-dark() pair,
+// color-mix, not relative color syntax: the token holds a light-dark() pair,
 // which `rgb(from ...)` would resolve once on :root and freeze to one theme.
 .applicationTop {
     position: sticky;

@@ -1,7 +1,7 @@
 @use '~flux/components/css/mixin';
 
 // The accent is a semantic token, so it holds a `light-dark()`. Every tint below
-// therefore goes through `color-mix()`: relative colour syntax cannot read the
+// therefore goes through `color-mix()`: relative color syntax cannot read the
 // channels of a value that is only resolved per theme, and would freeze the whole
 // component on whatever `:root` computes.
 .formFader {

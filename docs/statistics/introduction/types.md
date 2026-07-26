@@ -477,6 +477,6 @@ When a `color` is set on a series, slice, or node, Flux resolves it as follows:
 | `'#10b981'` (any hex) | `'#10b981'` |
 | omitted | next of the eight colors in `CHART_COLORS` (see [Chart colors](./colors)) |
 
-A named intent lands on the `solid` role, the filled-surface colour of that intent, so it takes the value that holds up against the chart surface in each theme. A `var(--…)` reference and a hex value are both passed through untouched; the reference still follows the theme because the token behind it does, while the hex stays the same in both themes.
+A named intent lands on the `solid` role, the filled-surface color of that intent, so it takes the value that holds up against the chart surface in each theme. A `var(--…)` reference and a hex value are both passed through untouched; the reference still follows the theme because the token behind it does, while the hex stays the same in both themes.
 
 The same color flows into the rendered chart, the [Legend](../components/legend/) (whether manual or auto-generated), and the tooltip, so series stay visually consistent across all three surfaces.

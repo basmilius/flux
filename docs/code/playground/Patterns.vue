@@ -194,7 +194,7 @@
     <p>The row action group is the same three pieces every time: a tooltip around an action for the two operations that deserve their own button, then a flyout with a menu for everything else. Both applications wrap every single <code>FluxAction</code> in a <code>FluxTooltip</code>, which is why an icon only button never appears bare in this sheet either.</p>
 
     <h3>Nothing to show</h3>
-    <p>An empty table is not one state but three, and only the first of them is really empty. Filtering down to zero rows needs different words than a table that has never had a row, and a screen the user may not open at all needs a third. Both applications write the same block by hand: a boxed icon in the brand colour, a heading, one sentence and an optional action, centred in whatever container it lands in.</p>
+    <p>An empty table is not one state but three, and only the first of them is really empty. Filtering down to zero rows needs different words than a table that has never had a row, and a screen the user may not open at all needs a third. Both applications write the same block by hand: a boxed icon in the brand color, a heading, one sentence and an optional action, centered in whatever container it lands in.</p>
     <FluxStatisticsGrid
         data-prose-full
         :md="2"
@@ -688,7 +688,7 @@
     </FluxPane>
 
     <h3>The status vocabulary</h3>
-    <p>Both applications land on the same reading of the six intents, and both write it as two records, one from status to colour and one from status to icon, rather than as a chain of conditions in a template. The badge is used wherever there is room for a word; where a column is too narrow for one, the same two records feed a tooltipped icon instead.</p>
+    <p>Both applications land on the same reading of the six intents, and both write it as two records, one from status to color and one from status to icon, rather than as a chain of conditions in a template. The badge is used wherever there is room for a word; where a column is too narrow for one, the same two records feed a tooltipped icon instead.</p>
     <FluxPane data-prose-full>
         <FluxTable is-hoverable>
             <template #header>
@@ -725,7 +725,7 @@
             </FluxTableRow>
         </FluxTable>
     </FluxPane>
-    <p>Colours that come from the data rather than from a meaning are the one place this breaks down. A label picked by a user is an arbitrary hue, and a badge only takes one of the six intents, so both applications mix the hue into the <code>--intent-*</code> properties a coloured badge styles against and hand those to it as an inline style. It works, but it writes to a contract the library fills through a mixin and treats as internal, so this is the one pattern on this page that a future version could break. A badge that accepts a colour of its own is the real fix.</p>
+    <p>Colors that come from the data rather than from a meaning are the one place this breaks down. A label picked by a user is an arbitrary hue, and a badge only takes one of the six intents, so both applications mix the hue into the <code>--intent-*</code> properties a colored badge styles against and hand those to it as an inline style. It works, but it writes to a contract the library fills through a mixin and treats as internal, so this is the one pattern on this page that a future version could break. A badge that accepts a color of its own is the real fix.</p>
     <FluxBadgeStack>
         <FluxBadge
             v-for="label of labels"
@@ -956,7 +956,7 @@
         template: 'none' as string | number | null
     });
 
-    // A badge only takes one of the six intents, so a colour that comes from the
+    // A badge only takes one of the six intents, so a color that comes from the
     // data has to be mixed into the intent contract a `colored` badge styles
     // against: `--intent-soft` for the fill, `--intent-border` for the edge and
     // `--intent-text` for the label. Both applications carry a helper shaped

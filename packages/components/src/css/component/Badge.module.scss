@@ -4,7 +4,7 @@
     @include mixin.text(xsmall);
 
     // Gray is the default intent, so an uncoloured badge resolves the same
-    // contract as a coloured one instead of leaving `--intent-*` empty.
+    // contract as a colored one instead of leaving `--intent-*` empty.
     @include mixin.intent('gray');
 
     display: inline-flex;
@@ -76,7 +76,7 @@
     }
 
     .spinner {
-        --value: var(--intent-solid);
+        --value: var(--intent-muted);
     }
 }
 
@@ -95,7 +95,7 @@
     cursor: pointer;
 
     // Translucent, so the state deepens the badge's own tint instead of covering
-    // it with a grey the way a `--surface-*` fill would.
+    // it with a gray the way a `--surface-*` fill would.
     @include mixin.hover {
         background: var(--ink-hover);
         color: var(--foreground);
@@ -116,11 +116,16 @@
     border-color: var(--intent-border);
 }
 
+// The dot is the quiet mark and the label the loud one, which is the order the
+// badge always drew them in: gray put its dot on `--foreground` and its label on
+// `--foreground-prominent`. On `solid` that order flipped, because gray's solid
+// is `--foreground-prominent`. `muted` puts it back and gives all six dots one
+// weight.
 .badgeDot {
     display: block;
     height: 9px;
     width: 9px;
-    background: var(--intent-solid);
+    background: var(--intent-muted);
     border-radius: var(--radius-full);
 }
 
@@ -231,7 +236,7 @@
 
 // The group reads the intent tokens directly rather than through `--intent-*`:
 // its border has to stay uniform across child badges, which each rebind the
-// local contract to their own colour.
+// local contract to their own color.
 @include mixin.color-variants(badgeGroup) using ($color) {
     composes: badge#{mixin.color-suffix($color)};
     composes: badgeGroup;

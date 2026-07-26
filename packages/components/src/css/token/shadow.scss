@@ -1,7 +1,7 @@
 @use 'theme';
 
-// One geometry for both themes; only the colour differs. That is a constraint
-// as much as a choice: `light-dark()` carries colours, not lengths, so a
+// One geometry for both themes; only the color differs. That is a constraint
+// as much as a choice: `light-dark()` carries colors, not lengths, so a
 // per-theme blur radius would need a theme selector, and the `color-scheme:
 // light dark` setup base.scss documents has none to hang it on.
 //
@@ -19,7 +19,7 @@
 // steps read stronger, so an alpha ramp on top of it only adds weight.
 //
 // Light tints its shadow with the neutral hue rather than pure black, which keeps
-// it from reading as soot on a coloured surface.
+// it from reading as soot on a colored surface.
 @function color($light-alpha, $dark-alpha) {
     @return theme.theme(theme.neutral(.36, .02, $light-alpha), 'oklch(0 0 0 / #{$dark-alpha})');
 }

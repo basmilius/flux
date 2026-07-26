@@ -31,7 +31,7 @@ function subscribe(): void {
 
     // The theme is an attribute on any element, not only on the root: a pane can
     // carry `[dark]` inside a light page. Without `subtree` a chart in such a pane
-    // never learned that its colours had changed. The filter keeps the cost down;
+    // never learned that its colors had changed. The filter keeps the cost down;
     // `class` and `data-theme` are gone because nothing in the library keys on them.
     const observer = new MutationObserver(bump);
     observer.observe(document.documentElement, {attributes: true, attributeFilter: ['dark', 'light'], subtree: true});
@@ -143,7 +143,7 @@ function resolveVars(input: string, style: CSSStyleDeclaration): string {
     return output + input.slice(cursor);
 }
 
-// A colour token is an unregistered custom property, so its computed value is the
+// A color token is an unregistered custom property, so its computed value is the
 // token stream with `var()` substituted and nothing else: `light-dark()` comes out
 // verbatim and a canvas cannot parse it. Registering the properties would resolve
 // it, but eagerly on `:root`, which freezes the whole page to one theme. So the

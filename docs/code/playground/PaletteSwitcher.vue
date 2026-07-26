@@ -65,8 +65,8 @@
                             <FluxNotice
                                 color="info"
                                 icon="circle-info"
-                                title="How far a coloured scale reaches">
-                                <p>The neutral stops at hue and chroma in dark mode. Primary does not. <code>--primary-solid</code>, its hover and its active state take stops 500, 400 and 300 there, and <code>--primary-text</code> takes stop 300, so a coloured intent follows the scale in lightness as well. Only <code>--primary-soft</code>, its hover and <code>--primary-border</code> stay behind: dark has nothing usable between L .24 and L .40 on these hues, so those three are tints over <code>--palette-primary-500</code> that read hue and chroma off it at a fixed lightness, exactly as the neutrals do.</p>
+                                title="How far a colored scale reaches">
+                                <p>The neutral stops at hue and chroma in dark mode. Primary does not. <code>--primary-solid</code>, its hover and its active state take stops 500, 400 and 300 there, and <code>--primary-text</code> takes stop 300, so a colored intent follows the scale in lightness as well. Only <code>--primary-soft</code>, its hover and <code>--primary-border</code> stay behind: dark has nothing usable between L .24 and L .40 on these hues, so those three are tints over <code>--palette-primary-500</code> that read hue and chroma off it at a fixed lightness, exactly as the neutrals do.</p>
                                 <p>More follows than the five roles above. <code>--focus-ring</code> is stop 600 in light and stop 400 in dark, <code>--selection</code> is a tint on primary, and <code>base.scss</code> hands <code>accent-color</code> to <code>--primary-solid</code>, so a native checkbox and a range input come along.</p>
                                 <p>What does not follow is the label on the fill. <code>--primary-on-solid</code> is plain white in light and a near-black neutral in dark, and that neutral is anchored to <code>--palette-gray-500</code> rather than to primary: swap the neutral above and the button label moves, swap primary and it stays exactly where it was. Which is why the two checks below are measured rather than assumed.</p>
                             </FluxNotice>
@@ -98,7 +98,7 @@
                                 icon="circle-exclamation"
                                 title="This scale does not meet the contract">
                                 <p>One of the checks above sits under {{ TARGET }}, so this palette cannot be dropped in as it stands. The fill is the usual culprit: <code>--primary-on-solid</code> is plain white in light mode and the ladder assumes stop 600 is dark enough to carry it, which a mid green or a bright amber is not.</p>
-                                <p>Two ways out, both a single declaration next to the palette override. Give <code>--primary-on-solid</code> a colour that does survive on the fill, or point <code>--primary-solid</code> and its two states at darker stops of the same scale. Darkening the stops themselves is the third option and the worst one, because every other role reads them too.</p>
+                                <p>Two ways out, both a single declaration next to the palette override. Give <code>--primary-on-solid</code> a color that does survive on the fill, or point <code>--primary-solid</code> and its two states at darker stops of the same scale. Darkening the stops themselves is the third option and the worst one, because every other role reads them too.</p>
                             </FluxNotice>
                         </template>
                     </FluxFlex>
@@ -186,7 +186,7 @@
         {
             id: 'mint',
             label: 'Mint',
-            description: 'The Flux lightness ladder at hue 162, with the Flux chroma ramp multiplied by 1.4. Only hue and chroma differ from the default scale, which is why the two read as the same grey at a different temperature.',
+            description: 'The Flux lightness ladder at hue 162, with the Flux chroma ramp multiplied by 1.4. Only hue and chroma differ from the default scale, which is why the two read as the same gray at a different temperature.',
             values: [
                 'oklch(1 0 162)', 'oklch(.9795 .0076 162)', 'oklch(.9493 .0116 162)', 'oklch(.9101 .0176 162)',
                 'oklch(.8392 .0223 162)', 'oklch(.7196 .0421 162)', 'oklch(.6411 .0479 162)', 'oklch(.5199 .0571 162)',
@@ -205,7 +205,7 @@
         },
 
         // The five Tailwind neutrals, verbatim from packages/internals/src/data/color.ts.
-        // They stop at 50 where Flux starts at 25, and unlike a coloured scale that
+        // They stop at 50 where Flux starts at 25, and unlike a colored scale that
         // stop is read: it is what --surface and --surface-raised resolve to. Every
         // scale that ships puts pure white there, Flux, Passly and Solvidi alike, so
         // borrowing Tailwind's 50 would tint every card in the library. They take
@@ -258,7 +258,7 @@
     ];
 
     // The four Tailwind scales are eleven stops where Flux has twelve, so stop 25
-    // has to be invented. Nothing in the token layer reads stop 25 of a coloured
+    // has to be invented. Nothing in the token layer reads stop 25 of a colored
     // scale: only the neutral uses it, as --surface and --surface-raised. So they
     // borrow the value Flux gives its own primary-25, #fcfcfc, a near-white with no
     // tint left in it, rather than extrapolating a twelfth tint that is never
@@ -273,7 +273,7 @@
         {
             id: 'solvidi',
             label: 'Solvidi',
-            description: 'The magenta Solvidi runs on, in hex exactly as that project declares it. A real brand colour rather than a scale drawn against this contract, and it happens to clear both checks, which is not something a brand colour owes you.',
+            description: 'The magenta Solvidi runs on, in hex exactly as that project declares it. A real brand color rather than a scale drawn against this contract, and it happens to clear both checks, which is not something a brand color owes you.',
             values: [
                 '#ffffff', '#fcf3f8', '#fae9f3', '#f6d4e7', '#f0b1d3', '#e581b5',
                 '#d95b9a', '#c73b7a', '#ab2b61', '#8d2650', '#772445', '#480f26'
@@ -282,7 +282,7 @@
         {
             id: 'red',
             label: 'Red',
-            description: 'Tailwind red. Sits where danger already lives, so a primary in this hue and a destructive action stop being distinguishable by colour alone.',
+            description: 'Tailwind red. Sits where danger already lives, so a primary in this hue and a destructive action stop being distinguishable by color alone.',
             values: [
                 '#fcfcfc', '#fef2f2', '#fee2e2', '#fecaca', '#fca5a5', '#f87171',
                 '#ef4444', '#dc2626', '#b91c1c', '#991b1b', '#7f1d1d', '#450a0a'
@@ -453,7 +453,7 @@
     ];
 
     // Both pairs are measured on the sample that renders them, so what is reported
-    // is the colour the engine actually painted in the current theme, not a value
+    // is the color the engine actually painted in the current theme, not a value
     // recomputed from the scale.
     const CHECKS: readonly ContrastCheck[] = [
         {
@@ -565,7 +565,7 @@
     }
 
     /**
-     * Composites a possibly translucent colour over an opaque backdrop, on the
+     * Composites a possibly translucent color over an opaque backdrop, on the
      * gamma encoded channels, because that is where a browser does it:
      * `rgb(0 0 0 / .5)` over white renders #808080, not the #bcbcbc that blending
      * in linear light would give. On a dark ground that is a factor of five, not a
@@ -583,10 +583,10 @@
     }
 
     /**
-     * A computed colour comes back in whatever space it was written in, `oklch()`
+     * A computed color comes back in whatever space it was written in, `oklch()`
      * included. A canvas parses every one of those with the engine's own parser and
      * serializes its fill back as `#rrggbb` or `rgba(...)`, which beats carrying a
-     * converter per colour space around in a demo.
+     * converter per color space around in a demo.
      */
     function parseColor(value: string): Rgba {
         context ??= document.createElement('canvas').getContext('2d')!;
@@ -606,7 +606,7 @@
     }
 
     // A custom property holding a `light-dark()` reads back verbatim through
-    // getPropertyValue, so the resolved colour has to come off a real property that
+    // getPropertyValue, so the resolved color has to come off a real property that
     // the engine has already computed for the current theme.
     function read(): void {
         for (const [token, element] of swatches) {

@@ -60,7 +60,7 @@
 
     const SCHEMES: Scheme[] = ['light', 'dark'];
 
-    const INTENT_ROLES = ['solid', 'solid-hover', 'solid-active', 'on-solid', 'soft', 'soft-hover', 'border', 'text'];
+    const INTENT_ROLES = ['solid', 'solid-hover', 'solid-active', 'on-solid', 'muted', 'soft', 'soft-hover', 'border', 'text'];
     const INTENTS = ['gray', 'primary', 'danger', 'info', 'success', 'warning'];
 
     function colors(...names: string[]): Token[] {
@@ -100,7 +100,7 @@
         },
         {
             title: 'Focus and selection',
-            description: 'The transparent ring is the focus ring at zero alpha, so an outline can fade in on its own hue instead of through grey. It is invisible by design, which is why its swatch reads empty.',
+            description: 'The transparent ring is the focus ring at zero alpha, so an outline can fade in on its own hue instead of through gray. It is invisible by design, which is why its swatch reads empty.',
             tokens: colors('focus-ring', 'focus-ring-transparent', 'selection')
         },
         {
@@ -113,7 +113,7 @@
         })),
         {
             title: 'Shadow',
-            description: 'One geometry for both themes; only the colour differs. The first one is a bare colour rather than a shadow, for a component that composes a shadow of its own.',
+            description: 'One geometry for both themes; only the color differs. The first one is a bare color rather than a shadow, for a component that composes a shadow of its own.',
             tokens: [
                 ...colors('shadow-color'),
                 ...shadows('shadow-px', 'shadow-xs', 'shadow-sm', 'shadow-md', 'shadow-lg', 'shadow-xl', 'shadow-2xl')
@@ -135,7 +135,7 @@
     }
 
     // A custom property holding a `light-dark()` reads back verbatim through
-    // getPropertyValue, so the resolved colour has to come off a real property
+    // getPropertyValue, so the resolved color has to come off a real property
     // that the engine has already computed for this scheme.
     onMounted(() => {
         for (const {element, key, kind} of probes) {
@@ -239,7 +239,7 @@
     }
 
     /* Wraps rather than truncates: an alpha value cut off at the closing paren
-       reads as a different colour than it is. */
+       reads as a different color than it is. */
     .tokenTableValue {
         min-width: 0;
         color: var(--foreground-secondary);

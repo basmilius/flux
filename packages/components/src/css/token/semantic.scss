@@ -12,7 +12,12 @@
     // one, and the shadow only tertiary.
     //
     // `--background` is no longer equal to `--surface`. That equality is the reason
-    // a menu, a modal and the page underneath them were the same colour.
+    // a menu and the page underneath it were the same color.
+    //
+    // A modal deliberately stays on `--surface` rather than moving up with the
+    // menus. It is the one floating surface that arrives with a scrim, and the
+    // scrim already does the separating; lifting it as well would make it the
+    // brightest thing on a darkened page for no reason a reader could name.
     //
     // `--surface-sunken` is the strip that sets itself off from the card it lies
     // in: a sticky table head, a pane footer, a tab bar in a pane, a code block,
@@ -66,7 +71,7 @@
     --surface-disabled: #{theme.theme(palette.stop('gray', 100), theme.neutral(.265, .017))};
 
     // The same two states as translucent ink, for a control whose background is
-    // not the plain surface: the close button on a coloured badge, a row on an
+    // not the plain surface: the close button on a colored badge, a row on an
     // already tinted table, an item on a raised pane. Painting `--surface-active`
     // there covers the tint instead of deepening it, and the opaque pair is
     // calibrated against `--surface` alone, so on any other ground it lands
@@ -132,8 +137,8 @@
     --focus-ring: #{theme.theme(palette.stop('primary', 600), palette.stop('primary', 400))};
 
     // The ring at zero alpha, so the outline can fade in on its own hue. Starting
-    // the transition from `transparent` fades through grey instead, and deriving
-    // this from `--focus-ring` is the relative-colour-syntax trap.
+    // the transition from `transparent` fades through gray instead, and deriving
+    // this from `--focus-ring` is the relative-color-syntax trap.
     --focus-ring-transparent: #{theme.theme(palette.stop('primary', 600, 0), palette.stop('primary', 400, 0))};
     --selection: #{theme.theme(palette.tint('primary', .639, 1, .25), palette.tint('primary', .639, 1, .35))};
 

@@ -92,11 +92,11 @@
 }
 
 // The inset bottom edge is a hint of depth, not a second border: the button's own
-// border colour at a fraction of its strength. `--surface-stroke` runs a shade
+// border color at a fraction of its strength. `--surface-stroke` runs a shade
 // darker than the surface in light and a shade lighter in dark, and 15% of it moves
 // the edge .013 L and .017 L, the step the old `--gray-200 / .15` made on the
 // flipped scale. Painting `--surface-stroke-out` here moved it .058 and .093
-// instead, which reads as a border. `color-mix()` rather than relative colour
+// instead, which reads as a border. `color-mix()` rather than relative color
 // syntax, because the token holds a `light-dark()` pair.
 .secondaryButton,
 .destructiveButton {

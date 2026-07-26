@@ -1,5 +1,5 @@
 // Fills the local intent contract from the global intent tokens. A component that
-// takes a `color` prop includes this once inside its colour loop and then styles
+// takes a `color` prop includes this once inside its color loop and then styles
 // against `--intent-*`, so it never picks a palette stop itself.
 //
 //   @include mixin.color-variants(badge) using ($color) {
@@ -10,7 +10,7 @@
 //   }
 //
 // Two things follow from this. Gray no longer needs the override every component
-// used to write right after its colour loop, because `--gray-*` already resolves to
+// used to write right after its color loop, because `--gray-*` already resolves to
 // the neutral tokens. And the contract is deliberately unprefixed: these are local
 // variables, unlike the global tokens they read from, which is what keeps a
 // component from shadowing a global name the way Badge used to shadow
@@ -20,6 +20,7 @@
     --intent-solid-hover: var(--#{$color}-solid-hover);
     --intent-solid-active: var(--#{$color}-solid-active);
     --intent-on-solid: var(--#{$color}-on-solid);
+    --intent-muted: var(--#{$color}-muted);
     --intent-soft: var(--#{$color}-soft);
     --intent-soft-hover: var(--#{$color}-soft-hover);
     --intent-border: var(--#{$color}-border);

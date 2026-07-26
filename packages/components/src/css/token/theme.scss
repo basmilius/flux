@@ -1,16 +1,16 @@
 // How a token picks its value per theme. `light-dark()` resolves against the
 // `color-scheme` of the element the token is *used* on, not the one it was
 // declared on, so a single declaration on `:root` still flips inside a `[dark]`
-// subtree. That is what lets the whole colour layer live in one block.
+// subtree. That is what lets the whole color layer live in one block.
 //
 // Two things break that and must be avoided:
 //
-//   - Registering a colour token through `@property` with `syntax: '<color>'`.
+//   - Registering a color token through `@property` with `syntax: '<color>'`.
 //     That computes the value eagerly on `:root` and freezes the theme there.
-//   - Deriving an alpha variant with relative colour syntax over a token that
+//   - Deriving an alpha variant with relative color syntax over a token that
 //     holds a `light-dark()`, as in `oklch(from var(--surface) l c h / .5)`.
-//     Write the variant out as its own `theme()` call instead. Relative colour
-//     syntax over a palette stop is fine: those hold a plain colour.
+//     Write the variant out as its own `theme()` call instead. Relative color
+//     syntax over a palette stop is fine: those hold a plain color.
 
 @use 'sass:math';
 @use 'palette';
@@ -33,7 +33,7 @@
 // surfaces, text and strokes move with it, exactly as they did when every token
 // went through `var(--gray-N)`. Only the lightness ramp stays put, which is the
 // part that carries the contrast guarantees rather than the character of the
-// grey.
+// gray.
 @function neutral($lightness, $chroma, $alpha: 1) {
     // Four decimals puts the rounding error at 1e-6 of a chroma that never
     // exceeds .03, which is orders of magnitude below a perceptible step and

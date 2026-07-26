@@ -18,7 +18,7 @@
     height: unset;
     width: unset;
 
-    // color-mix, not relative colour syntax: the token holds a light-dark() pair,
+    // color-mix, not relative color syntax: the token holds a light-dark() pair,
     // which `rgb(from ...)` would resolve once on :root and freeze to one theme.
     --stroke: color-mix(in srgb, var(--surface-stroke) 50%, transparent);
 }
@@ -49,7 +49,7 @@
     grid-template-columns: repeat(3, auto);
 }
 
-// The swatch and the icon are painted over with the series colour inline; these
+// The swatch and the icon are painted over with the series color inline; these
 // are only what shows when a tooltip item carries none.
 .statisticsChartTooltipSeriesColor {
     height: 12px;
