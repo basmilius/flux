@@ -1,3 +1,7 @@
+<script setup>
+    import { FluxPane, FluxTable, FluxTableRow, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
+</script>
+
 # Chart types
 
 Flux Statistics exposes a set of library-agnostic TypeScript types in `@flux-ui/types`. Each chart component accepts data shaped to its own Flux type rather than ECharts options, which lets the visual layer change underneath without touching consumer code.
@@ -470,12 +474,32 @@ Treat `advancedOptions` as the exception, not the rule. Anything you can express
 
 When a `color` is set on a series, slice, or node, Flux resolves it as follows:
 
-| Input | Resolved to |
-|---|---|
-| `'primary'` (any `FluxColor`) | `var(--primary-solid)` |
-| `'var(--chart-3)'` (any `var(--…)`) | `'var(--chart-3)'` |
-| `'#10b981'` (any hex) | `'#10b981'` |
-| omitted | next of the eight colors in `CHART_COLORS` (see [Chart colors](./colors)) |
+<FluxPane>
+    <FluxTable>
+        <template #header>
+            <FluxTableRow>
+                <FluxTableHeader>Input</FluxTableHeader>
+                <FluxTableHeader>Resolved to</FluxTableHeader>
+            </FluxTableRow>
+        </template>
+        <FluxTableRow>
+            <FluxTableCell><code>'primary'</code> (any <code>FluxColor</code>)</FluxTableCell>
+            <FluxTableCell><kbd>--primary-solid</kbd></FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><code>'var(--chart-3)'</code> (any <code>var(--…)</code>)</FluxTableCell>
+            <FluxTableCell><code>'var(--chart-3)'</code></FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><code>'#10b981'</code> (any hex)</FluxTableCell>
+            <FluxTableCell><code>'#10b981'</code></FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell>Omitted</FluxTableCell>
+            <FluxTableCell>Next of the eight colors in <code>CHART_COLORS</code>, see <a href="./colors">Chart colors</a>.</FluxTableCell>
+        </FluxTableRow>
+    </FluxTable>
+</FluxPane>
 
 A named intent lands on the `solid` role, the filled-surface color of that intent, so it takes the value that holds up against the chart surface in each theme. A `var(--…)` reference and a hex value are both passed through untouched; the reference still follows the theme because the token behind it does, while the hex stays the same in both themes.
 

@@ -8,11 +8,32 @@ Flux exposes its visual language as CSS custom properties. Use them to theme you
 
 The color tokens come in three layers, and which one you reach for matters:
 
-| Layer | Example | Use it |
-|---|---|---|
-| **Semantic** | `--surface`, `--foreground`, `--surface-stroke` | Always, unless one of the other two applies |
-| **Intent** | `--danger-solid`, `--primary-text` | When something carries a meaning: primary, danger, info, success or warning |
-| **Palette** | `--palette-gray-600` | To reshade the whole interface, or to build a token of your own out of |
+<FluxPane>
+    <FluxTable>
+        <template #header>
+            <FluxTableRow>
+                <FluxTableHeader>Layer</FluxTableHeader>
+                <FluxTableHeader>Example</FluxTableHeader>
+                <FluxTableHeader>Use it</FluxTableHeader>
+            </FluxTableRow>
+        </template>
+        <FluxTableRow>
+            <FluxTableCell><strong>Semantic</strong></FluxTableCell>
+            <FluxTableCell><kbd>--surface</kbd>, <kbd>--foreground</kbd>, <kbd>--surface-stroke</kbd></FluxTableCell>
+            <FluxTableCell>Always, unless one of the other two applies.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><strong>Intent</strong></FluxTableCell>
+            <FluxTableCell><kbd>--danger-solid</kbd>, <kbd>--primary-text</kbd></FluxTableCell>
+            <FluxTableCell>When something carries a meaning: primary, danger, info, success or warning.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><strong>Palette</strong></FluxTableCell>
+            <FluxTableCell><kbd>--palette-gray-600</kbd></FluxTableCell>
+            <FluxTableCell>To reshade the whole interface, or to build a token of your own out of.</FluxTableCell>
+        </FluxTableRow>
+    </FluxTable>
+</FluxPane>
 
 The palette is deliberately the longest to type. A component that reaches straight into it has to answer for both themes by itself, and that is exactly the work the semantic layer already did. See [Colors](./colors) for the palette itself.
 
@@ -52,16 +73,48 @@ Two things break this, so avoid them when you build tokens of your own:
 
 Every intent carries the same nine roles, gray included. A component that takes a `color` prop maps them once and then styles against the result, so it never picks a shade itself.
 
-| Role | What it is |
-|---|---|
-| `solid` | A filled surface in this intent: a button, a status pill |
-| `solid-hover`, `solid-active` | The same fill under interaction |
-| `on-solid` | Text and icons on that fill |
-| `muted` | A filled marking that carries information without asking for attention: a dot, a spinner, a progress bar |
-| `soft` | A tinted background: a badge, a highlighted table row |
-| `soft-hover` | The same tint under interaction |
-| `border` | The edge around a soft area |
-| `text` | Text in this intent, on a plain or a soft background |
+<FluxPane>
+    <FluxTable>
+        <template #header>
+            <FluxTableRow>
+                <FluxTableHeader>Role</FluxTableHeader>
+                <FluxTableHeader>What it is</FluxTableHeader>
+            </FluxTableRow>
+        </template>
+        <FluxTableRow>
+            <FluxTableCell><kbd>solid</kbd></FluxTableCell>
+            <FluxTableCell>A filled surface in this intent: a button, a status pill.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>solid-hover</kbd>, <kbd>solid-active</kbd></FluxTableCell>
+            <FluxTableCell>The same fill under interaction.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>on-solid</kbd></FluxTableCell>
+            <FluxTableCell>Text and icons on that fill.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>muted</kbd></FluxTableCell>
+            <FluxTableCell>A filled marking that carries information without asking for attention: a dot, a spinner, a progress bar.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>soft</kbd></FluxTableCell>
+            <FluxTableCell>A tinted background: a badge, a highlighted table row.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>soft-hover</kbd></FluxTableCell>
+            <FluxTableCell>The same tint under interaction.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>border</kbd></FluxTableCell>
+            <FluxTableCell>The edge around a soft area.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>text</kbd></FluxTableCell>
+            <FluxTableCell>Text in this intent, on a plain or a soft background.</FluxTableCell>
+        </FluxTableRow>
+    </FluxTable>
+</FluxPane>
 
 `text` is one rung, not two. There was a second, stronger one for a title over its body, placed where `--foreground-prominent` sits on the gray ramp. On the neutral scale that reads as more emphasis; on a colored one it walks out of the color, because chroma peaks in the middle of a scale and falls away at both ends. In dark it cost four fifths of the hue, so a danger notice and an info notice were told apart by their icon and nothing else. A title is set off by weight and by being colored at all, which is what it was before.
 
@@ -105,13 +158,42 @@ The two themes signal height differently, which is why this is a token and not a
 
 That difference is also why the order is not the same in both themes. `--surface-canvas` is the ground a board, a canvas or a well is drawn on, and it stays below everything in both. `--surface-sunken` is not a level of its own but a strip that has to read against the card it sits in: a table head, a pane footer, a tab bar. In light it does that by going darker than the card, in dark by going lighter, because a strip that moves further towards black stops holding its borders and its text.
 
-| Token | Light | Dark |
-|---|---|---|
-| `--surface-canvas` | below the page | below the page |
-| `--background` | the page | the page |
-| `--surface-sunken` | below the card | **above** the card |
-| `--surface` | the card | the card |
-| `--surface-raised` | the card, lifted by shadow | above the card |
+<FluxPane>
+    <FluxTable>
+        <template #header>
+            <FluxTableRow>
+                <FluxTableHeader>Token</FluxTableHeader>
+                <FluxTableHeader>Light</FluxTableHeader>
+                <FluxTableHeader>Dark</FluxTableHeader>
+            </FluxTableRow>
+        </template>
+        <FluxTableRow>
+            <FluxTableCell><kbd>--surface-canvas</kbd></FluxTableCell>
+            <FluxTableCell>Below the page.</FluxTableCell>
+            <FluxTableCell>Below the page.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>--background</kbd></FluxTableCell>
+            <FluxTableCell>The page.</FluxTableCell>
+            <FluxTableCell>The page.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>--surface-sunken</kbd></FluxTableCell>
+            <FluxTableCell>Below the card.</FluxTableCell>
+            <FluxTableCell><strong>Above</strong> the card.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>--surface</kbd></FluxTableCell>
+            <FluxTableCell>The card.</FluxTableCell>
+            <FluxTableCell>The card.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>--surface-raised</kbd></FluxTableCell>
+            <FluxTableCell>The card, lifted by shadow.</FluxTableCell>
+            <FluxTableCell>Above the card.</FluxTableCell>
+        </FluxTableRow>
+    </FluxTable>
+</FluxPane>
 
 A level is more than a background. Set the hairline along with it, and publish what you painted as `--surface-current` so anything inside can read the surface it is actually sitting on rather than naming one:
 

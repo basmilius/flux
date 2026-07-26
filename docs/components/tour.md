@@ -35,6 +35,10 @@ slots:
         description: The steps of the tour, provided as Tour Item components.
 ---
 
+<script setup>
+    import { FluxPane, FluxTable, FluxTableRow, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
+</script>
+
 # Tour
 
 The Tour component guides users through a sequence of steps, highlighting a target element with a spotlight and showing a popover next to it. Steps are declared with [Tour Item](#tour-item) components. It is controlled through `v-model:active` and `v-model:step`. While active, the rest of the page is dimmed and not interactive and Escape skips the tour.
@@ -57,11 +61,32 @@ While a tour is active the popover acts as a `role="dialog"` and traps focus, so
 
 Each step of the tour is a `FluxTourItem`. It targets an element through the `target` prop, optionally shows a `title`, and renders its default slot as the step content.
 
-| Prop       | Type                                       | Description                                                                 |
-|------------|--------------------------------------------|-----------------------------------------------------------------------------|
-| `target`   | `string \| (() => HTMLElement \| null)`    | A CSS selector or getter for the element this step highlights.               |
-| `title`    | `string`                                   | The optional title shown at the top of the step.                            |
-| `position` | `FluxTourPosition`                         | The optional position of the popover relative to the target. Defaults to `bottom`. |
+<FluxPane>
+    <FluxTable>
+        <template #header>
+            <FluxTableRow>
+                <FluxTableHeader>Prop</FluxTableHeader>
+                <FluxTableHeader>Type</FluxTableHeader>
+                <FluxTableHeader>Description</FluxTableHeader>
+            </FluxTableRow>
+        </template>
+        <FluxTableRow>
+            <FluxTableCell><kbd>target</kbd></FluxTableCell>
+            <FluxTableCell><code>string | (() =&gt; HTMLElement | null)</code></FluxTableCell>
+            <FluxTableCell>A CSS selector or getter for the element this step highlights.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>title</kbd></FluxTableCell>
+            <FluxTableCell><code>string</code></FluxTableCell>
+            <FluxTableCell>The optional title shown at the top of the step.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>position</kbd></FluxTableCell>
+            <FluxTableCell><code>FluxTourPosition</code></FluxTableCell>
+            <FluxTableCell>The optional position of the popover relative to the target. Defaults to <code>bottom</code>.</FluxTableCell>
+        </FluxTableRow>
+    </FluxTable>
+</FluxPane>
 
 The default slot holds the step content.
 

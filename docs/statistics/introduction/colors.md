@@ -1,3 +1,7 @@
+<script setup>
+    import { FluxPane, FluxTable, FluxTableRow, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
+</script>
+
 # Chart colors
 
 A chart has a color problem of its own. A button needs to stand out against the surface behind it, but a series needs to stay apart from the other series as well, and it has to keep doing that when the theme flips. Flux Statistics therefore has its own token layer on top of the [design tokens](../../guide/introduction/design-tokens), plus one fixed palette for charts that need more categories than the themed set covers.
@@ -6,16 +10,48 @@ A chart has a color problem of its own. A button needs to stand out against the 
 
 Every token is declared once and takes its own value per theme, the same way the rest of Flux works.
 
-| Token | What it is |
-|---|---|
-| `--chart-1` … `--chart-8` | The series colors, ordered by prominence |
-| `--chart-ramp-1` … `--chart-ramp-4` | A sequential ramp, light to dark, for heatmaps and choropleths |
-| `--chart-colorful-1` … `--chart-colorful-17` | The categorical set, for more categories than eight |
-| `--chart-positive` | Growth, gain, an upward change |
-| `--chart-negative` | Loss, decline, a downward change |
-| `--chart-grid` | Axis and grid lines |
-| `--chart-label` | Axis labels, ticks and legend text |
-| `--chart-on-fill` | Text drawn on top of a filled series, as in a treemap |
+<FluxPane>
+    <FluxTable>
+        <template #header>
+            <FluxTableRow>
+                <FluxTableHeader>Token</FluxTableHeader>
+                <FluxTableHeader>What it is</FluxTableHeader>
+            </FluxTableRow>
+        </template>
+        <FluxTableRow>
+            <FluxTableCell><kbd>--chart-1</kbd> … <kbd>--chart-8</kbd></FluxTableCell>
+            <FluxTableCell>The series colors, ordered by prominence.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>--chart-ramp-1</kbd> … <kbd>--chart-ramp-4</kbd></FluxTableCell>
+            <FluxTableCell>A sequential ramp, light to dark, for heatmaps and choropleths.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>--chart-colorful-1</kbd> … <kbd>--chart-colorful-17</kbd></FluxTableCell>
+            <FluxTableCell>The categorical set, for more categories than eight.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>--chart-positive</kbd></FluxTableCell>
+            <FluxTableCell>Growth, gain, an upward change.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>--chart-negative</kbd></FluxTableCell>
+            <FluxTableCell>Loss, decline, a downward change.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>--chart-grid</kbd></FluxTableCell>
+            <FluxTableCell>Axis and grid lines.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>--chart-label</kbd></FluxTableCell>
+            <FluxTableCell>Axis labels, ticks and legend text.</FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><kbd>--chart-on-fill</kbd></FluxTableCell>
+            <FluxTableCell>Text drawn on top of a filled series, as in a treemap.</FluxTableCell>
+        </FluxTableRow>
+    </FluxTable>
+</FluxPane>
 
 The order of the eight is the order in which to spend them. `--chart-1` carries the most contrast against the chart surface and each next one steps down, so a two-series chart separates without anyone picking colors by hand, and an eight-series chart still separates at the bottom of the list.
 
