@@ -35,6 +35,8 @@ import Props from './Props.vue';
 import RequiredIcons from './RequiredIcons.vue';
 import RouterLink from './RouterLink.vue';
 import Slots from './Slots.vue';
+import ThemePreview from './ThemePreview.vue';
+import TokenTable from './TokenTable.vue';
 import Variants from './Variants.vue';
 
 import VPBadge from 'vitepress/dist/client/theme-default/components/VPBadge.vue';
@@ -145,6 +147,8 @@ const theme: Theme = {
         app.component('RequiredIcons', RequiredIcons);
         app.component('RouterLink', RouterLink);
         app.component('Slots', Slots);
+        app.component('ThemePreview', ThemePreview);
+        app.component('TokenTable', TokenTable);
         app.component('Variants', Variants);
     }
 };

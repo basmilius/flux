@@ -30,7 +30,7 @@
 }
 
 .commandPalette {
-    @include mixin.surface;
+    @include mixin.elevation('raised');
 
     display: flex;
     overflow: hidden;

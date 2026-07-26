@@ -4,176 +4,101 @@
 
 # Design tokens
 
-Flux exposes its visual language as CSS custom properties. Use them to theme your application, build new components that fit in seamlessly, or override individual values for a single element. All tokens are defined on `:root` and adjust automatically when [Dark mode](./dark-mode) is active.
+Flux exposes its visual language as CSS custom properties. Use them to theme your application, build new components that fit in seamlessly, or override individual values for a single element.
 
-For the color palette tokens (`--gray-*`, `--primary-*`, `--danger-*`, `--info-*`, `--success-*`, `--warning-*`) see [Colors](./colors).
+The colour tokens come in three layers, and which one you reach for matters:
 
-## Surface
+| Layer | Example | Use it |
+|---|---|---|
+| **Semantic** | `--surface`, `--foreground`, `--surface-stroke` | Always, unless one of the other two applies |
+| **Intent** | `--danger-solid`, `--primary-text` | When something carries a meaning: primary, danger, info, success or warning |
+| **Palette** | `--palette-gray-600` | Only to build a token of your own out of |
 
-Semantic tokens for backgrounds, borders and disabled states. These are the tokens you should reach for first when styling new UI. They automatically follow the active theme.
+The palette is deliberately the longest to type. A component that reaches straight into it has to answer for both themes by itself, and that is exactly the work the semantic layer already did. See [Colors](./colors) for the palette itself.
 
-<FluxPane>
-    <FluxTable>
-        <template #header>
-            <FluxTableRow>
-                <FluxTableHeader>Token</FluxTableHeader>
-                <FluxTableHeader>Light</FluxTableHeader>
-                <FluxTableHeader>Dark mode</FluxTableHeader>
-            </FluxTableRow>
-        </template>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--background</kbd></FluxTableCell>
-            <FluxTableCell><code>var(--gray-25)</code></FluxTableCell>
-            <FluxTableCell><code>var(--gray-25)</code></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--surface</kbd></FluxTableCell>
-            <FluxTableCell><code>var(--gray-25)</code></FluxTableCell>
-            <FluxTableCell><code>var(--gray-25)</code></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--surface-hover</kbd></FluxTableCell>
-            <FluxTableCell><code>var(--gray-50)</code></FluxTableCell>
-            <FluxTableCell><code>var(--gray-50)</code></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--surface-active</kbd></FluxTableCell>
-            <FluxTableCell><code>var(--gray-100)</code></FluxTableCell>
-            <FluxTableCell><code>var(--gray-100)</code></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--surface-disabled</kbd></FluxTableCell>
-            <FluxTableCell><code>var(--gray-100)</code></FluxTableCell>
-            <FluxTableCell><code>var(--gray-100)</code></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--surface-stroke</kbd></FluxTableCell>
-            <FluxTableCell><code>var(--gray-200)</code></FluxTableCell>
-            <FluxTableCell><code>var(--gray-200)</code></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--surface-stroke-hover</kbd></FluxTableCell>
-            <FluxTableCell><code>var(--gray-300)</code></FluxTableCell>
-            <FluxTableCell><code>var(--gray-300)</code></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--surface-stroke-out</kbd></FluxTableCell>
-            <FluxTableCell><code>rgb(from var(--gray-800) r g b / .1)</code></FluxTableCell>
-            <FluxTableCell><code>rgb(from var(--gray-800) r g b / .15)</code></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--surface-stroke-out-hover</kbd></FluxTableCell>
-            <FluxTableCell><code>rgb(from var(--gray-900) r g b / .15)</code></FluxTableCell>
-            <FluxTableCell><code>rgb(from var(--gray-900) r g b / .2)</code></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--surface-loader</kbd></FluxTableCell>
-            <FluxTableCell><code>rgb(from var(--gray-25) r g b / .75)</code></FluxTableCell>
-            <FluxTableCell><code>rgb(from var(--gray-25) r g b / .75)</code></FluxTableCell>
-        </FluxTableRow>
-    </FluxTable>
-</FluxPane>
+## How a token knows the theme
 
-## Foreground
+Every token is declared once, on `:root`, and picks its value through [`light-dark()`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark). The theme is nothing more than `color-scheme`, which Flux sets from the `dark` and `light` attributes:
 
-Tokens for text and iconography.
+```scss
+:root, [light] { color-scheme: light; }
+[dark]         { color-scheme: dark; }
+```
 
-<FluxPane>
-    <FluxTable>
-        <template #header>
-            <FluxTableRow>
-                <FluxTableHeader>Token</FluxTableHeader>
-                <FluxTableHeader>Value</FluxTableHeader>
-            </FluxTableRow>
-        </template>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--foreground</kbd></FluxTableCell>
-            <FluxTableCell><code>var(--gray-700)</code></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--foreground-prominent</kbd></FluxTableCell>
-            <FluxTableCell><code>var(--gray-900)</code></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--foreground-secondary</kbd></FluxTableCell>
-            <FluxTableCell><code>var(--gray-500)</code></FluxTableCell>
-        </FluxTableRow>
-    </FluxTable>
-</FluxPane>
+Three things follow from that.
 
-## Overlay
+`light-dark()` resolves against the element a token is *used* on, not the one it was declared on. So putting `dark` on any element flips every Flux token inside it, however deep:
 
-Used by `FluxOverlay`, `FluxSlideOver`, `FluxFlyout` and other dialog-like components. Dark mode uses solid black with alpha to keep dimming effects readable.
+```vue
+<div dark>
+    <!-- Everything in here is dark, on an otherwise light page. -->
+</div>
+```
 
-<FluxPane>
-    <FluxTable>
-        <template #header>
-            <FluxTableRow>
-                <FluxTableHeader>Token</FluxTableHeader>
-                <FluxTableHeader>Light</FluxTableHeader>
-                <FluxTableHeader>Dark mode</FluxTableHeader>
-            </FluxTableRow>
-        </template>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--overlay</kbd></FluxTableCell>
-            <FluxTableCell><code>rgb(from var(--gray-950) r g b / .5)</code></FluxTableCell>
-            <FluxTableCell><code>rgb(0 0 0 / .6)</code></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--overlay-secondary</kbd></FluxTableCell>
-            <FluxTableCell><code>rgb(from var(--gray-950) r g b / .15)</code></FluxTableCell>
-            <FluxTableCell><code>rgb(0 0 0 / .4)</code></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--overlay-strong</kbd></FluxTableCell>
-            <FluxTableCell><code>rgb(from var(--gray-950) r g b / .9)</code></FluxTableCell>
-            <FluxTableCell><code>rgb(0 0 0 / .9)</code></FluxTableCell>
-        </FluxTableRow>
-    </FluxTable>
-</FluxPane>
+Native UI follows along without extra work, because `color-scheme` is what the browser reads too: scrollbars, `<select>` popups, the date picker, autofill backgrounds and form controls.
 
-## Shadow
+And an application that wants to follow the operating system can skip the JavaScript entirely:
 
-A scale of seven shadow levels. Each level uses a slightly different opacity in dark mode so elevations remain visible against the darker surface.
+```css
+:root { color-scheme: light dark; }
+```
 
-<FluxPane>
-    <FluxTable>
-        <template #header>
-            <FluxTableRow>
-                <FluxTableHeader>Token</FluxTableHeader>
-                <FluxTableHeader>Description</FluxTableHeader>
-            </FluxTableRow>
-        </template>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--shadow-px</kbd></FluxTableCell>
-            <FluxTableCell>Hairline elevation, used to separate adjacent surfaces.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--shadow-xs</kbd></FluxTableCell>
-            <FluxTableCell>Slight elevation (buttons, chips).</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--shadow-sm</kbd></FluxTableCell>
-            <FluxTableCell>Resting state of cards and panes.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--shadow-md</kbd></FluxTableCell>
-            <FluxTableCell>Hovered or focused cards.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--shadow-lg</kbd></FluxTableCell>
-            <FluxTableCell>Pop-overs, dropdowns and small overlays.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--shadow-xl</kbd></FluxTableCell>
-            <FluxTableCell>Modal-like flyouts.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--shadow-2xl</kbd></FluxTableCell>
-            <FluxTableCell>Large dialogs and overlays.</FluxTableCell>
-        </FluxTableRow>
-    </FluxTable>
-</FluxPane>
+Two things break this, so avoid them when you build tokens of your own:
+
+- Registering a colour token with `@property` and `syntax: '<color>'`. That computes the value eagerly on `:root` and freezes the theme there.
+- Deriving an alpha variant with relative colour syntax over a token that holds a `light-dark()`, as in `oklch(from var(--surface) l c h / .5)`. Write the variant out per theme instead. Relative colour syntax over a *palette* stop is fine, since those hold a plain colour.
+
+## Intents
+
+Every intent carries the same eight roles, gray included. A component that takes a `color` prop maps them once and then styles against the result, so it never picks a shade itself.
+
+| Role | What it is |
+|---|---|
+| `solid` | A filled surface in this intent: a button, a dot |
+| `solid-hover`, `solid-active` | The same fill under interaction |
+| `on-solid` | Text and icons on that fill |
+| `soft` | A tinted background: a badge, a highlighted table row |
+| `soft-hover` | The same tint under interaction |
+| `border` | The edge around a soft area |
+| `text` | Text in this intent, on a plain or a soft background |
+
+`on-solid` is not the same choice for every intent. At the shade the fill uses in light mode, green and orange are too light to carry white text, so they take dark text instead. Because of that, `solid-hover` moves *away* from the foreground rather than always darkening: under white text it gets darker, under dark text it gets lighter.
+
+Each of these pairs is held to a contrast target rather than picked by eye: `on-solid` on `solid` at least 4.5, `text` on both `surface` and `soft` at least 4.5, and `focus-ring` at least 3 on every elevation level.
+
+```scss
+@use '~flux/components/css/mixin';
+
+@include mixin.color-variants(myComponent) using ($color) {
+    @include mixin.intent($color);
+
+    background: var(--intent-soft);
+    border-color: var(--intent-border);
+    color: var(--intent-text);
+}
+```
+
+## Elevation
+
+There are four levels: `--surface-sunken`, `--background`, `--surface` and `--surface-raised`.
+
+The two themes signal height differently, which is why this is a token and not a shadow. In light every raised level stays white and the shadow does the work. In dark a shadow on a near-black surface separates nothing, so there the lightness of the layer carries the height, the light edge (`--surface-stroke-out`, white at a low alpha) backs it up, and the shadow is only tertiary.
+
+Reach for the mixin rather than the individual declarations:
+
+```scss
+@use '~flux/components/css/mixin';
+
+.myFlyout {
+    @include mixin.elevation('raised');
+}
+```
+
+## The tokens
+
+Both themes are shown side by side. The value under each swatch is what the browser actually computed, read back from the live page.
+
+<TokenTable/>
 
 ## Radius
 
@@ -327,14 +252,24 @@ All tokens are regular CSS custom properties, so you can override them at any le
 
 ```scss
 :root {
-    --radius: 8px;            /* Square off the entire UI. */
-    --primary-600: #0070f3;   /* Replace the primary accent. */
+    --radius: 8px;                       /* Square off the entire UI. */
+    --palette-primary-600: #0070f3;      /* Replace one shade of the accent. */
 }
 
 .my-card {
-    --surface: var(--primary-50);
-    --surface-stroke: var(--primary-200);
+    --surface: var(--primary-soft);
+    --surface-stroke: var(--primary-border);
 }
 ```
 
-Because semantic tokens reference palette tokens (e.g. `--surface: var(--gray-25)`), changing a single palette token cascades through every component that uses it.
+Overriding a palette stop cascades into every token built on it, which is the cheapest way to reshade the interface. Be aware that it only reaches the theme that uses that stop: `--primary-solid` is stop 600 in light but stop 500 in dark, so recolouring the accent properly means overriding the intent token itself.
+
+```scss
+:root {
+    --primary-solid: light-dark(#0070f3, #4d9bff);
+    --primary-solid-hover: light-dark(#0059c4, #7ab4ff);
+    --primary-on-solid: light-dark(#ffffff, #0a1220);
+}
+```
+
+Overriding a semantic token on a subtree works the same way, and is how a section gets its own surface without touching anything global.

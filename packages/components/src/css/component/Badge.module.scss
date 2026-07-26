@@ -3,6 +3,10 @@
 .badge {
     @include mixin.text(xsmall);
 
+    // Gray is the default intent, so an uncoloured badge resolves the same
+    // contract as a coloured one instead of leaving `--intent-*` empty.
+    @include mixin.intent('gray');
+
     display: inline-flex;
     height: 28px;
     width: max-content;
@@ -27,7 +31,7 @@
         transition: background var(--transition-default);
 
         @include mixin.hover {
-            background: var(--gray-50);
+            background: var(--ink-hover);
             color: var(--foreground-prominent);
         }
     }
@@ -72,7 +76,7 @@
     }
 
     .spinner {
-        --value: var(--color);
+        --value: var(--intent-solid);
     }
 }
 
@@ -90,13 +94,15 @@
     color: var(--foreground-secondary);
     cursor: pointer;
 
+    // Translucent, so the state deepens the badge's own tint instead of covering
+    // it with a grey the way a `--surface-*` fill would.
     @include mixin.hover {
-        background: var(--gray-100);
+        background: var(--ink-hover);
         color: var(--foreground);
     }
 
     &:active {
-        background: var(--gray-200);
+        background: var(--ink-active);
         color: var(--foreground);
     }
 
@@ -106,21 +112,21 @@
 }
 
 .badgeColored {
-    background: var(--background);
-    border-color: var(--border);
+    background: var(--intent-soft);
+    border-color: var(--intent-border);
 }
 
 .badgeDot {
     display: block;
     height: 9px;
     width: 9px;
-    background: var(--color);
+    background: var(--intent-solid);
     border-radius: var(--radius-full);
 }
 
 .badgeIcon {
     margin-left: -3px;
-    color: var(--color);
+    color: var(--intent-text);
 }
 
 .badgeLabel {
@@ -128,39 +134,24 @@
 
     &:only-child {
         margin-inline: 3px;
-        color: var(--text);
+        color: var(--intent-text);
     }
 }
 
+// Every variant fills the same contract, gray included. That removed the
+// `.badgeGray` override that used to follow this block, and the four local
+// tokens it set, two of which shadowed globals of the same name.
 @include mixin.color-variants(badge) using ($color) {
     composes: badge;
 
-    --background: var(--#{$color}-50);
-    --border: var(--#{$color}-200);
-    --color: var(--#{$color}-600);
-    --text: var(--#{$color}-700);
-}
-
-// Gray has no accent of its own: icon and label fall back on the foreground tokens, and its spinner
-// keeps the primary color it would otherwise inherit from --color.
-.badgeGray {
-    --color: var(--foreground);
-    --text: var(--foreground-prominent);
-
-    .badgeLabel {
-        color: var(--foreground-prominent);
-    }
-
-    .spinner {
-        --value: var(--primary-600);
-    }
+    @include mixin.intent($color);
 }
 
 .tag {
     composes: badge;
 
-    background: var(--gray-50);
-    border-color: var(--gray-200);
+    background: var(--intent-soft);
+    border-color: var(--intent-border);
     border-radius: var(--radius-half);
     font-weight: 400;
 }
@@ -193,6 +184,7 @@
     composes: badge;
 
     --badge-group-padding: 12px;
+    --badge-group-border: var(--intent-border);
 
     height: auto;
     padding: 3px var(--badge-group-padding);
@@ -228,26 +220,29 @@
 }
 
 .badgeGroupIcon {
-    color: var(--color);
+    color: var(--intent-text);
 }
 
 .badgeGroupLabel {
     composes: badgeLabel;
 
-    color: var(--text);
+    color: var(--intent-text);
 }
 
+// The group reads the intent tokens directly rather than through `--intent-*`:
+// its border has to stay uniform across child badges, which each rebind the
+// local contract to their own colour.
 @include mixin.color-variants(badgeGroup) using ($color) {
     composes: badge#{mixin.color-suffix($color)};
     composes: badgeGroup;
 
-    --badge-group-border: var(--#{$color}-200);
+    --badge-group-border: var(--#{$color}-border);
 
-    background: var(--#{$color}-50);
+    background: var(--#{$color}-soft);
 
     &:is(a, button) {
         @include mixin.hover {
-            background: var(--#{$color}-100);
+            background: var(--#{$color}-soft-hover);
         }
     }
 }

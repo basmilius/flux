@@ -1,20 +1,46 @@
 @use 'variables';
+@use 'token/intent';
+@use 'token/legacy';
+@use 'token/palette';
+@use 'token/semantic';
+@use 'token/shadow';
 
 @layer flux-base {
+    // Every colour token is declared once here and resolves per theme through
+    // `light-dark()`. The theme itself is `color-scheme`, so a `[dark]` subtree
+    // inside a light page flips its tokens, its scrollbars, its native select
+    // popups and its autofill styling together, and an app that wants to follow
+    // the OS only has to set `color-scheme: light dark` on the root.
     :root {
         @include variables.animation;
         @include variables.defaults;
+        @include palette.palette;
+        @include semantic.semantic;
+        @include intent.intents;
+        @include shadow.shadows;
+
+        accent-color: var(--primary-solid);
     }
 
     :root, [light] {
-        @include variables.color-light;
-        @include variables.shadow-light;
+        color-scheme: light;
     }
 
     [dark] {
-        @include variables.defaults-dark;
-        @include variables.color-dark;
-        @include variables.shadow-dark;
+        color-scheme: dark;
+    }
+
+    // Deprecated: the flipped palette. See token/legacy.scss.
+    :root, [light] {
+        @include legacy.color-light;
+    }
+
+    [dark] {
+        @include legacy.color-dark;
+    }
+
+    ::selection {
+        background: var(--selection);
     }
 
     html {

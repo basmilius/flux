@@ -1,0 +1,39 @@
+// Elevation is a level, not a set of declarations, so a component says how high it
+// sits instead of picking a background and a border by hand.
+//
+// The two themes signal height differently. Light keeps every level white and lets
+// the shadow do the work. Dark cannot: a shadow on a near-black surface separates
+// nothing, so there the background lightness carries the height, the light edge
+// backs it up, and the shadow is only tertiary. Both are expressed by the same
+// three tokens, which is why this reads as one rule rather than a themed pair.
+//
+// Levels:
+//   sunken   a recessed area inside a surface (input wells, canvases, table heads)
+//   surface  a card or panel sitting on the page
+//   raised   something floating over the page (menu, flyout, modal, snackbar)
+//
+// The padding-box clip belongs to the border: without it the background paints
+// underneath the translucent stroke and shows through it.
+@mixin elevation($level: 'surface', $radius: var(--radius)) {
+    $background: var(--surface);
+
+    @if $level == 'raised' {
+        $background: var(--surface-raised);
+    } @else if $level == 'sunken' {
+        $background: var(--surface-sunken);
+    }
+
+    background: #{$background};
+    background-clip: padding-box;
+    border: 1px solid var(--surface-stroke-out);
+    border-radius: $radius;
+    box-shadow: inset 0 1px 0 var(--surface-highlight);
+}
+
+// The former name for `elevation('surface')`. For an element that really is a pane,
+// compose `basePane` instead: that shares one class rather than repeating the
+// declarations. This is for everything else, including the sibling packages, which
+// cannot compose across a package boundary.
+@mixin surface($radius: var(--radius)) {
+    @include elevation('surface', $radius);
+}

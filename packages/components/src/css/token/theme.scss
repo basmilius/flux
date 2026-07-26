@@ -1,0 +1,35 @@
+// How a token picks its value per theme. `light-dark()` resolves against the
+// `color-scheme` of the element the token is *used* on, not the one it was
+// declared on, so a single declaration on `:root` still flips inside a `[dark]`
+// subtree. That is what lets the whole colour layer live in one block.
+//
+// Two things break that and must be avoided:
+//
+//   - Registering a colour token through `@property` with `syntax: '<color>'`.
+//     That computes the value eagerly on `:root` and freezes the theme there.
+//   - Deriving an alpha variant with relative colour syntax over a token that
+//     holds a `light-dark()`, as in `oklch(from var(--surface) l c h / .5)`.
+//     Write the variant out as its own `theme()` call instead. Relative colour
+//     syntax over a palette stop is fine: those hold a plain colour.
+
+// The neutral hue. The gray scale sits between 269 and 275 across its stops; the
+// surfaces and text that dark mode needs between L .15 and L .32 have no stop to
+// land on, so they are written as literal OKLCH on this hue.
+$hue: 270;
+
+@function theme($light, $dark) {
+    @if $light == $dark {
+        @return $light;
+    }
+
+    @return #{'light-dark(#{$light}, #{$dark})'};
+}
+
+// A neutral at an arbitrary lightness, on the scale's hue.
+@function neutral($lightness, $chroma, $alpha: 1) {
+    @if $alpha < 1 {
+        @return #{'oklch(#{$lightness} #{$chroma} #{$hue} / #{$alpha})'};
+    }
+
+    @return #{'oklch(#{$lightness} #{$chroma} #{$hue})'};
+}

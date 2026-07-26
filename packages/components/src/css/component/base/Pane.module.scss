@@ -1,7 +1,18 @@
 @use '~flux/components/css/mixin';
 
 .basePane {
-    @include mixin.surface;
+    @include mixin.elevation('surface');
+}
+
+// Anything floating over the page: a menu, a flyout, a context menu, a snackbar.
+// In light the shadow already separates it and this changes nothing. In dark a
+// shadow on a near-black surface separates nothing, so the layer has to carry the
+// height itself; without this a context menu is exactly the colour of the page
+// behind it.
+.basePaneRaised {
+    composes: basePane;
+
+    background: var(--surface-raised);
 }
 
 .basePaneLoader {

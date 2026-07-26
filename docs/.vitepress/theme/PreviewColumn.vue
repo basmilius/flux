@@ -15,11 +15,11 @@
         align-items: center;
         justify-content: center;
 
-        background: var(--gray-100);
-        border: 1px dashed var(--gray-300);
+        background: var(--surface-sunken);
+        border: 1px dashed var(--surface-stroke-hover);
         border-radius: var(--radius);
 
-        color: var(--gray-600);
+        color: var(--foreground-secondary);
         font-size: 13px;
         font-weight: 500;
     }

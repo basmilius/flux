@@ -36,7 +36,6 @@ export default defineConfig({
     title: 'Flux',
     titleTemplate: ':title — Flux',
     description: 'Component library for Vue 3.',
-    appearance: false,
     ignoreDeadLinks: true,
     cleanUrls: true,
     head: [

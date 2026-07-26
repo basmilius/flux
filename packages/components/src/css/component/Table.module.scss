@@ -72,7 +72,7 @@
 
 .tableCellBase {
     padding: 0;
-    border: 0 solid var(--gray-100);
+    border: 0 solid var(--surface-stroke-muted);
 }
 
 .tableCell {
@@ -107,7 +107,7 @@
     font-weight: 700;
     align-items: center;
     color: var(--foreground-prominent);
-    border-bottom: 2px solid var(--gray-100);
+    border-bottom: 2px solid var(--surface-stroke-muted);
 
     &.isShrinking {
         white-space: nowrap;
@@ -120,14 +120,19 @@
 }
 
 .tableHeadSticky .tableHeader {
-    background: var(--gray-50);
+    background: var(--surface-sunken);
 }
 
+// A tinted row moves one rung up the scale compared to before: stop 25 was the
+// old fill and it disappeared entirely once the palette stopped flipping, since
+// nothing that pale reads as a tint on a dark surface.
 @include mixin.color-variants(tableRow) using ($color) {
-    --table-row-fill: var(--#{$color}-25);
-    --table-row-fill-hover: var(--#{$color}-50);
-    --table-row-foreground: var(--#{$color}-800);
-    --table-row-stroke: var(--#{$color}-100);
+    @include mixin.intent($color);
+
+    --table-row-fill: var(--intent-soft);
+    --table-row-fill-hover: var(--intent-soft-hover);
+    --table-row-foreground: var(--intent-text);
+    --table-row-stroke: var(--intent-border);
 }
 
 .tableBody .tableRow.isColored > .tableCell {
@@ -145,16 +150,16 @@
 }
 
 .tableRow.isSelected {
-    --table-row-stroke: var(--primary-100);
+    --table-row-stroke: var(--primary-soft-hover);
 }
 
 .tableBody .tableRow.isSelected > .tableCell {
-    background: var(--primary-50);
+    background: var(--primary-soft);
     border-color: var(--table-row-stroke);
 }
 
 .tableBody .tableRow.isSelected + .tableRow > .tableCell {
-    border-top-color: var(--primary-100);
+    border-top-color: var(--primary-soft-hover);
 }
 
 // Row hover keys off :has(:hover) rather than .tableRow:hover: under
@@ -174,7 +179,7 @@
     .table.isHoverable .tableBody .tableRow:has(:focus-visible) > .tableCell:not(.tableGroup):not(.hasRowspan),
     .table.isHoverable .tableBody .tableRow:has(:hover) > .tableGroup.isHoverable,
     .table.isHoverable .tableBody .tableRow:has(:focus-visible) > .tableGroup.isHoverable {
-        background: var(--gray-50);
+        background: var(--surface-hover);
     }
 
     .table.isHoverable .tableBody .tableRow.isColored:has(:hover) > .tableCell:not(.hasRowspan),
@@ -184,7 +189,7 @@
 
     .table.isHoverable .tableBody .tableRow.isSelected:has(:hover) > .tableCell:not(.hasRowspan),
     .table.isHoverable .tableBody .tableRow.isSelected:has(:focus-visible) > .tableCell:not(.hasRowspan) {
-        background: var(--primary-50);
+        background: var(--primary-soft);
     }
 
     // The top border of a row is drawn by the row itself, but its color comes
@@ -192,12 +197,12 @@
     // so the highlight is bounded by its own color instead of its neighbour's.
     .table.isHoverable .tableBody .tableRow:has(:hover) > .tableCell:not(.hasRowspan),
     .table.isHoverable .tableBody .tableRow:has(:focus-visible) > .tableCell:not(.hasRowspan) {
-        border-top-color: var(--table-row-stroke, var(--gray-100));
+        border-top-color: var(--table-row-stroke, var(--surface-stroke-muted));
     }
 }
 
 .tableFoot .tableCell {
-    border-top: 1px solid var(--gray-100);
+    border-top: 1px solid var(--surface-stroke-muted);
 }
 
 .tableCell + .tableCell {
@@ -276,21 +281,21 @@
 
 .tableHeadSticky .tableHeader.isPinnedStart,
 .tableHeadSticky .tableHeader.isPinnedEnd {
-    background: var(--gray-50);
+    background: var(--surface-sunken);
 }
 
 .table[data-scrolled-start] .tableCell.isPinnedStart.isPinnedEdge {
-    box-shadow: 1px 0 0 var(--surface-stroke-out), 6px 0 10px -6px rgb(from var(--gray-800) r g b / 0.15);
+    box-shadow: 1px 0 0 var(--surface-stroke-out), 6px 0 10px -6px var(--shadow-color);
 }
 
 .table[data-scrollable-end] .tableCell.isPinnedEnd.isPinnedEdge {
     border-left-color: var(--surface-stroke-out);
-    box-shadow: -6px 0 10px -6px rgb(from var(--gray-800) r g b / 0.15);
+    box-shadow: -6px 0 10px -6px var(--shadow-color);
 }
 
 .tableFill {
     pointer-events: none;
-    border-top: 1px solid var(--gray-100);
+    border-top: 1px solid var(--surface-stroke-muted);
 
     .tableCell {
         padding: 0;
@@ -322,7 +327,7 @@
 }
 
 .tableHeadSticky .tableBar {
-    --bg: var(--gray-50);
+    --bg: var(--surface-sunken);
 }
 
 .tableBarContent {
@@ -368,7 +373,7 @@
 
     align-items: center;
     gap: 12px;
-    background: color-mix(in srgb, var(--surface), var(--gray-50));
+    background: var(--surface-hover);
 
     &:is(button) {
         width: 100%;
@@ -383,7 +388,7 @@
         @include mixin.focus-ring(-2px);
 
         @include mixin.hover {
-            background: var(--gray-50);
+            background: var(--surface-active);
         }
     }
 }
@@ -435,7 +440,7 @@
     bottom: 0;
     margin-block: auto -1px;
     background: var(--surface);
-    border-top: 1px solid var(--gray-100);
+    border-top: 1px solid var(--surface-stroke-muted);
     translate: 0 -1px;
     z-index: 100;
 }
@@ -456,7 +461,7 @@
     outline: 0;
 
     @include mixin.hover {
-        background: var(--gray-100);
+        background: var(--surface-active);
         color: var(--foreground);
     }
 }
@@ -487,7 +492,7 @@
 
 .basePaneStructure > .table .tableCaption {
     padding: 12px var(--table-spacing);
-    border-top: 1px solid var(--gray-100);
+    border-top: 1px solid var(--surface-stroke-muted);
 }
 
 .basePaneStructure > .table .tableLoader {
@@ -537,8 +542,8 @@
 }
 
 .treeMarker {
-    --tree-marker-fill: var(--gray-100);
-    --tree-marker-stroke: var(--gray-200);
+    --tree-marker-fill: var(--surface-sunken);
+    --tree-marker-stroke: var(--surface-stroke);
     --tree-marker-foreground: var(--foreground-prominent);
 
     position: absolute;

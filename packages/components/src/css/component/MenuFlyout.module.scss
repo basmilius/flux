@@ -1,5 +1,5 @@
 .menuFlyoutPopup {
-    composes: basePane from './base/Pane.module.scss';
+    composes: basePaneRaised from './base/Pane.module.scss';
 
     position: fixed;
     top: 0;

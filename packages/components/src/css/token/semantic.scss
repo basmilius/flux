@@ -1,0 +1,77 @@
+@use 'palette';
+@use 'theme';
+
+// Every token is declared once and picks its own value per theme through
+// `theme()`. That replaces the old arrangement where dark mode re-declared the
+// entire palette: a token can now take the value that meets its contrast target
+// in each theme, instead of inheriting whatever the mirrored scale produced.
+@mixin semantic {
+    // Elevation. Light keeps every raised layer white and lets the shadow carry
+    // the height; dark cannot, because a shadow on a near-black surface separates
+    // nothing. There lightness is the primary signal, the light edge the secondary
+    // one, and the shadow only tertiary.
+    //
+    // `--background` is no longer equal to `--surface`. That equality is the reason
+    // a menu, a modal and the page underneath them were the same colour.
+    --background: #{theme.theme(palette.stop('gray', 50), theme.neutral(.195, .014))};
+    --surface-sunken: #{theme.theme(palette.stop('gray', 100), theme.neutral(.156, .012))};
+    --surface: #{theme.theme(palette.stop('gray', 25), theme.neutral(.229, .016))};
+    --surface-raised: #{theme.theme(palette.stop('gray', 25), theme.neutral(.268, .018))};
+    --surface-loader: #{theme.theme(theme.neutral(1, 0, .75), theme.neutral(.229, .016, .75))};
+
+    // An inverted surface, for the few components that deliberately read as the
+    // opposite of the page. Tooltip used to remap the foreground tokens by hand
+    // and undo that again inside a `[dark]` block.
+    --surface-inverse: #{theme.theme(theme.neutral(.21, .02, .92), theme.neutral(.95, .008, .95))};
+
+    // Interaction states stay opaque and keep the meaning they had, so components
+    // that have not moved onto this layer yet render unchanged.
+    --surface-hover: #{theme.theme(palette.stop('gray', 50), theme.neutral(.275, .018))};
+    --surface-active: #{theme.theme(palette.stop('gray', 100), theme.neutral(.315, .019))};
+    --surface-disabled: #{theme.theme(palette.stop('gray', 100), theme.neutral(.265, .017))};
+
+    // The same two states as translucent ink, for a control whose background is
+    // not the plain surface: the close button on a coloured badge, a row on an
+    // already tinted table. Painting `--surface-active` there covers the tint
+    // instead of deepening it.
+    --ink-hover: #{theme.theme(theme.neutral(.28, .02, .06), theme.neutral(.93, .01, .07))};
+    --ink-active: #{theme.theme(theme.neutral(.28, .02, .11), theme.neutral(.93, .01, .12))};
+
+    // Text. `--foreground-secondary` moves from gray-500 to gray-600: on white it
+    // scored 3.36, under AA, while carrying most of the secondary copy in the
+    // library. Its old value lives on as `--foreground-subtle`, which is decoration
+    // only (chevrons, separators) and replaces the `opacity: .5` hacks.
+    --foreground-prominent: #{theme.theme(palette.stop('gray', 900), theme.neutral(.945, .008))};
+    --foreground: #{theme.theme(palette.stop('gray', 700), theme.neutral(.845, .012))};
+    --foreground-secondary: #{theme.theme(palette.stop('gray', 600), theme.neutral(.7, .016))};
+    --foreground-subtle: #{theme.theme(palette.stop('gray', 500), theme.neutral(.6, .016))};
+    --foreground-disabled: #{theme.theme(theme.neutral(.44, .02, .45), theme.neutral(.845, .012, .45))};
+
+    --foreground-inverse-prominent: #{theme.theme(theme.neutral(1, 0), palette.stop('gray', 900))};
+    --foreground-inverse: #{theme.theme(theme.neutral(.9, .008), palette.stop('gray', 700))};
+    --foreground-inverse-secondary: #{theme.theme(theme.neutral(.72, .012), palette.stop('gray', 600))};
+
+    // Lines. `stroke` is the opaque separator and input border, `stroke-out` the
+    // translucent hairline around a floating surface, `highlight` the inset sheen
+    // that makes a dark raised layer read as raised.
+    --surface-stroke-muted: #{theme.theme(palette.stop('gray', 100), theme.neutral(.29, .016))};
+    --surface-stroke: #{theme.theme(palette.stop('gray', 200), theme.neutral(.34, .018))};
+    --surface-stroke-hover: #{theme.theme(palette.stop('gray', 300), theme.neutral(.42, .02))};
+    --surface-stroke-out: #{theme.theme(theme.neutral(.36, .02, .1), theme.neutral(1, 0, .1))};
+    --surface-stroke-out-hover: #{theme.theme(theme.neutral(.28, .02, .15), theme.neutral(1, 0, .16))};
+    --surface-highlight: #{theme.theme(transparent, theme.neutral(1, 0, .06))};
+
+    // Focus. Dark takes a lighter stop on purpose: primary-600 against the dark
+    // surface scored 3.64, below the 3:1 a focus indicator needs.
+    --focus-ring: #{theme.theme(palette.stop('primary', 600), palette.stop('primary', 400))};
+    --selection: #{theme.theme(palette.tint('primary', .639, 1, .25), palette.tint('primary', .639, 1, .35))};
+
+    // Scrims.
+    --overlay: #{theme.theme(theme.neutral(.19, .02, .5), 'oklch(0 0 0 / .6)')};
+    --overlay-secondary: #{theme.theme(theme.neutral(.19, .02, .15), 'oklch(0 0 0 / .4)')};
+    --overlay-strong: #{theme.theme(theme.neutral(.19, .02, .9), 'oklch(0 0 0 / .9)')};
+
+    // Lighter than whatever it sweeps across, in both themes. The skeleton used
+    // gray-50 over gray-100, which the flipped scale turned into a dark smear.
+    --shimmer: #{theme.theme(theme.neutral(1, 0, .6), theme.neutral(1, 0, .05))};
+}

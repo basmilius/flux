@@ -1,0 +1,27 @@
+@use 'theme';
+
+// One geometry for both themes; only the colour differs. Dark used to redefine
+// every step with its own blur radii, but now that elevation is carried by surface
+// lightness and the light edge, the shadow is the tertiary signal there and the
+// extra blur bought nothing.
+//
+// Light tints its shadow with the neutral hue rather than pure black, which keeps
+// it from reading as soot on a coloured surface.
+@function color($light-alpha, $dark-alpha) {
+    @return theme.theme(theme.neutral(.36, .02, $light-alpha), 'oklch(0 0 0 / #{$dark-alpha})');
+}
+
+@mixin shadows {
+    // For a component composing its own shadow. Reaching for a palette stop here
+    // is what turned the pinned table column's shadow into a glow: gray-800 was
+    // dark in light mode and light in dark mode.
+    --shadow-color: #{color(.15, .4)};
+
+    --shadow-px: 0 1px 1px #{color(.02, .3)};
+    --shadow-xs: 0 1px 2px 0 #{color(.02, .3)};
+    --shadow-sm: 0 1px 3px #{color(.05, .32)}, 0 1px 2px -1px #{color(.05, .32)};
+    --shadow-md: 0 4px 6px -1px #{color(.05, .35)}, 0 2px 4px -2px #{color(.05, .35)};
+    --shadow-lg: 0 10px 15px -3px #{color(.05, .38)}, 0 4px 6px -4px #{color(.05, .38)};
+    --shadow-xl: 0 20px 25px -5px #{color(.05, .42)}, 0 8px 10px -6px #{color(.05, .42)};
+    --shadow-2xl: 0 25px 50px -12px #{color(.12, .5)};
+}

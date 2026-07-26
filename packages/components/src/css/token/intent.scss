@@ -1,0 +1,75 @@
+@use 'sass:list';
+@use 'palette';
+@use 'theme';
+
+// Six intents, eight roles each. A component picks a role, never a stop: that is
+// what stops flow reaching for -500 while components reach for -600 and badge text
+// lands on -900, all for the same idea.
+//
+// Which foreground survives on the solid fill was measured, not chosen. At stop
+// 600 green scores 4.22 against white and orange 3.17, both under AA, so those two
+// take dark text. In dark mode solid sits at stop 500, light enough that every
+// intent takes dark text.
+$on-solid-dark: theme.neutral(.16, .012);
+$on-solid-white: ('primary', 'danger', 'info');
+
+// The solid fill moves away from its own foreground on hover and again on active:
+// darker under white text, lighter under dark text. Moving the other way costs
+// contrast at every step (green at stop 800 under dark text scores 2.29).
+$ladder-on-white: (600, 700, 800);
+$ladder-on-dark: (600, 500, 400);
+$ladder-dark: (500, 400, 300);
+
+// Soft, soft-hover and border have no stop to land on in dark mode: the scale has
+// nothing usable between L .24 and L .40 on these hues. They are tints on the
+// intent's own hue instead.
+//
+// Chroma is dialled well back for the two fills. Measured against stop 500, the
+// light stops these mirror carry a fraction of its chroma: stop 50 sits between
+// .06 and .15, stop 100 between .12 and .35, stop 200 between .24 and .70. Give a
+// dark fill the same chroma as its edge and a tinted table row stops reading as a
+// tint and starts reading as a block of colour. The values run slightly above
+// their light counterparts because a dark ground needs a little more chroma to
+// register as coloured at all.
+$soft-lightness: (.265, .305, .385);
+$soft-chroma: (.22, .3, .5);
+
+@mixin intents {
+    @each $intent in ('primary', 'danger', 'info', 'success', 'warning') {
+        $ladder: $ladder-on-dark;
+        $on-solid: $on-solid-dark;
+
+        @if list.index($on-solid-white, $intent) {
+            $ladder: $ladder-on-white;
+            $on-solid: theme.neutral(1, 0);
+        }
+
+        --#{$intent}-solid: #{theme.theme(palette.stop($intent, list.nth($ladder, 1)), palette.stop($intent, list.nth($ladder-dark, 1)))};
+        --#{$intent}-solid-hover: #{theme.theme(palette.stop($intent, list.nth($ladder, 2)), palette.stop($intent, list.nth($ladder-dark, 2)))};
+        --#{$intent}-solid-active: #{theme.theme(palette.stop($intent, list.nth($ladder, 3)), palette.stop($intent, list.nth($ladder-dark, 3)))};
+        --#{$intent}-on-solid: #{theme.theme($on-solid, $on-solid-dark)};
+
+        --#{$intent}-soft: #{theme.theme(palette.stop($intent, 50), palette.tint($intent, list.nth($soft-lightness, 1), list.nth($soft-chroma, 1)))};
+        --#{$intent}-soft-hover: #{theme.theme(palette.stop($intent, 100), palette.tint($intent, list.nth($soft-lightness, 2), list.nth($soft-chroma, 2)))};
+        --#{$intent}-border: #{theme.theme(palette.stop($intent, 200), palette.tint($intent, list.nth($soft-lightness, 3), list.nth($soft-chroma, 3)))};
+        --#{$intent}-text: #{theme.theme(palette.stop($intent, 700), palette.stop($intent, 300))};
+    }
+
+    // Gray is an intent like the other five, not the exception every component had
+    // to write out by hand right after its colour loop. Its soft, border and text
+    // roles walk the same rungs as the rest, which is why they are spelled out
+    // rather than pointed at the elevation tokens: `--surface-sunken` paired with
+    // `--surface-stroke` puts only 1.13 between a grey chip and its own edge.
+    //
+    // Solid is the exception that is real. A filled neutral is the darkest text
+    // colour in light and the lightest in dark, so it reads off the foreground
+    // tokens instead of a stop.
+    --gray-solid: var(--foreground-prominent);
+    --gray-solid-hover: #{theme.theme(palette.stop('gray', 950), theme.neutral(.99, .004))};
+    --gray-solid-active: #{theme.theme(theme.neutral(.09, .025), theme.neutral(1, 0))};
+    --gray-on-solid: var(--surface);
+    --gray-soft: #{theme.theme(palette.stop('gray', 50), theme.neutral(.265, .017))};
+    --gray-soft-hover: #{theme.theme(palette.stop('gray', 100), theme.neutral(.305, .018))};
+    --gray-border: #{theme.theme(palette.stop('gray', 200), theme.neutral(.385, .019))};
+    --gray-text: var(--foreground);
+}
