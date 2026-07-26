@@ -1,119 +1,148 @@
 <template>
-    <FluxPane>
-        <FluxPaneHeader
-            icon="palette"
-            subtitle="Override a scale and watch what follows"
-            title="Palette"/>
-        <FluxPaneBody>
-            <FluxFlex
-                :gap="27"
-                direction="vertical">
-                <template
-                    v-for="(row, index) of ROWS"
-                    :key="row.scale">
-                    <FluxSeparator v-if="index > 0"/>
+    <FluxFlyout
+        label="Palette"
+        :width="570"
+        @close="isOpen = false"
+        @open="isOpen = true">
+        <template #opener="{toggle}">
+            <div :class="$style.paletteSwitcherLauncher">
+                <FluxTooltip :content="tooltip">
+                    <FluxSecondaryButton
+                        aria-label="Palette"
+                        icon-leading="palette"
+                        :is-active="isOpen"
+                        @click="toggle()"/>
+                </FluxTooltip>
+            </div>
+        </template>
 
-                    <FluxFlex
-                        :gap="18"
-                        direction="vertical">
-                        <div :class="$style.paletteSwitcherHeading">{{ row.title }}</div>
+        <template #default="{close}">
+            <FluxPaneHeader
+                icon="palette"
+                subtitle="Override a scale and watch what follows"
+                title="Palette">
+                <template #after>
+                    <FluxAction
+                        aria-label="Close the palette"
+                        icon="xmark"
+                        @click="close()"/>
+                </template>
+            </FluxPaneHeader>
+            <FluxPaneBody>
+                <FluxFlex
+                    :gap="27"
+                    direction="vertical">
+                    <template
+                        v-for="(row, index) of ROWS"
+                        :key="row.scale">
+                        <FluxSeparator v-if="index > 0"/>
 
-                        <FluxSegmentedControl v-model="selected[row.scale]">
-                            <FluxSegmentedControlItem
-                                v-for="scale of row.scales"
-                                :key="scale.id"
-                                :label="scale.label"
-                                :value="scale.id"/>
-                        </FluxSegmentedControl>
+                        <FluxFlex
+                            :gap="18"
+                            direction="vertical">
+                            <FluxFormField :label="row.title">
+                                <template #value>
+                                    <span :class="$style.paletteSwitcherKeys">
+                                        <kbd>Shift</kbd>
+                                        <kbd>{{ row.key }}</kbd>
+                                    </span>
+                                </template>
 
-                        <p :class="$style.paletteSwitcherDescription">{{ activeScale(row).description }}</p>
+                                <FluxFormSelect
+                                    v-model="selected[row.scale]"
+                                    :options="row.options"/>
+                            </FluxFormField>
 
-                        <div :class="$style.paletteSwitcherRamp">
-                            <div
-                                v-for="stop of STOPS"
-                                :key="stop"
-                                :class="$style.paletteSwitcherRampStop"
-                                :style="{background: `var(--palette-${row.scale}-${stop})`}"
-                                :title="`--palette-${row.scale}-${stop}`"/>
-                        </div>
+                            <p :class="$style.paletteSwitcherDescription">{{ activeScale(row).description }}</p>
 
-                        <div :class="$style.paletteSwitcherReadout">
-                            <template
-                                v-for="token of row.tokens"
-                                :key="token">
+                            <div :class="$style.paletteSwitcherRamp">
                                 <div
-                                    :ref="element => registerSwatch(element, token)"
-                                    :class="$style.paletteSwitcherSwatch"
-                                    :style="{background: `var(--${token})`}"/>
-                                <code :class="$style.paletteSwitcherName">--{{ token }}</code>
-                                <span :class="$style.paletteSwitcherValue">{{ resolved[token] ?? '' }}</span>
-                            </template>
-                        </div>
+                                    v-for="stop of STOPS"
+                                    :key="stop"
+                                    :class="$style.paletteSwitcherRampStop"
+                                    :style="{background: `var(--palette-${row.scale}-${stop})`}"
+                                    :title="`--palette-${row.scale}-${stop}`"/>
+                            </div>
 
-                        <FluxNotice
-                            v-if="row.scale === 'gray'"
-                            color="info"
-                            icon="circle-info"
-                            title="Overriding the palette in your own app">
-                            <p>Set the twelve stops of <code>--palette-gray-*</code> on <code>:root</code>. A semantic token such as <code>--surface</code> is declared and substituted there, so an override further down the tree arrives too late and does nothing at all.</p>
-                            <p>Light follows the scale completely, because every neutral in light is a stop. Dark has nothing to land on: it needs about ten steps between L .15 and L .42 where the scale has four, so its neutrals carry their own lightness ladder and read only hue and chroma off <code>--palette-gray-500</code>. Dark therefore takes on the character of the scale while keeping the lightness that carries its contrast guarantees. Switch the site theme and compare the values above.</p>
-                            <p>Overriding <code>--gray-*</code> has no effect any more. That is the frozen legacy scale, kept only so components that have not moved onto the semantic layer keep rendering, and nothing reads it after the token refactor. Rename those declarations to <code>--palette-gray-*</code>.</p>
-                            <p>The palette is absolute, so a scale picks one hue and dark takes it over. A separate <code>[dark]</code> block that swaps a warm light scale for a cool dark one cannot be expressed this way. Override the semantic tokens with <code>light-dark()</code> when a theme really needs two different hues.</p>
-                        </FluxNotice>
-
-                        <template v-else>
-                            <FluxNotice
-                                color="info"
-                                icon="circle-info"
-                                title="How far a colored scale reaches">
-                                <p>The neutral stops at hue and chroma in dark mode. Primary does not. <code>--primary-solid</code>, its hover and its active state take stops 500, 400 and 300 there, and <code>--primary-text</code> takes stop 300, so a colored intent follows the scale in lightness as well. Only <code>--primary-soft</code>, its hover and <code>--primary-border</code> stay behind: dark has nothing usable between L .24 and L .40 on these hues, so those three are tints over <code>--palette-primary-500</code> that read hue and chroma off it at a fixed lightness, exactly as the neutrals do.</p>
-                                <p>More follows than the five roles above. <code>--focus-ring</code> is stop 600 in light and stop 400 in dark, <code>--selection</code> is a tint on primary, and <code>base.scss</code> hands <code>accent-color</code> to <code>--primary-solid</code>, so a native checkbox and a range input come along.</p>
-                                <p>What does not follow is the label on the fill. <code>--primary-on-solid</code> is plain white in light and a near-black neutral in dark, and that neutral is anchored to <code>--palette-gray-500</code> rather than to primary: swap the neutral above and the button label moves, swap primary and it stays exactly where it was. Which is why the two checks below are measured rather than assumed.</p>
-                            </FluxNotice>
-
-                            <div :class="$style.paletteSwitcherHeading">Contrast contract</div>
-
-                            <div :class="$style.paletteSwitcherChecks">
+                            <div :class="$style.paletteSwitcherReadout">
                                 <template
-                                    v-for="check of checks"
-                                    :key="check.id">
+                                    v-for="token of row.tokens"
+                                    :key="token">
                                     <div
-                                        :ref="element => registerSample(element, check.id)"
-                                        :class="$style.paletteSwitcherSample"
-                                        :style="{background: `var(--${check.background})`, color: `var(--${check.foreground})`}">Aa</div>
-                                    <div :class="$style.paletteSwitcherCheck">
-                                        <span>{{ check.label }}</span>
-                                        <code :class="$style.paletteSwitcherName">--{{ check.foreground }} on --{{ check.background }}</code>
-                                    </div>
-                                    <span :class="$style.paletteSwitcherRatio">{{ check.value }}</span>
-                                    <FluxBadge
-                                        :color="check.color"
-                                        :label="check.status"/>
+                                        :ref="element => registerSwatch(element, token)"
+                                        :class="$style.paletteSwitcherSwatch"
+                                        :style="{background: `var(--${token})`}"/>
+                                    <code :class="$style.paletteSwitcherName">--{{ token }}</code>
+                                    <span :class="$style.paletteSwitcherValue">{{ resolved[token] ?? '' }}</span>
                                 </template>
                             </div>
 
                             <FluxNotice
-                                v-if="hasFailure"
-                                color="danger"
-                                icon="circle-exclamation"
-                                title="This scale does not meet the contract">
-                                <p>One of the checks above sits under {{ TARGET }}, so this palette cannot be dropped in as it stands. The fill is the usual culprit: <code>--primary-on-solid</code> is plain white in light mode and the ladder assumes stop 600 is dark enough to carry it, which a mid green or a bright amber is not.</p>
-                                <p>Two ways out, both a single declaration next to the palette override. Give <code>--primary-on-solid</code> a color that does survive on the fill, or point <code>--primary-solid</code> and its two states at darker stops of the same scale. Darkening the stops themselves is the third option and the worst one, because every other role reads them too.</p>
+                                v-if="row.scale === 'gray'"
+                                color="info"
+                                icon="circle-info"
+                                title="Overriding the palette in your own app">
+                                <p>Set the twelve stops of <code>--palette-gray-*</code> on <code>:root</code>. A semantic token such as <code>--surface</code> is declared and substituted there, so an override further down the tree arrives too late and does nothing at all.</p>
+                                <p>Light follows the scale completely, because every neutral in light is a stop. Dark has nothing to land on: it needs about ten steps between L .15 and L .42 where the scale has four, so its neutrals carry their own lightness ladder and read only hue and chroma off <code>--palette-gray-500</code>. Dark therefore takes on the character of the scale while keeping the lightness that carries its contrast guarantees. Switch the site theme and compare the values above.</p>
+                                <p>Overriding <code>--gray-*</code> has no effect any more. That is the frozen legacy scale, kept only so components that have not moved onto the semantic layer keep rendering, and nothing reads it after the token refactor. Rename those declarations to <code>--palette-gray-*</code>.</p>
+                                <p>The palette is absolute, so a scale picks one hue and dark takes it over. A separate <code>[dark]</code> block that swaps a warm light scale for a cool dark one cannot be expressed this way. Override the semantic tokens with <code>light-dark()</code> when a theme really needs two different hues.</p>
                             </FluxNotice>
-                        </template>
-                    </FluxFlex>
-                </template>
-            </FluxFlex>
-        </FluxPaneBody>
-    </FluxPane>
+
+                            <template v-else>
+                                <FluxNotice
+                                    color="info"
+                                    icon="circle-info"
+                                    title="How far a colored scale reaches">
+                                    <p>The neutral stops at hue and chroma in dark mode. Primary does not. <code>--primary-solid</code>, its hover and its active state take stops 500, 400 and 300 there, and <code>--primary-text</code> takes stop 300, so a colored intent follows the scale in lightness as well. Only <code>--primary-soft</code>, its hover and <code>--primary-border</code> stay behind: dark has nothing usable between L .24 and L .40 on these hues, so those three are tints over <code>--palette-primary-500</code> that read hue and chroma off it at a fixed lightness, exactly as the neutrals do.</p>
+                                    <p>More follows than the five roles above. <code>--focus-ring</code> is stop 600 in light and stop 400 in dark, <code>--selection</code> is a tint on primary, and <code>base.scss</code> hands <code>accent-color</code> to <code>--primary-solid</code>, so a native checkbox and a range input come along.</p>
+                                    <p>What does not follow is the label on the fill. <code>--primary-on-solid</code> is plain white in light and a near-black neutral in dark, and that neutral is anchored to <code>--palette-gray-500</code> rather than to primary: swap the neutral above and the button label moves, swap primary and it stays exactly where it was. Which is why the two checks below are measured rather than assumed.</p>
+                                </FluxNotice>
+
+                                <div :class="$style.paletteSwitcherHeading">Contrast contract</div>
+
+                                <div :class="$style.paletteSwitcherChecks">
+                                    <template
+                                        v-for="check of checks"
+                                        :key="check.id">
+                                        <div
+                                            :ref="element => registerSample(element, check.id)"
+                                            :class="$style.paletteSwitcherSample"
+                                            :style="{background: `var(--${check.background})`, color: `var(--${check.foreground})`}">Aa</div>
+                                        <div :class="$style.paletteSwitcherCheck">
+                                            <span>{{ check.label }}</span>
+                                            <code :class="$style.paletteSwitcherName">--{{ check.foreground }} on --{{ check.background }}</code>
+                                        </div>
+                                        <span :class="$style.paletteSwitcherRatio">{{ check.value }}</span>
+                                        <FluxBadge
+                                            :color="check.color"
+                                            :label="check.status"/>
+                                    </template>
+                                </div>
+
+                                <FluxNotice
+                                    v-if="hasFailure"
+                                    color="danger"
+                                    icon="circle-exclamation"
+                                    title="This scale does not meet the contract">
+                                    <p>One of the checks above sits under {{ TARGET }}, so this palette cannot be dropped in as it stands. The fill is the usual culprit: <code>--primary-on-solid</code> is plain white in light mode and the ladder assumes stop 600 is dark enough to carry it, which a mid green or a bright amber is not.</p>
+                                    <p>Two ways out, both a single declaration next to the palette override. Give <code>--primary-on-solid</code> a color that does survive on the fill, or point <code>--primary-solid</code> and its two states at darker stops of the same scale. Darkening the stops themselves is the third option and the worst one, because every other role reads them too.</p>
+                                </FluxNotice>
+                            </template>
+                        </FluxFlex>
+                    </template>
+                </FluxFlex>
+            </FluxPaneBody>
+        </template>
+    </FluxFlyout>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxBadge, FluxFlex, FluxNotice, FluxPane, FluxPaneBody, FluxPaneHeader, FluxSegmentedControl, FluxSegmentedControlItem, FluxSeparator } from '@flux-ui/components';
-    import type { FluxColor } from '@flux-ui/types';
-    import { computed, onBeforeUnmount, onMounted, reactive, watch } from 'vue';
+    import { useHotKey } from '@basmilius/common';
+    import { FluxAction, FluxBadge, FluxFlex, FluxFlyout, FluxFormField, FluxFormSelect, FluxNotice, FluxPaneBody, FluxPaneHeader, FluxSecondaryButton, FluxSeparator, FluxTooltip } from '@flux-ui/components';
+    import type { FluxColor, FluxFormSelectOption } from '@flux-ui/types';
+    import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue';
 
     type PaletteScale = {
         readonly id: string;
@@ -125,8 +154,10 @@
     type PaletteRow = {
         readonly scale: string;
         readonly title: string;
+        readonly key: string;
         readonly tokens: readonly string[];
         readonly scales: readonly PaletteScale[];
+        readonly options: FluxFormSelectOption[];
     };
 
     type ContrastCheck = {
@@ -441,14 +472,18 @@
         {
             scale: 'gray',
             title: 'Neutral',
+            key: 'G',
             tokens: ['surface', 'foreground', 'surface-canvas'],
-            scales: GRAY_SCALES
+            scales: GRAY_SCALES,
+            options: GRAY_SCALES.map(scale => ({label: scale.label, value: scale.id}))
         },
         {
             scale: 'primary',
             title: 'Primary',
+            key: 'P',
             tokens: ['primary-solid', 'primary-on-solid', 'primary-text', 'primary-soft', 'focus-ring'],
-            scales: PRIMARY_SCALES
+            scales: PRIMARY_SCALES,
+            options: PRIMARY_SCALES.map(scale => ({label: scale.label, value: scale.id}))
         }
     ];
 
@@ -470,6 +505,11 @@
         }
     ];
 
+    // A shortcut nobody can see is a shortcut nobody uses, so the launcher spells both
+    // of them out and every row repeats its own next to the label.
+    const SHORTCUTS = ROWS.map(row => `Shift + ${row.key} cycles ${row.title.toLowerCase()}`).join(', ');
+
+    const isOpen = ref(false);
     const selected = reactive<Record<string, string>>({gray: 'flux', primary: 'flux'});
     const resolved = reactive<Record<string, string>>({});
     const ratios = reactive<Record<string, number>>({});
@@ -478,6 +518,17 @@
 
     let context: CanvasRenderingContext2D | null = null;
     let observer: MutationObserver | null = null;
+
+    // Shift plus a letter, because Cmd and Ctrl + K belong to the VitePress search
+    // and Option on a Mac rewrites the character of the key it is held with, which
+    // would leave the handler comparing against a dead key. The listener sits on the
+    // window and keeps working while the panel is closed, which is the point: cycle a
+    // scale at the bottom of the page and watch the components next to you follow.
+    // `useHotKey` drops a keystroke while a field has focus, and this page is mostly
+    // fields.
+    for (const row of ROWS) {
+        useHotKey(`shift+${row.key}`, () => cycle(row));
+    }
 
     const checks = computed<ResolvedCheck[]>(() => CHECKS.map(check => {
         const ratio = ratios[check.id];
@@ -498,6 +549,10 @@
 
     const hasFailure = computed(() => CHECKS.some(check => (ratios[check.id] ?? TARGET) < TARGET));
 
+    // With the panel closed the launcher is the only place left that can name the two
+    // scales in play, which is what a hotkey cycled blind needs most.
+    const tooltip = computed(() => `${ROWS.map(row => `${row.title}: ${activeScale(row).label}`).join(', ')}. ${SHORTCUTS}.`);
+
     // Post flush, so the ramp has been repainted with the new stops before the
     // readout measures the tokens that were built on top of them.
     watch(selected, () => {
@@ -505,9 +560,18 @@
         read();
     }, {flush: 'post'});
 
+    // The panel only exists while the flyout is open, so the probes it measures come
+    // and go with it. Post flush again, so they are in the document before they are
+    // measured, and a scale cycled by hotkey while the panel was closed still lands
+    // in the readout when it opens.
+    watch(isOpen, isOpen => {
+        if (isOpen) {
+            read();
+        }
+    }, {flush: 'post'});
+
     onMounted(() => {
         apply();
-        read();
 
         // The docs site flips themes by putting a `dark` attribute on the root
         // element, which changes every resolved value without changing the scale.
@@ -520,7 +584,7 @@
         observer = null;
 
         // An inline override on the root element outlives this page, so leaving one
-        // behind would recolour the rest of the site after navigating away.
+        // behind would recolor the rest of the site after navigating away.
         reset();
     });
 
@@ -554,6 +618,14 @@
         const base = luminance(background);
 
         return (Math.max(composited, base) + 0.05) / (Math.min(composited, base) + 0.05);
+    }
+
+    // Wraps around, so the shortcut walks the whole row and comes back to where it
+    // started rather than stopping at the last scale.
+    function cycle(row: PaletteRow): void {
+        const index = row.scales.findIndex(scale => scale.id === selected[row.scale]);
+
+        selected[row.scale] = row.scales[(index + 1) % row.scales.length].id;
     }
 
     function decode(value: number): number {
@@ -646,6 +718,34 @@
 <style
     lang="scss"
     module>
+    // Pinned to the viewport, so a scale can be switched from anywhere on the page.
+    // This is also why the component sits outside the prose article in the page: a
+    // `container-type` makes an element the containing block of its fixed
+    // descendants, which would pin the button to the article and scroll it away.
+    .paletteSwitcherLauncher {
+        position: fixed;
+        right: 24px;
+        bottom: 24px;
+        z-index: 100;
+    }
+
+    // The same key as prose paints, so the shortcut reads the same in the panel as it
+    // does in the paragraph on the page that points at it.
+    .paletteSwitcherKeys {
+        display: inline-flex;
+        gap: 3px;
+
+        kbd {
+            font-family: inherit;
+            font-size: 12px;
+            padding: 3px 6px;
+            border: 1px solid var(--surface-stroke);
+            border-radius: var(--radius-half);
+            color: var(--foreground-secondary);
+            box-shadow: 0 1px 0 var(--surface-stroke);
+        }
+    }
+
     .paletteSwitcherHeading {
         color: var(--foreground-prominent);
         font-size: 13px;

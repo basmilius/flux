@@ -8,8 +8,7 @@
         <p>Use it to eyeball how the pieces look together and how the light element defaults and the rich prose styling coexist on one page. It is also the sheet used to review the color tokens, so most components appear in every intent and in every state that changes their surface, border or text color. Switch the site between light and dark and scroll through once.</p>
 
         <h2>Palette</h2>
-        <p>The palette is a control surface rather than a lookup table: the semantic and intent tokens refer to <code>--palette-*</code> instead of holding a color of their own. Pick a scale below and the whole page follows, in both themes. The two rows combine, so a brand can be checked as it would actually ship.</p>
-        <PaletteSwitcher data-prose-full/>
+        <p>The palette is a control surface rather than a lookup table: the semantic and intent tokens refer to <code>--palette-*</code> instead of holding a color of their own. The button in the bottom right corner opens the switcher and stays there while the page scrolls, so a scale can be swapped next to whatever component is on screen. <kbd>Shift</kbd> <kbd>G</kbd> and <kbd>Shift</kbd> <kbd>P</kbd> cycle the neutral and the primary scale without opening it at all. The two combine, so a brand can be checked as it would actually ship.</p>
 
         <h2>Buttons and actions</h2>
         <p>Buttons come in a few variants and can be grouped in a stack, or combined with a menu in a split button.</p>
@@ -1067,42 +1066,44 @@
                 is-sticky
                 style="max-height: 402px">
                 <template #header>
-                    <FluxTableHeader
-                        is-sortable
-                        :min-width="210"
-                        pinned
-                        :sort="sort ?? undefined"
-                        @sort="sort = $event">
-                        Service
-                    </FluxTableHeader>
+                    <FluxTableRow>
+                        <FluxTableHeader
+                            is-sortable
+                            :min-width="210"
+                            pinned
+                            :sort="sort ?? undefined"
+                            @sort="sort = $event">
+                            Service
+                        </FluxTableHeader>
 
-                    <FluxTableHeader :min-width="150">Environment</FluxTableHeader>
-                    <FluxTableHeader :min-width="165">Status</FluxTableHeader>
+                        <FluxTableHeader :min-width="150">Environment</FluxTableHeader>
+                        <FluxTableHeader :min-width="165">Status</FluxTableHeader>
 
-                    <FluxTableHeader
-                        data-type="date"
-                        is-sortable
-                        :min-width="165">
-                        Deployed
-                    </FluxTableHeader>
+                        <FluxTableHeader
+                            data-type="date"
+                            is-sortable
+                            :min-width="165">
+                            Deployed
+                        </FluxTableHeader>
 
-                    <FluxTableHeader :min-width="165">Owner</FluxTableHeader>
+                        <FluxTableHeader :min-width="165">Owner</FluxTableHeader>
 
-                    <FluxTableHeader
-                        align="end"
-                        data-type="numeric"
-                        is-numeric
-                        :min-width="135">
-                        Duration
-                    </FluxTableHeader>
+                        <FluxTableHeader
+                            align="end"
+                            data-type="numeric"
+                            is-numeric
+                            :min-width="135">
+                            Duration
+                        </FluxTableHeader>
 
-                    <FluxTableHeader
-                        align="end"
-                        is-numeric
-                        :min-width="135"
-                        pinned="end">
-                        Cost
-                    </FluxTableHeader>
+                        <FluxTableHeader
+                            align="end"
+                            is-numeric
+                            :min-width="135"
+                            pinned="end">
+                            Cost
+                        </FluxTableHeader>
+                    </FluxTableRow>
                 </template>
 
                 <FluxTableRow
@@ -2404,6 +2405,12 @@ const article = FluxProse;</code></pre>
             data-prose-wide
             src="https://images.pexels.com/photos/33688/delicate-arch-night-stars-landscape.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"/>
     </FluxProse>
+
+    <!-- Outside the article on purpose. The prose container declares a
+         `container-type`, which makes it the containing block for fixed positioned
+         descendants, and the launcher would scroll away with the page instead of
+         staying pinned to the corner of the viewport. -->
+    <PaletteSwitcher/>
 </template>
 
 <script
