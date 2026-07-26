@@ -184,11 +184,107 @@ function parseColor(input: string): Rgba {
         throw new Error(`unsupported colour "${input}"`);
     }
 
-    const [components, alphaPart] = oklch.args.split('/');
-    const [lightness, chroma, hue] = components.trim().split(/\s+/).map(Number);
-    const alpha = alphaPart === undefined ? 1 : parseAlpha(alphaPart.trim());
+    return oklch.args.trimStart().startsWith('from ') ? parseRelative(oklch.args) : parseAbsolute(oklch.args);
+}
 
-    return [...oklchToLinearSrgb(lightness, chroma, hue), alpha] as unknown as Rgba;
+function parseAbsolute(args: string): Rgba {
+    const [components, alphaPart] = splitAlpha(args);
+    const [lightness, chroma, hue] = components.split(/\s+/).map(Number);
+
+    return [...oklchToLinearSrgb(lightness, chroma, hue), alphaPart === null ? 1 : parseAlpha(alphaPart)] as unknown as Rgba;
+}
+
+/**
+ * `oklch(from <colour> <l> <c> <h> [/ <a>])`. The token layer emits this so that
+ * a dark neutral keeps its solved lightness while taking hue and chroma off the
+ * palette stop it is anchored to, which is what lets a palette override reshade
+ * a theme that has no stops to land on.
+ */
+function parseRelative(args: string): Rgba {
+    const rest = args.trimStart().slice('from '.length);
+    const originEnd = findColorEnd(rest);
+    const origin = oklchOf(parseColor(rest.slice(0, originEnd)));
+    const [components, alphaPart] = splitAlpha(rest.slice(originEnd));
+    const channels = components.trim().split(/\s+(?![^(]*\))/);
+
+    if (channels.length !== 3) {
+        throw new Error(`expected three channels in "oklch(${args})"`);
+    }
+
+    const [lightness, chroma, hue] = channels.map((channel, index) => evaluateChannel(channel, origin, index));
+
+    return [...oklchToLinearSrgb(lightness, chroma, hue), alphaPart === null ? 1 : parseAlpha(alphaPart)] as unknown as Rgba;
+}
+
+/**
+ * Channels are one of: a literal, the passthrough keyword `l` / `c` / `h`, or
+ * `calc(<keyword> * <factor>)`. That is the entire grammar the token layer emits.
+ */
+function evaluateChannel(channel: string, origin: readonly [number, number, number], index: number): number {
+    const keyword = ['l', 'c', 'h'][index];
+    const trimmed = channel.trim();
+
+    if (trimmed === keyword) {
+        return origin[index];
+    }
+
+    const calc = findCall(trimmed, 'calc');
+
+    if (calc !== null) {
+        const [left, right] = calc.args.split('*').map(part => part.trim());
+
+        if (left !== keyword) {
+            throw new Error(`unsupported calc channel "${trimmed}"`);
+        }
+
+        return origin[index] * Number(right);
+    }
+
+    if (Number.isNaN(Number(trimmed))) {
+        throw new Error(`unsupported channel "${trimmed}"`);
+    }
+
+    return Number(trimmed);
+}
+
+/** Splits off a trailing `/ <alpha>`, ignoring slashes nested in parentheses. */
+function splitAlpha(input: string): [string, string | null] {
+    let depth = 0;
+
+    for (let index = input.length - 1; index >= 0; index--) {
+        const character = input[index];
+
+        if (character === ')') {
+            depth++;
+        } else if (character === '(') {
+            depth--;
+        } else if (character === '/' && depth === 0) {
+            return [input.slice(0, index).trim(), input.slice(index + 1).trim()];
+        }
+    }
+
+    return [input.trim(), null];
+}
+
+/** Where the origin colour ends: after its closing parenthesis, or at whitespace. */
+function findColorEnd(input: string): number {
+    const open = input.indexOf('(');
+
+    if (open === -1) {
+        return input.indexOf(' ');
+    }
+
+    let depth = 0;
+
+    for (let index = open; index < input.length; index++) {
+        if (input[index] === '(') {
+            depth++;
+        } else if (input[index] === ')' && --depth === 0) {
+            return index + 1;
+        }
+    }
+
+    throw new Error(`unbalanced origin colour in "${input}"`);
 }
 
 function parseAlpha(input: string): number {
@@ -218,6 +314,19 @@ function oklchToLinearSrgb(lightness: number, chroma: number, hue: number): [num
 
 function clip(value: number): number {
     return Math.min(1, Math.max(0, value));
+}
+
+/** The inverse, so a relative colour can read the channels of its origin. */
+function oklchOf([red, green, blue]: Rgba): readonly [number, number, number] {
+    const long = Math.cbrt(0.4122214708 * red + 0.5363325363 * green + 0.0514459929 * blue);
+    const medium = Math.cbrt(0.2119034982 * red + 0.6806995451 * green + 0.1073969566 * blue);
+    const short = Math.cbrt(0.0883024619 * red + 0.2817188376 * green + 0.6299787005 * blue);
+
+    const lightness = 0.2104542553 * long + 0.793617785 * medium - 0.0040720468 * short;
+    const labA = 1.9779984951 * long - 2.428592205 * medium + 0.4505937099 * short;
+    const labB = 0.0259040371 * long + 0.7827717662 * medium - 0.808675766 * short;
+
+    return [lightness, Math.hypot(labA, labB), ((Math.atan2(labB, labA) * 180) / Math.PI + 360) % 360];
 }
 
 /**

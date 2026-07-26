@@ -103,42 +103,62 @@ $palette: (
     )
 );
 
-// A stop as a literal colour, for the rare spot that needs the value rather than
-// the `var()` reference: inside a gradient stop list, or as a `color-mix()` operand.
-//
-// `$alpha` exists for the tokens that need the same colour at reduced opacity.
-// Deriving that at use site with relative colour syntax is only safe over a
-// palette stop, never over a token holding a `light-dark()`, so a translucent
-// variant of a semantic token has to be written out here instead.
-@function stop($scale, $stop, $alpha: 1) {
+// The chroma of a stop, for the callers that scale it rather than take it whole.
+@function chroma($scale, $stop) {
+    @return list.nth(map.get($palette, $scale, $stop), 2);
+}
+
+// A stop as a literal colour. Only `@mixin palette` below needs this: everything
+// else refers to the stop rather than inlining it, so that overriding
+// `--palette-gray-600` still reshades what is built on top of it.
+@function literal($scale, $stop) {
     $value: map.get($palette, $scale, $stop);
 
+    @return #{'oklch(#{list.nth($value, 1)} #{list.nth($value, 2)} #{list.nth($value, 3)})'};
+}
+
+// A stop as a reference. The semantic and intent layers are built out of these,
+// which is what keeps the palette a control surface rather than a lookup table
+// that happens to be shipped.
+//
+// `$alpha` exists for the tokens that need the same colour at reduced opacity.
+// It goes through relative colour syntax, which is safe here precisely because a
+// stop holds a plain colour; over a token carrying a `light-dark()` it is not.
+@function stop($scale, $stop, $alpha: 1) {
     @if $alpha < 1 {
-        @return #{'oklch(#{list.nth($value, 1)} #{list.nth($value, 2)} #{list.nth($value, 3)} / #{$alpha})'};
+        @return #{'oklch(from var(--palette-#{$scale}-#{$stop}) l c h / #{$alpha})'};
     }
 
-    @return #{'oklch(#{list.nth($value, 1)} #{list.nth($value, 2)} #{list.nth($value, 3)})'};
+    @return #{'var(--palette-#{$scale}-#{$stop})'};
 }
 
 // A colour on the hue of `$scale` at an arbitrary lightness. Eight of the twelve
 // stops sit above L .8, so the dark surfaces and the dark soft tints have no stop
 // to land on; this keeps them tied to the scale they belong to anyway.
+//
+// The lightness is fixed because it was solved against a contrast target, but hue
+// and chroma are read off stop 500 through relative colour syntax rather than
+// baked in. Reshade the scale and these follow, which is the only reason a dark
+// theme can track a palette override at all.
 @function tint($scale, $lightness, $chroma-factor: 1, $alpha: 1) {
-    $base: map.get($palette, $scale, 500);
-    $chroma: list.nth($base, 2) * $chroma-factor;
-    $hue: list.nth($base, 3);
+    $chroma: 'calc(c * #{$chroma-factor})';
+    $suffix: '';
 
-    @if $alpha < 1 {
-        @return #{'oklch(#{$lightness} #{$chroma} #{$hue} / #{$alpha})'};
+    @if $chroma-factor == 0 {
+        $chroma: '0';
     }
 
-    @return #{'oklch(#{$lightness} #{$chroma} #{$hue})'};
+    @if $alpha < 1 {
+        $suffix: ' / #{$alpha}';
+    }
+
+    @return #{'oklch(from var(--palette-#{$scale}-500) #{$lightness} #{$chroma} h#{$suffix})'};
 }
 
 @mixin palette {
     @each $scale, $stops in $palette {
         @each $stop, $value in $stops {
-            --palette-#{$scale}-#{$stop}: #{stop($scale, $stop)};
+            --palette-#{$scale}-#{$stop}: #{literal($scale, $stop)};
         }
     }
 }

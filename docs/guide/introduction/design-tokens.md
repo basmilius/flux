@@ -12,7 +12,7 @@ The colour tokens come in three layers, and which one you reach for matters:
 |---|---|---|
 | **Semantic** | `--surface`, `--foreground`, `--surface-stroke` | Always, unless one of the other two applies |
 | **Intent** | `--danger-solid`, `--primary-text` | When something carries a meaning: primary, danger, info, success or warning |
-| **Palette** | `--palette-gray-600` | Only to build a token of your own out of |
+| **Palette** | `--palette-gray-600` | To reshade the whole interface, or to build a token of your own out of |
 
 The palette is deliberately the longest to type. A component that reaches straight into it has to answer for both themes by itself, and that is exactly the work the semantic layer already did. See [Colors](./colors) for the palette itself.
 
@@ -248,12 +248,36 @@ The motion tokens drive every Flux transition. Use them when you build custom an
 
 ## Overriding tokens
 
-All tokens are regular CSS custom properties, so you can override them at any level: globally, on a single component, or even inline.
+All tokens are regular CSS custom properties, so you can override them: semantic and intent tokens at any level, globally or on a subtree, and palette stops on `:root`.
+
+### Reshading the whole interface
+
+The semantic and intent layers are built out of `var(--palette-*)` references, so replacing a scale cascades into everything above it. This is the cheapest way to give Flux a different character.
 
 ```scss
 :root {
-    --radius: 8px;                       /* Square off the entire UI. */
-    --palette-primary-600: #0070f3;      /* Replace one shade of the accent. */
+    --palette-gray-500: oklch(.6411 .0342 60);   /* A warm grey instead of a cool one. */
+    --palette-gray-600: oklch(.5199 .0408 60);
+    /* ...and so on for the rest of the scale. */
+}
+```
+
+That reaches **both themes**. Light mode maps its surfaces and text straight onto the stops. Dark mode needs about ten neutral steps between `L .15` and `L .42` where the scale has four, so those are not stops; they take their lightness from a ramp solved against a contrast target, and their hue and chroma off `--palette-gray-500`. Recolour the scale and dark follows. Move a stop's lightness and dark keeps its own, which is deliberate: that ramp is what carries the contrast guarantees.
+
+The same holds for the five coloured intents, where `soft`, `soft-hover` and `border` are anchored to stop 500 of their own scale in dark.
+
+> [!NOTE]
+> Palette overrides belong on `:root`. A semantic token is declared there too, so it is substituted at that point and a palette override further down the tree arrives too late. Overriding a *semantic* token on a subtree does work, because those are read at the point of use.
+
+### Retheming one thing
+
+To change a single role rather than a whole scale, override the token itself. `--primary-solid` is stop 600 in light but stop 500 in dark, so a new accent is clearest written out per theme.
+
+```scss
+:root {
+    --primary-solid: light-dark(#0070f3, #4d9bff);
+    --primary-solid-hover: light-dark(#0059c4, #7ab4ff);
+    --primary-on-solid: light-dark(#ffffff, #0a1220);
 }
 
 .my-card {
@@ -262,14 +286,4 @@ All tokens are regular CSS custom properties, so you can override them at any le
 }
 ```
 
-Overriding a palette stop cascades into every token built on it, which is the cheapest way to reshade the interface. Be aware that it only reaches the theme that uses that stop: `--primary-solid` is stop 600 in light but stop 500 in dark, so recolouring the accent properly means overriding the intent token itself.
-
-```scss
-:root {
-    --primary-solid: light-dark(#0070f3, #4d9bff);
-    --primary-solid-hover: light-dark(#0059c4, #7ab4ff);
-    --primary-on-solid: light-dark(#ffffff, #0a1220);
-}
-```
-
-Overriding a semantic token on a subtree works the same way, and is how a section gets its own surface without touching anything global.
+Overriding a semantic token on a subtree is how a section gets its own surface without touching anything global.
