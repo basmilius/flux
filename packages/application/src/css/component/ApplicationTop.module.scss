@@ -1,12 +1,12 @@
 @use '~flux/components/css/mixin';
 
-// Raised, not surface: the page scrolls underneath, so in dark the bar stays lighter than
-// the cards behind it. color-mix, because `rgb(from ...)` would freeze the token's
-// `light-dark()` to one theme.
+// The bar is a strip of the shell's own page, not a layer above it, so it takes that
+// same surface and a custom `--application-surface` carries it along. color-mix, because
+// `rgb(from ...)` would freeze the token's `light-dark()` to one theme.
 .applicationTop {
     position: sticky;
     top: 0;
-    background: color-mix(in srgb, var(--surface-raised) 97.5%, transparent);
+    background: color-mix(in srgb, var(--application-surface) 97.5%, transparent);
     background-clip: padding-box;
     backdrop-filter: blur(3px) saturate(180%);
     border-bottom: 1px solid transparent;

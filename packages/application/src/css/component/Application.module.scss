@@ -11,12 +11,16 @@
     --application-menu-width: 300px;
     --application-menu-width-collapsed: 69px;
     --application-side-width: 300px;
+    // The shell paints its own page, so light lands back on white instead of the
+    // grayer `--background` the body under it holds.
+    --application-surface: var(--surface);
     --application-top-height: 66px;
 }
 
 .application {
     position: relative;
     display: flex;
+    background: var(--application-surface);
     transition: padding var(--application-duration) var(--swift-out);
     transition-property: padding-left, padding-right;
 
