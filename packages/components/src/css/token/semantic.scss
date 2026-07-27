@@ -71,9 +71,9 @@
     // `--surface-hover` and `--surface-active`, and `STATE_FLOOR` in the contrast gate
     // is set just under that pair.
     --surface-stroke-muted: #{theme.theme(palette.stop('gray', 100), theme.neutral(.295, .016))};
-    --surface-stroke: #{theme.theme(palette.stop('gray', 200), theme.neutral(.323, .018))};
+    --surface-stroke: #{theme.theme(palette.stop('gray', 200), theme.neutral(.303, .018))};
     --surface-stroke-hover: #{theme.theme(palette.stop('gray', 300), theme.neutral(.395, .02))};
-    --surface-stroke-out: #{theme.theme(theme.neutral(.36, .02, .1), theme.neutral(1, 0, .067))};
+    --surface-stroke-out: #{theme.theme(theme.neutral(.36, .02, .1), theme.neutral(1, 0, .087))};
     --surface-stroke-out-hover: #{theme.theme(theme.neutral(.28, .02, .15), theme.neutral(1, 0, .118))};
 
     // Dark takes a lighter stop on purpose: primary-600 does not carry the contrast a
