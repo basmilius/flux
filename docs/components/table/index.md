@@ -93,7 +93,7 @@ example=../../code/components/table/sticky.vue
 example=../../code/components/table/sticky-bar.vue
 :::
 
-::: example Pinned columns || A wide table with multiple columns pinned to the left and right edges.
+::: example Pinned columns || A wide table with multiple columns pinned to the left and right edges, and a footer built from spanning cells.
 example=../../code/components/table/pinned-columns.vue
 :::
 

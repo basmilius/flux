@@ -93,7 +93,7 @@
     setup>
     import { animationFrameDebounce, useScrollPosition } from '@flux-ui/internals';
     import { computed, onMounted, onScopeDispose, provide, type Ref, ref, shallowReactive, shallowRef, unref, useId, useTemplateRef, type VNode, watch, watchEffect } from 'vue';
-    import { useTableTree } from '~flux/components/composable/private';
+    import { countColumns, getColumnSpan, useTableTree } from '~flux/components/composable/private';
     import { type FluxTableColumnDef, FluxTableInjectionKey, type FluxTablePinnedEdges } from '~flux/components/data';
     import { subscribeToRootFontSize } from '~flux/components/util';
     import FluxPaneBody from './FluxPaneBody.vue';
@@ -250,7 +250,7 @@
         }
 
         const firstRow = unref(bodyRef)?.querySelector(`:scope > .${$style.tableRow}`);
-        fallbackColumnCount.value = firstRow?.children.length ?? 0;
+        fallbackColumnCount.value = countColumns(firstRow);
     }
 
     function areOffsetsEqual(a: Map<number, number>, b: Map<number, number>): boolean {
@@ -281,10 +281,28 @@
         let endIndices = columns.map((column, index) => column.pinned === 'end' ? index : -1).filter(index => index >= 0);
 
         if (columns.length === 0) {
-            const cells = Array.from(unref(bodyRef)?.querySelector(`:scope > .${$style.tableRow}`)?.children ?? []);
+            startIndices = [];
+            endIndices = [];
 
-            startIndices = cells.map((cell, index) => cell.classList.contains($style.isPinnedStart) ? index : -1).filter(index => index >= 0);
-            endIndices = cells.map((cell, index) => cell.classList.contains($style.isPinnedEnd) ? index : -1).filter(index => index >= 0);
+            let index = 0;
+
+            for (const cell of unref(bodyRef)?.querySelector(`:scope > .${$style.tableRow}`)?.children ?? []) {
+                const span = getColumnSpan(cell);
+                const isStart = cell.classList.contains($style.isPinnedStart);
+                const isEnd = cell.classList.contains($style.isPinnedEnd);
+
+                // Both lists hold columns, not cells: a spanning cell pins every
+                // column it covers, and each of those needs its own offset.
+                for (let covered = index; covered < index + span; covered++) {
+                    if (isStart) {
+                        startIndices.push(covered);
+                    } else if (isEnd) {
+                        endIndices.push(covered);
+                    }
+                }
+
+                index += span;
+            }
         }
 
         const edges: FluxTablePinnedEdges = {

@@ -12,6 +12,8 @@
             isPinnedEdge && $style.isPinnedEdge
         )"
         role="cell"
+        :aria-colspan="colspan"
+        :aria-rowspan="rowspan"
         :style="cellStyle">
         <slot name="content">
             <slot/>
@@ -25,6 +27,7 @@
     import { clsx } from 'clsx';
     import { computed, unref, useTemplateRef, type VNode } from 'vue';
     import { useTableInjection } from '~flux/components/composable';
+    import { useTableColumnIndex } from '~flux/components/composable/private';
     import $style from '~flux/components/css/component/Table.module.scss';
 
     const {
@@ -62,13 +65,8 @@
 
     const isRaw = computed(() => 'content' in slots);
 
-    const columnIndex = computed(() => {
-        void columns.value;
-
-        const element = cell.value;
-
-        return element?.parentElement ? Array.prototype.indexOf.call(element.parentElement.children, element) : -1;
-    });
+    const columnIndex = useTableColumnIndex(cell, columns);
+    const columnSpan = computed(() => Math.max(colspan ?? 1, 1));
 
     // Spanning cells cover multiple columns, so their column's definition
     // (pinning, alignment, formatting) does not apply to them.
@@ -90,14 +88,16 @@
         return column.value?.pinned ?? null;
     });
 
+    // A spanning cell is the edge as soon as it covers the edge column, not only
+    // when it starts there.
     const isPinnedEdge = computed(() => {
         if (!pinnedSide.value) {
             return false;
         }
 
-        return pinnedSide.value === 'start'
-            ? columnIndex.value === pinnedEdges.value.start
-            : columnIndex.value === pinnedEdges.value.end;
+        const edge = pinnedSide.value === 'start' ? pinnedEdges.value.start : pinnedEdges.value.end;
+
+        return edge >= columnIndex.value && edge < columnIndex.value + columnSpan.value;
     });
 
     const cellStyle = computed(() => {
@@ -130,7 +130,10 @@
         }
 
         if (pinnedSide.value) {
-            const offset = pinnedOffsets.value.get(columnIndex.value) ?? 0;
+            // The offsets are measured per column, from the edge the column is
+            // pinned to; a spanning cell sits at the offset of the column it ends on.
+            const offsetIndex = pinnedSide.value === 'start' ? columnIndex.value : columnIndex.value + columnSpan.value - 1;
+            const offset = pinnedOffsets.value.get(offsetIndex) ?? 0;
 
             if (pinnedSide.value === 'start') {
                 style.left = `${offset}px`;
