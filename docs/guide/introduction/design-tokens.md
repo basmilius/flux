@@ -35,7 +35,7 @@ The color tokens come in three layers, and which one you reach for matters:
     </FluxTable>
 </FluxPane>
 
-The palette is deliberately the longest to type. A component that reaches straight into it has to answer for both themes by itself, and that is exactly the work the semantic layer already did. See [Colors](./colors) for the palette itself.
+The palette is deliberately the longest to type. A component that reaches straight into it has to answer for both themes by itself, and that is exactly the work the semantic layer already did. See [Colors](./colors) for the palette itself, and [Upgrading](./upgrading) if you are coming from a version that exposed the scales as `--gray-*`.
 
 ## How a token knows the theme
 
@@ -135,7 +135,7 @@ In your own code, read the roles straight off the intent you need. They are ordi
 ```
 
 ::: info Inside the library
-Flux itself never writes an intent out per color. A component with a `color` prop runs one Sass loop that maps the nine roles onto a local `--intent-*` contract and then styles against that. Those mixins live in this repository under `~flux/components/css/mixin`; the alias is a monorepo path and `@flux-ui/components` publishes no `./css/*` entry, so the snippet below is for contributors to Flux, not for consumers.
+Flux itself never writes an intent out per color. A component with a `color` prop runs one Sass loop that maps six of the roles onto a local `--intent-*` contract and then styles against that: `solid`, `muted`, `soft`, `soft-hover`, `border` and `text`. The three the mixin leaves out (`solid-hover`, `solid-active`, `on-solid`) are read straight off the intent, as `var(--#{$color}-solid-hover)`. Those mixins live in this repository under `~flux/components/css/mixin`; the alias is a monorepo path and `@flux-ui/components` publishes no `./css/*` entry, so the snippet below is for contributors to Flux, not for consumers.
 
 ```scss
 @use '~flux/components/css/mixin';
