@@ -116,14 +116,21 @@
     background: var(--surface-sunken);
 }
 
-// The stroke takes the same value the loop below puts on the next row's top border: the
-// divider between two cells and the one between two rows are a single line. On
-// `--intent-border` the vertical rule runs far heavier than the horizontal one in dark.
+// The fill rests short of the soft token: at full strength a table of tinted rows reads as
+// blocks of color rather than as a marking on the rows. Hover spends the remaining distance,
+// so the state a row moves to is the one the soft token names.
+//
+// The stroke stays where the fill used to be, a rung above it in both states. Bringing it
+// down with the fill is what a lighter tint tempts you into, and it costs the divider: the
+// gap between the two collapses to a third of what separates two plain rows.
+//
+// It takes the same value the loop below puts on the next row's top border: the divider
+// between two cells and the one between two rows are a single line.
 @include mixin.color-variants(tableRow) using ($color) {
     @include mixin.intent($color);
 
-    --table-row-fill: var(--intent-soft);
-    --table-row-fill-hover: var(--intent-soft-hover);
+    --table-row-fill: color-mix(in srgb, var(--intent-soft) 60%, var(--surface));
+    --table-row-fill-hover: var(--intent-soft);
     --table-row-foreground: var(--intent-text);
     --table-row-stroke: var(--intent-soft-hover);
 }
@@ -170,12 +177,10 @@
         background: var(--surface-hover);
     }
 
-    // A tinted row's fill moves up onto the value its stroke rests at, so the stroke has to
-    // move with it or it dissolves into the row it is supposed to divide.
+    // Only the fill moves. It lands a rung under the stroke, which is where a plain row's
+    // hover leaves it too, so neither edge of the row has to be restated.
     .table.isHoverable .tableBody .tableRow.isColored:has(:hover) > .tableCell:not(.hasRowspan),
     .table.isHoverable .tableBody .tableRow.isColored:has(:focus-visible) > .tableCell:not(.hasRowspan) {
-        --table-row-stroke: var(--intent-border);
-
         background: var(--table-row-fill-hover);
     }
 
@@ -193,16 +198,6 @@
     .table.isHoverable .tableBody .tableRow:has(:hover) > .tableCell:not(.hasRowspan),
     .table.isHoverable .tableBody .tableRow:has(:focus-visible) > .tableCell:not(.hasRowspan) {
         border-top-color: var(--table-row-stroke, var(--surface-stroke-muted));
-    }
-
-    // The rule above only reaches the top of the highlighted row; its bottom edge belongs to
-    // the row underneath, hence the repeat per intent. A selected row is excluded on purpose:
-    // it keeps its resting stroke and would otherwise take a tinted edge under a primary fill.
-    @each $color in mixin.$colors {
-        .table.isHoverable .tableBody .tableRow#{mixin.color-suffix($color)}:not(.isSelected):has(:hover) + .tableRow > .tableCell,
-        .table.isHoverable .tableBody .tableRow#{mixin.color-suffix($color)}:not(.isSelected):has(:focus-visible) + .tableRow > .tableCell {
-            border-top-color: var(--#{$color}-border);
-        }
     }
 }
 
