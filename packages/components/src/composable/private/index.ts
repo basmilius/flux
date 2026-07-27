@@ -7,6 +7,7 @@ export { default as useFormSelect } from './useFormSelect';
 export { useKanban } from './useKanban';
 export { default as useMenuFlyout, useMenuFlyoutContext, useMenuFlyoutProvider, type UseMenuFlyoutOptions, type UseMenuFlyoutProviderOptions, type UseMenuFlyoutReturn } from './useMenuFlyout';
 export { useSplitView, type SplitViewPane, type UseSplitViewOptions, type UseSplitViewReturn } from './useSplitView';
+export { countColumns, getColumnSpan, resolveColumnIndex, useTableColumnIndex } from './useTableColumnIndex';
 export { useTableTree, TREE_STEP, TREE_MARKER_SIZE } from './useTableTree';
 export { useTimeline } from './useTimeline';
 export { default as useTranslate } from './useTranslate';

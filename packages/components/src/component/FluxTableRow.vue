@@ -30,6 +30,7 @@
     import { clsx } from 'clsx';
     import { computed, onUnmounted, useTemplateRef, type VNode, watch } from 'vue';
     import { useTableInjection } from '~flux/components/composable';
+    import { resolveColumnIndex } from '~flux/components/composable/private';
     import $style from '~flux/components/css/component/Table.module.scss';
 
     const emit = defineEmits<{
@@ -99,9 +100,8 @@
         }
 
         const cell = target?.closest('[role="cell"], [role="columnheader"]');
-        const columnIndex = cell?.parentElement ? Array.prototype.indexOf.call(cell.parentElement.children, cell) : -1;
 
-        emit('rowClick', columnIndex, event);
+        emit('rowClick', resolveColumnIndex(cell), event);
     }
 
     function onKeydown(event: KeyboardEvent): void {

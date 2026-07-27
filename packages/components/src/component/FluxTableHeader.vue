@@ -64,7 +64,7 @@
     import { clsx } from 'clsx';
     import { computed, onUnmounted, unref, useTemplateRef, type VNode } from 'vue';
     import { useTableInjection } from '~flux/components/composable';
-    import { useTranslate } from '~flux/components/composable/private';
+    import { useTableColumnIndex, useTranslate } from '~flux/components/composable/private';
     import type { FluxTableColumnDef } from '~flux/components/data';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxIcon from './FluxIcon.vue';
@@ -118,13 +118,7 @@
 
     const translate = useTranslate();
 
-    const columnIndex = computed(() => {
-        void columns.value;
-
-        const element = header.value;
-
-        return element?.parentElement ? Array.prototype.indexOf.call(element.parentElement.children, element) : -1;
-    });
+    const columnIndex = useTableColumnIndex(header, columns);
 
     const pinnedSide = computed<'start' | 'end' | null>(() => {
         if (pinned === true || pinned === 'start') {

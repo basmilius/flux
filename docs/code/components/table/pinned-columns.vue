@@ -50,6 +50,25 @@
                     {{ project.budget }}
                 </FluxTableCell>
             </FluxTableRow>
+
+            <template #footer>
+                <FluxTableRow>
+                    <FluxTableCell
+                        :colspan="2"
+                        pinned>
+                        <strong>Total</strong>
+                    </FluxTableCell>
+
+                    <FluxTableCell :colspan="5"/>
+
+                    <FluxTableCell
+                        align="end"
+                        is-numeric
+                        pinned="end">
+                        € 215,350
+                    </FluxTableCell>
+                </FluxTableRow>
+            </template>
         </FluxTable>
     </FluxPane>
 </template>
