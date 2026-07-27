@@ -837,12 +837,17 @@ const MUTED_BAND = 0.06;
  * The weight the muted role has to carry: how far the colored solids sit from
  * `--surface`. The median, because warning's ramp runs well above the rest of the
  * palette and drags a mean along with it.
+ *
+ * Averaged over the middle pair on an even count, which today cannot happen: five
+ * colored intents land on one middle. An index of 2.5 would read back `undefined`
+ * and take every muted check with it, since `NaN > MUTED_BAND` is false.
  */
 function mutedWeight(gate: Gate, scheme: Scheme): number {
     const surface = lightness(gate.paint(['--surface'], scheme));
     const weights = COLORED.map(intent => Math.abs(lightness(gate.colorOf(`--${intent}-solid`, scheme)) - surface)).sort((first, second) => first - second);
+    const middle = weights.length / 2;
 
-    return weights[(weights.length - 1) / 2];
+    return weights.length % 2 === 1 ? weights[Math.floor(middle)] : (weights[middle - 1] + weights[middle]) / 2;
 }
 
 function checkMuted(gate: Gate): void {
