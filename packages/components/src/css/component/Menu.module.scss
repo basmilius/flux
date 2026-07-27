@@ -221,8 +221,6 @@
     margin-left: -9px;
 }
 
-// Fades the fill's own foreground rather than picking a stop, so the shortcut stays
-// quieter than the label on both themes.
 .menuItemActive .menuItemCommand,
 .menuItemActive .menuItemCommandIcon {
     color: color-mix(in srgb, var(--primary-on-solid) 70%, transparent);
@@ -257,8 +255,6 @@
     font-weight: 700;
 }
 
-// The header fades out into the surface it is stuck to, which is not always `--surface`:
-// a menu sits inline on a page as well as inside a raised flyout.
 .menuSubHeader {
     position: sticky;
     display: flex;
@@ -309,8 +305,6 @@
     }
 }
 
-// A top level item is filled when active, so its marker reads off that fill instead of
-// the surface underneath it.
 .menuLarge .menuItem:not(.menuItemIndented) {
     min-height: 48px;
 
@@ -324,8 +318,6 @@
         opacity: 1;
     }
 
-    // The resting fill outranks `.menuItem`'s own hover and press, so those states are
-    // restated, stacking a second ink over the fill instead of replacing it.
     &.menuItemIndented {
         background-color: var(--ink-active);
 

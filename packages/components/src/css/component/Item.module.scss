@@ -79,8 +79,6 @@
     margin: 0;
 }
 
-// An is-control item paints a hover background, so its outer corners follow the parent
-// pane. Content sits inside the pane's border, hence `--radius - 1px`.
 .basePaneStructure > .item.isControl {
     border-radius: calc(var(--radius) - 1px);
 }
@@ -99,9 +97,6 @@
     }
 }
 
-// A whole pane acting as one link. Mixed into the surface the pane painted rather than
-// `--ink-hover`: ink is translucent and `background-color` replaces the fill instead of
-// layering over it, which would leave the card all but transparent.
 .basePaneStructure:is(a, button) {
     @include mixin.hover {
         &:has(> .item) {

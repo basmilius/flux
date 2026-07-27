@@ -136,9 +136,8 @@ function resolveVars(input: string, style: CSSStyleDeclaration): string {
 }
 
 // A color token is an unregistered custom property, so its computed value still holds a
-// verbatim `light-dark()` that a canvas cannot parse. Registering the property would
-// resolve it, but eagerly on `:root`, which freezes the whole page to one theme; the pair
-// is therefore picked here, from the `color-scheme` in force at the chart.
+// verbatim `light-dark()` that a canvas cannot parse. Registering it would resolve that
+// eagerly on `:root` and freeze the page to one theme, so the pair is picked here.
 function resolveLightDark(input: string, isDark: boolean): string {
     return replaceCalls(input, LIGHT_DARK_PATTERN, args => {
         if (args.length < 2) {

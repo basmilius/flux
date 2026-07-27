@@ -1,17 +1,3 @@
-// Fills the local intent contract from the global intent tokens. A component that
-// takes a `color` prop includes this once inside its color loop and then styles
-// against `--intent-*`, so it never picks a palette stop itself.
-//
-//   @include mixin.color-variants(badge) using ($color) {
-//       @include mixin.intent($color);
-//
-//       background: var(--intent-soft);
-//       border-color: var(--intent-border);
-//   }
-//
-// Gray fills the contract like the other five, so it does not need an override after
-// the color loop. The names are deliberately unprefixed: these are local variables, not
-// global tokens, which is what keeps a component from shadowing a global name.
 @mixin intent($color) {
     --intent-solid: var(--#{$color}-solid);
     --intent-muted: var(--#{$color}-muted);

@@ -1,6 +1,5 @@
-// Every rule is anchored to a direct child of .prose (or a descendant of one of its own
-// blocks), so a foreign component dropped into an article keeps its own styling while
-// still flowing in the vertical rhythm.
+// Every rule is anchored to a direct child of .prose, so a foreign component dropped into
+// an article keeps its own styling while still flowing in the vertical rhythm.
 $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
 
 // Named proseContainer rather than container: Layout.module.scss already owns that name,

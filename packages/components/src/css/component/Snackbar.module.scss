@@ -75,8 +75,6 @@
     transition: var(--transition-default);
     transition-property: background, color;
 
-    // Stacked on the fill rather than replacing it: the row paints `--surface-stroke`
-    // behind these buttons for its 1px rules, which a translucent background lets through.
     @include mixin.hover {
         background-image: linear-gradient(var(--ink-hover), var(--ink-hover));
         color: var(--foreground-prominent);
@@ -106,7 +104,6 @@
 
     @include mixin.intent($color);
 
-    // The text rung rather than solid, so the marks stay readable on a raised pane.
     .snackbarAction:first-child,
     .snackbarContent > .icon,
     .snackbarTitle {

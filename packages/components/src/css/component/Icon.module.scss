@@ -31,14 +31,12 @@
         white-space: nowrap;
     }
 
-    // A duotone glyph is two stacked layers, so both sit in the same grid cell to overlap.
     .iconFontPrimary,
     .iconFontSecondary {
         grid-area: 1 / 1;
     }
 
     .iconFontSecondary {
-        // Matches the SVG duotone rendering, which dims the secondary path.
         opacity: var(--fa-secondary-opacity, .2);
     }
 

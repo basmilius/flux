@@ -3,7 +3,6 @@
 .badge {
     @include mixin.text(xsmall);
 
-    // The default intent, so an uncolored badge still fills the `--intent-*` contract.
     @include mixin.intent('gray');
 
     display: inline-flex;

@@ -102,8 +102,6 @@
     }
 }
 
-// A notice always carries a color, gray included, so these are the only fills `code` and
-// `.noticeClose` ever get.
 @include mixin.color-variants(notice) using ($color) {
     composes: notice;
 
@@ -117,7 +115,6 @@
         background: var(--intent-soft-hover);
     }
 
-    // Deepens a rung on hover rather than going translucent, which would dim the glyph too.
     .noticeClose {
         background: var(--intent-soft-hover);
 

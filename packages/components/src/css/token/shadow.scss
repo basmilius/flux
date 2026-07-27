@@ -1,20 +1,11 @@
 @use 'theme';
 
-// One geometry for both themes; only the color differs. That is a constraint as much
-// as a choice: `light-dark()` carries colors, not lengths, so a per-theme blur radius
-// would need a theme selector, and the `color-scheme` setup has none to hang it on.
-//
-// Light tints its shadow with the neutral hue rather than pure black, which keeps it
-// from reading as soot on a colored surface.
+// One geometry for both themes: `light-dark()` carries colors, not lengths.
 @function color($light-alpha, $dark-alpha) {
     @return theme.theme(theme.neutral(.36, .02, $light-alpha), 'oklch(0 0 0 / #{$dark-alpha})');
 }
 
 @mixin shadows {
-    // For a component composing its own shadow, so that it takes a themed ink rather
-    // than a palette stop, which would be the same color in both themes and turn the
-    // shadow into a glow in one of them. Its alphas run well above the steps below
-    // because the only caller pulls its shadow back with a negative spread.
     --shadow-color: #{color(.15, .3)};
 
     --shadow-px: 0 1px 1px #{color(.02, .08)};

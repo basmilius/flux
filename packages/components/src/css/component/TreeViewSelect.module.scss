@@ -14,8 +14,6 @@
     text-align: center;
 }
 
-// States mirror .menuItem (Menu.module.scss) so options look identical to the menu items the
-// form select renders. There is deliberately no selected state: the checkbox / radio carries it.
 .treeNode {
     composes: treeNode from './primitive/TreeNode.module.scss';
 
@@ -57,7 +55,6 @@
     }
 }
 
-// The row is the control, so its checkbox / radio must not claim a cursor of its own.
 .treeNodeControl {
     cursor: inherit;
 }

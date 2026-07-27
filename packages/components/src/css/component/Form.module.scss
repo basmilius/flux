@@ -113,7 +113,6 @@
 }
 
 .formStepTitle {
-    // Matches the .formStepNumber circle it sits next to.
     @include mixin.text(large, $line-height: 27px);
 
     color: var(--foreground-prominent);
@@ -165,7 +164,6 @@
 }
 
 .formFieldLabel {
-    // Reserves one line, so fields with and without a label keep the same header height.
     min-height: var(--line-height-default);
     color: var(--foreground-prominent);
     font-weight: 600;
@@ -201,7 +199,6 @@
 }
 
 .formFieldAdditionIcon {
-    // Centers the icon on the first line box.
     margin-top: calc((var(--line-height-small) - 16px) / 2);
 }
 
@@ -222,8 +219,6 @@
 }
 
 .formInput {
-    // An input owns its text: its height is fixed, so the value must not follow the
-    // font-size of whatever it happens to sit in.
     @include mixin.text(default);
 
     position: relative;
@@ -615,8 +610,6 @@
     translate: 0 -50%;
 }
 
-// A sticky band inside the popup rather than an input well, so it has to disappear into
-// whatever surface the popup painted and leave only its bottom rule.
 .formSelectInput {
     position: sticky;
     top: 0;
@@ -733,7 +726,6 @@
         gap: 8px 20px;
     }
 
-    // Inline tiles share the row in equal columns; plain checkboxes keep their natural size.
     &.isInline:has(> .formCheckboxTile) {
         align-items: stretch;
         flex-wrap: nowrap;
@@ -809,8 +801,6 @@
     align-items: flex-start;
     gap: 12px;
 
-    // The label's first line box has to match the checkbox margin-box or the two stop
-    // lining up.
     line-height: 21px;
     outline: 0;
 
@@ -889,7 +879,6 @@
 }
 
 .formCheckboxLabel {
-    // Aligns with the checkbox margin-box, not with the default line.
     @include mixin.text(default, $line-height: 21px);
 }
 
@@ -1001,7 +990,6 @@
         gap: 9px 21px;
     }
 
-    // Inline tiles share the row in equal columns; plain radios keep their natural size.
     &.isInline:has(> .formRadioTile) {
         align-items: stretch;
         flex-wrap: nowrap;
@@ -1078,8 +1066,6 @@
     align-items: flex-start;
     gap: 12px;
 
-    // The label's first line box has to match the radio margin-box or the two stop
-    // lining up.
     line-height: 21px;
     outline: 0;
     cursor: pointer;
@@ -1148,7 +1134,6 @@
 }
 
 .formRadioLabel {
-    // Aligns with the radio margin-box, not with the default line.
     @include mixin.text(default, $line-height: 21px);
 }
 
@@ -1523,7 +1508,6 @@
     font: inherit;
     outline: 0;
 
-    // Aligns the placeholder with FluxFormInput when no tags precede the field.
     &:first-child {
         padding-left: 6px;
     }

@@ -104,8 +104,6 @@
     cursor: not-allowed;
 }
 
-// A whisper instead of the full tint: every column that can take the card lights up at
-// once, so it has to stay well under the column the pointer is actually over.
 .kanban.isBoardDragging .kanbanColumn:not(.isOver):not(.isDisabled) .kanbanColumnBody {
     background: color-mix(in srgb, var(--primary-soft) 30%, transparent);
 }

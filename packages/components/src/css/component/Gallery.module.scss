@@ -64,8 +64,6 @@
     border-radius: calc(var(--radius) - 1px);
     z-index: 0;
 
-    // The scrim darkens a photo, not a surface, so it stays black in both themes and the
-    // spinner white; `--foreground-inverse` would turn the spinner dark on a dark scrim.
     .spinner {
         --track: rgb(255 255 255 / .25);
         --value: rgb(255 255 255);

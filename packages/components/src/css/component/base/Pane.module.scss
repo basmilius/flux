@@ -4,9 +4,8 @@
     @include mixin.elevation('surface');
 }
 
-// In dark a shadow on a near-black surface separates nothing, so a floating layer has to
-// carry the height in its fill. Longhand on purpose: the `background` shorthand also resets
-// the padding-box clip the level painted with, and the fill then runs under the stroke.
+// Longhand on purpose: the `background` shorthand also resets the padding-box clip the
+// level painted with, and the fill then runs under the stroke.
 .basePaneRaised {
     composes: basePane;
 

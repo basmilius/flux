@@ -15,8 +15,6 @@
     height: var(--h);
     border-radius: 8px;
 
-    // A spread shadow rather than an element; `--overlay-strong` would black out the page
-    // the tour points at.
     box-shadow: 0 0 0 9999px var(--overlay);
     pointer-events: none;
     translate: var(--x) var(--y);

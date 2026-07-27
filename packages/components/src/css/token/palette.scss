@@ -1,13 +1,8 @@
 @use 'sass:list';
 @use 'sass:map';
 
-// The palette is absolute: a stop is the same color in both themes, so a shadow
-// cannot come out as a glow. Themes differ in the semantic layer, through
-// `light-dark()`.
-//
-// The hex beside each stop is the sRGB value it converts to, not a source of truth.
-// Prefer a semantic token over a stop: these exist to build the semantic layer out
-// of, not to reach for from a component.
+// A stop is the same color in both themes; themes differ in the semantic layer. The hex
+// beside each one is the sRGB it converts to, not a source of truth.
 $palette: (
     'gray': (
         25:  (1 0 0),                 // #ffffff
@@ -99,19 +94,14 @@ $palette: (
     @return list.nth(map.get($palette, $scale, $stop), 2);
 }
 
-// A stop as a literal color. Only `@mixin palette` below needs it: everything else
-// refers to the stop, so overriding `--palette-gray-600` reshades what is built on it.
+// A stop as a literal color, for `@mixin palette` alone: everything else refers to the
+// stop, which is what makes overriding `--palette-gray-600` reshade what is built on it.
 @function literal($scale, $stop) {
     $value: map.get($palette, $scale, $stop);
 
     @return #{'oklch(#{list.nth($value, 1)} #{list.nth($value, 2)} #{list.nth($value, 3)})'};
 }
 
-// A stop as a reference. The semantic and intent layers are built out of these,
-// which keeps the palette a control surface rather than a lookup table.
-//
-// `$alpha` goes through relative color syntax, which is safe over a stop because a
-// stop holds a plain color. Over a themed token it is the trap theme.scss documents.
 @function stop($scale, $stop, $alpha: 1) {
     @if $alpha < 1 {
         @return #{'oklch(from var(--palette-#{$scale}-#{$stop}) l c h / #{$alpha})'};
@@ -120,11 +110,6 @@ $palette: (
     @return #{'var(--palette-#{$scale}-#{$stop})'};
 }
 
-// A color on the hue of `$scale` at an arbitrary lightness, for the dark surfaces and
-// tints that have no stop to land on.
-//
-// The lightness is solved against a contrast target and does not move; hue and chroma
-// are read off stop 500, so reshading the scale carries these along.
 @function tint($scale, $lightness, $chroma-factor: 1, $alpha: 1) {
     $chroma: 'calc(c * #{$chroma-factor})';
     $suffix: '';

@@ -1,13 +1,9 @@
 /**
- * Asserts the color contract against what actually shipped.
+ * Asserts the color contract against the built `dist/index.css` rather than the Sass
+ * source, because what regresses is the emitted value. Every token is resolved twice, once
+ * per scheme, by taking the matching branch of every `light-dark()` it passes through.
  *
- * The tokens are read back from the built `dist/index.css` rather than from the
- * Sass source, because what can regress is the emitted value, not the expression
- * that produced it. Every token is resolved twice, once per scheme, by taking the
- * matching branch of every `light-dark()` it passes through.
- *
- * Run after building both packages it reads, or it measures the previous values
- * without saying so:
+ * Run after building both packages, or it measures the previous values without saying so:
  *   bun run --cwd packages/components build
  *   bun run --cwd packages/statistics build
  *   bun scripts/check-contrast.ts
@@ -15,9 +11,8 @@
 
 import { readFileSync } from 'node:fs';
 
-// Two bundles, because the chart tokens ship from their own package while every ground
-// and every alias they read sits in the components one. Reading only the first is how
-// `chart.scss` stayed outside the gate.
+// Two bundles: the chart tokens ship from their own package while the grounds they read
+// sit in the components one. Reading only the first is how `chart.scss` escaped the gate.
 const CSS_PATHS = ['packages/components/dist/index.css', 'packages/statistics/dist/index.css'] as const;
 
 const COLORED = ['primary', 'danger', 'info', 'success', 'warning'] as const;
@@ -33,10 +28,9 @@ type Rgba = readonly [number, number, number, number];
 // ---------------------------------------------------------------------------
 
 /**
- * Reads the custom properties out of the first `:root` block, splitting on the first
- * colon only because a value can carry nested parentheses and commas. The end of the
- * block is found by matching braces: everything sits inside `@layer flux-base`, so the
- * first `}` in the first column closes the layer and not the block.
+ * Reads the custom properties out of the first `:root` block. Splits on the first colon
+ * only, because a value carries nested parentheses and commas, and finds the end by
+ * matching braces, because `@layer flux-base` wraps everything.
  */
 function readTokens(css: string, path: string): Map<string, string> {
     const start = css.indexOf(':root {');
@@ -85,9 +79,8 @@ function readTokens(css: string, path: string): Map<string, string> {
 }
 
 /**
- * Every bundle's tokens in one map. A name that arrives twice is refused rather than
- * merged: whichever bundle a page loads last would win, so the two would have to be read
- * in load order to be measured honestly, and nothing here knows that order.
+ * Every bundle's tokens in one map. A name arriving twice is refused rather than merged:
+ * whichever bundle a page loads last would win, and nothing here knows that order.
  */
 function readAllTokens(): Map<string, string> {
     const tokens = new Map<string, string>();
@@ -105,7 +98,6 @@ function readAllTokens(): Map<string, string> {
     return tokens;
 }
 
-/** Splits a comma separated argument list, ignoring commas nested in parentheses. */
 function splitArguments(input: string): string[] {
     const parts: string[] = [];
     let depth = 0;
@@ -132,10 +124,6 @@ function splitArguments(input: string): string[] {
     return parts;
 }
 
-/**
- * Finds the outermost call to `name(` and returns its argument list plus the slice
- * boundaries, so the caller can rebuild the string around it.
- */
 function findCall(value: string, name: string): {args: string; start: number; end: number} | null {
     const needle = `${name}(`;
     const start = value.indexOf(needle);
@@ -165,10 +153,6 @@ function findCall(value: string, name: string): {args: string; start: number; en
     throw new Error(`unbalanced ${name}() in "${value}"`);
 }
 
-/**
- * Resolves a token to a literal color for one scheme: every `light-dark()` collapses
- * to its own branch and every `var()` is followed, depth first.
- */
 function resolve(value: string, scheme: Scheme, tokens: Map<string, string>, seen: string[] = []): string {
     let result = value;
 
@@ -210,10 +194,9 @@ function resolve(value: string, scheme: Scheme, tokens: Map<string, string>, see
 // ---------------------------------------------------------------------------
 
 /**
- * Refuses what `Number` cannot read instead of handing NaN on. Every comparison in this
- * file is `false` for NaN, so an unreadable value passes every check by being unreadable:
- * `oklch(99% 0 0)`, `oklch(.99 0 0deg)` and `oklch(.99 none 0)` are all legal CSS, and all
- * three used to slip through where the same color written plainly failed thirteen checks.
+ * Refuses what `Number` cannot read instead of handing NaN on: every comparison here is
+ * `false` for NaN, so an unreadable value would pass every check by being unreadable.
+ * `oklch(99% 0 0)` and `oklch(.99 none 0)` are legal CSS and used to slip through.
  */
 function readNumber(input: string, label: string): number {
     const value = input.trim() === '' ? Number.NaN : Number(input);
@@ -253,9 +236,8 @@ function parseColor(input: string): Rgba {
 
     const oklch = findCall(value, 'oklch');
 
-    // The call has to be the whole value, not one found somewhere inside it: a
-    // `color-mix(in srgb, oklch(...) 15%, transparent)` would otherwise read back as the
-    // fully opaque color it mixes from.
+    // The call has to be the whole value: `color-mix(in srgb, oklch(...) 15%, transparent)`
+    // would otherwise read back as the opaque color it mixes from.
     if (oklch === null || oklch.start !== 0 || oklch.end !== value.length) {
         throw new Error(`unsupported color "${input}"`);
     }
@@ -281,10 +263,9 @@ function parseAbsolute(args: string): Rgba {
 }
 
 /**
- * `oklch(from <color> <l> <c> <h> [/ <a>])`. The token layer emits this so that a
- * dark neutral keeps its solved lightness while taking hue and chroma off the palette
- * stop it is anchored to, which is what lets a palette override reshade a theme that
- * has no stops to land on.
+ * `oklch(from <color> <l> <c> <h> [/ <a>])`. A dark neutral keeps its solved lightness
+ * while taking hue and chroma off the stop it is anchored to, which is what lets a palette
+ * override reshade a theme with no stops to land on.
  */
 function parseRelative(args: string): Rgba {
     const rest = args.trimStart().slice('from '.length);
@@ -329,7 +310,6 @@ function evaluateChannel(channel: string, origin: readonly [number, number, numb
     return readNumber(trimmed, 'channel');
 }
 
-/** Splits off a trailing `/ <alpha>`, ignoring slashes nested in parentheses. */
 function splitAlpha(input: string): [string, string | null] {
     let depth = 0;
 
@@ -348,7 +328,6 @@ function splitAlpha(input: string): [string, string | null] {
     return [input.trim(), null];
 }
 
-/** Where the origin color ends: after its closing parenthesis, or at whitespace. */
 function findColorEnd(input: string): number {
     const open = input.indexOf('(');
 
@@ -375,14 +354,12 @@ function parseAlpha(input: string): number {
 
 /**
  * OKLCH -> OKLab -> LMS -> linear sRGB, then clipped per channel. Not what CSS Color 4
- * specifies, which reduces chroma instead, but what Chrome, Safari and Firefox all three
- * paint: measured byte for byte on the ten chart tokens where the two answers differ.
+ * specifies, which reduces chroma instead, but what all three engines actually paint.
  */
 function oklchToLinearSrgb(lightness: number, chroma: number, hue: number): [number, number, number] {
     return clipAll(oklchToUnbounded(lightness, chroma, hue));
 }
 
-/** The conversion itself, which happily returns channels outside 0..1. */
 function oklchToUnbounded(lightness: number, chroma: number, hue: number): [number, number, number] {
     const radians = (hue * Math.PI) / 180;
     const labA = chroma * Math.cos(radians);
@@ -415,7 +392,6 @@ function decode(value: number): number {
     return value <= 0.04045 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
 }
 
-/** Linear sRGB -> OKLab. The one place the matrix lives; everything below reads it. */
 function oklab([red, green, blue]: Rgba): readonly [number, number, number] {
     const long = Math.cbrt(0.4122214708 * red + 0.5363325363 * green + 0.0514459929 * blue);
     const medium = Math.cbrt(0.2119034982 * red + 0.6806995451 * green + 0.1073969566 * blue);
@@ -428,7 +404,6 @@ function oklab([red, green, blue]: Rgba): readonly [number, number, number] {
     ];
 }
 
-/** The inverse of `oklchToLinearSrgb`, so a relative color can read its origin. */
 function oklchOf(color: Rgba): readonly [number, number, number] {
     const [lightness, labA, labB] = oklab(color);
 
@@ -437,13 +412,11 @@ function oklchOf(color: Rgba): readonly [number, number, number] {
 
 /**
  * Composites a possibly translucent color over an opaque backdrop: a token like
- * `--ink-hover` has no contrast at all until it sits on something. The blend happens on
- * the gamma encoded values, because that is where a browser does it, and on a dark
- * ground the two answers are far apart.
+ * `--ink-hover` has no contrast until it sits on something. The blend happens on the gamma
+ * encoded values, because that is where a browser does it.
  */
 function over(foreground: Rgba, background: Rgba): Rgba {
-    // A translucent backdrop has no color of its own yet, so it has to be painted onto
-    // something opaque first. Refuse rather than answer for the wrong one.
+    // A translucent backdrop has to be painted onto something opaque first.
     if (background[3] !== 1) {
         throw new Error(`cannot measure against a translucent backdrop (alpha ${background[3]})`);
     }
@@ -467,18 +440,18 @@ function luminance([red, green, blue]: Rgba): number {
 }
 
 /**
- * OKLab lightness. A contrast ratio answers "can this be read"; an interaction state
- * is not read, it is noticed, and at the dark end a ratio exaggerates what the eye
- * barely registers.
+ * OKLab lightness. A contrast ratio answers "can this be read"; an interaction state is
+ * noticed rather than read, and at the dark end a ratio exaggerates what the eye barely
+ * registers.
  */
 function lightness(color: Rgba): number {
     return oklab(color)[0];
 }
 
 /**
- * How far apart two colors are, as a distance in OKLab rather than along one of its
- * axes. This is the measure for a fill against the ground it lies on: those separate on
- * hue as much as on brightness, and a luminance ratio is blind to hue by construction.
+ * How far apart two colors are, as a distance in OKLab rather than along one axis. The
+ * measure for a fill against its ground: those separate on hue as much as on brightness,
+ * and a luminance ratio is blind to hue.
  */
 function distance(first: Rgba, second: Rgba): number {
     const [firstL, firstA, firstB] = oklab(first);
@@ -499,15 +472,12 @@ function contrast(foreground: Rgba, background: Rgba): number {
 // ---------------------------------------------------------------------------
 
 /**
- * The layers under a color, painted bottom up: the first is opaque and each next one is
- * composited onto what is below it. An opaque token is a stack of one. Writing the
- * ground this way is what keeps a translucent token like `--surface-inverse` honest: it
- * has no color at all until it lands on something, and reading it as opaque flatters
- * whatever sits on top of it.
+ * The layers under a color, painted bottom up; an opaque token is a stack of one. This is
+ * what keeps a translucent token like `--surface-inverse` honest: reading it as opaque
+ * flatters whatever sits on top of it.
  */
 type Stack = readonly string[];
 
-/** Resolves every token on demand, once per scheme. */
 function loadColors(): (token: string, scheme: Scheme) => Rgba {
     const tokens = readAllTokens();
     const colors = new Map<string, Rgba>();
@@ -523,7 +493,6 @@ function loadColors(): (token: string, scheme: Scheme) => Rgba {
     };
 }
 
-/** Paints a stack of layers onto each other and hands back the opaque result. */
 function paintStack(colorOf: (token: string, scheme: Scheme) => Rgba, stack: Stack, scheme: Scheme): Rgba {
     const painted = stack.map(token => colorOf(token, scheme)).reduce((ground, layer) => over(layer, ground));
 
@@ -534,7 +503,6 @@ function paintStack(colorOf: (token: string, scheme: Scheme) => Rgba, stack: Sta
     return painted;
 }
 
-/** Two stacks that have to be measurably apart, and how far. */
 type Apart = {
     readonly label: string;
     readonly from: Stack;
@@ -542,7 +510,6 @@ type Apart = {
     readonly floor: number;
 };
 
-/** What every check below measures with, and where it reports to. */
 type Gate = {
     readonly colorOf: (token: string, scheme: Scheme) => Rgba;
     readonly paint: (stack: Stack, scheme: Scheme) => Rgba;
@@ -583,9 +550,8 @@ function buildChecks(): Check[] {
         add(`surface-stroke on ${elevation}`, '--surface-stroke', [elevation], 1.1);
         add(`surface-stroke-hover on ${elevation}`, '--surface-stroke-hover', [elevation], 1.1);
 
-        // A tooltip, a toast or a popover lands on whatever happens to be under it, and
-        // the inverse surface is translucent, so the text on it is measured over every
-        // level it can float above rather than over the token alone.
+        // The inverse surface is translucent and floats over anything, so its text is
+        // measured over every level rather than over the token alone.
         for (const foreground of ['--foreground-inverse-prominent', '--foreground-inverse', '--foreground-inverse-secondary']) {
             add(`${foreground.slice(2)} on surface-inverse over ${elevation}`, foreground, [elevation, '--surface-inverse'], 4.5);
         }
@@ -640,10 +606,9 @@ const SEPARATION: readonly (readonly [string, string])[] = [
     ['--surface-canvas', '--surface']
 ];
 
-// Dark additionally carries elevation in the lightness of the layer, so a raised layer
-// has to be measurably apart from the one under it. Light keeps every raised layer
-// white and lets the shadow do the work, and deliberately gives `--surface-sunken` the
-// value `--background` has, so both pairs only hold in dark.
+// Dark carries elevation in the lightness of the layer, so a raised layer has to be apart
+// from the one under it. Light keeps them white and lets the shadow work, so both pairs
+// only hold in dark.
 const DARK_SEPARATION: readonly (readonly [string, string])[] = [
     ['--surface-sunken', '--background'],
     ['--surface-raised', '--surface']
@@ -689,19 +654,16 @@ type Step = Apart & {
     readonly direction?: 'lighter' | 'darker';
 };
 
-// The step at which a change of state reads at all. Set just under the tightest pair
-// the library ships, `--surface-stroke-muted` against `--surface-hover` in dark, which
-// makes it the point where a state stops registering rather than a target to aim at.
+// The step at which a change of state reads at all, set just under the tightest pair the
+// library ships: `--surface-stroke-muted` against `--surface-hover` in dark.
 const STATE_FLOOR = 0.018;
 
 function buildSteps(): Step[] {
     const steps: Step[] = [];
     const add = (label: string, from: Stack, to: Stack, floor: number, direction?: 'lighter' | 'darker') => steps.push({label, from, to, floor, direction});
 
-    // The opaque pair is calibrated against `--surface` and only claims to work there,
-    // which is why `--ink-hover` and `--ink-active` exist at all: on any other ground
-    // the opaque pair lands somewhere between too weak and invisible. The translucent
-    // pair is the one that has to hold everywhere, so it is measured on all three.
+    // The opaque pair only claims to work against `--surface`, which is why the ink pair
+    // exists. That one has to hold everywhere, so it is measured on all three.
     for (const state of ['--surface-hover', '--surface-active', '--surface-disabled']) {
         add(`${state} on --surface`, ['--surface'], ['--surface', state], STATE_FLOOR);
     }
@@ -712,12 +674,8 @@ function buildSteps(): Step[] {
         }
     }
 
-    // The muted stroke is the inner edge of a table, a pane footer and an action bar,
-    // and it has to survive the row under it changing state.
-    //
-    // `--surface-active` is deliberately not in this list: no component draws a muted
-    // stroke on a pressed fill, and in light the two tokens are the same stop, so the
-    // check would be red for a case that does not exist.
+    // The muted stroke has to survive the row under it changing state. `--surface-active`
+    // is left out on purpose: no component draws a muted stroke on a pressed fill.
     for (const ground of ['--surface', '--surface-raised', '--surface-sunken', '--surface-hover']) {
         add(`surface-stroke-muted against ${ground}`, [ground], ['--surface-stroke-muted'], STATE_FLOOR);
     }
@@ -728,8 +686,7 @@ function buildSteps(): Step[] {
     for (const intent of INTENTS) {
         add(`${intent}: soft to soft-hover`, [`--${intent}-soft`], [`--${intent}-soft-hover`], STATE_FLOOR);
 
-        // Pressing happens while hovering, so the step that has to read is the one from
-        // hover to active, not the one from rest.
+        // Pressing happens while hovering, so the step that has to read is hover to active.
         add(`${intent}: solid to solid-hover`, [`--${intent}-solid`], [`--${intent}-solid-hover`], STATE_FLOOR);
         add(`${intent}: solid-hover to solid-active`, [`--${intent}-solid-hover`], [`--${intent}-solid-active`], STATE_FLOOR);
     }
@@ -787,15 +744,14 @@ function buildDistances(): Apart[] {
     const distances: Apart[] = [];
 
     for (const intent of INTENTS) {
-        // A soft fill is a badge, a chip, a notice or a tinted table row, and every one
-        // of those turns up inside a menu, a modal or a snackbar as readily as on a
-        // card, so `--surface-raised` is a ground it has to separate from too.
+        // A badge or chip turns up inside a menu or modal as readily as on a card, so
+        // `--surface-raised` is a ground its fill has to separate from too.
         for (const ground of ['--surface', '--surface-raised']) {
             distances.push({label: `${intent}: soft against ${ground}`, from: [ground], to: [`--${intent}-soft`], floor: TINT_FLOOR});
         }
 
-        // The edge around a tinted area, measured the same way and for the same reason
-        // as the tint itself: a colored border mostly separates from its fill on hue.
+        // Measured as a distance like the tint itself: a colored border mostly separates
+        // from its fill on hue.
         distances.push({label: `${intent}: border against soft`, from: [`--${intent}-soft`], to: [`--${intent}-border`], floor: TINT_FLOOR});
     }
 
@@ -828,19 +784,15 @@ function checkDistances(gate: Gate): void {
 // The weight is read off the colored solids at run time rather than written down here,
 // so reshading the palette moves the target with it.
 //
-// The band is half a step of the lightness ramp, which is as close as any stop can
-// land: inside it a neighboring stop is a matter of taste, outside it the role has been
-// pointed at the wrong idea, which is what happened when gray was given `solid`.
+// Half a step of the lightness ramp: inside it a neighboring stop is a matter of taste,
+// outside it the role has been pointed at the wrong idea.
 const MUTED_BAND = 0.06;
 
 /**
- * The weight the muted role has to carry: how far the colored solids sit from
- * `--surface`. The median, because warning's ramp runs well above the rest of the
- * palette and drags a mean along with it.
- *
- * Averaged over the middle pair on an even count, which today cannot happen: five
- * colored intents land on one middle. An index of 2.5 would read back `undefined`
- * and take every muted check with it, since `NaN > MUTED_BAND` is false.
+ * The weight the muted role has to carry: how far the colored solids sit from `--surface`.
+ * The median, because warning's ramp runs above the rest and drags a mean along with it.
+ * Averaged over the middle pair on an even count, or a half index would read back
+ * `undefined` and take every muted check with it, since `NaN > MUTED_BAND` is false.
  */
 function mutedWeight(gate: Gate, scheme: Scheme): number {
     const surface = lightness(gate.paint(['--surface'], scheme));
@@ -878,9 +830,8 @@ type Ramp = {
     readonly tokens: readonly string[];
 };
 
-// Three ladders that carry meaning through their order. Nothing here needs a threshold:
-// the failure they catch is two values swapped, or one edited until it passes its own
-// target and overtakes its neighbor.
+// Three ladders that carry meaning through their order. No threshold: the failure they
+// catch is two values swapped, or one edited until it overtakes its neighbor.
 const RAMPS: readonly Ramp[] = [
     {
         label: 'text ramp',
@@ -925,9 +876,9 @@ function checkRamps(gate: Gate): void {
 
 // --- Transparent pairs: what has to fade out on its own hue -----------------
 
-// A ring that fades in has to start on its own hue. `transparent` is black at zero
-// alpha and fades through gray, and deriving the pair with relative color syntax over a
-// token holding a `light-dark()` resolves eagerly and freezes the theme.
+// A ring that fades in has to start on its own hue: `transparent` is black at zero alpha
+// and fades through gray, and deriving the pair with relative color syntax freezes the
+// theme.
 const TRANSPARENT_PAIRS: readonly (readonly [string, string])[] = [
     ['--focus-ring-transparent', '--focus-ring']
 ];
@@ -962,8 +913,7 @@ const CHART_WIDE = Array.from({length: 17}, (_, index) => `--chart-colorful-${in
 const CHART_FLOOR = 3;
 
 // What an area series paints under its line. The floor sits above the tint one so the
-// check can fail on its own: a fill faint enough to trip that would already have failed
-// the ratio next to it.
+// check can fail on its own.
 const CHART_AREA_ALPHA = 0.25;
 const CHART_AREA_FLOOR = 0.08;
 
@@ -1102,10 +1052,9 @@ function checkAnchors(colorOf: (token: string, scheme: Scheme) => Rgba): string[
     return drift;
 }
 
-// `--surface-loader` is deliberately absent from everything above. It is `--surface` at
-// .75 alpha painted over `--surface`, so every color measurement of it is zero by
-// construction: what hides the content under it is the `backdrop-filter` blur next to
-// it, which no color check can see.
+// `--surface-loader` is absent from everything above: it is `--surface` at .75 alpha over
+// `--surface`, so every measurement of it is zero by construction. What hides the content
+// under it is the `backdrop-filter` blur, which no color check can see.
 
 // ---------------------------------------------------------------------------
 
@@ -1119,11 +1068,9 @@ function main(): number {
         colorOf,
         paint: (stack, scheme) => paintStack(colorOf, stack, scheme),
 
-        // In light `--surface` and `--surface-raised` hold the same value, and so do
-        // `--background` and `--surface-sunken`, so a good part of the grid collapses
-        // onto pairs of identical colors there. Counting those twice would make the
-        // total claim more than it measures, so a check is counted once per distinct
-        // pair of colors and target.
+        // In light several elevation tokens hold the same value, so a good part of the
+        // grid collapses onto identical pairs. Counted once per distinct pair and target,
+        // or the total would claim more than it measures.
         once: key => {
             if (seen.has(key)) {
                 return false;

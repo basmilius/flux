@@ -1,16 +1,6 @@
-// How a token picks its value per theme. `light-dark()` resolves against the
-// `color-scheme` of the element the token is *used* on, not the one it was
-// declared on, so a single declaration on `:root` still flips inside a `[dark]`
-// subtree.
-//
-// Two things break that and must be avoided:
-//
-//   - Registering a color token through `@property` with `syntax: '<color>'`.
-//     That computes the value eagerly on `:root` and freezes the theme there.
-//   - Deriving an alpha variant with relative color syntax over a token that
-//     holds a `light-dark()`, as in `oklch(from var(--surface) l c h / .5)`.
-//     Write the variant out as its own `theme()` call instead. Relative color
-//     syntax over a palette stop is fine: those hold a plain color.
+// Two things freeze a token to one theme: registering it through `@property` with
+// `syntax: '<color>'`, and relative color syntax over a token holding a `light-dark()`.
+// Over a palette stop that syntax is fine.
 
 @use 'sass:math';
 @use 'palette';
@@ -23,13 +13,7 @@
     @return #{'light-dark(#{$light}, #{$dark})'};
 }
 
-// A neutral at an arbitrary lightness, for the dark end where the gray scale has no
-// stops. The lightness is solved against a contrast target and must not drift; hue and
-// chroma are read off `gray-500`, so recoloring the gray scale carries the dark
-// surfaces, text and strokes with it.
 @function neutral($lightness, $chroma, $alpha: 1) {
-    // Rounded to keep the emitted expression short; the error stays below a
-    // perceptible step.
     $factor: math.div(math.round(math.div($chroma, palette.chroma('gray', 500)) * 10000), 10000);
     $expression: 'calc(c * #{$factor})';
     $suffix: '';

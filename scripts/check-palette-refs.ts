@@ -1,9 +1,7 @@
 /**
- * Fails on any reference to the mirrored palette this library used to ship.
- *
- * Those names are gone, so a `var(--gray-100)` now resolves to nothing at all and
- * paints as if the declaration were absent. That fails quietly, which is what this
- * catches.
+ * Fails on any reference to the palette scales this library used to ship. Those names are
+ * gone, so `var(--gray-100)` resolves to nothing and paints as if the declaration were
+ * absent, which fails quietly.
  *
  *   bun scripts/check-palette-refs.ts
  */
@@ -16,8 +14,7 @@ const EXTENSIONS = ['.scss', '.css', '.ts', '.tsx', '.js', '.vue', '.md'];
 
 const SKIP_DIRECTORIES = ['node_modules', 'dist', '.vitepress/cache', '.vitepress/dist', '.git'];
 
-// Matched as whole path segments. A substring test also skips `distance.ts`, which
-// is the kind of hole that only shows up once something in it is wrong.
+// Matched as whole path segments: a substring test would also skip `distance.ts`.
 function isSkipped(path: string): boolean {
     return SKIP_DIRECTORIES.some(skip => path === skip || path.startsWith(`${skip}/`) || path.includes(`/${skip}/`) || path.endsWith(`/${skip}`));
 }
@@ -34,8 +31,7 @@ const PATTERNS: readonly RegExp[] = [
     new RegExp(`var\\(\\s*--\\$\\{[^}]+\\}-(?:${STOPS})\\b`, 'g')
 ];
 
-// A non-zero entry would mean a package knowingly carries references to a scale that
-// no longer exists. There is no such package, so this reads as a hard gate.
+// Every budget is zero, so this reads as a hard gate.
 const BUDGET: Record<string, number> = {
     'packages/components': 0,
     'packages/statistics': 0,
@@ -43,8 +39,8 @@ const BUDGET: Record<string, number> = {
     'packages/visuals': 0,
     'packages/application': 0,
     docs: 0,
-    // Anything the buckets above do not name. Without it a hit in `packages/types`
-    // or `packages/internals` lands in a bucket with no budget and passes.
+    // Anything the buckets above do not name, or a hit in `packages/types` lands in a
+    // bucket with no budget and passes.
     other: 0
 };
 

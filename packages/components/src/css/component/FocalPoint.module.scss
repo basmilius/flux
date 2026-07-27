@@ -17,8 +17,6 @@
     @include mixin.focus-ring(3px);
 }
 
-// The handle sits on the image the user uploaded, not on a surface, so it stays literal
-// in both themes: a ring that followed the theme would vanish into half the images.
 .focalPointEditorArea {
     position: absolute;
     height: 42px;

@@ -2,19 +2,6 @@
 
 $-levels: 'sunken', 'surface', 'raised';
 
-// Elevation is a level, not a set of declarations, so a component says how high it
-// sits instead of picking a background and a border by hand.
-//
-//   sunken   a recessed area inside a surface (input wells, canvases, table heads)
-//   surface  a card or panel sitting on the page
-//   raised   something floating over the page (menu, flyout, modal, snackbar)
-//
-// Do not add an inset edge here. A floating layer sets its own `box-shadow`, which
-// replaces the inset outright, so it would land on every card, boxed icon and flow
-// pill instead of on the layers it was meant for.
-//
-// The padding-box clip belongs to the border: without it the background paints
-// underneath the translucent stroke and shows through it.
 @mixin elevation($level: 'surface', $radius: var(--radius)) {
     @if not list.index($-levels, $level) {
         @error 'Elevation level "#{$level}" not found in "#{$-levels}".';
@@ -28,20 +15,15 @@ $-levels: 'sunken', 'surface', 'raised';
         $background: var(--surface-sunken);
     }
 
-    // The level publishes what it painted, so its contents can read the surface they
-    // actually sit on instead of naming one: the same menu renders inline on a page and
-    // inside a raised flyout, which in dark are two colors.
     --surface-current: #{$background};
 
     background-color: var(--surface-current);
+    // Without the clip the fill paints under the translucent border and shows through it.
     background-clip: padding-box;
     border: 1px solid var(--surface-stroke-out);
     border-radius: $radius;
 }
 
-// The former name for `elevation('surface')`. An element that really is a pane composes
-// `basePane` instead; this is for everything else, including the sibling packages,
-// which cannot compose across a package boundary.
 @mixin surface($radius: var(--radius)) {
     @include elevation('surface', $radius);
 }

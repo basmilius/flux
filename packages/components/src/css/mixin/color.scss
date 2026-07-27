@@ -3,18 +3,10 @@
 // Quoted: bare `gray` would resolve to the CSS named color, not to a name we can slice.
 $colors: 'gray', 'primary', 'danger', 'info', 'success', 'warning';
 
-// The PascalCase form a color takes inside a class name, so `$prefix + color-suffix($color)` is
-// always the class a FluxColor prop maps to.
 @function color-suffix($color) {
     @return string.to-upper-case(string.slice($color, 1, 1)) + string.slice($color, 2);
 }
 
-// Emits `.<prefix>Gray` through `.<prefix>Warning` and hands the intent name to the block, so a
-// component declares its color variants once instead of six times. Open the block with
-// `@include mixin.intent($color)` and style against `--intent-*` from there.
-//
-// For variants that are not a bare class of their own (a nested `&.isGray`, or a descendant
-// selector) loop over $colors directly and build the name with color-suffix().
 @mixin color-variants($prefix) {
     @each $color in $colors {
         .#{$prefix}#{color-suffix($color)} {

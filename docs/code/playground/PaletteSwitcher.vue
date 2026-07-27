@@ -226,9 +226,8 @@
             ]
         },
 
-        // Tailwind's scales start at 50, so stop 25 is invented. On the neutral that
-        // stop is what --surface and --surface-raised resolve to, so it takes pure
-        // white; Tailwind's own 50 would tint every card in the library.
+        // Tailwind's scales start at 50, so stop 25 is invented. On the neutral it is what
+        // `--surface` resolves to, so it takes pure white rather than Tailwind's own 50.
         {
             id: 'slate',
             label: 'Slate',
@@ -564,9 +563,8 @@
         }
     }
 
-    // The override has to sit on the root element itself: `--surface` and friends
-    // are declared on `:root` and substitute their `var(--palette-*)` there, so a
-    // scale set on a wrapper arrives too late and changes nothing.
+    // The override has to sit on the root element itself: the semantic tokens substitute
+    // their `var(--palette-*)` on `:root`, so a scale set on a wrapper arrives too late.
     function applyScale(scale: string, values: readonly string[] | null): void {
         STOPS.forEach((stop, index) => {
             const property = `--palette-${scale}-${stop}`;
@@ -601,9 +599,8 @@
     }
 
     /**
-     * Composites a translucent color over an opaque backdrop on the gamma encoded
-     * channels, because that is where a browser does it: `rgb(0 0 0 / .5)` over
-     * white renders #808080, not the #bcbcbc of a blend in linear light.
+     * Composites on the gamma encoded channels, because that is where a browser does it:
+     * `rgb(0 0 0 / .5)` over white renders #808080, not the #bcbcbc of a linear blend.
      */
     function over(foreground: Rgba, background: Rgba): Rgba {
         const alpha = foreground[3];
@@ -617,14 +614,10 @@
     }
 
     /**
-     * A computed color comes back in whatever space it was written in, and every token
-     * here is written in `oklch()`. Reading a canvas fill back gives that same notation
-     * verbatim rather than the `#rrggbb` the older serialization promised, so painting
-     * the color into a pixel and reading the bytes is what gets a number out of it.
-     *
-     * That also measures what the screen shows rather than what the notation says: the
-     * pixel carries the per-channel clipping a browser applies to a color outside sRGB,
-     * which is the same thing the contrast gate does.
+     * A computed color comes back in the space it was written in, and these are `oklch()`,
+     * so painting it into a pixel and reading the bytes is what gets a number out of it.
+     * That also carries the per-channel clipping a browser applies outside sRGB, which is
+     * what the contrast gate does too.
      */
     function paintedColor(value: string): Rgba {
         context ??= document.createElement('canvas').getContext('2d', {willReadFrequently: true})!;

@@ -1,8 +1,6 @@
 @use 'sass:map';
 @use '~flux/components/css/mixin';
 
-// An icon-only button drops the inline padding and takes its height as its width instead,
-// so it stays square.
 $-sizes: (
     isSmall: (height: 36px, padding: 9px),
     isMedium: (height: 42px, padding: 12px),
@@ -12,8 +10,6 @@ $-sizes: (
 
 @layer flux-base {
     .button {
-        // A button owns its text: its height is fixed, so the label must not follow the
-        // font-size of whatever it happens to sit in.
         @include mixin.text(default);
 
         display: inline-flex;

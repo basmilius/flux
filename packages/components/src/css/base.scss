@@ -5,10 +5,6 @@
 @use 'token/shadow';
 
 @layer flux-base {
-    // The theme is nothing but `color-scheme`, so a `[dark]` subtree inside a light page
-    // flips its tokens, its scrollbars, its native select popups and its autofill
-    // styling together, and an app that follows the OS sets `color-scheme: light dark`
-    // on the root.
     :root {
         @include variables.animation;
         @include variables.defaults;

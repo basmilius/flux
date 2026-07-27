@@ -6,7 +6,6 @@
         text-wrap: balance;
     }
 
-    // h1 and h2 sit above the text scale and carry their own pair.
     h1 {
         color: var(--foreground-prominent);
         font-size: 27px;
@@ -55,7 +54,6 @@
         @include mixin.text(small);
     }
 
-    // Only the font is set here; the rich prose treatment lives in FluxProse.
     code, kbd, samp, pre {
         font-family: var(--font-monospace), monospace;
     }

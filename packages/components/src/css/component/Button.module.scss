@@ -1,7 +1,5 @@
 @use '~flux/components/css/mixin';
 
-// The border and the spinner track sit one rung further along the solid ladder than the
-// fill, so they stay a shade apart from it in both themes.
 .primaryButton {
     composes: button from './base/Button.module.scss';
 
@@ -89,8 +87,6 @@
     }
 }
 
-// The inset bottom edge is a hint of depth, not a second border: `--surface-stroke-out`
-// in its place lands heavy enough to read as one.
 .secondaryButton,
 .destructiveButton {
     box-shadow: var(--shadow-px), inset 0 -1px color-mix(in srgb, var(--surface-stroke) 15%, transparent);

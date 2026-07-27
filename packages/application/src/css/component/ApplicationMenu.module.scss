@@ -1,8 +1,5 @@
 @use '~flux/components/css/mixin';
 
-// The rail announces the level it paints, so anything inside it that fades into or
-// knocks out its ground, such as the sticky menu sub header, lands on the rail color
-// without naming it.
 .applicationMenu {
     --surface-current: var(--application-menu-surface);
 
@@ -134,8 +131,6 @@
 .applicationMenu :local(.menuItem) {
     position: relative;
 
-    // Ink rather than a `--surface-*` fill: the opaque pair is calibrated against
-    // `--surface` and on the recessed rail lands lighter than its ground.
     @include mixin.hover {
         background: var(--ink-hover);
     }
@@ -180,7 +175,6 @@
     color: var(--foreground-prominent);
 
     &::before {
-        // The active marker spans exactly one line.
         height: var(--line-height-default);
         opacity: 1;
     }

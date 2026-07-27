@@ -1,10 +1,8 @@
 @use 'sass:list';
 @use '~flux/components/css/token/theme';
 
-// The chart palette. Every stop is solved against `--surface` rather than picked, which
-// is why the numbers look irregular: WCAG luminance is not perceptual lightness, so a
-// yellow and a blue on the same ratio sit at very different OKLCH lightness. The floors
-// live in `scripts/check-contrast.ts`.
+// Every stop is solved against `--surface` rather than picked, which is why the numbers
+// look irregular. The floors live in `scripts/check-contrast.ts`.
 
 // blue, red, purple, teal, green, magenta, orange, yellow.
 $categorical-light:
@@ -27,7 +25,6 @@ $categorical-dark:
     (.704 .146 62.4)
     (.679 .127 100);
 
-// The sequential ramp, for a heatmap or any value-to-color mapping.
 $ramp-light:
     (.9 .043 264)
     (.755 .113 264)
@@ -40,13 +37,6 @@ $ramp-dark:
     (.612 .17 264)
     (.762 .109 264);
 
-// The wide categorical set, for the charts that need more series than the eight have
-// hues. Chroma sits above the sRGB boundary on the hues that cannot reach it, so a
-// wide-gamut display gets the full color and sRGB clips back to its own edge.
-//
-// The hues are solved for equal perceptual distance rather than spaced evenly in
-// degrees: OKLab is not uniform around the wheel, so even degrees leave the yellows
-// crowded and the blues spread out. Solved on light, which is the tighter of the two.
 $colorful-hues:
     17.1 37.2 66.4 89.2 108.3 126.8 146.6 168.2 188.7
     209.1 231.7 256.8 276.9 296.9 317 337 357.1;
@@ -78,7 +68,5 @@ $colorful-dark: .74 .16;
     --chart-grid: var(--surface-stroke-muted);
     --chart-label: var(--foreground-secondary);
 
-    // The label a treemap prints on its tiles. Those carry the categorical set, dark on
-    // a light surface and light on a dark one, so the text is the inverse of the page.
     --chart-on-fill: var(--foreground-inverse-prominent);
 }

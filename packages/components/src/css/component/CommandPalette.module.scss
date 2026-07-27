@@ -97,7 +97,6 @@
     color: var(--foreground-subtle);
 }
 
-
 .commandPaletteTabs {
     @include mixin.hide-scrollbar;
 
@@ -132,8 +131,6 @@
     }
 }
 
-// The soft-hover rung, not soft: against the raised surface a palette floats on,
-// `--primary-soft` stops reading as filled in dark.
 .commandPaletteTabActive {
     composes: commandPaletteTab;
 
@@ -247,8 +244,6 @@
     }
 }
 
-// Borrows the stroke value as a fill: the neutral scale has no rung above
-// `--surface-sunken` for a tile that has to deepen with its row.
 .commandPaletteItemHighlighted .commandPaletteItemIcon {
     background: var(--surface-stroke);
 }
@@ -274,7 +269,6 @@
 .commandPaletteItemHighlighted .commandPaletteItemSubLabel {
     color: var(--primary-text);
 }
-
 
 .commandPaletteItemSubActionIndicator {
     flex-shrink: 0;

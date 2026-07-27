@@ -140,8 +140,6 @@
     pointer-events: none;
 }
 
-// A clipped copy of the text on top of the base overlay, masked to the filled region, so
-// the part of the label sitting over the value reads in the accent's text tone.
 .formFaderOverlayFill {
     composes: formFaderOverlay;
 
@@ -192,7 +190,6 @@
     white-space: nowrap;
 }
 
-// Vertical variant: a slim column that fills bottom (min) to top (max).
 .formFader.isVertical {
     height: var(--flux-form-fader-length, 210px);
     width: 39px;

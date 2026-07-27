@@ -3,36 +3,17 @@
 @use 'palette';
 @use 'theme';
 
-// Six intents, nine roles each. A component picks a role, never a stop, so one idea
-// cannot land on a different rung in every component that draws it.
-//
-// Which foreground survives on the solid fill is measured, not chosen: success and
-// warning miss AA against white on their solid stop, so those two take dark text.
 $on-solid-dark: theme.neutral(.16, .012);
 $on-solid-white: ('primary', 'danger', 'info');
 
-// The solid fill moves away from its own foreground on hover and again on active:
-// darker under white text, lighter under dark text. Moving the other way costs
-// contrast at every step.
 $ladder-on-white: (600, 700, 800);
 $ladder-on-dark: (600, 500, 400);
 $ladder-dark: (500, 400, 300);
 
-// Soft, soft-hover and border have no stop to land on in dark mode: the scale leaves
-// the dark surface band empty on these hues, so they are tints on the intent's own hue.
-//
-// Chroma is dialed well back for the two fills: give a dark fill the same chroma as its
-// edge and a tinted table row reads as a block of color instead of a tint.
 $soft-lightness: (.265, .305, .385);
 $soft-chroma: (.22, .3, .5);
 
-// `-text` has to read on its own soft fill. `-muted` is a filled marking that has to be
-// seen without being looked at: a timeline dot, an avatar ring, a spinner, a progress
-// bar, the edge of a node. All six carry one weight there, which the gate reads off the
-// colored solids.
-//
-// Warning's ramp runs higher than the other five, so the rung that works for them is a
-// rung too light for it. All three exceptions below are that one cause.
+// Warning's ramp runs higher than the other five, the single cause of all three exceptions.
 $text-stop-light: ('warning': 800);
 $muted-stop-light: ('warning': 700);
 $muted-stop-dark: ('warning': 600);
@@ -59,23 +40,12 @@ $muted-stop-dark: ('warning': 600);
         --#{$intent}-text: #{theme.theme(palette.stop($intent, map.get($text-stop-light, $intent) or 700), palette.stop($intent, 400))};
     }
 
-    // Gray is an intent like the other five, and its soft, border and text roles walk
-    // the same rungs as the rest. That is why they are spelled out rather than pointed
-    // at the elevation tokens: `--surface-sunken` paired with `--surface-stroke` leaves
-    // a gray chip and its own edge nearly one color.
-    //
-    // Solid is the one real exception. A filled neutral is the darkest ink on the page
-    // in light and the lightest in dark, so it reads off the foreground tokens.
     --gray-solid: var(--foreground-prominent);
     --gray-solid-hover: #{theme.theme(palette.stop('gray', 950), theme.neutral(.975, .004))};
     --gray-solid-active: #{theme.theme(theme.neutral(.09, .025), theme.neutral(1, 0))};
     --gray-on-solid: var(--surface);
     --gray-muted: #{theme.theme(palette.stop('gray', 600), palette.stop('gray', 500))};
 
-    // The five colored tints buy most of their distance from the card in chroma. Gray
-    // has none to spend, so it buys the whole distance in lightness, which lifts it off
-    // the shared ramp: it has to clear the card, the sunken strip and the raised layer,
-    // and it threads between `--surface-hover` and `--surface-active` to do that.
     --gray-soft: #{theme.theme(palette.stop('gray', 50), theme.neutral(.3, .017))};
     --gray-soft-hover: #{theme.theme(palette.stop('gray', 100), theme.neutral(.34, .018))};
     --gray-border: #{theme.theme(palette.stop('gray', 200), theme.neutral(.385, .019))};

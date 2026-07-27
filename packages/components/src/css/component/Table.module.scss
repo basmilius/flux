@@ -36,9 +36,8 @@
     position: relative;
 }
 
-// Rows are display: contents so their cells become grid items of the row group and share
-// one grid, which is what lets a cell span rows. Anything that needs the row's own box
-// (focus ring, sticky group row, scroll-margin) has to move onto a cell instead.
+// Rows are display: contents, so anything needing the row's own box (focus ring, sticky
+// group row, scroll-margin) has to move onto a cell instead.
 .tableRow {
     display: contents;
 }
@@ -50,9 +49,8 @@
     grid-template-columns: subgrid;
 }
 
-// A clickable row keeps its own box: display: contents is not keyboard focusable, and the
-// roving tabindex and the focus ring both need one. Such a row is a single grid row, so
-// rowspan only works in the display: contents rows of non-clickable tables.
+// A clickable row keeps its own box: display: contents is not keyboard focusable. That
+// makes it a single grid row, so rowspan only works in non-clickable tables.
 .tableRow.isClickable {
     display: grid;
     grid-column: 1 / -1;
@@ -116,16 +114,6 @@
     background: var(--surface-sunken);
 }
 
-// The fill rests short of the soft token: at full strength a table of tinted rows reads as
-// blocks of color rather than as a marking on the rows. Hover spends the remaining distance,
-// so the state a row moves to is the one the soft token names.
-//
-// The stroke stays where the fill used to be, a rung above it in both states. Bringing it
-// down with the fill is what a lighter tint tempts you into, and it costs the divider: the
-// gap between the two collapses to a third of what separates two plain rows.
-//
-// It takes the same value the loop below puts on the next row's top border: the divider
-// between two cells and the one between two rows are a single line.
 @include mixin.color-variants(tableRow) using ($color) {
     @include mixin.intent($color);
 
@@ -141,9 +129,8 @@
     color: var(--table-row-foreground);
 }
 
-// The separator below a row is drawn by the next row's top border, so every variant tints
-// that too. It reads the global intent token rather than `--intent-*`: that border sits on
-// a sibling row, which never inherits the local contract.
+// The global intent token rather than `--intent-*`: this border sits on a sibling row,
+// which never inherits the local contract.
 @each $color in mixin.$colors {
     .tableBody .tableRow#{mixin.color-suffix($color)} + .tableRow > .tableCell {
         border-top-color: var(--#{$color}-soft-hover);
@@ -163,12 +150,9 @@
     border-top-color: var(--primary-soft-hover);
 }
 
-// Hover keys off :has(:hover) rather than .tableRow:hover: a display: contents row has no
-// box of its own, its cells do. The child combinator keeps the highlight inside one table,
-// and a rowspan cell is excluded so it never lights up across the rows it covers.
-//
-// A bare media query rather than mixin.hover: that mixin nests &:hover onto a single
-// selector, while this needs several unrelated selectors under one condition.
+// Hover keys off :has(:hover): a display: contents row has no box of its own, its cells do.
+// A bare media query rather than mixin.hover, which nests &:hover onto a single selector
+// while this needs several unrelated ones under one condition.
 @media (hover: hover) {
     .table.isHoverable .tableBody .tableRow:has(:hover) > .tableCell:not(.tableGroup):not(.hasRowspan),
     .table.isHoverable .tableBody .tableRow:has(:focus-visible) > .tableCell:not(.tableGroup):not(.hasRowspan),
@@ -177,15 +161,11 @@
         background: var(--surface-hover);
     }
 
-    // Only the fill moves. It lands a rung under the stroke, which is where a plain row's
-    // hover leaves it too, so neither edge of the row has to be restated.
     .table.isHoverable .tableBody .tableRow.isColored:has(:hover) > .tableCell:not(.hasRowspan),
     .table.isHoverable .tableBody .tableRow.isColored:has(:focus-visible) > .tableCell:not(.hasRowspan) {
         background: var(--table-row-fill-hover);
     }
 
-    // Restated so a row that is both selected and colored keeps its primary fill instead of
-    // picking up the tinted hover stroke above.
     .table.isHoverable .tableBody .tableRow.isSelected:has(:hover) > .tableCell:not(.hasRowspan),
     .table.isHoverable .tableBody .tableRow.isSelected:has(:focus-visible) > .tableCell:not(.hasRowspan) {
         --table-row-stroke: var(--primary-soft-hover);
@@ -193,8 +173,6 @@
         background: var(--primary-soft);
     }
 
-    // A row's top border normally takes its color from the row above; while highlighted it
-    // takes its own, so the highlight is bounded by its own color.
     .table.isHoverable .tableBody .tableRow:has(:hover) > .tableCell:not(.hasRowspan),
     .table.isHoverable .tableBody .tableRow:has(:focus-visible) > .tableCell:not(.hasRowspan) {
         border-top-color: var(--table-row-stroke, var(--surface-stroke-muted));
@@ -209,9 +187,8 @@
     border-left-width: 1px;
 }
 
-// A cell that follows a rowspan cell from an earlier row has no preceding sibling, so it
-// never gets the left border above. The spanning cell draws its own right border instead,
-// and its immediate sibling drops the now-doubled left border.
+// A cell following a rowspan cell has no preceding sibling, so it never gets the left
+// border above. The spanning cell draws its own right border and the sibling drops its left.
 .tableCell.hasRowspan {
     border-right-width: 1px;
 }
@@ -371,7 +348,6 @@
     align-items: center;
     gap: 12px;
 
-    // Half a step, not the hover value: a resting group head must not read as a hovered row.
     background: color-mix(in srgb, var(--surface), var(--surface-hover));
 
     &:is(button) {
@@ -386,7 +362,6 @@
 
         @include mixin.focus-ring(-2px);
 
-        // The row hover value, not `--surface-active`: a head darker than any row reads as pressed.
         @include mixin.hover {
             background: var(--surface-hover);
         }

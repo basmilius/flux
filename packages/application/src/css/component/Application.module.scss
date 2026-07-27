@@ -2,17 +2,12 @@
 
 :root {
     --application-duration: 360ms;
-    // Override to size the shell against something else, such as a demo frame.
     --application-height: 100dvh;
-    // Canvas, not sunken: the sunken level sits above the card in dark, which would
-    // put the rail in front of the page it frames.
     --application-menu-surface: var(--surface-canvas);
     --application-menu-surface-stroke: var(--surface-stroke);
     --application-menu-width: 300px;
     --application-menu-width-collapsed: 69px;
     --application-side-width: 300px;
-    // The shell paints its own page, so light lands back on white instead of the
-    // grayer `--background` the body under it holds.
     --application-surface: var(--surface);
     --application-top-height: 66px;
 }
@@ -42,8 +37,6 @@
     }
 }
 
-// Only the height is pinned, so the backdrop keeps matching the rail it dims when
-// the shell is boxed in.
 .applicationMenuBackdrop {
     position: fixed;
     display: none;

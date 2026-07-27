@@ -100,8 +100,6 @@
 }
 
 .baseTabBarItem {
-    // A tab owns its text, so a slotted badge or icon lands on a known line box instead
-    // of one derived from whatever the tab bar sits in.
     @include mixin.text(default);
 
     display: inline-flex;
