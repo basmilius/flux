@@ -3,7 +3,7 @@
 @use 'palette';
 @use 'theme';
 
-// Six intents, eight roles each. A component picks a role, never a stop, so one idea
+// Six intents, nine roles each. A component picks a role, never a stop, so one idea
 // cannot land on a different rung in every component that draws it.
 //
 // Which foreground survives on the solid fill is measured, not chosen: success and
