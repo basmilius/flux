@@ -238,12 +238,23 @@ Available mixins (import via `@use '~flux/css/mixin'`):
 - `mixin.focus-ring` - focus ring
 - `mixin.breakpoints` - responsive breakpoints
 - `mixin.tree-node-classes()` - shared tree node structure (used by TreeView and TreeViewSelect)
+- `mixin.elevation($level)` - paints one of the three levels (`'sunken'`, `'surface'`, `'raised'`) and publishes `--surface-current`; unknown levels `@error`
+- `mixin.intent($color)` - maps one intent onto the six local `--intent-*` roles
+- `mixin.text($size)` - font-size and its line-height together
 
 ### Design tokens (CSS custom properties)
 
-All colors are CSS custom properties. Palette scales: `--gray-*`, `--primary-*`, `--danger-*`, `--info-*`, `--success-*`, `--warning-*` (25-950).
+All colors are CSS custom properties, in three layers. Reach for them in this order:
 
-Semantic tokens: `--surface`, `--surface-hover`, `--surface-active`, `--surface-stroke`, `--foreground`, etc.
+1. **Semantic** - `--surface`, `--surface-hover`, `--surface-stroke`, `--foreground`, etc.
+2. **Intent** - six intents (`gray`, `primary`, `danger`, `info`, `success`, `warning`) times nine roles: `--danger-solid`, `--primary-text`, `--info-soft`, etc. Inside a component that took `mixin.intent()`, read the local `--intent-*` contract instead.
+3. **Palette** - `--palette-gray-600` and friends (six scales, stops 25-950). Only to reshade the interface or to build a token out of; a component that reaches here answers for both themes itself.
+
+The palette is absolute: a stop is the same color in both themes. Themes differ in the semantic layer, through `light-dark()`. The unprefixed `--gray-*` / `--primary-*` scales were removed in the color token major; `--primary-500` no longer exists, but `--primary-solid` does.
+
+Two things freeze a token on `:root` and must be avoided: registering a color token through `@property` with `syntax: '<color>'`, and deriving an alpha variant with relative color syntax over a token that holds a `light-dark()`. Over a palette stop that syntax is fine.
+
+Both gates run in CI and must stay green: `bun scripts/check-contrast.ts` (the contrast contract) and `bun scripts/check-palette-refs.ts` (no references to the removed scales).
 
 ### CSS property order
 
@@ -305,7 +316,7 @@ Composables (`packages/internals/src/composable/`):
 - Calendar - `useCalendar`, `useCalendarMonthSwitcher`, `useCalendarTimeGrid`, `useCalendarYearSwitcher`
 - Misc - `useEventListener`, `useInView`, `useKeyboardGrab`, `useRemembered`, `useScrollPosition`
 
-`useFocusZone` takes an optional `ignore?: string` selector (threaded through `getFocusableElements` / `getFocusableElement` / `getBidirectionalFocusElement`) to exclude a subtree from roving focus. `FluxMenu` uses it with `ignore: '[data-flux-menu-pane]'` so an interactive component inside a `FluxMenuPane` (color picker, slider, search field) keeps its own keyboard behaviour. The shared `getFocusableElements` default is deliberately unchanged so focus traps still reach those controls via Tab.
+`useFocusZone` takes an optional `ignore?: string` selector (threaded through `getFocusableElements` / `getFocusableElement` / `getBidirectionalFocusElement`) to exclude a subtree from roving focus. `FluxMenu` uses it with `ignore: '[data-flux-menu-pane]'` so an interactive component inside a `FluxMenuPane` (color picker, slider, search field) keeps its own keyboard behavior. The shared `getFocusableElements` default is deliberately unchanged so focus traps still reach those controls via Tab.
 
 ---
 
