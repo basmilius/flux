@@ -1,3 +1,7 @@
+@use 'sass:list';
+
+$-levels: 'sunken', 'surface', 'raised';
+
 // Elevation is a level, not a set of declarations, so a component says how high it
 // sits instead of picking a background and a border by hand.
 //
@@ -12,6 +16,10 @@
 // The padding-box clip belongs to the border: without it the background paints
 // underneath the translucent stroke and shows through it.
 @mixin elevation($level: 'surface', $radius: var(--radius)) {
+    @if not list.index($-levels, $level) {
+        @error 'Elevation level "#{$level}" not found in "#{$-levels}".';
+    }
+
     $background: var(--surface);
 
     @if $level == 'raised' {
