@@ -617,25 +617,25 @@
     }
 
     /**
-     * A computed color comes back in whatever space it was written in, `oklch()`
-     * included. A canvas parses all of them with the engine's own parser and
-     * serializes its fill back as `#rrggbb` or `rgba(...)`.
+     * A computed color comes back in whatever space it was written in, and every token
+     * here is written in `oklch()`. Reading a canvas fill back gives that same notation
+     * verbatim rather than the `#rrggbb` the older serialization promised, so painting
+     * the color into a pixel and reading the bytes is what gets a number out of it.
+     *
+     * That also measures what the screen shows rather than what the notation says: the
+     * pixel carries the per-channel clipping a browser applies to a color outside sRGB,
+     * which is the same thing the contrast gate does.
      */
-    function parseColor(value: string): Rgba {
-        context ??= document.createElement('canvas').getContext('2d')!;
+    function paintedColor(value: string): Rgba {
+        context ??= document.createElement('canvas').getContext('2d', {willReadFrequently: true})!;
+
+        context.clearRect(0, 0, 1, 1);
         context.fillStyle = value;
+        context.fillRect(0, 0, 1, 1);
 
-        const serialized = context.fillStyle as string;
+        const [red, green, blue, alpha] = context.getImageData(0, 0, 1, 1).data;
 
-        if (serialized.startsWith('#')) {
-            const channel = (index: number) => parseInt(serialized.slice(index * 2 + 1, index * 2 + 3), 16) / 255;
-
-            return [channel(0), channel(1), channel(2), 1];
-        }
-
-        const [red, green, blue, alpha] = serialized.slice(serialized.indexOf('(') + 1, -1).split(',').map(Number);
-
-        return [red / 255, green / 255, blue / 255, alpha ?? 1];
+        return [red / 255, green / 255, blue / 255, alpha / 255];
     }
 
     // A custom property holding a `light-dark()` reads back verbatim through
@@ -648,7 +648,7 @@
         for (const [id, element] of samples) {
             const style = getComputedStyle(element);
 
-            ratios[id] = contrast(parseColor(style.color), parseColor(style.backgroundColor));
+            ratios[id] = contrast(paintedColor(style.color), paintedColor(style.backgroundColor));
         }
     }
 
