@@ -59,14 +59,22 @@
     // `stroke` is the opaque separator and input border, `stroke-out` the translucent
     // hairline around a floating surface.
     //
-    // The muted stroke has to survive the row under it changing state, which in dark
-    // boxes it in between `--surface-hover` and `--surface-active`. That value is
-    // solved, not chosen, so there is no room to round it.
+    // Dark takes a shorter step and a lower alpha than the light value it mirrors.
+    // Lightness moves faster per unit of light added at the dark end, so the same
+    // distance from the surface reads further there: at a matched alpha the hairline
+    // came out 1.6x the step it makes in light. Each dark value is solved onto the
+    // light step and then nudged a third of the way back, because in dark the border
+    // also carries separation a shadow on a near-black surface cannot.
+    //
+    // The muted stroke is the one rung that could not come down with the rest. It has
+    // to survive the row under it changing state, which in dark boxes it in between
+    // `--surface-hover` and `--surface-active`, and `STATE_FLOOR` in the contrast gate
+    // is set just under that pair.
     --surface-stroke-muted: #{theme.theme(palette.stop('gray', 100), theme.neutral(.295, .016))};
-    --surface-stroke: #{theme.theme(palette.stop('gray', 200), theme.neutral(.34, .018))};
-    --surface-stroke-hover: #{theme.theme(palette.stop('gray', 300), theme.neutral(.42, .02))};
-    --surface-stroke-out: #{theme.theme(theme.neutral(.36, .02, .1), theme.neutral(1, 0, .1))};
-    --surface-stroke-out-hover: #{theme.theme(theme.neutral(.28, .02, .15), theme.neutral(1, 0, .16))};
+    --surface-stroke: #{theme.theme(palette.stop('gray', 200), theme.neutral(.323, .018))};
+    --surface-stroke-hover: #{theme.theme(palette.stop('gray', 300), theme.neutral(.395, .02))};
+    --surface-stroke-out: #{theme.theme(theme.neutral(.36, .02, .1), theme.neutral(1, 0, .067))};
+    --surface-stroke-out-hover: #{theme.theme(theme.neutral(.28, .02, .15), theme.neutral(1, 0, .118))};
 
     // Dark takes a lighter stop on purpose: primary-600 does not carry the contrast a
     // focus indicator needs against the dark surfaces.
