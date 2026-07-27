@@ -4,8 +4,8 @@
         direction="vertical"
         :gap="15">
         <FluxVisualTextShimmer
-            color="var(--primary-300)"
-            shimmer-color="var(--primary-600)"
+            color="var(--primary-border)"
+            shimmer-color="var(--primary-text)"
             :duration="1.6"
             :spread="25"
             style="font-size: 21px; font-weight: 600;">
@@ -13,8 +13,8 @@
         </FluxVisualTextShimmer>
 
         <FluxVisualTextShimmer
-            color="var(--success-300)"
-            shimmer-color="var(--success-600)"
+            color="var(--success-border)"
+            shimmer-color="var(--success-text)"
             :duration="1.6"
             :spread="25"
             style="font-size: 21px; font-weight: 600;">

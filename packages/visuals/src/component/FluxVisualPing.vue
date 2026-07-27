@@ -3,7 +3,7 @@
         aria-hidden="true"
         :class="$style.ping"
         :style="{
-            '--ping-color': `var(--${color}-500)`,
+            '--ping-color': `var(--${color}-solid)`,
             '--ping-size': `${size}px`,
             '--ping-duration': duration
         }"/>

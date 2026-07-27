@@ -1,28 +1,24 @@
 @use '~flux/components/css/mixin';
 
 .progressBar {
-    --progress-fill: var(--primary-600);
-    --progress-fill-soft: var(--primary-500);
+    @include mixin.intent('primary');
+
+    --progress-fill: var(--intent-muted);
+    --progress-fill-soft: color-mix(in srgb, var(--intent-muted), var(--surface) 25%);
 
     position: relative;
 }
 
 @include mixin.color-variants(progressBar) using ($color) {
-    --progress-fill: var(--#{$color}-600);
-    --progress-fill-soft: var(--#{$color}-500);
-}
-
-.progressBarGray {
-    --progress-fill: var(--gray-500);
-    --progress-fill-soft: var(--gray-400);
+    @include mixin.intent($color);
 }
 
 .progressBarTrack {
     position: relative;
     height: 9px;
-    background: var(--gray-50);
+    background: var(--gray-soft);
     border-radius: var(--radius-half);
-    box-shadow: inset 0 0 0 1px var(--gray-200);
+    box-shadow: inset 0 0 0 1px var(--gray-border);
     contain: paint;
 }
 
@@ -43,7 +39,7 @@
 .progressBarValueIncomplete {
     composes: progressBarValue;
 
-    background: var(--progress-fill) linear-gradient(-45deg, transparent 20%, rgb(from var(--progress-fill-soft) r g b / .5), transparent 80%);
+    background: var(--progress-fill) linear-gradient(-45deg, transparent 20%, color-mix(in srgb, var(--progress-fill-soft) 50%, transparent), transparent 80%);
     background-size: 150px 100%;
     animation: progressBarValue 1s linear infinite;
 }
@@ -52,7 +48,7 @@
     composes: progressBarTrack;
 
     .progressBarValue {
-        background: var(--progress-fill) linear-gradient(-45deg, transparent 20%, rgb(from var(--progress-fill-soft) r g b / .5), transparent 80%);
+        background: var(--progress-fill) linear-gradient(-45deg, transparent 20%, color-mix(in srgb, var(--progress-fill-soft) 50%, transparent), transparent 80%);
         background-size: 90px 100%;
         animation: progressBarIndeterminate 1s linear infinite;
     }

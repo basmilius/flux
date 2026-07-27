@@ -77,7 +77,7 @@
 
     .sliderTrack {
         background: linear-gradient(to right, rgb(255, 0, 0) 0, rgb(255, 255, 0) 17%, rgb(0, 255, 0) 33%, rgb(0, 255, 255) 50%, rgb(0, 0, 255) 67%, rgb(255, 0, 255) 83%, rgb(255, 0, 0));
-        border-color: rgb(0 0 0 / .1);
+        border-color: var(--surface-stroke-out);
     }
 }
 
@@ -154,8 +154,8 @@
 .colorSelectCustom {
     composes: colorSelectItem;
 
-    background: var(--gray-50);
-    border: 1px solid var(--gray-200);
+    background: var(--surface-sunken);
+    border: 1px solid var(--surface-stroke);
 }
 
 .colorSelectCustomPicker {

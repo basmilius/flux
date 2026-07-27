@@ -286,15 +286,15 @@ These types are exported from `@flux-ui/types` but are typically only referenced
             </FluxTableRow>
         </template>
         <FluxTableRow>
-            <FluxTableCell><code>FluxButtonProps</code> / <code>FluxButtonEmits</code> / <code>FluxButtonSlots</code></FluxTableCell>
-            <FluxTableCell><a href="../../components/button">Button</a> variants</FluxTableCell>
+            <FluxTableCell><p><code>FluxButtonProps</code> / <code>FluxButtonEmits</code> / <code>FluxButtonSlots</code></p></FluxTableCell>
+            <FluxTableCell><p><a href="../../components/button">Button</a> variants</p></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
             <FluxTableCell><code>FluxButtonSize</code></FluxTableCell>
             <FluxTableCell><a href="../../components/button">Button</a></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>
-            <FluxTableCell><code>FluxCommandSource</code> / <code>FluxCommandSourceItem</code> / <code>FluxCommandSubAction</code></FluxTableCell>
+            <FluxTableCell><p><code>FluxCommandSource</code> / <code>FluxCommandSourceItem</code> / <code>FluxCommandSubAction</code></p></FluxTableCell>
             <FluxTableCell><a href="../../components/command-palette">Command palette</a></FluxTableCell>
         </FluxTableRow>
         <FluxTableRow>

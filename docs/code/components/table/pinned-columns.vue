@@ -2,30 +2,32 @@
     <FluxPane>
         <FluxTable is-hoverable>
             <template #header>
-                <FluxTableHeader
-                    pinned
-                    :min-width="180">
-                    Project
-                </FluxTableHeader>
+                <FluxTableRow>
+                    <FluxTableHeader
+                        pinned
+                        :min-width="180">
+                        Project
+                    </FluxTableHeader>
 
-                <FluxTableHeader
-                    pinned
-                    :min-width="150">
-                    Owner
-                </FluxTableHeader>
+                    <FluxTableHeader
+                        pinned
+                        :min-width="150">
+                        Owner
+                    </FluxTableHeader>
 
-                <FluxTableHeader :min-width="150">Status</FluxTableHeader>
-                <FluxTableHeader :min-width="150">Priority</FluxTableHeader>
-                <FluxTableHeader :min-width="150">Start</FluxTableHeader>
-                <FluxTableHeader :min-width="150">Due</FluxTableHeader>
-                <FluxTableHeader :min-width="180">Client</FluxTableHeader>
+                    <FluxTableHeader :min-width="150">Status</FluxTableHeader>
+                    <FluxTableHeader :min-width="150">Priority</FluxTableHeader>
+                    <FluxTableHeader :min-width="150">Start</FluxTableHeader>
+                    <FluxTableHeader :min-width="150">Due</FluxTableHeader>
+                    <FluxTableHeader :min-width="180">Client</FluxTableHeader>
 
-                <FluxTableHeader
-                    align="end"
-                    pinned="end"
-                    :min-width="140">
-                    Budget
-                </FluxTableHeader>
+                    <FluxTableHeader
+                        align="end"
+                        pinned="end"
+                        :min-width="140">
+                        Budget
+                    </FluxTableHeader>
+                </FluxTableRow>
             </template>
 
             <FluxTableRow

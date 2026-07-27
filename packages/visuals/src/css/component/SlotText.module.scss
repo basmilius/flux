@@ -22,7 +22,7 @@
 
 // Cells appearing from or collapsing to empty change width drastically, so clip
 // them horizontally too while they resize — their glyph wipes in/out with the
-// cell instead of spilling over the neighbours.
+// cell instead of spilling over the neighbors.
 .charSlot.isResizing {
     overflow-x: clip;
 }

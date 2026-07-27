@@ -6,8 +6,8 @@
             <div
                 :class="$style.colorPaletteShade"
                 :style="{
-                    '--background': `var(--${name}-${i})`,
-                    '--foreground': `var(--${name}-${i >= 500 ? 50 : 950})`
+                    '--swatch': `var(--palette-${name}-${i})`,
+                    '--swatch-foreground': `var(--palette-${name}-${i >= 500 ? 50 : 950})`
                 }"/>
         </FluxTooltip>
     </div>
@@ -38,10 +38,10 @@
         display: flex;
         aspect-ratio: 1 / 1;
         align-items: center;
-        background: var(--background);
+        background: var(--swatch);
         border-radius: var(--radius);
-        box-shadow: inset 0 0 0 1px rgb(0 0 0 / .075);
-        color: var(--foreground);
+        box-shadow: inset 0 0 0 1px var(--surface-stroke-out);
+        color: var(--swatch-foreground);
         font-family: var(--vp-font-family-mono), monospace;
         font-size: 12px;
         font-weight: 500;

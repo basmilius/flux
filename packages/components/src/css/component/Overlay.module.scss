@@ -53,7 +53,7 @@
         > .paneHeader {
             top: 0;
             padding-bottom: 18px;
-            border-bottom: 1px solid var(--gray-100);
+            border-bottom: 1px solid var(--surface-stroke-muted);
             box-shadow: var(--shadow-xs);
 
             &:has(+ :where(.tabs, .tabBarDefault)) {

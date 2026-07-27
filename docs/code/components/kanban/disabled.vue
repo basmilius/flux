@@ -43,8 +43,8 @@
 <style scoped>
     .card {
         padding: 12px;
-        background: var(--gray-25);
-        border: 1px solid var(--gray-200);
+        background: var(--surface);
+        border: 1px solid var(--surface-stroke);
         border-radius: var(--radius);
     }
 </style>

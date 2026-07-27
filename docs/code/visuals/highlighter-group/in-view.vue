@@ -6,7 +6,7 @@
             starts
             <FluxVisualHighlighter
                 variant="underline"
-                color="var(--primary-400)">only</FluxVisualHighlighter>
+                color="var(--primary-solid)">only</FluxVisualHighlighter>
             once it scrolls into view.
         </FluxVisualHighlighterGroup>
     </p>

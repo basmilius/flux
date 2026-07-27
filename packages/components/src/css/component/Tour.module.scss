@@ -14,7 +14,8 @@
     width: var(--w);
     height: var(--h);
     border-radius: 8px;
-    box-shadow: 0 0 0 9999px rgb(0 0 0 / .55);
+
+    box-shadow: 0 0 0 9999px var(--overlay);
     pointer-events: none;
     translate: var(--x) var(--y);
     transition: translate .25s var(--swift-out), width .25s var(--swift-out), height .25s var(--swift-out);

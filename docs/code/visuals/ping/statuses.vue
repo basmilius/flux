@@ -17,7 +17,7 @@
                 <span style="font-weight: 500;">{{ service.name }}</span>
             </FluxFlex>
 
-            <span style="color: var(--gray-500);">{{ service.status }}</span>
+            <span style="color: var(--foreground-secondary);">{{ service.status }}</span>
         </FluxFlex>
     </FluxFlex>
 </template>

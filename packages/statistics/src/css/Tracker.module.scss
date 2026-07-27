@@ -15,7 +15,7 @@
     height: 100%;
     width: 100%;
     fill: none;
-    stroke: var(--gray-200);
+    stroke: var(--surface-stroke);
     stroke-width: 2;
     stroke-linecap: round;
     pointer-events: none;
@@ -35,9 +35,9 @@
 
 // The marker follows the palette of a boxed icon: a soft tint with a deep glyph.
 .trackerEntry {
-    --color: var(--gray-600);
-    --color-deep: var(--foreground);
-    --color-soft: var(--gray-100);
+    --color: var(--gray-muted);
+    --color-deep: var(--gray-text);
+    --color-soft: var(--gray-soft-hover);
 
     composes: trackerRow;
 }
@@ -65,7 +65,7 @@
     grid-column: 1;
 }
 
-// Padded so the title lines up with the centre of the marker, whatever follows it.
+// Padded so the title lines up with the center of the marker, whatever follows it.
 .trackerEntryBody {
     display: flex;
     padding: 9px 0;
@@ -103,7 +103,7 @@
 }
 
 .trackerLabel {
-    --color: var(--gray-300);
+    --color: var(--gray-muted);
 
     composes: trackerRow;
 
@@ -150,7 +150,7 @@
     height: 18px;
     align-items: center;
     justify-content: center;
-    color: var(--gray-300);
+    color: var(--surface-stroke-hover);
 }
 
 .trackerStepDot {
@@ -168,7 +168,7 @@
     composes: trackerStep;
 
     .trackerStepMarker {
-        color: var(--success-600);
+        color: var(--success-muted);
     }
 
     .trackerStepLabel {
@@ -180,7 +180,7 @@
     composes: trackerStep;
 
     .trackerStepMarker {
-        color: var(--color, var(--primary-600));
+        color: var(--color, var(--primary-muted));
     }
 
     .trackerStepLabel {
@@ -192,21 +192,17 @@
 @include mixin.color-variants(trackerEntry) using ($color) {
     composes: trackerEntry;
 
-    --color: var(--#{$color}-600);
-    --color-deep: var(--#{$color}-900);
-    --color-soft: var(--#{$color}-100);
-}
+    @include mixin.intent($color);
 
-.trackerEntryGray {
-    --color-deep: var(--foreground);
+    --color: var(--intent-muted);
+    --color-deep: var(--intent-text);
+    --color-soft: var(--intent-soft-hover);
 }
 
 @include mixin.color-variants(trackerLabel) using ($color) {
     composes: trackerLabel;
 
-    --color: var(--#{$color}-600);
-}
+    @include mixin.intent($color);
 
-.trackerLabelGray {
-    --color: var(--gray-300);
+    --color: var(--intent-muted);
 }

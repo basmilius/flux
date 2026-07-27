@@ -9,7 +9,7 @@
             align="baseline"
             direction="horizontal"
             :gap="12">
-            <span style="width: 168px; color: var(--gray-500); font-size: 13px; font-weight: 500;">{{ row.label }}</span>
+            <span style="width: 168px; color: var(--foreground-secondary); font-size: 13px; font-weight: 500;">{{ row.label }}</span>
 
             <FluxVisualNumberFlow
                 :easing="row.easing"

@@ -1,6 +1,8 @@
 @use '~flux/components/css/mixin';
 
 .formRating {
+    --rating-star: var(--palette-warning-400);
+
     display: inline-flex;
     gap: .15em;
     font-size: 24px;
@@ -10,10 +12,16 @@
     @include mixin.focus-ring(4px);
 
     &.isDisabled {
-        opacity: .6;
-
         .formRatingStar {
             cursor: not-allowed;
+        }
+
+        .formRatingStarEmpty {
+            color: var(--surface-stroke);
+        }
+
+        .formRatingStarFull {
+            color: color-mix(in srgb, var(--rating-star) 40%, var(--surface));
         }
     }
 }
@@ -33,18 +41,18 @@
 }
 
 .formRatingStarEmpty {
-    color: var(--gray-300);
+    color: var(--surface-stroke-hover);
 }
 
 .formRatingStarFull {
     position: absolute;
     inset-block: 0;
     left: 0;
-    color: var(--warning-400);
+    color: var(--rating-star);
     clip-path: inset(0 calc((1 - var(--fill, 0)) * 100%) 0 0);
     pointer-events: none;
 }
 
 .formRating.isInvalid .formRatingStarEmpty {
-    color: var(--danger-200);
+    color: var(--danger-border);
 }

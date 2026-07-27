@@ -48,7 +48,7 @@
 
     const CUBIC_BEZIER_PATTERN = /^cubic-bezier\(\s*([-\d.]+)\s*,\s*([-\d.]+)\s*,\s*([-\d.]+)\s*,\s*([-\d.]+)\s*\)$/;
 
-    // Fallback for an unrecognised easing value, matching the --swift-out default.
+    // Fallback for an unrecognized easing value, matching the --swift-out default.
     const swiftOutEasing = cubicBezier(0.55, 0, 0.1, 1);
 
     const labelRef = useTemplateRef('label');

@@ -3,28 +3,28 @@
 .primaryButton {
     composes: button from './base/Button.module.scss';
 
-    background: var(--primary-600);
-    border-color: var(--primary-700);
-    box-shadow: 0 1px 1px rgb(from var(--primary-600) r g b / .25);
-    color: var(--primary-25);
+    background: var(--primary-solid);
+    border-color: var(--primary-solid-hover);
+    box-shadow: var(--shadow-px);
+    color: var(--primary-on-solid);
 
     @include mixin.hover {
-        background: var(--primary-700);
-        border-color: var(--primary-800);
+        background: var(--primary-solid-hover);
+        border-color: var(--primary-solid-active);
     }
 
-    @include mixin.button-active(var(--primary-800));
+    @include mixin.button-active(var(--primary-solid-active));
 
     .spinner {
-        --track: var(--primary-700);
-        --value: var(--primary-25);
+        --track: var(--primary-solid-hover);
+        --value: var(--primary-on-solid);
     }
 }
 
 .primaryButtonIcon {
     composes: buttonIcon from './base/Button.module.scss';
 
-    color: var(--primary-25);
+    color: var(--primary-on-solid);
 }
 
 .primaryButtonLabel {
@@ -69,27 +69,27 @@
     @include mixin.button-active(var(--surface-active));
 
     .spinner {
-        --value: var(--danger-600);
+        --value: var(--danger-solid);
     }
 }
 
 .destructiveButtonIcon {
     composes: buttonIcon from './base/Button.module.scss';
 
-    color: var(--danger-600);
+    color: var(--danger-text);
 }
 
 .destructiveButtonLabel {
     composes: buttonLabel from './base/Button.module.scss';
 
     &:only-child {
-        color: var(--danger-600);
+        color: var(--danger-text);
     }
 }
 
 .secondaryButton,
 .destructiveButton {
-    box-shadow: var(--shadow-px), inset 0 -1px rgb(from var(--gray-200) r g b / .15);
+    box-shadow: var(--shadow-px), inset 0 -1px color-mix(in srgb, var(--surface-stroke) 15%, transparent);
 }
 
 .baseLinkButton {
@@ -109,13 +109,13 @@
 .primaryLinkButton {
     composes: baseLinkButton;
 
-    color: var(--primary-700);
+    color: var(--primary-text);
 }
 
 .primaryLinkButtonIcon {
     composes: buttonIcon from './base/Button.module.scss';
 
-    color: var(--primary-700);
+    color: var(--primary-text);
 }
 
 .primaryLinkButtonLabel {

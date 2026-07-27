@@ -22,6 +22,22 @@ props:
 slots:
     -   name: default
         description: A series of `FluxSplitViewPane` components, separated by drag handles.
+
+keyboardShortcuts:
+    -   key: ← / ↑
+        action: Shrink the pane before the focused handle
+
+    -   key: → / ↓
+        action: Grow the pane before the focused handle
+
+    -   key: Shift + arrow
+        action: Larger step, 64px instead of 16px
+
+    -   key: Home
+        action: Collapse the pane to its minSize
+
+    -   key: End
+        action: Expand the pane to its maxSize
 ---
 
 # Split view
@@ -60,12 +76,3 @@ example=../../../code/components/layout/split-view/persisted.vue
 example=../../../code/components/layout/split-view/nested.vue
 :::
 
-## Keyboard
-
-| Key                                      | Action                                       |
-|------------------------------------------|----------------------------------------------|
-| `Arrow Left` / `Arrow Up`                | Shrink the pane before the focused handle    |
-| `Arrow Right` / `Arrow Down`             | Grow the pane before the focused handle      |
-| `Shift + Arrow`                          | Larger step (64px instead of 16px)           |
-| `Home`                                   | Collapse the pane to its `minSize`           |
-| `End`                                    | Expand the pane to its `maxSize`             |

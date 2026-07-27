@@ -1,3 +1,7 @@
+<script setup>
+    import { FluxPane, FluxTable, FluxTableRow, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
+</script>
+
 # Chart types
 
 Flux Statistics exposes a set of library-agnostic TypeScript types in `@flux-ui/types`. Each chart component accepts data shaped to its own Flux type rather than ECharts options, which lets the visual layer change underneath without touching consumer code.
@@ -8,17 +12,20 @@ This page lists every public type with a short description and a minimal example
 
 ### `FluxStatisticsChartColor`
 
-A color specifier accepted by every series, slice, and node. Use one of the named Flux colors (resolved against the active theme) or any hex value.
+A color specifier accepted by every series, slice, and node. Use one of the named Flux intents, which resolves to that intent's `solid` role and therefore follows the theme, a `var(--…)` reference to a token of your own or to one of the [chart tokens](./colors), or any hex value, which is used exactly as given.
 
 ```ts
-type FluxStatisticsChartColor = FluxColor | `#${string}`;
+type FluxStatisticsChartColor = FluxColor | `#${string}` | `var(--${string})`;
 // FluxColor = 'gray' | 'primary' | 'danger' | 'info' | 'success' | 'warning'
 ```
 
 ```ts
-const themed: FluxStatisticsChartColor = 'success';   // var(--success-600)
-const branded: FluxStatisticsChartColor = '#10b981';  // raw hex
+const themed: FluxStatisticsChartColor = 'success';       // var(--success-solid)
+const token: FluxStatisticsChartColor = 'var(--chart-3)'; // passed through
+const branded: FluxStatisticsChartColor = '#10b981';      // raw hex
 ```
+
+`CHART_COLORS` is typed as `readonly FluxStatisticsChartColor[]` and holds `var(--chart-1)` through `var(--chart-8)`, so the default cycle uses the same variant.
 
 ### `FluxStatisticsChartCategoryPoint`
 
@@ -467,10 +474,33 @@ Treat `advancedOptions` as the exception, not the rule. Anything you can express
 
 When a `color` is set on a series, slice, or node, Flux resolves it as follows:
 
-| Input | Resolved to |
-|---|---|
-| `'primary'` (any `FluxColor`) | `var(--primary-600)` |
-| `'#10b981'` (any hex) | `'#10b981'` |
-| omitted | next color from `CHART_COLORS` (see [Chart colors](./colors)) |
+<FluxPane>
+    <FluxTable>
+        <template #header>
+            <FluxTableRow>
+                <FluxTableHeader>Input</FluxTableHeader>
+                <FluxTableHeader>Resolved to</FluxTableHeader>
+            </FluxTableRow>
+        </template>
+        <FluxTableRow>
+            <FluxTableCell><p><code>'primary'</code> (any <code>FluxColor</code>)</p></FluxTableCell>
+            <FluxTableCell><kbd>--primary-solid</kbd></FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><p><code>'var(--chart-3)'</code> (any <code>var(--…)</code>)</p></FluxTableCell>
+            <FluxTableCell><code>'var(--chart-3)'</code></FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell><p><code>'#10b981'</code> (any hex)</p></FluxTableCell>
+            <FluxTableCell><code>'#10b981'</code></FluxTableCell>
+        </FluxTableRow>
+        <FluxTableRow>
+            <FluxTableCell>Omitted</FluxTableCell>
+            <FluxTableCell><p>Next of the eight colors in <code>CHART_COLORS</code>, see <a href="./colors">Chart colors</a>.</p></FluxTableCell>
+        </FluxTableRow>
+    </FluxTable>
+</FluxPane>
+
+A named intent lands on the `solid` role, the filled-surface color of that intent, so it takes the value that holds up against the chart surface in each theme. A `var(--…)` reference and a hex value are both passed through untouched; the reference still follows the theme because the token behind it does, while the hex stays the same in both themes.
 
 The same color flows into the rendered chart, the [Legend](../components/legend/) (whether manual or auto-generated), and the tooltip, so series stay visually consistent across all three surfaces.

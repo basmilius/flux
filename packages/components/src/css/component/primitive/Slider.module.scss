@@ -53,7 +53,7 @@
 .sliderTrack {
     position: relative;
     height: 12px;
-    background: var(--gray-50);
+    background: var(--surface-sunken);
     background-clip: padding-box;
     border-radius: var(--radius-half);
     box-shadow: inset 0 0 0 1px var(--surface-stroke-out);
@@ -64,12 +64,12 @@
     display: block;
     top: 0;
     height: inherit;
-    background: var(--primary-600);
+    background: var(--primary-solid);
     border-radius: inherit;
 }
 
 .slider.isDisabled .sliderTrackValue {
-    background: var(--gray-300);
+    background: var(--surface-stroke-hover);
 }
 
 .tick {
@@ -80,7 +80,7 @@
     bottom: 0;
     height: 9px;
     width: 2px;
-    background: var(--gray-300);
+    background: var(--surface-stroke-hover);
     border-radius: var(--radius-full);
     color: var(--foreground-prominent);
     font-weight: 600;
@@ -101,7 +101,7 @@
     composes: tick;
 
     height: 6px;
-    opacity: .5;
+    background: var(--surface-stroke);
 }
 
 .ticks {
@@ -110,8 +110,6 @@
     height: 21px;
 }
 
-// Vertical variant: the track runs bottom (min) to top (max). The cross-axis
-// stays the horizontal one, so fills, thumbs and ticks position via `bottom`.
 .slider.isVertical {
     flex-flow: row;
     height: var(--flux-form-slider-length, 210px);

@@ -43,7 +43,7 @@
         }
 
         if (FLUX_COLORS.includes(color as FluxColor)) {
-            return `var(--${color}-600)`;
+            return `var(--${color}-solid)`;
         }
 
         return color;
@@ -60,7 +60,7 @@
             options
         );
 
-        return deepResolveCssVars(merged);
+        return deepResolveCssVars(merged, chart.value);
     });
 
     useECharts(chart, mergedOptions);

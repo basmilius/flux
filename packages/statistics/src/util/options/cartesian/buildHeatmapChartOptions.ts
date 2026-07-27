@@ -1,4 +1,3 @@
-import { blue100, blue300, blue500, blue700 } from '@flux-ui/internals';
 import type { FluxStatisticsChartHeatmapSeries } from '@flux-ui/types';
 import { merge } from 'lodash-es';
 import type { EChartsOption } from '~flux/statistics/composable';
@@ -20,7 +19,7 @@ export interface HeatmapChartOptionsInput {
 }
 
 const HIDDEN = {show: false} as const;
-const labelStyle = (show: boolean) => ({show, color: 'var(--foreground-secondary)'});
+const labelStyle = (show: boolean) => ({show, color: 'var(--chart-label)'});
 
 export function buildHeatmapChartOptions(input: HeatmapChartOptionsInput): EChartsOption {
     const {
@@ -35,12 +34,12 @@ export function buildHeatmapChartOptions(input: HeatmapChartOptionsInput): EChar
 
     const base: EChartsOption = {
         grid: buildCartesianGrid(xAxisLabels, yAxisLabels, 12),
-        color: [blue500],
+        color: ['var(--chart-ramp-3)'],
         visualMap: {
             show: false,
             min: 0,
             max: 100,
-            inRange: {color: [blue100, blue300, blue500, blue700]}
+            inRange: {color: ['var(--chart-ramp-1)', 'var(--chart-ramp-2)', 'var(--chart-ramp-3)', 'var(--chart-ramp-4)']}
         },
         xAxis: {
             type: 'category',

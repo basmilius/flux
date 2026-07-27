@@ -1,13 +1,9 @@
 import type { EChartsOption } from '~flux/statistics/composable';
+import { CHART_DEFAULT_COLORS } from '../series';
 
 export function buildBaseOptions(): EChartsOption {
     return {
-        color: [
-            'var(--chart-1)',
-            'var(--chart-2)',
-            'var(--chart-3)',
-            'var(--chart-4)'
-        ],
+        color: [...CHART_DEFAULT_COLORS],
         animation: true,
         animationDuration: 1000,
         animationDurationUpdate: 400,

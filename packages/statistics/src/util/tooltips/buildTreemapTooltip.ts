@@ -31,7 +31,7 @@ export function buildTreemapTooltip(input: TreemapTooltipInput): EChartsOption {
             return '';
         }
 
-        const color = data.itemStyle?.color ?? param.color ?? 'var(--primary-600)';
+        const color = data.itemStyle?.color ?? param.color ?? 'var(--chart-1)';
         const title = data.name ? t(String(data.name)) : '';
 
         const items: SharedTooltipItem[] = [

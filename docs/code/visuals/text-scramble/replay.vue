@@ -6,7 +6,7 @@
         <FluxVisualTextScramble
             ref="scramble"
             text="ACCESS GRANTED"
-            style="color: var(--success-600); font-size: 24px; font-weight: 700; letter-spacing: 0.08em;"/>
+            style="color: var(--success-text); font-size: 24px; font-weight: 700; letter-spacing: 0.08em;"/>
 
         <FluxSecondaryButton
             icon-leading="rotate"

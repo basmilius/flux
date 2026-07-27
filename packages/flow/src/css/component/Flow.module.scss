@@ -1,12 +1,12 @@
 @use '~flux/components/css/mixin';
 
 .flow {
-    --flow-dot: var(--gray-100);
+    --flow-dot: var(--surface-stroke);
     // A shade deeper than it reads: a plain connector dims its whole group to a
     // fraction of this (see FlowConnection isNeutral), so the darker base lands
     // back near a mid gray on the canvas while a colored group tint shows
     // through it.
-    --flow-line: var(--gray-300);
+    --flow-line: var(--surface-stroke-hover);
 
     position: relative;
     display: block;
@@ -57,7 +57,7 @@
 }
 
 .flowBackground {
-    background-color: var(--gray-50);
+    background-color: var(--surface-canvas);
     background-position: 0 0;
     z-index: 0;
 }

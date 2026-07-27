@@ -32,7 +32,7 @@
         default(): VNode[];
     }>();
 
-    // Options menus stay open while selecting by default (isPersistent defaults to true). The behaviour
+    // Options menus stay open while selecting by default (isPersistent defaults to true). The behavior
     // is injected directly as a prop on each item rather than via the FluxMenuPersistentInjectionKey
     // provider, because the cloned option vnodes do not resolve a provide from this component.
     const items = computed(() => flattenVNodeTree(slots.default())

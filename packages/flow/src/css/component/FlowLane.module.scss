@@ -12,12 +12,12 @@
     top: 0;
     left: 0;
     box-sizing: border-box;
-    background: var(--gray-50);
+    background: var(--gray-soft);
     border-radius: var(--radius);
 
     @each $-color in (primary, danger, info, success, warning) {
         &[data-color="#{$-color}"] {
-            background: var(--#{$-color}-50);
+            background: var(--#{$-color}-soft);
         }
     }
 }
@@ -30,15 +30,15 @@
     overflow: hidden;
     align-items: center;
     justify-content: center;
-    background: var(--gray-100);
-    color: var(--foreground);
+    background: var(--gray-soft-hover);
+    color: var(--gray-text);
     font-weight: 600;
     white-space: nowrap;
 
     @each $-color in (primary, danger, info, success, warning) {
         [data-color="#{$-color}"] & {
-            background: var(--#{$-color}-100);
-            color: var(--#{$-color}-900);
+            background: var(--#{$-color}-soft-hover);
+            color: var(--#{$-color}-text);
         }
     }
 }

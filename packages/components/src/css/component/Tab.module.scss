@@ -100,8 +100,6 @@
 }
 
 .baseTabBarItem {
-    // A tab owns its text, so a badge or an icon in a slot lands on a known 24px
-    // line box instead of one derived from whatever the tab bar sits in.
     @include mixin.text(default);
 
     display: inline-flex;
@@ -125,8 +123,7 @@
 
     @include mixin.focus-ring-pseudo(before, -2px);
 
-    // Inset offset zodat de focus-ring niet wordt weggeclipt
-    // door de overflow: auto op .tabBarTabs.
+    // Inset, so the focus ring is not clipped away by the `overflow: auto` on .tabBarTabs.
     &::before {
         outline-offset: -2px;
     }
@@ -134,7 +131,7 @@
     &:disabled,
     &[aria-disabled=true] {
         box-shadow: none;
-        opacity: .5;
+        color: var(--foreground-disabled);
         pointer-events: none;
     }
 }
@@ -202,7 +199,7 @@
 
     bottom: 0;
     height: 2px;
-    background: var(--primary-600);
+    background: var(--primary-solid);
     z-index: 1;
 }
 
@@ -210,7 +207,7 @@
     composes: baseTabBarHighlight;
 
     inset-block: 0;
-    background: var(--gray-100);
+    background: var(--surface-active);
     border-radius: calc(var(--radius) - 2px);
     z-index: 0;
 }
@@ -233,7 +230,7 @@
     --tab-padding: 18px;
 
     padding-inline: 18px;
-    background: var(--gray-50);
+    background: var(--surface-sunken);
 
     &:first-child {
         border-radius: var(--radius) var(--radius) 0 0;
@@ -255,7 +252,7 @@
 
 .paneHeader:has(+ .tabBarDefault),
 .paneHeader:has(+ .tabs > .tabBarDefault) {
-    background: var(--gray-50);
+    background: var(--surface-sunken);
 }
 
 .basePaneStructure > .tabBarPills,

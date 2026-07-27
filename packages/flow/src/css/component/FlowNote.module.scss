@@ -10,7 +10,7 @@
     padding: 12px 15px;
     flex-direction: column;
     gap: 3px;
-    background: var(--gray-100);
+    background: var(--gray-soft-hover);
     border-radius: var(--radius);
     color: var(--foreground);
 
@@ -21,11 +21,11 @@
 
     @each $-color in (primary, danger, info, success, warning) {
         &[data-color="#{$-color}"] {
-            background: var(--#{$-color}-100);
-            color: var(--#{$-color}-900);
+            background: var(--#{$-color}-soft-hover);
+            color: var(--#{$-color}-text);
 
             :is(strong) {
-                color: var(--#{$-color}-900);
+                color: var(--#{$-color}-text);
             }
         }
     }

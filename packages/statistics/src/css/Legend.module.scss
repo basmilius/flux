@@ -15,7 +15,7 @@
 }
 
 .statisticsLegendItem {
-    --color: var(--primary-600);
+    --color: var(--chart-1);
 
     position: relative;
     appearance: none;
@@ -98,7 +98,7 @@
 }
 
 .statisticsLegendItemCompact {
-    --color: var(--primary-600);
+    --color: var(--chart-1);
 
     appearance: none;
     display: flex;

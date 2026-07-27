@@ -17,18 +17,12 @@ svg.flowIconSpinner {
     box-shadow: var(--shadow-sm);
     color: var(--foreground);
 
-    &[data-color='gray'] {
-        background: var(--gray-100);
-        border-color: transparent;
-        box-shadow: none;
-    }
-
-    @each $-color in (primary, danger, info, success, warning) {
+    @each $-color in ('gray', 'primary', 'danger', 'info', 'success', 'warning') {
         &[data-color='#{$-color}'] {
-            background: var(--#{$-color}-100);
+            background: var(--#{$-color}-soft-hover);
             border-color: transparent;
             box-shadow: none;
-            color: var(--#{$-color}-900);
+            color: var(--#{$-color}-text);
         }
     }
 }

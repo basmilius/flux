@@ -22,7 +22,7 @@
     display: flex;
     top: 0;
     align-items: center;
-    background: var(--gray-50);
+    background: var(--surface-sunken);
     border-bottom: 1px solid var(--surface-stroke);
     z-index: 1;
 }
@@ -54,7 +54,7 @@
     }
 
     @include mixin.hover {
-        color: var(--primary-600);
+        color: var(--primary-text);
     }
 }
 
@@ -73,15 +73,15 @@
     cursor: pointer;
     outline: 0;
     transition: var(--transition-default);
-    transition-property: background, border-radius, color, opacity;
+    transition-property: background, border-radius, color;
 
     @include mixin.hover {
-        background: var(--gray-100);
+        background: var(--surface-active);
         color: var(--foreground-prominent);
     }
 
     &.isDisabled:not(.isRangeEntry, .isRangeEnd, .isRangeStart, .isSelectionEntry, .isSelectionEnd, .isSelectionStart) {
-        opacity: .25;
+        color: var(--foreground-disabled);
         pointer-events: none;
     }
 
@@ -90,21 +90,21 @@
     }
 
     &.isSelected {
-        background: var(--primary-600);
-        color: var(--primary-50);
+        background: var(--primary-solid);
+        color: var(--primary-on-solid);
         font-weight: 700;
     }
 
     &.isRangeEntry {
-        background: var(--primary-200);
+        background: var(--primary-soft-hover);
         border-radius: 0;
-        color: var(--primary-950);
+        color: var(--primary-text);
     }
 
     &.isRangeEnd,
     &.isRangeStart {
-        background: var(--primary-600);
-        color: var(--primary-50);
+        background: var(--primary-solid);
+        color: var(--primary-on-solid);
         font-weight: 700;
     }
 
@@ -121,14 +121,14 @@
     }
 
     &.isSelectionEntry {
-        background: var(--gray-100);
+        background: var(--gray-soft-hover);
         border-radius: 0;
         color: var(--foreground-prominent);
     }
 
     &.isSelectionEnd,
     &.isSelectionStart {
-        background: var(--gray-200);
+        background: var(--gray-border);
         font-weight: 700;
     }
 

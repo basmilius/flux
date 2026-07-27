@@ -1,0 +1,29 @@
+@use 'sass:list';
+
+$-levels: 'sunken', 'surface', 'raised';
+
+@mixin elevation($level: 'surface', $radius: var(--radius)) {
+    @if not list.index($-levels, $level) {
+        @error 'Elevation level "#{$level}" not found in "#{$-levels}".';
+    }
+
+    $background: var(--surface);
+
+    @if $level == 'raised' {
+        $background: var(--surface-raised);
+    } @else if $level == 'sunken' {
+        $background: var(--surface-sunken);
+    }
+
+    --surface-current: #{$background};
+
+    background-color: var(--surface-current);
+    // Without the clip the fill paints under the translucent border and shows through it.
+    background-clip: padding-box;
+    border: 1px solid var(--surface-stroke-out);
+    border-radius: $radius;
+}
+
+@mixin surface($radius: var(--radius)) {
+    @include elevation('surface', $radius);
+}

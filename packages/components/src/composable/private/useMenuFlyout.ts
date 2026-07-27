@@ -357,7 +357,7 @@ export function useMenuFlyoutContext(options: UseMenuFlyoutProviderOptions): Flu
 }
 
 /**
- * Per-flyout open/close and prediction-cone behaviour for FluxMenuFlyout. Submenus open instantly on
+ * Per-flyout open/close and prediction-cone behavior for FluxMenuFlyout. Submenus open instantly on
  * hover. They stay open while the pointer is over the trigger/popup (or an open descendant), aiming at
  * the submenu through the forward cone (a safe triangle whose apex trails the pointer and whose base
  * widens with speed) or travelling back to the opener through the return corridor (briefly, after

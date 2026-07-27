@@ -21,7 +21,7 @@
                 <FluxItemContent
                     is-center
                     style="flex-grow: 0; text-align: right">
-                    <strong :style="{color: transaction.isIncome ? 'var(--success-600)' : undefined}">{{ transaction.amount }}</strong>
+                    <strong :style="{color: transaction.isIncome ? 'var(--success-text)' : undefined}">{{ transaction.amount }}</strong>
                 </FluxItemContent>
             </FluxItem>
         </FluxItemStack>

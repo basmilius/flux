@@ -79,7 +79,7 @@
         {id: 1, date: 'Feb 2', order: 20260202, description: 'Invoice #10241 — Lumen Co.', category: 'Income', amount: 4800},
         {id: 2, date: 'Feb 5', order: 20260205, description: 'Cloud hosting', category: 'Expense', amount: -320},
         {id: 3, date: 'Feb 11', order: 20260211, description: 'Invoice #10243 — Clayworks', category: 'Income', amount: 6120},
-        {id: 4, date: 'Feb 14', order: 20260214, description: 'Design software licences', category: 'Expense', amount: -540},
+        {id: 4, date: 'Feb 14', order: 20260214, description: 'Design software licenses', category: 'Expense', amount: -540},
         {id: 5, date: 'Feb 22', order: 20260222, description: 'Refund — Harbor Studio', category: 'Refund', amount: -189}
     ];
 

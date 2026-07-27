@@ -2,25 +2,27 @@
     <FluxPane>
         <FluxTable>
             <template #header>
-                <FluxTableHeader :min-width="240">Description</FluxTableHeader>
+                <FluxTableRow>
+                    <FluxTableHeader :min-width="240">Description</FluxTableHeader>
 
-                <FluxTableHeader
-                    align="end"
-                    is-shrinking>
-                    Qty
-                </FluxTableHeader>
+                    <FluxTableHeader
+                        align="end"
+                        is-shrinking>
+                        Qty
+                    </FluxTableHeader>
 
-                <FluxTableHeader
-                    align="end"
-                    :min-width="120">
-                    Unit price
-                </FluxTableHeader>
+                    <FluxTableHeader
+                        align="end"
+                        :min-width="120">
+                        Unit price
+                    </FluxTableHeader>
 
-                <FluxTableHeader
-                    align="end"
-                    :min-width="120">
-                    Amount
-                </FluxTableHeader>
+                    <FluxTableHeader
+                        align="end"
+                        :min-width="120">
+                        Amount
+                    </FluxTableHeader>
+                </FluxTableRow>
             </template>
 
             <FluxTableRow

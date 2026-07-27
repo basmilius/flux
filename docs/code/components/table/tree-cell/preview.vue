@@ -2,11 +2,13 @@
     <FluxPane>
         <FluxTable is-hoverable>
             <template #header>
-                <FluxTableHeader :min-width="270"/>
-                <FluxTableHeader is-shrinking>Kind</FluxTableHeader>
-                <FluxTableHeader
-                    is-shrinking
-                    is-numeric>Size</FluxTableHeader>
+                <FluxTableRow>
+                    <FluxTableHeader :min-width="270"/>
+                    <FluxTableHeader is-shrinking>Kind</FluxTableHeader>
+                    <FluxTableHeader
+                        is-shrinking
+                        is-numeric>Size</FluxTableHeader>
+                </FluxTableRow>
             </template>
 
             <FluxTableRow

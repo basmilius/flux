@@ -2,8 +2,10 @@
     <FluxPane>
         <FluxTable is-hoverable>
             <template #header>
-                <FluxTableHeader :min-width="270"/>
-                <FluxTableHeader is-shrinking>Owner</FluxTableHeader>
+                <FluxTableRow>
+                    <FluxTableHeader :min-width="270"/>
+                    <FluxTableHeader is-shrinking>Owner</FluxTableHeader>
+                </FluxTableRow>
             </template>
 
             <FluxTableRow
@@ -57,7 +59,7 @@
                     name: 'Tokens',
                     color: '#ec4899',
                     children: [
-                        {id: 'color', name: 'Colour', color: '#f97316', owner: 'Anouk'},
+                        {id: 'color', name: 'Color', color: '#f97316', owner: 'Anouk'},
                         {id: 'type', name: 'Typography', color: '#f97316', owner: 'Milan'}
                     ]
                 },

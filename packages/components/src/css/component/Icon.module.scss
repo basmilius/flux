@@ -31,15 +31,12 @@
         white-space: nowrap;
     }
 
-    // A duotone glyph is drawn as two stacked layers: the primary shape over the
-    // dimmed secondary. Both sit in the same grid cell so they overlap exactly.
     .iconFontPrimary,
     .iconFontSecondary {
         grid-area: 1 / 1;
     }
 
     .iconFontSecondary {
-        // Match the SVG duotone rendering, which dims the secondary path to .2.
         opacity: var(--fa-secondary-opacity, .2);
     }
 
@@ -65,7 +62,9 @@
 }
 
 @include mixin.color-variants(icon) using ($color) {
-    color: var(--#{$color}-600);
+    @include mixin.intent($color);
+
+    color: var(--intent-text);
 }
 
 .iconBoxedDefault {
@@ -83,10 +82,8 @@
 @include mixin.color-variants(iconBoxed) using ($color) {
     composes: iconBoxedColored;
 
-    background: var(--#{$color}-100);
-    color: var(--#{$color}-900);
-}
+    @include mixin.intent($color);
 
-.iconBoxedGray {
-    color: var(--foreground);
+    background: var(--intent-soft-hover);
+    color: var(--intent-text);
 }

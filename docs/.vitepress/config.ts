@@ -36,7 +36,6 @@ export default defineConfig({
     title: 'Flux',
     titleTemplate: ':title — Flux',
     description: 'Component library for Vue 3.',
-    appearance: false,
     ignoreDeadLinks: true,
     cleanUrls: true,
     head: [
@@ -161,7 +160,8 @@ export default defineConfig({
                         {text: 'Design tokens', link: '/guide/introduction/design-tokens'},
                         {text: 'Typography', link: '/guide/introduction/typography'},
                         {text: 'Dark mode', link: '/guide/introduction/dark-mode'},
-                        {text: 'Font Awesome', link: '/guide/introduction/font-awesome'}
+                        {text: 'Font Awesome', link: '/guide/introduction/font-awesome'},
+                        {text: 'Upgrading', link: '/guide/introduction/upgrading'}
                     ]
                 },
                 {

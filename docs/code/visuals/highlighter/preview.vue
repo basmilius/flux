@@ -6,7 +6,7 @@
             and
             <FluxVisualHighlighter
                 variant="underline"
-                color="var(--primary-400)">accessible</FluxVisualHighlighter>
+                color="var(--primary-solid)">accessible</FluxVisualHighlighter>
             interfaces.
         </p>
     </Preview>

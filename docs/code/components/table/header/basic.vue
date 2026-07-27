@@ -2,11 +2,13 @@
     <FluxPane>
         <FluxTable>
             <template #header>
-                <FluxTableHeader
-                    v-for="header in 3"
-                    :is-sortable="header === 2">
-                    Header {{ header }}
-                </FluxTableHeader>
+                <FluxTableRow>
+                    <FluxTableHeader
+                        v-for="header in 3"
+                        :is-sortable="header === 2">
+                        Header {{ header }}
+                    </FluxTableHeader>
+                </FluxTableRow>
             </template>
 
             <FluxTableRow>

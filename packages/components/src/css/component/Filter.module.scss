@@ -39,13 +39,13 @@
 
 .filterBadge {
     padding-inline: 6px;
-    background: var(--primary-50);
-    border: 1px dashed var(--primary-300);
+    background: var(--primary-soft);
+    border: 1px dashed var(--primary-border);
     border-radius: var(--radius-half);
     font-weight: 500;
 
     :local(.badgeLabel) {
-        color: var(--primary-900);
+        color: var(--primary-text);
     }
 }
 
@@ -53,7 +53,7 @@
     box-shadow: none;
 
     :local(.buttonIcon) {
-        color: var(--primary-700);
+        color: var(--primary-text);
         font-size: 16px;
     }
 }
@@ -63,7 +63,7 @@
     margin: -9px -9px 3px;
     padding: 9px;
     top: -9px;
-    background: var(--surface);
+    background: var(--surface-current);
     border-bottom: 1px solid var(--surface-stroke);
     z-index: 2;
 
@@ -92,7 +92,7 @@
     top: -9px;
     margin: -9px -9px 0;
     padding: 9px;
-    background: linear-gradient(to bottom, var(--surface) 75%, transparent);
+    background: linear-gradient(to bottom, var(--surface-current) 75%, transparent);
     z-index: 1;
 }
 

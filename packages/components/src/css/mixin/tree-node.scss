@@ -1,10 +1,10 @@
 @use 'color' as color;
 @use 'focus-ring' as focus;
 @use 'hover' as hover;
+@use 'intent' as intent;
 @use 'text' as text;
 
 @mixin tree-node-classes() {
-    // Wrapper for guide lines + marker — no internal gap so lines align perfectly
     .treeNodeLineArea {
         position: relative;
         display: flex;
@@ -13,10 +13,6 @@
         flex-shrink: 0;
     }
 
-    // Line dropping from an expanded node's marker to its children, mirroring the table's
-    // `M{x} {centerY + MARKER_RADIUS + MARKER_GAP}V{bottom}` segment: it starts the same 3px gap
-    // below the marker as the connector stops before it. --tree-marker-column is the marker's
-    // column index, set by the renderer.
     .treeNodeLineArea.hasDropLine::after {
         position: absolute;
         inset-block: calc(50% + 14px) 0;
@@ -26,12 +22,8 @@
         background: var(--surface-active);
     }
 
-    // Geometry mirrors the table tree (see useTableTree.ts): every level is a 24px column
-    // (TREE_STEP) whose center carries the guide line, and the 22px marker (TREE_MARKER_SIZE) is
-    // centered in its own column. Lines stop 3px short of the marker (MARKER_GAP), matching the
-    // gap the table leaves before its dot.
-
-    // Vertical guide line for each ancestor level above the direct parent
+    // Geometry mirrors the table tree, so these numbers move with useTableTree.ts: a level
+    // is a column whose center carries the guide line, the marker sits centered in it.
     .treeIndent {
         position: relative;
         width: 24px;
@@ -49,8 +41,6 @@
         }
     }
 
-    // Connector from parent to current node, with rounded elbow. Its vertical segment sits at the
-    // same x as the parent's marker center, so the elbow lands exactly on the parent.
     .treeConnector {
         position: relative;
         width: 24px;
@@ -58,7 +48,6 @@
         flex-shrink: 0;
         pointer-events: none;
 
-        // Non-last siblings: full-height vertical continuation line
         &:not(.isLast)::before {
             position: absolute;
             inset-block: 0;
@@ -68,8 +57,6 @@
             background: var(--surface-active);
         }
 
-        // Rounded elbow: vertical segment from top to midpoint, curves right towards the marker
-        // Overlaps the ::before vertical line for non-last nodes (same position, same color)
         &::after {
             position: absolute;
             inset-block: 0 50%;
@@ -81,13 +68,9 @@
         }
     }
 
-    // Marker: closes the line area. Every node gets the same circle regardless of depth — nodes with
-    // children render it as the expand toggle holding the chevron, leaves as a plain circle. Colors
-    // resolve through the --tree-marker-* vars, fed either by a FluxColor variant class or by
-    // --tree-marker-color for a custom color.
     .treeNodeMarker {
-        --tree-marker-fill: var(--gray-100);
-        --tree-marker-stroke: var(--gray-200);
+        --tree-marker-fill: var(--surface-sunken);
+        --tree-marker-stroke: var(--surface-stroke);
         --tree-marker-foreground: var(--foreground-prominent);
 
         display: flex;
@@ -125,13 +108,11 @@
     }
 
     @include color.color-variants(treeNodeMarker) using ($color) {
-        --tree-marker-fill: var(--#{$color}-100);
-        --tree-marker-stroke: var(--#{$color}-300);
-        --tree-marker-foreground: var(--#{$color}-900);
-    }
+        @include intent.intent($color);
 
-    .treeNodeMarkerGray {
-        --tree-marker-foreground: var(--foreground-prominent);
+        --tree-marker-fill: var(--intent-soft-hover);
+        --tree-marker-stroke: var(--intent-border);
+        --tree-marker-foreground: var(--intent-text);
     }
 
     .treeNodeMarkerCustom {
@@ -140,7 +121,6 @@
         --tree-marker-foreground: color-mix(in srgb, var(--tree-marker-color) 75%, var(--foreground));
     }
 
-    // No own color: inherits the node's, like .menuItemIcon inherits .menuItem's
     .treeNodeIcon {
         flex-shrink: 0;
     }

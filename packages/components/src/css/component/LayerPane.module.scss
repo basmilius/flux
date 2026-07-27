@@ -13,30 +13,19 @@
 @include mixin.color-variants(layerPane) using ($color) {
     composes: layerPane;
 
-    background-color: var(--#{$color}-100);
-    border-color: var(--#{$color}-200);
+    @include mixin.intent($color);
+
+    background-color: var(--intent-soft);
+    border-color: var(--intent-border);
 
     &:has(> .paneHeaderClickable:hover) {
-        background-color: var(--#{$color}-200);
-        border-color: var(--#{$color}-300);
+        background-color: var(--intent-soft-hover);
     }
 
-    // Only the alerting colors tint the header icon; gray and primary let it inherit.
-    @if $color != 'gray' and $color != 'primary' {
+    @if $color != 'primary' {
         :local(.paneHeaderIcon) {
-            color: var(--#{$color}-600);
+            color: var(--intent-text);
         }
-    }
-}
-
-// Gray leans on the neutral stroke tokens instead of on its own scale.
-.layerPaneGray {
-    background-color: var(--gray-50);
-    border-color: var(--surface-stroke-out);
-
-    &:has(> .paneHeaderClickable:hover) {
-        background-color: var(--gray-100);
-        border-color: var(--surface-stroke-out-hover);
     }
 }
 

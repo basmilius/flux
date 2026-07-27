@@ -1,7 +1,7 @@
 @use '~flux/components/css/mixin';
 
 .snackbar {
-    composes: basePane from './base/Pane.module.scss';
+    composes: basePaneRaised from './base/Pane.module.scss';
 
     display: flex;
     box-shadow: var(--shadow-xl), var(--shadow-2xl);
@@ -64,7 +64,7 @@
     align-items: center;
     justify-content: center;
     flex-grow: 1;
-    background: var(--surface);
+    background-color: var(--surface-current);
     border: 0;
     border-radius: 0;
     color: var(--foreground);
@@ -76,7 +76,7 @@
     transition-property: background, color;
 
     @include mixin.hover {
-        background: var(--surface-hover);
+        background-image: linear-gradient(var(--ink-hover), var(--ink-hover));
         color: var(--foreground-prominent);
     }
 
@@ -85,7 +85,7 @@
     }
 
     &:active {
-        background: var(--surface-active);
+        background-image: linear-gradient(var(--ink-active), var(--ink-active));
     }
 }
 
@@ -102,26 +102,17 @@
 @include mixin.color-variants(snackbar) using ($color) {
     composes: snackbar;
 
+    @include mixin.intent($color);
+
     .snackbarAction:first-child,
     .snackbarContent > .icon,
     .snackbarTitle {
-        color: var(--#{$color}-600);
+        color: var(--intent-text);
     }
 
-    // A gray snackbar leaves the spinner on its default color.
-    @if $color != 'gray' {
-        .spinnerEffect,
-        .spinnerValue {
-            stroke: var(--#{$color}-700);
-        }
-    }
-}
-
-.snackbarGray {
-    .snackbarAction:first-child,
-    .snackbarContent > .icon,
-    .snackbarTitle {
-        color: var(--foreground-prominent);
+    .spinnerEffect,
+    .spinnerValue {
+        stroke: var(--intent-solid);
     }
 }
 

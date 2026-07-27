@@ -36,7 +36,7 @@ export function offsetPoint(point: FluxFlowPosition, side: FluxFlowSide, offset:
  * along the line pointing away from the endpoint. Plain paths rather than SVG
  * markers, so they inherit the connector's color without a definition per edge.
  *
- * `arrow` and `chevron` sit at the tip; the rest centre on the endpoint.
+ * `arrow` and `chevron` sit at the tip; the rest center on the endpoint.
  */
 export function markerPath(marker: FluxFlowMarker, point: FluxFlowPosition, direction: readonly [number, number]): string {
     const [nx, ny] = direction;

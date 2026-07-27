@@ -2,7 +2,7 @@
 
 `useFlowLayout` turns a graph into a drawing. Hand it your nodes and edges and it returns a position per node id plus the connections between them, ready to bind to `FluxFlowNode` and `FluxFlowConnection`. Where a [Chain](../components/chain) places a run of steps in a line, this places a graph that branches and comes back together.
 
-It is a plain function: no component, no DOM and no reactivity. Nodes are laid out in layers, every node lands one layer past its furthest source, and every layer is centred against the widest one, so a straight stretch of the graph stays straight.
+It is a plain function: no component, no DOM and no reactivity. Nodes are laid out in layers, every node lands one layer past its furthest source, and every layer is centered against the widest one, so a straight stretch of the graph stays straight.
 
 ## Usage
 

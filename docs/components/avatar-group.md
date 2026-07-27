@@ -52,7 +52,7 @@ example=../code/components/avatar-group/overflow.vue
 example=../code/components/avatar-group/labelled.vue
 :::
 
-::: example On a background || The gap between avatars is cut out, so the group works on any background colour.
+::: example On a background || The gap between avatars is cut out, so the group works on any background color.
 example=../code/components/avatar-group/on-background.vue
 :::
 

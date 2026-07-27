@@ -1,10 +1,10 @@
 @mixin focus-outline {
-    outline: 2px solid rgb(from var(--primary-600) r g b / 0);
+    outline: 2px solid var(--focus-ring-transparent);
     outline-offset: 0;
 }
 
 @mixin focus-outline-visible($offset: 0) {
-    outline-color: var(--primary-600);
+    outline-color: var(--focus-ring);
     outline-offset: $offset;
 }
 

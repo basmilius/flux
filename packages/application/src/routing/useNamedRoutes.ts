@@ -7,12 +7,18 @@ import useRoute from './useRoute';
  * the given `name`, paired with their depth in `route.matched`. Powers
  * `<FluxApplicationMenuContextStack>` so every level of a nested route
  * tree can render its own menu component (instead of vue-router's
- * default behaviour of only rendering the deepest one).
+ * default behavior of only rendering the deepest one).
+ *
+ * Resolves to an empty list when the app has no router.
  */
 export default function (nameRef: Ref<string> | string): ComputedRef<NamedRouteMatch[]> {
     const route = useRoute();
 
     return computed(() => {
+        if (!route) {
+            return [];
+        }
+
         const name = unref(nameRef);
         const matches: NamedRouteMatch[] = [];
 

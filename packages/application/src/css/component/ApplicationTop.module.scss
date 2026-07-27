@@ -1,9 +1,10 @@
 @use '~flux/components/css/mixin';
 
+// color-mix, because `rgb(from ...)` would freeze the token's `light-dark()` to one theme.
 .applicationTop {
     position: sticky;
     top: 0;
-    background: rgb(from var(--surface) r g b / .975);
+    background: color-mix(in srgb, var(--application-surface) 97.5%, transparent);
     background-clip: padding-box;
     backdrop-filter: blur(3px) saturate(180%);
     border-bottom: 1px solid transparent;

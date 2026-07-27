@@ -9,7 +9,7 @@ export type FluxFlowLayoutNode = {
     readonly width?: number;
     readonly height?: number;
     /**
-     * The measured centre of the node's anchor, relative to its own top-left.
+     * The measured center of the node's anchor, relative to its own top-left.
      * Only a trunk uses it, to line one node's icon up with another's; without
      * one it falls back to the same inset a `start` connector does.
      */
@@ -57,7 +57,7 @@ export type FluxFlowLayoutOptions = {
  * `FluxFlowConnection`. It is a plain function: no component, no DOM and no
  * reactivity, so it also runs on the server or in a build step.
  *
- * A node lands one layer past its furthest source, and every layer is centred
+ * A node lands one layer past its furthest source, and every layer is centered
  * against the widest one, so a run of single nodes lines up dead straight.
  * Edges to unknown nodes and edges from a node to itself are dropped, and an
  * edge that would close a cycle is cut rather than followed, so a graph that is

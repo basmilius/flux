@@ -1,9 +1,9 @@
 import type { EChartsOption } from '~flux/statistics/composable';
 import { CHART_TEXT_2XSMALL } from '../typography';
 
-const FOREGROUND_LABEL = {show: true, color: 'var(--foreground-secondary)', ...CHART_TEXT_2XSMALL} as const;
+const FOREGROUND_LABEL = {show: true, color: 'var(--chart-label)', ...CHART_TEXT_2XSMALL} as const;
 const HIDDEN_AXIS = {show: false} as const;
-const DASHED_SPLIT_LINE = {show: true, lineStyle: {type: 'dashed' as const, color: 'var(--gray-200)'}} as const;
+const DASHED_SPLIT_LINE = {show: true, lineStyle: {type: 'dashed' as const, color: 'var(--chart-grid)'}} as const;
 
 export interface CartesianBaseConfig {
     readonly xAxisType?: 'category' | 'value';

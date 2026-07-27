@@ -1,7 +1,17 @@
 @use '~flux/components/css/mixin';
 
 .basePane {
-    @include mixin.surface;
+    @include mixin.elevation('surface');
+}
+
+// Longhand on purpose: the `background` shorthand also resets the padding-box clip the
+// level painted with, and the fill then runs under the stroke.
+.basePaneRaised {
+    composes: basePane;
+
+    --surface-current: var(--surface-raised);
+
+    background-color: var(--surface-current);
 }
 
 .basePaneLoader {
@@ -24,7 +34,7 @@
 }
 
 .basePaneStructure:not(.layerPane) > .basePaneStructure {
-    background: unset;
+    background-color: unset;
     border: 0;
     box-shadow: none;
 }

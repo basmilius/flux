@@ -4,7 +4,7 @@
             v-for="(marker, index) of markers"
             :key="marker">
             <!-- Both ends sit in a column of the same width, so a step naming its
-                 marker centres over the port below it and the connector runs
+                 marker centers over the port below it and the connector runs
                  straight down. -->
             <FluxFlowNode :id="`${marker}-from`" :x="column(index)" :y="row(index)">
                 <div style="display: flex; width: 120px; justify-content: center">

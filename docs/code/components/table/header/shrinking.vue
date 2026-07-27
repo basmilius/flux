@@ -2,11 +2,13 @@
     <FluxPane>
         <FluxTable>
             <template #header>
-                <FluxTableHeader
-                    v-for="header in 3">
-                    Header {{ header }}
-                </FluxTableHeader>
-                <FluxTableHeader is-shrinking/>
+                <FluxTableRow>
+                    <FluxTableHeader
+                        v-for="header in 3">
+                        Header {{ header }}
+                    </FluxTableHeader>
+                    <FluxTableHeader is-shrinking/>
+                </FluxTableRow>
             </template>
 
             <FluxTableRow>

@@ -5,9 +5,11 @@
             is-sticky
             style="max-height: 360px">
             <template #header>
-                <FluxTableHeader :min-width="200">Name</FluxTableHeader>
-                <FluxTableHeader :min-width="160">Role</FluxTableHeader>
-                <FluxTableHeader is-shrinking>Location</FluxTableHeader>
+                <FluxTableRow>
+                    <FluxTableHeader :min-width="200">Name</FluxTableHeader>
+                    <FluxTableHeader :min-width="160">Role</FluxTableHeader>
+                    <FluxTableHeader is-shrinking>Location</FluxTableHeader>
+                </FluxTableRow>
             </template>
 
             <FluxTableGroup

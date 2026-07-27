@@ -6,7 +6,6 @@
         text-wrap: balance;
     }
 
-    // h1 and h2 sit above the text scale and carry their own pair.
     h1 {
         color: var(--foreground-prominent);
         font-size: 27px;
@@ -39,7 +38,7 @@
 
     a:not([class]), a[class=""] {
         align-self: start;
-        color: var(--primary-600);
+        color: var(--primary-text);
         text-decoration: underline;
         text-decoration-color: currentColor;
         text-decoration-skip: auto;
@@ -55,8 +54,6 @@
         @include mixin.text(small);
     }
 
-    // Only the monospace font is a light default; the rich prose treatment of
-    // code, blockquotes, images, lists and the vertical rhythm lives in FluxProse.
     code, kbd, samp, pre {
         font-family: var(--font-monospace), monospace;
     }

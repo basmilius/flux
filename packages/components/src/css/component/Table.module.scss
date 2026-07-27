@@ -36,19 +36,12 @@
     position: relative;
 }
 
-// Rows render as display: contents so their cells become direct grid items of
-// the row group, sharing one grid across every row. That is what lets a cell
-// span rows (grid-row: span N); with each row as its own grid container a cell
-// could never reach into the next row. display: contents keeps the DOM intact,
-// so sibling/descendant selectors and DOM measurements are unaffected — only
-// styling that needs the row's own box (focus ring, sticky group row,
-// scroll-margin) moves onto the cells or the spanning cell.
+// Rows are display: contents, so anything needing the row's own box (focus ring, sticky
+// group row, scroll-margin) has to move onto a cell instead.
 .tableRow {
     display: contents;
 }
 
-// The filler and empty rows are direct children of .tableBase, each occupying
-// its own 1fr row track, so they stay real grid rows instead of display: contents.
 .tableFill,
 .tableEmptyFill {
     display: grid;
@@ -56,10 +49,8 @@
     grid-template-columns: subgrid;
 }
 
-// A clickable row keeps its own box: a display: contents element is not keyboard
-// focusable, so the roving tabindex and the focus ring both need the row box.
-// Such a row is a single grid row and therefore cannot hold a rowspan cell —
-// rowspan lives in the (display: contents) rows of non-clickable tables.
+// A clickable row keeps its own box: display: contents is not keyboard focusable. That
+// makes it a single grid row, so rowspan only works in non-clickable tables.
 .tableRow.isClickable {
     display: grid;
     grid-column: 1 / -1;
@@ -72,7 +63,7 @@
 
 .tableCellBase {
     padding: 0;
-    border: 0 solid var(--gray-100);
+    border: 0 solid var(--surface-stroke-muted);
 }
 
 .tableCell {
@@ -107,7 +98,7 @@
     font-weight: 700;
     align-items: center;
     color: var(--foreground-prominent);
-    border-bottom: 2px solid var(--gray-100);
+    border-bottom: 2px solid var(--surface-stroke-muted);
 
     &.isShrinking {
         white-space: nowrap;
@@ -120,14 +111,16 @@
 }
 
 .tableHeadSticky .tableHeader {
-    background: var(--gray-50);
+    background: var(--surface-sunken);
 }
 
 @include mixin.color-variants(tableRow) using ($color) {
-    --table-row-fill: var(--#{$color}-25);
-    --table-row-fill-hover: var(--#{$color}-50);
-    --table-row-foreground: var(--#{$color}-800);
-    --table-row-stroke: var(--#{$color}-100);
+    @include mixin.intent($color);
+
+    --table-row-fill: color-mix(in srgb, var(--intent-soft) 60%, var(--surface));
+    --table-row-fill-hover: var(--intent-soft);
+    --table-row-foreground: var(--intent-text);
+    --table-row-stroke: var(--intent-soft-hover);
 }
 
 .tableBody .tableRow.isColored > .tableCell {
@@ -136,45 +129,36 @@
     color: var(--table-row-foreground);
 }
 
-// The separator below a row is drawn by the next row's top border, so every
-// variant tints that too (the same trick as the .isSelected rule below).
+// The global intent token rather than `--intent-*`: this border sits on a sibling row,
+// which never inherits the local contract.
 @each $color in mixin.$colors {
     .tableBody .tableRow#{mixin.color-suffix($color)} + .tableRow > .tableCell {
-        border-top-color: var(--#{$color}-100);
+        border-top-color: var(--#{$color}-soft-hover);
     }
 }
 
 .tableRow.isSelected {
-    --table-row-stroke: var(--primary-100);
+    --table-row-stroke: var(--primary-soft-hover);
 }
 
 .tableBody .tableRow.isSelected > .tableCell {
-    background: var(--primary-50);
+    background: var(--primary-soft);
     border-color: var(--table-row-stroke);
 }
 
 .tableBody .tableRow.isSelected + .tableRow > .tableCell {
-    border-top-color: var(--primary-100);
+    border-top-color: var(--primary-soft-hover);
 }
 
-// Row hover keys off :has(:hover) rather than .tableRow:hover: under
-// display: contents the row has no box, so :hover on the row itself is
-// unreliable, while :hover on the cells (which do have boxes) is not.
-// The cells are matched with a child combinator so the highlight stays within
-// one table: a nested table lives deep inside a cell, never as a direct child
-// of the parent row, so hovering the parent row cannot light up its sub-rows.
-// A rowspan cell belongs to the first row it covers but stretches across the
-// rest, so it is excluded from the hover highlight (like .tableGroup): otherwise
-// hovering the first row would light up the full-height cell on its own.
-//
-// Written as a bare media query rather than mixin.hover: that mixin nests &:hover onto a single
-// selector, while the highlight needs several unrelated selectors under one condition.
+// Hover keys off :has(:hover): a display: contents row has no box of its own, its cells do.
+// A bare media query rather than mixin.hover, which nests &:hover onto a single selector
+// while this needs several unrelated ones under one condition.
 @media (hover: hover) {
     .table.isHoverable .tableBody .tableRow:has(:hover) > .tableCell:not(.tableGroup):not(.hasRowspan),
     .table.isHoverable .tableBody .tableRow:has(:focus-visible) > .tableCell:not(.tableGroup):not(.hasRowspan),
     .table.isHoverable .tableBody .tableRow:has(:hover) > .tableGroup.isHoverable,
     .table.isHoverable .tableBody .tableRow:has(:focus-visible) > .tableGroup.isHoverable {
-        background: var(--gray-50);
+        background: var(--surface-hover);
     }
 
     .table.isHoverable .tableBody .tableRow.isColored:has(:hover) > .tableCell:not(.hasRowspan),
@@ -184,31 +168,27 @@
 
     .table.isHoverable .tableBody .tableRow.isSelected:has(:hover) > .tableCell:not(.hasRowspan),
     .table.isHoverable .tableBody .tableRow.isSelected:has(:focus-visible) > .tableCell:not(.hasRowspan) {
-        background: var(--primary-50);
+        --table-row-stroke: var(--primary-soft-hover);
+
+        background: var(--primary-soft);
     }
 
-    // The top border of a row is drawn by the row itself, but its color comes
-    // from the row above. While a row is highlighted it takes its own stroke,
-    // so the highlight is bounded by its own color instead of its neighbour's.
     .table.isHoverable .tableBody .tableRow:has(:hover) > .tableCell:not(.hasRowspan),
     .table.isHoverable .tableBody .tableRow:has(:focus-visible) > .tableCell:not(.hasRowspan) {
-        border-top-color: var(--table-row-stroke, var(--gray-100));
+        border-top-color: var(--table-row-stroke, var(--surface-stroke-muted));
     }
 }
 
 .tableFoot .tableCell {
-    border-top: 1px solid var(--gray-100);
+    border-top: 1px solid var(--surface-stroke-muted);
 }
 
 .tableCell + .tableCell {
     border-left-width: 1px;
 }
 
-// A cell that is the first in its row's markup but sits after a rowspan cell
-// from a previous row has no preceding sibling, so it never gets the left
-// border above. The spanning cell instead draws its own right border across
-// every row it covers, and its immediate sibling drops the now-doubled left
-// border so the first covered row keeps a single 1px separator.
+// A cell following a rowspan cell has no preceding sibling, so it never gets the left
+// border above. The spanning cell draws its own right border and the sibling drops its left.
 .tableCell.hasRowspan {
     border-right-width: 1px;
 }
@@ -276,21 +256,21 @@
 
 .tableHeadSticky .tableHeader.isPinnedStart,
 .tableHeadSticky .tableHeader.isPinnedEnd {
-    background: var(--gray-50);
+    background: var(--surface-sunken);
 }
 
 .table[data-scrolled-start] .tableCell.isPinnedStart.isPinnedEdge {
-    box-shadow: 1px 0 0 var(--surface-stroke-out), 6px 0 10px -6px rgb(from var(--gray-800) r g b / 0.15);
+    box-shadow: 1px 0 0 var(--surface-stroke-out), 6px 0 10px -6px var(--shadow-color);
 }
 
 .table[data-scrollable-end] .tableCell.isPinnedEnd.isPinnedEdge {
     border-left-color: var(--surface-stroke-out);
-    box-shadow: -6px 0 10px -6px rgb(from var(--gray-800) r g b / 0.15);
+    box-shadow: -6px 0 10px -6px var(--shadow-color);
 }
 
 .tableFill {
     pointer-events: none;
-    border-top: 1px solid var(--gray-100);
+    border-top: 1px solid var(--surface-stroke-muted);
 
     .tableCell {
         padding: 0;
@@ -322,7 +302,7 @@
 }
 
 .tableHeadSticky .tableBar {
-    --bg: var(--gray-50);
+    --bg: var(--surface-sunken);
 }
 
 .tableBarContent {
@@ -353,8 +333,7 @@
     background: var(--surface);
 }
 
-// Under display: contents the group row has no box, so stickiness lives on the
-// group cell, which is the full-width (grid-column: 1 / -1) box that remains.
+// Under display: contents the group row has no box, so stickiness lives on the group cell.
 .table.isSticky .tableBody .tableGroupRow .tableGroup {
     position: sticky;
     top: calc(var(--flux-table-head-height, 0px) - 1px);
@@ -368,7 +347,8 @@
 
     align-items: center;
     gap: 12px;
-    background: color-mix(in srgb, var(--surface), var(--gray-50));
+
+    background: color-mix(in srgb, var(--surface), var(--surface-hover));
 
     &:is(button) {
         width: 100%;
@@ -383,7 +363,7 @@
         @include mixin.focus-ring(-2px);
 
         @include mixin.hover {
-            background: var(--gray-50);
+            background: var(--surface-hover);
         }
     }
 }
@@ -435,7 +415,7 @@
     bottom: 0;
     margin-block: auto -1px;
     background: var(--surface);
-    border-top: 1px solid var(--gray-100);
+    border-top: 1px solid var(--surface-stroke-muted);
     translate: 0 -1px;
     z-index: 100;
 }
@@ -456,7 +436,7 @@
     outline: 0;
 
     @include mixin.hover {
-        background: var(--gray-100);
+        background: var(--surface-active);
         color: var(--foreground);
     }
 }
@@ -487,7 +467,7 @@
 
 .basePaneStructure > .table .tableCaption {
     padding: 12px var(--table-spacing);
-    border-top: 1px solid var(--gray-100);
+    border-top: 1px solid var(--surface-stroke-muted);
 }
 
 .basePaneStructure > .table .tableLoader {
@@ -537,8 +517,8 @@
 }
 
 .treeMarker {
-    --tree-marker-fill: var(--gray-100);
-    --tree-marker-stroke: var(--gray-200);
+    --tree-marker-fill: var(--surface-sunken);
+    --tree-marker-stroke: var(--surface-stroke);
     --tree-marker-foreground: var(--foreground-prominent);
 
     position: absolute;
@@ -578,13 +558,11 @@
 }
 
 @include mixin.color-variants(treeMarker) using ($color) {
-    --tree-marker-fill: var(--#{$color}-100);
-    --tree-marker-stroke: var(--#{$color}-300);
-    --tree-marker-foreground: var(--#{$color}-900);
-}
+    @include mixin.intent($color);
 
-.treeMarkerGray {
-    --tree-marker-foreground: var(--foreground-prominent);
+    --tree-marker-fill: var(--intent-soft-hover);
+    --tree-marker-stroke: var(--intent-border);
+    --tree-marker-foreground: var(--intent-text);
 }
 
 .treeMarkerCustom {

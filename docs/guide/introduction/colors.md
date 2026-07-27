@@ -2,6 +2,14 @@
 
 Flux ships a color palette of six colors: **gray**, **primary**, **danger**, **info**, **success**, and **warning**. Each color is available in 12 shades, from 25 to 950, so you can make fine-grained design choices.
 
+The palette is absolute: a shade is the same color in both themes, so `--palette-gray-950` is always near-black. It is also the layer you should reach for last. Styling against a shade means answering for both themes yourself, which is what the [semantic and intent tokens](./design-tokens) already do. They are what components are built on.
+
+Shades are written in [OKLCH](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/oklch), so lightness is perceptual and a shade can be mixed or tinted without the hue drifting.
+
+::: danger Removed in this version
+The palette used to be exposed as `--gray-*`, `--primary-*` and so on, and dark mode mirrored the whole scale: `--gray-950` was near-black in light and near-white in dark. Those names are gone. A reference to one of those stops now resolves to nothing and paints as if the declaration were absent, so it fails quietly rather than loudly. Use `--palette-*` instead, or better, a semantic token. [Upgrading](./upgrading) walks through the substitution.
+:::
+
 ## Gray
 
 <ColorPalette label="Gray" name="gray"/>

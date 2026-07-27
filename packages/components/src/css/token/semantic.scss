@@ -1,0 +1,54 @@
+@use 'palette';
+@use 'theme';
+
+@mixin semantic {
+    --background: #{theme.theme(palette.stop('gray', 50), theme.neutral(.195, .014))};
+
+    --surface-canvas: #{theme.theme(palette.stop('gray', 100), theme.neutral(.166, .0125))};
+
+    --surface-sunken: #{theme.theme(palette.stop('gray', 50), theme.neutral(.249, .017))};
+    --surface: #{theme.theme(palette.stop('gray', 25), theme.neutral(.229, .016))};
+    --surface-raised: #{theme.theme(palette.stop('gray', 25), theme.neutral(.268, .018))};
+
+    --surface-current: var(--surface);
+
+    --surface-loader: #{theme.theme(theme.neutral(1, 0, .75), theme.neutral(.229, .016, .75))};
+
+    --surface-inverse: #{theme.theme(theme.neutral(.21, .02, .92), theme.neutral(.95, .008, .95))};
+
+    --surface-hover: #{theme.theme(palette.stop('gray', 50), theme.neutral(.275, .018))};
+    --surface-active: #{theme.theme(palette.stop('gray', 100), theme.neutral(.315, .019))};
+    --surface-disabled: #{theme.theme(palette.stop('gray', 100), theme.neutral(.265, .017))};
+
+    --ink-hover: #{theme.theme(theme.neutral(.28, .02, .06), theme.neutral(.93, .01, .07))};
+    --ink-active: #{theme.theme(theme.neutral(.28, .02, .11), theme.neutral(.93, .01, .12))};
+
+    --foreground-prominent: #{theme.theme(palette.stop('gray', 900), theme.neutral(.945, .008))};
+    --foreground: #{theme.theme(palette.stop('gray', 700), theme.neutral(.845, .012))};
+    --foreground-secondary: #{theme.theme(palette.stop('gray', 600), theme.neutral(.7, .016))};
+    --foreground-subtle: #{theme.theme(palette.stop('gray', 500), theme.neutral(.6, .016))};
+    --foreground-disabled: #{theme.theme(theme.neutral(.44, .02, .45), theme.neutral(.845, .012, .45))};
+
+    --foreground-inverse-prominent: #{theme.theme(theme.neutral(1, 0), palette.stop('gray', 900))};
+    --foreground-inverse: #{theme.theme(theme.neutral(.9, .008), palette.stop('gray', 700))};
+    --foreground-inverse-secondary: #{theme.theme(theme.neutral(.72, .012), theme.neutral(.5, .0408))};
+
+    // Dark takes a shorter step and a lower alpha than its light twin: lightness moves
+    // faster per unit of light there. Muted is boxed in between `--surface-hover` and
+    // `--surface-active`.
+    --surface-stroke-muted: #{theme.theme(palette.stop('gray', 100), theme.neutral(.295, .016))};
+    --surface-stroke: #{theme.theme(palette.stop('gray', 200), theme.neutral(.303, .018))};
+    --surface-stroke-hover: #{theme.theme(palette.stop('gray', 300), theme.neutral(.395, .02))};
+    --surface-stroke-out: #{theme.theme(theme.neutral(.36, .02, .1), theme.neutral(1, 0, .087))};
+    --surface-stroke-out-hover: #{theme.theme(theme.neutral(.28, .02, .15), theme.neutral(1, 0, .118))};
+
+    --focus-ring: #{theme.theme(palette.stop('primary', 600), palette.stop('primary', 400))};
+
+    --focus-ring-transparent: #{theme.theme(palette.stop('primary', 600, 0), palette.stop('primary', 400, 0))};
+    --selection: #{theme.theme(palette.tint('primary', .639, 1, .25), palette.tint('primary', .639, 1, .35))};
+
+    --overlay: #{theme.theme(theme.neutral(.19, .02, .5), 'oklch(0 0 0 / .6)')};
+    --overlay-secondary: #{theme.theme(theme.neutral(.19, .02, .15), 'oklch(0 0 0 / .4)')};
+
+    --shimmer: #{theme.theme(theme.neutral(1, 0, .6), theme.neutral(1, 0, .05))};
+}

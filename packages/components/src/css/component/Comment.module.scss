@@ -43,8 +43,8 @@
 .commentContent {
     min-width: 0;
     padding: 12px 18px;
-    background: var(--primary-50);
-    border: 1px solid var(--primary-200);
+    background: var(--primary-soft);
+    border: 1px solid var(--primary-border);
     border-radius: calc(var(--radius) * 2);
     box-shadow: var(--shadow-xs);
 }
@@ -54,8 +54,8 @@
 }
 
 .comment.isReceived .commentContent {
-    background: var(--gray-50);
-    border-color: var(--gray-200);
+    background: var(--gray-soft);
+    border-color: var(--gray-border);
     border-bottom-left-radius: var(--radius);
 }
 
@@ -94,26 +94,26 @@
     0%,
     80%,
     100% {
-        background: var(--gray-200);
-        box-shadow: -9px 0 var(--gray-200), 9px 0 var(--gray-200);
+        background: var(--surface-stroke);
+        box-shadow: -9px 0 var(--surface-stroke), 9px 0 var(--surface-stroke);
         translate: 0 0;
     }
 
     20% {
-        background: var(--gray-200);
-        box-shadow: -9px -4px var(--gray-300), 9px 0 var(--gray-200);
+        background: var(--surface-stroke);
+        box-shadow: -9px -4px var(--surface-stroke-hover), 9px 0 var(--surface-stroke);
         translate: 0 0;
     }
 
     40% {
-        background: var(--gray-300);
-        box-shadow: -9px 4px var(--gray-200), 9px 4px var(--gray-200);
+        background: var(--surface-stroke-hover);
+        box-shadow: -9px 4px var(--surface-stroke), 9px 4px var(--surface-stroke);
         translate: 0 -4px;
     }
 
     60% {
-        background: var(--gray-200);
-        box-shadow: -9px 0 var(--gray-200), 9px -4px var(--gray-300);
+        background: var(--surface-stroke);
+        box-shadow: -9px 0 var(--surface-stroke), 9px -4px var(--surface-stroke-hover);
         translate: 0 0;
     }
 }

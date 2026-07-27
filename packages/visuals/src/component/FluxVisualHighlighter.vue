@@ -57,7 +57,7 @@
     const inView = group ? shallowRef(true) : useInView(targetRef, {initial: !whenInView});
 
     const effectiveVariant = computed(() => variant ?? group?.defaults.variant ?? 'highlight');
-    const effectiveColor = computed(() => color ?? group?.defaults.color ?? 'var(--warning-200)');
+    const effectiveColor = computed(() => color ?? group?.defaults.color ?? 'var(--warning-border)');
     const effectiveStrokeWidth = computed(() => strokeWidth ?? group?.defaults.strokeWidth ?? 1.5);
     const effectiveAnimationDuration = computed(() => animationDuration ?? group?.defaults.animationDuration ?? 500);
     const effectiveIterations = computed(() => iterations ?? group?.defaults.iterations ?? 2);

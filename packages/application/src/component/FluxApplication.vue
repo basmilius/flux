@@ -56,13 +56,16 @@
     const contexts = computed(() => contextStack.value);
     const totalLevels = computed(() => 1 + matchedMenuRoutes.value.length);
 
-    watch(() => route.fullPath, () => {
-        viewIndex.value = totalLevels.value - 1;
+    // Without a router there is nothing to navigate, so the shell keeps its level.
+    if (route) {
+        watch(() => route.fullPath, () => {
+            viewIndex.value = totalLevels.value - 1;
 
-        if (!lg.value && !xl.value) {
-            isMenuCollapsed.value = true;
-        }
-    });
+            if (!lg.value && !xl.value) {
+                isMenuCollapsed.value = true;
+            }
+        });
+    }
 
     watch(totalLevels, (next) => {
         viewIndex.value = clampViewIndex(viewIndex.value);

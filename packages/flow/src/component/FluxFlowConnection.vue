@@ -36,15 +36,14 @@
     }>();
 
     // Keyed by FluxColor rather than a loose array, so adding a color to FluxColor
-    // is a compile error here until its badge tint is chosen. Gray sits a shade
-    // deeper, matching the default connector line.
-    const BADGE_SHADES: Record<FluxColor, number> = {
-        gray: 200,
-        primary: 100,
-        danger: 100,
-        info: 100,
-        success: 100,
-        warning: 100
+    // is a compile error here until it is listed.
+    const FLUX_COLORS: Record<FluxColor, true> = {
+        gray: true,
+        primary: true,
+        danger: true,
+        info: true,
+        success: true,
+        warning: true
     };
 
     // Breathing room between a node and the connector touching it.
@@ -146,7 +145,7 @@
             styleVars: {
                 '--connection-color': resolveColor(props.color, 'var(--flow-line)'),
                 '--connection-marker': resolveColor(props.color, 'var(--flow-line)'),
-                '--connection-progress-color': resolveColor(props.progressColor, 'var(--primary-500)'),
+                '--connection-progress-color': resolveColor(props.progressColor, 'var(--primary-solid)'),
                 '--connection-progress': String(clamp(progress, 0, 1)),
                 '--connection-badge-background': resolveBadgeBackground(props.color),
                 '--connection-badge-foreground': resolveBadgeForeground(props.color)
@@ -231,20 +230,18 @@
     }
 
     function resolveColor(value: string | undefined, fallback: string): string {
-        return value ? (isFluxColor(value) ? `var(--${value}-500)` : value) : fallback;
+        return value ? (isFluxColor(value) ? `var(--${value}-solid)` : value) : fallback;
     }
 
     // The badge sits in the hole its own connector leaves, so it wears a light
-    // tint of the line's color rather than the line color itself. A plain badge
-    // keeps the lighter gray the line had before it was darkened, so the pill
-    // does not deepen along with the connector.
+    // tint of the line's color rather than the line color itself.
     function resolveBadgeBackground(value: string | undefined): string {
         if (!value) {
-            return 'var(--gray-200)';
+            return 'var(--gray-soft-hover)';
         }
 
         return isFluxColor(value)
-            ? `var(--${value}-${BADGE_SHADES[value]})`
+            ? `var(--${value}-soft-hover)`
             : `color-mix(in oklab, ${value} 18%, var(--surface))`;
     }
 
@@ -253,10 +250,10 @@
             return 'var(--foreground-prominent)';
         }
 
-        return isFluxColor(value) ? `var(--${value}-900)` : value;
+        return isFluxColor(value) ? `var(--${value}-text)` : value;
     }
 
     function isFluxColor(value: string): value is FluxColor {
-        return Object.hasOwn(BADGE_SHADES, value);
+        return Object.hasOwn(FLUX_COLORS, value);
     }
 </script>

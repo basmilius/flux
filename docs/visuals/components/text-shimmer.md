@@ -5,7 +5,7 @@ props:
     -   name: color
         description: The resting text color the shimmer sweeps across. Accepts any CSS color.
         type: string
-        default: var(--gray-400)
+        default: var(--foreground-subtle)
         optional: true
 
     -   name: duration
@@ -17,7 +17,7 @@ props:
     -   name: shimmer-color
         description: The color of the highlight band that sweeps across the text. Accepts any CSS color.
         type: string
-        default: var(--gray-950)
+        default: var(--foreground-prominent)
         optional: true
 
     -   name: spread

@@ -1,0 +1,8 @@
+@mixin intent($color) {
+    --intent-solid: var(--#{$color}-solid);
+    --intent-muted: var(--#{$color}-muted);
+    --intent-soft: var(--#{$color}-soft);
+    --intent-soft-hover: var(--#{$color}-soft-hover);
+    --intent-border: var(--#{$color}-border);
+    --intent-text: var(--#{$color}-text);
+}

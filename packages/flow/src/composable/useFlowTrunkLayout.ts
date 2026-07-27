@@ -18,7 +18,7 @@ export type FluxFlowTrunkLayoutOptions = {
 
 /**
  * Lays a graph out as a trunk with branches: the nodes named in `trunk` run
- * straight down, each one centred under the one before it, and everything
+ * straight down, each one centered under the one before it, and everything
  * hanging off one of them is walked out to the right, each level indented past
  * the one before it. It is a plain function: no component, no DOM and no
  * reactivity.
@@ -62,7 +62,7 @@ export default function useFlowTrunkLayout(nodes: readonly FluxFlowLayoutNode[],
 
     /**
      * How far down a node a connector attaches, on the two ends of the run out
-     * of the trunk into a branch: a trunk node hands the line off centred, and
+     * of the trunk into a branch: a trunk node hands the line off centered, and
      * the branch takes it in on its anchor. Lining those two up is what keeps
      * the connector between them straight.
      */
@@ -108,7 +108,7 @@ export default function useFlowTrunkLayout(nodes: readonly FluxFlowLayoutNode[],
     for (const id of spine) {
         const size = sizes.get(id)!;
 
-        // Each trunk node hangs centred under the one it came from, so a 30px
+        // Each trunk node hangs centered under the one it came from, so a 30px
         // step marker sits under the middle of the pill above it rather than
         // against the left edge of the column and the line between them runs
         // straight down. The branches keep their own columns.

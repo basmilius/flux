@@ -1,20 +1,31 @@
 @use 'variables';
+@use 'token/intent';
+@use 'token/palette';
+@use 'token/semantic';
+@use 'token/shadow';
 
 @layer flux-base {
     :root {
         @include variables.animation;
         @include variables.defaults;
+        @include palette.palette;
+        @include semantic.semantic;
+        @include intent.intents;
+        @include shadow.shadows;
+
+        accent-color: var(--primary-solid);
     }
 
     :root, [light] {
-        @include variables.color-light;
-        @include variables.shadow-light;
+        color-scheme: light;
     }
 
     [dark] {
-        @include variables.defaults-dark;
-        @include variables.color-dark;
-        @include variables.shadow-dark;
+        color-scheme: dark;
+    }
+
+    ::selection {
+        background: var(--selection);
     }
 
     html {

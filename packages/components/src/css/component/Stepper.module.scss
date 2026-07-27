@@ -30,12 +30,12 @@
 
     &::before {
         width: var(--max);
-        background: var(--gray-100);
+        background: var(--gray-soft-hover);
     }
 
     &::after {
         width: calc(min(1, var(--progress)) * var(--max));
-        background: var(--primary-600);
+        background: var(--primary-solid);
         transition: width 300ms var(--swift-out);
     }
 }
@@ -49,7 +49,7 @@
     width: 33px;
     align-items: center;
     justify-content: center;
-    background: var(--gray-100);
+    background: var(--gray-soft-hover);
     border: 0;
     border-radius: var(--radius-full);
     color: var(--foreground);
@@ -58,7 +58,7 @@
     outline: 6px solid transparent;
     outline-offset: -2px;
     transition: 300ms var(--swift-out);
-    transition-property: background, border, color, outline;
+    transition-property: background, color, outline;
 
     .icon {
         overflow: visible;
@@ -74,17 +74,15 @@
 .stepperStepsItemComplete {
     composes: stepperStepsItem;
 
-    background: var(--primary-600);
-    border-color: var(--primary-600);
-    color: var(--primary-25);
+    background: var(--primary-solid);
+    color: var(--primary-on-solid);
 }
 
 .stepperStepsItemCurrent {
     composes: stepperStepsItem;
 
-    background: var(--gray-100);
     color: var(--foreground-prominent);
-    outline-color: var(--primary-600);
+    outline-color: var(--primary-solid);
     outline-width: 2px;
     transition-delay: 75ms;
 }
@@ -92,5 +90,5 @@
 .stepperStepsItemIdle {
     composes: stepperStepsItem;
 
-    outline-color: var(--gray-25);
+    outline-color: var(--surface-current);
 }

@@ -38,7 +38,7 @@ props:
         default: center
 
     -   name: autoConnect
-        description: Draws a connector between every two neighbouring links. Turn it off to wire the chain up yourself.
+        description: Draws a connector between every two neighboring links. Turn it off to wire the chain up yourself.
         type: boolean
         optional: true
         default: true

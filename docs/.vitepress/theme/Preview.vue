@@ -60,8 +60,10 @@
         font-size: 15px;
         line-height: 1.6;
 
+        /* The ground is a mix of two tokens, so no stroke token lands on it in both
+           themes. Translucent ink flips direction by itself. */
         > :global(svg) {
-            stroke: color-mix(in srgb, var(--gray-50), var(--gray-100));
+            stroke: color-mix(in oklab, var(--foreground) 10%, transparent);
         }
     }
 

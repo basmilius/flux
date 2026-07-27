@@ -41,7 +41,7 @@ export function buildHeatmapTooltip(input: HeatmapTooltipInput): EChartsOption {
         const title = [seriesName, `${xLabel} · ${yLabel}`].filter(Boolean).join(' — ');
 
         const items: SharedTooltipItem[] = [
-            {name: '', value: point.formatted ?? point.value, color: 'var(--primary-600)'}
+            {name: '', value: point.formatted ?? point.value, color: 'var(--chart-ramp-4)'}
         ];
 
         return renderTooltip(t, styles, title, items);

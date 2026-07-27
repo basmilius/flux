@@ -23,11 +23,11 @@ export function buildRadarChartOptions(input: RadarChartOptionsInput): EChartsOp
     const radarConfig: EChartsOption = {
         radar: {
             indicator: indicators.map(i => ({name: t(String(i.name)), max: i.max})),
-            splitLine: {lineStyle: {color: 'var(--gray-200)'}},
+            splitLine: {lineStyle: {color: 'var(--chart-grid)'}},
             splitArea: {show: false},
-            axisLine: {lineStyle: {color: 'var(--gray-200)'}},
+            axisLine: {lineStyle: {color: 'var(--chart-grid)'}},
             axisName: {
-                color: 'var(--foreground-secondary)',
+                color: 'var(--chart-label)',
                 ...CHART_TEXT_2XSMALL,
                 fontWeight: 500
             }

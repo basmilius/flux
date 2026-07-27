@@ -1,8 +1,8 @@
 @use '~flux/components/css/mixin';
 
 .formFader {
-    --fader-accent: var(--primary-500);
-    --fader-strong: var(--primary-900);
+    --fader-accent: var(--primary-solid);
+    --fader-strong: var(--primary-text);
 
     position: relative;
     display: block;
@@ -34,7 +34,7 @@
 .formFaderTrack {
     position: absolute;
     inset: 0;
-    background: var(--gray-50);
+    background: var(--surface-sunken);
     background-clip: padding-box;
     border-radius: var(--radius-half);
     box-shadow: inset 0 0 0 1px var(--surface-stroke-out);
@@ -47,8 +47,8 @@
     top: 0;
     left: 0;
     height: 100%;
-    background: rgb(from var(--fader-accent) r g b / .15);
-    border: 1px solid rgb(from var(--fader-accent) r g b / .2);
+    background: color-mix(in srgb, var(--fader-accent) 15%, transparent);
+    border: 1px solid color-mix(in srgb, var(--fader-accent) 20%, transparent);
     border-radius: var(--radius-half);
     transition: background-color 150ms var(--standard-curve);
 }
@@ -56,13 +56,13 @@
 .formFader:not(.isDisabled):not(.isDragging) {
     @include mixin.hover {
         .formFaderFill {
-            background: rgb(from var(--fader-accent) r g b / .2);
+            background: color-mix(in srgb, var(--fader-accent) 20%, transparent);
         }
     }
 }
 
 .formFader.isDragging .formFaderFill {
-    background: rgb(from var(--fader-accent) r g b / .25);
+    background: color-mix(in srgb, var(--fader-accent) 25%, transparent);
 }
 
 .formFaderBar {
@@ -105,14 +105,14 @@
 .formFaderTickBase {
     position: absolute;
     inset: 0;
-    background: rgb(from var(--foreground) r g b / .25);
+    background: color-mix(in srgb, var(--foreground) 25%, transparent);
     border-radius: var(--radius-full);
 }
 
 .formFaderTickFill {
     position: absolute;
     inset: 0;
-    background: rgb(from var(--foreground) r g b / .6);
+    background: color-mix(in srgb, var(--foreground) 60%, transparent);
     border-radius: var(--radius-full);
 }
 
@@ -140,9 +140,6 @@
     pointer-events: none;
 }
 
-// A clipped copy of the text on top of the base overlay: it is masked to the
-// filled region, so wherever the value sits under the text the label/value
-// read in the accent's strong (900) tone instead of the neutral foreground.
 .formFaderOverlayFill {
     composes: formFaderOverlay;
 
@@ -193,8 +190,6 @@
     white-space: nowrap;
 }
 
-// Vertical variant: a slim column that fills bottom (min) to top (max). Fills,
-// bars, thumbs and ticks position via `bottom`; the label/value read rotated.
 .formFader.isVertical {
     height: var(--flux-form-fader-length, 210px);
     width: 39px;

@@ -4,11 +4,13 @@
             is-sticky
             style="max-height: 330px">
             <template #header>
-                <FluxTableHeader
-                    is-shrinking
-                    v-for="header in 3">
-                    Header {{ header }}
-                </FluxTableHeader>
+                <FluxTableRow>
+                    <FluxTableHeader
+                        is-shrinking
+                        v-for="header in 3">
+                        Header {{ header }}
+                    </FluxTableHeader>
+                </FluxTableRow>
             </template>
 
             <FluxTableRow

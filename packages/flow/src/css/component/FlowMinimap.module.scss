@@ -9,11 +9,11 @@
 }
 
 .flowMinimapNode {
-    fill: var(--gray-300);
+    fill: var(--surface-stroke-hover);
 }
 
 .flowMinimapFrame {
-    fill: color-mix(in oklab, var(--primary-500) 12%, transparent);
-    stroke: var(--primary-500);
+    fill: color-mix(in oklab, var(--primary-solid) 12%, transparent);
+    stroke: var(--primary-solid);
     stroke-width: 1;
 }

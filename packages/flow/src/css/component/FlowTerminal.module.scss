@@ -10,7 +10,7 @@
     padding: 0 18px;
     align-items: center;
     gap: 6px;
-    background: var(--gray-100);
+    background: var(--gray-soft-hover);
     border-radius: var(--radius-full);
     color: var(--foreground-prominent);
     font-weight: 600;
@@ -18,8 +18,8 @@
 
     @each $-color in (primary, danger, info, success, warning) {
         &[data-color="#{$-color}"] {
-            background: var(--#{$-color}-100);
-            color: var(--#{$-color}-900);
+            background: var(--#{$-color}-soft-hover);
+            color: var(--#{$-color}-text);
         }
     }
 }

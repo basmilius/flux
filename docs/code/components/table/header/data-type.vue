@@ -2,30 +2,32 @@
     <FluxPane>
         <FluxTable>
             <template #header>
-                <FluxTableHeader
-                    is-sortable
-                    data-type="text"
-                    :sort="column === 'name' ? direction : undefined"
-                    @sort="setSort('name', $event)">
-                    Name
-                </FluxTableHeader>
+                <FluxTableRow>
+                    <FluxTableHeader
+                        is-sortable
+                        data-type="text"
+                        :sort="column === 'name' ? direction : undefined"
+                        @sort="setSort('name', $event)">
+                        Name
+                    </FluxTableHeader>
 
-                <FluxTableHeader
-                    align="end"
-                    is-sortable
-                    data-type="numeric"
-                    :sort="column === 'commits' ? direction : undefined"
-                    @sort="setSort('commits', $event)">
-                    Commits
-                </FluxTableHeader>
+                    <FluxTableHeader
+                        align="end"
+                        is-sortable
+                        data-type="numeric"
+                        :sort="column === 'commits' ? direction : undefined"
+                        @sort="setSort('commits', $event)">
+                        Commits
+                    </FluxTableHeader>
 
-                <FluxTableHeader
-                    is-sortable
-                    data-type="date"
-                    :sort="column === 'joined' ? direction : undefined"
-                    @sort="setSort('joined', $event)">
-                    Joined
-                </FluxTableHeader>
+                    <FluxTableHeader
+                        is-sortable
+                        data-type="date"
+                        :sort="column === 'joined' ? direction : undefined"
+                        @sort="setSort('joined', $event)">
+                        Joined
+                    </FluxTableHeader>
+                </FluxTableRow>
             </template>
 
             <FluxTableRow>

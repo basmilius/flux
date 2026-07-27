@@ -1,0 +1,30 @@
+// Two things freeze a token to one theme: registering it through `@property` with
+// `syntax: '<color>'`, and relative color syntax over a token holding a `light-dark()`.
+// Over a palette stop that syntax is fine.
+
+@use 'sass:math';
+@use 'palette';
+
+@function theme($light, $dark) {
+    @if $light == $dark {
+        @return $light;
+    }
+
+    @return #{'light-dark(#{$light}, #{$dark})'};
+}
+
+@function neutral($lightness, $chroma, $alpha: 1) {
+    $factor: math.div(math.round(math.div($chroma, palette.chroma('gray', 500)) * 10000), 10000);
+    $expression: 'calc(c * #{$factor})';
+    $suffix: '';
+
+    @if $chroma == 0 {
+        $expression: '0';
+    }
+
+    @if $alpha < 1 {
+        $suffix: ' / #{$alpha}';
+    }
+
+    @return #{'oklch(from var(--palette-gray-500) #{$lightness} #{$expression} h#{$suffix})'};
+}

@@ -1,0 +1,72 @@
+@use 'sass:list';
+@use '~flux/components/css/token/theme';
+
+// Every stop is solved against `--surface` rather than picked, which is why the numbers
+// look irregular. The floors live in `scripts/check-contrast.ts`.
+
+// blue, red, purple, teal, green, magenta, orange, yellow.
+$categorical-light:
+    (.468 .19 264)
+    (.508 .184 17.1)
+    (.534 .19 305)
+    (.533 .083 190)
+    (.56 .153 137)
+    (.628 .19 340)
+    (.642 .133 62.4)
+    (.663 .124 100);
+
+$categorical-dark:
+    (.818 .082 264)
+    (.803 .102 17.1)
+    (.78 .126 305)
+    (.732 .114 190)
+    (.711 .17 137)
+    (.729 .17 340)
+    (.704 .146 62.4)
+    (.679 .127 100);
+
+$ramp-light:
+    (.9 .043 264)
+    (.755 .113 264)
+    (.605 .19 264)
+    (.475 .19 264);
+
+$ramp-dark:
+    (.345 .17 264)
+    (.47 .17 264)
+    (.612 .17 264)
+    (.762 .109 264);
+
+$colorful-hues:
+    17.1 37.2 66.4 89.2 108.3 126.8 146.6 168.2 188.7
+    209.1 231.7 256.8 276.9 296.9 317 337 357.1;
+$colorful-light: .55 .16;
+$colorful-dark: .74 .16;
+
+@function to-oklch($value) {
+    @return #{'oklch(#{list.nth($value, 1)} #{list.nth($value, 2)} #{list.nth($value, 3)})'};
+}
+
+@mixin chart {
+    @for $i from 1 through list.length($categorical-light) {
+        --chart-#{$i}: #{theme.theme(to-oklch(list.nth($categorical-light, $i)), to-oklch(list.nth($categorical-dark, $i)))};
+    }
+
+    @for $i from 1 through list.length($ramp-light) {
+        --chart-ramp-#{$i}: #{theme.theme(to-oklch(list.nth($ramp-light, $i)), to-oklch(list.nth($ramp-dark, $i)))};
+    }
+
+    @for $i from 1 through list.length($colorful-hues) {
+        $hue: list.nth($colorful-hues, $i);
+
+        --chart-colorful-#{$i}: #{theme.theme(to-oklch(list.append($colorful-light, $hue)), to-oklch(list.append($colorful-dark, $hue)))};
+    }
+
+    --chart-positive: var(--success-solid);
+    --chart-negative: var(--danger-solid);
+
+    --chart-grid: var(--surface-stroke-muted);
+    --chart-label: var(--foreground-secondary);
+
+    --chart-on-fill: var(--foreground-inverse-prominent);
+}

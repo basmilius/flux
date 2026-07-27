@@ -53,6 +53,6 @@
     }
 
     function cardStyle(color: Color): string {
-        return `padding: 6px 9px; background: var(--${color}-100); color: var(--${color}-800); border-radius: var(--radius-half); font-size: 13px; line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;`;
+        return `padding: 6px 9px; background: var(--${color}-soft-hover); color: var(--${color}-text); border-radius: var(--radius-half); font-size: 13px; line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;`;
     }
 </script>

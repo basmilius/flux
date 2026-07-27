@@ -1,70 +1,54 @@
 @layer flux-reset {
-    // More intuitive box-sizing model.
     *, *::before, *::after {
         box-sizing: border-box;
     }
 
-    // Remove default margin.
     * {
         margin: 0;
     }
 
-    // Remove default list styling; rich prose re-adds it inside FluxProse.
     ul, ol {
         padding: 0;
         list-style: none;
     }
 
     body {
-        // Improved text rendering.
         -webkit-font-smoothing: antialiased;
-
-        // Remove tap highlight color on iOS and macOS.
         -webkit-tap-highlight-color: rgb(0 0 0 / 0);
-
-        // Default tab size.
         -moz-tab-size: 4;
         tab-size: 4;
     }
 
-    // Improved media defaults.
     img, picture, video, canvas, svg {
         display: block;
         max-width: 100%;
     }
 
-    /* 7. Inherit fonts for form controls */
     input, button, textarea, select {
         font: inherit;
     }
 
-    /* 8. Avoid text overflows */
     p, h1, h2, h3, h4, h5, h6 {
         overflow-wrap: break-word;
     }
 
-    // Improved line wrapping for paragraphs.
     p {
         text-wrap: pretty;
     }
 
-    // Improved line wrapping for headings.
     h1, h2, h3, h4, h5, h6 {
         text-wrap: balance;
     }
 
-    // Remove automatic text transforms from buttons and selects.
     button, select {
         text-transform: none;
     }
 
-    // Inherit anchor color and remove default underline.
     a {
         color: inherit;
         text-decoration: none;
     }
 
-    // Create a new root stacking context.
     #app {
         isolation: isolate;
     }

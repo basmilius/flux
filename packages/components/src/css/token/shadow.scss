@@ -1,0 +1,18 @@
+@use 'theme';
+
+// One geometry for both themes: `light-dark()` carries colors, not lengths.
+@function color($light-alpha, $dark-alpha) {
+    @return theme.theme(theme.neutral(.36, .02, $light-alpha), 'oklch(0 0 0 / #{$dark-alpha})');
+}
+
+@mixin shadows {
+    --shadow-color: #{color(.15, .3)};
+
+    --shadow-px: 0 1px 1px #{color(.02, .08)};
+    --shadow-xs: 0 1px 2px 0 #{color(.02, .08)};
+    --shadow-sm: 0 1px 3px #{color(.05, .12)}, 0 1px 2px -1px #{color(.05, .12)};
+    --shadow-md: 0 4px 6px -1px #{color(.05, .12)}, 0 2px 4px -2px #{color(.05, .12)};
+    --shadow-lg: 0 10px 15px -3px #{color(.05, .12)}, 0 4px 6px -4px #{color(.05, .12)};
+    --shadow-xl: 0 20px 25px -5px #{color(.05, .12)}, 0 8px 10px -6px #{color(.05, .12)};
+    --shadow-2xl: 0 25px 50px -12px #{color(.12, .2)};
+}

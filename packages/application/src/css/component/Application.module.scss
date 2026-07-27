@@ -2,17 +2,20 @@
 
 :root {
     --application-duration: 360ms;
-    --application-menu-surface: var(--gray-100);
-    --application-menu-surface-stroke: var(--gray-200);
+    --application-height: 100dvh;
+    --application-menu-surface: var(--surface-canvas);
+    --application-menu-surface-stroke: var(--surface-stroke);
     --application-menu-width: 300px;
     --application-menu-width-collapsed: 69px;
     --application-side-width: 300px;
+    --application-surface: var(--surface);
     --application-top-height: 66px;
 }
 
 .application {
     position: relative;
     display: flex;
+    background: var(--application-surface);
     transition: padding var(--application-duration) var(--swift-out);
     transition-property: padding-left, padding-right;
 
@@ -25,12 +28,12 @@
     position: relative;
     display: flex;
     min-width: 0;
-    min-height: 100dvh;
+    min-height: var(--application-height);
     flex-flow: column;
     flex-grow: 1;
 
     &:has(> .applicationContentFull > :is(.calendar, .table)) {
-        max-height: 100dvh;
+        max-height: var(--application-height);
     }
 }
 
@@ -38,8 +41,7 @@
     position: fixed;
     display: none;
     inset: 0;
-    width: 100dvw;
-    height: 100dvh;
+    height: var(--application-height);
     padding: 0;
     border: 0;
     background: var(--overlay);

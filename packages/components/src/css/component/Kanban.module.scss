@@ -29,7 +29,7 @@
     grid-template-rows: subgrid;
     grid-row: span 2;
     min-width: 0;
-    background: var(--gray-50);
+    background: var(--surface-canvas);
     border: 1px solid var(--surface-stroke);
     border-radius: var(--radius);
     outline: 2px dashed transparent;
@@ -40,9 +40,9 @@
     z-index: 0;
 
     &.isOver {
-        background: var(--primary-50);
-        border-color: var(--primary-200);
-        outline-color: var(--primary-600);
+        background: var(--primary-soft);
+        border-color: var(--primary-border);
+        outline-color: var(--primary-solid);
         z-index: 1;
     }
 }
@@ -52,7 +52,7 @@
 }
 
 .kanbanColumn.isColumnDropBefore {
-    box-shadow: -3px 0 0 var(--primary-500);
+    box-shadow: -3px 0 0 var(--primary-solid);
 }
 
 .kanbanColumnHeader {
@@ -100,12 +100,12 @@
 }
 
 .kanbanColumn.isOver.isDropDisallowed .kanbanColumnBody {
-    background: rgb(from var(--danger-500) r g b / .06);
+    background: var(--danger-soft);
     cursor: not-allowed;
 }
 
 .kanban.isBoardDragging .kanbanColumn:not(.isOver):not(.isDisabled) .kanbanColumnBody {
-    background: rgb(from var(--primary-500) r g b / .02);
+    background: color-mix(in srgb, var(--primary-soft) 30%, transparent);
 }
 
 .kanbanColumn.isDisabled {
@@ -128,7 +128,7 @@
 
 .kanbanColumnFooter {
     padding: 9px 15px;
-    border-top: 1px solid var(--gray-200);
+    border-top: 1px solid var(--surface-stroke);
 }
 
 .kanbanDropIndicator {
@@ -137,7 +137,7 @@
     inset-inline: 15px;
     height: 2px;
     border-radius: 999px;
-    background: var(--primary-500);
+    background: var(--primary-solid);
     opacity: 0;
     pointer-events: none;
     transition: 300ms var(--swift-out);
@@ -150,7 +150,7 @@
 }
 
 .kanbanDropIndicator.isDisallowed {
-    background: var(--danger-500);
+    background: var(--danger-solid);
 }
 
 .kanbanItem {
@@ -176,7 +176,7 @@
 
     &.isGrabbed {
         transform: scale(1.04);
-        outline: 2px solid var(--primary-500);
+        outline: 2px solid var(--primary-solid);
         outline-offset: 2px;
         z-index: 1;
     }

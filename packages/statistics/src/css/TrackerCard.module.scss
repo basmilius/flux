@@ -48,11 +48,11 @@
 }
 
 .trackerCardSegmentBar {
-    --color: var(--primary-600);
+    --color: var(--primary-solid);
     --progress: 50%;
 
     height: 6px;
-    background: var(--gray-100);
+    background: var(--surface-sunken);
     border-radius: var(--radius-full);
     grid-row: 1;
 
@@ -63,7 +63,7 @@
     // The running step fills up to its own progress, so it reads as more than
     // just started or done.
     &.isActive {
-        background: linear-gradient(to right, var(--color) var(--progress), var(--gray-100) var(--progress));
+        background: linear-gradient(to right, var(--color) var(--progress), var(--surface-sunken) var(--progress));
     }
 }
 

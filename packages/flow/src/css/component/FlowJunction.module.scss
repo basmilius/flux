@@ -13,7 +13,7 @@
 
     @each $-color in ("gray", "primary", "danger", "info", "success", "warning") {
         &[data-color="#{$-color}"] {
-            border-color: var(--#{$-color}-500);
+            border-color: var(--#{$-color}-muted);
         }
     }
 }

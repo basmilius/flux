@@ -38,7 +38,7 @@
             merged.series = (options as { series: unknown }).series;
         }
 
-        return deepResolveCssVars(merged);
+        return deepResolveCssVars(merged, chart.value);
     });
 
     const {chartInstance} = useECharts(chart, mergedOptions);

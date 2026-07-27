@@ -8,12 +8,8 @@
 
     @each $color in mixin.$colors {
         &.is#{mixin.color-suffix($color)} {
-            --color: var(--#{$color}-600);
+            --color: var(--#{$color}-text);
         }
-    }
-
-    &.isGray {
-        --color: var(--foreground-prominent);
     }
 }
 

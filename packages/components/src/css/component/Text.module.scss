@@ -16,14 +16,13 @@
     @include mixin.text(xlarge);
 }
 
-// Display sits above the text scale and carries its own pair.
 .textSizeDisplay {
     font-size: 27px;
     line-height: 33px;
 }
 
 .textColorMuted {
-    color: var(--gray-500);
+    color: var(--foreground-secondary);
 }
 
 .textColorProminent {
@@ -31,7 +30,9 @@
 }
 
 @include mixin.color-variants(textColor) using ($color) {
-    color: var(--#{$color}-600);
+    @include mixin.intent($color);
+
+    color: var(--intent-text);
 }
 
 .textAlignStart {
