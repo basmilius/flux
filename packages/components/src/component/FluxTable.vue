@@ -287,13 +287,21 @@
             let index = 0;
 
             for (const cell of unref(bodyRef)?.querySelector(`:scope > .${$style.tableRow}`)?.children ?? []) {
-                if (cell.classList.contains($style.isPinnedStart)) {
-                    startIndices.push(index);
-                } else if (cell.classList.contains($style.isPinnedEnd)) {
-                    endIndices.push(index);
+                const span = getColumnSpan(cell);
+                const isStart = cell.classList.contains($style.isPinnedStart);
+                const isEnd = cell.classList.contains($style.isPinnedEnd);
+
+                // Both lists hold columns, not cells: a spanning cell pins every
+                // column it covers, and each of those needs its own offset.
+                for (let covered = index; covered < index + span; covered++) {
+                    if (isStart) {
+                        startIndices.push(covered);
+                    } else if (isEnd) {
+                        endIndices.push(covered);
+                    }
                 }
 
-                index += getColumnSpan(cell);
+                index += span;
             }
         }
 
