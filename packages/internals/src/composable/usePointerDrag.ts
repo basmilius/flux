@@ -7,18 +7,35 @@ export type PointerDragContext = {
     readonly event: PointerEvent;
     readonly startX: number;
     readonly startY: number;
+    /** Horizontal speed over the recent samples, px per millisecond. */
+    readonly vx: number;
+    /** Vertical speed over the recent samples, px per millisecond. */
+    readonly vy: number;
     readonly x: number;
     readonly y: number;
 };
 
+export type PointerDragAxis = 'x' | 'y' | 'both';
+
 export type UsePointerDragOptions = {
-    readonly axis?: 'x' | 'y' | 'both';
-    readonly threshold?: number;
+    /** Pass a function when the axis depends on state that changes after setup. */
+    readonly axis?: PointerDragAxis | (() => PointerDragAxis);
+    /** Moves the origin to where the threshold was passed, so the drag starts at zero. */
+    readonly rebaseOnThreshold?: boolean;
+    readonly threshold?: number | ((event: PointerEvent) => number);
     onCancel?(): void;
     onEnd?(context: PointerDragContext): void;
     onMove?(context: PointerDragContext): void;
     onStart?(event: PointerEvent): boolean | void;
 };
+
+type Sample = {
+    readonly time: number;
+    readonly x: number;
+    readonly y: number;
+};
+
+const VELOCITY_WINDOW = 100;
 
 export type UsePointerDragReturn = {
     readonly isDragging: Readonly<Ref<boolean>>;
@@ -37,7 +54,9 @@ export default function <TElement extends HTMLElement>(elementRef: TemplateRef<T
         };
     }
 
-    const {axis = 'both', threshold = 0, onCancel, onEnd, onMove, onStart} = options;
+    const {axis = 'both', rebaseOnThreshold = false, threshold = 0, onCancel, onEnd, onMove, onStart} = options;
+
+    const resolveAxis = (): PointerDragAxis => typeof axis === 'function' ? axis() : axis;
 
     watch(elementRef, (_, __, onCleanup) => {
         const element = unrefTemplateElement(elementRef);
@@ -46,14 +65,28 @@ export default function <TElement extends HTMLElement>(elementRef: TemplateRef<T
             return;
         }
 
+        const samples: Sample[] = [];
+
         let pointerId: number | null = null;
         let startX = 0;
         let startY = 0;
+        let currentAxis: PointerDragAxis = 'both';
+        let currentThreshold = 0;
         let hasPassedThreshold = false;
 
+        function sample(evt: PointerEvent): void {
+            samples.push({time: evt.timeStamp, x: evt.clientX, y: evt.clientY});
+
+            while (samples.length > 2 && evt.timeStamp - samples[0].time > VELOCITY_WINDOW) {
+                samples.shift();
+            }
+        }
+
         function resolveContext(evt: PointerEvent): PointerDragContext {
-            const dx = axis === 'y' ? 0 : evt.clientX - startX;
-            const dy = axis === 'x' ? 0 : evt.clientY - startY;
+            const dx = currentAxis === 'y' ? 0 : evt.clientX - startX;
+            const dy = currentAxis === 'x' ? 0 : evt.clientY - startY;
+            const oldest = samples[0];
+            const elapsed = oldest ? evt.timeStamp - oldest.time : 0;
 
             return {
                 dx,
@@ -61,6 +94,8 @@ export default function <TElement extends HTMLElement>(elementRef: TemplateRef<T
                 event: evt,
                 startX,
                 startY,
+                vx: elapsed > 0 && currentAxis !== 'y' ? (evt.clientX - oldest.x) / elapsed : 0,
+                vy: elapsed > 0 && currentAxis !== 'x' ? (evt.clientY - oldest.y) / elapsed : 0,
                 x: evt.clientX,
                 y: evt.clientY
             };
@@ -117,7 +152,11 @@ export default function <TElement extends HTMLElement>(elementRef: TemplateRef<T
             pointerId = evt.pointerId;
             startX = evt.clientX;
             startY = evt.clientY;
-            hasPassedThreshold = threshold <= 0;
+            currentAxis = resolveAxis();
+            currentThreshold = typeof threshold === 'function' ? threshold(evt) : threshold;
+            hasPassedThreshold = currentThreshold <= 0;
+            samples.length = 0;
+            sample(evt);
 
             window.addEventListener('pointermove', onPointerMove);
             window.addEventListener('pointerup', onPointerUp);
@@ -148,13 +187,20 @@ export default function <TElement extends HTMLElement>(elementRef: TemplateRef<T
                 return;
             }
 
-            const context = resolveContext(evt);
+            sample(evt);
 
             if (!hasPassedThreshold) {
-                const travelled = axis === 'x' ? Math.abs(context.dx) : axis === 'y' ? Math.abs(context.dy) : Math.hypot(context.dx, context.dy);
+                const dx = currentAxis === 'y' ? 0 : evt.clientX - startX;
+                const dy = currentAxis === 'x' ? 0 : evt.clientY - startY;
+                const travelled = currentAxis === 'x' ? Math.abs(dx) : currentAxis === 'y' ? Math.abs(dy) : Math.hypot(dx, dy);
 
-                if (travelled < threshold) {
+                if (travelled < currentThreshold) {
                     return;
+                }
+
+                if (rebaseOnThreshold) {
+                    startX = evt.clientX;
+                    startY = evt.clientY;
                 }
 
                 hasPassedThreshold = true;
@@ -162,7 +208,7 @@ export default function <TElement extends HTMLElement>(elementRef: TemplateRef<T
                 isDragging.value = true;
             }
 
-            onMove?.(context);
+            onMove?.(resolveContext(evt));
         }
 
         function onPointerUp(evt: PointerEvent): void {

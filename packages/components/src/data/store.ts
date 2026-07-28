@@ -15,12 +15,15 @@ export type FluxDialogRegistration = {
 
     getPosition(): number;
     isCurrent(): boolean;
+    /** Opacity the shade should have while this dialog is the current one. */
+    setShadeOpacity(opacity: number): void;
     unregister(): void;
 };
 
 export type FluxStore = FluxState & {
     readonly dialogCount: number;
     readonly inertMain: ComputedRef<boolean>;
+    readonly shadeOpacity: ComputedRef<number>;
     readonly tooltip: ComputedRef<FluxTooltipObject | null>;
 
     addAlert(spec: Omit<FluxAlertObject, 'id'>): number;
@@ -68,7 +71,12 @@ const state = reactive<FluxState>({
 let nextDialogId: number = 0;
 let nextId: number = 0;
 
+// Kept out of `FluxState` because it is written every animation frame while a
+// sheet is dragged; only the resulting opacity is of interest to consumers.
+const shadeOpacities = reactive<Record<number, number>>({});
+
 const inertMain = computed(() => state.dialogs.length > 0);
+const shadeOpacity = computed(() => shadeOpacities[state.dialogs[state.dialogs.length - 1]] ?? 1);
 const tooltip = computed(() => state.tooltips[state.tooltips.length - 1] || null);
 
 export function addAlert(spec: Omit<FluxAlertObject, 'id'>): number {
@@ -142,12 +150,18 @@ export function registerDialog(): FluxDialogRegistration {
             return state.dialogs[state.dialogs.length - 1] === id;
         },
 
+        setShadeOpacity(opacity: number): void {
+            shadeOpacities[id] = opacity;
+        },
+
         unregister(): void {
             const index = state.dialogs.indexOf(id);
 
             if (index >= 0) {
                 state.dialogs.splice(index, 1);
             }
+
+            delete shadeOpacities[id];
         }
     };
 }
@@ -360,6 +374,7 @@ export function useFluxStore(): FluxStore {
             return state.tooltips;
         },
         inertMain,
+        shadeOpacity,
         tooltip,
         addAlert,
         addConfirm,

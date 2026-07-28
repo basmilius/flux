@@ -1,6 +1,8 @@
 <template>
     <div :class="$style.overlayProvider">
-        <div :class="$style.overlayShade"/>
+        <div
+            :class="$style.overlayShade"
+            :style="shadeStyle"/>
     </div>
 
     <FluxOverlay size="medium">
@@ -28,6 +30,7 @@
 <script
     lang="ts"
     setup>
+    import { computed, unref } from 'vue';
     import { useFluxStore } from '~flux/components/data';
     import FluxAlert from './FluxAlert.vue';
     import FluxConfirm from './FluxConfirm.vue';
@@ -35,5 +38,12 @@
     import FluxPrompt from './FluxPrompt.vue';
     import $style from '~flux/components/css/component/Overlay.module.scss';
 
-    const {alerts, confirms, prompts} = useFluxStore();
+    const {alerts, confirms, prompts, shadeOpacity} = useFluxStore();
+
+    // A dialog only lowers the shade while a gesture drives it, and that value is
+    // already animated frame by frame; transitioning it again would trail the finger.
+    const shadeStyle = computed(() => ({
+        '--overlay-shade-opacity': unref(shadeOpacity),
+        transition: unref(shadeOpacity) < 1 ? 'none' : undefined
+    }));
 </script>

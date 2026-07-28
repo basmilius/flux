@@ -187,8 +187,8 @@ A key your map does not carry is not a hole: it falls back to the English the pa
 The breaking part above is the smaller half of this release. The rest is additions, and all of them are opt-in.
 
 - **[Flux AI](../../ai/)**, a new package. Streaming markdown that stays valid mid-token, a composer that survives an IME, tool calls, reasoning and citations. It is separate on purpose: streaming markdown pulls in a parser, and a consumer who will never build a chat should not pay for it.
-- **Around twenty components**, among them [Activity feed](../../components/activity-feed/), [Masonry](../../components/layout/masonry), [Repeater](../../components/form/repeater), [Speed dial](../../components/speed-dial), [Swipe actions](../../components/swipe-actions), and the mobile pair [Bottom sheet](../../components/bottom-sheet) and [Back to top](../../components/back-to-top).
+- **Around twenty components**, among them [Activity feed](../../components/activity-feed/), [Masonry](../../components/layout/masonry), [Repeater](../../components/form/repeater), [Speed dial](../../components/speed-dial), [Swipe actions](../../components/swipe-actions), and the mobile pair [Sheet](../../components/sheet) and [Back to top](../../components/back-to-top).
 - **Kanban swimlanes**, through [`FluxKanbanSwimlane`](../../components/kanban/swimlane).
 - **Resizable table columns**, through `is-resizable` and the `resize` event on [Table header](../../components/table/header). The handle is a focusable separator, so a column resizes without a mouse too.
 - **A loading state on the statistics panes**, through `is-loading`. The chart keeps its place and the data it already has while it reloads. See [Chart pane](../../statistics/components/chart-pane).
-- **Three transitions**: [Bottom sheet](../../components/transitions/bottom-sheet), [Scale](../../components/transitions/scale) and [Stagger](../../components/transitions/stagger).
+- **Three transitions**: [Sheet](../../components/transitions/sheet), [Scale](../../components/transitions/scale) and [Stagger](../../components/transitions/stagger).

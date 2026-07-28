@@ -25,7 +25,7 @@
                     props.size === 'large' && $style.overlayLarge
                 ),
                 FluxOverlayTransition
-            );
+            ).render;
         }
     });
 </script>

@@ -486,6 +486,7 @@ export default defineConfig({
                         {text: 'usePointerDrag', link: '/internals/composables/usePointerDrag'},
                         {text: 'useRemembered', link: '/internals/composables/useRemembered'},
                         {text: 'useScrollPosition', link: '/internals/composables/useScrollPosition'},
+                        {text: 'useSpring', link: '/internals/composables/useSpring'},
                         {text: 'useVirtualList', link: '/internals/composables/useVirtualList'}
                     ]
                 },

@@ -421,7 +421,6 @@ const navigation: SidebarItem[] = [
         link: '/components/surfaces/',
         collapsed: false,
         items: [
-            {text: 'Bottom sheet', link: '/components/bottom-sheet'},
             {text: 'Flyout', link: '/components/flyout'},
             {text: 'Hover card', link: '/components/hover-card'},
             {text: 'Overlay', link: '/components/overlay'},
@@ -441,6 +440,7 @@ const navigation: SidebarItem[] = [
                 ]
             },
             {text: 'Pop confirm', link: '/components/pop-confirm'},
+            {text: 'Sheet', link: '/components/sheet'},
             {text: 'Slide over', link: '/components/slide-over'},
             {text: 'Window', link: '/components/window'}
         ]
@@ -488,12 +488,12 @@ const navigation: SidebarItem[] = [
         link: '/components/transitions/',
         collapsed: false,
         items: [
-            {text: 'Bottom sheet', link: '/components/transitions/bottom-sheet'},
             {text: 'Breakthrough', link: '/components/transitions/breakthrough'},
             {text: 'Fade', link: '/components/transitions/fade'},
             {text: 'Overlay', link: '/components/transitions/overlay'},
             {text: 'Route', link: '/components/transitions/route'},
             {text: 'Scale', link: '/components/transitions/scale'},
+            {text: 'Sheet', link: '/components/transitions/sheet'},
             {text: 'Slide over', link: '/components/transitions/slide-over'},
             {text: 'Stagger', link: '/components/transitions/stagger'},
             {text: 'Tooltip', link: '/components/transitions/tooltip'},

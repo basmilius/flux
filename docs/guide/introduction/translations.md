@@ -82,7 +82,6 @@ blocks below are generated from it by `bun scripts/generate-translations.ts`.
 flux:
   back: "Back"
   backToTop: "Back to top"
-  bottomSheetGrabber: "Resize or close the sheet"
   cancel: "Cancel"
   close: "Close"
   collapseGroup: "Collapse group"
@@ -132,6 +131,7 @@ flux:
   repeaterRowLabel: "Row"
   resizeColumn: "Resize column"
   search: "Search..."
+  sheetGrabber: "Resize or close the sheet"
   showN: "Show {n}"
   skip: "Skip"
   sort: "Sort"
@@ -190,7 +190,6 @@ flux:
   "flux": {
     "back": "Back",
     "backToTop": "Back to top",
-    "bottomSheetGrabber": "Resize or close the sheet",
     "cancel": "Cancel",
     "close": "Close",
     "collapseGroup": "Collapse group",
@@ -240,6 +239,7 @@ flux:
     "repeaterRowLabel": "Row",
     "resizeColumn": "Resize column",
     "search": "Search...",
+    "sheetGrabber": "Resize or close the sheet",
     "showN": "Show {n}",
     "skip": "Skip",
     "sort": "Sort",
@@ -305,7 +305,6 @@ flux:
 flux:
   back: "Terug"
   backToTop: "Terug naar boven"
-  bottomSheetGrabber: "Formaat aanpassen of het paneel sluiten"
   cancel: "Annuleren"
   close: "Sluiten"
   collapseGroup: "Groep inklappen"
@@ -355,6 +354,7 @@ flux:
   repeaterRowLabel: "Rij"
   resizeColumn: "Kolombreedte aanpassen"
   search: "Zoeken..."
+  sheetGrabber: "Formaat aanpassen of het paneel sluiten"
   showN: "Toon {n}"
   skip: "Overslaan"
   sort: "Sorteer"
@@ -413,7 +413,6 @@ flux:
   "flux": {
     "back": "Terug",
     "backToTop": "Terug naar boven",
-    "bottomSheetGrabber": "Formaat aanpassen of het paneel sluiten",
     "cancel": "Annuleren",
     "close": "Sluiten",
     "collapseGroup": "Groep inklappen",
@@ -463,6 +462,7 @@ flux:
     "repeaterRowLabel": "Rij",
     "resizeColumn": "Kolombreedte aanpassen",
     "search": "Zoeken...",
+    "sheetGrabber": "Formaat aanpassen of het paneel sluiten",
     "showN": "Toon {n}",
     "skip": "Overslaan",
     "sort": "Sorteer",
@@ -528,7 +528,6 @@ flux:
 flux:
   back: "Retour"
   backToTop: "Retour en haut"
-  bottomSheetGrabber: "Redimensionner ou fermer la feuille"
   cancel: "Annuler"
   close: "Fermer"
   collapseGroup: "Réduire le groupe"
@@ -578,6 +577,7 @@ flux:
   repeaterRowLabel: "Ligne"
   resizeColumn: "Redimensionner la colonne"
   search: "Recherche..."
+  sheetGrabber: "Redimensionner ou fermer la feuille"
   showN: "Afficher {n}"
   skip: "Passer"
   sort: "Trier"
@@ -636,7 +636,6 @@ flux:
   "flux": {
     "back": "Retour",
     "backToTop": "Retour en haut",
-    "bottomSheetGrabber": "Redimensionner ou fermer la feuille",
     "cancel": "Annuler",
     "close": "Fermer",
     "collapseGroup": "Réduire le groupe",
@@ -686,6 +685,7 @@ flux:
     "repeaterRowLabel": "Ligne",
     "resizeColumn": "Redimensionner la colonne",
     "search": "Recherche...",
+    "sheetGrabber": "Redimensionner ou fermer la feuille",
     "showN": "Afficher {n}",
     "skip": "Passer",
     "sort": "Trier",
@@ -751,7 +751,6 @@ flux:
 flux:
   back: "Zurück"
   backToTop: "Nach oben"
-  bottomSheetGrabber: "Ansicht anpassen oder schließen"
   cancel: "Abbrechen"
   close: "Schließen"
   collapseGroup: "Gruppe einklappen"
@@ -801,6 +800,7 @@ flux:
   repeaterRowLabel: "Zeile"
   resizeColumn: "Spaltenbreite ändern"
   search: "Suchen..."
+  sheetGrabber: "Ansicht anpassen oder schließen"
   showN: "{n} anzeigen"
   skip: "Überspringen"
   sort: "Sortieren"
@@ -859,7 +859,6 @@ flux:
   "flux": {
     "back": "Zurück",
     "backToTop": "Nach oben",
-    "bottomSheetGrabber": "Ansicht anpassen oder schließen",
     "cancel": "Abbrechen",
     "close": "Schließen",
     "collapseGroup": "Gruppe einklappen",
@@ -909,6 +908,7 @@ flux:
     "repeaterRowLabel": "Zeile",
     "resizeColumn": "Spaltenbreite ändern",
     "search": "Suchen...",
+    "sheetGrabber": "Ansicht anpassen oder schließen",
     "showN": "{n} anzeigen",
     "skip": "Überspringen",
     "sort": "Sortieren",
@@ -974,7 +974,6 @@ flux:
 flux:
   back: "Tillbaka"
   backToTop: "Till toppen"
-  bottomSheetGrabber: "Ändra storlek eller stäng panelen"
   cancel: "Avbryt"
   close: "Stäng"
   collapseGroup: "Fäll ihop grupp"
@@ -1024,6 +1023,7 @@ flux:
   repeaterRowLabel: "Rad"
   resizeColumn: "Ändra kolumnbredd"
   search: "Sök..."
+  sheetGrabber: "Ändra storlek eller stäng panelen"
   showN: "Visa {n}"
   skip: "Hoppa över"
   sort: "Sortera"
@@ -1082,7 +1082,6 @@ flux:
   "flux": {
     "back": "Tillbaka",
     "backToTop": "Till toppen",
-    "bottomSheetGrabber": "Ändra storlek eller stäng panelen",
     "cancel": "Avbryt",
     "close": "Stäng",
     "collapseGroup": "Fäll ihop grupp",
@@ -1132,6 +1131,7 @@ flux:
     "repeaterRowLabel": "Rad",
     "resizeColumn": "Ändra kolumnbredd",
     "search": "Sök...",
+    "sheetGrabber": "Ändra storlek eller stäng panelen",
     "showN": "Visa {n}",
     "skip": "Hoppa över",
     "sort": "Sortera",

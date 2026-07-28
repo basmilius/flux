@@ -7,9 +7,10 @@ export { default as useCalendarYearSwitcher } from './useCalendarYearSwitcher';
 export { default as useKeyboardGrab, defaultAnnounce as defaultKeyboardGrabAnnounce } from './useKeyboardGrab';
 export { default as useEventListener } from './useEventListener';
 export { default as useInView } from './useInView';
-export { default as usePointerDrag, type PointerDragContext, type UsePointerDragOptions, type UsePointerDragReturn } from './usePointerDrag';
+export { default as usePointerDrag, type PointerDragAxis, type PointerDragContext, type UsePointerDragOptions, type UsePointerDragReturn } from './usePointerDrag';
 export { default as useRemembered } from './useRemembered';
 export { default as useScrollPosition } from './useScrollPosition';
+export { default as useSpring, type UseSpringOptions, type UseSpringReturn, type UseSpringSetOptions } from './useSpring';
 export { default as useVirtualList, type UseVirtualListOptions, type UseVirtualListPosition, type UseVirtualListReturn } from './useVirtualList';
 
 export { default as useFocusTrap } from './useFocusTrap';

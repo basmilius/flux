@@ -5,7 +5,6 @@ export type Messages = Record<FluxTranslation, string>;
 export const nl: Messages = {
     'flux.back': 'Terug',
     'flux.backToTop': 'Terug naar boven',
-    'flux.bottomSheetGrabber': 'Formaat aanpassen of het paneel sluiten',
     'flux.cancel': 'Annuleren',
     'flux.close': 'Sluiten',
     'flux.collapseGroup': 'Groep inklappen',
@@ -55,6 +54,7 @@ export const nl: Messages = {
     'flux.repeaterRowLabel': 'Rij',
     'flux.resizeColumn': 'Kolombreedte aanpassen',
     'flux.search': 'Zoeken...',
+    'flux.sheetGrabber': 'Formaat aanpassen of het paneel sluiten',
     'flux.showN': 'Toon {n}',
     'flux.skip': 'Overslaan',
     'flux.sort': 'Sorteer',
@@ -111,7 +111,6 @@ export const nl: Messages = {
 export const fr: Messages = {
     'flux.back': 'Retour',
     'flux.backToTop': 'Retour en haut',
-    'flux.bottomSheetGrabber': 'Redimensionner ou fermer la feuille',
     'flux.cancel': 'Annuler',
     'flux.close': 'Fermer',
     'flux.collapseGroup': 'Réduire le groupe',
@@ -161,6 +160,7 @@ export const fr: Messages = {
     'flux.repeaterRowLabel': 'Ligne',
     'flux.resizeColumn': 'Redimensionner la colonne',
     'flux.search': 'Recherche...',
+    'flux.sheetGrabber': 'Redimensionner ou fermer la feuille',
     'flux.showN': 'Afficher {n}',
     'flux.skip': 'Passer',
     'flux.sort': 'Trier',
@@ -217,7 +217,6 @@ export const fr: Messages = {
 export const de: Messages = {
     'flux.back': 'Zurück',
     'flux.backToTop': 'Nach oben',
-    'flux.bottomSheetGrabber': 'Ansicht anpassen oder schließen',
     'flux.cancel': 'Abbrechen',
     'flux.close': 'Schließen',
     'flux.collapseGroup': 'Gruppe einklappen',
@@ -267,6 +266,7 @@ export const de: Messages = {
     'flux.repeaterRowLabel': 'Zeile',
     'flux.resizeColumn': 'Spaltenbreite ändern',
     'flux.search': 'Suchen...',
+    'flux.sheetGrabber': 'Ansicht anpassen oder schließen',
     'flux.showN': '{n} anzeigen',
     'flux.skip': 'Überspringen',
     'flux.sort': 'Sortieren',
@@ -323,7 +323,6 @@ export const de: Messages = {
 export const sv: Messages = {
     'flux.back': 'Tillbaka',
     'flux.backToTop': 'Till toppen',
-    'flux.bottomSheetGrabber': 'Ändra storlek eller stäng panelen',
     'flux.cancel': 'Avbryt',
     'flux.close': 'Stäng',
     'flux.collapseGroup': 'Fäll ihop grupp',
@@ -373,6 +372,7 @@ export const sv: Messages = {
     'flux.repeaterRowLabel': 'Rad',
     'flux.resizeColumn': 'Ändra kolumnbredd',
     'flux.search': 'Sök...',
+    'flux.sheetGrabber': 'Ändra storlek eller stäng panelen',
     'flux.showN': 'Visa {n}',
     'flux.skip': 'Hoppa över',
     'flux.sort': 'Sortera',

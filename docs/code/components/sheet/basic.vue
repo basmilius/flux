@@ -4,7 +4,7 @@
         label="Share"
         @click="isSheetOpened = true"/>
 
-    <FluxBottomSheet
+    <FluxSheet
         is-closeable
         @close="isSheetOpened = false">
         <FluxPane v-if="isSheetOpened">
@@ -32,14 +32,14 @@
                     @click="isSheetOpened = false"/>
             </FluxPaneFooter>
         </FluxPane>
-    </FluxBottomSheet>
+    </FluxSheet>
 </template>
 
 <script
     setup
     lang="ts">
     import type { FluxIconName } from '@flux-ui/types';
-    import { FluxBottomSheet, FluxIcon, FluxItem, FluxItemContent, FluxItemMedia, FluxItemStack, FluxPane, FluxPaneFooter, FluxPaneHeader, FluxSecondaryButton, FluxSpacer } from '@flux-ui/components';
+    import { FluxIcon, FluxItem, FluxItemContent, FluxItemMedia, FluxItemStack, FluxPane, FluxPaneFooter, FluxPaneHeader, FluxSecondaryButton, FluxSheet, FluxSpacer } from '@flux-ui/components';
     import { ref } from 'vue';
 
     const targets: { icon: FluxIconName; label: string }[] = [

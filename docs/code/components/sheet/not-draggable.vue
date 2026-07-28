@@ -4,7 +4,7 @@
         label="Delete project"
         @click="isSheetOpened = true"/>
 
-    <FluxBottomSheet
+    <FluxSheet
         :is-draggable="false"
         @close="isSheetOpened = false">
         <FluxPane v-if="isSheetOpened">
@@ -27,13 +27,13 @@
                     @click="isSheetOpened = false"/>
             </FluxPaneFooter>
         </FluxPane>
-    </FluxBottomSheet>
+    </FluxSheet>
 </template>
 
 <script
     setup
     lang="ts">
-    import { FluxBottomSheet, FluxDestructiveButton, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxSecondaryButton, FluxSpacer } from '@flux-ui/components';
+    import { FluxDestructiveButton, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxSecondaryButton, FluxSheet, FluxSpacer } from '@flux-ui/components';
     import { ref } from 'vue';
 
     const isSheetOpened = ref(false);

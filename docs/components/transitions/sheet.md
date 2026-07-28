@@ -13,14 +13,16 @@ slots:
         description: The element that should be animated.
 ---
 
-# Bottom sheet
+# Sheet
 
 ::: render
-render=../../code/components/transitions/bottom-sheet/preview.vue
+render=../../code/components/transitions/sheet/preview.vue
 :::
 
 ::: tip
-[Bottom sheet](../bottom-sheet) already uses this transition. Reach for it directly only when you build a sheet-like surface of your own.
+[Sheet](../sheet) already uses this transition. It slides the surface in and out from the edge its position class names, without a fade: a sheet travels, it does not appear. Pair it with one of those position classes when you build a sheet-like surface of your own.
+
+The sheet itself opts out of the arrival, because it drives that half with a spring so it can overshoot once on the way in. A surface marked as sprung keeps this transition's exit and skips its entrance.
 :::
 
 <FrontmatterDocs/>
@@ -29,6 +31,6 @@ render=../../code/components/transitions/bottom-sheet/preview.vue
 
 ::: code-group
 
-<<< @/code/components/transitions/bottom-sheet/preview.vue [FluxBottomSheetTransition.vue]
+<<< @/code/components/transitions/sheet/preview.vue [FluxSheetTransition.vue]
 
 :::

@@ -4,7 +4,6 @@ export type FluxTranslation = keyof typeof english;
 export const english = {
     'flux.back': 'Back',
     'flux.backToTop': 'Back to top',
-    'flux.bottomSheetGrabber': 'Resize or close the sheet',
     'flux.cancel': 'Cancel',
     'flux.close': 'Close',
     'flux.collapseGroup': 'Collapse group',
@@ -54,6 +53,7 @@ export const english = {
     'flux.repeaterRowLabel': 'Row',
     'flux.resizeColumn': 'Resize column',
     'flux.search': 'Search...',
+    'flux.sheetGrabber': 'Resize or close the sheet',
     'flux.showN': 'Show {n}',
     'flux.skip': 'Skip',
     'flux.sort': 'Sort',

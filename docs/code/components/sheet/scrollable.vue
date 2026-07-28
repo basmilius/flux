@@ -4,9 +4,9 @@
         label="Order history"
         @click="isSheetOpened = true"/>
 
-    <FluxBottomSheet
+    <FluxSheet
         is-closeable
-        :snap-points="[.85]"
+        :snap-points="[.5, .95]"
         @close="isSheetOpened = false">
         <FluxPane v-if="isSheetOpened">
             <FluxPaneHeader title="Order history"/>
@@ -34,13 +34,13 @@
                     @click="isSheetOpened = false"/>
             </FluxPaneFooter>
         </FluxPane>
-    </FluxBottomSheet>
+    </FluxSheet>
 </template>
 
 <script
     setup
     lang="ts">
-    import { FluxBottomSheet, FluxItem, FluxItemActions, FluxItemContent, FluxItemStack, FluxPane, FluxPaneFooter, FluxPaneHeader, FluxSecondaryButton, FluxSpacer } from '@flux-ui/components';
+    import { FluxItem, FluxItemActions, FluxItemContent, FluxItemStack, FluxPane, FluxPaneFooter, FluxPaneHeader, FluxSecondaryButton, FluxSheet, FluxSpacer } from '@flux-ui/components';
     import { ref } from 'vue';
 
     const orders = Array.from({length: 24}, (_, index) => ({

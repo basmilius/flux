@@ -4,7 +4,7 @@
         label="Nearby stations"
         @click="isSheetOpened = true"/>
 
-    <FluxBottomSheet
+    <FluxSheet
         is-closeable
         :snap-points="[.4, .9]"
         @close="isSheetOpened = false">
@@ -28,13 +28,13 @@
                 </FluxItem>
             </FluxItemStack>
         </FluxPane>
-    </FluxBottomSheet>
+    </FluxSheet>
 </template>
 
 <script
     setup
     lang="ts">
-    import { FluxBadge, FluxBottomSheet, FluxItem, FluxItemActions, FluxItemContent, FluxItemStack, FluxPane, FluxPaneHeader, FluxSecondaryButton } from '@flux-ui/components';
+    import { FluxBadge, FluxItem, FluxItemActions, FluxItemContent, FluxItemStack, FluxPane, FluxPaneHeader, FluxSecondaryButton, FluxSheet } from '@flux-ui/components';
     import { ref } from 'vue';
 
     const stations = [

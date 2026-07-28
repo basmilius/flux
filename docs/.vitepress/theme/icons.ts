@@ -12,6 +12,7 @@ export {
     faArrowDownAZ,
     faArrowDownShortWide,
     faArrowDownToLine,
+    faArrowLeft,
     faArrowRight,
     faArrowRightArrowLeft,
     faArrowUpArrowDown,

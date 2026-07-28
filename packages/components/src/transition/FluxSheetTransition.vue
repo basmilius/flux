@@ -1,10 +1,10 @@
 <template>
     <Transition
         :mode="mode"
-        :enter-active-class="$style.bottomSheetTransitionEnterActive"
-        :enter-from-class="$style.bottomSheetTransitionEnterFrom"
-        :leave-active-class="$style.bottomSheetTransitionLeaveActive"
-        :leave-to-class="$style.bottomSheetTransitionLeaveTo">
+        :enter-active-class="$style.sheetTransitionEnterActive"
+        :enter-from-class="$style.sheetTransitionEnterFrom"
+        :leave-active-class="$style.sheetTransitionLeaveActive"
+        :leave-to-class="$style.sheetTransitionLeaveTo">
         <slot/>
     </Transition>
 </template>
@@ -13,7 +13,7 @@
     lang="ts"
     setup>
     import type { VNode } from 'vue';
-    import $style from '~flux/components/css/component/BottomSheet.module.scss';
+    import $style from '~flux/components/css/component/Sheet.module.scss';
 
     const {
         mode = 'out-in'

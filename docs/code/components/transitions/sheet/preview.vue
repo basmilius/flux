@@ -1,16 +1,16 @@
 <template>
-    <Preview :class="$style.bottomSheetPreview">
+    <Preview :class="$style.sheetPreview">
         <div :class="$style.overlayShade"/>
 
-        <FluxBottomSheetTransition>
+        <FluxSheetTransition>
             <div
                 v-if="visible"
-                :class="[$style.overlay, $style.bottomSheet, $style.isCurrent]">
-                <div :class="$style.bottomSheetSurface">
+                :class="[$style.overlay, $style.sheet, $style.isBottom, $style.isCurrent]">
+                <div :class="[$style.sheetSurface, $style.isBottom]">
                     <FluxPane/>
                 </div>
             </div>
-        </FluxBottomSheetTransition>
+        </FluxSheetTransition>
     </Preview>
 </template>
 
@@ -18,7 +18,7 @@
     lang="ts"
     setup>
     import { useInterval } from '@basmilius/common';
-    import { FluxBottomSheetTransition, FluxPane } from '@flux-ui/components';
+    import { FluxPane, FluxSheetTransition } from '@flux-ui/components';
     import { ref } from 'vue';
 
     const visible = ref(true);
@@ -31,11 +31,11 @@
 <style
     lang="scss"
     module>
-    .bottomSheetPreview {
+    .sheetPreview {
         overflow: clip;
     }
 
-    .bottomSheetPreview :local(.bottomSheet) {
+    .sheetPreview :local(.sheet) {
         position: absolute;
         height: unset;
         width: unset;
@@ -43,7 +43,7 @@
         border-radius: var(--radius);
     }
 
-    .bottomSheetPreview :local(.bottomSheetSurface) {
+    .sheetPreview :local(.sheetSurface) {
         height: 60%;
 
         :local(.pane) {
@@ -52,7 +52,7 @@
     }
 
     .isCurrent,
-    .bottomSheetTransitionLeaveActive {
+    .sheetTransitionLeaveActive {
         pointer-events: auto;
     }
 
@@ -62,7 +62,7 @@
         width: unset;
         inset: 0;
 
-        &:not(:has(+ .overlay:not(.bottomSheetTransitionLeaveActive))) {
+        &:not(:has(+ .overlay:not(.sheetTransitionLeaveActive))) {
             opacity: 0;
         }
     }

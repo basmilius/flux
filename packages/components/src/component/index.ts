@@ -13,7 +13,6 @@ export { default as FluxBackToTop } from './FluxBackToTop.vue';
 export { default as FluxBadge } from './FluxBadge.vue';
 export { default as FluxBadgeGroup } from './FluxBadgeGroup.vue';
 export { default as FluxBadgeStack } from './FluxBadgeStack.vue';
-export { default as FluxBottomSheet } from './FluxBottomSheet.vue';
 export { default as FluxBoxedIcon } from './FluxBoxedIcon.vue';
 export { default as FluxBreadcrumb } from './FluxBreadcrumb.vue';
 export { default as FluxBreadcrumbFlyout } from './FluxBreadcrumbFlyout.vue';
@@ -158,6 +157,7 @@ export { default as FluxSecondaryLinkButton } from './FluxSecondaryLinkButton.vu
 export { default as FluxSegmentedControl } from './FluxSegmentedControl.vue';
 export { default as FluxSegmentedControlItem } from './FluxSegmentedControlItem.vue';
 export { default as FluxSeparator } from './FluxSeparator.vue';
+export { default as FluxSheet } from './FluxSheet.vue';
 export { default as FluxSkeleton } from './FluxSkeleton.vue';
 export { default as FluxSlideOver } from './FluxSlideOver.vue';
 export { default as FluxSnackbar } from './FluxSnackbar.vue';

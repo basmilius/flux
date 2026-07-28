@@ -1,55 +1,119 @@
 @use '~flux/components/css/mixin';
 
-.bottomSheet {
+.sheet {
     composes: overlay from './Overlay.module.scss';
+}
 
+.sheet.isBottom {
     align-items: flex-end;
     justify-content: center;
 }
 
-.bottomSheetSurface {
-    @include mixin.elevation('surface', var(--radius-double) var(--radius-double) 0 0);
+.sheet.isTop {
+    align-items: flex-start;
+    justify-content: center;
+}
 
+.sheet.isLeft {
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+.sheet.isRight {
+    align-items: stretch;
+    justify-content: flex-end;
+}
+
+.sheetSurface {
     display: flex;
-    max-height: 100%;
-    width: min(100%, 720px);
-    padding-bottom: env(safe-area-inset-bottom);
-    flex-flow: column nowrap;
-    border-block-end: 0;
-    border-inline: 0;
-    // The first shadow continues the sheet below the screen edge, so lifting it past its
-    // tallest snap point stretches into that strip instead of opening a gap underneath.
-    box-shadow: 0 48px 0 var(--surface-current), var(--shadow-lg);
     overflow: hidden;
     touch-action: pan-y;
-    transform-origin: 50% 100%;
-    translate: 0 var(--sheet-offset, 0px);
+    // `translate` is driven by a spring, frame by frame, so that a flick keeps its speed;
+    // only the stacking feedback is a transition.
     transition: 480ms var(--swift-out);
-    transition-property: filter, scale, translate;
+    transition-property: filter, scale;
 
     @media (prefers-reduced-motion: reduce) {
         transition: none;
     }
 }
 
-.bottomSheetSurface.isDragging {
+.sheetSurface.isBottom,
+.sheetSurface.isTop {
+    max-height: 100%;
+    width: min(100%, 720px);
+    flex-flow: column nowrap;
+    border-inline: 0;
+}
+
+.sheetSurface.isLeft,
+.sheetSurface.isRight {
+    height: 100%;
+    max-width: 100%;
+    flex-flow: row nowrap;
+    border-block: 0;
+}
+
+// The first shadow continues the sheet past the screen edge, so pulling it beyond its
+// tallest snap point stretches into that strip instead of opening a gap behind it.
+.sheetSurface.isBottom {
+    @include mixin.elevation('surface', var(--radius-double) var(--radius-double) 0 0);
+
+    padding-bottom: env(safe-area-inset-bottom);
+    border-block-end: 0;
+    box-shadow: 0 48px 0 var(--surface-current), var(--shadow-lg);
+    transform-origin: 50% 100%;
+    translate: 0 var(--sheet-offset, 0px);
+}
+
+.sheetSurface.isTop {
+    @include mixin.elevation('surface', 0 0 var(--radius-double) var(--radius-double));
+
+    padding-top: env(safe-area-inset-top);
+    border-block-start: 0;
+    box-shadow: 0 -48px 0 var(--surface-current), var(--shadow-lg);
+    transform-origin: 50% 0;
+    translate: 0 calc(var(--sheet-offset, 0px) * -1);
+}
+
+.sheetSurface.isLeft {
+    @include mixin.elevation('surface', 0 var(--radius-double) var(--radius-double) 0);
+
+    padding-left: env(safe-area-inset-left);
+    border-inline-start: 0;
+    box-shadow: -48px 0 0 var(--surface-current), var(--shadow-lg);
+    transform-origin: 0 50%;
+    translate: calc(var(--sheet-offset, 0px) * -1) 0;
+}
+
+.sheetSurface.isRight {
+    @include mixin.elevation('surface', var(--radius-double) 0 0 var(--radius-double));
+
+    padding-right: env(safe-area-inset-right);
+    border-inline-end: 0;
+    box-shadow: 48px 0 0 var(--surface-current), var(--shadow-lg);
+    transform-origin: 100% 50%;
+    translate: var(--sheet-offset, 0px) 0;
+}
+
+.sheetSurface.isDragging {
     touch-action: none;
     user-select: none;
-    transition: none;
 
-    > .bottomSheetGrabber {
+    > .sheetGrabber {
         cursor: grabbing;
     }
 }
 
-.bottomSheetSurface > :not(.bottomSheetGrabber) {
+.sheetSurface > :not(.sheetGrabber) {
     min-height: 0;
+    min-width: 0;
     flex: 1 1 auto;
-    overscroll-behavior-y: contain;
+    overscroll-behavior: contain;
     overflow: auto;
 }
 
-.bottomSheetSurface > .basePaneStructure {
+.sheetSurface > .basePaneStructure {
     display: flex;
     flex-flow: column nowrap;
     border: 0;
@@ -73,26 +137,23 @@
     }
 }
 
-.bottomSheetGrabber {
+.sheetGrabber {
     @include mixin.focus-ring(-6px);
 
     appearance: none;
     display: flex;
-    height: 30px;
     padding: 0;
     flex: none;
     align-items: center;
     justify-content: center;
     background: transparent;
     border: 0;
-    border-radius: var(--radius-double) var(--radius-double) 0 0;
+    border-radius: inherit;
     cursor: grab;
     touch-action: none;
 
     &::before {
         display: block;
-        height: 6px;
-        width: 54px;
         content: '';
         background: var(--surface-stroke);
         border-radius: var(--radius-full);
@@ -106,37 +167,89 @@
     }
 }
 
-.bottomSheet.isCurrent > .bottomSheetSurface {
+.sheetSurface.isBottom > .sheetGrabber,
+.sheetSurface.isTop > .sheetGrabber {
+    height: 30px;
+
+    &::before {
+        height: 6px;
+        width: 54px;
+    }
+}
+
+.sheetSurface.isLeft > .sheetGrabber,
+.sheetSurface.isRight > .sheetGrabber {
+    width: 30px;
+
+    &::before {
+        height: 54px;
+        width: 6px;
+    }
+}
+
+// The grabber sits against the edge the sheet is pulled away from, whichever side the
+// markup puts it on.
+.sheetSurface.isTop > .sheetGrabber,
+.sheetSurface.isLeft > .sheetGrabber {
+    order: 1;
+}
+
+.sheet.isCurrent {
+    // The whole layer takes pointer events, so a click beside the sheet reaches it.
     pointer-events: auto;
 }
 
-.bottomSheet:not(.isCurrent) > .bottomSheetSurface {
+.sheet:not(.isCurrent) > .sheetSurface {
     filter: brightness(.75) blur(3px) grayscale(.5) saturate(180%);
     scale: .975;
 }
 
-.bottomSheetTransitionEnterActive {
-    transition: opacity 480ms var(--swift-out);
+// The sheet is opaque from the first frame to the last: it travels, it does not appear.
+// Only the shade behind it fades, and that is keyed on the leaving dialog's class.
+.sheetTransitionEnterActive,
+.sheetTransitionEnterFrom {
+    opacity: 1;
 }
 
-.bottomSheetTransitionLeaveActive {
-    // The shade keys on the leaving dialog's class, so it fades out with the sheet.
+.sheetTransitionLeaveActive {
     composes: slideOverTransitionLeaveActive from './Overlay.module.scss';
+
+    opacity: 1;
 }
 
-.bottomSheetTransitionEnterFrom,
-.bottomSheetTransitionLeaveTo {
-    opacity: 0;
+// A surface that carries its own spring, as FluxSheet's does, is exempt from the arrival:
+// the spring is already writing `--sheet-offset` every frame and a transition on top of it
+// would smear the overshoot away. Leaving is always this transition's own, so it never
+// overshoots and never hesitates on its way out.
+.sheetTransitionEnterActive > .sheetSurface:not(.isSprung),
+.sheetTransitionLeaveActive > .sheetSurface {
+    transition: translate 480ms var(--swift-out);
 
-    > .bottomSheetSurface {
-        translate: 0 100%;
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
     }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .bottomSheetTransitionEnterFrom,
-    .bottomSheetTransitionLeaveTo {
-        > .bottomSheetSurface {
+.sheetTransitionEnterFrom,
+.sheetTransitionLeaveTo {
+    > .sheetSurface.isBottom {
+        translate: 0 100%;
+    }
+
+    > .sheetSurface.isTop {
+        translate: 0 -100%;
+    }
+
+    > .sheetSurface.isLeft {
+        translate: -100% 0;
+    }
+
+    > .sheetSurface.isRight {
+        translate: 100% 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        > .sheetSurface {
             translate: none;
         }
     }
