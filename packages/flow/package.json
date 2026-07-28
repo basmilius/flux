@@ -23,7 +23,7 @@
         "flow"
     ],
     "scripts": {
-        "build": "vue-tsc && vite build",
+        "build": "vue-tsc --build && vite build",
         "dev": "vite build --watch --mode development"
     },
     "engines": {
