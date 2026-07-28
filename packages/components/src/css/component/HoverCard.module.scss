@@ -20,6 +20,7 @@
     flex-flow: column;
     gap: 9px;
     color: var(--foreground);
+    text-align: left;
     overflow: auto;
     box-shadow: var(--shadow-md);
     translate: var(--x) var(--y);

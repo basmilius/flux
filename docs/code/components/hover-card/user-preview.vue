@@ -59,7 +59,7 @@
             title: 'Flux engineer',
             bio: 'Builds design systems and cares a little too much about a 3px grid.',
             avatar: 'https://avatars.githubusercontent.com/u/978257?v=4',
-            location: 'Zwolle, The Netherlands'
+            location: 'Groenlo, The Netherlands'
         },
         {
             name: 'Jane Doe',
