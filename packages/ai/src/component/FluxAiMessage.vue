@@ -75,18 +75,10 @@
         icon,
         role
     } = defineProps<{
-        /**
-         * The name shown above the turn. Defaults to the configured name for the
-         * role it carries.
-         */
         readonly author?: string;
         readonly avatarFallbackInitials?: string;
         readonly avatarSrc?: string;
         readonly dateTime?: string;
-        /**
-         * The day this turn belongs to. Only read by a grouped FluxAiConversation,
-         * which compares it with the turn above to place a day separator.
-         */
         readonly day?: string;
         readonly icon?: FluxIconName;
         readonly isStreaming?: boolean;
@@ -106,6 +98,5 @@
 
     const authorLabel = computed(() => author ?? translate(ROLE_LABEL[role]));
     const hasMarker = computed(() => !!avatarSrc || !!avatarFallbackInitials || !!icon);
-    // Inside a conversation the turn is a list item; on its own it is an article.
     const tag = computed(() => conversation ? 'li' : 'article');
 </script>

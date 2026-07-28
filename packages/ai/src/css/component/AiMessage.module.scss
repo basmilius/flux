@@ -12,13 +12,11 @@
 }
 
 .messageMarker {
-    // Centers a 30px marker on the 24px line box of the header.
     margin-block-start: -3px;
     grid-column: 1;
     grid-row: 1;
 }
 
-// The body always lands in the last column, so one rule covers both templates.
 .messageHeader,
 .messageContent,
 .messageFooter,

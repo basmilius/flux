@@ -100,8 +100,6 @@
     color: var(--foreground-prominent);
     border-bottom: 2px solid var(--surface-stroke-muted);
 
-    // Ahead of the pinned rules below, so a pinned resizable header keeps its sticky
-    // position; both make the header a containing block for the resize handle.
     &.isResizable {
         position: relative;
     }
@@ -447,8 +445,6 @@
     }
 }
 
-// The handle stays inside the header: an overhang would widen the scrollable area
-// of the table on the trailing column.
 .tableHeader > .tableResize {
     position: absolute;
     inset-block: 0;

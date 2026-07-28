@@ -17,22 +17,13 @@
     const WHEEL_IDLE = 120;
     const WHEEL_STEP = 40;
 
-    // `max` mirrors the solid strip behind the sheet in Sheet.module.scss; pulling the
-    // sheet further than that strip is long would open a gap behind it.
     const OVERDRAG = {max: 48, range: 120} as const;
 
-    // Arriving is the one moment the sheet is allowed to overshoot: it passes its resting
-    // place by a few percent and comes back once. Leaving never does, so the sheet does not
-    // appear to hesitate on its way out. The overshoot stays under the 48px strip, so even
-    // a full height sheet never opens a gap behind itself.
     const ENTER_SPRING = {damping: 28} as const;
 
     export type FluxSheetPosition = 'bottom' | 'left' | 'right' | 'top';
     type DragOwner = 'undecided' | 'scroller' | 'sheet';
 
-    // Every position is the bottom sheet mirrored: one axis, and a sign that points away
-    // from the edge the sheet is attached to. The rest of the component only speaks in
-    // "travel away from that edge", so none of it has to know which side it is on.
     const AXIS: Record<FluxSheetPosition, PointerDragAxis> = {bottom: 'y', left: 'x', right: 'x', top: 'y'};
     const SIGN: Record<FluxSheetPosition, 1 | -1> = {bottom: 1, left: -1, right: 1, top: -1};
     const GROW_KEY: Record<FluxSheetPosition, string> = {bottom: 'ArrowUp', left: 'ArrowRight', right: 'ArrowLeft', top: 'ArrowDown'};
@@ -65,7 +56,6 @@
         return null;
     }
 
-    /** How far `scroller` can still travel when the content is scrolled in `delta`'s direction. */
     function scrollRoom(scroller: HTMLElement | null, axis: PointerDragAxis, delta: number): number {
         if (!scroller) {
             return 0;
@@ -120,8 +110,6 @@
                 const size = tallest ? `${tallest * 100}%` : undefined;
 
                 return {
-                    // Before the first measurement the sheet parks itself off screen in its own
-                    // units, so it is never painted at its resting place for a frame.
                     '--sheet-offset': unref(surfaceSize) > 0 ? `${unref(offset.value)}px` : '100%',
                     height: unref(axis) === 'y' ? size : undefined,
                     width: unref(axis) === 'x' ? size : undefined
@@ -188,7 +176,6 @@
                     return;
                 }
 
-                // A resize is not a gesture, so the sheet belongs at its resting place right away.
                 offset.snap(restOffset());
             });
 
@@ -215,9 +202,6 @@
                 offset.snap(0);
             });
 
-            // Dragging the sheet away from its edge drags the content along with it, which
-            // is a scroll in the opposite direction; dragging it towards the edge, once it
-            // can go no further, scrolls the content the same way.
             const roomAway = () => scrollRoom(scroller, unref(axis), -unref(sign));
             const roomToward = () => scrollRoom(scroller, unref(axis), unref(sign));
 
@@ -279,8 +263,6 @@
                 }
 
                 if (owner === 'scroller') {
-                    // The content scrolls natively until it runs out; only once it has nothing
-                    // left does the same gesture hand over to the sheet.
                     const isMovingAway = travel > previousTravel;
 
                     previousTravel = travel;
@@ -302,8 +284,6 @@
                     return;
                 }
 
-                // Past the tallest snap point the sheet has nowhere left to go: hand the
-                // surplus to the content when there is any, and stretch when there is not.
                 if (roomToward() > 0) {
                     scrollContent(-wanted * unref(sign));
                     baseOffset = 0;
@@ -391,9 +371,6 @@
                     return;
                 }
 
-                // A gesture is already moving the sheet, so it flies out on the same spring and
-                // only asks to be closed once it is gone. Handing it to the leave transition
-                // right away would stop it dead and start the movement over from a standstill.
                 if (velocity === undefined) {
                     emit('close');
 
@@ -436,8 +413,6 @@
                 settle();
             }
 
-            // Both ends of the click have to land beside the sheet, so a drag that
-            // happens to finish over the backdrop never closes it.
             function onDialogClick(evt: MouseEvent): void {
                 if (!props.isCloseable || !pressedOnDialog || evt.target !== unref(dialogRef) || !getRegistration()?.isCurrent()) {
                     return;
@@ -469,10 +444,6 @@
                 const index = unref(activeIndex);
                 const room = scrollRoom(scrollerWithin(evt.target, surface, unref(axis)), unref(axis), delta);
 
-                // Scrolling towards the sheet's edge shrinks it, but only once the content has
-                // nothing left to give, and it never dismisses: at the lowest snap point the
-                // wheel does nothing. Scrolling the other way grows the sheet before the
-                // content moves at all.
                 const direction = delta * unref(sign) < 0 ? -1 : 1;
 
                 if (direction === 1 ? index === points.length - 1 : room > 0 || index === 0) {
@@ -491,7 +462,6 @@
                     clearTimeout(wheelIdleTimer);
                 }
 
-                // One flick of a trackpad is one step, however long its inertia keeps firing.
                 wheelIdleTimer = setTimeout(() => {
                     wheelDelta = 0;
                     wheelLocked = false;

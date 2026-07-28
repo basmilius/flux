@@ -1,5 +1,4 @@
 <template>
-    <!-- The timeline is reused for its rail only; its own role="feed" would compete with the list below it. -->
     <FluxTimeline role="presentation">
         <ul
             :class="$style.activityFeedList"
@@ -46,8 +45,6 @@
         default(): VNode[];
     }>();
 
-    // Re-read the slot on every render rather than memoizing it: a feed that grows
-    // or reorders would otherwise keep rendering stale VNodes.
     function entries(): ActivityFeedEntry[] {
         let previousDay: string | undefined;
 

@@ -7,12 +7,9 @@ const LIGHT_DARK_PATTERN = /light-dark\(/gi;
 const VAR_PATTERN = /var\(/gi;
 const RESOLVABLE_PATTERN = /(?:var|light-dark)\(/i;
 
-// ECharts parses a color itself and knows nothing past `hsl()`, so an `oklch()` reaches it
-// as an illegal color and falls back to black. Dark adds relative color syntax on top.
 const MODERN_COLOR_PATTERN = /(?:oklch|oklab|lch|lab|hwb|color-mix|color)\(/gi;
 const MODERN_COLOR_TEST = /(?:oklch|oklab|lch|lab|hwb|color-mix|color)\(/i;
 
-// Improbable enough that reading it back means `fillStyle` refused the input.
 const REFUSED = '#010203';
 
 const themeVersion = ref(0);
@@ -157,9 +154,6 @@ function resolveLightDark(input: string, isDark: boolean): string {
     });
 }
 
-// The canvas is both the reason and the cure: it parses every color syntax the browser
-// knows. The pixel is read rather than `fillStyle`, which hands an `oklch()` straight
-// back: a color keeps its own space through serialization, and only painting resolves it.
 const convertedColors = new Map<string, string>();
 
 let canvasContext: CanvasRenderingContext2D | null | undefined;
@@ -179,8 +173,6 @@ function toRgb(input: string): string {
         canvasContext = canvas.getContext('2d', {willReadFrequently: true});
 
         if (canvasContext !== null) {
-            // So a fill replaces the pixel instead of blending onto the last one, which
-            // is what keeps alpha intact.
             canvasContext.globalCompositeOperation = 'copy';
         }
     }
@@ -191,7 +183,6 @@ function toRgb(input: string): string {
         canvasContext.fillStyle = REFUSED;
         canvasContext.fillStyle = input;
 
-        // An invalid value leaves the previous one standing rather than throwing.
         if (canvasContext.fillStyle !== REFUSED) {
             canvasContext.fillRect(0, 0, 1, 1);
 
@@ -208,7 +199,6 @@ function toRgb(input: string): string {
     return output;
 }
 
-// Per call rather than per string: a tooltip template carries markup around its colors.
 function resolveModernColors(input: string): string {
     return replaceCalls(input, MODERN_COLOR_PATTERN, (_, original) => toRgb(original));
 }

@@ -5,8 +5,6 @@
     grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
 }
 
-// Once the items are measured the rows become a 1px ruler and every item spans its own
-// height plus the gap. The negative margin trims the trailing gap of the tallest column.
 .isPacked {
     margin-bottom: calc(var(--gap) * -1);
     grid-auto-rows: 1px;

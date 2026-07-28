@@ -193,9 +193,6 @@
 
 /* region swimlanes */
 
-// Swimlanes turn the board into rows of cells: every cell is a grid item of the
-// board itself, so the columns line up across all lanes and a lane header can span
-// the full scrollable width.
 .kanban:has(> .kanbanSwimlane) {
     grid-auto-flow: row;
     grid-template-rows: none;
@@ -265,8 +262,6 @@
     display: none;
 }
 
-// The first swimlane carries the column headers for the whole board, so it keeps
-// them on screen while it is collapsed.
 .kanban > .kanbanSwimlane:not(:first-child) .kanbanColumnHeader {
     display: none;
 }

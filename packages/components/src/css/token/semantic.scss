@@ -39,10 +39,6 @@
     --surface-stroke-muted: #{theme.theme(palette.stop('gray', 100), theme.neutral(.295, .016))};
     --surface-stroke: #{theme.theme(palette.stop('gray', 200), theme.neutral(.303, .018))};
     --surface-stroke-hover: #{theme.theme(palette.stop('gray', 300), theme.neutral(.395, .02))};
-    // The elevation mixin clips the fill to the padding box, so this hairline lies on the
-    // level *below* the layer, not on the layer itself. A light tint at a low alpha would
-    // inherit that ground's chroma and land well under the opaque strokes above; dark
-    // therefore carries most of its own color, which is what puts it beside them.
     --surface-stroke-out: #{theme.theme(theme.neutral(.36, .02, .1), theme.neutral(.34, .022, .65))};
     --surface-stroke-out-hover: #{theme.theme(theme.neutral(.28, .02, .15), theme.neutral(.4, .023, .65))};
 

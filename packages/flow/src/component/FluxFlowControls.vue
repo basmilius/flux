@@ -78,10 +78,6 @@
     } = defineProps<{
         readonly offset?: number;
         readonly position?: FluxFlowPanelPosition;
-        /**
-         * The names the buttons and the zoom flyout carry. Left unset they are
-         * translated through `flux.flow.*`.
-         */
         readonly exitFullscreenLabel?: string;
         readonly fitLabel?: string;
         readonly fullscreenLabel?: string;

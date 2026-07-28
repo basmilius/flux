@@ -101,8 +101,6 @@
         default: ''
     });
 
-    // Bind `v-model:attachments` to switch the attachment ui on; left unbound the
-    // composer has no attach button and renders no pills.
     const attachments = defineModel<File[]>('attachments');
 
     const {
@@ -155,13 +153,11 @@
             return;
         }
 
-        // An IME accepts its candidate with Enter, and not every browser sets
-        // `isComposing` on that event, hence the composition tracking as well.
+        // Not every browser sets `isComposing` when an IME accepts its candidate with Enter.
         if (unref(isComposing) || evt.isComposing) {
             return;
         }
 
-        // Enter only loses its newline when it actually sends something.
         if (!unref(canSubmit)) {
             return;
         }

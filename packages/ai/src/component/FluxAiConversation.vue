@@ -58,7 +58,6 @@
     import { FluxAiConversationInjectionKey, useAiTranslate } from '~flux/ai/data';
     import $style from '~flux/ai/css/component/AiConversation.module.scss';
 
-    // One line box of slack: anything this close to the end still counts as the bottom.
     const BOTTOM_THRESHOLD = 24;
 
     type ConversationTurn = {
@@ -113,8 +112,6 @@
             follow();
         }
 
-        // A growing answer changes the height of the list without adding a node
-        // to it, so the tail is followed on resize rather than on mutation.
         resizeObserver = new ResizeObserver(() => {
             if (isSticky && isFollowing) {
                 follow();
@@ -134,8 +131,6 @@
         }
     }
 
-    // The list renders before the empty state, so this reads what `turns()` just
-    // produced instead of walking the slot a second time.
     function isEmpty(): boolean {
         return renderedTurns.length === 0;
     }
@@ -155,8 +150,6 @@
         });
     }
 
-    // Re-read the slot on every render rather than memoizing it: a conversation
-    // that grows or reorders would otherwise keep rendering stale VNodes.
     function turns(): ConversationTurn[] {
         let previousDay: string | undefined;
 
@@ -186,9 +179,6 @@
 
         const {clientHeight, scrollHeight, scrollTop} = scroller;
 
-        // Every scroll this component performs runs toward the bottom, so a
-        // shrinking scrollTop can only have come from the user. The pixel of
-        // slack absorbs the sub-pixel rounding of a zoomed display.
         if (scrollTop < lastScrollTop - 1) {
             isFollowing = false;
         }

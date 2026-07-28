@@ -101,8 +101,6 @@
 
         const clamped = element.clientHeight;
 
-        // Lifting the clamp and reading back happens within this task, so the browser
-        // never paints the unclamped content.
         element.style.setProperty('-webkit-line-clamp', 'unset');
         const full = element.scrollHeight;
         element.style.removeProperty('-webkit-line-clamp');
@@ -131,8 +129,6 @@
             return;
         }
 
-        // Both target heights are measured within this task, so the browser never paints
-        // the intermediate clamp.
         isClamped.value = true;
         await nextTick();
         const collapsedHeight = element.offsetHeight;

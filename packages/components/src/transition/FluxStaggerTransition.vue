@@ -56,9 +56,6 @@
 
         isResetScheduled = true;
 
-        // note: the counter restarts after the render batch that inserted these items,
-        // so items entering an already mounted list start over instead of continuing
-        // where the list left off.
         nextTick(() => {
             index = 0;
             isResetScheduled = false;

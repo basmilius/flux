@@ -133,11 +133,7 @@
 
     const translate = useAiTranslate();
 
-    // Past this the signature stops fitting on one line on a narrow conversation,
-    // and the rest is one fold away.
     const SIGNATURE_LIMIT = 60;
-    // A value long enough to bury the argument it belongs to is cut here, so a
-    // single sprawling string cannot hide the ones after it.
     const VALUE_LIMIT = 24;
 
     const STATUS_CLASS: Readonly<Record<FluxAiToolCallStatus, string>> = Object.freeze({
@@ -177,8 +173,6 @@
 
     onUnmounted(() => clearTimeout(copiedTimer));
 
-    // Model output is not guaranteed to be valid JSON, so anything that does not parse is
-    // shown exactly as it arrived rather than swallowed.
     function formatJson(value: string | Record<string, unknown>): string {
         try {
             return JSON.stringify(typeof value === 'string' ? JSON.parse(value) : value, null, 4);
@@ -187,11 +181,6 @@
         }
     }
 
-    /**
-     * Writes the arguments the way the call would have been written in code, so the
-     * collapsed line already says what the tool was asked. Arguments that do not
-     * parse as an object have no shape to summarize and are left out entirely.
-     */
     function summarizeArguments(value: string | Record<string, unknown> | undefined): string {
         const parsed = parseArguments(value);
 

@@ -5,9 +5,7 @@ import { isSSR, type TemplateRef, unrefTemplateElement } from '../util';
 export type DragContext = {
     readonly dx: number;
     readonly dy: number;
-    /** Horizontal speed over the recent samples, px per millisecond. */
     readonly vx: number;
-    /** Vertical speed over the recent samples, px per millisecond. */
     readonly vy: number;
 };
 
@@ -22,9 +20,7 @@ export type PointerDragContext = DragContext & {
 export type PointerDragAxis = 'x' | 'y' | 'both';
 
 export type UsePointerDragOptions = {
-    /** Pass a function when the axis depends on state that changes after setup. */
     readonly axis?: PointerDragAxis | (() => PointerDragAxis);
-    /** Moves the origin to where the threshold was passed, so the drag starts at zero. */
     readonly rebaseOnThreshold?: boolean;
     readonly threshold?: number | ((event: PointerEvent) => number);
     onCancel?(): void;
@@ -172,8 +168,6 @@ export default function <TElement extends HTMLElement>(elementRef: TemplateRef<T
             }
         }
 
-        // Capturing only once the drag is real keeps pointer driven controls inside the
-        // element working, since their events are not retargeted before the threshold.
         function capture(): void {
             if (pointerId !== null) {
                 element!.setPointerCapture(pointerId);

@@ -1,7 +1,5 @@
 @use '~flux/components/css/mixin';
 
-// Height and line height are held below the 24px line box of the surrounding prose, so a
-// marker never stretches the line it sits in nor moves its baseline.
 .aiCitationMarker {
     @include mixin.text(2xsmall, 1);
 
@@ -19,7 +17,6 @@
     font-variant-numeric: tabular-nums;
     transition: background var(--transition-default);
     transition-property: background, border-color, color, mixin.focus-ring-transition-properties();
-    // Keeps the number out of a selection, so copying a paragraph copies the prose alone.
     user-select: none;
 
     @include mixin.focus-ring(2px);

@@ -31,9 +31,6 @@
         code(props: MarkdownCodeProps): any;
     }>();
 
-    // Holds the code slot so it is invoked while this renders, not while the
-    // markdown is built: a settled block keeps its vnode forever, and only an
-    // instance of its own re-renders when the consumer's state changes.
     const CodeBlock = defineComponent((props: {
         readonly code: string;
         readonly language?: string;

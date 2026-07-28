@@ -103,7 +103,6 @@
     }
 }
 
-// The leave transition takes its items out of the flow, which needs this as their containing block.
 .staggerTransition {
     position: relative;
 }

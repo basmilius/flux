@@ -2,24 +2,16 @@ import { onScopeDispose, readonly, ref, type Ref } from 'vue';
 import { isSSR, prefersReducedMotion } from '../util';
 
 export type SpringProfile = {
-    /**
-     * Resistance. At `2 * sqrt(stiffness * mass)` the spring stops without ever
-     * passing its target; below that it overshoots once and comes back.
-     */
     readonly damping?: number;
-    /** Inertia of the animated value. */
     readonly mass?: number;
-    /** Pull towards the target; higher is snappier. */
     readonly stiffness?: number;
 };
 
 export type UseSpringOptions = SpringProfile & {
-    /** Distance and speed below which the spring is considered at rest. */
     readonly precision?: number;
 };
 
 export type UseSpringSetOptions = SpringProfile & {
-    /** Speed the value carries into the spring, units per millisecond. */
     readonly velocity?: number;
 };
 
@@ -83,8 +75,6 @@ export default function (initial: number, options: UseSpringOptions = {}): UseSp
     function step(now: number): void {
         const {damping, mass, stiffness} = current;
 
-        // A long frame integrated in one go would let the spring overshoot wildly,
-        // so time always advances in fixed slices no matter how late we are.
         let remaining = Math.min(now - lastTime, MAX_FRAME);
         let position = value.value;
 

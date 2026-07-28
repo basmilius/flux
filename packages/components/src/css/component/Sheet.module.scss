@@ -28,8 +28,6 @@
     display: flex;
     overflow: hidden;
     touch-action: pan-y;
-    // `translate` is driven by a spring, frame by frame, so that a flick keeps its speed;
-    // only the stacking feedback is a transition.
     transition: 480ms var(--swift-out);
     transition-property: filter, scale;
 
@@ -54,8 +52,6 @@
     border-block: 0;
 }
 
-// The first shadow continues the sheet past the screen edge, so pulling it beyond its
-// tallest snap point stretches into that strip instead of opening a gap behind it.
 .sheetSurface.isBottom {
     @include mixin.elevation('surface', var(--radius-double) var(--radius-double) 0 0);
 
@@ -187,15 +183,12 @@
     }
 }
 
-// The grabber sits against the edge the sheet is pulled away from, whichever side the
-// markup puts it on.
 .sheetSurface.isTop > .sheetGrabber,
 .sheetSurface.isLeft > .sheetGrabber {
     order: 1;
 }
 
 .sheet.isCurrent {
-    // The whole layer takes pointer events, so a click beside the sheet reaches it.
     pointer-events: auto;
 }
 
@@ -204,8 +197,6 @@
     scale: .975;
 }
 
-// The sheet is opaque from the first frame to the last: it travels, it does not appear.
-// Only the shade behind it fades, and that is keyed on the leaving dialog's class.
 .sheetTransitionEnterActive,
 .sheetTransitionEnterFrom {
     opacity: 1;
@@ -217,10 +208,6 @@
     opacity: 1;
 }
 
-// A surface that carries its own spring, as FluxSheet's does, is exempt from the arrival:
-// the spring is already writing `--sheet-offset` every frame and a transition on top of it
-// would smear the overshoot away. Leaving is always this transition's own, so it never
-// overshoots and never hesitates on its way out.
 .sheetTransitionEnterActive > .sheetSurface:not(.isSprung),
 .sheetTransitionLeaveActive > .sheetSurface {
     transition: translate 480ms var(--swift-out);

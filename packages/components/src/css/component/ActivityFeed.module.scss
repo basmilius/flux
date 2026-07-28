@@ -15,7 +15,6 @@
 
     display: flex;
     margin: 0;
-    // Aligns the label with the body column: marker column plus its gap.
     padding-inline-start: 45px;
     align-items: center;
     color: var(--foreground-secondary);
@@ -33,7 +32,6 @@
 
 .activityFeedItemAvatar,
 .activityFeedItemIcon {
-    // Centers a 30px marker on the 24px line box of the action sentence.
     margin-block-start: -3px;
 }
 

@@ -55,8 +55,6 @@
     const attrs = useAttrs();
     const disabled = useDisabledInjection();
 
-    // The icon is aria-hidden, so an action without a label has no accessible name of its
-    // own and a screen reader announces nothing but "button".
     if (import.meta.env.DEV && !label && !attrs['aria-label'] && !attrs['aria-labelledby']) {
         warn('FluxSwipeAction', 'an icon-only action needs an aria-label or aria-labelledby, otherwise it has no accessible name.');
     }

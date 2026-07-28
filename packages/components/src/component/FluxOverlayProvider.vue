@@ -40,8 +40,6 @@
 
     const {alerts, confirms, prompts, shadeOpacity} = useFluxStore();
 
-    // A dialog only lowers the shade while a gesture drives it, and that value is
-    // already animated frame by frame; transitioning it again would trail the finger.
     const shadeStyle = computed(() => ({
         '--overlay-shade-opacity': unref(shadeOpacity),
         transition: unref(shadeOpacity) < 1 ? 'none' : undefined

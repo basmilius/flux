@@ -14,7 +14,6 @@
 
     @include mixin.focus-outline;
 
-    // The field carries no border of its own, so the composer wears the ring for it.
     &:has(.aiPromptInputField:focus-visible) {
         @include mixin.focus-outline-visible(2px);
     }
@@ -114,8 +113,6 @@
     }
 }
 
-// Without `field-sizing` the height comes from the `rows` attribute, so the composer
-// opens on three lines and scrolls from there instead of growing from one.
 @supports not (field-sizing: content) {
     .aiPromptInputField {
         min-height: 3lh;

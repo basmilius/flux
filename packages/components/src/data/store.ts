@@ -15,7 +15,6 @@ export type FluxDialogRegistration = {
 
     getPosition(): number;
     isCurrent(): boolean;
-    /** Opacity the shade should have while this dialog is the current one. */
     setShadeOpacity(opacity: number): void;
     unregister(): void;
 };
@@ -71,8 +70,6 @@ const state = reactive<FluxState>({
 let nextDialogId: number = 0;
 let nextId: number = 0;
 
-// Kept out of `FluxState` because it is written every animation frame while a
-// sheet is dragged; only the resulting opacity is of interest to consumers.
 const shadeOpacities = reactive<Record<number, number>>({});
 
 const inertMain = computed(() => state.dialogs.length > 0);

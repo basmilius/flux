@@ -116,8 +116,6 @@
             return;
         }
 
-        // The opener is rendered before the actions, so it is the first focusable
-        // element of the dial.
         getFocusableElements(element)[0]?.focus();
     });
 

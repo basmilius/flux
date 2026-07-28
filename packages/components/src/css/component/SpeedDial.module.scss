@@ -25,8 +25,6 @@ $-stagger-step: 45ms;
 }
 
 .speedDialOpener {
-    // The icon fades out before its replacement fades in, so the button is
-    // briefly empty and would collapse onto its own padding.
     min-width: $-opener-size;
     border-radius: var(--radius-full);
     box-shadow: var(--shadow-lg);
@@ -45,8 +43,6 @@ $-stagger-step: 45ms;
     display: flex;
     gap: 12px;
     visibility: hidden;
-    // Waits for the actions to fade out, and takes them out of the tab order and
-    // the accessibility tree once they are gone.
     transition: visibility 0s linear $-close-duration;
 }
 
@@ -115,8 +111,6 @@ $-stagger-step: 45ms;
     translate: none;
     transition: $-open-duration var(--deceleration-curve);
     transition-property: opacity, scale, translate;
-    // Actions past the staggered range fall back to the last delay, so they arrive
-    // with the tail of the fan instead of ahead of it.
     transition-delay: calc(var(--index, #{$-stagger-count - 1}) * #{$-stagger-step});
 }
 
@@ -151,7 +145,6 @@ $-stagger-step: 45ms;
     }
 }
 
-// The icon sits on the edge the actions align to, so it lines up with the opener.
 .speedDial:is(.isUp, .isDown).isCornerStart .speedDialAction,
 .speedDial.isEnd .speedDialAction {
     flex-direction: row-reverse;

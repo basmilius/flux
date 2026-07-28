@@ -1,19 +1,11 @@
 import { reactive } from 'vue';
 
 export type FluxAiStreamingConfig = {
-    /**
-     * Fades every word in as it arrives. Turning this off renders a growing
-     * response without any transition at all.
-     */
     hasFade: boolean;
     fadeDuration: number;
 };
 
 export type FluxAiToolCallConfig = {
-    /**
-     * Past this many characters the tail of a result moves behind a button,
-     * because a result that long stops being scannable.
-     */
     resultLimit: number;
 };
 

@@ -23,9 +23,6 @@
     import FluxDynamicView from './FluxDynamicView.vue';
     import $style from '~flux/components/css/component/Masonry.module.scss';
 
-    // Mirrors the breakpoints in css/mixin/breakpoints.scss, but measured against the
-    // masonry itself instead of the viewport. A container cannot query its own width,
-    // so the column count comes from the same observer that measures the items.
     const BREAKPOINTS = {
         xs: 0,
         sm: 640,
@@ -62,7 +59,6 @@
     const width = ref(0);
 
     const columnsPerBreakpoint = computed(() => {
-        // The shorthand keeps the same floor as the object form: a phone gets one column.
         if (typeof columns === 'number') {
             return {
                 xs: 1,
@@ -112,8 +108,6 @@
 
         width.value = masonry.clientWidth;
 
-        // The rows are 1px each and the row gap is zero, so an item claims its own height
-        // plus the gap that has to sit below it.
         const measured = Array.from(masonry.children)
             .filter(item => item instanceof HTMLElement)
             .map(item => Math.ceil(item.getBoundingClientRect().height) + gap);

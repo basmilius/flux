@@ -11,8 +11,6 @@
     display: block;
     overflow: clip;
 
-    // Picks up the rounded corners of a surrounding surface, so a revealed action never
-    // paints over the corner of the pane the row sits in.
     &:first-child {
         border-start-start-radius: inherit;
         border-start-end-radius: inherit;
@@ -28,8 +26,6 @@
     position: relative;
     z-index: 1;
     background: var(--surface-current);
-    // Only the edge that the swipe reveals rounds off; the opposite one keeps sitting on the
-    // corner of the surface around it.
     border-start-start-radius: calc(var(--radius) * var(--swipe-open-start));
     border-end-start-radius: calc(var(--radius) * var(--swipe-open-start));
     border-start-end-radius: calc(var(--radius) * var(--swipe-open-end));
@@ -42,9 +38,6 @@
     }
 }
 
-// The group is anchored to its own edge and pulled outwards by its own width, so its inner
-// edge sits exactly on the edge of the row. Past the natural width the width takes over and
-// the translate lands on zero, which is the room the primary action grows into.
 .swipeActionsGroup {
     position: absolute;
     inset-block: 0;
@@ -81,8 +74,6 @@
     flex-flow: row nowrap;
     overflow: hidden;
     min-width: 42px;
-    // A fixed height rather than a minimum, so the cap below can actually apply: a row
-    // shorter than the pill shrinks it instead of clipping it against `overflow: clip`.
     height: 42px;
     max-height: 100%;
     padding: 6px 18px;
@@ -111,20 +102,15 @@
         opacity: .5;
     }
 
-    // Matches the minimum height, so a lone icon sits in a circle instead of in a stadium.
     &.isIconOnly {
         padding: 6px;
     }
 
-    // Absorbs every pixel the row travels past the action area, which is the growth that
-    // announces the full swipe.
     &.isPrimary {
         flex: 1 1 auto;
     }
 }
 
-// Armed: releasing now fires the primary action, so the rest folds away and leaves it the
-// whole track.
 .swipeActionsGroup.isArmed > .swipeAction:not(.isPrimary) {
     flex-basis: 0;
     min-width: 0;

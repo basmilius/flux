@@ -35,8 +35,6 @@
                         <span :class="$style.modelSelectName">
                             {{ model.name }}
                         </span>
-
-                        <!-- A badge renders as a focusable element, which the menu's roving focus would treat as an option of its own. -->
                         <FluxBadge
                             v-if="model.badge"
                             :class="$style.modelSelectBadge"

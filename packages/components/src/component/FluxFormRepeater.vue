@@ -142,8 +142,6 @@
     const disabled = useDisabled(toRef(() => componentDisabled));
     const translate = useTranslate();
 
-    // The rows come from the consumer and may not carry an id, so identity is kept here
-    // instead of in the model. Without it a reorder rebuilds every input and drops its state.
     const keyByRow = new WeakMap<object, string>();
     const positionalKeys: string[] = [];
     let keyCounter = 0;
@@ -208,7 +206,6 @@
             announce(translate('flux.repeaterMoveCancelled'));
         },
         announce() {
-            // The repeater announces grab, move, drop and cancel through its own live region.
         }
     });
 
@@ -299,7 +296,6 @@
             return;
         }
 
-        // The add action sits after the rows, so without this the new fields are behind the user.
         getFocusableElements(rowElement)
             .find(element => !element.matches('[data-flux-repeater-handle], [data-flux-repeater-remove]'))
             ?.focus();
@@ -321,7 +317,6 @@
                 message: translate('flux.repeaterRemoveMessage')
             });
 
-            // The model may have moved on while the confirm was open, so the row is located again.
             position = indexOfKey(key);
 
             if (!isConfirmed || position === -1 || !canRemoveRow.value) {
@@ -424,7 +419,6 @@
         moveRow(from, to > from ? to - 1 : to);
     }
 
-    // Only a drop on a row moves it; a release anywhere else ends the drag without a move.
     function onDragEnd(): void {
         dragIndex.value = null;
         dropIndex.value = null;

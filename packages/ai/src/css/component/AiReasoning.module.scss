@@ -5,8 +5,6 @@
     @include mixin.elevation('sunken');
 }
 
-// No overflow clipping on the block itself: the header fills it edge to edge and
-// its focus ring would be cut off by it.
 .reasoningHeader {
     display: flex;
     height: 42px;
@@ -70,8 +68,6 @@
     @include ai.word-fade;
 }
 
-// The label sweeps while the model is still reasoning. Both edges of the gradient
-// carry the base color, so the repeated tile keeps the text painted at every step.
 .reasoning.isStreaming .reasoningLabel {
     animation: reasoningShimmer 2s linear infinite;
     color: transparent;

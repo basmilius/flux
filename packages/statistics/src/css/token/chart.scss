@@ -1,10 +1,6 @@
 @use 'sass:list';
 @use '~flux/components/css/token/theme';
 
-// A hue is picked at the lightness it wants, not at one the whole set shares: yellow at
-// the lightness of blue is olive. The floors live in `scripts/check-contrast.ts`.
-
-// blue, red, purple, teal, green, pink, orange, amber.
 $categorical-light:
     (.623 .188 259.8)
     (.637 .208 25.3)
@@ -15,8 +11,6 @@ $categorical-light:
     (.705 .187 47.6)
     (.769 .165 70.1);
 
-// The same hues lifted for a dark ground; a series that shifts hue on a theme flip reads
-// as a different series.
 $categorical-dark:
     (.714 .143 259.8)
     (.711 .166 25.3)
@@ -39,10 +33,6 @@ $ramp-dark:
     (.612 .17 264)
     (.762 .109 264);
 
-// red, orange, amber, yellow, lime, green, emerald, teal, cyan, sky, blue, indigo,
-// violet, purple, fuchsia, pink, rose. Yellow and lime sit darker than the hue they name,
-// and rose halfway between pink and red rather than beside it: at this count the set runs
-// out of contrast and out of gaps before it runs out of gamut.
 $colorful-light:
     (.637 .208 25.3)
     (.705 .187 47.6)

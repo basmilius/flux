@@ -261,8 +261,6 @@
         }
     });
 
-    // A width handed down by the consumer replaces a dragged one, so restoring a
-    // saved column layout wins from stale local state.
     watch(() => width, () => {
         resizedWidth.value = null;
     });

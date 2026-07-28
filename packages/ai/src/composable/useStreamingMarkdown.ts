@@ -4,10 +4,6 @@ import { findBlockBoundary, lexMarkdown, type MarkdownCodeProps, type MarkdownCo
 
 export type UseStreamingMarkdownOptions = {
     readonly content: MaybeRefOrGetter<string>;
-    /**
-     * The class each word of the growing tail is wrapped in. Leave it out to
-     * render the response without a per-word transition.
-     */
     readonly fadeClass?: MaybeRefOrGetter<string | null>;
     readonly isStreaming?: MaybeRefOrGetter<boolean>;
     renderCode(props: MarkdownCodeProps): VNode;
@@ -41,9 +37,6 @@ export function useStreamingMarkdown(options: UseStreamingMarkdownOptions): UseS
 
         source = content;
 
-        // Markdown allows a link reference definition to follow the text that uses
-        // it, and that text may already have settled. `build` bails out when the
-        // tail defines one, after which the second pass knows it up front.
         const rendered = build(content, isStreaming);
 
         if (rendered) {

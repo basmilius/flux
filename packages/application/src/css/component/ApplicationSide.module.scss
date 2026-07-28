@@ -1,7 +1,5 @@
 @use '~flux/components/css/mixin';
 
-// The panel stays mounted and slides out of view, so the shell's padding and the
-// panel travel over the same duration instead of one snapping while the other eases.
 .applicationSide {
     position: fixed;
     display: flex;
@@ -23,8 +21,6 @@
     }
 }
 
-// Only ever shown while the panel floats over the content, which is why it is
-// display: none by default rather than merely transparent.
 .applicationSideBackdrop {
     position: fixed;
     display: none;
@@ -39,8 +35,6 @@
     z-index: 1900;
 }
 
-// There is no room for a 300px column beside the content here, so the panel stops
-// pushing and starts covering, the same move the menu makes at its own breakpoint.
 @include mixin.breakpoint-down(lg) {
     .applicationSide {
         z-index: 2000;

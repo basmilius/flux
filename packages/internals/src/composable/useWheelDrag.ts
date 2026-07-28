@@ -11,7 +11,6 @@ export type WheelDragContext = DragContext & {
 
 export type UseWheelDragOptions = {
     readonly axis?: WheelDragAxis;
-    /** How long after the last event the gesture is considered over, in milliseconds. */
     readonly idle?: number;
     onEnd?(context: WheelDragContext): void;
     onMove?(context: WheelDragContext): void;
@@ -32,8 +31,6 @@ type Sample = {
 // A wheel event in line or page mode carries steps, not pixels.
 const LINE_HEIGHT = 16;
 
-// Short enough that the gesture lands right after the fingers stop, long enough to bridge
-// the gap between two events of a slow swipe.
 const IDLE = 80;
 const VELOCITY_WINDOW = 100;
 
@@ -121,8 +118,7 @@ export default function <TElement extends HTMLElement>(elementRef: TemplateRef<T
     }
 
     function onWheel(evt: WheelEvent): void {
-        // Every browser but Safari sends a pinch as ctrl + wheel, which belongs to
-        // the page and never to the gesture.
+        // Every browser but Safari sends a pinch as ctrl + wheel, which belongs to the page.
         if (evt.ctrlKey || evt.metaKey) {
             return;
         }
@@ -131,9 +127,6 @@ export default function <TElement extends HTMLElement>(elementRef: TemplateRef<T
         const deltaX = evt.deltaX * scale;
         const deltaY = evt.deltaY * scale;
 
-        // Only a swipe that leans on this axis takes the gesture; anything else is a
-        // scroll and stays with the page. Once it is taken the axis is settled, so a
-        // wobbly finger cannot hand it back halfway.
         if (!isWheeling.value) {
             const dominant = axis === 'x' ? Math.abs(deltaX) > Math.abs(deltaY) : Math.abs(deltaY) > Math.abs(deltaX);
 
@@ -146,8 +139,6 @@ export default function <TElement extends HTMLElement>(elementRef: TemplateRef<T
             sample(evt.timeStamp);
         }
 
-        // Claiming the gesture also keeps the back and forward navigation swipe of
-        // macOS from running over the element.
         evt.preventDefault();
 
         if (axis === 'x') {

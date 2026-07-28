@@ -123,7 +123,6 @@
         close();
     }
 
-    // Dismissing the popup without pressing a button counts as a cancel.
     function onFlyoutClose(): void {
         if (!isDecided) {
             emit('cancel');

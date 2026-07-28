@@ -2,12 +2,8 @@ import type { Token, Tokens } from 'marked';
 import { cloneVNode, defineComponent, h, type PropType, type VNode } from 'vue';
 import { IMAGE_PROTOCOLS, sanitizeUrl } from './markdown';
 
-// A link that leaves the page: it names a scheme or is protocol relative. A
-// relative path and a bare fragment stay in the document.
 const EXTERNAL = /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i;
 
-// A word together with the whitespace that leads up to it, or a run of trailing
-// whitespace, so splitting and joining a string never loses a space.
 const WORD = /\s*\S+|\s+/g;
 
 export type MarkdownChild = VNode | string;
@@ -18,17 +14,7 @@ export type MarkdownCodeProps = {
 };
 
 export type WordFade = {
-    /**
-     * The class that fades one word in. It is set while the tail of the response
-     * is still being written and `null` for text that has settled, which renders
-     * that text as a plain string again.
-     */
     readonly fadeClass: string | null;
-    /**
-     * Numbers the words of a single render. A word keeps its key while more text
-     * arrives, so the renderer reuses its element and the animation on it plays
-     * exactly once, which leaves only the newly arrived words fading in.
-     */
     wordIndex: number;
 };
 
@@ -36,11 +22,6 @@ export type MarkdownContext = WordFade & {
     renderCode(props: MarkdownCodeProps): VNode;
 };
 
-/**
- * Holds one rendered block. A block that is done keeps handing over the very same
- * vnode, which leaves its props unchanged, and an unchanged prop makes the
- * renderer skip the whole subtree instead of walking it again on every token.
- */
 const MarkdownBlock = defineComponent({
     props: {
         node: {
@@ -126,10 +107,6 @@ function renderBlock(token: Token, context: MarkdownContext, key: number): VNode
     }
 }
 
-/**
- * Renders the children of a list item or a blockquote, where marked mixes block
- * tokens with the bare `text` tokens of a tight list.
- */
 function renderFlow(tokens: Token[], context: MarkdownContext): MarkdownChild[] {
     const children: MarkdownChild[] = [];
 
@@ -189,8 +166,6 @@ function renderInlineToken(token: Token, context: MarkdownContext, key: number):
         case 'escape':
             return renderText((token as Tokens.Escape).text, context);
 
-        // Both a raw html block and an inline tag arrive as this type. Rendering
-        // the source as text is what keeps markup in a response inert.
         case 'html':
             return renderText((token as Tokens.Tag).text, context);
 

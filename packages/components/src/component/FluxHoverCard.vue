@@ -96,7 +96,6 @@
 
     watch(disabled, value => value && close());
 
-    // The card is announced as the description of the opener, so a keyboard user hears it too.
     watch(isOpen, value => {
         describedElement?.removeAttribute('aria-describedby');
         describedElement = value ? resolveOpener() : null;
@@ -163,8 +162,6 @@
             return;
         }
 
-        // The top layer lifts the card out of every clipping and stacking context around the
-        // opener, while the element itself stays next to the opener in the DOM.
         element.showPopover();
         popupRef.value?.reposition();
     }
@@ -178,7 +175,6 @@
 
         openerElement = target;
 
-        // Only a keyboard focus opens the card, so a click or a tap leaves the opener alone.
         if (target.matches(':focus-visible')) {
             open();
         }
@@ -195,7 +191,6 @@
     }
 
     function onPointerEnter(evt: PointerEvent): void {
-        // A touch device has no resting pointer, so the opener keeps its own tap behavior.
         if (evt.pointerType === 'touch') {
             return;
         }

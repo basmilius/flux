@@ -3,11 +3,8 @@ import type { FluxDirection } from '@flux-ui/types';
 import { computed, ref } from 'vue';
 
 export type ElasticResistanceOptions = {
-    /** Distance past the bound before resistance engages, px. */
     readonly deadZone?: number;
-    /** Ceiling the damped distance approaches but never reaches, px. */
     readonly max?: number;
-    /** Damping range of the curve (larger = softer), px. */
     readonly range?: number;
 };
 

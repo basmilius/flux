@@ -64,8 +64,6 @@
         resetFocus();
     }
 
-    // The button unmounts at the top, so focus moves to the scrolled region itself. The
-    // temporary tabindex makes it focusable without adding it to the tab order.
     function resetFocus(): void {
         const element = target ?? document.body;
 

@@ -74,8 +74,6 @@
 
     const translate = useTranslate();
 
-    // Falling back to the label would collide as soon as two lanes share one, since the
-    // label is part of the cell id every drop resolves against.
     const fallbackId = useId();
 
     const toggleLabel = computed(() => isCollapsed.value ? translate('flux.expandGroup') : translate('flux.collapseGroup'));

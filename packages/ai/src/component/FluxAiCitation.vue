@@ -69,8 +69,6 @@
 
     const descriptionId = useId();
 
-    // The card only exists while it is open, so the passage also travels with the marker
-    // as its accessible description.
     const description = computed(() => [title, excerpt].filter(Boolean).join('. '));
     const sourceLabel = computed(() => translate('flux.ai.citationSource', {index}));
 </script>

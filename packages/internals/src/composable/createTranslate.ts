@@ -2,8 +2,6 @@ import { useI18n } from 'vue-i18n';
 
 export type TranslateParams = Record<string, string | number>;
 
-// `string & {}` keeps autocomplete on the keys of the dictionary while still accepting
-// any other string, which is what lets a chart put a name it was given through here.
 export type TranslateFunction<K extends string> = (key: K | (string & {}), params?: TranslateParams) => string;
 
 /**

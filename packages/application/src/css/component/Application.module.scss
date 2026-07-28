@@ -61,9 +61,6 @@
     }
 }
 
-// Below `lg` the panel floats over the content instead of beside it, so the shell
-// stops reserving its width. The selector has to carry the same `:not()` as the rule
-// it overrides, otherwise that one is more specific and the strip stays reserved.
 @include mixin.breakpoint-down(lg) {
     .application:has(> .applicationSide:not([data-collapsed])) {
         padding-right: 0;

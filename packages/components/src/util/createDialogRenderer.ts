@@ -15,7 +15,6 @@ export type FluxDialogContext = {
 };
 
 export type FluxDialogRenderer = {
-    /** The dialog element itself, the full-screen layer the surface sits in. */
     readonly dialogRef: Ref<HTMLElement | undefined>;
     getRegistration(): FluxDialogRegistration | null;
     render: RenderFunction;
