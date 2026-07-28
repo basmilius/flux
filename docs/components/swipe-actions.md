@@ -54,6 +54,10 @@ Mark one action per side with `is-primary` and that side can be swiped through: 
 :::
 
 ::: tip
+A trackpad drives the same gesture: swiping two fingers sideways over the row moves it along, and the browser keeps its own back and forward swipe out of it. Only a swipe that leans sideways is taken, so scrolling the page over a row keeps working. Two fingers carry no press to hold back with, so a swipe out of a closed row stops at its actions; swiping an already open row through is what fires its primary action. A trackpad never says that the fingers left it, so the row lands as soon as the swipe and its momentum stop.
+:::
+
+::: tip
 The row is elastic at its bounds. Dragging past the actions, past a side that cannot be swiped through, or towards a side that has none, keeps moving the row against a resistance that builds quickly, then springs it back on release. Releasing hands the speed of the pointer to the spring, so a flick carries through instead of stopping dead.
 :::
 

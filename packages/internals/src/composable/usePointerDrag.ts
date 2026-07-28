@@ -1,16 +1,20 @@
 import { readonly, ref, type Ref, watch } from 'vue';
 import { isSSR, type TemplateRef, unrefTemplateElement } from '../util';
 
-export type PointerDragContext = {
+/** What every gesture reports, whatever device drives it. */
+export type DragContext = {
     readonly dx: number;
     readonly dy: number;
-    readonly event: PointerEvent;
-    readonly startX: number;
-    readonly startY: number;
     /** Horizontal speed over the recent samples, px per millisecond. */
     readonly vx: number;
     /** Vertical speed over the recent samples, px per millisecond. */
     readonly vy: number;
+};
+
+export type PointerDragContext = DragContext & {
+    readonly event: PointerEvent;
+    readonly startX: number;
+    readonly startY: number;
     readonly x: number;
     readonly y: number;
 };

@@ -1,5 +1,6 @@
 <template>
     <div
+        ref="wrapper"
         :class="$style.swipeActions"
         :style="style">
         <div
@@ -39,7 +40,7 @@
     lang="ts"
     setup>
     import { useResizeObserver } from '@basmilius/common';
-    import { type PointerDragContext, unrefTemplateElement, usePointerDrag, useSpring, warn } from '@flux-ui/internals';
+    import { type DragContext, unrefTemplateElement, usePointerDrag, useSpring, useWheelDrag, warn } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { computed, onMounted, onScopeDispose, provide, ref, toRef, unref, useTemplateRef, type VNode, watch } from 'vue';
     import { useDisabled } from '~flux/components/composable';
@@ -81,10 +82,12 @@
     const endRef = useTemplateRef<HTMLElement>('end');
     const rowRef = useTemplateRef<HTMLElement>('row');
     const startRef = useTemplateRef<HTMLElement>('start');
+    const wrapperRef = useTemplateRef<HTMLElement>('wrapper');
 
     const offset = useSpring(0);
 
     const directionFactor = ref(1);
+    const isArmable = ref(true);
     const rowSize = ref(0);
     const area = ref<Record<FluxSwipeActionsSide, number>>({start: 0, end: 0});
     const hasPrimary = ref<Record<FluxSwipeActionsSide, boolean>>({start: false, end: false});
@@ -103,9 +106,18 @@
         axis: 'x',
         threshold: DRAG_THRESHOLD,
         onCancel: onDragCancel,
-        onEnd: onDragEnd,
+        onEnd: onPointerDragEnd,
         onMove: onDragMove,
         onStart: onDragStart
+    });
+
+    // A trackpad drives the same gesture from anywhere over the row, including the actions
+    // that are already showing, so it listens on the wrapper instead of on the row.
+    const {cancel: cancelWheel, isWheeling} = useWheelDrag(wrapperRef, {
+        axis: 'x',
+        onEnd: onDragEnd,
+        onMove: onDragMove,
+        onStart: onWheelStart
     });
 
     const style = computed(() => ({
@@ -120,7 +132,7 @@
         const value = unref(offset.value);
         const side = sideOf(value);
 
-        if (side === null || !unref(hasPrimary)[side]) {
+        if (!unref(isArmable) || side === null || !unref(hasPrimary)[side]) {
             return null;
         }
 
@@ -130,7 +142,7 @@
     provide(FluxDisabledInjectionKey, disabled);
 
     useResizeObserver(rowRef, () => {
-        if (unref(isDragging) || pendingFullSwipe) {
+        if (unref(isDragging) || unref(isWheeling) || pendingFullSwipe) {
             return;
         }
 
@@ -141,6 +153,7 @@
     watch(openSide, side => settle(side));
     watch(disabled, value => {
         if (value) {
+            cancelWheel();
             close();
         }
     });
@@ -151,6 +164,41 @@
     });
 
     onScopeDispose(cancelFullSwipe);
+
+    // Everything a gesture needs before its first move, whichever device drives it.
+    function beginGesture(allowFullSwipe: boolean): boolean {
+        if (unref(disabled)) {
+            return false;
+        }
+
+        cancelFullSwipe();
+        measure();
+
+        const size = unref(rowSize);
+        const sizes = unref(area);
+        const primaries = unref(hasPrimary);
+
+        isArmable.value = allowFullSwipe;
+
+        // Only a side that can be swiped through travels further than its actions; without a
+        // primary action the elastic resistance starts right where the actions end.
+        maxOffset = sizes.start === 0 ? 0 : allowFullSwipe && primaries.start ? size : sizes.start;
+        minOffset = sizes.end === 0 ? 0 : -(allowFullSwipe && primaries.end ? size : sizes.end);
+        startOffset = unref(offset.value);
+
+        // A gesture that starts on an open row can only work that side, so swiping it shut
+        // stops at the closed position instead of running on into the other side. Opening
+        // that one takes a new gesture, once the row has come to rest.
+        const from = sideOf(startOffset);
+
+        if (from === 'start') {
+            minOffset = 0;
+        } else if (from === 'end') {
+            maxOffset = 0;
+        }
+
+        return true;
+    }
 
     function close(): void {
         openSide.value = null;
@@ -294,9 +342,7 @@
         settle(unref(openSide));
     }
 
-    function onDragEnd({vx}: PointerDragContext): void {
-        suppressClick = true;
-
+    function onDragEnd({vx}: DragContext): void {
         const value = unref(offset.value);
         const side = sideOf(value);
 
@@ -342,7 +388,7 @@
         close();
     }
 
-    function onDragMove({dx}: PointerDragContext): void {
+    function onDragMove({dx}: DragContext): void {
         const wanted = startOffset + dx * unref(directionFactor);
         const bounded = Math.min(maxOffset, Math.max(minOffset, wanted));
 
@@ -350,25 +396,29 @@
     }
 
     function onDragStart(): boolean {
-        if (unref(disabled)) {
+        // A pointer that goes down mid glide takes over from the trackpad, so both never
+        // pull at the offset at once.
+        cancelWheel();
+
+        if (!beginGesture(true)) {
             return false;
         }
 
-        cancelFullSwipe();
-        measure();
-
-        const size = unref(rowSize);
-        const sizes = unref(area);
-        const primaries = unref(hasPrimary);
-
-        // Only a side that can be swiped through travels further than its actions; without a
-        // primary action the elastic resistance starts right where the actions end.
-        maxOffset = sizes.start === 0 ? 0 : primaries.start ? size : sizes.start;
-        minOffset = sizes.end === 0 ? 0 : -(primaries.end ? size : sizes.end);
-        startOffset = unref(offset.value);
         suppressClick = false;
 
         return true;
+    }
+
+    function onPointerDragEnd(context: DragContext): void {
+        suppressClick = true;
+        onDragEnd(context);
+    }
+
+    // Two fingers carry no press to hold back with, so a swipe out of a closed row stops at
+    // its actions. Only a row that is already open can be swiped through, which is a second
+    // deliberate gesture and never a slip of the hand.
+    function onWheelStart(): boolean {
+        return !unref(isDragging) && beginGesture(unref(offset.value) !== 0);
     }
 
     // A drag ends in a click on whatever sits under the pointer. Swallowing that one click keeps
