@@ -21,10 +21,8 @@ render=../../code/components/transitions/slide-over/preview.vue
 
 <FrontmatterDocs/>
 
-## Snippet
+## Examples
 
-::: code-group
-
-<<< @/code/components/transitions/slide-over/preview.vue [FluxSlideOverTransition.vue]
-
+::: example Basic || A panel slides in over the content from the side of the screen.
+example=../../code/components/transitions/slide-over/preview.vue
 :::

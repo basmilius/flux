@@ -20,7 +20,7 @@ props:
 
     -   name: position
         description: The edge the sheet is attached to and slides in from.
-        type: "'bottom' | 'left' | 'right' | 'top'"
+        type: [ '"bottom"', '"left"', '"right"', '"top"' ]
         default: bottom
         optional: true
 

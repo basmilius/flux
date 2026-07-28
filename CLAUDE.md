@@ -17,6 +17,7 @@ packages/
   components/   @flux-ui/components  - main component library
   types/        @flux-ui/types       - all public TypeScript types
   internals/    @flux-ui/internals   - shared internal utilities & composables
+  ai/           @flux-ui/ai          - conversational and AI building blocks
   statistics/   @flux-ui/statistics  - statistics / chart components (Apache ECharts)
   application/  @flux-ui/application - application layout / navigation components
   flow/         @flux-ui/flow        - display-only node-based flow building blocks
@@ -29,6 +30,7 @@ docs/                                - VitePress documentation site
 A unified `~flux/*` namespace is used across all packages, with each Flux package mounted under its own sub-path:
 
 - `~flux/components/*` → `packages/components/src/*`
+- `~flux/ai/*` → `packages/ai/src/*`
 - `~flux/application/*` → `packages/application/src/*`
 - `~flux/statistics/*` → `packages/statistics/src/*`
 - `~flux/flow/*` → `packages/flow/src/*`
@@ -43,6 +45,7 @@ The same alias is used for both TypeScript/Vue imports and Sass `@use` statement
 | Package        | Command                                              |
 |----------------|------------------------------------------------------|
 | components     | `bun run --cwd packages/components build`            |
+| ai             | `bun run --cwd packages/ai build`                    |
 | application    | `bun run --cwd packages/application build`           |
 | statistics     | `bun run --cwd packages/statistics build`            |
 | flow           | `bun run --cwd packages/flow build`                  |
@@ -97,6 +100,7 @@ A single unified `~flux/*` namespace is used for both TypeScript/Vue imports and
 | Path pattern             | Resolves to                   |
 |--------------------------|-------------------------------|
 | `~flux/components/*`     | `packages/components/src/*`   |
+| `~flux/ai/*`             | `packages/ai/src/*`           |
 | `~flux/application/*`    | `packages/application/src/*`  |
 | `~flux/statistics/*`     | `packages/statistics/src/*`   |
 | `~flux/flow/*`           | `packages/flow/src/*`         |

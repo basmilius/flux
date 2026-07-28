@@ -21,10 +21,8 @@ render=../../code/components/transitions/fade/preview.vue
 
 <FrontmatterDocs/>
 
-## Snippet
+## Examples
 
-::: code-group
-
-<<< @/code/components/transitions/fade/preview.vue [FluxFadeTransition.vue]
-
+::: example Basic || The element fades in and out, without moving.
+example=../../code/components/transitions/fade/preview.vue
 :::

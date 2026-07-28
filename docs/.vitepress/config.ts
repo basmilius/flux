@@ -168,7 +168,8 @@ export default defineConfig({
                         {text: 'useFlyoutInjection', link: '/guide/composables/useFlyoutInjection'},
                         {text: 'useFormFieldInjection', link: '/guide/composables/useFormFieldInjection'},
                         {text: 'useTableInjection', link: '/guide/composables/useTableInjection'},
-                        {text: 'useTooltipInjection', link: '/guide/composables/useTooltipInjection'}
+                        {text: 'useTooltipInjection', link: '/guide/composables/useTooltipInjection'},
+                        {text: 'useTranslate', link: '/guide/composables/useTranslate'}
                     ]
                 },
                 {
@@ -471,6 +472,7 @@ export default defineConfig({
                     text: 'Composables',
                     collapsed: false,
                     items: [
+                        {text: 'createTranslate', link: '/internals/composables/createTranslate'},
                         {text: 'useCalendar', link: '/internals/composables/useCalendar'},
                         {text: 'useCalendarMonthSwitcher', link: '/internals/composables/useCalendarMonthSwitcher'},
                         {text: 'useCalendarTimeGrid', link: '/internals/composables/useCalendarTimeGrid'},
@@ -487,7 +489,8 @@ export default defineConfig({
                         {text: 'useRemembered', link: '/internals/composables/useRemembered'},
                         {text: 'useScrollPosition', link: '/internals/composables/useScrollPosition'},
                         {text: 'useSpring', link: '/internals/composables/useSpring'},
-                        {text: 'useVirtualList', link: '/internals/composables/useVirtualList'}
+                        {text: 'useVirtualList', link: '/internals/composables/useVirtualList'},
+                        {text: 'useWheelDrag', link: '/internals/composables/useWheelDrag'}
                     ]
                 },
                 {

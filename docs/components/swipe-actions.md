@@ -4,7 +4,7 @@ outline: deep
 emits:
     -   name: update:open
         description: Triggered when the row opens or closes, with the side that is now open.
-        type: [ '"start" | "end" | null' ]
+        type: [ '"start"', '"end"', 'null' ]
 
 props:
     -   name: disabled
