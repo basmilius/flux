@@ -1,0 +1,21 @@
+@mixin word-fade($name: aiWordFade) {
+    animation: $name var(--ai-fade-duration, 300ms) ease-out both;
+
+    @media (prefers-reduced-motion: reduce) {
+        animation: none;
+    }
+}
+
+@mixin word-fade-keyframes($name: aiWordFade) {
+    @keyframes #{$name} {
+        from {
+            opacity: 0;
+            filter: blur(3px);
+        }
+
+        to {
+            opacity: 1;
+            filter: blur(0);
+        }
+    }
+}

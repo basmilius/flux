@@ -32,6 +32,7 @@ props:
 requiredIcons:
     - angle-left
     - angle-right
+    - ellipsis
 ---
 
 # Pagination

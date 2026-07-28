@@ -1,7 +1,7 @@
 import type { FluxIconName, FluxStatisticsChartColor } from '@flux-ui/types';
 import { computed, type ComputedRef, inject, useTemplateRef, watchEffect } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { CHART_DEFAULT_COLORS, resolveChartColor } from '~flux/statistics/util';
+import { useStatisticsTranslate } from '~flux/statistics/data';
+import { CHART_DEFAULT_COLORS, resolveChartColor, type Translator } from '~flux/statistics/util';
 import { type ChartHoverSyncMode, useChartHoverSync } from './useChartHoverSync';
 import { type ChartLegendContext, type ChartLegendItem, FluxStatisticsChartLegendInjectionKey } from './useChartLegend';
 import type { EChartsInstance } from './useECharts';
@@ -16,7 +16,7 @@ export type ChartLegendItemBuilder<S> = (
     series: S,
     color: string,
     index: number,
-    t: ReturnType<typeof useI18n>['t']
+    t: Translator
 ) => ChartLegendItem | readonly ChartLegendItem[];
 
 export interface UseChartSeriesSetupOptions<S extends ChartSeriesShape> {
@@ -25,7 +25,7 @@ export interface UseChartSeriesSetupOptions<S extends ChartSeriesShape> {
 }
 
 export interface UseChartSeriesSetupReturn {
-    readonly t: ReturnType<typeof useI18n>['t'];
+    readonly t: Translator;
     readonly palette: ComputedRef<readonly string[]>;
     readonly legendContext: ChartLegendContext | null;
     readonly chartInstance: ComputedRef<EChartsInstance | null>;
@@ -35,7 +35,7 @@ const defaultLegendItem = <S extends ChartSeriesShape>(
     s: S,
     color: string,
     _index: number,
-    t: ReturnType<typeof useI18n>['t']
+    t: Translator
 ): ChartLegendItem => ({
     color,
     icon: s.icon,
@@ -47,7 +47,7 @@ export function useChartSeriesSetup<S extends ChartSeriesShape>(
     options: UseChartSeriesSetupOptions<S> = {}
 ): UseChartSeriesSetupReturn {
     const {mode = 'series', getLegendItem = defaultLegendItem} = options;
-    const {t} = useI18n({useScope: 'parent'});
+    const t = useStatisticsTranslate();
     const legendContext = inject(FluxStatisticsChartLegendInjectionKey, null);
     const chartRef = useTemplateRef<{ chartInstance: EChartsInstance | null } | null>('chartRef');
     const chartInstance = computed<EChartsInstance | null>(() => chartRef.value?.chartInstance ?? null);

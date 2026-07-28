@@ -17,6 +17,7 @@
 
     background: var(--overlay);
     backdrop-filter: blur(3px) grayscale(.5) saturate(180%);
+    opacity: var(--overlay-shade-opacity, 1);
     pointer-events: none;
     transition: opacity 600ms var(--swift-out);
 }

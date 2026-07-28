@@ -34,6 +34,7 @@ type FluxApplicationInjection = {
     goToParent(): void;
     pushContext(info: FluxApplicationContextInfo): void;
     removeContext(id: symbol): void;
+    updateContext(id: symbol, info: Omit<FluxApplicationContextInfo, 'id'>): void;
 };
 
 type FluxApplicationContextInfo = {
@@ -43,6 +44,7 @@ type FluxApplicationContextInfo = {
     readonly to?: FluxTo;
     readonly entryTo?: FluxTo;
     readonly href?: string;
+    readonly icon?: FluxIconName;
     readonly type?: FluxPressableType;
 };
 
@@ -56,9 +58,7 @@ type FluxApplicationLayout =
 
 ## Used by
 
-- [Application](../components/application)
 - [Content](../components/content)
 - [Menu](../components/menu/)
-    - [Context](../components/menu/context)
     - [Toggle](../components/menu/toggle)
 - [Top](../components/top)

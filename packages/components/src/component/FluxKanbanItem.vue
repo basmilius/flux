@@ -28,6 +28,8 @@
     import { useKeyboardGrab } from '@flux-ui/internals';
     import { computed, onBeforeUnmount, onMounted, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled, useKanbanInjection } from '~flux/components/composable';
+    import { findKanbanSwimlaneTarget, toKanbanCellId, useKanbanSwimlaneInjection } from '~flux/components/composable/private';
+    import type { FluxKanbanKeyboardDirection } from '~flux/components/data';
     import $style from '~flux/components/css/component/Kanban.module.scss';
 
     const {
@@ -46,17 +48,25 @@
 
     const root = useTemplateRef('root');
     const kanban = useKanbanInjection();
+    const swimlane = useKanbanSwimlaneInjection();
     const disabledState = useDisabled(toRef(() => disabled));
+
+    const cellId = computed(() => toKanbanCellId(columnId, swimlane ? unref(swimlane.swimlaneId) : undefined));
 
     const {isGrabbed, handleKeyDown, release} = useKeyboardGrab<true>({
         isDraggable: computed(() => !unref(disabledState)),
         itemId: toRef(() => itemId),
         grabbedId: kanban.grabbedId,
         onGrab() {
-            kanban.grabItem(itemId, columnId);
+            kanban.grabItem(itemId, cellId.value);
             return true;
         },
         onMove(direction) {
+            if (swimlane) {
+                moveInSwimlane(direction);
+                return;
+            }
+
             kanban.moveKeyboard(direction);
         },
         onCommit() {
@@ -109,7 +119,7 @@
             release();
         }
 
-        kanban.startDrag(itemId, columnId);
+        kanban.startDrag(itemId, cellId.value);
 
         if (evt.dataTransfer) {
             evt.dataTransfer.effectAllowed = 'move';
@@ -125,6 +135,17 @@
 
     function onDragEnd(): void {
         kanban.endDrag();
+    }
+
+    function moveInSwimlane(direction: FluxKanbanKeyboardDirection): void {
+        const element = root.value;
+        const target = element ? findKanbanSwimlaneTarget(element, direction, elm => kanban.getItemInfo(elm)?.itemId) : null;
+
+        if (!target) {
+            return;
+        }
+
+        kanban.moveKeyboardTo(target.cellId, target.beforeItemId);
     }
 
     function onFocus(): void {
@@ -144,7 +165,7 @@
         const rect = itemEl.getBoundingClientRect();
 
         if (evt.clientY < rect.top + rect.height / 2) {
-            kanban.updateDropTarget(columnId, itemId);
+            kanban.updateDropTarget(cellId.value, itemId);
         } else {
             let next = itemEl.nextElementSibling;
 
@@ -152,14 +173,14 @@
                 const info = kanban.getItemInfo(next);
 
                 if (info) {
-                    kanban.updateDropTarget(columnId, info.itemId);
+                    kanban.updateDropTarget(cellId.value, info.itemId);
                     return;
                 }
 
                 next = next.nextElementSibling;
             }
 
-            kanban.updateDropTarget(columnId, null);
+            kanban.updateDropTarget(cellId.value, null);
         }
     }
 </script>

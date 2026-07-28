@@ -3,6 +3,8 @@
         ref="root"
         role="list"
         aria-roledescription="Kanban column"
+        :data-kanban-cell="cellId"
+        :data-kanban-column="columnId"
         :aria-label="label"
         :aria-disabled="disabledState ? true : undefined"
         :class="[
@@ -81,6 +83,7 @@
     import type { FluxIconName } from '@flux-ui/types';
     import { Comment, computed, onBeforeUnmount, onMounted, provide, Text, toRef, unref, useSlots, useTemplateRef, watch } from 'vue';
     import { useDisabled, useKanbanInjection } from '~flux/components/composable';
+    import { toKanbanCellId, useKanbanLayoutInjection, useKanbanSwimlaneInjection } from '~flux/components/composable/private';
     import { FluxDisabledInjectionKey } from '~flux/components/data';
     import FluxBadge from './FluxBadge.vue';
     import FluxIcon from './FluxIcon.vue';
@@ -109,19 +112,24 @@
     const header = useTemplateRef('header');
     const body = useTemplateRef('body');
     const kanban = useKanbanInjection();
+    const layout = useKanbanLayoutInjection();
+    const swimlane = useKanbanSwimlaneInjection();
     const slots = useSlots();
 
     const disabledState = useDisabled(toRef(() => disabled));
     provide(FluxDisabledInjectionKey, disabledState);
 
-    const isOver = computed(() => kanban.isOverColumnId.value === columnId);
+    const swimlaneId = computed(() => swimlane ? unref(swimlane.swimlaneId) : undefined);
+    const cellId = computed(() => toKanbanCellId(columnId, swimlaneId.value));
+
+    const isOver = computed(() => kanban.isOverColumnId.value === cellId.value);
     const isReorderable = computed(() => unref(kanban.reorderableColumns) && !unref(disabledState));
 
     const dropIndicator = computed<number | null>(() => {
         const state = unref(kanban.dragState);
         const bodyEl = body.value;
 
-        if (!state || state.dropColumnId !== columnId || !(bodyEl instanceof HTMLElement)) {
+        if (!state || state.dropColumnId !== cellId.value || !(bodyEl instanceof HTMLElement)) {
             return null;
         }
 
@@ -138,12 +146,12 @@
         return target ? target.offsetTop - 5 : null;
     });
 
-    const isColumnDragging = computed(() => unref(kanban.columnDragState)?.columnId === columnId);
+    const isColumnDragging = computed(() => unref(kanban.columnDragState)?.columnId === cellId.value);
 
     const isColumnDropBefore = computed(() => {
         const state = unref(kanban.columnDragState);
 
-        if (!state || state.dropBeforeColumnId !== columnId || state.columnId === columnId) {
+        if (!state || state.dropBeforeColumnId !== cellId.value || state.columnId === cellId.value) {
             return false;
         }
 
@@ -167,9 +175,10 @@
 
     const hasFooter = computed(() => !!slots.footer);
 
-    watch(() => columnId, (newId, oldId) => {
+    watch(cellId, (newId, oldId) => {
         if (oldId !== undefined) {
             kanban.setColumnBodyElement(oldId, null);
+            layout.unregisterCell(oldId);
         }
 
         if (root.value) {
@@ -180,16 +189,20 @@
         if (body.value) {
             kanban.setColumnBodyElement(newId, body.value);
         }
+
+        layout.registerCell(newId, {columnId, swimlaneId: swimlaneId.value});
     });
 
     onMounted(() => {
         if (root.value) {
-            kanban.registerColumn(root.value, columnId);
+            kanban.registerColumn(root.value, cellId.value);
         }
 
         if (body.value) {
-            kanban.setColumnBodyElement(columnId, body.value);
+            kanban.setColumnBodyElement(cellId.value, body.value);
         }
+
+        layout.registerCell(cellId.value, {columnId, swimlaneId: swimlaneId.value});
     });
 
     onBeforeUnmount(() => {
@@ -197,15 +210,16 @@
             kanban.unregisterColumn(root.value);
         }
 
-        kanban.setColumnBodyElement(columnId, null);
+        kanban.setColumnBodyElement(cellId.value, null);
+        layout.unregisterCell(cellId.value);
     });
 
     function onDragEnter(): void {
-        kanban.enterColumn(columnId);
+        kanban.enterColumn(cellId.value);
     }
 
     function onDragLeave(): void {
-        kanban.leaveColumn(columnId);
+        kanban.leaveColumn(cellId.value);
     }
 
     function onDragOver(evt: DragEvent): void {
@@ -219,7 +233,7 @@
         const isOverItem = !!target.closest('[data-kanban-item]');
 
         if (!isOverItem) {
-            kanban.updateDropTarget(columnId, null);
+            kanban.updateDropTarget(cellId.value, null);
         }
     }
 
@@ -242,7 +256,7 @@
             evt.dataTransfer.setData('text/plain', `column:${String(columnId)}`);
         }
 
-        kanban.startColumnDrag(columnId);
+        kanban.startColumnDrag(cellId.value);
     }
 
     function onColumnDragEnd(): void {
@@ -252,7 +266,7 @@
     function onColumnDragOver(evt: DragEvent): void {
         const state = unref(kanban.columnDragState);
 
-        if (!state || state.columnId === columnId) {
+        if (!state || state.columnId === cellId.value) {
             return;
         }
 
@@ -262,7 +276,7 @@
         const rect = headerEl.getBoundingClientRect();
 
         if (evt.clientX < rect.left + rect.width / 2) {
-            kanban.updateColumnDropTarget(columnId);
+            kanban.updateColumnDropTarget(cellId.value);
         } else {
             let next = root.value?.nextElementSibling ?? null;
 
@@ -307,7 +321,7 @@
     }
 
     function reorderColumn(beforeColumnId: string | number | null): void {
-        kanban.startColumnDrag(columnId);
+        kanban.startColumnDrag(cellId.value);
         kanban.updateColumnDropTarget(beforeColumnId);
         kanban.commitColumnDrop();
         requestAnimationFrame(() => header.value?.focus());

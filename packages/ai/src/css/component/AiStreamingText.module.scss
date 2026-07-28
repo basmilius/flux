@@ -1,0 +1,15 @@
+@use '~flux/ai/css/mixin';
+
+.streamingText {
+    overflow-wrap: break-word;
+}
+
+.streamingTextPlain {
+    white-space: pre-wrap;
+}
+
+.streamingTextWord {
+    @include mixin.word-fade;
+}
+
+@include mixin.word-fade-keyframes;

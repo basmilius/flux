@@ -31,6 +31,11 @@ emits:
         type:
             - '{ id: string | number; fromDate: DateTime }'
 
+    -   name: keyboardCommit
+        description: Triggered when a keyboard-grab is committed (Space/Enter on the target date or time-slot).
+        type:
+            - '{ id: string | number }'
+
     -   name: keyboardCancel
         description: Triggered when a keyboard-grab is cancelled (Escape, view switch, etc.).
         type:

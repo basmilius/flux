@@ -23,7 +23,7 @@
         "flow"
     ],
     "scripts": {
-        "build": "vue-tsc && vite build",
+        "build": "vue-tsc --build && vite build",
         "dev": "vite build --watch --mode development"
     },
     "engines": {
@@ -49,20 +49,23 @@
     "types": "./dist/index.d.ts",
     "dependencies": {
         "@flux-ui/components": "workspace:*",
+        "@flux-ui/internals": "workspace:*",
         "@flux-ui/types": "workspace:*",
         "clsx": "^2.1.1"
     },
     "peerDependencies": {
-        "vue": "^3.6.0-rc.1"
+        "vue": "^3.6.0-rc.2",
+        "vue-i18n": "^11.4.8"
     },
     "devDependencies": {
         "@basmilius/vite-preset": "^3.55.0",
-        "@types/node": "^26.1.1",
+        "@types/node": "^26.1.2",
         "@vitejs/plugin-vue": "^6.0.8",
         "@vue/tsconfig": "^0.9.1",
         "sass-embedded": "^1.100.0",
         "typescript": "6.0.3",
         "vite": "^8.1.5",
-        "vue-tsc": "^3.3.7"
+        "vue-i18n": "^11.4.8",
+        "vue-tsc": "^3.3.8"
     }
 }

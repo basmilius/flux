@@ -4,7 +4,7 @@ outline: deep
 props:
     -   name: can-move
         description: Optional validator. Return false to reject a drop. Called for both pointer and keyboard moves.
-        type: '(event: FluxKanbanMoveEvent) => boolean'
+        type: '(event: FluxKanbanSwimlaneMoveEvent) => boolean'
         optional: true
 
     -   name: disabled
@@ -14,7 +14,7 @@ props:
         default: 'false'
 
     -   name: reorderable-columns
-        description: Allows columns to be reordered by dragging their header.
+        description: Allows columns to be reordered by dragging their header. Ignored on a board with swimlanes.
         type: boolean
         optional: true
         default: 'false'
@@ -22,7 +22,7 @@ props:
 emits:
     -   name: move
         description: Triggered when an item is dragged to a new position or column.
-        type: [ FluxKanbanMoveEvent ]
+        type: [ FluxKanbanSwimlaneMoveEvent ]
 
     -   name: move-column
         description: Triggered when a column is reordered. Only fires when reorderable-columns is enabled.
@@ -32,10 +32,6 @@ slots:
     -   name: default
         description: Place FluxKanbanColumn components here.
 ---
-
-<script setup>
-    import { FluxPane, FluxTable, FluxTableRow, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
-</script>
 
 # Kanban
 
@@ -57,37 +53,12 @@ When `reorderable-columns` is enabled, Tab to a column header and use <kbd>←</
 
 The `move` event contains everything needed to update the data:
 
-<FluxPane>
-    <FluxTable>
-        <template #header>
-            <FluxTableRow>
-                <FluxTableHeader>Property</FluxTableHeader>
-                <FluxTableHeader>Type</FluxTableHeader>
-                <FluxTableHeader>Description</FluxTableHeader>
-            </FluxTableRow>
-        </template>
-        <FluxTableRow>
-            <FluxTableCell><code>itemId</code></FluxTableCell>
-            <FluxTableCell><code>string | number</code></FluxTableCell>
-            <FluxTableCell>The ID of the item that was moved.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><code>fromColumnId</code></FluxTableCell>
-            <FluxTableCell><code>string | number</code></FluxTableCell>
-            <FluxTableCell>The column the item originated from.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><code>toColumnId</code></FluxTableCell>
-            <FluxTableCell><code>string | number</code></FluxTableCell>
-            <FluxTableCell>The column the item was dropped into.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><code>beforeItemId</code></FluxTableCell>
-            <FluxTableCell><code>string | number | undefined</code></FluxTableCell>
-            <FluxTableCell><p>The item before which the moved item should be inserted. <code>undefined</code> means append at the end of the column.</p></FluxTableCell>
-        </FluxTableRow>
-    </FluxTable>
-</FluxPane>
+| Property       | Type                            | Description                                                                                                 |
+|----------------|---------------------------------|-------------------------------------------------------------------------------------------------------------|
+| `itemId`       | `string \| number`              | The ID of the item that was moved.                                                                          |
+| `fromColumnId` | `string \| number`              | The column the item originated from.                                                                        |
+| `toColumnId`   | `string \| number`              | The column the item was dropped into.                                                                       |
+| `beforeItemId` | `string \| number \| undefined` | The item before which the moved item should be inserted. `undefined` means append at the end of the column. |
 
 ## Examples
 
@@ -115,4 +86,4 @@ example=../../code/components/kanban/reorder-columns.vue
 
 - [Column](./column)
 - [Item](./item)
-- [Pane](../pane)
+- [Swimlane](./swimlane)

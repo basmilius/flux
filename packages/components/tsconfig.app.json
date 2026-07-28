@@ -17,7 +17,7 @@
         "rootDir": "src",
         "paths": {
             "~flux/components/*": [
-                "src/*"
+                "./src/*"
             ]
         },
         "types": [

@@ -2,6 +2,11 @@
 outline: deep
 
 props:
+    -   name: aria-rowcount
+        description: The total number of rows, including rows that are not rendered. Useful when the table is virtualized or paginated.
+        type: number
+        optional: true
+
     -   name: caption-side
         description: The side where the caption should be placed.
         type: [ '"top"', '"bottom"' ]

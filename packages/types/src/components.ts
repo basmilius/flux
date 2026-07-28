@@ -52,6 +52,11 @@ export type FluxKanbanMoveColumnEvent = {
     readonly beforeColumnId?: string | number;
 };
 
+export type FluxKanbanSwimlaneMoveEvent = FluxKanbanMoveEvent & {
+    readonly fromSwimlaneId?: string | number;
+    readonly toSwimlaneId?: string | number;
+};
+
 export type FluxTreeViewOption = {
     readonly id: string | number;
     readonly label: string;

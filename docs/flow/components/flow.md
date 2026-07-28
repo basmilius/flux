@@ -72,6 +72,28 @@ props:
 slots:
     -   name: default
         description: The nodes and connectors that make up the flow. Place FluxFlowNode and FluxFlowConnection components here.
+
+expose:
+    -   name: controller
+        description: The flow controller, holding the registered nodes and edges, the live viewport and every method the flow steers itself with.
+
+    -   name: fitView
+        description: Zooms and pans so the whole flow fits in the viewport. Takes an optional padding, in pixels, falling back to the `padding` prop.
+
+    -   name: centerView
+        description: Centers the viewport on the flow without changing the zoom level.
+
+    -   name: zoomIn
+        description: Zooms in by one `zoom-step`, about the middle of the viewport.
+
+    -   name: zoomOut
+        description: Zooms out by one `zoom-step`, about the middle of the viewport.
+
+    -   name: zoomTo
+        description: Zooms to an absolute level, clamped between `min-zoom` and `max-zoom`, about the middle of the viewport.
+
+    -   name: resetZoom
+        description: Returns the viewport to 100% zoom.
 ---
 
 # Flow

@@ -44,6 +44,7 @@ jobs:
                     bun --cwd packages/application build
                     bun --cwd packages/statistics build
                     bun --cwd packages/flow build
+                    bun --cwd packages/ai build
                     node scripts/transform-dts.mjs
                     bun --cwd docs build
                 env:
@@ -53,6 +54,9 @@ jobs:
                 run: |
                     bun scripts/check-contrast.ts
                     bun scripts/check-palette-refs.ts
+
+            -   name: 🌍 Check translations
+                run: bun scripts/generate-translations.ts --check
 
             -   name: 🚀 Publish Docs
                 uses: cloudflare/wrangler-action@v3

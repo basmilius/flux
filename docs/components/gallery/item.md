@@ -25,6 +25,9 @@ props:
     -   name: url
         description: The url of the image.
         type: string
+
+requiredIcons:
+    - xmark
 ---
 
 # Gallery Item

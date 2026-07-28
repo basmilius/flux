@@ -2,6 +2,10 @@
 outline: deep
 
 emits:
+    -   name: resize
+        description: Triggered when the column is resized through the resize handle, with the new width in pixels. Emits `null` when the width is reset. The header owns this event because the width belongs to the column the header defines, right next to the `width` prop that mirrors it.
+        type: [ 'number | null' ]
+
     -   name: sort
         description: Triggered when the sorting type changes.
         type: [ 'ascending | descending | null' ]
@@ -20,6 +24,11 @@ props:
 
     -   name: is-numeric
         description: Renders every cell in the column with tabular figures. Column metadata only; the header label itself is unaffected.
+        type: boolean
+        optional: true
+
+    -   name: is-resizable
+        description: If the header renders a resize handle on its trailing edge. Dragging it, or resizing it with the keyboard, gives the column an explicit width; double-clicking the handle or pressing `Home` returns the column to its automatic width.
         type: boolean
         optional: true
 
@@ -98,6 +107,14 @@ When `is-sortable` is set, the sort trigger is reachable with the keyboard and o
 Headers define the width of their column. A column with `width` gets that exact width. A column with `is-shrinking` hugs its content. Otherwise the column shares the available space, optionally bounded by `min-width` and/or `max-width`. When the combined minimum widths exceed the table width, the table scrolls horizontally.
 :::
 
+::: info Resizable columns
+`is-resizable` puts a resize handle on the trailing edge of the header. A column that has been resized behaves exactly like one with an explicit `width`, so the neighboring columns reflow around it and the table scrolls horizontally once the columns no longer fit.
+
+The handle is a focusable separator, so resizing never needs a mouse: <kbd>Left</kbd> and <kbd>Right</kbd> resize by 12 pixels, hold <kbd>Shift</kbd> for 48, and <kbd>Home</kbd> resets the column. Double-clicking the handle resets it too. `min-width` and `max-width` bound every resize, with a floor of 48 pixels when no `min-width` is set.
+
+Listen to `resize` to persist the width and bind it back through `width`; a width handed down that way replaces the dragged one. A `resize` event with `null` means the column went back to its automatic width, so the stored value can be dropped.
+:::
+
 ::: info Column formatting
 `align`, `is-numeric` and `no-wrap` on the header apply to every cell in the column, so there is no need to repeat them per cell. A cell's own `align` overrides the header's; `is-numeric` and `no-wrap` can only be turned on per cell, not off. Spanning cells (`colspan`) never inherit column formatting.
 :::
@@ -124,6 +141,10 @@ example=../../code/components/table/header/data-type.vue
 
 ::: example Width || Columns with a fixed, minimum and maximum width.
 example=../../code/components/table/header/width.vue
+:::
+
+::: example Resizable || Columns the user can resize, with the resulting width kept in the page.
+example=../../code/components/table/header/resizable.vue
 :::
 
 ## Used components

@@ -1,0 +1,59 @@
+@use '~flux/components/css/mixin';
+
+.modelSelectOption {
+    display: grid;
+    padding: 9px 12px;
+    grid-template-columns: minmax(0, auto) 1fr auto;
+    align-items: center;
+    gap: 3px 9px;
+    background: unset;
+    border: 0;
+    border-radius: var(--radius);
+    color: var(--foreground);
+    cursor: pointer;
+    text-align: left;
+    transition: var(--transition-default);
+    transition-property: background, mixin.focus-ring-transition-properties();
+
+    @include mixin.focus-ring;
+
+    @include mixin.hover {
+        background: var(--ink-hover);
+    }
+
+    &:active {
+        background: var(--ink-active);
+    }
+
+    &:disabled {
+        opacity: .5;
+        pointer-events: none;
+    }
+}
+
+.modelSelectName {
+    @include mixin.truncate;
+
+    grid-area: 1 / 1;
+    min-width: 0;
+    font-weight: 500;
+}
+
+.modelSelectBadge {
+    grid-area: 1 / 2;
+    justify-self: start;
+}
+
+.modelSelectCheck {
+    grid-row: 1 / -1;
+    grid-column: 3;
+    color: var(--primary-text);
+}
+
+.modelSelectDescription {
+    @include mixin.text(small);
+
+    grid-row: 2;
+    grid-column: 1 / -1;
+    color: var(--foreground-secondary);
+}

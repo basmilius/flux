@@ -19,7 +19,7 @@
     transition: padding var(--application-duration) var(--swift-out);
     transition-property: padding-left, padding-right;
 
-    &:has(> .applicationSide) {
+    &:has(> .applicationSide:not([data-collapsed])) {
         padding-right: var(--application-side-width);
     }
 }
@@ -61,12 +61,13 @@
     }
 }
 
-@include mixin.breakpoint-down(md) {
-    .application {
-        &:has(> .applicationSide) {
-            padding-right: 0;
-        }
+@include mixin.breakpoint-down(lg) {
+    .application:has(> .applicationSide:not([data-collapsed])) {
+        padding-right: 0;
     }
+}
+
+@include mixin.breakpoint-down(md) {
 
     .applicationMenuBackdrop {
         display: block;

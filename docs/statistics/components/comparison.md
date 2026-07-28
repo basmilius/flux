@@ -43,6 +43,10 @@ props:
         description: Whether to show the calculated percentage delta. Defaults to `true`.
         type: boolean
         optional: true
+
+requiredIcons:
+    - arrow-trend-down
+    - arrow-trend-up
 ---
 
 # Comparison

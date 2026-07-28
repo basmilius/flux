@@ -19,7 +19,7 @@
                 slots,
                 $style.slideOver,
                 FluxSlideOverTransition
-            );
+            ).render;
         }
     });
 </script>

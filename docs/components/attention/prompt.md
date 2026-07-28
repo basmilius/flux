@@ -7,7 +7,7 @@ requiredIcons:
 
 # Prompt
 
-This function displays a prompt with the specified properties and waits for the input to be entered before resolving the promise.
+This function displays a prompt with the specified properties and waits for the input to be entered before resolving the promise. The promise resolves to the entered text, or to `false` when the prompt is cancelled.
 
 ::: render
 render=../../code/components/attention/prompt/preview.vue
@@ -28,6 +28,8 @@ to show a prompt from within your template.
 render=../../code/components/attention/prompt/functional.vue
 :::
 
+The `id`, `onCancel` and `onConfirm` properties of `FluxPromptObject` are filled in by the store, so they are omitted from the spec you pass in.
+
 ::: code-group
 
 ```ts [Example]
@@ -40,7 +42,7 @@ const result = await showPrompt({
 ```
 
 ```ts [Declaration]
-declare function showPrompt(spec: FluxPromptObject): Promise<void>;
+declare function showPrompt(spec: Omit<FluxPromptObject, 'id' | 'onCancel' | 'onConfirm'>): Promise<string | false>;
 ```
 
 ```ts [Options]
@@ -51,7 +53,7 @@ type FluxPromptObject = {
     readonly title: string;
     readonly fieldLabel: string;
     readonly fieldPlaceholder?: string;
-    readonly fieldType?: InputType;
+    readonly fieldType?: FluxInputType;
 
     onCancel(): void;
     onConfirm(text: string): void;

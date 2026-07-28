@@ -4,7 +4,10 @@ export { default as FluxBreakthroughTransition } from './FluxBreakthroughTransit
 export { default as FluxFadeTransition } from './FluxFadeTransition.vue';
 export { default as FluxOverlayTransition } from './FluxOverlayTransition.vue';
 export { default as FluxRouteTransition } from './FluxRouteTransition.vue';
+export { default as FluxScaleTransition } from './FluxScaleTransition.vue';
+export { default as FluxSheetTransition } from './FluxSheetTransition.vue';
 export { default as FluxSlideOverTransition } from './FluxSlideOverTransition.vue';
+export { default as FluxStaggerTransition } from './FluxStaggerTransition.vue';
 export { default as FluxTooltipTransition } from './FluxTooltipTransition.vue';
 export { default as FluxVerticalWindowTransition } from './FluxVerticalWindowTransition.vue';
 export { default as FluxWindowTransition } from './FluxWindowTransition.vue';

@@ -10,6 +10,10 @@ props:
 slots:
     -   name: default
         description: The content of the tab bar.
+
+requiredIcons:
+    - angle-left
+    - angle-right
 ---
 
 # Tab bar

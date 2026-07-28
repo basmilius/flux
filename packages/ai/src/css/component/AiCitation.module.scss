@@ -1,0 +1,74 @@
+@use '~flux/components/css/mixin';
+
+.aiCitationMarker {
+    @include mixin.text(2xsmall, 1);
+
+    display: inline-flex;
+    height: 18px;
+    min-width: 18px;
+    padding-inline: 3px;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-sunken);
+    border: 1px solid var(--surface-stroke);
+    border-radius: var(--radius-full);
+    color: var(--foreground-secondary);
+    cursor: pointer;
+    font-variant-numeric: tabular-nums;
+    transition: background var(--transition-default);
+    transition-property: background, border-color, color, mixin.focus-ring-transition-properties();
+    user-select: none;
+
+    @include mixin.focus-ring(2px);
+
+    @include mixin.hover {
+        background: var(--surface-hover);
+        border-color: var(--surface-stroke-hover);
+        color: var(--foreground-prominent);
+    }
+
+    &[aria-expanded='true'] {
+        background: var(--surface-hover);
+        border-color: var(--surface-stroke-hover);
+        color: var(--foreground-prominent);
+    }
+}
+
+.aiCitationDescription {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.aiCitationTitle {
+    @include mixin.text(small);
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--foreground-prominent);
+    font-weight: 600;
+    text-decoration: none;
+
+    &:is(a) {
+        @include mixin.focus-ring(3px);
+
+        @include mixin.hover {
+            color: var(--primary-text);
+        }
+    }
+}
+
+.aiCitationExcerpt {
+    @include mixin.text(xsmall);
+
+    margin: 0;
+    color: var(--foreground-secondary);
+}

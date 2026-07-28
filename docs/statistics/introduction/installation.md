@@ -121,3 +121,21 @@ export default defineConfig({
 ### Step 3
 
 Import the components you want to use as shown in step 3 of the plain installation.
+
+## Translating names
+
+The charts render no text of their own; the only words on them are the series
+names, slice labels and axis names you hand over. Those go through
+[vue-i18n](https://vue-i18n.intlify.dev/) like every other string in Flux, so you
+can pass a translation key where you would otherwise pass finished text.
+
+```vue
+<template>
+    <FluxStatisticsLineChart
+        :labels="labels"
+        :series="[{name: 'dashboard.revenue', data}]"/>
+</template>
+```
+
+A name without a message behind it is rendered exactly as it was given, so labels
+that are already written in the reader's language need nothing at all.

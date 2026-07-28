@@ -1,3 +1,11 @@
 export * from './component';
 export * from './composable';
-export * from './data';
+
+export {
+    useApplicationTranslate,
+    type FluxApplicationContextInfo,
+    type FluxApplicationInjection,
+    type FluxApplicationLayout,
+    type FluxApplicationTranslate,
+    type FluxApplicationTranslation
+} from './data';

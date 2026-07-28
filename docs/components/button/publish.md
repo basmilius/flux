@@ -26,11 +26,6 @@ props:
         type: boolean
         optional: true
 
-    -   name: icon-leading
-        description: The icon at the start of the button.
-        type: FluxIconName
-        optional: true
-
     -   name: icon-trailing
         description: The icon at the end of the button.
         type: FluxIconName
@@ -96,10 +91,6 @@ props:
         description: This prop is enabled if the button's type is set to route. This integrates with Vue Router.
         type: FluxTo
         optional: true
-
-slots:
-    -   name: icon-leading
-        description: Slot for overriding the icon at the start.
 
 requiredIcons:
     - cloud

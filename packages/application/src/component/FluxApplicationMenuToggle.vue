@@ -1,7 +1,7 @@
 <template>
     <FluxMenuItem
         :class="$style.applicationMenuToggle"
-        aria-label="Toggle menu"
+        :aria-label="translate('flux.application.toggleMenu')"
         :aria-expanded="!isMenuCollapsed"
         @click="isMenuCollapsed = !isMenuCollapsed">
         <template #before>
@@ -26,7 +26,10 @@
     setup>
     import { FluxMenuItem } from '@flux-ui/components';
     import { useApplicationInjection } from '../composable';
+    import { useApplicationTranslate } from '../data';
     import $style from '~flux/application/css/component/ApplicationMenu.module.scss';
+
+    const translate = useApplicationTranslate();
 
     const {isMenuCollapsed} = useApplicationInjection();
 </script>

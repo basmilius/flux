@@ -11,6 +11,11 @@ props:
         type: boolean
         optional: true
 
+    -   name: tooltip-value-formatter
+        description: Formats the value of every tooltip entry. Receives the raw value and the tooltip item it belongs to, and returns the string to show.
+        type: "(value: number | string, item: SharedTooltipItem) => string"
+        optional: true
+
     -   name: x-axis-labels
         description: Show labels on the X-axis. Disabled by default.
         type: boolean

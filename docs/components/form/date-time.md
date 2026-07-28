@@ -31,6 +31,11 @@ props:
         type: [ string, null ]
         optional: true
 
+    -   name: is-condensed
+        description: If the input is rendered at a reduced height.
+        type: boolean
+        optional: true
+
     -   name: is-hour-only
         description: Always round the time to whole hours.
         type: boolean

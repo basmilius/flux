@@ -35,6 +35,10 @@ npm install @flux-ui/components
 Components such as the [Date picker](../../../components/date-picker) and [Calendar](../../../components/calendar) rely on [luxon](https://moment.github.io/luxon/). Most package managers install it automatically as a peer dependency; add it explicitly with `bun add luxon` if yours does not.
 :::
 
+::: tip Translations
+Flux reads the text it renders through [vue-i18n](https://vue-i18n.intlify.dev/), which is a peer dependency too, and needs an i18n instance created with `legacy: false`. It falls back to English for every key you did not translate. [Translations](../translations) covers the setup and lists the strings.
+:::
+
 ### Step 2
 Once the installation is completed, you need to add the following to your `main.ts` file.
 

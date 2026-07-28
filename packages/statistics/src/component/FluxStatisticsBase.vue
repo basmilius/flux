@@ -1,5 +1,8 @@
 <template>
-    <FluxPane :class="isSmall ? $style.statisticsBaseSmall : $style.statisticsBase">
+    <FluxPane
+        :aria-busy="isLoading || undefined"
+        :class="isSmall ? $style.statisticsBaseSmall : $style.statisticsBase"
+        :is-loading="isLoading">
         <div
             v-if="title || icon || slots.info"
             :class="$style.statisticsBaseHeader">
@@ -46,6 +49,7 @@
 
     defineProps<{
         readonly icon?: FluxIconName;
+        readonly isLoading?: boolean;
         readonly isSmall?: boolean;
         readonly title?: string;
     }>();

@@ -11,6 +11,7 @@ props:
         description: If the overlay is closeable with the escape key.
         type: boolean
         optional: true
+        default: 'false'
 
     -   name: size
         description: The size of the overlay.
@@ -47,7 +48,7 @@ example=../code/components/overlay/basic.vue
 example=../code/components/overlay/tabs.vue
 :::
 
-::: example Re-authenticatie || A re-authentication overlay.
+::: example Re-authentication || A re-authentication overlay.
 example=../code/components/overlay/authenticate.vue
 :::
 

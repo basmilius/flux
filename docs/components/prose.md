@@ -2,7 +2,7 @@
 outline: deep
 
 props:
-    -   name: asChild
+    -   name: as-child
         description: Merges the prose styling onto the single child element instead of rendering a wrapper. Useful when you already have a semantic root such as an article.
         type: boolean
         optional: true

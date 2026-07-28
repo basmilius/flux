@@ -32,8 +32,8 @@ props:
         optional: true
 
     -   name: color
-        description: The color of the filled segment. Accepts a FluxColor or a custom hex color.
-        type: [ 'FluxColor', '`#${string}`' ]
+        description: The color of the filled segment. Accepts a FluxColor, a custom hex color or a CSS custom property such as `var(--chart-1)`.
+        type: FluxStatisticsChartColor
         optional: true
 ---
 

@@ -1,0 +1,54 @@
+@use '~flux/components/css/mixin';
+
+.applicationPageHeader {
+    display: flex;
+    flex-flow: column;
+    gap: 21px;
+}
+
+.applicationPageHeaderMain {
+    display: flex;
+    align-items: center;
+    flex-flow: row;
+    gap: 21px;
+}
+
+.applicationPageHeaderTitle {
+    display: flex;
+    min-width: 0;
+    flex-flow: column;
+    flex-grow: 1;
+    gap: 6px;
+}
+
+.applicationPageHeaderDescription {
+    @include mixin.text(large);
+
+    margin: 0;
+    color: var(--foreground-secondary);
+}
+
+.applicationPageHeaderActions {
+    display: flex;
+    align-items: center;
+    flex-flow: row wrap;
+    flex-shrink: 0;
+    gap: 9px;
+    justify-content: flex-end;
+}
+
+@include mixin.breakpoint-down(md) {
+    .applicationPageHeader {
+        gap: 15px;
+    }
+
+    .applicationPageHeaderMain {
+        align-items: stretch;
+        flex-flow: column;
+        gap: 15px;
+    }
+
+    .applicationPageHeaderActions {
+        justify-content: flex-start;
+    }
+}

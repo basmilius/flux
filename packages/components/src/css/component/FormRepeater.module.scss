@@ -1,0 +1,128 @@
+@use '~flux/components/css/mixin';
+
+.formRepeater {
+    display: flex;
+    flex-flow: column;
+    gap: 18px;
+}
+
+.formRepeaterRows {
+    display: flex;
+    flex-flow: column;
+    gap: 18px;
+}
+
+.formRepeaterRow {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    transition: opacity var(--transition-default);
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        inset-inline: 0;
+        height: 2px;
+        background: var(--primary-solid);
+        border-radius: var(--radius-full);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity var(--transition-default);
+    }
+
+    &::before {
+        top: -9px;
+    }
+
+    &::after {
+        bottom: -9px;
+    }
+
+    &.isDropBefore::before,
+    &.isDropAfter::after {
+        opacity: 1;
+    }
+
+    &.isDragging {
+        opacity: .4;
+    }
+
+    &.isGrabbed {
+        border-radius: var(--radius);
+        outline: 2px solid var(--primary-solid);
+        outline-offset: 6px;
+    }
+}
+
+.formRepeaterRowContent {
+    display: flex;
+    min-width: 0;
+    flex: 1 1 auto;
+    flex-flow: column;
+    gap: 12px;
+}
+
+.formRepeaterHandle {
+    display: flex;
+    height: 36px;
+    width: 27px;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    background: unset;
+    border: 0;
+    border-radius: var(--radius);
+    color: var(--foreground-secondary);
+    cursor: grab;
+    transition: var(--transition-default);
+    transition-property: background, color, mixin.focus-ring-transition-properties();
+
+    @include mixin.focus-ring(2px);
+
+    @include mixin.hover {
+        background: var(--surface-hover);
+        color: var(--foreground);
+    }
+
+    &:active {
+        cursor: grabbing;
+    }
+
+    &:disabled {
+        color: var(--foreground-disabled);
+        cursor: not-allowed;
+    }
+}
+
+.formRepeaterEmpty {
+    color: var(--foreground-secondary);
+}
+
+.formRepeaterAdd {
+    align-self: flex-start;
+}
+
+.formRepeaterLiveRegion {
+    position: absolute;
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .formRepeaterRow,
+    .formRepeaterRow::before,
+    .formRepeaterRow::after,
+    .formRepeaterHandle {
+        transition: none;
+    }
+}

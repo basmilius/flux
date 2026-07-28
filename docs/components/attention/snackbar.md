@@ -48,7 +48,7 @@ props:
 
     -   name: progress-indeterminate
         description: Indicates that the progress bar is in an indeterminate state.
-        type: bool
+        type: boolean
         optional: true
 
     -   name: progress-max

@@ -1,0 +1,88 @@
+@use '~flux/components/css/mixin';
+
+.usage {
+    @include mixin.text(small);
+
+    display: flex;
+    flex-flow: column;
+    gap: 9px;
+}
+
+.usageFigures {
+    display: flex;
+    margin: 0;
+    flex-flow: row wrap;
+    gap: 6px 18px;
+}
+
+.usageFigure {
+    display: flex;
+    flex-flow: column;
+}
+
+.usageLabel {
+    color: var(--foreground-secondary);
+}
+
+.usageValue {
+    @include mixin.text(default);
+
+    margin: 0;
+    color: var(--foreground-prominent);
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+}
+
+.usageLimit {
+    display: flex;
+    flex-flow: column;
+    gap: 6px;
+}
+
+.usageLimitLabel {
+    margin: 0;
+    color: var(--foreground-secondary);
+    font-variant-numeric: tabular-nums;
+}
+
+.usageLimitNotice {
+    display: flex;
+    margin: 0;
+    align-items: center;
+    gap: 6px;
+    color: var(--warning-text);
+    font-weight: 500;
+
+    &.isReached {
+        color: var(--danger-text);
+    }
+}
+
+.usage.isCompact {
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 3px 15px;
+
+    .usageFigures {
+        gap: 3px 15px;
+    }
+
+    .usageFigure {
+        flex-flow: row;
+        gap: 6px;
+    }
+
+    .usageValue {
+        @include mixin.text(small);
+    }
+
+    .usageLimit {
+        flex-flow: row;
+        align-items: center;
+        gap: 9px;
+    }
+
+    .usageLimitBar {
+        width: 60px;
+    }
+}

@@ -30,6 +30,10 @@ props:
     -   name: label
         description: The label of the chip.
         type: string
+
+requiredIcons:
+    - check
+    - plus
 ---
 
 # Chip

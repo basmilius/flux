@@ -19,6 +19,7 @@ props:
         description: The color of the badge group.
         type: FluxColor
         optional: true
+        default: gray
 
     -   name: icon-leading
         description: The icon that is shown before the label.

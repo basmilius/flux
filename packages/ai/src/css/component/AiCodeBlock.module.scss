@@ -1,0 +1,60 @@
+@use '~flux/components/css/mixin';
+
+.codeBlock {
+    display: flex;
+    flex-flow: column;
+    overflow: hidden;
+
+    @include mixin.elevation('sunken');
+}
+
+.codeBlockHeader {
+    display: flex;
+    height: 36px;
+    padding-inline: 12px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border-bottom: 1px solid var(--surface-stroke-muted);
+}
+
+.codeBlockLanguage {
+    @include mixin.text(2xsmall);
+
+    font-family: var(--font-monospace);
+    color: var(--foreground-subtle);
+}
+
+.codeBlockCopy {
+    @include mixin.text(2xsmall);
+
+    display: flex;
+    height: 24px;
+    padding-inline: 9px;
+    align-items: center;
+    gap: 6px;
+    background: unset;
+    border: 0;
+    border-radius: var(--radius-half);
+    color: var(--foreground-secondary);
+    cursor: pointer;
+    transition: var(--transition-default);
+    transition-property: background, color, mixin.focus-ring-transition-properties();
+
+    @include mixin.focus-ring();
+
+    @include mixin.hover {
+        background: var(--surface-hover);
+        color: var(--foreground-prominent);
+    }
+}
+
+.codeBlockContent {
+    @include mixin.text(xsmall);
+
+    padding: 12px 15px;
+    overflow-x: auto;
+    font-family: var(--font-monospace);
+    color: var(--foreground);
+    tab-size: 4;
+}

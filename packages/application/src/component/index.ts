@@ -8,6 +8,8 @@ export { default as FluxApplicationMenuContextStack } from './FluxApplicationMen
 export { default as FluxApplicationMenuContextSwitcher } from './FluxApplicationMenuContextSwitcher.vue';
 export { default as FluxApplicationMenuPromo } from './FluxApplicationMenuPromo.vue';
 export { default as FluxApplicationMenuToggle } from './FluxApplicationMenuToggle.vue';
+export { default as FluxApplicationPageHeader } from './FluxApplicationPageHeader.vue';
 export { default as FluxApplicationSection } from './FluxApplicationSection.vue';
 export { default as FluxApplicationSide } from './FluxApplicationSide.vue';
+export { default as FluxApplicationStatusPage } from './FluxApplicationStatusPage.vue';
 export { default as FluxApplicationTop } from './FluxApplicationTop.vue';

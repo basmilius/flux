@@ -17,5 +17,7 @@ const debounced = animationFrameDebounce(reposition);
 ## Type declarations
 
 ```ts
-export declare function animationFrameDebounce<T extends Function>(fn: T): T;
+import type { FluxMaybePromise } from '@flux-ui/types';
+
+export declare function animationFrameDebounce<T extends () => FluxMaybePromise<void>>(fn: T): T;
 ```

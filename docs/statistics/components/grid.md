@@ -11,26 +11,31 @@ props:
         description: The number of columns on extra small screens.
         type: number
         optional: true
+        default: 1
 
     -   name: sm
         description: The number of columns on small screens. Falls back to xs.
         type: number
         optional: true
+        default: 1
 
     -   name: md
         description: The number of columns on medium screens. Falls back to sm.
         type: number
         optional: true
+        default: 2
 
     -   name: lg
         description: The number of columns on large screens. Falls back to md.
         type: number
         optional: true
+        default: 3
 
     -   name: xl
         description: The number of columns on extra large screens. Falls back to lg.
         type: number
         optional: true
+        default: 4
 
 slots:
     -   name: default

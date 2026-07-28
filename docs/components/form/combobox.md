@@ -26,6 +26,11 @@ props:
         type: [ 'string | null' ]
         optional: true
 
+    -   name: is-condensed
+        description: If the combobox is rendered at a reduced height.
+        type: boolean
+        optional: true
+
     -   name: is-creatable
         description: Whether the user can create new entries by typing a value that does not match an existing option.
         type: boolean

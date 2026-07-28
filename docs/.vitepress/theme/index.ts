@@ -50,6 +50,9 @@ fluxRegisterIcons(icons);
 const theme: Theme = {
     Layout,
     enhanceApp: ({app}) => {
+        // No messages: the packages fall back to the English they ship with, which is
+        // what a reader of these docs is meant to see. Every string on the page then
+        // comes from the same place the translations pages list.
         app.use(createI18n({
             fallbackLocale: 'en',
             legacy: false,
@@ -57,78 +60,7 @@ const theme: Theme = {
             missingWarn: false,
             locale: 'en',
             messages: {
-                en: {
-                    'flux': {
-                        back: 'Back',
-                        cancel: 'Cancel',
-                        comingSoon: 'Coming soon',
-                        continue: 'Continue',
-                        customPeriod: 'Custom period',
-                        filter: 'Filter',
-                        filterRemove: 'Remove filter',
-                        filterReset: 'Reset filters',
-                        justNow: 'Just now',
-                        max: 'Max',
-                        min: 'Min',
-                        nSelected: '{n} selected',
-                        ok: 'Ok',
-                        optional: 'Optional',
-                        preview: 'Preview',
-                        previewClose: 'Close preview',
-                        displayingOf: '{from}–{to} of {total}',
-                        showN: 'Show {n}',
-                        next: 'Next',
-                        noItems: 'There are no items (left).',
-                        pagination: 'Pagination',
-                        paginationNavigateTitle: 'Navigate',
-                        paginationNavigateMessage: 'Please provide the desired page number you wish to navigate to.',
-                        paginationNavigatePage: 'Page',
-                        previous: 'Previous',
-                        search: 'Search...',
-                        sort: 'Sort',
-                        sortAscending: 'Ascending',
-                        sortDescending: 'Descending',
-                        sortRemove: 'Remove sorting',
-                        submenu: 'Submenu',
-                        today: 'Today',
-                        selectMonth: 'Select month',
-                        selectYear: 'Select year',
-                        selectDate: 'Select date',
-                        previousMonth: 'Previous month',
-                        nextMonth: 'Next month',
-                        previousYears: 'Previous years',
-                        nextYears: 'Next years',
-                        allDay: 'All day',
-                        andNMore: '{n} more',
-                        createOption: 'Create "{value}"',
-                        expandRow: 'Expand row',
-                        collapseRow: 'Collapse row',
-                        skip: 'Skip',
-                        done: 'Done',
-                        grabbedAnnounce: 'Item grabbed. Use arrow keys to move, Enter to drop, Escape to cancel.',
-                        releasedAnnounce: 'Item released.',
-                        galleryPlaceholderButton: 'Pick image',
-                        galleryPlaceholderMessage: 'Drop an image here or click the button to upload...',
-                        galleryPlaceholderTitle: 'Gallery',
-                        timezoneEurope: 'Europe',
-                        timezoneAmerica: 'America',
-                        timezoneUs: 'United States',
-                        timezoneAustralia: 'Australia',
-                        timezoneCanada: 'Canada',
-                        timezoneMexico: 'Mexico',
-                        timezoneAfrica: 'Africa',
-                        timezoneAntarctica: 'Antarctica',
-                        timezoneArctic: 'Arctic',
-                        timezoneAsia: 'Asia',
-                        timezoneAtlantic: 'Atlantic',
-                        timezoneBrazil: 'Brazil',
-                        timezoneChile: 'Chile',
-                        timezoneEtc: 'ETC',
-                        timezoneOther: 'Other',
-                        timezoneIndian: 'Indian',
-                        timezonePacific: 'Pacific'
-                    }
-                }
+                en: {}
             }
         }));
 

@@ -13,7 +13,7 @@
     setup>
     import type { FluxFilterOptionsSpec } from '@flux-ui/types';
     import { computed, unref } from 'vue';
-    import { useFilterOptionMulti, useTranslate } from '~flux/components/composable/private';
+    import { useFilterOptionMulti } from '~flux/components/composable/private';
     import { defineFilter, generateMultiOptionsLabel, isFluxFilterOptionHeader, isFluxFilterOptionItem, pickFilterCommon } from '~flux/components/util';
     import { FilterOptionBase } from './primitive';
 
@@ -22,9 +22,8 @@
         readonly searchPlaceholder?: string;
     };
 
-    defineFilter<Props>(p => {
+    defineFilter<Props>((p, {translate}) => {
         const items = p.options.filter(isFluxFilterOptionItem);
-        const translate = useTranslate();
 
         return {
             ...pickFilterCommon(p),

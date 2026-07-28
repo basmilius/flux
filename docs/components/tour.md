@@ -33,11 +33,12 @@ props:
 slots:
     -   name: default
         description: The steps of the tour, provided as Tour Item components.
----
 
-<script setup>
-    import { FluxPane, FluxTable, FluxTableRow, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
-</script>
+requiredIcons:
+    - angle-left
+    - angle-right
+    - check
+---
 
 # Tour
 
@@ -61,32 +62,11 @@ While a tour is active the popover acts as a `role="dialog"` and traps focus, so
 
 Each step of the tour is a `FluxTourItem`. It targets an element through the `target` prop, optionally shows a `title`, and renders its default slot as the step content.
 
-<FluxPane>
-    <FluxTable>
-        <template #header>
-            <FluxTableRow>
-                <FluxTableHeader>Prop</FluxTableHeader>
-                <FluxTableHeader>Type</FluxTableHeader>
-                <FluxTableHeader>Description</FluxTableHeader>
-            </FluxTableRow>
-        </template>
-        <FluxTableRow>
-            <FluxTableCell><kbd>target</kbd></FluxTableCell>
-            <FluxTableCell><code>string | (() =&gt; HTMLElement | null)</code></FluxTableCell>
-            <FluxTableCell>A CSS selector or getter for the element this step highlights.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>title</kbd></FluxTableCell>
-            <FluxTableCell><code>string</code></FluxTableCell>
-            <FluxTableCell>The optional title shown at the top of the step.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>position</kbd></FluxTableCell>
-            <FluxTableCell><code>FluxTourPosition</code></FluxTableCell>
-            <FluxTableCell><p>The optional position of the popover relative to the target. Defaults to <code>bottom</code>.</p></FluxTableCell>
-        </FluxTableRow>
-    </FluxTable>
-</FluxPane>
+| Prop                | Type                                    | Description                                                                        |
+|---------------------|-----------------------------------------|------------------------------------------------------------------------------------|
+| <kbd>target</kbd>   | `string \| (() => HTMLElement \| null)` | A CSS selector or getter for the element this step highlights.                     |
+| <kbd>title</kbd>    | `string`                                | The optional title shown at the top of the step.                                   |
+| <kbd>position</kbd> | `FluxTourPosition`                      | The optional position of the popover relative to the target. Defaults to `bottom`. |
 
 The default slot holds the step content.
 

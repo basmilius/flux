@@ -1,5 +1,5 @@
 <script setup>
-    import { FluxPane, FluxTable, FluxTableRow, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
+    import { FluxStatisticsBarChart } from '@flux-ui/statistics';
 </script>
 
 # Chart colors
@@ -10,48 +10,16 @@ A chart has a color problem of its own. A button needs to stand out against the 
 
 Every token is declared once and takes its own value per theme, the same way the rest of Flux works.
 
-<FluxPane>
-    <FluxTable>
-        <template #header>
-            <FluxTableRow>
-                <FluxTableHeader>Token</FluxTableHeader>
-                <FluxTableHeader>What it is</FluxTableHeader>
-            </FluxTableRow>
-        </template>
-        <FluxTableRow>
-            <FluxTableCell><p><kbd>--chart-1</kbd> … <kbd>--chart-8</kbd></p></FluxTableCell>
-            <FluxTableCell>The series colors, ordered by prominence.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><p><kbd>--chart-ramp-1</kbd> … <kbd>--chart-ramp-4</kbd></p></FluxTableCell>
-            <FluxTableCell>A sequential ramp, light to dark, for heatmaps and choropleths.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><p><kbd>--chart-colorful-1</kbd> … <kbd>--chart-colorful-17</kbd></p></FluxTableCell>
-            <FluxTableCell>The categorical set, for more categories than eight.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--chart-positive</kbd></FluxTableCell>
-            <FluxTableCell>Growth, gain, an upward change.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--chart-negative</kbd></FluxTableCell>
-            <FluxTableCell>Loss, decline, a downward change.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--chart-grid</kbd></FluxTableCell>
-            <FluxTableCell>Axis and grid lines.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--chart-label</kbd></FluxTableCell>
-            <FluxTableCell>Axis labels, ticks and legend text.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--chart-on-fill</kbd></FluxTableCell>
-            <FluxTableCell>Text drawn on top of a filled series, as in a treemap.</FluxTableCell>
-        </FluxTableRow>
-    </FluxTable>
-</FluxPane>
+| Token                                                          | What it is                                                      |
+|----------------------------------------------------------------|-----------------------------------------------------------------|
+| <kbd>--chart-1</kbd> … <kbd>--chart-8</kbd>                    | The series colors, ordered by prominence.                       |
+| <kbd>--chart-ramp-1</kbd> … <kbd>--chart-ramp-4</kbd>          | A sequential ramp, light to dark, for heatmaps and choropleths. |
+| <kbd>--chart-colorful-1</kbd> … <kbd>--chart-colorful-17</kbd> | The categorical set, for more categories than eight.            |
+| <kbd>--chart-positive</kbd>                                    | Growth, gain, an upward change.                                 |
+| <kbd>--chart-negative</kbd>                                    | Loss, decline, a downward change.                               |
+| <kbd>--chart-grid</kbd>                                        | Axis and grid lines.                                            |
+| <kbd>--chart-label</kbd>                                       | Axis labels, ticks and legend text.                             |
+| <kbd>--chart-on-fill</kbd>                                     | Text drawn on top of a filled series, as in a treemap.          |
 
 The order of the eight is the order in which to spend them. `--chart-1` carries the most contrast against the chart surface and each next one steps down, so a two-series chart separates without anyone picking colors by hand, and an eight-series chart still separates at the bottom of the list.
 
@@ -84,16 +52,26 @@ These are tokens, not fixed hex values, so they take their own lightness per the
 
 ## Usage
 
+A chart takes no palette prop; color is a property of a series or a slice. Leave `color` out and the series picks the next entry of `CHART_COLORS`. Reach for `CHART_COLORFUL_COLORS` when a chart holds more categories than the themed set covers, and assign its entries yourself.
+
 ```vue
 <template>
     <FluxStatisticsBarChart
-        :data="chartData"
-        :colors="CHART_COLORFUL_COLORS"/>
+        :labels="labels"
+        :series="series"/>
 </template>
 
 <script
     setup
     lang="ts">
-    import { CHART_COLORFUL_COLORS } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartBarSeries } from '@flux-ui/types';
+    import { CHART_COLORFUL_COLORS, FluxStatisticsBarChart } from '@flux-ui/statistics';
+
+    const labels = ['Jan', 'Feb', 'Mar', 'Apr'];
+
+    const series: FluxStatisticsChartBarSeries[] = [
+        {name: 'Orders', data: [320, 410, 380, 510], color: CHART_COLORFUL_COLORS[0]},
+        {name: 'Returns', data: [24, 31, 19, 42], color: CHART_COLORFUL_COLORS[8]}
+    ];
 </script>
 ```

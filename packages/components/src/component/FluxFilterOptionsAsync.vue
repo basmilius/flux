@@ -13,7 +13,7 @@
     lang="ts"
     setup>
     import type { FluxFilterOptionRow, FluxFilterOptionsAsyncSpec, FluxFilterValue } from '@flux-ui/types';
-    import { useAsyncFilterOptions, useFilterOptionMulti, useTranslate } from '~flux/components/composable/private';
+    import { useAsyncFilterOptions, useFilterOptionMulti } from '~flux/components/composable/private';
     import { defineFilter, generateMultiOptionsLabel, isFluxFilterOptionItem, pickFilterCommon } from '~flux/components/util';
     import { FilterOptionBase } from './primitive';
 
@@ -23,23 +23,19 @@
         readonly searchPlaceholder?: string;
     };
 
-    defineFilter<Props>(p => {
-        const translate = useTranslate();
-
-        return {
-            ...pickFilterCommon(p),
-            type: 'options',
-            async getValueLabel(value) {
-                if (!Array.isArray(value)) {
-                    return null;
-                }
-
-                const items = (await p.fetchOptions(value)).filter(isFluxFilterOptionItem);
-
-                return generateMultiOptionsLabel(translate, items, value);
+    defineFilter<Props>((p, {translate}) => ({
+        ...pickFilterCommon(p),
+        type: 'options',
+        async getValueLabel(value) {
+            if (!Array.isArray(value)) {
+                return null;
             }
-        };
-    });
+
+            const items = (await p.fetchOptions(value)).filter(isFluxFilterOptionItem);
+
+            return generateMultiOptionsLabel(translate, items, value);
+        }
+    }));
 
     const modelSearch = defineModel<string>('searchQuery', {
         default: ''

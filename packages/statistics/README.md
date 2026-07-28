@@ -2,7 +2,7 @@
 
 Chart and statistics components for [Flux UI](https://flux-ui.dev).
 
-Built on top of [Apache ECharts](https://echarts.apache.org/), themed to match the Flux design system. Locale-aware labels are provided through `vue-i18n`.
+Built on top of [Apache ECharts](https://echarts.apache.org/), themed to match the Flux design system. Series, slice and axis names run through [vue-i18n](https://vue-i18n.intlify.dev/), and a name without a message behind it renders exactly as it was given.
 
 ## Highlights
 

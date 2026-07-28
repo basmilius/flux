@@ -16,6 +16,9 @@
         "skipLibCheck": true,
         "allowSyntheticDefaultImports": true,
         "paths": {
+            "~flux/ai/*": [
+                "./node_modules/@flux-ui/ai/src/*"
+            ],
             "~flux/application/*": [
                 "./node_modules/@flux-ui/application/src/*"
             ],

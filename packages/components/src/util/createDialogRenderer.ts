@@ -14,12 +14,18 @@ export type FluxDialogContext = {
     readonly label: Ref<string | undefined>;
 };
 
+export type FluxDialogRenderer = {
+    readonly dialogRef: Ref<HTMLElement | undefined>;
+    getRegistration(): FluxDialogRegistration | null;
+    render: RenderFunction;
+};
+
 export const FluxDialogInjectionKey: InjectionKey<FluxDialogContext> = Symbol('flux:dialog');
 
 const TARGET_SELECTOR = `.${$style.overlayProvider.replaceAll(' ', '.')}`;
 let DIALOG_ID = 0;
 
-export default function (attrs: object, props: Props, emit: Emit, slots: Slots, className: string | (() => string), transition: Component): RenderFunction {
+export default function (attrs: object, props: Props, emit: Emit, slots: Slots, className: string | (() => string), transition: Component): FluxDialogRenderer {
     const dialogId = `flux-dialog:${DIALOG_ID++}`;
     let registration: FluxDialogRegistration | null = null;
 
@@ -58,7 +64,7 @@ export default function (attrs: object, props: Props, emit: Emit, slots: Slots, 
         emit('close');
     }
 
-    return () => {
+    function render(): VNode {
         const children = flattenVNodeTree(slots.default?.() ?? []);
         const isVisible = children.length > 0 && children.some(child => child.type !== Comment);
         let content: VNode | undefined;
@@ -89,5 +95,11 @@ export default function (attrs: object, props: Props, emit: Emit, slots: Slots, 
                 default: () => content
             })
         ]);
+    }
+
+    return {
+        dialogRef,
+        getRegistration: () => registration,
+        render
     };
 }

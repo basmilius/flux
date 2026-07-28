@@ -17,7 +17,7 @@
         "rootDir": "src",
         "paths": {
             "~flux/application/*": [
-                "src/*"
+                "./src/*"
             ],
             "~flux/components/*": [
                 "../components/src/*"

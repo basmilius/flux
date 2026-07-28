@@ -11,11 +11,49 @@
     background: var(--surface);
     border-left: 1px solid var(--surface-stroke);
     overflow: hidden;
+    transition: var(--application-duration) var(--swift-out);
+    transition-property: translate, visibility;
     z-index: 500;
+
+    &[data-collapsed] {
+        visibility: hidden;
+        translate: 100% 0;
+    }
+}
+
+.applicationSideBackdrop {
+    position: fixed;
+    display: none;
+    inset: 0;
+    height: var(--application-height);
+    padding: 0;
+    border: 0;
+    background: var(--overlay);
+    backdrop-filter: blur(3px) saturate(180%);
+    transition: var(--application-duration) var(--swift-out);
+    transition-property: background, backdrop-filter, opacity, visibility;
+    z-index: 1900;
 }
 
 @include mixin.breakpoint-down(lg) {
     .applicationSide {
-        display: none;
+        z-index: 2000;
+    }
+
+    .applicationSideBackdrop {
+        display: block;
+    }
+
+    .applicationSideBackdrop[data-collapsed] {
+        visibility: hidden;
+        pointer-events: none;
+        opacity: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .applicationSide,
+    .applicationSideBackdrop {
+        transition: none;
     }
 }

@@ -329,9 +329,10 @@
 
         <h2>Forms</h2>
         <p>Form controls share one input surface, so a change to the well, the border or the focus ring shows up on every field at once. The panes below split them by kind: what is typed, what is picked, what is counted, and the states each of them can end up in.</p>
-        <div
-            :class="$style.grid"
-            data-prose-full>
+        <FluxMasonry
+            :columns="{xs: 1, sm: 2, xl: 4}"
+            data-prose-full
+            :gap="24">
             <FluxPane>
                 <FluxPaneHeader
                     icon="pen"
@@ -769,13 +770,14 @@
                     <FluxDatePicker v-model="pickedDate"/>
                 </FluxPaneBody>
             </FluxPane>
-        </div>
+        </FluxMasonry>
 
-        <h2>A grid of panes</h2>
-        <p>The grid below is marked <code>data-prose-full</code>, so it breaks out of the reading measure to span the whole container, while the text keeps its width.</p>
-        <div
-            :class="$style.grid"
-            data-prose-full>
+        <h2>A masonry of panes</h2>
+        <p>The masonry below is marked <code>data-prose-full</code>, so it breaks out of the reading measure to span the whole container, while the text keeps its width. Where a grid would leave a gap under every pane that is shorter than its row, the masonry pulls the next pane straight up into it. The price is the reading order: a masonry fills one column top to bottom before it starts the next, so it only suits cards that can be read in any order.</p>
+        <FluxMasonry
+            :columns="{xs: 1, sm: 2, xl: 4}"
+            data-prose-full
+            :gap="24">
             <FluxPane>
                 <FluxPaneHeader
                     icon="pen"
@@ -1052,7 +1054,7 @@
                     <FluxPrimaryButton label="Confirm"/>
                 </template>
             </FluxActionPane>
-        </div>
+        </FluxMasonry>
 
         <h2>Tables</h2>
         <p>The table below carries everything at once: a sticky header, a sticky footer, a pinned column on both edges, colored rows, a selected row and hover feedback. The border under the header and the seam above the footer are the lines to watch.</p>
@@ -1371,10 +1373,11 @@
         </div>
 
         <h2>Menus and floating surfaces</h2>
-        <p>A menu is normally painted on a raised surface inside a flyout. Putting one straight in a pane shows the same thing without having to hold it open, so the item hover, the selected marker and the destructive item can all be read at once.</p>
-        <div
-            :class="$style.grid"
-            data-prose-full>
+        <p>A menu is normally painted on a raised surface inside a flyout. Putting one straight in a pane shows the same thing without having to hold it open, so the item hover, the selected marker and the destructive item can all be read at once. The filter menu carries its search field in a menu pane, which is the one place the arrow keys drive the control instead of the menu's own roving focus.</p>
+        <FluxMasonry
+            :columns="{xs: 1, sm: 2, xl: 4}"
+            data-prose-full
+            :gap="24">
             <FluxPane>
                 <FluxMenu>
                     <FluxMenuTitle title="Workspace"/>
@@ -1495,6 +1498,33 @@
                         <FluxMenuItem icon-leading="copy"/>
                         <FluxMenuItem icon-leading="paste"/>
                         <FluxMenuItem icon-leading="trash"/>
+                    </FluxMenuGroup>
+                </FluxMenu>
+            </FluxPane>
+
+            <FluxPane>
+                <FluxMenu>
+                    <FluxMenuTitle title="Filter"/>
+
+                    <FluxMenuPane>
+                        <FluxFormInput
+                            v-model="menuFilter"
+                            aria-label="Filter commands"
+                            icon-leading="magnifying-glass"
+                            placeholder="Filter commands..."
+                            type="search"/>
+                    </FluxMenuPane>
+
+                    <FluxMenuGroup>
+                        <FluxMenuItem
+                            v-for="command of filteredMenuCommands"
+                            :key="command.label"
+                            :icon-leading="command.icon"
+                            :label="command.label"/>
+
+                        <FluxMenuSubHeader
+                            v-if="filteredMenuCommands.length === 0"
+                            label="No matches"/>
                     </FluxMenuGroup>
                 </FluxMenu>
             </FluxPane>
@@ -1742,7 +1772,7 @@
                     </FluxFlex>
                 </FluxPaneBody>
             </FluxPane>
-        </div>
+        </FluxMasonry>
 
         <h2>Elevation and shadows</h2>
         <p>Elevation is a level rather than a set of declarations. Sunken is a recessed area inside a surface, surface is a card on the page, and raised is anything floating above it. In light the shadow does the work, in dark the surface lightness does.</p>
@@ -1816,7 +1846,7 @@
                 {{ shadow }}
             </div>
         </div>
-        <p>Overlays and slide overs put the same raised surface above a dimmed page.</p>
+        <p>Overlays, slide overs and sheets put the same raised surface above a dimmed page.</p>
         <FluxButtonStack>
             <FluxSecondaryButton
                 icon-leading="expand"
@@ -1861,6 +1891,129 @@
                 </FluxPaneFooter>
             </FluxPane>
         </FluxSlideOver>
+        <p>A sheet is the same surface with a gesture attached: it hangs off one edge, follows the pointer on a spring, and rests at the sizes it is given. The four buttons below open it from each edge, so the corner radii, the safe area padding and the grabber can be checked on every side. Drag it, flick it away, or use the wheel and the arrow keys to move between its two snap points.</p>
+        <FluxButtonStack>
+            <FluxSecondaryButton
+                v-for="position of sheetPositions"
+                :key="position"
+                :icon-leading="position === 'bottom' ? 'arrow-up' : position === 'top' ? 'arrow-down' : position === 'left' ? 'arrow-right' : 'arrow-left'"
+                :label="`Sheet from the ${position}`"
+                @click="openSheet(position)"/>
+        </FluxButtonStack>
+        <FluxSheet
+            is-closeable
+            :position="sheetPosition"
+            :snap-points="[.45, .9]"
+            @close="openedSheet = null">
+            <FluxPane v-if="openedSheet === 'snap'">
+                <FluxPaneHeader
+                    icon="grip"
+                    :subtitle="`Anchored to the ${sheetPosition}, resting at 45% and 90%`"
+                    title="Sheet"/>
+                <FluxPaneBody>
+                    <p>The shade behind this sheet is tied to its position: pull it past its smallest snap point and the page shows through, let go and both spring back together. Past the largest snap point the surface stretches against a resistance instead of tearing loose from the edge.</p>
+                </FluxPaneBody>
+                <FluxPaneFooter>
+                    <FluxSpacer/>
+                    <FluxSecondaryButton
+                        label="Close"
+                        @click="openedSheet = null"/>
+                </FluxPaneFooter>
+            </FluxPane>
+        </FluxSheet>
+        <p>Without snap points the sheet fits its own content, and a scrolling body hands the gesture back and forth: the list scrolls until it runs out, and from there the same drag moves the sheet.</p>
+        <FluxButtonStack>
+            <FluxSecondaryButton
+                icon-leading="rectangle-history"
+                label="Fitted sheet"
+                @click="openedSheet = 'fitted'"/>
+            <FluxSecondaryButton
+                icon-leading="list-ul"
+                label="Scrolling sheet"
+                @click="openedSheet = 'scrolling'"/>
+            <FluxSecondaryButton
+                icon-leading="lock"
+                label="Sheet without a grabber"
+                @click="openedSheet = 'static'"/>
+        </FluxButtonStack>
+        <FluxSheet
+            is-closeable
+            @close="openedSheet = null">
+            <FluxPane v-if="openedSheet === 'fitted'">
+                <FluxPaneHeader
+                    icon="rectangle-history"
+                    subtitle="Sized to its content"
+                    title="Fitted sheet"/>
+                <FluxItemStack>
+                    <FluxItem
+                        v-for="target of shareTargets"
+                        :key="target.label">
+                        <FluxItemMedia is-center>
+                            <FluxIcon :name="target.icon"/>
+                        </FluxItemMedia>
+
+                        <FluxItemContent is-center>
+                            <strong>{{ target.label }}</strong>
+                        </FluxItemContent>
+                    </FluxItem>
+                </FluxItemStack>
+                <FluxPaneFooter>
+                    <FluxSpacer/>
+                    <FluxSecondaryButton
+                        label="Cancel"
+                        @click="openedSheet = null"/>
+                </FluxPaneFooter>
+            </FluxPane>
+        </FluxSheet>
+        <FluxSheet
+            is-closeable
+            :snap-points="[.5, .95]"
+            @close="openedSheet = null">
+            <FluxPane v-if="openedSheet === 'scrolling'">
+                <FluxPaneHeader
+                    icon="list-ul"
+                    subtitle="Drag the list, not just the grabber"
+                    title="Scrolling sheet"/>
+                <FluxItemStack>
+                    <FluxItem
+                        v-for="entry of sheetActivity"
+                        :key="entry.id">
+                        <FluxItemContent>
+                            <strong>{{ entry.service }}</strong>
+                            <FluxText
+                                color="muted"
+                                size="small">{{ entry.when }}</FluxText>
+                        </FluxItemContent>
+
+                        <FluxItemActions is-center>
+                            <FluxBadge
+                                :color="entry.color ?? 'gray'"
+                                dot
+                                :label="entry.status"/>
+                        </FluxItemActions>
+                    </FluxItem>
+                </FluxItemStack>
+            </FluxPane>
+        </FluxSheet>
+        <FluxSheet
+            :is-draggable="false"
+            @close="openedSheet = null">
+            <FluxPane v-if="openedSheet === 'static'">
+                <FluxPaneHeader
+                    icon="lock"
+                    subtitle="No grabber, no gesture"
+                    title="Sheet without a grabber"/>
+                <FluxPaneBody>
+                    <p>With <code>is-draggable</code> off the sheet keeps its position but loses the grabber, the drag and the wheel. It also drops <code>is-closeable</code> here, so neither the escape key nor a click beside it dismisses this one: only the button below does.</p>
+                </FluxPaneBody>
+                <FluxPaneFooter>
+                    <FluxSpacer/>
+                    <FluxPrimaryButton
+                        label="Understood"
+                        @click="openedSheet = null"/>
+                </FluxPaneFooter>
+            </FluxPane>
+        </FluxSheet>
 
         <h2>Navigation and disclosure</h2>
         <p>Breadcrumbs and expandables help the reader move around and reveal detail on demand.</p>
@@ -2078,9 +2231,10 @@
             </FluxCalendar>
         </div>
         <p>Galleries, comments, drop zones and placeholders round out the collection components.</p>
-        <div
-            :class="$style.grid"
-            data-prose-full>
+        <FluxMasonry
+            :columns="{xs: 1, sm: 2, xl: 4}"
+            data-prose-full
+            :gap="24">
             <FluxPane>
                 <FluxPaneHeader
                     icon="image"
@@ -2178,7 +2332,7 @@
                     </FluxFlex>
                 </FluxPaneBody>
             </FluxPane>
-        </div>
+        </FluxMasonry>
         <p>The command palette lives on the same raised surface as a menu. Press <kbd>Cmd</kbd> + <kbd>K</kbd> or use the button.</p>
         <FluxButtonStack>
             <FluxSecondaryButton
@@ -2412,13 +2566,16 @@ const article = FluxProse;</code></pre>
 <script
     lang="ts"
     setup>
-    import { FluxAction, FluxActionBar, FluxActionPane, FluxActionStack, FluxAvatar, FluxAvatarGroup, FluxBadge, FluxBadgeStack, FluxBoxedIcon, FluxBreadcrumb, FluxBreadcrumbFlyout, FluxBreadcrumbItem, FluxButtonGroup, FluxButtonStack, FluxCalendar, FluxCalendarItem, FluxChip, FluxClickablePane, FluxClickablePaneHeader, FluxColorPicker, FluxColorSelect, FluxCommandPalette, FluxComment, FluxContextMenu, FluxDataTable, FluxDatePicker, FluxDescriptionItem, FluxDescriptionList, FluxDestructiveButton, FluxDisabled, FluxDivider, FluxDropZone, FluxExpandable, FluxExpandableGroup, FluxFilterBar, FluxFilterDate, FluxFilterOption, FluxFilterOptions, FluxFilterRange, FluxFlex, FluxFlyout, FluxForm, FluxFormCheckbox, FluxFormCheckboxGroup, FluxFormCheckboxTile, FluxFormColumn, FluxFormCombobox, FluxFormDateInput, FluxFormFader, FluxFormField, FluxFormInput, FluxFormInputAddition, FluxFormInputGroup, FluxFormNumberInput, FluxFormPinInput, FluxFormRadio, FluxFormRadioGroup, FluxFormRadioTile, FluxFormRangeSlider, FluxFormRating, FluxFormSelect, FluxFormSlider, FluxFormTagsInput, FluxFormTextArea, FluxFormTreeViewSelect, FluxGallery, FluxIcon, FluxInfo, FluxInfoStack, FluxInlineEdit, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxItemStack, FluxKanban, FluxKanbanColumn, FluxKanbanItem, FluxLayerPane, FluxLink, FluxMenu, FluxMenuCollapsible, FluxMenuFlyout, FluxMenuGroup, FluxMenuItem, FluxMenuOptions, FluxMenuPane, FluxMenuSubHeader, FluxMenuTitle, FluxNotice, FluxNoticeStack, FluxOverlay, FluxPagination, FluxPaginationBar, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneGroup, FluxPaneHeader, FluxPaneMedia, FluxPersona, FluxPlaceholder, FluxPrimaryButton, FluxProgressBar, FluxProse, FluxPublishButton, FluxQuantitySelector, FluxSecondaryButton, FluxSegmentedControl, FluxSegmentedControlItem, FluxSeparator, FluxSkeleton, FluxSlideOver, FluxSnackbar, FluxSpacer, FluxSpinner, FluxSplitButton, FluxStepper, FluxStepperStep, FluxTab, FluxTabBar, FluxTabBarItem, FluxTable, FluxTableActions, FluxTableBar, FluxTableCell, FluxTableGroup, FluxTableHeader, FluxTableRow, FluxTabs, FluxTag, FluxTagStack, FluxText, FluxTicks, FluxTimeline, FluxTimelineItem, FluxToggle, FluxToolbar, FluxToolbarGroup, FluxTooltip, FluxTreeView, showAlert, showConfirm, showPrompt, showSnackbar } from '@flux-ui/components';
+    import { FluxAction, FluxActionBar, FluxActionPane, FluxActionStack, FluxAvatar, FluxAvatarGroup, FluxBadge, FluxBadgeStack, FluxBoxedIcon, FluxBreadcrumb, FluxBreadcrumbFlyout, FluxBreadcrumbItem, FluxButtonGroup, FluxButtonStack, FluxCalendar, FluxCalendarItem, FluxChip, FluxClickablePane, FluxClickablePaneHeader, FluxColorPicker, FluxColorSelect, FluxCommandPalette, FluxComment, FluxContextMenu, FluxDataTable, FluxDatePicker, FluxDescriptionItem, FluxDescriptionList, FluxDestructiveButton, FluxDisabled, FluxDivider, FluxDropZone, FluxExpandable, FluxExpandableGroup, FluxFilterBar, FluxFilterDate, FluxFilterOption, FluxFilterOptions, FluxFilterRange, FluxFlex, FluxFlyout, FluxForm, FluxFormCheckbox, FluxFormCheckboxGroup, FluxFormCheckboxTile, FluxFormColumn, FluxFormCombobox, FluxFormDateInput, FluxFormFader, FluxFormField, FluxFormInput, FluxFormInputAddition, FluxFormInputGroup, FluxFormNumberInput, FluxFormPinInput, FluxFormRadio, FluxFormRadioGroup, FluxFormRadioTile, FluxFormRangeSlider, FluxFormRating, FluxFormSelect, FluxFormSlider, FluxFormTagsInput, FluxFormTextArea, FluxFormTreeViewSelect, FluxGallery, FluxIcon, FluxInfo, FluxInfoStack, FluxInlineEdit, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxItemStack, FluxKanban, FluxKanbanColumn, FluxKanbanItem, FluxLayerPane, FluxLink, FluxMasonry, FluxMenu, FluxMenuCollapsible, FluxMenuFlyout, FluxMenuGroup, FluxMenuItem, FluxMenuOptions, FluxMenuPane, FluxMenuSubHeader, FluxMenuTitle, FluxNotice, FluxNoticeStack, FluxOverlay, FluxPagination, FluxPaginationBar, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneGroup, FluxPaneHeader, FluxPaneMedia, FluxPersona, FluxPlaceholder, FluxPrimaryButton, FluxProgressBar, FluxProse, FluxPublishButton, FluxQuantitySelector, FluxSecondaryButton, FluxSegmentedControl, FluxSegmentedControlItem, FluxSeparator, FluxSheet, FluxSkeleton, FluxSlideOver, FluxSnackbar, FluxSpacer, FluxSpinner, FluxSplitButton, FluxStepper, FluxStepperStep, FluxTab, FluxTabBar, FluxTabBarItem, FluxTable, FluxTableActions, FluxTableBar, FluxTableCell, FluxTableGroup, FluxTableHeader, FluxTableRow, FluxTabs, FluxTag, FluxTagStack, FluxText, FluxTicks, FluxTimeline, FluxTimelineItem, FluxToggle, FluxToolbar, FluxToolbarGroup, FluxTooltip, FluxTreeView, showAlert, showConfirm, showPrompt, showSnackbar } from '@flux-ui/components';
     import type { FluxColor, FluxCommandSource, FluxFilterState, FluxFormSelectOption, FluxIconName, FluxTreeViewOption } from '@flux-ui/types';
     import { DateTime } from 'luxon';
     import { computed, reactive, ref } from 'vue';
     import ApplicationDemo from './playground/ApplicationDemo.vue';
     import PaletteSwitcher from './playground/PaletteSwitcher.vue';
     import Patterns from './playground/Patterns.vue';
+
+    type OpenedSheet = 'fitted' | 'scrolling' | 'snap' | 'static' | null;
+    type SheetPosition = 'bottom' | 'left' | 'right' | 'top';
 
     type Deployment = {
         readonly id: number;
@@ -2442,6 +2599,13 @@ const article = FluxProse;</code></pre>
 
     const colors: FluxColor[] = ['gray', 'primary', 'danger', 'info', 'success', 'warning'];
     const shadows = ['px', 'xs', 'sm', 'md', 'lg', 'xl', '2xl'];
+    const sheetPositions: SheetPosition[] = ['bottom', 'left', 'right', 'top'];
+
+    const shareTargets: { icon: FluxIconName; label: string }[] = [
+        {icon: 'copy', label: 'Copy link'},
+        {icon: 'envelope', label: 'Send as email'},
+        {icon: 'message', label: 'Share in chat'}
+    ];
 
     const notices: { color: FluxColor; icon: FluxIconName; title: string; message: string }[] = [
         {color: 'gray', icon: 'circle-info', title: 'Neutral', message: 'A neutral message without any urgency attached to it.'},
@@ -2463,7 +2627,10 @@ const article = FluxProse;</code></pre>
     const isPublished = ref(false);
     const isOverlayOpen = ref(false);
     const isSlideOverOpen = ref(false);
+    const openedSheet = ref<OpenedSheet>(null);
+    const sheetPosition = ref<SheetPosition>('bottom');
     const brightness = ref(60);
+    const menuFilter = ref('');
     const menuOption = ref('Second option');
     const menuView = ref('grid');
     const search = ref('');
@@ -2476,6 +2643,15 @@ const article = FluxProse;</code></pre>
     const pickedDate = ref<DateTime | DateTime[] | null>(DateTime.now());
 
     const menuOptions = ['First option', 'Second option', 'Third option'];
+
+    const menuCommands: { readonly icon: FluxIconName; readonly label: string; }[] = [
+        {icon: 'file-plus', label: 'New file'},
+        {icon: 'folder', label: 'Open folder'},
+        {icon: 'clone', label: 'Duplicate'},
+        {icon: 'pen', label: 'Rename'},
+        {icon: 'users', label: 'Invite members'},
+        {icon: 'gear', label: 'Settings'}
+    ];
 
     const form = reactive({
         accent: '#4f46e5',
@@ -2583,6 +2759,20 @@ const article = FluxProse;</code></pre>
         {id: 10, service: 'cdn-purge', environment: 'production', status: 'Live', deployed: '11 Mar, 18:47', owner: 'Milan Rooij', duration: '0m 44s', cost: 12}
     ];
 
+    // Long enough that the sheet's body scrolls at both of its snap points, which is what
+    // makes the handoff between scrolling and dragging visible.
+    const sheetActivity = Array.from({length: 24}, (_, index) => {
+        const deployment = deployments[index % deployments.length];
+
+        return {
+            id: index,
+            color: deployment.color,
+            service: deployment.service,
+            status: deployment.status,
+            when: `${28 - index} Feb, ${String(9 + index % 9).padStart(2, '0')}:${String(index * 7 % 60).padStart(2, '0')}`
+        };
+    });
+
     const invoices: Invoice[] = [
         {id: 1, number: 'INV-2024-001', customer: 'Northwind Studio', status: 'Paid', amount: 1240},
         {id: 2, number: 'INV-2024-002', customer: 'Harbour Collective', status: 'Open', amount: 3180},
@@ -2676,6 +2866,7 @@ const article = FluxProse;</code></pre>
         }
     ];
 
+    const filteredMenuCommands = computed(() => menuCommands.filter(command => command.label.toLowerCase().includes(menuFilter.value.toLowerCase())));
     const failedCount = computed(() => deployments.filter(deployment => deployment.status === 'Failed').length);
     const totalCost = computed(() => deployments.reduce((total, deployment) => total + deployment.cost, 0));
 
@@ -2717,6 +2908,11 @@ const article = FluxProse;</code></pre>
             icon: 'circle-check',
             message: `Activated: ${label}`
         });
+    }
+
+    function openSheet(position: SheetPosition): void {
+        sheetPosition.value = position;
+        openedSheet.value = 'snap';
     }
 
     function onSnackbar(): void {

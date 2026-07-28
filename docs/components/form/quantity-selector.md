@@ -10,6 +10,8 @@ props:
     -   name: model-value
         description: The value of the input.
         type: number
+        optional: true
+        default: 0
 
     -   name: aria-label
         description: An accessible label for the quantity selector and its input, announced by assistive technology.

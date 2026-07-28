@@ -1,41 +1,16 @@
-<script setup>
-    import { FluxPane, FluxTable, FluxTableRow, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
-</script>
-
 # Design tokens
 
 Flux exposes its visual language as CSS custom properties. Use them to theme your application, build new components that fit in seamlessly, or override individual values for a single element.
 
 The color tokens come in three layers, and which one you reach for matters:
 
-<FluxPane>
-    <FluxTable>
-        <template #header>
-            <FluxTableRow>
-                <FluxTableHeader>Layer</FluxTableHeader>
-                <FluxTableHeader>Example</FluxTableHeader>
-                <FluxTableHeader>Use it</FluxTableHeader>
-            </FluxTableRow>
-        </template>
-        <FluxTableRow>
-            <FluxTableCell><strong>Semantic</strong></FluxTableCell>
-            <FluxTableCell><p><kbd>--surface</kbd>, <kbd>--foreground</kbd>, <kbd>--surface-stroke</kbd></p></FluxTableCell>
-            <FluxTableCell>Always, unless one of the other two applies.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><strong>Intent</strong></FluxTableCell>
-            <FluxTableCell><p><kbd>--danger-solid</kbd>, <kbd>--primary-text</kbd></p></FluxTableCell>
-            <FluxTableCell>When something carries a meaning: primary, danger, info, success or warning.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><strong>Palette</strong></FluxTableCell>
-            <FluxTableCell><kbd>--palette-gray-600</kbd></FluxTableCell>
-            <FluxTableCell>To reshade the whole interface, or to build a token of your own out of.</FluxTableCell>
-        </FluxTableRow>
-    </FluxTable>
-</FluxPane>
+| Layer        | Example                                                                    | Use it                                                                       |
+|--------------|----------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| **Semantic** | <kbd>--surface</kbd>, <kbd>--foreground</kbd>, <kbd>--surface-stroke</kbd> | Always, unless one of the other two applies.                                 |
+| **Intent**   | <kbd>--danger-solid</kbd>, <kbd>--primary-text</kbd>                       | When something carries a meaning: primary, danger, info, success or warning. |
+| **Palette**  | <kbd>--palette-gray-600</kbd>                                              | To reshade the whole interface, or to build a token of your own out of.      |
 
-The palette is deliberately the longest to type. A component that reaches straight into it has to answer for both themes by itself, and that is exactly the work the semantic layer already did. See [Colors](./colors) for the palette itself, and [Upgrading](./upgrading) if you are coming from a version that exposed the scales as `--gray-*`.
+The palette is deliberately the longest to type. A component that reaches straight into it has to answer for both themes by itself, and that is exactly the work the semantic layer already did. See [Colors](./colors) for the palette itself, and [Upgrading to v4](./upgrading-v4) if you are coming from a version that exposed the scales as `--gray-*`.
 
 ## How a token knows the theme
 
@@ -73,48 +48,16 @@ Two things break this, so avoid them when you build tokens of your own:
 
 Every intent carries the same nine roles, gray included. A component that takes a `color` prop maps them once and then styles against the result, so it never picks a shade itself.
 
-<FluxPane>
-    <FluxTable>
-        <template #header>
-            <FluxTableRow>
-                <FluxTableHeader>Role</FluxTableHeader>
-                <FluxTableHeader>What it is</FluxTableHeader>
-            </FluxTableRow>
-        </template>
-        <FluxTableRow>
-            <FluxTableCell><kbd>solid</kbd></FluxTableCell>
-            <FluxTableCell>A filled surface in this intent: a button, a status pill.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><p><kbd>solid-hover</kbd>, <kbd>solid-active</kbd></p></FluxTableCell>
-            <FluxTableCell>The same fill under interaction.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>on-solid</kbd></FluxTableCell>
-            <FluxTableCell>Text and icons on that fill.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>muted</kbd></FluxTableCell>
-            <FluxTableCell>A filled marking that carries information without asking for attention: a dot, a spinner, a progress bar.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>soft</kbd></FluxTableCell>
-            <FluxTableCell>A tinted background: a badge, a highlighted table row.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>soft-hover</kbd></FluxTableCell>
-            <FluxTableCell>The same tint under interaction.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>border</kbd></FluxTableCell>
-            <FluxTableCell>The edge around a soft area.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>text</kbd></FluxTableCell>
-            <FluxTableCell>Text in this intent, on a plain or a soft background.</FluxTableCell>
-        </FluxTableRow>
-    </FluxTable>
-</FluxPane>
+| Role                                            | What it is                                                                                                |
+|-------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| <kbd>solid</kbd>                                | A filled surface in this intent: a button, a status pill.                                                 |
+| <kbd>solid-hover</kbd>, <kbd>solid-active</kbd> | The same fill under interaction.                                                                          |
+| <kbd>on-solid</kbd>                             | Text and icons on that fill.                                                                              |
+| <kbd>muted</kbd>                                | A filled marking that carries information without asking for attention: a dot, a spinner, a progress bar. |
+| <kbd>soft</kbd>                                 | A tinted background: a badge, a highlighted table row.                                                    |
+| <kbd>soft-hover</kbd>                           | The same tint under interaction.                                                                          |
+| <kbd>border</kbd>                               | The edge around a soft area.                                                                              |
+| <kbd>text</kbd>                                 | Text in this intent, on a plain or a soft background.                                                     |
 
 `text` is one rung, not two. There was a second, stronger one for a title over its body, placed where `--foreground-prominent` sits on the gray ramp. On the neutral scale that reads as more emphasis; on a colored one it walks out of the color, because chroma peaks in the middle of a scale and falls away at both ends. In dark it cost four fifths of the hue, so a danger notice and an info notice were told apart by their icon and nothing else. A title is set off by weight and by being colored at all, which is what it was before.
 
@@ -158,42 +101,13 @@ The two themes signal height differently, which is why this is a token and not a
 
 That difference is also why the order is not the same in both themes. `--surface-canvas` is the ground a board, a canvas or a well is drawn on, and it stays below everything in both. `--surface-sunken` is not a level of its own but a strip that has to read against the card it sits in: a table head, a pane footer, a tab bar. In light it does that by going darker than the card, in dark by going lighter, because a strip that moves further towards black stops holding its borders and its text.
 
-<FluxPane>
-    <FluxTable>
-        <template #header>
-            <FluxTableRow>
-                <FluxTableHeader>Token</FluxTableHeader>
-                <FluxTableHeader>Light</FluxTableHeader>
-                <FluxTableHeader>Dark</FluxTableHeader>
-            </FluxTableRow>
-        </template>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--surface-canvas</kbd></FluxTableCell>
-            <FluxTableCell>Below the page.</FluxTableCell>
-            <FluxTableCell>Below the page.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--background</kbd></FluxTableCell>
-            <FluxTableCell>The page.</FluxTableCell>
-            <FluxTableCell>The page.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--surface-sunken</kbd></FluxTableCell>
-            <FluxTableCell>Below the card.</FluxTableCell>
-            <FluxTableCell><p><strong>Above</strong> the card.</p></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--surface</kbd></FluxTableCell>
-            <FluxTableCell>The card.</FluxTableCell>
-            <FluxTableCell>The card.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--surface-raised</kbd></FluxTableCell>
-            <FluxTableCell>The card, lifted by shadow.</FluxTableCell>
-            <FluxTableCell>Above the card.</FluxTableCell>
-        </FluxTableRow>
-    </FluxTable>
-</FluxPane>
+| Token                       | Light                       | Dark                |
+|-----------------------------|-----------------------------|---------------------|
+| <kbd>--surface-canvas</kbd> | Below the page.             | Below the page.     |
+| <kbd>--background</kbd>     | The page.                   | The page.           |
+| <kbd>--surface-sunken</kbd> | Below the card.             | **Above** the card. |
+| <kbd>--surface</kbd>        | The card.                   | The card.           |
+| <kbd>--surface-raised</kbd> | The card, lifted by shadow. | Above the card.     |
 
 A level is more than a background. Set the hairline along with it, and publish what you painted as `--surface-current` so anything inside can read the surface it is actually sitting on rather than naming one:
 
@@ -232,108 +146,33 @@ Both themes are shown side by side. The value under each swatch is what the brow
 
 ## Radius
 
-<FluxPane>
-    <FluxTable>
-        <template #header>
-            <FluxTableRow>
-                <FluxTableHeader>Token</FluxTableHeader>
-                <FluxTableHeader>Value</FluxTableHeader>
-                <FluxTableHeader>Usage</FluxTableHeader>
-            </FluxTableRow>
-        </template>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--radius</kbd></FluxTableCell>
-            <FluxTableCell><code>12px</code></FluxTableCell>
-            <FluxTableCell>Default border-radius for surfaces and inputs.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--radius-half</kbd></FluxTableCell>
-            <FluxTableCell><code>6px</code></FluxTableCell>
-            <FluxTableCell>Tight rounding, used inside chips and small inputs.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--radius-double</kbd></FluxTableCell>
-            <FluxTableCell><code>24px</code></FluxTableCell>
-            <FluxTableCell>Larger rounding (heroes, illustrations).</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--radius-full</kbd></FluxTableCell>
-            <FluxTableCell><code>9999px</code></FluxTableCell>
-            <FluxTableCell><p>Pill-shaped components such as <code>FluxBadge</code>.</p></FluxTableCell>
-        </FluxTableRow>
-    </FluxTable>
-</FluxPane>
+| Token                      | Value    | Usage                                               |
+|----------------------------|----------|-----------------------------------------------------|
+| <kbd>--radius</kbd>        | `12px`   | Default border-radius for surfaces and inputs.      |
+| <kbd>--radius-half</kbd>   | `6px`    | Tight rounding, used inside chips and small inputs. |
+| <kbd>--radius-double</kbd> | `24px`   | Larger rounding (heroes, illustrations).            |
+| <kbd>--radius-full</kbd>   | `9999px` | Pill-shaped components such as `FluxBadge`.         |
 
 ## Typography
 
-<FluxPane>
-    <FluxTable>
-        <template #header>
-            <FluxTableRow>
-                <FluxTableHeader>Token</FluxTableHeader>
-                <FluxTableHeader>Value</FluxTableHeader>
-            </FluxTableRow>
-        </template>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--font-sans</kbd></FluxTableCell>
-            <FluxTableCell><code>inter-variable, sans-serif</code></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--font-monospace</kbd></FluxTableCell>
-            <FluxTableCell><code>jetbrains-mono, monospace</code></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--font-serif</kbd></FluxTableCell>
-            <FluxTableCell><code>serif</code></FluxTableCell>
-        </FluxTableRow>
-    </FluxTable>
-</FluxPane>
+| Token                       | Value                        |
+|-----------------------------|------------------------------|
+| <kbd>--font-sans</kbd>      | `inter-variable, sans-serif` |
+| <kbd>--font-monospace</kbd> | `jetbrains-mono, monospace`  |
+| <kbd>--font-serif</kbd>     | `serif`                      |
 
 ### Text scale
 
 Every size is paired with a line-height, and the two are always set together. The pairing is what keeps line boxes on the 3px grid: a font-size on its own would derive its line box from a ratio and land on fractional pixels.
 
-<FluxPane>
-    <FluxTable>
-        <template #header>
-            <FluxTableRow>
-                <FluxTableHeader>Token</FluxTableHeader>
-                <FluxTableHeader>Value</FluxTableHeader>
-                <FluxTableHeader>Usage</FluxTableHeader>
-            </FluxTableRow>
-        </template>
-        <FluxTableRow>
-            <FluxTableCell><p><kbd>--font-size-2xsmall</kbd><br/><kbd>--line-height-2xsmall</kbd></p></FluxTableCell>
-            <FluxTableCell><p><code>12px</code><br/><code>18px</code></p></FluxTableCell>
-            <FluxTableCell>Fine print: pagination, meta rows, calendar entries.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><p><kbd>--font-size-xsmall</kbd><br/><kbd>--line-height-xsmall</kbd></p></FluxTableCell>
-            <FluxTableCell><p><code>13px</code><br/><code>18px</code></p></FluxTableCell>
-            <FluxTableCell><p>Compact labels, such as <code>FluxBadge</code> and <code>FluxText</code> at <code>small</code>.</p></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><p><kbd>--font-size-small</kbd><br/><kbd>--line-height-small</kbd></p></FluxTableCell>
-            <FluxTableCell><p><code>14px</code><br/><code>21px</code></p></FluxTableCell>
-            <FluxTableCell>Interface text: tables, menus, tooltips, snackbars.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><p><kbd>--font-size-default</kbd><br/><kbd>--line-height-default</kbd></p></FluxTableCell>
-            <FluxTableCell><p><code>15px</code><br/><code>24px</code></p></FluxTableCell>
-            <FluxTableCell><p>Body text. Inherited from <code>body</code>, so this is what you get when nothing is set.</p></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><p><kbd>--font-size-large</kbd><br/><kbd>--line-height-large</kbd></p></FluxTableCell>
-            <FluxTableCell><p><code>16px</code><br/><code>24px</code></p></FluxTableCell>
-            <FluxTableCell>Prominent single lines: pane captions, section headers.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><p><kbd>--font-size-xlarge</kbd><br/><kbd>--line-height-xlarge</kbd></p></FluxTableCell>
-            <FluxTableCell><p><code>18px</code><br/><code>27px</code></p></FluxTableCell>
-            <FluxTableCell><p>Titles below heading level, such as <code>FluxText</code> at <code>large</code>.</p></FluxTableCell>
-        </FluxTableRow>
-    </FluxTable>
-</FluxPane>
+| Token                                                           | Value         | Usage                                                                          |
+|-----------------------------------------------------------------|---------------|--------------------------------------------------------------------------------|
+| <kbd>--font-size-2xsmall</kbd> <kbd>--line-height-2xsmall</kbd> | `12px` `18px` | Fine print: pagination, meta rows, calendar entries.                           |
+| <kbd>--font-size-xsmall</kbd> <kbd>--line-height-xsmall</kbd>   | `13px` `18px` | Compact labels, such as `FluxBadge` and `FluxText` at `small`.                 |
+| <kbd>--font-size-small</kbd> <kbd>--line-height-small</kbd>     | `14px` `21px` | Interface text: tables, menus, tooltips, snackbars.                            |
+| <kbd>--font-size-default</kbd> <kbd>--line-height-default</kbd> | `15px` `24px` | Body text. Inherited from `body`, so this is what you get when nothing is set. |
+| <kbd>--font-size-large</kbd> <kbd>--line-height-large</kbd>     | `16px` `24px` | Prominent single lines: pane captions, section headers.                        |
+| <kbd>--font-size-xlarge</kbd> <kbd>--line-height-xlarge</kbd>   | `18px` `27px` | Titles below heading level, such as `FluxText` at `large`.                     |
 
 Headings sit outside this scale and carry their own pair: `h1` is 27/42, `h2` is 21/33. The remaining levels line up with the scale, so `h3` is `xlarge`, `h4` is `large`, `h5` is `default` and `h6` is `small`.
 
@@ -345,36 +184,13 @@ Headings sit outside this scale and carry their own pair: `h1` is 27/42, `h2` is
 
 The motion tokens drive every Flux transition. Use them when you build custom animations so timings stay consistent with the rest of the system.
 
-<FluxPane>
-    <FluxTable>
-        <template #header>
-            <FluxTableRow>
-                <FluxTableHeader>Token</FluxTableHeader>
-                <FluxTableHeader>Value</FluxTableHeader>
-            </FluxTableRow>
-        </template>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--acceleration-curve</kbd></FluxTableCell>
-            <FluxTableCell><code>cubic-bezier(0.4, 0, 1, 1)</code></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--deceleration-curve</kbd></FluxTableCell>
-            <FluxTableCell><code>cubic-bezier(0, 0, 0.2, 1)</code></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--standard-curve</kbd></FluxTableCell>
-            <FluxTableCell><code>cubic-bezier(0.4, 0, 0.2, 1)</code></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--swift-out</kbd></FluxTableCell>
-            <FluxTableCell><code>cubic-bezier(0.55, 0, 0.1, 1)</code></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>--transition-default</kbd></FluxTableCell>
-            <FluxTableCell><code>180ms var(--swift-out)</code></FluxTableCell>
-        </FluxTableRow>
-    </FluxTable>
-</FluxPane>
+| Token                           | Value                           |
+|---------------------------------|---------------------------------|
+| <kbd>--acceleration-curve</kbd> | `cubic-bezier(0.4, 0, 1, 1)`    |
+| <kbd>--deceleration-curve</kbd> | `cubic-bezier(0, 0, 0.2, 1)`    |
+| <kbd>--standard-curve</kbd>     | `cubic-bezier(0.4, 0, 0.2, 1)`  |
+| <kbd>--swift-out</kbd>          | `cubic-bezier(0.55, 0, 0.1, 1)` |
+| <kbd>--transition-default</kbd> | `180ms var(--swift-out)`        |
 
 ## Overriding tokens
 

@@ -36,3 +36,5 @@ A child of `FluxSplitView`. Configure the initial size, min, max, and whether th
 ::: tip
 Panes without an explicit `default-size` evenly share the remaining space.
 :::
+
+<FrontmatterDocs/>

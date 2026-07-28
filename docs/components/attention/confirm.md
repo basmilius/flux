@@ -7,7 +7,7 @@ requiredIcons:
 
 # Confirm
 
-This function displays a confirm with the specified properties and waits for the confirm to be closed before resolving the promise.
+This function displays a confirm with the specified properties and waits for the confirm to be closed before resolving the promise. The promise resolves to `true` when the confirm is accepted and to `false` when it is cancelled.
 
 ::: render
 render=../../code/components/attention/confirm/preview.vue
@@ -28,6 +28,8 @@ to show a confirm from within your template.
 render=../../code/components/attention/confirm/functional.vue
 :::
 
+The `id`, `onCancel` and `onConfirm` properties of `FluxConfirmObject` are filled in by the store, so they are omitted from the spec you pass in.
+
 ::: code-group
 
 ```ts [Example]
@@ -39,7 +41,7 @@ const result = await showConfirm({
 ```
 
 ```ts [Declaration]
-declare function showConfirm(spec: FluxConfirmObject): Promise<void>;
+declare function showConfirm(spec: Omit<FluxConfirmObject, 'id' | 'onCancel' | 'onConfirm'>): Promise<boolean>;
 ```
 
 ```ts [Options]

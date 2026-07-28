@@ -1,0 +1,144 @@
+@use '~flux/components/css/mixin';
+
+.swipeActions {
+    --swipe-offset: 0px;
+    --swipe-dir: 1;
+    --swipe-open-start: 0;
+    --swipe-open-end: 0;
+    --swipe-inset: 6px;
+
+    position: relative;
+    display: block;
+    overflow: clip;
+
+    &:first-child {
+        border-start-start-radius: inherit;
+        border-start-end-radius: inherit;
+    }
+
+    &:last-child {
+        border-end-start-radius: inherit;
+        border-end-end-radius: inherit;
+    }
+}
+
+.swipeActionsRow {
+    position: relative;
+    z-index: 1;
+    background: var(--surface-current);
+    border-start-start-radius: calc(var(--radius) * var(--swipe-open-start));
+    border-end-start-radius: calc(var(--radius) * var(--swipe-open-start));
+    border-start-end-radius: calc(var(--radius) * var(--swipe-open-end));
+    border-end-end-radius: calc(var(--radius) * var(--swipe-open-end));
+    touch-action: pan-y;
+    translate: calc(var(--swipe-offset) * var(--swipe-dir)) 0;
+
+    &.isDragging {
+        user-select: none;
+    }
+}
+
+.swipeActionsGroup {
+    position: absolute;
+    inset-block: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    min-width: max-content;
+    padding: var(--swipe-inset);
+    align-items: center;
+    gap: var(--swipe-inset);
+
+    &.isStart {
+        inset-inline-start: 0;
+        width: max(0px, var(--swipe-offset));
+        translate: calc(min(0px, -100% + var(--swipe-offset)) * var(--swipe-dir));
+    }
+
+    &.isEnd {
+        inset-inline-end: 0;
+        width: max(0px, var(--swipe-offset) * -1);
+        translate: calc(max(0px, 100% + var(--swipe-offset)) * var(--swipe-dir));
+    }
+}
+
+.swipeAction {
+    @include mixin.intent('gray');
+
+    --swipe-action-on-solid: var(--gray-on-solid);
+    --swipe-action-solid-active: var(--gray-solid-active);
+    --swipe-action-solid-hover: var(--gray-solid-hover);
+
+    position: relative;
+    display: flex;
+    flex: 0 0 auto;
+    flex-flow: row nowrap;
+    overflow: hidden;
+    min-width: 42px;
+    height: 42px;
+    max-height: 100%;
+    padding: 6px 18px;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: var(--intent-solid);
+    border: 0;
+    border-radius: var(--radius-full);
+    color: var(--swipe-action-on-solid);
+    cursor: pointer;
+    transition: background var(--transition-default), flex-basis var(--transition-default), min-width var(--transition-default), padding var(--transition-default), opacity var(--transition-default);
+
+    @include mixin.focus-ring(-2px);
+
+    @include mixin.hover {
+        background: var(--swipe-action-solid-hover);
+    }
+
+    &:active {
+        background: var(--swipe-action-solid-active);
+    }
+
+    &:disabled {
+        cursor: default;
+        opacity: .5;
+    }
+
+    &.isIconOnly {
+        padding: 6px;
+    }
+
+    &.isPrimary {
+        flex: 1 1 auto;
+    }
+}
+
+.swipeActionsGroup.isArmed > .swipeAction:not(.isPrimary) {
+    flex-basis: 0;
+    min-width: 0;
+    padding-inline: 0;
+    opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .swipeAction {
+        transition: none;
+    }
+}
+
+.swipeActionLabel {
+    @include mixin.text(default);
+
+    @include mixin.truncate;
+
+    max-width: 120px;
+    font-weight: 500;
+}
+
+@include mixin.color-variants(swipeAction) using ($color) {
+    composes: swipeAction;
+
+    @include mixin.intent($color);
+
+    --swipe-action-on-solid: var(--#{$color}-on-solid);
+    --swipe-action-solid-active: var(--#{$color}-solid-active);
+    --swipe-action-solid-hover: var(--#{$color}-solid-hover);
+}

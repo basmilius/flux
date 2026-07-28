@@ -1,6 +1,15 @@
 ---
 outline: deep
 
+emits:
+    -   name: close
+        description: Triggered when the flyout is closed.
+        type: [  ]
+
+    -   name: open
+        description: Triggered when the flyout is opened.
+        type: [  ]
+
 props:
     -   name: direction
         description: Specifies in what direction the flyout should open.
@@ -42,6 +51,7 @@ slots:
     -   name: opener
         description: The element that opens the flyout.
         type:
+            isOpen: boolean
             close: "(): void"
             open: "(): void"
             toggle: "(): void"

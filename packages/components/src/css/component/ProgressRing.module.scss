@@ -1,0 +1,72 @@
+@use '~flux/components/css/mixin';
+
+.progressRing {
+    --track: var(--surface-stroke-muted);
+    --value: var(--primary-muted);
+
+    display: inline-grid;
+    flex-shrink: 0;
+}
+
+@include mixin.color-variants(progressRing) using ($color) {
+    @include mixin.intent($color);
+
+    --value: var(--intent-muted);
+}
+
+.progressRingSvg {
+    grid-area: 1 / 1;
+    height: 100%;
+    width: 100%;
+    rotate: -90deg;
+}
+
+.progressRingTrack {
+    stroke: var(--track);
+}
+
+.progressRingValue {
+    stroke: var(--value);
+    transition: stroke-dashoffset var(--transition-default);
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+}
+
+.progressRingValueIndeterminate {
+    composes: progressRingValue;
+
+    transform-origin: center;
+    animation: progress-ring-spin 1.2s var(--swift-out) infinite;
+
+    @media (prefers-reduced-motion: reduce) {
+        animation: progress-ring-pulse 1.6s ease-in-out infinite;
+    }
+}
+
+.progressRingContent {
+    display: flex;
+    grid-area: 1 / 1;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+}
+
+@keyframes progress-ring-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+@keyframes progress-ring-pulse {
+    50% {
+        opacity: .5;
+    }
+}

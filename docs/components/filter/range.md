@@ -38,6 +38,7 @@ props:
         description: A formatter that is used to format the slider values into something more human readable.
         type: "(value: number) => string"
         optional: true
+        default: formatNumber
 ---
 
 # Filter range

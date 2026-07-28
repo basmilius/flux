@@ -1,0 +1,25 @@
+.popConfirmBody {
+    max-width: 300px;
+}
+
+.popConfirmContent {
+    display: flex;
+    gap: 15px;
+}
+
+.popConfirmIcon {
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.popConfirmCaption {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    gap: 3px;
+
+    strong {
+        color: var(--foreground-prominent);
+        font-weight: 600;
+    }
+}

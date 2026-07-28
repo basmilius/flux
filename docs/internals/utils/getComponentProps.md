@@ -14,6 +14,6 @@ const props = getComponentProps(vnode);
 
 ```ts
 export declare function getComponentProps<T extends object>(
-    component: VNode
+    component: any
 ): T;
 ```

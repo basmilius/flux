@@ -8,6 +8,8 @@ export const FluxBreadcrumbSeparatorInjectionKey: InjectionKey<Ref<FluxIconName>
 export const FluxCalendarInjectionKey: InjectionKey<FluxCalendarInjection> = Symbol();
 export const FluxDisabledInjectionKey: InjectionKey<Ref<boolean>> = Symbol();
 export const FluxKanbanInjectionKey: InjectionKey<FluxKanbanInjection> = Symbol();
+export const FluxKanbanLayoutInjectionKey: InjectionKey<FluxKanbanLayoutInjection> = Symbol();
+export const FluxKanbanSwimlaneInjectionKey: InjectionKey<FluxKanbanSwimlaneInjection> = Symbol();
 export const FluxExpandableGroupInjectionKey: InjectionKey<FluxExpandableGroupInjection> = Symbol();
 export const FluxFlyoutInjectionKey: InjectionKey<FluxFlyoutInjection> = Symbol();
 export const FluxFilterInjectionKey: InjectionKey<FluxFilterInjection> = Symbol();
@@ -69,6 +71,7 @@ export type FluxKanbanInjection = {
 
     grabItem(itemId: string | number, fromColumnId: string | number): void;
     moveKeyboard(direction: FluxKanbanKeyboardDirection): void;
+    moveKeyboardTo(toColumnId: string | number, beforeItemId: string | number | null): void;
     commitKeyboardDrop(): void;
     cancelKeyboardDrop(): void;
     isItemGrabbed(itemId: string | number): boolean;
@@ -80,6 +83,24 @@ export type FluxKanbanInjection = {
 
     cancelAll(): void;
     onPointerMove(clientX: number, clientY: number): void;
+};
+
+export type FluxKanbanCell = {
+    readonly columnId: string | number;
+    readonly swimlaneId?: string | number;
+};
+
+export type FluxKanbanLayoutInjection = {
+    readonly columnCount: Ref<number>;
+    readonly hasSwimlanes: Ref<boolean>;
+
+    registerCell(cellId: string | number, cell: FluxKanbanCell): void;
+    unregisterCell(cellId: string | number): void;
+    resolveCell(cellId: string | number): FluxKanbanCell;
+};
+
+export type FluxKanbanSwimlaneInjection = {
+    readonly swimlaneId: Ref<string | number>;
 };
 
 export type FluxAdaptiveGroupChild = {
@@ -313,3 +334,4 @@ export type FluxTimelineInjection = {
 export type FluxTooltipInjection = {
     calculate(): void;
 };
+

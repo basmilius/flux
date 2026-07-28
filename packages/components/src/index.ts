@@ -4,6 +4,8 @@ export * from './component';
 export * from './composable';
 export * from './transition';
 
+export { useTranslate } from './composable/private';
+
 export {
     configureIcons,
     fluxRegisterIcons,
@@ -16,6 +18,11 @@ export {
     showPrompt,
     showSnackbar,
     useFluxStore
+} from './data';
+
+export type {
+    FluxTranslate,
+    FluxTranslation
 } from './data';
 
 export type {
@@ -38,5 +45,6 @@ export {
 } from './util';
 
 export type {
+    FluxFilterDefinitionContext,
     FluxFilterDefinitionFactory
 } from './util';

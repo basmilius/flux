@@ -27,6 +27,11 @@ props:
         type: [ string, null ]
         optional: true
 
+    -   name: is-condensed
+        description: If the timezone picker is rendered at a reduced height.
+        type: boolean
+        optional: true
+
     -   name: is-loading
         description: Shows a loading spinner inside the picker.
         type: boolean

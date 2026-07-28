@@ -62,6 +62,16 @@ props:
 slots:
     -   name: default
         description: The content to annotate.
+
+expose:
+    -   name: show
+        description: Draws the annotation.
+
+    -   name: hide
+        description: Removes the annotation and emits `hidden`.
+
+    -   name: replay
+        description: Hides the annotation and draws it again from the start.
 ---
 
 # Highlighter

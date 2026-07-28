@@ -37,6 +37,22 @@ defineFilter<Props>(p => ({
 
 The factory is invoked by `FluxFilterBase` on each filter VNode's props, so it must be a self-contained pure function: no references to local `<script setup>` variables. The `defineFilterMacro()` Vite plugin (from `@basmilius/vite-preset`) compiles the call into the appropriate `defineOptions({ __filterDefinitionFactory: ... })`.
 
+Because it may not reach into the component, the factory cannot call `useTranslate()` either. That is what its second argument is for: a context carrying the same `translate` the components render their own strings with, so a value label follows the visitor's language. `FluxFilterOptions` uses it to summarize a multiple selection.
+
+```ts
+defineFilter<Props>((p, {translate}) => ({
+    ...pickFilterCommon(p),
+    type: 'options',
+    async getValueLabel(value) {
+        if (!Array.isArray(value) || value.length === 0) {
+            return null;
+        }
+
+        return translate('flux.nSelected', {n: value.length});
+    }
+}));
+```
+
 ## isFluxFilterOptionHeader
 
 Checks whether a [Filter option](../../components/filter/option) row is a header (sub-section title) instead of a selectable item.
@@ -88,9 +104,16 @@ if (isFluxFormSelectOption(item)) {
 ## Type declarations
 
 ```ts
+type FluxFilterDefinitionContext = {
+    readonly translate: FluxTranslate;
+};
+
+type FluxFilterDefinitionFactory<TProps = any, TValue extends FluxFilterValue = FluxFilterValue> =
+    (props: TProps, context: FluxFilterDefinitionContext) => FluxFilterDefinition<TValue>;
+
 declare function defineFilter<TProps, TValue extends FluxFilterValue = FluxFilterValue>(
-    factory: (props: TProps) => FluxFilterDefinition<TValue>
-): (props: TProps) => FluxFilterDefinition<TValue>;
+    factory: FluxFilterDefinitionFactory<TProps, TValue>
+): FluxFilterDefinitionFactory<TProps, TValue>;
 
 declare function isFluxFilterOptionHeader(item: object): item is FluxFilterOptionHeader;
 

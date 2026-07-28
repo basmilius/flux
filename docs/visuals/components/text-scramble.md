@@ -14,7 +14,7 @@ props:
     -   name: characters
         description: The pool of characters the scramble cycles through while decoding.
         type: string
-        default: A-Za-z0-9
+        default: ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789
         optional: true
 
     -   name: duration

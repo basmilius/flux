@@ -40,6 +40,11 @@ props:
         type: [ string, null ]
         optional: true
 
+    -   name: is-condensed
+        description: If the textarea is rendered at a reduced height.
+        type: boolean
+        optional: true
+
     -   name: is-loading
         description: Marks the textarea as loading.
         type: boolean

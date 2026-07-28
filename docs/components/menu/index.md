@@ -2,6 +2,12 @@
 outline: deep
 
 props:
+    -   name: debug-cone
+        description: Visualizes the safe-triangle hit area that keeps a submenu open while the pointer travels towards it. Only meant for debugging.
+        type: boolean
+        optional: true
+        default: 'false'
+
     -   name: is-large
         description: Enables a larger mode for the menu.
         type: boolean

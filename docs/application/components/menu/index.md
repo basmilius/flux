@@ -1,13 +1,6 @@
 ---
 outline: deep
 
-props:
-    -   name: show-page-indicator
-        description: Whether to show the page indicator dots when the menu has more than one level.
-        type: boolean
-        optional: true
-        default: true
-
 slots:
     -   name: default
         description: The main menu content, typically a list of `FluxMenuItem` and `FluxMenuGroup` components.
@@ -24,7 +17,7 @@ slots:
 
 # Application menu
 
-The application menu is the sidebar of `FluxApplication`. It hosts the main menu and any number of context menu panels that slide in horizontally as the user navigates deeper into the route tree. When more than one level is visible, page indicator dots are rendered at the bottom so the user can jump to any level directly.
+The application menu is the sidebar of `FluxApplication`. It hosts the main menu and any number of context menu panels that slide in horizontally as the user navigates deeper into the route tree.
 
 The collapsed state of the menu is shared with the rest of the application through [`useApplicationInjection`](../../composables/useApplicationInjection).
 
@@ -40,9 +33,6 @@ The collapsed state of the menu is shared with the rest of the application throu
 
 ## Used components
 
-- [Application menu](./)
-    - [Account](./account)
-    - [Context](./context)
-    - [Context stack](./context-stack)
-    - [Promo](./promo)
-    - [Toggle](./toggle)
+- [Menu](../../../components/menu)
+- [Transitions](../../../components/transitions)
+    - [Fade](../../../components/transitions/fade)

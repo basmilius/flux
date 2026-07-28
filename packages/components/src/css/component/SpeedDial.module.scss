@@ -1,0 +1,189 @@
+@use 'sass:math';
+@use '~flux/components/css/mixin';
+
+$-opener-size: 48px;
+$-action-size: 42px;
+$-action-inset: math.div($-opener-size - $-action-size, 2);
+$-close-duration: 120ms;
+$-open-duration: 210ms;
+$-stagger-count: 8;
+$-stagger-step: 45ms;
+
+.speedDial {
+    position: fixed;
+    bottom: calc(24px + env(safe-area-inset-bottom));
+    display: flex;
+    z-index: 1000;
+
+    &.isCornerStart {
+        inset-inline-start: 24px;
+    }
+
+    &.isCornerEnd {
+        inset-inline-end: 24px;
+    }
+}
+
+.speedDialOpener {
+    min-width: $-opener-size;
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-lg);
+
+    &:active {
+        box-shadow: var(--shadow-md);
+    }
+}
+
+.speedDialOpenerIcon {
+    composes: buttonIcon from './base/Button.module.scss';
+}
+
+.speedDialActions {
+    position: absolute;
+    display: flex;
+    gap: 12px;
+    visibility: hidden;
+    transition: visibility 0s linear $-close-duration;
+}
+
+.speedDial.isOpen .speedDialActions {
+    visibility: visible;
+    transition-delay: 0s;
+}
+
+.speedDial.isUp {
+    --fan-y: 12px;
+
+    .speedDialActions {
+        bottom: calc(100% + 12px);
+        flex-flow: column-reverse;
+    }
+}
+
+.speedDial.isDown {
+    --fan-y: -12px;
+
+    .speedDialActions {
+        top: calc(100% + 12px);
+        flex-flow: column;
+    }
+}
+
+.speedDial:is(.isUp, .isDown) {
+    &.isCornerStart .speedDialActions {
+        inset-inline-start: $-action-inset;
+        align-items: flex-start;
+    }
+
+    &.isCornerEnd .speedDialActions {
+        inset-inline-end: $-action-inset;
+        align-items: flex-end;
+    }
+}
+
+.speedDial.isStart .speedDialActions {
+    top: 0;
+    bottom: 0;
+    inset-inline-end: calc(100% + 12px);
+    align-items: center;
+    flex-flow: row-reverse;
+}
+
+.speedDial.isEnd .speedDialActions {
+    top: 0;
+    bottom: 0;
+    inset-inline-start: calc(100% + 12px);
+    align-items: center;
+    flex-flow: row;
+}
+
+.speedDialActions > * {
+    opacity: 0;
+    scale: .85;
+    translate: 0 var(--fan-y, 0);
+    transition: $-close-duration var(--acceleration-curve);
+    transition-property: opacity, scale, translate;
+}
+
+.speedDial.isOpen .speedDialActions > * {
+    opacity: 1;
+    scale: 1;
+    translate: none;
+    transition: $-open-duration var(--deceleration-curve);
+    transition-property: opacity, scale, translate;
+    transition-delay: calc(var(--index, #{$-stagger-count - 1}) * #{$-stagger-step});
+}
+
+@for $-index from 1 through $-stagger-count {
+    .speedDialActions > :nth-child(#{$-index}) {
+        --index: #{$-index - 1};
+    }
+}
+
+.speedDialAction {
+    display: flex;
+    padding: 0;
+    align-items: center;
+    gap: 9px;
+    background: unset;
+    border: 0;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+
+    @include mixin.focus-ring(3px);
+
+    @include mixin.hover {
+        .speedDialActionIcon {
+            background: var(--surface-hover);
+        }
+    }
+
+    &:active .speedDialActionIcon {
+        background: var(--surface-active);
+        box-shadow: var(--shadow-sm);
+        scale: .9875;
+    }
+}
+
+.speedDial:is(.isUp, .isDown).isCornerStart .speedDialAction,
+.speedDial.isEnd .speedDialAction {
+    flex-direction: row-reverse;
+}
+
+.speedDialActionLabel {
+    @include mixin.text(small);
+
+    padding: 3px 9px;
+    background: var(--surface);
+    border: 1px solid var(--surface-stroke);
+    border-radius: var(--radius-half);
+    color: var(--foreground);
+    box-shadow: var(--shadow-sm);
+    white-space: nowrap;
+}
+
+.speedDialActionIcon {
+    display: flex;
+    height: $-action-size;
+    width: $-action-size;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface);
+    border: 1px solid var(--surface-stroke);
+    border-radius: var(--radius-full);
+    color: var(--foreground);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-default);
+    transition-property: background, box-shadow, scale;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .speedDialActions > * {
+        scale: none;
+        translate: none;
+    }
+
+    .speedDial.isOpen .speedDialActions > * {
+        transition-delay: 0s;
+    }
+}

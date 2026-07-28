@@ -52,11 +52,13 @@ props:
         description: Enable a hover state for each row.
         type: boolean
         optional: true
+        default: 'false'
 
     -   name: is-loading
         description: Show that the data table is loading.
         type: boolean
         optional: true
+        default: 'false'
 
     -   name: is-sticky
         description: If the table header, including the filter bar, sticks to the top while scrolling.

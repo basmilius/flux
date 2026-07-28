@@ -10,6 +10,10 @@ props:
         description: Disable the entire form.
         type: boolean
         optional: true
+
+slots:
+    -   name: default
+        description: The contents of the form, rendered inside a Disabled boundary that follows the disabled prop.
 ---
 
 # Form

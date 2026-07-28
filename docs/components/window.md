@@ -6,13 +6,13 @@ slots:
         description: The primary view of the window.
         type:
             back: '(to?: string): void'
-            navigate: '(to?: string): void'
+            navigate: '(to: string): void'
 
     -   name: '[key: string]'
         description: A slot for additional views.
         type:
             back: '(to?: string): void'
-            navigate: '(to?: string): void'
+            navigate: '(to: string): void'
 ---
 
 # Window

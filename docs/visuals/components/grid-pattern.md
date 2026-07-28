@@ -23,7 +23,6 @@ props:
     -   name: squares
         description: Highlight specific cells.
         type: "Array<[x: number, y: number]>"
-        default: [ ]
         optional: true
 
     -   name: glow

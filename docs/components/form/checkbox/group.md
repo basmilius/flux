@@ -34,7 +34,7 @@ props:
 
     -   name: error
         description: The error message, marking every checkbox as invalid.
-        type: string
+        type: [ string, null ]
         optional: true
 
     -   name: is-readonly

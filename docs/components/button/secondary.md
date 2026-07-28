@@ -93,6 +93,9 @@ props:
         optional: true
 
 slots:
+    -   name: default
+        description: Content that is shown between the label and the icon at the end of the button.
+
     -   name: after
         description: Content that is shown at the end of the button.
 

@@ -11,13 +11,13 @@ props:
         description: The fraction of the avatar size that each avatar overlaps the previous one.
         type: number
         optional: true
-        default: 0.3
+        default: '.21'
 
     -   name: size
         description: The size of the avatars in pixels. Avatars without their own size inherit this value.
         type: number
         optional: true
-        default: 32
+        default: 30
 
 slots:
     -   name: default

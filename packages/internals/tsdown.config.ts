@@ -13,7 +13,8 @@ export default defineConfig({
             '@flux-ui/types',
             'lodash-es',
             'luxon',
-            'vue'
+            'vue',
+            'vue-i18n'
         ]
     },
     format: 'esm',

@@ -1,0 +1,74 @@
+{
+    "name": "@flux-ui/ai",
+    "description": "Conversational and AI building blocks for the Flux UI library.",
+    "version": "0.0.0",
+    "type": "module",
+    "license": "MIT",
+    "funding": "https://github.com/sponsors/basmilius",
+    "homepage": "https://flux-ui.dev",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/basmilius/flux.git",
+        "directory": "packages/ai"
+    },
+    "keywords": [
+        "ui library",
+        "component library",
+        "design system",
+        "vue",
+        "vue 3",
+        "ui",
+        "components",
+        "flux",
+        "ai",
+        "chat",
+        "streaming"
+    ],
+    "scripts": {
+        "build": "vue-tsc --build && vite build",
+        "dev": "vite build --watch --mode development"
+    },
+    "engines": {
+        "node": ">=23"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        },
+        "./style.css": "./dist/index.css"
+    },
+    "publishConfig": {
+        "access": "public",
+        "provenance": true
+    },
+    "files": [
+        "dist",
+        "src"
+    ],
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "dependencies": {
+        "@flux-ui/components": "workspace:*",
+        "@flux-ui/internals": "workspace:*",
+        "@flux-ui/types": "workspace:*",
+        "clsx": "^2.1.1",
+        "marked": "^18.0.7"
+    },
+    "peerDependencies": {
+        "vue": "^3.6.0-rc.2",
+        "vue-i18n": "^11.4.8"
+    },
+    "devDependencies": {
+        "@basmilius/vite-preset": "^3.55.0",
+        "@types/node": "^26.1.2",
+        "@vitejs/plugin-vue": "^6.0.8",
+        "@vue/tsconfig": "^0.9.1",
+        "sass-embedded": "^1.100.0",
+        "typescript": "6.0.3",
+        "vite": "^8.1.5",
+        "vue-i18n": "^11.4.8",
+        "vue-tsc": "^3.3.8"
+    }
+}

@@ -7,6 +7,11 @@ const LIGHT_DARK_PATTERN = /light-dark\(/gi;
 const VAR_PATTERN = /var\(/gi;
 const RESOLVABLE_PATTERN = /(?:var|light-dark)\(/i;
 
+const MODERN_COLOR_PATTERN = /(?:oklch|oklab|lch|lab|hwb|color-mix|color)\(/gi;
+const MODERN_COLOR_TEST = /(?:oklch|oklab|lch|lab|hwb|color-mix|color)\(/i;
+
+const REFUSED = '#010203';
+
 const themeVersion = ref(0);
 
 let subscribers = 0;
@@ -149,6 +154,55 @@ function resolveLightDark(input: string, isDark: boolean): string {
     });
 }
 
+const convertedColors = new Map<string, string>();
+
+let canvasContext: CanvasRenderingContext2D | null | undefined;
+
+function toRgb(input: string): string {
+    const cached = convertedColors.get(input);
+
+    if (cached !== undefined) {
+        return cached;
+    }
+
+    if (canvasContext === undefined) {
+        const canvas = document.createElement('canvas');
+
+        canvas.width = 1;
+        canvas.height = 1;
+        canvasContext = canvas.getContext('2d', {willReadFrequently: true});
+
+        if (canvasContext !== null) {
+            canvasContext.globalCompositeOperation = 'copy';
+        }
+    }
+
+    let output = input;
+
+    if (canvasContext !== null) {
+        canvasContext.fillStyle = REFUSED;
+        canvasContext.fillStyle = input;
+
+        if (canvasContext.fillStyle !== REFUSED) {
+            canvasContext.fillRect(0, 0, 1, 1);
+
+            const [red, green, blue, alpha] = canvasContext.getImageData(0, 0, 1, 1).data;
+
+            output = alpha === 255
+                ? `rgb(${red}, ${green}, ${blue})`
+                : `rgba(${red}, ${green}, ${blue}, ${(alpha / 255).toFixed(3)})`;
+        }
+    }
+
+    convertedColors.set(input, output);
+
+    return output;
+}
+
+function resolveModernColors(input: string): string {
+    return replaceCalls(input, MODERN_COLOR_PATTERN, (_, original) => toRgb(original));
+}
+
 function isDarkScheme(style: CSSStyleDeclaration): boolean {
     const scheme = style.getPropertyValue('color-scheme');
     const light = scheme.includes('light');
@@ -178,7 +232,9 @@ function isPlainObject(value: unknown): value is Record<string, unknown> {
 function deepResolveWithStyle<T>(value: T, style: CSSStyleDeclaration, isDark: boolean): T {
     if (typeof value === 'string') {
         // A token that only holds a `light-dark()` never goes through `var()`.
-        return (RESOLVABLE_PATTERN.test(value) ? resolveWithStyle(value, style, isDark) : value) as T;
+        const resolved = RESOLVABLE_PATTERN.test(value) ? resolveWithStyle(value, style, isDark) : value;
+
+        return (MODERN_COLOR_TEST.test(resolved) ? resolveModernColors(resolved) : resolved) as T;
     }
 
     if (Array.isArray(value)) {

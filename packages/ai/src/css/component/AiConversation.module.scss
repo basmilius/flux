@@ -1,0 +1,75 @@
+@use '~flux/components/css/mixin';
+
+.conversation {
+    position: relative;
+    display: flex;
+    height: 100%;
+    min-height: 0;
+    flex: 1;
+    flex-flow: column;
+}
+
+.conversationScroller {
+    @include mixin.focus-ring(-2px);
+
+    display: flex;
+    min-height: 0;
+    flex: 1;
+    flex-flow: column;
+    overflow-y: auto;
+    overflow-anchor: none;
+    overscroll-behavior-y: contain;
+    scrollbar-width: thin;
+}
+
+.conversationList {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    flex: none;
+    flex-flow: column;
+    gap: 24px;
+    // Safari drops the list semantics when the marker is removed, hence role="list" in the template.
+    list-style: none;
+}
+
+.conversationDay {
+    @include mixin.text(xsmall);
+
+    display: flex;
+    margin: 0;
+    align-items: center;
+    gap: 12px;
+    color: var(--foreground-secondary);
+    font-weight: 500;
+
+    &::before,
+    &::after {
+        height: 1px;
+        flex: 1;
+        background: var(--surface-stroke);
+        content: '';
+    }
+}
+
+.conversationEmpty {
+    display: flex;
+    min-height: 0;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.conversationJump {
+    position: absolute;
+    inset-block-end: 12px;
+    inset-inline-start: 50%;
+    translate: -50% 0;
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-lg);
+    z-index: 1;
+
+    &:active {
+        box-shadow: var(--shadow-md);
+    }
+}

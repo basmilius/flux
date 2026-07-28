@@ -1,0 +1,132 @@
+@use '~flux/components/css/mixin';
+
+.message {
+    display: grid;
+    margin: 0;
+    gap: 3px 12px;
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.message.hasMarker {
+    grid-template-columns: auto minmax(0, 1fr);
+}
+
+.messageMarker {
+    margin-block-start: -3px;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.messageHeader,
+.messageContent,
+.messageFooter,
+.messageActions {
+    grid-column: -2;
+}
+
+.messageHeader {
+    @include mixin.text(xsmall);
+
+    display: flex;
+    align-items: baseline;
+    gap: 9px;
+    font-weight: 500;
+}
+
+.messageAuthor {
+    color: var(--foreground-prominent);
+}
+
+.messageWhen {
+    color: var(--foreground-secondary);
+    white-space: nowrap;
+}
+
+.messageContent {
+    min-width: 0;
+}
+
+.messageFooter {
+    @include mixin.text(xsmall);
+
+    color: var(--foreground-secondary);
+}
+
+.messageActions {
+    margin-block-start: 3px;
+    transition: opacity var(--transition-default);
+}
+
+.message.isUser {
+    justify-items: end;
+}
+
+.message.isUser.hasMarker {
+    grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.message.isUser .messageMarker {
+    grid-column: -2;
+}
+
+.message.isUser .messageHeader,
+.message.isUser .messageContent,
+.message.isUser .messageFooter,
+.message.isUser .messageActions {
+    grid-column: 1;
+}
+
+.message.isUser .messageContent {
+    max-width: min(100%, 540px);
+    padding: 9px 15px;
+    background: var(--primary-soft);
+    border: 1px solid var(--primary-border);
+    border-radius: calc(var(--radius) * 2);
+    border-end-end-radius: var(--radius);
+}
+
+.message.isSystem .messageContent {
+    @include mixin.elevation('sunken');
+    @include mixin.text(small);
+
+    padding: 9px 12px;
+    color: var(--foreground-secondary);
+}
+
+.message.isStreaming .messageAuthor::after {
+    display: inline-block;
+    height: 6px;
+    width: 6px;
+    margin-inline-start: 6px;
+    background: var(--primary-solid);
+    border-radius: var(--radius-full);
+    content: '';
+    animation: messageStreaming 1.2s var(--swift-out) infinite;
+}
+
+@media (hover: hover) {
+    .message:not(:hover, :focus-within) .messageActions {
+        opacity: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .messageActions {
+        transition: none;
+    }
+
+    .message.isStreaming .messageAuthor::after {
+        animation: none;
+    }
+}
+
+@keyframes messageStreaming {
+    0%,
+    100% {
+        opacity: .25;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}

@@ -21,6 +21,7 @@ props:
     -   name: flyout-is-auto-width
         description: If the flyout width should be the same as the opener.
         type: boolean
+        optional: true
         
     -   name: flyout-margin
         description: The margin offset from the opener to the flyout.

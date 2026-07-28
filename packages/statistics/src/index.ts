@@ -3,6 +3,7 @@ import { CHART_DEFAULT_COLORS } from './util';
 
 export * from './component';
 export * from './composable';
+export * from './data';
 
 export type { ChartTooltipValueFormatter, SharedTooltipItem, Translator } from './util';
 

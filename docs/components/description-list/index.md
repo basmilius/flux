@@ -8,7 +8,7 @@ props:
         optional: true
         default: vertical
 
-    -   name: labelWidth
+    -   name: label-width
         description: The maximum width of the label column. Setting this switches the vertical layout to aligned columns, where the label column shrinks to fit the widest label and values are aligned to the leading edge. A number is interpreted as pixels. Only applies when `direction` is `vertical`; `is-stacked` on items has no effect in this layout.
         type: [ number, string ]
         optional: true

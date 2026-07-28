@@ -7,30 +7,20 @@ import renderPlugin from 'vitepress-plugin-render';
 import llmstxt from 'vitepress-plugin-llms';
 import componentNavigation from './component-navigation';
 
-export const flux = composeLibrary({
-    name: '@flux-ui/components',
-    alias: '~flux/components'
+// composeLibrary writes a missing path alias into docs/tsconfig.json using an absolute
+// path by default, which is machine bound. Keep it relative to the docs directory.
+const composeFluxLibrary = (name: string, alias: string) => composeLibrary({
+    name,
+    alias,
+    tsAliasPathGenerator: () => `./node_modules/${name}/src/*`
 });
 
-export const fluxApplication = composeLibrary({
-    name: '@flux-ui/application',
-    alias: '~flux/application'
-});
-
-export const fluxStatistics = composeLibrary({
-    name: '@flux-ui/statistics',
-    alias: '~flux/statistics'
-});
-
-export const fluxVisuals = composeLibrary({
-    name: '@flux-ui/visuals',
-    alias: '~flux/visuals'
-});
-
-export const fluxFlow = composeLibrary({
-    name: '@flux-ui/flow',
-    alias: '~flux/flow'
-});
+export const flux = composeFluxLibrary('@flux-ui/components', '~flux/components');
+export const fluxAi = composeFluxLibrary('@flux-ui/ai', '~flux/ai');
+export const fluxApplication = composeFluxLibrary('@flux-ui/application', '~flux/application');
+export const fluxStatistics = composeFluxLibrary('@flux-ui/statistics', '~flux/statistics');
+export const fluxVisuals = composeFluxLibrary('@flux-ui/visuals', '~flux/visuals');
+export const fluxFlow = composeFluxLibrary('@flux-ui/flow', '~flux/flow');
 
 export default defineConfig({
     title: 'Flux',
@@ -78,6 +68,7 @@ export default defineConfig({
                 fileNames: 'actual'
             }),
             flux(),
+            fluxAi(),
             fluxApplication(),
             fluxStatistics(),
             fluxVisuals(),
@@ -122,8 +113,9 @@ export default defineConfig({
             },
             {
                 text: 'Packages',
-                activeMatch: '/(application|flow|internals|statistics|visuals)/',
+                activeMatch: '/(ai|application|flow|internals|statistics|visuals)/',
                 items: [
+                    {text: 'AI', link: '/ai/'},
                     {text: 'Application', link: '/application/'},
                     {text: 'Flow', link: '/flow/'},
                     {text: 'Internals', link: '/internals/'},
@@ -161,7 +153,7 @@ export default defineConfig({
                         {text: 'Typography', link: '/guide/introduction/typography'},
                         {text: 'Dark mode', link: '/guide/introduction/dark-mode'},
                         {text: 'Font Awesome', link: '/guide/introduction/font-awesome'},
-                        {text: 'Upgrading', link: '/guide/introduction/upgrading'}
+                        {text: 'Upgrading to v4', link: '/guide/introduction/upgrading-v4'}
                     ]
                 },
                 {
@@ -176,7 +168,8 @@ export default defineConfig({
                         {text: 'useFlyoutInjection', link: '/guide/composables/useFlyoutInjection'},
                         {text: 'useFormFieldInjection', link: '/guide/composables/useFormFieldInjection'},
                         {text: 'useTableInjection', link: '/guide/composables/useTableInjection'},
-                        {text: 'useTooltipInjection', link: '/guide/composables/useTooltipInjection'}
+                        {text: 'useTooltipInjection', link: '/guide/composables/useTooltipInjection'},
+                        {text: 'useTranslate', link: '/guide/composables/useTranslate'}
                     ]
                 },
                 {
@@ -196,7 +189,8 @@ export default defineConfig({
                     collapsed: false,
                     items: [
                         {text: 'What is Flux Flow?', link: '/flow/'},
-                        {text: 'Installation', link: '/flow/introduction/installation'}
+                        {text: 'Installation', link: '/flow/introduction/installation'},
+                        {text: 'Translations', link: '/flow/introduction/translations'}
                     ]
                 },
                 {
@@ -209,7 +203,16 @@ export default defineConfig({
                         {text: 'Graph', link: '/flow/components/graph'},
                         {text: 'Connection', link: '/flow/components/connection'},
                         {text: 'Port', link: '/flow/components/port'},
-                        {text: 'Card', link: '/flow/components/card'},
+                        {
+                            text: 'Card',
+                            link: '/flow/components/card',
+                            collapsed: true,
+                            items: [
+                                {text: 'Action card', link: '/flow/components/action-card'},
+                                {text: 'Condition card', link: '/flow/components/condition-card'},
+                                {text: 'Trigger card', link: '/flow/components/trigger-card'}
+                            ]
+                        },
                         {text: 'Pill', link: '/flow/components/pill'},
                         {text: 'Step', link: '/flow/components/step'},
                         {text: 'Terminal', link: '/flow/components/terminal'},
@@ -227,7 +230,9 @@ export default defineConfig({
                     text: 'Composables',
                     collapsed: false,
                     items: [
-                        {text: 'useFlowLayout', link: '/flow/composables/useFlowLayout'}
+                        {text: 'useFlowLayout', link: '/flow/composables/useFlowLayout'},
+                        {text: 'useFlowTrunkLayout', link: '/flow/composables/useFlowTrunkLayout'},
+                        {text: 'useFluxFlowInjection', link: '/flow/composables/useFluxFlowInjection'}
                     ]
                 },
                 {
@@ -238,13 +243,50 @@ export default defineConfig({
                     ]
                 }
             ],
+            '/ai/': [
+                {
+                    text: 'Introduction',
+                    collapsed: false,
+                    items: [
+                        {text: 'What is Flux AI?', link: '/ai/'},
+                        {text: 'Installation', link: '/ai/introduction/installation'},
+                        {text: 'Configuration', link: '/ai/introduction/configuration'},
+                        {text: 'Translations', link: '/ai/introduction/translations'}
+                    ]
+                },
+                {
+                    text: 'Components',
+                    collapsed: false,
+                    items: [
+                        {text: 'Conversation', link: '/ai/components/conversation'},
+                        {text: 'Message', link: '/ai/components/message'},
+                        {text: 'Prompt input', link: '/ai/components/prompt-input'},
+                        {text: 'Streaming text', link: '/ai/components/streaming-text'},
+                        {text: 'Code block', link: '/ai/components/code-block'},
+                        {text: 'Reasoning', link: '/ai/components/reasoning'},
+                        {text: 'Tool call', link: '/ai/components/tool-call'},
+                        {text: 'Citation', link: '/ai/components/citation'},
+                        {text: 'Suggestions', link: '/ai/components/suggestions'},
+                        {text: 'Model select', link: '/ai/components/model-select'},
+                        {text: 'Usage', link: '/ai/components/usage'}
+                    ]
+                },
+                {
+                    text: 'Composables',
+                    collapsed: false,
+                    items: [
+                        {text: 'useStreamingMarkdown', link: '/ai/composables/useStreamingMarkdown'}
+                    ]
+                }
+            ],
             '/application/': [
                 {
                     text: 'Introduction',
                     collapsed: false,
                     items: [
                         {text: 'What is Flux Application?', link: '/application/'},
-                        {text: 'Installation', link: '/application/introduction/installation'}
+                        {text: 'Installation', link: '/application/introduction/installation'},
+                        {text: 'Translations', link: '/application/introduction/translations'}
                     ]
                 },
                 {
@@ -262,12 +304,15 @@ export default defineConfig({
                                 {text: 'Account', link: '/application/components/menu/account'},
                                 {text: 'Context', link: '/application/components/menu/context'},
                                 {text: 'Context stack', link: '/application/components/menu/context-stack'},
+                                {text: 'Context switcher', link: '/application/components/menu/context-switcher'},
                                 {text: 'Promo', link: '/application/components/menu/promo'},
                                 {text: 'Toggle', link: '/application/components/menu/toggle'}
                             ]
                         },
+                        {text: 'Page header', link: '/application/components/page-header'},
                         {text: 'Section', link: '/application/components/section'},
                         {text: 'Side', link: '/application/components/side'},
+                        {text: 'Status page', link: '/application/components/status-page'},
                         {text: 'Top', link: '/application/components/top'}
                     ]
                 },
@@ -276,6 +321,7 @@ export default defineConfig({
                     collapsed: false,
                     items: [
                         {text: 'useApplicationContextMenu', link: '/application/composables/useApplicationContextMenu'},
+                        {text: 'useApplicationContextRegistration', link: '/application/composables/useApplicationContextRegistration'},
                         {text: 'useApplicationInjection', link: '/application/composables/useApplicationInjection'},
                         {text: 'useApplicationMenu', link: '/application/composables/useApplicationMenu'}
                     ]
@@ -296,6 +342,7 @@ export default defineConfig({
                     text: 'Components',
                     collapsed: false,
                     items: [
+                        {text: 'Base', link: '/statistics/components/base'},
                         {text: 'Change', link: '/statistics/components/change'},
                         {
                             text: 'Charts',
@@ -352,7 +399,8 @@ export default defineConfig({
                             items: [
                                 {text: 'Entry', link: '/statistics/components/tracker/entry'},
                                 {text: 'Label', link: '/statistics/components/tracker/label'},
-                                {text: 'Step', link: '/statistics/components/tracker/step'}
+                                {text: 'Step', link: '/statistics/components/tracker/step'},
+                                {text: 'Steps', link: '/statistics/components/tracker/steps'}
                             ]
                         },
                         {
@@ -363,6 +411,20 @@ export default defineConfig({
                                 {text: 'Segment', link: '/statistics/components/tracker-card/segment'}
                             ]
                         }
+                    ]
+                },
+                {
+                    text: 'Composables',
+                    collapsed: false,
+                    items: [
+                        {text: 'useChartBaseSetup', link: '/statistics/composables/useChartBaseSetup'},
+                        {text: 'useChartHoverSync', link: '/statistics/composables/useChartHoverSync'},
+                        {text: 'useChartLegend', link: '/statistics/composables/useChartLegend'},
+                        {text: 'useChartSeriesSetup', link: '/statistics/composables/useChartSeriesSetup'},
+                        {text: 'useChartSlicesSetup', link: '/statistics/composables/useChartSlicesSetup'},
+                        {text: 'useECharts', link: '/statistics/composables/useECharts'},
+                        {text: 'useLegendVariant', link: '/statistics/composables/useLegendVariant'},
+                        {text: 'useTracker', link: '/statistics/composables/useTracker'}
                     ]
                 }
             ],
@@ -410,8 +472,10 @@ export default defineConfig({
                     text: 'Composables',
                     collapsed: false,
                     items: [
+                        {text: 'createTranslate', link: '/internals/composables/createTranslate'},
                         {text: 'useCalendar', link: '/internals/composables/useCalendar'},
                         {text: 'useCalendarMonthSwitcher', link: '/internals/composables/useCalendarMonthSwitcher'},
+                        {text: 'useCalendarTimeGrid', link: '/internals/composables/useCalendarTimeGrid'},
                         {text: 'useCalendarYearSwitcher', link: '/internals/composables/useCalendarYearSwitcher'},
                         {text: 'useEventListener', link: '/internals/composables/useEventListener'},
                         {text: 'useFocusTrap', link: '/internals/composables/useFocusTrap'},
@@ -420,8 +484,12 @@ export default defineConfig({
                         {text: 'useFocusTrapSubscription', link: '/internals/composables/useFocusTrapSubscription'},
                         {text: 'useFocusZone', link: '/internals/composables/useFocusZone'},
                         {text: 'useInView', link: '/internals/composables/useInView'},
+                        {text: 'useKeyboardGrab', link: '/internals/composables/useKeyboardGrab'},
+                        {text: 'usePointerDrag', link: '/internals/composables/usePointerDrag'},
                         {text: 'useRemembered', link: '/internals/composables/useRemembered'},
-                        {text: 'useScrollPosition', link: '/internals/composables/useScrollPosition'}
+                        {text: 'useScrollPosition', link: '/internals/composables/useScrollPosition'},
+                        {text: 'useSpring', link: '/internals/composables/useSpring'},
+                        {text: 'useWheelDrag', link: '/internals/composables/useWheelDrag'}
                     ]
                 },
                 {
@@ -445,6 +513,9 @@ export default defineConfig({
                         {text: 'getFocusableElement', link: '/internals/utils/getFocusableElement'},
                         {text: 'getFocusableElements', link: '/internals/utils/getFocusableElements'},
                         {text: 'getKeyboardFocusableElements', link: '/internals/utils/getKeyboardFocusableElements'},
+                        {text: 'isActiveElement', link: '/internals/utils/isActiveElement'},
+                        {text: 'isSSR', link: '/internals/utils/isSSR'},
+                        {text: 'prefersReducedMotion', link: '/internals/utils/prefersReducedMotion'},
                         {text: 'unrefTemplateElement', link: '/internals/utils/unrefTemplateElement'},
                         {text: 'warn', link: '/internals/utils/warn'},
                         {text: 'wrapFocus', link: '/internals/utils/wrapFocus'},

@@ -7,8 +7,8 @@ props:
         type: number
 
     -   name: color
-        description: The color of the meter bar. Accepts a FluxColor or a custom hex color.
-        type: [ 'FluxColor', '`#${string}`' ]
+        description: The color of the meter bar. Accepts a FluxColor, a custom hex color or a CSS custom property such as `var(--chart-1)`.
+        type: FluxStatisticsChartColor
         optional: true
 
     -   name: footer

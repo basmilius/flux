@@ -1,0 +1,243 @@
+@use '~flux/components/css/mixin';
+
+.sheet {
+    composes: overlay from './Overlay.module.scss';
+}
+
+.sheet.isBottom {
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.sheet.isTop {
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.sheet.isLeft {
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+.sheet.isRight {
+    align-items: stretch;
+    justify-content: flex-end;
+}
+
+.sheetSurface {
+    display: flex;
+    overflow: hidden;
+    touch-action: pan-y;
+    transition: 480ms var(--swift-out);
+    transition-property: filter, scale;
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+}
+
+.sheetSurface.isBottom,
+.sheetSurface.isTop {
+    max-height: 100%;
+    width: min(100%, 720px);
+    flex-flow: column nowrap;
+    border-inline: 0;
+}
+
+.sheetSurface.isLeft,
+.sheetSurface.isRight {
+    height: 100%;
+    max-width: 100%;
+    flex-flow: row nowrap;
+    border-block: 0;
+}
+
+.sheetSurface.isBottom {
+    @include mixin.elevation('surface', var(--radius-double) var(--radius-double) 0 0);
+
+    padding-bottom: env(safe-area-inset-bottom);
+    border-block-end: 0;
+    box-shadow: 0 48px 0 var(--surface-current), var(--shadow-lg);
+    transform-origin: 50% 100%;
+    translate: 0 var(--sheet-offset, 0px);
+}
+
+.sheetSurface.isTop {
+    @include mixin.elevation('surface', 0 0 var(--radius-double) var(--radius-double));
+
+    padding-top: env(safe-area-inset-top);
+    border-block-start: 0;
+    box-shadow: 0 -48px 0 var(--surface-current), var(--shadow-lg);
+    transform-origin: 50% 0;
+    translate: 0 calc(var(--sheet-offset, 0px) * -1);
+}
+
+.sheetSurface.isLeft {
+    @include mixin.elevation('surface', 0 var(--radius-double) var(--radius-double) 0);
+
+    padding-left: env(safe-area-inset-left);
+    border-inline-start: 0;
+    box-shadow: -48px 0 0 var(--surface-current), var(--shadow-lg);
+    transform-origin: 0 50%;
+    translate: calc(var(--sheet-offset, 0px) * -1) 0;
+}
+
+.sheetSurface.isRight {
+    @include mixin.elevation('surface', var(--radius-double) 0 0 var(--radius-double));
+
+    padding-right: env(safe-area-inset-right);
+    border-inline-end: 0;
+    box-shadow: 48px 0 0 var(--surface-current), var(--shadow-lg);
+    transform-origin: 100% 50%;
+    translate: var(--sheet-offset, 0px) 0;
+}
+
+.sheetSurface.isDragging {
+    touch-action: none;
+    user-select: none;
+
+    > .sheetGrabber {
+        cursor: grabbing;
+    }
+}
+
+.sheetSurface > :not(.sheetGrabber) {
+    min-height: 0;
+    min-width: 0;
+    flex: 1 1 auto;
+    overscroll-behavior: contain;
+    overflow: auto;
+}
+
+.sheetSurface > .basePaneStructure {
+    display: flex;
+    flex-flow: column nowrap;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+
+    > .paneHeader,
+    > .paneFooter {
+        position: sticky;
+        background: inherit;
+        z-index: 100;
+    }
+
+    > .paneHeader {
+        top: 0;
+    }
+
+    > .paneFooter {
+        bottom: 0;
+        margin-top: auto;
+    }
+}
+
+.sheetGrabber {
+    @include mixin.focus-ring(-6px);
+
+    appearance: none;
+    display: flex;
+    padding: 0;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 0;
+    border-radius: inherit;
+    cursor: grab;
+    touch-action: none;
+
+    &::before {
+        display: block;
+        content: '';
+        background: var(--surface-stroke);
+        border-radius: var(--radius-full);
+        transition: background var(--transition-default);
+    }
+
+    @include mixin.hover {
+        &::before {
+            background: var(--surface-stroke-hover);
+        }
+    }
+}
+
+.sheetSurface.isBottom > .sheetGrabber,
+.sheetSurface.isTop > .sheetGrabber {
+    height: 30px;
+
+    &::before {
+        height: 6px;
+        width: 54px;
+    }
+}
+
+.sheetSurface.isLeft > .sheetGrabber,
+.sheetSurface.isRight > .sheetGrabber {
+    width: 30px;
+
+    &::before {
+        height: 54px;
+        width: 6px;
+    }
+}
+
+.sheetSurface.isTop > .sheetGrabber,
+.sheetSurface.isLeft > .sheetGrabber {
+    order: 1;
+}
+
+.sheet.isCurrent {
+    pointer-events: auto;
+}
+
+.sheet:not(.isCurrent) > .sheetSurface {
+    filter: brightness(.75) blur(3px) grayscale(.5) saturate(180%);
+    scale: .975;
+}
+
+.sheetTransitionEnterActive,
+.sheetTransitionEnterFrom {
+    opacity: 1;
+}
+
+.sheetTransitionLeaveActive {
+    composes: slideOverTransitionLeaveActive from './Overlay.module.scss';
+
+    opacity: 1;
+}
+
+.sheetTransitionEnterActive > .sheetSurface:not(.isSprung),
+.sheetTransitionLeaveActive > .sheetSurface {
+    transition: translate 480ms var(--swift-out);
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+}
+
+.sheetTransitionEnterFrom,
+.sheetTransitionLeaveTo {
+    > .sheetSurface.isBottom {
+        translate: 0 100%;
+    }
+
+    > .sheetSurface.isTop {
+        translate: 0 -100%;
+    }
+
+    > .sheetSurface.isLeft {
+        translate: -100% 0;
+    }
+
+    > .sheetSurface.isRight {
+        translate: 100% 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        > .sheetSurface {
+            translate: none;
+        }
+    }
+}

@@ -18,6 +18,8 @@ props:
     -   name: model-value
         description: The value.
         type: [ DateTime, null ]
+        optional: true
+        default: 'null'
 
     -   name: auto-complete
         description: Please refer to the HTMLInputElement documentation for examples of values that can be given here.
@@ -37,6 +39,11 @@ props:
     -   name: error
         description: Error message describing why the input is invalid. Sets aria-invalid and a red border.
         type: [ string, null ]
+        optional: true
+
+    -   name: is-condensed
+        description: If the input is rendered at a reduced height.
+        type: boolean
         optional: true
 
     -   name: is-loading
