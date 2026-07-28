@@ -136,26 +136,26 @@
  * Lists
  * -------------------------------------------------------------------------- */
 
-.vp-doc ul:not(:where([data-prose] *)),
-.vp-doc ol:not(:where([data-prose] *)) {
+.vp-doc ul:not(:where([data-prose] *, .vite-render *)),
+.vp-doc ol:not(:where([data-prose] *, .vite-render *)) {
     padding-left: 1.25rem;
     margin: 16px 0;
 }
 
-.vp-doc ul:not(:where([data-prose] *)) {
+.vp-doc ul:not(:where([data-prose] *, .vite-render *)) {
     list-style: disc;
 }
 
-.vp-doc ol:not(:where([data-prose] *)) {
+.vp-doc ol:not(:where([data-prose] *, .vite-render *)) {
     list-style: decimal;
 }
 
-.vp-doc li:not(:where([data-prose] *)) + li {
+.vp-doc li:not(:where([data-prose] *, .vite-render *)) + li {
     margin-top: 8px;
 }
 
-.vp-doc li:not(:where([data-prose] *)) > ol,
-.vp-doc li:not(:where([data-prose] *)) > ul {
+.vp-doc li:not(:where([data-prose] *, .vite-render *)) > ol,
+.vp-doc li:not(:where([data-prose] *, .vite-render *)) > ul {
     margin: 8px 0 0;
 }
 
