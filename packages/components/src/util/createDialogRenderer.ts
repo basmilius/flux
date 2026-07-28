@@ -1,5 +1,5 @@
 import { flattenVNodeTree, useFocusTrap } from '@flux-ui/internals';
-import { Comment, type Component, h, type InjectionKey, onUnmounted, provide, type Ref, ref, type RenderFunction, type SetupContext, type Slots, Teleport, type VNode, watch } from 'vue';
+import { Comment, type Component, h, type InjectionKey, onMounted, onUnmounted, provide, type Ref, ref, type SetupContext, type Slots, Teleport, type VNode, watch } from 'vue';
 import { type FluxDialogRegistration, registerDialog } from '~flux/components/data';
 import $style from '~flux/components/css/component/Overlay.module.scss';
 
@@ -17,7 +17,7 @@ export type FluxDialogContext = {
 export type FluxDialogRenderer = {
     readonly dialogRef: Ref<HTMLElement | undefined>;
     getRegistration(): FluxDialogRegistration | null;
-    render: RenderFunction;
+    render(): VNode | null;
 };
 
 export const FluxDialogInjectionKey: InjectionKey<FluxDialogContext> = Symbol('flux:dialog');
@@ -32,10 +32,15 @@ export default function (attrs: object, props: Props, emit: Emit, slots: Slots, 
     const dialogRef = ref<HTMLElement>();
     const labelledBy = ref<string>();
     const label = ref<string>();
+    const isMounted = ref(false);
 
     provide(FluxDialogInjectionKey, {labelledBy, label});
 
     useFocusTrap(dialogRef);
+
+    onMounted(() => {
+        isMounted.value = true;
+    });
 
     onUnmounted(() => {
         registration?.unregister();
@@ -64,7 +69,15 @@ export default function (attrs: object, props: Props, emit: Emit, slots: Slots, 
         emit('close');
     }
 
-    function render(): VNode {
+    function render(): VNode | null {
+        // The teleport target is rendered by FluxOverlayProvider further down the tree, so on
+        // the server it is not hydrated yet when a dialog resolves it. Teleport then parks its
+        // anchors inside it, hydrating the provider wipes them again as stray children, and the
+        // dialog can no longer move into the target once it opens. Mount client side instead.
+        if (!isMounted.value) {
+            return null;
+        }
+
         const children = flattenVNodeTree(slots.default?.() ?? []);
         const isVisible = children.length > 0 && children.some(child => child.type !== Comment);
         let content: VNode | undefined;
