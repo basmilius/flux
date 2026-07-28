@@ -8,7 +8,9 @@
     import { flattenVNodeTree, getComponentName, getComponentProps } from '@flux-ui/internals';
     import type { FluxFilterDefinition, FluxFilterState, FluxFilterValue } from '@flux-ui/types';
     import { computed, provide, unref, type VNode, watch } from 'vue';
+    import { useTranslate } from '~flux/components/composable/private';
     import { FluxFilterInjectionKey } from '~flux/components/data';
+    import type { FluxFilterDefinitionFactory } from '~flux/components/util';
 
     const emit = defineEmits<{
         back: [];
@@ -31,6 +33,8 @@
 
         filters(): VNode[];
     }>();
+
+    const translate = useTranslate();
 
     const flattenedFilters = computed(() => flattenVNodeTree(slots.filters?.() ?? []));
 
@@ -102,9 +106,9 @@
     }, {immediate: true});
 
     function resolveDefinition(vnode: VNode): FluxFilterDefinition | null {
-        const factory = (vnode.type as { __filterDefinitionFactory?: (props: unknown) => FluxFilterDefinition })?.__filterDefinitionFactory;
+        const factory = (vnode.type as { __filterDefinitionFactory?: FluxFilterDefinitionFactory })?.__filterDefinitionFactory;
 
-        return typeof factory === 'function' ? factory(getComponentProps(vnode)) : null;
+        return typeof factory === 'function' ? factory(getComponentProps(vnode), {translate}) : null;
     }
 
     function back(): void {
