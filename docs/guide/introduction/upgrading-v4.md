@@ -12,6 +12,7 @@ This major rebuilds the color layer, puts every package behind the same `vue-i18
 | [Translations](#every-package-speaks-the-same-way)        | `vue-i18n` is a peer dependency of every package that renders text.                 | You render any Flux component.                             |
 | [Application side](#the-side-panel-carries-its-own-state) | `FluxApplicationSide` takes `v-model:is-visible` and covers the content below `lg`. | You render a side panel.                                   |
 | [Kanban](#kanban-move-events-carry-a-swimlane)            | `move` and `canMove` carry the swimlane an item came from.                          | You annotate the move event with its type.                 |
+| [Package exports](#a-package-hands-out-less)              | The injection keys and English dictionaries of `application` and `flow` are internal. | You import one of them by name.                            |
 | [New keys](#eighteen-new-translation-keys)                | 18 keys were added, none were removed or renamed.                                   | You keep a translation map of your own.                    |
 
 ## Colors
@@ -135,6 +136,21 @@ Your i18n instance has to be created with `legacy: false`, since Flux reads the 
 
 [Translations](./translations) covers the setup and lists every string, with the sibling packages on their own pages.
 
+## A package hands out less
+
+`@flux-ui/application` and `@flux-ui/flow` used to re-export their whole data folder, which put a few things in your reach that were never meant for it. Both now name what they hand out, so five exports are gone:
+
+| Package                | No longer exported                                                                      |
+|------------------------|-----------------------------------------------------------------------------------------|
+| `@flux-ui/application` | `FluxApplicationInjectionKey`, `english`                                                |
+| `@flux-ui/flow`        | `FluxFlowInjectionKey`, `FluxFlowNodeInjectionKey`, `FluxFlowPlacementInjectionKey`, `english` |
+
+Every type is still exported, so an annotation keeps working. Only these five names fail, and they fail at the type checker rather than at runtime.
+
+`FluxFlowEdgeLayerInjectionKey` stays, because it is the one a consumer is meant to provide: give it `'under'` or `'over'` and the edges paint below or above the nodes.
+
+If you reached for `english` to read a default string, use the translate composable of that package instead, which falls back to the same dictionary. If you reached for an injection key to read a controller, there is no replacement: that state is internal, and a component that depended on it was depending on something that could move under it.
+
 ## The side panel carries its own state
 
 `FluxApplicationSide` used to be a column you either rendered or did not. It now takes `v-model:is-visible` and a `close-label`, and below `lg` it stops pushing the content aside and starts covering it, behind a scrim that closes it.
@@ -192,3 +208,4 @@ The breaking part above is the smaller half of this release. The rest is additio
 - **Resizable table columns**, through `is-resizable` and the `resize` event on [Table header](../../components/table/header). The handle is a focusable separator, so a column resizes without a mouse too.
 - **A loading state on the statistics panes**, through `is-loading`. The chart keeps its place and the data it already has while it reloads. See [Chart pane](../../statistics/components/chart-pane).
 - **Three transitions**: [Sheet](../../components/transitions/sheet), [Scale](../../components/transitions/scale) and [Stagger](../../components/transitions/stagger).
+- **Gesture and motion composables** in `@flux-ui/internals`: [`usePointerDrag`](../../internals/composables/usePointerDrag), [`useWheelDrag`](../../internals/composables/useWheelDrag) and [`useSpring`](../../internals/composables/useSpring), which are what the sheet and the swipe actions run on, plus [`createTranslate`](../../internals/composables/createTranslate) behind the translations.
