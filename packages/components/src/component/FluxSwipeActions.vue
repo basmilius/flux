@@ -6,6 +6,7 @@
         <div
             ref="row"
             :class="clsx($style.swipeActionsRow, isDragging && $style.isDragging)"
+            tabindex="-1"
             @click.capture="onRowClickCapture">
             <slot/>
         </div>
@@ -48,8 +49,9 @@
     import { FluxDisabledInjectionKey } from '~flux/components/data';
     import $style from '~flux/components/css/component/SwipeActions.module.scss';
 
-    type FluxSwipeActionsSide = 'start' | 'end';
+    export type FluxSwipeActionsSide = 'start' | 'end';
 
+    const ARM_HYSTERESIS = 6;
     const DRAG_THRESHOLD = 9;
     const FLICK_VELOCITY = .5;
     const MAX_ACTIONS = 3;
@@ -57,8 +59,9 @@
     // Travel over which the moving edge of the row rounds off completely.
     const ROUNDING_TRAVEL = 12;
 
-    // Half the smallest action, so an overdragged row can never be mistaken for one that
-    // opened. A side without actions has both of its bounds at 0 and gives the same nudge.
+    // The row gives way past its bounds, but never by as much as a single action is wide, so
+    // an overdrag can never be mistaken for a row that opened. A side without actions has both
+    // of its bounds at 0 and gives the same nudge.
     const OVERDRAG = {max: 36, range: 120} as const;
 
     const openSide = defineModel<FluxSwipeActionsSide | null>('open', {
@@ -96,7 +99,7 @@
     let stopSettleWatch: (() => void) | null = null;
     let maxOffset = 0;
     let minOffset = 0;
-    let startOffset = 0;
+    let startOffset: number | null = null;
     let suppressClick = false;
 
     const disabled = useDisabled(toRef(() => componentDisabled));
@@ -104,6 +107,7 @@
 
     const {isDragging} = usePointerDrag(rowRef, {
         axis: 'x',
+        rebaseOnThreshold: true,
         threshold: DRAG_THRESHOLD,
         onCancel: onDragCancel,
         onEnd: onPointerDragEnd,
@@ -120,40 +124,56 @@
         onStart: onWheelStart
     });
 
-    const style = computed(() => ({
-        '--swipe-offset': `${unref(offset.value)}px`,
-        '--swipe-dir': unref(directionFactor),
-        '--swipe-open': Math.min(1, Math.abs(unref(offset.value)) / ROUNDING_TRAVEL)
-    }));
+    // Only the edge that the swipe reveals rounds off; the other one stays flush with the
+    // corner of the surface the row sits in.
+    const style = computed(() => {
+        const value = unref(offset.value);
+        const openness = Math.min(1, Math.abs(value) / ROUNDING_TRAVEL);
+        const side = sideOf(value);
+
+        return {
+            '--swipe-offset': `${value}px`,
+            '--swipe-dir': unref(directionFactor),
+            '--swipe-open-start': side === 'start' ? openness : 0,
+            '--swipe-open-end': side === 'end' ? openness : 0
+        };
+    });
 
     // The side that fires its primary action when the drag is released here, which is also
     // the side that folds its other actions away to make room.
-    const armedSide = computed<FluxSwipeActionsSide | null>(() => {
+    const armedSide = ref<FluxSwipeActionsSide | null>(null);
+
+    provide(FluxDisabledInjectionKey, disabled);
+
+    useResizeObserver(rowRef, onContentResize);
+    useResizeObserver(startRef, onContentResize);
+    useResizeObserver(endRef, onContentResize);
+
+    // Arming takes the full threshold, disarming gives a little back, so a hand that trembles
+    // on the threshold does not restart the fold of the other actions with every pixel.
+    watch([offset.value, isArmable, hasPrimary], () => {
         const value = unref(offset.value);
         const side = sideOf(value);
 
         if (!unref(isArmable) || side === null || !unref(hasPrimary)[side]) {
-            return null;
-        }
-
-        return Math.abs(value) >= fullSwipeDistance(side) ? side : null;
-    });
-
-    provide(FluxDisabledInjectionKey, disabled);
-
-    useResizeObserver(rowRef, () => {
-        if (unref(isDragging) || unref(isWheeling) || pendingFullSwipe) {
+            armedSide.value = null;
             return;
         }
 
-        measure();
-        settle(unref(openSide));
+        const distance = fullSwipeDistance(side) - (unref(armedSide) === side ? ARM_HYSTERESIS : 0);
+
+        armedSide.value = Math.abs(value) >= distance ? side : null;
+    }, {immediate: true});
+
+    watch(openSide, side => {
+        cancelFullSwipe(false);
+        settle(side);
     });
 
-    watch(openSide, side => settle(side));
     watch(disabled, value => {
         if (value) {
             cancelWheel();
+            cancelFullSwipe(false);
             close();
         }
     });
@@ -163,7 +183,8 @@
         offset.snap(targetFor(unref(openSide)));
     });
 
-    onScopeDispose(cancelFullSwipe);
+    // Nothing left to settle onto once the component is gone.
+    onScopeDispose(() => cancelFullSwipe(false));
 
     // Everything a gesture needs before its first move, whichever device drives it.
     function beginGesture(allowFullSwipe: boolean): boolean {
@@ -184,12 +205,15 @@
         // primary action the elastic resistance starts right where the actions end.
         maxOffset = sizes.start === 0 ? 0 : allowFullSwipe && primaries.start ? size : sizes.start;
         minOffset = sizes.end === 0 ? 0 : -(allowFullSwipe && primaries.end ? size : sizes.end);
-        startOffset = unref(offset.value);
+
+        // Where the row is picked up is only known once it actually moves, since the spring
+        // may still be flying between here and the first move.
+        startOffset = null;
 
         // A gesture that starts on an open row can only work that side, so swiping it shut
         // stops at the closed position instead of running on into the other side. Opening
         // that one takes a new gesture, once the row has come to rest.
-        const from = sideOf(startOffset);
+        const from = sideOf(unref(offset.value));
 
         if (from === 'start') {
             minOffset = 0;
@@ -215,16 +239,24 @@
         return unrefTemplateElement(side === 'start' ? startRef : endRef);
     }
 
-    // A group is exactly as wide as the row has travelled, so its natural width can only be
-    // read while the row is closed. Anywhere else the last reading stands.
+    // A group is stretched to whatever the row has travelled, so its natural width is read
+    // with that stretch taken off; `min-width: max-content` then holds it at its content.
+    function naturalWidth(element: HTMLElement): number {
+        const previous = element.style.width;
+
+        element.style.width = '0';
+
+        const width = element.offsetWidth;
+
+        element.style.width = previous;
+
+        return width;
+    }
+
     function measure(): void {
         refreshDirection();
 
         rowSize.value = unrefTemplateElement(rowRef)?.offsetWidth ?? 0;
-
-        if (unref(offset.value) !== 0) {
-            return;
-        }
 
         const sizes = {start: 0, end: 0};
         const primaries = {start: false, end: false};
@@ -236,7 +268,7 @@
                 continue;
             }
 
-            sizes[side] = element.offsetWidth;
+            sizes[side] = naturalWidth(element);
             primaries[side] = !!element.querySelector('[data-flux-swipe-primary]');
 
             if (import.meta.env.DEV) {
@@ -257,6 +289,8 @@
     }
 
     function openTo(side: FluxSwipeActionsSide): void {
+        measure();
+
         openSide.value = side;
         settle(side);
     }
@@ -287,10 +321,19 @@
         return side === 'start' ? unref(area).start : -unref(area).end;
     }
 
-    function cancelFullSwipe(): void {
+    // A full swipe is called off with the spring halfway to a position that is not an end
+    // state, so the row is sent back to one. Only a caller that replaces the target itself,
+    // or that tears the component down, passes false.
+    function cancelFullSwipe(settleBack = true): void {
+        const wasPending = pendingFullSwipe !== null;
+
         pendingFullSwipe = null;
         stopSettleWatch?.();
         stopSettleWatch = null;
+
+        if (wasPending && settleBack) {
+            settle(unref(openSide));
+        }
     }
 
     async function fullSwipe(side: FluxSwipeActionsSide, velocity: number): Promise<void> {
@@ -323,22 +366,45 @@
     function whenSettled(target: number): Promise<void> {
         return new Promise(resolve => {
             stopSettleWatch?.();
+            stopSettleWatch = null;
 
-            stopSettleWatch = watch(offset.value, value => {
+            let isSettled = false;
+
+            const stop = watch(offset.value, value => {
                 if (Math.abs(value - target) >= 1) {
                     return;
                 }
 
+                isSettled = true;
                 stopSettleWatch?.();
                 stopSettleWatch = null;
 
                 resolve();
             }, {immediate: true});
+
+            // The immediate callback runs while `watch()` is still running, so a spring that
+            // is already there, as it is under reduced motion, has no handle to stop yet.
+            if (isSettled) {
+                stop();
+            } else {
+                stopSettleWatch = stop;
+            }
         });
     }
 
+    // The browser took the gesture over, so no click follows it that has to be swallowed.
     function onDragCancel(): void {
-        suppressClick = true;
+        settle(unref(openSide));
+    }
+
+    // The groups grow and shrink with every pixel the row travels, so a reading only means
+    // something once the row rests on the position its state asks for.
+    function onContentResize(): void {
+        if (unref(isDragging) || unref(isWheeling) || pendingFullSwipe || unref(offset.value) !== targetFor(unref(openSide))) {
+            return;
+        }
+
+        measure();
         settle(unref(openSide));
     }
 
@@ -363,20 +429,23 @@
         const velocity = vx * unref(directionFactor);
         const towardsOpen = side === 'start' ? velocity : -velocity;
 
+        // A flick back towards the closed row takes the swipe back, armed or not, so a hand
+        // that changes its mind never fires the primary action.
+        if (towardsOpen < -FLICK_VELOCITY) {
+            openSide.value = null;
+            settle(null, velocity);
+            return;
+        }
+
         if (unref(armedSide) === side) {
-            fullSwipe(side, velocity);
+            // A velocity pointing away from the target would launch the spring backwards.
+            fullSwipe(side, side === 'start' ? Math.max(0, velocity) : Math.min(0, velocity));
             return;
         }
 
         if (towardsOpen > FLICK_VELOCITY) {
             openSide.value = side;
             settle(side, velocity);
-            return;
-        }
-
-        if (towardsOpen < -FLICK_VELOCITY) {
-            openSide.value = null;
-            settle(null, velocity);
             return;
         }
 
@@ -389,6 +458,10 @@
     }
 
     function onDragMove({dx}: DragContext): void {
+        // The pointer drag rebases on its threshold, so the row is taken over exactly where
+        // the first move finds it, however far the spring got in the meantime.
+        startOffset ??= unref(offset.value);
+
         const wanted = startOffset + dx * unref(directionFactor);
         const bounded = Math.min(maxOffset, Math.max(minOffset, wanted));
 
@@ -434,10 +507,17 @@
         evt.stopPropagation();
     }
 
-    // An action that has run leaves nothing to choose from, so the row closes behind it.
+    // An action that has run leaves nothing to choose from, so the row closes behind it. The
+    // button it sat on is clipped away with it, so a keyboard user is put back on the row.
     function onGroupClick(evt: MouseEvent): void {
-        if (!(evt.target as Element).closest('[data-flux-swipe-action]')) {
+        const action = (evt.target as Element).closest('[data-flux-swipe-action]');
+
+        if (!action) {
             return;
+        }
+
+        if (action.contains(document.activeElement)) {
+            unrefTemplateElement(rowRef)?.focus();
         }
 
         close();

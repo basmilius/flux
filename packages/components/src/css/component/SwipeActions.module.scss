@@ -3,7 +3,8 @@
 .swipeActions {
     --swipe-offset: 0px;
     --swipe-dir: 1;
-    --swipe-open: 0;
+    --swipe-open-start: 0;
+    --swipe-open-end: 0;
     --swipe-inset: 6px;
 
     position: relative;
@@ -27,7 +28,12 @@
     position: relative;
     z-index: 1;
     background: var(--surface-current);
-    border-radius: calc(var(--radius) * var(--swipe-open));
+    // Only the edge that the swipe reveals rounds off; the opposite one keeps sitting on the
+    // corner of the surface around it.
+    border-start-start-radius: calc(var(--radius) * var(--swipe-open-start));
+    border-end-start-radius: calc(var(--radius) * var(--swipe-open-start));
+    border-start-end-radius: calc(var(--radius) * var(--swipe-open-end));
+    border-end-end-radius: calc(var(--radius) * var(--swipe-open-end));
     touch-action: pan-y;
     translate: calc(var(--swipe-offset) * var(--swipe-dir)) 0;
 
@@ -75,7 +81,9 @@
     flex-flow: row nowrap;
     overflow: hidden;
     min-width: 42px;
-    min-height: 42px;
+    // A fixed height rather than a minimum, so the cap below can actually apply: a row
+    // shorter than the pill shrinks it instead of clipping it against `overflow: clip`.
+    height: 42px;
     max-height: 100%;
     padding: 6px 18px;
     align-items: center;
