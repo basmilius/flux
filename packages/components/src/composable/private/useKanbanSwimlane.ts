@@ -1,8 +1,6 @@
 import { computed, inject, reactive } from 'vue';
 import { type FluxKanbanCell, type FluxKanbanKeyboardDirection, type FluxKanbanLayoutInjection, FluxKanbanLayoutInjectionKey, type FluxKanbanSwimlaneInjection, FluxKanbanSwimlaneInjectionKey } from '~flux/components/data';
 
-export type { FluxKanbanSwimlaneMoveEvent } from '@flux-ui/types';
-
 export type FluxKanbanSwimlaneTarget = {
     readonly cellId: string;
     readonly beforeItemId: string | number | null;

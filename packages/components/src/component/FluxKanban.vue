@@ -20,9 +20,9 @@
     lang="ts"
     setup>
     import { warn } from '@flux-ui/internals';
-    import type { FluxKanbanMoveColumnEvent, FluxKanbanMoveEvent } from '@flux-ui/types';
+    import type { FluxKanbanMoveColumnEvent, FluxKanbanMoveEvent, FluxKanbanSwimlaneMoveEvent } from '@flux-ui/types';
     import { computed, onBeforeUnmount, onMounted, provide, ref, toRef, useTemplateRef, watch } from 'vue';
-    import { type FluxKanbanSwimlaneMoveEvent, useKanban, useKanbanLayout } from '~flux/components/composable/private';
+    import { useKanban, useKanbanLayout } from '~flux/components/composable/private';
     import { FluxDisabledInjectionKey, FluxKanbanInjectionKey, FluxKanbanLayoutInjectionKey } from '~flux/components/data';
     import $style from '~flux/components/css/component/Kanban.module.scss';
 

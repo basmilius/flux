@@ -47,5 +47,6 @@ export {
 } from './util';
 
 export type {
+    FluxFilterDefinitionContext,
     FluxFilterDefinitionFactory
 } from './util';

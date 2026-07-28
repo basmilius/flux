@@ -27,17 +27,17 @@
     // a full height sheet never opens a gap behind itself.
     const ENTER_SPRING = {damping: 28} as const;
 
-    type SheetPosition = 'bottom' | 'left' | 'right' | 'top';
+    export type FluxSheetPosition = 'bottom' | 'left' | 'right' | 'top';
     type DragOwner = 'undecided' | 'scroller' | 'sheet';
 
     // Every position is the bottom sheet mirrored: one axis, and a sign that points away
     // from the edge the sheet is attached to. The rest of the component only speaks in
     // "travel away from that edge", so none of it has to know which side it is on.
-    const AXIS: Record<SheetPosition, PointerDragAxis> = {bottom: 'y', left: 'x', right: 'x', top: 'y'};
-    const SIGN: Record<SheetPosition, 1 | -1> = {bottom: 1, left: -1, right: 1, top: -1};
-    const GROW_KEY: Record<SheetPosition, string> = {bottom: 'ArrowUp', left: 'ArrowRight', right: 'ArrowLeft', top: 'ArrowDown'};
-    const SHRINK_KEY: Record<SheetPosition, string> = {bottom: 'ArrowDown', left: 'ArrowLeft', right: 'ArrowRight', top: 'ArrowUp'};
-    const POSITION_CLASS: Record<SheetPosition, string> = {bottom: $style.isBottom, left: $style.isLeft, right: $style.isRight, top: $style.isTop};
+    const AXIS: Record<FluxSheetPosition, PointerDragAxis> = {bottom: 'y', left: 'x', right: 'x', top: 'y'};
+    const SIGN: Record<FluxSheetPosition, 1 | -1> = {bottom: 1, left: -1, right: 1, top: -1};
+    const GROW_KEY: Record<FluxSheetPosition, string> = {bottom: 'ArrowUp', left: 'ArrowRight', right: 'ArrowLeft', top: 'ArrowDown'};
+    const SHRINK_KEY: Record<FluxSheetPosition, string> = {bottom: 'ArrowDown', left: 'ArrowLeft', right: 'ArrowRight', top: 'ArrowUp'};
+    const POSITION_CLASS: Record<FluxSheetPosition, string> = {bottom: $style.isBottom, left: $style.isLeft, right: $style.isRight, top: $style.isTop};
 
     function nearestSnap(points: readonly number[], fraction: number): number {
         let nearest = 0;
@@ -86,7 +86,7 @@
         props: {
             isCloseable: {default: false, type: Boolean},
             isDraggable: {default: true, type: Boolean},
-            position: {default: 'bottom', type: String as PropType<SheetPosition>},
+            position: {default: 'bottom', type: String as PropType<FluxSheetPosition>},
             snapPoints: {default: null, type: Array as PropType<readonly number[] | null>},
             viewKey: {default: null, type: String}
         },

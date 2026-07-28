@@ -5,7 +5,7 @@ export { elasticResistance, useElasticOverdrag, type ElasticResistanceOptions } 
 export { createFaderAnimator, faderBarLeft, faderBarStateClass, FADER_BAR_INSET, faderClampPark, type FaderBarState, faderFillEdgePx, faderRoundToDecimals, useFormFader } from './useFormFader';
 export { default as useFormSelect } from './useFormSelect';
 export { useKanban } from './useKanban';
-export { findKanbanSwimlaneTarget, toKanbanCellId, useKanbanLayout, useKanbanLayoutInjection, useKanbanSwimlaneInjection, type FluxKanbanSwimlaneMoveEvent, type FluxKanbanSwimlaneTarget } from './useKanbanSwimlane';
+export { findKanbanSwimlaneTarget, toKanbanCellId, useKanbanLayout, useKanbanLayoutInjection, useKanbanSwimlaneInjection, type FluxKanbanSwimlaneTarget } from './useKanbanSwimlane';
 export { default as useMenuFlyout, useMenuFlyoutContext, useMenuFlyoutProvider, type UseMenuFlyoutOptions, type UseMenuFlyoutProviderOptions, type UseMenuFlyoutReturn } from './useMenuFlyout';
 export { useSplitView, type SplitViewPane, type UseSplitViewOptions, type UseSplitViewReturn } from './useSplitView';
 export { countColumns, getColumnSpan, resolveColumnIndex, useTableColumnIndex } from './useTableColumnIndex';

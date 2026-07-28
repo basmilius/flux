@@ -157,7 +157,7 @@ export { default as FluxSecondaryLinkButton } from './FluxSecondaryLinkButton.vu
 export { default as FluxSegmentedControl } from './FluxSegmentedControl.vue';
 export { default as FluxSegmentedControlItem } from './FluxSegmentedControlItem.vue';
 export { default as FluxSeparator } from './FluxSeparator.vue';
-export { default as FluxSheet } from './FluxSheet.vue';
+export { default as FluxSheet, type FluxSheetPosition } from './FluxSheet.vue';
 export { default as FluxSkeleton } from './FluxSkeleton.vue';
 export { default as FluxSlideOver } from './FluxSlideOver.vue';
 export { default as FluxSnackbar } from './FluxSnackbar.vue';
@@ -174,7 +174,7 @@ export { default as FluxStepper } from './FluxStepper.vue';
 export { default as FluxStepperStep } from './FluxStepperStep.vue';
 export { default as FluxStepperSteps } from './FluxStepperSteps.vue';
 export { default as FluxSwipeAction } from './FluxSwipeAction.vue';
-export { default as FluxSwipeActions } from './FluxSwipeActions.vue';
+export { default as FluxSwipeActions, type FluxSwipeActionsSide } from './FluxSwipeActions.vue';
 export { default as FluxTab } from './FluxTab.vue';
 export { default as FluxTabBar } from './FluxTabBar.vue';
 export { default as FluxTabBarItem } from './FluxTabBarItem.vue';
