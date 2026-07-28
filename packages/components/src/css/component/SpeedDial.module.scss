@@ -25,12 +25,19 @@ $-stagger-step: 45ms;
 }
 
 .speedDialOpener {
+    // The icon fades out before its replacement fades in, so the button is
+    // briefly empty and would collapse onto its own padding.
+    min-width: $-opener-size;
     border-radius: var(--radius-full);
     box-shadow: var(--shadow-lg);
 
     &:active {
         box-shadow: var(--shadow-md);
     }
+}
+
+.speedDialOpenerIcon {
+    composes: buttonIcon from './base/Button.module.scss';
 }
 
 .speedDialActions {

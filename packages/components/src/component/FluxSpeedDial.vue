@@ -13,13 +13,21 @@
             name="opener">
             <FluxPrimaryButton
                 :class="$style.speedDialOpener"
-                :icon-leading="isOpen ? iconOpen : icon"
                 size="large"
                 :aria-label="label"
                 aria-haspopup="menu"
                 :aria-expanded="isOpen"
                 :aria-controls="actionsId"
-                @click="toggle"/>
+                @click="toggle">
+                <template #iconLeading>
+                    <FluxFadeTransition>
+                        <FluxIcon
+                            :key="isOpen ? iconOpen : icon"
+                            :class="$style.speedDialOpenerIcon"
+                            :name="isOpen ? iconOpen : icon"/>
+                    </FluxFadeTransition>
+                </template>
+            </FluxPrimaryButton>
         </slot>
 
         <div
@@ -46,6 +54,8 @@
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { nextTick, unref, useId, useTemplateRef, type VNode, watch } from 'vue';
+    import { FluxFadeTransition } from '~flux/components/transition';
+    import FluxIcon from './FluxIcon.vue';
     import FluxPrimaryButton from './FluxPrimaryButton.vue';
     import $style from '~flux/components/css/component/SpeedDial.module.scss';
 
