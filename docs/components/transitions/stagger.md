@@ -48,16 +48,10 @@ The delay counter restarts for every batch, so a single item added to a list tha
 
 <FrontmatterDocs/>
 
-## Examples
+## Snippet
 
-::: example Basic || Every item starts 30 milliseconds after the one before it.
-example=../../code/components/transitions/stagger/basic.vue
-:::
+::: code-group
 
-::: example Cadence || A larger `delay` spreads the items further apart, while `max` keeps the last item from arriving too late.
-example=../../code/components/transitions/stagger/delay.vue
-:::
+<<< @/code/components/transitions/stagger/preview.vue [FluxStaggerTransition.vue]
 
-::: example Notifications || A list that grows and shrinks: the first render staggers, later arrivals appear right away.
-example=../../code/components/transitions/stagger/notifications.vue
 :::

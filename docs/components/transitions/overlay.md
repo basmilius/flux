@@ -21,8 +21,10 @@ render=../../code/components/transitions/overlay/preview.vue
 
 <FrontmatterDocs/>
 
-## Examples
+## Snippet
 
-::: example Basic || The surface of a dialog scales up out of its shade and settles at its final size.
-example=../../code/components/transitions/overlay/preview.vue
+::: code-group
+
+<<< @/code/components/transitions/overlay/preview.vue [FluxOverlayTransition.vue]
+
 :::

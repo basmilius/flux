@@ -26,8 +26,10 @@ render=../../code/components/transitions/window/preview.vue
 
 <FrontmatterDocs/>
 
-## Examples
+## Snippet
 
-::: example Basic || Two views next to each other, moving forward or backward depending on the direction.
-example=../../code/components/transitions/window/preview.vue
+::: code-group
+
+<<< @/code/components/transitions/window/preview.vue [FluxWindowTransition.vue]
+
 :::

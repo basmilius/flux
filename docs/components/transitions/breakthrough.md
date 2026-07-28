@@ -26,8 +26,10 @@ render=../../code/components/transitions/breakthrough/preview.vue
 
 <FrontmatterDocs/>
 
-## Examples
+## Snippet
 
-::: example Basic || The view grows towards the visitor as it arrives and falls away behind the next one as it leaves.
-example=../../code/components/transitions/breakthrough/preview.vue
+::: code-group
+
+<<< @/code/components/transitions/breakthrough/preview.vue [FluxBreakthroughTransition.vue]
+
 :::

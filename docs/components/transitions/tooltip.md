@@ -21,8 +21,10 @@ render=../../code/components/transitions/tooltip/preview.vue
 
 <FrontmatterDocs/>
 
-## Examples
+## Snippet
 
-::: example Basic || A short scale and fade, tuned for a small surface that appears next to its trigger.
-example=../../code/components/transitions/tooltip/preview.vue
+::: code-group
+
+<<< @/code/components/transitions/tooltip/preview.vue [FluxTooltipTransition.vue]
+
 :::

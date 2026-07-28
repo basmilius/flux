@@ -26,8 +26,10 @@ render=../../code/components/transitions/route/preview.vue
 
 <FrontmatterDocs/>
 
-## Examples
+## Snippet
 
-::: example Basic || A view slides in from the side the navigation came from, the way a page transition moves.
-example=../../code/components/transitions/route/preview.vue
+::: code-group
+
+<<< @/code/components/transitions/route/preview.vue [FluxRouteTransition.vue]
+
 :::

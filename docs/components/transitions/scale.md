@@ -48,20 +48,10 @@ When the visitor prefers reduced motion, the element only fades and no longer sc
 
 <FrontmatterDocs/>
 
-## Examples
+## Snippet
 
-::: example Basic || The element fades in while it grows to its final size.
-example=../../code/components/transitions/scale/basic.vue
-:::
+::: code-group
 
-::: example Starting scale || A lower `from` makes the element grow from further away, which suits content that should draw attention.
-example=../../code/components/transitions/scale/from.vue
-:::
+<<< @/code/components/transitions/scale/preview.vue [FluxScaleTransition.vue]
 
-::: example Origin || The `origin` prop decides which point stays in place while the element scales.
-example=../../code/components/transitions/scale/origin.vue
-:::
-
-::: example Popover || Scaling from the corner it is anchored to makes a panel look like it grows out of its button.
-example=../../code/components/transitions/scale/popover.vue
 :::

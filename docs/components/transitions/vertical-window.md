@@ -26,8 +26,10 @@ render=../../code/components/transitions/vertical-window/preview.vue
 
 <FrontmatterDocs/>
 
-## Examples
+## Snippet
 
-::: example Basic || Two views stacked on top of each other, moving up or down depending on the direction.
-example=../../code/components/transitions/vertical-window/preview.vue
+::: code-group
+
+<<< @/code/components/transitions/vertical-window/preview.vue [FluxVerticalWindowTransition.vue]
+
 :::

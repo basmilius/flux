@@ -27,8 +27,10 @@ The sheet itself opts out of the arrival, because it drives that half with a spr
 
 <FrontmatterDocs/>
 
-## Examples
+## Snippet
 
-::: example Basic || The surface travels in from the edge it is attached to, without a fade.
-example=../../code/components/transitions/sheet/preview.vue
+::: code-group
+
+<<< @/code/components/transitions/sheet/preview.vue [FluxSheetTransition.vue]
+
 :::
