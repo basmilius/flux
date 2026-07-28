@@ -41,7 +41,7 @@
     lang="ts"
     setup>
     import { useResizeObserver } from '@basmilius/common';
-    import { type DragContext, unrefTemplateElement, usePointerDrag, useSpring, useWheelDrag, warn } from '@flux-ui/internals';
+    import { animationFrameDebounce, type DragContext, unrefTemplateElement, usePointerDrag, useSpring, useWheelDrag, warn } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { computed, onMounted, onScopeDispose, provide, ref, toRef, unref, useTemplateRef, type VNode, watch } from 'vue';
     import { useDisabled } from '~flux/components/composable';
@@ -56,12 +56,8 @@
     const FLICK_VELOCITY = .5;
     const MAX_ACTIONS = 3;
 
-    // Travel over which the moving edge of the row rounds off completely.
     const ROUNDING_TRAVEL = 12;
 
-    // The row gives way past its bounds, but never by as much as a single action is wide, so
-    // an overdrag can never be mistaken for a row that opened. A side without actions has both
-    // of its bounds at 0 and gives the same nudge.
     const OVERDRAG = {max: 36, range: 120} as const;
 
     const openSide = defineModel<FluxSwipeActionsSide | null>('open', {
@@ -115,8 +111,6 @@
         onStart: onDragStart
     });
 
-    // A trackpad drives the same gesture from anywhere over the row, including the actions
-    // that are already showing, so it listens on the wrapper instead of on the row.
     const {cancel: cancelWheel, isWheeling} = useWheelDrag(wrapperRef, {
         axis: 'x',
         onEnd: onDragEnd,
@@ -124,8 +118,6 @@
         onStart: onWheelStart
     });
 
-    // Only the edge that the swipe reveals rounds off; the other one stays flush with the
-    // corner of the surface the row sits in.
     const style = computed(() => {
         const value = unref(offset.value);
         const openness = Math.min(1, Math.abs(value) / ROUNDING_TRAVEL);
@@ -139,18 +131,23 @@
         };
     });
 
-    // The side that fires its primary action when the drag is released here, which is also
-    // the side that folds its other actions away to make room.
     const armedSide = ref<FluxSwipeActionsSide | null>(null);
 
     provide(FluxDisabledInjectionKey, disabled);
+
+    const onContentResize = animationFrameDebounce(() => {
+        if (unref(isDragging) || unref(isWheeling) || pendingFullSwipe || unref(offset.value) !== targetFor(unref(openSide))) {
+            return;
+        }
+
+        measure();
+        settle(unref(openSide));
+    });
 
     useResizeObserver(rowRef, onContentResize);
     useResizeObserver(startRef, onContentResize);
     useResizeObserver(endRef, onContentResize);
 
-    // Arming takes the full threshold, disarming gives a little back, so a hand that trembles
-    // on the threshold does not restart the fold of the other actions with every pixel.
     watch([offset.value, isArmable, hasPrimary], () => {
         const value = unref(offset.value);
         const side = sideOf(value);
@@ -183,10 +180,8 @@
         offset.snap(targetFor(unref(openSide)));
     });
 
-    // Nothing left to settle onto once the component is gone.
     onScopeDispose(() => cancelFullSwipe(false));
 
-    // Everything a gesture needs before its first move, whichever device drives it.
     function beginGesture(allowFullSwipe: boolean): boolean {
         if (unref(disabled)) {
             return false;
@@ -201,18 +196,11 @@
 
         isArmable.value = allowFullSwipe;
 
-        // Only a side that can be swiped through travels further than its actions; without a
-        // primary action the elastic resistance starts right where the actions end.
         maxOffset = sizes.start === 0 ? 0 : allowFullSwipe && primaries.start ? size : sizes.start;
         minOffset = sizes.end === 0 ? 0 : -(allowFullSwipe && primaries.end ? size : sizes.end);
 
-        // Where the row is picked up is only known once it actually moves, since the spring
-        // may still be flying between here and the first move.
         startOffset = null;
 
-        // A gesture that starts on an open row can only work that side, so swiping it shut
-        // stops at the closed position instead of running on into the other side. Opening
-        // that one takes a new gesture, once the row has come to rest.
         const from = sideOf(unref(offset.value));
 
         if (from === 'start') {
@@ -239,9 +227,11 @@
         return unrefTemplateElement(side === 'start' ? startRef : endRef);
     }
 
-    // A group is stretched to whatever the row has travelled, so its natural width is read
-    // with that stretch taken off; `min-width: max-content` then holds it at its content.
     function naturalWidth(element: HTMLElement): number {
+        if (unref(offset.value) === 0) {
+            return element.offsetWidth;
+        }
+
         const previous = element.style.width;
 
         element.style.width = '0';
@@ -321,9 +311,6 @@
         return side === 'start' ? unref(area).start : -unref(area).end;
     }
 
-    // A full swipe is called off with the spring halfway to a position that is not an end
-    // state, so the row is sent back to one. Only a caller that replaces the target itself,
-    // or that tears the component down, passes false.
     function cancelFullSwipe(settleBack = true): void {
         const wasPending = pendingFullSwipe !== null;
 
@@ -352,7 +339,6 @@
 
         await whenSettled(target);
 
-        // A new drag or an unmount within the flight invalidates the token.
         if (pendingFullSwipe !== token) {
             return;
         }
@@ -382,8 +368,6 @@
                 resolve();
             }, {immediate: true});
 
-            // The immediate callback runs while `watch()` is still running, so a spring that
-            // is already there, as it is under reduced motion, has no handle to stop yet.
             if (isSettled) {
                 stop();
             } else {
@@ -392,19 +376,7 @@
         });
     }
 
-    // The browser took the gesture over, so no click follows it that has to be swallowed.
     function onDragCancel(): void {
-        settle(unref(openSide));
-    }
-
-    // The groups grow and shrink with every pixel the row travels, so a reading only means
-    // something once the row rests on the position its state asks for.
-    function onContentResize(): void {
-        if (unref(isDragging) || unref(isWheeling) || pendingFullSwipe || unref(offset.value) !== targetFor(unref(openSide))) {
-            return;
-        }
-
-        measure();
         settle(unref(openSide));
     }
 
@@ -424,13 +396,9 @@
             return;
         }
 
-        // Towards the start is a positive offset, so a right-to-left row flips the sign of
-        // the pointer's speed along with everything else.
         const velocity = vx * unref(directionFactor);
         const towardsOpen = side === 'start' ? velocity : -velocity;
 
-        // A flick back towards the closed row takes the swipe back, armed or not, so a hand
-        // that changes its mind never fires the primary action.
         if (towardsOpen < -FLICK_VELOCITY) {
             openSide.value = null;
             settle(null, velocity);
@@ -438,7 +406,6 @@
         }
 
         if (unref(armedSide) === side) {
-            // A velocity pointing away from the target would launch the spring backwards.
             fullSwipe(side, side === 'start' ? Math.max(0, velocity) : Math.min(0, velocity));
             return;
         }
@@ -458,8 +425,6 @@
     }
 
     function onDragMove({dx}: DragContext): void {
-        // The pointer drag rebases on its threshold, so the row is taken over exactly where
-        // the first move finds it, however far the spring got in the meantime.
         startOffset ??= unref(offset.value);
 
         const wanted = startOffset + dx * unref(directionFactor);
@@ -469,8 +434,6 @@
     }
 
     function onDragStart(): boolean {
-        // A pointer that goes down mid glide takes over from the trackpad, so both never
-        // pull at the offset at once.
         cancelWheel();
 
         if (!beginGesture(true)) {
@@ -487,15 +450,10 @@
         onDragEnd(context);
     }
 
-    // Two fingers carry no press to hold back with, so a swipe out of a closed row stops at
-    // its actions. Only a row that is already open can be swiped through, which is a second
-    // deliberate gesture and never a slip of the hand.
     function onWheelStart(): boolean {
         return !unref(isDragging) && beginGesture(unref(offset.value) !== 0);
     }
 
-    // A drag ends in a click on whatever sits under the pointer. Swallowing that one click keeps
-    // a swipe from also activating the row's own content.
     function onRowClickCapture(evt: MouseEvent): void {
         if (!suppressClick) {
             return;
@@ -507,8 +465,6 @@
         evt.stopPropagation();
     }
 
-    // An action that has run leaves nothing to choose from, so the row closes behind it. The
-    // button it sat on is clipped away with it, so a keyboard user is put back on the row.
     function onGroupClick(evt: MouseEvent): void {
         const action = (evt.target as Element).closest('[data-flux-swipe-action]');
 
