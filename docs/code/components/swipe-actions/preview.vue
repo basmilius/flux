@@ -29,6 +29,7 @@
                             label="Archive"/>
 
                         <FluxSwipeAction
+                            is-primary
                             color="danger"
                             icon="trash"
                             label="Delete"/>

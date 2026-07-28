@@ -30,6 +30,7 @@
                             @click="remove(mail.subject)"/>
 
                         <FluxSwipeAction
+                            is-primary
                             color="danger"
                             icon="trash"
                             label="Delete"

@@ -1,7 +1,8 @@
 <template>
     <button
-        :class="COLOR_CLASS[color]"
+        :class="clsx(COLOR_CLASS[color], !label && $style.isIconOnly, isPrimary && $style.isPrimary)"
         data-flux-swipe-action
+        :data-flux-swipe-primary="isPrimary ? '' : undefined"
         type="button"
         :disabled="disabled"
         @click="$emit('click', $event)">
@@ -9,7 +10,9 @@
             :name="icon"
             :size="18"/>
 
-        <span :class="$style.swipeActionLabel">
+        <span
+            v-if="label"
+            :class="$style.swipeActionLabel">
             {{ label }}
         </span>
     </button>
@@ -19,6 +22,7 @@
     lang="ts"
     setup>
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
+    import { clsx } from 'clsx';
     import { useDisabledInjection } from '~flux/components/composable';
     import FluxIcon from './FluxIcon.vue';
     import $style from '~flux/components/css/component/SwipeActions.module.scss';
@@ -32,7 +36,8 @@
     } = defineProps<{
         readonly color?: FluxColor;
         readonly icon: FluxIconName;
-        readonly label: string;
+        readonly isPrimary?: boolean;
+        readonly label?: string;
     }>();
 
     const COLOR_CLASS: Readonly<Record<FluxColor, string>> = Object.freeze({

@@ -5,9 +5,7 @@
             :key="mail.subject">
             <FluxSeparator v-if="index > 0"/>
 
-            <FluxSwipeActions
-                :open="open && open.subject === mail.subject ? open.side : null"
-                @update:open="onOpen(mail.subject, $event)">
+            <FluxSwipeActions>
                 <FluxItem style="padding: 18px">
                     <FluxItemContent is-center>
                         <strong>{{ mail.from }}</strong>
@@ -15,16 +13,29 @@
                     </FluxItemContent>
                 </FluxItem>
 
+                <template #start>
+                    <FluxSwipeAction
+                        is-primary
+                        aria-label="Mark as read"
+                        color="info"
+                        icon="envelope-open"/>
+                </template>
+
                 <template #end>
                     <FluxSwipeAction
-                        icon="box-archive"
-                        label="Archive"/>
+                        aria-label="Snooze"
+                        icon="clock"/>
+
+                    <FluxSwipeAction
+                        aria-label="Archive"
+                        color="warning"
+                        icon="box-archive"/>
 
                     <FluxSwipeAction
                         is-primary
+                        aria-label="Delete"
                         color="danger"
-                        icon="trash"
-                        label="Delete"/>
+                        icon="trash"/>
                 </template>
             </FluxSwipeActions>
         </template>
@@ -35,22 +46,10 @@
     setup
     lang="ts">
     import { FluxItem, FluxItemContent, FluxPane, FluxSeparator, FluxSwipeAction, FluxSwipeActions } from '@flux-ui/components';
-    import { ref } from 'vue';
-
-    type OpenRow = {
-        readonly subject: string;
-        readonly side: 'start' | 'end';
-    };
 
     const mails = [
         {from: 'Bas Milius', subject: 'Release notes for 2.4'},
         {from: 'Jane Doe', subject: 'Design review on Thursday'},
         {from: 'John Doe', subject: 'Invoice 2026-0184'}
     ];
-
-    const open = ref<OpenRow | null>(null);
-
-    function onOpen(subject: string, side: 'start' | 'end' | null): void {
-        open.value = side === null ? null : {subject, side};
-    }
 </script>

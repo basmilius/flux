@@ -1,9 +1,10 @@
 <template>
-    <div :class="$style.swipeActions">
+    <div
+        :class="$style.swipeActions"
+        :style="style">
         <div
             ref="row"
             :class="clsx($style.swipeActionsRow, isDragging && $style.isDragging)"
-            :style="{'--swipe-offset': `${translateX}px`}"
             @click.capture="onRowClickCapture">
             <slot/>
         </div>
@@ -11,10 +12,11 @@
         <div
             v-if="$slots.start"
             ref="start"
-            :class="clsx($style.swipeActionsGroup, $style.isStart)"
+            :class="clsx($style.swipeActionsGroup, $style.isStart, armedSide === 'start' && $style.isArmed)"
             role="group"
             :aria-label="translate('flux.swipeActionsLeading')"
             @focusin="openTo('start')"
+            @click="onGroupClick"
             @focusout="onGroupFocusOut">
             <slot name="start"/>
         </div>
@@ -22,10 +24,11 @@
         <div
             v-if="$slots.end"
             ref="end"
-            :class="clsx($style.swipeActionsGroup, $style.isEnd)"
+            :class="clsx($style.swipeActionsGroup, $style.isEnd, armedSide === 'end' && $style.isArmed)"
             role="group"
             :aria-label="translate('flux.swipeActionsTrailing')"
             @focusin="openTo('end')"
+            @click="onGroupClick"
             @focusout="onGroupFocusOut">
             <slot name="end"/>
         </div>
@@ -36,7 +39,7 @@
     lang="ts"
     setup>
     import { useResizeObserver } from '@basmilius/common';
-    import { type PointerDragContext, prefersReducedMotion, unrefTemplateElement, usePointerDrag } from '@flux-ui/internals';
+    import { type PointerDragContext, unrefTemplateElement, usePointerDrag, useSpring, warn } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { computed, onMounted, onScopeDispose, provide, ref, toRef, unref, useTemplateRef, type VNode, watch } from 'vue';
     import { useDisabled } from '~flux/components/composable';
@@ -46,9 +49,12 @@
 
     type FluxSwipeActionsSide = 'start' | 'end';
 
-    // Mirrors `--swipe-duration` in SwipeActions.module.scss.
-    const SETTLE_DURATION = 360;
     const DRAG_THRESHOLD = 9;
+    const FLICK_VELOCITY = .5;
+    const MAX_ACTIONS = 3;
+
+    // Travel over which the moving edge of the row rounds off completely.
+    const ROUNDING_TRAVEL = 12;
 
     // Half the smallest action, so an overdragged row can never be mistaken for one that
     // opened. A side without actions has both of its bounds at 0 and gives the same nudge.
@@ -76,10 +82,15 @@
     const rowRef = useTemplateRef<HTMLElement>('row');
     const startRef = useTemplateRef<HTMLElement>('start');
 
+    const offset = useSpring(0);
+
     const directionFactor = ref(1);
-    const offset = ref(0);
+    const rowSize = ref(0);
+    const area = ref<Record<FluxSwipeActionsSide, number>>({start: 0, end: 0});
+    const hasPrimary = ref<Record<FluxSwipeActionsSide, boolean>>({start: false, end: false});
 
     let pendingFullSwipe: symbol | null = null;
+    let stopSettleWatch: (() => void) | null = null;
     let maxOffset = 0;
     let minOffset = 0;
     let startOffset = 0;
@@ -97,7 +108,24 @@
         onStart: onDragStart
     });
 
-    const translateX = computed(() => unref(offset) * unref(directionFactor));
+    const style = computed(() => ({
+        '--swipe-offset': `${unref(offset.value)}px`,
+        '--swipe-dir': unref(directionFactor),
+        '--swipe-open': Math.min(1, Math.abs(unref(offset.value)) / ROUNDING_TRAVEL)
+    }));
+
+    // The side that fires its primary action when the drag is released here, which is also
+    // the side that folds its other actions away to make room.
+    const armedSide = computed<FluxSwipeActionsSide | null>(() => {
+        const value = unref(offset.value);
+        const side = sideOf(value);
+
+        if (side === null || !unref(hasPrimary)[side]) {
+            return null;
+        }
+
+        return Math.abs(value) >= fullSwipeDistance(side) ? side : null;
+    });
 
     provide(FluxDisabledInjectionKey, disabled);
 
@@ -106,26 +134,78 @@
             return;
         }
 
+        measure();
         settle(unref(openSide));
     });
 
-    watch(openSide, settle);
+    watch(openSide, side => settle(side));
     watch(disabled, value => {
         if (value) {
             close();
         }
     });
 
-    onMounted(() => settle(unref(openSide)));
-    onScopeDispose(cancelFullSwipe);
+    onMounted(() => {
+        measure();
+        offset.snap(targetFor(unref(openSide)));
+    });
 
-    function actionArea(side: FluxSwipeActionsSide): number {
-        return unrefTemplateElement(side === 'start' ? startRef : endRef)?.offsetWidth ?? 0;
-    }
+    onScopeDispose(cancelFullSwipe);
 
     function close(): void {
         openSide.value = null;
         settle(null);
+    }
+
+    function fullSwipeDistance(side: FluxSwipeActionsSide): number {
+        const size = unref(area)[side];
+
+        return size + Math.max(0, unref(rowSize) - size) * threshold;
+    }
+
+    function groupOf(side: FluxSwipeActionsSide): HTMLElement | null {
+        return unrefTemplateElement(side === 'start' ? startRef : endRef);
+    }
+
+    // A group is exactly as wide as the row has travelled, so its natural width can only be
+    // read while the row is closed. Anywhere else the last reading stands.
+    function measure(): void {
+        refreshDirection();
+
+        rowSize.value = unrefTemplateElement(rowRef)?.offsetWidth ?? 0;
+
+        if (unref(offset.value) !== 0) {
+            return;
+        }
+
+        const sizes = {start: 0, end: 0};
+        const primaries = {start: false, end: false};
+
+        for (const side of ['start', 'end'] as const) {
+            const element = groupOf(side);
+
+            if (!element) {
+                continue;
+            }
+
+            sizes[side] = element.offsetWidth;
+            primaries[side] = !!element.querySelector('[data-flux-swipe-primary]');
+
+            if (import.meta.env.DEV) {
+                const actions = element.querySelectorAll('[data-flux-swipe-action]');
+
+                if (actions.length > MAX_ACTIONS) {
+                    warn(`A swipe actions row shows ${actions.length} actions on its ${side} side, which is more than the ${MAX_ACTIONS} that fit.`);
+                }
+
+                if (element.querySelectorAll('[data-flux-swipe-primary]').length > 1) {
+                    warn(`A swipe actions row marks more than one action on its ${side} side as primary. Only one action can grow with the swipe.`);
+                }
+            }
+        }
+
+        area.value = sizes;
+        hasPrimary.value = primaries;
     }
 
     function openTo(side: FluxSwipeActionsSide): void {
@@ -133,15 +213,8 @@
         settle(side);
     }
 
-    function outermostAction(side: FluxSwipeActionsSide): HTMLElement | null {
-        const group = unrefTemplateElement(side === 'start' ? startRef : endRef);
-        const actions = group?.querySelectorAll<HTMLElement>('[data-flux-swipe-action]');
-
-        if (!actions?.length) {
-            return null;
-        }
-
-        return side === 'start' ? actions[0] : actions[actions.length - 1];
+    function primaryAction(side: FluxSwipeActionsSide): HTMLElement | null {
+        return groupOf(side)?.querySelector<HTMLElement>('[data-flux-swipe-primary]') ?? null;
     }
 
     function refreshDirection(): void {
@@ -150,43 +223,45 @@
         directionFactor.value = element && getComputedStyle(element).direction === 'rtl' ? -1 : 1;
     }
 
-    function rowWidth(): number {
-        return unrefTemplateElement(rowRef)?.offsetWidth ?? 0;
+    function settle(side: FluxSwipeActionsSide | null, velocity?: number): void {
+        offset.set(targetFor(side), velocity !== undefined ? {velocity} : {});
     }
 
-    function settle(side: FluxSwipeActionsSide | null): void {
-        refreshDirection();
+    function sideOf(value: number): FluxSwipeActionsSide | null {
+        return value > 0 ? 'start' : value < 0 ? 'end' : null;
+    }
 
+    function targetFor(side: FluxSwipeActionsSide | null): number {
         if (side === null) {
-            offset.value = 0;
-            return;
+            return 0;
         }
 
-        offset.value = side === 'start' ? actionArea('start') : -actionArea('end');
+        return side === 'start' ? unref(area).start : -unref(area).end;
     }
 
     function cancelFullSwipe(): void {
         pendingFullSwipe = null;
+        stopSettleWatch?.();
+        stopSettleWatch = null;
     }
 
-    async function fullSwipe(side: FluxSwipeActionsSide): Promise<void> {
-        const action = outermostAction(side);
+    async function fullSwipe(side: FluxSwipeActionsSide, velocity: number): Promise<void> {
+        const action = primaryAction(side);
 
         if (!action) {
             openTo(side);
             return;
         }
 
-        refreshDirection();
-        offset.value = side === 'start' ? rowWidth() : -rowWidth();
-
+        const size = unref(rowSize);
+        const target = side === 'start' ? size : -size;
         const token = pendingFullSwipe = Symbol();
 
-        if (!prefersReducedMotion()) {
-            await new Promise(resolve => setTimeout(resolve, SETTLE_DURATION));
-        }
+        offset.set(target, {velocity});
 
-        // A new drag or an unmount within the wait invalidates the token.
+        await whenSettled(target);
+
+        // A new drag or an unmount within the flight invalidates the token.
         if (pendingFullSwipe !== token) {
             return;
         }
@@ -197,36 +272,69 @@
         close();
     }
 
+    function whenSettled(target: number): Promise<void> {
+        return new Promise(resolve => {
+            stopSettleWatch?.();
+
+            stopSettleWatch = watch(offset.value, value => {
+                if (Math.abs(value - target) >= 1) {
+                    return;
+                }
+
+                stopSettleWatch?.();
+                stopSettleWatch = null;
+
+                resolve();
+            }, {immediate: true});
+        });
+    }
+
     function onDragCancel(): void {
         suppressClick = true;
         settle(unref(openSide));
     }
 
-    function onDragEnd(): void {
+    function onDragEnd({vx}: PointerDragContext): void {
         suppressClick = true;
 
-        const value = unref(offset);
-        const side = value > 0 ? 'start' : value < 0 ? 'end' : null;
+        const value = unref(offset.value);
+        const side = sideOf(value);
 
         if (side === null) {
             close();
             return;
         }
 
-        const area = actionArea(side);
-        const distance = Math.abs(value);
+        const size = unref(area)[side];
 
-        if (area === 0) {
+        if (size === 0) {
             close();
             return;
         }
 
-        if (distance >= area + Math.max(0, rowWidth() - area) * threshold) {
-            fullSwipe(side);
+        // Towards the start is a positive offset, so a right-to-left row flips the sign of
+        // the pointer's speed along with everything else.
+        const velocity = vx * unref(directionFactor);
+        const towardsOpen = side === 'start' ? velocity : -velocity;
+
+        if (unref(armedSide) === side) {
+            fullSwipe(side, velocity);
             return;
         }
 
-        if (distance >= area / 2) {
+        if (towardsOpen > FLICK_VELOCITY) {
+            openSide.value = side;
+            settle(side, velocity);
+            return;
+        }
+
+        if (towardsOpen < -FLICK_VELOCITY) {
+            openSide.value = null;
+            settle(null, velocity);
+            return;
+        }
+
+        if (Math.abs(value) >= size / 2) {
             openTo(side);
             return;
         }
@@ -238,7 +346,7 @@
         const wanted = startOffset + dx * unref(directionFactor);
         const bounded = Math.min(maxOffset, Math.max(minOffset, wanted));
 
-        offset.value = bounded + elasticResistance(wanted - bounded, OVERDRAG);
+        offset.snap(bounded + elasticResistance(wanted - bounded, OVERDRAG));
     }
 
     function onDragStart(): boolean {
@@ -247,13 +355,17 @@
         }
 
         cancelFullSwipe();
-        refreshDirection();
+        measure();
 
-        const width = rowWidth();
+        const size = unref(rowSize);
+        const sizes = unref(area);
+        const primaries = unref(hasPrimary);
 
-        maxOffset = actionArea('start') > 0 ? width : 0;
-        minOffset = actionArea('end') > 0 ? -width : 0;
-        startOffset = unref(offset);
+        // Only a side that can be swiped through travels further than its actions; without a
+        // primary action the elastic resistance starts right where the actions end.
+        maxOffset = sizes.start === 0 ? 0 : primaries.start ? size : sizes.start;
+        minOffset = sizes.end === 0 ? 0 : -(primaries.end ? size : sizes.end);
+        startOffset = unref(offset.value);
         suppressClick = false;
 
         return true;
@@ -270,6 +382,15 @@
 
         evt.preventDefault();
         evt.stopPropagation();
+    }
+
+    // An action that has run leaves nothing to choose from, so the row closes behind it.
+    function onGroupClick(evt: MouseEvent): void {
+        if (!(evt.target as Element).closest('[data-flux-swipe-action]')) {
+            return;
+        }
+
+        close();
     }
 
     function onGroupFocusOut(evt: FocusEvent): void {

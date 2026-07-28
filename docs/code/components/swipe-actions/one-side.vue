@@ -32,6 +32,7 @@
 
                 <template #end>
                     <FluxSwipeAction
+                        is-primary
                         icon="bell"
                         label="Mute"
                         @click="mute(notification.title)"/>

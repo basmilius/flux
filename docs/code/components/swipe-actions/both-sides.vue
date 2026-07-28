@@ -25,6 +25,7 @@
 
                 <template #start>
                     <FluxSwipeAction
+                        is-primary
                         color="success"
                         icon="check"
                         label="Complete"
@@ -39,6 +40,7 @@
                         @click="task.isStarred = !task.isStarred"/>
 
                     <FluxSwipeAction
+                        is-primary
                         color="danger"
                         icon="trash"
                         label="Delete"

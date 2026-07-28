@@ -19,7 +19,7 @@ props:
         optional: true
 
     -   name: threshold
-        description: How far past the action area the row has to travel before releasing fires the outermost action. 0.5 is halfway between fully open and fully swiped away.
+        description: How far past the action area the row has to travel before releasing fires the primary action. 0.5 is halfway between fully open and fully swiped away.
         type: number
         default: 0.5
         optional: true
@@ -37,7 +37,7 @@ slots:
 
 # Swipe Actions
 
-Swipe actions turn a list row into a gesture surface: dragging it sideways reveals actions that live behind its edges, like archiving or deleting a message. The row itself keeps its normal content, so any item, link or card can be wrapped in it.
+Swipe actions turn a list row into a gesture surface: dragging it sideways slides actions in from its edges, like archiving or deleting a message. The row itself keeps its normal content, so any item, link or card can be wrapped in it. Each side carries up to three actions, and they stay centered no matter how tall the row is.
 
 The `start` and `end` slots follow the writing direction, so in a right-to-left layout `start` is revealed by swiping to the left. Vertical page scrolling keeps working while a horizontal swipe is captured.
 
@@ -46,28 +46,29 @@ render=../code/components/swipe-actions/preview.vue
 :::
 
 ::: tip
-A swipe is not reachable without a pointer, so the actions are ordinary buttons that stay in the DOM and in the accessibility tree at all times. Tabbing past the row content moves focus into them, which slides the row open so the focused action is visible, and moving focus away closes it again. Screen readers announce them as a group after the row content.
+A swipe is not reachable without a pointer, so the actions are ordinary buttons that stay in the DOM and in the accessibility tree at all times. Tabbing past the row content moves focus into them, which slides the row open so the focused action is visible, and moving focus away closes it again. Activating an action closes the row as well, since there is nothing left to choose from. Screen readers announce them as a group after the row content.
 :::
 
 ::: tip
-Swiping past the threshold and releasing fires the outermost action directly, after the row has animated off. That is the full-swipe gesture people know from mail apps, and it is the reason destructive actions belong at the outer edge.
+Mark one action per side with `is-primary` and that side can be swiped through: the primary action widens as the row keeps travelling, its neighbours fold away, and releasing fires it directly. That is the full-swipe gesture people know from mail apps, and it is the reason a destructive action is usually the primary one at the outer edge. A side without a primary action only opens.
 :::
 
 ::: tip
-The row is elastic at its bounds. Dragging past the actions, or towards a side that has none, keeps moving the row against a resistance that builds quickly, then springs it back on release. The gesture is answered either way instead of stopping dead, and the row never travels far enough to read as open when there is nothing behind that edge.
+The row is elastic at its bounds. Dragging past the actions, past a side that cannot be swiped through, or towards a side that has none, keeps moving the row against a resistance that builds quickly, then springs it back on release. Releasing hands the speed of the pointer to the spring, so a flick carries through instead of stopping dead.
 :::
 
 <FrontmatterDocs/>
 
 ## Swipe action
 
-Each action is a single button. Its `label` is visible and doubles as its accessible name.
+Each action is a single button. Its `label` is visible and doubles as its accessible name. Leave the label out and the action is a circle with just its icon, which needs an `aria-label` of its own.
 
-| Prop    | Description                             | Type           | Default |
-|---------|-----------------------------------------|----------------|---------|
-| `color` | The color of the action.                | `FluxColor`    | `gray`  |
-| `icon`  | The icon that is shown above the label. | `FluxIconName` |         |
-| `label` | The label of the action.                | `string`       |         |
+| Prop         | Description                                                            | Type           | Default |
+|--------------|------------------------------------------------------------------------|----------------|---------|
+| `color`      | The color of the action.                                               | `FluxColor`    | `gray`  |
+| `icon`       | The icon that is shown before the label.                               | `FluxIconName` |         |
+| `is-primary` | Makes this the action a full swipe fires. One per side.                | `boolean`      | `false` |
+| `label`      | The label of the action. Without it the action shows only its icon.    | `string`       |         |
 
 | Emit    | Description                                                                         | Type           |
 |---------|-------------------------------------------------------------------------------------|----------------|
@@ -83,8 +84,12 @@ example=../code/components/swipe-actions/one-side.vue
 example=../code/components/swipe-actions/both-sides.vue
 :::
 
-::: example Full swipe || Swipe a row all the way and release: the row animates off and the outermost action fires. Lower the threshold to make the gesture easier to reach.
+::: example Full swipe || Swipe a row all the way and release: the row animates off and the primary action fires. Lower the threshold to make the gesture easier to reach.
 example=../code/components/swipe-actions/full-swipe.vue
+:::
+
+::: example Icon only || An action without a label is a circle. It is the way to fit three actions on one side, and it needs an aria-label to stay readable to a screen reader.
+example=../code/components/swipe-actions/icon-only.vue
 :::
 
 ::: example One row at a time || Keeping only one row open is up to the consumer. Bind `open` and remember which row owns it.

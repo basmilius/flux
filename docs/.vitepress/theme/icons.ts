@@ -170,7 +170,9 @@ export {
     faBrain,
     faUserCheck,
     faReceipt,
+    faClock,
     faClockRotateLeft,
+    faEnvelopeOpen,
     faScrewdriverWrench,
     faTriangleExclamation
 } from '@fortawesome/pro-regular-svg-icons';

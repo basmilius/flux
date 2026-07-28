@@ -1,9 +1,14 @@
 @use '~flux/components/css/mixin';
 
 .swipeActions {
+    --swipe-offset: 0px;
+    --swipe-dir: 1;
+    --swipe-open: 0;
+    --swipe-inset: 6px;
+
     position: relative;
     display: block;
-    overflow: hidden;
+    overflow: clip;
 
     // Picks up the rounded corners of a surrounding surface, so a revealed action never
     // paints over the corner of the pane the row sits in.
@@ -19,61 +24,42 @@
 }
 
 .swipeActionsRow {
-    --swipe-offset: 0px;
-    --swipe-duration: .36s;
-
     position: relative;
     z-index: 1;
     background: var(--surface-current);
+    border-radius: calc(var(--radius) * var(--swipe-open));
     touch-action: pan-y;
-    translate: var(--swipe-offset) 0;
-    transition: translate var(--swipe-duration) cubic-bezier(.22, 1, .36, 1);
+    translate: calc(var(--swipe-offset) * var(--swipe-dir)) 0;
 
     &.isDragging {
-        --swipe-duration: 0s;
-
         user-select: none;
     }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .swipeActionsRow {
-        --swipe-duration: 0s;
-    }
-}
-
+// The group is anchored to its own edge and pulled outwards by its own width, so its inner
+// edge sits exactly on the edge of the row. Past the natural width the width takes over and
+// the translate lands on zero, which is the room the primary action grows into.
 .swipeActionsGroup {
     position: absolute;
     inset-block: 0;
     display: flex;
     flex-flow: row nowrap;
+    min-width: max-content;
+    padding: var(--swipe-inset);
+    align-items: center;
+    gap: var(--swipe-inset);
 
     &.isStart {
         inset-inline-start: 0;
+        width: max(0px, var(--swipe-offset));
+        translate: calc(min(0px, -100% + var(--swipe-offset)) * var(--swipe-dir));
     }
 
     &.isEnd {
         inset-inline-end: 0;
+        width: max(0px, var(--swipe-offset) * -1);
+        translate: calc(max(0px, 100% + var(--swipe-offset)) * var(--swipe-dir));
     }
-}
-
-// Bleeds the innermost action towards the row, so a swipe that travels past the action
-// area never opens a gap between the actions and the row.
-.swipeActionsGroup.isStart > [data-flux-swipe-action]:last-child::after,
-.swipeActionsGroup.isEnd > [data-flux-swipe-action]:first-child::after {
-    content: '';
-    position: absolute;
-    inset-block: 0;
-    width: 100vw;
-    background: inherit;
-}
-
-.swipeActionsGroup.isStart > [data-flux-swipe-action]:last-child::after {
-    inset-inline-start: 100%;
-}
-
-.swipeActionsGroup.isEnd > [data-flux-swipe-action]:first-child::after {
-    inset-inline-end: 100%;
 }
 
 .swipeAction {
@@ -85,17 +71,22 @@
 
     position: relative;
     display: flex;
-    flex-flow: column nowrap;
-    min-width: 72px;
-    padding: 9px 15px;
+    flex: 0 0 auto;
+    flex-flow: row nowrap;
+    overflow: hidden;
+    min-width: 42px;
+    min-height: 42px;
+    max-height: 100%;
+    padding: 6px 18px;
     align-items: center;
     justify-content: center;
-    gap: 3px;
+    gap: 6px;
     background: var(--intent-solid);
     border: 0;
+    border-radius: var(--radius-full);
     color: var(--swipe-action-on-solid);
     cursor: pointer;
-    transition: background var(--transition-default);
+    transition: background var(--transition-default), flex-basis var(--transition-default), min-width var(--transition-default), padding var(--transition-default), opacity var(--transition-default);
 
     @include mixin.focus-ring(-2px);
 
@@ -111,14 +102,40 @@
         cursor: default;
         opacity: .5;
     }
+
+    // Matches the minimum height, so a lone icon sits in a circle instead of in a stadium.
+    &.isIconOnly {
+        padding: 6px;
+    }
+
+    // Absorbs every pixel the row travels past the action area, which is the growth that
+    // announces the full swipe.
+    &.isPrimary {
+        flex: 1 1 auto;
+    }
+}
+
+// Armed: releasing now fires the primary action, so the rest folds away and leaves it the
+// whole track.
+.swipeActionsGroup.isArmed > .swipeAction:not(.isPrimary) {
+    flex-basis: 0;
+    min-width: 0;
+    padding-inline: 0;
+    opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .swipeAction {
+        transition: none;
+    }
 }
 
 .swipeActionLabel {
-    @include mixin.text(2xsmall);
+    @include mixin.text(default);
 
     @include mixin.truncate;
 
-    max-width: 90px;
+    max-width: 120px;
     font-weight: 500;
 }
 
