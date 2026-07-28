@@ -11,7 +11,6 @@ export { default as usePointerDrag, type DragContext, type PointerDragAxis, type
 export { default as useRemembered } from './useRemembered';
 export { default as useScrollPosition } from './useScrollPosition';
 export { default as useSpring, type UseSpringOptions, type UseSpringReturn, type UseSpringSetOptions } from './useSpring';
-export { default as useVirtualList, type UseVirtualListOptions, type UseVirtualListPosition, type UseVirtualListReturn } from './useVirtualList';
 export { default as useWheelDrag, type UseWheelDragOptions, type UseWheelDragReturn, type WheelDragAxis, type WheelDragContext } from './useWheelDrag';
 
 export { default as useFocusTrap } from './useFocusTrap';
