@@ -23,6 +23,7 @@ props:
         description: The color of the badge.
         type: FluxColor
         optional: true
+        default: gray
 
     -   name: colored
         description: Fills the badge with a tinted background matching its color.

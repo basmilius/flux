@@ -22,23 +22,20 @@ The stepper step represents an individual step within the stepper. It contains t
 
 ## Usage
 
-Each step is placed inside a [Stepper steps](./steps) component. The step's content is only rendered when the corresponding step is active.
+Each step is placed directly inside a [Stepper](./index). The stepper renders the [Stepper steps](./steps) indicator itself, based on the number of steps it receives. The step's content is only rendered when the corresponding step is active.
 
 ```vue
 <FluxStepper v-model="currentStep">
-    <FluxStepperSteps>
-        <FluxStepperStep>
-            <p>Content for the first step.</p>
-        </FluxStepperStep>
+    <FluxStepperStep>
+        <p>Content for the first step.</p>
+    </FluxStepperStep>
 
-        <FluxStepperStep>
-            <p>Content for the second step.</p>
-        </FluxStepperStep>
-    </FluxStepperSteps>
+    <FluxStepperStep>
+        <p>Content for the second step.</p>
+    </FluxStepperStep>
 </FluxStepper>
 ```
 
 ## Used components
 
 - [Stepper](./index)
-- [Stepper steps](./steps)

@@ -4,12 +4,12 @@ outline: deep
 emits:
     -   name: update:model-value
         description: Triggered when a new value is selected.
-        type: [ "DateTime | DateTime[]" ]
+        type: [ "DateTime | DateTime[] | null" ]
 
 props:
     -   name: model-value
         description: The selected value.
-        type: [ 'DateTime', 'DateTime[]' ]
+        type: [ 'DateTime', 'DateTime[]', 'null' ]
 
     -   name: max
         description: The maximum date that can be selected.

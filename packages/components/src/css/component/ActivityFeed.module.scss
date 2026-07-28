@@ -1,0 +1,103 @@
+@use '~flux/components/css/mixin';
+
+.activityFeedList {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    flex-flow: column;
+    gap: 15px;
+    // Safari drops the list semantics when the marker is removed, hence role="list" in the template.
+    list-style: none;
+}
+
+.activityFeedDay {
+    @include mixin.text(xsmall);
+
+    display: flex;
+    margin: 0;
+    // Aligns the label with the body column: marker column plus its gap.
+    padding-inline-start: 45px;
+    align-items: center;
+    color: var(--foreground-secondary);
+    font-weight: 500;
+}
+
+.activityFeedItem {
+    position: relative;
+    display: grid;
+    margin: 0;
+    align-items: start;
+    gap: 15px;
+    grid-template-columns: 30px minmax(0, 1fr);
+}
+
+.activityFeedItemAvatar,
+.activityFeedItemIcon {
+    // Centers a 30px marker on the 24px line box of the action sentence.
+    margin-block-start: -3px;
+}
+
+.activityFeedItemIcon {
+    display: flex;
+    height: 30px;
+    width: 30px;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+}
+
+.activityFeedItemDot {
+    height: 12px;
+    width: 12px;
+    margin-block-start: 6px;
+    justify-self: center;
+    border-radius: var(--radius-full);
+}
+
+.activityFeedItemBody {
+    display: flex;
+    min-width: 0;
+    flex-flow: column;
+    gap: 6px;
+}
+
+.activityFeedItemAction {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0 6px;
+
+    :is(strong) {
+        color: var(--foreground-prominent);
+    }
+}
+
+.activityFeedItemWhen {
+    @include mixin.text(small);
+
+    color: var(--foreground-secondary);
+    white-space: nowrap;
+}
+
+.activityFeedItemDetails {
+    @include mixin.elevation('sunken');
+    @include mixin.text(small);
+
+    padding: 9px 12px;
+    color: var(--foreground-secondary);
+}
+
+@include mixin.color-variants(activityFeedItem) using ($color) {
+    composes: activityFeedItem;
+
+    @include mixin.intent($color);
+
+    .activityFeedItemIcon {
+        background: var(--intent-soft-hover);
+        color: var(--intent-text);
+    }
+
+    .activityFeedItemDot {
+        background: var(--intent-muted);
+    }
+}

@@ -1,0 +1,91 @@
+@use '~flux/components/css/mixin';
+
+.applicationStatusPage {
+    display: flex;
+    padding-block: 60px;
+    align-items: center;
+    flex-flow: column;
+    flex-grow: 1;
+    justify-content: center;
+    gap: 21px;
+    text-align: center;
+}
+
+.applicationStatusPageError {
+    composes: applicationStatusPage;
+
+    @include mixin.intent('danger');
+}
+
+.applicationStatusPageMaintenance {
+    composes: applicationStatusPage;
+
+    @include mixin.intent('warning');
+}
+
+.applicationStatusPageNotFound {
+    composes: applicationStatusPage;
+
+    @include mixin.intent('primary');
+}
+
+.applicationStatusPageOffline {
+    composes: applicationStatusPage;
+
+    @include mixin.intent('gray');
+}
+
+.applicationStatusPageMedia {
+    display: flex;
+    max-width: 100%;
+    align-items: center;
+    justify-content: center;
+
+    :is(img, picture, svg, video) {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+.applicationStatusPageBody {
+    display: flex;
+    max-width: 510px;
+    align-items: center;
+    flex-flow: column;
+    gap: 6px;
+
+    :is(p) {
+        @include mixin.text(large);
+
+        margin: 0;
+        color: var(--foreground-secondary);
+    }
+}
+
+.applicationStatusPageCode {
+    @include mixin.text(small);
+
+    color: var(--intent-text);
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+}
+
+.applicationStatusPageActions {
+    display: flex;
+    align-items: center;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 9px;
+}
+
+@include mixin.breakpoint-down(md) {
+    .applicationStatusPage {
+        padding-block: 42px;
+    }
+
+    .applicationStatusPageActions {
+        flex-flow: column;
+    }
+}

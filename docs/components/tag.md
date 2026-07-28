@@ -35,13 +35,8 @@ props:
         type: FluxIconName
         optional: true
 
-    -   name: is-clickable
-        description: If the tag is clickable.
-        type: boolean
-        optional: true
-
     -   name: is-deletable
-        description: If the tag is deletable. This only works when the is-deletable prop is set to true.
+        description: If the tag is deletable. This only works when the type prop is set to none.
         type: boolean
         optional: true
 
@@ -69,6 +64,7 @@ props:
         description: The type of the tag.
         type: FluxPressableType
         optional: true
+        default: none
 
     -   name: tabindex
         description: The tabindex of the tag, works exactly the same as html.

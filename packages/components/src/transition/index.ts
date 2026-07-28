@@ -1,10 +1,13 @@
 export { default as FluxAutoHeightTransition } from './FluxAutoHeightTransition.vue';
 export { default as FluxAutoWidthTransition } from './FluxAutoWidthTransition.vue';
+export { default as FluxBottomSheetTransition } from './FluxBottomSheetTransition.vue';
 export { default as FluxBreakthroughTransition } from './FluxBreakthroughTransition.vue';
 export { default as FluxFadeTransition } from './FluxFadeTransition.vue';
 export { default as FluxOverlayTransition } from './FluxOverlayTransition.vue';
 export { default as FluxRouteTransition } from './FluxRouteTransition.vue';
+export { default as FluxScaleTransition } from './FluxScaleTransition.vue';
 export { default as FluxSlideOverTransition } from './FluxSlideOverTransition.vue';
+export { default as FluxStaggerTransition } from './FluxStaggerTransition.vue';
 export { default as FluxTooltipTransition } from './FluxTooltipTransition.vue';
 export { default as FluxVerticalWindowTransition } from './FluxVerticalWindowTransition.vue';
 export { default as FluxWindowTransition } from './FluxWindowTransition.vue';

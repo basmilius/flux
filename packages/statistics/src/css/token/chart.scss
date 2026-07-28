@@ -1,35 +1,37 @@
 @use 'sass:list';
 @use '~flux/components/css/token/theme';
 
-// Every stop is solved against `--surface` rather than picked, which is why the numbers
-// look irregular. The floors live in `scripts/check-contrast.ts`.
+// A hue is picked at the lightness it wants, not at one the whole set shares: yellow at
+// the lightness of blue is olive. The floors live in `scripts/check-contrast.ts`.
 
-// blue, red, purple, teal, green, magenta, orange, yellow.
+// blue, red, purple, teal, green, pink, orange, amber.
 $categorical-light:
-    (.468 .19 264)
-    (.508 .184 17.1)
-    (.534 .19 305)
-    (.533 .083 190)
-    (.56 .153 137)
-    (.628 .19 340)
-    (.642 .133 62.4)
-    (.663 .124 100);
+    (.623 .188 259.8)
+    (.637 .208 25.3)
+    (.627 .233 303.9)
+    (.704 .123 182.5)
+    (.723 .192 149.6)
+    (.656 .212 354.3)
+    (.705 .187 47.6)
+    (.769 .165 70.1);
 
+// The same hues lifted for a dark ground; a series that shifts hue on a theme flip reads
+// as a different series.
 $categorical-dark:
-    (.818 .082 264)
-    (.803 .102 17.1)
-    (.78 .126 305)
-    (.732 .114 190)
-    (.711 .17 137)
-    (.729 .17 340)
-    (.704 .146 62.4)
-    (.679 .127 100);
+    (.714 .143 259.8)
+    (.711 .166 25.3)
+    (.722 .177 303.9)
+    (.785 .133 182.5)
+    (.8 .182 149.6)
+    (.725 .175 354.3)
+    (.78 .159 47.6)
+    (.837 .164 70.1);
 
 $ramp-light:
     (.9 .043 264)
-    (.755 .113 264)
-    (.605 .19 264)
-    (.475 .19 264);
+    (.802 .092 264)
+    (.703 .141 264)
+    (.605 .19 264);
 
 $ramp-dark:
     (.345 .17 264)
@@ -37,11 +39,47 @@ $ramp-dark:
     (.612 .17 264)
     (.762 .109 264);
 
-$colorful-hues:
-    17.1 37.2 66.4 89.2 108.3 126.8 146.6 168.2 188.7
-    209.1 231.7 256.8 276.9 296.9 317 337 357.1;
-$colorful-light: .55 .16;
-$colorful-dark: .74 .16;
+// red, orange, amber, yellow, lime, green, emerald, teal, cyan, sky, blue, indigo,
+// violet, purple, fuchsia, pink, rose. Yellow and lime sit darker than the hue they name,
+// and rose halfway between pink and red rather than beside it: at this count the set runs
+// out of contrast and out of gaps before it runs out of gamut.
+$colorful-light:
+    (.637 .208 25.3)
+    (.705 .187 47.6)
+    (.769 .165 70.1)
+    (.761 .162 86)
+    (.743 .204 130.8)
+    (.723 .192 149.6)
+    (.696 .149 162.5)
+    (.704 .123 182.5)
+    (.715 .126 215.2)
+    (.685 .148 237.3)
+    (.623 .188 259.8)
+    (.585 .204 277.1)
+    (.606 .219 292.7)
+    (.627 .233 303.9)
+    (.667 .259 322.1)
+    (.656 .212 354.3)
+    (.645 .215 9.8);
+
+$colorful-dark:
+    (.711 .166 25.3)
+    (.758 .159 47.6)
+    (.837 .164 70.1)
+    (.861 .173 86)
+    (.849 .207 130.8)
+    (.8 .182 149.6)
+    (.773 .153 162.5)
+    (.785 .133 182.5)
+    (.797 .134 215.2)
+    (.754 .139 237.3)
+    (.714 .143 259.8)
+    (.68 .158 277.1)
+    (.709 .159 292.7)
+    (.722 .177 303.9)
+    (.748 .207 322.1)
+    (.725 .175 354.3)
+    (.719 .169 9.8);
 
 @function to-oklch($value) {
     @return #{'oklch(#{list.nth($value, 1)} #{list.nth($value, 2)} #{list.nth($value, 3)})'};
@@ -56,10 +94,8 @@ $colorful-dark: .74 .16;
         --chart-ramp-#{$i}: #{theme.theme(to-oklch(list.nth($ramp-light, $i)), to-oklch(list.nth($ramp-dark, $i)))};
     }
 
-    @for $i from 1 through list.length($colorful-hues) {
-        $hue: list.nth($colorful-hues, $i);
-
-        --chart-colorful-#{$i}: #{theme.theme(to-oklch(list.append($colorful-light, $hue)), to-oklch(list.append($colorful-dark, $hue)))};
+    @for $i from 1 through list.length($colorful-light) {
+        --chart-colorful-#{$i}: #{theme.theme(to-oklch(list.nth($colorful-light, $i)), to-oklch(list.nth($colorful-dark, $i)))};
     }
 
     --chart-positive: var(--success-solid);

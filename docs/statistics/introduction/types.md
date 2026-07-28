@@ -1,5 +1,5 @@
 <script setup>
-    import { FluxPane, FluxTable, FluxTableRow, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
+    import { FluxStatisticsBarChart } from '@flux-ui/statistics';
 </script>
 
 # Chart types
@@ -120,6 +120,7 @@ Used by the [Pie](../components/charts/pie), [Donut](../components/charts/donut)
 interface FluxStatisticsChartPieSlice {
     readonly label: string;
     readonly value: number;
+    readonly formatted?: string;
     readonly color?: FluxStatisticsChartColor;
     readonly icon?: FluxIconName;
 }
@@ -344,6 +345,7 @@ interface FluxStatisticsChartHeatmapPoint {
     readonly x: string | number;
     readonly y: string | number;
     readonly value: number;
+    readonly formatted?: string;
 }
 ```
 
@@ -474,32 +476,12 @@ Treat `advancedOptions` as the exception, not the rule. Anything you can express
 
 When a `color` is set on a series, slice, or node, Flux resolves it as follows:
 
-<FluxPane>
-    <FluxTable>
-        <template #header>
-            <FluxTableRow>
-                <FluxTableHeader>Input</FluxTableHeader>
-                <FluxTableHeader>Resolved to</FluxTableHeader>
-            </FluxTableRow>
-        </template>
-        <FluxTableRow>
-            <FluxTableCell><p><code>'primary'</code> (any <code>FluxColor</code>)</p></FluxTableCell>
-            <FluxTableCell><kbd>--primary-solid</kbd></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><p><code>'var(--chart-3)'</code> (any <code>var(--…)</code>)</p></FluxTableCell>
-            <FluxTableCell><code>'var(--chart-3)'</code></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><p><code>'#10b981'</code> (any hex)</p></FluxTableCell>
-            <FluxTableCell><code>'#10b981'</code></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell>Omitted</FluxTableCell>
-            <FluxTableCell><p>Next of the eight colors in <code>CHART_COLORS</code>, see <a href="./colors">Chart colors</a>.</p></FluxTableCell>
-        </FluxTableRow>
-    </FluxTable>
-</FluxPane>
+| Input                               | Resolved to                                                               |
+|-------------------------------------|---------------------------------------------------------------------------|
+| `'primary'` (any `FluxColor`)       | <kbd>--primary-solid</kbd>                                                |
+| `'var(--chart-3)'` (any `var(--…)`) | `'var(--chart-3)'`                                                        |
+| `'#10b981'` (any hex)               | `'#10b981'`                                                               |
+| Omitted                             | Next of the eight colors in `CHART_COLORS`, see [Chart colors](./colors). |
 
 A named intent lands on the `solid` role, the filled-surface color of that intent, so it takes the value that holds up against the chart surface in each theme. A `var(--…)` reference and a hex value are both passed through untouched; the reference still follows the theme because the token behind it does, while the hex stays the same in both themes.
 

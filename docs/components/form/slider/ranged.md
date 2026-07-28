@@ -4,7 +4,7 @@ outline: deep
 emits:
     -   name: update:model-value
         description: Triggered when the value is changed.
-        type: [ number, number ]
+        type: [ '[number, number]' ]
 
 props:
     -   name: model-value

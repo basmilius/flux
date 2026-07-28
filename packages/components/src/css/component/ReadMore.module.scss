@@ -1,0 +1,54 @@
+@use '~flux/components/css/mixin';
+
+.readMore {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+
+    &.isFaded::after {
+        content: '';
+        grid-area: 1 / 1;
+        height: 1lh;
+        align-self: end;
+        background: linear-gradient(to bottom, transparent 25%, var(--surface-current));
+        pointer-events: none;
+    }
+}
+
+.readMoreContent {
+    grid-area: 1 / 1;
+    min-width: 0;
+
+    &.isClamped {
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: var(--lines, 3);
+    }
+}
+
+.readMoreToggle {
+    display: inline-flex;
+    padding: 0;
+    align-items: center;
+    justify-self: start;
+    background: unset;
+    border: 0;
+    border-radius: var(--radius-half);
+    color: var(--primary-text);
+    cursor: pointer;
+    font: inherit;
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: var(--transition-default);
+    transition-property: text-decoration-color, mixin.focus-ring-transition-properties();
+
+    @include mixin.focus-ring(3px);
+
+    @include mixin.hover {
+        text-decoration-color: currentColor;
+    }
+}

@@ -1,0 +1,133 @@
+@use '~flux/components/css/mixin';
+
+.aiPromptInput {
+    @include mixin.elevation('surface');
+
+    position: relative;
+    display: flex;
+    width: 100%;
+    padding: 12px;
+    flex-direction: column;
+    gap: 9px;
+    transition: var(--transition-default);
+    transition-property: border-color, mixin.focus-ring-transition-properties();
+
+    @include mixin.focus-outline;
+
+    // The field carries no border of its own, so the composer wears the ring for it.
+    &:has(.aiPromptInputField:focus-visible) {
+        @include mixin.focus-outline-visible(2px);
+    }
+}
+
+.aiPromptInput.isDisabled {
+    background: var(--surface-disabled);
+}
+
+.aiPromptInputHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.aiPromptInputAttachments {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+    gap: 6px;
+    list-style: none;
+}
+
+.aiPromptInputAttachment {
+    display: flex;
+    max-width: 240px;
+    height: 27px;
+    padding-inline: 9px 3px;
+    align-items: center;
+    gap: 6px;
+    background: var(--gray-soft);
+    border: 1px solid var(--gray-border);
+    border-radius: var(--radius-full);
+    color: var(--foreground);
+}
+
+.aiPromptInputAttachmentLabel {
+    @include mixin.text(xsmall);
+
+    @include mixin.truncate;
+}
+
+.aiPromptInputAttachmentRemove {
+    display: flex;
+    height: 21px;
+    width: 21px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: unset;
+    border: 0;
+    border-radius: var(--radius-full);
+    color: var(--foreground-secondary);
+    cursor: pointer;
+
+    @include mixin.focus-ring;
+
+    @include mixin.hover {
+        background: var(--ink-hover);
+        color: var(--foreground);
+    }
+
+    &:active {
+        background: var(--ink-active);
+    }
+
+    &:disabled {
+        cursor: default;
+        opacity: .5;
+        pointer-events: none;
+    }
+}
+
+.aiPromptInputField {
+    @include mixin.text(default);
+
+    display: block;
+    width: 100%;
+    min-height: 1lh;
+    max-height: calc(var(--max-rows, 10) * 1lh);
+    padding: 0;
+    background: unset;
+    border: 0;
+    color: var(--foreground);
+    field-sizing: content;
+    outline: 0;
+    overflow-y: auto;
+    resize: none;
+
+    &::placeholder {
+        color: var(--foreground-subtle);
+    }
+
+    &:disabled {
+        color: var(--foreground-disabled);
+    }
+}
+
+// Without `field-sizing` the height comes from the `rows` attribute, so the composer
+// opens on three lines and scrolls from there instead of growing from one.
+@supports not (field-sizing: content) {
+    .aiPromptInputField {
+        min-height: 3lh;
+    }
+}
+
+.aiPromptInputActions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.aiPromptInputSubmit {
+    margin-inline-start: auto;
+}

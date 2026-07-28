@@ -45,6 +45,25 @@ slots:
             label: string
             close: "(): void"
 
+expose:
+    -   name: contentId
+        description: The id of the expandable content, referenced by the header through aria-controls.
+
+    -   name: headerId
+        description: The id of the expandable header.
+
+    -   name: isOpen
+        description: Whether the expandable is currently open.
+
+    -   name: close
+        description: Closes the expandable.
+
+    -   name: open
+        description: Opens the expandable.
+
+    -   name: toggle
+        description: Toggles the expandable.
+
 requiredIcons:
     - minus
     - plus

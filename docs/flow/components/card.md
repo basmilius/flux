@@ -43,6 +43,12 @@ props:
         type: boolean
         optional: true
 
+    -   name: variant
+        description: The node type the card presets its icon, tint and label from. This is what the three wrapper components set; `icon`, `color` and `label` still override it.
+        type: "'default' | 'trigger' | 'condition' | 'action'"
+        optional: true
+        default: default
+
 slots:
     -   name: default
         description: The body of the card. Place plain text or any Flux component here, for example a FluxDescriptionList for compact key/value data.

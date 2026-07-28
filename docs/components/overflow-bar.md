@@ -27,6 +27,7 @@ slots:
     -   name: overflow
         description: Content rendered when items overflow. Receives the hidden items as a prop.
         type:
+            hasOverflow: boolean
             items: VNode[]
 ---
 

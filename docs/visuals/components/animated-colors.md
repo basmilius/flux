@@ -22,6 +22,11 @@ props:
         description: A seed to use for the randomizer of the animation.
         type: number
         optional: true
+
+    -   name: static
+        description: Paints the visual once and leaves it there, instead of animating it. The animation also pauses on its own while the visual is out of view or when reduced motion is preferred.
+        type: boolean
+        optional: true
 ---
 
 # Animated colors

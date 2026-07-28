@@ -1,0 +1,133 @@
+@use '~flux/components/css/mixin';
+
+.swipeActions {
+    position: relative;
+    display: block;
+    overflow: hidden;
+
+    // Picks up the rounded corners of a surrounding surface, so a revealed action never
+    // paints over the corner of the pane the row sits in.
+    &:first-child {
+        border-start-start-radius: inherit;
+        border-start-end-radius: inherit;
+    }
+
+    &:last-child {
+        border-end-start-radius: inherit;
+        border-end-end-radius: inherit;
+    }
+}
+
+.swipeActionsRow {
+    --swipe-offset: 0px;
+    --swipe-duration: .36s;
+
+    position: relative;
+    z-index: 1;
+    background: var(--surface-current);
+    touch-action: pan-y;
+    translate: var(--swipe-offset) 0;
+    transition: translate var(--swipe-duration) cubic-bezier(.22, 1, .36, 1);
+
+    &.isDragging {
+        --swipe-duration: 0s;
+
+        user-select: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .swipeActionsRow {
+        --swipe-duration: 0s;
+    }
+}
+
+.swipeActionsGroup {
+    position: absolute;
+    inset-block: 0;
+    display: flex;
+    flex-flow: row nowrap;
+
+    &.isStart {
+        inset-inline-start: 0;
+    }
+
+    &.isEnd {
+        inset-inline-end: 0;
+    }
+}
+
+// Bleeds the innermost action towards the row, so a swipe that travels past the action
+// area never opens a gap between the actions and the row.
+.swipeActionsGroup.isStart > [data-flux-swipe-action]:last-child::after,
+.swipeActionsGroup.isEnd > [data-flux-swipe-action]:first-child::after {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    width: 100vw;
+    background: inherit;
+}
+
+.swipeActionsGroup.isStart > [data-flux-swipe-action]:last-child::after {
+    inset-inline-start: 100%;
+}
+
+.swipeActionsGroup.isEnd > [data-flux-swipe-action]:first-child::after {
+    inset-inline-end: 100%;
+}
+
+.swipeAction {
+    @include mixin.intent('gray');
+
+    --swipe-action-on-solid: var(--gray-on-solid);
+    --swipe-action-solid-active: var(--gray-solid-active);
+    --swipe-action-solid-hover: var(--gray-solid-hover);
+
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    min-width: 72px;
+    padding: 9px 15px;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    background: var(--intent-solid);
+    border: 0;
+    color: var(--swipe-action-on-solid);
+    cursor: pointer;
+    transition: background var(--transition-default);
+
+    @include mixin.focus-ring(-2px);
+
+    @include mixin.hover {
+        background: var(--swipe-action-solid-hover);
+    }
+
+    &:active {
+        background: var(--swipe-action-solid-active);
+    }
+
+    &:disabled {
+        cursor: default;
+        opacity: .5;
+    }
+}
+
+.swipeActionLabel {
+    @include mixin.text(2xsmall);
+
+    @include mixin.truncate;
+
+    max-width: 90px;
+    font-weight: 500;
+}
+
+@include mixin.color-variants(swipeAction) using ($color) {
+    composes: swipeAction;
+
+    @include mixin.intent($color);
+
+    --swipe-action-on-solid: var(--#{$color}-on-solid);
+    --swipe-action-solid-active: var(--#{$color}-solid-active);
+    --swipe-action-solid-hover: var(--#{$color}-solid-hover);
+}

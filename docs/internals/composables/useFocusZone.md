@@ -16,6 +16,8 @@ useFocusZone(element, {
 });
 ```
 
+Pass a selector as `ignore` to leave a subtree out of the zone, so an interactive component inside it keeps its own keyboard behavior. `FluxMenu` uses it with `[data-flux-menu-pane]`, which is what lets a color picker, a slider or a search field inside a menu pane handle its own arrow keys.
+
 ## Type declarations
 
 ```ts
@@ -29,6 +31,7 @@ export declare function useFocusZone<TElement extends HTMLElement>(
 type UseFocusZoneOptions = {
     readonly cycle?: boolean;
     readonly direction?: 'bidirectional' | 'horizontal' | 'vertical';
+    readonly ignore?: string;
 };
 ```
 

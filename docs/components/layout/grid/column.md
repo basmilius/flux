@@ -9,28 +9,28 @@ props:
         default: 12
         
     -   name: sm
-        description: The column span on the sm breakpoint.
+        description: The column span on the sm breakpoint. Falls back to the xs value when omitted.
         type: number
         optional: true
-        default: 12
+        default: xs
         
     -   name: md
-        description: The column span on the md breakpoint.
+        description: The column span on the md breakpoint. Falls back to the sm value when omitted.
         type: number
         optional: true
-        default: 12
+        default: sm
 
     -   name: lg
-        description: The column span on the lg breakpoint.
+        description: The column span on the lg breakpoint. Falls back to the md value when omitted.
         type: number
         optional: true
-        default: 12
+        default: md
 
     -   name: xl
-        description: The column span on the xl breakpoint.
+        description: The column span on the xl breakpoint. Falls back to the lg value when omitted.
         type: number
         optional: true
-        default: 12
+        default: lg
 
     -   name: tag
         description: The HTML tag to use for the grid column.
@@ -53,6 +53,10 @@ render=../../../code/components/layout/grid/column/preview.vue
 
 ::: warning
 This component only works properly inside a [Grid](../grid).
+:::
+
+::: tip
+The breakpoints cascade upwards. A column only needs the breakpoints where its span changes: `md` falls back to `sm`, `sm` to `xs`, and `xs` to the full width of twelve columns.
 :::
 
 <FrontmatterDocs/>

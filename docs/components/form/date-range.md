@@ -12,11 +12,6 @@ props:
         description: The selected date range as a `[start, end]` tuple, or `null` when nothing is selected.
         type: "[DateTime, DateTime] | null"
 
-    -   name: auto-complete
-        description: The autocomplete attribute for the underlying input.
-        type: FluxAutoCompleteType
-        optional: true
-
     -   name: auto-focus
         description: Automatically focuses the input when mounted.
         type: boolean
@@ -30,6 +25,11 @@ props:
     -   name: error
         description: Error message describing why the input is invalid. Sets aria-invalid and a red border.
         type: [ string, null ]
+        optional: true
+
+    -   name: is-condensed
+        description: If the input is rendered at a reduced height.
+        type: boolean
         optional: true
 
     -   name: is-loading

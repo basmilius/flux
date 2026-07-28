@@ -43,7 +43,7 @@ showAlert({
 ```
 
 ```ts [Signature]
-function showAlert(spec: FluxAlertObject): Promise<void> {
+function showAlert(spec: Omit<FluxAlertObject, 'id' | 'onClose'>): Promise<void> {
 }
 ```
 

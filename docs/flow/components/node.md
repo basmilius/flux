@@ -7,12 +7,14 @@ props:
         type: string
 
     -   name: x
-        description: The horizontal position of the node, in flow coordinates.
+        description: The horizontal position of the node, in flow coordinates. Leave it out inside a layout that places its nodes for you; a node that names its own coordinates keeps them, placed or not.
         type: number
+        optional: true
 
     -   name: y
-        description: The vertical position of the node, in flow coordinates.
+        description: The vertical position of the node, in flow coordinates. Leave it out inside a layout that places its nodes for you; a node that names its own coordinates keeps them, placed or not.
         type: number
+        optional: true
 
 slots:
     -   name: default

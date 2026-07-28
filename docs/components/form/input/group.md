@@ -7,6 +7,11 @@ props:
         type: string
         optional: true
 
+    -   name: is-condensed
+        description: If the fields in the group are rendered at a reduced height.
+        type: boolean
+        optional: true
+
     -   name: is-secondary
         description: If the fields are secondary and are rendered in an alternative style.
         type: boolean

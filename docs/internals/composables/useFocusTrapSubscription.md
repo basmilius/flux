@@ -15,11 +15,15 @@ useFocusTrapSubscription(() => {
 ## Type declarations
 
 ```ts
-import type { Ref } from 'vue';
-
 export declare function useFocusTrapSubscription(
     listener: FocusTrapListener
 ): void;
 
-export type FocusTrapListener = (isEnabled: boolean, focusTraps: object[]) => void;
+interface FocusTrap {
+    id: string;
+    isEnabled: boolean;
+    setEnabled(isEnabled: boolean): void;
+}
+
+export type FocusTrapListener = (isEnabled: boolean, focusTraps: FocusTrap[]) => void;
 ```

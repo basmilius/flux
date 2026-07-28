@@ -1,11 +1,10 @@
-import { useI18n } from 'vue-i18n';
+import { useStatisticsTranslate } from '~flux/statistics/data';
+import type { Translator } from '~flux/statistics/util';
 
 export interface UseChartBaseSetupReturn {
-    readonly t: ReturnType<typeof useI18n>['t'];
+    readonly t: Translator;
 }
 
 export function useChartBaseSetup(): UseChartBaseSetupReturn {
-    const {t} = useI18n({useScope: 'parent'});
-
-    return {t};
+    return {t: useStatisticsTranslate()};
 }

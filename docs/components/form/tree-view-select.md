@@ -38,6 +38,11 @@ props:
         type: boolean
         optional: true
 
+    -   name: is-condensed
+        description: If the tree view select is rendered at a reduced height.
+        type: boolean
+        optional: true
+
     -   name: is-loading
         description: Marks the tree view select as loading.
         type: boolean
@@ -89,10 +94,6 @@ requiredIcons:
     - xmark
 ---
 
-<script setup>
-    import { FluxPane, FluxTable, FluxTableRow, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
-</script>
-
 # Tree view select
 
 This is a form select element that displays options in a hierarchical tree structure. It supports expanding and collapsing branches, single and multiple selection, an optional search input for filtering, and cascading selection where picking a parent covers its whole subtree. Each selectable option carries a checkbox (multiple) or radio (single) showing whether it is selected. The tree is rendered with connecting lines to visualize the hierarchy. Every option ends its guide line with a marker of the same size: options with children render it as the expand toggle holding the chevron, leaf options as a plain circle. Markers can be colored per option or per depth level, using either a `FluxColor` name or any CSS/HEX color string.
@@ -111,101 +112,29 @@ The trigger is exposed as a `role="combobox"` (`aria-haspopup="tree"`) and the o
 
 Each entry in the `options` array (and nested `children` arrays) is a `FluxFormTreeViewSelectOption`:
 
-<FluxPane>
-    <FluxTable>
-        <template #header>
-            <FluxTableRow>
-                <FluxTableHeader>Property</FluxTableHeader>
-                <FluxTableHeader>Type</FluxTableHeader>
-                <FluxTableHeader>Description</FluxTableHeader>
-            </FluxTableRow>
-        </template>
-        <FluxTableRow>
-            <FluxTableCell><code>id</code></FluxTableCell>
-            <FluxTableCell><code>string | number</code></FluxTableCell>
-            <FluxTableCell><p>Unique identifier used as the value when selected.</p></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><code>label</code></FluxTableCell>
-            <FluxTableCell><code>string</code></FluxTableCell>
-            <FluxTableCell><p>Display label for the node.</p></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><code>icon</code></FluxTableCell>
-            <FluxTableCell><code>FluxIconName</code></FluxTableCell>
-            <FluxTableCell><p>Optional icon shown before the label.</p></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><code>color</code></FluxTableCell>
-            <FluxTableCell><code>FluxColor | string</code></FluxTableCell>
-            <FluxTableCell><p>Color of this option's marker, either a <code>FluxColor</code> name or any CSS color string. Takes precedence over <code>level-colors</code>.</p></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><code>disabled</code></FluxTableCell>
-            <FluxTableCell><code>boolean</code></FluxTableCell>
-            <FluxTableCell><p>Dims the option and blocks selecting it. Its marker stays clickable, so a disabled branch can still be expanded.</p></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><code>selectable</code></FluxTableCell>
-            <FluxTableCell><code>boolean</code></FluxTableCell>
-            <FluxTableCell><p>Whether this node can be selected. Defaults to <code>true</code>. Set to <code>false</code> on parent nodes to make them act as group headers. Clicking them only expands or collapses their children.</p></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><code>children</code></FluxTableCell>
-            <FluxTableCell><code>FluxFormTreeViewSelectOption[]</code></FluxTableCell>
-            <FluxTableCell><p>Nested child options. A node with children shows an expand/collapse chevron.</p></FluxTableCell>
-        </FluxTableRow>
-    </FluxTable>
-</FluxPane>
+| Property     | Type                             | Description                                                                                                                                                                      |
+|--------------|----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `id`         | `string \| number`               | Unique identifier used as the value when selected.                                                                                                                               |
+| `label`      | `string`                         | Display label for the node.                                                                                                                                                      |
+| `icon`       | `FluxIconName`                   | Optional icon shown before the label.                                                                                                                                            |
+| `color`      | `FluxColor \| string`            | Color of this option's marker, either a `FluxColor` name or any CSS color string. Takes precedence over `level-colors`.                                                          |
+| `disabled`   | `boolean`                        | Dims the option and blocks selecting it. Its marker stays clickable, so a disabled branch can still be expanded.                                                                 |
+| `selectable` | `boolean`                        | Whether this node can be selected. Defaults to `true`. Set to `false` on parent nodes to make them act as group headers. Clicking them only expands or collapses their children. |
+| `children`   | `FluxFormTreeViewSelectOption[]` | Nested child options. A node with children shows an expand/collapse chevron.                                                                                                     |
 
 ## Keyboard navigation
 
-<FluxPane>
-    <FluxTable>
-        <template #header>
-            <FluxTableRow>
-                <FluxTableHeader>Key</FluxTableHeader>
-                <FluxTableHeader>Action</FluxTableHeader>
-            </FluxTableRow>
-        </template>
-        <FluxTableRow>
-            <FluxTableCell><p><kbd>Enter</kbd> / <kbd>Space</kbd></p></FluxTableCell>
-            <FluxTableCell><p>Open the popup (when closed) or select/activate the highlighted node.</p></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>Arrow Down</kbd></FluxTableCell>
-            <FluxTableCell><p>Move highlight to the next visible node.</p></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>Arrow Up</kbd></FluxTableCell>
-            <FluxTableCell><p>Move highlight to the previous visible node.</p></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>Arrow Right</kbd></FluxTableCell>
-            <FluxTableCell><p>Expand the highlighted node (if collapsed). If already expanded, moves to its first child.</p></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>Arrow Left</kbd></FluxTableCell>
-            <FluxTableCell><p>Collapse the highlighted node (if expanded). If already collapsed, moves to its parent.</p></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>Backspace</kbd></FluxTableCell>
-            <FluxTableCell><p><em>(multiple mode)</em> Removes the last selected tag when the search field is empty.</p></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>Escape</kbd></FluxTableCell>
-            <FluxTableCell><p>Close the popup and return focus to the trigger.</p></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>Tab</kbd></FluxTableCell>
-            <FluxTableCell><p>Close the popup.</p></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell>Any letter</FluxTableCell>
-            <FluxTableCell><p>Jump to the first visible node whose label starts with that letter.</p></FluxTableCell>
-        </FluxTableRow>
-    </FluxTable>
-</FluxPane>
+| Key                                 | Action                                                                                     |
+|-------------------------------------|--------------------------------------------------------------------------------------------|
+| <kbd>Enter</kbd> / <kbd>Space</kbd> | Open the popup (when closed) or select/activate the highlighted node.                      |
+| <kbd>Arrow Down</kbd>               | Move highlight to the next visible node.                                                   |
+| <kbd>Arrow Up</kbd>                 | Move highlight to the previous visible node.                                               |
+| <kbd>Arrow Right</kbd>              | Expand the highlighted node (if collapsed). If already expanded, moves to its first child. |
+| <kbd>Arrow Left</kbd>               | Collapse the highlighted node (if expanded). If already collapsed, moves to its parent.    |
+| <kbd>Backspace</kbd>                | *(multiple mode)* Removes the last selected tag when the search field is empty.            |
+| <kbd>Escape</kbd>                   | Close the popup and return focus to the trigger.                                           |
+| <kbd>Tab</kbd>                      | Close the popup.                                                                           |
+| Any letter                          | Jump to the first visible node whose label starts with that letter.                        |
 
 ## Examples
 

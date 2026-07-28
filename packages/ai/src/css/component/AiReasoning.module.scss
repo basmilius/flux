@@ -1,0 +1,109 @@
+@use '~flux/ai/css/mixin' as ai;
+@use '~flux/components/css/mixin';
+
+.reasoning {
+    @include mixin.elevation('sunken');
+}
+
+// No overflow clipping on the block itself: the header fills it edge to edge and
+// its focus ring would be cut off by it.
+.reasoningHeader {
+    display: flex;
+    height: 42px;
+    padding-inline: 15px;
+    align-items: center;
+    gap: 9px;
+    background: unset;
+    border: 0;
+    border-radius: inherit;
+    color: var(--foreground-secondary);
+    cursor: pointer;
+    text-align: start;
+    transition: var(--transition-default);
+    transition-property: background, color, mixin.focus-ring-transition-properties();
+
+    @include mixin.focus-ring();
+
+    @include mixin.hover {
+        background: var(--surface-hover);
+        color: var(--foreground-prominent);
+    }
+
+    &.isOpened {
+        border-end-start-radius: 0;
+        border-end-end-radius: 0;
+    }
+}
+
+.reasoningLabel {
+    @include mixin.text(small);
+
+    flex-grow: 1;
+    font-weight: 500;
+}
+
+.reasoningChevron {
+    color: var(--foreground-subtle);
+    transition: rotate var(--transition-default);
+
+    &.isOpened {
+        rotate: 180deg;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+}
+
+.reasoningBody {
+    @include mixin.text(small);
+
+    padding: 0 15px 15px;
+    color: var(--foreground-secondary);
+}
+
+.reasoningText {
+    white-space: pre-wrap;
+}
+
+.reasoningWord {
+    @include ai.word-fade;
+}
+
+// The label sweeps while the model is still reasoning. Both edges of the gradient
+// carry the base color, so the repeated tile keeps the text painted at every step.
+.reasoning.isStreaming .reasoningLabel {
+    animation: reasoningShimmer 2s linear infinite;
+    color: transparent;
+    background-image: linear-gradient(
+        90deg,
+        var(--foreground-subtle) 35%,
+        var(--foreground-prominent) 50%,
+        var(--foreground-subtle) 65%
+    );
+    background-repeat: repeat;
+    background-position: 100% center;
+    background-clip: text;
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    @media (prefers-reduced-motion: reduce) {
+        animation: none;
+        color: var(--foreground-secondary);
+        background: none;
+        -webkit-text-fill-color: currentColor;
+    }
+}
+
+@include ai.word-fade-keyframes;
+
+@keyframes reasoningShimmer {
+    from {
+        background-position: 100% center;
+    }
+
+    to {
+        background-position: -100% center;
+    }
+}

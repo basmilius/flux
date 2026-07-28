@@ -77,6 +77,71 @@
     scale: .975;
 }
 
+.scaleTransitionEnterActive,
+.scaleTransitionLeaveActive {
+    transform-origin: var(--scale-origin, center);
+    transition-property: opacity, scale;
+}
+
+.scaleTransitionEnterActive {
+    transition-duration: 180ms;
+    transition-timing-function: var(--deceleration-curve);
+}
+
+.scaleTransitionLeaveActive {
+    transition-duration: 120ms;
+    transition-timing-function: var(--acceleration-curve);
+}
+
+.scaleTransitionEnterFrom,
+.scaleTransitionLeaveTo {
+    opacity: 0;
+    scale: var(--scale-from, .95);
+
+    @media (prefers-reduced-motion: reduce) {
+        scale: none;
+    }
+}
+
+// The leave transition takes its items out of the flow, which needs this as their containing block.
+.staggerTransition {
+    position: relative;
+}
+
+.staggerTransitionEnterActive {
+    transition: 180ms var(--deceleration-curve);
+    transition-property: opacity, translate;
+    transition-delay: min(calc(var(--index, 0) * var(--stagger-delay)), var(--stagger-max));
+
+    @media (prefers-reduced-motion: reduce) {
+        transition-delay: 0s;
+    }
+}
+
+.staggerTransitionLeaveActive {
+    position: absolute;
+    transition: 120ms var(--acceleration-curve);
+    transition-property: opacity, translate;
+}
+
+.staggerTransitionMove {
+    transition: transform 240ms var(--swift-out);
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+}
+
+.staggerTransitionEnterFrom,
+.staggerTransitionLeaveTo {
+    opacity: 0;
+    translate: 0 9px;
+
+    @media (prefers-reduced-motion: reduce) {
+        translate: none;
+    }
+}
+
 .tooltipTransitionEnterActive,
 .tooltipTransitionLeaveActive {
     transition: 180ms var(--swift-out);
@@ -106,12 +171,20 @@
 .verticalWindowTransitionEnterFrom {
     opacity: 0;
     transform: translate3d(0, 15px, 0);
+
+    @media (prefers-reduced-motion: reduce) {
+        transform: none;
+    }
 }
 
 .verticalWindowTransitionBackEnterFrom,
 .verticalWindowTransitionLeaveTo {
     opacity: 0;
     transform: translate3d(0, -15px, 0);
+
+    @media (prefers-reduced-motion: reduce) {
+        transform: none;
+    }
 }
 
 .windowTransitionEnterActive,
@@ -130,10 +203,18 @@
 .windowTransitionEnterFrom {
     opacity: 0;
     transform: translate3d(15px, 0, 0);
+
+    @media (prefers-reduced-motion: reduce) {
+        transform: none;
+    }
 }
 
 .windowTransitionBackEnterFrom,
 .windowTransitionLeaveTo {
     opacity: 0;
     transform: translate3d(-15px, 0, 0);
+
+    @media (prefers-reduced-motion: reduce) {
+        transform: none;
+    }
 }

@@ -11,6 +11,16 @@ props:
         type: boolean
         optional: true
 
+    -   name: title
+        description: The title shown at the top of the tooltip.
+        type: string
+        optional: true
+
+    -   name: tooltip-value-formatter
+        description: Formats the value of every tooltip entry. Receives the raw value and the tooltip item it belongs to, and returns the string to show.
+        type: "(value: number | string, item: SharedTooltipItem) => string"
+        optional: true
+
     -   name: advanced-options
         description: Escape-hatch for raw ECharts options merged on top of the Flux defaults.
         type: EChartsOption

@@ -85,6 +85,7 @@ type FluxFlowLayoutNode = {
     readonly id: string;
     readonly width?: number;
     readonly height?: number;
+    readonly anchor?: FluxFlowPosition | null;
 };
 
 type FluxFlowLayoutEdge = {

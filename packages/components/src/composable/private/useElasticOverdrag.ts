@@ -1,5 +1,30 @@
+import { prefersReducedMotion } from '@flux-ui/internals';
 import type { FluxDirection } from '@flux-ui/types';
 import { computed, ref } from 'vue';
+
+export type ElasticResistanceOptions = {
+    /** Distance past the bound before resistance engages, px. */
+    readonly deadZone?: number;
+    /** Ceiling the damped distance approaches but never reaches, px. */
+    readonly max?: number;
+    /** Damping range of the curve (larger = softer), px. */
+    readonly range?: number;
+};
+
+/**
+ * The resistance curve every elastic surface in the library shares: past
+ * `deadZone` the result keeps growing with `distance`, ever slower, closing in
+ * on `max` without ever reaching it. That reads as "the edge is here" while the
+ * surface still answers the pointer. The sign of `distance` is preserved, so a
+ * single call covers both bounds of an axis.
+ */
+export function elasticResistance(distance: number, options: ElasticResistanceOptions = {}): number {
+    const {deadZone = 0, max = 8, range = 120} = options;
+
+    const over = Math.max(0, Math.abs(distance) - deadZone);
+
+    return Math.sign(distance) * max * (1 - Math.exp(-over / range));
+}
 
 type UseElasticOverdragOptions = {
     /** The scrub axis; the stretch follows it (default horizontal). */
@@ -53,6 +78,12 @@ export function useElasticOverdrag(options: UseElasticOverdragOptions = {}) {
         const from = scale.value;
 
         if (from === 1) {
+            return;
+        }
+
+        if (prefersReducedMotion()) {
+            scale.value = 1;
+
             return;
         }
 
@@ -110,10 +141,7 @@ export function useElasticOverdrag(options: UseElasticOverdragOptions = {}) {
 
         stop();
 
-        const over = Math.max(0, Math.abs(past) - deadZone);
-        const stretchPx = maxStretch * (1 - Math.exp(-over / range));
-
-        scale.value = 1 + stretchPx / size;
+        scale.value = 1 + elasticResistance(Math.abs(past), {deadZone, max: maxStretch, range}) / size;
     }
 
     function reset(): void {

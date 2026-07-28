@@ -15,6 +15,7 @@ props:
         description: The selected color.
         type: [ "string", "[number, number, number]" ]
         optional: true
+        default: "#3b82f6"
 
     -   name: alpha
         description: The alpha (opacity) value, from 0 to 1. Use `v-model:alpha` to control it, together with `is-alpha-enabled`.

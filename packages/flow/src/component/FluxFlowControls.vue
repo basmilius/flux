@@ -8,12 +8,12 @@
                  wrapper around a single button in the middle would cut the group
                  in two, since its styling runs on first-child, last-child and
                  sibling selectors. -->
-            <FluxFlyout :label="zoomLabel">
+            <FluxFlyout :label="zoomLabel ?? translate('flux.flow.zoom')">
                 <template #opener="{isOpen, toggle}">
                     <FluxButtonGroup>
                         <FluxSecondaryButton
                             icon-leading="minus"
-                            :aria-label="zoomOutLabel"
+                            :aria-label="zoomOutLabel ?? translate('flux.flow.zoomOut')"
                             @click="controller.zoomOut"/>
 
                         <FluxSecondaryButton
@@ -25,7 +25,7 @@
 
                         <FluxSecondaryButton
                             icon-leading="plus"
-                            :aria-label="zoomInLabel"
+                            :aria-label="zoomInLabel ?? translate('flux.flow.zoomIn')"
                             @click="controller.zoomIn"/>
                     </FluxButtonGroup>
                 </template>
@@ -46,7 +46,7 @@
                     <FluxMenuGroup>
                         <FluxMenuItem
                             icon-leading="arrows-to-dot"
-                            :label="fitLabel"
+                            :label="fitLabel ?? translate('flux.flow.fitView')"
                             @click="fitView"/>
                     </FluxMenuGroup>
                 </FluxMenu>
@@ -55,7 +55,7 @@
             <FluxButtonGroup v-if="isFullscreenAvailable">
                 <FluxSecondaryButton
                     :icon-leading="isFullscreen ? 'compress' : 'expand'"
-                    :aria-label="isFullscreen ? exitFullscreenLabel : fullscreenLabel"
+                    :aria-label="fullscreenToggleLabel"
                     @click="toggleFullscreen"/>
             </FluxButtonGroup>
         </FluxButtonStack>
@@ -68,26 +68,19 @@
     import { FluxButtonGroup, FluxButtonStack, FluxFlyout, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSecondaryButton, FluxSeparator } from '@flux-ui/components';
     import { computed, onBeforeUnmount, onMounted, shallowRef } from 'vue';
     import { useFluxFlowInjection } from '~flux/flow/composable';
-    import type { FluxFlowPanelPosition } from '~flux/flow/data';
+    import { type FluxFlowPanelPosition, useFlowTranslate } from '~flux/flow/data';
     import FluxFlowPanel from './FluxFlowPanel.vue';
     import $style from '~flux/flow/css/component/FlowControls.module.scss';
 
     const {
-        exitFullscreenLabel = 'Exit fullscreen',
-        fitLabel = 'Fit view',
-        fullscreenLabel = 'Fullscreen',
-        offset,
-        position,
-        zoomInLabel = 'Zoom in',
-        zoomLabel = 'Zoom',
-        zoomOutLabel = 'Zoom out'
+        exitFullscreenLabel,
+        fullscreenLabel
     } = defineProps<{
         readonly offset?: number;
         readonly position?: FluxFlowPanelPosition;
         /**
-         * The names the buttons and the zoom flyout carry. They are the only
-         * text the controls hold that is not a percentage, so they are props
-         * rather than fixed strings.
+         * The names the buttons and the zoom flyout carry. Left unset they are
+         * translated through `flux.flow.*`.
          */
         readonly exitFullscreenLabel?: string;
         readonly fitLabel?: string;
@@ -96,6 +89,8 @@
         readonly zoomLabel?: string;
         readonly zoomOutLabel?: string;
     }>();
+
+    const translate = useFlowTranslate();
 
     // The levels the flyout offers, from the widest view down. A flow that caps
     // its own zoom keeps only the ones it can actually reach.
@@ -110,6 +105,10 @@
     const clip = controller.clipElement;
     const isFullscreen = shallowRef(false);
     const isFullscreenAvailable = shallowRef(false);
+
+    const fullscreenToggleLabel = computed(() => isFullscreen.value
+        ? exitFullscreenLabel ?? translate('flux.flow.exitFullscreen')
+        : fullscreenLabel ?? translate('flux.flow.fullscreen'));
 
     const zoomPercentage = computed(() => percentageOf(controller.viewport.value.zoom));
     const presets = computed(() => ZOOM_PRESETS.filter(zoom => zoom >= controller.minZoom.value && zoom <= controller.maxZoom.value));

@@ -315,6 +315,7 @@ Composables (`packages/internals/src/composable/`):
 - Focus traps - `useFocusTrap`, `useFocusTrapLock`, `useFocusTrapReturn`, `useFocusTrapSubscription`, `useFocusZone`
 - Calendar - `useCalendar`, `useCalendarMonthSwitcher`, `useCalendarTimeGrid`, `useCalendarYearSwitcher`
 - Misc - `useEventListener`, `useInView`, `useKeyboardGrab`, `useRemembered`, `useScrollPosition`
+- Translations - `createTranslate`
 
 `useFocusZone` takes an optional `ignore?: string` selector (threaded through `getFocusableElements` / `getFocusableElement` / `getBidirectionalFocusElement`) to exclude a subtree from roving focus. `FluxMenu` uses it with `ignore: '[data-flux-menu-pane]'` so an interactive component inside a `FluxMenuPane` (color picker, slider, search field) keeps its own keyboard behavior. The shared `getFocusableElements` default is deliberately unchanged so focus traps still reach those controls via Tab.
 
@@ -358,6 +359,34 @@ Functions exported from the package root:
 - `showSnackbar(options)` - programmatic snackbar
 - `useFluxStore()` - global state; a plain `reactive()` module store, not Pinia (the workspace has no Pinia dependency)
 - `isFluxFormSelectGroup(item)`, `isFluxFormSelectOption(item)` - type guards
+
+---
+
+## Translations
+
+`vue-i18n` is a peer dependency of every package that renders text. Each one keeps a
+flat English dictionary in `src/data/i18n.ts` and turns it into a composable with
+`createTranslate(english)` from `@flux-ui/internals`, next to it:
+
+| Package     | Keys                  | Composable                                        |
+|-------------|-----------------------|---------------------------------------------------|
+| components  | `flux.*`              | `useTranslate` (`composable/private`, also public) |
+| ai          | `flux.ai.*`           | `useAiTranslate`                                   |
+| application | `flux.application.*`  | `useApplicationTranslate`                          |
+| flow        | `flux.flow.*`         | `useFlowTranslate`                                 |
+| statistics  | none                  | `useStatisticsTranslate`                           |
+
+`createTranslate` reads `useI18n({useScope: 'global'})`, so the app's i18n instance
+must be created with `legacy: false`. A key the app did not translate falls back to
+the dictionary, which is why a component never renders a raw key path. Statistics
+has no strings of its own; it uses the dictionary-less variant to put the series,
+slice and axis names it is given through the same translations, handing back a name
+without a message unchanged.
+
+A new string means a new key in the package's `i18n.ts` **and** in
+`docs/.vitepress/data/translations/<package>.ts` (nl, fr, de, sv). Then run
+`bun scripts/generate-translations.ts` to rewrite the blocks on the translations
+pages; CI runs the same script with `--check`.
 
 ---
 

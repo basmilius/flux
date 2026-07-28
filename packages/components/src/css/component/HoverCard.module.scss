@@ -1,0 +1,26 @@
+@use '~flux/components/css/mixin';
+
+.hoverCard {
+    display: inline-flex;
+}
+
+.hoverCardPopup {
+    composes: basePaneRaised from './base/Pane.module.scss';
+
+    @include mixin.text(default);
+
+    position: fixed;
+    display: flex;
+    inset: 0 auto auto 0;
+    width: max-content;
+    max-width: min(360px, calc(100dvw - 30px));
+    max-height: min(420px, calc(100dvh - 30px));
+    margin: 0;
+    padding: 15px;
+    flex-flow: column;
+    gap: 9px;
+    color: var(--foreground);
+    overflow: auto;
+    box-shadow: var(--shadow-md);
+    translate: var(--x) var(--y);
+}

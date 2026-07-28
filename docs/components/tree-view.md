@@ -34,10 +34,6 @@ requiredIcons:
     - angle-right
 ---
 
-<script setup>
-    import { FluxPane, FluxTable, FluxTableRow, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
-</script>
-
 # Tree view
 
 A standalone tree view component that renders a hierarchical list of nodes with expand/collapse support. Nodes emit `click` and `dblclick` events so the parent can react to user interaction. The tree is rendered inline (not in a popup) and includes connecting lines. Every node ends its guide line with a marker of the same size: nodes with children render it as the expand toggle holding the chevron, leaf nodes as a plain circle. Markers can be colored per node or per depth level.
@@ -52,84 +48,25 @@ render=../code/components/tree-view/preview.vue
 
 Each entry in the `options` array (and nested `children` arrays) is a `FluxTreeViewOption`:
 
-<FluxPane>
-    <FluxTable>
-        <template #header>
-            <FluxTableRow>
-                <FluxTableHeader>Property</FluxTableHeader>
-                <FluxTableHeader>Type</FluxTableHeader>
-                <FluxTableHeader>Description</FluxTableHeader>
-            </FluxTableRow>
-        </template>
-        <FluxTableRow>
-            <FluxTableCell><code>id</code></FluxTableCell>
-            <FluxTableCell><code>string | number</code></FluxTableCell>
-            <FluxTableCell>Unique identifier for the node. Included in emitted events.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><code>label</code></FluxTableCell>
-            <FluxTableCell><code>string</code></FluxTableCell>
-            <FluxTableCell>Display label for the node.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><code>icon</code></FluxTableCell>
-            <FluxTableCell><code>FluxIconName</code></FluxTableCell>
-            <FluxTableCell>Optional icon shown before the label.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><code>color</code></FluxTableCell>
-            <FluxTableCell><code>FluxColor | string</code></FluxTableCell>
-            <FluxTableCell><p>Color of this node's marker, either a <code>FluxColor</code> name or any CSS color string. Takes precedence over <code>level-colors</code>.</p></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><code>disabled</code></FluxTableCell>
-            <FluxTableCell><code>boolean</code></FluxTableCell>
-            <FluxTableCell><p>Dims the node and stops it emitting <code>click</code> and <code>dblclick</code>. Its marker stays clickable, so a disabled branch can still be expanded.</p></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><code>children</code></FluxTableCell>
-            <FluxTableCell><code>FluxTreeViewOption[]</code></FluxTableCell>
-            <FluxTableCell>Nested child nodes. A node with children shows an expand/collapse chevron.</FluxTableCell>
-        </FluxTableRow>
-    </FluxTable>
-</FluxPane>
+| Property   | Type                   | Description                                                                                                                         |
+|------------|------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| `id`       | `string \| number`     | Unique identifier for the node. Included in emitted events.                                                                         |
+| `label`    | `string`               | Display label for the node.                                                                                                         |
+| `icon`     | `FluxIconName`         | Optional icon shown before the label.                                                                                               |
+| `color`    | `FluxColor \| string`  | Color of this node's marker, either a `FluxColor` name or any CSS color string. Takes precedence over `level-colors`.               |
+| `disabled` | `boolean`              | Dims the node and stops it emitting `click` and `dblclick`. Its marker stays clickable, so a disabled branch can still be expanded. |
+| `children` | `FluxTreeViewOption[]` | Nested child nodes. A node with children shows an expand/collapse chevron.                                                          |
 
 ## Keyboard navigation
 
-<FluxPane>
-    <FluxTable>
-        <template #header>
-            <FluxTableRow>
-                <FluxTableHeader>Key</FluxTableHeader>
-                <FluxTableHeader>Action</FluxTableHeader>
-            </FluxTableRow>
-        </template>
-        <FluxTableRow>
-            <FluxTableCell><kbd>Arrow Down</kbd></FluxTableCell>
-            <FluxTableCell>Move highlight to the next visible node.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>Arrow Up</kbd></FluxTableCell>
-            <FluxTableCell>Move highlight to the previous visible node.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>Arrow Right</kbd></FluxTableCell>
-            <FluxTableCell>Expand the highlighted node (if collapsed). If already expanded, moves to its first child.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><kbd>Arrow Left</kbd></FluxTableCell>
-            <FluxTableCell>Collapse the highlighted node (if expanded). If already collapsed, moves to its parent.</FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><p><kbd>Enter</kbd> / <kbd>Space</kbd></p></FluxTableCell>
-            <FluxTableCell><p>Emit <code>click</code> for the highlighted node.</p></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell>Any letter</FluxTableCell>
-            <FluxTableCell>Jump to the first visible node whose label starts with that letter.</FluxTableCell>
-        </FluxTableRow>
-    </FluxTable>
-</FluxPane>
+| Key                                 | Action                                                                                     |
+|-------------------------------------|--------------------------------------------------------------------------------------------|
+| <kbd>Arrow Down</kbd>               | Move highlight to the next visible node.                                                   |
+| <kbd>Arrow Up</kbd>                 | Move highlight to the previous visible node.                                               |
+| <kbd>Arrow Right</kbd>              | Expand the highlighted node (if collapsed). If already expanded, moves to its first child. |
+| <kbd>Arrow Left</kbd>               | Collapse the highlighted node (if expanded). If already collapsed, moves to its parent.    |
+| <kbd>Enter</kbd> / <kbd>Space</kbd> | Emit `click` for the highlighted node.                                                     |
+| Any letter                          | Jump to the first visible node whose label starts with that letter.                        |
 
 ## Accessibility
 

@@ -11,6 +11,7 @@ props:
         description: The color of the notice.
         type: FluxColor
         optional: true
+        default: gray
         
     -   name: icon
         description: The icon that is shown at the start of the notice.

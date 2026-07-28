@@ -12,7 +12,7 @@ props:
         type: string
         optional: true
 
-    -   name: sub-title
+    -   name: subtitle
         description: The subtitle of the pane header.
         type: string
         optional: true

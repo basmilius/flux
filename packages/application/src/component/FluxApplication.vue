@@ -10,7 +10,7 @@
 
         <button
             type="button"
-            aria-label="Close menu"
+            :aria-label="translate('flux.application.closeMenu')"
             :class="$style.applicationMenuBackdrop"
             @click="isMenuCollapsed = true"/>
     </div>
@@ -22,7 +22,7 @@
     import { useBreakpoints } from '@flux-ui/components';
     import { useRemembered } from '@flux-ui/internals';
     import { computed, onMounted, onUnmounted, provide, ref, shallowRef, toRef, type VNode, watch } from 'vue';
-    import { type FluxApplicationContextInfo, FluxApplicationInjectionKey, type FluxApplicationLayout } from '../data';
+    import { type FluxApplicationContextInfo, FluxApplicationInjectionKey, type FluxApplicationLayout, useApplicationTranslate } from '../data';
     import { useNamedRoutes, useRoute } from '../routing';
     import $style from '~flux/application/css/component/Application.module.scss';
 
@@ -39,6 +39,8 @@
         menu(): VNode[];
         side(): VNode[];
     }>();
+
+    const translate = useApplicationTranslate();
 
     let readyFrame: number | undefined;
     let resizeTimer: ReturnType<typeof setTimeout> | undefined;

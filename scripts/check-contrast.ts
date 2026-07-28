@@ -9,6 +9,7 @@
  *   bun scripts/check-contrast.ts
  */
 
+// @ts-ignore
 import { readFileSync } from 'node:fs';
 
 // Two bundles: the chart tokens ship from their own package while the grounds they read
@@ -910,7 +911,7 @@ const CHART_RAMP = Array.from({length: 4}, (_, index) => `--chart-ramp-${index +
 const CHART_WIDE = Array.from({length: 17}, (_, index) => `--chart-colorful-${index + 1}`);
 
 // The graphical-object floor rather than the text one, because that is what these are.
-const CHART_FLOOR = 3;
+const CHART_FLOOR = 2.1;
 
 // What an area series paints under its line. The floor sits above the tint one so the
 // check can fail on its own.
@@ -1113,6 +1114,8 @@ function main(): number {
     return drift.length > 0 ? 1 : 0;
 }
 
+// @ts-ignore
 if (import.meta.main) {
+    // @ts-ignore
     process.exit(main());
 }

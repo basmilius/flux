@@ -48,8 +48,19 @@ props:
 
     -   name: to
         description: Vue Router location. When set, clicking the header navigates and opens the collapsible.
-        type: To
+        type: FluxTo
         optional: true
+
+slots:
+    -   name: default
+        description: The menu items that are shown when the collapsible is open.
+
+    -   name: before
+        description: Custom content at the start of the header, replacing the leading icon.
+
+requiredIcons:
+    - angle-down
+    - angle-right
 ---
 
 # Menu collapsible

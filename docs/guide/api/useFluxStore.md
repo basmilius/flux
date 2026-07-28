@@ -49,6 +49,9 @@ interface FluxStore {
     updateSnackbar(id: number, spec: Partial<FluxSnackbarObject>): void;
     updateTooltip(id: number, spec: Partial<FluxTooltipObject>): void;
 
+    pauseSnackbar(id: number): void;
+    resumeSnackbar(id: number): void;
+
     registerDialog(): FluxDialogRegistration;
 
     showAlert(spec: Omit<FluxAlertObject, 'id' | 'onClose'>): Promise<void>;

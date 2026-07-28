@@ -1,0 +1,199 @@
+@use '~flux/components/css/mixin';
+
+.aiToolCall {
+    @include mixin.intent('gray');
+}
+
+.isSuccess {
+    @include mixin.intent('success');
+}
+
+.isError {
+    @include mixin.intent('danger');
+}
+
+.aiToolCallHeader {
+    @include mixin.text(xsmall);
+
+    display: flex;
+    // The line reads as part of the response, so its text sits on the same rule as
+    // the text around it and only the hover state reaches past it.
+    width: calc(100% + 12px);
+    height: 27px;
+    margin-inline: -6px;
+    padding-inline: 6px;
+    align-items: center;
+    gap: 6px;
+    background: unset;
+    border: 0;
+    border-radius: var(--radius-half);
+    color: var(--foreground-secondary);
+    cursor: pointer;
+    // The collapsed state is one line, so nothing may escape the header.
+    overflow: hidden;
+    text-align: start;
+    transition: background var(--transition-default);
+    transition-property: background, mixin.focus-ring-transition-properties();
+
+    @include mixin.focus-ring();
+
+    @include mixin.hover {
+        background: var(--ink-hover);
+    }
+}
+
+.aiToolCallChevron {
+    flex: none;
+    color: var(--foreground-subtle);
+    transition: rotate var(--transition-default);
+
+    &.isOpen {
+        rotate: 90deg;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+}
+
+.aiToolCallDot {
+    display: block;
+    width: 6px;
+    height: 6px;
+    flex: none;
+    background: var(--intent-solid);
+    border-radius: 50%;
+}
+
+.isRunning .aiToolCallDot {
+    animation: aiToolCallDot 1.2s ease-in-out infinite;
+
+    @media (prefers-reduced-motion: reduce) {
+        animation: none;
+    }
+}
+
+.aiToolCallName {
+    @include mixin.truncate;
+
+    min-width: 0;
+    flex: 1 1 auto;
+    color: var(--foreground-prominent);
+    font-family: var(--font-monospace);
+}
+
+.aiToolCallSignature {
+    color: var(--foreground-subtle);
+}
+
+.aiToolCallStatus {
+    flex: none;
+    color: var(--intent-text);
+}
+
+// Next to the duration a green "Succeeded" says nothing the dot does not already
+// say, so for that one status the word stays behind for assistive technology.
+.aiToolCallStatus.isHidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    clip-path: inset(50%);
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.aiToolCallDuration {
+    flex: none;
+    color: var(--foreground-subtle);
+    font-variant-numeric: tabular-nums;
+}
+
+.aiToolCallBody {
+    display: flex;
+    // Lines up with the middle of the chevron above it, so the rule reads as the
+    // stem the detail hangs from.
+    margin-inline-start: 6px;
+    padding: 6px 0 12px 12px;
+    flex-flow: column;
+    gap: 12px;
+    border-inline-start: 1px solid var(--surface-stroke);
+}
+
+.aiToolCallSection {
+    display: flex;
+    flex-flow: column;
+    gap: 3px;
+}
+
+.aiToolCallSectionHeader {
+    display: flex;
+    height: 18px;
+    align-items: center;
+    gap: 6px;
+}
+
+.aiToolCallSectionLabel {
+    @include mixin.text(2xsmall);
+
+    flex-grow: 1;
+    color: var(--foreground-subtle);
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+.aiToolCallAction {
+    @include mixin.text(2xsmall);
+
+    display: flex;
+    height: 18px;
+    padding-inline: 6px;
+    align-items: center;
+    gap: 3px;
+    background: unset;
+    border: 0;
+    border-radius: var(--radius-half);
+    color: var(--foreground-subtle);
+    cursor: pointer;
+    transition: background var(--transition-default);
+    transition-property: background, color, mixin.focus-ring-transition-properties();
+
+    @include mixin.focus-ring();
+
+    @include mixin.hover {
+        background: var(--ink-hover);
+        color: var(--foreground);
+    }
+}
+
+.aiToolCallMore {
+    composes: aiToolCallAction;
+
+    align-self: flex-start;
+    margin-inline-start: -6px;
+}
+
+.aiToolCallOutput {
+    @include mixin.text(2xsmall);
+
+    max-height: 300px;
+    margin: 0;
+    color: var(--foreground-secondary);
+    font-family: var(--font-monospace);
+    overflow: auto;
+    // Model output has no line budget, so a very long line wraps instead of scrolling.
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+@keyframes aiToolCallDot {
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .3;
+    }
+}

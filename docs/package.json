@@ -10,6 +10,7 @@
     "dependencies": {
         "@basmilius/common": "^3.55.0",
         "@faker-js/faker": "^10.5.0",
+        "@flux-ui/ai": "workspace:*",
         "@flux-ui/application": "workspace:*",
         "@flux-ui/components": "workspace:*",
         "@flux-ui/flow": "workspace:*",
@@ -23,10 +24,10 @@
         "vitepress": "^2.0.0-alpha.18",
         "vitepress-plugin-example": "^1.6.0",
         "vitepress-plugin-group-icons": "^1.7.5",
-        "vitepress-plugin-llms": "^1.13.3",
+        "vitepress-plugin-llms": "^1.13.4",
         "vitepress-plugin-render": "^1.6.0",
-        "vue": "^3.6.0-rc.1",
-        "vue-i18n": "^11.4.6",
+        "vue": "^3.6.0-rc.2",
+        "vue-i18n": "^11.4.8",
         "vue-router": "^5.2.0"
     },
     "devDependencies": {

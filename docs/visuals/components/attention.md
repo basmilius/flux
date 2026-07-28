@@ -27,6 +27,10 @@ props:
 slots:
     -   name: default
         description: The element that should receive the attention effect. The animation is applied directly to this element, without a wrapper, so it must be transformable (any display other than inline).
+
+expose:
+    -   name: play
+        description: Plays the effect once. Replays cleanly when the same effect is played back to back. When reduced motion is preferred nothing animates and `finished` is emitted right away.
 ---
 
 # Attention

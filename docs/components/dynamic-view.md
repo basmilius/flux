@@ -5,6 +5,7 @@ props:
     -   name: vnode
         description: The VNode to render.
         type: VNode
+        optional: true
 ---
 
 # Dynamic view

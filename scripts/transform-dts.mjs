@@ -5,11 +5,12 @@ import { join, resolve } from 'node:path';
 const ROOT = resolve(new URL('..', import.meta.url).pathname);
 
 const TARGET_DIRS = [
+    'packages/visuals/dist',
     'packages/components/dist',
     'packages/application/dist',
     'packages/statistics/dist',
     'packages/flow/dist',
-    'packages/visuals/dist'
+    'packages/ai/dist'
 ];
 
 function walk(dir) {

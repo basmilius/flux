@@ -7,7 +7,7 @@ The palette is absolute: a shade is the same color in both themes, so `--palette
 Shades are written in [OKLCH](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/oklch), so lightness is perceptual and a shade can be mixed or tinted without the hue drifting.
 
 ::: danger Removed in this version
-The palette used to be exposed as `--gray-*`, `--primary-*` and so on, and dark mode mirrored the whole scale: `--gray-950` was near-black in light and near-white in dark. Those names are gone. A reference to one of those stops now resolves to nothing and paints as if the declaration were absent, so it fails quietly rather than loudly. Use `--palette-*` instead, or better, a semantic token. [Upgrading](./upgrading) walks through the substitution.
+The palette used to be exposed as `--gray-*`, `--primary-*` and so on, and dark mode mirrored the whole scale: `--gray-950` was near-black in light and near-white in dark. Those names are gone. A reference to one of those stops now resolves to nothing and paints as if the declaration were absent, so it fails quietly rather than loudly. Use `--palette-*` instead, or better, a semantic token. [Upgrading to v4](./upgrading-v4) walks through the substitution.
 :::
 
 ## Gray

@@ -1,7 +1,3 @@
-<script setup>
-    import { FluxPane, FluxTable, FluxTableRow, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
-</script>
-
 # Types
 
 All public TypeScript types are exported from `@flux-ui/types`. This page lists the types you'll most commonly run into when consuming the components (the ones that show up in component props, slot bindings and store helpers).
@@ -20,6 +16,14 @@ type FluxAlignment = 'start' | 'center' | 'end';
 
 Used by layout components such as [Overflow bar](../../components/overflow-bar) and [Flex](../../components/layout/flex/).
 
+### `FluxAlign`
+
+```ts
+type FluxAlign = FluxAlignment | 'stretch' | 'baseline';
+```
+
+The cross-axis alignment of a [Flex](../../components/layout/flex/) container.
+
 ### `FluxColor`
 
 ```ts
@@ -34,6 +38,12 @@ The six semantic colors that drive everything from [Badge](../../components/badg
 type FluxDirection = 'horizontal' | 'vertical';
 ```
 
+### `FluxFlexWrap`
+
+```ts
+type FluxFlexWrap = 'wrap' | 'nowrap' | 'wrap-reverse';
+```
+
 ### `FluxIconName`
 
 ```ts
@@ -41,6 +51,14 @@ type FluxIconName = string; // re-export of FontAwesome's IconName
 ```
 
 Any Font Awesome icon name. The icon must be registered through [`fluxRegisterIcons`](./helpers) before it can be used.
+
+### `FluxIconStyle`
+
+```ts
+type FluxIconStyle = 'solid' | 'regular' | 'light' | 'thin' | 'duotone' | 'brands';
+```
+
+The Font Awesome style an [Icon](../../components/icon) is drawn in.
 
 ### `FluxInputMask`
 
@@ -69,6 +87,14 @@ type FluxInputType =
     | 'url'
     | 'week';
 ```
+
+### `FluxJustify`
+
+```ts
+type FluxJustify = FluxAlignment | 'between' | 'around' | 'evenly';
+```
+
+The main-axis distribution of a [Flex](../../components/layout/flex/) container.
 
 ### `FluxPressableType`
 
@@ -165,6 +191,14 @@ type FluxFormSelectValueSingle = string | number | null;
 type FluxFormSelectValue = FluxFormSelectValueSingle | FluxFormSelectValueSingle[];
 ```
 
+### `FluxFormSelectOptions`
+
+```ts
+type FluxFormSelectOptions = [FluxFormSelectEntry | null, FluxFormSelectOption[]];
+```
+
+One rendered group of a [Form select](../../components/form/select): its heading entry (or `null` for the ungrouped options) paired with the options that sit under it.
+
 ### `FluxFormTreeViewSelectOption`
 
 ```ts
@@ -178,6 +212,15 @@ type FluxFormTreeViewSelectOption = {
 ```
 
 The shape of items inside [Tree view select](../../components/form/tree-view-select).
+
+### `FluxFormTreeViewSelectValue`
+
+```ts
+type FluxFormTreeViewSelectValueSingle = string | number | null;
+type FluxFormTreeViewSelectValue = FluxFormTreeViewSelectValueSingle | FluxFormTreeViewSelectValueSingle[];
+```
+
+The value of a [Tree view select](../../components/form/tree-view-select). The array form is what a multi-select binds to.
 
 ## Filters
 
@@ -208,6 +251,90 @@ type FluxFilterDefinition<TValue = FluxFilterValue> = {
 ```
 
 The runtime metadata returned by a filter component's `__filterDefinitionFactory`. Built via [`defineFilter`](./helpers) inside `defineOptions`. `FluxFilterBase` calls the factory on each slot VNode to build the menu, badge labels and lifecycle hooks.
+
+### `FluxFilterBase` and the entry types
+
+```ts
+type FluxFilterBase = {
+    readonly icon?: FluxIconName;
+    readonly label: string;
+    readonly name: string;
+    readonly disabled?: boolean;
+    getValueLabel(value: FluxFilterValue): Promise<string | null>;
+};
+
+type FluxFilterDateEntry = FluxFilterBase & { readonly type: 'date' };
+type FluxFilterDateRangeEntry = FluxFilterBase & { readonly type: 'dateRange' };
+type FluxFilterOptionEntry = FluxFilterBase & { readonly type: 'option' };
+type FluxFilterOptionsEntry = FluxFilterBase & { readonly type: 'options' };
+type FluxFilterRangeEntry = FluxFilterBase & { readonly type: 'range' };
+
+type FluxFilterItem =
+    | FluxFilterDateEntry
+    | FluxFilterDateRangeEntry
+    | FluxFilterOptionEntry
+    | FluxFilterOptionsEntry
+    | FluxFilterRangeEntry;
+```
+
+One registered filter as [Filter](../../components/filter) sees it. `type` narrows the union, so a switch over `FluxFilterItem` covers every filter kind.
+
+### `FluxFilterOptionRow`
+
+```ts
+type FluxFilterOptionHeader = {
+    readonly title: string;
+};
+
+type FluxFilterOptionItem = {
+    readonly icon?: FluxIconName;
+    readonly label: string;
+    readonly value: FluxFilterValueSingle;
+};
+
+type FluxFilterOptionRow = FluxFilterOptionHeader | FluxFilterOptionItem;
+```
+
+The rows of an option list. A header groups the items that follow it; it carries no value and cannot be selected.
+
+### `FluxFilterSpec` and the per-filter specs
+
+```ts
+type FluxFilterSpec = {
+    readonly icon?: FluxIconName;
+    readonly label: string;
+    readonly name: string;
+    readonly disabled?: boolean;
+    readonly defaultValue?: FluxFilterValue;
+    onChange?(value: FluxFilterValue): void;
+    onClear?(): void;
+};
+
+type FluxFilterDateSpec = FluxFilterSpec;
+type FluxFilterDateRangeSpec = FluxFilterSpec;
+
+type FluxFilterOptionSpec = FluxFilterSpec & {
+    readonly options: FluxFilterOptionRow[];
+};
+
+type FluxFilterOptionsSpec = FluxFilterSpec & {
+    readonly options: FluxFilterOptionRow[];
+};
+
+type FluxFilterOptionAsyncSpec = FluxFilterSpec & {
+    fetchOptions(ids: FluxFilterValue[]): Promise<FluxFilterOptionRow[]>;
+};
+
+type FluxFilterOptionsAsyncSpec = FluxFilterSpec & {
+    fetchOptions(ids: FluxFilterValue[]): Promise<FluxFilterOptionRow[]>;
+};
+
+type FluxFilterRangeSpec = FluxFilterSpec & {
+    formatter?(value: number): string;
+};
+```
+
+The props each filter component takes. The `Async` variants fetch their rows on demand instead of taking a fixed `options` array.
 
 ## Notify objects
 
@@ -273,40 +400,32 @@ type FluxSnackbarObject = {
 };
 ```
 
+### `FluxTooltipObject`
+
+```ts
+type FluxTooltipObject = {
+    readonly id: number;
+    readonly content?: string;
+    readonly contentSlot?: Function;
+    readonly direction: FluxDirection;
+    readonly origin?: HTMLElement;
+};
+```
+
+One tooltip in the store. `origin` is the element the tooltip anchors to, and `contentSlot` holds a render function when the tooltip was given markup instead of a plain `content` string. Only one tooltip is visible at a time; the store exposes it as `tooltip`.
+
 ## Component-specific types
 
 These types are exported from `@flux-ui/types` but are typically only referenced when you wrap or extend the corresponding component:
 
-<FluxPane>
-    <FluxTable>
-        <template #header>
-            <FluxTableRow>
-                <FluxTableHeader>Type</FluxTableHeader>
-                <FluxTableHeader>Used by</FluxTableHeader>
-            </FluxTableRow>
-        </template>
-        <FluxTableRow>
-            <FluxTableCell><p><code>FluxButtonProps</code> / <code>FluxButtonEmits</code> / <code>FluxButtonSlots</code></p></FluxTableCell>
-            <FluxTableCell><p><a href="../../components/button">Button</a> variants</p></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><code>FluxButtonSize</code></FluxTableCell>
-            <FluxTableCell><a href="../../components/button">Button</a></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><p><code>FluxCommandSource</code> / <code>FluxCommandSourceItem</code> / <code>FluxCommandSubAction</code></p></FluxTableCell>
-            <FluxTableCell><a href="../../components/command-palette">Command palette</a></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><code>FluxFocalPointObject</code></FluxTableCell>
-            <FluxTableCell><a href="../../components/focal-point">Focal point</a></FluxTableCell>
-        </FluxTableRow>
-        <FluxTableRow>
-            <FluxTableCell><code>FluxTreeViewOption</code></FluxTableCell>
-            <FluxTableCell><a href="../../components/tree-view">Tree view</a></FluxTableCell>
-        </FluxTableRow>
-    </FluxTable>
-</FluxPane>
+| Type                                                                   | Used by                                             |
+|------------------------------------------------------------------------|-----------------------------------------------------|
+| `FluxButtonProps` / `FluxButtonEmits` / `FluxButtonSlots`              | [Button](../../components/button) variants          |
+| `FluxButtonSize`                                                       | [Button](../../components/button)                   |
+| `FluxCommandSource` / `FluxCommandSourceItem` / `FluxCommandSubAction` | [Command palette](../../components/command-palette) |
+| `FluxFocalPointObject`                                                 | [Focal point](../../components/focal-point)         |
+| `FluxKanbanMoveEvent` / `FluxKanbanMoveColumnEvent` / `FluxKanbanSwimlaneMoveEvent` | [Kanban](../../components/kanban/)     |
+| `FluxTreeViewOption`                                                   | [Tree view](../../components/tree-view)             |
 
 ## Statistics
 
@@ -321,3 +440,43 @@ type FluxStatisticsChange = {
 ```
 
 The trend indicator passed to [`FluxStatisticsKpi`](../../statistics/components/kpi) and [`FluxStatisticsChange`](../../statistics/components/change).
+
+## Visuals
+
+The types exported by [`@flux-ui/visuals`](../../visuals/introduction/installation).
+
+### `BorderBeamVariant`
+
+```ts
+type BorderBeamVariant = 'sm' | 'md' | 'line' | 'pulse-inner' | 'pulse-outside';
+```
+
+### `HighlighterVariant`
+
+```ts
+type HighlighterVariant =
+    | 'highlight'
+    | 'box'
+    | 'circle'
+    | 'underline'
+    | 'strike-through'
+    | 'crossed-off'
+    | 'bracket';
+```
+
+### `HighlighterGroupProps`
+
+```ts
+type HighlighterGroupProps = {
+    readonly variant?: HighlighterVariant;
+    readonly color?: string;
+    readonly strokeWidth?: number;
+    readonly animationDuration?: number;
+    readonly iterations?: number;
+    readonly padding?: number;
+    readonly multiline?: boolean;
+    readonly whenInView?: boolean;
+};
+```
+
+The annotation defaults a [Highlighter group](../../visuals/components/highlighter-group) hands to the highlighters inside it. A highlighter's own props always win.

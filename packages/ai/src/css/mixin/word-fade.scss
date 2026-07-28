@@ -1,0 +1,24 @@
+// Fades one word of a response in as it arrives. The keyframes are a separate
+// mixin because a css module scopes its animation names, so every module that
+// fades words has to carry its own copy at the root of the file.
+@mixin word-fade($name: aiWordFade) {
+    animation: $name var(--ai-fade-duration, 300ms) ease-out both;
+
+    @media (prefers-reduced-motion: reduce) {
+        animation: none;
+    }
+}
+
+@mixin word-fade-keyframes($name: aiWordFade) {
+    @keyframes #{$name} {
+        from {
+            opacity: 0;
+            filter: blur(3px);
+        }
+
+        to {
+            opacity: 1;
+            filter: blur(0);
+        }
+    }
+}

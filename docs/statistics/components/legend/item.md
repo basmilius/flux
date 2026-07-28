@@ -16,6 +16,11 @@ props:
         type: FluxIconName
         optional: true
 
+    -   name: is-hovered
+        description: Renders the item in its highlighted state. Inside a Legend that is linked to a chart this follows the hover synchronization on its own; set it yourself to drive the highlight from elsewhere.
+        type: boolean
+        optional: true
+
     -   name: value
         description: An optional value shown to the right of the label.
         type: [ string, number ]

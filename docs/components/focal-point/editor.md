@@ -14,6 +14,13 @@ props:
     -   name: src
         description: Source of the image.
         type: string
+
+slots:
+    -   name: footer-before
+        description: Content that is placed in the footer, before the preview button.
+
+    -   name: footer
+        description: Content that is placed at the end of the footer.
 ---
 
 # Focal point editor

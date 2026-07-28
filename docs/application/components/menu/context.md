@@ -41,17 +41,25 @@ props:
         type: [ string, number ]
         optional: true
 
+    -   name: icon
+        description: An icon registered with the context. It is not rendered by the context header itself, but is available to anything that lists the contexts, such as `FluxApplicationMenuContextSwitcher`.
+        type: FluxIconName
+        optional: true
+
     -   name: type
         description: The pressable type applied to the back button when used as a link.
         type: FluxPressableType
         optional: true
+
+requiredIcons:
+    - angle-left
 ---
 
 # Application menu context
 
 The application menu context is the header of a context menu panel. It renders the title and subtitle of the current context together with a back button that either navigates to the parent level (when the user has drilled down through the context stack) or follows the route passed via `to`/`href` (when the user opened the context directly).
 
-The component automatically registers its title and subtitle in the parent `FluxApplication`, so other components, such as the breadcrumbs in the top bar, can reflect the current context.
+The back button decides which of the two it is by asking the parent `FluxApplication` how deep the context stack currently is, so the same markup works whether the context was reached by drilling down or opened straight from a URL.
 
 <FrontmatterDocs/>
 

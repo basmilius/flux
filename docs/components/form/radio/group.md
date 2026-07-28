@@ -39,7 +39,7 @@ props:
 
     -   name: error
         description: The error message, marking every radio as invalid.
-        type: string
+        type: [ string, null ]
         optional: true
 
     -   name: is-readonly

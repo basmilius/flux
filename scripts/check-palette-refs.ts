@@ -33,6 +33,7 @@ const PATTERNS: readonly RegExp[] = [
 
 // Every budget is zero, so this reads as a hard gate.
 const BUDGET: Record<string, number> = {
+    'packages/ai': 0,
     'packages/components': 0,
     'packages/statistics': 0,
     'packages/flow': 0,

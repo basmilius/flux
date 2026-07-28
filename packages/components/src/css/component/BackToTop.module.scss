@@ -1,0 +1,19 @@
+.backToTop {
+    position: fixed;
+    bottom: calc(24px + env(safe-area-inset-bottom));
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+
+    &:active {
+        box-shadow: var(--shadow-md);
+    }
+
+    &.isStart {
+        inset-inline-start: 24px;
+    }
+
+    &.isEnd {
+        inset-inline-end: 24px;
+    }
+}

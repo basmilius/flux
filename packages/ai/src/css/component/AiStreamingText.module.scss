@@ -1,0 +1,17 @@
+@use '~flux/ai/css/mixin';
+
+.streamingText {
+    // A model can emit a url or a hash without a single break opportunity in it,
+    // which would otherwise push the whole conversation wider.
+    overflow-wrap: break-word;
+}
+
+.streamingTextPlain {
+    white-space: pre-wrap;
+}
+
+.streamingTextWord {
+    @include mixin.word-fade;
+}
+
+@include mixin.word-fade-keyframes;

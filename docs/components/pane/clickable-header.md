@@ -12,7 +12,7 @@ props:
         type: string
         optional: true
 
-    -   name: sub-title
+    -   name: subtitle
         description: The subtitle of the pane header.
         type: string
         optional: true
@@ -31,6 +31,7 @@ props:
         description: The rendering type of the header, determining the underlying element (button, link, route or none).
         type: FluxPressableType
         optional: true
+        default: button
 
     -   name: href
         description: The URL of the header when type is link. It's the same as the <a> HTML element.

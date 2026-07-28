@@ -170,6 +170,55 @@
 }
 
 /**
+ * Tables
+ *
+ * A markdown table is painted as a Flux table, so a page can use the pipe syntax
+ * and still match the tables that are built out of FluxTable itself.
+ * -------------------------------------------------------------------------- */
+
+.vp-doc table:not(:where([data-prose] *)) {
+    display: table;
+    width: 100%;
+    margin: 24px 0;
+    background: var(--surface);
+    border: 1px solid var(--surface-stroke);
+    border-radius: var(--radius);
+    /* Separated with no spacing, so the rounded corners survive; every rule below
+       paints a single side, which is what collapsing would have been for. */
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.vp-doc table:not(:where([data-prose] *)) tr {
+    background: unset;
+    border: 0;
+}
+
+.vp-doc table:not(:where([data-prose] *)) th,
+.vp-doc table:not(:where([data-prose] *)) td {
+    padding: 12px 15px;
+    background: unset;
+    border: 0;
+    line-height: 24px;
+    text-align: start;
+    vertical-align: top;
+    word-break: break-word;
+}
+
+.vp-doc table:not(:where([data-prose] *)) th {
+    color: var(--foreground-prominent);
+    border-bottom: 2px solid var(--surface-stroke-muted);
+    font-size: 14px;
+    font-weight: 700;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.vp-doc table:not(:where([data-prose] *)) tbody tr + tr td {
+    border-top: 1px solid var(--surface-stroke-muted);
+}
+
+/**
  * Custom Block
  * -------------------------------------------------------------------------- */
 

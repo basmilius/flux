@@ -2,6 +2,7 @@ import type { FluxKanbanMoveColumnEvent, FluxKanbanMoveEvent } from '@flux-ui/ty
 import { computed, ref, type Ref, unref } from 'vue';
 import type { FluxKanbanColumnDragState, FluxKanbanDragState, FluxKanbanInjection, FluxKanbanKeyboardDirection } from '~flux/components/data';
 import { useKanbanAutoScroll } from './useKanbanAutoScroll';
+import { KANBAN_CELL_SELECTOR } from './useKanbanSwimlane';
 
 export type UseKanbanOptions = {
     readonly disabled: Ref<boolean>;
@@ -87,23 +88,20 @@ export function useKanban(options: UseKanbanOptions): FluxKanbanInjection {
             && state.beforeItemId === (state.originBeforeItemId ?? null);
     }
 
-    function getColumnIndex(columnId: string | number): number {
+    function getColumnElements(): Element[] {
         if (!boardElement) {
-            return -1;
+            return [];
         }
 
-        const columns = Array.from(boardElement.children).filter(child => columnRegistry.has(child));
-        return columns.findIndex(elm => columnRegistry.get(elm)?.columnId === columnId);
+        return Array.from(boardElement.querySelectorAll(KANBAN_CELL_SELECTOR)).filter(elm => columnRegistry.has(elm));
+    }
+
+    function getColumnIndex(columnId: string | number): number {
+        return getColumnElements().findIndex(elm => columnRegistry.get(elm)?.columnId === columnId);
     }
 
     function getColumnByIndex(index: number): { readonly columnId: string | number } | null {
-        if (!boardElement) {
-            return null;
-        }
-
-        const columns = Array.from(boardElement.children).filter(child => columnRegistry.has(child));
-        const elm = columns[index];
-
+        const elm = getColumnElements()[index];
         return elm ? columnRegistry.get(elm)! : null;
     }
 
@@ -350,6 +348,37 @@ export function useKanban(options: UseKanbanOptions): FluxKanbanInjection {
         restoreItemFocus(itemId);
     }
 
+    function moveKeyboardTo(toColumnId: string | number, beforeItemId: string | number | null): void {
+        const state = dragState.value;
+
+        if (!state || state.mode !== 'keyboard') {
+            return;
+        }
+
+        const itemId = state.itemId;
+        const fromColumnId = findCurrentColumnId(itemId);
+
+        if (fromColumnId === null) {
+            return;
+        }
+
+        const event: FluxKanbanMoveEvent = {
+            itemId,
+            fromColumnId,
+            toColumnId,
+            beforeItemId: beforeItemId ?? undefined
+        };
+
+        if (!validateMove(event)) {
+            options.onAnnounce('Move not allowed.');
+            return;
+        }
+
+        options.onMove(event);
+        options.onAnnounce(`Item moved to ${String(toColumnId)}.`);
+        restoreItemFocus(itemId);
+    }
+
     function restoreItemFocus(itemId: string | number): void {
         requestAnimationFrame(() => {
             const elm = itemElementsById.get(itemId);
@@ -558,6 +587,7 @@ export function useKanban(options: UseKanbanOptions): FluxKanbanInjection {
         commitDrop,
         grabItem,
         moveKeyboard,
+        moveKeyboardTo,
         commitKeyboardDrop,
         cancelKeyboardDrop,
         isItemGrabbed,

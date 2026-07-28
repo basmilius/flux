@@ -1,7 +1,7 @@
 ---
 outline: deep
 
-requiredIcons: [ arrows-to-dot, circle-check, compress, expand, minus, plus ]
+requiredIcons: [ arrows-to-dot, compress, expand, minus, plus ]
 
 props:
     -   name: position
@@ -17,37 +17,37 @@ props:
         default: 15
 
     -   name: fitLabel
-        description: The name of the fit view item in the zoom flyout.
+        description: The name of the fit view item in the zoom flyout. Left unset it is translated through `flux.flow.fitView`.
         type: string
         optional: true
         default: Fit view
 
     -   name: fullscreenLabel
-        description: The accessible name of the fullscreen button.
+        description: The accessible name of the fullscreen button. Left unset it is translated through `flux.flow.fullscreen`.
         type: string
         optional: true
         default: Fullscreen
 
     -   name: exitFullscreenLabel
-        description: The accessible name the fullscreen button carries while the flow fills the screen.
+        description: The accessible name the fullscreen button carries while the flow fills the screen. Left unset it is translated through `flux.flow.exitFullscreen`.
         type: string
         optional: true
         default: Exit fullscreen
 
     -   name: zoomInLabel
-        description: The accessible name of the zoom in button.
+        description: The accessible name of the zoom in button. Left unset it is translated through `flux.flow.zoomIn`.
         type: string
         optional: true
         default: Zoom in
 
     -   name: zoomLabel
-        description: The accessible name of the flyout the zoom level opens.
+        description: The accessible name of the flyout the zoom level opens. Left unset it is translated through `flux.flow.zoom`.
         type: string
         optional: true
         default: Zoom
 
     -   name: zoomOutLabel
-        description: The accessible name of the zoom out button.
+        description: The accessible name of the zoom out button. Left unset it is translated through `flux.flow.zoomOut`.
         type: string
         optional: true
         default: Zoom out

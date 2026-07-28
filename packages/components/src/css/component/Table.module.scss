@@ -100,6 +100,12 @@
     color: var(--foreground-prominent);
     border-bottom: 2px solid var(--surface-stroke-muted);
 
+    // Ahead of the pinned rules below, so a pinned resizable header keeps its sticky
+    // position; both make the header a containing block for the resize handle.
+    &.isResizable {
+        position: relative;
+    }
+
     &.isShrinking {
         white-space: nowrap;
     }
@@ -438,6 +444,45 @@
     @include mixin.hover {
         background: var(--surface-active);
         color: var(--foreground);
+    }
+}
+
+// The handle stays inside the header: an overhang would widen the scrollable area
+// of the table on the trailing column.
+.tableHeader > .tableResize {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-end: 0;
+    width: 6px;
+    padding: 0;
+    background: unset;
+    border: 0;
+    cursor: col-resize;
+    outline: 0;
+    touch-action: none;
+    user-select: none;
+    z-index: 3;
+
+    &::before {
+        position: absolute;
+        inset-block: 6px;
+        inset-inline-end: 0;
+        width: 2px;
+        content: '';
+        background: transparent;
+        border-radius: var(--radius-half);
+        transition: background .2s var(--swift-out);
+    }
+
+    @include mixin.hover {
+        &::before {
+            background: var(--surface-stroke);
+        }
+    }
+
+    &:focus-visible::before,
+    &.isDragging::before {
+        background: var(--focus-ring);
     }
 }
 

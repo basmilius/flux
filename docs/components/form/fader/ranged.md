@@ -4,7 +4,7 @@ outline: deep
 emits:
     -   name: update:model-value
         description: Triggered when the value is changed.
-        type: [ number, number ]
+        type: [ '[number, number]' ]
 
 props:
     -   name: model-value
@@ -38,6 +38,11 @@ props:
 
     -   name: label
         description: The label shown on the left inside the range fader.
+        type: string
+        optional: true
+
+    -   name: aria-label
+        description: An accessible label for the range fader, used when no label is set. Announced by assistive technology.
         type: string
         optional: true
 
@@ -143,3 +148,7 @@ example=../../../code/components/form/fader/ranged/colors.vue
 ::: example Custom formatter || A range fader with a custom formatter.
 example=../../../code/components/form/fader/ranged/formatter.vue
 :::
+
+## Used components
+
+- [Icon](../../icon)

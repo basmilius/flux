@@ -3,34 +3,76 @@ outline: deep
 ---
 
 <script setup>
-import { FluxPane, FluxTable, FluxTableRow, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
 import { english } from '../../../packages/components/src/data/i18n';
 </script>
 
 # Translations
 
-Flux uses a set of built-in strings throughout its components, all of which can be translated. Flux integrates with [vue-i18n](https://vue-i18n.intlify.dev/){target="_blank"} and uses its translate function, so you can localize these strings alongside the rest of your application.
+Flux reads the strings it renders through [vue-i18n](https://vue-i18n.intlify.dev/){target="_blank"},
+a peer dependency of every package that says anything at all. Each string sits behind
+a key under the `flux` root: translate that key in your own messages and the components
+follow, leave it out and the English below is used.
+
+## Getting set up
+
+Flux reaches for the global scope of your i18n instance, so create it in Composition
+API mode.
+
+```ts
+import { createApp } from 'vue';
+import { createI18n } from 'vue-i18n';
+import App from './App.vue';
+import nl from './locales/nl.json';
+
+const i18n = createI18n({
+    legacy: false,
+    locale: 'nl',
+    fallbackLocale: 'en',
+    messages: {nl}
+});
+
+createApp(App)
+    .use(i18n)
+    .mount('#app');
+```
+
+::: tip
+The sibling packages carry their own keys under the same `flux` root:
+[AI](../../ai/introduction/translations), [Application](../../application/introduction/translations)
+and [Flow](../../flow/introduction/translations). `@flux-ui/statistics` renders no
+text of its own, but it does put the series, slice and axis names you hand it through
+the same translations, which lets you pass keys where you would otherwise pass
+finished text.
+:::
 
 ## Strings
 
-<FluxPane>
-    <FluxTable>
-        <template #header>
-            <FluxTableRow>
-                <FluxTableHeader>Key</FluxTableHeader>
-                <FluxTableHeader>Value</FluxTableHeader>
-            </FluxTableRow>
-        </template>
-        <FluxTableRow v-for="(value, key) of english">
-            <FluxTableCell><small><kbd>{{ key }}</kbd></small></FluxTableCell>
-            <FluxTableCell>{{ value }}</FluxTableCell>
-        </FluxTableRow>
-    </FluxTable>
-</FluxPane>
+The list is read straight from the source of `@flux-ui/components`, so it is the
+set that ships with the version this page documents.
+
+<table>
+    <thead>
+        <tr>
+            <th>Key</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr v-for="(value, key) of english" :key="key">
+            <td><kbd>{{ key }}</kbd></td>
+            <td>{{ value }}</td>
+        </tr>
+    </tbody>
+</table>
 
 ## Pre-translated strings
 
-Here are the official translations for the strings used by Flux. If you have additional translations, feel free to contribute by creating a pull request on GitHub. :)
+Here are the official translations for the strings used by Flux. If you have
+additional translations, feel free to contribute by creating a pull request on
+GitHub. :) They live in `docs/.vitepress/data/translations/components.ts`; the
+blocks below are generated from it by `bun scripts/generate-translations.ts`.
+
+<!-- translations:start -->
 
 ### English
 
@@ -39,46 +81,68 @@ Here are the official translations for the strings used by Flux. If you have add
 ```yaml [en.yaml]
 flux:
   back: "Back"
+  backToTop: "Back to top"
+  bottomSheetGrabber: "Resize or close the sheet"
   cancel: "Cancel"
   close: "Close"
   collapseGroup: "Collapse group"
   collapseRow: "Collapse row"
-  expandGroup: "Expand group"
-  expandRow: "Expand row"
   comingSoon: "Coming soon"
   continue: "Continue"
-  createOption: 'Create "{value}"'
+  createOption: "Create \"{value}\""
   customPeriod: "Custom period"
+  decrease: "Decrease"
   delete: "Delete"
+  displayingOf: "{from}–{to} of {total}"
   done: "Done"
+  expandGroup: "Expand group"
+  expandRow: "Expand row"
   filter: "Filter"
   filterRemove: "Remove filter"
   filterReset: "Reset filters"
+  focalPoint: "Focal point"
+  focalPointValue: "{x}% horizontal, {y}% vertical"
+  increase: "Increase"
   justNow: "Just now"
   max: "Max"
   min: "Min"
+  moreActions: "More actions"
+  next: "Next"
+  noItems: "There are no items (left)."
   nSelected: "{n} selected"
   ok: "Ok"
   optional: "Optional"
-  preview: "Preview"
-  previewClose: "Close preview"
-  displayingOf: "{from}–{to} of {total}"
-  showN: "Show {n}"
-  skip: "Skip"
-  next: "Next"
-  noItems: "There are no items (left)."
   pagination: "Pagination"
-  paginationNavigateTitle: "Navigate"
   paginationNavigateMessage: "Please provide the desired page number you wish to navigate to."
   paginationNavigatePage: "Page"
+  paginationNavigateTitle: "Navigate"
+  preview: "Preview"
+  previewClose: "Close preview"
   previous: "Previous"
+  readLess: "Read less"
+  readMore: "Read more"
+  repeaterAdd: "Add"
+  repeaterAddRow: "Add {label}"
+  repeaterMoveCancelled: "Move cancelled."
+  repeaterRemoveMessage: "This row still contains information. Removing it discards what you entered."
+  repeaterRemoveRow: "Remove {label}"
+  repeaterRemoveTitle: "Remove {label}?"
+  repeaterReorder: "Reorder {label}"
+  repeaterRow: "{label} {index} of {total}"
+  repeaterRowLabel: "Row"
+  resizeColumn: "Resize column"
   search: "Search..."
+  showN: "Show {n}"
+  skip: "Skip"
   sort: "Sort"
   sortAscending: "Ascending"
   sortDescending: "Descending"
   sortRemove: "Remove sorting"
   submenu: "Submenu"
+  swipeActionsLeading: "Leading actions"
+  swipeActionsTrailing: "Trailing actions"
   today: "Today"
+  togglePasswordVisibility: "Toggle password visibility"
   selectMonth: "Select month"
   selectYear: "Select year"
   selectDate: "Select date"
@@ -125,46 +189,68 @@ flux:
 {
   "flux": {
     "back": "Back",
+    "backToTop": "Back to top",
+    "bottomSheetGrabber": "Resize or close the sheet",
     "cancel": "Cancel",
     "close": "Close",
     "collapseGroup": "Collapse group",
     "collapseRow": "Collapse row",
-    "expandGroup": "Expand group",
-    "expandRow": "Expand row",
     "comingSoon": "Coming soon",
     "continue": "Continue",
     "createOption": "Create \"{value}\"",
     "customPeriod": "Custom period",
+    "decrease": "Decrease",
     "delete": "Delete",
+    "displayingOf": "{from}–{to} of {total}",
     "done": "Done",
+    "expandGroup": "Expand group",
+    "expandRow": "Expand row",
     "filter": "Filter",
     "filterRemove": "Remove filter",
     "filterReset": "Reset filters",
+    "focalPoint": "Focal point",
+    "focalPointValue": "{x}% horizontal, {y}% vertical",
+    "increase": "Increase",
     "justNow": "Just now",
     "max": "Max",
     "min": "Min",
+    "moreActions": "More actions",
+    "next": "Next",
+    "noItems": "There are no items (left).",
     "nSelected": "{n} selected",
     "ok": "Ok",
     "optional": "Optional",
-    "preview": "Preview",
-    "previewClose": "Close preview",
-    "displayingOf": "{from}–{to} of {total}",
-    "showN": "Show {n}",
-    "skip": "Skip",
-    "next": "Next",
-    "noItems": "There are no items (left).",
     "pagination": "Pagination",
-    "paginationNavigateTitle": "Navigate",
     "paginationNavigateMessage": "Please provide the desired page number you wish to navigate to.",
     "paginationNavigatePage": "Page",
+    "paginationNavigateTitle": "Navigate",
+    "preview": "Preview",
+    "previewClose": "Close preview",
     "previous": "Previous",
+    "readLess": "Read less",
+    "readMore": "Read more",
+    "repeaterAdd": "Add",
+    "repeaterAddRow": "Add {label}",
+    "repeaterMoveCancelled": "Move cancelled.",
+    "repeaterRemoveMessage": "This row still contains information. Removing it discards what you entered.",
+    "repeaterRemoveRow": "Remove {label}",
+    "repeaterRemoveTitle": "Remove {label}?",
+    "repeaterReorder": "Reorder {label}",
+    "repeaterRow": "{label} {index} of {total}",
+    "repeaterRowLabel": "Row",
+    "resizeColumn": "Resize column",
     "search": "Search...",
+    "showN": "Show {n}",
+    "skip": "Skip",
     "sort": "Sort",
     "sortAscending": "Ascending",
     "sortDescending": "Descending",
     "sortRemove": "Remove sorting",
     "submenu": "Submenu",
+    "swipeActionsLeading": "Leading actions",
+    "swipeActionsTrailing": "Trailing actions",
     "today": "Today",
+    "togglePasswordVisibility": "Toggle password visibility",
     "selectMonth": "Select month",
     "selectYear": "Select year",
     "selectDate": "Select date",
@@ -218,46 +304,68 @@ flux:
 ```yaml [nl.yaml]
 flux:
   back: "Terug"
+  backToTop: "Terug naar boven"
+  bottomSheetGrabber: "Formaat aanpassen of het paneel sluiten"
   cancel: "Annuleren"
   close: "Sluiten"
   collapseGroup: "Groep inklappen"
   collapseRow: "Rij inklappen"
-  expandGroup: "Groep uitklappen"
-  expandRow: "Rij uitklappen"
   comingSoon: "Binnenkort"
   continue: "Verder"
-  createOption: 'Maak "{value}" aan'
+  createOption: "Maak \"{value}\" aan"
   customPeriod: "Aangepaste periode"
+  decrease: "Verlagen"
   delete: "Verwijderen"
+  displayingOf: "{from}–{to} van {total}"
   done: "Klaar"
+  expandGroup: "Groep uitklappen"
+  expandRow: "Rij uitklappen"
   filter: "Filter"
   filterRemove: "Verwijder filter"
   filterReset: "Verwijder alle filters"
+  focalPoint: "Focuspunt"
+  focalPointValue: "{x}% horizontaal, {y}% verticaal"
+  increase: "Verhogen"
   justNow: "Zojuist"
   max: "Maximaal"
   min: "Minimaal"
+  moreActions: "Meer acties"
+  next: "Volgende"
+  noItems: "Geen resultaten gevonden"
   nSelected: "{n} geselecteerd"
   ok: "Oké"
   optional: "Optioneel"
-  preview: "Voorbeeld"
-  previewClose: "Voorbeeld sluiten"
-  displayingOf: "{from}–{to} van {total}"
-  showN: "Toon {n}"
-  skip: "Overslaan"
-  next: "Volgende"
-  noItems: "Geen resultaten gevonden"
   pagination: "Paginatie"
-  paginationNavigateTitle: "Navigeer"
   paginationNavigateMessage: "Naar welke pagina wil je toe navigeren?"
   paginationNavigatePage: "Pagina"
+  paginationNavigateTitle: "Navigeer"
+  preview: "Voorbeeld"
+  previewClose: "Voorbeeld sluiten"
   previous: "Vorige"
+  readLess: "Minder lezen"
+  readMore: "Meer lezen"
+  repeaterAdd: "Toevoegen"
+  repeaterAddRow: "{label} toevoegen"
+  repeaterMoveCancelled: "Verplaatsen geannuleerd."
+  repeaterRemoveMessage: "Deze rij bevat nog gegevens. Als je hem verwijdert, gaat verloren wat je hebt ingevuld."
+  repeaterRemoveRow: "{label} verwijderen"
+  repeaterRemoveTitle: "{label} verwijderen?"
+  repeaterReorder: "{label} herschikken"
+  repeaterRow: "{label} {index} van {total}"
+  repeaterRowLabel: "Rij"
+  resizeColumn: "Kolombreedte aanpassen"
   search: "Zoeken..."
+  showN: "Toon {n}"
+  skip: "Overslaan"
   sort: "Sorteer"
   sortAscending: "Oplopend"
   sortDescending: "Aflopend"
   sortRemove: "Verwijder"
   submenu: "Submenu"
+  swipeActionsLeading: "Acties aan het begin"
+  swipeActionsTrailing: "Acties aan het eind"
   today: "Vandaag"
+  togglePasswordVisibility: "Wachtwoord tonen of verbergen"
   selectMonth: "Selecteer maand"
   selectYear: "Selecteer jaar"
   selectDate: "Selecteer datum"
@@ -304,46 +412,68 @@ flux:
 {
   "flux": {
     "back": "Terug",
+    "backToTop": "Terug naar boven",
+    "bottomSheetGrabber": "Formaat aanpassen of het paneel sluiten",
     "cancel": "Annuleren",
     "close": "Sluiten",
     "collapseGroup": "Groep inklappen",
     "collapseRow": "Rij inklappen",
-    "expandGroup": "Groep uitklappen",
-    "expandRow": "Rij uitklappen",
     "comingSoon": "Binnenkort",
     "continue": "Verder",
     "createOption": "Maak \"{value}\" aan",
     "customPeriod": "Aangepaste periode",
+    "decrease": "Verlagen",
     "delete": "Verwijderen",
+    "displayingOf": "{from}–{to} van {total}",
     "done": "Klaar",
+    "expandGroup": "Groep uitklappen",
+    "expandRow": "Rij uitklappen",
     "filter": "Filter",
     "filterRemove": "Verwijder filter",
     "filterReset": "Verwijder alle filters",
+    "focalPoint": "Focuspunt",
+    "focalPointValue": "{x}% horizontaal, {y}% verticaal",
+    "increase": "Verhogen",
     "justNow": "Zojuist",
     "max": "Maximaal",
     "min": "Minimaal",
+    "moreActions": "Meer acties",
+    "next": "Volgende",
+    "noItems": "Geen resultaten gevonden",
     "nSelected": "{n} geselecteerd",
     "ok": "Oké",
     "optional": "Optioneel",
-    "preview": "Voorbeeld",
-    "previewClose": "Voorbeeld sluiten",
-    "displayingOf": "{from}–{to} van {total}",
-    "showN": "Toon {n}",
-    "skip": "Overslaan",
-    "next": "Volgende",
-    "noItems": "Geen resultaten gevonden",
     "pagination": "Paginatie",
-    "paginationNavigateTitle": "Navigeer",
     "paginationNavigateMessage": "Naar welke pagina wil je toe navigeren?",
     "paginationNavigatePage": "Pagina",
+    "paginationNavigateTitle": "Navigeer",
+    "preview": "Voorbeeld",
+    "previewClose": "Voorbeeld sluiten",
     "previous": "Vorige",
+    "readLess": "Minder lezen",
+    "readMore": "Meer lezen",
+    "repeaterAdd": "Toevoegen",
+    "repeaterAddRow": "{label} toevoegen",
+    "repeaterMoveCancelled": "Verplaatsen geannuleerd.",
+    "repeaterRemoveMessage": "Deze rij bevat nog gegevens. Als je hem verwijdert, gaat verloren wat je hebt ingevuld.",
+    "repeaterRemoveRow": "{label} verwijderen",
+    "repeaterRemoveTitle": "{label} verwijderen?",
+    "repeaterReorder": "{label} herschikken",
+    "repeaterRow": "{label} {index} van {total}",
+    "repeaterRowLabel": "Rij",
+    "resizeColumn": "Kolombreedte aanpassen",
     "search": "Zoeken...",
+    "showN": "Toon {n}",
+    "skip": "Overslaan",
     "sort": "Sorteer",
     "sortAscending": "Oplopend",
     "sortDescending": "Aflopend",
     "sortRemove": "Verwijder",
     "submenu": "Submenu",
+    "swipeActionsLeading": "Acties aan het begin",
+    "swipeActionsTrailing": "Acties aan het eind",
     "today": "Vandaag",
+    "togglePasswordVisibility": "Wachtwoord tonen of verbergen",
     "selectMonth": "Selecteer maand",
     "selectYear": "Selecteer jaar",
     "selectDate": "Selecteer datum",
@@ -397,46 +527,68 @@ flux:
 ```yaml [fr.yaml]
 flux:
   back: "Retour"
+  backToTop: "Retour en haut"
+  bottomSheetGrabber: "Redimensionner ou fermer la feuille"
   cancel: "Annuler"
   close: "Fermer"
   collapseGroup: "Réduire le groupe"
   collapseRow: "Réduire la ligne"
-  expandGroup: "Développer le groupe"
-  expandRow: "Développer la ligne"
   comingSoon: "Bientôt disponible"
   continue: "Continuer"
-  createOption: 'Créer "{value}"'
+  createOption: "Créer \"{value}\""
   customPeriod: "Période personnalisée"
+  decrease: "Diminuer"
   delete: "Supprimer"
+  displayingOf: "{from}–{to} sur {total}"
   done: "Terminé"
+  expandGroup: "Développer le groupe"
+  expandRow: "Développer la ligne"
   filter: "Filtrer"
   filterRemove: "Supprimer le filtre"
   filterReset: "Réinitialiser les filtres"
+  focalPoint: "Point focal"
+  focalPointValue: "{x} % horizontal, {y} % vertical"
+  increase: "Augmenter"
   justNow: "À l'instant"
   max: "Max"
   min: "Min"
+  moreActions: "Plus d'actions"
+  next: "Suivant"
+  noItems: "Aucun élément disponible."
   nSelected: "{n} sélectionné(s)"
   ok: "OK"
   optional: "Optionnel"
-  preview: "Aperçu"
-  previewClose: "Fermer l'aperçu"
-  displayingOf: "{from}–{to} sur {total}"
-  showN: "Afficher {n}"
-  skip: "Passer"
-  next: "Suivant"
-  noItems: "Aucun élément disponible."
   pagination: "Pagination"
-  paginationNavigateTitle: "Naviguer"
   paginationNavigateMessage: "Veuillez indiquer le numéro de page souhaité."
   paginationNavigatePage: "Page"
+  paginationNavigateTitle: "Naviguer"
+  preview: "Aperçu"
+  previewClose: "Fermer l'aperçu"
   previous: "Précédent"
+  readLess: "Lire moins"
+  readMore: "Lire plus"
+  repeaterAdd: "Ajouter"
+  repeaterAddRow: "Ajouter {label}"
+  repeaterMoveCancelled: "Déplacement annulé."
+  repeaterRemoveMessage: "Cette ligne contient encore des informations. La supprimer effacera ce que vous avez saisi."
+  repeaterRemoveRow: "Supprimer {label}"
+  repeaterRemoveTitle: "Supprimer {label} ?"
+  repeaterReorder: "Réorganiser {label}"
+  repeaterRow: "{label} {index} sur {total}"
+  repeaterRowLabel: "Ligne"
+  resizeColumn: "Redimensionner la colonne"
   search: "Recherche..."
+  showN: "Afficher {n}"
+  skip: "Passer"
   sort: "Trier"
   sortAscending: "Ascendant"
   sortDescending: "Descendant"
   sortRemove: "Supprimer le tri"
   submenu: "Sous-menu"
+  swipeActionsLeading: "Actions de début"
+  swipeActionsTrailing: "Actions de fin"
   today: "Aujourd'hui"
+  togglePasswordVisibility: "Afficher ou masquer le mot de passe"
   selectMonth: "Sélectionner le mois"
   selectYear: "Sélectionner l'année"
   selectDate: "Sélectionner la date"
@@ -483,46 +635,68 @@ flux:
 {
   "flux": {
     "back": "Retour",
+    "backToTop": "Retour en haut",
+    "bottomSheetGrabber": "Redimensionner ou fermer la feuille",
     "cancel": "Annuler",
     "close": "Fermer",
     "collapseGroup": "Réduire le groupe",
     "collapseRow": "Réduire la ligne",
-    "expandGroup": "Développer le groupe",
-    "expandRow": "Développer la ligne",
     "comingSoon": "Bientôt disponible",
     "continue": "Continuer",
     "createOption": "Créer \"{value}\"",
     "customPeriod": "Période personnalisée",
+    "decrease": "Diminuer",
     "delete": "Supprimer",
+    "displayingOf": "{from}–{to} sur {total}",
     "done": "Terminé",
+    "expandGroup": "Développer le groupe",
+    "expandRow": "Développer la ligne",
     "filter": "Filtrer",
     "filterRemove": "Supprimer le filtre",
     "filterReset": "Réinitialiser les filtres",
+    "focalPoint": "Point focal",
+    "focalPointValue": "{x} % horizontal, {y} % vertical",
+    "increase": "Augmenter",
     "justNow": "À l'instant",
     "max": "Max",
     "min": "Min",
+    "moreActions": "Plus d'actions",
+    "next": "Suivant",
+    "noItems": "Aucun élément disponible.",
     "nSelected": "{n} sélectionné(s)",
     "ok": "OK",
     "optional": "Optionnel",
-    "preview": "Aperçu",
-    "previewClose": "Fermer l'aperçu",
-    "displayingOf": "{from}–{to} sur {total}",
-    "showN": "Afficher {n}",
-    "skip": "Passer",
-    "next": "Suivant",
-    "noItems": "Aucun élément disponible.",
     "pagination": "Pagination",
-    "paginationNavigateTitle": "Naviguer",
     "paginationNavigateMessage": "Veuillez indiquer le numéro de page souhaité.",
     "paginationNavigatePage": "Page",
+    "paginationNavigateTitle": "Naviguer",
+    "preview": "Aperçu",
+    "previewClose": "Fermer l'aperçu",
     "previous": "Précédent",
+    "readLess": "Lire moins",
+    "readMore": "Lire plus",
+    "repeaterAdd": "Ajouter",
+    "repeaterAddRow": "Ajouter {label}",
+    "repeaterMoveCancelled": "Déplacement annulé.",
+    "repeaterRemoveMessage": "Cette ligne contient encore des informations. La supprimer effacera ce que vous avez saisi.",
+    "repeaterRemoveRow": "Supprimer {label}",
+    "repeaterRemoveTitle": "Supprimer {label} ?",
+    "repeaterReorder": "Réorganiser {label}",
+    "repeaterRow": "{label} {index} sur {total}",
+    "repeaterRowLabel": "Ligne",
+    "resizeColumn": "Redimensionner la colonne",
     "search": "Recherche...",
+    "showN": "Afficher {n}",
+    "skip": "Passer",
     "sort": "Trier",
     "sortAscending": "Ascendant",
     "sortDescending": "Descendant",
     "sortRemove": "Supprimer le tri",
     "submenu": "Sous-menu",
+    "swipeActionsLeading": "Actions de début",
+    "swipeActionsTrailing": "Actions de fin",
     "today": "Aujourd'hui",
+    "togglePasswordVisibility": "Afficher ou masquer le mot de passe",
     "selectMonth": "Sélectionner le mois",
     "selectYear": "Sélectionner l'année",
     "selectDate": "Sélectionner la date",
@@ -568,3 +742,451 @@ flux:
 ```
 
 :::
+
+### German - Deutsch
+
+::: code-group
+
+```yaml [de.yaml]
+flux:
+  back: "Zurück"
+  backToTop: "Nach oben"
+  bottomSheetGrabber: "Ansicht anpassen oder schließen"
+  cancel: "Abbrechen"
+  close: "Schließen"
+  collapseGroup: "Gruppe einklappen"
+  collapseRow: "Zeile einklappen"
+  comingSoon: "Demnächst"
+  continue: "Weiter"
+  createOption: "\"{value}\" erstellen"
+  customPeriod: "Benutzerdefinierter Zeitraum"
+  decrease: "Verringern"
+  delete: "Löschen"
+  displayingOf: "{from}–{to} von {total}"
+  done: "Fertig"
+  expandGroup: "Gruppe ausklappen"
+  expandRow: "Zeile ausklappen"
+  filter: "Filter"
+  filterRemove: "Filter entfernen"
+  filterReset: "Filter zurücksetzen"
+  focalPoint: "Fokuspunkt"
+  focalPointValue: "{x} % horizontal, {y} % vertikal"
+  increase: "Erhöhen"
+  justNow: "Gerade eben"
+  max: "Max"
+  min: "Min"
+  moreActions: "Weitere Aktionen"
+  next: "Weiter"
+  noItems: "Es sind keine Einträge (mehr) vorhanden."
+  nSelected: "{n} ausgewählt"
+  ok: "Ok"
+  optional: "Optional"
+  pagination: "Seitennummerierung"
+  paginationNavigateMessage: "Bitte geben Sie die gewünschte Seitenzahl ein."
+  paginationNavigatePage: "Seite"
+  paginationNavigateTitle: "Navigieren"
+  preview: "Vorschau"
+  previewClose: "Vorschau schließen"
+  previous: "Zurück"
+  readLess: "Weniger anzeigen"
+  readMore: "Mehr anzeigen"
+  repeaterAdd: "Hinzufügen"
+  repeaterAddRow: "{label} hinzufügen"
+  repeaterMoveCancelled: "Verschieben abgebrochen."
+  repeaterRemoveMessage: "Diese Zeile enthält noch Angaben. Beim Entfernen gehen sie verloren."
+  repeaterRemoveRow: "{label} entfernen"
+  repeaterRemoveTitle: "{label} entfernen?"
+  repeaterReorder: "{label} verschieben"
+  repeaterRow: "{label} {index} von {total}"
+  repeaterRowLabel: "Zeile"
+  resizeColumn: "Spaltenbreite ändern"
+  search: "Suchen..."
+  showN: "{n} anzeigen"
+  skip: "Überspringen"
+  sort: "Sortieren"
+  sortAscending: "Aufsteigend"
+  sortDescending: "Absteigend"
+  sortRemove: "Sortierung entfernen"
+  submenu: "Untermenü"
+  swipeActionsLeading: "Vordere Aktionen"
+  swipeActionsTrailing: "Hintere Aktionen"
+  today: "Heute"
+  togglePasswordVisibility: "Passwort ein- oder ausblenden"
+  selectMonth: "Monat auswählen"
+  selectYear: "Jahr auswählen"
+  selectDate: "Datum auswählen"
+  previousMonth: "Vorheriger Monat"
+  nextMonth: "Nächster Monat"
+  previousYears: "Vorherige Jahre"
+  nextYears: "Nächste Jahre"
+  allDay: "Ganztägig"
+  andNMore: "{n} weitere"
+  grabbedAnnounce: "Element aufgenommen. Mit den Pfeiltasten verschieben, Enter zum Ablegen, Escape zum Abbrechen."
+  releasedAnnounce: "Element abgelegt."
+  goToPage: "Zu Seite {page}"
+  pinDigit: "Ziffer {index} von {total}"
+  dropFilesOrClick: "Dateien hierher ziehen oder zum Hochladen klicken"
+  colorSaturationBrightness: "Farbsättigung und Helligkeit"
+  customColor: "Benutzerdefinierte Farbe"
+  hue: "Farbton"
+  opacity: "Deckkraft"
+  lowerBound: "Untergrenze"
+  upperBound: "Obergrenze"
+  galleryPlaceholderButton: "Bild auswählen"
+  galleryPlaceholderMessage: "Bild hierher ziehen oder auf die Schaltfläche klicken, um es hochzuladen..."
+  galleryPlaceholderTitle: "Galerie"
+  timezoneEurope: "Europa"
+  timezoneAmerica: "Amerika"
+  timezoneUs: "Vereinigte Staaten"
+  timezoneAustralia: "Australien"
+  timezoneCanada: "Kanada"
+  timezoneMexico: "Mexiko"
+  timezoneAfrica: "Afrika"
+  timezoneAntarctica: "Antarktis"
+  timezoneArctic: "Arktis"
+  timezoneAsia: "Asien"
+  timezoneAtlantic: "Atlantik"
+  timezoneBrazil: "Brasilien"
+  timezoneChile: "Chile"
+  timezoneEtc: "ETC"
+  timezoneOther: "Sonstige"
+  timezoneIndian: "Indischer Ozean"
+  timezonePacific: "Pazifik"
+```
+
+```json [de.json]
+{
+  "flux": {
+    "back": "Zurück",
+    "backToTop": "Nach oben",
+    "bottomSheetGrabber": "Ansicht anpassen oder schließen",
+    "cancel": "Abbrechen",
+    "close": "Schließen",
+    "collapseGroup": "Gruppe einklappen",
+    "collapseRow": "Zeile einklappen",
+    "comingSoon": "Demnächst",
+    "continue": "Weiter",
+    "createOption": "\"{value}\" erstellen",
+    "customPeriod": "Benutzerdefinierter Zeitraum",
+    "decrease": "Verringern",
+    "delete": "Löschen",
+    "displayingOf": "{from}–{to} von {total}",
+    "done": "Fertig",
+    "expandGroup": "Gruppe ausklappen",
+    "expandRow": "Zeile ausklappen",
+    "filter": "Filter",
+    "filterRemove": "Filter entfernen",
+    "filterReset": "Filter zurücksetzen",
+    "focalPoint": "Fokuspunkt",
+    "focalPointValue": "{x} % horizontal, {y} % vertikal",
+    "increase": "Erhöhen",
+    "justNow": "Gerade eben",
+    "max": "Max",
+    "min": "Min",
+    "moreActions": "Weitere Aktionen",
+    "next": "Weiter",
+    "noItems": "Es sind keine Einträge (mehr) vorhanden.",
+    "nSelected": "{n} ausgewählt",
+    "ok": "Ok",
+    "optional": "Optional",
+    "pagination": "Seitennummerierung",
+    "paginationNavigateMessage": "Bitte geben Sie die gewünschte Seitenzahl ein.",
+    "paginationNavigatePage": "Seite",
+    "paginationNavigateTitle": "Navigieren",
+    "preview": "Vorschau",
+    "previewClose": "Vorschau schließen",
+    "previous": "Zurück",
+    "readLess": "Weniger anzeigen",
+    "readMore": "Mehr anzeigen",
+    "repeaterAdd": "Hinzufügen",
+    "repeaterAddRow": "{label} hinzufügen",
+    "repeaterMoveCancelled": "Verschieben abgebrochen.",
+    "repeaterRemoveMessage": "Diese Zeile enthält noch Angaben. Beim Entfernen gehen sie verloren.",
+    "repeaterRemoveRow": "{label} entfernen",
+    "repeaterRemoveTitle": "{label} entfernen?",
+    "repeaterReorder": "{label} verschieben",
+    "repeaterRow": "{label} {index} von {total}",
+    "repeaterRowLabel": "Zeile",
+    "resizeColumn": "Spaltenbreite ändern",
+    "search": "Suchen...",
+    "showN": "{n} anzeigen",
+    "skip": "Überspringen",
+    "sort": "Sortieren",
+    "sortAscending": "Aufsteigend",
+    "sortDescending": "Absteigend",
+    "sortRemove": "Sortierung entfernen",
+    "submenu": "Untermenü",
+    "swipeActionsLeading": "Vordere Aktionen",
+    "swipeActionsTrailing": "Hintere Aktionen",
+    "today": "Heute",
+    "togglePasswordVisibility": "Passwort ein- oder ausblenden",
+    "selectMonth": "Monat auswählen",
+    "selectYear": "Jahr auswählen",
+    "selectDate": "Datum auswählen",
+    "previousMonth": "Vorheriger Monat",
+    "nextMonth": "Nächster Monat",
+    "previousYears": "Vorherige Jahre",
+    "nextYears": "Nächste Jahre",
+    "allDay": "Ganztägig",
+    "andNMore": "{n} weitere",
+    "grabbedAnnounce": "Element aufgenommen. Mit den Pfeiltasten verschieben, Enter zum Ablegen, Escape zum Abbrechen.",
+    "releasedAnnounce": "Element abgelegt.",
+    "goToPage": "Zu Seite {page}",
+    "pinDigit": "Ziffer {index} von {total}",
+    "dropFilesOrClick": "Dateien hierher ziehen oder zum Hochladen klicken",
+    "colorSaturationBrightness": "Farbsättigung und Helligkeit",
+    "customColor": "Benutzerdefinierte Farbe",
+    "hue": "Farbton",
+    "opacity": "Deckkraft",
+    "lowerBound": "Untergrenze",
+    "upperBound": "Obergrenze",
+    "galleryPlaceholderButton": "Bild auswählen",
+    "galleryPlaceholderMessage": "Bild hierher ziehen oder auf die Schaltfläche klicken, um es hochzuladen...",
+    "galleryPlaceholderTitle": "Galerie",
+    "timezoneEurope": "Europa",
+    "timezoneAmerica": "Amerika",
+    "timezoneUs": "Vereinigte Staaten",
+    "timezoneAustralia": "Australien",
+    "timezoneCanada": "Kanada",
+    "timezoneMexico": "Mexiko",
+    "timezoneAfrica": "Afrika",
+    "timezoneAntarctica": "Antarktis",
+    "timezoneArctic": "Arktis",
+    "timezoneAsia": "Asien",
+    "timezoneAtlantic": "Atlantik",
+    "timezoneBrazil": "Brasilien",
+    "timezoneChile": "Chile",
+    "timezoneEtc": "ETC",
+    "timezoneOther": "Sonstige",
+    "timezoneIndian": "Indischer Ozean",
+    "timezonePacific": "Pazifik"
+  }
+}
+```
+
+:::
+
+### Swedish - Svenska
+
+::: code-group
+
+```yaml [sv.yaml]
+flux:
+  back: "Tillbaka"
+  backToTop: "Till toppen"
+  bottomSheetGrabber: "Ändra storlek eller stäng panelen"
+  cancel: "Avbryt"
+  close: "Stäng"
+  collapseGroup: "Fäll ihop grupp"
+  collapseRow: "Fäll ihop rad"
+  comingSoon: "Kommer snart"
+  continue: "Fortsätt"
+  createOption: "Skapa \"{value}\""
+  customPeriod: "Anpassad period"
+  decrease: "Minska"
+  delete: "Ta bort"
+  displayingOf: "{from}–{to} av {total}"
+  done: "Klar"
+  expandGroup: "Expandera grupp"
+  expandRow: "Expandera rad"
+  filter: "Filter"
+  filterRemove: "Ta bort filter"
+  filterReset: "Återställ filter"
+  focalPoint: "Fokuspunkt"
+  focalPointValue: "{x} % horisontellt, {y} % vertikalt"
+  increase: "Öka"
+  justNow: "Just nu"
+  max: "Max"
+  min: "Min"
+  moreActions: "Fler åtgärder"
+  next: "Nästa"
+  noItems: "Det finns inga poster (kvar)."
+  nSelected: "{n} valda"
+  ok: "Ok"
+  optional: "Valfritt"
+  pagination: "Sidnavigering"
+  paginationNavigateMessage: "Ange vilket sidnummer du vill gå till."
+  paginationNavigatePage: "Sida"
+  paginationNavigateTitle: "Navigera"
+  preview: "Förhandsgranska"
+  previewClose: "Stäng förhandsgranskningen"
+  previous: "Föregående"
+  readLess: "Visa mindre"
+  readMore: "Läs mer"
+  repeaterAdd: "Lägg till"
+  repeaterAddRow: "Lägg till {label}"
+  repeaterMoveCancelled: "Flytten avbröts."
+  repeaterRemoveMessage: "Raden innehåller fortfarande information. Om du tar bort den försvinner det du har fyllt i."
+  repeaterRemoveRow: "Ta bort {label}"
+  repeaterRemoveTitle: "Ta bort {label}?"
+  repeaterReorder: "Flytta {label}"
+  repeaterRow: "{label} {index} av {total}"
+  repeaterRowLabel: "Rad"
+  resizeColumn: "Ändra kolumnbredd"
+  search: "Sök..."
+  showN: "Visa {n}"
+  skip: "Hoppa över"
+  sort: "Sortera"
+  sortAscending: "Stigande"
+  sortDescending: "Fallande"
+  sortRemove: "Ta bort sortering"
+  submenu: "Undermeny"
+  swipeActionsLeading: "Inledande åtgärder"
+  swipeActionsTrailing: "Avslutande åtgärder"
+  today: "I dag"
+  togglePasswordVisibility: "Visa eller dölj lösenord"
+  selectMonth: "Välj månad"
+  selectYear: "Välj år"
+  selectDate: "Välj datum"
+  previousMonth: "Föregående månad"
+  nextMonth: "Nästa månad"
+  previousYears: "Föregående år"
+  nextYears: "Nästa år"
+  allDay: "Heldag"
+  andNMore: "{n} till"
+  grabbedAnnounce: "Objektet är taget. Använd piltangenterna för att flytta, Enter för att släppa, Escape för att avbryta."
+  releasedAnnounce: "Objektet är släppt."
+  goToPage: "Gå till sida {page}"
+  pinDigit: "Siffra {index} av {total}"
+  dropFilesOrClick: "Släpp filer här eller klicka för att ladda upp"
+  colorSaturationBrightness: "Färgmättnad och ljusstyrka"
+  customColor: "Anpassad färg"
+  hue: "Nyans"
+  opacity: "Opacitet"
+  lowerBound: "Undre gräns"
+  upperBound: "Övre gräns"
+  galleryPlaceholderButton: "Välj bild"
+  galleryPlaceholderMessage: "Släpp en bild här eller klicka på knappen för att ladda upp..."
+  galleryPlaceholderTitle: "Galleri"
+  timezoneEurope: "Europa"
+  timezoneAmerica: "Amerika"
+  timezoneUs: "USA"
+  timezoneAustralia: "Australien"
+  timezoneCanada: "Kanada"
+  timezoneMexico: "Mexiko"
+  timezoneAfrica: "Afrika"
+  timezoneAntarctica: "Antarktis"
+  timezoneArctic: "Arktis"
+  timezoneAsia: "Asien"
+  timezoneAtlantic: "Atlanten"
+  timezoneBrazil: "Brasilien"
+  timezoneChile: "Chile"
+  timezoneEtc: "ETC"
+  timezoneOther: "Övrigt"
+  timezoneIndian: "Indiska oceanen"
+  timezonePacific: "Stilla havet"
+```
+
+```json [sv.json]
+{
+  "flux": {
+    "back": "Tillbaka",
+    "backToTop": "Till toppen",
+    "bottomSheetGrabber": "Ändra storlek eller stäng panelen",
+    "cancel": "Avbryt",
+    "close": "Stäng",
+    "collapseGroup": "Fäll ihop grupp",
+    "collapseRow": "Fäll ihop rad",
+    "comingSoon": "Kommer snart",
+    "continue": "Fortsätt",
+    "createOption": "Skapa \"{value}\"",
+    "customPeriod": "Anpassad period",
+    "decrease": "Minska",
+    "delete": "Ta bort",
+    "displayingOf": "{from}–{to} av {total}",
+    "done": "Klar",
+    "expandGroup": "Expandera grupp",
+    "expandRow": "Expandera rad",
+    "filter": "Filter",
+    "filterRemove": "Ta bort filter",
+    "filterReset": "Återställ filter",
+    "focalPoint": "Fokuspunkt",
+    "focalPointValue": "{x} % horisontellt, {y} % vertikalt",
+    "increase": "Öka",
+    "justNow": "Just nu",
+    "max": "Max",
+    "min": "Min",
+    "moreActions": "Fler åtgärder",
+    "next": "Nästa",
+    "noItems": "Det finns inga poster (kvar).",
+    "nSelected": "{n} valda",
+    "ok": "Ok",
+    "optional": "Valfritt",
+    "pagination": "Sidnavigering",
+    "paginationNavigateMessage": "Ange vilket sidnummer du vill gå till.",
+    "paginationNavigatePage": "Sida",
+    "paginationNavigateTitle": "Navigera",
+    "preview": "Förhandsgranska",
+    "previewClose": "Stäng förhandsgranskningen",
+    "previous": "Föregående",
+    "readLess": "Visa mindre",
+    "readMore": "Läs mer",
+    "repeaterAdd": "Lägg till",
+    "repeaterAddRow": "Lägg till {label}",
+    "repeaterMoveCancelled": "Flytten avbröts.",
+    "repeaterRemoveMessage": "Raden innehåller fortfarande information. Om du tar bort den försvinner det du har fyllt i.",
+    "repeaterRemoveRow": "Ta bort {label}",
+    "repeaterRemoveTitle": "Ta bort {label}?",
+    "repeaterReorder": "Flytta {label}",
+    "repeaterRow": "{label} {index} av {total}",
+    "repeaterRowLabel": "Rad",
+    "resizeColumn": "Ändra kolumnbredd",
+    "search": "Sök...",
+    "showN": "Visa {n}",
+    "skip": "Hoppa över",
+    "sort": "Sortera",
+    "sortAscending": "Stigande",
+    "sortDescending": "Fallande",
+    "sortRemove": "Ta bort sortering",
+    "submenu": "Undermeny",
+    "swipeActionsLeading": "Inledande åtgärder",
+    "swipeActionsTrailing": "Avslutande åtgärder",
+    "today": "I dag",
+    "togglePasswordVisibility": "Visa eller dölj lösenord",
+    "selectMonth": "Välj månad",
+    "selectYear": "Välj år",
+    "selectDate": "Välj datum",
+    "previousMonth": "Föregående månad",
+    "nextMonth": "Nästa månad",
+    "previousYears": "Föregående år",
+    "nextYears": "Nästa år",
+    "allDay": "Heldag",
+    "andNMore": "{n} till",
+    "grabbedAnnounce": "Objektet är taget. Använd piltangenterna för att flytta, Enter för att släppa, Escape för att avbryta.",
+    "releasedAnnounce": "Objektet är släppt.",
+    "goToPage": "Gå till sida {page}",
+    "pinDigit": "Siffra {index} av {total}",
+    "dropFilesOrClick": "Släpp filer här eller klicka för att ladda upp",
+    "colorSaturationBrightness": "Färgmättnad och ljusstyrka",
+    "customColor": "Anpassad färg",
+    "hue": "Nyans",
+    "opacity": "Opacitet",
+    "lowerBound": "Undre gräns",
+    "upperBound": "Övre gräns",
+    "galleryPlaceholderButton": "Välj bild",
+    "galleryPlaceholderMessage": "Släpp en bild här eller klicka på knappen för att ladda upp...",
+    "galleryPlaceholderTitle": "Galleri",
+    "timezoneEurope": "Europa",
+    "timezoneAmerica": "Amerika",
+    "timezoneUs": "USA",
+    "timezoneAustralia": "Australien",
+    "timezoneCanada": "Kanada",
+    "timezoneMexico": "Mexiko",
+    "timezoneAfrica": "Afrika",
+    "timezoneAntarctica": "Antarktis",
+    "timezoneArctic": "Arktis",
+    "timezoneAsia": "Asien",
+    "timezoneAtlantic": "Atlanten",
+    "timezoneBrazil": "Brasilien",
+    "timezoneChile": "Chile",
+    "timezoneEtc": "ETC",
+    "timezoneOther": "Övrigt",
+    "timezoneIndian": "Indiska oceanen",
+    "timezonePacific": "Stilla havet"
+  }
+}
+```
+
+:::
+
+<!-- translations:end -->

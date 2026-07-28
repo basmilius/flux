@@ -39,6 +39,11 @@ props:
         type: string
         optional: true
 
+    -   name: auto-focus
+        description: Focus the input when the form is mounted.
+        type: boolean
+        optional: true
+
     -   name: disabled
         description: If the input is disabled.
         type: boolean
@@ -46,7 +51,17 @@ props:
 
     -   name: error
         description: The error message, marking the input as invalid.
-        type: string
+        type: [ string, null ]
+        optional: true
+
+    -   name: is-condensed
+        description: If the input is rendered at a reduced height.
+        type: boolean
+        optional: true
+
+    -   name: is-loading
+        description: Shows a loading spinner inside the input.
+        type: boolean
         optional: true
 
     -   name: is-readonly
@@ -57,6 +72,11 @@ props:
     -   name: is-secondary
         description: If the input uses the secondary styling.
         type: boolean
+        optional: true
+
+    -   name: name
+        description: The name attribute of the underlying input element.
+        type: string
         optional: true
 
 requiredIcons:

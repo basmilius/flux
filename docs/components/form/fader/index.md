@@ -146,3 +146,7 @@ example=../../../code/components/form/fader/icons.vue
 ::: example Custom formatter || A fader with a custom formatter.
 example=../../../code/components/form/fader/formatter.vue
 :::
+
+## Used components
+
+- [Icon](../../icon)

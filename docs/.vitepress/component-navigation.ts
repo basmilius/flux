@@ -24,6 +24,8 @@ const navigation: SidebarItem[] = [
                 ]
             },
             {text: 'Chip', link: '/components/chip'},
+            {text: 'Remove', link: '/components/remove'},
+            {text: 'Speed dial', link: '/components/speed-dial'},
             {
                 text: 'Toolbar',
                 link: '/components/toolbar/',
@@ -43,6 +45,7 @@ const navigation: SidebarItem[] = [
             {text: 'Badge group', link: '/components/badge-group'},
             {text: 'Placeholder', link: '/components/placeholder'},
             {text: 'Progress bar', link: '/components/progress-bar'},
+            {text: 'Progress ring', link: '/components/progress-ring'},
             {text: 'Skeleton', link: '/components/skeleton'},
             {text: 'Spinner', link: '/components/spinner'},
             {text: 'Tag', link: '/components/tag'}
@@ -118,6 +121,7 @@ const navigation: SidebarItem[] = [
                 ]
             },
             {text: 'Rating', link: '/components/form/rating'},
+            {text: 'Repeater', link: '/components/form/repeater'},
             {text: 'Row', link: '/components/form/row'},
             {text: 'Section', link: '/components/form/section'},
             {
@@ -150,6 +154,7 @@ const navigation: SidebarItem[] = [
         link: '/components/navigation/',
         collapsed: false,
         items: [
+            {text: 'Back to top', link: '/components/back-to-top'},
             {
                 text: 'Breadcrumb',
                 link: '/components/breadcrumb/',
@@ -234,6 +239,14 @@ const navigation: SidebarItem[] = [
         collapsed: false,
         items: [
             {
+                text: 'Activity feed',
+                link: '/components/activity-feed/',
+                collapsed: true,
+                items: [
+                    {text: 'Item', link: '/components/activity-feed/item'}
+                ]
+            },
+            {
                 text: 'Calendar',
                 link: '/components/calendar/',
                 collapsed: true,
@@ -272,9 +285,12 @@ const navigation: SidebarItem[] = [
                 collapsed: true,
                 items: [
                     {text: 'Column', link: '/components/kanban/column'},
-                    {text: 'Item', link: '/components/kanban/item'}
+                    {text: 'Item', link: '/components/kanban/item'},
+                    {text: 'Swimlane', link: '/components/kanban/swimlane'}
                 ]
             },
+            {text: 'Read more', link: '/components/read-more'},
+            {text: 'Swipe actions', link: '/components/swipe-actions'},
             {
                 text: 'Table',
                 link: '/components/table/',
@@ -385,6 +401,7 @@ const navigation: SidebarItem[] = [
                     {text: 'Stack', link: '/components/item/stack'}
                 ]
             },
+            {text: 'Masonry', link: '/components/layout/masonry'},
             {text: 'Overflow bar', link: '/components/overflow-bar'},
             {text: 'Separator', link: '/components/separator'},
             {text: 'Spacer', link: '/components/layout/spacer', image: '/assets/components/layout-spacer.svg'},
@@ -404,7 +421,9 @@ const navigation: SidebarItem[] = [
         link: '/components/surfaces/',
         collapsed: false,
         items: [
+            {text: 'Bottom sheet', link: '/components/bottom-sheet'},
             {text: 'Flyout', link: '/components/flyout'},
+            {text: 'Hover card', link: '/components/hover-card'},
             {text: 'Overlay', link: '/components/overlay'},
             {
                 text: 'Pane',
@@ -421,6 +440,7 @@ const navigation: SidebarItem[] = [
                     {text: 'Media', link: '/components/pane/media'}
                 ]
             },
+            {text: 'Pop confirm', link: '/components/pop-confirm'},
             {text: 'Slide over', link: '/components/slide-over'},
             {text: 'Window', link: '/components/window'}
         ]
@@ -468,11 +488,14 @@ const navigation: SidebarItem[] = [
         link: '/components/transitions/',
         collapsed: false,
         items: [
+            {text: 'Bottom sheet', link: '/components/transitions/bottom-sheet'},
             {text: 'Breakthrough', link: '/components/transitions/breakthrough'},
             {text: 'Fade', link: '/components/transitions/fade'},
             {text: 'Overlay', link: '/components/transitions/overlay'},
             {text: 'Route', link: '/components/transitions/route'},
+            {text: 'Scale', link: '/components/transitions/scale'},
             {text: 'Slide over', link: '/components/transitions/slide-over'},
+            {text: 'Stagger', link: '/components/transitions/stagger'},
             {text: 'Tooltip', link: '/components/transitions/tooltip'},
             {text: 'Vertical window', link: '/components/transitions/vertical-window'},
             {text: 'Window', link: '/components/transitions/window'}

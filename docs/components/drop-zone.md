@@ -20,16 +20,16 @@ props:
         type: string
         optional: true
 
+    -   name: aria-label
+        description: The accessible label of the drop zone. Defaults to the translated `flux.dropFilesOrClick` string.
+        type: string
+        optional: true
+
     -   name: disabled
         description: If the drop zone is disabled.
         type: boolean
         optional: true
 
-    -   name: is-empty
-        description: If the placeholder should be shown.
-        type: boolean
-        optional: true
-        
     -   name: is-loading
         description: If the drop zone is in a loading state.
         type: boolean
@@ -42,14 +42,21 @@ props:
 
 slots:
     -   name: default
-        description: Content that is shown when the drop zone is not empty.
+        description: The content of the drop zone.
         type:
             isDragging: boolean
             isDraggingOver: boolean
             showPicker: "() => void"
 
-    -   name: placeholder
-        description: Content that is shown when the drop zone is empty.
+    -   name: actions
+        description: Content that is rendered below the drop zone content, for example buttons that call `showPicker`.
+        type:
+            isDragging: boolean
+            isDraggingOver: boolean
+            showPicker: "() => void"
+
+    -   name: extra
+        description: Additional content that is rendered after the actions, outside of the drop area.
         type:
             isDragging: boolean
             isDraggingOver: boolean

@@ -1,10 +1,10 @@
 <template>
     <Preview>
-        <FluxPane :style="{ width: '50%' }">
+        <FluxPane :style="{ width: '25%' }">
             <FluxPaneBody>
-                <FluxGallery
-                    :items="items"
-                    :pending-items="pendingItems"/>
+                <FluxGalleryItem
+                    is-deletable
+                    url="/assets/demo/image-1.jpg"/>
             </FluxPaneBody>
         </FluxPane>
     </Preview>
@@ -13,16 +13,5 @@
 <script
     setup
     lang="ts">
-    import { FluxGallery, FluxPane, FluxPaneBody } from '@flux-ui/components';
-
-    const items = [
-        "/assets/demo/image-1.jpg",
-        "/assets/demo/image-2.jpg",
-        "/assets/demo/image-3.jpg",
-        "/assets/demo/image-4.jpg"
-    ];
-
-    const pendingItems = [
-        "/assets/demo/image-5.jpg",
-    ];
+    import { FluxGalleryItem, FluxPane, FluxPaneBody } from '@flux-ui/components';
 </script>

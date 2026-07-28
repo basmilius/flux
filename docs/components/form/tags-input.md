@@ -49,9 +49,29 @@ props:
         type: [ 'string | null' ]
         optional: true
 
+    -   name: is-condensed
+        description: If the input is rendered at a reduced height.
+        type: boolean
+        optional: true
+
+    -   name: is-readonly
+        description: Whether the input is read-only. Tags can no longer be added or removed.
+        type: boolean
+        optional: true
+
+    -   name: is-secondary
+        description: If the field is secondary and is rendered in an alternative style.
+        type: boolean
+        optional: true
+
     -   name: max
         description: The maximum number of tags.
         type: number
+        optional: true
+
+    -   name: name
+        description: The name attribute of the underlying input element.
+        type: string
         optional: true
 
     -   name: placeholder
@@ -73,6 +93,9 @@ props:
         description: A function that returns whether a value is a valid tag.
         type: ( value:&nbsp;string ) => boolean
         optional: true
+
+requiredIcons:
+    - xmark
 ---
 
 # Tags input

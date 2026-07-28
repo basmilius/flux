@@ -137,6 +137,9 @@ slots:
 
     -   name: after
         description: Custom content shown after the label, alongside the optional command label.
+
+requiredIcons:
+    - circle-check
 ---
 
 # Menu item

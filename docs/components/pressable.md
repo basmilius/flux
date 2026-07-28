@@ -17,7 +17,7 @@ emits:
 props:
     -   name: component-type
         description: Determines which HTML element or component is rendered.
-        type: "'route' | 'link' | 'button' | 'div'"
+        type: "'button' | 'link' | 'route' | 'none'"
         optional: true
 
     -   name: href

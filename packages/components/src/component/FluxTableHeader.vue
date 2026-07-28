@@ -3,6 +3,7 @@
         ref="header"
         :class="clsx(
             $style.tableHeader,
+            isResizable && $style.isResizable,
             isShrinking && $style.isShrinking,
             pinnedSide === 'start' && $style.isPinnedStart,
             pinnedSide === 'end' && $style.isPinnedEnd,
@@ -54,15 +55,30 @@
                 </template>
             </FluxMenu>
         </FluxFlyout>
+
+        <button
+            v-if="isResizable"
+            ref="resizeHandle"
+            :class="clsx($style.tableResize, isDragging && $style.isDragging)"
+            role="separator"
+            aria-orientation="vertical"
+            :aria-label="translate('flux.resizeColumn')"
+            :aria-valuemax="maxWidth"
+            :aria-valuemin="minWidth ?? MIN_RESIZE_WIDTH"
+            :aria-valuenow="resizedWidth ?? width"
+            type="button"
+            @dblclick="resetWidth"
+            @keydown="onResizeKeyDown"/>
     </div>
 </template>
 
 <script
     lang="ts"
     setup>
+    import { usePointerDrag } from '@flux-ui/internals';
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { computed, onUnmounted, unref, useTemplateRef, type VNode } from 'vue';
+    import { computed, onUnmounted, ref, unref, useTemplateRef, type VNode, watch } from 'vue';
     import { useTableInjection } from '~flux/components/composable';
     import { useTableColumnIndex, useTranslate } from '~flux/components/composable/private';
     import type { FluxTableColumnDef } from '~flux/components/data';
@@ -74,7 +90,13 @@
     import FluxSeparator from './FluxSeparator.vue';
     import $style from '~flux/components/css/component/Table.module.scss';
 
-    defineEmits<{
+    const MIN_RESIZE_WIDTH = 48;
+    const RESIZE_STEP = 12;
+    const RESIZE_STEP_LARGE = 48;
+    const RESIZE_THRESHOLD = 3;
+
+    const emit = defineEmits<{
+        resize: [number | null];
         sort: ['ascending' | 'descending' | null];
     }>();
 
@@ -93,6 +115,7 @@
         readonly align?: 'start' | 'center' | 'end';
         readonly dataType?: 'text' | 'numeric' | 'date';
         readonly isNumeric?: boolean;
+        readonly isResizable?: boolean;
         readonly isShrinking?: boolean;
         readonly isSortable?: boolean;
         readonly maxWidth?: number;
@@ -108,6 +131,9 @@
     }>();
 
     const header = useTemplateRef('header');
+    const resizeHandle = useTemplateRef<HTMLButtonElement>('resizeHandle');
+
+    const resizedWidth = ref<number | null>(null);
 
     const {
         columns,
@@ -117,6 +143,28 @@
     } = useTableInjection();
 
     const translate = useTranslate();
+
+    let dragStartWidth = 0;
+    let widthBeforeDrag: number | null = null;
+
+    const {isDragging} = usePointerDrag(resizeHandle, {
+        axis: 'x',
+        threshold: RESIZE_THRESHOLD,
+        onStart() {
+            dragStartWidth = unref(header)?.getBoundingClientRect().width ?? 0;
+            widthBeforeDrag = unref(resizedWidth);
+        },
+        onMove({dx}) {
+            resizedWidth.value = clampWidth(dragStartWidth + dx);
+        },
+        onEnd() {
+            if (unref(resizedWidth) === widthBeforeDrag) {
+                return;
+            }
+
+            emit('resize', unref(resizedWidth));
+        }
+    });
 
     const columnIndex = useTableColumnIndex(header, columns);
 
@@ -140,7 +188,7 @@
         minWidth,
         noWrap,
         pinned: pinnedSide.value,
-        width
+        width: resizedWidth.value ?? width
     }));
 
     const isPinnedEdge = computed(() => {
@@ -212,6 +260,41 @@
                 return 'arrow-up-arrow-down';
         }
     });
+
+    // A width handed down by the consumer replaces a dragged one, so restoring a
+    // saved column layout wins from stale local state.
+    watch(() => width, () => {
+        resizedWidth.value = null;
+    });
+
+    function clampWidth(value: number): number {
+        return Math.round(Math.min(maxWidth ?? Number.POSITIVE_INFINITY, Math.max(minWidth ?? MIN_RESIZE_WIDTH, value)));
+    }
+
+    function resetWidth(): void {
+        resizedWidth.value = null;
+        emit('resize', null);
+    }
+
+    function onResizeKeyDown(evt: KeyboardEvent): void {
+        if (evt.key === 'Home') {
+            evt.preventDefault();
+            resetWidth();
+            return;
+        }
+
+        if (evt.key !== 'ArrowLeft' && evt.key !== 'ArrowRight') {
+            return;
+        }
+
+        evt.preventDefault();
+
+        const step = evt.shiftKey ? RESIZE_STEP_LARGE : RESIZE_STEP;
+        const current = unref(resizedWidth) ?? unref(header)?.getBoundingClientRect().width ?? 0;
+
+        resizedWidth.value = clampWidth(current + (evt.key === 'ArrowLeft' ? -step : step));
+        emit('resize', unref(resizedWidth));
+    }
 
     const unregisterColumn = registerColumn(header, columnDef);
     onUnmounted(unregisterColumn);

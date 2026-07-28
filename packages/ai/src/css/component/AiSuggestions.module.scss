@@ -1,0 +1,55 @@
+@use '~flux/components/css/mixin';
+
+.aiSuggestions {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+    gap: 6px;
+    list-style: none;
+}
+
+.aiSuggestion {
+    @include mixin.text(small);
+
+    display: flex;
+    max-width: 100%;
+    height: 33px;
+    padding-inline: 12px;
+    align-items: center;
+    gap: 9px;
+    background: var(--gray-soft);
+    border: 1px solid var(--gray-border);
+    border-radius: var(--radius-full);
+    color: var(--foreground);
+    cursor: pointer;
+    font-weight: 500;
+    transition: var(--transition-default);
+    transition-property: background, border-color, color, mixin.focus-ring-transition-properties();
+
+    @include mixin.focus-ring(2px);
+
+    @include mixin.hover {
+        background: var(--gray-soft-hover);
+    }
+
+    &:active {
+        background: var(--gray-soft-hover);
+        border-color: var(--surface-stroke-hover);
+    }
+
+    &:disabled {
+        cursor: default;
+        opacity: .5;
+        pointer-events: none;
+    }
+}
+
+.aiSuggestionIcon {
+    flex-shrink: 0;
+    color: var(--foreground-secondary);
+}
+
+.aiSuggestionLabel {
+    @include mixin.truncate;
+}

@@ -1,6 +1,11 @@
 ---
 outline: deep
 
+emits:
+    -   name: click
+        description: Triggered when the pane is clicked. Not triggered while the pane is disabled or loading.
+        type: [ MouseEvent ]
+
 props:
     -   name: disabled
         description: If the pane is disabled, blocking interaction and dimming its content.
@@ -27,6 +32,7 @@ props:
         description: The interaction type of the clickable pane.
         type: FluxPressableType
         optional: true
+        default: button
 
     -   name: tabindex
         description: The tabindex of the pane, works exactly the same as html.

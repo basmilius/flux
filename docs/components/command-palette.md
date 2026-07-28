@@ -49,6 +49,9 @@ keyboardShortcuts:
 
     -   key: Backspace
         action: Go back one breadcrumb level (when search is empty)
+
+requiredIcons:
+    - magnifying-glass
 ---
 
 # Command Palette

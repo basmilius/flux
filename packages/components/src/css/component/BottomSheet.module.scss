@@ -1,0 +1,143 @@
+@use '~flux/components/css/mixin';
+
+.bottomSheet {
+    composes: overlay from './Overlay.module.scss';
+
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.bottomSheetSurface {
+    @include mixin.elevation('surface', var(--radius-double) var(--radius-double) 0 0);
+
+    display: flex;
+    max-height: 100%;
+    width: min(100%, 720px);
+    padding-bottom: env(safe-area-inset-bottom);
+    flex-flow: column nowrap;
+    border-block-end: 0;
+    border-inline: 0;
+    // The first shadow continues the sheet below the screen edge, so lifting it past its
+    // tallest snap point stretches into that strip instead of opening a gap underneath.
+    box-shadow: 0 48px 0 var(--surface-current), var(--shadow-lg);
+    overflow: hidden;
+    touch-action: pan-y;
+    transform-origin: 50% 100%;
+    translate: 0 var(--sheet-offset, 0px);
+    transition: 480ms var(--swift-out);
+    transition-property: filter, scale, translate;
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+}
+
+.bottomSheetSurface.isDragging {
+    touch-action: none;
+    user-select: none;
+    transition: none;
+
+    > .bottomSheetGrabber {
+        cursor: grabbing;
+    }
+}
+
+.bottomSheetSurface > :not(.bottomSheetGrabber) {
+    min-height: 0;
+    flex: 1 1 auto;
+    overscroll-behavior-y: contain;
+    overflow: auto;
+}
+
+.bottomSheetSurface > .basePaneStructure {
+    display: flex;
+    flex-flow: column nowrap;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+
+    > .paneHeader,
+    > .paneFooter {
+        position: sticky;
+        background: inherit;
+        z-index: 100;
+    }
+
+    > .paneHeader {
+        top: 0;
+    }
+
+    > .paneFooter {
+        bottom: 0;
+        margin-top: auto;
+    }
+}
+
+.bottomSheetGrabber {
+    @include mixin.focus-ring(-6px);
+
+    appearance: none;
+    display: flex;
+    height: 30px;
+    padding: 0;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 0;
+    border-radius: var(--radius-double) var(--radius-double) 0 0;
+    cursor: grab;
+    touch-action: none;
+
+    &::before {
+        display: block;
+        height: 6px;
+        width: 54px;
+        content: '';
+        background: var(--surface-stroke);
+        border-radius: var(--radius-full);
+        transition: background var(--transition-default);
+    }
+
+    @include mixin.hover {
+        &::before {
+            background: var(--surface-stroke-hover);
+        }
+    }
+}
+
+.bottomSheet.isCurrent > .bottomSheetSurface {
+    pointer-events: auto;
+}
+
+.bottomSheet:not(.isCurrent) > .bottomSheetSurface {
+    filter: brightness(.75) blur(3px) grayscale(.5) saturate(180%);
+    scale: .975;
+}
+
+.bottomSheetTransitionEnterActive {
+    transition: opacity 480ms var(--swift-out);
+}
+
+.bottomSheetTransitionLeaveActive {
+    // The shade keys on the leaving dialog's class, so it fades out with the sheet.
+    composes: slideOverTransitionLeaveActive from './Overlay.module.scss';
+}
+
+.bottomSheetTransitionEnterFrom,
+.bottomSheetTransitionLeaveTo {
+    opacity: 0;
+
+    > .bottomSheetSurface {
+        translate: 0 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bottomSheetTransitionEnterFrom,
+    .bottomSheetTransitionLeaveTo {
+        > .bottomSheetSurface {
+            translate: none;
+        }
+    }
+}

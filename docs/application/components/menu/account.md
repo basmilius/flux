@@ -27,6 +27,9 @@ slots:
 
     -   name: switcher
         description: When provided, the account item becomes clickable and opens a flyout containing the slot content. Use this to render an account switcher or sign-out menu.
+
+requiredIcons:
+    - angle-down
 ---
 
 # Application menu account
