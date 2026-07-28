@@ -3,7 +3,7 @@ outline: deep
 
 props:
     -   name: columns
-        description: The number of columns. Pass a single number for every screen size, or an object with a number per breakpoint. A breakpoint that is left out inherits the one below it, and an object without xs starts at a single column.
+        description: The number of columns. Pass a single number for every size, or an object with a number per breakpoint. Breakpoints are measured against the width of the masonry itself, not the viewport. A breakpoint that is left out inherits the one below it, and an object without xs starts at a single column.
         type: [ 'number', '{ xs?: number; sm?: number; md?: number; lg?: number; xl?: number }' ]
         default: 3
         optional: true
@@ -34,11 +34,11 @@ render=../../code/components/layout/masonry/preview.vue
 :::
 
 ::: tip
-Items read down each column, not across the rows: the second item sits below the first, not next to it. That is the right order for a gallery or a card wall, and the wrong one for content the reader works through in sequence, such as a ranked list or a set of numbered steps. Reach for the [Grid](./grid/) there.
+Items fill the first free spot, reading across the row: the second item sits next to the first, the fourth drops under whichever item leaves room for it. Every item stays whole, however tall it is. Reach for the [Grid](./grid/) when the rows have to line up.
 :::
 
 ::: info
-The masonry owns the columns and the gap, nothing else. Items bring their own box: background, padding, radius, and a margin when they need more room than the gap gives. A margin declared on an item overrides the gap.
+The masonry owns the columns and the gap, nothing else. Items bring their own box: background, padding, radius, and a margin when they need more room than the gap gives. A margin declared on an item is added to the gap.
 :::
 
 <FrontmatterDocs/>
@@ -49,7 +49,7 @@ The masonry owns the columns and the gap, nothing else. Items bring their own bo
 example=../../code/components/layout/masonry/basic.vue
 :::
 
-::: example Responsive columns || Pass an object to set the column count per breakpoint. Anything left out inherits the breakpoint below it, so `{xs: 1, sm: 2, lg: 4}` covers `md` and `xl` as well.
+::: example Responsive columns || Pass an object to set the column count per breakpoint. Anything left out inherits the breakpoint below it, so `{xs: 1, sm: 2, lg: 4}` covers `md` and `xl` as well. The breakpoint follows the width of the masonry, so one placed in a narrow column drops to fewer columns without the page having to be narrow.
 example=../../code/components/layout/masonry/responsive.vue
 :::
 

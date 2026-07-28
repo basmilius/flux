@@ -1,30 +1,14 @@
-@use '~flux/components/css/mixin';
-
 .masonry {
-    column-count: var(--xs);
-
-    // balance is the initial value, but it is what makes the layout: with auto the first
-    // column runs to the full height of the container and the rest stay empty.
-    column-fill: balance;
-    column-gap: var(--gap);
-
-    > * {
-        break-inside: avoid;
-    }
+    display: grid;
+    align-items: start;
+    gap: var(--gap);
+    grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
 }
 
-// Zero specificity, so an item that brings its own margin keeps it. column-gap only spaces
-// the columns, so the vertical half of the gap has to come from the items.
-:where(.masonry) > * {
-    margin-bottom: var(--gap);
-}
-
-$-breakpoints: sm, md, lg, xl;
-
-@each $-breakpoint in $-breakpoints {
-    @include mixin.breakpoint-up($-breakpoint) {
-        .masonry {
-            column-count: var(--#{$-breakpoint});
-        }
-    }
+// Once the items are measured the rows become a 1px ruler and every item spans its own
+// height plus the gap. The negative margin trims the trailing gap of the tallest column.
+.isPacked {
+    margin-bottom: calc(var(--gap) * -1);
+    grid-auto-rows: 1px;
+    row-gap: 0;
 }
