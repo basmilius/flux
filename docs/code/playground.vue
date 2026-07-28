@@ -1373,7 +1373,7 @@
         </div>
 
         <h2>Menus and floating surfaces</h2>
-        <p>A menu is normally painted on a raised surface inside a flyout. Putting one straight in a pane shows the same thing without having to hold it open, so the item hover, the selected marker and the destructive item can all be read at once.</p>
+        <p>A menu is normally painted on a raised surface inside a flyout. Putting one straight in a pane shows the same thing without having to hold it open, so the item hover, the selected marker and the destructive item can all be read at once. The filter menu carries its search field in a menu pane, which is the one place the arrow keys drive the control instead of the menu's own roving focus.</p>
         <FluxMasonry
             :columns="{xs: 1, sm: 2, xl: 4}"
             data-prose-full
@@ -1498,6 +1498,33 @@
                         <FluxMenuItem icon-leading="copy"/>
                         <FluxMenuItem icon-leading="paste"/>
                         <FluxMenuItem icon-leading="trash"/>
+                    </FluxMenuGroup>
+                </FluxMenu>
+            </FluxPane>
+
+            <FluxPane>
+                <FluxMenu>
+                    <FluxMenuTitle title="Filter"/>
+
+                    <FluxMenuPane>
+                        <FluxFormInput
+                            v-model="menuFilter"
+                            aria-label="Filter commands"
+                            icon-leading="magnifying-glass"
+                            placeholder="Filter commands..."
+                            type="search"/>
+                    </FluxMenuPane>
+
+                    <FluxMenuGroup>
+                        <FluxMenuItem
+                            v-for="command of filteredMenuCommands"
+                            :key="command.label"
+                            :icon-leading="command.icon"
+                            :label="command.label"/>
+
+                        <FluxMenuSubHeader
+                            v-if="filteredMenuCommands.length === 0"
+                            label="No matches"/>
                     </FluxMenuGroup>
                 </FluxMenu>
             </FluxPane>
@@ -2603,6 +2630,7 @@ const article = FluxProse;</code></pre>
     const openedSheet = ref<OpenedSheet>(null);
     const sheetPosition = ref<SheetPosition>('bottom');
     const brightness = ref(60);
+    const menuFilter = ref('');
     const menuOption = ref('Second option');
     const menuView = ref('grid');
     const search = ref('');
@@ -2615,6 +2643,15 @@ const article = FluxProse;</code></pre>
     const pickedDate = ref<DateTime | DateTime[] | null>(DateTime.now());
 
     const menuOptions = ['First option', 'Second option', 'Third option'];
+
+    const menuCommands: { readonly icon: FluxIconName; readonly label: string; }[] = [
+        {icon: 'file-plus', label: 'New file'},
+        {icon: 'folder', label: 'Open folder'},
+        {icon: 'clone', label: 'Duplicate'},
+        {icon: 'pen', label: 'Rename'},
+        {icon: 'users', label: 'Invite members'},
+        {icon: 'gear', label: 'Settings'}
+    ];
 
     const form = reactive({
         accent: '#4f46e5',
@@ -2829,6 +2866,7 @@ const article = FluxProse;</code></pre>
         }
     ];
 
+    const filteredMenuCommands = computed(() => menuCommands.filter(command => command.label.toLowerCase().includes(menuFilter.value.toLowerCase())));
     const failedCount = computed(() => deployments.filter(deployment => deployment.status === 'Failed').length);
     const totalCost = computed(() => deployments.reduce((total, deployment) => total + deployment.cost, 0));
 
