@@ -81,12 +81,68 @@
     border-bottom-right-radius: 0;
 }
 
+.expandablePane {
+    display: flex;
+    flex-flow: column;
+}
+
+.expandablePaneOpened {
+    composes: expandablePane;
+}
+
+.expandablePaneHeader {
+    composes: paneHeader paneHeaderClickable from './Pane.module.scss';
+}
+
+.expandablePaneHeaderIcon {
+    composes: paneHeaderIcon from './Pane.module.scss';
+}
+
+.expandablePaneHeaderCaption {
+    composes: paneHeaderCaption from './Pane.module.scss';
+}
+
+.expandablePaneHeaderChevron {
+    composes: paneHeaderChevron from './Pane.module.scss';
+}
+
+.expandablePane .expandablePaneHeaderChevron {
+    transition: 210ms var(--swift-out);
+    transition-property: color, rotate, transform;
+}
+
+.expandablePaneOpened .expandablePaneHeaderChevron {
+    rotate: 90deg;
+}
+
+.expandablePaneBody {
+    transition: height 390ms var(--swift-out), opacity 300ms var(--swift-out) 120ms;
+
+    &:global(.v-enter-from),
+    &:global(.v-leave-to) {
+        opacity: 0;
+    }
+
+    &:global(.v-leave-active) {
+        transition-delay: 0s;
+    }
+
+    &:global(.v-enter-active),
+    &:global(.v-leave-active) {
+        overflow: hidden;
+    }
+}
+
 .expandableGroup {
     display: flex;
     flex-flow: column;
 
     .expandable + .expandable {
         border-top: 1px solid var(--surface-stroke);
+    }
+
+    .expandablePane + .expandablePane {
+        margin-top: 9px;
     }
 
     &:not(:first-child) {

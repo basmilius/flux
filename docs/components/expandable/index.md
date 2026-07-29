@@ -82,6 +82,10 @@ Multiple expandables can be grouped together using [Expandable Groups](./group).
 :::
 
 ::: tip
+Need the expandable to look like a pane instead of a row within one? Use an [Expandable Pane](./pane).
+:::
+
+::: tip
 The default header renders an accessible disclosure button with `aria-controls` and `aria-expanded` wired to the body region. When you provide a custom `header` slot, use the `headerId` and `contentId` slot props (also available on the `body` slot) to recreate this relationship on your own trigger element.
 :::
 

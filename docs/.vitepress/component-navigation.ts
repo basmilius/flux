@@ -171,7 +171,8 @@ const navigation: SidebarItem[] = [
                 link: '/components/expandable/',
                 collapsed: true,
                 items: [
-                    {text: 'Group', link: '/components/expandable/group'}
+                    {text: 'Group', link: '/components/expandable/group'},
+                    {text: 'Pane', link: '/components/expandable/pane'}
                 ]
             },
             {

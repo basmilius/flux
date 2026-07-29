@@ -44,6 +44,7 @@ export { default as FluxDropZone } from './FluxDropZone.vue';
 export { default as FluxDynamicView } from './FluxDynamicView.vue';
 export { default as FluxExpandable } from './FluxExpandable.vue';
 export { default as FluxExpandableGroup } from './FluxExpandableGroup.vue';
+export { default as FluxExpandablePane } from './FluxExpandablePane.vue';
 export { default as FluxFader } from './FluxFader.vue';
 export { default as FluxFaderItem } from './FluxFaderItem.vue';
 export { default as FluxFilter } from './FluxFilter.vue';
