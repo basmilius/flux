@@ -53,9 +53,9 @@
     import FluxDatePicker from '../FluxDatePicker.vue';
     import FluxFlex from '../FluxFlex.vue';
     import FluxFlyout from '../FluxFlyout.vue';
+    import FluxSecondaryButton from '../FluxSecondaryButton.vue';
     import FluxFormInput from './FluxFormInput.vue';
     import FluxFormInputGroup from './FluxFormInputGroup.vue';
-    import FluxSecondaryButton from '../FluxSecondaryButton.vue';
     import $style from '~flux/components/css/component/Form.module.scss';
 
     const modelValue = defineModel<DateTime | null>({

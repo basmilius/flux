@@ -154,14 +154,14 @@
     import { collectExpandedIds, flattenAll, flattenSearch, flattenVisible, INITIAL_HIGHLIGHTED_INDEX, type TreeFlatNode, useDropdownPopup, useTranslate, useTreeView } from '~flux/components/composable/private';
     import { type FluxFormRadioGroupValue, FluxFormRadioGroupInjectionKey, FluxItemControlInjectionKey } from '~flux/components/data';
     import { FluxFadeTransition } from '~flux/components/transition';
+    import FluxIcon from '../FluxIcon.vue';
+    import FluxSpinner from '../FluxSpinner.vue';
+    import FluxTag from '../FluxTag.vue';
+    import FluxMenuItem from '../menu/FluxMenuItem.vue';
+    import { Anchor, AnchorPopup, TreeNodeRenderer } from '../primitive';
     import FluxFormCheckbox from './FluxFormCheckbox.vue';
     import FluxFormInput from './FluxFormInput.vue';
     import FluxFormRadio from './FluxFormRadio.vue';
-    import FluxIcon from '../FluxIcon.vue';
-    import FluxMenuItem from '../menu/FluxMenuItem.vue';
-    import FluxSpinner from '../FluxSpinner.vue';
-    import FluxTag from '../FluxTag.vue';
-    import { Anchor, AnchorPopup, TreeNodeRenderer } from '../primitive';
     import $formStyle from '~flux/components/css/component/Form.module.scss';
     import $style from '~flux/components/css/component/TreeViewSelect.module.scss';
 

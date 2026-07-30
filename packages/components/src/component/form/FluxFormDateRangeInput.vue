@@ -51,8 +51,8 @@
     import { createLabelForDateRange } from '~flux/components/util';
     import FluxDatePicker from '../FluxDatePicker.vue';
     import FluxFlyout from '../FluxFlyout.vue';
-    import FluxFormInputGroup from './FluxFormInputGroup.vue';
     import FluxSecondaryButton from '../FluxSecondaryButton.vue';
+    import FluxFormInputGroup from './FluxFormInputGroup.vue';
     import $style from '~flux/components/css/component/Form.module.scss';
 
     const modelValue = defineModel<[DateTime, DateTime] | null>({

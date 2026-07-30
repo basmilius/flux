@@ -8,8 +8,8 @@
 <script
     lang="ts"
     setup>
-    import { mulberry32, prefersReducedMotion } from '@basmilius/utils';
     import { useInView } from '@basmilius/common';
+    import { mulberry32, prefersReducedMotion } from '@basmilius/utils';
     import { computed, onBeforeUnmount, ref, unref, useId, useTemplateRef, watch } from 'vue';
     import $style from '~flux/visuals/css/component/Visual.module.scss';
 
@@ -39,18 +39,6 @@
     const instanceId = useId();
     const inView = useInView(canvasRef, {initial: true});
     const reducedMotion = prefersReducedMotion();
-
-    // mulberry32 seeds on a number, so the id becomes one; any collision only
-    // means two instances draw the same polygons.
-    function hashId(value: string): number {
-        let hash = 0;
-
-        for (let index = 0; index < value.length; index++) {
-            hash = (hash * 31 + value.charCodeAt(index)) | 0;
-        }
-
-        return hash;
-    }
 
     const polygons = computed(() => {
         if (!colors || colors.length === 0) {
@@ -193,5 +181,16 @@
         }
 
         schedule();
+    }
+
+    // mulberry32 seeds on a number, so the id becomes one.
+    function hashId(value: string): number {
+        let hash = 0;
+
+        for (let index = 0; index < value.length; index++) {
+            hash = (hash * 31 + value.charCodeAt(index)) | 0;
+        }
+
+        return hash;
     }
 </script>

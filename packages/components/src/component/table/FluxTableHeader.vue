@@ -75,8 +75,8 @@
 <script
     lang="ts"
     setup>
-    import { clamp } from '@basmilius/utils';
     import { usePointerDrag } from '@basmilius/common';
+    import { clamp } from '@basmilius/utils';
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, onUnmounted, ref, unref, useTemplateRef, type VNode, watch } from 'vue';

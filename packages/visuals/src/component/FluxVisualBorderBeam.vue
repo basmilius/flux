@@ -23,8 +23,8 @@
 <script
     lang="ts"
     setup>
-    import { clamp } from '@basmilius/utils';
     import { useInView } from '@basmilius/common';
+    import { clamp } from '@basmilius/utils';
     import type { FluxVisualBorderBeamVariant } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, ref, unref, useTemplateRef, watch } from 'vue';

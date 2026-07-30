@@ -42,8 +42,8 @@
 <script
     lang="ts"
     setup>
-    import { clamp } from '@basmilius/utils';
     import { unwrapElement } from '@basmilius/common';
+    import { clamp } from '@basmilius/utils';
     import { onMounted, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';

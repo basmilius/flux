@@ -33,8 +33,8 @@
 <script
     lang="ts"
     setup>
-    import { isHtmlElement } from '@basmilius/utils';
     import { useEventListener } from '@basmilius/common';
+    import { isHtmlElement } from '@basmilius/utils';
     import { getFocusableElements, isSSR } from '@flux-ui/internals';
     import type { FluxDirection } from '@flux-ui/types';
     import { computed, onUnmounted, ref, toRef, useId, useTemplateRef, type VNode, watch } from 'vue';

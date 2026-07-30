@@ -109,16 +109,16 @@
     import { useTranslate } from '~flux/components/composable/private';
     import { isResettable } from '~flux/components/util';
     import FluxBadge from '../FluxBadge.vue';
-    import FluxFilterBase from './FluxFilterBase.vue';
-    import FluxFilterWindow from './FluxFilterWindow.vue';
     import FluxFlyout from '../FluxFlyout.vue';
+    import FluxOverflowBar from '../FluxOverflowBar.vue';
+    import FluxSecondaryButton from '../FluxSecondaryButton.vue';
+    import FluxSeparator from '../FluxSeparator.vue';
     import FluxFormInput from '../form/FluxFormInput.vue';
     import FluxMenu from '../menu/FluxMenu.vue';
     import FluxMenuGroup from '../menu/FluxMenuGroup.vue';
     import FluxMenuItem from '../menu/FluxMenuItem.vue';
-    import FluxOverflowBar from '../FluxOverflowBar.vue';
-    import FluxSecondaryButton from '../FluxSecondaryButton.vue';
-    import FluxSeparator from '../FluxSeparator.vue';
+    import FluxFilterBase from './FluxFilterBase.vue';
+    import FluxFilterWindow from './FluxFilterWindow.vue';
     import $style from '~flux/components/css/component/Filter.module.scss';
 
     const emit = defineEmits<{

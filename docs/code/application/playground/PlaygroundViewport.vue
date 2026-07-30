@@ -51,9 +51,8 @@
 <script
     lang="ts"
     setup>
-    import { useResizeObserver } from '@basmilius/common';
+    import { usePointerDrag, useResizeObserver } from '@basmilius/common';
     import { FluxSegmentedControl, FluxSegmentedControlItem, FluxSpacer } from '@flux-ui/components';
-    import { usePointerDrag } from '@basmilius/common';
     import { withBase } from 'vitepress';
     import { computed, ref, useTemplateRef } from 'vue';
 

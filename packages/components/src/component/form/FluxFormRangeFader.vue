@@ -132,8 +132,8 @@
 <script
     lang="ts"
     setup>
-    import { formatNumber } from '@basmilius/utils';
     import { unwrapElement } from '@basmilius/common';
+    import { formatNumber } from '@basmilius/utils';
     import type { FluxColor, FluxDirection, FluxFormInputBaseProps, FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, type CSSProperties, nextTick, onBeforeUnmount, ref, toRef, unref, useTemplateRef, watch } from 'vue';
