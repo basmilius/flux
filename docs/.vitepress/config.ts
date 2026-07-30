@@ -131,15 +131,6 @@ export default defineConfig({
         },
 
         sidebar: {
-            '/temp-pr40': [
-                {
-                    text: 'Temporary',
-                    collapsed: false,
-                    items: [
-                        {text: 'PR #40 test page', link: '/temp-pr40'}
-                    ]
-                }
-            ],
             '/guide/': [
                 {
                     text: 'Introduction',
