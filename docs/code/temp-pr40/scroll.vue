@@ -1,5 +1,5 @@
 <template>
-    <FluxFlex direction="column">
+    <FluxFlex direction="vertical">
         <FluxInfo color="warning">
             <strong>What to look for.</strong>
             <code>useScrollPosition</code> reads on mount now instead of during setup, which is the fix for the hydration mismatch. The cost is one tick: scroll the container, then remount it with the button. The badge must appear <em>after</em> the remount, not during it.
@@ -16,8 +16,8 @@
 
             <FluxPaneBody>
                 <FluxFlex
-                            direction="column"
-                            :gap="9">
+                        direction="vertical"
+                        :gap="9">
                     <div
                         :key="key"
                         ref="scroller"

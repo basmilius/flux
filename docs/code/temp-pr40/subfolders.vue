@@ -1,5 +1,5 @@
 <template>
-    <FluxFlex direction="column">
+    <FluxFlex direction="vertical">
         <FluxInfo color="warning">
             <strong>What to look for.</strong>
             One component from each of the four moved directories, plus two that reach across them. Everything must render and stay interactive: a broken relative import after the move shows up as a missing component, not as a build error.
@@ -10,8 +10,8 @@
                 <FluxPaneHeader title="form/ (35 components)"/>
                 <FluxPaneBody>
                     <FluxFlex
-                            direction="column"
-                            :gap="9">
+                        direction="vertical"
+                        :gap="9">
                         <FluxFormField label="Input with a suffix">
                             <FluxFormInputGroup>
                                 <FluxFormInput v-model="text"/>
@@ -67,8 +67,8 @@
                 <FluxPaneHeader title="Cross-directory: date picker in a flyout"/>
                 <FluxPaneBody>
                     <FluxFlex
-                            direction="column"
-                            :gap="9">
+                        direction="vertical"
+                        :gap="9">
                         <FluxFormField label="Date (form/ reaching calendar/)">
                             <FluxFormDateInput v-model="date"/>
                         </FluxFormField>

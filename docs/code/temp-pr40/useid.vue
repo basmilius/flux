@@ -1,5 +1,5 @@
 <template>
-    <FluxFlex direction="column">
+    <FluxFlex direction="vertical">
         <FluxInfo color="warning">
             <strong>What to look for.</strong>
             The expandable group registers its children by <code>useId()</code> now, where it used the instance uid before. Opening one item must close the other, which only works when registration and unregistration agree on the key.
@@ -24,8 +24,8 @@
                 <FluxPaneHeader title="Animated colors (seeded from the id)"/>
                 <FluxPaneBody>
                     <FluxFlex
-                            direction="column"
-                            :gap="9">
+                        direction="vertical"
+                        :gap="9">
                         <div class="canvas-host">
                             <FluxVisualAnimatedColors :colors="['#6366f1', '#ec4899', '#14b8a6']"/>
                         </div>

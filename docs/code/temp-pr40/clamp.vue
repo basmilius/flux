@@ -1,5 +1,5 @@
 <template>
-    <FluxFlex direction="column">
+    <FluxFlex direction="vertical">
         <FluxInfo color="warning">
             <strong>What to look for.</strong>
             Each control below runs on the shared <code>clamp</code> now. Drag every one to both ends: the value must stop at the bounds and never overshoot or wrap.
@@ -10,8 +10,8 @@
                 <FluxPaneHeader title="Quantity selector (min 2, max 8)"/>
                 <FluxPaneBody>
                     <FluxFlex
-                            direction="column"
-                            :gap="9">
+                        direction="vertical"
+                        :gap="9">
                         <FluxQuantitySelector
                             v-model="quantity"
                             :max="8"
@@ -25,8 +25,8 @@
                 <FluxPaneHeader title="Progress bar (0..100)"/>
                 <FluxPaneBody>
                     <FluxFlex
-                            direction="column"
-                            :gap="9">
+                        direction="vertical"
+                        :gap="9">
                         <FluxProgressBar :value="progress"/>
                         <FluxFormSlider
                             v-model="progress"
@@ -41,8 +41,8 @@
                 <FluxPaneHeader title="Color picker (clampByte)"/>
                 <FluxPaneBody>
                     <FluxFlex
-                            direction="column"
-                            :gap="9">
+                        direction="vertical"
+                        :gap="9">
                         <FluxColorPicker v-model="color"/>
                         <span>Hex: <strong>{{ color }}</strong> - alpha must never produce a channel outside 00..ff</span>
                     </FluxFlex>
@@ -53,8 +53,8 @@
                 <FluxPaneHeader title="Fader (stepped value)"/>
                 <FluxPaneBody>
                     <FluxFlex
-                            direction="column"
-                            :gap="9">
+                        direction="vertical"
+                        :gap="9">
                         <FluxFormFader
                             v-model="fader"
                             :max="10"

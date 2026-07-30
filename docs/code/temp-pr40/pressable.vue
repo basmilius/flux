@@ -1,5 +1,5 @@
 <template>
-    <FluxFlex direction="column">
+    <FluxFlex direction="vertical">
         <FluxInfo color="warning">
             <strong>What to look for.</strong>
             Every link below should behave exactly as it did on <code>main</code>. Hover each one and read the status bar, or right-click and copy the address: the URL must come back <strong>unchanged</strong>, spaces included. The last two must be inert.
@@ -13,8 +13,8 @@
 
                 <FluxPaneBody>
                     <FluxFlex
-                            direction="column"
-                            :gap="9">
+                        direction="vertical"
+                        :gap="9">
                         <code class="case-href">{{ item.href || '(empty string)' }}</code>
 
                         <FluxSecondaryButton
