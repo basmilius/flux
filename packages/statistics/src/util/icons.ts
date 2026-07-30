@@ -1,6 +1,6 @@
+import { escapeAttr } from '@basmilius/utils';
 import { iconRegistry } from '@flux-ui/components';
 import type { FluxIconName } from '@flux-ui/types';
-import { escapeAttr } from './html';
 
 export function renderIconSvg(name: FluxIconName | undefined, color: string, size: number = 14): string {
     if (!name) {

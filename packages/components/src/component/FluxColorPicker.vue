@@ -141,13 +141,13 @@
 <script
     lang="ts"
     setup>
-    import { hexToRGB, hslToHSV, hslToRGB, hsvToHSL, hsvToRGB, rgbToHEX, rgbToHSL, rgbToHSV } from '@basmilius/utils';
+    import { clamp, hexToRGB, hslToHSV, hslToRGB, hsvToHSL, hsvToRGB, rgbToHEX, rgbToHSL, rgbToHSV } from '@basmilius/utils';
     import { blue500 } from '@flux-ui/internals';
     import { computed, type ComputedRef, ref, unref, watch } from 'vue';
     import { useTranslate } from '~flux/components/composable/private';
-    import FluxFormField from './FluxFormField.vue';
-    import FluxFormInput from './FluxFormInput.vue';
-    import FluxFormSlider from './FluxFormSlider.vue';
+    import FluxFormField from './form/FluxFormField.vue';
+    import FluxFormInput from './form/FluxFormInput.vue';
+    import FluxFormSlider from './form/FluxFormSlider.vue';
     import CoordinatePicker from './primitive/CoordinatePicker.vue';
     import $style from '~flux/components/css/component/Color.module.scss';
 
@@ -295,7 +295,7 @@
     });
 
     function clampByte(value: number): number {
-        return Math.max(0, Math.min(255, Math.round(value)));
+        return clamp(Math.round(value), 0, 255);
     }
 
     function alphaToHex(value: number): string {

@@ -1,4 +1,4 @@
-import { countDecimals, roundStep } from '@basmilius/utils';
+import { clamp, countDecimals, roundStep } from '@basmilius/utils';
 import { unrefTemplateElement } from '@flux-ui/internals';
 import type { FluxColor, FluxDirection } from '@flux-ui/types';
 import { computed, type CSSProperties, onBeforeUnmount, onMounted, ref, type Ref, type ShallowRef, unref } from 'vue';
@@ -19,12 +19,12 @@ const DISCRETE_LIMIT = 12;
 
 /** The visible fill edge in px, clamped to the track. */
 export function faderFillEdgePx(percent: number, width: number): number {
-    return Math.min(Math.max(0, (percent / 100) * width), width);
+    return clamp((percent / 100) * width, 0, width);
 }
 
 /** Clamp a bar's center so it never gets closer than FADER_BAR_INSET to either side. */
 export function faderClampPark(centerPx: number, width: number): number {
-    return Math.min(Math.max(centerPx, FADER_BAR_INSET), Math.max(FADER_BAR_INSET, width - FADER_BAR_INSET));
+    return clamp(centerPx, FADER_BAR_INSET, Math.max(FADER_BAR_INSET, width - FADER_BAR_INSET));
 }
 
 /**
@@ -174,7 +174,7 @@ export function useFormFader(options: UseFaderOptions) {
         // bound keeps its own valid values reachable.
         const stepped = step > 0 ? min + roundStep(value - min, step) : value;
 
-        return +Math.max(min, Math.min(options.max(), stepped)).toFixed(unref(decimals));
+        return +clamp(stepped, min, options.max()).toFixed(unref(decimals));
     }
 
     function isDodging(center: number): boolean {

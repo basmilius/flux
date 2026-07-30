@@ -5,8 +5,6 @@ const FENCE = /^ {0,3}(`{3,}|~{3,})/;
 const INDENT = /^[ \t]/;
 const INDENTED = /^(?: {4}|\t)/;
 const LIST_MARKER = /^(?:[-*+]|\d{1,9}[.)])(?:[ \t]|$)/;
-const PROTOCOL = /^([a-z][a-z0-9+.-]*):/i;
-const UNSAFE_URL_CHARACTERS = /[\s\p{Cc}\p{Cf}]/gu;
 const WORD = /[\p{L}\p{N}]/u;
 
 const OPTIONS: MarkedOptions = {
@@ -16,8 +14,6 @@ const OPTIONS: MarkedOptions = {
     silent: true
 };
 
-export const IMAGE_PROTOCOLS = ['http:', 'https:'];
-export const LINK_PROTOCOLS = ['http:', 'https:', 'mailto:', 'tel:'];
 
 export type LexMarkdownResult = {
     readonly links: Links;
@@ -112,28 +108,6 @@ export function repairStreamingTail(source: string): string {
     const {masked, suffix} = maskCodeSpans(trimmed);
 
     return source.slice(0, start) + trimmed + suffix + emphasisSuffix(masked);
-}
-
-/**
- * Returns the url when it is safe to hand to the browser, and `null` when its
- * scheme is not one of the allowed ones. Urls without a scheme are relative and
- * always pass.
- */
-export function sanitizeUrl(url: string | null | undefined, protocols: readonly string[] = LINK_PROTOCOLS): string | null {
-    if (!url) {
-        return null;
-    }
-
-    // Whitespace and control characters go first, so a scheme the browser still
-    // honors cannot hide behind them as in "java\tscript:alert(1)".
-    const normalized = url.replace(UNSAFE_URL_CHARACTERS, '');
-    const protocol = PROTOCOL.exec(normalized);
-
-    if (protocol && !protocols.includes(`${protocol[1].toLowerCase()}:`)) {
-        return null;
-    }
-
-    return normalized || null;
 }
 
 function emphasisSuffix(line: string): string {

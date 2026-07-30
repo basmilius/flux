@@ -40,6 +40,7 @@
 <script
     lang="ts"
     setup>
+    import { clamp } from '@basmilius/utils';
     import { useResizeObserver } from '@basmilius/common';
     import { animationFrameDebounce, type DragContext, unrefTemplateElement, usePointerDrag, useSpring, useWheelDrag, warn } from '@flux-ui/internals';
     import { clsx } from 'clsx';
@@ -428,7 +429,7 @@
         startOffset ??= unref(offset.value);
 
         const wanted = startOffset + dx * unref(directionFactor);
-        const bounded = Math.min(maxOffset, Math.max(minOffset, wanted));
+        const bounded = clamp(wanted, minOffset, maxOffset);
 
         offset.snap(bounded + elasticResistance(wanted - bounded, OVERDRAG));
     }

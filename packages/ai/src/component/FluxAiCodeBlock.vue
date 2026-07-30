@@ -22,10 +22,10 @@
 <script
     lang="ts"
     setup>
+    import { copyToClipboard } from '@basmilius/utils';
     import { FluxIcon } from '@flux-ui/components';
     import { onUnmounted, ref } from 'vue';
-    import { useAiTranslate } from '~flux/ai/data';
-    import { copyToClipboard } from '~flux/ai/util';
+    import { useTranslate } from '~flux/ai/composable/private';
     import $style from '~flux/ai/css/component/AiCodeBlock.module.scss';
 
     const {
@@ -35,7 +35,7 @@
         readonly language?: string;
     }>();
 
-    const translate = useAiTranslate();
+    const translate = useTranslate();
 
     const isCopied = ref(false);
 

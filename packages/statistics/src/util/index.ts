@@ -1,5 +1,4 @@
 export * from './colors';
-export * from './html';
 export * from './icons';
 export * from './options';
 export * from './series';

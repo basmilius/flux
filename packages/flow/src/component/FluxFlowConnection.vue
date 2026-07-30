@@ -5,11 +5,12 @@
 <script
     lang="ts"
     setup>
+    import { clamp } from '@basmilius/utils';
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { computed, getCurrentInstance, onBeforeUnmount } from 'vue';
-    import { useFluxFlowInjection } from '~flux/flow/composable';
+    import { useFlowInjection } from '~flux/flow/composable';
     import type { FluxFlowAlign, FluxFlowConnectionType, FluxFlowEdgeSpec, FluxFlowLabelPlacement, FluxFlowMarker, FluxFlowMarkerFill, FluxFlowNodeRecord, FluxFlowPortRecord, FluxFlowPosition, FluxFlowSide } from '~flux/flow/data';
-    import { anchorPoint, autoSides, clamp, collectObstacles, getBezierPath, getSelfLoopPath, getSmoothStepPath, getStepPath, getStraightPath, markerPath, offsetPoint, portPoint, portSide, routeAvoid, selfLoopPoints } from '~flux/flow/util';
+    import { anchorPoint, autoSides, collectObstacles, getBezierPath, getSelfLoopPath, getSmoothStepPath, getStepPath, getStraightPath, markerPath, offsetPoint, portPoint, portSide, routeAvoid, selfLoopPoints } from '~flux/flow/util';
 
     const props = defineProps<{
         readonly from: string;
@@ -62,7 +63,7 @@
     };
 
     const uid = getCurrentInstance()!.uid;
-    const controller = useFluxFlowInjection();
+    const controller = useFlowInjection();
 
     const hasProgress = computed(() => props.progressValue !== undefined && props.progressValue !== null);
     const markerStart = computed<FluxFlowMarker>(() => props.markerStart ?? 'dot');

@@ -49,6 +49,7 @@
 <script
     lang="ts"
     setup>
+    import { clamp } from '@basmilius/utils';
     import type { FluxColor } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, unref } from 'vue';
@@ -74,7 +75,7 @@
     const ariaValueNow = computed(() => {
         const current = value ?? min;
 
-        return Math.min(max, Math.max(min, current));
+        return clamp(current, min, max);
     });
 
     const position = computed(() => {
@@ -88,7 +89,7 @@
             return current >= max ? 1 : 0;
         }
 
-        return Math.min(1, Math.max(0, (current - min) / (max - min)));
+        return clamp((current - min) / (max - min), 0, 1);
     });
 
     const progress = computed(() => new Intl

@@ -1,6 +1,7 @@
+import { clamp } from '@basmilius/utils';
 import { computed, type ComputedRef, type Ref, shallowReactive, shallowRef } from 'vue';
 import type { FluxFlowBounds, FluxFlowBoxRecord, FluxFlowController, FluxFlowDirection, FluxFlowEdgeRecord, FluxFlowNodeRecord, FluxFlowPosition, FluxFlowViewport } from '~flux/flow/data';
-import { boundsOfNodes, clamp } from '~flux/flow/util';
+import { boundsOfNodes } from '~flux/flow/util';
 
 type FlowControllerOptions = {
     readonly axis: Readonly<Ref<FluxFlowDirection | undefined>>;

@@ -51,9 +51,9 @@
 <script
     lang="ts"
     setup>
+    import { NAVIGATION_PROTOCOLS, sanitizeUrl } from '@basmilius/utils';
     import type { FluxPressableType, FluxTo } from '@flux-ui/types';
     import { computed, useAttrs, type VNode } from 'vue';
-    import { sanitizeUrl } from '~flux/components/util';
 
     const emit = defineEmits<{
         click: [MouseEvent];
@@ -75,7 +75,7 @@
 
     const attrs = useAttrs();
 
-    const safeHref = computed(() => sanitizeUrl(href));
+    const safeHref = computed(() => sanitizeUrl(href, NAVIGATION_PROTOCOLS) ?? undefined);
     const isHrefBlocked = computed(() => href != null && href !== '' && safeHref.value === undefined);
     const noneTabindex = computed(() => (attrs.tabindex as number | string | undefined) ?? 0);
     const linkTabindex = computed(() => isHrefBlocked.value ? -1 : attrs.tabindex as number | string | undefined);

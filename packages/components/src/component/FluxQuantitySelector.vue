@@ -42,6 +42,7 @@
 <script
     lang="ts"
     setup>
+    import { clamp } from '@basmilius/utils';
     import { unrefTemplateElement } from '@flux-ui/internals';
     import { onMounted, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '~flux/components/composable';
@@ -79,7 +80,7 @@
             return;
         }
 
-        const clamped = clamp(value);
+        const clamped = clamp(value, min, max);
 
         if (clamped !== value) {
             modelValue.value = clamped;
@@ -94,10 +95,6 @@
     onMounted(() => {
         sizeToContent();
     });
-
-    function clamp(value: number): number {
-        return Math.min(max, Math.max(min, value));
-    }
 
     function snap(value: number): number {
         if (step <= 0) {
@@ -115,7 +112,7 @@
             return;
         }
 
-        modelValue.value = clamp(unref(modelValue) - step);
+        modelValue.value = clamp(unref(modelValue) - step, min, max);
     }
 
     function increment(): void {
@@ -123,7 +120,7 @@
             return;
         }
 
-        modelValue.value = clamp(unref(modelValue) + step);
+        modelValue.value = clamp(unref(modelValue) + step, min, max);
     }
 
     function onInput(): void {
@@ -133,7 +130,7 @@
     function onChange(evt: Event): void {
         const value = (evt.target as HTMLInputElement).valueAsNumber;
 
-        modelValue.value = Number.isNaN(value) ? min : clamp(snap(value));
+        modelValue.value = Number.isNaN(value) ? min : clamp(snap(value), min, max);
     }
 
     function sizeToContent(): void {
