@@ -48,6 +48,7 @@
     "module": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "dependencies": {
+        "@basmilius/utils": "^3.57.0",
         "@flux-ui/components": "workspace:*",
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/types": "workspace:*",
