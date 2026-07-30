@@ -25,7 +25,5 @@ export {
     type FluxFlowPosition,
     type FluxFlowSide,
     type FluxFlowSize,
-    type FluxFlowTranslate,
-    type FluxFlowTranslation,
     type FluxFlowViewport
 } from './data';

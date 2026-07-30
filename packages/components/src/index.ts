@@ -18,24 +18,33 @@ export {
     useFluxStore
 } from './data';
 
-export type {
-    FluxTranslate,
-    FluxTranslation
-} from './data';
+export type { FluxTranslate } from './data';
 
 export type {
     FluxAdaptiveGroupChild,
     FluxAdaptiveGroupInjection,
     FluxCalendarInjection,
+    FluxCalendarItemData,
+    FluxCalendarKeyboardDirection,
+    FluxCalendarView,
     FluxExpandableGroupInjection,
     FluxFilterInjection,
     FluxFlyoutInjection,
     FluxFormCheckboxGroupInjection,
+    FluxFormCheckboxGroupValue,
     FluxFormFieldInjection,
     FluxFormRadioGroupInjection,
+    FluxFormRadioGroupValue,
+    FluxKanbanColumnDragState,
+    FluxKanbanDragState,
     FluxKanbanInjection,
+    FluxKanbanKeyboardDirection,
     FluxSegmentedControlInjection,
+    FluxSegmentedControlValue,
     FluxTabBarInjection,
+    FluxTableColumnDef,
+    FluxTableInjection,
+    FluxTablePinnedEdges,
     FluxTooltipInjection,
     FluxState,
     FluxStore
