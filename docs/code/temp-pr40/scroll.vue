@@ -44,6 +44,7 @@
 <script
     lang="ts"
     setup>
+    import { FluxBackToTop, FluxFlex, FluxInfo, FluxPane, FluxPaneBody, FluxPaneHeader, FluxSecondaryButton } from '@flux-ui/components';
     import { useScrollPosition } from '@basmilius/common';
     import { ref, useTemplateRef } from 'vue';
 

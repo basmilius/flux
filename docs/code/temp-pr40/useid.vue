@@ -37,6 +37,13 @@
     </FluxFlex>
 </template>
 
+<script
+    lang="ts"
+    setup>
+    import { FluxExpandable, FluxExpandableGroup, FluxFlex, FluxGrid, FluxInfo, FluxPane, FluxPaneBody, FluxPaneHeader } from '@flux-ui/components';
+    import { FluxVisualAnimatedColors } from '@flux-ui/visuals';
+</script>
+
 <style scoped>
     .canvas-host {
         position: relative;

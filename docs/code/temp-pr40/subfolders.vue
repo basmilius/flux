@@ -84,6 +84,7 @@
 <script
     lang="ts"
     setup>
+    import { FluxFlex, FluxFormDateInput, FluxFormField, FluxFormInput, FluxFormInputAddition, FluxFormInputGroup, FluxFormSelect, FluxGrid, FluxInfo, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxPane, FluxPaneBody, FluxPaneHeader, FluxTable, FluxTableCell, FluxTableHeader, FluxTableRow } from '@flux-ui/components';
     import { DateTime } from 'luxon';
     import { ref } from 'vue';
 

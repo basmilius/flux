@@ -31,6 +31,7 @@
 <script
     lang="ts"
     setup>
+    import { FluxFlex, FluxGrid, FluxInfo, FluxPane, FluxPaneBody, FluxPaneHeader, FluxSecondaryButton } from '@flux-ui/components';
     const cases = [
         {label: 'Space in the path', href: '/files/my report.pdf', expected: 'Must keep the space'},
         {label: 'Space in a query', href: 'mailto:someone@example.com?subject=Hello World', expected: 'Must keep "Hello World"'},

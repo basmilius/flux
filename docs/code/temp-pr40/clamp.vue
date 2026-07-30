@@ -76,6 +76,7 @@
 <script
     lang="ts"
     setup>
+    import { FluxColorPicker, FluxFlex, FluxFormFader, FluxFormSlider, FluxGrid, FluxInfo, FluxPane, FluxPaneBody, FluxPaneHeader, FluxProgressBar, FluxQuantitySelector } from '@flux-ui/components';
     import { ref } from 'vue';
 
     const color = ref('#4f46e5');
