@@ -18,7 +18,8 @@
 <script
     lang="ts"
     setup>
-    import { prefersReducedMotion, useScrollPosition } from '@flux-ui/internals';
+    import { useScrollPosition } from '@basmilius/common';
+    import { prefersReducedMotion } from '@basmilius/utils';
     import { clsx } from 'clsx';
     import { computed, toRef, type VNode } from 'vue';
     import { useTranslate } from '~flux/components/composable/private';

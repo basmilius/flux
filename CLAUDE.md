@@ -316,15 +316,22 @@ Common types to know:
 
 Shared utilities and composables used across packages. Built with `tsdown`.
 
+What lives here is what a component library needs and a general-purpose package
+should not carry: focus management, vnode work and i18n. Generic behaviour
+(gestures, springs, observers, storage, clamping, colour conversion) lives in
+`@basmilius/common` and `@basmilius/utils`, and a component imports it **straight
+from there**. `internals` does not re-export it: one function, one import path.
+
 Utilities (`packages/internals/src/util/`):
 - Focus helpers - `wrapFocus`, `focusTrap`, `getFocusableElement`, `getFocusableElements`, `getKeyboardFocusableElements`, `getBidirectionalFocusElement`
-- VNode helpers - `flattenVNodeTree`, `getComponentName`, `getComponentProps`, `unrefTemplateElement`
-- Misc - `animationFrameDebounce`, `isActiveElement`, `prefersReducedMotion`, `warn`
+- VNode helpers - `flattenVNodeTree`, `getComponentName`, `getComponentProps`
+- Types - `TemplateElement`, `TemplateRef` (the shape a Flux template ref has; resolve one with `unwrapElement` from `@basmilius/common`)
+- Misc - `isActiveElement`, `isSSR`, `warn`
 
 Composables (`packages/internals/src/composable/`):
 - Focus traps - `useFocusTrap`, `useFocusTrapLock`, `useFocusTrapReturn`, `useFocusTrapSubscription`, `useFocusZone`
 - Calendar - `useCalendar`, `useCalendarMonthSwitcher`, `useCalendarTimeGrid`, `useCalendarYearSwitcher`
-- Misc - `useEventListener`, `useInView`, `useKeyboardGrab`, `useRemembered`, `useScrollPosition`
+- Misc - `useKeyboardGrab`, `useRemembered` (wraps common's with the `flux/` prefix and Luxon serialization)
 - Translations - `createTranslate`
 
 `useFocusZone` takes an optional `ignore?: string` selector (threaded through `getFocusableElements` / `getFocusableElement` / `getBidirectionalFocusElement`) to exclude a subtree from roving focus. `FluxMenu` uses it with `ignore: '[data-flux-menu-pane]'` so an interactive component inside a `FluxMenuPane` (color picker, slider, search field) keeps its own keyboard behavior. The shared `getFocusableElements` default is deliberately unchanged so focus traps still reach those controls via Tab.

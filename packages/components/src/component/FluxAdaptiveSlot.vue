@@ -27,7 +27,8 @@
 <script
     lang="ts"
     setup>
-    import { animationFrameDebounce, unrefTemplateElement } from '@flux-ui/internals';
+    import { unwrapElement } from '@basmilius/common';
+    import { animationFrameDebounce } from '@basmilius/utils';
     import { getCurrentInstance, onMounted, onUnmounted, ref, toRef, useTemplateRef, watch } from 'vue';
     import { useAdaptiveGroupInjection } from '~flux/components/composable';
     import $style from '~flux/components/css/component/AdaptiveSlot.module.scss';
@@ -108,7 +109,7 @@
         let lastFailedParentWidth = -1;
 
         const reflow = animationFrameDebounce(() => {
-            const element = unrefTemplateElement(elementRef);
+            const element = unwrapElement(elementRef);
 
             if (!element || !isDefaultVisible.value) {
                 return;

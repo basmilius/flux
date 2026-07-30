@@ -1,5 +1,4 @@
-import { useClickOutside } from '@basmilius/common';
-import { unrefTemplateElement } from '@flux-ui/internals';
+import { unwrapElement, useClickOutside } from '@basmilius/common';
 import { type ComponentPublicInstance, nextTick, ref, type Ref, unref, watch } from 'vue';
 
 export type UseDropdownPopupOptions = {
@@ -53,7 +52,7 @@ export default function useDropdownPopup(options: UseDropdownPopupOptions): UseD
     }
 
     function focusAnchor(): void {
-        nextTick(() => unrefTemplateElement(options.anchorRef)?.focus());
+        nextTick(() => unwrapElement(options.anchorRef)?.focus());
     }
 
     function onKeyDownBase(evt: KeyboardEvent): boolean {

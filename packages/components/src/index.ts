@@ -18,7 +18,7 @@ export {
     useFluxStore
 } from './data';
 
-export type { FluxTranslate } from './data';
+export type { FluxTranslate, FluxTranslation } from './data';
 
 export type {
     FluxAdaptiveGroupChild,
@@ -36,6 +36,7 @@ export type {
     FluxFormRadioGroupInjection,
     FluxFormRadioGroupValue,
     FluxKanbanColumnDragState,
+    FluxKanbanDragMode,
     FluxKanbanDragState,
     FluxKanbanInjection,
     FluxKanbanKeyboardDirection,

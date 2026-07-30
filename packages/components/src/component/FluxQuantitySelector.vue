@@ -43,7 +43,7 @@
     lang="ts"
     setup>
     import { clamp } from '@basmilius/utils';
-    import { unrefTemplateElement } from '@flux-ui/internals';
+    import { unwrapElement } from '@basmilius/common';
     import { onMounted, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';
@@ -134,7 +134,7 @@
     }
 
     function sizeToContent(): void {
-        const input = unrefTemplateElement<HTMLInputElement>(inputRef);
+        const input = unwrapElement<HTMLInputElement>(inputRef);
 
         if (!input || isNaN(input.valueAsNumber)) {
             return;

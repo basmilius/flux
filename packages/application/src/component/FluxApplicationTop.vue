@@ -50,7 +50,7 @@
     lang="ts"
     setup>
     import { FluxFadeTransition, FluxIcon, FluxRouteTransition, FluxSpacer, FluxTabBar } from '@flux-ui/components';
-    import { useScrollPosition } from '@flux-ui/internals';
+    import { useScrollPosition } from '@basmilius/common';
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, type VNode } from 'vue';

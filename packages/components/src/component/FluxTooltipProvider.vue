@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { unrefTemplateElement } from '@flux-ui/internals';
+    import { unwrapElement } from '@basmilius/common';
     import { clsx } from 'clsx';
     import { computed, defineComponent, h, provide, ref, unref, watch } from 'vue';
     import { FluxTooltipInjectionKey, removeTooltip, useFluxStore } from '~flux/components/data';
@@ -28,7 +28,7 @@
         const has = computed(() => !!unref(tooltip));
 
         function calculate(): void {
-            const element = unrefTemplateElement(elementRef);
+            const element = unwrapElement(elementRef);
             const spec = unref(tooltip);
 
             if (!spec || !element || !unref(content)) {
@@ -72,7 +72,7 @@
                 return;
             }
 
-            const host = unrefTemplateElement(hostRef);
+            const host = unwrapElement(hostRef);
 
             if (host && !host.matches(':popover-open')) {
                 host.showPopover();
@@ -110,7 +110,7 @@
                         return;
                     }
 
-                    const host = unrefTemplateElement(hostRef);
+                    const host = unwrapElement(hostRef);
 
                     if (host && host.matches(':popover-open')) {
                         host.hidePopover();

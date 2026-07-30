@@ -133,7 +133,7 @@
     lang="ts"
     setup>
     import { formatNumber } from '@basmilius/utils';
-    import { unrefTemplateElement } from '@flux-ui/internals';
+    import { unwrapElement } from '@basmilius/common';
     import type { FluxColor, FluxDirection, FluxFormInputBaseProps, FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, type CSSProperties, nextTick, onBeforeUnmount, ref, toRef, unref, useTemplateRef, watch } from 'vue';
@@ -431,7 +431,7 @@
             return;
         }
 
-        const root = unrefTemplateElement(rootRef);
+        const root = unwrapElement(rootRef);
 
         isScrubbing.value = false;
         dragStart = direction === 'vertical' ? evt.clientY : evt.clientX;
@@ -444,7 +444,7 @@
     }
 
     function onPointerMove(evt: PointerEvent): void {
-        const root = unrefTemplateElement(rootRef);
+        const root = unwrapElement(rootRef);
 
         if (!root || !unref(isRangeValid)) {
             return;
@@ -497,7 +497,7 @@
     }
 
     function onPointerUp(): void {
-        const root = unrefTemplateElement(rootRef);
+        const root = unwrapElement(rootRef);
 
         if (pointerId.value !== null) {
             root?.releasePointerCapture?.(pointerId.value);

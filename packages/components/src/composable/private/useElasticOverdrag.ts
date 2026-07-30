@@ -1,4 +1,4 @@
-import { prefersReducedMotion } from '@flux-ui/internals';
+import { prefersReducedMotion } from '@basmilius/utils';
 import type { FluxDirection } from '@flux-ui/types';
 import { computed, ref } from 'vue';
 

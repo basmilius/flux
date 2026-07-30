@@ -146,7 +146,7 @@
 <script
     lang="ts"
     setup>
-    import { unrefTemplateElement } from '@flux-ui/internals';
+    import { unwrapElement } from '@basmilius/common';
     import type { FluxColor, FluxFormInputBaseProps, FluxFormTreeViewSelectOption, FluxFormTreeViewSelectValue } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { type ComponentPublicInstance, computed, nextTick, provide, ref, toRef, unref, useId, useTemplateRef, watch } from 'vue';
@@ -234,7 +234,7 @@
         select: () => undefined
     });
 
-    const focusElement = computed(() => unrefTemplateElement(searchInputRef) ?? unrefTemplateElement(anchorRef));
+    const focusElement = computed(() => unwrapElement(searchInputRef) ?? unwrapElement(anchorRef));
 
     const {
         isOpen: isPopupOpen,
@@ -398,7 +398,7 @@
                 return;
             }
 
-            const searchElement = unrefTemplateElement(searchInputRef);
+            const searchElement = unwrapElement(searchInputRef);
 
             if (searchElement && evt.target instanceof Node && searchElement.contains(evt.target)) {
                 return;

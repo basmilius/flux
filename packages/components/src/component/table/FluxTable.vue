@@ -91,7 +91,8 @@
 <script
     lang="ts"
     setup>
-    import { animationFrameDebounce, useScrollPosition } from '@flux-ui/internals';
+    import { useScrollPosition } from '@basmilius/common';
+    import { animationFrameDebounce } from '@basmilius/utils';
     import { computed, onMounted, onScopeDispose, provide, type Ref, ref, shallowReactive, shallowRef, unref, useId, useTemplateRef, type VNode, watch, watchEffect } from 'vue';
     import { countColumns, getColumnSpan, useTableTree } from '~flux/components/composable/private';
     import { type FluxTableColumnDef, FluxTableInjectionKey, type FluxTablePinnedEdges } from '~flux/components/data';

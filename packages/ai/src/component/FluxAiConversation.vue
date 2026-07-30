@@ -53,7 +53,8 @@
     lang="ts"
     setup>
     import { FluxDynamicView, FluxFadeTransition, FluxSecondaryButton, FluxTooltip } from '@flux-ui/components';
-    import { flattenVNodeTree, getComponentProps, prefersReducedMotion } from '@flux-ui/internals';
+    import { prefersReducedMotion } from '@basmilius/utils';
+    import { flattenVNodeTree, getComponentProps } from '@flux-ui/internals';
     import { Comment, computed, onBeforeUnmount, onMounted, provide, ref, Text, useTemplateRef, type VNode } from 'vue';
     import { useTranslate } from '~flux/ai/composable/private';
     import { FluxAiConversationInjectionKey } from '~flux/ai/data';

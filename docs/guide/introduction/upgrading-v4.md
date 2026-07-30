@@ -145,11 +145,64 @@ Your i18n instance has to be created with `legacy: false`, since Flux reads the 
 | `@flux-ui/application` | `FluxApplicationInjectionKey`, `english`                                                |
 | `@flux-ui/flow`        | `FluxFlowInjectionKey`, `FluxFlowNodeInjectionKey`, `FluxFlowPlacementInjectionKey`, `english` |
 
-Every type is still exported, so an annotation keeps working. Only these five names fail, and they fail at the type checker rather than at runtime.
+Only these five names fail there, and they fail at the type checker rather than at runtime.
 
 `FluxFlowEdgeLayerInjectionKey` stays, because it is the one a consumer is meant to provide: give it `'under'` or `'over'` and the edges paint below or above the nodes.
 
-If you reached for `english` to read a default string, use the translate composable of that package instead, which falls back to the same dictionary. If you reached for an injection key to read a controller, there is no replacement: that state is internal, and a component that depended on it was depending on something that could move under it.
+If you reached for an injection key to read a controller, there is no replacement: that state is internal, and a component that depended on it was depending on something that could move under it.
+
+### The translate composable is internal
+
+`useTranslate` is gone from every package, and so are the dictionary types behind
+the per-package variants: `FluxAiTranslate`, `FluxAiTranslation`,
+`FluxApplicationTranslate`, `FluxApplicationTranslation`, `FluxFlowTranslate` and
+`FluxFlowTranslation`. The dictionary is how the components resolve their own
+strings, and exposing it made an implementation detail part of the contract.
+
+What you lose is the fallback: reaching for `flux.cancel` through your own
+`useI18n()` returns the raw key unless you translated it yourself. So put the
+strings you want in your own translation files. `FluxTranslate` and
+`FluxTranslation` do stay exported, because `defineFilter` hands your factory a
+context carrying one.
+
+### Two composables changed name
+
+- `useFluxFlowInjection` is `useFlowInjection`. An injection composable does not
+  repeat the `Flux` prefix.
+- In `@flux-ui/visuals`, `BorderBeamVariant`, `HighlighterVariant` and
+  `HighlighterGroupProps` are `FluxVisualBorderBeamVariant`,
+  `FluxVisualHighlighterVariant` and `FluxVisualHighlighterGroupProps`. They were
+  the only three types in the public barrel without the prefix.
+
+### Generic composables come from `@basmilius/common` now
+
+`@flux-ui/internals` no longer carries `useEventListener`, `useInView`,
+`usePointerDrag`, `useScrollPosition`, `useSpring`, `useWheelDrag`,
+`animationFrameDebounce`, `prefersReducedMotion` or `unrefTemplateElement`.
+Nothing about them is specific to a component library, so they live in
+[`@basmilius/common`](https://github.com/basmilius/packages) and
+`@basmilius/utils`, and Flux imports them from there like anyone else. Change the
+import and you are done, with three things to know:
+
+- `unrefTemplateElement` is called `unwrapElement`. The `TemplateRef` and
+  `TemplateElement` types stay in `@flux-ui/internals`.
+- `useEventListener` has no `{passive: true}` default any more. A scroll or wheel
+  listener that wants to be passive has to say so.
+- `useInView` takes an explicit option list (`initial`, `root`, `rootMargin`,
+  `threshold`, `once`) instead of extending `IntersectionObserverInit`.
+
+`useScrollPosition` also reads the position on mount rather than during setup,
+which is what fixes the hydration mismatch it used to cause. It reports `0` for
+one tick longer than before.
+
+### The injection types are exported now
+
+If you build your own item inside a `FluxKanban`, a calendar view or a table, the
+context you receive is finally nameable: `FluxTableInjection`,
+`FluxCalendarInjection`, `FluxKanbanInjection`,
+`FluxFormCheckboxGroupInjection`, `FluxFormRadioGroupInjection`,
+`FluxSegmentedControlInjection` and `FluxTabBarInjection`, along with the helper
+types they use.
 
 ## The side panel carries its own state
 
@@ -208,4 +261,4 @@ The breaking part above is the smaller half of this release. The rest is additio
 - **Resizable table columns**, through `is-resizable` and the `resize` event on [Table header](../../components/table/header). The handle is a focusable separator, so a column resizes without a mouse too.
 - **A loading state on the statistics panes**, through `is-loading`. The chart keeps its place and the data it already has while it reloads. See [Chart pane](../../statistics/components/chart-pane).
 - **Three transitions**: [Sheet](../../components/transitions/sheet), [Scale](../../components/transitions/scale) and [Stagger](../../components/transitions/stagger).
-- **Gesture and motion composables** in `@flux-ui/internals`: [`usePointerDrag`](../../internals/composables/usePointerDrag), [`useWheelDrag`](../../internals/composables/useWheelDrag) and [`useSpring`](../../internals/composables/useSpring), which are what the sheet and the swipe actions run on, plus [`createTranslate`](../../internals/composables/createTranslate) behind the translations.
+- **Gesture and motion composables**: `usePointerDrag`, `useWheelDrag` and `useSpring`, which are what the sheet and the swipe actions run on. They live in [`@basmilius/common`](https://github.com/basmilius/packages) rather than in `@flux-ui/internals`, because nothing about them is specific to a component library. Behind the translations sits [`createTranslate`](../../internals/composables/createTranslate), which does stay here.

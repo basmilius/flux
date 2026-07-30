@@ -1,4 +1,4 @@
-import { prefersReducedMotion } from '@flux-ui/internals';
+import { prefersReducedMotion } from '@basmilius/utils';
 import type { FluxVisualBorderBeamVariant } from '@flux-ui/types';
 import { type Ref, unref, watchEffect } from 'vue';
 

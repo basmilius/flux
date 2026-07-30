@@ -1,4 +1,4 @@
-import { animationFrameDebounce } from '@flux-ui/internals';
+import { animationFrameDebounce } from '@basmilius/utils';
 import { onMounted, onUnmounted, ref, type Ref, watch } from 'vue';
 
 export const TREE_STEP = 24;

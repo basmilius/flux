@@ -61,7 +61,7 @@
 <script
     lang="ts"
     setup>
-    import { unrefTemplateElement } from '@flux-ui/internals';
+    import { unwrapElement } from '@basmilius/common';
     import type { FluxFormInputBaseProps } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, toRef, unref, useTemplateRef } from 'vue';
@@ -98,11 +98,11 @@
     const atMin = computed(() => min !== undefined && modelValue.value !== null && modelValue.value <= min);
 
     function blur(): void {
-        unrefTemplateElement(inputRef)?.blur();
+        unwrapElement(inputRef)?.blur();
     }
 
     function focus(): void {
-        unrefTemplateElement(inputRef)?.focus();
+        unwrapElement(inputRef)?.focus();
     }
 
     function clamp(value: number): number {

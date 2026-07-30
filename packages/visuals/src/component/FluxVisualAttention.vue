@@ -1,5 +1,6 @@
 <script lang="ts">
-    import { flattenVNodeTree, prefersReducedMotion } from '@flux-ui/internals';
+    import { prefersReducedMotion } from '@basmilius/utils';
+    import { flattenVNodeTree } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { cloneVNode, defineComponent, Fragment, h, onBeforeUnmount, type PropType, ref, watch } from 'vue';
     import $style from '~flux/visuals/css/component/Attention.module.scss';

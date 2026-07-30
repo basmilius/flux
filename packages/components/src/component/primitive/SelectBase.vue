@@ -155,7 +155,7 @@
 <script
     lang="ts"
     setup>
-    import { unrefTemplateElement } from '@flux-ui/internals';
+    import { unwrapElement } from '@basmilius/common';
     import type { FluxFormSelectOption, FluxFormSelectOptions } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { type ComponentPublicInstance, computed, nextTick, onMounted, ref, toRef, unref, useId, useTemplateRef, watch } from 'vue';
@@ -230,9 +230,9 @@
     const focusElement = computed(() => {
         // The search input's template ref resolves to FluxFormInput's wrapper element, which is not
         // focusable. Reach for the inner <input> so opening the popup focuses the search box.
-        const searchInput = unrefTemplateElement(searchInputElementRef);
+        const searchInput = unwrapElement(searchInputElementRef);
 
-        return searchInput?.querySelector<HTMLElement>('input') ?? unrefTemplateElement(anchorRef);
+        return searchInput?.querySelector<HTMLElement>('input') ?? unwrapElement(anchorRef);
     });
     const highlightedId = computed(() => unref(rawOptions)[unref(highlightedIndex)]?.value);
     const activeDescendant = computed(() => unref(highlightedId) !== undefined ? optionId(unref(highlightedId)) : '');
@@ -300,7 +300,7 @@
 
     onMounted(() => {
         if (autoFocus) {
-            nextTick(() => unrefTemplateElement(anchorRef)?.focus());
+            nextTick(() => unwrapElement(anchorRef)?.focus());
         }
     });
 

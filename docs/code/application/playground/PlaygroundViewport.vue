@@ -53,7 +53,7 @@
     setup>
     import { useResizeObserver } from '@basmilius/common';
     import { FluxSegmentedControl, FluxSegmentedControlItem, FluxSpacer } from '@flux-ui/components';
-    import { usePointerDrag } from '@flux-ui/internals';
+    import { usePointerDrag } from '@basmilius/common';
     import { withBase } from 'vitepress';
     import { computed, ref, useTemplateRef } from 'vue';
 

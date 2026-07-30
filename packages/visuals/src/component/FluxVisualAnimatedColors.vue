@@ -8,8 +8,8 @@
 <script
     lang="ts"
     setup>
-    import { mulberry32 } from '@basmilius/utils';
-    import { prefersReducedMotion, useInView } from '@flux-ui/internals';
+    import { mulberry32, prefersReducedMotion } from '@basmilius/utils';
+    import { useInView } from '@basmilius/common';
     import { computed, onBeforeUnmount, ref, unref, useId, useTemplateRef, watch } from 'vue';
     import $style from '~flux/visuals/css/component/Visual.module.scss';
 

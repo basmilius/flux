@@ -1,9 +1,10 @@
+import { unwrapElement } from '@basmilius/common';
 import { type Ref, unref, watch } from 'vue';
-import { type TemplateRef, unrefTemplateElement } from '../util';
+import type { TemplateRef } from '../util';
 
 export default function (containerRef: TemplateRef<HTMLElement>, disabled: Ref<boolean>): void {
     watch(containerRef, (_, __, onCleanup) => {
-        const container = unrefTemplateElement(containerRef);
+        const container = unwrapElement(containerRef);
 
         if (!container || unref(disabled)) {
             return;

@@ -14,8 +14,7 @@
     lang="ts"
     setup>
     import { useMutationObserver } from '@basmilius/common';
-    import { isHtmlElement } from '@basmilius/utils';
-    import { animationFrameDebounce } from '@flux-ui/internals';
+    import { animationFrameDebounce, isHtmlElement } from '@basmilius/utils';
     import type { FluxDirection } from '@flux-ui/types';
     import { type ComponentPublicInstance, onMounted, onUnmounted, reactive, ref, unref, useTemplateRef, type VNode, watchEffect } from 'vue';
 

@@ -55,7 +55,9 @@
 <script
     lang="ts"
     setup>
-    import { animationFrameDebounce, flattenVNodeTree, unrefTemplateElement } from '@flux-ui/internals';
+    import { unwrapElement } from '@basmilius/common';
+    import { animationFrameDebounce } from '@basmilius/utils';
+    import { flattenVNodeTree } from '@flux-ui/internals';
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { onUpdated, provide, ref, toRef, useTemplateRef, type VNode, watch } from 'vue';
@@ -119,9 +121,9 @@
             return;
         }
 
-        const list = unrefTemplateElement(listRef);
-        const measurer = unrefTemplateElement(measurerRef);
-        const ellipsisMeasurer = unrefTemplateElement(ellipsisMeasurerRef);
+        const list = unwrapElement(listRef);
+        const measurer = unwrapElement(measurerRef);
+        const ellipsisMeasurer = unwrapElement(ellipsisMeasurerRef);
 
         if (!list || !measurer || !ellipsisMeasurer) {
             return;

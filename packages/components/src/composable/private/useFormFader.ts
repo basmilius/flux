@@ -1,5 +1,5 @@
 import { clamp, countDecimals, roundStep } from '@basmilius/utils';
-import { unrefTemplateElement } from '@flux-ui/internals';
+import { unwrapElement } from '@basmilius/common';
 import type { FluxColor, FluxDirection } from '@flux-ui/types';
 import { computed, type CSSProperties, onBeforeUnmount, onMounted, ref, type Ref, type ShallowRef, unref } from 'vue';
 import { useElasticOverdrag } from './useElasticOverdrag';
@@ -186,15 +186,15 @@ export function useFormFader(options: UseFaderOptions) {
     }
 
     function measureZones(): void {
-        const root = unrefTemplateElement(options.rootRef);
+        const root = unwrapElement(options.rootRef);
 
         if (!root) {
             return;
         }
 
         const rootRect = root.getBoundingClientRect();
-        const labelRect = unrefTemplateElement(options.labelRef)?.getBoundingClientRect();
-        const valueRect = unrefTemplateElement(options.valueRef)?.getBoundingClientRect();
+        const labelRect = unwrapElement(options.labelRef)?.getBoundingClientRect();
+        const valueRect = unwrapElement(options.valueRef)?.getBoundingClientRect();
 
         // Vertical measures along Y, from the top: the label sits at the top
         // (low px) and the value at the bottom (high px), so the label-low /
@@ -227,7 +227,7 @@ export function useFormFader(options: UseFaderOptions) {
     onMounted(() => {
         measureZones();
 
-        const root = unrefTemplateElement(options.rootRef);
+        const root = unwrapElement(options.rootRef);
 
         if (root && typeof ResizeObserver !== 'undefined') {
             observer = new ResizeObserver(() => measureZones());

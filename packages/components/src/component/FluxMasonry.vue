@@ -17,7 +17,9 @@
 <script
     lang="ts"
     setup>
-    import { animationFrameDebounce, flattenVNodeTree, unrefTemplateElement } from '@flux-ui/internals';
+    import { unwrapElement } from '@basmilius/common';
+    import { animationFrameDebounce } from '@basmilius/utils';
+    import { flattenVNodeTree } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { cloneVNode, computed, ref, unref, useTemplateRef, type VNode, watch } from 'vue';
     import FluxDynamicView from './FluxDynamicView.vue';
@@ -100,7 +102,7 @@
     }));
 
     const reflow = animationFrameDebounce(() => {
-        const masonry = unrefTemplateElement(masonryRef);
+        const masonry = unwrapElement(masonryRef);
 
         if (!masonry) {
             return;
@@ -120,7 +122,7 @@
     });
 
     watch([masonryRef, () => unref(slotItems).length], (_, __, onCleanup) => {
-        const masonry = unrefTemplateElement(masonryRef);
+        const masonry = unwrapElement(masonryRef);
 
         if (!masonry) {
             return;

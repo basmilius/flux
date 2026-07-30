@@ -70,7 +70,7 @@
 <script
     lang="ts"
     setup>
-    import { unrefTemplateElement } from '@flux-ui/internals';
+    import { unwrapElement } from '@basmilius/common';
     import type { FluxAutoCompleteType, FluxFormInputBaseProps, FluxIconName, FluxInputMask, FluxInputType } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import type { InputMask } from 'imask';
@@ -199,11 +199,11 @@
     watch(() => type, type => nativeType.value = type);
 
     function blur(): void {
-        unrefTemplateElement(inputRef)?.blur();
+        unwrapElement(inputRef)?.blur();
     }
 
     function focus(): void {
-        unrefTemplateElement(inputRef)?.focus();
+        unwrapElement(inputRef)?.focus();
     }
 
     function passwordTypeToggle(): void {
@@ -284,7 +284,7 @@
         if (evt.key === ' ') {
             evt.preventDefault();
 
-            const input = unrefTemplateElement(inputRef);
+            const input = unwrapElement(inputRef);
 
             if (instance?.vnode.props?.onShowPicker) {
                 emit('showPicker');

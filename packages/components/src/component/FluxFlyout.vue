@@ -41,8 +41,8 @@
 <script
     lang="ts"
     setup>
-    import { useHotKey } from '@basmilius/common';
-    import { isSSR, unrefTemplateElement, useEventListener, useFocusTrap } from '@flux-ui/internals';
+    import { unwrapElement, useEventListener, useHotKey } from '@basmilius/common';
+    import { isSSR, useFocusTrap } from '@flux-ui/internals';
     import type { FluxDirection } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { onUnmounted, provide, ref, unref, useTemplateRef, type VNode, watch } from 'vue';
@@ -126,7 +126,7 @@
     });
 
     onUnmounted(() => {
-        const pane = unrefTemplateElement(paneRef);
+        const pane = unwrapElement(paneRef);
 
         if (!pane) {
             return;
@@ -144,7 +144,7 @@
     });
 
     function close(): void {
-        const pane = unrefTemplateElement(paneRef);
+        const pane = unwrapElement(paneRef);
 
         if (!pane || unref(isClosing)) {
             return;
@@ -181,7 +181,7 @@
         const mount = unref(mountRef)!;
         const {width, height} = mount.children[0].getBoundingClientRect();
 
-        const existingPane = unrefTemplateElement(paneRef);
+        const existingPane = unwrapElement(paneRef);
 
         if (existingPane && closeAnimationEndListener) {
             existingPane.removeEventListener('animationend', closeAnimationEndListener);
@@ -194,7 +194,7 @@
         openerHeight.value = height;
 
         requestAnimationFrame(() => {
-            const pane = unrefTemplateElement(paneRef)!;
+            const pane = unwrapElement(paneRef)!;
 
             if (openAnimationEndListener) {
                 pane.removeEventListener('animationend', openAnimationEndListener);
@@ -225,7 +225,7 @@
 
     function reposition(): void {
         const mount = unref(mountRef)!;
-        const pane = unrefTemplateElement(paneRef)!;
+        const pane = unwrapElement(paneRef)!;
         const {top, left, width, height} = mount.children[0].getBoundingClientRect();
         const {width: paneWidth, height: paneHeight} = pane.getBoundingClientRect();
 

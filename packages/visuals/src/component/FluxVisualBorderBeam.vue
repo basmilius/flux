@@ -24,7 +24,7 @@
     lang="ts"
     setup>
     import { clamp } from '@basmilius/utils';
-    import { useInView } from '@flux-ui/internals';
+    import { useInView } from '@basmilius/common';
     import type { FluxVisualBorderBeamVariant } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, ref, unref, useTemplateRef, watch } from 'vue';

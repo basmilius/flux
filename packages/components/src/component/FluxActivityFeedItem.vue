@@ -47,7 +47,7 @@
 <script
     lang="ts"
     setup>
-    import { unrefTemplateElement } from '@flux-ui/internals';
+    import { unwrapElement } from '@basmilius/common';
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { computed, inject, onUnmounted, useTemplateRef, type VNode } from 'vue';
     import { FluxTimelineInjectionKey } from '~flux/components/data';
@@ -84,7 +84,7 @@
 
     const timeline = inject(FluxTimelineInjectionKey, null);
     const markerRef = useTemplateRef<HTMLElement>('marker');
-    const markerElementRef = computed(() => unrefTemplateElement(markerRef));
+    const markerElementRef = computed(() => unwrapElement(markerRef));
 
     const cleanup = timeline?.registerMarker(markerElementRef);
 

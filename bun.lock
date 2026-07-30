@@ -68,6 +68,7 @@
       "name": "@flux-ui/application",
       "version": "0.0.0",
       "dependencies": {
+        "@basmilius/common": "^3.58.0",
         "@flux-ui/components": "workspace:*",
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/types": "workspace:*",
@@ -219,6 +220,7 @@
       "name": "@flux-ui/visuals",
       "version": "0.0.0",
       "dependencies": {
+        "@basmilius/common": "^3.58.0",
         "@basmilius/utils": "^3.58.0",
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/types": "workspace:*",

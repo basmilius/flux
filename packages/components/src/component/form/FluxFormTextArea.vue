@@ -30,7 +30,7 @@
 <script
     lang="ts"
     setup>
-    import { unrefTemplateElement } from '@flux-ui/internals';
+    import { unwrapElement } from '@basmilius/common';
     import type { FluxAutoCompleteType, FluxFormInputBaseProps } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { toRef, useTemplateRef } from 'vue';
@@ -61,11 +61,11 @@
     const {id, describedBy} = useFormFieldInjection();
 
     function blur(): void {
-        unrefTemplateElement(inputRef)?.blur();
+        unwrapElement(inputRef)?.blur();
     }
 
     function focus(): void {
-        unrefTemplateElement(inputRef)?.focus();
+        unwrapElement(inputRef)?.focus();
     }
 
     defineExpose({

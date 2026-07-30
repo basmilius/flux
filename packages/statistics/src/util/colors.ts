@@ -1,4 +1,4 @@
-import { animationFrameDebounce } from '@flux-ui/internals';
+import { animationFrameDebounce } from '@basmilius/utils';
 import { onScopeDispose, ref, type Ref } from 'vue';
 
 // Case-insensitive: a custom property keeps the token stream exactly as it was

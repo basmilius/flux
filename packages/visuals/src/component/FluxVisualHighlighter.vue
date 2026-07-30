@@ -9,7 +9,8 @@
 <script
     lang="ts"
     setup>
-    import { prefersReducedMotion, useInView } from '@flux-ui/internals';
+    import { useInView } from '@basmilius/common';
+    import { prefersReducedMotion } from '@basmilius/utils';
     import type { FluxVisualHighlighterVariant } from '@flux-ui/types';
     import { annotate } from 'rough-notation';
     import { computed, onBeforeUnmount, onMounted, shallowRef, useTemplateRef, watch } from 'vue';

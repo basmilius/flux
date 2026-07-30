@@ -37,7 +37,9 @@
 <script
     lang="ts"
     setup>
-    import { animationFrameDebounce, flattenVNodeTree, unrefTemplateElement } from '@flux-ui/internals';
+    import { unwrapElement } from '@basmilius/common';
+    import { animationFrameDebounce } from '@basmilius/utils';
+    import { flattenVNodeTree } from '@flux-ui/internals';
     import type { FluxAlignment, FluxDirection } from '@flux-ui/types';
     import { computed, ref, unref, useTemplateRef, type VNode, watch } from 'vue';
     import FluxDynamicView from './FluxDynamicView.vue';
@@ -72,7 +74,7 @@
     const reflow = animationFrameDebounce(() => {
         const bar = unref(barRef);
         const measurer = unref(measurerRef);
-        const overflow = unrefTemplateElement(overflowRef);
+        const overflow = unwrapElement(overflowRef);
 
         if (!bar || !measurer) {
             return;

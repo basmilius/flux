@@ -29,7 +29,7 @@ export default defineConfig({
     ignoreDeadLinks: true,
     cleanUrls: true,
     head: [
-        ['link', {rel: 'stylesheet', href: 'https://font.bmcdn.nl/css2?family=inter-variable|jetbrains-mono'}],
+        ['link', {rel: 'stylesheet', href: 'https://font.bmcdn.nl/css2?family=inter-variable|jetbrains-mono'}]
     ],
     markdown: {
         config(md) {
@@ -483,19 +483,13 @@ export default defineConfig({
                         {text: 'useCalendarMonthSwitcher', link: '/internals/composables/useCalendarMonthSwitcher'},
                         {text: 'useCalendarTimeGrid', link: '/internals/composables/useCalendarTimeGrid'},
                         {text: 'useCalendarYearSwitcher', link: '/internals/composables/useCalendarYearSwitcher'},
-                        {text: 'useEventListener', link: '/internals/composables/useEventListener'},
                         {text: 'useFocusTrap', link: '/internals/composables/useFocusTrap'},
                         {text: 'useFocusTrapLock', link: '/internals/composables/useFocusTrapLock'},
                         {text: 'useFocusTrapReturn', link: '/internals/composables/useFocusTrapReturn'},
                         {text: 'useFocusTrapSubscription', link: '/internals/composables/useFocusTrapSubscription'},
                         {text: 'useFocusZone', link: '/internals/composables/useFocusZone'},
-                        {text: 'useInView', link: '/internals/composables/useInView'},
                         {text: 'useKeyboardGrab', link: '/internals/composables/useKeyboardGrab'},
-                        {text: 'usePointerDrag', link: '/internals/composables/usePointerDrag'},
-                        {text: 'useRemembered', link: '/internals/composables/useRemembered'},
-                        {text: 'useScrollPosition', link: '/internals/composables/useScrollPosition'},
-                        {text: 'useSpring', link: '/internals/composables/useSpring'},
-                        {text: 'useWheelDrag', link: '/internals/composables/useWheelDrag'}
+                        {text: 'useRemembered', link: '/internals/composables/useRemembered'}
                     ]
                 },
                 {
@@ -510,7 +504,6 @@ export default defineConfig({
                     text: 'Utils',
                     collapsed: false,
                     items: [
-                        {text: 'animationFrameDebounce', link: '/internals/utils/animationFrameDebounce'},
                         {text: 'flattenVNodeTree', link: '/internals/utils/flattenVNodeTree'},
                         {text: 'getBidirectionalFocusElement', link: '/internals/utils/getBidirectionalFocusElement'},
                         {text: 'getComponentName', link: '/internals/utils/getComponentName'},
@@ -520,8 +513,6 @@ export default defineConfig({
                         {text: 'getKeyboardFocusableElements', link: '/internals/utils/getKeyboardFocusableElements'},
                         {text: 'isActiveElement', link: '/internals/utils/isActiveElement'},
                         {text: 'isSSR', link: '/internals/utils/isSSR'},
-                        {text: 'prefersReducedMotion', link: '/internals/utils/prefersReducedMotion'},
-                        {text: 'unrefTemplateElement', link: '/internals/utils/unrefTemplateElement'},
                         {text: 'warn', link: '/internals/utils/warn'},
                         {text: 'wrapFocus', link: '/internals/utils/wrapFocus'},
                         {text: 'FOCUS_TRAP_LOCKS', link: '/internals/utils/focusTrap'}

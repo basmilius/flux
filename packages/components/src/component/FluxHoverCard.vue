@@ -34,7 +34,8 @@
     lang="ts"
     setup>
     import { isHtmlElement } from '@basmilius/utils';
-    import { getFocusableElements, isSSR, useEventListener } from '@flux-ui/internals';
+    import { useEventListener } from '@basmilius/common';
+    import { getFocusableElements, isSSR } from '@flux-ui/internals';
     import type { FluxDirection } from '@flux-ui/types';
     import { computed, onUnmounted, ref, toRef, useId, useTemplateRef, type VNode, watch } from 'vue';
     import { AnchorPopup } from '~flux/components/component/primitive';
