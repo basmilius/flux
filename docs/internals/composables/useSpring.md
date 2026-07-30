@@ -1,5 +1,7 @@
 # useSpring
 
+> Re-exported from [`@basmilius/common`](https://github.com/basmilius/packages). Behaviour changes there, not here.
+
 This composable animates a single number towards a target with a spring. Where a CSS transition always takes the same time from wherever it starts, a spring carries speed: hand it the velocity a gesture ended with and the value keeps travelling at that speed before the spring reels it in. That is the difference between a surface that was flicked away and one that was nudged.
 
 ## Usage

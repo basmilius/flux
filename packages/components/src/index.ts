@@ -4,7 +4,6 @@ export * from './component';
 export * from './composable';
 export * from './transition';
 
-
 export {
     configureIcons,
     fluxRegisterIcons,

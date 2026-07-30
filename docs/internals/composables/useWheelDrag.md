@@ -1,5 +1,7 @@
 # useWheelDrag
 
+> Re-exported from [`@basmilius/common`](https://github.com/basmilius/packages). Behaviour changes there, not here.
+
 This composable tracks a two finger swipe over an element as one continuous gesture, and reports it in the same deltas a [pointer drag](./usePointerDrag) does. That way a surface that already follows a finger on a touch screen follows a trackpad on the desktop without a second set of math.
 
 A trackpad never says that the fingers left it: the browser keeps sending wheel events while the flick runs out and then simply stops. The gesture therefore ends on an idle timer, once no event has arrived for `idle` milliseconds, which is after the momentum has died down. It is short enough to land right after the fingers stop and long enough to bridge the gap between two events of a slow swipe.

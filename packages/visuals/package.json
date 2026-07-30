@@ -48,7 +48,6 @@
     "module": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "dependencies": {
-        "@basmilius/common": "^3.57.0",
         "@basmilius/utils": "^3.57.0",
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/types": "workspace:*",
@@ -56,6 +55,7 @@
         "rough-notation": "^0.5.1"
     },
     "peerDependencies": {
+        "luxon": "^3.7.2",
         "vue": "^3.6.0-rc.2"
     },
     "devDependencies": {

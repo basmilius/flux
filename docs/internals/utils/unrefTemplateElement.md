@@ -1,5 +1,7 @@
 # unrefTemplateElement
 
+> Re-exported from [`@basmilius/common`](https://github.com/basmilius/packages) as `unwrapElement`. Behaviour changes there, not here.
+
 Returns the HTML element of a template ref.
 
 ## Usage

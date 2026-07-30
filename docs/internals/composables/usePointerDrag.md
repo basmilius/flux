@@ -1,5 +1,7 @@
 # usePointerDrag
 
+> Re-exported from [`@basmilius/common`](https://github.com/basmilius/packages). Behaviour changes there, not here.
+
 This composable tracks a pointer drag on an element. It handles pointer capture, so the drag keeps following the pointer once it leaves the element, and it reports the distance travelled since the drag started.
 
 The element itself stays responsible for its `touch-action`, since only it knows which native gesture it replaces. A horizontal drag on a list row typically needs `touch-action: pan-y`, a resize handle needs `touch-action: none`.

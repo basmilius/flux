@@ -1,19 +1,23 @@
 # useFormCheckboxGroupInjection
 
-This composable provides access to the [Checkbox group](../../components/form/checkbox-group) context. It lets a checkbox of your own read whether a value is selected, toggle it, and inherit the group's disabled, readonly and error state instead of taking those as props.
+This composable provides access to the [Checkbox group](../../components/form/checkbox/group) context. It lets a checkbox of your own read whether a value is selected, toggle it, and inherit the group's disabled, readonly and error state instead of taking those as props.
 
 ## Usage
 
 ```ts
 import { useFormCheckboxGroupInjection } from '@flux-ui/components';
 
-const { modelValue, disabled, isReadonly, error, has, toggle } = useFormCheckboxGroupInjection();
+const group = useFormCheckboxGroupInjection();
+
+const isChecked = computed(() => group?.has(value) ?? false);
 ```
+
+It returns `null` outside a `FluxFormCheckboxGroup`, so a checkbox that also works standalone reaches for it optionally.
 
 ## Type declarations
 
 ```ts
-declare function useFormCheckboxGroupInjection(): FluxFormCheckboxGroupInjection;
+declare function useFormCheckboxGroupInjection(): FluxFormCheckboxGroupInjection | null;
 
 type FluxFormCheckboxGroupInjection = {
     readonly modelValue: Ref<FluxFormCheckboxGroupValue[]>;
@@ -28,4 +32,4 @@ type FluxFormCheckboxGroupInjection = {
 
 ## Used by
 
-- [Checkbox group](../../components/form/checkbox-group)
+- [Checkbox group](../../components/form/checkbox/group)

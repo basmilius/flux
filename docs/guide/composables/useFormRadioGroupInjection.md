@@ -1,6 +1,6 @@
 # useFormRadioGroupInjection
 
-This composable provides access to the [Radio group](../../components/form/radio-group) context. It lets a radio of your own select a value and inherit the group's name, disabled, readonly and error state instead of taking those as props.
+This composable provides access to the [Radio group](../../components/form/radio/group) context. It lets a radio of your own select a value and inherit the group's name, disabled, readonly and error state instead of taking those as props.
 
 The shared `name` is what makes the radios one group to the browser, so a component that renders its own input has to bind it.
 
@@ -30,4 +30,4 @@ type FluxFormRadioGroupInjection = {
 
 ## Used by
 
-- [Radio group](../../components/form/radio-group)
+- [Radio group](../../components/form/radio/group)

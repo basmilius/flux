@@ -174,7 +174,7 @@ export function useFormFader(options: UseFaderOptions) {
         // bound keeps its own valid values reachable.
         const stepped = step > 0 ? min + roundStep(value - min, step) : value;
 
-        return +clamp(stepped, min, options.max()).toFixed(unref(decimals));
+        return +Math.max(min, Math.min(options.max(), stepped)).toFixed(unref(decimals));
     }
 
     function isDodging(center: number): boolean {

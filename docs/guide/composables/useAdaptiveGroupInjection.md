@@ -7,13 +7,17 @@ This composable provides access to the [Adaptive group](../../components/adaptiv
 ```ts
 import { useAdaptiveGroupInjection } from '@flux-ui/components';
 
-const { register, unregister } = useAdaptiveGroupInjection();
+const group = useAdaptiveGroupInjection();
+
+group?.register(uid, child);
 ```
+
+It returns `null` outside a `FluxAdaptiveGroup`, so a component that may be used on its own reaches for it optionally.
 
 ## Type declarations
 
 ```ts
-declare function useAdaptiveGroupInjection(): FluxAdaptiveGroupInjection;
+declare function useAdaptiveGroupInjection(): FluxAdaptiveGroupInjection | null;
 
 type FluxAdaptiveGroupInjection = {
     register(uid: number, child: FluxAdaptiveGroupChild): void;

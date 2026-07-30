@@ -133,7 +133,9 @@ Always import from a directory's barrel (`index.ts`) **unless** the importing fi
 - ✅ From `component/FluxButton.vue`: `import { useDisabled } from '~flux/composable';`
 - ✅ From `composable/useFoo.ts`: `import { useDisabled } from './useDisabled';`
 
-Known barrels in `packages/components/src/`: `composable/`, `composable/private/`, `data/`, `transition/`, `util/`, `vite/`, `component/`, `component/primitive/`, `component/calendar/`, plus the top-level `index.ts`.
+Known barrels in `packages/components/src/`: `composable/`, `composable/private/`, `data/`, `transition/`, `util/`, `vite/`, `component/`, `component/primitive/`, `component/calendar/`, plus the top-level `index.ts`. Every other package has the same set minus what it does not have, including a `composable/private/` of its own.
+
+The four clusters under `component/` (`form/`, `filter/`, `table/`, `menu/`) deliberately have **no** barrel: they are a way to keep the directory listing readable, not a module boundary. Reach a component in one of them through `component/`'s barrel, or relatively.
 
 **Critical for injection keys**: an injection key **must** always be reached through the barrel of the directory it lives in, never through a deep path. A deep import creates a separate module instance in Vite/rolldown - provider and consumer end up with different `Symbol()` instances and `inject()` returns nothing. So `FluxKanbanInjectionKey` and friends come from the `~flux/components/data` barrel, never from `~flux/components/data/di`.
 
@@ -190,6 +192,8 @@ All components use `<script lang="ts" setup>`. The Options API is disabled (`__V
 
 - Component files: `FluxComponentName.vue` (PascalCase, `Flux` prefix)
 - Primitive / internal components: `packages/components/src/component/primitive/`
+
+`packages/components/src/component/` groups four clusters into subdirectories, on **name prefix** alone: `FluxForm*` in `form/`, `FluxFilter*` in `filter/`, `FluxTable*` in `table/`, `FluxMenu*` in `menu/`. Everything else stays at the top level, which is why `FluxDataTable`, `FluxToggle`, `FluxContextMenu` and `FluxDatePicker` sit next to the folders instead of inside one. The rule is mechanical on purpose: a new component goes in a folder when its name starts with that prefix, and nowhere else. The CSS module does not follow it - `css/component/` stays flat.
 
 ### Props pattern
 
@@ -314,7 +318,7 @@ Shared utilities and composables used across packages. Built with `tsdown`.
 
 Utilities (`packages/internals/src/util/`):
 - Focus helpers - `wrapFocus`, `focusTrap`, `getFocusableElement`, `getFocusableElements`, `getKeyboardFocusableElements`, `getBidirectionalFocusElement`
-- VNode helpers - `flattenVNodeTree`, `getComponentName`, `getComponentProps`, `getExposedRef`, `unrefTemplateElement`
+- VNode helpers - `flattenVNodeTree`, `getComponentName`, `getComponentProps`, `unrefTemplateElement`
 - Misc - `animationFrameDebounce`, `isActiveElement`, `prefersReducedMotion`, `warn`
 
 Composables (`packages/internals/src/composable/`):

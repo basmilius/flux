@@ -30,7 +30,7 @@ export default defineConfig(({mode}) => ({
             experimental: {
                 lazyBarrel: true
             },
-            external: ['@basmilius/common', '@basmilius/utils', '@flux-ui/internals', 'clsx', 'rough-notation', 'vue'],
+            external: ['@basmilius/utils', '@flux-ui/internals', 'clsx', 'rough-notation', 'vue'],
             output: {
                 exports: 'named',
                 globals: {vue: 'vue'},

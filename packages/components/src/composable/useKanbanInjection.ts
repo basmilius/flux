@@ -5,7 +5,7 @@ export default function (): FluxKanbanInjection {
     const injection = inject(FluxKanbanInjectionKey);
 
     if (!injection) {
-        throw new Error('useFluxKanbanInjection must be used inside a FluxKanban.');
+        throw new Error('useKanbanInjection() must be called within a <FluxKanban>.');
     }
 
     return injection;

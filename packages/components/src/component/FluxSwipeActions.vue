@@ -40,8 +40,8 @@
 <script
     lang="ts"
     setup>
-    import { clamp } from '@basmilius/utils';
     import { useResizeObserver } from '@basmilius/common';
+    import { clamp } from '@basmilius/utils';
     import { animationFrameDebounce, type DragContext, unrefTemplateElement, usePointerDrag, useSpring, useWheelDrag, warn } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { computed, onMounted, onScopeDispose, provide, ref, toRef, unref, useTemplateRef, type VNode, watch } from 'vue';

@@ -1,5 +1,7 @@
 # animationFrameDebounce
 
+> Re-exported from [`@basmilius/utils`](https://github.com/basmilius/packages). Behaviour changes there, not here.
+
 Debounce a function to be called only once per animation frame.
 
 ## Usage

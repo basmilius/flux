@@ -14,7 +14,6 @@ const OPTIONS: MarkedOptions = {
     silent: true
 };
 
-
 export type LexMarkdownResult = {
     readonly links: Links;
     readonly tokens: Token[];

@@ -132,7 +132,6 @@
             return;
         }
 
-        
         const measure = (): void => {
             const rect = child.getBoundingClientRect();
 

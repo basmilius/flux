@@ -353,14 +353,14 @@
     lang="ts"
     setup>
     import { FluxAspectRatio, FluxBadge, FluxBoxedIcon, FluxButtonStack, FluxFlex, FluxNotice, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPlaceholder, FluxPrimaryButton, FluxProse, FluxSecondaryButton, FluxSpacer } from '@flux-ui/components';
-    import type { BorderBeamVariant, FluxColor } from '@flux-ui/types';
+    import type { FluxColor, FluxVisualBorderBeamVariant } from '@flux-ui/types';
     import { FluxVisualAnimatedColors, FluxVisualBorderBeam, FluxVisualBorderShine, FluxVisualDotPattern, FluxVisualFlickeringGrid, FluxVisualGridPattern, FluxVisualHighlighter, FluxVisualHighlighterGroup, FluxVisualNoise, FluxVisualNumberFlow, FluxVisualPaneIllustration, FluxVisualPing, FluxVisualSlotText, FluxVisualTextShimmer } from '@flux-ui/visuals';
     import { onBeforeUnmount, onMounted, ref, useTemplateRef } from 'vue';
     import AttentionRow from './playground/AttentionRow.vue';
     import NumberFlowLab from './playground/NumberFlowLab.vue';
     import TextEffectsRow from './playground/TextEffectsRow.vue';
 
-    const BEAM_VARIANTS: BorderBeamVariant[] = ['sm', 'md', 'line', 'pulse-inner', 'pulse-outside'];
+    const BEAM_VARIANTS: FluxVisualBorderBeamVariant[] = ['sm', 'md', 'line', 'pulse-inner', 'pulse-outside'];
     const CURRENCY: Intl.NumberFormatOptions = {currency: 'EUR', maximumFractionDigits: 0, style: 'currency'};
 
     const services: { name: string; status: string; color: FluxColor }[] = [

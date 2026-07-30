@@ -9,21 +9,19 @@ Reach for it when you render your own item inside a calendar view and want it to
 ```ts
 import { useCalendarInjection } from '@flux-ui/components';
 
-const {
-    isDraggable,
-    resolvedView,
-    pixelsPerMinute,
-    registerItem,
-    onItemDragStart
-} = useCalendarInjection();
+const calendar = useCalendarInjection();
+
+const minute = computed(() => calendar?.pixelsPerMinute.value ?? 0);
 ```
+
+It returns `null` outside a calendar view, so an item that may be rendered on its own reaches for it optionally.
 
 ## Type declarations
 
 The context is wider than the fragment above; `FluxCalendarInjection` is exported, so the full shape is available to a consumer.
 
 ```ts
-declare function useCalendarInjection(): FluxCalendarInjection;
+declare function useCalendarInjection(): FluxCalendarInjection | null;
 
 type FluxCalendarInjection = {
     readonly isDraggable: ComputedRef<boolean>;

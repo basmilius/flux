@@ -1,5 +1,7 @@
 # useInView
 
+> Re-exported from [`@basmilius/common`](https://github.com/basmilius/packages). Behaviour changes there, not here.
+
 This composable function is used to check if an element is currently visible in the viewport.
 
 ## Usage
@@ -18,18 +20,21 @@ useInView(element, {
 ## Type declarations
 
 ```ts
-import type { TemplateRef } from '@flux-ui/internals';
-import type { Ref } from 'vue';
-
-export declare function useInView<TElement extends HTMLElement>(
-    containerRef: TemplateRef<TElement>,
-    options: UseInViewOptions = {}
+export declare function useInView<TElement extends HTMLElement | ComponentPublicInstance>(
+    target: MaybeRefOrGetter<TElement | null | undefined>,
+    options?: UseInViewOptions
 ): Ref<boolean>;
 
-type UseInViewOptions = IntersectionObserverInit & {
+type UseInViewOptions = {
     readonly initial?: boolean;
+    readonly root?: Element | Document | null;
+    readonly rootMargin?: string;
+    readonly threshold?: number | number[];
+    readonly once?: boolean;
 };
 ```
+
+The options are named explicitly rather than extending `IntersectionObserverInit`, so a field outside this list is not passed through.
 
 ## Used by
 

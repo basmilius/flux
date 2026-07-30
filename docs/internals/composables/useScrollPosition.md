@@ -1,5 +1,7 @@
 # useScrollPosition
 
+> Re-exported from [`@basmilius/common`](https://github.com/basmilius/packages). Behaviour changes there, not here.
+
 This composable tracks the scroll position of a given element or the document. It provides reactive `x` and `y` refs that update on scroll events.
 
 ## Usage
@@ -19,15 +21,16 @@ const { x: elX, y: elY } = useScrollPosition(element);
 ## Type declarations
 
 ```ts
-import type { TemplateRef } from '@flux-ui/internals';
-import type { Ref } from 'vue';
+type EligibleTarget = HTMLElement | Window | Document;
 
-export declare function useScrollPosition<TElement extends HTMLElement>(
-    elementRef?: TemplateRef<TElement>
-): UseScrollPositionReturn;
+export declare function useScrollPosition(
+    target?: MaybeRefOrGetter<EligibleTarget | null | undefined>
+): ScrollPosition;
 
-type UseScrollPositionReturn = {
+type ScrollPosition = {
     readonly x: Ref<number>;
     readonly y: Ref<number>;
 };
 ```
+
+Both refs start at `0` and take their first real value on mount, not during setup: a server render has no scroll position, so reading one while a component is hydrating would render it from a value the server never had.
