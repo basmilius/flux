@@ -40,7 +40,7 @@
     setup>
     import { FluxIcon, useDisabled } from '@flux-ui/components';
     import { toRef } from 'vue';
-    import { useAiTranslate } from '~flux/ai/data';
+    import { useTranslate } from '~flux/ai/composable/private';
     import $style from '~flux/ai/css/component/AiSuggestions.module.scss';
 
     defineEmits<{
@@ -52,7 +52,7 @@
         readonly suggestions: readonly FluxAiSuggestion[];
     }>();
 
-    const translate = useAiTranslate();
+    const translate = useTranslate();
 
     const disabled = useDisabled(toRef(() => componentDisabled));
 </script>

@@ -7,7 +7,7 @@
 <script
     lang="ts"
     setup>
-    import { prefersReducedMotion } from '@flux-ui/internals';
+    import { prefersReducedMotion } from '@basmilius/utils';
     import { onBeforeUnmount, onMounted, useTemplateRef, watch } from 'vue';
     import $style from '~flux/visuals/css/component/SlotText.module.scss';
 

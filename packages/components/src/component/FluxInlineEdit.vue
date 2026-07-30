@@ -69,8 +69,8 @@
     import { clsx } from 'clsx';
     import { computed, nextTick, ref, toRef, useTemplateRef, type VNode } from 'vue';
     import { useDisabled } from '~flux/components/composable';
-    import FluxFormInput from './FluxFormInput.vue';
-    import FluxFormTextArea from './FluxFormTextArea.vue';
+    import FluxFormInput from './form/FluxFormInput.vue';
+    import FluxFormTextArea from './form/FluxFormTextArea.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import $style from '~flux/components/css/component/InlineEdit.module.scss';
 

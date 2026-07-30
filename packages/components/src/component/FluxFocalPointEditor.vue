@@ -64,6 +64,7 @@
 <script
     lang="ts"
     setup>
+    import { clamp } from '@basmilius/utils';
     import { computed, nextTick, onMounted, onUnmounted, ref, unref, useTemplateRef, watch } from 'vue';
     import { useTranslate } from '~flux/components/composable/private';
     import { FluxFadeTransition } from '~flux/components/transition';
@@ -155,8 +156,8 @@
         const {clientX, clientY} = evt;
 
         dragging.value = [
-            Math.max(0, Math.min(1, (clientX - left) / width)) * 100,
-            Math.max(0, Math.min(1, (clientY - top) / height)) * 100
+            clamp((clientX - left) / width, 0, 1) * 100,
+            clamp((clientY - top) / height, 0, 1) * 100
         ];
     }
 

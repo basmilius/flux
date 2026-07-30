@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { useResizeObserver } from '@basmilius/common';
-    import { flattenVNodeTree, type PointerDragAxis, type PointerDragContext, useEventListener, usePointerDrag, useSpring } from '@flux-ui/internals';
+    import { type PointerDragAxis, type PointerDragContext, useEventListener, usePointerDrag, useResizeObserver, useSpring } from '@basmilius/common';
+    import { flattenVNodeTree } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { Comment, computed, defineComponent, h, type PropType, ref, shallowRef, unref, type VNode, watch } from 'vue';
     import { elasticResistance, useTranslate } from '~flux/components/composable/private';

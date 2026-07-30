@@ -15,8 +15,8 @@ const { closeAll, register, unregister } = useExpandableGroupInjection();
 ```ts
 declare function useExpandableGroupInjection(): {
     closeAll(): void;
-    register(uid: number, instance: object): void;
-    unregister(uid: number): void;
+    register(uid: string, instance: object): void;
+    unregister(uid: string): void;
 };
 ```
 

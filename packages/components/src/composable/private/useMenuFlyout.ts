@@ -1,4 +1,5 @@
-import { animationFrameDebounce, isSSR } from '@flux-ui/internals';
+import { animationFrameDebounce } from '@basmilius/utils';
+import { isSSR } from '@flux-ui/internals';
 import { type ComponentPublicInstance, inject, nextTick, onMounted, onUnmounted, provide, ref, type Ref, watch } from 'vue';
 import { type FluxMenuFlyoutCone, type FluxMenuFlyoutEntry, type FluxMenuFlyoutInjection, FluxMenuFlyoutInjectionKey, type FluxMenuFlyoutPointer } from '~flux/components/data';
 

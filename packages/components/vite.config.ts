@@ -35,7 +35,7 @@ export default defineConfig(({mode}) => ({
             experimental: {
                 lazyBarrel: true
             },
-            external: ['luxon', 'vite', 'vue', 'vue-i18n'],
+            external: ['@basmilius/common', '@basmilius/utils', '@flux-ui/internals', 'clsx', 'imask', /^imask\//, 'luxon', 'vite', 'vue', 'vue-i18n'],
             output: {
                 assetFileNames: assetInfo => {
                     if (assetInfo.name?.endsWith('.css')) {

@@ -1,3 +1,4 @@
+import { clamp } from '@basmilius/utils';
 import type { FluxFlowAlign, FluxFlowBounds, FluxFlowDirection, FluxFlowNodeRecord, FluxFlowPortRecord, FluxFlowPosition, FluxFlowSide, FluxFlowSize } from '~flux/flow/data';
 
 /**
@@ -8,10 +9,6 @@ export const FALLBACK_INSET = 30;
 
 function center(position: FluxFlowPosition, size: FluxFlowSize): FluxFlowPosition {
     return {x: position.x + size.width / 2, y: position.y + size.height / 2};
-}
-
-export function clamp(value: number, min: number, max: number): number {
-    return Math.min(Math.max(value, min), max);
 }
 
 /**

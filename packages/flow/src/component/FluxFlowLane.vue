@@ -19,7 +19,7 @@
     setup>
     import type { FluxColor } from '@flux-ui/types';
     import { computed } from 'vue';
-    import { useFluxFlowInjection } from '~flux/flow/composable';
+    import { useFlowInjection } from '~flux/flow/composable';
     import { useFlowBox } from '~flux/flow/composable/private';
     import $style from '~flux/flow/css/component/FlowLane.module.scss';
 
@@ -44,7 +44,7 @@
     // The strip the title rides in, at the head of the lane.
     const GUTTER = 30;
 
-    const controller = useFluxFlowInjection();
+    const controller = useFlowInjection();
 
     const backdrop = controller.backdropElement;
 

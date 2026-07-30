@@ -8,10 +8,9 @@
 <script
     lang="ts"
     setup>
-    import { useComponentId } from '@basmilius/common';
-    import { mulberry32 } from '@basmilius/utils';
-    import { prefersReducedMotion, useInView } from '@flux-ui/internals';
-    import { computed, onBeforeUnmount, ref, unref, useTemplateRef, watch } from 'vue';
+    import { useInView } from '@basmilius/common';
+    import { mulberry32, prefersReducedMotion } from '@basmilius/utils';
+    import { computed, onBeforeUnmount, ref, unref, useId, useTemplateRef, watch } from 'vue';
     import $style from '~flux/visuals/css/component/Visual.module.scss';
 
     type Polygon = [number, number, string, PolygonPoint[]];
@@ -37,7 +36,7 @@
     const tick = ref(0);
     const size = ref<{ width: number; height: number; } | null>(null);
 
-    const componentId = useComponentId();
+    const instanceId = useId();
     const inView = useInView(canvasRef, {initial: true});
     const reducedMotion = prefersReducedMotion();
 
@@ -46,7 +45,7 @@
             return [];
         }
 
-        const mulberry = mulberry32(seed ?? componentId.value);
+        const mulberry = mulberry32(seed ?? hashId(instanceId));
         const polygons: Polygon[] = [];
 
         for (const color of colors) {
@@ -182,5 +181,16 @@
         }
 
         schedule();
+    }
+
+    // mulberry32 seeds on a number, so the id becomes one.
+    function hashId(value: string): number {
+        let hash = 0;
+
+        for (let index = 0; index < value.length; index++) {
+            hash = (hash * 31 + value.charCodeAt(index)) | 0;
+        }
+
+        return hash;
     }
 </script>

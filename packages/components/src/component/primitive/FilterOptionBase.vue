@@ -42,10 +42,10 @@
     import type { FluxFilterOptionItem, FluxFilterOptionRow, FluxFilterValueSingle } from '@flux-ui/types';
     import { onMounted, useTemplateRef } from 'vue';
     import { isFluxFilterOptionHeader, isFluxFilterOptionItem } from '~flux/components/util';
-    import FluxFormInput from '../FluxFormInput.vue';
-    import FluxMenuGroup from '../FluxMenuGroup.vue';
-    import FluxMenuItem from '../FluxMenuItem.vue';
-    import FluxMenuSubHeader from '../FluxMenuSubHeader.vue';
+    import FluxFormInput from '../form/FluxFormInput.vue';
+    import FluxMenuGroup from '../menu/FluxMenuGroup.vue';
+    import FluxMenuItem from '../menu/FluxMenuItem.vue';
+    import FluxMenuSubHeader from '../menu/FluxMenuSubHeader.vue';
     import $style from '~flux/components/css/component/Filter.module.scss';
 
     const emit = defineEmits<{

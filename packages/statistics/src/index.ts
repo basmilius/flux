@@ -1,9 +1,9 @@
 import type { FluxStatisticsChartColor } from '@flux-ui/types';
 import { CHART_DEFAULT_COLORS } from './util';
+import './css/index.scss';
 
 export * from './component';
 export * from './composable';
-export * from './data';
 
 export type { ChartTooltipValueFormatter, SharedTooltipItem, Translator } from './util';
 

@@ -1,5 +1,5 @@
-import { formatNumber } from '@basmilius/utils';
-import { escapeAttr, escapeHtml } from '../html';
+import { escapeAttr, escapeHtml, formatNumber } from '@basmilius/utils';
+
 import { renderIconSvg } from '../icons';
 import type { ChartTooltipValueFormatter, SharedTooltipItem, TooltipParam, TooltipStyleClasses, Translator } from './types';
 

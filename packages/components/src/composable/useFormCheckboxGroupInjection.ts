@@ -1,6 +1,6 @@
 import { inject } from 'vue';
-import { FluxFormCheckboxGroupInjectionKey } from '~flux/components/data';
+import { type FluxFormCheckboxGroupInjection, FluxFormCheckboxGroupInjectionKey } from '~flux/components/data';
 
-export default function () {
+export default function (): FluxFormCheckboxGroupInjection | null {
     return inject(FluxFormCheckboxGroupInjectionKey, null);
 }

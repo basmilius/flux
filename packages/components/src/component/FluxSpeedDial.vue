@@ -49,8 +49,8 @@
 <script
     lang="ts"
     setup>
-    import { useClickOutside } from '@basmilius/common';
-    import { getFocusableElements, unrefTemplateElement, useFocusZone } from '@flux-ui/internals';
+    import { unwrapElement, useClickOutside } from '@basmilius/common';
+    import { getFocusableElements, useFocusZone } from '@flux-ui/internals';
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { nextTick, unref, useId, useTemplateRef, type VNode, watch } from 'vue';
@@ -101,7 +101,7 @@
     useClickOutside(elementRef, isOpen, close);
 
     watch(isOpen, async opened => {
-        const element = unrefTemplateElement(elementRef);
+        const element = unwrapElement(elementRef);
 
         if (!element?.contains(document.activeElement)) {
             return;
@@ -109,7 +109,7 @@
 
         await nextTick();
 
-        const actions = unrefTemplateElement(actionsRef);
+        const actions = unwrapElement(actionsRef);
 
         if (opened && actions) {
             getFocusableElements(actions)[0]?.focus();

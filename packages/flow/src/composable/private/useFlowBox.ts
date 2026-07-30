@@ -1,5 +1,5 @@
 import { computed, type ComputedRef, type CSSProperties, getCurrentInstance, onBeforeUnmount } from 'vue';
-import { useFluxFlowInjection } from '~flux/flow/composable';
+import { useFlowInjection } from '~flux/flow/composable';
 import type { FluxFlowBounds, FluxFlowPosition, FluxFlowSize } from '~flux/flow/data';
 
 type FlowRect = FluxFlowPosition & FluxFlowSize;
@@ -16,7 +16,7 @@ type FlowBox = {
  */
 export default function useFlowBox(rect: () => FlowRect | null): FlowBox {
     const uid = getCurrentInstance()!.uid;
-    const controller = useFluxFlowInjection();
+    const controller = useFlowInjection();
 
     const bounds = computed<FluxFlowBounds | null>(() => {
         const value = rect();

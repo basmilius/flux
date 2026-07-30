@@ -1,5 +1,6 @@
+import { unwrapElement } from '@basmilius/common';
 import { ref, type Ref, unref, watch } from 'vue';
-import { getFocusableElements, isActiveElement, isSSR, type TemplateRef, unrefTemplateElement, wrapFocus } from '../util';
+import { getFocusableElements, isActiveElement, isSSR, type TemplateRef, wrapFocus } from '../util';
 import useFocusTrapLock from './useFocusTrapLock';
 import useFocusTrapReturn from './useFocusTrapReturn';
 
@@ -14,7 +15,7 @@ export default function (containerRef: TemplateRef<HTMLElement>, options: UseFoc
     useFocusTrapReturn(containerRef, disableReturn);
 
     watch(containerRef, (_, __, onCleanup) => {
-        const container = unrefTemplateElement(containerRef);
+        const container = unwrapElement(containerRef);
         const attach = attachTo || document;
 
         if (enabled.value && container && document.activeElement && !container.contains(document.activeElement) && !container.querySelector('[autofocus]')) {
@@ -92,7 +93,7 @@ export default function (containerRef: TemplateRef<HTMLElement>, options: UseFoc
     }, {immediate: true});
 
     watch(disable, disabled => {
-        const container = unrefTemplateElement(containerRef);
+        const container = unwrapElement(containerRef);
         enabled.value = !disabled;
 
         if (disabled || !container) {

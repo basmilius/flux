@@ -50,8 +50,7 @@
 <script
     lang="ts"
     setup>
-    import { useMutationObserver, useResizeObserver } from '@basmilius/common';
-    import { unrefTemplateElement, useEventListener } from '@flux-ui/internals';
+    import { unwrapElement, useEventListener, useMutationObserver, useResizeObserver } from '@basmilius/common';
     import { clsx } from 'clsx';
     import { onMounted, provide, ref, type Ref, toRef, useTemplateRef, type VNode, watch } from 'vue';
     import { FluxTabBarInjectionKey } from '~flux/components/data';
@@ -69,7 +68,7 @@
 
     const tabBarRef = useTemplateRef<HTMLElement>('tabBar');
 
-    useEventListener(tabBarRef, 'scroll', () => checkScroll());
+    useEventListener(tabBarRef, 'scroll', () => checkScroll(), {passive: true});
     useMutationObserver(tabBarRef, () => {
         checkScroll();
         updateHighlight();
@@ -106,7 +105,7 @@
     });
 
     function onKeyDown(evt: KeyboardEvent): void {
-        const tabBar = unrefTemplateElement(tabBarRef);
+        const tabBar = unwrapElement(tabBarRef);
 
         if (!tabBar) {
             return;
@@ -154,7 +153,7 @@
     }
 
     function checkScroll(): void {
-        const tabBar = unrefTemplateElement(tabBarRef)!;
+        const tabBar = unwrapElement(tabBarRef)!;
 
         if (tabBar.scrollWidth <= tabBar.offsetWidth) {
             isEndArrowVisible.value = false;
@@ -167,7 +166,7 @@
     }
 
     function updateHighlight(): void {
-        const tabBar = unrefTemplateElement(tabBarRef);
+        const tabBar = unwrapElement(tabBarRef);
 
         if (!tabBar) {
             return;
@@ -199,7 +198,7 @@
     }
 
     function scrollToEnd(): void {
-        const tabBar = unrefTemplateElement(tabBarRef)!;
+        const tabBar = unwrapElement(tabBarRef)!;
         tabBar.scrollBy({
             behavior: 'smooth',
             left: tabBar.offsetWidth / 1.5
@@ -207,7 +206,7 @@
     }
 
     function scrollToStart(): void {
-        const tabBar = unrefTemplateElement(tabBarRef)!;
+        const tabBar = unwrapElement(tabBarRef)!;
         tabBar.scrollBy({
             behavior: 'smooth',
             left: tabBar.offsetWidth / -1.5

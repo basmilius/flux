@@ -27,8 +27,8 @@
 <script
     lang="ts"
     setup>
-    import { useMutationObserver, useResizeObserver } from '@basmilius/common';
-    import { prefersReducedMotion, unrefTemplateElement } from '@flux-ui/internals';
+    import { unwrapElement, useMutationObserver, useResizeObserver } from '@basmilius/common';
+    import { prefersReducedMotion } from '@basmilius/utils';
     import { clsx } from 'clsx';
     import { computed, nextTick, onScopeDispose, ref, unref, useId, useTemplateRef, type VNode, watch } from 'vue';
     import { useTranslate } from '~flux/components/composable/private';
@@ -93,7 +93,7 @@
     });
 
     function measure(): void {
-        const element = unrefTemplateElement(contentRef);
+        const element = unwrapElement(contentRef);
 
         if (!element || !unref(isClamped)) {
             return;
@@ -109,7 +109,7 @@
     }
 
     async function reveal(expanded: boolean): Promise<void> {
-        const element = unrefTemplateElement(contentRef);
+        const element = unwrapElement(contentRef);
 
         if (!element) {
             isClamped.value = !expanded;

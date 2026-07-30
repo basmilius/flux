@@ -1,8 +1,8 @@
 import type { FluxStatisticsChartPieSlice } from '@flux-ui/types';
 import { computed, type ComputedRef, inject, useTemplateRef, watchEffect } from 'vue';
-import { useStatisticsTranslate } from '~flux/statistics/data';
+import { useTranslate } from '~flux/statistics/composable/private';
 import { CHART_DEFAULT_COLORS, resolveChartColor, type SharedTooltipItem, type Translator } from '~flux/statistics/util';
-import { useChartHoverSync } from './useChartHoverSync';
+import useChartHoverSync from './useChartHoverSync';
 import { type ChartLegendContext, type ChartLegendItem, FluxStatisticsChartLegendInjectionKey } from './useChartLegend';
 import type { EChartsInstance } from './useECharts';
 
@@ -14,10 +14,10 @@ export interface UseChartSlicesSetupReturn {
     readonly chartInstance: ComputedRef<EChartsInstance | null>;
 }
 
-export function useChartSlicesSetup(
+export default function useChartSlicesSetup(
     slicesGetter: () => readonly FluxStatisticsChartPieSlice[]
 ): UseChartSlicesSetupReturn {
-    const t = useStatisticsTranslate();
+    const t = useTranslate();
     const legendContext = inject(FluxStatisticsChartLegendInjectionKey, null);
     const chartRef = useTemplateRef<{ chartInstance: EChartsInstance | null } | null>('chartRef');
     const chartInstance = computed<EChartsInstance | null>(() => chartRef.value?.chartInstance ?? null);

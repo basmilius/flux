@@ -3,7 +3,7 @@ import { type InjectionKey, nextTick, onMounted, onUnmounted, ref, type Ref, sha
 const BRANCH_HEIGHT = 24;
 const MARKER_GAP = 6;
 
-type ElementRef = Readonly<Ref<HTMLElement | null>>;
+export type ElementRef = Readonly<Ref<HTMLElement | null>>;
 
 type Registration = {
     readonly element: ElementRef;
@@ -39,7 +39,7 @@ export const FluxStatisticsTrackerGroupInjectionKey: InjectionKey<TrackerGroupCo
  * leaving a gap around each marker. Because nothing is masked against a
  * background, the tracker works on any surface.
  */
-export function useTracker(container: ElementRef) {
+export default function useTracker(container: ElementRef) {
     const markers = shallowReactive(new Set<Registration>());
     const groups = shallowReactive(new Set<Group>());
     const linePath = ref('');

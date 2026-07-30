@@ -26,10 +26,10 @@
     setup>
     import { FluxMenuItem } from '@flux-ui/components';
     import { useApplicationInjection } from '../composable';
-    import { useApplicationTranslate } from '../data';
+    import { useTranslate } from '../composable/private';
     import $style from '~flux/application/css/component/ApplicationMenu.module.scss';
 
-    const translate = useApplicationTranslate();
+    const translate = useTranslate();
 
     const {isMenuCollapsed} = useApplicationInjection();
 </script>

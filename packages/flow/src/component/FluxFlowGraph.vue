@@ -5,10 +5,11 @@
 <script
     lang="ts"
     setup>
+    import { flattenVNodeTree } from '@flux-ui/internals';
     import { computed, provide, shallowReactive, useSlots } from 'vue';
     import { useFlowLayout, useFlowTrunkLayout } from '~flux/flow/composable';
     import { type FluxFlowDirection, FluxFlowPlacementInjectionKey, type FluxFlowPlacementLink } from '~flux/flow/data';
-    import { flattenFragments, LABELLED_GAP } from '~flux/flow/util';
+    import { LABELLED_GAP } from '~flux/flow/util';
     import FluxFlowConnection from './FluxFlowConnection.vue';
 
     const {
@@ -61,7 +62,7 @@
 
         let labelled = false;
 
-        for (const vnode of flattenFragments(slots.default?.() ?? [])) {
+        for (const vnode of flattenVNodeTree(slots.default?.() ?? [])) {
             const {from, to, label, icon} = vnode.props ?? {};
 
             if (vnode.type === FluxFlowConnection && typeof from === 'string' && typeof to === 'string') {

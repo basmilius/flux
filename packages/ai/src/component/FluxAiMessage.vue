@@ -59,7 +59,8 @@
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, inject, type VNode } from 'vue';
-    import { FluxAiConversationInjectionKey, useAiTranslate } from '~flux/ai/data';
+    import { useTranslate } from '~flux/ai/composable/private';
+    import { FluxAiConversationInjectionKey } from '~flux/ai/data';
     import $style from '~flux/ai/css/component/AiMessage.module.scss';
 
     const ROLE_LABEL = {
@@ -92,7 +93,7 @@
         footer(): VNode[];
     }>();
 
-    const translate = useAiTranslate();
+    const translate = useTranslate();
 
     const conversation = inject(FluxAiConversationInjectionKey, null);
 

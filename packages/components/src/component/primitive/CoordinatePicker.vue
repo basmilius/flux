@@ -19,8 +19,8 @@
 <script
     lang="ts"
     setup>
+    import { unwrapElement } from '@basmilius/common';
     import { roundStep } from '@basmilius/utils';
-    import { unrefTemplateElement } from '@flux-ui/internals';
     import { computed, onUnmounted, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '~flux/components/composable';
     import CoordinatePickerThumb from './CoordinatePickerThumb.vue';
@@ -146,7 +146,7 @@
             return;
         }
 
-        const root = unrefTemplateElement(rootRef);
+        const root = unwrapElement(rootRef);
 
         isDragging.value = true;
         pointerId.value = evt.pointerId;
@@ -158,7 +158,7 @@
     }
 
     function onPointerMove(evt: PointerEvent): void {
-        const root = unrefTemplateElement(rootRef);
+        const root = unwrapElement(rootRef);
 
         if (!unref(isDragging) || !root) {
             return;
@@ -190,7 +190,7 @@
     }
 
     function onPointerUp(): void {
-        const root = unrefTemplateElement(rootRef);
+        const root = unwrapElement(rootRef);
 
         if (pointerId.value !== null) {
             root?.releasePointerCapture?.(pointerId.value);

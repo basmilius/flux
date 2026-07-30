@@ -29,7 +29,7 @@ export default defineConfig({
     ignoreDeadLinks: true,
     cleanUrls: true,
     head: [
-        ['link', {rel: 'stylesheet', href: 'https://font.bmcdn.nl/css2?family=inter-variable|jetbrains-mono'}],
+        ['link', {rel: 'stylesheet', href: 'https://font.bmcdn.nl/css2?family=inter-variable|jetbrains-mono'}]
     ],
     markdown: {
         config(md) {
@@ -160,16 +160,22 @@ export default defineConfig({
                     text: 'Composables',
                     collapsed: false,
                     items: [
+                        {text: 'useAdaptiveGroupInjection', link: '/guide/composables/useAdaptiveGroupInjection'},
                         {text: 'useBreakpoints', link: '/guide/composables/useBreakpoints'},
+                        {text: 'useCalendarInjection', link: '/guide/composables/useCalendarInjection'},
                         {text: 'useDisabled', link: '/guide/composables/useDisabled'},
                         {text: 'useDisabledInjection', link: '/guide/composables/useDisabledInjection'},
                         {text: 'useExpandableGroupInjection', link: '/guide/composables/useExpandableGroupInjection'},
                         {text: 'useFilterInjection', link: '/guide/composables/useFilterInjection'},
                         {text: 'useFlyoutInjection', link: '/guide/composables/useFlyoutInjection'},
+                        {text: 'useFormCheckboxGroupInjection', link: '/guide/composables/useFormCheckboxGroupInjection'},
                         {text: 'useFormFieldInjection', link: '/guide/composables/useFormFieldInjection'},
+                        {text: 'useFormRadioGroupInjection', link: '/guide/composables/useFormRadioGroupInjection'},
+                        {text: 'useKanbanInjection', link: '/guide/composables/useKanbanInjection'},
+                        {text: 'useSegmentedControlInjection', link: '/guide/composables/useSegmentedControlInjection'},
+                        {text: 'useTabBarInjection', link: '/guide/composables/useTabBarInjection'},
                         {text: 'useTableInjection', link: '/guide/composables/useTableInjection'},
-                        {text: 'useTooltipInjection', link: '/guide/composables/useTooltipInjection'},
-                        {text: 'useTranslate', link: '/guide/composables/useTranslate'}
+                        {text: 'useTooltipInjection', link: '/guide/composables/useTooltipInjection'}
                     ]
                 },
                 {
@@ -232,7 +238,7 @@ export default defineConfig({
                     items: [
                         {text: 'useFlowLayout', link: '/flow/composables/useFlowLayout'},
                         {text: 'useFlowTrunkLayout', link: '/flow/composables/useFlowTrunkLayout'},
-                        {text: 'useFluxFlowInjection', link: '/flow/composables/useFluxFlowInjection'}
+                        {text: 'useFlowInjection', link: '/flow/composables/useFlowInjection'}
                     ]
                 },
                 {
@@ -477,19 +483,13 @@ export default defineConfig({
                         {text: 'useCalendarMonthSwitcher', link: '/internals/composables/useCalendarMonthSwitcher'},
                         {text: 'useCalendarTimeGrid', link: '/internals/composables/useCalendarTimeGrid'},
                         {text: 'useCalendarYearSwitcher', link: '/internals/composables/useCalendarYearSwitcher'},
-                        {text: 'useEventListener', link: '/internals/composables/useEventListener'},
                         {text: 'useFocusTrap', link: '/internals/composables/useFocusTrap'},
                         {text: 'useFocusTrapLock', link: '/internals/composables/useFocusTrapLock'},
                         {text: 'useFocusTrapReturn', link: '/internals/composables/useFocusTrapReturn'},
                         {text: 'useFocusTrapSubscription', link: '/internals/composables/useFocusTrapSubscription'},
                         {text: 'useFocusZone', link: '/internals/composables/useFocusZone'},
-                        {text: 'useInView', link: '/internals/composables/useInView'},
                         {text: 'useKeyboardGrab', link: '/internals/composables/useKeyboardGrab'},
-                        {text: 'usePointerDrag', link: '/internals/composables/usePointerDrag'},
-                        {text: 'useRemembered', link: '/internals/composables/useRemembered'},
-                        {text: 'useScrollPosition', link: '/internals/composables/useScrollPosition'},
-                        {text: 'useSpring', link: '/internals/composables/useSpring'},
-                        {text: 'useWheelDrag', link: '/internals/composables/useWheelDrag'}
+                        {text: 'useRemembered', link: '/internals/composables/useRemembered'}
                     ]
                 },
                 {
@@ -504,19 +504,15 @@ export default defineConfig({
                     text: 'Utils',
                     collapsed: false,
                     items: [
-                        {text: 'animationFrameDebounce', link: '/internals/utils/animationFrameDebounce'},
                         {text: 'flattenVNodeTree', link: '/internals/utils/flattenVNodeTree'},
                         {text: 'getBidirectionalFocusElement', link: '/internals/utils/getBidirectionalFocusElement'},
                         {text: 'getComponentName', link: '/internals/utils/getComponentName'},
                         {text: 'getComponentProps', link: '/internals/utils/getComponentProps'},
-                        {text: 'getExposedRef', link: '/internals/utils/getExposedRef'},
                         {text: 'getFocusableElement', link: '/internals/utils/getFocusableElement'},
                         {text: 'getFocusableElements', link: '/internals/utils/getFocusableElements'},
                         {text: 'getKeyboardFocusableElements', link: '/internals/utils/getKeyboardFocusableElements'},
                         {text: 'isActiveElement', link: '/internals/utils/isActiveElement'},
                         {text: 'isSSR', link: '/internals/utils/isSSR'},
-                        {text: 'prefersReducedMotion', link: '/internals/utils/prefersReducedMotion'},
-                        {text: 'unrefTemplateElement', link: '/internals/utils/unrefTemplateElement'},
                         {text: 'warn', link: '/internals/utils/warn'},
                         {text: 'wrapFocus', link: '/internals/utils/wrapFocus'},
                         {text: 'FOCUS_TRAP_LOCKS', link: '/internals/utils/focusTrap'}

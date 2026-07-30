@@ -1,6 +1,6 @@
+import { IMAGE_PROTOCOLS, sanitizeUrl } from '@basmilius/utils';
 import type { Token, Tokens } from 'marked';
 import { cloneVNode, defineComponent, h, type PropType, type VNode } from 'vue';
-import { IMAGE_PROTOCOLS, sanitizeUrl } from './markdown';
 
 const EXTERNAL = /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i;
 

@@ -37,7 +37,7 @@
     lang="ts"
     setup>
     import { computed } from 'vue';
-    import { useFluxFlowInjection } from '~flux/flow/composable';
+    import { useFlowInjection } from '~flux/flow/composable';
     import type { FluxFlowPanelPosition, FluxFlowPosition } from '~flux/flow/data';
     import FluxFlowPanel from './FluxFlowPanel.vue';
     import $style from '~flux/flow/css/component/FlowMinimap.module.scss';
@@ -64,7 +64,7 @@
         readonly width?: number;
     }>();
 
-    const controller = useFluxFlowInjection();
+    const controller = useFlowInjection();
 
     const isStatic = controller.isStatic;
 

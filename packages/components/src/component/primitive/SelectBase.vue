@@ -155,7 +155,7 @@
 <script
     lang="ts"
     setup>
-    import { unrefTemplateElement } from '@flux-ui/internals';
+    import { unwrapElement } from '@basmilius/common';
     import type { FluxFormSelectOption, FluxFormSelectOptions } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { type ComponentPublicInstance, computed, nextTick, onMounted, ref, toRef, unref, useId, useTemplateRef, watch } from 'vue';
@@ -163,12 +163,12 @@
     import { INITIAL_HIGHLIGHTED_INDEX, useDropdownPopup, useTranslate } from '~flux/components/composable/private';
     import { isFluxFormSelectGroup, isFluxFormSelectOption } from '~flux/components/data';
     import { FluxFadeTransition } from '~flux/components/transition';
-    import FluxFormInput from '../FluxFormInput.vue';
+    import FluxFormInput from '../form/FluxFormInput.vue';
     import FluxIcon from '../FluxIcon.vue';
-    import FluxMenu from '../FluxMenu.vue';
-    import FluxMenuGroup from '../FluxMenuGroup.vue';
-    import FluxMenuItem from '../FluxMenuItem.vue';
-    import FluxMenuSubHeader from '../FluxMenuSubHeader.vue';
+    import FluxMenu from '../menu/FluxMenu.vue';
+    import FluxMenuGroup from '../menu/FluxMenuGroup.vue';
+    import FluxMenuItem from '../menu/FluxMenuItem.vue';
+    import FluxMenuSubHeader from '../menu/FluxMenuSubHeader.vue';
     import FluxSpinner from '../FluxSpinner.vue';
     import FluxTag from '../FluxTag.vue';
     import Anchor from './Anchor.vue';
@@ -230,9 +230,9 @@
     const focusElement = computed(() => {
         // The search input's template ref resolves to FluxFormInput's wrapper element, which is not
         // focusable. Reach for the inner <input> so opening the popup focuses the search box.
-        const searchInput = unrefTemplateElement(searchInputElementRef);
+        const searchInput = unwrapElement(searchInputElementRef);
 
-        return searchInput?.querySelector<HTMLElement>('input') ?? unrefTemplateElement(anchorRef);
+        return searchInput?.querySelector<HTMLElement>('input') ?? unwrapElement(anchorRef);
     });
     const highlightedId = computed(() => unref(rawOptions)[unref(highlightedIndex)]?.value);
     const activeDescendant = computed(() => unref(highlightedId) !== undefined ? optionId(unref(highlightedId)) : '');
@@ -300,7 +300,7 @@
 
     onMounted(() => {
         if (autoFocus) {
-            nextTick(() => unrefTemplateElement(anchorRef)?.focus());
+            nextTick(() => unwrapElement(anchorRef)?.focus());
         }
     });
 

@@ -106,7 +106,7 @@ export type {
 } from './statistics';
 
 export type {
-    BorderBeamVariant,
-    HighlighterGroupProps,
-    HighlighterVariant
+    FluxVisualBorderBeamVariant,
+    FluxVisualHighlighterGroupProps,
+    FluxVisualHighlighterVariant
 } from './visuals';

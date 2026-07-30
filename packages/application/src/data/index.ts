@@ -2,7 +2,6 @@ import type { FluxIconName, FluxPressableType, FluxTo } from '@flux-ui/types';
 import type { ComputedRef, InjectionKey, Ref } from 'vue';
 
 export * from './i18n';
-export * from './useApplicationTranslate';
 
 export const FluxApplicationInjectionKey: InjectionKey<FluxApplicationInjection> = Symbol();
 

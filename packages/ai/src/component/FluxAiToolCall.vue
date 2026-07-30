@@ -101,11 +101,12 @@
 <script
     lang="ts"
     setup>
+    import { copyToClipboard } from '@basmilius/utils';
     import { FluxExpandable, FluxIcon } from '@flux-ui/components';
     import { clsx } from 'clsx';
     import { computed, onUnmounted, ref, type VNode } from 'vue';
-    import { aiConfig, type FluxAiTranslation, useAiTranslate } from '~flux/ai/data';
-    import { copyToClipboard } from '~flux/ai/util';
+    import { useTranslate } from '~flux/ai/composable/private';
+    import { aiConfig, type FluxAiTranslation } from '~flux/ai/data';
     import $style from '~flux/ai/css/component/AiToolCall.module.scss';
 
     type FluxAiToolCallSection = 'arguments' | 'result';
@@ -131,7 +132,7 @@
         result(props: { readonly value: string | null }): VNode[];
     }>();
 
-    const translate = useAiTranslate();
+    const translate = useTranslate();
 
     const SIGNATURE_LIMIT = 60;
     const VALUE_LIMIT = 24;

@@ -1,6 +1,6 @@
 import { inject } from 'vue';
-import { FluxAdaptiveGroupInjectionKey } from '~flux/components/data';
+import { type FluxAdaptiveGroupInjection, FluxAdaptiveGroupInjectionKey } from '~flux/components/data';
 
-export default function () {
+export default function (): FluxAdaptiveGroupInjection | null {
     return inject(FluxAdaptiveGroupInjectionKey, null);
 }

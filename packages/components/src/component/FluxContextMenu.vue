@@ -29,7 +29,8 @@
 <script
     lang="ts"
     setup>
-    import { isSSR, useEventListener, useFocusTrap } from '@flux-ui/internals';
+    import { useEventListener } from '@basmilius/common';
+    import { isSSR, useFocusTrap } from '@flux-ui/internals';
     import { type ComponentPublicInstance, computed, onUnmounted, provide, reactive, ref, toRef, useTemplateRef, type VNode } from 'vue';
     import { AnchorPopup } from '~flux/components/component/primitive';
     import { useDisabled } from '~flux/components/composable';
@@ -201,6 +202,6 @@
             if (!isInsideMenu(evt.target as Node | null)) {
                 close();
             }
-        }, {capture: true});
+        }, {capture: true, passive: true});
     }
 </script>

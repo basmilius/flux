@@ -48,7 +48,8 @@
     import { FluxExpandable, FluxIcon, FluxSpinner } from '@flux-ui/components';
     import { clsx } from 'clsx';
     import { computed, h, type VNode } from 'vue';
-    import { aiConfig, useAiTranslate } from '~flux/ai/data';
+    import { useTranslate } from '~flux/ai/composable/private';
+    import { aiConfig } from '~flux/ai/data';
     import { renderText } from '~flux/ai/util';
     import $style from '~flux/ai/css/component/AiReasoning.module.scss';
 
@@ -68,7 +69,7 @@
         default(): any;
     }>();
 
-    const translate = useAiTranslate();
+    const translate = useTranslate();
 
     const label = computed(() => {
         if (isStreaming) {

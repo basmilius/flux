@@ -52,10 +52,12 @@
 <script
     lang="ts"
     setup>
+    import { prefersReducedMotion } from '@basmilius/utils';
     import { FluxDynamicView, FluxFadeTransition, FluxSecondaryButton, FluxTooltip } from '@flux-ui/components';
-    import { flattenVNodeTree, getComponentProps, prefersReducedMotion } from '@flux-ui/internals';
+    import { flattenVNodeTree, getComponentProps } from '@flux-ui/internals';
     import { Comment, computed, onBeforeUnmount, onMounted, provide, ref, Text, useTemplateRef, type VNode } from 'vue';
-    import { FluxAiConversationInjectionKey, useAiTranslate } from '~flux/ai/data';
+    import { useTranslate } from '~flux/ai/composable/private';
+    import { FluxAiConversationInjectionKey } from '~flux/ai/data';
     import $style from '~flux/ai/css/component/AiConversation.module.scss';
 
     const BOTTOM_THRESHOLD = 24;
@@ -82,7 +84,7 @@
         empty(): VNode[];
     }>();
 
-    const translate = useAiTranslate();
+    const translate = useTranslate();
 
     const listRef = useTemplateRef<HTMLElement>('list');
     const scrollerRef = useTemplateRef<HTMLElement>('scroller');

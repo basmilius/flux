@@ -23,8 +23,9 @@
 <script
     lang="ts"
     setup>
-    import { useInView } from '@flux-ui/internals';
-    import type { BorderBeamVariant } from '@flux-ui/types';
+    import { useInView } from '@basmilius/common';
+    import { clamp } from '@basmilius/utils';
+    import type { FluxVisualBorderBeamVariant } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, ref, unref, useTemplateRef, watch } from 'vue';
     import { useBorderBeamPulse } from '~flux/visuals/composable/private';
@@ -56,14 +57,14 @@
         readonly saturation?: number;
         readonly staticColors?: boolean;
         readonly strength?: number;
-        readonly variant?: BorderBeamVariant;
+        readonly variant?: FluxVisualBorderBeamVariant;
     }>();
 
     defineSlots<{
         default(): any;
     }>();
 
-    const VARIANT_CLASSES: Record<BorderBeamVariant, string> = {
+    const VARIANT_CLASSES: Record<FluxVisualBorderBeamVariant, string> = {
         'sm': $style.sm,
         'md': $style.md,
         'line': $style.line,
@@ -131,8 +132,6 @@
             return;
         }
 
-        const clamp = (value: number): number => Math.max(.35, Math.min(4, value));
-
         const measure = (): void => {
             const rect = child.getBoundingClientRect();
 
@@ -140,8 +139,8 @@
                 return;
             }
 
-            const x = +clamp(rect.width / 350).toFixed(3);
-            const y = +clamp(rect.height / 140).toFixed(3);
+            const x = +clamp(rect.width / 350, .35, 4).toFixed(3);
+            const y = +clamp(rect.height / 140, .35, 4).toFixed(3);
 
             if (glowScale.value?.x !== x || glowScale.value?.y !== y) {
                 glowScale.value = {x, y};

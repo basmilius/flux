@@ -40,8 +40,9 @@
 <script
     lang="ts"
     setup>
-    import { useResizeObserver } from '@basmilius/common';
-    import { animationFrameDebounce, type DragContext, unrefTemplateElement, usePointerDrag, useSpring, useWheelDrag, warn } from '@flux-ui/internals';
+    import { type DragContext, unwrapElement, usePointerDrag, useResizeObserver, useSpring, useWheelDrag } from '@basmilius/common';
+    import { animationFrameDebounce, clamp } from '@basmilius/utils';
+    import { warn } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { computed, onMounted, onScopeDispose, provide, ref, toRef, unref, useTemplateRef, type VNode, watch } from 'vue';
     import { useDisabled } from '~flux/components/composable';
@@ -224,7 +225,7 @@
     }
 
     function groupOf(side: FluxSwipeActionsSide): HTMLElement | null {
-        return unrefTemplateElement(side === 'start' ? startRef : endRef);
+        return unwrapElement(side === 'start' ? startRef : endRef);
     }
 
     function naturalWidth(element: HTMLElement): number {
@@ -246,7 +247,7 @@
     function measure(): void {
         refreshDirection();
 
-        rowSize.value = unrefTemplateElement(rowRef)?.offsetWidth ?? 0;
+        rowSize.value = unwrapElement(rowRef)?.offsetWidth ?? 0;
 
         const sizes = {start: 0, end: 0};
         const primaries = {start: false, end: false};
@@ -290,7 +291,7 @@
     }
 
     function refreshDirection(): void {
-        const element = unrefTemplateElement(rowRef);
+        const element = unwrapElement(rowRef);
 
         directionFactor.value = element && getComputedStyle(element).direction === 'rtl' ? -1 : 1;
     }
@@ -428,7 +429,7 @@
         startOffset ??= unref(offset.value);
 
         const wanted = startOffset + dx * unref(directionFactor);
-        const bounded = Math.min(maxOffset, Math.max(minOffset, wanted));
+        const bounded = clamp(wanted, minOffset, maxOffset);
 
         offset.snap(bounded + elasticResistance(wanted - bounded, OVERDRAG));
     }
@@ -473,7 +474,7 @@
         }
 
         if (action.contains(document.activeElement)) {
-            unrefTemplateElement(rowRef)?.focus();
+            unwrapElement(rowRef)?.focus();
         }
 
         close();

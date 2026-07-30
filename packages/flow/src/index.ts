@@ -1,11 +1,8 @@
-import './css/index.scss';
-
 export * from './component';
 export * from './composable';
 
 export {
     FluxFlowEdgeLayerInjectionKey,
-    useFlowTranslate,
     type FluxFlowAlign,
     type FluxFlowBounds,
     type FluxFlowBoxRecord,
@@ -28,7 +25,5 @@ export {
     type FluxFlowPosition,
     type FluxFlowSide,
     type FluxFlowSize,
-    type FluxFlowTranslate,
-    type FluxFlowTranslation,
     type FluxFlowViewport
 } from './data';

@@ -145,11 +145,80 @@ Your i18n instance has to be created with `legacy: false`, since Flux reads the 
 | `@flux-ui/application` | `FluxApplicationInjectionKey`, `english`                                                |
 | `@flux-ui/flow`        | `FluxFlowInjectionKey`, `FluxFlowNodeInjectionKey`, `FluxFlowPlacementInjectionKey`, `english` |
 
-Every type is still exported, so an annotation keeps working. Only these five names fail, and they fail at the type checker rather than at runtime.
+Only these five names fail there, and they fail at the type checker rather than at runtime.
 
 `FluxFlowEdgeLayerInjectionKey` stays, because it is the one a consumer is meant to provide: give it `'under'` or `'over'` and the edges paint below or above the nodes.
 
-If you reached for `english` to read a default string, use the translate composable of that package instead, which falls back to the same dictionary. If you reached for an injection key to read a controller, there is no replacement: that state is internal, and a component that depended on it was depending on something that could move under it.
+If you reached for an injection key to read a controller, there is no replacement: that state is internal, and a component that depended on it was depending on something that could move under it.
+
+### The translate composable is internal
+
+`useTranslate` is gone from every package, and so are the dictionary types behind
+the per-package variants: `FluxAiTranslate`, `FluxAiTranslation`,
+`FluxApplicationTranslate`, `FluxApplicationTranslation`, `FluxFlowTranslate` and
+`FluxFlowTranslation`. The dictionary is how the components resolve their own
+strings, and exposing it made an implementation detail part of the contract.
+
+What you lose is the fallback: reaching for `flux.cancel` through your own
+`useI18n()` returns the raw key unless you translated it yourself. So put the
+strings you want in your own translation files. `FluxTranslate` and
+`FluxTranslation` do stay exported, because `defineFilter` hands your factory a
+context carrying one.
+
+### Two composables changed name
+
+- `useFluxFlowInjection` is `useFlowInjection`. An injection composable does not
+  repeat the `Flux` prefix.
+- In `@flux-ui/visuals`, `BorderBeamVariant`, `HighlighterVariant` and
+  `HighlighterGroupProps` are `FluxVisualBorderBeamVariant`,
+  `FluxVisualHighlighterVariant` and `FluxVisualHighlighterGroupProps`. They were
+  the only three types in the public barrel without the prefix.
+
+### Generic composables come from `@basmilius/common` now
+
+`@flux-ui/internals` no longer carries `useEventListener`, `useInView`,
+`usePointerDrag`, `useScrollPosition`, `useSpring`, `useWheelDrag`,
+`animationFrameDebounce`, `prefersReducedMotion` or `unrefTemplateElement`.
+Nothing about them is specific to a component library, so they live in
+[`@basmilius/common`](https://github.com/basmilius/packages) and
+`@basmilius/utils`, and Flux imports them from there like anyone else. Change the
+import and you are done, with three things to know:
+
+- `unrefTemplateElement` is called `unwrapElement`. The `TemplateRef` and
+  `TemplateElement` types stay in `@flux-ui/internals`.
+- `useEventListener` has no `{passive: true}` default any more. A scroll or wheel
+  listener that wants to be passive has to say so.
+- `useInView` takes an explicit option list (`initial`, `root`, `rootMargin`,
+  `threshold`, `once`) instead of extending `IntersectionObserverInit`, so
+  `scrollMargin` is silently dropped if you passed it.
+- `useEventListener` narrowed its target from any `EventTarget` to
+  `HTMLElement | Window | Document`. An `SVGElement` ref attaches nothing now. It
+  also calls `onScopeDispose`, so calling it outside a component scope warns.
+- `unwrapElement` returns `null` for an unresolved ref where
+  `unrefTemplateElement` returned `undefined`. `??` and a falsy check are
+  unaffected; `=== undefined` is not.
+
+`useScrollPosition` also reads the position on mount rather than during setup,
+which is what fixes the hydration mismatch it used to cause. Three consequences:
+it reports `0` for one tick longer, a component that renders a transition from it
+now animates in on an already-scrolled page instead of just being there, and it
+needs a component instance - called from a store or at module scope it warns and
+stays at `0`.
+
+`FluxExpandable` and `FluxExpandablePane` call Vue's `useId()` one time more than
+before, which shifts every later `useId()` in your app by one. Only visible if you
+snapshot generated ids. `FluxVisualAnimatedColors` without an explicit `seed` also
+draws a different pattern than in v3, because the seed is now derived from that id
+rather than from the instance uid.
+
+### The injection types are exported now
+
+If you build your own item inside a `FluxKanban`, a calendar view or a table, the
+context you receive is finally nameable: `FluxTableInjection`,
+`FluxCalendarInjection`, `FluxKanbanInjection`,
+`FluxFormCheckboxGroupInjection`, `FluxFormRadioGroupInjection`,
+`FluxSegmentedControlInjection` and `FluxTabBarInjection`, along with the helper
+types they use.
 
 ## The side panel carries its own state
 
@@ -196,7 +265,38 @@ A key your map does not carry is not a hole: it falls back to the English the pa
 | Package                                                          | Added                            |
 |------------------------------------------------------------------|----------------------------------|
 | `@flux-ui/components`, `ai`, `application`, `flow`, `statistics` | `vue-i18n`, as a peer dependency |
-| `@flux-ui/application`                                           | `@basmilius/common`, bundled     |
+| every package                                                    | `luxon`, as a peer dependency    |
+
+`@flux-ui/internals` and `@flux-ui/components` are peer dependencies of the
+packages that build on them, rather than regular dependencies. Both keep
+module-level state - the focus trap holds a lock stack, and the overlay store
+holds the dialogs, snackbars and their shade opacities - and two copies of that
+state is two stacks that cannot see each other. A peer makes your package manager
+resolve one copy, and complain when it cannot, instead of quietly installing two.
+
+In practice `bun` and `npm` install peers for you, so the only thing you notice is
+that a partial upgrade (`bun update @flux-ui/ai` on its own) now reports a
+mismatch rather than breaking overlays at runtime. Upgrade the `@flux-ui`
+packages together.
+
+`@basmilius/common` and `@basmilius/utils` are no longer bundled into the
+packages: they are peer dependencies now, resolved from your `node_modules` like
+`vue` is. That is what makes the bundles smaller, and it means their own
+requirements become yours:
+
+- **`luxon`** is required by `@basmilius/utils` and is now declared as a peer on
+  every package that reaches it.
+- **`pinia` and `vue-router`** are optional peers of `@basmilius/common`, but its
+  bundle imports from both at the top level, so a bundler has to be able to
+  resolve them. Install them as dev dependencies if your project does not already
+  have them:
+
+  ```shell
+  bun add -d pinia vue-router
+  ```
+
+  Nothing in Flux uses a store or a router; this is only about the module graph
+  resolving.
 
 ## What's new
 
@@ -208,4 +308,4 @@ The breaking part above is the smaller half of this release. The rest is additio
 - **Resizable table columns**, through `is-resizable` and the `resize` event on [Table header](../../components/table/header). The handle is a focusable separator, so a column resizes without a mouse too.
 - **A loading state on the statistics panes**, through `is-loading`. The chart keeps its place and the data it already has while it reloads. See [Chart pane](../../statistics/components/chart-pane).
 - **Three transitions**: [Sheet](../../components/transitions/sheet), [Scale](../../components/transitions/scale) and [Stagger](../../components/transitions/stagger).
-- **Gesture and motion composables** in `@flux-ui/internals`: [`usePointerDrag`](../../internals/composables/usePointerDrag), [`useWheelDrag`](../../internals/composables/useWheelDrag) and [`useSpring`](../../internals/composables/useSpring), which are what the sheet and the swipe actions run on, plus [`createTranslate`](../../internals/composables/createTranslate) behind the translations.
+- **Gesture and motion composables**: `usePointerDrag`, `useWheelDrag` and `useSpring`, which are what the sheet and the swipe actions run on. They live in [`@basmilius/common`](https://github.com/basmilius/packages) rather than in `@flux-ui/internals`, because nothing about them is specific to a component library. Behind the translations sits [`createTranslate`](../../internals/composables/createTranslate), which does stay here.

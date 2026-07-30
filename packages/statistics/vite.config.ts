@@ -30,7 +30,7 @@ export default defineConfig(({mode}) => ({
             experimental: {
                 lazyBarrel: true
             },
-            external: ['@flux-ui/components', 'echarts', /^echarts\//, 'lodash-es', 'luxon', 'vue', 'vue-i18n'],
+            external: ['@basmilius/common', '@basmilius/utils', '@flux-ui/components', '@flux-ui/internals', 'clsx', 'echarts', /^echarts\//, 'lodash-es', 'luxon', 'vue', 'vue-i18n'],
             output: {
                 exports: 'named',
                 sourcemapIgnoreList: path => path.includes('node_modules')

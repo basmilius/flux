@@ -4,8 +4,6 @@ export * from './component';
 export * from './composable';
 export * from './transition';
 
-export { useTranslate } from './composable/private';
-
 export {
     configureIcons,
     fluxRegisterIcons,
@@ -20,18 +18,44 @@ export {
     useFluxStore
 } from './data';
 
+export type { FluxTranslate, FluxTranslation } from './data';
+
 export type {
-    FluxTranslate,
-    FluxTranslation
+    ConfigureIconsOptions,
+    FluxDialogRegistration,
+    Icon,
+    IconConfig,
+    IconRegistry,
+    IconRenderMode,
+    Icons
 } from './data';
 
 export type {
     FluxAdaptiveGroupChild,
     FluxAdaptiveGroupInjection,
+    FluxCalendarInjection,
+    FluxCalendarItemData,
+    FluxCalendarKeyboardDirection,
+    FluxCalendarView,
     FluxExpandableGroupInjection,
     FluxFilterInjection,
     FluxFlyoutInjection,
+    FluxFormCheckboxGroupInjection,
+    FluxFormCheckboxGroupValue,
     FluxFormFieldInjection,
+    FluxFormRadioGroupInjection,
+    FluxFormRadioGroupValue,
+    FluxKanbanColumnDragState,
+    FluxKanbanDragMode,
+    FluxKanbanDragState,
+    FluxKanbanInjection,
+    FluxKanbanKeyboardDirection,
+    FluxSegmentedControlInjection,
+    FluxSegmentedControlValue,
+    FluxTabBarInjection,
+    FluxTableColumnDef,
+    FluxTableInjection,
+    FluxTablePinnedEdges,
     FluxTooltipInjection,
     FluxState,
     FluxStore

@@ -50,7 +50,6 @@
 <script
     lang="ts"
     setup>
-    import { useComponentId } from '@basmilius/common';
     import type { FluxIconName } from '@flux-ui/types';
     import { computed, getCurrentInstance, onBeforeMount, onUnmounted, ref, unref, useId, type VNode, watch } from 'vue';
     import { useExpandableGroupInjection } from '~flux/components/composable';
@@ -94,7 +93,7 @@
         }): VNode[];
     }>();
 
-    const componentId = useComponentId();
+    const componentId = useId();
     const contentId = useId();
     const headerId = useId();
     const instance = getCurrentInstance()!;
@@ -112,8 +111,8 @@
         }
     }, {immediate: true});
 
-    onBeforeMount(() => register?.(componentId.value, instance));
-    onUnmounted(() => unregister?.(componentId.value));
+    onBeforeMount(() => register?.(componentId, instance));
+    onUnmounted(() => unregister?.(componentId));
 
     function close(): void {
         if (!isOpen.value) {

@@ -1,7 +1,6 @@
+import { clamp } from '@basmilius/utils';
 import { onBeforeUnmount, onMounted, type Ref, ref, type ShallowRef, watchEffect } from 'vue';
 import type { FluxFlowController } from '~flux/flow/data';
-import { clamp } from '~flux/flow/util';
-
 // WebKit-only: Safari reports a trackpad pinch as a gesture instead of the
 // ctrl + wheel every other browser sends, so it is missing from the DOM lib.
 type GestureEvent = Event & {

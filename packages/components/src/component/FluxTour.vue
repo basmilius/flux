@@ -97,8 +97,9 @@
 <script
     lang="ts"
     setup>
+    import { useEventListener } from '@basmilius/common';
     import { isHtmlElement } from '@basmilius/utils';
-    import { flattenVNodeTree, isSSR, useEventListener, useFocusTrap } from '@flux-ui/internals';
+    import { flattenVNodeTree, isSSR, useFocusTrap } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { type ComponentPublicInstance, computed, Fragment, h, nextTick, ref, useId, useTemplateRef, type VNode, watch } from 'vue';
     import { AnchorPopup, VNodeRenderer } from '~flux/components/component/primitive';

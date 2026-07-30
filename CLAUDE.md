@@ -133,9 +133,13 @@ Always import from a directory's barrel (`index.ts`) **unless** the importing fi
 - ✅ From `component/FluxButton.vue`: `import { useDisabled } from '~flux/composable';`
 - ✅ From `composable/useFoo.ts`: `import { useDisabled } from './useDisabled';`
 
-Known barrels in `packages/components/src/`: `composable/`, `composable/private/`, `data/`, `transition/`, `util/`, `vite/`, `component/`, `component/primitive/`, `component/calendar/`, plus the top-level `index.ts`.
+Known barrels in `packages/components/src/`: `composable/`, `composable/private/`, `data/`, `transition/`, `util/`, `vite/`, `component/`, `component/primitive/`, `component/calendar/`, plus the top-level `index.ts`. Every other package has the same set minus what it does not have, including a `composable/private/` of its own.
 
-**Critical for injection keys**: keys like `FluxKanbanInjectionKey`, `FluxCalendarInjectionKey`, `FluxDisabledInjectionKey` (defined in `data/di.ts`) **must** always be imported via the `~flux/data` barrel. Importing them via the deep path (`~flux/data/di`) creates a separate module instance in Vite/rolldown - provider and consumer end up with different `Symbol()` instances and `inject()` returns nothing.
+The four clusters under `component/` (`form/`, `filter/`, `table/`, `menu/`) deliberately have **no** barrel: they are a way to keep the directory listing readable, not a module boundary. Reach a component in one of them through `component/`'s barrel, or relatively.
+
+**Critical for injection keys**: an injection key **must** always be reached through the barrel of the directory it lives in, never through a deep path. A deep import creates a separate module instance in Vite/rolldown - provider and consumer end up with different `Symbol()` instances and `inject()` returns nothing. So `FluxKanbanInjectionKey` and friends come from the `~flux/components/data` barrel, never from `~flux/components/data/di`.
+
+Most keys live in a package's `data/di.ts`, but not all: `application` declares its own in `data/index.ts`, `statistics` keeps four next to the composables that own them, `FluxDialogInjectionKey` sits in `util/createDialogRenderer.ts` and `FluxFaderInjectionKey` in `FluxFader.vue`. That is fine - the barrel rule is what prevents the duplicate-`Symbol()` bug, not the file a key happens to live in.
 
 **Documented exceptions** (deep imports allowed):
 - `~flux/data/timeZones` - too large to include in the data barrel
@@ -188,6 +192,8 @@ All components use `<script lang="ts" setup>`. The Options API is disabled (`__V
 
 - Component files: `FluxComponentName.vue` (PascalCase, `Flux` prefix)
 - Primitive / internal components: `packages/components/src/component/primitive/`
+
+`packages/components/src/component/` groups four clusters into subdirectories, on **name prefix** alone: `FluxForm*` in `form/`, `FluxFilter*` in `filter/`, `FluxTable*` in `table/`, `FluxMenu*` in `menu/`. Everything else stays at the top level, which is why `FluxDataTable`, `FluxToggle`, `FluxContextMenu` and `FluxDatePicker` sit next to the folders instead of inside one. The rule is mechanical on purpose: a new component goes in a folder when its name starts with that prefix, and nowhere else. The CSS module does not follow it - `css/component/` stays flat.
 
 ### Props pattern
 
@@ -310,15 +316,22 @@ Common types to know:
 
 Shared utilities and composables used across packages. Built with `tsdown`.
 
+What lives here is what a component library needs and a general-purpose package
+should not carry: focus management, vnode work and i18n. Generic behaviour
+(gestures, springs, observers, storage, clamping, colour conversion) lives in
+`@basmilius/common` and `@basmilius/utils`, and a component imports it **straight
+from there**. `internals` does not re-export it: one function, one import path.
+
 Utilities (`packages/internals/src/util/`):
 - Focus helpers - `wrapFocus`, `focusTrap`, `getFocusableElement`, `getFocusableElements`, `getKeyboardFocusableElements`, `getBidirectionalFocusElement`
-- VNode helpers - `flattenVNodeTree`, `getComponentName`, `getComponentProps`, `getExposedRef`, `unrefTemplateElement`
-- Misc - `animationFrameDebounce`, `isActiveElement`, `prefersReducedMotion`, `warn`
+- VNode helpers - `flattenVNodeTree`, `getComponentName`, `getComponentProps`
+- Types - `TemplateElement`, `TemplateRef` (the shape a Flux template ref has; resolve one with `unwrapElement` from `@basmilius/common`)
+- Misc - `isActiveElement`, `isSSR`, `warn`
 
 Composables (`packages/internals/src/composable/`):
 - Focus traps - `useFocusTrap`, `useFocusTrapLock`, `useFocusTrapReturn`, `useFocusTrapSubscription`, `useFocusZone`
 - Calendar - `useCalendar`, `useCalendarMonthSwitcher`, `useCalendarTimeGrid`, `useCalendarYearSwitcher`
-- Misc - `useEventListener`, `useInView`, `useKeyboardGrab`, `useRemembered`, `useScrollPosition`
+- Misc - `useKeyboardGrab`, `useRemembered` (wraps common's with the `flux/` prefix and Luxon serialization)
 - Translations - `createTranslate`
 
 `useFocusZone` takes an optional `ignore?: string` selector (threaded through `getFocusableElements` / `getFocusableElement` / `getBidirectionalFocusElement`) to exclude a subtree from roving focus. `FluxMenu` uses it with `ignore: '[data-flux-menu-pane]'` so an interactive component inside a `FluxMenuPane` (color picker, slider, search field) keeps its own keyboard behavior. The shared `getFocusableElements` default is deliberately unchanged so focus traps still reach those controls via Tab.
@@ -372,13 +385,18 @@ Functions exported from the package root:
 flat English dictionary in `src/data/i18n.ts` and turns it into a composable with
 `createTranslate(english)` from `@flux-ui/internals`, next to it:
 
-| Package     | Keys                  | Composable                                        |
-|-------------|-----------------------|---------------------------------------------------|
-| components  | `flux.*`              | `useTranslate` (`composable/private`, also public) |
-| ai          | `flux.ai.*`           | `useAiTranslate`                                   |
-| application | `flux.application.*`  | `useApplicationTranslate`                          |
-| flow        | `flux.flow.*`         | `useFlowTranslate`                                 |
-| statistics  | none                  | `useStatisticsTranslate`                           |
+| Package     | Keys                  |
+|-------------|-----------------------|
+| components  | `flux.*`              |
+| ai          | `flux.ai.*`           |
+| application | `flux.application.*`  |
+| flow        | `flux.flow.*`         |
+| statistics  | none                  |
+
+Every package calls it `useTranslate`, in `composable/private/`, and none of them
+export it: the dictionary is an implementation detail of the components that render
+those strings. There is no `useAiTranslate` or `useFlowTranslate` - the package a
+component lives in already says which dictionary it reaches.
 
 `createTranslate` reads `useI18n({useScope: 'global'})`, so the app's i18n instance
 must be created with `legacy: false`. A key the app did not translate falls back to

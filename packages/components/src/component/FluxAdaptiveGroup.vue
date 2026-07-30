@@ -10,7 +10,8 @@
 <script
     lang="ts"
     setup>
-    import { animationFrameDebounce, unrefTemplateElement } from '@flux-ui/internals';
+    import { unwrapElement } from '@basmilius/common';
+    import { animationFrameDebounce } from '@basmilius/utils';
     import { provide, shallowReactive, useTemplateRef, watch, watchEffect } from 'vue';
     import { type FluxAdaptiveGroupChild, FluxAdaptiveGroupInjectionKey } from '~flux/components/data';
     import $style from '~flux/components/css/component/AdaptiveSlot.module.scss';
@@ -29,7 +30,7 @@
     const children = shallowReactive(new Map<number, FluxAdaptiveGroupChild>());
 
     const reflow = animationFrameDebounce(() => {
-        const element = unrefTemplateElement(elementRef);
+        const element = unwrapElement(elementRef);
 
         if (!element) {
             return;

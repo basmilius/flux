@@ -15,7 +15,7 @@
     setup>
     import type { FluxFilterDefinition, FluxFilterValue } from '@flux-ui/types';
     import { useFilterValueLabel } from '~flux/components/composable/private';
-    import FluxMenuItem from '../FluxMenuItem.vue';
+    import FluxMenuItem from '../menu/FluxMenuItem.vue';
 
     const emit = defineEmits<{
         click: [MouseEvent];
