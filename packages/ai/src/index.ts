@@ -1,4 +1,5 @@
 export * from './component';
+export type { MarkdownCodeProps } from './util';
 export * from './composable';
 
 export {

@@ -10,6 +10,6 @@ export type { TemplateElement, TemplateRef } from './templateRef';
 export { default as warn } from './warn';
 export { default as wrapFocus } from './wrapFocus';
 
-export { default as FOCUS_TRAP_LOCKS, type FocusTrapListener } from './focusTrap';
+export { default as FOCUS_TRAP_LOCKS, type FocusTrap, type FocusTrapListener } from './focusTrap';
 
 export const isSSR: boolean = !globalThis.document;

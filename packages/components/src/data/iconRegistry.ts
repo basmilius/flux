@@ -2,19 +2,19 @@ import type { FluxIconName, FluxIconStyle } from '@flux-ui/types';
 import type { IconDefinition, IconPathData } from '@fortawesome/fontawesome-common-types';
 import { reactive } from 'vue';
 
-type Icon = [number, number, string[], string, IconPathData];
-type IconRegistry = Partial<{ [key in FluxIconName]: Icon; }>;
-type Icons = Record<string, IconDefinition>;
+export type Icon = [number, number, string[], string, IconPathData];
+export type IconRegistry = Partial<{ [key in FluxIconName]: Icon; }>;
+export type Icons = Record<string, IconDefinition>;
 
-type IconRenderMode = 'svg' | 'font';
+export type IconRenderMode = 'svg' | 'font';
 
-type IconConfig = {
+export type IconConfig = {
     renderMode: IconRenderMode;
     defaultStyle: FluxIconStyle;
     styleOverrides: Partial<Record<FluxIconName, FluxIconStyle>>;
 };
 
-type ConfigureIconsOptions = {
+export type ConfigureIconsOptions = {
     readonly renderMode?: IconRenderMode;
     readonly defaultStyle?: FluxIconStyle;
     readonly styleOverrides?: Partial<Record<FluxIconName, FluxIconStyle>>;

@@ -3,7 +3,7 @@ import { type InjectionKey, nextTick, onMounted, onUnmounted, ref, type Ref, sha
 const BRANCH_HEIGHT = 24;
 const MARKER_GAP = 6;
 
-type ElementRef = Readonly<Ref<HTMLElement | null>>;
+export type ElementRef = Readonly<Ref<HTMLElement | null>>;
 
 type Registration = {
     readonly element: ElementRef;

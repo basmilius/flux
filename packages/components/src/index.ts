@@ -21,6 +21,16 @@ export {
 export type { FluxTranslate, FluxTranslation } from './data';
 
 export type {
+    ConfigureIconsOptions,
+    FluxDialogRegistration,
+    Icon,
+    IconConfig,
+    IconRegistry,
+    IconRenderMode,
+    Icons
+} from './data';
+
+export type {
     FluxAdaptiveGroupChild,
     FluxAdaptiveGroupInjection,
     FluxCalendarInjection,

@@ -53,7 +53,7 @@ class FocusTrapLockStack {
     }
 }
 
-interface FocusTrap {
+export interface FocusTrap {
     id: string;
     isEnabled: boolean;
 
