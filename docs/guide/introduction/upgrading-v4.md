@@ -189,11 +189,27 @@ import and you are done, with three things to know:
 - `useEventListener` has no `{passive: true}` default any more. A scroll or wheel
   listener that wants to be passive has to say so.
 - `useInView` takes an explicit option list (`initial`, `root`, `rootMargin`,
-  `threshold`, `once`) instead of extending `IntersectionObserverInit`.
+  `threshold`, `once`) instead of extending `IntersectionObserverInit`, so
+  `scrollMargin` is silently dropped if you passed it.
+- `useEventListener` narrowed its target from any `EventTarget` to
+  `HTMLElement | Window | Document`. An `SVGElement` ref attaches nothing now. It
+  also calls `onScopeDispose`, so calling it outside a component scope warns.
+- `unwrapElement` returns `null` for an unresolved ref where
+  `unrefTemplateElement` returned `undefined`. `??` and a falsy check are
+  unaffected; `=== undefined` is not.
 
 `useScrollPosition` also reads the position on mount rather than during setup,
-which is what fixes the hydration mismatch it used to cause. It reports `0` for
-one tick longer than before.
+which is what fixes the hydration mismatch it used to cause. Three consequences:
+it reports `0` for one tick longer, a component that renders a transition from it
+now animates in on an already-scrolled page instead of just being there, and it
+needs a component instance - called from a store or at module scope it warns and
+stays at `0`.
+
+`FluxExpandable` and `FluxExpandablePane` call Vue's `useId()` one time more than
+before, which shifts every later `useId()` in your app by one. Only visible if you
+snapshot generated ids. `FluxVisualAnimatedColors` without an explicit `seed` also
+draws a different pattern than in v3, because the seed is now derived from that id
+rather than from the instance uid.
 
 ### The injection types are exported now
 
@@ -249,7 +265,25 @@ A key your map does not carry is not a hole: it falls back to the English the pa
 | Package                                                          | Added                            |
 |------------------------------------------------------------------|----------------------------------|
 | `@flux-ui/components`, `ai`, `application`, `flow`, `statistics` | `vue-i18n`, as a peer dependency |
-| `@flux-ui/application`                                           | `@basmilius/common`, bundled     |
+| every package                                                    | `luxon`, as a peer dependency    |
+
+`@basmilius/common` and `@basmilius/utils` are no longer bundled into the
+packages; they are resolved from your `node_modules` like `vue` is. That is what
+makes the bundles smaller, and it means their own requirements become yours:
+
+- **`luxon`** is required by `@basmilius/utils` and is now declared as a peer on
+  every package that reaches it.
+- **`pinia` and `vue-router`** are optional peers of `@basmilius/common`, but its
+  bundle imports from both at the top level, so a bundler has to be able to
+  resolve them. Install them as dev dependencies if your project does not already
+  have them:
+
+  ```shell
+  bun add -d pinia vue-router
+  ```
+
+  Nothing in Flux uses a store or a router; this is only about the module graph
+  resolving.
 
 ## What's new
 

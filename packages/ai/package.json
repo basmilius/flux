@@ -58,6 +58,7 @@
         "marked": "^18.0.7"
     },
     "peerDependencies": {
+        "luxon": "^3.7.2",
         "vue": "^3.6.0-rc.2",
         "vue-i18n": "^11.4.8"
     },

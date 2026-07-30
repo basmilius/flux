@@ -60,6 +60,7 @@
         "vue-tsc": "^3.3.8",
       },
       "peerDependencies": {
+        "luxon": "^3.7.2",
         "vue": "^3.6.0-rc.2",
         "vue-i18n": "^11.4.8",
       },
@@ -86,6 +87,7 @@
         "vue-tsc": "^3.3.8",
       },
       "peerDependencies": {
+        "luxon": "^3.7.2",
         "vue": "^3.6.0-rc.2",
         "vue-i18n": "^11.4.8",
         "vue-router": "^5.2.0",
@@ -148,6 +150,7 @@
         "vue-tsc": "^3.3.8",
       },
       "peerDependencies": {
+        "luxon": "^3.7.2",
         "vue": "^3.6.0-rc.2",
         "vue-i18n": "^11.4.8",
       },
