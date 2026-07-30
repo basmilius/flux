@@ -60,6 +60,8 @@
         "vue": "^3.6.0-rc.2"
     },
     "devDependencies": {
+        "@basmilius/common": "^3.58.0",
+        "@basmilius/utils": "^3.58.0",
         "@basmilius/vite-preset": "^3.55.0",
         "@types/node": "^26.1.2",
         "@vitejs/plugin-vue": "^6.0.8",
