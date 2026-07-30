@@ -1,4 +1,4 @@
-# useFluxFlowInjection
+# useFlowInjection
 
 Reads the controller of the surrounding [Flow](../components/flow). It exposes the reactive viewport, the node registry and the imperative viewport methods, which is what [Controls](../components/controls) and [Minimap](../components/minimap) are built on. Use it to build controls of your own: a zoom readout, a jump-to-node list, a button that frames one branch.
 
@@ -9,9 +9,9 @@ The composable throws when it is called outside a `FluxFlow`.
 ## Usage
 
 ```ts
-import { useFluxFlowInjection } from '@flux-ui/flow';
+import { useFlowInjection } from '@flux-ui/flow';
 
-const flow = useFluxFlowInjection();
+const flow = useFlowInjection();
 
 flow.fitView();
 flow.zoomTo(1.5);
@@ -39,7 +39,7 @@ A `FluxFlow` also exposes the same methods on its own instance, so a parent that
 ## Type declarations
 
 ```ts
-declare function useFluxFlowInjection(): FluxFlowController;
+declare function useFlowInjection(): FluxFlowController;
 ```
 
 The full shape of `FluxFlowController` is documented on [Flow](../components/flow).

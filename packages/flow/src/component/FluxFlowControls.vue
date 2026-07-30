@@ -67,8 +67,9 @@
     setup>
     import { FluxButtonGroup, FluxButtonStack, FluxFlyout, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSecondaryButton, FluxSeparator } from '@flux-ui/components';
     import { computed, onBeforeUnmount, onMounted, shallowRef } from 'vue';
-    import { useFluxFlowInjection } from '~flux/flow/composable';
-    import { type FluxFlowPanelPosition, useFlowTranslate } from '~flux/flow/data';
+    import { useFlowInjection } from '~flux/flow/composable';
+    import { useTranslate } from '~flux/flow/composable/private';
+    import { type FluxFlowPanelPosition } from '~flux/flow/data';
     import FluxFlowPanel from './FluxFlowPanel.vue';
     import $style from '~flux/flow/css/component/FlowControls.module.scss';
 
@@ -86,13 +87,13 @@
         readonly zoomOutLabel?: string;
     }>();
 
-    const translate = useFlowTranslate();
+    const translate = useTranslate();
 
     // The levels the flyout offers, from the widest view down. A flow that caps
     // its own zoom keeps only the ones it can actually reach.
     const ZOOM_PRESETS = [2, 1.5, 1, 0.75, 0.5];
 
-    const controller = useFluxFlowInjection();
+    const controller = useFlowInjection();
 
     // A static flow has nothing to zoom, and a dead row of buttons is worse than
     // no buttons at all.

@@ -89,7 +89,7 @@
     import { FluxIcon, FluxPrimaryButton, FluxSecondaryButton, useDisabled } from '@flux-ui/components';
     import { clsx } from 'clsx';
     import { computed, ref, toRef, unref, useTemplateRef, type VNode } from 'vue';
-    import { useAiTranslate } from '~flux/ai/data';
+    import { useTranslate } from '~flux/ai/composable/private';
     import $style from '~flux/ai/css/component/AiPromptInput.module.scss';
 
     const emit = defineEmits<{
@@ -121,7 +121,7 @@
         actions?(): VNode[];
     }>();
 
-    const translate = useAiTranslate();
+    const translate = useTranslate();
 
     const fieldRef = useTemplateRef<HTMLTextAreaElement>('field');
 

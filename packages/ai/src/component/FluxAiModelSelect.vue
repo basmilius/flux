@@ -75,7 +75,7 @@
     setup>
     import { FluxBadge, FluxFlyout, FluxIcon, FluxMenu, FluxSecondaryButton } from '@flux-ui/components';
     import { computed, type VNode } from 'vue';
-    import { useAiTranslate } from '~flux/ai/data';
+    import { useTranslate } from '~flux/ai/composable/private';
     import $style from '~flux/ai/css/component/AiModelSelect.module.scss';
 
     const modelValue = defineModel<string>();
@@ -92,7 +92,7 @@
         }): VNode[];
     }>();
 
-    const translate = useAiTranslate();
+    const translate = useTranslate();
 
     const selected = computed(() => models.find(model => model.id === modelValue.value));
 

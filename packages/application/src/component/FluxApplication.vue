@@ -22,7 +22,8 @@
     import { useBreakpoints } from '@flux-ui/components';
     import { useRemembered } from '@flux-ui/internals';
     import { computed, onMounted, onUnmounted, provide, ref, shallowRef, toRef, type VNode, watch } from 'vue';
-    import { type FluxApplicationContextInfo, FluxApplicationInjectionKey, type FluxApplicationLayout, useApplicationTranslate } from '../data';
+    import { useTranslate } from '../composable/private';
+    import { type FluxApplicationContextInfo, FluxApplicationInjectionKey, type FluxApplicationLayout } from '../data';
     import { useNamedRoutes, useRoute } from '../routing';
     import $style from '~flux/application/css/component/Application.module.scss';
 
@@ -40,7 +41,7 @@
         side(): VNode[];
     }>();
 
-    const translate = useApplicationTranslate();
+    const translate = useTranslate();
 
     let readyFrame: number | undefined;
     let resizeTimer: ReturnType<typeof setTimeout> | undefined;

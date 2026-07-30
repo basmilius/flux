@@ -25,7 +25,7 @@
     setup>
     import type { FluxColor } from '@flux-ui/types';
     import { computed, type CSSProperties } from 'vue';
-    import { useFluxFlowInjection } from '~flux/flow/composable';
+    import { useFlowInjection } from '~flux/flow/composable';
     import { useFlowBox } from '~flux/flow/composable/private';
     import { boundsOfNodes } from '~flux/flow/util';
     import $style from '~flux/flow/css/component/FlowGroup.module.scss';
@@ -48,7 +48,7 @@
     // that is not counted twice.
     const TITLE_BAND = 60;
 
-    const controller = useFluxFlowInjection();
+    const controller = useFlowInjection();
 
     const backdrop = controller.backdropElement;
     const foreground = controller.foregroundElement;

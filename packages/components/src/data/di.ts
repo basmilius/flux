@@ -154,8 +154,8 @@ export type FluxCalendarInjection = {
 
 export type FluxExpandableGroupInjection = {
     closeAll(): void;
-    register(uid: number, expandable: ComponentInternalInstance): void;
-    unregister(uid: number): void;
+    register(uid: string, expandable: ComponentInternalInstance): void;
+    unregister(uid: string): void;
 };
 
 export type FluxFilterInjection = {

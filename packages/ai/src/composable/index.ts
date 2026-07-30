@@ -1,1 +1,1 @@
-export { useStreamingMarkdown, type UseStreamingMarkdownOptions, type UseStreamingMarkdownReturn } from './useStreamingMarkdown';
+export { default as useStreamingMarkdown, type UseStreamingMarkdownOptions, type UseStreamingMarkdownReturn } from './useStreamingMarkdown';

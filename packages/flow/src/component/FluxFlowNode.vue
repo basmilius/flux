@@ -11,7 +11,7 @@
     lang="ts"
     setup>
     import { computed, inject, onBeforeUnmount, onMounted, provide, shallowRef, toRef, useTemplateRef, watch } from 'vue';
-    import { useFluxFlowInjection } from '~flux/flow/composable';
+    import { useFlowInjection } from '~flux/flow/composable';
     import { FluxFlowPlacementInjectionKey, type FluxFlowPlacementLink, FluxFlowNodeInjectionKey, type FluxFlowPortRecord, type FluxFlowPortRegistration, type FluxFlowPosition, type FluxFlowSize } from '~flux/flow/data';
     import $style from '~flux/flow/css/component/FlowNode.module.scss';
 
@@ -30,7 +30,7 @@
 
     let observer: ResizeObserver | null = null;
 
-    const controller = useFluxFlowInjection();
+    const controller = useFlowInjection();
     const placement = inject(FluxFlowPlacementInjectionKey, null);
 
     // A node that carries its own coordinates keeps them, placed or not, so a

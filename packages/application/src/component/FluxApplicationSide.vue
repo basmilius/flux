@@ -18,14 +18,14 @@
     lang="ts"
     setup>
     import type { VNode } from 'vue';
-    import { useApplicationTranslate } from '../data';
+    import { useTranslate } from '../composable/private';
     import $style from '~flux/application/css/component/ApplicationSide.module.scss';
 
     defineProps<{
         readonly closeLabel?: string;
     }>();
 
-    const translate = useApplicationTranslate();
+    const translate = useTranslate();
 
     const isVisible = defineModel<boolean>('isVisible', {
         default: true

@@ -1,5 +1,5 @@
 import { createTranslate } from '@flux-ui/internals';
-import { english, type FluxFlowTranslate } from './i18n';
+import { english, type FluxAiTranslate } from '~flux/ai/data';
 
 const translate = createTranslate(english);
 
@@ -7,4 +7,6 @@ const translate = createTranslate(english);
  * Resolves the strings this package renders. A key the app translated wins, and
  * everything else falls back to the English dictionary that ships with it.
  */
-export const useFlowTranslate = (): FluxFlowTranslate => translate();
+export default function useTranslate(): FluxAiTranslate {
+    return translate();
+}

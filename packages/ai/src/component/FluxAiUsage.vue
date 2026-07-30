@@ -77,7 +77,7 @@
     import type { FluxColor } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, unref } from 'vue';
-    import { useAiTranslate } from '~flux/ai/data';
+    import { useTranslate } from '~flux/ai/composable/private';
     import $style from '~flux/ai/css/component/AiUsage.module.scss';
 
     const {
@@ -93,7 +93,7 @@
         readonly outputTokens?: number;
     }>();
 
-    const translate = useAiTranslate();
+    const translate = useTranslate();
 
     const formatter = computed(() => new Intl.NumberFormat(isSSR ? undefined : navigator.language));
 

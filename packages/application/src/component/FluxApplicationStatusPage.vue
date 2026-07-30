@@ -50,7 +50,7 @@
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, type VNode } from 'vue';
-    import { useApplicationTranslate } from '../data';
+    import { useTranslate } from '../composable/private';
     import { useRouter } from '../routing';
     import $style from '~flux/application/css/component/ApplicationStatusPage.module.scss';
 
@@ -98,7 +98,7 @@
     } as const;
 
     const router = useRouter();
-    const translate = useApplicationTranslate();
+    const translate = useTranslate();
 
     const preset = computed(() => PRESETS[variant]);
 

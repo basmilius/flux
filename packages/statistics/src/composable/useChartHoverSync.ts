@@ -9,7 +9,7 @@ export interface UseChartHoverSyncOptions {
     readonly seriesIndex?: number;
 }
 
-export function useChartHoverSync(
+export default function useChartHoverSync(
     chartInstance: Ref<EChartsInstance | null>,
     legendContext: ChartLegendContext | null,
     options: UseChartHoverSyncOptions

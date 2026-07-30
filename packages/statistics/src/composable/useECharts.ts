@@ -12,7 +12,7 @@ export interface UseEChartsReturn {
     resize(): void;
 }
 
-export function useECharts(
+export default function useECharts(
     target: Ref<HTMLElement | null>,
     options: MaybeRefOrGetter<EChartsOption>
 ): UseEChartsReturn {

@@ -1,4 +1,4 @@
-import type { HighlighterGroupProps } from '@flux-ui/types';
+import type { FluxVisualHighlighterGroupProps } from '@flux-ui/types';
 import { annotationGroup } from 'rough-notation';
 import { inject, type InjectionKey, onScopeDispose, provide } from 'vue';
 
@@ -10,7 +10,7 @@ export type HighlighterGroupEntry = {
 };
 
 export type HighlighterGroupContext = {
-    readonly defaults: HighlighterGroupProps;
+    readonly defaults: FluxVisualHighlighterGroupProps;
     add(entry: HighlighterGroupEntry): void;
     remove(entry: HighlighterGroupEntry): void;
     notify(): void;
@@ -47,7 +47,7 @@ export function useHighlighterGroupInjection(): HighlighterGroupContext | null {
  * @author Bas Milius <bas@mili.us>
  * @since 1.0.0
  */
-export default function useHighlighterGroup(props: HighlighterGroupProps): void {
+export default function useHighlighterGroup(props: FluxVisualHighlighterGroupProps): void {
     const whenInView = props.whenInView ?? false;
     const entries = new Set<HighlighterGroupEntry>();
 

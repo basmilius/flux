@@ -1,10 +1,10 @@
-import { useStatisticsTranslate } from '~flux/statistics/data';
+import { useTranslate } from '~flux/statistics/composable/private';
 import type { Translator } from '~flux/statistics/util';
 
 export interface UseChartBaseSetupReturn {
     readonly t: Translator;
 }
 
-export function useChartBaseSetup(): UseChartBaseSetupReturn {
-    return {t: useStatisticsTranslate()};
+export default function useChartBaseSetup(): UseChartBaseSetupReturn {
+    return {t: useTranslate()};
 }

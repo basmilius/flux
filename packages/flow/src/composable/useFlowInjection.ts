@@ -7,11 +7,11 @@ import { type FluxFlowController, FluxFlowInjectionKey } from '~flux/flow/data';
  * (`fitView`, `zoomIn`, `zoomOut`, ...) so consumers can build their own
  * controls on top of a flow.
  */
-export default function useFluxFlowInjection(): FluxFlowController {
+export default function useFlowInjection(): FluxFlowController {
     const controller = inject(FluxFlowInjectionKey);
 
     if (!controller) {
-        throw new Error('useFluxFlowInjection() must be called within a <FluxFlow>.');
+        throw new Error('useFlowInjection() must be called within a <FluxFlow>.');
     }
 
     return controller;

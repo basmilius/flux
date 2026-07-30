@@ -9,4 +9,6 @@ const translate = createTranslate();
  * which is what lets a chart take labels that are already in the reader's
  * language.
  */
-export const useStatisticsTranslate = (): Translator => translate();
+export default function useTranslate(): Translator {
+    return translate();
+}

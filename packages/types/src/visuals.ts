@@ -1,9 +1,9 @@
-export type BorderBeamVariant = 'sm' | 'md' | 'line' | 'pulse-inner' | 'pulse-outside';
+export type FluxVisualBorderBeamVariant = 'sm' | 'md' | 'line' | 'pulse-inner' | 'pulse-outside';
 
-export type HighlighterVariant = 'highlight' | 'box' | 'circle' | 'underline' | 'strike-through' | 'crossed-off' | 'bracket';
+export type FluxVisualHighlighterVariant = 'highlight' | 'box' | 'circle' | 'underline' | 'strike-through' | 'crossed-off' | 'bracket';
 
-export type HighlighterGroupProps = {
-    readonly variant?: HighlighterVariant;
+export type FluxVisualHighlighterGroupProps = {
+    readonly variant?: FluxVisualHighlighterVariant;
     readonly color?: string;
     readonly strokeWidth?: number;
     readonly animationDuration?: number;

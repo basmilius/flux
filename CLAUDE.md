@@ -135,7 +135,9 @@ Always import from a directory's barrel (`index.ts`) **unless** the importing fi
 
 Known barrels in `packages/components/src/`: `composable/`, `composable/private/`, `data/`, `transition/`, `util/`, `vite/`, `component/`, `component/primitive/`, `component/calendar/`, plus the top-level `index.ts`.
 
-**Critical for injection keys**: keys like `FluxKanbanInjectionKey`, `FluxCalendarInjectionKey`, `FluxDisabledInjectionKey` (defined in `data/di.ts`) **must** always be imported via the `~flux/data` barrel. Importing them via the deep path (`~flux/data/di`) creates a separate module instance in Vite/rolldown - provider and consumer end up with different `Symbol()` instances and `inject()` returns nothing.
+**Critical for injection keys**: an injection key **must** always be reached through the barrel of the directory it lives in, never through a deep path. A deep import creates a separate module instance in Vite/rolldown - provider and consumer end up with different `Symbol()` instances and `inject()` returns nothing. So `FluxKanbanInjectionKey` and friends come from the `~flux/components/data` barrel, never from `~flux/components/data/di`.
+
+Most keys live in a package's `data/di.ts`, but not all: `application` declares its own in `data/index.ts`, `statistics` keeps four next to the composables that own them, `FluxDialogInjectionKey` sits in `util/createDialogRenderer.ts` and `FluxFaderInjectionKey` in `FluxFader.vue`. That is fine - the barrel rule is what prevents the duplicate-`Symbol()` bug, not the file a key happens to live in.
 
 **Documented exceptions** (deep imports allowed):
 - `~flux/data/timeZones` - too large to include in the data barrel
@@ -372,13 +374,18 @@ Functions exported from the package root:
 flat English dictionary in `src/data/i18n.ts` and turns it into a composable with
 `createTranslate(english)` from `@flux-ui/internals`, next to it:
 
-| Package     | Keys                  | Composable                                        |
-|-------------|-----------------------|---------------------------------------------------|
-| components  | `flux.*`              | `useTranslate` (`composable/private`, also public) |
-| ai          | `flux.ai.*`           | `useAiTranslate`                                   |
-| application | `flux.application.*`  | `useApplicationTranslate`                          |
-| flow        | `flux.flow.*`         | `useFlowTranslate`                                 |
-| statistics  | none                  | `useStatisticsTranslate`                           |
+| Package     | Keys                  |
+|-------------|-----------------------|
+| components  | `flux.*`              |
+| ai          | `flux.ai.*`           |
+| application | `flux.application.*`  |
+| flow        | `flux.flow.*`         |
+| statistics  | none                  |
+
+Every package calls it `useTranslate`, in `composable/private/`, and none of them
+export it: the dictionary is an implementation detail of the components that render
+those strings. There is no `useAiTranslate` or `useFlowTranslate` - the package a
+component lives in already says which dictionary it reaches.
 
 `createTranslate` reads `useI18n({useScope: 'global'})`, so the app's i18n instance
 must be created with `legacy: false`. A key the app did not translate falls back to

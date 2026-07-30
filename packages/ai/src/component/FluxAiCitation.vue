@@ -47,7 +47,7 @@
     setup>
     import { FluxHoverCard, FluxIcon } from '@flux-ui/components';
     import { computed, useId, type VNode } from 'vue';
-    import { useAiTranslate } from '~flux/ai/data';
+    import { useTranslate } from '~flux/ai/composable/private';
     import $style from '~flux/ai/css/component/AiCitation.module.scss';
 
     const {
@@ -65,7 +65,7 @@
         default(props: { close(): void }): VNode[];
     }>();
 
-    const translate = useAiTranslate();
+    const translate = useTranslate();
 
     const descriptionId = useId();
 

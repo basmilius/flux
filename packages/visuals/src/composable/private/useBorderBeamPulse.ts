@@ -1,5 +1,5 @@
 import { prefersReducedMotion } from '@flux-ui/internals';
-import type { BorderBeamVariant } from '@flux-ui/types';
+import type { FluxVisualBorderBeamVariant } from '@flux-ui/types';
 import { type Ref, unref, watchEffect } from 'vue';
 
 type PulseOscillator = {
@@ -163,7 +163,7 @@ type UseBorderBeamPulseOptions = {
     readonly elementRef: Ref<HTMLElement | null>;
     readonly enabled: Ref<boolean>;
     readonly staticColors: Ref<boolean>;
-    readonly variant: Ref<BorderBeamVariant>;
+    readonly variant: Ref<FluxVisualBorderBeamVariant>;
 };
 
 /**

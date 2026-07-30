@@ -19,7 +19,7 @@ export type UseStreamingMarkdownReturn = {
  * as the same vnodes, which the renderer skips instead of patching, so the work
  * per token stays proportional to the block that is still being written.
  */
-export function useStreamingMarkdown(options: UseStreamingMarkdownOptions): UseStreamingMarkdownReturn {
+export default function useStreamingMarkdown(options: UseStreamingMarkdownOptions): UseStreamingMarkdownReturn {
     let links: Links = Object.create(null);
     let settledLength = 0;
     let settledNodes: VNode[] = [];

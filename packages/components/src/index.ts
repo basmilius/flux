@@ -4,7 +4,6 @@ export * from './component';
 export * from './composable';
 export * from './transition';
 
-export { useTranslate } from './composable/private';
 
 export {
     configureIcons,
@@ -28,10 +27,16 @@ export type {
 export type {
     FluxAdaptiveGroupChild,
     FluxAdaptiveGroupInjection,
+    FluxCalendarInjection,
     FluxExpandableGroupInjection,
     FluxFilterInjection,
     FluxFlyoutInjection,
+    FluxFormCheckboxGroupInjection,
     FluxFormFieldInjection,
+    FluxFormRadioGroupInjection,
+    FluxKanbanInjection,
+    FluxSegmentedControlInjection,
+    FluxTabBarInjection,
     FluxTooltipInjection,
     FluxState,
     FluxStore

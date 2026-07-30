@@ -15,7 +15,7 @@
     lang="ts"
     setup>
     import { computed, type CSSProperties } from 'vue';
-    import { useFluxFlowInjection } from '~flux/flow/composable';
+    import { useFlowInjection } from '~flux/flow/composable';
     import type { FluxFlowPanelPosition } from '~flux/flow/data';
     import $style from '~flux/flow/css/component/FlowPanel.module.scss';
 
@@ -31,7 +31,7 @@
         default(): any;
     }>();
 
-    const controller = useFluxFlowInjection();
+    const controller = useFlowInjection();
 
     const overlay = controller.overlayElement;
 

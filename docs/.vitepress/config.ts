@@ -160,16 +160,22 @@ export default defineConfig({
                     text: 'Composables',
                     collapsed: false,
                     items: [
+                        {text: 'useAdaptiveGroupInjection', link: '/guide/composables/useAdaptiveGroupInjection'},
                         {text: 'useBreakpoints', link: '/guide/composables/useBreakpoints'},
+                        {text: 'useCalendarInjection', link: '/guide/composables/useCalendarInjection'},
                         {text: 'useDisabled', link: '/guide/composables/useDisabled'},
                         {text: 'useDisabledInjection', link: '/guide/composables/useDisabledInjection'},
                         {text: 'useExpandableGroupInjection', link: '/guide/composables/useExpandableGroupInjection'},
                         {text: 'useFilterInjection', link: '/guide/composables/useFilterInjection'},
                         {text: 'useFlyoutInjection', link: '/guide/composables/useFlyoutInjection'},
+                        {text: 'useFormCheckboxGroupInjection', link: '/guide/composables/useFormCheckboxGroupInjection'},
                         {text: 'useFormFieldInjection', link: '/guide/composables/useFormFieldInjection'},
+                        {text: 'useFormRadioGroupInjection', link: '/guide/composables/useFormRadioGroupInjection'},
+                        {text: 'useKanbanInjection', link: '/guide/composables/useKanbanInjection'},
+                        {text: 'useSegmentedControlInjection', link: '/guide/composables/useSegmentedControlInjection'},
+                        {text: 'useTabBarInjection', link: '/guide/composables/useTabBarInjection'},
                         {text: 'useTableInjection', link: '/guide/composables/useTableInjection'},
-                        {text: 'useTooltipInjection', link: '/guide/composables/useTooltipInjection'},
-                        {text: 'useTranslate', link: '/guide/composables/useTranslate'}
+                        {text: 'useTooltipInjection', link: '/guide/composables/useTooltipInjection'}
                     ]
                 },
                 {
@@ -232,7 +238,7 @@ export default defineConfig({
                     items: [
                         {text: 'useFlowLayout', link: '/flow/composables/useFlowLayout'},
                         {text: 'useFlowTrunkLayout', link: '/flow/composables/useFlowTrunkLayout'},
-                        {text: 'useFluxFlowInjection', link: '/flow/composables/useFluxFlowInjection'}
+                        {text: 'useFlowInjection', link: '/flow/composables/useFlowInjection'}
                     ]
                 },
                 {
@@ -509,7 +515,6 @@ export default defineConfig({
                         {text: 'getBidirectionalFocusElement', link: '/internals/utils/getBidirectionalFocusElement'},
                         {text: 'getComponentName', link: '/internals/utils/getComponentName'},
                         {text: 'getComponentProps', link: '/internals/utils/getComponentProps'},
-                        {text: 'getExposedRef', link: '/internals/utils/getExposedRef'},
                         {text: 'getFocusableElement', link: '/internals/utils/getFocusableElement'},
                         {text: 'getFocusableElements', link: '/internals/utils/getFocusableElements'},
                         {text: 'getKeyboardFocusableElements', link: '/internals/utils/getKeyboardFocusableElements'},

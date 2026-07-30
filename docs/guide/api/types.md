@@ -445,16 +445,16 @@ The trend indicator passed to [`FluxStatisticsKpi`](../../statistics/components/
 
 The types exported by [`@flux-ui/visuals`](../../visuals/introduction/installation).
 
-### `BorderBeamVariant`
+### `FluxVisualBorderBeamVariant`
 
 ```ts
-type BorderBeamVariant = 'sm' | 'md' | 'line' | 'pulse-inner' | 'pulse-outside';
+type FluxVisualBorderBeamVariant = 'sm' | 'md' | 'line' | 'pulse-inner' | 'pulse-outside';
 ```
 
-### `HighlighterVariant`
+### `FluxVisualHighlighterVariant`
 
 ```ts
-type HighlighterVariant =
+type FluxVisualHighlighterVariant =
     | 'highlight'
     | 'box'
     | 'circle'
@@ -464,11 +464,11 @@ type HighlighterVariant =
     | 'bracket';
 ```
 
-### `HighlighterGroupProps`
+### `FluxVisualHighlighterGroupProps`
 
 ```ts
-type HighlighterGroupProps = {
-    readonly variant?: HighlighterVariant;
+type FluxVisualHighlighterGroupProps = {
+    readonly variant?: FluxVisualHighlighterVariant;
     readonly color?: string;
     readonly strokeWidth?: number;
     readonly animationDuration?: number;
