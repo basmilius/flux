@@ -45,7 +45,7 @@
     import FluxDynamicView from './FluxDynamicView.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxIcon from './FluxIcon.vue';
-    import FluxMenu from './FluxMenu.vue';
+    import FluxMenu from './menu/FluxMenu.vue';
     import FluxPressable from './FluxPressable.vue';
     import $style from '~flux/components/css/component/Breadcrumb.module.scss';
 

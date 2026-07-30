@@ -59,7 +59,7 @@
     import { computed, inject, ref, type VNode } from 'vue';
     import { FluxBreadcrumbCollapsedInjectionKey, FluxBreadcrumbSeparatorInjectionKey } from '~flux/components/data';
     import FluxIcon from './FluxIcon.vue';
-    import FluxMenuItem from './FluxMenuItem.vue';
+    import FluxMenuItem from './menu/FluxMenuItem.vue';
     import FluxPressable from './FluxPressable.vue';
     import $style from '~flux/components/css/component/Breadcrumb.module.scss';
 

@@ -163,12 +163,12 @@
     import { INITIAL_HIGHLIGHTED_INDEX, useDropdownPopup, useTranslate } from '~flux/components/composable/private';
     import { isFluxFormSelectGroup, isFluxFormSelectOption } from '~flux/components/data';
     import { FluxFadeTransition } from '~flux/components/transition';
-    import FluxFormInput from '../FluxFormInput.vue';
+    import FluxFormInput from '../form/FluxFormInput.vue';
     import FluxIcon from '../FluxIcon.vue';
-    import FluxMenu from '../FluxMenu.vue';
-    import FluxMenuGroup from '../FluxMenuGroup.vue';
-    import FluxMenuItem from '../FluxMenuItem.vue';
-    import FluxMenuSubHeader from '../FluxMenuSubHeader.vue';
+    import FluxMenu from '../menu/FluxMenu.vue';
+    import FluxMenuGroup from '../menu/FluxMenuGroup.vue';
+    import FluxMenuItem from '../menu/FluxMenuItem.vue';
+    import FluxMenuSubHeader from '../menu/FluxMenuSubHeader.vue';
     import FluxSpinner from '../FluxSpinner.vue';
     import FluxTag from '../FluxTag.vue';
     import Anchor from './Anchor.vue';

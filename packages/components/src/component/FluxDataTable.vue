@@ -175,17 +175,17 @@
     import type { FluxColor } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, getCurrentInstance, unref, useTemplateRef, type VNode, watch } from 'vue';
-    import FluxTableActions from './FluxTableActions.vue';
+    import FluxTableActions from './table/FluxTableActions.vue';
     import { useDisabledInjection } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';
     import FluxAction from './FluxAction.vue';
-    import FluxFormCheckbox from './FluxFormCheckbox.vue';
+    import FluxFormCheckbox from './form/FluxFormCheckbox.vue';
     import FluxPaginationBar from './FluxPaginationBar.vue';
-    import FluxTable from './FluxTable.vue';
-    import FluxTableBar from './FluxTableBar.vue';
-    import FluxTableCell from './FluxTableCell.vue';
-    import FluxTableHeader from './FluxTableHeader.vue';
-    import FluxTableRow from './FluxTableRow.vue';
+    import FluxTable from './table/FluxTable.vue';
+    import FluxTableBar from './table/FluxTableBar.vue';
+    import FluxTableCell from './table/FluxTableCell.vue';
+    import FluxTableHeader from './table/FluxTableHeader.vue';
+    import FluxTableRow from './table/FluxTableRow.vue';
     import { PassThrough } from './primitive';
     import $style from '~flux/components/css/component/Table.module.scss';
 

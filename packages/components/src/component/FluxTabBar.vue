@@ -69,7 +69,7 @@
 
     const tabBarRef = useTemplateRef<HTMLElement>('tabBar');
 
-    useEventListener(tabBarRef, 'scroll', () => checkScroll());
+    useEventListener(tabBarRef, 'scroll', () => checkScroll(), {passive: true});
     useMutationObserver(tabBarRef, () => {
         checkScroll();
         updateHighlight();

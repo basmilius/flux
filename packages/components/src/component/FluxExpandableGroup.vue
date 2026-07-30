@@ -21,7 +21,7 @@
         default(): VNode[];
     }>();
 
-    const expandables: { [key: number]: ComponentInternalInstance; } = {};
+    const expandables: { [key: string]: ComponentInternalInstance; } = {};
 
     // Go through the exposed close()/open() functions instead of writing to the exposed
     // isOpen ref, so the expandable's own toggle emit fires when the group changes it.
@@ -31,7 +31,7 @@
         });
     }
 
-    function register(uid: number, expandable: ComponentInternalInstance): void {
+    function register(uid: string, expandable: ComponentInternalInstance): void {
         expandables[uid] = expandable;
 
         if (!isControlled && Object.values(expandables).length === 1) {
@@ -39,7 +39,7 @@
         }
     }
 
-    function unregister(uid: number): void {
+    function unregister(uid: string): void {
         delete expandables[uid];
     }
 

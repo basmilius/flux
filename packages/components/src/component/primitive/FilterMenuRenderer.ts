@@ -1,7 +1,7 @@
 import type { FluxFilterDefinition, FluxFilterValue } from '@flux-ui/types';
 import { defineComponent, h, isVNode, type PropType, unref, type VNode } from 'vue';
 import { useFilterInjection } from '~flux/components/composable';
-import FluxMenuGroup from '../FluxMenuGroup.vue';
+import FluxMenuGroup from '../menu/FluxMenuGroup.vue';
 import FluxSeparator from '../FluxSeparator.vue';
 import FilterItem from './FilterItem.vue';
 

@@ -1,0 +1,40 @@
+<template>
+    <form
+        :class="$style.form"
+        :aria-disabled="disabled ? true : undefined"
+        @submit.prevent="onSubmit()">
+        <FluxDisabled :disabled="disabled">
+            <slot/>
+        </FluxDisabled>
+    </form>
+</template>
+
+<script
+    lang="ts"
+    setup>
+    import type { VNode } from 'vue';
+    import FluxDisabled from '../FluxDisabled.vue';
+    import $style from '~flux/components/css/component/Form.module.scss';
+
+    const emit = defineEmits<{
+        submit: [];
+    }>();
+
+    const {
+        disabled = false
+    } = defineProps<{
+        readonly disabled?: boolean;
+    }>();
+
+    defineSlots<{
+        default(): VNode[];
+    }>();
+
+    function onSubmit(): void {
+        if (disabled) {
+            return;
+        }
+
+        emit('submit');
+    }
+</script>
