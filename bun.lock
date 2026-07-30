@@ -8,7 +8,7 @@
     "docs": {
       "name": "docs",
       "dependencies": {
-        "@basmilius/common": "^3.57.0",
+        "@basmilius/common": "^3.58.0",
         "@faker-js/faker": "^10.5.0",
         "@flux-ui/ai": "workspace:*",
         "@flux-ui/application": "workspace:*",
@@ -41,7 +41,7 @@
       "name": "@flux-ui/ai",
       "version": "0.0.0",
       "dependencies": {
-        "@basmilius/utils": "^3.57.0",
+        "@basmilius/utils": "^3.58.0",
         "@flux-ui/components": "workspace:*",
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/types": "workspace:*",
@@ -94,8 +94,8 @@
       "name": "@flux-ui/components",
       "version": "0.0.0",
       "dependencies": {
-        "@basmilius/common": "^3.57.0",
-        "@basmilius/utils": "^3.57.0",
+        "@basmilius/common": "^3.58.0",
+        "@basmilius/utils": "^3.58.0",
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/types": "workspace:*",
         "clsx": "^2.1.1",
@@ -129,7 +129,7 @@
       "name": "@flux-ui/flow",
       "version": "0.0.0",
       "dependencies": {
-        "@basmilius/utils": "^3.57.0",
+        "@basmilius/utils": "^3.58.0",
         "@flux-ui/components": "workspace:*",
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/types": "workspace:*",
@@ -155,8 +155,8 @@
       "name": "@flux-ui/internals",
       "version": "0.0.0",
       "dependencies": {
-        "@basmilius/common": "^3.57.0",
-        "@basmilius/utils": "^3.57.0",
+        "@basmilius/common": "^3.58.0",
+        "@basmilius/utils": "^3.58.0",
         "@flux-ui/types": "workspace:*",
         "lodash-es": "^4.18.1",
       },
@@ -176,8 +176,8 @@
       "name": "@flux-ui/statistics",
       "version": "0.0.0",
       "dependencies": {
-        "@basmilius/common": "^3.57.0",
-        "@basmilius/utils": "^3.57.0",
+        "@basmilius/common": "^3.58.0",
+        "@basmilius/utils": "^3.58.0",
         "@flux-ui/components": "workspace:*",
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/types": "workspace:*",
@@ -219,7 +219,7 @@
       "name": "@flux-ui/visuals",
       "version": "0.0.0",
       "dependencies": {
-        "@basmilius/utils": "^3.57.0",
+        "@basmilius/utils": "^3.58.0",
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/types": "workspace:*",
         "clsx": "^2.1.1",
@@ -263,11 +263,11 @@
 
     "@babel/types": ["@babel/types@8.0.4", "", { "dependencies": { "@babel/helper-string-parser": "^8.0.0", "@babel/helper-validator-identifier": "^8.0.4" } }, "sha512-eY+Yn3dCqTGmyiq2QRU66lA5FL8lqqqvecHt0fF3uHONIa7ToYsaCiWV8lOKqAs0Rb2SjixiKFROngnulPtt2g=="],
 
-    "@basmilius/common": ["@basmilius/common@3.57.0", "", { "dependencies": { "@basmilius/http-client": "3.57.0", "@basmilius/utils": "3.57.0", "culori": "^4.0.2", "lodash-es": "^4.18.1" }, "peerDependencies": { "pinia": "^4.0.2", "vue": "^3.6.0-rc.2", "vue-router": "^5.2.0" }, "optionalPeers": ["pinia", "vue-router"] }, "sha512-z76mRbP58EwBqTxk9vPGVYEyLZRa5e+wIKt/uSvjYpUMc+fZmCax6zb1R9iqYVfOknQ0yWjqtxKBai50tEDGuA=="],
+    "@basmilius/common": ["@basmilius/common@3.58.0", "", { "dependencies": { "@basmilius/http-client": "3.58.0", "@basmilius/utils": "3.58.0", "culori": "^4.0.2", "lodash-es": "^4.18.1" }, "peerDependencies": { "pinia": "^4.0.2", "vue": "^3.6.0-rc.2", "vue-router": "^5.2.0" }, "optionalPeers": ["pinia", "vue-router"] }, "sha512-s8Qb3aqyMcZeJl5m+xX+xxDs4GdnwzhkB2kcopSIQPVdLnTJnW9whpo8hzkuwuxrrXgolPXkxk+yFpdtG4YrYA=="],
 
-    "@basmilius/http-client": ["@basmilius/http-client@3.57.0", "", { "dependencies": { "@basmilius/utils": "3.57.0" }, "peerDependencies": { "luxon": "^3.7.2", "vite": ">=5", "vue": "^3.6.0-rc.2" }, "optionalPeers": ["vite"] }, "sha512-qmQ95wF2Engf1gYjDb0nZnaE2jWTXzaJpjTjob4ofzSqcyWNSWjdcJYIq5KF61t6tUQvnlajpEWB6hqMm/JKyQ=="],
+    "@basmilius/http-client": ["@basmilius/http-client@3.58.0", "", { "dependencies": { "@basmilius/utils": "3.58.0" }, "peerDependencies": { "luxon": "^3.7.2", "vite": ">=5", "vue": "^3.6.0-rc.2" }, "optionalPeers": ["vite"] }, "sha512-H0IXcRU56F7NeLXf3BAJJSFBKWC/4TXbamrRv0qlO9mX1Q/ir3klo+ExCBbzfF/8yR27M7iDgITG6R6o+Pz6SA=="],
 
-    "@basmilius/utils": ["@basmilius/utils@3.57.0", "", { "peerDependencies": { "luxon": "^3.7.2" } }, "sha512-nnixLOz4+d9tqPp/VddKIjQMp3bMUorFVDSVC32HamMpBjdhV90Yr4jIYFILE+SN4AhIv3MJifNAiBY2LCuLHA=="],
+    "@basmilius/utils": ["@basmilius/utils@3.58.0", "", { "peerDependencies": { "luxon": "^3.7.2" } }, "sha512-ptsDAucqGkyt/IBa/ZTyGRBhTMHl5LqeZpbESQof8aaDvhV/emuWnLth65a3J69SFNVAOgr1Hww0tye7czqqtw=="],
 
     "@basmilius/vite-preset": ["@basmilius/vite-preset@3.55.0", "", { "dependencies": { "@laynezh/vite-plugin-lib-assets": "^2.1.3", "change-case": "^5.4.4", "css-class-generator": "^2.0.0", "lightningcss": "^1.32.0", "vite-css-modules": "^1.16.0", "vite-plugin-dts": "^5.0.3" }, "peerDependencies": { "vite": "^8.1.4" } }, "sha512-SHgdAcdlSwwbrzD7qKyxOKT7wI0L572/30epmH9ihBzTBO48I0ulesOi0NL2WKFYAcSzIOWys5NZnEVyypXN4A=="],
 
