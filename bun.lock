@@ -41,8 +41,7 @@
       "name": "@flux-ui/ai",
       "version": "0.0.0",
       "dependencies": {
-        "@basmilius/utils": "^3.58.0",
-        "@flux-ui/types": "workspace:*",
+        "@flux-ui/types": "workspace:^",
         "clsx": "^2.1.1",
         "marked": "^18.0.7",
       },
@@ -58,6 +57,7 @@
         "vue-tsc": "^3.3.8",
       },
       "peerDependencies": {
+        "@basmilius/utils": "^3.58.0",
         "@flux-ui/components": "workspace:^",
         "@flux-ui/internals": "workspace:^",
         "luxon": "^3.7.2",
@@ -69,8 +69,7 @@
       "name": "@flux-ui/application",
       "version": "0.0.0",
       "dependencies": {
-        "@basmilius/common": "^3.58.0",
-        "@flux-ui/types": "workspace:*",
+        "@flux-ui/types": "workspace:^",
         "clsx": "^2.1.1",
       },
       "devDependencies": {
@@ -85,6 +84,7 @@
         "vue-tsc": "^3.3.8",
       },
       "peerDependencies": {
+        "@basmilius/common": "^3.58.0",
         "@flux-ui/components": "workspace:^",
         "@flux-ui/internals": "workspace:^",
         "luxon": "^3.7.2",
@@ -97,9 +97,7 @@
       "name": "@flux-ui/components",
       "version": "0.0.0",
       "dependencies": {
-        "@basmilius/common": "^3.58.0",
-        "@basmilius/utils": "^3.58.0",
-        "@flux-ui/types": "workspace:*",
+        "@flux-ui/types": "workspace:^",
         "clsx": "^2.1.1",
         "imask": "^7.6.1",
       },
@@ -117,6 +115,8 @@
         "vue-tsc": "^3.3.8",
       },
       "peerDependencies": {
+        "@basmilius/common": "^3.58.0",
+        "@basmilius/utils": "^3.58.0",
         "@flux-ui/internals": "workspace:^",
         "@fortawesome/fontawesome-common-types": "^7.3.1",
         "luxon": "^3.7.2",
@@ -132,8 +132,7 @@
       "name": "@flux-ui/flow",
       "version": "0.0.0",
       "dependencies": {
-        "@basmilius/utils": "^3.58.0",
-        "@flux-ui/types": "workspace:*",
+        "@flux-ui/types": "workspace:^",
         "clsx": "^2.1.1",
       },
       "devDependencies": {
@@ -148,6 +147,7 @@
         "vue-tsc": "^3.3.8",
       },
       "peerDependencies": {
+        "@basmilius/utils": "^3.58.0",
         "@flux-ui/components": "workspace:^",
         "@flux-ui/internals": "workspace:^",
         "luxon": "^3.7.2",
@@ -159,9 +159,7 @@
       "name": "@flux-ui/internals",
       "version": "0.0.0",
       "dependencies": {
-        "@basmilius/common": "^3.58.0",
-        "@basmilius/utils": "^3.58.0",
-        "@flux-ui/types": "workspace:*",
+        "@flux-ui/types": "workspace:^",
         "lodash-es": "^4.18.1",
       },
       "devDependencies": {
@@ -171,6 +169,8 @@
         "vue-i18n": "^11.4.8",
       },
       "peerDependencies": {
+        "@basmilius/common": "^3.58.0",
+        "@basmilius/utils": "^3.58.0",
         "luxon": "^3.7.2",
         "vue": "^3.6.0-rc.2",
         "vue-i18n": "^11.4.8",
@@ -180,9 +180,7 @@
       "name": "@flux-ui/statistics",
       "version": "0.0.0",
       "dependencies": {
-        "@basmilius/common": "^3.58.0",
-        "@basmilius/utils": "^3.58.0",
-        "@flux-ui/types": "workspace:*",
+        "@flux-ui/types": "workspace:^",
         "clsx": "^2.1.1",
       },
       "devDependencies": {
@@ -198,6 +196,8 @@
         "vue-tsc": "^3.3.8",
       },
       "peerDependencies": {
+        "@basmilius/common": "^3.58.0",
+        "@basmilius/utils": "^3.58.0",
         "@flux-ui/components": "workspace:^",
         "@flux-ui/internals": "workspace:^",
         "echarts": "^6.1.0",
@@ -224,9 +224,7 @@
       "name": "@flux-ui/visuals",
       "version": "0.0.0",
       "dependencies": {
-        "@basmilius/common": "^3.58.0",
-        "@basmilius/utils": "^3.58.0",
-        "@flux-ui/types": "workspace:*",
+        "@flux-ui/types": "workspace:^",
         "clsx": "^2.1.1",
         "rough-notation": "^0.5.1",
       },
@@ -241,6 +239,8 @@
         "vue-tsc": "^3.3.8",
       },
       "peerDependencies": {
+        "@basmilius/common": "^3.58.0",
+        "@basmilius/utils": "^3.58.0",
         "@flux-ui/internals": "workspace:^",
         "luxon": "^3.7.2",
         "vue": "^3.6.0-rc.2",

@@ -280,8 +280,9 @@ mismatch rather than breaking overlays at runtime. Upgrade the `@flux-ui`
 packages together.
 
 `@basmilius/common` and `@basmilius/utils` are no longer bundled into the
-packages; they are resolved from your `node_modules` like `vue` is. That is what
-makes the bundles smaller, and it means their own requirements become yours:
+packages: they are peer dependencies now, resolved from your `node_modules` like
+`vue` is. That is what makes the bundles smaller, and it means their own
+requirements become yours:
 
 - **`luxon`** is required by `@basmilius/utils` and is now declared as a peer on
   every package that reaches it.

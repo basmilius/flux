@@ -48,12 +48,12 @@
     "module": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "dependencies": {
-        "@basmilius/common": "^3.58.0",
-        "@basmilius/utils": "^3.58.0",
         "@flux-ui/types": "workspace:^",
         "clsx": "^2.1.1"
     },
     "peerDependencies": {
+        "@basmilius/common": "^3.58.0",
+        "@basmilius/utils": "^3.58.0",
         "@flux-ui/components": "workspace:^",
         "@flux-ui/internals": "workspace:^",
         "echarts": "^6.1.0",
