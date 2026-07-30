@@ -49,12 +49,12 @@
     "types": "./dist/index.d.ts",
     "dependencies": {
         "@basmilius/common": "^3.58.0",
-        "@flux-ui/components": "workspace:*",
-        "@flux-ui/internals": "workspace:*",
         "@flux-ui/types": "workspace:*",
         "clsx": "^2.1.1"
     },
     "peerDependencies": {
+        "@flux-ui/components": "workspace:^",
+        "@flux-ui/internals": "workspace:^",
         "luxon": "^3.7.2",
         "vue": "^3.6.0-rc.2",
         "vue-i18n": "^11.4.8",

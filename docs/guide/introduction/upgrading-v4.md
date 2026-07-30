@@ -267,6 +267,18 @@ A key your map does not carry is not a hole: it falls back to the English the pa
 | `@flux-ui/components`, `ai`, `application`, `flow`, `statistics` | `vue-i18n`, as a peer dependency |
 | every package                                                    | `luxon`, as a peer dependency    |
 
+`@flux-ui/internals` and `@flux-ui/components` are peer dependencies of the
+packages that build on them, rather than regular dependencies. Both keep
+module-level state - the focus trap holds a lock stack, and the overlay store
+holds the dialogs, snackbars and their shade opacities - and two copies of that
+state is two stacks that cannot see each other. A peer makes your package manager
+resolve one copy, and complain when it cannot, instead of quietly installing two.
+
+In practice `bun` and `npm` install peers for you, so the only thing you notice is
+that a partial upgrade (`bun update @flux-ui/ai` on its own) now reports a
+mismatch rather than breaking overlays at runtime. Upgrade the `@flux-ui`
+packages together.
+
 `@basmilius/common` and `@basmilius/utils` are no longer bundled into the
 packages; they are resolved from your `node_modules` like `vue` is. That is what
 makes the bundles smaller, and it means their own requirements become yours:
