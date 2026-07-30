@@ -202,6 +202,6 @@
             if (!isInsideMenu(evt.target as Node | null)) {
                 close();
             }
-        }, {capture: true});
+        }, {capture: true, passive: true});
     }
 </script>
