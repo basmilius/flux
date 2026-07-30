@@ -8,7 +8,7 @@ Decorative, animated building blocks (border beams, patterns, animated colors, s
 
 - Purely decorative, `aria-hidden` visual effects that respect `prefers-reduced-motion`.
 - Same CSS Modules and naming conventions as `@flux-ui/components`.
-- Relies on the Flux theme tokens (`--gray-*`, `--radius`), so load `@flux-ui/components` styles alongside it.
+- Relies on the Flux theme tokens (`--foreground-subtle`, `--primary-solid`, `--radius`), so load `@flux-ui/components` styles alongside it.
 
 ## ⭐️ Prerequisites
 

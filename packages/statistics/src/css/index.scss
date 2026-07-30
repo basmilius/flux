@@ -1,0 +1,5 @@
+@use '~flux/statistics/css/token/chart';
+
+:root {
+    @include chart.chart;
+}

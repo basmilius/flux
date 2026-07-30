@@ -1,9 +1,4 @@
 @use '~flux/components/css/mixin';
-@use '~flux/statistics/css/token/chart';
-
-:root {
-    @include chart.chart;
-}
 
 :local(.pane):has(.statisticsChart) {
     display: flex;

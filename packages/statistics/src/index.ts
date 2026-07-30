@@ -1,3 +1,4 @@
+import './css/index.scss';
 import type { FluxStatisticsChartColor } from '@flux-ui/types';
 import { CHART_DEFAULT_COLORS } from './util';
 
