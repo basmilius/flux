@@ -65,12 +65,18 @@
     import { faker } from '@faker-js/faker';
     import { computed } from 'vue';
 
-    const dataSet = computed(() => Array(5)
-        .fill(null)
-        .map((_, index) => ({
-            id: index,
-            name: faker.person.fullName(),
-            email: faker.internet.email(),
-            isActive: faker.datatype.boolean()
-        })));
+    // Seeded per data set: these docs are prerendered and the faker instance is shared
+    // between the examples on a page, so unseeded data would differ from the server's.
+    const dataSet = computed(() => {
+        faker.seed(3310);
+
+        return Array(5)
+            .fill(null)
+            .map((_, index) => ({
+                id: index,
+                name: faker.person.fullName(),
+                email: faker.internet.email(),
+                isActive: faker.datatype.boolean()
+            }));
+    });
 </script>

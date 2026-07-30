@@ -26,9 +26,8 @@
 <script
     lang="ts"
     setup>
-    import { isSSR } from '@flux-ui/internals';
     import type { FluxFocalPointObject } from '@flux-ui/types';
-    import { ref } from 'vue';
+    import { onMounted, ref } from 'vue';
     import FluxFocalPointImage from './FluxFocalPointImage.vue';
     import FluxRemove from './FluxRemove.vue';
     import FluxSpinner from './FluxSpinner.vue';
@@ -49,5 +48,9 @@
 
     // The delete button reveals on hover/focus, but touch devices can't hover, so show it from the
     // start there (mouseenter/mouseleave never fire on touch, keeping it visible).
-    const isDeleteVisible = ref(!isSSR && !matchMedia('(hover: hover)').matches);
+    const isDeleteVisible = ref(false);
+
+    onMounted(() => {
+        isDeleteVisible.value = !matchMedia('(hover: hover)').matches;
+    });
 </script>

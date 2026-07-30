@@ -9,4 +9,6 @@ aside: false
 import Playground from './code/playground.vue';
 </script>
 
-<Playground/>
+<ClientOnly>
+    <Playground/>
+</ClientOnly>

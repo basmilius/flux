@@ -73,16 +73,22 @@
 
     const selected = ref<number[]>([]);
 
-    const dataSet = computed(() => Array(6)
-        .fill(null)
-        .map((_, index) => ({
-            id: index,
-            name: faker.person.fullName(),
-            email: faker.internet.email(),
-            role: faker.person.jobTitle(),
-            department: faker.commerce.department(),
-            location: `${faker.location.city()}, ${faker.location.countryCode()}`,
-            startDate: faker.date.past().toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'}),
-            salary: `€ ${faker.number.int({min: 42, max: 128}) * 1000}`
-        })));
+    // Seeded per data set: these docs are prerendered and the faker instance is shared
+    // between the examples on a page, so unseeded data would differ from the server's.
+    const dataSet = computed(() => {
+        faker.seed(7418);
+
+        return Array(6)
+            .fill(null)
+            .map((_, index) => ({
+                id: index,
+                name: faker.person.fullName(),
+                email: faker.internet.email(),
+                role: faker.person.jobTitle(),
+                department: faker.commerce.department(),
+                location: `${faker.location.city()}, ${faker.location.countryCode()}`,
+                startDate: faker.date.past({refDate: '2026-01-01'}).toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'}),
+                salary: `€ ${faker.number.int({min: 42, max: 128}) * 1000}`
+            }));
+    });
 </script>

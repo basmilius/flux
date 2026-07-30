@@ -73,7 +73,7 @@
     lang="ts"
     setup>
     import { FluxIcon, FluxProgressBar } from '@flux-ui/components';
-    import { isSSR } from '@flux-ui/internals';
+    import { useNumberFormat } from '@flux-ui/internals';
     import type { FluxColor } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, unref } from 'vue';
@@ -95,7 +95,7 @@
 
     const translate = useTranslate();
 
-    const formatter = computed(() => new Intl.NumberFormat(isSSR ? undefined : navigator.language));
+    const formatter = useNumberFormat();
 
     const hasFigures = computed(() => inputTokens !== undefined || outputTokens !== undefined || !!cost);
 

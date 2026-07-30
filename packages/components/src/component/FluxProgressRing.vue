@@ -54,6 +54,7 @@
 <script
     lang="ts"
     setup>
+    import { useNumberFormat } from '@flux-ui/internals';
     import type { FluxColor } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, unref, type VNode } from 'vue';
@@ -109,11 +110,11 @@
 
     const dashOffset = computed(() => 100 - unref(position) * 100);
 
-    const progress = computed(() => new Intl
-        .NumberFormat(navigator.language, {
-            style: 'percent',
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0
-        })
-        .format(unref(position)));
+    const formatter = useNumberFormat({
+        style: 'percent',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    });
+
+    const progress = computed(() => unref(formatter).format(unref(position)));
 </script>

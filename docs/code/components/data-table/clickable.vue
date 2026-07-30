@@ -60,14 +60,20 @@
         readonly role: string;
     };
 
-    const dataSet = computed<Person[]>(() => Array(5)
-        .fill(null)
-        .map((_, index) => ({
-            id: index,
-            name: faker.person.fullName(),
-            email: faker.internet.email(),
-            role: faker.person.jobTitle()
-        })));
+    // Seeded per data set: these docs are prerendered and the faker instance is shared
+    // between the examples on a page, so unseeded data would differ from the server's.
+    const dataSet = computed<Person[]>(() => {
+        faker.seed(5116);
+
+        return Array(5)
+            .fill(null)
+            .map((_, index) => ({
+                id: index,
+                name: faker.person.fullName(),
+                email: faker.internet.email(),
+                role: faker.person.jobTitle()
+            }));
+    });
 
     function onRowClick(item: Person, columnIndex: number): void {
         showSnackbar({

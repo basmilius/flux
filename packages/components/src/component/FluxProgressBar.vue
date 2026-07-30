@@ -50,6 +50,7 @@
     lang="ts"
     setup>
     import { clamp } from '@basmilius/utils';
+    import { useNumberFormat } from '@flux-ui/internals';
     import type { FluxColor } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, unref } from 'vue';
@@ -92,11 +93,11 @@
         return clamp((current - min) / (max - min), 0, 1);
     });
 
-    const progress = computed(() => new Intl
-        .NumberFormat(navigator.language, {
-            style: 'percent',
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0
-        })
-        .format(unref(position) ?? 0));
+    const formatter = useNumberFormat({
+        style: 'percent',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    });
+
+    const progress = computed(() => unref(formatter).format(unref(position) ?? 0));
 </script>

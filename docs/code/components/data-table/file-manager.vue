@@ -49,12 +49,18 @@
     import { faker } from '@faker-js/faker';
     import { computed } from 'vue';
 
-    const dataSet = computed(() => Array(5)
-        .fill(null)
-        .map((_, index) => ({
-            id: index,
-            name: faker.system.commonFileName('png'),
-            owner: faker.person.fullName(),
-            type: 'image/png'
-        })));
+    // Seeded per data set: these docs are prerendered and the faker instance is shared
+    // between the examples on a page, so unseeded data would differ from the server's.
+    const dataSet = computed(() => {
+        faker.seed(6023);
+
+        return Array(5)
+            .fill(null)
+            .map((_, index) => ({
+                id: index,
+                name: faker.system.commonFileName('png'),
+                owner: faker.person.fullName(),
+                type: 'image/png'
+            }));
+    });
 </script>

@@ -28,10 +28,20 @@
     import { FluxComment, FluxFlex } from '@flux-ui/components';
     import { faker } from '@faker-js/faker';
     import { DateTime } from 'luxon';
+    import { onMounted, shallowRef } from 'vue';
+
+    faker.seed(4501);
 
     const incoming = faker.lorem.sentences(2);
     const outgoing = faker.lorem.sentences(3);
 
-    const incomingPostedOn = DateTime.now().minus({minutes: 15});
-    const outgoingPostedOn = DateTime.now();
+    // These docs are prerendered, so a timestamp taken during the build would not
+    // survive hydration. The browser resolves it once it takes over.
+    const incomingPostedOn = shallowRef<DateTime>();
+    const outgoingPostedOn = shallowRef<DateTime>();
+
+    onMounted(() => {
+        incomingPostedOn.value = DateTime.now().minus({minutes: 15});
+        outgoingPostedOn.value = DateTime.now();
+    });
 </script>

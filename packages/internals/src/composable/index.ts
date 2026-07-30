@@ -6,6 +6,7 @@ export { default as useCalendarTimeGrid } from './useCalendarTimeGrid';
 export { default as useCalendarYearSwitcher } from './useCalendarYearSwitcher';
 export { default as useKeyboardGrab, defaultAnnounce as defaultKeyboardGrabAnnounce } from './useKeyboardGrab';
 export type { KeyboardGrabDirection, UseKeyboardGrabOptions, UseKeyboardGrabReturn } from './useKeyboardGrab';
+export { default as useNumberFormat } from './useNumberFormat';
 export { default as useRemembered } from './useRemembered';
 
 export { default as useFocusTrap } from './useFocusTrap';

@@ -14,6 +14,13 @@
     setup>
     import { FluxComment } from '@flux-ui/components';
     import { DateTime } from 'luxon';
+    import { onMounted, shallowRef } from 'vue';
 
-    const postedOn = DateTime.now().minus({seconds: 45});
+    // These docs are prerendered, so a timestamp taken during the build would not
+    // survive hydration. The browser resolves it once it takes over.
+    const postedOn = shallowRef<DateTime>();
+
+    onMounted(() => {
+        postedOn.value = DateTime.now().minus({seconds: 45});
+    });
 </script>
