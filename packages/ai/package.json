@@ -64,13 +64,13 @@
     },
     "devDependencies": {
         "@basmilius/utils": "^3.58.0",
-        "@basmilius/vite-preset": "^3.55.0",
+        "@basmilius/vite-preset": "^3.58.0",
         "@types/node": "^26.1.2",
         "@vitejs/plugin-vue": "^6.0.8",
         "@vue/tsconfig": "^0.9.1",
         "sass-embedded": "^1.100.0",
         "typescript": "6.0.3",
-        "vite": "^8.1.5",
+        "vite": "^8.2.0",
         "vue-i18n": "^11.4.8",
         "vue-tsc": "^3.3.8"
     }
