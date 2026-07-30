@@ -50,7 +50,7 @@
     "dependencies": {
         "@basmilius/common": "^3.58.0",
         "@basmilius/utils": "^3.58.0",
-        "@flux-ui/types": "workspace:*",
+        "@flux-ui/types": "workspace:^",
         "clsx": "^2.1.1",
         "rough-notation": "^0.5.1"
     },
